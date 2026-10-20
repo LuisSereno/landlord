@@ -1,6 +1,6 @@
 # Fase 1 — Gate 1: viabilidad técnica
 
-Estado: IN_PROGRESS. WP1.1–WP1.10 completadas; siguiente WP1.11 (spike isométrico).
+Estado: IN_PROGRESS. WP1.1–WP1.12 completadas; siguiente WP1.13 (flujo vertical técnico).
 
 ## Objetivo de gate
 
@@ -235,6 +235,8 @@ ordenación de slots, slot inexistente, escritura inválida y corrupción poster
 
 ### WP1.11 — Spike isométrico
 
+**Estado:** DONE (2026-10-20).
+
 **Dependencias:** WP1.1 y decisión Phaser.
 
 **Tareas pequeñas:**
@@ -250,7 +252,14 @@ ordenación de slots, slot inexistente, escritura inválida y corrupción poster
 
 **Aceptación:** la cámara es estable en límites y el orden visual no decide ninguna regla de ocupación.
 
+**Evidencia:** `apps/web/src/isometric/IsometricSpikeScene.ts` dibuja la escena técnica original
+de 64×64, ordena celdas por profundidad `(x+y, y, x)`, limita zoom, cámara y pan por ratón/
+teclado, y muestra overlay de celda/zoom. `mount.ts` la monta en la app sin introducir reglas
+de dominio.
+
 ### WP1.12 — Picking y selección
+
+**Estado:** DONE (2026-10-20).
 
 **Dependencias:** WP1.11.
 
@@ -265,6 +274,11 @@ ordenación de slots, slot inexistente, escritura inválida y corrupción poster
 - `G1-WP12-T07` — Añadir prueba de integración de selección con zoom/pan.
 
 **Aceptación:** selección correcta en casos centrales y fronterizos documentados; React no representa entidades por frame.
+
+**Evidencia:** `coordinates.ts` implementa proyección inversa, comprobación geométrica del
+diamante y límites de mapa; la escena emite `cell-picked` y React sólo mantiene la selección
+de inspección de lectura. Los tests cubren centros, esquinas/fronteras, mapa fuera de rango y
+origen desplazado por cámara. Ninguna selección decide ocupación ni autorización.
 
 ### WP1.13 — Flujo vertical técnico
 

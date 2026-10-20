@@ -57,12 +57,12 @@ Estos sistemas están documentados, no implementados.
 - tests: sí, smoke, contratos, schemas y arquitectura de fronteras.
 
 ## Fase
-Gate 1 en progreso — WP1.1 a WP1.10 completadas; WP1.11 spike isométrico es la siguiente.
+Gate 1 en progreso — WP1.1 a WP1.12 completadas; WP1.13 flujo vertical técnico es la siguiente.
 
 ## Próximo objetivo
 Gate 1 — viabilidad técnica.
 
-El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista, la frontera Worker, el snapshot v1 y el adapter IndexedDB están cerrados; la siguiente tarea es WP1.11, spike isométrico.
+El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista, la frontera Worker, el snapshot v1, IndexedDB y el spike isométrico/picking están cerrados; la siguiente tarea es WP1.13, flujo vertical técnico.
 
 Debe validar:
 - render isométrico;

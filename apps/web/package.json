@@ -8,7 +8,8 @@
     "lint": "eslint src vite.config.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run --config ../../vitest.config.ts apps/web/src"
   },
   "dependencies": {
     "@landlord/shared": "workspace:*",

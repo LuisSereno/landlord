@@ -1,6 +1,6 @@
 # Fase 1 — Gate 1: viabilidad técnica
 
-Estado: IN_PROGRESS. WP1.1–WP1.9 completadas; siguiente WP1.10 (IndexedDB y recuperación).
+Estado: IN_PROGRESS. WP1.1–WP1.10 completadas; siguiente WP1.11 (spike isométrico).
 
 ## Objetivo de gate
 
@@ -207,6 +207,8 @@ PRNG, referencias rotas y schema incompatible. Tamaño/tiempo cuantitativos qued
 
 ### WP1.10 — IndexedDB y recuperación
 
+**Estado:** DONE (2026-10-20).
+
 **Dependencias:** WP1.8-WP1.9.
 
 **Tareas pequeñas:**
@@ -221,6 +223,13 @@ PRNG, referencias rotas y schema incompatible. Tamaño/tiempo cuantitativos qued
 - `G1-WP10-T08` — Testear payload corrupto y versión desconocida.
 
 **Aceptación:** un save corrupto no destruye la última copia válida; ningún objeto Phaser entra en el snapshot.
+
+**Evidencia:** `apps/web/src/persistence/indexed-db.ts` implementa el adapter fuera de
+`simulation`, store versionado por slot, escritura transaccional y metadatos de IndexedDB.
+Valida con `parseSnapshotV1` antes de escribir y conserva el último registro válido si falla una
+validación; la carga vuelve a validar el payload almacenado. Los tests cubren roundtrip,
+ordenación de slots, slot inexistente, escritura inválida y corrupción posterior. La UI recibirá
+`SnapshotPersistenceError` en WP1.13 para mostrar el mensaje recuperable junto al flujo Worker.
 
 ## Workstream D — Representación web
 

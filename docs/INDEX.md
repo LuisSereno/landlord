@@ -19,6 +19,7 @@
 - engineering/05-ai-architecture.md — arquitectura de agentes.
 - engineering/06-multiplayer-future.md — preparación para multijugador.
 - engineering/07-player-identity-roles-and-capabilities.md — separación entre jugador, persona, organización, rol, control y capabilities.
+- engineering/adr/README.md — decisiones arquitectónicas detalladas; D-046 a D-052 cierran la preparación de Gate 1.
 
 ## Planificación
 - planning/01-roadmap.md
@@ -27,6 +28,27 @@
 - planning/04-estimates-and-team.md
 - planning/05-risk-register.md
 - planning/06-gates-and-mvp.md
+
+## Ejecución
+- execution/README.md — entrada al plan maestro ejecutable por fases.
+- execution/00-modelo-de-ejecucion.md — gobierno, calidad, gates y uso de agentes.
+- execution/01-fase-0-preparacion.md — cierre de definición y preparación del backlog.
+- execution/02-fase-1-gate-1.md — viabilidad técnica y desglose detallado.
+- execution/03-fase-2-gate-2.md — prototipo y viabilidad de producto.
+- execution/04-fase-3-vertical-slice.md — profundidad representativa y evaluación comercial.
+- execution/05-fase-4-alpha-sistemica.md — ciudad y sistemas conectados a escala.
+- execution/06-fases-5-y-6-beta-lanzamiento.md — estabilización, release y operación.
+- execution/07-expansiones-futuras.md — roles, perspectivas y life simulation no comprometidos.
+- execution/PLANTILLA-TAREA-LUNA.md — contrato para tareas pequeñas y poco ambiguas.
+- execution/SECUENCIA-LUNA.md — colas de ejecución y criterio para usar el nivel mínimo seguro.
+- execution/MATRIZ-TRAZABILIDAD.md — gates, capacidades, evidencia y fuentes.
+- execution/phase-0/PHASE-0-CLOSURE.md — acta de cierre de Fase 0 y entrada operativa a Gate 1.
+- execution/phase-0/gate-1-charter.md — alcance, demo, evidencia y decisión del gate.
+- execution/phase-0/contracts.md — wire contracts, entidades mínimas y snapshot v1.
+- execution/phase-0/benchmark-plan.md — fixture, metodología y budgets.
+- execution/phase-0/risk-and-evidence-matrix.md — riesgos, señales y pruebas de cierre.
+- execution/phase-0/gate-review-template.md — plantilla de decisión GO/REWORK/STOP.
+- execution/phase-0/gate-1-backlog.md — WP1.1 y WP1.2 preparadas para Luna.
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

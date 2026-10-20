@@ -7,6 +7,11 @@ Fecha de consolidación: 2026-10-20.
 - Documentación de producto: sí.
 - Arquitectura propuesta: sí.
 - WBS/EDT: sí.
+- Plan maestro de ejecución por fases: sí.
+- Plantilla de microtareas para agentes de baja ambigüedad: sí.
+- Fase 0 de preparación: cerrada el 2026-10-20.
+- ADRs D-046 a D-052: aceptados.
+- Charter, contratos, benchmark y backlog inicial de Gate 1: listos.
 - Historias del prototipo: sí.
 - Riesgos: sí.
 - Investigación histórica: sí.
@@ -52,10 +57,12 @@ Estos sistemas están documentados, no implementados.
 - tests: no.
 
 ## Fase
-Predesarrollo / definición.
+Predesarrollo cerrado / Gate 1 listo para comenzar.
 
 ## Próximo objetivo
 Gate 1 — viabilidad técnica.
+
+El desglose operativo se encuentra en `docs/execution/`. La Fase 0 está cerrada: Gate 1 puede comenzar por `G1-WP01-T01` siguiendo `docs/execution/phase-0/gate-1-backlog.md`.
 
 Debe validar:
 - render isométrico;

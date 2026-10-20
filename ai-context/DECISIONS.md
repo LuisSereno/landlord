@@ -174,3 +174,31 @@ Ciudadano detallado, envejecimiento, familia, generaciones y dinastía no forman
 ## D-045 — Preservar opcionalidad, no sobreconstruir
 Estado: decidido.
 Ahora sólo se implementan abstracciones mínimas que eviten bloquear el futuro; no se construye un framework genérico de múltiples juegos antes de necesitarlo.
+
+## D-046 — Toolchain de Gate 1
+Estado: decidido el 2026-10-20.
+Node 24.19.0, pnpm 12.11.2, TypeScript 6.0.3 strict, Vite 8.3.4, React 19.2.8, Phaser 4.2.1, Vitest 4.1.10, Playwright 1.64.1, Zod 4.4.3, ESLint 10.8.0 y Prettier 3.9.6. Versiones exactas, pnpm workspaces sin orquestador adicional y Chromium + Firefox como baseline. Ver `docs/engineering/adr/D-046-toolchain-gate-1.md`.
+
+## D-047 — Paquetes mínimos de Gate 1
+Estado: decidido el 2026-10-20.
+Crear sólo `apps/web`, `packages/simulation` y `packages/shared`. `game-data` y demás paquetes se difieren hasta tener consumidores reales. Simulation no depende de web/DOM; shared no depende de simulation. Ver `docs/engineering/adr/D-047-paquetes-gate-1.md`.
+
+## D-048 — PRNG xoshiro128** versionado
+Estado: decidido el 2026-10-20.
+Implementación interna `xoshiro128ss-v1`, seed uint32, expansión splitmix32, estado de cuatro uint32 y vectores de conformidad. Sin `nextFloat` en Gate 1. El algoritmo forma parte del contrato de save. Ver `docs/engineering/adr/D-048-prng-determinista.md`.
+
+## D-049 — Zod en fronteras y entidades convencionales
+Estado: decidido el 2026-10-20.
+Zod valida Worker, snapshots, datos y configuración. El dominio usa tipos explícitos, Maps normalizados, IDs deterministas y arrays ordenados al serializar. No ECS en Gate 1. Identidad, organización, control grant y ownership permanecen separados. Ver `docs/engineering/adr/D-049-schemas-y-entidades.md`.
+
+## D-050 — Phaser confirmado para Gate 1
+Estado: decidido el 2026-10-20.
+Phaser 4.2.1 se usa para el spike isométrico y React para HUD/paneles. Sólo se reabre ante fallos medidos de picking, performance, memoria, compatibilidad o dependencia de internals. Ver `docs/engineering/adr/D-050-phaser-gate-1.md`.
+
+## D-051 — Protocolo Worker y snapshot v1
+Estado: decidido el 2026-10-20.
+Protocolo y snapshot versionados en `1`, request ID separado de command ID, comandos aplicados al inicio del siguiente tick, rechazos atómicos y representación canónica. El único comando técnico inicial es `PlaceTestStructure`. Ver `docs/engineering/adr/D-051-contratos-gate-1.md`.
+
+## D-052 — Benchmark y budgets de Gate 1
+Estado: decidido el 2026-10-20.
+Fixture de 64×64, 500 agentes, 100 obstáculos, A* determinista, tick a 20 Hz, benchmark headless/browser y soak de dos horas con umbrales previos. Incumplir produce REWORK; modificar el criterio exige ADR. Ver `docs/engineering/adr/D-052-benchmark-gate-1.md`.

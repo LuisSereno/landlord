@@ -11,19 +11,22 @@
 - distribución.
 
 ## Técnico
-- confirmar Phaser tras spike;
-- librería PRNG;
-- formato exacto de snapshot;
-- ECS vs entidades convencionales;
 - pathfinding;
-- estrategia de Web Workers;
-- test framework;
-- schema validation;
 - backend framework.
 
+Resuelto para Gate 1 el 2026-10-20:
+- Phaser 4.2.1 confirmado con condiciones de revisión en D-050;
+- PRNG interno `xoshiro128ss-v1` en D-048;
+- snapshot y protocolo Worker v1 en D-051;
+- entidades convencionales normalizadas, no ECS, en D-049;
+- Vitest/Playwright y toolchain exacto en D-046;
+- Zod en fronteras en D-049.
+
+Pathfinding sigue abierto para producto; Gate 1 sólo compromete A* cardinal determinista del benchmark. Backend permanece fuera de alcance.
+
 ## Player model / multiperspectiva
-- cuánto de Person se implementa desde Gate 1;
-- estructura exacta de PlayerIdentity;
+- detalle de Person posterior a Gate 1;
+- evolución de PlayerIdentity posterior al modelo mínimo;
 - RoleAssignment;
 - Capability resolver;
 - ControlContext;
@@ -39,6 +42,8 @@
 - herencia;
 - dinastías;
 - duración temporal de una vida.
+
+Resuelto para Gate 1 en D-049/D-051: `PlayerIdentity -> Person`, `Organization`, `OrganizationControlGrant` y ownership explícito mínimos, sin roles/capabilities completos.
 
 ## Economía inmobiliaria
 - fórmula de valor de suelo;

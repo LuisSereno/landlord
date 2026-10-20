@@ -20,12 +20,12 @@ export type SnapshotSlot = {
 };
 
 export class SnapshotPersistenceError extends Error {
-  public constructor(
-    message: string,
-    public readonly cause?: unknown,
-  ) {
+  public override readonly cause?: unknown;
+
+  public constructor(message: string, cause?: unknown) {
     super(message);
     this.name = "SnapshotPersistenceError";
+    this.cause = cause;
   }
 }
 

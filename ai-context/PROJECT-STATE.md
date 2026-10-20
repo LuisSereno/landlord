@@ -57,12 +57,12 @@ Estos sistemas están documentados, no implementados.
 - tests: sí, smoke, contratos, schemas y arquitectura de fronteras.
 
 ## Fase
-Gate 1 en progreso — WP1.1 a WP1.14 completadas; WP1.15 soak y estabilidad es la siguiente.
+Gate 1 en REWORK — WP1.1 a WP1.16 ejecutadas; G1-RW-01 debe cerrarse antes de aprobar.
 
 ## Próximo objetivo
 Gate 1 — viabilidad técnica.
 
-El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista, Worker, snapshot v1, IndexedDB, escena/picking, flujo vertical y baseline de carga están cerrados; la siguiente tarea es WP1.15, soak y estabilidad.
+El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista, Worker, snapshot v1, IndexedDB, escena/picking, flujo vertical, benchmark, soak headless y métricas de auditoría están cerrados. El acta `docs/execution/phase-1/gate-1-review-2026-10-20.md` deja Gate 1 en `REWORK` únicamente por el soak navegador de dos horas; Gate 2 no puede comenzar.
 
 Debe validar:
 - render isométrico;

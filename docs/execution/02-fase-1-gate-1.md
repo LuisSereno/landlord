@@ -1,6 +1,6 @@
 # Fase 1 — Gate 1: viabilidad técnica
 
-Estado: IN_PROGRESS. WP1.1–WP1.14 completadas; siguiente WP1.15 (soak y estabilidad).
+Estado: REWORK. WP1.1–WP1.16 ejecutadas; G1-RW-01 bloquea la aprobación del gate.
 
 ## Objetivo de gate
 
@@ -337,6 +337,8 @@ p95 ≤ 20 ms. La duración interactiva de diez minutos se reserva al soak WP1.1
 
 ### WP1.15 — Soak y estabilidad
 
+**Estado:** DONE (2026-10-20, headless; soak navegador preparado para ejecución dedicada).
+
 **Dependencias:** WP1.10 y WP1.14.
 
 **Tareas pequeñas:**
@@ -350,7 +352,15 @@ p95 ≤ 20 ms. La duración interactiva de diez minutos se reserva al soak WP1.1
 
 **Aceptación:** no existe crecimiento injustificado conocido o queda cuantificado, reproducido y bloquea/aplaza el gate explícitamente.
 
+**Evidencia:** `packages/simulation/src/soak.test.ts` ejecuta el equivalente headless de dos
+horas simuladas, registra RSS/heap por intervalos y comprueba save/restore posterior. El baseline
+`phase-1/soak-baseline-2026-10-20.md` cuantifica la meseta de RSS y deja el comando de dos horas
+Chromium/Firefox. La falta de ese artefacto de navegador se eleva explícitamente a la revisión
+WP1.16; no se relaja el umbral ni se declara GO por la corrida headless.
+
 ### WP1.16 — Auditoría y decisión de Gate 1
+
+**Estado:** DONE (2026-10-20, decisión `REWORK`).
 
 **Dependencias:** todos los paquetes anteriores.
 
@@ -364,6 +374,11 @@ p95 ≤ 20 ms. La duración interactiva de diez minutos se reserva al soak WP1.1
 - `G1-WP16-T06` — Registrar deuda y gaps descubiertos.
 - `G1-WP16-T07` — Actualizar `PROJECT-STATE` y decisiones confirmadas.
 - `G1-WP16-T08` — Emitir acta `GO`, `CONDITIONAL GO`, `REWORK` o `STOP`.
+
+**Evidencia:** `phase-1/gate-1-review-2026-10-20.md` marca `REWORK` únicamente por el soak
+navegador de dos horas aún no archivado. `pnpm audit:metrics` cierra Worker, command/response y
+snapshot; no se detectó divergencia determinista, violación de frontera ni incumplimiento del
+smoke de frame time. Los umbrales no se modifican.
 
 ## Orden de ejecución resumido
 

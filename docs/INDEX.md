@@ -50,6 +50,8 @@
 - execution/phase-0/gate-review-template.md — plantilla de decisión GO/REWORK/STOP.
 - execution/phase-0/gate-1-backlog.md — WP1.1 y WP1.2 preparadas para Luna.
 - execution/phase-1/benchmark-baseline-2026-10-20.md — baseline headless y smoke de navegador de WP1.14.
+- execution/phase-1/soak-baseline-2026-10-20.md — baseline headless y procedimiento de soak de WP1.15.
+- execution/phase-1/gate-1-review-2026-10-20.md — acta de auditoría y decisión de Gate 1.
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

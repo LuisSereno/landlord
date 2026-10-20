@@ -35,14 +35,16 @@ La cadena de valor que debe mantenerse visible es:
 | Apoyo | [SECUENCIA-LUNA.md](SECUENCIA-LUNA.md) | Orden de colas y reglas para usar el nivel mínimo seguro |
 | Apoyo | [MATRIZ-TRAZABILIDAD.md](MATRIZ-TRAZABILIDAD.md) | Relación entre gates, capacidades y evidencia |
 | Evidencia | [phase-1/benchmark-baseline-2026-10-20.md](phase-1/benchmark-baseline-2026-10-20.md) | Baseline headless y smoke de navegador de WP1.14 |
+| Evidencia | [phase-1/soak-baseline-2026-10-20.md](phase-1/soak-baseline-2026-10-20.md) | Soak headless y procedimiento de soak navegador de WP1.15 |
+| Acta | [phase-1/gate-1-review-2026-10-20.md](phase-1/gate-1-review-2026-10-20.md) | Auditoría y decisión REWORK de Gate 1 |
 
 ## Estado de las fases
 
 | Fase | Estado al crear este plan | Regla de inicio |
 |---|---|---|
 | Fase 0 | DONE — cerrada 2026-10-20 | Acta en `phase-0/PHASE-0-CLOSURE.md` |
-| Fase 1 / Gate 1 | READY | Comenzar por `G1-WP01-T01` |
-| Fase 2 / Gate 2 | Bloqueada por Gate 1 | Requiere acta Go de Gate 1 |
+| Fase 1 / Gate 1 | REWORK — acta 2026-10-20 | Cerrar G1-RW-01..03 antes de aprobar |
+| Fase 2 / Gate 2 | Bloqueada por Gate 1 | Requiere acta GO de Gate 1 |
 | Fase 3 / Vertical slice | Bloqueada por Gate 2 | Requiere evidencia de una sesión coherente |
 | Fase 4 / Alpha | No iniciada | Requiere vertical slice validado |
 | Fases 5-6 | No iniciadas | Requieren alcance comercial aprobado |

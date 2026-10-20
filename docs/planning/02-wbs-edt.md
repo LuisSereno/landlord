@@ -12,41 +12,62 @@ Mapa isométrico, cámara, zoom, depth sorting, picking, overlays, animaciones y
 ## 3. Simulación
 Clock, fixed tick, seed, PRNG, entidades, comandos, eventos, snapshots, headless runner e instrumentación.
 
-## 4. Mundo
-Distrito, parcelas, ownership, ocupación, valor de suelo y zoning futuro.
+## 4. Mundo y urbanismo
+Distrito, parcelas, ownership, ocupación, valor de suelo, accesibilidad, zoning, cambio de uso, restricciones y recalificación.
 
 ## 5. Construcción
-Catálogo, validación, coste, obra, trabajadores, finalización, demolición y upgrade.
+Catálogo, validación, coste, obra, trabajadores, finalización, demolición, upgrade, permisos e inspecciones.
 
 ## 6. Recursos
 Inventario, cemento, ladrillo, acero, fábricas, capacidad y consumo.
 
 ## 7. Inmobiliario
-Tenant, compatibilidad, contrato, renta, satisfacción, vacancy, mantenimiento y valoración.
+Tenant, compatibilidad, contrato, renta, satisfacción, vacancy, mantenimiento, deterioro, valoración, oferta/demanda y subastas.
 
-## 8. Empresa
-Caja, ingresos, costes, balance, deuda futura, empleados y automatización.
+## 8. Empresa y finanzas
+Caja, ingresos, costes, balance, liquidez, deuda, interés, garantías, seguros, insolvencia, ejecución, equity futuro y automatización.
 
-## 9. IA rival
-Objetivos, observación, utility, compra, construcción, liquidez, memoria y recuperación.
+## 9. Fiscalidad
+Property tax, impuestos empresariales, tasas, licencias, compraventa, sanciones, bonificaciones y liquidación automática.
 
-## 10. Crimen
-Acción ilegal, coste, detección, heat, consecuencias, sabotaje y expansión futura.
+## 10. IA rival
+Objetivos, observación, utility, compra, construcción, liquidez, crédito, memoria y recuperación.
 
-## 11. Policía
-Presión, investigación, respuesta y presupuesto político.
+## 11. Crimen
+Acción ilegal, coste, detección, heat, consecuencias, sabotaje, corrupción y expansión futura.
 
-## 12. Política
-Policies, propuestas, concejales, predisposición, influencia, votación, enactment, modifiers, expiración y elecciones futuras.
+## 12. Policía y justicia
+Presión, investigación, respuesta, presupuesto, sanciones, embargo, litigios y justicia futura.
 
-## 13. UX
-HUD, tooltips, paneles de parcela/edificio/economía/rival/política, alertas y accesibilidad.
+## 13. Política
+Policies, propuestas, concejales, predisposición, influencia, votación, enactment, modifiers, expiración, presupuesto municipal y elecciones futuras.
 
-## 14. Persistencia
+## 14. Sociedad y trabajo
+Hogares, empleo, salarios, movilidad, sindicatos futuros, protestas, asociaciones y opinión pública.
+
+## 15. Servicios urbanos
+Transporte, accesibilidad, limpieza, seguridad, educación, salud, ocio e infraestructura.
+
+## 16. Contratación pública y concesiones
+Licitaciones, ofertas, capacidad, reputación, adjudicación, ejecución contractual y concesiones futuras.
+
+## 17. Información y reputación
+Reputación multidimensional, información imperfecta, analistas, contactos, investigación y espionaje futuro.
+
+## 18. Negociación
+Compraventas, préstamos entre actores, participaciones, joint ventures, treguas y acuerdos.
+
+## 19. Eventos y macroeconomía
+Booms, crisis, tipos, escasez, huelgas, incendios, migraciones, cierres de empresas y shocks condicionados.
+
+## 20. UX
+HUD, tooltips, paneles de parcela/edificio/economía/rival/política, alertas, automatización y accesibilidad.
+
+## 21. Persistencia
 Schema, save, load, autosave, migrations, recovery y cloud futuro.
 
-## 15. QA
-Unit, determinismo, fixtures, integración, performance, soak y balance simulation.
+## 22. QA
+Unit, determinismo, fixtures, integración, performance, soak, balance simulation y pruebas económicas.
 
-## 16. Arte
+## 23. Arte
 Dirección visual, tiles, edificios, workers, tenants, VFX, UI y audio.

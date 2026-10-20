@@ -8,6 +8,7 @@
 - product/05-politics-and-society.md — política municipal, votantes y regulación.
 - product/06-ai-and-emergent-simulation.md — comportamiento, memoria y emergencia.
 - product/07-long-term-progression.md — progresión, distritos y longevidad.
+- product/08-fiscality-operations-and-public-economy.md — impuestos, tasas, licencias, mantenimiento, banca, servicios urbanos y economía pública.
 
 ## Ingeniería
 - engineering/01-architecture.md — arquitectura objetivo.

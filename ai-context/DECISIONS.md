@@ -74,3 +74,51 @@ La política debe modificar economía, urbanismo, policía y sociedad; no ser un
 ## D-020 — Facciones autónomas
 Estado: objetivo de diseño.
 Las facciones deben interactuar entre sí, no existir sólo contra el jugador.
+
+## D-021 — Fiscalidad como sistema estratégico
+Estado: decidido conceptualmente.
+Impuestos y tasas afectarán rentabilidad, localización, precios, política y presupuesto municipal. Su liquidación rutinaria será automática.
+
+## D-022 — Urbanismo regulado
+Estado: decidido conceptualmente.
+Zonificación, licencias, cambios de uso y determinadas inspecciones formarán parte de la economía urbana, evitando convertirlos en trámites repetitivos.
+
+## D-023 — Operación de activos
+Estado: decidido conceptualmente.
+Mantenimiento, deterioro y seguros formarán parte del riesgo financiero de la propiedad. El mantenimiento recurrente debe poder automatizarse.
+
+## D-024 — Sistema bancario y liquidez
+Estado: decidido conceptualmente.
+Se distinguirán patrimonio, cash, deuda, liquidez y solvencia. Los bancos podrán valorar riesgo y variar condiciones de crédito.
+
+## D-025 — Bancarrota no implica Game Over automático
+Estado: decidido conceptualmente.
+La insolvencia puede abrir reestructuración, ventas, refinanciación, ejecución o entrada de capital.
+
+## D-026 — Presupuesto municipal real
+Estado: decidido para fases posteriores.
+La recaudación municipal financiará servicios y estos afectarán la economía urbana.
+
+## D-027 — Mercado con oferta y demanda
+Estado: decidido conceptualmente.
+Los tenants no serán una fuente infinita. La ocupación dependerá de demanda y capacidad económica.
+
+## D-028 — Empleo conectado a ciudad
+Estado: decidido para alpha sistémica.
+Los negocios generarán empleo y el empleo afectará demanda residencial, población y política.
+
+## D-029 — Reputación multidimensional
+Estado: decidido para fases posteriores.
+No habrá una única reputación universal; diferentes actores pueden valorar al jugador de manera distinta.
+
+## D-030 — Información imperfecta
+Estado: decidido conceptualmente.
+El jugador y las IAs no deben conocer automáticamente todo el estado relevante. Analistas, contactos e investigación podrán reducir incertidumbre.
+
+## D-031 — Contabilidad estratégica, no ERP
+Estado: decidido.
+Los estados financieros deben permitir decisiones sin obligar al jugador a realizar contabilidad manual.
+
+## D-032 — Nuevas capas por prioridad
+Estado: decidido.
+Vertical slice prioriza fiscalidad, mantenimiento, seguros, deuda, zonificación, licencias y subastas. Justicia, sindicatos, holdings, equity y concesiones complejas quedan para fases posteriores.

@@ -1,6 +1,7 @@
 # Roadmap condensado
 
 ## Ahora — Gate 1
+
 Crear:
 - workspace;
 - simulation package;
@@ -14,7 +15,10 @@ Crear:
 - snapshot;
 - benchmark.
 
+No implementar todavía fiscalidad avanzada, banca, seguros ni política compleja.
+
 ## Después — Gate 2
+
 Añadir:
 - parcela;
 - compra;
@@ -26,26 +30,58 @@ Añadir:
 - rival;
 - crimen;
 - policía;
-- política mínima.
+- política mínima;
+- costes económicos básicos.
 
-## Después — Vertical slice
-Añadir:
+## Vertical slice
+
+Prioridad funcional:
+- impuestos/tasas principales;
+- mantenimiento;
+- deterioro;
+- seguros;
+- deuda bancaria;
+- liquidez;
+- zonificación;
+- licencias;
+- subastas;
+- estados financieros simplificados;
 - arte representativo;
-- deuda;
-- economía ampliada;
 - mejor IA;
 - política municipal;
 - automation;
 - cloud save.
 
-## Futuro
+## Alpha sistémica
+
+Añadir:
 - distritos generados;
+- housing demand;
+- employment;
+- municipal budget;
+- public services;
+- public contracts;
+- multidimensional reputation;
+- imperfect information;
+- macro events;
 - society;
 - elections;
-- macroeconomy;
+- macroeconomy.
+
+## Futuro
+
+- sindicatos;
+- justicia;
+- concesiones complejas;
+- inversores/equity;
+- holdings;
+- fraude económico;
 - multiplayer;
 - generative narrative;
-- progresión temporal/histórica.
+- progresión histórica.
 
 ## Regla
-No implementar una fase futura sin petición explícita si introduce complejidad o una decisión difícil de revertir.
+
+Un sistema puede estar aprobado conceptualmente sin pertenecer al Gate actual.
+
+No implementar funciones futuras sin petición explícita si introducen complejidad, dependencias o decisiones difíciles de revertir.

@@ -11,6 +11,36 @@ Fecha de consolidación: 2026-10-20.
 - Riesgos: sí.
 - Investigación histórica: sí.
 - Wiki para IA: sí.
+- Capa funcional de fiscalidad, operación urbana y economía pública: documentada conceptualmente.
+
+## Nuevos sistemas conceptualmente incorporados
+
+- impuestos y tasas;
+- presupuesto municipal;
+- permisos y licencias;
+- zonificación;
+- seguros;
+- mantenimiento/deterioro;
+- inspecciones;
+- contabilidad empresarial simplificada;
+- banca/crédito;
+- ejecuciones y subastas;
+- insolvencia;
+- inversores y holdings futuros;
+- contratos públicos;
+- servicios urbanos;
+- transporte/accesibilidad;
+- oferta/demanda de vivienda;
+- empleo;
+- sindicatos futuros;
+- concesiones;
+- reputación multidimensional;
+- justicia futura;
+- información imperfecta;
+- negociación entre actores;
+- eventos macroeconómicos.
+
+Estos sistemas están incorporados al diseño, no implementados.
 
 ## Implementación
 - Código jugable: no.
@@ -48,6 +78,9 @@ Incluido:
 - profiling.
 
 Excluido:
+- fiscalidad avanzada;
+- banca;
+- seguros;
 - elecciones;
 - multiplayer;
 - LLM;

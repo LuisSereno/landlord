@@ -21,15 +21,52 @@
 - schema validation;
 - backend framework.
 
-## Simulación
+## Economía inmobiliaria
 - fórmula de valor de suelo;
-- producción;
-- contratos;
-- deuda;
-- tenant model;
-- crime resolution;
-- heat decay;
-- composición de policy modifiers.
+- modelo de oferta/demanda;
+- contratos de alquiler;
+- vacancy;
+- elasticidad de rentas;
+- coste y frecuencia de mantenimiento;
+- fórmula de deterioro.
+
+## Fiscalidad
+- impuestos concretos de la primera versión;
+- bases imponibles;
+- periodicidad;
+- exenciones;
+- relación entre impuesto y presupuesto municipal;
+- grado de regionalización de tasas.
+
+## Finanzas y banca
+- modelo de tipos;
+- loan-to-value;
+- garantías;
+- covenants simplificados;
+- insolvencia;
+- refinanciación;
+- reglas de subasta;
+- seguros;
+- equity e inversores futuros.
+
+## Urbanismo
+- categorías definitivas de zoning;
+- densidad;
+- altura;
+- cambio de uso;
+- permisos;
+- inspecciones;
+- recalificación;
+- modelo de accesibilidad.
+
+## Sociedad y empleo
+- tenant/household model;
+- mercado laboral;
+- salario;
+- cualificación;
+- migración;
+- sindicatos;
+- huelgas.
 
 ## Política
 - número de concejales;
@@ -37,14 +74,46 @@
 - influencia;
 - corrupción;
 - elecciones;
-- opinión pública.
+- opinión pública;
+- presupuesto municipal;
+- licitaciones y concesiones.
+
+## Servicios públicos
+- qué servicios simular explícitamente;
+- financiación;
+- efecto sobre suelo/población;
+- ownership público/privado;
+- concesiones.
+
+## Crimen y justicia
+- crime resolution;
+- heat decay;
+- evidencia;
+- inspecciones corruptibles;
+- litigios;
+- embargo;
+- confiscación.
+
+## Información
+- visibilidad de datos;
+- analistas;
+- espionaje;
+- coste de inteligencia;
+- incertidumbre y precisión.
+
+## Reputación
+- grupos de reputación;
+- escalas;
+- decay;
+- efectos sistémicos.
 
 ## IA
 - implementación Utility;
 - planner;
 - memoria;
 - información imperfecta;
-- personality model.
+- personality model;
+- toma de decisiones financieras.
 
 ## Arte
 - tile size;
@@ -58,4 +127,4 @@
 - revisión final de similitud.
 
 ## Regla
-No rellenar estos huecos de forma irreversible sin una decisión explícita o un spike.
+No rellenar estos huecos de forma irreversible sin una decisión explícita, un spike o datos de playtesting.

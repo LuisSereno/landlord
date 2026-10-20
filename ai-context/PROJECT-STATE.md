@@ -53,16 +53,16 @@ Estos sistemas están documentados, no implementados.
 - CI: sí, checks base en GitHub Actions.
 - assets: no.
 - backend: no.
-- modelo de datos implementado: contratos shared v1; dominio autoritativo pendiente.
+- modelo de datos implementado: contratos shared v1 y núcleo autoritativo headless de Gate 1.
 - tests: sí, smoke, contratos, schemas y arquitectura de fronteras.
 
 ## Fase
-Gate 1 en progreso — WP1.1 a WP1.7 completadas; WP1.8 Worker es la siguiente.
+Gate 1 en progreso — WP1.1 a WP1.8 completadas; WP1.9 snapshot versionado es la siguiente.
 
 ## Próximo objetivo
 Gate 1 — viabilidad técnica.
 
-El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista headless (PRNG, reloj, estado, comandos y runner) está cerrado; la siguiente tarea es WP1.8, frontera Web Worker.
+El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista headless y la frontera Web Worker están cerrados; la siguiente tarea es WP1.9, snapshot versionado.
 
 Debe validar:
 - render isométrico;

@@ -83,3 +83,14 @@ export const workerRequestSchemas = [
   loadSnapshotRequestSchema,
   getMetricsRequestSchema,
 ] as const;
+
+export const workerRequestSchema = z.discriminatedUnion("type", [
+  initializeGameRequestSchema,
+  submitCommandRequestSchema,
+  setRunStateRequestSchema,
+  saveSnapshotRequestSchema,
+  loadSnapshotRequestSchema,
+  getMetricsRequestSchema,
+]);
+
+export type WorkerRequest = z.infer<typeof workerRequestSchema>;

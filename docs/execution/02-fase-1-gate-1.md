@@ -1,6 +1,6 @@
 # Fase 1 — Gate 1: viabilidad técnica
 
-Estado: IN_PROGRESS. WP1.1–WP1.7 completadas; siguiente WP1.8 (frontera Web Worker).
+Estado: IN_PROGRESS. WP1.1–WP1.8 completadas; siguiente WP1.9 (snapshot versionado).
 
 ## Objetivo de gate
 
@@ -155,6 +155,8 @@ Una build web permite:
 
 ### WP1.8 — Frontera Web Worker
 
+**Estado:** DONE (2026-10-20).
+
 **Dependencias:** WP1.6-WP1.7.
 
 **Tareas pequeñas:**
@@ -170,6 +172,13 @@ Una build web permite:
 - `G1-WP08-T09` — Medir latencia y backlog bajo la carga de referencia.
 
 **Aceptación:** la UI no conserva una segunda copia autoritativa ni aplica resultados antes de la aceptación del worker.
+
+**Evidencia:** `packages/simulation/src/worker-runtime.ts` implementa validación de protocolo,
+cola entre ticks, correlación de respuestas, control de ejecución y publicación de proyección;
+`apps/web/src/worker/simulation.worker.ts` contiene el entrypoint sin imports de UI y el scheduler
+fijo de 50 ms. Los tests `packages/simulation/src/worker-runtime.test.ts` cubren handshake,
+comando diferido, duplicados y protocolo no soportado. La latencia y backlog de carga quedan
+pendientes del benchmark WP1.14; no se declara todavía la aceptación cuantitativa del gate.
 
 ### WP1.9 — Snapshot versionado
 

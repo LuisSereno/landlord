@@ -111,3 +111,12 @@ export const workerResponseSchemas = [
   projectionPublishedSchema,
   simulationMetricsPublishedSchema,
 ] as const;
+
+export const workerResponseSchema = z.discriminatedUnion("type", [
+  requestSucceededSchema,
+  requestFailedSchema,
+  projectionPublishedSchema,
+  simulationMetricsPublishedSchema,
+]);
+
+export type WorkerResponse = z.infer<typeof workerResponseSchema>;

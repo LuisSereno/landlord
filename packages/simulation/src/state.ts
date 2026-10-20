@@ -47,6 +47,10 @@ export type GameState = {
   structures: Map<StructureId, TestStructure>;
   processedCommandIds: Set<CommandId>;
   events: TestStructurePlaced[];
+  pendingCommands: Array<{
+    acceptedOrder: number;
+    command: import("@landlord/shared").PlaceTestStructure;
+  }>;
 };
 
 export function controlGrantKey(personId: PersonId, organizationId: OrganizationId): string {
@@ -94,5 +98,6 @@ export function createInitialState(seed = 1): GameState {
     structures: new Map(),
     processedCommandIds: new Set(),
     events: [],
+    pendingCommands: [],
   };
 }

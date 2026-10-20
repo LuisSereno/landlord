@@ -5,3 +5,5 @@ export * from "./clock";
 export * from "./state";
 export * from "./commands";
 export * from "./runner";
+export * from "./projection";
+export * from "./worker-runtime";

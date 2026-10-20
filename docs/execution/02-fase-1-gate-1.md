@@ -1,6 +1,6 @@
 # Fase 1 — Gate 1: viabilidad técnica
 
-Estado: IN_PROGRESS. WP1.1–WP1.8 completadas; siguiente WP1.9 (snapshot versionado).
+Estado: IN_PROGRESS. WP1.1–WP1.9 completadas; siguiente WP1.10 (IndexedDB y recuperación).
 
 ## Objetivo de gate
 
@@ -182,6 +182,8 @@ pendientes del benchmark WP1.14; no se declara todavía la aceptación cuantitat
 
 ### WP1.9 — Snapshot versionado
 
+**Estado:** DONE (2026-10-20).
+
 **Dependencias:** WP1.3-WP1.7.
 
 **Tareas pequeñas:**
@@ -195,6 +197,13 @@ pendientes del benchmark WP1.14; no se declara todavía la aceptación cuantitat
 - `G1-WP09-T07` — Medir tamaño y tiempo de serialización.
 
 **Aceptación:** guardar en tick N, restaurar y avanzar produce el mismo estado que avanzar sin interrupción.
+
+**Evidencia:** `packages/simulation/src/snapshot.ts` serializa el estado determinista en arrays
+ordenados, valida el schema y referencias antes de hidratar, y restaura PRNG, allocators,
+entidades, relaciones, comandos procesados y cola pendiente. `SimulationWorkerRuntime` expone
+`SaveSnapshot`/`LoadSnapshot` con errores `INCOMPATIBLE_SCHEMA` e `INVALID_SNAPSHOT` sin sustituir
+el estado activo ante fallos. Los tests de snapshot y Worker cubren roundtrip, continuidad,
+PRNG, referencias rotas y schema incompatible. Tamaño/tiempo cuantitativos quedan para WP1.14.
 
 ### WP1.10 — IndexedDB y recuperación
 

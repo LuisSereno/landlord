@@ -57,12 +57,12 @@ Estos sistemas están documentados, no implementados.
 - tests: sí, smoke, contratos, schemas y arquitectura de fronteras.
 
 ## Fase
-Gate 1 en progreso — WP1.1 a WP1.8 completadas; WP1.9 snapshot versionado es la siguiente.
+Gate 1 en progreso — WP1.1 a WP1.9 completadas; WP1.10 IndexedDB y recuperación es la siguiente.
 
 ## Próximo objetivo
 Gate 1 — viabilidad técnica.
 
-El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista headless y la frontera Web Worker están cerrados; la siguiente tarea es WP1.9, snapshot versionado.
+El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista, la frontera Worker y el snapshot v1 están cerrados; la siguiente tarea es WP1.10, IndexedDB y recuperación.
 
 Debe validar:
 - render isométrico;

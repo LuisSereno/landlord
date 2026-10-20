@@ -61,4 +61,38 @@ describe("simulation Worker runtime", () => {
       { type: "RequestFailed", payload: { code: "DUPLICATE_COMMAND" } },
     ]);
   });
+
+  it("round-trips a snapshot and preserves the active state on invalid load", () => {
+    const runtime = new SimulationWorkerRuntime();
+    runtime.handle(initialize);
+    runtime.handle(submit);
+    runtime.advanceTicks(1);
+    const saved = runtime.handle({
+      protocolVersion: 1,
+      requestId: "request-save",
+      type: "SaveSnapshot" as const,
+      payload: {},
+    });
+    const snapshot = (saved[0] as { payload: { result: { snapshot: unknown } } }).payload.result
+      .snapshot;
+    expect(
+      runtime.handle({
+        protocolVersion: 1,
+        requestId: "request-invalid-load",
+        type: "LoadSnapshot" as const,
+        payload: { snapshot: { schemaVersion: 2 } },
+      }),
+    ).toMatchObject([{ type: "RequestFailed", payload: { code: "INCOMPATIBLE_SCHEMA" } }]);
+    expect(runtime.getState()?.structures.size).toBe(1);
+    expect(
+      runtime
+        .handle({
+          protocolVersion: 1,
+          requestId: "request-load",
+          type: "LoadSnapshot" as const,
+          payload: { snapshot },
+        })
+        .map((response) => response.type),
+    ).toEqual(["RequestSucceeded", "ProjectionPublished"]);
+  });
 });

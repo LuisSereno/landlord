@@ -10,6 +10,7 @@ import {
 } from "@landlord/shared";
 import { dispatchPlaceTestStructure } from "./commands";
 import { createViewProjection } from "./projection";
+import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { createInitialState, type GameState } from "./state";
 
 const errorMessages = {
@@ -147,9 +148,33 @@ export class SimulationWorkerRuntime {
           }),
         ];
       }
-      case "SaveSnapshot":
-      case "LoadSnapshot":
-        return [failed(request.requestId, "INVALID_SNAPSHOT")];
+      case "SaveSnapshot": {
+        if (!this.state) return [failed(request.requestId, "INVALID_SNAPSHOT")];
+        return [
+          succeeded(request.requestId, this.state.clock.tick, {
+            snapshot: serializeSnapshot(this.state),
+          }),
+        ];
+      }
+      case "LoadSnapshot": {
+        const rawSnapshot = request.payload.snapshot;
+        if (
+          rawSnapshot &&
+          typeof rawSnapshot === "object" &&
+          "schemaVersion" in rawSnapshot &&
+          rawSnapshot.schemaVersion !== 1
+        ) {
+          return [failed(request.requestId, "INCOMPATIBLE_SCHEMA")];
+        }
+        try {
+          const nextState = restoreStateFromSnapshot(rawSnapshot);
+          this.state = nextState;
+          this.pendingCommands = [];
+          return [succeeded(request.requestId, nextState.clock.tick), this.projectionMessage()];
+        } catch {
+          return [failed(request.requestId, "INVALID_SNAPSHOT")];
+        }
+      }
     }
   }
 

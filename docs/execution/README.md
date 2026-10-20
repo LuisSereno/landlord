@@ -34,6 +34,7 @@ La cadena de valor que debe mantenerse visible es:
 | Apoyo | [PLANTILLA-TAREA-LUNA.md](PLANTILLA-TAREA-LUNA.md) | Contrato de una tarea pequeña para Luna |
 | Apoyo | [SECUENCIA-LUNA.md](SECUENCIA-LUNA.md) | Orden de colas y reglas para usar el nivel mínimo seguro |
 | Apoyo | [MATRIZ-TRAZABILIDAD.md](MATRIZ-TRAZABILIDAD.md) | Relación entre gates, capacidades y evidencia |
+| Evidencia | [phase-1/benchmark-baseline-2026-10-20.md](phase-1/benchmark-baseline-2026-10-20.md) | Baseline headless y smoke de navegador de WP1.14 |
 
 ## Estado de las fases
 

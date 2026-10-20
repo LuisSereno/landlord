@@ -8,3 +8,4 @@ export * from "./runner";
 export * from "./projection";
 export * from "./worker-runtime";
 export * from "./snapshot";
+export * from "./benchmark";

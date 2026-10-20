@@ -22,6 +22,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   private selectedCell: GridCell | null = null;
   private projection: ViewProjectionV1 | null = null;
+  private cellPickedListener?: (cell: GridCell) => void;
   private dragStart: { x: number; y: number; scrollX: number; scrollY: number } | null = null;
 
   public constructor() {
@@ -29,6 +30,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
   }
 
   public create(): void {
+    const tileGraphics = this.add.graphics();
+    this.drawTiles(tileGraphics);
+    const staticMap = this.add.renderTexture(0, 0, 4096, 4096).setOrigin(0, 0);
+    staticMap.draw(tileGraphics);
+    tileGraphics.destroy();
     this.mapGraphics = this.add.graphics();
     this.debugText = this.add
       .text(16, 16, "cell: — | zoom: 1.00", {
@@ -38,7 +44,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       })
       .setScrollFactor(0)
       .setDepth(1000);
-    this.drawMap();
+    this.drawOverlay();
     this.cameras.main.setZoom(1);
     this.cameras.main.setBounds(0, 0, 4096, 4096);
     this.cursors = this.input.keyboard?.createCursorKeys();
@@ -56,13 +62,15 @@ export class IsometricSpikeScene extends Phaser.Scene {
     if (this.cursors.right?.isDown) camera.scrollX += speed;
     if (this.cursors.up?.isDown) camera.scrollY -= speed;
     if (this.cursors.down?.isDown) camera.scrollY += speed;
-    if (this.debugText) this.debugText.setText(this.debugLabel());
   }
 
   public setProjection(projection: ViewProjectionV1): void {
     this.projection = projection;
-    this.drawMap();
-    this.debugText?.setText(this.debugLabel());
+    this.drawOverlay();
+  }
+
+  public setCellPickedListener(listener: (cell: GridCell) => void): void {
+    this.cellPickedListener = listener;
   }
 
   private debugLabel(): string {
@@ -70,10 +78,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     return `cell: ${selected} | zoom: ${this.cameras.main.zoom.toFixed(2)}`;
   }
 
-  private drawMap(): void {
-    const graphics = this.mapGraphics;
-    if (!graphics) return;
-    graphics.clear();
+  private drawTiles(graphics: Phaser.GameObjects.Graphics): void {
     const cells: GridCell[] = [];
     for (let y = 0; y < this.layout.mapHeight; y += 1) {
       for (let x = 0; x < this.layout.mapWidth; x += 1) cells.push({ x, y });
@@ -98,6 +103,12 @@ export class IsometricSpikeScene extends Phaser.Scene {
       graphics.fillPath();
       graphics.strokePath();
     }
+  }
+
+  private drawOverlay(): void {
+    const graphics = this.mapGraphics;
+    if (!graphics) return;
+    graphics.clear();
     for (const structure of this.projection?.structures ?? []) {
       const center = gridToScreen(structure.cell, this.layout);
       graphics.fillStyle(0xd97757, 1);
@@ -144,9 +155,13 @@ export class IsometricSpikeScene extends Phaser.Scene {
     }
     const selected = pickGridCell({ x: pointer.worldX, y: pointer.worldY }, this.layout);
     this.selectedCell = selected;
-    this.drawMap();
+    this.drawOverlay();
     this.debugText?.setText(this.debugLabel());
-    if (selected) this.events.emit("cell-picked", { ...selected });
+    if (selected) {
+      const value = { ...selected };
+      this.events.emit("cell-picked", value);
+      this.cellPickedListener?.(value);
+    }
   }
 
   private handleWheel(
@@ -159,13 +174,14 @@ export class IsometricSpikeScene extends Phaser.Scene {
     void _gameObjects;
     const nextZoom = Phaser.Math.Clamp(this.cameras.main.zoom - deltaY * 0.001, 0.5, 2.5);
     this.cameras.main.setZoom(nextZoom);
+    this.debugText?.setText(this.debugLabel());
   }
 }
 
 export const isometricSpikeGameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
-  width: 1024,
-  height: 768,
+  width: 640,
+  height: 480,
   backgroundColor: "#101827",
   scene: [IsometricSpikeScene],
 };

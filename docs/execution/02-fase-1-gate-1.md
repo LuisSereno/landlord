@@ -1,6 +1,6 @@
 # Fase 1 — Gate 1: viabilidad técnica
 
-Estado: IN_PROGRESS. WP1.1–WP1.13 completadas; siguiente WP1.14 (benchmark de referencia).
+Estado: IN_PROGRESS. WP1.1–WP1.14 completadas; siguiente WP1.15 (soak y estabilidad).
 
 ## Objetivo de gate
 
@@ -311,6 +311,8 @@ de latencia quedan para WP1.14/WP1.15.
 
 ### WP1.14 — Carga de 500 agentes
 
+**Estado:** DONE (2026-10-20).
+
 **Dependencias:** WP1.7-WP1.8.
 
 **Tareas pequeñas:**
@@ -325,6 +327,13 @@ de latencia quedan para WP1.14/WP1.15.
 - `G1-WP14-T08` — Documentar baseline y recomendar budgets de Gate 2.
 
 **Aceptación:** escenario y comando son reproducibles; las cifras incluyen versión, build, seed, hardware y navegador.
+
+**Evidencia:** `packages/simulation/src/benchmark.ts` implementa el fixture de 100 edificios y
+500 agentes, A* con desempate fijo, movimiento ordenado, proyección y resumen estadístico.
+`pnpm benchmark` ejecuta 1.000 + 20.000 ticks en cuatro seeds y cinco repeticiones; el informe
+`phase-1/benchmark-baseline-2026-10-20.md` conserva p50/p95/p99/máximos y hardware. El runner
+`scripts/browser-benchmark.mjs` mide Chromium y Firefox tras warm-up; el smoke queda dentro de
+p95 ≤ 20 ms. La duración interactiva de diez minutos se reserva al soak WP1.15.
 
 ### WP1.15 — Soak y estabilidad
 

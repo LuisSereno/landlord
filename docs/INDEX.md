@@ -49,6 +49,7 @@
 - execution/phase-0/risk-and-evidence-matrix.md — riesgos, señales y pruebas de cierre.
 - execution/phase-0/gate-review-template.md — plantilla de decisión GO/REWORK/STOP.
 - execution/phase-0/gate-1-backlog.md — WP1.1 y WP1.2 preparadas para Luna.
+- execution/phase-1/benchmark-baseline-2026-10-20.md — baseline headless y smoke de navegador de WP1.14.
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

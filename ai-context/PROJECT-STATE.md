@@ -57,12 +57,12 @@ Estos sistemas están documentados, no implementados.
 - tests: sí, smoke, contratos, schemas y arquitectura de fronteras.
 
 ## Fase
-Gate 1 en progreso — WP1.1 a WP1.13 completadas; WP1.14 benchmark de referencia es la siguiente.
+Gate 1 en progreso — WP1.1 a WP1.14 completadas; WP1.15 soak y estabilidad es la siguiente.
 
 ## Próximo objetivo
 Gate 1 — viabilidad técnica.
 
-El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista, Worker, snapshot v1, IndexedDB, escena/picking y flujo vertical están cerrados; la siguiente tarea es WP1.14, benchmark de referencia.
+El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista, Worker, snapshot v1, IndexedDB, escena/picking, flujo vertical y baseline de carga están cerrados; la siguiente tarea es WP1.15, soak y estabilidad.
 
 Debe validar:
 - render isométrico;

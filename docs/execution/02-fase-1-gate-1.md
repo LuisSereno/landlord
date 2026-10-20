@@ -1,5 +1,7 @@
 # Fase 1 — Gate 1: viabilidad técnica
 
+Estado: IN_PROGRESS. WP1.1–WP1.7 completadas; siguiente WP1.8 (frontera Web Worker).
+
 ## Objetivo de gate
 
 Demostrar que una simulación determinista, headless, desacoplada del render y no acoplada a una única organización del jugador puede ejecutarse en un Web Worker, representarse en un mapa isométrico, persistirse y sostener la carga técnica de referencia.

@@ -10,5 +10,8 @@
     "lint": "eslint src",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run --config ../../vitest.config.ts packages/simulation/src"
+  },
+  "dependencies": {
+    "@landlord/shared": "workspace:*"
   }
 }

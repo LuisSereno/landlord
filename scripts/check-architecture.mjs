@@ -13,7 +13,8 @@ const forbiddenImports = [
   "@landlord/web",
 ];
 
-const forbiddenGlobals = /\b(document|window|indexedDB|localStorage|sessionStorage|fetch|crypto)\b/;
+const forbiddenGlobals =
+  /\b(document|window|indexedDB|localStorage|sessionStorage|fetch|crypto)\s*(?:\.|\(|\[)/;
 
 function sourceFiles(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {

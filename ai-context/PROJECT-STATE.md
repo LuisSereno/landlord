@@ -57,12 +57,12 @@ Estos sistemas están documentados, no implementados.
 - tests: sí, smoke, contratos, schemas y arquitectura de fronteras.
 
 ## Fase
-Gate 1 en progreso — WP1.1 y WP1.2 completadas.
+Gate 1 en progreso — WP1.1 a WP1.7 completadas; WP1.8 Worker es la siguiente.
 
 ## Próximo objetivo
 Gate 1 — viabilidad técnica.
 
-El desglose operativo se encuentra en `docs/execution/`. WP1.1 y WP1.2 están cerradas; la siguiente tarea es `G1-WP03-T01` del núcleo PRNG.
+El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista headless (PRNG, reloj, estado, comandos y runner) está cerrado; la siguiente tarea es WP1.8, frontera Web Worker.
 
 Debe validar:
 - render isométrico;

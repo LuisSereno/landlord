@@ -1,6 +1,6 @@
 # Fase 1 — Gate 1: viabilidad técnica
 
-Estado: IN_PROGRESS. WP1.1–WP1.12 completadas; siguiente WP1.13 (flujo vertical técnico).
+Estado: IN_PROGRESS. WP1.1–WP1.13 completadas; siguiente WP1.14 (benchmark de referencia).
 
 ## Objetivo de gate
 
@@ -282,6 +282,8 @@ origen desplazado por cámara. Ninguna selección decide ocupación ni autorizac
 
 ### WP1.13 — Flujo vertical técnico
 
+**Estado:** DONE (2026-10-20).
+
 **Dependencias:** WP1.8, WP1.11 y WP1.12.
 
 **Tareas pequeñas:**
@@ -296,6 +298,14 @@ origen desplazado por cámara. Ninguna selección decide ocupación ni autorizac
 - `G1-WP13-T08` — Añadir recorrido end-to-end de la demo.
 
 **Aceptación:** el recorrido completo funciona tras recargar la página y conserva tick/PRNG/estado.
+
+**Evidencia:** `apps/web/src/worker/client.ts` valida y correlaciona mensajes Worker, publica
+únicamente proyecciones `ViewProjectionV1` y convierte la selección en `PlaceTestStructure`.
+`App.tsx` crea el Worker real empaquetado por Vite, muestra conexión/errores recuperables,
+pausa/continúa, envía la acción técnica, y guarda/carga snapshots mediante IndexedDB antes de
+reanudar. `IsometricSpikeScene` sólo consume la proyección confirmada. Tests cubren correlación
+de transporte y mensajes inválidos; la comprobación interactiva en Chromium/Firefox y métricas
+de latencia quedan para WP1.14/WP1.15.
 
 ## Workstream E — Rendimiento y cierre
 

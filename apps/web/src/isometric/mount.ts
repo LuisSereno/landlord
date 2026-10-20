@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import type { ViewProjectionV1 } from "@landlord/shared";
 import { IsometricSpikeScene, isometricSpikeGameConfig } from "./IsometricSpikeScene";
 
 export function mountIsometricSpike(
@@ -14,4 +15,9 @@ export function mountIsometricSpike(
     scene.events.on("cell-picked", onCellPicked);
   }
   return game;
+}
+
+export function updateIsometricProjection(game: Phaser.Game, projection: ViewProjectionV1): void {
+  const scene = game.scene.getScene("IsometricSpikeScene") as IsometricSpikeScene;
+  scene.setProjection(projection);
 }

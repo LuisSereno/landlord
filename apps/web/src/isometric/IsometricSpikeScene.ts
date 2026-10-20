@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import type { ViewProjectionV1 } from "@landlord/shared";
 import {
   gridToScreen,
   pickGridCell,
@@ -20,6 +21,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private debugText?: Phaser.GameObjects.Text;
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   private selectedCell: GridCell | null = null;
+  private projection: ViewProjectionV1 | null = null;
   private dragStart: { x: number; y: number; scrollX: number; scrollY: number } | null = null;
 
   public constructor() {
@@ -57,6 +59,12 @@ export class IsometricSpikeScene extends Phaser.Scene {
     if (this.debugText) this.debugText.setText(this.debugLabel());
   }
 
+  public setProjection(projection: ViewProjectionV1): void {
+    this.projection = projection;
+    this.drawMap();
+    this.debugText?.setText(this.debugLabel());
+  }
+
   private debugLabel(): string {
     const selected = this.selectedCell ? `${this.selectedCell.x},${this.selectedCell.y}` : "—";
     return `cell: ${selected} | zoom: ${this.cameras.main.zoom.toFixed(2)}`;
@@ -89,6 +97,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
       graphics.closePath();
       graphics.fillPath();
       graphics.strokePath();
+    }
+    for (const structure of this.projection?.structures ?? []) {
+      const center = gridToScreen(structure.cell, this.layout);
+      graphics.fillStyle(0xd97757, 1);
+      graphics.fillRect(center.x - 8, center.y - 10, 16, 16);
     }
     if (this.selectedCell) {
       const center = gridToScreen(this.selectedCell, this.layout);

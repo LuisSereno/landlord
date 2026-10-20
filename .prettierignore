@@ -1,0 +1,7 @@
+AGENTS.md
+README.md
+ai-context/
+docs/
+dist/
+node_modules/
+pnpm-lock.yaml

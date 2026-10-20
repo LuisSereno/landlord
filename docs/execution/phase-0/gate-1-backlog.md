@@ -46,7 +46,7 @@ No existen dependencias inversas de WP1.2 a WP1.1.
 
 ### G1-WP01-T01 — Crear raíz pnpm reproducible
 
-Estado: READY  
+Estado: DONE
 Dependencias: ninguna  
 Máximo: 2 h
 
@@ -59,7 +59,7 @@ Máximo: 2 h
 
 ### G1-WP01-T02 — Crear app web mínima
 
-Estado: TODO  
+Estado: DONE
 Dependencias: G1-WP01-T01  
 Máximo: 4 h
 
@@ -71,7 +71,7 @@ Máximo: 4 h
 
 ### G1-WP01-T03 — Crear paquete simulation headless
 
-Estado: TODO  
+Estado: DONE
 Dependencias: G1-WP01-T01  
 Máximo: 3 h
 
@@ -83,7 +83,7 @@ Máximo: 3 h
 
 ### G1-WP01-T04 — Crear paquete shared
 
-Estado: TODO  
+Estado: DONE
 Dependencias: G1-WP01-T01, G1-WP01-T02, G1-WP01-T03  
 Máximo: 3 h
 
@@ -95,7 +95,7 @@ Máximo: 3 h
 
 ### G1-WP01-T05 — Consolidar configuración TypeScript
 
-Estado: TODO  
+Estado: DONE
 Dependencias: G1-WP01-T04  
 Máximo: 3 h
 
@@ -107,7 +107,7 @@ Máximo: 3 h
 
 ### G1-WP01-T06 — Configurar ESLint y Prettier
 
-Estado: TODO  
+Estado: DONE
 Dependencias: G1-WP01-T05  
 Máximo: 4 h
 
@@ -120,7 +120,7 @@ Máximo: 4 h
 
 ### G1-WP01-T07 — Configurar Vitest
 
-Estado: TODO  
+Estado: DONE
 Dependencias: G1-WP01-T06  
 Máximo: 3 h
 
@@ -132,7 +132,7 @@ Máximo: 3 h
 
 ### G1-WP01-T08 — Cerrar build de producción
 
-Estado: TODO  
+Estado: DONE
 Dependencias: G1-WP01-T07  
 Máximo: 2 h
 
@@ -144,7 +144,7 @@ Máximo: 2 h
 
 ### G1-WP01-T09 — Añadir CI base
 
-Estado: TODO  
+Estado: DONE
 Dependencias: G1-WP01-T08  
 Máximo: 4 h
 
@@ -156,7 +156,7 @@ Máximo: 4 h
 
 ### G1-WP01-T10 — Añadir test negativo de fronteras
 
-Estado: TODO  
+Estado: DONE
 Dependencias: G1-WP01-T09  
 Máximo: 3 h
 
@@ -170,7 +170,7 @@ Máximo: 3 h
 
 ### G1-WP02-T01 — Añadir tipo Brand e IDs
 
-Estado: TODO  
+Estado: DONE
 Dependencias: G1-WP01-T10  
 Máximo: 3 h
 
@@ -181,7 +181,7 @@ Máximo: 3 h
 
 ### G1-WP02-T02 — Añadir Tick, Seed y GridCell
 
-Estado: TODO  
+Estado: DONE
 Dependencias: G1-WP02-T01  
 Máximo: 3 h
 
@@ -191,7 +191,7 @@ Máximo: 3 h
 
 ### G1-WP02-T03 — Añadir Money
 
-Estado: TODO  
+Estado: DONE
 Dependencias: G1-WP02-T02  
 Máximo: 3 h
 
@@ -202,7 +202,7 @@ Máximo: 3 h
 
 ### G1-WP02-T04 — Definir request envelopes
 
-Estado: TODO  
+Estado: DONE
 Dependencias: G1-WP02-T03  
 Máximo: 4 h
 
@@ -213,7 +213,7 @@ Máximo: 4 h
 
 ### G1-WP02-T05 — Definir responses y errores
 
-Estado: TODO  
+Estado: DONE
 Dependencias: G1-WP02-T04  
 Máximo: 3 h
 
@@ -224,7 +224,7 @@ Máximo: 3 h
 
 ### G1-WP02-T06 — Definir comando y evento
 
-Estado: TODO  
+Estado: DONE
 Dependencias: G1-WP02-T05  
 Máximo: 4 h
 
@@ -234,7 +234,7 @@ Máximo: 4 h
 
 ### G1-WP02-T07 — Definir snapshot y proyección v1
 
-Estado: TODO  
+Estado: DONE
 Dependencias: G1-WP02-T06  
 Máximo: 4 h
 
@@ -244,7 +244,7 @@ Máximo: 4 h
 
 ### G1-WP02-T08 — Verificar structured clone y exports
 
-Estado: TODO  
+Estado: DONE
 Dependencias: G1-WP02-T07  
 Máximo: 3 h
 

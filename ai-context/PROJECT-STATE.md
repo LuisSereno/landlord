@@ -49,20 +49,20 @@ Estos sistemas están documentados, no implementados.
 
 ## Implementación
 - Código jugable: no.
-- package.json: no.
-- CI: no.
+- package.json: sí, raíz y workspaces mínimos de Gate 1.
+- CI: sí, checks base en GitHub Actions.
 - assets: no.
 - backend: no.
-- modelo de datos implementado: no.
-- tests: no.
+- modelo de datos implementado: contratos shared v1; dominio autoritativo pendiente.
+- tests: sí, smoke, contratos, schemas y arquitectura de fronteras.
 
 ## Fase
-Predesarrollo cerrado / Gate 1 listo para comenzar.
+Gate 1 en progreso — WP1.1 y WP1.2 completadas.
 
 ## Próximo objetivo
 Gate 1 — viabilidad técnica.
 
-El desglose operativo se encuentra en `docs/execution/`. La Fase 0 está cerrada: Gate 1 puede comenzar por `G1-WP01-T01` siguiendo `docs/execution/phase-0/gate-1-backlog.md`.
+El desglose operativo se encuentra en `docs/execution/`. WP1.1 y WP1.2 están cerradas; la siguiente tarea es `G1-WP03-T01` del núcleo PRNG.
 
 Debe validar:
 - render isométrico;

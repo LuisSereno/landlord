@@ -15,7 +15,19 @@ Crear:
 - snapshot;
 - benchmark.
 
-No implementar todavía fiscalidad avanzada, banca, seguros ni política compleja.
+Restricciones:
+- no player == company;
+- ownership separado de control;
+- actor explícito en comandos relevantes;
+- organizaciones independientes.
+
+No implementar todavía:
+- fiscalidad avanzada;
+- banca;
+- seguros;
+- política compleja;
+- roles jugables alternativos;
+- life simulation.
 
 ## Después — Gate 2
 
@@ -32,6 +44,8 @@ Añadir:
 - policía;
 - política mínima;
 - costes económicos básicos.
+
+La experiencia sigue siendo Landlord/Entrepreneur.
 
 ## Vertical slice
 
@@ -68,20 +82,30 @@ Añadir:
 - elections;
 - macroeconomy.
 
-## Futuro
+Esta fase construye buena parte del sustrato necesario para futuras perspectivas.
 
-- sindicatos;
-- justicia;
-- concesiones complejas;
-- inversores/equity;
-- holdings;
-- fraude económico;
-- multiplayer;
-- generative narrative;
-- progresión histórica.
+## Post-producto / expansiones
+
+Orden conceptual recomendado:
+1. Politician / Mayor.
+2. Criminal.
+3. Bank / Investor.
+4. Contractor.
+5. Union / Media si aportan suficiente profundidad.
+6. Strategic Citizen.
+7. Full life simulation sólo si todo el sistema anterior está consolidado.
+
+Posibles capacidades futuras:
+- roles transitables;
+- multirol;
+- Career Events;
+- Gameplay LOD;
+- trayectoria vital;
+- envejecimiento;
+- herencia/dinastía.
 
 ## Regla
 
 Un sistema puede estar aprobado conceptualmente sin pertenecer al Gate actual.
 
-No implementar funciones futuras sin petición explícita si introducen complejidad, dependencias o decisiones difíciles de revertir.
+Preservar opcionalidad no significa implementar anticipadamente.

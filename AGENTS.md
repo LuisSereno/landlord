@@ -8,9 +8,10 @@ Este repositorio está diseñado para ser trabajado también por agentes de IA.
 2. ai-context/PROJECT-STATE.md
 3. ai-context/DECISIONS.md
 4. ai-context/ARCHITECTURE.md
-5. ai-context/GAME-DOMAIN.md
-6. docs/INDEX.md
-7. La documentación específica del área que vaya a modificarse.
+5. ai-context/PLAYER-MODEL.md
+6. ai-context/GAME-DOMAIN.md
+7. docs/INDEX.md
+8. La documentación específica del área que vaya a modificarse.
 
 ## Fuente de verdad
 
@@ -48,6 +49,10 @@ Sí pueden estudiarse principios abstractos de diseño: promoción inmobiliaria,
 - Preferir datos configurables a condicionales codificados para edificios, políticas y eventos.
 - No introducir Redis, Kubernetes, microservicios o multijugador antes de que exista una necesidad demostrada.
 - La IA generativa nunca modifica directamente el estado de juego: propone contenido estructurado que debe validar el motor.
+- No asumir player == company.
+- Separar PlayerIdentity, Person, Organization, ownership y ControlContext.
+- Evitar flags globales playerIsMayor/playerIsCriminal; las acciones futuras deben resolverse mediante roles/capabilities.
+- Preservar compatibilidad multiperspectiva sin implementar prematuramente un life simulator.
 
 ## Antes de añadir una funcionalidad
 
@@ -60,8 +65,14 @@ Responder:
 6. ¿Qué datos deben persistirse?
 7. ¿Afecta a partidas guardadas?
 8. ¿Tiene implicaciones de propiedad intelectual?
+9. ¿Acopla innecesariamente al jugador a una sola organización o perspectiva?
+10. ¿Necesita una capability, un rol o un ControlContext explícito?
 
 ## Objetivo actual
 
-No construir todavía "el juego infinito". Construir y validar el núcleo:
+No construir todavía "el juego infinito" ni las perspectivas política/ciudadana/criminal jugables.
+
+Construir y validar el núcleo:
 comprar terreno -> producir -> construir -> ocupar -> generar caja -> competir -> asumir riesgos -> reaccionar a una decisión política.
+
+La arquitectura debe dejar abierta la futura evolución de una misma Person entre distintos roles sin que eso amplíe el scope del Gate actual.

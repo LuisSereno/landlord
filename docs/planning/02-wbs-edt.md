@@ -71,3 +71,52 @@ Unit, determinismo, fixtures, integración, performance, soak, balance simulatio
 
 ## 23. Arte
 Dirección visual, tiles, edificios, workers, tenants, VFX, UI y audio.
+
+## 24. Identidad, roles y multiperspectiva
+
+### 24.1 Compatibilidad base
+- PlayerIdentity separado de Company;
+- Person persistente;
+- Organization independiente;
+- ownership separado de control;
+- actor explícito en comandos relevantes.
+
+### 24.2 Roles/capabilities futuros
+- RoleAssignment;
+- capability resolver;
+- offices;
+- memberships;
+- delegations;
+- ControlContext.
+
+### 24.3 Gameplay LOD futuro
+- UI por perspectiva;
+- overlays;
+- information scope;
+- delegación;
+- escalado de excepciones.
+
+### 24.4 Trayectoria futura
+- career history;
+- Career Events;
+- transiciones bidireccionales;
+- multirol;
+- conflictos de interés.
+
+### 24.5 Perspectivas futuras
+- politician/mayor;
+- criminal;
+- bank/investor;
+- contractor;
+- union/media;
+- strategic citizen.
+
+### 24.6 Life simulation de muy largo plazo
+- age;
+- family;
+- education;
+- inheritance;
+- generations;
+- dynasty.
+
+Sólo 24.1 condiciona la arquitectura inicial. El resto permanece fuera del producto base hasta decisión explícita.

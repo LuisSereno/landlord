@@ -1,5 +1,25 @@
 # Dominio del juego
 
+## Identidad y control
+
+### PlayerIdentity
+Identifica al usuario y referencia una Person. No contiene directamente patrimonio empresarial.
+
+### Person
+Actor persistente con relaciones, reputaciones, roles, memberships, ownership, offices e historial.
+
+### RoleAssignment
+Vincula Person, rol y opcionalmente Organization, con vigencia y capabilities.
+
+### ControlContext
+Define perspectiva activa:
+- Person;
+- active role;
+- active organization;
+- capabilities;
+- information scope;
+- UI/overlays.
+
 ## Entidades/agregados conceptuales
 
 ### Game
@@ -14,6 +34,9 @@ Owner, valor, zoning, restricciones, accesibilidad y building.
 ### Building
 Type, level, state, condition, tenants, maintenance, insurance y obligaciones operativas.
 
+### Organization
+Concepto colectivo independiente. Puede representar Company, Government, Bank, Union, Media, Association o Criminal Faction.
+
 ### Company
 Cash, assets, liabilities, equity, reputation, tax position y capacidad financiera.
 
@@ -27,7 +50,7 @@ Principal, interés, plazo, garantía, estado y covenant simplificado.
 Cobertura, prima, límites y riesgos cubiertos.
 
 ### Actor
-Worker, tenant, manager, political actor, inspector, banker o criminal.
+Person u otros agentes especializados del mundo.
 
 ### Faction
 Resources, strategy, relationships y territory/influence.
@@ -52,6 +75,10 @@ Valoración por grupo, no una única puntuación global.
 
 ## Sistemas
 
+- identity/control;
+- roles/capabilities;
+- relationships;
+- career history;
 - real estate;
 - construction;
 - resources;
@@ -78,7 +105,9 @@ Valoración por grupo, no una única puntuación global.
 - imperfect information;
 - procedural world;
 - progression;
-- macro events.
+- macro events;
+- gameplay LOD;
+- delegation.
 
 ## Feedback loops
 
@@ -100,7 +129,11 @@ Crédito -> inversión -> precios -> deuda -> riesgo -> ejecuciones -> oportunid
 
 Mantenimiento -> condición -> renta -> satisfacción -> valor -> costes.
 
-## Core loop
+Carrera personal -> relaciones -> oportunidades -> roles -> capabilities -> nuevas decisiones.
+
+Decisiones históricas -> memoria del mundo -> consecuencias en roles futuros.
+
+## Core loop inicial
 
 comprar
 -> producir
@@ -115,8 +148,21 @@ comprar
 -> adaptarse a regulación
 -> reinvertir.
 
+## Core loop de largo plazo
+
+vivir/operar
+-> adquirir posición
+-> acumular capital financiero/social/político/criminal
+-> asumir roles
+-> delegar
+-> perder/cambiar roles
+-> afrontar consecuencias históricas
+-> continuar trayectoria.
+
 ## Regla UX
 
 El dominio puede ser complejo; la operación rutinaria no debe serlo.
 
 El motor liquida automáticamente obligaciones periódicas. El jugador decide estrategias, excepciones y políticas de gestión.
+
+Cambiar de perspectiva debe cambiar información, overlays y responsabilidades, no crear otro mundo paralelo.

@@ -122,3 +122,55 @@ Los estados financieros deben permitir decisiones sin obligar al jugador a reali
 ## D-032 — Nuevas capas por prioridad
 Estado: decidido.
 Vertical slice prioriza fiscalidad, mantenimiento, seguros, deuda, zonificación, licencias y subastas. Justicia, sindicatos, holdings, equity y concesiones complejas quedan para fases posteriores.
+
+## D-033 — Player no equivale a Company
+Estado: decisión arquitectónica fuerte.
+El motor debe separar identidad de jugador, persona, propiedad, organización y contexto de control.
+
+## D-034 — Person como identidad persistente compatible
+Estado: decidido conceptualmente.
+La identidad jugable debe poder vincularse a una Person persistente capaz de acumular historial, relaciones, roles y cargos. Esto no obliga a iniciar el MVP como ciudadano.
+
+## D-035 — Organizaciones independientes
+Estado: decidido.
+Company, Government, Bank, Union, Media y facciones deben poder existir independientemente de que las controle un humano.
+
+## D-036 — Roles no exclusivos
+Estado: visión aprobada de largo plazo.
+Una Person puede acumular roles compatibles y perderlos. No diseñar carreras como clases rígidas mutuamente excluyentes.
+
+## D-037 — Capabilities
+Estado: decisión arquitectónica.
+Las acciones disponibles deben poder resolverse por capabilities derivadas de roles/cargos/ownership/delegación, evitando flags globales playerIsX.
+
+## D-038 — ControlContext
+Estado: decidido conceptualmente.
+Identidad persistente y perspectiva activa son conceptos separados. El contexto determina organización activa, capabilities, información y UI.
+
+## D-039 — Gameplay LOD
+Estado: decidido como principio futuro.
+El nivel de detalle operativo cambia según el rol activo. Las capas no prioritarias continúan simulándose pero se delegan o agregan.
+
+## D-040 — Delegación por escala
+Estado: decidido como principio.
+Acumular poder o cambiar de capa debe reducir la microgestión inferior mediante gestores, políticas y escalado de excepciones.
+
+## D-041 — Trayectorias bidireccionales
+Estado: visión aprobada.
+Las carreras podrán progresar, retroceder y reconvertirse: empresario, político, criminal, inversor, trabajador, etc.
+
+## D-042 — Career Events
+Estado: propuesto con alta confianza.
+Las transiciones futuras deberían emerger del estado del mundo más que de un selector artificial de clases.
+
+## D-043 — Perspectiva política como primera extensión
+Estado: prioridad futura propuesta.
+Si se valida el producto base, Mayor/Politician es la perspectiva alternativa con mayor reutilización de sistemas existentes.
+
+## D-044 — Life simulation completa fuera de alcance
+Estado: decidido.
+Ciudadano detallado, envejecimiento, familia, generaciones y dinastía no forman parte de Gate 1, Gate 2 ni del vertical slice.
+
+## D-045 — Preservar opcionalidad, no sobreconstruir
+Estado: decidido.
+Ahora sólo se implementan abstracciones mínimas que eviten bloquear el futuro; no se construye un framework genérico de múltiples juegos antes de necesitarlo.

@@ -21,6 +21,25 @@
 - schema validation;
 - backend framework.
 
+## Player model / multiperspectiva
+- cuánto de Person se implementa desde Gate 1;
+- estructura exacta de PlayerIdentity;
+- RoleAssignment;
+- Capability resolver;
+- ControlContext;
+- ownership personal vs corporativo;
+- cómo representar delegación;
+- modelo de información visible;
+- UI dinámica por perspectiva;
+- cuándo introducir Gameplay LOD;
+- cuándo permitir transiciones reales entre roles;
+- si la partida inicial empieza directamente como empresario o como persona con background;
+- envejecimiento;
+- familia;
+- herencia;
+- dinastías;
+- duración temporal de una vida.
+
 ## Economía inmobiliaria
 - fórmula de valor de suelo;
 - modelo de oferta/demanda;
@@ -76,7 +95,8 @@
 - elecciones;
 - opinión pública;
 - presupuesto municipal;
-- licitaciones y concesiones.
+- licitaciones y concesiones;
+- alcance de la primera perspectiva política jugable futura.
 
 ## Servicios públicos
 - qué servicios simular explícitamente;
@@ -92,7 +112,8 @@
 - inspecciones corruptibles;
 - litigios;
 - embargo;
-- confiscación.
+- confiscación;
+- alcance de una perspectiva criminal jugable futura.
 
 ## Información
 - visibilidad de datos;
@@ -101,11 +122,14 @@
 - coste de inteligencia;
 - incertidumbre y precisión.
 
-## Reputación
+## Reputación y relaciones
 - grupos de reputación;
 - escalas;
 - decay;
-- efectos sistémicos.
+- efectos sistémicos;
+- dimensiones de relaciones;
+- memoria histórica;
+- blackmail/debt/fear/trust.
 
 ## IA
 - implementación Utility;
@@ -113,7 +137,8 @@
 - memoria;
 - información imperfecta;
 - personality model;
-- toma de decisiones financieras.
+- toma de decisiones financieras;
+- IA delegada para organizaciones del jugador.
 
 ## Arte
 - tile size;

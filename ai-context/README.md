@@ -10,6 +10,7 @@ Permite que un agente entienda rápidamente:
 - qué sólo está propuesto;
 - cómo debe funcionar la arquitectura;
 - qué dominios existen;
+- cómo se representa al jugador;
 - en qué fase está;
 - qué no debe implementar aún;
 - qué riesgos y restricciones existen;
@@ -20,19 +21,20 @@ Permite que un agente entienda rápidamente:
 1. PROJECT-STATE.md
 2. DECISIONS.md
 3. ARCHITECTURE.md
-4. GAME-DOMAIN.md
-5. ROADMAP.md
-6. CONVENTIONS.md
-7. GLOSSARY.md
-8. KNOWN-GAPS.md
-9. SOURCE-MAP.md
-10. AGENT-WORKFLOW.md
+4. PLAYER-MODEL.md
+5. GAME-DOMAIN.md
+6. ROADMAP.md
+7. CONVENTIONS.md
+8. GLOSSARY.md
+9. KNOWN-GAPS.md
+10. SOURCE-MAP.md
+11. AGENT-WORKFLOW.md
 
 Después leer docs/ del área afectada.
 
 ## Resumen en 30 segundos
 
-Landlord es un juego web 2.5D isométrico de estrategia económica, inmobiliaria, urbana, criminal y política.
+Landlord es inicialmente un juego web 2.5D isométrico de estrategia económica, inmobiliaria, urbana, criminal y política.
 
 No es un remake.
 
@@ -44,14 +46,32 @@ Stack inicial:
 - Web Worker para simulación;
 - IndexedDB para saves locales.
 
-Regla arquitectónica principal:
-la simulación es independiente del render.
+Reglas arquitectónicas principales:
+- la simulación es independiente del render;
+- player no equivale a company;
+- identidad, persona, organizaciones, ownership y control son conceptos separados;
+- los roles futuros deben resolverse mediante capabilities;
+- la compatibilidad multiperspectiva no amplía el scope del MVP.
 
 Estado actual:
 documentación y predesarrollo. No existe todavía implementación jugable.
 
 Siguiente objetivo:
 Gate 1 técnico.
+
+## Visión futura
+
+Una misma Person podría evolucionar entre capas:
+- ciudadano;
+- trabajador;
+- empresario;
+- propietario;
+- político;
+- criminal;
+- inversor;
+- otros roles.
+
+No se implementa ahora. Sólo se preserva la posibilidad arquitectónica.
 
 ## Fuente de verdad
 

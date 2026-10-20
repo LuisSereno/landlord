@@ -11,36 +11,36 @@ Fecha de consolidación: 2026-10-20.
 - Riesgos: sí.
 - Investigación histórica: sí.
 - Wiki para IA: sí.
-- Capa funcional de fiscalidad, operación urbana y economía pública: documentada conceptualmente.
+- Capa funcional fiscal/urbana: documentada conceptualmente.
+- Visión multiperspectiva y trayectoria vital: documentada conceptualmente.
+- Modelo de identidad/roles/capabilities: documentado como restricción arquitectónica futura.
 
-## Nuevos sistemas conceptualmente incorporados
+## Sistemas conceptualmente incorporados
 
+Además del núcleo inmobiliario:
 - impuestos y tasas;
 - presupuesto municipal;
-- permisos y licencias;
-- zonificación;
+- permisos/licencias;
+- zoning;
 - seguros;
-- mantenimiento/deterioro;
-- inspecciones;
-- contabilidad empresarial simplificada;
-- banca/crédito;
-- ejecuciones y subastas;
+- mantenimiento;
+- banca;
+- subastas;
 - insolvencia;
-- inversores y holdings futuros;
 - contratos públicos;
 - servicios urbanos;
-- transporte/accesibilidad;
-- oferta/demanda de vivienda;
 - empleo;
-- sindicatos futuros;
-- concesiones;
-- reputación multidimensional;
-- justicia futura;
+- reputación;
 - información imperfecta;
-- negociación entre actores;
-- eventos macroeconómicos.
+- macroeventos;
+- múltiples roles futuros;
+- Gameplay LOD;
+- delegación;
+- historial de carrera;
+- Career Events;
+- perspectivas política/criminal/inversora/ciudadana futuras.
 
-Estos sistemas están incorporados al diseño, no implementados.
+Estos sistemas están documentados, no implementados.
 
 ## Implementación
 - Código jugable: no.
@@ -67,6 +67,16 @@ Debe validar:
 - save/load;
 - benchmark.
 
+## Restricciones arquitectónicas que Gate 1 debe respetar
+
+Aunque no implemente multiperspectiva:
+- evitar player == company;
+- comandos con actor explícito cuando proceda;
+- ownership independiente del control;
+- organizaciones independientes;
+- no hardcodear playerIsMayor/playerIsCriminal;
+- no asumir información universal.
+
 ## Scope Gate 1
 
 Incluido:
@@ -81,7 +91,11 @@ Excluido:
 - fiscalidad avanzada;
 - banca;
 - seguros;
-- elecciones;
+- playable politician;
+- playable criminal;
+- citizen life simulation;
+- ageing/family/dynasty;
+- elections;
 - multiplayer;
 - LLM;
 - mundo procedural amplio;
@@ -89,4 +103,4 @@ Excluido:
 - contenido masivo.
 
 ## Pregunta de éxito
-¿Puede una simulación determinista, desacoplada del render, ejecutarse en navegador con rendimiento suficiente para escalar al prototipo?
+¿Puede una simulación determinista, desacoplada del render y no acoplada a una única organización del jugador, ejecutarse en navegador con rendimiento suficiente para escalar al prototipo?

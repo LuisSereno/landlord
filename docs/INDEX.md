@@ -9,6 +9,7 @@
 - product/06-ai-and-emergent-simulation.md — comportamiento, memoria y emergencia.
 - product/07-long-term-progression.md — progresión, distritos y longevidad.
 - product/08-fiscality-operations-and-public-economy.md — impuestos, tasas, licencias, mantenimiento, banca, servicios urbanos y economía pública.
+- product/09-multi-perspective-life-simulation.md — visión de persona persistente, roles transitables, Gameplay LOD y posibles perspectivas futuras.
 
 ## Ingeniería
 - engineering/01-architecture.md — arquitectura objetivo.
@@ -17,6 +18,7 @@
 - engineering/04-persistence.md — snapshots, guardados y backend.
 - engineering/05-ai-architecture.md — arquitectura de agentes.
 - engineering/06-multiplayer-future.md — preparación para multijugador.
+- engineering/07-player-identity-roles-and-capabilities.md — separación entre jugador, persona, organización, rol, control y capabilities.
 
 ## Planificación
 - planning/01-roadmap.md

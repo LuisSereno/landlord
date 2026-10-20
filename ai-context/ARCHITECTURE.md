@@ -10,6 +10,7 @@ Responsabilidad:
 - input;
 - HUD;
 - paneles;
+- overlays;
 - feedback.
 
 No debe:
@@ -25,7 +26,10 @@ Responsabilidad:
 - validaciones;
 - reloj;
 - eventos;
-- sistemas.
+- sistemas;
+- actors/organizations;
+- ownership;
+- roles/capabilities cuando sean necesarios.
 
 No depende de Phaser, React ni DOM.
 
@@ -42,12 +46,29 @@ Futuro. Servidor autoritativo.
 ## Flujo correcto
 
 User input
+-> ControlContext
 -> Command
 -> Validation
 -> State transition
 -> Domain events
 -> View projection
 -> Render
+
+## Identidad y control
+
+No asumir:
+player == company.
+
+Separar:
+- PlayerIdentity;
+- Person;
+- Organization;
+- ownership;
+- RoleAssignment;
+- ControlContext;
+- Capability.
+
+La implementación inicial puede simplificar UI y roles, pero el dominio no debe codificar que todos los recursos pertenecen a un objeto Player universal.
 
 ## Determinismo
 
@@ -66,13 +87,31 @@ Preferir definiciones tipadas externas para:
 - tenants;
 - facciones;
 - eventos;
-- upgrades.
+- upgrades;
+- roles/capabilities cuando maduren.
 
 ## Headless
 
 Simulation debe arrancar sin UI para tests, IA y balance.
 
+## Gameplay LOD
+
+Concepto futuro:
+- cambiar de rol no crea otro mundo;
+- cambia información visible, overlays, responsabilidades y delegación;
+- sistemas no activos para el jugador siguen simulándose.
+
+No construir este framework completo en Gate 1.
+
 ## Regla de dependencia
 
 UI puede depender de shared contracts.
 Simulation no depende de UI.
+
+## Antipatrones
+
+- game.player.money;
+- game.player.buildings;
+- if playerIsMayor repartido por negocio;
+- información privada disponible globalmente;
+- organizaciones modeladas como simples extensiones del usuario.

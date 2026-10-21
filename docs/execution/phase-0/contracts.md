@@ -260,6 +260,10 @@ type SnapshotV1 = {
 };
 ```
 
+Los eventos de dominio no forman parte de `SnapshotV1`. Son efímeros y se entregan a los
+consumidores de la transición actual. Los historiales que deban sobrevivir a save/load se
+modelarán como registros de dominio específicos, no como un array creciente de eventos.
+
 Reglas de canonicalización:
 
 - claves de objeto en orden lexicográfico;

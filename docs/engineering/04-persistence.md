@@ -15,8 +15,13 @@ Un save contiene:
 - relaciones;
 - economía;
 - política;
-- cola de eventos relevante;
+- registros históricos derivados relevantes;
 - metadatos.
+
+Estos registros históricos derivados no constituyen un historial ilimitado de eventos de dominio.
+Los eventos normales son efímeros y se consumen durante la transición actual. Sólo se persisten
+registros específicos cuando una regla futura, una auditoría o la memoria estructurada de una
+entidad necesita conservar el hecho.
 
 ## Snapshots
 
@@ -63,6 +68,16 @@ snapshot base + stream de comandos.
 - determinismo;
 - multijugador;
 - balance.
+
+El replay no requiere guardar todos los eventos emitidos: puede reconstruirlos desde el snapshot,
+los comandos, el tick efectivo y su orden determinista. Si un evento no es reconstruible o debe
+tener efectos históricos, debe materializarse como un registro de dominio versionado.
+
+## Eventos e IA
+
+Más eventos almacenados no implican una IA mejor. La IA debe consumir hechos y resúmenes relevantes
+(por ejemplo, deuda, reputación, conflictos, consecuencias y tendencias), con límites de tamaño y
+retención. No se debe entregar automáticamente un stream bruto completo a un agente.
 
 ## Compatibilidad
 

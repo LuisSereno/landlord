@@ -26,7 +26,7 @@ No es un remake de Constructor, Street Wars o Mob Rule. El objetivo es construir
 
 ## Estado
 
-Fase actual: cierre de rendimiento de Gate 1 (viabilidad técnica).
+Fase actual: preparación de Gate 2 (viabilidad de producto), con Gate 1 técnico cerrado.
 
 La estrategia recomendada es validar primero dos puertas:
 
@@ -35,5 +35,6 @@ La estrategia recomendada es validar primero dos puertas:
 
 Gate 1 está en `GO`: Chromium alcanza 18,6 ms de frame p95 a 10 Hz y Firefox 18 ms. El soak
 reducido de 30 minutos fue estable; la evidencia está en
-`docs/execution/phase-1/gate-1-retest-2026-10-21.md`. El punto `events`/snapshots permanece sin
-decisión; el siguiente objetivo es Gate 2.
+`docs/execution/phase-1/gate-1-retest-2026-10-21.md`. D-055 resuelve el punto `events`/snapshots:
+los eventos normales son efímeros y los historiales persistentes serán registros específicos. El
+siguiente objetivo es Gate 2.

@@ -56,6 +56,8 @@ Resuelto para Gate 1 en D-049/D-051: `PlayerIdentity -> Person`, `Organization`,
 - latencia p95 del Worker y command/response ya está instrumentada en `pnpm audit:metrics`;
 - serialización/validación p95 del snapshot técnico ya está instrumentada en `pnpm audit:metrics`;
 - el bundle web inicial supera 500 kB minificados; no bloquea Gate 1, pero queda como optimización posterior.
+- la política de eventos/snapshots está resuelta en D-055; quedan para Gate 2 los primeros
+  registros históricos concretos y su retención, no un event log ilimitado.
 
 ## Economía inmobiliaria
 - fórmula de valor de suelo;

@@ -74,3 +74,9 @@ confirma estabilidad. La decisión arquitectónica sobre eventos/snapshots perma
 Los comandos del modo benchmark son probes de transporte con validación de celda; no alteran el
 fixture fijo de 100 edificios, para preservar la comparabilidad de D-052. El comando de dominio
 `PlaceTestStructure` y su integración funcional siguen cubiertos por los tests del Worker.
+
+## Decisión posterior al retest
+
+El retest no decidió la política de persistencia de eventos. Esa decisión se cerró posteriormente
+en D-055: los eventos normales son efímeros y los historiales que deban sobrevivir a save/load se
+materializarán como registros de dominio específicos.

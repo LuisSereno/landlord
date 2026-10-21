@@ -56,6 +56,24 @@ describe("simulation snapshots", () => {
     expect(serializeSnapshot(restored)).toEqual(serializeSnapshot(uninterrupted));
   });
 
+  it("does not persist transient domain events but keeps event identity monotonic", () => {
+    const state = createInitialState(1);
+    expect(dispatchPlaceTestStructure(state, command("command-1", 10))).toMatchObject({
+      accepted: true,
+      event: { eventId: "event_00000001" },
+    });
+
+    const snapshot = serializeSnapshot(state);
+    expect("events" in snapshot).toBe(false);
+
+    const restored = restoreStateFromSnapshot(snapshot);
+    const result = dispatchPlaceTestStructure(restored, command("command-2", 11));
+    expect(result).toMatchObject({
+      accepted: true,
+      event: { eventId: "event_00000002" },
+    });
+  });
+
   it("rejects broken snapshots before callers can replace active state", () => {
     const state = createInitialState(1);
     expect(() => restoreStateFromSnapshot({ schemaVersion: 2 })).toThrow();

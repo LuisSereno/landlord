@@ -19,7 +19,7 @@
 - engineering/05-ai-architecture.md — arquitectura de agentes.
 - engineering/06-multiplayer-future.md — preparación para multijugador.
 - engineering/07-player-identity-roles-and-capabilities.md — separación entre jugador, persona, organización, rol, control y capabilities.
-- engineering/adr/README.md — decisiones arquitectónicas/técnicas detalladas; D-046 a D-052 cubren Gate 1 y D-053/D-054 fijan el arranque del pipeline artístico.
+- engineering/adr/README.md — decisiones arquitectónicas/técnicas detalladas; D-046 a D-052 cubren Gate 1, D-053/D-054 fijan el arranque del pipeline artístico y D-055 resuelve la política de eventos.
 
 ## Arte
 - art/README.md — entrada a la documentación artística y estado de gobernanza.

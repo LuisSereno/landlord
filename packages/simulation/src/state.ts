@@ -16,7 +16,6 @@ import type {
   Person,
   PlayerIdentity,
   TestStructure,
-  TestStructurePlaced,
 } from "@landlord/shared";
 import type { Seed } from "@landlord/shared";
 import { SimulationClock, type ClockState } from "./clock";
@@ -46,7 +45,6 @@ export type GameState = {
   agents: Map<AgentId, { id: AgentId; cell: { x: number; y: number } }>;
   structures: Map<StructureId, TestStructure>;
   processedCommandIds: Set<CommandId>;
-  events: TestStructurePlaced[];
   pendingCommands: Array<{
     acceptedOrder: number;
     command: import("@landlord/shared").PlaceTestStructure;
@@ -97,7 +95,6 @@ export function createInitialState(seed = 1): GameState {
     agents: new Map(),
     structures: new Map(),
     processedCommandIds: new Set(),
-    events: [],
     pendingCommands: [],
   };
 }

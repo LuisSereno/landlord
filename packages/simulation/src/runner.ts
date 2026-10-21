@@ -53,7 +53,6 @@ export function canonicalizeState(state: GameState): string {
     processedCommandIds: [...state.processedCommandIds].sort((left, right) =>
       left.localeCompare(right),
     ),
-    events: state.events,
   });
 }
 

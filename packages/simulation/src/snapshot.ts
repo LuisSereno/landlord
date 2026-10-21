@@ -144,7 +144,6 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
       ]),
     ),
     processedCommandIds: new Set(snapshot.processedCommandIds.map((id) => parseCommandId(id))),
-    events: [],
     pendingCommands: snapshot.pendingCommands.map((pending) => ({
       acceptedOrder: pending.acceptedOrder,
       command: cloneCommand(pending.command),

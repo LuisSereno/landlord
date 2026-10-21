@@ -10,7 +10,7 @@ Fecha de consolidación: 2026-10-21.
 - Plan maestro de ejecución por fases: sí.
 - Plantilla de microtareas para agentes de baja ambigüedad: sí.
 - Fase 0 de preparación: cerrada el 2026-10-20.
-- ADRs D-046 a D-052: aceptados.
+- ADRs D-046 a D-055: aceptados.
 - Charter, contratos, benchmark y backlog inicial de Gate 1: listos.
 - Historias del prototipo: sí.
 - Riesgos: sí.
@@ -70,14 +70,15 @@ Estos sistemas están documentados, no implementados.
 Gate 1 aprobado `GO` el 2026-10-21; la evidencia técnica de G1-RW-01..04 quedó reunida.
 
 ## Próximo objetivo
-Gate 1 — viabilidad técnica.
+Gate 2 — viabilidad de producto.
 
 El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista, Worker,
 snapshot v1, IndexedDB, escena/picking, flujo vertical, benchmark y soak headless están
 cerrados. El retest browser carga 500 agentes y 100 estructuras en Worker y Phaser, mide
 comandos/backlog/proyección/save-load y cubre 10 minutos a 10 Hz en Firefox y Chromium. Ambos
-cumplen los umbrales. Gate 2 queda habilitado; el punto `events`/snapshots no se ha decidido ni
-modificado.
+cumplen los umbrales. Gate 2 queda habilitado. D-055 resuelve el punto `events`/snapshots: los
+eventos normales son efímeros, mientras que la memoria histórica se materializará en registros
+específicos cuando una regla lo necesite.
 
 Debe validar:
 - render isométrico;

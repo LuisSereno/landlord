@@ -51,7 +51,10 @@ Ejemplos:
 - CrimeDetected.
 - RivalActionFailed.
 
-Los eventos permiten UI, telemetría, replay y depuración.
+Los eventos permiten UI, telemetría, replay y depuración. Son notificaciones efímeras de la
+transición aceptada: el comando los devuelve a sus consumidores, pero no se acumulan en
+`GameState` ni se guardan en `SnapshotV1`. Si un hecho debe sobrevivir a save/load, se materializa
+en un registro de dominio específico con su propio esquema y retención. Ver D-055.
 
 ## Entidades
 

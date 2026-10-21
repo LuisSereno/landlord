@@ -12,6 +12,7 @@ export type CommandRejection = {
   code: ErrorCode;
 };
 
+/** The event is delivered to current consumers and is not retained in GameState. */
 export type CommandAcceptance = {
   accepted: true;
   event: TestStructurePlaced;
@@ -86,7 +87,6 @@ export function dispatchPlaceTestStructure(
     cell: { ...command.payload.cell },
   });
   state.processedCommandIds.add(command.commandId);
-  state.events.push(event);
 
   return { accepted: true, event };
 }

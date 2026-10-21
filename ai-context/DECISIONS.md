@@ -211,3 +211,7 @@ Blender 5.2.2 LTS queda fijado como versión de preproducción para scripts, tem
 ## D-054 — Bootstrap artístico self-contained
 Estado: decidido para preproducción/Gate 2 el 2026-10-21.
 El Visual Direction Spike y las primeras fases artísticas deben poder ejecutarse sin contratar un artista como dependencia del camino crítico y con objetivo de coste directo cercano a 0 EUR. Se priorizan assets CC0, procedural generation, Building Factory, Character Factory, automatización Blender e IA para concept/reference. Los binarios de terceros permanecen en staging local hasta aprobar LFS/provenance. Ver `docs/engineering/adr/D-054-bootstrap-artistico-self-contained.md`.
+
+## D-055 — Eventos efímeros y registros persistentes derivados
+Estado: decidido el 2026-10-21.
+Los eventos de dominio normales se emiten a los consumidores del ciclo actual y no forman parte de `GameState` ni de `SnapshotV1`. La memoria histórica que afecte a reglas futuras se modelará mediante registros específicos con schema y retención propios (`TransactionLedger`, `RelationshipHistory`, `CrimeRecord`, `CareerHistory`, etc.). El replay técnico futuro podrá conservar comandos, tick efectivo y checkpoints. Ver `docs/engineering/adr/D-055-eventos-efimeros-y-registros-persistentes.md`.

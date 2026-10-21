@@ -29,7 +29,6 @@ function observableState(state: ReturnType<typeof createInitialState>) {
     counters: { ...state.idCounters },
     structures: [...state.structures.entries()],
     processed: [...state.processedCommandIds],
-    events: [...state.events],
   };
 }
 
@@ -46,7 +45,7 @@ describe("PlaceTestStructure command", () => {
       ownerOrganizationId: "org_00000001",
       cell: { x: 10, y: 12 },
     });
-    expect(state.events[0]?.eventId).toBe("event_00000001");
+    expect(result.accepted && result.event.eventId).toBe("event_00000001");
     expect(state.processedCommandIds.has(parseCommandId("command-1"))).toBe(true);
   });
 

@@ -1,6 +1,6 @@
 # Estado actual
 
-Fecha de consolidación: 2026-10-20.
+Fecha de consolidación: 2026-10-21.
 
 ## Repositorio
 - Inicializado.
@@ -18,6 +18,10 @@ Fecha de consolidación: 2026-10-20.
 - Investigación avanzada de dirección artística y pipeline: sí.
 - Art Bible / Art Pipeline v0.1: documentadas como propuesta de preproducción; no ratificadas como ADR.
 - Visual Direction Spike: definido; pendiente de ejecución.
+- Blender 5.2.2 LTS: instalado localmente y fijado como toolchain artístico inicial (D-053).
+- Librería bootstrap CC0: descargada localmente; aún no versionada en Git.
+- Estrategia artística self-contained / coste ~0 para Gate 2: decidida (D-054).
+- Building Factory / Character Factory: concepto documentado; no implementado.
 - Wiki para IA: sí.
 - Capa funcional fiscal/urbana: documentada conceptualmente.
 - Visión multiperspectiva y trayectoria vital: documentada conceptualmente.

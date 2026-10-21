@@ -183,11 +183,17 @@ Pendiente:
 - medir animation budget;
 - validar budgets de textura, memoria y descarga;
 - seleccionar packer definitivo compatible con contribución abierta;
-- fijar versión exacta de Blender;
+- implementar y validar scripts/templates contra Blender 5.2.2 LTS;
 - definir tipografías y licencias;
 - aprobar política de assets generados/asistidos por IA;
 - decidir cuándo aplicar compresión GPU y variantes HiDPI;
-- decidir si el repositorio artístico debe separarse al crecer.
+- decidir si el repositorio artístico debe separarse al crecer;
+- diseñar Building Factory y su schema de presets;
+- diseñar Character Factory y reglas de variación offline;
+- definir estructura third-party y política de incorporación de la librería bootstrap;
+- decidir política Git LFS antes de versionar binarios externos;
+- probar importación/normalización de Quaternius/Kenney en Blender 5.2.2;
+- validar que el Landlord Style Layer unifica assets de proveedores distintos.
 
 ## Legal
 - clearance de marca;

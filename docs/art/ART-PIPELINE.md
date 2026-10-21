@@ -150,7 +150,7 @@ Reevaluar `landlord-art-source` cuando:
 
 ## 5. Toolchain
 
-### 5.1 DCC principal — BASELINE
+### 5.1 DCC principal — DECIDED
 
 Blender es el candidato principal como fuente 3D autoritativa.
 
@@ -163,7 +163,18 @@ La investigación lo respalda por:
 - accesibilidad para colaboradores;
 - automatización reproducible.
 
-Versión LTS exacta: OPEN.
+Versión fijada para preproducción: **Blender 5.2.2 LTS** (D-053).
+
+Motivos:
+- es la LTS actual seleccionada para el proyecto;
+- soporte oficial de la rama 5.2 hasta julio de 2028;
+- el pipeline Blender aún no tiene deuda de scripts/archivos propios que obligue a conservar 4.5;
+- permite escribir y validar desde el inicio todos los scripts contra una única API.
+
+No actualizar automáticamente a otra versión, ni siquiera dentro de la rama LTS. Cualquier cambio de versión requiere ejecutar el smoke del pipeline y comprobar los templates y renders de referencia.
+
+Fuente oficial:
+https://www.blender.org/releases/5-2/
 
 ### 5.2 Renderer — BASELINE
 
@@ -186,6 +197,26 @@ No usar Cycles por defecto si sólo aumenta tiempos.
 
 Una herramienta comercial opcional no debe impedir contribuciones externas salvo decisión explícita.
 
+### 5.4 Bootstrap artístico local — DECIDED PARA PREPRODUCCIÓN
+
+Gate 2 y el Visual Direction Spike deben intentar avanzar sin artista contratado como dependencia del camino crítico.
+
+El proyecto dispone localmente de una librería inicial CC0 basada en Quaternius, Kenney y Poly Haven. Su inventario, URLs, uso previsto y reglas de staging se documentan en:
+
+`docs/art/BOOTSTRAP-ASSET-LIBRARY.md`
+
+Principio:
+
+```text
+CC0 base assets
++ Landlord style layer
++ procedural generation
++ Blender automation
+-> runtime assets
+```
+
+Los ZIPs y fuentes de terceros no se consideran parte del repositorio hasta cerrar Git LFS/provenance y decidir qué material necesita realmente versionarse.
+
 ---
 
 ## 6. Pinning de versiones
@@ -196,7 +227,7 @@ Propuesta:
 
 ```json
 {
-  "blender": "TBD-LTS",
+  "blender": "5.2.2",
   "texturePacker": "TBD",
   "aseprite": "TBD",
   "assetSchema": 1,
@@ -1350,7 +1381,7 @@ El modder no debe necesitar todo el DCC stack interno.
 
 ## 42. Decisiones que debe cerrar el Visual Direction Spike
 
-- versión exacta Blender;
+- compatibilidad del pipeline con futuras actualizaciones 5.2.x;
 - EEVEE como baseline;
 - camera transform;
 - relación 2:1;

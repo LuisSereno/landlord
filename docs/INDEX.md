@@ -19,7 +19,7 @@
 - engineering/05-ai-architecture.md — arquitectura de agentes.
 - engineering/06-multiplayer-future.md — preparación para multijugador.
 - engineering/07-player-identity-roles-and-capabilities.md — separación entre jugador, persona, organización, rol, control y capabilities.
-- engineering/adr/README.md — decisiones arquitectónicas detalladas; D-046 a D-052 cierran la preparación de Gate 1.
+- engineering/adr/README.md — decisiones arquitectónicas/técnicas detalladas; D-046 a D-052 cubren Gate 1 y D-053/D-054 fijan el arranque del pipeline artístico.
 
 ## Arte
 - art/README.md — entrada a la documentación artística y estado de gobernanza.
@@ -31,6 +31,7 @@
 - art/CONTRIBUTING-ART.md — reglas para contribución abierta, licencias y provenance.
 - art/VISUAL-DIRECTION-SPIKE.md — experimento que debe validar la dirección antes de producción masiva.
 - art/OPEN-DECISIONS.md — matriz de decisiones artísticas todavía no ratificadas.
+- art/BOOTSTRAP-ASSET-LIBRARY.md — librería CC0 descargada, estrategia coste ~0, Building/Character Factory y reglas de staging.
 
 ## Planificación
 - planning/01-roadmap.md

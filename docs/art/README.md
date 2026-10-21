@@ -8,6 +8,7 @@ Esta carpeta contiene la especificación artística y la ingeniería de contenid
 - [ART-PIPELINE.md](ART-PIPELINE.md) — Art Pipeline Specification v0.1: Blender, templates, render headless, naming, metadata, anchors, atlases, Phaser, CI, provenance y QA.
 - [VISUAL-DIRECTION-SPIKE.md](VISUAL-DIRECTION-SPIKE.md) — experimento que debe validar o rechazar los baselines antes de producción masiva.
 - [OPEN-DECISIONS.md](OPEN-DECISIONS.md) — matriz de parámetros todavía abiertos.
+- [BOOTSTRAP-ASSET-LIBRARY.md](BOOTSTRAP-ASSET-LIBRARY.md) — librería CC0 ya descargada, estrategia coste ~0, Building/Character Factory y reglas de staging.
 - [ASSET-NAMING.md](ASSET-NAMING.md) — referencia rápida de naming, anchors y atlases.
 - [PERFORMANCE-BUDGET.md](PERFORMANCE-BUDGET.md) — budgets preliminares.
 - [ASSET-CHECKLIST.md](ASSET-CHECKLIST.md) — Definition of Done.
@@ -41,3 +42,10 @@ No comenzar producción masiva antes de validar:
 7. integración Phaser;
 8. Art Lab;
 9. budgets de rendimiento.
+
+
+## Toolchain artístico actual
+
+- Blender 5.2.2 LTS — DECIDED, D-053.
+- Bootstrap CC0/procedural-first — DECIDED para preproducción, D-054.
+- EEVEE, camera rig, grid, atlases y animation budgets siguen sujetos al Visual Direction Spike.

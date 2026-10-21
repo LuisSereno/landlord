@@ -202,3 +202,12 @@ Protocolo y snapshot versionados en `1`, request ID separado de command ID, coma
 ## D-052 — Benchmark y budgets de Gate 1
 Estado: decidido el 2026-10-20.
 Fixture de 64×64, 500 agentes, 100 obstáculos, A* determinista, tick a 20 Hz, benchmark headless/browser y soak de dos horas con umbrales previos. Incumplir produce REWORK; modificar el criterio exige ADR. Ver `docs/engineering/adr/D-052-benchmark-gate-1.md`.
+
+
+## D-053 — Blender 5.2.2 LTS para toolchain artístico
+Estado: decidido el 2026-10-21.
+Blender 5.2.2 LTS queda fijado como versión de preproducción para scripts, templates y render headless del pipeline artístico. La rama 5.2 tiene soporte LTS oficial hasta julio de 2028. No se actualizará automáticamente de versión: cualquier cambio debe superar smoke del pipeline y golden renders. Ver `docs/engineering/adr/D-053-blender-5-2-2-lts.md`.
+
+## D-054 — Bootstrap artístico self-contained
+Estado: decidido para preproducción/Gate 2 el 2026-10-21.
+El Visual Direction Spike y las primeras fases artísticas deben poder ejecutarse sin contratar un artista como dependencia del camino crítico y con objetivo de coste directo cercano a 0 EUR. Se priorizan assets CC0, procedural generation, Building Factory, Character Factory, automatización Blender e IA para concept/reference. Los binarios de terceros permanecen en staging local hasta aprobar LFS/provenance. Ver `docs/engineering/adr/D-054-bootstrap-artistico-self-contained.md`.

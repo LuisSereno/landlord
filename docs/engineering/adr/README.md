@@ -15,3 +15,6 @@ Una decisión aceptada sólo se modifica mediante un ADR posterior que la sustit
 - [D-050 — Phaser para el spike](D-050-phaser-gate-1.md)
 - [D-051 — Contratos, protocolo y snapshot](D-051-contratos-gate-1.md)
 - [D-052 — Benchmark y umbrales](D-052-benchmark-gate-1.md)
+
+- [D-053 — Blender 5.2.2 LTS para toolchain artístico](D-053-blender-5-2-2-lts.md)
+- [D-054 — Bootstrap artístico self-contained](D-054-bootstrap-artistico-self-contained.md)

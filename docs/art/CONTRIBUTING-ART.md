@@ -65,3 +65,21 @@ La investigación recomienda LFS para binarios fuente grandes como `.blend`, `.s
 - completar [ASSET-CHECKLIST.md](ASSET-CHECKLIST.md);
 - declarar provenance y licencia;
 - adjuntar comparación visual o captura de Art Lab cuando exista.
+
+
+## Librería bootstrap
+
+El proyecto mantiene una selección inicial de assets externos para preproducción en:
+
+`docs/art/BOOTSTRAP-ASSET-LIBRARY.md`
+
+Aunque los packs seleccionados se han elegido por licencias permisivas/CC0, cada incorporación al repositorio debe conservar provenance y evidencia de licencia.
+
+No subir automáticamente archivos descargados sólo porque sean gratuitos.
+
+Antes de introducir fuentes binarias:
+- confirmar licencia del recurso concreto;
+- registrar URL/origen;
+- aprobar ubicación;
+- aplicar política LFS cuando corresponda;
+- evitar duplicar archivos que no sean necesarios para reproducir el pipeline.

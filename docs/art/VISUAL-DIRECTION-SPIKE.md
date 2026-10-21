@@ -4,6 +4,42 @@
 >
 > Objetivo: reducir incertidumbre antes de producir arte masivamente y convertir propuestas de la Art Bible/Pipeline en decisiones medibles.
 
+## Librería bootstrap disponible
+
+El propietario del proyecto ya dispone localmente de la librería documentada en:
+
+`docs/art/BOOTSTRAP-ASSET-LIBRARY.md`
+
+Incluye:
+- módulos urbanos Quaternius;
+- personajes base y animaciones Quaternius;
+- kits industrial/commercial/roads de Kenney;
+- UI/UI audio de Kenney;
+- materiales 2K de Poly Haven;
+- Blender 5.2.2 LTS.
+
+### Regla de comparación
+
+Las tres direcciones visuales no deben ser simplemente tres packs distintos.
+
+Siempre que sea posible deben partir del mismo kit funcional y modificar deliberadamente:
+
+- proporciones;
+- materiales;
+- color;
+- lighting;
+- era adaptation;
+- props;
+- grime;
+- composición;
+- post.
+
+El aspecto bruto de Quaternius/Kenney es materia prima, no una dirección visual candidata por sí mismo.
+
+### Prueba obligatoria de independencia
+
+Al menos una escena del spike debe combinar assets de dos proveedores distintos y demostrar que el Landlord Style Layer puede hacerlos coexistir de forma coherente.
+
 ## Hipótesis a comparar
 
 Preparar 2–3 direcciones originales que compartan el mismo contenido funcional pero varíen de forma controlada en:

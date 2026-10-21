@@ -1,297 +1,330 @@
 # Art Bible — Landlord
 
-> Version: 0.1
+> Versión: 0.1
 >
-> Status: preproduction specification.
+> Estado: especificación de preproducción.
 >
-> Purpose: define how Landlord should look, what visual information must be readable in play, and which constraints all world, character, UI and VFX assets must respect.
+> Propósito: definir cómo debe verse Landlord, qué información visual debe poder leerse durante la partida y qué restricciones deben respetar los assets de mundo, personajes, UI y VFX.
 >
-> Governance: this document distinguishes accepted project decisions from provisional art baselines. Any value marked BASELINE must be validated by the Visual Direction Spike before mass production.
+> Gobernanza: este documento distingue entre decisiones ya aceptadas y baselines artísticos provisionales. Todo valor marcado como BASELINE debe validarse mediante el Visual Direction Spike antes de entrar en producción masiva.
 
 ---
 
-## 1. Status legend
+## 1. Leyenda de estados
 
-Every rule in this document belongs to one of these states:
+Cada regla o parámetro de este documento pertenece a uno de estos estados:
 
-- **DECIDED** — backed by an accepted project decision and treated as current source of truth.
-- **BASELINE** — recommended working value for preproduction; must be measured or visually validated before becoming fixed.
-- **OPEN** — unresolved; do not make irreversible production choices around it.
+- **DECIDED** — respaldado por una decisión vigente del proyecto y tratado como fuente de verdad.
+- **BASELINE** — valor de trabajo recomendado para preproducción; debe medirse o validarse visualmente antes de congelarse.
+- **OPEN** — no resuelto; no debe provocar decisiones irreversibles.
+- **FUTURE** — deliberadamente diferido a una fase posterior.
 
-When this document conflicts with \`ai-context/DECISIONS.md\`, the newest accepted decision wins.
-
----
-
-## 2. Product visual objective
-
-### 2.1 North star
-
-> **A living industrial city, attractive but morally ambiguous, presented as a cinematic isometric model where wealth, decline, power and crime can be read before opening a panel.**
-
-Landlord is not trying to reproduce the exact visual language of any existing game. It must be immediately readable as a management game while building an original identity.
-
-### 2.2 Visual goals
-
-The art must make these questions answerable at a glance:
-
-- What kind of district am I looking at?
-- Which buildings are residential, commercial, industrial, civic or illicit?
-- Which assets are mine, neutral or controlled by a rival?
-- Is a building prospering, deteriorating, under construction or abandoned?
-- Is an area attractive, unsafe, congested, expensive or politically contested?
-- Which characters matter right now?
-- Where is the player expected to click next?
-
-### 2.3 Non-goals
-
-Landlord does not target:
-
-- photorealistic urban rendering;
-- unrestricted free-camera 3D;
-- visual density that requires constant pausing to understand;
-- pixel art as the primary visual direction;
-- UI styled as a direct recreation of late-1990s strategy games;
-- historical reproduction so exact that it limits systemic readability;
-- visual spectacle at the cost of simulation clarity.
+Si este documento entra en conflicto con `ai-context/DECISIONS.md`, prevalece la decisión aceptada más reciente.
 
 ---
 
-## 3. Visual pillars
+## 2. Objetivo visual del producto
 
-### 3.1 Legibility before detail — DECIDED AS PRINCIPLE
+### 2.1 North Star
 
-A building should be identifiable by silhouette and massing before the player reads signage.
+> **Una ciudad industrial viva, atractiva pero moralmente ambigua, representada como una maqueta cinematográfica isométrica en la que riqueza, deterioro, poder y crimen pueden leerse antes de abrir un panel.**
 
-Detail is valuable only when it survives the intended camera distance or reinforces material, class, function or condition.
+Landlord no busca reproducir el lenguaje visual exacto de ningún juego existente. Debe ser inmediatamente legible como juego de gestión y, al mismo tiempo, construir una identidad propia.
 
-### 3.2 History without documentary literalism — BASELINE
+### 2.2 Preguntas que el arte debe responder
 
-The working setting is a fictional transatlantic city inspired by approximately 1925–1940.
+A simple vista, el jugador debería poder inferir:
 
-The goal is to use a recognizable industrial-modern vocabulary:
+- qué tipo de distrito está observando;
+- qué edificios son residenciales, comerciales, industriales, cívicos o ilícitos;
+- qué propiedades son propias, neutrales o controladas por rivales;
+- si un edificio prospera, se deteriora, está en construcción o abandonado;
+- si una zona es atractiva, insegura, congestionada, cara o políticamente conflictiva;
+- qué personajes o vehículos son relevantes;
+- dónde está la siguiente interacción útil.
 
-- brick industry;
-- early reinforced concrete;
-- stone civic architecture;
-- modest Art Deco influence;
-- trams and early motor traffic;
-- signage and print culture;
-- warehouses, row housing, hotels, workshops and municipal buildings.
+### 2.3 No objetivos
 
-The city must be fictional. It should evoke an era, not reproduce a real city or franchise.
+Landlord no persigue:
 
-### 3.3 Material caricature — BASELINE
-
-Forms may be moderately exaggerated, but materials should feel materially credible.
-
-Core material families:
-
-- red/brown brick;
-- warm plaster;
-- cut stone;
-- dark painted steel;
-- brass;
-- timber;
-- asphalt;
-- glass;
-- soot;
-- aged paper and painted signage.
-
-### 3.4 The economy is visible — DESIGN RULE
-
-Economic state must alter the city visually.
-
-Examples:
-
-- prosperity -> cleaner facades, improved signage, better lighting, planted streets;
-- low-income pressure -> exposed brick, cheap repairs, clutter, smoke, worn materials;
-- vacancy -> boarded openings, dark interiors, faded signs;
-- speculative growth -> scaffolding, hoists, active deliveries, partial construction;
-- decline -> stains, broken fixtures, patched roofs, debris.
-
-### 3.5 Darkness with humor — TONE RULE
-
-Crime, corruption and inequality can be present without turning the whole presentation into monochrome misery.
-
-Humor may come from animation, timing, signage, exaggerated silhouettes, props and character reactions.
-
-Humor must not depend on copying recognizable characters or visual gags from existing IP.
+- fotorrealismo urbano;
+- cámara 3D completamente libre;
+- densidad visual que obligue a pausar para comprender;
+- pixel art como dirección principal;
+- una UI que imite tecnológicamente a juegos de finales de los 90;
+- reconstrucción histórica tan literal que limite la claridad sistémica;
+- espectáculo visual a costa de la legibilidad de la simulación.
 
 ---
 
-## 4. Reference framework
+## 3. Pilares visuales
 
-References are used to extract principles, never to copy execution.
+### 3.1 Legibilidad antes que detalle — DECIDED COMO PRINCIPIO
 
-| Reference family | Useful principle | Avoid |
+Un edificio debe poder identificarse por silueta y masa antes de que el jugador lea un cartel.
+
+El detalle sólo aporta valor si:
+
+- sobrevive a la distancia real de juego;
+- ayuda a reconocer función, clase, material o estado;
+- refuerza la identidad visual.
+
+### 3.2 Historia sin documentalismo — BASELINE
+
+El setting de trabajo propone una ciudad ficticia transatlántica inspirada aproximadamente en 1925–1940.
+
+Vocabulario visual candidato:
+
+- industria de ladrillo;
+- hormigón temprano;
+- piedra cívica;
+- influencia Art Déco moderada;
+- tranvías y automóviles tempranos;
+- cultura de prensa y cartelería;
+- almacenes, row houses, hoteles, talleres y edificios municipales.
+
+Debe evocar una época sin reproducir literalmente una ciudad real.
+
+### 3.3 Caricatura material — BASELINE
+
+Las formas pueden exagerarse moderadamente, pero los materiales deben resultar convincentes.
+
+Familias principales:
+
+- ladrillo rojizo/marrón;
+- yeso cálido;
+- piedra tallada;
+- acero pintado oscuro;
+- latón;
+- madera;
+- asfalto;
+- vidrio;
+- hollín;
+- papel envejecido y cartelería pintada.
+
+### 3.4 La economía se ve — REGLA DE DISEÑO
+
+El estado económico debe alterar visualmente la ciudad.
+
+Ejemplos:
+
+- prosperidad → fachadas más limpias, señalética mejor, iluminación, vegetación;
+- presión económica → reparaciones baratas, ladrillo expuesto, desorden, humo, desgaste;
+- vacancy → persianas/tablones, interiores oscuros, rótulos apagados;
+- crecimiento especulativo → obra, andamios, suministros, actividad logística;
+- deterioro → manchas, tejados parcheados, cristales rotos, basura, elementos ausentes.
+
+### 3.5 Oscuridad con humor — REGLA DE TONO
+
+La ciudad puede contener crimen, corrupción e desigualdad sin convertirse en un mundo monocromático y permanentemente deprimente.
+
+El humor puede proceder de:
+
+- timing de animación;
+- reacciones de personajes;
+- props;
+- señalética original;
+- exageración de silueta;
+- pequeñas situaciones emergentes.
+
+Nunca debe depender de copiar personajes o gags reconocibles de otras IP.
+
+---
+
+## 4. Marco de referencias
+
+Las referencias sirven para extraer principios, no para copiar soluciones.
+
+| Referencia | Principio útil | Qué evitar |
 |---|---|---|
-| Constructor / Mob Rule | strong silhouettes, readable bitmap isometric scenes, personality | copied buildings, characters, UI, iconography or trade dress |
-| Anno 1800 | material richness, modular architecture, class progression visible in the city | full real-time 3D detail budget |
-| SimCity 2000/3000/4 | readable urban layers and tile-based structure | retro resolution as an end goal |
-| Tropico | political/economic state expressed through buildings and characters | tropical identity |
-| Frostpunk | environment and VFX as product identity | darkness that hides economic information |
-| Prison Architect / RimWorld | form-before-detail and systemic clarity | over-abstraction of premium assets |
-| Two Point | exaggerated forms and readable characters | fully cartoon tone |
-| Cities: Skylines | asset modularity, metadata discipline, content ecosystem thinking | photorealistic 3D scope |
-| Banished | coherent materials and organic settlement readability | high-cost real-time content scope |
+| Constructor / Mob Rule | siluetas fuertes, escenas isométricas bitmap legibles, personalidad | edificios, personajes, UI, iconos o trade dress reconocibles |
+| Anno 1800 | riqueza material, modularidad arquitectónica, progreso social visible | presupuesto de detalle propio de 3D completo |
+| SimCity 2000/3000/4 | capas urbanas legibles y estructura basada en tiles | convertir la baja resolución histórica en objetivo |
+| Tropico | política/economía visibles mediante ciudad y personajes | identidad tropical concreta |
+| Frostpunk | atmósfera y VFX como identidad de producto | oscuridad que oculte datos económicos |
+| Prison Architect / RimWorld | forma antes que detalle, claridad sistémica | abstracción excesiva de assets premium |
+| Two Point | exageración controlada, personajes claros | tono totalmente cartoon |
+| Cities: Skylines | disciplina de assets, metadata y ecosistema de contenido | perseguir fotorrealismo 3D |
+| Banished | coherencia de materiales y asentamiento orgánico | alcance de producción 3D demasiado caro |
 
-### 4.1 Anti-copy rule — DECIDED
+### 4.1 Regla anti-copia — DECIDED
 
-Landlord is an original IP.
+Landlord es una IP original.
 
-Do not recreate or trace:
+No se deben recrear o calcar:
 
-- franchise buildings;
-- characters;
-- maps;
-- UI layouts;
-- icons;
-- logos;
-- signs;
-- music;
-- dialogue;
-- animation poses;
-- color arrangements that function as recognizable trade dress.
+- edificios reconocibles de franquicias;
+- personajes;
+- mapas;
+- layouts de interfaz;
+- iconografía;
+- logotipos;
+- carteles;
+- música;
+- diálogos;
+- poses;
+- paletas/composiciones que actúen como trade dress.
 
-Reference images are for comparison and critique only.
+Las capturas de referencia sirven únicamente para análisis comparativo.
 
 ---
 
-## 5. Perspective and camera
+## 5. Perspectiva y cámara
 
-### 5.1 Representation — DECIDED
+### 5.1 Representación — DECIDED
 
-The world is represented as **2.5D isometric/dimetric**.
+El mundo se presenta en **2.5D isométrico/dimétrico**.
 
-### 5.2 Projection baseline — BASELINE
+### 5.2 Proyección — BASELINE
 
-Proposed camera:
+Propuesta inicial:
 
-- projection: orthographic;
-- azimuth: approximately 45 degrees;
-- elevation: approximately 30 degrees over the horizon;
+- proyección: ortográfica;
+- azimut: ~45°;
+- elevación: ~30° sobre el horizonte;
 - roll: 0;
-- projected logical cell ratio: 2:1.
+- relación proyectada de celda lógica: 2:1.
 
-The exact transform is not yet frozen. It must be calibrated through the Visual Direction Spike.
+Los valores exactos se congelarán únicamente tras calibrar el Visual Direction Spike.
 
-### 5.3 Grid baseline — BASELINE
+### 5.3 Grid visual — BASELINE
 
-Working visual reference:
+Referencia de trabajo:
 
-\`\`\`text
-1 logical cell
--> 128 x 64 px projected footprint at reference zoom
+```text
+1 celda lógica
+-> footprint proyectado de 128 x 64 px al zoom de referencia
 
-master render reference
--> 256 x 128 px equivalent per cell
-\`\`\`
+master de render
+-> equivalente 256 x 128 px por celda
+```
 
-This does not constrain full sprite height. Tall buildings may extend several hundred pixels above their footprint.
+La altura total del sprite no queda limitada por esas dimensiones.
 
-### 5.4 Rotation — OPEN
+### 5.4 Rotación — OPEN
 
-Vertical Slice baseline assumes a fixed camera orientation.
+Para Vertical Slice se asume inicialmente una cámara fija.
 
-Therefore:
+Consecuencias:
 
-- buildings require one canonical view initially;
-- character locomotion may still use multiple directional sprites;
-- four 90-degree building views are only produced if gameplay later requires building rotation or camera rotation.
+- un edificio necesita una sola vista canónica;
+- personajes sí pueden requerir múltiples direcciones;
+- sólo se generarán R0/R90/R180/R270 si gameplay o cámara lo justifican.
 
-Do not pay for four building orientations before that requirement exists.
-
----
-
-## 6. Scale
-
-### 6.1 Logical versus visual scale
-
-Gameplay scale and visual scale are related but not identical.
-
-The player must believe the city is coherent even when:
-
-- doors are slightly larger than strict architectural scale;
-- characters are enlarged for readability;
-- road widths are adjusted to support navigation;
-- signs are oversized to survive zoom.
-
-### 6.2 Physical baseline — OPEN
-
-Current proposal:
-
-\`\`\`text
-1 Blender unit = 1 metre
-1 logical cell ~ 4 x 4 metres
-\`\`\`
-
-This must be validated against pedestrian scale, vehicle scale, row-house footprint, industrial density and street width.
-
-No artist should manually rescale an asset simply because it looks better in one screenshot.
+No producir cuatro vistas de cada edificio “por si acaso”.
 
 ---
 
-## 7. Shape language
+## 6. Escala
 
-### 7.1 Residential
+### 6.1 Escala lógica y escala visual
 
-Lower-income:
+Gameplay y apariencia deben ser coherentes, pero no idénticos.
 
-- narrower frontage;
-- stacked repetition;
-- asymmetric repairs;
-- visible chimneys and service elements;
-- simpler roofs;
-- higher prop clutter.
+Se permiten ajustes deliberados:
 
-Middle-income:
+- puertas ligeramente sobredimensionadas;
+- personajes algo mayores de lo estrictamente real;
+- carreteras adaptadas a legibilidad;
+- carteles reforzados visualmente.
 
-- stronger facade rhythm;
-- more regular windows;
-- awnings;
-- cleaner masonry;
-- restrained ornament.
+### 6.2 Escala física — OPEN
 
-Higher-income:
+Propuesta:
 
-- symmetric composition;
-- stone or decorated plaster;
-- brass;
-- larger windows;
-- controlled greenery;
-- pronounced entrances.
+```text
+1 unidad Blender = 1 metro
+1 celda Landlord ≈ 4 x 4 metros
+```
 
-### 7.2 Commercial
+Debe validarse contra:
 
-Commercial silhouettes should advertise function through massing and frontage.
+- tamaño de personajes;
+- vehículos;
+- row houses;
+- edificios industriales;
+- anchos de calle;
+- densidad urbana.
 
-Examples:
+Ningún artista debe “escalar a ojo” un asset individual para una captura concreta.
 
-- hotel -> vertical mass + strong entrance/canopy;
-- restaurant -> frontage + awnings + signs;
-- office -> repetitive vertical window rhythm;
-- cinema/theatre -> marquee or dominant frontage volume;
-- retail -> transparent or sign-heavy ground floor.
+---
+
+## 7. Lenguaje de formas
+
+### 7.1 Residencial
+
+Baja renta:
+
+- fachadas estrechas;
+- repetición vertical;
+- reparaciones asimétricas;
+- chimeneas y servicios visibles;
+- cubierta simple;
+- más clutter.
+
+Clase media:
+
+- ritmo de fachada claro;
+- ventanas regulares;
+- toldos;
+- ladrillo limpio;
+- ornamentación contenida.
+
+Alta renta:
+
+- mayor simetría;
+- piedra/yeso decorado;
+- latón;
+- vidrio;
+- accesos destacados;
+- vegetación cuidada.
+
+### 7.2 Comercial
+
+La función debe leerse mediante volumen y fachada.
+
+Ejemplos:
+
+- hotel → masa vertical + entrada/marquesina;
+- restaurante → fachada + toldos + señalética;
+- oficina → repetición vertical de huecos;
+- cine/teatro → marquesina o volumen frontal dominante;
+- retail → planta baja visualmente abierta.
 
 ### 7.3 Industrial
 
-Industrial buildings should prioritize long horizontal massing, stacks/vents, loading areas, large doors, tanks/sheds/annexes and visible smoke/steam attachment points.
+Prioridades:
 
-### 7.4 Civic
+- masa horizontal;
+- chimeneas, vents o rooftop equipment;
+- carga/descarga;
+- grandes puertas;
+- depósitos, anexos;
+- puntos previstos para humo/vapor.
 
-Civic buildings should communicate institutional power through symmetry, heavier materials, stairs/plinths, vertical emphasis, controlled ornament and cleaner surroundings.
+### 7.4 Cívico
+
+Debe comunicar institución y autoridad mediante:
+
+- simetría;
+- materiales pesados;
+- escalinata/plinto;
+- verticalidad;
+- ornamentación controlada;
+- entorno más ordenado.
 
 ---
 
-## 8. Materials
+## 8. Materiales
 
-### 8.1 Material library principle
+### 8.1 Biblioteca de materiales
 
-Prefer reusable material families to one-off textures.
+Preferir familias reutilizables frente a texturas únicas por asset.
 
-Proposed shared families:
+Ejemplo:
 
-\`\`\`text
+```text
 mat_brick_red_01
 mat_brick_dirty_01
 mat_plaster_warm_01
@@ -301,101 +334,114 @@ mat_brass_01
 mat_asphalt_01
 mat_wood_dark_01
 mat_glass_smoked_01
-\`\`\`
+```
 
-### 8.2 Material readability
+### 8.2 Regla de legibilidad
 
-At game scale:
+A escala de juego:
 
-- roughness differences matter more than micro-surface noise;
-- window grouping matters more than individual mullions;
-- soot patterns matter more than tiny decals;
-- hue/value separation matters more than high-frequency texture detail.
+- la masa importa más que el microdetalle;
+- la agrupación de ventanas importa más que sus perfiles;
+- el hollín y grandes manchas importan más que decals microscópicos;
+- la separación de valor/color importa más que ruido de alta frecuencia.
 
 ---
 
-## 9. Palette
+## 9. Paleta
 
-### 9.1 Working tokens — BASELINE
+### 9.1 Tokens preliminares — BASELINE
 
-| Token | Value | Intended role |
+| Token | Valor | Uso |
 |---|---:|---|
-| \`coal\` | \`#25282A\` | roof, steel, dark neutral |
-| \`warm_plaster\` | \`#D6C4A1\` | plaster, light masonry |
-| \`brick\` | \`#8C503D\` | residential/industrial brick |
-| \`brass\` | \`#B08A50\` | wealth, signage, accents |
-| \`petrol\` | \`#315A5E\` | transport/industrial accents |
-| \`olive\` | \`#696C52\` | utility/environment accents |
-| \`paper\` | \`#E8DFC8\` | documents and UI surfaces |
-| \`danger\` | \`#A74339\` | warning/police/loss |
+| `coal` | `#25282A` | acero, tejados, neutro oscuro |
+| `warm_plaster` | `#D6C4A1` | yeso/piedra clara |
+| `brick` | `#8C503D` | vivienda e industria |
+| `brass` | `#B08A50` | riqueza, señalética, acentos |
+| `petrol` | `#315A5E` | industria/transporte |
+| `olive` | `#696C52` | utilities/entorno |
+| `paper` | `#E8DFC8` | documentos/UI |
+| `danger` | `#A74339` | alerta/policía/pérdida |
 
-These are art-direction tokens, not a restricted world palette.
+No constituyen una paleta cerrada del mundo.
 
-### 9.2 Value hierarchy
+### 9.2 Jerarquía de valor
 
-At reference zoom:
+En zoom de referencia:
 
-1. interactable entity silhouette;
-2. ownership/selection feedback;
-3. functional building class;
-4. condition/state;
-5. surface detail.
+1. silueta interactiva;
+2. selección/ownership;
+3. categoría funcional;
+4. estado/condición;
+5. detalle superficial.
 
-A facade texture must never overpower selection or state feedback.
-
----
-
-## 10. Lighting and weather
-
-### 10.1 Canonical lighting — BASELINE
-
-Proposed production lighting:
-
-- fixed key from visual north-west;
-- shadows generally toward visual south-east;
-- soft ambient fill;
-- slightly warm neutral daylight;
-- restrained ambient occlusion;
-- no crushed blacks;
-- transparent render background.
-
-### 10.2 Day/night — OPEN
-
-A true physically moving sun is not part of the current prerender baseline.
-
-If a night presentation is needed in v1, prefer grading, window/emissive variants, overlays and VFX.
-
-A full solar cycle would require a specific feature decision.
-
-### 10.3 Weather
-
-Weather should add identity and information without hiding gameplay.
-
-Candidates:
-
-- rain;
-- fog;
-- industrial haze;
-- puddles/road sheen;
-- smoke direction changes.
+Una textura nunca debe competir con selección o feedback.
 
 ---
 
-## 11. Terrain, parcels and roads
+## 10. Iluminación y clima
 
-### 11.1 Logical separation — DESIGN RULE
+### 10.1 Iluminación canónica — BASELINE
 
-Never infer gameplay collision or occupancy from sprite transparency.
+Propuesta:
 
-\`\`\`text
+- key fijo desde noroeste visual;
+- sombras hacia sureste visual;
+- fill ambiental suave;
+- daylight neutro-cálido;
+- AO discreto;
+- evitar negros empastados;
+- fondo transparente.
+
+### 10.2 Día/noche — OPEN
+
+No se asume un sol físico móvil en v0.1.
+
+Si se necesita noche:
+
+- grading;
+- variantes de ventanas/emissive;
+- overlays;
+- VFX;
+- estados precomputados.
+
+Un ciclo solar completo requerirá una decisión específica.
+
+### 10.3 Clima
+
+Candidatos:
+
+- lluvia;
+- niebla;
+- neblina industrial;
+- reflejo en asfalto;
+- variaciones de humo.
+
+El clima debe reforzar identidad sin ocultar información.
+
+---
+
+## 11. Terreno, parcelas y carreteras
+
+### 11.1 Separación visual/lógica — REGLA
+
+Nunca derivar colisión u ocupación de la transparencia de un sprite.
+
+```text
 visual tile != logical cell
-\`\`\`
+```
 
-Logical data must define walkability, buildability, road, terrain type, district, occupancy, zoning and ownership.
+La lógica debe definir:
 
-### 11.2 Terrain baseline
+- walkable;
+- buildable;
+- road;
+- terrain;
+- district;
+- occupancy;
+- zoning;
+- ownership.
 
-Initial families:
+### 11.2 Familias iniciales
 
 - grass;
 - dirt;
@@ -405,122 +451,127 @@ Initial families:
 - industrial ground;
 - water.
 
-### 11.3 Roads
+### 11.3 Carreteras
 
-Roads should be modular:
+Composición modular:
 
-\`\`\`text
+```text
 base
 + road surface
 + curb
 + markings
 + decals
 + props
-\`\`\`
+```
 
-Do not create a unique bitmap for every possible street combination.
+Evitar un bitmap exclusivo por combinación de calle.
 
 ---
 
-## 12. Buildings
+## 12. Edificios
 
-### 12.1 Building visual states
+### 12.1 Estados mínimos candidatos
 
-Minimum candidate states:
-
-\`\`\`text
+```text
 planned
 foundation
 construction_50
 complete
 damaged
-\`\`\`
+```
 
-Optional per asset:
+Opcionales:
 
-\`\`\`text
+```text
 abandoned
 upgraded_1
 upgraded_2
-\`\`\`
+```
 
-### 12.2 Condition ladder
+### 12.2 Escala de condición
 
-World-readable condition model:
-
-\`\`\`text
+```text
 pristine
 used
 neglected
 damaged
 abandoned
-\`\`\`
+```
 
-Not every level needs a unique mesh. Use combinations of material swaps, decals, broken/removed props, boarded openings, lighting changes, vegetation, smoke/dust and signage.
+No todos requieren una malla distinta.
 
-### 12.3 Silhouette test
+Usar combinaciones de:
 
-A building passes silhouette review if an informed player can distinguish its broad functional class at 50–75% zoom without signage.
+- material swaps;
+- decals;
+- props ausentes/rotos;
+- huecos tapiados;
+- iluminación;
+- vegetación;
+- humo/polvo;
+- señalética.
 
-### 12.4 Signage
+### 12.3 Prueba de silueta
 
-Use signage to reinforce function, never as the only identifier.
+Un edificio supera revisión si su categoría general puede distinguirse a 50–75% de zoom sin leer carteles.
 
-Avoid baked localization-sensitive text wherever possible.
+### 12.4 Señalética
+
+La señalética refuerza función, nunca debe ser el único identificador.
+
+Evitar texto localizado bakeado.
 
 ---
 
-## 13. Characters
+## 13. Personajes
 
-### 13.1 Character style — BASELINE
+### 13.1 Estilo — BASELINE
 
-Moderately stylized proportions.
+Proporción moderadamente estilizada.
 
-Objectives:
+Objetivos:
 
-- readable occupation/archetype;
-- strong pose;
-- oversized key props where necessary;
-- clear facing direction;
-- controlled clothing contrast.
+- ocupación/arquetipo visible;
+- pose clara;
+- props importantes sobredimensionados cuando ayuden;
+- facing reconocible;
+- contraste de ropa controlado.
 
-### 13.2 Directional baseline — BASELINE
+### 13.2 Direcciones — BASELINE
 
-Candidate directions:
-
-\`\`\`text
+```text
 N  NE  E  SE  S  SW  W  NW
-\`\`\`
+```
 
-Do not assume mirroring is safe.
+No asumir mirroring seguro.
 
-Optional manifest flag:
+Flag opcional:
 
-\`\`\`json
+```json
 {
   "mirrorSafe": true
 }
-\`\`\`
+```
 
-### 13.3 Animation budget — BASELINE
+### 13.3 Presupuesto de animación — BASELINE
 
 | Clip | Frames | FPS | Loop |
 |---|---:|---:|---|
-| idle | 6–8 | 6 | yes |
-| walk | 8 | 10–12 | yes |
-| carry | 8 | 10–12 | yes |
-| work | 10–16 | 10–12 | yes |
-| talk | 6–10 | 8 | yes |
+| idle | 6–8 | 6 | sí |
+| walk | 8 | 10–12 | sí |
+| carry | 8 | 10–12 | sí |
+| work | 10–16 | 10–12 | sí |
+| talk | 6–10 | 8 | sí |
 | interact | 8–12 | 10 | no |
-| injured | 4–8 | 6 | situational |
+| injured | 4–8 | 6 | según caso |
 
-These are production budgets, not engine restrictions.
+Son presupuestos de producción, no limitaciones del motor.
 
-### 13.4 Character modularity
+### 13.4 Modularidad
 
-Prefer offline modularity:
+Preferencia offline:
 
-\`\`\`text
+```text
 base rig
 + body preset
 + clothing preset
@@ -528,68 +579,78 @@ base rig
 + palette preset
 -> batch render
 -> final sprite
-\`\`\`
+```
 
-Runtime layering should be reserved for carried items, selection, limited accessories, faction markers and temporary status.
+Runtime layering sólo para necesidades específicas:
+
+- objeto transportado;
+- selección;
+- accesorio puntual;
+- marcador de facción;
+- estado temporal.
 
 ---
 
-## 14. Vehicles and moving props
+## 14. Vehículos y props móviles
 
-Vehicles must remain readable at mid/far zoom.
+Prioridades:
 
-Visual priorities:
+1. silueta;
+2. clase;
+3. identidad de servicio/facción;
+4. condición;
+5. trim fino.
 
-1. body silhouette;
-2. vehicle class;
-3. faction/service identity where relevant;
-4. condition;
-5. fine trim.
+Animar sólo lo necesario:
 
-Animation should be minimal unless gameplay requires more: rolling, steering/facing changes, exhaust, lights and load/unload effects.
+- rodadura;
+- orientación;
+- exhaust;
+- luces;
+- carga/descarga.
 
 ---
 
 ## 15. VFX
 
-### 15.1 Priority order
+### 15.1 Prioridad
 
-\`\`\`text
-1. information
+```text
+1. información
 2. feedback
-3. atmosphere
-4. spectacle
-\`\`\`
+3. atmósfera
+4. espectáculo
+```
 
-### 15.2 Sprite VFX candidates
+### 15.2 VFX sprite
 
-- construction dust;
-- smoke;
-- sparks;
-- steam;
-- fire;
-- paper/leaves;
-- splashes;
-- small explosions.
+- polvo de obra;
+- humo;
+- chispas;
+- vapor;
+- fuego;
+- hojas/papel;
+- salpicaduras;
+- explosiones pequeñas.
 
-### 15.3 Runtime/procedural feedback
+### 15.3 Feedback runtime/procedural
 
 - selection ring;
 - placement footprint;
 - zoning;
 - ownership;
 - influence;
-- path;
-- area mask;
-- directional arrows.
+- rutas;
+- máscaras de área;
+- flechas.
 
-Avoid large stacks of transparent particles covering the scene.
+Evitar capas de transparencias grandes que oculten gameplay.
 
 ---
 
-## 16. Overlays and systemic readability
+## 16. Overlays y legibilidad sistémica
 
-Core overlay families:
+Familias principales:
 
 - ownership;
 - property value;
@@ -602,145 +663,149 @@ Core overlay families:
 - demand;
 - pollution/industrial pressure.
 
-Rules:
+Reglas:
 
-- overlays must have an off state;
-- values should remain interpretable without relying on red/green alone;
-- selected entities remain visible over overlays;
-- legends remain stable across sessions;
-- overlay color families should not conflict with faction ownership colors.
+- siempre existe estado OFF;
+- no depender sólo de rojo/verde;
+- selección visible sobre overlay;
+- leyenda estable;
+- evitar conflicto con colores de facciones.
 
 ---
 
-## 17. UI visual language
+## 17. Lenguaje visual de UI
 
-### 17.1 Technology — DECIDED BY ARCHITECTURE
+### 17.1 Tecnología — DECIDED POR ARQUITECTURA
 
-HUD, management panels, tables and complex screens use React/DOM.
+HUD, paneles, tablas y pantallas complejas se implementan en React/DOM.
 
-World entities remain in the game renderer.
+Las entidades del mundo permanecen en Phaser.
 
-### 17.2 Visual theme — BASELINE
+### 17.2 Tema visual — BASELINE
 
-UI should combine:
+Combinar:
 
-- paper/document cues;
-- brass/metal accents;
-- newspaper/print culture;
-- modern information hierarchy.
+- papel/documento;
+- metal/latón;
+- prensa;
+- jerarquía informativa moderna.
 
-The UI should evoke the setting without becoming a novelty interface.
+Evitar una interfaz “disfrazada” que perjudique datos.
 
-### 17.3 Typography
+### 17.3 Tipografía
 
-Use three roles:
+Roles:
 
-\`\`\`text
+```text
 display
--> branding, selected headings
+-> branding/títulos puntuales
 
 ui sans
--> operational text
+-> texto operativo
 
 tabular numeric
--> finance and statistics where useful
-\`\`\`
+-> finanzas/estadísticas
+```
 
-Exact families remain OPEN until licensing and localization review.
+Familias exactas: OPEN hasta revisar licencia/localización.
 
-### 17.4 Localization rule
+### 17.4 Localización
 
-Never bake operational text into world or UI bitmaps when DOM/SVG text can be used.
+No bakear texto operativo cuando pueda ser DOM/SVG.
 
-Components must support text expansion, wrapping, pseudo-localization, different number formats and future RTL testing.
+Soportar:
 
----
-
-## 18. Accessibility
-
-Baseline target: WCAG 2.2 AA for DOM UI where applicable.
-
-Art rules:
-
-- do not communicate state only by color;
-- ownership combines color with outline/pattern/icon when necessary;
-- positive/negative states combine sign, icon and color;
-- check scenes under protanopia, deuteranopia, tritanopia and grayscale simulation;
-- preserve focus visibility in UI;
-- avoid tiny click targets;
-- important UI text must remain usable at 200% text zoom.
+- expansión;
+- wrapping;
+- pseudo-localización;
+- formatos numéricos;
+- futura prueba RTL.
 
 ---
 
-## 19. Zoom and visual LOD
+## 18. Accesibilidad
 
-### 19.1 Evaluation zooms
+Baseline: WCAG 2.2 AA para UI DOM donde aplique.
 
-Every representative asset must be reviewed at:
+Reglas:
 
-\`\`\`text
+- no comunicar estado sólo por color;
+- combinar ownership con outline/pattern/icon cuando sea necesario;
+- positivo/negativo = signo + icono + color;
+- revisar protanopia, deuteranopia, tritanopia y grayscale;
+- focus visible;
+- evitar targets minúsculos;
+- UI operativa usable con zoom textual al 200%.
+
+---
+
+## 19. Zoom y Visual LOD
+
+### 19.1 Zooms de evaluación
+
+```text
 50%
 75%
 100%
 150%
 200%
-\`\`\`
+```
 
-### 19.2 Artistic LOD concept
+### 19.2 Capas
 
-\`\`\`text
+```text
 NEAR
-- high-resolution sprite
-- props visible
-- characters animated
-- full minor VFX
+- sprite high resolution
+- props
+- personajes animados
+- VFX completos
 
 MID
-- same family / mip chain
-- fewer minor effects
+- misma familia / mip chain
+- menos VFX menores
 
 FAR
-- lower-resolution family if needed
-- fewer characters
-- minor signage/props suppressed
+- resolución reducida si es necesario
+- menos personajes
+- señalética/props menores ocultos
 
 MAP
-- district abstraction
-- icons / blocks / heatmaps
-\`\`\`
+- abstracción de distrito
+- iconos / bloques / heatmaps
+```
 
-This can align with Simulation LOD, but visual and simulation LOD remain separate systems.
-
----
-
-## 20. Density and readability budget
-
-A scene fails even if individual assets are excellent when:
-
-- silhouettes merge into one mass;
-- signs compete with selection;
-- VFX obscure roads/parcels;
-- characters disappear against terrain;
-- ownership is unreadable;
-- district class cannot be identified;
-- every building uses the same value range.
-
-The Art Lab must include dense scenes, not only isolated turntables.
+Visual LOD y Simulation LOD son sistemas distintos aunque puedan coordinarse.
 
 ---
 
-## 21. Audio crossover
+## 20. Presupuesto de densidad y legibilidad
 
-Audio is not fully governed by this Art Bible, but audiovisual feedback must be coherent.
+Una escena falla aunque cada asset sea bueno si:
 
-Candidate environmental identities:
+- las siluetas se fusionan;
+- señalética compite con selección;
+- VFX oculta calles/parcelas;
+- personajes desaparecen contra terreno;
+- ownership no se lee;
+- no se reconoce la clase del distrito;
+- todos los edificios usan el mismo rango de valores.
 
-- poor residential -> repairs, older traffic, dogs, dense ambience;
-- industrial -> machinery, steam, impacts;
-- wealthy commercial -> cleaner traffic, interior music leakage, commerce;
-- high crime -> distant sirens, arguments, breaking glass.
+El Art Lab debe incluir escenas densas.
 
-Use priority/concurrency so simulation density does not become audio noise.
+---
+
+## 21. Audio relacionado con presentación
+
+La Art Bible no gobierna todo el audio, pero sí la coherencia audiovisual.
+
+Ejemplos candidatos:
+
+- barrio de baja renta → reparaciones, tráfico viejo, perros, actividad densa;
+- industrial → maquinaria, vapor, golpes;
+- centro rico → tráfico más limpio, música interior, comercio;
+- criminalidad alta → sirenas lejanas, discusiones, cristales.
+
+Usar concurrencia/prioridad para evitar ruido constante.
 
 ---
 
@@ -748,35 +813,35 @@ Use priority/concurrency so simulation density does not become audio noise.
 
 ### Do
 
-- identify buildings through silhouette;
-- exaggerate features that communicate function;
-- show wealth and decline physically;
-- reuse material families;
-- keep ownership and selection readable;
-- use props to create variation;
-- test in dense scenes;
-- preserve a fictional identity;
-- document every deliberate exception.
+- identificar edificio por silueta;
+- exagerar lo que comunica función;
+- mostrar prosperidad/deterioro físicamente;
+- reutilizar materiales;
+- preservar selection/ownership;
+- variar con props;
+- probar escenas densas;
+- mantener identidad ficticia;
+- documentar excepciones.
 
 ### Don't
 
-- copy recognizable reference-game assets;
-- depend on signs to identify a building;
-- add microdetail that disappears at reference zoom;
-- let grime reduce contrast everywhere equally;
-- use red/green as the only gameplay signal;
-- bake localized UI text into images;
-- hand-tune per-asset camera perspective;
-- polish assets whose gameplay footprint is not approved;
-- create four building orientations without a gameplay requirement.
+- copiar assets reconocibles;
+- depender del cartel para identificar función;
+- crear microdetalle invisible;
+- ensuciar toda la escena por igual;
+- usar rojo/verde como única señal;
+- bakear texto que debe localizarse;
+- ajustar cámara manualmente por asset;
+- pulir un asset cuyo footprint no está aprobado;
+- producir orientaciones innecesarias.
 
 ---
 
 ## 23. Golden scenes
 
-Target golden scenes:
+Objetivo:
 
-\`\`\`text
+```text
 golden_small_residential
 golden_dense_commercial
 golden_industrial
@@ -784,73 +849,87 @@ golden_construction
 golden_crowd
 golden_ui_economy
 golden_ui_politics
-\`\`\`
+```
 
-Each golden scene should define seed, camera position, zoom, viewport, DPR, asset build version and expected screenshot.
+Cada escena define:
+
+- seed;
+- cámara;
+- zoom;
+- viewport;
+- DPR;
+- versión de assets;
+- screenshot esperado.
 
 ---
 
-## 24. Visual Direction Spike acceptance
+## 24. Criterio de cierre del Visual Direction Spike
 
-The Art Bible becomes production-ready only after the spike evaluates 2–3 original directions using the same content kit.
+La Art Bible pasa a estado production-ready cuando se comparan 2–3 direcciones originales con el mismo kit:
 
-Required content:
-
-- residential building;
-- industrial/commercial building;
-- road/sidewalk/parcel;
-- terrain;
+- edificio residencial;
+- edificio industrial/comercial;
+- carretera/acera/parcela;
+- terreno;
 - worker;
 - civilian;
-- vehicle/moving prop;
-- props/vegetation;
-- construction and damage;
+- vehículo/prop móvil;
+- props/vegetación;
+- construcción/daño;
 - ownership/selection;
-- economic overlay;
-- HUD panel;
-- icon family;
-- one atmospheric VFX.
+- overlay económico;
+- panel HUD;
+- familia de iconos;
+- VFX atmosférico.
 
-Decision criteria include readability, originality/IP distance, production cost, web performance, modular variation, perceived quality, contributor friendliness, automation and accessibility.
+Criterios:
+
+- legibilidad;
+- identidad/IP distance;
+- coste de producción;
+- rendimiento web;
+- variación modular;
+- calidad percibida;
+- facilidad para colaboradores;
+- automatización;
+- accesibilidad.
 
 ---
 
-## 25. Open decisions before mass production
+## 25. Decisiones abiertas antes de producción masiva
 
-The following must remain explicit until validated:
-
-- final visual style;
-- exact historical/fictional era;
-- camera elevation;
-- projected cell dimensions;
-- physical cell scale;
-- master resolution;
-- Blender version;
-- renderer choice;
-- canonical light rig;
-- character direction count;
-- animation budgets;
+- estilo final;
+- época exacta;
+- elevación de cámara;
+- dimensiones proyectadas de celda;
+- escala física;
+- resolución master;
+- versión Blender;
+- renderer;
+- light rig;
+- número de direcciones;
+- animation budget;
 - atlas baseline;
-- runtime image format;
-- typefaces;
-- GPU texture compression;
-- weather/night scope.
+- formato runtime;
+- tipografías;
+- GPU compression;
+- alcance de noche/clima.
 
-See [OPEN-DECISIONS.md](OPEN-DECISIONS.md).
+Ver [OPEN-DECISIONS.md](OPEN-DECISIONS.md).
 
 ---
 
-## 26. Definition of success
+## 26. Definición de éxito
 
-The Art Bible succeeds when a new artist can answer, without asking the original creator:
+Una Art Bible útil permite a un nuevo artista responder sin depender del creador original:
 
-- what Landlord should look like;
-- what visual information matters most;
-- what is allowed to vary;
-- what must remain consistent;
-- how to distinguish original inspiration from copying;
-- whether an asset is visually ready for production review.
+- cómo debe verse Landlord;
+- qué información tiene prioridad;
+- qué puede variar;
+- qué debe mantenerse consistente;
+- cómo diferenciar inspiración de copia;
+- cuándo un asset está listo para revisión.
 
-The Art Bible defines **what** to make.
+La Art Bible define **qué** producir.
 
-The Art Pipeline Specification defines **how** to make it reproducibly.
+El Art Pipeline Specification define **cómo** producirlo de forma reproducible.

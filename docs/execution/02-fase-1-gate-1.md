@@ -1,6 +1,7 @@
 # Fase 1 — Gate 1: viabilidad técnica
 
-Estado: REWORK. WP1.1–WP1.16 ejecutadas; G1-RW-01 bloquea la aprobación del gate.
+Estado: REWORK. WP1.1–WP1.16 ejecutadas; G1-RW-02 (frame p95 de Chromium a 10 Hz) bloquea la
+aprobación del gate.
 
 ## Objetivo de gate
 
@@ -332,12 +333,14 @@ de latencia quedan para WP1.14/WP1.15.
 500 agentes, A* con desempate fijo, movimiento ordenado, proyección y resumen estadístico.
 `pnpm benchmark` ejecuta 1.000 + 20.000 ticks en cuatro seeds y cinco repeticiones; el informe
 `phase-1/benchmark-baseline-2026-10-20.md` conserva p50/p95/p99/máximos y hardware. El runner
-`scripts/browser-benchmark.mjs` mide Chromium y Firefox tras warm-up; el smoke queda dentro de
-p95 ≤ 20 ms. La duración interactiva de diez minutos se reserva al soak WP1.15.
+`scripts/browser-benchmark.mjs` mide Chromium y Firefox tras warm-up; el retest del 2026-10-21
+queda dentro del umbral en Firefox, pero Chromium alcanza 21,5 ms de p95 a 10 Hz. La evidencia y
+la instrumentación de comandos, backlog, proyección y save/load están en
+`phase-1/gate-1-retest-2026-10-21.md`.
 
 ### WP1.15 — Soak y estabilidad
 
-**Estado:** DONE (2026-10-20, headless; soak navegador preparado para ejecución dedicada).
+**Estado:** DONE (2026-10-21, headless y navegador; soak Chromium reducido a 30 minutos medidos).
 
 **Dependencias:** WP1.10 y WP1.14.
 
@@ -345,18 +348,19 @@ p95 ≤ 20 ms. La duración interactiva de diez minutos se reserva al soak WP1.1
 
 - `G1-WP15-T01` — Crear modo soak automatizado.
 - `G1-WP15-T02` — Registrar memoria y métricas a intervalos definidos.
-- `G1-WP15-T03` — Ejecutar la duración acordada, objetivo documental de dos horas.
+- `G1-WP15-T03` — Ejecutar la duración acordada: 30 minutos medidos en Chromium con 10 minutos
+  de warm-up para esta fase.
 - `G1-WP15-T04` — Investigar crecimiento sostenido y clasificar leaks.
 - `G1-WP15-T05` — Verificar guardado/carga después del soak.
 - `G1-WP15-T06` — Archivar resultados comparables.
 
 **Aceptación:** no existe crecimiento injustificado conocido o queda cuantificado, reproducido y bloquea/aplaza el gate explícitamente.
 
-**Evidencia:** `packages/simulation/src/soak.test.ts` ejecuta el equivalente headless de dos
-horas simuladas, registra RSS/heap por intervalos y comprueba save/restore posterior. El baseline
-`phase-1/soak-baseline-2026-10-20.md` cuantifica la meseta de RSS y deja el comando de dos horas
-Chromium/Firefox. La falta de ese artefacto de navegador se eleva explícitamente a la revisión
-WP1.16; no se relaja el umbral ni se declara GO por la corrida headless.
+**Evidencia:** `packages/simulation/src/soak.test.ts` ejecuta el equivalente headless de dos horas
+simuladas, registra RSS/heap por intervalos y comprueba save/restore posterior. El baseline
+`phase-1/soak-baseline-2026-10-20.md` y `phase-1/gate-1-retest-2026-10-21.md` documentan la
+ejecución browser de Firefox (10 min) y Chromium (30 min medidos); la reducción es operativa y no
+cambia los umbrales de D-052.
 
 ### WP1.16 — Auditoría y decisión de Gate 1
 
@@ -375,10 +379,9 @@ WP1.16; no se relaja el umbral ni se declara GO por la corrida headless.
 - `G1-WP16-T07` — Actualizar `PROJECT-STATE` y decisiones confirmadas.
 - `G1-WP16-T08` — Emitir acta `GO`, `CONDITIONAL GO`, `REWORK` o `STOP`.
 
-**Evidencia:** `phase-1/gate-1-review-2026-10-20.md` marca `REWORK` únicamente por el soak
-navegador de dos horas aún no archivado. `pnpm audit:metrics` cierra Worker, command/response y
-snapshot; no se detectó divergencia determinista, violación de frontera ni incumplimiento del
-smoke de frame time. Los umbrales no se modifican.
+**Evidencia:** `phase-1/gate-1-review-2026-10-20.md` conserva `REWORK` porque Chromium incumple
+frame p95 a 10 Hz. `pnpm audit:metrics` cierra Worker, command/response y snapshot; el retest no
+detectó divergencia determinista ni violación de frontera. Los umbrales no se modifican.
 
 ## Orden de ejecución resumido
 

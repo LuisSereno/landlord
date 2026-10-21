@@ -15,11 +15,10 @@
 - [x] `REWORK`
 - [ ] `STOP`
 
-Gate 1 queda en `REWORK`. La revisión posterior detectó que el benchmark original detenía los
-agentes al completar su primera ruta y que el runner browser abría una aplicación sin la carga
-de referencia sobre Vite de desarrollo. Esas mediciones no certifican D-052. El fixture continuo
-en Worker + Phaser y el servidor de producción ya están implementados; faltan las ejecuciones
-prolongadas y la instrumentación browser restante.
+Gate 1 permanece en `REWORK`. El rework técnico del 2026-10-21 cerró el fixture continuo y la
+instrumentación de comandos, backlog, proyección y save/load, pero Chromium supera el umbral de
+frame p95 en 1,5 ms cuando se mide a la cadencia máxima de proyección de D-052 (10 Hz). La
+evidencia completa está en `gate-1-retest-2026-10-21.md`.
 
 ## Alcance auditado
 
@@ -31,9 +30,11 @@ prolongadas y la instrumentación browser restante.
 | Worker/protocolo v1 | PASS funcional | `worker-runtime.test.ts`, cliente tipado y entrypoint Vite |
 | Snapshot/IndexedDB | PASS funcional | tests roundtrip, corrupción y schema |
 | Phaser/picking/proyección | PASS smoke | tests geométricos y runner Chromium/Firefox |
-| Fixture de carga continuo | PENDING retest | 100 edificios, 500 agentes, A* y reasignación determinista de destinos |
+| Fixture de carga continuo | PASS retest | 100 edificios, 500 agentes, A* y reasignación determinista; cuatro seeds × cinco repeticiones |
 | Soak headless | PASS | `soak-baseline-2026-10-20.md` |
-| Soak navegador 2 h (Chromium) | PENDING | runner de producción, artefacto aún no archivado |
+| Browser 10 min (Firefox) | PASS | 10 min a 10 Hz, sin errores ni divergencias |
+| Browser 10 min (Chromium) | REWORK | p95 21,5 ms a 10 Hz; p99 26,7 ms |
+| Soak navegador reducido (Chromium) | PASS estabilidad | 30 min medidos + 10 min warm-up a 2 Hz; no sustituye el frame gate a 10 Hz |
 
 ## Checks funcionales
 
@@ -42,7 +43,7 @@ prolongadas y la instrumentación browser restante.
 | Install congelado | PASS | lockfile y CI base |
 | Lint | PASS | `pnpm lint` |
 | Typecheck | PASS | `pnpm typecheck` |
-| Unit/integration | PASS | 23 shared, 35 simulation (+1 soak skip), 13 web |
+| Unit/integration | PASS | 23 shared, 37 simulation (+3 skips explícitos), 13 web |
 | Build producción | PASS | `pnpm build` |
 | E2E Chromium | PASS smoke | fixture continuo, build de producción, 90 frames |
 | E2E Firefox | PASS smoke | fixture continuo, build de producción, 90 frames |
@@ -60,25 +61,26 @@ prolongadas y la instrumentación browser restante.
 | Ticks > 50 ms | 0,1 % | 0 observado | PASS |
 | Worker p95 | 12 ms | 0,254 ms | PASS |
 | Command/response p95 | 100 ms | 0,254 ms | PASS |
-| Frame p95 | 20 ms | Chromium 17; Firefox 18 | PASS smoke |
-| Frame p99 | 33,3 ms | Chromium 17,3; Firefox 19 | PASS smoke |
-| Snapshot | 5 MiB | 635 bytes | PASS |
-| Serialize p95 | 100 ms | 0,015 ms | PASS |
-| Validate + restore p95 | 500 ms | 0,171 ms | PASS |
-| Memoria delta | 25 MiB | RSS +14,6 MiB headless | PASS headless |
-| Memoria slope | 5 MiB/h | sin pendiente creciente headless | PASS headless |
+| Frame p95 | 20 ms | Chromium 21,5; Firefox 18 | REWORK por Chromium |
+| Frame p99 | 33,3 ms | Chromium 26,7; Firefox 19 | PASS |
+| Snapshot | 5 MiB | Chromium 463.491 bytes | PASS |
+| Serialize p95 | 100 ms | Chromium 2,7 ms | PASS |
+| Validate + restore p95 | 500 ms | Chromium 4,8 ms | PASS |
+| Memoria delta | 25 MiB | heap estable/baja en soak Chromium | PASS |
+| Memoria slope | 5 MiB/h | sin pendiente creciente en 30 min | PASS |
 
 ## Deuda y acciones de rework
 
 | ID | Acción de cierre | Evidencia requerida |
 |---|---|---|
-| G1-RW-01 | Retest headless continuo | cinco repeticiones por seed con A* sostenido |
-| G1-RW-02 | Ejecutar browser 10 min Chromium y Firefox | artefactos de frame, Worker y memoria disponible |
-| G1-RW-03 | Ejecutar soak 2 h Chromium | artefactos JSON con memoria/frame p95, hash y save/load |
-| G1-RW-04 | Completar instrumentación browser | command/response, backlog, proyección y save/load |
+| G1-RW-01 | Retest headless continuo | CERRADO: cuatro seeds × cinco repeticiones, A* sostenido |
+| G1-RW-02 | Ejecutar browser 10 min Chromium y Firefox | EVIDENCIA CERRADA; Chromium queda en REWORK por frame p95 a 10 Hz |
+| G1-RW-03 | Ejecutar soak Chromium | CERRADO como estabilidad: 30 min medidos + 10 min warm-up; decisión explícita de reducción |
+| G1-RW-04 | Completar instrumentación browser | CERRADO: command/response, backlog, proyección, snapshot y continuación |
 
-No se autoriza Gate 2 hasta cerrar G1-RW-01 a G1-RW-04 o emitir un ADR que cambie explícitamente el
-criterio; no se modifican retrospectivamente los umbrales.
+No se autoriza Gate 2 hasta corregir el frame p95 de Chromium a 10 Hz y repetir la medición. Los
+umbrales no se modifican retrospectivamente. La reducción de duración del soak está registrada como
+decisión operativa de esta fase, no como cambio de D-052.
 
 ## Documentación actualizada
 
@@ -87,3 +89,4 @@ criterio; no se modifican retrospectivamente los umbrales.
 - `docs/execution/02-fase-1-gate-1.md`
 - `docs/execution/phase-1/benchmark-baseline-2026-10-20.md`
 - `docs/execution/phase-1/soak-baseline-2026-10-20.md`
+- `docs/execution/phase-1/gate-1-retest-2026-10-21.md`

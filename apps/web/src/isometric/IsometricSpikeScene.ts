@@ -15,9 +15,16 @@ const COLORS = {
   selected: 0xf2c14e,
 };
 
+const STRUCTURE_TEXTURE_KEY = "benchmark-structure-marker";
+const AGENT_TEXTURE_KEY = "benchmark-agent-marker";
+
 export class IsometricSpikeScene extends Phaser.Scene {
   private readonly layout: IsometricLayout = REFERENCE_LAYOUT;
   private mapGraphics?: Phaser.GameObjects.Graphics;
+  private structureBlitter?: Phaser.GameObjects.Blitter;
+  private agentBlitter?: Phaser.GameObjects.Blitter;
+  private structureBobs: Phaser.GameObjects.Bob[] = [];
+  private agentBobs: Phaser.GameObjects.Bob[] = [];
   private debugText?: Phaser.GameObjects.Text;
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   private selectedCell: GridCell | null = null;
@@ -36,6 +43,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
     staticMap.draw(tileGraphics);
     tileGraphics.destroy();
     this.mapGraphics = this.add.graphics();
+    this.createMarkerTexture(STRUCTURE_TEXTURE_KEY, 16, 16, "#d97757");
+    this.createMarkerTexture(AGENT_TEXTURE_KEY, 4, 4, "#8fcae7");
+    this.structureBlitter = this.add.blitter(0, 0, STRUCTURE_TEXTURE_KEY);
+    this.agentBlitter = this.add.blitter(0, 0, AGENT_TEXTURE_KEY);
     this.debugText = this.add
       .text(16, 16, "cell: — | zoom: 1.00", {
         color: "#f4f7fb",
@@ -109,16 +120,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     const graphics = this.mapGraphics;
     if (!graphics) return;
     graphics.clear();
-    for (const structure of this.projection?.structures ?? []) {
-      const center = gridToScreen(structure.cell, this.layout);
-      graphics.fillStyle(0xd97757, 1);
-      graphics.fillRect(center.x - 8, center.y - 10, 16, 16);
-    }
-    for (const agent of this.projection?.agents ?? []) {
-      const center = gridToScreen(agent.cell, this.layout);
-      graphics.fillStyle(0x8fcae7, 0.9);
-      graphics.fillRect(center.x - 2, center.y - 8, 4, 4);
-    }
+    this.updateBlitterPositions();
     if (this.selectedCell) {
       const center = gridToScreen(this.selectedCell, this.layout);
       const halfWidth = this.layout.tileWidth / 2;
@@ -132,6 +134,57 @@ export class IsometricSpikeScene extends Phaser.Scene {
       graphics.closePath();
       graphics.strokePath();
     }
+  }
+
+  private createMarkerTexture(key: string, width: number, height: number, color: string): void {
+    if (this.textures.exists(key)) return;
+    const texture = this.textures.createCanvas(key, width, height);
+    if (!texture) return;
+    texture.context.fillStyle = color;
+    texture.context.fillRect(0, 0, width, height);
+    texture.refresh();
+  }
+
+  private updateBlitterPositions(): void {
+    const structures = this.projection?.structures ?? [];
+    const agents = this.projection?.agents ?? [];
+    const view = this.cameras.main.worldView;
+    if (this.structureBlitter) {
+      while (this.structureBobs.length < structures.length) {
+        this.structureBobs.push(this.structureBlitter.create(0, 0));
+      }
+      this.structureBobs.forEach((bob, index) => {
+        const structure = structures[index];
+        bob.setVisible(structure !== undefined);
+        if (structure) {
+          const center = gridToScreen(structure.cell, this.layout);
+          bob.setPosition(center.x - 8, center.y - 10);
+          bob.setVisible(this.isInViewport(center.x, center.y, view, 16));
+        }
+      });
+    }
+    if (this.agentBlitter) {
+      while (this.agentBobs.length < agents.length)
+        this.agentBobs.push(this.agentBlitter.create(0, 0));
+      this.agentBobs.forEach((bob, index) => {
+        const agent = agents[index];
+        bob.setVisible(agent !== undefined);
+        if (agent) {
+          const center = gridToScreen(agent.cell, this.layout);
+          bob.setPosition(center.x - 2, center.y - 8);
+          bob.setVisible(this.isInViewport(center.x, center.y, view, 4));
+        }
+      });
+    }
+  }
+
+  private isInViewport(x: number, y: number, view: Phaser.Geom.Rectangle, margin: number): boolean {
+    return (
+      x + margin >= view.x &&
+      x - margin <= view.right &&
+      y + margin >= view.y &&
+      y - margin <= view.bottom
+    );
   }
 
   private handlePointerDown(pointer: Phaser.Input.Pointer): void {

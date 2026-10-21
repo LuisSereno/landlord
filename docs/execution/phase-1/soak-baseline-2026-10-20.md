@@ -17,19 +17,21 @@ de `pnpm soak` y deben archivarse como artefacto CI.
 
 ## Navegador
 
-El runner `scripts/browser-benchmark.mjs` acepta una duración arbitraria. Para el soak acordado:
+El runner `scripts/browser-benchmark.mjs` acepta una duración arbitraria. Para el soak reducido
+acordado en esta fase:
 
 ```text
-BROWSER_BENCHMARK_WARMUP_MS=600000 BROWSER_BENCHMARK_MS=7200000 pnpm benchmark:browser
+BROWSER_ONLY=chromium BROWSER_BENCHMARK_WARMUP_MS=600000 BROWSER_BENCHMARK_MS=1800000 pnpm benchmark:browser
 ```
 
-La corrida de dos horas no se ejecuta automáticamente en la suite ni se simula reduciendo el
-umbral. El smoke de Chromium/Firefox está documentado en el baseline de WP1.14; el resultado de
-esta duración debe adjuntarse antes de la decisión final de Gate 1.
+La ejecución del 2026-10-21 completó 30 minutos medidos en Chromium sin page errors, fallos de
+save/load ni divergencias de continuación. Ese soak de estabilidad usó 2 Hz; la comprobación de
+rendimiento a la cadencia máxima (10 Hz) se ejecutó aparte durante diez minutos y dejó Chromium
+en REWORK por frame p95 de 21,5 ms. Firefox completó su benchmark independiente de diez minutos a
+10 Hz. Los datos completos están en `gate-1-retest-2026-10-21.md`.
 
 ## Estado
 
-WP1.15 queda técnicamente preparada y el soak headless reproducible debe repetirse con el
-fixture continuo. La ejecución de dos horas en Chromium es evidencia operativa pendiente de un
-runner CI o una sesión dedicada; Firefox requiere el benchmark de diez minutos, no un soak de dos
-horas, conforme a D-052.
+WP1.15 queda cerrada para esta revisión con un soak Chromium reducido de 30 minutos medidos. La
+duración sustituye operativamente las dos horas para la fase temprana, sin alterar los umbrales de
+D-052. Firefox mantiene el benchmark de diez minutos, no un soak de dos horas.

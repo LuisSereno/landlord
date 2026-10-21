@@ -64,16 +64,18 @@ Estos sistemas están documentados, no implementados.
 - tests: sí, smoke, contratos, schemas y arquitectura de fronteras.
 
 ## Fase
-Gate 1 en REWORK — WP1.1 a WP1.16 ejecutadas; G1-RW-01 debe cerrarse antes de aprobar.
+Gate 1 conserva la decisión formal `REWORK` hasta la revisión de cierre; la evidencia técnica de
+G1-RW-01..04 quedó reunida el 2026-10-21.
 
 ## Próximo objetivo
 Gate 1 — viabilidad técnica.
 
 El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista, Worker,
 snapshot v1, IndexedDB, escena/picking, flujo vertical, benchmark y soak headless están
-cerrados. Gate 1 permanece en `REWORK`: el fixture browser ahora carga 500 agentes y 100
-estructuras en un Worker y en Phaser, pero falta reunir la evidencia de diez minutos/soak y
-completar la instrumentación browser de comandos, save/load y backlog. Gate 2 no puede comenzar.
+cerrados. El retest browser carga 500 agentes y 100 estructuras en Worker y Phaser, mide
+comandos/backlog/proyección/save-load y cubre 10 minutos a 10 Hz en Firefox y Chromium. Firefox
+cumple; Chromium queda 1,5 ms por encima del frame p95. Gate 2 sigue bloqueado hasta corregirlo;
+el punto `events`/snapshots no se ha decidido ni modificado.
 
 Debe validar:
 - render isométrico;

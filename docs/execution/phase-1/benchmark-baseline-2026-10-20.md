@@ -14,23 +14,25 @@ se midió fuera de las reglas con `performance.now()`; el resultado no cambia el
 Hardware observado: Intel Core i7-10510U, 8 CPUs visibles, 16 GiB (15 GiB reportados), Linux
 x86_64. Node.js 24.19.0 y pnpm 12.11.2.
 
-## Resultado headless
+## Resultado headless (baseline sustituida)
 
-Los valores son el peor p95 y el máximo observado entre las cinco repeticiones de cada seed;
-están expresados en milisegundos por tick/proyección.
+La baseline original queda invalidada porque los agentes se detenían al completar su primera
+ruta. El retest continuo del 2026-10-21 está registrado en
+`phase-1/gate-1-retest-2026-10-21.md`; sus valores son el peor p95 y el máximo observado entre
+las cinco repeticiones de cada seed.
 
 | Seed | Tick p95 peor | Tick máximo | Proyección p95 peor | Proyección máxima |
 |---:|---:|---:|---:|---:|
-| 0 | 0,099 | 2,135 | 0,066 | 1,165 |
-| 1 | 0,096 | 1,587 | 0,064 | 1,200 |
-| 42 | 0,098 | 1,530 | 0,062 | 0,362 |
-| 4294967295 | 0,106 | 1,654 | 0,065 | 0,384 |
+| 0 | 1,135 | 7,202 | 0,102 | 2,668 |
+| 1 | 1,128 | 5,299 | 0,103 | 2,520 |
+| 42 | 1,075 | 7,711 | 0,095 | 3,154 |
+| 4294967295 | 1,094 | 8,706 | 0,089 | 3,076 |
 
 Estos resultados headless están por debajo de los presupuestos de tick (p95 ≤ 10 ms, p99 ≤
 20 ms) y serialización/proyección definidos en Fase 0. El harness conserva el digest final para
 repetir la comparación de determinismo.
 
-## Smoke de navegador
+## Ejecución de navegador
 
 El runner `scripts/browser-benchmark.mjs` mide frame time tras warm-up y puede ejecutarse con
 `BROWSER_BENCHMARK_WARMUP_MS`, `BROWSER_BENCHMARK_MS` y `BROWSER_ONLY`. En la máquina de
@@ -41,9 +43,11 @@ referencia se ejecutó un smoke de 2 s de warm-up y 3 s medidos:
 | Chromium 156 headless | 180 | 16,7 ms | 16,8 ms | 16,9 ms | 16,9 ms |
 | Firefox 157 headless | 180 | 17 ms | 19 ms | 24 ms | 37 ms |
 
-El smoke queda dentro de p95 ≤ 20 ms en ambos navegadores. La ejecución interactiva de diez
-minutos y el soak de dos horas pertenecen a WP1.15 y deben archivarse como artefactos de CI sin
-mezclar máquinas distintas.
+El retest del 2026-10-21 obtuvo p95/p99 de frames de 18/19 ms en Firefox y 21,5/26,7 ms en
+Chromium durante diez minutos a 10 Hz. El soak reducido de treinta minutos a 2 Hz obtuvo 19,8/23,7
+ms en Chromium y confirmó estabilidad, pero no sustituye el resultado de máxima cadencia para el
+umbral de D-052. El detalle de Worker, backlog, save/load, memoria y digest está en
+`gate-1-retest-2026-10-21.md`.
 
 ## Invalidación metodológica y siguiente evidencia
 
@@ -59,8 +63,10 @@ del retest obtuvo frame p95 de 17 ms en Chromium y 18 ms en Firefox, y Worker ti
 
 ## Limitaciones y siguiente evidencia
 
-- El retest headless completo, las ejecuciones browser de diez minutos y el soak Chromium de dos
-  horas siguen pendientes. El harness browser aún debe incluir comandos, backlog y save/load.
+- El retest headless completo y la instrumentación browser están cerrados para esta revisión; el
+  frame p95 de Chromium a la cadencia máxima sigue siendo un incumplimiento de D-052.
+- El soak operativo de Chromium se ha reducido a 30 minutos medidos (10 minutos de warm-up) por
+  decisión explícita del usuario; no se han cambiado los umbrales de D-052.
 - El warning de Vite sobre un bundle inicial superior a 500 kB es informativo para la futura
   optimización; no modifica los umbrales de simulación ni de frame time.
 - Para repetir la medición de navegador con los dos motores instalados:

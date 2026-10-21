@@ -46,10 +46,14 @@ Pathfinding sigue abierto para producto; Gate 1 sólo compromete A* cardinal det
 Resuelto para Gate 1 en D-049/D-051: `PlayerIdentity -> Person`, `Organization`, `OrganizationControlGrant` y ownership explícito mínimos, sin roles/capabilities completos.
 
 ## Gate 1 — cierre técnico 2026-10-20
-- benchmark browser de diez minutos en Chromium y Firefox, y soak de dos horas sólo en Chromium,
-  aún requieren ejecución dedicada y artefactos archivados;
-- el harness browser necesita instrumentar comando/respuesta, backlog y save/load antes de poder
-  cerrar todos los umbrales de D-052;
+- el retest browser de 10 minutos a 10 Hz está archivado en
+  `docs/execution/phase-1/gate-1-retest-2026-10-21.md`: Firefox pasa y Chromium queda pendiente
+  de optimización por frame p95 21,5 ms;
+- el soak reducido de 30 minutos medidos en Chromium a 2 Hz fue estable, pero no sustituye el
+  umbral de frame a 10 Hz;
+- la instrumentación de comando/respuesta, backlog, proyección y save/load del harness browser
+  quedó cerrada para Gate 1; los comandos del benchmark son probes de transporte y no sustituyen
+  la integración de contenido del producto;
 - latencia p95 del Worker y command/response ya está instrumentada en `pnpm audit:metrics`;
 - serialización/validación p95 del snapshot técnico ya está instrumentada en `pnpm audit:metrics`;
 - el bundle web inicial supera 500 kB minificados; no bloquea Gate 1, pero queda como optimización posterior.

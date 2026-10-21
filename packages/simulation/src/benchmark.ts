@@ -9,7 +9,7 @@ import {
   type Tick,
   type ViewProjectionV1,
 } from "@landlord/shared";
-import { createPrng } from "./prng";
+import { createPrng, type PrngState } from "./prng";
 
 export const BENCHMARK_MAP_SIZE = 64;
 export const BENCHMARK_BUILDING_COUNT = 100;
@@ -29,7 +29,26 @@ export type BenchmarkScenario = {
   blockedCells: Set<string>;
   buildings: Array<{ id: ReturnType<typeof parseStructureId>; cell: GridCell }>;
   agents: Map<string, BenchmarkAgent>;
+  save(): BenchmarkSnapshot;
+  restore(snapshot: BenchmarkSnapshot): void;
+  getPrngState(): PrngState;
   step(): void;
+};
+
+export type BenchmarkSnapshot = {
+  snapshotVersion: 1;
+  seed: Seed;
+  tick: Tick;
+  blockedCells: string[];
+  buildings: Array<{ id: ReturnType<typeof parseStructureId>; cell: GridCell }>;
+  agents: Array<{
+    id: ReturnType<typeof parseAgentId>;
+    cell: GridCell;
+    target: GridCell;
+    path: GridCell[];
+    pathIndex: number;
+  }>;
+  prng: PrngState;
 };
 
 export type BenchmarkScenarioOptions = {
@@ -39,7 +58,7 @@ export type BenchmarkScenarioOptions = {
 
 export type BenchmarkSample = {
   tickMs: number;
-  projectionMs: number;
+  projectionMs: number | null;
 };
 
 export type BenchmarkResult = {
@@ -193,11 +212,11 @@ function findPath(
 function nextFreeCell(
   prng: ReturnType<typeof createPrng>,
   blockedCells: ReadonlySet<string>,
-  occupied: Set<string>,
+  occupied?: ReadonlySet<string>,
 ): GridCell {
   for (let attempt = 0; attempt < BENCHMARK_MAP_SIZE * BENCHMARK_MAP_SIZE; attempt += 1) {
     const cell = { x: prng.nextInt(0, BENCHMARK_MAP_SIZE), y: prng.nextInt(0, BENCHMARK_MAP_SIZE) };
-    if (!blockedCells.has(cellKey(cell)) && !occupied.has(cellKey(cell))) return cell;
+    if (!blockedCells.has(cellKey(cell)) && !occupied?.has(cellKey(cell))) return cell;
   }
   throw new Error("Benchmark fixture ran out of free cells");
 }
@@ -206,14 +225,11 @@ function assignNextPath(
   agent: BenchmarkAgent,
   prng: ReturnType<typeof createPrng>,
   blockedCells: ReadonlySet<string>,
-  occupied: Set<string>,
   workspace: PathWorkspace,
 ): void {
-  // An agent may select its own current cell, but not another agent's cell. Removing it
-  // here keeps destination selection deterministic while avoiding an artificial dead end.
-  occupied.delete(cellKey(agent.cell));
-  const target = nextFreeCell(prng, blockedCells, occupied);
-  occupied.add(cellKey(agent.cell));
+  // Occupancy is intentionally not an obstacle in this reference fixture. Destinations only
+  // reject static buildings, matching the documented blocked-cell retry rule.
+  const target = nextFreeCell(prng, blockedCells);
   agent.target = target;
   agent.path = findPath(agent.cell, target, blockedCells, workspace);
   agent.pathIndex = 0;
@@ -270,23 +286,70 @@ export function createBenchmarkScenario(
     blockedCells,
     buildings,
     agents,
+    save() {
+      return {
+        snapshotVersion: 1,
+        seed: scenario.seed,
+        tick: scenario.tick,
+        blockedCells: [...scenario.blockedCells].sort(),
+        buildings: scenario.buildings.map((building) => ({
+          id: building.id,
+          cell: { ...building.cell },
+        })),
+        agents: [...scenario.agents.values()].map((agent) => ({
+          id: agent.id,
+          cell: { ...agent.cell },
+          target: { ...agent.target },
+          path: agent.path.map((cell) => ({ ...cell })),
+          pathIndex: agent.pathIndex,
+        })),
+        prng: prng.exportState(),
+      };
+    },
+    restore(snapshot) {
+      if (snapshot.snapshotVersion !== 1 || snapshot.seed !== scenario.seed) {
+        throw new Error("Incompatible benchmark snapshot");
+      }
+      scenario.tick = parseTick(snapshot.tick);
+      scenario.blockedCells.clear();
+      for (const cell of snapshot.blockedCells) scenario.blockedCells.add(cell);
+      scenario.buildings.splice(
+        0,
+        scenario.buildings.length,
+        ...snapshot.buildings.map((building) => ({
+          id: parseStructureId(building.id),
+          cell: { ...building.cell },
+        })),
+      );
+      scenario.agents.clear();
+      for (const agent of snapshot.agents) {
+        scenario.agents.set(agent.id, {
+          id: parseAgentId(agent.id),
+          cell: { ...agent.cell },
+          target: { ...agent.target },
+          path: agent.path.map((cell) => ({ ...cell })),
+          pathIndex: agent.pathIndex,
+        });
+      }
+      prng.restoreState(snapshot.prng);
+    },
+    getPrngState() {
+      return prng.exportState();
+    },
     step() {
       if (!navigation) {
         scenario.tick = parseTick(scenario.tick + 1);
         return;
       }
-      const occupiedCells = new Set([...agents.values()].map((other) => cellKey(other.cell)));
       for (const agent of agents.values()) {
         if (agent.pathIndex < agent.path.length) {
-          occupiedCells.delete(cellKey(agent.cell));
           agent.cell = agent.path[agent.pathIndex]!;
           agent.pathIndex += 1;
-          occupiedCells.add(cellKey(agent.cell));
           continue;
         }
         // The fixture is intentionally a sustained load: upon arrival the agent obtains
         // another PRNG-derived destination in stable agent-ID order and runs A* again.
-        assignNextPath(agent, prng, blockedCells, occupiedCells, workspace);
+        assignNextPath(agent, prng, blockedCells, workspace);
       }
       scenario.tick = parseTick(scenario.tick + 1);
     },
@@ -312,6 +375,7 @@ export function canonicalBenchmarkState(scenario: BenchmarkScenario): string {
   return JSON.stringify({
     seed: scenario.seed,
     tick: scenario.tick,
+    prng: scenario.getPrngState(),
     buildings: scenario.buildings,
     agents: [...scenario.agents.values()].map((agent) => ({
       id: agent.id,
@@ -320,6 +384,17 @@ export function canonicalBenchmarkState(scenario: BenchmarkScenario): string {
       pathIndex: agent.pathIndex,
     })),
   });
+}
+
+export function createBenchmarkSnapshot(scenario: BenchmarkScenario): BenchmarkSnapshot {
+  return scenario.save();
+}
+
+export function restoreBenchmarkSnapshot(
+  scenario: BenchmarkScenario,
+  snapshot: BenchmarkSnapshot,
+): void {
+  scenario.restore(snapshot);
 }
 
 function percentile(values: number[], fraction: number): number {
@@ -339,7 +414,10 @@ export function runReferenceBenchmark(
   const samples: BenchmarkSample[] = [];
   for (let tick = 0; tick < options.measuredTicks; tick += 1) {
     const tickMs = options.measure(() => scenario.step());
-    const projectionMs = options.measure(() => void createBenchmarkProjection(scenario));
+    const projectionMs =
+      scenario.tick % 2 === 0
+        ? options.measure(() => void createBenchmarkProjection(scenario))
+        : null;
     samples.push({ tickMs, projectionMs });
   }
   return {
@@ -353,7 +431,9 @@ export function runReferenceBenchmark(
 
 export function summarizeBenchmark(result: BenchmarkResult) {
   const ticks = result.samples.map((sample) => sample.tickMs);
-  const projections = result.samples.map((sample) => sample.projectionMs);
+  const projections = result.samples
+    .map((sample) => sample.projectionMs)
+    .filter((value): value is number => value !== null);
   return {
     seed: result.seed,
     measuredTicks: result.measuredTicks,

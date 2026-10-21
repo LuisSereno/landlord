@@ -33,7 +33,8 @@ La estrategia recomendada es validar primero dos puertas:
 1. Gate 1 — viabilidad técnica.
 2. Gate 2 — viabilidad de producto.
 
-Gate 1 permanece en `REWORK`: el fixture de referencia ya se ejecuta de forma continua en el
-Worker y se renderiza en la build de producción, pero aún falta la evidencia prolongada y la
-instrumentación completa de navegador exigida por D-052. Sólo después se abordará un vertical
-slice comercial.
+Gate 1 permanece en `REWORK`: el retest técnico cerró el fixture continuo y la instrumentación,
+pero Chromium alcanza 21,5 ms de frame p95 a la cadencia máxima de 10 Hz (umbral 20 ms). El soak
+reducido de 30 minutos fue estable; la evidencia está en
+`docs/execution/phase-1/gate-1-retest-2026-10-21.md`. El punto `events`/snapshots permanece sin
+decisión y no se aborda todavía el vertical slice comercial.

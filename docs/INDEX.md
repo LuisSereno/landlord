@@ -64,6 +64,7 @@
 - execution/phase-1/benchmark-baseline-2026-10-20.md — baseline headless y smoke de navegador de WP1.14.
 - execution/phase-1/soak-baseline-2026-10-20.md — baseline headless y procedimiento de soak de WP1.15.
 - execution/phase-1/gate-1-review-2026-10-20.md — acta de auditoría y decisión de Gate 1.
+- execution/phase-1/gate-1-retest-2026-10-21.md — evidencia del retest continuo y del navegador de Gate 1.
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

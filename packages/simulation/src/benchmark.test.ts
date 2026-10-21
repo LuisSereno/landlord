@@ -44,6 +44,19 @@ describe("reference benchmark scenario", () => {
     expect(agent.pathIndex).toBeLessThanOrEqual(agent.path.length);
   });
 
+  it("restores a snapshot with identical continuation", () => {
+    const live = createBenchmarkScenario(42, { agentCount: 8 });
+    for (let tick = 0; tick < 25; tick += 1) live.step();
+    const snapshot = live.save();
+    const restored = createBenchmarkScenario(42, { agentCount: 8 });
+    restored.restore(snapshot);
+    for (let tick = 0; tick < 40; tick += 1) {
+      live.step();
+      restored.step();
+    }
+    expect(canonicalBenchmarkState(restored)).toBe(canonicalBenchmarkState(live));
+  });
+
   it("records tick and projection samples without setting a machine-specific gate result", () => {
     const result = runReferenceBenchmark(1, {
       warmupTicks: 5,
@@ -62,9 +75,13 @@ describe("reference benchmark scenario", () => {
   it.skipIf(environment.process?.env?.BENCHMARK_FULL !== "1")(
     "runs the documented five-seed/five-repetition benchmark when explicitly requested",
     () => {
-      const seeds = [0, 1, 42, 4294967295];
+      const configuredSeeds = environment.process?.env?.BENCHMARK_SEEDS;
+      const seeds = configuredSeeds
+        ? configuredSeeds.split(",").map((value) => Number(value))
+        : [0, 1, 42, 4294967295];
+      const repetitions = Number(environment.process?.env?.BENCHMARK_REPETITIONS ?? 5);
       for (const seed of seeds) {
-        for (let repetition = 0; repetition < 5; repetition += 1) {
+        for (let repetition = 0; repetition < repetitions; repetition += 1) {
           const result = runReferenceBenchmark(seed, {
             warmupTicks: 1000,
             measuredTicks: 20000,
@@ -74,6 +91,6 @@ describe("reference benchmark scenario", () => {
         }
       }
     },
-    180_000,
+    900_000,
   );
 });

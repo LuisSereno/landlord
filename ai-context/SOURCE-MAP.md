@@ -30,6 +30,24 @@ Uso:
 - evitar afirmar detalles no documentados;
 - separar inspiración de copia.
 
+## Fuente 3 — investigación avanzada de arte y pipeline
+Origen:
+- estudio comparativo de city builders, tycoon y estrategia isométrica;
+- documentación técnica de Blender, Phaser, Tiled, TexturePacker, Aseprite, Playwright, Git LFS y WCAG;
+- referencias públicas de dirección artística y producción.
+
+Uso:
+- proponer Art Bible v0.1;
+- proponer Art Pipeline v0.1;
+- definir Visual Direction Spike;
+- establecer budgets y QA preliminares;
+- definir reglas de contribución artística y provenance.
+
+Estado:
+- investigación y recomendaciones;
+- no convierte automáticamente parámetros concretos en decisiones aceptadas;
+- los enlaces públicos explícitos se conservan en `docs/research/05-art-direction-and-pipeline-research.md`.
+
 ## Fuentes externas recogidas por el dossier
 - GOG — Mob Rule Classic.
 - System 3 — Mob Rule / StreetWars.

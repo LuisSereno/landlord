@@ -155,11 +155,39 @@ Resuelto para Gate 1 en D-049/D-051: `PlayerIdentity -> Person`, `Organization`,
 - IA delegada para organizaciones del jugador.
 
 ## Arte
-- tile size;
-- ángulo isométrico;
-- resolución;
-- pipeline;
-- animation budget.
+La investigación y el baseline de preproducción están documentados en `docs/art/` y `docs/research/05-art-direction-and-pipeline-research.md`.
+
+Decidido:
+- 2.5D isométrico como dirección inicial (D-003);
+- Phaser para Gate 1 (D-050).
+
+Propuesto, pendiente de Visual Direction Spike:
+- pipeline Blender -> prerender 2D/2.5D;
+- EEVEE como render de producción;
+- cámara ortográfica 45° / ~30° y footprint 2:1;
+- grid 128×64 con master 2×;
+- escala física aproximada de celda;
+- lighting rig canónico;
+- estética de realismo estilizado;
+- setting visual 1925–1940;
+- personajes de 8 direcciones;
+- atlas 2048² multipack;
+- PNG RGBA como baseline runtime;
+- Git LFS para fuentes grandes;
+- Art Lab + golden scenes + Playwright.
+
+Pendiente:
+- ejecutar 2–3 direcciones visuales originales;
+- elegir estilo final y época exacta;
+- ratificar cámara, tile metrics y escala;
+- medir animation budget;
+- validar budgets de textura, memoria y descarga;
+- seleccionar packer definitivo compatible con contribución abierta;
+- fijar versión exacta de Blender;
+- definir tipografías y licencias;
+- aprobar política de assets generados/asistidos por IA;
+- decidir cuándo aplicar compresión GPU y variantes HiDPI;
+- decidir si el repositorio artístico debe separarse al crecer.
 
 ## Legal
 - clearance de marca;

@@ -21,6 +21,17 @@
 - engineering/07-player-identity-roles-and-capabilities.md — separación entre jugador, persona, organización, rol, control y capabilities.
 - engineering/adr/README.md — decisiones arquitectónicas detalladas; D-046 a D-052 cierran la preparación de Gate 1.
 
+## Arte
+- art/README.md — entrada a la documentación artística y estado de gobernanza.
+- art/ART-BIBLE.md — dirección visual v0.1, lenguaje de formas, escala, cámara, UI, VFX y legibilidad.
+- art/ART-PIPELINE.md — pipeline Blender/prerender/atlases/Phaser, automatización y repositorio.
+- art/ASSET-NAMING.md — convenciones de IDs, nombres, anchors, footprints y atlases.
+- art/PERFORMANCE-BUDGET.md — budgets y QA visual, accesibilidad y localización.
+- art/ASSET-CHECKLIST.md — Definition of Done de assets.
+- art/CONTRIBUTING-ART.md — reglas para contribución abierta, licencias y provenance.
+- art/VISUAL-DIRECTION-SPIKE.md — experimento que debe validar la dirección antes de producción masiva.
+- art/OPEN-DECISIONS.md — matriz de decisiones artísticas todavía no ratificadas.
+
 ## Planificación
 - planning/01-roadmap.md
 - planning/02-wbs-edt.md
@@ -58,6 +69,7 @@
 - research/02-mechanics-reference.md
 - research/03-lessons-learned.md
 - research/04-ip-and-preservation-notes.md
+- research/05-art-direction-and-pipeline-research.md — investigación avanzada de referencias, Art Bible, pipeline, QA y producción artística.
 
 ## IA
 La carpeta ai-context/ resume todo lo anterior para que un agente pueda incorporarse al proyecto con poco contexto previo.

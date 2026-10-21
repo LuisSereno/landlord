@@ -15,6 +15,9 @@ Fecha de consolidación: 2026-10-20.
 - Historias del prototipo: sí.
 - Riesgos: sí.
 - Investigación histórica: sí.
+- Investigación avanzada de dirección artística y pipeline: sí.
+- Art Bible / Art Pipeline v0.1: documentadas como propuesta de preproducción; no ratificadas como ADR.
+- Visual Direction Spike: definido; pendiente de ejecución.
 - Wiki para IA: sí.
 - Capa funcional fiscal/urbana: documentada conceptualmente.
 - Visión multiperspectiva y trayectoria vital: documentada conceptualmente.

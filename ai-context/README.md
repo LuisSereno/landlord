@@ -23,12 +23,13 @@ Permite que un agente entienda rápidamente:
 3. ARCHITECTURE.md
 4. PLAYER-MODEL.md
 5. GAME-DOMAIN.md
-6. ROADMAP.md
-7. CONVENTIONS.md
-8. GLOSSARY.md
-9. KNOWN-GAPS.md
-10. SOURCE-MAP.md
-11. AGENT-WORKFLOW.md
+6. ART.md
+7. ROADMAP.md
+8. CONVENTIONS.md
+9. GLOSSARY.md
+10. KNOWN-GAPS.md
+11. SOURCE-MAP.md
+12. AGENT-WORKFLOW.md
 
 Después leer docs/ del área afectada.
 

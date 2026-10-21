@@ -33,14 +33,14 @@ con la cadencia de estabilidad de 2 Hz y no sustituye esta comprobación de rend
 
 | Navegador | Medición | Frames | p50 (ms) | p95 (ms) | p99 (ms) | Máximo (ms) | Page errors |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Firefox 157 | 10 min a 10 Hz | 35.997 | 17,0 | 18,0 | 19,0 | 54,0 | 0 |
+| Firefox 157 | 10 min a 10 Hz | 35.998 | 17,0 | 18,0 | 19,0 | 48,0 | 0 |
 | Chromium 156 | 10 min a 10 Hz | 35.495 | 16,7 | 18,6 | 22,8 | 85,5 | 0 |
 
-Firefox registró Worker tick p95 de 9 ms, backlog máximo 5, 23 comprobaciones de continuación,
-0 divergencias y 4 operaciones save/load sin fallos. Chromium registró Worker tick p95 de
-2,5 ms, command/response p95 de 38,5 ms, backlog máximo 5, 23 comprobaciones de continuación,
-0 divergencias y 4 operaciones save/load sin fallos. Ambos navegadores cumplen los umbrales de
-frame y command/response de D-052.
+Firefox registró Worker tick p95 de 9 ms, command/response p95 de 46 ms, backlog máximo 5,
+23 comprobaciones de continuación, 0 divergencias y 4 operaciones save/load sin fallos.
+Chromium registró Worker tick p95 de 2,4 ms, command/response p95 de 45,1 ms, backlog máximo 5,
+23 comprobaciones de continuación, 0 divergencias y 4 operaciones save/load sin fallos. Ambos
+navegadores cumplen los umbrales de frame y command/response de D-052.
 
 La primera repetición de Chromium tras instrumentar el fixture había dado 21,5 ms de p95. La
 corrección final cacheó las coordenadas isométricas, evitó reposicionar Bobs fuera del viewport y

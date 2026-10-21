@@ -26,11 +26,14 @@ No es un remake de Constructor, Street Wars o Mob Rule. El objetivo es construir
 
 ## Estado
 
-Fase actual: definición de producto, arquitectura y validación de viabilidad.
+Fase actual: cierre de rendimiento de Gate 1 (viabilidad técnica).
 
 La estrategia recomendada es validar primero dos puertas:
 
 1. Gate 1 — viabilidad técnica.
 2. Gate 2 — viabilidad de producto.
 
-Sólo después se abordará un vertical slice comercial.
+Gate 1 permanece en `REWORK`: el fixture de referencia ya se ejecuta de forma continua en el
+Worker y se renderiza en la build de producción, pero aún falta la evidencia prolongada y la
+instrumentación completa de navegador exigida por D-052. Sólo después se abordará un vertical
+slice comercial.

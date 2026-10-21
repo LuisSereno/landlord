@@ -5,6 +5,15 @@ import { SnapshotPersistenceError, createIndexedDbPersistence } from "./persiste
 import type { GridCell } from "./isometric/coordinates";
 import { mountIsometricSpike, updateIsometricProjection } from "./isometric/mount";
 import { SimulationWorkerClient } from "./worker/client";
+import { BenchmarkApp } from "./BenchmarkApp";
+
+export function RootApp() {
+  return new URLSearchParams(window.location.search).get("benchmark") === "gate1-reference-v1" ? (
+    <BenchmarkApp />
+  ) : (
+    <App />
+  );
+}
 
 export function App() {
   const [selectedCell, setSelectedCell] = useState<GridCell | null>(null);

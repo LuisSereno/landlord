@@ -62,7 +62,11 @@ Gate 1 en REWORK — WP1.1 a WP1.16 ejecutadas; G1-RW-01 debe cerrarse antes de 
 ## Próximo objetivo
 Gate 1 — viabilidad técnica.
 
-El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista, Worker, snapshot v1, IndexedDB, escena/picking, flujo vertical, benchmark, soak headless y métricas de auditoría están cerrados. El acta `docs/execution/phase-1/gate-1-review-2026-10-20.md` deja Gate 1 en `REWORK` únicamente por el soak navegador de dos horas; Gate 2 no puede comenzar.
+El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista, Worker,
+snapshot v1, IndexedDB, escena/picking, flujo vertical, benchmark y soak headless están
+cerrados. Gate 1 permanece en `REWORK`: el fixture browser ahora carga 500 agentes y 100
+estructuras en un Worker y en Phaser, pero falta reunir la evidencia de diez minutos/soak y
+completar la instrumentación browser de comandos, save/load y backlog. Gate 2 no puede comenzar.
 
 Debe validar:
 - render isométrico;

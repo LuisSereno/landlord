@@ -35,6 +35,15 @@ describe("reference benchmark scenario", () => {
     expect(canonicalBenchmarkState(left)).toBe(canonicalBenchmarkState(right));
   });
 
+  it("keeps agents navigating after their first route completes", () => {
+    const scenario = createBenchmarkScenario(1, { agentCount: 1 });
+    const firstTarget = { ...scenario.agents.values().next().value!.target };
+    for (let tick = 0; tick < 200; tick += 1) scenario.step();
+    const agent = scenario.agents.values().next().value!;
+    expect(agent.target).not.toEqual(firstTarget);
+    expect(agent.pathIndex).toBeLessThanOrEqual(agent.path.length);
+  });
+
   it("records tick and projection samples without setting a machine-specific gate result", () => {
     const result = runReferenceBenchmark(1, {
       warmupTicks: 5,

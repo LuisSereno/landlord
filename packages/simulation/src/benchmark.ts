@@ -21,7 +21,6 @@ type BenchmarkAgent = {
   target: GridCell;
   path: GridCell[];
   pathIndex: number;
-  completed: boolean;
 };
 
 export type BenchmarkScenario = {
@@ -52,6 +51,15 @@ export type BenchmarkResult = {
 };
 
 type Measure = (operation: () => void) => number;
+
+type PathWorkspace = {
+  gScore: Float64Array;
+  cameFrom: Int32Array;
+  visitedAt: Uint32Array;
+  closedAt: Uint32Array;
+  queue: Array<{ index: number; f: number; h: number }>;
+  run: number;
+};
 
 const DIRECTIONS = [
   { x: 0, y: -1 },
@@ -128,30 +136,34 @@ function findPath(
   start: GridCell,
   target: GridCell,
   blockedCells: ReadonlySet<string>,
+  workspace: PathWorkspace,
 ): GridCell[] {
   if (cellKey(start) === cellKey(target)) return [];
-  const total = BENCHMARK_MAP_SIZE * BENCHMARK_MAP_SIZE;
-  const gScore = new Float64Array(total);
-  gScore.fill(Number.POSITIVE_INFINITY);
-  const cameFrom = new Int32Array(total);
-  cameFrom.fill(-1);
-  const closed = new Uint8Array(total);
-  const queue: Array<{ index: number; f: number; h: number }> = [];
+  workspace.run += 1;
+  if (workspace.run === 0) {
+    workspace.run = 1;
+    workspace.visitedAt.fill(0);
+    workspace.closedAt.fill(0);
+  }
+  const run = workspace.run;
+  const queue = workspace.queue;
+  queue.length = 0;
   const startIndex = cellIndex(start);
   const targetIndex = cellIndex(target);
-  gScore[startIndex] = 0;
+  workspace.gScore[startIndex] = 0;
+  workspace.visitedAt[startIndex] = run;
   pushQueue(queue, { index: startIndex, f: manhattan(start, target), h: manhattan(start, target) });
 
   while (queue.length > 0) {
     const current = popQueue(queue)!;
-    if (closed[current.index]) continue;
-    closed[current.index] = 1;
+    if (workspace.closedAt[current.index] === run) continue;
+    workspace.closedAt[current.index] = run;
     if (current.index === targetIndex) {
       const path: GridCell[] = [];
       let index = targetIndex;
       while (index !== startIndex) {
         path.push(indexCell(index));
-        index = cameFrom[index]!;
+        index = workspace.cameFrom[index]!;
       }
       path.reverse();
       return path;
@@ -161,11 +173,16 @@ function findPath(
       const neighbor = { x: currentCell.x + direction.x, y: currentCell.y + direction.y };
       if (!inBounds(neighbor) || blockedCells.has(cellKey(neighbor))) continue;
       const neighborIndex = cellIndex(neighbor);
-      if (closed[neighborIndex]) continue;
-      const tentative = gScore[current.index]! + 1;
-      if (tentative >= gScore[neighborIndex]!) continue;
-      cameFrom[neighborIndex] = current.index;
-      gScore[neighborIndex] = tentative;
+      if (workspace.closedAt[neighborIndex] === run) continue;
+      const tentative = workspace.gScore[current.index]! + 1;
+      if (
+        workspace.visitedAt[neighborIndex] === run &&
+        tentative >= workspace.gScore[neighborIndex]!
+      )
+        continue;
+      workspace.cameFrom[neighborIndex] = current.index;
+      workspace.gScore[neighborIndex] = tentative;
+      workspace.visitedAt[neighborIndex] = run;
       const h = manhattan(neighbor, target);
       pushQueue(queue, { index: neighborIndex, f: tentative + h, h });
     }
@@ -185,12 +202,37 @@ function nextFreeCell(
   throw new Error("Benchmark fixture ran out of free cells");
 }
 
+function assignNextPath(
+  agent: BenchmarkAgent,
+  prng: ReturnType<typeof createPrng>,
+  blockedCells: ReadonlySet<string>,
+  occupied: Set<string>,
+  workspace: PathWorkspace,
+): void {
+  // An agent may select its own current cell, but not another agent's cell. Removing it
+  // here keeps destination selection deterministic while avoiding an artificial dead end.
+  occupied.delete(cellKey(agent.cell));
+  const target = nextFreeCell(prng, blockedCells, occupied);
+  occupied.add(cellKey(agent.cell));
+  agent.target = target;
+  agent.path = findPath(agent.cell, target, blockedCells, workspace);
+  agent.pathIndex = 0;
+}
+
 export function createBenchmarkScenario(
   seedValue: number,
   options: BenchmarkScenarioOptions = {},
 ): BenchmarkScenario {
   const seed = parseSeed(seedValue);
   const prng = createPrng(seed);
+  const workspace: PathWorkspace = {
+    gScore: new Float64Array(BENCHMARK_MAP_SIZE * BENCHMARK_MAP_SIZE),
+    cameFrom: new Int32Array(BENCHMARK_MAP_SIZE * BENCHMARK_MAP_SIZE),
+    visitedAt: new Uint32Array(BENCHMARK_MAP_SIZE * BENCHMARK_MAP_SIZE),
+    closedAt: new Uint32Array(BENCHMARK_MAP_SIZE * BENCHMARK_MAP_SIZE),
+    queue: [],
+    run: 0,
+  };
   const agentCount = options.agentCount ?? BENCHMARK_AGENT_COUNT;
   const navigation = options.navigation ?? true;
   const blockedCells = new Set<string>();
@@ -218,8 +260,8 @@ export function createBenchmarkScenario(
     occupied.add(cellKey(cell));
     const target = nextFreeCell(prng, blockedCells, occupied);
     const id = parseAgentId(`agent_${String(index + 1).padStart(8, "0")}`);
-    const path = navigation ? findPath(cell, target, blockedCells) : [];
-    agents.set(id, { id, cell, target, path, pathIndex: 0, completed: false });
+    const path = navigation ? findPath(cell, target, blockedCells, workspace) : [];
+    agents.set(id, { id, cell, target, path, pathIndex: 0 });
   }
 
   const scenario: BenchmarkScenario = {
@@ -235,7 +277,6 @@ export function createBenchmarkScenario(
       }
       const occupiedCells = new Set([...agents.values()].map((other) => cellKey(other.cell)));
       for (const agent of agents.values()) {
-        if (agent.completed) continue;
         if (agent.pathIndex < agent.path.length) {
           occupiedCells.delete(cellKey(agent.cell));
           agent.cell = agent.path[agent.pathIndex]!;
@@ -243,7 +284,9 @@ export function createBenchmarkScenario(
           occupiedCells.add(cellKey(agent.cell));
           continue;
         }
-        agent.completed = true;
+        // The fixture is intentionally a sustained load: upon arrival the agent obtains
+        // another PRNG-derived destination in stable agent-ID order and runs A* again.
+        assignNextPath(agent, prng, blockedCells, occupiedCells, workspace);
       }
       scenario.tick = parseTick(scenario.tick + 1);
     },
@@ -275,7 +318,6 @@ export function canonicalBenchmarkState(scenario: BenchmarkScenario): string {
       cell: agent.cell,
       target: agent.target,
       pathIndex: agent.pathIndex,
-      completed: agent.completed,
     })),
   });
 }

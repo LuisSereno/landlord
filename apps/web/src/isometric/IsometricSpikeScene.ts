@@ -114,6 +114,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
       graphics.fillStyle(0xd97757, 1);
       graphics.fillRect(center.x - 8, center.y - 10, 16, 16);
     }
+    for (const agent of this.projection?.agents ?? []) {
+      const center = gridToScreen(agent.cell, this.layout);
+      graphics.fillStyle(0x8fcae7, 0.9);
+      graphics.fillRect(center.x - 2, center.y - 8, 4, 4);
+    }
     if (this.selectedCell) {
       const center = gridToScreen(this.selectedCell, this.layout);
       const halfWidth = this.layout.tileWidth / 2;

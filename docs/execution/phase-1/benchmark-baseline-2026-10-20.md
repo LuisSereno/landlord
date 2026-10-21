@@ -45,10 +45,22 @@ El smoke queda dentro de p95 ≤ 20 ms en ambos navegadores. La ejecución inter
 minutos y el soak de dos horas pertenecen a WP1.15 y deben archivarse como artefactos de CI sin
 mezclar máquinas distintas.
 
+## Invalidación metodológica y siguiente evidencia
+
+Esta baseline queda sustituida como evidencia de aprobación. La revisión de cierre comprobó que
+el fixture marcaba un agente como completado al terminar su primera ruta, por lo que la carga de
+navegación se apagaba progresivamente. Además, el runner de navegador servía Vite en desarrollo y
+abría el juego normal, que no contiene los 500 agentes ni los 100 obstáculos del fixture.
+
+El retest usa destinos continuos por PRNG en orden de ID, un espacio de trabajo A* reutilizable,
+un Worker dedicado al fixture y la build de producción servida con `vite preview`. Un smoke corto
+del retest obtuvo frame p95 de 17 ms en Chromium y 18 ms en Firefox, y Worker tick p95 cercano a
+6 ms; no sustituye las ejecuciones de diez minutos de D-052.
+
 ## Limitaciones y siguiente evidencia
 
-- Este baseline no declara por sí solo el Gate 1: aún faltan soak, latencia Worker medida y
-  auditoría final.
+- El retest headless completo, las ejecuciones browser de diez minutos y el soak Chromium de dos
+  horas siguen pendientes. El harness browser aún debe incluir comandos, backlog y save/load.
 - El warning de Vite sobre un bundle inicial superior a 500 kB es informativo para la futura
   optimización; no modifica los umbrales de simulación ni de frame time.
 - Para repetir la medición de navegador con los dos motores instalados:

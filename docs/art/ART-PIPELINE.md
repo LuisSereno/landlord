@@ -1,410 +1,103 @@
 # Art Pipeline Specification — Landlord
 
-> Versión: 0.1
+> Version: 0.1
 >
-> Estado: propuesta técnica de preproducción.
+> Status: preproduction engineering specification.
 >
-> Objetivo: convertir una fuente artística editable en un asset web reproducible, validado, versionado y cargable por Phaser.
-
-## Principio
-
-El primer entregable importante del pipeline no es un asset aislado de alta calidad: es una cadena reproducible que permita modificar un asset fuente y regenerar correctamente render, recorte, atlas, metadata, integración y validación.
-
-## Baseline propuesto
-
-```text
-concept / Art Bible
--> Blender source
--> model / UV / materials / rig
--> validation
--> canonical camera + lighting
--> headless render
--> RGBA master frames
--> trim / validation
--> atlas packing
--> asset manifest
--> Phaser
--> visual regression
-```
-
-La versión exacta de Blender, la herramienta de packing y las políticas LFS deben congelarse sólo después de validar el spike.
-
-## Pipeline técnico de Blender a sprites
-
-El pipeline propuesto no consiste simplemente en pulsar “Render” en Blender. Debe ser una transformación reproducible desde fuente artística hasta recurso del navegador.
-
-```mermaid
-flowchart LR
-    A[Concept / Art Bible] --> B[Blender source]
-    B --> C[Modelado y UV]
-    C --> D[Substance / materiales]
-    D --> E[Rig y animación]
-    E --> F[Scene validation]
-    F --> G[Canonical camera + lighting]
-    G --> H[Blender headless render]
-    H --> I[RGBA master frames]
-    I --> J[Post / trim / validation]
-    J --> K[TexturePacker]
-    K --> L[Atlas + metadata]
-    L --> M[Asset manifest]
-    M --> N[Phaser]
-    N --> O[Visual regression]
-    O --> P[Build / CDN]
-```
-
-Blender está especialmente bien adaptado a esto porque soporta render sin interfaz gráfica y ejecución por línea de comandos; su documentación oficial contempla expresamente la automatización y renderizado remoto/headless. `blender -b file.blend -f 10` procesa un frame sin interfaz y `-a` puede procesar una animación completa.
-
-**Versionado**
-
-No utilizaría “Blender latest” en producción.
-
-Usaría:
-
-```text
-tools/versions.json
-
-{
-  "blender": "4.5.x-LTS",
-  "texturePacker": "...",
-  "aseprite": "...",
-  "assetSchema": 1
-}
-```
-
-La versión exacta debe quedar fijada una vez validado el primer vertical slice.
-
-**Plantilla de escena Blender**
-
-Todos los assets se basarán en:
-
-```text
-templates/
-    building.blend
-    character.blend
-    prop.blend
-    vehicle.blend
-```
-
-Cada plantilla incluye:
-
-```text
-COL_CAMERA
-COL_LIGHTING
-COL_REFERENCE
-COL_RENDER
-COL_COLLISION_HELPERS
-COL_ANCHORS
-```
-
-Y objetos reservados:
-
-```text
-CAM_GAME
-LIGHT_KEY
-LIGHT_FILL
-ANCHOR_ROOT
-FOOTPRINT
-HEIGHT_GUIDE
-```
-
-**Sistema de unidades**
-
-Propuesta:
-
-```text
-1 Blender unit = 1 metro
-1 Landlord cell = 4 × 4 metros
-```
-
-El tamaño concreto de una celda física puede ajustarse durante el Visual Direction Spike, pero una vez aprobado debe convertirse en constante del proyecto. Lo importante es que **ningún artista escale a ojo para que “quede bien en pantalla”**.
-
-**Cámara**
-
-```text
-projection      ORTHOGRAPHIC
-azimuth         45°
-elevation       ~30°
-roll            0°
-camera shift    0
-```
-
-El `orthographic_scale` se calcula a partir de footprint y output resolution.
-
-No se permitirá perspectiva en assets del mundo.
-
-**Iluminación canónica**
-
-La iluminación queda fijada en la Art Bible:
-
-```text
-             KEY/SUN
-                ↘
-              CITY
-
-camera → ◇
-```
-
-Propuesta:
-
-- key solar desde el cuadrante noroeste de pantalla;
-- sombras hacia sureste;
-- fill ambiental suave;
-- temperatura ligeramente cálida;
-- ambient occlusion discreto;
-- ningún punto completamente negro;
-- highlights controlados;
-- fondo transparente.
-
-La razón es estructural: una vez horneada la iluminación dentro del sprite no podemos mover el sol dinámicamente sin revelar que los edificios no están iluminados igual.
-
-Por ello **Landlord v1 no debería tener ciclo completo de día/noche con luz físicamente móvil**.
-
-Puede tener:
-
-```text
-día
-lluvia
-niebla
-noche estilizada
-```
-
-mediante variantes, lightmaps/overlays, ventanas iluminadas, partículas y grading.
-
-Un verdadero ciclo solar requeriría renders por dirección/estado o migrar parte de la iluminación al runtime, y debe considerarse una feature independiente.
-
-**Motor de render**
-
-Mi baseline sería **EEVEE**. Blender lo define como su motor de render en tiempo real centrado en velocidad e interactividad y compatible con materiales PBR, lo que encaja mejor con cientos o miles de renders automatizados que Cycles.
-
-Cycles se reserva para:
-
-- renders de referencia;
-- comprobar materiales;
-- hero images;
-- marketing;
-- detectar desviaciones de EEVEE.
-
-**Texturizado**
-
-El pipeline PBR interno puede trabajar con:
-
-```text
-BaseColor
-Roughness
-Metallic
-Normal
-AO
-Emission
-```
-
-aunque al final se convierta en un único sprite RGBA.
-
-Esto es muy útil: permite crear materiales reutilizables como:
-
-```text
-mat_brick_red_01
-mat_brick_dirty_01
-mat_plaster_warm_01
-mat_steel_painted_01
-mat_brass_01
-mat_asphalt_01
-mat_wood_dark_01
-```
-
-Substance 3D Painter permite definir Output Templates que controlan nomenclatura, channel packing, formato y profundidad de salida, y soporta, entre otros, PNG y WebP. Adobe también incluye un preset orientado a Blender/Principled BSDF.
-
-No obstante, **Substance no debe ser obligatorio para contribuir al proyecto**. Un colaborador debería poder crear un asset completamente válido con Blender.
-
-**Formato fuente**
-
-Jerarquía recomendada:
-
-```text
-authoritative:
-    .blend
-
-optional texturing source:
-    .spp
-    .psd
-    .kra
-
-interchange:
-    .glb
-
-render master:
-    .png / .exr
-
-runtime:
-    .png
-    atlas metadata
-```
-
-No utilizaría glTF como formato artístico canónico. Blender puede exportar escenas, materiales, animación y propiedades personalizadas a glTF/GLB, pero determinadas características propias de Blender necesitan extensiones y no todo el grafo de trabajo constituye una representación perfecta del `.blend`. GLB debe ser **intercambio**, no “master source”.
-
-**Salida de render**
-
-Para vertical slice:
-
-```text
-Master:
-PNG RGBA 16-bit
-transparent background
-
-Runtime:
-PNG RGBA 8-bit
-```
-
-PNG soporta alfa y Blender puede trabajar con PNG de 8/16 bits; utilizar 16 bit en el master deja margen de grading antes de reducir a 8 bits.
-
-OpenEXR tiene sentido si el proyecto necesita pases o composición HDR compleja, pero introducirlo obligatoriamente desde el principio añade fricción innecesaria.
-
-**PNG, WebP y AVIF**
-
-La política recomendada es:
-
-| Uso | Formato |
-|---|---|
-| master sprite | PNG 16 bit |
-| atlas baseline | PNG 8 bit |
-| fondos grandes UI | WebP |
-| splash/marketing | AVIF + WebP fallback |
-| iconografía | SVG cuando sea DOM |
-| texturas GPU futura | KTX/PVR según soporte |
-
-Phaser acepta imágenes que pueda presentar el navegador y soporta spritesheets, atlas y multiatlas; también dispone de carga de texturas GPU comprimidas con fallback a imágenes convencionales.
-
-WebP y AVIF aportan opciones modernas de compresión web, mientras PNG sigue proporcionando compresión lossless y alfa completo. Para Landlord empezaría con PNG en atlases y cambiaría únicamente después de benchmark, no por anticipación.
-
-**Naming convention**
-
-Todo en ASCII, `lower_snake_case`, sin espacios.
-
-Tipos:
-
-```text
-bld_  building
-chr_  character
-veh_  vehicle
-prp_  prop
-ter_  terrain
-vfx_  effect
-ui_   interface
-ico_  icon
-snd_  sound
-mus_  music
-```
-
-Edificio:
-
-```text
-bld_res_rowhouse_a_r0_complete
-bld_res_rowhouse_a_r0_build_25
-bld_res_rowhouse_a_r0_build_50
-bld_res_rowhouse_a_r0_damaged
-```
-
-Personaje:
-
-```text
-chr_worker_m01_idle_ne_f000
-chr_worker_m01_walk_ne_f000
-chr_worker_m01_walk_ne_f001
-```
-
-Terreno:
-
-```text
-ter_asphalt_clean_a
-ter_grass_dry_a
-ter_road_straight_ne_sw
-```
-
-No colocaría `v001`, `final`, `final2`, etc. en IDs runtime.
-
-La versión pertenece a Git y al manifest.
-
-**Anchor**
-
-Esta es una de las especificaciones más importantes.
-
-No se debe fijar manualmente un pivot “aproximadamente en los pies”.
-
-El `.blend` contiene:
-
-```text
-ANCHOR_ROOT
-```
-
-El script proyecta ese punto con la cámara oficial y escribe el resultado en metadata.
-
-En personajes:
-
-```text
-ANCHOR_ROOT = midpoint between feet on ground
-```
-
-En edificios:
-
-```text
-ANCHOR_ROOT = footprint origin / ground plane
-```
-
-De esta manera, trim y atlas packing no rompen posicionamiento.
-
-**Trim**
-
-TexturePacker puede eliminar transparencias manteniendo información de tamaño original, aplicar márgenes y extruir píxeles de borde para evitar seams al escalar o muestrear entre texels. También soporta multipack y pivots.
-
-Configuración inicial:
-
-```text
-trim                 on
-trim threshold       1
-trim margin          2 px
-extrude              2 px
-shape padding        4 px
-border padding       4 px
-rotation in atlas    off
-algorithm            MaxRects
-max atlas            2048×2048
-multipack            on
-```
-
-Desactivaría inicialmente la rotación del sprite dentro del atlas para simplificar tooling, inspección y debugging.
-
-**Atlases**
-
-No utilizaría un gigantesco `game.png`.
-
-Separaría por afinidad:
-
-```text
-atlas_terrain
-atlas_buildings_residential
-atlas_buildings_commercial
-atlas_buildings_industrial
-atlas_characters_workers
-atlas_characters_civilians
-atlas_vfx
-```
-
-TexturePacker permite limitar dimensiones y producir múltiples hojas automáticamente; su valor predeterminado actual para `--max-size` es 2048 y soporta salida Phaser con multipack.
-
-Phaser diferencia entre spritesheet —celdas uniformes— y atlas —frames de tamaños y posiciones arbitrarias— y soporta `multiatlas` para contenidos que no caben en una sola textura.
-
-
-## Repositorio de assets, automatización e integración con Phaser
-
-Dado que Landlord pretende admitir colaboración abierta, la estructura de assets debe ser comprensible sin hablar con el artista que los creó.
-
-Durante Vertical Slice mantendría **un repositorio único**, antes que crear prematuramente infraestructura adicional.
-
-```text
+> Purpose: define a reproducible path from editable source asset to validated runtime content for Phaser.
+>
+> Governance: concrete tool versions and numeric budgets marked BASELINE remain provisional until the Visual Direction Spike and profiling close them.
+
+---
+
+## 1. Objectives
+
+The pipeline must optimize for:
+
+1. visual consistency across multiple contributors;
+2. deterministic/reproducible output where practical;
+3. automation;
+4. low-friction web integration;
+5. source provenance;
+6. validation before merge;
+7. scalability from tens to hundreds of assets;
+8. independence between gameplay state and visual asset implementation.
+
+The first successful production asset is not “a beautiful building”.
+
+It is:
+
+> **A building that can be modified in its source file and regenerated with one documented workflow into a correctly lit, anchored, trimmed, packed, metadata-valid, Phaser-loadable and visually tested runtime asset.**
+
+---
+
+## 2. Pipeline status legend
+
+- **DECIDED** — current project decision.
+- **BASELINE** — proposed production default, pending spike/profile.
+- **OPEN** — unresolved and must not be hard-coded as irreversible.
+- **FUTURE** — explicitly deferred.
+
+---
+
+## 3. End-to-end architecture
+
+### 3.1 Candidate production flow — BASELINE
+
+\`\`\`text
+concept / art bible
+    ↓
+source asset
+    ↓
+model / UV / materials
+    ↓
+rig / animation if required
+    ↓
+source validation
+    ↓
+canonical camera + lighting
+    ↓
+headless render
+    ↓
+RGBA master frames
+    ↓
+post / trim / validation
+    ↓
+atlas packing
+    ↓
+runtime metadata
+    ↓
+asset manifest
+    ↓
+Phaser ingestion
+    ↓
+Art Lab
+    ↓
+visual regression
+    ↓
+performance smoke
+    ↓
+approved runtime asset
+\`\`\`
+
+### 3.2 Source and runtime are different products
+
+Authoritative source files exist for editability.
+
+Runtime files exist for loading performance.
+
+Do not edit generated runtime atlases manually.
+
+---
+
+## 4. Repository layout
+
+### 4.1 Baseline layout
+
+\`\`\`text
 landlord/
-│
 ├── art/
 │   ├── README.md
-│   ├── bible/
 │   ├── concepts/
 │   ├── blender/
 │   │   ├── buildings/
@@ -426,7 +119,11 @@ landlord/
 │   └── manifests/
 │
 ├── apps/web/public/assets/
-│   └── ...
+│   ├── atlases/
+│   ├── terrain/
+│   ├── ui/
+│   ├── vfx/
+│   └── audio/
 │
 ├── tools/
 │   └── art-pipeline/
@@ -435,192 +132,623 @@ landlord/
 │       ├── validate/
 │       └── manifests/
 │
-└── docs/
-    └── art/
-        ├── ART-BIBLE.md
-        ├── ART-PIPELINE.md
-        ├── ASSET-NAMING.md
-        ├── PERFORMANCE-BUDGET.md
-        └── ASSET-CHECKLIST.md
-```
+└── docs/art/
+\`\`\`
 
-Cuando la fuente artística alcance varios gigabytes o la gestión de permisos/licencias lo justifique, entonces sí evaluaría:
+### 4.2 Separate art repository — FUTURE
 
-```text
-landlord
-landlord-art-source
-```
+Remain monorepo initially.
 
-pero no lo haría todavía.
+Re-evaluate a separate \`landlord-art-source\` only when binary source history becomes materially large, permissions differ, LFS/storage cost becomes a problem, or art CI requires an independent lifecycle.
 
-**Git LFS**
+---
 
-Git LFS sustituye archivos grandes dentro del historial por pequeños pointers y almacena el contenido binario separado; GitHub recomienda LFS para binarios grandes.
+## 5. Toolchain
 
-`.gitattributes` inicial:
+### 5.1 Core DCC — BASELINE
 
-```gitattributes
-*.blend filter=lfs diff=lfs merge=lfs -text
-*.spp filter=lfs diff=lfs merge=lfs -text
-*.psd filter=lfs diff=lfs merge=lfs -text
-*.kra filter=lfs diff=lfs merge=lfs -text
-*.aseprite filter=lfs diff=lfs merge=lfs -text
-*.exr filter=lfs diff=lfs merge=lfs -text
-*.wav filter=lfs diff=lfs merge=lfs -text
-```
+Blender is the preferred authoritative 3D source tool.
 
-No metería automáticamente **todo PNG** en LFS. Iconos y pequeños runtime assets pueden ser perfectamente normales; los renders master muy grandes sí podrían entrar en LFS.
+Reasons established by the research include orthographic cameras, reproducible scene setup, Python scripting, command-line/headless rendering, rigging and animation.
 
-Hay un coste que debe vigilarse en un repositorio abierto: al modificar un archivo LFS, se almacena una nueva versión completa y ésta contabiliza nuevamente para almacenamiento; además, colaboradores sin Git LFS no reciben el binario original. GitHub recomienda documentar explícitamente este requisito para colaboradores.
+Exact LTS version remains OPEN until the spike freezes it.
 
-**Provenance**
+### 5.2 Renderer — BASELINE
 
-Cada asset entregable debe tener metadata.
+Proposed:
 
-Por ejemplo:
+- EEVEE for batch production;
+- Cycles for reference, material validation and hero/marketing work where justified.
 
-```json
+Do not use Cycles by default if it materially slows iteration without visible gameplay benefit.
+
+### 5.3 Optional tools
+
+- Substance Painter — advanced texturing, optional.
+- Krita / Photoshop — concept, paintover, UI source, optional.
+- Aseprite — 2D VFX, icon/sprite correction, useful.
+- TexturePacker — candidate atlas packer.
+- Tiled — candidate map/terrain authoring tool.
+- Playwright — visual regression for web.
+- Pixelmatch or equivalent — optional granular visual diff.
+
+No optional commercial tool may become a mandatory contributor dependency without explicit approval.
+
+---
+
+## 6. Tool version pinning
+
+Production must never depend on “latest”.
+
+Proposed manifest:
+
+\`\`\`json
 {
-  "schemaVersion": 1,
+  "blender": "TBD-LTS",
+  "texturePacker": "TBD",
+  "aseprite": "TBD",
+  "assetSchema": 1,
+  "pipelineSchema": 1
+}
+\`\`\`
+
+Store under a versioned tooling configuration such as:
+
+\`\`\`text
+tools/versions.json
+\`\`\`
+
+---
+
+## 7. Units and scale
+
+### 7.1 Blender units — BASELINE
+
+\`\`\`text
+1 Blender unit = 1 metre
+\`\`\`
+
+### 7.2 Logical cell — OPEN
+
+Working proposal:
+
+\`\`\`text
+1 Landlord cell ~ 4 x 4 metres
+\`\`\`
+
+Freeze only after the spike validates building/vehicle/character density.
+
+### 7.3 No per-asset scale hacks
+
+Assets must respect a master scale.
+
+Exceptions require a written reason, visible review and metadata note if technically relevant.
+
+---
+
+## 8. Master templates
+
+Candidate templates:
+
+\`\`\`text
+art/blender/templates/
+├── building.blend
+├── character.blend
+├── prop.blend
+└── vehicle.blend
+\`\`\`
+
+Each template should contain controlled collections:
+
+\`\`\`text
+COL_CAMERA
+COL_LIGHTING
+COL_REFERENCE
+COL_RENDER
+COL_COLLISION_HELPERS
+COL_ANCHORS
+\`\`\`
+
+Reserved objects:
+
+\`\`\`text
+CAM_GAME
+LIGHT_KEY
+LIGHT_FILL
+ANCHOR_ROOT
+FOOTPRINT
+HEIGHT_GUIDE
+\`\`\`
+
+Contributors should duplicate templates rather than rebuilding camera/light rigs.
+
+---
+
+## 9. Camera rig
+
+### 9.1 Baseline
+
+\`\`\`text
+projection      ORTHOGRAPHIC
+azimuth         ~45°
+elevation       ~30°
+roll            0°
+camera shift    0
+\`\`\`
+
+Exact values are OPEN until the Visual Direction Spike.
+
+### 9.2 Camera script
+
+The pipeline should provide a script such as:
+
+\`\`\`text
+tools/art-pipeline/blender/camera_rig.py
+\`\`\`
+
+Responsibilities:
+
+- orient camera toward world origin;
+- set orthographic scale;
+- validate expected projected footprint;
+- fail when camera metadata deviates from project baseline.
+
+Avoid hand-entered Euler values per asset.
+
+---
+
+## 10. Lighting rig
+
+### 10.1 Canonical baseline
+
+- fixed directional/key light;
+- visual north-west source;
+- visual south-east shadow direction;
+- soft fill;
+- transparent background;
+- controlled ambient occlusion;
+- no clipped black areas.
+
+### 10.2 Why lighting is fixed
+
+With baked sprites, incompatible light direction between assets is immediately visible.
+
+A physically moving runtime sun is outside v0.1 pipeline scope.
+
+---
+
+## 11. Modelling rules
+
+### 11.1 Buildings
+
+Model for game silhouette first.
+
+Priorities:
+
+1. footprint;
+2. massing;
+3. roof line;
+4. entrance/loading language;
+5. gameplay-readable props;
+6. material segmentation;
+7. secondary detail.
+
+### 11.2 Geometry economy
+
+Because final world output is prerendered, polygon count is not a runtime GPU cost in the same way as real-time 3D.
+
+However excessive geometry still increases authoring time, Blender load time, batch render time and maintenance.
+
+Do not model invisible detail.
+
+### 11.3 Modular kits
+
+Prefer reusable modules for windows, doors, chimneys, awnings, roof equipment, pipes, fire escapes, vents, signs, fences and loading props.
+
+---
+
+## 12. Materials and textures
+
+### 12.1 Internal material model
+
+Candidate source channels:
+
+\`\`\`text
+BaseColor
+Roughness
+Metallic
+Normal
+AO
+Emission
+\`\`\`
+
+The final sprite may collapse these into a single RGBA output.
+
+### 12.2 Reuse
+
+Shared materials should be named and versioned.
+
+Avoid one material per building unless there is a real visual reason.
+
+### 12.3 Substance
+
+If Substance Painter is used:
+
+- export naming must map to project conventions;
+- the \`.spp\` is source, not runtime;
+- contributors without Substance must still be able to deliver a valid Blender-based asset.
+
+---
+
+## 13. Source formats
+
+### 13.1 Authoritative
+
+\`\`\`text
+.blend
+\`\`\`
+
+### 13.2 Optional source
+
+\`\`\`text
+.spp
+.psd
+.kra
+.aseprite
+.wav
+\`\`\`
+
+### 13.3 Interchange
+
+\`\`\`text
+.glb
+\`\`\`
+
+GLB is an exchange format, not the authoritative art master.
+
+### 13.4 Render master
+
+Candidate:
+
+\`\`\`text
+PNG RGBA 16-bit
+\`\`\`
+
+OpenEXR is optional for workflows that genuinely require HDR/passes.
+
+### 13.5 Runtime baseline
+
+Candidate:
+
+\`\`\`text
+PNG RGBA 8-bit
++ atlas metadata
+\`\`\`
+
+WebP/AVIF are more appropriate for selected large UI/marketing imagery than as an automatic first choice for world atlases.
+
+GPU-compressed textures are FUTURE until profiling demonstrates need.
+
+---
+
+## 14. Asset IDs and naming
+
+### 14.1 General rule
+
+ASCII, lower snake case, no spaces.
+
+Prefixes:
+
+\`\`\`text
+bld_ building
+chr_ character
+veh_ vehicle
+prp_ prop
+ter_ terrain
+vfx_ effect
+ui_  interface
+ico_ icon
+snd_ sound
+mus_ music
+\`\`\`
+
+### 14.2 Examples
+
+Building:
+
+\`\`\`text
+bld_res_rowhouse_a_r0_complete
+bld_res_rowhouse_a_r0_build_25
+bld_res_rowhouse_a_r0_build_50
+bld_res_rowhouse_a_r0_damaged
+\`\`\`
+
+Character:
+
+\`\`\`text
+chr_worker_m01_idle_ne_f000
+chr_worker_m01_walk_ne_f000
+chr_worker_m01_walk_ne_f001
+\`\`\`
+
+Terrain:
+
+\`\`\`text
+ter_asphalt_clean_a
+ter_grass_dry_a
+ter_road_straight_ne_sw
+\`\`\`
+
+### 14.3 Versioning
+
+Do not encode \`v1\`, \`v2\`, \`final\`, \`final2\` or similar suffixes in runtime asset IDs.
+
+Version belongs in Git and manifests.
+
+---
+
+## 15. Anchors, pivots and footprints
+
+### 15.1 Anchor source of truth
+
+Each relevant Blender source contains:
+
+\`\`\`text
+ANCHOR_ROOT
+\`\`\`
+
+### 15.2 Characters
+
+\`\`\`text
+ANCHOR_ROOT = midpoint between feet on ground
+\`\`\`
+
+### 15.3 Buildings
+
+\`\`\`text
+ANCHOR_ROOT = logical footprint origin on ground plane
+\`\`\`
+
+### 15.4 Automated projection
+
+The build script projects \`ANCHOR_ROOT\` through the canonical camera and writes runtime anchor/pivot metadata.
+
+This prevents trimming from breaking placement.
+
+### 15.5 Footprint data
+
+Footprints are gameplay data.
+
+Example:
+
+\`\`\`json
+{
   "assetId": "bld_res_rowhouse_a",
-  "type": "building",
-  "category": "residential",
-  "author": "github:luissereno",
-  "origin": "original",
-  "license": "PROJECT-ASSET-LICENSE",
-  "source": "art/blender/buildings/res/rowhouse_a.blend",
-  "artBibleVersion": "0.1",
-  "toolchain": {
-    "blender": "4.5.x"
-  },
-  "footprint": [2, 3],
-  "anchor": "ANCHOR_ROOT",
-  "atlasGroup": "buildings_residential",
-  "tags": [
-    "era_1920",
-    "residential",
-    "low_income"
-  ]
+  "footprint": {
+    "width": 2,
+    "height": 3,
+    "mask": [
+      [1, 1],
+      [1, 1],
+      [1, 1]
+    ]
+  }
 }
-```
+\`\`\`
 
-Con colaboradores externos añadiría:
+Never derive occupancy from alpha pixels.
 
-```text
-original
-licensed
-public_domain
-generated
-derived
-```
+---
 
-y para material generado o asistido por IA:
+## 16. Building states
 
-```json
-{
-  "origin": "generated",
-  "generator": "...",
-  "model": "...",
-  "licenseReviewed": false,
-  "humanReview": true
-}
-```
+Minimum candidate pipeline states:
 
-Esto es particularmente importante en un proyecto público: dentro de cinco años debemos poder responder **quién creó cada asset y bajo qué términos**.
+\`\`\`text
+planned
+foundation
+construction_50
+complete
+damaged
+\`\`\`
 
-**Automatización**
+Optional:
 
-El pipeline debe admitir:
+\`\`\`text
+abandoned
+upgraded_1
+upgraded_2
+\`\`\`
 
-```bash
+The source should reuse geometry/materials wherever possible.
+
+Do not count every state as a completely independent asset in production planning.
+
+---
+
+## 17. Character rig and animation
+
+### 17.1 Base rig
+
+One reusable rig should drive multiple character variants where feasible.
+
+### 17.2 Direction output — BASELINE
+
+Candidate:
+
+\`\`\`text
+N NE E SE S SW W NW
+\`\`\`
+
+### 17.3 Batch output
+
+For each clip:
+
+\`\`\`text
+rig animation
+-> direction/orientation loop
+-> frame loop
+-> headless render
+-> named frames
+\`\`\`
+
+Example output:
+
+\`\`\`text
+chr_worker_m01_walk_ne_f000.png
+...
+chr_worker_m01_walk_ne_f007.png
+\`\`\`
+
+### 17.4 Mirroring
+
+No automatic global mirroring.
+
+Allow only when asset metadata explicitly declares it safe.
+
+---
+
+## 18. Render automation
+
+### 18.1 Required command-line capability
+
+Target commands should converge toward:
+
+\`\`\`text
 pnpm art:validate
 pnpm art:render
 pnpm art:pack
 pnpm art:manifest
 pnpm art:test
 pnpm art:build
-```
+\`\`\`
 
-El trabajo real:
+Exact implementation is OPEN.
 
-```mermaid
-flowchart TD
-    A[Artist commits source] --> B[Validate naming]
-    B --> C[Validate manifest]
-    C --> D[Detect changed assets]
-    D --> E[Blender headless]
-    E --> F[Validate dimensions / alpha]
-    F --> G[Pack atlas]
-    G --> H[Generate manifest]
-    H --> I[Build Phaser art-lab]
-    I --> J[Playwright screenshots]
-    J --> K{Diff OK?}
-    K -->|yes| L[Artifact]
-    K -->|no| M[Review visual]
-```
+### 18.2 Headless Blender
 
-Blender soporta directamente este uso en background; la línea de comandos también admite scripts Python y selección de frame/animación.
+The pipeline should invoke Blender in background/headless mode with version-pinned scripts.
 
-No renderizaría todo el catálogo en cada PR.
+The script should control scene, camera, lighting, frame, orientation, render resolution, transparent background, output name and output path.
 
-El hash de build sería:
+### 18.3 Do not render everything on every PR
 
-```text
+Use changed-asset detection and build cache.
+
+Candidate cache key:
+
+\`\`\`text
 SHA256(
-    source file
+  source
   + referenced textures
   + render settings
   + Blender version
   + pipeline version
 )
-```
+\`\`\`
 
-Si no cambia:
+---
 
-```text
-use cache
-```
+## 19. Render output and post-processing
 
-Pipeline CI:
+### 19.1 Master
 
-```text
-PR
-├── metadata validation
-├── source validation
-├── changed assets render
-├── atlas build
-├── unit tests
-├── visual tests
-└── small performance smoke
+BASELINE:
 
-nightly
-├── complete re-render
-├── complete atlas rebuild
-├── visual suite
-└── performance suite
-```
+- PNG RGBA;
+- transparent background;
+- high-quality master;
+- 16-bit candidate for grading headroom.
 
-**Integración con Phaser**
+### 19.2 Runtime
 
-El repo actual fija Phaser 4.2.1 como parte del toolchain.
+BASELINE:
 
-Conceptualmente:
+- 8-bit RGBA;
+- cropped/trimmed;
+- atlas packed.
 
-```typescript
-preload(): void {
-  this.load.multiatlas(
-    "buildings-residential",
-    "/assets/atlases/buildings-residential.json",
-    "/assets/atlases/"
-  );
-}
-```
+### 19.3 Post-processing
 
-Phaser soporta texturas con múltiples source images y carga multi-atlas, precisamente para casos en los que un conjunto de sprites supera una única hoja.
+Permitted operations should be deterministic and scripted where possible:
 
-Animación:
+- crop/trim;
+- alpha cleanup;
+- color-space conversion;
+- downscale;
+- edge extrusion;
+- metadata generation.
 
-```typescript
+Avoid undocumented manual Photoshop fixes to generated runtime sprites.
+
+If a manual paintover is required, preserve the editable source and document the step.
+
+---
+
+## 20. Trim and atlas packing
+
+### 20.1 Candidate pack settings — BASELINE
+
+\`\`\`text
+trim                 on
+trim threshold       1
+trim margin          2 px
+extrude              2 px
+shape padding        4 px
+border padding       4 px
+rotation in atlas    off
+algorithm            MaxRects
+max atlas            2048 x 2048
+multipack            on
+\`\`\`
+
+All values require profiling before being frozen.
+
+### 20.2 Atlas families
+
+Do not create one global atlas.
+
+Candidate groups:
+
+\`\`\`text
+atlas_terrain
+atlas_buildings_residential
+atlas_buildings_commercial
+atlas_buildings_industrial
+atlas_characters_workers
+atlas_characters_civilians
+atlas_vfx
+\`\`\`
+
+### 20.3 Rotation
+
+Keep atlas sprite rotation disabled initially for easier debugging and tooling.
+
+---
+
+## 21. Phaser ingestion
+
+### 21.1 Loader
+
+Use Phaser atlas/multiatlas support for world families that exceed one texture page.
+
+Conceptual example:
+
+\`\`\`ts
+this.load.multiatlas(
+  "buildings-residential",
+  "/assets/atlases/buildings-residential.json",
+  "/assets/atlases/"
+);
+\`\`\`
+
+### 21.2 Animation
+
+Animation clips are created from named atlas frames.
+
+Conceptual example:
+
+\`\`\`ts
 this.anims.create({
   key: "worker.walk.ne",
   frames: this.anims.generateFrameNames("characters-workers", {
@@ -632,46 +760,554 @@ this.anims.create({
   frameRate: 12,
   repeat: -1,
 });
-```
+\`\`\`
 
-El sistema de animación de Phaser está construido alrededor de secuencias de frames dentro de textures/spritesheets/atlases.
+Runtime code should depend on logical asset IDs/manifests, not hard-coded filesystem assumptions spread across scenes.
 
-No introduciría texturas GPU comprimidas durante el primer spike artístico. Primero:
+---
 
-```text
-PNG
-↓
-correctness
-↓
-profiling
-```
+## 22. Depth sorting
 
-Después:
+Depth must be computed from logical world position and explicit asset metadata, not the trimmed PNG rectangle.
 
-```text
-ASTC / ETC / S3TC
-+
-IMG fallback
-```
+Potential inputs:
 
-Phaser ya dispone del mecanismo para seleccionar formatos comprimidos soportados por la GPU y utilizar una imagen convencional como fallback.
+- cell coordinates;
+- local position;
+- asset anchor;
+- layer class;
+- temporary gameplay elevation.
 
-**TexturePacker**
+The precise sorting formula belongs in engineering documentation once implemented.
 
-Configuración conceptual:
+---
 
-```bash
-TexturePacker \
-  --format phaser \
-  --max-size 2048 \
-  --multipack \
-  --trim-mode Trim \
-  --trim-margin 2 \
-  --extrude 2 \
-  --padding 4 \
-  ...
-```
+## 23. Terrain pipeline
 
-TexturePacker documenta `--max-size`, `--multipack`, trimming, extrude, pivots y variantes de escala, por lo que encaja casi exactamente con nuestras necesidades.
+Terrain authoring may use Tiled or an equivalent data-driven editor, but the logical map remains separate from visuals.
 
-La dependencia comercial debe quedar documentada. Una contribución open-source no debería hacerse imposible porque el contributor no tenga TexturePacker Pro; podríamos aceptar frames sueltos y dejar packing oficial a CI, o estudiar posteriormente un packer libre compatible.
+Pipeline must support tile IDs, terrain family, variants, road adjacency, properties, overlays and district/zoning metadata.
+
+No collision data derived from sprite image shape.
+
+---
+
+## 24. VFX pipeline
+
+### 24.1 Sprite VFX
+
+Use Aseprite or rendered frames where appropriate for dust, sparks, smoke puffs, small fire, splash and steam.
+
+### 24.2 Procedural VFX
+
+Prefer runtime procedural geometry/particles for selection, placement, zoning, route lines, masks and influence areas.
+
+### 24.3 Overdraw budget
+
+Transparent full-screen effects are high risk.
+
+Dense-scene profiling is mandatory before approving large particle systems.
+
+---
+
+## 25. UI pipeline
+
+### 25.1 Runtime format
+
+DOM/CSS/SVG for operational UI whenever practical.
+
+### 25.2 Rules
+
+- no operational localized text baked into images;
+- support flexible text width;
+- support pseudo-localization;
+- expose design tokens;
+- preserve keyboard/focus states;
+- export icons consistently.
+
+---
+
+## 26. Audio pipeline
+
+Master proposal:
+
+\`\`\`text
+48 kHz
+24-bit
+WAV
+\`\`\`
+
+Runtime should derive compressed web formats from masters.
+
+Categories:
+
+- UI;
+- construction;
+- industry;
+- traffic;
+- citizens;
+- crime;
+- police;
+- weather;
+- ambience;
+- music.
+
+Audio runtime policy must include concurrency and priority.
+
+---
+
+## 27. Asset manifest
+
+Every deliverable should be represented by structured metadata.
+
+Candidate schema:
+
+\`\`\`json
+{
+  "schemaVersion": 1,
+  "assetId": "bld_res_rowhouse_a",
+  "type": "building",
+  "category": "residential",
+  "author": "github:contributor",
+  "origin": "original",
+  "license": "PROJECT-ASSET-LICENSE",
+  "source": "art/blender/buildings/res/rowhouse_a.blend",
+  "artBibleVersion": "0.1",
+  "toolchain": {
+    "blender": "TBD"
+  },
+  "footprint": {
+    "width": 2,
+    "height": 3
+  },
+  "anchor": "ANCHOR_ROOT",
+  "atlasGroup": "buildings_residential",
+  "tags": [
+    "era_1920",
+    "residential",
+    "low_income"
+  ]
+}
+\`\`\`
+
+The final schema must be machine-validated.
+
+---
+
+## 28. Provenance and licensing
+
+### 28.1 Required origin
+
+Allowed categories:
+
+\`\`\`text
+original
+licensed
+public_domain
+generated
+derived
+\`\`\`
+
+### 28.2 AI-assisted or generated material
+
+Record generator/tool, model when known, human review, license review state and source references where applicable.
+
+No generated asset is accepted solely because it looks original.
+
+Similarity and provenance still require human review.
+
+### 28.3 Public repository rule
+
+The project should remain able to answer who made an asset, from what source, under what license and what pipeline version created its runtime output.
+
+---
+
+## 29. Git LFS — BASELINE
+
+Candidate LFS patterns:
+
+\`\`\`gitattributes
+*.blend filter=lfs diff=lfs merge=lfs -text
+*.spp filter=lfs diff=lfs merge=lfs -text
+*.psd filter=lfs diff=lfs merge=lfs -text
+*.kra filter=lfs diff=lfs merge=lfs -text
+*.aseprite filter=lfs diff=lfs merge=lfs -text
+*.exr filter=lfs diff=lfs merge=lfs -text
+*.wav filter=lfs diff=lfs merge=lfs -text
+\`\`\`
+
+Do not automatically place every PNG in LFS.
+
+This policy must be approved before large binary history is added.
+
+---
+
+## 30. CI pipeline
+
+### 30.1 Pull request
+
+Target:
+
+\`\`\`text
+PR
+├── metadata validation
+├── source validation
+├── naming validation
+├── changed-assets render
+├── dimensions / alpha validation
+├── atlas build
+├── manifest build
+├── app / Art Lab build
+├── visual tests
+└── small performance smoke
+\`\`\`
+
+### 30.2 Nightly
+
+Target:
+
+\`\`\`text
+nightly
+├── complete re-render
+├── complete atlas rebuild
+├── visual regression suite
+└── performance suite
+\`\`\`
+
+### 30.3 Failure policy
+
+CI should fail on objectively invalid assets, including duplicate asset IDs, missing manifests, invalid license fields, missing anchors, missing required states, unexpected dimensions, atlas hard-budget violations, missing sources and broken Phaser loads.
+
+Subjective visual review remains human.
+
+---
+
+## 31. Art Lab
+
+Create a dedicated route/scene:
+
+\`\`\`text
+/art-lab
+\`\`\`
+
+It should be independent of normal gameplay.
+
+Required panels/scenes:
+
+- camera calibration;
+- tile calibration;
+- terrain gallery;
+- building states;
+- character gallery;
+- animation gallery;
+- VFX;
+- UI components;
+- palette test;
+- lighting test;
+- dense-scene test.
+
+Art Lab is used by art, engineering, QA, contributors and screenshot regression.
+
+---
+
+## 32. Golden-scene visual regression
+
+Candidate golden scenes:
+
+\`\`\`text
+golden_small_residential
+golden_dense_commercial
+golden_industrial
+golden_construction
+golden_crowd
+golden_ui_economy
+golden_ui_politics
+\`\`\`
+
+Fix browser, OS/container, viewport, DPR, seed, camera, zoom and asset version.
+
+DOM screenshots can use tighter tolerances than WebGL screenshots.
+
+---
+
+## 33. Performance budgets — BASELINE
+
+Initial Vertical Slice targets:
+
+| Metric | Target | Warning | Review/Fail |
+|---|---:|---:|---:|
+| atlas page | 2048² | 4096² exceptional | >4096 |
+| world texture resident | <=96 MiB | 96–128 MiB | >128 MiB |
+| total texture resident | <=128 MiB | 128–192 MiB | >192 MiB |
+| visible atlas pages | <=6 | 7–10 | >10 |
+| draw calls normal frame | <=150 | 150–250 | >250 |
+| frame target | 60 FPS | 45–60 | <45 |
+| frame budget | 16.67 ms | 16.67–22 ms | >22 ms |
+| critical initial art download | <=20 MB | 20–30 MB | >30 MB |
+| oversized runtime file | <=4 MB ideal | 4–8 MB | review |
+
+These are project planning targets, not universal engine limits.
+
+They must be measured in representative scenes before ratification.
+
+---
+
+## 34. Visual QA matrix
+
+Each relevant asset is evaluated at:
+
+\`\`\`text
+50%
+75%
+100%
+150%
+200%
+\`\`\`
+
+Questions:
+
+- Is category recognizable?
+- Is it distinguishable from neighbors?
+- Is construction distinct from complete?
+- Is damage visible?
+- Is ownership visible?
+- Is selection visible?
+- Are characters still readable?
+- Do VFX hide interaction?
+- Does the asset work on multiple terrain backgrounds?
+
+---
+
+## 35. Accessibility QA
+
+Test representative scenes in normal vision, protanopia simulation, deuteranopia simulation, tritanopia simulation, grayscale and high contrast.
+
+Ownership and policy states cannot rely on hue alone.
+
+---
+
+## 36. Localization QA
+
+CI should eventually exercise:
+
+\`\`\`text
+EN
+ES
+pseudo-expanded
+pseudo-accented
+RTL test
+\`\`\`
+
+No fixed-width image-based operational text.
+
+---
+
+## 37. Asset maturity states
+
+\`\`\`text
+PLACEHOLDER
+    ↓
+BLOCKOUT
+    ↓
+STYLE CHECK
+    ↓
+GAMEPLAY APPROVED
+    ↓
+PRODUCTION MODEL
+    ↓
+MATERIAL
+    ↓
+RENDER
+    ↓
+ENGINE CHECK
+    ↓
+POLISH
+    ↓
+FINAL
+\`\`\`
+
+Rule:
+
+> **Do not polish an asset whose gameplay footprint or function can still change.**
+
+---
+
+## 38. Definition of Done — building
+
+### ART
+
+- respects Art Bible;
+- silhouette readable;
+- approved scale;
+- approved materials;
+- official lighting rig;
+- no third-party IP contamination.
+
+### SOURCE
+
+- clean \`.blend\`;
+- naming valid;
+- correct origin;
+- \`ANCHOR_ROOT\` present;
+- footprint defined;
+- transforms sane;
+- shared materials reused where appropriate.
+
+### RENDER
+
+- official camera;
+- transparent background;
+- approved master size;
+- clean alpha;
+- required states;
+- required orientations only.
+
+### PIPELINE
+
+- valid metadata;
+- provenance;
+- author;
+- license;
+- atlas group;
+- tags;
+- headless render reproducible.
+
+### ENGINE
+
+- loads in Phaser;
+- correct pivot;
+- correct depth;
+- correct selection;
+- correct placement;
+- save/load independent from visual file details.
+
+### PERFORMANCE
+
+- atlas within budget;
+- runtime size reviewed;
+- no unnecessary texture switching;
+- tested in dense scene.
+
+### QA
+
+- golden screenshot;
+- visual diff reviewed;
+- readable at far zoom;
+- tested on multiple backgrounds.
+
+---
+
+## 39. Open-source contribution workflow
+
+A contributor should be able to:
+
+1. read Art Bible;
+2. obtain required source tooling;
+3. start from an approved template;
+4. create or modify source;
+5. declare provenance/license;
+6. run local validation;
+7. generate preview/runtime output;
+8. open PR;
+9. receive automated checks;
+10. receive human art review.
+
+The official packer may run in CI if licensing/tool access would otherwise block external contributors.
+
+---
+
+## 40. Modding future
+
+The pipeline should avoid choices that make future data-driven modding impossible.
+
+Useful separation:
+
+- asset ID;
+- visual files;
+- footprint;
+- states;
+- category;
+- gameplay definition;
+- localization;
+- animation metadata.
+
+Do not expose the full source-art pipeline as a modding requirement.
+
+Mods should eventually be able to consume documented runtime asset formats without needing the project's complete internal DCC stack.
+
+---
+
+## 41. Rollout plan
+
+### Gate 1
+
+No mass art production.
+
+Only placeholders, calibration aids and technical visualization.
+
+### Gate 2
+
+Run Visual Direction Spike in parallel with gameplay validation.
+
+Deliver:
+
+- 2–3 directions;
+- one end-to-end asset pipeline proof;
+- Art Lab skeleton;
+- preliminary manifests.
+
+### Vertical Slice
+
+Freeze production rules and create representative terrain/roads, core buildings, characters, VFX, UI, audio, golden scenes and art CI.
+
+### Alpha
+
+Scale content production and variation; optimize district identity, character archetypes, accessibility and localization coverage.
+
+### Beta
+
+Focus on performance, download size, visual defects, compatibility, final provenance/license audit and content consistency.
+
+---
+
+## 42. Decisions to freeze after Visual Direction Spike
+
+The spike should produce explicit accept/reject decisions for:
+
+- exact Blender version;
+- EEVEE production baseline;
+- camera transform;
+- 2:1 projection;
+- reference tile size;
+- physical cell scale;
+- master render scale;
+- lighting rig;
+- character direction count;
+- animation FPS/frame budgets;
+- atlas size;
+- runtime image baseline;
+- packer;
+- Git LFS policy;
+- Art Lab regression environment;
+- initial texture/download budgets.
+
+If a decision materially changes architecture or long-term compatibility, record it as an ADR or equivalent accepted decision.
+
+---
+
+## 43. Definition of pipeline success
+
+A new contributor should be able to take an approved template, create a conforming asset, run documented commands and produce an output that:
+
+- renders consistently;
+- has correct scale;
+- has a deterministic ID;
+- has a correct anchor;
+- has valid footprint metadata;
+- packs into the expected atlas family;
+- loads correctly in Phaser;
+- passes automated validation;
+- can be visually reviewed in Art Lab;
+- carries clear author/license/provenance.
+
+The Art Pipeline Specification defines **how Landlord art becomes software-ready content**.

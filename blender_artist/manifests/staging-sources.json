@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Local staging inventory; paths under ignored staging are not repository assets.",
+  "sources": [
+    {
+      "id": "src_quaternius_downtown_city_megakit",
+      "path": "blender_artist/staging/third_party/cc0/quaternius/Downtown City MegaKit[Standard].zip",
+      "sha256": "5b1a945576d54cdbb4ccc9c3d52711e6d530da74c74c586407ecc28b165335da",
+      "origin": "licensed",
+      "license": "CC0-1.0",
+      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+      "sourceUrl": "https://quaternius.itch.io/downtown-city-megakit"
+    },
+    {
+      "id": "src_quaternius_base_characters",
+      "path": "blender_artist/staging/third_party/cc0/quaternius/Universal Base Characters[Standard].zip",
+      "sha256": "fdbf1804c90dfc1ea03e992bff7da2dfd1a79318e13270a660180f9308455f40",
+      "origin": "licensed",
+      "license": "CC0-1.0",
+      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+      "sourceUrl": "https://quaternius.itch.io/universal-base-characters"
+    },
+    {
+      "id": "src_quaternius_animation_library",
+      "path": "blender_artist/staging/third_party/cc0/quaternius/Universal Animation Library[Standard].zip",
+      "sha256": "cc73fc4e495b82958207316596317a3f40b9fa38065bde1027937452da537724",
+      "origin": "licensed",
+      "license": "CC0-1.0",
+      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+      "sourceUrl": "https://quaternius.itch.io/universal-animation-library"
+    },
+    {
+      "id": "src_quaternius_animation_library_2",
+      "path": "blender_artist/staging/third_party/cc0/quaternius/Universal Animation Library 2[Standard].zip",
+      "sha256": "4008ea208a604773a2b2177d965f0f5d3195498b5bf838c3f5785d68e95f2a68",
+      "origin": "licensed",
+      "license": "CC0-1.0",
+      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+      "sourceUrl": "https://quaternius.itch.io/universal-animation-library"
+    },
+    {
+      "id": "src_kenney_city_commercial",
+      "path": "blender_artist/staging/third_party/cc0/kenney/kenney_city-kit-commercial_2.1.zip",
+      "sha256": "f8b09b081c2bb88bcc126e2dec1cb40fd0dad7e7e591b6c26aaefe96fb35276b",
+      "origin": "licensed",
+      "license": "CC0-1.0",
+      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+      "sourceUrl": "https://kenney.nl/assets/city-kit-commercial"
+    },
+    {
+      "id": "src_kenney_city_industrial",
+      "path": "blender_artist/staging/third_party/cc0/kenney/kenney_city-kit-industrial_2.0.zip",
+      "sha256": "5b381164e5760f3830a2dbee43b972deee38b2a695d091b56e238ab2910c96d2",
+      "origin": "licensed",
+      "license": "CC0-1.0",
+      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+      "sourceUrl": "https://kenney.nl/assets/city-kit-industrial"
+    },
+    {
+      "id": "src_kenney_city_roads",
+      "path": "blender_artist/staging/third_party/cc0/kenney/kenney_city-kit-roads.zip",
+      "sha256": "374a4552115cbd11b4ec5c930ee31a533562dc78a09af249a655d03f7ea3b959",
+      "origin": "licensed",
+      "license": "CC0-1.0",
+      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+      "sourceUrl": "https://kenney.nl/assets/city-kit-roads"
+    },
+    {
+      "id": "src_polyhaven_asphalt_07",
+      "path": "blender_artist/staging/third_party/cc0/polyhaven/asphalt_07_4k.blend.zip",
+      "sha256": "b086d6f9057c5b9440dff260b4c89197f15940f342b3b2f44558fcc7fc579390",
+      "origin": "public_domain",
+      "license": "CC0-1.0",
+      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+      "sourceUrl": "https://polyhaven.com/a/asphalt_07"
+    },
+    {
+      "id": "src_polyhaven_concrete_wall_003",
+      "path": "blender_artist/staging/third_party/cc0/polyhaven/concrete_wall_003_4k.blend.zip",
+      "sha256": "07c66b0cd77273baab5791859f6779cfb548ad80f59801960759eefa9d6bbf7a",
+      "origin": "public_domain",
+      "license": "CC0-1.0",
+      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+      "sourceUrl": "https://polyhaven.com/a/concrete_wall_003"
+    },
+    {
+      "id": "src_polyhaven_red_brick_03",
+      "path": "blender_artist/staging/third_party/cc0/polyhaven/red_brick_03_4k.blend.zip",
+      "sha256": "1ec3c85d5823330dbc7cec11815c70eb716246d4de336a252c76fa0c4dbcdd41",
+      "origin": "public_domain",
+      "license": "CC0-1.0",
+      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+      "sourceUrl": "https://polyhaven.com/a/red_brick_03"
+    },
+    {
+      "id": "src_polyhaven_red_bricks_02",
+      "path": "blender_artist/staging/third_party/cc0/polyhaven/red_bricks_02_4k.blend.zip",
+      "sha256": "5e41523565e97c29c97d73955c44b828590ef8b8ef448a854a01ce9e092bfcc1",
+      "origin": "public_domain",
+      "license": "CC0-1.0",
+      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+      "sourceUrl": "https://polyhaven.com/a/red_bricks_02"
+    },
+    {
+      "id": "src_polyhaven_rusty_metal_02",
+      "path": "blender_artist/staging/third_party/cc0/polyhaven/rusty_metal_02_4k.blend.zip",
+      "sha256": "fec102ef9f95e0436c056e70487085e3f3601e6336037cff9d88b5bba2d350c1",
+      "origin": "public_domain",
+      "license": "CC0-1.0",
+      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+      "sourceUrl": "https://polyhaven.com/a/rusty_metal_02"
+    },
+    {
+      "id": "src_polyhaven_wood_planks_grey",
+      "path": "blender_artist/staging/third_party/cc0/polyhaven/wood_planks_grey_4k.blend.zip",
+      "sha256": "0799b6462bca626a7988aa87bacfaa6047010e643c1583a870ba38267c6d39af",
+      "origin": "public_domain",
+      "license": "CC0-1.0",
+      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+      "sourceUrl": "https://polyhaven.com/a/wood_planks_grey"
+    }
+  ],
+  "quarantined": [
+    "FBX-20261021T083555Z-1-001.zip",
+    "Ultimate Nature Pack - Jun 2019-20261021T084100Z-1-001.zip",
+    "aerial_asphalt_01_4k.blend.zip",
+    "brick_pavement_4k.blend.zip",
+    "pavement_03_4k.blend.zip",
+    "red_brick_4k.blend.zip",
+    "kenney_board-game-icons.zip",
+    "kenney_game-icons.zip",
+    "kenney_ui-audio.zip",
+    "kenney_ui-pack.zip"
+  ]
+}

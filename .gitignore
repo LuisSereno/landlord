@@ -5,3 +5,10 @@ artifacts/
 .vite/
 .cache/
 *.local
+
+# Local art staging. Third-party archives and DCC toolchains are retained locally
+# until provenance and Git LFS policy are approved (D-054).
+blender_artist/staging/third_party/
+blender_artist/toolchain/
+blender_artist/generated/*
+!blender_artist/generated/.gitkeep

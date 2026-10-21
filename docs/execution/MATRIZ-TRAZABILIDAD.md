@@ -32,6 +32,7 @@ Relacionar capacidades, gates, paquetes, evidencia y fuentes canónicas. Esta ma
 | IA rival | Gate 2 | WP2.8 | Comandos comunes, no cheats, memoria | IA y simulación |
 | Acción ilegal/policía | Gate 2 | WP2.9 | Riesgo, heat y consecuencia | Crimen y facciones |
 | Ordenanza | Gate 2 | WP2.10 | Modifier económico aplicado/retirado | Política y sociedad |
+| Dirección visual y pipeline | Gate 2 | WP2.14 | Spike reproducible, provenance, métricas y decisión | Art Bible, Art Pipeline |
 | Sesión 30-60 min | Gate 2 | WP2.13 | Playtest y métricas del bucle | Gates y MVP |
 | Estados financieros/liquidez | Vertical slice | WP3.2 | Lectura de solvencia y caja | Fiscalidad y operación |
 | Banca/deuda | Vertical slice | WP3.3 | Calendario, mora, garantía | Fiscalidad y operación |
@@ -41,6 +42,7 @@ Relacionar capacidades, gates, paquetes, evidencia y fuentes canónicas. Esta ma
 | Zoning/permisos | Vertical slice | WP3.7 | Reglas previas y cambio normativo | Fiscalidad y operación |
 | Subastas/insolvencia | Vertical slice | WP3.8 | Transferencia y recuperación | Fiscalidad y operación |
 | Automatización | Vertical slice | WP3.11 | Cartera mayor sin clics lineales | Game design/progresión |
+| Arte representativo | Vertical slice | WP3.12 | Art Lab, atlases, escena densa y QA visual | Art Bible, Art Pipeline |
 | Distritos generados | Alpha | WP4.1 | Seed reproducible y validación | Progresión |
 | Simulation LOD | Alpha | WP4.2 | Conservación al agregar/reactivar | Progresión |
 | Vivienda/demanda | Alpha | WP4.3 | Vacancy y precios responden | Economía e inmobiliario |

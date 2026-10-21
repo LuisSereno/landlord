@@ -9,6 +9,7 @@
     "pnpm": "12.11.2"
   },
   "scripts": {
+    "art:staging:validate": "node scripts/validate-art-staging.mjs",
     "lint": "eslint . && pnpm check:architecture",
     "check:architecture": "node scripts/check-architecture.mjs",
     "typecheck": "pnpm -r --if-present typecheck",

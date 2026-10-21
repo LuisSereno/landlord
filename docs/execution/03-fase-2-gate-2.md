@@ -258,6 +258,34 @@ No se fijan objetivos numéricos definitivos sin playtest baseline. Tras las pri
 - Actualizar gaps, riesgos, estado y decisiones.
 - Emitir acta de Gate 2.
 
+## WP2.14 — Visual Direction Spike y preparación de producción artística
+
+**Resultado:** evidencia reproducible para decidir la dirección visual y el
+pipeline del Vertical Slice, sin producir arte final ni convertir fuentes
+binarias de terceros en assets del repositorio.
+
+**Tareas:**
+
+- Preparar dos o tres direcciones originales sobre el mismo kit funcional
+  mínimo: carretera/parcela, residencial, industrial, trabajador, civil,
+  vehículo/prop, construcción/deterioro, humo, HUD e iconos.
+- Usar sólo fuentes originales, generadas con provenance o CC0 verificadas;
+  conservar staging, hashes, licencia, autor y revisión de similitud.
+- Validar cámara ortográfica, footprint 2:1, escala, lighting rig, master
+  resolution, estados de edificio, anchors y depth sorting con Blender 5.2.2.
+- Ejecutar el recorrido end-to-end: fuente editable -> render transparente ->
+  trim -> atlas/metadata -> Phaser/Art Lab -> escena densa y regresión visual.
+- Medir legibilidad a 50/75/100/150/200 %, memoria, draw calls, descarga y
+  frame time; revisar color vision y contraste de overlays.
+- Comparar las direcciones según los pesos de `docs/art/VISUAL-DIRECTION-SPIKE.md`.
+- Cerrar mediante ADR o decisión equivalente los parámetros que tengan efecto
+  duradero; registrar explícitamente cualquier valor que siga abierto.
+
+**Aceptación:** existe un informe reproducible con renders, metadata, métricas,
+provenance y recomendación. Ningún asset de referencia protegida entra en el
+pipeline. El resultado puede aprobar una baseline de producción, requerir
+rework o bloquear sólo la producción artística de Fase 3.
+
 ## Secuencia recomendada
 
 1. Mundo y libro económico: WP2.1-WP2.2.
@@ -266,7 +294,9 @@ No se fijan objetivos numéricos definitivos sin playtest baseline. Tras las pri
 4. Competencia y riesgo: WP2.8-WP2.9.
 5. Adaptación regulatoria: WP2.10.
 6. UX y persistencia transversal: WP2.11-WP2.12 desde el primer slice, no al final.
-7. Balance y gate: WP2.13.
+7. Ejecutar WP2.14 en paralelo cuando el primer flujo vertical y el Art Lab
+   técnico puedan consumir renders; no esperar a la producción artística.
+8. Balance y gate: WP2.13, incorporando la evidencia del spike.
 
 ## Condiciones de aprobación
 
@@ -275,6 +305,9 @@ No se fijan objetivos numéricos definitivos sin playtest baseline. Tras las pri
 - Rival, crimen/policía y ordenanza afectan el núcleo.
 - El juego conserva determinismo bajo sus contratos y cumple budgets de Gate 1 o justifica su revisión.
 - Save/load integral y suite determinista pasan.
+- WP2.14 deja trazabilidad de provenance y una decisión/rework explícitos sobre
+  la dirección visual; la ausencia de aprobación bloquea arte de Fase 3, no la
+  evaluación del bucle de producto.
 - No se ha ampliado el alcance a sistemas del vertical slice.
 
 ## Fuera de alcance
@@ -283,4 +316,5 @@ No se fijan objetivos numéricos definitivos sin playtest baseline. Tras las pri
 - Fiscalidad detallada, licencias y zonificación rica.
 - Presupuesto municipal, empleo, hogares avanzados y elecciones.
 - Perspectiva jugable política/criminal/ciudadana.
-- Cloud/backend, multiplayer, LLM y arte final.
+- Cloud/backend, multiplayer, LLM y arte final; WP2.14 sólo valida el camino
+  de producción y un kit mínimo.

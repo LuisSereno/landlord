@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "kitId": "visual_direction_spike_original_01",
+  "status": "briefed_not_rendered",
+  "artBibleVersion": "0.1",
+  "generatedReferences": [
+    {
+      "path": "blender_artist/generated/concepts/visual_direction_spike_original_01.png",
+      "sha256": "520821fb7d5661c22f850bfe3714a1c0fd9372cc6aeae2957016f64af211d4b8",
+      "origin": "generated",
+      "generator": "OpenAI image generation tool",
+      "promptRecord": "2026-10-21 original-isometric-city concept; no reference-game assets or trade dress",
+      "usage": "private concept reference only; not an approved source or runtime asset",
+      "similarityReview": "pending human review"
+    }
+  ],
+  "constraints": [
+    "original IP",
+    "no reference-game assets or trade dress",
+    "orthographic 2:1 baseline pending validation",
+    "source and runtime remain local until LFS approval"
+  ],
+  "assets": [
+    {
+      "assetId": "ter_road_asphalt_a",
+      "type": "terrain",
+      "brief": "Asphalt road with a warm concrete curb and original wear pattern.",
+      "inputs": ["src_polyhaven_asphalt_07"],
+      "atlasGroup": "terrain",
+      "review": "pending"
+    },
+    {
+      "assetId": "ter_parcel_grass_dirt_a",
+      "type": "terrain",
+      "brief": "Parcel ground mixing restrained dry grass and dirt; no borrowed map layout.",
+      "inputs": [],
+      "atlasGroup": "terrain",
+      "review": "pending"
+    },
+    {
+      "assetId": "bld_res_rowhouse_ember_a",
+      "type": "building",
+      "brief": "Original 2x3 low-income rowhouse, warm plaster and exposed brick, with complete and damaged states.",
+      "inputs": ["src_polyhaven_red_bricks_02", "src_polyhaven_wood_planks_grey"],
+      "footprint": [2, 3],
+      "anchor": "ANCHOR_ROOT",
+      "atlasGroup": "buildings_residential",
+      "review": "pending"
+    },
+    {
+      "assetId": "bld_ind_foundry_ember_a",
+      "type": "building",
+      "brief": "Original 3x3 brick foundry: broad mass, loading door, roof vents and smoke socket; complete and damaged states.",
+      "inputs": ["src_polyhaven_red_brick_03", "src_polyhaven_rusty_metal_02"],
+      "footprint": [3, 3],
+      "anchor": "ANCHOR_ROOT",
+      "atlasGroup": "buildings_industrial",
+      "review": "pending"
+    },
+    {
+      "assetId": "chr_worker_ember_a",
+      "type": "character",
+      "brief": "Original workwear palette and silhouette; idle and walk motion planned, eight directions pending animation-budget decision.",
+      "inputs": ["src_quaternius_base_characters", "src_quaternius_animation_library"],
+      "anchor": "ANCHOR_ROOT",
+      "atlasGroup": "characters_workers",
+      "review": "pending"
+    },
+    {
+      "assetId": "chr_civilian_ember_a",
+      "type": "character",
+      "brief": "Original civilian wardrobe and silhouette differentiated from the worker by cut and palette, not by a reference character.",
+      "inputs": ["src_quaternius_base_characters", "src_quaternius_animation_library"],
+      "anchor": "ANCHOR_ROOT",
+      "atlasGroup": "characters_civilians",
+      "review": "pending"
+    },
+    {
+      "assetId": "veh_delivery_ember_a",
+      "type": "vehicle",
+      "brief": "Compact fictitious period delivery vehicle with readable cargo silhouette.",
+      "inputs": [],
+      "anchor": "ANCHOR_ROOT",
+      "atlasGroup": "vehicles",
+      "review": "pending"
+    },
+    {
+      "assetId": "prp_construction_scaffold_a",
+      "type": "prop",
+      "brief": "Modular scaffold, timber and covered material stack for planned/foundation/construction states.",
+      "inputs": ["src_polyhaven_wood_planks_grey", "src_polyhaven_rusty_metal_02"],
+      "anchor": "ANCHOR_ROOT",
+      "atlasGroup": "props_construction",
+      "review": "pending"
+    },
+    {
+      "assetId": "vfx_smoke_soft_a",
+      "type": "effect",
+      "brief": "Small neutral-to-coal smoke puff that never obscures selection or ownership overlays.",
+      "inputs": [],
+      "atlasGroup": "vfx",
+      "review": "pending"
+    },
+    {
+      "assetId": "ui_economy_panel_a",
+      "type": "interface",
+      "brief": "Responsive DOM/CSS panel using paper, coal and brass tokens; no baked operational text.",
+      "inputs": [],
+      "atlasGroup": "none",
+      "review": "pending"
+    },
+    {
+      "assetId": "ico_economy_set_a",
+      "type": "icon",
+      "brief": "Original SVG icon family for cash, construction, risk and occupancy; tested in monochrome and colour-vision modes.",
+      "inputs": [],
+      "atlasGroup": "ui_icons",
+      "review": "pending"
+    }
+  ]
+}

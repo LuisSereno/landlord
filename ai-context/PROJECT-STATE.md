@@ -20,6 +20,9 @@ Fecha de consolidación: 2026-10-21.
 - Visual Direction Spike: definido; pendiente de ejecución.
 - Blender 5.2.2 LTS: instalado localmente y fijado como toolchain artístico inicial (D-053).
 - Librería bootstrap CC0: descargada localmente; aún no versionada en Git.
+- Staging artístico local: organizado por fuentes CC0 verificadas, cuarentena de
+  licencia/origen pendiente y toolchain; manifests con hashes/provenance y
+  validador local disponibles. Los binarios siguen ignorados hasta decidir LFS.
 - Estrategia artística self-contained / coste ~0 para Gate 2: decidida (D-054).
 - Building Factory / Character Factory: concepto documentado; no implementado.
 - Wiki para IA: sí.

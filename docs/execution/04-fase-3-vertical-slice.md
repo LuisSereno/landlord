@@ -12,7 +12,9 @@ Duración orientativa existente: 12-16 semanas; 300-450 jornadas-persona.
 - Core loop validado por playtests.
 - Backlog de problemas de UX/balance priorizado.
 - Budgets técnicos y schema de saves bajo control.
-- Dirección visual original aprobada para producción representativa.
+- Visual Direction Spike de WP2.14 cerrado con baseline aprobada, cámara,
+  lighting, escala, atlas y provenance de inputs decididos para producción
+  representativa.
 
 ## Resultado de fase
 
@@ -146,11 +148,16 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 
 ## WP3.12 — Arte, audio y rendimiento representativos
 
-- Construir pipeline documentado para tiles/sprites/atlas originales.
-- Producir un distrito, edificios y feedback visual representativos.
-- Definir budgets de atlas, animaciones, draw calls y memoria.
+- Aplicar el pipeline y los templates aprobados en WP2.14; no rediseñar cámara,
+  formatos o gobernanza de provenance dentro de producción de contenido.
+- Producir un distrito, edificios, personajes, props, VFX, HUD e iconos
+  representativos a partir de fuentes originales o con licencia registrada.
+- Generar de forma reproducible estados de construcción/deterioro y metadata
+  de anchors, footprints y atlas; no editar manualmente el runtime generado.
+- Aplicar budgets validados para atlas, animaciones, draw calls, memoria y
+  descarga; todo cambio de presupuesto exige medición y revisión.
 - Añadir audio y feedback sin reutilizar referencias protegidas.
-- Crear pruebas visuales/regresión donde aporten valor.
+- Mantener Art Lab, golden scenes y regresión visual donde aporten valor.
 - Perfilar escena real y optimizar sólo cuellos medidos.
 
 ## WP3.13 — Persistencia, cloud spike y observabilidad
@@ -178,7 +185,8 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 3. Añadir regulación y mercado de crisis.
 4. Actualizar IA después de estabilizar los contratos del jugador.
 5. Tratar UX, automatización, persistencia y rendimiento como líneas continuas.
-6. Completar arte final del slice sólo tras fijar métricas y cámara.
+6. Completar arte representativo sólo después de la aprobación de WP2.14 y de
+   fijar métricas, cámara y budgets.
 
 ## Fuera de alcance
 

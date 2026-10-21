@@ -34,13 +34,17 @@ con la cadencia de estabilidad de 2 Hz y no sustituye esta comprobación de rend
 | Navegador | Medición | Frames | p50 (ms) | p95 (ms) | p99 (ms) | Máximo (ms) | Page errors |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Firefox 157 | 10 min a 10 Hz | 35.997 | 17,0 | 18,0 | 19,0 | 54,0 | 0 |
-| Chromium 156 | 10 min a 10 Hz | 34.218 | 16,8 | 21,5 | 26,7 | 71,5 | 0 |
+| Chromium 156 | 10 min a 10 Hz | 35.495 | 16,7 | 18,6 | 22,8 | 85,5 | 0 |
 
 Firefox registró Worker tick p95 de 9 ms, backlog máximo 5, 23 comprobaciones de continuación,
 0 divergencias y 4 operaciones save/load sin fallos. Chromium registró Worker tick p95 de
 2,5 ms, command/response p95 de 38,5 ms, backlog máximo 5, 23 comprobaciones de continuación,
-0 divergencias y 4 operaciones save/load sin fallos. Firefox cumple los umbrales de frame;
-Chromium incumple frame p95 por 1,5 ms a 10 Hz, por lo que el Gate permanece en `REWORK`.
+0 divergencias y 4 operaciones save/load sin fallos. Ambos navegadores cumplen los umbrales de
+frame y command/response de D-052.
+
+La primera repetición de Chromium tras instrumentar el fixture había dado 21,5 ms de p95. La
+corrección final cacheó las coordenadas isométricas, evitó reposicionar Bobs fuera del viewport y
+desactivó antialiasing para los marcadores del benchmark; la repetición oficial bajó a 18,6 ms.
 
 ## Soak Chromium reducido
 
@@ -57,8 +61,7 @@ pendiente creciente en esta ventana. El Worker acabó con digest `fnv1a32:5d9269
 463.491 bytes, `saveLoadFailures=0` y `continuationDivergences=0`.
 
 Este soak de 30 minutos sustituye la duración operativa de dos horas para esta fase temprana y
-confirma estabilidad, pero no modifica los umbrales de D-052 ni oculta el fallo de frame a 10 Hz.
-La decisión arquitectónica sobre eventos/snapshots permanece intacta.
+confirma estabilidad. La decisión arquitectónica sobre eventos/snapshots permanece intacta.
 
 ## Instrumentación completada
 

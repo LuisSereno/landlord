@@ -43,11 +43,10 @@ referencia se ejecutó un smoke de 2 s de warm-up y 3 s medidos:
 | Chromium 156 headless | 180 | 16,7 ms | 16,8 ms | 16,9 ms | 16,9 ms |
 | Firefox 157 headless | 180 | 17 ms | 19 ms | 24 ms | 37 ms |
 
-El retest del 2026-10-21 obtuvo p95/p99 de frames de 18/19 ms en Firefox y 21,5/26,7 ms en
+El retest final del 2026-10-21 obtuvo p95/p99 de frames de 18/19 ms en Firefox y 18,6/22,8 ms en
 Chromium durante diez minutos a 10 Hz. El soak reducido de treinta minutos a 2 Hz obtuvo 19,8/23,7
-ms en Chromium y confirmó estabilidad, pero no sustituye el resultado de máxima cadencia para el
-umbral de D-052. El detalle de Worker, backlog, save/load, memoria y digest está en
-`gate-1-retest-2026-10-21.md`.
+ms en Chromium y confirmó estabilidad. El detalle de Worker, backlog, save/load, memoria y digest
+está en `gate-1-retest-2026-10-21.md`.
 
 ## Invalidación metodológica y siguiente evidencia
 
@@ -63,8 +62,7 @@ del retest obtuvo frame p95 de 17 ms en Chromium y 18 ms en Firefox, y Worker ti
 
 ## Limitaciones y siguiente evidencia
 
-- El retest headless completo y la instrumentación browser están cerrados para esta revisión; el
-  frame p95 de Chromium a la cadencia máxima sigue siendo un incumplimiento de D-052.
+- El retest headless completo y la instrumentación browser están cerrados para esta revisión.
 - El soak operativo de Chromium se ha reducido a 30 minutos medidos (10 minutos de warm-up) por
   decisión explícita del usuario; no se han cambiado los umbrales de D-052.
 - El warning de Vite sobre un bundle inicial superior a 500 kB es informativo para la futura

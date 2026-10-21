@@ -47,8 +47,7 @@ Resuelto para Gate 1 en D-049/D-051: `PlayerIdentity -> Person`, `Organization`,
 
 ## Gate 1 — cierre técnico 2026-10-20
 - el retest browser de 10 minutos a 10 Hz está archivado en
-  `docs/execution/phase-1/gate-1-retest-2026-10-21.md`: Firefox pasa y Chromium queda pendiente
-  de optimización por frame p95 21,5 ms;
+  `docs/execution/phase-1/gate-1-retest-2026-10-21.md`: Firefox y Chromium pasan;
 - el soak reducido de 30 minutos medidos en Chromium a 2 Hz fue estable, pero no sustituye el
   umbral de frame a 10 Hz;
 - la instrumentación de comando/respuesta, backlog, proyección y save/load del harness browser

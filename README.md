@@ -33,8 +33,7 @@ La estrategia recomendada es validar primero dos puertas:
 1. Gate 1 — viabilidad técnica.
 2. Gate 2 — viabilidad de producto.
 
-Gate 1 permanece en `REWORK`: el retest técnico cerró el fixture continuo y la instrumentación,
-pero Chromium alcanza 21,5 ms de frame p95 a la cadencia máxima de 10 Hz (umbral 20 ms). El soak
+Gate 1 está en `GO`: Chromium alcanza 18,6 ms de frame p95 a 10 Hz y Firefox 18 ms. El soak
 reducido de 30 minutos fue estable; la evidencia está en
 `docs/execution/phase-1/gate-1-retest-2026-10-21.md`. El punto `events`/snapshots permanece sin
-decisión y no se aborda todavía el vertical slice comercial.
+decisión; el siguiente objetivo es Gate 2.

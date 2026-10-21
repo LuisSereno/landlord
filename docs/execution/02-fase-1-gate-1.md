@@ -1,7 +1,6 @@
 # Fase 1 — Gate 1: viabilidad técnica
 
-Estado: REWORK. WP1.1–WP1.16 ejecutadas; G1-RW-02 (frame p95 de Chromium a 10 Hz) bloquea la
-aprobación del gate.
+Estado: GO. WP1.1–WP1.16 ejecutadas; Gate 1 aprobado tras el retest de rendimiento de Chromium.
 
 ## Objetivo de gate
 
@@ -334,8 +333,8 @@ de latencia quedan para WP1.14/WP1.15.
 `pnpm benchmark` ejecuta 1.000 + 20.000 ticks en cuatro seeds y cinco repeticiones; el informe
 `phase-1/benchmark-baseline-2026-10-20.md` conserva p50/p95/p99/máximos y hardware. El runner
 `scripts/browser-benchmark.mjs` mide Chromium y Firefox tras warm-up; el retest del 2026-10-21
-queda dentro del umbral en Firefox, pero Chromium alcanza 21,5 ms de p95 a 10 Hz. La evidencia y
-la instrumentación de comandos, backlog, proyección y save/load están en
+queda dentro del umbral en Firefox y Chromium (18,6 ms p95 a 10 Hz). La evidencia y la
+instrumentación de comandos, backlog, proyección y save/load están en
 `phase-1/gate-1-retest-2026-10-21.md`.
 
 ### WP1.15 — Soak y estabilidad
@@ -364,7 +363,7 @@ cambia los umbrales de D-052.
 
 ### WP1.16 — Auditoría y decisión de Gate 1
 
-**Estado:** DONE (2026-10-20, decisión `REWORK`).
+**Estado:** DONE (2026-10-21, decisión `GO`).
 
 **Dependencias:** todos los paquetes anteriores.
 
@@ -379,9 +378,10 @@ cambia los umbrales de D-052.
 - `G1-WP16-T07` — Actualizar `PROJECT-STATE` y decisiones confirmadas.
 - `G1-WP16-T08` — Emitir acta `GO`, `CONDITIONAL GO`, `REWORK` o `STOP`.
 
-**Evidencia:** `phase-1/gate-1-review-2026-10-20.md` conserva `REWORK` porque Chromium incumple
-frame p95 a 10 Hz. `pnpm audit:metrics` cierra Worker, command/response y snapshot; el retest no
-detectó divergencia determinista ni violación de frontera. Los umbrales no se modifican.
+**Evidencia:** `phase-1/gate-1-review-2026-10-20.md` marca `GO` después de que Chromium y Firefox
+cumplieran frame p95/p99 a 10 Hz. `pnpm audit:metrics` cierra Worker, command/response y snapshot;
+el retest no detectó divergencia determinista ni violación de frontera. Los umbrales no se
+modifican.
 
 ## Orden de ejecución resumido
 

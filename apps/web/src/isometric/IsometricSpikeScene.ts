@@ -6,6 +6,7 @@ import {
   REFERENCE_LAYOUT,
   type GridCell,
   type IsometricLayout,
+  type ScreenPoint,
 } from "./coordinates";
 
 const COLORS = {
@@ -20,6 +21,7 @@ const AGENT_TEXTURE_KEY = "benchmark-agent-marker";
 
 export class IsometricSpikeScene extends Phaser.Scene {
   private readonly layout: IsometricLayout = REFERENCE_LAYOUT;
+  private readonly screenCenters: ScreenPoint[] = [];
   private mapGraphics?: Phaser.GameObjects.Graphics;
   private structureBlitter?: Phaser.GameObjects.Blitter;
   private agentBlitter?: Phaser.GameObjects.Blitter;
@@ -37,6 +39,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   }
 
   public create(): void {
+    this.buildScreenCenterCache();
     const tileGraphics = this.add.graphics();
     this.drawTiles(tileGraphics);
     const staticMap = this.add.renderTexture(0, 0, 4096, 4096).setOrigin(0, 0);
@@ -77,7 +80,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
 
   public setProjection(projection: ViewProjectionV1): void {
     this.projection = projection;
-    this.drawOverlay();
+    this.updateBlitterPositions();
   }
 
   public setCellPickedListener(listener: (cell: GridCell) => void): void {
@@ -99,7 +102,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
         left.x + left.y - (right.x + right.y) || left.y - right.y || left.x - right.x,
     );
     for (const cell of cells) {
-      const center = gridToScreen(cell, this.layout);
+      const center = this.screenCenter(cell);
       const halfWidth = this.layout.tileWidth / 2;
       const halfHeight = this.layout.tileHeight / 2;
       const color = (cell.x + cell.y) % 2 === 0 ? COLORS.tile : COLORS.tileAlternate;
@@ -120,9 +123,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
     const graphics = this.mapGraphics;
     if (!graphics) return;
     graphics.clear();
-    this.updateBlitterPositions();
     if (this.selectedCell) {
-      const center = gridToScreen(this.selectedCell, this.layout);
+      const center = this.screenCenter(this.selectedCell);
       const halfWidth = this.layout.tileWidth / 2;
       const halfHeight = this.layout.tileHeight / 2;
       graphics.lineStyle(3, COLORS.selected, 1);
@@ -145,6 +147,18 @@ export class IsometricSpikeScene extends Phaser.Scene {
     texture.refresh();
   }
 
+  private buildScreenCenterCache(): void {
+    for (let y = 0; y < this.layout.mapHeight; y += 1) {
+      for (let x = 0; x < this.layout.mapWidth; x += 1) {
+        this.screenCenters[y * this.layout.mapWidth + x] = gridToScreen({ x, y }, this.layout);
+      }
+    }
+  }
+
+  private screenCenter(cell: GridCell): ScreenPoint {
+    return this.screenCenters[cell.y * this.layout.mapWidth + cell.x]!;
+  }
+
   private updateBlitterPositions(): void {
     const structures = this.projection?.structures ?? [];
     const agents = this.projection?.agents ?? [];
@@ -155,12 +169,17 @@ export class IsometricSpikeScene extends Phaser.Scene {
       }
       this.structureBobs.forEach((bob, index) => {
         const structure = structures[index];
-        bob.setVisible(structure !== undefined);
-        if (structure) {
-          const center = gridToScreen(structure.cell, this.layout);
-          bob.setPosition(center.x - 8, center.y - 10);
-          bob.setVisible(this.isInViewport(center.x, center.y, view, 16));
+        if (!structure) {
+          if (bob.visible) bob.setVisible(false);
+          return;
         }
+        const center = this.screenCenter(structure.cell);
+        if (!this.isInViewport(center.x, center.y, view, 16)) {
+          if (bob.visible) bob.setVisible(false);
+          return;
+        }
+        bob.setPosition(center.x - 8, center.y - 10);
+        if (!bob.visible) bob.setVisible(true);
       });
     }
     if (this.agentBlitter) {
@@ -168,12 +187,17 @@ export class IsometricSpikeScene extends Phaser.Scene {
         this.agentBobs.push(this.agentBlitter.create(0, 0));
       this.agentBobs.forEach((bob, index) => {
         const agent = agents[index];
-        bob.setVisible(agent !== undefined);
-        if (agent) {
-          const center = gridToScreen(agent.cell, this.layout);
-          bob.setPosition(center.x - 2, center.y - 8);
-          bob.setVisible(this.isInViewport(center.x, center.y, view, 4));
+        if (!agent) {
+          if (bob.visible) bob.setVisible(false);
+          return;
         }
+        const center = this.screenCenter(agent.cell);
+        if (!this.isInViewport(center.x, center.y, view, 4)) {
+          if (bob.visible) bob.setVisible(false);
+          return;
+        }
+        bob.setPosition(center.x - 2, center.y - 8);
+        if (!bob.visible) bob.setVisible(true);
       });
     }
   }
@@ -241,5 +265,9 @@ export const isometricSpikeGameConfig: Phaser.Types.Core.GameConfig = {
   width: 640,
   height: 480,
   backgroundColor: "#101827",
+  render: {
+    antialias: false,
+    roundPixels: true,
+  },
   scene: [IsometricSpikeScene],
 };

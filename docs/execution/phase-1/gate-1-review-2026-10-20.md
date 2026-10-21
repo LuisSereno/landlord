@@ -10,15 +10,15 @@
 
 ## Decisión
 
-- [ ] `GO`
+- [x] `GO`
 - [ ] `CONDITIONAL GO`
-- [x] `REWORK`
+- [ ] `REWORK`
 - [ ] `STOP`
 
-Gate 1 permanece en `REWORK`. El rework técnico del 2026-10-21 cerró el fixture continuo y la
-instrumentación de comandos, backlog, proyección y save/load, pero Chromium supera el umbral de
-frame p95 en 1,5 ms cuando se mide a la cadencia máxima de proyección de D-052 (10 Hz). La
-evidencia completa está en `gate-1-retest-2026-10-21.md`.
+Gate 1 queda en `GO`. El rework técnico del 2026-10-21 cerró el fixture continuo y la
+instrumentación de comandos, backlog, proyección y save/load. La optimización final dejó Chromium
+en 18,6 ms de frame p95 a la cadencia máxima de D-052 (10 Hz), dentro del umbral. La evidencia
+completa está en `gate-1-retest-2026-10-21.md`.
 
 ## Alcance auditado
 
@@ -33,7 +33,7 @@ evidencia completa está en `gate-1-retest-2026-10-21.md`.
 | Fixture de carga continuo | PASS retest | 100 edificios, 500 agentes, A* y reasignación determinista; cuatro seeds × cinco repeticiones |
 | Soak headless | PASS | `soak-baseline-2026-10-20.md` |
 | Browser 10 min (Firefox) | PASS | 10 min a 10 Hz, sin errores ni divergencias |
-| Browser 10 min (Chromium) | REWORK | p95 21,5 ms a 10 Hz; p99 26,7 ms |
+| Browser 10 min (Chromium) | PASS | p95 18,6 ms; p99 22,8 ms a 10 Hz |
 | Soak navegador reducido (Chromium) | PASS estabilidad | 30 min medidos + 10 min warm-up a 2 Hz; no sustituye el frame gate a 10 Hz |
 
 ## Checks funcionales
@@ -61,8 +61,8 @@ evidencia completa está en `gate-1-retest-2026-10-21.md`.
 | Ticks > 50 ms | 0,1 % | 0 observado | PASS |
 | Worker p95 | 12 ms | 0,254 ms | PASS |
 | Command/response p95 | 100 ms | 0,254 ms | PASS |
-| Frame p95 | 20 ms | Chromium 21,5; Firefox 18 | REWORK por Chromium |
-| Frame p99 | 33,3 ms | Chromium 26,7; Firefox 19 | PASS |
+| Frame p95 | 20 ms | Chromium 18,6; Firefox 18 | PASS retest |
+| Frame p99 | 33,3 ms | Chromium 22,8; Firefox 19 | PASS retest |
 | Snapshot | 5 MiB | Chromium 463.491 bytes | PASS |
 | Serialize p95 | 100 ms | Chromium 2,7 ms | PASS |
 | Validate + restore p95 | 500 ms | Chromium 4,8 ms | PASS |
@@ -74,13 +74,13 @@ evidencia completa está en `gate-1-retest-2026-10-21.md`.
 | ID | Acción de cierre | Evidencia requerida |
 |---|---|---|
 | G1-RW-01 | Retest headless continuo | CERRADO: cuatro seeds × cinco repeticiones, A* sostenido |
-| G1-RW-02 | Ejecutar browser 10 min Chromium y Firefox | EVIDENCIA CERRADA; Chromium queda en REWORK por frame p95 a 10 Hz |
+| G1-RW-02 | Ejecutar browser 10 min Chromium y Firefox | CERRADO: ambos pasan a 10 Hz |
 | G1-RW-03 | Ejecutar soak Chromium | CERRADO como estabilidad: 30 min medidos + 10 min warm-up; decisión explícita de reducción |
 | G1-RW-04 | Completar instrumentación browser | CERRADO: command/response, backlog, proyección, snapshot y continuación |
 
-No se autoriza Gate 2 hasta corregir el frame p95 de Chromium a 10 Hz y repetir la medición. Los
-umbrales no se modifican retrospectivamente. La reducción de duración del soak está registrada como
-decisión operativa de esta fase, no como cambio de D-052.
+Gate 1 queda aprobado para iniciar Gate 2. Los umbrales no se modifican retrospectivamente. La
+reducción de duración del soak está registrada como decisión operativa de esta fase, no como cambio
+de D-052.
 
 ## Documentación actualizada
 

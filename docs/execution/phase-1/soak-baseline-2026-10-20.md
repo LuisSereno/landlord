@@ -26,9 +26,10 @@ BROWSER_ONLY=chromium BROWSER_BENCHMARK_WARMUP_MS=600000 BROWSER_BENCHMARK_MS=18
 
 La ejecución del 2026-10-21 completó 30 minutos medidos en Chromium sin page errors, fallos de
 save/load ni divergencias de continuación. Ese soak de estabilidad usó 2 Hz; la comprobación de
-rendimiento a la cadencia máxima (10 Hz) se ejecutó aparte durante diez minutos y dejó Chromium
-en REWORK por frame p95 de 21,5 ms. Firefox completó su benchmark independiente de diez minutos a
-10 Hz. Los datos completos están en `gate-1-retest-2026-10-21.md`.
+rendimiento a la cadencia máxima (10 Hz) se ejecutó aparte durante diez minutos y, tras la
+optimización final, dejó Chromium en 18,6 ms de frame p95. Firefox completó su benchmark
+independiente de diez minutos a 10 Hz. Los datos completos están en
+`gate-1-retest-2026-10-21.md`.
 
 ## Estado
 

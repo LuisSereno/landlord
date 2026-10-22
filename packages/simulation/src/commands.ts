@@ -17,6 +17,10 @@ import {
   type StartConstruction,
   type TestStructurePlaced,
   type UpgradeBuilding,
+  type BuyMaterials,
+  type InvestInProduction,
+  type AllocateCrew,
+  type RepairBuilding,
 } from "@landlord/shared";
 import { hasOrganizationControl, type GameState } from "./state";
 import {
@@ -24,6 +28,10 @@ import {
   ILLEGAL_ROUTE,
   PLAYER_CREW_CAPACITY,
   UPGRADE_RESOURCES,
+  CRIME_COOLDOWN_TICKS,
+  MARKET_PRICES,
+  REPAIR_COST,
+  REPAIR_WORK_REQUIRED,
 } from "./game-data";
 import { Xoshiro128ss } from "./prng";
 
@@ -105,6 +113,46 @@ function hasResources(
   );
 }
 
+function totalInventory(inventory: { cement: number; brick: number; steel: number }): number {
+  return inventory.cement + inventory.brick + inventory.steel;
+}
+
+const MAX_TRANSACTION_HISTORY = 500;
+const MAX_PROCESSED_COMMANDS = 2048;
+
+function rememberProcessed(
+  state: GameState,
+  commandId: import("@landlord/shared").CommandId,
+): void {
+  state.processedCommandIds.add(commandId);
+  while (state.processedCommandIds.size > MAX_PROCESSED_COMMANDS) {
+    const oldest = state.processedCommandIds.values().next().value;
+    if (!oldest) break;
+    state.processedCommandIds.delete(oldest);
+  }
+}
+
+function trimTransactions(state: GameState): void {
+  if (state.phase2.transactions.length > MAX_TRANSACTION_HISTORY) {
+    state.phase2.transactions.splice(0, state.phase2.transactions.length - MAX_TRANSACTION_HISTORY);
+  }
+}
+
+function effectiveRent(state: GameState, building: import("@landlord/shared").Building): number {
+  const policyModifier =
+    state.phase2.ordinance.status === "active"
+      ? 1 + state.phase2.ordinance.rentModifierPercent / 100
+      : 1;
+  return Math.max(
+    0,
+    Math.round(
+      BUILDING_DEFINITIONS[building.type].baseRent *
+        (building.upgraded ? 1.25 : 1) *
+        policyModifier,
+    ),
+  );
+}
+
 function debit(
   state: GameState,
   organizationId: import("@landlord/shared").OrganizationId,
@@ -127,6 +175,7 @@ function debit(
     direction: "debit",
     referenceId,
   });
+  trimTransactions(state);
   return true;
 }
 
@@ -152,6 +201,7 @@ function credit(
     direction: "credit",
     referenceId,
   });
+  trimTransactions(state);
   return true;
 }
 
@@ -164,12 +214,86 @@ export function dispatchProductCommand(
     | AssignTenant
     | UpgradeBuilding
     | LobbyPolicy
-    | CommitCrime,
+    | CommitCrime
+    | BuyMaterials
+    | InvestInProduction
+    | AllocateCrew
+    | RepairBuilding,
 ): ProductCommandResult {
   if (state.processedCommandIds.has(command.commandId))
     return { accepted: false, code: "DUPLICATE_COMMAND" };
   const actorError = validateActor(state, command);
   if (actorError) return { accepted: false, code: actorError };
+
+  if (command.type === "BuyMaterials") {
+    const inventory = state.phase2.inventories.get(command.actingAsOrganizationId)!;
+    if (totalInventory(inventory) + command.payload.amount > inventory.capacity)
+      return { accepted: false, code: "INVENTORY_CAPACITY" };
+    const cost = parseMoney(MARKET_PRICES[command.payload.resource] * command.payload.amount);
+    if (
+      !debit(
+        state,
+        command.actingAsOrganizationId,
+        cost,
+        "materials_market",
+        command.payload.resource,
+      )
+    )
+      return { accepted: false, code: "INSUFFICIENT_FUNDS" };
+    inventory[command.payload.resource] += command.payload.amount;
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "MaterialsPurchased", {
+      ...command.payload,
+      cost,
+    });
+  }
+
+  if (command.type === "InvestInProduction") {
+    const facility = [...state.phase2.facilities.values()].find(
+      (entry) =>
+        entry.ownerOrganizationId === command.actingAsOrganizationId &&
+        entry.output === command.payload.resource,
+    );
+    if (!facility) return { accepted: false, code: "FACILITY_NOT_FOUND" };
+    if (facility.operational) return { accepted: false, code: "FACILITY_ALREADY_ACTIVE" };
+    if (
+      !debit(
+        state,
+        command.actingAsOrganizationId,
+        facility.investmentCost,
+        "production_investment",
+        facility.id,
+      )
+    )
+      return { accepted: false, code: "INSUFFICIENT_FUNDS" };
+    facility.operational = true;
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "ProductionActivated", {
+      facilityId: facility.id,
+      resource: facility.output,
+    });
+  }
+
+  if (command.type === "AllocateCrew") {
+    const site = state.phase2.constructionSites.get(command.payload.constructionSiteId);
+    if (!site) return { accepted: false, code: "CONSTRUCTION_SITE_NOT_FOUND" };
+    if (site.ownerOrganizationId !== command.actingAsOrganizationId)
+      return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
+    const assignedElsewhere = [...state.phase2.constructionSites.values()]
+      .filter(
+        (entry) =>
+          entry.ownerOrganizationId === command.actingAsOrganizationId && entry.id !== site.id,
+      )
+      .reduce((sum, entry) => sum + entry.crewCapacity, 0);
+    if (assignedElsewhere + command.payload.crewCapacity > PLAYER_CREW_CAPACITY)
+      return { accepted: false, code: "INVALID_CREW_ALLOCATION" };
+    site.crewCapacity = command.payload.crewCapacity;
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "CrewAllocated", {
+      siteId: site.id,
+      crewCapacity: site.crewCapacity,
+    });
+  }
 
   if (command.type === "BuyParcel") {
     const parcel = state.phase2.parcels.get(command.payload.parcelId);
@@ -179,7 +303,7 @@ export function dispatchProductCommand(
       return { accepted: false, code: "INSUFFICIENT_FUNDS" };
     }
     parcel.ownerOrganizationId = command.actingAsOrganizationId;
-    state.processedCommandIds.add(command.commandId);
+    rememberProcessed(state, command.commandId);
     return productEvent(state, command.commandId, "ParcelPurchased", {
       parcelId: parcel.id,
       ownerOrganizationId: parcel.ownerOrganizationId,
@@ -201,9 +325,9 @@ export function dispatchProductCommand(
     ) {
       return { accepted: false, code: "CONSTRUCTION_ALREADY_ACTIVE" };
     }
-    const activeCrewAssignments = [...state.phase2.constructionSites.values()].filter(
-      (site) => site.ownerOrganizationId === command.actingAsOrganizationId,
-    ).length;
+    const activeCrewAssignments = [...state.phase2.constructionSites.values()]
+      .filter((site) => site.ownerOrganizationId === command.actingAsOrganizationId)
+      .reduce((sum, site) => sum + site.crewCapacity, 0);
     if (activeCrewAssignments >= PLAYER_CREW_CAPACITY)
       return { accepted: false, code: "CREW_UNAVAILABLE" };
     const inventory = state.phase2.inventories.get(command.actingAsOrganizationId)!;
@@ -233,8 +357,9 @@ export function dispatchProductCommand(
       resourcesReserved: { ...definition.resources },
       crewCapacity: 1,
       upgradeBuildingId: null,
+      repairBuildingId: null,
     });
-    state.processedCommandIds.add(command.commandId);
+    rememberProcessed(state, command.commandId);
     return productEvent(state, command.commandId, "ConstructionStarted", {
       siteId,
       parcelId: parcel.id,
@@ -247,14 +372,25 @@ export function dispatchProductCommand(
     if (site.ownerOrganizationId !== command.actingAsOrganizationId)
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
     const inventory = state.phase2.inventories.get(command.actingAsOrganizationId)!;
-    inventory.cement += Math.floor(site.resourcesReserved.cement / 2);
-    inventory.brick += Math.floor(site.resourcesReserved.brick / 2);
-    inventory.steel += Math.floor(site.resourcesReserved.steel / 2);
+    const room = Math.max(0, inventory.capacity - totalInventory(inventory));
+    const refund = {
+      cement: Math.floor(site.resourcesReserved.cement / 2),
+      brick: Math.floor(site.resourcesReserved.brick / 2),
+      steel: Math.floor(site.resourcesReserved.steel / 2),
+    };
+    let remainingRoom = room;
+    for (const resource of ["cement", "brick", "steel"] as const) {
+      const restored = Math.min(refund[resource], remainingRoom);
+      inventory[resource] += restored;
+      refund[resource] = restored;
+      remainingRoom -= restored;
+    }
     state.phase2.constructionSites.delete(site.id);
-    state.processedCommandIds.add(command.commandId);
+    rememberProcessed(state, command.commandId);
     return productEvent(state, command.commandId, "ConstructionCancelled", {
       siteId: site.id,
-      refundPolicy: "half_resources_no_cash",
+      refundPolicy: "half_resources_no_cash_capped_by_inventory",
+      refund,
     });
   }
 
@@ -265,14 +401,20 @@ export function dispatchProductCommand(
     if (!tenant) return { accepted: false, code: "TENANT_NOT_FOUND" };
     if (building.ownerOrganizationId !== command.actingAsOrganizationId)
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
-    if (building.tenantId || tenant.activeContractBuildingId)
+    if (
+      building.tenantIds.length >= BUILDING_DEFINITIONS[building.type].capacity ||
+      tenant.activeContractBuildingId
+    )
       return { accepted: false, code: "TENANT_ALREADY_ASSIGNED" };
     if (tenant.preferredBuildingType !== building.type)
       return { accepted: false, code: "TENANT_INCOMPATIBLE" };
-    building.tenantId = tenant.id;
+    if (tenant.budget < effectiveRent(state, building))
+      return { accepted: false, code: "TENANT_BUDGET_TOO_LOW" };
+    building.tenantIds.push(tenant.id);
+    building.tenantId = building.tenantIds[0] ?? null;
     tenant.activeContractBuildingId = building.id;
     tenant.leaseRemaining = 24;
-    state.processedCommandIds.add(command.commandId);
+    rememberProcessed(state, command.commandId);
     return productEvent(state, command.commandId, "TenantAssigned", {
       buildingId: building.id,
       tenantId: tenant.id,
@@ -292,9 +434,9 @@ export function dispatchProductCommand(
     ) {
       return { accepted: false, code: "CONSTRUCTION_ALREADY_ACTIVE" };
     }
-    const activeCrewAssignments = [...state.phase2.constructionSites.values()].filter(
-      (site) => site.ownerOrganizationId === command.actingAsOrganizationId,
-    ).length;
+    const activeCrewAssignments = [...state.phase2.constructionSites.values()]
+      .filter((site) => site.ownerOrganizationId === command.actingAsOrganizationId)
+      .reduce((sum, site) => sum + site.crewCapacity, 0);
     if (activeCrewAssignments >= PLAYER_CREW_CAPACITY)
       return { accepted: false, code: "CREW_UNAVAILABLE" };
     const definition = BUILDING_DEFINITIONS[building.type];
@@ -328,9 +470,51 @@ export function dispatchProductCommand(
       resourcesReserved: { ...UPGRADE_RESOURCES },
       crewCapacity: 1,
       upgradeBuildingId: building.id,
+      repairBuildingId: null,
     });
-    state.processedCommandIds.add(command.commandId);
+    rememberProcessed(state, command.commandId);
     return productEvent(state, command.commandId, "UpgradeStarted", {
+      siteId,
+      buildingId: building.id,
+    });
+  }
+
+  if (command.type === "RepairBuilding") {
+    const building = state.phase2.buildings.get(command.payload.buildingId);
+    if (!building) return { accepted: false, code: "BUILDING_NOT_FOUND" };
+    if (building.ownerOrganizationId !== command.actingAsOrganizationId)
+      return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
+    if (building.condition >= 100) return { accepted: false, code: "BUILDING_CONDITION_FULL" };
+    if (
+      [...state.phase2.constructionSites.values()].some(
+        (site) => site.upgradeBuildingId === building.id || site.repairBuildingId === building.id,
+      )
+    )
+      return { accepted: false, code: "CONSTRUCTION_ALREADY_ACTIVE" };
+    const usedCrew = [...state.phase2.constructionSites.values()]
+      .filter((site) => site.ownerOrganizationId === command.actingAsOrganizationId)
+      .reduce((sum, site) => sum + site.crewCapacity, 0);
+    if (usedCrew >= PLAYER_CREW_CAPACITY) return { accepted: false, code: "CREW_UNAVAILABLE" };
+    if (!debit(state, command.actingAsOrganizationId, REPAIR_COST, "building_repair", building.id))
+      return { accepted: false, code: "INSUFFICIENT_FUNDS" };
+    state.phase2.idCounters.constructionSite += 1;
+    const siteId = parseConstructionSiteId(
+      `site_${String(state.phase2.idCounters.constructionSite).padStart(8, "0")}`,
+    );
+    state.phase2.constructionSites.set(siteId, {
+      id: siteId,
+      parcelId: building.parcelId,
+      ownerOrganizationId: command.actingAsOrganizationId,
+      buildingType: building.type,
+      progress: 0,
+      workRequired: REPAIR_WORK_REQUIRED,
+      resourcesReserved: { cement: 0, brick: 0, steel: 0 },
+      crewCapacity: 1,
+      upgradeBuildingId: null,
+      repairBuildingId: building.id,
+    });
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "RepairStarted", {
       siteId,
       buildingId: building.id,
     });
@@ -342,26 +526,39 @@ export function dispatchProductCommand(
       state.phase2.influenceByOrganizationId.get(command.actingAsOrganizationId) ?? 0;
     if (command.payload.policyId !== ordinance.id || ordinance.status !== "proposed")
       return { accepted: false, code: "POLICY_NOT_AVAILABLE" };
-    if (influence < ordinance.influenceRequired)
+    if (influence < command.payload.influenceSpend)
       return { accepted: false, code: "INFLUENCE_TOO_LOW" };
     state.phase2.influenceByOrganizationId.set(
       command.actingAsOrganizationId,
-      influence - ordinance.influenceRequired,
+      influence - command.payload.influenceSpend,
     );
-    ordinance.status = "active";
+    const generator = new Xoshiro128ss(state.seed);
+    generator.restoreState(state.prng);
+    const chance = Math.min(
+      95,
+      ordinance.approvalChancePercent + (command.payload.influenceSpend - 1) * 15,
+    );
+    const approved = generator.nextInt(0, 100) < chance;
+    state.prng = generator.exportState();
+    ordinance.status = approved ? "active" : "rejected";
     ordinance.proposedAtTick = state.clock.tick;
-    ordinance.activeFromTick = state.clock.tick;
-    ordinance.expiresAtTick = parseTick(state.clock.tick + 80);
-    state.processedCommandIds.add(command.commandId);
-    return productEvent(state, command.commandId, "PolicyEnacted", {
+    ordinance.activeFromTick = approved ? state.clock.tick : null;
+    ordinance.expiresAtTick = approved ? parseTick(state.clock.tick + 24_000) : null;
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, approved ? "PolicyEnacted" : "PolicyRejected", {
       policyId: ordinance.id,
       expiresAtTick: ordinance.expiresAtTick,
+      approvalChancePercent: chance,
+      influenceSpent: command.payload.influenceSpend,
     });
   }
 
   const target = state.phase2.balances.get(command.payload.targetOrganizationId);
   if (!target || command.payload.targetOrganizationId === command.actingAsOrganizationId)
     return { accepted: false, code: "CRIME_TARGET_INVALID" };
+  const nextAvailable =
+    state.phase2.crime.nextAvailableTickByOrganizationId[command.actingAsOrganizationId] ?? 0;
+  if (state.clock.tick < nextAvailable) return { accepted: false, code: "CRIME_COOLDOWN" };
   const generator = new Xoshiro128ss(state.seed);
   generator.restoreState(state.prng);
   const heat =
@@ -372,21 +569,25 @@ export function dispatchProductCommand(
   state.prng = generator.exportState();
   state.phase2.crime.heatByOrganizationId[command.actingAsOrganizationId as string] =
     heat + ILLEGAL_ROUTE.heatOnAttempt;
+  state.phase2.crime.nextAvailableTickByOrganizationId[command.actingAsOrganizationId] =
+    state.clock.tick + CRIME_COOLDOWN_TICKS;
   if (detected) {
     state.phase2.crime.policePressure += ILLEGAL_ROUTE.policePressureOnDetection;
     state.phase2.crime.lastOutcome = "detected";
     const currentBalance = state.phase2.balances.get(command.actingAsOrganizationId) ?? 0;
     const fine = parseMoney(Math.min(currentBalance, ILLEGAL_ROUTE.fineOnDetection));
     debit(state, command.actingAsOrganizationId, fine, "crime_fine", command.commandId);
-    state.processedCommandIds.add(command.commandId);
+    rememberProcessed(state, command.commandId);
     return productEvent(state, command.commandId, "CrimeDetected", {
       heat: heat + ILLEGAL_ROUTE.heatOnAttempt,
       policePressure: state.phase2.crime.policePressure,
       fine,
     });
   }
-  const benefit = ILLEGAL_ROUTE.benefitOnSuccess;
-  debit(state, command.payload.targetOrganizationId, benefit, "sabotage_loss", command.commandId);
+  const benefit = parseMoney(Math.min(target, ILLEGAL_ROUTE.benefitOnSuccess));
+  if (benefit > 0) {
+    debit(state, command.payload.targetOrganizationId, benefit, "sabotage_loss", command.commandId);
+  }
   credit(
     state,
     command.actingAsOrganizationId,
@@ -395,8 +596,11 @@ export function dispatchProductCommand(
     command.commandId,
   );
   state.phase2.crime.lastOutcome = "profitable";
-  state.processedCommandIds.add(command.commandId);
-  return productEvent(state, command.commandId, "CrimeProfitable", { benefit, heat: heat + 2 });
+  rememberProcessed(state, command.commandId);
+  return productEvent(state, command.commandId, "CrimeProfitable", {
+    benefit,
+    heat: heat + ILLEGAL_ROUTE.heatOnAttempt,
+  });
 }
 
 export function dispatchPlaceTestStructure(

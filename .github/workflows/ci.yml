@@ -42,5 +42,11 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Gate 2 browser smoke
+        run: pnpm smoke:phase2
+
       - name: Check formatting
         run: pnpm format:check

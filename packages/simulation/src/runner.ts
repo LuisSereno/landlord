@@ -1,7 +1,8 @@
-import { type PlaceTestStructure, parseTick } from "@landlord/shared";
-import type { CommandResult } from "./commands";
-import { dispatchPlaceTestStructure } from "./commands";
+import { type ProductCommand } from "@landlord/shared";
+import type { CommandResult, ProductCommandResult } from "./commands";
+import { dispatchPlaceTestStructure, dispatchProductCommand } from "./commands";
 import { createInitialState, type GameState } from "./state";
+import { advanceProductSystems } from "./systems";
 
 function orderedMapValues<T>(map: ReadonlyMap<string, T>): T[] {
   return [...map.entries()]
@@ -11,7 +12,7 @@ function orderedMapValues<T>(map: ReadonlyMap<string, T>): T[] {
 
 export type ScheduledCommand = {
   atTick: number;
-  command: PlaceTestStructure;
+  command: ProductCommand;
 };
 
 export type ScenarioCheckpoint = {
@@ -21,7 +22,7 @@ export type ScenarioCheckpoint = {
 
 export type ScenarioRun = {
   state: GameState;
-  results: Array<{ atTick: number; result: CommandResult }>;
+  results: Array<{ atTick: number; result: CommandResult | ProductCommandResult }>;
   checkpoints: ScenarioCheckpoint[];
 };
 
@@ -97,10 +98,16 @@ export function runScenario(
     const atTick = state.clock.tick;
     while (commandIndex < commands.length && commands[commandIndex]!.atTick === atTick) {
       const scheduled = commands[commandIndex]!;
-      results.push({ atTick, result: dispatchPlaceTestStructure(state, scheduled.command) });
+      results.push({
+        atTick,
+        result:
+          scheduled.command.type === "PlaceTestStructure"
+            ? dispatchPlaceTestStructure(state, scheduled.command)
+            : dispatchProductCommand(state, scheduled.command),
+      });
       commandIndex += 1;
     }
-    state.clock = { ...state.clock, tick: parseTick(atTick + 1) };
+    advanceProductSystems(state);
     checkpoints.push({ tick: state.clock.tick, canonicalState: canonicalizeState(state) });
   }
 

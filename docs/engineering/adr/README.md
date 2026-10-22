@@ -19,3 +19,8 @@ Una decisión aceptada sólo se modifica mediante un ADR posterior que la sustit
 - [D-053 — Blender 5.2.2 LTS para toolchain artístico](D-053-blender-5-2-2-lts.md)
 - [D-054 — Bootstrap artístico self-contained](D-054-bootstrap-artistico-self-contained.md)
 - [D-055 — Eventos efímeros y registros persistentes derivados](D-055-eventos-efimeros-y-registros-persistentes.md)
+- [D-056 — Baseline económico de Gate 2](D-056-baseline-economico-gate-2.md)
+- [D-057 — Diagnóstico efímero de Gate 2](D-057-diagnostico-efimero-gate-2.md)
+- [D-058 — Base de presentación antes del spike](D-058-base-presentacion-antes-spike.md)
+- [D-059 — Cierre funcional del baseline de Gate 2](D-059-cierre-funcional-baseline-gate-2.md)
+- [D-060 — Coherencia económica y temporal de Gate 2](D-060-coherencia-economica-gate-2.md)

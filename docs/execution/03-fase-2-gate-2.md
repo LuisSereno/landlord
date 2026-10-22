@@ -10,6 +10,18 @@ La experiencia continúa centrada en Landlord/Entrepreneur. Los costes económic
 
 Duración orientativa existente: 10-14 semanas; 180-280 jornadas-persona.
 
+## Estado de implementación — 2026-10-22
+
+WP2.1–WP2.12 cuentan con un candidato integrado bajo D-056–D-060. El calendario económico está
+separado del tick técnico (30 minutos reales por mes a 1×); existen mercado frente a producción
+propia, dos cuadrillas asignables, contratos multiunidad, presupuesto/satisfacción, reparación,
+rival utility mínimo, política incierta y ruta ilegal con cooldown. Save/load conserva la cola
+autoritativa y las referencias de Phase 2 se validan.
+
+El estado del Gate sigue siendo `REVIEW`, no `GO`: WP2.13 aún requiere una sesión humana de 30–60
+minutos y seeds de referencia, y WP2.14 debe producir la evidencia visual reproducible. La
+implementación y el smoke automatizado no sustituyen esos dos criterios de producto.
+
 ## Criterios de entrada
 
 - Acta `GO` de Gate 1.
@@ -76,7 +88,7 @@ No se fijan objetivos numéricos definitivos sin playtest baseline. Tras las pri
 - Definir catálogo propio de recursos y recetas en datos validados.
 - Modelar inventario y capacidad sin floats ambiguos.
 - Implementar estructura productiva mínima y estado operativo.
-- Implementar producción por ciclos de tick.
+- Implementar producción por horas del calendario de juego, desacoplada del tick técnico.
 - Detener producción al alcanzar capacidad.
 - Definir coste operativo simple si es necesario para cerrar el bucle.
 - Proyectar stock, capacidad, tasa y próximo ciclo.

@@ -100,4 +100,26 @@ describe("SimulationWorkerClient", () => {
       },
     ]);
   });
+
+  it("uses a fresh command namespace after recreating the client", () => {
+    const firstWorker = new FakeWorker();
+    const secondWorker = new FakeWorker();
+    const first = new SimulationWorkerClient(
+      firstWorker,
+      () => undefined,
+      () => undefined,
+    );
+    const second = new SimulationWorkerClient(
+      secondWorker,
+      () => undefined,
+      () => undefined,
+    );
+    void first.buyParcel("parcel_00000001");
+    void second.buyParcel("parcel_00000001");
+    const firstId = (firstWorker.sent[0] as { payload: { command: { commandId: string } } }).payload
+      .command.commandId;
+    const secondId = (secondWorker.sent[0] as { payload: { command: { commandId: string } } })
+      .payload.command.commandId;
+    expect(firstId).not.toBe(secondId);
+  });
 });

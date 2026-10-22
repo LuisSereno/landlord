@@ -1,6 +1,6 @@
 # Estado actual
 
-Fecha de consolidación: 2026-10-21.
+Fecha de consolidación: 2026-10-22.
 
 ## Repositorio
 - Inicializado.
@@ -10,7 +10,7 @@ Fecha de consolidación: 2026-10-21.
 - Plan maestro de ejecución por fases: sí.
 - Plantilla de microtareas para agentes de baja ambigüedad: sí.
 - Fase 0 de preparación: cerrada el 2026-10-20.
-- ADRs D-046 a D-059: aceptados.
+- ADRs D-046 a D-060: aceptados.
 - Charter, contratos, benchmark y backlog inicial de Gate 1: listos.
 - Historias del prototipo: sí.
 - Riesgos: sí.
@@ -58,24 +58,27 @@ Además del núcleo inmobiliario:
 Estos sistemas están documentados, no implementados.
 
 ## Implementación
-- Código jugable: sí, baseline vertical de Gate 2.
+- Código jugable: sí, baseline vertical coherente de Gate 2.
 - package.json: sí, raíz y workspaces mínimos de Gate 1.
 - CI: sí, checks base en GitHub Actions.
 - assets: no.
 - backend: no.
 - modelo de datos implementado: contratos shared v1 extendidos de forma aditiva y núcleo autoritativo headless de Gate 2.
-- tests: sí, smoke, contratos, schemas, arquitectura de fronteras, bucle de producto determinista y diagnóstico de sesión acotado.
+- tests: sí, smoke Chromium en CI, contratos, schemas, referencias de snapshot, arquitectura de
+  fronteras, bucle económico determinista y diagnóstico de sesión acotado.
 
 ## Fase
 Gate 1 aprobado `GO` el 2026-10-21; la evidencia técnica de G1-RW-01..04 quedó reunida.
-Gate 2 en `REVIEW`: candidato funcional integrado el 2026-10-21; todavía no existe acta GO de
+Gate 2 en `REVIEW`: candidato funcional reforzado el 2026-10-22; todavía no existe acta GO de
 producto porque faltan el playtest prolongado y la evidencia visual de WP2.14.
 
 ## Próximo objetivo
 Ejecutar el Visual Direction Spike sobre la pantalla representativa y, cuando haya tiempo,
-una sesión humana de 30–60 minutos con seeds de referencia. El cierre funcional corto ya cubre
-recursos renovables, cuadrilla/cancelación, elección de construcción e inquilino, upgrades,
-libro económico, rival, política y riesgo con consecuencias visibles.
+una sesión humana de 30–60 minutos con seeds de referencia. El cierre funcional cubre calendario
+económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas
+asignables, edificios multiunidad, presupuesto y satisfacción de inquilinos, mantenimiento, rival
+público con datos privados ocultos, política incierta y riesgo con cooldown y conservación de
+dinero.
 
 El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista, Worker,
 snapshot v1, IndexedDB, escena/picking, flujo vertical, benchmark y soak headless están
@@ -92,9 +95,14 @@ El HUD incluye un diagnóstico efímero de comandos, transporte y métricas del 
 los playtests puedan identificar rechazos repetidos sin persistir datos no autoritativos.
 La comprobación manual básica de esa instrumentación quedó cerrada sin errores ni rechazos;
 no reemplaza la validación de producto de Gate 2.
-La captura de la implementación anterior confirmó una vista técnica. WP2.11 ya usa una base
+La captura de la implementación anterior confirmó una vista técnica. WP2.11 usa una base
 map-céntrica con panel operativo superpuesto/plegable, HUD jerarquizado, inspector contextual y
 estados legibles; está lista para servir de pantalla representativa a WP2.14 según D-058.
+
+El rework de auditoría quedó implementado bajo D-060. La suite automatizada cubre 91 pruebas,
+además de tres benchmarks opt-in; el smoke de producción recorre materiales, producción, compra,
+obra, asignación de dos cuadrillas, ocupación, mejora, política, save, reload real, load, rival y
+ruta ilegal. Esto cierra la preparación técnica del playtest, no su evidencia humana prolongada.
 
 ## Restricciones arquitectónicas que Gate 1 debe respetar
 

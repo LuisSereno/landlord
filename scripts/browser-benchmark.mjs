@@ -124,16 +124,18 @@ async function measure(browserName, launcher) {
         });
       }
       frames.sort((left, right) => left - right);
-      const percentile = (fraction) =>
-        frames[Math.min(frames.length - 1, Math.floor(frames.length * fraction))] ?? 0;
+      const percentile = (values, fraction) => {
+        const sorted = [...values].sort((left, right) => left - right);
+        return sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * fraction))] ?? 0;
+      };
       const metrics = window.__landlordBenchmark?.getMetrics() ?? null;
       return {
         browser: navigator.userAgent,
         durationMs: duration,
         frames: frames.length,
-        p50: percentile(0.5),
-        p95: percentile(0.95),
-        p99: percentile(0.99),
+        p50: percentile(frames, 0.5),
+        p95: percentile(frames, 0.95),
+        p99: percentile(frames, 0.99),
         max: frames.at(-1) ?? 0,
         worker: metrics,
         projectionLatencyP95: benchmark.getProjectionLatencyP95(),

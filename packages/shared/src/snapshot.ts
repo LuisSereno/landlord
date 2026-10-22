@@ -102,6 +102,12 @@ export type SnapshotV1 = {
       organizationId: import("./primitives").OrganizationId;
       influence: number;
     }>;
+    rivalAi: {
+      lastAction: string;
+      lastReason: string;
+      lastFailureCode: string | null;
+      cooldownUntilTick: Tick;
+    };
   };
 };
 
@@ -153,6 +159,19 @@ const phase2SnapshotSchema = z.object({
       influence: z.number().int().nonnegative(),
     }),
   ),
+  rivalAi: z
+    .object({
+      lastAction: z.string(),
+      lastReason: z.string(),
+      lastFailureCode: z.string().nullable(),
+      cooldownUntilTick: tickSchema,
+    })
+    .default({
+      lastAction: "none",
+      lastReason: "",
+      lastFailureCode: null,
+      cooldownUntilTick: 0 as Tick,
+    }),
 });
 
 export const snapshotV1Schema = z.object({
@@ -267,11 +286,51 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
       issues.push({ code: "MISSING_REFERENCE", path: "pendingCommands/actingAsOrganizationId" });
     }
   }
+  if (
+    hasDuplicate(snapshot.pendingCommands.map((pending) => pending.command.commandId)) ||
+    snapshot.pendingCommands.some((pending) =>
+      snapshot.processedCommandIds.includes(pending.command.commandId),
+    )
+  ) {
+    issues.push({ code: "DUPLICATE_ID", path: "pendingCommands/commandId" });
+  }
   if (snapshot.phase2) {
     const parcelIds = new Set(snapshot.phase2.parcels.map((parcel) => parcel.id));
     const buildingIds = new Set(snapshot.phase2.buildings.map((building) => building.id));
     const tenantIds = new Set(snapshot.phase2.tenants.map((tenant) => tenant.id));
+    const constructionSiteIds = snapshot.phase2.constructionSites.map((site) => site.id);
+    const balanceOrganizationIds = snapshot.phase2.balances.map((entry) => entry.organizationId);
+    const inventoryOrganizationIds = snapshot.phase2.inventories.map(
+      (entry) => entry.organizationId,
+    );
+    const influenceOrganizationIds = snapshot.phase2.influenceByOrganizationId.map(
+      (entry) => entry.organizationId,
+    );
+    if (
+      hasDuplicate(snapshot.phase2.tenants.map((tenant) => tenant.id)) ||
+      hasDuplicate(snapshot.phase2.facilities.map((facility) => facility.id)) ||
+      hasDuplicate(constructionSiteIds) ||
+      hasDuplicate(snapshot.phase2.transactions.map((transaction) => transaction.id))
+    ) {
+      issues.push({ code: "DUPLICATE_ID", path: "phase2/entities" });
+    }
+    if (
+      hasDuplicate(balanceOrganizationIds) ||
+      hasDuplicate(inventoryOrganizationIds) ||
+      hasDuplicate(influenceOrganizationIds)
+    ) {
+      issues.push({ code: "DUPLICATE_ID", path: "phase2/organizationState" });
+    }
     for (const parcel of snapshot.phase2.parcels) {
+      if (parcel.districtId !== snapshot.phase2.district.id) {
+        issues.push({ code: "MISSING_REFERENCE", path: `phase2/parcels/${parcel.id}/districtId` });
+      }
+      if (parcel.ownerOrganizationId && !organizationIds.has(parcel.ownerOrganizationId)) {
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `phase2/parcels/${parcel.id}/ownerOrganizationId`,
+        });
+      }
       if (parcel.buildingId && !buildingIds.has(parcel.buildingId)) {
         issues.push({ code: "MISSING_REFERENCE", path: `phase2/parcels/${parcel.id}/buildingId` });
       }
@@ -288,6 +347,105 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
           code: "MISSING_REFERENCE",
           path: `phase2/buildings/${building.id}/tenantId`,
         });
+      }
+      if (!organizationIds.has(building.ownerOrganizationId)) {
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `phase2/buildings/${building.id}/ownerOrganizationId`,
+        });
+      }
+      const assignedTenantIds =
+        building.tenantIds.length > 0
+          ? building.tenantIds
+          : building.tenantId
+            ? [building.tenantId]
+            : [];
+      if (hasDuplicate(assignedTenantIds)) {
+        issues.push({ code: "DUPLICATE_ID", path: `phase2/buildings/${building.id}/tenantIds` });
+      }
+      if (building.tenantId && assignedTenantIds[0] !== building.tenantId) {
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `phase2/buildings/${building.id}/tenantId`,
+        });
+      }
+      for (const tenantId of assignedTenantIds) {
+        if (!tenantIds.has(tenantId)) {
+          issues.push({
+            code: "MISSING_REFERENCE",
+            path: `phase2/buildings/${building.id}/tenantIds`,
+          });
+        }
+        const tenant = snapshot.phase2.tenants.find((entry) => entry.id === tenantId);
+        if (tenant?.activeContractBuildingId !== building.id) {
+          issues.push({
+            code: "MISSING_REFERENCE",
+            path: `phase2/buildings/${building.id}/tenantIds/${tenantId}`,
+          });
+        }
+      }
+    }
+    for (const tenant of snapshot.phase2.tenants) {
+      if (tenant.activeContractBuildingId && !buildingIds.has(tenant.activeContractBuildingId)) {
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `phase2/tenants/${tenant.id}/activeContractBuildingId`,
+        });
+      }
+      if (tenant.activeContractBuildingId) {
+        const building = snapshot.phase2.buildings.find(
+          (entry) => entry.id === tenant.activeContractBuildingId,
+        );
+        const assignedTenantIds = building
+          ? building.tenantIds.length > 0
+            ? building.tenantIds
+            : building.tenantId
+              ? [building.tenantId]
+              : []
+          : [];
+        if (!assignedTenantIds.includes(tenant.id)) {
+          issues.push({
+            code: "MISSING_REFERENCE",
+            path: `phase2/tenants/${tenant.id}/activeContractBuildingId`,
+          });
+        }
+      }
+    }
+    for (const site of snapshot.phase2.constructionSites) {
+      if (!parcelIds.has(site.parcelId) || !organizationIds.has(site.ownerOrganizationId)) {
+        issues.push({ code: "MISSING_REFERENCE", path: `phase2/constructionSites/${site.id}` });
+      }
+      if (site.upgradeBuildingId && !buildingIds.has(site.upgradeBuildingId)) {
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `phase2/constructionSites/${site.id}/upgradeBuildingId`,
+        });
+      }
+      if (site.repairBuildingId && !buildingIds.has(site.repairBuildingId)) {
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `phase2/constructionSites/${site.id}/repairBuildingId`,
+        });
+      }
+    }
+    for (const facility of snapshot.phase2.facilities) {
+      if (!organizationIds.has(facility.ownerOrganizationId)) {
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `phase2/facilities/${facility.id}/ownerOrganizationId`,
+        });
+      }
+    }
+    for (const organizationId of [
+      ...balanceOrganizationIds,
+      ...inventoryOrganizationIds,
+      ...influenceOrganizationIds,
+      ...snapshot.phase2.transactions.map((transaction) => transaction.organizationId),
+      ...Object.keys(snapshot.phase2.crime.heatByOrganizationId),
+      ...Object.keys(snapshot.phase2.crime.nextAvailableTickByOrganizationId),
+    ]) {
+      if (!organizationIds.has(organizationId as Organization["id"])) {
+        issues.push({ code: "MISSING_REFERENCE", path: "phase2/organizationState" });
       }
     }
     if (hasDuplicate(snapshot.phase2.parcels.map((parcel) => parcel.id))) {

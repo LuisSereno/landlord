@@ -26,7 +26,7 @@ No es un remake de Constructor, Street Wars o Mob Rule. El objetivo es construir
 
 ## Estado
 
-Fase actual: preparación de Gate 2 (viabilidad de producto), con Gate 1 técnico cerrado.
+Fase actual: Gate 2 en `REVIEW`, con Gate 1 técnico cerrado y el baseline jugable integrado.
 
 La estrategia recomendada es validar primero dos puertas:
 
@@ -36,5 +36,7 @@ La estrategia recomendada es validar primero dos puertas:
 Gate 1 está en `GO`: Chromium alcanza 18,6 ms de frame p95 a 10 Hz y Firefox 18 ms. El soak
 reducido de 30 minutos fue estable; la evidencia está en
 `docs/execution/phase-1/gate-1-retest-2026-10-21.md`. D-055 resuelve el punto `events`/snapshots:
-los eventos normales son efímeros y los historiales persistentes serán registros específicos. El
-siguiente objetivo es Gate 2.
+los eventos normales son efímeros y los historiales persistentes serán registros específicos.
+D-060 separa el calendario económico del tick técnico y cierra el rework de materiales,
+capacidad, cuadrillas, política, rival, riesgo y mantenimiento. Permanecen pendientes el playtest
+humano prolongado y el Visual Direction Spike antes del acta `GO` de Gate 2.

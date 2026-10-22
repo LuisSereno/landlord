@@ -82,9 +82,8 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
       }))
       .sort(compareId),
     structures: [...state.structures.values()].sort(compareId),
-    processedCommandIds: [...state.processedCommandIds].sort((left, right) =>
-      left.localeCompare(right),
-    ),
+    // Set insertion order is the eviction order used by bounded idempotency history.
+    processedCommandIds: [...state.processedCommandIds],
     pendingCommands: [...state.pendingCommands]
       .map((pending) => ({
         acceptedOrder: pending.acceptedOrder,
@@ -107,7 +106,7 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
         .map((facility) => ({ ...facility }))
         .sort(compareId),
       buildings: [...state.phase2.buildings.values()]
-        .map((building) => ({ ...building }))
+        .map((building) => ({ ...building, tenantIds: [...building.tenantIds] }))
         .sort(compareId),
       constructionSites: [...state.phase2.constructionSites.values()]
         .map((site) => ({ ...site, resourcesReserved: { ...site.resourcesReserved } }))
@@ -119,10 +118,14 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
         heatByOrganizationId: { ...state.phase2.crime.heatByOrganizationId },
         policePressure: state.phase2.crime.policePressure,
         lastOutcome: state.phase2.crime.lastOutcome,
+        nextAvailableTickByOrganizationId: {
+          ...state.phase2.crime.nextAvailableTickByOrganizationId,
+        },
       },
       influenceByOrganizationId: [...state.phase2.influenceByOrganizationId.entries()]
         .map(([organizationId, influence]) => ({ organizationId, influence }))
         .sort((left, right) => left.organizationId.localeCompare(right.organizationId)),
+      rivalAi: { ...state.phase2.rivalAi },
     },
   };
 }
@@ -243,6 +246,12 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 parcelId: parseParcelId(building.parcelId),
                 ownerOrganizationId: parseOrganizationId(building.ownerOrganizationId),
                 tenantId: building.tenantId ? parseTenantId(building.tenantId) : null,
+                tenantIds:
+                  building.tenantIds.length > 0
+                    ? building.tenantIds.map(parseTenantId)
+                    : building.tenantId
+                      ? [parseTenantId(building.tenantId)]
+                      : [],
               },
             ]),
           ),
@@ -256,6 +265,9 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 ownerOrganizationId: parseOrganizationId(site.ownerOrganizationId),
                 upgradeBuildingId: site.upgradeBuildingId
                   ? parseBuildingId(site.upgradeBuildingId)
+                  : null,
+                repairBuildingId: site.repairBuildingId
+                  ? parseBuildingId(site.repairBuildingId)
                   : null,
                 resourcesReserved: { ...site.resourcesReserved },
               },
@@ -294,6 +306,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
               entry.influence,
             ]),
           ),
+          rivalAi: { ...snapshot.phase2.rivalAi },
         }
       : defaults,
   };

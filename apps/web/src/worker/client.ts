@@ -46,6 +46,7 @@ export type ClientDiagnostic =
 export class SimulationWorkerClient {
   private nextRequestNumber = 1;
   private nextCommandNumber = 1;
+  private readonly commandSession = globalThis.crypto.randomUUID();
   private readonly pending = new Map<string, PendingRequest>();
   private readonly handleMessageBound = (event: MessageEventLike) => this.handleMessage(event.data);
 
@@ -88,7 +89,7 @@ export class SimulationWorkerClient {
         type: "SubmitCommand",
         payload: {
           command: {
-            commandId: parseCommandId(`command-${this.nextCommandNumber++}`),
+            commandId: this.nextCommandId(),
             issuedByPersonId: parsePersonId("person_00000001"),
             actingAsOrganizationId: parseOrganizationId("org_00000001"),
             type: "PlaceTestStructure",
@@ -101,7 +102,7 @@ export class SimulationWorkerClient {
 
   public buyParcel(parcelId: string): Promise<WorkerResponse> {
     return this.submitProductCommand({
-      commandId: parseCommandId(`command-${this.nextCommandNumber++}`),
+      commandId: this.nextCommandId(),
       issuedByPersonId: parsePersonId("person_00000001"),
       actingAsOrganizationId: parseOrganizationId("org_00000001"),
       type: "BuyParcel",
@@ -111,7 +112,7 @@ export class SimulationWorkerClient {
 
   public startConstruction(parcelId: string, buildingType: "courtyard_home" | "workshop") {
     return this.submitProductCommand({
-      commandId: parseCommandId(`command-${this.nextCommandNumber++}`),
+      commandId: this.nextCommandId(),
       issuedByPersonId: parsePersonId("person_00000001"),
       actingAsOrganizationId: parseOrganizationId("org_00000001"),
       type: "StartConstruction",
@@ -121,7 +122,7 @@ export class SimulationWorkerClient {
 
   public assignTenant(buildingId: string, tenantId: string) {
     return this.submitProductCommand({
-      commandId: parseCommandId(`command-${this.nextCommandNumber++}`),
+      commandId: this.nextCommandId(),
       issuedByPersonId: parsePersonId("person_00000001"),
       actingAsOrganizationId: parseOrganizationId("org_00000001"),
       type: "AssignTenant",
@@ -131,7 +132,7 @@ export class SimulationWorkerClient {
 
   public cancelConstruction(constructionSiteId: string) {
     return this.submitProductCommand({
-      commandId: parseCommandId(`command-${this.nextCommandNumber++}`),
+      commandId: this.nextCommandId(),
       issuedByPersonId: parsePersonId("person_00000001"),
       actingAsOrganizationId: parseOrganizationId("org_00000001"),
       type: "CancelConstruction",
@@ -141,7 +142,7 @@ export class SimulationWorkerClient {
 
   public upgradeBuilding(buildingId: string) {
     return this.submitProductCommand({
-      commandId: parseCommandId(`command-${this.nextCommandNumber++}`),
+      commandId: this.nextCommandId(),
       issuedByPersonId: parsePersonId("person_00000001"),
       actingAsOrganizationId: parseOrganizationId("org_00000001"),
       type: "UpgradeBuilding",
@@ -149,23 +150,63 @@ export class SimulationWorkerClient {
     });
   }
 
-  public lobbyPolicy(policyId: string) {
+  public lobbyPolicy(policyId: string, influenceSpend = 1) {
     return this.submitProductCommand({
-      commandId: parseCommandId(`command-${this.nextCommandNumber++}`),
+      commandId: this.nextCommandId(),
       issuedByPersonId: parsePersonId("person_00000001"),
       actingAsOrganizationId: parseOrganizationId("org_00000001"),
       type: "LobbyPolicy",
-      payload: { policyId: parsePolicyId(policyId) },
+      payload: { policyId: parsePolicyId(policyId), influenceSpend },
     });
   }
 
   public commitCrime(targetOrganizationId = "org_00000002") {
     return this.submitProductCommand({
-      commandId: parseCommandId(`command-${this.nextCommandNumber++}`),
+      commandId: this.nextCommandId(),
       issuedByPersonId: parsePersonId("person_00000001"),
       actingAsOrganizationId: parseOrganizationId("org_00000001"),
       type: "CommitCrime",
       payload: { targetOrganizationId: parseOrganizationId(targetOrganizationId) },
+    });
+  }
+
+  public buyMaterials(resource: "cement" | "brick" | "steel", amount: number) {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "BuyMaterials",
+      payload: { resource, amount },
+    });
+  }
+
+  public investInProduction(resource: "cement" | "brick" | "steel") {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "InvestInProduction",
+      payload: { resource },
+    });
+  }
+
+  public allocateCrew(constructionSiteId: string, crewCapacity: 1 | 2) {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "AllocateCrew",
+      payload: { constructionSiteId: parseConstructionSiteId(constructionSiteId), crewCapacity },
+    });
+  }
+
+  public repairBuilding(buildingId: string) {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "RepairBuilding",
+      payload: { buildingId: parseBuildingId(buildingId) },
     });
   }
 
@@ -213,6 +254,10 @@ export class SimulationWorkerClient {
         payload: { command },
       }) as WorkerRequest,
     );
+  }
+
+  private nextCommandId() {
+    return parseCommandId(`command-${this.commandSession}-${this.nextCommandNumber++}`);
   }
 
   private nextRequestId() {

@@ -43,6 +43,13 @@ const errorMessages: Record<ErrorCode, string> = {
   POLICY_NOT_AVAILABLE: "La ordenanza no está disponible para promoverla.",
   INFLUENCE_TOO_LOW: "La organización no tiene influencia suficiente.",
   CRIME_TARGET_INVALID: "El objetivo de la acción ilegal no es válido.",
+  TENANT_BUDGET_TOO_LOW: "El alquiler supera el presupuesto del inquilino.",
+  INVENTORY_CAPACITY: "No queda capacidad suficiente en el almacén.",
+  FACILITY_ALREADY_ACTIVE: "Esta línea de producción ya está activa.",
+  FACILITY_NOT_FOUND: "No existe una línea de producción para ese material.",
+  INVALID_CREW_ALLOCATION: "No hay suficientes cuadrillas libres para esa asignación.",
+  BUILDING_CONDITION_FULL: "El edificio no necesita reparación.",
+  CRIME_COOLDOWN: "La ruta ilegal todavía está en periodo de enfriamiento.",
 } as const;
 
 const PROTOCOL_VERSION = protocolVersionSchema.parse(1);
@@ -77,7 +84,7 @@ function succeeded(requestId: RequestId, tick: number, result?: unknown): Worker
 
 export class SimulationWorkerRuntime {
   private state: GameState | null = null;
-  private pendingCommands: Array<{ requestId: RequestId; command: ProductCommand }> = [];
+  private readonly pendingRequestIds = new Map<string, RequestId>();
   private acceptedCommands = 0;
   private readonly rejectedCommands = new Map<ErrorCode, number>();
 
@@ -103,19 +110,22 @@ export class SimulationWorkerRuntime {
     const responses: WorkerResponse[] = [];
     for (let index = 0; index < count; index += 1) {
       const tick = this.state.clock.tick;
-      const pending = this.pendingCommands;
-      this.pendingCommands = [];
+      const pending = this.state.pendingCommands
+        .splice(0)
+        .sort((left, right) => left.acceptedOrder - right.acceptedOrder);
       for (const queued of pending) {
         const result =
           queued.command.type === "PlaceTestStructure"
             ? dispatchPlaceTestStructure(this.state, queued.command)
             : dispatchProductCommand(this.state, queued.command);
+        const requestId = this.pendingRequestIds.get(queued.command.commandId);
+        this.pendingRequestIds.delete(queued.command.commandId);
         if (result.accepted) {
           this.acceptedCommands += 1;
-          responses.push(succeeded(queued.requestId, tick, result.event));
+          if (requestId) responses.push(succeeded(requestId, tick, result.event));
         } else {
           this.recordRejectedCommand(result.code);
-          responses.push(failed(queued.requestId, result.code));
+          if (requestId) responses.push(failed(requestId, result.code));
         }
       }
       advanceProductSystems(this.state);
@@ -133,13 +143,13 @@ export class SimulationWorkerRuntime {
     switch (request.type) {
       case "InitializeGame": {
         this.state = createInitialState(request.payload.seed);
-        this.pendingCommands = [];
+        this.pendingRequestIds.clear();
         this.resetDiagnostics();
         return [succeeded(request.requestId, this.state.clock.tick), this.projectionMessage()];
       }
       case "SubmitCommand": {
         if (!this.state) return [failed(request.requestId, "INVALID_PAYLOAD")];
-        const alreadyPending = this.pendingCommands.some(
+        const alreadyPending = this.state.pendingCommands.some(
           (pending) => pending.command.commandId === request.payload.command.commandId,
         );
         if (
@@ -149,10 +159,12 @@ export class SimulationWorkerRuntime {
           this.recordRejectedCommand("DUPLICATE_COMMAND");
           return [failed(request.requestId, "DUPLICATE_COMMAND")];
         }
-        this.pendingCommands.push({
-          requestId: request.requestId,
+        this.state.idCounters.commandOrder += 1;
+        this.state.pendingCommands.push({
+          acceptedOrder: this.state.idCounters.commandOrder,
           command: request.payload.command as ProductCommand,
         });
+        this.pendingRequestIds.set(request.payload.command.commandId, request.requestId);
         return [];
       }
       case "SetRunState": {
@@ -193,7 +205,7 @@ export class SimulationWorkerRuntime {
         try {
           const nextState = restoreStateFromSnapshot(rawSnapshot);
           this.state = nextState;
-          this.pendingCommands = [];
+          this.pendingRequestIds.clear();
           this.resetDiagnostics();
           return [succeeded(request.requestId, nextState.clock.tick), this.projectionMessage()];
         } catch {
@@ -226,7 +238,7 @@ export class SimulationWorkerRuntime {
     if (!this.state) throw new Error("Metrics require an initialized state");
     return {
       tick: parseTick(this.state.clock.tick),
-      pendingCommands: this.pendingCommands.length,
+      pendingCommands: this.state.pendingCommands.length,
       structures: this.state.structures.size,
       acceptedCommands: this.acceptedCommands,
       rejectedCommands: [...this.rejectedCommands.entries()]

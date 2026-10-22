@@ -123,6 +123,12 @@ export function App() {
   const selectedBuildingOption = economy?.constructionOptions.find(
     (option) => option.type === selectedBuilding?.type,
   );
+  const selectedOwnedBuilding =
+    selectedBuilding?.ownerOrganizationId === "org_00000001" ? selectedBuilding : undefined;
+  const selectedOwnedSite =
+    selectedConstructionSite?.ownerOrganizationId === "org_00000001"
+      ? selectedConstructionSite
+      : undefined;
   const eligibleConstructionOptions =
     economy?.constructionOptions.filter(
       (option) => selectedParcel && option.allowedZoning.includes(selectedParcel.zoning),
@@ -243,8 +249,8 @@ export function App() {
             <summary>Cómo jugar esta prueba</summary>
             <ol>
               <li>Compra una parcela disponible.</li>
-              <li>Espera materiales y elige qué construir según su zonificación.</li>
-              <li>Ocupa el edificio, cobra rentas y reinvierte o asume riesgos.</li>
+              <li>Compra materiales o invierte en producción propia.</li>
+              <li>Construye, asigna unidades, mantén los activos y reinvierte.</li>
             </ol>
           </details>
           <section className="side-panel">
@@ -253,7 +259,14 @@ export function App() {
             </p>
             <div className="metric-grid" aria-label="Estado de la empresa">
               <Metric label="Caja" value={`${economy?.cash ?? "—"} u.`} />
-              <Metric label="Tick" value={projection?.tick ?? "—"} />
+              <Metric
+                label="Calendario"
+                value={
+                  economy
+                    ? `Mes ${economy.gameTime.month} · día ${economy.gameTime.day} · ${economy.gameTime.hour}:00`
+                    : "—"
+                }
+              />
               <Metric label="Cemento" value={economy?.inventory.cement ?? "—"} />
               <Metric
                 label="Ladrillo / acero"
@@ -265,18 +278,52 @@ export function App() {
               />
               <Metric label="Influencia" value={economy?.influence ?? "—"} />
             </div>
-            {economy && (
-              <p className="compact-note">
-                Producción:{" "}
-                {economy.production
-                  .map(
-                    (facility) =>
-                      `${resourceLabel(facility.output)} ${facility.cycleProgress}/${facility.cycleLength} (+${facility.outputAmount})`,
-                  )
-                  .join(" · ")}
-              </p>
-            )}
           </section>
+          {economy && (
+            <details className="side-panel">
+              <summary>Materiales y producción</summary>
+              <div className="construction-options">
+                {economy.production.map((facility) => (
+                  <div className="production-row" key={facility.output}>
+                    <p>
+                      <strong>{resourceLabel(facility.output)}</strong> · mercado{" "}
+                      {economy.market.prices[facility.output]} u./ud.
+                    </p>
+                    <p>
+                      {facility.operational
+                        ? `Producción ${facility.cycleProgress}/${facility.cycleLength} h · +${facility.outputAmount} · coste ${facility.operatingCost} u.`
+                        : `Instalación inactiva · inversión ${facility.investmentCost} u.`}
+                    </p>
+                    <div className="action-grid">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          void sendAction(
+                            () => clientRef.current!.buyMaterials(facility.output, 2),
+                            `Compradas 2 unidades de ${resourceLabel(facility.output)}.`,
+                          )
+                        }
+                      >
+                        Comprar 2
+                      </button>
+                      <button
+                        type="button"
+                        disabled={facility.operational || economy.cash < facility.investmentCost}
+                        onClick={() =>
+                          void sendAction(
+                            () => clientRef.current!.investInProduction(facility.output),
+                            `Producción propia de ${resourceLabel(facility.output)} activada.`,
+                          )
+                        }
+                      >
+                        Invertir
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </details>
+          )}
           <section className="side-panel" aria-label="Inspección de parcela">
             <div className="panel-heading">
               <div>
@@ -298,23 +345,47 @@ export function App() {
                         ? `${buildingLabel(selectedConstructionSite.buildingType)} en obra · ${selectedConstructionSite.progress}/${selectedConstructionSite.workRequired}`
                         : `Solar disponible · precio ${selectedParcel.price} u.`}
                   </p>
-                  {selectedConstructionSite && (
+                  {selectedOwnedSite && (
                     <div className="construction-options">
                       <p>
                         Progreso{" "}
                         {Math.floor(
-                          (selectedConstructionSite.progress /
-                            selectedConstructionSite.workRequired) *
-                            100,
+                          (selectedOwnedSite.progress / selectedOwnedSite.workRequired) * 100,
                         )}
-                        % · la cuadrilla está ocupada.
+                        % · {selectedOwnedSite.crewCapacity} cuadrilla(s) asignada(s).
                       </p>
+                      <button
+                        type="button"
+                        disabled={
+                          selectedOwnedSite.crewCapacity === 2 ||
+                          economy!.crew.used >= economy!.crew.capacity
+                        }
+                        onClick={() =>
+                          void sendAction(
+                            () => clientRef.current!.allocateCrew(selectedOwnedSite.id, 2),
+                            "Dos cuadrillas concentradas en esta obra.",
+                          )
+                        }
+                      >
+                        Asignar 2 cuadrillas
+                      </button>
+                      <button
+                        type="button"
+                        disabled={selectedOwnedSite.crewCapacity === 1}
+                        onClick={() =>
+                          void sendAction(
+                            () => clientRef.current!.allocateCrew(selectedOwnedSite.id, 1),
+                            "Una cuadrilla asignada; la otra queda disponible.",
+                          )
+                        }
+                      >
+                        Liberar una cuadrilla
+                      </button>
                       <button
                         type="button"
                         onClick={() =>
                           void sendAction(
-                            () =>
-                              clientRef.current!.cancelConstruction(selectedConstructionSite.id),
+                            () => clientRef.current!.cancelConstruction(selectedOwnedSite.id),
                             "Obra cancelada; se recuperó la mitad de los materiales y no la caja.",
                           )
                         }
@@ -356,8 +427,12 @@ export function App() {
                             >
                               <strong>{option.name}</strong>
                               <span>
-                                {option.cost} u. · {option.workRequired} ticks · {option.capacity}{" "}
-                                plazas · renta {option.baseRent} u.
+                                {option.cost} u.
+                                {option.cost !== option.baseCost
+                                  ? ` (base ${option.baseCost})`
+                                  : ""}{" "}
+                                · {option.workRequired} h · {option.capacity} unidades · renta{" "}
+                                {option.baseRent} u.
                               </span>
                               <span>Requiere: {resourceSummary(option.resources)}.</span>
                               {missing.length > 0 && <span>Faltan: {missing.join(", ")}.</span>}
@@ -368,39 +443,53 @@ export function App() {
                         })}
                       </div>
                     )}
-                  {selectedBuilding && (
+                  {selectedOwnedBuilding && (
                     <div className="construction-options">
                       <p className="eyebrow">Explotación del activo</p>
-                      <p>Renta efectiva: {selectedBuilding.effectiveRent} u. cada 12 ticks.</p>
-                      {selectedBuilding.tenantId ? (
-                        <p>
-                          Ocupado · contrato restante{" "}
-                          {economy?.tenants.find(
-                            (tenant) => tenant.id === selectedBuilding.tenantId,
-                          )?.leaseRemaining ?? 0}{" "}
-                          cobros.
-                        </p>
-                      ) : compatibleTenants.length > 0 ? (
+                      <p>
+                        Renta efectiva: {selectedOwnedBuilding.effectiveRent} u. por unidad y mes.
+                      </p>
+                      <p>
+                        Ocupación: {selectedOwnedBuilding.tenantIds.length}/
+                        {selectedOwnedBuilding.capacity} unidades.
+                      </p>
+                      {selectedOwnedBuilding.tenantIds.map((tenantId) => {
+                        const tenant = economy?.tenants.find((entry) => entry.id === tenantId);
+                        return tenant ? (
+                          <p key={tenantId}>
+                            {tenantProfileLabel(tenant.profile)} · satisfacción{" "}
+                            {tenant.satisfaction}% · contrato {tenant.leaseRemaining} meses
+                          </p>
+                        ) : null;
+                      })}
+                      {selectedOwnedBuilding.tenantIds.length < selectedOwnedBuilding.capacity &&
+                      compatibleTenants.length > 0 ? (
                         compatibleTenants.map((tenant) => (
                           <button
                             key={tenant.id}
                             type="button"
+                            disabled={tenant.budget < selectedOwnedBuilding.effectiveRent}
                             onClick={() =>
                               void sendAction(
                                 () =>
-                                  clientRef.current!.assignTenant(selectedBuilding.id, tenant.id),
-                                "Inquilino asignado; la renta se liquidará cada 12 ticks.",
+                                  clientRef.current!.assignTenant(
+                                    selectedOwnedBuilding.id,
+                                    tenant.id,
+                                  ),
+                                "Inquilino asignado; la renta se liquidará cada mes.",
                               )
                             }
                           >
-                            Ocupar con {tenantProfileLabel(tenant.profile)} · presupuesto{" "}
-                            {tenant.budget} u.
+                            {tenant.budget < selectedOwnedBuilding.effectiveRent
+                              ? "No compatible por presupuesto: "
+                              : "Ocupar con "}
+                            {tenantProfileLabel(tenant.profile)} · presupuesto {tenant.budget} u.
                           </button>
                         ))
                       ) : (
                         <p>No hay inquilinos compatibles disponibles.</p>
                       )}
-                      {!selectedBuilding.upgraded && selectedBuildingOption && (
+                      {!selectedOwnedBuilding.upgraded && selectedBuildingOption && (
                         <button
                           type="button"
                           disabled={
@@ -413,18 +502,43 @@ export function App() {
                           }
                           onClick={() =>
                             void sendAction(
-                              () => clientRef.current!.upgradeBuilding(selectedBuilding.id),
+                              () => clientRef.current!.upgradeBuilding(selectedOwnedBuilding.id),
                               "Mejora iniciada; aumentará la renta cuando termine.",
                             )
                           }
                         >
                           Mejorar: {selectedBuildingOption.upgradeCost} u. ·{" "}
-                          {selectedBuildingOption.upgradeWorkRequired} ticks · renta +
+                          {selectedBuildingOption.upgradeWorkRequired} h · renta +
                           {selectedBuildingOption.upgradeRentBonusPercent}%
                         </button>
                       )}
-                      {selectedBuilding.upgraded && <p>Mejora completada · renta bonificada.</p>}
+                      {selectedOwnedBuilding.upgraded && (
+                        <p>Mejora completada · renta bonificada.</p>
+                      )}
+                      <button
+                        type="button"
+                        disabled={
+                          selectedOwnedBuilding.condition >= 100 ||
+                          economy!.crew.used >= economy!.crew.capacity ||
+                          economy!.cash < economy!.maintenance.repairCost
+                        }
+                        onClick={() =>
+                          void sendAction(
+                            () => clientRef.current!.repairBuilding(selectedOwnedBuilding.id),
+                            "Reparación iniciada; restaurará la condición al terminar.",
+                          )
+                        }
+                      >
+                        Reparar: {economy!.maintenance.repairCost} u. ·{" "}
+                        {economy!.maintenance.repairWorkRequired} h
+                      </button>
                     </div>
+                  )}
+                  {selectedBuilding && !selectedOwnedBuilding && (
+                    <p className="empty-state">
+                      Edificio rival visible. Sus contratos, rentabilidad y caja son información
+                      privada.
+                    </p>
                   )}
                 </>
               ) : (
@@ -452,12 +566,20 @@ export function App() {
               </button>
               <button
                 type="button"
-                disabled={!client || economy?.ordinance.status !== "proposed"}
+                disabled={
+                  !client ||
+                  economy?.ordinance.status !== "proposed" ||
+                  (economy?.influence ?? 0) < 1
+                }
                 onClick={() =>
                   economy &&
                   void sendAction(
-                    () => clientRef.current!.lobbyPolicy(economy.ordinance.id),
-                    "Ordenanza aprobada y aplicada al ciclo económico.",
+                    () =>
+                      clientRef.current!.lobbyPolicy(
+                        economy.ordinance.id,
+                        Math.min(2, economy.influence),
+                      ),
+                    "La propuesta fue resuelta; revisa su estado.",
                   )
                 }
               >
@@ -466,7 +588,7 @@ export function App() {
               <button
                 className="risk-action"
                 type="button"
-                disabled={!client}
+                disabled={!client || (economy?.illegalRoute.cooldownRemainingTicks ?? 0) > 0}
                 onClick={() =>
                   void sendAction(
                     () => clientRef.current!.commitCrime(),
@@ -509,15 +631,32 @@ export function App() {
                   bien; detección estimada {economy.illegalRoute.detectionChancePercent}% y +
                   {economy.illegalRoute.heatOnAttempt} heat en cada intento. Si te detectan: multa
                   de hasta {economy.illegalRoute.fineOnDetection} u.
+                  {economy.illegalRoute.cooldownRemainingTicks > 0 &&
+                    ` Disponible de nuevo en ${Math.ceil(economy.illegalRoute.cooldownRemainingTicks / 1200)} días.`}
                 </p>
                 <p>
-                  <strong>Activos:</strong> {economy.buildings.length} edificios ·{" "}
-                  {economy.constructionSites.length} obras activas
+                  <strong>Activos:</strong>{" "}
+                  {
+                    economy.buildings.filter(
+                      (building) => building.ownerOrganizationId === "org_00000001",
+                    ).length
+                  }{" "}
+                  edificios ·{" "}
+                  {
+                    economy.constructionSites.filter(
+                      (site) => site.ownerOrganizationId === "org_00000001",
+                    ).length
+                  }{" "}
+                  obras activas
                 </p>
                 <p>
                   <strong>Rival:</strong> {economy.rival.parcels} parcelas ·{" "}
-                  {economy.rival.buildings} edificios · {economy.rival.occupiedBuildings} ocupados ·{" "}
-                  {economy.rival.cash} u.
+                  {economy.rival.buildings} edificios · {economy.rival.occupiedBuildings} ocupados.
+                  Caja y contratos privados.
+                </p>
+                <p>
+                  <strong>Última decisión rival:</strong> {economy.rival.lastAction} ·{" "}
+                  {economy.rival.lastReason}
                 </p>
               </div>
             </section>
@@ -638,6 +777,10 @@ function transactionLabel(cause: string): string {
       rent_collection: "cobro de renta",
       illegal_route: "ruta ilegal",
       crime_fine: "multa por detección",
+      materials_market: "compra de materiales",
+      production_investment: "inversión productiva",
+      production_operation: "coste de producción",
+      building_repair: "reparación",
     }[cause] ?? cause
   );
 }
@@ -678,12 +821,13 @@ function ordinanceExplanation(
     materialCostModifierPercent: number;
     rentModifierPercent: number;
     influenceRequired: number;
+    approvalChancePercent: number;
   },
   tick: number,
 ): string {
   const effects = `Construcción ${ordinance.materialCostModifierPercent}% · renta ${ordinance.rentModifierPercent}%.`;
   if (ordinance.status === "proposed")
-    return `Puedes promoverla por ${ordinance.influenceRequired} influencia. ${effects}`;
+    return `Apoyo base ${ordinance.approvalChancePercent}%; cada influencia adicional suma 15 puntos. ${effects}`;
   if (ordinance.status === "active")
     return `Está aplicada hasta el tick ${ordinance.expiresAtTick ?? tick}. ${effects}`;
   return `No puede promoverse en este momento. ${effects} Ya no se aplica.`;

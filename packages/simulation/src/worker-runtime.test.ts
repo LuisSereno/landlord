@@ -124,4 +124,32 @@ describe("simulation Worker runtime", () => {
         .map((response) => response.type),
     ).toEqual(["RequestSucceeded", "ProjectionPublished"]);
   });
+
+  it("persists the authoritative pending command queue", () => {
+    const runtime = new SimulationWorkerRuntime();
+    runtime.handle(initialize);
+    runtime.handle(submit);
+    const saved = runtime.handle({
+      protocolVersion: 1,
+      requestId: "request-save-pending",
+      type: "SaveSnapshot" as const,
+      payload: {},
+    });
+    const snapshot = (
+      saved[0] as { payload: { result: { snapshot: { pendingCommands: unknown[] } } } }
+    ).payload.result.snapshot;
+    expect(snapshot.pendingCommands).toHaveLength(1);
+
+    const restored = new SimulationWorkerRuntime();
+    restored.handle(initialize);
+    restored.handle({
+      protocolVersion: 1,
+      requestId: "request-load-pending",
+      type: "LoadSnapshot" as const,
+      payload: { snapshot },
+    });
+    restored.advanceTicks(1);
+    expect(restored.getState()?.structures.size).toBe(1);
+    expect(restored.getState()?.pendingCommands).toHaveLength(0);
+  });
 });

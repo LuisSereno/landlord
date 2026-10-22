@@ -13,11 +13,11 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     name: "Patio compacto",
     allowedZoning: ["residential", "mixed"],
     cost: parseMoney(3000),
-    workRequired: 8,
+    workRequired: 96,
     capacity: 2,
     baseRent: parseMoney(180),
     upgradeCost: parseMoney(1600),
-    upgradeWorkRequired: 5,
+    upgradeWorkRequired: 48,
     resources: { cement: 4, brick: 8, steel: 2 },
   },
   workshop: {
@@ -25,11 +25,11 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     name: "Taller de barrio",
     allowedZoning: ["industrial", "mixed"],
     cost: parseMoney(4200),
-    workRequired: 11,
+    workRequired: 144,
     capacity: 3,
     baseRent: parseMoney(260),
     upgradeCost: parseMoney(2200),
-    upgradeWorkRequired: 7,
+    upgradeWorkRequired: 72,
     resources: { cement: 6, brick: 10, steel: 4 },
   },
 };
@@ -102,6 +102,7 @@ export const PROTOTYPE_ORDINANCE = {
   materialCostModifierPercent: -20,
   rentModifierPercent: -10,
   influenceRequired: 1,
+  approvalChancePercent: 65,
 };
 
 export const ILLEGAL_ROUTE = {
@@ -112,9 +113,23 @@ export const ILLEGAL_ROUTE = {
   fineOnDetection: parseMoney(180),
 } as const;
 
-export const PLAYER_CREW_CAPACITY = 1;
+export const TECHNICAL_TICKS_PER_SECOND = 20;
+export const GAME_HOUR_TICKS = 50;
+export const GAME_DAY_TICKS = GAME_HOUR_TICKS * 24;
+export const GAME_MONTH_DAYS = 30;
+export const GAME_MONTH_TICKS = GAME_DAY_TICKS * GAME_MONTH_DAYS;
+export const PLAYER_CREW_CAPACITY = 2;
 export const UPGRADE_RESOURCES = { cement: 1, brick: 2, steel: 1 } as const;
 export const UPGRADE_RENT_BONUS_PERCENT = 25;
+export const REPAIR_COST = parseMoney(450);
+export const REPAIR_WORK_REQUIRED = 48;
+export const CRIME_COOLDOWN_TICKS = GAME_DAY_TICKS * 2;
+export const MARKET_PRICES = { cement: 90, brick: 55, steel: 160 } as const;
+export const FACILITY_CONFIG = {
+  cement: { cycleLength: 24, outputAmount: 2, investmentCost: 1800, operatingCost: 80 },
+  brick: { cycleLength: 36, outputAmount: 2, investmentCost: 1600, operatingCost: 45 },
+  steel: { cycleLength: 72, outputAmount: 1, investmentCost: 2400, operatingCost: 100 },
+} as const;
 
 export const PLAYER_ORGANIZATION_ID = parseOrganizationId("org_00000001");
 export const RIVAL_ORGANIZATION_ID = parseOrganizationId("org_00000002");

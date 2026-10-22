@@ -248,3 +248,13 @@ caja; y mejora de edificio que cuesta recursos, ocupa la cuadrilla y aumenta la 
 25%. Una detección en la ruta ilegal aplica una multa máxima de 180 u. La proyección presenta
 estos costes, ritmos y efectos, además del libro de caja y el resumen rival. Son reglas de
 validación del Gate, no balance final del producto.
+
+## D-060 — Coherencia económica y temporal de Gate 2
+Estado: decidido el 2026-10-22.
+A 1×, 30 minutos reales equivalen a un mes de 30 días. Gate 2 ofrece compra de materiales frente
+a inversión productiva, edificios con varios contratos según `capacity`, presupuesto y
+satisfacción funcionales, dos cuadrillas repartibles o concentrables, política con resolución
+PRNG incierta, activos rivales públicos sin exponer caja/contratos y reparación con coste, tiempo
+y cuadrilla. La ruta ilegal tiene cooldown y conserva el dinero entre organizaciones. Las colas,
+referencias y ventanas históricas del snapshot quedan acotadas y validadas. Ver
+`docs/engineering/adr/D-060-coherencia-economica-gate-2.md`.

@@ -1,6 +1,6 @@
 # Gate 2 — baseline de implementación
 
-Fecha: 2026-10-21  
+Fecha: 2026-10-22
 Estado: candidato funcional de Gate 2; aprobación de producto pendiente.
 
 Esta evidencia demuestra que el repositorio ya contiene el primer bucle jugable de
@@ -29,11 +29,11 @@ flowchart LR
 
 | Evidence | Finding | Path |
 |---|---|---|
-| Tests de simulación: `46 passed` y 3 benchmarks omitidos | Compra atómica, tres recursos renovables, cuadrilla/cancelación, upgrade con renta, ordenanza, multa, diagnóstico y save/load | `packages/simulation/src/phase2.test.ts`, `packages/simulation/src/worker-runtime.test.ts` |
-| Suite completa: shared `23 passed`, simulation `42 passed`, web `16 passed` | La extensión no rompe los contratos ni el núcleo técnico de Gate 1 | `packages/shared/src`, `packages/simulation/src`, `apps/web/src` |
+| Tests de simulación: `51 passed` y 3 benchmarks omitidos | Calendario, mercado/producción, multiunidad, dos cuadrillas, renta, reparación, política, riesgo, cola y save/load | `packages/simulation/src/phase2.test.ts`, `packages/simulation/src/worker-runtime.test.ts` |
+| Suite completa: shared `23 passed`, simulation `51 passed`, web `17 passed` | La extensión no rompe los contratos ni el núcleo técnico de Gate 1 | `packages/shared/src`, `packages/simulation/src`, `apps/web/src` |
 | `pnpm typecheck`, `pnpm lint` y arquitectura sin errores | Las fronteras `simulation`/`shared`/`web` siguen siendo válidas | `scripts/check-architecture.mjs` |
-| `pnpm smoke:phase2` | El navegador completa comprar → construir → ocupar → ordenar → guardar → cargar sin errores de página | `scripts/phase2-browser-smoke.mjs` |
-| Benchmark reducido de 20.000 ticks, seed 1, una repetición | p95 tick `1.0225 ms`; p95 projection `0.0871 ms` en la fixture técnica de Gate 1 | `packages/simulation/src/benchmark.test.ts` |
+| `pnpm smoke:phase2` | Chromium completa mercado → producción → compra → obra con dos crews → ocupación → upgrade → política → save → reload → load → crimen | `scripts/phase2-browser-smoke.mjs` |
+| Benchmark completo, 20.000 ticks por repetición | Peor p95 observado: tick `1.053 ms`, proyección `0.092 ms`; sin regresión del budget de Gate 1 | `packages/simulation/src/benchmark.test.ts` |
 | Snapshot restaurado con proyección y libro económico | La economía de la fase sobrevive a IndexedDB y a la rehidratación del Worker | `packages/simulation/src/snapshot.ts`, `apps/web/src/persistence/indexed-db.ts` |
 | Métricas de Worker y diagnóstico acotado de la web | Los playtests pueden observar cola, aceptaciones, rechazos y patrones repetidos sin alterar la simulación | `packages/simulation/src/worker-runtime.ts`, `apps/web/src/diagnostics.ts` |
 | Smoke del layout de presentación | El flujo conserva compra → obra → ocupación → ordenanza → save/load con mapa principal, HUD e inspector contextual | `apps/web/src/App.tsx`, `apps/web/src/styles.css`, `scripts/phase2-browser-smoke.mjs` |
@@ -44,14 +44,13 @@ Se han conectado los paquetes en el mismo flujo autoritativo:
 
 - `WP2.1`: distrito fijo, ocho parcelas, ownership por organización y `BuyParcel`.
 - `WP2.2`: caja por organización y transacciones con causa, tick y referencia.
-- `WP2.3`: fábricas agregadas, ciclos deterministas, capacidad y catálogo de cemento,
-  ladrillo y acero.
-- `WP2.4–WP2.5`: obras separadas de edificios terminados y una crew de capacidad limitada.
-- `WP2.6`: cuatro tenants finitos, compatibilidad, contratos y renta automática.
+- `WP2.3`: mercado de materiales y líneas agregadas que requieren inversión y coste operativo.
+- `WP2.4–WP2.5`: obras separadas y dos crews repartibles o concentrables.
+- `WP2.6`: tenants finitos, varios contratos por edificio, presupuesto, satisfacción y renta mensual.
 - `WP2.7`: orden de mejora con coste, materiales y progreso.
-- `WP2.8`: rival autónomo con el mismo dispatcher y observación pública del distrito.
-- `WP2.9`: ruta ilegal opcional, heat, presión policial y resultado determinista.
-- `WP2.10`: una ordenanza con descuento material y reducción de renta, vigencia y expiración.
+- `WP2.8`: rival utility mínimo con el mismo dispatcher, memoria/cooldown y activos públicos.
+- `WP2.9`: ruta ilegal opcional con cooldown, heat, policía y transferencia conservativa.
+- `WP2.10`: ordenanza incierta con influencia, modificadores, vigencia y expiración.
 - `WP2.11–WP2.12`: HUD operativo, acciones contextuales y snapshot aditivo compatible con
   fixtures de Gate 1.
 - Diagnóstico de playtest: panel de sesión con los ocho eventos recientes, capacidad máxima de
@@ -59,9 +58,9 @@ Se han conectado los paquetes en el mismo flujo autoritativo:
 - Base de presentación de WP2.11: layout map-céntrico, panel operativo superpuesto y plegable,
   HUD de caja y recursos, inspector contextual sin IDs como interfaz principal, acciones
   agrupadas y diagnóstico colapsable.
-- Cierre funcional D-059: producción renovable de los tres materiales; una cuadrilla visible;
-  progreso y cancelación; selección explícita de tenant; mejora con +25% de renta; velocidades
-  1×/2×/4×; libro de caja; resumen rival; influencia consumible y multa por detección.
+- Coherencia D-060: 30 minutos reales por mes a 1×; mercado frente a producción; dos cuadrillas;
+  capacidad multiunidad; presupuesto/satisfacción; deterioro/reparación; política incierta;
+  privacidad rival; cooldown criminal; historiales acotados y cola autoritativa persistente.
 
 El estado autoritativo permanece en `simulation`; React sólo envía comandos y presenta la
 proyección recibida del Worker. El render no modifica caja, recursos, precios o política.
@@ -90,9 +89,9 @@ oculta el marcador técnico salvo con `?debug=1`. Los requisitos y parámetros s
 la simulación; la UI no replica decisiones económicas autoritativas.
 
 El selector de construcción también expone todas las alternativas permitidas por el zoning de la
-parcela: nombre, coste, duración, capacidad, renta y recursos. En una parcela mixta el jugador
+parcela: nombre, coste efectivo y base, duración, capacidad, renta y recursos. En una parcela mixta el jugador
 puede elegir explícitamente entre el Patio compacto y el Taller de barrio. Esta es la elección de
-construcción mínima del Gate 2; finanzas, impuestos, mantenimiento, seguros, banca, mercado
+construcción mínima del Gate 2; finanzas, impuestos, seguros, banca, mercado inmobiliario
 profundo y más tipos de edificio pertenecen a fases posteriores.
 
 ## Comprobación reproducible
@@ -103,13 +102,12 @@ pnpm typecheck
 pnpm test
 pnpm lint
 pnpm build
-pnpm --filter @landlord/web dev --host 127.0.0.1
-# en otra terminal
 pnpm smoke:phase2
 ```
 
-La smoke espera el servidor en `http://127.0.0.1:5173/`; se puede cambiar con
-`PHASE2_BASE_URL`.
+La smoke levanta automáticamente el preview de producción en `127.0.0.1:4174`. También puede
+apuntar a un servidor externo mediante `PHASE2_BASE_URL`. GitHub Actions instala Chromium y
+ejecuta este smoke después del build.
 
 ## Decisiones y límites
 

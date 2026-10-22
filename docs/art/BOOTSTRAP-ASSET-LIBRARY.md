@@ -116,6 +116,18 @@ https://quaternius.itch.io/universal-animation-library
 Estado de licencia verificado en la ficha seleccionada:
 - CC0.
 
+#### Universal Animation Library 2 — Standard
+Uso previsto:
+- acciones de trabajo y farming como referencia de movimiento;
+- parkour y locomoción auxiliar sólo si una escena de prueba lo requiere;
+- validación de compatibilidad con el mismo rig humanoide.
+
+Fuente:
+https://quaternius.itch.io/universal-animation-library-2
+
+Estado de licencia verificado en la ficha seleccionada:
+- CC0.
+
 ### Kenney
 
 Todos los siguientes packs se usarán principalmente como base, placeholder o geometría auxiliar, no como identidad final.
@@ -166,9 +178,11 @@ Uso:
 Estado de licencia general de los game assets de Kenney:
 - CC0.
 
-### Poly Haven — materiales 2K
+### Poly Haven — fuentes 4K, derivados objetivo 2K
 
-La resolución bootstrap preferida es 2K. No descargar 8K/16K sin necesidad medida.
+El staging local verificado contiene fuentes `.blend.zip` 4K. El pipeline debe generar derivados
+2K para el bootstrap salvo que una medición justifique otra resolución. No descargar 8K/16K sin
+necesidad medida.
 
 #### Red Brick 03
 https://polyhaven.com/a/red_brick_03

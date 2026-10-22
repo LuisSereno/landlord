@@ -31,7 +31,7 @@ import {
   type TransactionId,
 } from "./primitives";
 import { gridCellSchema, tickSchema, type GridCell, type Tick } from "./time-and-grid";
-import { moneySchema, type Money } from "./money";
+import { moneySchema, parseMoney, type Money } from "./money";
 
 export type PlayerIdentity = {
   id: PlayerIdentityId;
@@ -159,6 +159,8 @@ export type ProductionFacility = {
   cycleLength: number;
   output: ResourceKind;
   outputAmount: number;
+  investmentCost: Money;
+  operatingCost: Money;
 };
 
 export type BuildingDefinition = {
@@ -182,6 +184,7 @@ export type Building = {
   level: number;
   condition: number;
   tenantId: TenantId | null;
+  tenantIds: TenantId[];
   upgraded: boolean;
 };
 
@@ -195,6 +198,7 @@ export type ConstructionSite = {
   resourcesReserved: ResourceBundle;
   crewCapacity: number;
   upgradeBuildingId: BuildingId | null;
+  repairBuildingId: BuildingId | null;
 };
 
 export type TenantProfile = "household" | "maker" | "shopkeeper";
@@ -229,12 +233,14 @@ export type Ordinance = {
   materialCostModifierPercent: number;
   rentModifierPercent: number;
   influenceRequired: number;
+  approvalChancePercent: number;
 };
 
 export type CrimeState = {
   heatByOrganizationId: Record<string, number>;
   policePressure: number;
   lastOutcome: "none" | "profitable" | "detected";
+  nextAvailableTickByOrganizationId: Record<string, number>;
 };
 
 export const districtSchema = z.object({
@@ -268,6 +274,8 @@ export const productionFacilitySchema = z.object({
   cycleLength: z.number().int().positive(),
   output: resourceKindSchema,
   outputAmount: z.number().int().positive(),
+  investmentCost: moneySchema.default(parseMoney(0)),
+  operatingCost: moneySchema.default(parseMoney(0)),
 });
 export const buildingSchema = z.object({
   id: buildingIdSchema,
@@ -277,6 +285,7 @@ export const buildingSchema = z.object({
   level: z.number().int().positive(),
   condition: z.number().int().min(0).max(100),
   tenantId: tenantIdSchema.nullable(),
+  tenantIds: z.array(tenantIdSchema).default([]),
   upgraded: z.boolean(),
 });
 export const constructionSiteSchema = z.object({
@@ -289,6 +298,7 @@ export const constructionSiteSchema = z.object({
   resourcesReserved: resourceBundleSchema,
   crewCapacity: z.number().int().positive(),
   upgradeBuildingId: buildingIdSchema.nullable(),
+  repairBuildingId: buildingIdSchema.nullable().default(null),
 });
 export const tenantSchema = z.object({
   id: tenantIdSchema,
@@ -318,11 +328,15 @@ export const ordinanceSchema = z.object({
   materialCostModifierPercent: z.number().int(),
   rentModifierPercent: z.number().int(),
   influenceRequired: z.number().int().nonnegative(),
+  approvalChancePercent: z.number().int().min(0).max(100).default(65),
 });
 export const crimeStateSchema = z.object({
   heatByOrganizationId: z.record(z.string(), z.number().int().nonnegative()),
   policePressure: z.number().int().nonnegative(),
   lastOutcome: z.enum(["none", "profitable", "detected"]),
+  nextAvailableTickByOrganizationId: z
+    .record(z.string(), z.number().int().nonnegative())
+    .default({}),
 });
 
 type DomainCommandBase = {
@@ -349,11 +363,27 @@ export type UpgradeBuilding = DomainCommandBase & {
 };
 export type LobbyPolicy = DomainCommandBase & {
   type: "LobbyPolicy";
-  payload: { policyId: PolicyId };
+  payload: { policyId: PolicyId; influenceSpend: number };
 };
 export type CommitCrime = DomainCommandBase & {
   type: "CommitCrime";
   payload: { targetOrganizationId: OrganizationId };
+};
+export type BuyMaterials = DomainCommandBase & {
+  type: "BuyMaterials";
+  payload: { resource: ResourceKind; amount: number };
+};
+export type InvestInProduction = DomainCommandBase & {
+  type: "InvestInProduction";
+  payload: { resource: ResourceKind };
+};
+export type AllocateCrew = DomainCommandBase & {
+  type: "AllocateCrew";
+  payload: { constructionSiteId: ConstructionSiteId; crewCapacity: 1 | 2 };
+};
+export type RepairBuilding = DomainCommandBase & {
+  type: "RepairBuilding";
+  payload: { buildingId: BuildingId };
 };
 export type ProductCommand =
   | PlaceTestStructure
@@ -363,7 +393,11 @@ export type ProductCommand =
   | AssignTenant
   | UpgradeBuilding
   | LobbyPolicy
-  | CommitCrime;
+  | CommitCrime
+  | BuyMaterials
+  | InvestInProduction
+  | AllocateCrew
+  | RepairBuilding;
 
 function commandSchema<TType extends string>(type: TType, payload: z.ZodType) {
   return z.object({
@@ -393,11 +427,30 @@ export const upgradeBuildingSchema = commandSchema(
 );
 export const lobbyPolicySchema = commandSchema(
   "LobbyPolicy",
-  z.object({ policyId: policyIdSchema }),
+  z.object({ policyId: policyIdSchema, influenceSpend: z.number().int().min(1).max(3) }),
 );
 export const commitCrimeSchema = commandSchema(
   "CommitCrime",
   z.object({ targetOrganizationId: organizationIdSchema }),
+);
+export const buyMaterialsSchema = commandSchema(
+  "BuyMaterials",
+  z.object({ resource: resourceKindSchema, amount: z.number().int().positive().max(40) }),
+);
+export const investInProductionSchema = commandSchema(
+  "InvestInProduction",
+  z.object({ resource: resourceKindSchema }),
+);
+export const allocateCrewSchema = commandSchema(
+  "AllocateCrew",
+  z.object({
+    constructionSiteId: constructionSiteIdSchema,
+    crewCapacity: z.union([z.literal(1), z.literal(2)]),
+  }),
+);
+export const repairBuildingSchema = commandSchema(
+  "RepairBuilding",
+  z.object({ buildingId: buildingIdSchema }),
 );
 export const productCommandSchema = z.discriminatedUnion("type", [
   placeTestStructureSchema,
@@ -408,4 +461,8 @@ export const productCommandSchema = z.discriminatedUnion("type", [
   upgradeBuildingSchema,
   lobbyPolicySchema,
   commitCrimeSchema,
+  buyMaterialsSchema,
+  investInProductionSchema,
+  allocateCrewSchema,
+  repairBuildingSchema,
 ]);

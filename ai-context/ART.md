@@ -37,18 +37,14 @@ Ya descargados localmente por el propietario:
 
 - Quaternius Downtown City MegaKit Standard;
 - Quaternius Universal Base Characters Standard;
-- Quaternius Universal Animation Library Standard;
+- Quaternius Universal Animation Library Standard y Library 2 Standard;
 - Kenney City Kit Industrial;
 - Kenney City Kit Commercial;
 - Kenney City Kit Roads;
 - Kenney UI Pack;
 - Kenney UI Audio;
-- Poly Haven Red Brick 03 2K;
-- Poly Haven Red Bricks 02 2K;
-- Poly Haven Asphalt 07 2K;
-- Poly Haven Concrete Wall 003 2K;
-- Poly Haven Rusty Metal 02 2K;
-- Poly Haven Wood Planks Grey 2K.
+- Poly Haven Red Brick 03, Red Bricks 02, Asphalt 07, Concrete Wall 003, Rusty Metal 02 y Wood
+  Planks Grey como fuentes 4K; derivados bootstrap objetivo 2K.
 
 No asumir que esos binarios están en Git.
 

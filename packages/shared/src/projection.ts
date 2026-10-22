@@ -38,6 +38,7 @@ export type ViewProjectionV1 = {
     cell: GridCell;
   }>;
   economy?: {
+    gameTime: { month: number; day: number; hour: number; ticksPerMonth: number };
     district: { id: DistrictId; name: string };
     parcels: Array<{
       id: ParcelId;
@@ -55,6 +56,8 @@ export type ViewProjectionV1 = {
       cycleLength: number;
       outputAmount: number;
       operational: boolean;
+      investmentCost: number;
+      operatingCost: number;
     }>;
     crew: { capacity: number; used: number };
     influence: number;
@@ -63,6 +66,7 @@ export type ViewProjectionV1 = {
       name: string;
       allowedZoning: Array<"residential" | "industrial" | "mixed">;
       cost: number;
+      baseCost: number;
       workRequired: number;
       capacity: number;
       baseRent: number;
@@ -74,21 +78,27 @@ export type ViewProjectionV1 = {
     }>;
     buildings: Array<{
       id: BuildingId;
+      ownerOrganizationId: OrganizationId;
       parcelId: ParcelId;
       type: BuildingType;
       level: number;
       condition: number;
       tenantId: TenantId | null;
+      tenantIds: TenantId[];
+      capacity: number;
       upgraded: boolean;
       effectiveRent: number;
     }>;
     constructionSites: Array<{
       id: ConstructionSiteId;
       parcelId: ParcelId;
+      ownerOrganizationId: OrganizationId;
       buildingType: BuildingType;
       progress: number;
       workRequired: number;
       upgradeBuildingId: BuildingId | null;
+      repairBuildingId: BuildingId | null;
+      crewCapacity: number;
     }>;
     tenants: Array<{
       id: TenantId;
@@ -107,20 +117,30 @@ export type ViewProjectionV1 = {
       materialCostModifierPercent: number;
       rentModifierPercent: number;
       influenceRequired: number;
+      approvalChancePercent: number;
     };
     illegalRoute: {
       detectionChancePercent: number;
       benefitOnSuccess: number;
       heatOnAttempt: number;
       fineOnDetection: number;
+      cooldownRemainingTicks: number;
     };
+    market: { prices: { cement: number; brick: number; steel: number } };
+    maintenance: { repairCost: number; repairWorkRequired: number };
     recentTransactions: Array<{
       tick: Tick;
       cause: string;
       amount: number;
       direction: "credit" | "debit";
     }>;
-    rival: { cash: number; parcels: number; buildings: number; occupiedBuildings: number };
+    rival: {
+      parcels: number;
+      buildings: number;
+      occupiedBuildings: number;
+      lastAction: string;
+      lastReason: string;
+    };
     heat: number;
     policePressure: number;
     lastCrimeOutcome: "none" | "profitable" | "detected";
@@ -152,6 +172,12 @@ export const viewProjectionV1Schema = z.object({
   ),
   economy: z
     .object({
+      gameTime: z.object({
+        month: z.number().int().positive(),
+        day: z.number().int().positive(),
+        hour: z.number().int().min(0).max(23),
+        ticksPerMonth: z.number().int().positive(),
+      }),
       district: z.object({ id: districtIdSchema, name: z.string() }),
       parcels: z.array(
         z.object({
@@ -177,6 +203,8 @@ export const viewProjectionV1Schema = z.object({
           cycleLength: z.number().int().positive(),
           outputAmount: z.number().int().positive(),
           operational: z.boolean(),
+          investmentCost: moneySchema,
+          operatingCost: moneySchema,
         }),
       ),
       crew: z.object({
@@ -190,6 +218,7 @@ export const viewProjectionV1Schema = z.object({
           name: z.string(),
           allowedZoning: z.array(zoningSchema),
           cost: moneySchema,
+          baseCost: moneySchema,
           workRequired: z.number().int().positive(),
           capacity: z.number().int().positive(),
           baseRent: moneySchema,
@@ -211,11 +240,14 @@ export const viewProjectionV1Schema = z.object({
       buildings: z.array(
         z.object({
           id: buildingIdSchema,
+          ownerOrganizationId: organizationIdSchema,
           parcelId: parcelIdSchema,
           type: buildingTypeSchema,
           level: z.number().int().positive(),
           condition: z.number().int().min(0).max(100),
           tenantId: tenantIdSchema.nullable(),
+          tenantIds: z.array(tenantIdSchema),
+          capacity: z.number().int().positive(),
           upgraded: z.boolean(),
           effectiveRent: moneySchema,
         }),
@@ -224,10 +256,13 @@ export const viewProjectionV1Schema = z.object({
         z.object({
           id: constructionSiteIdSchema,
           parcelId: parcelIdSchema,
+          ownerOrganizationId: organizationIdSchema,
           buildingType: buildingTypeSchema,
           progress: z.number().int().nonnegative(),
           workRequired: z.number().int().positive(),
           upgradeBuildingId: buildingIdSchema.nullable(),
+          repairBuildingId: buildingIdSchema.nullable(),
+          crewCapacity: z.number().int().positive(),
         }),
       ),
       tenants: z.array(
@@ -249,12 +284,21 @@ export const viewProjectionV1Schema = z.object({
         materialCostModifierPercent: z.number().int(),
         rentModifierPercent: z.number().int(),
         influenceRequired: z.number().int().nonnegative(),
+        approvalChancePercent: z.number().int().min(0).max(100),
       }),
       illegalRoute: z.object({
         detectionChancePercent: z.number().int().min(0).max(100),
         benefitOnSuccess: moneySchema,
         heatOnAttempt: z.number().int().positive(),
         fineOnDetection: moneySchema,
+        cooldownRemainingTicks: z.number().int().nonnegative(),
+      }),
+      market: z.object({
+        prices: z.object({ cement: moneySchema, brick: moneySchema, steel: moneySchema }),
+      }),
+      maintenance: z.object({
+        repairCost: moneySchema,
+        repairWorkRequired: z.number().int().positive(),
       }),
       recentTransactions: z.array(
         z.object({
@@ -265,10 +309,11 @@ export const viewProjectionV1Schema = z.object({
         }),
       ),
       rival: z.object({
-        cash: moneySchema,
         parcels: z.number().int().nonnegative(),
         buildings: z.number().int().nonnegative(),
         occupiedBuildings: z.number().int().nonnegative(),
+        lastAction: z.string(),
+        lastReason: z.string(),
       }),
       heat: z.number().int().nonnegative(),
       policePressure: z.number().int().nonnegative(),

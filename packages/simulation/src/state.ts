@@ -6,6 +6,7 @@ import {
   parsePlayerIdentityId,
   parseMoney,
   parseSeed,
+  parseTick,
   type Building,
   type ConstructionSite,
   type District,
@@ -39,6 +40,7 @@ import {
   PROTOTYPE_PARCELS,
   PROTOTYPE_TENANTS,
   RIVAL_ORGANIZATION_ID,
+  FACILITY_CONFIG,
 } from "./game-data";
 
 export type EntityCounters = {
@@ -64,8 +66,15 @@ export type Phase2State = {
     heatByOrganizationId: Record<string, number>;
     policePressure: number;
     lastOutcome: "none" | "profitable" | "detected";
+    nextAvailableTickByOrganizationId: Record<string, number>;
   };
   influenceByOrganizationId: Map<OrganizationId, number>;
+  rivalAi: {
+    lastAction: string;
+    lastReason: string;
+    lastFailureCode: string | null;
+    cooldownUntilTick: import("@landlord/shared").Tick;
+  };
 };
 
 export type GameState = {
@@ -182,11 +191,13 @@ export function createInitialState(seed = 1): GameState {
           {
             id: parseFacilityId("facility_00000001"),
             ownerOrganizationId: PLAYER_ORGANIZATION_ID,
-            operational: true,
+            operational: false,
             cycleProgress: 0,
-            cycleLength: 4,
+            cycleLength: FACILITY_CONFIG.cement.cycleLength,
             output: "cement",
-            outputAmount: 2,
+            outputAmount: FACILITY_CONFIG.cement.outputAmount,
+            investmentCost: parseMoney(FACILITY_CONFIG.cement.investmentCost),
+            operatingCost: parseMoney(FACILITY_CONFIG.cement.operatingCost),
           },
         ],
         [
@@ -194,11 +205,13 @@ export function createInitialState(seed = 1): GameState {
           {
             id: parseFacilityId("facility_00000002"),
             ownerOrganizationId: PLAYER_ORGANIZATION_ID,
-            operational: true,
+            operational: false,
             cycleProgress: 0,
-            cycleLength: 6,
+            cycleLength: FACILITY_CONFIG.brick.cycleLength,
             output: "brick",
-            outputAmount: 2,
+            outputAmount: FACILITY_CONFIG.brick.outputAmount,
+            investmentCost: parseMoney(FACILITY_CONFIG.brick.investmentCost),
+            operatingCost: parseMoney(FACILITY_CONFIG.brick.operatingCost),
           },
         ],
         [
@@ -206,11 +219,13 @@ export function createInitialState(seed = 1): GameState {
           {
             id: parseFacilityId("facility_00000003"),
             ownerOrganizationId: PLAYER_ORGANIZATION_ID,
-            operational: true,
+            operational: false,
             cycleProgress: 0,
-            cycleLength: 10,
+            cycleLength: FACILITY_CONFIG.steel.cycleLength,
             output: "steel",
-            outputAmount: 1,
+            outputAmount: FACILITY_CONFIG.steel.outputAmount,
+            investmentCost: parseMoney(FACILITY_CONFIG.steel.investmentCost),
+            operatingCost: parseMoney(FACILITY_CONFIG.steel.operatingCost),
           },
         ],
         [
@@ -218,11 +233,13 @@ export function createInitialState(seed = 1): GameState {
           {
             id: parseFacilityId("facility_00000004"),
             ownerOrganizationId: RIVAL_ORGANIZATION_ID,
-            operational: true,
+            operational: false,
             cycleProgress: 0,
-            cycleLength: 5,
+            cycleLength: FACILITY_CONFIG.cement.cycleLength,
             output: "cement",
-            outputAmount: 2,
+            outputAmount: FACILITY_CONFIG.cement.outputAmount,
+            investmentCost: parseMoney(FACILITY_CONFIG.cement.investmentCost),
+            operatingCost: parseMoney(FACILITY_CONFIG.cement.operatingCost),
           },
         ],
         [
@@ -230,11 +247,13 @@ export function createInitialState(seed = 1): GameState {
           {
             id: parseFacilityId("facility_00000005"),
             ownerOrganizationId: RIVAL_ORGANIZATION_ID,
-            operational: true,
+            operational: false,
             cycleProgress: 0,
-            cycleLength: 7,
+            cycleLength: FACILITY_CONFIG.brick.cycleLength,
             output: "brick",
-            outputAmount: 2,
+            outputAmount: FACILITY_CONFIG.brick.outputAmount,
+            investmentCost: parseMoney(FACILITY_CONFIG.brick.investmentCost),
+            operatingCost: parseMoney(FACILITY_CONFIG.brick.operatingCost),
           },
         ],
         [
@@ -242,11 +261,13 @@ export function createInitialState(seed = 1): GameState {
           {
             id: parseFacilityId("facility_00000006"),
             ownerOrganizationId: RIVAL_ORGANIZATION_ID,
-            operational: true,
+            operational: false,
             cycleProgress: 0,
-            cycleLength: 11,
+            cycleLength: FACILITY_CONFIG.steel.cycleLength,
             output: "steel",
-            outputAmount: 1,
+            outputAmount: FACILITY_CONFIG.steel.outputAmount,
+            investmentCost: parseMoney(FACILITY_CONFIG.steel.investmentCost),
+            operatingCost: parseMoney(FACILITY_CONFIG.steel.operatingCost),
           },
         ],
       ]),
@@ -262,11 +283,18 @@ export function createInitialState(seed = 1): GameState {
         },
         policePressure: 0,
         lastOutcome: "none",
+        nextAvailableTickByOrganizationId: {},
       },
       influenceByOrganizationId: new Map([
-        [PLAYER_ORGANIZATION_ID, 1],
-        [RIVAL_ORGANIZATION_ID, 0],
+        [PLAYER_ORGANIZATION_ID, 2],
+        [RIVAL_ORGANIZATION_ID, 1],
       ]),
+      rivalAi: {
+        lastAction: "none",
+        lastReason: "Esperando el primer día económico.",
+        lastFailureCode: null,
+        cooldownUntilTick: parseTick(0),
+      },
     },
   };
 }

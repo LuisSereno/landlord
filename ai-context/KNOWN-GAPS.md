@@ -62,24 +62,23 @@ Resuelto para Gate 1 en D-049/D-051: `PlayerIdentity -> Person`, `Organization`,
 ## Economía inmobiliaria
 - fórmula de valor de suelo;
 - modelo de oferta/demanda;
-- contratos de alquiler;
-- vacancy;
 - elasticidad de rentas;
-- coste y frecuencia de mantenimiento;
-- fórmula de deterioro.
+- venta y subasta de activos.
 
 ## Gate 2 — baseline 2026-10-21
-- Implementados parcelas, caja, recursos, obras, crews agregadas, tenants finitos, renta,
-  upgrades, rival, crimen/policía mínimos, una ordenanza, HUD y save/load.
+- Implementados parcelas, caja, mercado de materiales, inversión productiva, obras, dos crews
+  agregadas y asignables, tenants finitos multiunidad, presupuesto/satisfacción, renta mensual,
+  deterioro/reparación, upgrades, rival utility mínimo, crimen/policía con cooldown, ordenanza
+  incierta, HUD y save/load.
 - WP2.11 tiene ya layout de juego, mapa principal, inspector contextual, onboarding, velocidad,
   costes previos, producción, cuadrilla, tenants, renta, progreso, cancelación y libro de caja.
 - Pendiente medir con playtest humano: ritmo, comprensión, estrategia dominante, inflación,
   bloqueos por seed y ratio de decisiones frente a acciones repetitivas.
 - Pendiente ejecutar el Visual Direction Spike end-to-end y decidir la baseline artística una
   vez exista la pantalla representativa exigida por D-058.
-- El rival completa compra, producción, construcción, ocupación y renta, pero su utility/memoria
-  de fallos sigue siendo mínima; la política usa una resolución determinista simple. Ambos son
-  candidatos prioritarios si el playtest demuestra que reducen la calidad de las decisiones.
+- El rival completa compra, mercado, inversión productiva, construcción, ocupación y renta con
+  utility determinista, reserva de liquidez y cooldown ante fallos. Su profundidad sigue siendo
+  deliberadamente mínima y sólo se amplía si el playtest lo justifica.
 
 ## Fiscalidad
 - impuestos concretos de la primera versión;
@@ -138,8 +137,6 @@ Resuelto para Gate 1 en D-049/D-051: `PlayerIdentity -> Person`, `Organization`,
 - concesiones.
 
 ## Crimen y justicia
-- crime resolution;
-- heat decay;
 - evidencia;
 - inspecciones corruptibles;
 - litigios;

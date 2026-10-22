@@ -19,6 +19,10 @@ import {
   type StructureId,
   type AgentId,
   type TenantId,
+  crewIdSchema,
+  incidentIdSchema,
+  type CrewId,
+  type IncidentId,
 } from "./primitives";
 import { gridCellSchema, tickSchema, type GridCell, type Tick } from "./time-and-grid";
 import { moneySchema } from "./money";
@@ -64,6 +68,13 @@ export type ViewProjectionV1 = {
       operatingCost: number;
     }>;
     crew: { capacity: number; used: number };
+    crews: Array<{
+      id: CrewId;
+      organizationId: OrganizationId;
+      supervisorAgentId: AgentId;
+      workerAgentIds: AgentId[];
+      assignedWorkOrderId: ConstructionSiteId | null;
+    }>;
     influence: number;
     constructionOptions: Array<{
       type: BuildingType;
@@ -91,6 +102,9 @@ export type ViewProjectionV1 = {
       tenantIds: TenantId[];
       capacity: number;
       upgraded: boolean;
+      structuralIntegrity: number;
+      state: "operational" | "burning" | "collapse_pending" | "ruin";
+      casualtiesTotal: { injured: number; dead: number };
       effectiveRent: number;
     }>;
     constructionSites: Array<{
@@ -103,6 +117,9 @@ export type ViewProjectionV1 = {
       upgradeBuildingId: BuildingId | null;
       repairBuildingId: BuildingId | null;
       crewCapacity: number;
+      kind: "construction" | "upgrade" | "repair" | "clear_ruin";
+      assignedCrewIds: CrewId[];
+      assignedTechnicianId: AgentId | null;
     }>;
     tenants: Array<{
       id: TenantId;
@@ -112,6 +129,7 @@ export type ViewProjectionV1 = {
       leaseRemaining: number;
       budget: number;
       satisfaction: number;
+      status: "available" | "contracted" | "displaced";
     }>;
     ordinance: {
       id: PolicyId;
@@ -137,6 +155,15 @@ export type ViewProjectionV1 = {
       cause: string;
       amount: number;
       direction: "credit" | "debit";
+    }>;
+    incidents: Array<{
+      id: IncidentId;
+      buildingId: BuildingId;
+      origin: "sabotage" | "deterioration" | "blast";
+      intensity: number;
+      status: "active" | "resolved";
+      casualties: { injured: number; dead: number };
+      createdAtTick: Tick;
     }>;
     rival: {
       parcels: number;
@@ -173,7 +200,9 @@ export const viewProjectionV1Schema = z.object({
       id: agentIdSchema,
       cell: gridCellSchema,
       organizationId: organizationIdSchema.optional(),
-      specialty: z.enum(["supervisor", "construction_worker", "maintenance_technician", "enforcer"]).optional(),
+      specialty: z
+        .enum(["supervisor", "construction_worker", "maintenance_technician", "enforcer"])
+        .optional(),
       health: z.number().int().min(0).max(100).optional(),
       state: z.enum(["idle", "moving", "working", "injured", "dead"]).optional(),
     }),
@@ -219,6 +248,15 @@ export const viewProjectionV1Schema = z.object({
         capacity: z.number().int().positive(),
         used: z.number().int().nonnegative(),
       }),
+      crews: z.array(
+        z.object({
+          id: crewIdSchema,
+          organizationId: organizationIdSchema,
+          supervisorAgentId: agentIdSchema,
+          workerAgentIds: z.array(agentIdSchema),
+          assignedWorkOrderId: constructionSiteIdSchema.nullable(),
+        }),
+      ),
       influence: z.number().int().nonnegative(),
       constructionOptions: z.array(
         z.object({
@@ -257,6 +295,12 @@ export const viewProjectionV1Schema = z.object({
           tenantIds: z.array(tenantIdSchema),
           capacity: z.number().int().positive(),
           upgraded: z.boolean(),
+          structuralIntegrity: z.number().int().min(0).max(100),
+          state: z.enum(["operational", "burning", "collapse_pending", "ruin"]),
+          casualtiesTotal: z.object({
+            injured: z.number().int().nonnegative(),
+            dead: z.number().int().nonnegative(),
+          }),
           effectiveRent: moneySchema,
         }),
       ),
@@ -270,7 +314,10 @@ export const viewProjectionV1Schema = z.object({
           workRequired: z.number().int().positive(),
           upgradeBuildingId: buildingIdSchema.nullable(),
           repairBuildingId: buildingIdSchema.nullable(),
-          crewCapacity: z.number().int().positive(),
+          crewCapacity: z.number().int().nonnegative(),
+          kind: z.enum(["construction", "upgrade", "repair", "clear_ruin"]),
+          assignedCrewIds: z.array(crewIdSchema),
+          assignedTechnicianId: agentIdSchema.nullable(),
         }),
       ),
       tenants: z.array(
@@ -282,6 +329,7 @@ export const viewProjectionV1Schema = z.object({
           leaseRemaining: z.number().int().nonnegative(),
           budget: moneySchema,
           satisfaction: z.number().int().min(0).max(100),
+          status: z.enum(["available", "contracted", "displaced"]),
         }),
       ),
       ordinance: z.object({
@@ -314,6 +362,20 @@ export const viewProjectionV1Schema = z.object({
           cause: z.string(),
           amount: moneySchema,
           direction: z.enum(["credit", "debit"]),
+        }),
+      ),
+      incidents: z.array(
+        z.object({
+          id: incidentIdSchema,
+          buildingId: buildingIdSchema,
+          origin: z.enum(["sabotage", "deterioration", "blast"]),
+          intensity: z.number().int().min(0).max(100),
+          status: z.enum(["active", "resolved"]),
+          casualties: z.object({
+            injured: z.number().int().nonnegative(),
+            dead: z.number().int().nonnegative(),
+          }),
+          createdAtTick: tickSchema,
         }),
       ),
       rival: z.object({

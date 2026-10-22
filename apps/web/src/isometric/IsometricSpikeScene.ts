@@ -19,6 +19,8 @@ const COLORS = {
   parcelRival: 0xd97757,
   building: 0xead7a1,
   construction: 0xb8a46a,
+  fire: 0xf05a28,
+  ruin: 0x6b5b73,
 };
 
 const STRUCTURE_TEXTURE_KEY = "benchmark-structure-marker";
@@ -154,7 +156,14 @@ export class IsometricSpikeScene extends Phaser.Scene {
       );
       if (!parcel) continue;
       const center = this.screenCenter(parcel.cell);
-      graphics.fillStyle(COLORS.building, 0.9);
+      graphics.fillStyle(
+        building.state === "ruin"
+          ? COLORS.ruin
+          : building.state === "burning" || building.state === "collapse_pending"
+            ? COLORS.fire
+            : COLORS.building,
+        0.9,
+      );
       graphics.fillRect(center.x - 7, center.y - 12, 14, 12 + building.level * 3);
     }
     for (const site of this.projection?.economy?.constructionSites ?? []) {
@@ -170,6 +179,17 @@ export class IsometricSpikeScene extends Phaser.Scene {
         16 * Math.min(1, site.progress / site.workRequired),
         3,
       );
+    }
+    for (const incident of this.projection?.economy?.incidents.filter(
+      (entry) => entry.status === "active",
+    ) ?? []) {
+      const parcel = this.projection?.economy?.parcels.find(
+        (entry) => entry.buildingId === incident.buildingId,
+      );
+      if (!parcel) continue;
+      const center = this.screenCenter(parcel.cell);
+      graphics.fillStyle(COLORS.fire, 0.9);
+      graphics.fillCircle(center.x + 8, center.y - 14, 4 + Math.min(6, incident.intensity / 20));
     }
     if (this.selectedCell) {
       const center = this.screenCenter(this.selectedCell);
@@ -245,6 +265,19 @@ export class IsometricSpikeScene extends Phaser.Scene {
           return;
         }
         bob.setPosition(center.x - 2, center.y - 8);
+        const tint =
+          agent.state === "dead"
+            ? 0x555555
+            : agent.state === "injured"
+              ? 0xe0a23b
+              : agent.specialty === "enforcer"
+                ? 0xd95757
+                : agent.specialty === "maintenance_technician"
+                  ? 0xb48ead
+                  : agent.organizationId === "org_00000002"
+                    ? 0xd97757
+                    : 0x8fcae7;
+        bob.setTint(tint);
         if (!bob.visible) bob.setVisible(true);
       });
     }

@@ -69,13 +69,12 @@ Estos sistemas están documentados, no implementados.
 
 ## Fase
 Gate 1 aprobado `GO` el 2026-10-21; la evidencia técnica de G1-RW-01..04 quedó reunida.
-Gate 2 en `REVIEW`: candidato económico funcional reforzado el 2026-10-22; todavía no existe
-acta GO de producto porque faltan el playtest prolongado, la evidencia visual de WP2.14 y el
-rework WP2.15 de agentes, daño e incidentes decidido en D-061.
+Gate 2 en `REVIEW`: candidato económico y WP2.15 táctico integrados el 2026-10-22; todavía no
+existe acta GO de producto porque faltan el playtest prolongado y la evidencia visual de WP2.14.
 
 ## Próximo objetivo
-Diseñar y ejecutar WP2.15 sobre el núcleo determinista, coordinar sus necesidades visuales con
-WP2.14 y repetir después una sesión humana de 30–60 minutos con seeds de referencia. El baseline
+Coordinar WP2.15 con WP2.14 y repetir después una sesión humana de 30–60 minutos con seeds de
+referencia. El baseline
 económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas
 asignables, edificios multiunidad, presupuesto y satisfacción de inquilinos, mantenimiento, rival

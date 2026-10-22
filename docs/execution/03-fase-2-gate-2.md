@@ -15,15 +15,15 @@ estimación vigente; WP2.15 debe diseñarse antes de rebaselinar duración y esf
 
 WP2.1–WP2.12 cuentan con un candidato económico integrado bajo D-056–D-060. El calendario económico está
 separado del tick técnico (30 minutos reales por mes a 1×); existen mercado frente a producción
-propia, dos cuadrillas asignables, contratos multiunidad, presupuesto/satisfacción, reparación,
-rival utility mínimo, política incierta y ruta ilegal con cooldown. Save/load conserva la cola
+propia, dos cuadrillas físicas asignables, contratos multiunidad, presupuesto/satisfacción, reparación,
+rival utility mínimo, política incierta, sabotaje físico y ruta ilegal con cooldown. Save/load conserva la cola
 autoritativa y las referencias de Phase 2 se validan.
 
 El estado del Gate sigue siendo `REVIEW`, no `GO`: WP2.13 aún requiere una sesión humana de 30–60
 minutos y seeds de referencia, y WP2.14 debe producir la evidencia visual reproducible. La
-implementación y el smoke automatizado no sustituyen esos dos criterios de producto. D-061 añade
-WP2.15 como rework obligatorio: el baseline actual no demuestra todavía agentes funcionales,
-daño, fuego o consecuencias espaciales.
+implementación y el smoke automatizado no sustituyen esos dos criterios de producto. D-061 queda
+implementado y validado por pruebas tácticas y smoke browser; el Gate aún espera evidencia de
+producto y Visual Direction Spike.
 
 ## Criterios de entrada
 
@@ -321,7 +321,8 @@ rework o bloquear sólo la producción artística de Fase 3.
 
 ## WP2.15 — Agents, damage & incidents spike
 
-**Decisión:** D-061. **Estado:** obligatorio antes del `GO`; diseño e implementación pendientes.
+**Decisión:** D-061. **Estado:** implementado; cierre técnico validado el 2026-10-22. El Gate
+permanece en `REVIEW` por playtest humano y evidencia visual.
 
 **Resultado:** probar que una persona realiza una acción física, el mundo reacciona y la cadena
 produce consecuencias espaciales y económicas sin ampliar el juego a life simulation.

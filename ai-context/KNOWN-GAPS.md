@@ -79,13 +79,10 @@ Resuelto para Gate 1 en D-049/D-051: `PlayerIdentity -> Person`, `Organization`,
 - El rival completa compra, mercado, inversión productiva, construcción, ocupación y renta con
   utility determinista, reserva de liquidez y cooldown ante fallos. Su profundidad sigue siendo
   deliberadamente mínima y sólo se amplía si el playtest lo justifica.
-- D-061 detecta una carencia de alcance: `agents` sigue siendo infraestructura técnica sin salud,
-  especialidad o función de producto; las crews son contadores, la ruta ilegal es una tirada y no
-  existen fuego, integridad estructural, daño espacial, heridas o muerte.
-- Antes del `GO` debe ejecutarse WP2.15. Permanecen abiertos su diseño de schemas/comandos,
-  pathfinding de producto, budgets específicos, migración de snapshot, representación visual y
-  rebaseline de esfuerzo. No se autoriza por ello una life simulation ni un sistema de combate
-  amplio.
+- D-061 queda implementado en el núcleo: agents operativos, crews físicas, pathfinding, fuego,
+  integridad estructural, daño espacial, heridas, muerte, casualties, ruina y migración aditiva.
+- Antes del `GO` permanecen abiertos el playtest humano prolongado y la evidencia del Visual
+  Direction Spike. No se autoriza por ello una life simulation ni un sistema de combate amplio.
 
 ## Fiscalidad
 - impuestos concretos de la primera versión;

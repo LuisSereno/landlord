@@ -21,19 +21,57 @@ import { findDeterministicPath } from "./navigation";
 
 const MOVEMENT_TICKS_PER_CELL = 10;
 const INCIDENT_LIMIT = 50;
-const adjacent = (a: { x: number; y: number }, b: { x: number; y: number }) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y) <= 1;
-function hurtAgent(state: GameState, agent: import("@landlord/shared").Agent, damage: number): void {
+const adjacent = (a: { x: number; y: number }, b: { x: number; y: number }) =>
+  Math.abs(a.x - b.x) + Math.abs(a.y - b.y) <= 1;
+function hurtAgent(
+  state: GameState,
+  agent: import("@landlord/shared").Agent,
+  damage: number,
+): void {
   agent.health = Math.max(0, (agent.health ?? 100) - damage);
-  if (agent.health === 0) { agent.state = "dead"; agent.task = null; return; }
-  if (agent.health < 100) { agent.state = "injured"; agent.injuredUntilTick = parseTick(state.clock.tick + GAME_DAY_TICKS * 2); agent.task = null; }
+  if (agent.health === 0) {
+    agent.state = "dead";
+    agent.task = null;
+    return;
+  }
+  if (agent.health < 100) {
+    agent.state = "injured";
+    agent.injuredUntilTick = parseTick(state.clock.tick + GAME_DAY_TICKS * 2);
+    agent.task = null;
+  }
 }
-function ignite(state: GameState, building: import("@landlord/shared").Building, origin: "sabotage" | "deterioration" | "blast", intensity: number, agentId: import("@landlord/shared").AgentId | null = null): void {
+function ignite(
+  state: GameState,
+  building: import("@landlord/shared").Building,
+  origin: "sabotage" | "deterioration" | "blast",
+  intensity: number,
+  agentId: import("@landlord/shared").AgentId | null = null,
+): void {
   if (building.state !== "operational") return;
   building.state = "burning";
-  state.phase2.idCounters.transaction += 0;
-  const id = parseIncidentId(`incident_${String(state.phase2.incidents.size + 1).padStart(8, "0")}`);
-  state.phase2.incidents.set(id, { id, buildingId: building.id, origin, intensity, status: "active", targetOrganizationId: building.ownerOrganizationId, createdAtTick: state.clock.tick, causedByAgentId: agentId, causedByOrganizationId: agentId ? state.agents.get(agentId)?.organizationId ?? null : null, casualties: { injured: 0, dead: 0 } });
-  while (state.phase2.incidents.size > INCIDENT_LIMIT) state.phase2.incidents.delete(state.phase2.incidents.keys().next().value!);
+  state.phase2.idCounters.incident += 1;
+  const id = parseIncidentId(
+    `incident_${String(state.phase2.idCounters.incident).padStart(8, "0")}`,
+  );
+  state.phase2.incidents.set(id, {
+    id,
+    buildingId: building.id,
+    origin,
+    intensity,
+    status: "active",
+    targetOrganizationId: building.ownerOrganizationId,
+    createdAtTick: state.clock.tick,
+    causedByAgentId: agentId,
+    causedByOrganizationId: agentId ? (state.agents.get(agentId)?.organizationId ?? null) : null,
+    casualties: { injured: 0, dead: 0 },
+  });
+  while (state.phase2.incidents.size > INCIDENT_LIMIT) {
+    const resolved = [...state.phase2.incidents.values()]
+      .filter((incident) => incident.status === "resolved")
+      .sort((a, b) => a.createdAtTick - b.createdAtTick || a.id.localeCompare(b.id))[0];
+    if (!resolved) break;
+    state.phase2.incidents.delete(resolved.id);
+  }
 }
 
 function totalResources(inventory: { cement: number; brick: number; steel: number }): number {
@@ -117,14 +155,18 @@ function progressConstruction(state: GameState): void {
       ? site.assignedCrewIds.reduce((total, crewId) => {
           const crew = state.phase2.crews.get(crewId);
           if (!crew) return total;
-          const supervisor = state.agents.get(crew.supervisorAgentId);
-          const workers = crew.workerAgentIds.filter((id) => {
-            const worker = state.agents.get(id);
-            return worker?.state !== "dead" && worker?.state !== "injured";
+          const members = [crew.supervisorAgentId, ...crew.workerAgentIds].map((id) =>
+            state.agents.get(id),
+          );
+          const supervisor = members[0];
+          const workers = members.slice(1).filter((worker) => {
+            return worker?.state === "working";
           }).length;
-          return total + (supervisor?.state !== "dead" && supervisor?.state !== "injured" ? (workers === 2 ? 2 : workers === 1 ? 1 : 0) : 0);
+          return (
+            total + (supervisor?.state === "working" && workers > 0 ? (workers === 2 ? 2 : 1) : 0)
+          );
         }, 0)
-      : site.crewCapacity;
+      : 0;
     site.progress += assignedWork;
     if (site.progress < site.workRequired) continue;
     if (site.kind === "clear_ruin" && site.targetBuildingId) {
@@ -235,60 +277,180 @@ function updatePolicyAndHeat(state: GameState): void {
 function tacticalTick(state: GameState): void {
   const agents = [...state.agents.values()].sort((a, b) => a.id.localeCompare(b.id));
   // 1. Movement: target agents are re-evaluated at most once per game second.
-  if (state.clock.tick % MOVEMENT_TICKS_PER_CELL === 0) for (const agent of agents) {
-    if (agent.state === "dead" || agent.state === "injured" || !agent.task) continue;
-    if (agent.task.kind === "attack_agent") {
-      const target = state.agents.get(agent.task.targetAgentId);
-      if (target && (agent.lastPathRecalculationTick === undefined || state.clock.tick - agent.lastPathRecalculationTick >= 20 || agent.path?.length === 0)) { agent.target = { ...target.cell }; agent.path = findDeterministicPath(agent.cell, agent.target, state.map.blockedCells); agent.lastPathRecalculationTick = state.clock.tick; }
+  if (state.clock.tick % MOVEMENT_TICKS_PER_CELL === 0)
+    for (const agent of agents) {
+      if (agent.state === "dead" || agent.state === "injured" || !agent.task) continue;
+      if (agent.task.kind === "attack_agent") {
+        const target = state.agents.get(agent.task.targetAgentId);
+        if (
+          target &&
+          (agent.lastPathRecalculationTick === undefined ||
+            state.clock.tick - agent.lastPathRecalculationTick >= 20 ||
+            agent.path?.length === 0)
+        ) {
+          agent.target = { ...target.cell };
+          agent.path = findDeterministicPath(agent.cell, agent.target, state.map.blockedCells);
+          agent.lastPathRecalculationTick = state.clock.tick;
+        }
+      }
+      if (!agent.path?.length && agent.target && !adjacent(agent.cell, agent.target))
+        agent.path = findDeterministicPath(agent.cell, agent.target, state.map.blockedCells);
+      const next = agent.path?.shift();
+      if (next) agent.cell = next;
+      if (agent.target && adjacent(agent.cell, agent.target)) agent.state = "working";
     }
-    if (!agent.path?.length && agent.target && !adjacent(agent.cell, agent.target)) agent.path = findDeterministicPath(agent.cell, agent.target, state.map.blockedCells);
-    const next = agent.path?.shift(); if (next) agent.cell = next;
-    if (agent.target && adjacent(agent.cell, agent.target)) agent.state = "working";
-  }
+  // Stage 2-3: arrival activates work, then physical crews contribute before hostile actions.
+  progressConstruction(state);
   if (state.clock.tick === 0 || state.clock.tick % GAME_HOUR_TICKS !== 0) return;
   if (state.clock.tick % GAME_MONTH_TICKS === 0) {
-    const prng = new Xoshiro128ss(state.seed); prng.restoreState(state.prng);
-    for (const building of [...state.phase2.buildings.values()].sort((a, b) => a.id.localeCompare(b.id))) {
-      const hasIncident = [...state.phase2.incidents.values()].some((incident) => incident.buildingId === building.id && incident.status === "active");
+    const prng = new Xoshiro128ss(state.seed);
+    prng.restoreState(state.prng);
+    for (const building of [...state.phase2.buildings.values()].sort((a, b) =>
+      a.id.localeCompare(b.id),
+    )) {
+      const hasIncident = [...state.phase2.incidents.values()].some(
+        (incident) => incident.buildingId === building.id && incident.status === "active",
+      );
       if (building.state !== "operational" || hasIncident || building.condition > 20) continue;
       if (prng.nextInt(0, 100) < 35) ignite(state, building, "deterioration", 40);
     }
     state.prng = prng.exportState();
   }
   // 3. Technician suppression and repair.
-  for (const building of [...state.phase2.buildings.values()].sort((a, b) => a.id.localeCompare(b.id))) {
-    const technician = agents.find((agent) => agent.task?.kind === "maintenance" && agent.task.buildingId === building.id && adjacent(agent.cell, state.phase2.parcels.get(building.parcelId)!.cell) && agent.state === "working");
-    const incident = [...state.phase2.incidents.values()].find((entry) => entry.buildingId === building.id && entry.status === "active");
+  for (const building of [...state.phase2.buildings.values()].sort((a, b) =>
+    a.id.localeCompare(b.id),
+  )) {
+    const technician = agents.find(
+      (agent) =>
+        agent.task?.kind === "maintenance" &&
+        agent.task.buildingId === building.id &&
+        adjacent(agent.cell, state.phase2.parcels.get(building.parcelId)!.cell) &&
+        agent.state === "working",
+    );
+    const incident = [...state.phase2.incidents.values()].find(
+      (entry) => entry.buildingId === building.id && entry.status === "active",
+    );
     if (technician && incident) incident.intensity = Math.max(0, incident.intensity - 35);
-    if (technician && building.state === "operational") building.condition = Math.min(100, building.condition + 10);
+    if (technician && building.state === "operational")
+      building.condition = Math.min(100, building.condition + 10);
   }
   // 4. Reached enforcer orders; sabotage is the only PRNG draw here.
   for (const agent of agents) {
-    if (agent.specialty !== "enforcer" || !agent.task || (agent.cooldownUntilTick ?? 0) > state.clock.tick) continue;
-    if (agent.task.kind === "attack_agent") { const target = state.agents.get(agent.task.targetAgentId); if (target && adjacent(agent.cell, target.cell)) { hurtAgent(state, target, 50); agent.cooldownUntilTick = parseTick(state.clock.tick + GAME_HOUR_TICKS); } }
-    if (agent.task.kind === "sabotage_building") { const building = state.phase2.buildings.get(agent.task.targetBuildingId); if (building && adjacent(agent.cell, state.phase2.parcels.get(building.parcelId)!.cell)) { const prng = new Xoshiro128ss(state.seed); prng.restoreState(state.prng); prng.nextInt(0, 100); state.prng = prng.exportState(); ignite(state, building, "sabotage", 40, agent.id); agent.cooldownUntilTick = parseTick(state.clock.tick + GAME_HOUR_TICKS); agent.task = null; agent.state = "idle"; } }
+    if (
+      agent.specialty !== "enforcer" ||
+      !agent.task ||
+      (agent.cooldownUntilTick ?? 0) > state.clock.tick
+    )
+      continue;
+    if (agent.task.kind === "attack_agent") {
+      const target = state.agents.get(agent.task.targetAgentId);
+      if (target && adjacent(agent.cell, target.cell)) {
+        hurtAgent(state, target, 50);
+        agent.cooldownUntilTick = parseTick(state.clock.tick + GAME_HOUR_TICKS);
+      }
+    }
+    if (agent.task.kind === "sabotage_building") {
+      const building = state.phase2.buildings.get(agent.task.targetBuildingId);
+      if (building && adjacent(agent.cell, state.phase2.parcels.get(building.parcelId)!.cell)) {
+        const prng = new Xoshiro128ss(state.seed);
+        prng.restoreState(state.prng);
+        const detected = prng.nextInt(0, 100) < 35 + state.phase2.crime.policePressure * 3;
+        state.prng = prng.exportState();
+        const organizationId = agent.organizationId;
+        if (organizationId) {
+          const key = organizationId as string;
+          state.phase2.crime.heatByOrganizationId[key] =
+            (state.phase2.crime.heatByOrganizationId[key] ?? 0) + 2;
+          if (detected) state.phase2.crime.policePressure += 1;
+          state.phase2.crime.lastOutcome = detected ? "detected" : "profitable";
+        }
+        ignite(state, building, "sabotage", 40, agent.id);
+        agent.cooldownUntilTick = parseTick(state.clock.tick + GAME_HOUR_TICKS);
+        agent.task = null;
+        agent.state = "idle";
+      }
+    }
   }
   // 5-6. Fire update and structural damage.
-  for (const incident of [...state.phase2.incidents.values()].filter((entry) => entry.status === "active").sort((a, b) => a.buildingId.localeCompare(b.buildingId))) {
-    const building = state.phase2.buildings.get(incident.buildingId); if (!building || building.state === "ruin") { incident.status = "resolved"; continue; }
-    const tech = agents.some((agent) => agent.task?.kind === "maintenance" && agent.task.buildingId === building.id && agent.state === "working");
+  for (const incident of [...state.phase2.incidents.values()]
+    .filter((entry) => entry.status === "active")
+    .sort((a, b) => a.buildingId.localeCompare(b.buildingId))) {
+    const building = state.phase2.buildings.get(incident.buildingId);
+    if (!building || building.state === "ruin") {
+      incident.status = "resolved";
+      continue;
+    }
+    const tech = agents.some(
+      (agent) =>
+        agent.task?.kind === "maintenance" &&
+        agent.task.buildingId === building.id &&
+        agent.state === "working",
+    );
     if (!tech) incident.intensity = Math.min(100, incident.intensity + 15);
-    building.structuralIntegrity = Math.max(0, building.structuralIntegrity - Math.ceil(incident.intensity / 10));
-    if (incident.intensity === 0) { incident.status = "resolved"; building.state = "operational"; }
-    else if (incident.intensity >= 100 || building.structuralIntegrity <= 0) building.state = "collapse_pending";
+    building.structuralIntegrity = Math.max(
+      0,
+      building.structuralIntegrity - Math.ceil(incident.intensity / 10),
+    );
+    if (incident.intensity === 0) {
+      incident.status = "resolved";
+      building.state = "operational";
+    } else if (incident.intensity >= 100 || building.structuralIntegrity <= 0)
+      building.state = "collapse_pending";
   }
   // 7-9. Existing pending roots blast now. New pending buildings wait next hour.
-  const pending = [...state.phase2.buildings.values()].filter((building) => building.state === "collapse_pending").sort((a, b) => a.id.localeCompare(b.id));
+  const pending = [...state.phase2.buildings.values()]
+    .filter((building) => building.state === "collapse_pending")
+    .sort((a, b) => a.id.localeCompare(b.id));
   for (const root of pending) {
-    root.state = "ruin"; const parcel = state.phase2.parcels.get(root.parcelId)!;
-    for (const tenantId of root.tenantIds) { const tenant = state.phase2.tenants.get(tenantId); if (tenant) { tenant.status = "displaced"; tenant.activeContractBuildingId = null; } }
-    const occupants = root.type === "courtyard_home" ? 3 : 2; const dead = Math.floor(occupants / 2); const injured = occupants - dead; root.casualtiesTotal.injured += injured; root.casualtiesTotal.dead += dead; root.tenantIds = []; root.tenantId = null;
-    const ownIncident = [...state.phase2.incidents.values()].find((entry) => entry.buildingId === root.id && entry.status === "active"); if (ownIncident) { ownIncident.casualties = { injured, dead }; ownIncident.status = "resolved"; }
-    for (const agent of agents) if (Math.abs(agent.cell.x - parcel.cell.x) + Math.abs(agent.cell.y - parcel.cell.y) <= 3) hurtAgent(state, agent, 60);
-    for (const building of state.phase2.buildings.values()) { if (building.id === root.id || building.state !== "operational") continue; const target = state.phase2.parcels.get(building.parcelId)!; if (Math.abs(target.cell.x - parcel.cell.x) + Math.abs(target.cell.y - parcel.cell.y) <= 3) { building.structuralIntegrity = Math.max(0, building.structuralIntegrity - 35); ignite(state, building, "blast", 25); if (building.structuralIntegrity <= 0) building.state = "collapse_pending"; } }
+    root.state = "ruin";
+    const parcel = state.phase2.parcels.get(root.parcelId)!;
+    for (const tenantId of root.tenantIds) {
+      const tenant = state.phase2.tenants.get(tenantId);
+      if (tenant) {
+        tenant.status = "displaced";
+        tenant.activeContractBuildingId = null;
+      }
+    }
+    const occupants = root.tenantIds.reduce((total, tenantId) => {
+      const profile = state.phase2.tenants.get(tenantId)?.profile;
+      return (
+        total +
+        (profile === "household" ? 3 : profile === "maker" || profile === "shopkeeper" ? 2 : 0)
+      );
+    }, 0);
+    const dead = Math.floor(occupants / 2);
+    const injured = occupants - dead;
+    root.casualtiesTotal.injured += injured;
+    root.casualtiesTotal.dead += dead;
+    root.tenantIds = [];
+    root.tenantId = null;
+    const ownIncident = [...state.phase2.incidents.values()].find(
+      (entry) => entry.buildingId === root.id && entry.status === "active",
+    );
+    if (ownIncident) {
+      ownIncident.casualties = { injured, dead };
+      ownIncident.status = "resolved";
+    }
+    for (const agent of agents)
+      if (Math.abs(agent.cell.x - parcel.cell.x) + Math.abs(agent.cell.y - parcel.cell.y) <= 3)
+        hurtAgent(state, agent, 60);
+    for (const building of state.phase2.buildings.values()) {
+      if (building.id === root.id || building.state !== "operational") continue;
+      const target = state.phase2.parcels.get(building.parcelId)!;
+      if (Math.abs(target.cell.x - parcel.cell.x) + Math.abs(target.cell.y - parcel.cell.y) <= 3) {
+        building.structuralIntegrity = Math.max(0, building.structuralIntegrity - 35);
+        ignite(state, building, "blast", 25);
+        if (building.structuralIntegrity <= 0) building.state = "collapse_pending";
+      }
+    }
   }
   // 10. deterministic recovery.
-  for (const agent of agents) if (agent.state === "injured" && (agent.injuredUntilTick ?? Infinity) <= state.clock.tick) { agent.health = 100; agent.state = "idle"; agent.injuredUntilTick = null; }
+  for (const agent of agents)
+    if (agent.state === "injured" && (agent.injuredUntilTick ?? Infinity) <= state.clock.tick) {
+      agent.health = 100;
+      agent.state = "idle";
+      agent.injuredUntilTick = null;
+    }
 }
 
 function rivalAction(state: GameState): void {
@@ -416,6 +578,27 @@ function rivalAction(state: GameState): void {
     return;
   }
   const result = dispatchProductCommand(state, selected.command);
+  if (result.accepted && selected.command.type === "StartConstruction") {
+    const parcelId = (selected.command as import("@landlord/shared").StartConstruction).payload
+      .parcelId;
+    const site = [...state.phase2.constructionSites.values()].find(
+      (entry) => entry.ownerOrganizationId === RIVAL_ORGANIZATION_ID && entry.parcelId === parcelId,
+    );
+    const crew = [...state.phase2.crews.values()].find(
+      (entry) =>
+        entry.organizationId === RIVAL_ORGANIZATION_ID &&
+        ![...state.phase2.constructionSites.values()].some((work) =>
+          work.assignedCrewIds.includes(entry.id),
+        ),
+    );
+    if (site && crew)
+      dispatchProductCommand(state, {
+        ...base,
+        commandId: parseCommandId(`ai-rival-${state.clock.tick}-crew`),
+        type: "AssignCrewToWorkOrder",
+        payload: { crewId: crew.id, workOrderId: site.id },
+      });
+  }
   state.phase2.rivalAi.lastAction = selected.action;
   state.phase2.rivalAi.lastReason = selected.reason;
   state.phase2.rivalAi.lastFailureCode = result.accepted ? null : result.code;
@@ -427,7 +610,6 @@ function rivalAction(state: GameState): void {
 export function advanceProductSystems(state: GameState): void {
   tacticalTick(state);
   progressProduction(state);
-  progressConstruction(state);
   collectRentAndAgeLeases(state);
   updatePolicyAndHeat(state);
   rivalAction(state);

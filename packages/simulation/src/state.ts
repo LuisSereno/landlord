@@ -56,7 +56,7 @@ export type EntityCounters = {
 };
 
 export type Phase2State = {
-  idCounters: { building: number; constructionSite: number; transaction: number };
+  idCounters: { building: number; constructionSite: number; transaction: number; incident: number };
   district: District;
   parcels: Map<import("@landlord/shared").ParcelId, Parcel>;
   balances: Map<OrganizationId, Money>;
@@ -153,22 +153,62 @@ export function createInitialState(seed = 1): GameState {
   const roster = new Map<AgentId, Agent>();
   const crews = new Map<import("@landlord/shared").CrewId, Crew>();
   let rosterIndex = 0;
-  for (const [organizationId, x] of [[controlledOrganizationId, 4], [independentOrganizationId, 56]] as const) {
+  for (const [organizationId, x] of [
+    [controlledOrganizationId, 4],
+    [independentOrganizationId, 56],
+  ] as const) {
     for (let crewNumber = 0; crewNumber < 2; crewNumber += 1) {
       const ids: AgentId[] = [];
-      for (const specialty of ["supervisor", "construction_worker", "construction_worker"] as const) {
+      for (const specialty of [
+        "supervisor",
+        "construction_worker",
+        "construction_worker",
+      ] as const) {
         rosterIndex += 1;
         const id = parseAgentId(`agent_${String(rosterIndex).padStart(8, "0")}`);
         ids.push(id);
-        roster.set(id, { id, personId: parsePersonId(`person_${String(100 + rosterIndex).padStart(8, "0")}`), organizationId, specialty, health: 100, state: "idle", cell: { x: x + crewNumber, y: 4 + ids.length }, target: { x: x + crewNumber, y: 4 + ids.length }, path: [], task: null, cooldownUntilTick: parseTick(0), injuredUntilTick: null, lastPathRecalculationTick: parseTick(0) });
+        roster.set(id, {
+          id,
+          personId: parsePersonId(`person_${String(100 + rosterIndex).padStart(8, "0")}`),
+          organizationId,
+          specialty,
+          health: 100,
+          state: "idle",
+          cell: { x: x + crewNumber, y: 4 + ids.length },
+          target: { x: x + crewNumber, y: 4 + ids.length },
+          path: [],
+          task: null,
+          cooldownUntilTick: parseTick(0),
+          injuredUntilTick: null,
+          lastPathRecalculationTick: parseTick(0),
+        });
       }
       const crewId = parseCrewId(`crew_${String(crews.size + 1).padStart(8, "0")}`);
-      crews.set(crewId, { id: crewId, organizationId, supervisorAgentId: ids[0]!, workerAgentIds: ids.slice(1) });
+      crews.set(crewId, {
+        id: crewId,
+        organizationId,
+        supervisorAgentId: ids[0]!,
+        workerAgentIds: ids.slice(1),
+      });
     }
     for (const specialty of ["maintenance_technician", "enforcer"] as const) {
       rosterIndex += 1;
       const id = parseAgentId(`agent_${String(rosterIndex).padStart(8, "0")}`);
-      roster.set(id, { id, personId: parsePersonId(`person_${String(100 + rosterIndex).padStart(8, "0")}`), organizationId, specialty, health: 100, state: "idle", cell: { x, y: 12 + (specialty === "enforcer" ? 1 : 0) }, target: { x, y: 12 + (specialty === "enforcer" ? 1 : 0) }, path: [], task: null, cooldownUntilTick: parseTick(0), injuredUntilTick: null, lastPathRecalculationTick: parseTick(0) });
+      roster.set(id, {
+        id,
+        personId: parsePersonId(`person_${String(100 + rosterIndex).padStart(8, "0")}`),
+        organizationId,
+        specialty,
+        health: 100,
+        state: "idle",
+        cell: { x, y: 12 + (specialty === "enforcer" ? 1 : 0) },
+        target: { x, y: 12 + (specialty === "enforcer" ? 1 : 0) },
+        path: [],
+        task: null,
+        cooldownUntilTick: parseTick(0),
+        injuredUntilTick: null,
+        lastPathRecalculationTick: parseTick(0),
+      });
     }
   }
   return {
@@ -185,7 +225,9 @@ export function createInitialState(seed = 1): GameState {
     playerIdentities: new Map([[playerIdentityId, { id: playerIdentityId, personId }]]),
     persons: new Map([
       [personId, { id: personId }],
-      ...[...roster.values()].flatMap((agent) => agent.personId ? [[agent.personId, { id: agent.personId }] as const] : []),
+      ...[...roster.values()].flatMap((agent) =>
+        agent.personId ? [[agent.personId, { id: agent.personId }] as const] : [],
+      ),
     ]),
     organizations: new Map([
       [controlledOrganizationId, { id: controlledOrganizationId, kind: "company" }],
@@ -205,7 +247,7 @@ export function createInitialState(seed = 1): GameState {
     processedCommandIds: new Set(),
     pendingCommands: [],
     phase2: {
-      idCounters: { building: 0, constructionSite: 0, transaction: 0 },
+      idCounters: { building: 0, constructionSite: 0, transaction: 0, incident: 0 },
       district,
       parcels,
       balances: new Map([

@@ -3,6 +3,8 @@ import {
   loadSnapshotRequestSchema,
   parseCommandId,
   parseBuildingId,
+  parseCrewId,
+  parseAgentId,
   parseConstructionSiteId,
   parseOrganizationId,
   parseParcelId,
@@ -197,6 +199,50 @@ export class SimulationWorkerClient {
       actingAsOrganizationId: parseOrganizationId("org_00000001"),
       type: "AllocateCrew",
       payload: { constructionSiteId: parseConstructionSiteId(constructionSiteId), crewCapacity },
+    });
+  }
+
+  public assignCrew(crewId: string, workOrderId: string) {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "AssignCrewToWorkOrder",
+      payload: { crewId: parseCrewId(crewId), workOrderId: parseConstructionSiteId(workOrderId) },
+    });
+  }
+
+  public assignMaintenance(buildingId: string) {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "AssignMaintenance",
+      payload: { buildingId: parseBuildingId(buildingId) },
+    });
+  }
+
+  public orderEnforcerSabotage(enforcerAgentId: string, targetBuildingId: string) {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "OrderEnforcerAction",
+      payload: {
+        enforcerAgentId: parseAgentId(enforcerAgentId),
+        action: "sabotage_building",
+        targetBuildingId: parseBuildingId(targetBuildingId),
+      },
+    });
+  }
+
+  public clearRuin(buildingId: string) {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "ClearRuin",
+      payload: { buildingId: parseBuildingId(buildingId) },
     });
   }
 

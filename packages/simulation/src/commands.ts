@@ -38,6 +38,7 @@ import {
   REPAIR_WORK_REQUIRED,
 } from "./game-data";
 import { Xoshiro128ss } from "./prng";
+import { chooseInteractionCell, findDeterministicPath } from "./navigation";
 
 export type CommandRejection = {
   accepted: false;
@@ -119,6 +120,20 @@ function hasResources(
 
 function totalInventory(inventory: { cement: number; brick: number; steel: number }): number {
   return inventory.cement + inventory.brick + inventory.steel;
+}
+
+function occupiedBuildingCells(
+  state: GameState,
+  excludingBuildingId?: import("@landlord/shared").BuildingId,
+): Set<string> {
+  return new Set(
+    [...state.phase2.buildings.values()]
+      .filter((building) => building.id !== excludingBuildingId)
+      .map((building) => {
+        const cell = state.phase2.parcels.get(building.parcelId)!.cell;
+        return String(cell.x) + ":" + String(cell.y);
+      }),
+  );
 }
 
 const MAX_TRANSACTION_HISTORY = 500;
@@ -361,9 +376,9 @@ export function dispatchProductCommand(
       ownerOrganizationId: command.actingAsOrganizationId,
       buildingType: definition.type,
       progress: 0,
-      workRequired: definition.workRequired,
+      workRequired: definition.workRequired * 2,
       resourcesReserved: { ...definition.resources },
-      crewCapacity: 1,
+      crewCapacity: 0,
       upgradeBuildingId: null,
       repairBuildingId: null,
       kind: "construction",
@@ -479,9 +494,9 @@ export function dispatchProductCommand(
       ownerOrganizationId: command.actingAsOrganizationId,
       buildingType: building.type,
       progress: 0,
-      workRequired: definition.upgradeWorkRequired,
+      workRequired: definition.upgradeWorkRequired * 2,
       resourcesReserved: { ...UPGRADE_RESOURCES },
-      crewCapacity: 1,
+      crewCapacity: 0,
       upgradeBuildingId: building.id,
       repairBuildingId: null,
       kind: "upgrade",
@@ -524,9 +539,9 @@ export function dispatchProductCommand(
       ownerOrganizationId: command.actingAsOrganizationId,
       buildingType: building.type,
       progress: 0,
-      workRequired: REPAIR_WORK_REQUIRED,
+      workRequired: REPAIR_WORK_REQUIRED * 2,
       resourcesReserved: { cement: 0, brick: 0, steel: 0 },
-      crewCapacity: 1,
+      crewCapacity: 0,
       upgradeBuildingId: null,
       repairBuildingId: building.id,
       kind: "repair",
@@ -546,50 +561,155 @@ export function dispatchProductCommand(
     const crew = state.phase2.crews.get(command.payload.crewId);
     if (!site) return { accepted: false, code: "CONSTRUCTION_SITE_NOT_FOUND" };
     if (!crew) return { accepted: false, code: "CREW_NOT_FOUND" };
-    if (site.ownerOrganizationId !== command.actingAsOrganizationId || crew.organizationId !== command.actingAsOrganizationId) return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
-    for (const other of state.phase2.constructionSites.values()) other.assignedCrewIds = other.assignedCrewIds.filter((id) => id !== crew.id);
+    if (
+      site.ownerOrganizationId !== command.actingAsOrganizationId ||
+      crew.organizationId !== command.actingAsOrganizationId
+    )
+      return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
+    const parcel = state.phase2.parcels.get(site.parcelId);
+    const interactionCell = parcel
+      ? chooseInteractionCell(
+          parcel.cell,
+          state.map.blockedCells,
+          64,
+          64,
+          occupiedBuildingCells(state),
+        )
+      : null;
+    if (!interactionCell) return { accepted: false, code: "INVALID_AGENT_ACTION" };
+    for (const other of state.phase2.constructionSites.values()) {
+      if (other.assignedCrewIds.includes(crew.id)) {
+        for (const agentId of [crew.supervisorAgentId, ...crew.workerAgentIds]) {
+          const member = state.agents.get(agentId);
+          if (member?.task?.kind === "work_order" && member.task.workOrderId === other.id) {
+            member.task = null;
+            if (member.state !== "dead" && member.state !== "injured") member.state = "idle";
+          }
+        }
+      }
+      other.assignedCrewIds = other.assignedCrewIds.filter((id) => id !== crew.id);
+    }
     site.assignedCrewIds.push(crew.id);
+    for (const agentId of [crew.supervisorAgentId, ...crew.workerAgentIds]) {
+      const agent = state.agents.get(agentId);
+      if (!agent || agent.state === "dead" || agent.state === "injured") continue;
+      agent.task = { kind: "work_order", workOrderId: site.id };
+      agent.target = { ...interactionCell };
+      agent.path = findDeterministicPath(agent.cell, interactionCell, state.map.blockedCells);
+      agent.state = "moving";
+    }
     rememberProcessed(state, command.commandId);
-    return productEvent(state, command.commandId, "CrewAssignedToWorkOrder", { crewId: crew.id, workOrderId: site.id });
+    return productEvent(state, command.commandId, "CrewAssignedToWorkOrder", {
+      crewId: crew.id,
+      workOrderId: site.id,
+    });
   }
   if (command.type === "AssignMaintenance") {
     const building = state.phase2.buildings.get(command.payload.buildingId);
     if (!building) return { accepted: false, code: "BUILDING_NOT_FOUND" };
-    if (building.ownerOrganizationId !== command.actingAsOrganizationId) return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
-    const technician = [...state.agents.values()].find((agent) => agent.organizationId === command.actingAsOrganizationId && agent.specialty === "maintenance_technician" && agent.state !== "dead");
+    if (building.ownerOrganizationId !== command.actingAsOrganizationId)
+      return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
+    const technician = [...state.agents.values()].find(
+      (agent) =>
+        agent.organizationId === command.actingAsOrganizationId &&
+        agent.specialty === "maintenance_technician" &&
+        agent.state === "idle" &&
+        !agent.task,
+    );
     if (!technician) return { accepted: false, code: "AGENT_NOT_FOUND" };
     technician.task = { kind: "maintenance", buildingId: building.id };
-    technician.target = { ...state.phase2.parcels.get(building.parcelId)!.cell };
+    const interactionCell = chooseInteractionCell(
+      state.phase2.parcels.get(building.parcelId)!.cell,
+      state.map.blockedCells,
+      64,
+      64,
+      occupiedBuildingCells(state, building.id),
+    );
+    if (!interactionCell) return { accepted: false, code: "INVALID_AGENT_ACTION" };
+    technician.target = { ...interactionCell };
+    technician.path = findDeterministicPath(
+      technician.cell,
+      interactionCell,
+      state.map.blockedCells,
+    );
     technician.state = "moving";
+    const repairOrder = [...state.phase2.constructionSites.values()].find(
+      (site) => site.repairBuildingId === building.id || (site.kind === "repair" && site.targetBuildingId === building.id),
+    );
+    if (repairOrder) repairOrder.assignedTechnicianId = technician.id;
     rememberProcessed(state, command.commandId);
-    return productEvent(state, command.commandId, "MaintenanceAssigned", { buildingId: building.id, technicianId: technician.id });
+    return productEvent(state, command.commandId, "MaintenanceAssigned", {
+      buildingId: building.id,
+      technicianId: technician.id,
+    });
   }
   if (command.type === "OrderEnforcerAction") {
     const enforcer = state.agents.get(command.payload.enforcerAgentId);
-    if (!enforcer || enforcer.specialty !== "enforcer") return { accepted: false, code: "AGENT_NOT_FOUND" };
-    if (enforcer.organizationId !== command.actingAsOrganizationId) return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
+    if (!enforcer || enforcer.specialty !== "enforcer")
+      return { accepted: false, code: "AGENT_NOT_FOUND" };
+    if (enforcer.organizationId !== command.actingAsOrganizationId)
+      return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
     if (command.payload.action === "attack_agent" && command.payload.targetAgentId) {
       const target = state.agents.get(command.payload.targetAgentId);
-      if (!target || target.organizationId === enforcer.organizationId) return { accepted: false, code: "INVALID_AGENT_ACTION" };
-      enforcer.task = { kind: "attack_agent", targetAgentId: target.id }; enforcer.target = { ...target.cell }; enforcer.state = "moving";
+      if (!target || target.organizationId === enforcer.organizationId)
+        return { accepted: false, code: "INVALID_AGENT_ACTION" };
+      enforcer.task = { kind: "attack_agent", targetAgentId: target.id };
+      enforcer.target = { ...target.cell };
+      enforcer.state = "moving";
     } else if (command.payload.action === "sabotage_building" && command.payload.targetBuildingId) {
       const target = state.phase2.buildings.get(command.payload.targetBuildingId);
-      if (!target || target.ownerOrganizationId === enforcer.organizationId) return { accepted: false, code: "INVALID_AGENT_ACTION" };
-      enforcer.task = { kind: "sabotage_building", targetBuildingId: target.id }; enforcer.target = { ...state.phase2.parcels.get(target.parcelId)!.cell }; enforcer.state = "moving";
+      if (!target || target.ownerOrganizationId === enforcer.organizationId)
+        return { accepted: false, code: "INVALID_AGENT_ACTION" };
+      const interactionCell = chooseInteractionCell(
+        state.phase2.parcels.get(target.parcelId)!.cell,
+        state.map.blockedCells,
+        64,
+        64,
+        occupiedBuildingCells(state, target.id),
+      );
+      if (!interactionCell) return { accepted: false, code: "INVALID_AGENT_ACTION" };
+      enforcer.task = { kind: "sabotage_building", targetBuildingId: target.id };
+      enforcer.target = { ...interactionCell };
+      enforcer.path = findDeterministicPath(enforcer.cell, interactionCell, state.map.blockedCells);
+      enforcer.state = "moving";
     } else return { accepted: false, code: "INVALID_AGENT_ACTION" };
     rememberProcessed(state, command.commandId);
-    return productEvent(state, command.commandId, "EnforcerOrdered", { enforcerAgentId: enforcer.id, action: command.payload.action });
+    return productEvent(state, command.commandId, "EnforcerOrdered", {
+      enforcerAgentId: enforcer.id,
+      action: command.payload.action,
+    });
   }
   if (command.type === "ClearRuin") {
     const building = state.phase2.buildings.get(command.payload.buildingId);
     if (!building) return { accepted: false, code: "BUILDING_NOT_FOUND" };
-    if (building.ownerOrganizationId !== command.actingAsOrganizationId) return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
+    if (building.ownerOrganizationId !== command.actingAsOrganizationId)
+      return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
     if (building.state !== "ruin") return { accepted: false, code: "RUIN_REQUIRED" };
     state.phase2.idCounters.constructionSite += 1;
-    const siteId = parseConstructionSiteId(`site_${String(state.phase2.idCounters.constructionSite).padStart(8, "0")}`);
-    state.phase2.constructionSites.set(siteId, { id: siteId, parcelId: building.parcelId, ownerOrganizationId: building.ownerOrganizationId, buildingType: building.type, progress: 0, workRequired: 48, resourcesReserved: { cement: 0, brick: 0, steel: 0 }, crewCapacity: 1, upgradeBuildingId: null, repairBuildingId: null, kind: "clear_ruin", targetBuildingId: building.id, assignedCrewIds: [], assignedTechnicianId: null });
+    const siteId = parseConstructionSiteId(
+      `site_${String(state.phase2.idCounters.constructionSite).padStart(8, "0")}`,
+    );
+    state.phase2.constructionSites.set(siteId, {
+      id: siteId,
+      parcelId: building.parcelId,
+      ownerOrganizationId: building.ownerOrganizationId,
+      buildingType: building.type,
+      progress: 0,
+      workRequired: 48,
+      resourcesReserved: { cement: 0, brick: 0, steel: 0 },
+      crewCapacity: 0,
+      upgradeBuildingId: null,
+      repairBuildingId: null,
+      kind: "clear_ruin",
+      targetBuildingId: building.id,
+      assignedCrewIds: [],
+      assignedTechnicianId: null,
+    });
     rememberProcessed(state, command.commandId);
-    return productEvent(state, command.commandId, "RuinClearStarted", { buildingId: building.id, siteId });
+    return productEvent(state, command.commandId, "RuinClearStarted", {
+      buildingId: building.id,
+      siteId,
+    });
   }
 
   if (command.type === "LobbyPolicy") {

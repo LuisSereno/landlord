@@ -77,7 +77,10 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
     ),
     agents: [...state.agents.values()]
       .map((agent) => ({
-        ...agent, cell: { ...agent.cell }, target: { ...(agent.target ?? agent.cell) }, path: (agent.path ?? []).map((cell) => ({ ...cell })),
+        ...agent,
+        cell: { ...agent.cell },
+        target: { ...(agent.target ?? agent.cell) },
+        path: (agent.path ?? []).map((cell) => ({ ...cell })),
       }))
       .sort(compareId),
     structures: [...state.structures.values()].sort(compareId),
@@ -125,15 +128,31 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
         .map(([organizationId, influence]) => ({ organizationId, influence }))
         .sort((left, right) => left.organizationId.localeCompare(right.organizationId)),
       rivalAi: { ...state.phase2.rivalAi },
-      crews: [...state.phase2.crews.values()].map((crew) => ({ ...crew, workerAgentIds: [...crew.workerAgentIds] })).sort(compareId),
-      incidents: [...state.phase2.incidents.values()].map((incident) => ({ ...incident, casualties: { ...incident.casualties } })).sort(compareId),
+      crews: [...state.phase2.crews.values()]
+        .map((crew) => ({ ...crew, workerAgentIds: [...crew.workerAgentIds] }))
+        .sort(compareId),
+      incidents: [...state.phase2.incidents.values()]
+        .map((incident) => ({ ...incident, casualties: { ...incident.casualties } }))
+        .sort(compareId),
     },
   };
 }
 
 export function restoreStateFromSnapshot(value: unknown): GameState {
   const snapshot = parseSnapshotV1(value);
-  const defaults = createInitialState(snapshot.seed).phase2;
+  const rawPhase2 =
+    typeof value === "object" &&
+    value !== null &&
+    "phase2" in value &&
+    typeof value.phase2 === "object" &&
+    value.phase2 !== null
+      ? (value.phase2 as { constructionSites?: Array<{ id?: string; kind?: string }> })
+      : undefined;
+  const legacyWorkOrders = new Set(
+    (rawPhase2?.constructionSites ?? []).filter((site) => !site.kind).map((site) => site.id),
+  );
+  const defaultState = createInitialState(snapshot.seed);
+  const defaults = defaultState.phase2;
   const state: GameState = {
     seed: snapshot.seed,
     clock: { tick: parseTick(snapshot.tick), runState: "paused", speed: 1 },
@@ -153,18 +172,26 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
         { id: parsePlayerIdentityId(identity.id), personId: parsePersonId(identity.personId) },
       ]),
     ),
-    persons: new Map(
-      snapshot.persons.map((person) => [
-        parsePersonId(person.id),
-        { id: parsePersonId(person.id) },
-      ]),
-    ),
-    organizations: new Map(
-      snapshot.organizations.map((organization) => [
-        parseOrganizationId(organization.id),
-        { id: parseOrganizationId(organization.id), kind: organization.kind },
-      ]),
-    ),
+    persons: new Map([
+      ...snapshot.persons.map(
+        (person) => [parsePersonId(person.id), { id: parsePersonId(person.id) }] as const,
+      ),
+      ...[...defaultState.persons.entries()].filter(
+        ([id]) => !snapshot.persons.some((person) => person.id === id),
+      ),
+    ]),
+    organizations: new Map([
+      ...snapshot.organizations.map(
+        (organization) =>
+          [
+            parseOrganizationId(organization.id),
+            { id: parseOrganizationId(organization.id), kind: organization.kind },
+          ] as const,
+      ),
+      ...[...defaultState.organizations.entries()].filter(
+        ([id]) => !snapshot.organizations.some((organization) => organization.id === id),
+      ),
+    ]),
     controlGrants: new Map(
       snapshot.controlGrants.map((grant) => {
         const parsed = {
@@ -174,12 +201,32 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
         return [`${parsed.personId}:${parsed.organizationId}`, parsed];
       }),
     ),
-    agents: new Map(
-      snapshot.agents.map((agent) => [
-        parseAgentId(agent.id),
-        { id: parseAgentId(agent.id), cell: { ...agent.cell }, target: { ...agent.target }, path: agent.path.map((cell) => ({ ...cell })), ...(agent.personId ? { personId: parsePersonId(agent.personId) } : {}), ...(agent.organizationId ? { organizationId: parseOrganizationId(agent.organizationId) } : {}), ...(agent.specialty ? { specialty: agent.specialty } : {}), health: agent.health ?? 100, state: agent.state ?? "idle", task: (agent.task as import("@landlord/shared").Agent["task"]) ?? null, cooldownUntilTick: parseTick(agent.cooldownUntilTick ?? 0), injuredUntilTick: agent.injuredUntilTick ?? null, lastPathRecalculationTick: parseTick(agent.lastPathRecalculationTick ?? 0) },
-      ]),
-    ),
+    agents: new Map([
+      ...[...defaultState.agents.entries()],
+      ...snapshot.agents.map(
+        (agent) =>
+          [
+            parseAgentId(agent.id),
+            {
+              id: parseAgentId(agent.id),
+              cell: { ...agent.cell },
+              target: { ...agent.target },
+              path: agent.path.map((cell) => ({ ...cell })),
+              ...(agent.personId ? { personId: parsePersonId(agent.personId) } : {}),
+              ...(agent.organizationId
+                ? { organizationId: parseOrganizationId(agent.organizationId) }
+                : {}),
+              ...(agent.specialty ? { specialty: agent.specialty } : {}),
+              health: agent.health ?? 100,
+              state: agent.state ?? "idle",
+              task: (agent.task as import("@landlord/shared").Agent["task"]) ?? null,
+              cooldownUntilTick: parseTick(agent.cooldownUntilTick ?? 0),
+              injuredUntilTick: agent.injuredUntilTick ?? null,
+              lastPathRecalculationTick: parseTick(agent.lastPathRecalculationTick ?? 0),
+            },
+          ] as const,
+      ),
+    ]),
     structures: new Map(
       snapshot.structures.map((structure) => [
         parseStructureId(structure.id),
@@ -197,7 +244,10 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
     })),
     phase2: snapshot.phase2
       ? {
-          idCounters: { ...snapshot.phase2.idCounters },
+          idCounters: {
+            ...snapshot.phase2.idCounters,
+            incident: snapshot.phase2.idCounters.incident ?? 0,
+          },
           district: {
             id: parseDistrictId(snapshot.phase2.district.id),
             name: snapshot.phase2.district.name,
@@ -271,14 +321,55 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                   ? parseBuildingId(site.repairBuildingId)
                   : null,
                 resourcesReserved: { ...site.resourcesReserved },
+                kind:
+                  site.kind ??
+                  (site.repairBuildingId
+                    ? "repair"
+                    : site.upgradeBuildingId
+                      ? "upgrade"
+                      : "construction"),
+                targetBuildingId:
+                  site.targetBuildingId ?? site.repairBuildingId ?? site.upgradeBuildingId ?? null,
+                assignedCrewIds: site.assignedCrewIds ?? [],
+                assignedTechnicianId: site.assignedTechnicianId ?? null,
+                progress: (site.progress ?? 0) * (legacyWorkOrders.has(site.id) ? 2 : 1),
+                workRequired: (site.workRequired ?? 0) * (legacyWorkOrders.has(site.id) ? 2 : 1),
               },
             ]),
           ),
           crews: snapshot.phase2.crews
-            ? new Map(snapshot.phase2.crews.map((crew) => [parseCrewId(crew.id), { ...crew, id: parseCrewId(crew.id), organizationId: parseOrganizationId(crew.organizationId), supervisorAgentId: parseAgentId(crew.supervisorAgentId), workerAgentIds: crew.workerAgentIds.map(parseAgentId) }]))
+            ? new Map(
+                snapshot.phase2.crews.map((crew) => [
+                  parseCrewId(crew.id),
+                  {
+                    ...crew,
+                    id: parseCrewId(crew.id),
+                    organizationId: parseOrganizationId(crew.organizationId),
+                    supervisorAgentId: parseAgentId(crew.supervisorAgentId),
+                    workerAgentIds: crew.workerAgentIds.map(parseAgentId),
+                  },
+                ]),
+              )
             : defaults.crews,
           incidents: snapshot.phase2.incidents
-            ? new Map(snapshot.phase2.incidents.map((incident) => [parseIncidentId(incident.id), { ...incident, id: parseIncidentId(incident.id), buildingId: parseBuildingId(incident.buildingId), targetOrganizationId: parseOrganizationId(incident.targetOrganizationId), causedByAgentId: incident.causedByAgentId ? parseAgentId(incident.causedByAgentId) : null, causedByOrganizationId: incident.causedByOrganizationId ? parseOrganizationId(incident.causedByOrganizationId) : null, casualties: { ...incident.casualties } }]))
+            ? new Map(
+                snapshot.phase2.incidents.map((incident) => [
+                  parseIncidentId(incident.id),
+                  {
+                    ...incident,
+                    id: parseIncidentId(incident.id),
+                    buildingId: parseBuildingId(incident.buildingId),
+                    targetOrganizationId: parseOrganizationId(incident.targetOrganizationId),
+                    causedByAgentId: incident.causedByAgentId
+                      ? parseAgentId(incident.causedByAgentId)
+                      : null,
+                    causedByOrganizationId: incident.causedByOrganizationId
+                      ? parseOrganizationId(incident.causedByOrganizationId)
+                      : null,
+                    casualties: { ...incident.casualties },
+                  },
+                ]),
+              )
             : defaults.incidents,
           tenants: new Map(
             snapshot.phase2.tenants.map((tenant) => [
@@ -290,6 +381,8 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                   ? parseBuildingId(tenant.activeContractBuildingId)
                   : null,
                 budget: parseMoney(tenant.budget),
+                status:
+                  tenant.status ?? (tenant.activeContractBuildingId ? "contracted" : "available"),
               },
             ]),
           ),

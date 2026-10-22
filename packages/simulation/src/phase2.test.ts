@@ -23,6 +23,21 @@ const actor = parsePersonId("person_00000001");
 const organization = "org_00000001" as ProductCommand["actingAsOrganizationId"];
 
 function advanceToTick(state: ReturnType<typeof createInitialState>, target: number): void {
+  for (const site of state.phase2.constructionSites.values()) {
+    if (site.assignedCrewIds.length === 0) {
+      const crew = [...state.phase2.crews.values()].find(
+        (entry) => entry.organizationId === site.ownerOrganizationId,
+      );
+      if (crew)
+        dispatchProductCommand(
+          state,
+          command("auto-crew-" + site.id, "AssignCrewToWorkOrder", {
+            crewId: crew.id,
+            workOrderId: site.id,
+          }),
+        );
+    }
+  }
   while (state.clock.tick <= target) advanceProductSystems(state);
 }
 
@@ -290,9 +305,9 @@ describe("Gate 2 product loop", () => {
       tenantId: null,
       tenantIds: [],
       upgraded: false,
-    structuralIntegrity: 100,
-    state: "operational",
-    casualtiesTotal: { injured: 0, dead: 0 },
+      structuralIntegrity: 100,
+      state: "operational",
+      casualtiesTotal: { injured: 0, dead: 0 },
     });
     const projection = createViewProjection(state, true).economy!;
     expect(projection.gameTime).toMatchObject({ month: 2, day: 1, hour: 0 });

@@ -32,7 +32,14 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
       })),
     agents: [...state.agents.values()]
       .sort((left, right) => left.id.localeCompare(right.id))
-      .map((agent) => ({ id: agent.id, cell: { ...agent.cell }, ...(agent.organizationId ? { organizationId: agent.organizationId } : {}), ...(agent.specialty ? { specialty: agent.specialty } : {}), health: agent.health ?? 100, state: agent.state ?? "idle" })),
+      .map((agent) => ({
+        id: agent.id,
+        cell: { ...agent.cell },
+        ...(agent.organizationId ? { organizationId: agent.organizationId } : {}),
+        ...(agent.specialty ? { specialty: agent.specialty } : {}),
+        health: agent.health ?? 100,
+        state: agent.state ?? "idle",
+      })),
     ...(includeEconomy
       ? {
           economy: {
@@ -79,10 +86,26 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
               ),
             crew: {
               capacity: PLAYER_CREW_CAPACITY,
-              used: [...state.phase2.constructionSites.values()].filter(
-                (site) => site.ownerOrganizationId === PLAYER_ORGANIZATION_ID,
-              ).length,
+              used: [...state.phase2.constructionSites.values()].reduce(
+                (total, site) =>
+                  total +
+                  (site.ownerOrganizationId === PLAYER_ORGANIZATION_ID
+                    ? site.assignedCrewIds.length
+                    : 0),
+                0,
+              ),
             },
+            crews: [...state.phase2.crews.values()]
+              .filter((crew) => crew.organizationId === PLAYER_ORGANIZATION_ID)
+              .sort((a, b) => a.id.localeCompare(b.id))
+              .map((crew) => ({
+                ...crew,
+                workerAgentIds: [...crew.workerAgentIds],
+                assignedWorkOrderId:
+                  [...state.phase2.constructionSites.values()].find((site) =>
+                    site.assignedCrewIds.includes(crew.id),
+                  )?.id ?? null,
+              })),
             influence: state.phase2.influenceByOrganizationId.get(PLAYER_ORGANIZATION_ID) ?? 0,
             constructionOptions: Object.values(BUILDING_DEFINITIONS).map((definition) => ({
               type: definition.type,
@@ -117,6 +140,9 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                     ? building.tenantId
                     : null,
                 capacity: BUILDING_DEFINITIONS[building.type].capacity,
+                structuralIntegrity: building.structuralIntegrity,
+                state: building.state,
+                casualtiesTotal: { ...building.casualtiesTotal },
                 effectiveRent:
                   building.ownerOrganizationId === PLAYER_ORGANIZATION_ID
                     ? Math.round(
@@ -140,6 +166,9 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                 upgradeBuildingId: site.upgradeBuildingId,
                 repairBuildingId: site.repairBuildingId,
                 crewCapacity: site.crewCapacity,
+                kind: site.kind,
+                assignedCrewIds: [...site.assignedCrewIds],
+                assignedTechnicianId: site.assignedTechnicianId,
               })),
             tenants: [...state.phase2.tenants.values()]
               .sort((left, right) => left.id.localeCompare(right.id))
@@ -151,6 +180,7 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                 leaseRemaining: tenant.leaseRemaining,
                 budget: tenant.budget,
                 satisfaction: tenant.satisfaction,
+                status: tenant.status,
               })),
             ordinance: {
               id: state.phase2.ordinance.id,
@@ -185,6 +215,18 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
               .slice(-6)
               .reverse()
               .map(({ tick, cause, amount, direction }) => ({ tick, cause, amount, direction })),
+            incidents: [...state.phase2.incidents.values()]
+              .sort((a, b) => b.createdAtTick - a.createdAtTick || a.id.localeCompare(b.id))
+              .slice(0, 20)
+              .map((incident) => ({
+                id: incident.id,
+                buildingId: incident.buildingId,
+                origin: incident.origin,
+                intensity: incident.intensity,
+                status: incident.status,
+                casualties: { ...incident.casualties },
+                createdAtTick: incident.createdAtTick,
+              })),
             rival: {
               parcels: [...state.phase2.parcels.values()].filter(
                 (parcel) => parcel.ownerOrganizationId === RIVAL_ORGANIZATION_ID,

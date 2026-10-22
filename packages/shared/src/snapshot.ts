@@ -24,6 +24,9 @@ import {
   resourceInventorySchema,
   buildingSchema,
   tenantSchema,
+  agentTaskSchema,
+  crewSchema,
+  incidentSchema,
   testStructureSchema,
   type Organization,
   type OrganizationControlGrant,
@@ -92,7 +95,12 @@ export type SnapshotV1 = {
   }>;
   /** Additive Gate 2 payload. Gate 1 snapshots without it remain valid. */
   phase2?: {
-    idCounters: { building: number; constructionSite: number; transaction: number };
+    idCounters: {
+      building: number;
+      constructionSite: number;
+      transaction: number;
+      incident?: number;
+    };
     district: import("./domain").District;
     parcels: import("./domain").Parcel[];
     balances: Array<{ organizationId: import("./primitives").OrganizationId; balance: number }>;
@@ -137,10 +145,12 @@ const agentSnapshotSchema = z.object({
   path: z.array(gridCellSchema),
   personId: z.string().optional(),
   organizationId: z.string().optional(),
-  specialty: z.enum(["supervisor", "construction_worker", "maintenance_technician", "enforcer"]).optional(),
+  specialty: z
+    .enum(["supervisor", "construction_worker", "maintenance_technician", "enforcer"])
+    .optional(),
   health: z.number().int().min(0).max(100).optional(),
   state: z.enum(["idle", "moving", "working", "injured", "dead"]).optional(),
-  task: z.unknown().optional(),
+  task: agentTaskSchema.nullable().optional(),
   cooldownUntilTick: tickSchema.optional(),
   injuredUntilTick: tickSchema.nullable().optional(),
   lastPathRecalculationTick: tickSchema.optional(),
@@ -153,6 +163,7 @@ const phase2SnapshotSchema = z.object({
   idCounters: z.object({
     building: safeCounter,
     constructionSite: safeCounter,
+    incident: safeCounter.optional(),
     transaction: safeCounter,
   }),
   district: districtSchema,
@@ -192,8 +203,8 @@ const phase2SnapshotSchema = z.object({
       lastFailureCode: null,
       cooldownUntilTick: 0 as Tick,
     }),
-  crews: z.array(z.unknown()).optional(),
-  incidents: z.array(z.unknown()).optional(),
+  crews: z.array(crewSchema).optional(),
+  incidents: z.array(incidentSchema).optional(),
 });
 
 export const snapshotV1Schema = z.object({
@@ -300,6 +311,22 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
       });
     }
   }
+  for (const agent of snapshot.agents) {
+    if (agent.personId && !personIds.has(agent.personId))
+      issues.push({ code: "MISSING_REFERENCE", path: `agents/${agent.id}/personId` });
+    if (agent.organizationId && !organizationIds.has(agent.organizationId))
+      issues.push({ code: "MISSING_REFERENCE", path: `agents/${agent.id}/organizationId` });
+    if (agent.task?.kind === "attack_agent" && !agentIds.includes(agent.task.targetAgentId))
+      issues.push({ code: "MISSING_REFERENCE", path: `agents/${agent.id}/task/targetAgentId` });
+    if (
+      agent.task?.kind === "sabotage_building" &&
+      snapshot.phase2 &&
+      !snapshot.phase2.buildings.some(
+        (building) => building.id === (agent.task as { targetBuildingId: string }).targetBuildingId,
+      )
+    )
+      issues.push({ code: "MISSING_REFERENCE", path: `agents/${agent.id}/task/targetBuildingId` });
+  }
   for (const pending of snapshot.pendingCommands) {
     if (!personIds.has(pending.command.issuedByPersonId)) {
       issues.push({ code: "MISSING_REFERENCE", path: "pendingCommands/issuedByPersonId" });
@@ -321,6 +348,7 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
     const buildingIds = new Set(snapshot.phase2.buildings.map((building) => building.id));
     const tenantIds = new Set(snapshot.phase2.tenants.map((tenant) => tenant.id));
     const constructionSiteIds = snapshot.phase2.constructionSites.map((site) => site.id);
+    const crewIds = new Set((snapshot.phase2.crews ?? []).map((crew) => crew.id));
     const balanceOrganizationIds = snapshot.phase2.balances.map((entry) => entry.organizationId);
     const inventoryOrganizationIds = snapshot.phase2.inventories.map(
       (entry) => entry.organizationId,
@@ -449,6 +477,49 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
           path: `phase2/constructionSites/${site.id}/repairBuildingId`,
         });
       }
+      for (const crewId of site.assignedCrewIds)
+        if (!crewIds.has(crewId))
+          issues.push({
+            code: "MISSING_REFERENCE",
+            path: `phase2/constructionSites/${site.id}/assignedCrewIds`,
+          });
+      if (site.assignedTechnicianId && !agentIds.includes(site.assignedTechnicianId))
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `phase2/constructionSites/${site.id}/assignedTechnicianId`,
+        });
+    }
+    for (const crew of snapshot.phase2.crews ?? []) {
+      if (!organizationIds.has(crew.organizationId))
+        issues.push({ code: "MISSING_REFERENCE", path: `phase2/crews/${crew.id}/organizationId` });
+      if (!agentIds.includes(crew.supervisorAgentId))
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `phase2/crews/${crew.id}/supervisorAgentId`,
+        });
+      for (const workerId of crew.workerAgentIds)
+        if (!agentIds.includes(workerId))
+          issues.push({
+            code: "MISSING_REFERENCE",
+            path: `phase2/crews/${crew.id}/workerAgentIds`,
+          });
+    }
+    for (const incident of snapshot.phase2.incidents ?? []) {
+      if (!buildingIds.has(incident.buildingId))
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `phase2/incidents/${incident.id}/buildingId`,
+        });
+      if (incident.causedByAgentId && !agentIds.includes(incident.causedByAgentId))
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `phase2/incidents/${incident.id}/causedByAgentId`,
+        });
+      if (incident.causedByOrganizationId && !organizationIds.has(incident.causedByOrganizationId))
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `phase2/incidents/${incident.id}/causedByOrganizationId`,
+        });
     }
     for (const facility of snapshot.phase2.facilities) {
       if (!organizationIds.has(facility.ownerOrganizationId)) {

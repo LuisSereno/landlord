@@ -1,7 +1,7 @@
 # WP2.15 — Informe de implementación
 
 Fecha: 2026-10-22  
-Estado: integrado en la rama main; validación automatizada verde.
+Estado: cierre de rework integrado en la rama main; validación automatizada y smoke browser verde.
 
 ## Resultado
 
@@ -61,8 +61,24 @@ Se ejecutaron correctamente:
 - git diff --check
 
 La suite cubre shared, simulation, web y la comprobación de límites arquitectónicos. El smoke de
-navegador específico de WP2.15 queda como siguiente evidencia de integración visual; el motor
-headless y los contratos ya están integrados y validados.
+navegador de Gate 2 ahora verifica asignación de crews físicas, desplazamiento, construcción,
+upgrade, save/load y la exposición de riesgo táctico en UI. El motor headless y los contratos
+también están integrados y validados.
+
+## Correcciones del ciclo de rework
+
+- Las obras nuevas parten de cero half-units y sólo progresan cuando supervisor y workers han
+  llegado a la interaction cell en estado working.
+- Asignar una crew crea tareas, destinos y rutas para todos sus miembros.
+- Los saves Gate 2 anteriores reciben roster, personas, crews y migración de progreso x2; el tipo
+  de obra se infiere de los campos heredados.
+- IncidentId usa un contador monotónico y la retención purga sólo incidentes resueltos.
+- Casualties se calculan sumando ocupantes por contrato, no por tipo de edificio.
+- Sabotaje táctico actualiza heat, detection, policePressure y lastOutcome.
+- Snapshot references y projection validan/exponen agentes, crews, WorkOrders, integridad, estados,
+  casualties, tenants e incidentes.
+- La UI reemplaza la asignación abstracta por crews identificadas, técnico, enforcer, salud,
+  organización, fuego y ruina.
 
 ## Límites preservados
 

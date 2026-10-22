@@ -45,7 +45,9 @@ export const structureIdSchema = entityIdSchema("structure").transform(
 );
 export const agentIdSchema = entityIdSchema("agent").transform((value) => value as AgentId);
 export const crewIdSchema = entityIdSchema("crew").transform((value) => value as CrewId);
-export const incidentIdSchema = entityIdSchema("incident").transform((value) => value as IncidentId);
+export const incidentIdSchema = entityIdSchema("incident").transform(
+  (value) => value as IncidentId,
+);
 export const districtIdSchema = entityIdSchema("district").transform(
   (value) => value as DistrictId,
 );

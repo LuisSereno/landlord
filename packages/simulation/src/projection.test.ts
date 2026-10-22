@@ -20,7 +20,9 @@ describe("simulation view projection", () => {
       projectionVersion: 1,
       tick: 0,
       map: { width: 64, height: 64 },
-      structures: [{ id: "structure_00000001", ownerOrganizationId: "org_00000001", cell: { x: 3, y: 4 } }],
+      structures: [
+        { id: "structure_00000001", ownerOrganizationId: "org_00000001", cell: { x: 3, y: 4 } },
+      ],
     });
     expect(projection.agents).toHaveLength(16);
   });

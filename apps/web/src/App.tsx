@@ -352,35 +352,23 @@ export function App() {
                         {Math.floor(
                           (selectedOwnedSite.progress / selectedOwnedSite.workRequired) * 100,
                         )}
-                        % · {selectedOwnedSite.crewCapacity} cuadrilla(s) asignada(s).
+                        % · {selectedOwnedSite.assignedCrewIds.length} cuadrilla(s) asignada(s).
                       </p>
-                      <button
-                        type="button"
-                        disabled={
-                          selectedOwnedSite.crewCapacity === 2 ||
-                          economy!.crew.used >= economy!.crew.capacity
-                        }
-                        onClick={() =>
-                          void sendAction(
-                            () => clientRef.current!.allocateCrew(selectedOwnedSite.id, 2),
-                            "Dos cuadrillas concentradas en esta obra.",
-                          )
-                        }
-                      >
-                        Asignar 2 cuadrillas
-                      </button>
-                      <button
-                        type="button"
-                        disabled={selectedOwnedSite.crewCapacity === 1}
-                        onClick={() =>
-                          void sendAction(
-                            () => clientRef.current!.allocateCrew(selectedOwnedSite.id, 1),
-                            "Una cuadrilla asignada; la otra queda disponible.",
-                          )
-                        }
-                      >
-                        Liberar una cuadrilla
-                      </button>
+                      {economy!.crews.map((crew) => (
+                        <button
+                          key={crew.id}
+                          type="button"
+                          disabled={selectedOwnedSite.assignedCrewIds.includes(crew.id)}
+                          onClick={() =>
+                            void sendAction(
+                              () => clientRef.current!.assignCrew(crew.id, selectedOwnedSite.id),
+                              "Crew enviada a la obra; sus agentes se desplazarán a la celda de interacción.",
+                            )
+                          }
+                        >
+                          {crew.id} · {crew.assignedWorkOrderId ? "ocupada" : "libre"}
+                        </button>
+                      ))}
                       <button
                         type="button"
                         onClick={() =>
@@ -407,7 +395,8 @@ export function App() {
                             missing.length > 0 ||
                             (economy?.cash ?? 0) < option.cost;
                           const crewUnavailable =
-                            (economy?.crew.used ?? 0) >= (economy?.crew.capacity ?? 1);
+                            (economy?.crews.filter((crew) => !crew.assignedWorkOrderId).length ??
+                              0) === 0;
                           return (
                             <button
                               className="construction-option"
@@ -515,6 +504,19 @@ export function App() {
                       {selectedOwnedBuilding.upgraded && (
                         <p>Mejora completada · renta bonificada.</p>
                       )}
+                      {selectedOwnedBuilding.state === "ruin" && (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            void sendAction(
+                              () => clientRef.current!.clearRuin(selectedOwnedBuilding.id),
+                              "Despeje de ruina iniciado; la parcela se liberará al completarse.",
+                            )
+                          }
+                        >
+                          Despejar ruina
+                        </button>
+                      )}
                       <button
                         type="button"
                         disabled={
@@ -532,13 +534,56 @@ export function App() {
                         Reparar: {economy!.maintenance.repairCost} u. ·{" "}
                         {economy!.maintenance.repairWorkRequired} h
                       </button>
+                      <button
+                        type="button"
+                        disabled={selectedOwnedBuilding.state === "ruin"}
+                        onClick={() =>
+                          void sendAction(
+                            () => clientRef.current!.assignMaintenance(selectedOwnedBuilding.id),
+                            "Técnico enviado a la celda de interacción.",
+                          )
+                        }
+                      >
+                        Enviar técnico
+                      </button>
                     </div>
                   )}
                   {selectedBuilding && !selectedOwnedBuilding && (
-                    <p className="empty-state">
-                      Edificio rival visible. Sus contratos, rentabilidad y caja son información
-                      privada.
-                    </p>
+                    <>
+                      <p className="empty-state">
+                        Edificio rival visible · estado {selectedBuilding.state} · integridad{" "}
+                        {selectedBuilding.structuralIntegrity}%.
+                      </p>
+                      <button
+                        type="button"
+                        disabled={
+                          !projection?.agents.some(
+                            (agent) =>
+                              agent.organizationId === "org_00000001" &&
+                              agent.specialty === "enforcer" &&
+                              agent.state === "idle",
+                          )
+                        }
+                        onClick={() => {
+                          const enforcer = projection?.agents.find(
+                            (agent) =>
+                              agent.organizationId === "org_00000001" &&
+                              agent.specialty === "enforcer",
+                          );
+                          if (enforcer)
+                            void sendAction(
+                              () =>
+                                clientRef.current!.orderEnforcerSabotage(
+                                  enforcer.id,
+                                  selectedBuilding.id,
+                                ),
+                              "Enforcer enviado; el sabotaje resolverá fuego, detección y heat al alcanzar el objetivo.",
+                            );
+                        }}
+                      >
+                        Ordenar sabotaje físico
+                      </button>
+                    </>
                   )}
                 </>
               ) : (
@@ -585,19 +630,9 @@ export function App() {
               >
                 Promover ordenanza
               </button>
-              <button
-                className="risk-action"
-                type="button"
-                disabled={!client || (economy?.illegalRoute.cooldownRemainingTicks ?? 0) > 0}
-                onClick={() =>
-                  void sendAction(
-                    () => clientRef.current!.commitCrime(),
-                    "La acción de riesgo fue procesada; revisa heat y presión policial.",
-                  )
-                }
-              >
-                Intentar ruta ilegal
-              </button>
+              <p className="empty-state">
+                Riesgo táctico: selecciona un edificio rival y ordena el sabotaje con un enforcer.
+              </p>
               {debugToolsEnabled && (
                 <button
                   type="button"

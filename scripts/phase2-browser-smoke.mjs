@@ -61,9 +61,11 @@ try {
   await page.getByText(/Parcela comprada/).waitFor();
   await page.locator("button.construction-option").first().click();
   await page.getByText(/en construcción/).waitFor();
-  await page.getByRole("button", { name: "Asignar 2 cuadrillas" }).click();
-  await page.getByText(/Dos cuadrillas concentradas/).waitFor();
-  await page.getByText(/1 edificios/).waitFor({ timeout: 45000 });
+  await page.getByRole("button", { name: /crew_00000001/ }).click();
+  await page.getByText(/Crew enviada a la obra/).waitFor();
+  await page.getByRole("button", { name: /crew_00000002/ }).click();
+  await page.getByText(/Crew enviada a la obra/).waitFor();
+  await page.getByText(/1 edificios/).waitFor({ timeout: 60000 });
   await page
     .getByRole("button", { name: /Ocupar con/ })
     .first()
@@ -71,8 +73,10 @@ try {
   await page.getByText(/Inquilino asignado/).waitFor();
   await page.getByRole("button", { name: /^Mejorar:/ }).click();
   await page.getByText(/Mejora iniciada/).waitFor();
-  await page.getByRole("button", { name: "Asignar 2 cuadrillas" }).click();
-  await page.getByText(/Mejora completada/).waitFor({ timeout: 30000 });
+  await page.getByRole("button", { name: /crew_00000001/ }).click();
+  await page.getByText(/Crew enviada a la obra/).waitFor();
+  await page.getByRole("button", { name: /crew_00000002/ }).click();
+  await page.getByText(/Mejora completada/).waitFor({ timeout: 60000 });
   await page.getByRole("button", { name: "Promover ordenanza" }).click();
   await page.getByText(/propuesta fue resuelta/).waitFor();
   await page.getByRole("button", { name: "Guardar" }).click();
@@ -82,8 +86,7 @@ try {
   await page.getByText("Worker conectado · simulación ejecutándose").waitFor({ timeout: 10000 });
   await page.getByRole("button", { name: "Cargar" }).click();
   await page.getByText(/Snapshot cargado/).waitFor();
-  await page.getByRole("button", { name: "Intentar ruta ilegal" }).click();
-  await page.getByText(/acción de riesgo fue procesada/).waitFor();
+  await page.getByText(/Riesgo táctico/).waitFor();
   await page.getByText(/^Rival:/).waitFor();
   await page.getByRole("button", { name: "Ocultar panel" }).click();
   if ((await page.locator("#operations-panel").getAttribute("aria-hidden")) !== "true") {

@@ -30,13 +30,17 @@ Debe demostrar:
 - policía;
 - una policy;
 - save;
+- agentes funcionales que construyen, reparan y ejecutan una acción hostil;
+- salud, integridad estructural, fuego y daño espacial mínimo;
 - sesión coherente de 30-60 minutos.
 
 ## Core MVP
-comprar -> producir -> construir -> ocupar -> cobrar -> competir -> asumir riesgo -> adaptarse -> reinvertir.
+comprar -> producir -> asignar agentes -> construir -> ocupar -> cobrar -> mantener/defender ->
+competir -> asumir riesgo -> reaccionar a incidentes -> adaptarse -> reinvertir.
 
 ## Métricas
 Tiempo a primera construcción, primer ingreso, decisiones vs mantenimiento, acciones repetitivas, fallos de IA, duración de sesión, errores de save y p95 del tick.
 
 ## Fuera de Gate 2
-Elecciones, LLM, multiplayer, mundo procedural grande, décadas, medios y justicia compleja.
+Elecciones, LLM, multiplayer, mundo procedural grande, décadas, medios, justicia compleja, life
+simulation, reproducción/familias, hospital jugable y catálogo amplio de combate.

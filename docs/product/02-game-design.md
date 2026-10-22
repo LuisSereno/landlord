@@ -16,7 +16,9 @@
 ## Bucles superpuestos
 
 ### Micro
-Construcción, mantenimiento, producción, alquiler y acciones tácticas.
+Construcción, mantenimiento, producción, alquiler y acciones tácticas ejecutadas por agentes
+físicos. Una orden relevante debe poder identificar actor, tarea, destino y efecto; el timer no
+es por sí solo la representación final del trabajo.
 
 ### Empresa
 Cartera de activos, deuda, empleados, liquidez, reputación y automatización.
@@ -57,6 +59,22 @@ No depender exclusivamente de misiones. El mundo debe crear objetivos:
 - una asociación vecinal que bloquea una promoción;
 - un concejal que necesita apoyo;
 - una crisis que obliga a refinanciar.
+
+## Simulación táctica de agentes
+
+Landlord necesita una capa acotada entre la economía agregada y la life simulation:
+
+- personas visibles con especialidad, posición, salud y tarea;
+- cuadrillas y técnicos que construyen, mantienen y responden a incidentes;
+- operativos hostiles capaces de afectar objetivos concretos;
+- edificios con condición operativa, integridad y estados de incidente;
+- efectos espaciales que alcanzan personas y propiedades cercanas;
+- consecuencias económicas, policiales y reputacionales consumidas por otros sistemas.
+
+Esta capa reutiliza `Person`/actor, organizations, ownership y control sin asumir que el jugador
+es una empresa. No incluye todavía vida cotidiana, familia, envejecimiento ni perspectivas
+jugables alternativas. A escala deberá admitir órdenes de cuadrilla y automatización para no
+convertirse en micromanagement lineal.
 
 ## Condiciones de derrota
 

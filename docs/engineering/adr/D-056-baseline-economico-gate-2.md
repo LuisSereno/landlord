@@ -4,6 +4,9 @@ Estado: Aceptada
 Fecha: 2026-10-21
 Alcance: Gate 2
 
+Nota posterior: D-061 sustituye las crews puramente agregadas para el criterio de cierre del
+Gate 2; este ADR permanece como baseline económico e historial de la decisión.
+
 ## Contexto
 
 Gate 2 necesita un bucle inmobiliario ejecutable sin introducir todavía banca, fiscalidad o un

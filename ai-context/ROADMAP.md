@@ -6,13 +6,14 @@ Implementar y validar el bucle jugable sobre el núcleo de Gate 1:
 - parcelas y compra;
 - caja y libro económico;
 - producción material;
-- construcción y crews agregadas;
+- construcción y baseline de crews agregadas, a sustituir en la validación por agentes físicos;
 - tenants, ocupación y renta;
 - upgrade;
 - rival determinista;
 - riesgo ilegal y policía mínima;
 - una ordenanza municipal;
 - UX y save/load integral.
+- spike mínimo de agentes, daño e incidentes (WP2.15 / D-061).
 
 Restricciones:
 - no player == company;
@@ -30,10 +31,12 @@ No implementar todavía:
 
 ## Estado del baseline de Gate 2
 
-El candidato funcional está implementado y es jugable en navegador. La base de UX ya incluye
+El candidato económico funcional está implementado y es jugable en navegador. La base de UX ya incluye
 mapa principal, HUD jerarquizado, inspector contextual, feedback de estados y onboarding, por
 lo que WP2.14 puede comenzar. Quedan el playtest prolongado, balance, métricas de producto y la
-evidencia del spike antes de declarar el gate aprobado.
+evidencia visual y WP2.15 antes de declarar el gate aprobado. WP2.15 no amplía el producto a
+life simulation: prueba personas funcionales, trabajo físico, mantenimiento, sabotaje, fuego y
+consecuencias espaciales con alcance mínimo.
 
 La experiencia sigue siendo Landlord/Entrepreneur.
 

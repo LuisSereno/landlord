@@ -36,6 +36,10 @@ export type ViewProjectionV1 = {
   agents: Array<{
     id: AgentId;
     cell: GridCell;
+    organizationId?: OrganizationId;
+    specialty?: "supervisor" | "construction_worker" | "maintenance_technician" | "enforcer";
+    health?: number;
+    state?: "idle" | "moving" | "working" | "injured" | "dead";
   }>;
   economy?: {
     gameTime: { month: number; day: number; hour: number; ticksPerMonth: number };
@@ -168,6 +172,10 @@ export const viewProjectionV1Schema = z.object({
     z.object({
       id: agentIdSchema,
       cell: gridCellSchema,
+      organizationId: organizationIdSchema.optional(),
+      specialty: z.enum(["supervisor", "construction_worker", "maintenance_technician", "enforcer"]).optional(),
+      health: z.number().int().min(0).max(100).optional(),
+      state: z.enum(["idle", "moving", "working", "injured", "dead"]).optional(),
     }),
   ),
   economy: z

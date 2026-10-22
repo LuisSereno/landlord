@@ -50,7 +50,9 @@ Principal, interés, plazo, garantía, estado y covenant simplificado.
 Cobertura, prima, límites y riesgos cubiertos.
 
 ### Actor
-Person u otros agentes especializados del mundo.
+Person u otros agentes especializados del mundo. Para el spike D-061, un agente operativo debe
+tener posición, salud, especialidad, tarea y afiliación explícitas; no equivale al jugador ni a
+la organización.
 
 ### Faction
 Resources, strategy, relationships y territory/influence.
@@ -88,6 +90,8 @@ Valoración por grupo, no una única puntuación global.
 - taxation;
 - insurance;
 - maintenance;
+- tactical agents;
+- damage and incidents;
 - insolvency;
 - auctions;
 - zoning;
@@ -128,6 +132,8 @@ Empleo -> renta -> vivienda -> población -> política -> regulación.
 Crédito -> inversión -> precios -> deuda -> riesgo -> ejecuciones -> oportunidades.
 
 Mantenimiento -> condición -> renta -> satisfacción -> valor -> costes.
+
+Agente -> tarea -> movimiento -> efecto -> incidente -> daño/respuesta -> consecuencia económica.
 
 Carrera personal -> relaciones -> oportunidades -> roles -> capabilities -> nuevas decisiones.
 

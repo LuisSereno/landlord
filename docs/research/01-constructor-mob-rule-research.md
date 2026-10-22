@@ -35,8 +35,42 @@ Ejemplos documentados: Soup Kitchen -> Diner -> Restaurant; Drinking Den -> Brew
 ## Unidades
 Workers, Fixers, Gangsters y Undesirables/Thugs. Los gangsters progresan con experiencia.
 
+## Constructor 1997 — workforce y consecuencias físicas
+
+La investigación complementaria del 2026-10-22 confirma que esta capa no era decorativa:
+
+- los tenants de nivel 1 podían producir Workers y la compra directa servía como salida de
+  emergencia cuando la plantilla era muy baja;
+- Workers podían convertirse en tenants o en personal especializado: Foremen, Repairmen y
+  Gangsters;
+- una cuadrilla requería supervisión y agrupaba un Foreman con varios Workers; las unidades se
+  desplazaban y el trabajo dependía de ellas;
+- Workers tenían eficiencia, cansancio y salud; Foremen, Repairmen y Gangsters también podían
+  sufrir daño y morir;
+- Repairmen restauraban edificios y podían apagar el fuego durante la reparación;
+- Gangsters atacaban personas y edificios y su progresión dependía de experiencia de combate;
+- el deterioro extremo podía iniciar fuego, escalar a explosión y dañar edificios circundantes.
+
+Los ratios, nombres, tono y contenido concreto pertenecen a la referencia histórica. Landlord
+sólo extrae el principio abstracto: actores físicos especializados provocan y resuelven cambios
+espaciales con consecuencias económicas.
+
+Fuentes consultadas el 2026-10-22:
+
+- [Manual preservado de Constructor](https://www.abandonwaredos.com/public/aban_files_giochi/constructormanual.pdf), fuente primaria para workforce, órdenes y destrucción.
+- [Guide and Walkthrough de Constructor en GameFAQs](https://gamefaqs.gamespot.com/pc/377328-constructor-1997/faqs/32552), fuente comunitaria secundaria para detalle operativo, conversiones, salud, mantenimiento, fuego y daño vecino.
+- [Ficha oficial de Constructor Classic 1997 en Steam](https://store.steampowered.com/app/599600/Constructor_Classic_1997/), contexto comercial y descripción general.
+
+La guía comunitaria se usa para orientar preguntas y se distingue del manual; no se considera
+evidencia de algoritmos internos ni autoriza reproducción de contenido.
+
 ## Policía
 Sobornos/protección, Police Beacons, atención policial y gestión de cadáveres.
+
+La guía comunitaria de *Mob Rule* relaciona explícitamente los cadáveres con atención policial y
+describe Workers, Fixers, Gangsters y especialistas de sabotaje como unidades funcionales. Fuente
+secundaria consultada el 2026-10-22:
+[Mob Rule Strategy Guide](https://gamefaqs.gamespot.com/pc/197962-mob-rule/faqs/18681).
 
 ## IA
 La intención declarada era producir rivales con reacciones humanas. Una crítica contemporánea observó ataques repetitivos contra un edificio protegido sin aprendizaje aparente.

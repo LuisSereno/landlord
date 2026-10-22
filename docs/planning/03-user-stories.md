@@ -83,6 +83,20 @@ Estimación: 10-15 jornadas.
 - Suite determinista en CI.
 Estimación: 16-24 jornadas.
 
+## US-13 — Agentes, daño e incidentes
+
+Como jugador quiero que personas concretas ejecuten construcción, mantenimiento y acciones
+hostiles para que la ciudad reaccione físicamente y mis decisiones tengan consecuencias locales.
+
+- Una cuadrilla con supervisor y trabajadores se desplaza y ejecuta una obra.
+- Un técnico se desplaza, repara daño y puede responder a fuego.
+- Un operativo hostil selecciona un objetivo y ataca o sabotea bajo reglas comunes.
+- Fuego y colapso pueden dañar edificios adyacentes y herir o matar agentes expuestos.
+- Save/load conserva tareas, salud, integridad e incidentes y continúa determinísticamente.
+- La UI permite ordenar por grupo y entender la causalidad sin exigir microgestionar cada tick.
+
+Estimación: pendiente de spike técnico y rebaseline D-061.
+
 ## Total
-Desarrollo directo: 142-212 jornadas.
-Con integración, arte provisional, UX y QA: 200-280 jornadas.
+Baseline anterior: 142-212 jornadas directas y 200-280 con integración, arte provisional, UX y
+QA. Estas cifras no incluyen US-13/WP2.15 y deben rebaselinarse tras su diseño técnico.

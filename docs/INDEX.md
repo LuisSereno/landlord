@@ -19,7 +19,7 @@
 - engineering/05-ai-architecture.md — arquitectura de agentes.
 - engineering/06-multiplayer-future.md — preparación para multijugador.
 - engineering/07-player-identity-roles-and-capabilities.md — separación entre jugador, persona, organización, rol, control y capabilities.
-- engineering/adr/README.md — decisiones arquitectónicas/técnicas detalladas; D-046 a D-052 cubren Gate 1, D-053/D-054 fijan el arranque artístico, D-055 resuelve eventos y D-056 a D-060 gobiernan el baseline de Gate 2.
+- engineering/adr/README.md — decisiones arquitectónicas/técnicas detalladas; D-046 a D-052 cubren Gate 1, D-053/D-054 fijan el arranque artístico, D-055 resuelve eventos, D-056 a D-060 gobiernan el baseline económico de Gate 2 y D-061 exige el spike de agentes, daño e incidentes.
 
 ## Arte
 - art/README.md — entrada a la documentación artística y estado de gobernanza.
@@ -66,6 +66,7 @@
 - execution/phase-1/gate-1-review-2026-10-20.md — acta de auditoría y decisión de Gate 1.
 - execution/phase-1/gate-1-retest-2026-10-21.md — evidencia del retest continuo y del navegador de Gate 1.
 - execution/phase-2/gate-2-baseline-2026-10-21.md — baseline de implementación y smoke reproducible del bucle de producto.
+- execution/phase-2/wp2-15-implementation-2026-10-22.md — informe de implementación de agentes, daño e incidentes.
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

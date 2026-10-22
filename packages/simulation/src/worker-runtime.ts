@@ -50,6 +50,10 @@ const errorMessages: Record<ErrorCode, string> = {
   INVALID_CREW_ALLOCATION: "No hay suficientes cuadrillas libres para esa asignación.",
   BUILDING_CONDITION_FULL: "El edificio no necesita reparación.",
   CRIME_COOLDOWN: "La ruta ilegal todavía está en periodo de enfriamiento.",
+  CREW_NOT_FOUND: "La cuadrilla indicada no existe.",
+  AGENT_NOT_FOUND: "El agente indicado no existe.",
+  INVALID_AGENT_ACTION: "La orden operativa no es válida para ese objetivo.",
+  RUIN_REQUIRED: "La operación requiere una ruina.",
 } as const;
 
 const PROTOCOL_VERSION = protocolVersionSchema.parse(1);

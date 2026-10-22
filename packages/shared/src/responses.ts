@@ -40,7 +40,11 @@ export type ErrorCode =
   | "FACILITY_NOT_FOUND"
   | "INVALID_CREW_ALLOCATION"
   | "BUILDING_CONDITION_FULL"
-  | "CRIME_COOLDOWN";
+  | "CRIME_COOLDOWN"
+  | "CREW_NOT_FOUND"
+  | "AGENT_NOT_FOUND"
+  | "INVALID_AGENT_ACTION"
+  | "RUIN_REQUIRED";
 
 const responseVersion = protocolVersionSchema;
 
@@ -108,6 +112,10 @@ const errorCodeSchema = z.enum([
   "INVALID_CREW_ALLOCATION",
   "BUILDING_CONDITION_FULL",
   "CRIME_COOLDOWN",
+  "CREW_NOT_FOUND",
+  "AGENT_NOT_FOUND",
+  "INVALID_AGENT_ACTION",
+  "RUIN_REQUIRED",
 ]);
 
 export const simulationMetricsSchema = z.object({

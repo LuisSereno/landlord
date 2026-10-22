@@ -16,14 +16,12 @@ describe("simulation view projection", () => {
       payload: { cell: { x: 3, y: 4 } },
     });
     const projection = createViewProjection(state);
-    expect(projection).toEqual({
+    expect(projection).toMatchObject({
       projectionVersion: 1,
       tick: 0,
       map: { width: 64, height: 64 },
-      structures: [
-        { id: "structure_00000001", ownerOrganizationId: "org_00000001", cell: { x: 3, y: 4 } },
-      ],
-      agents: [],
+      structures: [{ id: "structure_00000001", ownerOrganizationId: "org_00000001", cell: { x: 3, y: 4 } }],
     });
+    expect(projection.agents).toHaveLength(16);
   });
 });

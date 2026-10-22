@@ -34,6 +34,7 @@ Relacionar capacidades, gates, paquetes, evidencia y fuentes canónicas. Esta ma
 | Ordenanza | Gate 2 | WP2.10 | Modifier económico aplicado/retirado | Política y sociedad |
 | Dirección visual y pipeline | Gate 2 | WP2.14 | Spike reproducible, provenance, métricas y decisión | Art Bible, Art Pipeline |
 | Sesión 30-60 min | Gate 2 | WP2.13 | Playtest y métricas del bucle | Gates y MVP |
+| Agentes, daño e incidentes | Gate 2 | WP2.15 | Escenario físico headless/visible, golden tests y save/load determinista | D-061, game design, investigación histórica |
 | Estados financieros/liquidez | Vertical slice | WP3.2 | Lectura de solvencia y caja | Fiscalidad y operación |
 | Banca/deuda | Vertical slice | WP3.3 | Calendario, mora, garantía | Fiscalidad y operación |
 | Impuestos/tasas | Vertical slice | WP3.4 | Liquidación automática y previsión | Fiscalidad y operación |

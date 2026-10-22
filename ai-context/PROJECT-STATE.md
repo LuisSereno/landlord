@@ -10,7 +10,7 @@ Fecha de consolidación: 2026-10-22.
 - Plan maestro de ejecución por fases: sí.
 - Plantilla de microtareas para agentes de baja ambigüedad: sí.
 - Fase 0 de preparación: cerrada el 2026-10-20.
-- ADRs D-046 a D-060: aceptados.
+- ADRs D-046 a D-061: aceptados.
 - Charter, contratos, benchmark y backlog inicial de Gate 1: listos.
 - Historias del prototipo: sí.
 - Riesgos: sí.
@@ -69,12 +69,14 @@ Estos sistemas están documentados, no implementados.
 
 ## Fase
 Gate 1 aprobado `GO` el 2026-10-21; la evidencia técnica de G1-RW-01..04 quedó reunida.
-Gate 2 en `REVIEW`: candidato funcional reforzado el 2026-10-22; todavía no existe acta GO de
-producto porque faltan el playtest prolongado y la evidencia visual de WP2.14.
+Gate 2 en `REVIEW`: candidato económico funcional reforzado el 2026-10-22; todavía no existe
+acta GO de producto porque faltan el playtest prolongado, la evidencia visual de WP2.14 y el
+rework WP2.15 de agentes, daño e incidentes decidido en D-061.
 
 ## Próximo objetivo
-Ejecutar el Visual Direction Spike sobre la pantalla representativa y, cuando haya tiempo,
-una sesión humana de 30–60 minutos con seeds de referencia. El cierre funcional cubre calendario
+Diseñar y ejecutar WP2.15 sobre el núcleo determinista, coordinar sus necesidades visuales con
+WP2.14 y repetir después una sesión humana de 30–60 minutos con seeds de referencia. El baseline
+económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas
 asignables, edificios multiunidad, presupuesto y satisfacción de inquilinos, mantenimiento, rival
 público con datos privados ocultos, política incierta y riesgo con cooldown y conservación de
@@ -94,7 +96,7 @@ sesiones de 30–60 minutos que el ritmo y los trade-offs son comprensibles y so
 El HUD incluye un diagnóstico efímero de comandos, transporte y métricas del Worker para que
 los playtests puedan identificar rechazos repetidos sin persistir datos no autoritativos.
 La comprobación manual básica de esa instrumentación quedó cerrada sin errores ni rechazos;
-no reemplaza la validación de producto de Gate 2.
+no reemplaza la validación de producto de Gate 2 ni demuestra todavía agentes funcionales.
 La captura de la implementación anterior confirmó una vista técnica. WP2.11 usa una base
 map-céntrica con panel operativo superpuesto/plegable, HUD jerarquizado, inspector contextual y
 estados legibles; está lista para servir de pantalla representativa a WP2.14 según D-058.

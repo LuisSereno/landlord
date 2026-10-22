@@ -4,15 +4,16 @@
 
 Validar que el núcleo produce decisiones interesantes durante una sesión coherente de 30-60 minutos:
 
-`comprar -> producir -> construir -> ocupar -> cobrar -> competir -> asumir riesgo -> adaptarse a una ordenanza -> reinvertir`
+`comprar -> producir -> asignar agentes -> construir -> ocupar -> cobrar -> mantener/defender -> competir -> asumir riesgo -> reaccionar a incidentes -> adaptarse a una ordenanza -> reinvertir`
 
 La experiencia continúa centrada en Landlord/Entrepreneur. Los costes económicos existen sólo con el detalle necesario para probar el bucle.
 
-Duración orientativa existente: 10-14 semanas; 180-280 jornadas-persona.
+Baseline de estimación anterior a D-061: 10-14 semanas y 180-280 jornadas-persona. Ya no es una
+estimación vigente; WP2.15 debe diseñarse antes de rebaselinar duración y esfuerzo.
 
 ## Estado de implementación — 2026-10-22
 
-WP2.1–WP2.12 cuentan con un candidato integrado bajo D-056–D-060. El calendario económico está
+WP2.1–WP2.12 cuentan con un candidato económico integrado bajo D-056–D-060. El calendario económico está
 separado del tick técnico (30 minutos reales por mes a 1×); existen mercado frente a producción
 propia, dos cuadrillas asignables, contratos multiunidad, presupuesto/satisfacción, reparación,
 rival utility mínimo, política incierta y ruta ilegal con cooldown. Save/load conserva la cola
@@ -20,7 +21,9 @@ autoritativa y las referencias de Phase 2 se validan.
 
 El estado del Gate sigue siendo `REVIEW`, no `GO`: WP2.13 aún requiere una sesión humana de 30–60
 minutos y seeds de referencia, y WP2.14 debe producir la evidencia visual reproducible. La
-implementación y el smoke automatizado no sustituyen esos dos criterios de producto.
+implementación y el smoke automatizado no sustituyen esos dos criterios de producto. D-061 añade
+WP2.15 como rework obligatorio: el baseline actual no demuestra todavía agentes funcionales,
+daño, fuego o consecuencias espaciales.
 
 ## Criterios de entrada
 
@@ -41,6 +44,8 @@ implementación y el smoke automatizado no sustituyen esos dos criterios de prod
 - Acciones inválidas/fallos de la IA rival.
 - Éxito de save/load durante una sesión.
 - p95 del tick y frame time bajo la partida de referencia.
+- Órdenes tácticas significativas frente a correcciones repetitivas por agente.
+- Tiempo de respuesta a un incidente y claridad de su cadena causal.
 
 No se fijan objetivos numéricos definitivos sin playtest baseline. Tras las primeras sesiones internas se registran los umbrales del gate.
 
@@ -314,6 +319,48 @@ provenance y recomendación. Ningún asset de referencia protegida entra en el
 pipeline. El resultado puede aprobar una baseline de producción, requerir
 rework o bloquear sólo la producción artística de Fase 3.
 
+## WP2.15 — Agents, damage & incidents spike
+
+**Decisión:** D-061. **Estado:** obligatorio antes del `GO`; diseño e implementación pendientes.
+
+**Resultado:** probar que una persona realiza una acción física, el mundo reacciona y la cadena
+produce consecuencias espaciales y económicas sin ampliar el juego a life simulation.
+
+**Tareas:**
+
+- Definir schemas data-driven para especialidad operativa, salud, estado, tarea e incidentes.
+- Decidir la relación mínima entre el `Agent` móvil y `Person` sin equiparar actor, organización
+  y jugador ni construir el resolver completo de roles futuros.
+- Sustituir la capacidad numérica del flujo representativo por una cuadrilla con un supervisor y
+  varios trabajadores individuales; conservar órdenes grupales para limitar micromanagement.
+- Hacer que la construcción requiera asignación, desplazamiento y trabajo de la cuadrilla.
+- Añadir un técnico de mantenimiento individual que repare y responda a fuego.
+- Añadir un operativo hostil original capaz de atacar a una persona o sabotear un edificio rival
+  mediante actor, objetivo y comando explícitos.
+- Separar `condition` de `structuralIntegrity` y definir estados normal, dañado, `burning`,
+  colapsado/ruina.
+- Iniciar fuego por deterioro o sabotaje, progresar intensidad mediante orden estable y permitir
+  extinción/reparación.
+- Aplicar al colapso o explosión daño determinista a edificios adyacentes y agentes expuestos.
+- Modelar `healthy/injured/dead` mínimo y conectar víctimas/incidente con coste y `heat`.
+- Persistir agentes, tareas, salud, incidentes, integridad y referencias causales; definir
+  migración/compatibilidad conforme a la política de snapshots.
+- Añadir golden scenarios con al menos dos seeds, roundtrip durante tarea e incendio, rechazo
+  atómico, continuación determinista y benchmark contra Gate 1.
+- Añadir representación visible/selectable mínima y feedback de causa, objetivo, trayectoria,
+  fuego, daño, herida y muerte; coordinar el kit con WP2.14.
+- Revisar nombres, siluetas, ratios, textos y reglas por IP; no reutilizar contenido distintivo de
+  *Constructor* o *Street Wars/Mob Rule*.
+
+**Aceptación:** un escenario headless y uno visible recorren
+`orden -> movimiento -> trabajo/ataque -> daño o reparación -> incidente -> respuesta -> efecto económico`;
+save/load en mitad del flujo produce el mismo estado final que la ejecución continua y el daño
+adyacente no depende del orden de iteración.
+
+**Fuera del spike:** reproducción, familia, envejecimiento, hospital jugable, ambulancias,
+morgue, múltiples clases criminales, arsenal, evidencia/investigación avanzada, perspectiva
+criminal jugable y life simulation.
+
 ## Secuencia recomendada
 
 1. Mundo y libro económico: WP2.1-WP2.2.
@@ -325,7 +372,9 @@ rework o bloquear sólo la producción artística de Fase 3.
    base de presentación y legibilidad de WP2.11 antes de evaluar arte.
 7. Ejecutar WP2.14 cuando el primer flujo vertical, la base de presentación de WP2.11 y el Art
    Lab técnico puedan consumir renders; no esperar a la producción artística.
-8. Balance y gate: WP2.13, incorporando la evidencia del spike.
+8. Implementar WP2.15 sobre contratos revisados y coordinar sus estados visuales con WP2.14.
+9. Balance y gate: repetir WP2.13 sobre el núcleo resultante, incorporando la evidencia de ambos
+   spikes.
 
 ## Condiciones de aprobación
 
@@ -337,6 +386,8 @@ rework o bloquear sólo la producción artística de Fase 3.
 - WP2.14 deja trazabilidad de provenance y una decisión/rework explícitos sobre
   la dirección visual; la ausencia de aprobación bloquea arte de Fase 3, no la
   evaluación del bucle de producto.
+- WP2.15 demuestra agentes físicos, salud, mantenimiento, una acción hostil, fuego, daño espacial
+  y persistencia determinista dentro de los budgets aceptados.
 - No se ha ampliado el alcance a sistemas del vertical slice.
 
 ## Fuera de alcance
@@ -345,5 +396,7 @@ rework o bloquear sólo la producción artística de Fase 3.
 - Fiscalidad detallada, licencias y zonificación rica.
 - Presupuesto municipal, empleo, hogares avanzados y elecciones.
 - Perspectiva jugable política/criminal/ciudadana.
+- Life simulation, reproducción/familias, hospital jugable, servicios de emergencia completos y
+  combate profundo.
 - Cloud/backend, multiplayer, LLM y arte final; WP2.14 sólo valida el camino
   de producción y un kit mínimo.

@@ -62,6 +62,7 @@ export const PROTOTYPE_TENANTS: Tenant[] = [
     activeContractBuildingId: null,
     satisfaction: 70,
     leaseRemaining: 0,
+    status: "available",
   },
   {
     id: parseTenantId("tenant_00000002"),
@@ -71,6 +72,7 @@ export const PROTOTYPE_TENANTS: Tenant[] = [
     activeContractBuildingId: null,
     satisfaction: 70,
     leaseRemaining: 0,
+    status: "available",
   },
   {
     id: parseTenantId("tenant_00000003"),
@@ -80,6 +82,7 @@ export const PROTOTYPE_TENANTS: Tenant[] = [
     activeContractBuildingId: null,
     satisfaction: 70,
     leaseRemaining: 0,
+    status: "available",
   },
   {
     id: parseTenantId("tenant_00000004"),
@@ -89,6 +92,7 @@ export const PROTOTYPE_TENANTS: Tenant[] = [
     activeContractBuildingId: null,
     satisfaction: 70,
     leaseRemaining: 0,
+    status: "available",
   },
 ];
 

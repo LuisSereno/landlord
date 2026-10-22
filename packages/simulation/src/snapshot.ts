@@ -1,5 +1,7 @@
 import {
   parseAgentId,
+  parseCrewId,
+  parseIncidentId,
   parseBuildingId,
   parseCommandId,
   parseConstructionSiteId,
@@ -75,10 +77,7 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
     ),
     agents: [...state.agents.values()]
       .map((agent) => ({
-        id: agent.id,
-        cell: { ...agent.cell },
-        target: { ...agent.cell },
-        path: [{ ...agent.cell }],
+        ...agent, cell: { ...agent.cell }, target: { ...(agent.target ?? agent.cell) }, path: (agent.path ?? []).map((cell) => ({ ...cell })),
       }))
       .sort(compareId),
     structures: [...state.structures.values()].sort(compareId),
@@ -126,6 +125,8 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
         .map(([organizationId, influence]) => ({ organizationId, influence }))
         .sort((left, right) => left.organizationId.localeCompare(right.organizationId)),
       rivalAi: { ...state.phase2.rivalAi },
+      crews: [...state.phase2.crews.values()].map((crew) => ({ ...crew, workerAgentIds: [...crew.workerAgentIds] })).sort(compareId),
+      incidents: [...state.phase2.incidents.values()].map((incident) => ({ ...incident, casualties: { ...incident.casualties } })).sort(compareId),
     },
   };
 }
@@ -176,7 +177,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
     agents: new Map(
       snapshot.agents.map((agent) => [
         parseAgentId(agent.id),
-        { id: parseAgentId(agent.id), cell: { ...agent.cell } },
+        { id: parseAgentId(agent.id), cell: { ...agent.cell }, target: { ...agent.target }, path: agent.path.map((cell) => ({ ...cell })), ...(agent.personId ? { personId: parsePersonId(agent.personId) } : {}), ...(agent.organizationId ? { organizationId: parseOrganizationId(agent.organizationId) } : {}), ...(agent.specialty ? { specialty: agent.specialty } : {}), health: agent.health ?? 100, state: agent.state ?? "idle", task: (agent.task as import("@landlord/shared").Agent["task"]) ?? null, cooldownUntilTick: parseTick(agent.cooldownUntilTick ?? 0), injuredUntilTick: agent.injuredUntilTick ?? null, lastPathRecalculationTick: parseTick(agent.lastPathRecalculationTick ?? 0) },
       ]),
     ),
     structures: new Map(
@@ -273,6 +274,12 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
               },
             ]),
           ),
+          crews: snapshot.phase2.crews
+            ? new Map(snapshot.phase2.crews.map((crew) => [parseCrewId(crew.id), { ...crew, id: parseCrewId(crew.id), organizationId: parseOrganizationId(crew.organizationId), supervisorAgentId: parseAgentId(crew.supervisorAgentId), workerAgentIds: crew.workerAgentIds.map(parseAgentId) }]))
+            : defaults.crews,
+          incidents: snapshot.phase2.incidents
+            ? new Map(snapshot.phase2.incidents.map((incident) => [parseIncidentId(incident.id), { ...incident, id: parseIncidentId(incident.id), buildingId: parseBuildingId(incident.buildingId), targetOrganizationId: parseOrganizationId(incident.targetOrganizationId), causedByAgentId: incident.causedByAgentId ? parseAgentId(incident.causedByAgentId) : null, causedByOrganizationId: incident.causedByOrganizationId ? parseOrganizationId(incident.causedByOrganizationId) : null, casualties: { ...incident.casualties } }]))
+            : defaults.incidents,
           tenants: new Map(
             snapshot.phase2.tenants.map((tenant) => [
               parseTenantId(tenant.id),

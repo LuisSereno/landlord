@@ -290,6 +290,9 @@ describe("Gate 2 product loop", () => {
       tenantId: null,
       tenantIds: [],
       upgraded: false,
+    structuralIntegrity: 100,
+    state: "operational",
+    casualtiesTotal: { injured: 0, dead: 0 },
     });
     const projection = createViewProjection(state, true).economy!;
     expect(projection.gameTime).toMatchObject({ month: 2, day: 1, hour: 0 });

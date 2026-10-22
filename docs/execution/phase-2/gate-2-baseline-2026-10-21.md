@@ -1,11 +1,12 @@
 # Gate 2 — baseline de implementación
 
 Fecha: 2026-10-22
-Estado: candidato funcional de Gate 2; aprobación de producto pendiente.
+Estado: baseline económico funcional; aprobación de producto pendiente y rework D-061 requerido.
 
-Esta evidencia demuestra que el repositorio ya contiene el primer bucle jugable de
+Esta evidencia demuestra que el repositorio ya contiene el primer bucle económico jugable de
 Landlord. No declara todavía el Gate 2 aprobado: faltan sesiones de playtest humano de
-30–60 minutos, baseline cuantitativo de producto y el Visual Direction Spike completo.
+30–60 minutos, baseline cuantitativo de producto, el Visual Direction Spike completo y WP2.15
+de agentes, daño e incidentes decidido posteriormente en D-061.
 
 El rework de presentación y comprensión de WP2.11 está integrado. La pantalla ya es una base
 representativa para iniciar WP2.14; no constituye todavía una dirección artística aprobada.
@@ -122,10 +123,23 @@ ejecuta este smoke después del build.
 - Los nombres, edificios, textos y datos del prototipo son originales y no reutilizan
   contenido protegido de referencias históricas.
 
+## Carencia descubierta tras el baseline
+
+La auditoría de alcance del 2026-10-22 confirmó que este candidato no contiene población
+funcional: `agents` es una colección técnica de posición, las dos crews son capacidad numérica,
+la reparación es una tarea temporizada agregada y la ruta ilegal resuelve caja/heat mediante
+PRNG sin actor u objetivo espacial. `Building.condition` no se acompaña de integridad, fuego,
+propagación, víctimas o ruina.
+
+D-061 conserva esta evidencia como baseline económico pero impide usarla por sí sola para un
+`GO`. WP2.15 debe añadir y validar la capa mínima antes de repetir el playtest de cierre.
+
 ## Pendiente para aprobar Gate 2
 
 - WP2.13: 5–10 seeds de referencia, sesiones humanas de 30–60 minutos, métricas de decisión,
   ritmo, comprensión, inflación y bloqueos.
 - WP2.14: Visual Direction Spike end-to-end con renders, metadata, provenance, métricas y
   recomendación de dirección; el prototipo actual usa geometría procedural de validación.
+- WP2.15: agentes individuales, cuadrilla física, mantenimiento, una acción hostil, salud,
+  integridad, fuego, daño adyacente y save/load determinista.
 - Registrar la decisión GO/REWORK/STOP en un acta posterior al playtest.

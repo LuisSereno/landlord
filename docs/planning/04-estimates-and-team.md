@@ -31,5 +31,5 @@ Kubernetes specialist, data engineer dedicado, multiplayer engineer, LLM special
 
 ## Calendario
 Gate 1: 4-6 semanas.
-Gate 2: 10-14 adicionales.
+Gate 2: baseline anterior de 10-14 adicionales; D-061 exige rebaselinar tras diseñar WP2.15.
 Vertical slice: 12-16 adicionales.

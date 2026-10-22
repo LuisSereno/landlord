@@ -41,6 +41,18 @@ La presión no debe ser sólo un porcentaje de captura. Puede cambiar:
 - confiscaciones;
 - disponibilidad de actores criminales.
 
+Las acciones espaciales deben conservar causalidad mínima: actor, organización, objetivo,
+incidente, daño y víctimas. El Gate 2 sólo requiere una conexión legible entre sabotaje o ataque
+y `heat`; evidencia, investigación y justicia completas siguen fuera de alcance.
+
+## Operativos físicos
+
+El crimen no se reduce a una tirada de caja. Un operativo mínimo puede desplazarse, seleccionar
+una persona o edificio rival y ejecutar una acción hostil validada por el motor. La misma capa de
+salud, daño e incidentes sirve a defensa, mantenimiento y policía futura. Especialidades, nombres
+y capacidades serán propios de Landlord y data-driven; no se reproducen unidades distintivas de
+otras IP.
+
 ## Policía
 
 La policía es una facción/sistema:

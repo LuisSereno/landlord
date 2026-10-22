@@ -4,6 +4,9 @@ Estado: Aceptada
 Fecha: 2026-10-22
 Alcance: Gate 2
 
+Nota posterior: D-061 sustituye el punto 5 para el criterio de cierre del Gate 2. Las dos crews
+agregadas permanecen como baseline migrable, no como validación final de agentes funcionales.
+
 ## Contexto
 
 La auditoría del baseline detectó que los ticks técnicos también actuaban como tiempo económico,

@@ -10,6 +10,8 @@
 - territorio;
 - capacidad de afectar a rivales;
 - sistemas interconectados.
+- agentes físicos que ejecutan trabajo, mantenimiento y conflicto;
+- incidentes espaciales que conectan daño, personas y economía.
 
 ## Mejorar
 
@@ -21,6 +23,9 @@ Menos estados opacos y menos clics repetitivos.
 
 ### Micromanagement
 Delegación y automatización.
+
+La presencia física no justifica órdenes repetitivas constantes: las cuadrillas, patrullas de
+mantenimiento y respuestas automáticas deben convertirse gradualmente en políticas delegables.
 
 ### Sandbox
 No depender sólo de una campaña lineal.

@@ -32,7 +32,7 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
       })),
     agents: [...state.agents.values()]
       .sort((left, right) => left.id.localeCompare(right.id))
-      .map((agent) => ({ id: agent.id, cell: { ...agent.cell } })),
+      .map((agent) => ({ id: agent.id, cell: { ...agent.cell }, ...(agent.organizationId ? { organizationId: agent.organizationId } : {}), ...(agent.specialty ? { specialty: agent.specialty } : {}), health: agent.health ?? 100, state: agent.state ?? "idle" })),
     ...(includeEconomy
       ? {
           economy: {

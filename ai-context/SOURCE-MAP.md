@@ -30,6 +30,14 @@ Uso:
 - evitar afirmar detalles no documentados;
 - separar inspiración de copia.
 
+Complemento verificado el 2026-10-22 para *Constructor* (1997):
+- manual original preservado: workforce, construcción física, deterioro y destrucción;
+- guía comunitaria extensa de GameFAQs: conversiones, salud, especialidades, fuego y daño a
+  edificios vecinos;
+- guía de *Mob Rule* en GameFAQs: funciones de unidades, cadáveres y atención policial.
+
+URLs y límites de uso se registran en `docs/research/01-constructor-mob-rule-research.md`.
+
 ## Fuente 3 — investigación avanzada de arte y pipeline
 Origen:
 - estudio comparativo de city builders, tycoon y estrategia isométrica;

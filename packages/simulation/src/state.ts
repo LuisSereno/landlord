@@ -1,5 +1,7 @@
 import {
   parseOrganizationId,
+  parseAgentId,
+  parseCrewId,
   parseDistrictId,
   parseFacilityId,
   parsePersonId,
@@ -17,6 +19,9 @@ import {
   type ResourceInventory,
   type Tenant,
   type AgentId,
+  type Agent,
+  type Crew,
+  type IncidentRecord,
   type CommandId,
   type OrganizationId,
   type PersonId,
@@ -59,6 +64,8 @@ export type Phase2State = {
   facilities: Map<import("@landlord/shared").FacilityId, ProductionFacility>;
   buildings: Map<import("@landlord/shared").BuildingId, Building>;
   constructionSites: Map<import("@landlord/shared").ConstructionSiteId, ConstructionSite>;
+  crews: Map<import("@landlord/shared").CrewId, Crew>;
+  incidents: Map<import("@landlord/shared").IncidentId, IncidentRecord>;
   tenants: Map<import("@landlord/shared").TenantId, Tenant>;
   transactions: EconomicTransaction[];
   ordinance: Ordinance;
@@ -91,7 +98,7 @@ export type GameState = {
   persons: Map<PersonId, Person>;
   organizations: Map<OrganizationId, Organization>;
   controlGrants: Map<string, OrganizationControlGrant>;
-  agents: Map<AgentId, { id: AgentId; cell: { x: number; y: number } }>;
+  agents: Map<AgentId, Agent>;
   structures: Map<StructureId, TestStructure>;
   processedCommandIds: Set<CommandId>;
   pendingCommands: Array<{
@@ -143,19 +150,43 @@ export function createInitialState(seed = 1): GameState {
   rivalInventory.brick = 16;
   rivalInventory.steel = 6;
 
+  const roster = new Map<AgentId, Agent>();
+  const crews = new Map<import("@landlord/shared").CrewId, Crew>();
+  let rosterIndex = 0;
+  for (const [organizationId, x] of [[controlledOrganizationId, 4], [independentOrganizationId, 56]] as const) {
+    for (let crewNumber = 0; crewNumber < 2; crewNumber += 1) {
+      const ids: AgentId[] = [];
+      for (const specialty of ["supervisor", "construction_worker", "construction_worker"] as const) {
+        rosterIndex += 1;
+        const id = parseAgentId(`agent_${String(rosterIndex).padStart(8, "0")}`);
+        ids.push(id);
+        roster.set(id, { id, personId: parsePersonId(`person_${String(100 + rosterIndex).padStart(8, "0")}`), organizationId, specialty, health: 100, state: "idle", cell: { x: x + crewNumber, y: 4 + ids.length }, target: { x: x + crewNumber, y: 4 + ids.length }, path: [], task: null, cooldownUntilTick: parseTick(0), injuredUntilTick: null, lastPathRecalculationTick: parseTick(0) });
+      }
+      const crewId = parseCrewId(`crew_${String(crews.size + 1).padStart(8, "0")}`);
+      crews.set(crewId, { id: crewId, organizationId, supervisorAgentId: ids[0]!, workerAgentIds: ids.slice(1) });
+    }
+    for (const specialty of ["maintenance_technician", "enforcer"] as const) {
+      rosterIndex += 1;
+      const id = parseAgentId(`agent_${String(rosterIndex).padStart(8, "0")}`);
+      roster.set(id, { id, personId: parsePersonId(`person_${String(100 + rosterIndex).padStart(8, "0")}`), organizationId, specialty, health: 100, state: "idle", cell: { x, y: 12 + (specialty === "enforcer" ? 1 : 0) }, target: { x, y: 12 + (specialty === "enforcer" ? 1 : 0) }, path: [], task: null, cooldownUntilTick: parseTick(0), injuredUntilTick: null, lastPathRecalculationTick: parseTick(0) });
+    }
+  }
   return {
     seed: normalizedSeed,
     clock: clock.getState(),
     prng: createPrng(normalizedSeed).exportState(),
     idCounters: {
       structure: 0,
-      agent: 0,
+      agent: rosterIndex,
       event: 0,
       commandOrder: 0,
     },
     map: { width: 64, height: 64, blockedCells: new Set() },
     playerIdentities: new Map([[playerIdentityId, { id: playerIdentityId, personId }]]),
-    persons: new Map([[personId, { id: personId }]]),
+    persons: new Map([
+      [personId, { id: personId }],
+      ...[...roster.values()].flatMap((agent) => agent.personId ? [[agent.personId, { id: agent.personId }] as const] : []),
+    ]),
     organizations: new Map([
       [controlledOrganizationId, { id: controlledOrganizationId, kind: "company" }],
       [independentOrganizationId, { id: independentOrganizationId, kind: "company" }],
@@ -169,7 +200,7 @@ export function createInitialState(seed = 1): GameState {
         },
       ],
     ]),
-    agents: new Map(),
+    agents: roster,
     structures: new Map(),
     processedCommandIds: new Set(),
     pendingCommands: [],
@@ -273,6 +304,8 @@ export function createInitialState(seed = 1): GameState {
       ]),
       buildings: new Map(),
       constructionSites: new Map(),
+      crews,
+      incidents: new Map(),
       tenants,
       transactions: [],
       ordinance: { ...PROTOTYPE_ORDINANCE },

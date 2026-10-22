@@ -55,11 +55,12 @@ Reglas arquitectónicas principales:
 - la compatibilidad multiperspectiva no amplía el scope del MVP.
 
 Estado actual:
-Gate 1 aprobado y baseline jugable de Gate 2 integrado. Gate 2 permanece en `REVIEW` hasta
-completar el playtest prolongado, el Visual Direction Spike y su acta formal.
+Gate 1 aprobado y baseline económico jugable de Gate 2 integrado. Gate 2 permanece en `REVIEW`
+hasta completar WP2.15 (agentes, daño e incidentes), el Visual Direction Spike, el playtest
+prolongado posterior y su acta formal.
 
 Siguiente objetivo:
-validar ritmo/balance en sesión humana y ejecutar WP2.14 sobre la pantalla map-céntrica.
+diseñar/ejecutar WP2.15, coordinarlo con WP2.14 y validar después ritmo/balance en sesión humana.
 
 ## Visión futura
 

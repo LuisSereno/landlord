@@ -74,6 +74,15 @@ export type SnapshotV1 = {
     cell: GridCell;
     target: GridCell;
     path: GridCell[];
+    personId?: import("./primitives").PersonId;
+    organizationId?: import("./primitives").OrganizationId;
+    specialty?: "supervisor" | "construction_worker" | "maintenance_technician" | "enforcer";
+    health?: number;
+    state?: "idle" | "moving" | "working" | "injured" | "dead";
+    task?: import("./domain").Agent["task"];
+    cooldownUntilTick?: Tick;
+    injuredUntilTick?: Tick | null;
+    lastPathRecalculationTick?: Tick;
   }>;
   structures: TestStructure[];
   processedCommandIds: CommandId[];
@@ -108,6 +117,8 @@ export type SnapshotV1 = {
       lastFailureCode: string | null;
       cooldownUntilTick: Tick;
     };
+    crews?: import("./domain").Crew[];
+    incidents?: import("./domain").IncidentRecord[];
   };
 };
 
@@ -124,6 +135,15 @@ const agentSnapshotSchema = z.object({
   cell: gridCellSchema,
   target: gridCellSchema,
   path: z.array(gridCellSchema),
+  personId: z.string().optional(),
+  organizationId: z.string().optional(),
+  specialty: z.enum(["supervisor", "construction_worker", "maintenance_technician", "enforcer"]).optional(),
+  health: z.number().int().min(0).max(100).optional(),
+  state: z.enum(["idle", "moving", "working", "injured", "dead"]).optional(),
+  task: z.unknown().optional(),
+  cooldownUntilTick: tickSchema.optional(),
+  injuredUntilTick: tickSchema.nullable().optional(),
+  lastPathRecalculationTick: tickSchema.optional(),
 });
 const pendingCommandSchema = z.object({
   acceptedOrder: safeCounter,
@@ -172,6 +192,8 @@ const phase2SnapshotSchema = z.object({
       lastFailureCode: null,
       cooldownUntilTick: 0 as Tick,
     }),
+  crews: z.array(z.unknown()).optional(),
+  incidents: z.array(z.unknown()).optional(),
 });
 
 export const snapshotV1Schema = z.object({

@@ -258,3 +258,13 @@ PRNG incierta, activos rivales públicos sin exponer caja/contratos y reparació
 y cuadrilla. La ruta ilegal tiene cooldown y conserva el dinero entre organizaciones. Las colas,
 referencias y ventanas históricas del snapshot quedan acotadas y validadas. Ver
 `docs/engineering/adr/D-060-coherencia-economica-gate-2.md`.
+
+## D-061 — Spike de agentes, daño e incidentes antes del cierre de Gate 2
+Estado: decidido como rework de Gate 2 el 2026-10-22.
+Gate 2 no puede recibir `GO` sólo con crews agregadas, timers y riesgo ilegal probabilístico.
+WP2.15 debe validar agentes individuales visibles, cuadrilla física, mantenimiento, un operativo
+hostil mínimo, salud, `condition` + `structuralIntegrity`, fuego, daño espacial, heridas/muerte,
+consecuencia económica y save/load determinista. No incluye life simulation, reproducción,
+hospital jugable ni catálogo amplio de combate. Sustituye para el cierre del gate la elección de
+crews puramente agregadas de D-056 y el punto 5 de D-060. Ver
+`docs/engineering/adr/D-061-spike-agentes-dano-incidentes-gate-2.md`.

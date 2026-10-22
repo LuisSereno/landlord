@@ -3,6 +3,8 @@ import { z } from "zod";
 import {
   commandIdSchema,
   buildingIdSchema,
+  agentIdSchema,
+  crewIdSchema,
   constructionSiteIdSchema,
   districtIdSchema,
   eventIdSchema,
@@ -16,6 +18,9 @@ import {
   tenantIdSchema,
   transactionIdSchema,
   type BuildingId,
+  type AgentId,
+  type CrewId,
+  type IncidentId,
   type ConstructionSiteId,
   type CommandId,
   type DistrictId,
@@ -186,7 +191,28 @@ export type Building = {
   tenantId: TenantId | null;
   tenantIds: TenantId[];
   upgraded: boolean;
+  structuralIntegrity: number;
+  state: "operational" | "burning" | "collapse_pending" | "ruin";
+  casualtiesTotal: { injured: number; dead: number };
 };
+
+export type Agent = {
+  id: AgentId;
+  personId?: PersonId;
+  organizationId?: OrganizationId;
+  specialty?: "supervisor" | "construction_worker" | "maintenance_technician" | "enforcer";
+  health?: number;
+  state?: "idle" | "moving" | "working" | "injured" | "dead";
+  cell: GridCell;
+  target?: GridCell;
+  path?: GridCell[];
+  task?: { kind: "work_order"; workOrderId: ConstructionSiteId } | { kind: "maintenance"; buildingId: BuildingId } | { kind: "attack_agent"; targetAgentId: AgentId } | { kind: "sabotage_building"; targetBuildingId: BuildingId } | null;
+  cooldownUntilTick?: Tick;
+  injuredUntilTick?: Tick | null;
+  lastPathRecalculationTick?: Tick;
+};
+export type Crew = { id: CrewId; organizationId: OrganizationId; supervisorAgentId: AgentId; workerAgentIds: AgentId[] };
+export type IncidentRecord = { id: IncidentId; buildingId: BuildingId; origin: "sabotage" | "deterioration" | "blast"; intensity: number; status: "active" | "resolved"; targetOrganizationId: OrganizationId; createdAtTick: Tick; causedByAgentId: AgentId | null; causedByOrganizationId: OrganizationId | null; casualties: { injured: number; dead: number } };
 
 export type ConstructionSite = {
   id: ConstructionSiteId;
@@ -199,6 +225,10 @@ export type ConstructionSite = {
   crewCapacity: number;
   upgradeBuildingId: BuildingId | null;
   repairBuildingId: BuildingId | null;
+  kind: "construction" | "upgrade" | "repair" | "clear_ruin";
+  targetBuildingId: BuildingId | null;
+  assignedCrewIds: CrewId[];
+  assignedTechnicianId: AgentId | null;
 };
 
 export type TenantProfile = "household" | "maker" | "shopkeeper";
@@ -210,6 +240,7 @@ export type Tenant = {
   activeContractBuildingId: BuildingId | null;
   satisfaction: number;
   leaseRemaining: number;
+  status: "available" | "contracted" | "displaced";
 };
 
 export type EconomicTransaction = {
@@ -287,6 +318,9 @@ export const buildingSchema = z.object({
   tenantId: tenantIdSchema.nullable(),
   tenantIds: z.array(tenantIdSchema).default([]),
   upgraded: z.boolean(),
+  structuralIntegrity: z.number().int().min(0).max(100).default(100),
+  state: z.enum(["operational", "burning", "collapse_pending", "ruin"]).default("operational"),
+  casualtiesTotal: z.object({ injured: z.number().int().nonnegative(), dead: z.number().int().nonnegative() }).default({ injured: 0, dead: 0 }),
 });
 export const constructionSiteSchema = z.object({
   id: constructionSiteIdSchema,
@@ -299,6 +333,10 @@ export const constructionSiteSchema = z.object({
   crewCapacity: z.number().int().positive(),
   upgradeBuildingId: buildingIdSchema.nullable(),
   repairBuildingId: buildingIdSchema.nullable().default(null),
+  kind: z.enum(["construction", "upgrade", "repair", "clear_ruin"]).default("construction"),
+  targetBuildingId: buildingIdSchema.nullable().default(null),
+  assignedCrewIds: z.array(crewIdSchema).default([]),
+  assignedTechnicianId: agentIdSchema.nullable().default(null),
 });
 export const tenantSchema = z.object({
   id: tenantIdSchema,
@@ -308,6 +346,7 @@ export const tenantSchema = z.object({
   activeContractBuildingId: buildingIdSchema.nullable(),
   satisfaction: z.number().int().min(0).max(100),
   leaseRemaining: z.number().int().nonnegative(),
+  status: z.enum(["available", "contracted", "displaced"]).default("available"),
 });
 export const economicTransactionSchema = z.object({
   id: transactionIdSchema,
@@ -385,6 +424,10 @@ export type RepairBuilding = DomainCommandBase & {
   type: "RepairBuilding";
   payload: { buildingId: BuildingId };
 };
+export type AssignCrewToWorkOrder = DomainCommandBase & { type: "AssignCrewToWorkOrder"; payload: { crewId: CrewId; workOrderId: ConstructionSiteId } };
+export type AssignMaintenance = DomainCommandBase & { type: "AssignMaintenance"; payload: { buildingId: BuildingId } };
+export type OrderEnforcerAction = DomainCommandBase & { type: "OrderEnforcerAction"; payload: { enforcerAgentId: AgentId; action: "attack_agent" | "sabotage_building"; targetAgentId?: AgentId; targetBuildingId?: BuildingId } };
+export type ClearRuin = DomainCommandBase & { type: "ClearRuin"; payload: { buildingId: BuildingId } };
 export type ProductCommand =
   | PlaceTestStructure
   | BuyParcel
@@ -397,7 +440,11 @@ export type ProductCommand =
   | BuyMaterials
   | InvestInProduction
   | AllocateCrew
-  | RepairBuilding;
+  | RepairBuilding
+  | AssignCrewToWorkOrder
+  | AssignMaintenance
+  | OrderEnforcerAction
+  | ClearRuin;
 
 function commandSchema<TType extends string>(type: TType, payload: z.ZodType) {
   return z.object({
@@ -452,6 +499,15 @@ export const repairBuildingSchema = commandSchema(
   "RepairBuilding",
   z.object({ buildingId: buildingIdSchema }),
 );
+export const assignCrewToWorkOrderSchema = commandSchema("AssignCrewToWorkOrder", z.object({ crewId: crewIdSchema, workOrderId: constructionSiteIdSchema }));
+export const assignMaintenanceSchema = commandSchema("AssignMaintenance", z.object({ buildingId: buildingIdSchema }));
+export const orderEnforcerActionSchema = commandSchema("OrderEnforcerAction", z.object({
+  enforcerAgentId: agentIdSchema,
+  action: z.enum(["attack_agent", "sabotage_building"]),
+  targetAgentId: agentIdSchema.optional(),
+  targetBuildingId: buildingIdSchema.optional(),
+}));
+export const clearRuinSchema = commandSchema("ClearRuin", z.object({ buildingId: buildingIdSchema }));
 export const productCommandSchema = z.discriminatedUnion("type", [
   placeTestStructureSchema,
   buyParcelSchema,
@@ -465,4 +521,8 @@ export const productCommandSchema = z.discriminatedUnion("type", [
   investInProductionSchema,
   allocateCrewSchema,
   repairBuildingSchema,
+  assignCrewToWorkOrderSchema,
+  assignMaintenanceSchema,
+  orderEnforcerActionSchema,
+  clearRuinSchema,
 ]);

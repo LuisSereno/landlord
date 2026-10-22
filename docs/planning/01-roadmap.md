@@ -26,11 +26,18 @@ Compatibilidad requerida:
 - evitar flags rígidos de modo.
 
 ## Fase 2 — prototipo / Gate 2
-Objetivos: parcelas, materiales, construcción, tenants, ingresos, upgrades, IA rival, una acción ilegal, policía, una ordenanza política y guardado.
-Duración: 10-14 semanas. Esfuerzo: 180-280 jornadas-persona.
+Objetivos: parcelas, materiales, construcción, tenants, ingresos, upgrades, IA rival, una acción
+ilegal, policía, una ordenanza política, guardado y un spike mínimo de agentes físicos, daño e
+incidentes.
+Baseline anterior a D-061: 10-14 semanas y 180-280 jornadas-persona. Ya no es una estimación
+vigente; WP2.15 debe diseñarse antes de rebaselinar duración y esfuerzo.
 
 Los costes económicos deben existir sólo al nivel necesario para validar el bucle.
 La experiencia jugable sigue centrada en Landlord/Entrepreneur.
+
+Antes del `GO`, WP2.15 debe comprobar que construir, reparar y sabotear pueden ejecutarse por
+agentes individuales y producir consecuencias espaciales deterministas. No incorpora todavía
+life simulation ni una perspectiva criminal jugable.
 
 ## Fase 3 — vertical slice
 Objetivos:

@@ -53,6 +53,20 @@ export function canonicalizeState(state: GameState): string {
     processedCommandIds: [...state.processedCommandIds].sort((left, right) =>
       left.localeCompare(right),
     ),
+    phase2: {
+      district: state.phase2.district,
+      parcels: orderedMapValues(state.phase2.parcels),
+      balances: orderedMapValues(state.phase2.balances),
+      inventories: orderedMapValues(state.phase2.inventories),
+      facilities: orderedMapValues(state.phase2.facilities),
+      buildings: orderedMapValues(state.phase2.buildings),
+      constructionSites: orderedMapValues(state.phase2.constructionSites),
+      tenants: orderedMapValues(state.phase2.tenants),
+      transactions: state.phase2.transactions,
+      ordinance: state.phase2.ordinance,
+      crime: state.phase2.crime,
+      influenceByOrganizationId: orderedMapValues(state.phase2.influenceByOrganizationId),
+    },
   });
 }
 

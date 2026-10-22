@@ -209,6 +209,9 @@ No se fijan objetivos numéricos definitivos sin playtest baseline. Tras las pri
 
 ## WP2.11 — UX del bucle
 
+**Estado 2026-10-21:** candidato funcional integrado. La comprobación final depende de que un
+playtester complete el bucle sin ayuda durante WP2.13.
+
 **Resultado:** el jugador entiende qué puede hacer, por qué una acción falla y qué cambió.
 
 **Tareas:**
@@ -224,6 +227,15 @@ No se fijan objetivos numéricos definitivos sin playtest baseline. Tras las pri
 - Navegación por teclado y mínimos de accesibilidad para controles críticos.
 
 **Aceptación:** un playtester puede completar el bucle sin instrucciones verbales del desarrollador y explicar al menos dos decisiones tomadas.
+
+### Prioridad de presentación antes del spike artístico
+
+Antes de iniciar WP2.14, la implementación de WP2.11 debe dejar de ser una vista técnica: el
+mapa debe ocupar el área principal útil, el HUD debe tener jerarquía visual, la parcela o el
+edificio seleccionado debe exponer contexto y acciones, y los estados de ownership, obra,
+selección y riesgo deben poder distinguirse sin leer IDs internos. Esta etapa no aprueba arte
+final ni fija la dirección visual; prepara una pantalla representativa sobre la que el spike
+pueda medir legibilidad y estilo.
 
 ## WP2.12 — Guardado integral y compatibilidad
 
@@ -264,6 +276,10 @@ No se fijan objetivos numéricos definitivos sin playtest baseline. Tras las pri
 pipeline del Vertical Slice, sin producir arte final ni convertir fuentes
 binarias de terceros en assets del repositorio.
 
+**Precondición:** WP2.11 debe contar con una base de presentación jugable y legible. No se
+comparan direcciones artísticas sobre HTML sin jerarquía visual ni sobre un canvas técnico que
+no represente la composición final del juego.
+
 **Tareas:**
 
 - Preparar dos o tres direcciones originales sobre el mismo kit funcional
@@ -293,9 +309,10 @@ rework o bloquear sólo la producción artística de Fase 3.
 3. Reinversión: WP2.7.
 4. Competencia y riesgo: WP2.8-WP2.9.
 5. Adaptación regulatoria: WP2.10.
-6. UX y persistencia transversal: WP2.11-WP2.12 desde el primer slice, no al final.
-7. Ejecutar WP2.14 en paralelo cuando el primer flujo vertical y el Art Lab
-   técnico puedan consumir renders; no esperar a la producción artística.
+6. UX y persistencia transversal: WP2.11-WP2.12 desde el primer slice, no al final. Cerrar la
+   base de presentación y legibilidad de WP2.11 antes de evaluar arte.
+7. Ejecutar WP2.14 cuando el primer flujo vertical, la base de presentación de WP2.11 y el Art
+   Lab técnico puedan consumir renders; no esperar a la producción artística.
 8. Balance y gate: WP2.13, incorporando la evidencia del spike.
 
 ## Condiciones de aprobación

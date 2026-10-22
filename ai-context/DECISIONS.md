@@ -215,3 +215,36 @@ El Visual Direction Spike y las primeras fases artísticas deben poder ejecutars
 ## D-055 — Eventos efímeros y registros persistentes derivados
 Estado: decidido el 2026-10-21.
 Los eventos de dominio normales se emiten a los consumidores del ciclo actual y no forman parte de `GameState` ni de `SnapshotV1`. La memoria histórica que afecte a reglas futuras se modelará mediante registros específicos con schema y retención propios (`TransactionLedger`, `RelationshipHistory`, `CrimeRecord`, `CareerHistory`, etc.). El replay técnico futuro podrá conservar comandos, tick efectivo y checkpoints. Ver `docs/engineering/adr/D-055-eventos-efimeros-y-registros-persistentes.md`.
+
+## D-056 — Baseline económico de Gate 2
+Estado: decidido para el prototipo el 2026-10-21.
+Gate 2 usa crews agregadas, tenants finitos, producción por ciclos, caja por organización y
+un libro de transacciones mínimo. El payload de producto se agrupa bajo `phase2` dentro del
+snapshot v1 como extensión aditiva para restaurar fixtures de Gate 1. El rival actúa mediante
+el mismo dispatcher y una identidad técnica explícita; no se modela como una segunda identidad
+humana del jugador. Ver `docs/execution/phase-2/gate-2-baseline-2026-10-21.md`.
+
+## D-057 — Diagnóstico efímero y acotado de sesión
+Estado: decidido para playtests de Gate 2 el 2026-10-21.
+El Worker publica métricas de sesión cada 20 ticks y bajo demanda: cola, estructuras y
+comandos aceptados o rechazados por código. La web conserva como máximo 120 entradas de
+diagnóstico y señala tres rechazos iguales como patrón de playtest. Esta telemetría no entra
+en `GameState` ni en snapshots, se reinicia tras inicializar/cargar y no usa reloj de pared
+para reglas de simulación. Ver `docs/execution/phase-2/gate-2-baseline-2026-10-21.md`.
+
+## D-058 — Base de presentación antes del Visual Direction Spike
+Estado: decidido para Gate 2 el 2026-10-21.
+La dirección artística no se comparará sobre la vista técnica actual. Antes de WP2.14 se debe
+cerrar una base de presentación de WP2.11: mapa con área útil, HUD jerarquizado, inspector
+contextual y estados de juego legibles. Esta decisión no fija estilo, cámara ni assets finales;
+evita que el spike mida deficiencias de UI en lugar de una dirección visual. Ver
+`docs/execution/03-fase-2-gate-2.md`.
+
+## D-059 — Cierre funcional del baseline jugable de Gate 2
+Estado: decidido para el prototipo el 2026-10-21.
+El escenario dispone de producción renovable de cemento, ladrillo y acero; una cuadrilla agregada
+por organización; cancelación con devolución del 50% entero de materiales y sin devolución de
+caja; y mejora de edificio que cuesta recursos, ocupa la cuadrilla y aumenta la renta base un
+25%. Una detección en la ruta ilegal aplica una multa máxima de 180 u. La proyección presenta
+estos costes, ritmos y efectos, además del libro de caja y el resumen rival. Son reglas de
+validación del Gate, no balance final del producto.

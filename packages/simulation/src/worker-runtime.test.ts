@@ -62,6 +62,35 @@ describe("simulation Worker runtime", () => {
     ]);
   });
 
+  it("publishes session metrics without adding them to game state or snapshots", () => {
+    const runtime = new SimulationWorkerRuntime();
+    runtime.handle(initialize);
+    runtime.handle(submit);
+    runtime.handle({ ...submit, requestId: "request-duplicate" });
+    const notifications = runtime
+      .advanceTicks(20)
+      .filter((response) => response.type === "SimulationMetricsPublished");
+    expect(notifications).toMatchObject([
+      {
+        payload: {
+          acceptedCommands: 1,
+          rejectedCommands: [{ code: "DUPLICATE_COMMAND", count: 1 }],
+        },
+      },
+    ]);
+    expect(
+      runtime.handle({
+        protocolVersion: 1,
+        requestId: "request-metrics",
+        type: "GetMetrics" as const,
+        payload: {},
+      })[0],
+    ).toMatchObject({
+      type: "RequestSucceeded",
+      payload: { result: { tick: 20, acceptedCommands: 1 } },
+    });
+  });
+
   it("round-trips a snapshot and preserves the active state on invalid load", () => {
     const runtime = new SimulationWorkerRuntime();
     runtime.handle(initialize);

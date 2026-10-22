@@ -12,13 +12,23 @@ import {
   organizationControlGrantSchema,
   organizationSchema,
   personSchema,
-  placeTestStructureSchema,
+  productCommandSchema,
   playerIdentitySchema,
+  crimeStateSchema,
+  constructionSiteSchema,
+  districtSchema,
+  economicTransactionSchema,
+  ordinanceSchema,
+  parcelSchema,
+  productionFacilitySchema,
+  resourceInventorySchema,
+  buildingSchema,
+  tenantSchema,
   testStructureSchema,
   type Organization,
   type OrganizationControlGrant,
   type Person,
-  type PlaceTestStructure,
+  type ProductCommand,
   type PlayerIdentity,
   type TestStructure,
 } from "./domain";
@@ -45,6 +55,10 @@ export type SnapshotV1 = {
     agent: number;
     event: number;
     commandOrder: number;
+    parcel?: number;
+    building?: number;
+    constructionSite?: number;
+    transaction?: number;
   };
   map: {
     width: 64;
@@ -65,8 +79,30 @@ export type SnapshotV1 = {
   processedCommandIds: CommandId[];
   pendingCommands: Array<{
     acceptedOrder: number;
-    command: PlaceTestStructure;
+    command: ProductCommand;
   }>;
+  /** Additive Gate 2 payload. Gate 1 snapshots without it remain valid. */
+  phase2?: {
+    idCounters: { building: number; constructionSite: number; transaction: number };
+    district: import("./domain").District;
+    parcels: import("./domain").Parcel[];
+    balances: Array<{ organizationId: import("./primitives").OrganizationId; balance: number }>;
+    inventories: Array<{
+      organizationId: import("./primitives").OrganizationId;
+      inventory: import("./domain").ResourceInventory;
+    }>;
+    facilities: import("./domain").ProductionFacility[];
+    buildings: import("./domain").Building[];
+    constructionSites: import("./domain").ConstructionSite[];
+    tenants: import("./domain").Tenant[];
+    transactions: import("./domain").EconomicTransaction[];
+    ordinance: import("./domain").Ordinance;
+    crime: import("./domain").CrimeState;
+    influenceByOrganizationId: Array<{
+      organizationId: import("./primitives").OrganizationId;
+      influence: number;
+    }>;
+  };
 };
 
 const safeCounter = z.number().int().nonnegative().safe();
@@ -85,7 +121,38 @@ const agentSnapshotSchema = z.object({
 });
 const pendingCommandSchema = z.object({
   acceptedOrder: safeCounter,
-  command: placeTestStructureSchema,
+  command: productCommandSchema,
+});
+const phase2SnapshotSchema = z.object({
+  idCounters: z.object({
+    building: safeCounter,
+    constructionSite: safeCounter,
+    transaction: safeCounter,
+  }),
+  district: districtSchema,
+  parcels: z.array(parcelSchema),
+  balances: z.array(
+    z.object({
+      organizationId: organizationSchema.shape.id,
+      balance: z.number().int().nonnegative(),
+    }),
+  ),
+  inventories: z.array(
+    z.object({ organizationId: organizationSchema.shape.id, inventory: resourceInventorySchema }),
+  ),
+  facilities: z.array(productionFacilitySchema),
+  buildings: z.array(buildingSchema),
+  constructionSites: z.array(constructionSiteSchema),
+  tenants: z.array(tenantSchema),
+  transactions: z.array(economicTransactionSchema),
+  ordinance: ordinanceSchema,
+  crime: crimeStateSchema,
+  influenceByOrganizationId: z.array(
+    z.object({
+      organizationId: organizationSchema.shape.id,
+      influence: z.number().int().nonnegative(),
+    }),
+  ),
 });
 
 export const snapshotV1Schema = z.object({
@@ -102,6 +169,10 @@ export const snapshotV1Schema = z.object({
     agent: safeCounter,
     event: safeCounter,
     commandOrder: safeCounter,
+    parcel: safeCounter.optional(),
+    building: safeCounter.optional(),
+    constructionSite: safeCounter.optional(),
+    transaction: safeCounter.optional(),
   }),
   map: mapSnapshotSchema,
   playerIdentities: z.array(playerIdentitySchema),
@@ -112,6 +183,7 @@ export const snapshotV1Schema = z.object({
   structures: z.array(testStructureSchema),
   processedCommandIds: z.array(commandIdSchema),
   pendingCommands: z.array(pendingCommandSchema),
+  phase2: phase2SnapshotSchema.optional(),
 });
 
 export type SnapshotValidationIssue = {
@@ -195,6 +267,36 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
       issues.push({ code: "MISSING_REFERENCE", path: "pendingCommands/actingAsOrganizationId" });
     }
   }
+  if (snapshot.phase2) {
+    const parcelIds = new Set(snapshot.phase2.parcels.map((parcel) => parcel.id));
+    const buildingIds = new Set(snapshot.phase2.buildings.map((building) => building.id));
+    const tenantIds = new Set(snapshot.phase2.tenants.map((tenant) => tenant.id));
+    for (const parcel of snapshot.phase2.parcels) {
+      if (parcel.buildingId && !buildingIds.has(parcel.buildingId)) {
+        issues.push({ code: "MISSING_REFERENCE", path: `phase2/parcels/${parcel.id}/buildingId` });
+      }
+    }
+    for (const building of snapshot.phase2.buildings) {
+      if (!parcelIds.has(building.parcelId)) {
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `phase2/buildings/${building.id}/parcelId`,
+        });
+      }
+      if (building.tenantId && !tenantIds.has(building.tenantId)) {
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `phase2/buildings/${building.id}/tenantId`,
+        });
+      }
+    }
+    if (hasDuplicate(snapshot.phase2.parcels.map((parcel) => parcel.id))) {
+      issues.push({ code: "DUPLICATE_ID", path: "phase2/parcels" });
+    }
+    if (hasDuplicate(snapshot.phase2.buildings.map((building) => building.id))) {
+      issues.push({ code: "DUPLICATE_ID", path: "phase2/buildings" });
+    }
+  }
   const orders = snapshot.pendingCommands.map((pending) => pending.acceptedOrder);
   if (hasDuplicate(orders.map(String))) {
     issues.push({ code: "DUPLICATE_ORDER", path: "pendingCommands/acceptedOrder" });
@@ -204,7 +306,7 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
 }
 
 export function parseSnapshotV1(value: unknown): SnapshotV1 {
-  const snapshot = snapshotV1Schema.parse(value);
+  const snapshot = snapshotV1Schema.parse(value) as SnapshotV1;
   const issues = validateSnapshotReferences(snapshot);
   if (issues.length > 0) {
     throw new Error(`Invalid snapshot references: ${issues.map((issue) => issue.path).join(", ")}`);

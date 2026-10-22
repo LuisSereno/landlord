@@ -68,6 +68,19 @@ Resuelto para Gate 1 en D-049/D-051: `PlayerIdentity -> Person`, `Organization`,
 - coste y frecuencia de mantenimiento;
 - fórmula de deterioro.
 
+## Gate 2 — baseline 2026-10-21
+- Implementados parcelas, caja, recursos, obras, crews agregadas, tenants finitos, renta,
+  upgrades, rival, crimen/policía mínimos, una ordenanza, HUD y save/load.
+- WP2.11 tiene ya layout de juego, mapa principal, inspector contextual, onboarding, velocidad,
+  costes previos, producción, cuadrilla, tenants, renta, progreso, cancelación y libro de caja.
+- Pendiente medir con playtest humano: ritmo, comprensión, estrategia dominante, inflación,
+  bloqueos por seed y ratio de decisiones frente a acciones repetitivas.
+- Pendiente ejecutar el Visual Direction Spike end-to-end y decidir la baseline artística una
+  vez exista la pantalla representativa exigida por D-058.
+- El rival completa compra, producción, construcción, ocupación y renta, pero su utility/memoria
+  de fallos sigue siendo mínima; la política usa una resolución determinista simple. Ambos son
+  candidatos prioritarios si el playtest demuestra que reducen la calidad de las decisiones.
+
 ## Fiscalidad
 - impuestos concretos de la primera versión;
 - bases imponibles;

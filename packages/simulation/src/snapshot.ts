@@ -1,19 +1,28 @@
 import {
   parseAgentId,
+  parseBuildingId,
   parseCommandId,
+  parseConstructionSiteId,
+  parseDistrictId,
+  parseFacilityId,
   parseOrganizationId,
+  parseParcelId,
+  parsePolicyId,
+  parseMoney,
   parsePersonId,
   parsePlayerIdentityId,
   parseStructureId,
+  parseTenantId,
+  parseTransactionId,
   parseSnapshotV1,
   type SnapshotV1,
 } from "@landlord/shared";
-import type { PlaceTestStructure } from "@landlord/shared";
+import type { ProductCommand } from "@landlord/shared";
 import { parseTick } from "@landlord/shared";
 import { PRNG_ALGORITHM } from "./prng";
-import type { GameState } from "./state";
+import { createInitialState, type GameState } from "./state";
 
-export const ENGINE_VERSION = "gate1-dev";
+export const ENGINE_VERSION = "gate2-dev";
 
 function compareId(left: { id: string }, right: { id: string }): number {
   return left.id.localeCompare(right.id);
@@ -33,11 +42,11 @@ function cellFromKey(value: string): { x: number; y: number } {
   return { x, y };
 }
 
-function cloneCommand(command: PlaceTestStructure): PlaceTestStructure {
+function cloneCommand(command: ProductCommand): ProductCommand {
   return {
     ...command,
-    payload: { cell: { ...command.payload.cell } },
-  };
+    payload: { ...command.payload },
+  } as ProductCommand;
 }
 
 export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSION): SnapshotV1 {
@@ -82,11 +91,45 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
         command: cloneCommand(pending.command),
       }))
       .sort((left, right) => left.acceptedOrder - right.acceptedOrder),
+    phase2: {
+      idCounters: { ...state.phase2.idCounters },
+      district: { ...state.phase2.district },
+      parcels: [...state.phase2.parcels.values()]
+        .map((parcel) => ({ ...parcel, cell: { ...parcel.cell } }))
+        .sort(compareId),
+      balances: [...state.phase2.balances.entries()]
+        .map(([organizationId, balance]) => ({ organizationId, balance }))
+        .sort((left, right) => left.organizationId.localeCompare(right.organizationId)),
+      inventories: [...state.phase2.inventories.entries()]
+        .map(([organizationId, inventory]) => ({ organizationId, inventory: { ...inventory } }))
+        .sort((left, right) => left.organizationId.localeCompare(right.organizationId)),
+      facilities: [...state.phase2.facilities.values()]
+        .map((facility) => ({ ...facility }))
+        .sort(compareId),
+      buildings: [...state.phase2.buildings.values()]
+        .map((building) => ({ ...building }))
+        .sort(compareId),
+      constructionSites: [...state.phase2.constructionSites.values()]
+        .map((site) => ({ ...site, resourcesReserved: { ...site.resourcesReserved } }))
+        .sort(compareId),
+      tenants: [...state.phase2.tenants.values()].map((tenant) => ({ ...tenant })).sort(compareId),
+      transactions: state.phase2.transactions.map((transaction) => ({ ...transaction })),
+      ordinance: { ...state.phase2.ordinance },
+      crime: {
+        heatByOrganizationId: { ...state.phase2.crime.heatByOrganizationId },
+        policePressure: state.phase2.crime.policePressure,
+        lastOutcome: state.phase2.crime.lastOutcome,
+      },
+      influenceByOrganizationId: [...state.phase2.influenceByOrganizationId.entries()]
+        .map(([organizationId, influence]) => ({ organizationId, influence }))
+        .sort((left, right) => left.organizationId.localeCompare(right.organizationId)),
+    },
   };
 }
 
 export function restoreStateFromSnapshot(value: unknown): GameState {
   const snapshot = parseSnapshotV1(value);
+  const defaults = createInitialState(snapshot.seed).phase2;
   const state: GameState = {
     seed: snapshot.seed,
     clock: { tick: parseTick(snapshot.tick), runState: "paused", speed: 1 },
@@ -148,6 +191,111 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
       acceptedOrder: pending.acceptedOrder,
       command: cloneCommand(pending.command),
     })),
+    phase2: snapshot.phase2
+      ? {
+          idCounters: { ...snapshot.phase2.idCounters },
+          district: {
+            id: parseDistrictId(snapshot.phase2.district.id),
+            name: snapshot.phase2.district.name,
+            width: 64,
+            height: 64,
+          },
+          parcels: new Map(
+            snapshot.phase2.parcels.map((parcel) => [
+              parseParcelId(parcel.id),
+              {
+                ...parcel,
+                id: parseParcelId(parcel.id),
+                districtId: parseDistrictId(parcel.districtId),
+                cell: { ...parcel.cell },
+                price: parseMoney(parcel.price),
+              },
+            ]),
+          ),
+          balances: new Map(
+            snapshot.phase2.balances.map((entry) => [
+              parseOrganizationId(entry.organizationId),
+              parseMoney(entry.balance),
+            ]),
+          ),
+          inventories: new Map(
+            snapshot.phase2.inventories.map((entry) => [
+              parseOrganizationId(entry.organizationId),
+              { ...entry.inventory },
+            ]),
+          ),
+          facilities: new Map(
+            snapshot.phase2.facilities.map((facility) => [
+              parseFacilityId(facility.id),
+              {
+                ...facility,
+                id: parseFacilityId(facility.id),
+                ownerOrganizationId: parseOrganizationId(facility.ownerOrganizationId),
+              },
+            ]),
+          ),
+          buildings: new Map(
+            snapshot.phase2.buildings.map((building) => [
+              parseBuildingId(building.id),
+              {
+                ...building,
+                id: parseBuildingId(building.id),
+                parcelId: parseParcelId(building.parcelId),
+                ownerOrganizationId: parseOrganizationId(building.ownerOrganizationId),
+                tenantId: building.tenantId ? parseTenantId(building.tenantId) : null,
+              },
+            ]),
+          ),
+          constructionSites: new Map(
+            snapshot.phase2.constructionSites.map((site) => [
+              parseConstructionSiteId(site.id),
+              {
+                ...site,
+                id: parseConstructionSiteId(site.id),
+                parcelId: parseParcelId(site.parcelId),
+                ownerOrganizationId: parseOrganizationId(site.ownerOrganizationId),
+                upgradeBuildingId: site.upgradeBuildingId
+                  ? parseBuildingId(site.upgradeBuildingId)
+                  : null,
+                resourcesReserved: { ...site.resourcesReserved },
+              },
+            ]),
+          ),
+          tenants: new Map(
+            snapshot.phase2.tenants.map((tenant) => [
+              parseTenantId(tenant.id),
+              {
+                ...tenant,
+                id: parseTenantId(tenant.id),
+                activeContractBuildingId: tenant.activeContractBuildingId
+                  ? parseBuildingId(tenant.activeContractBuildingId)
+                  : null,
+                budget: parseMoney(tenant.budget),
+              },
+            ]),
+          ),
+          transactions: snapshot.phase2.transactions.map((transaction) => ({
+            ...transaction,
+            id: parseTransactionId(transaction.id),
+            organizationId: parseOrganizationId(transaction.organizationId),
+            amount: parseMoney(transaction.amount),
+          })),
+          ordinance: {
+            ...snapshot.phase2.ordinance,
+            id: parsePolicyId(snapshot.phase2.ordinance.id),
+          },
+          crime: {
+            ...snapshot.phase2.crime,
+            heatByOrganizationId: { ...snapshot.phase2.crime.heatByOrganizationId },
+          },
+          influenceByOrganizationId: new Map(
+            snapshot.phase2.influenceByOrganizationId.map((entry) => [
+              parseOrganizationId(entry.organizationId),
+              entry.influence,
+            ]),
+          ),
+        }
+      : defaults,
   };
   return state;
 }

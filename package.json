@@ -18,6 +18,7 @@
     "build": "pnpm -r --if-present build",
     "benchmark": "BENCHMARK_FULL=1 vitest run --config vitest.config.ts packages/simulation/src/benchmark.test.ts --reporter=verbose",
     "benchmark:browser": "pnpm build && node scripts/browser-benchmark.mjs",
+    "smoke:phase2": "node scripts/phase2-browser-smoke.mjs",
     "soak": "SOAK_FULL=1 vitest run --config vitest.config.ts packages/simulation/src/soak.test.ts --reporter=verbose",
     "audit:metrics": "AUDIT_METRICS=1 vitest run --config vitest.config.ts packages/simulation/src/audit-metrics.test.ts --reporter=verbose",
     "format:check": "prettier --check .",

@@ -1,19 +1,18 @@
 # Roadmap condensado
 
-## Ahora — Gate 1
+## Ahora — Gate 2
 
-Crear:
-- workspace;
-- simulation package;
-- web app;
-- worker boundary;
-- isometric spike;
-- PRNG;
-- clock;
-- commands;
-- events;
-- snapshot;
-- benchmark.
+Implementar y validar el bucle jugable sobre el núcleo de Gate 1:
+- parcelas y compra;
+- caja y libro económico;
+- producción material;
+- construcción y crews agregadas;
+- tenants, ocupación y renta;
+- upgrade;
+- rival determinista;
+- riesgo ilegal y policía mínima;
+- una ordenanza municipal;
+- UX y save/load integral.
 
 Restricciones:
 - no player == company;
@@ -29,21 +28,12 @@ No implementar todavía:
 - roles jugables alternativos;
 - life simulation.
 
-## Después — Gate 2
+## Estado del baseline de Gate 2
 
-Añadir:
-- parcela;
-- compra;
-- materiales;
-- construcción;
-- tenant;
-- renta;
-- upgrade;
-- rival;
-- crimen;
-- policía;
-- política mínima;
-- costes económicos básicos.
+El candidato funcional está implementado y es jugable en navegador. La base de UX ya incluye
+mapa principal, HUD jerarquizado, inspector contextual, feedback de estados y onboarding, por
+lo que WP2.14 puede comenzar. Quedan el playtest prolongado, balance, métricas de producto y la
+evidencia del spike antes de declarar el gate aprobado.
 
 La experiencia sigue siendo Landlord/Entrepreneur.
 

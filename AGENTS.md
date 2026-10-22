@@ -76,3 +76,8 @@ Construir y validar el núcleo:
 comprar terreno -> producir -> construir -> ocupar -> generar caja -> competir -> asumir riesgos -> reaccionar a una decisión política.
 
 La arquitectura debe dejar abierta la futura evolución de una misma Person entre distintos roles sin que eso amplíe el scope del Gate actual.
+
+
+## Directrices de Contexto
+- **Conocimiento del Proyecto:** Utiliza la wiki ubicada en la carpeta `./ai-context/` para cualquier regla de desarrollo, estilos y decisiones de arquitectura.
+- **Habilidades de Seguridad:** Tienes acceso global a las metodologías de `reverse-skill`. Utilízalas cuando se te ordene analizar binarios, APKs o realizar auditorías de código.

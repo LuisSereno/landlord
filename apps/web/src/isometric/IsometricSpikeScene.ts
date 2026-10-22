@@ -14,6 +14,11 @@ const COLORS = {
   tileAlternate: 0x384b68,
   outline: 0x536b8b,
   selected: 0xf2c14e,
+  parcelAvailable: 0x7f8fa6,
+  parcelPlayer: 0x4db6ac,
+  parcelRival: 0xd97757,
+  building: 0xead7a1,
+  construction: 0xb8a46a,
 };
 
 const STRUCTURE_TEXTURE_KEY = "benchmark-structure-marker";
@@ -81,6 +86,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   public setProjection(projection: ViewProjectionV1): void {
     this.projection = projection;
     this.updateBlitterPositions();
+    this.drawOverlay();
   }
 
   public setCellPickedListener(listener: (cell: GridCell) => void): void {
@@ -123,6 +129,48 @@ export class IsometricSpikeScene extends Phaser.Scene {
     const graphics = this.mapGraphics;
     if (!graphics) return;
     graphics.clear();
+    for (const parcel of this.projection?.economy?.parcels ?? []) {
+      const center = this.screenCenter(parcel.cell);
+      const halfWidth = this.layout.tileWidth / 2 - 4;
+      const halfHeight = this.layout.tileHeight / 2 - 3;
+      const color =
+        parcel.ownerOrganizationId === "org_00000001"
+          ? COLORS.parcelPlayer
+          : parcel.ownerOrganizationId === "org_00000002"
+            ? COLORS.parcelRival
+            : COLORS.parcelAvailable;
+      graphics.lineStyle(2, color, 0.9);
+      graphics.beginPath();
+      graphics.moveTo(center.x, center.y - halfHeight);
+      graphics.lineTo(center.x + halfWidth, center.y);
+      graphics.lineTo(center.x, center.y + halfHeight);
+      graphics.lineTo(center.x - halfWidth, center.y);
+      graphics.closePath();
+      graphics.strokePath();
+    }
+    for (const building of this.projection?.economy?.buildings ?? []) {
+      const parcel = this.projection?.economy?.parcels.find(
+        (entry) => entry.buildingId === building.id,
+      );
+      if (!parcel) continue;
+      const center = this.screenCenter(parcel.cell);
+      graphics.fillStyle(COLORS.building, 0.9);
+      graphics.fillRect(center.x - 7, center.y - 12, 14, 12 + building.level * 3);
+    }
+    for (const site of this.projection?.economy?.constructionSites ?? []) {
+      const parcel = this.projection?.economy?.parcels.find((entry) => entry.id === site.parcelId);
+      if (!parcel) continue;
+      const center = this.screenCenter(parcel.cell);
+      graphics.lineStyle(3, COLORS.construction, 1);
+      graphics.strokeRect(center.x - 8, center.y - 8, 16, 8);
+      graphics.fillStyle(COLORS.construction, 1);
+      graphics.fillRect(
+        center.x - 8,
+        center.y - 8,
+        16 * Math.min(1, site.progress / site.workRequired),
+        3,
+      );
+    }
     if (this.selectedCell) {
       const center = this.screenCenter(this.selectedCell);
       const halfWidth = this.layout.tileWidth / 2;
@@ -235,7 +283,15 @@ export class IsometricSpikeScene extends Phaser.Scene {
       this.dragStart = null;
       return;
     }
-    const selected = pickGridCell({ x: pointer.worldX, y: pointer.worldY }, this.layout);
+    const camera = this.cameras.main;
+    const nativePointer = pointer.event as PointerEvent;
+    const selected = pickGridCell(
+      {
+        x: nativePointer.offsetX / camera.zoom + camera.scrollX,
+        y: nativePointer.offsetY / camera.zoom + camera.scrollY,
+      },
+      this.layout,
+    );
     this.selectedCell = selected;
     this.drawOverlay();
     this.debugText?.setText(this.debugLabel());
@@ -262,8 +318,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
 
 export const isometricSpikeGameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
-  width: 640,
-  height: 480,
+  scale: {
+    mode: Phaser.Scale.RESIZE,
+    width: 640,
+    height: 480,
+  },
   backgroundColor: "#101827",
   render: {
     antialias: false,

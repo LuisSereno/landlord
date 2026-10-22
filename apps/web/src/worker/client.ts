@@ -2,8 +2,13 @@ import {
   initializeGameRequestSchema,
   loadSnapshotRequestSchema,
   parseCommandId,
+  parseBuildingId,
+  parseConstructionSiteId,
   parseOrganizationId,
+  parseParcelId,
   parsePersonId,
+  parsePolicyId,
+  parseTenantId,
   requestIdSchema,
   saveSnapshotRequestSchema,
   setRunStateRequestSchema,
@@ -11,6 +16,8 @@ import {
   viewProjectionV1Schema,
   workerResponseSchema,
   type SnapshotV1,
+  type ProductCommand,
+  type SimulationMetrics,
   type ViewProjectionV1,
   type WorkerRequest,
   type WorkerResponse,
@@ -27,7 +34,14 @@ export type WorkerPort = {
 
 type PendingRequest = {
   resolve: (response: WorkerResponse) => void;
+  label: string;
 };
+
+export type ClientDiagnostic =
+  | { kind: "commandAccepted"; label: string }
+  | { kind: "commandRejected"; code: string; message: string }
+  | { kind: "transportError"; message: string }
+  | { kind: "metrics"; metrics: SimulationMetrics };
 
 export class SimulationWorkerClient {
   private nextRequestNumber = 1;
@@ -39,6 +53,7 @@ export class SimulationWorkerClient {
     private readonly port: WorkerPort,
     private readonly onProjection: (projection: ViewProjectionV1) => void,
     private readonly onTransportError: (message: string) => void,
+    private readonly onDiagnostic: (diagnostic: ClientDiagnostic) => void = () => undefined,
   ) {
     this.port.addEventListener("message", this.handleMessageBound);
   }
@@ -84,6 +99,76 @@ export class SimulationWorkerClient {
     );
   }
 
+  public buyParcel(parcelId: string): Promise<WorkerResponse> {
+    return this.submitProductCommand({
+      commandId: parseCommandId(`command-${this.nextCommandNumber++}`),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "BuyParcel",
+      payload: { parcelId: parseParcelId(parcelId) },
+    });
+  }
+
+  public startConstruction(parcelId: string, buildingType: "courtyard_home" | "workshop") {
+    return this.submitProductCommand({
+      commandId: parseCommandId(`command-${this.nextCommandNumber++}`),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "StartConstruction",
+      payload: { parcelId: parseParcelId(parcelId), buildingType },
+    });
+  }
+
+  public assignTenant(buildingId: string, tenantId: string) {
+    return this.submitProductCommand({
+      commandId: parseCommandId(`command-${this.nextCommandNumber++}`),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "AssignTenant",
+      payload: { buildingId: parseBuildingId(buildingId), tenantId: parseTenantId(tenantId) },
+    });
+  }
+
+  public cancelConstruction(constructionSiteId: string) {
+    return this.submitProductCommand({
+      commandId: parseCommandId(`command-${this.nextCommandNumber++}`),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "CancelConstruction",
+      payload: { constructionSiteId: parseConstructionSiteId(constructionSiteId) },
+    });
+  }
+
+  public upgradeBuilding(buildingId: string) {
+    return this.submitProductCommand({
+      commandId: parseCommandId(`command-${this.nextCommandNumber++}`),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "UpgradeBuilding",
+      payload: { buildingId: parseBuildingId(buildingId) },
+    });
+  }
+
+  public lobbyPolicy(policyId: string) {
+    return this.submitProductCommand({
+      commandId: parseCommandId(`command-${this.nextCommandNumber++}`),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "LobbyPolicy",
+      payload: { policyId: parsePolicyId(policyId) },
+    });
+  }
+
+  public commitCrime(targetOrganizationId = "org_00000002") {
+    return this.submitProductCommand({
+      commandId: parseCommandId(`command-${this.nextCommandNumber++}`),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "CommitCrime",
+      payload: { targetOrganizationId: parseOrganizationId(targetOrganizationId) },
+    });
+  }
+
   public saveSnapshot(): Promise<WorkerResponse> {
     return this.send(
       saveSnapshotRequestSchema.parse({
@@ -114,9 +199,20 @@ export class SimulationWorkerClient {
 
   private send(request: WorkerRequest): Promise<WorkerResponse> {
     return new Promise((resolve) => {
-      this.pending.set(request.requestId, { resolve });
+      this.pending.set(request.requestId, { resolve, label: requestLabel(request) });
       this.port.postMessage(request);
     });
+  }
+
+  private submitProductCommand(command: ProductCommand): Promise<WorkerResponse> {
+    return this.send(
+      submitCommandRequestSchema.parse({
+        protocolVersion: 1,
+        requestId: this.nextRequestId(),
+        type: "SubmitCommand",
+        payload: { command },
+      }) as WorkerRequest,
+    );
   }
 
   private nextRequestId() {
@@ -126,18 +222,39 @@ export class SimulationWorkerClient {
   private handleMessage(rawResponse: unknown): void {
     const parsed = workerResponseSchema.safeParse(rawResponse);
     if (!parsed.success) {
-      this.onTransportError("El Worker devolvió un mensaje inválido.");
+      const message = "El Worker devolvió un mensaje inválido.";
+      this.onTransportError(message);
+      this.onDiagnostic({ kind: "transportError", message });
       return;
     }
     const response = parsed.data;
     if (response.type === "ProjectionPublished") {
       const projection = viewProjectionV1Schema.safeParse(response.payload);
-      if (projection.success) this.onProjection(projection.data);
+      if (projection.success) this.onProjection(projection.data as ViewProjectionV1);
       else this.onTransportError("La proyección del Worker no es válida.");
       return;
     }
-    if (response.type === "SimulationMetricsPublished") return;
-    this.pending.get(response.requestId)?.resolve(response);
+    if (response.type === "SimulationMetricsPublished") {
+      this.onDiagnostic({ kind: "metrics", metrics: response.payload });
+      return;
+    }
+    const pending = this.pending.get(response.requestId);
+    if (response.type === "RequestFailed") {
+      this.onDiagnostic({
+        kind: "commandRejected",
+        code: response.payload.code,
+        message: response.payload.message,
+      });
+    } else if (pending?.label.startsWith("SubmitCommand:")) {
+      this.onDiagnostic({ kind: "commandAccepted", label: pending.label });
+    }
+    pending?.resolve(response);
     this.pending.delete(response.requestId);
   }
+}
+
+function requestLabel(request: WorkerRequest): string {
+  return request.type === "SubmitCommand"
+    ? `SubmitCommand:${request.payload.command.type}`
+    : request.type;
 }

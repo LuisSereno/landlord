@@ -7,7 +7,7 @@ import {
   type RequestId,
 } from "./primitives";
 import { seedSchema, type Seed } from "./time-and-grid";
-import { placeTestStructureSchema, type PlaceTestStructure } from "./domain";
+import { productCommandSchema, type ProductCommand } from "./domain";
 
 export type RequestEnvelope<TType extends string, TPayload> = {
   protocolVersion: ProtocolVersion;
@@ -40,12 +40,12 @@ export const initializeGameRequestSchema = requestEnvelopeSchema(
 export type SubmitCommandRequest = RequestEnvelope<
   "SubmitCommand",
   {
-    command: PlaceTestStructure;
+    command: ProductCommand;
   }
 >;
 export const submitCommandRequestSchema = requestEnvelopeSchema(
   "SubmitCommand",
-  z.object({ command: placeTestStructureSchema }),
+  z.object({ command: productCommandSchema }),
 );
 
 export type SetRunStateRequest = RequestEnvelope<

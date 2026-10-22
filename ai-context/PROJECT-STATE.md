@@ -10,7 +10,7 @@ Fecha de consolidación: 2026-10-21.
 - Plan maestro de ejecución por fases: sí.
 - Plantilla de microtareas para agentes de baja ambigüedad: sí.
 - Fase 0 de preparación: cerrada el 2026-10-20.
-- ADRs D-046 a D-055: aceptados.
+- ADRs D-046 a D-059: aceptados.
 - Charter, contratos, benchmark y backlog inicial de Gate 1: listos.
 - Historias del prototipo: sí.
 - Riesgos: sí.
@@ -58,19 +58,24 @@ Además del núcleo inmobiliario:
 Estos sistemas están documentados, no implementados.
 
 ## Implementación
-- Código jugable: no.
+- Código jugable: sí, baseline vertical de Gate 2.
 - package.json: sí, raíz y workspaces mínimos de Gate 1.
 - CI: sí, checks base en GitHub Actions.
 - assets: no.
 - backend: no.
-- modelo de datos implementado: contratos shared v1 y núcleo autoritativo headless de Gate 1.
-- tests: sí, smoke, contratos, schemas y arquitectura de fronteras.
+- modelo de datos implementado: contratos shared v1 extendidos de forma aditiva y núcleo autoritativo headless de Gate 2.
+- tests: sí, smoke, contratos, schemas, arquitectura de fronteras, bucle de producto determinista y diagnóstico de sesión acotado.
 
 ## Fase
 Gate 1 aprobado `GO` el 2026-10-21; la evidencia técnica de G1-RW-01..04 quedó reunida.
+Gate 2 en `REVIEW`: candidato funcional integrado el 2026-10-21; todavía no existe acta GO de
+producto porque faltan el playtest prolongado y la evidencia visual de WP2.14.
 
 ## Próximo objetivo
-Gate 2 — viabilidad de producto.
+Ejecutar el Visual Direction Spike sobre la pantalla representativa y, cuando haya tiempo,
+una sesión humana de 30–60 minutos con seeds de referencia. El cierre funcional corto ya cubre
+recursos renovables, cuadrilla/cancelación, elección de construcción e inquilino, upgrades,
+libro económico, rival, política y riesgo con consecuencias visibles.
 
 El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista, Worker,
 snapshot v1, IndexedDB, escena/picking, flujo vertical, benchmark y soak headless están
@@ -80,15 +85,16 @@ cumplen los umbrales. Gate 2 queda habilitado. D-055 resuelve el punto `events`/
 eventos normales son efímeros, mientras que la memoria histórica se materializará en registros
 específicos cuando una regla lo necesite.
 
-Debe validar:
-- render isométrico;
-- picking;
-- Web Worker;
-- tick fijo;
-- seed y PRNG;
-- determinismo;
-- save/load;
-- benchmark.
+El baseline ya valida en código y smoke de navegador: render isométrico/picking, Worker,
+tick fijo, seed/PRNG, determinismo, save/load y el primer flujo de producto. Debe validar en
+sesiones de 30–60 minutos que el ritmo y los trade-offs son comprensibles y sostenibles.
+El HUD incluye un diagnóstico efímero de comandos, transporte y métricas del Worker para que
+los playtests puedan identificar rechazos repetidos sin persistir datos no autoritativos.
+La comprobación manual básica de esa instrumentación quedó cerrada sin errores ni rechazos;
+no reemplaza la validación de producto de Gate 2.
+La captura de la implementación anterior confirmó una vista técnica. WP2.11 ya usa una base
+map-céntrica con panel operativo superpuesto/plegable, HUD jerarquizado, inspector contextual y
+estados legibles; está lista para servir de pantalla representativa a WP2.14 según D-058.
 
 ## Restricciones arquitectónicas que Gate 1 debe respetar
 

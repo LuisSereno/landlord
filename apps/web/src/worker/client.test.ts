@@ -65,4 +65,39 @@ describe("SimulationWorkerClient", () => {
     worker.emit({ invalid: true });
     expect(errors).toEqual(["El Worker devolvió un mensaje inválido."]);
   });
+
+  it("forwards validated session metrics without treating them as a request response", () => {
+    const worker = new FakeWorker();
+    const diagnostics: unknown[] = [];
+    new SimulationWorkerClient(
+      worker,
+      () => undefined,
+      () => undefined,
+      (entry) => diagnostics.push(entry),
+    );
+    worker.emit({
+      protocolVersion: 1,
+      requestId: null,
+      type: "SimulationMetricsPublished",
+      payload: {
+        tick: 20,
+        pendingCommands: 0,
+        structures: 1,
+        acceptedCommands: 1,
+        rejectedCommands: [{ code: "DUPLICATE_COMMAND", count: 1 }],
+      },
+    });
+    expect(diagnostics).toEqual([
+      {
+        kind: "metrics",
+        metrics: {
+          tick: 20,
+          pendingCommands: 0,
+          structures: 1,
+          acceptedCommands: 1,
+          rejectedCommands: [{ code: "DUPLICATE_COMMAND", count: 1 }],
+        },
+      },
+    ]);
+  });
 });

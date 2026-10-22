@@ -18,7 +18,22 @@ export type ErrorCode =
   | "INVALID_PAYLOAD"
   | "UNSUPPORTED_PROTOCOL"
   | "INVALID_SNAPSHOT"
-  | "INCOMPATIBLE_SCHEMA";
+  | "INCOMPATIBLE_SCHEMA"
+  | "PARCEL_NOT_FOUND"
+  | "PARCEL_UNAVAILABLE"
+  | "INSUFFICIENT_FUNDS"
+  | "BUILDING_NOT_FOUND"
+  | "INVALID_ZONING"
+  | "INSUFFICIENT_RESOURCES"
+  | "CONSTRUCTION_ALREADY_ACTIVE"
+  | "CONSTRUCTION_SITE_NOT_FOUND"
+  | "CREW_UNAVAILABLE"
+  | "TENANT_NOT_FOUND"
+  | "TENANT_INCOMPATIBLE"
+  | "TENANT_ALREADY_ASSIGNED"
+  | "POLICY_NOT_AVAILABLE"
+  | "INFLUENCE_TOO_LOW"
+  | "CRIME_TARGET_INVALID";
 
 const responseVersion = protocolVersionSchema;
 
@@ -64,7 +79,37 @@ const errorCodeSchema = z.enum([
   "UNSUPPORTED_PROTOCOL",
   "INVALID_SNAPSHOT",
   "INCOMPATIBLE_SCHEMA",
+  "PARCEL_NOT_FOUND",
+  "PARCEL_UNAVAILABLE",
+  "INSUFFICIENT_FUNDS",
+  "BUILDING_NOT_FOUND",
+  "INVALID_ZONING",
+  "INSUFFICIENT_RESOURCES",
+  "CONSTRUCTION_ALREADY_ACTIVE",
+  "CONSTRUCTION_SITE_NOT_FOUND",
+  "CREW_UNAVAILABLE",
+  "TENANT_NOT_FOUND",
+  "TENANT_INCOMPATIBLE",
+  "TENANT_ALREADY_ASSIGNED",
+  "POLICY_NOT_AVAILABLE",
+  "INFLUENCE_TOO_LOW",
+  "CRIME_TARGET_INVALID",
 ]);
+
+export const simulationMetricsSchema = z.object({
+  tick: tickSchema,
+  pendingCommands: z.number().int().nonnegative(),
+  structures: z.number().int().nonnegative(),
+  acceptedCommands: z.number().int().nonnegative(),
+  rejectedCommands: z.array(
+    z.object({
+      code: errorCodeSchema,
+      count: z.number().int().positive(),
+    }),
+  ),
+});
+
+export type SimulationMetrics = z.infer<typeof simulationMetricsSchema>;
 
 export const requestFailedSchema = z.object({
   protocolVersion: responseVersion,
@@ -95,14 +140,14 @@ export type SimulationMetricsPublished = {
   protocolVersion: ProtocolVersion;
   requestId: null;
   type: "SimulationMetricsPublished";
-  payload: unknown;
+  payload: SimulationMetrics;
 };
 
 export const simulationMetricsPublishedSchema = z.object({
   protocolVersion: responseVersion,
   requestId: z.null(),
   type: z.literal("SimulationMetricsPublished"),
-  payload: z.unknown(),
+  payload: simulationMetricsSchema,
 });
 
 export const workerResponseSchemas = [

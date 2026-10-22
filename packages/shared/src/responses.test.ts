@@ -32,7 +32,13 @@ describe("Worker responses", () => {
         protocolVersion: responseVersion,
         requestId: null,
         type: "SimulationMetricsPublished",
-        payload: {},
+        payload: {
+          tick: 2,
+          pendingCommands: 0,
+          structures: 1,
+          acceptedCommands: 1,
+          rejectedCommands: [],
+        },
       }).type,
     ).toBe("SimulationMetricsPublished");
   });

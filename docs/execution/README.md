@@ -44,7 +44,7 @@ La cadena de valor que debe mantenerse visible es:
 |---|---|---|
 | Fase 0 | DONE — cerrada 2026-10-20 | Acta en `phase-0/PHASE-0-CLOSURE.md` |
 | Fase 1 / Gate 1 | REWORK — acta 2026-10-20 | Cerrar G1-RW-01..03 antes de aprobar |
-| Fase 2 / Gate 2 | Bloqueada por Gate 1 | Requiere acta GO de Gate 1 |
+| Fase 2 / Gate 2 | REVIEW — candidato funcional 2026-10-21 | Requiere playtest prolongado, Visual Direction Spike y acta GO |
 | Fase 3 / Vertical slice | Bloqueada por Gate 2 | Requiere evidencia de una sesión coherente |
 | Fase 4 / Alpha | No iniciada | Requiere vertical slice validado |
 | Fases 5-6 | No iniciadas | Requieren alcance comercial aprobado |

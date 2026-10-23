@@ -12,8 +12,10 @@ import {
 } from "./isometric/mount";
 import { SimulationWorkerClient, type ClientDiagnostic } from "./worker/client";
 import { BenchmarkApp } from "./BenchmarkApp";
+import { ArtLab } from "./ArtLab";
 
 export function RootApp() {
+  if (window.location.pathname === "/art-lab") return <ArtLab />;
   return new URLSearchParams(window.location.search).get("benchmark") === "gate1-reference-v1" ? (
     <BenchmarkApp />
   ) : (
@@ -282,7 +284,7 @@ export function App() {
     void clientRef.current
       .saveSnapshot()
       .then(async (response) => {
-        if (response.type === "RequestFailed") return;
+        if (response.type !== "RequestSucceeded") return;
         const snapshot = (response.payload.result as { snapshot?: unknown } | undefined)?.snapshot;
         if (snapshot) await createIndexedDbPersistence().save("autosave", snapshot);
       })

@@ -1,6 +1,6 @@
 # Visual Direction Spike
 
-> Estado: pendiente.
+> Estado: cerrado — baseline `graphic_civic` aprobada el 2026-10-23.
 >
 > Objetivo: reducir incertidumbre antes de producir arte masivamente y convertir propuestas de la Art Bible/Pipeline en decisiones medibles.
 
@@ -110,6 +110,12 @@ Además debe superarse un smoke técnico de atlas, carga, anchor, depth sorting,
 Cualquier elemento que no se haya medido debe permanecer explícitamente abierto.
 
 ## Referencia de producción posterior
+
+El spike se cerró con evidencia en
+`docs/execution/phase-2/wp2-14-visual-direction-spike-2026-10-23.md`.
+La producción representativa debe usar `graphic_civic` como baseline, conservar
+`warm_editorial` y `blue_hour` como presets documentados y no reabrir cámara,
+provenance o gobernanza sin una decisión explícita.
 
 ## Plan de producción del Vertical Slice y checklist de entrega
 

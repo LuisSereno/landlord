@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "kitId": "visual_direction_spike_original_01",
+  "status": "approved_baseline",
+  "reviewDate": "2026-10-23",
+  "artBibleVersion": "0.1",
+  "pipeline": {
+    "source": "tools/art-pipeline/blender/visual_direction_spike.py",
+    "blender": "5.2.2",
+    "renderer": "BLENDER_EEVEE",
+    "camera": "orthographic",
+    "cameraAzimuthDegrees": 45,
+    "cameraElevationDegrees": 30,
+    "output": "PNG RGBA 16-bit",
+    "seed": 42
+  },
+  "recommendation": {
+    "baseline": "graphic_civic",
+    "reason": "Mejor equilibrio entre legibilidad sistémica, ownership, accesibilidad y coste de producción repetible.",
+    "presets": {
+      "warm_editorial": "daylight material preset",
+      "blue_hour": "optional atmosphere preset"
+    },
+    "stillOpen": [
+      "exact physical cell scale after dense Phaser scene profiling",
+      "final atlas packer and Git LFS policy",
+      "character animation directions beyond the representative still"
+    ]
+  },
+  "directions": [
+    {
+      "id": "graphic_civic",
+      "score": 93,
+      "weights": {
+        "legibility": 19,
+        "ipDistance": 14,
+        "repeatableCost": 14,
+        "webPerformance": 14,
+        "modularVariation": 9,
+        "perceivedQuality": 8,
+        "collaboratorEase": 5,
+        "automation": 5,
+        "accessibility": 5
+      },
+      "render": {
+        "path": "blender_artist/generated/renders/visual_direction_spike_graphic_civic_2026-10-23.png",
+        "sha256": "cc81a1c610e37ef636ea7c832f0f18e0376a271d233185c82839250cc47b9952",
+        "width": 1024,
+        "height": 576,
+        "bytes": 2074163,
+        "elapsedMs": 6482.52,
+        "runtimePath": "apps/web/public/assets/art-spike/visual_direction_spike_graphic_civic_2026-10-23.png"
+      },
+      "review": "approved_baseline"
+    },
+    {
+      "id": "warm_editorial",
+      "score": 82,
+      "weights": {
+        "legibility": 16,
+        "ipDistance": 14,
+        "repeatableCost": 10,
+        "webPerformance": 12,
+        "modularVariation": 10,
+        "perceivedQuality": 9,
+        "collaboratorEase": 3,
+        "automation": 5,
+        "accessibility": 3
+      },
+      "render": {
+        "path": "blender_artist/generated/renders/visual_direction_spike_warm_editorial_2026-10-23.png",
+        "sha256": "b016a373556227978551c8c7a73292d59e4851550b91634c49ba5bc27961c45b",
+        "width": 1024,
+        "height": 576,
+        "bytes": 2058148,
+        "elapsedMs": 6378.94,
+        "runtimePath": "apps/web/public/assets/art-spike/visual_direction_spike_warm_editorial_2026-10-23.png"
+      },
+      "review": "approved_as_alternative"
+    },
+    {
+      "id": "blue_hour",
+      "score": 85,
+      "weights": {
+        "legibility": 15,
+        "ipDistance": 14,
+        "repeatableCost": 12,
+        "webPerformance": 14,
+        "modularVariation": 9,
+        "perceivedQuality": 9,
+        "collaboratorEase": 4,
+        "automation": 5,
+        "accessibility": 3
+      },
+      "render": {
+        "path": "blender_artist/generated/renders/visual_direction_spike_blue_hour_2026-10-23.png",
+        "sha256": "08645d2fb6da07d710b1514eb5667264dd7b50386f91e5f151d672df03ab8b31",
+        "width": 1024,
+        "height": 576,
+        "bytes": 1853733,
+        "elapsedMs": 6245.95,
+        "runtimePath": "apps/web/public/assets/art-spike/visual_direction_spike_blue_hour_2026-10-23.png"
+      },
+      "review": "approved_as_atmosphere_only"
+    }
+  ],
+  "kitCoverage": [
+    "road",
+    "sidewalk",
+    "parcel",
+    "residential building",
+    "industrial building",
+    "worker",
+    "civilian",
+    "vehicle",
+    "vegetation",
+    "scaffold",
+    "smoke",
+    "selection",
+    "ownership"
+  ],
+  "provenance": {
+    "proceduralRenders": "original procedural geometry and materials authored in repository script",
+    "conceptReferences": "OpenAI image generation tool; generated concepts are reference-only and not runtime source",
+    "thirdPartyInputs": "none used in the procedural render; CC0 staging remains declared but not copied into runtime"
+  }
+}

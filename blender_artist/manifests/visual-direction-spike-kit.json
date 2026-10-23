@@ -1,7 +1,8 @@
 {
   "schemaVersion": 1,
   "kitId": "visual_direction_spike_original_01",
-  "status": "briefed_not_rendered",
+  "status": "approved_baseline",
+  "resultManifest": "blender_artist/manifests/visual-direction-spike-result-2026-10-23.json",
   "artBibleVersion": "0.1",
   "generatedReferences": [
     {
@@ -11,7 +12,34 @@
       "generator": "OpenAI image generation tool",
       "promptRecord": "2026-10-21 original-isometric-city concept; no reference-game assets or trade dress",
       "usage": "private concept reference only; not an approved source or runtime asset",
-      "similarityReview": "pending human review"
+      "similarityReview": "reviewed 2026-10-23; original concept reference, no protected reference used"
+    },
+    {
+      "path": "blender_artist/generated/concepts/visual_direction_spike_direction_a_warm_editorial_2026-10-23.png",
+      "sha256": "8a152caed4bd5a6f39c38eb9e068e907563ab97f767ef8d002a93c4d23ee4ffe",
+      "origin": "generated",
+      "generator": "OpenAI image generation tool",
+      "promptRecord": "2026-10-23 warm editorial original isometric district; same functional kit, no text or reference-game trade dress",
+      "usage": "concept reference only; not an approved runtime source",
+      "similarityReview": "reviewed 2026-10-23; original concept reference, no protected reference used"
+    },
+    {
+      "path": "blender_artist/generated/concepts/visual_direction_spike_direction_b_graphic_civic_2026-10-23.png",
+      "sha256": "16d6484f863fa5c94b489c732caf059a6d568f6de45a01f29bfb7829d847a745",
+      "origin": "generated",
+      "generator": "OpenAI image generation tool",
+      "promptRecord": "2026-10-23 graphic civic original isometric district; cyan/yellow data overlays, no text or reference-game trade dress",
+      "usage": "concept reference only; not an approved runtime source",
+      "similarityReview": "reviewed 2026-10-23; original concept reference, no protected reference used"
+    },
+    {
+      "path": "blender_artist/generated/concepts/visual_direction_spike_direction_c_blue_hour_2026-10-23.png",
+      "sha256": "b109efe6ca4b88b4700dc8467f3e703d3d275fd745979bf417323371bdda409c",
+      "origin": "generated",
+      "generator": "OpenAI image generation tool",
+      "promptRecord": "2026-10-23 blue-hour ledger original isometric district; amber windows and parcel overlays, no text or reference-game trade dress",
+      "usage": "concept reference only; not an approved runtime source",
+      "similarityReview": "reviewed 2026-10-23; original concept reference, no protected reference used"
     }
   ],
   "constraints": [

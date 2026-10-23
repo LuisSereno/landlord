@@ -92,8 +92,9 @@ Pendiente para implementación del Vertical Slice:
   costes previos, producción, cuadrilla, tenants, renta, progreso, cancelación y libro de caja.
 - La prueba manual del responsable fue OK, pero no dejó duración, seeds ni métricas cuantitativas;
   siguen pendientes para el balance financiero posterior.
-- Gate 2 está en `CONDITIONAL GO`; el Visual Direction Spike sigue abierto y bloquea sólo el arte
-  representativo de WP3.13.
+- Gate 2 está en `GO` para producción representativa; WP2.14 cerró el Visual Direction Spike
+  con baseline `graphic_civic`, Art Lab y provenance. El profiling de escena densa continúa en
+  WP3.13, sin reabrir la dirección visual.
 - El rival completa compra, mercado, inversión productiva, construcción, ocupación y renta con
   utility determinista, reserva de liquidez y cooldown ante fallos. Su profundidad sigue siendo
   deliberadamente mínima y sólo se amplía si el playtest lo justifica.
@@ -142,7 +143,7 @@ Pendiente para implementación del Vertical Slice:
   automatización de decisiones irreversibles y auditoría completa de accesibilidad siguen fuera.
 - WP3.14 tiene saves `phase3-dev`, validación IndexedDB, autosave mensual local, carga atómica y
   metadatos de tamaño/schema/engine. Cloud save, sincronización y telemetría remota siguen fuera;
-  WP3.13 continúa condicionado por WP2.14.
+  WP3.13 puede producir contenido representativo sobre la baseline aprobada.
 - WP3.15 tiene suite, smoke browser externo, benchmark headless, auditoría y soak con save/restore
   en verde. La decisión final de inversión y cierre de Fase 3 sigue `CONDITIONAL` hasta cerrar
   WP2.14 y ejecutar el playtest visual representativo.

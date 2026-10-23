@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "assetId": "visual_direction_spike_blue_hour",
+  "type": "visual_direction_spike_render",
+  "direction": "blue_hour",
+  "label": "Blue hour ledger",
+  "origin": "original",
+  "license": "PROJECT-ASSET-LICENSE",
+  "author": "Landlord project / procedural pipeline",
+  "source": "blender_artist/generated/renders/visual_direction_spike_blue_hour_2026-10-23.blend",
+  "toolchain": {
+    "blender": "5.2.2",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthBaseline": 45,
+    "elevationBaseline": 30,
+    "orthoScale": 18.399999618530273
+  },
+  "render": {
+    "width": 1024,
+    "height": 576,
+    "colorMode": "RGBA",
+    "colorDepth": 16,
+    "elapsedMs": 6245.95
+  },
+  "kit": [
+    "residential",
+    "industrial",
+    "road",
+    "parcel",
+    "worker",
+    "civilian",
+    "vehicle",
+    "scaffold",
+    "smoke",
+    "selection",
+    "ownership"
+  ],
+  "reproducibility": {
+    "seed": 42,
+    "script": "tools/art-pipeline/blender/visual_direction_spike.py"
+  }
+}

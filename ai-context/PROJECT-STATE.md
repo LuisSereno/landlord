@@ -17,7 +17,8 @@ Fecha de consolidación: 2026-10-23.
 - Investigación histórica: sí.
 - Investigación avanzada de dirección artística y pipeline: sí.
 - Art Bible / Art Pipeline v0.1: documentadas como propuesta de preproducción; no ratificadas como ADR.
-- Visual Direction Spike: definido; pendiente de ejecución.
+- Visual Direction Spike: cerrado el 2026-10-23; baseline `graphic_civic` aprobada, con Art Lab y
+  provenance en `docs/execution/phase-2/wp2-14-visual-direction-spike-2026-10-23.md`.
 - Blender 5.2.2 LTS: instalado localmente y fijado como toolchain artístico inicial (D-053).
 - Librería bootstrap CC0: descargada localmente; aún no versionada en Git.
 - Staging artístico local: organizado por fuentes CC0 verificadas, cuarentena de
@@ -69,14 +70,13 @@ Estos sistemas están documentados, no implementados.
 
 ## Fase
 Gate 1 aprobado `GO` el 2026-10-21; la evidencia técnica de G1-RW-01..04 quedó reunida.
-Gate 2 en `CONDITIONAL GO` desde el 2026-10-23: el responsable confirmó la prueba manual OK,
-WP2.15 está cerrado y el benchmark/smoke pasan. La única condición es cerrar WP2.14 antes de
-producir arte representativo en WP3.13.
+Gate 2 en `GO` para producción representativa desde el 2026-10-23: el responsable confirmó la
+prueba manual OK, WP2.15 está cerrado, el benchmark/smoke pasan y WP2.14 aprobó `graphic_civic`.
 
 ## Próximo objetivo
 WP3.14 está cerrado en persistencia/observabilidad local y WP3.15 queda en `CONDITIONAL` tras
-la validación técnica. Continuar cerrando WP2.14 antes de
-WP3.13 (arte, audio y rendimiento representativos), manteniendo la condición G3-04 de WP3.4
+la validación técnica. Continuar con WP3.13 (arte, audio y rendimiento representativos),
+manteniendo la condición G3-04 de WP3.4
 para WP3.9. La prueba manual del responsable se conserva como evidencia
 cualitativa; la medición cuantitativa de 30–60 minutos sigue pendiente para balance financiero.
 El baseline

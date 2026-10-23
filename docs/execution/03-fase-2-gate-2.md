@@ -21,8 +21,8 @@ autoritativa y las referencias de Phase 2 se validan.
 
 WP2.13 queda respaldado por la confirmación manual OK del responsable y por la suite, benchmark y
 smoke reproducibles. WP2.15 queda implementado y validado por pruebas tácticas y smoke browser.
-El Gate 2 pasa a `CONDITIONAL GO`: la única condición abierta es cerrar WP2.14 con evidencia
-visual reproducible antes de producir arte representativo en WP3.13. La decisión completa está en
+WP2.14 queda cerrado el 2026-10-23 con baseline `graphic_civic`, renders headless, provenance,
+metadata y Art Lab. El Gate 2 pasa a `GO` para producción representativa. La decisión completa está en
 `docs/execution/phase-2/gate-2-review-2026-10-23.md`.
 
 ## Criterios de entrada
@@ -293,9 +293,9 @@ medición para el balance financiero posterior.
 
 ## WP2.14 — Visual Direction Spike y preparación de producción artística
 
-**Estado 2026-10-23:** `CONDITION`. El kit está briefado y la validación de staging pasa, pero
-faltan las 2–3 direcciones comparables, renders, métricas y recomendación reproducible. Esto no
-bloquea los work packages funcionales del Vertical Slice; sí bloquea WP3.13.
+**Estado 2026-10-23:** `DONE — approved baseline`. El kit tiene tres direcciones comparables,
+renders reproducibles, métricas, provenance, recomendación y Art Lab. WP3.13 puede comenzar
+sin rediseñar cámara, formato ni gobernanza.
 
 **Resultado:** evidencia reproducible para decidir la dirección visual y el
 pipeline del Vertical Slice, sin producir arte final ni convertir fuentes

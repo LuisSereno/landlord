@@ -10,6 +10,7 @@
   },
   "scripts": {
     "art:staging:validate": "node scripts/validate-art-staging.mjs",
+    "art:spike:validate": "node scripts/validate-visual-direction-spike.mjs",
     "lint": "eslint . && pnpm check:architecture",
     "check:architecture": "node scripts/check-architecture.mjs",
     "typecheck": "pnpm -r --if-present typecheck",
@@ -19,6 +20,7 @@
     "benchmark": "BENCHMARK_FULL=1 vitest run --config vitest.config.ts packages/simulation/src/benchmark.test.ts --reporter=verbose",
     "benchmark:browser": "pnpm build && node scripts/browser-benchmark.mjs",
     "smoke:phase2": "node scripts/phase2-browser-smoke.mjs",
+    "smoke:art-lab": "node scripts/art-lab-browser-smoke.mjs",
     "soak": "SOAK_FULL=1 vitest run --config vitest.config.ts packages/simulation/src/soak.test.ts --reporter=verbose",
     "audit:metrics": "AUDIT_METRICS=1 vitest run --config vitest.config.ts packages/simulation/src/audit-metrics.test.ts --reporter=verbose",
     "format:check": "prettier --check .",

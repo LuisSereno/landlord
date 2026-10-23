@@ -58,8 +58,8 @@ La cadena de valor que debe mantenerse visible es:
 |---|---|---|
 | Fase 0 | DONE — cerrada 2026-10-20 | Acta en `phase-0/PHASE-0-CLOSURE.md` |
 | Fase 1 / Gate 1 | REWORK — acta 2026-10-20 | Cerrar G1-RW-01..03 antes de aprobar |
-| Fase 2 / Gate 2 | CONDITIONAL GO — revisión 2026-10-23 | WP2.14 queda como condición y bloquea sólo arte representativo/WP3.13 |
-| Fase 3 / Vertical slice | IN_PROGRESS — WP3.2 a WP3.3 cerrados; WP3.4 y WP3.5 a WP3.12 DONE; WP3.14 DONE; WP3.15 CONDITIONAL | WP3.13 y la decisión final del slice esperan WP2.14 |
+| Fase 2 / Gate 2 | GO — WP2.14 cerrado 2026-10-23 | Baseline `graphic_civic`; WP3.13 habilitado |
+| Fase 3 / Vertical slice | IN_PROGRESS — WP3.2 a WP3.3 cerrados; WP3.4 y WP3.5 a WP3.12 DONE; WP3.14 DONE; WP3.15 CONDITIONAL | WP3.13 y la decisión final del slice siguen en curso |
 | Fase 4 / Alpha | No iniciada | Requiere vertical slice validado |
 | Fases 5-6 | No iniciadas | Requieren alcance comercial aprobado |
 | Fases 7-8 | Futuras, no comprometidas | Requieren validación explícita del producto base |

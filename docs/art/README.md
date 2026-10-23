@@ -7,6 +7,7 @@ Esta carpeta contiene la especificación artística y la ingeniería de contenid
 - [ART-BIBLE.md](ART-BIBLE.md) — Art Bible v0.1: principios visuales, cámara, escala, arquitectura, materiales, personajes, VFX, UI, accesibilidad y legibilidad.
 - [ART-PIPELINE.md](ART-PIPELINE.md) — Art Pipeline Specification v0.1: Blender, templates, render headless, naming, metadata, anchors, atlases, Phaser, CI, provenance y QA.
 - [VISUAL-DIRECTION-SPIKE.md](VISUAL-DIRECTION-SPIKE.md) — experimento que debe validar o rechazar los baselines antes de producción masiva.
+- [WP2-14-CODEX-RUNBOOK.md](WP2-14-CODEX-RUNBOOK.md) — ejecución paso a paso con GPT-5.6 Sol High y checkpoints obligatorios Extra High.
 - [OPEN-DECISIONS.md](OPEN-DECISIONS.md) — matriz de parámetros todavía abiertos.
 - [BOOTSTRAP-ASSET-LIBRARY.md](BOOTSTRAP-ASSET-LIBRARY.md) — librería CC0 ya descargada, estrategia coste ~0, Building/Character Factory y reglas de staging.
 - [ASSET-NAMING.md](ASSET-NAMING.md) — referencia rápida de naming, anchors y atlases.

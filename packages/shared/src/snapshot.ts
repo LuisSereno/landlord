@@ -98,6 +98,7 @@ export type SnapshotV1 = {
     idCounters: {
       building: number;
       constructionSite: number;
+      facility?: number;
       transaction: number;
       incident?: number;
     };
@@ -163,6 +164,7 @@ const phase2SnapshotSchema = z.object({
   idCounters: z.object({
     building: safeCounter,
     constructionSite: safeCounter,
+    facility: safeCounter.optional(),
     incident: safeCounter.optional(),
     transaction: safeCounter,
   }),
@@ -224,6 +226,7 @@ export const snapshotV1Schema = z.object({
     parcel: safeCounter.optional(),
     building: safeCounter.optional(),
     constructionSite: safeCounter.optional(),
+    facility: safeCounter.optional(),
     transaction: safeCounter.optional(),
   }),
   map: mapSnapshotSchema,
@@ -557,7 +560,7 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
 }
 
 export function parseSnapshotV1(value: unknown): SnapshotV1 {
-  const snapshot = snapshotV1Schema.parse(value) as SnapshotV1;
+  const snapshot = snapshotV1Schema.parse(value) as unknown as SnapshotV1;
   const issues = validateSnapshotReferences(snapshot);
   if (issues.length > 0) {
     throw new Error(`Invalid snapshot references: ${issues.map((issue) => issue.path).join(", ")}`);

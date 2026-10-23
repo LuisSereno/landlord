@@ -32,6 +32,60 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     upgradeWorkRequired: 72,
     resources: { cement: 6, brick: 10, steel: 4 },
   },
+  cement_plant: {
+    type: "cement_plant",
+    name: "Planta de cemento",
+    allowedZoning: ["industrial", "mixed"],
+    cost: parseMoney(3800),
+    workRequired: 120,
+    capacity: 0,
+    baseRent: parseMoney(0),
+    upgradeCost: parseMoney(1900),
+    upgradeWorkRequired: 60,
+    resources: { cement: 6, brick: 10, steel: 4 },
+    production: {
+      output: "cement",
+      cycleLength: 24,
+      outputAmount: 2,
+      operatingCost: parseMoney(80),
+    },
+  },
+  brickworks: {
+    type: "brickworks",
+    name: "Ladrillera",
+    allowedZoning: ["industrial", "mixed"],
+    cost: parseMoney(3400),
+    workRequired: 120,
+    capacity: 0,
+    baseRent: parseMoney(0),
+    upgradeCost: parseMoney(1700),
+    upgradeWorkRequired: 60,
+    resources: { cement: 5, brick: 8, steel: 3 },
+    production: {
+      output: "brick",
+      cycleLength: 36,
+      outputAmount: 2,
+      operatingCost: parseMoney(45),
+    },
+  },
+  steelworks: {
+    type: "steelworks",
+    name: "Acería",
+    allowedZoning: ["industrial"],
+    cost: parseMoney(5200),
+    workRequired: 168,
+    capacity: 0,
+    baseRent: parseMoney(0),
+    upgradeCost: parseMoney(2600),
+    upgradeWorkRequired: 84,
+    resources: { cement: 8, brick: 12, steel: 6 },
+    production: {
+      output: "steel",
+      cycleLength: 72,
+      outputAmount: 1,
+      operatingCost: parseMoney(100),
+    },
+  },
 };
 
 export const PROTOTYPE_PARCELS: Parcel[] = [
@@ -51,6 +105,12 @@ export const PROTOTYPE_PARCELS: Parcel[] = [
   zoning: zoning as Parcel["zoning"],
   ownerOrganizationId: null,
   buildingId: null,
+  productionSuitability:
+    zoning === "industrial"
+      ? { cement: 120, brick: 100, steel: 135 }
+      : zoning === "mixed"
+        ? { cement: 95, brick: 125, steel: 80 }
+        : { cement: 70, brick: 85, steel: 55 },
 }));
 
 export const PROTOTYPE_TENANTS: Tenant[] = [

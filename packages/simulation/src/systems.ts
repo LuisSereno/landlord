@@ -1,5 +1,6 @@
 import {
   parseBuildingId,
+  parseFacilityId,
   parseCommandId,
   parseMoney,
   parseTick,
@@ -14,6 +15,7 @@ import {
   GAME_DAY_TICKS,
   GAME_HOUR_TICKS,
   GAME_MONTH_TICKS,
+  UPGRADE_RESOURCES,
 } from "./game-data";
 import type { GameState } from "./state";
 import { Xoshiro128ss } from "./prng";
@@ -113,10 +115,18 @@ function progressProduction(state: GameState): void {
     a.id.localeCompare(b.id),
   )) {
     if (!facility.operational) continue;
+    if (facility.buildingId) {
+      const building = state.phase2.buildings.get(facility.buildingId);
+      if (!building || building.state !== "operational" || building.condition <= 0) continue;
+    }
     facility.cycleProgress += 1;
     if (facility.cycleProgress < facility.cycleLength) continue;
     const inventory = state.phase2.inventories.get(facility.ownerOrganizationId);
-    if (!inventory || totalResources(inventory) + facility.outputAmount > inventory.capacity) {
+    const outputAmount = Math.max(
+      1,
+      Math.round((facility.outputAmount * facility.suitabilityPercent) / 100),
+    );
+    if (!inventory || totalResources(inventory) + outputAmount > inventory.capacity) {
       facility.cycleProgress = facility.cycleLength;
       continue;
     }
@@ -140,7 +150,7 @@ function progressProduction(state: GameState): void {
       referenceId: facility.id,
     });
     trimTransactions(state);
-    inventory[facility.output] += facility.outputAmount;
+    inventory[facility.output] += outputAmount;
     facility.cycleProgress = 0;
   }
 }
@@ -185,6 +195,11 @@ function progressConstruction(state: GameState): void {
         building.upgraded = true;
         building.level += 1;
         building.condition = Math.min(100, building.condition + 15);
+        if (building.productionFacilityId) {
+          const facility = state.phase2.facilities.get(building.productionFacilityId);
+          if (facility)
+            facility.outputAmount = Math.max(1, Math.ceil(facility.outputAmount * 1.25));
+        }
       }
     } else {
       state.phase2.idCounters.building += 1;
@@ -195,6 +210,7 @@ function progressConstruction(state: GameState): void {
         id: buildingId,
         parcelId: site.parcelId,
         ownerOrganizationId: site.ownerOrganizationId,
+        productionFacilityId: null,
         type: site.buildingType,
         level: 1,
         condition: 100,
@@ -208,6 +224,28 @@ function progressConstruction(state: GameState): void {
       state.phase2.buildings.set(buildingId, building);
       const parcel = state.phase2.parcels.get(site.parcelId);
       if (parcel) parcel.buildingId = buildingId;
+      const production = BUILDING_DEFINITIONS[building.type].production;
+      if (production) {
+        state.phase2.idCounters.facility += 1;
+        const facilityId = parseFacilityId(
+          `facility_${String(state.phase2.idCounters.facility).padStart(8, "0")}`,
+        );
+        const suitabilityPercent = parcel?.productionSuitability?.[production.output] ?? 100;
+        state.phase2.facilities.set(facilityId, {
+          id: facilityId,
+          ownerOrganizationId: site.ownerOrganizationId,
+          operational: true,
+          cycleProgress: 0,
+          cycleLength: production.cycleLength,
+          output: production.output,
+          outputAmount: production.outputAmount,
+          investmentCost: parseMoney(0),
+          operatingCost: production.operatingCost,
+          buildingId,
+          suitabilityPercent,
+        });
+        building.productionFacilityId = facilityId;
+      }
     }
     state.phase2.constructionSites.delete(site.id);
   }
@@ -493,6 +531,14 @@ function rivalAction(state: GameState): void {
   const buildingType: BuildingType =
     ownedParcel?.zoning === "industrial" ? "workshop" : "courtyard_home";
   const definition = BUILDING_DEFINITIONS[buildingType];
+  const productionBuildingType: BuildingType | null = ownedParcel
+    ? ownedParcel.zoning === "industrial"
+      ? "steelworks"
+      : "brickworks"
+    : null;
+  const productionDefinition = productionBuildingType
+    ? BUILDING_DEFINITIONS[productionBuildingType]
+    : null;
   const missingResource = (["cement", "brick", "steel"] as const).find(
     (resource) => inventory[resource] < definition.resources[resource],
   );
@@ -542,6 +588,59 @@ function rivalAction(state: GameState): void {
         commandId: parseCommandId(`ai-rival-${state.clock.tick}-build`),
         type: "StartConstruction",
         payload: { parcelId: ownedParcel.id, buildingType },
+      },
+    });
+  }
+  const productionMissingResource = productionDefinition
+    ? (["cement", "brick", "steel"] as const).find(
+        (resource) => inventory[resource] < productionDefinition.resources[resource],
+      )
+    : undefined;
+  if (
+    ownedParcel &&
+    productionDefinition &&
+    !productionMissingResource &&
+    balance >= productionDefinition.cost + 2500
+  ) {
+    candidates.push({
+      score: 82,
+      action: "build_production",
+      reason: "La parcela apta permite sustituir compras por capacidad productiva localizada.",
+      command: {
+        ...base,
+        commandId: parseCommandId(`ai-rival-${state.clock.tick}-factory`),
+        type: "StartConstruction",
+        payload: { parcelId: ownedParcel.id, buildingType: productionBuildingType! },
+      },
+    });
+  }
+  const upgradeCandidate = [...state.phase2.buildings.values()]
+    .filter(
+      (building) =>
+        building.ownerOrganizationId === RIVAL_ORGANIZATION_ID &&
+        building.productionFacilityId &&
+        !building.upgraded &&
+        ![...state.phase2.constructionSites.values()].some(
+          (site) => site.upgradeBuildingId === building.id,
+        ),
+    )
+    .sort((a, b) => a.id.localeCompare(b.id))[0];
+  if (
+    upgradeCandidate &&
+    balance >= BUILDING_DEFINITIONS[upgradeCandidate.type].upgradeCost + 2500 &&
+    inventory.cement >= UPGRADE_RESOURCES.cement &&
+    inventory.brick >= UPGRADE_RESOURCES.brick &&
+    inventory.steel >= UPGRADE_RESOURCES.steel
+  ) {
+    candidates.push({
+      score: 75,
+      action: "expand_production",
+      reason: "Amplía una fábrica física existente para aumentar su capacidad.",
+      command: {
+        ...base,
+        commandId: parseCommandId(`ai-rival-${state.clock.tick}-factory-upgrade`),
+        type: "UpgradeBuilding",
+        payload: { buildingId: upgradeCandidate.id },
       },
     });
   }

@@ -56,7 +56,13 @@ export type EntityCounters = {
 };
 
 export type Phase2State = {
-  idCounters: { building: number; constructionSite: number; transaction: number; incident: number };
+  idCounters: {
+    building: number;
+    constructionSite: number;
+    facility: number;
+    transaction: number;
+    incident: number;
+  };
   district: District;
   parcels: Map<import("@landlord/shared").ParcelId, Parcel>;
   balances: Map<OrganizationId, Money>;
@@ -247,7 +253,7 @@ export function createInitialState(seed = 1): GameState {
     processedCommandIds: new Set(),
     pendingCommands: [],
     phase2: {
-      idCounters: { building: 0, constructionSite: 0, transaction: 0, incident: 0 },
+      idCounters: { building: 0, constructionSite: 0, facility: 6, transaction: 0, incident: 0 },
       district,
       parcels,
       balances: new Map([
@@ -271,6 +277,8 @@ export function createInitialState(seed = 1): GameState {
             outputAmount: FACILITY_CONFIG.cement.outputAmount,
             investmentCost: parseMoney(FACILITY_CONFIG.cement.investmentCost),
             operatingCost: parseMoney(FACILITY_CONFIG.cement.operatingCost),
+            buildingId: null,
+            suitabilityPercent: 100,
           },
         ],
         [
@@ -285,6 +293,8 @@ export function createInitialState(seed = 1): GameState {
             outputAmount: FACILITY_CONFIG.brick.outputAmount,
             investmentCost: parseMoney(FACILITY_CONFIG.brick.investmentCost),
             operatingCost: parseMoney(FACILITY_CONFIG.brick.operatingCost),
+            buildingId: null,
+            suitabilityPercent: 100,
           },
         ],
         [
@@ -299,6 +309,8 @@ export function createInitialState(seed = 1): GameState {
             outputAmount: FACILITY_CONFIG.steel.outputAmount,
             investmentCost: parseMoney(FACILITY_CONFIG.steel.investmentCost),
             operatingCost: parseMoney(FACILITY_CONFIG.steel.operatingCost),
+            buildingId: null,
+            suitabilityPercent: 100,
           },
         ],
         [
@@ -313,6 +325,8 @@ export function createInitialState(seed = 1): GameState {
             outputAmount: FACILITY_CONFIG.cement.outputAmount,
             investmentCost: parseMoney(FACILITY_CONFIG.cement.investmentCost),
             operatingCost: parseMoney(FACILITY_CONFIG.cement.operatingCost),
+            buildingId: null,
+            suitabilityPercent: 100,
           },
         ],
         [
@@ -327,6 +341,8 @@ export function createInitialState(seed = 1): GameState {
             outputAmount: FACILITY_CONFIG.brick.outputAmount,
             investmentCost: parseMoney(FACILITY_CONFIG.brick.investmentCost),
             operatingCost: parseMoney(FACILITY_CONFIG.brick.operatingCost),
+            buildingId: null,
+            suitabilityPercent: 100,
           },
         ],
         [
@@ -341,6 +357,8 @@ export function createInitialState(seed = 1): GameState {
             outputAmount: FACILITY_CONFIG.steel.outputAmount,
             investmentCost: parseMoney(FACILITY_CONFIG.steel.investmentCost),
             operatingCost: parseMoney(FACILITY_CONFIG.steel.operatingCost),
+            buildingId: null,
+            suitabilityPercent: 100,
           },
         ],
       ]),

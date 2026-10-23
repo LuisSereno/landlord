@@ -112,7 +112,10 @@ export class SimulationWorkerClient {
     });
   }
 
-  public startConstruction(parcelId: string, buildingType: "courtyard_home" | "workshop") {
+  public startConstruction(
+    parcelId: string,
+    buildingType: "courtyard_home" | "workshop" | "cement_plant" | "brickworks" | "steelworks",
+  ) {
     return this.submitProductCommand({
       commandId: this.nextCommandId(),
       issuedByPersonId: parsePersonId("person_00000001"),

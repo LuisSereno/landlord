@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import {
   buildingIdSchema,
+  facilityIdSchema,
   constructionSiteIdSchema,
   districtIdSchema,
   organizationIdSchema,
@@ -55,6 +56,7 @@ export type ViewProjectionV1 = {
       zoning: "residential" | "industrial" | "mixed";
       ownerOrganizationId: OrganizationId | null;
       buildingId: BuildingId | null;
+      productionSuitability: { cement: number; brick: number; steel: number };
     }>;
     cash: number;
     inventory: { cement: number; brick: number; steel: number; capacity: number };
@@ -66,6 +68,8 @@ export type ViewProjectionV1 = {
       operational: boolean;
       investmentCost: number;
       operatingCost: number;
+      buildingId: BuildingId | null;
+      suitabilityPercent: number;
     }>;
     crew: { capacity: number; used: number };
     crews: Array<{
@@ -90,10 +94,17 @@ export type ViewProjectionV1 = {
       upgradeWorkRequired: number;
       upgradeResources: { cement: number; brick: number; steel: number };
       upgradeRentBonusPercent: number;
+      production: {
+        output: "cement" | "brick" | "steel";
+        cycleLength: number;
+        outputAmount: number;
+        operatingCost: number;
+      } | null;
     }>;
     buildings: Array<{
       id: BuildingId;
       ownerOrganizationId: OrganizationId;
+      productionFacilityId: import("./primitives").FacilityId | null;
       parcelId: ParcelId;
       type: BuildingType;
       level: number;
@@ -224,6 +235,11 @@ export const viewProjectionV1Schema = z.object({
           zoning: zoningSchema,
           ownerOrganizationId: organizationIdSchema.nullable(),
           buildingId: buildingIdSchema.nullable(),
+          productionSuitability: z.object({
+            cement: z.number().int().positive(),
+            brick: z.number().int().positive(),
+            steel: z.number().int().positive(),
+          }),
         }),
       ),
       cash: moneySchema,
@@ -242,6 +258,8 @@ export const viewProjectionV1Schema = z.object({
           operational: z.boolean(),
           investmentCost: moneySchema,
           operatingCost: moneySchema,
+          buildingId: buildingIdSchema.nullable(),
+          suitabilityPercent: z.number().int().positive(),
         }),
       ),
       crew: z.object({
@@ -266,7 +284,7 @@ export const viewProjectionV1Schema = z.object({
           cost: moneySchema,
           baseCost: moneySchema,
           workRequired: z.number().int().positive(),
-          capacity: z.number().int().positive(),
+          capacity: z.number().int().nonnegative(),
           baseRent: moneySchema,
           resources: z.object({
             cement: z.number().int().nonnegative(),
@@ -281,12 +299,21 @@ export const viewProjectionV1Schema = z.object({
             steel: z.number().int().nonnegative(),
           }),
           upgradeRentBonusPercent: z.number().int().nonnegative(),
+          production: z
+            .object({
+              output: z.enum(["cement", "brick", "steel"]),
+              cycleLength: z.number().int().positive(),
+              outputAmount: z.number().int().positive(),
+              operatingCost: moneySchema,
+            })
+            .nullable(),
         }),
       ),
       buildings: z.array(
         z.object({
           id: buildingIdSchema,
           ownerOrganizationId: organizationIdSchema,
+          productionFacilityId: facilityIdSchema.nullable(),
           parcelId: parcelIdSchema,
           type: buildingTypeSchema,
           level: z.number().int().positive(),

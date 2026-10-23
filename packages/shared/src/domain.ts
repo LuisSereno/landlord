@@ -136,7 +136,13 @@ export const testStructurePlacedSchema = z.object({
 export const resourceKindSchema = z.enum(["cement", "brick", "steel"]);
 export type ResourceKind = z.infer<typeof resourceKindSchema>;
 
-export const buildingTypeSchema = z.enum(["courtyard_home", "workshop"]);
+export const buildingTypeSchema = z.enum([
+  "courtyard_home",
+  "workshop",
+  "cement_plant",
+  "brickworks",
+  "steelworks",
+]);
 export type BuildingType = z.infer<typeof buildingTypeSchema>;
 
 export const zoningSchema = z.enum(["residential", "industrial", "mixed"]);
@@ -152,10 +158,12 @@ export type Parcel = {
   zoning: Zoning;
   ownerOrganizationId: OrganizationId | null;
   buildingId: BuildingId | null;
+  productionSuitability?: ProductionSuitability;
 };
 
 export type ResourceBundle = { cement: number; brick: number; steel: number };
 export type ResourceInventory = ResourceBundle & { capacity: number };
+export type ProductionSuitability = ResourceBundle;
 
 export type ProductionFacility = {
   id: FacilityId;
@@ -167,6 +175,8 @@ export type ProductionFacility = {
   outputAmount: number;
   investmentCost: Money;
   operatingCost: Money;
+  buildingId: BuildingId | null;
+  suitabilityPercent: number;
 };
 
 export type BuildingDefinition = {
@@ -180,12 +190,19 @@ export type BuildingDefinition = {
   upgradeCost: Money;
   upgradeWorkRequired: number;
   resources: ResourceBundle;
+  production?: {
+    output: ResourceKind;
+    cycleLength: number;
+    outputAmount: number;
+    operatingCost: Money;
+  };
 };
 
 export type Building = {
   id: BuildingId;
   parcelId: ParcelId;
   ownerOrganizationId: OrganizationId;
+  productionFacilityId?: FacilityId | null;
   type: BuildingType;
   level: number;
   condition: number;
@@ -310,6 +327,13 @@ export const parcelSchema = z.object({
   zoning: zoningSchema,
   ownerOrganizationId: organizationIdSchema.nullable(),
   buildingId: buildingIdSchema.nullable(),
+  productionSuitability: z
+    .object({
+      cement: z.number().int().positive(),
+      brick: z.number().int().positive(),
+      steel: z.number().int().positive(),
+    })
+    .default({ cement: 100, brick: 100, steel: 100 }),
 });
 export const resourceBundleSchema = z.object({
   cement: z.number().int().nonnegative(),
@@ -329,11 +353,14 @@ export const productionFacilitySchema = z.object({
   outputAmount: z.number().int().positive(),
   investmentCost: moneySchema.default(parseMoney(0)),
   operatingCost: moneySchema.default(parseMoney(0)),
+  buildingId: buildingIdSchema.nullable().default(null),
+  suitabilityPercent: z.number().int().positive().default(100),
 });
 export const buildingSchema = z.object({
   id: buildingIdSchema,
   parcelId: parcelIdSchema,
   ownerOrganizationId: organizationIdSchema,
+  productionFacilityId: facilityIdSchema.nullable().default(null),
   type: buildingTypeSchema,
   level: z.number().int().positive(),
   condition: z.number().int().min(0).max(100),

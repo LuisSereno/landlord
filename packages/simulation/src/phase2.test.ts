@@ -426,4 +426,50 @@ describe("Gate 2 product loop", () => {
       ),
     ).toBe(false);
   });
+
+  it("builds a physical factory with parcel suitability and pauses production during fire", () => {
+    const state = createInitialState(31);
+    dispatchProductCommand(
+      state,
+      command("factory-buy", "BuyParcel", { parcelId: parseParcelId("parcel_00000005") }),
+    );
+    expect(
+      dispatchProductCommand(
+        state,
+        command("factory-build", "StartConstruction", {
+          parcelId: parseParcelId("parcel_00000005"),
+          buildingType: "cement_plant",
+        }),
+      ).accepted,
+    ).toBe(true);
+
+    advanceToTick(state, 120 * 2 * 50);
+    const building = state.phase2.buildings.get(parseBuildingId("building_00000001"))!;
+    expect(building.type).toBe("cement_plant");
+    expect(building.productionFacilityId).not.toBeNull();
+    const facility = state.phase2.facilities.get(building.productionFacilityId!)!;
+    expect(facility.buildingId).toBe(building.id);
+    expect(facility.suitabilityPercent).toBe(120);
+
+    const inventory = state.phase2.inventories.get(organization)!;
+    const beforeProduction = inventory.cement;
+    advanceToTick(state, state.clock.tick + 24 * 50);
+    expect(inventory.cement).toBeGreaterThan(beforeProduction);
+
+    building.state = "burning";
+    const duringFire = inventory.cement;
+    advanceToTick(state, state.clock.tick + 24 * 50);
+    expect(inventory.cement).toBe(duringFire);
+
+    building.state = "operational";
+    building.condition = 55;
+    expect(
+      dispatchProductCommand(
+        state,
+        command("factory-repair", "RepairBuilding", { buildingId: building.id }),
+      ).accepted,
+    ).toBe(true);
+    advanceToTick(state, state.clock.tick + 48 * 50);
+    expect(building.condition).toBe(100);
+  });
 });

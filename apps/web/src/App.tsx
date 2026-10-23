@@ -284,7 +284,10 @@ export function App() {
               <summary>Materiales y producción</summary>
               <div className="construction-options">
                 {economy.production.map((facility) => (
-                  <div className="production-row" key={facility.output}>
+                  <div
+                    className="production-row"
+                    key={facility.buildingId ?? `legacy-${facility.output}`}
+                  >
                     <p>
                       <strong>{resourceLabel(facility.output)}</strong> · mercado{" "}
                       {economy.market.prices[facility.output]} u./ud.
@@ -293,19 +296,24 @@ export function App() {
                       {facility.operational
                         ? `Producción ${facility.cycleProgress}/${facility.cycleLength} h · +${facility.outputAmount} · coste ${facility.operatingCost} u.`
                         : `Instalación inactiva · inversión ${facility.investmentCost} u.`}
+                      {facility.buildingId
+                        ? ` · aptitud ${facility.suitabilityPercent}%`
+                        : " · capacidad heredada"}
                     </p>
                     <div className="action-grid">
-                      <button
-                        type="button"
-                        onClick={() =>
-                          void sendAction(
-                            () => clientRef.current!.buyMaterials(facility.output, 2),
-                            `Compradas 2 unidades de ${resourceLabel(facility.output)}.`,
-                          )
-                        }
-                      >
-                        Comprar 2
-                      </button>
+                      {!facility.buildingId && (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            void sendAction(
+                              () => clientRef.current!.buyMaterials(facility.output, 2),
+                              `Compradas 2 unidades de ${resourceLabel(facility.output)}.`,
+                            )
+                          }
+                        >
+                          Comprar 2
+                        </button>
+                      )}
                       <button
                         type="button"
                         disabled={facility.operational || economy.cash < facility.investmentCost}
@@ -423,6 +431,14 @@ export function App() {
                                 · {option.workRequired} h · {option.capacity} unidades · renta{" "}
                                 {option.baseRent} u.
                               </span>
+                              {option.production && (
+                                <span>
+                                  Produce {resourceLabel(option.production.output)}: +
+                                  {option.production.outputAmount} cada{" "}
+                                  {option.production.cycleLength} h · coste{" "}
+                                  {option.production.operatingCost} u.
+                                </span>
+                              )}
                               <span>Requiere: {resourceSummary(option.resources)}.</span>
                               {missing.length > 0 && <span>Faltan: {missing.join(", ")}.</span>}
                               {(economy?.cash ?? 0) < option.cost && <span>Falta caja.</span>}
@@ -792,7 +808,15 @@ function ownershipLabel(ownerOrganizationId: string | null): string {
 }
 
 function buildingLabel(type: string): string {
-  return type === "courtyard_home" ? "Patio residencial" : "Taller";
+  return (
+    {
+      courtyard_home: "Patio residencial",
+      workshop: "Taller",
+      cement_plant: "Planta de cemento",
+      brickworks: "Ladrillera",
+      steelworks: "Acería",
+    }[type] ?? type
+  );
 }
 
 function zoningLabel(zoning: "residential" | "industrial" | "mixed"): string {

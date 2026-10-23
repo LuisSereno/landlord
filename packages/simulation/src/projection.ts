@@ -59,6 +59,11 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                 zoning: parcel.zoning,
                 ownerOrganizationId: parcel.ownerOrganizationId,
                 buildingId: parcel.buildingId,
+                productionSuitability: {
+                  cement: parcel.productionSuitability?.cement ?? 100,
+                  brick: parcel.productionSuitability?.brick ?? 100,
+                  steel: parcel.productionSuitability?.steel ?? 100,
+                },
               })),
             cash: state.phase2.balances.get(PLAYER_ORGANIZATION_ID) ?? 0,
             inventory: { ...playerInventory },
@@ -74,6 +79,8 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                   operational,
                   investmentCost,
                   operatingCost,
+                  buildingId,
+                  suitabilityPercent,
                 }) => ({
                   output,
                   cycleProgress,
@@ -82,6 +89,8 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                   operational,
                   investmentCost,
                   operatingCost,
+                  buildingId,
+                  suitabilityPercent,
                 }),
               ),
             crew: {
@@ -126,11 +135,13 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
               upgradeWorkRequired: definition.upgradeWorkRequired,
               upgradeResources: { ...UPGRADE_RESOURCES },
               upgradeRentBonusPercent: UPGRADE_RENT_BONUS_PERCENT,
+              production: definition.production ? { ...definition.production } : null,
             })),
             buildings: [...state.phase2.buildings.values()]
               .sort((left, right) => left.id.localeCompare(right.id))
               .map((building) => ({
                 ...building,
+                productionFacilityId: building.productionFacilityId ?? null,
                 tenantIds:
                   building.ownerOrganizationId === PLAYER_ORGANIZATION_ID
                     ? [...building.tenantIds]

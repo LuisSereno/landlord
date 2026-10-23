@@ -246,6 +246,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
       ? {
           idCounters: {
             ...snapshot.phase2.idCounters,
+            facility: snapshot.phase2.idCounters.facility ?? 6,
             incident: snapshot.phase2.idCounters.incident ?? 0,
           },
           district: {

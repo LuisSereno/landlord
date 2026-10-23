@@ -145,9 +145,10 @@ Pendiente para implementación del Vertical Slice:
   metadatos de tamaño/schema/engine. Cloud save, sincronización y telemetría remota siguen fuera;
   WP3.13 está cerrado para el contenido representativo y deja atlas multipack/animación completa
   para Alpha.
-- WP3.15 tiene suite, smoke browser externo, benchmark headless, auditoría y soak con save/restore
-  en verde. La decisión final de inversión y cierre de Fase 3 sigue `CONDITIONAL` hasta cerrar
-  WP2.14 y ejecutar el playtest visual representativo.
+- WP3.15 tiene suite, smoke browser externo y Art Lab, benchmark headless, auditoría y soak con
+  save/restore en verde. Fase 3 queda cerrada con `GO CONTROLLED ALPHA`; Alpha debe medir
+  cohortes, duración, comprensión y balance sin convertir una única prueba manual OK en
+  significancia estadística.
 - modelo de tipos;
 - loan-to-value;
 - garantías;

@@ -2,7 +2,7 @@
 
 ## Estado de ejecución — 2026-10-23
 
-Fase 3 está `IN_PROGRESS`. WP3.2 — producción física y aptitud del terreno — está cerrado para
+Fase 3 está `DONE` para el alcance del Vertical Slice. WP3.2 — producción física y aptitud del terreno — está cerrado para
 el slice funcional y cuenta con evidencia en
 `docs/execution/phase-3/wp3-2-implementation-2026-10-23.md`. WP3.3 — baseline de proyección
 financiera — también está cerrado según
@@ -10,8 +10,8 @@ financiera — también está cerrado según
 `DONE`: el núcleo bancario y la crisis de deuda inicial están cubiertos por WP3.9. WP3.5 a WP3.10 están `DONE`, con evidencia en sus informes de `phase-3`. WP3.13 está
 cerrado para contenido representativo con la baseline `graphic_civic` aprobada en WP2.14; la
 evidencia está en `docs/execution/phase-3/wp3-13-art-audio-performance-2026-10-23.md`.
-WP3.14 — persistencia y observabilidad local — está `DONE`; WP3.15 queda pendiente de la
-validación final del slice.
+WP3.14 — persistencia y observabilidad local — está `DONE`; WP3.15 está cerrado con decisión
+`GO CONTROLLED ALPHA` y evidencia en su informe de validación.
 
 ## Objetivo
 
@@ -79,7 +79,7 @@ producción, la extinción/reanudación y la conservación del incidente histór
 
 ## WP3.4 — Banca y deuda
 
-**Estado 2026-10-23:** `CONDITIONAL DONE`. Evidencia en
+**Estado 2026-10-23:** `DONE`. Evidencia en
 `docs/execution/phase-3/wp3-4-banking-debt-2026-10-23.md`.
 
 - Modelar banco como organización independiente.
@@ -246,8 +246,8 @@ sonoro original y medición de simulación, snapshots, carga web y smoke de nave
 - Registrar deuda y alcance recomendado de alpha.
 - Emitir decisión de inversión: avanzar, rework o reducir alcance.
 
-**Estado 2026-10-23:** `CONDITIONAL`. Evidencia técnica y decisión en
-`docs/execution/phase-3/wp3-15-validation-2026-10-23.md`. El cierre final depende de WP2.14.
+**Estado 2026-10-23:** `DONE — GO CONTROLLED ALPHA`. Evidencia técnica, visual y decisión en
+`docs/execution/phase-3/wp3-15-validation-2026-10-23.md`.
 
 ## Orden recomendado
 

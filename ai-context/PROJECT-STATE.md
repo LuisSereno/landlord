@@ -75,9 +75,9 @@ prueba manual OK, WP2.15 está cerrado, el benchmark/smoke pasan y WP2.14 aprob�
 
 ## Próximo objetivo
 WP3.13 y WP3.14 están cerrados para el alcance representativo y la persistencia/observabilidad
-local. WP3.15 queda en `CONDITIONAL` tras la validación técnica. Continuar con la decisión final
-de WP3.15, manteniendo la condición G3-04 de WP3.4
-para WP3.9. La prueba manual del responsable se conserva como evidencia
+local. WP3.15 está cerrado con decisión `GO CONTROLLED ALPHA`; la siguiente fase debe medir
+sesiones reales, balance y comprensión con cohortes/seed registrados. La prueba manual del
+responsable se conserva como evidencia
 cualitativa; la medición cuantitativa de 30–60 minutos sigue pendiente para balance financiero.
 El baseline
 económico actual cubre calendario

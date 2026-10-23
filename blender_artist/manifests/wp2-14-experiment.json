@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "experimentId": "wp2_14_visual_direction_spike",
+  "kitId": "visual_direction_spike_original_01",
+  "runbook": {
+    "path": "docs/art/WP2-14-CODEX-RUNBOOK.md",
+    "commit": "3daa8e1",
+    "branch": "origin/docs/wp2-14-codex-runbook",
+    "note": "Runbook staged en rama remota; no fusionado a main al registrar este experimento."
+  },
+  "blender": {
+    "version": "5.2.2 LTS",
+    "buildDate": "2026-09-15",
+    "toolchainArchive": "blender_artist/toolchain/blender-5.2.2-linux-x64.tar.xz",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "seed": 42,
+  "camera": {
+    "projection": "orthographic",
+    "azimuthDegrees": 45,
+    "elevationDegrees": 30,
+    "rollDegrees": 0
+  },
+  "output": {
+    "master": "PNG RGBA 16-bit",
+    "background": "transparent",
+    "dimensions": [1024, 576]
+  },
+  "directions": [
+    {
+      "alias": "A",
+      "id": "warm_editorial",
+      "status": "controlled_preset",
+      "provenance": "docs/execution/phase-2/wp2-14-visual-direction-spike-2026-10-23.md"
+    },
+    {
+      "alias": "B",
+      "id": "graphic_civic",
+      "status": "approved_baseline_by_gate_review_2026-10-23",
+      "provenance": "docs/execution/phase-2/wp2-14-visual-direction-spike-2026-10-23.md"
+    },
+    {
+      "alias": "C",
+      "id": "blue_hour",
+      "status": "controlled_preset",
+      "provenance": "docs/execution/phase-2/wp2-14-visual-direction-spike-2026-10-23.md"
+    }
+  ],
+  "resultPaths": {
+    "resultManifest": "blender_artist/manifests/visual-direction-spike-result-2026-10-23.json",
+    "kitManifest": "blender_artist/manifests/visual-direction-spike-kit.json",
+    "stagingManifest": "blender_artist/manifests/staging-sources.json",
+    "renders": "blender_artist/generated/renders/",
+    "runtimeAssets": "apps/web/public/assets/art-spike/",
+    "artLabRoute": "/art-lab",
+    "validation": "pnpm art:spike:validate",
+    "browserSmoke": "pnpm smoke:art-lab"
+  },
+  "governance": {
+    "selectionRule": "Ninguna seleccion o cambio de direccion visual puede ejecutarse desde razonamiento High; requiere STOP Extra High del runbook.",
+    "quarantineRule": "Solo fuentes aprobadas en staging-sources.json; cuarentena sin uso.",
+    "ipRule": "IP original; sin assets, trade dress ni composicion de Constructor, Street Wars/Mob Rule ni otras IP protegidas."
+  },
+  "origin": {
+    "date": "2026-10-23",
+    "commit": "e8a91c5",
+    "progressDoc": "docs/execution/phase-2/wp2-14-progress.md"
+  }
+}

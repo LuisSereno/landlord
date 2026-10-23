@@ -464,11 +464,34 @@ describe("Gate 2 product loop", () => {
     expect(facility.remainder).toBe(200_000);
 
     building.state = "burning";
+    state.phase2.incidents.set(parseIncidentId("incident_00000002"), {
+      id: parseIncidentId("incident_00000002"),
+      buildingId: building.id,
+      origin: "deterioration",
+      intensity: 35,
+      status: "active",
+      targetOrganizationId: organization,
+      createdAtTick: state.clock.tick,
+      causedByAgentId: null,
+      causedByOrganizationId: null,
+      casualties: { injured: 0, dead: 0 },
+    });
     const duringFire = inventory.cement;
-    advanceToTick(state, state.clock.tick + 24 * 50);
+    expect(
+      dispatchProductCommand(
+        state,
+        command("factory-maintenance", "AssignMaintenance", { buildingId: building.id }),
+      ).accepted,
+    ).toBe(true);
+    advanceToTick(state, state.clock.tick + 23 * 50);
     expect(inventory.cement).toBe(duringFire);
+    expect(building.state).toBe("operational");
+    expect(state.phase2.incidents.get(parseIncidentId("incident_00000002"))?.status).toBe(
+      "resolved",
+    );
+    advanceToTick(state, state.clock.tick + 50);
+    expect(inventory.cement).toBeGreaterThan(duringFire);
 
-    building.state = "operational";
     building.condition = 55;
     expect(createViewProjection(state, true).economy?.production[0]?.averageOutputAmount).toBe(
       1.32,

@@ -5,6 +5,7 @@ import {
   parseCommandId,
   parseConstructionSiteId,
   parseFacilityId,
+  parseIncidentId,
   parseOrganizationId,
   parseMoney,
   parseParcelId,
@@ -494,6 +495,18 @@ describe("Gate 2 product loop", () => {
     viewProjectionV1Schema.parse(physicalProjection);
 
     building.state = "ruin";
+    state.phase2.incidents.set(parseIncidentId("incident_00000001"), {
+      id: parseIncidentId("incident_00000001"),
+      buildingId: building.id,
+      origin: "deterioration",
+      intensity: 100,
+      status: "resolved",
+      targetOrganizationId: organization,
+      createdAtTick: state.clock.tick,
+      causedByAgentId: null,
+      causedByOrganizationId: null,
+      casualties: { injured: 0, dead: 0 },
+    });
     expect(
       dispatchProductCommand(
         state,
@@ -503,6 +516,13 @@ describe("Gate 2 product loop", () => {
     advanceToTick(state, state.clock.tick + 48 * 50);
     expect(state.phase2.buildings.has(building.id)).toBe(false);
     expect(state.phase2.facilities.has(facility.id)).toBe(false);
+    const restoredAfterClear = restoreStateFromSnapshot(serializeSnapshot(state));
+    expect(
+      restoredAfterClear.phase2.incidents.get(parseIncidentId("incident_00000001")),
+    ).toMatchObject({
+      status: "resolved",
+      buildingId: building.id,
+    });
   });
 
   it("migrates snapshots without kind by building linkage", () => {

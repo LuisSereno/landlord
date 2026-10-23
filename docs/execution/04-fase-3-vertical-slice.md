@@ -47,6 +47,12 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 
 **Aceptación:** producir material exige poseer y construir un activo físico; dos parcelas distintas pueden producir rendimientos distintos; mercado y producción propia son alternativas económicamente legibles y una fábrica puede sufrir las mismas consecuencias físicas que cualquier otro edificio.
 
+**Verificación:** el smoke browser cubre el recorrido estable de mercado, parcela industrial,
+aptitud, construcción, crews, producción, ampliación y save/load. Los incidentes de fuego no se
+fuerzan en ese smoke porque dependen del calendario y del estado del distrito; la pausa de
+producción, la extinción/reanudación y la conservación del incidente histórico tras ruina y
+`ClearRuin` se verifican de forma determinista en las pruebas de simulación y persistencia.
+
 ## WP3.3 — Modelo financiero y liquidez
 
 - Separar caja, activos, pasivos, patrimonio, ingreso y gasto.

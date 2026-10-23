@@ -508,7 +508,7 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
           });
     }
     for (const incident of snapshot.phase2.incidents ?? []) {
-      if (!buildingIds.has(incident.buildingId))
+      if (incident.status === "active" && !buildingIds.has(incident.buildingId))
         issues.push({
           code: "MISSING_REFERENCE",
           path: `phase2/incidents/${incident.id}/buildingId`,

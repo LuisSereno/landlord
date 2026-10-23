@@ -65,6 +65,12 @@ const errorMessages: Record<ErrorCode, string> = {
   INSURANCE_ALREADY_ACTIVE: "El edificio ya tiene una cobertura activa.",
   INSURANCE_NOT_FOUND: "El edificio no tiene una póliza activa que cancelar.",
   PERMIT_DENIED: "El permiso municipal ha sido denegado para este uso y parcela.",
+  AUCTION_NOT_FOUND: "La subasta no existe.",
+  AUCTION_NOT_OPEN: "La subasta no está abierta para pujar.",
+  AUCTION_BID_TOO_LOW: "La puja no supera la reserva o la puja actual.",
+  AUCTION_FUNDS_RESERVED: "La organización no tiene caja libre para reservar esa puja.",
+  AUCTION_NOT_BIDDER: "La organización no tiene una puja activa en esa subasta.",
+  LOAN_REFINANCE_UNAVAILABLE: "La deuda no puede refinanciarse en su estado actual.",
 } as const;
 
 const PROTOCOL_VERSION = protocolVersionSchema.parse(1);

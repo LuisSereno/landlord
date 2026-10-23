@@ -27,6 +27,7 @@ import {
   conditionRentMultiplierPercent,
   deteriorationRiskPercent,
   INSURANCE_POLICY,
+  INSOLVENCY_POLICY,
 } from "./game-data";
 import type { GameState } from "./state";
 import { Xoshiro128ss } from "./prng";
@@ -385,6 +386,7 @@ function processLoanPayments(state: GameState): void {
         loan.missedPayments > LOAN_POLICY.delinquencyGracePayments ? "defaulted" : "delinquent";
       loan.nextPaymentTick =
         loan.status === "defaulted" ? null : parseTick(state.clock.tick + GAME_MONTH_TICKS);
+      if (loan.status === "defaulted") openAuctionForLoan(state, loan);
       continue;
     }
     credit(
@@ -400,6 +402,79 @@ function processLoanPayments(state: GameState): void {
     loan.status = loan.outstandingPrincipal === 0 ? "paid_off" : "active";
     loan.nextPaymentTick =
       loan.status === "paid_off" ? null : parseTick(state.clock.tick + GAME_MONTH_TICKS);
+  }
+}
+
+function collateralValue(state: GameState, loan: import("@landlord/shared").Loan): number {
+  const parcel = state.phase2.parcels.get(loan.collateralParcelId);
+  if (!parcel) return 0;
+  const building = parcel.buildingId ? state.phase2.buildings.get(parcel.buildingId) : undefined;
+  return (
+    parcel.price +
+    (building
+      ? Math.round((BUILDING_DEFINITIONS[building.type].cost * building.condition) / 100)
+      : 0)
+  );
+}
+
+function openAuctionForLoan(state: GameState, loan: import("@landlord/shared").Loan): void {
+  if (state.phase2.insolvency.auctionsByLoanId[loan.id]) return;
+  const parcel = state.phase2.parcels.get(loan.collateralParcelId);
+  if (!parcel) return;
+  state.phase2.insolvency.auctionsByLoanId[loan.id] = {
+    loanId: loan.id,
+    collateralParcelId: parcel.id,
+    sellerOrganizationId: loan.borrowerOrganizationId,
+    reservePrice: parseMoney(
+      Math.floor(
+        (collateralValue(state, loan) * INSOLVENCY_POLICY.reservePricePercentOfCollateral) / 100,
+      ),
+    ),
+    highestBid: parseMoney(0),
+    highestBidderOrganizationId: null,
+    reservedFundsByOrganizationId: {},
+    status: "open",
+    openedAtTick: parseTick(state.clock.tick),
+    closesAtTick: parseTick(state.clock.tick + INSOLVENCY_POLICY.auctionDurationTicks),
+  };
+}
+
+function settleAuctions(state: GameState): void {
+  for (const auction of Object.values(state.phase2.insolvency.auctionsByLoanId).sort((a, b) =>
+    a.loanId.localeCompare(b.loanId),
+  )) {
+    if (auction.status !== "open" || auction.closesAtTick > state.clock.tick) continue;
+    const winner = auction.highestBidderOrganizationId;
+    const loan = state.phase2.loans.get(auction.loanId);
+    const parcel = state.phase2.parcels.get(auction.collateralParcelId);
+    if (!winner || !loan || !parcel) {
+      auction.status = "closed";
+      auction.reservedFundsByOrganizationId = {};
+      continue;
+    }
+    if (!debit(state, winner, auction.highestBid, "auction_purchase", auction.loanId)) {
+      auction.status = "closed";
+      auction.highestBidderOrganizationId = null;
+      auction.highestBid = parseMoney(0);
+      auction.reservedFundsByOrganizationId = {};
+      continue;
+    }
+    credit(
+      state,
+      loan.lenderOrganizationId,
+      auction.highestBid,
+      "auction_recovery",
+      auction.loanId,
+    );
+    parcel.ownerOrganizationId = winner;
+    if (parcel.buildingId) {
+      const building = state.phase2.buildings.get(parcel.buildingId);
+      if (building) building.ownerOrganizationId = winner;
+    }
+    loan.outstandingPrincipal = parseMoney(0);
+    loan.nextPaymentTick = null;
+    auction.status = "executed";
+    auction.reservedFundsByOrganizationId = {};
   }
 }
 
@@ -922,6 +997,7 @@ export function advanceProductSystems(state: GameState): void {
   progressProduction(state);
   collectRentAndAgeLeases(state);
   processLoanPayments(state);
+  settleAuctions(state);
   settlePropertyTaxes(state);
   settleMaintenance(state);
   settleInsurance(state);

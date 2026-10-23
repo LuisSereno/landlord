@@ -105,6 +105,16 @@ export type ViewProjectionV1 = {
         collateralParcelId: ParcelId;
         nextPaymentTick: Tick | null;
       }>;
+      auctions: Array<{
+        loanId: LoanId;
+        collateralParcelId: ParcelId;
+        sellerOrganizationId: OrganizationId;
+        reservePrice: number;
+        highestBid: number;
+        highestBidderOrganizationId: OrganizationId | null;
+        status: "open" | "closed" | "executed";
+        closesAtTick: Tick;
+      }>;
     };
     taxation: {
       beneficiaryOrganizationId: OrganizationId;
@@ -396,6 +406,18 @@ export const viewProjectionV1Schema = z.object({
             missedPayments: z.number().int().nonnegative(),
             collateralParcelId: parcelIdSchema,
             nextPaymentTick: tickSchema.nullable(),
+          }),
+        ),
+        auctions: z.array(
+          z.object({
+            loanId: loanIdSchema,
+            collateralParcelId: parcelIdSchema,
+            sellerOrganizationId: organizationIdSchema,
+            reservePrice: moneySchema,
+            highestBid: moneySchema,
+            highestBidderOrganizationId: organizationIdSchema.nullable(),
+            status: z.enum(["open", "closed", "executed"]),
+            closesAtTick: tickSchema,
           }),
         ),
       }),

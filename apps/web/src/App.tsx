@@ -134,6 +134,9 @@ export function App() {
     ? (economy?.insurance.offers.filter((offer) => offer.buildingId === selectedOwnedBuilding.id) ??
       [])
     : [];
+  const selectedAuction = economy?.banking.auctions.find(
+    (auction) => auction.collateralParcelId === selectedParcel?.id,
+  );
   const selectedPhysicalFacility = selectedOwnedBuilding
     ? economy?.production.find((facility) => facility.buildingId === selectedOwnedBuilding.id)
     : undefined;
@@ -353,6 +356,11 @@ export function App() {
                   u./mes · siniestros pagados{" "}
                   {economy.insurance.claims.filter((claim) => claim.status === "paid").length}
                 </p>
+                <p>
+                  <strong>Crisis:</strong>{" "}
+                  {economy.banking.auctions.filter((auction) => auction.status === "open").length}{" "}
+                  subasta(s) abierta(s) · la caja sólo se carga al adjudicar.
+                </p>
               </div>
             </details>
           )}
@@ -551,6 +559,67 @@ export function App() {
                         ))}
                       </div>
                     )}
+                  {selectedAuction?.status === "open" && (
+                    <div className="construction-options">
+                      <p className="selection-detail">
+                        <strong>Subasta:</strong> reserva {selectedAuction.reservePrice} u. · puja
+                        actual {selectedAuction.highestBid} u. · cierre tick{" "}
+                        {selectedAuction.closesAtTick}
+                      </p>
+                      {selectedAuction.sellerOrganizationId === "org_00000001" ? (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            void sendAction(
+                              () =>
+                                clientRef.current!.requestRefinancing(selectedAuction.loanId, 12),
+                              "Solicitud de refinanciación aceptada; la subasta se retira.",
+                            )
+                          }
+                        >
+                          Refinanciar a 12 meses
+                        </button>
+                      ) : selectedAuction.highestBidderOrganizationId === "org_00000001" ? (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            void sendAction(
+                              () => clientRef.current!.withdrawAuctionBid(selectedAuction.loanId),
+                              "Puja retirada; la caja vuelve a quedar disponible.",
+                            )
+                          }
+                        >
+                          Retirar puja
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          disabled={
+                            !client ||
+                            (economy?.cash ?? 0) <
+                              Math.max(selectedAuction.reservePrice, selectedAuction.highestBid + 1)
+                          }
+                          onClick={() =>
+                            void sendAction(
+                              () =>
+                                clientRef.current!.placeAuctionBid(
+                                  selectedAuction.loanId,
+                                  Math.max(
+                                    selectedAuction.reservePrice,
+                                    selectedAuction.highestBid + 1,
+                                  ),
+                                ),
+                              "Puja reservada; la caja sólo se cargará si se adjudica.",
+                            )
+                          }
+                        >
+                          Pujar{" "}
+                          {Math.max(selectedAuction.reservePrice, selectedAuction.highestBid + 1)}{" "}
+                          u.
+                        </button>
+                      )}
+                    </div>
+                  )}
                   {selectedOwnedSite && (
                     <div className="construction-options">
                       <p>

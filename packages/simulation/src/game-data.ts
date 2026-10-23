@@ -330,6 +330,13 @@ export const LOAN_POLICY = {
   delinquencyGracePayments: 1,
 } as const;
 
+export const INSOLVENCY_POLICY = {
+  auctionDurationTicks: GAME_DAY_TICKS * 3,
+  reservePricePercentOfCollateral: 70,
+  refinancingFeePercent: 5,
+  refinancingInterestRateBps: 1200,
+} as const;
+
 export function calculateLoanPayment(
   loan: Pick<Loan, "outstandingPrincipal" | "remainingMonths" | "annualInterestRateBps">,
 ): {

@@ -72,6 +72,7 @@ export function canonicalizeState(state: GameState): string {
       maintenance: state.phase2.maintenance,
       insurance: state.phase2.insurance,
       permitting: state.phase2.permitting,
+      insolvency: state.phase2.insolvency,
     },
   });
 }

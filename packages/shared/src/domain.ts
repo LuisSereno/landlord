@@ -351,6 +351,23 @@ export type Loan = {
   missedPayments: number;
 };
 
+export type AuctionStatus = "open" | "closed" | "executed";
+export type Auction = {
+  loanId: LoanId;
+  collateralParcelId: ParcelId;
+  sellerOrganizationId: OrganizationId;
+  reservePrice: Money;
+  highestBid: Money;
+  highestBidderOrganizationId: OrganizationId | null;
+  reservedFundsByOrganizationId: Record<string, Money>;
+  status: AuctionStatus;
+  openedAtTick: Tick;
+  closesAtTick: Tick;
+};
+export type InsolvencyState = {
+  auctionsByLoanId: Record<string, Auction>;
+};
+
 export type TaxationState = {
   propertyRateBps: number;
   transferRateBps: number;
@@ -598,6 +615,21 @@ export const loanSchema = z.object({
   nextPaymentTick: tickSchema.nullable(),
   missedPayments: z.number().int().nonnegative(),
 });
+export const auctionSchema = z.object({
+  loanId: loanIdSchema,
+  collateralParcelId: parcelIdSchema,
+  sellerOrganizationId: organizationIdSchema,
+  reservePrice: moneySchema,
+  highestBid: moneySchema,
+  highestBidderOrganizationId: organizationIdSchema.nullable(),
+  reservedFundsByOrganizationId: z.record(z.string(), moneySchema),
+  status: z.enum(["open", "closed", "executed"]),
+  openedAtTick: tickSchema,
+  closesAtTick: tickSchema,
+});
+export const insolvencyStateSchema = z.object({
+  auctionsByLoanId: z.record(z.string(), auctionSchema),
+});
 export const taxationStateSchema = z.object({
   propertyRateBps: z.number().int().nonnegative(),
   transferRateBps: z.number().int().nonnegative(),
@@ -732,6 +764,18 @@ export type AcceptLoanOffer = DomainCommandBase & {
   type: "AcceptLoanOffer";
   payload: { loanId: LoanId };
 };
+export type RequestRefinancing = DomainCommandBase & {
+  type: "RequestRefinancing";
+  payload: { loanId: LoanId; termMonths: number };
+};
+export type PlaceAuctionBid = DomainCommandBase & {
+  type: "PlaceAuctionBid";
+  payload: { loanId: LoanId; amount: Money };
+};
+export type WithdrawAuctionBid = DomainCommandBase & {
+  type: "WithdrawAuctionBid";
+  payload: { loanId: LoanId };
+};
 export type SetMaintenancePolicy = DomainCommandBase & {
   type: "SetMaintenancePolicy";
   payload: { policy: MaintenancePolicy };
@@ -767,6 +811,9 @@ export type ProductCommand =
   | ClearRuin
   | RequestLoan
   | AcceptLoanOffer
+  | RequestRefinancing
+  | PlaceAuctionBid
+  | WithdrawAuctionBid
   | SetMaintenancePolicy
   | RequestPermit
   | BuyInsurance
@@ -858,6 +905,21 @@ export const acceptLoanOfferSchema = commandSchema(
   "AcceptLoanOffer",
   z.object({ loanId: loanIdSchema }),
 );
+export const requestRefinancingSchema = commandSchema(
+  "RequestRefinancing",
+  z.object({
+    loanId: loanIdSchema,
+    termMonths: z.union([z.literal(6), z.literal(12), z.literal(24)]),
+  }),
+);
+export const placeAuctionBidSchema = commandSchema(
+  "PlaceAuctionBid",
+  z.object({ loanId: loanIdSchema, amount: moneySchema }),
+);
+export const withdrawAuctionBidSchema = commandSchema(
+  "WithdrawAuctionBid",
+  z.object({ loanId: loanIdSchema }),
+);
 export const setMaintenancePolicySchema = commandSchema(
   "SetMaintenancePolicy",
   z.object({ policy: z.enum(["balanced", "deferred"]) }),
@@ -896,6 +958,9 @@ export const productCommandSchema = z.discriminatedUnion("type", [
   clearRuinSchema,
   requestLoanSchema,
   acceptLoanOfferSchema,
+  requestRefinancingSchema,
+  placeAuctionBidSchema,
+  withdrawAuctionBidSchema,
   setMaintenancePolicySchema,
   requestPermitSchema,
   buyInsuranceSchema,

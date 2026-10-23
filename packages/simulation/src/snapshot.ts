@@ -178,6 +178,17 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
           ]),
         ),
       },
+      insolvency: {
+        auctionsByLoanId: Object.fromEntries(
+          Object.entries(state.phase2.insolvency.auctionsByLoanId).map(([loanId, auction]) => [
+            loanId,
+            {
+              ...auction,
+              reservedFundsByOrganizationId: { ...auction.reservedFundsByOrganizationId },
+            },
+          ]),
+        ),
+      },
     },
   };
 }
@@ -596,6 +607,35 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 ),
               }
             : defaults.permitting,
+          insolvency: snapshot.phase2.insolvency
+            ? {
+                auctionsByLoanId: Object.fromEntries(
+                  Object.entries(snapshot.phase2.insolvency.auctionsByLoanId).map(
+                    ([loanId, auction]) => [
+                      loanId,
+                      {
+                        ...auction,
+                        loanId: parseLoanId(auction.loanId),
+                        collateralParcelId: parseParcelId(auction.collateralParcelId),
+                        sellerOrganizationId: parseOrganizationId(auction.sellerOrganizationId),
+                        reservePrice: parseMoney(auction.reservePrice),
+                        highestBid: parseMoney(auction.highestBid),
+                        highestBidderOrganizationId: auction.highestBidderOrganizationId
+                          ? parseOrganizationId(auction.highestBidderOrganizationId)
+                          : null,
+                        reservedFundsByOrganizationId: Object.fromEntries(
+                          Object.entries(auction.reservedFundsByOrganizationId).map(
+                            ([organizationId, amount]) => [organizationId, parseMoney(amount)],
+                          ),
+                        ),
+                        openedAtTick: parseTick(auction.openedAtTick),
+                        closesAtTick: parseTick(auction.closesAtTick),
+                      },
+                    ],
+                  ),
+                ),
+              }
+            : defaults.insolvency,
         }
       : defaults,
   };

@@ -8,7 +8,7 @@ el slice funcional y cuenta con evidencia en
 financiera — también está cerrado según
 `docs/execution/phase-3/wp3-3-financial-projection-2026-10-23.md`. WP3.4 está
 `CONDITIONAL DONE`: el núcleo bancario funciona, con la crisis de deuda avanzada trazada a
-WP3.9. WP3.5 y WP3.6 están `DONE`, con evidencia en sus informes de `phase-3`. WP3.13 permanece
+WP3.9. WP3.5 a WP3.9 están `DONE`, con evidencia en sus informes de `phase-3`. WP3.13 permanece
 condicionado al cierre de WP2.14; no se producen assets finales
 mientras el Visual Direction Spike siga abierto.
 
@@ -162,6 +162,9 @@ producción, la extinción/reanudación y la conservación del incidente histór
 - Probar empate, fondos reservados, retirada, ejecución y save/load.
 
 **Aceptación:** las crisis generan riesgo y oportunidades; ninguna ruta viola ownership o crea activos duplicados.
+
+**Estado 2026-10-23:** `DONE`. Evidencia en
+`docs/execution/phase-3/wp3-9-auctions-insolvency-2026-10-23.md`.
 
 ## WP3.10 — IA rival financiera
 

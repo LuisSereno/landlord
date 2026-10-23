@@ -127,6 +127,9 @@ Pendiente para implementación del Vertical Slice:
   persistencia.
 - WP3.8 tiene implementados usos por zoning, riesgo regulatorio visible, permisos municipales,
   aprobación/denegación determinista, caducidad, renovación automática de rutina y persistencia.
+- WP3.9 tiene implementados default con subasta, pujas reservadas, empate/retirada, ejecución
+  atómica, refinanciación limitada y persistencia. La insolvencia colectiva avanzada sigue fuera
+  del slice.
 - modelo de tipos;
 - loan-to-value;
 - garantías;

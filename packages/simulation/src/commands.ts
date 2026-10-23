@@ -33,6 +33,7 @@ import {
   INSURANCE_POLICY,
   calculateInsuranceOffer,
   permitRequirements,
+  INSOLVENCY_POLICY,
 } from "./game-data";
 import { Xoshiro128ss } from "./prng";
 import { chooseInteractionCell, findDeterministicPath } from "./navigation";
@@ -213,6 +214,19 @@ function issuePermit(
   return approved ? "approved" : "denied";
 }
 
+function reservedFundsForOrganization(
+  state: GameState,
+  organizationId: import("@landlord/shared").OrganizationId,
+  excludeLoanId?: import("@landlord/shared").LoanId,
+): number {
+  return Object.values(state.phase2.insolvency.auctionsByLoanId)
+    .filter((auction) => auction.status === "open" && auction.loanId !== excludeLoanId)
+    .reduce(
+      (total, auction) => total + (auction.reservedFundsByOrganizationId[organizationId] ?? 0),
+      0,
+    );
+}
+
 export function debit(
   state: GameState,
   organizationId: import("@landlord/shared").OrganizationId,
@@ -359,6 +373,85 @@ export function dispatchProductCommand(
     rememberProcessed(state, command.commandId);
     return productEvent(state, command.commandId, "InsuranceCancelled", {
       buildingId: contract.buildingId,
+    });
+  }
+
+  if (command.type === "RequestRefinancing") {
+    const loan = state.phase2.loans.get(command.payload.loanId);
+    if (!loan || loan.borrowerOrganizationId !== command.actingAsOrganizationId)
+      return { accepted: false, code: "LOAN_REFINANCE_UNAVAILABLE" };
+    if (!["delinquent", "defaulted"].includes(loan.status))
+      return { accepted: false, code: "LOAN_REFINANCE_UNAVAILABLE" };
+    const auction = state.phase2.insolvency.auctionsByLoanId[loan.id];
+    if (auction?.status === "executed" || auction?.highestBidderOrganizationId)
+      return { accepted: false, code: "LOAN_REFINANCE_UNAVAILABLE" };
+    const refinancedPrincipal = parseMoney(
+      Math.ceil(
+        (loan.outstandingPrincipal * (100 + INSOLVENCY_POLICY.refinancingFeePercent)) / 100,
+      ),
+    );
+    loan.principal = refinancedPrincipal;
+    loan.outstandingPrincipal = refinancedPrincipal;
+    loan.annualInterestRateBps = INSOLVENCY_POLICY.refinancingInterestRateBps;
+    loan.termMonths = command.payload.termMonths;
+    loan.remainingMonths = command.payload.termMonths;
+    loan.status = "active";
+    loan.missedPayments = 0;
+    loan.nextPaymentTick = parseTick(state.clock.tick + GAME_MONTH_TICKS);
+    if (auction) {
+      auction.status = "closed";
+      auction.highestBid = parseMoney(0);
+      auction.highestBidderOrganizationId = null;
+      auction.reservedFundsByOrganizationId = {};
+    }
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "LoanRefinanced", {
+      loanId: loan.id,
+      principal: refinancedPrincipal,
+      nextPaymentTick: loan.nextPaymentTick,
+    });
+  }
+
+  if (command.type === "PlaceAuctionBid") {
+    const auction = state.phase2.insolvency.auctionsByLoanId[command.payload.loanId];
+    if (!auction) return { accepted: false, code: "AUCTION_NOT_FOUND" };
+    if (auction.status !== "open") return { accepted: false, code: "AUCTION_NOT_OPEN" };
+    if (
+      command.payload.amount < auction.reservePrice ||
+      command.payload.amount <= auction.highestBid
+    )
+      return { accepted: false, code: "AUCTION_BID_TOO_LOW" };
+    const balance = state.phase2.balances.get(command.actingAsOrganizationId) ?? 0;
+    if (
+      balance -
+        reservedFundsForOrganization(state, command.actingAsOrganizationId, auction.loanId) <
+      command.payload.amount
+    )
+      return { accepted: false, code: "AUCTION_FUNDS_RESERVED" };
+    auction.reservedFundsByOrganizationId = {
+      [command.actingAsOrganizationId]: command.payload.amount,
+    };
+    auction.highestBid = command.payload.amount;
+    auction.highestBidderOrganizationId = command.actingAsOrganizationId;
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "AuctionBidPlaced", {
+      loanId: auction.loanId,
+      amount: auction.highestBid,
+    });
+  }
+
+  if (command.type === "WithdrawAuctionBid") {
+    const auction = state.phase2.insolvency.auctionsByLoanId[command.payload.loanId];
+    if (!auction) return { accepted: false, code: "AUCTION_NOT_FOUND" };
+    if (auction.status !== "open") return { accepted: false, code: "AUCTION_NOT_OPEN" };
+    if (auction.highestBidderOrganizationId !== command.actingAsOrganizationId)
+      return { accepted: false, code: "AUCTION_NOT_BIDDER" };
+    auction.highestBid = parseMoney(0);
+    auction.highestBidderOrganizationId = null;
+    auction.reservedFundsByOrganizationId = {};
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "AuctionBidWithdrawn", {
+      loanId: auction.loanId,
     });
   }
 

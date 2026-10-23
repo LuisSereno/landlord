@@ -31,6 +31,7 @@ import {
   type MaintenanceState,
   type InsuranceState,
   type PermittingState,
+  type InsolvencyState,
 } from "@landlord/shared";
 import type { Money } from "@landlord/shared";
 import type {
@@ -90,6 +91,7 @@ export type Phase2State = {
   maintenance: MaintenanceState;
   insurance: InsuranceState;
   permitting: PermittingState;
+  insolvency: InsolvencyState;
   ordinance: Ordinance;
   crime: {
     heatByOrganizationId: Record<string, number>;
@@ -324,6 +326,9 @@ export function createInitialState(seed = 1): GameState {
         validityTicks: PERMIT_POLICY.validityTicks,
         approvalChanceByZoning: { ...PERMIT_POLICY.approvalChanceByZoning },
         permitsByParcelId: {},
+      },
+      insolvency: {
+        auctionsByLoanId: {},
       },
       ordinance: { ...PROTOTYPE_ORDINANCE },
       crime: {

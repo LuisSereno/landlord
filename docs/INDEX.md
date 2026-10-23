@@ -75,6 +75,7 @@
 - execution/phase-3/wp3-6-maintenance-2026-10-23.md — mantenimiento automático, deterioro, política y backlog.
 - execution/phase-3/wp3-7-insurance-2026-10-23.md — aseguradora, coberturas, primas, claims y exclusiones.
 - execution/phase-3/wp3-8-zoning-permits-2026-10-23.md — zoning, usos permitidos, permisos y caducidad.
+- execution/phase-3/wp3-9-auctions-insolvency-2026-10-23.md — subastas, refinanciación, ejecución e insolvencia inicial.
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

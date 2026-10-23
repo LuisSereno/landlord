@@ -55,7 +55,13 @@ export type ErrorCode =
   | "INSURANCE_BUILDING_INVALID"
   | "INSURANCE_ALREADY_ACTIVE"
   | "INSURANCE_NOT_FOUND"
-  | "PERMIT_DENIED";
+  | "PERMIT_DENIED"
+  | "AUCTION_NOT_FOUND"
+  | "AUCTION_NOT_OPEN"
+  | "AUCTION_BID_TOO_LOW"
+  | "AUCTION_FUNDS_RESERVED"
+  | "AUCTION_NOT_BIDDER"
+  | "LOAN_REFINANCE_UNAVAILABLE";
 
 const responseVersion = protocolVersionSchema;
 
@@ -138,6 +144,12 @@ const errorCodeSchema = z.enum([
   "INSURANCE_ALREADY_ACTIVE",
   "INSURANCE_NOT_FOUND",
   "PERMIT_DENIED",
+  "AUCTION_NOT_FOUND",
+  "AUCTION_NOT_OPEN",
+  "AUCTION_BID_TOO_LOW",
+  "AUCTION_FUNDS_RESERVED",
+  "AUCTION_NOT_BIDDER",
+  "LOAN_REFINANCE_UNAVAILABLE",
 ]);
 
 export const simulationMetricsSchema = z.object({

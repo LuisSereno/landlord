@@ -307,6 +307,24 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                   collateralParcelId: loan.collateralParcelId,
                   nextPaymentTick: loan.nextPaymentTick,
                 })),
+              auctions: Object.values(state.phase2.insolvency.auctionsByLoanId)
+                .filter(
+                  (auction) =>
+                    auction.status === "open" ||
+                    auction.sellerOrganizationId === PLAYER_ORGANIZATION_ID ||
+                    auction.highestBidderOrganizationId === PLAYER_ORGANIZATION_ID,
+                )
+                .sort((left, right) => left.loanId.localeCompare(right.loanId))
+                .map((auction) => ({
+                  loanId: auction.loanId,
+                  collateralParcelId: auction.collateralParcelId,
+                  sellerOrganizationId: auction.sellerOrganizationId,
+                  reservePrice: auction.reservePrice,
+                  highestBid: auction.highestBid,
+                  highestBidderOrganizationId: auction.highestBidderOrganizationId,
+                  status: auction.status,
+                  closesAtTick: auction.closesAtTick,
+                })),
             },
             taxation: {
               beneficiaryOrganizationId: MUNICIPALITY_ORGANIZATION_ID,

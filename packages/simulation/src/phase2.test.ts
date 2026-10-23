@@ -20,9 +20,9 @@ import {
 import { dispatchProductCommand } from "./commands";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { advanceProductSystems } from "./systems";
-import { createInitialState } from "./state";
+import { controlGrantKey, createInitialState } from "./state";
 import { createViewProjection } from "./projection";
-import { GAME_MONTH_TICKS, deteriorationRiskPercent } from "./game-data";
+import { GAME_DAY_TICKS, GAME_MONTH_TICKS, deteriorationRiskPercent } from "./game-data";
 
 const actor = parsePersonId("person_00000001");
 const organization = "org_00000001" as ProductCommand["actingAsOrganizationId"];
@@ -1209,5 +1209,115 @@ describe("WP3.8 zoning and permits", () => {
     const restored = restoreStateFromSnapshot(serializeSnapshot(state));
     expect(restored.phase2.permitting).toEqual(state.phase2.permitting);
     expect(serializeSnapshot(restored)).toEqual(serializeSnapshot(state));
+  });
+});
+
+describe("WP3.9 auctions and insolvency recovery", () => {
+  function createDefaultedLoan(seed: number): ReturnType<typeof createInitialState> {
+    const state = createInitialState(seed);
+    const parcelId = parseParcelId("parcel_00000001");
+    dispatchProductCommand(state, command(`crisis-buy-${seed}`, "BuyParcel", { parcelId }));
+    state.phase2.parcels.get(parcelId)!.price = parseMoney(2000);
+    dispatchProductCommand(
+      state,
+      command(`crisis-request-${seed}`, "RequestLoan", {
+        amount: parseMoney(600),
+        termMonths: 12,
+        collateralParcelId: parcelId,
+      }),
+    );
+    dispatchProductCommand(
+      state,
+      command(`crisis-accept-${seed}`, "AcceptLoanOffer", { loanId: parseLoanId("loan_00000001") }),
+    );
+    state.phase2.rivalAi.cooldownUntilTick = parseTick(GAME_MONTH_TICKS * 3);
+    state.phase2.balances.set(organization, parseMoney(0));
+    advanceToTick(state, GAME_MONTH_TICKS * 2);
+    return state;
+  }
+
+  it("opens a collateral auction after default and supports limited refinancing", () => {
+    const state = createDefaultedLoan(101);
+    const loan = state.phase2.loans.get(parseLoanId("loan_00000001"))!;
+    const auction = state.phase2.insolvency.auctionsByLoanId[loan.id]!;
+    expect(loan.status).toBe("defaulted");
+    expect(auction).toMatchObject({
+      status: "open",
+      reservePrice: 1400,
+      highestBid: 0,
+      sellerOrganizationId: organization,
+    });
+
+    expect(
+      dispatchProductCommand(
+        state,
+        command("crisis-refinance", "RequestRefinancing", {
+          loanId: loan.id,
+          termMonths: 12,
+        }),
+      ),
+    ).toMatchObject({ accepted: true, event: { type: "LoanRefinanced" } });
+    expect(loan).toMatchObject({
+      status: "active",
+      outstandingPrincipal: 630,
+      remainingMonths: 12,
+      nextPaymentTick: GAME_MONTH_TICKS * 2 + 1 + GAME_MONTH_TICKS,
+    });
+    expect(state.phase2.insolvency.auctionsByLoanId[loan.id]?.status).toBe("closed");
+  });
+
+  it("reserves bids, rejects ties, supports withdrawal and transfers ownership atomically", () => {
+    const state = createDefaultedLoan(102);
+    state.phase2.balances.set(organization, parseMoney(2000));
+    const loanId = parseLoanId("loan_00000001");
+    const auction = state.phase2.insolvency.auctionsByLoanId[loanId]!;
+    const beforeBalance = state.phase2.balances.get(organization)!;
+    const beforeBank = state.phase2.balances.get(parseOrganizationId("org_00000003"))!;
+    expect(
+      dispatchProductCommand(
+        state,
+        command("crisis-low-bid", "PlaceAuctionBid", { loanId, amount: parseMoney(1399) }),
+      ),
+    ).toEqual({ accepted: false, code: "AUCTION_BID_TOO_LOW" });
+    expect(
+      dispatchProductCommand(
+        state,
+        command("crisis-bid", "PlaceAuctionBid", { loanId, amount: parseMoney(1400) }),
+      ).accepted,
+    ).toBe(true);
+    expect(state.phase2.balances.get(organization)).toBe(beforeBalance);
+    expect(
+      dispatchProductCommand(
+        state,
+        command("crisis-tie", "PlaceAuctionBid", { loanId, amount: parseMoney(1400) }),
+      ),
+    ).toEqual({ accepted: false, code: "AUCTION_BID_TOO_LOW" });
+    expect(
+      dispatchProductCommand(state, command("crisis-withdraw", "WithdrawAuctionBid", { loanId })),
+    ).toMatchObject({ accepted: true });
+
+    const rival = parseOrganizationId("org_00000002");
+    state.controlGrants.set(controlGrantKey(actor, rival), {
+      personId: actor,
+      organizationId: rival,
+    });
+    expect(
+      dispatchProductCommand(state, {
+        ...command("crisis-rival-bid", "PlaceAuctionBid", { loanId, amount: parseMoney(1400) }),
+        actingAsOrganizationId: rival,
+      }),
+    ).toMatchObject({ accepted: true });
+    state.phase2.rivalAi.cooldownUntilTick = parseTick(auction.closesAtTick + GAME_DAY_TICKS);
+    advanceToTick(state, auction.closesAtTick);
+
+    expect(state.phase2.insolvency.auctionsByLoanId[loanId]?.status).toBe("executed");
+    expect(state.phase2.parcels.get(parseParcelId("parcel_00000001"))?.ownerOrganizationId).toBe(
+      rival,
+    );
+    expect(state.phase2.balances.get(organization)).toBe(beforeBalance);
+    expect(state.phase2.balances.get(parseOrganizationId("org_00000003"))).toBe(beforeBank + 1400);
+    expect(serializeSnapshot(restoreStateFromSnapshot(serializeSnapshot(state)))).toEqual(
+      serializeSnapshot(state),
+    );
   });
 });

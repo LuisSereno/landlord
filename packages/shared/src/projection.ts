@@ -240,6 +240,13 @@ export type ViewProjectionV1 = {
       transferTaxModifierPercent: number;
       permitApprovalModifierPercent: number;
     }>;
+    alerts: Array<{
+      id: string;
+      severity: "high" | "medium" | "low";
+      kind: "liquidity" | "debt" | "maintenance" | "permit" | "auction" | "occupancy";
+      message: string;
+      targetId: string | null;
+    }>;
     illegalRoute: {
       detectionChancePercent: number;
       benefitOnSuccess: number;
@@ -589,6 +596,15 @@ export const viewProjectionV1Schema = z.object({
           propertyTaxModifierPercent: z.number().int(),
           transferTaxModifierPercent: z.number().int(),
           permitApprovalModifierPercent: z.number().int(),
+        }),
+      ),
+      alerts: z.array(
+        z.object({
+          id: z.string().min(1),
+          severity: z.enum(["high", "medium", "low"]),
+          kind: z.enum(["liquidity", "debt", "maintenance", "permit", "auction", "occupancy"]),
+          message: z.string(),
+          targetId: z.string().nullable(),
         }),
       ),
       illegalRoute: z.object({

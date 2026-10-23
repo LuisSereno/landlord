@@ -48,6 +48,7 @@ La cadena de valor que debe mantenerse visible es:
 | Evidencia | [phase-3/wp3-9-auctions-insolvency-2026-10-23.md](phase-3/wp3-9-auctions-insolvency-2026-10-23.md) | Subastas, refinanciación, ejecución e insolvencia inicial |
 | Evidencia | [phase-3/wp3-10-rival-financial-ai-2026-10-23.md](phase-3/wp3-10-rival-financial-ai-2026-10-23.md) | IA rival financiera, reserva de liquidez, recuperación y persistencia |
 | Evidencia | [phase-3/wp3-11-municipal-policy-2026-10-23.md](phase-3/wp3-11-municipal-policy-2026-10-23.md) | Catálogo municipal, trade-offs, lobby, retirada y efectos económicos |
+| Evidencia | [phase-3/wp3-12-automation-ux-2026-10-23.md](phase-3/wp3-12-automation-ux-2026-10-23.md) | Rutina de cartera, excepciones, comparador y overlays operativos |
 
 ## Estado de las fases
 
@@ -56,7 +57,7 @@ La cadena de valor que debe mantenerse visible es:
 | Fase 0 | DONE — cerrada 2026-10-20 | Acta en `phase-0/PHASE-0-CLOSURE.md` |
 | Fase 1 / Gate 1 | REWORK — acta 2026-10-20 | Cerrar G1-RW-01..03 antes de aprobar |
 | Fase 2 / Gate 2 | CONDITIONAL GO — revisión 2026-10-23 | WP2.14 queda como condición y bloquea sólo arte representativo/WP3.13 |
-| Fase 3 / Vertical slice | IN_PROGRESS — WP3.2 a WP3.3 cerrados; WP3.4 y WP3.5 a WP3.11 DONE | WP3.12 es el siguiente; WP3.13 espera WP2.14 |
+| Fase 3 / Vertical slice | IN_PROGRESS — WP3.2 a WP3.3 cerrados; WP3.4 y WP3.5 a WP3.12 DONE | WP3.13 es el siguiente, pero espera WP2.14 |
 | Fase 4 / Alpha | No iniciada | Requiere vertical slice validado |
 | Fases 5-6 | No iniciadas | Requieren alcance comercial aprobado |
 | Fases 7-8 | Futuras, no comprometidas | Requieren validación explícita del producto base |

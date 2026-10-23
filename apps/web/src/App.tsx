@@ -4,7 +4,12 @@ import type { SimulationMetrics, ViewProjectionV1, WorkerResponse } from "@landl
 import { appendDiagnostic, summarizeDiagnostics, type DiagnosticEntry } from "./diagnostics";
 import { SnapshotPersistenceError, createIndexedDbPersistence } from "./persistence/indexed-db";
 import type { GridCell } from "./isometric/coordinates";
-import { mountIsometricSpike, updateIsometricProjection } from "./isometric/mount";
+import {
+  mountIsometricSpike,
+  updateIsometricOverlay,
+  updateIsometricProjection,
+  type MapOverlay,
+} from "./isometric/mount";
 import { SimulationWorkerClient, type ClientDiagnostic } from "./worker/client";
 import { BenchmarkApp } from "./BenchmarkApp";
 
@@ -18,6 +23,7 @@ export function RootApp() {
 
 export function App() {
   const [selectedCell, setSelectedCell] = useState<GridCell | null>(null);
+  const [mapOverlay, setMapOverlay] = useState<MapOverlay>("ownership");
   const [projection, setProjection] = useState<
     Parameters<typeof updateIsometricProjection>[1] | null
   >(null);
@@ -106,6 +112,56 @@ export function App() {
 
   const economy = projection?.economy;
   const diagnosticSummary = summarizeDiagnostics(diagnostics);
+  const runPortfolioRoutine = async () => {
+    if (!clientRef.current || !economy) return;
+    const occupiedTenantIds = new Set(
+      economy.buildings
+        .filter((building) => building.ownerOrganizationId === "org_00000001")
+        .flatMap((building) => building.tenantIds),
+    );
+    let completed = 0;
+    for (const building of economy.buildings
+      .filter(
+        (entry) =>
+          entry.ownerOrganizationId === "org_00000001" &&
+          entry.state === "operational" &&
+          entry.tenantIds.length < entry.capacity,
+      )
+      .sort((left, right) => left.id.localeCompare(right.id))) {
+      const vacancies = building.capacity - building.tenantIds.length;
+      const tenants = economy.tenants.filter(
+        (tenant) =>
+          !tenant.activeContractBuildingId &&
+          !occupiedTenantIds.has(tenant.id) &&
+          tenant.preferredBuildingType === building.type &&
+          tenant.budget >= building.effectiveRent,
+      );
+      for (const tenant of tenants.slice(0, vacancies)) {
+        const response = await clientRef.current.assignTenant(building.id, tenant.id);
+        if (response.type !== "RequestFailed") {
+          occupiedTenantIds.add(tenant.id);
+          completed += 1;
+        }
+      }
+    }
+    const freeCrews = economy.crews.filter((crew) => !crew.assignedWorkOrderId);
+    for (const site of economy.constructionSites
+      .filter(
+        (entry) =>
+          entry.ownerOrganizationId === "org_00000001" && entry.assignedCrewIds.length === 0,
+      )
+      .sort((left, right) => left.id.localeCompare(right.id))) {
+      const crew = freeCrews.shift();
+      if (!crew) break;
+      const response = await clientRef.current.assignCrew(crew.id, site.id);
+      if (response.type !== "RequestFailed") completed += 1;
+    }
+    setMessage(
+      completed > 0
+        ? `Rutina de cartera completada: ${completed} operación(es) ejecutada(s).`
+        : "No hay excepciones rutinarias que resolver.",
+    );
+  };
   const selectedParcel = economy?.parcels.find(
     (parcel) => parcel.cell.x === selectedCell?.x && parcel.cell.y === selectedCell?.y,
   );
@@ -251,9 +307,27 @@ export function App() {
         <section className="map-panel" aria-label="Mapa del distrito">
           <header className="map-header">
             <strong>Mapa operativo</strong>
+            <label>
+              <span className="sr-only">Capa del mapa</span>
+              <select
+                aria-label="Capa del mapa"
+                value={mapOverlay}
+                onChange={(event) => setMapOverlay(event.target.value as MapOverlay)}
+              >
+                <option value="ownership">Propiedad</option>
+                <option value="profitability">Rentabilidad</option>
+                <option value="condition">Condición</option>
+                <option value="zoning">Zoning</option>
+                <option value="risk">Riesgo regulatorio</option>
+              </select>
+            </label>
             <span className="map-help">Rueda: zoom · flechas o botón derecho: desplazamiento</span>
           </header>
-          <IsometricCanvas projection={projection} onCellPicked={setSelectedCell} />
+          <IsometricCanvas
+            projection={projection}
+            overlay={mapOverlay}
+            onCellPicked={setSelectedCell}
+          />
         </section>
         <aside
           className={`sidebar ${operationsOpen ? "" : "sidebar-collapsed"}`}
@@ -343,6 +417,9 @@ export function App() {
                 >
                   Cambiar a {economy.maintenance.policy === "balanced" ? "diferido" : "equilibrado"}
                 </button>
+                <button type="button" disabled={!client} onClick={() => void runPortfolioRoutine()}>
+                  Resolver rutina de cartera
+                </button>
                 <p>
                   <strong>Seguros:</strong>{" "}
                   {
@@ -361,6 +438,55 @@ export function App() {
                   {economy.banking.auctions.filter((auction) => auction.status === "open").length}{" "}
                   subasta(s) abierta(s) · la caja sólo se carga al adjudicar.
                 </p>
+              </div>
+            </details>
+          )}
+          {economy && (
+            <details className="side-panel" open={economy.alerts.length > 0}>
+              <summary>Excepciones y alertas ({economy.alerts.length})</summary>
+              <ol className="diagnostic-log">
+                {economy.alerts.length === 0 && <li>No hay excepciones prioritarias.</li>}
+                {economy.alerts.map((alert) => (
+                  <li key={alert.id}>
+                    <strong>{alert.severity}</strong> · {alert.message}
+                  </li>
+                ))}
+              </ol>
+            </details>
+          )}
+          {economy && (
+            <details className="side-panel">
+              <summary>Comparador de cartera</summary>
+              <div className="diagnostic-summary">
+                {economy.buildings
+                  .filter((building) => building.ownerOrganizationId === "org_00000001")
+                  .map((building) => (
+                    <p key={building.id}>
+                      <strong>{building.id}</strong> · renta {building.effectiveRent} u. · condición{" "}
+                      {building.condition}% · mantenimiento {building.maintenanceDue} u.
+                    </p>
+                  ))}
+                {economy.banking.loans.map((loan) => (
+                  <p key={loan.id}>
+                    <strong>{loan.id}</strong> · {loan.status} · deuda {loan.outstandingPrincipal}{" "}
+                    u. · cuota {loan.monthlyPayment} u.
+                  </p>
+                ))}
+                {economy.insurance.contracts
+                  .filter((contract) => contract.status === "active")
+                  .map((contract) => (
+                    <p key={contract.buildingId}>
+                      <strong>{contract.buildingId}</strong> · seguro {contract.coverage} · prima{" "}
+                      {contract.premium} u. · límite {contract.coverageLimit} u.
+                    </p>
+                  ))}
+                {economy.buildings.filter(
+                  (building) => building.ownerOrganizationId === "org_00000001",
+                ).length === 0 &&
+                  economy.banking.loans.length === 0 &&
+                  economy.insurance.contracts.length === 0 && (
+                    <p>No hay activos ni contratos que comparar.</p>
+                  )}
               </div>
             </details>
           )}
@@ -1108,9 +1234,11 @@ export function App() {
 
 function IsometricCanvas({
   projection,
+  overlay,
   onCellPicked,
 }: {
   projection: ViewProjectionV1 | null;
+  overlay: MapOverlay;
   onCellPicked: (cell: GridCell) => void;
 }) {
   const container = useRef<HTMLDivElement>(null);
@@ -1128,6 +1256,10 @@ function IsometricCanvas({
   useEffect(() => {
     if (game.current && projection) updateIsometricProjection(game.current, projection);
   }, [projection]);
+
+  useEffect(() => {
+    if (game.current) updateIsometricOverlay(game.current, overlay);
+  }, [overlay]);
 
   return <div className="map-canvas" ref={container} aria-label="Mapa isométrico del distrito" />;
 }

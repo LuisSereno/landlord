@@ -1491,3 +1491,30 @@ describe("WP3.11 municipal policy integration", () => {
     expect(state.phase2.influenceByOrganizationId.get(parseOrganizationId("org_00000002"))).toBe(0);
   });
 });
+
+describe("WP3.12 portfolio automation and exception UX", () => {
+  it("projects deterministic exceptions instead of requiring routine polling", () => {
+    const state = createInitialState(137);
+    const parcelId = parseParcelId("parcel_00000001");
+    dispatchProductCommand(state, command("alert-buy", "BuyParcel", { parcelId }));
+    state.phase2.permitting.approvalChanceByZoning.residential = 0;
+    dispatchProductCommand(
+      state,
+      command("alert-permit", "RequestPermit", {
+        parcelId,
+        buildingType: "courtyard_home",
+      }),
+    );
+    const projection = createViewProjection(state, true);
+    expect(projection.economy?.alerts).toContainEqual({
+      id: `permit-${parcelId}`,
+      severity: "medium",
+      kind: "permit",
+      message: `El permiso de ${parcelId} está denied; revisa el uso antes de construir.`,
+      targetId: parcelId,
+    });
+    expect(viewProjectionV1Schema.parse(projection).economy?.alerts).toEqual(
+      projection.economy?.alerts,
+    );
+  });
+});

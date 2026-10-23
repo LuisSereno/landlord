@@ -1,6 +1,12 @@
 import Phaser from "phaser";
 import type { ViewProjectionV1 } from "@landlord/shared";
-import { IsometricSpikeScene, isometricSpikeGameConfig } from "./IsometricSpikeScene";
+import {
+  IsometricSpikeScene,
+  isometricSpikeGameConfig,
+  type MapOverlay,
+} from "./IsometricSpikeScene";
+
+export type { MapOverlay } from "./IsometricSpikeScene";
 
 const mountedScenes = new WeakMap<Phaser.Game, IsometricSpikeScene>();
 
@@ -21,4 +27,8 @@ export function mountIsometricSpike(
 
 export function updateIsometricProjection(game: Phaser.Game, projection: ViewProjectionV1): void {
   mountedScenes.get(game)?.setProjection(projection);
+}
+
+export function updateIsometricOverlay(game: Phaser.Game, overlay: MapOverlay): void {
+  mountedScenes.get(game)?.setOverlay(overlay);
 }

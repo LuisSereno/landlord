@@ -204,6 +204,11 @@ producción, la extinción/reanudación y la conservación del incidente histór
 - Mejorar onboarding, accesibilidad, estados vacíos y recuperación de errores.
 - Validar que crecer no multiplica clics linealmente.
 
+**Aceptación:** crecer no multiplica clics linealmente y las decisiones importantes permanecen explícitas.
+
+**Estado 2026-10-23:** `DONE`. Evidencia en
+`docs/execution/phase-3/wp3-12-automation-ux-2026-10-23.md`.
+
 ## WP3.13 — Arte, audio y rendimiento representativos
 
 - Aplicar el pipeline y los templates aprobados en WP2.14; no rediseñar cámara,

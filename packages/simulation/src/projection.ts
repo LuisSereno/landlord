@@ -204,6 +204,98 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
             0,
           )
       : 0;
+  const financialSummary = createFinancialSummary(
+    state,
+    state.phase2.balances.get(PLAYER_ORGANIZATION_ID) ?? 0,
+    playerInventory,
+  );
+  const alerts: NonNullable<NonNullable<ViewProjectionV1["economy"]>["alerts"]> = [];
+  if (financialSummary.forecast.shortfall > 0)
+    alerts.push({
+      id: "liquidity-forecast",
+      severity: "high",
+      kind: "liquidity",
+      message: `La previsión mensual queda corta en ${financialSummary.forecast.shortfall} u.`,
+      targetId: null,
+    });
+  const playerArrears = state.phase2.taxation.arrearsByOrganizationId[PLAYER_ORGANIZATION_ID] ?? 0;
+  if (playerArrears > 0)
+    alerts.push({
+      id: "tax-arrears",
+      severity: "high",
+      kind: "debt",
+      message: `Hay ${playerArrears} u. de atrasos fiscales pendientes.`,
+      targetId: null,
+    });
+  for (const loan of [...state.phase2.loans.values()]
+    .filter(
+      (entry) =>
+        entry.borrowerOrganizationId === PLAYER_ORGANIZATION_ID &&
+        ["delinquent", "defaulted"].includes(entry.status),
+    )
+    .sort((left, right) => left.id.localeCompare(right.id)))
+    alerts.push({
+      id: `loan-${loan.id}`,
+      severity: "high",
+      kind: "debt",
+      message: `El préstamo ${loan.id} está ${loan.status}; quedan ${loan.outstandingPrincipal} u.`,
+      targetId: loan.collateralParcelId,
+    });
+  for (const building of [...state.phase2.buildings.values()]
+    .filter(
+      (entry) =>
+        entry.ownerOrganizationId === PLAYER_ORGANIZATION_ID &&
+        entry.state !== "ruin" &&
+        entry.condition <= 55,
+    )
+    .sort((left, right) => left.id.localeCompare(right.id)))
+    alerts.push({
+      id: `condition-${building.id}`,
+      severity: "medium",
+      kind: "maintenance",
+      message: `${building.id} está al ${building.condition}% de condición; reparar evita más deterioro.`,
+      targetId: building.parcelId,
+    });
+  for (const parcel of [...state.phase2.parcels.values()]
+    .filter((entry) => entry.ownerOrganizationId === PLAYER_ORGANIZATION_ID)
+    .sort((left, right) => left.id.localeCompare(right.id))) {
+    const permit = state.phase2.permitting.permitsByParcelId[parcel.id];
+    if (permit?.status === "denied" || permit?.status === "expired")
+      alerts.push({
+        id: `permit-${parcel.id}`,
+        severity: "medium",
+        kind: "permit",
+        message: `El permiso de ${parcel.id} está ${permit.status}; revisa el uso antes de construir.`,
+        targetId: parcel.id,
+      });
+  }
+  for (const auction of Object.values(state.phase2.insolvency.auctionsByLoanId)
+    .filter(
+      (entry) => entry.status === "open" && entry.sellerOrganizationId === PLAYER_ORGANIZATION_ID,
+    )
+    .sort((left, right) => left.loanId.localeCompare(right.loanId)))
+    alerts.push({
+      id: `auction-${auction.loanId}`,
+      severity: "high",
+      kind: "auction",
+      message: `La garantía ${auction.collateralParcelId} está en subasta; reserva ${auction.reservePrice} u.`,
+      targetId: auction.collateralParcelId,
+    });
+  for (const building of [...state.phase2.buildings.values()]
+    .filter(
+      (entry) =>
+        entry.ownerOrganizationId === PLAYER_ORGANIZATION_ID &&
+        entry.state === "operational" &&
+        entry.tenantIds.length < BUILDING_DEFINITIONS[entry.type].capacity,
+    )
+    .sort((left, right) => left.id.localeCompare(right.id)))
+    alerts.push({
+      id: `occupancy-${building.id}`,
+      severity: "low",
+      kind: "occupancy",
+      message: `${building.id} tiene ${BUILDING_DEFINITIONS[building.type].capacity - building.tenantIds.length} plaza(s) vacante(s).`,
+      targetId: building.parcelId,
+    });
   return {
     projectionVersion: 1,
     tick: parseTick(state.clock.tick),
@@ -276,11 +368,8 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                 };
               }),
             cash: state.phase2.balances.get(PLAYER_ORGANIZATION_ID) ?? 0,
-            financials: createFinancialSummary(
-              state,
-              state.phase2.balances.get(PLAYER_ORGANIZATION_ID) ?? 0,
-              playerInventory,
-            ),
+            financials: financialSummary,
+            alerts,
             banking: {
               bankOrganizationId: BANK_ORGANIZATION_ID,
               offers: [...state.phase2.loans.values()]

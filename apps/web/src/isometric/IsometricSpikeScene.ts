@@ -26,6 +26,8 @@ const COLORS = {
 const STRUCTURE_TEXTURE_KEY = "benchmark-structure-marker";
 const AGENT_TEXTURE_KEY = "benchmark-agent-marker";
 
+export type MapOverlay = "ownership" | "profitability" | "condition" | "zoning" | "risk";
+
 export class IsometricSpikeScene extends Phaser.Scene {
   private readonly layout: IsometricLayout = REFERENCE_LAYOUT;
   private readonly screenCenters: ScreenPoint[] = [];
@@ -38,6 +40,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   private selectedCell: GridCell | null = null;
   private projection: ViewProjectionV1 | null = null;
+  private overlay: MapOverlay = "ownership";
   private cellPickedListener?: (cell: GridCell) => void;
   private dragStart: { x: number; y: number; scrollX: number; scrollY: number } | null = null;
 
@@ -91,6 +94,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.drawOverlay();
   }
 
+  public setOverlay(overlay: MapOverlay): void {
+    this.overlay = overlay;
+    this.drawOverlay();
+  }
+
   public setCellPickedListener(listener: (cell: GridCell) => void): void {
     this.cellPickedListener = listener;
   }
@@ -135,12 +143,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       const center = this.screenCenter(parcel.cell);
       const halfWidth = this.layout.tileWidth / 2 - 4;
       const halfHeight = this.layout.tileHeight / 2 - 3;
-      const color =
-        parcel.ownerOrganizationId === "org_00000001"
-          ? COLORS.parcelPlayer
-          : parcel.ownerOrganizationId === "org_00000002"
-            ? COLORS.parcelRival
-            : COLORS.parcelAvailable;
+      const color = this.parcelOverlayColor(parcel);
       graphics.lineStyle(2, color, 0.9);
       graphics.beginPath();
       graphics.moveTo(center.x, center.y - halfHeight);
@@ -204,6 +207,43 @@ export class IsometricSpikeScene extends Phaser.Scene {
       graphics.closePath();
       graphics.strokePath();
     }
+  }
+
+  private parcelOverlayColor(parcel: ViewProjectionV1["economy"]["parcels"][number]): number {
+    if (this.overlay === "condition") {
+      const building = this.projection?.economy?.buildings.find(
+        (entry) => entry.id === parcel.buildingId,
+      );
+      if (!building) return COLORS.parcelAvailable;
+      if (building.condition <= 35) return COLORS.fire;
+      if (building.condition <= 70) return COLORS.construction;
+      return COLORS.parcelPlayer;
+    }
+    if (this.overlay === "profitability") {
+      const building = this.projection?.economy?.buildings.find(
+        (entry) => entry.id === parcel.buildingId,
+      );
+      if (!building) return COLORS.parcelAvailable;
+      if (building.effectiveRent <= building.maintenanceDue) return COLORS.fire;
+      if (building.effectiveRent < building.maintenanceDue * 2) return COLORS.construction;
+      return COLORS.parcelPlayer;
+    }
+    if (this.overlay === "zoning")
+      return parcel.zoning === "industrial"
+        ? 0x9b7ede
+        : parcel.zoning === "mixed"
+          ? 0xe0b04b
+          : 0x69a86b;
+    if (this.overlay === "risk") {
+      if (parcel.regulatoryRiskPercent >= 30) return COLORS.fire;
+      if (parcel.regulatoryRiskPercent >= 15) return COLORS.construction;
+      return COLORS.parcelPlayer;
+    }
+    return parcel.ownerOrganizationId === "org_00000001"
+      ? COLORS.parcelPlayer
+      : parcel.ownerOrganizationId === "org_00000002"
+        ? COLORS.parcelRival
+        : COLORS.parcelAvailable;
   }
 
   private createMarkerTexture(key: string, width: number, height: number, color: string): void {

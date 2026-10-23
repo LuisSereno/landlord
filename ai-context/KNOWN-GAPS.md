@@ -137,6 +137,9 @@ Pendiente para implementación del Vertical Slice:
 - WP3.11 tiene un catálogo municipal de tres políticas con modificadores de materiales, renta,
   fiscalidad y permisos, propuesta, lobby, retirada, proyección visible y decisión rival por
   interés propio. Coaliciones, elecciones y múltiples jurisdicciones siguen fuera del slice.
+- WP3.12 tiene rutina limitada de ocupación/cuadrillas, alertas derivadas, comparador de cartera
+  y overlays de propiedad, condición, zoning y riesgo. Las reglas persistentes de gestión,
+  automatización de decisiones irreversibles y auditoría completa de accesibilidad siguen fuera.
 - modelo de tipos;
 - loan-to-value;
 - garantías;

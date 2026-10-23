@@ -35,6 +35,14 @@ Duración orientativa existente: 16-24 semanas; 600-900 jornadas-persona.
 
 ## WP4.2 — Simulation LOD
 
+**Estado 2026-10-23:** `DONE` con LOD agregado deliberadamente latente. Evidencia en
+`docs/execution/phase-4/wp4-2-simulation-lod-2026-10-23.md` y decisión en
+`docs/engineering/adr/D-065-coste-del-tick-y-lod-latente.md`. Se mide el coste por sistema y escala,
+el crecimiento de barrio a ciudad es sublineal (exponente 0,74 en la media) y ninguna optimización
+cambia el estado resultante. Ningún sistema excede los umbrales en la ciudad máxima factible (p95
+0,1152 ms frente a 10 ms), así que la regla "implementar sólo para los sistemas que excedan budgets"
+deja el estado agregado en diseño documentado con disparadores objetivos.
+
 - Medir coste por sistema y entidad antes de agregar.
 - Clasificar zona activa, cercana y lejana.
 - Definir estado agregado por sistema y reglas de transición.

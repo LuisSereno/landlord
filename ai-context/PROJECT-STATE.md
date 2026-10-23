@@ -10,7 +10,7 @@ Fecha de consolidación: 2026-10-23.
 - Plan maestro de ejecución por fases: sí.
 - Plantilla de microtareas para agentes de baja ambigüedad: sí.
 - Fase 0 de preparación: cerrada el 2026-10-20.
-- ADRs D-046 a D-064: aceptados.
+- ADRs D-046 a D-065: aceptados.
 - Charter, contratos, benchmark y backlog inicial de Gate 1: listos.
 - Historias del prototipo: sí.
 - Riesgos: sí.
@@ -67,7 +67,7 @@ Estos sistemas están documentados, no implementados.
 - modelo de datos implementado: contratos shared v1 extendidos de forma aditiva, núcleo autoritativo headless de Gate 2, producción física localizada, proyección financiera derivada y distrito generado por perfil/seed con identidad de generación persistida (D-064).
 - tests: sí, smoke Chromium en CI, contratos, schemas, referencias de snapshot, arquitectura de
   fronteras, bucle económico determinista, generación y jugabilidad de distritos con fixtures de
-  hash, y diagnóstico de sesión acotado.
+  hash, digestos dorados de conservación del tick, y diagnóstico de sesión acotado.
 
 ## Fase
 Gate 1 aprobado `GO` el 2026-10-21; la evidencia técnica de G1-RW-01..04 quedó reunida.
@@ -82,8 +82,12 @@ del cierre de Alpha (WP4.16). La prueba manual del responsable se conserva como 
 cualitativa; la medición cuantitativa de 30–60 minutos sigue pendiente para balance financiero.
 Los WPs de Fase 4 se ejecutan incrementalmente con plan y checks por WP. WP4.1 (distritos y
 generación reproducible) quedó cerrado el 2026-10-23 bajo D-064: perfiles data-driven, anclas
-autoradas, expansión procedural, jugabilidad validada, fixtures con hash e inspector de seeds. El
-siguiente es WP4.2 (Simulation LOD). El baseline
+autoradas, expansión procedural, jugabilidad validada, fixtures con hash e inspector de seeds.
+WP4.2 (Simulation LOD) quedó cerrado el 2026-10-23 bajo D-065: sistemas del tick nombrados y
+medibles, harness de coste por sistema y escala, diez digestos dorados de conservación, crecimiento
+sublineal de barrio a ciudad (exponente 0,74 en la media) y LOD agregado documentado pero latente,
+porque ningún sistema excede los umbrales en la ciudad máxima que permite el mapa de 64×64. El
+siguiente es WP4.3 (oferta y demanda de vivienda). El baseline
 económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas
 asignables, edificios multiunidad, presupuesto y satisfacción de inquilinos, mantenimiento, rival

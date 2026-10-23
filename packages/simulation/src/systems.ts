@@ -5,7 +5,10 @@ import {
   parseMoney,
   parseTick,
   parseIncidentId,
+  type Agent,
+  type BuildingId,
   type BuildingType,
+  type IncidentRecord,
 } from "@landlord/shared";
 import { credit, debit, dispatchProductCommand } from "./commands";
 import {
@@ -41,6 +44,48 @@ const INCIDENT_LIMIT = 50;
 const PRODUCTION_SCALE = 1_000_000;
 const adjacent = (a: { x: number; y: number }, b: { x: number; y: number }) =>
   Math.abs(a.x - b.x) + Math.abs(a.y - b.y) <= 1;
+
+/**
+ * Primer incidente activo por edificio en orden de inserción: equivalente a recorrer
+ * `state.phase2.incidents.values()` con `find`, pero una sola vez por etapa en vez de una por edificio.
+ */
+function indexActiveIncidents(state: GameState): Map<BuildingId, IncidentRecord> {
+  const index = new Map<BuildingId, IncidentRecord>();
+  for (const incident of state.phase2.incidents.values()) {
+    if (incident.status !== "active" || index.has(incident.buildingId)) continue;
+    index.set(incident.buildingId, incident);
+  }
+  return index;
+}
+
+/** Técnico en mantenimiento adyacente y trabajando, primero por id de agente. */
+function indexAdjacentTechnicians(
+  state: GameState,
+  agents: readonly Agent[],
+): Map<BuildingId, Agent> {
+  const index = new Map<BuildingId, Agent>();
+  for (const agent of agents) {
+    if (agent.state !== "working" || agent.task?.kind !== "maintenance") continue;
+    const buildingId = agent.task.buildingId;
+    if (index.has(buildingId)) continue;
+    const building = state.phase2.buildings.get(buildingId);
+    if (!building) continue;
+    const parcel = state.phase2.parcels.get(building.parcelId);
+    if (!parcel || !adjacent(agent.cell, parcel.cell)) continue;
+    index.set(buildingId, agent);
+  }
+  return index;
+}
+
+/** Edificios con algún técnico trabajando, sin exigir adyacencia: es el predicado del paso 5-6. */
+function collectWorkingMaintenance(agents: readonly Agent[]): Set<BuildingId> {
+  const buildingIds = new Set<BuildingId>();
+  for (const agent of agents)
+    if (agent.state === "working" && agent.task?.kind === "maintenance")
+      buildingIds.add(agent.task.buildingId);
+  return buildingIds;
+}
+
 function hurtAgent(
   state: GameState,
   agent: import("@landlord/shared").Agent,
@@ -443,9 +488,9 @@ function openAuctionForLoan(state: GameState, loan: import("@landlord/shared").L
 }
 
 function settleAuctions(state: GameState): void {
-  for (const auction of Object.values(state.phase2.insolvency.auctionsByLoanId).sort((a, b) =>
-    a.loanId.localeCompare(b.loanId),
-  )) {
+  const auctions = Object.values(state.phase2.insolvency.auctionsByLoanId);
+  if (auctions.length === 0) return;
+  for (const auction of auctions.sort((a, b) => a.loanId.localeCompare(b.loanId))) {
     if (auction.status !== "open" || auction.closesAtTick > state.clock.tick) continue;
     const winner = auction.highestBidderOrganizationId;
     const loan = state.phase2.loans.get(auction.loanId);
@@ -560,10 +605,13 @@ function settleMaintenance(state: GameState): void {
 
 function settleInsurance(state: GameState): void {
   if (state.clock.tick === 0) return;
-  for (const contract of Object.values(state.phase2.insurance.contractsByBuildingId).sort((a, b) =>
-    a.buildingId.localeCompare(b.buildingId),
-  )) {
-    if (contract.status !== "active" || contract.nextPremiumTick !== state.clock.tick) continue;
+  // Las primas son mensuales: en el resto de ticks ninguna póliza vence, así que se filtran antes
+  // de ordenar en vez de recorrer toda la cartera en cada tick.
+  const due = Object.values(state.phase2.insurance.contractsByBuildingId).filter(
+    (contract) => contract.status === "active" && contract.nextPremiumTick === state.clock.tick,
+  );
+  if (due.length === 0) return;
+  for (const contract of due.sort((a, b) => a.buildingId.localeCompare(b.buildingId))) {
     const building = state.phase2.buildings.get(contract.buildingId);
     if (!building || building.state === "ruin") {
       contract.status = "lapsed";
@@ -619,9 +667,14 @@ function updatePolicyAndHeat(state: GameState): void {
 }
 
 function tacticalTick(state: GameState): void {
+  const movementDue = state.clock.tick % MOVEMENT_TICKS_PER_CELL === 0;
+  const hourDue = state.clock.tick !== 0 && state.clock.tick % GAME_HOUR_TICKS === 0;
+  // En 9 de cada 10 ticks no vence movimiento ni ninguna etapa horaria: ordenar todos los agentes
+  // sería entonces el coste dominante del tick sin producir ningún resultado.
+  if (!movementDue && !hourDue) return;
   const agents = [...state.agents.values()].sort((a, b) => a.id.localeCompare(b.id));
   // 1. Movement: target agents are re-evaluated at most once per game second.
-  if (state.clock.tick % MOVEMENT_TICKS_PER_CELL === 0)
+  if (movementDue)
     for (const agent of agents) {
       if (agent.state === "dead" || agent.state === "injured" || !agent.task) continue;
       if (agent.task.kind === "attack_agent") {
@@ -645,36 +698,32 @@ function tacticalTick(state: GameState): void {
     }
   // Stage 2-3: arrival activates work, then physical crews contribute before hostile actions.
   progressConstruction(state);
-  if (state.clock.tick === 0 || state.clock.tick % GAME_HOUR_TICKS !== 0) return;
+  if (!hourDue) return;
+  // Las etapas horarias recorrían la tabla de incidentes y la lista de agentes una vez por edificio:
+  // O(edificios × agentes) en cada hora de juego. Los índices siguientes dan el mismo resultado con
+  // una pasada cada uno, y se reconstruyen allí donde una etapa anterior puede mutar el estado.
+  let activeIncidents = indexActiveIncidents(state);
   if (state.clock.tick % GAME_MONTH_TICKS === 0) {
     const prng = new Xoshiro128ss(state.seed);
     prng.restoreState(state.prng);
     for (const building of [...state.phase2.buildings.values()].sort((a, b) =>
       a.id.localeCompare(b.id),
     )) {
-      const hasIncident = [...state.phase2.incidents.values()].some(
-        (incident) => incident.buildingId === building.id && incident.status === "active",
-      );
+      const hasIncident = activeIncidents.has(building.id);
       const risk = deteriorationRiskPercent(building.condition);
       if (building.state !== "operational" || hasIncident || risk === 0) continue;
       if (prng.nextInt(0, 100) < risk) ignite(state, building, "deterioration", 40);
     }
     state.prng = prng.exportState();
+    activeIncidents = indexActiveIncidents(state);
   }
   // 3. Technician suppression and repair.
+  const technicians = indexAdjacentTechnicians(state, agents);
   for (const building of [...state.phase2.buildings.values()].sort((a, b) =>
     a.id.localeCompare(b.id),
   )) {
-    const technician = agents.find(
-      (agent) =>
-        agent.task?.kind === "maintenance" &&
-        agent.task.buildingId === building.id &&
-        adjacent(agent.cell, state.phase2.parcels.get(building.parcelId)!.cell) &&
-        agent.state === "working",
-    );
-    const incident = [...state.phase2.incidents.values()].find(
-      (entry) => entry.buildingId === building.id && entry.status === "active",
-    );
+    const technician = technicians.get(building.id);
+    const incident = activeIncidents.get(building.id);
     if (technician && incident) incident.intensity = Math.max(0, incident.intensity - 35);
     if (technician && building.state === "operational")
       building.condition = Math.min(100, building.condition + 10);
@@ -717,6 +766,8 @@ function tacticalTick(state: GameState): void {
     }
   }
   // 5-6. Fire update and structural damage.
+  // El paso 4 puede dejar sin tarea a un agente, así que el índice se construye después.
+  const maintenanceOnDuty = collectWorkingMaintenance(agents);
   for (const incident of [...state.phase2.incidents.values()]
     .filter((entry) => entry.status === "active")
     .sort((a, b) => a.buildingId.localeCompare(b.buildingId))) {
@@ -725,12 +776,7 @@ function tacticalTick(state: GameState): void {
       incident.status = "resolved";
       continue;
     }
-    const tech = agents.some(
-      (agent) =>
-        agent.task?.kind === "maintenance" &&
-        agent.task.buildingId === building.id &&
-        agent.state === "working",
-    );
+    const tech = maintenanceOnDuty.has(building.id);
     if (!tech) incident.intensity = Math.min(100, incident.intensity + 15);
     building.structuralIntegrity = Math.max(
       0,
@@ -746,6 +792,9 @@ function tacticalTick(state: GameState): void {
   const pending = [...state.phase2.buildings.values()]
     .filter((building) => building.state === "collapse_pending")
     .sort((a, b) => a.id.localeCompare(b.id));
+  // `ignite` sólo actúa sobre edificios operacionales, así que ninguna explosión posterior puede
+  // crear el incidente de una raíz pendiente: el índice construido aquí sigue siendo válido.
+  const rootIncidents = indexActiveIncidents(state);
   for (const root of pending) {
     root.state = "ruin";
     const parcel = state.phase2.parcels.get(root.parcelId)!;
@@ -769,9 +818,7 @@ function tacticalTick(state: GameState): void {
     root.casualtiesTotal.dead += dead;
     root.tenantIds = [];
     root.tenantId = null;
-    const ownIncident = [...state.phase2.incidents.values()].find(
-      (entry) => entry.buildingId === root.id && entry.status === "active",
-    );
+    const ownIncident = rootIncidents.get(root.id);
     if (ownIncident) {
       ownIncident.casualties = { injured, dead };
       ownIncident.status = "resolved";
@@ -1207,16 +1254,30 @@ function rivalAction(state: GameState): void {
   );
 }
 
+export type ProductSystem = {
+  /** Nombre estable: lo usan la instrumentación de coste y las reglas de LOD. */
+  readonly name: string;
+  run(state: GameState): void;
+};
+
+/**
+ * El orden del tick es parte del determinismo (D-060): reordenar o intercalar un sistema cambia
+ * todas las partidas aunque el código de cada sistema no varíe.
+ */
+export const PRODUCT_SYSTEMS: readonly ProductSystem[] = [
+  { name: "tactical", run: tacticalTick },
+  { name: "production", run: progressProduction },
+  { name: "rent", run: collectRentAndAgeLeases },
+  { name: "debt", run: processLoanPayments },
+  { name: "auctions", run: settleAuctions },
+  { name: "propertyTax", run: settlePropertyTaxes },
+  { name: "maintenance", run: settleMaintenance },
+  { name: "insurance", run: settleInsurance },
+  { name: "policy", run: updatePolicyAndHeat },
+  { name: "rival", run: rivalAction },
+];
+
 export function advanceProductSystems(state: GameState): void {
-  tacticalTick(state);
-  progressProduction(state);
-  collectRentAndAgeLeases(state);
-  processLoanPayments(state);
-  settleAuctions(state);
-  settlePropertyTaxes(state);
-  settleMaintenance(state);
-  settleInsurance(state);
-  updatePolicyAndHeat(state);
-  rivalAction(state);
+  for (const system of PRODUCT_SYSTEMS) system.run(state);
   state.clock = { ...state.clock, tick: parseTick(state.clock.tick + 1) };
 }

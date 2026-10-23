@@ -90,6 +90,12 @@ propiedad -> mantenimiento -> seguros -> política y heat -> acción rival -> av
 
 Cada bloque es un sistema puro sobre `GameState`; ninguno depende del reloj de pared ni del render.
 
+La lista es `PRODUCT_SYSTEMS`, con nombres estables (`tactical`, `production`, `rent`, `debt`,
+`auctions`, `propertyTax`, `maintenance`, `insurance`, `policy`, `rival`) que usan la instrumentación
+de coste (`pnpm system:cost`) y las futuras reglas de LOD. No reordenar ni intercalar: cambia todas
+las partidas. La conservación del resultado se blinda con digestos dorados en
+`tick-conservation.test.ts` (D-065).
+
 ## Identidad y control
 
 No asumir:

@@ -315,3 +315,28 @@ evidencia de Gate 2 y Fase 3 sigue siendo válida sin reescribir aserciones econ
 renombrar un perfil rompe la carga de partidas que lo referencian y exige decisión de migración.
 Ver `docs/engineering/adr/D-064-generacion-procedural-de-distritos.md` y
 `docs/execution/phase-4/wp4-1-districts-generation-2026-10-23.md`.
+
+## D-065 — Coste del tick medido por sistema; LOD espacial documentado pero latente
+Estado: aceptada el 2026-10-23 para WP4.2.
+Los diez sistemas del tick pasan a ser entidades nombradas (`PRODUCT_SYSTEMS` +
+`advanceProductSystems`), que son a la vez el orden determinista de D-060 y la unidad de
+instrumentación. El coste se mide por sistema y escala con ciudad sintética (`pnpm system:cost`) y
+se blinda con diez digestos dorados de conservación, tres de ellos con cascada de incendio, colapso
+y bajas. La ciudad máxima factible viene dada por el mapa, que está limitado a 64×64: 828 parcelas,
+607 edificios, 951 tenants, 290 agentes y 151 pólizas. Ahí el tick headless mide 0,0498 ms de media
+y 0,1152 ms de p95, el 1,2 % del presupuesto, y el crecimiento de barrio a ciudad es sublineal
+(exponente 0,74 en la media y 0,72 en p95 para ×10,62 parcelas). Como ningún sistema excede ningún
+umbral, la regla del propio WP deja el estado agregado sin implementar: se registran el diseño de
+zonas activa/cercana/lejana, derivado del estado de la simulación y nunca de la cámara, y los
+disparadores objetivos que lo activarían. Lo que sí se corrige son cinco costes algorítmicos
+mediante transformaciones exactas verificadas por comparación diferencial contra la implementación
+anterior: `tacticalTick` recorría todas las etapas horarias en cada tick y su paso de técnicos era
+O(edificios × agentes) con una copia de la tabla de incidentes dentro del bucle por edificio, la
+ignición mensual era O(edificios × incidentes), `settleInsurance` ordenaba toda la cartera en cada
+tick siendo las primas mensuales y `settleAuctions` ordenaba una lista vacía. El término lineal que
+queda es `settleInsurance` (59,2 % del coste) y necesitaría un índice de primas vencidas con cambio
+de formato de guardado. Sustituir `localeCompare` por comparación relacional es 3,8-6,3× más rápido
+y elimina una dependencia del locale, pero toca unos veinte puntos incluido `orderEntityIds`;
+requiere ADR propio y cambio global. Ver
+`docs/engineering/adr/D-065-coste-del-tick-y-lod-latente.md` y
+`docs/execution/phase-4/wp4-2-simulation-lod-2026-10-23.md`.

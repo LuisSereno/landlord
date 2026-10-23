@@ -1,6 +1,6 @@
 # D-062 — Producción física localizada después de Gate 2
 
-Estado: **Aceptada para el Vertical Slice**  
+Estado: **Aceptada para el Vertical Slice**
 Fecha: 2026-10-23
 
 ## Contexto

@@ -74,12 +74,13 @@ Gate 2 en `GO` para producción representativa desde el 2026-10-23: el responsab
 prueba manual OK, WP2.15 está cerrado, el benchmark/smoke pasan y WP2.14 aprobó `graphic_civic`.
 
 ## Próximo objetivo
-WP3.13 y WP3.14 están cerrados para el alcance representativo y la persistencia/observabilidad
-local. WP3.15 está cerrado con decisión `GO CONTROLLED ALPHA`; la siguiente fase debe medir
-sesiones reales, balance y comprensión con cohortes/seed registrados. La prueba manual del
-responsable se conserva como evidencia
+Fase 3 cerrada con `GO CONTROLLED ALPHA`. Bajo la excepción D-063 (2026-10-23) el responsable
+adelanta la producción de contenido de Fase 4 sin la medición de sesiones reales que exigía
+WP3.15; la instrumentación persistente de cohortes/seed queda diferida y debe ejecutarse antes
+del cierre de Alpha (WP4.16). La prueba manual del responsable se conserva como evidencia
 cualitativa; la medición cuantitativa de 30–60 minutos sigue pendiente para balance financiero.
-El baseline
+Los WPs de Fase 4 se ejecutan incrementalmente con plan y checks por WP, empezando por WP4.1
+(distritos y generación reproducible). El baseline
 económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas
 asignables, edificios multiunidad, presupuesto y satisfacción de inquilinos, mantenimiento, rival

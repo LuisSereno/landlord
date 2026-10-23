@@ -26,3 +26,4 @@ Una decisión aceptada sólo se modifica mediante un ADR posterior que la sustit
 - [D-060 — Coherencia económica y temporal de Gate 2](D-060-coherencia-economica-gate-2.md)
 - [D-061 — Spike de agentes, daño e incidentes](D-061-spike-agentes-dano-incidentes-gate-2.md)
 - [D-062 — Producción física localizada](D-062-produccion-fisica-localizada.md)
+- [D-063 — Excepción al criterio de entrada de Alpha](D-063-excepcion-criterio-entrada-alpha.md)

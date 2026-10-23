@@ -13,6 +13,11 @@ Duración orientativa existente: 16-24 semanas; 600-900 jornadas-persona.
 - Sistema de datos y migraciones estable.
 - Problemas de micromanagement del slice resueltos o con plan probado.
 
+> Excepción D-063 (2026-10-23): el responsable adelanta la producción de contenido de Fase 4
+> sin la medición de sesiones reales que exigía el acta de WP3.15. La instrumentación
+> persistente de cohortes/seed queda diferida y debe ejecutarse antes del cierre de Alpha
+> (WP4.16). Los WPs se ejecutan incrementalmente con plan y checks por WP.
+
 ## WP4.1 — Distritos y generación reproducible
 
 - Definir perfiles de distrito data-driven y composición propia.

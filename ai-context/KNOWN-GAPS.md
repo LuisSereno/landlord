@@ -149,6 +149,10 @@ Pendiente para implementación del Vertical Slice:
   save/restore en verde. Fase 3 queda cerrada con `GO CONTROLLED ALPHA`; Alpha debe medir
   cohortes, duración, comprensión y balance sin convertir una única prueba manual OK en
   significancia estadística.
+- D-063 (2026-10-23) registra la excepción: el responsable adelanta la producción de contenido
+  de Fase 4 sin la medición de sesiones que exigía WP3.15. La instrumentación persistente de
+  cohortes/seed queda diferida y debe ejecutarse antes del cierre de Alpha (WP4.16). Los WPs de
+  Fase 4 se ejecutan incrementalmente con plan y checks por WP.
 - modelo de tipos;
 - loan-to-value;
 - garantías;

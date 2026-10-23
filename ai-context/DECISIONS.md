@@ -280,3 +280,19 @@ mercado de materiales continúa como alternativa inmediata. La inversión poster
 upgrade de un activo productivo existente, no activación de una instalación invisible. No se
 añaden todavía cadenas industriales complejas, energía, minas o materias primas intermedias.
 Ver `docs/engineering/adr/D-062-produccion-fisica-localizada.md`.
+
+## D-063 — Excepción al criterio de entrada de Alpha
+Estado: decidido el 2026-10-23.
+El acta de WP3.15 condiciona la Alpha sistémica a medir sesiones reales antes de ampliar
+contenido: duración efectiva de sesión, primera parcela/obra/ingreso, decisiones estratégicas
+frente a tareas repetitivas, comprensión de overlays y carga operativa, con seeds y cohortes
+registrados. Esa medición cuantitativa de 30–60 minutos sigue pendiente y el repositorio no
+dispone de instrumentación persistente de cohortes (el diagnóstico de D-057 es efímero y no
+autoritativo). El responsable decide adelantar la producción de contenido de Fase 4 sin esa
+medición previa, registrando la excepción. La instrumentación de sesiones de Alpha queda
+diferida y debe ejecutarse antes del cierre de Alpha (WP4.16); no convierte una única prueba
+manual OK en significancia estadística, sólo reordena el trabajo. Los WPs de Fase 4 se
+ejecutan incrementalmente con plan y checks por WP, no de golpe. Ver
+`docs/engineering/adr/D-063-excepcion-criterio-entrada-alpha.md`,
+`docs/execution/phase-3/wp3-15-validation-2026-10-23.md` y
+`docs/execution/05-fase-4-alpha-sistemica.md`.

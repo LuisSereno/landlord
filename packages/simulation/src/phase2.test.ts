@@ -22,7 +22,7 @@ import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { advanceProductSystems } from "./systems";
 import { createInitialState } from "./state";
 import { createViewProjection } from "./projection";
-import { GAME_MONTH_TICKS } from "./game-data";
+import { GAME_MONTH_TICKS, deteriorationRiskPercent } from "./game-data";
 
 const actor = parsePersonId("person_00000001");
 const organization = "org_00000001" as ProductCommand["actingAsOrganizationId"];
@@ -852,5 +852,131 @@ describe("WP3.5 taxation and fees", () => {
     expect(restored.phase2.taxation.lastSettlementTick).toBe(GAME_MONTH_TICKS);
     advanceProductSystems(restored);
     expect(restored.phase2.balances.get(organization)).toBe(settledBalance);
+  });
+});
+
+describe("WP3.6 maintenance and deterioration", () => {
+  function addTestBuilding(
+    state: ReturnType<typeof createInitialState>,
+    condition = 100,
+  ): ReturnType<typeof parseBuildingId> {
+    const buildingId = parseBuildingId("building_00000001");
+    const parcel = state.phase2.parcels.get(parseParcelId("parcel_00000001"))!;
+    parcel.ownerOrganizationId = organization;
+    parcel.buildingId = buildingId;
+    state.phase2.buildings.set(buildingId, {
+      id: buildingId,
+      parcelId: parcel.id,
+      ownerOrganizationId: organization,
+      productionFacilityId: null,
+      type: "courtyard_home",
+      level: 1,
+      condition,
+      tenantId: null,
+      tenantIds: [],
+      upgraded: false,
+      structuralIntegrity: 100,
+      state: "operational",
+      casualtiesTotal: { injured: 0, dead: 0 },
+    });
+    return buildingId;
+  }
+
+  function moveToMaintenanceSettlement(
+    state: ReturnType<typeof createInitialState>,
+    tick: number,
+  ): void {
+    state.clock = { ...state.clock, tick: parseTick(tick) };
+    state.phase2.taxation.nextSettlementTick = parseTick(tick + GAME_MONTH_TICKS);
+    state.phase2.rivalAi.cooldownUntilTick = parseTick(tick + GAME_MONTH_TICKS);
+    advanceProductSystems(state);
+  }
+
+  it("liquida mantenimiento equilibrado y recupera la condición sin interacción manual", () => {
+    const state = createInitialState(71);
+    const buildingId = addTestBuilding(state);
+    const before = state.phase2.balances.get(organization)!;
+    state.phase2.maintenance.nextSettlementTick = parseTick(GAME_MONTH_TICKS);
+
+    moveToMaintenanceSettlement(state, GAME_MONTH_TICKS);
+
+    expect(state.phase2.buildings.get(buildingId)?.condition).toBe(100);
+    expect(state.phase2.balances.get(organization)).toBe(before - 35);
+    expect(state.phase2.maintenance).toMatchObject({
+      lastSettlementTick: GAME_MONTH_TICKS,
+      nextSettlementTick: GAME_MONTH_TICKS * 2,
+      backlogByBuildingId: {},
+    });
+    expect(state.phase2.transactions.at(-1)).toMatchObject({
+      cause: "maintenance_service",
+      amount: 35,
+      referenceId: buildingId,
+      direction: "debit",
+    });
+  });
+
+  it("permite diferir, acumula backlog y conserva la deuda si después no hay liquidez", () => {
+    const state = createInitialState(72);
+    const buildingId = addTestBuilding(state);
+    expect(
+      dispatchProductCommand(
+        state,
+        command("maintenance-deferred", "SetMaintenancePolicy", { policy: "deferred" }),
+      ).accepted,
+    ).toBe(true);
+    const before = state.phase2.balances.get(organization)!;
+    state.phase2.maintenance.nextSettlementTick = parseTick(GAME_MONTH_TICKS);
+
+    moveToMaintenanceSettlement(state, GAME_MONTH_TICKS);
+
+    expect(state.phase2.balances.get(organization)).toBe(before);
+    expect(state.phase2.buildings.get(buildingId)?.condition).toBe(95);
+    expect(state.phase2.maintenance.backlogByBuildingId[buildingId]).toBe(35);
+
+    expect(
+      dispatchProductCommand(
+        state,
+        command("maintenance-balanced", "SetMaintenancePolicy", { policy: "balanced" }),
+      ).accepted,
+    ).toBe(true);
+    state.phase2.balances.set(organization, parseMoney(0));
+    state.phase2.maintenance.nextSettlementTick = parseTick(GAME_MONTH_TICKS * 2);
+    moveToMaintenanceSettlement(state, GAME_MONTH_TICKS * 2);
+
+    expect(state.phase2.buildings.get(buildingId)?.condition).toBe(90);
+    expect(state.phase2.maintenance.backlogByBuildingId[buildingId]).toBe(70);
+    expect(
+      state.phase2.transactions.some(
+        (transaction) =>
+          transaction.cause === "maintenance_service" && transaction.tick === GAME_MONTH_TICKS * 2,
+      ),
+    ).toBe(false);
+  });
+
+  it("expone el coste y el backlog en la proyección y persiste la política", () => {
+    const state = createInitialState(73);
+    const buildingId = addTestBuilding(state, 55);
+    state.phase2.maintenance.policy = "deferred";
+    state.phase2.maintenance.backlogByBuildingId[buildingId] = parseMoney(35);
+    const projection = createViewProjection(state, true);
+
+    expect(projection.economy?.maintenance).toMatchObject({
+      policy: "deferred",
+      monthlyCost: 0,
+      backlog: 35,
+    });
+    expect(projection.economy?.buildings[0]).toMatchObject({
+      maintenanceCost: 35,
+      maintenanceDue: 70,
+      effectiveRent: 140,
+    });
+    expect(projection.economy?.financials?.assets).toBe(17110);
+    expect(deteriorationRiskPercent(100)).toBe(0);
+    expect(deteriorationRiskPercent(60)).toBe(30);
+    expect(deteriorationRiskPercent(20)).toBe(80);
+
+    const restored = restoreStateFromSnapshot(serializeSnapshot(state));
+    expect(restored.phase2.maintenance).toEqual(state.phase2.maintenance);
+    expect(serializeSnapshot(restored)).toEqual(serializeSnapshot(state));
   });
 });

@@ -119,6 +119,9 @@ Pendiente para implementación del Vertical Slice:
   avanzada siguen en WP3.9.
 - WP3.5 tiene implementadas las tasas prioritarias de transmisión y propiedad, tesorería
   municipal, exenciones, modificadores de ordenanza, previsión y atrasos.
+- WP3.6 tiene implementadas liquidación automática de mantenimiento, políticas equilibrada y
+  diferida, backlog por edificio, deterioro progresivo, consecuencias en renta/valor/riesgo,
+  integración con reparación, proyección y persistencia.
 - modelo de tipos;
 - loan-to-value;
 - garantías;

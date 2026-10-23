@@ -23,6 +23,9 @@ import {
   effectiveTaxRateBps,
   MUNICIPALITY_ORGANIZATION_ID,
   TAX_POLICY,
+  MAINTENANCE_POLICY,
+  conditionRentMultiplierPercent,
+  deteriorationRiskPercent,
 } from "./game-data";
 import type { GameState } from "./state";
 import { Xoshiro128ss } from "./prng";
@@ -286,7 +289,8 @@ function collectRentAndAgeLeases(state: GameState): void {
       Math.round(
         BUILDING_DEFINITIONS[building.type].baseRent *
           (building.upgraded ? 1 + UPGRADE_RENT_BONUS_PERCENT / 100 : 1) *
-          rentModifier,
+          rentModifier *
+          (conditionRentMultiplierPercent(building.condition) / 100),
       ),
     );
     for (const tenantId of [...building.tenantIds]) {
@@ -308,7 +312,6 @@ function collectRentAndAgeLeases(state: GameState): void {
       }
     }
     building.tenantId = building.tenantIds[0] ?? null;
-    building.condition = Math.max(0, building.condition - 5);
   }
 }
 
@@ -393,6 +396,37 @@ function settlePropertyTaxes(state: GameState): void {
   );
 }
 
+function settleMaintenance(state: GameState): void {
+  if (state.clock.tick === 0 || state.clock.tick !== state.phase2.maintenance.nextSettlementTick)
+    return;
+  for (const building of [...state.phase2.buildings.values()].sort((a, b) =>
+    a.id.localeCompare(b.id),
+  )) {
+    if (building.state === "ruin") continue;
+    building.condition = Math.max(0, building.condition - MAINTENANCE_POLICY.wearPerSettlement);
+    const currentCost = MAINTENANCE_POLICY.costsByBuildingType[building.type];
+    const backlog = state.phase2.maintenance.backlogByBuildingId[building.id] ?? 0;
+    const due = parseMoney(backlog + currentCost);
+    if (state.phase2.maintenance.policy === "balanced") {
+      if (debit(state, building.ownerOrganizationId, due, "maintenance_service", building.id)) {
+        building.condition = Math.min(
+          100,
+          building.condition + MAINTENANCE_POLICY.recoveryPerSettlement,
+        );
+        delete state.phase2.maintenance.backlogByBuildingId[building.id];
+      } else {
+        state.phase2.maintenance.backlogByBuildingId[building.id] = due;
+      }
+    } else {
+      state.phase2.maintenance.backlogByBuildingId[building.id] = due;
+    }
+  }
+  state.phase2.maintenance.lastSettlementTick = parseTick(state.clock.tick);
+  state.phase2.maintenance.nextSettlementTick = parseTick(
+    state.clock.tick + MAINTENANCE_POLICY.settlementPeriodTicks,
+  );
+}
+
 function updatePolicyAndHeat(state: GameState): void {
   const ordinance = state.phase2.ordinance;
   if (
@@ -450,8 +484,9 @@ function tacticalTick(state: GameState): void {
       const hasIncident = [...state.phase2.incidents.values()].some(
         (incident) => incident.buildingId === building.id && incident.status === "active",
       );
-      if (building.state !== "operational" || hasIncident || building.condition > 20) continue;
-      if (prng.nextInt(0, 100) < 35) ignite(state, building, "deterioration", 40);
+      const risk = deteriorationRiskPercent(building.condition);
+      if (building.state !== "operational" || hasIncident || risk === 0) continue;
+      if (prng.nextInt(0, 100) < risk) ignite(state, building, "deterioration", 40);
     }
     state.prng = prng.exportState();
   }
@@ -800,6 +835,7 @@ export function advanceProductSystems(state: GameState): void {
   collectRentAndAgeLeases(state);
   processLoanPayments(state);
   settlePropertyTaxes(state);
+  settleMaintenance(state);
   updatePolicyAndHeat(state);
   rivalAction(state);
   state.clock = { ...state.clock, tick: parseTick(state.clock.tick + 1) };

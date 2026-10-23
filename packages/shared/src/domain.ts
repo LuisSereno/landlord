@@ -327,6 +327,14 @@ export type TaxationState = {
   arrearsByOrganizationId: Record<string, Money>;
 };
 
+export type MaintenancePolicy = "balanced" | "deferred";
+export type MaintenanceState = {
+  policy: MaintenancePolicy;
+  nextSettlementTick: Tick;
+  lastSettlementTick: Tick | null;
+  backlogByBuildingId: Record<string, Money>;
+};
+
 export type PolicyStatus = "proposed" | "approved" | "active" | "expired" | "rejected";
 export type Ordinance = {
   id: PolicyId;
@@ -518,6 +526,12 @@ export const taxationStateSchema = z.object({
   exemptOrganizationIds: z.array(organizationIdSchema),
   arrearsByOrganizationId: z.record(z.string(), moneySchema),
 });
+export const maintenanceStateSchema = z.object({
+  policy: z.enum(["balanced", "deferred"]),
+  nextSettlementTick: tickSchema,
+  lastSettlementTick: tickSchema.nullable(),
+  backlogByBuildingId: z.record(z.string(), moneySchema),
+});
 export const ordinanceSchema = z.object({
   id: policyIdSchema,
   name: z.string().min(1).max(120),
@@ -616,6 +630,10 @@ export type AcceptLoanOffer = DomainCommandBase & {
   type: "AcceptLoanOffer";
   payload: { loanId: LoanId };
 };
+export type SetMaintenancePolicy = DomainCommandBase & {
+  type: "SetMaintenancePolicy";
+  payload: { policy: MaintenancePolicy };
+};
 export type ProductCommand =
   | PlaceTestStructure
   | BuyParcel
@@ -634,7 +652,8 @@ export type ProductCommand =
   | OrderEnforcerAction
   | ClearRuin
   | RequestLoan
-  | AcceptLoanOffer;
+  | AcceptLoanOffer
+  | SetMaintenancePolicy;
 
 function commandSchema<TType extends string>(type: TType, payload: z.ZodType) {
   return z.object({
@@ -722,6 +741,10 @@ export const acceptLoanOfferSchema = commandSchema(
   "AcceptLoanOffer",
   z.object({ loanId: loanIdSchema }),
 );
+export const setMaintenancePolicySchema = commandSchema(
+  "SetMaintenancePolicy",
+  z.object({ policy: z.enum(["balanced", "deferred"]) }),
+);
 export const productCommandSchema = z.discriminatedUnion("type", [
   placeTestStructureSchema,
   buyParcelSchema,
@@ -741,4 +764,5 @@ export const productCommandSchema = z.discriminatedUnion("type", [
   clearRuinSchema,
   requestLoanSchema,
   acceptLoanOfferSchema,
+  setMaintenancePolicySchema,
 ]);

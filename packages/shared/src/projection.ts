@@ -175,6 +175,8 @@ export type ViewProjectionV1 = {
       state: "operational" | "burning" | "collapse_pending" | "ruin";
       casualtiesTotal: { injured: number; dead: number };
       effectiveRent: number;
+      maintenanceCost: number;
+      maintenanceDue: number;
     }>;
     constructionSites: Array<{
       id: ConstructionSiteId;
@@ -220,7 +222,15 @@ export type ViewProjectionV1 = {
       cooldownRemainingTicks: number;
     };
     market: { prices: { cement: number; brick: number; steel: number } };
-    maintenance: { repairCost: number; repairWorkRequired: number };
+    maintenance: {
+      policy: "balanced" | "deferred";
+      nextSettlementTick: Tick;
+      lastSettlementTick: Tick | null;
+      monthlyCost: number;
+      backlog: number;
+      repairCost: number;
+      repairWorkRequired: number;
+    };
     recentTransactions: Array<{
       tick: Tick;
       cause: string;
@@ -449,6 +459,8 @@ export const viewProjectionV1Schema = z.object({
             dead: z.number().int().nonnegative(),
           }),
           effectiveRent: moneySchema,
+          maintenanceCost: moneySchema,
+          maintenanceDue: moneySchema,
         }),
       ),
       constructionSites: z.array(
@@ -502,6 +514,11 @@ export const viewProjectionV1Schema = z.object({
         prices: z.object({ cement: moneySchema, brick: moneySchema, steel: moneySchema }),
       }),
       maintenance: z.object({
+        policy: z.enum(["balanced", "deferred"]),
+        nextSettlementTick: tickSchema,
+        lastSettlementTick: tickSchema.nullable(),
+        monthlyCost: moneySchema,
+        backlog: moneySchema,
         repairCost: moneySchema,
         repairWorkRequired: z.number().int().positive(),
       }),

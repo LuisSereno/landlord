@@ -72,6 +72,7 @@
 - execution/phase-3/wp3-3-financial-projection-2026-10-23.md — baseline de posición financiera y previsión de caja.
 - execution/phase-3/wp3-4-banking-debt-2026-10-23.md — banco independiente, deuda, amortización, mora y persistencia.
 - execution/phase-3/wp3-5-taxation-2026-10-23.md — tasas de transmisión y propiedad, exenciones y liquidación.
+- execution/phase-3/wp3-6-maintenance-2026-10-23.md — mantenimiento automático, deterioro, política y backlog.
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

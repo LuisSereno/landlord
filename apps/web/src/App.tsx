@@ -312,6 +312,25 @@ export function App() {
                   {economy.taxation.playerArrears > 0 &&
                     ` · atrasos ${economy.taxation.playerArrears} u.`}
                 </p>
+                <p>
+                  <strong>Mantenimiento:</strong> política {economy.maintenance.policy} · próxima
+                  liquidación en tick {economy.maintenance.nextSettlementTick} · carga prevista{" "}
+                  {economy.maintenance.monthlyCost} u. · backlog {economy.maintenance.backlog} u.
+                </p>
+                <button
+                  type="button"
+                  onClick={() =>
+                    void sendAction(
+                      () =>
+                        clientRef.current!.setMaintenancePolicy(
+                          economy.maintenance.policy === "balanced" ? "deferred" : "balanced",
+                        ),
+                      "Política de mantenimiento actualizada.",
+                    )
+                  }
+                >
+                  Cambiar a {economy.maintenance.policy === "balanced" ? "diferido" : "equilibrado"}
+                </button>
               </div>
             </details>
           )}
@@ -449,6 +468,12 @@ export function App() {
                     {selectedParcel.estimatedTransferTax} u. · propiedad{" "}
                     {selectedParcel.estimatedMonthlyPropertyTax} u./mes
                   </p>
+                  {selectedBuilding && (
+                    <p className="selection-detail">
+                      <strong>Mantenimiento:</strong> {selectedBuilding.maintenanceCost} u./mes ·
+                      debido {selectedBuilding.maintenanceDue} u.
+                    </p>
+                  )}
                   {selectedOwnedSite && (
                     <div className="construction-options">
                       <p>

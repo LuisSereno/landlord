@@ -20,6 +20,7 @@ import {
   economicTransactionSchema,
   loanSchema,
   taxationStateSchema,
+  maintenanceStateSchema,
   ordinanceSchema,
   parcelSchema,
   productionFacilitySchema,
@@ -134,6 +135,7 @@ export type SnapshotV1 = {
     incidents?: import("./domain").IncidentRecord[];
     loans?: import("./domain").Loan[];
     taxation?: import("./domain").TaxationState;
+    maintenance?: import("./domain").MaintenanceState;
   };
 };
 
@@ -216,6 +218,7 @@ const phase2SnapshotSchema = z.object({
   incidents: z.array(incidentSchema).optional(),
   loans: z.array(loanSchema).optional(),
   taxation: taxationStateSchema.optional(),
+  maintenance: maintenanceStateSchema.optional(),
 });
 
 export const snapshotV1Schema = z.object({

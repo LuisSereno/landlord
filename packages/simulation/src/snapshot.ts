@@ -142,6 +142,10 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
         exemptOrganizationIds: [...state.phase2.taxation.exemptOrganizationIds],
         arrearsByOrganizationId: { ...state.phase2.taxation.arrearsByOrganizationId },
       },
+      maintenance: {
+        ...state.phase2.maintenance,
+        backlogByBuildingId: { ...state.phase2.maintenance.backlogByBuildingId },
+      },
     },
   };
 }
@@ -477,6 +481,21 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 ),
               }
             : defaults.taxation,
+          maintenance: snapshot.phase2.maintenance
+            ? {
+                ...snapshot.phase2.maintenance,
+                nextSettlementTick: parseTick(snapshot.phase2.maintenance.nextSettlementTick),
+                lastSettlementTick:
+                  snapshot.phase2.maintenance.lastSettlementTick === null
+                    ? null
+                    : parseTick(snapshot.phase2.maintenance.lastSettlementTick),
+                backlogByBuildingId: Object.fromEntries(
+                  Object.entries(snapshot.phase2.maintenance.backlogByBuildingId).map(
+                    ([buildingId, amount]) => [buildingId, parseMoney(amount)],
+                  ),
+                ),
+              }
+            : defaults.maintenance,
         }
       : defaults,
   };

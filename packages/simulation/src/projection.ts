@@ -20,6 +20,9 @@ import {
   calculateTax,
   effectiveTaxRateBps,
   MUNICIPALITY_ORGANIZATION_ID,
+  MAINTENANCE_POLICY,
+  conditionAssetValueMultiplierPercent,
+  conditionRentMultiplierPercent,
 } from "./game-data";
 
 function currentPropertyTaxRateBps(state: GameState): number {
@@ -65,7 +68,16 @@ function createFinancialSummary(
     .reduce((total, parcel) => total + parcel.price, 0);
   const buildingValue = [...state.phase2.buildings.values()]
     .filter((building) => building.ownerOrganizationId === PLAYER_ORGANIZATION_ID)
-    .reduce((total, building) => total + BUILDING_DEFINITIONS[building.type].cost, 0);
+    .reduce(
+      (total, building) =>
+        total +
+        Math.round(
+          (BUILDING_DEFINITIONS[building.type].cost *
+            conditionAssetValueMultiplierPercent(building.condition)) /
+            100,
+        ),
+      0,
+    );
   const assets = cash + inventoryValue + parcelValue + buildingValue;
   const liabilities = [...state.phase2.loans.values()]
     .filter(
@@ -119,7 +131,23 @@ function createFinancialSummary(
     .reduce((total, loan) => total + calculateLoanPayment(loan).total, 0);
   const propertyTaxRateBps = currentPropertyTaxRateBps(state);
   const propertyTaxExpense = projectedMonthlyPropertyTax(state, propertyTaxRateBps);
-  const totalForecastExpenses = forecastExpenses + loanExpenses + propertyTaxExpense;
+  const maintenanceExpense =
+    state.phase2.maintenance.policy === "balanced"
+      ? [...state.phase2.buildings.values()]
+          .filter(
+            (building) =>
+              building.ownerOrganizationId === PLAYER_ORGANIZATION_ID && building.state !== "ruin",
+          )
+          .reduce(
+            (total, building) =>
+              total +
+              MAINTENANCE_POLICY.costsByBuildingType[building.type] +
+              (state.phase2.maintenance.backlogByBuildingId[building.id] ?? 0),
+            0,
+          )
+      : 0;
+  const totalForecastExpenses =
+    forecastExpenses + loanExpenses + propertyTaxExpense + maintenanceExpense;
   const netIncome = periodIncome - periodExpenses;
   const netCashFlow = forecastIncome - totalForecastExpenses;
   const projectedCash = cash + netCashFlow;
@@ -149,6 +177,21 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
   const playerInventory = state.phase2.inventories.get(PLAYER_ORGANIZATION_ID)!;
   const propertyTaxRateBps = currentPropertyTaxRateBps(state);
   const propertyTaxExpense = projectedMonthlyPropertyTax(state, propertyTaxRateBps);
+  const maintenanceExpense =
+    state.phase2.maintenance.policy === "balanced"
+      ? [...state.phase2.buildings.values()]
+          .filter(
+            (building) =>
+              building.ownerOrganizationId === PLAYER_ORGANIZATION_ID && building.state !== "ruin",
+          )
+          .reduce(
+            (total, building) =>
+              total +
+              MAINTENANCE_POLICY.costsByBuildingType[building.type] +
+              (state.phase2.maintenance.backlogByBuildingId[building.id] ?? 0),
+            0,
+          )
+      : 0;
   return {
     projectionVersion: 1,
     tick: parseTick(state.clock.tick),
@@ -358,9 +401,14 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                           (building.upgraded ? 1 + UPGRADE_RENT_BONUS_PERCENT / 100 : 1) *
                           (state.phase2.ordinance.status === "active"
                             ? 1 + state.phase2.ordinance.rentModifierPercent / 100
-                            : 1),
+                            : 1) *
+                          (conditionRentMultiplierPercent(building.condition) / 100),
                       )
                     : 0,
+                maintenanceCost: MAINTENANCE_POLICY.costsByBuildingType[building.type],
+                maintenanceDue:
+                  MAINTENANCE_POLICY.costsByBuildingType[building.type] +
+                  (state.phase2.maintenance.backlogByBuildingId[building.id] ?? 0),
               })),
             constructionSites: [...state.phase2.constructionSites.values()]
               .sort((left, right) => left.id.localeCompare(right.id))
@@ -419,7 +467,22 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
               ),
             },
             market: { prices: { ...MARKET_PRICES } },
-            maintenance: { repairCost: REPAIR_COST, repairWorkRequired: REPAIR_WORK_REQUIRED },
+            maintenance: {
+              policy: state.phase2.maintenance.policy,
+              nextSettlementTick: state.phase2.maintenance.nextSettlementTick,
+              lastSettlementTick: state.phase2.maintenance.lastSettlementTick,
+              monthlyCost: maintenanceExpense,
+              backlog: Object.entries(state.phase2.maintenance.backlogByBuildingId).reduce(
+                (total, [buildingId, amount]) =>
+                  state.phase2.buildings.get(buildingId as import("@landlord/shared").BuildingId)
+                    ?.ownerOrganizationId === PLAYER_ORGANIZATION_ID
+                    ? total + amount
+                    : total,
+                0,
+              ),
+              repairCost: REPAIR_COST,
+              repairWorkRequired: REPAIR_WORK_REQUIRED,
+            },
             recentTransactions: state.phase2.transactions
               .filter((transaction) => transaction.organizationId === PLAYER_ORGANIZATION_ID)
               .slice(-6)

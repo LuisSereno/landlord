@@ -29,6 +29,7 @@ import {
   effectiveTaxRateBps,
   calculateTax,
   MUNICIPALITY_ORGANIZATION_ID,
+  conditionRentMultiplierPercent,
 } from "./game-data";
 import { Xoshiro128ss } from "./prng";
 import { chooseInteractionCell, findDeterministicPath } from "./navigation";
@@ -160,7 +161,8 @@ function effectiveRent(state: GameState, building: import("@landlord/shared").Bu
     Math.round(
       BUILDING_DEFINITIONS[building.type].baseRent *
         (building.upgraded ? 1.25 : 1) *
-        policyModifier,
+        policyModifier *
+        (conditionRentMultiplierPercent(building.condition) / 100),
     ),
   );
 }
@@ -225,6 +227,14 @@ export function dispatchProductCommand(
     return { accepted: false, code: "DUPLICATE_COMMAND" };
   const actorError = validateActor(state, command);
   if (actorError) return { accepted: false, code: actorError };
+
+  if (command.type === "SetMaintenancePolicy") {
+    state.phase2.maintenance.policy = command.payload.policy;
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "MaintenancePolicyChanged", {
+      policy: command.payload.policy,
+    });
+  }
 
   if (command.type === "RequestLoan") {
     if (command.actingAsOrganizationId === BANK_ORGANIZATION_ID)

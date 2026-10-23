@@ -28,6 +28,7 @@ import {
   type StructureId,
   type Loan,
   type TaxationState,
+  type MaintenanceState,
 } from "@landlord/shared";
 import type { Money } from "@landlord/shared";
 import type {
@@ -50,6 +51,7 @@ import {
   MUNICIPALITY_ORGANIZATION_ID,
   LOAN_POLICY,
   TAX_POLICY,
+  MAINTENANCE_POLICY,
 } from "./game-data";
 
 export type EntityCounters = {
@@ -81,6 +83,7 @@ export type Phase2State = {
   transactions: EconomicTransaction[];
   loans: Map<import("@landlord/shared").LoanId, Loan>;
   taxation: TaxationState;
+  maintenance: MaintenanceState;
   ordinance: Ordinance;
   crime: {
     heatByOrganizationId: Record<string, number>;
@@ -298,6 +301,12 @@ export function createInitialState(seed = 1): GameState {
         totalCollected: parseMoney(0),
         exemptOrganizationIds: [...TAX_POLICY.exemptOrganizationIds],
         arrearsByOrganizationId: {},
+      },
+      maintenance: {
+        policy: "balanced",
+        nextSettlementTick: parseTick(MAINTENANCE_POLICY.settlementPeriodTicks),
+        lastSettlementTick: null,
+        backlogByBuildingId: {},
       },
       ordinance: { ...PROTOTYPE_ORDINANCE },
       crime: {

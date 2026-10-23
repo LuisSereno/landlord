@@ -285,6 +285,16 @@ export class SimulationWorkerClient {
     });
   }
 
+  public setMaintenancePolicy(policy: "balanced" | "deferred") {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "SetMaintenancePolicy",
+      payload: { policy },
+    });
+  }
+
   public saveSnapshot(): Promise<WorkerResponse> {
     return this.send(
       saveSnapshotRequestSchema.parse({

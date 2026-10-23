@@ -216,6 +216,31 @@ export const TAX_POLICY = {
   exemptOrganizationIds: [] as const,
 } as const;
 
+export const MAINTENANCE_POLICY = {
+  settlementPeriodTicks: GAME_MONTH_TICKS,
+  wearPerSettlement: 5,
+  recoveryPerSettlement: 5,
+  costsByBuildingType: {
+    courtyard_home: parseMoney(35),
+    workshop: parseMoney(60),
+    cement_plant: parseMoney(80),
+    brickworks: parseMoney(65),
+    steelworks: parseMoney(100),
+  } as const,
+} as const;
+
+export function conditionRentMultiplierPercent(condition: number): number {
+  return Math.max(50, Math.min(100, 50 + Math.round(condition / 2)));
+}
+
+export function conditionAssetValueMultiplierPercent(condition: number): number {
+  return Math.max(50, Math.min(100, Math.round(condition)));
+}
+
+export function deteriorationRiskPercent(condition: number): number {
+  return Math.max(0, Math.min(80, Math.round((80 - condition) * 1.5)));
+}
+
 export function effectiveTaxRateBps(baseRateBps: number, modifierPercent: number): number {
   return Math.max(0, Math.round((baseRateBps * (100 + modifierPercent)) / 100));
 }

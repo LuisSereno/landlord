@@ -26,7 +26,7 @@ import { PRNG_ALGORITHM } from "./prng";
 import { createInitialState, type GameState } from "./state";
 import { BUILDING_DEFINITIONS } from "./game-data";
 
-export const ENGINE_VERSION = "gate2-dev";
+export const ENGINE_VERSION = "phase3-dev";
 
 function compareId(left: { id: string }, right: { id: string }): number {
   return left.id.localeCompare(right.id);

@@ -11,6 +11,8 @@ financiera — también está cerrado según
 WP3.9. WP3.5 a WP3.10 están `DONE`, con evidencia en sus informes de `phase-3`. WP3.13 permanece
 condicionado al cierre de WP2.14; no se producen assets finales
 mientras el Visual Direction Spike siga abierto.
+WP3.14 — persistencia y observabilidad local — está `DONE`; WP3.15 queda pendiente de la
+validación final del slice.
 
 ## Objetivo
 

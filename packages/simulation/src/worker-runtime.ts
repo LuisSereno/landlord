@@ -208,9 +208,13 @@ export class SimulationWorkerRuntime {
       }
       case "SaveSnapshot": {
         if (!this.state) return [failed(request.requestId, "INVALID_SNAPSHOT")];
+        const snapshot = serializeSnapshot(this.state);
         return [
           succeeded(request.requestId, this.state.clock.tick, {
-            snapshot: serializeSnapshot(this.state),
+            snapshot,
+            snapshotBytes: JSON.stringify(snapshot).length,
+            engineVersion: snapshot.engineVersion,
+            schemaVersion: snapshot.schemaVersion,
           }),
         ];
       }

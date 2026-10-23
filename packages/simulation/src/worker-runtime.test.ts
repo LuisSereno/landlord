@@ -102,6 +102,12 @@ describe("simulation Worker runtime", () => {
       type: "SaveSnapshot" as const,
       payload: {},
     });
+    expect(saved[0]).toMatchObject({
+      type: "RequestSucceeded",
+      payload: {
+        result: { engineVersion: "phase3-dev", schemaVersion: 1 },
+      },
+    });
     const snapshot = (saved[0] as { payload: { result: { snapshot: unknown } } }).payload.result
       .snapshot;
     expect(

@@ -140,6 +140,9 @@ Pendiente para implementación del Vertical Slice:
 - WP3.12 tiene rutina limitada de ocupación/cuadrillas, alertas derivadas, comparador de cartera
   y overlays de propiedad, condición, zoning y riesgo. Las reglas persistentes de gestión,
   automatización de decisiones irreversibles y auditoría completa de accesibilidad siguen fuera.
+- WP3.14 tiene saves `phase3-dev`, validación IndexedDB, autosave mensual local, carga atómica y
+  metadatos de tamaño/schema/engine. Cloud save, sincronización y telemetría remota siguen fuera;
+  WP3.13 continúa condicionado por WP2.14.
 - modelo de tipos;
 - loan-to-value;
 - garantías;

@@ -79,6 +79,7 @@
 - execution/phase-3/wp3-10-rival-financial-ai-2026-10-23.md — IA rival financiera, liquidez, recuperación y persistencia.
 - execution/phase-3/wp3-11-municipal-policy-2026-10-23.md — catálogo municipal, trade-offs, lobby, retirada y efectos económicos.
 - execution/phase-3/wp3-12-automation-ux-2026-10-23.md — rutina de cartera, excepciones, comparador y overlays operativos.
+- execution/phase-3/wp3-14-persistence-observability-2026-10-23.md — saves phase3-dev, autosave local, corrupción y observabilidad.
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

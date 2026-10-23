@@ -74,9 +74,9 @@ WP2.15 está cerrado y el benchmark/smoke pasan. La única condición es cerrar 
 producir arte representativo en WP3.13.
 
 ## Próximo objetivo
-Continuar con WP3.13 (arte, audio y rendimiento representativos), manteniendo la condición G3-04 de WP3.4
-para WP3.9, además de cerrar
-WP2.14 antes de WP3.13. La prueba manual del responsable se conserva como evidencia
+WP3.14 está cerrado en persistencia/observabilidad local. Continuar cerrando WP2.14 antes de
+WP3.13 (arte, audio y rendimiento representativos), manteniendo la condición G3-04 de WP3.4
+para WP3.9. La prueba manual del responsable se conserva como evidencia
 cualitativa; la medición cuantitativa de 30–60 minutos sigue pendiente para balance financiero.
 El baseline
 económico actual cubre calendario

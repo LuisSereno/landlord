@@ -36,6 +36,7 @@ export function App() {
   const [latestMetrics, setLatestMetrics] = useState<SimulationMetrics | null>(null);
   const clientRef = useRef<SimulationWorkerClient | null>(null);
   const diagnosticId = useRef(1);
+  const autosavedMonth = useRef<number | null>(null);
 
   const recordDiagnostic = useCallback((diagnostic: ClientDiagnostic) => {
     if (diagnostic.kind === "metrics") {
@@ -111,6 +112,9 @@ export function App() {
   };
 
   const economy = projection?.economy;
+  const currentGameMonth = economy?.gameTime.month;
+  const currentGameDay = economy?.gameTime.day;
+  const currentGameHour = economy?.gameTime.hour;
   const diagnosticSummary = summarizeDiagnostics(diagnostics);
   const runPortfolioRoutine = async () => {
     if (!clientRef.current || !economy) return;
@@ -264,6 +268,28 @@ export function App() {
       setMessage(error instanceof Error ? error.message : "No se pudo cargar el snapshot");
     }
   };
+
+  useEffect(() => {
+    if (
+      currentGameMonth === undefined ||
+      currentGameMonth <= 1 ||
+      currentGameDay !== 1 ||
+      currentGameHour !== 0
+    )
+      return;
+    if (autosavedMonth.current === currentGameMonth || !clientRef.current) return;
+    autosavedMonth.current = currentGameMonth;
+    void clientRef.current
+      .saveSnapshot()
+      .then(async (response) => {
+        if (response.type === "RequestFailed") return;
+        const snapshot = (response.payload.result as { snapshot?: unknown } | undefined)?.snapshot;
+        if (snapshot) await createIndexedDbPersistence().save("autosave", snapshot);
+      })
+      .catch(() => {
+        setMessage("No se pudo guardar el autosave mensual; el slot manual sigue disponible.");
+      });
+  }, [currentGameDay, currentGameHour, currentGameMonth]);
 
   return (
     <main className="app-shell">

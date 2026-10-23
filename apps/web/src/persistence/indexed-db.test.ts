@@ -28,7 +28,7 @@ describe("IndexedDB snapshot persistence", () => {
     await expect(persistence.save("slot-b", snapshot)).resolves.toMatchObject({
       slotId: "slot-b",
       schemaVersion: 1,
-      engineVersion: "gate2-dev",
+      engineVersion: "phase3-dev",
       savedAt: 1234,
     });
     await persistence.save("slot-a", snapshot);

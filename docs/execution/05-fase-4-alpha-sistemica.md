@@ -113,6 +113,14 @@ municipal y en sus propias transacciones.
 
 ## WP4.6 — Servicios urbanos y accesibilidad
 
+**Estado 2026-10-23:** `DONE` con el overlay de mapa diferido a WP4.15. Evidencia en
+`docs/execution/phase-4/wp4-6-urban-services-2026-10-23.md` y decisión en
+`docs/engineering/adr/D-069-servicios-urbanos-y-cobertura.md`. Transporte, seguridad y limpieza
+tienen coste municipal, cobertura radial desde el centro del distrito y capacidad que se satura al
+crecer; alimentan accesibilidad, seguridad y calidad del parque, y la tasa por unidad ocupada
+sostiene el presupuesto. El dato de cobertura se publica en la proyección y se explica en el panel;
+la capa visual sobre el mapa queda para el WP de representación.
+
 - Priorizar pocos servicios con feedback económico claro: transporte, seguridad, limpieza u otro conjunto aprobado.
 - Definir cobertura/capacidad/calidad y coste municipal.
 - Conectar servicio con atractivo, suelo, actividad o riesgo.

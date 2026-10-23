@@ -29,6 +29,7 @@ import {
 } from "./game-data";
 import { describeEmployment } from "./employment";
 import { describeMunicipalBudget } from "./municipal-budget";
+import { describeUrbanServices } from "./urban-services";
 import {
   askingRentFor,
   describeHousingMarket,
@@ -566,6 +567,7 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                 origin: tenant.origin,
               })),
             municipal: describeMunicipalBudget(state),
+            urbanServices: describeUrbanServices(state),
             employment: describeEmployment(state),
             housingMarket: {
               lastSettlementTick: state.phase2.housingMarket.lastSettlementTick,

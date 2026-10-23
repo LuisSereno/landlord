@@ -23,6 +23,10 @@ import { createScaledCity } from "./system-cost";
  * cierre mensual, y sólo en la caja municipal (`org_00000004`) y en el número e importe de
  * transacciones, por los pagos de administración, seguridad y servicios. Jugador, rival, banco,
  * aseguradora, hogares, ruinas, incidentes y bajas siguen idénticos.
+ *
+ * Regeneración WP4.6 (2026-10-23): el municipio añade la tasa por unidad ocupada y reparte el
+ * gasto en transporte, seguridad y limpieza. Vuelven a cambiar sólo los dos casos que cruzan un
+ * cierre mensual, y sólo en la caja municipal y sus transacciones.
  */
 function digest(value: string): string {
   let left = 0x811c9dc5;
@@ -78,12 +82,12 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "664f94099baa1a7f",
+    expected: "0667607b64a964a3",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "68deecf1d71ca91f",
+    expected: "c7c7ccfe29d17733",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el

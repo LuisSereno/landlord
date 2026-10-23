@@ -105,7 +105,10 @@ vacancia observada se cobra al mes siguiente. La renta tiene una única fórmula
 `housing-market.ts`, compartida por el cobro, la validación de `AssignTenant` y la proyección
 (D-066). `municipal` cierra el tick después de que hayan entrado los impuestos del mes: el municipio
 paga con su saldo real en orden de prioridad y, si no llega, recorta servicios; ese nivel de
-servicio alimenta la deseabilidad del mercado de vivienda (D-068).
+servicio alimenta la deseabilidad del mercado de vivienda (D-068). La cobertura de transporte,
+seguridad y limpieza es radial desde el centro del distrito y se satura al crecer: alimenta
+accesibilidad, seguridad y calidad del parque, y la tasa por unidad ocupada sostiene el presupuesto
+(D-069).
 
 ## Identidad y control
 

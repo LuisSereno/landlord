@@ -26,6 +26,7 @@ import {
 import { canonicalizeState } from "./runner";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { createInitialState, type GameState } from "./state";
+import { buildCoverageIndex } from "./urban-services";
 import { advanceProductSystems } from "./systems";
 
 /** Distrito de prueba con el rival y las finanzas acallados: el mercado es el único sujeto. */
@@ -270,9 +271,21 @@ describe("WP4.3 oferta y demanda de vivienda", () => {
 
   it("la seguridad de una parcela cae con un siniestro cerca y no con uno lejos", () => {
     const state = newState();
+    // Ambos edificios a la misma distancia del centro para que la cobertura de seguridad sea
+    // idéntica y sólo cambie la proximidad al siniestro.
     const near = addBuilding(state, 0, "courtyard_home", { cell: { x: 10, y: 10 } });
-    const far = addBuilding(state, 1, "courtyard_home", { cell: { x: 40, y: 40 } });
-    const burning = addBuilding(state, 2, "courtyard_home", { cell: { x: 11, y: 11 } });
+    const far = addBuilding(state, 1, "courtyard_home", { cell: { x: 10, y: 20 } });
+    const burning = addBuilding(state, 2, "courtyard_home", { cell: { x: 11, y: 10 } });
+    const coverage = buildCoverageIndex(state);
+    const nearParcel = state.phase2.buildings.get(near)!.parcelId;
+    const farParcel = state.phase2.buildings.get(far)!.parcelId;
+    const center = coverage.center;
+    state.phase2.parcels.get(nearParcel)!.cell = { x: center.x - 5, y: center.y };
+    state.phase2.parcels.get(farParcel)!.cell = { x: center.x + 5, y: center.y };
+    state.phase2.parcels.get(state.phase2.buildings.get(burning)!.parcelId)!.cell = {
+      x: center.x - 6,
+      y: center.y,
+    };
     state.phase2.buildings.get(burning)!.state = "burning";
     const incidentId = parseIncidentId("incident_00000001");
     state.phase2.incidents.set(incidentId, {
@@ -294,7 +307,9 @@ describe("WP4.3 oferta y demanda de vivienda", () => {
 
     expect(nearUnit.safety).toBeLessThan(100);
     expect(nearUnit.safety).toBeLessThan(farUnit.safety);
-    expect(farUnit.safety).toBe(100);
+    // WP4.6: la cobertura de seguridad es radial, así que el borde del distrito también pierde
+    // puntos aunque no haya ningún siniestro cerca.
+    expect(farUnit.safety).toBeLessThan(100);
   });
 
   it("es determinista y sobrevive a guardar y cargar", () => {

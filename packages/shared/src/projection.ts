@@ -221,6 +221,13 @@ export type ViewProjectionV1 = {
       incomeFactorPercent: number;
       origin: "authored" | "market";
     }>;
+    urbanServices: Array<{
+      id: "transport" | "security" | "cleaning";
+      qualityPercent: number;
+      radiusCells: number;
+      buildingsCovered: number;
+      meanCoveragePercent: number;
+    }>;
     municipal: {
       reserve: Money;
       plannedByCategory: Record<string, Money>;
@@ -620,6 +627,15 @@ export const viewProjectionV1Schema = z.object({
           searchMonths: z.number().int().nonnegative(),
           incomeFactorPercent: z.number().int().positive(),
           origin: z.enum(["authored", "market"]),
+        }),
+      ),
+      urbanServices: z.array(
+        z.object({
+          id: z.enum(["transport", "security", "cleaning"]),
+          qualityPercent: z.number().int().min(0).max(100),
+          radiusCells: z.number().int().nonnegative(),
+          buildingsCovered: z.number().int().nonnegative(),
+          meanCoveragePercent: z.number().int().min(0).max(100),
         }),
       ),
       municipal: z.object({

@@ -10,7 +10,7 @@ Fecha de consolidación: 2026-10-23.
 - Plan maestro de ejecución por fases: sí.
 - Plantilla de microtareas para agentes de baja ambigüedad: sí.
 - Fase 0 de preparación: cerrada el 2026-10-20.
-- ADRs D-046 a D-068: aceptados.
+- ADRs D-046 a D-069: aceptados.
 - Charter, contratos, benchmark y backlog inicial de Gate 1: listos.
 - Historias del prototipo: sí.
 - Riesgos: sí.
@@ -68,8 +68,8 @@ Estos sistemas están documentados, no implementados.
 - tests: sí, smoke Chromium en CI, contratos, schemas, referencias de snapshot, arquitectura de
   fronteras, bucle económico determinista, generación y jugabilidad de distritos con fixtures de
   hash, digestos dorados de conservación del tick, mercado de vivienda segmentado con índice de
-  renta, mercado laboral agregado conectado a la asequibilidad, presupuesto municipal con recortes
-  y diagnóstico de sesión acotado.
+  renta, mercado laboral agregado conectado a la asequibilidad, presupuesto municipal con recortes,
+  servicios urbanos con cobertura radial y diagnóstico de sesión acotado.
 
 ## Fase
 Gate 1 aprobado `GO` el 2026-10-21; la evidencia técnica de G1-RW-01..04 quedó reunida.
@@ -97,7 +97,11 @@ agregado con puestos por planta operativa, índice salarial acotado y propagado 
 segmento y al presupuesto de renta de los hogares de mercado.
 WP4.5 (presupuesto municipal) quedó cerrado el 2026-10-23 bajo D-068: el municipio paga con su caja
 real en orden de prioridad, registra descubierto y niveles de servicio, y el recorte reduce la
-deseabilidad del barrio. El siguiente es WP4.6 (servicios urbanos y accesibilidad). El baseline
+deseabilidad del barrio.
+WP4.6 (servicios urbanos y accesibilidad) quedó cerrado el 2026-10-23 bajo D-069 con el overlay de
+mapa diferido a WP4.15: tres servicios con cobertura radial, radio que se satura al crecer, efectos
+en accesibilidad, seguridad y calidad, y tasa por unidad ocupada. El siguiente es WP4.7 (contratos
+públicos). El baseline
 económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas
 asignables, edificios multiunidad, presupuesto y satisfacción de inquilinos, mantenimiento, rival

@@ -15,6 +15,7 @@ import {
   PLAYER_ORGANIZATION_ID,
 } from "./game-data";
 import { describeHousingStock } from "./housing-market";
+import { buildCoverageIndex } from "./urban-services";
 import {
   MUNICIPAL_BUDGET_POLICY,
   describeMunicipalBudget,
@@ -85,14 +86,19 @@ describe("WP4.5 presupuesto municipal", () => {
     expect(report.spentTotalByCategory.administration).toBe(
       MUNICIPAL_BUDGET_POLICY.administrationCost,
     );
-    expect(report.spentTotalByCategory.security).toBe(2);
-    expect(report.spentTotalByCategory.services).toBe(4);
+    expect(report.spentTotalByCategory).toMatchObject({
+      administration: 10,
+      security: 2,
+      transport: 4,
+      cleaning: 4,
+    });
     expect(report.serviceLevelPercentByCategory).toEqual({
       administration: 100,
       security: 100,
-      services: 100,
+      transport: 100,
+      cleaning: 100,
     });
-    expect(report.reserve).toBe(240 - 16);
+    expect(report.reserve).toBe(240 - 20);
     expect(report.surplusMonths).toBe(1);
     expect(report.deficitMonths).toBe(0);
   });
@@ -101,27 +107,33 @@ describe("WP4.5 presupuesto municipal", () => {
     const state = newState();
     clearOwnership(state);
     for (let index = 0; index < 3; index += 1) addBuilding(state, index);
+    // Sin propiedades no hay impuesto que financie el gasto: la caja es exactamente 15.
+    clearOwnership(state);
     state.phase2.balances.set(MUNICIPALITY_ORGANIZATION_ID, parseMoney(15));
 
     state.clock = { ...state.clock, tick: parseTick(GAME_MONTH_TICKS) };
     runMunicipalBudget(state);
 
     const report = describeMunicipalBudget(state);
-    // Prioridad: administración (10) y seguridad (3) se pagan enteras; servicios (6) sólo 2.
+    // Prioridad: administración (10) y seguridad (3) se pagan enteras; transporte (6) sólo 2 y
+    // limpieza (6) nada.
     expect(report.spentTotalByCategory).toMatchObject({
       administration: 10,
       security: 3,
-      services: 2,
+      transport: 2,
+      cleaning: 0,
     });
     expect(report.unfundedTotalByCategory).toMatchObject({
       administration: 0,
       security: 0,
-      services: 4,
+      transport: 4,
+      cleaning: 6,
     });
     expect(report.serviceLevelPercentByCategory).toEqual({
       administration: 100,
       security: 100,
-      services: 33,
+      transport: 33,
+      cleaning: 0,
     });
     expect(report.reserve).toBe(0);
     expect(report.deficitMonths).toBe(1);
@@ -157,31 +169,34 @@ describe("WP4.5 presupuesto municipal", () => {
     expect(afterSettlement.lastSettlementTick).toBe(GAME_MONTH_TICKS);
   });
 
-  it("el recorte de servicios y seguridad se nota en la deseabilidad", () => {
-    const funded = newState();
-    addBuilding(funded, 0);
-    addBuilding(funded, 1);
-    funded.phase2.municipal.serviceLevelPercentByCategory = {
-      administration: 100,
-      security: 100,
-      services: 100,
+  it("el recorte de servicios se nota en la deseabilidad del barrio", () => {
+    const build = (levels: Record<string, number>): GameState => {
+      const state = newState();
+      addBuilding(state, 0);
+      addBuilding(state, 1);
+      // Los dos edificios se colocan en el centro de cobertura para aislar el efecto del nivel de
+      // servicio de la distancia geográfica.
+      const center = buildCoverageIndex(state).center;
+      const parcels = [...state.phase2.parcels.values()].sort((left, right) =>
+        left.id.localeCompare(right.id),
+      );
+      parcels[0]!.cell = { ...center };
+      parcels[1]!.cell = { x: center.x + 1, y: center.y };
+      state.phase2.municipal.serviceLevelPercentByCategory = levels;
+      return state;
     };
-    const cut = newState();
-    addBuilding(cut, 0);
-    addBuilding(cut, 1);
-    cut.phase2.municipal.serviceLevelPercentByCategory = {
-      administration: 100,
-      security: 0,
-      services: 0,
-    };
+    const funded = build({ administration: 100, security: 100, transport: 100, cleaning: 100 });
+    const cut = build({ administration: 100, security: 0, transport: 0, cleaning: 0 });
 
     const fundedUnit = describeHousingStock(funded)[0]!;
     const cutUnit = describeHousingStock(cut)[0]!;
 
-    expect(cutUnit.services).toBe(0);
+    expect(cutUnit.accessibility).toBe(0);
     expect(cutUnit.safety).toBe(50);
-    expect(fundedUnit.services).toBeGreaterThan(0);
-    expect(fundedUnit.safety).toBe(100);
+    expect(cutUnit.quality).toBe(75);
+    expect(fundedUnit.accessibility).toBeGreaterThan(80);
+    expect(fundedUnit.safety).toBeGreaterThan(90);
+    expect(fundedUnit.quality).toBeGreaterThanOrEqual(95);
   });
 
   it("sobrevive a guardar y cargar y migra partidas anteriores", () => {

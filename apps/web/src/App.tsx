@@ -1200,6 +1200,15 @@ export function App() {
                   }{" "}
                   obras activas
                 </p>
+                <ul>
+                  {economy.urbanServices.map((service) => (
+                    <li key={service.id}>
+                      Servicio {service.id}: calidad {service.qualityPercent}% · radio{" "}
+                      {service.radiusCells} celdas · {service.buildingsCovered} bajo cobertura ·{" "}
+                      cobertura media {service.meanCoveragePercent}%
+                    </li>
+                  ))}
+                </ul>
                 <p>
                   <strong>Municipio:</strong> reservas {economy.municipal.reserve} u. · ingresos del
                   mes {economy.municipal.revenueThisMonthBySource.propertyTax ?? 0} propiedad +{" "}

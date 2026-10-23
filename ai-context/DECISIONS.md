@@ -411,3 +411,26 @@ conservación se compararon observable por observable: ocho quedan idénticos y 
 cierre mensual cambian sólo la caja municipal y el número e importe de transacciones por los pagos.
 Ver `docs/engineering/adr/D-068-presupuesto-municipal.md` y
 `docs/execution/phase-4/wp4-5-municipal-budget-2026-10-23.md`.
+
+## D-069 — Servicios urbanos con cobertura radial y tasa por unidad ocupada
+Estado: aceptada el 2026-10-23 para WP4.6.
+La categoría difusa `services` se sustituye por tres servicios con nombre y consecuencia propia:
+transporte (2 u. por edificio, radio base 26), seguridad (1 u., radio 30) y limpieza (2 u., radio
+20), junto a la administración fija. La cobertura es radial desde el centro del distrito derivado de
+las parcelas generadas y no crea entidades nuevas: `coverage = calidad × (1 − distancia / radio)`.
+El radio efectivo se satura al crecer (`base × sqrt(40 / max(40, edificios))` con suelo por
+servicio), así que la expansión diluye el servicio y el borde queda peor cubierto: la desigualdad
+territorial es una consecuencia del modelo, no un caso especial. Cada servicio alimenta un
+componente distinto de la deseabilidad: transporte es accesibilidad, seguridad resta
+`(100 − cobertura) / 2` a la seguridad y limpieza resta `(100 − cobertura) / 4` a la calidad del
+parque. La prioridad de pago es administración → seguridad → transporte → limpieza, de modo que el
+recorte cae primero en la limpieza y el borde lo nota primero. La base fiscal se conecta con una
+tasa municipal de 3 u./mes por unidad ocupada, anotada en el libro como `serviceFee`: más ocupación,
+más ingresos, mejor servicio. No se sube el precio del suelo porque alimenta compras e impuestos con
+aserciones exactas de Gate 2 y Fase 3. La cobertura es estado derivado, así que no hay formato nuevo
+que migrar; sólo cambian las claves de categoría del libro municipal, tratadas con valor por
+defecto. El overlay de mapa se difiere a WP4.15: el dato ya está en la proyección y la explicación
+textual en el panel. Ocho de los diez casos de conservación quedan idénticos; los dos con cierre
+mensual cambian sólo la caja municipal y sus transacciones. Ver
+`docs/engineering/adr/D-069-servicios-urbanos-y-cobertura.md` y
+`docs/execution/phase-4/wp4-6-urban-services-2026-10-23.md`.

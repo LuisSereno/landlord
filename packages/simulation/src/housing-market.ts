@@ -19,7 +19,7 @@ import {
   conditionRentMultiplierPercent,
 } from "./game-data";
 import { effectiveRentBudget } from "./employment";
-import { municipalServiceLevel } from "./municipal-budget";
+import { buildCoverageIndex } from "./urban-services";
 import { HOUSING_SEGMENTS, type HousingSegment } from "./housing-segments";
 import { Xoshiro128ss } from "./prng";
 import type { GameState } from "./state";
@@ -131,10 +131,7 @@ function buildStock(state: GameState): StockUnit[] {
   }
   if (raw.length === 0) return [];
 
-  const center: GridCell = {
-    x: Math.round(raw.reduce((total, entry) => total + entry.cell.x, 0) / raw.length),
-    y: Math.round(raw.reduce((total, entry) => total + entry.cell.y, 0) / raw.length),
-  };
+  const coverage = buildCoverageIndex(state);
   const policePenalty = Math.min(
     HOUSING_MARKET_POLICY.desirability.maximumPoliceSafetyPenalty,
     state.phase2.crime.policePressure *
@@ -154,40 +151,31 @@ function buildStock(state: GameState): StockUnit[] {
       if (manhattan(entry.cell, cell) <= HOUSING_MARKET_POLICY.serviceRadiusCells)
         nearbyIncidents += 1;
     }
+    const parcelCoverage = coverage.byParcelId.get(entry.building.parcelId);
     stock.push({
       building: entry.building,
       cell: entry.cell,
-      quality: clamp(entry.building.condition + (entry.building.upgraded ? 10 : 0), 0, 100),
+      // La limpieza se nota en el estado del parque: sin cobertura, el entorno envejece antes.
+      quality: clamp(
+        entry.building.condition +
+          (entry.building.upgraded ? 10 : 0) -
+          Math.round((100 - (parcelCoverage?.cleaning ?? 0)) / 4),
+        0,
+        100,
+      ),
       accessibility:
         raw.length === 1
           ? HOUSING_MARKET_POLICY.desirability.isolatedAccessibility
-          : clamp(
-              100 -
-                HOUSING_MARKET_POLICY.desirability.accessibilityDistancePenalty *
-                  manhattan(entry.cell, center),
-              0,
-              100,
-            ),
+          : clamp(parcelCoverage?.transport ?? 0, 0, 100),
       safety: clamp(
         100 -
           nearbyIncidents * HOUSING_MARKET_POLICY.desirability.incidentSafetyPenalty -
           policePenalty -
-          // Un municipio sin caja para seguridad no sostiene el barrio: el recorte se nota en la
-          // deseabilidad, no sólo en la contabilidad.
-          Math.round((100 - municipalServiceLevel(state, "security")) / 2),
+          Math.round((100 - (parcelCoverage?.security ?? 0)) / 2),
         0,
         100,
       ),
-      services: clamp(
-        Math.round(
-          (nearbyOffices *
-            HOUSING_MARKET_POLICY.desirability.servicesPerPoint *
-            municipalServiceLevel(state, "services")) /
-            100,
-        ),
-        0,
-        100,
-      ),
+      services: clamp(nearbyOffices * HOUSING_MARKET_POLICY.desirability.servicesPerPoint, 0, 100),
       askingRent: askingRentFor(state, entry.building),
       vacantSlots: Math.max(
         0,

@@ -1,0 +1,164 @@
+import type { BuildingId, GridCell, ParcelId } from "@landlord/shared";
+import type { GameState } from "./state";
+
+export type UrbanServiceId = "transport" | "security" | "cleaning";
+
+/**
+ * Tres servicios con una consecuencia distinta y medible. El coste es municipal y por edificio; la
+ * cobertura es radial desde el centro del distrito, así que crecer diluye la capacidad y las
+ * parcelas de borde quedan peor servidas. No hay edificios de servicio: el modelo es de red.
+ */
+export const URBAN_SERVICE_POLICY: Record<
+  UrbanServiceId,
+  {
+    costPerBuilding: number;
+    baseRadiusCells: number;
+    minimumRadiusCells: number;
+    referenceBuildings: number;
+  }
+> = {
+  transport: {
+    costPerBuilding: 2,
+    baseRadiusCells: 26,
+    minimumRadiusCells: 8,
+    referenceBuildings: 40,
+  },
+  security: {
+    costPerBuilding: 1,
+    baseRadiusCells: 30,
+    minimumRadiusCells: 10,
+    referenceBuildings: 40,
+  },
+  cleaning: {
+    costPerBuilding: 2,
+    baseRadiusCells: 20,
+    minimumRadiusCells: 6,
+    referenceBuildings: 40,
+  },
+};
+
+/** Tasa municipal por unidad ocupada: es el canal por el que la población sostiene el presupuesto. */
+export const MUNICIPAL_FEE_PER_OCCUPIED_UNIT = 3;
+
+export type UrbanServiceReport = {
+  id: UrbanServiceId;
+  qualityPercent: number;
+  radiusCells: number;
+  buildingsCovered: number;
+  meanCoveragePercent: number;
+};
+
+export type CoverageIndex = {
+  center: GridCell;
+  buildingCount: number;
+  byBuildingId: Map<BuildingId, Record<UrbanServiceId, number>>;
+  byParcelId: Map<ParcelId, Record<UrbanServiceId, number>>;
+};
+
+function clamp(value: number, minimum: number, maximum: number): number {
+  return Math.max(minimum, Math.min(maximum, value));
+}
+
+function manhattan(left: GridCell, right: GridCell): number {
+  return Math.abs(left.x - right.x) + Math.abs(left.y - right.y);
+}
+
+function qualityOf(state: GameState, service: UrbanServiceId): number {
+  return state.phase2.municipal.serviceLevelPercentByCategory[service] ?? 100;
+}
+
+function radiusOf(state: GameState, service: UrbanServiceId, buildings: number): number {
+  const policy = URBAN_SERVICE_POLICY[service];
+  // Más edificios con el mismo presupuesto es menos radio por edificio: la capacidad se satura.
+  const density = Math.sqrt(
+    policy.referenceBuildings / Math.max(policy.referenceBuildings, buildings),
+  );
+  return Math.max(policy.minimumRadiusCells, Math.round(policy.baseRadiusCells * density));
+}
+
+function coverageOf(
+  state: GameState,
+  service: UrbanServiceId,
+  cell: GridCell,
+  center: GridCell,
+  buildings: number,
+): number {
+  const radius = radiusOf(state, service, buildings);
+  const proximity = clamp(Math.round(100 - (100 * manhattan(cell, center)) / radius), 0, 100);
+  return Math.round((qualityOf(state, service) * proximity) / 100);
+}
+
+/** Índice de cobertura por edificio y por parcela con edificio, en una sola pasada. */
+export function buildCoverageIndex(state: GameState): CoverageIndex {
+  const parcels = [...state.phase2.parcels.values()].sort((left, right) =>
+    left.id.localeCompare(right.id),
+  );
+  const buildings = [...state.phase2.buildings.values()].sort((left, right) =>
+    left.id.localeCompare(right.id),
+  );
+  const center: GridCell =
+    parcels.length === 0
+      ? { x: 0, y: 0 }
+      : {
+          x: Math.round(
+            parcels.reduce((total, parcel) => total + parcel.cell.x, 0) / parcels.length,
+          ),
+          y: Math.round(
+            parcels.reduce((total, parcel) => total + parcel.cell.y, 0) / parcels.length,
+          ),
+        };
+  const buildingCount = buildings.filter((building) => building.state !== "ruin").length;
+  const byParcelId = new Map<ParcelId, Record<UrbanServiceId, number>>();
+  for (const parcel of parcels) {
+    byParcelId.set(parcel.id, {
+      transport: coverageOf(state, "transport", parcel.cell, center, buildingCount),
+      security: coverageOf(state, "security", parcel.cell, center, buildingCount),
+      cleaning: coverageOf(state, "cleaning", parcel.cell, center, buildingCount),
+    });
+  }
+  const byBuildingId = new Map<BuildingId, Record<UrbanServiceId, number>>();
+  for (const building of buildings) {
+    const coverage = byParcelId.get(building.parcelId);
+    if (coverage) byBuildingId.set(building.id, coverage);
+  }
+  return { center, buildingCount, byBuildingId, byParcelId };
+}
+
+export function coverageFor(
+  state: GameState,
+  buildingId: BuildingId,
+  service: UrbanServiceId,
+): number {
+  const parcelId = state.phase2.buildings.get(buildingId)?.parcelId;
+  if (!parcelId) return 0;
+  return buildCoverageIndex(state).byParcelId.get(parcelId)?.[service] ?? 0;
+}
+
+export function describeUrbanServices(state: GameState): UrbanServiceReport[] {
+  const index = buildCoverageIndex(state);
+  return (Object.keys(URBAN_SERVICE_POLICY) as UrbanServiceId[]).map((service) => {
+    const values = [...index.byBuildingId.values()].map((coverage) => coverage[service]);
+    const covered = values.filter((value) => value > 0).length;
+    return {
+      id: service,
+      qualityPercent: qualityOf(state, service),
+      radiusCells: radiusOf(state, service, index.buildingCount),
+      buildingsCovered: covered,
+      meanCoveragePercent:
+        values.length === 0
+          ? 0
+          : Math.round(values.reduce((total, value) => total + value, 0) / values.length),
+    };
+  });
+}
+
+/** Unidades ocupadas del distrito: base de la tasa municipal por servicio. */
+export function occupiedUnits(state: GameState): number {
+  let units = 0;
+  for (const building of state.phase2.buildings.values()) units += building.tenantIds.length;
+  return units;
+}
+
+export function municipalServiceFee(state: GameState): number {
+  return occupiedUnits(state) * MUNICIPAL_FEE_PER_OCCUPIED_UNIT;
+}

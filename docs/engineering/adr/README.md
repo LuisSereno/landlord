@@ -32,3 +32,4 @@ Una decisión aceptada sólo se modifica mediante un ADR posterior que la sustit
 - [D-066 — Mercado de vivienda segmentado con precio descubierto por vacancia](D-066-mercado-de-vivienda-segmentado.md)
 - [D-067 — Mercado laboral agregado, salario y capacidad de alquiler](D-067-empleo-agregado-y-capacidad-de-alquiler.md)
 - [D-068 — Presupuesto municipal con caja real, prioridad de gasto y niveles de servicio](D-068-presupuesto-municipal.md)
+- [D-069 — Servicios urbanos con cobertura radial y tasa por unidad ocupada](D-069-servicios-urbanos-y-cobertura.md)

@@ -1,6 +1,6 @@
 # Estado actual
 
-Fecha de consolidación: 2026-10-22.
+Fecha de consolidación: 2026-10-23.
 
 ## Repositorio
 - Inicializado.
@@ -63,18 +63,22 @@ Estos sistemas están documentados, no implementados.
 - CI: sí, checks base en GitHub Actions.
 - assets: no.
 - backend: no.
-- modelo de datos implementado: contratos shared v1 extendidos de forma aditiva y núcleo autoritativo headless de Gate 2.
+- modelo de datos implementado: contratos shared v1 extendidos de forma aditiva, núcleo autoritativo headless de Gate 2, producción física localizada y proyección financiera derivada.
 - tests: sí, smoke Chromium en CI, contratos, schemas, referencias de snapshot, arquitectura de
   fronteras, bucle económico determinista y diagnóstico de sesión acotado.
 
 ## Fase
 Gate 1 aprobado `GO` el 2026-10-21; la evidencia técnica de G1-RW-01..04 quedó reunida.
-Gate 2 en `REVIEW`: candidato económico y WP2.15 táctico integrados el 2026-10-22; todavía no
-existe acta GO de producto porque faltan el playtest prolongado y la evidencia visual de WP2.14.
+Gate 2 en `CONDITIONAL GO` desde el 2026-10-23: el responsable confirmó la prueba manual OK,
+WP2.15 está cerrado y el benchmark/smoke pasan. La única condición es cerrar WP2.14 antes de
+producir arte representativo en WP3.13.
 
 ## Próximo objetivo
-Coordinar WP2.15 con WP2.14 y repetir después una sesión humana de 30–60 minutos con seeds de
-referencia. El baseline
+Continuar con WP3.5 (fiscalidad y tasas prioritarias), manteniendo la condición G3-04 de WP3.4
+para WP3.9, además de cerrar
+WP2.14 antes de WP3.13. La prueba manual del responsable se conserva como evidencia
+cualitativa; la medición cuantitativa de 30–60 minutos sigue pendiente para balance financiero.
+El baseline
 económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas
 asignables, edificios multiunidad, presupuesto y satisfacción de inquilinos, mantenimiento, rival
@@ -90,8 +94,9 @@ eventos normales son efímeros, mientras que la memoria histórica se materializ
 específicos cuando una regla lo necesite.
 
 El baseline ya valida en código y smoke de navegador: render isométrico/picking, Worker,
-tick fijo, seed/PRNG, determinismo, save/load y el primer flujo de producto. Debe validar en
-sesiones de 30–60 minutos que el ritmo y los trade-offs son comprensibles y sostenibles.
+tick fijo, seed/PRNG, determinismo, save/load y el primer flujo de producto. Debe seguir midiendo
+en sesiones de 30–60 minutos que el ritmo y los trade-offs son comprensibles y sostenibles; la
+primera confirmación manual fue OK, pero no incluyó registro cuantitativo.
 El HUD incluye un diagnóstico efímero de comandos, transporte y métricas del Worker para que
 los playtests puedan identificar rechazos repetidos sin persistir datos no autoritativos.
 La comprobación manual básica de esa instrumentación quedó cerrada sin errores ni rechazos;
@@ -100,7 +105,7 @@ La captura de la implementación anterior confirmó una vista técnica. WP2.11 u
 map-céntrica con panel operativo superpuesto/plegable, HUD jerarquizado, inspector contextual y
 estados legibles; está lista para servir de pantalla representativa a WP2.14 según D-058.
 
-El rework de auditoría quedó implementado bajo D-060. La suite automatizada cubre 91 pruebas,
+El rework de auditoría quedó implementado bajo D-060. La suite automatizada cubre 100 pruebas,
 además de tres benchmarks opt-in; el smoke de producción recorre materiales, producción, compra,
 obra, asignación de dos cuadrillas, ocupación, mejora, política, save, reload real, load, rival y
 ruta ilegal. Esto cierra la preparación técnica del playtest, no su evidencia humana prolongada.

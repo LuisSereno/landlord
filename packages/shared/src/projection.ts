@@ -24,6 +24,8 @@ import {
   incidentIdSchema,
   type CrewId,
   type IncidentId,
+  loanIdSchema,
+  type LoanId,
 } from "./primitives";
 import { gridCellSchema, tickSchema, type GridCell, type Tick } from "./time-and-grid";
 import { moneySchema } from "./money";
@@ -59,6 +61,45 @@ export type ViewProjectionV1 = {
       productionSuitability: { cement: number; brick: number; steel: number };
     }>;
     cash: number;
+    financials: {
+      assets: number;
+      liabilities: number;
+      equity: number;
+      period: {
+        month: number;
+        income: number;
+        expenses: number;
+        netIncome: number;
+        cashFlow: number;
+      };
+      forecast: {
+        income: number;
+        expenses: number;
+        netCashFlow: number;
+        closingCash: number;
+        shortfall: number;
+      };
+    };
+    banking: {
+      bankOrganizationId: OrganizationId;
+      offers: Array<{
+        id: LoanId;
+        principal: number;
+        annualInterestRateBps: number;
+        termMonths: number;
+        collateralParcelId: ParcelId;
+      }>;
+      loans: Array<{
+        id: LoanId;
+        status: "active" | "delinquent" | "paid_off" | "defaulted";
+        outstandingPrincipal: number;
+        monthlyPayment: number;
+        remainingMonths: number;
+        missedPayments: number;
+        collateralParcelId: ParcelId;
+        nextPaymentTick: Tick | null;
+      }>;
+    };
     inventory: { cement: number; brick: number; steel: number; capacity: number };
     production: Array<{
       output: "cement" | "brick" | "steel";
@@ -248,6 +289,49 @@ export const viewProjectionV1Schema = z.object({
         }),
       ),
       cash: moneySchema,
+      financials: z.object({
+        assets: moneySchema,
+        liabilities: moneySchema,
+        equity: moneySchema,
+        period: z.object({
+          month: z.number().int().positive(),
+          income: z.number().int().nonnegative(),
+          expenses: z.number().int().nonnegative(),
+          netIncome: z.number().int(),
+          cashFlow: z.number().int(),
+        }),
+        forecast: z.object({
+          income: z.number().int().nonnegative(),
+          expenses: z.number().int().nonnegative(),
+          netCashFlow: z.number().int(),
+          closingCash: z.number().int().nonnegative(),
+          shortfall: z.number().int().nonnegative(),
+        }),
+      }),
+      banking: z.object({
+        bankOrganizationId: organizationIdSchema,
+        offers: z.array(
+          z.object({
+            id: loanIdSchema,
+            principal: moneySchema,
+            annualInterestRateBps: z.number().int().positive(),
+            termMonths: z.number().int().positive(),
+            collateralParcelId: parcelIdSchema,
+          }),
+        ),
+        loans: z.array(
+          z.object({
+            id: loanIdSchema,
+            status: z.enum(["active", "delinquent", "paid_off", "defaulted"]),
+            outstandingPrincipal: moneySchema,
+            monthlyPayment: moneySchema,
+            remainingMonths: z.number().int().nonnegative(),
+            missedPayments: z.number().int().nonnegative(),
+            collateralParcelId: parcelIdSchema,
+            nextPaymentTick: tickSchema.nullable(),
+          }),
+        ),
+      }),
       inventory: z.object({
         cement: z.number().int().nonnegative(),
         brick: z.number().int().nonnegative(),

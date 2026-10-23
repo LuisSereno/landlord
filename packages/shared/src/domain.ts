@@ -18,6 +18,7 @@ import {
   structureIdSchema,
   tenantIdSchema,
   transactionIdSchema,
+  loanIdSchema,
   type BuildingId,
   type AgentId,
   type CrewId,
@@ -35,6 +36,7 @@ import {
   type StructureId,
   type TenantId,
   type TransactionId,
+  type LoanId,
 } from "./primitives";
 import { gridCellSchema, tickSchema, type GridCell, type Tick } from "./time-and-grid";
 import { moneySchema, parseMoney, type Money } from "./money";
@@ -50,7 +52,7 @@ export type Person = {
 
 export type Organization = {
   id: OrganizationId;
-  kind: "company";
+  kind: "company" | "bank";
 };
 
 export type OrganizationControlGrant = {
@@ -75,7 +77,7 @@ export const personSchema = z.object({
 
 export const organizationSchema = z.object({
   id: organizationIdSchema,
-  kind: z.literal("company"),
+  kind: z.enum(["company", "bank"]),
 });
 
 export const organizationControlGrantSchema = z.object({
@@ -297,6 +299,24 @@ export type EconomicTransaction = {
   referenceId: string;
 };
 
+export type LoanStatus = "offered" | "active" | "delinquent" | "paid_off" | "defaulted";
+export type Loan = {
+  id: LoanId;
+  borrowerOrganizationId: OrganizationId;
+  lenderOrganizationId: OrganizationId;
+  principal: Money;
+  outstandingPrincipal: Money;
+  annualInterestRateBps: number;
+  termMonths: number;
+  remainingMonths: number;
+  collateralParcelId: ParcelId;
+  status: LoanStatus;
+  offeredAtTick: Tick;
+  acceptedAtTick: Tick | null;
+  nextPaymentTick: Tick | null;
+  missedPayments: number;
+};
+
 export type PolicyStatus = "proposed" | "approved" | "active" | "expired" | "rejected";
 export type Ordinance = {
   id: PolicyId;
@@ -461,6 +481,22 @@ export const economicTransactionSchema = z.object({
   direction: z.enum(["debit", "credit"]),
   referenceId: z.string().min(1).max(128),
 });
+export const loanSchema = z.object({
+  id: loanIdSchema,
+  borrowerOrganizationId: organizationIdSchema,
+  lenderOrganizationId: organizationIdSchema,
+  principal: moneySchema,
+  outstandingPrincipal: moneySchema,
+  annualInterestRateBps: z.number().int().positive(),
+  termMonths: z.number().int().positive(),
+  remainingMonths: z.number().int().nonnegative(),
+  collateralParcelId: parcelIdSchema,
+  status: z.enum(["offered", "active", "delinquent", "paid_off", "defaulted"]),
+  offeredAtTick: tickSchema,
+  acceptedAtTick: tickSchema.nullable(),
+  nextPaymentTick: tickSchema.nullable(),
+  missedPayments: z.number().int().nonnegative(),
+});
 export const ordinanceSchema = z.object({
   id: policyIdSchema,
   name: z.string().min(1).max(120),
@@ -549,6 +585,14 @@ export type ClearRuin = DomainCommandBase & {
   type: "ClearRuin";
   payload: { buildingId: BuildingId };
 };
+export type RequestLoan = DomainCommandBase & {
+  type: "RequestLoan";
+  payload: { amount: Money; termMonths: number; collateralParcelId: ParcelId };
+};
+export type AcceptLoanOffer = DomainCommandBase & {
+  type: "AcceptLoanOffer";
+  payload: { loanId: LoanId };
+};
 export type ProductCommand =
   | PlaceTestStructure
   | BuyParcel
@@ -565,7 +609,9 @@ export type ProductCommand =
   | AssignCrewToWorkOrder
   | AssignMaintenance
   | OrderEnforcerAction
-  | ClearRuin;
+  | ClearRuin
+  | RequestLoan
+  | AcceptLoanOffer;
 
 function commandSchema<TType extends string>(type: TType, payload: z.ZodType) {
   return z.object({
@@ -641,6 +687,18 @@ export const clearRuinSchema = commandSchema(
   "ClearRuin",
   z.object({ buildingId: buildingIdSchema }),
 );
+export const requestLoanSchema = commandSchema(
+  "RequestLoan",
+  z.object({
+    amount: moneySchema,
+    termMonths: z.number().int().positive().max(24),
+    collateralParcelId: parcelIdSchema,
+  }),
+);
+export const acceptLoanOfferSchema = commandSchema(
+  "AcceptLoanOffer",
+  z.object({ loanId: loanIdSchema }),
+);
 export const productCommandSchema = z.discriminatedUnion("type", [
   placeTestStructureSchema,
   buyParcelSchema,
@@ -658,4 +716,6 @@ export const productCommandSchema = z.discriminatedUnion("type", [
   assignMaintenanceSchema,
   orderEnforcerActionSchema,
   clearRuinSchema,
+  requestLoanSchema,
+  acceptLoanOfferSchema,
 ]);

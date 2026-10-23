@@ -67,6 +67,10 @@
 - execution/phase-1/gate-1-retest-2026-10-21.md — evidencia del retest continuo y del navegador de Gate 1.
 - execution/phase-2/gate-2-baseline-2026-10-21.md — baseline de implementación y smoke reproducible del bucle de producto.
 - execution/phase-2/wp2-15-implementation-2026-10-22.md — informe de implementación de agentes, daño e incidentes.
+- execution/phase-2/gate-2-review-2026-10-23.md — decisión `CONDITIONAL GO` y condición visual de cierre.
+- execution/phase-3/wp3-2-implementation-2026-10-23.md — evidencia de producción física localizada.
+- execution/phase-3/wp3-3-financial-projection-2026-10-23.md — baseline de posición financiera y previsión de caja.
+- execution/phase-3/wp3-4-banking-debt-2026-10-23.md — banco independiente, deuda, amortización, mora y persistencia.
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

@@ -1,5 +1,16 @@
 # Fase 3 — Vertical slice comercial
 
+## Estado de ejecución — 2026-10-23
+
+Fase 3 está `IN_PROGRESS`. WP3.2 — producción física y aptitud del terreno — está cerrado para
+el slice funcional y cuenta con evidencia en
+`docs/execution/phase-3/wp3-2-implementation-2026-10-23.md`. WP3.3 — baseline de proyección
+financiera — también está cerrado según
+`docs/execution/phase-3/wp3-3-financial-projection-2026-10-23.md`. WP3.4 está
+`CONDITIONAL DONE`: el núcleo bancario funciona, con la crisis de deuda avanzada trazada a
+WP3.9. WP3.13 permanece condicionado al cierre de WP2.14; no se producen assets finales
+mientras el Visual Direction Spike siga abierto.
+
 ## Objetivo
 
 Convertir el prototipo validado en una porción representativa de la experiencia final: comprensible, visualmente coherente y con suficiente profundidad financiera, operativa y regulatoria para evaluar producción comercial.
@@ -8,7 +19,7 @@ Duración orientativa existente: 12-16 semanas; 300-450 jornadas-persona.
 
 ## Criterios de entrada
 
-- Acta `GO` de Gate 2.
+- Acta `GO` o `CONDITIONAL GO` de Gate 2 sin una condición que afecte al work package a iniciar.
 - Core loop validado por playtests.
 - Backlog de problemas de UX/balance priorizado.
 - Budgets técnicos y schema de saves bajo control.
@@ -65,6 +76,9 @@ producción, la extinción/reanudación y la conservación del incidente histór
 **Aceptación:** un jugador distingue negocio rentable de empresa sin liquidez y puede anticipar un déficit.
 
 ## WP3.4 — Banca y deuda
+
+**Estado 2026-10-23:** `CONDITIONAL DONE`. Evidencia en
+`docs/execution/phase-3/wp3-4-banking-debt-2026-10-23.md`.
 
 - Modelar banco como organización independiente.
 - Definir préstamo mínimo: principal, interés, plazo, garantía y estado.

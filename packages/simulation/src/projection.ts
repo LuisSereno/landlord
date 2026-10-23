@@ -6,6 +6,7 @@ import {
   ILLEGAL_ROUTE,
   PLAYER_CREW_CAPACITY,
   PLAYER_ORGANIZATION_ID,
+  BANK_ORGANIZATION_ID,
   RIVAL_ORGANIZATION_ID,
   UPGRADE_RENT_BONUS_PERCENT,
   UPGRADE_RESOURCES,
@@ -15,7 +16,111 @@ import {
   MARKET_PRICES,
   REPAIR_COST,
   REPAIR_WORK_REQUIRED,
+  calculateLoanPayment,
 } from "./game-data";
+
+function createFinancialSummary(
+  state: GameState,
+  cash: number,
+  playerInventory: { cement: number; brick: number; steel: number },
+): NonNullable<NonNullable<ViewProjectionV1["economy"]>["financials"]> {
+  const periodStartTick = Math.floor(state.clock.tick / GAME_MONTH_TICKS) * GAME_MONTH_TICKS;
+  let periodIncome = 0;
+  let periodExpenses = 0;
+  for (const transaction of state.phase2.transactions) {
+    if (transaction.organizationId !== PLAYER_ORGANIZATION_ID || transaction.tick < periodStartTick)
+      continue;
+    if (transaction.direction === "credit" && transaction.cause !== "loan_disbursement")
+      periodIncome += transaction.amount;
+    else periodExpenses += transaction.amount;
+  }
+
+  const inventoryValue =
+    playerInventory.cement * MARKET_PRICES.cement +
+    playerInventory.brick * MARKET_PRICES.brick +
+    playerInventory.steel * MARKET_PRICES.steel;
+  const parcelValue = [...state.phase2.parcels.values()]
+    .filter((parcel) => parcel.ownerOrganizationId === PLAYER_ORGANIZATION_ID)
+    .reduce((total, parcel) => total + parcel.price, 0);
+  const buildingValue = [...state.phase2.buildings.values()]
+    .filter((building) => building.ownerOrganizationId === PLAYER_ORGANIZATION_ID)
+    .reduce((total, building) => total + BUILDING_DEFINITIONS[building.type].cost, 0);
+  const assets = cash + inventoryValue + parcelValue + buildingValue;
+  const liabilities = [...state.phase2.loans.values()]
+    .filter(
+      (loan) =>
+        loan.borrowerOrganizationId === PLAYER_ORGANIZATION_ID &&
+        ["active", "delinquent", "defaulted"].includes(loan.status),
+    )
+    .reduce((total, loan) => total + loan.outstandingPrincipal, 0);
+  const equity = assets - liabilities;
+
+  const forecastIncome = [...state.phase2.buildings.values()]
+    .filter(
+      (building) =>
+        building.ownerOrganizationId === PLAYER_ORGANIZATION_ID &&
+        building.state !== "ruin" &&
+        building.tenantIds.length > 0,
+    )
+    .reduce((total, building) => {
+      const rentModifier =
+        state.phase2.ordinance.status === "active"
+          ? 1 + state.phase2.ordinance.rentModifierPercent / 100
+          : 1;
+      const rent = Math.max(
+        0,
+        Math.round(
+          BUILDING_DEFINITIONS[building.type].baseRent *
+            (building.upgraded ? 1 + UPGRADE_RENT_BONUS_PERCENT / 100 : 1) *
+            rentModifier,
+        ),
+      );
+      return total + rent * building.tenantIds.length;
+    }, 0);
+  const forecastExpenses = [...state.phase2.facilities.values()]
+    .filter(
+      (facility) => facility.ownerOrganizationId === PLAYER_ORGANIZATION_ID && facility.operational,
+    )
+    .reduce((total, facility) => {
+      const building = facility.buildingId
+        ? state.phase2.buildings.get(facility.buildingId)
+        : undefined;
+      if (building && (building.state !== "operational" || building.condition <= 0)) return total;
+      const monthlyCycles = Math.ceil(GAME_MONTH_TICKS / GAME_HOUR_TICKS / facility.cycleLength);
+      return total + facility.operatingCost * monthlyCycles;
+    }, 0);
+  const loanExpenses = [...state.phase2.loans.values()]
+    .filter(
+      (loan) =>
+        loan.borrowerOrganizationId === PLAYER_ORGANIZATION_ID &&
+        ["active", "delinquent"].includes(loan.status),
+    )
+    .reduce((total, loan) => total + calculateLoanPayment(loan).total, 0);
+  const totalForecastExpenses = forecastExpenses + loanExpenses;
+  const netIncome = periodIncome - periodExpenses;
+  const netCashFlow = forecastIncome - totalForecastExpenses;
+  const projectedCash = cash + netCashFlow;
+
+  return {
+    assets,
+    liabilities,
+    equity,
+    period: {
+      month: Math.floor(state.clock.tick / GAME_MONTH_TICKS) + 1,
+      income: periodIncome,
+      expenses: periodExpenses,
+      netIncome,
+      cashFlow: netIncome,
+    },
+    forecast: {
+      income: forecastIncome,
+      expenses: totalForecastExpenses,
+      netCashFlow,
+      closingCash: Math.max(0, projectedCash),
+      shortfall: Math.max(0, -projectedCash),
+    },
+  };
+}
 
 export function createViewProjection(state: GameState, includeEconomy = false): ViewProjectionV1 {
   const playerInventory = state.phase2.inventories.get(PLAYER_ORGANIZATION_ID)!;
@@ -66,6 +171,39 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                 },
               })),
             cash: state.phase2.balances.get(PLAYER_ORGANIZATION_ID) ?? 0,
+            financials: createFinancialSummary(
+              state,
+              state.phase2.balances.get(PLAYER_ORGANIZATION_ID) ?? 0,
+              playerInventory,
+            ),
+            banking: {
+              bankOrganizationId: BANK_ORGANIZATION_ID,
+              offers: [...state.phase2.loans.values()]
+                .filter(
+                  (loan) =>
+                    loan.borrowerOrganizationId === PLAYER_ORGANIZATION_ID &&
+                    loan.status === "offered",
+                )
+                .map((loan) => ({
+                  id: loan.id,
+                  principal: loan.principal,
+                  annualInterestRateBps: loan.annualInterestRateBps,
+                  termMonths: loan.termMonths,
+                  collateralParcelId: loan.collateralParcelId,
+                })),
+              loans: [...state.phase2.loans.values()]
+                .filter((loan) => loan.borrowerOrganizationId === PLAYER_ORGANIZATION_ID)
+                .map((loan) => ({
+                  id: loan.id,
+                  status: loan.status as "active" | "delinquent" | "paid_off" | "defaulted",
+                  outstandingPrincipal: loan.outstandingPrincipal,
+                  monthlyPayment: loan.status === "paid_off" ? 0 : calculateLoanPayment(loan).total,
+                  remainingMonths: loan.remainingMonths,
+                  missedPayments: loan.missedPayments,
+                  collateralParcelId: loan.collateralParcelId,
+                  nextPaymentTick: loan.nextPaymentTick,
+                })),
+            },
             inventory: { ...playerInventory },
             production: [...state.phase2.facilities.values()]
               .filter(

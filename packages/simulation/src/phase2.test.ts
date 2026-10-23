@@ -6,6 +6,7 @@ import {
   parseConstructionSiteId,
   parseFacilityId,
   parseIncidentId,
+  parseLoanId,
   parseOrganizationId,
   parseMoney,
   parseParcelId,
@@ -21,6 +22,7 @@ import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { advanceProductSystems } from "./systems";
 import { createInitialState } from "./state";
 import { createViewProjection } from "./projection";
+import { GAME_MONTH_TICKS } from "./game-data";
 
 const actor = parsePersonId("person_00000001");
 const organization = "org_00000001" as ProductCommand["actingAsOrganizationId"];
@@ -548,6 +550,66 @@ describe("Gate 2 product loop", () => {
     });
   });
 
+  it("does not produce before completion and applies parcel suitability", () => {
+    const buildFactory = (seed: number, parcelId: string) => {
+      const state = createInitialState(seed);
+      dispatchProductCommand(
+        state,
+        command(`factory-buy-${seed}`, "BuyParcel", { parcelId: parseParcelId(parcelId) }),
+      );
+      dispatchProductCommand(
+        state,
+        command(`factory-build-${seed}`, "StartConstruction", {
+          parcelId: parseParcelId(parcelId),
+          buildingType: "cement_plant",
+        }),
+      );
+      const inventoryBefore = { ...state.phase2.inventories.get(organization)! };
+      advanceToTick(state, 120 * 50 - 1);
+      expect(state.phase2.buildings).toHaveLength(0);
+      expect(state.phase2.facilities).toHaveLength(0);
+      expect(state.phase2.inventories.get(organization)).toEqual(inventoryBefore);
+
+      advanceToTick(state, 120 * 50 + 50);
+      const building = [...state.phase2.buildings.values()][0]!;
+      const facility = state.phase2.facilities.get(building.productionFacilityId!)!;
+      return { state, facility };
+    };
+
+    const highSuitability = buildFactory(41, "parcel_00000005");
+    const mixedSuitability = buildFactory(43, "parcel_00000006");
+    expect(highSuitability.facility.suitabilityPercent).toBe(120);
+    expect(mixedSuitability.facility.suitabilityPercent).toBe(95);
+    expect(
+      createViewProjection(highSuitability.state, true).economy?.production[0]?.averageOutputAmount,
+    ).toBe(2.4);
+    expect(
+      createViewProjection(mixedSuitability.state, true).economy?.production[0]
+        ?.averageOutputAmount,
+    ).toBe(1.9);
+  });
+
+  it("lets the rival choose market supply or a physical factory through normal commands", () => {
+    const productionState = createInitialState(47);
+    productionState.phase2.parcels.get(parseParcelId("parcel_00000005"))!.ownerOrganizationId =
+      parseOrganizationId("org_00000002");
+    productionState.clock.tick = parseTick(50 * 24);
+    advanceProductSystems(productionState);
+    expect(productionState.phase2.rivalAi.lastAction).toBe("build_production");
+    expect(["cement_plant", "brickworks", "steelworks"]).toContain(
+      [...productionState.phase2.constructionSites.values()][0]?.buildingType,
+    );
+
+    const marketState = createInitialState(53);
+    marketState.phase2.parcels.get(parseParcelId("parcel_00000005"))!.ownerOrganizationId =
+      parseOrganizationId("org_00000002");
+    marketState.phase2.inventories.get(parseOrganizationId("org_00000002"))!.brick = 0;
+    marketState.clock.tick = parseTick(50 * 24);
+    advanceProductSystems(marketState);
+    expect(marketState.phase2.rivalAi.lastAction).toBe("buy_materials");
+    expect(marketState.phase2.inventories.get(parseOrganizationId("org_00000002"))!.brick).toBe(2);
+  });
+
   it("migrates snapshots without kind by building linkage", () => {
     const state = createInitialState(37);
     dispatchProductCommand(
@@ -595,5 +657,127 @@ describe("Gate 2 product loop", () => {
     const broken = serializeSnapshot(state);
     broken.phase2!.buildings[0]!.productionFacilityId = null;
     expect(() => restoreStateFromSnapshot(broken)).toThrow(/bidirectional/);
+  });
+});
+
+describe("WP3.4 banking and debt", () => {
+  it("offers and disburses a collateralized loan without creating money", () => {
+    const state = createInitialState(31);
+    const parcelId = parseParcelId("parcel_00000001");
+    expect(
+      dispatchProductCommand(state, command("loan-buy", "BuyParcel", { parcelId })).accepted,
+    ).toBe(true);
+    const parcel = state.phase2.parcels.get(parcelId)!;
+    parcel.price = parseMoney(2000);
+    const beforeTotal =
+      state.phase2.balances.get(organization)! +
+      state.phase2.balances.get(parseOrganizationId("org_00000003"))!;
+    expect(
+      dispatchProductCommand(
+        state,
+        command("loan-request", "RequestLoan", {
+          amount: parseMoney(600),
+          termMonths: 12,
+          collateralParcelId: parcelId,
+        }),
+      ).accepted,
+    ).toBe(true);
+    expect(state.phase2.loans.get(parseLoanId("loan_00000001"))?.status).toBe("offered");
+    expect(
+      dispatchProductCommand(
+        state,
+        command("loan-accept", "AcceptLoanOffer", { loanId: parseLoanId("loan_00000001") }),
+      ).accepted,
+    ).toBe(true);
+    expect(state.phase2.loans.get(parseLoanId("loan_00000001"))).toMatchObject({
+      status: "active",
+      principal: 600,
+      outstandingPrincipal: 600,
+      nextPaymentTick: GAME_MONTH_TICKS,
+    });
+    const afterTotal =
+      state.phase2.balances.get(organization)! +
+      state.phase2.balances.get(parseOrganizationId("org_00000003"))!;
+    expect(afterTotal).toBe(beforeTotal);
+  });
+
+  it("amortizes once per due month and persists the next due tick", () => {
+    const state = createInitialState(32);
+    const parcelId = parseParcelId("parcel_00000001");
+    dispatchProductCommand(state, command("amort-buy", "BuyParcel", { parcelId }));
+    state.phase2.parcels.get(parcelId)!.price = parseMoney(2000);
+    dispatchProductCommand(
+      state,
+      command("amort-request", "RequestLoan", {
+        amount: parseMoney(600),
+        termMonths: 12,
+        collateralParcelId: parcelId,
+      }),
+    );
+    dispatchProductCommand(
+      state,
+      command("amort-accept", "AcceptLoanOffer", { loanId: parseLoanId("loan_00000001") }),
+    );
+    const beforePayment = state.phase2.balances.get(organization)!;
+    advanceToTick(state, GAME_MONTH_TICKS);
+    const loan = state.phase2.loans.get(parseLoanId("loan_00000001"))!;
+    expect(loan).toMatchObject({
+      status: "active",
+      outstandingPrincipal: 550,
+      nextPaymentTick: GAME_MONTH_TICKS * 2,
+    });
+    expect(state.phase2.balances.get(organization)).toBe(beforePayment - 51);
+    const transactionCount = state.phase2.transactions.length;
+    advanceProductSystems(state);
+    expect(state.phase2.transactions).toHaveLength(transactionCount);
+  });
+
+  it("transitions to delinquency and then default when liquidity stays insufficient", () => {
+    const state = createInitialState(33);
+    const parcelId = parseParcelId("parcel_00000001");
+    dispatchProductCommand(state, command("mora-buy", "BuyParcel", { parcelId }));
+    state.phase2.parcels.get(parcelId)!.price = parseMoney(2000);
+    dispatchProductCommand(
+      state,
+      command("mora-request", "RequestLoan", {
+        amount: parseMoney(600),
+        termMonths: 12,
+        collateralParcelId: parcelId,
+      }),
+    );
+    dispatchProductCommand(
+      state,
+      command("mora-accept", "AcceptLoanOffer", { loanId: parseLoanId("loan_00000001") }),
+    );
+    state.phase2.balances.set(organization, parseMoney(0));
+    advanceToTick(state, GAME_MONTH_TICKS);
+    expect(state.phase2.loans.get(parseLoanId("loan_00000001"))?.status).toBe("delinquent");
+    advanceToTick(state, GAME_MONTH_TICKS * 2);
+    expect(state.phase2.loans.get(parseLoanId("loan_00000001"))?.status).toBe("defaulted");
+  });
+
+  it("round-trips loan schedule through save/load", () => {
+    const state = createInitialState(34);
+    const parcelId = parseParcelId("parcel_00000001");
+    dispatchProductCommand(state, command("save-loan-buy", "BuyParcel", { parcelId }));
+    state.phase2.parcels.get(parcelId)!.price = parseMoney(2000);
+    dispatchProductCommand(
+      state,
+      command("save-loan-request", "RequestLoan", {
+        amount: parseMoney(600),
+        termMonths: 12,
+        collateralParcelId: parcelId,
+      }),
+    );
+    dispatchProductCommand(
+      state,
+      command("save-loan-accept", "AcceptLoanOffer", { loanId: parseLoanId("loan_00000001") }),
+    );
+    const snapshot = serializeSnapshot(state);
+    const restored = restoreStateFromSnapshot(snapshot);
+    expect(serializeSnapshot(restored)).toEqual(snapshot);
+    expect(restored.phase2.loans.get(parseLoanId("loan_00000001"))?.nextPaymentTick).toBe(
+      GAME_MONTH_TICKS,
+    );
   });
 });

@@ -18,6 +18,7 @@ import {
   constructionSiteSchema,
   districtSchema,
   economicTransactionSchema,
+  loanSchema,
   ordinanceSchema,
   parcelSchema,
   productionFacilitySchema,
@@ -62,6 +63,7 @@ export type SnapshotV1 = {
     building?: number;
     constructionSite?: number;
     transaction?: number;
+    loan?: number;
   };
   map: {
     width: 64;
@@ -100,6 +102,7 @@ export type SnapshotV1 = {
       constructionSite: number;
       facility?: number;
       transaction: number;
+      loan?: number;
       incident?: number;
     };
     district: import("./domain").District;
@@ -128,6 +131,7 @@ export type SnapshotV1 = {
     };
     crews?: import("./domain").Crew[];
     incidents?: import("./domain").IncidentRecord[];
+    loans?: import("./domain").Loan[];
   };
 };
 
@@ -166,6 +170,7 @@ const phase2SnapshotSchema = z.object({
     constructionSite: safeCounter,
     facility: safeCounter.optional(),
     incident: safeCounter.optional(),
+    loan: safeCounter.optional(),
     transaction: safeCounter,
   }),
   district: districtSchema,
@@ -207,6 +212,7 @@ const phase2SnapshotSchema = z.object({
     }),
   crews: z.array(crewSchema).optional(),
   incidents: z.array(incidentSchema).optional(),
+  loans: z.array(loanSchema).optional(),
 });
 
 export const snapshotV1Schema = z.object({

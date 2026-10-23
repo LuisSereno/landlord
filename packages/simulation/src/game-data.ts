@@ -1,4 +1,10 @@
-import { parseMoney, type BuildingDefinition, type Parcel, type Tenant } from "@landlord/shared";
+import {
+  parseMoney,
+  type BuildingDefinition,
+  type Loan,
+  type Parcel,
+  type Tenant,
+} from "@landlord/shared";
 import {
   parseDistrictId,
   parseParcelId,
@@ -197,3 +203,27 @@ export const FACILITY_CONFIG = {
 
 export const PLAYER_ORGANIZATION_ID = parseOrganizationId("org_00000001");
 export const RIVAL_ORGANIZATION_ID = parseOrganizationId("org_00000002");
+export const BANK_ORGANIZATION_ID = parseOrganizationId("org_00000003");
+
+export const LOAN_POLICY = {
+  minimumPrincipal: parseMoney(500),
+  maximumPrincipal: parseMoney(8000),
+  annualInterestRateBps: 900,
+  allowedTermsMonths: [6, 12, 24] as const,
+  collateralLoanToValuePercent: 75,
+  maximumDebt: parseMoney(12000),
+  initialBankBalance: parseMoney(100000),
+  delinquencyGracePayments: 1,
+} as const;
+
+export function calculateLoanPayment(
+  loan: Pick<Loan, "outstandingPrincipal" | "remainingMonths" | "annualInterestRateBps">,
+): {
+  principal: number;
+  interest: number;
+  total: number;
+} {
+  const principal = Math.ceil(loan.outstandingPrincipal / Math.max(1, loan.remainingMonths));
+  const interest = Math.ceil((loan.outstandingPrincipal * loan.annualInterestRateBps) / 1_200_000);
+  return { principal, interest, total: principal + interest };
+}

@@ -11,6 +11,8 @@ import {
   parsePersonId,
   parsePolicyId,
   parseTenantId,
+  parseLoanId,
+  parseMoney,
   requestIdSchema,
   saveSnapshotRequestSchema,
   setRunStateRequestSchema,
@@ -256,6 +258,30 @@ export class SimulationWorkerClient {
       actingAsOrganizationId: parseOrganizationId("org_00000001"),
       type: "RepairBuilding",
       payload: { buildingId: parseBuildingId(buildingId) },
+    });
+  }
+
+  public requestLoan(amount: number, termMonths: number, collateralParcelId: string) {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "RequestLoan",
+      payload: {
+        amount: parseMoney(amount),
+        termMonths,
+        collateralParcelId: parseParcelId(collateralParcelId),
+      },
+    });
+  }
+
+  public acceptLoanOffer(loanId: string) {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "AcceptLoanOffer",
+      payload: { loanId: parseLoanId(loanId) },
     });
   }
 

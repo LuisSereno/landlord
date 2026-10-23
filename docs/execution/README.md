@@ -37,6 +37,10 @@ La cadena de valor que debe mantenerse visible es:
 | Evidencia | [phase-1/benchmark-baseline-2026-10-20.md](phase-1/benchmark-baseline-2026-10-20.md) | Baseline headless y smoke de navegador de WP1.14 |
 | Evidencia | [phase-1/soak-baseline-2026-10-20.md](phase-1/soak-baseline-2026-10-20.md) | Soak headless y procedimiento de soak navegador de WP1.15 |
 | Acta | [phase-1/gate-1-review-2026-10-20.md](phase-1/gate-1-review-2026-10-20.md) | Auditoría y decisión REWORK de Gate 1 |
+| Acta | [phase-2/gate-2-review-2026-10-23.md](phase-2/gate-2-review-2026-10-23.md) | Decisión CONDITIONAL GO y condición visual de cierre |
+| Evidencia | [phase-3/wp3-2-implementation-2026-10-23.md](phase-3/wp3-2-implementation-2026-10-23.md) | Producción física localizada y aptitud del terreno |
+| Evidencia | [phase-3/wp3-3-financial-projection-2026-10-23.md](phase-3/wp3-3-financial-projection-2026-10-23.md) | Baseline de posición financiera y previsión de caja |
+| Evidencia | [phase-3/wp3-4-banking-debt-2026-10-23.md](phase-3/wp3-4-banking-debt-2026-10-23.md) | Banco independiente, deuda, amortización, mora y persistencia |
 
 ## Estado de las fases
 
@@ -44,8 +48,8 @@ La cadena de valor que debe mantenerse visible es:
 |---|---|---|
 | Fase 0 | DONE — cerrada 2026-10-20 | Acta en `phase-0/PHASE-0-CLOSURE.md` |
 | Fase 1 / Gate 1 | REWORK — acta 2026-10-20 | Cerrar G1-RW-01..03 antes de aprobar |
-| Fase 2 / Gate 2 | REVIEW — baseline económico funcional 2026-10-22 | Requiere WP2.15, Visual Direction Spike, playtest prolongado posterior y acta GO |
-| Fase 3 / Vertical slice | Bloqueada por Gate 2 | Requiere evidencia de una sesión coherente |
+| Fase 2 / Gate 2 | CONDITIONAL GO — revisión 2026-10-23 | WP2.14 queda como condición y bloquea sólo arte representativo/WP3.13 |
+| Fase 3 / Vertical slice | IN_PROGRESS — WP3.2, WP3.3 cerrados; WP3.4 CONDITIONAL DONE | WP3.5 es el siguiente; WP3.13 espera WP2.14 |
 | Fase 4 / Alpha | No iniciada | Requiere vertical slice validado |
 | Fases 5-6 | No iniciadas | Requieren alcance comercial aprobado |
 | Fases 7-8 | Futuras, no comprometidas | Requieren validación explícita del producto base |

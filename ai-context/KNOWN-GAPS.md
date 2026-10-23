@@ -83,27 +83,26 @@ Pendiente para implementación del Vertical Slice:
 - migración de `ProductionFacility`/saves de Gate 2;
 - comportamiento de IA para elegir mercado, construir fábrica o ampliar capacidad.
 
-## Gate 2 — baseline 2026-10-21
+## Gate 2 / Fase 3 — estado 2026-10-23
 - Implementados parcelas, caja, mercado de materiales, inversión productiva abstracta de Gate 2, obras, dos crews
   agregadas y asignables, tenants finitos multiunidad, presupuesto/satisfacción, renta mensual,
   deterioro/reparación, upgrades, rival utility mínimo, crimen/policía con cooldown, ordenanza
   incierta, HUD y save/load.
 - WP2.11 tiene ya layout de juego, mapa principal, inspector contextual, onboarding, velocidad,
   costes previos, producción, cuadrilla, tenants, renta, progreso, cancelación y libro de caja.
-- Pendiente medir con playtest humano: ritmo, comprensión, estrategia dominante, inflación,
-  bloqueos por seed y ratio de decisiones frente a acciones repetitivas.
-- Pendiente ejecutar el Visual Direction Spike end-to-end y decidir la baseline artística una
-  vez exista la pantalla representativa exigida por D-058.
+- La prueba manual del responsable fue OK, pero no dejó duración, seeds ni métricas cuantitativas;
+  siguen pendientes para el balance financiero posterior.
+- Gate 2 está en `CONDITIONAL GO`; el Visual Direction Spike sigue abierto y bloquea sólo el arte
+  representativo de WP3.13.
 - El rival completa compra, mercado, inversión productiva, construcción, ocupación y renta con
   utility determinista, reserva de liquidez y cooldown ante fallos. Su profundidad sigue siendo
   deliberadamente mínima y sólo se amplía si el playtest lo justifica.
 - D-061 queda implementado en el núcleo: agents operativos, crews físicas, pathfinding, fuego,
   integridad estructural, daño espacial, heridas, muerte, casualties, ruina y migración aditiva.
-- Antes del `GO` permanecen abiertos el playtest humano prolongado y la evidencia del Visual
-  Direction Spike. No se autoriza por ello una life simulation ni un sistema de combate amplio.
-- D-062 no reabre Gate 2: la producción física localizada queda programada para el Vertical Slice;
-  el botón `InvestInProduction` sigue siendo válido únicamente como abstracción del baseline que
-  se está evaluando.
+- WP3.2 / D-062 está cerrado para el slice funcional: fábrica física, aptitud de parcela, mercado,
+  fuego/recuperación, rival y migración de snapshots tienen cobertura determinista.
+- No se autoriza por ello una life simulation ni un sistema de combate amplio. `InvestInProduction`
+  sigue siendo válido únicamente para migrar instalaciones legacy.
 
 ## Fiscalidad
 - impuestos concretos de la primera versión;
@@ -114,6 +113,10 @@ Pendiente para implementación del Vertical Slice:
 - grado de regionalización de tasas.
 
 ## Finanzas y banca
+- WP3.3 está cerrado como proyección derivada de activos, pasivos, patrimonio, periodo y previsión.
+- WP3.4 tiene el núcleo de deuda implementado: banco independiente, garantía, oferta,
+  desembolso, amortización, mora y persistencia. Refinanciación, ejecución y reestructuración
+  avanzada siguen en WP3.9.
 - modelo de tipos;
 - loan-to-value;
 - garantías;

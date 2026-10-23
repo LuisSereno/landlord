@@ -22,6 +22,7 @@ export type TenantId = Brand<string, "TenantId">;
 export type FacilityId = Brand<string, "FacilityId">;
 export type TransactionId = Brand<string, "TransactionId">;
 export type PolicyId = Brand<string, "PolicyId">;
+export type LoanId = Brand<string, "LoanId">;
 
 export type RequestId = Brand<string, "RequestId">;
 export type CommandId = Brand<string, "CommandId">;
@@ -66,6 +67,7 @@ export const transactionIdSchema = entityIdSchema("txn").transform(
   (value) => value as TransactionId,
 );
 export const policyIdSchema = entityIdSchema("policy").transform((value) => value as PolicyId);
+export const loanIdSchema = entityIdSchema("loan").transform((value) => value as LoanId);
 
 export const requestIdSchema = opaqueString.transform((value) => value as RequestId);
 export const commandIdSchema = opaqueString.transform((value) => value as CommandId);
@@ -130,6 +132,10 @@ export function parseTransactionId(value: string): TransactionId {
 
 export function parsePolicyId(value: string): PolicyId {
   return policyIdSchema.parse(value);
+}
+
+export function parseLoanId(value: string): LoanId {
+  return loanIdSchema.parse(value);
 }
 
 export function parseRequestId(value: string): RequestId {

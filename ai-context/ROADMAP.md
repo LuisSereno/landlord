@@ -1,6 +1,6 @@
 # Roadmap condensado
 
-## Ahora — Gate 2
+## Ahora — Fase 3 / Vertical Slice
 
 Implementar y validar el bucle jugable sobre el núcleo de Gate 1:
 - parcelas y compra;
@@ -31,18 +31,17 @@ No implementar todavía:
 
 ## Estado del baseline de Gate 2
 
-El candidato económico funcional está implementado y es jugable en navegador. La base de UX ya incluye
-mapa principal, HUD jerarquizado, inspector contextual, feedback de estados y onboarding, por
-lo que WP2.14 puede comenzar. Quedan el playtest prolongado, balance, métricas de producto y la
-evidencia visual y WP2.15 antes de declarar el gate aprobado. WP2.15 no amplía el producto a
-life simulation: prueba personas funcionales, trabajo físico, mantenimiento, sabotaje, fuego y
-consecuencias espaciales con alcance mínimo.
+El candidato económico funcional está implementado y es jugable en navegador. La prueba manual del
+responsable fue OK, WP2.15 está cerrado y Gate 2 tiene `CONDITIONAL GO`. La condición restante es
+WP2.14: dirección visual, provenance, métricas y recomendación antes de producir arte representativo.
+WP2.15 no amplía el producto a life simulation: prueba personas funcionales, trabajo físico,
+mantenimiento, sabotaje, fuego y consecuencias espaciales con alcance mínimo.
 
 La experiencia sigue siendo Landlord/Entrepreneur.
 
-D-062 queda deliberadamente fuera de los criterios de cierre de Gate 2: el playtest actual puede
-seguir evaluando la activación productiva abstracta. Esa abstracción no debe interpretarse como
-diseño final.
+La producción física localizada de WP3.2 ya está cerrada para el slice funcional; finanzas, deuda,
+fiscalidad, seguros, zoning, subastas y automatización siguen siendo los próximos incrementos de
+Fase 3. `InvestInProduction` sólo permanece para migrar instalaciones legacy.
 
 ## Vertical slice
 

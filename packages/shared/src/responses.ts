@@ -44,7 +44,14 @@ export type ErrorCode =
   | "CREW_NOT_FOUND"
   | "AGENT_NOT_FOUND"
   | "INVALID_AGENT_ACTION"
-  | "RUIN_REQUIRED";
+  | "RUIN_REQUIRED"
+  | "LOAN_COLLATERAL_INVALID"
+  | "LOAN_AMOUNT_INVALID"
+  | "LOAN_CAPACITY_EXCEEDED"
+  | "LOAN_NOT_FOUND"
+  | "LOAN_NOT_AVAILABLE"
+  | "LOAN_ALREADY_ACTIVE"
+  | "LOAN_DEFAULTED";
 
 const responseVersion = protocolVersionSchema;
 
@@ -116,6 +123,13 @@ const errorCodeSchema = z.enum([
   "AGENT_NOT_FOUND",
   "INVALID_AGENT_ACTION",
   "RUIN_REQUIRED",
+  "LOAN_COLLATERAL_INVALID",
+  "LOAN_AMOUNT_INVALID",
+  "LOAN_CAPACITY_EXCEEDED",
+  "LOAN_NOT_FOUND",
+  "LOAN_NOT_AVAILABLE",
+  "LOAN_ALREADY_ACTIVE",
+  "LOAN_DEFAULTED",
 ]);
 
 export const simulationMetricsSchema = z.object({

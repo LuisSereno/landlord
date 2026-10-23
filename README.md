@@ -26,7 +26,9 @@ No es un remake de Constructor, Street Wars o Mob Rule. El objetivo es construir
 
 ## Estado
 
-Fase actual: Gate 2 en `REVIEW`, con Gate 1 técnico cerrado y el baseline jugable integrado.
+Fase actual: Fase 3 / Vertical Slice en `IN_PROGRESS`, con Gate 2 en `CONDITIONAL GO`, WP3.2
+(producción física localizada), WP3.3 (baseline financiero) y el núcleo de WP3.4 (banca y deuda)
+cerrados para el slice funcional. La refinanciación/ejecución avanzada queda trazada a WP3.9.
 
 La estrategia recomendada es validar primero dos puertas:
 
@@ -38,5 +40,7 @@ reducido de 30 minutos fue estable; la evidencia está en
 `docs/execution/phase-1/gate-1-retest-2026-10-21.md`. D-055 resuelve el punto `events`/snapshots:
 los eventos normales son efímeros y los historiales persistentes serán registros específicos.
 D-060 separa el calendario económico del tick técnico y cierra el rework de materiales,
-capacidad, cuadrillas, política, rival, riesgo y mantenimiento. Permanecen pendientes el playtest
-humano prolongado y el Visual Direction Spike antes del acta `GO` de Gate 2.
+capacidad, cuadrillas, política, rival, riesgo y mantenimiento. La revisión del 2026-10-23 acepta
+el núcleo tras la prueba manual OK y deja una única condición: cerrar el Visual Direction Spike
+antes del arte representativo de Fase 3. Consulta el acta en
+`docs/execution/phase-2/gate-2-review-2026-10-23.md`.

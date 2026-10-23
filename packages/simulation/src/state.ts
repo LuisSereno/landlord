@@ -26,6 +26,7 @@ import {
   type PersonId,
   type PlayerIdentityId,
   type StructureId,
+  type Loan,
 } from "@landlord/shared";
 import type { Money } from "@landlord/shared";
 import type {
@@ -44,6 +45,8 @@ import {
   PROTOTYPE_PARCELS,
   PROTOTYPE_TENANTS,
   RIVAL_ORGANIZATION_ID,
+  BANK_ORGANIZATION_ID,
+  LOAN_POLICY,
 } from "./game-data";
 
 export type EntityCounters = {
@@ -60,6 +63,7 @@ export type Phase2State = {
     facility: number;
     transaction: number;
     incident: number;
+    loan: number;
   };
   district: District;
   parcels: Map<import("@landlord/shared").ParcelId, Parcel>;
@@ -72,6 +76,7 @@ export type Phase2State = {
   incidents: Map<import("@landlord/shared").IncidentId, IncidentRecord>;
   tenants: Map<import("@landlord/shared").TenantId, Tenant>;
   transactions: EconomicTransaction[];
+  loans: Map<import("@landlord/shared").LoanId, Loan>;
   ordinance: Ordinance;
   crime: {
     heatByOrganizationId: Record<string, number>;
@@ -236,6 +241,7 @@ export function createInitialState(seed = 1): GameState {
     organizations: new Map([
       [controlledOrganizationId, { id: controlledOrganizationId, kind: "company" }],
       [independentOrganizationId, { id: independentOrganizationId, kind: "company" }],
+      [BANK_ORGANIZATION_ID, { id: BANK_ORGANIZATION_ID, kind: "bank" }],
     ]),
     controlGrants: new Map([
       [
@@ -251,12 +257,20 @@ export function createInitialState(seed = 1): GameState {
     processedCommandIds: new Set(),
     pendingCommands: [],
     phase2: {
-      idCounters: { building: 0, constructionSite: 0, facility: 0, transaction: 0, incident: 0 },
+      idCounters: {
+        building: 0,
+        constructionSite: 0,
+        facility: 0,
+        transaction: 0,
+        incident: 0,
+        loan: 0,
+      },
       district,
       parcels,
       balances: new Map([
         [PLAYER_ORGANIZATION_ID, parseMoney(12000)],
         [RIVAL_ORGANIZATION_ID, parseMoney(12000)],
+        [BANK_ORGANIZATION_ID, LOAN_POLICY.initialBankBalance],
       ]),
       inventories: new Map([
         [PLAYER_ORGANIZATION_ID, playerInventory],
@@ -269,6 +283,7 @@ export function createInitialState(seed = 1): GameState {
       incidents: new Map(),
       tenants,
       transactions: [],
+      loans: new Map(),
       ordinance: { ...PROTOTYPE_ORDINANCE },
       crime: {
         heatByOrganizationId: {

@@ -7,7 +7,7 @@ import {
   parseIncidentId,
   type BuildingType,
 } from "@landlord/shared";
-import { dispatchProductCommand } from "./commands";
+import { credit, debit, dispatchProductCommand } from "./commands";
 import {
   BUILDING_DEFINITIONS,
   RIVAL_ORGANIZATION_ID,
@@ -16,6 +16,9 @@ import {
   GAME_HOUR_TICKS,
   GAME_MONTH_TICKS,
   UPGRADE_RESOURCES,
+  BANK_ORGANIZATION_ID,
+  LOAN_POLICY,
+  calculateLoanPayment,
 } from "./game-data";
 import type { GameState } from "./state";
 import { Xoshiro128ss } from "./prng";
@@ -302,6 +305,46 @@ function collectRentAndAgeLeases(state: GameState): void {
     }
     building.tenantId = building.tenantIds[0] ?? null;
     building.condition = Math.max(0, building.condition - 5);
+  }
+}
+
+function processLoanPayments(state: GameState): void {
+  if (state.clock.tick === 0 || state.clock.tick % GAME_MONTH_TICKS !== 0) return;
+  for (const loan of [...state.phase2.loans.values()].sort((a, b) => a.id.localeCompare(b.id))) {
+    if (
+      !["active", "delinquent"].includes(loan.status) ||
+      loan.nextPaymentTick !== state.clock.tick
+    )
+      continue;
+    const payment = calculateLoanPayment(loan);
+    const paid = debit(
+      state,
+      loan.borrowerOrganizationId,
+      payment.total as import("@landlord/shared").Money,
+      "loan_payment",
+      loan.id,
+    );
+    if (!paid) {
+      loan.missedPayments += 1;
+      loan.status =
+        loan.missedPayments > LOAN_POLICY.delinquencyGracePayments ? "defaulted" : "delinquent";
+      loan.nextPaymentTick =
+        loan.status === "defaulted" ? null : parseTick(state.clock.tick + GAME_MONTH_TICKS);
+      continue;
+    }
+    credit(
+      state,
+      BANK_ORGANIZATION_ID,
+      payment.total as import("@landlord/shared").Money,
+      "loan_payment",
+      loan.id,
+    );
+    loan.outstandingPrincipal = parseMoney(loan.outstandingPrincipal - payment.principal);
+    loan.remainingMonths = Math.max(0, loan.remainingMonths - 1);
+    loan.missedPayments = 0;
+    loan.status = loan.outstandingPrincipal === 0 ? "paid_off" : "active";
+    loan.nextPaymentTick =
+      loan.status === "paid_off" ? null : parseTick(state.clock.tick + GAME_MONTH_TICKS);
   }
 }
 
@@ -710,6 +753,7 @@ export function advanceProductSystems(state: GameState): void {
   tacticalTick(state);
   progressProduction(state);
   collectRentAndAgeLeases(state);
+  processLoanPayments(state);
   updatePolicyAndHeat(state);
   rivalAction(state);
   state.clock = { ...state.clock, tick: parseTick(state.clock.tick + 1) };

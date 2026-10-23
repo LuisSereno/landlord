@@ -16,6 +16,7 @@ import {
   parseStructureId,
   parseTenantId,
   parseTransactionId,
+  parseLoanId,
   parseSnapshotV1,
   type SnapshotV1,
 } from "@landlord/shared";
@@ -135,6 +136,7 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
       incidents: [...state.phase2.incidents.values()]
         .map((incident) => ({ ...incident, casualties: { ...incident.casualties } }))
         .sort(compareId),
+      loans: [...state.phase2.loans.values()].map((loan) => ({ ...loan })).sort(compareId),
     },
   };
 }
@@ -254,6 +256,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 return Number.isSafeInteger(numericId) ? Math.max(maximum, numericId) : maximum;
               }, 0),
             incident: snapshot.phase2.idCounters.incident ?? 0,
+            loan: snapshot.phase2.idCounters.loan ?? 0,
           },
           district: {
             id: parseDistrictId(snapshot.phase2.district.id),
@@ -430,6 +433,27 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
             ]),
           ),
           rivalAi: { ...snapshot.phase2.rivalAi },
+          loans: snapshot.phase2.loans
+            ? new Map(
+                snapshot.phase2.loans.map((loan) => [
+                  parseLoanId(loan.id),
+                  {
+                    ...loan,
+                    id: parseLoanId(loan.id),
+                    borrowerOrganizationId: parseOrganizationId(loan.borrowerOrganizationId),
+                    lenderOrganizationId: parseOrganizationId(loan.lenderOrganizationId),
+                    principal: parseMoney(loan.principal),
+                    outstandingPrincipal: parseMoney(loan.outstandingPrincipal),
+                    collateralParcelId: parseParcelId(loan.collateralParcelId),
+                    offeredAtTick: parseTick(loan.offeredAtTick),
+                    acceptedAtTick:
+                      loan.acceptedAtTick === null ? null : parseTick(loan.acceptedAtTick),
+                    nextPaymentTick:
+                      loan.nextPaymentTick === null ? null : parseTick(loan.nextPaymentTick),
+                  },
+                ]),
+              )
+            : new Map(),
         }
       : defaults,
   };

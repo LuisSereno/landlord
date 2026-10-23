@@ -54,6 +54,13 @@ const errorMessages: Record<ErrorCode, string> = {
   AGENT_NOT_FOUND: "El agente indicado no existe.",
   INVALID_AGENT_ACTION: "La orden operativa no es válida para ese objetivo.",
   RUIN_REQUIRED: "La operación requiere una ruina.",
+  LOAN_COLLATERAL_INVALID: "La garantía no pertenece a la organización solicitante.",
+  LOAN_AMOUNT_INVALID: "El importe o plazo no está dentro de la política del banco.",
+  LOAN_CAPACITY_EXCEEDED: "La garantía, el banco o la capacidad de deuda no cubren el préstamo.",
+  LOAN_NOT_FOUND: "El préstamo no existe.",
+  LOAN_NOT_AVAILABLE: "La oferta de préstamo ya no está disponible.",
+  LOAN_ALREADY_ACTIVE: "La garantía ya respalda otra oferta o deuda activa.",
+  LOAN_DEFAULTED: "El préstamo está en impago y requiere una resolución de crisis.",
 } as const;
 
 const PROTOCOL_VERSION = protocolVersionSchema.parse(1);

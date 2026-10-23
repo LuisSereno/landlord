@@ -11,7 +11,7 @@ La experiencia continúa centrada en Landlord/Entrepreneur. Los costes económic
 Baseline de estimación anterior a D-061: 10-14 semanas y 180-280 jornadas-persona. Ya no es una
 estimación vigente; WP2.15 debe diseñarse antes de rebaselinar duración y esfuerzo.
 
-## Estado de implementación — 2026-10-22
+## Estado de implementación — 2026-10-23
 
 WP2.1–WP2.12 cuentan con un candidato económico integrado bajo D-056–D-060. El calendario económico está
 separado del tick técnico (30 minutos reales por mes a 1×); existen mercado frente a producción
@@ -19,11 +19,11 @@ propia, dos cuadrillas físicas asignables, contratos multiunidad, presupuesto/s
 rival utility mínimo, política incierta, sabotaje físico y ruta ilegal con cooldown. Save/load conserva la cola
 autoritativa y las referencias de Phase 2 se validan.
 
-El estado del Gate sigue siendo `REVIEW`, no `GO`: WP2.13 aún requiere una sesión humana de 30–60
-minutos y seeds de referencia, y WP2.14 debe producir la evidencia visual reproducible. La
-implementación y el smoke automatizado no sustituyen esos dos criterios de producto. D-061 queda
-implementado y validado por pruebas tácticas y smoke browser; el Gate aún espera evidencia de
-producto y Visual Direction Spike.
+WP2.13 queda respaldado por la confirmación manual OK del responsable y por la suite, benchmark y
+smoke reproducibles. WP2.15 queda implementado y validado por pruebas tácticas y smoke browser.
+El Gate 2 pasa a `CONDITIONAL GO`: la única condición abierta es cerrar WP2.14 con evidencia
+visual reproducible antes de producir arte representativo en WP3.13. La decisión completa está en
+`docs/execution/phase-2/gate-2-review-2026-10-23.md`.
 
 ## Criterios de entrada
 
@@ -272,6 +272,10 @@ pueda medir legibilidad y estilo.
 
 ## WP2.13 — Balance, playtest y cierre
 
+**Estado 2026-10-23:** cierre cualitativo aceptado por confirmación manual `OK`; la duración,
+seeds y métricas cuantitativas de esa sesión no quedaron registradas y se mantienen como deuda de
+medición para el balance financiero posterior.
+
 **Resultado:** evidencia de que existe un juego prometedor, no sólo sistemas conectados.
 
 **Tareas:**
@@ -288,6 +292,10 @@ pueda medir legibilidad y estilo.
 - Emitir acta de Gate 2.
 
 ## WP2.14 — Visual Direction Spike y preparación de producción artística
+
+**Estado 2026-10-23:** `CONDITION`. El kit está briefado y la validación de staging pasa, pero
+faltan las 2–3 direcciones comparables, renders, métricas y recomendación reproducible. Esto no
+bloquea los work packages funcionales del Vertical Slice; sí bloquea WP3.13.
 
 **Resultado:** evidencia reproducible para decidir la dirección visual y el
 pipeline del Vertical Slice, sin producir arte final ni convertir fuentes
@@ -322,7 +330,7 @@ rework o bloquear sólo la producción artística de Fase 3.
 ## WP2.15 — Agents, damage & incidents spike
 
 **Decisión:** D-061. **Estado:** implementado; cierre técnico validado el 2026-10-22. El Gate
-permanece en `REVIEW` por playtest humano y evidencia visual.
+queda en `CONDITIONAL GO` únicamente por la condición visual de WP2.14.
 
 **Resultado:** probar que una persona realiza una acción física, el mundo reacciona y la cadena
 produce consecuencias espaciales y económicas sin ampliar el juego a life simulation.

@@ -55,12 +55,13 @@ Reglas arquitectónicas principales:
 - la compatibilidad multiperspectiva no amplía el scope del MVP.
 
 Estado actual:
-Gate 1 aprobado y baseline económico jugable de Gate 2 integrado. Gate 2 permanece en `REVIEW`
-hasta completar WP2.15 (agentes, daño e incidentes), el Visual Direction Spike, el playtest
-prolongado posterior y su acta formal.
+Gate 1 aprobado y baseline económico jugable de Gate 2 integrado. Gate 2 tiene `CONDITIONAL GO`
+desde el 2026-10-23: WP2.15 y la prueba manual del núcleo están cerrados; el Visual Direction
+Spike queda como condición antes del arte representativo de WP3.13.
 
 Siguiente objetivo:
-diseñar/ejecutar WP2.15, coordinarlo con WP2.14 y validar después ritmo/balance en sesión humana.
+cerrar el baseline de WP3.3 con escenarios de liquidez y continuar con WP3.4 (banca y deuda),
+manteniendo WP2.14 como condición previa a la producción de arte representativo.
 
 ## Visión futura
 

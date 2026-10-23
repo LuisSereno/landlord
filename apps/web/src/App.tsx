@@ -285,6 +285,31 @@ export function App() {
           </section>
           {economy && (
             <details className="side-panel">
+              <summary>Resumen financiero</summary>
+              <div className="diagnostic-summary">
+                <p>
+                  <strong>Posición:</strong> activos {economy.financials.assets} u. · pasivos{" "}
+                  {economy.financials.liabilities} u. · patrimonio {economy.financials.equity} u.
+                </p>
+                <p>
+                  <strong>Mes {economy.financials.period.month}:</strong> ingresos{" "}
+                  {economy.financials.period.income} u. · gastos{" "}
+                  {economy.financials.period.expenses} u. · resultado{" "}
+                  {signedAmount(economy.financials.period.netIncome)}
+                </p>
+                <p>
+                  <strong>Previsión:</strong> {economy.financials.forecast.income} u. de ingresos ·{" "}
+                  {economy.financials.forecast.expenses} u. de gastos · cierre{" "}
+                  {economy.financials.forecast.closingCash} u.
+                  {economy.financials.forecast.shortfall > 0 && (
+                    <> · faltan {economy.financials.forecast.shortfall} u.</>
+                  )}
+                </p>
+              </div>
+            </details>
+          )}
+          {economy && (
+            <details className="side-panel">
               <summary>Materiales y producción</summary>
               <div className="construction-options">
                 {(["cement", "brick", "steel"] as const).map((resource) => (
@@ -325,6 +350,61 @@ export function App() {
                   </div>
                 ))}
                 {economy.production.length === 0 && <p>No hay fábricas físicas operativas.</p>}
+              </div>
+            </details>
+          )}
+          {economy && (
+            <details className="side-panel">
+              <summary>Financiación</summary>
+              <div className="diagnostic-summary">
+                <p>
+                  Banco independiente · garantía: parcela propia · tipo anual{" "}
+                  {(economy.banking.offers[0]?.annualInterestRateBps ?? 900) / 100}%.
+                </p>
+                {selectedParcel?.ownerOrganizationId === "org_00000001" &&
+                  !selectedParcel.buildingId && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        void sendAction(
+                          () => clientRef.current!.requestLoan(600, 12, selectedParcel.id),
+                          "Solicitud de préstamo enviada.",
+                        )
+                      }
+                    >
+                      Solicitar 600 u. · 12 meses
+                    </button>
+                  )}
+                {economy.banking.offers.map((offer) => (
+                  <div className="production-row" key={offer.id}>
+                    <p>
+                      Oferta {offer.principal} u. · {offer.termMonths} meses ·{" "}
+                      {offer.annualInterestRateBps / 100}% anual · garantía{" "}
+                      {offer.collateralParcelId}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        void sendAction(
+                          () => clientRef.current!.acceptLoanOffer(offer.id),
+                          "Préstamo aceptado; la cuota se liquidará automáticamente.",
+                        )
+                      }
+                    >
+                      Aceptar oferta
+                    </button>
+                  </div>
+                ))}
+                {economy.banking.loans.map((loan) => (
+                  <p key={loan.id}>
+                    <strong>{loan.status}</strong> · deuda {loan.outstandingPrincipal} u. · cuota{" "}
+                    {loan.monthlyPayment} u. · {loan.remainingMonths} meses restantes
+                    {loan.missedPayments > 0 && ` · impagos: ${loan.missedPayments}`}
+                  </p>
+                ))}
+                {economy.banking.offers.length === 0 && economy.banking.loans.length === 0 && (
+                  <p>Selecciona una parcela propia para solicitar una oferta.</p>
+                )}
               </div>
             </details>
           )}
@@ -896,6 +976,10 @@ function missingResources(
 
 function resourceLabel(resource: "cement" | "brick" | "steel"): string {
   return resource === "cement" ? "cemento" : resource === "brick" ? "ladrillo" : "acero";
+}
+
+function signedAmount(value: number): string {
+  return `${value >= 0 ? "+" : "−"}${Math.abs(value)} u.`;
 }
 
 function ordinanceStatusLabel(status: "proposed" | "approved" | "active" | "expired" | "rejected") {

@@ -6,25 +6,12 @@ import {
   parseTransactionId,
   parseStructureId,
   parseTick,
+  parseLoanId,
+  type ProductCommand,
   subtractMoney,
-  type BuyParcel,
-  type CancelConstruction,
-  type CommitCrime,
   type ErrorCode,
-  type AssignTenant,
-  type LobbyPolicy,
   type PlaceTestStructure,
-  type StartConstruction,
   type TestStructurePlaced,
-  type UpgradeBuilding,
-  type BuyMaterials,
-  type InvestInProduction,
-  type AllocateCrew,
-  type RepairBuilding,
-  type AssignCrewToWorkOrder,
-  type AssignMaintenance,
-  type OrderEnforcerAction,
-  type ClearRuin,
 } from "@landlord/shared";
 import { hasOrganizationControl, type GameState } from "./state";
 import {
@@ -36,6 +23,9 @@ import {
   MARKET_PRICES,
   REPAIR_COST,
   REPAIR_WORK_REQUIRED,
+  BANK_ORGANIZATION_ID,
+  LOAN_POLICY,
+  GAME_MONTH_TICKS,
 } from "./game-data";
 import { Xoshiro128ss } from "./prng";
 import { chooseInteractionCell, findDeterministicPath } from "./navigation";
@@ -172,7 +162,7 @@ function effectiveRent(state: GameState, building: import("@landlord/shared").Bu
   );
 }
 
-function debit(
+export function debit(
   state: GameState,
   organizationId: import("@landlord/shared").OrganizationId,
   amount: import("@landlord/shared").Money,
@@ -198,7 +188,7 @@ function debit(
   return true;
 }
 
-function credit(
+export function credit(
   state: GameState,
   organizationId: import("@landlord/shared").OrganizationId,
   amount: import("@landlord/shared").Money,
@@ -226,27 +216,103 @@ function credit(
 
 export function dispatchProductCommand(
   state: GameState,
-  command:
-    | BuyParcel
-    | StartConstruction
-    | CancelConstruction
-    | AssignTenant
-    | UpgradeBuilding
-    | LobbyPolicy
-    | CommitCrime
-    | BuyMaterials
-    | InvestInProduction
-    | AllocateCrew
-    | RepairBuilding
-    | AssignCrewToWorkOrder
-    | AssignMaintenance
-    | OrderEnforcerAction
-    | ClearRuin,
+  command: Exclude<ProductCommand, { type: "PlaceTestStructure" }>,
 ): ProductCommandResult {
   if (state.processedCommandIds.has(command.commandId))
     return { accepted: false, code: "DUPLICATE_COMMAND" };
   const actorError = validateActor(state, command);
   if (actorError) return { accepted: false, code: actorError };
+
+  if (command.type === "RequestLoan") {
+    if (command.actingAsOrganizationId === BANK_ORGANIZATION_ID)
+      return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
+    const parcel = state.phase2.parcels.get(command.payload.collateralParcelId);
+    if (!parcel || parcel.ownerOrganizationId !== command.actingAsOrganizationId)
+      return { accepted: false, code: "LOAN_COLLATERAL_INVALID" };
+    if (
+      command.payload.amount < LOAN_POLICY.minimumPrincipal ||
+      command.payload.amount > LOAN_POLICY.maximumPrincipal ||
+      !LOAN_POLICY.allowedTermsMonths.includes(
+        command.payload.termMonths as (typeof LOAN_POLICY.allowedTermsMonths)[number],
+      )
+    )
+      return { accepted: false, code: "LOAN_AMOUNT_INVALID" };
+    const collateralValue =
+      parcel.price +
+      (parcel.buildingId
+        ? (BUILDING_DEFINITIONS[
+            state.phase2.buildings.get(parcel.buildingId)?.type ?? "courtyard_home"
+          ]?.cost ?? 0)
+        : 0);
+    if (
+      command.payload.amount >
+      Math.floor((collateralValue * LOAN_POLICY.collateralLoanToValuePercent) / 100)
+    )
+      return { accepted: false, code: "LOAN_CAPACITY_EXCEEDED" };
+    const outstandingDebt = [...state.phase2.loans.values()]
+      .filter(
+        (loan) =>
+          loan.borrowerOrganizationId === command.actingAsOrganizationId &&
+          ["active", "delinquent", "defaulted"].includes(loan.status),
+      )
+      .reduce((total, loan) => total + loan.outstandingPrincipal, 0);
+    if (outstandingDebt + command.payload.amount > LOAN_POLICY.maximumDebt)
+      return { accepted: false, code: "LOAN_CAPACITY_EXCEEDED" };
+    if (
+      [...state.phase2.loans.values()].some(
+        (loan) =>
+          loan.borrowerOrganizationId === command.actingAsOrganizationId &&
+          loan.collateralParcelId === parcel.id &&
+          ["offered", "active", "delinquent"].includes(loan.status),
+      )
+    )
+      return { accepted: false, code: "LOAN_ALREADY_ACTIVE" };
+    state.phase2.idCounters.loan += 1;
+    const loanId = parseLoanId(`loan_${String(state.phase2.idCounters.loan).padStart(8, "0")}`);
+    state.phase2.loans.set(loanId, {
+      id: loanId,
+      borrowerOrganizationId: command.actingAsOrganizationId,
+      lenderOrganizationId: BANK_ORGANIZATION_ID,
+      principal: command.payload.amount,
+      outstandingPrincipal: command.payload.amount,
+      annualInterestRateBps: LOAN_POLICY.annualInterestRateBps,
+      termMonths: command.payload.termMonths,
+      remainingMonths: command.payload.termMonths,
+      collateralParcelId: parcel.id,
+      status: "offered",
+      offeredAtTick: parseTick(state.clock.tick),
+      acceptedAtTick: null,
+      nextPaymentTick: null,
+      missedPayments: 0,
+    });
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "LoanOffered", {
+      loanId,
+      amount: command.payload.amount,
+      termMonths: command.payload.termMonths,
+    });
+  }
+
+  if (command.type === "AcceptLoanOffer") {
+    const loan = state.phase2.loans.get(command.payload.loanId);
+    if (!loan) return { accepted: false, code: "LOAN_NOT_FOUND" };
+    if (loan.borrowerOrganizationId !== command.actingAsOrganizationId)
+      return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
+    if (loan.status !== "offered") return { accepted: false, code: "LOAN_NOT_AVAILABLE" };
+    if (!debit(state, BANK_ORGANIZATION_ID, loan.principal, "loan_disbursement", loan.id))
+      return { accepted: false, code: "LOAN_CAPACITY_EXCEEDED" };
+    if (!credit(state, loan.borrowerOrganizationId, loan.principal, "loan_disbursement", loan.id))
+      return { accepted: false, code: "LOAN_CAPACITY_EXCEEDED" };
+    loan.status = "active";
+    loan.acceptedAtTick = parseTick(state.clock.tick);
+    loan.nextPaymentTick = parseTick(state.clock.tick + GAME_MONTH_TICKS);
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "LoanAccepted", {
+      loanId: loan.id,
+      principal: loan.principal,
+      nextPaymentTick: loan.nextPaymentTick,
+    });
+  }
 
   if (command.type === "BuyMaterials") {
     const inventory = state.phase2.inventories.get(command.actingAsOrganizationId)!;

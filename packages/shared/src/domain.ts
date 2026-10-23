@@ -38,7 +38,14 @@ import {
   type TransactionId,
   type LoanId,
 } from "./primitives";
-import { gridCellSchema, tickSchema, type GridCell, type Tick } from "./time-and-grid";
+import {
+  gridCellSchema,
+  seedSchema,
+  tickSchema,
+  type GridCell,
+  type Seed,
+  type Tick,
+} from "./time-and-grid";
 import { moneySchema, parseMoney, type Money } from "./money";
 
 export type PlayerIdentity = {
@@ -150,7 +157,24 @@ export type BuildingType = z.infer<typeof buildingTypeSchema>;
 export const zoningSchema = z.enum(["residential", "industrial", "mixed"]);
 export type Zoning = z.infer<typeof zoningSchema>;
 
-export type District = { id: DistrictId; name: string; width: 64; height: 64 };
+/**
+ * Identidad persistente de un distrito generado. No contiene representación visual:
+ * tiles, sprites o atlas se derivan en el renderer a partir de zoning y topología.
+ */
+export type DistrictGeneration = {
+  profileId: string;
+  generatorVersion: number;
+  seed: Seed;
+};
+
+export type District = {
+  id: DistrictId;
+  name: string;
+  width: 64;
+  height: 64;
+  /** Ausente en partidas guardadas anteriores a la generación procedural (WP4.1). */
+  generation?: DistrictGeneration;
+};
 
 export type Parcel = {
   id: ParcelId;
@@ -221,11 +245,14 @@ export type Building = {
   casualtiesTotal: { injured: number; dead: number };
 };
 
+export type AgentSpecialty =
+  "supervisor" | "construction_worker" | "maintenance_technician" | "enforcer";
+
 export type Agent = {
   id: AgentId;
   personId?: PersonId;
   organizationId?: OrganizationId;
-  specialty?: "supervisor" | "construction_worker" | "maintenance_technician" | "enforcer";
+  specialty?: AgentSpecialty;
   health?: number;
   state?: "idle" | "moving" | "working" | "injured" | "dead";
   cell: GridCell;
@@ -429,11 +456,17 @@ export type CrimeState = {
   nextAvailableTickByOrganizationId: Record<string, number>;
 };
 
+export const districtGenerationSchema = z.object({
+  profileId: z.string().min(1).max(64),
+  generatorVersion: z.number().int().nonnegative(),
+  seed: seedSchema,
+});
 export const districtSchema = z.object({
   id: districtIdSchema,
   name: z.string().min(1).max(80),
   width: z.literal(64),
   height: z.literal(64),
+  generation: districtGenerationSchema.optional(),
 });
 export const parcelSchema = z.object({
   id: parcelIdSchema,

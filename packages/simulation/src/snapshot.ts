@@ -21,12 +21,12 @@ import {
   type SnapshotV1,
 } from "@landlord/shared";
 import type { ProductCommand } from "@landlord/shared";
-import { parseTick } from "@landlord/shared";
+import { parseSeed, parseTick } from "@landlord/shared";
 import { PRNG_ALGORITHM } from "./prng";
 import { createInitialState, type GameState } from "./state";
 import { BUILDING_DEFINITIONS } from "./game-data";
 
-export const ENGINE_VERSION = "phase3-dev";
+export const ENGINE_VERSION = "phase4-dev";
 
 function compareId(left: { id: string }, right: { id: string }): number {
   return left.id.localeCompare(right.id);
@@ -96,7 +96,12 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
       .sort((left, right) => left.acceptedOrder - right.acceptedOrder),
     phase2: {
       idCounters: { ...state.phase2.idCounters },
-      district: { ...state.phase2.district },
+      district: {
+        ...state.phase2.district,
+        ...(state.phase2.district.generation
+          ? { generation: { ...state.phase2.district.generation } }
+          : {}),
+      },
       parcels: [...state.phase2.parcels.values()]
         .map((parcel) => ({ ...parcel, cell: { ...parcel.cell } }))
         .sort(compareId),
@@ -206,7 +211,11 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
   const legacyWorkOrders = new Set(
     (rawPhase2?.constructionSites ?? []).filter((site) => !site.kind).map((site) => site.id),
   );
-  const defaultState = createInitialState(snapshot.seed);
+  // El distrito guardado manda: los valores por defecto (plantillas, saldos iniciales) deben
+  // derivarse del mismo perfil que generó la partida, no del perfil por defecto.
+  const defaultState = createInitialState(snapshot.seed, {
+    districtProfileId: snapshot.phase2?.district.generation?.profileId,
+  });
   const defaults = defaultState.phase2;
   const state: GameState = {
     seed: snapshot.seed,
@@ -315,6 +324,15 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
             name: snapshot.phase2.district.name,
             width: 64,
             height: 64,
+            ...(snapshot.phase2.district.generation
+              ? {
+                  generation: {
+                    profileId: snapshot.phase2.district.generation.profileId,
+                    generatorVersion: snapshot.phase2.district.generation.generatorVersion,
+                    seed: parseSeed(snapshot.phase2.district.generation.seed),
+                  },
+                }
+              : {}),
           },
           parcels: new Map(
             snapshot.phase2.parcels.map((parcel) => [

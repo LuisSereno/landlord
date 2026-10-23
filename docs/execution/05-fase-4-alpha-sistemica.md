@@ -20,6 +20,10 @@ Duración orientativa existente: 16-24 semanas; 600-900 jornadas-persona.
 
 ## WP4.1 — Distritos y generación reproducible
 
+**Estado 2026-10-23:** `DONE`. Evidencia en
+`docs/execution/phase-4/wp4-1-districts-generation-2026-10-23.md` y decisión de diseño en
+`docs/engineering/adr/D-064-generacion-procedural-de-distritos.md`.
+
 - Definir perfiles de distrito data-driven y composición propia.
 - Generar topología, parcelas y parámetros desde seed.
 - Validar jugabilidad mínima: accesos, suelo disponible y distribución económica.

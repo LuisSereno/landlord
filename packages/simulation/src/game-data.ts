@@ -6,17 +6,10 @@ import {
   type BuildingType,
   type Zoning,
   type Loan,
-  type Parcel,
   type Tenant,
   type Ordinance,
 } from "@landlord/shared";
-import {
-  parseDistrictId,
-  parseParcelId,
-  parseTenantId,
-  parsePolicyId,
-  parseOrganizationId,
-} from "@landlord/shared";
+import { parseTenantId, parsePolicyId, parseOrganizationId } from "@landlord/shared";
 
 export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDefinition> = {
   courtyard_home: {
@@ -98,31 +91,6 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     },
   },
 };
-
-export const PROTOTYPE_PARCELS: Parcel[] = [
-  ["parcel_00000001", 7, 7, 900, "residential"],
-  ["parcel_00000002", 9, 7, 1000, "mixed"],
-  ["parcel_00000003", 11, 7, 1050, "residential"],
-  ["parcel_00000004", 13, 7, 1200, "mixed"],
-  ["parcel_00000005", 7, 11, 800, "industrial"],
-  ["parcel_00000006", 9, 11, 950, "mixed"],
-  ["parcel_00000007", 11, 11, 850, "industrial"],
-  ["parcel_00000008", 13, 11, 1100, "mixed"],
-].map(([id, x, y, price, zoning]) => ({
-  id: parseParcelId(id as string),
-  districtId: parseDistrictId("district_00000001"),
-  cell: { x: x as number, y: y as number },
-  price: parseMoney(price as number),
-  zoning: zoning as Parcel["zoning"],
-  ownerOrganizationId: null,
-  buildingId: null,
-  productionSuitability:
-    zoning === "industrial"
-      ? { cement: 120, brick: 100, steel: 135 }
-      : zoning === "mixed"
-        ? { cement: 95, brick: 125, steel: 80 }
-        : { cement: 70, brick: 85, steel: 55 },
-}));
 
 export const PROTOTYPE_TENANTS: Tenant[] = [
   {

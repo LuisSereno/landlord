@@ -47,8 +47,9 @@ No depende de Phaser, React ni DOM. Lo vigila `scripts/check-architecture.mjs` (
 `packages/simulation` y `packages/shared`.
 
 Implementado: `GameState` con Maps normalizados e IDs opacos, dispatcher de comandos,
-`advanceProductSystems` por tick, canonicalización de estado para checkpoints y run headless de
-escenarios deterministas (`packages/simulation/src/`).
+`advanceProductSystems` por tick, canonicalización de estado para checkpoints, run headless de
+escenarios deterministas y generación procedural del distrito por perfil y seed (D-064)
+(`packages/simulation/src/`).
 
 ### persistence
 IndexedDB inicialmente.
@@ -56,6 +57,9 @@ Snapshots versionados.
 
 Implementado: `SnapshotV1` (`schemaVersion: 1`, `engineVersion`, payload aditivo `phase2`) con
 validación Zod, referencias cruzadas comprobadas al cargar, slot `autosave` mensual y slot manual.
+Desde WP4.1 `engineVersion` es `phase4-dev` y el distrito persiste su identidad de generación
+(`profileId`, `generatorVersion`, `seed`); el campo es opcional, así que las partidas anteriores
+siguen cargando. Al restaurar, los valores por defecto se reconstruyen con el perfil guardado.
 
 ### backend
 No construir hasta necesitar autenticación, cloud save o telemetría central.
@@ -147,6 +151,28 @@ Implementado para el Vertical Slice:
 - invertir es subir de nivel un activo existente;
 - `kind: "legacy"` sólo existe para migrar instalaciones del modelo abstracto `InvestInProduction`
   de Gate 2.
+
+## Distritos y generación reproducible (D-064)
+
+Implementado en WP4.1:
+
+- el distrito se genera desde perfiles data-driven (`packages/simulation/src/district-profiles.ts`),
+  no desde constantes congeladas en `game-data.ts`;
+- dos capas: `anchorSlots` autorados (celda, zoning y precio fijos, emitidos primero para que los
+  ids de referencia sean estables) y `expansion` procedural (manzanas, zoning por bolsa ponderada,
+  precio en banda, aptitud con jitter y obstáculos);
+- la generación usa un flujo PRNG derivado de la seed y del perfil; el PRNG autoritativo de la
+  partida no se desplaza, así que el determinismo posterior a WP4.1 es idéntico al anterior;
+- la identidad persistente es `District.generation = { profileId, generatorVersion, seed }`. No se
+  persisten tiles, sprites, atlas ni calles: la representación sigue siendo del renderer;
+- los obstáculos reutilizan `map.blockedCells` y respetan las celdas reservadas por
+  `rosterLayout` y por las parcelas;
+- cada intento se valida (parcelas mínimas, mínimo y concentración por zoning, entrada asequible,
+  separación ortogonal, spawns libres y acceso alcanzable por BFS). Doce reintentos como máximo y
+  `DistrictGenerationError` con códigos de issue si no converge; nunca un distrito roto en silencio;
+- `DISTRICT_GENERATOR_VERSION` entra en la cadena canónica y en el hash: cambiar algoritmo o
+  perfiles invalida las fixtures de forma visible. Reproducir una seed: `pnpm district:inspect` con
+  `DISTRICT_PROFILE` y `DISTRICT_SEED`.
 
 ## Dinero, tiempo y datos
 

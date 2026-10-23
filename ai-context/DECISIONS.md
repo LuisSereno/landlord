@@ -296,3 +296,22 @@ ejecutan incrementalmente con plan y checks por WP, no de golpe. Ver
 `docs/engineering/adr/D-063-excepcion-criterio-entrada-alpha.md`,
 `docs/execution/phase-3/wp3-15-validation-2026-10-23.md` y
 `docs/execution/05-fase-4-alpha-sistemica.md`.
+
+## D-064 — Generación procedural de distritos con anclas autoradas
+Estado: aceptada el 2026-10-23 para WP4.1.
+El distrito deja de estar congelado en `PROTOTYPE_PARCELS` y se genera desde perfiles data-driven
+(`DistrictProfile`) en dos capas: anclas autoradas (celda, zoning y precio fijos, emitidas primero
+para que los ids de referencia sean estables) y expansión procedural (manzanas, zoning por bolsa
+ponderada, precio en banda, aptitud con jitter y obstáculos sobre `map.blockedCells`). La
+generación consume un flujo PRNG derivado de la seed y del perfil, de modo que el PRNG autoritativo
+de la partida conserva la secuencia anterior a WP4.1. La identidad persistente se limita a
+`District.generation = { profileId, generatorVersion, seed }`, aditiva y opcional en `SnapshotV1`;
+ningún tile, sprite o calle entra en el contrato. Cada intento pasa por una validación de
+jugabilidad (parcelas mínimas, mínimo por zoning, concentración máxima, entrada asequible,
+separación ortogonal, spawns libres y acceso alcanzable por BFS) con doce reintentos como máximo y
+`DistrictGenerationError` explícito si no converge. `barrio_del_umbral` es el perfil de
+continuidad: reproduce el suelo autorizado de Fase 3 y declara cero obstáculos, así que la
+evidencia de Gate 2 y Fase 3 sigue siendo válida sin reescribir aserciones económicas. Retirar o
+renombrar un perfil rompe la carga de partidas que lo referencian y exige decisión de migración.
+Ver `docs/engineering/adr/D-064-generacion-procedural-de-distritos.md` y
+`docs/execution/phase-4/wp4-1-districts-generation-2026-10-23.md`.

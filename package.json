@@ -21,6 +21,7 @@
     "benchmark:browser": "pnpm build && node scripts/browser-benchmark.mjs",
     "smoke:phase2": "node scripts/phase2-browser-smoke.mjs",
     "smoke:art-lab": "node scripts/art-lab-browser-smoke.mjs",
+    "district:inspect": "DISTRICT_INSPECT=1 vitest run --config vitest.config.ts packages/simulation/src/district-inspect.test.ts --reporter=verbose",
     "soak": "SOAK_FULL=1 vitest run --config vitest.config.ts packages/simulation/src/soak.test.ts --reporter=verbose",
     "audit:metrics": "AUDIT_METRICS=1 vitest run --config vitest.config.ts packages/simulation/src/audit-metrics.test.ts --reporter=verbose",
     "format:check": "prettier --check .",

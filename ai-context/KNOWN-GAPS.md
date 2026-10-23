@@ -153,6 +153,12 @@ Pendiente para implementación del Vertical Slice:
   de Fase 4 sin la medición de sesiones que exigía WP3.15. La instrumentación persistente de
   cohortes/seed queda diferida y debe ejecutarse antes del cierre de Alpha (WP4.16). Los WPs de
   Fase 4 se ejecutan incrementalmente con plan y checks por WP.
+- WP4.1 está cerrado (D-064, 2026-10-23): el distrito se genera desde perfiles data-driven con
+  anclas autoradas y expansión procedural, validación de jugabilidad con reintentos acotados,
+  fixtures con hash e inspector reproducible (`pnpm district:inspect`). Siguen fuera la
+  representación visual y las calles (WP4.15), varios distritos por partida, la selección de
+  distrito desde la interfaz y la política de migración cuando se retira o renombra un perfil
+  (hoy la carga lanza `RangeError`).
 - modelo de tipos;
 - loan-to-value;
 - garantías;
@@ -164,6 +170,10 @@ Pendiente para implementación del Vertical Slice:
 - equity e inversores futuros.
 
 ## Urbanismo
+Resuelto en WP4.1 (D-064): composición del distrito por perfil data-driven, generación de
+topología, parcelas y parámetros desde seed, y validación de jugabilidad mínima (accesos
+alcanzables, suelo por zoning y entrada asequible).
+
 - categorías definitivas de zoning;
 - densidad;
 - altura;
@@ -171,7 +181,10 @@ Pendiente para implementación del Vertical Slice:
 - permisos;
 - inspecciones;
 - recalificación;
-- modelo de accesibilidad.
+- modelo de accesibilidad;
+- red de calles y representación visual del distrito (WP4.15);
+- varios distritos por partida y selección de distrito;
+- política de migración cuando se retira o renombra un perfil de distrito.
 
 ## Sociedad y empleo
 - tenant/household model;

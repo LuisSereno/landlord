@@ -2,7 +2,6 @@ import {
   parseOrganizationId,
   parseAgentId,
   parseCrewId,
-  parseDistrictId,
   parsePersonId,
   parsePlayerIdentityId,
   parseMoney,
@@ -44,10 +43,11 @@ import type {
 import type { Seed } from "@landlord/shared";
 import { SimulationClock, type ClockState } from "./clock";
 import { createPrng, type PrngState } from "./prng";
+import { generateDistrict } from "./district-generator";
+import { rosterLayout } from "./district-profiles";
 import {
   PLAYER_ORGANIZATION_ID,
   PROTOTYPE_ORDINANCE,
-  PROTOTYPE_PARCELS,
   PROTOTYPE_TENANTS,
   RIVAL_ORGANIZATION_ID,
   BANK_ORGANIZATION_ID,
@@ -146,20 +146,24 @@ export function hasOrganizationControl(
   return state.controlGrants.has(controlGrantKey(personId, organizationId));
 }
 
-export function createInitialState(seed = 1): GameState {
+export type InitialStateOptions = {
+  /** Perfil de distrito data-driven; por defecto `barrio_del_umbral`. */
+  districtProfileId?: string | undefined;
+};
+
+export function createInitialState(seed = 1, options: InitialStateOptions = {}): GameState {
   const normalizedSeed = parseSeed(seed);
+  const generated = generateDistrict({
+    seed: normalizedSeed,
+    profileId: options.districtProfileId,
+  });
   const personId = parsePersonId("person_00000001");
   const playerIdentityId = parsePlayerIdentityId("player_00000001");
   const controlledOrganizationId = parseOrganizationId("org_00000001");
   const independentOrganizationId = parseOrganizationId("org_00000002");
   const clock = new SimulationClock();
-  const district: District = {
-    id: parseDistrictId("district_00000001"),
-    name: "Barrio del Umbral",
-    width: 64,
-    height: 64,
-  };
-  const parcels = new Map(PROTOTYPE_PARCELS.map((parcel) => [parcel.id, { ...parcel }]));
+  const district: District = generated.district;
+  const parcels = new Map(generated.parcels.map((parcel) => [parcel.id, parcel]));
   const tenants = new Map(PROTOTYPE_TENANTS.map((tenant) => [tenant.id, { ...tenant }]));
   const emptyInventory = (): ResourceInventory => ({
     cement: 0,
@@ -179,61 +183,42 @@ export function createInitialState(seed = 1): GameState {
   const roster = new Map<AgentId, Agent>();
   const crews = new Map<import("@landlord/shared").CrewId, Crew>();
   let rosterIndex = 0;
-  for (const [organizationId, x] of [
-    [controlledOrganizationId, 4],
-    [independentOrganizationId, 56],
+  for (const [organizationId, spawnAnchor] of [
+    [controlledOrganizationId, generated.spawnAnchors.player],
+    [independentOrganizationId, generated.spawnAnchors.rival],
   ] as const) {
-    for (let crewNumber = 0; crewNumber < 2; crewNumber += 1) {
-      const ids: AgentId[] = [];
-      for (const specialty of [
-        "supervisor",
-        "construction_worker",
-        "construction_worker",
-      ] as const) {
-        rosterIndex += 1;
-        const id = parseAgentId(`agent_${String(rosterIndex).padStart(8, "0")}`);
-        ids.push(id);
-        roster.set(id, {
-          id,
-          personId: parsePersonId(`person_${String(100 + rosterIndex).padStart(8, "0")}`),
-          organizationId,
-          specialty,
-          health: 100,
-          state: "idle",
-          cell: { x: x + crewNumber, y: 4 + ids.length },
-          target: { x: x + crewNumber, y: 4 + ids.length },
-          path: [],
-          task: null,
-          cooldownUntilTick: parseTick(0),
-          injuredUntilTick: null,
-          lastPathRecalculationTick: parseTick(0),
-        });
-      }
-      const crewId = parseCrewId(`crew_${String(crews.size + 1).padStart(8, "0")}`);
-      crews.set(crewId, {
-        id: crewId,
-        organizationId,
-        supervisorAgentId: ids[0]!,
-        workerAgentIds: ids.slice(1),
-      });
-    }
-    for (const specialty of ["maintenance_technician", "enforcer"] as const) {
+    const membersByCrewIndex = new Map<number, AgentId[]>();
+    for (const slot of rosterLayout(spawnAnchor)) {
       rosterIndex += 1;
       const id = parseAgentId(`agent_${String(rosterIndex).padStart(8, "0")}`);
       roster.set(id, {
         id,
         personId: parsePersonId(`person_${String(100 + rosterIndex).padStart(8, "0")}`),
         organizationId,
-        specialty,
+        specialty: slot.specialty,
         health: 100,
         state: "idle",
-        cell: { x, y: 12 + (specialty === "enforcer" ? 1 : 0) },
-        target: { x, y: 12 + (specialty === "enforcer" ? 1 : 0) },
+        cell: { ...slot.cell },
+        target: { ...slot.cell },
         path: [],
         task: null,
         cooldownUntilTick: parseTick(0),
         injuredUntilTick: null,
         lastPathRecalculationTick: parseTick(0),
+      });
+      if (slot.crewIndex === null) continue;
+      const members = membersByCrewIndex.get(slot.crewIndex) ?? [];
+      members.push(id);
+      membersByCrewIndex.set(slot.crewIndex, members);
+    }
+    for (const crewIndex of [...membersByCrewIndex.keys()].sort((left, right) => left - right)) {
+      const ids = membersByCrewIndex.get(crewIndex)!;
+      const crewId = parseCrewId(`crew_${String(crews.size + 1).padStart(8, "0")}`);
+      crews.set(crewId, {
+        id: crewId,
+        organizationId,
+        supervisorAgentId: ids[0]!,
+        workerAgentIds: ids.slice(1),
       });
     }
   }
@@ -247,7 +232,11 @@ export function createInitialState(seed = 1): GameState {
       event: 0,
       commandOrder: 0,
     },
-    map: { width: 64, height: 64, blockedCells: new Set() },
+    map: {
+      width: district.width,
+      height: district.height,
+      blockedCells: new Set(generated.blockedCells),
+    },
     playerIdentities: new Map([[playerIdentityId, { id: playerIdentityId, personId }]]),
     persons: new Map([
       [personId, { id: personId }],

@@ -2,6 +2,8 @@ export const simulationPackage = "@landlord/simulation" as const;
 
 export * from "./prng";
 export * from "./clock";
+export * from "./district-profiles";
+export * from "./district-generator";
 export * from "./state";
 export * from "./commands";
 export * from "./runner";

@@ -1,7 +1,7 @@
 import { type ProductCommand } from "@landlord/shared";
 import type { CommandResult, ProductCommandResult } from "./commands";
 import { dispatchPlaceTestStructure, dispatchProductCommand } from "./commands";
-import { createInitialState, type GameState } from "./state";
+import { createInitialState, type GameState, type InitialStateOptions } from "./state";
 import { advanceProductSystems } from "./systems";
 
 function orderedMapValues<T>(map: ReadonlyMap<string, T>): T[] {
@@ -26,8 +26,8 @@ export type ScenarioRun = {
   checkpoints: ScenarioCheckpoint[];
 };
 
-export function createScenarioState(seed: number): GameState {
-  return createInitialState(seed);
+export function createScenarioState(seed: number, options: InitialStateOptions = {}): GameState {
+  return createInitialState(seed, options);
 }
 
 export function canonicalizeState(state: GameState): string {
@@ -82,6 +82,7 @@ export function runScenario(
   seed: number,
   scheduledCommands: readonly ScheduledCommand[],
   totalTicks: number,
+  options: InitialStateOptions = {},
 ): ScenarioRun {
   if (!Number.isSafeInteger(totalTicks) || totalTicks < 0) {
     throw new RangeError("Scenario duration must be a non-negative safe integer");
@@ -96,7 +97,7 @@ export function runScenario(
     throw new RangeError("Scheduled command must execute before scenario end");
   }
 
-  const state = createScenarioState(seed);
+  const state = createScenarioState(seed, options);
   const results: ScenarioRun["results"] = [];
   const checkpoints: ScenarioCheckpoint[] = [];
   let commandIndex = 0;

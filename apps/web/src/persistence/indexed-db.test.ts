@@ -2,7 +2,7 @@ import "fake-indexeddb/auto";
 
 import { afterEach, describe, expect, it } from "vitest";
 
-import { createInitialState, serializeSnapshot } from "@landlord/simulation";
+import { createInitialState, ENGINE_VERSION, serializeSnapshot } from "@landlord/simulation";
 import { createIndexedDbPersistence, SnapshotPersistenceError } from "./indexed-db";
 
 let databaseIndex = 0;
@@ -28,7 +28,7 @@ describe("IndexedDB snapshot persistence", () => {
     await expect(persistence.save("slot-b", snapshot)).resolves.toMatchObject({
       slotId: "slot-b",
       schemaVersion: 1,
-      engineVersion: "phase3-dev",
+      engineVersion: ENGINE_VERSION,
       savedAt: 1234,
     });
     await persistence.save("slot-a", snapshot);

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { parseCommandId, parseOrganizationId, parsePersonId } from "@landlord/shared";
+import { ENGINE_VERSION } from "./snapshot";
 import { SimulationWorkerRuntime } from "./worker-runtime";
 
 const initialize = {
@@ -105,7 +106,7 @@ describe("simulation Worker runtime", () => {
     expect(saved[0]).toMatchObject({
       type: "RequestSucceeded",
       payload: {
-        result: { engineVersion: "phase3-dev", schemaVersion: 1 },
+        result: { engineVersion: ENGINE_VERSION, schemaVersion: 1 },
       },
     });
     const snapshot = (saved[0] as { payload: { result: { snapshot: unknown } } }).payload.result

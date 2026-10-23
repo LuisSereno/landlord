@@ -8,9 +8,9 @@ el slice funcional y cuenta con evidencia en
 financiera — también está cerrado según
 `docs/execution/phase-3/wp3-3-financial-projection-2026-10-23.md`. WP3.4 está
 `CONDITIONAL DONE`: el núcleo bancario funciona, con la crisis de deuda avanzada trazada a
-WP3.9. WP3.5 a WP3.10 están `DONE`, con evidencia en sus informes de `phase-3`. WP3.13 permanece
-condicionado al cierre de WP2.14; no se producen assets finales
-mientras el Visual Direction Spike siga abierto.
+WP3.9. WP3.5 a WP3.10 están `DONE`, con evidencia en sus informes de `phase-3`. WP3.13 está
+cerrado para contenido representativo con la baseline `graphic_civic` aprobada en WP2.14; la
+evidencia está en `docs/execution/phase-3/wp3-13-art-audio-performance-2026-10-23.md`.
 WP3.14 — persistencia y observabilidad local — está `DONE`; WP3.15 queda pendiente de la
 validación final del slice.
 
@@ -212,6 +212,10 @@ producción, la extinción/reanudación y la conservación del incidente histór
 `docs/execution/phase-3/wp3-12-automation-ux-2026-10-23.md`.
 
 ## WP3.13 — Arte, audio y rendimiento representativos
+
+**Estado 2026-10-23:** `DONE` para el alcance representativo del Vertical Slice. Se entregaron
+tres direcciones comparables, Art Lab, renders procedurales, metadata/provenance, feedback
+sonoro original y medición de simulación, snapshots, carga web y smoke de navegador.
 
 - Aplicar el pipeline y los templates aprobados en WP2.14; no rediseñar cámara,
   formatos o gobernanza de provenance dentro de producción de contenido.

@@ -74,9 +74,9 @@ Gate 2 en `GO` para producción representativa desde el 2026-10-23: el responsab
 prueba manual OK, WP2.15 está cerrado, el benchmark/smoke pasan y WP2.14 aprobó `graphic_civic`.
 
 ## Próximo objetivo
-WP3.14 está cerrado en persistencia/observabilidad local y WP3.15 queda en `CONDITIONAL` tras
-la validación técnica. Continuar con WP3.13 (arte, audio y rendimiento representativos),
-manteniendo la condición G3-04 de WP3.4
+WP3.13 y WP3.14 están cerrados para el alcance representativo y la persistencia/observabilidad
+local. WP3.15 queda en `CONDITIONAL` tras la validación técnica. Continuar con la decisión final
+de WP3.15, manteniendo la condición G3-04 de WP3.4
 para WP3.9. La prueba manual del responsable se conserva como evidencia
 cualitativa; la medición cuantitativa de 30–60 minutos sigue pendiente para balance financiero.
 El baseline

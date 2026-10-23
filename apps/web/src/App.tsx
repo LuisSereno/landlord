@@ -13,6 +13,7 @@ import {
 import { SimulationWorkerClient, type ClientDiagnostic } from "./worker/client";
 import { BenchmarkApp } from "./BenchmarkApp";
 import { ArtLab } from "./ArtLab";
+import { playFeedback } from "./audio/feedback";
 
 export function RootApp() {
   if (window.location.pathname === "/art-lab") return <ArtLab />;
@@ -41,6 +42,8 @@ export function App() {
   const autosavedMonth = useRef<number | null>(null);
 
   const recordDiagnostic = useCallback((diagnostic: ClientDiagnostic) => {
+    if (diagnostic.kind === "commandAccepted") void playFeedback("accepted");
+    if (diagnostic.kind === "commandRejected") void playFeedback("rejected");
     if (diagnostic.kind === "metrics") {
       setLatestMetrics(diagnostic.metrics);
       return;
@@ -329,6 +332,9 @@ export function App() {
           <button type="button" disabled={!client} onClick={() => void loadSnapshot()}>
             Cargar
           </button>
+          <a className="art-lab-link" href="/art-lab">
+            Art Lab
+          </a>
         </div>
       </header>
       <div className="workspace">

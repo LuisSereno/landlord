@@ -49,6 +49,7 @@ La cadena de valor que debe mantenerse visible es:
 | Evidencia | [phase-3/wp3-10-rival-financial-ai-2026-10-23.md](phase-3/wp3-10-rival-financial-ai-2026-10-23.md) | IA rival financiera, reserva de liquidez, recuperación y persistencia |
 | Evidencia | [phase-3/wp3-11-municipal-policy-2026-10-23.md](phase-3/wp3-11-municipal-policy-2026-10-23.md) | Catálogo municipal, trade-offs, lobby, retirada y efectos económicos |
 | Evidencia | [phase-3/wp3-12-automation-ux-2026-10-23.md](phase-3/wp3-12-automation-ux-2026-10-23.md) | Rutina de cartera, excepciones, comparador y overlays operativos |
+| Evidencia | [phase-3/wp3-13-art-audio-performance-2026-10-23.md](phase-3/wp3-13-art-audio-performance-2026-10-23.md) | Art Lab, renders, audio procedural, provenance y métricas representativas |
 | Evidencia | [phase-3/wp3-14-persistence-observability-2026-10-23.md](phase-3/wp3-14-persistence-observability-2026-10-23.md) | Saves phase3-dev, autosave local, corrupción y observabilidad |
 | Evidencia | [phase-3/wp3-15-validation-2026-10-23.md](phase-3/wp3-15-validation-2026-10-23.md) | Suite, smoke, benchmark, soak y decisión condicional del slice |
 
@@ -59,7 +60,7 @@ La cadena de valor que debe mantenerse visible es:
 | Fase 0 | DONE — cerrada 2026-10-20 | Acta en `phase-0/PHASE-0-CLOSURE.md` |
 | Fase 1 / Gate 1 | REWORK — acta 2026-10-20 | Cerrar G1-RW-01..03 antes de aprobar |
 | Fase 2 / Gate 2 | GO — WP2.14 cerrado 2026-10-23 | Baseline `graphic_civic`; WP3.13 habilitado |
-| Fase 3 / Vertical slice | IN_PROGRESS — WP3.2 a WP3.3 cerrados; WP3.4 y WP3.5 a WP3.12 DONE; WP3.14 DONE; WP3.15 CONDITIONAL | WP3.13 y la decisión final del slice siguen en curso |
+| Fase 3 / Vertical slice | IN_PROGRESS — WP3.2 a WP3.3 cerrados; WP3.4 y WP3.5 a WP3.14 DONE; WP3.15 CONDITIONAL | Sólo falta emitir la decisión final de validación del slice |
 | Fase 4 / Alpha | No iniciada | Requiere vertical slice validado |
 | Fases 5-6 | No iniciadas | Requieren alcance comercial aprobado |
 | Fases 7-8 | Futuras, no comprometidas | Requieren validación explícita del producto base |

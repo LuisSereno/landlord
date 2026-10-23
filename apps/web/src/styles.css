@@ -252,6 +252,20 @@ button:focus-visible {
   gap: 8px;
 }
 
+.art-lab-link {
+  align-self: center;
+  padding: 7px 9px;
+  border: 1px solid #53647d;
+  border-radius: 6px;
+  color: #f5c451;
+  font-size: 0.82rem;
+  text-decoration: none;
+}
+
+.art-lab-link:hover {
+  border-color: #f5c451;
+}
+
 .workspace {
   position: relative;
   display: grid;

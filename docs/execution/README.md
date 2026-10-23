@@ -38,6 +38,7 @@ La cadena de valor que debe mantenerse visible es:
 | Evidencia | [phase-1/soak-baseline-2026-10-20.md](phase-1/soak-baseline-2026-10-20.md) | Soak headless y procedimiento de soak navegador de WP1.15 |
 | Acta | [phase-1/gate-1-review-2026-10-20.md](phase-1/gate-1-review-2026-10-20.md) | Auditoría y decisión REWORK de Gate 1 |
 | Acta | [phase-2/gate-2-review-2026-10-23.md](phase-2/gate-2-review-2026-10-23.md) | Decisión CONDITIONAL GO y condición visual de cierre |
+| Runbook | [../art/WP2-14-CODEX-RUNBOOK.md](../art/WP2-14-CODEX-RUNBOOK.md) | Secuencia operativa de WP2.14 con checkpoints High/Extra High |
 | Evidencia | [phase-3/wp3-2-implementation-2026-10-23.md](phase-3/wp3-2-implementation-2026-10-23.md) | Producción física localizada y aptitud del terreno |
 | Evidencia | [phase-3/wp3-3-financial-projection-2026-10-23.md](phase-3/wp3-3-financial-projection-2026-10-23.md) | Baseline de posición financiera y previsión de caja |
 | Evidencia | [phase-3/wp3-4-banking-debt-2026-10-23.md](phase-3/wp3-4-banking-debt-2026-10-23.md) | Banco independiente, deuda, amortización, mora y persistencia |

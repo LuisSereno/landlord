@@ -944,6 +944,38 @@ export function App() {
               >
                 Promover ordenanza
               </button>
+              {economy?.policyOptions
+                .filter((option) => option.id !== economy.ordinance.id)
+                .map((option) => (
+                  <button
+                    key={option.id}
+                    type="button"
+                    disabled={!client || ["active", "proposed"].includes(economy.ordinance.status)}
+                    onClick={() =>
+                      void sendAction(
+                        () => clientRef.current!.proposePolicy(option.id),
+                        `Propuesta municipal seleccionada: ${option.name}.`,
+                      )
+                    }
+                  >
+                    Proponer {option.name}
+                  </button>
+                ))}
+              <button
+                type="button"
+                disabled={
+                  !client || !["proposed", "active"].includes(economy?.ordinance.status ?? "")
+                }
+                onClick={() =>
+                  economy &&
+                  void sendAction(
+                    () => clientRef.current!.withdrawPolicy(economy.ordinance.id),
+                    "La política municipal ha sido retirada.",
+                  )
+                }
+              >
+                Retirar política actual
+              </button>
               <p className="empty-state">
                 Riesgo táctico: selecciona un edificio rival y ordena el sabotaje con un enforcer.
               </p>
@@ -972,6 +1004,16 @@ export function App() {
                   {ordinanceStatusLabel(economy.ordinance.status)}
                 </p>
                 <p>{ordinanceExplanation(economy.ordinance, projection?.tick ?? 0)}</p>
+                <ul>
+                  {economy.policyOptions.map((option) => (
+                    <li key={option.id}>
+                      {option.name}: materiales {option.materialCostModifierPercent}% · renta{" "}
+                      {option.rentModifierPercent}% · propiedad {option.propertyTaxModifierPercent}%
+                      · permisos {option.permitApprovalModifierPercent}% · influencia{" "}
+                      {option.influenceRequired}.
+                    </li>
+                  ))}
+                </ul>
                 <p>
                   <strong>Heat:</strong> {economy.heat} · presión policial {economy.policePressure}
                 </p>
@@ -1165,28 +1207,33 @@ function signedAmount(value: number): string {
   return `${value >= 0 ? "+" : "−"}${Math.abs(value)} u.`;
 }
 
-function ordinanceStatusLabel(status: "proposed" | "approved" | "active" | "expired" | "rejected") {
+function ordinanceStatusLabel(
+  status: "proposed" | "approved" | "active" | "expired" | "rejected" | "withdrawn",
+) {
   return {
     proposed: "propuesta disponible",
     approved: "aprobada",
     active: "activa",
     expired: "expirada",
     rejected: "rechazada",
+    withdrawn: "retirada",
   }[status];
 }
 
 function ordinanceExplanation(
   ordinance: {
-    status: "proposed" | "approved" | "active" | "expired" | "rejected";
+    status: "proposed" | "approved" | "active" | "expired" | "rejected" | "withdrawn";
     expiresAtTick: number | null;
     materialCostModifierPercent: number;
     rentModifierPercent: number;
     influenceRequired: number;
     approvalChancePercent: number;
+    propertyTaxModifierPercent: number;
+    permitApprovalModifierPercent: number;
   },
   tick: number,
 ): string {
-  const effects = `Construcción ${ordinance.materialCostModifierPercent}% · renta ${ordinance.rentModifierPercent}%.`;
+  const effects = `Construcción ${ordinance.materialCostModifierPercent}% · renta ${ordinance.rentModifierPercent}% · propiedad ${ordinance.propertyTaxModifierPercent}% · permisos ${ordinance.permitApprovalModifierPercent}%.`;
   if (ordinance.status === "proposed")
     return `Apoyo base ${ordinance.approvalChancePercent}%; cada influencia adicional suma 15 puntos. ${effects}`;
   if (ordinance.status === "active")

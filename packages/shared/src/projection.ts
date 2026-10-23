@@ -219,7 +219,7 @@ export type ViewProjectionV1 = {
     ordinance: {
       id: PolicyId;
       name: string;
-      status: "proposed" | "approved" | "active" | "expired" | "rejected";
+      status: "proposed" | "approved" | "active" | "expired" | "rejected" | "withdrawn";
       expiresAtTick: Tick | null;
       materialCostModifierPercent: number;
       rentModifierPercent: number;
@@ -229,6 +229,17 @@ export type ViewProjectionV1 = {
       transferTaxModifierPercent: number;
       permitApprovalModifierPercent: number;
     };
+    policyOptions: Array<{
+      id: PolicyId;
+      name: string;
+      materialCostModifierPercent: number;
+      rentModifierPercent: number;
+      influenceRequired: number;
+      approvalChancePercent: number;
+      propertyTaxModifierPercent: number;
+      transferTaxModifierPercent: number;
+      permitApprovalModifierPercent: number;
+    }>;
     illegalRoute: {
       detectionChancePercent: number;
       benefitOnSuccess: number;
@@ -557,7 +568,7 @@ export const viewProjectionV1Schema = z.object({
       ordinance: z.object({
         id: policyIdSchema,
         name: z.string(),
-        status: z.enum(["proposed", "approved", "active", "expired", "rejected"]),
+        status: z.enum(["proposed", "approved", "active", "expired", "rejected", "withdrawn"]),
         expiresAtTick: tickSchema.nullable(),
         materialCostModifierPercent: z.number().int(),
         rentModifierPercent: z.number().int(),
@@ -567,6 +578,19 @@ export const viewProjectionV1Schema = z.object({
         transferTaxModifierPercent: z.number().int(),
         permitApprovalModifierPercent: z.number().int(),
       }),
+      policyOptions: z.array(
+        z.object({
+          id: policyIdSchema,
+          name: z.string(),
+          materialCostModifierPercent: z.number().int(),
+          rentModifierPercent: z.number().int(),
+          influenceRequired: z.number().int().nonnegative(),
+          approvalChancePercent: z.number().int().min(0).max(100),
+          propertyTaxModifierPercent: z.number().int(),
+          transferTaxModifierPercent: z.number().int(),
+          permitApprovalModifierPercent: z.number().int(),
+        }),
+      ),
       illegalRoute: z.object({
         detectionChancePercent: z.number().int().min(0).max(100),
         benefitOnSuccess: moneySchema,

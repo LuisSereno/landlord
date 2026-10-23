@@ -386,7 +386,8 @@ export type MaintenanceState = {
   backlogByBuildingId: Record<string, Money>;
 };
 
-export type PolicyStatus = "proposed" | "approved" | "active" | "expired" | "rejected";
+export type PolicyStatus =
+  "proposed" | "approved" | "active" | "expired" | "rejected" | "withdrawn";
 export type Ordinance = {
   id: PolicyId;
   name: string;
@@ -648,7 +649,7 @@ export const maintenanceStateSchema = z.object({
 export const ordinanceSchema = z.object({
   id: policyIdSchema,
   name: z.string().min(1).max(120),
-  status: z.enum(["proposed", "approved", "active", "expired", "rejected"]),
+  status: z.enum(["proposed", "approved", "active", "expired", "rejected", "withdrawn"]),
   proposedAtTick: tickSchema.nullable(),
   activeFromTick: tickSchema.nullable(),
   expiresAtTick: tickSchema.nullable(),
@@ -718,6 +719,14 @@ export type UpgradeBuilding = DomainCommandBase & {
 export type LobbyPolicy = DomainCommandBase & {
   type: "LobbyPolicy";
   payload: { policyId: PolicyId; influenceSpend: number };
+};
+export type ProposePolicy = DomainCommandBase & {
+  type: "ProposePolicy";
+  payload: { policyId: PolicyId };
+};
+export type WithdrawPolicy = DomainCommandBase & {
+  type: "WithdrawPolicy";
+  payload: { policyId: PolicyId };
 };
 export type CommitCrime = DomainCommandBase & {
   type: "CommitCrime";
@@ -805,6 +814,8 @@ export type ProductCommand =
   | AssignTenant
   | UpgradeBuilding
   | LobbyPolicy
+  | ProposePolicy
+  | WithdrawPolicy
   | CommitCrime
   | BuyMaterials
   | InvestInProduction
@@ -854,6 +865,14 @@ export const upgradeBuildingSchema = commandSchema(
 export const lobbyPolicySchema = commandSchema(
   "LobbyPolicy",
   z.object({ policyId: policyIdSchema, influenceSpend: z.number().int().min(1).max(3) }),
+);
+export const proposePolicySchema = commandSchema(
+  "ProposePolicy",
+  z.object({ policyId: policyIdSchema }),
+);
+export const withdrawPolicySchema = commandSchema(
+  "WithdrawPolicy",
+  z.object({ policyId: policyIdSchema }),
 );
 export const commitCrimeSchema = commandSchema(
   "CommitCrime",
@@ -954,6 +973,8 @@ export const productCommandSchema = z.discriminatedUnion("type", [
   assignTenantSchema,
   upgradeBuildingSchema,
   lobbyPolicySchema,
+  proposePolicySchema,
+  withdrawPolicySchema,
   commitCrimeSchema,
   buyMaterialsSchema,
   investInProductionSchema,

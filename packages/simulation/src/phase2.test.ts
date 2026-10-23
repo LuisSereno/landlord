@@ -1405,3 +1405,89 @@ describe("WP3.10 rival financial AI", () => {
     expect(serializeSnapshot(first)).toEqual(serializeSnapshot(second));
   });
 });
+
+describe("WP3.11 municipal policy integration", () => {
+  it("offers policy alternatives, applies trade-offs and supports withdrawal", () => {
+    const state = createInitialState(127);
+    const initialProjection = createViewProjection(state, true).economy!;
+    expect(initialProjection.policyOptions.map((policy) => policy.id)).toEqual([
+      "policy_00000001",
+      "policy_00000002",
+      "policy_00000003",
+    ]);
+
+    expect(
+      dispatchProductCommand(
+        state,
+        command("policy-propose-renewal", "ProposePolicy", {
+          policyId: parsePolicyId("policy_00000002"),
+        }),
+      ),
+    ).toMatchObject({ accepted: true, event: { type: "PolicyProposed" } });
+    expect(state.phase2.ordinance).toMatchObject({
+      id: "policy_00000002",
+      status: "proposed",
+      materialCostModifierPercent: 10,
+      rentModifierPercent: 20,
+    });
+    expect(
+      dispatchProductCommand(
+        state,
+        command("policy-withdraw-renewal", "WithdrawPolicy", {
+          policyId: parsePolicyId("policy_00000002"),
+        }),
+      ),
+    ).toMatchObject({ accepted: true, event: { type: "PolicyWithdrawn" } });
+    expect(state.phase2.ordinance.status).toBe("withdrawn");
+
+    expect(
+      dispatchProductCommand(
+        state,
+        command("policy-repropose-renewal", "ProposePolicy", {
+          policyId: parsePolicyId("policy_00000002"),
+        }),
+      ).accepted,
+    ).toBe(true);
+    state.phase2.influenceByOrganizationId.set(organization, 2);
+    state.phase2.ordinance.approvalChancePercent = 100;
+    expect(
+      dispatchProductCommand(
+        state,
+        command("policy-lobby-renewal", "LobbyPolicy", {
+          policyId: parsePolicyId("policy_00000002"),
+          influenceSpend: 2,
+        }),
+      ),
+    ).toMatchObject({ accepted: true, event: { type: "PolicyEnacted" } });
+    expect(createViewProjection(state, true).economy?.constructionOptions[0]?.cost).toBe(3300);
+
+    expect(
+      dispatchProductCommand(
+        state,
+        command("policy-withdraw-active", "WithdrawPolicy", {
+          policyId: parsePolicyId("policy_00000002"),
+        }),
+      ).accepted,
+    ).toBe(true);
+    expect(createViewProjection(state, true).economy?.constructionOptions[0]?.cost).toBe(3000);
+    expect(serializeSnapshot(restoreStateFromSnapshot(serializeSnapshot(state)))).toEqual(
+      serializeSnapshot(state),
+    );
+  });
+
+  it("lets the rival lobby for a proposal that improves its own tax position", () => {
+    const state = createInitialState(131);
+    expect(
+      dispatchProductCommand(
+        state,
+        command("policy-propose-fiscal", "ProposePolicy", {
+          policyId: parsePolicyId("policy_00000003"),
+        }),
+      ).accepted,
+    ).toBe(true);
+    state.clock.tick = parseTick(GAME_MONTH_TICKS);
+    advanceProductSystems(state);
+    expect(state.phase2.rivalAi.lastAction).toBe("lobby_policy");
+    expect(state.phase2.influenceByOrganizationId.get(parseOrganizationId("org_00000002"))).toBe(0);
+  });
+});

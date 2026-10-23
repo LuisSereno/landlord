@@ -8,6 +8,7 @@ import {
   type Loan,
   type Parcel,
   type Tenant,
+  type Ordinance,
 } from "@landlord/shared";
 import {
   parseDistrictId,
@@ -181,6 +182,45 @@ export const PROTOTYPE_ORDINANCE = {
   transferTaxModifierPercent: 0,
   permitApprovalModifierPercent: 0,
 };
+
+export const MUNICIPAL_POLICY_CATALOG: readonly Ordinance[] = [
+  PROTOTYPE_ORDINANCE,
+  {
+    id: parsePolicyId("policy_00000002"),
+    name: "Renovación de barrio",
+    status: "proposed",
+    proposedAtTick: null,
+    activeFromTick: null,
+    expiresAtTick: null,
+    materialCostModifierPercent: 10,
+    rentModifierPercent: 20,
+    influenceRequired: 2,
+    approvalChancePercent: 45,
+    propertyTaxModifierPercent: -10,
+    transferTaxModifierPercent: 10,
+    permitApprovalModifierPercent: 15,
+  },
+  {
+    id: parsePolicyId("policy_00000003"),
+    name: "Disciplina fiscal",
+    status: "proposed",
+    proposedAtTick: null,
+    activeFromTick: null,
+    expiresAtTick: null,
+    materialCostModifierPercent: 5,
+    rentModifierPercent: 0,
+    influenceRequired: 1,
+    approvalChancePercent: 60,
+    propertyTaxModifierPercent: -25,
+    transferTaxModifierPercent: -15,
+    permitApprovalModifierPercent: -10,
+  },
+];
+
+export function createMunicipalPolicy(policyId: string): Ordinance | null {
+  const definition = MUNICIPAL_POLICY_CATALOG.find((policy) => policy.id === policyId);
+  return definition ? { ...definition } : null;
+}
 
 export const ILLEGAL_ROUTE = {
   baseDetectionChancePercent: 35,

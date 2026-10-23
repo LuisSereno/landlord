@@ -26,6 +26,7 @@ import {
   INSURANCE_POLICY,
   calculateInsuranceOffer,
   regulatoryRiskPercent,
+  MUNICIPAL_POLICY_CATALOG,
 } from "./game-data";
 
 function currentPropertyTaxRateBps(state: GameState): number {
@@ -495,6 +496,17 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
               transferTaxModifierPercent: state.phase2.ordinance.transferTaxModifierPercent,
               permitApprovalModifierPercent: state.phase2.ordinance.permitApprovalModifierPercent,
             },
+            policyOptions: MUNICIPAL_POLICY_CATALOG.map((policy) => ({
+              id: policy.id,
+              name: policy.name,
+              materialCostModifierPercent: policy.materialCostModifierPercent,
+              rentModifierPercent: policy.rentModifierPercent,
+              influenceRequired: policy.influenceRequired,
+              approvalChancePercent: policy.approvalChancePercent,
+              propertyTaxModifierPercent: policy.propertyTaxModifierPercent,
+              transferTaxModifierPercent: policy.transferTaxModifierPercent,
+              permitApprovalModifierPercent: policy.permitApprovalModifierPercent,
+            })),
             illegalRoute: {
               detectionChancePercent: Math.min(
                 100,

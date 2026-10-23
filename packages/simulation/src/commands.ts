@@ -35,6 +35,7 @@ import {
   permitRequirements,
   INSOLVENCY_POLICY,
   RIVAL_AI_POLICY,
+  createMunicipalPolicy,
 } from "./game-data";
 import { Xoshiro128ss } from "./prng";
 import { chooseInteractionCell, findDeterministicPath } from "./navigation";
@@ -1062,6 +1063,42 @@ export function dispatchProductCommand(
     return productEvent(state, command.commandId, "RuinClearStarted", {
       buildingId: building.id,
       siteId,
+    });
+  }
+
+  if (command.type === "ProposePolicy") {
+    const policy = createMunicipalPolicy(command.payload.policyId);
+    if (!policy || ["active", "approved"].includes(state.phase2.ordinance.status))
+      return { accepted: false, code: "POLICY_NOT_AVAILABLE" };
+    state.phase2.ordinance = {
+      ...policy,
+      status: "proposed",
+      proposedAtTick: parseTick(state.clock.tick),
+      activeFromTick: null,
+      expiresAtTick: null,
+    };
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "PolicyProposed", {
+      policyId: policy.id,
+      name: policy.name,
+      influenceRequired: policy.influenceRequired,
+      approvalChancePercent: policy.approvalChancePercent,
+    });
+  }
+
+  if (command.type === "WithdrawPolicy") {
+    const ordinance = state.phase2.ordinance;
+    if (
+      ordinance.id !== command.payload.policyId ||
+      !["proposed", "active"].includes(ordinance.status)
+    )
+      return { accepted: false, code: "POLICY_NOT_AVAILABLE" };
+    ordinance.status = "withdrawn";
+    ordinance.activeFromTick = null;
+    ordinance.expiresAtTick = null;
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "PolicyWithdrawn", {
+      policyId: ordinance.id,
     });
   }
 

@@ -177,6 +177,26 @@ export class SimulationWorkerClient {
     });
   }
 
+  public proposePolicy(policyId: string) {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "ProposePolicy",
+      payload: { policyId: parsePolicyId(policyId) },
+    });
+  }
+
+  public withdrawPolicy(policyId: string) {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "WithdrawPolicy",
+      payload: { policyId: parsePolicyId(policyId) },
+    });
+  }
+
   public commitCrime(targetOrganizationId = "org_00000002") {
     return this.submitProductCommand({
       commandId: this.nextCommandId(),

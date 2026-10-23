@@ -134,6 +134,9 @@ Pendiente para implementación del Vertical Slice:
   deuda, riesgo, seguro, reparación, puja, refinanciación y venta de solares vacíos mediante
   comandos normales. La memoria de pérdidas y la decisión autónoma son deterministas y
   persistentes; perfiles múltiples y torneos prolongados siguen fuera del slice.
+- WP3.11 tiene un catálogo municipal de tres políticas con modificadores de materiales, renta,
+  fiscalidad y permisos, propuesta, lobby, retirada, proyección visible y decisión rival por
+  interés propio. Coaliciones, elecciones y múltiples jurisdicciones siguen fuera del slice.
 - modelo de tipos;
 - loan-to-value;
 - garantías;

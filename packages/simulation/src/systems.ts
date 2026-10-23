@@ -1124,6 +1124,34 @@ function rivalAction(state: GameState): void {
       },
     });
   }
+  const rivalInfluence = state.phase2.influenceByOrganizationId.get(RIVAL_ORGANIZATION_ID) ?? 0;
+  const policy = state.phase2.ordinance;
+  const policyBenefitsRival =
+    policy.materialCostModifierPercent <= 0 ||
+    policy.propertyTaxModifierPercent < 0 ||
+    policy.permitApprovalModifierPercent > 0;
+  if (
+    policy.status === "proposed" &&
+    state.clock.tick >= GAME_MONTH_TICKS &&
+    rivalInfluence >= policy.influenceRequired &&
+    policyBenefitsRival
+  ) {
+    candidates.push({
+      score: 74,
+      action: "lobby_policy",
+      reason:
+        "La propuesta mejora al menos un coste, impuesto o permiso de la cartera rival y consume influencia limitada.",
+      command: {
+        ...base,
+        commandId: parseCommandId(`ai-rival-${state.clock.tick}-policy`),
+        type: "LobbyPolicy",
+        payload: {
+          policyId: policy.id,
+          influenceSpend: policy.influenceRequired,
+        },
+      },
+    });
+  }
   const selected = candidates.sort((left, right) => right.score - left.score)[0];
   if (!selected) {
     state.phase2.rivalAi.lastAction = "reserve_liquidity";

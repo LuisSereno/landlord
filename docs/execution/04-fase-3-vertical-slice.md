@@ -191,6 +191,9 @@ producción, la extinción/reanudación y la conservación del incidente histór
 
 **Aceptación:** la política modifica decisiones inmobiliarias y no funciona como minijuego aislado.
 
+**Estado 2026-10-23:** `DONE`. Evidencia en
+`docs/execution/phase-3/wp3-11-municipal-policy-2026-10-23.md`.
+
 ## WP3.12 — Automatización y UX de escala
 
 - Identificar las cinco operaciones más repetidas en playtests.

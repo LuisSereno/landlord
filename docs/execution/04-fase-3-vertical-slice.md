@@ -243,6 +243,9 @@ producción, la extinción/reanudación y la conservación del incidente histór
 - Registrar deuda y alcance recomendado de alpha.
 - Emitir decisión de inversión: avanzar, rework o reducir alcance.
 
+**Estado 2026-10-23:** `CONDITIONAL`. Evidencia técnica y decisión en
+`docs/execution/phase-3/wp3-15-validation-2026-10-23.md`. El cierre final depende de WP2.14.
+
 ## Orden recomendado
 
 1. Congelar escenario y datos representativos.

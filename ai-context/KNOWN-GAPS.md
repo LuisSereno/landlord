@@ -143,6 +143,9 @@ Pendiente para implementación del Vertical Slice:
 - WP3.14 tiene saves `phase3-dev`, validación IndexedDB, autosave mensual local, carga atómica y
   metadatos de tamaño/schema/engine. Cloud save, sincronización y telemetría remota siguen fuera;
   WP3.13 continúa condicionado por WP2.14.
+- WP3.15 tiene suite, smoke browser externo, benchmark headless, auditoría y soak con save/restore
+  en verde. La decisión final de inversión y cierre de Fase 3 sigue `CONDITIONAL` hasta cerrar
+  WP2.14 y ejecutar el playtest visual representativo.
 - modelo de tipos;
 - loan-to-value;
 - garantías;

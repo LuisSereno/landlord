@@ -80,6 +80,7 @@
 - execution/phase-3/wp3-11-municipal-policy-2026-10-23.md — catálogo municipal, trade-offs, lobby, retirada y efectos económicos.
 - execution/phase-3/wp3-12-automation-ux-2026-10-23.md — rutina de cartera, excepciones, comparador y overlays operativos.
 - execution/phase-3/wp3-14-persistence-observability-2026-10-23.md — saves phase3-dev, autosave local, corrupción y observabilidad.
+- execution/phase-3/wp3-15-validation-2026-10-23.md — suite, smoke, benchmark, soak y decisión condicional del slice.
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

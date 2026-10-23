@@ -68,31 +68,39 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
             cash: state.phase2.balances.get(PLAYER_ORGANIZATION_ID) ?? 0,
             inventory: { ...playerInventory },
             production: [...state.phase2.facilities.values()]
-              .filter((facility) => facility.ownerOrganizationId === PLAYER_ORGANIZATION_ID)
+              .filter(
+                (facility) =>
+                  facility.ownerOrganizationId === PLAYER_ORGANIZATION_ID &&
+                  facility.kind === "physical",
+              )
               .sort((left, right) => left.id.localeCompare(right.id))
-              .map(
-                ({
-                  output,
-                  cycleProgress,
-                  cycleLength,
-                  outputAmount,
-                  operational,
-                  investmentCost,
-                  operatingCost,
-                  buildingId,
-                  suitabilityPercent,
-                }) => ({
-                  output,
-                  cycleProgress,
-                  cycleLength,
-                  outputAmount,
-                  operational,
-                  investmentCost,
-                  operatingCost,
-                  buildingId,
-                  suitabilityPercent,
-                }),
-              ),
+              .map((facility) => {
+                const building = facility.buildingId
+                  ? state.phase2.buildings.get(facility.buildingId)
+                  : undefined;
+                const conditionPercent = building?.condition ?? facility.conditionPercent;
+                const numerator =
+                  facility.outputAmount *
+                  facility.suitabilityPercent *
+                  conditionPercent *
+                  facility.upgradePercent;
+                return {
+                  output: facility.output,
+                  cycleProgress: facility.cycleProgress,
+                  cycleLength: facility.cycleLength,
+                  baseOutputAmount: facility.outputAmount,
+                  averageOutputAmount: numerator / 1_000_000,
+                  nextCycleOutputAmount: Math.floor((numerator + facility.remainder) / 1_000_000),
+                  operational: facility.operational,
+                  investmentCost: facility.investmentCost,
+                  operatingCost: facility.operatingCost,
+                  buildingId: facility.buildingId,
+                  suitabilityPercent: facility.suitabilityPercent,
+                  conditionPercent,
+                  upgradePercent: facility.upgradePercent,
+                  remainder: facility.remainder,
+                };
+              }),
             crew: {
               capacity: PLAYER_CREW_CAPACITY,
               used: [...state.phase2.constructionSites.values()].reduce(

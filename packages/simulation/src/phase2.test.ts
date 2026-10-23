@@ -4,6 +4,7 @@ import {
   parseBuildingId,
   parseCommandId,
   parseConstructionSiteId,
+  parseFacilityId,
   parseOrganizationId,
   parseMoney,
   parseParcelId,
@@ -12,6 +13,7 @@ import {
   parseTenantId,
   parseTick,
   type ProductCommand,
+  viewProjectionV1Schema,
 } from "@landlord/shared";
 import { dispatchProductCommand } from "./commands";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
@@ -140,28 +142,16 @@ describe("Gate 2 product loop", () => {
     expect(restored.phase2.crime).toEqual(state.phase2.crime);
   });
 
-  it("renews every construction material and exposes production through the projection", () => {
+  it("starts new games without legacy facilities or the invisible investment flow", () => {
     const state = createInitialState(3);
-    Object.assign(state.phase2.inventories.get(organization)!, {
-      cement: 0,
-      brick: 0,
-      steel: 0,
-    });
-    for (const resource of ["cement", "brick", "steel"] as const) {
-      expect(
-        dispatchProductCommand(
-          state,
-          command(`invest-${resource}`, "InvestInProduction", { resource }),
-        ).accepted,
-      ).toBe(true);
-    }
-    const before = { ...state.phase2.inventories.get(organization)! };
-    advanceToTick(state, 72 * 50);
-    const inventory = state.phase2.inventories.get(organization)!;
-    expect(inventory.cement).toBeGreaterThan(before.cement);
-    expect(inventory.brick).toBeGreaterThan(before.brick);
-    expect(inventory.steel).toBeGreaterThan(before.steel);
-    expect(createViewProjection(state, true).economy?.production).toHaveLength(3);
+    expect(state.phase2.facilities).toHaveLength(0);
+    expect(createViewProjection(state, true).economy?.production).toHaveLength(0);
+    expect(
+      dispatchProductCommand(
+        state,
+        command("legacy-invest", "InvestInProduction", { resource: "cement" }),
+      ),
+    ).toEqual({ accepted: false, code: "FACILITY_NOT_FOUND" });
   });
 
   it("supports two assignable crews and cancellation recovers capped materials", () => {
@@ -416,7 +406,11 @@ describe("Gate 2 product loop", () => {
         .accepted,
     ).toBe(true);
     expect(state.phase2.balances.get(organization)).toBe(balanceBefore - 450);
-    expect([...state.phase2.constructionSites.values()][0]?.repairBuildingId).toBe(buildingId);
+    expect(
+      [...state.phase2.constructionSites.values()].find(
+        (site) => site.repairBuildingId === buildingId,
+      )?.repairBuildingId,
+    ).toBe(buildingId);
 
     advanceToTick(state, state.clock.tick + 48 * 50);
     expect(state.phase2.buildings.get(buildingId)?.condition).toBe(100);
@@ -450,11 +444,23 @@ describe("Gate 2 product loop", () => {
     const facility = state.phase2.facilities.get(building.productionFacilityId!)!;
     expect(facility.buildingId).toBe(building.id);
     expect(facility.suitabilityPercent).toBe(120);
+    expect(createViewProjection(state, true).economy?.production[0]).toMatchObject({
+      baseOutputAmount: 2,
+      averageOutputAmount: 2.4,
+      nextCycleOutputAmount: 2,
+      remainder: 0,
+    });
+    facility.suitabilityPercent = 95;
+    expect(createViewProjection(state, true).economy?.production[0]?.averageOutputAmount).toBe(1.9);
+    facility.suitabilityPercent = 135;
+    expect(createViewProjection(state, true).economy?.production[0]?.averageOutputAmount).toBe(2.7);
+    facility.suitabilityPercent = 120;
 
     const inventory = state.phase2.inventories.get(organization)!;
     const beforeProduction = inventory.cement;
-    advanceToTick(state, state.clock.tick + 24 * 50);
-    expect(inventory.cement).toBeGreaterThan(beforeProduction);
+    advanceToTick(state, state.clock.tick + 72 * 50);
+    expect(inventory.cement - beforeProduction).toBe(7);
+    expect(facility.remainder).toBe(200_000);
 
     building.state = "burning";
     const duringFire = inventory.cement;
@@ -463,6 +469,9 @@ describe("Gate 2 product loop", () => {
 
     building.state = "operational";
     building.condition = 55;
+    expect(createViewProjection(state, true).economy?.production[0]?.averageOutputAmount).toBe(
+      1.32,
+    );
     expect(
       dispatchProductCommand(
         state,
@@ -471,5 +480,77 @@ describe("Gate 2 product loop", () => {
     ).toBe(true);
     advanceToTick(state, state.clock.tick + 48 * 50);
     expect(building.condition).toBe(100);
+
+    expect(
+      dispatchProductCommand(
+        state,
+        command("factory-upgrade", "UpgradeBuilding", { buildingId: building.id }),
+      ).accepted,
+    ).toBe(true);
+    advanceToTick(state, state.clock.tick + 60 * 2 * 50);
+    expect(facility.upgradePercent).toBe(125);
+    expect(createViewProjection(state, true).economy?.production[0]?.averageOutputAmount).toBe(3);
+    const physicalProjection = createViewProjection(state, true);
+    viewProjectionV1Schema.parse(physicalProjection);
+
+    building.state = "ruin";
+    expect(
+      dispatchProductCommand(
+        state,
+        command("factory-clear", "ClearRuin", { buildingId: building.id }),
+      ).accepted,
+    ).toBe(true);
+    advanceToTick(state, state.clock.tick + 48 * 50);
+    expect(state.phase2.buildings.has(building.id)).toBe(false);
+    expect(state.phase2.facilities.has(facility.id)).toBe(false);
+  });
+
+  it("migrates snapshots without kind by building linkage", () => {
+    const state = createInitialState(37);
+    dispatchProductCommand(
+      state,
+      command("migration-buy", "BuyParcel", { parcelId: parseParcelId("parcel_00000005") }),
+    );
+    dispatchProductCommand(
+      state,
+      command("migration-build", "StartConstruction", {
+        parcelId: parseParcelId("parcel_00000005"),
+        buildingType: "cement_plant",
+      }),
+    );
+    advanceToTick(state, 120 * 2 * 50);
+    for (const site of state.phase2.constructionSites.values()) {
+      if (site.crewCapacity === 0) site.crewCapacity = 1;
+    }
+    const snapshot = serializeSnapshot(state);
+    const physical = snapshot.phase2!.facilities[0]!;
+    delete (physical as { kind?: string }).kind;
+    delete (physical as { conditionPercent?: number }).conditionPercent;
+    delete (physical as { upgradePercent?: number }).upgradePercent;
+    delete (physical as { remainder?: number }).remainder;
+    const legacy = {
+      ...physical,
+      id: parseFacilityId("facility_99999999"),
+      buildingId: null,
+      operational: false,
+    };
+    delete (legacy as { kind?: string }).kind;
+    snapshot.phase2!.facilities.push(legacy);
+
+    const restored = restoreStateFromSnapshot(snapshot);
+    expect(restored.phase2.facilities.get(physical.id)?.kind).toBe("physical");
+    expect(restored.phase2.facilities.get(parseFacilityId("facility_99999999"))?.kind).toBe(
+      "legacy",
+    );
+    expect(
+      dispatchProductCommand(
+        restored,
+        command("legacy-invest-migrated", "InvestInProduction", { resource: "cement" }),
+      ).accepted,
+    ).toBe(true);
+
+    const broken = serializeSnapshot(state);
+    broken.phase2!.buildings[0]!.productionFacilityId = null;
+    expect(() => restoreStateFromSnapshot(broken)).toThrow(/bidirectional/);
   });
 });

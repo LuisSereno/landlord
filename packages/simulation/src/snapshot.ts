@@ -23,6 +23,7 @@ import type { ProductCommand } from "@landlord/shared";
 import { parseTick } from "@landlord/shared";
 import { PRNG_ALGORITHM } from "./prng";
 import { createInitialState, type GameState } from "./state";
+import { BUILDING_DEFINITIONS } from "./game-data";
 
 export const ENGINE_VERSION = "gate2-dev";
 
@@ -246,7 +247,12 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
       ? {
           idCounters: {
             ...snapshot.phase2.idCounters,
-            facility: snapshot.phase2.idCounters.facility ?? 6,
+            facility:
+              snapshot.phase2.idCounters.facility ??
+              snapshot.phase2.facilities.reduce((maximum, facility) => {
+                const numericId = Number(facility.id.slice("facility_".length));
+                return Number.isSafeInteger(numericId) ? Math.max(maximum, numericId) : maximum;
+              }, 0),
             incident: snapshot.phase2.idCounters.incident ?? 0,
           },
           district: {
@@ -282,11 +288,27 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
           facilities: new Map(
             snapshot.phase2.facilities.map((facility) => [
               parseFacilityId(facility.id),
-              {
-                ...facility,
-                id: parseFacilityId(facility.id),
-                ownerOrganizationId: parseOrganizationId(facility.ownerOrganizationId),
-              },
+              (() => {
+                const building = facility.buildingId
+                  ? snapshot.phase2!.buildings.find((entry) => entry.id === facility.buildingId)
+                  : undefined;
+                const kind =
+                  facility.kind ?? (facility.buildingId === null ? "legacy" : "physical");
+                const definition = building
+                  ? BUILDING_DEFINITIONS[building.type].production
+                  : undefined;
+                return {
+                  ...facility,
+                  id: parseFacilityId(facility.id),
+                  ownerOrganizationId: parseOrganizationId(facility.ownerOrganizationId),
+                  kind,
+                  outputAmount: definition?.outputAmount ?? facility.outputAmount,
+                  conditionPercent: facility.conditionPercent ?? building?.condition ?? 100,
+                  upgradePercent: facility.upgradePercent ?? (building?.upgraded ? 125 : 100),
+                  remainder: facility.remainder ?? 0,
+                  buildingId: facility.buildingId ? parseBuildingId(facility.buildingId) : null,
+                };
+              })(),
             ]),
           ),
           buildings: new Map(

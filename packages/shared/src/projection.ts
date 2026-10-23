@@ -64,12 +64,17 @@ export type ViewProjectionV1 = {
       output: "cement" | "brick" | "steel";
       cycleProgress: number;
       cycleLength: number;
-      outputAmount: number;
+      baseOutputAmount: number;
+      averageOutputAmount: number;
+      nextCycleOutputAmount: number;
       operational: boolean;
       investmentCost: number;
       operatingCost: number;
       buildingId: BuildingId | null;
       suitabilityPercent: number;
+      conditionPercent: number;
+      upgradePercent: number;
+      remainder: number;
     }>;
     crew: { capacity: number; used: number };
     crews: Array<{
@@ -254,12 +259,17 @@ export const viewProjectionV1Schema = z.object({
           output: z.enum(["cement", "brick", "steel"]),
           cycleProgress: z.number().int().nonnegative(),
           cycleLength: z.number().int().positive(),
-          outputAmount: z.number().int().positive(),
+          baseOutputAmount: z.number().int().positive(),
+          averageOutputAmount: z.number().nonnegative(),
+          nextCycleOutputAmount: z.number().int().nonnegative(),
           operational: z.boolean(),
           investmentCost: moneySchema,
           operatingCost: moneySchema,
           buildingId: buildingIdSchema.nullable(),
           suitabilityPercent: z.number().int().positive(),
+          conditionPercent: z.number().int().min(0).max(100),
+          upgradePercent: z.number().int().positive(),
+          remainder: z.number().int().min(0).max(999999),
         }),
       ),
       crew: z.object({
@@ -320,7 +330,7 @@ export const viewProjectionV1Schema = z.object({
           condition: z.number().int().min(0).max(100),
           tenantId: tenantIdSchema.nullable(),
           tenantIds: z.array(tenantIdSchema),
-          capacity: z.number().int().positive(),
+          capacity: z.number().int().nonnegative(),
           upgraded: z.boolean(),
           structuralIntegrity: z.number().int().min(0).max(100),
           state: z.enum(["operational", "burning", "collapse_pending", "ruin"]),

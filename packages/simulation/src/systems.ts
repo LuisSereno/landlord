@@ -23,6 +23,7 @@ import { findDeterministicPath } from "./navigation";
 
 const MOVEMENT_TICKS_PER_CELL = 10;
 const INCIDENT_LIMIT = 50;
+const PRODUCTION_SCALE = 1_000_000;
 const adjacent = (a: { x: number; y: number }, b: { x: number; y: number }) =>
   Math.abs(a.x - b.x) + Math.abs(a.y - b.y) <= 1;
 function hurtAgent(
@@ -115,17 +116,22 @@ function progressProduction(state: GameState): void {
     a.id.localeCompare(b.id),
   )) {
     if (!facility.operational) continue;
-    if (facility.buildingId) {
+    if (facility.kind === "physical" && facility.buildingId) {
       const building = state.phase2.buildings.get(facility.buildingId);
       if (!building || building.state !== "operational" || building.condition <= 0) continue;
+      facility.conditionPercent = building.condition;
     }
     facility.cycleProgress += 1;
     if (facility.cycleProgress < facility.cycleLength) continue;
     const inventory = state.phase2.inventories.get(facility.ownerOrganizationId);
-    const outputAmount = Math.max(
-      1,
-      Math.round((facility.outputAmount * facility.suitabilityPercent) / 100),
-    );
+    const productivityNumerator =
+      facility.outputAmount *
+      facility.suitabilityPercent *
+      facility.conditionPercent *
+      facility.upgradePercent;
+    const numerator = productivityNumerator + facility.remainder;
+    const outputAmount = Math.floor(numerator / PRODUCTION_SCALE);
+    const nextRemainder = numerator % PRODUCTION_SCALE;
     if (!inventory || totalResources(inventory) + outputAmount > inventory.capacity) {
       facility.cycleProgress = facility.cycleLength;
       continue;
@@ -151,6 +157,7 @@ function progressProduction(state: GameState): void {
     });
     trimTransactions(state);
     inventory[facility.output] += outputAmount;
+    facility.remainder = nextRemainder;
     facility.cycleProgress = 0;
   }
 }
@@ -184,6 +191,9 @@ function progressConstruction(state: GameState): void {
       if (ruin) {
         const parcel = state.phase2.parcels.get(ruin.parcelId);
         if (parcel) parcel.buildingId = null;
+        if (ruin.productionFacilityId) {
+          state.phase2.facilities.delete(ruin.productionFacilityId);
+        }
         state.phase2.buildings.delete(ruin.id);
       }
     } else if (site.repairBuildingId) {
@@ -197,8 +207,7 @@ function progressConstruction(state: GameState): void {
         building.condition = Math.min(100, building.condition + 15);
         if (building.productionFacilityId) {
           const facility = state.phase2.facilities.get(building.productionFacilityId);
-          if (facility)
-            facility.outputAmount = Math.max(1, Math.ceil(facility.outputAmount * 1.25));
+          if (facility) facility.upgradePercent = 125;
         }
       }
     } else {
@@ -241,8 +250,12 @@ function progressConstruction(state: GameState): void {
           outputAmount: production.outputAmount,
           investmentCost: parseMoney(0),
           operatingCost: production.operatingCost,
+          kind: "physical",
           buildingId,
           suitabilityPercent,
+          conditionPercent: 100,
+          upgradePercent: 100,
+          remainder: 0,
         });
         building.productionFacilityId = facilityId;
       }
@@ -531,21 +544,21 @@ function rivalAction(state: GameState): void {
   const buildingType: BuildingType =
     ownedParcel?.zoning === "industrial" ? "workshop" : "courtyard_home";
   const definition = BUILDING_DEFINITIONS[buildingType];
-  const productionBuildingType: BuildingType | null = ownedParcel
-    ? ownedParcel.zoning === "industrial"
-      ? "steelworks"
-      : "brickworks"
-    : null;
-  const productionDefinition = productionBuildingType
-    ? BUILDING_DEFINITIONS[productionBuildingType]
-    : null;
+  const productionDefinitions = ownedParcel
+    ? Object.values(BUILDING_DEFINITIONS)
+        .filter((entry) => entry.production && entry.allowedZoning.includes(ownedParcel.zoning))
+        .sort(
+          (left, right) =>
+            (ownedParcel.productionSuitability?.[right.production!.output] ?? 100) -
+              (ownedParcel.productionSuitability?.[left.production!.output] ?? 100) ||
+            left.cost - right.cost,
+        )
+    : [];
+  const productionDefinition = productionDefinitions[0];
+  const productionBuildingType = productionDefinition?.type;
   const missingResource = (["cement", "brick", "steel"] as const).find(
     (resource) => inventory[resource] < definition.resources[resource],
   );
-  const inactiveFacility = [...state.phase2.facilities.values()].find(
-    (facility) => facility.ownerOrganizationId === RIVAL_ORGANIZATION_ID && !facility.operational,
-  );
-
   const candidates: Array<{
     score: number;
     action: string;
@@ -641,19 +654,6 @@ function rivalAction(state: GameState): void {
         commandId: parseCommandId(`ai-rival-${state.clock.tick}-factory-upgrade`),
         type: "UpgradeBuilding",
         payload: { buildingId: upgradeCandidate.id },
-      },
-    });
-  }
-  if (inactiveFacility && balance >= inactiveFacility.investmentCost + 2500) {
-    candidates.push({
-      score: 55,
-      action: "invest_production",
-      reason: "Puede reducir compras futuras conservando una reserva de 2500 u.",
-      command: {
-        ...base,
-        commandId: parseCommandId(`ai-rival-${state.clock.tick}-production`),
-        type: "InvestInProduction",
-        payload: { resource: inactiveFacility.output },
       },
     });
   }

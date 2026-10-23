@@ -38,8 +38,6 @@ try {
   await page.getByText("Materiales y producción").click();
   await page.getByRole("button", { name: "Comprar 2" }).first().click();
   await page.getByText(/Compradas 2 unidades/).waitFor();
-  await page.getByRole("button", { name: "Invertir" }).first().click();
-  await page.getByText(/Producción propia/).waitFor();
   const canvas = page.locator("canvas").first();
   let parcelFound = false;
   for (const position of [
@@ -47,11 +45,13 @@ try {
     { x: 576, y: 320 },
     { x: 640, y: 352 },
     { x: 704, y: 384 },
+    { x: 384, y: 352 },
+    { x: 512, y: 416 },
   ]) {
     await canvas.click({ position });
     await page.waitForTimeout(30);
     const inspector = await page.getByLabel("Inspección de parcela").innerText();
-    if (inspector.includes("Disponible")) {
+    if (inspector.includes("Industrial") && inspector.includes("Disponible")) {
       parcelFound = true;
       break;
     }
@@ -59,24 +59,21 @@ try {
   if (!parcelFound) throw new Error("No se encontró una parcela disponible en el canvas");
   await page.getByRole("button", { name: "Comprar parcela" }).click();
   await page.getByText(/Parcela comprada/).waitFor();
-  await page.locator("button.construction-option").first().click();
+  await page.getByText(/Aptitud productiva/).waitFor();
+  await page.getByRole("button", { name: /Planta de cemento/ }).click();
   await page.getByText(/en construcción/).waitFor();
   await page.getByRole("button", { name: /crew_00000001/ }).click();
   await page.getByText(/Crew enviada a la obra/).waitFor();
   await page.getByRole("button", { name: /crew_00000002/ }).click();
   await page.getByText(/Crew enviada a la obra/).waitFor();
   await page.getByText(/1 edificios/).waitFor({ timeout: 60000 });
-  await page
-    .getByRole("button", { name: /Ocupar con/ })
-    .first()
-    .click();
-  await page.getByText(/Inquilino asignado/).waitFor();
-  await page.getByRole("button", { name: /^Mejorar:/ }).click();
-  await page.getByText(/Mejora iniciada/).waitFor();
+  await page.getByText(/Producción media:/).waitFor();
+  await page.getByRole("button", { name: /Ampliar fábrica/ }).click();
+  await page.getByText(/Ampliación iniciada/).waitFor();
   await page.getByRole("button", { name: /crew_00000001/ }).click();
   await page.getByText(/Crew enviada a la obra/).waitFor();
   await page.getByRole("button", { name: /crew_00000002/ }).click();
-  await page.getByText(/Mejora completada/).waitFor({ timeout: 60000 });
+  await page.getByText(/Ampliación completada/).waitFor({ timeout: 60000 });
   await page.getByRole("button", { name: "Promover ordenanza" }).click();
   await page.getByText(/propuesta fue resuelta/).waitFor();
   await page.getByRole("button", { name: "Guardar" }).click();

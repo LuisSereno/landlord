@@ -531,6 +531,47 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
           path: `phase2/facilities/${facility.id}/ownerOrganizationId`,
         });
       }
+      const kind = facility.kind ?? (facility.buildingId ? "physical" : "legacy");
+      if (kind === "physical") {
+        if (!facility.buildingId || !buildingIds.has(facility.buildingId)) {
+          issues.push({
+            code: "MISSING_REFERENCE",
+            path: `phase2/facilities/${facility.id}/buildingId`,
+          });
+        } else {
+          const building = snapshot.phase2.buildings.find(
+            (entry) => entry.id === facility.buildingId,
+          );
+          if (building?.productionFacilityId !== facility.id) {
+            issues.push({
+              code: "MISSING_REFERENCE",
+              path: `phase2/facilities/${facility.id}/buildingId/bidirectional`,
+            });
+          }
+          if (building && building.ownerOrganizationId !== facility.ownerOrganizationId) {
+            issues.push({
+              code: "MISSING_REFERENCE",
+              path: `phase2/facilities/${facility.id}/ownerOrganizationId`,
+            });
+          }
+        }
+      }
+    }
+    for (const building of snapshot.phase2.buildings) {
+      if (!building.productionFacilityId) continue;
+      const facility = snapshot.phase2.facilities.find(
+        (entry) => entry.id === building.productionFacilityId,
+      );
+      if (
+        !facility ||
+        (facility.kind ?? (facility.buildingId ? "physical" : "legacy")) !== "physical" ||
+        facility.buildingId !== building.id
+      ) {
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `phase2/buildings/${building.id}/productionFacilityId/bidirectional`,
+        });
+      }
     }
     for (const organizationId of [
       ...balanceOrganizationIds,

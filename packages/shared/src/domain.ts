@@ -164,6 +164,7 @@ export type Parcel = {
 export type ResourceBundle = { cement: number; brick: number; steel: number };
 export type ResourceInventory = ResourceBundle & { capacity: number };
 export type ProductionSuitability = ResourceBundle;
+export type ProductionFacilityKind = "legacy" | "physical";
 
 export type ProductionFacility = {
   id: FacilityId;
@@ -173,10 +174,14 @@ export type ProductionFacility = {
   cycleLength: number;
   output: ResourceKind;
   outputAmount: number;
+  kind: ProductionFacilityKind;
   investmentCost: Money;
   operatingCost: Money;
   buildingId: BuildingId | null;
   suitabilityPercent: number;
+  conditionPercent: number;
+  upgradePercent: number;
+  remainder: number;
 };
 
 export type BuildingDefinition = {
@@ -351,10 +356,14 @@ export const productionFacilitySchema = z.object({
   cycleLength: z.number().int().positive(),
   output: resourceKindSchema,
   outputAmount: z.number().int().positive(),
+  kind: z.enum(["legacy", "physical"]).optional(),
   investmentCost: moneySchema.default(parseMoney(0)),
   operatingCost: moneySchema.default(parseMoney(0)),
   buildingId: buildingIdSchema.nullable().default(null),
   suitabilityPercent: z.number().int().positive().default(100),
+  conditionPercent: z.number().int().min(0).max(100).default(100),
+  upgradePercent: z.number().int().positive().default(100),
+  remainder: z.number().int().min(0).max(999_999).default(0),
 });
 export const buildingSchema = z.object({
   id: buildingIdSchema,
@@ -381,7 +390,7 @@ export const constructionSiteSchema = z.object({
   progress: z.number().int().nonnegative(),
   workRequired: z.number().int().positive(),
   resourcesReserved: resourceBundleSchema,
-  crewCapacity: z.number().int().positive(),
+  crewCapacity: z.number().int().nonnegative(),
   upgradeBuildingId: buildingIdSchema.nullable(),
   repairBuildingId: buildingIdSchema.nullable().default(null),
   kind: z.enum(["construction", "upgrade", "repair", "clear_ruin"]).default("construction"),

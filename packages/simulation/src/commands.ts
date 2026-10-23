@@ -275,6 +275,7 @@ export function dispatchProductCommand(
     const facility = [...state.phase2.facilities.values()].find(
       (entry) =>
         entry.ownerOrganizationId === command.actingAsOrganizationId &&
+        entry.kind === "legacy" &&
         entry.output === command.payload.resource,
     );
     if (!facility) return { accepted: false, code: "FACILITY_NOT_FOUND" };
@@ -634,7 +635,9 @@ export function dispatchProductCommand(
     );
     technician.state = "moving";
     const repairOrder = [...state.phase2.constructionSites.values()].find(
-      (site) => site.repairBuildingId === building.id || (site.kind === "repair" && site.targetBuildingId === building.id),
+      (site) =>
+        site.repairBuildingId === building.id ||
+        (site.kind === "repair" && site.targetBuildingId === building.id),
     );
     if (repairOrder) repairOrder.assignedTechnicianId = technician.id;
     rememberProcessed(state, command.commandId);

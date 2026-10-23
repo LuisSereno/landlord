@@ -156,7 +156,29 @@ Duración orientativa existente: 16-24 semanas; 600-900 jornadas-persona.
 - Detectar estrategias dominantes e invariantes económicas rotas.
 - Versionar datasets de balance y resultados comparables.
 
-## WP4.15 — Robustez y cierre alpha
+## WP4.15 — Pipeline artístico y escalado de contenido
+
+Resultado: convertir la baseline `graphic_civic` en una línea de producción por-asset
+reproducible y suficientemente barata para Alpha. Traslada a Fase 4 las fases pendientes
+del runbook WP2.14 (H2/H4/H7/H8), cuyo gate ya está cerrado.
+
+- Building source -> Blender -> render -> trim -> metadata -> atlas -> Phaser.
+- Pivots y depth sorting sin hacks por asset.
+- States complete/construction/damaged/burning.
+- Character import/normalización.
+- Idle/walk y decisión 4 vs 8 direcciones medida.
+- Atlas strategy definitiva.
+- Metadata schema v1.
+- Política Git LFS.
+- Building Factory / Character Factory mínimos si aportan ahorro real.
+- Profiling de distrito denso.
+- Visual regression por assets/golden scenes.
+- Ensayo de variaciones para medir coste de producción.
+
+**Aceptación:** un nuevo building y una variante de personaje se generan e integran sin
+trabajo manual oculto, dentro de budgets medidos.
+
+## WP4.16 — Robustez y cierre alpha
 
 - Migrar fixtures de todas las fases.
 - Ejecutar pruebas largas, performance por LOD y recuperación.
@@ -173,6 +195,8 @@ Duración orientativa existente: 16-24 semanas; 600-900 jornadas-persona.
 - Presupuesto precede a servicios y contratos públicos.
 - Reputación e information scope preceden a IA/facciones más sofisticadas.
 - Automatización se diseña con datos reales de repetición, no por especulación.
+- WP4.15 (producción artística) precede a WP4.16 (cierre alpha): la robustez final se
+  evalúa sobre el contenido representativo ya integrado.
 
 ## Fuera de alcance
 

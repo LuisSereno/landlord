@@ -82,3 +82,17 @@ Factory, incorporación de third-party a Git.
 
 - 2026-10-23 — H0 ejecutado (documentación retroactiva post-cierre). HEAD inicial `e8a91c5`.
   Artefactos: este progreso + `blender_artist/manifests/wp2-14-experiment.json`.
+
+## Cierre de gobernanza del runbook
+
+Decisión del responsable (2026-10-23): la ejecución secuencial del runbook queda detenida.
+WP2.14 está formalmente cerrado (`graphic_civic` aprobada, WP3.13 ya consumió la baseline),
+por lo que **no se ejecutarán H2/H4/H7/H8 bajo la etiqueta WP2.14**. El valor de esas fases
+se preserva trasladándolas al plan de Fase 4 como `WP4.15 — Pipeline artístico y escalado de
+contenido` en `docs/execution/05-fase-4-alpha-sistemica.md` (el anterior WP4.15 pasa a
+WP4.16). Estado de este documento: histórico/superseded como plan de ejecución; sigue siendo
+referencia de criterios de aceptación para WP4.15.
+
+La rama remota `origin/docs/wp2-14-codex-runbook` queda intacta; su borrado o archivo es
+decisión del propietario. La corrección de `docs/art/OPEN-DECISIONS.md` (filas cerradas por
+el acta del spike) se aplica en el commit de gobernanza, no desde una sesión del runbook.

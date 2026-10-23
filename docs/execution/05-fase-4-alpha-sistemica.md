@@ -74,6 +74,14 @@ digestos canónicos porque el estado persiste campos nuevos.
 
 ## WP4.4 — Empleo y actividad económica
 
+**Estado 2026-10-23:** `DONE`. Evidencia en
+`docs/execution/phase-4/wp4-4-employment-2026-10-23.md` y decisión en
+`docs/engineering/adr/D-067-empleo-agregado-y-capacidad-de-alquiler.md`. El mercado laboral es
+agregado: puestos por planta productiva operativa, trabajadores por hogar contratado e índice
+salarial acotado que se propaga al ingreso por segmento y al presupuesto de renta. Un cierre de
+planta encadena paro, salario, ingreso, asequibilidad y vacancia sin regla de evento específica. La
+evidencia económica anterior se comparó observable por observable y no cambió.
+
 - Modelar negocios que demandan puestos y hogares que ofrecen trabajo de forma agregada o individual mínima.
 - Definir salario/ingreso y conexión con capacidad de alquiler.
 - Conectar cierres/aperturas con demanda residencial.

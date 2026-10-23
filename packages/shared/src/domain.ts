@@ -354,6 +354,8 @@ export type Tenant = {
   segmentId: string;
   /** Meses que el hogar lleva disponible sin firmar contrato. */
   searchMonths: number;
+  /** Ingreso del hogar respecto a su segmento, en porcentaje; 100 es el ingreso de referencia. */
+  incomeFactorPercent: number;
   /**
    * `authored` es un candidato que el jugador coloca a mano (el pool del slice); `market` lo generó
    * el mercado y se instala por su cuenta cuando encuentra una plaza asequible.
@@ -414,6 +416,12 @@ export type TaxationState = {
   totalCollected: Money;
   exemptOrganizationIds: OrganizationId[];
   arrearsByOrganizationId: Record<string, Money>;
+};
+
+export type EmploymentState = {
+  /** Nivel salarial local; 100 es el salario de referencia. */
+  salaryIndexPercent: number;
+  lastSettlementTick: Tick | null;
 };
 
 export type HousingMarketState = {
@@ -647,6 +655,7 @@ export const tenantSchema = z.object({
   size: z.number().int().positive().optional(),
   segmentId: z.string().min(1).max(64).optional(),
   searchMonths: z.number().int().nonnegative().optional(),
+  incomeFactorPercent: z.number().int().positive().optional(),
   origin: z.enum(["authored", "market"]).optional(),
 });
 export const economicTransactionSchema = z.object({
@@ -697,6 +706,10 @@ export const taxationStateSchema = z.object({
   totalCollected: moneySchema,
   exemptOrganizationIds: z.array(organizationIdSchema),
   arrearsByOrganizationId: z.record(z.string(), moneySchema),
+});
+export const employmentStateSchema = z.object({
+  salaryIndexPercent: z.number().int().min(50).max(200),
+  lastSettlementTick: tickSchema.nullable(),
 });
 export const housingMarketStateSchema = z.object({
   rentIndexPercentByBuildingType: z.record(z.string(), z.number().int().min(50).max(150)),

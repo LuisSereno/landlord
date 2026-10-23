@@ -299,6 +299,7 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
         size: TENANT_PROFILE_DEFAULTS[profile].size,
         segmentId: profile,
         searchMonths: 0,
+        incomeFactorPercent: 100,
         origin: "authored",
       };
       state.phase2.tenants.set(tenantId, tenant);

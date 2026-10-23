@@ -14,6 +14,10 @@ import { createScaledCity } from "./system-cost";
  * `size`, `segmentId`, `searchMonths` y `origin` de cada hogar, así que todos los digestos cambian
  * aunque ningún saldo, transacción, baja ni desplazamiento varíe. La huella económica previa y
  * posterior se comparó observable por observable en el acta de WP4.3.
+ *
+ * Regeneración WP4.4 (2026-10-23): el estado gana `phase2.employment` y `incomeFactorPercent` por
+ * hogar. Otra vez cambia la forma del estado y no la economía: los diez observables siguen siendo
+ * idénticos porque los hogares sintéticos son autorados y conservan su presupuesto de escenario.
  */
 function digest(value: string): string {
   let left = 0x811c9dc5;
@@ -44,54 +48,54 @@ function cityDigest(input: {
 const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => string }> = [
   {
     id: "scenario:seed-1:1200",
-    expected: "ace97c49a78af34c",
+    expected: "3e74222da9a56f00",
     run: () => digest(canonicalizeState(runScenario(1, [], 1_200).state)),
   },
   {
     id: "scenario:seed-7:1200",
-    expected: "a3a03bcc9184ab74",
+    expected: "14103ef0c3275ac8",
     run: () => digest(canonicalizeState(runScenario(7, [], 1_200).state)),
   },
   {
     id: "scenario:seed-42:1200",
-    expected: "1f0ca9fbbdbc6141",
+    expected: "59e99227f5cb1b75",
     run: () => digest(canonicalizeState(runScenario(42, [], 1_200).state)),
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "71d6cef52673c50f",
+    expected: "6a05240180ec5c23",
     run: () => digest(canonicalizeState(runScenario(1, [], 36_000).state)),
   },
   {
     id: "city:50-parcels:1300-ticks",
-    expected: "fd797cdc572304ac",
+    expected: "647ab036ce6ca6b9",
     run: () => cityDigest({ parcelCount: 50, ticks: 1_300 }),
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "3715417bb5c70c6f",
+    expected: "706a323526435134",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "5e5f43c8106309eb",
+    expected: "617d7096de822d70",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "ada77107894b1f55",
+    expected: "62873e8d5297617a",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "7d6c147490b1d55f",
+    expected: "54850d16ca272de4",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "9a4f481d64014c2f",
+    expected: "39bdd4d3f1ced61a",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];

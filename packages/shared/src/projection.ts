@@ -218,8 +218,20 @@ export type ViewProjectionV1 = {
       size: number;
       segmentId: string;
       searchMonths: number;
+      incomeFactorPercent: number;
       origin: "authored" | "market";
     }>;
+    employment: {
+      jobs: number;
+      jobsBySector: Record<string, number>;
+      workers: number;
+      employedWorkers: number;
+      unemployedWorkers: number;
+      employmentRatePercent: number;
+      salaryIndexPercent: number;
+      incomeIndexPercentBySegment: Record<string, number>;
+      lastSettlementTick: Tick | null;
+    };
     housingMarket: {
       lastSettlementTick: Tick | null;
       arrivalsTotal: number;
@@ -594,9 +606,21 @@ export const viewProjectionV1Schema = z.object({
           size: z.number().int().positive(),
           segmentId: z.string(),
           searchMonths: z.number().int().nonnegative(),
+          incomeFactorPercent: z.number().int().positive(),
           origin: z.enum(["authored", "market"]),
         }),
       ),
+      employment: z.object({
+        jobs: z.number().int().nonnegative(),
+        jobsBySector: z.record(z.string(), z.number().int().nonnegative()),
+        workers: z.number().int().nonnegative(),
+        employedWorkers: z.number().int().nonnegative(),
+        unemployedWorkers: z.number().int().nonnegative(),
+        employmentRatePercent: z.number().int().min(0).max(100),
+        salaryIndexPercent: z.number().int(),
+        incomeIndexPercentBySegment: z.record(z.string(), z.number().int()),
+        lastSettlementTick: tickSchema.nullable(),
+      }),
       housingMarket: z.object({
         lastSettlementTick: tickSchema.nullable(),
         arrivalsTotal: z.number().int().nonnegative(),

@@ -18,59 +18,15 @@ import {
   UPGRADE_RENT_BONUS_PERCENT,
   conditionRentMultiplierPercent,
 } from "./game-data";
+import { effectiveRentBudget } from "./employment";
+import { HOUSING_SEGMENTS, type HousingSegment } from "./housing-segments";
 import { Xoshiro128ss } from "./prng";
 import type { GameState } from "./state";
 
+export { HOUSING_SEGMENTS, type HousingSegment } from "./housing-segments";
+
 const BUILDING_TYPES = Object.keys(BUILDING_DEFINITIONS) as BuildingType[];
 const LEASE_MONTHS = 24;
-
-export type HousingSegment = {
-  id: TenantProfile;
-  label: string;
-  /** Presupuesto mensual de renta típico del segmento; los hogares nuevos varían en torno a él. */
-  rentBudget: number;
-  preferredBuildingTypes: readonly BuildingType[];
-  /** Techo de población del segmento: es lo que impide que la demanda sea infinita. */
-  populationCap: number;
-  /** Llegadas por mes con atractivo del 100 % y población muy por debajo del techo. */
-  arrivalsAtFullAppeal: number;
-  weights: { quality: number; accessibility: number; safety: number; services: number };
-};
-
-/**
- * Demanda segmentada. Cada segmento aporta una decisión distinta al jugador: el hogar elige por
- * calidad y seguridad, el artesano por cercanía al trabajo y el comerciante por clientela. Los
- * tres comparten presupuesto acotado y techo de población, así que construir no garantiza ocupar.
- */
-export const HOUSING_SEGMENTS: Record<TenantProfile, HousingSegment> = {
-  household: {
-    id: "household",
-    label: "Hogares",
-    rentBudget: 220,
-    preferredBuildingTypes: ["courtyard_home"],
-    populationCap: 24,
-    arrivalsAtFullAppeal: 3,
-    weights: { quality: 35, accessibility: 15, safety: 30, services: 20 },
-  },
-  maker: {
-    id: "maker",
-    label: "Artesanos",
-    rentBudget: 300,
-    preferredBuildingTypes: ["workshop"],
-    populationCap: 16,
-    arrivalsAtFullAppeal: 2,
-    weights: { quality: 25, accessibility: 35, safety: 25, services: 15 },
-  },
-  shopkeeper: {
-    id: "shopkeeper",
-    label: "Comerciantes",
-    rentBudget: 320,
-    preferredBuildingTypes: ["workshop"],
-    populationCap: 12,
-    arrivalsAtFullAppeal: 1,
-    weights: { quality: 25, accessibility: 30, safety: 20, services: 25 },
-  },
-};
 
 export const HOUSING_MARKET_POLICY = {
   /** Vacancia de equilibrio: por encima el índice baja, por debajo sube. */
@@ -331,7 +287,8 @@ export function describeHousingMarket(state: GameState): SegmentDemand[] {
     const compatible = stock.filter((unit) => isCompatible(unit, segment));
     const vacant = compatible.reduce((total, unit) => total + unit.vacantSlots, 0);
     const affordable = compatible.reduce(
-      (total, unit) => total + (unit.askingRent <= segment.rentBudget ? unit.vacantSlots : 0),
+      (total, unit) =>
+        total + (unit.askingRent <= effectiveRentBudget(state, segment) ? unit.vacantSlots : 0),
       0,
     );
     return {
@@ -463,10 +420,10 @@ function admitArrivals(state: GameState, stock: readonly StockUnit[], prng: Xosh
       (total, unit) => total + (remaining.get(unit.building.id) ?? 0),
       0,
     );
+    const budget = effectiveRentBudget(state, segment);
     const affordable = compatible.reduce(
       (total, unit) =>
-        total +
-        (unit.askingRent <= segment.rentBudget ? (remaining.get(unit.building.id) ?? 0) : 0),
+        total + (unit.askingRent <= budget ? (remaining.get(unit.building.id) ?? 0) : 0),
       0,
     );
     const population = segmentPopulation(state, segment);
@@ -480,7 +437,7 @@ function admitArrivals(state: GameState, stock: readonly StockUnit[], prng: Xosh
     let pending = arrivals;
     for (const unit of compatible) {
       if (pending === 0) break;
-      if (unit.askingRent > segment.rentBudget) continue;
+      if (unit.askingRent > budget) continue;
       const slots = remaining.get(unit.building.id) ?? 0;
       if (slots === 0) continue;
       const taken = Math.min(slots, pending);
@@ -489,15 +446,14 @@ function admitArrivals(state: GameState, stock: readonly StockUnit[], prng: Xosh
     }
     for (let index = 0; index < arrivals; index += 1) {
       const jitter = prng.nextInt(0, 2 * HOUSING_MARKET_POLICY.budgetJitterPercent + 1);
-      const budget = Math.round(
-        (segment.rentBudget * (100 - HOUSING_MARKET_POLICY.budgetJitterPercent + jitter)) / 100,
-      );
+      const factor = 100 - HOUSING_MARKET_POLICY.budgetJitterPercent + jitter;
+      const tenantBudget = Math.round((budget * factor) / 100);
       ordinal += 1;
       const tenantId = parseTenantId(`tenant_${String(ordinal).padStart(8, "0")}`);
       const tenant: Tenant = {
         id: tenantId,
         profile: segment.id,
-        budget: parseMoney(budget),
+        budget: parseMoney(tenantBudget),
         preferredBuildingType: segment.preferredBuildingTypes[0]!,
         activeContractBuildingId: null,
         satisfaction: 60,
@@ -506,6 +462,7 @@ function admitArrivals(state: GameState, stock: readonly StockUnit[], prng: Xosh
         size: TENANT_PROFILE_DEFAULTS[segment.id].size,
         segmentId: segment.id,
         searchMonths: 0,
+        incomeFactorPercent: factor,
         origin: "market",
       };
       state.phase2.tenants.set(tenantId, tenant);

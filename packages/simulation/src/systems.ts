@@ -34,6 +34,7 @@ import {
   REPAIR_COST,
 } from "./game-data";
 import type { GameState } from "./state";
+import { runEmployment } from "./employment";
 import { askingRentFor, runHousingMarket } from "./housing-market";
 import { Xoshiro128ss } from "./prng";
 import { findDeterministicPath } from "./navigation";
@@ -1264,6 +1265,8 @@ export const PRODUCT_SYSTEMS: readonly ProductSystem[] = [
   { name: "insurance", run: settleInsurance },
   { name: "policy", run: updatePolicyAndHeat },
   { name: "rival", run: rivalAction },
+  // El empleo fija el nivel de ingresos del mes antes de que vivienda decida qué es asequible.
+  { name: "employment", run: runEmployment },
   // El mercado cierra el mes después de la renta: el precio que se descubre hoy se cobra el mes
   // siguiente, nunca en el mismo cierre en el que se observa la vacancia.
   { name: "housing", run: runHousingMarket },

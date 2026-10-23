@@ -83,6 +83,7 @@ function addTenant(state: GameState, id: number, overrides: Partial<Tenant> = {}
     size: 3,
     segmentId: "household",
     searchMonths: 0,
+    incomeFactorPercent: 100,
     origin: "authored",
     ...overrides,
   };

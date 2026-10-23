@@ -22,6 +22,7 @@ import {
   taxationStateSchema,
   maintenanceStateSchema,
   housingMarketStateSchema,
+  employmentStateSchema,
   insuranceContractSchema,
   insuranceClaimSchema,
   permittingStateSchema,
@@ -144,6 +145,7 @@ export type SnapshotV1 = {
     taxation?: import("./domain").TaxationState;
     maintenance?: import("./domain").MaintenanceState;
     housingMarket?: import("./domain").HousingMarketState;
+    employment?: import("./domain").EmploymentState;
     insurance?: import("./domain").InsuranceState;
     permitting?: import("./domain").PermittingState;
     insolvency?: import("./domain").InsolvencyState;
@@ -241,6 +243,7 @@ const phase2SnapshotSchema = z.object({
   taxation: taxationStateSchema.optional(),
   maintenance: maintenanceStateSchema.optional(),
   housingMarket: housingMarketStateSchema.optional(),
+  employment: employmentStateSchema.optional(),
   insurance: z
     .object({
       contractsByBuildingId: z.record(z.string(), insuranceContractSchema),

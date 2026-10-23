@@ -366,3 +366,28 @@ evidencia económica se comparó observable por observable antes y después en l
 conservación: los diez son idénticos, y los digestos canónicos se regeneran sólo porque el estado
 persistido gana campos. Ver `docs/engineering/adr/D-066-mercado-de-vivienda-segmentado.md` y
 `docs/execution/phase-4/wp4-3-housing-market-2026-10-23.md`.
+
+## D-067 — Mercado laboral agregado, salario y capacidad de alquiler
+Estado: aceptada el 2026-10-23 para WP4.4.
+El empleo deja de ser un adorno del atractivo y entra en la capacidad de alquiler. Los puestos son
+cuatro por planta productiva operativa; los trabajadores son los hogares contratados, un hogar por
+trabajador; los talleres no contratan porque su ocupante es autónomo. No hay asignación
+individuo-puesto. El índice salarial parte de 100, se mueve ±3 puntos por mes según
+`puestos / trabajadores − 1` con sensibilidad 6 y queda acotado en [90, 120]. Los hogares combinan
+empleo con una economía informal que cubre el 85 % de la renta sin puesto; artesanos y comerciantes
+son autónomos y siguen el nivel salarial. El índice de ingresos resultante, acotado en [60, 130],
+multiplica el presupuesto base de renta de cada segmento (`effectiveRentBudget`), que se recalibra a
+260/360/380 para que la renta mínima siga siendo asequible en el suelo de ingresos. En cada cierre
+mensual `employment` corre justo antes de `housing`: el ingreso del mes decide qué es asequible
+antes de que el mercado admita o coloque a nadie. Sólo los hogares creados por el mercado
+recalculan su presupuesto (`incomeFactorPercent`); los autorados conservan el de escenario porque
+son fixtures de Gate 2 y Fase 3. Un edificio productivo que deja de estar operativo pierde sus
+puestos en el cierre siguiente, y con ellos suben el paro, baja el salario, cae el ingreso y sube la
+vacancia: el cierre de planta se propaga a la demanda residencial sin una regla de evento. Los
+indicadores de puestos, puestos por sector, trabajadores, paro, salario e ingreso por segmento se
+publican en la proyección y en el panel. La escasez de mano de obra no reduce todavía la producción:
+el efecto sobre la rentabilidad es indirecto, vía renta y ocupación. La evidencia económica se
+comparó de nuevo observable por observable en los diez casos de conservación y sigue idéntica; los
+digestos canónicos se regeneran sólo porque el estado gana `phase2.employment` e
+`incomeFactorPercent`. Ver `docs/engineering/adr/D-067-empleo-agregado-y-capacidad-de-alquiler.md` y
+`docs/execution/phase-4/wp4-4-employment-2026-10-23.md`.

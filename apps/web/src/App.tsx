@@ -1201,6 +1201,13 @@ export function App() {
                   obras activas
                 </p>
                 <p>
+                  <strong>Empleo:</strong> {economy.employment.jobs} puestos ·{" "}
+                  {economy.employment.workers} trabajadores · paro{" "}
+                  {100 - economy.employment.employmentRatePercent}% · salario índice{" "}
+                  {economy.employment.salaryIndexPercent}% · ingreso hogares{" "}
+                  {economy.employment.incomeIndexPercentBySegment.household ?? 100}%
+                </p>
+                <p>
                   <strong>Mercado de vivienda:</strong> índice de renta patio{" "}
                   {economy.housingMarket.rentIndexPercentByBuildingType.courtyard_home ?? 100}% ·
                   taller {economy.housingMarket.rentIndexPercentByBuildingType.workshop ?? 100}% ·

@@ -30,3 +30,4 @@ Una decisión aceptada sólo se modifica mediante un ADR posterior que la sustit
 - [D-064 — Generación procedural de distritos con anclas autoradas](D-064-generacion-procedural-de-distritos.md)
 - [D-065 — Coste del tick medido por sistema; LOD espacial documentado pero latente](D-065-coste-del-tick-y-lod-latente.md)
 - [D-066 — Mercado de vivienda segmentado con precio descubierto por vacancia](D-066-mercado-de-vivienda-segmentado.md)
+- [D-067 — Mercado laboral agregado, salario y capacidad de alquiler](D-067-empleo-agregado-y-capacidad-de-alquiler.md)

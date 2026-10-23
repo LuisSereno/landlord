@@ -10,7 +10,7 @@ Fecha de consolidación: 2026-10-23.
 - Plan maestro de ejecución por fases: sí.
 - Plantilla de microtareas para agentes de baja ambigüedad: sí.
 - Fase 0 de preparación: cerrada el 2026-10-20.
-- ADRs D-046 a D-066: aceptados.
+- ADRs D-046 a D-067: aceptados.
 - Charter, contratos, benchmark y backlog inicial de Gate 1: listos.
 - Historias del prototipo: sí.
 - Riesgos: sí.
@@ -68,7 +68,7 @@ Estos sistemas están documentados, no implementados.
 - tests: sí, smoke Chromium en CI, contratos, schemas, referencias de snapshot, arquitectura de
   fronteras, bucle económico determinista, generación y jugabilidad de distritos con fixtures de
   hash, digestos dorados de conservación del tick, mercado de vivienda segmentado con índice de
-  renta y diagnóstico de sesión acotado.
+  renta, mercado laboral agregado conectado a la asequibilidad y diagnóstico de sesión acotado.
 
 ## Fase
 Gate 1 aprobado `GO` el 2026-10-21; la evidencia técnica de G1-RW-01..04 quedó reunida.
@@ -90,8 +90,11 @@ sublineal de barrio a ciudad (exponente 0,74 en la media) y LOD agregado documen
 porque ningún sistema excede los umbrales en la ciudad máxima que permite el mapa de 64×64.
 WP4.3 (oferta y demanda de vivienda) quedó cerrado el 2026-10-23 bajo D-066: demanda segmentada,
 deseabilidad por parcela, vacancia y movilidad, índice de renta descubierto por vacancia y acotado,
-y conservación observable de toda la evidencia económica anterior. El siguiente es WP4.4 (empleo y
-actividad económica). El baseline
+y conservación observable de toda la evidencia económica anterior.
+WP4.4 (empleo y actividad económica) quedó cerrado el 2026-10-23 bajo D-067: mercado laboral
+agregado con puestos por planta operativa, índice salarial acotado y propagado al ingreso por
+segmento y al presupuesto de renta de los hogares de mercado. El siguiente es WP4.5 (presupuesto
+municipal). El baseline
 económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas
 asignables, edificios multiunidad, presupuesto y satisfacción de inquilinos, mantenimiento, rival

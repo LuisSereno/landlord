@@ -118,6 +118,7 @@ export const PROTOTYPE_TENANTS: Tenant[] = [
     size: 3,
     segmentId: "household",
     searchMonths: 0,
+    incomeFactorPercent: 100,
     origin: "authored",
   },
   {
@@ -132,6 +133,7 @@ export const PROTOTYPE_TENANTS: Tenant[] = [
     size: 2,
     segmentId: "maker",
     searchMonths: 0,
+    incomeFactorPercent: 100,
     origin: "authored",
   },
   {
@@ -146,6 +148,7 @@ export const PROTOTYPE_TENANTS: Tenant[] = [
     size: 2,
     segmentId: "shopkeeper",
     searchMonths: 0,
+    incomeFactorPercent: 100,
     origin: "authored",
   },
   {
@@ -160,6 +163,7 @@ export const PROTOTYPE_TENANTS: Tenant[] = [
     size: 3,
     segmentId: "household",
     searchMonths: 0,
+    incomeFactorPercent: 100,
     origin: "authored",
   },
 ];

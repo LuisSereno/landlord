@@ -27,6 +27,7 @@ import {
   regulatoryRiskPercent,
   MUNICIPAL_POLICY_CATALOG,
 } from "./game-data";
+import { describeEmployment } from "./employment";
 import {
   askingRentFor,
   describeHousingMarket,
@@ -560,8 +561,10 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                 size: tenant.size,
                 segmentId: tenant.segmentId,
                 searchMonths: tenant.searchMonths,
+                incomeFactorPercent: tenant.incomeFactorPercent,
                 origin: tenant.origin,
               })),
+            employment: describeEmployment(state),
             housingMarket: {
               lastSettlementTick: state.phase2.housingMarket.lastSettlementTick,
               arrivalsTotal: state.phase2.housingMarket.arrivalsTotal,

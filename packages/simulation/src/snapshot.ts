@@ -151,6 +151,7 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
         ...state.phase2.maintenance,
         backlogByBuildingId: { ...state.phase2.maintenance.backlogByBuildingId },
       },
+      employment: { ...state.phase2.employment },
       housingMarket: {
         ...state.phase2.housingMarket,
         rentIndexPercentByBuildingType: {
@@ -490,6 +491,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 size: tenant.size ?? TENANT_PROFILE_DEFAULTS[tenant.profile].size,
                 segmentId: tenant.segmentId ?? tenant.profile,
                 searchMonths: tenant.searchMonths ?? 0,
+                incomeFactorPercent: tenant.incomeFactorPercent ?? 100,
                 origin: tenant.origin ?? "authored",
               },
             ]),
@@ -575,6 +577,15 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 ),
               }
             : defaults.maintenance,
+          employment: snapshot.phase2.employment
+            ? {
+                ...snapshot.phase2.employment,
+                lastSettlementTick:
+                  snapshot.phase2.employment.lastSettlementTick === null
+                    ? null
+                    : parseTick(snapshot.phase2.employment.lastSettlementTick),
+              }
+            : { ...defaults.employment },
           housingMarket: snapshot.phase2.housingMarket
             ? {
                 ...snapshot.phase2.housingMarket,

@@ -32,6 +32,7 @@ import {
   conditionRentMultiplierPercent,
   INSURANCE_POLICY,
   calculateInsuranceOffer,
+  permitRequirements,
 } from "./game-data";
 import { Xoshiro128ss } from "./prng";
 import { chooseInteractionCell, findDeterministicPath } from "./navigation";
@@ -169,6 +170,49 @@ function effectiveRent(state: GameState, building: import("@landlord/shared").Bu
   );
 }
 
+function issuePermit(
+  state: GameState,
+  parcel: import("@landlord/shared").Parcel,
+  buildingType: import("@landlord/shared").BuildingType,
+): "approved" | "denied" {
+  const existing = state.phase2.permitting.permitsByParcelId[parcel.id];
+  if (
+    existing?.status === "approved" &&
+    existing.buildingType === buildingType &&
+    (existing.expiresAtTick === null || existing.expiresAtTick > state.clock.tick)
+  )
+    return "approved";
+  if (existing?.status === "approved" && existing.expiresAtTick !== null)
+    existing.status = "expired";
+  const baseChance = state.phase2.permitting.approvalChanceByZoning[parcel.zoning];
+  const ordinanceModifier =
+    state.phase2.ordinance.status === "active"
+      ? state.phase2.ordinance.permitApprovalModifierPercent
+      : 0;
+  const chance = Math.max(0, Math.min(100, baseChance + ordinanceModifier));
+  let approved = chance >= 100;
+  if (chance > 0 && chance < 100) {
+    const generator = new Xoshiro128ss(state.seed);
+    generator.restoreState(state.prng);
+    approved = generator.nextInt(0, 100) < chance;
+    state.prng = generator.exportState();
+  }
+  state.phase2.permitting.permitsByParcelId[parcel.id] = {
+    parcelId: parcel.id,
+    buildingType,
+    authorityOrganizationId: MUNICIPALITY_ORGANIZATION_ID,
+    requirements: permitRequirements(parcel.zoning, buildingType),
+    zoningAtDecision: parcel.zoning,
+    status: approved ? "approved" : "denied",
+    requestedAtTick: parseTick(state.clock.tick),
+    decidedAtTick: parseTick(state.clock.tick),
+    expiresAtTick: approved
+      ? parseTick(state.clock.tick + state.phase2.permitting.validityTicks)
+      : null,
+  };
+  return approved ? "approved" : "denied";
+}
+
 export function debit(
   state: GameState,
   organizationId: import("@landlord/shared").OrganizationId,
@@ -236,6 +280,29 @@ export function dispatchProductCommand(
     return productEvent(state, command.commandId, "MaintenancePolicyChanged", {
       policy: command.payload.policy,
     });
+  }
+
+  if (command.type === "RequestPermit") {
+    const parcel = state.phase2.parcels.get(command.payload.parcelId);
+    const definition = BUILDING_DEFINITIONS[command.payload.buildingType];
+    if (!parcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
+    if (parcel.ownerOrganizationId !== command.actingAsOrganizationId)
+      return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
+    if (!definition.allowedZoning.includes(parcel.zoning))
+      return { accepted: false, code: "INVALID_ZONING" };
+    const status = issuePermit(state, parcel, command.payload.buildingType);
+    rememberProcessed(state, command.commandId);
+    return productEvent(
+      state,
+      command.commandId,
+      status === "approved" ? "PermitApproved" : "PermitDenied",
+      {
+        parcelId: parcel.id,
+        buildingType: command.payload.buildingType,
+        status,
+        expiresAtTick: state.phase2.permitting.permitsByParcelId[parcel.id]!.expiresAtTick,
+      },
+    );
   }
 
   if (command.type === "BuyInsurance") {
@@ -498,6 +565,15 @@ export function dispatchProductCommand(
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
     if (!definition.allowedZoning.includes(parcel.zoning))
       return { accepted: false, code: "INVALID_ZONING" };
+    const permit = state.phase2.permitting.permitsByParcelId[parcel.id];
+    if (
+      permit?.status !== "approved" ||
+      permit.buildingType !== command.payload.buildingType ||
+      (permit.expiresAtTick !== null && permit.expiresAtTick <= state.clock.tick)
+    ) {
+      if (issuePermit(state, parcel, command.payload.buildingType) !== "approved")
+        return { accepted: false, code: "PERMIT_DENIED" };
+    }
     if (
       parcel.buildingId ||
       [...state.phase2.constructionSites.values()].some((site) => site.parcelId === parcel.id)

@@ -74,6 +74,7 @@
 - execution/phase-3/wp3-5-taxation-2026-10-23.md — tasas de transmisión y propiedad, exenciones y liquidación.
 - execution/phase-3/wp3-6-maintenance-2026-10-23.md — mantenimiento automático, deterioro, política y backlog.
 - execution/phase-3/wp3-7-insurance-2026-10-23.md — aseguradora, coberturas, primas, claims y exclusiones.
+- execution/phase-3/wp3-8-zoning-permits-2026-10-23.md — zoning, usos permitidos, permisos y caducidad.
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

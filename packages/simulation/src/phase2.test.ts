@@ -1116,3 +1116,98 @@ describe("WP3.7 insurance and covered events", () => {
     expect(serializeSnapshot(restored)).toEqual(serializeSnapshot(state));
   });
 });
+
+describe("WP3.8 zoning and permits", () => {
+  it("exposes permitted uses and rejects an incompatible zoning request", () => {
+    const state = createInitialState(91);
+    const parcelId = parseParcelId("parcel_00000005");
+    dispatchProductCommand(state, command("permit-buy-industrial", "BuyParcel", { parcelId }));
+
+    expect(
+      dispatchProductCommand(
+        state,
+        command("permit-invalid-use", "RequestPermit", {
+          parcelId,
+          buildingType: "courtyard_home",
+        }),
+      ),
+    ).toEqual({ accepted: false, code: "INVALID_ZONING" });
+    expect(
+      createViewProjection(state, true).economy?.parcels.find((p) => p.id === parcelId),
+    ).toMatchObject({
+      zoning: "industrial",
+      permittedBuildingTypes: ["workshop", "cement_plant", "brickworks", "steelworks"],
+      regulatoryRiskPercent: 25,
+      permitStatus: null,
+    });
+  });
+
+  it("applies a municipal permit policy, denies deterministically, then approves and persists", () => {
+    const state = createInitialState(92);
+    const parcelId = parseParcelId("parcel_00000001");
+    dispatchProductCommand(state, command("permit-buy-residential", "BuyParcel", { parcelId }));
+    state.phase2.ordinance.status = "active";
+    state.phase2.ordinance.permitApprovalModifierPercent = -100;
+
+    expect(
+      dispatchProductCommand(
+        state,
+        command("permit-denied", "RequestPermit", {
+          parcelId,
+          buildingType: "courtyard_home",
+        }),
+      ),
+    ).toMatchObject({ accepted: true, event: { type: "PermitDenied" } });
+    expect(state.phase2.permitting.permitsByParcelId[parcelId]).toMatchObject({
+      status: "denied",
+      authorityOrganizationId: "org_00000004",
+      requirements: ["zoning:residential", "use:courtyard_home"],
+      expiresAtTick: null,
+    });
+    expect(
+      dispatchProductCommand(
+        state,
+        command("permit-construction-denied", "StartConstruction", {
+          parcelId,
+          buildingType: "courtyard_home",
+        }),
+      ),
+    ).toEqual({ accepted: false, code: "PERMIT_DENIED" });
+
+    state.phase2.ordinance.permitApprovalModifierPercent = 0;
+    expect(
+      dispatchProductCommand(
+        state,
+        command("permit-approved", "RequestPermit", {
+          parcelId,
+          buildingType: "courtyard_home",
+        }),
+      ),
+    ).toMatchObject({ accepted: true, event: { type: "PermitApproved" } });
+    const permit = state.phase2.permitting.permitsByParcelId[parcelId]!;
+    expect(permit).toMatchObject({
+      status: "approved",
+      expiresAtTick: GAME_MONTH_TICKS * 6,
+    });
+    expect(
+      dispatchProductCommand(
+        state,
+        command("permit-construction-approved", "StartConstruction", {
+          parcelId,
+          buildingType: "courtyard_home",
+        }),
+      ).accepted,
+    ).toBe(true);
+
+    state.clock = { ...state.clock, tick: permit.expiresAtTick! };
+    expect(
+      createViewProjection(state, true).economy?.parcels.find((p) => p.id === parcelId),
+    ).toMatchObject({
+      permitStatus: "expired",
+      permitExpiresAtTick: GAME_MONTH_TICKS * 6,
+    });
+    const restored = restoreStateFromSnapshot(serializeSnapshot(state));
+    expect(restored.phase2.permitting).toEqual(state.phase2.permitting);
+    expect(serializeSnapshot(restored)).toEqual(serializeSnapshot(state));
+  });
+});

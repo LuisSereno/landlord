@@ -61,6 +61,10 @@ export type ViewProjectionV1 = {
       productionSuitability: { cement: number; brick: number; steel: number };
       estimatedTransferTax: number;
       estimatedMonthlyPropertyTax: number;
+      permittedBuildingTypes: BuildingType[];
+      permitStatus: "approved" | "denied" | "expired" | null;
+      permitExpiresAtTick: Tick | null;
+      regulatoryRiskPercent: number;
     }>;
     cash: number;
     financials: {
@@ -213,6 +217,7 @@ export type ViewProjectionV1 = {
       approvalChancePercent: number;
       propertyTaxModifierPercent: number;
       transferTaxModifierPercent: number;
+      permitApprovalModifierPercent: number;
     };
     illegalRoute: {
       detectionChancePercent: number;
@@ -344,6 +349,10 @@ export const viewProjectionV1Schema = z.object({
           }),
           estimatedTransferTax: moneySchema,
           estimatedMonthlyPropertyTax: moneySchema,
+          permittedBuildingTypes: z.array(buildingTypeSchema),
+          permitStatus: z.enum(["approved", "denied", "expired"]).nullable(),
+          permitExpiresAtTick: tickSchema.nullable(),
+          regulatoryRiskPercent: z.number().int().min(0).max(100),
         }),
       ),
       cash: moneySchema,
@@ -534,6 +543,7 @@ export const viewProjectionV1Schema = z.object({
         approvalChancePercent: z.number().int().min(0).max(100),
         propertyTaxModifierPercent: z.number().int(),
         transferTaxModifierPercent: z.number().int(),
+        permitApprovalModifierPercent: z.number().int(),
       }),
       illegalRoute: z.object({
         detectionChancePercent: z.number().int().min(0).max(100),

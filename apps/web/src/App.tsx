@@ -490,6 +490,13 @@ export function App() {
                     {selectedParcel.estimatedTransferTax} u. · propiedad{" "}
                     {selectedParcel.estimatedMonthlyPropertyTax} u./mes
                   </p>
+                  <p className="selection-detail">
+                    <strong>Regulación:</strong> riesgo conocido{" "}
+                    {selectedParcel.regulatoryRiskPercent}% · usos{" "}
+                    {selectedParcel.permittedBuildingTypes.map(buildingLabel).join(", ")}
+                    {selectedParcel.permitStatus &&
+                      ` · permiso ${selectedParcel.permitStatus}${selectedParcel.permitExpiresAtTick !== null ? ` hasta tick ${selectedParcel.permitExpiresAtTick}` : ""}`}
+                  </p>
                   {selectedBuilding && (
                     <p className="selection-detail">
                       <strong>Mantenimiento:</strong> {selectedBuilding.maintenanceCost} u./mes ·

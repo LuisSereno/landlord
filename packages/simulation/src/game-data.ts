@@ -3,6 +3,8 @@ import {
   type Building,
   type BuildingDefinition,
   type InsuranceCoverage,
+  type BuildingType,
+  type Zoning,
   type Loan,
   type Parcel,
   type Tenant,
@@ -177,6 +179,7 @@ export const PROTOTYPE_ORDINANCE = {
   approvalChancePercent: 65,
   propertyTaxModifierPercent: 0,
   transferTaxModifierPercent: 0,
+  permitApprovalModifierPercent: 0,
 };
 
 export const ILLEGAL_ROUTE = {
@@ -252,6 +255,27 @@ export const INSURANCE_POLICY = {
     },
   },
 } as const;
+
+export const PERMIT_POLICY = {
+  validityTicks: GAME_MONTH_TICKS * 6,
+  approvalChanceByZoning: {
+    residential: 100,
+    mixed: 100,
+    industrial: 100,
+  } as Record<Zoning, number>,
+} as const;
+
+export function permitRequirements(zoning: Zoning, buildingType: BuildingType): string[] {
+  return [
+    `zoning:${zoning}`,
+    `use:${buildingType}`,
+    ...(zoning === "industrial" ? ["impact:industrial"] : []),
+  ];
+}
+
+export function regulatoryRiskPercent(zoning: Zoning): number {
+  return { residential: 5, mixed: 15, industrial: 25 }[zoning];
+}
 
 export function calculateInsuranceOffer(
   building: Pick<Building, "type" | "condition">,

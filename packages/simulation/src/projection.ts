@@ -25,6 +25,7 @@ import {
   conditionRentMultiplierPercent,
   INSURANCE_POLICY,
   calculateInsuranceOffer,
+  regulatoryRiskPercent,
 } from "./game-data";
 
 function currentPropertyTaxRateBps(state: GameState): number {
@@ -235,29 +236,44 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
             district: { id: state.phase2.district.id, name: state.phase2.district.name },
             parcels: [...state.phase2.parcels.values()]
               .sort((left, right) => left.id.localeCompare(right.id))
-              .map((parcel) => ({
-                id: parcel.id,
-                cell: { ...parcel.cell },
-                price: parcel.price,
-                zoning: parcel.zoning,
-                ownerOrganizationId: parcel.ownerOrganizationId,
-                buildingId: parcel.buildingId,
-                productionSuitability: {
-                  cement: parcel.productionSuitability?.cement ?? 100,
-                  brick: parcel.productionSuitability?.brick ?? 100,
-                  steel: parcel.productionSuitability?.steel ?? 100,
-                },
-                estimatedTransferTax: calculateTax(
-                  parcel.price,
-                  effectiveTaxRateBps(
-                    state.phase2.taxation.transferRateBps,
-                    state.phase2.ordinance.status === "active"
-                      ? state.phase2.ordinance.transferTaxModifierPercent
-                      : 0,
+              .map((parcel) => {
+                const permit = state.phase2.permitting.permitsByParcelId[parcel.id];
+                const permitStatus =
+                  permit?.status === "approved" &&
+                  permit.expiresAtTick !== null &&
+                  permit.expiresAtTick <= state.clock.tick
+                    ? "expired"
+                    : (permit?.status ?? null);
+                return {
+                  id: parcel.id,
+                  cell: { ...parcel.cell },
+                  price: parcel.price,
+                  zoning: parcel.zoning,
+                  ownerOrganizationId: parcel.ownerOrganizationId,
+                  buildingId: parcel.buildingId,
+                  productionSuitability: {
+                    cement: parcel.productionSuitability?.cement ?? 100,
+                    brick: parcel.productionSuitability?.brick ?? 100,
+                    steel: parcel.productionSuitability?.steel ?? 100,
+                  },
+                  permittedBuildingTypes: Object.values(BUILDING_DEFINITIONS)
+                    .filter((definition) => definition.allowedZoning.includes(parcel.zoning))
+                    .map((definition) => definition.type),
+                  permitStatus,
+                  permitExpiresAtTick: permit?.expiresAtTick ?? null,
+                  regulatoryRiskPercent: regulatoryRiskPercent(parcel.zoning),
+                  estimatedTransferTax: calculateTax(
+                    parcel.price,
+                    effectiveTaxRateBps(
+                      state.phase2.taxation.transferRateBps,
+                      state.phase2.ordinance.status === "active"
+                        ? state.phase2.ordinance.transferTaxModifierPercent
+                        : 0,
+                    ),
                   ),
-                ),
-                estimatedMonthlyPropertyTax: calculateTax(parcel.price, propertyTaxRateBps),
-              })),
+                  estimatedMonthlyPropertyTax: calculateTax(parcel.price, propertyTaxRateBps),
+                };
+              }),
             cash: state.phase2.balances.get(PLAYER_ORGANIZATION_ID) ?? 0,
             financials: createFinancialSummary(
               state,
@@ -459,6 +475,7 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
               approvalChancePercent: state.phase2.ordinance.approvalChancePercent,
               propertyTaxModifierPercent: state.phase2.ordinance.propertyTaxModifierPercent,
               transferTaxModifierPercent: state.phase2.ordinance.transferTaxModifierPercent,
+              permitApprovalModifierPercent: state.phase2.ordinance.permitApprovalModifierPercent,
             },
             illegalRoute: {
               detectionChancePercent: Math.min(

@@ -125,6 +125,8 @@ Pendiente para implementación del Vertical Slice:
 - WP3.7 tiene implementadas aseguradora independiente, coberturas comparables, primas inicial y
   recurrente, exclusiones, franquicia, límites, caducidad por impago, claims trazables y
   persistencia.
+- WP3.8 tiene implementados usos por zoning, riesgo regulatorio visible, permisos municipales,
+  aprobación/denegación determinista, caducidad, renovación automática de rutina y persistencia.
 - modelo de tipos;
 - loan-to-value;
 - garantías;

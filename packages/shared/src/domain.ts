@@ -383,6 +383,25 @@ export type Ordinance = {
   approvalChancePercent: number;
   propertyTaxModifierPercent: number;
   transferTaxModifierPercent: number;
+  permitApprovalModifierPercent: number;
+};
+
+export type PermitStatus = "approved" | "denied" | "expired";
+export type Permit = {
+  parcelId: ParcelId;
+  buildingType: BuildingType;
+  authorityOrganizationId: OrganizationId;
+  requirements: string[];
+  zoningAtDecision: Zoning;
+  status: PermitStatus;
+  requestedAtTick: Tick;
+  decidedAtTick: Tick;
+  expiresAtTick: Tick | null;
+};
+export type PermittingState = {
+  validityTicks: number;
+  approvalChanceByZoning: Record<Zoning, number>;
+  permitsByParcelId: Record<string, Permit>;
 };
 
 export type CrimeState = {
@@ -607,6 +626,27 @@ export const ordinanceSchema = z.object({
   approvalChancePercent: z.number().int().min(0).max(100).default(65),
   propertyTaxModifierPercent: z.number().int().default(0),
   transferTaxModifierPercent: z.number().int().default(0),
+  permitApprovalModifierPercent: z.number().int().default(0),
+});
+export const permitSchema = z.object({
+  parcelId: parcelIdSchema,
+  buildingType: buildingTypeSchema,
+  authorityOrganizationId: organizationIdSchema,
+  requirements: z.array(z.string().min(1).max(80)),
+  zoningAtDecision: zoningSchema,
+  status: z.enum(["approved", "denied", "expired"]),
+  requestedAtTick: tickSchema,
+  decidedAtTick: tickSchema,
+  expiresAtTick: tickSchema.nullable(),
+});
+export const permittingStateSchema = z.object({
+  validityTicks: z.number().int().positive(),
+  approvalChanceByZoning: z.object({
+    residential: z.number().int().min(0).max(100),
+    industrial: z.number().int().min(0).max(100),
+    mixed: z.number().int().min(0).max(100),
+  }),
+  permitsByParcelId: z.record(z.string(), permitSchema),
 });
 export const crimeStateSchema = z.object({
   heatByOrganizationId: z.record(z.string(), z.number().int().nonnegative()),
@@ -696,6 +736,10 @@ export type SetMaintenancePolicy = DomainCommandBase & {
   type: "SetMaintenancePolicy";
   payload: { policy: MaintenancePolicy };
 };
+export type RequestPermit = DomainCommandBase & {
+  type: "RequestPermit";
+  payload: { parcelId: ParcelId; buildingType: BuildingType };
+};
 export type BuyInsurance = DomainCommandBase & {
   type: "BuyInsurance";
   payload: { buildingId: BuildingId; coverage: InsuranceCoverage };
@@ -724,6 +768,7 @@ export type ProductCommand =
   | RequestLoan
   | AcceptLoanOffer
   | SetMaintenancePolicy
+  | RequestPermit
   | BuyInsurance
   | CancelInsurance;
 
@@ -817,6 +862,10 @@ export const setMaintenancePolicySchema = commandSchema(
   "SetMaintenancePolicy",
   z.object({ policy: z.enum(["balanced", "deferred"]) }),
 );
+export const requestPermitSchema = commandSchema(
+  "RequestPermit",
+  z.object({ parcelId: parcelIdSchema, buildingType: buildingTypeSchema }),
+);
 export const buyInsuranceSchema = commandSchema(
   "BuyInsurance",
   z.object({
@@ -848,6 +897,7 @@ export const productCommandSchema = z.discriminatedUnion("type", [
   requestLoanSchema,
   acceptLoanOfferSchema,
   setMaintenancePolicySchema,
+  requestPermitSchema,
   buyInsuranceSchema,
   cancelInsuranceSchema,
 ]);

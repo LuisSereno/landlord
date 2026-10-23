@@ -44,6 +44,7 @@ La cadena de valor que debe mantenerse visible es:
 | Evidencia | [phase-3/wp3-5-taxation-2026-10-23.md](phase-3/wp3-5-taxation-2026-10-23.md) | Tasas de transmisión y propiedad, exenciones y liquidación |
 | Evidencia | [phase-3/wp3-6-maintenance-2026-10-23.md](phase-3/wp3-6-maintenance-2026-10-23.md) | Mantenimiento automático, deterioro, política y backlog |
 | Evidencia | [phase-3/wp3-7-insurance-2026-10-23.md](phase-3/wp3-7-insurance-2026-10-23.md) | Aseguradora, coberturas, primas, claims y exclusiones |
+| Evidencia | [phase-3/wp3-8-zoning-permits-2026-10-23.md](phase-3/wp3-8-zoning-permits-2026-10-23.md) | Zoning, usos permitidos, permisos y caducidad |
 
 ## Estado de las fases
 
@@ -52,7 +53,7 @@ La cadena de valor que debe mantenerse visible es:
 | Fase 0 | DONE — cerrada 2026-10-20 | Acta en `phase-0/PHASE-0-CLOSURE.md` |
 | Fase 1 / Gate 1 | REWORK — acta 2026-10-20 | Cerrar G1-RW-01..03 antes de aprobar |
 | Fase 2 / Gate 2 | CONDITIONAL GO — revisión 2026-10-23 | WP2.14 queda como condición y bloquea sólo arte representativo/WP3.13 |
-| Fase 3 / Vertical slice | IN_PROGRESS — WP3.2 a WP3.3 cerrados; WP3.4 CONDITIONAL DONE; WP3.5 a WP3.7 DONE | WP3.8 es el siguiente; WP3.13 espera WP2.14 |
+| Fase 3 / Vertical slice | IN_PROGRESS — WP3.2 a WP3.3 cerrados; WP3.4 CONDITIONAL DONE; WP3.5 a WP3.8 DONE | WP3.9 es el siguiente; WP3.13 espera WP2.14 |
 | Fase 4 / Alpha | No iniciada | Requiere vertical slice validado |
 | Fases 5-6 | No iniciadas | Requieren alcance comercial aprobado |
 | Fases 7-8 | Futuras, no comprometidas | Requieren validación explícita del producto base |

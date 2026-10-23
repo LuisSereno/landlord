@@ -64,6 +64,7 @@ const errorMessages: Record<ErrorCode, string> = {
   INSURANCE_BUILDING_INVALID: "El edificio no puede contratar esta cobertura.",
   INSURANCE_ALREADY_ACTIVE: "El edificio ya tiene una cobertura activa.",
   INSURANCE_NOT_FOUND: "El edificio no tiene una póliza activa que cancelar.",
+  PERMIT_DENIED: "El permiso municipal ha sido denegado para este uso y parcela.",
 } as const;
 
 const PROTOCOL_VERSION = protocolVersionSchema.parse(1);

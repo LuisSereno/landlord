@@ -162,6 +162,22 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
           ]),
         ),
       },
+      permitting: {
+        ...state.phase2.permitting,
+        approvalChanceByZoning: { ...state.phase2.permitting.approvalChanceByZoning },
+        permitsByParcelId: Object.fromEntries(
+          Object.entries(state.phase2.permitting.permitsByParcelId).map(([parcelId, permit]) => [
+            parcelId,
+            {
+              ...permit,
+              requirements: [...permit.requirements],
+              requestedAtTick: permit.requestedAtTick,
+              decidedAtTick: permit.decidedAtTick,
+              expiresAtTick: permit.expiresAtTick,
+            },
+          ]),
+        ),
+      },
     },
   };
 }
@@ -555,11 +571,37 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 ),
               }
             : defaults.insurance,
+          permitting: snapshot.phase2.permitting
+            ? {
+                ...snapshot.phase2.permitting,
+                approvalChanceByZoning: { ...snapshot.phase2.permitting.approvalChanceByZoning },
+                permitsByParcelId: Object.fromEntries(
+                  Object.entries(snapshot.phase2.permitting.permitsByParcelId).map(
+                    ([parcelId, permit]) => [
+                      parcelId,
+                      {
+                        ...permit,
+                        parcelId: parseParcelId(permit.parcelId),
+                        authorityOrganizationId: parseOrganizationId(
+                          permit.authorityOrganizationId,
+                        ),
+                        requestedAtTick: parseTick(permit.requestedAtTick),
+                        decidedAtTick: parseTick(permit.decidedAtTick),
+                        expiresAtTick:
+                          permit.expiresAtTick === null ? null : parseTick(permit.expiresAtTick),
+                        requirements: [...permit.requirements],
+                      },
+                    ],
+                  ),
+                ),
+              }
+            : defaults.permitting,
         }
       : defaults,
   };
   for (const [organizationId, balance] of defaults.balances) {
-    if (!state.phase2.balances.has(organizationId)) state.phase2.balances.set(organizationId, balance);
+    if (!state.phase2.balances.has(organizationId))
+      state.phase2.balances.set(organizationId, balance);
   }
   return state;
 }

@@ -148,6 +148,9 @@ producción, la extinción/reanudación y la conservación del incidente histór
 
 **Aceptación:** regulación crea oportunidades y restricciones sin ser una pantalla de papeleo repetitivo.
 
+**Estado 2026-10-23:** `DONE`. Evidencia en
+`docs/execution/phase-3/wp3-8-zoning-permits-2026-10-23.md`.
+
 ## WP3.9 — Subastas, ejecuciones e insolvencia inicial
 
 - Definir activos que llegan a subasta por reglas económicas.

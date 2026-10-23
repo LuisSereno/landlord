@@ -23,6 +23,7 @@ import {
   maintenanceStateSchema,
   insuranceContractSchema,
   insuranceClaimSchema,
+  permittingStateSchema,
   ordinanceSchema,
   parcelSchema,
   productionFacilitySchema,
@@ -139,6 +140,7 @@ export type SnapshotV1 = {
     taxation?: import("./domain").TaxationState;
     maintenance?: import("./domain").MaintenanceState;
     insurance?: import("./domain").InsuranceState;
+    permitting?: import("./domain").PermittingState;
   };
 };
 
@@ -228,6 +230,7 @@ const phase2SnapshotSchema = z.object({
       claimsByIncidentId: z.record(z.string(), insuranceClaimSchema),
     })
     .optional(),
+  permitting: permittingStateSchema.optional(),
 });
 
 export const snapshotV1Schema = z.object({

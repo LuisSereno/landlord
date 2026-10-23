@@ -17,7 +17,28 @@ import {
   REPAIR_COST,
   REPAIR_WORK_REQUIRED,
   calculateLoanPayment,
+  calculateTax,
+  effectiveTaxRateBps,
+  MUNICIPALITY_ORGANIZATION_ID,
 } from "./game-data";
+
+function currentPropertyTaxRateBps(state: GameState): number {
+  return effectiveTaxRateBps(
+    state.phase2.taxation.propertyRateBps,
+    state.phase2.ordinance.status === "active"
+      ? state.phase2.ordinance.propertyTaxModifierPercent
+      : 0,
+  );
+}
+
+function projectedMonthlyPropertyTax(
+  state: GameState,
+  rateBps = currentPropertyTaxRateBps(state),
+): number {
+  return [...state.phase2.parcels.values()]
+    .filter((parcel) => parcel.ownerOrganizationId === PLAYER_ORGANIZATION_ID)
+    .reduce((total, parcel) => total + calculateTax(parcel.price, rateBps), 0);
+}
 
 function createFinancialSummary(
   state: GameState,
@@ -96,7 +117,9 @@ function createFinancialSummary(
         ["active", "delinquent"].includes(loan.status),
     )
     .reduce((total, loan) => total + calculateLoanPayment(loan).total, 0);
-  const totalForecastExpenses = forecastExpenses + loanExpenses;
+  const propertyTaxRateBps = currentPropertyTaxRateBps(state);
+  const propertyTaxExpense = projectedMonthlyPropertyTax(state, propertyTaxRateBps);
+  const totalForecastExpenses = forecastExpenses + loanExpenses + propertyTaxExpense;
   const netIncome = periodIncome - periodExpenses;
   const netCashFlow = forecastIncome - totalForecastExpenses;
   const projectedCash = cash + netCashFlow;
@@ -124,6 +147,8 @@ function createFinancialSummary(
 
 export function createViewProjection(state: GameState, includeEconomy = false): ViewProjectionV1 {
   const playerInventory = state.phase2.inventories.get(PLAYER_ORGANIZATION_ID)!;
+  const propertyTaxRateBps = currentPropertyTaxRateBps(state);
+  const propertyTaxExpense = projectedMonthlyPropertyTax(state, propertyTaxRateBps);
   return {
     projectionVersion: 1,
     tick: parseTick(state.clock.tick),
@@ -169,6 +194,16 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                   brick: parcel.productionSuitability?.brick ?? 100,
                   steel: parcel.productionSuitability?.steel ?? 100,
                 },
+                estimatedTransferTax: calculateTax(
+                  parcel.price,
+                  effectiveTaxRateBps(
+                    state.phase2.taxation.transferRateBps,
+                    state.phase2.ordinance.status === "active"
+                      ? state.phase2.ordinance.transferTaxModifierPercent
+                      : 0,
+                  ),
+                ),
+                estimatedMonthlyPropertyTax: calculateTax(parcel.price, propertyTaxRateBps),
               })),
             cash: state.phase2.balances.get(PLAYER_ORGANIZATION_ID) ?? 0,
             financials: createFinancialSummary(
@@ -203,6 +238,22 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                   collateralParcelId: loan.collateralParcelId,
                   nextPaymentTick: loan.nextPaymentTick,
                 })),
+            },
+            taxation: {
+              beneficiaryOrganizationId: MUNICIPALITY_ORGANIZATION_ID,
+              propertyRateBps: propertyTaxRateBps,
+              transferRateBps: effectiveTaxRateBps(
+                state.phase2.taxation.transferRateBps,
+                state.phase2.ordinance.status === "active"
+                  ? state.phase2.ordinance.transferTaxModifierPercent
+                  : 0,
+              ),
+              nextSettlementTick: state.phase2.taxation.nextSettlementTick,
+              lastSettlementTick: state.phase2.taxation.lastSettlementTick,
+              totalCollected: state.phase2.taxation.totalCollected,
+              playerArrears:
+                state.phase2.taxation.arrearsByOrganizationId[PLAYER_ORGANIZATION_ID] ?? 0,
+              projectedMonthlyPropertyTax: propertyTaxExpense,
             },
             inventory: { ...playerInventory },
             production: [...state.phase2.facilities.values()]
@@ -348,6 +399,8 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
               rentModifierPercent: state.phase2.ordinance.rentModifierPercent,
               influenceRequired: state.phase2.ordinance.influenceRequired,
               approvalChancePercent: state.phase2.ordinance.approvalChancePercent,
+              propertyTaxModifierPercent: state.phase2.ordinance.propertyTaxModifierPercent,
+              transferTaxModifierPercent: state.phase2.ordinance.transferTaxModifierPercent,
             },
             illegalRoute: {
               detectionChancePercent: Math.min(

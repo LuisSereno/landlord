@@ -27,7 +27,8 @@ No es un remake de Constructor, Street Wars o Mob Rule. El objetivo es construir
 ## Estado
 
 Fase actual: Fase 3 / Vertical Slice en `IN_PROGRESS`, con Gate 2 en `CONDITIONAL GO`, WP3.2
-(producción física localizada), WP3.3 (baseline financiero) y el núcleo de WP3.4 (banca y deuda)
+(producción física localizada), WP3.3 (baseline financiero), el núcleo de WP3.4 (banca y deuda)
+y WP3.5 (fiscalidad prioritaria)
 cerrados para el slice funcional. La refinanciación/ejecución avanzada queda trazada a WP3.9.
 
 La estrategia recomendada es validar primero dos puertas:

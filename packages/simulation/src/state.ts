@@ -27,6 +27,7 @@ import {
   type PlayerIdentityId,
   type StructureId,
   type Loan,
+  type TaxationState,
 } from "@landlord/shared";
 import type { Money } from "@landlord/shared";
 import type {
@@ -46,7 +47,9 @@ import {
   PROTOTYPE_TENANTS,
   RIVAL_ORGANIZATION_ID,
   BANK_ORGANIZATION_ID,
+  MUNICIPALITY_ORGANIZATION_ID,
   LOAN_POLICY,
+  TAX_POLICY,
 } from "./game-data";
 
 export type EntityCounters = {
@@ -77,6 +80,7 @@ export type Phase2State = {
   tenants: Map<import("@landlord/shared").TenantId, Tenant>;
   transactions: EconomicTransaction[];
   loans: Map<import("@landlord/shared").LoanId, Loan>;
+  taxation: TaxationState;
   ordinance: Ordinance;
   crime: {
     heatByOrganizationId: Record<string, number>;
@@ -242,6 +246,7 @@ export function createInitialState(seed = 1): GameState {
       [controlledOrganizationId, { id: controlledOrganizationId, kind: "company" }],
       [independentOrganizationId, { id: independentOrganizationId, kind: "company" }],
       [BANK_ORGANIZATION_ID, { id: BANK_ORGANIZATION_ID, kind: "bank" }],
+      [MUNICIPALITY_ORGANIZATION_ID, { id: MUNICIPALITY_ORGANIZATION_ID, kind: "municipality" }],
     ]),
     controlGrants: new Map([
       [
@@ -271,6 +276,7 @@ export function createInitialState(seed = 1): GameState {
         [PLAYER_ORGANIZATION_ID, parseMoney(12000)],
         [RIVAL_ORGANIZATION_ID, parseMoney(12000)],
         [BANK_ORGANIZATION_ID, LOAN_POLICY.initialBankBalance],
+        [MUNICIPALITY_ORGANIZATION_ID, parseMoney(0)],
       ]),
       inventories: new Map([
         [PLAYER_ORGANIZATION_ID, playerInventory],
@@ -284,6 +290,15 @@ export function createInitialState(seed = 1): GameState {
       tenants,
       transactions: [],
       loans: new Map(),
+      taxation: {
+        propertyRateBps: TAX_POLICY.propertyRateBps,
+        transferRateBps: TAX_POLICY.transferRateBps,
+        nextSettlementTick: parseTick(TAX_POLICY.settlementPeriodTicks),
+        lastSettlementTick: null,
+        totalCollected: parseMoney(0),
+        exemptOrganizationIds: [...TAX_POLICY.exemptOrganizationIds],
+        arrearsByOrganizationId: {},
+      },
       ordinance: { ...PROTOTYPE_ORDINANCE },
       crime: {
         heatByOrganizationId: {

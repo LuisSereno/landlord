@@ -305,6 +305,13 @@ export function App() {
                     <> · faltan {economy.financials.forecast.shortfall} u.</>
                   )}
                 </p>
+                <p>
+                  <strong>Fiscalidad:</strong> propiedad {economy.taxation.propertyRateBps / 100}%
+                  anual · próxima liquidación en tick {economy.taxation.nextSettlementTick} ·
+                  previsión {economy.taxation.projectedMonthlyPropertyTax} u./mes
+                  {economy.taxation.playerArrears > 0 &&
+                    ` · atrasos ${economy.taxation.playerArrears} u.`}
+                </p>
               </div>
             </details>
           )}
@@ -437,6 +444,11 @@ export function App() {
                       {selectedParcel.productionSuitability.steel}%
                     </span>
                   </div>
+                  <p className="selection-detail">
+                    <strong>Cargas estimadas:</strong> transmisión{" "}
+                    {selectedParcel.estimatedTransferTax} u. · propiedad{" "}
+                    {selectedParcel.estimatedMonthlyPropertyTax} u./mes
+                  </p>
                   {selectedOwnedSite && (
                     <div className="construction-options">
                       <p>

@@ -173,6 +173,8 @@ export const PROTOTYPE_ORDINANCE = {
   rentModifierPercent: -10,
   influenceRequired: 1,
   approvalChancePercent: 65,
+  propertyTaxModifierPercent: 0,
+  transferTaxModifierPercent: 0,
 };
 
 export const ILLEGAL_ROUTE = {
@@ -204,6 +206,23 @@ export const FACILITY_CONFIG = {
 export const PLAYER_ORGANIZATION_ID = parseOrganizationId("org_00000001");
 export const RIVAL_ORGANIZATION_ID = parseOrganizationId("org_00000002");
 export const BANK_ORGANIZATION_ID = parseOrganizationId("org_00000003");
+export const MUNICIPALITY_ORGANIZATION_ID = parseOrganizationId("org_00000004");
+
+export const TAX_POLICY = {
+  propertyRateBps: 120,
+  transferRateBps: 150,
+  beneficiaryOrganizationId: MUNICIPALITY_ORGANIZATION_ID,
+  settlementPeriodTicks: GAME_MONTH_TICKS,
+  exemptOrganizationIds: [] as const,
+} as const;
+
+export function effectiveTaxRateBps(baseRateBps: number, modifierPercent: number): number {
+  return Math.max(0, Math.round((baseRateBps * (100 + modifierPercent)) / 100));
+}
+
+export function calculateTax(base: number, rateBps: number): number {
+  return Math.ceil((base * rateBps) / 10_000);
+}
 
 export const LOAN_POLICY = {
   minimumPrincipal: parseMoney(500),

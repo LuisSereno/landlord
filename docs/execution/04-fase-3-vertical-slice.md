@@ -102,6 +102,9 @@ producción, la extinción/reanudación y la conservación del incidente histór
 
 **Aceptación:** la fiscalidad cambia rentabilidad/localización sin añadir clics rutinarios.
 
+**Estado 2026-10-23:** `DONE`. Evidencia en
+`docs/execution/phase-3/wp3-5-taxation-2026-10-23.md`.
+
 ## WP3.6 — Mantenimiento y deterioro
 
 - Definir condición de activos y curva data-driven.

@@ -55,7 +55,7 @@ describe("PlaceTestStructure command", () => {
       () => ({ ...command("command-2"), issuedByPersonId: parsePersonId("person_00000002") }),
       "PERSON_NOT_FOUND",
     ],
-    ["unknown organization", () => command("command-3", "org_00000004"), "ORGANIZATION_NOT_FOUND"],
+    ["unknown organization", () => command("command-3", "org_00000005"), "ORGANIZATION_NOT_FOUND"],
     ["without control", () => command("command-4", "org_00000002"), "ACTOR_NOT_AUTHORIZED"],
     [
       "out of bounds",

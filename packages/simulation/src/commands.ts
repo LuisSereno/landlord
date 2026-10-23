@@ -26,6 +26,9 @@ import {
   BANK_ORGANIZATION_ID,
   LOAN_POLICY,
   GAME_MONTH_TICKS,
+  effectiveTaxRateBps,
+  calculateTax,
+  MUNICIPALITY_ORGANIZATION_ID,
 } from "./game-data";
 import { Xoshiro128ss } from "./prng";
 import { chooseInteractionCell, findDeterministicPath } from "./navigation";
@@ -389,8 +392,24 @@ export function dispatchProductCommand(
     const parcel = state.phase2.parcels.get(command.payload.parcelId);
     if (!parcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
     if (parcel.ownerOrganizationId) return { accepted: false, code: "PARCEL_UNAVAILABLE" };
-    if (!debit(state, command.actingAsOrganizationId, parcel.price, "parcel_purchase", parcel.id)) {
+    const transferRateBps = effectiveTaxRateBps(
+      state.phase2.taxation.transferRateBps,
+      state.phase2.ordinance.status === "active"
+        ? state.phase2.ordinance.transferTaxModifierPercent
+        : 0,
+    );
+    const transferTax = parseMoney(calculateTax(parcel.price, transferRateBps));
+    const balance = state.phase2.balances.get(command.actingAsOrganizationId) ?? 0;
+    if (balance < parcel.price + transferTax) {
       return { accepted: false, code: "INSUFFICIENT_FUNDS" };
+    }
+    debit(state, command.actingAsOrganizationId, parcel.price, "parcel_purchase", parcel.id);
+    if (transferTax > 0) {
+      debit(state, command.actingAsOrganizationId, transferTax, "property_transfer_tax", parcel.id);
+      credit(state, MUNICIPALITY_ORGANIZATION_ID, transferTax, "property_transfer_tax", parcel.id);
+      state.phase2.taxation.totalCollected = parseMoney(
+        state.phase2.taxation.totalCollected + transferTax,
+      );
     }
     parcel.ownerOrganizationId = command.actingAsOrganizationId;
     rememberProcessed(state, command.commandId);
@@ -398,6 +417,7 @@ export function dispatchProductCommand(
       parcelId: parcel.id,
       ownerOrganizationId: parcel.ownerOrganizationId,
       price: parcel.price,
+      transferTax,
     });
   }
 

@@ -57,10 +57,10 @@ describe("simulation view projection", () => {
     });
     const afterPurchase = createViewProjection(state, true);
     expect(afterPurchase.economy?.financials).toMatchObject({
-      assets: 14560,
+      assets: 14548,
       liabilities: 0,
-      equity: 14560,
-      period: { expenses: 800, netIncome: -800, cashFlow: -800 },
+      equity: 14548,
+      period: { expenses: 812, netIncome: -812, cashFlow: -812 },
     });
     expect(() => viewProjectionV1Schema.parse(afterPurchase)).not.toThrow();
   });
@@ -122,7 +122,7 @@ describe("simulation view projection", () => {
       liabilities: 600,
       equity: 14860,
       period: { income: 0 },
-      forecast: { expenses: 51 },
+      forecast: { expenses: 62 },
     });
     expect(economy.banking.loans[0]).toMatchObject({
       status: "active",

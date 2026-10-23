@@ -137,6 +137,11 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
         .map((incident) => ({ ...incident, casualties: { ...incident.casualties } }))
         .sort(compareId),
       loans: [...state.phase2.loans.values()].map((loan) => ({ ...loan })).sort(compareId),
+      taxation: {
+        ...state.phase2.taxation,
+        exemptOrganizationIds: [...state.phase2.taxation.exemptOrganizationIds],
+        arrearsByOrganizationId: { ...state.phase2.taxation.arrearsByOrganizationId },
+      },
     },
   };
 }
@@ -454,6 +459,24 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 ]),
               )
             : new Map(),
+          taxation: snapshot.phase2.taxation
+            ? {
+                ...snapshot.phase2.taxation,
+                nextSettlementTick: parseTick(snapshot.phase2.taxation.nextSettlementTick),
+                lastSettlementTick:
+                  snapshot.phase2.taxation.lastSettlementTick === null
+                    ? null
+                    : parseTick(snapshot.phase2.taxation.lastSettlementTick),
+                totalCollected: parseMoney(snapshot.phase2.taxation.totalCollected),
+                exemptOrganizationIds:
+                  snapshot.phase2.taxation.exemptOrganizationIds.map(parseOrganizationId),
+                arrearsByOrganizationId: Object.fromEntries(
+                  Object.entries(snapshot.phase2.taxation.arrearsByOrganizationId).map(
+                    ([organizationId, amount]) => [organizationId, parseMoney(amount)],
+                  ),
+                ),
+              }
+            : defaults.taxation,
         }
       : defaults,
   };

@@ -68,6 +68,7 @@ export function canonicalizeState(state: GameState): string {
       crime: state.phase2.crime,
       influenceByOrganizationId: orderedMapValues(state.phase2.influenceByOrganizationId),
       loans: orderedMapValues(state.phase2.loans),
+      taxation: state.phase2.taxation,
     },
   });
 }

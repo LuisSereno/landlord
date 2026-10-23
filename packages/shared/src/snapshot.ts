@@ -19,6 +19,7 @@ import {
   districtSchema,
   economicTransactionSchema,
   loanSchema,
+  taxationStateSchema,
   ordinanceSchema,
   parcelSchema,
   productionFacilitySchema,
@@ -132,6 +133,7 @@ export type SnapshotV1 = {
     crews?: import("./domain").Crew[];
     incidents?: import("./domain").IncidentRecord[];
     loans?: import("./domain").Loan[];
+    taxation?: import("./domain").TaxationState;
   };
 };
 
@@ -213,6 +215,7 @@ const phase2SnapshotSchema = z.object({
   crews: z.array(crewSchema).optional(),
   incidents: z.array(incidentSchema).optional(),
   loans: z.array(loanSchema).optional(),
+  taxation: taxationStateSchema.optional(),
 });
 
 export const snapshotV1Schema = z.object({

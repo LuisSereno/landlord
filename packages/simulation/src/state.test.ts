@@ -11,7 +11,7 @@ describe("minimum simulation state", () => {
     const independentOrganizationId = parseOrganizationId("org_00000002");
 
     expect(state.persons.size).toBe(17);
-    expect(state.organizations.size).toBe(3);
+    expect(state.organizations.size).toBe(4);
     expect(hasOrganizationControl(state, personId, controlledOrganizationId)).toBe(true);
     expect(hasOrganizationControl(state, personId, independentOrganizationId)).toBe(false);
     expect(state.structures.size).toBe(0);

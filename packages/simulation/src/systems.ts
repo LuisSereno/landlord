@@ -19,6 +19,10 @@ import {
   BANK_ORGANIZATION_ID,
   LOAN_POLICY,
   calculateLoanPayment,
+  calculateTax,
+  effectiveTaxRateBps,
+  MUNICIPALITY_ORGANIZATION_ID,
+  TAX_POLICY,
 } from "./game-data";
 import type { GameState } from "./state";
 import { Xoshiro128ss } from "./prng";
@@ -346,6 +350,47 @@ function processLoanPayments(state: GameState): void {
     loan.nextPaymentTick =
       loan.status === "paid_off" ? null : parseTick(state.clock.tick + GAME_MONTH_TICKS);
   }
+}
+
+function settlePropertyTaxes(state: GameState): void {
+  if (state.clock.tick === 0 || state.clock.tick !== state.phase2.taxation.nextSettlementTick)
+    return;
+  const owners = new Map<import("@landlord/shared").OrganizationId, number>();
+  for (const parcel of [...state.phase2.parcels.values()].sort((a, b) =>
+    a.id.localeCompare(b.id),
+  )) {
+    if (!parcel.ownerOrganizationId) continue;
+    owners.set(
+      parcel.ownerOrganizationId,
+      (owners.get(parcel.ownerOrganizationId) ?? 0) + parcel.price,
+    );
+  }
+  const propertyRateBps = effectiveTaxRateBps(
+    state.phase2.taxation.propertyRateBps,
+    state.phase2.ordinance.status === "active"
+      ? state.phase2.ordinance.propertyTaxModifierPercent
+      : 0,
+  );
+  for (const [organizationId, taxableBase] of [...owners.entries()].sort(([a], [b]) =>
+    a.localeCompare(b),
+  )) {
+    if (new Set(state.phase2.taxation.exemptOrganizationIds).has(organizationId)) continue;
+    const currentTax = calculateTax(taxableBase, propertyRateBps);
+    const arrears = state.phase2.taxation.arrearsByOrganizationId[organizationId] ?? 0;
+    const due = parseMoney(currentTax + arrears);
+    if (due === 0) continue;
+    if (debit(state, organizationId, due, "property_tax", `month-${state.clock.tick}`)) {
+      credit(state, MUNICIPALITY_ORGANIZATION_ID, due, "property_tax", `month-${state.clock.tick}`);
+      state.phase2.taxation.totalCollected = parseMoney(state.phase2.taxation.totalCollected + due);
+      delete state.phase2.taxation.arrearsByOrganizationId[organizationId];
+    } else {
+      state.phase2.taxation.arrearsByOrganizationId[organizationId] = due;
+    }
+  }
+  state.phase2.taxation.lastSettlementTick = parseTick(state.clock.tick);
+  state.phase2.taxation.nextSettlementTick = parseTick(
+    state.clock.tick + TAX_POLICY.settlementPeriodTicks,
+  );
 }
 
 function updatePolicyAndHeat(state: GameState): void {
@@ -754,6 +799,7 @@ export function advanceProductSystems(state: GameState): void {
   progressProduction(state);
   collectRentAndAgeLeases(state);
   processLoanPayments(state);
+  settlePropertyTaxes(state);
   updatePolicyAndHeat(state);
   rivalAction(state);
   state.clock = { ...state.clock, tick: parseTick(state.clock.tick + 1) };

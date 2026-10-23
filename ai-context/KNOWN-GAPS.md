@@ -117,6 +117,8 @@ Pendiente para implementación del Vertical Slice:
 - WP3.4 tiene el núcleo de deuda implementado: banco independiente, garantía, oferta,
   desembolso, amortización, mora y persistencia. Refinanciación, ejecución y reestructuración
   avanzada siguen en WP3.9.
+- WP3.5 tiene implementadas las tasas prioritarias de transmisión y propiedad, tesorería
+  municipal, exenciones, modificadores de ordenanza, previsión y atrasos.
 - modelo de tipos;
 - loan-to-value;
 - garantías;

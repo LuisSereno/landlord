@@ -73,8 +73,8 @@ describe("Gate 2 product loop", () => {
     expect(state.phase2.parcels.get(parseParcelId("parcel_00000001"))?.ownerOrganizationId).toBe(
       organization,
     );
-    expect(state.phase2.balances.get(organization)).toBe(before - 900);
-    expect(state.phase2.transactions).toHaveLength(1);
+    expect(state.phase2.balances.get(organization)).toBe(before - 914);
+    expect(state.phase2.transactions).toHaveLength(3);
     expect(
       dispatchProductCommand(
         state,
@@ -726,7 +726,7 @@ describe("WP3.4 banking and debt", () => {
       outstandingPrincipal: 550,
       nextPaymentTick: GAME_MONTH_TICKS * 2,
     });
-    expect(state.phase2.balances.get(organization)).toBe(beforePayment - 51);
+    expect(state.phase2.balances.get(organization)).toBe(beforePayment - 75);
     const transactionCount = state.phase2.transactions.length;
     advanceProductSystems(state);
     expect(state.phase2.transactions).toHaveLength(transactionCount);
@@ -779,5 +779,78 @@ describe("WP3.4 banking and debt", () => {
     expect(restored.phase2.loans.get(parseLoanId("loan_00000001"))?.nextPaymentTick).toBe(
       GAME_MONTH_TICKS,
     );
+  });
+});
+
+describe("WP3.5 taxation and fees", () => {
+  it("charges a transfer fee immediately and property tax at the monthly settlement", () => {
+    const state = createInitialState(61);
+    const parcelId = parseParcelId("parcel_00000005");
+    state.phase2.rivalAi.cooldownUntilTick = parseTick(GAME_MONTH_TICKS * 2);
+    const before = state.phase2.balances.get(organization)!;
+    dispatchProductCommand(state, command("tax-buy", "BuyParcel", { parcelId }));
+
+    expect(state.phase2.balances.get(organization)).toBe(before - 812);
+    expect(state.phase2.balances.get(parseOrganizationId("org_00000004"))).toBe(12);
+    expect(state.phase2.taxation.totalCollected).toBe(12);
+
+    advanceToTick(state, GAME_MONTH_TICKS);
+    expect(state.phase2.balances.get(organization)).toBe(before - 822);
+    expect(state.phase2.balances.get(parseOrganizationId("org_00000004"))).toBe(22);
+    expect(state.phase2.taxation).toMatchObject({
+      lastSettlementTick: GAME_MONTH_TICKS,
+      nextSettlementTick: GAME_MONTH_TICKS * 2,
+      totalCollected: 22,
+    });
+  });
+
+  it("honors an explicit exemption without changing the transfer fee", () => {
+    const state = createInitialState(62);
+    const parcelId = parseParcelId("parcel_00000005");
+    state.phase2.rivalAi.cooldownUntilTick = parseTick(GAME_MONTH_TICKS * 2);
+    dispatchProductCommand(state, command("exempt-buy", "BuyParcel", { parcelId }));
+    state.phase2.taxation.exemptOrganizationIds.push(organization);
+    const balanceAfterPurchase = state.phase2.balances.get(organization)!;
+
+    advanceToTick(state, GAME_MONTH_TICKS);
+    expect(state.phase2.balances.get(organization)).toBe(balanceAfterPurchase);
+    expect(state.phase2.taxation.totalCollected).toBe(12);
+    expect(state.phase2.taxation.arrearsByOrganizationId[organization]).toBeUndefined();
+  });
+
+  it("exposes ordinance-adjusted rates before a decision is made", () => {
+    const state = createInitialState(63);
+    state.phase2.ordinance.status = "active";
+    state.phase2.ordinance.propertyTaxModifierPercent = -50;
+    state.phase2.ordinance.transferTaxModifierPercent = -50;
+    const projection = createViewProjection(state, true);
+
+    expect(projection.economy?.taxation).toMatchObject({
+      propertyRateBps: 60,
+      transferRateBps: 75,
+      projectedMonthlyPropertyTax: 0,
+    });
+    expect(projection.economy?.parcels[0]).toMatchObject({
+      estimatedTransferTax: 7,
+      estimatedMonthlyPropertyTax: 6,
+    });
+  });
+
+  it("restores a schedule immediately before settlement without double charging", () => {
+    const state = createInitialState(64);
+    const parcelId = parseParcelId("parcel_00000005");
+    dispatchProductCommand(state, command("near-due-buy", "BuyParcel", { parcelId }));
+    state.clock = {
+      ...state.clock,
+      tick: parseTick(state.phase2.taxation.nextSettlementTick - 1),
+    };
+    const restored = restoreStateFromSnapshot(serializeSnapshot(state));
+    advanceProductSystems(restored);
+    expect(restored.phase2.taxation.lastSettlementTick).toBeNull();
+    advanceProductSystems(restored);
+    const settledBalance = restored.phase2.balances.get(organization)!;
+    expect(restored.phase2.taxation.lastSettlementTick).toBe(GAME_MONTH_TICKS);
+    advanceProductSystems(restored);
+    expect(restored.phase2.balances.get(organization)).toBe(settledBalance);
   });
 });

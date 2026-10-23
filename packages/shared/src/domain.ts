@@ -52,7 +52,7 @@ export type Person = {
 
 export type Organization = {
   id: OrganizationId;
-  kind: "company" | "bank";
+  kind: "company" | "bank" | "municipality";
 };
 
 export type OrganizationControlGrant = {
@@ -77,7 +77,7 @@ export const personSchema = z.object({
 
 export const organizationSchema = z.object({
   id: organizationIdSchema,
-  kind: z.enum(["company", "bank"]),
+  kind: z.enum(["company", "bank", "municipality"]),
 });
 
 export const organizationControlGrantSchema = z.object({
@@ -317,6 +317,16 @@ export type Loan = {
   missedPayments: number;
 };
 
+export type TaxationState = {
+  propertyRateBps: number;
+  transferRateBps: number;
+  nextSettlementTick: Tick;
+  lastSettlementTick: Tick | null;
+  totalCollected: Money;
+  exemptOrganizationIds: OrganizationId[];
+  arrearsByOrganizationId: Record<string, Money>;
+};
+
 export type PolicyStatus = "proposed" | "approved" | "active" | "expired" | "rejected";
 export type Ordinance = {
   id: PolicyId;
@@ -329,6 +339,8 @@ export type Ordinance = {
   rentModifierPercent: number;
   influenceRequired: number;
   approvalChancePercent: number;
+  propertyTaxModifierPercent: number;
+  transferTaxModifierPercent: number;
 };
 
 export type CrimeState = {
@@ -497,6 +509,15 @@ export const loanSchema = z.object({
   nextPaymentTick: tickSchema.nullable(),
   missedPayments: z.number().int().nonnegative(),
 });
+export const taxationStateSchema = z.object({
+  propertyRateBps: z.number().int().nonnegative(),
+  transferRateBps: z.number().int().nonnegative(),
+  nextSettlementTick: tickSchema,
+  lastSettlementTick: tickSchema.nullable(),
+  totalCollected: moneySchema,
+  exemptOrganizationIds: z.array(organizationIdSchema),
+  arrearsByOrganizationId: z.record(z.string(), moneySchema),
+});
 export const ordinanceSchema = z.object({
   id: policyIdSchema,
   name: z.string().min(1).max(120),
@@ -508,6 +529,8 @@ export const ordinanceSchema = z.object({
   rentModifierPercent: z.number().int(),
   influenceRequired: z.number().int().nonnegative(),
   approvalChancePercent: z.number().int().min(0).max(100).default(65),
+  propertyTaxModifierPercent: z.number().int().default(0),
+  transferTaxModifierPercent: z.number().int().default(0),
 });
 export const crimeStateSchema = z.object({
   heatByOrganizationId: z.record(z.string(), z.number().int().nonnegative()),

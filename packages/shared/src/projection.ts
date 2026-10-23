@@ -59,6 +59,8 @@ export type ViewProjectionV1 = {
       ownerOrganizationId: OrganizationId | null;
       buildingId: BuildingId | null;
       productionSuitability: { cement: number; brick: number; steel: number };
+      estimatedTransferTax: number;
+      estimatedMonthlyPropertyTax: number;
     }>;
     cash: number;
     financials: {
@@ -99,6 +101,16 @@ export type ViewProjectionV1 = {
         collateralParcelId: ParcelId;
         nextPaymentTick: Tick | null;
       }>;
+    };
+    taxation: {
+      beneficiaryOrganizationId: OrganizationId;
+      propertyRateBps: number;
+      transferRateBps: number;
+      nextSettlementTick: Tick;
+      lastSettlementTick: Tick | null;
+      totalCollected: number;
+      playerArrears: number;
+      projectedMonthlyPropertyTax: number;
     };
     inventory: { cement: number; brick: number; steel: number; capacity: number };
     production: Array<{
@@ -197,6 +209,8 @@ export type ViewProjectionV1 = {
       rentModifierPercent: number;
       influenceRequired: number;
       approvalChancePercent: number;
+      propertyTaxModifierPercent: number;
+      transferTaxModifierPercent: number;
     };
     illegalRoute: {
       detectionChancePercent: number;
@@ -286,6 +300,8 @@ export const viewProjectionV1Schema = z.object({
             brick: z.number().int().positive(),
             steel: z.number().int().positive(),
           }),
+          estimatedTransferTax: moneySchema,
+          estimatedMonthlyPropertyTax: moneySchema,
         }),
       ),
       cash: moneySchema,
@@ -331,6 +347,16 @@ export const viewProjectionV1Schema = z.object({
             nextPaymentTick: tickSchema.nullable(),
           }),
         ),
+      }),
+      taxation: z.object({
+        beneficiaryOrganizationId: organizationIdSchema,
+        propertyRateBps: z.number().int().nonnegative(),
+        transferRateBps: z.number().int().nonnegative(),
+        nextSettlementTick: tickSchema,
+        lastSettlementTick: tickSchema.nullable(),
+        totalCollected: moneySchema,
+        playerArrears: moneySchema,
+        projectedMonthlyPropertyTax: moneySchema,
       }),
       inventory: z.object({
         cement: z.number().int().nonnegative(),
@@ -462,6 +488,8 @@ export const viewProjectionV1Schema = z.object({
         rentModifierPercent: z.number().int(),
         influenceRequired: z.number().int().nonnegative(),
         approvalChancePercent: z.number().int().min(0).max(100),
+        propertyTaxModifierPercent: z.number().int(),
+        transferTaxModifierPercent: z.number().int(),
       }),
       illegalRoute: z.object({
         detectionChancePercent: z.number().int().min(0).max(100),

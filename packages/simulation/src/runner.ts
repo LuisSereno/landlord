@@ -70,6 +70,7 @@ export function canonicalizeState(state: GameState): string {
       loans: orderedMapValues(state.phase2.loans),
       taxation: state.phase2.taxation,
       maintenance: state.phase2.maintenance,
+      insurance: state.phase2.insurance,
     },
   });
 }

@@ -231,6 +231,38 @@ export type ViewProjectionV1 = {
       repairCost: number;
       repairWorkRequired: number;
     };
+    insurance: {
+      insurerOrganizationId: OrganizationId;
+      offers: Array<{
+        buildingId: BuildingId;
+        coverage: "fire_basic" | "fire_plus";
+        premium: number;
+        coverageLimit: number;
+        deductible: number;
+        exclusions: Array<"sabotage" | "deterioration" | "blast">;
+      }>;
+      contracts: Array<{
+        buildingId: BuildingId;
+        coverage: "fire_basic" | "fire_plus";
+        premium: number;
+        coverageLimit: number;
+        deductible: number;
+        exclusions: Array<"sabotage" | "deterioration" | "blast">;
+        status: "active" | "lapsed" | "cancelled";
+        nextPremiumTick: Tick | null;
+        totalPremiumPaid: number;
+      }>;
+      claims: Array<{
+        incidentId: IncidentId;
+        buildingId: BuildingId;
+        coverage: "fire_basic" | "fire_plus" | null;
+        status: "paid" | "excluded" | "unpaid";
+        lossEstimate: number;
+        payout: number;
+        createdAtTick: Tick;
+        processedAtTick: Tick;
+      }>;
+    };
     recentTransactions: Array<{
       tick: Tick;
       cause: string;
@@ -521,6 +553,44 @@ export const viewProjectionV1Schema = z.object({
         backlog: moneySchema,
         repairCost: moneySchema,
         repairWorkRequired: z.number().int().positive(),
+      }),
+      insurance: z.object({
+        insurerOrganizationId: organizationIdSchema,
+        offers: z.array(
+          z.object({
+            buildingId: buildingIdSchema,
+            coverage: z.enum(["fire_basic", "fire_plus"]),
+            premium: moneySchema,
+            coverageLimit: moneySchema,
+            deductible: moneySchema,
+            exclusions: z.array(z.enum(["sabotage", "deterioration", "blast"])),
+          }),
+        ),
+        contracts: z.array(
+          z.object({
+            buildingId: buildingIdSchema,
+            coverage: z.enum(["fire_basic", "fire_plus"]),
+            premium: moneySchema,
+            coverageLimit: moneySchema,
+            deductible: moneySchema,
+            exclusions: z.array(z.enum(["sabotage", "deterioration", "blast"])),
+            status: z.enum(["active", "lapsed", "cancelled"]),
+            nextPremiumTick: tickSchema.nullable(),
+            totalPremiumPaid: moneySchema,
+          }),
+        ),
+        claims: z.array(
+          z.object({
+            incidentId: incidentIdSchema,
+            buildingId: buildingIdSchema,
+            coverage: z.enum(["fire_basic", "fire_plus"]).nullable(),
+            status: z.enum(["paid", "excluded", "unpaid"]),
+            lossEstimate: moneySchema,
+            payout: moneySchema,
+            createdAtTick: tickSchema,
+            processedAtTick: tickSchema,
+          }),
+        ),
       }),
       recentTransactions: z.array(
         z.object({

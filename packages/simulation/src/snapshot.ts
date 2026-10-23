@@ -146,6 +146,22 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
         ...state.phase2.maintenance,
         backlogByBuildingId: { ...state.phase2.maintenance.backlogByBuildingId },
       },
+      insurance: {
+        contractsByBuildingId: Object.fromEntries(
+          Object.entries(state.phase2.insurance.contractsByBuildingId).map(
+            ([buildingId, contract]) => [
+              buildingId,
+              { ...contract, exclusions: [...contract.exclusions] },
+            ],
+          ),
+        ),
+        claimsByIncidentId: Object.fromEntries(
+          Object.entries(state.phase2.insurance.claimsByIncidentId).map(([incidentId, claim]) => [
+            incidentId,
+            { ...claim },
+          ]),
+        ),
+      },
     },
   };
 }
@@ -496,8 +512,54 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 ),
               }
             : defaults.maintenance,
+          insurance: snapshot.phase2.insurance
+            ? {
+                contractsByBuildingId: Object.fromEntries(
+                  Object.entries(snapshot.phase2.insurance.contractsByBuildingId).map(
+                    ([buildingId, contract]) => [
+                      buildingId,
+                      {
+                        ...contract,
+                        buildingId: parseBuildingId(contract.buildingId),
+                        insurerOrganizationId: parseOrganizationId(contract.insurerOrganizationId),
+                        premium: parseMoney(contract.premium),
+                        coverageLimit: parseMoney(contract.coverageLimit),
+                        deductible: parseMoney(contract.deductible),
+                        purchasedAtTick: parseTick(contract.purchasedAtTick),
+                        lastPremiumTick: parseTick(contract.lastPremiumTick),
+                        nextPremiumTick:
+                          contract.nextPremiumTick === null
+                            ? null
+                            : parseTick(contract.nextPremiumTick),
+                        totalPremiumPaid: parseMoney(contract.totalPremiumPaid),
+                        exclusions: [...contract.exclusions],
+                      },
+                    ],
+                  ),
+                ),
+                claimsByIncidentId: Object.fromEntries(
+                  Object.entries(snapshot.phase2.insurance.claimsByIncidentId).map(
+                    ([incidentId, claim]) => [
+                      incidentId,
+                      {
+                        ...claim,
+                        incidentId: parseIncidentId(claim.incidentId),
+                        buildingId: parseBuildingId(claim.buildingId),
+                        lossEstimate: parseMoney(claim.lossEstimate),
+                        payout: parseMoney(claim.payout),
+                        createdAtTick: parseTick(claim.createdAtTick),
+                        processedAtTick: parseTick(claim.processedAtTick),
+                      },
+                    ],
+                  ),
+                ),
+              }
+            : defaults.insurance,
         }
       : defaults,
   };
+  for (const [organizationId, balance] of defaults.balances) {
+    if (!state.phase2.balances.has(organizationId)) state.phase2.balances.set(organizationId, balance);
+  }
   return state;
 }

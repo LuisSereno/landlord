@@ -21,6 +21,8 @@ import {
   loanSchema,
   taxationStateSchema,
   maintenanceStateSchema,
+  insuranceContractSchema,
+  insuranceClaimSchema,
   ordinanceSchema,
   parcelSchema,
   productionFacilitySchema,
@@ -136,6 +138,7 @@ export type SnapshotV1 = {
     loans?: import("./domain").Loan[];
     taxation?: import("./domain").TaxationState;
     maintenance?: import("./domain").MaintenanceState;
+    insurance?: import("./domain").InsuranceState;
   };
 };
 
@@ -219,6 +222,12 @@ const phase2SnapshotSchema = z.object({
   loans: z.array(loanSchema).optional(),
   taxation: taxationStateSchema.optional(),
   maintenance: maintenanceStateSchema.optional(),
+  insurance: z
+    .object({
+      contractsByBuildingId: z.record(z.string(), insuranceContractSchema),
+      claimsByIncidentId: z.record(z.string(), insuranceClaimSchema),
+    })
+    .optional(),
 });
 
 export const snapshotV1Schema = z.object({

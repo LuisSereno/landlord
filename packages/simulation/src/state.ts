@@ -29,6 +29,7 @@ import {
   type Loan,
   type TaxationState,
   type MaintenanceState,
+  type InsuranceState,
 } from "@landlord/shared";
 import type { Money } from "@landlord/shared";
 import type {
@@ -49,6 +50,7 @@ import {
   RIVAL_ORGANIZATION_ID,
   BANK_ORGANIZATION_ID,
   MUNICIPALITY_ORGANIZATION_ID,
+  INSURER_ORGANIZATION_ID,
   LOAN_POLICY,
   TAX_POLICY,
   MAINTENANCE_POLICY,
@@ -84,6 +86,7 @@ export type Phase2State = {
   loans: Map<import("@landlord/shared").LoanId, Loan>;
   taxation: TaxationState;
   maintenance: MaintenanceState;
+  insurance: InsuranceState;
   ordinance: Ordinance;
   crime: {
     heatByOrganizationId: Record<string, number>;
@@ -250,6 +253,7 @@ export function createInitialState(seed = 1): GameState {
       [independentOrganizationId, { id: independentOrganizationId, kind: "company" }],
       [BANK_ORGANIZATION_ID, { id: BANK_ORGANIZATION_ID, kind: "bank" }],
       [MUNICIPALITY_ORGANIZATION_ID, { id: MUNICIPALITY_ORGANIZATION_ID, kind: "municipality" }],
+      [INSURER_ORGANIZATION_ID, { id: INSURER_ORGANIZATION_ID, kind: "insurer" }],
     ]),
     controlGrants: new Map([
       [
@@ -280,6 +284,7 @@ export function createInitialState(seed = 1): GameState {
         [RIVAL_ORGANIZATION_ID, parseMoney(12000)],
         [BANK_ORGANIZATION_ID, LOAN_POLICY.initialBankBalance],
         [MUNICIPALITY_ORGANIZATION_ID, parseMoney(0)],
+        [INSURER_ORGANIZATION_ID, parseMoney(100000)],
       ]),
       inventories: new Map([
         [PLAYER_ORGANIZATION_ID, playerInventory],
@@ -307,6 +312,10 @@ export function createInitialState(seed = 1): GameState {
         nextSettlementTick: parseTick(MAINTENANCE_POLICY.settlementPeriodTicks),
         lastSettlementTick: null,
         backlogByBuildingId: {},
+      },
+      insurance: {
+        contractsByBuildingId: {},
+        claimsByIncidentId: {},
       },
       ordinance: { ...PROTOTYPE_ORDINANCE },
       crime: {

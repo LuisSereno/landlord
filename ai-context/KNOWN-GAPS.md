@@ -122,6 +122,9 @@ Pendiente para implementación del Vertical Slice:
 - WP3.6 tiene implementadas liquidación automática de mantenimiento, políticas equilibrada y
   diferida, backlog por edificio, deterioro progresivo, consecuencias en renta/valor/riesgo,
   integración con reparación, proyección y persistencia.
+- WP3.7 tiene implementadas aseguradora independiente, coberturas comparables, primas inicial y
+  recurrente, exclusiones, franquicia, límites, caducidad por impago, claims trazables y
+  persistencia.
 - modelo de tipos;
 - loan-to-value;
 - garantías;

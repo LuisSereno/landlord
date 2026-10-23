@@ -74,7 +74,7 @@ WP2.15 está cerrado y el benchmark/smoke pasan. La única condición es cerrar 
 producir arte representativo en WP3.13.
 
 ## Próximo objetivo
-Continuar con WP3.7 (seguros y eventos cubiertos), manteniendo la condición G3-04 de WP3.4
+Continuar con WP3.8 (zoning, licencias y permisos), manteniendo la condición G3-04 de WP3.4
 para WP3.9, además de cerrar
 WP2.14 antes de WP3.13. La prueba manual del responsable se conserva como evidencia
 cualitativa; la medición cuantitativa de 30–60 minutos sigue pendiente para balance financiero.

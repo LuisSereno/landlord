@@ -30,6 +30,8 @@ import {
   calculateTax,
   MUNICIPALITY_ORGANIZATION_ID,
   conditionRentMultiplierPercent,
+  INSURANCE_POLICY,
+  calculateInsuranceOffer,
 } from "./game-data";
 import { Xoshiro128ss } from "./prng";
 import { chooseInteractionCell, findDeterministicPath } from "./navigation";
@@ -233,6 +235,63 @@ export function dispatchProductCommand(
     rememberProcessed(state, command.commandId);
     return productEvent(state, command.commandId, "MaintenancePolicyChanged", {
       policy: command.payload.policy,
+    });
+  }
+
+  if (command.type === "BuyInsurance") {
+    const building = state.phase2.buildings.get(command.payload.buildingId);
+    if (
+      !building ||
+      building.ownerOrganizationId !== command.actingAsOrganizationId ||
+      building.state === "ruin"
+    )
+      return { accepted: false, code: "INSURANCE_BUILDING_INVALID" };
+    const currentContract = state.phase2.insurance.contractsByBuildingId[building.id];
+    if (currentContract?.status === "active" || currentContract?.status === "lapsed")
+      return { accepted: false, code: "INSURANCE_ALREADY_ACTIVE" };
+    const offer = calculateInsuranceOffer(building, command.payload.coverage);
+    if (
+      !debit(state, command.actingAsOrganizationId, offer.premium, "insurance_premium", building.id)
+    )
+      return { accepted: false, code: "INSUFFICIENT_FUNDS" };
+    credit(
+      state,
+      INSURANCE_POLICY.insurerOrganizationId,
+      offer.premium,
+      "insurance_premium",
+      building.id,
+    );
+    state.phase2.insurance.contractsByBuildingId[building.id] = {
+      buildingId: building.id,
+      insurerOrganizationId: INSURANCE_POLICY.insurerOrganizationId,
+      coverage: command.payload.coverage,
+      ...offer,
+      status: "active",
+      purchasedAtTick: parseTick(state.clock.tick),
+      lastPremiumTick: parseTick(state.clock.tick),
+      nextPremiumTick: parseTick(state.clock.tick + INSURANCE_POLICY.settlementPeriodTicks),
+      totalPremiumPaid: offer.premium,
+    };
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "InsurancePurchased", {
+      buildingId: building.id,
+      coverage: command.payload.coverage,
+      premium: offer.premium,
+    });
+  }
+
+  if (command.type === "CancelInsurance") {
+    const contract = state.phase2.insurance.contractsByBuildingId[command.payload.buildingId];
+    if (!contract || contract.status !== "active")
+      return { accepted: false, code: "INSURANCE_NOT_FOUND" };
+    const building = state.phase2.buildings.get(command.payload.buildingId);
+    if (!building || building.ownerOrganizationId !== command.actingAsOrganizationId)
+      return { accepted: false, code: "INSURANCE_BUILDING_INVALID" };
+    contract.status = "cancelled";
+    contract.nextPremiumTick = null;
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "InsuranceCancelled", {
+      buildingId: contract.buildingId,
     });
   }
 

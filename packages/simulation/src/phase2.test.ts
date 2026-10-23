@@ -980,3 +980,139 @@ describe("WP3.6 maintenance and deterioration", () => {
     expect(serializeSnapshot(restored)).toEqual(serializeSnapshot(state));
   });
 });
+
+describe("WP3.7 insurance and covered events", () => {
+  function addInsuranceBuilding(
+    state: ReturnType<typeof createInitialState>,
+    condition = 100,
+  ): ReturnType<typeof parseBuildingId> {
+    const buildingId = parseBuildingId("building_00000001");
+    const parcel = state.phase2.parcels.get(parseParcelId("parcel_00000001"))!;
+    parcel.ownerOrganizationId = organization;
+    parcel.buildingId = buildingId;
+    state.phase2.buildings.set(buildingId, {
+      id: buildingId,
+      parcelId: parcel.id,
+      ownerOrganizationId: organization,
+      productionFacilityId: null,
+      type: "courtyard_home",
+      level: 1,
+      condition,
+      tenantId: null,
+      tenantIds: [],
+      upgraded: false,
+      structuralIntegrity: 100,
+      state: "operational",
+      casualtiesTotal: { injured: 0, dead: 0 },
+    });
+    return buildingId;
+  }
+
+  function settleInsuranceAtMonth(state: ReturnType<typeof createInitialState>): void {
+    state.phase2.taxation.nextSettlementTick = parseTick(GAME_MONTH_TICKS * 2);
+    state.phase2.maintenance.nextSettlementTick = parseTick(GAME_MONTH_TICKS * 2);
+    state.phase2.rivalAi.cooldownUntilTick = parseTick(GAME_MONTH_TICKS * 2);
+    state.clock = { ...state.clock, tick: parseTick(GAME_MONTH_TICKS) };
+    advanceProductSystems(state);
+  }
+
+  it("offers comparable coverage and pays a covered deterioration claim", () => {
+    let candidate: ReturnType<typeof createInitialState> | undefined;
+    const buildingId = parseBuildingId("building_00000001");
+    for (let seed = 1; seed <= 100 && !candidate; seed += 1) {
+      const state = createInitialState(seed);
+      addInsuranceBuilding(state, 10);
+      const result = dispatchProductCommand(
+        state,
+        command(`insurance-buy-${seed}`, "BuyInsurance", {
+          buildingId,
+          coverage: "fire_plus",
+        }),
+      );
+      expect(result.accepted).toBe(true);
+      settleInsuranceAtMonth(state);
+      if (Object.values(state.phase2.insurance.claimsByIncidentId).length > 0) candidate = state;
+    }
+    expect(candidate).toBeDefined();
+    const state = candidate!;
+    expect(state.phase2.insurance.contractsByBuildingId[buildingId]).toMatchObject({
+      coverage: "fire_plus",
+      premium: 130,
+      coverageLimit: 3000,
+      deductible: 350,
+      status: "active",
+      totalPremiumPaid: 260,
+    });
+    expect(Object.values(state.phase2.insurance.claimsByIncidentId)).toContainEqual(
+      expect.objectContaining({
+        buildingId,
+        coverage: "fire_plus",
+        status: "paid",
+        lossEstimate: 1200,
+        payout: 850,
+      }),
+    );
+    expect(state.phase2.balances.get(organization)).toBe(12590);
+    expect(state.phase2.balances.get(parseOrganizationId("org_00000005"))).toBe(99410);
+  });
+
+  it("records exclusions and lapses a policy when its recurring premium cannot be paid", () => {
+    const state = createInitialState(81);
+    const buildingId = addInsuranceBuilding(state, 100);
+    expect(
+      dispatchProductCommand(
+        state,
+        command("insurance-basic", "BuyInsurance", { buildingId, coverage: "fire_basic" }),
+      ).accepted,
+    ).toBe(true);
+    expect(createViewProjection(state, true).economy?.insurance.offers).toEqual([]);
+    expect(createViewProjection(state, true).economy?.insurance.contracts[0]).toMatchObject({
+      coverage: "fire_basic",
+      premium: 25,
+      coverageLimit: 1800,
+      deductible: 200,
+      exclusions: ["sabotage", "blast"],
+    });
+    state.phase2.balances.set(organization, parseMoney(0));
+    settleInsuranceAtMonth(state);
+    expect(state.phase2.insurance.contractsByBuildingId[buildingId]).toMatchObject({
+      status: "lapsed",
+      nextPremiumTick: null,
+      totalPremiumPaid: 25,
+    });
+
+    const uninsured = createInitialState(82);
+    const uninsuredBuildingId = addInsuranceBuilding(uninsured, 10);
+    settleInsuranceAtMonth(uninsured);
+    expect(Object.values(uninsured.phase2.insurance.claimsByIncidentId)).toContainEqual(
+      expect.objectContaining({
+        buildingId: uninsuredBuildingId,
+        coverage: null,
+        status: "excluded",
+        payout: 0,
+      }),
+    );
+  });
+
+  it("cancels and restores insurance state without renewing after load", () => {
+    const state = createInitialState(83);
+    const buildingId = addInsuranceBuilding(state);
+    dispatchProductCommand(
+      state,
+      command("insurance-cancel-buy", "BuyInsurance", {
+        buildingId,
+        coverage: "fire_plus",
+      }),
+    );
+    expect(
+      dispatchProductCommand(state, command("insurance-cancel", "CancelInsurance", { buildingId })),
+    ).toMatchObject({ accepted: true });
+    const restored = restoreStateFromSnapshot(serializeSnapshot(state));
+    expect(restored.phase2.insurance).toEqual(state.phase2.insurance);
+    expect(createViewProjection(restored, true).economy?.insurance.contracts[0]).toMatchObject({
+      status: "cancelled",
+      nextPremiumTick: null,
+    });
+    expect(serializeSnapshot(restored)).toEqual(serializeSnapshot(state));
+  });
+});

@@ -26,6 +26,7 @@ import {
   MAINTENANCE_POLICY,
   conditionRentMultiplierPercent,
   deteriorationRiskPercent,
+  INSURANCE_POLICY,
 } from "./game-data";
 import type { GameState } from "./state";
 import { Xoshiro128ss } from "./prng";
@@ -66,7 +67,7 @@ function ignite(
   const id = parseIncidentId(
     `incident_${String(state.phase2.idCounters.incident).padStart(8, "0")}`,
   );
-  state.phase2.incidents.set(id, {
+  const incident = {
     id,
     buildingId: building.id,
     origin,
@@ -77,7 +78,9 @@ function ignite(
     causedByAgentId: agentId,
     causedByOrganizationId: agentId ? (state.agents.get(agentId)?.organizationId ?? null) : null,
     casualties: { injured: 0, dead: 0 },
-  });
+  } satisfies import("@landlord/shared").IncidentRecord;
+  state.phase2.incidents.set(id, incident);
+  processInsuranceClaim(state, incident);
   while (state.phase2.incidents.size > INCIDENT_LIMIT) {
     const resolved = [...state.phase2.incidents.values()]
       .filter((incident) => incident.status === "resolved")
@@ -85,6 +88,51 @@ function ignite(
     if (!resolved) break;
     state.phase2.incidents.delete(resolved.id);
   }
+}
+
+function processInsuranceClaim(
+  state: GameState,
+  incident: import("@landlord/shared").IncidentRecord,
+): void {
+  const building = state.phase2.buildings.get(incident.buildingId);
+  if (!building) return;
+  const contract = state.phase2.insurance.contractsByBuildingId[building.id];
+  const lossEstimate = parseMoney(
+    Math.ceil((BUILDING_DEFINITIONS[building.type].cost * incident.intensity) / 100),
+  );
+  const excluded =
+    !contract || contract.status !== "active" || contract.exclusions.includes(incident.origin);
+  if (excluded) {
+    state.phase2.insurance.claimsByIncidentId[incident.id] = {
+      incidentId: incident.id,
+      buildingId: building.id,
+      coverage: contract?.coverage ?? null,
+      status: "excluded",
+      lossEstimate,
+      payout: parseMoney(0),
+      createdAtTick: parseTick(state.clock.tick),
+      processedAtTick: parseTick(state.clock.tick),
+    };
+    return;
+  }
+  const payout = parseMoney(
+    Math.min(contract.coverageLimit, Math.max(0, lossEstimate - contract.deductible)),
+  );
+  const paid =
+    payout === 0 ||
+    debit(state, contract.insurerOrganizationId, payout, "insurance_claim", incident.id);
+  if (paid && payout > 0)
+    credit(state, building.ownerOrganizationId, payout, "insurance_claim", incident.id);
+  state.phase2.insurance.claimsByIncidentId[incident.id] = {
+    incidentId: incident.id,
+    buildingId: building.id,
+    coverage: contract.coverage,
+    status: paid ? "paid" : "unpaid",
+    lossEstimate,
+    payout: paid ? payout : parseMoney(0),
+    createdAtTick: parseTick(state.clock.tick),
+    processedAtTick: parseTick(state.clock.tick),
+  };
 }
 
 function totalResources(inventory: { cement: number; brick: number; steel: number }): number {
@@ -425,6 +473,46 @@ function settleMaintenance(state: GameState): void {
   state.phase2.maintenance.nextSettlementTick = parseTick(
     state.clock.tick + MAINTENANCE_POLICY.settlementPeriodTicks,
   );
+}
+
+function settleInsurance(state: GameState): void {
+  if (state.clock.tick === 0) return;
+  for (const contract of Object.values(state.phase2.insurance.contractsByBuildingId).sort((a, b) =>
+    a.buildingId.localeCompare(b.buildingId),
+  )) {
+    if (contract.status !== "active" || contract.nextPremiumTick !== state.clock.tick) continue;
+    const building = state.phase2.buildings.get(contract.buildingId);
+    if (!building || building.state === "ruin") {
+      contract.status = "lapsed";
+      contract.nextPremiumTick = null;
+      continue;
+    }
+    if (
+      debit(
+        state,
+        building.ownerOrganizationId,
+        contract.premium,
+        "insurance_premium",
+        contract.buildingId,
+      )
+    ) {
+      credit(
+        state,
+        contract.insurerOrganizationId,
+        contract.premium,
+        "insurance_premium",
+        contract.buildingId,
+      );
+      contract.lastPremiumTick = parseTick(state.clock.tick);
+      contract.nextPremiumTick = parseTick(
+        state.clock.tick + INSURANCE_POLICY.settlementPeriodTicks,
+      );
+      contract.totalPremiumPaid = parseMoney(contract.totalPremiumPaid + contract.premium);
+    } else {
+      contract.status = "lapsed";
+      contract.nextPremiumTick = null;
+    }
+  }
 }
 
 function updatePolicyAndHeat(state: GameState): void {
@@ -836,6 +924,7 @@ export function advanceProductSystems(state: GameState): void {
   processLoanPayments(state);
   settlePropertyTaxes(state);
   settleMaintenance(state);
+  settleInsurance(state);
   updatePolicyAndHeat(state);
   rivalAction(state);
   state.clock = { ...state.clock, tick: parseTick(state.clock.tick + 1) };

@@ -1,6 +1,8 @@
 import {
   parseMoney,
+  type Building,
   type BuildingDefinition,
+  type InsuranceCoverage,
   type Loan,
   type Parcel,
   type Tenant,
@@ -207,6 +209,7 @@ export const PLAYER_ORGANIZATION_ID = parseOrganizationId("org_00000001");
 export const RIVAL_ORGANIZATION_ID = parseOrganizationId("org_00000002");
 export const BANK_ORGANIZATION_ID = parseOrganizationId("org_00000003");
 export const MUNICIPALITY_ORGANIZATION_ID = parseOrganizationId("org_00000004");
+export const INSURER_ORGANIZATION_ID = parseOrganizationId("org_00000005");
 
 export const TAX_POLICY = {
   propertyRateBps: 120,
@@ -228,6 +231,49 @@ export const MAINTENANCE_POLICY = {
     steelworks: parseMoney(100),
   } as const,
 } as const;
+
+export const INSURANCE_POLICY = {
+  settlementPeriodTicks: GAME_MONTH_TICKS,
+  insurerOrganizationId: INSURER_ORGANIZATION_ID,
+  products: {
+    fire_basic: {
+      basePremium: 25,
+      riskPremiumFactor: 0.5,
+      coveragePercentOfBuildCost: 60,
+      deductible: 200,
+      exclusions: ["sabotage", "blast"] as const,
+    },
+    fire_plus: {
+      basePremium: 50,
+      riskPremiumFactor: 1,
+      coveragePercentOfBuildCost: 100,
+      deductible: 350,
+      exclusions: ["blast"] as const,
+    },
+  },
+} as const;
+
+export function calculateInsuranceOffer(
+  building: Pick<Building, "type" | "condition">,
+  coverage: InsuranceCoverage,
+): {
+  premium: import("@landlord/shared").Money;
+  coverageLimit: import("@landlord/shared").Money;
+  deductible: import("@landlord/shared").Money;
+  exclusions: Array<"sabotage" | "deterioration" | "blast">;
+} {
+  const product = INSURANCE_POLICY.products[coverage];
+  const buildCost = BUILDING_DEFINITIONS[building.type].cost;
+  return {
+    premium: parseMoney(
+      product.basePremium +
+        Math.ceil(deteriorationRiskPercent(building.condition) * product.riskPremiumFactor),
+    ),
+    coverageLimit: parseMoney(Math.ceil((buildCost * product.coveragePercentOfBuildCost) / 100)),
+    deductible: parseMoney(product.deductible),
+    exclusions: [...product.exclusions],
+  };
+}
 
 export function conditionRentMultiplierPercent(condition: number): number {
   return Math.max(50, Math.min(100, 50 + Math.round(condition / 2)));

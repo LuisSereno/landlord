@@ -51,7 +51,10 @@ export type ErrorCode =
   | "LOAN_NOT_FOUND"
   | "LOAN_NOT_AVAILABLE"
   | "LOAN_ALREADY_ACTIVE"
-  | "LOAN_DEFAULTED";
+  | "LOAN_DEFAULTED"
+  | "INSURANCE_BUILDING_INVALID"
+  | "INSURANCE_ALREADY_ACTIVE"
+  | "INSURANCE_NOT_FOUND";
 
 const responseVersion = protocolVersionSchema;
 
@@ -130,6 +133,9 @@ const errorCodeSchema = z.enum([
   "LOAN_NOT_AVAILABLE",
   "LOAN_ALREADY_ACTIVE",
   "LOAN_DEFAULTED",
+  "INSURANCE_BUILDING_INVALID",
+  "INSURANCE_ALREADY_ACTIVE",
+  "INSURANCE_NOT_FOUND",
 ]);
 
 export const simulationMetricsSchema = z.object({

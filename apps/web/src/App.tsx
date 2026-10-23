@@ -125,6 +125,15 @@ export function App() {
   );
   const selectedOwnedBuilding =
     selectedBuilding?.ownerOrganizationId === "org_00000001" ? selectedBuilding : undefined;
+  const selectedInsuranceContract = selectedOwnedBuilding
+    ? economy?.insurance.contracts.find(
+        (contract) => contract.buildingId === selectedOwnedBuilding.id,
+      )
+    : undefined;
+  const selectedInsuranceOffers = selectedOwnedBuilding
+    ? (economy?.insurance.offers.filter((offer) => offer.buildingId === selectedOwnedBuilding.id) ??
+      [])
+    : [];
   const selectedPhysicalFacility = selectedOwnedBuilding
     ? economy?.production.find((facility) => facility.buildingId === selectedOwnedBuilding.id)
     : undefined;
@@ -331,6 +340,19 @@ export function App() {
                 >
                   Cambiar a {economy.maintenance.policy === "balanced" ? "diferido" : "equilibrado"}
                 </button>
+                <p>
+                  <strong>Seguros:</strong>{" "}
+                  {
+                    economy.insurance.contracts.filter((contract) => contract.status === "active")
+                      .length
+                  }{" "}
+                  póliza(s) activa(s) · primas{" "}
+                  {economy.insurance.contracts
+                    .filter((contract) => contract.status === "active")
+                    .reduce((total, contract) => total + contract.premium, 0)}{" "}
+                  u./mes · siniestros pagados{" "}
+                  {economy.insurance.claims.filter((claim) => claim.status === "paid").length}
+                </p>
               </div>
             </details>
           )}
@@ -474,6 +496,54 @@ export function App() {
                       debido {selectedBuilding.maintenanceDue} u.
                     </p>
                   )}
+                  {selectedOwnedBuilding && selectedInsuranceContract?.status === "active" && (
+                    <div className="construction-options">
+                      <p className="selection-detail">
+                        <strong>Seguro:</strong> {selectedInsuranceContract.coverage} · prima{" "}
+                        {selectedInsuranceContract.premium} u./mes · límite{" "}
+                        {selectedInsuranceContract.coverageLimit} u. · siguiente cobro en tick{" "}
+                        {selectedInsuranceContract.nextPremiumTick}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          void sendAction(
+                            () => clientRef.current!.cancelInsurance(selectedOwnedBuilding.id),
+                            "Póliza cancelada; no se devolverá la prima ya pagada.",
+                          )
+                        }
+                      >
+                        Cancelar seguro
+                      </button>
+                    </div>
+                  )}
+                  {selectedOwnedBuilding &&
+                    !selectedInsuranceContract &&
+                    selectedInsuranceOffers.length > 0 && (
+                      <div className="construction-options">
+                        <p className="selection-detail">
+                          <strong>Coberturas comparables:</strong> elige una para proteger este
+                          activo.
+                        </p>
+                        {selectedInsuranceOffers.map((offer) => (
+                          <button
+                            key={offer.coverage}
+                            type="button"
+                            disabled={!client || (economy?.cash ?? 0) < offer.premium}
+                            onClick={() =>
+                              void sendAction(
+                                () =>
+                                  clientRef.current!.buyInsurance(offer.buildingId, offer.coverage),
+                                `Contratada cobertura ${offer.coverage}; prima inicial ${offer.premium} u.`,
+                              )
+                            }
+                          >
+                            {offer.coverage} · {offer.premium} u./mes · límite {offer.coverageLimit}{" "}
+                            u.
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   {selectedOwnedSite && (
                     <div className="construction-options">
                       <p>

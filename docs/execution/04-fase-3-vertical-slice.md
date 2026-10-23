@@ -133,6 +133,9 @@ producción, la extinción/reanudación y la conservación del incidente histór
 
 **Aceptación:** asegurar reduce un riesgo a cambio de coste esperado; no elimina toda incertidumbre.
 
+**Estado 2026-10-23:** `DONE`. Evidencia en
+`docs/execution/phase-3/wp3-7-insurance-2026-10-23.md`.
+
 ## WP3.8 — Zoning, licencias y permisos
 
 - Definir pocas categorías de zoning útiles para el slice.

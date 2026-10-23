@@ -23,6 +23,8 @@ import {
   MAINTENANCE_POLICY,
   conditionAssetValueMultiplierPercent,
   conditionRentMultiplierPercent,
+  INSURANCE_POLICY,
+  calculateInsuranceOffer,
 } from "./game-data";
 
 function currentPropertyTaxRateBps(state: GameState): number {
@@ -146,8 +148,16 @@ function createFinancialSummary(
             0,
           )
       : 0;
+  const insuranceExpense = Object.values(state.phase2.insurance.contractsByBuildingId)
+    .filter(
+      (contract) =>
+        contract.status === "active" &&
+        state.phase2.buildings.get(contract.buildingId)?.ownerOrganizationId ===
+          PLAYER_ORGANIZATION_ID,
+    )
+    .reduce((total, contract) => total + contract.premium, 0);
   const totalForecastExpenses =
-    forecastExpenses + loanExpenses + propertyTaxExpense + maintenanceExpense;
+    forecastExpenses + loanExpenses + propertyTaxExpense + maintenanceExpense + insuranceExpense;
   const netIncome = periodIncome - periodExpenses;
   const netCashFlow = forecastIncome - totalForecastExpenses;
   const projectedCash = cash + netCashFlow;
@@ -482,6 +492,41 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
               ),
               repairCost: REPAIR_COST,
               repairWorkRequired: REPAIR_WORK_REQUIRED,
+            },
+            insurance: {
+              insurerOrganizationId: INSURANCE_POLICY.insurerOrganizationId,
+              offers: [...state.phase2.buildings.values()]
+                .filter(
+                  (building) =>
+                    building.ownerOrganizationId === PLAYER_ORGANIZATION_ID &&
+                    building.state !== "ruin" &&
+                    !["active", "lapsed"].includes(
+                      state.phase2.insurance.contractsByBuildingId[building.id]?.status ?? "",
+                    ),
+                )
+                .flatMap((building) =>
+                  (["fire_basic", "fire_plus"] as const).map((coverage) => ({
+                    buildingId: building.id,
+                    coverage,
+                    ...calculateInsuranceOffer(building, coverage),
+                  })),
+                ),
+              contracts: Object.values(state.phase2.insurance.contractsByBuildingId)
+                .filter(
+                  (contract) =>
+                    state.phase2.buildings.get(contract.buildingId)?.ownerOrganizationId ===
+                    PLAYER_ORGANIZATION_ID,
+                )
+                .sort((left, right) => left.buildingId.localeCompare(right.buildingId))
+                .map((contract) => ({ ...contract, exclusions: [...contract.exclusions] })),
+              claims: Object.values(state.phase2.insurance.claimsByIncidentId)
+                .filter(
+                  (claim) =>
+                    state.phase2.buildings.get(claim.buildingId)?.ownerOrganizationId ===
+                    PLAYER_ORGANIZATION_ID,
+                )
+                .sort((left, right) => left.incidentId.localeCompare(right.incidentId))
+                .map((claim) => ({ ...claim })),
             },
             recentTransactions: state.phase2.transactions
               .filter((transaction) => transaction.organizationId === PLAYER_ORGANIZATION_ID)

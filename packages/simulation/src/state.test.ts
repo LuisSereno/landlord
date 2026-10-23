@@ -4,14 +4,14 @@ import { parseOrganizationId, parsePersonId } from "@landlord/shared";
 import { createInitialState, hasOrganizationControl } from "./state";
 
 describe("minimum simulation state", () => {
-  it("creates one person, two companies, one bank and one control grant", () => {
+  it("creates one person, two companies, one bank, one insurer and one control grant", () => {
     const state = createInitialState(1);
     const personId = parsePersonId("person_00000001");
     const controlledOrganizationId = parseOrganizationId("org_00000001");
     const independentOrganizationId = parseOrganizationId("org_00000002");
 
     expect(state.persons.size).toBe(17);
-    expect(state.organizations.size).toBe(4);
+    expect(state.organizations.size).toBe(5);
     expect(hasOrganizationControl(state, personId, controlledOrganizationId)).toBe(true);
     expect(hasOrganizationControl(state, personId, independentOrganizationId)).toBe(false);
     expect(state.structures.size).toBe(0);

@@ -52,7 +52,7 @@ export type Person = {
 
 export type Organization = {
   id: OrganizationId;
-  kind: "company" | "bank" | "municipality";
+  kind: "company" | "bank" | "municipality" | "insurer";
 };
 
 export type OrganizationControlGrant = {
@@ -77,7 +77,7 @@ export const personSchema = z.object({
 
 export const organizationSchema = z.object({
   id: organizationIdSchema,
-  kind: z.enum(["company", "bank", "municipality"]),
+  kind: z.enum(["company", "bank", "municipality", "insurer"]),
 });
 
 export const organizationControlGrantSchema = z.object({
@@ -258,6 +258,40 @@ export type IncidentRecord = {
   causedByAgentId: AgentId | null;
   causedByOrganizationId: OrganizationId | null;
   casualties: { injured: number; dead: number };
+};
+
+export type IncidentOrigin = IncidentRecord["origin"];
+
+export type InsuranceCoverage = "fire_basic" | "fire_plus";
+export type InsuranceContract = {
+  buildingId: BuildingId;
+  insurerOrganizationId: OrganizationId;
+  coverage: InsuranceCoverage;
+  premium: Money;
+  coverageLimit: Money;
+  deductible: Money;
+  exclusions: IncidentOrigin[];
+  status: "active" | "lapsed" | "cancelled";
+  purchasedAtTick: Tick;
+  lastPremiumTick: Tick;
+  nextPremiumTick: Tick | null;
+  totalPremiumPaid: Money;
+};
+
+export type InsuranceClaim = {
+  incidentId: IncidentId;
+  buildingId: BuildingId;
+  coverage: InsuranceCoverage | null;
+  status: "paid" | "excluded" | "unpaid";
+  lossEstimate: Money;
+  payout: Money;
+  createdAtTick: Tick;
+  processedAtTick: Tick;
+};
+
+export type InsuranceState = {
+  contractsByBuildingId: Record<string, InsuranceContract>;
+  claimsByIncidentId: Record<string, InsuranceClaim>;
 };
 
 export type ConstructionSite = {
@@ -482,6 +516,34 @@ export const incidentSchema = z.object({
     dead: z.number().int().nonnegative(),
   }),
 });
+export const insuranceContractSchema = z.object({
+  buildingId: buildingIdSchema,
+  insurerOrganizationId: organizationIdSchema,
+  coverage: z.enum(["fire_basic", "fire_plus"]),
+  premium: moneySchema,
+  coverageLimit: moneySchema,
+  deductible: moneySchema,
+  exclusions: z.array(z.enum(["sabotage", "deterioration", "blast"])),
+  status: z.enum(["active", "lapsed", "cancelled"]),
+  purchasedAtTick: tickSchema,
+  lastPremiumTick: tickSchema,
+  nextPremiumTick: tickSchema.nullable(),
+  totalPremiumPaid: moneySchema,
+});
+export const insuranceClaimSchema = z.object({
+  incidentId: incidentIdSchema,
+  buildingId: buildingIdSchema,
+  coverage: z.enum(["fire_basic", "fire_plus"]).nullable(),
+  status: z.enum(["paid", "excluded", "unpaid"]),
+  lossEstimate: moneySchema,
+  payout: moneySchema,
+  createdAtTick: tickSchema,
+  processedAtTick: tickSchema,
+});
+export const insuranceStateSchema = z.object({
+  contractsByBuildingId: z.record(z.string(), insuranceContractSchema),
+  claimsByIncidentId: z.record(z.string(), insuranceClaimSchema),
+});
 export const tenantSchema = z.object({
   id: tenantIdSchema,
   profile: z.enum(["household", "maker", "shopkeeper"]),
@@ -634,6 +696,14 @@ export type SetMaintenancePolicy = DomainCommandBase & {
   type: "SetMaintenancePolicy";
   payload: { policy: MaintenancePolicy };
 };
+export type BuyInsurance = DomainCommandBase & {
+  type: "BuyInsurance";
+  payload: { buildingId: BuildingId; coverage: InsuranceCoverage };
+};
+export type CancelInsurance = DomainCommandBase & {
+  type: "CancelInsurance";
+  payload: { buildingId: BuildingId };
+};
 export type ProductCommand =
   | PlaceTestStructure
   | BuyParcel
@@ -653,7 +723,9 @@ export type ProductCommand =
   | ClearRuin
   | RequestLoan
   | AcceptLoanOffer
-  | SetMaintenancePolicy;
+  | SetMaintenancePolicy
+  | BuyInsurance
+  | CancelInsurance;
 
 function commandSchema<TType extends string>(type: TType, payload: z.ZodType) {
   return z.object({
@@ -745,6 +817,17 @@ export const setMaintenancePolicySchema = commandSchema(
   "SetMaintenancePolicy",
   z.object({ policy: z.enum(["balanced", "deferred"]) }),
 );
+export const buyInsuranceSchema = commandSchema(
+  "BuyInsurance",
+  z.object({
+    buildingId: buildingIdSchema,
+    coverage: z.enum(["fire_basic", "fire_plus"]),
+  }),
+);
+export const cancelInsuranceSchema = commandSchema(
+  "CancelInsurance",
+  z.object({ buildingId: buildingIdSchema }),
+);
 export const productCommandSchema = z.discriminatedUnion("type", [
   placeTestStructureSchema,
   buyParcelSchema,
@@ -765,4 +848,6 @@ export const productCommandSchema = z.discriminatedUnion("type", [
   requestLoanSchema,
   acceptLoanOfferSchema,
   setMaintenancePolicySchema,
+  buyInsuranceSchema,
+  cancelInsuranceSchema,
 ]);

@@ -61,6 +61,9 @@ const errorMessages: Record<ErrorCode, string> = {
   LOAN_NOT_AVAILABLE: "La oferta de préstamo ya no está disponible.",
   LOAN_ALREADY_ACTIVE: "La garantía ya respalda otra oferta o deuda activa.",
   LOAN_DEFAULTED: "El préstamo está en impago y requiere una resolución de crisis.",
+  INSURANCE_BUILDING_INVALID: "El edificio no puede contratar esta cobertura.",
+  INSURANCE_ALREADY_ACTIVE: "El edificio ya tiene una cobertura activa.",
+  INSURANCE_NOT_FOUND: "El edificio no tiene una póliza activa que cancelar.",
 } as const;
 
 const PROTOCOL_VERSION = protocolVersionSchema.parse(1);

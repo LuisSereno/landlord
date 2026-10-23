@@ -295,6 +295,26 @@ export class SimulationWorkerClient {
     });
   }
 
+  public buyInsurance(buildingId: string, coverage: "fire_basic" | "fire_plus") {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "BuyInsurance",
+      payload: { buildingId: parseBuildingId(buildingId), coverage },
+    });
+  }
+
+  public cancelInsurance(buildingId: string) {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "CancelInsurance",
+      payload: { buildingId: parseBuildingId(buildingId) },
+    });
+  }
+
   public saveSnapshot(): Promise<WorkerResponse> {
     return this.send(
       saveSnapshotRequestSchema.parse({

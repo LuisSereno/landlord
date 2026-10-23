@@ -626,6 +626,9 @@ export function dispatchProductCommand(
     if (transferTax > 0) {
       debit(state, command.actingAsOrganizationId, transferTax, "property_transfer_tax", parcel.id);
       credit(state, MUNICIPALITY_ORGANIZATION_ID, transferTax, "property_transfer_tax", parcel.id);
+      state.phase2.municipal.revenueThisMonthBySource.transferTax = parseMoney(
+        (state.phase2.municipal.revenueThisMonthBySource.transferTax ?? 0) + transferTax,
+      );
       state.phase2.taxation.totalCollected = parseMoney(
         state.phase2.taxation.totalCollected + transferTax,
       );

@@ -796,7 +796,14 @@ describe("WP3.5 taxation and fees", () => {
 
     advanceToTick(state, GAME_MONTH_TICKS);
     expect(state.phase2.balances.get(organization)).toBe(before - 822);
-    expect(state.phase2.balances.get(parseOrganizationId("org_00000004"))).toBe(22);
+    // WP4.5: el municipio ya no acumula impuestos sin gastar. Cobra 10 de propiedad sobre los 12
+    // de la transferencia y paga 10 de administración en el mismo cierre, así que su caja es 12 y
+    // el ingreso sigue siendo verificable en el libro presupuestario.
+    expect(state.phase2.balances.get(parseOrganizationId("org_00000004"))).toBe(12);
+    expect(state.phase2.municipal.revenueTotalBySource.propertyTax).toBe(10);
+    expect(state.phase2.municipal.revenueTotalBySource.transferTax).toBe(12);
+    expect(state.phase2.municipal.spentTotalByCategory.administration).toBe(10);
+    expect(state.phase2.municipal.serviceLevelPercentByCategory.administration).toBe(100);
     expect(state.phase2.taxation).toMatchObject({
       lastSettlementTick: GAME_MONTH_TICKS,
       nextSettlementTick: GAME_MONTH_TICKS * 2,

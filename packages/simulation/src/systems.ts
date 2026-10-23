@@ -35,6 +35,7 @@ import {
 } from "./game-data";
 import type { GameState } from "./state";
 import { runEmployment } from "./employment";
+import { runMunicipalBudget } from "./municipal-budget";
 import { askingRentFor, runHousingMarket } from "./housing-market";
 import { Xoshiro128ss } from "./prng";
 import { findDeterministicPath } from "./navigation";
@@ -552,6 +553,9 @@ function settlePropertyTaxes(state: GameState): void {
     if (debit(state, organizationId, due, "property_tax", `month-${state.clock.tick}`)) {
       credit(state, MUNICIPALITY_ORGANIZATION_ID, due, "property_tax", `month-${state.clock.tick}`);
       state.phase2.taxation.totalCollected = parseMoney(state.phase2.taxation.totalCollected + due);
+      state.phase2.municipal.revenueThisMonthBySource.propertyTax = parseMoney(
+        (state.phase2.municipal.revenueThisMonthBySource.propertyTax ?? 0) + due,
+      );
       delete state.phase2.taxation.arrearsByOrganizationId[organizationId];
     } else {
       state.phase2.taxation.arrearsByOrganizationId[organizationId] = due;
@@ -1270,6 +1274,8 @@ export const PRODUCT_SYSTEMS: readonly ProductSystem[] = [
   // El mercado cierra el mes después de la renta: el precio que se descubre hoy se cobra el mes
   // siguiente, nunca en el mismo cierre en el que se observa la vacancia.
   { name: "housing", run: runHousingMarket },
+  // El municipio paga al final, cuando ya ha cobrado los impuestos del mes.
+  { name: "municipal", run: runMunicipalBudget },
 ];
 
 export function advanceProductSystems(state: GameState): void {

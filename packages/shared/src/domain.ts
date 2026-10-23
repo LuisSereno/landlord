@@ -418,6 +418,18 @@ export type TaxationState = {
   arrearsByOrganizationId: Record<string, Money>;
 };
 
+export type MunicipalBudgetState = {
+  lastSettlementTick: Tick | null;
+  /** Ingresos del mes en curso, por fuente; el cierre presupuestario los acumula y los reinicia. */
+  revenueThisMonthBySource: Record<string, Money>;
+  revenueTotalBySource: Record<string, Money>;
+  spentTotalByCategory: Record<string, Money>;
+  unfundedTotalByCategory: Record<string, Money>;
+  serviceLevelPercentByCategory: Record<string, number>;
+  deficitMonths: number;
+  surplusMonths: number;
+};
+
 export type EmploymentState = {
   /** Nivel salarial local; 100 es el salario de referencia. */
   salaryIndexPercent: number;
@@ -706,6 +718,16 @@ export const taxationStateSchema = z.object({
   totalCollected: moneySchema,
   exemptOrganizationIds: z.array(organizationIdSchema),
   arrearsByOrganizationId: z.record(z.string(), moneySchema),
+});
+export const municipalBudgetStateSchema = z.object({
+  lastSettlementTick: tickSchema.nullable(),
+  revenueThisMonthBySource: z.record(z.string(), moneySchema),
+  revenueTotalBySource: z.record(z.string(), moneySchema),
+  spentTotalByCategory: z.record(z.string(), moneySchema),
+  unfundedTotalByCategory: z.record(z.string(), moneySchema),
+  serviceLevelPercentByCategory: z.record(z.string(), z.number().int().min(0).max(100)),
+  deficitMonths: z.number().int().nonnegative(),
+  surplusMonths: z.number().int().nonnegative(),
 });
 export const employmentStateSchema = z.object({
   salaryIndexPercent: z.number().int().min(50).max(200),

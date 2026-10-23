@@ -1,0 +1,138 @@
+import { parseMoney, parseTick, type Money, type MunicipalBudgetState } from "@landlord/shared";
+import { debit } from "./commands";
+import { GAME_MONTH_TICKS, MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
+import type { GameState } from "./state";
+
+export type MunicipalBudgetCategory = "administration" | "security" | "services";
+
+/**
+ * Gasto planificado del municipio. Se paga en orden de prioridad con la caja municipal —el mismo
+ * saldo que recibe impuestos—, así que no existe dinero municipal implícito: si no hay caja, la
+ * categoría queda sin financiar y su nivel de servicio baja.
+ */
+export const MUNICIPAL_BUDGET_POLICY = {
+  priority: ["administration", "security", "services"] as const,
+  administrationCost: 10,
+  securityCostPerBuilding: 1,
+  servicesCostPerBuilding: 2,
+} as const;
+
+export function initialMunicipalBudgetState(): MunicipalBudgetState {
+  return {
+    lastSettlementTick: null,
+    revenueThisMonthBySource: { propertyTax: parseMoney(0), transferTax: parseMoney(0) },
+    revenueTotalBySource: { propertyTax: parseMoney(0), transferTax: parseMoney(0) },
+    spentTotalByCategory: {
+      administration: parseMoney(0),
+      security: parseMoney(0),
+      services: parseMoney(0),
+    },
+    unfundedTotalByCategory: {
+      administration: parseMoney(0),
+      security: parseMoney(0),
+      services: parseMoney(0),
+    },
+    serviceLevelPercentByCategory: { administration: 100, security: 100, services: 100 },
+    deficitMonths: 0,
+    surplusMonths: 0,
+  };
+}
+
+export function plannedMunicipalCosts(state: GameState): Record<MunicipalBudgetCategory, number> {
+  let buildings = 0;
+  for (const building of state.phase2.buildings.values()) {
+    if (building.state !== "ruin") buildings += 1;
+  }
+  return {
+    administration: MUNICIPAL_BUDGET_POLICY.administrationCost,
+    security: buildings * MUNICIPAL_BUDGET_POLICY.securityCostPerBuilding,
+    services: buildings * MUNICIPAL_BUDGET_POLICY.servicesCostPerBuilding,
+  };
+}
+
+export type MunicipalBudgetReport = {
+  reserve: Money;
+  plannedByCategory: Record<MunicipalBudgetCategory, Money>;
+  serviceLevelPercentByCategory: Record<MunicipalBudgetCategory, number>;
+  revenueThisMonthBySource: Record<string, Money>;
+  revenueTotalBySource: Record<string, Money>;
+  spentTotalByCategory: Record<string, Money>;
+  unfundedTotalByCategory: Record<string, Money>;
+  deficitMonths: number;
+  surplusMonths: number;
+  lastSettlementTick: import("@landlord/shared").Tick | null;
+};
+
+export function describeMunicipalBudget(state: GameState): MunicipalBudgetReport {
+  const budget = state.phase2.municipal;
+  const planned = plannedMunicipalCosts(state);
+  return {
+    reserve: state.phase2.balances.get(MUNICIPALITY_ORGANIZATION_ID) ?? parseMoney(0),
+    plannedByCategory: {
+      administration: parseMoney(planned.administration),
+      security: parseMoney(planned.security),
+      services: parseMoney(planned.services),
+    },
+    serviceLevelPercentByCategory: {
+      administration: budget.serviceLevelPercentByCategory.administration ?? 100,
+      security: budget.serviceLevelPercentByCategory.security ?? 100,
+      services: budget.serviceLevelPercentByCategory.services ?? 100,
+    },
+    revenueThisMonthBySource: { ...budget.revenueThisMonthBySource },
+    revenueTotalBySource: { ...budget.revenueTotalBySource },
+    spentTotalByCategory: { ...budget.spentTotalByCategory },
+    unfundedTotalByCategory: { ...budget.unfundedTotalByCategory },
+    deficitMonths: budget.deficitMonths,
+    surplusMonths: budget.surplusMonths,
+    lastSettlementTick: budget.lastSettlementTick,
+  };
+}
+
+export function municipalServiceLevel(state: GameState, category: MunicipalBudgetCategory): number {
+  return state.phase2.municipal.serviceLevelPercentByCategory[category] ?? 100;
+}
+
+/**
+ * Cierre presupuestario mensual. Se ejecuta al final del tick, cuando ya se han cobrado los
+ * impuestos del mes: el municipio paga con su caja real en orden de prioridad y lo que no puede
+ * pagar queda registrado como descubierto, con la caída de nivel de servicio correspondiente.
+ */
+export function runMunicipalBudget(state: GameState): void {
+  if (state.clock.tick === 0 || state.clock.tick % GAME_MONTH_TICKS !== 0) return;
+  const budget = state.phase2.municipal;
+  const planned = plannedMunicipalCosts(state);
+  let available = state.phase2.balances.get(MUNICIPALITY_ORGANIZATION_ID) ?? 0;
+  let unfundedTotal = 0;
+
+  for (const category of MUNICIPAL_BUDGET_POLICY.priority) {
+    const plannedCost = planned[category];
+    const paid = Math.min(plannedCost, Math.max(0, available));
+    if (
+      paid > 0 &&
+      debit(state, MUNICIPALITY_ORGANIZATION_ID, parseMoney(paid), "municipal_expense", category)
+    ) {
+      available -= paid;
+    }
+    budget.spentTotalByCategory[category] = parseMoney(
+      (budget.spentTotalByCategory[category] ?? 0) + paid,
+    );
+    const unfunded = plannedCost - paid;
+    unfundedTotal += unfunded;
+    budget.unfundedTotalByCategory[category] = parseMoney(
+      (budget.unfundedTotalByCategory[category] ?? 0) + unfunded,
+    );
+    budget.serviceLevelPercentByCategory[category] =
+      plannedCost === 0 ? 100 : Math.round((100 * paid) / plannedCost);
+  }
+
+  if (unfundedTotal > 0) budget.deficitMonths += 1;
+  else budget.surplusMonths += 1;
+
+  for (const source of ["propertyTax", "transferTax"] as const) {
+    budget.revenueTotalBySource[source] = parseMoney(
+      (budget.revenueTotalBySource[source] ?? 0) + (budget.revenueThisMonthBySource[source] ?? 0),
+    );
+    budget.revenueThisMonthBySource[source] = parseMoney(0);
+  }
+  budget.lastSettlementTick = parseTick(state.clock.tick);
+}

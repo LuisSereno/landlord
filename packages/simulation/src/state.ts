@@ -30,6 +30,7 @@ import {
   type MaintenanceState,
   type HousingMarketState,
   type EmploymentState,
+  type MunicipalBudgetState,
   type InsuranceState,
   type PermittingState,
   type InsolvencyState,
@@ -48,6 +49,7 @@ import { createPrng, type PrngState } from "./prng";
 import { generateDistrict } from "./district-generator";
 import { rosterLayout } from "./district-profiles";
 import { initialEmploymentState } from "./employment";
+import { initialMunicipalBudgetState } from "./municipal-budget";
 import { initialHousingMarketState } from "./housing-market";
 import {
   PLAYER_ORGANIZATION_ID,
@@ -94,6 +96,7 @@ export type Phase2State = {
   taxation: TaxationState;
   maintenance: MaintenanceState;
   employment: EmploymentState;
+  municipal: MunicipalBudgetState;
   housingMarket: HousingMarketState;
   insurance: InsuranceState;
   permitting: PermittingState;
@@ -316,6 +319,7 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
         backlogByBuildingId: {},
       },
       employment: initialEmploymentState(),
+      municipal: initialMunicipalBudgetState(),
       housingMarket: initialHousingMarketState(),
       insurance: {
         contractsByBuildingId: {},

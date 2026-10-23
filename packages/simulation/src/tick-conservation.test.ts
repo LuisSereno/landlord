@@ -18,6 +18,11 @@ import { createScaledCity } from "./system-cost";
  * Regeneración WP4.4 (2026-10-23): el estado gana `phase2.employment` y `incomeFactorPercent` por
  * hogar. Otra vez cambia la forma del estado y no la economía: los diez observables siguen siendo
  * idénticos porque los hogares sintéticos son autorados y conservan su presupuesto de escenario.
+ *
+ * Regeneración WP4.5 (2026-10-23): el municipio gasta. Sólo cambian los dos casos que cruzan un
+ * cierre mensual, y sólo en la caja municipal (`org_00000004`) y en el número e importe de
+ * transacciones, por los pagos de administración, seguridad y servicios. Jugador, rival, banco,
+ * aseguradora, hogares, ruinas, incidentes y bajas siguen idénticos.
  */
 function digest(value: string): string {
   let left = 0x811c9dc5;
@@ -73,12 +78,12 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "706a323526435134",
+    expected: "664f94099baa1a7f",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "617d7096de822d70",
+    expected: "68deecf1d71ca91f",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el

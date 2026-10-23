@@ -28,7 +28,7 @@ import {
   type LoanId,
 } from "./primitives";
 import { gridCellSchema, tickSchema, type GridCell, type Tick } from "./time-and-grid";
-import { moneySchema } from "./money";
+import { moneySchema, type Money } from "./money";
 import { buildingTypeSchema, zoningSchema, type BuildingType } from "./domain";
 
 export type ViewProjectionV1 = {
@@ -221,6 +221,18 @@ export type ViewProjectionV1 = {
       incomeFactorPercent: number;
       origin: "authored" | "market";
     }>;
+    municipal: {
+      reserve: Money;
+      plannedByCategory: Record<string, Money>;
+      serviceLevelPercentByCategory: Record<string, number>;
+      revenueThisMonthBySource: Record<string, Money>;
+      revenueTotalBySource: Record<string, Money>;
+      spentTotalByCategory: Record<string, Money>;
+      unfundedTotalByCategory: Record<string, Money>;
+      deficitMonths: number;
+      surplusMonths: number;
+      lastSettlementTick: Tick | null;
+    };
     employment: {
       jobs: number;
       jobsBySector: Record<string, number>;
@@ -610,6 +622,18 @@ export const viewProjectionV1Schema = z.object({
           origin: z.enum(["authored", "market"]),
         }),
       ),
+      municipal: z.object({
+        reserve: moneySchema,
+        plannedByCategory: z.record(z.string(), moneySchema),
+        serviceLevelPercentByCategory: z.record(z.string(), z.number().int().min(0).max(100)),
+        revenueThisMonthBySource: z.record(z.string(), moneySchema),
+        revenueTotalBySource: z.record(z.string(), moneySchema),
+        spentTotalByCategory: z.record(z.string(), moneySchema),
+        unfundedTotalByCategory: z.record(z.string(), moneySchema),
+        deficitMonths: z.number().int().nonnegative(),
+        surplusMonths: z.number().int().nonnegative(),
+        lastSettlementTick: tickSchema.nullable(),
+      }),
       employment: z.object({
         jobs: z.number().int().nonnegative(),
         jobsBySector: z.record(z.string(), z.number().int().nonnegative()),

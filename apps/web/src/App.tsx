@@ -1201,6 +1201,20 @@ export function App() {
                   obras activas
                 </p>
                 <p>
+                  <strong>Municipio:</strong> reservas {economy.municipal.reserve} u. · ingresos del
+                  mes {economy.municipal.revenueThisMonthBySource.propertyTax ?? 0} propiedad +{" "}
+                  {economy.municipal.revenueThisMonthBySource.transferTax ?? 0} transferencia ·
+                  gasto planificado{" "}
+                  {(economy.municipal.plannedByCategory.administration ?? 0) +
+                    (economy.municipal.plannedByCategory.security ?? 0) +
+                    (economy.municipal.plannedByCategory.services ?? 0)}{" "}
+                  u. · servicio administración{" "}
+                  {economy.municipal.serviceLevelPercentByCategory.administration ?? 100}% ·
+                  seguridad {economy.municipal.serviceLevelPercentByCategory.security ?? 100}% ·
+                  servicios {economy.municipal.serviceLevelPercentByCategory.services ?? 100}% ·
+                  meses en déficit {economy.municipal.deficitMonths}
+                </p>
+                <p>
                   <strong>Empleo:</strong> {economy.employment.jobs} puestos ·{" "}
                   {economy.employment.workers} trabajadores · paro{" "}
                   {100 - economy.employment.employmentRatePercent}% · salario índice{" "}

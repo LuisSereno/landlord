@@ -391,3 +391,23 @@ comparó de nuevo observable por observable en los diez casos de conservación y
 digestos canónicos se regeneran sólo porque el estado gana `phase2.employment` e
 `incomeFactorPercent`. Ver `docs/engineering/adr/D-067-empleo-agregado-y-capacidad-de-alquiler.md` y
 `docs/execution/phase-4/wp4-4-employment-2026-10-23.md`.
+
+## D-068 — Presupuesto municipal con caja real, prioridad de gasto y niveles de servicio
+Estado: aceptada el 2026-10-23 para WP4.5.
+El municipio deja de ser un sumidero. Usa una sola caja —el saldo de `org_00000004`, sin segundo
+saldo— y `phase2.municipal` guarda el libro: ingresos del mes y acumulados por fuente, gasto y
+descubierto por categoría, niveles de servicio y meses en déficit o superávit. Tres categorías con
+prioridad declarada: administración (10 fijos), seguridad (1 por edificio) y servicios (2 por
+edificio), pagadas en ese orden con la caja real al final del tick, después de que hayan entrado los
+impuestos del mes. Sin caja no hay dinero implícito ni deuda: lo que no se paga queda como
+descubierto y el nivel de servicio de la categoría cae; un mes con descubierto incrementa
+`deficitMonths`. La propiedad (120 pb) y la transferencia (150 pb) ya se enrutaban al municipio;
+ahora cada cobro se anota en el libro por fuente. El recorte tiene consecuencia en el mundo: el
+nivel de servicios multiplica el componente `services` de la deseabilidad del mercado de vivienda y
+el de seguridad resta `(100 − nivel) / 2` puntos de `safety`, de modo que un municipio sin
+presupuesto pierde atractivo y ocupación. La prueba de impuestos de WP3.5 cambia de aserción sobre
+la caja municipal a aserción sobre el libro, conservando su intención. Los diez casos de
+conservación se compararon observable por observable: ocho quedan idénticos y los dos que cruzan un
+cierre mensual cambian sólo la caja municipal y el número e importe de transacciones por los pagos.
+Ver `docs/engineering/adr/D-068-presupuesto-municipal.md` y
+`docs/execution/phase-4/wp4-5-municipal-budget-2026-10-23.md`.

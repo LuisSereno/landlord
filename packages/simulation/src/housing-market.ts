@@ -19,6 +19,7 @@ import {
   conditionRentMultiplierPercent,
 } from "./game-data";
 import { effectiveRentBudget } from "./employment";
+import { municipalServiceLevel } from "./municipal-budget";
 import { HOUSING_SEGMENTS, type HousingSegment } from "./housing-segments";
 import { Xoshiro128ss } from "./prng";
 import type { GameState } from "./state";
@@ -170,11 +171,23 @@ function buildStock(state: GameState): StockUnit[] {
       safety: clamp(
         100 -
           nearbyIncidents * HOUSING_MARKET_POLICY.desirability.incidentSafetyPenalty -
-          policePenalty,
+          policePenalty -
+          // Un municipio sin caja para seguridad no sostiene el barrio: el recorte se nota en la
+          // deseabilidad, no sólo en la contabilidad.
+          Math.round((100 - municipalServiceLevel(state, "security")) / 2),
         0,
         100,
       ),
-      services: clamp(nearbyOffices * HOUSING_MARKET_POLICY.desirability.servicesPerPoint, 0, 100),
+      services: clamp(
+        Math.round(
+          (nearbyOffices *
+            HOUSING_MARKET_POLICY.desirability.servicesPerPoint *
+            municipalServiceLevel(state, "services")) /
+            100,
+        ),
+        0,
+        100,
+      ),
       askingRent: askingRentFor(state, entry.building),
       vacantSlots: Math.max(
         0,

@@ -152,6 +152,16 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
         backlogByBuildingId: { ...state.phase2.maintenance.backlogByBuildingId },
       },
       employment: { ...state.phase2.employment },
+      municipal: {
+        ...state.phase2.municipal,
+        revenueThisMonthBySource: { ...state.phase2.municipal.revenueThisMonthBySource },
+        revenueTotalBySource: { ...state.phase2.municipal.revenueTotalBySource },
+        spentTotalByCategory: { ...state.phase2.municipal.spentTotalByCategory },
+        unfundedTotalByCategory: { ...state.phase2.municipal.unfundedTotalByCategory },
+        serviceLevelPercentByCategory: {
+          ...state.phase2.municipal.serviceLevelPercentByCategory,
+        },
+      },
       housingMarket: {
         ...state.phase2.housingMarket,
         rentIndexPercentByBuildingType: {
@@ -577,6 +587,38 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 ),
               }
             : defaults.maintenance,
+          municipal: snapshot.phase2.municipal
+            ? {
+                ...snapshot.phase2.municipal,
+                revenueThisMonthBySource: Object.fromEntries(
+                  Object.entries(snapshot.phase2.municipal.revenueThisMonthBySource).map(
+                    ([source, amount]) => [source, parseMoney(amount)],
+                  ),
+                ),
+                revenueTotalBySource: Object.fromEntries(
+                  Object.entries(snapshot.phase2.municipal.revenueTotalBySource).map(
+                    ([source, amount]) => [source, parseMoney(amount)],
+                  ),
+                ),
+                spentTotalByCategory: Object.fromEntries(
+                  Object.entries(snapshot.phase2.municipal.spentTotalByCategory).map(
+                    ([category, amount]) => [category, parseMoney(amount)],
+                  ),
+                ),
+                unfundedTotalByCategory: Object.fromEntries(
+                  Object.entries(snapshot.phase2.municipal.unfundedTotalByCategory).map(
+                    ([category, amount]) => [category, parseMoney(amount)],
+                  ),
+                ),
+                serviceLevelPercentByCategory: {
+                  ...snapshot.phase2.municipal.serviceLevelPercentByCategory,
+                },
+                lastSettlementTick:
+                  snapshot.phase2.municipal.lastSettlementTick === null
+                    ? null
+                    : parseTick(snapshot.phase2.municipal.lastSettlementTick),
+              }
+            : { ...defaults.municipal },
           employment: snapshot.phase2.employment
             ? {
                 ...snapshot.phase2.employment,

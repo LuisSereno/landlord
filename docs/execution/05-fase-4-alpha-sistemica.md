@@ -93,6 +93,15 @@ evidencia económica anterior se comparó observable por observable y no cambió
 
 ## WP4.5 — Presupuesto municipal
 
+**Estado 2026-10-23:** `DONE`. Evidencia en
+`docs/execution/phase-4/wp4-5-municipal-budget-2026-10-23.md` y decisión en
+`docs/engineering/adr/D-068-presupuesto-municipal.md`. El municipio usa una sola caja —el saldo de
+su organización— y un libro con ingresos por fuente, gasto y descubierto por categoría. Paga por
+prioridad (administración, seguridad, servicios) al final del tick; sin caja recorta y publica
+niveles de servicio que reducen la deseabilidad del mercado de vivienda. Ocho de los diez casos de
+conservación quedan idénticos; los dos que cruzan un cierre mensual sólo cambian en la caja
+municipal y en sus propias transacciones.
+
 - Modelar Government independiente con ingresos, gastos y reservas.
 - Enrutar impuestos/tasas al beneficiario correcto.
 - Definir ciclo presupuestario y categorías prioritarias.

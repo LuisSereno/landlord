@@ -87,13 +87,13 @@ comandos al Worker y el Worker responde con snapshot/proyección y métricas.
 
 `tacticalTick` -> producción -> rentas y leases -> pagos de deuda -> subastas -> impuestos de
 propiedad -> mantenimiento -> seguros -> política y heat -> acción rival -> empleo -> mercado de
-vivienda -> avance de tick.
+vivienda -> presupuesto municipal -> avance de tick.
 
 Cada bloque es un sistema puro sobre `GameState`; ninguno depende del reloj de pared ni del render.
 
 La lista es `PRODUCT_SYSTEMS`, con nombres estables (`tactical`, `production`, `rent`, `debt`,
-`auctions`, `propertyTax`, `maintenance`, `insurance`, `policy`, `rival`, `employment`, `housing`)
-que usan la
+`auctions`, `propertyTax`, `maintenance`, `insurance`, `policy`, `rival`, `employment`, `housing`,
+`municipal`) que usan la
 instrumentación de coste (`pnpm system:cost`) y las futuras reglas de LOD. No reordenar ni
 intercalar: cambia todas las partidas. La conservación del resultado se blinda con digestos dorados
 en `tick-conservation.test.ts` (D-065).
@@ -103,7 +103,9 @@ empleo fija el índice salarial y el ingreso por segmento antes de que vivienda 
 asequible (D-067); la vivienda va después de `rent`, así que el índice de renta descubierto con la
 vacancia observada se cobra al mes siguiente. La renta tiene una única fórmula, `askingRentFor` en
 `housing-market.ts`, compartida por el cobro, la validación de `AssignTenant` y la proyección
-(D-066).
+(D-066). `municipal` cierra el tick después de que hayan entrado los impuestos del mes: el municipio
+paga con su saldo real en orden de prioridad y, si no llega, recorta servicios; ese nivel de
+servicio alimenta la deseabilidad del mercado de vivienda (D-068).
 
 ## Identidad y control
 

@@ -19,7 +19,7 @@
 - engineering/05-ai-architecture.md — arquitectura de agentes.
 - engineering/06-multiplayer-future.md — preparación para multijugador.
 - engineering/07-player-identity-roles-and-capabilities.md — separación entre jugador, persona, organización, rol, control y capabilities.
-- engineering/adr/README.md — decisiones arquitectónicas/técnicas detalladas; D-046 a D-052 cubren Gate 1, D-053/D-054 fijan el arranque artístico, D-055 resuelve eventos, D-056 a D-060 gobiernan el baseline económico de Gate 2, D-061 exige el spike de agentes, daño e incidentes, D-062 fija la producción física localizada, D-063 registra la excepción de entrada a Alpha, D-064 la generación procedural de distritos, D-065 el coste medido del tick con el LOD espacial latente, D-066 el mercado de vivienda segmentado con precio descubierto por vacancia y D-067 el mercado laboral agregado y su conexión con la capacidad de alquiler.
+- engineering/adr/README.md — decisiones arquitectónicas/técnicas detalladas; D-046 a D-052 cubren Gate 1, D-053/D-054 fijan el arranque artístico, D-055 resuelve eventos, D-056 a D-060 gobiernan el baseline económico de Gate 2, D-061 exige el spike de agentes, daño e incidentes, D-062 fija la producción física localizada, D-063 registra la excepción de entrada a Alpha, D-064 la generación procedural de distritos, D-065 el coste medido del tick con el LOD espacial latente, D-066 el mercado de vivienda segmentado con precio descubierto por vacancia, D-067 el mercado laboral agregado y su conexión con la capacidad de alquiler y D-068 el presupuesto municipal con prioridad de gasto y niveles de servicio.
 
 ## Arte
 - art/README.md — entrada a la documentación artística y estado de gobernanza.
@@ -85,6 +85,7 @@
 - execution/phase-4/wp4-2-simulation-lod-2026-10-23.md — coste del tick por sistema y escala, digestos dorados de conservación, verificación diferencial y LOD agregado latente.
 - execution/phase-4/wp4-3-housing-market-2026-10-23.md — demanda segmentada, deseabilidad por parcela, vacancia, movilidad, índice de renta acotado y conservación de la evidencia económica.
 - execution/phase-4/wp4-4-employment-2026-10-23.md — mercado laboral agregado, salario acotado, ingreso por segmento y conexión con la asequibilidad de la vivienda.
+- execution/phase-4/wp4-5-municipal-budget-2026-10-23.md — caja municipal real, gasto por prioridad, recortes con nivel de servicio y efecto en la deseabilidad.
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

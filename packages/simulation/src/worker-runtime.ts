@@ -71,6 +71,7 @@ const errorMessages: Record<ErrorCode, string> = {
   AUCTION_FUNDS_RESERVED: "La organización no tiene caja libre para reservar esa puja.",
   AUCTION_NOT_BIDDER: "La organización no tiene una puja activa en esa subasta.",
   LOAN_REFINANCE_UNAVAILABLE: "La deuda no puede refinanciarse en su estado actual.",
+  SELL_NOT_AVAILABLE: "La parcela no puede venderse en su estado actual.",
 } as const;
 
 const PROTOCOL_VERSION = protocolVersionSchema.parse(1);

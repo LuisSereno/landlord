@@ -114,6 +114,16 @@ export class SimulationWorkerClient {
     });
   }
 
+  public sellParcel(parcelId: string): Promise<WorkerResponse> {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "SellParcel",
+      payload: { parcelId: parseParcelId(parcelId) },
+    });
+  }
+
   public startConstruction(
     parcelId: string,
     buildingType: "courtyard_home" | "workshop" | "cement_plant" | "brickworks" | "steelworks",

@@ -695,6 +695,10 @@ type DomainCommandBase = {
   actingAsOrganizationId: OrganizationId;
 };
 export type BuyParcel = DomainCommandBase & { type: "BuyParcel"; payload: { parcelId: ParcelId } };
+export type SellParcel = DomainCommandBase & {
+  type: "SellParcel";
+  payload: { parcelId: ParcelId };
+};
 export type StartConstruction = DomainCommandBase & {
   type: "StartConstruction";
   payload: { parcelId: ParcelId; buildingType: BuildingType };
@@ -795,6 +799,7 @@ export type CancelInsurance = DomainCommandBase & {
 export type ProductCommand =
   | PlaceTestStructure
   | BuyParcel
+  | SellParcel
   | StartConstruction
   | CancelConstruction
   | AssignTenant
@@ -829,6 +834,7 @@ function commandSchema<TType extends string>(type: TType, payload: z.ZodType) {
   });
 }
 export const buyParcelSchema = commandSchema("BuyParcel", z.object({ parcelId: parcelIdSchema }));
+export const sellParcelSchema = commandSchema("SellParcel", z.object({ parcelId: parcelIdSchema }));
 export const startConstructionSchema = commandSchema(
   "StartConstruction",
   z.object({ parcelId: parcelIdSchema, buildingType: buildingTypeSchema }),
@@ -942,6 +948,7 @@ export const cancelInsuranceSchema = commandSchema(
 export const productCommandSchema = z.discriminatedUnion("type", [
   placeTestStructureSchema,
   buyParcelSchema,
+  sellParcelSchema,
   startConstructionSchema,
   cancelConstructionSchema,
   assignTenantSchema,

@@ -61,7 +61,8 @@ export type ErrorCode =
   | "AUCTION_BID_TOO_LOW"
   | "AUCTION_FUNDS_RESERVED"
   | "AUCTION_NOT_BIDDER"
-  | "LOAN_REFINANCE_UNAVAILABLE";
+  | "LOAN_REFINANCE_UNAVAILABLE"
+  | "SELL_NOT_AVAILABLE";
 
 const responseVersion = protocolVersionSchema;
 
@@ -150,6 +151,7 @@ const errorCodeSchema = z.enum([
   "AUCTION_FUNDS_RESERVED",
   "AUCTION_NOT_BIDDER",
   "LOAN_REFINANCE_UNAVAILABLE",
+  "SELL_NOT_AVAILABLE",
 ]);
 
 export const simulationMetricsSchema = z.object({

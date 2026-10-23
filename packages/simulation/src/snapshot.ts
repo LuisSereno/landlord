@@ -484,7 +484,13 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
               entry.influence,
             ]),
           ),
-          rivalAi: { ...snapshot.phase2.rivalAi },
+          rivalAi: {
+            ...snapshot.phase2.rivalAi,
+            memory: {
+              ...snapshot.phase2.rivalAi.memory,
+              lastLossAmount: parseMoney(snapshot.phase2.rivalAi.memory.lastLossAmount),
+            },
+          },
           loans: snapshot.phase2.loans
             ? new Map(
                 snapshot.phase2.loans.map((loan) => [

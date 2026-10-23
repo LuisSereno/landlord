@@ -130,10 +130,12 @@ export type SnapshotV1 = {
       influence: number;
     }>;
     rivalAi: {
+      strategyProfile: "conservative" | "expansionist";
       lastAction: string;
       lastReason: string;
       lastFailureCode: string | null;
       cooldownUntilTick: Tick;
+      memory: { lossCount: number; defaultCount: number; lastLossAmount: number };
     };
     crews?: import("./domain").Crew[];
     incidents?: import("./domain").IncidentRecord[];
@@ -210,16 +212,26 @@ const phase2SnapshotSchema = z.object({
   ),
   rivalAi: z
     .object({
+      strategyProfile: z.enum(["conservative", "expansionist"]).default("conservative"),
       lastAction: z.string(),
       lastReason: z.string(),
       lastFailureCode: z.string().nullable(),
       cooldownUntilTick: tickSchema,
+      memory: z
+        .object({
+          lossCount: z.number().int().nonnegative(),
+          defaultCount: z.number().int().nonnegative(),
+          lastLossAmount: z.number().int().nonnegative(),
+        })
+        .default({ lossCount: 0, defaultCount: 0, lastLossAmount: 0 }),
     })
     .default({
+      strategyProfile: "conservative",
       lastAction: "none",
       lastReason: "",
       lastFailureCode: null,
       cooldownUntilTick: 0 as Tick,
+      memory: { lossCount: 0, defaultCount: 0, lastLossAmount: 0 },
     }),
   crews: z.array(crewSchema).optional(),
   incidents: z.array(incidentSchema).optional(),

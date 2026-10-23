@@ -76,6 +76,7 @@
 - execution/phase-3/wp3-7-insurance-2026-10-23.md — aseguradora, coberturas, primas, claims y exclusiones.
 - execution/phase-3/wp3-8-zoning-permits-2026-10-23.md — zoning, usos permitidos, permisos y caducidad.
 - execution/phase-3/wp3-9-auctions-insolvency-2026-10-23.md — subastas, refinanciación, ejecución e insolvencia inicial.
+- execution/phase-3/wp3-10-rival-financial-ai-2026-10-23.md — IA rival financiera, liquidez, recuperación y persistencia.
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

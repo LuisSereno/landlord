@@ -28,6 +28,9 @@ import {
   deteriorationRiskPercent,
   INSURANCE_POLICY,
   INSOLVENCY_POLICY,
+  RIVAL_AI_POLICY,
+  calculateInsuranceOffer,
+  REPAIR_COST,
 } from "./game-data";
 import type { GameState } from "./state";
 import { Xoshiro128ss } from "./prng";
@@ -466,6 +469,11 @@ function settleAuctions(state: GameState): void {
       "auction_recovery",
       auction.loanId,
     );
+    const shortfall = Math.max(0, loan.outstandingPrincipal - auction.highestBid);
+    if (auction.sellerOrganizationId === RIVAL_ORGANIZATION_ID && shortfall > 0) {
+      state.phase2.rivalAi.memory.lossCount += 1;
+      state.phase2.rivalAi.memory.lastLossAmount = parseMoney(shortfall);
+    }
     parcel.ownerOrganizationId = winner;
     if (parcel.buildingId) {
       const building = state.phase2.buildings.get(parcel.buildingId);
@@ -827,6 +835,18 @@ function rivalAction(state: GameState): void {
     .sort((a, b) => a.price - b.price)[0];
   const balance = state.phase2.balances.get(RIVAL_ORGANIZATION_ID) ?? 0;
   const inventory = state.phase2.inventories.get(RIVAL_ORGANIZATION_ID)!;
+  const rivalLoans = [...state.phase2.loans.values()].filter(
+    (loan) => loan.borrowerOrganizationId === RIVAL_ORGANIZATION_ID,
+  );
+  state.phase2.rivalAi.memory.defaultCount = rivalLoans.filter(
+    (loan) => loan.status === "defaulted",
+  ).length;
+  const liquidityReserve = Math.max(
+    2500,
+    Math.floor((balance * RIVAL_AI_POLICY.minimumReservePercent) / 100) +
+      state.phase2.rivalAi.memory.defaultCount * 500,
+  );
+  const canSpend = (amount: number) => balance >= amount + liquidityReserve;
   const buildingType: BuildingType =
     ownedParcel?.zoning === "industrial" ? "workshop" : "courtyard_home";
   const definition = BUILDING_DEFINITIONS[buildingType];
@@ -899,7 +919,7 @@ function rivalAction(state: GameState): void {
     ownedParcel &&
     productionDefinition &&
     !productionMissingResource &&
-    balance >= productionDefinition.cost + 2500
+    canSpend(productionDefinition.cost)
   ) {
     candidates.push({
       score: 82,
@@ -926,7 +946,7 @@ function rivalAction(state: GameState): void {
     .sort((a, b) => a.id.localeCompare(b.id))[0];
   if (
     upgradeCandidate &&
-    balance >= BUILDING_DEFINITIONS[upgradeCandidate.type].upgradeCost + 2500 &&
+    canSpend(BUILDING_DEFINITIONS[upgradeCandidate.type].upgradeCost) &&
     inventory.cement >= UPGRADE_RESOURCES.cement &&
     inventory.brick >= UPGRADE_RESOURCES.brick &&
     inventory.steel >= UPGRADE_RESOURCES.steel
@@ -943,7 +963,7 @@ function rivalAction(state: GameState): void {
       },
     });
   }
-  if (available && balance >= available.price + 2500) {
+  if (available && canSpend(available.price)) {
     candidates.push({
       score: 40,
       action: "buy_parcel",
@@ -956,6 +976,154 @@ function rivalAction(state: GameState): void {
       },
     });
   }
+  const refinancingLoan = rivalLoans.find((loan) => {
+    if (!["delinquent", "defaulted"].includes(loan.status)) return false;
+    const auction = state.phase2.insolvency.auctionsByLoanId[loan.id];
+    return !auction || !auction.highestBidderOrganizationId;
+  });
+  if (refinancingLoan) {
+    const loan = refinancingLoan;
+    if (loan) {
+      candidates.push({
+        score: 115,
+        action: "refinance_debt",
+        reason:
+          "La liquidez y la memoria de pérdidas priorizan conservar la cartera antes de vender.",
+        command: {
+          ...base,
+          commandId: parseCommandId(`ai-rival-${state.clock.tick}-refinance`),
+          type: "RequestRefinancing",
+          payload: { loanId: loan.id, termMonths: 12 },
+        },
+      });
+    }
+  }
+  const rivalAuction = [...Object.values(state.phase2.insolvency.auctionsByLoanId)]
+    .filter(
+      (auction) =>
+        auction.status === "open" &&
+        auction.sellerOrganizationId !== RIVAL_ORGANIZATION_ID &&
+        auction.highestBidderOrganizationId === null,
+    )
+    .sort((left, right) => left.reservePrice - right.reservePrice)[0];
+  if (rivalAuction) {
+    const bid = Math.max(rivalAuction.reservePrice, rivalAuction.highestBid + 1);
+    if (canSpend(bid)) {
+      candidates.push({
+        score: 92,
+        action: "bid_auction",
+        reason: "La subasta ofrece una parcela pública por debajo de la reserva de expansión.",
+        command: {
+          ...base,
+          commandId: parseCommandId(`ai-rival-${state.clock.tick}-auction`),
+          type: "PlaceAuctionBid",
+          payload: { loanId: rivalAuction.loanId, amount: parseMoney(bid) },
+        },
+      });
+    }
+  }
+  const unprotectedBuilding = [...state.phase2.buildings.values()]
+    .filter(
+      (building) =>
+        building.ownerOrganizationId === RIVAL_ORGANIZATION_ID &&
+        building.state !== "ruin" &&
+        !["active", "lapsed"].includes(
+          state.phase2.insurance.contractsByBuildingId[building.id]?.status ?? "",
+        ) &&
+        deteriorationRiskPercent(building.condition) >= RIVAL_AI_POLICY.insuranceRiskThreshold,
+    )
+    .sort((left, right) => left.id.localeCompare(right.id))[0];
+  if (unprotectedBuilding) {
+    const offer = calculateInsuranceOffer(unprotectedBuilding, "fire_basic");
+    if (canSpend(offer.premium)) {
+      candidates.push({
+        score: 88,
+        action: "buy_insurance",
+        reason:
+          "La memoria de riesgo prioriza cubrir un activo deteriorado sin conocer la cartera del jugador.",
+        command: {
+          ...base,
+          commandId: parseCommandId(`ai-rival-${state.clock.tick}-insurance`),
+          type: "BuyInsurance",
+          payload: { buildingId: unprotectedBuilding.id, coverage: "fire_basic" },
+        },
+      });
+    }
+  }
+  const repairCandidate = [...state.phase2.buildings.values()]
+    .filter(
+      (building) =>
+        building.ownerOrganizationId === RIVAL_ORGANIZATION_ID &&
+        building.state === "operational" &&
+        building.condition <= RIVAL_AI_POLICY.maintenanceConditionThreshold &&
+        ![...state.phase2.constructionSites.values()].some(
+          (site) => site.repairBuildingId === building.id,
+        ),
+    )
+    .sort((left, right) => left.condition - right.condition)[0];
+  if (repairCandidate && canSpend(REPAIR_COST)) {
+    candidates.push({
+      score: 86,
+      action: "repair_building",
+      reason:
+        "La condición cae por debajo del umbral operativo y la reparación protege el retorno.",
+      command: {
+        ...base,
+        commandId: parseCommandId(`ai-rival-${state.clock.tick}-repair`),
+        type: "RepairBuilding",
+        payload: { buildingId: repairCandidate.id },
+      },
+    });
+  }
+  const financeCollateral = [...state.phase2.parcels.values()]
+    .filter(
+      (parcel) =>
+        parcel.ownerOrganizationId === RIVAL_ORGANIZATION_ID &&
+        !rivalLoans.some(
+          (loan) =>
+            loan.collateralParcelId === parcel.id &&
+            ["offered", "active", "delinquent"].includes(loan.status),
+        ),
+    )
+    .sort((left, right) => right.price - left.price)[0];
+  if (financeCollateral && balance < liquidityReserve && rivalLoans.length === 0) {
+    candidates.push({
+      score: 78,
+      action: "request_financing",
+      reason: "La liquidez cae bajo la reserva y existe una garantía propia sin cargas activas.",
+      command: {
+        ...base,
+        commandId: parseCommandId(`ai-rival-${state.clock.tick}-loan`),
+        type: "RequestLoan",
+        payload: {
+          amount: parseMoney(600),
+          termMonths: 12,
+          collateralParcelId: financeCollateral.id,
+        },
+      },
+    });
+  }
+  const saleCandidate = [...state.phase2.parcels.values()]
+    .filter(
+      (parcel) =>
+        parcel.ownerOrganizationId === RIVAL_ORGANIZATION_ID &&
+        parcel.buildingId === null &&
+        ![...state.phase2.constructionSites.values()].some((site) => site.parcelId === parcel.id),
+    )
+    .sort((left, right) => left.price - right.price)[0];
+  if (saleCandidate && balance < liquidityReserve) {
+    candidates.push({
+      score: 70,
+      action: "sell_parcel",
+      reason: "Vende un solar vacío para recuperar liquidez sin tocar edificios ocupados.",
+      command: {
+        ...base,
+        commandId: parseCommandId(`ai-rival-${state.clock.tick}-sell`),
+        type: "SellParcel",
+        payload: { parcelId: saleCandidate.id },
+      },
+    });
+  }
   const selected = candidates.sort((left, right) => right.score - left.score)[0];
   if (!selected) {
     state.phase2.rivalAi.lastAction = "reserve_liquidity";
@@ -963,6 +1131,21 @@ function rivalAction(state: GameState): void {
     return;
   }
   const result = dispatchProductCommand(state, selected.command);
+  if (result.accepted && selected.command.type === "RequestLoan") {
+    const offeredLoan = [...state.phase2.loans.values()]
+      .filter(
+        (loan) =>
+          loan.borrowerOrganizationId === RIVAL_ORGANIZATION_ID && loan.status === "offered",
+      )
+      .sort((left, right) => right.offeredAtTick - left.offeredAtTick)[0];
+    if (offeredLoan)
+      dispatchProductCommand(state, {
+        ...base,
+        commandId: parseCommandId(`ai-rival-${state.clock.tick}-loan-accept`),
+        type: "AcceptLoanOffer",
+        payload: { loanId: offeredLoan.id },
+      });
+  }
   if (result.accepted && selected.command.type === "StartConstruction") {
     const parcelId = (selected.command as import("@landlord/shared").StartConstruction).payload
       .parcelId;
@@ -987,6 +1170,10 @@ function rivalAction(state: GameState): void {
   state.phase2.rivalAi.lastAction = selected.action;
   state.phase2.rivalAi.lastReason = selected.reason;
   state.phase2.rivalAi.lastFailureCode = result.accepted ? null : result.code;
+  if (!result.accepted) {
+    state.phase2.rivalAi.memory.lossCount += 1;
+    state.phase2.rivalAi.memory.lastLossAmount = parseMoney(0);
+  }
   state.phase2.rivalAi.cooldownUntilTick = parseTick(
     state.clock.tick + (result.accepted ? GAME_DAY_TICKS : GAME_DAY_TICKS * 2),
   );

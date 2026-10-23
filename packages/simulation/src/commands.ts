@@ -34,6 +34,7 @@ import {
   calculateInsuranceOffer,
   permitRequirements,
   INSOLVENCY_POLICY,
+  RIVAL_AI_POLICY,
 } from "./game-data";
 import { Xoshiro128ss } from "./prng";
 import { chooseInteractionCell, findDeterministicPath } from "./navigation";
@@ -647,6 +648,31 @@ export function dispatchProductCommand(
       ownerOrganizationId: parcel.ownerOrganizationId,
       price: parcel.price,
       transferTax,
+    });
+  }
+
+  if (command.type === "SellParcel") {
+    const parcel = state.phase2.parcels.get(command.payload.parcelId);
+    if (!parcel || parcel.ownerOrganizationId !== command.actingAsOrganizationId)
+      return { accepted: false, code: "SELL_NOT_AVAILABLE" };
+    if (
+      parcel.buildingId ||
+      [...state.phase2.constructionSites.values()].some((site) => site.parcelId === parcel.id)
+    )
+      return { accepted: false, code: "SELL_NOT_AVAILABLE" };
+    const salePrice = parseMoney(
+      Math.floor((parcel.price * RIVAL_AI_POLICY.salePricePercent) / 100),
+    );
+    if (!debit(state, BANK_ORGANIZATION_ID, salePrice, "asset_sale", parcel.id))
+      return { accepted: false, code: "SELL_NOT_AVAILABLE" };
+    credit(state, command.actingAsOrganizationId, salePrice, "asset_sale", parcel.id);
+    parcel.ownerOrganizationId = null;
+    delete state.phase2.permitting.permitsByParcelId[parcel.id];
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "ParcelSold", {
+      parcelId: parcel.id,
+      salePrice,
+      salePricePercent: RIVAL_AI_POLICY.salePricePercent,
     });
   }
 

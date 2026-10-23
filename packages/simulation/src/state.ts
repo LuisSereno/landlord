@@ -101,10 +101,12 @@ export type Phase2State = {
   };
   influenceByOrganizationId: Map<OrganizationId, number>;
   rivalAi: {
+    strategyProfile: "conservative" | "expansionist";
     lastAction: string;
     lastReason: string;
     lastFailureCode: string | null;
     cooldownUntilTick: import("@landlord/shared").Tick;
+    memory: { lossCount: number; defaultCount: number; lastLossAmount: Money };
   };
 };
 
@@ -345,10 +347,12 @@ export function createInitialState(seed = 1): GameState {
         [RIVAL_ORGANIZATION_ID, 1],
       ]),
       rivalAi: {
+        strategyProfile: "conservative",
         lastAction: "none",
         lastReason: "Esperando el primer día económico.",
         lastFailureCode: null,
         cooldownUntilTick: parseTick(0),
+        memory: { lossCount: 0, defaultCount: 0, lastLossAmount: parseMoney(0) },
       },
     },
   };

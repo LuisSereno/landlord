@@ -1321,3 +1321,87 @@ describe("WP3.9 auctions and insolvency recovery", () => {
     );
   });
 });
+
+describe("WP3.10 rival financial AI", () => {
+  const rival = parseOrganizationId("org_00000002");
+  const bank = parseOrganizationId("org_00000003");
+
+  it("executes a rival parcel sale through the normal atomic command path", () => {
+    const state = createInitialState(111);
+    const parcelId = parseParcelId("parcel_00000001");
+    const parcel = state.phase2.parcels.get(parcelId)!;
+    parcel.ownerOrganizationId = rival;
+    const salePrice = Math.floor((parcel.price * 85) / 100);
+    const beforeRival = state.phase2.balances.get(rival)!;
+    const beforeBank = state.phase2.balances.get(bank)!;
+
+    const result = dispatchProductCommand(state, {
+      commandId: parseCommandId("rival-sale-atomic"),
+      issuedByPersonId: parsePersonId("person_00000002"),
+      actingAsOrganizationId: rival,
+      type: "SellParcel",
+      payload: { parcelId },
+    });
+
+    expect(result).toMatchObject({ accepted: true, event: { type: "ParcelSold" } });
+    expect(parcel.ownerOrganizationId).toBeNull();
+    expect(state.phase2.balances.get(rival)).toBe(beforeRival + salePrice);
+    expect(state.phase2.balances.get(bank)).toBe(beforeBank - salePrice);
+    expect(state.phase2.transactions.slice(-2).map((entry) => entry.cause)).toEqual([
+      "asset_sale",
+      "asset_sale",
+    ]);
+    expect(serializeSnapshot(restoreStateFromSnapshot(serializeSnapshot(state)))).toEqual(
+      serializeSnapshot(state),
+    );
+  });
+
+  it("liquidates an empty rival parcel deterministically when the reserve is threatened", () => {
+    const createScenario = () => {
+      const state = createInitialState(113);
+      const parcelId = parseParcelId("parcel_00000001");
+      const parcel = state.phase2.parcels.get(parcelId)!;
+      parcel.ownerOrganizationId = rival;
+      const inventory = state.phase2.inventories.get(rival)!;
+      inventory.capacity = 0;
+      inventory.cement = 0;
+      inventory.brick = 0;
+      inventory.steel = 0;
+      state.phase2.balances.set(rival, parseMoney(0));
+      state.phase2.loans.set(parseLoanId("loan_00000001"), {
+        id: parseLoanId("loan_00000001"),
+        borrowerOrganizationId: rival,
+        lenderOrganizationId: bank,
+        principal: parseMoney(600),
+        outstandingPrincipal: parseMoney(600),
+        annualInterestRateBps: 800,
+        termMonths: 12,
+        remainingMonths: 12,
+        collateralParcelId: parcelId,
+        status: "active",
+        offeredAtTick: parseTick(0),
+        acceptedAtTick: parseTick(0),
+        nextPaymentTick: null,
+        missedPayments: 0,
+      });
+      state.phase2.rivalAi.cooldownUntilTick = parseTick(0);
+      state.clock.tick = parseTick(GAME_DAY_TICKS);
+      advanceProductSystems(state);
+      return state;
+    };
+
+    const first = createScenario();
+    const second = createScenario();
+    expect(first.phase2.rivalAi).toMatchObject({
+      strategyProfile: "conservative",
+      lastAction: "sell_parcel",
+      lastFailureCode: null,
+      memory: { defaultCount: 0, lossCount: 0 },
+    });
+    expect(first.phase2.parcels.get(parseParcelId("parcel_00000001"))?.ownerOrganizationId).toBe(
+      null,
+    );
+    expect(first.phase2.balances.get(rival)).toBe(765);
+    expect(serializeSnapshot(first)).toEqual(serializeSnapshot(second));
+  });
+});

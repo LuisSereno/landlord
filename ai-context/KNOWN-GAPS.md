@@ -130,6 +130,10 @@ Pendiente para implementación del Vertical Slice:
 - WP3.9 tiene implementados default con subasta, pujas reservadas, empate/retirada, ejecución
   atómica, refinanciación limitada y persistencia. La insolvencia colectiva avanzada sigue fuera
   del slice.
+- WP3.10 tiene implementada una IA rival financiera conservadora con reserva de liquidez,
+  deuda, riesgo, seguro, reparación, puja, refinanciación y venta de solares vacíos mediante
+  comandos normales. La memoria de pérdidas y la decisión autónoma son deterministas y
+  persistentes; perfiles múltiples y torneos prolongados siguen fuera del slice.
 - modelo de tipos;
 - loan-to-value;
 - garantías;

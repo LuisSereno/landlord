@@ -337,6 +337,14 @@ export const INSOLVENCY_POLICY = {
   refinancingInterestRateBps: 1200,
 } as const;
 
+export const RIVAL_AI_POLICY = {
+  profile: "conservative" as const,
+  minimumReservePercent: 30,
+  maintenanceConditionThreshold: 55,
+  insuranceRiskThreshold: 35,
+  salePricePercent: 85,
+} as const;
+
 export function calculateLoanPayment(
   loan: Pick<Loan, "outstandingPrincipal" | "remainingMonths" | "annualInterestRateBps">,
 ): {

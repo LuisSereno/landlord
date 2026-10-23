@@ -28,6 +28,7 @@ import {
   type Loan,
   type TaxationState,
   type MaintenanceState,
+  type HousingMarketState,
   type InsuranceState,
   type PermittingState,
   type InsolvencyState,
@@ -45,6 +46,7 @@ import { SimulationClock, type ClockState } from "./clock";
 import { createPrng, type PrngState } from "./prng";
 import { generateDistrict } from "./district-generator";
 import { rosterLayout } from "./district-profiles";
+import { initialHousingMarketState } from "./housing-market";
 import {
   PLAYER_ORGANIZATION_ID,
   PROTOTYPE_ORDINANCE,
@@ -89,6 +91,7 @@ export type Phase2State = {
   loans: Map<import("@landlord/shared").LoanId, Loan>;
   taxation: TaxationState;
   maintenance: MaintenanceState;
+  housingMarket: HousingMarketState;
   insurance: InsuranceState;
   permitting: PermittingState;
   insolvency: InsolvencyState;
@@ -309,6 +312,7 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
         lastSettlementTick: null,
         backlogByBuildingId: {},
       },
+      housingMarket: initialHousingMarketState(),
       insurance: {
         contractsByBuildingId: {},
         claimsByIncidentId: {},

@@ -54,6 +54,15 @@ deja el estado agregado en diseño documentado con disparadores objetivos.
 
 ## WP4.3 — Oferta y demanda de vivienda
 
+**Estado 2026-10-23:** `DONE`. Evidencia en
+`docs/execution/phase-4/wp4-3-housing-market-2026-10-23.md` y decisión en
+`docs/engineering/adr/D-066-mercado-de-vivienda-segmentado.md`. La demanda pasa a estar segmentada
+en hogares, artesanos y comerciantes con presupuesto, tamaño, acoplamiento al empleo y preferencias
+de edificio propias; la ocupación se limita por techo de población, plazas libres y plazas
+asequibles, y el índice de renta se descubre por vacancia con paso y banda acotados. La evidencia
+económica anterior se comparó observable por observable y no cambió; sólo se regeneraron los
+digestos canónicos porque el estado persiste campos nuevos.
+
 - Evolucionar pool de tenants a demanda segmentada.
 - Definir hogares al nivel mínimo que produzca decisiones: renta, tamaño, empleo/preferencias.
 - Modelar vacancy, asequibilidad y movilidad.

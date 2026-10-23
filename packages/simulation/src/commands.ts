@@ -29,7 +29,6 @@ import {
   effectiveTaxRateBps,
   calculateTax,
   MUNICIPALITY_ORGANIZATION_ID,
-  conditionRentMultiplierPercent,
   INSURANCE_POLICY,
   calculateInsuranceOffer,
   permitRequirements,
@@ -38,6 +37,7 @@ import {
   createMunicipalPolicy,
 } from "./game-data";
 import { Xoshiro128ss } from "./prng";
+import { askingRentFor } from "./housing-market";
 import { chooseInteractionCell, findDeterministicPath } from "./navigation";
 
 export type CommandRejection = {
@@ -158,19 +158,7 @@ function trimTransactions(state: GameState): void {
 }
 
 function effectiveRent(state: GameState, building: import("@landlord/shared").Building): number {
-  const policyModifier =
-    state.phase2.ordinance.status === "active"
-      ? 1 + state.phase2.ordinance.rentModifierPercent / 100
-      : 1;
-  return Math.max(
-    0,
-    Math.round(
-      BUILDING_DEFINITIONS[building.type].baseRent *
-        (building.upgraded ? 1.25 : 1) *
-        policyModifier *
-        (conditionRentMultiplierPercent(building.condition) / 100),
-    ),
-  );
+  return askingRentFor(state, building);
 }
 
 function issuePermit(

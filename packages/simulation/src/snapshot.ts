@@ -24,7 +24,7 @@ import type { ProductCommand } from "@landlord/shared";
 import { parseSeed, parseTick } from "@landlord/shared";
 import { PRNG_ALGORITHM } from "./prng";
 import { createInitialState, type GameState } from "./state";
-import { BUILDING_DEFINITIONS } from "./game-data";
+import { BUILDING_DEFINITIONS, TENANT_PROFILE_DEFAULTS } from "./game-data";
 
 export const ENGINE_VERSION = "phase4-dev";
 
@@ -150,6 +150,12 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
       maintenance: {
         ...state.phase2.maintenance,
         backlogByBuildingId: { ...state.phase2.maintenance.backlogByBuildingId },
+      },
+      housingMarket: {
+        ...state.phase2.housingMarket,
+        rentIndexPercentByBuildingType: {
+          ...state.phase2.housingMarket.rentIndexPercentByBuildingType,
+        },
       },
       insurance: {
         contractsByBuildingId: Object.fromEntries(
@@ -479,6 +485,12 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 budget: parseMoney(tenant.budget),
                 status:
                   tenant.status ?? (tenant.activeContractBuildingId ? "contracted" : "available"),
+                // Partidas anteriores a WP4.3 no guardaban estos campos; el perfil del hogar los
+                // reconstruye con los mismos valores autorados, así que las bajas no cambian.
+                size: tenant.size ?? TENANT_PROFILE_DEFAULTS[tenant.profile].size,
+                segmentId: tenant.segmentId ?? tenant.profile,
+                searchMonths: tenant.searchMonths ?? 0,
+                origin: tenant.origin ?? "authored",
               },
             ]),
           ),
@@ -563,6 +575,18 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 ),
               }
             : defaults.maintenance,
+          housingMarket: snapshot.phase2.housingMarket
+            ? {
+                ...snapshot.phase2.housingMarket,
+                rentIndexPercentByBuildingType: {
+                  ...snapshot.phase2.housingMarket.rentIndexPercentByBuildingType,
+                },
+                lastSettlementTick:
+                  snapshot.phase2.housingMarket.lastSettlementTick === null
+                    ? null
+                    : parseTick(snapshot.phase2.housingMarket.lastSettlementTick),
+              }
+            : { ...defaults.housingMarket },
           insurance: snapshot.phase2.insurance
             ? {
                 contractsByBuildingId: Object.fromEntries(

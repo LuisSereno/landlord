@@ -7,6 +7,7 @@ import {
   type Zoning,
   type Loan,
   type Tenant,
+  type TenantProfile,
   type Ordinance,
 } from "@landlord/shared";
 import { parseTenantId, parsePolicyId, parseOrganizationId } from "@landlord/shared";
@@ -92,6 +93,18 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
   },
 };
 
+/**
+ * Valores de hogar por perfil. `size` son los ocupantes que cuentan en un siniestro y no consume
+ * plazas de capacidad; `segmentId` enlaza el hogar con la demanda segmentada del mercado.
+ * Los hogares autorados de Fase 3 y los sintéticos de las pruebas comparten esta tabla para que
+ * cargar una partida antigua reproduzca exactamente el mismo recuento de bajas.
+ */
+export const TENANT_PROFILE_DEFAULTS: Record<TenantProfile, { size: number; segmentId: string }> = {
+  household: { size: 3, segmentId: "household" },
+  maker: { size: 2, segmentId: "maker" },
+  shopkeeper: { size: 2, segmentId: "shopkeeper" },
+};
+
 export const PROTOTYPE_TENANTS: Tenant[] = [
   {
     id: parseTenantId("tenant_00000001"),
@@ -102,6 +115,10 @@ export const PROTOTYPE_TENANTS: Tenant[] = [
     satisfaction: 70,
     leaseRemaining: 0,
     status: "available",
+    size: 3,
+    segmentId: "household",
+    searchMonths: 0,
+    origin: "authored",
   },
   {
     id: parseTenantId("tenant_00000002"),
@@ -112,6 +129,10 @@ export const PROTOTYPE_TENANTS: Tenant[] = [
     satisfaction: 70,
     leaseRemaining: 0,
     status: "available",
+    size: 2,
+    segmentId: "maker",
+    searchMonths: 0,
+    origin: "authored",
   },
   {
     id: parseTenantId("tenant_00000003"),
@@ -122,6 +143,10 @@ export const PROTOTYPE_TENANTS: Tenant[] = [
     satisfaction: 70,
     leaseRemaining: 0,
     status: "available",
+    size: 2,
+    segmentId: "shopkeeper",
+    searchMonths: 0,
+    origin: "authored",
   },
   {
     id: parseTenantId("tenant_00000004"),
@@ -132,6 +157,10 @@ export const PROTOTYPE_TENANTS: Tenant[] = [
     satisfaction: 70,
     leaseRemaining: 0,
     status: "available",
+    size: 3,
+    segmentId: "household",
+    searchMonths: 0,
+    origin: "authored",
   },
 ];
 

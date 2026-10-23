@@ -46,6 +46,7 @@ import {
   LOAN_POLICY,
   PLAYER_ORGANIZATION_ID,
   RIVAL_ORGANIZATION_ID,
+  TENANT_PROFILE_DEFAULTS,
   calculateInsuranceOffer,
 } from "./game-data";
 import { createPrng } from "./prng";
@@ -295,6 +296,10 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
         satisfaction: 60 + prng.nextInt(0, 26),
         leaseRemaining: 6 + prng.nextInt(0, 19),
         status: "contracted",
+        size: TENANT_PROFILE_DEFAULTS[profile].size,
+        segmentId: profile,
+        searchMonths: 0,
+        origin: "authored",
       };
       state.phase2.tenants.set(tenantId, tenant);
       building.tenantIds.push(tenantId);

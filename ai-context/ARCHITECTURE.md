@@ -86,15 +86,21 @@ comandos al Worker y el Worker responde con snapshot/proyección y métricas.
 `advanceProductSystems` ejecuta sistemas en orden fijo, y ése orden es parte del determinismo:
 
 `tacticalTick` -> producción -> rentas y leases -> pagos de deuda -> subastas -> impuestos de
-propiedad -> mantenimiento -> seguros -> política y heat -> acción rival -> avance de tick.
+propiedad -> mantenimiento -> seguros -> política y heat -> acción rival -> mercado de vivienda ->
+avance de tick.
 
 Cada bloque es un sistema puro sobre `GameState`; ninguno depende del reloj de pared ni del render.
 
 La lista es `PRODUCT_SYSTEMS`, con nombres estables (`tactical`, `production`, `rent`, `debt`,
-`auctions`, `propertyTax`, `maintenance`, `insurance`, `policy`, `rival`) que usan la instrumentación
-de coste (`pnpm system:cost`) y las futuras reglas de LOD. No reordenar ni intercalar: cambia todas
-las partidas. La conservación del resultado se blinda con digestos dorados en
-`tick-conservation.test.ts` (D-065).
+`auctions`, `propertyTax`, `maintenance`, `insurance`, `policy`, `rival`, `housing`) que usan la
+instrumentación de coste (`pnpm system:cost`) y las futuras reglas de LOD. No reordenar ni
+intercalar: cambia todas las partidas. La conservación del resultado se blinda con digestos dorados
+en `tick-conservation.test.ts` (D-065).
+
+`housing` va al final a propósito: sólo trabaja en el cierre mensual, y al ejecutarse después de
+`rent` el índice de renta descubierto con la vacancia observada se cobra al mes siguiente. La renta
+tiene una única fórmula, `askingRentFor` en `housing-market.ts`, compartida por el cobro, la
+validación de `AssignTenant` y la proyección (D-066).
 
 ## Identidad y control
 

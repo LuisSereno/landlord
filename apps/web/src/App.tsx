@@ -1201,6 +1201,25 @@ export function App() {
                   obras activas
                 </p>
                 <p>
+                  <strong>Mercado de vivienda:</strong> índice de renta patio{" "}
+                  {economy.housingMarket.rentIndexPercentByBuildingType.courtyard_home ?? 100}% ·
+                  taller {economy.housingMarket.rentIndexPercentByBuildingType.workshop ?? 100}% ·
+                  vacancia patio{" "}
+                  {economy.housingMarket.vacancyPercentByBuildingType.courtyard_home ?? 0}% · taller{" "}
+                  {economy.housingMarket.vacancyPercentByBuildingType.workshop ?? 0}% ·{" "}
+                  {economy.housingMarket.arrivalsTotal} llegadas y{" "}
+                  {economy.housingMarket.departuresTotal} salidas acumuladas.
+                </p>
+                <ul>
+                  {economy.housingMarket.segments.map((segment) => (
+                    <li key={segment.id}>
+                      {segment.label}: {segment.population}/{segment.populationCap} hogares ·
+                      atractivo {segment.appealPercent}% · {segment.vacantSlots} plazas vacantes (
+                      {segment.affordableVacantSlots} asequibles)
+                    </li>
+                  ))}
+                </ul>
+                <p>
                   <strong>Rival:</strong> {economy.rival.parcels} parcelas ·{" "}
                   {economy.rival.buildings} edificios · {economy.rival.occupiedBuildings} ocupados.
                   Caja y contratos privados.

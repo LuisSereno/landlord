@@ -215,7 +215,28 @@ export type ViewProjectionV1 = {
       budget: number;
       satisfaction: number;
       status: "available" | "contracted" | "displaced";
+      size: number;
+      segmentId: string;
+      searchMonths: number;
+      origin: "authored" | "market";
     }>;
+    housingMarket: {
+      lastSettlementTick: Tick | null;
+      arrivalsTotal: number;
+      departuresTotal: number;
+      rentIndexPercentByBuildingType: Record<string, number>;
+      vacancyPercentByBuildingType: Record<string, number>;
+      segments: Array<{
+        id: "household" | "maker" | "shopkeeper";
+        label: string;
+        population: number;
+        populationCap: number;
+        appealPercent: number;
+        compatibleSlots: number;
+        vacantSlots: number;
+        affordableVacantSlots: number;
+      }>;
+    };
     ordinance: {
       id: PolicyId;
       name: string;
@@ -570,8 +591,31 @@ export const viewProjectionV1Schema = z.object({
           budget: moneySchema,
           satisfaction: z.number().int().min(0).max(100),
           status: z.enum(["available", "contracted", "displaced"]),
+          size: z.number().int().positive(),
+          segmentId: z.string(),
+          searchMonths: z.number().int().nonnegative(),
+          origin: z.enum(["authored", "market"]),
         }),
       ),
+      housingMarket: z.object({
+        lastSettlementTick: tickSchema.nullable(),
+        arrivalsTotal: z.number().int().nonnegative(),
+        departuresTotal: z.number().int().nonnegative(),
+        rentIndexPercentByBuildingType: z.record(z.string(), z.number().int()),
+        vacancyPercentByBuildingType: z.record(z.string(), z.number()),
+        segments: z.array(
+          z.object({
+            id: z.enum(["household", "maker", "shopkeeper"]),
+            label: z.string(),
+            population: z.number().int().nonnegative(),
+            populationCap: z.number().int().nonnegative(),
+            appealPercent: z.number().int().min(0).max(100),
+            compatibleSlots: z.number().int().nonnegative(),
+            vacantSlots: z.number().int().nonnegative(),
+            affordableVacantSlots: z.number().int().nonnegative(),
+          }),
+        ),
+      }),
       ordinance: z.object({
         id: policyIdSchema,
         name: z.string(),

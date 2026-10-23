@@ -340,3 +340,29 @@ y elimina una dependencia del locale, pero toca unos veinte puntos incluido `ord
 requiere ADR propio y cambio global. Ver
 `docs/engineering/adr/D-065-coste-del-tick-y-lod-latente.md` y
 `docs/execution/phase-4/wp4-2-simulation-lod-2026-10-23.md`.
+
+## D-066 — Mercado de vivienda segmentado con precio descubierto por vacancia
+Estado: aceptada el 2026-10-23 para WP4.3.
+El pool de cuatro hogares autorados se convierte en demanda segmentada (`household`, `maker`,
+`shopkeeper`) con presupuesto de renta, tipos preferidos, techo de población, llegadas por mes y
+pesos de deseabilidad propios. El hogar gana `size`, `segmentId`, `searchMonths` y `origin`;
+`size` sustituye los recuentos codificados de ocupantes del colapso con los mismos valores
+autorados, así que las bajas de una partida antigua no cambian. La renta pasa a tener una sola
+fórmula, `askingRentFor`, compartida por el cobro, la validación de contrato y la proyección, y
+lleva un índice por tipo de edificio. El índice se descubre por vacancia con tres cotas: objetivo
+del 8 %, 2,5 puntos por punto de vacancia, paso máximo de ±4 por mes y banda [80, 125]; con menos de
+tres edificios del tipo no hay precio, lo que preserva la aritmética exacta de las pruebas del
+slice con un solo edificio. La deseabilidad suma cuatro componentes ponderadas por segmento
+(calidad, accesibilidad al centro de actividad, seguridad por incidentes cercanos y presión
+policial, servicios en radio de 6 celdas). Las llegadas se limitan por tres topes a la vez —techo
+de población, plazas libres y plazas asequibles—, de modo que construir caro produce vacancia y no
+demanda. El sistema `housing` cierra `PRODUCT_SYSTEMS`: al ir después de `rent`, el precio
+descubierto se cobra al mes siguiente. El mercado sólo coloca los hogares que él genera; los
+autorados los coloca el jugador y caducan si no encuentran plaza en seis meses, lo que conserva la
+decisión de `AssignTenant` y evitó romper la prueba de liquidez de WP3.6. Movilidad contada por fin
+de contrato, desalojo y expiración de búsqueda. Persistencia aditiva (`phase2.housingMarket` y
+cuatro campos opcionales en `Tenant`) con reconstrucción desde el perfil para partidas antiguas. La
+evidencia económica se comparó observable por observable antes y después en los diez casos de
+conservación: los diez son idénticos, y los digestos canónicos se regeneran sólo porque el estado
+persistido gana campos. Ver `docs/engineering/adr/D-066-mercado-de-vivienda-segmentado.md` y
+`docs/execution/phase-4/wp4-3-housing-market-2026-10-23.md`.

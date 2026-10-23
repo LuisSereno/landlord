@@ -22,12 +22,16 @@ import {
   MUNICIPALITY_ORGANIZATION_ID,
   MAINTENANCE_POLICY,
   conditionAssetValueMultiplierPercent,
-  conditionRentMultiplierPercent,
   INSURANCE_POLICY,
   calculateInsuranceOffer,
   regulatoryRiskPercent,
   MUNICIPAL_POLICY_CATALOG,
 } from "./game-data";
+import {
+  askingRentFor,
+  describeHousingMarket,
+  vacancyPercentByBuildingType,
+} from "./housing-market";
 
 function currentPropertyTaxRateBps(state: GameState): number {
   return effectiveTaxRateBps(
@@ -99,21 +103,10 @@ function createFinancialSummary(
         building.state !== "ruin" &&
         building.tenantIds.length > 0,
     )
-    .reduce((total, building) => {
-      const rentModifier =
-        state.phase2.ordinance.status === "active"
-          ? 1 + state.phase2.ordinance.rentModifierPercent / 100
-          : 1;
-      const rent = Math.max(
-        0,
-        Math.round(
-          BUILDING_DEFINITIONS[building.type].baseRent *
-            (building.upgraded ? 1 + UPGRADE_RENT_BONUS_PERCENT / 100 : 1) *
-            rentModifier,
-        ),
-      );
-      return total + rent * building.tenantIds.length;
-    }, 0);
+    .reduce(
+      (total, building) => total + askingRentFor(state, building) * building.tenantIds.length,
+      0,
+    );
   const forecastExpenses = [...state.phase2.facilities.values()]
     .filter(
       (facility) => facility.ownerOrganizationId === PLAYER_ORGANIZATION_ID && facility.operational,
@@ -530,14 +523,7 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                 casualtiesTotal: { ...building.casualtiesTotal },
                 effectiveRent:
                   building.ownerOrganizationId === PLAYER_ORGANIZATION_ID
-                    ? Math.round(
-                        BUILDING_DEFINITIONS[building.type].baseRent *
-                          (building.upgraded ? 1 + UPGRADE_RENT_BONUS_PERCENT / 100 : 1) *
-                          (state.phase2.ordinance.status === "active"
-                            ? 1 + state.phase2.ordinance.rentModifierPercent / 100
-                            : 1) *
-                          (conditionRentMultiplierPercent(building.condition) / 100),
-                      )
+                    ? askingRentFor(state, building)
                     : 0,
                 maintenanceCost: MAINTENANCE_POLICY.costsByBuildingType[building.type],
                 maintenanceDue:
@@ -571,7 +557,21 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                 budget: tenant.budget,
                 satisfaction: tenant.satisfaction,
                 status: tenant.status,
+                size: tenant.size,
+                segmentId: tenant.segmentId,
+                searchMonths: tenant.searchMonths,
+                origin: tenant.origin,
               })),
+            housingMarket: {
+              lastSettlementTick: state.phase2.housingMarket.lastSettlementTick,
+              arrivalsTotal: state.phase2.housingMarket.arrivalsTotal,
+              departuresTotal: state.phase2.housingMarket.departuresTotal,
+              rentIndexPercentByBuildingType: {
+                ...state.phase2.housingMarket.rentIndexPercentByBuildingType,
+              },
+              vacancyPercentByBuildingType: vacancyPercentByBuildingType(state),
+              segments: describeHousingMarket(state),
+            },
             ordinance: {
               id: state.phase2.ordinance.id,
               name: state.phase2.ordinance.name,

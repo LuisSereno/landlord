@@ -348,6 +348,17 @@ export type Tenant = {
   satisfaction: number;
   leaseRemaining: number;
   status: "available" | "contracted" | "displaced";
+  /** Ocupantes del hogar. Se usa para las bajas de un siniestro; no consume plazas de capacidad. */
+  size: number;
+  /** Segmento de demanda que originó el hogar; los hogares autorados usan su propio perfil. */
+  segmentId: string;
+  /** Meses que el hogar lleva disponible sin firmar contrato. */
+  searchMonths: number;
+  /**
+   * `authored` es un candidato que el jugador coloca a mano (el pool del slice); `market` lo generó
+   * el mercado y se instala por su cuenta cuando encuentra una plaza asequible.
+   */
+  origin: "authored" | "market";
 };
 
 export type EconomicTransaction = {
@@ -403,6 +414,16 @@ export type TaxationState = {
   totalCollected: Money;
   exemptOrganizationIds: OrganizationId[];
   arrearsByOrganizationId: Record<string, Money>;
+};
+
+export type HousingMarketState = {
+  /** Índice de renta por tipo de edificio; 100 es el precio base de `BUILDING_DEFINITIONS`. */
+  rentIndexPercentByBuildingType: Record<string, number>;
+  lastSettlementTick: Tick | null;
+  arrivalsTotal: number;
+  departuresTotal: number;
+  /** Último ordinal de id de hogar emitido por el mercado; nunca retrocede al vaciar el pool. */
+  nextTenantOrdinal: number;
 };
 
 export type MaintenancePolicy = "balanced" | "deferred";
@@ -623,6 +644,10 @@ export const tenantSchema = z.object({
   satisfaction: z.number().int().min(0).max(100),
   leaseRemaining: z.number().int().nonnegative(),
   status: z.enum(["available", "contracted", "displaced"]).optional(),
+  size: z.number().int().positive().optional(),
+  segmentId: z.string().min(1).max(64).optional(),
+  searchMonths: z.number().int().nonnegative().optional(),
+  origin: z.enum(["authored", "market"]).optional(),
 });
 export const economicTransactionSchema = z.object({
   id: transactionIdSchema,
@@ -672,6 +697,13 @@ export const taxationStateSchema = z.object({
   totalCollected: moneySchema,
   exemptOrganizationIds: z.array(organizationIdSchema),
   arrearsByOrganizationId: z.record(z.string(), moneySchema),
+});
+export const housingMarketStateSchema = z.object({
+  rentIndexPercentByBuildingType: z.record(z.string(), z.number().int().min(50).max(150)),
+  lastSettlementTick: tickSchema.nullable(),
+  arrivalsTotal: z.number().int().nonnegative(),
+  departuresTotal: z.number().int().nonnegative(),
+  nextTenantOrdinal: z.number().int().positive(),
 });
 export const maintenanceStateSchema = z.object({
   policy: z.enum(["balanced", "deferred"]),

@@ -14,7 +14,6 @@ import { credit, debit, dispatchProductCommand } from "./commands";
 import {
   BUILDING_DEFINITIONS,
   RIVAL_ORGANIZATION_ID,
-  UPGRADE_RENT_BONUS_PERCENT,
   GAME_DAY_TICKS,
   GAME_HOUR_TICKS,
   GAME_MONTH_TICKS,
@@ -27,7 +26,6 @@ import {
   MUNICIPALITY_ORGANIZATION_ID,
   TAX_POLICY,
   MAINTENANCE_POLICY,
-  conditionRentMultiplierPercent,
   deteriorationRiskPercent,
   INSURANCE_POLICY,
   INSOLVENCY_POLICY,
@@ -36,6 +34,7 @@ import {
   REPAIR_COST,
 } from "./game-data";
 import type { GameState } from "./state";
+import { askingRentFor, runHousingMarket } from "./housing-market";
 import { Xoshiro128ss } from "./prng";
 import { findDeterministicPath } from "./navigation";
 
@@ -373,23 +372,11 @@ function progressConstruction(state: GameState): void {
 
 function collectRentAndAgeLeases(state: GameState): void {
   if (state.clock.tick === 0 || state.clock.tick % GAME_MONTH_TICKS !== 0) return;
-  const rentModifier =
-    state.phase2.ordinance.status === "active"
-      ? 1 + state.phase2.ordinance.rentModifierPercent / 100
-      : 1;
   for (const building of [...state.phase2.buildings.values()].sort((a, b) =>
     a.id.localeCompare(b.id),
   )) {
     if (building.state === "ruin" || building.tenantIds.length === 0) continue;
-    const askingRent = Math.max(
-      0,
-      Math.round(
-        BUILDING_DEFINITIONS[building.type].baseRent *
-          (building.upgraded ? 1 + UPGRADE_RENT_BONUS_PERCENT / 100 : 1) *
-          rentModifier *
-          (conditionRentMultiplierPercent(building.condition) / 100),
-      ),
-    );
+    const askingRent = askingRentFor(state, building);
     for (const tenantId of [...building.tenantIds]) {
       const tenant = state.phase2.tenants.get(tenantId);
       if (!tenant) continue;
@@ -406,6 +393,9 @@ function collectRentAndAgeLeases(state: GameState): void {
         building.tenantIds = building.tenantIds.filter((id) => id !== tenant.id);
         tenant.activeContractBuildingId = null;
         tenant.status = "available";
+        // El hogar vuelve al pool: quedarse sin contrato es una salida para la estadística del
+        // mercado, aunque el mismo hogar pueda volver a instalarse más adelante.
+        state.phase2.housingMarket.departuresTotal += 1;
       }
     }
     building.tenantId = building.tenantIds[0] ?? null;
@@ -805,13 +795,12 @@ function tacticalTick(state: GameState): void {
         tenant.activeContractBuildingId = null;
       }
     }
-    const occupants = root.tenantIds.reduce((total, tenantId) => {
-      const profile = state.phase2.tenants.get(tenantId)?.profile;
-      return (
-        total +
-        (profile === "household" ? 3 : profile === "maker" || profile === "shopkeeper" ? 2 : 0)
-      );
-    }, 0);
+    // `size` es el recuento de ocupantes del hogar; los hogares autorados y los cargados desde una
+    // partida antigua lo reconstruyen con la misma tabla, así que las bajas siguen cuadrando.
+    const occupants = root.tenantIds.reduce(
+      (total, tenantId) => total + (state.phase2.tenants.get(tenantId)?.size ?? 0),
+      0,
+    );
     const dead = Math.floor(occupants / 2);
     const injured = occupants - dead;
     root.casualtiesTotal.injured += injured;
@@ -1275,6 +1264,9 @@ export const PRODUCT_SYSTEMS: readonly ProductSystem[] = [
   { name: "insurance", run: settleInsurance },
   { name: "policy", run: updatePolicyAndHeat },
   { name: "rival", run: rivalAction },
+  // El mercado cierra el mes después de la renta: el precio que se descubre hoy se cobra el mes
+  // siguiente, nunca en el mismo cierre en el que se observa la vacancia.
+  { name: "housing", run: runHousingMarket },
 ];
 
 export function advanceProductSystems(state: GameState): void {

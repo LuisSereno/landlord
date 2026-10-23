@@ -47,7 +47,7 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 
 **Aceptación:** producir material exige poseer y construir un activo físico; dos parcelas distintas pueden producir rendimientos distintos; mercado y producción propia son alternativas económicamente legibles y una fábrica puede sufrir las mismas consecuencias físicas que cualquier otro edificio.
 
-## WP3.4 — Modelo financiero y liquidez
+## WP3.3 — Modelo financiero y liquidez
 
 - Separar caja, activos, pasivos, patrimonio, ingreso y gasto.
 - Añadir estados simplificados: resultado, cash flow y balance resumido.

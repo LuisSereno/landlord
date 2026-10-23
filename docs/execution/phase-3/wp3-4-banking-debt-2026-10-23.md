@@ -2,7 +2,7 @@
 
 ## Decisión
 
-`CONDITIONAL DONE` para el Vertical Slice. El núcleo de financiación es jugable y
+`DONE` para el Vertical Slice. El núcleo de financiación es jugable y
 determinista; la refinanciación, ejecución de garantías y reestructuración avanzada se
 mantienen en WP3.9, donde se tratarán junto a las crisis económicas.
 
@@ -33,8 +33,9 @@ mantienen en WP3.9, donde se tratarán junto a las crisis económicas.
 - `pnpm format:check`: OK tras la implementación.
 - La proyección excluye el desembolso de ingreso operativo y conserva el pasivo en balance.
 
-## Condición abierta
+## Condición resuelta
 
-`G3-04`: la refinanciación limitada, ejecución de garantía y recuperación ante default no se
-implementan en este incremento. No bloquean WP3.5 ni WP3.6; deben resolverse en WP3.9 antes de
-cerrar la economía de crisis.
+`G3-04` quedó resuelta por WP3.9: refinanciación limitada, ejecución de garantía, puja,
+recuperación ante default y persistencia están implementadas y verificadas en
+`docs/execution/phase-3/wp3-9-auctions-insolvency-2026-10-23.md`. La deuda avanzada fuera del
+slice sigue siendo una ampliación futura, no una condición abierta del paquete.

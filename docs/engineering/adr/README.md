@@ -25,3 +25,4 @@ Una decisión aceptada sólo se modifica mediante un ADR posterior que la sustit
 - [D-059 — Cierre funcional del baseline de Gate 2](D-059-cierre-funcional-baseline-gate-2.md)
 - [D-060 — Coherencia económica y temporal de Gate 2](D-060-coherencia-economica-gate-2.md)
 - [D-061 — Spike de agentes, daño e incidentes](D-061-spike-agentes-dano-incidentes-gate-2.md)
+- [D-062 — Producción física localizada](D-062-produccion-fisica-localizada.md)

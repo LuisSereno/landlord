@@ -100,12 +100,63 @@ Los negocios pueden depender de:
 
 ## Producción
 
-El prototipo conserva un ciclo material sencillo inspirado en el tipo de sistema documentado históricamente:
+El prototipo de Gate 2 conserva un ciclo material sencillo:
 - cemento;
 - ladrillo;
 - acero.
 
-En el producto final los nombres, edificios, números y cadenas serán propios.
+La activación abstracta mediante `InvestInProduction` es una simplificación de Gate 2 para validar la decisión mercado frente a producción propia. No representa el modelo objetivo del producto y no debe consolidarse como una instalación invisible permanente.
+
+### Modelo objetivo de producción física
+
+A partir del Vertical Slice, la producción propia debe materializarse mediante edificios productivos normales construidos sobre parcelas:
+
+```text
+comprar parcela
+-> construir instalación productiva
+-> completar obra con crews
+-> instalación operativa
+-> producción automática y lenta
+-> inventario
+-> consumo en obras
+```
+
+Estos edificios comparten las reglas del resto de activos: ownership, zoning, coste de construcción, condition, structuralIntegrity, mantenimiento, incendio, reparación, sabotaje, valor, fiscalidad y seguros cuando esos sistemas existan.
+
+El mercado de materiales permanece como alternativa paralela. Comprar debe ofrecer disponibilidad inmediata sin ocupar suelo ni inmovilizar capital industrial; producir internamente debe ofrecer una ventaja de coste o autonomía a cambio de parcela, inversión, tiempo, costes operativos y riesgo.
+
+### Aptitud productiva de la parcela
+
+La ubicación debe modificar la productividad. La parcela podrá exponer potenciales o suitability enteros por familia de recurso, por ejemplo:
+
+```text
+cementPotential
+brickPotential
+steelPotential
+```
+
+Los nombres definitivos y el modelo físico se decidirán con los datos del Vertical Slice. No todas las instalaciones deben depender de los mismos factores: una instalación de materiales cerámicos puede valorar suelo/arcilla; una industria pesada, logística, infraestructura o energía.
+
+La tasa efectiva debe ser data-driven y determinista, evitando floats autoritativos:
+
+```text
+effectiveOutput =
+  baseOutput
+  * parcelSuitability
+  * conditionModifier
+  * upgradeModifier
+  * policyModifier
+```
+
+Los porcentajes se implementarán mediante enteros/fixed-point cuando llegue esta fase.
+
+### Inversión y upgrades
+
+El botón genérico `Invertir` de Gate 2 desaparecerá del flujo normal cuando existan fábricas físicas. La inversión pasa a significar ampliar o mejorar un activo productivo existente: capacidad, eficiencia, almacenamiento, seguridad o control ambiental.
+
+No se introducen todavía minas, canteras, energía, materias primas intermedias ni cadenas industriales complejas. El objetivo es conectar suelo, construcción, producción, mercado y riesgo, no crear un juego fabril independiente.
+
+En el producto final los nombres, edificios, números y cadenas serán propios de Landlord.
 
 ## Mercado
 

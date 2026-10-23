@@ -65,8 +65,26 @@ Resuelto para Gate 1 en D-049/D-051: `PlayerIdentity -> Person`, `Organization`,
 - elasticidad de rentas;
 - venta y subasta de activos.
 
+## Producción física
+Decidido en D-062 para después de Gate 2:
+- sustituir la activación abstracta `InvestInProduction` por fábricas construibles;
+- mantener mercado de materiales como alternativa inmediata;
+- introducir aptitud productiva de parcela por recurso/familia;
+- integrar fábricas con crews, condition, structuralIntegrity, fuego, sabotaje y reparación;
+- convertir "inversión" en upgrades de activos productivos.
+
+Pendiente para implementación del Vertical Slice:
+- nombres y catálogo definitivos de instalaciones productivas;
+- escala de suitability y fórmula exacta de rendimiento;
+- balance mercado frente a coste unitario propio;
+- capacidad/almacenamiento por instalación;
+- upgrades concretos;
+- reglas de zoning/contaminación/logística;
+- migración de `ProductionFacility`/saves de Gate 2;
+- comportamiento de IA para elegir mercado, construir fábrica o ampliar capacidad.
+
 ## Gate 2 — baseline 2026-10-21
-- Implementados parcelas, caja, mercado de materiales, inversión productiva, obras, dos crews
+- Implementados parcelas, caja, mercado de materiales, inversión productiva abstracta de Gate 2, obras, dos crews
   agregadas y asignables, tenants finitos multiunidad, presupuesto/satisfacción, renta mensual,
   deterioro/reparación, upgrades, rival utility mínimo, crimen/policía con cooldown, ordenanza
   incierta, HUD y save/load.
@@ -83,6 +101,9 @@ Resuelto para Gate 1 en D-049/D-051: `PlayerIdentity -> Person`, `Organization`,
   integridad estructural, daño espacial, heridas, muerte, casualties, ruina y migración aditiva.
 - Antes del `GO` permanecen abiertos el playtest humano prolongado y la evidencia del Visual
   Direction Spike. No se autoriza por ello una life simulation ni un sistema de combate amplio.
+- D-062 no reabre Gate 2: la producción física localizada queda programada para el Vertical Slice;
+  el botón `InvestInProduction` sigue siendo válido únicamente como abstracción del baseline que
+  se está evaluando.
 
 ## Fiscalidad
 - impuestos concretos de la primera versión;

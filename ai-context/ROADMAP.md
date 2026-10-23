@@ -40,9 +40,14 @@ consecuencias espaciales con alcance mínimo.
 
 La experiencia sigue siendo Landlord/Entrepreneur.
 
+D-062 queda deliberadamente fuera de los criterios de cierre de Gate 2: el playtest actual puede
+seguir evaluando la activación productiva abstracta. Esa abstracción no debe interpretarse como
+diseño final.
+
 ## Vertical slice
 
 Prioridad funcional:
+- producción física localizada: fábricas construibles, aptitud de parcela y mercado alternativo;
 - impuestos/tasas principales;
 - mantenimiento;
 - deterioro;

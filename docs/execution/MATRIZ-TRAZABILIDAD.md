@@ -35,15 +35,16 @@ Relacionar capacidades, gates, paquetes, evidencia y fuentes canónicas. Esta ma
 | Dirección visual y pipeline | Gate 2 | WP2.14 | Spike reproducible, provenance, métricas y decisión | Art Bible, Art Pipeline |
 | Sesión 30-60 min | Gate 2 | WP2.13 | Playtest y métricas del bucle | Gates y MVP |
 | Agentes, daño e incidentes | Gate 2 | WP2.15 | Escenario físico headless/visible, golden tests y save/load determinista | D-061, game design, investigación histórica |
-| Estados financieros/liquidez | Vertical slice | WP3.2 | Lectura de solvencia y caja | Fiscalidad y operación |
-| Banca/deuda | Vertical slice | WP3.3 | Calendario, mora, garantía | Fiscalidad y operación |
-| Impuestos/tasas | Vertical slice | WP3.4 | Liquidación automática y previsión | Fiscalidad y operación |
-| Mantenimiento | Vertical slice | WP3.5 | Deterioro, política y reparación | Fiscalidad y operación |
-| Seguros | Vertical slice | WP3.6 | Cobertura, prima y siniestro | Fiscalidad y operación |
-| Zoning/permisos | Vertical slice | WP3.7 | Reglas previas y cambio normativo | Fiscalidad y operación |
-| Subastas/insolvencia | Vertical slice | WP3.8 | Transferencia y recuperación | Fiscalidad y operación |
-| Automatización | Vertical slice | WP3.11 | Cartera mayor sin clics lineales | Game design/progresión |
-| Arte representativo | Vertical slice | WP3.12 | Art Lab, atlases, escena densa y QA visual | Art Bible, Art Pipeline |
+| Producción física localizada | Vertical slice | WP3.2 | Fábrica construible, suitability de parcela y decisión mercado/producción | D-062, Economía e inmobiliario |
+| Estados financieros/liquidez | Vertical slice | WP3.3 | Lectura de solvencia y caja | Fiscalidad y operación |
+| Banca/deuda | Vertical slice | WP3.4 | Calendario, mora, garantía | Fiscalidad y operación |
+| Impuestos/tasas | Vertical slice | WP3.5 | Liquidación automática y previsión | Fiscalidad y operación |
+| Mantenimiento | Vertical slice | WP3.6 | Deterioro, política y reparación | Fiscalidad y operación |
+| Seguros | Vertical slice | WP3.7 | Cobertura, prima y siniestro | Fiscalidad y operación |
+| Zoning/permisos | Vertical slice | WP3.8 | Reglas previas y cambio normativo | Fiscalidad y operación |
+| Subastas/insolvencia | Vertical slice | WP3.9 | Transferencia y recuperación | Fiscalidad y operación |
+| Automatización | Vertical slice | WP3.12 | Cartera mayor sin clics lineales | Game design/progresión |
+| Arte representativo | Vertical slice | WP3.13 | Art Lab, atlases, escena densa y QA visual | Art Bible, Art Pipeline |
 | Distritos generados | Alpha | WP4.1 | Seed reproducible y validación | Progresión |
 | Simulation LOD | Alpha | WP4.2 | Conservación al agregar/reactivar | Progresión |
 | Vivienda/demanda | Alpha | WP4.3 | Vacancy y precios responden | Economía e inmobiliario |

@@ -31,7 +31,23 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 
 **Salida:** content lock del slice y guion de evaluación.
 
-## WP3.2 — Modelo financiero y liquidez
+## WP3.2 — Producción física y aptitud del terreno
+
+- Sustituir la activación abstracta de `ProductionFacility` por edificios productivos construibles sobre parcelas.
+- Mantener compra inmediata de materiales en mercado como alternativa estratégica a la producción propia.
+- Definir al menos tres instalaciones productivas originales para los recursos del slice, con zoning y costes data-driven.
+- Añadir a las parcelas modificadores enteros de aptitud productiva por recurso/familia y mostrarlos antes de invertir.
+- Calcular tasa efectiva según instalación, parcela, condición y upgrades, sin floats autoritativos.
+- Hacer que las instalaciones utilicen las reglas normales de ownership, WorkOrder, crews, condition, structuralIntegrity, fuego, reparación y sabotaje.
+- Mantener producción automática por calendario de juego, capacidad de inventario y coste operativo.
+- Retirar `InvestInProduction` del flujo normal y conservar compatibilidad de saves/comandos de Gate 2 mediante migración explícita.
+- Reinterpretar la inversión futura como upgrades físicos de la fábrica: capacidad, eficiencia, almacenamiento, seguridad o control ambiental.
+- Extender la IA rival para construir instalaciones y decidir entre mercado y producción bajo las mismas reglas.
+- Mantener fuera del slice minas, canteras, energía, materias primas intermedias y cadenas industriales complejas.
+
+**Aceptación:** producir material exige poseer y construir un activo físico; dos parcelas distintas pueden producir rendimientos distintos; mercado y producción propia son alternativas económicamente legibles y una fábrica puede sufrir las mismas consecuencias físicas que cualquier otro edificio.
+
+## WP3.4 — Modelo financiero y liquidez
 
 - Separar caja, activos, pasivos, patrimonio, ingreso y gasto.
 - Añadir estados simplificados: resultado, cash flow y balance resumido.
@@ -42,7 +58,7 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 
 **Aceptación:** un jugador distingue negocio rentable de empresa sin liquidez y puede anticipar un déficit.
 
-## WP3.3 — Banca y deuda
+## WP3.4 — Banca y deuda
 
 - Modelar banco como organización independiente.
 - Definir préstamo mínimo: principal, interés, plazo, garantía y estado.
@@ -55,7 +71,7 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 
 **Aceptación:** deuda acelera crecimiento pero introduce vulnerabilidad comprensible; no crea caja sin pasivo.
 
-## WP3.4 — Fiscalidad y tasas prioritarias
+## WP3.5 — Fiscalidad y tasas prioritarias
 
 - Elegir pocos impuestos/tasas que afecten decisiones: propiedad, transacción y/o actividad.
 - Definir base, rate, scope, periodicidad y beneficiario.
@@ -66,7 +82,7 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 
 **Aceptación:** la fiscalidad cambia rentabilidad/localización sin añadir clics rutinarios.
 
-## WP3.5 — Mantenimiento y deterioro
+## WP3.6 — Mantenimiento y deterioro
 
 - Definir condición de activos y curva data-driven.
 - Liquidar mantenimiento recurrente automáticamente.
@@ -78,7 +94,7 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 
 **Aceptación:** mantener o diferir es una decisión; no exige pulsar “pagar mantenimiento” por edificio.
 
-## WP3.6 — Seguros y eventos cubiertos
+## WP3.7 — Seguros y eventos cubiertos
 
 - Modelar aseguradora/contrato con prima, cobertura, límite y exclusión simples.
 - Ofrecer coberturas comparables según riesgo del activo.
@@ -90,7 +106,7 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 
 **Aceptación:** asegurar reduce un riesgo a cambio de coste esperado; no elimina toda incertidumbre.
 
-## WP3.7 — Zoning, licencias y permisos
+## WP3.8 — Zoning, licencias y permisos
 
 - Definir pocas categorías de zoning útiles para el slice.
 - Validar uso/altura/densidad mínima en construcción.
@@ -102,7 +118,7 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 
 **Aceptación:** regulación crea oportunidades y restricciones sin ser una pantalla de papeleo repetitivo.
 
-## WP3.8 — Subastas, ejecuciones e insolvencia inicial
+## WP3.9 — Subastas, ejecuciones e insolvencia inicial
 
 - Definir activos que llegan a subasta por reglas económicas.
 - Implementar puja/competencia con información limitada.
@@ -114,7 +130,7 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 
 **Aceptación:** las crisis generan riesgo y oportunidades; ninguna ruta viola ownership o crea activos duplicados.
 
-## WP3.9 — IA rival financiera
+## WP3.10 — IA rival financiera
 
 - Extender utility con liquidez, deuda, retorno, riesgo y sinergia territorial.
 - Limitar información según su scope.
@@ -125,7 +141,7 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 
 **Aceptación:** perfiles distintos producen estrategias observables y respetan los mismos contratos de comando.
 
-## WP3.10 — Política municipal integrada
+## WP3.11 — Política municipal integrada
 
 - Ampliar el sistema a un conjunto pequeño de policies con trade-offs.
 - Conectar al menos fiscalidad, zoning y/o seguridad con economía real.
@@ -136,7 +152,7 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 
 **Aceptación:** la política modifica decisiones inmobiliarias y no funciona como minijuego aislado.
 
-## WP3.11 — Automatización y UX de escala
+## WP3.12 — Automatización y UX de escala
 
 - Identificar las cinco operaciones más repetidas en playtests.
 - Añadir batch, regla de gestión o delegación limitada para las que no sean decisiones.
@@ -146,7 +162,7 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 - Mejorar onboarding, accesibilidad, estados vacíos y recuperación de errores.
 - Validar que crecer no multiplica clics linealmente.
 
-## WP3.12 — Arte, audio y rendimiento representativos
+## WP3.13 — Arte, audio y rendimiento representativos
 
 - Aplicar el pipeline y los templates aprobados en WP2.14; no rediseñar cámara,
   formatos o gobernanza de provenance dentro de producción de contenido.
@@ -160,7 +176,7 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 - Mantener Art Lab, golden scenes y regresión visual donde aporten valor.
 - Perfilar escena real y optimizar sólo cuellos medidos.
 
-## WP3.13 — Persistencia, cloud spike y observabilidad
+## WP3.14 — Persistencia, cloud spike y observabilidad
 
 - Versionar y migrar todos los sistemas nuevos.
 - Mantener fixtures de Gate 1, Gate 2 y slice.
@@ -169,7 +185,7 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 - Añadir captura de errores y telemetría local/consentida según alcance.
 - Medir snapshots y tiempos de carga de una partida madura.
 
-## WP3.14 — Validación del slice
+## WP3.15 — Validación del slice
 
 - Ejecutar suite determinista, económica, de worker, UI, save y performance.
 - Ejecutar simulaciones headless de balance con seeds de referencia.
@@ -181,11 +197,12 @@ Una sesión de mayor duración en un distrito representativo ofrece decisiones s
 ## Orden recomendado
 
 1. Congelar escenario y datos representativos.
-2. Implementar finanzas/deuda y luego costes operativos.
-3. Añadir regulación y mercado de crisis.
-4. Actualizar IA después de estabilizar los contratos del jugador.
-5. Tratar UX, automatización, persistencia y rendimiento como líneas continuas.
-6. Completar arte representativo sólo después de la aprobación de WP2.14 y de
+2. Materializar producción física y aptitud del terreno antes de balancear cadenas económicas más profundas.
+3. Implementar finanzas/deuda y luego costes operativos.
+4. Añadir regulación y mercado de crisis.
+5. Actualizar IA después de estabilizar los contratos del jugador.
+6. Tratar UX, automatización, persistencia y rendimiento como líneas continuas.
+7. Completar arte representativo sólo después de la aprobación de WP2.14 y de
    fijar métricas, cámara y budgets.
 
 ## Fuera de alcance

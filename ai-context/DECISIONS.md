@@ -268,3 +268,15 @@ consecuencia económica y save/load determinista. No incluye life simulation, re
 hospital jugable ni catálogo amplio de combate. Sustituye para el cierre del gate la elección de
 crews puramente agregadas de D-056 y el punto 5 de D-060. Ver
 `docs/engineering/adr/D-061-spike-agentes-dano-incidentes-gate-2.md`.
+
+
+## D-062 — Producción física localizada después de Gate 2
+Estado: decidido para el Vertical Slice el 2026-10-23.
+El modelo abstracto `InvestInProduction` de Gate 2 es una simplificación temporal y no el diseño
+objetivo. Tras cerrar Gate 2, la producción propia de materiales se realiza mediante edificios
+productivos construibles sobre parcelas, sujetos a las mismas reglas físicas y económicas que
+otros activos. La parcela aporta aptitudes productivas data-driven que modifican la tasa; el
+mercado de materiales continúa como alternativa inmediata. La inversión posterior significa
+upgrade de un activo productivo existente, no activación de una instalación invisible. No se
+añaden todavía cadenas industriales complejas, energía, minas o materias primas intermedias.
+Ver `docs/engineering/adr/D-062-produccion-fisica-localizada.md`.

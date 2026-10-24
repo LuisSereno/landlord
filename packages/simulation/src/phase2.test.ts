@@ -1495,7 +1495,9 @@ describe("WP3.11 municipal policy integration", () => {
     state.clock.tick = parseTick(GAME_MONTH_TICKS);
     advanceProductSystems(state);
     expect(state.phase2.rivalAi.lastAction).toBe("lobby_policy");
-    expect(state.phase2.influenceByOrganizationId.get(parseOrganizationId("org_00000002"))).toBe(0);
+    // WP4.8: gasta la influencia con la que arranca y cobra el +1 mensual que el gobierno deja en
+    // cada empresa mientras su posición ante el municipio sea neutra.
+    expect(state.phase2.influenceByOrganizationId.get(parseOrganizationId("org_00000002"))).toBe(1);
   });
 });
 

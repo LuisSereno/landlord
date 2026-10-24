@@ -34,3 +34,4 @@ Una decisión aceptada sólo se modifica mediante un ADR posterior que la sustit
 - [D-068 — Presupuesto municipal con caja real, prioridad de gasto y niveles de servicio](D-068-presupuesto-municipal.md)
 - [D-069 — Servicios urbanos con cobertura radial y tasa por unidad ocupada](D-069-servicios-urbanos-y-cobertura.md)
 - [D-070 — Contratos públicos con licitación, fianza y ejecución](D-070-contratos-publicos.md)
+- [D-071 — Reputación multidimensional con tres grupos y memoria de hechos](D-071-reputacion-multidimensional.md)

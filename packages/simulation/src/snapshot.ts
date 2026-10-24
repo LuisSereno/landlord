@@ -182,6 +182,22 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
           ),
         ),
       },
+      reputation: {
+        ...state.phase2.reputation,
+        standingByOrganizationId: Object.fromEntries(
+          Object.entries(state.phase2.reputation.standingByOrganizationId).map(
+            ([organizationId, standing]) => [organizationId, { ...standing }],
+          ),
+        ),
+        factsByOrganizationId: Object.fromEntries(
+          Object.entries(state.phase2.reputation.factsByOrganizationId).map(
+            ([organizationId, facts]) => [
+              organizationId,
+              facts.map((fact) => ({ ...fact, deltaByGroup: { ...fact.deltaByGroup } })),
+            ],
+          ),
+        ),
+      },
       insurance: {
         contractsByBuildingId: Object.fromEntries(
           Object.entries(state.phase2.insurance.contractsByBuildingId).map(
@@ -691,6 +707,32 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 ),
               }
             : { ...defaults.contracts },
+          reputation: snapshot.phase2.reputation
+            ? {
+                lastDecayTick:
+                  snapshot.phase2.reputation.lastDecayTick === null
+                    ? null
+                    : parseTick(snapshot.phase2.reputation.lastDecayTick),
+                nextFactOrdinal: snapshot.phase2.reputation.nextFactOrdinal,
+                standingByOrganizationId: Object.fromEntries(
+                  Object.entries(snapshot.phase2.reputation.standingByOrganizationId).map(
+                    ([organizationId, standing]) => [organizationId, { ...standing }],
+                  ),
+                ),
+                factsByOrganizationId: Object.fromEntries(
+                  Object.entries(snapshot.phase2.reputation.factsByOrganizationId).map(
+                    ([organizationId, facts]) => [
+                      organizationId,
+                      facts.map((fact) => ({
+                        ...fact,
+                        atTick: parseTick(fact.atTick),
+                        deltaByGroup: { ...fact.deltaByGroup },
+                      })),
+                    ],
+                  ),
+                ),
+              }
+            : { ...defaults.reputation },
           insurance: snapshot.phase2.insurance
             ? {
                 contractsByBuildingId: Object.fromEntries(

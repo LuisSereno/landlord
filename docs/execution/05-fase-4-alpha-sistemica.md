@@ -153,6 +153,19 @@ pliegos configurables siguen fuera de alcance.
 
 ## WP4.8 — Reputación multidimensional y relaciones
 
+**Estado 2026-10-24:** `DONE`. Evidencia en
+`docs/execution/phase-4/wp4-8-reputation-2026-10-24.md` y decisión en
+`docs/engineering/adr/D-071-reputacion-multidimensional.md`. Tres grupos con salida real, no ocho
+barras: los residentes multiplican la deseabilidad del parque del casero (80–108 %), el gobierno fija
+la influencia que deposita en cada empresa al cerrar el mes (0–3) y la banca ajusta la tasa base del
+préstamo (−100…+250 pb). La memoria son hechos acotados —`kind`, `atTick`, `referenceId`, magnitud con
+tope y el delta aplicado por grupo—, máximo 16 por organización y posición limitada a ±100. Un mismo
+hecho se valora distinto: desplazar hogares resta ante vecinos y gobierno y suma ante la banca, que es
+la aceptación del WP. Decae sólo la opinión (3/mes vecinos, 2/mes gobierno); el historial crediticio no
+se borra con el tiempo. Empresarios, policía, sindicatos, criminales y medios quedan fuera hasta que
+exista el canal que los consuma, y las relaciones entre organizaciones y la información imperfecta
+pertenecen a WP4.9 y WP4.10.
+
 - Elegir grupos/dimensiones con efecto real; evitar score universal.
 - Registrar hechos relevantes como entradas de memoria acotadas.
 - Definir decay sólo donde tenga sentido y sea testeable.

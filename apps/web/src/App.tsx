@@ -1268,6 +1268,23 @@ export function App() {
                   ))}
                 </ul>
                 <p>
+                  <strong>Reputación:</strong> vecinos{" "}
+                  {economy.reputation.standingByGroup.residents} · gobierno{" "}
+                  {economy.reputation.standingByGroup.municipality} · banca{" "}
+                  {economy.reputation.standingByGroup.banks}. La banca aplica{" "}
+                  {economy.reputation.bankRateModifierBps} puntos básicos al préstamo, los
+                  residentes valoran tu parque al {economy.reputation.residentFactorPercent} % y el
+                  gobierno te deja {economy.reputation.influenceGainPerMonth} de influencia al mes.
+                </p>
+                <ul>
+                  {economy.reputation.facts.map((fact) => (
+                    <li key={fact.id}>
+                      {fact.kind}
+                      {fact.magnitude > 1 ? ` ×${fact.magnitude}` : ""} en el tick {fact.atTick}.
+                    </li>
+                  ))}
+                </ul>
+                <p>
                   <strong>Rival:</strong> {economy.rival.parcels} parcelas ·{" "}
                   {economy.rival.buildings} edificios · {economy.rival.occupiedBuildings} ocupados.
                   Caja y contratos privados.

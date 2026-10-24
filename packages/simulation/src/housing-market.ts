@@ -22,6 +22,7 @@ import { effectiveRentBudget } from "./employment";
 import { buildCoverageIndex } from "./urban-services";
 import { HOUSING_SEGMENTS, type HousingSegment } from "./housing-segments";
 import { Xoshiro128ss } from "./prng";
+import { residentFactorPercentFor } from "./reputation";
 import type { GameState } from "./state";
 
 export { HOUSING_SEGMENTS, type HousingSegment } from "./housing-segments";
@@ -106,6 +107,8 @@ type StockUnit = {
   accessibility: number;
   safety: number;
   services: number;
+  /** Cómo la opinión de los residentes sobre el dueño multiplica el atractivo de su parque. */
+  landlordFactorPercent: number;
   askingRent: Money;
   vacantSlots: number;
 };
@@ -155,6 +158,7 @@ function buildStock(state: GameState): StockUnit[] {
     stock.push({
       building: entry.building,
       cell: entry.cell,
+      landlordFactorPercent: residentFactorPercentFor(state, entry.building.ownerOrganizationId),
       // La limpieza se nota en el estado del parque: sin cobertura, el entorno envejece antes.
       quality: clamp(
         entry.building.condition +
@@ -187,18 +191,20 @@ function buildStock(state: GameState): StockUnit[] {
 }
 
 export function desirabilityOf(
-  unit: Pick<StockUnit, "quality" | "accessibility" | "safety" | "services">,
+  unit: Pick<StockUnit, "quality" | "accessibility" | "safety" | "services"> &
+    Partial<Pick<StockUnit, "landlordFactorPercent">>,
   segment: HousingSegment,
 ): number {
   const { weights } = segment;
   const total = weights.quality + weights.accessibility + weights.safety + weights.services;
-  return Math.round(
+  const base =
     (unit.quality * weights.quality +
       unit.accessibility * weights.accessibility +
       unit.safety * weights.safety +
       unit.services * weights.services) /
-      total,
-  );
+    total;
+  // Un casero con mala reputación no baja el estado del edificio: baja las ganas de mudarse a él.
+  return Math.round(base * ((unit.landlordFactorPercent ?? 100) / 100));
 }
 
 function isCompatible(unit: StockUnit, segment: HousingSegment): boolean {

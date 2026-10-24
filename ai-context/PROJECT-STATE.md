@@ -103,12 +103,15 @@ mapa diferido a WP4.15: tres servicios con cobertura radial, radio que se satura
 en accesibilidad, seguridad y calidad, y tasa por unidad ocupada.
 WP4.7 (contratos públicos) quedó cerrado el 2026-10-23 bajo D-070: el municipio licita por calendario,
 adjudica al menor postor con fianza del 10 % que se conserva, ejecuta con reintento si la tesorería no
-alcanza y deja contadores de cumplimiento; la IA rival compite con el mismo comando. El siguiente es
-WP4.8 (reputación multidimensional y relaciones). El baseline económico actual cubre calendario
+alcanza y deja contadores de cumplimiento; la IA rival compite con el mismo comando.
+WP4.8 (reputación multidimensional) quedó cerrado el 2026-10-24 bajo D-071: tres grupos con efecto
+propio —vecinos, gobierno y banca— valoran de forma opuesta el mismo hecho, la memoria es de 16 hechos
+acotados por organización y sólo decae la opinión. El siguiente es
+WP4.9 (información imperfecta). El baseline económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas
 asignables, edificios multiunidad, presupuesto y satisfacción de inquilinos, mantenimiento, rival
-público con datos privados ocultos, licitación pública con fianza, política incierta y riesgo con
-cooldown y conservación de dinero.
+público con datos privados ocultos, licitación pública con fianza, reputación por grupos con hechos
+registrados, política incierta y riesgo con cooldown y conservación de dinero.
 
 El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista, Worker,
 snapshot v1, IndexedDB, escena/picking, flujo vertical, benchmark y soak headless están

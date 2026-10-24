@@ -294,6 +294,26 @@ export type ViewProjectionV1 = {
       }>;
       reliability: { awarded: number; completed: number; defaulted: number };
     };
+    reputation: {
+      standingByGroup: { residents: number; municipality: number; banks: number };
+      bankRateModifierBps: number;
+      residentFactorPercent: number;
+      influenceGainPerMonth: number;
+      facts: Array<{
+        id: string;
+        kind:
+          | "contract_completed"
+          | "contract_defaulted"
+          | "households_displaced"
+          | "casualties"
+          | "tax_arrears"
+          | "maintenance_backlog"
+          | "loan_defaulted"
+          | "loan_paid_off";
+        atTick: Tick;
+        magnitude: number;
+      }>;
+    };
     ordinance: {
       id: PolicyId;
       name: string;
@@ -739,6 +759,33 @@ export const viewProjectionV1Schema = z.object({
           completed: z.number().int().nonnegative(),
           defaulted: z.number().int().nonnegative(),
         }),
+      }),
+      reputation: z.object({
+        standingByGroup: z.object({
+          residents: z.number().int().min(-100).max(100),
+          municipality: z.number().int().min(-100).max(100),
+          banks: z.number().int().min(-100).max(100),
+        }),
+        bankRateModifierBps: z.number().int(),
+        residentFactorPercent: z.number().int().positive(),
+        influenceGainPerMonth: z.number().int().nonnegative(),
+        facts: z.array(
+          z.object({
+            id: z.string().min(1),
+            kind: z.enum([
+              "contract_completed",
+              "contract_defaulted",
+              "households_displaced",
+              "casualties",
+              "tax_arrears",
+              "maintenance_backlog",
+              "loan_defaulted",
+              "loan_paid_off",
+            ]),
+            atTick: tickSchema,
+            magnitude: z.number().int().positive(),
+          }),
+        ),
       }),
       ordinance: z.object({
         id: policyIdSchema,

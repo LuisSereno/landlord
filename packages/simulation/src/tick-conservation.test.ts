@@ -27,6 +27,13 @@ import { createScaledCity } from "./system-cost";
  * Regeneración WP4.6 (2026-10-23): el municipio añade la tasa por unidad ocupada y reparte el
  * gasto en transporte, seguridad y limpieza. Vuelven a cambiar sólo los dos casos que cruzan un
  * cierre mensual, y sólo en la caja municipal y sus transacciones.
+ *
+ * Regeneración WP4.8 (2026-10-24): la reputación añade su cierre mensual y la influencia que el
+ * gobierno deposita en cada empresa. Cambian otra vez los dos casos que cruzan un cierre mensual, y
+ * sólo en la influencia de las empresas: las cinco cajas y el número de transacciones quedan
+ * idénticos porque en ocho ticks no hay impago, desalojo ni abandono que anotar. Se verificó
+ * neutralizando las tres tablas de efecto: con ellas a cero los diez digestos recuperan el valor de
+ * WP4.7, así que el delta procede sólo de los canales pretendidos.
  */
 function digest(value: string): string {
   let left = 0x811c9dc5;
@@ -82,12 +89,12 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "0667607b64a964a3",
+    expected: "611b01b5e69f0d61",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "c7c7ccfe29d17733",
+    expected: "7ab1cf04050e3d4d",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el

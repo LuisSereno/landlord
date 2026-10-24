@@ -453,6 +453,40 @@ export type PublicContractsState = {
   >;
 };
 
+export type ReputationGroupId = "residents" | "municipality" | "banks";
+
+export type ReputationFactKind =
+  | "contract_completed"
+  | "contract_defaulted"
+  | "households_displaced"
+  | "casualties"
+  | "tax_arrears"
+  | "maintenance_backlog"
+  | "loan_defaulted"
+  | "loan_paid_off";
+
+/**
+ * Entrada de memoria acotada: el hecho ocurrido, no la opinión. Los importes por grupo se fijan al
+ * registrarse para que una partida guardada siga siendo legible aunque el balance se reajuste.
+ */
+export type ReputationFact = {
+  id: string;
+  kind: ReputationFactKind;
+  atTick: Tick;
+  /** Contrato, edificio o préstamo que lo originó; null en hechos agregados del cierre. */
+  referenceId: string | null;
+  magnitude: number;
+  deltaByGroup: Record<string, number>;
+};
+
+export type ReputationState = {
+  lastDecayTick: Tick | null;
+  nextFactOrdinal: number;
+  /** Percepción por organización y grupo, de −100 a 100. No existe un score único. */
+  standingByOrganizationId: Record<string, Record<string, number>>;
+  factsByOrganizationId: Record<string, ReputationFact[]>;
+};
+
 export type MunicipalBudgetState = {
   lastSettlementTick: Tick | null;
   /** Ingresos del mes en curso, por fuente; el cierre presupuestario los acumula y los reinicia. */
@@ -787,6 +821,32 @@ export const publicContractsStateSchema = z.object({
       defaulted: z.number().int().nonnegative(),
     }),
   ),
+});
+export const reputationFactSchema = z.object({
+  id: z.string().min(1),
+  kind: z.enum([
+    "contract_completed",
+    "contract_defaulted",
+    "households_displaced",
+    "casualties",
+    "tax_arrears",
+    "maintenance_backlog",
+    "loan_defaulted",
+    "loan_paid_off",
+  ]),
+  atTick: tickSchema,
+  referenceId: z.string().nullable(),
+  magnitude: z.number().int().positive(),
+  deltaByGroup: z.record(z.string(), z.number().int()),
+});
+export const reputationStateSchema = z.object({
+  lastDecayTick: tickSchema.nullable(),
+  nextFactOrdinal: z.number().int().positive(),
+  standingByOrganizationId: z.record(
+    z.string(),
+    z.record(z.string(), z.number().int().min(-100).max(100)),
+  ),
+  factsByOrganizationId: z.record(z.string(), z.array(reputationFactSchema)),
 });
 export const municipalBudgetStateSchema = z.object({
   lastSettlementTick: tickSchema.nullable(),

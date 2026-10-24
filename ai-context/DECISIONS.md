@@ -459,3 +459,28 @@ una partida anterior se restaura vacía. No se regeneran los digestos dorados: n
 mes 2 y `canonicalizeState` sigue sin serializar los agregados económicos, deuda registrada. Ver
 `docs/engineering/adr/D-070-contratos-publicos.md` y
 `docs/execution/phase-4/wp4-7-public-contracts-2026-10-23.md`.
+
+## D-071 — Reputación multidimensional con tres grupos y memoria de hechos
+Estado: aceptada el 2026-10-24 para WP4.8.
+Tres grupos con efecto cableado, no ocho barras decorativas: `residents` castiga o premia la
+deseabilidad del parque del casero (80–108 %), `municipality` fija la influencia que el gobierno
+deposita en cada empresa al cerrar el mes (0–3) y `banks` ajusta la tasa base del préstamo
+(−100…+250 pb). Empresarios, policía, sindicatos, criminales y medios quedan fuera hasta que exista
+el canal que los consuma. La unidad de memoria es el hecho (`ReputationFact` con `kind`, `atTick`,
+`referenceId`, `magnitude` topada y el `deltaByGroup` realmente aplicado), con máximo 16 hechos por
+organización y posición limitada a ±100; la puntuación es un acumulado derivado y auditable. Ocho
+clases de hecho y cada grupo los valora distinto: un hogar desplazado resta 3 ante los vecinos, 1 ante
+el gobierno y suma 1 ante la banca, que es exactamente la aceptación del WP. Sólo decae la opinión —
+vecinos 3/mes y gobierno 2/mes—; el historial crediticio no se borra con el tiempo, se compensa con
+otro hecho. Las tablas de efecto son neutras en posición 0, así que el WP no mueve la economía hasta
+que hay un hecho real. Los registran los sistemas que ya observaban el suceso (desalojo en la renta,
+víctimas en el colapso, impago y amortización en la deuda, cumplimiento en contratos públicos) y la
+deuda fiscal con el abandono de mantenimiento se anotan al cierre de `runReputation`, sistema que va
+después de `housing` y antes de `contracts` para que nadie puje con la influencia del mes anterior.
+Hecho, percepción e información disponible quedan separados: el estado guarda la posición de todos y
+`describeReputation` más la proyección sólo publican la del jugador; qué es público, inferido o privado
+lo decide WP4.9. `phase2.reputation` es opcional, así que una partida anterior se restaura neutra. Los
+digestos dorados se regeneran en los dos casos que cruzan un cierre mensual y sólo cambian la
+influencia: se verificó neutralizando las tres tablas de efecto y recuperando el valor de D-070. Ver
+`docs/engineering/adr/D-071-reputacion-multidimensional.md` y
+`docs/execution/phase-4/wp4-8-reputation-2026-10-24.md`.

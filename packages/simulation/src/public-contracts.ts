@@ -15,6 +15,7 @@ import {
   PLAYER_ORGANIZATION_ID,
 } from "./game-data";
 import { credit, debit } from "./ledger";
+import { recordReputationFact } from "./reputation";
 import type { GameState } from "./state";
 
 type ContractSpec = {
@@ -179,6 +180,7 @@ function executeAwarded(state: GameState, contract: PublicContract): void {
     // La fianza ya está en la caja municipal: incumplir la retiene y deja constancia.
     contract.status = "defaulted";
     reliabilityFor(state, contractorId).defaulted += 1;
+    recordReputationFact(state, contractorId, "contract_defaulted", { referenceId: contract.id });
     return;
   }
   const owed = parseMoney(awardedAmount + contract.bond);
@@ -193,6 +195,7 @@ function executeAwarded(state: GameState, contract: PublicContract): void {
   credit(state, contractorId, contract.bond, "contract_bond_refund", contract.id);
   contract.status = "completed";
   reliabilityFor(state, contractorId).completed += 1;
+  recordReputationFact(state, contractorId, "contract_completed", { referenceId: contract.id });
 }
 
 function publishContract(state: GameState): void {

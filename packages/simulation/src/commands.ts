@@ -39,6 +39,7 @@ import {
 } from "./game-data";
 import { Xoshiro128ss } from "./prng";
 import { askingRentFor } from "./housing-market";
+import { bankRateModifierBpsFor } from "./reputation";
 import { chooseInteractionCell, findDeterministicPath } from "./navigation";
 
 export type CommandRejection = {
@@ -439,7 +440,9 @@ export function dispatchProductCommand(
       lenderOrganizationId: BANK_ORGANIZATION_ID,
       principal: command.payload.amount,
       outstandingPrincipal: command.payload.amount,
-      annualInterestRateBps: LOAN_POLICY.annualInterestRateBps,
+      annualInterestRateBps:
+        LOAN_POLICY.annualInterestRateBps +
+        bankRateModifierBpsFor(state, command.actingAsOrganizationId),
       termMonths: command.payload.termMonths,
       remainingMonths: command.payload.termMonths,
       collateralParcelId: parcel.id,

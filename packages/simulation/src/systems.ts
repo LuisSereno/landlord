@@ -43,6 +43,7 @@ import {
   runPublicContracts,
 } from "./public-contracts";
 import { askingRentFor, runHousingMarket } from "./housing-market";
+import { recordReputationFact, runReputation } from "./reputation";
 import { Xoshiro128ss } from "./prng";
 import { findDeterministicPath } from "./navigation";
 
@@ -380,6 +381,9 @@ function progressConstruction(state: GameState): void {
 
 function collectRentAndAgeLeases(state: GameState): void {
   if (state.clock.tick === 0 || state.clock.tick % GAME_MONTH_TICKS !== 0) return;
+  // Vencer el lease no es un agravio: sólo se anota el hogar que sale forzado por un edificio
+  // inhabitable o por una satisfacción por el suelo, que es lo que la calle percibe.
+  const forcedOutByOrganizationId = new Map<import("@landlord/shared").OrganizationId, number>();
   for (const building of [...state.phase2.buildings.values()].sort((a, b) =>
     a.id.localeCompare(b.id),
   )) {
@@ -397,16 +401,28 @@ function collectRentAndAgeLeases(state: GameState): void {
         0,
         Math.min(100, tenant.satisfaction + 2 - affordabilityPenalty - conditionPenalty),
       );
-      if (tenant.leaseRemaining === 0 || building.condition < 20 || tenant.satisfaction < 30) {
+      const forcedOut = building.condition < 20 || tenant.satisfaction < 30;
+      if (tenant.leaseRemaining === 0 || forcedOut) {
         building.tenantIds = building.tenantIds.filter((id) => id !== tenant.id);
         tenant.activeContractBuildingId = null;
         tenant.status = "available";
         // El hogar vuelve al pool: quedarse sin contrato es una salida para la estadística del
         // mercado, aunque el mismo hogar pueda volver a instalarse más adelante.
         state.phase2.housingMarket.departuresTotal += 1;
+        if (forcedOut) {
+          forcedOutByOrganizationId.set(
+            building.ownerOrganizationId,
+            (forcedOutByOrganizationId.get(building.ownerOrganizationId) ?? 0) + 1,
+          );
+        }
       }
     }
     building.tenantId = building.tenantIds[0] ?? null;
+  }
+  for (const [organizationId, count] of [...forcedOutByOrganizationId.entries()].sort(
+    (left, right) => left[0].localeCompare(right[0]),
+  )) {
+    recordReputationFact(state, organizationId, "households_displaced", { magnitude: count });
   }
 }
 
@@ -432,7 +448,12 @@ function processLoanPayments(state: GameState): void {
         loan.missedPayments > LOAN_POLICY.delinquencyGracePayments ? "defaulted" : "delinquent";
       loan.nextPaymentTick =
         loan.status === "defaulted" ? null : parseTick(state.clock.tick + GAME_MONTH_TICKS);
-      if (loan.status === "defaulted") openAuctionForLoan(state, loan);
+      if (loan.status === "defaulted") {
+        openAuctionForLoan(state, loan);
+        recordReputationFact(state, loan.borrowerOrganizationId, "loan_defaulted", {
+          referenceId: loan.id,
+        });
+      }
       continue;
     }
     credit(
@@ -446,6 +467,11 @@ function processLoanPayments(state: GameState): void {
     loan.remainingMonths = Math.max(0, loan.remainingMonths - 1);
     loan.missedPayments = 0;
     loan.status = loan.outstandingPrincipal === 0 ? "paid_off" : "active";
+    if (loan.status === "paid_off") {
+      recordReputationFact(state, loan.borrowerOrganizationId, "loan_paid_off", {
+        referenceId: loan.id,
+      });
+    }
     loan.nextPaymentTick =
       loan.status === "paid_off" ? null : parseTick(state.clock.tick + GAME_MONTH_TICKS);
   }
@@ -816,6 +842,12 @@ function tacticalTick(state: GameState): void {
     const injured = occupants - dead;
     root.casualtiesTotal.injured += injured;
     root.casualtiesTotal.dead += dead;
+    if (dead + injured > 0) {
+      recordReputationFact(state, root.ownerOrganizationId, "casualties", {
+        referenceId: root.id,
+        magnitude: dead + injured,
+      });
+    }
     root.tenantIds = [];
     root.tenantId = null;
     const ownIncident = rootIncidents.get(root.id);
@@ -1311,6 +1343,9 @@ export const PRODUCT_SYSTEMS: readonly ProductSystem[] = [
   // El mercado cierra el mes después de la renta: el precio que se descubre hoy se cobra el mes
   // siguiente, nunca en el mismo cierre en el que se observa la vacancia.
   { name: "housing", run: runHousingMarket },
+  // La reputación cierra el mes con los impagos y el abandono ya observados, y devuelve la
+  // influencia que el gobierno deposita en cada empresa antes de la licitación del mes.
+  { name: "reputation", run: runReputation },
   // Los contratos cobran fianzas y pagan obras antes del cierre presupuestario, para que la caja
   // municipal del mes ya refleje lo comprometido con la autoridad.
   { name: "contracts", run: runPublicContracts },

@@ -518,6 +518,11 @@ Esto abre líneas de negocio no puramente inmobiliarias.
 
 No usar una única barra universal.
 
+Estado implementado (WP4.8, D-071): tres grupos con canal real —residentes, gobierno y banca—. Los
+demás siguen pendientes del canal que deba consumirlos (policía sobre riesgo táctico, medios sobre
+percepción, sindicatos sobre empleo, criminales sobre acuerdos) y se añadirán con él, no como barra
+decorativa.
+
 Ejemplo:
 
 - ciudadanos;

@@ -30,6 +30,7 @@ import {
 import { describeEmployment } from "./employment";
 import { describeMunicipalBudget } from "./municipal-budget";
 import { describePublicContracts } from "./public-contracts";
+import { describeReputation } from "./reputation";
 import { describeUrbanServices } from "./urban-services";
 import {
   askingRentFor,
@@ -609,6 +610,16 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                   awardedAmount: contract.awardedAmount,
                 })),
                 reliability: report.reliability,
+              };
+            })(),
+            reputation: (() => {
+              const report = describeReputation(state);
+              return {
+                standingByGroup: report.standingByGroup,
+                bankRateModifierBps: report.bankRateModifierBps,
+                residentFactorPercent: report.residentFactorPercent,
+                influenceGainPerMonth: report.influenceGainPerMonth,
+                facts: report.facts,
               };
             })(),
             ordinance: {

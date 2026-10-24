@@ -87,13 +87,13 @@ comandos al Worker y el Worker responde con snapshot/proyección y métricas.
 
 `tacticalTick` -> producción -> rentas y leases -> pagos de deuda -> subastas -> impuestos de
 propiedad -> mantenimiento -> seguros -> política y heat -> acción rival -> empleo -> mercado de
-vivienda -> contratos públicos -> presupuesto municipal -> avance de tick.
+vivienda -> reputación -> contratos públicos -> presupuesto municipal -> avance de tick.
 
 Cada bloque es un sistema puro sobre `GameState`; ninguno depende del reloj de pared ni del render.
 
 La lista es `PRODUCT_SYSTEMS`, con nombres estables (`tactical`, `production`, `rent`, `debt`,
 `auctions`, `propertyTax`, `maintenance`, `insurance`, `policy`, `rival`, `employment`, `housing`,
-`contracts`, `municipal`) que usan la
+`reputation`, `contracts`, `municipal`) que usan la
 instrumentación de coste (`pnpm system:cost`) y las futuras reglas de LOD. No reordenar ni
 intercalar: cambia todas las partidas. La conservación del resultado se blinda con digestos dorados
 en `tick-conservation.test.ts` (D-065).
@@ -103,7 +103,10 @@ empleo fija el índice salarial y el ingreso por segmento antes de que vivienda 
 asequible (D-067); la vivienda va después de `rent`, así que el índice de renta descubierto con la
 vacancia observada se cobra al mes siguiente. La renta tiene una única fórmula, `askingRentFor` en
 `housing-market.ts`, compartida por el cobro, la validación de `AssignTenant` y la proyección
-(D-066). `contracts` publica y ejecuta licitaciones antes que `municipal`: cobra la fianza al
+(D-066). `reputation` cierra el mes antes que la licitación: anota la deuda fiscal y el abandono de
+mantenimiento ya observados, hace decaer la opinión y deposita la influencia que el gobierno deja en
+cada empresa, para que ninguna puje ni proponga con la influencia del mes anterior (D-071). `contracts`
+publica y ejecuta licitaciones antes que `municipal`: cobra la fianza al
 adjudicar y paga el importe al completar, así que el municipio decide su gasto con la tesorería ya
 afectada (D-070). `municipal` cierra el tick después de que hayan entrado los impuestos del mes: el
 municipio paga con su saldo real en orden de prioridad y, si no llega, recorta servicios; ese nivel de

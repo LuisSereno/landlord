@@ -5,6 +5,7 @@ import {
   parseMoney,
   parseTick,
   parseIncidentId,
+  parseOrganizationId,
   type Agent,
   type BuildingId,
   type BuildingType,
@@ -29,22 +30,27 @@ import {
   deteriorationRiskPercent,
   INSURANCE_POLICY,
   INSOLVENCY_POLICY,
-  RIVAL_AI_POLICY,
   calculateInsuranceOffer,
   REPAIR_COST,
 } from "./game-data";
 import type { GameState } from "./state";
 import { runEmployment } from "./employment";
 import { runMunicipalBudget } from "./municipal-budget";
-import {
-  PUBLIC_CONTRACTS_POLICY,
-  hasActiveAward,
-  operationalBuildingsOwned,
-  runPublicContracts,
-} from "./public-contracts";
+import { hasActiveAward, operationalBuildingsOwned, runPublicContracts } from "./public-contracts";
 import { askingRentFor, runHousingMarket } from "./housing-market";
 import { recordReputationFact, runReputation } from "./reputation";
 import { runIntelligence } from "./information";
+import {
+  FACTION_ACTION_FAMILY,
+  factionProfileOf,
+  isActionCycleSuppressed,
+  publicBidPercentFor,
+  noteCycleSuppressed,
+  recordFactionEncounter,
+  rememberFactionAction,
+  repetitionPenaltyFor,
+  runFactions,
+} from "./factions";
 import { Xoshiro128ss } from "./prng";
 import { findDeterministicPath } from "./navigation";
 
@@ -540,6 +546,8 @@ function settleAuctions(state: GameState): void {
       auction.loanId,
     );
     const shortfall = Math.max(0, loan.outstandingPrincipal - auction.highestBid);
+    const sellerWasCompany =
+      state.organizations.get(auction.sellerOrganizationId)?.kind === "company";
     if (auction.sellerOrganizationId === RIVAL_ORGANIZATION_ID && shortfall > 0) {
       state.phase2.rivalAi.memory.lossCount += 1;
       state.phase2.rivalAi.memory.lastLossAmount = parseMoney(shortfall);
@@ -551,6 +559,22 @@ function settleAuctions(state: GameState): void {
     }
     loan.outstandingPrincipal = parseMoney(0);
     loan.nextPaymentTick = null;
+    /** El subastado pierde el suelo ante alguien concreto: eso es un encuentro, no una estadística. */
+    for (const [bidderId] of Object.entries(auction.reservedFundsByOrganizationId).sort(
+      ([left], [right]) => left.localeCompare(right),
+    )) {
+      if (bidderId === winner) continue;
+      const outbidId = parseOrganizationId(bidderId);
+      if (state.organizations.get(outbidId)?.kind !== "company") continue;
+      recordFactionEncounter(state, outbidId, parseOrganizationId(winner), "auction_outbid");
+    }
+    if (state.organizations.get(winner)?.kind === "company" && sellerWasCompany)
+      recordFactionEncounter(
+        state,
+        auction.sellerOrganizationId,
+        parseOrganizationId(winner),
+        "auction_outbid",
+      );
     auction.status = "executed";
     auction.reservedFundsByOrganizationId = {};
   }
@@ -878,6 +902,35 @@ function tacticalTick(state: GameState): void {
     }
 }
 
+type RivalCommand = Exclude<
+  import("@landlord/shared").ProductCommand,
+  { type: "PlaceTestStructure" }
+>;
+
+/**
+ * Objetivo de una acción rival para la memoria: la primera clave del payload que identifique una
+ * entidad. Sin él, dos intentos sobre parcelas distintas contarían como el mismo bucle.
+ */
+const RIVAL_TARGET_KEYS = [
+  "parcelId",
+  "buildingId",
+  "contractId",
+  "loanId",
+  "auctionId",
+  "tenantId",
+  "resource",
+  "policyId",
+] as const;
+
+function rivalActionTarget(command: RivalCommand): string {
+  const payload = command.payload as Record<string, unknown>;
+  for (const key of RIVAL_TARGET_KEYS) {
+    const value = payload[key];
+    if (typeof value === "string") return value;
+  }
+  return "*";
+}
+
 function rivalAction(state: GameState): void {
   if (state.clock.tick === 0 || state.clock.tick % GAME_DAY_TICKS !== 0) return;
   if (state.clock.tick < state.phase2.rivalAi.cooldownUntilTick) return;
@@ -921,9 +974,10 @@ function rivalAction(state: GameState): void {
   state.phase2.rivalAi.memory.defaultCount = rivalLoans.filter(
     (loan) => loan.status === "defaulted",
   ).length;
+  const profile = factionProfileOf(state, RIVAL_ORGANIZATION_ID);
   const liquidityReserve = Math.max(
     2500,
-    Math.floor((balance * RIVAL_AI_POLICY.minimumReservePercent) / 100) +
+    Math.floor((balance * profile.minimumReservePercent) / 100) +
       state.phase2.rivalAi.memory.defaultCount * 500,
   );
   const canSpend = (amount: number) => balance >= amount + liquidityReserve;
@@ -1110,7 +1164,7 @@ function rivalAction(state: GameState): void {
         !["active", "lapsed"].includes(
           state.phase2.insurance.contractsByBuildingId[building.id]?.status ?? "",
         ) &&
-        deteriorationRiskPercent(building.condition) >= RIVAL_AI_POLICY.insuranceRiskThreshold,
+        deteriorationRiskPercent(building.condition) >= profile.insuranceRiskThreshold,
     )
     .sort((left, right) => left.id.localeCompare(right.id))[0];
   if (unprotectedBuilding) {
@@ -1135,7 +1189,7 @@ function rivalAction(state: GameState): void {
       (building) =>
         building.ownerOrganizationId === RIVAL_ORGANIZATION_ID &&
         building.state === "operational" &&
-        building.condition <= RIVAL_AI_POLICY.maintenanceConditionThreshold &&
+        building.condition <= profile.maintenanceConditionThreshold &&
         ![...state.phase2.constructionSites.values()].some(
           (site) => site.repairBuildingId === building.id,
         ),
@@ -1247,7 +1301,9 @@ function rivalAction(state: GameState): void {
     const amount = parseMoney(
       Math.max(
         1,
-        Math.floor((rivalContract.budget * PUBLIC_CONTRACTS_POLICY.rivalBidPercent) / 100),
+        Math.floor(
+          (rivalContract.budget * publicBidPercentFor(state, RIVAL_ORGANIZATION_ID)) / 100,
+        ),
       ),
     );
     candidates.push({
@@ -1263,7 +1319,47 @@ function rivalAction(state: GameState): void {
       },
     });
   }
-  const selected = candidates.sort((left, right) => right.score - left.score)[0];
+  /**
+   * La utilidad base se corrige dos veces: el perfil pondera la familia de objetivos y la memoria
+   * castiga repetir un intento ya rechazado. Con el perfil conservador y sin choques registrados los
+   * números salen idénticos a los de antes de WP4.10, así que sólo se mueve lo que de verdad cambió.
+   */
+  const biased = candidates.map((candidate) => ({
+    ...candidate,
+    utility:
+      candidate.score +
+      profile.goalBiasByFamily[FACTION_ACTION_FAMILY[candidate.action] ?? "develop"],
+  }));
+  const remembered = [...biased].sort((left, right) => right.utility - left.utility)[0];
+  const ordered = biased
+    .filter(
+      (candidate) =>
+        !isActionCycleSuppressed(
+          state,
+          RIVAL_ORGANIZATION_ID,
+          candidate.action,
+          rivalActionTarget(candidate.command),
+        ),
+    )
+    .map((candidate) => ({
+      ...candidate,
+      utility:
+        candidate.utility +
+        repetitionPenaltyFor(
+          state,
+          RIVAL_ORGANIZATION_ID,
+          candidate.action,
+          rivalActionTarget(candidate.command),
+        ),
+    }))
+    .sort((left, right) => right.utility - left.utility);
+  const selected = ordered[0];
+  /**
+   * La memoria gana sólo si desbanca al candidato que habría elegido la utilidad sola. Contar también el
+   * caso en que se queda sin opciones es lo que hace visible el bucle roto.
+   */
+  if (remembered && (!selected || selected.action !== remembered.action))
+    noteCycleSuppressed(state, RIVAL_ORGANIZATION_ID);
   if (!selected) {
     state.phase2.rivalAi.lastAction = "reserve_liquidity";
     state.phase2.rivalAi.lastReason = "No hay una acción válida que preserve la liquidez mínima.";
@@ -1306,6 +1402,12 @@ function rivalAction(state: GameState): void {
         payload: { crewId: crew.id, workOrderId: site.id },
       });
   }
+  rememberFactionAction(state, RIVAL_ORGANIZATION_ID, {
+    action: selected.action,
+    target: rivalActionTarget(selected.command),
+    accepted: result.accepted,
+    rejectionCode: result.accepted ? null : result.code,
+  });
   state.phase2.rivalAi.lastAction = selected.action;
   state.phase2.rivalAi.lastReason = selected.reason;
   state.phase2.rivalAi.lastFailureCode = result.accepted ? null : result.code;
@@ -1352,6 +1454,9 @@ export const PRODUCT_SYSTEMS: readonly ProductSystem[] = [
   { name: "contracts", run: runPublicContracts },
   // El municipio paga al final, cuando ya ha cobrado los impuestos del mes.
   { name: "municipal", run: runMunicipalBudget },
+  // Las facciones cierran el mes con el roce territorial ya observado: decaen posturas y recortan
+  // memoria antes de que la inteligencia re-base el expediente sobre un estado estable.
+  { name: "factions", run: runFactions },
   // La inteligencia cierra la lista: re-basa el expediente del jugador sobre el estado ya cerrado
   // del mes, sin mover caja ni el PRNG económico.
   { name: "intelligence", run: runIntelligence },

@@ -16,6 +16,7 @@ import {
 } from "./game-data";
 import { credit, debit } from "./ledger";
 import { recordReputationFact } from "./reputation";
+import { recordFactionEncounter } from "./factions";
 import type { GameState } from "./state";
 
 type ContractSpec = {
@@ -132,6 +133,17 @@ export function submitPublicBid(
   if (operationalBuildingsOwned(state, organizationId) < contract.requiredBuildings)
     return "CONTRACT_CAPACITY";
   if ((state.phase2.balances.get(organizationId) ?? 0) < contract.bond) return "BOND_UNAVAILABLE";
+  /**
+   * Pujar contra alguien ya registrado es un encuentro observable: el que entra forma hostilidad hacia
+   * quien estaba, sólo hacia empresas y una vez por competidor, no una vez por oferta.
+   */
+  const competitors = [
+    ...new Set(
+      contract.bids.map((bid) => bid.organizationId).filter((id) => id !== organizationId),
+    ),
+  ].sort((left, right) => left.localeCompare(right));
+  for (const competitor of competitors)
+    recordFactionEncounter(state, organizationId, competitor, "tender_contested");
   contract.bids.push({
     organizationId,
     amount,

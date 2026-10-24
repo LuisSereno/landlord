@@ -176,3 +176,6 @@ Cambiar de perspectiva debe cambiar información, overlays y responsabilidades, 
 Lo que sabe cada perspectiva ya está declarado: `INFORMATION_POLICY.scopeByObservable`
 (`packages/simulation/src/information.ts`) etiqueta los observables como `public`, `own`, `inferred` o
 `private`, y una perspectiva nueva se define eligiendo su observador, no inventando otro estado (D-072).
+Las relaciones entre organizaciones tampoco son decorativas: la postura de `factions` sólo se forma por
+encuentros que ocurren en el mundo —sabotaje, desbanco en subasta, licitación competida, compartir manzana—,
+decae con el tiempo y se olvida si deja de haber roce (D-073).

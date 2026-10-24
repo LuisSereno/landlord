@@ -10,7 +10,7 @@ Fecha de consolidación: 2026-10-23.
 - Plan maestro de ejecución por fases: sí.
 - Plantilla de microtareas para agentes de baja ambigüedad: sí.
 - Fase 0 de preparación: cerrada el 2026-10-20.
-- ADRs D-046 a D-072: aceptados.
+- ADRs D-046 a D-073: aceptados.
 - Charter, contratos, benchmark y backlog inicial de Gate 1: listos.
 - Historias del prototipo: sí.
 - Riesgos: sí.
@@ -110,13 +110,21 @@ acotados por organización y sólo decae la opinión.
 WP4.9 (información imperfecta) quedó cerrado el 2026-10-24 bajo D-072: los accesos público, propio,
 inferido y privado se declaran en un registro central, el expediente pertenece a un observador y las
 estimaciones se compran con caja, con error declarado y precisión que envejece; ningún digesto dorado se
-mueve porque el ruido sale de un arroyo de PRNG separado. El siguiente es
-WP4.10 (IA estratégica y facciones). El baseline económico actual cubre calendario
+mueve porque el ruido sale de un arroyo de PRNG separado.
+WP4.10 (IA estratégica y facciones) quedó cerrado el 2026-10-24 bajo D-073: dos perfiles con objetivos,
+umbrales y puja propios —el conservador reproduce los números históricos, así que la comparación entre
+campañas es medible—, posturas que sólo nacen de encuentros reales (sabotaje, desbanco, licitación competida y
+roce territorial con la trama a una o dos celdas), memoria de doce acciones en ventana de tres meses y
+antirrepetición que escala de −60 al segundo rechazo a salir del menú al tercero. La campaña headless cambió el
+diseño: sólo penalizar dejaba al rival con 101 acciones fallidas en doce meses; con la supresión cierra con 12
+y 190 ciclos cortados. Ninguna postura ni perfil sale hacia la proyección y siete observables privados del
+jugador no mueven la decisión del rival. El siguiente es
+WP4.11 (política y elecciones iniciales). El baseline económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas
 asignables, edificios multiunidad, presupuesto y satisfacción de inquilinos, mantenimiento, rival
 público con datos privados ocultos, licitación pública con fianza, reputación por grupos con hechos
-registrados, expediente de inteligencia con estimaciones, política incierta y riesgo con cooldown y
-conservación de dinero.
+registrados, expediente de inteligencia con estimaciones, facciones con memoria y relaciones, política
+incierta y riesgo con cooldown y conservación de dinero.
 
 El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista, Worker,
 snapshot v1, IndexedDB, escena/picking, flujo vertical, benchmark y soak headless están

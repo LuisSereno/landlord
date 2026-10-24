@@ -203,12 +203,30 @@ proyección ni ninguna regla contienen el dato privado del que salió la estimac
 
 ## WP4.10 — IA estratégica y facciones
 
+**Estado 2026-10-24:** `DONE`. Evidencia en
+`docs/execution/phase-4/wp4-10-strategic-ai-factions-2026-10-24.md` y decisión en
+`docs/engineering/adr/D-073-ia-estrategica-y-facciones.md`. Dos perfiles de facción con ocho familias de
+objetivos, umbrales de reserva, mantenimiento, seguro y puja propios; el conservador reproduce exactamente los
+números históricos, así que la comparación entre campañas es medible. Las relaciones sólo nacen de encuentros
+que ocurren en el mundo —sabotaje, desbanco en subasta, licitación competida y roce territorial con la trama
+real a una o dos celdas—, decaen 3 puntos al mes hacia cero y se borran al llegar. La memoria guarda doce
+acciones con su destino, su resultado y su código de rechazo en una ventana de tres meses, y la antirrepetición
+escala: −60 de utilidad al segundo rechazo y salida del menú al tercero. La campaña headless fue la que cambió
+el diseño —sólo penalizar dejaba al rival con 101 acciones fallidas en doce meses golpeando la misma parcela;
+con la supresión cierra con 12 y 190 ciclos cortados—. No hay planificador porque no hay secuencia que lo
+necesite. `phase2.factions` es opcional y ningún perfil ni postura sale hacia la proyección: siete observables
+privados del jugador alterados no mueven la decisión del rival.
+
 - Introducir perfiles de facción con objetivos, recursos, relaciones y memoria.
 - Añadir planner sólo para secuencias que utility aislada no resuelva.
 - Hacer que facciones interactúen entre sí.
 - Incorporar empleo, demanda, presupuesto, reputación e información parcial.
 - Añadir detección de ciclos y antirrepetición.
 - Ejecutar campañas headless, comparar estrategias y detectar cheats/invariantes rotos.
+
+**Aceptación:** dos perfiles con la misma semilla terminan con carteras y caja distintas, y un bucle de
+acciones rechazadas se corta solo en vez de repetirse hasta que el mundo cambie; ninguna postura ni perfil del
+rival aparece en la proyección del jugador.
 
 ## WP4.11 — Política y elecciones iniciales
 

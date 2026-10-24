@@ -512,3 +512,43 @@ es opcional, así que una partida anterior se restaura con el expediente vacío 
 sin botón de encargo (como `SubmitPublicBid` desde WP4.7) y tres de las cuatro cifras valen 0 en partida
 auto-jugada. Ver `docs/engineering/adr/D-072-informacion-imperfecta.md` y
 `docs/execution/phase-4/wp4-9-information-2026-10-24.md`.
+
+## D-073 — IA estratégica: perfiles de facción, postura por encuentro y memoria antirrepetición
+Estado: aceptada el 2026-10-24 para WP4.10.
+Dos perfiles en `FACTION_PROFILES` (`conservative`, `expansionist`), no ocho: sólo la promotora rival tiene
+una IA que los consuma y el conservador reproduce exactamente los cuatro números históricos (reserva 30 %,
+mantenimiento 55, seguro 35, puja 92 %), así que cambiar de perfil es la única forma de mover la conducta y
+la comparación entre campañas es medible. El perfil es una tabla de preferencias con seis grados de libertad
+que ya tienen efecto en el motor: ocho familias de objetivo sumadas a la utilidad (`FACTION_ACTION_FAMILY`
+cubre las catorce acciones del repertorio y una prueba exige que ninguna se quede sin familia), tres umbrales
+y la modulación de la puja por hostilidad. Las relaciones no se decretran: la postura por par ordenado
+`observador>subjecto` (±100) sólo nace de cuatro encuentros que ocurren en el mundo —`sabotage` −12 en la
+víctima (`commands.ts`), `auction_outbid` −6 al desbancado y al vendedor (`settleAuctions`),
+`tender_contested` −2 por competidor (`submitPublicBid`) y `territory` −1 por frontera compartida con tope de
+−4 al mes (`runFactions`)—. La regla territorial mira a **una y dos** celdas en fila y columna porque las
+parcelas se plantan con `spacingX = spacingY = 2` y los impares son la calzada; con sólo la celda contigua
+la presión nunca disparaba en un distrito generado. Decae 3 puntos al mes hacia cero, se detiene ahí y la
+entrada se borra al llegar. La memoria guarda doce acciones por organización —`action`, `target`, `accepted`,
+`rejectionCode`— en una ventana de tres meses, y la antirrepetición escala: −60 de utilidad al segundo
+rechazo (la acción sigue siendo elegible si el contexto mejora) y salida del menú al tercero hasta que la
+ventana la olvide. Sólo cuentan los rechazos; repetir con éxito es trabajo. **La campaña headless cambió el
+diseño**: penalizar sin vetar dejaba al expansionista de la seed 4 con 101 acciones fallidas en doce meses y
+doce entradas idénticas de `start_construction:...:INSUFFICIENT_FUNDS`, porque 80 − 120 seguía siendo la mejor
+utilidad cuando todo el menú estaba bloqueado por la caja; con la supresión cierra con 12 fallidas y 190
+ciclos cortados. Cuando la memoria desbanca a lo que la utilidad sola habría elegido —incluido dejar al rival
+sin opciones— sube `cycleCountByOrganizationId`, que es la detección de ciclos del WP sin tener que leer el
+log. No hay planificador: las dos cadenas reales (oferta de préstamo → aceptación, obra iniciada → cuadro)
+ya son seguimiento inmediato tras el `dispatch`; el disparo para abrirlo es cualquier decisión que necesite
+dos pasos separados por más de un tick. La información parcial se cierra donde es medible:
+`publicBidPercentFor` modula la puja por la hostilidad recordada con suelo del 50 % (coste de ejecutar) y
+techo del 100 % (presupuesto anunciado) e `information.ts` pregunta ahí la cifra que estima, así que no hay
+dos fórmulas para la misma puja; y siete observables marcados `private` en el registro de WP4.9 —caja,
+inventario, deuda viva, impuestos, búsqueda de los hogares, fondos reservados en subasta y reputación ante la
+banca— alterados masivamente **no** cambian la decisión del rival. Perfil y postura no salen hacia la
+proyección. Empleo, demanda, presupuesto y reputación entran por el mundo (hogares con capacidad de alquiler,
+licitaciones municipales, aceptación bancaria según reputación), no por una arista nueva en `rivalAction`.
+`phase2.factions` es opcional y el sistema va entre `municipal` e `intelligence`. Un solo digesto dorado se
+regenera, `scenario:seed-1:36000` → `ce55085a1cfdc871`: neutralizando la escalada antirrepetición y la presión
+territorial recupera exactamente el valor de WP4.9. Ver
+`docs/engineering/adr/D-073-ia-estrategica-y-facciones.md` y
+`docs/execution/phase-4/wp4-10-strategic-ai-factions-2026-10-24.md`.

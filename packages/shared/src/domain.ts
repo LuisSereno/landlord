@@ -518,6 +518,43 @@ export type IntelligenceState = {
   lastRefreshTick: Tick | null;
 };
 
+/**
+ * Cómo una organización persigue sus objetivos. No es una alineación decorativa: cada perfil fija
+ * cuánto valora cada familia de metas, cuánto capital deja sin invertir y a partir de qué riesgo protege.
+ */
+export type FactionProfileId = "conservative" | "expansionist";
+
+/** Conjuntos de acciones que compiten por el mismo presupuesto; el perfil los pondera en bloque. */
+export type FactionGoalFamily =
+  "acquire" | "develop" | "produce" | "protect" | "finance" | "compete" | "political" | "dispose";
+
+export type FactionEncounterKind = "sabotage" | "auction_outbid" | "tender_contested" | "territory";
+
+/**
+ * Lo que la IA recuerda de sus propios intentos: la acción y su desenlace, no una opinión del mundo.
+ * La lista se recorta por tamaño y por ventana temporal, nunca crece con la partida.
+ */
+export type FactionMemoryEntry = {
+  id: string;
+  atTick: Tick;
+  action: string;
+  /** Identificador del objetivo (parcela, edificio,_loan_…) o `*` cuando la acción no apunta a uno. */
+  target: string;
+  accepted: boolean;
+  rejectionCode: string | null;
+};
+
+export type FactionState = {
+  profileByOrganizationId: Record<string, FactionProfileId>;
+  /** Postura por par dirigido `actor>target`, de −100 a 100; sólo se guarda lo distinto de cero. */
+  stanceByPairId: Record<string, number>;
+  memoryByOrganizationId: Record<string, FactionMemoryEntry[]>;
+  /** Cuántas veces el anti-bucle suprimió una acción: diagnóstico, nunca regla de negocio. */
+  cycleCountByOrganizationId: Record<string, number>;
+  nextMemoryOrdinal: number;
+  lastDecayTick: Tick | null;
+};
+
 export type MunicipalBudgetState = {
   lastSettlementTick: Tick | null;
   /** Ingresos del mes en curso, por fuente; el cierre presupuestario los acumula y los reinicia. */
@@ -903,6 +940,22 @@ export const intelligenceStateSchema = z.object({
   nextEstimateOrdinal: z.number().int().positive(),
   commissionCooldownUntilTick: tickSchema,
   lastRefreshTick: tickSchema.nullable(),
+});
+export const factionMemoryEntrySchema = z.object({
+  id: z.string().min(1),
+  atTick: tickSchema,
+  action: z.string().min(1),
+  target: z.string().min(1),
+  accepted: z.boolean(),
+  rejectionCode: z.string().nullable(),
+});
+export const factionStateSchema = z.object({
+  profileByOrganizationId: z.record(z.string(), z.enum(["conservative", "expansionist"])),
+  stanceByPairId: z.record(z.string(), z.number().int().min(-100).max(100)),
+  memoryByOrganizationId: z.record(z.string(), z.array(factionMemoryEntrySchema)),
+  cycleCountByOrganizationId: z.record(z.string(), z.number().int().nonnegative()),
+  nextMemoryOrdinal: z.number().int().positive(),
+  lastDecayTick: tickSchema.nullable(),
 });
 export const municipalBudgetStateSchema = z.object({
   lastSettlementTick: tickSchema.nullable(),

@@ -378,11 +378,11 @@ export const INSOLVENCY_POLICY = {
   refinancingInterestRateBps: 1200,
 } as const;
 
+/**
+ * Liquidación de activos: es una regla del mercado, no de la IA. La aplica el banco a cualquier
+ * vendedor, incluido el jugador, así que WP4.10 no la movió a los perfiles de facción.
+ */
 export const RIVAL_AI_POLICY = {
-  profile: "conservative" as const,
-  minimumReservePercent: 30,
-  maintenanceConditionThreshold: 55,
-  insuranceRiskThreshold: 35,
   salePricePercent: 85,
 } as const;
 

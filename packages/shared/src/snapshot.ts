@@ -27,6 +27,7 @@ import {
   publicContractsStateSchema,
   reputationStateSchema,
   intelligenceStateSchema,
+  factionStateSchema,
   insuranceContractSchema,
   insuranceClaimSchema,
   permittingStateSchema,
@@ -154,6 +155,7 @@ export type SnapshotV1 = {
     contracts?: import("./domain").PublicContractsState;
     reputation?: import("./domain").ReputationState;
     intelligence?: import("./domain").IntelligenceState;
+    factions?: import("./domain").FactionState;
     insurance?: import("./domain").InsuranceState;
     permitting?: import("./domain").PermittingState;
     insolvency?: import("./domain").InsolvencyState;
@@ -256,6 +258,7 @@ const phase2SnapshotSchema = z.object({
   contracts: publicContractsStateSchema.optional(),
   reputation: reputationStateSchema.optional(),
   intelligence: intelligenceStateSchema.optional(),
+  factions: factionStateSchema.optional(),
   insurance: z
     .object({
       contractsByBuildingId: z.record(z.string(), insuranceContractSchema),

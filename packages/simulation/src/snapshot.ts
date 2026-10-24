@@ -207,6 +207,17 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
           ),
         ),
       },
+      factions: {
+        ...state.phase2.factions,
+        profileByOrganizationId: { ...state.phase2.factions.profileByOrganizationId },
+        stanceByPairId: { ...state.phase2.factions.stanceByPairId },
+        memoryByOrganizationId: Object.fromEntries(
+          Object.entries(state.phase2.factions.memoryByOrganizationId).map(
+            ([organizationId, entries]) => [organizationId, entries.map((entry) => ({ ...entry }))],
+          ),
+        ),
+        cycleCountByOrganizationId: { ...state.phase2.factions.cycleCountByOrganizationId },
+      },
       insurance: {
         contractsByBuildingId: Object.fromEntries(
           Object.entries(state.phase2.insurance.contractsByBuildingId).map(
@@ -778,6 +789,28 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                     : parseTick(snapshot.phase2.intelligence.lastRefreshTick),
               }
             : { ...defaults.intelligence },
+          factions: snapshot.phase2.factions
+            ? {
+                profileByOrganizationId: { ...snapshot.phase2.factions.profileByOrganizationId },
+                stanceByPairId: { ...snapshot.phase2.factions.stanceByPairId },
+                memoryByOrganizationId: Object.fromEntries(
+                  Object.entries(snapshot.phase2.factions.memoryByOrganizationId).map(
+                    ([organizationId, entries]) => [
+                      organizationId,
+                      entries.map((entry) => ({ ...entry, atTick: parseTick(entry.atTick) })),
+                    ],
+                  ),
+                ),
+                cycleCountByOrganizationId: {
+                  ...snapshot.phase2.factions.cycleCountByOrganizationId,
+                },
+                nextMemoryOrdinal: snapshot.phase2.factions.nextMemoryOrdinal,
+                lastDecayTick:
+                  snapshot.phase2.factions.lastDecayTick === null
+                    ? null
+                    : parseTick(snapshot.phase2.factions.lastDecayTick),
+              }
+            : { ...defaults.factions },
           insurance: snapshot.phase2.insurance
             ? {
                 contractsByBuildingId: Object.fromEntries(

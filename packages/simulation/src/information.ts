@@ -8,11 +8,8 @@ import {
   type OrganizationId,
   type Seed,
 } from "@landlord/shared";
-import {
-  hasActiveAward,
-  operationalBuildingsOwned,
-  PUBLIC_CONTRACTS_POLICY,
-} from "./public-contracts";
+import { hasActiveAward, operationalBuildingsOwned } from "./public-contracts";
+import { publicBidPercentFor } from "./factions";
 import { Xoshiro128ss } from "./prng";
 import { GAME_MONTH_TICKS, PLAYER_ORGANIZATION_ID } from "./game-data";
 import type { GameState } from "./state";
@@ -177,7 +174,8 @@ export function trueValueFor(
     )
     .sort((left, right) => left.id.localeCompare(right.id))[0];
   if (!tender) return 0;
-  return Math.floor((tender.budget * PUBLIC_CONTRACTS_POLICY.rivalBidPercent) / 100);
+  /** La puja la fija el perfil de la empresa investigada: la estimación envejece, la política no se duplica. */
+  return Math.floor((tender.budget * publicBidPercentFor(state, subjectOrganizationId)) / 100);
 }
 
 export function monthsBetween(fromTick: number, toTick: number): number {

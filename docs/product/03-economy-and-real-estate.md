@@ -174,6 +174,12 @@ El jugador no debe conocer siempre el valor futuro real.
 **Estado de implementación (WP4.9, D-072):** el mercado ya no publica las cifras privadas del rival. El
 jugador puede pagar 150 u. por una estimación con error declarado (caja, deuda viva, impuestos adeudados
 o puja prevista) que envejece, y el canal gratuito del mercado sólo re-basa lo que llevaba tres meses sin
-refrescarse. No hay todavía oportunidades reales de arbitraje: tres de las cuatro cifras valen 0 en una
-partida auto-jugada porque el rival no pide préstamo, no debe impuestos y no puja, y el registro de
-accesos no genera ni filtra por sí solo las ofertas del mundo.
+refrescarse. No hay todavía oportunidades reales de arbitraje: el registro de accesos no genera ni filtra
+por sí solo las ofertas del mundo.
+
+**Actualización (WP4.10, D-073):** la nota de arriba se quedó corta porque el rival apenas pedía préstamo ni
+pujaba. Con perfiles de facción y memoria, una campaña larga sí le abre crédito con el banco y sí le presenta
+a una licitación —en la seed 4 a doce meses la expansionista firma `request_financing` y
+`bid_public_contract:contract_00000004`—, así que `deuda viva` y `puja prevista` pasan a valer algo en
+partidas largas y su estimación deja de ser un cero. La cifra de `impuestos adeudados` sigue necesitando que
+el rival no pague, y ninguna de las tres aparece en los doce meses de un smoke corto.

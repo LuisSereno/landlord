@@ -34,6 +34,15 @@ import { createScaledCity } from "./system-cost";
  * idénticos porque en ocho ticks no hay impago, desalojo ni abandono que anotar. Se verificó
  * neutralizando las tres tablas de efecto: con ellas a cero los diez digestos recuperan el valor de
  * WP4.7, así que el delta procede sólo de los canales pretendidos.
+ *
+ * Regeneración WP4.10 (2026-10-24): la IA estratégica gana memoria, perfiles de facción y roce territorial.
+ * Cambia un solo digesto, `scenario:seed-1:36000`, el único caso en el que el rival toma decisiones durante
+ * un mes completo; los otros nueve son idénticos. Neutralizando la escalada antirrepetición y la presión
+ * territorial los diez recuperan el valor de WP4.9 (`6a05240180ec5c23` en este caso), así que el delta
+ * procede sólo de los canales pretendidos. En ese escenario el rival pasa de 2 a 3 solares, de 9 a 3
+ * acciones fallidas y de 21 a 26 transacciones, y su caja termina en 2815 en vez de 3066: tras tres
+ * rechazos deja de golpear la misma parcela, espera y pide financiación al banco (org_00000003 baja de
+ * 100000 a 99400). La caja del jugador no se mueve. Doce ciclos quedaron cortados por la memoria.
  */
 function digest(value: string): string {
   let left = 0x811c9dc5;
@@ -79,7 +88,7 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "6a05240180ec5c23",
+    expected: "ce55085a1cfdc871",
     run: () => digest(canonicalizeState(runScenario(1, [], 36_000).state)),
   },
   {

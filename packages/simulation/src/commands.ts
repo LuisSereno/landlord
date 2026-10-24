@@ -41,6 +41,7 @@ import { Xoshiro128ss } from "./prng";
 import { askingRentFor } from "./housing-market";
 import { bankRateModifierBpsFor } from "./reputation";
 import { INFORMATION_POLICY, commissionIntelligence, commissionRejection } from "./information";
+import { recordFactionEncounter } from "./factions";
 import { chooseInteractionCell, findDeterministicPath } from "./navigation";
 
 export type CommandRejection = {
@@ -1161,6 +1162,14 @@ export function dispatchProductCommand(
     command.commandId,
   );
   state.phase2.crime.lastOutcome = "profitable";
+  /** El saboteado forma hostilidad hacia quien lo atacó, si la víctima es una empresa del distrito. */
+  if (state.organizations.get(command.payload.targetOrganizationId)?.kind === "company")
+    recordFactionEncounter(
+      state,
+      command.payload.targetOrganizationId,
+      command.actingAsOrganizationId,
+      "sabotage",
+    );
   rememberProcessed(state, command.commandId);
   return productEvent(state, command.commandId, "CrimeProfitable", {
     benefit,

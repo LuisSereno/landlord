@@ -103,6 +103,16 @@ impuestos
 
 No debe existir una política fiscal universalmente óptima.
 
+**Estado de implementación (WP4.11, D-074):** el feedback de arriba ya se cierra por el lado político. De los
+gastos posibles están financiados cuatro categorías —administración, seguridad, transporte y limpieza— y el **orden
+en que se recortan cuando no hay caja** lo decide ahora el partido que gana las elecciones municipales, no una
+constante del motor: con la misma tesorería, la plataforma de obras paga transporte entero y deja administración a
+medias, y la de cuentas al revés. Del lado de los ingresos, la opinión de impuestos se mide sobre lo que el
+municipio realmente recauda (contribución + transmisiones + tasa de servicios) en relación con la renta que paga el
+distrito, así que subir la presión fiscal sobre el barrio tiene un coste electoral aunque nadie vote impuestos.
+Impuestos empresariales, licencias, multas, transferencias y deuda municipal siguen sin ingresos propios, y el
+resto de categorías de gasto no existe.
+
 ---
 
 ## 3. Permisos y licencias

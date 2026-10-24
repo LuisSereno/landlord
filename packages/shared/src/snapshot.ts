@@ -24,6 +24,7 @@ import {
   housingMarketStateSchema,
   employmentStateSchema,
   municipalBudgetStateSchema,
+  municipalPoliticsStateSchema,
   publicContractsStateSchema,
   reputationStateSchema,
   intelligenceStateSchema,
@@ -152,6 +153,7 @@ export type SnapshotV1 = {
     housingMarket?: import("./domain").HousingMarketState;
     employment?: import("./domain").EmploymentState;
     municipal?: import("./domain").MunicipalBudgetState;
+    politics?: import("./domain").MunicipalPoliticsState;
     contracts?: import("./domain").PublicContractsState;
     reputation?: import("./domain").ReputationState;
     intelligence?: import("./domain").IntelligenceState;
@@ -255,6 +257,7 @@ const phase2SnapshotSchema = z.object({
   housingMarket: housingMarketStateSchema.optional(),
   employment: employmentStateSchema.optional(),
   municipal: municipalBudgetStateSchema.optional(),
+  politics: municipalPoliticsStateSchema.optional(),
   contracts: publicContractsStateSchema.optional(),
   reputation: reputationStateSchema.optional(),
   intelligence: intelligenceStateSchema.optional(),

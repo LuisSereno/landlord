@@ -552,3 +552,41 @@ regenera, `scenario:seed-1:36000` → `ce55085a1cfdc871`: neutralizando la escal
 territorial recupera exactamente el valor de WP4.9. Ver
 `docs/engineering/adr/D-073-ia-estrategica-y-facciones.md` y
 `docs/execution/phase-4/wp4-10-strategic-ai-factions-2026-10-24.md`.
+
+## D-074 — Política y elecciones municipales: opinión por eje, partido gobernante y transferencia del presupuesto
+Estado: aceptada el 2026-10-24 para WP4.11.
+Concejo ficticio de nueve escaños, legislatura de seis meses y debate dos meses después de la elección
+(`MUNICIPAL_INSTITUTION`). La opinión son cinco ejes 0…100 (`MUNICIPAL_MOOD_POLICY`) calculados cada mes desde
+subsistemas que ya existían, sin estado social nuevo: **vivienda** mide la renta frente al *presupuesto de renta*
+del hogar (cómodo ≤ 80 %, 3 puntos de queja por punto encima, desplazado cuenta doble) —la calibración vino de
+medir, porque `tenant.budget` no es un ingreso: en el baseline la renta ya consume el 69 %—; **empleo** es la tasa
+del mercado laboral (D-067); **seguridad** carga presión policial, ruinas e siniestros del mes; **servicios** es
+el nivel realmente pagado (D-068/4.6); e **impuestos** es carga fiscal vivida —contribución + transmisiones +
+tasa de servicios sobre la renta que paga el distrito, cómodo ≤ 25 %— y no tipos legales, porque ninguna ordenanza
+sube tasas y la jugadora tampoco puede: un eje de tipos habría quedado clavado en 100 para siempre. Ésta es la
+razón de que `politics` cierre el mes **justo antes** que `municipal`, que es quien vuelca y pone a cero
+`revenueThisMonthBySource`. La saliencia por segmento es un dato
+(`POLITICAL_PRIORITY_WEIGHTS_BY_SEGMENT`: al hogar le duele la renta, al artesano el trabajo, al comerciante la
+mezcla de licencias y tasas); la apelación de un partido es la media ponderada de sus posiciones sobre los asuntos
+que duelen, y el que gobierna pierde además una fracción proporcional a lo mucho que prometió en los asuntos rotos
+(40 %), que es como la opinión se vuelve castigo. La participación sube con la queja (45 % base, +0,5 por punto,
+topada 30…95 —medido 58 % tranquilo frente a 64 % degradado—) y los escaños se reparten por resto mayor con
+desempate por id, con el reparto de apertura si nadie vota. **Tres canales de transferencia**, todos sobre reglas
+existentes: el orden de pago del presupuesto pasa a ser el del partido que gobierna (con los mismos 15 u.,
+transporte 100 / administración 90 o administración 100 / transporte 83 / limpieza 0), el concejo intenta imponer
+su propia ordenanza dos meses después de la elección **posponiendo el debate un mes si otra ley ocupa la mesa** —así
+no borra nunca una decisión comprada por la jugadora— y `councilAlignmentPercent` modula ±25 puntos la
+probabilidad del `LobbyPolicy` (medido: la misma ley con la misma influencia sale 65 % afín, 48 % hostil, 55 %
+neutro). La jugadora **no vota**: 0 y 50 de influencia producen exactamente la misma participación, escaños y
+gobernante. El sistema no toca la caja: ni un saldo ni una transacción. Son tres plataformas y ningún candidato
+(`MUNICIPAL_PARTY_CATALOG`: *Concentración del Suelo Común*, *Liga del Trabajo Local*, *Unión de Cuentas Claras*),
+pura data con cinco posiciones, una permutación de gasto, una ordenanza del catálogo y sus escaños de apertura; dos
+pruebas vigilan que no se reproduzca nomenclatura de partidos reales y que dos plataformas no sean iguales. No hay
+ordenanzas nuevas ni campos nuevos en `Ordinance`: la tabla `ORDINANCE_AXES` conecta los cinco modificadores
+existentes con su eje y su signo de alivio. `phase2.politics` es opcional en el snapshot y **sí entra en
+`canonicalizeState`** —a diferencia de D-071/072/073— porque el subsistema consume el arroyo de PRNG compartido y
+reordena el gasto municipal: se regeneran los diez digestos y se verificó que ocho recuperan su valor de WP4.10
+quitando el bloque `politics`, y que los dos cruces de mes lo recuperan además neutralizando la transferencia (un
+`governingPartyId` fuera del catálogo). La proyección publica sólo agregados: ninguna clave `tenant_` sale en la
+sección. Ver `docs/engineering/adr/D-074-politica-y-elecciones-municipales.md` y
+`docs/execution/phase-4/wp4-11-municipal-politics-2026-10-24.md`.

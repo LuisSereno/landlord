@@ -2,6 +2,7 @@ import { parseMoney, parseTick, type Money, type MunicipalBudgetState } from "@l
 import { credit, debit } from "./commands";
 import { GAME_MONTH_TICKS, MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
 import type { GameState } from "./state";
+import { budgetPriorityFor } from "./municipal-politics";
 import { URBAN_SERVICE_POLICY, municipalServiceFee } from "./urban-services";
 
 export type MunicipalBudgetCategory = "administration" | "security" | "transport" | "cleaning";
@@ -12,7 +13,8 @@ export type MunicipalBudgetCategory = "administration" | "security" | "transport
  * categoría queda sin financiar y su nivel de servicio baja.
  */
 export const MUNICIPAL_BUDGET_POLICY = {
-  // Se paga primero lo esencial; la limpieza es lo primero que se recorta.
+  // Orden por defecto: se paga primero lo esencial y la limpieza es lo primero que se recorta.
+  // El partido que gobierna el concejo puede sustituirlo (WP4.11); éste es el orden de referencia.
   priority: ["administration", "security", "transport", "cleaning"] as const,
   administrationCost: 10,
 } as const;
@@ -137,7 +139,7 @@ export function runMunicipalBudget(state: GameState): void {
   let available = state.phase2.balances.get(MUNICIPALITY_ORGANIZATION_ID) ?? 0;
   let unfundedTotal = 0;
 
-  for (const category of MUNICIPAL_BUDGET_POLICY.priority) {
+  for (const category of budgetPriorityFor(state, MUNICIPAL_BUDGET_POLICY.priority)) {
     const plannedCost = planned[category];
     const paid = Math.min(plannedCost, Math.max(0, available));
     if (

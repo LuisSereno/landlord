@@ -30,6 +30,7 @@ import {
 import { describeEmployment } from "./employment";
 import { describeIntelligence } from "./information";
 import { describeMunicipalBudget } from "./municipal-budget";
+import { describeMunicipalPolitics } from "./municipal-politics";
 import { describePublicContracts } from "./public-contracts";
 import { describeReputation } from "./reputation";
 import { describeUrbanServices } from "./urban-services";
@@ -570,6 +571,7 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                 origin: tenant.origin,
               })),
             municipal: describeMunicipalBudget(state),
+            politics: describeMunicipalPolitics(state),
             urbanServices: describeUrbanServices(state),
             employment: describeEmployment(state),
             housingMarket: {

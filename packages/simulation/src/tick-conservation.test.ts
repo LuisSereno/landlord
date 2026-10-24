@@ -43,6 +43,15 @@ import { createScaledCity } from "./system-cost";
  * acciones fallidas y de 21 a 26 transacciones, y su caja termina en 2815 en vez de 3066: tras tres
  * rechazos deja de golpear la misma parcela, espera y pide financiación al banco (org_00000003 baja de
  * 100000 a 99400). La caja del jugador no se mueve. Doce ciclos quedaron cortados por la memoria.
+ *
+ * Regeneración WP4.11 (2026-10-24): el estado canónico gana `phase2.politics`, así que cambian los diez
+ * digestos. El bloque nuevo explica ocho de ellos: al quitarlo (`JSON.parse` + `delete politics`) los
+ * ocho recuperan exactamente su valor de WP4.10, incluida la carrera de 800 parcelas. Los dos casos que
+ * faltan son los cruces de cierre mensual, y ahí la diferencia sí es económica: el partido que gobierna
+ * reordena el pago de la caja municipal, como pretende el WP. Neutralizando la transferencia (un
+ * `governingPartyId` fuera del catálogo hace que `budgetPriorityFor` devuelva el orden por defecto) y
+ * quitando el bloque, ambos recuperan `611b01b5e69f0d61` y `7ab1cf04050e3d4d`, sus digestos de WP4.10.
+ * Ninguna otra caja, transacción, hogar ni incidente se mueve por otro canal.
  */
 function digest(value: string): string {
   let left = 0x811c9dc5;
@@ -73,54 +82,54 @@ function cityDigest(input: {
 const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => string }> = [
   {
     id: "scenario:seed-1:1200",
-    expected: "3e74222da9a56f00",
+    expected: "cbfb3f7c51f0233c",
     run: () => digest(canonicalizeState(runScenario(1, [], 1_200).state)),
   },
   {
     id: "scenario:seed-7:1200",
-    expected: "14103ef0c3275ac8",
+    expected: "ab1719956d062dac",
     run: () => digest(canonicalizeState(runScenario(7, [], 1_200).state)),
   },
   {
     id: "scenario:seed-42:1200",
-    expected: "59e99227f5cb1b75",
+    expected: "55cd7cc60cd9c651",
     run: () => digest(canonicalizeState(runScenario(42, [], 1_200).state)),
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "ce55085a1cfdc871",
+    expected: "09ba274d438311f3",
     run: () => digest(canonicalizeState(runScenario(1, [], 36_000).state)),
   },
   {
     id: "city:50-parcels:1300-ticks",
-    expected: "647ab036ce6ca6b9",
+    expected: "bf1ac7fb74da8b89",
     run: () => cityDigest({ parcelCount: 50, ticks: 1_300 }),
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "611b01b5e69f0d61",
+    expected: "8cd19ed973a256a1",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "7ab1cf04050e3d4d",
+    expected: "ffaabc2525434a22",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "62873e8d5297617a",
+    expected: "1269681c889cb606",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "54850d16ca272de4",
+    expected: "95489f25a3251d3a",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "39bdd4d3f1ced61a",
+    expected: "cb47c7206fe65ef0",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];

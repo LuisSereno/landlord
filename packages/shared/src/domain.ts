@@ -567,6 +567,44 @@ export type MunicipalBudgetState = {
   surplusMonths: number;
 };
 
+/**
+ * Los cinco asuntos sobre los que el concejo recibe quejas. Son ficticios y funcionan como ejes
+ * de medición: no corresponden a ninguna ideología ni partido real.
+ */
+export const POLITICAL_ISSUES = ["housing", "employment", "safety", "services", "taxes"] as const;
+export type PoliticalIssue = (typeof POLITICAL_ISSUES)[number];
+
+/** Plataforma de un partido municipal: datos, no condicionales codificados en el motor. */
+export type MunicipalParty = {
+  id: string;
+  name: string;
+  /** Saliencia 0..100 por asunto: cuánto pesa esa queja en su propio electorado. */
+  positionByIssue: Record<PoliticalIssue, number>;
+  /** Orden en el que el partido paga las categorías cuando gobierna la caja municipal. */
+  budgetPriority: readonly string[];
+  /** Ordenanza que el concejo intenta poner en vigor al tomar posesión. */
+  preferredOrdinanceId: PolicyId;
+  /** Escaños con los que el partido abre la legislatura, antes de la primera elección. */
+  openingSeats: number;
+};
+
+export type MunicipalPoliticsState = {
+  seatsByPartyId: Record<string, number>;
+  /** Partido con más escaños: manda en el presupuesto y en la agenda de ordenanzas. */
+  governingPartyId: string;
+  /** Opinión por asunto, 0..100; 100 es "sin queja". Se recalcula al cierre de cada mes. */
+  moodByIssue: Record<string, number>;
+  /** Apoyo observado en la última elección, 0..100 por partido. */
+  supportPercentByPartyId: Record<string, number>;
+  lastTurnoutPercent: number;
+  electionsHeld: number;
+  lastElectionTick: Tick | null;
+  nextElectionTick: Tick;
+  lastMoodTick: Tick | null;
+  /** Tick del próximo debate del concejo sobre su propia ordenanza; `null` si no hay pendiente. */
+  nextDebateTick: Tick | null;
+};
+
 export type EmploymentState = {
   /** Nivel salarial local; 100 es el salario de referencia. */
   salaryIndexPercent: number;
@@ -956,6 +994,21 @@ export const factionStateSchema = z.object({
   cycleCountByOrganizationId: z.record(z.string(), z.number().int().nonnegative()),
   nextMemoryOrdinal: z.number().int().positive(),
   lastDecayTick: tickSchema.nullable(),
+});
+export const municipalPoliticsStateSchema = z.object({
+  seatsByPartyId: z.record(z.string(), z.number().int().nonnegative()),
+  governingPartyId: z.string().min(1).max(64),
+  moodByIssue: z.record(
+    z.enum(["housing", "employment", "safety", "services", "taxes"]),
+    z.number().int().min(0).max(100),
+  ),
+  supportPercentByPartyId: z.record(z.string(), z.number().int().min(0).max(100)),
+  lastTurnoutPercent: z.number().int().min(0).max(100),
+  electionsHeld: z.number().int().nonnegative(),
+  lastElectionTick: tickSchema.nullable(),
+  nextElectionTick: tickSchema,
+  lastMoodTick: tickSchema.nullable(),
+  nextDebateTick: tickSchema.nullable(),
 });
 export const municipalBudgetStateSchema = z.object({
   lastSettlementTick: tickSchema.nullable(),

@@ -9,6 +9,7 @@ import {
   type Tenant,
   type TenantProfile,
   type Ordinance,
+  type MunicipalParty,
 } from "@landlord/shared";
 import { parseTenantId, parsePolicyId, parseOrganizationId } from "@landlord/shared";
 
@@ -216,12 +217,59 @@ export const MUNICIPAL_POLICY_CATALOG: readonly Ordinance[] = [
     transferTaxModifierPercent: -15,
     permitApprovalModifierPercent: -10,
   },
+  {
+    id: parsePolicyId("policy_00000004"),
+    name: "Tope de renta del Umbral",
+    status: "proposed",
+    proposedAtTick: null,
+    activeFromTick: null,
+    expiresAtTick: null,
+    materialCostModifierPercent: 5,
+    rentModifierPercent: -20,
+    influenceRequired: 2,
+    approvalChancePercent: 40,
+    propertyTaxModifierPercent: 0,
+    transferTaxModifierPercent: 0,
+    permitApprovalModifierPercent: -15,
+  },
 ];
 
 export function createMunicipalPolicy(policyId: string): Ordinance | null {
   const definition = MUNICIPAL_POLICY_CATALOG.find((policy) => policy.id === policyId);
   return definition ? { ...definition } : null;
 }
+
+/**
+ * Formaciones ficticias del concejo. Ninguna representa un partido, una ideología ni una
+ * organización real: son pesos sobre los cinco asuntos sobre los que la opinión puede quejarse, el
+ * orden en el que pagarían el presupuesto si gobernaran y la ordenanza que intentarían aprobar.
+ */
+export const MUNICIPAL_PARTY_CATALOG: readonly MunicipalParty[] = [
+  {
+    id: "party_suelo_comun",
+    name: "Concentración del Suelo Común",
+    positionByIssue: { housing: 90, employment: 35, safety: 60, services: 45, taxes: 50 },
+    budgetPriority: ["security", "cleaning", "transport", "administration"],
+    preferredOrdinanceId: parsePolicyId("policy_00000004"),
+    openingSeats: 2,
+  },
+  {
+    id: "party_trabajo_local",
+    name: "Liga del Trabajo Local",
+    positionByIssue: { housing: 40, employment: 85, safety: 35, services: 70, taxes: 30 },
+    budgetPriority: ["transport", "administration", "security", "cleaning"],
+    preferredOrdinanceId: parsePolicyId("policy_00000002"),
+    openingSeats: 4,
+  },
+  {
+    id: "party_cuentas_claras",
+    name: "Unión de Cuentas Claras",
+    positionByIssue: { housing: 30, employment: 45, safety: 40, services: 25, taxes: 90 },
+    budgetPriority: ["administration", "transport", "security", "cleaning"],
+    preferredOrdinanceId: parsePolicyId("policy_00000003"),
+    openingSeats: 3,
+  },
+];
 
 export const ILLEGAL_ROUTE = {
   baseDetectionChancePercent: 35,

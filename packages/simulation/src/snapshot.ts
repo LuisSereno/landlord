@@ -162,6 +162,12 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
           ...state.phase2.municipal.serviceLevelPercentByCategory,
         },
       },
+      politics: {
+        ...state.phase2.politics,
+        seatsByPartyId: { ...state.phase2.politics.seatsByPartyId },
+        moodByIssue: { ...state.phase2.politics.moodByIssue },
+        supportPercentByPartyId: { ...state.phase2.politics.supportPercentByPartyId },
+      },
       housingMarket: {
         ...state.phase2.housingMarket,
         rentIndexPercentByBuildingType: {
@@ -669,6 +675,29 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                     : parseTick(snapshot.phase2.municipal.lastSettlementTick),
               }
             : { ...defaults.municipal },
+          politics: snapshot.phase2.politics
+            ? {
+                ...snapshot.phase2.politics,
+                seatsByPartyId: { ...snapshot.phase2.politics.seatsByPartyId },
+                moodByIssue: { ...snapshot.phase2.politics.moodByIssue },
+                supportPercentByPartyId: {
+                  ...snapshot.phase2.politics.supportPercentByPartyId,
+                },
+                lastElectionTick:
+                  snapshot.phase2.politics.lastElectionTick === null
+                    ? null
+                    : parseTick(snapshot.phase2.politics.lastElectionTick),
+                nextElectionTick: parseTick(snapshot.phase2.politics.nextElectionTick),
+                lastMoodTick:
+                  snapshot.phase2.politics.lastMoodTick === null
+                    ? null
+                    : parseTick(snapshot.phase2.politics.lastMoodTick),
+                nextDebateTick:
+                  snapshot.phase2.politics.nextDebateTick === null
+                    ? null
+                    : parseTick(snapshot.phase2.politics.nextDebateTick),
+              }
+            : { ...defaults.politics },
           employment: snapshot.phase2.employment
             ? {
                 ...snapshot.phase2.employment,

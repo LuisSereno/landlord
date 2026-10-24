@@ -10,7 +10,7 @@ Fecha de consolidación: 2026-10-23.
 - Plan maestro de ejecución por fases: sí.
 - Plantilla de microtareas para agentes de baja ambigüedad: sí.
 - Fase 0 de preparación: cerrada el 2026-10-20.
-- ADRs D-046 a D-073: aceptados.
+- ADRs D-046 a D-074: aceptados.
 - Charter, contratos, benchmark y backlog inicial de Gate 1: listos.
 - Historias del prototipo: sí.
 - Riesgos: sí.
@@ -118,12 +118,25 @@ roce territorial con la trama a una o dos celdas), memoria de doce acciones en v
 antirrepetición que escala de −60 al segundo rechazo a salir del menú al tercero. La campaña headless cambió el
 diseño: sólo penalizar dejaba al rival con 101 acciones fallidas en doce meses; con la supresión cierra con 12
 y 190 ciclos cortados. Ninguna postura ni perfil sale hacia la proyección y siete observables privados del
-jugador no mueven la decisión del rival. El siguiente es
-WP4.11 (política y elecciones iniciales). El baseline económico actual cubre calendario
+jugador no mueven la decisión del rival.
+WP4.11 (política y elecciones iniciales) quedó cerrado el 2026-10-24 bajo D-074: concejo ficticio de nueve
+escaños con legislatura de seis meses y debate dos meses después, cinco ejes de opinión (vivienda, empleo,
+seguridad, servicios, impuestos) calculados cada mes desde subsistemas que ya existían y saliencia por segmento
+como dato. La transferencia institucional es triple y sobre reglas existentes: el partido que gobierna decide el
+orden de recorte del presupuesto, el concejo intenta imponer su propia ordenanza —posponiendo el debate si otra
+ley ocupa la mesa, para no borrar nunca una decisión comprada por la jugadora— y su alineamiento modula ±25 puntos
+la probabilidad del `LobbyPolicy`. Son tres plataformas exclusivamente datos y ningún candidato, con nomenclatura
+ficticia vigilada por prueba. La aceptación está medida: en la campaña de dos años el gobierno alterna con el
+estado social (Liga → Suelo Común → Liga → Suelo Común) y con 0 y 50 de influencia la participación, los escaños y
+el gobernante salen idénticos; el sistema no mueve ni un saldo. `politics` es el primer agregado de Fase 4 que
+entra en `canonicalizeState`, lo que obliga a regenerar los diez digestos dorados —verificado: ocho recuperan su
+valor de WP4.10 quitando el bloque y los dos cruces de mes lo recuperan neutralizando la transferencia—. El
+siguiente es WP4.12 (eventos macroeconómicos). El baseline económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas
 asignables, edificios multiunidad, presupuesto y satisfacción de inquilinos, mantenimiento, rival
 público con datos privados ocultos, licitación pública con fianza, reputación por grupos con hechos
-registrados, expediente de inteligencia con estimaciones, facciones con memoria y relaciones, política
+registrados, expediente de inteligencia con estimaciones, facciones con memoria y relaciones, concejo municipal
+electo que recorta el presupuesto y legisla solo, política
 incierta y riesgo con cooldown y conservación de dinero.
 
 El desglose operativo se encuentra en `docs/execution/`. El núcleo determinista, Worker,

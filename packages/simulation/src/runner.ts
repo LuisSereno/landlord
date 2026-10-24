@@ -65,6 +65,7 @@ export function canonicalizeState(state: GameState): string {
       tenants: orderedMapValues(state.phase2.tenants),
       transactions: state.phase2.transactions,
       ordinance: state.phase2.ordinance,
+      politics: state.phase2.politics,
       crime: state.phase2.crime,
       influenceByOrganizationId: orderedMapValues(state.phase2.influenceByOrganizationId),
       loans: orderedMapValues(state.phase2.loans),

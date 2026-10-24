@@ -114,7 +114,10 @@ municipio paga con su saldo real en orden de prioridad y, si no llega, recorta s
 servicio alimenta la deseabilidad del mercado de vivienda (D-068). La cobertura de transporte,
 seguridad y limpieza es radial desde el centro del distrito y se satura al crecer: alimenta
 accesibilidad, seguridad y calidad del parque, y la tasa por unidad ocupada sostiene el presupuesto
-(D-069). `factions` cierra el mes después del presupuesto: decae las posturas entre empresas, aplica el roce
+(D-069). `politics` cierra el mes **justo antes** que `municipal`: mide la opinión sobre la recaudación que el mes
+ya produjo —`runMunicipalBudget` la vuelca y la pone a cero al liquidar—, juzga el nivel de servicio que el distrito
+ya tenía, y si toca elección deja elegido el concejo antes de que se pague nada, para que el partido gobernante
+reordene el gasto de este mismo mes (D-074). `factions` cierra el mes después del presupuesto: decae las posturas entre empresas, aplica el roce
 territorial mutuo topado por mes y recorta la memoria de acciones de la IA fuera de su ventana de tres meses,
 sobre el mapa ya cerrado y antes de que la inteligencia re-base el expediente (D-073). `intelligence` cierra
 la lista y no mueve caja: re-basa con el canal gratis del mercado las

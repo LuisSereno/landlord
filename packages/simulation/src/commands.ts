@@ -42,6 +42,7 @@ import { askingRentFor } from "./housing-market";
 import { bankRateModifierBpsFor } from "./reputation";
 import { INFORMATION_POLICY, commissionIntelligence, commissionRejection } from "./information";
 import { recordFactionEncounter } from "./factions";
+import { councilAlignmentPercent } from "./municipal-politics";
 import { chooseInteractionCell, findDeterministicPath } from "./navigation";
 
 export type CommandRejection = {
@@ -1054,9 +1055,14 @@ export function dispatchProductCommand(
     );
     const generator = new Xoshiro128ss(state.seed);
     generator.restoreState(state.prng);
+    /** El concejo gobernante empuja o frena: la influencia ya no compra la ley por sí sola. */
+    const alignment = councilAlignmentPercent(state, ordinance);
     const chance = Math.min(
       95,
-      ordinance.approvalChancePercent + (command.payload.influenceSpend - 1) * 15,
+      Math.max(
+        5,
+        ordinance.approvalChancePercent + (command.payload.influenceSpend - 1) * 15 + alignment,
+      ),
     );
     const approved = generator.nextInt(0, 100) < chance;
     state.prng = generator.exportState();
@@ -1069,6 +1075,7 @@ export function dispatchProductCommand(
       policyId: ordinance.id,
       expiresAtTick: ordinance.expiresAtTick,
       approvalChancePercent: chance,
+      councilAlignmentPercent: alignment,
       influenceSpent: command.payload.influenceSpend,
     });
   }

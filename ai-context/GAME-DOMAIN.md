@@ -179,3 +179,7 @@ Lo que sabe cada perspectiva ya está declarado: `INFORMATION_POLICY.scopeByObse
 Las relaciones entre organizaciones tampoco son decorativas: la postura de `factions` sólo se forma por
 encuentros que ocurren en el mundo —sabotaje, desbanco en subasta, licitación competida, compartir manzana—,
 decae con el tiempo y se olvida si deja de haber roce (D-073).
+La política municipal tampoco es una capa aparte: los cinco ejes de opinión (`municipal-politics.ts`) se calculan
+leyendo el mercado de vivienda, el mercado laboral, el crime, los servicios pagados y la recaudación real del mes,
+así que votar cambia quién recorta el presupuesto y qué ley intenta aprobarse el concejo —sin garantizar el
+resultado que la jugadora quiere, que es la regla del WP4.11 (D-074).

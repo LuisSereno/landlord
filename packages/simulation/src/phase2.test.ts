@@ -1421,6 +1421,7 @@ describe("WP3.11 municipal policy integration", () => {
       "policy_00000001",
       "policy_00000002",
       "policy_00000003",
+      "policy_00000004",
     ]);
 
     expect(

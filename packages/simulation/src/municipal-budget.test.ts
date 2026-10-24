@@ -103,36 +103,38 @@ describe("WP4.5 presupuesto municipal", () => {
     expect(report.deficitMonths).toBe(0);
   });
 
-  it("recorta por prioridad y registra el descubierto cuando no hay caja", () => {
+  it("recorta por la prioridad del partido que gobierna y registra el descubierto", () => {
     const state = newState();
     clearOwnership(state);
     for (let index = 0; index < 3; index += 1) addBuilding(state, index);
     // Sin propiedades no hay impuesto que financie el gasto: la caja es exactamente 15.
     clearOwnership(state);
     state.phase2.balances.set(MUNICIPALITY_ORGANIZATION_ID, parseMoney(15));
+    /** Desde WP4.11 el orden lo fija el concejo; se asigna una formación conocida para medir el recorte. */
+    state.phase2.politics.governingPartyId = "party_cuentas_claras";
 
     state.clock = { ...state.clock, tick: parseTick(GAME_MONTH_TICKS) };
     runMunicipalBudget(state);
 
     const report = describeMunicipalBudget(state);
-    // Prioridad: administración (10) y seguridad (3) se pagan enteras; transporte (6) sólo 2 y
-    // limpieza (6) nada.
+    // Su plataforma paga administración (10) íntegra y deja el resto en transporte (6): seguridad
+    // (3) y limpieza (6) se quedan sin financiar.
     expect(report.spentTotalByCategory).toMatchObject({
       administration: 10,
-      security: 3,
-      transport: 2,
+      security: 0,
+      transport: 5,
       cleaning: 0,
     });
     expect(report.unfundedTotalByCategory).toMatchObject({
       administration: 0,
-      security: 0,
-      transport: 4,
+      security: 3,
+      transport: 1,
       cleaning: 6,
     });
     expect(report.serviceLevelPercentByCategory).toEqual({
       administration: 100,
-      security: 100,
-      transport: 33,
+      security: 0,
+      transport: 83,
       cleaning: 0,
     });
     expect(report.reserve).toBe(0);

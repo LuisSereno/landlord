@@ -230,6 +230,27 @@ rival aparece en la proyección del jugador.
 
 ## WP4.11 — Política y elecciones iniciales
 
+**Estado 2026-10-24:** `DONE`. Evidencia en
+`docs/execution/phase-4/wp4-11-municipal-politics-2026-10-24.md` y decisión en
+`docs/engineering/adr/D-074-politica-y-elecciones-municipales.md`. Concejo ficticio de nueve escaños, legislatura
+de seis meses y debate dos meses después de la elección. La opinión son cinco ejes —vivienda, empleo, seguridad,
+servicios e impuestos— calculados cada mes desde subsistemas que ya existían, sin estado social nuevo: la renta
+frente al presupuesto de renta del hogar, la tasa de empleo del distrito, la presión policial con sus ruinas y
+siniestros, el nivel de servicio realmente pagado y la recaudación del mes sobre la renta que paga el distrito.
+Este último eje se definió como carga vivida y no como tipos legales después de medir: ninguna ordenanza del
+catálogo sube tasas, así que un eje de tipos habría quedado clavado en 100 para siempre, y eso obliga a que
+`politics` cierre el mes justo antes que `municipal`, que es quien vuelca la recaudación. La saliencia por
+segmento es un dato, la apelación de un partido es la media ponderada de sus posiciones sobre los asuntos que
+duelen y el que gobierna pierde una fracción proporcional a lo mucho que prometió en los asuntos rotos. La
+participación sube con la queja (58 % tranquilo frente a 64 % degradado en la ciudad de 24 parcelas) y los escaños
+se reparten por resto mayor. La transferencia institucional tiene tres canales sobre reglas existentes: el orden de
+pago del presupuesto pasa a ser el del partido que gobierna, el concejo intenta imponer su propia ordenanza
+posponiendo el debate un mes si otra ley ocupa la mesa, y el alineamiento modula ±25 puntos la probabilidad del
+`LobbyPolicy` —la misma ley con la misma influencia sale 65 % afín, 48 % hostil—. Son tres plataformas
+exclusivamente datos (cinco posiciones, una permutación de gasto, una ordenanza del catálogo y sus escaños de
+apertura) y ningún candidato; la nomenclatura ficticia está vigilada por prueba. `phase2.politics` es opcional,
+entra por primera vez en `canonicalizeState` y la proyección no publica ni un identificador de hogar.
+
 - Definir instituciones y calendario municipal ficticios.
 - Modelar preferencias a partir de vivienda, empleo, seguridad, servicios e impuestos.
 - Añadir candidatos/partidos ficticios con posiciones data-driven.
@@ -238,6 +259,14 @@ rival aparece en la proyección del jugador.
 - Probar cambio de apoyo, participación, resultado y transferencia institucional.
 
 **Aceptación:** las elecciones emergen del estado social y no garantizan el resultado deseado por el jugador.
+
+**Verificado 2026-10-24:** en la campaña headless de dos años (ciudad de 24 parcelas, seed 4) el gobierno alterna
+por el estado social y no por la jugadora —apertura con la Liga del Trabajo Local, Suelo Común al mes 6 con la
+vivienda a 93, vuelta a la Liga al mes 12 cuando el empleo cae a 89 y la renta deja de ser el asunto dominante,
+Suelo Común al 18 con el empleo otra vez en 100— y el concejo debate tres veces (meses 8, 14 y 20), falla dos
+sorteos y en el 20 pone en vigor una ordenanza que nadie del jugador pidió. Con 0 y con 50 de influencia la
+participación, los escaños y el gobernante salen idénticamente; el sistema no mueve ni un saldo ni una
+transacción. El resultado no está garantizado en ningún sentido: la ley que el concejo quiere también se sortea.
 
 ## WP4.12 — Eventos macroeconómicos
 

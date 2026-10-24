@@ -36,6 +36,7 @@ import {
 import type { GameState } from "./state";
 import { runEmployment } from "./employment";
 import { runMunicipalBudget } from "./municipal-budget";
+import { runMunicipalPolitics } from "./municipal-politics";
 import { hasActiveAward, operationalBuildingsOwned, runPublicContracts } from "./public-contracts";
 import { askingRentFor, runHousingMarket } from "./housing-market";
 import { recordReputationFact, runReputation } from "./reputation";
@@ -1452,6 +1453,9 @@ export const PRODUCT_SYSTEMS: readonly ProductSystem[] = [
   // Los contratos cobran fianzas y pagan obras antes del cierre presupuestario, para que la caja
   // municipal del mes ya refleje lo comprometido con la autoridad.
   { name: "contracts", run: runPublicContracts },
+  // La política cierra justo antes que el presupuesto: la opinión juzga los servicios que ya tuvo y
+  // la carga fiscal del mes en curso, y el concejo nuevo reordena el pago de este mismo mes.
+  { name: "politics", run: runMunicipalPolitics },
   // El municipio paga al final, cuando ya ha cobrado los impuestos del mes.
   { name: "municipal", run: runMunicipalBudget },
   // Las facciones cierran el mes con el roce territorial ya observado: decaen posturas y recortan

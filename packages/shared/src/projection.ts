@@ -246,6 +246,26 @@ export type ViewProjectionV1 = {
       surplusMonths: number;
       lastSettlementTick: Tick | null;
     };
+    politics: {
+      seatsByPartyId: Record<string, number>;
+      governingPartyId: string;
+      governingPartyName: string;
+      moodByIssue: Record<string, number>;
+      supportPercentByPartyId: Record<string, number>;
+      lastTurnoutPercent: number;
+      electionsHeld: number;
+      lastElectionTick: Tick | null;
+      nextElectionTick: Tick;
+      nextDebateTick: Tick | null;
+      councilOrdinanceId: string | null;
+      parties: Array<{
+        id: string;
+        name: string;
+        seats: number;
+        supportPercent: number;
+        positionByIssue: Record<string, number>;
+      }>;
+    };
     employment: {
       jobs: number;
       jobsBySector: Record<string, number>;
@@ -723,6 +743,28 @@ export const viewProjectionV1Schema = z.object({
         deficitMonths: z.number().int().nonnegative(),
         surplusMonths: z.number().int().nonnegative(),
         lastSettlementTick: tickSchema.nullable(),
+      }),
+      politics: z.object({
+        seatsByPartyId: z.record(z.string(), z.number().int().nonnegative()),
+        governingPartyId: z.string().max(64),
+        governingPartyName: z.string().max(80),
+        moodByIssue: z.record(z.string(), z.number().int().min(0).max(100)),
+        supportPercentByPartyId: z.record(z.string(), z.number().int().min(0).max(100)),
+        lastTurnoutPercent: z.number().int().min(0).max(100),
+        electionsHeld: z.number().int().nonnegative(),
+        lastElectionTick: tickSchema.nullable(),
+        nextElectionTick: tickSchema,
+        nextDebateTick: tickSchema.nullable(),
+        councilOrdinanceId: z.string().max(32).nullable(),
+        parties: z.array(
+          z.object({
+            id: z.string().max(64),
+            name: z.string().max(80),
+            seats: z.number().int().nonnegative(),
+            supportPercent: z.number().int().min(0).max(100),
+            positionByIssue: z.record(z.string(), z.number().int().min(0).max(100)),
+          }),
+        ),
       }),
       employment: z.object({
         jobs: z.number().int().nonnegative(),

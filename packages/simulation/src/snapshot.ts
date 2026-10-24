@@ -168,6 +168,20 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
           ...state.phase2.housingMarket.rentIndexPercentByBuildingType,
         },
       },
+      contracts: {
+        ...state.phase2.contracts,
+        contracts: Object.fromEntries(
+          Object.entries(state.phase2.contracts.contracts).map(([id, contract]) => [
+            id,
+            { ...contract, bids: contract.bids.map((bid) => ({ ...bid })) },
+          ]),
+        ),
+        reliabilityByOrganizationId: Object.fromEntries(
+          Object.entries(state.phase2.contracts.reliabilityByOrganizationId).map(
+            ([organizationId, entry]) => [organizationId, { ...entry }],
+          ),
+        ),
+      },
       insurance: {
         contractsByBuildingId: Object.fromEntries(
           Object.entries(state.phase2.insurance.contractsByBuildingId).map(
@@ -640,6 +654,43 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                     : parseTick(snapshot.phase2.housingMarket.lastSettlementTick),
               }
             : { ...defaults.housingMarket },
+          contracts: snapshot.phase2.contracts
+            ? {
+                lastPublishedTick:
+                  snapshot.phase2.contracts.lastPublishedTick === null
+                    ? null
+                    : parseTick(snapshot.phase2.contracts.lastPublishedTick),
+                nextOrdinal: snapshot.phase2.contracts.nextOrdinal,
+                contracts: Object.fromEntries(
+                  Object.entries(snapshot.phase2.contracts.contracts).map(([id, contract]) => [
+                    id,
+                    {
+                      ...contract,
+                      budget: parseMoney(contract.budget),
+                      bond: parseMoney(contract.bond),
+                      publishedAtTick: parseTick(contract.publishedAtTick),
+                      closesAtTick: parseTick(contract.closesAtTick),
+                      executesAtTick: parseTick(contract.executesAtTick),
+                      awardedToOrganizationId: contract.awardedToOrganizationId
+                        ? parseOrganizationId(contract.awardedToOrganizationId)
+                        : null,
+                      awardedAmount:
+                        contract.awardedAmount === null ? null : parseMoney(contract.awardedAmount),
+                      bids: contract.bids.map((bid) => ({
+                        organizationId: parseOrganizationId(bid.organizationId),
+                        amount: parseMoney(bid.amount),
+                        atTick: parseTick(bid.atTick),
+                      })),
+                    },
+                  ]),
+                ),
+                reliabilityByOrganizationId: Object.fromEntries(
+                  Object.entries(snapshot.phase2.contracts.reliabilityByOrganizationId).map(
+                    ([organizationId, entry]) => [organizationId, { ...entry }],
+                  ),
+                ),
+              }
+            : { ...defaults.contracts },
           insurance: snapshot.phase2.insurance
             ? {
                 contractsByBuildingId: Object.fromEntries(

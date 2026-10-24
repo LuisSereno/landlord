@@ -132,6 +132,18 @@ la capa visual sobre el mapa queda para el WP de representación.
 
 ## WP4.7 — Contratos públicos
 
+**Estado 2026-10-23:** `DONE`. Evidencia en
+`docs/execution/phase-4/wp4-7-public-contracts-2026-10-23.md` y decisión en
+`docs/engineering/adr/D-070-contratos-publicos.md`. El municipio es la autoridad: licita en el mes 2
+y cada 3 meses, con dos objetos (obra pública, que exige edificios operativos, y suministro), ventana
+de ofertas de un mes y máximo dos contratos activos. Gana la oferta más baja con desempate por
+identificador; la fianza del 10 % se transfiere a la caja municipal, se devuelve al completar y se
+retiene al incumplir, y el ciclo conserva el dinero total. La ejecución es un mes después del cierre y
+se reintenta si la autoridad no tiene tesorería. El rival compite a través del mismo
+`SubmitPublicBid`, sin privilegios. El cumplimiento queda como contadores
+(`awarded`/`completed`/`defaulted`), la base que WP4.8 convertirá en reputación. Concesiones, hitos y
+pliegos configurables siguen fuera de alcance.
+
 - Definir autoridad, objeto, requisitos, ofertas, adjudicación y ejecución.
 - Validar capacidad y conflictos básicos.
 - Hacer competir a organizaciones IA bajo las mismas reglas.

@@ -36,6 +36,12 @@ import {
 import type { GameState } from "./state";
 import { runEmployment } from "./employment";
 import { runMunicipalBudget } from "./municipal-budget";
+import {
+  PUBLIC_CONTRACTS_POLICY,
+  hasActiveAward,
+  operationalBuildingsOwned,
+  runPublicContracts,
+} from "./public-contracts";
 import { askingRentFor, runHousingMarket } from "./housing-market";
 import { Xoshiro128ss } from "./prng";
 import { findDeterministicPath } from "./navigation";
@@ -1193,6 +1199,37 @@ function rivalAction(state: GameState): void {
       },
     });
   }
+  const rivalContract = [...Object.values(state.phase2.contracts.contracts)]
+    .filter(
+      (contract) =>
+        contract.status === "open" &&
+        state.clock.tick < contract.closesAtTick &&
+        !contract.bids.some((bid) => bid.organizationId === RIVAL_ORGANIZATION_ID) &&
+        !hasActiveAward(state, RIVAL_ORGANIZATION_ID) &&
+        operationalBuildingsOwned(state, RIVAL_ORGANIZATION_ID) >= contract.requiredBuildings &&
+        canSpend(contract.bond),
+    )
+    .sort((left, right) => left.id.localeCompare(right.id))[0];
+  if (rivalContract) {
+    const amount = parseMoney(
+      Math.max(
+        1,
+        Math.floor((rivalContract.budget * PUBLIC_CONTRACTS_POLICY.rivalBidPercent) / 100),
+      ),
+    );
+    candidates.push({
+      score: 76,
+      action: "bid_public_contract",
+      reason:
+        "La licitación abierta encaja con la capacidad actual y la caja cubre la fianza sin romper la reserva.",
+      command: {
+        ...base,
+        commandId: parseCommandId(`ai-rival-${state.clock.tick}-contract`),
+        type: "SubmitPublicBid",
+        payload: { contractId: rivalContract.id, amount },
+      },
+    });
+  }
   const selected = candidates.sort((left, right) => right.score - left.score)[0];
   if (!selected) {
     state.phase2.rivalAi.lastAction = "reserve_liquidity";
@@ -1274,6 +1311,9 @@ export const PRODUCT_SYSTEMS: readonly ProductSystem[] = [
   // El mercado cierra el mes después de la renta: el precio que se descubre hoy se cobra el mes
   // siguiente, nunca en el mismo cierre en el que se observa la vacancia.
   { name: "housing", run: runHousingMarket },
+  // Los contratos cobran fianzas y pagan obras antes del cierre presupuestario, para que la caja
+  // municipal del mes ya refleje lo comprometido con la autoridad.
+  { name: "contracts", run: runPublicContracts },
   // El municipio paga al final, cuando ya ha cobrado los impuestos del mes.
   { name: "municipal", run: runMunicipalBudget },
 ];

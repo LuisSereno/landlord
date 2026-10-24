@@ -1250,6 +1250,24 @@ export function App() {
                   ))}
                 </ul>
                 <p>
+                  <strong>Contratos públicos:</strong> {economy.publicContracts.open.length} en
+                  curso · {economy.publicContracts.reliability.completed} completados ·{" "}
+                  {economy.publicContracts.reliability.defaulted} incumplidos ·{" "}
+                  {economy.publicContracts.reliability.awarded} adjudicados al jugador.
+                </p>
+                <ul>
+                  {economy.publicContracts.open.map((contract) => (
+                    <li key={contract.id}>
+                      {contract.title}: presupuesto {contract.budget} u. · fianza {contract.bond} u.
+                      ·{" "}
+                      {contract.status === "awarded" && contract.awardedToOrganizationId
+                        ? `adjudicado a ${contract.awardedToOrganizationId} por ${contract.awardedAmount ?? 0} u.`
+                        : `${contract.bidCount} ofertas`}
+                      {contract.playerBid !== null ? ` · tu oferta ${contract.playerBid} u.` : ""}
+                    </li>
+                  ))}
+                </ul>
+                <p>
                   <strong>Rival:</strong> {economy.rival.parcels} parcelas ·{" "}
                   {economy.rival.buildings} edificios · {economy.rival.occupiedBuildings} ocupados.
                   Caja y contratos privados.

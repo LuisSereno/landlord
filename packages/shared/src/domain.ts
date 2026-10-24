@@ -418,6 +418,41 @@ export type TaxationState = {
   arrearsByOrganizationId: Record<string, Money>;
 };
 
+export type PublicContractKind = "public_works" | "supply";
+export type PublicContractStatus = "open" | "awarded" | "completed" | "failed" | "defaulted";
+export type PublicContractBid = {
+  organizationId: OrganizationId;
+  amount: Money;
+  atTick: Tick;
+};
+export type PublicContract = {
+  id: string;
+  kind: PublicContractKind;
+  title: string;
+  budget: Money;
+  /** Fianza que paga el adjudicatario; se pierde si incumple. */
+  bond: Money;
+  /** Edificios operativos mínimos que debe mantener el adjudicatario para ejecutar. */
+  requiredBuildings: number;
+  publishedAtTick: Tick;
+  closesAtTick: Tick;
+  executesAtTick: Tick;
+  status: PublicContractStatus;
+  awardedToOrganizationId: OrganizationId | null;
+  awardedAmount: Money | null;
+  bids: PublicContractBid[];
+};
+
+export type PublicContractsState = {
+  lastPublishedTick: Tick | null;
+  nextOrdinal: number;
+  contracts: Record<string, PublicContract>;
+  reliabilityByOrganizationId: Record<
+    string,
+    { awarded: number; completed: number; defaulted: number }
+  >;
+};
+
 export type MunicipalBudgetState = {
   lastSettlementTick: Tick | null;
   /** Ingresos del mes en curso, por fuente; el cierre presupuestario los acumula y los reinicia. */
@@ -719,6 +754,40 @@ export const taxationStateSchema = z.object({
   exemptOrganizationIds: z.array(organizationIdSchema),
   arrearsByOrganizationId: z.record(z.string(), moneySchema),
 });
+export const publicContractSchema = z.object({
+  id: z.string().min(1).max(64),
+  kind: z.enum(["public_works", "supply"]),
+  title: z.string().min(1).max(120),
+  budget: moneySchema,
+  bond: moneySchema,
+  requiredBuildings: z.number().int().nonnegative(),
+  publishedAtTick: tickSchema,
+  closesAtTick: tickSchema,
+  executesAtTick: tickSchema,
+  status: z.enum(["open", "awarded", "completed", "failed", "defaulted"]),
+  awardedToOrganizationId: organizationIdSchema.nullable(),
+  awardedAmount: moneySchema.nullable(),
+  bids: z.array(
+    z.object({
+      organizationId: organizationIdSchema,
+      amount: moneySchema,
+      atTick: tickSchema,
+    }),
+  ),
+});
+export const publicContractsStateSchema = z.object({
+  lastPublishedTick: tickSchema.nullable(),
+  nextOrdinal: z.number().int().positive(),
+  contracts: z.record(z.string(), publicContractSchema),
+  reliabilityByOrganizationId: z.record(
+    z.string(),
+    z.object({
+      awarded: z.number().int().nonnegative(),
+      completed: z.number().int().nonnegative(),
+      defaulted: z.number().int().nonnegative(),
+    }),
+  ),
+});
 export const municipalBudgetStateSchema = z.object({
   lastSettlementTick: tickSchema.nullable(),
   revenueThisMonthBySource: z.record(z.string(), moneySchema),
@@ -897,6 +966,10 @@ export type RequestPermit = DomainCommandBase & {
   type: "RequestPermit";
   payload: { parcelId: ParcelId; buildingType: BuildingType };
 };
+export type SubmitPublicBid = DomainCommandBase & {
+  type: "SubmitPublicBid";
+  payload: { contractId: string; amount: Money };
+};
 export type BuyInsurance = DomainCommandBase & {
   type: "BuyInsurance";
   payload: { buildingId: BuildingId; coverage: InsuranceCoverage };
@@ -933,7 +1006,8 @@ export type ProductCommand =
   | SetMaintenancePolicy
   | RequestPermit
   | BuyInsurance
-  | CancelInsurance;
+  | CancelInsurance
+  | SubmitPublicBid;
 
 function commandSchema<TType extends string>(type: TType, payload: z.ZodType) {
   return z.object({
@@ -1060,6 +1134,10 @@ export const buyInsuranceSchema = commandSchema(
     coverage: z.enum(["fire_basic", "fire_plus"]),
   }),
 );
+export const submitPublicBidSchema = commandSchema(
+  "SubmitPublicBid",
+  z.object({ contractId: z.string().min(1).max(64), amount: moneySchema }),
+);
 export const cancelInsuranceSchema = commandSchema(
   "CancelInsurance",
   z.object({ buildingId: buildingIdSchema }),
@@ -1093,4 +1171,5 @@ export const productCommandSchema = z.discriminatedUnion("type", [
   requestPermitSchema,
   buyInsuranceSchema,
   cancelInsuranceSchema,
+  submitPublicBidSchema,
 ]);

@@ -31,6 +31,7 @@ import {
   type HousingMarketState,
   type EmploymentState,
   type MunicipalBudgetState,
+  type PublicContractsState,
   type InsuranceState,
   type PermittingState,
   type InsolvencyState,
@@ -51,6 +52,7 @@ import { rosterLayout } from "./district-profiles";
 import { initialEmploymentState } from "./employment";
 import { initialMunicipalBudgetState } from "./municipal-budget";
 import { initialHousingMarketState } from "./housing-market";
+import { initialPublicContractsState } from "./public-contracts";
 import {
   PLAYER_ORGANIZATION_ID,
   PROTOTYPE_ORDINANCE,
@@ -98,6 +100,7 @@ export type Phase2State = {
   employment: EmploymentState;
   municipal: MunicipalBudgetState;
   housingMarket: HousingMarketState;
+  contracts: PublicContractsState;
   insurance: InsuranceState;
   permitting: PermittingState;
   insolvency: InsolvencyState;
@@ -321,6 +324,7 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
       employment: initialEmploymentState(),
       municipal: initialMunicipalBudgetState(),
       housingMarket: initialHousingMarketState(),
+      contracts: initialPublicContractsState(),
       insurance: {
         contractsByBuildingId: {},
         claimsByIncidentId: {},

@@ -1,19 +1,20 @@
 import {
-  addMoney,
   parseEventId,
   parseConstructionSiteId,
   parseMoney,
-  parseTransactionId,
   parseStructureId,
   parseTick,
   parseLoanId,
   type ProductCommand,
-  subtractMoney,
   type ErrorCode,
   type PlaceTestStructure,
   type TestStructurePlaced,
 } from "@landlord/shared";
 import { hasOrganizationControl, type GameState } from "./state";
+import { credit, debit } from "./ledger";
+import { submitPublicBid } from "./public-contracts";
+
+export { credit, debit } from "./ledger";
 import {
   BUILDING_DEFINITIONS,
   ILLEGAL_ROUTE,
@@ -136,7 +137,6 @@ function occupiedBuildingCells(
   );
 }
 
-const MAX_TRANSACTION_HISTORY = 500;
 const MAX_PROCESSED_COMMANDS = 2048;
 
 function rememberProcessed(
@@ -148,12 +148,6 @@ function rememberProcessed(
     const oldest = state.processedCommandIds.values().next().value;
     if (!oldest) break;
     state.processedCommandIds.delete(oldest);
-  }
-}
-
-function trimTransactions(state: GameState): void {
-  if (state.phase2.transactions.length > MAX_TRANSACTION_HISTORY) {
-    state.phase2.transactions.splice(0, state.phase2.transactions.length - MAX_TRANSACTION_HISTORY);
   }
 }
 
@@ -215,58 +209,6 @@ function reservedFundsForOrganization(
       (total, auction) => total + (auction.reservedFundsByOrganizationId[organizationId] ?? 0),
       0,
     );
-}
-
-export function debit(
-  state: GameState,
-  organizationId: import("@landlord/shared").OrganizationId,
-  amount: import("@landlord/shared").Money,
-  cause: string,
-  referenceId: string,
-): boolean {
-  const current = state.phase2.balances.get(organizationId);
-  if (current === undefined) return false;
-  const next = subtractMoney(current, amount);
-  if (!next.ok) return false;
-  state.phase2.balances.set(organizationId, next.value);
-  state.phase2.idCounters.transaction += 1;
-  state.phase2.transactions.push({
-    id: parseTransactionId(`txn_${String(state.phase2.idCounters.transaction).padStart(8, "0")}`),
-    tick: state.clock.tick,
-    organizationId,
-    cause,
-    amount,
-    direction: "debit",
-    referenceId,
-  });
-  trimTransactions(state);
-  return true;
-}
-
-export function credit(
-  state: GameState,
-  organizationId: import("@landlord/shared").OrganizationId,
-  amount: import("@landlord/shared").Money,
-  cause: string,
-  referenceId: string,
-): boolean {
-  const current = state.phase2.balances.get(organizationId);
-  if (current === undefined) return false;
-  const next = addMoney(current, amount);
-  if (!next.ok) return false;
-  state.phase2.balances.set(organizationId, next.value);
-  state.phase2.idCounters.transaction += 1;
-  state.phase2.transactions.push({
-    id: parseTransactionId(`txn_${String(state.phase2.idCounters.transaction).padStart(8, "0")}`),
-    tick: state.clock.tick,
-    organizationId,
-    cause,
-    amount,
-    direction: "credit",
-    referenceId,
-  });
-  trimTransactions(state);
-  return true;
 }
 
 export function dispatchProductCommand(
@@ -1123,6 +1065,21 @@ export function dispatchProductCommand(
       expiresAtTick: ordinance.expiresAtTick,
       approvalChancePercent: chance,
       influenceSpent: command.payload.influenceSpend,
+    });
+  }
+
+  if (command.type === "SubmitPublicBid") {
+    const rejection = submitPublicBid(
+      state,
+      command.actingAsOrganizationId,
+      command.payload.contractId,
+      command.payload.amount,
+    );
+    if (rejection) return { accepted: false, code: rejection };
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "PublicBidSubmitted", {
+      contractId: command.payload.contractId,
+      amount: command.payload.amount,
     });
   }
 

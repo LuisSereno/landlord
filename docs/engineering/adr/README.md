@@ -33,3 +33,4 @@ Una decisión aceptada sólo se modifica mediante un ADR posterior que la sustit
 - [D-067 — Mercado laboral agregado, salario y capacidad de alquiler](D-067-empleo-agregado-y-capacidad-de-alquiler.md)
 - [D-068 — Presupuesto municipal con caja real, prioridad de gasto y niveles de servicio](D-068-presupuesto-municipal.md)
 - [D-069 — Servicios urbanos con cobertura radial y tasa por unidad ocupada](D-069-servicios-urbanos-y-cobertura.md)
+- [D-070 — Contratos públicos con licitación, fianza y ejecución](D-070-contratos-publicos.md)

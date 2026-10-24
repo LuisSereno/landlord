@@ -29,6 +29,7 @@ import {
 } from "./game-data";
 import { describeEmployment } from "./employment";
 import { describeMunicipalBudget } from "./municipal-budget";
+import { describePublicContracts } from "./public-contracts";
 import { describeUrbanServices } from "./urban-services";
 import {
   askingRentFor,
@@ -579,6 +580,37 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
               vacancyPercentByBuildingType: vacancyPercentByBuildingType(state),
               segments: describeHousingMarket(state),
             },
+            publicContracts: (() => {
+              const report = describePublicContracts(state);
+              return {
+                open: report.open.map((contract) => ({
+                  id: contract.id,
+                  kind: contract.kind,
+                  title: contract.title,
+                  budget: contract.budget,
+                  bond: contract.bond,
+                  requiredBuildings: contract.requiredBuildings,
+                  closesAtTick: contract.closesAtTick,
+                  executesAtTick: contract.executesAtTick,
+                  status: contract.status as "open" | "awarded",
+                  awardedToOrganizationId: contract.awardedToOrganizationId,
+                  awardedAmount: contract.awardedAmount,
+                  bidCount: contract.bids.length,
+                  playerBid:
+                    contract.bids.find((bid) => bid.organizationId === PLAYER_ORGANIZATION_ID)
+                      ?.amount ?? null,
+                })),
+                history: report.history.map((contract) => ({
+                  id: contract.id,
+                  kind: contract.kind,
+                  title: contract.title,
+                  status: contract.status as "completed" | "failed" | "defaulted",
+                  awardedToOrganizationId: contract.awardedToOrganizationId,
+                  awardedAmount: contract.awardedAmount,
+                })),
+                reliability: report.reliability,
+              };
+            })(),
             ordinance: {
               id: state.phase2.ordinance.id,
               name: state.phase2.ordinance.name,

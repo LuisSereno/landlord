@@ -72,6 +72,13 @@ const errorMessages: Record<ErrorCode, string> = {
   AUCTION_NOT_BIDDER: "La organización no tiene una puja activa en esa subasta.",
   LOAN_REFINANCE_UNAVAILABLE: "La deuda no puede refinanciarse en su estado actual.",
   SELL_NOT_AVAILABLE: "La parcela no puede venderse en su estado actual.",
+  CONTRACT_NOT_FOUND: "El contrato público no existe.",
+  CONTRACT_CLOSED: "La licitación ya está cerrada.",
+  CONTRACT_CONFLICT: "La organización ya ejecuta otro contrato público.",
+  CONTRACT_CAPACITY: "La organización no tiene los edificios operativos exigidos.",
+  BID_ALREADY_SUBMITTED: "La organización ya presentó una oferta a esta licitación.",
+  BID_EXCEEDS_BUDGET: "La oferta no es positiva o supera el presupuesto del contrato.",
+  BOND_UNAVAILABLE: "La caja no cubre la fianza de la licitación.",
 } as const;
 
 const PROTOCOL_VERSION = protocolVersionSchema.parse(1);

@@ -434,3 +434,28 @@ textual en el panel. Ocho de los diez casos de conservación quedan idénticos; 
 mensual cambian sólo la caja municipal y sus transacciones. Ver
 `docs/engineering/adr/D-069-servicios-urbanos-y-cobertura.md` y
 `docs/execution/phase-4/wp4-6-urban-services-2026-10-23.md`.
+
+## D-070 — Contratos públicos con licitación, fianza y ejecución
+Estado: aceptada el 2026-10-23 para WP4.7.
+La autoridad es el municipio que ya existía (`org_00000004`): no hay organización ni rol nuevo.
+Publica en el mes 2 y cada 3 meses, con máximo dos licitaciones activas y ventana de ofertas de un
+mes. Dos objetos acotados —obra pública, que exige al menos un edificio operativo del contratista, y
+suministro, que no lo exige— con presupuesto declarado en el catálogo; concesiones, servicios
+continuos y pliegos variables quedan fuera. Cada organización puede tener una sola oferta por
+licitación y un solo contrato en curso, y cada rechazo tiene código propio (`CONTRACT_NOT_FOUND`,
+`CONTRACT_CLOSED`, `BID_ALREADY_SUBMITTED`, `BID_EXCEEDS_BUDGET`, `CONTRACT_CONFLICT`,
+`CONTRACT_CAPACITY`, `BOND_UNAVAILABLE`). La fianza es fija, el 10 % del presupuesto: se cobra al
+adjudicar y se transfiere a la caja municipal, se devuelve al completar y se retiene al incumplir, de
+modo que el ciclo conserva el dinero total y no introduce una segunda caja (D-068). Gana la oferta
+más baja, con desempate por identificador de organización; sin ofertas, o si nadie puede pagar la
+fianza, la licitación queda desierta. La ejecución es un mes después del cierre: si el adjudicatario
+ya no mantiene los edificios exigidos incumple y pierde la fianza, y si al municipio no le alcanza la
+caja el contrato se reintenta al mes siguiente, porque la tesorería de la autoridad no se disfraza de
+incumplimiento del contratista. El rival compite por la misma puerta: puja al 92 % del presupuesto a
+través de `SubmitPublicBid` y con las mismas validaciones, sin descuentos ni información privilegiada.
+El cumplimiento queda como contadores mínimos (`awarded`, `completed`, `defaulted`), la memoria que
+WP4.8 convertirá en reputación multidimensional. `phase2.contracts` es opcional en el schema, así que
+una partida anterior se restaura vacía. No se regeneran los digestos dorados: ningún caso llega al
+mes 2 y `canonicalizeState` sigue sin serializar los agregados económicos, deuda registrada. Ver
+`docs/engineering/adr/D-070-contratos-publicos.md` y
+`docs/execution/phase-4/wp4-7-public-contracts-2026-10-23.md`.

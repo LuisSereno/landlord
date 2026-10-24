@@ -268,6 +268,32 @@ export type ViewProjectionV1 = {
         affordableVacantSlots: number;
       }>;
     };
+    publicContracts: {
+      open: Array<{
+        id: string;
+        kind: "public_works" | "supply";
+        title: string;
+        budget: Money;
+        bond: Money;
+        requiredBuildings: number;
+        closesAtTick: Tick;
+        executesAtTick: Tick;
+        status: "open" | "awarded";
+        awardedToOrganizationId: OrganizationId | null;
+        awardedAmount: Money | null;
+        bidCount: number;
+        playerBid: Money | null;
+      }>;
+      history: Array<{
+        id: string;
+        kind: "public_works" | "supply";
+        title: string;
+        status: "completed" | "failed" | "defaulted";
+        awardedToOrganizationId: OrganizationId | null;
+        awardedAmount: Money | null;
+      }>;
+      reliability: { awarded: number; completed: number; defaulted: number };
+    };
     ordinance: {
       id: PolicyId;
       name: string;
@@ -679,6 +705,40 @@ export const viewProjectionV1Schema = z.object({
             affordableVacantSlots: z.number().int().nonnegative(),
           }),
         ),
+      }),
+      publicContracts: z.object({
+        open: z.array(
+          z.object({
+            id: z.string().min(1),
+            kind: z.enum(["public_works", "supply"]),
+            title: z.string(),
+            budget: moneySchema,
+            bond: moneySchema,
+            requiredBuildings: z.number().int().nonnegative(),
+            closesAtTick: tickSchema,
+            executesAtTick: tickSchema,
+            status: z.enum(["open", "awarded"]),
+            awardedToOrganizationId: organizationIdSchema.nullable(),
+            awardedAmount: moneySchema.nullable(),
+            bidCount: z.number().int().nonnegative(),
+            playerBid: moneySchema.nullable(),
+          }),
+        ),
+        history: z.array(
+          z.object({
+            id: z.string().min(1),
+            kind: z.enum(["public_works", "supply"]),
+            title: z.string(),
+            status: z.enum(["completed", "failed", "defaulted"]),
+            awardedToOrganizationId: organizationIdSchema.nullable(),
+            awardedAmount: moneySchema.nullable(),
+          }),
+        ),
+        reliability: z.object({
+          awarded: z.number().int().nonnegative(),
+          completed: z.number().int().nonnegative(),
+          defaulted: z.number().int().nonnegative(),
+        }),
       }),
       ordinance: z.object({
         id: policyIdSchema,

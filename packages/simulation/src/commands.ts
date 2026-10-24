@@ -40,6 +40,7 @@ import {
 import { Xoshiro128ss } from "./prng";
 import { askingRentFor } from "./housing-market";
 import { bankRateModifierBpsFor } from "./reputation";
+import { INFORMATION_POLICY, commissionIntelligence, commissionRejection } from "./information";
 import { chooseInteractionCell, findDeterministicPath } from "./navigation";
 
 export type CommandRejection = {
@@ -1083,6 +1084,37 @@ export function dispatchProductCommand(
     return productEvent(state, command.commandId, "PublicBidSubmitted", {
       contractId: command.payload.contractId,
       amount: command.payload.amount,
+    });
+  }
+
+  if (command.type === "CommissionIntelligence") {
+    const rejection = commissionRejection(
+      state,
+      command.actingAsOrganizationId,
+      command.payload.subjectOrganizationId,
+    );
+    if (rejection) return { accepted: false, code: rejection };
+    if (
+      !debit(
+        state,
+        command.actingAsOrganizationId,
+        parseMoney(INFORMATION_POLICY.commissionCost),
+        "intelligence_commission",
+        command.payload.kind,
+      )
+    )
+      return { accepted: false, code: "INTEL_UNAFFORDABLE" };
+    const estimate = commissionIntelligence(
+      state,
+      command.payload.subjectOrganizationId,
+      command.payload.kind,
+    );
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "IntelligenceCommissioned", {
+      subjectOrganizationId: estimate.subjectOrganizationId,
+      kind: estimate.kind,
+      estimateId: estimate.id,
+      cost: INFORMATION_POLICY.commissionCost,
     });
   }
 

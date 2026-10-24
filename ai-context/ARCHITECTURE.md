@@ -87,13 +87,14 @@ comandos al Worker y el Worker responde con snapshot/proyección y métricas.
 
 `tacticalTick` -> producción -> rentas y leases -> pagos de deuda -> subastas -> impuestos de
 propiedad -> mantenimiento -> seguros -> política y heat -> acción rival -> empleo -> mercado de
-vivienda -> reputación -> contratos públicos -> presupuesto municipal -> avance de tick.
+vivienda -> reputación -> contratos públicos -> presupuesto municipal -> expediente de inteligencia ->
+avance de tick.
 
 Cada bloque es un sistema puro sobre `GameState`; ninguno depende del reloj de pared ni del render.
 
 La lista es `PRODUCT_SYSTEMS`, con nombres estables (`tactical`, `production`, `rent`, `debt`,
 `auctions`, `propertyTax`, `maintenance`, `insurance`, `policy`, `rival`, `employment`, `housing`,
-`reputation`, `contracts`, `municipal`) que usan la
+`reputation`, `contracts`, `municipal`, `intelligence`) que usan la
 instrumentación de coste (`pnpm system:cost`) y las futuras reglas de LOD. No reordenar ni
 intercalar: cambia todas las partidas. La conservación del resultado se blinda con digestos dorados
 en `tick-conservation.test.ts` (D-065).
@@ -113,7 +114,10 @@ municipio paga con su saldo real en orden de prioridad y, si no llega, recorta s
 servicio alimenta la deseabilidad del mercado de vivienda (D-068). La cobertura de transporte,
 seguridad y limpieza es radial desde el centro del distrito y se satura al crecer: alimenta
 accesibilidad, seguridad y calidad del parque, y la tasa por unidad ocupada sostiene el presupuesto
-(D-069).
+(D-069). `intelligence` cierra la lista y no mueve caja: re-basa con el canal gratis del mercado las
+estimaciones del expediente del jugador que ya caducaron, sobre el estado económico del mes recién
+cerrado, y lo hace con su propio arroyo de PRNG para que el ruido de una creencia equivocada no desplace
+nunca el arroyo económico de la partida (D-072).
 
 ## Identidad y control
 

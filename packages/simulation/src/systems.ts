@@ -44,6 +44,7 @@ import {
 } from "./public-contracts";
 import { askingRentFor, runHousingMarket } from "./housing-market";
 import { recordReputationFact, runReputation } from "./reputation";
+import { runIntelligence } from "./information";
 import { Xoshiro128ss } from "./prng";
 import { findDeterministicPath } from "./navigation";
 
@@ -1351,6 +1352,9 @@ export const PRODUCT_SYSTEMS: readonly ProductSystem[] = [
   { name: "contracts", run: runPublicContracts },
   // El municipio paga al final, cuando ya ha cobrado los impuestos del mes.
   { name: "municipal", run: runMunicipalBudget },
+  // La inteligencia cierra la lista: re-basa el expediente del jugador sobre el estado ya cerrado
+  // del mes, sin mover caja ni el PRNG económico.
+  { name: "intelligence", run: runIntelligence },
 ];
 
 export function advanceProductSystems(state: GameState): void {

@@ -177,12 +177,29 @@ pertenecen a WP4.9 y WP4.10.
 
 ## WP4.9 — Información imperfecta
 
+**Estado 2026-10-24:** `DONE`. Evidencia en
+`docs/execution/phase-4/wp4-9-information-2026-10-24.md` y decisión en
+`docs/engineering/adr/D-072-informacion-imperfecta.md`. Cuatro accesos declarados en un registro central
+(`public`, `own`, `inferred`, `private` sobre ~34 observables) donde el mismo número cambia de acceso
+según de quién sea. La verdad privada la lee un único sitio, `trueValueFor`, que sólo usan el generador
+de estimaciones y las pruebas. Cuatro cifras que valen una decisión —caja, deuda viva, impuestos
+adeudados y puja prevista— con dos canales: `contacts` cuesta 150 u., enfría un mes y yerra ±6…±12 %;
+`market` es gratis, yerra ±25…±50 % y sólo re-basa lo que ya se siguió y caducó hace tres meses. La
+precisión envejece 2 puntos por mes hasta el suelo del 5 %. El expediente pertenece a un observador y el
+juego lo serializa sin la cifra verdadeira; el ruido sale de un arroyo de PRNG propio, así que ningún
+digesto dorado se mueve. Queda probado con un centinela privado que no aparece en la proyección y con
+una partida cuyas creencias se envenenan y produce el mismo libro de contabilidad. El registro no filtra
+automáticamente y el rival sigue leyendo el mundo completo: ambas correcciones pertenecen a WP4.10.
+
 - Clasificar datos públicos, propios, inferidos y privados.
 - Definir `information scope` sin implementar aún UI multirol completa.
 - Crear mecanismos de análisis/contactos/investigación limitados.
 - Representar precisión o antigüedad de estimaciones.
 - Evitar que IA y UI lean el estado autoritativo completo.
 - Probar filtraciones y ausencia de datos privados en proyecciones.
+
+**Aceptación:** el jugador puede pagar por una cifra del rival y recibirla equivocada, y ni la
+proyección ni ninguna regla contienen el dato privado del que salió la estimación.
 
 ## WP4.10 — IA estratégica y facciones
 

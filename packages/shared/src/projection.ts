@@ -29,7 +29,13 @@ import {
 } from "./primitives";
 import { gridCellSchema, tickSchema, type GridCell, type Tick } from "./time-and-grid";
 import { moneySchema, type Money } from "./money";
-import { buildingTypeSchema, zoningSchema, type BuildingType } from "./domain";
+import {
+  buildingTypeSchema,
+  zoningSchema,
+  type BuildingType,
+  type IntelKind,
+  type IntelSource,
+} from "./domain";
 
 export type ViewProjectionV1 = {
   projectionVersion: 1;
@@ -312,6 +318,28 @@ export type ViewProjectionV1 = {
           | "loan_paid_off";
         atTick: Tick;
         magnitude: number;
+      }>;
+    };
+    intelligence: {
+      commissionCost: number;
+      cooldownRemainingTicks: number;
+      staleAfterMonths: number;
+      kinds: Array<{
+        kind: IntelKind;
+        label: string;
+        marketErrorPercent: number;
+        contactsErrorPercent: number;
+      }>;
+      estimates: Array<{
+        id: string;
+        subjectOrganizationId: OrganizationId;
+        kind: IntelKind;
+        label: string;
+        source: IntelSource;
+        value: number;
+        accuracyPercent: number;
+        ageMonths: number;
+        effectiveAccuracyPercent: number;
       }>;
     };
     ordinance: {
@@ -784,6 +812,32 @@ export const viewProjectionV1Schema = z.object({
             ]),
             atTick: tickSchema,
             magnitude: z.number().int().positive(),
+          }),
+        ),
+      }),
+      intelligence: z.object({
+        commissionCost: z.number().int().positive(),
+        cooldownRemainingTicks: z.number().int().nonnegative(),
+        staleAfterMonths: z.number().int().positive(),
+        kinds: z.array(
+          z.object({
+            kind: z.enum(["balance", "exposure", "arrears", "bid_intent"]),
+            label: z.string().min(1),
+            marketErrorPercent: z.number().int().min(0).max(100),
+            contactsErrorPercent: z.number().int().min(0).max(100),
+          }),
+        ),
+        estimates: z.array(
+          z.object({
+            id: z.string().min(1),
+            subjectOrganizationId: organizationIdSchema,
+            kind: z.enum(["balance", "exposure", "arrears", "bid_intent"]),
+            label: z.string().min(1),
+            source: z.enum(["market", "contacts"]),
+            value: z.number().int(),
+            accuracyPercent: z.number().int().min(1).max(100),
+            ageMonths: z.number().int().nonnegative(),
+            effectiveAccuracyPercent: z.number().int().min(1).max(100),
           }),
         ),
       }),

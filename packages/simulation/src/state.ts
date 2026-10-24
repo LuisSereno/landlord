@@ -33,6 +33,7 @@ import {
   type MunicipalBudgetState,
   type PublicContractsState,
   type ReputationState,
+  type IntelligenceState,
   type InsuranceState,
   type PermittingState,
   type InsolvencyState,
@@ -55,6 +56,7 @@ import { initialMunicipalBudgetState } from "./municipal-budget";
 import { initialHousingMarketState } from "./housing-market";
 import { initialPublicContractsState } from "./public-contracts";
 import { initialReputationState } from "./reputation";
+import { initialIntelligenceState } from "./information";
 import {
   PLAYER_ORGANIZATION_ID,
   PROTOTYPE_ORDINANCE,
@@ -104,6 +106,7 @@ export type Phase2State = {
   housingMarket: HousingMarketState;
   contracts: PublicContractsState;
   reputation: ReputationState;
+  intelligence: IntelligenceState;
   insurance: InsuranceState;
   permitting: PermittingState;
   insolvency: InsolvencyState;
@@ -329,6 +332,7 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
       housingMarket: initialHousingMarketState(),
       contracts: initialPublicContractsState(),
       reputation: initialReputationState(),
+      intelligence: initialIntelligenceState(normalizedSeed),
       insurance: {
         contractsByBuildingId: {},
         claimsByIncidentId: {},

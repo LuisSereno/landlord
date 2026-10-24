@@ -19,7 +19,7 @@
 - engineering/05-ai-architecture.md — arquitectura de agentes.
 - engineering/06-multiplayer-future.md — preparación para multijugador.
 - engineering/07-player-identity-roles-and-capabilities.md — separación entre jugador, persona, organización, rol, control y capabilities.
-- engineering/adr/README.md — decisiones arquitectónicas/técnicas detalladas; D-046 a D-052 cubren Gate 1, D-053/D-054 fijan el arranque artístico, D-055 resuelve eventos, D-056 a D-060 gobiernan el baseline económico de Gate 2, D-061 exige el spike de agentes, daño e incidentes, D-062 fija la producción física localizada, D-063 registra la excepción de entrada a Alpha, D-064 la generación procedural de distritos, D-065 el coste medido del tick con el LOD espacial latente, D-066 el mercado de vivienda segmentado con precio descubierto por vacancia, D-067 el mercado laboral agregado y su conexión con la capacidad de alquiler, D-068 el presupuesto municipal con prioridad de gasto y niveles de servicio, D-069 los servicios urbanos con cobertura radial, D-070 los contratos públicos con licitación, fianza y ejecución y D-071 la reputación multidimensional con tres grupos y memoria de hechos.
+- engineering/adr/README.md — decisiones arquitectónicas/técnicas detalladas; D-046 a D-052 cubren Gate 1, D-053/D-054 fijan el arranque artístico, D-055 resuelve eventos, D-056 a D-060 gobiernan el baseline económico de Gate 2, D-061 exige el spike de agentes, daño e incidentes, D-062 fija la producción física localizada, D-063 registra la excepción de entrada a Alpha, D-064 la generación procedural de distritos, D-065 el coste medido del tick con el LOD espacial latente, D-066 el mercado de vivienda segmentado con precio descubierto por vacancia, D-067 el mercado laboral agregado y su conexión con la capacidad de alquiler, D-068 el presupuesto municipal con prioridad de gasto y niveles de servicio, D-069 los servicios urbanos con cobertura radial, D-070 los contratos públicos con licitación, fianza y ejecución, D-071 la reputación multidimensional con tres grupos y memoria de hechos y D-072 el registro de accesos con expediente de estimaciones imprecisas.
 
 ## Arte
 - art/README.md — entrada a la documentación artística y estado de gobernanza.
@@ -89,6 +89,7 @@
 - execution/phase-4/wp4-6-urban-services-2026-10-23.md — transporte, seguridad y limpieza con cobertura radial, saturación de capacidad, tasa por ocupación y overlay diferido.
 - execution/phase-4/wp4-7-public-contracts-2026-10-23.md — autoridad municipal, licitación al menor postor, fianza que se conserva, ejecución con reintento y competencia de la IA por el mismo comando.
 - execution/phase-4/wp4-8-reputation-2026-10-24.md — tres grupos con valoraciones opuestas del mismo hecho, memoria acotada, decaimiento sólo en la opinión y tres canales de efecto real.
+- execution/phase-4/wp4-9-information-2026-10-24.md — accesos público/propio/inferido/privado, expediente por observador, estimaciones con error y antigüedad y pruebas de fuga e invariancia.
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

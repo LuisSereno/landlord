@@ -484,3 +484,31 @@ digestos dorados se regeneran en los dos casos que cruzan un cierre mensual y s�
 influencia: se verificó neutralizando las tres tablas de efecto y recuperando el valor de D-070. Ver
 `docs/engineering/adr/D-071-reputacion-multidimensional.md` y
 `docs/execution/phase-4/wp4-8-reputation-2026-10-24.md`.
+
+## D-072 — Información imperfecta: registro de accesos y expediente de estimaciones
+Estado: aceptada el 2026-10-24 para WP4.9.
+Cuatro accesos declarados en un registro central (`INFORMATION_POLICY.scopeByObservable`, ~34
+observables): `public` lo ve cualquiera desde el mundo, `own` lo conoce el sujeto de su contabilidad,
+`inferred` sólo existe como estimación con error y `private` no sale del estado autoritativo. El mismo
+número cambia de acceso según de quién sea: la caja propia es `own`, la del rival `private` y su
+versión estimada `inferred`. El registro es un contrato declarado, no un filtro automático; lo que
+sostiene la garantía son la forma del reporte y las pruebas de fuga e invariancia. La verdad privada se
+lee en un único sitio, `trueValueFor`, que sólo llaman el generador de estimaciones y las pruebas: si la
+proyección lo llamara, el expediente sería una copia del estado. Cuatro cifras que valen una decisión —
+caja disponible, deuda viva, impuestos adeudados y puja prevista—, todas en unidades de dinero; edificios
+y parcelas del rival quedan fuera porque ya son públicos. Dos canales: `contacts` cuesta 150 u., enfría
+un mes y yerra ±6…±12 %; `market` es gratis, yerra ±25…±50 % y sólo re-basa entradas ya presentes que
+llevan tres meses sin refrescarse, así que quien no pregunta no aprende nada nuevo. La eficacia declarada
+caduca 2 puntos por mes hasta un suelo del 5 % y la entrada nunca se borra: el archivo vale una entrada
+por sujeto y clase. Un expediente por observador (`observerOrganizationId`) y `CommissionIntelligence`
+rechaza al que no es su dueño (`INTEL_NOT_OBSERVER`), además de `INTEL_SUBJECT_UNKNOWN`,
+`INTEL_SUBJECT_IS_SELF`, `INTEL_COOLDOWN` e `INTEL_UNAFFORDABLE`; no se asume jugador == empresa. El
+ruido de estimación sale de un arroyo `phase2.intelligence.prng` separado, así que encargar inteligencia
+no desplaza el arroyo económico: ningún digesto dorado cambia y la caja del smoke queda en `5228 u.`. El
+expediente no es entrada de ninguna regla —se prueba envenenando las creencias de una partida
+auto-jugada y obteniendo el mismo libro de transacciones— y hoy sólo lo tiene el jugador; el rival
+seguirá sin expediente hasta WP4.10, donde las facciones tendrán el suyo como entrada. `phase2.intelligence`
+es opcional, así que una partida anterior se restaura con el expediente vacío desde su `seed`. Se queda
+sin botón de encargo (como `SubmitPublicBid` desde WP4.7) y tres de las cuatro cifras valen 0 en partida
+auto-jugada. Ver `docs/engineering/adr/D-072-informacion-imperfecta.md` y
+`docs/execution/phase-4/wp4-9-information-2026-10-24.md`.

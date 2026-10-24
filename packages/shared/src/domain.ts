@@ -487,6 +487,37 @@ export type ReputationState = {
   factsByOrganizationId: Record<string, ReputationFact[]>;
 };
 
+export type InformationScope = "public" | "own" | "inferred" | "private";
+
+export type IntelKind = "balance" | "exposure" | "arrears" | "bid_intent";
+
+export type IntelSource = "market" | "contacts";
+
+/**
+ * Estimación, no verdad: el valor observado se degrada con un error conocido y envejece desde el tick
+ * en que se tomó. Lo que el jugador decide es si le basta o paga por una más reciente.
+ */
+export type IntelligenceEstimate = {
+  id: string;
+  subjectOrganizationId: OrganizationId;
+  kind: IntelKind;
+  source: IntelSource;
+  value: number;
+  accuracyPercent: number;
+  atTick: Tick;
+};
+
+export type IntelligenceState = {
+  /** Quién paga por saber: el expediente es propio, no del mundo. */
+  observerOrganizationId: OrganizationId;
+  /** Arroyo propio para no mover el PRNG económico: el ruido de estimación no cambia partidas. */
+  prng: { algorithm: "xoshiro128ss-v1"; state: [number, number, number, number] };
+  estimatesBySubjectOrganizationId: Record<string, IntelligenceEstimate[]>;
+  nextEstimateOrdinal: number;
+  commissionCooldownUntilTick: Tick;
+  lastRefreshTick: Tick | null;
+};
+
 export type MunicipalBudgetState = {
   lastSettlementTick: Tick | null;
   /** Ingresos del mes en curso, por fuente; el cierre presupuestario los acumula y los reinicia. */
@@ -848,6 +879,31 @@ export const reputationStateSchema = z.object({
   ),
   factsByOrganizationId: z.record(z.string(), z.array(reputationFactSchema)),
 });
+export const intelligenceEstimateSchema = z.object({
+  id: z.string().min(1),
+  subjectOrganizationId: organizationIdSchema,
+  kind: z.enum(["balance", "exposure", "arrears", "bid_intent"]),
+  source: z.enum(["market", "contacts"]),
+  value: z.number().int(),
+  accuracyPercent: z.number().int().min(1).max(100),
+  atTick: tickSchema,
+});
+export const intelligenceStateSchema = z.object({
+  observerOrganizationId: organizationIdSchema,
+  prng: z.object({
+    algorithm: z.literal("xoshiro128ss-v1"),
+    state: z.tuple([
+      z.number().int().min(0).max(0xffffffff),
+      z.number().int().min(0).max(0xffffffff),
+      z.number().int().min(0).max(0xffffffff),
+      z.number().int().min(0).max(0xffffffff),
+    ]),
+  }),
+  estimatesBySubjectOrganizationId: z.record(z.string(), z.array(intelligenceEstimateSchema)),
+  nextEstimateOrdinal: z.number().int().positive(),
+  commissionCooldownUntilTick: tickSchema,
+  lastRefreshTick: tickSchema.nullable(),
+});
 export const municipalBudgetStateSchema = z.object({
   lastSettlementTick: tickSchema.nullable(),
   revenueThisMonthBySource: z.record(z.string(), moneySchema),
@@ -1030,6 +1086,10 @@ export type SubmitPublicBid = DomainCommandBase & {
   type: "SubmitPublicBid";
   payload: { contractId: string; amount: Money };
 };
+export type CommissionIntelligence = DomainCommandBase & {
+  type: "CommissionIntelligence";
+  payload: { subjectOrganizationId: OrganizationId; kind: IntelKind };
+};
 export type BuyInsurance = DomainCommandBase & {
   type: "BuyInsurance";
   payload: { buildingId: BuildingId; coverage: InsuranceCoverage };
@@ -1067,7 +1127,8 @@ export type ProductCommand =
   | RequestPermit
   | BuyInsurance
   | CancelInsurance
-  | SubmitPublicBid;
+  | SubmitPublicBid
+  | CommissionIntelligence;
 
 function commandSchema<TType extends string>(type: TType, payload: z.ZodType) {
   return z.object({
@@ -1202,6 +1263,13 @@ export const cancelInsuranceSchema = commandSchema(
   "CancelInsurance",
   z.object({ buildingId: buildingIdSchema }),
 );
+export const commissionIntelligenceSchema = commandSchema(
+  "CommissionIntelligence",
+  z.object({
+    subjectOrganizationId: organizationIdSchema,
+    kind: z.enum(["balance", "exposure", "arrears", "bid_intent"]),
+  }),
+);
 export const productCommandSchema = z.discriminatedUnion("type", [
   placeTestStructureSchema,
   buyParcelSchema,
@@ -1232,4 +1300,5 @@ export const productCommandSchema = z.discriminatedUnion("type", [
   buyInsuranceSchema,
   cancelInsuranceSchema,
   submitPublicBidSchema,
+  commissionIntelligenceSchema,
 ]);

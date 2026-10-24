@@ -198,6 +198,15 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
           ),
         ),
       },
+      intelligence: {
+        ...state.phase2.intelligence,
+        prng: { algorithm: "xoshiro128ss-v1", state: [...state.phase2.intelligence.prng.state] },
+        estimatesBySubjectOrganizationId: Object.fromEntries(
+          Object.entries(state.phase2.intelligence.estimatesBySubjectOrganizationId).map(
+            ([subjectId, estimates]) => [subjectId, estimates.map((estimate) => ({ ...estimate }))],
+          ),
+        ),
+      },
       insurance: {
         contractsByBuildingId: Object.fromEntries(
           Object.entries(state.phase2.insurance.contractsByBuildingId).map(
@@ -733,6 +742,42 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 ),
               }
             : { ...defaults.reputation },
+          intelligence: snapshot.phase2.intelligence
+            ? {
+                observerOrganizationId: parseOrganizationId(
+                  snapshot.phase2.intelligence.observerOrganizationId,
+                ),
+                prng: {
+                  algorithm: "xoshiro128ss-v1",
+                  state: [...snapshot.phase2.intelligence.prng.state] as [
+                    number,
+                    number,
+                    number,
+                    number,
+                  ],
+                },
+                estimatesBySubjectOrganizationId: Object.fromEntries(
+                  Object.entries(snapshot.phase2.intelligence.estimatesBySubjectOrganizationId).map(
+                    ([subjectId, estimates]) => [
+                      subjectId,
+                      estimates.map((estimate) => ({
+                        ...estimate,
+                        subjectOrganizationId: parseOrganizationId(estimate.subjectOrganizationId),
+                        atTick: parseTick(estimate.atTick),
+                      })),
+                    ],
+                  ),
+                ),
+                nextEstimateOrdinal: snapshot.phase2.intelligence.nextEstimateOrdinal,
+                commissionCooldownUntilTick: parseTick(
+                  snapshot.phase2.intelligence.commissionCooldownUntilTick,
+                ),
+                lastRefreshTick:
+                  snapshot.phase2.intelligence.lastRefreshTick === null
+                    ? null
+                    : parseTick(snapshot.phase2.intelligence.lastRefreshTick),
+              }
+            : { ...defaults.intelligence },
           insurance: snapshot.phase2.insurance
             ? {
                 contractsByBuildingId: Object.fromEntries(

@@ -79,6 +79,11 @@ const errorMessages: Record<ErrorCode, string> = {
   BID_ALREADY_SUBMITTED: "La organización ya presentó una oferta a esta licitación.",
   BID_EXCEEDS_BUDGET: "La oferta no es positiva o supera el presupuesto del contrato.",
   BOND_UNAVAILABLE: "La caja no cubre la fianza de la licitación.",
+  INTEL_SUBJECT_UNKNOWN: "El sujeto de la investigación no es una empresa del distrito.",
+  INTEL_SUBJECT_IS_SELF: "No se puede investigar la propia contabilidad: eso es leer tu caja.",
+  INTEL_NOT_OBSERVER: "El expediente de inteligencia pertenece a otro observador.",
+  INTEL_COOLDOWN: "Las fuentes aún no tienen información nueva sobre ese sujeto.",
+  INTEL_UNAFFORDABLE: "La caja no cubre el encargo de la investigación.",
 } as const;
 
 const PROTOCOL_VERSION = protocolVersionSchema.parse(1);

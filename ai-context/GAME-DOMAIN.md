@@ -172,3 +172,7 @@ El dominio puede ser complejo; la operación rutinaria no debe serlo.
 El motor liquida automáticamente obligaciones periódicas. El jugador decide estrategias, excepciones y políticas de gestión.
 
 Cambiar de perspectiva debe cambiar información, overlays y responsabilidades, no crear otro mundo paralelo.
+
+Lo que sabe cada perspectiva ya está declarado: `INFORMATION_POLICY.scopeByObservable`
+(`packages/simulation/src/information.ts`) etiqueta los observables como `public`, `own`, `inferred` o
+`private`, y una perspectiva nueva se define eligiendo su observador, no inventando otro estado (D-072).

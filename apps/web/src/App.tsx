@@ -1285,6 +1285,26 @@ export function App() {
                   ))}
                 </ul>
                 <p>
+                  <strong>Inteligencia:</strong> encargar una cifra cuesta{" "}
+                  {economy.intelligence.commissionCost} u. y deja el canal{" "}
+                  {economy.intelligence.cooldownRemainingTicks} ticks enfriado. El mercado re-basa
+                  solo lo que lleva {economy.intelligence.staleAfterMonths} meses sin refrescarse.
+                </p>
+                <ul>
+                  {economy.intelligence.estimates.length === 0 ? (
+                    <li>El expediente está vacío: no has pagado por saber nada del rival.</li>
+                  ) : (
+                    economy.intelligence.estimates.map((estimate) => (
+                      <li key={estimate.id}>
+                        {estimate.subjectOrganizationId}: {estimate.label} estimada {estimate.value}{" "}
+                        u. por {estimate.source === "contacts" ? "contacto" : "mercado"} con{" "}
+                        {estimate.effectiveAccuracyPercent}% de acierto ({estimate.ageMonths} meses
+                        de antigüedad).
+                      </li>
+                    ))
+                  )}
+                </ul>
+                <p>
                   <strong>Rival:</strong> {economy.rival.parcels} parcelas ·{" "}
                   {economy.rival.buildings} edificios · {economy.rival.occupiedBuildings} ocupados.
                   Caja y contratos privados.
@@ -1430,6 +1450,7 @@ function transactionLabel(cause: string): string {
       production_investment: "inversión productiva",
       production_operation: "coste de producción",
       building_repair: "reparación",
+      intelligence_commission: "encargo de investigación",
     }[cause] ?? cause
   );
 }

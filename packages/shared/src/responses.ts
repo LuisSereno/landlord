@@ -69,7 +69,12 @@ export type ErrorCode =
   | "CONTRACT_CAPACITY"
   | "BID_ALREADY_SUBMITTED"
   | "BID_EXCEEDS_BUDGET"
-  | "BOND_UNAVAILABLE";
+  | "BOND_UNAVAILABLE"
+  | "INTEL_SUBJECT_UNKNOWN"
+  | "INTEL_SUBJECT_IS_SELF"
+  | "INTEL_NOT_OBSERVER"
+  | "INTEL_COOLDOWN"
+  | "INTEL_UNAFFORDABLE";
 
 const responseVersion = protocolVersionSchema;
 
@@ -166,6 +171,11 @@ const errorCodeSchema = z.enum([
   "BID_ALREADY_SUBMITTED",
   "BID_EXCEEDS_BUDGET",
   "BOND_UNAVAILABLE",
+  "INTEL_SUBJECT_UNKNOWN",
+  "INTEL_SUBJECT_IS_SELF",
+  "INTEL_NOT_OBSERVER",
+  "INTEL_COOLDOWN",
+  "INTEL_UNAFFORDABLE",
 ]);
 
 export const simulationMetricsSchema = z.object({

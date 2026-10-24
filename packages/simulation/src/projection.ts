@@ -28,6 +28,7 @@ import {
   MUNICIPAL_POLICY_CATALOG,
 } from "./game-data";
 import { describeEmployment } from "./employment";
+import { describeIntelligence } from "./information";
 import { describeMunicipalBudget } from "./municipal-budget";
 import { describePublicContracts } from "./public-contracts";
 import { describeReputation } from "./reputation";
@@ -620,6 +621,16 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                 residentFactorPercent: report.residentFactorPercent,
                 influenceGainPerMonth: report.influenceGainPerMonth,
                 facts: report.facts,
+              };
+            })(),
+            intelligence: (() => {
+              const report = describeIntelligence(state);
+              return {
+                commissionCost: report.commissionCost,
+                cooldownRemainingTicks: report.cooldownRemainingTicks,
+                staleAfterMonths: report.staleAfterMonths,
+                kinds: report.kinds,
+                estimates: report.estimates,
               };
             })(),
             ordinance: {

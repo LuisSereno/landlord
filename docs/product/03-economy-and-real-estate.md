@@ -170,3 +170,10 @@ El mercado debe producir:
 - oportunidades por información imperfecta.
 
 El jugador no debe conocer siempre el valor futuro real.
+
+**Estado de implementación (WP4.9, D-072):** el mercado ya no publica las cifras privadas del rival. El
+jugador puede pagar 150 u. por una estimación con error declarado (caja, deuda viva, impuestos adeudados
+o puja prevista) que envejece, y el canal gratuito del mercado sólo re-basa lo que llevaba tres meses sin
+refrescarse. No hay todavía oportunidades reales de arbitraje: tres de las cuatro cifras valen 0 en una
+partida auto-jugada porque el rival no pide préstamo, no debe impuestos y no puja, y el registro de
+accesos no genera ni filtra por sí solo las ofertas del mundo.

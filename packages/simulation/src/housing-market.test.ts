@@ -298,6 +298,7 @@ describe("WP4.3 oferta y demanda de vivienda", () => {
       createdAtTick: parseTick(0),
       causedByAgentId: null,
       causedByOrganizationId: null,
+      publiclyAttributedOrganizationId: null,
       casualties: { injured: 0, dead: 0 },
     });
 

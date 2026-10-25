@@ -560,6 +560,9 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                     causedByOrganizationId: incident.causedByOrganizationId
                       ? parseOrganizationId(incident.causedByOrganizationId)
                       : null,
+                    publiclyAttributedOrganizationId: incident.publiclyAttributedOrganizationId
+                      ? parseOrganizationId(incident.publiclyAttributedOrganizationId)
+                      : null,
                     casualties: { ...incident.casualties },
                   },
                 ]),

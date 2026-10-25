@@ -625,7 +625,12 @@ paquetes distintos que ya no encajan. **Autoridad del concejo:** `WithdrawPolicy
 `proposed`; una ordenanza `active` —la imponga el lobby o el concejo— es norma municipal y caduca por
 `MUNICIPAL_POLICY_DURATION_TICKS`. Retirar una ley ajena contradecía D-074 y además silenciaba al
 gobierno, porque el debate siguiente se programa contra la caducidad. El botón de la UI pasa a
-*Retirar propuesta actual*. La acta de WP3.11 queda marcada como parcialmente superada. Los puntos 2 a 6
-de este follow-up se incorporan aquí conforme aterricen. Ver
+*Retirar propuesta actual*. La acta de WP3.11 queda marcada como parcialmente superada. **Autoría y
+conocimiento:** `IncidentRecord` separa `causedByOrganizationId` (verdad autoritativa) de
+`publiclyAttributedOrganizationId` (lo que la calle sabe, sólo si la tirada de detección vio al agresor) y el
+hecho `violent_sabotage` de D-075 se registra contra la atribución pública: un sabotaje no visto ya no baja la
+reputación de quien lo hizo. Es la misma separación de D-072 aplicada a la reputación. Queda documentada la onda
+expansiva (`blast`) sin propagar atribución. Los puntos 3 a 6 de este follow-up se incorporan aquí conforme
+aterricen. Ver
 `docs/engineering/adr/D-076-follow-up-hardening-alpha.md` y
 `docs/execution/phase-4/wp4-11-h-1-alpha-follow-up-2026-10-25.md`.

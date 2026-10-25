@@ -522,6 +522,7 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
         createdAtTick: parseTick(0),
         causedByAgentId: null,
         causedByOrganizationId: null,
+        publiclyAttributedOrganizationId: null,
         casualties: { injured: 0, dead: 0 },
       };
       state.phase2.incidents.set(incidentId, incident);

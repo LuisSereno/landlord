@@ -482,6 +482,7 @@ describe("Gate 2 product loop", () => {
       createdAtTick: state.clock.tick,
       causedByAgentId: null,
       causedByOrganizationId: null,
+      publiclyAttributedOrganizationId: null,
       casualties: { injured: 0, dead: 0 },
     });
     const duringFire = inventory.cement;
@@ -536,6 +537,7 @@ describe("Gate 2 product loop", () => {
       createdAtTick: state.clock.tick,
       causedByAgentId: null,
       causedByOrganizationId: null,
+      publiclyAttributedOrganizationId: null,
       casualties: { injured: 0, dead: 0 },
     });
     expect(

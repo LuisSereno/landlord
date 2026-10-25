@@ -64,6 +64,16 @@ import { createScaledCity } from "./system-cost";
  * desplazamiento ni decisión de estos escenarios se movió: el delta es superficie canónica. Las
  * reglas nuevas de censo, eje fiscal, ordenanza y reputación no se ejercitan aquí porque ningún caso
  * celebra elección, ni desaloja en proporción distinta, ni cambia la lectura bancaria.
+ *
+ * Regeneración WP4.11-H.1 (2026-10-25): cada `IncidentRecord` gana `publiclyAttributedOrganizationId`
+ * (D-076 punto 2: la atribución pública separada de la verdad autoritativa). Cambian los cinco digestos
+ * con incidentes vivos (`ea45762a6d3c88b9`, `c9880ee1531a61c2`, `7c2c82428577dd48`, `69b80619079b5568`,
+ * `e5011f6ed4c2e30a`); los cinco sin incidentes quedan idénticos. Atribución verificada: borrando del
+ * estado canónico nuevo la clave `publiclyAttributedOrganizationId` y su valor, los cinco recuperan
+ * exactamente `b9265816025c4329`, `2d8810d5599ad182`, `e1fc003eb7af4c9a`, `91fa9ad9c89a0116` y
+ * `ba411bbd904a5d19`, sus digestos de WP4.11-H. En estos diez casos ningún incidente lleva autor
+ * atribuido (0 claves con valor `org_`) y ningún estado registra `violent_sabotage`, así que la nueva
+ * puerta de atribución no mueve reputación, caja ni decisiones: el delta es superficie canónica.
  */
 function digest(value: string): string {
   let left = 0x811c9dc5;
@@ -119,29 +129,29 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "b9265816025c4329",
+    expected: "ea45762a6d3c88b9",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "2d8810d5599ad182",
+    expected: "c9880ee1531a61c2",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "e1fc003eb7af4c9a",
+    expected: "7c2c82428577dd48",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "91fa9ad9c89a0116",
+    expected: "69b80619079b5568",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "ba411bbd904a5d19",
+    expected: "e5011f6ed4c2e30a",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];

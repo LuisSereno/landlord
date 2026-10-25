@@ -31,11 +31,29 @@ de rendimiento (D-065) cuyo disparador ya saltó sin que nadie reformulara qué 
    - Consecuencia: D-075 decide 11 se mantiene; la regla que WP3.11 documentó ("retira una propuesta
      o una política activa") queda **parcialmente superendada** por esta decisión.
 
+2. **La atribución de un sabotaje se separa de su autoría.** `IncidentRecord` mantiene
+   `causedByAgentId` / `causedByOrganizationId` como verdad autoritativa y gana
+   `publiclyAttributedOrganizationId`, que sólo se llena cuando la tirada de detección del sabotaje
+   vio al agresor. El hecho reputacional `violent_sabotage` (D-075 decide 11) se registra contra la
+   atribución pública, no contra la verdad: un sabotaje no detectado no puede bajar la reputación del
+   atacante ante vecinos, municipio y banca, porque nadie en el distrito sabe quién fue. Es la misma
+   separación que D-072 ya exige para `truth ≠ public knowledge ≠ inferred`: la reputación mide lo que
+   la calle conoce, y el incidente conservador sigue siendo auditable para el motor y para una futura
+   investigación policial.
+   - Alternativa descartada: un booleano `perpetratorDetected`. Resuelve el caso inmediato pero no
+     deja sitio para atribuciones que lleguen por otros canales (testigos, registro de accesos); con
+     `OrganizationId | null` una investigación futura escribe en el mismo campo.
+   - Compatibilidad: el campo es `nullable().default(null)`, así que una partida anterior restaura sin
+     migración y su delta canónico es sólo superficie (ver los digestos regenerados).
+   - Deuda registrada: la onda expansiva de un colapso (`ignite(..., "blast")`) no propaga la
+     atribución al incidente secundario, así que un saboteador detectado cuyo edificio derriba a un
+     vecino no carga por las víctimas indirectas. Se deja en `ai-context/KNOWN-GAPS.md`.
+
 ## Pendiente de este follow-up
 
-Los puntos 2 a 6 de WP4.11-H.1 (atribución pública del sabotaje, documentación de reputación,
-tipos de organización en snapshot, lectura de la tasa de servicios y gobernanza de rendimiento) se
-añaden a esta decisión conforme aterricen.
+Los puntos 3 a 6 de WP4.11-H.1 (documentación de reputación, tipos de organización en snapshot,
+lectura de la tasa de servicios y gobernanza de rendimiento) se añaden a esta decisión conforme
+aterricen.
 
 ## Evidencia
 

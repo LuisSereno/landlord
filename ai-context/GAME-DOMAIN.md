@@ -186,6 +186,8 @@ recorta el presupuesto y qué ley intenta aprobarse el concejo —sin garantizar
 que es la regla del WP4.11 (D-074)—. El padrón son los residentes efectivos: un hogar vota sólo con contrato
 vigente y edificio existente; los que buscan piso y los desplazados no votan, y la queja por desplazamiento se
 reparte por proporción de hogares afectados, no por recuento absoluto (D-075). Una ordenanza dura lo mismo la
-impulse el lobby o el concejo, y una ley activa no se vuelve a sortear. La reputación también tiene autor: un
-sabotaje con víctimas carga sobre el propietario y sobre quien lo causó (`violent_sabotage`), y desalojar hogares
-no mejora la lectura de la banca (D-075).
+impulse el lobby o el concejo, una ley activa no se vuelve a sortear y tampoco la retira quien no la propuso:
+`WithdrawPolicy` sólo acepta propuestas (D-076). La reputación también tiene autor, pero sólo el que la calle
+conoce: un sabotaje con víctimas carga sobre el propietario y sobre el agresor público (`violent_sabotage`,
+`publiclyAttributedOrganizationId`), mientras la autoría real sigue viviendo en `causedByOrganizationId` (D-072),
+y desalojar hogares no mejora la lectura de la banca (D-075).

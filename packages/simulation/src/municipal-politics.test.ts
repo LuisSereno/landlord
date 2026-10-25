@@ -232,6 +232,7 @@ describe("WP4.11 opinión a partir del estado social", () => {
       createdAtTick: parseTick(state.clock.tick),
       causedByAgentId: null,
       causedByOrganizationId: null,
+      publiclyAttributedOrganizationId: null,
       casualties: { injured: 1, dead: 0 },
     } as import("@landlord/shared").IncidentRecord);
     state.phase2.crime.policePressure = 3;

@@ -40,6 +40,31 @@ antes de abrir WP4.12. Seis puntos, ninguno de gameplay nuevo.
 - **Docs:** la nota de WP3.11 que afirmaba "retira una propuesta o una política activa" queda
   marcada como parcialmente superendada por D-076.
 
+### 2 — Un sabotaje sin testigos manchaba al atacante (`P1/P2`)
+
+- **Finding:** WP4.11-H añadió el hecho `violent_sabotage` leyendo `incident.causedByOrganizationId`, que `ignite()`
+  rellena siempre con la organización del enforcer, se hubiera detectado la tirada o no.
+- **Impacto:** `sabotaje no detectado → hay víctimas → vecinos, municipio y banca penalizan al autor`. La
+  información imperfecta de WP4.9 (D-072: `truth ≠ public knowledge ≠ inferred`) quedaba rota por un canal que
+  nadie paga ni investiga: el motor sabia quién fue y se lo contaba al distrito entero.
+- **Causa raíz:** se corrigió la atribución del daño sin tocar el concepto de detección, que ya existía en la
+  misma función (`detected` sólo alimentaba `policePressure` y `crime.lastOutcome`).
+- **Fix:** `IncidentRecord` separa verdad (`causedByAgentId`, `causedByOrganizationId`) de conocimiento público
+  (`publiclyAttributedOrganizationId`, D-076 punto 2). `ignite()` sólo llena la atribución pública cuando la
+  tirada detectó al agresor, y el colapso registra `violent_sabotage` contra esa atribución. El campo es
+  `nullable().default(null)`, así que una partida anterior restaura sin migración.
+- **Tests:** `reputation.test.ts` — sabotaje público castiga al atacante (residentes −10) y al dueño (−8);
+  sabotaje sin atribución deja la autoría intacta, cero hecho y cero reputación para el atacante; sin víctimas
+  no se anota a nadie; y una carrera real con `OrderEnforcerAction` comprueba que la atribución pública nace con
+  la tirada (presión policial 22 ⇒ visto siempre; sin presión se busca una semilla no vista y su autor sigue
+  siendo privado). `shared/snapshot.ts` valida la nueva referencia.
+- **Digestos:** `tick-conservation.test.ts` regenera los cinco casos con incidentes. Queda probado que el delta
+  es superficie: quitando la clave nueva del estado canónico los cinco recuperan su valor de WP4.11-H, y en esos
+  diez casos no hay ni un incidente atribuido ni un `violent_sabotage` registrado, así que la puerta nueva no
+  mueve reputación, caja ni decisiones.
+- **Dejada documentada:** la onda expansiva (`blast`) no propaga la atribución al incidente secundario, y no hay
+  canal para investigar un sabotaje no atribuido. Ambas van a `ai-context/KNOWN-GAPS.md`.
+
 ## Verificación reproducible
 
 Pendiente del cierre: `format:check`, `lint`, `typecheck`, `test`, `build` y CI remoto en verde.

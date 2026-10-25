@@ -156,15 +156,20 @@ Sigue abierto:
 
 ## Reputación y relaciones
 
-Implementado en WP4.8/WP4.11-H: tres grupos con valoraciones distintas, hechos con magnitud topada,
-memoria acotada, decaimiento sólo de la opinión pública, banca neutral ante desalojos y atribución
-de `violent_sabotage` al atacante.
+Implementado en WP4.8/WP4.11-H/WP4.11-H.1: tres grupos con valoraciones distintas, hechos con
+magnitud topada, memoria acotada, decaimiento sólo de la opinión pública, banca neutral ante
+desalojos y `violent_sabotage` atribuido al agresor **sólo si el sabotaje quedó públicamente
+atribuido** (`publiclyAttributedOrganizationId`); la autoría real vive en `causedByOrganizationId` y
+no mancha a quien nadie vio (D-076).
 
 Sigue abierto:
 - más grupos o dimensiones (hoy residents, municipality, banks);
 - blackmail/debt/fear/trust;
 - relaciones bilaterales ricas más allá de la postura escalar de facciones;
-- efectos reputacionales de terceros (medios, rumores).
+- efectos reputacionales de terceros (medios, rumores);
+- la onda expansiva de un colapso no propaga la atribución al incidente secundario (`blast`), así que
+  las víctimas indirectas de un saboteador visto no cuentan contra él;
+- investigar un sabotaje no atribuido para convertir `causedByOrganizationId` en atribución pública.
 
 ## IA
 

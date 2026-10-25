@@ -589,6 +589,14 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
           code: "MISSING_REFERENCE",
           path: `phase2/incidents/${incident.id}/causedByOrganizationId`,
         });
+      if (
+        incident.publiclyAttributedOrganizationId &&
+        !organizationIds.has(incident.publiclyAttributedOrganizationId)
+      )
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `phase2/incidents/${incident.id}/publiclyAttributedOrganizationId`,
+        });
     }
     for (const facility of snapshot.phase2.facilities) {
       if (!organizationIds.has(facility.ownerOrganizationId)) {

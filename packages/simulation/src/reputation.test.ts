@@ -319,7 +319,7 @@ describe("WP4.8 reputación multidimensional", () => {
 });
 
 describe("WP4.11-H atribución de víctimas y exploit bancario", () => {
-  it("el sabotaje con víctimas recae también sobre quien lo causó", () => {
+  it("el sabotaje visto por alguien recae también sobre quien lo causó", () => {
     const state = newState(67);
     const buildingId = addBuilding(state, 0);
     addTenant(state, 1, buildingId);
@@ -337,6 +337,7 @@ describe("WP4.11-H atribución de víctimas y exploit bancario", () => {
       createdAtTick: parseTick(0),
       causedByAgentId: null,
       causedByOrganizationId: RIVAL_ORGANIZATION_ID,
+      publiclyAttributedOrganizationId: RIVAL_ORGANIZATION_ID,
       casualties: { injured: 0, dead: 0 },
     });
     state.clock = { ...state.clock, tick: parseTick(50) };
@@ -346,6 +347,42 @@ describe("WP4.11-H atribución de víctimas y exploit bancario", () => {
     const rivalFacts = state.phase2.reputation.factsByOrganizationId[RIVAL_ORGANIZATION_ID] ?? [];
     expect(rivalFacts.map((fact) => fact.kind)).toContain("violent_sabotage");
     expect(standingFor(state, RIVAL_ORGANIZATION_ID, "residents")).toBe(-10);
+    expect(standingFor(state, PLAYER_ORGANIZATION_ID, "residents")).toBe(-8);
+  });
+
+  /** La verdad del motor y lo que sabe el distrito no son lo mismo (D-072). */
+  it("un sabotaje sin atribución pública no mancha al atacante", () => {
+    const state = newState(67);
+    const buildingId = addBuilding(state, 0);
+    addTenant(state, 1, buildingId);
+    addTenant(state, 2, buildingId);
+    const building = state.phase2.buildings.get(buildingId)!;
+    building.state = "collapse_pending";
+    building.structuralIntegrity = 0;
+    state.phase2.incidents.set(parseIncidentId("incident_00000001"), {
+      id: parseIncidentId("incident_00000001"),
+      buildingId,
+      origin: "sabotage",
+      intensity: 100,
+      status: "active",
+      targetOrganizationId: PLAYER_ORGANIZATION_ID,
+      createdAtTick: parseTick(0),
+      causedByAgentId: null,
+      causedByOrganizationId: RIVAL_ORGANIZATION_ID,
+      publiclyAttributedOrganizationId: null,
+      casualties: { injured: 0, dead: 0 },
+    });
+    state.clock = { ...state.clock, tick: parseTick(50) };
+    advanceProductSystems(state);
+
+    const incident = state.phase2.incidents.get(parseIncidentId("incident_00000001"))!;
+    /** La autoría sigue siendo verdad autoritativa aunque nadie la conozca. */
+    expect(incident.causedByOrganizationId).toBe(RIVAL_ORGANIZATION_ID);
+    expect(incident.publiclyAttributedOrganizationId).toBeNull();
+    const rivalFacts = state.phase2.reputation.factsByOrganizationId[RIVAL_ORGANIZATION_ID] ?? [];
+    expect(rivalFacts.map((fact) => fact.kind)).not.toContain("violent_sabotage");
+    expect(standingFor(state, RIVAL_ORGANIZATION_ID, "residents")).toBe(0);
+    /** El dueño sí responde del inmueble: su castigo no depende de quién disparó el fuego. */
     expect(standingFor(state, PLAYER_ORGANIZATION_ID, "residents")).toBe(-8);
   });
 
@@ -367,6 +404,7 @@ describe("WP4.11-H atribución de víctimas y exploit bancario", () => {
       createdAtTick: parseTick(0),
       causedByAgentId: null,
       causedByOrganizationId: PLAYER_ORGANIZATION_ID,
+      publiclyAttributedOrganizationId: null,
       casualties: { injured: 0, dead: 0 },
     });
     state.clock = { ...state.clock, tick: parseTick(50) };
@@ -392,6 +430,7 @@ describe("WP4.11-H atribución de víctimas y exploit bancario", () => {
       createdAtTick: parseTick(0),
       causedByAgentId: null,
       causedByOrganizationId: RIVAL_ORGANIZATION_ID,
+      publiclyAttributedOrganizationId: RIVAL_ORGANIZATION_ID,
       casualties: { injured: 0, dead: 0 },
     });
     state.clock = { ...state.clock, tick: parseTick(50) };
@@ -402,6 +441,60 @@ describe("WP4.11-H atribución de víctimas y exploit bancario", () => {
     expect(state.phase2.reputation.factsByOrganizationId[RIVAL_ORGANIZATION_ID] ?? []).toHaveLength(
       0,
     );
+  });
+
+  /** Un sabotaje resuelto por el motor deja atribución pública sólo si la ronda de detección la vio. */
+  function sabotageResolvedByEngine(
+    policePressure: number,
+    seed: number,
+  ): import("@landlord/shared").IncidentRecord {
+    const state = newState(seed);
+    const buildingId = addBuilding(state, 0);
+    const parcel = state.phase2.parcels.get(state.phase2.buildings.get(buildingId)!.parcelId)!.cell;
+    const enforcer = [...state.agents.values()].find((agent) => agent.specialty === "enforcer")!;
+    enforcer.organizationId = RIVAL_ORGANIZATION_ID;
+    expect(
+      dispatchProductCommand(state, {
+        commandId: parseCommandId(`sabotage-${seed}`),
+        /** El rival actúa por su cuenta: person_00000002 + org_00000002 es el actor autónomo. */
+        issuedByPersonId: parsePersonId("person_00000002"),
+        actingAsOrganizationId: RIVAL_ORGANIZATION_ID,
+        type: "OrderEnforcerAction",
+        payload: {
+          enforcerAgentId: enforcer.id,
+          action: "sabotage_building",
+          targetBuildingId: buildingId,
+        },
+      }).accepted,
+    ).toBe(true);
+    /** Se planta al enforcer junto a la parcela: la caminata ya la valida el spike de WP2.15. */
+    enforcer.cell = { x: parcel.x, y: parcel.y + 1 };
+    enforcer.target = { ...parcel };
+    enforcer.path = [];
+    state.phase2.crime.policePressure = policePressure;
+    for (let tick = 0; tick < 60; tick += 1) advanceProductSystems(state);
+    const incident = [...state.phase2.incidents.values()].find(
+      (entry) => entry.origin === "sabotage" && entry.buildingId === buildingId,
+    );
+    if (!incident) throw new Error(`el sabotaje de la seed ${seed} no llegó a resolverse`);
+    return { ...incident };
+  }
+
+  it("la atribución pública del sabotaje nace con la ronda de detección", () => {
+    /** Con presión policial 22 la tirada (35 + 3×presión) no puede fallar: el autor es visto. */
+    const seen = sabotageResolvedByEngine(22, 17);
+    expect(seen.causedByOrganizationId).toBe(RIVAL_ORGANIZATION_ID);
+    expect(seen.publiclyAttributedOrganizationId).toBe(RIVAL_ORGANIZATION_ID);
+
+    /** Sin presión hay sabotajes que nadie ve: la autoría queda en el motor, no en el distrito. */
+    let unseen: import("@landlord/shared").IncidentRecord | null = null;
+    for (let seed = 1; seed <= 40 && !unseen; seed += 1) {
+      const candidate = sabotageResolvedByEngine(0, seed);
+      if (!candidate.publiclyAttributedOrganizationId) unseen = candidate;
+    }
+    expect(unseen).not.toBeNull();
+    expect(unseen!.causedByOrganizationId).toBe(RIVAL_ORGANIZATION_ID);
+    expect(unseen!.publiclyAttributedOrganizationId).toBeNull();
   });
 
   it("desalojar repetidamente no construye reputación bancaria ni abarata el préstamo", () => {

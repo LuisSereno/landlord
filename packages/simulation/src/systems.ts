@@ -125,6 +125,7 @@ function ignite(
   origin: "sabotage" | "deterioration" | "blast",
   intensity: number,
   agentId: import("@landlord/shared").AgentId | null = null,
+  publiclyAttributedOrganizationId: import("@landlord/shared").OrganizationId | null = null,
 ): void {
   if (building.state !== "operational") return;
   building.state = "burning";
@@ -142,6 +143,8 @@ function ignite(
     createdAtTick: state.clock.tick,
     causedByAgentId: agentId,
     causedByOrganizationId: agentId ? (state.agents.get(agentId)?.organizationId ?? null) : null,
+    /** Nadie puede conocer a un autor que no fue visto: la atribución pública es conocimiento, no verdad. */
+    publiclyAttributedOrganizationId,
     casualties: { injured: 0, dead: 0 },
   } satisfies import("@landlord/shared").IncidentRecord;
   state.phase2.incidents.set(id, incident);
@@ -811,7 +814,7 @@ function tacticalTick(state: GameState): void {
           if (detected) state.phase2.crime.policePressure += 1;
           state.phase2.crime.lastOutcome = detected ? "detected" : "profitable";
         }
-        ignite(state, building, "sabotage", 40, agent.id);
+        ignite(state, building, "sabotage", 40, agent.id, detected ? organizationId : null);
         agent.cooldownUntilTick = parseTick(state.clock.tick + GAME_HOUR_TICKS);
         agent.task = null;
         agent.state = "idle";
@@ -875,10 +878,11 @@ function tacticalTick(state: GameState): void {
         magnitude: dead + injured,
       });
       /**
-       * El propietario responde de la seguridad del inmueble, pero el sabotaje tiene autor: si el
-       * incidente lo atribuye a otra empresa, esa empresa también carga con las víctimas.
+       * El propietario responde de la seguridad del inmueble, y del sabotaje también carga quien lo
+       * causó —pero sólo si alguien lo vio: la reputación mide lo que el distrito sabe, no la verdad
+       * autoritativa que guarda `causedByOrganizationId`.
        */
-      const attackerId = ownIncident?.causedByOrganizationId ?? null;
+      const attackerId = ownIncident?.publiclyAttributedOrganizationId ?? null;
       if (attackerId && attackerId !== root.ownerOrganizationId) {
         recordReputationFact(state, attackerId, "violent_sabotage", {
           referenceId: root.id,

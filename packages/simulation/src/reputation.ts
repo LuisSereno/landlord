@@ -47,7 +47,7 @@ export const REPUTATION_POLICY = {
       deltaByGroup: { residents: -3, municipality: -1, banks: 0 },
     },
     casualties: { magnitudeCap: 12, deltaByGroup: { residents: -4, municipality: -3, banks: -1 } },
-    /** El daño deliberado que mata o hiere inquilinos recae también sobre quien lo causó. */
+    /** El daño deliberado que mata o hiere inquilinos recae también sobre su autor públicamente atribuido. */
     violent_sabotage: {
       magnitudeCap: 12,
       deltaByGroup: { residents: -5, municipality: -4, banks: -2 },

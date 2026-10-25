@@ -284,6 +284,11 @@ export type IncidentRecord = {
   createdAtTick: Tick;
   causedByAgentId: AgentId | null;
   causedByOrganizationId: OrganizationId | null;
+  /**
+   * Lo que sabe el mundo, no la verdad autoritativa: sólo el autor visto por alguien. Un sabotaje no
+   * detectado deja `causedBy*` intactos para la auditoría del motor y este campo a null.
+   */
+  publiclyAttributedOrganizationId: OrganizationId | null;
   casualties: { injured: number; dead: number };
 };
 
@@ -798,6 +803,7 @@ export const incidentSchema = z.object({
   createdAtTick: tickSchema,
   causedByAgentId: agentIdSchema.nullable(),
   causedByOrganizationId: organizationIdSchema.nullable(),
+  publiclyAttributedOrganizationId: organizationIdSchema.nullable().default(null),
   casualties: z.object({
     injured: z.number().int().nonnegative(),
     dead: z.number().int().nonnegative(),

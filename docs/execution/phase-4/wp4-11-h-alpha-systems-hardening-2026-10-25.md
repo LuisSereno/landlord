@@ -115,6 +115,10 @@
   `households_displaced`.
 - **Tests:** atribución, no duplicación, cero víctimas sin hecho; campaña de 12 meses de desalojos sin
   mejora del tipo bancario.
+- **Rectificado por D-076 (WP4.11-H.1):** el atacante sólo carga con `violent_sabotage` si el sabotaje quedó
+  públicamente atribuido (`publiclyAttributedOrganizationId`); la autoría real del incidente ya no basta. La
+  lectura bancaria de `households_displaced` (0) sí queda como la vigente, y D-071 y el acta de WP4.8 se marcan
+  como superados en ese punto.
 
 ### P2 — Documentación que sobreafirmaba WP4.10
 

@@ -188,4 +188,6 @@ el rival no pague, y ninguna de las tres aparece en los doce meses de un smoke c
 queda su huella física (parcelas, edificios, ocupados). Leer la intención sigue siendo un bien de pago o una
 inferencia. En reputación, desalojar hogares deja de mejorar la lectura de la banca —el +1 sin decaimiento
 permitía financiar la expansión con desahucios repetidos— y un sabotaje con víctimas registra
-`violent_sabotage` también sobre quien lo causó.
+`violent_sabotage` también sobre el agresor, pero sólo si alguien lo vio: la atribución pública
+(`publiclyAttributedOrganizationId`) manda sobre la autoría real (`causedByOrganizationId`), que queda para el
+motor. Lo corrigió D-076 en WP4.11-H.1 al separar verdad y conocimiento público (D-072).

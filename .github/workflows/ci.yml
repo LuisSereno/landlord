@@ -51,5 +51,8 @@ jobs:
       - name: Alpha browser smoke
         run: pnpm smoke:alpha
 
+      - name: Art Lab browser smoke
+        run: pnpm smoke:art-lab
+
       - name: Check formatting
         run: pnpm format:check

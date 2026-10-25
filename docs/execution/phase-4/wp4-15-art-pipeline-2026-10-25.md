@@ -57,7 +57,8 @@ Blender queda como fuente de producción con el mismo contrato. Decisión en
 
 - `pnpm format:check`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`: verdes.
 - Suite: 330 tests pasan, 8 skipped (simulación 302 + web 28; incluye 5 de assets y 5 de sprites).
-- CI remoto: se confirma al subir el commit.
+- CI remoto: verde sobre `57660ef` (run 40212653834). El smoke del Art Lab se añade al workflow
+  en el commit posterior y queda cubierto por CI desde entonces.
 
 ## No incluido
 

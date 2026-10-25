@@ -68,7 +68,8 @@ automatización, segmentos de vivienda y alertas. Sólo desarrollo; no se expone
 - `pnpm format:check`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`: verdes.
 - Suite: 302 tests pasan, 8 skipped (incluye 8 de validación de datos, 4 de balance y 4 de dataset).
 - `pnpm smoke:phase2` y `pnpm smoke:alpha`: verdes.
-- CI remoto: se confirma al subir el commit.
+- CI remoto: verde en el run 40212653834, que valida `88ce688` junto con WP4.15 (el run
+  específico de este commit fue cancelado por la concurrencia del push siguiente).
 
 ## No incluido
 

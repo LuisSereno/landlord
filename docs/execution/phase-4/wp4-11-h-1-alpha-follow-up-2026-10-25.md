@@ -108,6 +108,34 @@ Numerados según la tabla de la auditoría; las decisiones se registran en D-076
   (prevista = unidades × tarifa, acumulado = 0) y después del cierre (histórico == lo previsto, prevista
   sigue contando el mes siguiente).
 
+### 6 — Gobernanza de rendimiento y "p95 mensual" mal nombrado (`P2`)
+
+- **Finding (a):** D-065 enumeraba disparadores y decía que basta uno para activar el LOD. WP4.11-H
+  registró que el cierre cruzaba el de 5 ms y concluyó "no implementamos LOD, decisión abierta". Las dos
+  afirmaciones no pueden ser ciertas a la vez: o el disparador obliga, o no es un disparador.
+- **Finding (b):** la ventana `month` tiene seis ticks. Con seis muestras, `percentile(samples, 0.95)`
+  devuelve la última, así que el "p95 mensual de 28,4 ms" era el máximo de un solo cierre. La cifra era
+  cierta como dato y engañosa como estadística: invitaba a comparar un pico mensual contra presupuestos
+  pensados para el tick continuo.
+- **Finding (c):** los incendios de la ventana `fire` se colocaban en `createScaledCity`, antes del
+  warmup, así que su primer paso horario de propagación ocurría fuera de lo que se cronometraba.
+- **Fix:** D-076 puntos 5, 6 y 7. Cruzar un disparador abre remediación obligatoria en tres pasos
+  (medir, optimizar exacto, aproximar sólo si sigue fuera de presupuesto); el umbral de 5 ms no se toca.
+  El informe de ventana separa `ordinaryTick` y `monthClose`, y `measureMonthlyCloses` muestrea cierres
+  independientes. `injectScaledIncidents` se exporta y el arnés la llama al empezar la medición.
+- **Números medidos (SYSTEM_COST=1, 2026-10-25, ciudad de 800 parcelas, 8 semillas × 3 cierres = 24
+  muestras):** cierre p50 ~28 ms, p95 ~37 ms, máximo ~38 ms; tick ordinario medio ~0,04 ms y p95 ~0,08 ms;
+  `housing` concentra ~69 % del cierre instrumentado. La corrida que publicó WP4.11-H dio 28,4 ms de
+  media y una posterior 31,6 ms: lo reproducible es el orden de magnitud, no el decimal.
+- **Tests:** `system-cost.test.ts` — la ventana `month` identifica su cierre y lo saca del recuento
+  ordinario; una ventana sin cierre publica `monthClose` nulo e `ordinaryTick` igual a `plainTick`; la
+  ventana `fire` calienta sin incidentes, los inyecta en el tick de inicio y su primera propagación horaria
+  cae dentro de la sección medida; `measureMonthlyCloses` devuelve una muestra por cierre y un cierre
+  medio claramente por encima del tick ordinario. Los diez digestos de `tick-conservation` no se mueven:
+  la reescritura de `createScaledCity` selecciona los mismos edificios.
+- **Deuda programada:** optimizar `placeSearchers` (O(búsquedas × unidades) en el cierre) antes de
+  WP4.13. WP4.12 no debe añadir trabajo nuevo al cierre mensual sin volver a medir.
+
 ## Verificación reproducible
 
 Pendiente del cierre: `format:check`, `lint`, `typecheck`, `test`, `build` y CI remoto en verde.

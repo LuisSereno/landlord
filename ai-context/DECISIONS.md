@@ -337,7 +337,12 @@ tick siendo las primas mensuales y `settleAuctions` ordenaba una lista vacía. E
 queda es `settleInsurance` (59,2 % del coste) y necesitaría un índice de primas vencidas con cambio
 de formato de guardado. Sustituir `localeCompare` por comparación relacional es 3,8-6,3× más rápido
 y elimina una dependencia del locale, pero toca unos veinte puntos incluido `orderEntityIds`;
-requiere ADR propio y cambio global. Ver
+requiere ADR propio y cambio global. **Revisado por D-076 (WP4.11-H.1):** el disparador de 5 ms saltó en
+el cierre mensual y ya no se lee como "implementar LOD". Cruzar un disparador abre una remediación
+obligatoria en tres pasos —medir con distribución real, optimizar exacto y sólo después aproximar—, así
+que la optimización de `runHousingMarket` (`placeSearchers` es O(búsquedas × unidades)) va antes de
+WP4.13. La métrica también se corrigió: el "p95 mensual" de seis muestras era el máximo de un cierre; el
+arnés separa `ordinaryTick` y `monthClose` y `measureMonthlyCloses` da una distribución real del cierre. Ver
 `docs/engineering/adr/D-065-coste-del-tick-y-lod-latente.md` y
 `docs/execution/phase-4/wp4-2-simulation-lod-2026-10-23.md`.
 
@@ -638,7 +643,12 @@ persiste— y conserva `clock.tick`, así que guardar corriendo a 4x sí carga c
 canonicalización mutan entidades reales (cuadrilla, siniestro, `pendingCommands`) en vez de contadores. **Tasa
 de servicios visible:** el informe municipal añade `serviceFeeDueNextSettlement`, derivado de
 `municipalServiceFee(state)`, porque `revenueThisMonthBySource.serviceFee` se devenga y se resetea dentro del
-mismo `runMunicipalBudget` y la UI sólo podía mostrar un cero. No se persiste nada. Quedan por aterrizar la
-gobernanza de rendimiento y la reconciliación de las tablas de reputación en la documentación. Ver
+mismo `runMunicipalBudget` y la UI sólo podía mostrar un cero. No se persiste nada. **Rendimiento:** cruzar el
+disparador de 5 ms de D-065 ya no ordena LOD, abre remediación en tres pasos (medir, optimizar exacto, aproximar
+sólo si sigue fuera) —la optimización de `placeSearchers` va antes de WP4.13 y WP4.12 no añade trabajo al cierre
+sin re-medir—; el arnés separa `ordinaryTick` de `monthClose` y `measureMonthlyCloses` da una distribución real
+(24 cierres de 800 parcelas: p50 ~28 ms, p95 ~37 ms, máximo ~38 ms frente a un tick normal de p95 ~0,08 ms),
+porque con seis muestras el "p95 mensual" era el máximo de un cierre; la ventana `fire` calienta sin incendios y
+los inyecta al empezar a medir. Falta la reconciliación de las tablas de reputación en la documentación. Ver
 `docs/engineering/adr/D-076-follow-up-hardening-alpha.md` y
 `docs/execution/phase-4/wp4-11-h-1-alpha-follow-up-2026-10-25.md`.

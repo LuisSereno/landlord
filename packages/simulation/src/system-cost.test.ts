@@ -2,12 +2,14 @@ import { describe, expect, it } from "vitest";
 
 import { advanceProductSystems, PRODUCT_SYSTEMS } from "./systems";
 import { canonicalizeState } from "./runner";
-import { GAME_MONTH_TICKS } from "./game-data";
+import { GAME_HOUR_TICKS, GAME_MONTH_TICKS } from "./game-data";
 import { parseTick } from "@landlord/shared";
 import {
   createScaledCity,
   describeScaledCity,
+  injectScaledIncidents,
   measurementStartTick,
+  measureMonthlyCloses,
   measureScaledCity,
   summarizeScaleGrowth,
   SYSTEM_COST_SCALES,
@@ -112,6 +114,69 @@ describe("WP4.2 system cost harness", () => {
     expect(state.clock.tick).toBeGreaterThan(GAME_MONTH_TICKS);
   });
 
+  it("separa el cierre mensual del tick ordinario en la ventana month", () => {
+    const measurement = measureScaledCity({
+      seed: 5,
+      scale: SYSTEM_COST_SCALES[0]!,
+      windows: SYSTEM_COST_WINDOWS.filter((entry) => entry.label === "month"),
+      now,
+    });
+    const costWindow = measurement.windows[0]!;
+    /** El cierre existe, se identificó y salió del recuento del tick ordinario. */
+    expect(costWindow.monthClose).not.toBeNull();
+    expect(costWindow.monthClose!.tick).toBe(GAME_MONTH_TICKS);
+    expect(costWindow.monthClose!.plainMs).toBeGreaterThanOrEqual(0);
+    /** La muestra del cierre quedó fuera del tick ordinario: el p95 de la ventana ya no es el cierre. */
+    expect(costWindow.ordinaryTick.maxMs).toBeLessThanOrEqual(costWindow.plainTick.maxMs);
+    /** Las ventanas que no cruzan mes no inventan un cierre. */
+    const day = measureScaledCity({
+      seed: 5,
+      scale: SYSTEM_COST_SCALES[0]!,
+      windows: SYSTEM_COST_WINDOWS.filter((entry) => entry.label === "day"),
+      now,
+    });
+    expect(day.windows[0]!.monthClose).toBeNull();
+    expect(day.windows[0]!.ordinaryTick).toEqual(day.windows[0]!.plainTick);
+  });
+
+  it("la ventana de fuego calienta sin incendios y los coloca al empezar a medir", () => {
+    const fire = SYSTEM_COST_WINDOWS.find((entry) => entry.label === "fire")!;
+    const warmup = 60;
+    const state = createScaledCity(7, { parcelCount: 50 });
+    for (let tick = 0; tick < warmup; tick += 1) advanceProductSystems(state);
+    /** Antes, el fuego venía puesto en la generación y su primera propagación se calentaba sin medir. */
+    expect(state.phase2.incidents.size).toBe(0);
+    const start = measurementStartTick(fire, warmup);
+    expect(state.clock.tick).toBe(start);
+
+    expect(injectScaledIncidents(state, fire.incidentCount)).toBe(fire.incidentCount);
+    const injected = [...state.phase2.incidents.values()];
+    expect(injected).toHaveLength(fire.incidentCount);
+    for (const incident of injected) expect(incident.createdAtTick).toBe(start);
+
+    /** El primer paso horario del fuego cae dentro de la sección medida, no en el warmup. */
+    const firstHourTick = Math.ceil((start + 1) / GAME_HOUR_TICKS) * GAME_HOUR_TICKS;
+    expect(firstHourTick).toBeGreaterThan(start);
+    expect(firstHourTick).toBeLessThan(start + fire.ticks);
+    expect(
+      measureScaledCity({ seed: 7, scale: SYSTEM_COST_SCALES[0]!, windows: [fire], now })
+        .windows[0]!.endCounts.incidents,
+    ).toBeGreaterThan(0);
+  });
+
+  it("mide el cierre mensual como distribución sobre varias semillas", () => {
+    const measurement = measureMonthlyCloses({
+      scale: SYSTEM_COST_SCALES[0]!,
+      seeds: [5, 11],
+      closesPerSeed: 2,
+      now,
+    });
+    expect(measurement.closeSamplesMs).toHaveLength(4);
+    expect(measurement.close.meanMs).toBeGreaterThan(measurement.ordinaryTick.meanMs);
+    /** Con cuatro muestras el p95 del cierre vuelve a ser el máximo: se documenta, no se vende de otra cosa. */
+    expect(measurement.close.p95Ms).toBeCloseTo(measurement.close.maxMs, 10);
+  });
+
   it("ordena los ids del juego igual por comparación relacional que por localeCompare", () => {
     const city = createScaledCity(7, { parcelCount: 200 });
     const groups = [
@@ -158,6 +223,8 @@ describe("WP4.2 system cost harness", () => {
                 counts: costWindow.counts,
                 endCounts: costWindow.endCounts,
                 plainTick: costWindow.plainTick,
+                ordinaryTick: costWindow.ordinaryTick,
+                monthClose: costWindow.monthClose,
                 instrumentedTick: costWindow.instrumentedTick,
                 systems: costWindow.systems,
               })),
@@ -165,6 +232,17 @@ describe("WP4.2 system cost harness", () => {
             growth: SYSTEM_COST_WINDOWS.map((costWindow) =>
               summarizeScaleGrowth(measurements, costWindow.label),
             ),
+            /**
+             * El cierre mensual medido como lo que es: una distribución sobre 24 fronteras de mes de
+             * 24 distritos distintos, separada del tick ordinario. La ventana `month` del arnés tiene
+             * seis muestras y su p95 es el máximo de un solo cierre.
+             */
+            monthlyClose: measureMonthlyCloses({
+              scale: SYSTEM_COST_SCALES[SYSTEM_COST_SCALES.length - 1]!,
+              seeds: [1, 2, 3, 4, 5, 6, 7, 8],
+              closesPerSeed: 3,
+              now,
+            }),
           },
           null,
           2,

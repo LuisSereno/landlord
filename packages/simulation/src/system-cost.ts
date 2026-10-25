@@ -501,36 +501,51 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
     state.phase2.insurance.contractsByBuildingId[building.id] = contract;
   }
 
-  if (incidentCount > 0 && createdBuildings.length > 0) {
-    const stride = Math.max(
-      TECHNICIAN_PER_BUILDINGS + 1,
-      Math.floor(createdBuildings.length / incidentCount),
-    );
-    for (let index = 0; index < incidentCount; index += 1) {
-      const building = createdBuildings[(index * stride + stride - 1) % createdBuildings.length]!;
-      if (building.state !== "operational") continue;
-      building.state = "burning";
-      state.phase2.idCounters.incident += 1;
-      const incidentId = parseIncidentId(`incident_${pad(state.phase2.idCounters.incident)}`);
-      const incident: IncidentRecord = {
-        id: incidentId,
-        buildingId: building.id,
-        origin: "deterioration",
-        intensity: 30,
-        status: "active",
-        targetOrganizationId: building.ownerOrganizationId,
-        createdAtTick: parseTick(0),
-        causedByAgentId: null,
-        causedByOrganizationId: null,
-        publiclyAttributedOrganizationId: null,
-        casualties: { injured: 0, dead: 0 },
-      };
-      state.phase2.incidents.set(incidentId, incident);
-    }
-  }
+  if (incidentCount > 0) injectScaledIncidents(state, incidentCount);
 
   state.idCounters.agent = counters.agent;
   return state;
+}
+
+/**
+ * Planta `incidentCount` incendios repartidos entre los edificios del estado, elegidos por id
+ * ascendente. Existe aparte de `createScaledCity` porque la ventana `fire` necesita calentar el
+ * distrito *sin* fuego y ponerlo justo al empezar la sección medida: si los incendios ya estaban en
+ * el warmup, el primer paso de propagación ocurría antes de cronometrar nada.
+ */
+export function injectScaledIncidents(state: GameState, incidentCount: number): number {
+  const buildings = [...state.phase2.buildings.values()].sort((left, right) =>
+    left.id.localeCompare(right.id),
+  );
+  if (incidentCount <= 0 || buildings.length === 0) return 0;
+  const stride = Math.max(
+    TECHNICIAN_PER_BUILDINGS + 1,
+    Math.floor(buildings.length / incidentCount),
+  );
+  let injected = 0;
+  for (let index = 0; index < incidentCount; index += 1) {
+    const building = buildings[(index * stride + stride - 1) % buildings.length]!;
+    if (building.state !== "operational") continue;
+    building.state = "burning";
+    state.phase2.idCounters.incident += 1;
+    const incidentId = parseIncidentId(`incident_${pad(state.phase2.idCounters.incident)}`);
+    const incident: IncidentRecord = {
+      id: incidentId,
+      buildingId: building.id,
+      origin: "deterioration",
+      intensity: 30,
+      status: "active",
+      targetOrganizationId: building.ownerOrganizationId,
+      createdAtTick: state.clock.tick,
+      causedByAgentId: null,
+      causedByOrganizationId: null,
+      publiclyAttributedOrganizationId: null,
+      casualties: { injured: 0, dead: 0 },
+    };
+    state.phase2.incidents.set(incidentId, incident);
+    injected += 1;
+  }
+  return injected;
 }
 
 function percentile(values: readonly number[], fraction: number): number {
@@ -584,6 +599,14 @@ export type SystemCostWindowReport = {
   endCounts: ScaledCityCounts;
   /** Tick completo sin instrumentación: el coste real, sin el overhead de cronometrar por sistema. */
   plainTick: CostDistribution;
+  /**
+   * La misma sección sin el tick del cierre mensual. Con seis muestras el p95 de la ventana `month`
+   * era el máximo, o sea el cierre: mezclarlo con el tick ordinario daba un "p95 mensual" que no
+   * significaba nada (D-076 punto 5).
+   */
+  ordinaryTick: CostDistribution;
+  /** Duración del cierre mensual caído dentro de la ventana, o null si la ventana no cruza ninguno. */
+  monthClose: { tick: number; plainMs: number; instrumentedMs: number } | null;
   instrumentedTick: CostDistribution;
   systems: SystemCostSummary[];
 };
@@ -606,15 +629,12 @@ export type MeasureScaledCityInput = {
   now: () => number;
 };
 
-function prepareCity(
-  input: MeasureScaledCityInput,
-  costWindow: SystemCostWindow,
-  parcelCount: number,
-): GameState {
+function prepareCity(input: MeasureScaledCityInput, parcelCount: number): GameState {
+  /** El fuego se coloca después del warmup, no en la generación: ver `injectScaledIncidents`. */
   return createScaledCity(input.seed, {
     parcelCount,
     districtProfileId: input.districtProfileId,
-    incidentCount: costWindow.incidentCount,
+    incidentCount: 0,
   });
 }
 
@@ -630,8 +650,8 @@ export function measureScaledCity(input: MeasureScaledCityInput): ScaledCityMeas
   const reports: SystemCostWindowReport[] = [];
 
   for (const costWindow of windows) {
-    const state = prepareCity(input, costWindow, input.scale.parcels);
-    const plain = prepareCity(input, costWindow, input.scale.parcels);
+    const state = prepareCity(input, input.scale.parcels);
+    const plain = prepareCity(input, input.scale.parcels);
     const warmupStart = parseTick(warmupStartTick(costWindow, warmupTicks));
     state.clock = { ...state.clock, tick: warmupStart };
     plain.clock = { ...plain.clock, tick: warmupStart };
@@ -641,20 +661,31 @@ export function measureScaledCity(input: MeasureScaledCityInput): ScaledCityMeas
     }
     /** El warmup ya ocurrió y dejó el reloj donde debe empezar la medición. */
     const startTick = state.clock.tick;
+    injectScaledIncidents(state, costWindow.incidentCount);
+    injectScaledIncidents(plain, costWindow.incidentCount);
     const counts = describeScaledCity(state);
 
     const plainSamples: number[] = [];
+    const ordinarySamples: number[] = [];
+    let plainClose: { tick: number; ms: number } | null = null;
     for (let tick = 0; tick < costWindow.ticks; tick += 1) {
+      const closeTick = plain.clock.tick;
       const start = input.now();
       advanceProductSystems(plain);
-      plainSamples.push(input.now() - start);
+      const elapsed = input.now() - start;
+      plainSamples.push(elapsed);
+      if (closeTick > 0 && closeTick % GAME_MONTH_TICKS === 0)
+        plainClose = { tick: Number(closeTick), ms: elapsed };
+      else ordinarySamples.push(elapsed);
     }
 
     const systemSamples = new Map<string, number[]>(
       PRODUCT_SYSTEMS.map((system) => [system.name, []]),
     );
     const tickSamples: number[] = [];
+    let instrumentedCloseMs = 0;
     for (let tick = 0; tick < costWindow.ticks; tick += 1) {
+      const closeTick = state.clock.tick;
       const tickStart = input.now();
       for (const system of PRODUCT_SYSTEMS) {
         const start = input.now();
@@ -662,7 +693,9 @@ export function measureScaledCity(input: MeasureScaledCityInput): ScaledCityMeas
         systemSamples.get(system.name)!.push(input.now() - start);
       }
       state.clock = { ...state.clock, tick: parseTick(state.clock.tick + 1) };
-      tickSamples.push(input.now() - tickStart);
+      const elapsed = input.now() - tickStart;
+      tickSamples.push(elapsed);
+      if (closeTick > 0 && closeTick % GAME_MONTH_TICKS === 0) instrumentedCloseMs = elapsed;
     }
 
     const instrumented = summarize(tickSamples);
@@ -684,6 +717,14 @@ export function measureScaledCity(input: MeasureScaledCityInput): ScaledCityMeas
       counts,
       endCounts: describeScaledCity(state),
       plainTick: distribution(plainSummary),
+      ordinaryTick: distribution(summarize(ordinarySamples)),
+      monthClose: plainClose
+        ? {
+            tick: plainClose.tick,
+            plainMs: plainClose.ms,
+            instrumentedMs: instrumentedCloseMs,
+          }
+        : null,
       instrumentedTick: distribution(instrumented),
       systems,
     });
@@ -696,6 +737,68 @@ export function measureScaledCity(input: MeasureScaledCityInput): ScaledCityMeas
     districtProfileId,
     warmupTicks,
     windows: reports,
+  };
+}
+
+export type MonthlyCloseMeasurement = {
+  scaleId: string;
+  parcelCount: number;
+  seeds: number[];
+  closesPerSeed: number;
+  warmupTicks: number;
+  /** Muestra cruda de cada cierre, en el orden en que se midió. */
+  closeSamplesMs: number[];
+  close: CostDistribution;
+  ordinaryTick: CostDistribution;
+};
+
+/**
+ * Distribución del cierre mensual medida sobre muchas semillas y fronteras. La ventana `month` del
+ * arnés recorre seis ticks, así que su p95 no es una distribución: es el máximo de un único cierre.
+ * Aquí cada muestra arranca su propio distrito y se planta en su frontera de mes, que es lo que hace
+ * falta para poder hablar de p50, p95 y máximo del cierre (D-076 punto 5).
+ */
+export function measureMonthlyCloses(input: {
+  scale: SystemCostScale;
+  seeds: readonly number[];
+  closesPerSeed?: number;
+  warmupTicks?: number;
+  districtProfileId?: string;
+  now: () => number;
+}): MonthlyCloseMeasurement {
+  const closesPerSeed = input.closesPerSeed ?? 3;
+  const warmupTicks = input.warmupTicks ?? 60;
+  const closeSamples: number[] = [];
+  const ordinarySamples: number[] = [];
+  for (const seed of input.seeds) {
+    for (let closeIndex = 1; closeIndex <= closesPerSeed; closeIndex += 1) {
+      const state = createScaledCity(seed, {
+        parcelCount: input.scale.parcels,
+        districtProfileId: input.districtProfileId,
+      });
+      /** Tres ticks antes del cierre: el warmup (60) queda dentro del mes anterior y no lo cruza. */
+      const start = closeIndex * GAME_MONTH_TICKS - 3;
+      state.clock = { ...state.clock, tick: parseTick(Math.max(0, start - warmupTicks)) };
+      for (let tick = 0; tick < warmupTicks; tick += 1) advanceProductSystems(state);
+      for (let tick = 0; tick < 6; tick += 1) {
+        const closeTick = state.clock.tick;
+        const from = input.now();
+        advanceProductSystems(state);
+        const elapsed = input.now() - from;
+        if (closeTick > 0 && closeTick % GAME_MONTH_TICKS === 0) closeSamples.push(elapsed);
+        else ordinarySamples.push(elapsed);
+      }
+    }
+  }
+  return {
+    scaleId: input.scale.id,
+    parcelCount: input.scale.parcels,
+    seeds: [...input.seeds],
+    closesPerSeed,
+    warmupTicks,
+    closeSamplesMs: closeSamples,
+    close: distribution(summarize(closeSamples)),
+    ordinaryTick: distribution(summarize(ordinarySamples)),
   };
 }
 

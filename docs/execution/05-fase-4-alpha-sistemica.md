@@ -299,6 +299,34 @@ en `origin/main` al iniciar.
 instrumentado), cruza el presupuesto p95 de D-065 y su disparador de 5 ms. LOD no se implementa por
 alcance; la optimización de `runHousingMarket` queda como deuda antes de WP4.13.
 
+> **Corregido por WP4.11-H.1 (D-076):** aquel "28,4 ms de p95" era el máximo de un solo cierre —la
+> ventana `month` tiene seis muestras—, no un p95. El arnés separa ahora `ordinaryTick` y `monthClose` y
+> `measureMonthlyCloses` mide 24 cierres independientes: p50 ~28 ms, p95 ~37 ms, máximo ~38 ms en la
+> ciudad de 800 parcelas, frente a un tick ordinario con p95 ~0,08 ms. El disparador de D-065 cambia de
+> significado: cruzarlo abre remediación obligatoria (medir, optimizar exacto, y sólo entonces LOD), así
+> que la optimización de `placeSearchers` —O(búsquedas × unidades) en el cierre— es previa a WP4.13 y
+> WP4.12 no debe añadir trabajo nuevo al cierre mensual sin volver a medir.
+
+## WP4.11-H.1 — Follow-up de corrección del hardening
+
+**Estado 2026-10-25:** `IN_PROGRESS` (ver acta; se cierra con la reconciliación documental de D-071 y la
+verificación de CI). Responde a la auditoría humana de WP4.11-H sobre `83cc25a`; no añade
+gameplay. Evidencia en `docs/execution/phase-4/wp4-11-h-1-alpha-follow-up-2026-10-25.md` y decisión en
+`docs/engineering/adr/D-076-follow-up-hardening-alpha.md`.
+
+- `WithdrawPolicy` sólo retira propuestas: la ordenanza `active` es norma municipal y caduca sola.
+- El sabotaje no detectado no mancha al atacante: `publiclyAttributedOrganizationId` manda para la
+  reputación, `causedByOrganizationId` queda como verdad del motor.
+- D-071, el acta de WP4.8 y el resumen de Fase 4 dejan de prometer `banks +1` por desalojo (última
+  entrega de este checkpoint).
+- El snapshot comprueba el tipo de organización en los roles de empresa; los tests de canonicalización
+  mutan entidades reales y `canonicalizeState` suelta los controles del reloj.
+- La tasa de servicios aparece en el panel como cifra prevista, no como el acumulado que siempre vale 0.
+- D-065 reescrito con su disparador como obligación de remediación; el cierre medido como distribución y
+  la ventana `fire` calentando sin incendios.
+
+**Rendimiento:** la optimización exacta de `runHousingMarket` queda programada antes de WP4.13.
+
 ## WP4.12 — Eventos macroeconómicos
 
 - Definir shocks condicionados y acotados: tipos, escasez, recesión o migración.

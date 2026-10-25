@@ -56,6 +56,9 @@ complejidad nueva. No implementa WP4.12, ni macroshocks, ni LOD nuevo, ni perspe
 11. **Las víctimas de un sabotaje tienen autor.** Nuevo hecho `violent_sabotage` (residentes −5,
     municipio −4, banca −2 por magnitud) que se registra además del `casualties` del propietario cuando
     el incidente atribuye el daño a otra organización. No hay doble penalización si atacante = dueño.
+    *Rectificado por D-076 punto 2:* el hecho se registra contra la atribución **pública**
+    (`publiclyAttributedOrganizationId`), no contra la autoría que guarda el motor; un sabotaje no
+    detectado ya no penaliza al atacante.
 12. **La banca es neutral ante desalojos.** `households_displaced` deja de dar +1 a la banca: sin
     decaimiento, desahuciar repetidamente construía un descuento permanente del préstamo. Alternativa
     descartada: mantener el +1 sólo con mejora de solvencia; no hay señal que lo demuestre en Alpha.
@@ -74,6 +77,9 @@ complejidad nueva. No implementa WP4.12, ni macroshocks, ni LOD nuevo, ni perspe
   10 ms y el disparador de revisión de 5 ms de D-065, aunque el máximo queda por debajo del límite
   duro de 50 ms. **No se implementa LOD** (fuera de alcance de este checkpoint): se registra como
   deuda medida y se recomienda una optimización específica de `runHousingMarket` antes de WP4.13.
+  *Aclarado por D-076 (WP4.11-H.1):* esos 28,4 ms no eran un p95 sino el máximo de un único cierre en
+  una ventana de seis muestras, y el disparador de D-065 se reescribe como obligación de remediación
+  (medir, optimizar exacto, luego aproximar). La medición corregida está en el acta de WP4.11-H.1.
 - La proyección pierde la "última decisión rival": es una pérdida deliberada de información gratuita.
   Quien quiera leer al rival debe pagar el expediente o inferirlo de su conducta.
 - El censo más pequeño hace que los distritos monocultivo barran 9-0 con más facilidad. Se mantiene:

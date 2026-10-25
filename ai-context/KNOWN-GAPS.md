@@ -187,9 +187,13 @@ Sigue abierto:
 
 ## Rendimiento y Alpha
 
-- El cierre mensual de 800 parcelas mide 28,4 ms de media y p95 (42,8 ms instrumentado), con
-  `housing` como 65 %: cruza el presupuesto p95 de D-065 y el disparador de revisión de 5 ms. LOD no
-  implementado; optimización de `runHousingMarket` pendiente antes de WP4.13.
+- El cierre mensual de 800 parcelas es la frontera cara: 24 cierres medidos de forma independiente dan
+  p50 ~28 ms, p95 ~37 ms y máximo ~38 ms, frente a un tick ordinario con p95 ~0,08 ms, y `housing`
+  concentra ~69 % del cierre (D-065, corregido de métrica en D-076: el antiguo "p95 mensual" era el
+  máximo de un solo cierre en una ventana de seis ticks). Cruza el presupuesto p95 y el disparador de
+  5 ms, y desde D-076 cruzarlo **abre remediación obligatoria**: medir, optimizar exacto y sólo después
+  LOD. Pendiente `placeSearchers` (O(búsquedas × unidades) en el cierre) antes de WP4.13; WP4.12 no debe
+  añadir trabajo nuevo al cierre sin volver a medir.
 - El estado canónico completo hace más caras las campañas headless largas (la de dos años tarda
   ~5 s); no afecta al tick de producto.
 - El fixture del smoke Alpha es un snapshot versionado de 160 KB y debe regenerarse con los goldens.

@@ -123,7 +123,9 @@ agregado consumiendo el PRNG autoritativo de la partida, y la regularización se
 transacciones auditables de modo que la suma de caja, edificios y contratos se conserve. Nunca se
 crean ni se destruyen valor ni entidades fuera de esas transacciones.
 
-Disparadores de activación. Basta uno:
+Disparadores de activación. Basta uno. **Desde D-076 (WP4.11-H.1) un disparador no ordena implementar
+LOD: abre una remediación de rendimiento obligatoria** —medir bien, optimizar exacto y sólo entonces
+aproximar—, ver la revisión al final de esta decisión.
 
 - headless tick p95 por encima de 5 ms en la ciudad de referencia del benchmark;
 - ticks por encima de 50 ms en más del 0,1 %;
@@ -235,3 +237,38 @@ No se implementa LOD en WP4.11-H: está fuera de su alcance y el problema está 
 sistema mensual, no en el tick de producto. La decisión queda abierta con datos nuevos; la acción
 recomendada antes de WP4.13 es optimizar `runHousingMarket` y volver a medir. Ver D-075 y el acta
 `docs/execution/phase-4/wp4-11-h-alpha-systems-hardening-2026-10-25.md`.
+
+## Nota de revisión (WP4.11-H.1, 2026-10-25) — gobernanza y métrica corregidas
+
+La nota de WP4.11-H tiene dos defectos que este follow-up arregla, uno de gobernanza y uno de métrica.
+
+**Gobernanza.** La lista de disparadores leídos como "basta uno para implementar LOD" hacía que el
+motor dictara la solución antes de conocer el problema. Con el cierre mensual cruzando 5 ms, la regla
+literal obligaba a escribir simulación aproximada cuando el coste está localizado en un único sistema
+(`housing`, ~69 % del cierre) y con una alternativa exacta pendiente: en `runHousingMarket`,
+`placeSearchers` prueba cada hogar que busca contra todo el stock del distrito, O(búsquedas × unidades),
+en el tick del cierre mensual. Desde ahora, **cruzar un disparador abre una remediación obligatoria en
+tres pasos, en orden**: (1) medir bien la frontera que dispara, con distribución real; (2) optimización
+exacta, preservando los digestos dorados; (3) LOD agregado solo si, después de (2), el presupuesto
+sigue sin cumplirse. El disparador de 5 ms no se relaja: sigue siendo el umbral que obliga a actuar,
+lo que cambia es qué obliga. Consecuencia registrada: la optimización exacta de `runHousingMarket`
+queda programada **antes de WP4.13** y WP4.12 no debe añadir trabajo nuevo al cierre mensual sin
+volver a medir.
+
+**Métrica.** "p95 mensual 28,4 ms" no era un p95: la ventana `month` recorre seis ticks, así que
+`floor(n × 0,95)` devuelve el último elemento y el número era el máximo de un único cierre. El arnés
+ahora separa las dos cosas. Cada ventana publica `ordinaryTick` (su distribución sin el cierre) y
+`monthClose` (la duración exacta del tick que cruzó el mes, o `null`), y `measureMonthlyCloses` mide
+muchos cierres independientes —una semilla y un distrito por muestra— para poder hablar de distribución
+de verdad. Medido en la ciudad de 800 parcelas, 24 cierres (8 semillas × 3 fronteras): p50 ~28 ms,
+p95 ~37 ms, máximo ~38 ms, frente a un tick ordinario con p95 ~0,08 ms y media ~0,04 ms. Es decir, el
+cierre cuesta unas doscientas veces más que un tick normal, y esa asimetría —no el "p95 mensual"— es el
+hallazgo. El disparador de 5 ms sigue saltado, ahora con la estadística correcta y atribuida a la
+frontera mensual. Las cifras exactas varían con la máquina y con el GC (la corrida que publicó
+WP4.11-H dio 28,4 ms y otra posterior 31,6 ms de media); lo estable es el orden de magnitud.
+
+**Ventana `fire`.** Los incendios se colocaban en la generación de carga, antes del warmup, así que el
+primer paso horario de propagación ocurría fuera de la sección medida. `injectScaledIncidents` queda
+exportada y el arnés inyecta al empezar a medir, de modo que la cascada se cronometra desde el primer
+update. `createScaledCity` mantiene su comportamiento: los diez digestos de `tick-conservation` no se
+mueven con este cambio.

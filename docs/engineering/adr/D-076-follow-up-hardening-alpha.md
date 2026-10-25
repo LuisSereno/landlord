@@ -96,11 +96,37 @@ auditoría y enlaza cada hallazgo con su decisión.
 - La promesa de canonicalidad ahora es cierta para cualquier partida: guardar corriendo a 2x o 4x y
   cargar produce la misma cadena.
 
+5. **Un disparador de rendimiento abre remediación; no ordena LOD.** D-065 enumeraba disparadores y
+   decía "basta uno" para activar el diseño de zonas agregadas. El cierre mensual cruzó el de 5 ms y la
+   lectura literal obligaba a escribir aproximación donde el problema es un bucle: en
+   `runHousingMarket`, `placeSearchers` prueba cada hogar contra todo el stock del distrito, O(búsquedas
+   × unidades), una vez por mes. La gobernanza pasa a tres pasos obligatorios y en orden: medir bien la
+   frontera que disparó, optimizar exacto (preservando los digestos dorados) y sólo si el presupuesto
+   sigue sin cumplirse, implementar LOD. El umbral de 5 ms no se relaja; cambia lo que obliga a hacer.
+   Consecuencia de planificación: la optimización de `runHousingMarket` va **antes de WP4.13**, y WP4.12
+   no debe añadir trabajo nuevo al cierre mensual sin volver a medir.
+   - Alternativa descartada: subir el umbral a 40 ms para que el cierre "quepa". Sería reescribir el
+     presupuesto para que el dato moleste menos; el disparador existe precisamente para incomodar.
+   - Alternativa descartada: implementar ya el LOD agregado. Aportaría tolerancias y transiciones de zona
+     por un coste localizado en un sistema, y cerraría la vía exacta que aún no se ha intentado.
+6. **La métrica del cierre se separa del tick ordinario y se mide como distribución.** La ventana `month`
+   recorre seis ticks, así que `floor(n × 0,95)` devuelve el último elemento: el "p95 mensual" publicado
+   por D-075 era el máximo de un único cierre. El informe de ventana añade `ordinaryTick` (distribución
+   sin el cierre) y `monthClose` (tick y duración del cierre caído en la ventana, o null), y
+   `measureMonthlyCloses` toma muestras de muchos cierres independientes —distrito y semilla propios,
+   colocados tres ticks antes de su frontera de mes— para poder hablar de p50, p95 y máximo con sentido.
+   En la ciudad de 800 parcelas, 24 cierres: p50 ~28 ms, p95 ~37 ms, máximo ~38 ms, frente a un tick
+   ordinario con p95 ~0,08 ms. La asimetría (un cierre cuesta ~200 veces un tick normal) es el hallazgo;
+   las cifras absolutas varían con la máquina y el recolector de basura.
+7. **La ventana `fire` calienta sin incendios.** `createScaledCity` colocaba los siniestros antes del
+   warmup, así que el primer paso horario de propagación se consumía fuera de la sección medida.
+   `injectScaledIncidents` se exporta y el arnés la llama al empezar a medir; `createScaledCity` mantiene
+   el comportamiento de siempre y los diez digestos lo confirman.
+
 ## Pendiente de este follow-up
 
-Queda por aterrizar la gobernanza de rendimiento (D-065 y el cierre mensual medido como distribución) y
-la reconciliación documental de la tabla de reputación (D-071 y el acta de WP4.8 siguen describiendo
-`households_displaced` con banca +1).
+Queda la reconciliación documental de la tabla de reputación: D-071, el acta de WP4.8 y el resumen de
+Fase 4 siguen describiendo `households_displaced` con banca +1, que D-075 eliminó.
 
 ## Evidencia
 

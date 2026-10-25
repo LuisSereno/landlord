@@ -1475,15 +1475,17 @@ describe("WP3.11 municipal policy integration", () => {
     ).toMatchObject({ accepted: true, event: { type: "PolicyEnacted" } });
     expect(createViewProjection(state, true).economy?.constructionOptions[0]?.cost).toBe(3300);
 
+    /** WP4.11-H.1: una vez en vigor la ordenanza es norma municipal, ya no está en mano de la jugadora. */
     expect(
       dispatchProductCommand(
         state,
         command("policy-withdraw-active", "WithdrawPolicy", {
           policyId: parsePolicyId("policy_00000002"),
         }),
-      ).accepted,
-    ).toBe(true);
-    expect(createViewProjection(state, true).economy?.constructionOptions[0]?.cost).toBe(3000);
+      ),
+    ).toMatchObject({ accepted: false, code: "POLICY_NOT_AVAILABLE" });
+    expect(state.phase2.ordinance.status).toBe("active");
+    expect(createViewProjection(state, true).economy?.constructionOptions[0]?.cost).toBe(3300);
     expect(serializeSnapshot(restoreStateFromSnapshot(serializeSnapshot(state)))).toEqual(
       serializeSnapshot(state),
     );

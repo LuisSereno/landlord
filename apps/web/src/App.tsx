@@ -1123,18 +1123,16 @@ export function App() {
                 ))}
               <button
                 type="button"
-                disabled={
-                  !client || !["proposed", "active"].includes(economy?.ordinance.status ?? "")
-                }
+                disabled={!client || economy?.ordinance.status !== "proposed"}
                 onClick={() =>
                   economy &&
                   void sendAction(
                     () => clientRef.current!.withdrawPolicy(economy.ordinance.id),
-                    "La política municipal ha sido retirada.",
+                    "La propuesta municipal ha sido retirada.",
                   )
                 }
               >
-                Retirar política actual
+                Retirar propuesta actual
               </button>
               <p className="empty-state">
                 Riesgo táctico: selecciona un edificio rival y ordena el sabotaje con un enforcer.

@@ -1026,12 +1026,14 @@ export function dispatchProductCommand(
     });
   }
 
+  /**
+   * Desde WP4.11 una ordenanza `active` puede la impuso el concejo, no la jugadora. Retirarla sería
+   * borrar una norma municipal ya vigente y dejar al gobierno sin calendario, así que sólo se
+   * retiran propuestas: la ley en vigor caduca por MUNICIPAL_POLICY_DURATION_TICKS.
+   */
   if (command.type === "WithdrawPolicy") {
     const ordinance = state.phase2.ordinance;
-    if (
-      ordinance.id !== command.payload.policyId ||
-      !["proposed", "active"].includes(ordinance.status)
-    )
+    if (ordinance.id !== command.payload.policyId || ordinance.status !== "proposed")
       return { accepted: false, code: "POLICY_NOT_AVAILABLE" };
     ordinance.status = "withdrawn";
     ordinance.activeFromTick = null;

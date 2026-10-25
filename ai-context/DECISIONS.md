@@ -618,3 +618,14 @@ parcelas mide 28,4 ms (housing 65 %, 42,8 ms instrumentado), cruza el presupuest
 disparador de 5 ms; LOD no se implementa por alcance y la optimización de `runHousingMarket` queda como
 deuda antes de WP4.13. Ver `docs/engineering/adr/D-075-hardening-alpha-sistemica.md` y
 `docs/execution/phase-4/wp4-11-h-alpha-systems-hardening-2026-10-25.md`.
+
+## D-076 — Follow-up de corrección del hardening Alpha (WP4.11-H.1)
+Estado: aceptada el 2026-10-25 sobre el baseline auditado `83cc25a`. No abre WP4.12: cierra reglas de
+paquetes distintos que ya no encajan. **Autoridad del concejo:** `WithdrawPolicy` sólo retira
+`proposed`; una ordenanza `active` —la imponga el lobby o el concejo— es norma municipal y caduca por
+`MUNICIPAL_POLICY_DURATION_TICKS`. Retirar una ley ajena contradecía D-074 y además silenciaba al
+gobierno, porque el debate siguiente se programa contra la caducidad. El botón de la UI pasa a
+*Retirar propuesta actual*. La acta de WP3.11 queda marcada como parcialmente superada. Los puntos 2 a 6
+de este follow-up se incorporan aquí conforme aterricen. Ver
+`docs/engineering/adr/D-076-follow-up-hardening-alpha.md` y
+`docs/execution/phase-4/wp4-11-h-1-alpha-follow-up-2026-10-25.md`.

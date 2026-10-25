@@ -808,3 +808,59 @@ describe("WP4.11-H queja de vivienda normalizada", () => {
     }
   });
 });
+
+describe("WP4.11-H.1 autoridad del concejo sobre la ley vigente", () => {
+  /** El sorteo del debate sólo prospera en algunas semillas: se toma la primera que imponga la ley. */
+  function councilEnactedState(): GameState {
+    for (let seed = 1; seed <= 60; seed += 1) {
+      const state = newState(seed);
+      state.phase2.ordinance = { ...state.phase2.ordinance, status: "expired" };
+      state.phase2.politics.governingPartyId = "party_suelo_comun";
+      state.phase2.politics.nextElectionTick = parseTick(GAME_MONTH_TICKS * 12);
+      state.phase2.politics.nextDebateTick = parseTick(GAME_MONTH_TICKS * 2);
+      state.clock = { ...state.clock, tick: parseTick(GAME_MONTH_TICKS * 2) };
+      runMunicipalPolitics(state);
+      if (state.phase2.ordinance.status === "active") return state;
+    }
+    throw new Error("ninguna semilla de prueba deja una ordenanza del concejo en vigor");
+  }
+
+  it("la ley que impuso el concejo no la puede retirar quien no la propuso", () => {
+    const state = councilEnactedState();
+    expect(
+      dispatchProductCommand(state, {
+        type: "WithdrawPolicy",
+        commandId: parseCommandId("withdraw-council-ordinance"),
+        issuedByPersonId: parsePersonId("person_00000001"),
+        actingAsOrganizationId: PLAYER_ORGANIZATION_ID,
+        payload: { policyId: state.phase2.ordinance.id },
+      }),
+    ).toMatchObject({ accepted: false, code: "POLICY_NOT_AVAILABLE" });
+    /** Retirarla dejaría al gobierno sin calendario: la vigencia impuesta sigue intacta. */
+    expect(state.phase2.ordinance.status).toBe("active");
+    expect(state.phase2.ordinance.expiresAtTick).toBe(
+      GAME_MONTH_TICKS * 2 + MUNICIPAL_POLICY_DURATION_TICKS,
+    );
+  });
+
+  it("la norma en vigor caduca por sí sola y devuelve la mesa al concejo", () => {
+    const state = councilEnactedState();
+    const bill = state.phase2.ordinance;
+    state.clock = { ...state.clock, tick: parseTick(bill.expiresAtTick! + 1) };
+    advanceProductSystems(state);
+    expect(state.phase2.ordinance.status).toBe("expired");
+    /** Sin retirada manual, la mesa vuelve a estar libre al caducar: la norma murió con su calendario. */
+    expect(
+      dispatchProductCommand(state, {
+        type: "ProposePolicy",
+        commandId: parseCommandId("propose-after-council-expiry"),
+        issuedByPersonId: parsePersonId("person_00000001"),
+        actingAsOrganizationId: PLAYER_ORGANIZATION_ID,
+        payload: {
+          policyId: MUNICIPAL_POLICY_CATALOG.find((policy) => policy.id !== bill.id)!.id,
+        },
+      }),
+    ).toMatchObject({ accepted: true, event: { type: "PolicyProposed" } });
+    expect(createViewProjection(state, true).economy?.ordinance.status).toBe("proposed");
+  });
+});

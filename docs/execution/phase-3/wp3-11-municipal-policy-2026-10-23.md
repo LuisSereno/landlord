@@ -4,6 +4,11 @@
 
 `DONE`. La política municipal es una decisión económica integrada y no un minijuego aislado.
 
+> **Superseded parcialmente por D-076 (WP4.11-H.1, 2026-10-25):** WP4.11 añadió un concejo electo que
+> puede imponer una ordenanza sin que la jugadora la pida (D-074). Desde entonces `WithdrawPolicy`
+> sólo retira propuestas: una ordenanza `active` es norma municipal y caduca por su calendario. El
+> resto de esta acta sigue describiendo el comportamiento vigente.
+
 ## Resultado
 
 - El catálogo ofrece tres políticas originales con trade-offs explícitos sobre materiales, renta,

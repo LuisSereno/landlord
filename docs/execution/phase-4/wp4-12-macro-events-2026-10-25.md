@@ -137,5 +137,6 @@ cierres en secuencia):
   y la conservación de los diez digestos).
 - `pnpm build`: verde.
 - `pnpm smoke:phase2` y `pnpm smoke:alpha`: verdes (caja del smoke sin cambios, `5228 u.`).
-- CI remoto: pendiente de subir el commit; se confirma al hacer push.
+- CI remoto: verde sobre `de1c2aa` (run 40208609221), incluida la comprobación de formato que fallaba
+  en el cierre anterior.
 

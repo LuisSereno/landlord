@@ -194,12 +194,15 @@ Sigue abierto:
   29,25 ms · maduros 4+ 30,41 ms) no muestra degradación con la edad: el coste es estructural del
   cierre. A/B con la misma metodología: sin shocks 28,44 ms de media; tres shocks representativos
   33,64 ms; los seis permitidos 37,60 ms. El delta de los shocks es económico —más vacancia y más
-  buscadores que `placeSearchers` recorre—, no del lookup de modifiers, que está acotado a seis
-  eventos. **Sigue fuera del presupuesto p95 y del disparador de 5 ms de D-065**, así que la
-  remediación obligatoria de D-076 continúa: con la métrica longitudinal ya publicada y los diez
-  digestos regenerados, toca optimizar `placeSearchers` exacto (O(búsquedas × unidades) en el cierre)
-  preservando los goldens, volver a medir con los modos `none | representative | max` y sólo si sigue
-  fuera, evaluar LOD. Debe hacerse antes de WP4.13.
+  buscadores que el cierre recorre—, no del lookup de modifiers, que está acotado a seis eventos.
+  **Sigue fuera del presupuesto p95 y del disparador de 5 ms de D-065.**
+- La optimización exacta de `placeSearchers` está hecha (D-065/D-076, acta del 2026-10-25): los diez
+  digestos no cambian, la mediana del cierre de vivienda baja de 19,40 a 18,15 ms y la cola del cierre
+  completo mejora hasta un 25 % en los escenarios cargados, pero la media apenas se mueve
+  (`none` 28,44 → 28,13 ms; `max` 37,60 → 34,52 ms). El siguiente hotspot medido es `buildStock`
+  (recuento de vecinos `O(edificios²)` dentro del radio de servicios: 17,6 ms de mediana por sí solo
+  en la ciudad madura). Es el candidato exacto antes de plantear LOD en WP4.13; si su optimización no
+  basta, entonces sí se evalúa LOD.
 - El estado canónico completo hace más caras las campañas headless largas (la de dos años tarda
   ~5 s); no afecta al tick de producto.
 - El fixture del smoke Alpha es un snapshot versionado de 160 KB y debe regenerarse con los goldens.

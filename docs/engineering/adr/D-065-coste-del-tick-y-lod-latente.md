@@ -321,5 +321,9 @@ equivalente en `docs/engineering/adr/D-076-follow-up-hardening-alpha.md`.
 D-076 dejó como paso obligatorio está hecha y publicada en D-077: una ciudad por semilla que vive sus
 cierres en secuencia, desglose por maduración y muestra con la carga de cada cierre. El cierre de 800
 parcelas mide 30,12 ms de media (p95 40,87 ms) en modo natural y 28,44 ms sin shocks, frente a un tick
-ordinario de p95 0,079 ms. El disparador de 5 ms sigue cruzado; la optimización exacta de
-`placeSearchers` es el siguiente paso antes de WP4.13.
+ordinario de p95 0,079 ms. El disparador de 5 ms sigue cruzado. La optimización exacta de
+`placeSearchers` está hecha y verificada: los diez digestos no cambian, la mediana del cierre de
+vivienda baja de 19,40 a 18,15 ms y la cola del cierre completo mejora hasta un 25 % en los
+escenarios cargados, pero la media apenas se mueve. El siguiente hotspot medido es `buildStock`
+(recuento de vecinos O(edificios²), 17,6 ms de mediana por sí solo): es el candidato exacto antes de
+plantear LOD en WP4.13. Ver `docs/execution/phase-4/place-searchers-optimization-2026-10-25.md`.

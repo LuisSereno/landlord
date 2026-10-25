@@ -513,29 +513,45 @@ function placeSearchers(state: GameState, stock: readonly StockUnit[]): void {
   const vacant = new Map<BuildingId, number>(
     stock.map((unit) => [unit.building.id, unit.vacantSlots]),
   );
-  for (const tenant of [...state.phase2.tenants.values()].sort((left, right) =>
-    left.id.localeCompare(right.id),
-  )) {
-    // Los hogares autorados son el pool que elige el jugador: el mercado no se los instala solo,
-    // sólo los retira si pasan demasiado tiempo sin encontrar plaza.
-    if (tenant.origin !== "market") continue;
-    if (tenant.status !== "available" || tenant.searchMonths < 1) continue;
+  const searchers = [...state.phase2.tenants.values()]
+    .filter(
+      (tenant) =>
+        // Los hogares autorados son el pool que elige el jugador: el mercado no se los instala solo,
+        // sólo los retira si pasan demasiado tiempo sin encontrar plaza.
+        tenant.origin === "market" && tenant.status === "available" && tenant.searchMonths >= 1,
+    )
+    .sort((left, right) => left.id.localeCompare(right.id));
+  if (searchers.length === 0) return;
+  /**
+   * La deseabilidad de una unidad no cambia durante la colocación, así que se calcula una vez por
+   * segmento en vez de una vez por cada par búsqueda × unidad. El orden (puntuación descendente,
+   * id ascendente) reproduce exactamente el desempate anterior, así que la colocación es idéntica.
+   */
+  const candidatesBySegment = new Map<TenantProfile, Array<{ unit: StockUnit; score: number }>>();
+  for (const segment of Object.values(HOUSING_SEGMENTS)) {
+    candidatesBySegment.set(
+      segment.id,
+      stock
+        .filter((unit) => isCompatible(unit, segment))
+        .map((unit) => ({ unit, score: desirabilityOf(unit, segment) }))
+        .sort(
+          (left, right) =>
+            right.score - left.score || left.unit.building.id.localeCompare(right.unit.building.id),
+        ),
+    );
+  }
+  for (const tenant of searchers) {
     const segment = HOUSING_SEGMENTS[segmentIdOf(tenant)];
-    let best: { unit: StockUnit; score: number } | null = null;
-    for (const unit of stock) {
-      if (!isCompatible(unit, segment)) continue;
-      if ((vacant.get(unit.building.id) ?? 0) <= 0) continue;
-      if (unit.askingRent > tenant.budget) continue;
-      const score = desirabilityOf(unit, segment);
-      if (
-        !best ||
-        score > best.score ||
-        (score === best.score && unit.building.id < best.unit.building.id)
-      )
-        best = { unit, score };
+    const candidates = candidatesBySegment.get(segment.id)!;
+    let chosen: StockUnit | null = null;
+    for (const candidate of candidates) {
+      if ((vacant.get(candidate.unit.building.id) ?? 0) <= 0) continue;
+      if (candidate.unit.askingRent > tenant.budget) continue;
+      chosen = candidate.unit;
+      break;
     }
-    if (!best) continue;
-    const building = best.unit.building;
+    if (!chosen) continue;
+    const building = chosen.building;
     building.tenantIds.push(tenant.id);
     building.tenantId = building.tenantIds[0] ?? null;
     vacant.set(building.id, (vacant.get(building.id) ?? 0) - 1);

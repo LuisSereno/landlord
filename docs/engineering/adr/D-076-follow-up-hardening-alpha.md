@@ -219,4 +219,7 @@ por el baseline longitudinal de D-077: `measureMonthlyCloses` crea una ciudad po
 cierres en secuencia y publica mes 1, meses 2-3 y maduros 4+, con la carga de cada cierre. Medición
 `natural` 8×6: media 30,12 ms, p50 29,01 ms, p95 40,87 ms, máximo 48,53 ms; A/B sin shocks 28,44 ms,
 tres shocks 33,64 ms y seis 37,60 ms. El cierre sigue fuera del presupuesto p95 y del disparador de
-5 ms, y la optimización de `placeSearchers` sigue siendo obligatoria antes de WP4.13.
+5 ms. `placeSearchers` ya está optimizado de forma exacta (goldens intactos): la cola del cierre
+mejora hasta un 25 % en los escenarios cargados, pero la media sigue en ~28 ms porque `buildStock`
+(recuento de vecinos O(edificios²)) domina el cierre. Ese es el siguiente candidato exacto antes de
+LOD y antes de WP4.13.

@@ -35,7 +35,12 @@ function canonicalJson(value: unknown): string {
 export function canonicalizeState(state: GameState): string {
   return canonicalJson({
     seed: state.seed,
-    clock: state.clock,
+    /**
+     * `runState` y `speed` son controles del scheduler y de la UI, no estado del mundo: la snapshot no
+     * los guarda y al restaurar vuelve a `paused` 1x. Incluirlos haría falsa la promesa de que una
+     * partida guardada corriendo a 4x carga canónicamente igual.
+     */
+    clock: { tick: state.clock.tick },
     prng: state.prng,
     idCounters: state.idCounters,
     map: {

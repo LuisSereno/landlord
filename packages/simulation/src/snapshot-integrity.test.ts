@@ -136,6 +136,32 @@ describe("WP4.11-H integridad referencial de snapshots", () => {
     }, /factions\/org_99999999/);
   });
 
+  /** WP4.11-H.1: existir no basta; el rol reservado a una empresa en un banco es estado corrupto. */
+  it("rechaza organizaciones correctas pero del tipo equivocado en los roles de empresa", () => {
+    expectRejected((snapshot) => {
+      snapshot.phase2!.contracts!.reliabilityByOrganizationId.org_00000003 = {
+        awarded: 0,
+        completed: 0,
+        defaulted: 0,
+      };
+    }, /reliabilityByOrganizationId\/org_00000003/);
+    expectRejected((snapshot) => {
+      snapshot.phase2!.intelligence!.estimatesBySubjectOrganizationId.org_00000004 = [];
+    }, /estimatesBySubjectOrganizationId\/org_00000004/);
+    expectRejected((snapshot) => {
+      snapshot.phase2!.factions!.profileByOrganizationId.org_00000005 = "conservative";
+    }, /factions\/org_00000005/);
+    expectRejected((snapshot) => {
+      snapshot.phase2!.factions!.memoryByOrganizationId.org_00000003 = [];
+    }, /factions\/org_00000003/);
+    expectRejected((snapshot) => {
+      snapshot.phase2!.factions!.cycleCountByOrganizationId.org_00000004 = 3;
+    }, /factions\/org_00000004/);
+    expectRejected((snapshot) => {
+      snapshot.phase2!.factions!.stanceByPairId["org_00000001>org_00000003"] = -5;
+    }, /stanceByPairId/);
+  });
+
   it("rechaza un partido gobernante fuera del catálogo", () => {
     expectRejected((snapshot) => {
       snapshot.phase2!.politics!.governingPartyId = "party_fantasma";

@@ -1,6 +1,14 @@
 import { describe, expect, it } from "vitest";
 
-import { parseMoney, parseOrganizationId, parseTick } from "@landlord/shared";
+import {
+  parseAgentId,
+  parseCommandId,
+  parseIncidentId,
+  parseMoney,
+  parseOrganizationId,
+  parsePersonId,
+  parseTick,
+} from "@landlord/shared";
 import { GAME_MONTH_TICKS } from "./game-data";
 import { canonicalizeState } from "./runner";
 import { createInitialState, type GameState } from "./state";
@@ -14,11 +22,55 @@ function campaign(seed = 5, months = 6): GameState {
   return state;
 }
 
+function firstCrew(state: GameState): import("@landlord/shared").Crew {
+  const crew = [...state.phase2.crews.values()][0];
+  if (!crew) throw new Error("la campaña no dejó cuadrillas que canonicizar");
+  return crew;
+}
+
+/**
+ * Devuelve un incidente de la campaña y, si el recorrido no dejó ninguno, planta uno sobre un
+ * edificio real. La mutación que lo usa cambia contenido de entidad en ambos casos.
+ */
+function incidentOf(state: GameState): import("@landlord/shared").IncidentRecord {
+  const existing = [...state.phase2.incidents.values()][0];
+  if (existing) return existing;
+  const building = [...state.phase2.buildings.values()][0]!;
+  const incident = {
+    id: parseIncidentId("incident_00000099"),
+    buildingId: building.id,
+    origin: "deterioration",
+    intensity: 40,
+    status: "active",
+    targetOrganizationId: building.ownerOrganizationId,
+    createdAtTick: parseTick(0),
+    causedByAgentId: null,
+    causedByOrganizationId: null,
+    publiclyAttributedOrganizationId: null,
+    casualties: { injured: 0, dead: 0 },
+  } satisfies import("@landlord/shared").IncidentRecord;
+  state.phase2.incidents.set(incident.id, incident);
+  return incident;
+}
+
 describe("WP4.11-H estado canónico", () => {
   it("es idéntico antes y después de guardar y cargar", () => {
     const state = campaign();
     const restored = restoreStateFromSnapshot(serializeSnapshot(state));
     expect(canonicalizeState(restored)).toBe(canonicalizeState(state));
+  });
+
+  it("guardar corriendo a 4x y cargar sigue siendo canónicamente idéntico", () => {
+    const state = campaign(17, 2);
+    /** Los controles del scheduler no son estado del mundo: la snapshot no los persiste. */
+    state.clock = { ...state.clock, runState: "running", speed: 4 };
+    const baseline = canonicalizeState(state);
+    const restored = restoreStateFromSnapshot(serializeSnapshot(state));
+    expect(restored.clock).toMatchObject({ runState: "paused", speed: 1 });
+    expect(canonicalizeState(restored)).toBe(baseline);
+    /** El tick sí es estado: avanzar un tick cambia la cadena. */
+    restored.clock = { ...restored.clock, tick: parseTick(restored.clock.tick + 1) };
+    expect(canonicalizeState(restored)).not.toBe(baseline);
   });
 
   it("detecta cambios en todos los agregados de Alpha", () => {
@@ -34,8 +86,25 @@ describe("WP4.11-H estado canónico", () => {
       ["intelligence", (state) => (state.phase2.intelligence.nextEstimateOrdinal += 1)],
       ["factions", (state) => (state.phase2.factions.nextMemoryOrdinal += 1)],
       ["politics", (state) => (state.phase2.politics.electionsHeld += 1)],
-      ["crews", (state) => (state.idCounters.agent += 1)],
-      ["incidents", (state) => (state.phase2.idCounters.incident += 1)],
+      /** Entidades reales, no contadores: el digesto tiene que leer su contenido. */
+      ["crews", (state) => firstCrew(state).workerAgentIds.push(parseAgentId("agent_00000099"))],
+      ["incidents", (state) => (incidentOf(state).intensity += 1)],
+      [
+        "pendingCommands",
+        (state) =>
+          state.pendingCommands.push({
+            acceptedOrder: 1,
+            command: {
+              commandId: parseCommandId("command_00000099"),
+              issuedByPersonId: parsePersonId("person_00000001"),
+              actingAsOrganizationId: parseOrganizationId("org_00000001"),
+              type: "SetMaintenancePolicy",
+              payload: { policy: "deferred" },
+            },
+          }),
+      ],
+      ["idCounters", (state) => (state.idCounters.agent += 1)],
+      ["phase2.idCounters", (state) => (state.phase2.idCounters.incident += 1)],
     ];
     for (const [label, mutate] of mutations) {
       const state = restoreStateFromSnapshot(snapshot);

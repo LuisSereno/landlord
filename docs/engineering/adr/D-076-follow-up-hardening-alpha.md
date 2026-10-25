@@ -16,6 +16,9 @@ de rendimiento (D-065) cuyo disparador ya saltó sin que nadie reformulara qué 
 
 ## Decisiones
 
+Numeradas por orden de aterrizaje en el checkpoint; el acta de WP4.11-H.1 conserva el orden de la
+auditoría y enlaza cada hallazgo con su decisión.
+
 1. **Una ordenanza `active` ya no se retira con `WithdrawPolicy`.** El comando sólo acepta
    `status === "proposed"`; una ley en vigor —la imponga la jugadora por lobby o la imponga el
    concejo— caduca por `MUNICIPAL_POLICY_DURATION_TICKS` y nadie más la borra. La coherencia con
@@ -49,15 +52,46 @@ de rendimiento (D-065) cuyo disparador ya saltó sin que nadie reformulara qué 
      atribución al incidente secundario, así que un saboteador detectado cuyo edificio derriba a un
      vecino no carga por las víctimas indirectas. Se deja en `ai-context/KNOWN-GAPS.md`.
 
+3. **La integridad del snapshot comprueba el tipo de organización, y el estado canónico deja de
+   prometer lo que la snapshot no guarda.**
+   - `validateSnapshotReferences` ya no se conforma con que la referencia exista: los roles reservados
+     a una empresa exigen `kind === "company"`. Son `contracts.reliabilityByOrganizationId` (la consume
+     `SubmitPublicBid`), los sujetos de `intelligence.estimatesBySubjectOrganizationId`
+     (`CommissionIntelligence` rechaza cualquier no-empresa con `INTEL_SUBJECT_UNKNOWN`) y los tres
+     registros de facciones (`profileByOrganizationId`, `memoryByOrganizationId`,
+     `cycleCountByOrganizationId`) con ambos extremos de `stanceByPairId`. En Alpha el banco, el
+     municipio y la aseguradora no son actores estratégicos, así que un snapshot que les dé uno de esos
+     papeles es estado corrupto, no una partida legítima. `reputation` se queda en comprobación de
+     existencia: `runReputation` anota `tax_arrears` recorriendo `state.organizations` sin filtrar tipo,
+     así que hoy ninguna regla del motor prohíbe que otra organización tenga hechos.
+   - `canonicalizeState` serializa `clock.tick` pero ya no `clock.runState` ni `clock.speed`. Son
+     controles del scheduler y de la UI: `serializeSnapshot` no los persiste y `restoreStateFromSnapshot`
+     reconstruye siempre `paused` a 1x, de modo que incluirlos hacía falsa la promesa de que
+     `canonicalizeState(restored) === canonicalizeState(original)` para una partida guardada corriendo a
+     2x o 4x. La alternativa —persistirlos en la snapshot— convertiría en estado autoritativo del mundo
+     algo que decide la pestaña del navegador. Los diez digestos cambian por esta decisión, atribuidos a
+     superficie reconstruyendo la cadena anterior sobre los mismos estados.
+   - Los tests de canonicalización dejan de sobreafirmar: lo que se etiquetaba como `crews` e
+     `incidents` mutaba contadores, no entidades. Ahora `crews` añade un jornalero a la cuadrilla,
+     `incidents` sube la intensidad del siniestro (planta uno sobre un edificio real si la campaña no
+     dejó ninguno) y `pendingCommands` encola un `SetMaintenancePolicy`, con `idCounters` y
+     `phase2.idCounters` como casos separados y explícitos.
+
 ## Pendiente de este follow-up
 
-Los puntos 3 a 6 de WP4.11-H.1 (documentación de reputación, tipos de organización en snapshot,
-lectura de la tasa de servicios y gobernanza de rendimiento) se añaden a esta decisión conforme
-aterricen.
+Los puntos 4 y 5 de WP4.11-H.1 (lectura de la tasa de servicios en la UI y gobernanza de rendimiento)
+y la reconciliación documental de la tabla de reputación se añaden a esta decisión conforme aterricen.
 
 ## Evidencia
 
-`docs/execution/phase-4/wp4-11-h-1-alpha-follow-up-2026-10-25.md`; pruebas
-`packages/simulation/src/municipal-politics.test.ts` (la ley impuesta por el concejo no se retira y
-caduca sola devolviendo la mesa) y `packages/simulation/src/phase2.test.ts` (lobby activo → retirada
-rechazada, modificadores intactos).
+`docs/execution/phase-4/wp4-11-h-1-alpha-follow-up-2026-10-25.md`.
+
+- Autoridad del concejo: `municipal-politics.test.ts` (la ley impuesta por el concejo rechaza la
+  retirada y conserva su caducidad; al caducar la mesa vuelve a estar libre) y `phase2.test.ts` (lobby
+  activo → retirada rechazada, modificadores intactos).
+- Atribución: `reputation.test.ts` (visto / no visto / sin víctimas y una carrera real con
+  `OrderEnforcerAction`) y `shared/src/snapshot.ts` valida la referencia nueva.
+- Integridad y canonicalidad: `snapshot-integrity.test.ts` (los seis roles de empresa rechazados en
+  banco, municipio y aseguradora) y `canonical-state.test.ts` (entidades reales, `pendingCommands` y la
+  igualdad save/load guardando la partida a 4x).
+- `tick-conservation.test.ts` regenera los diez digestos con su prueba de superficie.

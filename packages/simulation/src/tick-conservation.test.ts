@@ -65,15 +65,18 @@ import { createScaledCity } from "./system-cost";
  * reglas nuevas de censo, eje fiscal, ordenanza y reputación no se ejercitan aquí porque ningún caso
  * celebra elección, ni desaloja en proporción distinta, ni cambia la lectura bancaria.
  *
- * Regeneración WP4.11-H.1 (2026-10-25): cada `IncidentRecord` gana `publiclyAttributedOrganizationId`
- * (D-076 punto 2: la atribución pública separada de la verdad autoritativa). Cambian los cinco digestos
- * con incidentes vivos (`ea45762a6d3c88b9`, `c9880ee1531a61c2`, `7c2c82428577dd48`, `69b80619079b5568`,
- * `e5011f6ed4c2e30a`); los cinco sin incidentes quedan idénticos. Atribución verificada: borrando del
- * estado canónico nuevo la clave `publiclyAttributedOrganizationId` y su valor, los cinco recuperan
- * exactamente `b9265816025c4329`, `2d8810d5599ad182`, `e1fc003eb7af4c9a`, `91fa9ad9c89a0116` y
- * `ba411bbd904a5d19`, sus digestos de WP4.11-H. En estos diez casos ningún incidente lleva autor
- * atribuido (0 claves con valor `org_`) y ningún estado registra `violent_sabotage`, así que la nueva
- * puerta de atribución no mueve reputación, caja ni decisiones: el delta es superficie canónica.
+ * Regeneración WP4.11-H.1 (2026-10-25): cambian los diez digestos por dos motivos de superficie y
+ * ninguno económico. (a) Cada `IncidentRecord` gana `publiclyAttributedOrganizationId` (D-076 punto 2:
+ * la atribución pública separada de la verdad autoritativa); sólo tocan los cinco casos con incidentes
+ * vivos. (b) `canonicalizeState` deja de serializar `clock.runState` y `clock.speed` (D-076 punto 3:
+ * son controles del scheduler que la snapshot no guarda, así que una partida guardada corriendo a 4x no
+ * podía cargar canónicamente igual). Atribución verificada sobre los estados nuevos: quitando la clave
+ * `publiclyAttributedOrganizationId` y volviendo a meter `"runState":"paused","speed":1` dentro de
+ * `clock`, los diez recuperan exactamente sus valores de WP4.11-H (`3112921f3895fda7`,
+ * `f896686c9cd189a1`, `5d3bb2ce7c992fee`, `0dc2c0afcbb37013`, `aa6df9560bd75329`, `ea45762a6d3c88b9`,
+ * `c9880ee1531a61c2`, `7c2c82428577dd48`, `69b80619079b5568`, `e5011f6ed4c2e30a`). Además en estos diez
+ * casos ningún incidente queda con autor atribuido y ningún estado registra `violent_sabotage`, así que
+ * la puerta de atribución nueva no mueve reputación, caja ni decisiones: el delta es superficie.
  */
 function digest(value: string): string {
   let left = 0x811c9dc5;
@@ -104,54 +107,54 @@ function cityDigest(input: {
 const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => string }> = [
   {
     id: "scenario:seed-1:1200",
-    expected: "3112921f3895fda7",
+    expected: "290ae56589918230",
     run: () => digest(canonicalizeState(runScenario(1, [], 1_200).state)),
   },
   {
     id: "scenario:seed-7:1200",
-    expected: "f896686c9cd189a1",
+    expected: "81470bc663a2116a",
     run: () => digest(canonicalizeState(runScenario(7, [], 1_200).state)),
   },
   {
     id: "scenario:seed-42:1200",
-    expected: "5d3bb2ce7c992fee",
+    expected: "2eedd2a42fda6677",
     run: () => digest(canonicalizeState(runScenario(42, [], 1_200).state)),
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "0dc2c0afcbb37013",
+    expected: "440287b1646aa604",
     run: () => digest(canonicalizeState(runScenario(1, [], 36_000).state)),
   },
   {
     id: "city:50-parcels:1300-ticks",
-    expected: "aa6df9560bd75329",
+    expected: "c99ebd1caffb8af6",
     run: () => cityDigest({ parcelCount: 50, ticks: 1_300 }),
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "ea45762a6d3c88b9",
+    expected: "2b460e2479f02a02",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "c9880ee1531a61c2",
+    expected: "2ae6584f346b79b3",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "7c2c82428577dd48",
+    expected: "a7c43328b70b75c5",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "69b80619079b5568",
+    expected: "787f7087a4af7f99",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "e5011f6ed4c2e30a",
+    expected: "f5fcd654560b88e7",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];

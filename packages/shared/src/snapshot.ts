@@ -686,7 +686,8 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
         }
       }
       for (const organizationId of Object.keys(contracts.reliabilityByOrganizationId)) {
-        if (!organizationIds.has(organizationId as Organization["id"])) {
+        /** La fiabilidad la consume `SubmitPublicBid`, que sólo admite empresas. */
+        if (organizationById.get(organizationId as Organization["id"])?.kind !== "company") {
           issues.push({
             code: "MISSING_REFERENCE",
             path: `phase2/contracts/reliabilityByOrganizationId/${organizationId}`,
@@ -722,7 +723,8 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
       for (const [subjectId, estimates] of Object.entries(
         intelligence.estimatesBySubjectOrganizationId,
       )) {
-        if (!organizationIds.has(subjectId as Organization["id"])) {
+        /** `CommissionIntelligence` solo investiga empresas: un expediente de un banco es un corrupto. */
+        if (organizationById.get(subjectId as Organization["id"])?.kind !== "company") {
           issues.push({
             code: "MISSING_REFERENCE",
             path: `phase2/intelligence/estimatesBySubjectOrganizationId/${subjectId}`,
@@ -743,12 +745,14 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
     }
     if (snapshot.phase2.factions) {
       const factions = snapshot.phase2.factions;
+      /** En Alpha sólo las empresas son actores estratégicos: banco, municipio y aseguradora no tienen
+       *  perfil, memoria, ciclos ni postura. Un snapshot con una de ellas es estado corrupto. */
       for (const organizationId of [
         ...Object.keys(factions.profileByOrganizationId),
         ...Object.keys(factions.memoryByOrganizationId),
         ...Object.keys(factions.cycleCountByOrganizationId),
       ]) {
-        if (!organizationIds.has(organizationId as Organization["id"])) {
+        if (organizationById.get(organizationId as Organization["id"])?.kind !== "company") {
           issues.push({ code: "MISSING_REFERENCE", path: `phase2/factions/${organizationId}` });
         }
       }
@@ -759,8 +763,8 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
           parts.length !== 2 ||
           !observerId ||
           !subjectId ||
-          !organizationIds.has(observerId as Organization["id"]) ||
-          !organizationIds.has(subjectId as Organization["id"])
+          organizationById.get(observerId as Organization["id"])?.kind !== "company" ||
+          organizationById.get(subjectId as Organization["id"])?.kind !== "company"
         ) {
           issues.push({
             code: "MISSING_REFERENCE",

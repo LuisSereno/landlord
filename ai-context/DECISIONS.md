@@ -630,7 +630,12 @@ conocimiento:** `IncidentRecord` separa `causedByOrganizationId` (verdad autorit
 `publiclyAttributedOrganizationId` (lo que la calle sabe, sólo si la tirada de detección vio al agresor) y el
 hecho `violent_sabotage` de D-075 se registra contra la atribución pública: un sabotaje no visto ya no baja la
 reputación de quien lo hizo. Es la misma separación de D-072 aplicada a la reputación. Queda documentada la onda
-expansiva (`blast`) sin propagar atribución. Los puntos 3 a 6 de este follow-up se incorporan aquí conforme
-aterricen. Ver
+expansiva (`blast`) sin propagar atribución. **Integridad y canonicalidad:** los roles de empresa en el snapshot
+exigen `kind === "company"` (fiabilidad de contratos, sujetos de inteligencia, perfil/memoria/ciclos y ambos
+extremos de la postura de facción), mientras `reputation` se queda en existencia porque `runReputation` no filtra
+tipo; `canonicalizeState` suelta `clock.runState` y `clock.speed` —controles del scheduler que la snapshot no
+persiste— y conserva `clock.tick`, así que guardar corriendo a 4x sí carga canónicamente igual; los tests de
+canonicalización mutan entidades reales (cuadrilla, siniestro, `pendingCommands`) en vez de contadores. Quedan
+por aterrizar la lectura UI de la tasa de servicios y la gobernanza de rendimiento. Ver
 `docs/engineering/adr/D-076-follow-up-hardening-alpha.md` y
 `docs/execution/phase-4/wp4-11-h-1-alpha-follow-up-2026-10-25.md`.

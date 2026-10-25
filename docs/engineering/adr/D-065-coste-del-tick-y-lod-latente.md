@@ -272,3 +272,47 @@ primer paso horario de propagación ocurría fuera de la sección medida. `injec
 exportada y el arnés inyecta al empezar a medir, de modo que la cascada se cronometra desde el primer
 update. `createScaledCity` mantiene su comportamiento: los diez digestos de `tick-conservation` no se
 mueven con este cambio.
+
+## Nota de revisión (documentación posterior al push, 2026-10-25) — el baseline sigue siendo PROVISIONAL
+
+La nota anterior describía `measureMonthlyCloses` como "muchos cierres independientes —una semilla y un
+distrito por muestra". Es impreciso y esta nota lo corrige sin mover el umbral de 5 ms ni retractar la
+gobernanza de tres pasos → cuatro.
+
+El bucle real es `for (seed) { for (closeIndex = 1..3) { createScaledCity(seed); ... } }`. Cada
+iteración crea una ciudad nueva con `createScaledCity(seed)` y salta el reloj a
+`closeIndex * GAME_MONTH_TICKS - 3`, así que son **8 layouts espaciales × 3 posiciones sintéticas = 24
+muestras**, no 24 campañas. Las muestras 2 y 3 de cada semilla provienen de una ciudad que nunca vivió
+el cierre del mes anterior.
+
+Consecuencia concreta sobre el `nextPaymentTick` de los préstamos sintéticos: se siembra a
+`GAME_MONTH_TICKS` (36 000) y `processLoanPayments` exige igualdad exacta contra `state.clock.tick`, así
+que la muestra plantada en 71 997 no paga el mes 2 y la plantada en 107 997 tampoco: su ciclo financiero
+está congelado en el de la ciudad recién creada. Y en el sistema que domina el cierre —`placeSearchers`
+dentro de `runHousingMarket`— la muestra madura y la recién creada son cosas distintas: la primera
+acumula llegadas, envejecimiento de buscadores, vacancia derivada, rentas ajustadas y leases viejos; la
+segunda no.
+
+**Qué queda firme y qué no.** Firme: la asimetría (~200× entre cierre y tick ordinario) y la
+concentración en `housing` (~69 %). Ambas se leen igual sobre el estado inicial que se mide hoy.
+Provisional: p50 ~28 ms, p95 ~37 ms y máximo ~38 ms, porque no sabemos si el cierre de una partida
+madura con stock acumulado es más caro o más barato que el de la ciudad que construimos al efecto. No
+usar esas cifras como presupuesto objetivo hasta tener la distribución longitudinal.
+
+**La secuencia de remediación pasa de tres pasos a cuatro, en orden, antes de WP4.13.**
+
+1. **Reescribir `measureMonthlyCloses` como campaña longitudinal.** Una ciudad por semilla que corre
+   en secuencia y mide cada frontera de mes real; sin saltos de reloj, sin resetear historia. Opt-in,
+   no test ordinario. Recomendado 8 semillas × 6–12 cierres para poder reportar mes 1, meses 2–3 y
+   meses maduros 4–12 por separado, porque nos interesa saber si `placeSearchers` empeora con el
+   tiempo.
+2. **Volver a medir con esa campaña** y publicar el baseline definitivo: p50 / p95 / máximo del cierre
+   sobre una partida madura, con la cuota de `housing` sobre esa muestra real.
+3. **Optimizar `placeSearchers` exacto** preservando los diez digestos dorados de
+   `tick-conservation.test.ts`.
+4. **LOD agregado solo si** después de 3 y 4 el presupuesto sigue sin cumplirse.
+
+WP4.12 (macroeventos) mantiene su GO, con la misma condición que ya tenía: no añadir trabajo nuevo al
+cierre mensual sin volver a medir. Con la precisión añadida por esta nota: "volver a medir" significa
+"medir longitudinalmente", no "repetir la distribución actual sobre sintéticos". Ver la nota de revisión
+equivalente en `docs/engineering/adr/D-076-follow-up-hardening-alpha.md`.

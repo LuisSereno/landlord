@@ -161,3 +161,55 @@ auditoría y enlaza cada hallazgo con su decisión.
 - Rendimiento: `system-cost.test.ts` (cierre identificado y separado del tick ordinario, inyección del
   fuego al empezar la medición y distribución de cierres con `measureMonthlyCloses`).
 - `tick-conservation.test.ts` regenera los diez digestos con su prueba de superficie.
+
+## Nota de revisión (documentación posterior al push, 2026-10-25)
+
+La relectura del `origin/main` en `4c1df4b` confirma que los seis fixes funcionales están correctos y
+que el CI remoto pasa. En el punto 6, sin embargo, la descripción de la distribución sobreestimó lo que
+`measureMonthlyCloses` mide hoy. Queda aquí la corrección, sin reabrir el checkpoint.
+
+**Lo que afirma el texto original.** "24 cierres independientes, distrito y semilla propios". Eso
+sugiere 24 campañas con historia mensual, y no lo son: `measureMonthlyCloses` recorre un `for (seed)`
+exterior y un `for (closeIndex)` interior, y en cada iteración llama a `createScaledCity(seed)` para
+saltar después el reloj a `closeIndex * GAME_MONTH_TICKS - 3`. Son por tanto **8 layouts espaciales × 3
+posiciones sintéticas del reloj = 24 muestras**, no 24 distritos independientes.
+
+**Por qué importa para la decisión que alimenta.** Las muestras 2 y 3 de cada semilla parten de una
+ciudad que nunca vivió un cierre real. Consecuencias concretas:
+
+- `createInitialState` siembra préstamos con `nextPaymentTick = GAME_MONTH_TICKS`. `processLoanPayments`
+  exige `loan.nextPaymentTick === state.clock.tick`, así que una ciudad plantada en el tick 71 997 no
+  paga en el cierre del mes 2: el `nextPaymentTick` quedó en 36 000 y nunca se ejecutó el paso que lo
+  habría desplazado a 72 000. La muestra 2 y la 3 tienen, por construcción, menos carga financiera que
+  una partida real.
+- El sistema que más nos interesa diagnosticar —`placeSearchers`, ~69 % del cierre, con coste
+  O(búsquedas × unidades)— depende de la población acumulada, `searchMonths` envejecidos, vacancia
+  derivada y rentas ajustadas mes a mes. Una ciudad recién creada los tiene en valor inicial, no los
+  de una partida madura.
+- El índice de renta, los leases y los contadores de facción evolucionan con los cierres; tampoco
+  existen en las muestras 2 y 3.
+
+**Cómo afecta a los números publicados.** p50 ~28 ms, p95 ~37 ms, máximo ~38 ms sobre 800 parcelas son
+mediciones reales de ejecuciones reales, pero sobre una distribución sintética. No sabemos si son sobre-
+o subestimación de la carga de una partida madura: puede que el stock de viviendas crezca con los
+cierres y `placeSearchers` empeore, puede que la ciudad inicial esté artificialmente congestionada. Lo
+que sí sabemos es que **la asimetría cierre/tick ordinario (~200×) y la concentración en `housing` (~69
+%) son ciertas** — ambas salen del mismo estado inicial que usamos hoy.
+
+**Gobernanza corregida.** La secuencia de remediación pasa de tres a cuatro pasos obligatorios, en
+orden, antes de WP4.13:
+
+1. Reescribir `measureMonthlyCloses` como campaña longitudinal: una ciudad por semilla que vive los
+   cierres en secuencia y mide cada uno en su frontera real, sin saltos de reloj. Opt-in (`SYSTEM_COST=1`),
+   no test ordinario. Idealmente con 8 semillas × 6–12 cierres para poder reportar mes 1, meses 2–3 y
+   meses maduros 4–12 por separado.
+2. Re-medir con esa campaña y publicar el baseline definitivo (p50, p95, máximo, proporción de `housing`
+   sobre una partida madura).
+3. Optimizar `placeSearchers` exacto, preservando los diez digestos dorados.
+4. Volver a medir. LOD agregado solo si después de 3 y 4 el presupuesto sigue sin cumplirse.
+
+**Qué NO cambia.** El umbral de 5 ms no se relaja. El hallazgo estructural —el cierre mensual domina el
+coste y `housing` domina el cierre— sigue en pie: los datos actuales lo muestran con independencia de
+la carga acumulada, y una campaña longitudinal sólo puede afinar la magnitud. La GO para WP4.12 se
+mantiene; WP4.12 no debe añadir trabajo nuevo al cierre mensual sin volver a medir, exactamente igual
+que antes, sólo que ahora "medir" significa "medir longitudinalmente".

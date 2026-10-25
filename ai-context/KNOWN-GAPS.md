@@ -187,13 +187,19 @@ Sigue abierto:
 
 ## Rendimiento y Alpha
 
-- El cierre mensual de 800 parcelas es la frontera cara: 24 cierres medidos de forma independiente dan
-  p50 ~28 ms, p95 ~37 ms y máximo ~38 ms, frente a un tick ordinario con p95 ~0,08 ms, y `housing`
-  concentra ~69 % del cierre (D-065, corregido de métrica en D-076: el antiguo "p95 mensual" era el
-  máximo de un solo cierre en una ventana de seis ticks). Cruza el presupuesto p95 y el disparador de
-  5 ms, y desde D-076 cruzarlo **abre remediación obligatoria**: medir, optimizar exacto y sólo después
-  LOD. Pendiente `placeSearchers` (O(búsquedas × unidades) en el cierre) antes de WP4.13; WP4.12 no debe
-  añadir trabajo nuevo al cierre sin volver a medir.
+- El cierre mensual de 800 parcelas es la frontera cara: p50 ~28 ms, p95 ~37 ms y máximo ~38 ms frente a
+  un tick ordinario con p95 ~0,08 ms, y `housing` concentra ~69 % del cierre (D-065, corregido de métrica
+  en D-076: el antiguo "p95 mensual" era el máximo de un solo cierre en una ventana de seis ticks). **La
+  distribución es PROVISIONAL**: `measureMonthlyCloses` entrega hoy 8 layouts × 3 posiciones sintéticas
+  del reloj, no 24 campañas longitudinales, así que las muestras 2 y 3 no han vivido el cierre anterior y
+  llegan con préstamos (`nextPaymentTick`), buscadores y stock en su estado de siembra. La asimetría y la
+  concentración en `housing` son firmes; las magnitudes absolutas, no. Cruza el presupuesto p95 y el
+  disparador de 5 ms, y desde D-076 cruzarlo **abre remediación obligatoria**: cuatro pasos en orden
+  antes de WP4.13 — (1) reescribir `measureMonthlyCloses` como campaña longitudinal real (recomendado 8
+  semillas × 6-12 cierres para separar mes 1 / meses 2-3 / meses maduros 4-12), (2) volver a medir y
+  publicar el baseline definitivo, (3) optimizar `placeSearchers` exacto (O(búsquedas × unidades) en el
+  cierre) preservando los diez digestos, (4) re-medir y sólo si sigue fuera, evaluar LOD. WP4.12 no debe
+  añadir trabajo nuevo al cierre sin volver a medir, entendido ya como "medir longitudinalmente".
 - El estado canónico completo hace más caras las campañas headless largas (la de dos años tarda
   ~5 s); no afecta al tick de producto.
 - El fixture del smoke Alpha es un snapshot versionado de 160 KB y debe regenerarse con los goldens.

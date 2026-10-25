@@ -163,12 +163,16 @@ motor); el snapshot valida el *tipo* de organización en los roles de empresa; `
 canonicalización mutan entidades reales; el panel de hacienda muestra la tasa prevista
 (`serviceFeeDueNextSettlement`) en vez del acumulado que siempre vale 0; y D-065 se reescribe —cruzar el
 disparador de 5 ms abre remediación obligatoria (medir, optimizar exacto, y sólo después LOD)— con el
-cierre medido como distribución: 24 cierres de 800 parcelas dan p50 ~28 ms y máximo ~38 ms frente a un
-tick ordinario de p95 ~0,08 ms, y `housing` concentra ~69 % del cierre. D-071, el acta de WP4.8 y el
-resumen de Fase 4 quedan anotados como parcialmente obsoletos donde aún prometían `banks +1` por desalojo,
-con la tabla vigente apuntando a `REPUTATION_POLICY.facts`. La optimización exacta de `placeSearchers`
-(`runHousingMarket`) va antes de WP4.13 y WP4.12 no debe añadir trabajo nuevo al cierre mensual sin volver
-a medir. El siguiente es WP4.12 (eventos macroeconómicos).
+cierre medido como distribución, hoy sobre 8 layouts × 3 posiciones sintéticas del reloj (p50 ~28 ms,
+máximo ~38 ms frente a un tick ordinario de p95 ~0,08 ms; `housing` concentra ~69 %). **Esa distribución
+es PROVISIONAL**: no es una campaña longitudinal, así que las muestras de mes 2 y 3 no han vivido el
+cierre anterior y llegan sin historia de préstamos, buscadores ni stock acumulado. D-071, el acta de WP4.8
+y el resumen de Fase 4 quedan anotados como parcialmente obsoletos donde aún prometían `banks +1` por
+desalojo, con la tabla vigente apuntando a `REPUTATION_POLICY.facts`. Antes de WP4.13: (1) reescribir
+`measureMonthlyCloses` como campaña longitudinal por semilla, (2) volver a medir, (3) optimizar
+`placeSearchers` (`runHousingMarket`) exacto, (4) re-medir, y sólo si sigue fuera, LOD. WP4.12 no debe
+añadir trabajo nuevo al cierre sin volver a medir, ahora entendido como "medir longitudinalmente". El
+siguiente es WP4.12 (eventos macroeconómicos).
 
 El baseline económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas

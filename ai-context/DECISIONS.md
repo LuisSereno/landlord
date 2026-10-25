@@ -647,11 +647,15 @@ canonicalización mutan entidades reales (cuadrilla, siniestro, `pendingCommands
 de servicios visible:** el informe municipal añade `serviceFeeDueNextSettlement`, derivado de
 `municipalServiceFee(state)`, porque `revenueThisMonthBySource.serviceFee` se devenga y se resetea dentro del
 mismo `runMunicipalBudget` y la UI sólo podía mostrar un cero. No se persiste nada. **Rendimiento:** cruzar el
-disparador de 5 ms de D-065 ya no ordena LOD, abre remediación en tres pasos (medir, optimizar exacto, aproximar
-sólo si sigue fuera) —la optimización de `placeSearchers` va antes de WP4.13 y WP4.12 no añade trabajo al cierre
-sin re-medir—; el arnés separa `ordinaryTick` de `monthClose` y `measureMonthlyCloses` da una distribución real
-(24 cierres de 800 parcelas: p50 ~28 ms, p95 ~37 ms, máximo ~38 ms frente a un tick normal de p95 ~0,08 ms),
-porque con seis muestras el "p95 mensual" era el máximo de un cierre; la ventana `fire` calienta sin incendios y
-los inyecta al empezar a medir. Falta la reconciliación de las tablas de reputación en la documentación. Ver
-`docs/engineering/adr/D-076-follow-up-hardening-alpha.md` y
-`docs/execution/phase-4/wp4-11-h-1-alpha-follow-up-2026-10-25.md`.
+disparador de 5 ms de D-065 ya no ordena LOD, abre remediación en cuatro pasos (medir, volver a medir
+longitudinal, optimizar exacto, aproximar sólo si sigue fuera) —la reescritura longitudinal de
+`measureMonthlyCloses` y la optimización de `placeSearchers` van antes de WP4.13 y WP4.12 no añade trabajo
+al cierre sin re-medir—; el arnés separa `ordinaryTick` de `monthClose` y `measureMonthlyCloses` entrega hoy
+una distribución PROVISIONAL sobre 8 layouts × 3 posiciones sintéticas (p50 ~28 ms, p95 ~37 ms, máximo
+~38 ms frente a un tick normal de p95 ~0,08 ms; `housing` ~69 %), porque con seis muestras el "p95 mensual"
+era el máximo de un cierre. No es una campaña real: las muestras de mes 2 y 3 no han vivido el cierre
+anterior, así que préstamos (`nextPaymentTick` congelado en el valor de siembra), buscadores y stock
+llegan sin acumular. La asimetría y la concentración en `housing` sí quedan firmes. La ventana `fire`
+calienta sin incendios y los inyecta al empezar a medir. Falta la reconciliación de las tablas de
+reputación en la documentación. Ver `docs/engineering/adr/D-076-follow-up-hardening-alpha.md`, su nota de
+revisión 2026-10-25 y `docs/execution/phase-4/wp4-11-h-1-alpha-follow-up-2026-10-25.md`.

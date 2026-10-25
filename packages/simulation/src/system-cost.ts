@@ -755,8 +755,13 @@ export type MonthlyCloseMeasurement = {
 /**
  * Distribución del cierre mensual medida sobre muchas semillas y fronteras. La ventana `month` del
  * arnés recorre seis ticks, así que su p95 no es una distribución: es el máximo de un único cierre.
- * Aquí cada muestra arranca su propio distrito y se planta en su frontera de mes, que es lo que hace
- * falta para poder hablar de p50, p95 y máximo del cierre (D-076 punto 5).
+ * Aquí cada muestra arranca un distrito y se planta en su frontera de mes, lo que basta para hablar de
+ * p50, p95 y máximo (D-076 punto 5), pero NO es una campaña longitudinal: `createScaledCity` corre por
+ * cada `closeIndex`, así que son 8 layouts × 3 posiciones sintéticas y las muestras 2 y 3 parten de
+ * una ciudad que nunca vivió el cierre anterior. Ni los préstamos (`nextPaymentTick` fijo al inicial)
+ * ni `placeSearchers` (población, `searchMonths`, vacancia y rentas en valor de siembra) ven el estado
+ * que tendría una partida madura. Las cifras son PROVISIONALES hasta que un benchmark longitudinal las
+ * sustituya antes de WP4.13. Ver nota de revisión 2026-10-25 en D-065 y D-076.
  */
 export function measureMonthlyCloses(input: {
   scale: SystemCostScale;

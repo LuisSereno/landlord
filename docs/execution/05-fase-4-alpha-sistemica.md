@@ -303,11 +303,16 @@ alcance; la optimización de `runHousingMarket` queda como deuda antes de WP4.13
 
 > **Corregido por WP4.11-H.1 (D-076):** aquel "28,4 ms de p95" era el máximo de un solo cierre —la
 > ventana `month` tiene seis muestras—, no un p95. El arnés separa ahora `ordinaryTick` y `monthClose` y
-> `measureMonthlyCloses` mide 24 cierres independientes: p50 ~28 ms, p95 ~37 ms, máximo ~38 ms en la
-> ciudad de 800 parcelas, frente a un tick ordinario con p95 ~0,08 ms. El disparador de D-065 cambia de
-> significado: cruzarlo abre remediación obligatoria (medir, optimizar exacto, y sólo entonces LOD), así
-> que la optimización de `placeSearchers` —O(búsquedas × unidades) en el cierre— es previa a WP4.13 y
-> WP4.12 no debe añadir trabajo nuevo al cierre mensual sin volver a medir.
+> `measureMonthlyCloses` entrega una distribución **PROVISIONAL** sobre 8 layouts × 3 posiciones
+> sintéticas del reloj: p50 ~28 ms, p95 ~37 ms, máximo ~38 ms en la ciudad de 800 parcelas, frente a un
+> tick ordinario con p95 ~0,08 ms. No son 24 campañas: cada muestra arranca una ciudad nueva y salta el
+> reloj, así que las muestras 2 y 3 no han vivido el cierre anterior y llegan con `nextPaymentTick`,
+> buscadores y stock en su estado de siembra. La asimetría cierre/tick y la cuota de `housing` quedan
+> firmes; las magnitudes absolutas, no. El disparador de D-065 cambia de significado: cruzarlo abre
+> remediación obligatoria en cuatro pasos —reescritura longitudinal de `measureMonthlyCloses`, volver a
+> medir, optimizar `placeSearchers` exacto y sólo entonces evaluar LOD— así que esa secuencia es previa a
+> WP4.13 y WP4.12 no debe añadir trabajo nuevo al cierre mensual sin volver a medir, ya entendido como
+> "medir longitudinalmente".
 
 ## WP4.11-H.1 — Follow-up de corrección del hardening
 
@@ -327,7 +332,13 @@ humana de WP4.11-H sobre `83cc25a`; no añade gameplay. Evidencia en
 - D-065 reescrito con su disparador como obligación de remediación; el cierre medido como distribución y
   la ventana `fire` calentando sin incendios.
 
-**Rendimiento:** la optimización exacta de `runHousingMarket` queda programada antes de WP4.13.
+**Rendimiento:** antes de WP4.13, en orden: (1) reescribir `measureMonthlyCloses` como campaña
+longitudinal real (una ciudad por semilla que vive sus cierres en secuencia; recomendado 8 semillas ×
+6-12 cierres para separar mes 1 / meses 2-3 / meses maduros), (2) volver a medir y publicar el baseline
+definitivo, (3) optimizar `placeSearchers` exacto en `runHousingMarket` preservando los diez digestos,
+(4) re-medir y sólo si el cierre sigue fuera del presupuesto, evaluar LOD. La métrica publicada hoy es
+PROVISIONAL: 8 layouts × 3 posiciones sintéticas, no 24 campañas. Ver nota de revisión 2026-10-25 en
+`docs/engineering/adr/D-065-coste-del-tick-y-lod-latente.md` y `D-076-follow-up-hardening-alpha.md`.
 
 ## WP4.12 — Eventos macroeconómicos
 

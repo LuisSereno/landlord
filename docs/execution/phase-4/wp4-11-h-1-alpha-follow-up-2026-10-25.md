@@ -128,15 +128,26 @@ documental y cierra la serie). Las decisiones se registran en D-076.
 - **Números medidos (SYSTEM_COST=1, 2026-10-25, ciudad de 800 parcelas, 8 semillas × 3 cierres = 24
   muestras):** cierre p50 ~28 ms, p95 ~37 ms, máximo ~38 ms; tick ordinario medio ~0,04 ms y p95 ~0,08 ms;
   `housing` concentra ~69 % del cierre instrumentado. La corrida que publicó WP4.11-H dio 28,4 ms de
-  media y una posterior 31,6 ms: lo reproducible es el orden de magnitud, no el decimal.
+  media y una posterior 31,6 ms: lo reproducible es el orden de magnitud, no el decimal. **Nota de
+  revisión 2026-10-25:** esas 24 muestras son 8 layouts × 3 posiciones sintéticas del reloj, no 24
+  campañas longitudinales. Las muestras 2 y 3 de cada semilla parten de una ciudad que nunca vivió el
+  cierre anterior, así que `nextPaymentTick` queda congelado en el valor de siembra y `placeSearchers`
+  ve un stock inicial, no el acumulado. La asimetría y la cuota de `housing` son firmes; las magnitudes
+  absolutas son PROVISIONALES hasta la reescritura longitudinal.
 - **Tests:** `system-cost.test.ts` — la ventana `month` identifica su cierre y lo saca del recuento
   ordinario; una ventana sin cierre publica `monthClose` nulo e `ordinaryTick` igual a `plainTick`; la
   ventana `fire` calienta sin incidentes, los inyecta en el tick de inicio y su primera propagación horaria
   cae dentro de la sección medida; `measureMonthlyCloses` devuelve una muestra por cierre y un cierre
   medio claramente por encima del tick ordinario. Los diez digestos de `tick-conservation` no se mueven:
   la reescritura de `createScaledCity` selecciona los mismos edificios.
-- **Deuda programada:** optimizar `placeSearchers` (O(búsquedas × unidades) en el cierre) antes de
-  WP4.13. WP4.12 no debe añadir trabajo nuevo al cierre mensual sin volver a medir.
+- **Deuda programada (secuencia de cuatro pasos, en orden, antes de WP4.13):** (1) reescribir
+  `measureMonthlyCloses` como campaña longitudinal real —una ciudad por semilla que vive sus cierres en
+  secuencia, recomendado 8 semillas × 6-12 cierres para separar mes 1 / meses 2-3 / meses maduros 4-12
+  y saber si `placeSearchers` empeora con el tiempo—, (2) volver a medir y publicar el baseline
+  definitivo, (3) optimizar `placeSearchers` (O(búsquedas × unidades) en el cierre) exacto preservando
+  los diez digestos, (4) re-medir y sólo si sigue fuera del presupuesto, evaluar LOD. WP4.12 no debe
+  añadir trabajo nuevo al cierre mensual sin volver a medir, ya entendido como "medir
+  longitudinalmente".
 
 ### 3 — Documentación que prometía el exploit bancario ya cerrado (`P2`)
 
@@ -173,9 +184,14 @@ mismos estados; ningún escenario mueve caja, hogares, bajas ni decisiones por e
 
 ## Deuda que deja este checkpoint
 
-- `placeSearchers` en `runHousingMarket` es O(búsquedas × unidades) en el cierre: optimización exacta
-  obligatoria antes de WP4.13 (D-076 punto 5). WP4.12 no debe añadir trabajo al cierre mensual sin
-  re-medir.
+- **Benchmark longitudinal PROVISIONAL.** `measureMonthlyCloses` entrega hoy 8 layouts × 3 posiciones
+  sintéticas del reloj, no 24 campañas. Las muestras 2 y 3 no han vivido el cierre anterior y llegan con
+  `nextPaymentTick`, buscadores y stock en estado de siembra. La asimetría cierre/tick y la cuota de
+  `housing` son firmes; las magnitudes absolutas, no. La reescritura longitudinal es el primer paso de
+  la remediación antes de WP4.13 (ver nota de revisión 2026-10-25 en D-065 y D-076).
+- **`placeSearchers` en `runHousingMarket`** es O(búsquedas × unidades) en el cierre: optimización exacta
+  obligatoria después de la reescritura longitudinal y la re-medición (D-076 punto 5). WP4.12 no debe
+  añadir trabajo al cierre mensual sin re-medir.
 - Un incidente `blast` no hereda la atribución pública del sabotaje que lo originó, y no existe canal para
   investigar un sabotaje no atribuido: ambas cosas en `ai-context/KNOWN-GAPS.md`.
 - La retirada de una ley activa por vía parlamentaria (derogación o provenance `player_lobby | council`)
@@ -183,3 +199,6 @@ mismos estados; ningún escenario mueve caja, hogares, bajas ni decisiones por e
   habría que modelar.
 - Protección de `main`: el repositorio sigue permitiendo el bypass de administrador en las reglas de
   protección. Es configuración del hosting, no del código, y queda como asunto de proceso.
+- `POLICY_NOT_AVAILABLE` se devuelve tanto al promover una ordenanza no disponible como al intentar
+  retirar una `active`. El mensaje en español dice "La ordenanza no está disponible para promoverla" y
+  queda desincronizado del caso de retirada. Limpieza cosmética; no abre checkpoint propio.

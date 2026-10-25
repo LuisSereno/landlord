@@ -64,8 +64,12 @@ async function pixelDiff(leftBase64, rightBase64) {
         await element.decode();
         return element;
       };
-      const [leftImage, rightImage] = await Promise.all([load(left), load(right)]);
-      if (leftImage.width !== rightImage.width || leftImage.height !== rightImage.height) {
+      const leftImage = await load(left);
+      const rightImage = await load(right);
+      await Promise.all([leftImage.decode(), rightImage.decode()]);
+      const commonWidth = Math.min(leftImage.width, rightImage.width);
+      const commonHeight = Math.min(leftImage.height, rightImage.height);
+      if (commonWidth === 0 || commonHeight === 0) {
         return {
           sizeMismatch: true,
           left: [leftImage.width, leftImage.height],
@@ -73,14 +77,14 @@ async function pixelDiff(leftBase64, rightBase64) {
         };
       }
       const canvas = document.createElement("canvas");
-      canvas.width = leftImage.width;
-      canvas.height = leftImage.height;
+      canvas.width = commonWidth;
+      canvas.height = commonHeight;
       const context = canvas.getContext("2d", { willReadFrequently: true });
-      context.drawImage(leftImage, 0, 0);
-      const leftData = context.getImageData(0, 0, canvas.width, canvas.height).data;
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      context.drawImage(rightImage, 0, 0);
-      const rightData = context.getImageData(0, 0, canvas.width, canvas.height).data;
+      context.drawImage(leftImage, 0, 0, commonWidth, commonHeight, 0, 0, commonWidth, commonHeight);
+      const leftData = context.getImageData(0, 0, commonWidth, commonHeight).data;
+      context.clearRect(0, 0, commonWidth, commonHeight);
+      context.drawImage(rightImage, 0, 0, commonWidth, commonHeight, 0, 0, commonWidth, commonHeight);
+      const rightData = context.getImageData(0, 0, commonWidth, commonHeight).data;
       let different = 0;
       for (let index = 0; index < leftData.length; index += 4) {
         const delta = Math.max(
@@ -92,7 +96,15 @@ async function pixelDiff(leftBase64, rightBase64) {
         if (delta > threshold) different += 1;
       }
       const pixels = leftData.length / 4;
-      return { sizeMismatch: false, pixels, different, ratio: different / pixels };
+      return {
+        sizeMismatch: false,
+        pixels,
+        different,
+        ratio: different / pixels,
+        leftSize: [leftImage.width, leftImage.height],
+        rightSize: [rightImage.width, rightImage.height],
+        comparedSize: [commonWidth, commonHeight],
+      };
     },
     { left: leftBase64, right: rightBase64, threshold: channelThreshold },
   );

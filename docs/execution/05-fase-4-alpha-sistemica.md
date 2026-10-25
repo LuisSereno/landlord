@@ -161,7 +161,9 @@ la influencia que deposita en cada empresa al cerrar el mes (0–3) y la banca a
 préstamo (−100…+250 pb). La memoria son hechos acotados —`kind`, `atTick`, `referenceId`, magnitud con
 tope y el delta aplicado por grupo—, máximo 16 por organización y posición limitada a ±100. Un mismo
 hecho se valora distinto: desplazar hogares resta ante vecinos y gobierno y suma ante la banca, que es
-la aceptación del WP. Decae sólo la opinión (3/mes vecinos, 2/mes gobierno); el historial crediticio no
+la aceptación del WP. *(Corregido por D-075/WP4.11-H: el desalojo dejó de sumar ante la banca —`banks 0`,
+el +1 sin decaimiento era un descuento permanente comprable con desahucios—; el cruce entre grupos se
+sigue probando, hoy con `contract_completed` (+2 banca) frente a `violent_sabotage` (−2 banca).)* Decae sólo la opinión (3/mes vecinos, 2/mes gobierno); el historial crediticio no
 se borra con el tiempo. Empresarios, policía, sindicatos, criminales y medios quedan fuera hasta que
 exista el canal que los consuma, y las relaciones entre organizaciones y la información imperfecta
 pertenecen a WP4.9 y WP4.10.
@@ -309,9 +311,9 @@ alcance; la optimización de `runHousingMarket` queda como deuda antes de WP4.13
 
 ## WP4.11-H.1 — Follow-up de corrección del hardening
 
-**Estado 2026-10-25:** `IN_PROGRESS` (ver acta; se cierra con la reconciliación documental de D-071 y la
-verificación de CI). Responde a la auditoría humana de WP4.11-H sobre `83cc25a`; no añade
-gameplay. Evidencia en `docs/execution/phase-4/wp4-11-h-1-alpha-follow-up-2026-10-25.md` y decisión en
+**Estado 2026-10-25:** `DONE`, con la deuda de rendimiento que se declara abajo. Responde a la auditoría
+humana de WP4.11-H sobre `83cc25a`; no añade gameplay. Evidencia en
+`docs/execution/phase-4/wp4-11-h-1-alpha-follow-up-2026-10-25.md` y decisión en
 `docs/engineering/adr/D-076-follow-up-hardening-alpha.md`.
 
 - `WithdrawPolicy` sólo retira propuestas: la ordenanza `active` es norma municipal y caduca sola.

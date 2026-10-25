@@ -2,8 +2,9 @@
 
 ## Estado
 
-`IN_PROGRESS`. Mini-checkpoint autorizado por la auditoría humana de WP4.11-H (baseline `83cc25a`)
-antes de abrir WP4.12. Seis puntos, ninguno de gameplay nuevo.
+`DONE` el 2026-10-25. Mini-checkpoint autorizado por la auditoría humana de WP4.11-H (baseline
+`83cc25a`) antes de WP4.12. Seis puntos de la auditoría resueltos en siete decisiones de D-076, sin
+gameplay nuevo y con la verificación del final de este documento en verde.
 
 ## Baseline
 
@@ -18,7 +19,8 @@ antes de abrir WP4.12. Seis puntos, ninguno de gameplay nuevo.
 
 ## Hallazgos y correcciones
 
-Numerados según la tabla de la auditoría; las decisiones se registran en D-076 por orden de aterrizaje.
+Numerados según la tabla de la auditoría y ordenados por aterrizaje en el checkpoint (el 3 es puramente
+documental y cierra la serie). Las decisiones se registran en D-076.
 
 ### 1 — El concejo no tenía autoridad real sobre su propia ley (`P1`)
 
@@ -136,6 +138,48 @@ Numerados según la tabla de la auditoría; las decisiones se registran en D-076
 - **Deuda programada:** optimizar `placeSearchers` (O(búsquedas × unidades) en el cierre) antes de
   WP4.13. WP4.12 no debe añadir trabajo nuevo al cierre mensual sin volver a medir.
 
+### 3 — Documentación que prometía el exploit bancario ya cerrado (`P2`)
+
+- **Finding:** D-071, el acta de WP4.8 y el resumen de Fase 4 seguían afirmando que desplazar hogares
+  suma ante la banca (`banks +1`, con ejemplos `banks +2` en la acta de WP4.8) después de que WP4.11-H
+  eliminara ese premio precisamente porque no decae y fabricaba un descuento permanente del préstamo.
+  `ai-context/KNOWN-GAPS.md` sí decía "banca neutral ante desalojos": los documentos se contradecían
+  entre sí.
+- **Impacto:** riesgo operativo, no teórico. `AGENTS.md` declara que las diferencias documentales se
+  resuelven por la decisión registrada, y aquí la decisión registrada (D-071) era la obsoleta. Un agente
+  que la lea como canónica "corrige" `reputation.ts` para devolver el +1 y reintroduce el exploit.
+- **Fix (D-076 punto 8):** avisos fechados en el Estado de D-071, en el Estado del acta de WP4.8 y en su
+  propio *Finding*, más la línea correspondiente del resumen de Fase 4 y de `ai-context/DECISIONS.md`. No
+  se reescribió la historia de las entregas: cada aviso dice qué cambió, por qué y dónde está la tabla
+  vigente (`REPUTATION_POLICY.facts` en `packages/simulation/src/reputation.ts`). La premisa de producto
+  que aquellas actas defendían —un mismo hecho puntuado distinto por grupo— se señala viva y probada con
+  `contract_completed` (+2 banca) frente a `violent_sabotage` (−2 banca).
+- **Comprobación:** `grep` de las afirmaciones obsoletas sobre desalojo y banca en `docs/` y `ai-context/`
+  no devuelve ya ninguna sin anotar.
+
 ## Verificación reproducible
 
-Pendiente del cierre: `format:check`, `lint`, `typecheck`, `test`, `build` y CI remoto en verde.
+- `pnpm format:check`
+- `pnpm lint` (eslint + `check:architecture`)
+- `pnpm typecheck`
+- `pnpm test` (shared, simulation y web, incluidos los diez digestos dorados y el test transversal)
+- `pnpm build`
+- `pnpm smoke:phase2` y `pnpm smoke:alpha`
+- CI remoto de `main` en verde.
+
+**Digestos:** los diez regenerados durante este checkpoint (clave de atribución + salida de los controles
+del reloj). Cada regeneración quedó atribuida a superficie reconstruyendo la cadena anterior sobre los
+mismos estados; ningún escenario mueve caja, hogares, bajas ni decisiones por estos cambios.
+
+## Deuda que deja este checkpoint
+
+- `placeSearchers` en `runHousingMarket` es O(búsquedas × unidades) en el cierre: optimización exacta
+  obligatoria antes de WP4.13 (D-076 punto 5). WP4.12 no debe añadir trabajo al cierre mensual sin
+  re-medir.
+- Un incidente `blast` no hereda la atribución pública del sabotaje que lo originó, y no existe canal para
+  investigar un sabotaje no atribuido: ambas cosas en `ai-context/KNOWN-GAPS.md`.
+- La retirada de una ley activa por vía parlamentaria (derogación o provenance `player_lobby | council`)
+  queda descartada para Alpha; si algún día el concejo debate derogaciones, D-076 punto 1 explica qué
+  habría que modelar.
+- Protección de `main`: el repositorio sigue permitiendo el bypass de administrador en las reglas de
+  protección. Es configuración del hosting, no del código, y queda como asunto de proceso.

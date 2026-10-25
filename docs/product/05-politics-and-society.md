@@ -24,7 +24,10 @@ Modelo conceptual:
 **Estado de implementación (WP4.11, D-074):** del modelo conceptual está implementado el Ayuntamiento/Concejo como
 institución electa con calendario propio —nueve escaños, legislatura de seis meses, debate dos meses después de la
 elección— y con una capacidad legislativa real: aprueba su propia ordenanza por sorteo modulado por su
-alineamiento, y el partido que gobierna decide el **orden de recorte** del presupuesto municipal (D-068). Alcaldía,
+alineamiento, y el partido que gobierna decide el **orden de recorte** del presupuesto municipal (D-068). Desde
+WP4.11-H.1 la palabra "legislativa" es literal: una ordenanza `active` es norma municipal y **nadie la retira**,
+ni siquiera quien la compró con cabildeo —`WithdrawPolicy` sólo acepta propuestas y la ley caduca por su
+calendario (D-076)—. Alcaldía,
 urbanismo, hacienda, policía y justicia siguen siendo un solo actor en el motor (`MUNICIPALITY_ORGANIZATION_ID`)
 sin órganos separados; sindicatos, asociaciones vecinales, grupos empresariales y medios no tienen estado.
 

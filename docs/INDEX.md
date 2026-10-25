@@ -93,6 +93,7 @@
 - execution/phase-4/wp4-10-strategic-ai-factions-2026-10-24.md — dos perfiles de facción con objetivos y umbrales, postura formada por encuentros, memoria acotada con antirrepetición medida en campaña y cota de información ejecutable sobre la IA rival.
 - execution/phase-4/wp4-11-municipal-politics-2026-10-24.md — concejo ficticio de nueve escaños, cinco ejes de opinión leídos del estado social, voto y participación con resto mayor y la transferencia institucional sobre el presupuesto, el debate y el cabildeo.
 - execution/phase-4/wp4-11-h-alpha-systems-hardening-2026-10-25.md — censo electoral efectivo, tasa de servicios en el ánimo fiscal, estado canónico completo y estable, referencias de snapshot hasta WP4.11, benchmark mensual real, fin de la fuga del rival, UI de oferta/inteligencia/concejo, ordenanza activa y duración única, y CI verde con smoke Alpha.
+- execution/phase-4/wp4-11-h-1-alpha-follow-up-2026-10-25.md — correcciones que pidió la auditoría de WP4.11-H: ley activa no retirable, atribución pública del sabotaje, tipos de organización en el snapshot, canonicalidad del reloj, tasa de servicios visible, gobernanza de rendimiento y reconciliación de la documentación de reputación (D-076).
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

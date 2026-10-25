@@ -1,7 +1,16 @@
 # D-071 — Reputación multidimensional con tres grupos y memoria de hechos
 
-Estado: **Aceptada**
+Estado: **Aceptada**, con un punto **parcialmente superseded** desde 2026-10-25
 Fecha: 2026-10-24
+
+> **Superseded parcialmente por D-075 (WP4.11-H) y D-076 (WP4.11-H.1).** `households_displaced` pasó de
+> `banks +1` a `banks 0`, y la tabla vigente es `residents -3 / municipality -1 / banks 0`: sin
+> decaimiento en la valoración bancaria, desalojar repetidamente construía un descuento permanente del
+> préstamo, o sea un exploit de financiación, y ningún hecho del motor demostraba que el banco viera
+> mejor a un casero que desahucia. Se añade aquí, no se reescribe la decisión original. La premisa de
+> fondo sigue viva y probada —un mismo hecho puntúa distinto por grupo (`contract_completed`,
+> `loan_defaulted`, `violent_sabotage`, víctimas frente a cumplimiento)—; lo que ya no existe es el
+> cruce concreto "desalojo sube la nota bancaria". La documentación que afirme ese cruce está obsoleta.
 
 ## Contexto
 
@@ -31,7 +40,7 @@ hechos ni memoria, cualquier "reputación" habría sido una barra decorativa.
 3. **Ocho clases de hecho con valoración propia por grupo.** Cumplimiento e incumplimiento de
    contrato, hogares desplazados, víctimas, deuda fiscal, abandono de mantenimiento, impago de préstamo
    y préstamo saldado. El mismo hecho puntúa distinto: desplazar un hogar resta 3 ante los vecinos, 1
-   ante el gobierno y suma 1 ante la banca.
+   ante el gobierno y suma 1 ante la banca. *(Sustituido por D-075: la banca quedó en 0.)*
 4. **El decaimiento sólo existe donde la opinión es opinión.** Vecinos 3/mes, gobierno 2/mes, banca 0.
    Un impago crediticio no se borra con el tiempo: se compensa con otro hecho.
 5. **Las tablas de efecto son neutras en posición 0** (recargo 0 pb, factor 100 %, +1 de influencia).
@@ -98,7 +107,8 @@ No incluido:
 ### Positivas
 
 - La aceptación del WP se comprueba en el propio modelo: un desalojo suma ante la banca y resta ante
-  los vecinos y el gobierno.
+  los vecinos y el gobierno. *(Leída hoy: la prueba sigue siendo que un mismo hecho puntúa distinto por
+  grupo; el grupo que suma ya no es la banca ante el desalojo, ver el aviso al inicio de esta decisión.)*
 - Tres canales reales de consecuencia —crédito, deseo de mudarse e influencia política— sin inventar
   nuevos subsistemas. La economía no se mueve por reputación hasta que hay un hecho real: los digestos
   sólo cambian por la influencia mensual.

@@ -474,8 +474,11 @@ deposita en cada empresa al cerrar el mes (0–3) y `banks` ajusta la tasa base 
 el canal que los consuma. La unidad de memoria es el hecho (`ReputationFact` con `kind`, `atTick`,
 `referenceId`, `magnitude` topada y el `deltaByGroup` realmente aplicado), con máximo 16 hechos por
 organización y posición limitada a ±100; la puntuación es un acumulado derivado y auditable. Ocho
-clases de hecho y cada grupo los valora distinto: un hogar desplazado resta 3 ante los vecinos, 1 ante
-el gobierno y suma 1 ante la banca, que es exactamente la aceptación del WP. Sólo decae la opinión —
+clases de hecho y cada grupo los valora distinto: un hogar desplazado resta 3 ante los vecinos y 1 ante
+el gobierno, que es exactamente la aceptación del WP. *(D-075 dejó la lectura bancaria del desalojo en 0:
+el +1 sin decaimiento fabricaba descuento permanente. Hoy el cruce entre grupos lo prueban
+`contract_completed` (+2 banca) y `violent_sabotage` (−2 banca, sólo si el agresor quedó públicamente
+atribuido, D-076).)* Sólo decae la opinión —
 vecinos 3/mes y gobierno 2/mes—; el historial crediticio no se borra con el tiempo, se compensa con
 otro hecho. Las tablas de efecto son neutras en posición 0, así que el WP no mueve la economía hasta
 que hay un hecho real. Los registran los sistemas que ya observaban el suceso (desalojo en la renta,

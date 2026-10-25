@@ -7,6 +7,14 @@ opinión y cada grupo tiene una salida ya existente en el modelo: el tipo del pr
 del parque y la influencia mensual. Decisión en
 `docs/engineering/adr/D-071-reputacion-multidimensional.md`.
 
+> **Parcialmente obsoleto desde 2026-10-25 (D-075/WP4.11-H y D-076/WP4.11-H.1).** En esta acta,
+> `households_displaced` vale `banks +1` y se citan ejemplos con `banks +2`; la tabla vigente es
+> `residents -3 / municipality -1 / banks 0`. También es nuevo el hecho `violent_sabotage`, que sólo se
+> registra contra el agresor públicamente atribuido. Se deja el texto original como historia de la
+> entrega: quien lea esta acta para cambiar el código se encontraría con el exploit bancario que ya se
+> cerró. El estado canónico de hoy es `packages/simulation/src/reputation.ts` (`REPUTATION_POLICY.facts`)
+> y las tablas que se documentan en `docs/product/03` y en el acta de WP4.11-H.
+
 ## Resultado
 
 - **Tres grupos con efecto real, no ocho barras**: `residents`, `municipality`, `banks`. Se queda
@@ -18,7 +26,8 @@ del parque y la influencia mensual. Decisión en
   desplazados, víctimas, deuda fiscal, abandono de mantenimiento, préstamo impagado y préstamo
   saldado. La magnitud se topa por hecho, así que un mes malo no hunde una carrera.
 - **La aceptación se comprueba en el modelo**: desplazar hogares resta 3 ante los vecinos y 1 ante el
-  gobierno, y suma 1 ante la banca.
+  gobierno, y suma 1 ante la banca. *(Superseded por D-075/WP4.11-H: la banca pasó a 0 ante el desalojo
+  porque el +1 sin decaimiento permitía fabricar solvencia desahuciando; ver el aviso de esta acta.)*
 - **Decaimiento sólo donde la opinión es opinión**: vecinos 3/mes, gobierno 2/mes, banca 0. Un impago
   crediticio pesa hasta que otro hecho lo compensa.
 - **Tres canales cableados**: la banca aplica −100…+250 puntos básicos sobre la tasa base del
@@ -53,7 +62,9 @@ del parque y la influencia mensual. Decisión en
 ### Finding
 
 Un mismo hecho, tres lecturas opuestas: dos hogares desplazados dejan `residents` −6, `municipality`
-−2 y `banks` +2. La banca ve menos riesgo exactamente donde la calle ve un casero malo.
+−2 y `banks` +2. La banca ve menos riesgo exactamente donde la calle ve un casero malo. *(Medido hoy:
+`banks` 0. El cruce de señales sigue existiendo, pero con otros hechos —`contract_completed` sube al
+banca y `violent_sabotage` la hunde—, no premiando desalojos.)*
 
 El canal crediticio es continuo y acotado: con posición 0 la tasa base de 900 pb no se mueve; un
 impago de préstamo (−12 ante la banca) la sube a 1000 pb; dos préstamos saldados (+10) la bajan a

@@ -154,7 +154,7 @@ duración de ordenanzas es única. Los diez digestos se regeneraron con atribuci
 canónica anterior sobre los mismos estados recupera exactamente los diez valores de WP4.11. El cierre
 mensual de 800 parcelas domina el coste y cruza el presupuesto p95 de D-065; LOD no se
 implementa y la optimización de vivienda queda como deuda medida.
-**WP4.11-H.1 (follow-up de corrección) está en curso el 2026-10-25 bajo D-076** sobre el baseline
+**WP4.11-H.1 (follow-up de corrección) quedó cerrado el 2026-10-25 bajo D-076** sobre el baseline
 auditado `83cc25a`, antes de WP4.12 y sin añadir gameplay: `WithdrawPolicy` sólo retira propuestas porque
 la ley activa es municipal y caduca sola; el sabotaje no detectado deja de manchar al atacante
 (`publiclyAttributedOrganizationId` manda para la reputación, `causedByOrganizationId` es verdad del
@@ -164,9 +164,13 @@ canonicalización mutan entidades reales; el panel de hacienda muestra la tasa p
 (`serviceFeeDueNextSettlement`) en vez del acumulado que siempre vale 0; y D-065 se reescribe —cruzar el
 disparador de 5 ms abre remediación obligatoria (medir, optimizar exacto, y sólo después LOD)— con el
 cierre medido como distribución: 24 cierres de 800 parcelas dan p50 ~28 ms y máximo ~38 ms frente a un
-tick ordinario de p95 ~0,08 ms, y `housing` concentra ~69 % del cierre. La optimización exacta de
-`placeSearchers` (`runHousingMarket`) va antes de WP4.13 y WP4.12 no debe añadir trabajo nuevo al cierre
-mensual sin volver a medir. El siguiente es WP4.12 (eventos macroeconómicos). El baseline económico actual cubre calendario
+tick ordinario de p95 ~0,08 ms, y `housing` concentra ~69 % del cierre. D-071, el acta de WP4.8 y el
+resumen de Fase 4 quedan anotados como parcialmente obsoletos donde aún prometían `banks +1` por desalojo,
+con la tabla vigente apuntando a `REPUTATION_POLICY.facts`. La optimización exacta de `placeSearchers`
+(`runHousingMarket`) va antes de WP4.13 y WP4.12 no debe añadir trabajo nuevo al cierre mensual sin volver
+a medir. El siguiente es WP4.12 (eventos macroeconómicos).
+
+El baseline económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas
 asignables, edificios multiunidad, presupuesto y satisfacción de inquilinos, mantenimiento, rival
 público con datos privados ocultos, licitación pública con fianza, reputación por grupos con hechos

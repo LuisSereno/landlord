@@ -35,6 +35,7 @@ import {
 } from "./game-data";
 import type { GameState } from "./state";
 import { runEmployment } from "./employment";
+import { runMacroEvents } from "./macro-events";
 import { runMunicipalBudget } from "./municipal-budget";
 import { runMunicipalPolitics } from "./municipal-politics";
 import { hasActiveAward, operationalBuildingsOwned, runPublicContracts } from "./public-contracts";
@@ -1448,6 +1449,8 @@ export type ProductSystem = {
  */
 export const PRODUCT_SYSTEMS: readonly ProductSystem[] = [
   { name: "tactical", run: tacticalTick },
+  // Los macroeventos se limpian al inicio del tick para que los modifiers estén disponibles O(1).
+  { name: "macroEvents", run: runMacroEvents },
   { name: "production", run: progressProduction },
   { name: "rent", run: collectRentAndAgeLeases },
   { name: "debt", run: processLoanPayments },

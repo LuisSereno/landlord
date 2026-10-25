@@ -15,6 +15,7 @@ import {
   productCommandSchema,
   playerIdentitySchema,
   crimeStateSchema,
+  macroEventsStateSchema,
   constructionSiteSchema,
   districtSchema,
   economicTransactionSchema,
@@ -133,6 +134,7 @@ export type SnapshotV1 = {
     transactions: import("./domain").EconomicTransaction[];
     ordinance: import("./domain").Ordinance;
     crime: import("./domain").CrimeState;
+    macroEvents?: import("./domain").MacroEventsState;
     influenceByOrganizationId: Array<{
       organizationId: import("./primitives").OrganizationId;
       influence: number;
@@ -220,6 +222,7 @@ const phase2SnapshotSchema = z.object({
   transactions: z.array(economicTransactionSchema),
   ordinance: ordinanceSchema,
   crime: crimeStateSchema,
+  macroEvents: macroEventsStateSchema.optional(),
   influenceByOrganizationId: z.array(
     z.object({
       organizationId: organizationSchema.shape.id,

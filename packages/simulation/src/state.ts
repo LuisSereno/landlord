@@ -39,6 +39,7 @@ import {
   type InsuranceState,
   type PermittingState,
   type InsolvencyState,
+  type MacroEventsState,
 } from "@landlord/shared";
 import type { Money } from "@landlord/shared";
 import type {
@@ -123,6 +124,7 @@ export type Phase2State = {
     lastOutcome: "none" | "profitable" | "detected";
     nextAvailableTickByOrganizationId: Record<string, number>;
   };
+  macroEvents: MacroEventsState;
   influenceByOrganizationId: Map<OrganizationId, number>;
   rivalAi: {
     strategyProfile: "conservative" | "expansionist";
@@ -362,6 +364,10 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
         policePressure: 0,
         lastOutcome: "none",
         nextAvailableTickByOrganizationId: {},
+      },
+      macroEvents: {
+        events: [],
+        nextEventOrdinal: 1,
       },
       influenceByOrganizationId: new Map([
         [PLAYER_ORGANIZATION_ID, 2],

@@ -678,6 +678,83 @@ export type CrimeState = {
   nextAvailableTickByOrganizationId: Record<string, number>;
 };
 
+/**
+ * Tipos de macroeventos económicos. Cada uno afecta a sistemas específicos mediante modifiers.
+ * Los macroeventos son O(1): no barren entidades, solo aplican modifiers globales al distrito.
+ */
+export type MacroEventType =
+  | "material_scarcity" // Aumenta costes de materiales
+  | "economic_recession" // Reduce rentas, aumenta vacancia
+  | "population_migration" // Aumenta demanda de vivienda
+  | "construction_boom" // Reduce costes de construcción
+  | "housing_crisis" // Aumenta rentas, reduce vacancia
+  | "labor_shortage"; // Aumenta costes laborales
+
+/**
+ * Modifier global que afecta a un sistema específico. Los valores son porcentajes (ej: 10 = +10%, -5 = -5%).
+ */
+export type MacroEventModifiers = {
+  materialCostModifierPercent?: number;
+  rentModifierPercent?: number;
+  vacancyModifierPercent?: number;
+  constructionCostModifierPercent?: number;
+  laborCostModifierPercent?: number;
+  demandModifierPercent?: number;
+};
+
+/**
+ * Macroevento económico activo en el distrito. Determinista, con duración fija y modifiers globales.
+ * No barre entidades: los sistemas leen los modifiers activos y los aplican O(1).
+ */
+export type MacroEvent = {
+  id: string;
+  type: MacroEventType;
+  startTick: Tick;
+  endTick: Tick;
+  intensity: number; // 0-1, magnitud del efecto
+  modifiers: MacroEventModifiers;
+};
+
+/**
+ * Estado de macroeventos en el distrito.
+ */
+export type MacroEventsState = {
+  events: MacroEvent[];
+  nextEventOrdinal: number;
+};
+
+export const macroEventTypeSchema = z.enum([
+  "material_scarcity",
+  "economic_recession",
+  "population_migration",
+  "construction_boom",
+  "housing_crisis",
+  "labor_shortage",
+]);
+
+export const macroEventModifiersSchema = z.object({
+  materialCostModifierPercent: z.number().optional(),
+  rentModifierPercent: z.number().optional(),
+  vacancyModifierPercent: z.number().optional(),
+  constructionCostModifierPercent: z.number().optional(),
+  laborCostModifierPercent: z.number().optional(),
+  demandModifierPercent: z.number().optional(),
+});
+
+export const macroEventSchema = z.object({
+  id: z.string().min(1).max(64),
+  type: macroEventTypeSchema,
+  startTick: tickSchema,
+  endTick: tickSchema,
+  intensity: z.number().min(0).max(1),
+  modifiers: macroEventModifiersSchema,
+});
+
+export const macroEventsStateSchema = z.object({
+  events: z.array(macroEventSchema),
+  nextEventOrdinal: z.number().int().nonnegative(),
+});
+
 export const districtGenerationSchema = z.object({
   profileId: z.string().min(1).max(64),
   generatorVersion: z.number().int().nonnegative(),

@@ -135,6 +135,13 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
           ...state.phase2.crime.nextAvailableTickByOrganizationId,
         },
       },
+      macroEvents: {
+        events: state.phase2.macroEvents.events.map((event) => ({
+          ...event,
+          modifiers: { ...event.modifiers },
+        })),
+        nextEventOrdinal: state.phase2.macroEvents.nextEventOrdinal,
+      },
       influenceByOrganizationId: [...state.phase2.influenceByOrganizationId.entries()]
         .map(([organizationId, influence]) => ({ organizationId, influence }))
         .sort((left, right) => left.organizationId.localeCompare(right.organizationId)),
@@ -604,6 +611,15 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
             ...snapshot.phase2.crime,
             heatByOrganizationId: { ...snapshot.phase2.crime.heatByOrganizationId },
           },
+          macroEvents: snapshot.phase2.macroEvents
+            ? {
+                events: snapshot.phase2.macroEvents.events.map((event) => ({
+                  ...event,
+                  modifiers: { ...event.modifiers },
+                })),
+                nextEventOrdinal: snapshot.phase2.macroEvents.nextEventOrdinal,
+              }
+            : defaults.macroEvents,
           influenceByOrganizationId: new Map(
             snapshot.phase2.influenceByOrganizationId.map((entry) => [
               parseOrganizationId(entry.organizationId),

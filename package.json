@@ -26,6 +26,8 @@
     "system:cost": "SYSTEM_COST=1 vitest run --config vitest.config.ts packages/simulation/src/system-cost.test.ts --reporter=verbose",
     "soak": "SOAK_FULL=1 vitest run --config vitest.config.ts packages/simulation/src/soak.test.ts --reporter=verbose",
     "audit:metrics": "AUDIT_METRICS=1 vitest run --config vitest.config.ts packages/simulation/src/audit-metrics.test.ts --reporter=verbose",
+    "balance:campaign": "BALANCE_CAMPAIGN=1 vitest run --config vitest.config.ts packages/simulation/src/balance.test.ts --reporter=verbose",
+    "state:inspect": "STATE_INSPECT=1 vitest run --config vitest.config.ts packages/simulation/src/state-inspect.test.ts --reporter=verbose",
     "format:check": "prettier --check .",
     "format": "prettier --write ."
   },

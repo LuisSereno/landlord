@@ -713,3 +713,24 @@ digestos se regeneran por superficie (quitando `automation` recuperan los valore
 deuda de D-065 sigue abierta: `buildStock` (O(edificios²)) es el hotspot medido antes de evaluar LOD.
 Ver `docs/engineering/adr/D-078-delegacion-y-excepciones.md` y
 `docs/execution/phase-4/wp4-13-automation-2026-10-25.md`.
+
+## D-079 — Herramientas internas, invariantes y dataset de balance versionado
+Estado: aceptada el 2026-10-25 para WP4.14. Sin gameplay nuevo ni pantalla de desarrollo: las
+herramientas siguen el patrón opt-in del repositorio (`pnpm balance:campaign`, `pnpm state:inspect`,
+`node scripts/build-balance-dataset.mjs`). `measureBalance` mide quiebras, vacancia y movilidad,
+concentración (cuota de la mayor organización y HHI de parcelas/edificios), deuda y presupuesto por
+organización, como estado derivado que no entra en `GameState`, snapshot ni proyección.
+`detectInvariantViolations` fija lo que la simulación no puede romper: cajas e inventarios no
+negativos, contratos bidireccionales edificio↔inquilino, referencias parcela↔edificio, principal y
+meses de préstamo, umbrales de automatización, intervalos/intensidad de macroeventos y niveles de
+servicio. El validador de catálogos corre siempre en CI (edificios, segmentos, ordenanzas, partidos y
+escaños, macroeventos, facciones, perfiles de distrito y políticas numéricas). La campaña
+`alpha-baseline-v1` registra 8 semillas × 12 meses × 200 parcelas × cuatro estrategias y su dataset se
+versiona en `docs/balance/alpha-baseline-v1.json` con esquema v1, filas, agregados, comparaciones por
+parejas y banderas; la prueba regular recalcula cada comparación desde las filas y exige cero
+invariantes rotas. Resultado: la delegación con mantenimiento diferido gana caja a la pasiva en 8/8
+semillas y elimina la vacancia medida; el mantenimiento equilibrado queda **dominado en caja** en 8/8
+(31,84 % de vacancia frente a 3,13 %, más coste), bandera `maintenance_balanced_dominated_on_cash`.
+Es un hallazgo de balance para tuning posterior, no una invariante rota; WP4.14 entrega detección, no
+rebalanceo. Ver `docs/engineering/adr/D-079-herramientas-internas-y-balance.md`,
+`docs/execution/phase-4/wp4-14-internal-tools-2026-10-25.md` y `docs/balance/README.md`.

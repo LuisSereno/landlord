@@ -197,6 +197,17 @@ Sigue abierto:
 - LOD de gameplay: no se introdujo maquinaria nueva; `buildStock` (O(edificios²)) sigue siendo el
   hotspot medido antes de aproximar.
 
+## Balance (hallazgo WP4.14)
+- El mantenimiento equilibrado está **dominado en caja** por el diferido en la baseline sintética
+  (`alpha-baseline-v1`): 0/8 semillas a favor, 31,84 % de vacancia media frente a 3,13 % y menos caja,
+  porque sube condición → renta → vacancia y además cuesta. La bandera
+  `maintenance_balanced_dominated_on_cash` lo registra. No se corrige en WP4.14: es tuning de balance
+  para una pasada posterior, no una invariante rota.
+- La delegación de propiedad/finanzas con mantenimiento diferido gana a la pasiva en 8/8 semillas y
+  elimina la vacancia medida; la bandera `automation_deferred_dominates_passive_on_cash` lo registra.
+- Regenerar el dataset tras cualquier cambio económico: `pnpm balance:campaign` y
+  `node scripts/build-balance-dataset.mjs`; comparar con `docs/balance/alpha-baseline-v1.json`.
+
 ## Rendimiento y Alpha
 
 - El cierre mensual de 800 parcelas es la frontera cara. Medido como campaña longitudinal real en

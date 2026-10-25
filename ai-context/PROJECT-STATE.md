@@ -201,6 +201,17 @@ acotados por día; bandeja priorizada sobre el canal `alerts` existente, ampliad
 interacciones manuales frente a 0 del jugador con gestor. Sin LOD nuevo (la deuda de `buildStock`
 sigue abierta) y sin `ControlContext` (no hay consumidor). Los diez digestos se regeneran por
 superficie. El siguiente es WP4.14 (herramientas internas y balance).
+**WP4.14 (herramientas internas y balance) quedó cerrado el 2026-10-25 bajo D-079**: `measureBalance`
+(quiebras, vacancia y movilidad, concentración con cuota y HHI, deuda, presupuesto y fila por
+organización), `detectInvariantViolations` (cajas, inventarios, tenencia, referencias, préstamos,
+automatización, macroeventos y servicios), validador permanente de catálogos, inspector de estado
+opt-in (`pnpm state:inspect`) y campaña de balance con seeds registradas
+(`pnpm balance:campaign`, 8 semillas × 12 meses × 200 parcelas × 4 estrategias) versionada en
+`docs/balance/alpha-baseline-v1.json` y validada por test. Hallazgo: la delegación con mantenimiento
+diferido gana caja a la pasiva en 8/8 semillas y elimina la vacancia medida; el mantenimiento
+equilibrado queda dominado en caja (31,84 % de vacancia frente a 3,13 %, más coste), registrado como
+bandera de balance para tuning posterior, no como invariante rota. El siguiente es WP4.15 (pipeline
+artístico y escalado de contenido).
 
 El baseline económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas

@@ -76,7 +76,7 @@ acotado (tres asignaciones diarias) y deja cola, que es el comportamiento declar
 - `pnpm format:check`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`: verdes.
 - Suite: 286 tests pasan, 6 skipped (incluye 11 de automatización).
 - `pnpm smoke:phase2` y `pnpm smoke:alpha`: verdes.
-- CI remoto: se confirma al subir el commit.
+- CI remoto: verde sobre `f33c698` (run 40210789655).
 
 ## No incluido
 

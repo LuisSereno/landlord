@@ -400,6 +400,19 @@ humana. Evidencia en `docs/execution/phase-4/wp4-12-macro-events-2026-10-25.md` 
 - Detectar estrategias dominantes e invariantes económicas rotas.
 - Versionar datasets de balance y resultados comparables.
 
+**Estado 2026-10-25:** `DONE`. Evidencia en
+`docs/execution/phase-4/wp4-14-internal-tools-2026-10-25.md`, decisión en
+`docs/engineering/adr/D-079-herramientas-internas-y-balance.md` y dataset en `docs/balance/`.
+
+- `measureBalance` y `detectInvariantViolations` en `packages/simulation/src/balance.ts`.
+- Validador permanente de catálogos (edificios, vivienda, ordenanzas, partidos, macroeventos,
+  facciones, distritos y políticas).
+- Inspector de estado opt-in (`pnpm state:inspect`).
+- Campaña `pnpm balance:campaign` con 8 semillas × 12 meses × 200 parcelas × 4 estrategias y dataset
+  versionado `alpha-baseline-v1` con validación de esquema y recálculo de comparaciones.
+- Hallazgo registrado: mantenimiento equilibrado dominado en caja (0/8); delegación con
+  mantenimiento diferido domina a la pasiva (8/8). Sin rebalanceo en este WP.
+
 ## WP4.15 — Pipeline artístico y escalado de contenido
 
 Resultado: convertir la baseline `graphic_civic` en una línea de producción por-asset

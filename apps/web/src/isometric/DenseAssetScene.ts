@@ -35,6 +35,7 @@ const CAMERA_PX_PER_FRAME = 0.6;
  */
 export class DenseAssetScene extends Phaser.Scene {
   private readonly spriteCount: number;
+  private readonly staticMode: boolean;
   private sprites: Phaser.GameObjects.Image[] = [];
   private frameTimer = 0;
   private frameStep = 0;
@@ -42,9 +43,10 @@ export class DenseAssetScene extends Phaser.Scene {
   private fpsFrames = 0;
   private texturesReady = false;
 
-  constructor(spriteCount: number) {
+  constructor(spriteCount: number, staticMode = false) {
     super("dense-assets");
     this.spriteCount = spriteCount;
+    this.staticMode = staticMode;
   }
 
   create(): void {
@@ -59,7 +61,7 @@ export class DenseAssetScene extends Phaser.Scene {
       this.fpsFrames = 0;
       this.fpsAccumulator = 0;
     }
-    if (!this.texturesReady) return;
+    if (this.staticMode || !this.texturesReady) return;
     this.cameras.main.scrollX =
       (this.cameras.main.scrollX + CAMERA_PX_PER_FRAME) % (REFERENCE_LAYOUT.mapWidth * 32);
     this.frameTimer += delta;
@@ -152,14 +154,18 @@ export class DenseAssetScene extends Phaser.Scene {
   }
 }
 
-export function mountDenseAssetScene(container: HTMLElement, count: number): () => void {
+export function mountDenseAssetScene(
+  container: HTMLElement,
+  count: number,
+  staticMode = false,
+): () => void {
   const game = new Phaser.Game({
     type: Phaser.AUTO,
     parent: container,
     width: 960,
     height: 540,
     backgroundColor: "#1c2533",
-    scene: [new DenseAssetScene(count)],
+    scene: [new DenseAssetScene(count, staticMode)],
     banner: false,
     audio: { noAudio: true },
   });

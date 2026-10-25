@@ -95,12 +95,12 @@ function CharacterStrip({
   );
 }
 
-function DenseScene({ count }: { count: number }) {
+function DenseScene({ count, staticMode }: { count: number; staticMode: boolean }) {
   const container = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!container.current) return;
-    return mountDenseAssetScene(container.current, count);
-  }, [count]);
+    return mountDenseAssetScene(container.current, count, staticMode);
+  }, [count, staticMode]);
   return <div data-testid="dense-scene" ref={container} />;
 }
 
@@ -200,7 +200,7 @@ function RuntimeAssetFactory() {
               </div>
               <span className="art-lab-status">FPS en vivo</span>
             </div>
-            <DenseScene count={denseCount} />
+            <DenseScene count={denseCount} staticMode={staticMode} />
           </article>
         )}
       </div>

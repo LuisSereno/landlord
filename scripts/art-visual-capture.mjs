@@ -42,7 +42,7 @@ page.on("pageerror", (error) => pageErrors.push(error.message));
 async function waitForServer() {
   for (let attempt = 0; attempt < 100; attempt += 1) {
     try {
-      await page.goto(`${baseUrl}/art-lab?static=1`, {
+      await page.goto(`${baseUrl}/art-lab?static=1&density=400`, {
         waitUntil: "domcontentloaded",
         timeout: 500,
       });
@@ -115,6 +115,7 @@ try {
   await page.locator("[data-building]").first().waitFor();
   await page.locator("[data-character]").first().waitFor();
   await page.locator("[data-blender-e2e]").first().waitFor();
+  await page.waitForFunction(() => window.__artLabDenseReady === true, { timeout: 10000 });
   await page.waitForTimeout(500);
   const screenshot = await page.screenshot({ fullPage: true });
   mkdirSync("artifacts", { recursive: true });
@@ -129,7 +130,7 @@ try {
       `${JSON.stringify(
         {
           schemaVersion: 1,
-          page: "/art-lab?static=1",
+          page: "/art-lab?static=1&density=400",
           viewport: { width: 1440, height: 1000 },
           deviceScaleFactor: 1,
           channelThreshold,

@@ -71,6 +71,37 @@ export const SYSTEM_COST_WINDOWS = [
 
 export type SystemCostWindow = (typeof SYSTEM_COST_WINDOWS)[number];
 
+/**
+ * El warmup se ejecuta antes de la ventana, así que el reloj arranca lo bastante pronto para que el
+ * warmup termine justo en `startTick`. Para las ventanas que empiezan en cero no hay hueco anterior:
+ * se calienta desde el tick 0 y la medición empieza donde termina el warmup.
+ */
+export function warmupStartTick(costWindow: SystemCostWindow, warmupTicks: number): number {
+  return Math.max(0, costWindow.startTick - Math.max(0, warmupTicks));
+}
+
+/** Tick en el que empieza la sección medida: justo después de consumir el warmup. */
+export function measurementStartTick(costWindow: SystemCostWindow, warmupTicks: number): number {
+  return warmupStartTick(costWindow, warmupTicks) + Math.max(0, warmupTicks);
+}
+
+/**
+ * ¿La sección medida ejecuta algún cierre mensual? Los sistemas corren antes de incrementar el reloj,
+ * así que la ventana recorrida es [start, start + ticks) y el cierre ocurre en cada múltiplo del mes.
+ * El tick 0 se excluye: todos los sistemas mensuales salen antes de hacer nada.
+ */
+export function windowCrossesMonthClose(
+  costWindow: SystemCostWindow,
+  warmupTicks: number,
+): boolean {
+  const start = measurementStartTick(costWindow, warmupTicks);
+  const nextClose =
+    start > 0 && start % GAME_MONTH_TICKS === 0
+      ? start
+      : (Math.floor(start / GAME_MONTH_TICKS) + 1) * GAME_MONTH_TICKS;
+  return nextClose < start + costWindow.ticks;
+}
+
 const ZONING_BAG: readonly Zoning[] = ["residential", "residential", "mixed", "industrial"];
 const BUILDING_TYPES_BY_ZONING: Record<Zoning, readonly BuildingType[]> = {
   residential: ["courtyard_home"],
@@ -579,13 +610,11 @@ function prepareCity(
   costWindow: SystemCostWindow,
   parcelCount: number,
 ): GameState {
-  const state = createScaledCity(input.seed, {
+  return createScaledCity(input.seed, {
     parcelCount,
     districtProfileId: input.districtProfileId,
     incidentCount: costWindow.incidentCount,
   });
-  state.clock = { ...state.clock, tick: parseTick(costWindow.startTick) };
-  return state;
 }
 
 /**
@@ -602,10 +631,15 @@ export function measureScaledCity(input: MeasureScaledCityInput): ScaledCityMeas
   for (const costWindow of windows) {
     const state = prepareCity(input, costWindow, input.scale.parcels);
     const plain = prepareCity(input, costWindow, input.scale.parcels);
+    const warmupStart = parseTick(warmupStartTick(costWindow, warmupTicks));
+    state.clock = { ...state.clock, tick: warmupStart };
+    plain.clock = { ...plain.clock, tick: warmupStart };
     for (let tick = 0; tick < warmupTicks; tick += 1) {
       advanceProductSystems(state);
       advanceProductSystems(plain);
     }
+    /** El warmup ya ocurrió y dejó el reloj donde debe empezar la medición. */
+    const startTick = state.clock.tick;
     const counts = describeScaledCity(state);
 
     const plainSamples: number[] = [];
@@ -644,7 +678,7 @@ export function measureScaledCity(input: MeasureScaledCityInput): ScaledCityMeas
     reports.push({
       label: costWindow.label,
       ticks: costWindow.ticks,
-      startTick: costWindow.startTick,
+      startTick,
       endTick: state.clock.tick,
       counts,
       endCounts: describeScaledCity(state),

@@ -2,14 +2,17 @@ import { describe, expect, it } from "vitest";
 
 import { advanceProductSystems, PRODUCT_SYSTEMS } from "./systems";
 import { canonicalizeState } from "./runner";
+import { GAME_MONTH_TICKS } from "./game-data";
 import { parseTick } from "@landlord/shared";
 import {
   createScaledCity,
   describeScaledCity,
+  measurementStartTick,
   measureScaledCity,
   summarizeScaleGrowth,
   SYSTEM_COST_SCALES,
   SYSTEM_COST_WINDOWS,
+  windowCrossesMonthClose,
   type ScaledCityMeasurement,
 } from "./system-cost";
 
@@ -80,6 +83,33 @@ describe("WP4.2 system cost harness", () => {
 
   it("rechaza una escala que no cabe en el mapa", () => {
     expect(() => createScaledCity(1, { parcelCount: 5_000 })).toThrow(RangeError);
+  });
+
+  it("la ventana mensual cruza el cierre después del warmup, no dentro de él", () => {
+    const month = SYSTEM_COST_WINDOWS.find((entry) => entry.label === "month")!;
+    const warmup = 60;
+    expect(windowCrossesMonthClose(month, warmup)).toBe(true);
+    const start = measurementStartTick(month, warmup);
+    expect(start).toBe(GAME_MONTH_TICKS - 3);
+    for (const entry of SYSTEM_COST_WINDOWS.filter((item) => item.label !== "month")) {
+      expect(windowCrossesMonthClose(entry, warmup), entry.label).toBe(false);
+    }
+  });
+
+  it("los cierres mensuales se ejecutan dentro de la sección medida", () => {
+    const month = SYSTEM_COST_WINDOWS.find((entry) => entry.label === "month")!;
+    const warmup = 60;
+    const state = createScaledCity(5, { parcelCount: 50 });
+    const start = measurementStartTick(month, warmup);
+    state.clock = { ...state.clock, tick: parseTick(start - warmup) };
+    for (let tick = 0; tick < warmup; tick += 1) advanceProductSystems(state);
+    expect(state.clock.tick).toBe(start);
+    expect(state.phase2.politics.lastMoodTick).not.toBe(GAME_MONTH_TICKS);
+    for (let tick = 0; tick < month.ticks; tick += 1) advanceProductSystems(state);
+    /** La opinión sólo se mide al cerrar el mes: si el cierre quedó en warmup, este valor sería nulo. */
+    expect(state.phase2.politics.lastMoodTick).toBe(GAME_MONTH_TICKS);
+    expect(state.phase2.municipal.lastSettlementTick).toBe(GAME_MONTH_TICKS);
+    expect(state.clock.tick).toBeGreaterThan(GAME_MONTH_TICKS);
   });
 
   it("ordena los ids del juego igual por comparación relacional que por localeCompare", () => {

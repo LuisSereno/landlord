@@ -117,6 +117,10 @@ try {
   await page.locator("[data-blender-e2e]").first().waitFor();
   await page.waitForFunction(() => window.__artLabDenseReady === true, { timeout: 10000 });
   await page.waitForTimeout(500);
+  await page.evaluate(() => {
+    const denseScene = document.querySelector("[data-testid='dense-scene']");
+    if (denseScene) denseScene.remove();
+  });
   const screenshot = await page.screenshot({ fullPage: true });
   mkdirSync("artifacts", { recursive: true });
   writeFileSync(output, screenshot);

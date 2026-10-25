@@ -24,7 +24,11 @@ import type { ProductCommand } from "@landlord/shared";
 import { parseSeed, parseTick } from "@landlord/shared";
 import { PRNG_ALGORITHM } from "./prng";
 import { createInitialState, type GameState } from "./state";
-import { BUILDING_DEFINITIONS, TENANT_PROFILE_DEFAULTS } from "./game-data";
+import {
+  BUILDING_DEFINITIONS,
+  MUNICIPAL_PARTY_CATALOG,
+  TENANT_PROFILE_DEFAULTS,
+} from "./game-data";
 
 export const ENGINE_VERSION = "phase4-dev";
 
@@ -269,6 +273,27 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
       },
     },
   };
+}
+
+/**
+ * Validación semántica que shared no puede hacer sin importar el catálogo de partidos: un concejo
+ * gobernado por una formación inexistente o con escaños de partidos que ya no existen dejaría la
+ * transferencia institucional sin destino. Se ejecuta al restaurar y falla el snapshot entero.
+ */
+function assertMunicipalPoliticsReferences(state: GameState): void {
+  const politics = state.phase2.politics;
+  const partyIds = new Set(MUNICIPAL_PARTY_CATALOG.map((party) => party.id));
+  const issues: string[] = [];
+  if (!partyIds.has(politics.governingPartyId)) issues.push("governingPartyId");
+  for (const partyId of Object.keys(politics.seatsByPartyId)) {
+    if (!partyIds.has(partyId)) issues.push(`seatsByPartyId/${partyId}`);
+  }
+  for (const partyId of Object.keys(politics.supportPercentByPartyId)) {
+    if (!partyIds.has(partyId)) issues.push(`supportPercentByPartyId/${partyId}`);
+  }
+  if (issues.length > 0) {
+    throw new Error(`Invalid municipal politics references: ${issues.join(", ")}`);
+  }
 }
 
 export function restoreStateFromSnapshot(value: unknown): GameState {
@@ -944,5 +969,6 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
     if (!state.phase2.balances.has(organizationId))
       state.phase2.balances.set(organizationId, balance);
   }
+  assertMunicipalPoliticsReferences(state);
   return state;
 }

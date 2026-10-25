@@ -330,6 +330,9 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
   const issues: SnapshotValidationIssue[] = [];
   const personIds = new Set(snapshot.persons.map((person) => person.id));
   const organizationIds = new Set(snapshot.organizations.map((organization) => organization.id));
+  const organizationById = new Map(
+    snapshot.organizations.map((organization) => [organization.id, organization]),
+  );
   const structureIds = snapshot.structures.map((structure) => structure.id);
   const agentIds = snapshot.agents.map((agent) => agent.id);
   const cells = [
@@ -646,6 +649,116 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
     ]) {
       if (!organizationIds.has(organizationId as Organization["id"])) {
         issues.push({ code: "MISSING_REFERENCE", path: "phase2/organizationState" });
+      }
+    }
+    /** Contratos públicos: la fianza, la adjudicación y la fiabilidad hablan de empresas vivas. */
+    if (snapshot.phase2.contracts) {
+      const contracts = snapshot.phase2.contracts;
+      for (const [contractId, contract] of Object.entries(contracts.contracts)) {
+        if (
+          contract.awardedToOrganizationId &&
+          (!organizationIds.has(contract.awardedToOrganizationId) ||
+            organizationById.get(contract.awardedToOrganizationId)?.kind !== "company")
+        ) {
+          issues.push({
+            code: "MISSING_REFERENCE",
+            path: `phase2/contracts/${contractId}/awardedToOrganizationId`,
+          });
+        }
+        for (const bid of contract.bids) {
+          if (
+            !organizationIds.has(bid.organizationId) ||
+            organizationById.get(bid.organizationId)?.kind !== "company"
+          ) {
+            issues.push({
+              code: "MISSING_REFERENCE",
+              path: `phase2/contracts/${contractId}/bids/${bid.organizationId}`,
+            });
+          }
+        }
+      }
+      for (const organizationId of Object.keys(contracts.reliabilityByOrganizationId)) {
+        if (!organizationIds.has(organizationId as Organization["id"])) {
+          issues.push({
+            code: "MISSING_REFERENCE",
+            path: `phase2/contracts/reliabilityByOrganizationId/${organizationId}`,
+          });
+        }
+      }
+    }
+    if (snapshot.phase2.reputation) {
+      const reputation = snapshot.phase2.reputation;
+      for (const organizationId of [
+        ...Object.keys(reputation.standingByOrganizationId),
+        ...Object.keys(reputation.factsByOrganizationId),
+      ]) {
+        if (!organizationIds.has(organizationId as Organization["id"])) {
+          issues.push({
+            code: "MISSING_REFERENCE",
+            path: `phase2/reputation/${organizationId}`,
+          });
+        }
+      }
+    }
+    if (snapshot.phase2.intelligence) {
+      const intelligence = snapshot.phase2.intelligence;
+      if (
+        !organizationIds.has(intelligence.observerOrganizationId) ||
+        organizationById.get(intelligence.observerOrganizationId)?.kind !== "company"
+      ) {
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: "phase2/intelligence/observerOrganizationId",
+        });
+      }
+      for (const [subjectId, estimates] of Object.entries(
+        intelligence.estimatesBySubjectOrganizationId,
+      )) {
+        if (!organizationIds.has(subjectId as Organization["id"])) {
+          issues.push({
+            code: "MISSING_REFERENCE",
+            path: `phase2/intelligence/estimatesBySubjectOrganizationId/${subjectId}`,
+          });
+        }
+        for (const estimate of estimates) {
+          if (
+            !organizationIds.has(estimate.subjectOrganizationId) ||
+            estimate.subjectOrganizationId !== subjectId
+          ) {
+            issues.push({
+              code: "MISSING_REFERENCE",
+              path: `phase2/intelligence/estimatesBySubjectOrganizationId/${subjectId}/${estimate.id}`,
+            });
+          }
+        }
+      }
+    }
+    if (snapshot.phase2.factions) {
+      const factions = snapshot.phase2.factions;
+      for (const organizationId of [
+        ...Object.keys(factions.profileByOrganizationId),
+        ...Object.keys(factions.memoryByOrganizationId),
+        ...Object.keys(factions.cycleCountByOrganizationId),
+      ]) {
+        if (!organizationIds.has(organizationId as Organization["id"])) {
+          issues.push({ code: "MISSING_REFERENCE", path: `phase2/factions/${organizationId}` });
+        }
+      }
+      for (const pairId of Object.keys(factions.stanceByPairId)) {
+        const parts = pairId.split(">");
+        const [observerId, subjectId] = parts;
+        if (
+          parts.length !== 2 ||
+          !observerId ||
+          !subjectId ||
+          !organizationIds.has(observerId as Organization["id"]) ||
+          !organizationIds.has(subjectId as Organization["id"])
+        ) {
+          issues.push({
+            code: "MISSING_REFERENCE",
+            path: `phase2/factions/stanceByPairId/${pairId}`,
+          });
+        }
       }
     }
     if (hasDuplicate(snapshot.phase2.parcels.map((parcel) => parcel.id))) {

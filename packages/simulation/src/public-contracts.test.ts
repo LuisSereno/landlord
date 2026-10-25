@@ -27,6 +27,7 @@ import {
   operationalBuildingsOwned,
   runPublicContracts,
 } from "./public-contracts";
+import { canonicalizeState } from "./runner";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { createInitialState, type GameState } from "./state";
 import { advanceProductSystems } from "./systems";
@@ -350,9 +351,7 @@ describe("WP4.7 contratos públicos", () => {
       runPublicContracts(state);
       at(state, contract.executesAtTick);
       runPublicContracts(state);
-      // El snapshot completo incluye contratos y fiabilidad; `canonicalizeState` todavía no
-      // serializa los agregados económicos de WP4.3–WP4.7 (deuda documentada).
-      return JSON.stringify(serializeSnapshot(state));
+      return canonicalizeState(state);
     };
     expect(run()).toBe(run());
   });

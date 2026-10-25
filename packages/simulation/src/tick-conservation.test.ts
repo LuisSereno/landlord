@@ -52,6 +52,18 @@ import { createScaledCity } from "./system-cost";
  * `governingPartyId` fuera del catálogo hace que `budgetPriorityFor` devuelva el orden por defecto) y
  * quitando el bloque, ambos recuperan `611b01b5e69f0d61` y `7ab1cf04050e3d4d`, sus digestos de WP4.10.
  * Ninguna otra caja, transacción, hogar ni incidente se mueve por otro canal.
+ *
+ * Regeneración WP4.11-H (2026-10-25): el estado canónico gana `crews`, `incidents`,
+ * `phase2.idCounters`, `pendingCommands`, `employment`, `municipal`, `housingMarket`, `contracts`,
+ * `reputation`, `intelligence` y `factions`; además `balances`, `inventories` e influencia pasan a
+ * serializar su id y todas las claves se ordenan recursivamente. Cambian los diez digestos.
+ * Atribución verificada: reconstruyendo la serialización canónica anterior sobre los mismos estados
+ * nuevos salen exactamente los diez valores de WP4.11 (`cbfb3f7c51f0233c`, `ab1719956d062dac`,
+ * `55cd7cc60cd9c651`, `09ba274d438311f3`, `bf1ac7fb74da8b89`, `8cd19ed973a256a1`, `ffaabc2525434a22`,
+ * `1269681c889cb606`, `95489f25a3251d3a`, `cb47c7206fe65ef0`). Ninguna caja, transacción, baja,
+ * desplazamiento ni decisión de estos escenarios se movió: el delta es superficie canónica. Las
+ * reglas nuevas de censo, eje fiscal, ordenanza y reputación no se ejercitan aquí porque ningún caso
+ * celebra elección, ni desaloja en proporción distinta, ni cambia la lectura bancaria.
  */
 function digest(value: string): string {
   let left = 0x811c9dc5;
@@ -82,54 +94,54 @@ function cityDigest(input: {
 const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => string }> = [
   {
     id: "scenario:seed-1:1200",
-    expected: "cbfb3f7c51f0233c",
+    expected: "3112921f3895fda7",
     run: () => digest(canonicalizeState(runScenario(1, [], 1_200).state)),
   },
   {
     id: "scenario:seed-7:1200",
-    expected: "ab1719956d062dac",
+    expected: "f896686c9cd189a1",
     run: () => digest(canonicalizeState(runScenario(7, [], 1_200).state)),
   },
   {
     id: "scenario:seed-42:1200",
-    expected: "55cd7cc60cd9c651",
+    expected: "5d3bb2ce7c992fee",
     run: () => digest(canonicalizeState(runScenario(42, [], 1_200).state)),
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "09ba274d438311f3",
+    expected: "0dc2c0afcbb37013",
     run: () => digest(canonicalizeState(runScenario(1, [], 36_000).state)),
   },
   {
     id: "city:50-parcels:1300-ticks",
-    expected: "bf1ac7fb74da8b89",
+    expected: "aa6df9560bd75329",
     run: () => cityDigest({ parcelCount: 50, ticks: 1_300 }),
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "8cd19ed973a256a1",
+    expected: "b9265816025c4329",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "ffaabc2525434a22",
+    expected: "2d8810d5599ad182",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "1269681c889cb606",
+    expected: "e1fc003eb7af4c9a",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "95489f25a3251d3a",
+    expected: "91fa9ad9c89a0116",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "cb47c7206fe65ef0",
+    expected: "ba411bbd904a5d19",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];

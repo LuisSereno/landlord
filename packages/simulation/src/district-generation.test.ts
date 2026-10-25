@@ -322,9 +322,8 @@ describe("WP4.1 district generation", () => {
     const restored = restoreStateFromSnapshot(parsed);
     expect([...restored.map.blockedCells].sort()).toEqual([...state.map.blockedCells].sort());
     expect(restored.phase2.district.generation?.profileId).toBe("vega_del_cauce");
-    // Comparación estructural: `canonicalizeState` serializa con JSON.stringify y el orden de
-    // claves de un estado restaurado difiere del original sin que cambie ningún valor.
-    expect(JSON.parse(canonicalizeState(restored))).toEqual(JSON.parse(canonicalizeState(state)));
+    /** El estado canónico ordena maps y claves: dos estados equivalentes deben coincidir en cadena. */
+    expect(canonicalizeState(restored)).toBe(canonicalizeState(state));
     expect(serializeSnapshot(restored)).toEqual(snapshot);
   });
 

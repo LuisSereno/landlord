@@ -4,34 +4,36 @@ import { dispatchPlaceTestStructure, dispatchProductCommand } from "./commands";
 import { createInitialState, type GameState, type InitialStateOptions } from "./state";
 import { advanceProductSystems } from "./systems";
 
-function orderedMapValues<T>(map: ReadonlyMap<string, T>): T[] {
-  return [...map.entries()]
-    .sort(([left], [right]) => left.localeCompare(right))
-    .map(([, value]) => value);
+function orderedEntries<T>(map: ReadonlyMap<string, T>): Array<[string, T]> {
+  return [...map.entries()].sort(([left], [right]) => left.localeCompare(right));
 }
 
-export type ScheduledCommand = {
-  atTick: number;
-  command: ProductCommand;
-};
+function orderedMapValues<T>(map: ReadonlyMap<string, T>): T[] {
+  return orderedEntries(map).map(([, value]) => value);
+}
 
-export type ScenarioCheckpoint = {
-  tick: number;
-  canonicalState: string;
-};
+/**
+ * Ordena las claves de todo objeto anidado antes de serializar. `JSON.stringify` conserva el orden
+ * de inserción de las claves, y un estado restaurado lo reconstruye en otro orden aunque sus valores
+ * sean idénticos; el digesto tiene que depender del contenido, no de cómo se construyó el objeto.
+ */
+function sortKeysDeep(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(sortKeysDeep);
+  if (value !== null && typeof value === "object") {
+    const source = value as Record<string, unknown>;
+    const sorted: Record<string, unknown> = {};
+    for (const key of Object.keys(source).sort()) sorted[key] = sortKeysDeep(source[key]);
+    return sorted;
+  }
+  return value;
+}
 
-export type ScenarioRun = {
-  state: GameState;
-  results: Array<{ atTick: number; result: CommandResult | ProductCommandResult }>;
-  checkpoints: ScenarioCheckpoint[];
-};
-
-export function createScenarioState(seed: number, options: InitialStateOptions = {}): GameState {
-  return createInitialState(seed, options);
+function canonicalJson(value: unknown): string {
+  return JSON.stringify(sortKeysDeep(value));
 }
 
 export function canonicalizeState(state: GameState): string {
-  return JSON.stringify({
+  return canonicalJson({
     seed: state.seed,
     clock: state.clock,
     prng: state.prng,
@@ -54,29 +56,70 @@ export function canonicalizeState(state: GameState): string {
     processedCommandIds: [...state.processedCommandIds].sort((left, right) =>
       left.localeCompare(right),
     ),
+    pendingCommands: [...state.pendingCommands].sort(
+      (left, right) => left.acceptedOrder - right.acceptedOrder,
+    ),
     phase2: {
+      idCounters: state.phase2.idCounters,
       district: state.phase2.district,
       parcels: orderedMapValues(state.phase2.parcels),
-      balances: orderedMapValues(state.phase2.balances),
-      inventories: orderedMapValues(state.phase2.inventories),
+      balances: orderedEntries(state.phase2.balances).map(([organizationId, balance]) => ({
+        organizationId,
+        balance,
+      })),
+      inventories: orderedEntries(state.phase2.inventories).map(([organizationId, inventory]) => ({
+        organizationId,
+        inventory,
+      })),
       facilities: orderedMapValues(state.phase2.facilities),
       buildings: orderedMapValues(state.phase2.buildings),
       constructionSites: orderedMapValues(state.phase2.constructionSites),
+      crews: orderedMapValues(state.phase2.crews),
+      incidents: orderedMapValues(state.phase2.incidents),
       tenants: orderedMapValues(state.phase2.tenants),
       transactions: state.phase2.transactions,
       ordinance: state.phase2.ordinance,
-      politics: state.phase2.politics,
       crime: state.phase2.crime,
-      influenceByOrganizationId: orderedMapValues(state.phase2.influenceByOrganizationId),
+      influenceByOrganizationId: orderedEntries(state.phase2.influenceByOrganizationId).map(
+        ([organizationId, influence]) => ({ organizationId, influence }),
+      ),
+      rivalAi: state.phase2.rivalAi,
       loans: orderedMapValues(state.phase2.loans),
       taxation: state.phase2.taxation,
       maintenance: state.phase2.maintenance,
       insurance: state.phase2.insurance,
       permitting: state.phase2.permitting,
       insolvency: state.phase2.insolvency,
-      rivalAi: state.phase2.rivalAi,
+      employment: state.phase2.employment,
+      housingMarket: state.phase2.housingMarket,
+      municipal: state.phase2.municipal,
+      politics: state.phase2.politics,
+      contracts: state.phase2.contracts,
+      reputation: state.phase2.reputation,
+      intelligence: state.phase2.intelligence,
+      factions: state.phase2.factions,
     },
   });
+}
+
+export type ScheduledCommand = {
+  atTick: number;
+  command: ProductCommand;
+};
+
+export type ScenarioCheckpoint = {
+  tick: number;
+  canonicalState: string;
+};
+
+export type ScenarioRun = {
+  state: GameState;
+  results: Array<{ atTick: number; result: CommandResult | ProductCommandResult }>;
+  checkpoints: ScenarioCheckpoint[];
+};
+
+export function createScenarioState(seed: number, options: InitialStateOptions = {}): GameState {
+  return createInitialState(seed, options);
 }
 
 export function runScenario(

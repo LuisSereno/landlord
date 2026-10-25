@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   BUILDING_ASSET_STATES,
   type BuildingAssetState,
@@ -6,8 +6,12 @@ import {
   type RuntimeAssetManifestV1,
 } from "@landlord/shared";
 import runtimeAssets from "./generated/runtime-assets.json";
+import blenderBundle from "../public/assets/runtime/blender/runtime-assets-blender.json";
+import { animationFrameFor, framesPerDirection } from "./isometric/building-sprites";
+import { mountDenseAssetScene } from "./isometric/DenseAssetScene";
 
 const ASSETS = runtimeAssets as RuntimeAssetManifestV1;
+const BLENDER = blenderBundle as unknown as RuntimeAssetManifestV1;
 
 const directions = [
   {
@@ -40,23 +44,23 @@ const STATE_LABELS: Record<BuildingAssetState, string> = {
   burning: "Incendio",
 };
 
-declare global {
-  interface Window {
-    __artLabFps?: number;
-    __artLabSprites?: number;
-  }
-}
-
-function CharacterStrip({ character }: { character: CharacterAssetV1 }) {
-  const [frame, setFrame] = useState(0);
+function CharacterStrip({
+  character,
+  staticMode,
+}: {
+  character: CharacterAssetV1;
+  staticMode: boolean;
+}) {
+  const perDirection = framesPerDirection(character, "walk");
+  const [phase, setPhase] = useState(0);
   useEffect(() => {
+    if (staticMode) return;
     const timer = window.setInterval(
-      () => setFrame((current) => (current + 1) % character.animations.walk.frames.length),
+      () => setPhase((current) => (current + 1) % perDirection),
       character.animations.walk.frameDurationMs,
     );
     return () => window.clearInterval(timer);
-  }, [character.animations.walk.frameDurationMs, character.animations.walk.frames.length]);
-  const idle = character.animations.idle.frames;
+  }, [character.animations.walk.frameDurationMs, perDirection, staticMode]);
   const walk = character.animations.walk.frames;
   return (
     <article className="art-lab-card" data-character={character.id}>
@@ -65,16 +69,23 @@ function CharacterStrip({ character }: { character: CharacterAssetV1 }) {
           <p className="eyebrow">Personaje · {character.directions} direcciones</p>
           <h3>{character.name}</h3>
         </div>
-        <span className="art-lab-status">{walk.length} frames</span>
+        <span className="art-lab-status">
+          {walk.length} frames · {perDirection} por dirección
+        </span>
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         {Array.from({ length: character.directions }, (_, direction) => {
-          const idleFrame = idle[(direction * 2) % idle.length]!;
-          const walkFrame = walk[frame % walk.length]!;
+          const idleFrame = animationFrameFor(character, "idle", direction, 0);
+          const walkFrame = animationFrameFor(character, "walk", direction, phase);
           return (
             <figure key={direction} style={{ margin: 0, textAlign: "center" }}>
               <img src={idleFrame.src} alt={`${character.name} quieto ${direction}`} width={36} />
-              <img src={walkFrame.src} alt={`${character.name} andando ${direction}`} width={36} />
+              <img
+                data-walk-direction={direction}
+                src={walkFrame.src}
+                alt={`${character.name} andando ${direction}`}
+                width={36}
+              />
               <figcaption style={{ fontSize: 10 }}>dir {direction}</figcaption>
             </figure>
           );
@@ -85,49 +96,12 @@ function CharacterStrip({ character }: { character: CharacterAssetV1 }) {
 }
 
 function DenseScene({ count }: { count: number }) {
-  const tiles = useMemo(
-    () =>
-      Array.from({ length: count }, (_, index) => {
-        const buildings = Object.values(ASSETS.buildings);
-        const building = buildings[index % buildings.length]!;
-        const state = BUILDING_ASSET_STATES[index % BUILDING_ASSET_STATES.length]!;
-        return { key: index, src: building.states[state].src };
-      }),
-    [count],
-  );
+  const container = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    let frames = 0;
-    let last = performance.now();
-    let raf = 0;
-    window.__artLabSprites = count;
-    const tick = (now: number) => {
-      frames += 1;
-      if (now - last >= 500) {
-        window.__artLabFps = Math.round((frames * 1000) / (now - last));
-        frames = 0;
-        last = now;
-      }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    if (!container.current) return;
+    return mountDenseAssetScene(container.current, count);
   }, [count]);
-  return (
-    <div
-      data-testid="dense-scene"
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(20, 48px)",
-        gap: 2,
-        background: "#1c2533",
-        padding: 8,
-      }}
-    >
-      {tiles.map((tile) => (
-        <img key={tile.key} src={tile.src} width={48} height={42} alt="" />
-      ))}
-    </div>
-  );
+  return <div data-testid="dense-scene" ref={container} />;
 }
 
 function RuntimeAssetFactory() {
@@ -135,6 +109,13 @@ function RuntimeAssetFactory() {
     const value = Number(new URLSearchParams(window.location.search).get("density") ?? 0);
     return Number.isFinite(value) && value > 0 ? Math.min(600, Math.round(value)) : 0;
   }, []);
+  /** `?static=1` congela la animación para que la captura de regresión visual sea determinista. */
+  const staticMode = useMemo(
+    () => new URLSearchParams(window.location.search).get("static") === "1",
+    [],
+  );
+  const blenderBuilding = Object.values(BLENDER.buildings)[0]!;
+  const blenderCharacter = Object.values(BLENDER.characters)[0]!;
   return (
     <section aria-label="Factoría runtime de assets" style={{ marginTop: 32 }}>
       <header>
@@ -174,14 +155,47 @@ function RuntimeAssetFactory() {
             </div>
           </article>
         ))}
+        <article className="art-lab-card" data-blender-e2e={blenderBuilding.type}>
+          <div className="art-lab-card-heading">
+            <div>
+              <p className="eyebrow">Ruta Blender E2E · render → trim → metadata → Phaser</p>
+              <h3>{blenderBuilding.name}</h3>
+            </div>
+            <span className="art-lab-status">
+              pivote {blenderBuilding.pivot.x.toFixed(2)}, {blenderBuilding.pivot.y.toFixed(2)}
+            </span>
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {BUILDING_ASSET_STATES.map((state) => (
+              <figure key={state} style={{ margin: 0, textAlign: "center" }}>
+                <img
+                  src={blenderBuilding.states[state].src}
+                  alt={`${blenderBuilding.name} ${STATE_LABELS[state]} (Blender)`}
+                  width={96}
+                />
+                <figcaption style={{ fontSize: 11 }}>{STATE_LABELS[state]}</figcaption>
+              </figure>
+            ))}
+            {Array.from({ length: blenderCharacter.directions }, (_, direction) => (
+              <figure key={direction} style={{ margin: 0, textAlign: "center" }}>
+                <img
+                  src={animationFrameFor(blenderCharacter, "walk", direction, 0).src}
+                  alt={`${blenderCharacter.name} andando ${direction} (Blender)`}
+                  width={48}
+                />
+                <figcaption style={{ fontSize: 11 }}>dir {direction}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </article>
         {Object.values(ASSETS.characters).map((character) => (
-          <CharacterStrip key={character.id} character={character} />
+          <CharacterStrip key={character.id} character={character} staticMode={staticMode} />
         ))}
         {denseCount > 0 && (
           <article className="art-lab-card">
             <div className="art-lab-card-heading">
               <div>
-                <p className="eyebrow">Perfil de distrito denso</p>
+                <p className="eyebrow">Perfil de distrito denso en Phaser</p>
                 <h3>{denseCount} sprites</h3>
               </div>
               <span className="art-lab-status">FPS en vivo</span>

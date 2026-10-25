@@ -1,7 +1,10 @@
 import {
+  type AssetImageV1,
   type BuildingAssetState,
   type BuildingAssetV1,
   type BuildingType,
+  type CharacterAnimation,
+  type CharacterAssetV1,
   type GridCell,
   type RuntimeAssetManifestV1,
 } from "@landlord/shared";
@@ -32,6 +35,61 @@ export function spriteKeyFor(type: BuildingType, state: BuildingAssetState): str
  */
 export function depthForCell(cell: GridCell): number {
   return (cell.x + cell.y) * 1_000 + cell.y * 10 + cell.x;
+}
+
+/**
+ * Depth de un sprite con huella. El asset ocupa `width × height` celdas hacia el sureste desde su celda
+ * ancla, así que se ordena por la celda más cercana a cámara: sin esto una planta de cemento 2×2 se
+ * pintaría detrás de los edificios que tapa.
+ */
+export function depthForAsset(
+  cell: GridCell,
+  footprint: { width: number; height: number },
+): number {
+  return depthForCell({
+    x: cell.x + Math.max(1, Math.round(footprint.width)) - 1,
+    y: cell.y + Math.max(1, Math.round(footprint.height)) - 1,
+  });
+}
+
+/**
+ * Celda del centro de la huella, fraccionaria cuando la huella es par. El pivote del contrato es el
+ * centro de la huella, no la celda ancla: ahí se coloca el sprite.
+ */
+export function footprintCenter(
+  cell: GridCell,
+  footprint: { width: number; height: number },
+): GridCell {
+  return {
+    x: cell.x + (Math.max(1, Math.round(footprint.width)) - 1) / 2,
+    y: cell.y + (Math.max(1, Math.round(footprint.height)) - 1) / 2,
+  };
+}
+
+/**
+ * Frames por dirección de una animación. El manifiesto los ordena por dirección y después por fase, así
+ * que el índice de un frame es `dirección × framesPorDirección + fase`.
+ */ export function framesPerDirection(
+  character: Pick<CharacterAssetV1, "directions" | "animations">,
+  animation: CharacterAnimation,
+): number {
+  return Math.max(
+    1,
+    Math.floor(character.animations[animation].frames.length / character.directions),
+  );
+}
+
+/** Frame de una dirección y fase concretas: cada dirección camina con sus propios frames. */
+export function animationFrameFor(
+  character: Pick<CharacterAssetV1, "directions" | "animations">,
+  animation: CharacterAnimation,
+  direction: number,
+  phase: number,
+): AssetImageV1 {
+  const frames = character.animations[animation].frames;
+  const perDirection = framesPerDirection(character, animation);
+  const index = (direction % character.directions) * perDirection + (phase % perDirection);
+  return frames[index]!;
 }
 
 export function assetFor(

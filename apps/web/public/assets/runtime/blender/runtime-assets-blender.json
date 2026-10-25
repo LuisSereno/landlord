@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "generator": {
+    "id": "blender-runtime-asset-e2e",
+    "version": 1,
+    "method": "blender_render",
+    "source": "tools/art-pipeline/blender/runtime_asset.py"
+  },
+  "provenance": {
+    "license": "original",
+    "author": "Landlord project",
+    "notes": "E2E de la ruta Blender para un edificio y una variante de personaje; el resto de assets Alpha sigue siendo procedural."
+  },
+  "buildings": {
+    "courtyard_home": {
+      "type": "courtyard_home",
+      "name": "Patio compacto",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.4375,
+        "y": 0.7941
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender/courtyard_home-complete.png",
+          "width": 72,
+          "height": 73,
+          "sha256": "b197476f2efd46b78289d51c20c08f2d177494757527d3805e72d298809269b8"
+        },
+        "construction": {
+          "src": "/assets/runtime/blender/courtyard_home-construction.png",
+          "width": 74,
+          "height": 61,
+          "sha256": "e322fcfb17660885fb2761afb9cb894bbafd7aeace888661200fc1fe445b70a7"
+        },
+        "damaged": {
+          "src": "/assets/runtime/blender/courtyard_home-damaged.png",
+          "width": 72,
+          "height": 73,
+          "sha256": "6e8739ee65491c30ad59a3b534ea1b9eb32e2744d49d7be02a167a82f946ea60"
+        },
+        "burning": {
+          "src": "/assets/runtime/blender/courtyard_home-burning.png",
+          "width": 72,
+          "height": 73,
+          "sha256": "d1dcc062a89c09880612b0e053510aee14eef4eec1445322013fb17919bddc54"
+        }
+      }
+    }
+  },
+  "characters": {
+    "vecino_variante": {
+      "id": "vecino_variante",
+      "name": "Vecino con abrigo",
+      "directions": 4,
+      "animations": {
+        "idle": {
+          "frameDurationMs": 400,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender/vecino_variante-d0-idle-0.png",
+              "width": 15,
+              "height": 38,
+              "sha256": "d1902e1f4c8037dfd5d78b43a566cacaacc5cc79465cd3704c0f05931718958c"
+            },
+            {
+              "src": "/assets/runtime/blender/vecino_variante-d0-idle-1.png",
+              "width": 15,
+              "height": 38,
+              "sha256": "eaee230950c335a0ea9ecf4b834c70d300c9727f317919b8510d7075ec6a1441"
+            },
+            {
+              "src": "/assets/runtime/blender/vecino_variante-d1-idle-0.png",
+              "width": 15,
+              "height": 38,
+              "sha256": "bd5fd3023cc4948c0c6a3d6dfa51e45e58a2a0087d70795b04a622bd8b673d22"
+            },
+            {
+              "src": "/assets/runtime/blender/vecino_variante-d1-idle-1.png",
+              "width": 15,
+              "height": 38,
+              "sha256": "6e7377e8da25e3d933df4bb2ee32204cb3ac8ce9cc43fabbd6784c0c97e1f2f1"
+            },
+            {
+              "src": "/assets/runtime/blender/vecino_variante-d2-idle-0.png",
+              "width": 15,
+              "height": 39,
+              "sha256": "2f5fa0f3020897b0e793cd89d9c2eb739d29948cbc928b2af94a5e0f870e009d"
+            },
+            {
+              "src": "/assets/runtime/blender/vecino_variante-d2-idle-1.png",
+              "width": 15,
+              "height": 39,
+              "sha256": "6390c29203ad28d02fd624c6911211b67b1c5773dbc3a0d0b22acb130940dacf"
+            },
+            {
+              "src": "/assets/runtime/blender/vecino_variante-d3-idle-0.png",
+              "width": 15,
+              "height": 39,
+              "sha256": "ea5d617fa76b65050574f9d59e5471760ad0d1e177e92c55f0cf3fe8752ff826"
+            },
+            {
+              "src": "/assets/runtime/blender/vecino_variante-d3-idle-1.png",
+              "width": 15,
+              "height": 39,
+              "sha256": "4a2696ac5a5116d3c4b86abc1e123038f5b10b75ed489fe18c984ec77aedb5a4"
+            }
+          ]
+        },
+        "walk": {
+          "frameDurationMs": 180,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender/vecino_variante-d0-walk-0.png",
+              "width": 15,
+              "height": 40,
+              "sha256": "15240a0beec2be29165966bd02f5cdeffb1e9df215d39fba9113b4d23fe238c2"
+            },
+            {
+              "src": "/assets/runtime/blender/vecino_variante-d0-walk-1.png",
+              "width": 16,
+              "height": 38,
+              "sha256": "cf9dbc3cdbfa56d7cc9a1023f100c91b827e40e15a5a5a4b96100b216395f844"
+            },
+            {
+              "src": "/assets/runtime/blender/vecino_variante-d1-walk-0.png",
+              "width": 16,
+              "height": 38,
+              "sha256": "6719351fae65a4ebc723b7b60a14a7e16db59f3902389169767b292e183fd468"
+            },
+            {
+              "src": "/assets/runtime/blender/vecino_variante-d1-walk-1.png",
+              "width": 15,
+              "height": 40,
+              "sha256": "372d14cb4dda71e4c3a223358b081bdac8777dc55059d6ab1cf949ab02ff9dc2"
+            },
+            {
+              "src": "/assets/runtime/blender/vecino_variante-d2-walk-0.png",
+              "width": 15,
+              "height": 40,
+              "sha256": "97e68c0a6d20d7db58f1eb993d31f744c102615433e9a5e282f6488686c0343c"
+            },
+            {
+              "src": "/assets/runtime/blender/vecino_variante-d2-walk-1.png",
+              "width": 16,
+              "height": 38,
+              "sha256": "c3c75045b0f64aec057dbf356342c0957ceb778db09b2b22d230f1dc3456a965"
+            },
+            {
+              "src": "/assets/runtime/blender/vecino_variante-d3-walk-0.png",
+              "width": 16,
+              "height": 38,
+              "sha256": "637f1445dccc1f39f4ed83a483614c3020b211c3185887ed2c3e5c185e4a1318"
+            },
+            {
+              "src": "/assets/runtime/blender/vecino_variante-d3-walk-1.png",
+              "width": 15,
+              "height": 40,
+              "sha256": "3153803800490225e20fd646548f97e4e2b755ca731abcb56098958665777370"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -10,7 +10,8 @@ import runtimeAssets from "../generated/runtime-assets.json";
 import {
   assetFor,
   buildingAssetStateFor,
-  depthForCell,
+  depthForAsset,
+  footprintCenter,
   originFromPivot,
   spriteKeyFor,
 } from "./building-sprites";
@@ -322,10 +323,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
       );
       if (!this.textures.exists(key)) continue;
       const id = `building:${building.id}`;
-      const center = this.screenCenter(parcel.cell);
+      const center = gridToScreen(footprintCenter(parcel.cell, asset.footprint), this.layout);
       const sprite = this.ensureBuildingSprite(id, key, asset);
       sprite.setPosition(center.x, center.y);
-      sprite.setDepth(depthForCell(parcel.cell));
+      sprite.setDepth(depthForAsset(parcel.cell, asset.footprint));
       sprite.setAlpha(building.state === "ruin" ? 0.4 : 1);
       sprite.setVisible(this.isInViewport(center.x, center.y, view, 96));
       seen.add(id);
@@ -337,10 +338,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
       const key = spriteKeyFor(site.buildingType, "construction");
       if (!this.textures.exists(key)) continue;
       const id = `site:${site.id}`;
-      const center = this.screenCenter(parcel.cell);
+      const center = gridToScreen(footprintCenter(parcel.cell, asset.footprint), this.layout);
       const sprite = this.ensureBuildingSprite(id, key, asset);
       sprite.setPosition(center.x, center.y);
-      sprite.setDepth(depthForCell(parcel.cell) + 1);
+      sprite.setDepth(depthForAsset(parcel.cell, asset.footprint) + 1);
       sprite.setAlpha(1);
       sprite.setVisible(this.isInViewport(center.x, center.y, view, 96));
       seen.add(id);

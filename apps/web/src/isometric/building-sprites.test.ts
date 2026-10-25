@@ -1,19 +1,32 @@
 import { describe, expect, it } from "vitest";
-import type { BuildingAssetV1 } from "@landlord/shared";
+import type { BuildingAssetV1, RuntimeAssetManifestV1 } from "@landlord/shared";
+import runtimeAssets from "../generated/runtime-assets.json";
 import {
+  animationFrameFor,
   assetFor,
   buildingAssetStateFor,
+  depthForAsset,
   depthForCell,
   directionIndexFor,
+  footprintCenter,
+  framesPerDirection,
   originFromPivot,
   spriteKeyFor,
 } from "./building-sprites";
+
+const ASSETS = runtimeAssets as RuntimeAssetManifestV1;
 
 const manifest = {
   buildings: {
     courtyard_home: { pivot: { x: 0.5, y: 0.93 } },
   },
-} as unknown as import("@landlord/shared").RuntimeAssetManifestV1;
+} as unknown as RuntimeAssetManifestV1;
+
+/** La factoría dibuja la cara desplazada según la dirección: así se comprueba el frame real. */
+function headCx(frameSrc: string): number {
+  const svg = atob(frameSrc.replace(/^data:image\/svg\+xml;base64,/, ""));
+  return Number(/<circle cx="(-?\d+)" cy="16"/.exec(svg)?.[1]);
+}
 
 describe("WP4.15 sprites de edificios", () => {
   it("mapea el estado proyectado a los cuatro estados del contrato", () => {
@@ -56,6 +69,54 @@ describe("WP4.15 sprites de edificios", () => {
     for (let index = 0; index < 8; index += 1) {
       const angle = (index * Math.PI) / 4;
       expect(directionIndexFor(Math.cos(angle), Math.sin(angle), 8)).toBe(index);
+    }
+  });
+
+  it("la huella participa en el depth y en la posición del sprite", () => {
+    const oneByOne = { width: 1, height: 1 };
+    const twoByTwo = { width: 2, height: 2 };
+    expect(depthForAsset({ x: 3, y: 3 }, oneByOne)).toBe(depthForCell({ x: 3, y: 3 }));
+    /** Una planta 2×2 tapa las celdas (4,3), (3,4) y (4,4): se dibuja después que todas ellas. */
+    expect(depthForAsset({ x: 3, y: 3 }, twoByTwo)).toBe(depthForCell({ x: 4, y: 4 }));
+    expect(depthForAsset({ x: 3, y: 3 }, twoByTwo)).toBeGreaterThan(
+      depthForAsset({ x: 4, y: 3 }, oneByOne),
+    );
+    expect(depthForAsset({ x: 3, y: 3 }, twoByTwo)).toBeGreaterThan(
+      depthForAsset({ x: 3, y: 4 }, oneByOne),
+    );
+    expect(footprintCenter({ x: 3, y: 3 }, oneByOne)).toEqual({ x: 3, y: 3 });
+    expect(footprintCenter({ x: 3, y: 3 }, twoByTwo)).toEqual({ x: 3.5, y: 3.5 });
+    expect(ASSETS.buildings["cement_plant"]!.footprint).toEqual(twoByTwo);
+  });
+
+  it("cada dirección camina con sus propios frames", () => {
+    for (const character of Object.values(ASSETS.characters)) {
+      const perDirection = framesPerDirection(character, "walk");
+      expect(character.animations.walk.frames).toHaveLength(character.directions * perDirection);
+      for (let direction = 0; direction < character.directions; direction += 1) {
+        const angle = ((360 / character.directions) * direction * Math.PI) / 180;
+        const expectedCx = 24 + Math.round(5 * Math.cos(angle));
+        for (let phase = 0; phase < perDirection; phase += 1) {
+          const walk = animationFrameFor(character, "walk", direction, phase);
+          expect(headCx(walk.src), `${character.id} walk dir ${direction} fase ${phase}`).toBe(
+            expectedCx,
+          );
+          const idle = animationFrameFor(character, "idle", direction, phase);
+          expect(headCx(idle.src), `${character.id} idle dir ${direction} fase ${phase}`).toBe(
+            expectedCx,
+          );
+        }
+        /** La fase sólo recorre los frames de su dirección: no salta a la siguiente. */
+        expect(animationFrameFor(character, "walk", direction, perDirection)).toEqual(
+          animationFrameFor(character, "walk", direction, 0),
+        );
+      }
+      /** Con 8 direcciones, mirar a la derecha y a la izquierda no puede dar el mismo frame. */
+      if (character.directions === 8) {
+        expect(animationFrameFor(character, "walk", 0, 0).src).not.toBe(
+          animationFrameFor(character, "walk", 4, 0).src,
+        );
+      }
     }
   });
 });

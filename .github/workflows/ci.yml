@@ -54,5 +54,14 @@ jobs:
       - name: Art Lab browser smoke
         run: pnpm smoke:art-lab
 
+      - name: Art Lab visual regression
+        run: pnpm art:visual
+
+      - name: Blender bundle integrity
+        run: pnpm art:blender:check
+
+      - name: Binary budget (D-081)
+        run: pnpm art:binaries:check
+
       - name: Check formatting
         run: pnpm format:check

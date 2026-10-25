@@ -42,13 +42,28 @@ Para el arte final, el paso 1 se sustituye por renders Blender y el manifiesto d
 ## Comandos
 
 ```bash
-pnpm art:generate        # regenera el manifiesto
+pnpm art:generate        # regenera el manifiesto procedural
 pnpm art:assets:check    # falla si el manifiesto no coincide con la factoría
-pnpm art:visual          # PNG + SHA-256 en artifacts/
-ART_VISUAL_STRICT=1 pnpm art:visual   # compara contra docs/art/golden/
-pnpm art:profile         # 400 sprites, FPS DOM
-pnpm smoke:art-lab       # galería completa en Chromium
+pnpm art:blender         # renderiza la ruta Blender E2E (requiere Blender local)
+pnpm art:blender:check   # verifica hashes y medidas del bundle Blender sin Blender
+pnpm art:visual          # captura y compara contra el golden con pixel-diff tolerante
+ART_VISUAL_UPDATE=1 pnpm art:visual   # regenera el golden tras un cambio aprobado
+pnpm art:profile         # 400 sprites en Phaser con cambio de frame y scroll, FPS real
+pnpm art:binaries:check  # presupuesto de binarios de D-081 (1 MB, allowlist del spike)
+pnpm smoke:art-lab       # galería completa + escena densa en Chromium
 ```
+
+## Ruta Blender E2E (WP4.15-H)
+
+`tools/art-pipeline/blender/runtime_asset.py` demuestra la cadena completa para un edificio
+(`courtyard_home`, cuatro estados) y una variante de personaje (`vecino_variante`, cuatro
+direcciones): render EEVEE ortográfico 45°/30° con fondo transparente, recorte al contenido opaco,
+reducción 2× por filtro de caja y metadata con tamaño, SHA-256 y pivote proyectado del origen 3D.
+`scripts/build-blender-assets.mjs` publica el bundle
+`apps/web/public/assets/runtime/blender/runtime-assets-blender.json`, que cumple el mismo contrato
+v1 y que Phaser consume en la escena densa. El resto de assets Alpha sigue siendo procedural: la ruta
+queda probada, no impuesta. Atlas y Git LFS están reclasificados como requisitos de Beta con
+criterio de reapertura medido (D-081).
 
 ## Budgets de Alpha
 
@@ -57,7 +72,9 @@ pnpm smoke:art-lab       # galería completa en Chromium
 | Manifiesto completo | < 200 KB | 106 KB |
 | Imágenes | — | 68 (20 edificios + 48 personajes) |
 | SVG por frame | < 8 KB | < 2 KB |
-| Sprites densos (DOM) | 60 FPS | 60 FPS estables a 400 sprites |
+| Bundle Blender E2E | < 120 KB | 55,8 KB (20 PNG) |
+| Binario versionado | < 1 MB (D-081) | 506 KB el mayor nuevo (golden) |
+| Sprites densos en Phaser | 60 FPS | 60 FPS de mediana a 400 sprites |
 
 Un cambio de arte que supere un budget debe declarar el nuevo número y su medición; no se acepta por
 impresión.

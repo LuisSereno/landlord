@@ -732,7 +732,37 @@ invariantes rotas. Resultado: la delegación con mantenimiento diferido gana caj
 semillas y elimina la vacancia medida; el mantenimiento equilibrado queda **dominado en caja** en 8/8
 (31,84 % de vacancia frente a 3,13 %, más coste), bandera `maintenance_balanced_dominated_on_cash`.
 Es un hallazgo de balance para tuning posterior, no una invariante rota; WP4.14 entrega detección, no
-rebalanceo. Ver `docs/engineering/adr/D-079-herramientas-internas-y-balance.md`,
+rebalanceo. **Revisado el 2026-10-25 (auditoría externa de WP4.14):** el dataset entregado **no es una
+baseline de balance de gameplay**. La campaña construía el mundo con `createScaledCity`, que es un arnés
+de carga: 5 000 000 de caja inyectados, 1 000 000 de capacidad de inventario y parcelas, edificios,
+fábricas, inquilinos, préstamos, cuadrillas y agentes regalados que el jugador nunca compró. Con esa
+caja `financeCashFloor` no se activa nunca, las diferencias las domina la ocupación automática de una
+cartera ya montada, las estrategias no despachan comandos y las cajas finales quedan en 4,8–5,0
+millones; la partida real arranca en 12 000. Se renombra a
+`docs/balance/synthetic-city-balance-v1.json` con `worldKind: "synthetic_load_harness"` y un campo
+`usage` que lo declara dentro del archivo, y la campaña sintética se conserva como test de esfuerzo
+(regenerada con su pipeline real, las 32 filas coinciden con las de `f33c698`). Se añade la baseline
+jugable `docs/balance/playable-alpha-baseline-v1.json` (`pnpm balance:playable`,
+`balance-playable.test.ts`): `createInitialState(seed)`, 16 semillas × 12 meses × 4 estrategias, sólo
+comandos reales despachados como `person_00000001` / `PLAYER_ORGANIZATION_ID`, políticas fijadas con
+`SetMaintenancePolicy` y `SetAutomationPolicy` (prohibido mutar `state.phase2.*` para dar ventajas),
+rutina de crecimiento idéntica para las cuatro (parcela asequible → materiales → permiso → obra →
+cuadrilla, mientras la caja cubra el coste exacto), `commandAudit` con aceptados/rechazados y códigos
+por tipo, y determinismo verificado byte a byte. 62-68 s reales en dos ejecuciones. **El hallazgo de
+mantenimiento queda rebajado a señal fuerte para investigar**: en la campaña jugable `maintained` gana a `passive` en 4 de
+16 semillas (pierde en 12), lejos del umbral de dominancia de 15/16, y convierte el gasto en activos
+(4,00 edificios frente a 3,13; 15 712,56 de valor de catálogo frente a 12 375,31). El 8/8 de la
+delegación tampoco se traslada (6/16). **Ninguna estrategia domina** (ganadoras por semilla: `passive`
+8, `delegated_deferred` 5, `maintained` 2, `delegated_balanced` 1), y el dataset lo declara con
+`dominance.anyDominant: false` y las banderas `no_dominant_strategy_in_playable_campaign`,
+`maintenance_balanced_cash_signal_to_investigate` y
+`automation_deferred_has_no_cash_advantage_playable`. Cautela de método que el arnés ocultaba: con una
+rutina que reinvierte todo lo que puede, la caja final no es riqueza (`delegated_balanced` es la peor en
+caja y la mejor en valor de catálogo), así que `playerCash` se lee junto a `playerParcels`,
+`playerBuildings` y `playerAssetBookValue`. Las herramientas siguen firmes y ningún número de gameplay
+se ajusta. `scripts/build-balance-dataset.mjs` genera los dos datasets (`--dataset
+synthetic|playable`) y `balance-dataset.test.ts` valida los dos archivos. Ver
+`docs/engineering/adr/D-079-herramientas-internas-y-balance.md`,
 `docs/execution/phase-4/wp4-14-internal-tools-2026-10-25.md` y `docs/balance/README.md`.
 
 ## D-080 — Contrato runtime de assets y factoría procedural para Alpha
@@ -757,3 +787,26 @@ FPS DOM; `pnpm smoke:art-lab` valida galería y assets; los smokes de juego sigu
 integrados y sin mover sus cajas. Budgets: manifiesto < 200 KB (106 KB), SVG < 8 KB (< 2 KB). Ver
 `docs/engineering/adr/D-080-contrato-assets-y-factoria.md`, `docs/art/RUNTIME-ASSETS.md` y
 `docs/execution/phase-4/wp4-15-art-pipeline-2026-10-25.md`.
+
+## D-081 — Binarios de arte: presupuesto con guarda, atlas y Git LFS reclasificados a Beta
+Estado: aceptada el 2026-10-25 como cierre del endurecimiento WP4.15-H. Con datos medidos: el bundle
+runtime de Alpha son 20 data URI SVG (106 KB) más 20 PNG de la ruta Blender E2E (55,8 KB, ningún frame
+> 8,6 KB); el perfil denso **en Phaser** con 400 sprites, 24 texturas, cambio de frame cada 240 ms y
+scroll de cámara sostiene 60 FPS de mediana; y el repo ya versiona 9 PNG de 1,8–2,8 MB (19,98 MB, con
+los masters del spike duplicados) sin LFS. Decisiones: (1) **atlas y texture packing se reclasifican
+como requisito de Beta** con criterio de reapertura medido (perfil denso < 55 FPS o > 64 texturas en
+el runtime), añadidos al gate de Beta del roadmap; (2) **Git LFS se adopta como política de
+presupuesto con guarda en CI**: `pnpm art:binaries:check` falla ante cualquier binario versionado
+> 1 MB salvo las excepciones nombradas de `docs/art/BINARY-ALLOWLIST.json` (los 9 PNG del spike; una
+excepción obsoleta también falla), y la adopción/migración real de LFS es el primer punto del gate de
+Beta; (3) **la regresión visual es una guarda efectiva**: `pnpm art:visual` captura `/art-lab?static=1`
+y compara contra `docs/art/golden/art-lab-runtime-assets.png` con pixel-diff tolerante en el navegador
+(umbral por canal 12/255, máximo 0,5 % de píxeles); `ART_VISUAL_UPDATE=1` regenera el golden aprobado;
+(4) **la ruta Blender queda demostrada de extremo a extremo** para `courtyard_home` (4 estados) y
+`vecino_variante` (4 direcciones): render EEVEE transparente → recorte → reducción 2× → metadata con
+pivote proyectado del origen 3D → bundle `runtime-assets-blender.json` verificado por
+`art:blender:check` y consumido por Phaser en la escena densa. Además corrige D-080 en dos puntos: la
+huella participa en depth y posición (`depthForAsset`/`footprintCenter`) y cada dirección camina con
+sus propios frames (`animationFrameFor`). Ver
+`docs/engineering/adr/D-081-binarios-atlas-lfs-y-regresion-visual.md` y
+`docs/execution/phase-4/wp4-15-hardening-2026-10-25.md`.

@@ -223,3 +223,13 @@ tres shocks 33,64 ms y seis 37,60 ms. El cierre sigue fuera del presupuesto p95 
 mejora hasta un 25 % en los escenarios cargados, pero la media sigue en ~28 ms porque `buildStock`
 (recuento de vecinos O(edificios²)) domina el cierre. Ese es el siguiente candidato exacto antes de
 LOD y antes de WP4.13.
+
+**Nota de revisión 2026-10-25 (WP4.15-H).** `buildStock` quedó optimizado de forma exacta con un
+índice espacial de buckets (test de equivalencia contra el barrido completo incluido): 17,6 → 2,70 ms
+de mediana con 607 edificios y coste por edificio decreciente con la escala. El cierre mensual con la
+misma metodología longitudinal baja a `none` 15,50 ms de media (p95 17,13), `representative` 17,34 ms
+y `max` 18,94 ms (p95 19,18); `natural` 16,48 ms de media. Sigue fuera del presupuesto p95, pero sin
+hotspot dominante: el cierre instrumentado reparte ~11 ms entre sistemas. La decisión de LOD agregado
+con su benchmark pasa a WP4.16 como precondición, y la distribución de este ADR vuelve a quedar
+sustituida por estos números. Ver `docs/execution/phase-4/wp4-15-hardening-2026-10-25.md` y la nota
+equivalente en D-065.

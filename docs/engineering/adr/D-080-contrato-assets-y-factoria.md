@@ -67,3 +67,27 @@ terceros versionados ni LFS configurado.
   metadatos; no se ejecuta en CI y no se versionan binarios de terceros.
 - La integración de personajes en la escena jugable y el LOD de personaje quedan explícitamente
   diferidos, no olvidados: dependen de la medición de la cámara y del presupuesto de frame.
+
+**Nota de revisión 2026-10-25 (WP4.15-H).** Tres puntos de este ADR quedan sustituidos por la
+auditoría y su endurecimiento, registrados en D-081 y en
+`docs/execution/phase-4/wp4-15-hardening-2026-10-25.md`:
+
+1. El punto 3 decía que el depth salía sólo de la fila isométrica de la celda ancla. Ahora la huella
+   participa de verdad: `depthForAsset` ordena por la celda más cercana a cámara de la huella y
+   `footprintCenter` coloca el pivote en el centro de esa huella, así que una planta 2×2 se dibuja
+   después de los edificios que tapa. La afirmación "huella y depth desde metadata" pasa a ser cierta
+   también para la huella, no sólo para el pivote.
+2. El punto 7 medía el distrito denso con DOM estático y un contador de `requestAnimationFrame`, que
+   no medía render. El perfil es ahora una escena Phaser real (`DenseAssetScene`): 400 sprites del
+   manifiesto con cambio de frame cada 240 ms, deriva de posición y scroll de cámara, a 60 FPS de
+   mediana; además registra y pinta las cuatro texturas de la ruta Blender, que es la prueba de que
+   el render llega al runtime.
+3. La regresión visual deja de ser opt-in por SHA-256: `pnpm art:visual` compara contra un golden
+   PNG versionado con pixel-diff tolerante (umbral por canal 12/255, máximo 0,5 % de píxeles) sobre
+   `/art-lab?static=1`, y falla en CI fuera de tolerancia.
+
+La ruta Blender, que este ADR dejaba como fuente futura, queda demostrada de extremo a extremo para
+`courtyard_home` (cuatro estados) y `vecino_variante` (cuatro direcciones): render EEVEE
+transparente, recorte al contenido, reducción 2×, metadata con pivote proyectado del origen 3D y
+bundle verificado por `pnpm art:blender:check`. Atlas y Git LFS se reclasifican como requisitos de
+Beta con criterio de reapertura medido (D-081).

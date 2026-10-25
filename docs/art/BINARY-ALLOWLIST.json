@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "maxBinaryBytes": 1048576,
+  "policy": "D-081: ningún binario nuevo por encima de maxBinaryBytes sin LFS (requisito de Beta) o excepción registrada aquí.",
+  "exceptions": [
+    {
+      "path": "blender_artist/generated/concepts/visual_direction_spike_direction_a_warm_editorial_2026-10-23.png",
+      "reason": "Render 16-bit del Visual Direction Spike (WP2.14), anterior a D-081."
+    },
+    {
+      "path": "blender_artist/generated/concepts/visual_direction_spike_direction_b_graphic_civic_2026-10-23.png",
+      "reason": "Render 16-bit del Visual Direction Spike (WP2.14), anterior a D-081."
+    },
+    {
+      "path": "blender_artist/generated/concepts/visual_direction_spike_direction_c_blue_hour_2026-10-23.png",
+      "reason": "Render 16-bit del Visual Direction Spike (WP2.14), anterior a D-081."
+    },
+    {
+      "path": "blender_artist/generated/renders/visual_direction_spike_blue_hour_2026-10-23.png",
+      "reason": "Master 16-bit del spike (WP2.14), anterior a D-081."
+    },
+    {
+      "path": "blender_artist/generated/renders/visual_direction_spike_graphic_civic_2026-10-23.png",
+      "reason": "Master 16-bit del spike (WP2.14), anterior a D-081."
+    },
+    {
+      "path": "blender_artist/generated/renders/visual_direction_spike_warm_editorial_2026-10-23.png",
+      "reason": "Master 16-bit del spike (WP2.14), anterior a D-081."
+    },
+    {
+      "path": "apps/web/public/assets/art-spike/visual_direction_spike_blue_hour_2026-10-23.png",
+      "reason": "Copia servida del master del spike para /art-lab; duplicación a resolver con LFS en Beta."
+    },
+    {
+      "path": "apps/web/public/assets/art-spike/visual_direction_spike_graphic_civic_2026-10-23.png",
+      "reason": "Copia servida del master del spike para /art-lab; duplicación a resolver con LFS en Beta."
+    },
+    {
+      "path": "apps/web/public/assets/art-spike/visual_direction_spike_warm_editorial_2026-10-23.png",
+      "reason": "Copia servida del master del spike para /art-lab; duplicación a resolver con LFS en Beta."
+    }
+  ]
+}

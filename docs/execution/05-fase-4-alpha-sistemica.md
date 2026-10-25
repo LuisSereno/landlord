@@ -412,6 +412,14 @@ humana. Evidencia en `docs/execution/phase-4/wp4-12-macro-events-2026-10-25.md` 
   versionado `alpha-baseline-v1` con validación de esquema y recálculo de comparaciones.
 - Hallazgo registrado: mantenimiento equilibrado dominado en caja (0/8); delegación con
   mantenimiento diferido domina a la pasiva (8/8). Sin rebalanceo en este WP.
+- **Revisión 2026-10-25 (auditoría externa):** ese dataset medía el arnés de carga `createScaledCity`
+  (5 000 000 de caja y activos regalados), no una partida real. Se renombra a
+  `docs/balance/synthetic-city-balance-v1.json` y se conserva como test de esfuerzo; se añade la
+  campaña jugable `pnpm balance:playable` sobre `createInitialState(seed)` con 16 semillas × 12 meses ×
+  4 estrategias ejecutadas sólo con comandos reales del jugador, versionada en
+  `docs/balance/playable-alpha-baseline-v1.json`. Con datos jugables **ninguna estrategia domina** y el
+  "mantenimiento equilibrado dominado" queda como **señal fuerte para investigar** (4/16 a favor). Ver
+  la nota de revisión del acta y `docs/balance/README.md`.
 
 ## WP4.15 — Pipeline artístico y escalado de contenido
 
@@ -450,7 +458,35 @@ trabajo manual oculto, dentro de budgets medidos.
 - Diferidos: arte final Blender (mismo contrato, no en CI), personajes en la escena jugable (LOD de
   personaje pendiente) y atlas raster/LFS para el arte final.
 
+**Revisión 2026-10-25 (WP4.15-H):** la auditoría separó dos alcances que este WP mezclaba. La
+infraestructura de assets runtime está `DONE` (contrato, factoría procedural, integración Phaser) y
+la **ruta Blender queda demostrada de extremo a extremo** para un edificio y una variante de
+personaje: `tools/art-pipeline/blender/runtime_asset.py` (render EEVEE transparente → recorte →
+reducción → metadata con pivote proyectado) y `scripts/build-blender-assets.mjs` publican el bundle
+`apps/web/public/assets/runtime/blender/runtime-assets-blender.json`, verificado por
+`art:blender:check` y consumido por Phaser en la escena densa. Lo que **no** pertenece a Alpha y pasa
+al gate de Beta con decisión registrada (D-081): atlas/texture packing y adopción+migración de Git
+LFS. La regresión visual deja de ser opt-in: `pnpm art:visual` compara contra un golden versionado
+con pixel-diff tolerante en CI, y el perfil denso se mide en Phaser de verdad (400 sprites con
+cambio de frame y scroll a 60 FPS de mediana), no con DOM estático. También se corrigen la huella en
+el depth/posición del sprite y la animación de caminar por dirección.
+
+### Puntos de gate de Beta añadidos por D-081
+
+- Adoptar Git LFS y migrar/desduplicar los masters 16-bit del spike (hoy excepciones en
+  `docs/art/BINARY-ALLOWLIST.json`).
+- Estrategia de atlas/texture packing, con criterio de reapertura medido: perfil denso por debajo de
+  55 FPS o más de 64 texturas en el runtime.
+- Línea por-asset completa (todos los edificios y personajes Alpha por la ruta Blender) y rig/batch
+  de personajes.
+
 ## WP4.16 — Robustez y cierre alpha
+
+**Precondición (auditoría 2026-10-25):** no abrir hasta cerrar el endurecimiento WP4.15-H. El
+hotspot `buildStock` quedó optimizado de forma exacta el 2026-10-25 (17,6 → 2,70 ms de mediana con
+607 edificios) y el cierre mensual bajó a 15,5–18,9 ms de media según modo macro, todavía por encima
+del presupuesto de 10 ms p95 de D-065/D-076: el coste restante está repartido entre sistemas, así que
+la decisión de LOD agregado con su benchmark posterior pertenece a este WP y no a un parche suelto.
 
 - Migrar fixtures de todas las fases.
 - Ejecutar pruebas largas, performance por LOD y recuperación.

@@ -68,3 +68,24 @@ Blender queda como fuente de producción con el mismo contrato. Decisión en
   variantes; la escena conserva el blitter hasta medir la cámara y el presupuesto de frame.
 - Atlas raster empaquetado: Alpha usa una textura por frame SVG; el atlas binario queda para el arte
   final con la misma metadata y una decisión de almacenamiento (LFS).
+
+## Addendum 2026-10-25 (WP4.15-H)
+
+La auditoría externa separó dos alcances que esta acta mezclaba y que el endurecimiento
+`docs/execution/phase-4/wp4-15-hardening-2026-10-25.md` resuelve:
+
+- **Infraestructura de assets runtime: DONE** (contrato, factoría procedural, integración Phaser),
+  como decía esta acta.
+- **Ruta Blender: ahora demostrada de extremo a extremo** para `courtyard_home` (cuatro estados) y
+  `vecino_variante` (cuatro direcciones), con bundle versionado, verificación sin Blender y consumo
+  en Phaser. Lo que esta acta listaba como "no incluido" deja de serlo en su parte de ruta; siguen
+  fuera la sustitución de *todos* los placeholders por renders finales y el rig/batch de personajes.
+- **Atlas y Git LFS: reclasificados como requisitos de Beta** con decisión registrada (D-081) y
+  puntos de gate añadidos al roadmap, en vez de diferidos sin decisión.
+- **Regresión visual: efectiva en CI** con pixel-diff tolerante sobre `/art-lab?static=1`; el SHA-256
+  opt-in de esta acta queda sustituido (el golden PNG y su metadato viven en `docs/art/golden/`).
+- **Perfil denso: medido en Phaser de verdad** (400 sprites con cambio de frame y scroll, 60 FPS de
+  mediana), no con DOM estático.
+- **Correcciones de render:** la huella participa en el depth y en la posición del sprite
+  (`depthForAsset`, `footprintCenter`) y cada dirección camina con sus propios frames
+  (`animationFrameFor`), con tests que decodifican los frames para comprobarlo.

@@ -16,16 +16,16 @@
 | Luz | canónica fija NW visual | abierta | comparación visual |
 | Día/noche | estilizado, sin sol físico móvil en v1 | abierta | Product/Tech Art review |
 | Personajes | 8 direcciones | abierta — decisión 4 vs 8 medida en WP4.15 | animation budget |
-| Atlas | 2048² multipack | abierta — pasa a WP4.15 | profiling real |
+| Atlas | 2048² multipack | **cerrada como diferida a Beta — D-081**: 400 sprites y 24 texturas sostienen 60 FPS en Phaser | reapertura medida: <55 FPS o >64 texturas |
 | Runtime textures | PNG RGBA inicial | **cerrada como master — acta WP2.14: PNG RGBA 16-bit transparente**; formato runtime derivado sigue en WP4.15 | profiling/compatibilidad |
 | GPU compression | posterior | diferida | profiling Alpha/Beta |
-| Texture packing | TexturePacker o alternativa CI | abierta — pasa a WP4.15 | coste/licencia/reproducibilidad |
-| Git LFS | binarios fuente grandes | abierta — pasa a WP4.15 | repo policy antes de assets |
+| Texture packing | TexturePacker o alternativa CI | **cerrada como diferida a Beta — D-081**, junto al atlas | mismo criterio de reapertura que el atlas |
+| Git LFS | binarios fuente grandes | **cerrada con política — D-081**: presupuesto de 1 MB con guarda en CI y allowlist; adopción y migración en Beta | gate de Beta |
 | Tipografías | familias abiertas/licenciadas | abierta | UI design + legal |
-| Golden scenes | Art Lab + Playwright | **cerrada para el spike — Art Lab `/art-lab` + smoke automatizado**; visual regression con baseline por asset sigue en WP4.15 | spike técnico |
+| Golden scenes | Art Lab + Playwright | **cerrada — D-081**: regresión visual por pixel-diff tolerante en CI sobre `/art-lab?static=1` con golden versionado | `pnpm art:visual` |
 | Repo de arte separado | no inicialmente | diferida | revisar al crecer binarios |
-| Building Factory | generación modular/procedural offline | abierta — pasa a WP4.15 | primer asset end-to-end + spike |
-| Character Factory | base rig + variantes offline + batch directions | abierta — pasa a WP4.15 | personaje del spike |
+| Building Factory | generación modular/procedural offline | **parcial — D-080/D-081**: factoría procedural para los 5 edificios + ruta Blender E2E demostrada para `courtyard_home` | línea por-asset completa en Beta |
+| Character Factory | base rig + variantes offline + batch directions | **parcial — D-080/D-081**: variantes procedurales 8/4 direcciones + E2E Blender para `vecino_variante` | rig y batch en Beta |
 | Assets third-party en Git | staging local por ahora | abierta | aprobar LFS + provenance + estructura |
 
 ## Ya decidido fuera de esta matriz

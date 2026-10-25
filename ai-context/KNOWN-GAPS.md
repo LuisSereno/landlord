@@ -209,16 +209,37 @@ Sigue abierto:
 - El perfil de 400 sprites mide pintado DOM, no el frame Phaser; el frame del juego sigue cubierto por
   `pnpm benchmark:browser`.
 
-## Balance (hallazgo WP4.14)
-- El mantenimiento equilibrado está **dominado en caja** por el diferido en la baseline sintética
-  (`alpha-baseline-v1`): 0/8 semillas a favor, 31,84 % de vacancia media frente a 3,13 % y menos caja,
-  porque sube condición → renta → vacancia y además cuesta. La bandera
-  `maintenance_balanced_dominated_on_cash` lo registra. No se corrige en WP4.14: es tuning de balance
-  para una pasada posterior, no una invariante rota.
-- La delegación de propiedad/finanzas con mantenimiento diferido gana a la pasiva en 8/8 semillas y
-  elimina la vacancia medida; la bandera `automation_deferred_dominates_passive_on_cash` lo registra.
-- Regenerar el dataset tras cualquier cambio económico: `pnpm balance:campaign` y
-  `node scripts/build-balance-dataset.mjs`; comparar con `docs/balance/alpha-baseline-v1.json`.
+## Balance (hallazgo WP4.14, revisado 2026-10-25)
+- **Dos datasets, no uno.** `docs/balance/synthetic-city-balance-v1.json` (antes
+  `alpha-baseline-v1.json`) viene de `createScaledCity`: es un **arnés de carga** con 5 000 000 de caja
+  y activos regalados, útil para invariantes y volumen, y **no** es una baseline de balance de gameplay.
+  La baseline jugable es `docs/balance/playable-alpha-baseline-v1.json` (`pnpm balance:playable`,
+  `createInitialState(seed)`, 12 000 de caja, 16 semillas × 12 meses × 4 estrategias, sólo comandos
+  reales del jugador, 62-68 s).
+- El mantenimiento equilibrado **no está dominado**: es una **señal fuerte para investigar**. La
+  dominancia se afirmó desde el arnés de carga (0/8 semillas a favor, 31,84 % de vacancia frente a
+  3,13 % y menos caja), donde `financeCashFloor` nunca se activa y las cajas quedan en 4,8–5,0
+  millones. En la campaña jugable `maintained` gana a `passive` en 4 de 16 semillas (pierde en 12), por
+  debajo del umbral de dominancia de 15/16, y convierte el gasto en activos: 4,00 edificios frente a
+  3,13 y 15 712,56 de valor de catálogo frente a 12 375,31. La bandera
+  `maintenance_balanced_dominated_on_cash` sólo describe el arnés; la jugable usa
+  `maintenance_balanced_cash_signal_to_investigate`.
+- **La caja final no es riqueza.** La rutina de crecimiento reinvierte todo lo que puede, así que
+  `delegated_balanced` es la peor en caja (1 253,56) y la mejor en valor de catálogo (19 431,88). Toda
+  lectura de dominancia sobre `playerCash` debe acompañarse de `playerParcels`, `playerBuildings` y
+  `playerAssetBookValue`.
+- **Ninguna estrategia domina en la campaña jugable**: ganadoras por semilla `passive` 8,
+  `delegated_deferred` 5, `maintained` 2, `delegated_balanced` 1; comparaciones 6/16, 4/16 y 3/16;
+  bandera `no_dominant_strategy_in_playable_campaign`. La delegación elimina la vacancia medida (0 %
+  frente a 6,25 %) y añade 500 de deuda viva, pero no compra caja por sí sola
+  (`automation_deferred_has_no_cash_advantage_playable`); el 8/8 del arnés no se traslada a la partida.
+- Sin invariantes rotas ni préstamos impagados en las 64 campañas jugables y cero rechazos de comandos
+  (`commandAudit` por estrategia y tipo lo acredita).
+- Regenerar tras cualquier cambio económico: `pnpm balance:playable` y `pnpm balance:campaign`, y
+  `node scripts/build-balance-dataset.mjs <log> <dataset.json> --dataset playable|synthetic`; comparar
+  con los dos archivos de `docs/balance/`.
+- Pendiente de tuning, ahora con datos jugables: coste y recuperación del mantenimiento equilibrado, y
+  el ritmo de reinversión de la rutina frente a la caja disponible.
 
 ## Rendimiento y Alpha
 
@@ -231,13 +252,16 @@ Sigue abierto:
   33,64 ms; los seis permitidos 37,60 ms. El delta de los shocks es económico —más vacancia y más
   buscadores que el cierre recorre—, no del lookup de modifiers, que está acotado a seis eventos.
   **Sigue fuera del presupuesto p95 y del disparador de 5 ms de D-065.**
-- La optimización exacta de `placeSearchers` está hecha (D-065/D-076, acta del 2026-10-25): los diez
-  digestos no cambian, la mediana del cierre de vivienda baja de 19,40 a 18,15 ms y la cola del cierre
-  completo mejora hasta un 25 % en los escenarios cargados, pero la media apenas se mueve
-  (`none` 28,44 → 28,13 ms; `max` 37,60 → 34,52 ms). El siguiente hotspot medido es `buildStock`
-  (recuento de vecinos `O(edificios²)` dentro del radio de servicios: 17,6 ms de mediana por sí solo
-  en la ciudad madura). Es el candidato exacto antes de plantear LOD en WP4.13; si su optimización no
-  basta, entonces sí se evalúa LOD.
+- La optimización exacta de `placeSearchers` está hecha (D-065/D-076, acta del 2026-10-25) y también
+  la de `buildStock` (WP4.15-H, misma fecha): el recuento de vecinos dentro del radio pasó de
+  todos-contra-todos a un índice espacial de buckets con test de equivalencia contra el barrido
+  completo; los diez digestos no cambian y `describeHousingStock` baja de 17,6 ms a 2,70 ms de mediana
+  con 607 edificios (coste por edificio decreciente con la escala). El cierre mensual queda en
+  `none` 15,50 ms de media (p95 17,13), `representative` 17,34 ms, `max` 18,94 ms (p95 19,18) y
+  `natural` 16,48 ms de media. **Sigue fuera del presupuesto p95 y del disparador de 5 ms de D-065**,
+  pero ya sin hotspot único: el cierre instrumentado reparte ~11 ms entre sistemas (`housing` 3,9 ms
+  el mayor). Con los dos cuadráticos conocidos optimizados de forma exacta, la decisión de LOD
+  agregado con su benchmark pertenece a WP4.16, que la lleva como precondición documentada.
 - El estado canónico completo hace más caras las campañas headless largas (la de dos años tarda
   ~5 s); no afecta al tick de producto.
 - El fixture del smoke Alpha es un snapshot versionado de 160 KB y debe regenerarse con los goldens.
@@ -252,6 +276,14 @@ Decidido:
 - 2.5D isométrico como dirección inicial (D-003);
 - Phaser para Gate 1 (D-050).
 
+Cerrado tras el spike (WP2.14, 2026-10-23) y WP4.15/WP4.15-H (2026-10-25):
+- cámara ortográfica 45°/~30°; Art Lab + golden scenes + Playwright, con regresión visual por
+  pixel-diff tolerante ejecutada en CI (D-081);
+- ruta Blender -> render -> trim -> metadata -> Phaser, demostrada de extremo a extremo para un
+  edificio y una variante de personaje con bundle versionado y verificado (D-081);
+- atlas 2048² multipack, texture packing y Git LFS: reclasificados como requisitos de Beta con
+  criterio de reapertura medido y presupuesto de binarios con guarda en CI (D-081).
+
 Propuesto, pendiente de Visual Direction Spike:
 - pipeline Blender -> prerender 2D/2.5D;
 - EEVEE como render de producción;
@@ -262,10 +294,6 @@ Propuesto, pendiente de Visual Direction Spike:
 - estética de realismo estilizado;
 - setting visual 1925–1940;
 - personajes de 8 direcciones;
-- atlas 2048² multipack;
-- PNG RGBA como baseline runtime;
-- Git LFS para fuentes grandes;
-- Art Lab + golden scenes + Playwright.
 
 Pendiente:
 - ejecutar 2–3 direcciones visuales originales;

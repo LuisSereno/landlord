@@ -327,3 +327,20 @@ vivienda baja de 19,40 a 18,15 ms y la cola del cierre completo mejora hasta un 
 escenarios cargados, pero la media apenas se mueve. El siguiente hotspot medido es `buildStock`
 (recuento de vecinos O(edificios²), 17,6 ms de mediana por sí solo): es el candidato exacto antes de
 plantear LOD en WP4.13. Ver `docs/execution/phase-4/place-searchers-optimization-2026-10-25.md`.
+
+**Nota de revisión 2026-10-25 (WP4.15-H).** El paso 3 de la escalera se ejecutó sobre `buildStock`:
+el recuento de vecinos dentro del radio pasa de todos-contra-todos a un índice espacial de buckets
+(`indexCells`/`countNeighbours` en `housing-market.ts`), con un test que compara contra el barrido
+completo celda a celda, celdas compartidas y fronteras de bucket incluidas. Es exacto: los diez
+digestos dorados no cambian. `describeHousingStock` baja de 17,6 ms a 2,70 ms de mediana con 607
+edificios, y el coste por edificio ahora *decrece* con la escala (7,31 µs a 200 parcelas frente a
+4,45 µs a 800), que es la firma de haber dejado atrás el comportamiento cuadrático. La campaña
+longitudinal con la misma metodología: `none` 28,13 → 15,50 ms de media (p95 31,62 → 17,13),
+`representative` 32,98 → 17,34 ms y `max` 34,52 → 18,94 ms (p95 37,65 → 19,18); `natural` 8×6 queda
+en 16,48 ms de media y 18,69 ms de p95. **El cierre sigue fuera del presupuesto p95 y del disparador
+de 5 ms**, así que la remediación continúa abierta, pero ya no hay un hotspot único: el desglose del
+cierre instrumentado reparte ~11 ms entre sistemas (`housing` 3,9 ms el mayor, `factions` 2,0 ms,
+`maintenance` y `rent` ~1,0 ms cada uno). Con los dos cuadráticos conocidos optimizados de forma
+exacta, el siguiente peldaño de la escalera —aproximación/LOD con su benchmark— pertenece a WP4.16,
+que lo lleva como precondición documentada. Ver
+`docs/execution/phase-4/wp4-15-hardening-2026-10-25.md`.

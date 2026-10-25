@@ -10,7 +10,7 @@ Fecha de consolidación: 2026-10-23.
 - Plan maestro de ejecución por fases: sí.
 - Plantilla de microtareas para agentes de baja ambigüedad: sí.
 - Fase 0 de preparación: cerrada el 2026-10-20.
-- ADRs D-046 a D-074: aceptados.
+- ADRs D-046 a D-081: aceptados.
 - Charter, contratos, benchmark y backlog inicial de Gate 1: listos.
 - Historias del prototipo: sí.
 - Riesgos: sí.
@@ -213,6 +213,21 @@ diferido gana caja a la pasiva en 8/8 semillas y elimina la vacancia medida; el 
 equilibrado queda dominado en caja (31,84 % de vacancia frente a 3,13 %, más coste), registrado como
 bandera de balance para tuning posterior, no como invariante rota. El siguiente es WP4.15 (pipeline
 artístico y escalado de contenido).
+**Revisión del 2026-10-25 (auditoría externa de WP4.14)**: ese dataset **no era una baseline de balance
+de gameplay**. La campaña construía el mundo con `createScaledCity`, un arnés de carga que inyecta
+5 000 000 de caja y regala parcelas, edificios, inquilinos, préstamos y cuadrillas; con esa caja
+`financeCashFloor` no se activa nunca y las cajas finales quedan en 4,8–5,0 millones frente a los 12 000
+de la partida real. Se renombra a `docs/balance/synthetic-city-balance-v1.json`
+(`worldKind: "synthetic_load_harness"`, conservado como test de esfuerzo) y se añade la baseline jugable
+`docs/balance/playable-alpha-baseline-v1.json` (`pnpm balance:playable`): `createInitialState(seed)`,
+16 semillas × 12 meses × 4 estrategias ejecutadas **sólo con comandos reales** del jugador, políticas
+por `SetMaintenancePolicy`/`SetAutomationPolicy`, rutina de crecimiento idéntica para las cuatro,
+`commandAudit` por tipo y determinismo verificado; 62-68 s. Con datos jugables **ninguna estrategia
+domina** (ganadoras por semilla: `passive` 8, `delegated_deferred` 5, `maintained` 2,
+`delegated_balanced` 1; comparaciones 6/16, 4/16 y 3/16) y el "mantenimiento equilibrado dominado"
+queda rebajado a **señal fuerte para investigar**: pierde caja en 12 de 16 semillas pero termina con más
+suelo, más edificios y más valor de catálogo. `scripts/build-balance-dataset.mjs` genera los dos
+datasets y `balance-dataset.test.ts` valida los dos archivos.
 **WP4.15 (pipeline artístico y escalado de contenido) quedó cerrado el 2026-10-25 bajo D-080**:
 contrato runtime de assets v1 en shared (edificios con huella, pivote y cuatro estados; personajes con
 4/8 direcciones e `idle`/`walk`; hashes y provenance), factoría procedural determinista con 68 SVG en
@@ -222,6 +237,24 @@ budgets en CI, captura visual con baseline SHA-256 y perfil de 400 sprites a 60 
 Blender conserva el mismo contrato; la integración de personajes en la escena jugable y el atlas
 raster quedan diferidos con decisión registrada. Los smokes de juego siguen verdes con sprites y sus
 cajas no se mueven.
+**WP4.15-H (endurecimiento pre-cierre, auditoría del 2026-10-25) quedó cerrado el 2026-10-25 bajo
+D-081**, sin deshacer commits: `effectiveConstructionWorkRequired` unifica el esfuerzo de obra entre
+`StartConstruction` y la proyección; el test de carga de WP4.13 mide diez días reales tras la
+maduración; `buildStock` pasa de O(edificios²) a índice espacial de buckets exacto (17,6 → 2,70 ms de
+mediana, digestos intactos) y el cierre mensual baja a 15,5–18,9 ms de media según modo macro, aún
+fuera del presupuesto p95 y sin hotspot único; la huella participa en depth y posición
+(`depthForAsset`/`footprintCenter`) y cada dirección camina con sus propios frames
+(`animationFrameFor`); la ruta Blender queda demostrada de extremo a extremo para un edificio y una
+variante de personaje (`tools/art-pipeline/blender/runtime_asset.py` +
+`scripts/build-blender-assets.mjs`, bundle verificado por `art:blender:check` y consumido por Phaser);
+atlas/texture packing y Git LFS se reclasifican como requisitos de Beta con criterio de reapertura
+medido y presupuesto de binarios con guarda en CI (`art:binaries:check`); el perfil denso se mide en
+Phaser de verdad (400 sprites, cambio de frame y scroll, 60 FPS de mediana) y la regresión visual es
+una guarda efectiva de CI con pixel-diff tolerante sobre `/art-lab?static=1`. Acta en
+`docs/execution/phase-4/wp4-15-hardening-2026-10-25.md`.
+**WP4.16 (robustez y cierre alpha) sigue en NO-GO hasta esta revisión y ahora tiene su precondición de
+`buildStock` cumplida**; la decisión de LOD agregado con su benchmark posterior forma parte de su
+alcance, junto al playtest instrumentado diferido por D-063.
 
 El baseline económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas

@@ -15,6 +15,9 @@
     "art:assets:check": "node scripts/generate-runtime-assets.mjs --check",
     "art:visual": "node scripts/art-visual-capture.mjs",
     "art:profile": "node scripts/art-dense-profile.mjs",
+    "art:blender": "node scripts/build-blender-assets.mjs",
+    "art:blender:check": "node scripts/build-blender-assets.mjs --check",
+    "art:binaries:check": "node scripts/check-binary-budget.mjs",
     "lint": "eslint . && pnpm check:architecture",
     "check:architecture": "node scripts/check-architecture.mjs",
     "typecheck": "pnpm -r --if-present typecheck",
@@ -31,6 +34,7 @@
     "soak": "SOAK_FULL=1 vitest run --config vitest.config.ts packages/simulation/src/soak.test.ts --reporter=verbose",
     "audit:metrics": "AUDIT_METRICS=1 vitest run --config vitest.config.ts packages/simulation/src/audit-metrics.test.ts --reporter=verbose",
     "balance:campaign": "BALANCE_CAMPAIGN=1 vitest run --config vitest.config.ts packages/simulation/src/balance.test.ts --reporter=verbose",
+    "balance:playable": "PLAYABLE_BALANCE_CAMPAIGN=1 vitest run --config vitest.config.ts packages/simulation/src/balance-playable.test.ts --reporter=verbose",
     "state:inspect": "STATE_INSPECT=1 vitest run --config vitest.config.ts packages/simulation/src/state-inspect.test.ts --reporter=verbose",
     "format:check": "prettier --check .",
     "format": "prettier --write ."

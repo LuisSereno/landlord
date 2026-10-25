@@ -1,0 +1,4 @@
+# Baseline visual del Art Lab con la factoría runtime (WP4.15).
+# Entorno: Linux x64, Chromium de Playwright 1.64.1 headless, viewport 1440x1000, deviceScaleFactor 1.
+# Comparación estricta opt-in: ART_VISUAL_STRICT=1 pnpm art:visual
+3e962b052ddbc70929665eb8994d1c0d679a5750262f763b9b1765e158d416b3

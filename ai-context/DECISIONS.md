@@ -734,3 +734,26 @@ semillas y elimina la vacancia medida; el mantenimiento equilibrado queda **domi
 Es un hallazgo de balance para tuning posterior, no una invariante rota; WP4.14 entrega detección, no
 rebalanceo. Ver `docs/engineering/adr/D-079-herramientas-internas-y-balance.md`,
 `docs/execution/phase-4/wp4-14-internal-tools-2026-10-25.md` y `docs/balance/README.md`.
+
+## D-080 — Contrato runtime de assets y factoría procedural para Alpha
+Estado: aceptada el 2026-10-25 para WP4.15. `RuntimeAssetManifestV1` en `@landlord/shared` es la
+frontera: por edificio declara huella, pivote normalizado y los cuatro estados obligatorios
+(`complete`, `construction`, `damaged`, `burning`); por personaje, 4 u 8 direcciones con `idle` y
+`walk`; por imagen, tamaño, SHA-256 y fuente; y por manifiesto, generador (`procedural_svg` o
+`blender_render`) y provenance. La factoría de Alpha es procedural, original y determinista
+(`scripts/generate-runtime-assets.mjs`): 5 edificios × 4 estados y 2 variantes de personaje, 68 SVG en
+data URIs dentro de un manifiesto de 106 KB, sin binarios ni LFS; `--check` falla ante ediciones
+manuales. `IsometricSpikeScene` compila texturas del manifiesto y pinta un sprite por edificio y sitio
+de obra con pivote (`setOrigin`) y depth isométrico `(x+y)*1000 + y*10 + x`, el mismo orden que las
+losetas; `operational` ≥ 60 % → `complete`, < 60 % → `damaged`, `burning`/`collapse_pending` →
+`burning`, `ruin` → `damaged` con opacidad reducida, obra → `construction`; el rectángulo sobrevive
+sólo como respaldo hasta que las texturas cargan. Los personajes se animan en el Art Lab (que también
+mide 4 vs 8 direcciones); la escena jugable conserva el blitter de agentes hasta que exista un LOD de
+personaje medido. Estrategia de atlas: una textura por frame SVG compilada en runtime para Alpha; el
+arte final en píxeles usará un atlas raster con la misma metadata y una decisión de almacenamiento
+(LFS). Medición: `pnpm art:visual` captura el Art Lab y publica SHA-256 con baseline versionado
+(comparación estricta opt-in por variación de antialiasing); `pnpm art:profile` pinta 400 sprites a 60
+FPS DOM; `pnpm smoke:art-lab` valida galería y assets; los smokes de juego siguen verdes con sprites
+integrados y sin mover sus cajas. Budgets: manifiesto < 200 KB (106 KB), SVG < 8 KB (< 2 KB). Ver
+`docs/engineering/adr/D-080-contrato-assets-y-factoria.md`, `docs/art/RUNTIME-ASSETS.md` y
+`docs/execution/phase-4/wp4-15-art-pipeline-2026-10-25.md`.

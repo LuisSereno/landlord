@@ -435,6 +435,21 @@ del runbook WP2.14 (H2/H4/H7/H8), cuyo gate ya está cerrado.
 **Aceptación:** un nuevo building y una variante de personaje se generan e integran sin
 trabajo manual oculto, dentro de budgets medidos.
 
+**Estado 2026-10-25:** `DONE` con los diferidos declarados. Evidencia en
+`docs/execution/phase-4/wp4-15-art-pipeline-2026-10-25.md`, decisión en
+`docs/engineering/adr/D-080-contrato-assets-y-factoria.md` y manual en `docs/art/RUNTIME-ASSETS.md`.
+
+- Contrato `RuntimeAssetManifestV1` en shared: edificios con huella, pivote y cuatro estados;
+  personajes con 4/8 direcciones e `idle`/`walk`; hashes y provenance.
+- Factoría procedural determinista: 5 edificios × 4 estados y 2 variantes de personaje, 68 SVG en
+  data URIs (manifiesto 106 KB, sin binarios ni LFS); `art:assets:check` detecta ediciones manuales.
+- Integración Phaser: pivote y depth desde metadata, estados complete/construction/damaged/burning;
+  personajes animados en el Art Lab (4 vs 8 direcciones).
+- Validación en CI de esquema, hashes, estados, direcciones y budgets; captura visual con baseline
+  SHA-256 opt-in; perfil de 400 sprites a 60 FPS DOM.
+- Diferidos: arte final Blender (mismo contrato, no en CI), personajes en la escena jugable (LOD de
+  personaje pendiente) y atlas raster/LFS para el arte final.
+
 ## WP4.16 — Robustez y cierre alpha
 
 - Migrar fixtures de todas las fases.

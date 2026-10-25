@@ -197,6 +197,18 @@ Sigue abierto:
 - LOD de gameplay: no se introdujo maquinaria nueva; `buildStock` (O(edificios²)) sigue siendo el
   hotspot medido antes de aproximar.
 
+## Arte (WP4.15)
+- Los assets de Alpha son placeholders procedurales (SVG en data URI); el arte final Blender usa el
+  mismo contrato `RuntimeAssetManifestV1` pero no se ejecuta en CI ni se versionan binarios.
+- Los personajes se animan y comparan 4 vs 8 direcciones en el Art Lab, pero la escena jugable
+  conserva el blitter de agentes hasta que exista un LOD de personaje medido.
+- Estrategia de atlas: una textura por frame SVG en runtime para Alpha; el atlas raster final exige
+  decidir almacenamiento (LFS) y empaquetado.
+- La comparación visual estricta contra el baseline SHA-256 es opt-in; el antialiasing puede variar
+  entre runners.
+- El perfil de 400 sprites mide pintado DOM, no el frame Phaser; el frame del juego sigue cubierto por
+  `pnpm benchmark:browser`.
+
 ## Balance (hallazgo WP4.14)
 - El mantenimiento equilibrado está **dominado en caja** por el diferido en la baseline sintética
   (`alpha-baseline-v1`): 0/8 semillas a favor, 31,84 % de vacancia media frente a 3,13 % y menos caja,

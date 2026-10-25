@@ -11,6 +11,10 @@
   "scripts": {
     "art:staging:validate": "node scripts/validate-art-staging.mjs",
     "art:spike:validate": "node scripts/validate-visual-direction-spike.mjs",
+    "art:generate": "node scripts/generate-runtime-assets.mjs",
+    "art:assets:check": "node scripts/generate-runtime-assets.mjs --check",
+    "art:visual": "node scripts/art-visual-capture.mjs",
+    "art:profile": "node scripts/art-dense-profile.mjs",
     "lint": "eslint . && pnpm check:architecture",
     "check:architecture": "node scripts/check-architecture.mjs",
     "typecheck": "pnpm -r --if-present typecheck",

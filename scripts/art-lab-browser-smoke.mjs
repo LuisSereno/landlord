@@ -36,14 +36,29 @@ async function waitForServer() {
 try {
   await waitForServer();
   await page.getByRole("heading", { name: "Art Lab" }).waitFor();
-  const cards = page.locator(".art-lab-card");
+  const cards = page.locator("[data-direction]");
   if ((await cards.count()) !== 3) throw new Error("El Art Lab no muestra las tres direcciones");
-  const images = page.locator(".art-lab-card img");
+  const images = page.locator("[data-direction] img");
   for (let index = 0; index < 3; index += 1) {
     const image = images.nth(index);
     await image.waitFor({ state: "visible" });
     if ((await image.evaluate((element) => element.naturalWidth)) !== 1024) {
       throw new Error(`El render ${index} no tiene el ancho esperado`);
+    }
+  }
+  const buildings = page.locator("[data-building]");
+  if ((await buildings.count()) !== 5)
+    throw new Error("La factoría no muestra los cinco edificios");
+  const characters = page.locator("[data-character]");
+  if ((await characters.count()) !== 2) throw new Error("La factoría no muestra dos personajes");
+  for (const card of await buildings.all()) {
+    const stateImages = card.locator("img");
+    if ((await stateImages.count()) !== 4) throw new Error("Faltan estados de edificio");
+    for (const image of await stateImages.all()) {
+      await image.waitFor({ state: "visible" });
+      if ((await image.evaluate((element) => element.naturalWidth)) === 0) {
+        throw new Error("Una imagen de estado no cargó");
+      }
     }
   }
   await page.screenshot({ path: "artifacts/art-lab-visual-direction-spike.png", fullPage: true });
@@ -53,6 +68,8 @@ try {
       status: "passed",
       url: `${baseUrl}/art-lab`,
       directions: await cards.count(),
+      buildings: await buildings.count(),
+      characters: await characters.count(),
       screenshot: "artifacts/art-lab-visual-direction-spike.png",
     }),
   );

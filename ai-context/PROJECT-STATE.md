@@ -70,7 +70,8 @@ Fecha de consolidación: 2026-10-23.
 - package.json: sí, raíz y workspaces mínimos de Gate 1.
 - CI: sí, checks base en GitHub Actions; desde WP4.11-H incluye lint, typecheck, tests, build,
   format y los smokes de Gate 2 y Alpha.
-- assets: no.
+- assets: runtime procedural generado y versionado como data URIs (68 SVG, manifiesto de 106 KB); no
+  hay binarios de arte final ni Blender ejecutado en CI.
 - backend: no.
 - modelo de datos implementado: contratos shared v1 extendidos de forma aditiva, núcleo autoritativo
   headless de Gate 2, producción física localizada, proyección financiera derivada y distrito
@@ -212,6 +213,15 @@ diferido gana caja a la pasiva en 8/8 semillas y elimina la vacancia medida; el 
 equilibrado queda dominado en caja (31,84 % de vacancia frente a 3,13 %, más coste), registrado como
 bandera de balance para tuning posterior, no como invariante rota. El siguiente es WP4.15 (pipeline
 artístico y escalado de contenido).
+**WP4.15 (pipeline artístico y escalado de contenido) quedó cerrado el 2026-10-25 bajo D-080**:
+contrato runtime de assets v1 en shared (edificios con huella, pivote y cuatro estados; personajes con
+4/8 direcciones e `idle`/`walk`; hashes y provenance), factoría procedural determinista con 68 SVG en
+data URIs (manifiesto de 106 KB, sin binarios ni LFS), integración de edificios en Phaser con pivote y
+depth desde metadatos, galería y animación de personajes en el Art Lab, validación de esquema/hashes/
+budgets en CI, captura visual con baseline SHA-256 y perfil de 400 sprites a 60 FPS DOM. El arte final
+Blender conserva el mismo contrato; la integración de personajes en la escena jugable y el atlas
+raster quedan diferidos con decisión registrada. Los smokes de juego siguen verdes con sprites y sus
+cajas no se mueven.
 
 El baseline económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas

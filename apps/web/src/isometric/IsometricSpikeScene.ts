@@ -1,5 +1,19 @@
 import Phaser from "phaser";
-import type { ViewProjectionV1 } from "@landlord/shared";
+import type {
+  BuildingAssetState,
+  BuildingAssetV1,
+  BuildingType,
+  RuntimeAssetManifestV1,
+  ViewProjectionV1,
+} from "@landlord/shared";
+import runtimeAssets from "../generated/runtime-assets.json";
+import {
+  assetFor,
+  buildingAssetStateFor,
+  depthForCell,
+  originFromPivot,
+  spriteKeyFor,
+} from "./building-sprites";
 import {
   gridToScreen,
   pickGridCell,
@@ -25,6 +39,7 @@ const COLORS = {
 
 const STRUCTURE_TEXTURE_KEY = "benchmark-structure-marker";
 const AGENT_TEXTURE_KEY = "benchmark-agent-marker";
+const ASSETS = runtimeAssets as RuntimeAssetManifestV1;
 
 export type MapOverlay = "ownership" | "profitability" | "condition" | "zoning" | "risk";
 
@@ -36,6 +51,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private agentBlitter?: Phaser.GameObjects.Blitter;
   private structureBobs: Phaser.GameObjects.Bob[] = [];
   private agentBobs: Phaser.GameObjects.Bob[] = [];
+  private buildingSprites = new Map<string, Phaser.GameObjects.Image>();
+  private assetsReady = false;
   private debugText?: Phaser.GameObjects.Text;
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   private selectedCell: GridCell | null = null;
@@ -55,11 +72,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
     const staticMap = this.add.renderTexture(0, 0, 4096, 4096).setOrigin(0, 0);
     staticMap.draw(tileGraphics);
     tileGraphics.destroy();
-    this.mapGraphics = this.add.graphics();
+    this.mapGraphics = this.add.graphics().setDepth(20_000);
     this.createMarkerTexture(STRUCTURE_TEXTURE_KEY, 16, 16, "#d97757");
     this.createMarkerTexture(AGENT_TEXTURE_KEY, 4, 4, "#8fcae7");
-    this.structureBlitter = this.add.blitter(0, 0, STRUCTURE_TEXTURE_KEY);
-    this.agentBlitter = this.add.blitter(0, 0, AGENT_TEXTURE_KEY);
+    this.structureBlitter = this.add.blitter(0, 0, STRUCTURE_TEXTURE_KEY).setDepth(15_000);
+    this.agentBlitter = this.add.blitter(0, 0, AGENT_TEXTURE_KEY).setDepth(15_000);
     this.debugText = this.add
       .text(16, 16, "cell: — | zoom: 1.00", {
         color: "#f4f7fb",
@@ -76,6 +93,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.input.on("pointermove", this.handlePointerMove, this);
     this.input.on("pointerup", this.handlePointerUp, this);
     this.input.on("wheel", this.handleWheel, this);
+    void this.registerBuildingTextures();
   }
 
   public override update(): void {
@@ -91,6 +109,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   public setProjection(projection: ViewProjectionV1): void {
     this.projection = projection;
     this.updateBlitterPositions();
+    this.syncBuildingSprites();
     this.drawOverlay();
   }
 
@@ -154,6 +173,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       graphics.strokePath();
     }
     for (const building of this.projection?.economy?.buildings ?? []) {
+      if (this.assetsReady) break;
       const parcel = this.projection?.economy?.parcels.find(
         (entry) => entry.buildingId === building.id,
       );
@@ -255,6 +275,98 @@ export class IsometricSpikeScene extends Phaser.Scene {
     texture.context.fillStyle = color;
     texture.context.fillRect(0, 0, width, height);
     texture.refresh();
+  }
+
+  /**
+   * Compila las imágenes del manifiesto en texturas de Phaser. El contrato viaja como SVG en data
+   * URI; el navegador lo rasteriza al cargar. Si una textura falla, se conserva el rectángulo de
+   * respaldo en vez de romper la escena.
+   */
+  private async registerBuildingTextures(): Promise<void> {
+    for (const [type, asset] of Object.entries(ASSETS.buildings)) {
+      for (const [state, image] of Object.entries(asset.states)) {
+        const key = spriteKeyFor(type as BuildingType, state as BuildingAssetState);
+        if (this.textures.exists(key)) continue;
+        const element = new Image();
+        element.src = image.src;
+        try {
+          await element.decode();
+        } catch {
+          return;
+        }
+        if (!element.complete || element.naturalWidth === 0) return;
+        const texture = this.textures.createCanvas(key, image.width, image.height);
+        if (!texture) return;
+        texture.context.drawImage(element, 0, 0, image.width, image.height);
+        texture.refresh();
+      }
+    }
+    this.assetsReady = true;
+    this.syncBuildingSprites();
+    this.drawOverlay();
+  }
+
+  /** Mantiene un sprite por edificio y sitio de obra, con pivote y depth derivados del manifiesto. */
+  private syncBuildingSprites(): void {
+    if (!this.assetsReady || !this.projection?.economy) return;
+    const economy = this.projection.economy;
+    const view = this.cameras.main.worldView;
+    const seen = new Set<string>();
+    for (const building of economy.buildings) {
+      const parcel = economy.parcels.find((entry) => entry.buildingId === building.id);
+      const asset = assetFor(ASSETS, building.type);
+      if (!parcel || !asset) continue;
+      const key = spriteKeyFor(
+        building.type,
+        buildingAssetStateFor(building.state, building.condition),
+      );
+      if (!this.textures.exists(key)) continue;
+      const id = `building:${building.id}`;
+      const center = this.screenCenter(parcel.cell);
+      const sprite = this.ensureBuildingSprite(id, key, asset);
+      sprite.setPosition(center.x, center.y);
+      sprite.setDepth(depthForCell(parcel.cell));
+      sprite.setAlpha(building.state === "ruin" ? 0.4 : 1);
+      sprite.setVisible(this.isInViewport(center.x, center.y, view, 96));
+      seen.add(id);
+    }
+    for (const site of economy.constructionSites) {
+      const parcel = economy.parcels.find((entry) => entry.id === site.parcelId);
+      const asset = assetFor(ASSETS, site.buildingType);
+      if (!parcel || !asset) continue;
+      const key = spriteKeyFor(site.buildingType, "construction");
+      if (!this.textures.exists(key)) continue;
+      const id = `site:${site.id}`;
+      const center = this.screenCenter(parcel.cell);
+      const sprite = this.ensureBuildingSprite(id, key, asset);
+      sprite.setPosition(center.x, center.y);
+      sprite.setDepth(depthForCell(parcel.cell) + 1);
+      sprite.setAlpha(1);
+      sprite.setVisible(this.isInViewport(center.x, center.y, view, 96));
+      seen.add(id);
+    }
+    for (const [id, sprite] of this.buildingSprites) {
+      if (seen.has(id)) continue;
+      sprite.destroy();
+      this.buildingSprites.delete(id);
+    }
+  }
+
+  private ensureBuildingSprite(
+    id: string,
+    key: string,
+    asset: BuildingAssetV1,
+  ): Phaser.GameObjects.Image {
+    let sprite = this.buildingSprites.get(id);
+    if (!sprite) {
+      sprite = this.add.image(0, 0, key);
+      this.buildingSprites.set(id, sprite);
+    } else if (sprite.texture.key !== key) {
+      sprite.setTexture(key);
+    }
+    const origin = originFromPivot(asset);
+    sprite.setOrigin(origin.x, origin.y);
+    return sprite;
   }
 
   private buildScreenCenterCache(): void {

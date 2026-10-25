@@ -209,7 +209,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
     }
   }
 
-  private parcelOverlayColor(parcel: NonNullable<ViewProjectionV1["economy"]>["parcels"][number]): number {
+  private parcelOverlayColor(
+    parcel: NonNullable<ViewProjectionV1["economy"]>["parcels"][number],
+  ): number {
     if (this.overlay === "condition") {
       const building = this.projection?.economy?.buildings.find(
         (entry) => entry.id === parcel.buildingId,

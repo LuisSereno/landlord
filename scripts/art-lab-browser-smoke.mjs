@@ -14,7 +14,10 @@ const server = externalServerUrl
       { stdio: "ignore", detached: true },
     );
 const browser = await chromium.launch({ headless: true });
-const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
+const page = await browser.newPage({
+  viewport: { width: 1440, height: 1000 },
+  deviceScaleFactor: 1,
+});
 const pageErrors = [];
 page.on("pageerror", (error) => pageErrors.push(error.message));
 

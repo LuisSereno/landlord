@@ -4,7 +4,16 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
-    ignores: ["**/dist/**", "**/node_modules/**", "**/.cache/**"],
+    ignores: [
+      "**/dist/**",
+      "**/node_modules/**",
+      "**/.cache/**",
+      /**
+       * Toolchain Python vendorizado de Blender (docutils, urllib3 y sus demos JS): no es código
+       * del producto, no se edita a mano y por eso tampoco entra en el lint del repositorio.
+       */
+      "blender_artist/toolchain/**",
+    ],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
@@ -26,6 +35,8 @@ export default tseslint.config(
         URL: "readonly",
         console: "readonly",
         process: "readonly",
+        // Los smokes de Playwright evalúan este global dentro del navegador.
+        indexedDB: "readonly",
       },
     },
   },

@@ -48,5 +48,8 @@ jobs:
       - name: Gate 2 browser smoke
         run: pnpm smoke:phase2
 
+      - name: Alpha browser smoke
+        run: pnpm smoke:alpha
+
       - name: Check formatting
         run: pnpm format:check

@@ -20,6 +20,7 @@
     "benchmark": "BENCHMARK_FULL=1 vitest run --config vitest.config.ts packages/simulation/src/benchmark.test.ts --reporter=verbose",
     "benchmark:browser": "pnpm build && node scripts/browser-benchmark.mjs",
     "smoke:phase2": "node scripts/phase2-browser-smoke.mjs",
+    "smoke:alpha": "node scripts/alpha-browser-smoke.mjs",
     "smoke:art-lab": "node scripts/art-lab-browser-smoke.mjs",
     "district:inspect": "DISTRICT_INSPECT=1 vitest run --config vitest.config.ts packages/simulation/src/district-inspect.test.ts --reporter=verbose",
     "system:cost": "SYSTEM_COST=1 vitest run --config vitest.config.ts packages/simulation/src/system-cost.test.ts --reporter=verbose",

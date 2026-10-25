@@ -41,7 +41,8 @@ function inspectPng(bytes) {
 
 if (manifest.status !== "approved_baseline") fail(`estado ${manifest.status}`);
 if (manifest.recommendation.baseline !== "graphic_civic") fail("baseline inesperada");
-if (!Array.from(requiredCoverage).every((item) => manifest.kitCoverage.includes(item))) fail("kit incompleto");
+if (!Array.from(requiredCoverage).every((item) => manifest.kitCoverage.includes(item)))
+  fail("kit incompleto");
 
 const checked = [];
 for (const direction of manifest.directions) {

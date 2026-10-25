@@ -1,11 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  parseBuildingId,
-  parseMoney,
-  parseTick,
-  type Building,
-} from "@landlord/shared";
+import { parseBuildingId, parseMoney, parseTick, type Building } from "@landlord/shared";
 import {
   GAME_MONTH_TICKS,
   MUNICIPALITY_ORGANIZATION_ID,

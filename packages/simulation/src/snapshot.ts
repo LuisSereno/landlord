@@ -147,6 +147,7 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
         },
         nextCheckTick: state.phase2.macroEvents.nextCheckTick,
       },
+      automation: { ...state.phase2.automation },
       influenceByOrganizationId: [...state.phase2.influenceByOrganizationId.entries()]
         .map(([organizationId, influence]) => ({ organizationId, influence }))
         .sort((left, right) => left.organizationId.localeCompare(right.organizationId)),
@@ -640,6 +641,9 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 ),
               }
             : defaults.macroEvents,
+          automation: snapshot.phase2.automation
+            ? { ...snapshot.phase2.automation }
+            : { ...defaults.automation },
           influenceByOrganizationId: new Map(
             snapshot.phase2.influenceByOrganizationId.map((entry) => [
               parseOrganizationId(entry.organizationId),

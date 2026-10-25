@@ -635,6 +635,21 @@ export type MaintenanceState = {
   backlogByBuildingId: Record<string, Money>;
 };
 
+/**
+ * Delegación del jugador: qué tareas rutinarias ejecuta un gestor con los mismos comandos y permisos
+ * que la jugadora. Ningún modo puede saltarse una validación del dispatcher.
+ */
+export type AutomationPropertyMode = "manual" | "fill_vacancies";
+export type AutomationFinanceMode = "manual" | "cover_shortfall";
+export type AutomationState = {
+  property: AutomationPropertyMode;
+  finance: AutomationFinanceMode;
+  /** Condición (0–100) a partir de la cual el gestor repara; `null` desactiva la reparación. */
+  maintenanceRepairThreshold: number | null;
+  /** Caja mínima que el gestor financiero intenta no perforar. */
+  financeCashFloor: Money;
+};
+
 export type PolicyStatus =
   "proposed" | "approved" | "active" | "expired" | "rejected" | "withdrawn";
 export type Ordinance = {
@@ -1139,6 +1154,12 @@ export const maintenanceStateSchema = z.object({
   lastSettlementTick: tickSchema.nullable(),
   backlogByBuildingId: z.record(z.string(), moneySchema),
 });
+export const automationStateSchema = z.object({
+  property: z.enum(["manual", "fill_vacancies"]),
+  finance: z.enum(["manual", "cover_shortfall"]),
+  maintenanceRepairThreshold: z.number().int().min(0).max(100).nullable(),
+  financeCashFloor: moneySchema,
+});
 export const ordinanceSchema = z.object({
   id: policyIdSchema,
   name: z.string().min(1).max(120),
@@ -1286,6 +1307,15 @@ export type SetMaintenancePolicy = DomainCommandBase & {
   type: "SetMaintenancePolicy";
   payload: { policy: MaintenancePolicy };
 };
+export type SetAutomationPolicy = DomainCommandBase & {
+  type: "SetAutomationPolicy";
+  payload: {
+    property?: AutomationPropertyMode;
+    finance?: AutomationFinanceMode;
+    maintenanceRepairThreshold?: number | null;
+    financeCashFloor?: Money;
+  };
+};
 export type RequestPermit = DomainCommandBase & {
   type: "RequestPermit";
   payload: { parcelId: ParcelId; buildingType: BuildingType };
@@ -1332,6 +1362,7 @@ export type ProductCommand =
   | PlaceAuctionBid
   | WithdrawAuctionBid
   | SetMaintenancePolicy
+  | SetAutomationPolicy
   | RequestPermit
   | BuyInsurance
   | CancelInsurance
@@ -1452,6 +1483,15 @@ export const setMaintenancePolicySchema = commandSchema(
   "SetMaintenancePolicy",
   z.object({ policy: z.enum(["balanced", "deferred"]) }),
 );
+export const setAutomationPolicySchema = commandSchema(
+  "SetAutomationPolicy",
+  z.object({
+    property: z.enum(["manual", "fill_vacancies"]).optional(),
+    finance: z.enum(["manual", "cover_shortfall"]).optional(),
+    maintenanceRepairThreshold: z.number().int().min(0).max(100).nullable().optional(),
+    financeCashFloor: moneySchema.optional(),
+  }),
+);
 export const requestPermitSchema = commandSchema(
   "RequestPermit",
   z.object({ parcelId: parcelIdSchema, buildingType: buildingTypeSchema }),
@@ -1504,6 +1544,7 @@ export const productCommandSchema = z.discriminatedUnion("type", [
   placeAuctionBidSchema,
   withdrawAuctionBidSchema,
   setMaintenancePolicySchema,
+  setAutomationPolicySchema,
   requestPermitSchema,
   buyInsuranceSchema,
   cancelInsuranceSchema,

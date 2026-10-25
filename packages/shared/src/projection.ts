@@ -328,6 +328,16 @@ export type ViewProjectionV1 = {
       };
       nextCheckTick: Tick;
     };
+    automation: {
+      policies: {
+        property: "manual" | "fill_vacancies";
+        finance: "manual" | "cover_shortfall";
+        maintenanceRepairThreshold: number | null;
+        financeCashFloor: Money;
+      };
+      /** Tareas rutinarias detectadas antes de aplicar la automatización. */
+      routineTaskCount: number;
+    };
     publicContracts: {
       open: Array<{
         id: string;
@@ -865,6 +875,15 @@ export const viewProjectionV1Schema = z.object({
           demandModifierPercent: z.number().optional(),
         }),
         nextCheckTick: tickSchema,
+      }),
+      automation: z.object({
+        policies: z.object({
+          property: z.enum(["manual", "fill_vacancies"]),
+          finance: z.enum(["manual", "cover_shortfall"]),
+          maintenanceRepairThreshold: z.number().int().min(0).max(100).nullable(),
+          financeCashFloor: moneySchema,
+        }),
+        routineTaskCount: z.number().int().nonnegative(),
       }),
       publicContracts: z.object({
         open: z.array(

@@ -35,6 +35,7 @@ import {
 } from "./game-data";
 import type { GameState } from "./state";
 import { runEmployment } from "./employment";
+import { runAutomation } from "./automation";
 import { macroShockBiasFor, runMacroEvents } from "./macro-events";
 import { runMunicipalBudget } from "./municipal-budget";
 import { runMunicipalPolitics } from "./municipal-politics";
@@ -1462,6 +1463,9 @@ export const PRODUCT_SYSTEMS: readonly ProductSystem[] = [
   { name: "insurance", run: settleInsurance },
   { name: "policy", run: updatePolicyAndHeat },
   { name: "rival", run: rivalAction },
+  // La delegación del jugador actúa a diario con los mismos comandos y permisos; va después del
+  // rival para que ambas organizaciones decidan sobre el mismo estado del día.
+  { name: "automation", run: runAutomation },
   // El empleo fija el nivel de ingresos del mes antes de que vivienda decida qué es asequible.
   { name: "employment", run: runEmployment },
   // El mercado cierra el mes después de la renta: el precio que se descubre hoy se cobra el mes

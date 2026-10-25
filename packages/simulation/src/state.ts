@@ -52,6 +52,7 @@ import type {
 import type { Seed } from "@landlord/shared";
 import { SimulationClock, type ClockState } from "./clock";
 import { createPrng, type PrngState } from "./prng";
+import { initialAutomationState } from "./automation";
 import { generateDistrict } from "./district-generator";
 import { rosterLayout } from "./district-profiles";
 import { initialEmploymentState } from "./employment";
@@ -126,6 +127,7 @@ export type Phase2State = {
     nextAvailableTickByOrganizationId: Record<string, number>;
   };
   macroEvents: MacroEventsState;
+  automation: import("@landlord/shared").AutomationState;
   influenceByOrganizationId: Map<OrganizationId, number>;
   rivalAi: {
     strategyProfile: "conservative" | "expansionist";
@@ -367,6 +369,7 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
         nextAvailableTickByOrganizationId: {},
       },
       macroEvents: initialMacroEventsState(normalizedSeed),
+      automation: initialAutomationState(),
       influenceByOrganizationId: new Map([
         [PLAYER_ORGANIZATION_ID, 2],
         [RIVAL_ORGANIZATION_ID, 1],

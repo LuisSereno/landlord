@@ -26,8 +26,10 @@ import {
   calculateInsuranceOffer,
   regulatoryRiskPercent,
   MUNICIPAL_POLICY_CATALOG,
+  deteriorationRiskPercent,
 } from "./game-data";
 import { describeEmployment } from "./employment";
+import { AUTOMATION_POLICY, describeAutomation } from "./automation";
 import { describeIntelligence } from "./information";
 import { describeMunicipalBudget } from "./municipal-budget";
 import { describeMunicipalPolitics } from "./municipal-politics";
@@ -260,6 +262,23 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
       severity: "medium",
       kind: "maintenance",
       message: `${building.id} está al ${building.condition}% de condición; reparar evita más deterioro.`,
+      targetId: building.parcelId,
+    });
+  for (const building of [...state.phase2.buildings.values()]
+    .filter(
+      (entry) =>
+        entry.ownerOrganizationId === PLAYER_ORGANIZATION_ID &&
+        entry.state === "operational" &&
+        state.phase2.insurance.contractsByBuildingId[entry.id]?.status !== "active" &&
+        deteriorationRiskPercent(entry.condition) >=
+          AUTOMATION_POLICY.exception.insuranceRiskWarning,
+    )
+    .sort((left, right) => left.id.localeCompare(right.id)))
+    alerts.push({
+      id: `insurance-${building.id}`,
+      severity: "medium",
+      kind: "maintenance",
+      message: `${building.id} no tiene seguro y su riesgo de deterioro es ${deteriorationRiskPercent(building.condition)}%.`,
       targetId: building.parcelId,
     });
   for (const parcel of [...state.phase2.parcels.values()]
@@ -597,6 +616,10 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
               })),
               aggregatedModifiers: { ...activeMacroModifiers(state) },
               nextCheckTick: state.phase2.macroEvents.nextCheckTick,
+            },
+            automation: {
+              policies: { ...state.phase2.automation },
+              routineTaskCount: describeAutomation(state).routineTaskCount,
             },
             publicContracts: (() => {
               const report = describePublicContracts(state);

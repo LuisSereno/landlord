@@ -87,6 +87,7 @@ describe("WP4.11-H estado canónico", () => {
       ["factions", (state) => (state.phase2.factions.nextMemoryOrdinal += 1)],
       ["politics", (state) => (state.phase2.politics.electionsHeld += 1)],
       ["macroEvents", (state) => (state.phase2.macroEvents.nextEventOrdinal += 1)],
+      ["automation", (state) => (state.phase2.automation.property = "fill_vacancies")],
       /** Entidades reales, no contadores: el digesto tiene que leer su contenido. */
       ["crews", (state) => firstCrew(state).workerAgentIds.push(parseAgentId("agent_00000099"))],
       ["incidents", (state) => (incidentOf(state).intensity += 1)],

@@ -185,6 +185,18 @@ Sigue abierto:
 - IA delegada para organizaciones del jugador;
 - comportamiento criminal autónomo del rival.
 
+## Automatización (WP4.13)
+- La delegación sólo cubre la organización del jugador; no hay gestores automáticos para el rival ni
+  para terceros, ni una segunda perspectiva jugable.
+- `ControlContext` no se implementa: no existe un consumidor real; la autorización sigue en
+  `controlGrants` persona→organización.
+- Ritmo acotado por diseño: el gestor de propiedad resuelve hasta 3 asignaciones/día y el de
+  mantenimiento 1 reparación/día. Con carteras grandes queda cola (medido: 17 de 121 plazas a 800
+  parcelas en 10 días); subir el tope es una decisión de balance, no un defecto.
+- El gestor financiero no renegocia deuda existente ni cubre descubiertos si ya hay deuda viva.
+- LOD de gameplay: no se introdujo maquinaria nueva; `buildStock` (O(edificios²)) sigue siendo el
+  hotspot medido antes de aproximar.
+
 ## Rendimiento y Alpha
 
 - El cierre mensual de 800 parcelas es la frontera cara. Medido como campaña longitudinal real en

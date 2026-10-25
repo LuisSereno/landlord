@@ -86,6 +86,13 @@ import { createScaledCity } from "./system-cost";
  * `a7c43328b70b75c5`, `787f7087a4af7f99`, `f5fcd654560b88e7`). El sorteo natural no disparó ningún
  * shock en estos diez casos (10 % mensual y sólo tres cruzan un cierre), así que tampoco hay delta
  * económico que atribuir: las pruebas de macroeventos cubren trigger, efectos y reacción de IA aparte.
+ *
+ * Regeneración WP4.13 (2026-10-25): el estado canónico gana `phase2.automation` (políticas de
+ * delegación). Cambian los diez digestos por superficie: eliminando la clave `automation` del estado
+ * canónico nuevo recuperan exactamente los valores de WP4.12-R (`f7867a5a1e57fdd9`, `26267ba2389a386f`,
+ * `9cc24e739ecde8bf`, `d766a1f2d895a5cd`, `0281775ece6fa189`, `6940184eb08761a5`, `74d9cf8b0fe0ecc0`,
+ * `ed5e94dedebe2ea8`, `8b4904c945c9f8ff`, `94b9cc664d254f39`). La política por defecto es manual, así
+ * que la automatización no ejecuta ningún comando en estos escenarios y no hay delta económico.
  */
 function digest(value: string): string {
   let left = 0x811c9dc5;
@@ -116,54 +123,54 @@ function cityDigest(input: {
 const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => string }> = [
   {
     id: "scenario:seed-1:1200",
-    expected: "f7867a5a1e57fdd9",
+    expected: "c0ffc81106bd5af6",
     run: () => digest(canonicalizeState(runScenario(1, [], 1_200).state)),
   },
   {
     id: "scenario:seed-7:1200",
-    expected: "26267ba2389a386f",
+    expected: "520533ff693dba3e",
     run: () => digest(canonicalizeState(runScenario(7, [], 1_200).state)),
   },
   {
     id: "scenario:seed-42:1200",
-    expected: "9cc24e739ecde8bf",
+    expected: "dea4df64de2e8144",
     run: () => digest(canonicalizeState(runScenario(42, [], 1_200).state)),
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "d766a1f2d895a5cd",
+    expected: "607c53d774e9cdac",
     run: () => digest(canonicalizeState(runScenario(1, [], 36_000).state)),
   },
   {
     id: "city:50-parcels:1300-ticks",
-    expected: "0281775ece6fa189",
+    expected: "c6e0ba19b0e8689e",
     run: () => cityDigest({ parcelCount: 50, ticks: 1_300 }),
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "6940184eb08761a5",
+    expected: "fb467349ffb4695a",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "74d9cf8b0fe0ecc0",
+    expected: "f37485c0dbfb298d",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "ed5e94dedebe2ea8",
+    expected: "5eb612050c725ced",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "8b4904c945c9f8ff",
+    expected: "f4ccbd7e12221f74",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "94b9cc664d254f39",
+    expected: "c5c7afbd4950abce",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];

@@ -451,6 +451,82 @@ export function App() {
                 >
                   Cambiar a {economy.maintenance.policy === "balanced" ? "diferido" : "equilibrado"}
                 </button>
+                <p>
+                  <strong>Automatización:</strong> propiedad{" "}
+                  {economy.automation.policies.property === "manual"
+                    ? "manual"
+                    : "gestor de vacantes"}{" "}
+                  · finanzas{" "}
+                  {economy.automation.policies.finance === "manual"
+                    ? "manual"
+                    : "cubre la caja con préstamo"}{" "}
+                  · reparación automática{" "}
+                  {economy.automation.policies.maintenanceRepairThreshold === null
+                    ? "desactivada"
+                    : `bajo ${economy.automation.policies.maintenanceRepairThreshold} % de condición`}{" "}
+                  · caja objetivo {economy.automation.policies.financeCashFloor} u. · rutina
+                  detectada {economy.automation.routineTaskCount} tarea(s).
+                </p>
+                <button
+                  type="button"
+                  disabled={!client}
+                  onClick={() =>
+                    void sendAction(
+                      () =>
+                        clientRef.current!.setAutomationPolicy({
+                          property:
+                            economy.automation.policies.property === "manual"
+                              ? "fill_vacancies"
+                              : "manual",
+                        }),
+                      "Gestor de propiedad actualizado.",
+                    )
+                  }
+                >
+                  {economy.automation.policies.property === "manual"
+                    ? "Activar gestor de propiedad"
+                    : "Desactivar gestor de propiedad"}
+                </button>
+                <button
+                  type="button"
+                  disabled={!client}
+                  onClick={() =>
+                    void sendAction(
+                      () =>
+                        clientRef.current!.setAutomationPolicy({
+                          finance:
+                            economy.automation.policies.finance === "manual"
+                              ? "cover_shortfall"
+                              : "manual",
+                        }),
+                      "Gestor financiero actualizado.",
+                    )
+                  }
+                >
+                  {economy.automation.policies.finance === "manual"
+                    ? "Activar gestor financiero"
+                    : "Desactivar gestor financiero"}
+                </button>
+                <button
+                  type="button"
+                  disabled={!client}
+                  onClick={() =>
+                    void sendAction(
+                      () =>
+                        clientRef.current!.setAutomationPolicy({
+                          maintenanceRepairThreshold:
+                            economy.automation.policies.maintenanceRepairThreshold === null
+                              ? 40
+                              : null,
+                        }),
+                      "Reparación automática actualizada.",
+                    )
+                  }
+                >
+                  {economy.automation.policies.maintenanceRepairThreshold === null
+                    ? "Activar reparación bajo 40 %"
+                    : "Desactivar reparación automática"}
+                </button>
                 <button type="button" disabled={!client} onClick={() => void runPortfolioRoutine()}>
                   Resolver rutina de cartera
                 </button>

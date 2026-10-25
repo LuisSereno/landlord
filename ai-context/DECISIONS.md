@@ -689,3 +689,27 @@ el delta es superficie. `measureMonthlyCloses` gana `macroMode: natural | none |
 cierre con la carga (`tenants`, `buildings`, `vacantSlots`, `loansDue`) para diagnosticar
 `placeSearchers`. Ver `docs/engineering/adr/D-077-macroeventos-acotados.md` y
 `docs/execution/phase-4/wp4-12-macro-events-2026-10-25.md`.
+
+## D-078 — Delegación con los mismos comandos y bandeja de excepciones
+Estado: aceptada el 2026-10-25 para WP4.13. La delegación es una política persistida en
+`phase2.automation` (property `manual | fill_vacancies`, finance `manual | cover_shortfall`,
+`maintenanceRepairThreshold` 0–100 o null y `financeCashFloor`), manual por defecto, de modo que una
+partida anterior y los diez escenarios dorados no cambian de conducta. `runAutomation` corre en
+`PRODUCT_SYSTEMS` después de `rival`, sólo en fronteras de día y sólo para la organización del
+jugador; cada acción se emite con `dispatchProductCommand` y la persona/organización del jugador, así
+que las validaciones de actor, propiedad, capacidad, presupuesto, LTV, deuda máxima, mora, caja y
+cuadrilla son las mismas que un clic. Tres gestores acotados: propiedad coloca hasta tres
+`AssignTenant` diarios en unidades compatibles; finanzas, si la caja cae bajo el suelo y no hay deuda
+viva, pide un préstamo con una parcela libre como garantía y acepta la oferta; mantenimiento abre una
+`RepairBuilding` diaria bajo el umbral si la caja cubre el coste sin perforar el suelo y asigna una
+cuadrilla libre con `AssignCrewToWorkOrder`, dejando la obra en cola si no la hay. La bandeja
+priorizada reutiliza `economy.alerts` (ampliada con edificios sin seguro y riesgo alto) y
+`automation.routineTaskCount` mide la rutina antes de delegar; `describeAutomation` conserva el
+desglose por tipo antes del tope de 20. Medición en 50/200/800 parcelas maduradas seis meses: 6/28/121
+interacciones manuales y 0 interacciones del jugador con gestor, que resuelve 4/21/17 plazas en diez
+días bajo su tope diario. No se construye `ControlContext`: no hay segunda perspectiva ni consumidor
+real; la autorización sigue en `controlGrants`. `canonicalizeState` incluye el bloque y los diez
+digestos se regeneran por superficie (quitando `automation` recuperan los valores de WP4.12-R). La
+deuda de D-065 sigue abierta: `buildStock` (O(edificios²)) es el hotspot medido antes de evaluar LOD.
+Ver `docs/engineering/adr/D-078-delegacion-y-excepciones.md` y
+`docs/execution/phase-4/wp4-13-automation-2026-10-25.md`.

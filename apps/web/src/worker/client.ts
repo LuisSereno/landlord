@@ -326,6 +326,20 @@ export class SimulationWorkerClient {
     });
   }
 
+  public setAutomationPolicy(payload: {
+    property?: "manual" | "fill_vacancies";
+    finance?: "manual" | "cover_shortfall";
+    maintenanceRepairThreshold?: number | null;
+  }) {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "SetAutomationPolicy",
+      payload,
+    });
+  }
+
   public requestPermit(
     parcelId: string,
     buildingType: "courtyard_home" | "workshop" | "cement_plant" | "brickworks" | "steelworks",

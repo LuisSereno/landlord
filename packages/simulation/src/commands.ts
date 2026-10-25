@@ -237,6 +237,25 @@ export function dispatchProductCommand(
     });
   }
 
+  if (command.type === "SetAutomationPolicy") {
+    const automation = state.phase2.automation;
+    if (command.payload.property !== undefined) automation.property = command.payload.property;
+    if (command.payload.finance !== undefined) automation.finance = command.payload.finance;
+    if (command.payload.maintenanceRepairThreshold !== undefined) {
+      automation.maintenanceRepairThreshold = command.payload.maintenanceRepairThreshold;
+    }
+    if (command.payload.financeCashFloor !== undefined) {
+      automation.financeCashFloor = command.payload.financeCashFloor;
+    }
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "AutomationPolicyChanged", {
+      property: automation.property,
+      finance: automation.finance,
+      maintenanceRepairThreshold: automation.maintenanceRepairThreshold,
+      financeCashFloor: automation.financeCashFloor,
+    });
+  }
+
   if (command.type === "RequestPermit") {
     const parcel = state.phase2.parcels.get(command.payload.parcelId);
     const definition = BUILDING_DEFINITIONS[command.payload.buildingType];

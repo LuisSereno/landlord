@@ -377,6 +377,20 @@ humana. Evidencia en `docs/execution/phase-4/wp4-12-macro-events-2026-10-25.md` 
 
 **Aceptación:** duplicar cartera no duplica interacciones rutinarias y la automatización no salta reglas.
 
+**Estado 2026-10-25:** `DONE`. Evidencia en
+`docs/execution/phase-4/wp4-13-automation-2026-10-25.md` y decisión en
+`docs/engineering/adr/D-078-delegacion-y-excepciones.md`.
+
+- `phase2.automation` con property, finance, umbral de reparación y suelo de caja; manual por defecto.
+- Sistema diario `automation` después de `rival`, sólo para la organización del jugador y sólo por el
+  dispatcher: mismos comandos, permisos, validaciones y libro.
+- Gestores acotados: 3 asignaciones/día, un préstamo/día con garantía libre, una reparación/día con
+  cuadrilla libre.
+- Bandeja priorizada reutilizando `alerts`, ampliada con seguros; rutina contada antes de delegar.
+- Medición 50/200/800 parcelas: 6/28/121 interacciones manuales; 0 del jugador con gestor.
+- Sin LOD nuevo (la deuda de `buildStock` sigue abierta) y sin `ControlContext` (sin consumidor).
+- Diez digestos regenerados por superficie (`phase2.automation`), sin delta económico.
+
 ## WP4.14 — Herramientas internas y balance
 
 - Crear inspector de estado sólo para desarrollo.

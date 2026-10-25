@@ -46,7 +46,9 @@ Fecha de consolidación: 2026-10-23.
 - información imperfecta con expediente de estimaciones;
 - IA rival con perfiles de facción, postura y memoria antirrepetición;
 - concejo municipal electo, opinión por cinco ejes y transferencia presupuestaria;
-- macroeventos económicos acotados con trigger propio, efectos cableados, señales y reacción de IA.
+- macroeventos económicos acotados con trigger propio, efectos cableados, señales y reacción de IA;
+- automatización delegada de propiedad, finanzas y mantenimiento con los mismos comandos y permisos,
+  y bandeja de excepciones priorizada.
 
 ### Parcialmente implementado
 
@@ -185,6 +187,20 @@ digestos regenerados con atribución de superficie. Benchmark longitudinal con A
 `natural | none | representative | max`, desglose mes 1 / meses 2-3 / maduros 4+ y muestra por cierre
 con su carga. El siguiente es la optimización de `placeSearchers` y después WP4.13 (Gameplay LOD y
 delegación).
+**La optimización exacta de `placeSearchers` quedó hecha el 2026-10-25** (acta
+`docs/execution/phase-4/place-searchers-optimization-2026-10-25.md`): los diez digestos no cambian, la
+mediana del cierre de vivienda baja de 19,40 a 18,15 ms y la cola del cierre completo mejora hasta un
+25 % en los escenarios cargados, pero la media apenas se mueve porque `buildStock` (O(edificios²))
+domina el cierre con 17,6 ms de mediana por sí solo. Ese es el siguiente candidato exacto antes de
+evaluar LOD.
+**WP4.13 (automatización, delegación y LOD mínimo) quedó cerrado el 2026-10-25 bajo D-078**: gestores
+diarios de propiedad, finanzas y mantenimiento que emiten los mismos comandos y permisos que la
+jugadora (`AssignTenant`, `RequestLoan`+`AcceptLoanOffer`, `RepairBuilding`+`AssignCrewToWorkOrder`),
+acotados por día; bandeja priorizada sobre el canal `alerts` existente, ampliado con seguros;
+`automation.routineTaskCount` y desglose interno por tipo. Medición en 50/200/800 parcelas: 6/28/121
+interacciones manuales frente a 0 del jugador con gestor. Sin LOD nuevo (la deuda de `buildStock`
+sigue abierta) y sin `ControlContext` (no hay consumidor). Los diez digestos se regeneran por
+superficie. El siguiente es WP4.14 (herramientas internas y balance).
 
 El baseline económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas

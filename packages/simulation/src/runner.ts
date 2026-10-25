@@ -87,6 +87,7 @@ export function canonicalizeState(state: GameState): string {
       crime: state.phase2.crime,
       /** El PRNG propio entra en la superficie: dos partidas con shocks distintos no son iguales. */
       macroEvents: state.phase2.macroEvents,
+      automation: state.phase2.automation,
       influenceByOrganizationId: orderedEntries(state.phase2.influenceByOrganizationId).map(
         ([organizationId, influence]) => ({ organizationId, influence }),
       ),

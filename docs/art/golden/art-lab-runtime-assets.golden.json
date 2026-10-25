@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "page": "/art-lab?static=1",
+  "page": "/art-lab?static=1&density=400",
   "viewport": {
     "width": 1440,
     "height": 1000
@@ -8,5 +8,5 @@
   "deviceScaleFactor": 1,
   "channelThreshold": 12,
   "maxRatio": 0.005,
-  "sha256": "49ac19c366c86a736eeb8ae88eb3eff440dc62181085d2c5223d82401c165b24"
+  "sha256": "2327c5e6111e6796a95c534a8ed223164e77b2ad7da9ce24c73787186427cf12"
 }

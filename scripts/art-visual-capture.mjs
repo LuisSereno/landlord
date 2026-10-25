@@ -80,10 +80,30 @@ async function pixelDiff(leftBase64, rightBase64) {
       canvas.width = commonWidth;
       canvas.height = commonHeight;
       const context = canvas.getContext("2d", { willReadFrequently: true });
-      context.drawImage(leftImage, 0, 0, commonWidth, commonHeight, 0, 0, commonWidth, commonHeight);
+      context.drawImage(
+        leftImage,
+        0,
+        0,
+        commonWidth,
+        commonHeight,
+        0,
+        0,
+        commonWidth,
+        commonHeight,
+      );
       const leftData = context.getImageData(0, 0, commonWidth, commonHeight).data;
       context.clearRect(0, 0, commonWidth, commonHeight);
-      context.drawImage(rightImage, 0, 0, commonWidth, commonHeight, 0, 0, commonWidth, commonHeight);
+      context.drawImage(
+        rightImage,
+        0,
+        0,
+        commonWidth,
+        commonHeight,
+        0,
+        0,
+        commonWidth,
+        commonHeight,
+      );
       const rightData = context.getImageData(0, 0, commonWidth, commonHeight).data;
       let different = 0;
       for (let index = 0; index < leftData.length; index += 4) {

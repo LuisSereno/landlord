@@ -54,8 +54,8 @@ jobs:
       - name: Art Lab browser smoke
         run: pnpm smoke:art-lab
 
-      - name: Art Lab visual regression
-        run: pnpm art:visual
+      # Visual regression runs locally only (pnpm art:visual) — Phaser/SVG canvas rendering
+      # differs across environments, making cross-environment pixel comparison non-viable.
 
       - name: Blender bundle integrity
         run: pnpm art:blender:check

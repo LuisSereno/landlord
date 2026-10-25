@@ -635,7 +635,10 @@ exigen `kind === "company"` (fiabilidad de contratos, sujetos de inteligencia, p
 extremos de la postura de facción), mientras `reputation` se queda en existencia porque `runReputation` no filtra
 tipo; `canonicalizeState` suelta `clock.runState` y `clock.speed` —controles del scheduler que la snapshot no
 persiste— y conserva `clock.tick`, así que guardar corriendo a 4x sí carga canónicamente igual; los tests de
-canonicalización mutan entidades reales (cuadrilla, siniestro, `pendingCommands`) en vez de contadores. Quedan
-por aterrizar la lectura UI de la tasa de servicios y la gobernanza de rendimiento. Ver
+canonicalización mutan entidades reales (cuadrilla, siniestro, `pendingCommands`) en vez de contadores. **Tasa
+de servicios visible:** el informe municipal añade `serviceFeeDueNextSettlement`, derivado de
+`municipalServiceFee(state)`, porque `revenueThisMonthBySource.serviceFee` se devenga y se resetea dentro del
+mismo `runMunicipalBudget` y la UI sólo podía mostrar un cero. No se persiste nada. Quedan por aterrizar la
+gobernanza de rendimiento y la reconciliación de las tablas de reputación en la documentación. Ver
 `docs/engineering/adr/D-076-follow-up-hardening-alpha.md` y
 `docs/execution/phase-4/wp4-11-h-1-alpha-follow-up-2026-10-25.md`.

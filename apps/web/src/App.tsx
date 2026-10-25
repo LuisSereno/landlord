@@ -1210,10 +1210,11 @@ export function App() {
                 <p>
                   <strong>Municipio:</strong> reservas {economy.municipal.reserve} u. · ingresos del
                   mes {economy.municipal.revenueThisMonthBySource.propertyTax ?? 0} propiedad +{" "}
-                  {economy.municipal.revenueThisMonthBySource.transferTax ?? 0} transferencia +{" "}
-                  {economy.municipal.revenueThisMonthBySource.serviceFee ?? 0} tasa de servicios ·
-                  gasto planificado {municipalPlannedTotal(economy.municipal.plannedByCategory)} u.
-                  · administración{" "}
+                  {economy.municipal.revenueThisMonthBySource.transferTax ?? 0} transferencia · tasa
+                  de servicios {economy.municipal.serviceFeeDueNextSettlement} u. previstas para el
+                  próximo cierre ({economy.municipal.revenueTotalBySource.serviceFee ?? 0} u.
+                  cobradas en total) · gasto planificado{" "}
+                  {municipalPlannedTotal(economy.municipal.plannedByCategory)} u. · administración{" "}
                   {economy.municipal.serviceLevelPercentByCategory.administration ?? 100}% ·
                   seguridad {economy.municipal.serviceLevelPercentByCategory.security ?? 100}% ·
                   transporte {economy.municipal.serviceLevelPercentByCategory.transport ?? 100}% ·

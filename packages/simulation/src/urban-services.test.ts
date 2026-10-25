@@ -7,7 +7,7 @@ import {
   PLAYER_ORGANIZATION_ID,
 } from "./game-data";
 import { describeHousingStock } from "./housing-market";
-import { runMunicipalBudget } from "./municipal-budget";
+import { describeMunicipalBudget, runMunicipalBudget } from "./municipal-budget";
 import { createInitialState, type GameState } from "./state";
 import { createScaledCity } from "./system-cost";
 import {
@@ -155,10 +155,20 @@ describe("WP4.6 servicios urbanos y accesibilidad", () => {
     const empty = newState();
     addBuilding(empty, 0, 0);
     expect(municipalServiceFee(empty)).toBe(0);
+    /** Sin unidades ocupadas el informe tampoco promete tasa: 0 es la cifra honesta, no un fallo. */
+    expect(describeMunicipalBudget(empty).serviceFeeDueNextSettlement).toBe(0);
 
     const occupied = newState();
     addBuilding(occupied, 0, 2);
     expect(municipalServiceFee(occupied)).toBe(2 * MUNICIPAL_FEE_PER_OCCUPIED_UNIT);
+    /**
+     * El acumulado del mes no sirve a la UI: la tasa se devenga y se vuelca al histórico dentro de la
+     * misma ejecución del cierre, así que desde fuera siempre se ve a cero. Lo que la jugadora puede
+     * leer es lo que el municipio va a cobrarle al distrito.
+     */
+    const before = describeMunicipalBudget(occupied);
+    expect(before.revenueThisMonthBySource.serviceFee).toBe(0);
+    expect(before.serviceFeeDueNextSettlement).toBe(2 * MUNICIPAL_FEE_PER_OCCUPIED_UNIT);
 
     occupied.phase2.balances.set(MUNICIPALITY_ORGANIZATION_ID, parseMoney(0));
     occupied.clock = { ...occupied.clock, tick: parseTick(GAME_MONTH_TICKS) };
@@ -168,6 +178,10 @@ describe("WP4.6 servicios urbanos y accesibilidad", () => {
       2 * MUNICIPAL_FEE_PER_OCCUPIED_UNIT,
     );
     expect(occupied.phase2.municipal.revenueThisMonthBySource.serviceFee).toBe(0);
+    const after = describeMunicipalBudget(occupied);
+    expect(after.revenueTotalBySource.serviceFee).toBe(before.serviceFeeDueNextSettlement);
+    // Y la cifra que ve la jugadora sigue contando el mes que viene, no un cero.
+    expect(after.serviceFeeDueNextSettlement).toBe(2 * MUNICIPAL_FEE_PER_OCCUPIED_UNIT);
   });
 
   it("los indicadores de servicio son deterministas y explican la cobertura", () => {

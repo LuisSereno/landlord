@@ -93,6 +93,21 @@ Numerados según la tabla de la auditoría; las decisiones se registran en D-076
   `"runState":"paused","speed":1` en el estado canónico nuevo, y quitando además
   `publiclyAttributedOrganizationId`, los diez recuperan sus valores de WP4.11-H exactos.
 
+### 5 — La tasa de servicios invisible en la UI (`P2`)
+
+- **Finding:** el panel municipal sumaba `revenueThisMonthBySource.serviceFee` a los ingresos del mes.
+- **Impacto:** la jugadora veía `0 tasa de servicios` mes tras mes aunque el distrito pagara la tasa por
+  unidad ocupada, mientras propiedad y transferencia sí aparecían. No rompe contabilidad: rompe la
+  explicación del sistema, que es lo que el panel existe para hacer.
+- **Causa raíz:** dentro de `runMunicipalBudget` la tasa se acredita, se suma al histórico y se vuelve a
+  cero en la misma ejecución. No hay ningún instante observable con el acumulado lleno.
+- **Fix:** `describeMunicipalBudget` expone `serviceFeeDueNextSettlement` derivado de
+  `municipalServiceFee(state)` (D-076 punto 4) y el panel lo muestra como tasa prevista junto al total
+  ya cobrado. Nada se persiste, así que el estado canónico y los digestos no se tocan.
+- **Tests:** `urban-services.test.ts` cubre distrito vacío (0 honesto), distrito ocupado antes del cierre
+  (prevista = unidades × tarifa, acumulado = 0) y después del cierre (histórico == lo previsto, prevista
+  sigue contando el mes siguiente).
+
 ## Verificación reproducible
 
 Pendiente del cierre: `format:check`, `lint`, `typecheck`, `test`, `build` y CI remoto en verde.

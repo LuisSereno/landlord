@@ -77,10 +77,30 @@ auditoría y enlaza cada hallazgo con su decisión.
      dejó ninguno) y `pendingCommands` encola un `SetMaintenancePolicy`, con `idCounters` y
      `phase2.idCounters` como casos separados y explícitos.
 
+4. **La UI de hacienda muestra la tasa que se va a cobrar, no el acumulado que siempre vale 0.**
+   `revenueThisMonthBySource.serviceFee` se devenga dentro de `runMunicipalBudget`, se suma al total
+   histórico y se vuelve a cero en la misma ejecución, sin proyección intermedia: desde fuera el
+   municipio parecía no cobrar tasa nunca, aunque el distrito pagara cientos de unidades al mes. El
+   informe gana `serviceFeeDueNextSettlement = municipalServiceFee(state)` —la misma función pura que ya
+   usa el ánimo fiscal desde D-075— y el panel la enseña junto al histórico efectivamente cobrado. No es
+   un cuarto campo contable: no se persiste, se deriva en la proyección, así que el estado canónico y los
+   digestos no se mueven.
+   - Alternativa descartada: dejar el acumulado sin resetear en el cierre. Duplicaría la tasa en el
+     siguiente histórico, que sí es contabilidad.
+
+## Consecuencias
+
+- Un snapshot manipulado que reparta papeles de empresa a banco, municipio o aseguradora ya no carga:
+  `restoreStateFromSnapshot` lo rechaza. El estado legítimo no cambia, y con él los diez digestos sólo se
+  reescriben por la clave de atribución y por la salida de los controles del reloj.
+- La promesa de canonicalidad ahora es cierta para cualquier partida: guardar corriendo a 2x o 4x y
+  cargar produce la misma cadena.
+
 ## Pendiente de este follow-up
 
-Los puntos 4 y 5 de WP4.11-H.1 (lectura de la tasa de servicios en la UI y gobernanza de rendimiento)
-y la reconciliación documental de la tabla de reputación se añaden a esta decisión conforme aterricen.
+Queda por aterrizar la gobernanza de rendimiento (D-065 y el cierre mensual medido como distribución) y
+la reconciliación documental de la tabla de reputación (D-071 y el acta de WP4.8 siguen describiendo
+`households_displaced` con banca +1).
 
 ## Evidencia
 

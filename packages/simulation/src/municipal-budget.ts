@@ -74,6 +74,7 @@ export type MunicipalBudgetReport = {
   serviceLevelPercentByCategory: Record<MunicipalBudgetCategory, number>;
   revenueThisMonthBySource: Record<string, Money>;
   revenueTotalBySource: Record<string, Money>;
+  serviceFeeDueNextSettlement: Money;
   spentTotalByCategory: Record<string, Money>;
   unfundedTotalByCategory: Record<string, Money>;
   deficitMonths: number;
@@ -99,6 +100,12 @@ export function describeMunicipalBudget(state: GameState): MunicipalBudgetReport
       cleaning: budget.serviceLevelPercentByCategory.cleaning ?? 100,
     },
     revenueThisMonthBySource: { ...budget.revenueThisMonthBySource },
+    /**
+     * Lo que la tasa de servicios supondrá en el próximo cierre con el servicio de hoy. Existe porque
+     * `runMunicipalBudget` devenga la tasa, la suma al total y vuelve a cero el acumulado dentro de la
+     * misma ejecución: `revenueThisMonthBySource.serviceFee`, visto desde fuera, siempre vale 0.
+     */
+    serviceFeeDueNextSettlement: parseMoney(municipalServiceFee(state)),
     revenueTotalBySource: { ...budget.revenueTotalBySource },
     spentTotalByCategory: { ...budget.spentTotalByCategory },
     unfundedTotalByCategory: { ...budget.unfundedTotalByCategory },

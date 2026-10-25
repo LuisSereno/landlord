@@ -240,6 +240,7 @@ export type ViewProjectionV1 = {
       serviceLevelPercentByCategory: Record<string, number>;
       revenueThisMonthBySource: Record<string, Money>;
       revenueTotalBySource: Record<string, Money>;
+      serviceFeeDueNextSettlement: Money;
       spentTotalByCategory: Record<string, Money>;
       unfundedTotalByCategory: Record<string, Money>;
       deficitMonths: number;
@@ -737,6 +738,7 @@ export const viewProjectionV1Schema = z.object({
         serviceLevelPercentByCategory: z.record(z.string(), z.number().int().min(0).max(100)),
         revenueThisMonthBySource: z.record(z.string(), moneySchema),
         revenueTotalBySource: z.record(z.string(), moneySchema),
+        serviceFeeDueNextSettlement: moneySchema,
         spentTotalByCategory: z.record(z.string(), moneySchema),
         unfundedTotalByCategory: z.record(z.string(), moneySchema),
         deficitMonths: z.number().int().nonnegative(),

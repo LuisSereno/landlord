@@ -1,4 +1,4 @@
-/* global setTimeout, Image, document */
+/* global setTimeout, window, Image, document */
 /**
  * Regresión visual del Art Lab (WP4.15-H). Captura la página en modo estático (`?static=1`, sin
  * animaciones que hagan variar el frame) y la compara contra el golden versionado con un pixel-diff

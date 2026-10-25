@@ -148,6 +148,18 @@ Resultado observado:
   `validate-visual-direction-spike.mjs`); `pnpm lint` sigue fallando en local por
   `blender_artist/toolchain/`.
 
+## Nota de hardening (WP4.11-H, 2026-10-25)
+
+Este acta conserva su cierre original. Dos afirmaciones quedaron corregidas después:
+
+- la deuda decía que "la corrección corresponde a WP4.10, donde las facciones tendrán su propio expediente
+  como entrada". **WP4.10 no implementó ese expediente**: cerro la cota medible y la fórmula compartida de
+  la puja, pero el expediente propio de las facciones sigue `DEFERRED`. La frase original se mantiene como
+  historia; el estado vigente está en la nota de WP4.10 y en `KNOWN-GAPS.md`.
+- la proyección publicaba `rival.lastReason` y `rival.lastAction`, que contradecían la política de este WP.
+  WP4.11-H los eliminó; sólo queda la huella física del rival (`rival_footprint: public`,
+  `rival_decision: private`). Ver D-075.
+
 ## Fuera de alcance
 
 No se implementan facciones con expediente propio, memoria e intenciones (WP4.10), ni planificador, ni

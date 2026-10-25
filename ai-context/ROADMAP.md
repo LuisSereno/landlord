@@ -1,6 +1,10 @@
 # Roadmap condensado
 
-## Ahora — Fase 3 / Vertical Slice
+## Histórico — Fase 3 / Vertical Slice (cerrada)
+
+> Esta sección describe el alcance con el que se construyó el slice. Los sistemas que aquí figuran
+> como "no implementar todavía" (fiscalidad, banca, seguros, política) ya están implementados en
+> Fase 4; el estado vigente está en `PROJECT-STATE.md`.
 
 Implementar y validar el bucle jugable sobre el núcleo de Gate 1:
 - parcelas y compra;
@@ -63,21 +67,21 @@ Prioridad funcional:
 - automation;
 - cloud save.
 
-## Alpha sistémica
+## Alpha sistémica (Fase 4)
 
-Añadir:
-- distritos generados;
-- housing demand;
-- employment;
-- municipal budget;
-- public services;
-- public contracts;
-- multidimensional reputation;
-- imperfect information;
-- macro events;
-- society;
-- elections;
-- macroeconomy.
+Cerrado: distritos generados (4.1), coste medido y LOD latente (4.2), mercado de vivienda (4.3),
+empleo (4.4), presupuesto municipal (4.5), servicios urbanos (4.6), contratos públicos (4.7),
+reputación (4.8), información imperfecta (4.9), IA estratégica y facciones (4.10), política y
+elecciones (4.11) y hardening transversal (4.11-H, D-075).
+
+Pendiente: macroeventos (4.12), automatización y delegación (4.13), herramientas internas y balance
+(4.14), pipeline artístico y escalado (4.15), robustez y cierre Alpha (4.16).
+
+Diferido dentro de lo ya cerrado:
+- expediente de inteligencia propio de las facciones y varias facciones autónomas (WP4.10);
+- planificador de largo horizonte (disparador: decisiones que necesiten más de un tick);
+- commuting explícito por agente;
+- optimización del cierre mensual de vivienda (disparador de D-065 alcanzado en WP4.11-H).
 
 Esta fase construye buena parte del sustrato necesario para futuras perspectivas.
 

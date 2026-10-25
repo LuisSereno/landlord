@@ -183,3 +183,9 @@ a una licitación —en la seed 4 a doce meses la expansionista firma `request_f
 `bid_public_contract:contract_00000004`—, así que `deuda viva` y `puja prevista` pasan a valer algo en
 partidas largas y su estimación deja de ser un cero. La cifra de `impuestos adeudados` sigue necesitando que
 el rival no pague, y ninguna de las tres aparece en los doce meses de un smoke corto.
+
+**Actualización (WP4.11-H, D-075):** la proyección ya no entrega `lastReason` ni `lastAction` del rival; sólo
+queda su huella física (parcelas, edificios, ocupados). Leer la intención sigue siendo un bien de pago o una
+inferencia. En reputación, desalojar hogares deja de mejorar la lectura de la banca —el +1 sin decaimiento
+permitía financiar la expansión con desahucios repetidos— y un sabotaje con víctimas registra
+`violent_sabotage` también sobre quien lo causó.

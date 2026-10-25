@@ -31,45 +31,56 @@ Fecha de consolidación: 2026-10-23.
 - Visión multiperspectiva y trayectoria vital: documentada conceptualmente.
 - Modelo de identidad/roles/capabilities: documentado como restricción arquitectónica futura.
 
-## Sistemas conceptualmente incorporados
+## Sistemas: implementado frente a conceptual
 
-Además del núcleo inmobiliario:
-- impuestos y tasas;
-- presupuesto municipal;
-- permisos/licencias;
-- zoning;
-- seguros;
-- mantenimiento;
-- banca;
-- subastas;
-- insolvencia;
-- contratos públicos;
-- servicios urbanos;
-- empleo;
-- reputación;
-- información imperfecta;
-- macroeventos;
-- múltiples roles futuros;
-- Gameplay LOD;
-- delegación;
-- historial de carrera;
-- Career Events;
-- perspectivas política/criminal/inversora/ciudadana futuras.
+### Implementado (código autoritativo y pruebas)
 
-Estos sistemas están documentados, no implementados.
+- impuestos y tasas (propiedad, transmisión, tasa de servicios);
+- presupuesto municipal con prioridad de gasto y niveles de servicio;
+- permisos/licencias y zoning;
+- seguros, mantenimiento, banca, subastas e insolvencia;
+- contratos públicos con licitación, fianza y ejecución;
+- servicios urbanos con cobertura radial;
+- empleo agregado y capacidad de alquiler;
+- reputación por tres grupos con memoria y decaimiento;
+- información imperfecta con expediente de estimaciones;
+- IA rival con perfiles de facción, postura y memoria antirrepetición;
+- concejo municipal electo, opinión por cinco ejes y transferencia presupuestaria.
+
+### Parcialmente implementado
+
+- calles y representación visual del distrito (WP4.15): la topología existe y la calzada bloquea
+  celdas, pero no hay red de calles dibujada ni selección de distrito en la UI;
+- commuting: el empleo sigue siendo agregado, sin trayectos por agente;
+- planificador de la IA: no existe; sólo cadenas inmediatas tras un `dispatch`;
+- expediente de inteligencia de las facciones: diferido;
+- instrumentación persistente de sesiones de Alpha (D-063): diferida a WP4.16.
+
+### Conceptual / futuro
+
+- macroeventos (WP4.12);
+- Gameplay LOD nuevo y delegación (WP4.13);
+- múltiples roles y perspectivas política/criminal/inversora/ciudadana jugables;
+- historial de carrera y Career Events;
+- life simulation, herencia y dinastías.
 
 ## Implementación
-- Código jugable: sí, baseline vertical coherente de Gate 2.
+- Código jugable: sí, baseline vertical coherente de Gate 2 más los sistemas Alpha de WP4.3–WP4.11.
 - package.json: sí, raíz y workspaces mínimos de Gate 1.
-- CI: sí, checks base en GitHub Actions.
+- CI: sí, checks base en GitHub Actions; desde WP4.11-H incluye lint, typecheck, tests, build,
+  format y los smokes de Gate 2 y Alpha.
 - assets: no.
 - backend: no.
-- modelo de datos implementado: contratos shared v1 extendidos de forma aditiva, núcleo autoritativo headless de Gate 2, producción física localizada, proyección financiera derivada y distrito generado por perfil/seed con identidad de generación persistida (D-064).
-- tests: sí, smoke Chromium en CI, contratos, schemas, referencias de snapshot, arquitectura de
-  fronteras, bucle económico determinista, generación y jugabilidad de distritos con fixtures de
-  hash, digestos dorados de conservación del tick, mercado de vivienda segmentado con índice de
-  renta, mercado laboral agregado conectado a la asequibilidad, presupuesto municipal con recortes,
-  servicios urbanos con cobertura radial y diagnóstico de sesión acotado.
+- modelo de datos implementado: contratos shared v1 extendidos de forma aditiva, núcleo autoritativo
+  headless de Gate 2, producción física localizada, proyección financiera derivada y distrito
+  generado por perfil/seed con identidad de generación persistida (D-064).
+- tests: sí, smokes Chromium en CI, contratos, schemas, referencias de snapshot hasta WP4.11,
+  arquitectura de fronteras, bucle económico determinista con superficie canónica completa,
+  generación y jugabilidad de distritos con fixtures de hash, digestos dorados de conservación del
+  tick, mercado de vivienda segmentado con índice de renta, mercado laboral agregado conectado a la
+  asequibilidad, presupuesto municipal con recortes, servicios urbanos con cobertura radial,
+  contratos con fianza, reputación con atribución, información imperfecta y un escenario transversal
+  de Fase 4 con save/load.
 
 ## Fase
 Gate 1 aprobado `GO` el 2026-10-21; la evidencia técnica de G1-RW-01..04 quedó reunida.
@@ -130,8 +141,20 @@ ficticia vigilada por prueba. La aceptación está medida: en la campaña de dos
 estado social (Liga → Suelo Común → Liga → Suelo Común) y con 0 y 50 de influencia la participación, los escaños y
 el gobernante salen idénticos; el sistema no mueve ni un saldo. `politics` es el primer agregado de Fase 4 que
 entra en `canonicalizeState`, lo que obliga a regenerar los diez digestos dorados —verificado: ocho recuperan su
-valor de WP4.10 quitando el bloque y los dos cruces de mes lo recuperan neutralizando la transferencia—. El
-siguiente es WP4.12 (eventos macroeconómicos). El baseline económico actual cubre calendario
+valor de WP4.10 quitando el bloque y los dos cruces de mes lo recuperan neutralizando la transferencia—.
+**WP4.11-H (hardening de sistemas Alpha) quedó cerrado el 2026-10-25 bajo D-075**, antes de WP4.12. Paga la
+deuda transversal de WP4.2–WP4.11: el censo electoral sólo admite residentes efectivos (available y
+displaced no votan), la tasa de servicios entra en el ánimo fiscal mediante el mismo helper puro que la
+cobra (sin doble cobro), `canonicalizeState` cubre los once agregados que faltaban con orden estable y
+save/load produce la misma cadena, las referencias de contratos/reputación/inteligencia/facciones se
+validan al restaurar, el benchmark mensual mide de verdad el cierre, `lastReason`/`lastAction` del rival
+salen de la proyección, la oferta pública y el encargo de inteligencia son jugables de punta a punta, la UI
+municipal usa las cuatro categorías reales y muestra el concejo, una ley activa no se re-sortea y la
+duración de ordenanzas es única. Los diez digestos se regeneraron con atribución: la serialización
+canónica anterior sobre los mismos estados recupera exactamente los diez valores de WP4.11. El cierre
+mensual de 800 parcelas mide 28,4 ms (housing 65 %) y cruza el presupuesto p95 de D-065; LOD no se
+implementa y la optimización de vivienda queda como deuda medida. El siguiente es WP4.12 (eventos
+macroeconómicos). El baseline económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas
 asignables, edificios multiunidad, presupuesto y satisfacción de inquilinos, mantenimiento, rival
 público con datos privados ocultos, licitación pública con fianza, reputación por grupos con hechos

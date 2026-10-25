@@ -110,6 +110,8 @@ constante del motor: con la misma tesorería, la plataforma de obras paga transp
 medias, y la de cuentas al revés. Del lado de los ingresos, la opinión de impuestos se mide sobre lo que el
 municipio realmente recauda (contribución + transmisiones + tasa de servicios) en relación con la renta que paga el
 distrito, así que subir la presión fiscal sobre el barrio tiene un coste electoral aunque nadie vote impuestos.
+Desde WP4.11-H la tasa de servicios se mide con `municipalServiceFee`, el mismo helper puro que la cobra: el eje
+fiscal ya no depende de que el presupuesto haya cerrado antes y no existe doble cobro (D-075).
 Impuestos empresariales, licencias, multas, transferencias y deuda municipal siguen sin ingresos propios, y el
 resto de categorías de gasto no existe.
 

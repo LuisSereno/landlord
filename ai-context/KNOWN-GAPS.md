@@ -60,191 +60,137 @@ Resuelto para Gate 1 en D-049/D-051: `PlayerIdentity -> Person`, `Organization`,
   registros históricos concretos y su retención, no un event log ilimitado.
 
 ## Economía inmobiliaria
-- fórmula de valor de suelo;
-- modelo de oferta/demanda;
-- elasticidad de rentas;
-- venta y subasta de activos.
+
+Implementado en WP4.1/WP4.3/WP4.7/WP3.9: precio de parcela por perfil y seed, oferta/demanda
+segmentada, elasticidad de renta acotada, venta y subasta de activos con fianza y ejecución.
+
+Sigue abierto:
+- fórmula de valor de suelo a largo plazo (hoy el precio es un dato de generación, no un mercado de
+  suelo);
+- coste de oportunidad de mantener solares vacíos;
+- política de suelo público y recalificación (ver Urbanismo).
 
 ## Producción física
-Decidido en D-062 para después de Gate 2:
-- sustituir la activación abstracta `InvestInProduction` por fábricas construibles;
-- mantener mercado de materiales como alternativa inmediata;
-- introducir aptitud productiva de parcela por recurso/familia;
-- integrar fábricas con crews, condition, structuralIntegrity, fuego, sabotaje y reparación;
-- convertir "inversión" en upgrades de activos productivos.
 
-Pendiente para implementación del Vertical Slice:
-- nombres y catálogo definitivos de instalaciones productivas;
-- escala de suitability y fórmula exacta de rendimiento;
-- balance mercado frente a coste unitario propio;
-- capacidad/almacenamiento por instalación;
-- upgrades concretos;
-- reglas de zoning/contaminación/logística;
-- migración de `ProductionFacility`/saves de Gate 2;
-- comportamiento de IA para elegir mercado, construir fábrica o ampliar capacidad.
+Implementado en D-062 y WP3.2: fábricas construibles, aptitud de parcela por recurso, mercado de
+materiales como alternativa, integración con crews/condición/fuego/sabotaje/reparación y upgrades.
 
-## Gate 2 / Fase 3 — estado 2026-10-23
-- Implementados parcelas, caja, mercado de materiales, inversión productiva abstracta de Gate 2, obras, dos crews
-  agregadas y asignables, tenants finitos multiunidad, presupuesto/satisfacción, renta mensual,
-  deterioro/reparación, upgrades, rival utility mínimo, crimen/policía con cooldown, ordenanza
-  incierta, HUD y save/load.
-- WP2.11 tiene ya layout de juego, mapa principal, inspector contextual, onboarding, velocidad,
-  costes previos, producción, cuadrilla, tenants, renta, progreso, cancelación y libro de caja.
-- La prueba manual del responsable fue OK, pero no dejó duración, seeds ni métricas cuantitativas;
-  siguen pendientes para el balance financiero posterior.
-- Gate 2 está en `GO` para producción representativa; WP2.14 cerró el Visual Direction Spike
-  con baseline `graphic_civic`, Art Lab y provenance. WP3.13 cerró el contenido representativo;
-  el profiling de escena densa continúa como ampliación de Alpha.
-- El rival completa compra, mercado, inversión productiva, construcción, ocupación y renta con
-  utility determinista, reserva de liquidez y cooldown ante fallos. Su profundidad sigue siendo
-  deliberadamente mínima y sólo se amplía si el playtest lo justifica.
-- D-061 queda implementado en el núcleo: agents operativos, crews físicas, pathfinding, fuego,
-  integridad estructural, daño espacial, heridas, muerte, casualties, ruina y migración aditiva.
-- WP3.2 / D-062 está cerrado para el slice funcional: fábrica física, aptitud de parcela, mercado,
-  fuego/recuperación, rival y migración de snapshots tienen cobertura determinista.
-- No se autoriza por ello una life simulation ni un sistema de combate amplio. `InvestInProduction`
-  sigue siendo válido únicamente para migrar instalaciones legacy.
+Sigue abierto:
+- catálogo definitivo de instalaciones por bioma/perfil;
+- logística y contaminación;
+- migración de instalaciones legacy más allá de `InvestInProduction`.
 
 ## Fiscalidad
-- impuestos concretos de la primera versión;
-- bases imponibles;
-- periodicidad;
-- exenciones;
-- relación entre impuesto y presupuesto municipal;
-- grado de regionalización de tasas.
+
+Implementado en WP3.5/WP4.5/WP4.6: contribución y transmisión, tasa por unidad ocupada, tesorería
+municipal, exenciones, modificadores de ordenanza, atrasos, presupuesto por prioridad y niveles de
+servicio.
+
+Sigue abierto:
+- tipos legales ajustables por el jugador (hoy sólo cambian por ordenanza del catálogo);
+- impuestos locales adicionales (basuras, plusvalía, IBI comercial);
+- regionalización de tasas y varias jurisdicciones;
+- incidencia fiscal sobre el precio del suelo.
 
 ## Finanzas y banca
-- WP3.3 está cerrado como proyección derivada de activos, pasivos, patrimonio, periodo y previsión.
-- WP3.4 tiene el núcleo de deuda implementado: banco independiente, garantía, oferta,
-  desembolso, amortización, mora y persistencia. Refinanciación, ejecución y reestructuración
-  avanzada siguen en WP3.9.
-- WP3.5 tiene implementadas las tasas prioritarias de transmisión y propiedad, tesorería
-  municipal, exenciones, modificadores de ordenanza, previsión y atrasos.
-- WP3.6 tiene implementadas liquidación automática de mantenimiento, políticas equilibrada y
-  diferida, backlog por edificio, deterioro progresivo, consecuencias en renta/valor/riesgo,
-  integración con reparación, proyección y persistencia.
-- WP3.7 tiene implementadas aseguradora independiente, coberturas comparables, primas inicial y
-  recurrente, exclusiones, franquicia, límites, caducidad por impago, claims trazables y
-  persistencia.
-- WP3.8 tiene implementados usos por zoning, riesgo regulatorio visible, permisos municipales,
-  aprobación/denegación determinista, caducidad, renovación automática de rutina y persistencia.
-- WP3.9 tiene implementados default con subasta, pujas reservadas, empate/retirada, ejecución
-  atómica, refinanciación limitada y persistencia. La insolvencia colectiva avanzada sigue fuera
-  del slice.
-- WP3.10 tiene implementada una IA rival financiera conservadora con reserva de liquidez,
-  deuda, riesgo, seguro, reparación, puja, refinanciación y venta de solares vacíos mediante
-  comandos normales. La memoria de pérdidas y la decisión autónoma son deterministas y
-  persistentes; perfiles múltiples y torneos prolongados siguen fuera del slice.
-- WP3.11 tiene un catálogo municipal de tres políticas con modificadores de materiales, renta,
-  fiscalidad y permisos, propuesta, lobby, retirada, proyección visible y decisión rival por
-  interés propio. Coaliciones, elecciones y múltiples jurisdicciones siguen fuera del slice.
-- WP3.12 tiene rutina limitada de ocupación/cuadrillas, alertas derivadas, comparador de cartera
-  y overlays de propiedad, condición, zoning y riesgo. Las reglas persistentes de gestión,
-  automatización de decisiones irreversibles y auditoría completa de accesibilidad siguen fuera.
-- WP3.14 tiene saves `phase3-dev`, validación IndexedDB, autosave mensual local, carga atómica y
-  metadatos de tamaño/schema/engine. Cloud save, sincronización y telemetría remota siguen fuera;
-  WP3.13 está cerrado para el contenido representativo y deja atlas multipack/animación completa
-  para Alpha.
-- WP3.15 tiene suite, smoke browser externo y Art Lab, benchmark headless, auditoría y soak con
-  save/restore en verde. Fase 3 queda cerrada con `GO CONTROLLED ALPHA`; Alpha debe medir
-  cohortes, duración, comprensión y balance sin convertir una única prueba manual OK en
-  significancia estadística.
-- D-063 (2026-10-23) registra la excepción: el responsable adelanta la producción de contenido
-  de Fase 4 sin la medición de sesiones que exigía WP3.15. La instrumentación persistente de
-  cohortes/seed queda diferida y debe ejecutarse antes del cierre de Alpha (WP4.16). Los WPs de
-  Fase 4 se ejecutan incrementalmente con plan y checks por WP.
-- WP4.1 está cerrado (D-064, 2026-10-23): el distrito se genera desde perfiles data-driven con
-  anclas autoradas y expansión procedural, validación de jugabilidad con reintentos acotados,
-  fixtures con hash e inspector reproducible (`pnpm district:inspect`). Siguen fuera la
-  representación visual y las calles (WP4.15), varios distritos por partida, la selección de
-  distrito desde la interfaz y la política de migración cuando se retira o renombra un perfil
-  (hoy la carga lanza `RangeError`).
-- modelo de tipos;
-- loan-to-value;
-- garantías;
-- covenants simplificados;
-- insolvencia;
-- refinanciación;
-- reglas de subasta;
-- seguros;
-- equity e inversores futuros.
 
-## Urbanismo
-Resuelto en WP4.1 (D-064): composición del distrito por perfil data-driven, generación de
-topología, parcelas y parámetros desde seed, y validación de jugabilidad mínima (accesos
-alcanzables, suelo por zoning y entrada asequible).
+Implementado: banco independiente, garantía, oferta, desembolso, amortización, mora, default con
+subasta, pujas reservadas, refinanciación limitada, reputación crediticia y persistencia (WP3.4,
+WP3.9, WP4.8).
 
-- categorías definitivas de zoning;
-- densidad;
-- altura;
-- cambio de uso;
-- permisos;
-- inspecciones;
-- recalificación;
-- modelo de accesibilidad;
-- red de calles y representación visual del distrito (WP4.15);
-- varios distritos por partida y selección de distrito;
-- política de migración cuando se retira o renombra un perfil de distrito.
+Sigue abierto:
+- insolvencia colectiva y reestructuración avanzada;
+- equity, inversores y mercado secundario de deuda;
+- covenants y loan-to-value dinámicos;
+- segundo prestamista.
 
 ## Sociedad y empleo
-- tenant/household model;
-- mercado laboral;
-- salario;
-- cualificación;
-- migración;
-- sindicatos;
-- huelgas.
+
+Implementado en WP4.3/WP4.4: hogares con segmento, presupuesto, tamaño, satisfacción y ciclo de
+búsqueda; mercado laboral agregado con salario e ingreso por segmento conectado a la asequibilidad.
+
+Sigue abierto:
+- commuting explícito por agente (hoy el empleo es agregado);
+- cualificación y formación;
+- migración entre distritos;
+- sindicatos y huelgas;
+- ciclo de vida del hogar y re-alojamiento de desplazados (hoy quedan fuera del censo y del mercado).
 
 ## Política
-- número de concejales;
-- modelo de voto;
-- influencia;
-- corrupción;
-- elecciones;
-- opinión pública;
-- presupuesto municipal;
-- licitaciones y concesiones;
-- alcance de la primera perspectiva política jugable futura.
+
+Implementado en WP4.11: concejo ficticio de nueve escaños, elección cada seis meses, cinco ejes de
+opinión, participación por queja, partidos data-driven, debate de ordenanza, alineamiento del
+concejo y transferencia al presupuesto.
+
+Sigue abierto:
+- corrupción y financiación de campañas;
+- candidatos con identidad propia y campaña mediática;
+- número de concejales y sistema electoral configurables (hoy constantes de institución);
+- perspectiva política jugable;
+- renovación legislativa compleja y coaliciones;
+- playtest que valide si el clima político se lee.
 
 ## Servicios públicos
-- qué servicios simular explícitamente;
-- financiación;
-- efecto sobre suelo/población;
-- ownership público/privado;
-- concesiones.
 
-## Crimen y justicia
-- evidencia;
-- inspecciones corruptibles;
-- litigios;
-- embargo;
-- confiscación;
-- alcance de una perspectiva criminal jugable futura.
+Implementado en WP4.5/WP4.6: administración, seguridad, transporte y limpieza; cobertura radial,
+saturación por crecimiento, tasa por unidad ocupada y recortes con nivel de servicio.
+
+Sigue abierto:
+- concesiones y ownership público/privado de la red;
+- servicios adicionales (agua, salud, educación);
+- efecto explícito sobre migración y precio del suelo más allá de la deseabilidad;
+- edificios de servicio en el mapa.
 
 ## Información
-- visibilidad de datos;
-- analistas;
-- espionaje;
-- coste de inteligencia;
-- incertidumbre y precisión.
+
+Implementado en WP4.9: registro de accesos público/propio/inferido/privado, expediente por
+observador, cuatro clases de estimación con error y antigüedad, coste y cooldown, y pruebas de fuga.
+
+Sigue abierto:
+- el registro es un contrato declarado, **no un interceptor**: una regla nueva puede leer un
+  observable privado sin que el compilador lo impida;
+- segundo observador (perspectiva ciudadana/criminal);
+- desinformación deliberada y fuentes que mientan de forma sistemática;
+- expediente de inteligencia propio de las facciones (DEFERRED en WP4.10);
+- retención y auditoría de accesos.
 
 ## Reputación y relaciones
-- grupos de reputación;
-- escalas;
-- decay;
-- efectos sistémicos;
-- dimensiones de relaciones;
-- memoria histórica;
-- blackmail/debt/fear/trust.
+
+Implementado en WP4.8/WP4.11-H: tres grupos con valoraciones distintas, hechos con magnitud topada,
+memoria acotada, decaimiento sólo de la opinión pública, banca neutral ante desalojos y atribución
+de `violent_sabotage` al atacante.
+
+Sigue abierto:
+- más grupos o dimensiones (hoy residents, municipality, banks);
+- blackmail/debt/fear/trust;
+- relaciones bilaterales ricas más allá de la postura escalar de facciones;
+- efectos reputacionales de terceros (medios, rumores).
 
 ## IA
-- implementación Utility;
-- planner;
-- memoria;
-- información imperfecta;
-- personality model;
-- toma de decisiones financieras;
-- IA delegada para organizaciones del jugador.
+
+Implementado: utilidad determinista, dos perfiles de facción, postura por encuentro, memoria
+antirrepetición, cota de información y puja modulada por hostilidad (WP4.10).
+
+Sigue abierto:
+- planificador de secuencias de más de un tick (disparador: cualquier decisión que necesite reservar
+  caja para una subasta futura);
+- expediente de inteligencia como entrada de la IA (DEFERRED);
+- varias facciones autónomas con repertorios propios (DEFERRED);
+- personalidad más allá de dos perfiles y barrido de parámetros;
+- IA delegada para organizaciones del jugador;
+- comportamiento criminal autónomo del rival.
+
+## Rendimiento y Alpha
+
+- El cierre mensual de 800 parcelas mide 28,4 ms de media y p95 (42,8 ms instrumentado), con
+  `housing` como 65 %: cruza el presupuesto p95 de D-065 y el disparador de revisión de 5 ms. LOD no
+  implementado; optimización de `runHousingMarket` pendiente antes de WP4.13.
+- El estado canónico completo hace más caras las campañas headless largas (la de dos años tarda
+  ~5 s); no afecta al tick de producto.
+- El fixture del smoke Alpha es un snapshot versionado de 160 KB y debe regenerarse con los goldens.
+- Tuning pendiente: 15 números políticos, perfiles de facción y márgenes de información elegidos a
+  mano, sin barrido.
+- Playtest instrumentado de 30–60 minutos diferido por D-063; debe ejecutarse antes de WP4.16.
 
 ## Arte
 La investigación y el baseline de preproducción están documentados en `docs/art/` y `docs/research/05-art-direction-and-pipeline-research.md`.

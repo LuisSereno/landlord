@@ -268,6 +268,37 @@ sorteos y en el 20 pone en vigor una ordenanza que nadie del jugador pidió. Con
 participación, los escaños y el gobernante salen idénticamente; el sistema no mueve ni un saldo ni una
 transacción. El resultado no está garantizado en ningún sentido: la ley que el concejo quiere también se sortea.
 
+**Corregido en WP4.11-H (2026-10-25):** el censo electoral ya no incluye `available` ni `displaced`, la tasa de
+servicios entra en el eje fiscal con el mismo devengo que la cobra, `canonicalizeState` cubre todos los agregados
+Alpha, el benchmark mensual mide el cierre, `lastReason` del rival sale de la proyección, la oferta pública y el
+encargo de inteligencia son jugables, la UI usa las cuatro categorías reales y muestra el concejo, una ordenanza
+activa no se vuelve a sortear y la duración es única. Ver
+`docs/execution/phase-4/wp4-11-h-alpha-systems-hardening-2026-10-25.md` y D-075.
+
+## WP4.11-H — Hardening transversal de los sistemas Alpha
+
+**Estado 2026-10-25:** `DONE` con deuda de rendimiento declarada. No es WP4.12. Evidencia en
+`docs/execution/phase-4/wp4-11-h-alpha-systems-hardening-2026-10-25.md` y decisión en
+`docs/engineering/adr/D-075-hardening-alpha-sistemica.md`. Baseline `4374c97`, sin commits posteriores
+en `origin/main` al iniciar.
+
+- Censo electoral = residentes efectivos; `available` y `displaced` no votan.
+- La tasa de servicios entra en `taxesMood` mediante `municipalServiceFee`, sin doble cobro.
+- `canonicalizeState` completo y estable; diez goldens regenerados con atribución exacta.
+- Referencias de snapshot validadas hasta WP4.11 y partidos validados al restaurar.
+- Benchmark `month` cruza el cierre real después del warmup.
+- `lastReason`/`lastAction` fuera de la proyección; sólo huella pública.
+- `SubmitPublicBid` y `CommissionIntelligence` jugables; UI municipal y panel del concejo.
+- Ordenanza activa no re-sorteada; duración única; desplazamiento normalizado; `violent_sabotage`;
+  banca neutral ante desalojos.
+- CI verde: formato, lint con toolchain vendorizado excluido, typecheck, tests, build y smokes.
+
+**Aceptación:** la baseline no gana funcionalidad de juego nueva y CI `main` queda completamente verde.
+
+**Rendimiento medido:** el cierre mensual de 800 parcelas mide 28,4 ms (housing 65 %, 42,8 ms
+instrumentado), cruza el presupuesto p95 de D-065 y su disparador de 5 ms. LOD no se implementa por
+alcance; la optimización de `runHousingMarket` queda como deuda antes de WP4.13.
+
 ## WP4.12 — Eventos macroeconómicos
 
 - Definir shocks condicionados y acotados: tipos, escasez, recesión o migración.

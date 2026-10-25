@@ -38,3 +38,4 @@ Una decisión aceptada sólo se modifica mediante un ADR posterior que la sustit
 - [D-072 — Información imperfecta: registro de accesos y expediente de estimaciones](D-072-informacion-imperfecta.md)
 - [D-073 — IA estratégica: perfiles de facción, postura por encuentro y memoria antirrepetición](D-073-ia-estrategica-y-facciones.md)
 - [D-074 — Política y elecciones municipales: opinión por eje, partido gobernante y transferencia del presupuesto](D-074-politica-y-elecciones-municipales.md)
+- [D-075 — Hardening transversal de los sistemas Alpha](D-075-hardening-alpha-sistemica.md)

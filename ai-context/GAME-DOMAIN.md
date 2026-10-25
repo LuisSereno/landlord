@@ -180,6 +180,12 @@ Las relaciones entre organizaciones tampoco son decorativas: la postura de `fact
 encuentros que ocurren en el mundo —sabotaje, desbanco en subasta, licitación competida, compartir manzana—,
 decae con el tiempo y se olvida si deja de haber roce (D-073).
 La política municipal tampoco es una capa aparte: los cinco ejes de opinión (`municipal-politics.ts`) se calculan
-leyendo el mercado de vivienda, el mercado laboral, el crime, los servicios pagados y la recaudación real del mes,
-así que votar cambia quién recorta el presupuesto y qué ley intenta aprobarse el concejo —sin garantizar el
-resultado que la jugadora quiere, que es la regla del WP4.11 (D-074).
+leyendo el mercado de vivienda, el mercado laboral, el crime, los servicios pagados y la recaudación real del mes
+—incluida la tasa de servicios devengada, medida con el mismo helper que la cobra—, así que votar cambia quién
+recorta el presupuesto y qué ley intenta aprobarse el concejo —sin garantizar el resultado que la jugadora quiere,
+que es la regla del WP4.11 (D-074)—. El padrón son los residentes efectivos: un hogar vota sólo con contrato
+vigente y edificio existente; los que buscan piso y los desplazados no votan, y la queja por desplazamiento se
+reparte por proporción de hogares afectados, no por recuento absoluto (D-075). Una ordenanza dura lo mismo la
+impulse el lobby o el concejo, y una ley activa no se vuelve a sortear. La reputación también tiene autor: un
+sabotaje con víctimas carga sobre el propietario y sobre quien lo causó (`violent_sabotage`), y desalojar hogares
+no mejora la lectura de la banca (D-075).

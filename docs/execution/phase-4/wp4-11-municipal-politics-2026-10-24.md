@@ -217,6 +217,29 @@ Resultado observado:
 - `pnpm lint` sigue fallando en repo completo por `blender_artist/toolchain/` (JS vendorizado fuera de `packages`
   y `apps`); `pnpm format:check` sigue fallando por ficheros ya commiteados antes de este WP.
 
+## Nota de hardening (WP4.11-H, 2026-10-25)
+
+Cerrado en el checkpoint transversal, sin reescribir el cierre original:
+
+- **Censo electoral:** se encontró un fallo no listado arriba —`holdElection` recorría *todos* los
+  tenants, así que `available` y `displaced` votaban (y los desplazados para siempre). Ahora
+  `eligibleVoters` exige contrato vigente y edificio existente.
+- **Eje fiscal:** `taxesMood` ya incluye la tasa de servicios con `municipalServiceFee`, el mismo
+  devengo que la cobra el presupuesto; el acumulado que veía `politics` siempre era cero.
+- **Estado canónico:** las siete deudas de superficie y la dependencia del orden de claves quedaron
+  corregidas; los diez digestos se regeneraron con atribución (D-075).
+- **Interfaz:** categorías municipales reales y panel mínimo del concejo; ya no hay `services`
+  obsoleto.
+- **Ordenanza:** una ley activa no se vuelve a sortear y la duración es única
+  (`MUNICIPAL_POLICY_DURATION_TICKS`), no 20 días por lobby frente a 6 meses por concejo.
+- **Desplazamiento:** la queja se normaliza por proporción de hogares afectados.
+- **CI:** `format:check` y `lint` pasan en todo el repo; `blender_artist/toolchain` queda excluido
+  del lint con justificación.
+
+Sigue abierto: barrido 9-0 en distrito monocultivo, servicios leídos con un mes de retardo, la
+jugadora no puede subir tasas, sin candidatos, sin protesta/medios, elecciones sobre el PRNG
+compartido y 15 cifras de calibración a mano.
+
 ## Fuera de alcance
 
 No se implementan shocks macroeconómicos condicionados (WP4.12), automatización y delegación con gameplay LOD

@@ -176,6 +176,26 @@ Resultado observado:
 - `pnpm format:check` sigue fallando por cuatro ficheros ya commiteados antes de este WP; `pnpm lint` sigue
   fallando en local por `blender_artist/toolchain/`.
 
+## Nota de hardening (WP4.11-H, 2026-10-25)
+
+El cierre de WP4.10 no cambia; su alcance se explicita para que no se lea más de lo que se midió:
+
+| Capacidad | Estado real |
+| --- | --- |
+| IA rival estratégica con utilidad | DONE |
+| Perfiles de facción con objetivos y umbrales | DONE |
+| Relaciones por encuentro y postura por par | DONE |
+| Memoria acotada y antirrepetición | DONE |
+| Sin trampa de estado privado del jugador | DONE |
+| Expediente de inteligencia propio de las facciones | DEFERRED |
+| Varias facciones autónomas | DEFERRED |
+| Planificador de largo horizonte | DEFERRED hasta que haga falta |
+
+Además, WP4.11-H corrigió dos efectos reputacionales que este WP no tocó: un sabotaje con víctimas ahora
+registra `violent_sabotage` también sobre el atacante, y la banca deja de premiar los desalojos con +1
+permanente (era un exploit de financiación). Ninguna postura ni perfil sale hacia la proyección y
+`lastReason`/`lastAction` ya no se publican. Ver D-075.
+
 ## Fuera de alcance
 
 No se implementan instituciones electorales, candidatos, partidos ficticios ni aprobación popular (WP4.11),

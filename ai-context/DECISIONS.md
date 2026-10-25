@@ -590,3 +590,31 @@ quitando el bloque `politics`, y que los dos cruces de mes lo recuperan además 
 `governingPartyId` fuera del catálogo). La proyección publica sólo agregados: ninguna clave `tenant_` sale en la
 sección. Ver `docs/engineering/adr/D-074-politica-y-elecciones-municipales.md` y
 `docs/execution/phase-4/wp4-11-municipal-politics-2026-10-24.md`.
+
+## D-075 — Hardening transversal de los sistemas Alpha (WP4.11-H)
+Estado: aceptada el 2026-10-25 para WP4.11-H, no para WP4.12. Baseline `4374c97`, sin commits
+posteriores en `origin/main` al iniciar. Paga la deuda transversal de WP4.2–WP4.11 sin añadir
+gameplay nuevo. **Censo:** `eligibleVoters(state)` exige `contracted`, `activeContractBuildingId` y
+edificio existente; `available` y `displaced` no votan. **Eje fiscal:** `taxesMood` suma
+`municipalServiceFee(state)` —la misma función pura que cobra el presupuesto— en vez de leer un
+acumulado que `politics` siempre ve a cero; no hay doble cobro. **Estado canónico:**
+`canonicalizeState` cubre `phase2.idCounters`, `pendingCommands`, `crews`, `incidents`, `employment`,
+`municipal`, `housingMarket`, `contracts`, `reputation`, `intelligence` y `factions`, serializa ids en
+balances/inventarios/influencia y ordena claves recursivamente; restaurado y original dan la misma
+cadena. Los diez digestos se regeneraron y la serialización anterior sobre los mismos estados recupera
+exactamente los diez valores de WP4.11: el delta es superficie, no economía. **Persistencia:**
+referencias validadas para contratos, reputación, inteligencia y facciones; partidos validados en la
+capa de simulación. **Benchmark:** el warmup precede a la ventana y la `month` cruza el cierre real.
+**Información:** `lastReason` y `lastAction` del rival salen de la proyección; sólo queda la huella
+física (`rival_footprint: public`, `rival_decision: private`). **UI:** oferta pública y encargo de
+inteligencia accionables end-to-end, categorías municipales correctas y panel del concejo. **Reglas
+políticas:** una ordenanza activa no se re-sortea y se reprograma a su caducidad; una sola
+`MUNICIPAL_POLICY_DURATION_TICKS` para lobby y concejo; queja por desplazamiento normalizada por
+población afectada. **Reputación:** nuevo hecho `violent_sabotage` para el atacante distinto del dueño
+y banca neutral ante `households_displaced` (el +1 permanente era un exploit de financiación). **CI:**
+formato reparado en todo el repo, `blender_artist/toolchain/**` excluido del lint por ser toolchain
+vendorizado, y smoke Alpha con fixture determinista. **Rendimiento medido:** el cierre mensual de 800
+parcelas mide 28,4 ms (housing 65 %, 42,8 ms instrumentado), cruza el presupuesto p95 de D-065 y su
+disparador de 5 ms; LOD no se implementa por alcance y la optimización de `runHousingMarket` queda como
+deuda antes de WP4.13. Ver `docs/engineering/adr/D-075-hardening-alpha-sistemica.md` y
+`docs/execution/phase-4/wp4-11-h-alpha-systems-hardening-2026-10-25.md`.

@@ -222,3 +222,16 @@ No incluido:
 - `packages/simulation/src/tick-conservation.test.ts`: diez digestos dorados, incluidas tres
   cascadas de incendio con colapso.
 - Acta `docs/execution/phase-4/wp4-2-simulation-lod-2026-10-23.md`.
+
+## Nota de revisión (WP4.11-H, 2026-10-25)
+
+El benchmark mensual corregido mide por fin el cierre real (antes el warmup lo consumía). Con 800
+parcelas, la ventana `month` da 4,77 ms de media, **28,4 ms de p95/máximo** (42,8 ms instrumentado) y
+`housing` se lleva el 65 %. Eso cruza el presupuesto p95 de 10 ms **para esa ventana** y el disparador
+de revisión de 5 ms, aunque el máximo sigue por debajo del límite duro de 50 ms. El tick estable de
+día sigue en 0,048 ms de media y 0,109 ms de p95, dos órdenes de magnitud por debajo del presupuesto.
+
+No se implementa LOD en WP4.11-H: está fuera de su alcance y el problema está localizado en un solo
+sistema mensual, no en el tick de producto. La decisión queda abierta con datos nuevos; la acción
+recomendada antes de WP4.13 es optimizar `runHousingMarket` y volver a medir. Ver D-075 y el acta
+`docs/execution/phase-4/wp4-11-h-alpha-systems-hardening-2026-10-25.md`.

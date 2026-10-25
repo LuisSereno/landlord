@@ -102,6 +102,12 @@ orden de gasto y una ordenanza preferida. **Ingresos** entra como eje propio (em
 es ahora una prueba: con 0 y con 50 de influencia el resultado electoral es idéntico. No hay candidatos con
 atributos, ni campaña, ni sondeos, ni perspectiva ciudadana jugable.
 
+**Censo y normas (WP4.11-H, D-075):** el padrón son los residentes efectivos —contrato vigente y edificio
+existente—; un inquilino `available` o `displaced` no vota, y un colapso no infla la participación. La tasa de
+servicios entra en el eje fiscal con el mismo devengo que la cobra el presupuesto, sin doble cobro. Una ordenanza
+activa no se vuelve a sortear y dura lo mismo la impulse el lobby o el concejo. La queja por desplazamiento se
+reparte por proporción de hogares afectados, no por recuento absoluto.
+
 Los partidos serán ficticios. Los ciudadanos pueden formar preferencias a partir de su situación:
 - alquiler;
 - ingresos;

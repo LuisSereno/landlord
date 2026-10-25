@@ -87,17 +87,24 @@ comandos al Worker y el Worker responde con snapshot/proyección y métricas.
 
 `tacticalTick` -> producción -> rentas y leases -> pagos de deuda -> subastas -> impuestos de
 propiedad -> mantenimiento -> seguros -> política y heat -> acción rival -> empleo -> mercado de
-vivienda -> reputación -> contratos públicos -> presupuesto municipal -> facciones -> expediente de
-inteligencia -> avance de tick.
+vivienda -> reputación -> contratos públicos -> concejo municipal -> presupuesto municipal ->
+facciones -> expediente de inteligencia -> avance de tick.
 
 Cada bloque es un sistema puro sobre `GameState`; ninguno depende del reloj de pared ni del render.
 
 La lista es `PRODUCT_SYSTEMS`, con nombres estables (`tactical`, `production`, `rent`, `debt`,
 `auctions`, `propertyTax`, `maintenance`, `insurance`, `policy`, `rival`, `employment`, `housing`,
-`reputation`, `contracts`, `municipal`, `factions`, `intelligence`) que usan la
+`reputation`, `contracts`, `politics`, `municipal`, `factions`, `intelligence`) que usan la
 instrumentación de coste (`pnpm system:cost`) y las futuras reglas de LOD. No reordenar ni
 intercalar: cambia todas las partidas. La conservación del resultado se blinda con digestos dorados
-en `tick-conservation.test.ts` (D-065).
+en `tick-conservation.test.ts` (D-065, D-075).
+
+`canonicalizeState` serializa **todos** los agregados autoritativos de Alpha (incluidos `employment`,
+`municipal`, `housingMarket`, `contracts`, `reputation`, `intelligence`, `factions`, `crews`,
+`incidents`, los contadores de ids y los comandos pendientes), con mapas ordenados por id y claves de
+objeto ordenadas recursivamente. Un estado restaurado produce exactamente la misma cadena que el
+original; la prueba vive en `canonical-state.test.ts` y es la condición que cualquier subsistema nuevo
+debe cumplir (D-075).
 
 `employment` y `housing` van al final a propósito: ambos trabajan sólo en el cierre mensual. El
 empleo fija el índice salarial y el ingreso por segmento antes de que vivienda decida qué es
@@ -115,9 +122,9 @@ servicio alimenta la deseabilidad del mercado de vivienda (D-068). La cobertura 
 seguridad y limpieza es radial desde el centro del distrito y se satura al crecer: alimenta
 accesibilidad, seguridad y calidad del parque, y la tasa por unidad ocupada sostiene el presupuesto
 (D-069). `politics` cierra el mes **justo antes** que `municipal`: mide la opinión sobre la recaudación que el mes
-ya produjo —`runMunicipalBudget` la vuelca y la pone a cero al liquidar—, juzga el nivel de servicio que el distrito
-ya tenía, y si toca elección deja elegido el concejo antes de que se pague nada, para que el partido gobernante
-reordene el gasto de este mismo mes (D-074). `factions` cierra el mes después del presupuesto: decae las posturas entre empresas, aplica el roce
+ya produjo —impuestos ya cobrados más la tasa de servicios devengada con el mismo helper puro que la cobrará—,
+juzga el nivel de servicio que el distrito ya tenía, y si toca elección deja elegido el concejo antes de que se pague
+nada, para que el partido gobernante reordene el gasto de este mismo mes (D-074, D-075). `factions` cierra el mes después del presupuesto: decae las posturas entre empresas, aplica el roce
 territorial mutuo topado por mes y recorta la memoria de acciones de la IA fuera de su ventana de tres meses,
 sobre el mapa ya cerrado y antes de que la inteligencia re-base el expediente (D-073). `intelligence` cierra
 la lista y no mueve caja: re-basa con el canal gratis del mercado las

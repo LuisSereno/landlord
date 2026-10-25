@@ -1,0 +1,1518 @@
+[
+  {
+    "schemaVersion": 1,
+    "assetId": "courtyard_home",
+    "kind": "building",
+    "label": "Patio compacto",
+    "state": "complete",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": {
+      "width": 1,
+      "height": 1
+    },
+    "pivot": {
+      "x": 0.4375,
+      "y": 0.7941
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/courtyard_home-complete.png",
+      "width": 72,
+      "height": 73,
+      "sha256": "b197476f2efd46b78289d51c20c08f2d177494757527d3805e72d298809269b8"
+    },
+    "trim": {
+      "rendered": {
+        "width": 256,
+        "height": 224
+      },
+      "cropped": {
+        "width": 144,
+        "height": 146,
+        "offsetX": 65,
+        "offsetY": 41
+      },
+      "final": {
+        "width": 72,
+        "height": 73
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 7.400000095367432
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1804.76,
+      "totalMs": 1834.27
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "courtyard_home",
+        "--state",
+        "complete",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/courtyard_home-complete.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/courtyard_home-complete.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "courtyard_home",
+    "kind": "building",
+    "label": "Patio compacto",
+    "state": "construction",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": {
+      "width": 1,
+      "height": 1
+    },
+    "pivot": {
+      "x": 0.5,
+      "y": 0.6962
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/courtyard_home-construction.png",
+      "width": 74,
+      "height": 61,
+      "sha256": "e322fcfb17660885fb2761afb9cb894bbafd7aeace888661200fc1fe445b70a7"
+    },
+    "trim": {
+      "rendered": {
+        "width": 256,
+        "height": 224
+      },
+      "cropped": {
+        "width": 148,
+        "height": 122,
+        "offsetX": 54,
+        "offsetY": 72
+      },
+      "final": {
+        "width": 74,
+        "height": 61
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 7.400000095367432
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1564.04,
+      "totalMs": 1589.22
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "courtyard_home",
+        "--state",
+        "construction",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/courtyard_home-construction.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/courtyard_home-construction.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "courtyard_home",
+    "kind": "building",
+    "label": "Patio compacto",
+    "state": "damaged",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": {
+      "width": 1,
+      "height": 1
+    },
+    "pivot": {
+      "x": 0.4375,
+      "y": 0.7941
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/courtyard_home-damaged.png",
+      "width": 72,
+      "height": 73,
+      "sha256": "6e8739ee65491c30ad59a3b534ea1b9eb32e2744d49d7be02a167a82f946ea60"
+    },
+    "trim": {
+      "rendered": {
+        "width": 256,
+        "height": 224
+      },
+      "cropped": {
+        "width": 144,
+        "height": 146,
+        "offsetX": 65,
+        "offsetY": 41
+      },
+      "final": {
+        "width": 72,
+        "height": 73
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 7.400000095367432
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1534.25,
+      "totalMs": 1558.2
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "courtyard_home",
+        "--state",
+        "damaged",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/courtyard_home-damaged.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/courtyard_home-damaged.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "courtyard_home",
+    "kind": "building",
+    "label": "Patio compacto",
+    "state": "burning",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": {
+      "width": 1,
+      "height": 1
+    },
+    "pivot": {
+      "x": 0.4375,
+      "y": 0.7941
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/courtyard_home-burning.png",
+      "width": 72,
+      "height": 73,
+      "sha256": "d1dcc062a89c09880612b0e053510aee14eef4eec1445322013fb17919bddc54"
+    },
+    "trim": {
+      "rendered": {
+        "width": 256,
+        "height": 224
+      },
+      "cropped": {
+        "width": 144,
+        "height": 146,
+        "offsetX": 65,
+        "offsetY": 41
+      },
+      "final": {
+        "width": 72,
+        "height": 73
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 7.400000095367432
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1540.82,
+      "totalMs": 1567.22
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "courtyard_home",
+        "--state",
+        "burning",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/courtyard_home-burning.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/courtyard_home-burning.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "vecino_variante",
+    "kind": "character",
+    "label": "Vecino con abrigo",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.4333,
+      "y": 0.9376
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d0-idle-0.png",
+      "width": 15,
+      "height": 38,
+      "sha256": "d1902e1f4c8037dfd5d78b43a566cacaacc5cc79465cd3704c0f05931718958c"
+    },
+    "trim": {
+      "rendered": {
+        "width": 96,
+        "height": 128
+      },
+      "cropped": {
+        "width": 30,
+        "height": 76,
+        "offsetX": 35,
+        "offsetY": 26
+      },
+      "final": {
+        "width": 15,
+        "height": 38
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 2.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1271.88,
+      "totalMs": 1278.49
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "vecino_variante",
+        "--direction",
+        "0",
+        "--animation",
+        "idle",
+        "--frame",
+        "0",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d0-idle-0.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d0-idle-0.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "vecino_variante",
+    "kind": "character",
+    "label": "Vecino con abrigo",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 1,
+    "footprint": null,
+    "pivot": {
+      "x": 0.4333,
+      "y": 0.9507
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d0-idle-1.png",
+      "width": 15,
+      "height": 38,
+      "sha256": "eaee230950c335a0ea9ecf4b834c70d300c9727f317919b8510d7075ec6a1441"
+    },
+    "trim": {
+      "rendered": {
+        "width": 96,
+        "height": 128
+      },
+      "cropped": {
+        "width": 30,
+        "height": 76,
+        "offsetX": 35,
+        "offsetY": 25
+      },
+      "final": {
+        "width": 15,
+        "height": 38
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 2.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1480.25,
+      "totalMs": 1485.48
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "vecino_variante",
+        "--direction",
+        "0",
+        "--animation",
+        "idle",
+        "--frame",
+        "1",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d0-idle-1.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d0-idle-1.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "vecino_variante",
+    "kind": "character",
+    "label": "Vecino con abrigo",
+    "state": null,
+    "direction": 0,
+    "animation": "walk",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.4333,
+      "y": 0.9157
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d0-walk-0.png",
+      "width": 15,
+      "height": 40,
+      "sha256": "15240a0beec2be29165966bd02f5cdeffb1e9df215d39fba9113b4d23fe238c2"
+    },
+    "trim": {
+      "rendered": {
+        "width": 96,
+        "height": 128
+      },
+      "cropped": {
+        "width": 30,
+        "height": 80,
+        "offsetX": 35,
+        "offsetY": 24
+      },
+      "final": {
+        "width": 15,
+        "height": 40
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 2.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1490.26,
+      "totalMs": 1495.54
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "vecino_variante",
+        "--direction",
+        "0",
+        "--animation",
+        "walk",
+        "--frame",
+        "0",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d0-walk-0.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d0-walk-0.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "vecino_variante",
+    "kind": "character",
+    "label": "Vecino con abrigo",
+    "state": null,
+    "direction": 0,
+    "animation": "walk",
+    "frame": 1,
+    "footprint": null,
+    "pivot": {
+      "x": 0.4375,
+      "y": 0.9507
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d0-walk-1.png",
+      "width": 16,
+      "height": 38,
+      "sha256": "cf9dbc3cdbfa56d7cc9a1023f100c91b827e40e15a5a5a4b96100b216395f844"
+    },
+    "trim": {
+      "rendered": {
+        "width": 96,
+        "height": 128
+      },
+      "cropped": {
+        "width": 32,
+        "height": 76,
+        "offsetX": 34,
+        "offsetY": 25
+      },
+      "final": {
+        "width": 16,
+        "height": 38
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 2.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1303.76,
+      "totalMs": 1311.41
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "vecino_variante",
+        "--direction",
+        "0",
+        "--animation",
+        "walk",
+        "--frame",
+        "1",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d0-walk-1.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d0-walk-1.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "vecino_variante",
+    "kind": "character",
+    "label": "Vecino con abrigo",
+    "state": null,
+    "direction": 1,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5667,
+      "y": 0.9376
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d1-idle-0.png",
+      "width": 15,
+      "height": 38,
+      "sha256": "bd5fd3023cc4948c0c6a3d6dfa51e45e58a2a0087d70795b04a622bd8b673d22"
+    },
+    "trim": {
+      "rendered": {
+        "width": 96,
+        "height": 128
+      },
+      "cropped": {
+        "width": 30,
+        "height": 76,
+        "offsetX": 31,
+        "offsetY": 26
+      },
+      "final": {
+        "width": 15,
+        "height": 38
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 2.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1304.76,
+      "totalMs": 1312.8
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "vecino_variante",
+        "--direction",
+        "1",
+        "--animation",
+        "idle",
+        "--frame",
+        "0",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d1-idle-0.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d1-idle-0.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "vecino_variante",
+    "kind": "character",
+    "label": "Vecino con abrigo",
+    "state": null,
+    "direction": 1,
+    "animation": "idle",
+    "frame": 1,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5667,
+      "y": 0.9507
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d1-idle-1.png",
+      "width": 15,
+      "height": 38,
+      "sha256": "6e7377e8da25e3d933df4bb2ee32204cb3ac8ce9cc43fabbd6784c0c97e1f2f1"
+    },
+    "trim": {
+      "rendered": {
+        "width": 96,
+        "height": 128
+      },
+      "cropped": {
+        "width": 30,
+        "height": 76,
+        "offsetX": 31,
+        "offsetY": 25
+      },
+      "final": {
+        "width": 15,
+        "height": 38
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 2.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1309.03,
+      "totalMs": 1315.63
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "vecino_variante",
+        "--direction",
+        "1",
+        "--animation",
+        "idle",
+        "--frame",
+        "1",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d1-idle-1.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d1-idle-1.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "vecino_variante",
+    "kind": "character",
+    "label": "Vecino con abrigo",
+    "state": null,
+    "direction": 1,
+    "animation": "walk",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5312,
+      "y": 0.9639
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d1-walk-0.png",
+      "width": 16,
+      "height": 38,
+      "sha256": "6719351fae65a4ebc723b7b60a14a7e16db59f3902389169767b292e183fd468"
+    },
+    "trim": {
+      "rendered": {
+        "width": 96,
+        "height": 128
+      },
+      "cropped": {
+        "width": 32,
+        "height": 76,
+        "offsetX": 31,
+        "offsetY": 24
+      },
+      "final": {
+        "width": 16,
+        "height": 38
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 2.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1450.75,
+      "totalMs": 1456.08
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "vecino_variante",
+        "--direction",
+        "1",
+        "--animation",
+        "walk",
+        "--frame",
+        "0",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d1-walk-0.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d1-walk-0.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "vecino_variante",
+    "kind": "character",
+    "label": "Vecino con abrigo",
+    "state": null,
+    "direction": 1,
+    "animation": "walk",
+    "frame": 1,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5667,
+      "y": 0.9032
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d1-walk-1.png",
+      "width": 15,
+      "height": 40,
+      "sha256": "372d14cb4dda71e4c3a223358b081bdac8777dc55059d6ab1cf949ab02ff9dc2"
+    },
+    "trim": {
+      "rendered": {
+        "width": 96,
+        "height": 128
+      },
+      "cropped": {
+        "width": 30,
+        "height": 80,
+        "offsetX": 31,
+        "offsetY": 25
+      },
+      "final": {
+        "width": 15,
+        "height": 40
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 2.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1458.63,
+      "totalMs": 1465.11
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "vecino_variante",
+        "--direction",
+        "1",
+        "--animation",
+        "walk",
+        "--frame",
+        "1",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d1-walk-1.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d1-walk-1.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "vecino_variante",
+    "kind": "character",
+    "label": "Vecino con abrigo",
+    "state": null,
+    "direction": 2,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5667,
+      "y": 0.9392
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d2-idle-0.png",
+      "width": 15,
+      "height": 39,
+      "sha256": "2f5fa0f3020897b0e793cd89d9c2eb739d29948cbc928b2af94a5e0f870e009d"
+    },
+    "trim": {
+      "rendered": {
+        "width": 96,
+        "height": 128
+      },
+      "cropped": {
+        "width": 30,
+        "height": 78,
+        "offsetX": 31,
+        "offsetY": 24
+      },
+      "final": {
+        "width": 15,
+        "height": 39
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 2.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1429.4,
+      "totalMs": 1434.72
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "vecino_variante",
+        "--direction",
+        "2",
+        "--animation",
+        "idle",
+        "--frame",
+        "0",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d2-idle-0.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d2-idle-0.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "vecino_variante",
+    "kind": "character",
+    "label": "Vecino con abrigo",
+    "state": null,
+    "direction": 2,
+    "animation": "idle",
+    "frame": 1,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5667,
+      "y": 0.952
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d2-idle-1.png",
+      "width": 15,
+      "height": 39,
+      "sha256": "6390c29203ad28d02fd624c6911211b67b1c5773dbc3a0d0b22acb130940dacf"
+    },
+    "trim": {
+      "rendered": {
+        "width": 96,
+        "height": 128
+      },
+      "cropped": {
+        "width": 30,
+        "height": 78,
+        "offsetX": 31,
+        "offsetY": 23
+      },
+      "final": {
+        "width": 15,
+        "height": 39
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 2.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1535.87,
+      "totalMs": 1544.15
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "vecino_variante",
+        "--direction",
+        "2",
+        "--animation",
+        "idle",
+        "--frame",
+        "1",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d2-idle-1.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d2-idle-1.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "vecino_variante",
+    "kind": "character",
+    "label": "Vecino con abrigo",
+    "state": null,
+    "direction": 2,
+    "animation": "walk",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5667,
+      "y": 0.9157
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d2-walk-0.png",
+      "width": 15,
+      "height": 40,
+      "sha256": "97e68c0a6d20d7db58f1eb993d31f744c102615433e9a5e282f6488686c0343c"
+    },
+    "trim": {
+      "rendered": {
+        "width": 96,
+        "height": 128
+      },
+      "cropped": {
+        "width": 30,
+        "height": 80,
+        "offsetX": 31,
+        "offsetY": 24
+      },
+      "final": {
+        "width": 15,
+        "height": 40
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 2.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1430.89,
+      "totalMs": 1437.47
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "vecino_variante",
+        "--direction",
+        "2",
+        "--animation",
+        "walk",
+        "--frame",
+        "0",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d2-walk-0.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d2-walk-0.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "vecino_variante",
+    "kind": "character",
+    "label": "Vecino con abrigo",
+    "state": null,
+    "direction": 2,
+    "animation": "walk",
+    "frame": 1,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5312,
+      "y": 0.9507
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d2-walk-1.png",
+      "width": 16,
+      "height": 38,
+      "sha256": "c3c75045b0f64aec057dbf356342c0957ceb778db09b2b22d230f1dc3456a965"
+    },
+    "trim": {
+      "rendered": {
+        "width": 96,
+        "height": 128
+      },
+      "cropped": {
+        "width": 32,
+        "height": 76,
+        "offsetX": 31,
+        "offsetY": 25
+      },
+      "final": {
+        "width": 16,
+        "height": 38
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 2.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1385.56,
+      "totalMs": 1393.31
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "vecino_variante",
+        "--direction",
+        "2",
+        "--animation",
+        "walk",
+        "--frame",
+        "1",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d2-walk-1.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d2-walk-1.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "vecino_variante",
+    "kind": "character",
+    "label": "Vecino con abrigo",
+    "state": null,
+    "direction": 3,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.4333,
+      "y": 0.9392
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d3-idle-0.png",
+      "width": 15,
+      "height": 39,
+      "sha256": "ea5d617fa76b65050574f9d59e5471760ad0d1e177e92c55f0cf3fe8752ff826"
+    },
+    "trim": {
+      "rendered": {
+        "width": 96,
+        "height": 128
+      },
+      "cropped": {
+        "width": 30,
+        "height": 78,
+        "offsetX": 35,
+        "offsetY": 24
+      },
+      "final": {
+        "width": 15,
+        "height": 39
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 2.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1399.01,
+      "totalMs": 1404.49
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "vecino_variante",
+        "--direction",
+        "3",
+        "--animation",
+        "idle",
+        "--frame",
+        "0",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d3-idle-0.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d3-idle-0.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "vecino_variante",
+    "kind": "character",
+    "label": "Vecino con abrigo",
+    "state": null,
+    "direction": 3,
+    "animation": "idle",
+    "frame": 1,
+    "footprint": null,
+    "pivot": {
+      "x": 0.4333,
+      "y": 0.952
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d3-idle-1.png",
+      "width": 15,
+      "height": 39,
+      "sha256": "4a2696ac5a5116d3c4b86abc1e123038f5b10b75ed489fe18c984ec77aedb5a4"
+    },
+    "trim": {
+      "rendered": {
+        "width": 96,
+        "height": 128
+      },
+      "cropped": {
+        "width": 30,
+        "height": 78,
+        "offsetX": 35,
+        "offsetY": 23
+      },
+      "final": {
+        "width": 15,
+        "height": 39
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 2.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1495.81,
+      "totalMs": 1502.22
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "vecino_variante",
+        "--direction",
+        "3",
+        "--animation",
+        "idle",
+        "--frame",
+        "1",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d3-idle-1.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d3-idle-1.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "vecino_variante",
+    "kind": "character",
+    "label": "Vecino con abrigo",
+    "state": null,
+    "direction": 3,
+    "animation": "walk",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.4375,
+      "y": 0.9639
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d3-walk-0.png",
+      "width": 16,
+      "height": 38,
+      "sha256": "637f1445dccc1f39f4ed83a483614c3020b211c3185887ed2c3e5c185e4a1318"
+    },
+    "trim": {
+      "rendered": {
+        "width": 96,
+        "height": 128
+      },
+      "cropped": {
+        "width": 32,
+        "height": 76,
+        "offsetX": 34,
+        "offsetY": 24
+      },
+      "final": {
+        "width": 16,
+        "height": 38
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 2.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1353.02,
+      "totalMs": 1359.73
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "vecino_variante",
+        "--direction",
+        "3",
+        "--animation",
+        "walk",
+        "--frame",
+        "0",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d3-walk-0.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d3-walk-0.json"
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "vecino_variante",
+    "kind": "character",
+    "label": "Vecino con abrigo",
+    "state": null,
+    "direction": 3,
+    "animation": "walk",
+    "frame": 1,
+    "footprint": null,
+    "pivot": {
+      "x": 0.4333,
+      "y": 0.9032
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d3-walk-1.png",
+      "width": 15,
+      "height": 40,
+      "sha256": "3153803800490225e20fd646548f97e4e2b755ca731abcb56098958665777370"
+    },
+    "trim": {
+      "rendered": {
+        "width": 96,
+        "height": 128
+      },
+      "cropped": {
+        "width": 30,
+        "height": 80,
+        "offsetX": 35,
+        "offsetY": 25
+      },
+      "final": {
+        "width": 15,
+        "height": 40
+      }
+    },
+    "origin": "original",
+    "license": "PROJECT-ASSET-LICENSE",
+    "author": "Landlord project / blender runtime asset pipeline",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 2.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 1458.19,
+      "totalMs": 1465.17
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "vecino_variante",
+        "--direction",
+        "3",
+        "--animation",
+        "walk",
+        "--frame",
+        "1",
+        "--output",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d3-walk-1.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-EpLhME/vecino_variante-d3-walk-1.json"
+      ]
+    }
+  }
+]

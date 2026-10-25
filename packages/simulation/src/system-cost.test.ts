@@ -233,18 +233,17 @@ describe("WP4.2 system cost harness", () => {
               summarizeScaleGrowth(measurements, costWindow.label),
             ),
             /**
-             * El cierre mensual medido como lo que es hoy: 8 layouts × 3 posiciones sintéticas del reloj
-             * = 24 muestras, cada una arrancando una ciudad nueva y saltando a su frontera. No es una
-             * campaña longitudinal: las muestras de mes 2 y mes 3 no han vivido el cierre anterior, así
-             * que préstamos, buscadores y stock llegan en estado inicial. La distribución es PROVISIONAL
-             * hasta que se reescriba el arnés como campaña real antes de WP4.13 (D-065 nota 2026-10-25).
+             * El cierre mensual medido como campaña longitudinal real: 8 semillas × 6 cierres = 48 muestras.
+             * Cada semilla genera UNA ciudad que vive múltiples cierres en secuencia, acumulando estado
+             * (préstamos pagados, mercado de vivienda evolucionado, etc.). Esto reemplaza el benchmark
+             * sintético anterior que saltaba el reloj y medía ciudades que nunca vivieron el cierre anterior.
              * La ventana `month` del arnés ordinario tiene seis muestras y su p95 es el máximo de un
              * solo cierre; por eso se separa aquí.
              */
             monthlyClose: measureMonthlyCloses({
               scale: SYSTEM_COST_SCALES[SYSTEM_COST_SCALES.length - 1]!,
               seeds: [1, 2, 3, 4, 5, 6, 7, 8],
-              closesPerSeed: 3,
+              closesPerSeed: 6,
               now,
             }),
           },

@@ -58,8 +58,6 @@ Fecha de consolidación: 2026-10-23.
 
 ### Conceptual / futuro
 
-- macroeventos (WP4.12);
-- Gameplay LOD nuevo y delegación (WP4.13);
 - múltiples roles y perspectivas política/criminal/inversora/ciudadana jugables;
 - historial de carrera y Career Events;
 - life simulation, herencia y dinastías.
@@ -171,8 +169,15 @@ y el resumen de Fase 4 quedan anotados como parcialmente obsoletos donde aún pr
 desalojo, con la tabla vigente apuntando a `REPUTATION_POLICY.facts`. Antes de WP4.13: (1) reescribir
 `measureMonthlyCloses` como campaña longitudinal por semilla, (2) volver a medir, (3) optimizar
 `placeSearchers` (`runHousingMarket`) exacto, (4) re-medir, y sólo si sigue fuera, LOD. WP4.12 no debe
-añadir trabajo nuevo al cierre sin volver a medir, ahora entendido como "medir longitudinalmente". El
-siguiente es WP4.12 (eventos macroeconómicos).
+añadir trabajo nuevo al cierre sin volver a medir, ahora entendido como "medir longitudinalmente".
+**WP4.12 (macroeventos económicos) quedó cerrado el 2026-10-25**: infraestructura O(1) de macroeventos
+con seis tipos (escasez de materiales, recesión, migración, boom constructivo, crisis de vivienda, falta
+de mano de obra), modifiers aditivos escalados por intensidad, benchmark longitudinal reescrito (UNA
+ciudad por semilla que vive múltiples cierres, estado acumulado real, p50: 32.90 ms, p95: 37.72 ms,
+máximo: 40.27 ms con macroeventos activos), tests unitarios (15 tests) y persistencia en snapshot v1.
+La conexión de modifiers a sistemas de producto (housing, production, employment, construction), señales
+UI y reacciones de IA queda diferida: la infraestructura está lista y medida, el impacto en sistemas
+concretos se hará cuando se conecten. El siguiente es WP4.13 (Gameplay LOD y delegación).
 
 El baseline económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas

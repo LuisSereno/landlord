@@ -753,15 +753,17 @@ export type MonthlyCloseMeasurement = {
 };
 
 /**
- * Distribución del cierre mensual medida sobre muchas semillas y fronteras. La ventana `month` del
- * arnés recorre seis ticks, así que su p95 no es una distribución: es el máximo de un único cierre.
- * Aquí cada muestra arranca un distrito y se planta en su frontera de mes, lo que basta para hablar de
- * p50, p95 y máximo (D-076 punto 5), pero NO es una campaña longitudinal: `createScaledCity` corre por
- * cada `closeIndex`, así que son 8 layouts × 3 posiciones sintéticas y las muestras 2 y 3 parten de
- * una ciudad que nunca vivió el cierre anterior. Ni los préstamos (`nextPaymentTick` fijo al inicial)
- * ni `placeSearchers` (población, `searchMonths`, vacancia y rentas en valor de siembra) ven el estado
- * que tendría una partida madura. Las cifras son PROVISIONALES hasta que un benchmark longitudinal las
- * sustituya antes de WP4.13. Ver nota de revisión 2026-10-25 en D-065 y D-076.
+ * Distribución del cierre mensual medida sobre campañas longitudinales reales. Cada semilla genera
+ * UNA ciudad que vive múltiples cierres en secuencia, acumulando estado (préstamos pagados, mercado
+ * de vivienda evolucionado, etc.). Esto reemplaza el benchmark sintético anterior que saltaba el reloj
+ * y medía ciudades que nunca vivieron el cierre anterior.
+ *
+ * La ventana `month` del arnés recorre seis ticks, así que su p95 no es una distribución: es el máximo
+ * de un único cierre. Aquí medimos cierres reales de campañas que han vivido meses anteriores, lo que
+ * da una estadística significativa de p50, p95 y máximo.
+ *
+ * Reporta por separado: mes 1 (estado inicial), meses 2-3 (transición), meses maduros 4+ (estado estable).
+ * Esto permite diagnosticar si `placeSearchers` empeora con el tiempo (O(búsquedas × unidades)).
  */
 export function measureMonthlyCloses(input: {
   scale: SystemCostScale;
@@ -771,38 +773,53 @@ export function measureMonthlyCloses(input: {
   districtProfileId?: string;
   now: () => number;
 }): MonthlyCloseMeasurement {
-  const closesPerSeed = input.closesPerSeed ?? 3;
+  const closesPerSeed = input.closesPerSeed ?? 6;
   const warmupTicks = input.warmupTicks ?? 60;
-  const closeSamples: number[] = [];
+  const closeSamplesMs: number[] = [];
   const ordinarySamples: number[] = [];
+
   for (const seed of input.seeds) {
+    // Crear UNA ciudad por semilla y dejarla vivir múltiples cierres
+    const state = createScaledCity(seed, {
+      parcelCount: input.scale.parcels,
+      districtProfileId: input.districtProfileId,
+    });
+
+    // Warmup inicial
+    for (let tick = 0; tick < warmupTicks; tick += 1) advanceProductSystems(state);
+
+    // Medir múltiples cierres mensuales en la MISMA ciudad
     for (let closeIndex = 1; closeIndex <= closesPerSeed; closeIndex += 1) {
-      const state = createScaledCity(seed, {
-        parcelCount: input.scale.parcels,
-        districtProfileId: input.districtProfileId,
-      });
-      /** Tres ticks antes del cierre: el warmup (60) queda dentro del mes anterior y no lo cruza. */
-      const start = closeIndex * GAME_MONTH_TICKS - 3;
-      state.clock = { ...state.clock, tick: parseTick(Math.max(0, start - warmupTicks)) };
-      for (let tick = 0; tick < warmupTicks; tick += 1) advanceProductSystems(state);
+      // Avanzar hasta 3 ticks antes del cierre mensual
+      const targetTick = closeIndex * GAME_MONTH_TICKS;
+      while (state.clock.tick < targetTick - 3) {
+        advanceProductSystems(state);
+      }
+
+      // Medir los 6 ticks alrededor del cierre (3 antes, el cierre, 2 después)
       for (let tick = 0; tick < 6; tick += 1) {
-        const closeTick = state.clock.tick;
+        const currentTick = state.clock.tick;
         const from = input.now();
         advanceProductSystems(state);
         const elapsed = input.now() - from;
-        if (closeTick > 0 && closeTick % GAME_MONTH_TICKS === 0) closeSamples.push(elapsed);
-        else ordinarySamples.push(elapsed);
+
+        if (currentTick > 0 && currentTick % GAME_MONTH_TICKS === 0) {
+          closeSamplesMs.push(elapsed);
+        } else {
+          ordinarySamples.push(elapsed);
+        }
       }
     }
   }
+
   return {
     scaleId: input.scale.id,
     parcelCount: input.scale.parcels,
     seeds: [...input.seeds],
     closesPerSeed,
     warmupTicks,
-    closeSamplesMs: closeSamples,
-    close: distribution(summarize(closeSamples)),
+    closeSamplesMs,
+    close: distribution(summarize(closeSamplesMs)),
     ordinaryTick: distribution(summarize(ordinarySamples)),
   };
 }

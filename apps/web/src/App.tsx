@@ -1212,15 +1212,14 @@ export function App() {
                 <p>
                   <strong>Municipio:</strong> reservas {economy.municipal.reserve} u. · ingresos del
                   mes {economy.municipal.revenueThisMonthBySource.propertyTax ?? 0} propiedad +{" "}
-                  {economy.municipal.revenueThisMonthBySource.transferTax ?? 0} transferencia ·
-                  gasto planificado{" "}
-                  {(economy.municipal.plannedByCategory.administration ?? 0) +
-                    (economy.municipal.plannedByCategory.security ?? 0) +
-                    (economy.municipal.plannedByCategory.services ?? 0)}{" "}
-                  u. · servicio administración{" "}
+                  {economy.municipal.revenueThisMonthBySource.transferTax ?? 0} transferencia +{" "}
+                  {economy.municipal.revenueThisMonthBySource.serviceFee ?? 0} tasa de servicios ·
+                  gasto planificado {municipalPlannedTotal(economy.municipal.plannedByCategory)} u.
+                  · administración{" "}
                   {economy.municipal.serviceLevelPercentByCategory.administration ?? 100}% ·
                   seguridad {economy.municipal.serviceLevelPercentByCategory.security ?? 100}% ·
-                  servicios {economy.municipal.serviceLevelPercentByCategory.services ?? 100}% ·
+                  transporte {economy.municipal.serviceLevelPercentByCategory.transport ?? 100}% ·
+                  limpieza {economy.municipal.serviceLevelPercentByCategory.cleaning ?? 100}% ·
                   meses en déficit {economy.municipal.deficitMonths}
                 </p>
                 <p>
@@ -1255,18 +1254,25 @@ export function App() {
                   {economy.publicContracts.reliability.defaulted} incumplidos ·{" "}
                   {economy.publicContracts.reliability.awarded} adjudicados al jugador.
                 </p>
-                <ul>
+                <div className="construction-options">
                   {economy.publicContracts.open.map((contract) => (
-                    <li key={contract.id}>
-                      {contract.title}: presupuesto {contract.budget} u. · fianza {contract.bond} u.
-                      ·{" "}
-                      {contract.status === "awarded" && contract.awardedToOrganizationId
-                        ? `adjudicado a ${contract.awardedToOrganizationId} por ${contract.awardedAmount ?? 0} u.`
-                        : `${contract.bidCount} ofertas`}
-                      {contract.playerBid !== null ? ` · tu oferta ${contract.playerBid} u.` : ""}
-                    </li>
+                    <ContractBidForm
+                      cash={economy.cash}
+                      contract={contract}
+                      disabled={!client || contract.status !== "open"}
+                      key={contract.id}
+                      onSubmit={(amount) =>
+                        void sendAction(
+                          () => clientRef.current!.submitPublicBid(contract.id, amount),
+                          "Oferta presentada; la fianza sólo se cobra al adjudicar.",
+                        )
+                      }
+                    />
                   ))}
-                </ul>
+                  {economy.publicContracts.open.length === 0 && (
+                    <p className="empty-state">No hay licitaciones abiertas este mes.</p>
+                  )}
+                </div>
                 <p>
                   <strong>Reputación:</strong> vecinos{" "}
                   {economy.reputation.standingByGroup.residents} · gobierno{" "}
@@ -1290,6 +1296,28 @@ export function App() {
                   {economy.intelligence.cooldownRemainingTicks} ticks enfriado. El mercado re-basa
                   solo lo que lleva {economy.intelligence.staleAfterMonths} meses sin refrescarse.
                 </p>
+                <div className="construction-options">
+                  {economy.intelligence.kinds.map((entry) => (
+                    <button
+                      key={entry.kind}
+                      type="button"
+                      disabled={
+                        !client ||
+                        economy.intelligence.cooldownRemainingTicks > 0 ||
+                        economy.cash < economy.intelligence.commissionCost
+                      }
+                      onClick={() =>
+                        void sendAction(
+                          () =>
+                            clientRef.current!.commissionIntelligence("org_00000002", entry.kind),
+                          `Encargo de ${entry.label} enviado; la estimación llega con error conocido.`,
+                        )
+                      }
+                    >
+                      Investigar {entry.label} · {economy.intelligence.commissionCost} u.
+                    </button>
+                  ))}
+                </div>
                 <ul>
                   {economy.intelligence.estimates.length === 0 ? (
                     <li>El expediente está vacío: no has pagado por saber nada del rival.</li>
@@ -1307,14 +1335,46 @@ export function App() {
                 <p>
                   <strong>Rival:</strong> {economy.rival.parcels} parcelas ·{" "}
                   {economy.rival.buildings} edificios · {economy.rival.occupiedBuildings} ocupados.
-                  Caja y contratos privados.
-                </p>
-                <p>
-                  <strong>Última decisión rival:</strong> {economy.rival.lastAction} ·{" "}
-                  {economy.rival.lastReason}
+                  Caja, contratos e intención no son observables; el expediente de inteligencia es
+                  la única vía para estimarlos.
                 </p>
               </div>
             </section>
+          )}
+          {economy && (
+            <details className="side-panel">
+              <summary>Concejo municipal</summary>
+              <div className="diagnostic-summary">
+                <p>
+                  <strong>Gobierna:</strong> {economy.politics.governingPartyName} · participación{" "}
+                  {economy.politics.lastTurnoutPercent}% · {economy.politics.electionsHeld}{" "}
+                  elección(es) celebrada(s).
+                </p>
+                <p>
+                  <strong>Calendario:</strong> próxima elección en el tick{" "}
+                  {economy.politics.nextElectionTick}
+                  {economy.politics.nextDebateTick !== null
+                    ? ` · próximo debate en el tick ${economy.politics.nextDebateTick}`
+                    : " · sin debate programado"}
+                  .
+                </p>
+                <ul>
+                  {economy.politics.parties.map((party) => (
+                    <li key={party.id}>
+                      {party.name}: {party.seats} escaños · {party.supportPercent}% de apoyo.
+                    </li>
+                  ))}
+                </ul>
+                <p>
+                  <strong>Ánimo del distrito:</strong> vivienda{" "}
+                  {economy.politics.moodByIssue.housing} · empleo{" "}
+                  {economy.politics.moodByIssue.employment} · seguridad{" "}
+                  {economy.politics.moodByIssue.safety} · servicios{" "}
+                  {economy.politics.moodByIssue.services} · impuestos{" "}
+                  {economy.politics.moodByIssue.taxes}.
+                </p>
+              </div>
+            </details>
           )}
           {economy && (
             <details className="side-panel">
@@ -1367,6 +1427,70 @@ export function App() {
         </aside>
       </div>
     </main>
+  );
+}
+
+type ProjectedContract = NonNullable<
+  NonNullable<ViewProjectionV1["economy"]>["publicContracts"]
+>["open"][number];
+
+function ContractBidForm({
+  contract,
+  cash,
+  disabled,
+  onSubmit,
+}: {
+  contract: ProjectedContract;
+  cash: number;
+  disabled: boolean;
+  onSubmit: (amount: number) => void;
+}) {
+  const [amount, setAmount] = useState(String(contract.budget));
+  const parsed = Number(amount);
+  const valid = Number.isSafeInteger(parsed) && parsed > 0 && parsed <= contract.budget;
+  return (
+    <div className="production-row">
+      <p>
+        <strong>{contract.title}</strong> · presupuesto {contract.budget} u. · fianza{" "}
+        {contract.bond} u. · {contract.bidCount} oferta(s)
+        {contract.playerBid !== null ? ` · tu oferta ${contract.playerBid} u.` : ""}
+        {contract.status === "awarded" && contract.awardedToOrganizationId
+          ? ` · adjudicado por ${contract.awardedAmount ?? 0} u.`
+          : ""}
+      </p>
+      {contract.status === "open" && contract.playerBid === null && (
+        <>
+          <label className="selection-detail">
+            <span>Importe de la oferta</span>
+            <input
+              type="number"
+              min={1}
+              max={contract.budget}
+              value={amount}
+              onChange={(event) => setAmount(event.target.value)}
+            />
+          </label>
+          <button
+            type="button"
+            disabled={disabled || !valid || cash < contract.bond}
+            onClick={() => onSubmit(parsed)}
+          >
+            Presentar oferta · {valid ? parsed : "—"} u.
+          </button>
+          {!valid && <p>La oferta debe ser un entero entre 1 y {contract.budget} u.</p>}
+          {cash < contract.bond && <p>La caja no cubre la fianza de {contract.bond} u.</p>}
+        </>
+      )}
+    </div>
+  );
+}
+
+function municipalPlannedTotal(planned: Record<string, number>): number {
+  return (
+    (planned.administration ?? 0) +
+    (planned.security ?? 0) +
+    (planned.transport ?? 0) +
+    (planned.cleaning ?? 0)
   );
 }
 

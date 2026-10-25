@@ -20,6 +20,7 @@ import {
   viewProjectionV1Schema,
   workerResponseSchema,
   type SnapshotV1,
+  type IntelKind,
   type ProductCommand,
   type SimulationMetrics,
   type ViewProjectionV1,
@@ -385,6 +386,26 @@ export class SimulationWorkerClient {
       actingAsOrganizationId: parseOrganizationId("org_00000001"),
       type: "WithdrawAuctionBid",
       payload: { loanId: parseLoanId(loanId) },
+    });
+  }
+
+  public submitPublicBid(contractId: string, amount: number) {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "SubmitPublicBid",
+      payload: { contractId, amount: parseMoney(amount) },
+    });
+  }
+
+  public commissionIntelligence(subjectOrganizationId: string, kind: IntelKind) {
+    return this.submitProductCommand({
+      commandId: this.nextCommandId(),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: parseOrganizationId("org_00000001"),
+      type: "CommissionIntelligence",
+      payload: { subjectOrganizationId: parseOrganizationId(subjectOrganizationId), kind },
     });
   }
 

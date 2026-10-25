@@ -27,6 +27,7 @@ import {
   BANK_ORGANIZATION_ID,
   LOAN_POLICY,
   GAME_MONTH_TICKS,
+  MUNICIPAL_POLICY_DURATION_TICKS,
   effectiveTaxRateBps,
   calculateTax,
   MUNICIPALITY_ORGANIZATION_ID,
@@ -1069,7 +1070,9 @@ export function dispatchProductCommand(
     ordinance.status = approved ? "active" : "rejected";
     ordinance.proposedAtTick = state.clock.tick;
     ordinance.activeFromTick = approved ? state.clock.tick : null;
-    ordinance.expiresAtTick = approved ? parseTick(state.clock.tick + 24_000) : null;
+    ordinance.expiresAtTick = approved
+      ? parseTick(state.clock.tick + MUNICIPAL_POLICY_DURATION_TICKS)
+      : null;
     rememberProcessed(state, command.commandId);
     return productEvent(state, command.commandId, approved ? "PolicyEnacted" : "PolicyRejected", {
       policyId: ordinance.id,

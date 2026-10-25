@@ -123,6 +123,12 @@ describe("Gate 2 product loop", () => {
     const balanceBeforeRent = state.phase2.balances.get(organization)!;
     advanceToTick(state, 36_000);
     expect(state.phase2.balances.get(organization)).toBeGreaterThan(balanceBeforeRent);
+    /** WP4.11-H: la vigencia es la de una legislatura, explícita en el estado y no un 24_000 mágico. */
+    const ordinance = state.phase2.ordinance;
+    expect(ordinance.status).toBe("active");
+    expect(ordinance.expiresAtTick).not.toBeNull();
+    state.clock = { ...state.clock, tick: ordinance.expiresAtTick! };
+    advanceProductSystems(state);
     expect(state.phase2.ordinance.status).toBe("expired");
   });
 

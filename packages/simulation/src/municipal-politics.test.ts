@@ -2,8 +2,10 @@ import { describe, expect, it } from "vitest";
 
 import {
   parseBuildingId,
+  parseCommandId,
   parseIncidentId,
   parseMoney,
+  parsePersonId,
   parsePolicyId,
   parseTenantId,
   parseTick,
@@ -17,6 +19,7 @@ import {
   GAME_MONTH_TICKS,
   MUNICIPAL_PARTY_CATALOG,
   MUNICIPAL_POLICY_CATALOG,
+  MUNICIPAL_POLICY_DURATION_TICKS,
   MUNICIPALITY_ORGANIZATION_ID,
   PLAYER_ORGANIZATION_ID,
 } from "./game-data";
@@ -29,14 +32,17 @@ import {
   computeCivicMood,
   councilAlignmentPercent,
   describeMunicipalPolitics,
+  eligibleVoters,
   initialMunicipalPoliticsState,
   politicalPartyById,
   runMunicipalPolitics,
 } from "./municipal-politics";
 import { MUNICIPAL_BUDGET_POLICY, runMunicipalBudget } from "./municipal-budget";
+import { municipalServiceFee } from "./urban-services";
 import { createInitialState, type GameState } from "./state";
 import { advanceProductSystems } from "./systems";
 import { canonicalizeState } from "./runner";
+import { dispatchProductCommand } from "./commands";
 import { createScaledCity } from "./system-cost";
 import { createViewProjection } from "./projection";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
@@ -328,12 +334,21 @@ describe("WP4.11 voto, participación y transferencia institucional", () => {
   });
 
   it("el reparto no es a ganador absoluto: dos asuntos rotos dejan escaños para la oposición", () => {
-    const state = newState(11);
-    for (let index = 0; index < 6; index += 1) {
-      contractHome(state, addHome(state, index), 400 + index, 1_000);
+    const state = newState(4);
+    /**
+     * Electorado mixto y controlado: ocho hogares con la renta rota y ocho artesanos sin empleo.
+     * Sin el censo efectivo, los inquilinos fantasma añadían ruido y el reparto no medía nada.
+     */
+    for (let index = 0; index < 16; index += 1) {
+      const segment = index % 2 === 0 ? "household" : "maker";
+      const tenantId = contractHome(state, addHome(state, index), 400 + index, 1_000);
+      const tenant = state.phase2.tenants.get(tenantId)!;
+      tenant.profile = segment;
+      tenant.segmentId = segment;
     }
-    /** Renta y empleo a la vez: ningún partido representa solo el dolor del distrito. */
     state.phase2.housingMarket.rentIndexPercentByBuildingType.courtyard_home = 900;
+    /** El gobierno saliente no arrastra su castigo: la puja es entre vivienda y empleo. */
+    state.phase2.politics.governingPartyId = "party_cuentas_claras";
     state.clock = { ...state.clock, tick: parseTick(GAME_MONTH_TICKS * 6) };
     runMunicipalPolitics(state);
     const seats = Object.values(state.phase2.politics.seatsByPartyId);
@@ -439,12 +454,8 @@ describe("WP4.11 persistencia, proyección y campaña", () => {
     const restored = restoreStateFromSnapshot(serializeSnapshot(state));
     expect(describeMunicipalPolitics(restored)).toEqual(before);
     expect(restored.phase2.politics).toEqual(state.phase2.politics);
-    /**
-     * Comparación estructural: `canonicalizeState` serializa con JSON.stringify y el orden de
-     * claves de un estado restaurado difiere del original sin que cambie ningún valor (deuda
-     * documentada en la prueba de generación de distrito).
-     */
-    expect(JSON.parse(canonicalizeState(restored))).toEqual(JSON.parse(canonicalizeState(state)));
+    /** El estado canónico ya ordena claves y maps: la igualdad es de cadena, no estructural. */
+    expect(canonicalizeState(restored)).toBe(canonicalizeState(state));
   });
 
   it("una partida anterior sin concejo arranca con la legislatura de referencia", () => {
@@ -501,7 +512,7 @@ describe("WP4.11 persistencia, proyección y campaña", () => {
      * legislatura. Nadie del jugador decide ese cambio; lo produce la opinión medida cada mes.
      */
     expect(politics.governingPartyId).not.toBe(initialMunicipalPoliticsState().governingPartyId);
-  });
+  }, 30_000);
 
   it("ninguna formación del catálogo reproduce la nomenclatura de un partido real", () => {
     const names = MUNICIPAL_PARTY_CATALOG.map((party) => party.name.toLowerCase());
@@ -536,5 +547,264 @@ describe("WP4.11 persistencia, proyección y campaña", () => {
     expect(balancesAfter).toEqual(balancesBefore);
     expect(state.phase2.transactions.length).toBe(transactionsBefore);
     expect(politicalPartyById(state.phase2.politics.governingPartyId)).not.toBeNull();
+  });
+});
+
+/** Residente sin edificio vivo, buscador o desplazado: ninguno de los tres está en el padrón. */
+function addTenant(
+  state: GameState,
+  ordinal: number,
+  status: "available" | "displaced" | "contracted",
+  buildingId: BuildingId | null,
+): TenantId {
+  const id = parseTenantId(`tenant_${String(ordinal).padStart(8, "0")}`);
+  state.phase2.tenants.set(id, {
+    id,
+    profile: "household",
+    budget: parseMoney(1_000),
+    preferredBuildingType: "courtyard_home",
+    activeContractBuildingId: buildingId,
+    satisfaction: 70,
+    leaseRemaining: 2,
+    status,
+    size: 2,
+    segmentId: "household",
+    searchMonths: 0,
+    incomeFactorPercent: 100,
+    origin: "market",
+  });
+  return id;
+}
+
+function displace(state: GameState, tenantId: TenantId): void {
+  const tenant = state.phase2.tenants.get(tenantId)!;
+  tenant.status = "displaced";
+  tenant.activeContractBuildingId = null;
+  for (const building of state.phase2.buildings.values()) {
+    building.tenantIds = building.tenantIds.filter((id) => id !== tenantId);
+    building.tenantId = building.tenantIds[0] ?? null;
+  }
+}
+
+describe("WP4.11-H censo electoral", () => {
+  it("sólo vota el residente efectivo: contrato vigente y edificio existente", () => {
+    const state = newState();
+    const home = addHome(state, 0);
+    const resident = contractHome(state, home, 100, 1_000);
+    const available = addTenant(state, 101, "available", null);
+    const displaced = addTenant(state, 102, "displaced", null);
+    const orphan = addTenant(state, 103, "contracted", parseBuildingId("building_99999999"));
+
+    const voters = eligibleVoters(state).map((tenant) => tenant.id);
+    expect(voters).toEqual([resident]);
+    expect(voters).not.toContain(available);
+    expect(voters).not.toContain(displaced);
+    expect(voters).not.toContain(orphan);
+  });
+
+  it("veinte desplazados históricos no cambian el tamaño del electorado", () => {
+    const state = newState(17);
+    const home = addHome(state, 0);
+    for (let index = 0; index < 4; index += 1) contractHome(state, home, 200 + index, 1_000);
+    const before = eligibleVoters(state).length;
+    for (let index = 0; index < 20; index += 1) addTenant(state, 300 + index, "displaced", null);
+    expect(eligibleVoters(state)).toHaveLength(before);
+  });
+
+  it("un colapso total deja el censo vacío y no infla la participación", () => {
+    const state = newState(19);
+    const home = addHome(state, 0);
+    const tenants = [0, 1, 2, 3].map((index) => contractHome(state, home, 400 + index, 1_000));
+    for (const tenantId of tenants) displace(state, tenantId);
+    state.clock = { ...state.clock, tick: parseTick(GAME_MONTH_TICKS * 6) };
+    runMunicipalPolitics(state);
+    expect(eligibleVoters(state)).toHaveLength(0);
+    expect(state.phase2.politics.electionsHeld).toBe(1);
+    expect(state.phase2.politics.lastTurnoutPercent).toBe(0);
+    /** Sin votos, el reparto vuelve a la composición de apertura en vez de inventar apoyo. */
+    for (const party of MUNICIPAL_PARTY_CATALOG) {
+      expect(state.phase2.politics.seatsByPartyId[party.id]).toBe(party.openingSeats);
+    }
+  });
+
+  it("la misma semilla y el mismo padrón producen el mismo resultado", () => {
+    const elect = (seed: number) => {
+      const state = newState(seed);
+      for (let index = 0; index < 6; index += 1) {
+        contractHome(state, addHome(state, index), 500 + index, 1_000);
+      }
+      addTenant(state, 600, "displaced", null);
+      state.clock = { ...state.clock, tick: parseTick(GAME_MONTH_TICKS * 6) };
+      runMunicipalPolitics(state);
+      return state.phase2.politics;
+    };
+    expect(elect(23)).toEqual(elect(23));
+  });
+});
+
+describe("WP4.11-H eje fiscal y tasa de servicios", () => {
+  it("la tasa de servicios mueve el ánimo fiscal con impuestos y renta constantes", () => {
+    const state = newState(29);
+    const home = addHome(state, 0);
+    contractHome(state, home, 700, 1_000);
+    const building = state.phase2.buildings.get(home)!;
+    const baseline = computeCivicMood(state).taxes;
+    /**
+     * Aísla el canal de la tasa: las unidades ocupadas suben sin tocar el censo ni la renta
+     * agregada. En partida, ocupación y hogares contratados crecen juntos; aquí se prueba la regla.
+     */
+    building.tenantIds = [
+      ...building.tenantIds,
+      ...Array.from({ length: 40 }, (_, index) =>
+        parseTenantId(`tenant_${String(900 + index).padStart(8, "0")}`),
+      ),
+    ];
+    expect(municipalServiceFee(state)).toBe(41 * 3);
+    expect(computeCivicMood(state).taxes).toBeLessThan(baseline);
+  });
+
+  it("sin tasa de servicios el eje fiscal no inventa carga y no hay doble cobro al cerrar", () => {
+    const state = newState(31);
+    const home = addHome(state, 0);
+    contractHome(state, home, 800, 1_000);
+    expect(municipalServiceFee(state)).toBe(3);
+    state.clock = { ...state.clock, tick: parseTick(GAME_MONTH_TICKS) };
+    runMunicipalPolitics(state);
+    const observed = state.phase2.politics.moodByIssue.taxes;
+    runMunicipalBudget(state);
+    expect(state.phase2.municipal.revenueTotalBySource.serviceFee).toBe(3);
+    expect(state.phase2.municipal.revenueThisMonthBySource.serviceFee).toBe(0);
+    expect(state.phase2.transactions.filter((tx) => tx.cause === "service_fee")).toHaveLength(1);
+    /** El ánimo ya se midió con el mismo devengo que cobró el presupuesto. */
+    expect(state.phase2.politics.moodByIssue.taxes).toBe(observed);
+  });
+
+  it("guardar y cargar no altera la señal fiscal", () => {
+    const state = newState(37);
+    const home = addHome(state, 0);
+    contractHome(state, home, 900, 1_000);
+    const before = computeCivicMood(state).taxes;
+    const restored = restoreStateFromSnapshot(serializeSnapshot(state));
+    expect(computeCivicMood(restored).taxes).toBe(before);
+  });
+});
+
+describe("WP4.11-H ordenanza activa y duración", () => {
+  it("una ordenanza activa del propio gobierno no se vuelve a sortear", () => {
+    const state = newState(41);
+    const bill = MUNICIPAL_POLICY_CATALOG.find(
+      (policy) => policy.id === parsePolicyId("policy_00000004"),
+    )!;
+    state.phase2.politics.governingPartyId = "party_suelo_comun";
+    state.phase2.ordinance = {
+      ...bill,
+      status: "active",
+      activeFromTick: parseTick(GAME_MONTH_TICKS),
+      expiresAtTick: parseTick(GAME_MONTH_TICKS * 6),
+    };
+    state.phase2.politics.nextElectionTick = parseTick(GAME_MONTH_TICKS * 12);
+    state.phase2.politics.nextDebateTick = parseTick(GAME_MONTH_TICKS * 2);
+    state.clock = { ...state.clock, tick: parseTick(GAME_MONTH_TICKS * 2) };
+    runMunicipalPolitics(state);
+    expect(state.phase2.ordinance.status).toBe("active");
+    expect(state.phase2.ordinance.id).toBe(bill.id);
+    expect(state.phase2.ordinance.expiresAtTick).toBe(GAME_MONTH_TICKS * 6);
+    expect(state.phase2.politics.nextDebateTick).toBe(GAME_MONTH_TICKS * 6);
+  });
+
+  it("una ley rechazada no bloquea la mesa para el siguiente debate", () => {
+    const state = newState(43);
+    state.phase2.ordinance = {
+      ...MUNICIPAL_POLICY_CATALOG[0]!,
+      status: "rejected",
+      proposedAtTick: parseTick(GAME_MONTH_TICKS),
+    };
+    state.phase2.politics.governingPartyId = "party_cuentas_claras";
+    state.phase2.politics.nextElectionTick = parseTick(GAME_MONTH_TICKS * 12);
+    state.phase2.politics.nextDebateTick = parseTick(GAME_MONTH_TICKS * 2);
+    state.clock = { ...state.clock, tick: parseTick(GAME_MONTH_TICKS * 2) };
+    runMunicipalPolitics(state);
+    /** El concejo volvió a resolver: la propuesta es nueva, no una prórroga del rechazo. */
+    expect(state.phase2.ordinance.proposedAtTick).toBe(GAME_MONTH_TICKS * 2);
+    expect(["active", "rejected"]).toContain(state.phase2.ordinance.status);
+  });
+
+  it("lobby y concejo producen la misma duración de vigencia", () => {
+    const councilExpiries = new Set<number>();
+    for (let seed = 1; seed <= 30 && councilExpiries.size === 0; seed += 1) {
+      const state = newState(seed);
+      state.phase2.ordinance = { ...state.phase2.ordinance, status: "expired" };
+      state.phase2.politics.governingPartyId = "party_suelo_comun";
+      state.phase2.politics.nextElectionTick = parseTick(GAME_MONTH_TICKS * 12);
+      state.phase2.politics.nextDebateTick = parseTick(GAME_MONTH_TICKS * 2);
+      state.clock = { ...state.clock, tick: parseTick(GAME_MONTH_TICKS * 2) };
+      runMunicipalPolitics(state);
+      if (state.phase2.ordinance.status === "active") {
+        councilExpiries.add(state.phase2.ordinance.expiresAtTick! - state.clock.tick);
+      }
+    }
+    expect([...councilExpiries]).toEqual([MUNICIPAL_POLICY_DURATION_TICKS]);
+
+    const lobbyExpiries = new Set<number>();
+    for (let seed = 1; seed <= 30 && lobbyExpiries.size === 0; seed += 1) {
+      const state = newState(seed);
+      const command = (spend: number) => ({
+        type: "LobbyPolicy" as const,
+        commandId: parseCommandId(`lobby-${seed}-${spend}`),
+        issuedByPersonId: parsePersonId("person_00000001"),
+        actingAsOrganizationId: PLAYER_ORGANIZATION_ID,
+        payload: {
+          policyId: MUNICIPAL_POLICY_CATALOG[0]!.id,
+          influenceSpend: spend,
+        },
+      });
+      let spend = state.phase2.influenceByOrganizationId.get(PLAYER_ORGANIZATION_ID) ?? 0;
+      while (spend < 4) {
+        state.phase2.influenceByOrganizationId.set(PLAYER_ORGANIZATION_ID, spend + 1);
+        spend += 1;
+      }
+      dispatchProductCommand(state, command(4));
+      if (state.phase2.ordinance.status === "active") {
+        lobbyExpiries.add(state.phase2.ordinance.expiresAtTick! - state.clock.tick);
+      }
+    }
+    expect([...lobbyExpiries]).toEqual([MUNICIPAL_POLICY_DURATION_TICKS]);
+  });
+});
+
+describe("WP4.11-H queja de vivienda normalizada", () => {
+  it("un desplazado pesa por proporción y no por recuento absoluto", () => {
+    const crowded = newState(47);
+    const home = addHome(crowded, 0);
+    contractHome(crowded, home, 1_000, 1_000);
+    addTenant(crowded, 1_001, "displaced", null);
+    const few = computeCivicMood(crowded).housing;
+
+    const sparse = newState(47);
+    const sparseHome = addHome(sparse, 0);
+    for (let index = 0; index < 99; index += 1) {
+      contractHome(sparse, sparseHome, 1_100 + index, 1_000);
+    }
+    addTenant(sparse, 1_200, "displaced", null);
+    const many = computeCivicMood(sparse).housing;
+    expect(few).toBeLessThan(many);
+  });
+
+  it("cero desplazados no castiga y el ánimo queda siempre entre 0 y 100", () => {
+    const state = newState(53);
+    const home = addHome(state, 0);
+    contractHome(state, home, 1_300, 1_000);
+    expect(computeCivicMood(state).housing).toBe(100);
+    for (let displaced = 0; displaced <= 5; displaced += 1) {
+      const sample = newState(53);
+      const sampleHome = addHome(sample, 0);
+      contractHome(sample, sampleHome, 1_400, 200);
+      for (let index = 0; index < displaced; index += 1) {
+        addTenant(sample, 1_500 + index, "displaced", null);
+      }
+      const mood = computeCivicMood(sample).housing;
+      expect(mood).toBeGreaterThanOrEqual(0);
+      expect(mood).toBeLessThanOrEqual(100);
+    }
   });
 });

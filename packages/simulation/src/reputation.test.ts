@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   parseBuildingId,
   parseCommandId,
+  parseIncidentId,
   parseMoney,
   parseParcelId,
   parsePersonId,
@@ -35,6 +36,7 @@ import {
   runReputation,
   standingFor,
 } from "./reputation";
+import { canonicalizeState } from "./runner";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { createInitialState, type GameState } from "./state";
 import { advanceProductSystems } from "./systems";
@@ -142,21 +144,23 @@ function requestLoanRate(state: GameState, parcelId: ParcelId): number | undefin
 
 describe("WP4.8 reputación multidimensional", () => {
   it("el mismo hecho valora distinto a cada grupo y no hay barra universal", () => {
+    const completed = newState();
+    recordReputationFact(completed, PLAYER_ORGANIZATION_ID, "contract_completed");
+    expect(standingFor(completed, PLAYER_ORGANIZATION_ID, "residents")).toBe(3);
+    expect(standingFor(completed, PLAYER_ORGANIZATION_ID, "municipality")).toBe(8);
+    expect(standingFor(completed, PLAYER_ORGANIZATION_ID, "banks")).toBe(2);
+    expect(
+      new Set(
+        REPUTATION_GROUPS.map((group) => standingFor(completed, PLAYER_ORGANIZATION_ID, group)),
+      ).size,
+    ).toBe(3);
+
     const state = newState();
     recordReputationFact(state, PLAYER_ORGANIZATION_ID, "households_displaced", { magnitude: 2 });
-
-    const residents = standingFor(state, PLAYER_ORGANIZATION_ID, "residents");
-    const municipality = standingFor(state, PLAYER_ORGANIZATION_ID, "municipality");
-    const banks = standingFor(state, PLAYER_ORGANIZATION_ID, "banks");
-    expect(residents).toBe(-6);
-    expect(municipality).toBe(-2);
-    expect(banks).toBe(2);
-    // Desplazar households Improve la lectura de la banca y empeora la de la calle.
-    expect(Math.sign(residents)).not.toBe(Math.sign(banks));
-    expect(
-      new Set(REPUTATION_GROUPS.map((group) => standingFor(state, PLAYER_ORGANIZATION_ID, group)))
-        .size,
-    ).toBe(3);
+    expect(standingFor(state, PLAYER_ORGANIZATION_ID, "residents")).toBe(-6);
+    expect(standingFor(state, PLAYER_ORGANIZATION_ID, "municipality")).toBe(-2);
+    /** WP4.11-H: desalojar no mejora la lectura crediticia; el +1 permanente era un exploit. */
+    expect(standingFor(state, PLAYER_ORGANIZATION_ID, "banks")).toBe(0);
   });
 
   it("la opinión de la banca fija el tipo de interés del préstamo", () => {
@@ -184,9 +188,9 @@ describe("WP4.8 reputación multidimensional", () => {
 
     advanceMonth(state, 1);
     // Cuatro hogares a la calle restan 12 ante los vecinos; el cierre decae 3 y la lectura
-    // final es -9. La banca no decae y lee el desalojo como menos riesgo: +4.
+    // final es -9. La banca no decae pero tampoco premia el desalojo desde WP4.11-H.
     expect(standingFor(state, PLAYER_ORGANIZATION_ID, "residents")).toBe(-9);
-    expect(standingFor(state, PLAYER_ORGANIZATION_ID, "banks")).toBe(4);
+    expect(standingFor(state, PLAYER_ORGANIZATION_ID, "banks")).toBe(0);
     expect(residentFactorPercentFor(state, PLAYER_ORGANIZATION_ID)).toBe(100);
 
     // El umbral siguiente sí castiga el parque: -9 menos dos desalojos más queda en -15.
@@ -308,9 +312,115 @@ describe("WP4.8 reputación multidimensional", () => {
         magnitude: 5,
       });
       settleAt(state, 5);
-      return JSON.stringify(serializeSnapshot(state));
+      return canonicalizeState(state);
     };
-    // canonicalizeState sigue sin serializar los agregados económicos (deuda de WP4.3–WP4.8).
     expect(run()).toBe(run());
+  });
+});
+
+describe("WP4.11-H atribución de víctimas y exploit bancario", () => {
+  it("el sabotaje con víctimas recae también sobre quien lo causó", () => {
+    const state = newState(67);
+    const buildingId = addBuilding(state, 0);
+    addTenant(state, 1, buildingId);
+    addTenant(state, 2, buildingId);
+    const building = state.phase2.buildings.get(buildingId)!;
+    building.state = "collapse_pending";
+    building.structuralIntegrity = 0;
+    state.phase2.incidents.set(parseIncidentId("incident_00000001"), {
+      id: parseIncidentId("incident_00000001"),
+      buildingId,
+      origin: "sabotage",
+      intensity: 100,
+      status: "active",
+      targetOrganizationId: PLAYER_ORGANIZATION_ID,
+      createdAtTick: parseTick(0),
+      causedByAgentId: null,
+      causedByOrganizationId: RIVAL_ORGANIZATION_ID,
+      casualties: { injured: 0, dead: 0 },
+    });
+    state.clock = { ...state.clock, tick: parseTick(50) };
+    advanceProductSystems(state);
+
+    expect(building.state).toBe("ruin");
+    const rivalFacts = state.phase2.reputation.factsByOrganizationId[RIVAL_ORGANIZATION_ID] ?? [];
+    expect(rivalFacts.map((fact) => fact.kind)).toContain("violent_sabotage");
+    expect(standingFor(state, RIVAL_ORGANIZATION_ID, "residents")).toBe(-10);
+    expect(standingFor(state, PLAYER_ORGANIZATION_ID, "residents")).toBe(-8);
+  });
+
+  it("sin atacante distinto del dueño no se duplica la penalización", () => {
+    const state = newState(71);
+    const buildingId = addBuilding(state, 0);
+    addTenant(state, 1, buildingId);
+    addTenant(state, 2, buildingId);
+    const building = state.phase2.buildings.get(buildingId)!;
+    building.state = "collapse_pending";
+    building.structuralIntegrity = 0;
+    state.phase2.incidents.set(parseIncidentId("incident_00000001"), {
+      id: parseIncidentId("incident_00000001"),
+      buildingId,
+      origin: "deterioration",
+      intensity: 100,
+      status: "active",
+      targetOrganizationId: PLAYER_ORGANIZATION_ID,
+      createdAtTick: parseTick(0),
+      causedByAgentId: null,
+      causedByOrganizationId: PLAYER_ORGANIZATION_ID,
+      casualties: { injured: 0, dead: 0 },
+    });
+    state.clock = { ...state.clock, tick: parseTick(50) };
+    advanceProductSystems(state);
+    const facts = state.phase2.reputation.factsByOrganizationId[PLAYER_ORGANIZATION_ID] ?? [];
+    expect(facts.filter((fact) => fact.kind === "casualties")).toHaveLength(1);
+    expect(facts.filter((fact) => fact.kind === "violent_sabotage")).toHaveLength(0);
+  });
+
+  it("sin víctimas no se registra hecho para nadie", () => {
+    const state = newState(73);
+    const buildingId = addBuilding(state, 0);
+    const building = state.phase2.buildings.get(buildingId)!;
+    building.state = "collapse_pending";
+    building.structuralIntegrity = 0;
+    state.phase2.incidents.set(parseIncidentId("incident_00000001"), {
+      id: parseIncidentId("incident_00000001"),
+      buildingId,
+      origin: "sabotage",
+      intensity: 100,
+      status: "active",
+      targetOrganizationId: PLAYER_ORGANIZATION_ID,
+      createdAtTick: parseTick(0),
+      causedByAgentId: null,
+      causedByOrganizationId: RIVAL_ORGANIZATION_ID,
+      casualties: { injured: 0, dead: 0 },
+    });
+    state.clock = { ...state.clock, tick: parseTick(50) };
+    advanceProductSystems(state);
+    expect(
+      state.phase2.reputation.factsByOrganizationId[PLAYER_ORGANIZATION_ID] ?? [],
+    ).toHaveLength(0);
+    expect(state.phase2.reputation.factsByOrganizationId[RIVAL_ORGANIZATION_ID] ?? []).toHaveLength(
+      0,
+    );
+  });
+
+  it("desalojar repetidamente no construye reputación bancaria ni abarata el préstamo", () => {
+    const abusive = newState(79);
+    const control = newState(79);
+    for (let month = 1; month <= 12; month += 1) {
+      settleAt(abusive, month);
+      recordReputationFact(abusive, PLAYER_ORGANIZATION_ID, "households_displaced", {
+        magnitude: 8,
+      });
+      settleAt(control, month);
+    }
+    expect(standingFor(abusive, PLAYER_ORGANIZATION_ID, "banks")).toBe(0);
+    expect(bankRateModifierBpsFor(abusive, PLAYER_ORGANIZATION_ID)).toBe(
+      bankRateModifierBpsFor(control, PLAYER_ORGANIZATION_ID),
+    );
+    /** La calle sí lo castiga: la neutralidad bancaria no borra la queja social. */
+    expect(standingFor(abusive, PLAYER_ORGANIZATION_ID, "residents")).toBeLessThan(
+      standingFor(control, PLAYER_ORGANIZATION_ID, "residents"),
+    );
   });
 });

@@ -868,15 +868,26 @@ function tacticalTick(state: GameState): void {
     const injured = occupants - dead;
     root.casualtiesTotal.injured += injured;
     root.casualtiesTotal.dead += dead;
+    const ownIncident = rootIncidents.get(root.id);
     if (dead + injured > 0) {
       recordReputationFact(state, root.ownerOrganizationId, "casualties", {
         referenceId: root.id,
         magnitude: dead + injured,
       });
+      /**
+       * El propietario responde de la seguridad del inmueble, pero el sabotaje tiene autor: si el
+       * incidente lo atribuye a otra empresa, esa empresa también carga con las víctimas.
+       */
+      const attackerId = ownIncident?.causedByOrganizationId ?? null;
+      if (attackerId && attackerId !== root.ownerOrganizationId) {
+        recordReputationFact(state, attackerId, "violent_sabotage", {
+          referenceId: root.id,
+          magnitude: dead + injured,
+        });
+      }
     }
     root.tenantIds = [];
     root.tenantId = null;
-    const ownIncident = rootIncidents.get(root.id);
     if (ownIncident) {
       ownIncident.casualties = { injured, dead };
       ownIncident.status = "resolved";

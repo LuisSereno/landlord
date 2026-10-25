@@ -2,7 +2,9 @@ import { describe, expect, it } from "vitest";
 
 import {
   parseCommandId,
+  parseLoanId,
   parseMoney,
+  parseParcelId,
   parsePersonId,
   parseTick,
   type IntelKind,
@@ -29,6 +31,7 @@ import {
   trueValueFor,
 } from "./information";
 import { createViewProjection } from "./projection";
+import { canonicalizeState } from "./runner";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { createInitialState, type GameState } from "./state";
 import { advanceProductSystems } from "./systems";
@@ -235,9 +238,63 @@ describe("WP4.9 información imperfecta", () => {
         commission(state, RIVAL_ORGANIZATION_ID, month % 2 === 1 ? "balance" : "bid_intent");
         runIntelligence(state);
       }
-      return JSON.stringify(serializeSnapshot(state));
+      return canonicalizeState(state);
     };
-    // canonicalizeState sigue sin serializar la inteligencia (deuda de WP4.3–WP4.9).
     expect(run()).toBe(run());
+  });
+
+  it("el razonamiento y los números privados del rival no llegan a la proyección", () => {
+    const state = newState();
+    state.phase2.rivalAi.lastReason = "SENTINEL-RAZON-PRIVADA";
+    state.phase2.rivalAi.lastAction = "SENTINEL-ACCION-PRIVADA";
+    state.phase2.rivalAi.strategyProfile = "expansionist";
+    state.phase2.factions.profileByOrganizationId[RIVAL_ORGANIZATION_ID] = "expansionist";
+    state.phase2.factions.stanceByPairId[`${PLAYER_ORGANIZATION_ID}>${RIVAL_ORGANIZATION_ID}`] =
+      -40;
+    state.phase2.balances.set(RIVAL_ORGANIZATION_ID, parseMoney(987_654_321));
+    state.phase2.influenceByOrganizationId.set(RIVAL_ORGANIZATION_ID, 777_777);
+    state.phase2.reputation.standingByOrganizationId[RIVAL_ORGANIZATION_ID] = {
+      residents: -57,
+    };
+    const parcelId = [...state.phase2.parcels.keys()][0]!;
+    state.phase2.loans.set(parseLoanId("loan_00000099"), {
+      id: parseLoanId("loan_00000099"),
+      borrowerOrganizationId: RIVAL_ORGANIZATION_ID,
+      lenderOrganizationId: "org_00000003" as never,
+      principal: parseMoney(555_555),
+      outstandingPrincipal: parseMoney(555_555),
+      annualInterestRateBps: 900,
+      termMonths: 12,
+      remainingMonths: 12,
+      collateralParcelId: parseParcelId(parcelId),
+      status: "active",
+      offeredAtTick: parseTick(0),
+      acceptedAtTick: parseTick(0),
+      nextPaymentTick: parseTick(36_000),
+      missedPayments: 0,
+    });
+
+    const serialized = JSON.stringify(createViewProjection(state, true));
+    for (const sentinel of [
+      "SENTINEL-RAZON-PRIVADA",
+      "SENTINEL-ACCION-PRIVADA",
+      "expansionist",
+      "987654321",
+      "777777",
+      "555555",
+      `${PLAYER_ORGANIZATION_ID}>${RIVAL_ORGANIZATION_ID}`,
+    ]) {
+      expect(serialized, sentinel).not.toContain(sentinel);
+    }
+    /** La reputación proyectada es la del jugador; la del rival no viaja en el panel. */
+    expect(JSON.stringify(createViewProjection(state, true).economy!.reputation)).not.toContain(
+      "-57",
+    );
+    /** El observable que sí es público sigue estando: la huella física del rival. */
+    expect(createViewProjection(state, true).economy!.rival).toEqual({
+      parcels: expect.any(Number),
+      buildings: expect.any(Number),
+      occupiedBuildings: expect.any(Number),
+    });
   });
 });

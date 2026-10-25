@@ -54,6 +54,37 @@ describe("SimulationWorkerClient", () => {
     expect(errors).toEqual([]);
   });
 
+  it("shapes public bid and intelligence commands with the player identity", () => {
+    const worker = new FakeWorker();
+    const client = new SimulationWorkerClient(
+      worker,
+      () => undefined,
+      () => undefined,
+    );
+    void client.submitPublicBid("contract_00000001", 260);
+    void client.commissionIntelligence("org_00000002", "balance");
+    expect(worker.sent[0]).toMatchObject({
+      type: "SubmitCommand",
+      payload: {
+        command: {
+          type: "SubmitPublicBid",
+          issuedByPersonId: "person_00000001",
+          actingAsOrganizationId: "org_00000001",
+          payload: { contractId: "contract_00000001", amount: 260 },
+        },
+      },
+    });
+    expect(worker.sent[1]).toMatchObject({
+      type: "SubmitCommand",
+      payload: {
+        command: {
+          type: "CommissionIntelligence",
+          payload: { subjectOrganizationId: "org_00000002", kind: "balance" },
+        },
+      },
+    });
+  });
+
   it("reports malformed Worker messages without mutating client state", () => {
     const worker = new FakeWorker();
     const errors: string[] = [];

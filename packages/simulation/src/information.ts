@@ -68,6 +68,9 @@ export const INFORMATION_POLICY = {
     rival_reputation: "private",
     rival_influence: "private",
     rival_bid: "private",
+    /** La huella física de la promotora rival se ve desde la calle; su decisión, no. */
+    rival_footprint: "public",
+    rival_decision: "private",
   } as const satisfies Record<string, InformationScope>,
   /** Cuatro cifras_privadas del rival que valen una decisión; todas en unidades de dinero. */
   kinds: {

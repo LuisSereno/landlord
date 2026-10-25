@@ -284,6 +284,12 @@ export const GAME_HOUR_TICKS = 50;
 export const GAME_DAY_TICKS = GAME_HOUR_TICKS * 24;
 export const GAME_MONTH_DAYS = 30;
 export const GAME_MONTH_TICKS = GAME_DAY_TICKS * GAME_MONTH_DAYS;
+/**
+ * Una sola duración para cualquier ordenanza, la impulse el lobby del jugador o el concejo: la
+ * norma es la misma ley y no debe caducar antes por el camino que la aprobó.
+ */
+export const MUNICIPAL_TERM_MONTHS = 6;
+export const MUNICIPAL_POLICY_DURATION_TICKS = GAME_MONTH_TICKS * MUNICIPAL_TERM_MONTHS;
 export const PLAYER_CREW_CAPACITY = 2;
 export const UPGRADE_RESOURCES = { cement: 1, brick: 2, steel: 1 } as const;
 export const UPGRADE_RENT_BONUS_PERCENT = 25;

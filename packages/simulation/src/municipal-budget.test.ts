@@ -220,4 +220,22 @@ describe("WP4.5 presupuesto municipal", () => {
     const legacy = restoreStateFromSnapshot(raw);
     expect(legacy.phase2.municipal).toEqual(initialMunicipalBudgetState());
   });
+
+  it("la proyección municipal sólo publica las cuatro categorías reales", () => {
+    const report = describeMunicipalBudget(newState());
+    expect(Object.keys(report.plannedByCategory).sort()).toEqual([
+      "administration",
+      "cleaning",
+      "security",
+      "transport",
+    ]);
+    expect(Object.keys(report.serviceLevelPercentByCategory).sort()).toEqual([
+      "administration",
+      "cleaning",
+      "security",
+      "transport",
+    ]);
+    /** `services` fue la categoría obsoleta del HUD hasta WP4.11-H: no debe reaparecer. */
+    expect(JSON.stringify(report)).not.toContain('"services"');
+  });
 });

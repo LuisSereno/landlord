@@ -40,9 +40,18 @@ export const REPUTATION_POLICY = {
     },
     households_displaced: {
       magnitudeCap: 8,
-      deltaByGroup: { residents: -3, municipality: -1, banks: 1 },
+      /**
+       * Neutral para la banca desde WP4.11-H: desalojar hogares no mejora la solvencia, y un +1 sin
+       * decaimiento convertía los desahucios repetidos en un descuento permanente del préstamo.
+       */
+      deltaByGroup: { residents: -3, municipality: -1, banks: 0 },
     },
     casualties: { magnitudeCap: 12, deltaByGroup: { residents: -4, municipality: -3, banks: -1 } },
+    /** El daño deliberado que mata o hiere inquilinos recae también sobre quien lo causó. */
+    violent_sabotage: {
+      magnitudeCap: 12,
+      deltaByGroup: { residents: -5, municipality: -4, banks: -2 },
+    },
     tax_arrears: { magnitudeCap: 4, deltaByGroup: { municipality: -4, banks: -3 } },
     maintenance_backlog: { magnitudeCap: 6, deltaByGroup: { residents: -2, municipality: -1 } },
     loan_defaulted: { magnitudeCap: 1, deltaByGroup: { municipality: -2, banks: -12 } },

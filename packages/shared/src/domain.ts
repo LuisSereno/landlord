@@ -460,6 +460,7 @@ export type ReputationFactKind =
   | "contract_defaulted"
   | "households_displaced"
   | "casualties"
+  | "violent_sabotage"
   | "tax_arrears"
   | "maintenance_backlog"
   | "loan_defaulted"
@@ -935,6 +936,7 @@ export const reputationFactSchema = z.object({
     "contract_defaulted",
     "households_displaced",
     "casualties",
+    "violent_sabotage",
     "tax_arrears",
     "maintenance_backlog",
     "loan_defaulted",

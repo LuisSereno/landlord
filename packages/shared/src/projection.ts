@@ -332,6 +332,7 @@ export type ViewProjectionV1 = {
           | "contract_defaulted"
           | "households_displaced"
           | "casualties"
+          | "violent_sabotage"
           | "tax_arrears"
           | "maintenance_backlog"
           | "loan_defaulted"
@@ -461,8 +462,6 @@ export type ViewProjectionV1 = {
       parcels: number;
       buildings: number;
       occupiedBuildings: number;
-      lastAction: string;
-      lastReason: string;
     };
     heat: number;
     policePressure: number;
@@ -847,6 +846,7 @@ export const viewProjectionV1Schema = z.object({
               "contract_defaulted",
               "households_displaced",
               "casualties",
+              "violent_sabotage",
               "tax_arrears",
               "maintenance_backlog",
               "loan_defaulted",
@@ -1001,8 +1001,6 @@ export const viewProjectionV1Schema = z.object({
         parcels: z.number().int().nonnegative(),
         buildings: z.number().int().nonnegative(),
         occupiedBuildings: z.number().int().nonnegative(),
-        lastAction: z.string(),
-        lastReason: z.string(),
       }),
       heat: z.number().int().nonnegative(),
       policePressure: z.number().int().nonnegative(),

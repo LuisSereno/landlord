@@ -5,13 +5,21 @@ import {
   type MunicipalPoliticsState,
   type Ordinance,
   type PoliticalIssue,
+  type Tenant,
   type Tick,
 } from "@landlord/shared";
-import { GAME_MONTH_TICKS, MUNICIPAL_PARTY_CATALOG, createMunicipalPolicy } from "./game-data";
+import {
+  GAME_MONTH_TICKS,
+  MUNICIPAL_PARTY_CATALOG,
+  MUNICIPAL_POLICY_DURATION_TICKS,
+  MUNICIPAL_TERM_MONTHS,
+  createMunicipalPolicy,
+} from "./game-data";
 import { Xoshiro128ss } from "./prng";
 import { askingRentFor } from "./housing-market";
 import { describeLaborMarket } from "./employment";
 import type { MunicipalBudgetCategory } from "./municipal-budget";
+import { municipalServiceFee } from "./urban-services";
 import type { GameState } from "./state";
 
 /**
@@ -21,7 +29,7 @@ import type { GameState } from "./state";
  */
 export const MUNICIPAL_INSTITUTION = {
   councilSeats: 9,
-  termMonths: 6,
+  termMonths: MUNICIPAL_TERM_MONTHS,
   /** Meses que el concejo deja pasar desde la elección hasta que debate su propia ordenanza. */
   debateDelayMonths: 2,
 } as const;
@@ -35,8 +43,12 @@ export const MUNICIPAL_MOOD_POLICY = {
    */
   housingComfortableRentSharePercent: 80,
   housingGrievancePerPointOverShare: 3,
-  /** Hogar desplazado, contado como queja de vivienda aunque no pague renta. */
-  housingDisplacedWeight: 2,
+  /**
+   * Queja de vivienda con todo el distrito desplazado, en puntos sobre la base cómoda. Se reparte
+   * por proporción de hogares afectados: un desplazado pesa distinto en un barrio de dos que en uno
+   * de doscientos, y no hay una rama especial para el distrito vacío.
+   */
+  housingDisplacedWeight: 100,
   safetyPolicePressurePenalty: 6,
   safetyRuinPenalty: 5,
   safetyIncidentPenalty: 3,
@@ -156,9 +168,12 @@ function censusHomes(state: GameState): HomeCensus {
 }
 
 function housingMood(census: HomeCensus): number {
-  const displacedBurden = census.displaced * MUNICIPAL_MOOD_POLICY.housingDisplacedWeight;
-  if (census.households === 0) return clamp(100 - displacedBurden, 0, 100);
-  const meanBurden = census.burdenPoints / census.households + displacedBurden;
+  const affectedHouseholds = census.households + census.displaced;
+  if (affectedHouseholds === 0) return 100;
+  /** Proporción, no recuento: el mismo desplazado no puede pesar igual en dos hogares que en doscientos. */
+  const displacedGrievance =
+    (census.displaced / affectedHouseholds) * MUNICIPAL_MOOD_POLICY.housingDisplacedWeight;
+  const meanBurden = census.burdenPoints / affectedHouseholds + displacedGrievance;
   return clamp(100 - meanBurden * MUNICIPAL_MOOD_POLICY.housingGrievancePerPointOverShare, 0, 100);
 }
 
@@ -201,11 +216,15 @@ function servicesMood(state: GameState): number {
  * incluyendo la tasa de servicios. Bajar el recibo no sube la opinión por encima de neutra; subirlo
  * sí la hunde. Ahí está el cambio que el concejo paga: recortar ingresos contenta un mes y descubre
  * el servicio al siguiente.
+ *
+ * La tasa de servicios se mide con el mismo helper puro que la cobra el presupuesto, no con el
+ * acumulado: `politics` cierra antes que `municipal`, así que el recibo del mes todavía no está
+ * apuntado y leer sólo el libro dejaría el eje fiscal ciego a su ingreso más elástico.
  */
 function taxesMood(state: GameState, census: HomeCensus): number {
   const revenue = state.phase2.municipal.revenueThisMonthBySource;
   const collected =
-    (revenue.propertyTax ?? 0) + (revenue.transferTax ?? 0) + (revenue.serviceFee ?? 0);
+    (revenue.propertyTax ?? 0) + (revenue.transferTax ?? 0) + municipalServiceFee(state);
   if (census.rentRoll <= 0) return 100;
   const chargeSharePercent = (100 * collected) / census.rentRoll;
   const overShare = Math.max(
@@ -378,6 +397,7 @@ export function budgetPriorityFor(
  * Debate del concejo: si la mesa está libre, la formación gobernante intenta poner su propia
  * ordenanza en vigor con la probabilidad que dicta su alineamiento. Si otro texto la ocupa, el
  * debate se pospone un mes: el jugador puede frenar la ley del concejo manteniendo la suya vigente.
+ * Una ley ya activa nunca se vuelve a sortear: su vigencia es el resultado, no una propuesta nueva.
  */
 function runCouncilDebate(state: GameState): void {
   const politics = state.phase2.politics;
@@ -385,8 +405,22 @@ function runCouncilDebate(state: GameState): void {
   const party = politicalPartyById(politics.governingPartyId);
   if (!party) return;
   const ordinance = state.phase2.ordinance;
-  const occupiesTable = ["proposed", "approved", "active"].includes(ordinance.status);
-  if (occupiesTable && ordinance.id !== party.preferredOrdinanceId) {
+  if (ordinance.status === "active") {
+    if (ordinance.id !== party.preferredOrdinanceId) {
+      politics.nextDebateTick = parseTick(state.clock.tick + GAME_MONTH_TICKS);
+      return;
+    }
+    /** Su propia ley ya está en vigor: no hay nada que debatir hasta que caduque o llegue otra ventana. */
+    politics.nextDebateTick =
+      ordinance.expiresAtTick !== null && ordinance.expiresAtTick > state.clock.tick
+        ? ordinance.expiresAtTick
+        : parseTick(state.clock.tick + GAME_MONTH_TICKS);
+    return;
+  }
+  if (
+    ["proposed", "approved"].includes(ordinance.status) &&
+    ordinance.id !== party.preferredOrdinanceId
+  ) {
     politics.nextDebateTick = parseTick(state.clock.tick + GAME_MONTH_TICKS);
     return;
   }
@@ -405,10 +439,24 @@ function runCouncilDebate(state: GameState): void {
     status: enacted ? "active" : "rejected",
     proposedAtTick: parseTick(state.clock.tick),
     activeFromTick: enacted ? parseTick(state.clock.tick) : null,
-    expiresAtTick: enacted
-      ? parseTick(state.clock.tick + GAME_MONTH_TICKS * MUNICIPAL_INSTITUTION.termMonths)
-      : null,
+    expiresAtTick: enacted ? parseTick(state.clock.tick + MUNICIPAL_POLICY_DURATION_TICKS) : null,
   };
+}
+
+/**
+ * Censo electoral: sólo residentes efectivos. Un hogar vota si tiene contrato vigente y el edificio
+ * existe; los que buscan piso y los desplazados no están en el padrón. Los desplazados de un colapso
+ * siguen en el estado como memoria del hogar, pero no vuelven a votar ni inflan la participación.
+ */
+export function eligibleVoters(state: GameState): Tenant[] {
+  const voters: Tenant[] = [];
+  for (const tenant of state.phase2.tenants.values()) {
+    if (tenant.status !== "contracted") continue;
+    if (!tenant.activeContractBuildingId) continue;
+    if (!state.phase2.buildings.has(tenant.activeContractBuildingId)) continue;
+    voters.push(tenant);
+  }
+  return voters.sort((left, right) => left.id.localeCompare(right.id));
 }
 
 /**
@@ -421,9 +469,7 @@ function holdElection(state: GameState): void {
   const politics = state.phase2.politics;
   const generator = new Xoshiro128ss(state.seed);
   generator.restoreState(state.prng);
-  const voters = [...state.phase2.tenants.values()].sort((left, right) =>
-    left.id.localeCompare(right.id),
-  );
+  const voters = eligibleVoters(state);
   const votesByPartyId: Record<string, number> = {};
   for (const party of MUNICIPAL_PARTY_CATALOG) votesByPartyId[party.id] = 0;
   let voted = 0;

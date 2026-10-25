@@ -744,6 +744,7 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                 casualties: { ...incident.casualties },
                 createdAtTick: incident.createdAtTick,
               })),
+            /** Sólo huella observable: la intención y el razonamiento del rival no salen del motor. */
             rival: {
               parcels: [...state.phase2.parcels.values()].filter(
                 (parcel) => parcel.ownerOrganizationId === RIVAL_ORGANIZATION_ID,
@@ -755,8 +756,6 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                 (building) =>
                   building.ownerOrganizationId === RIVAL_ORGANIZATION_ID && building.tenantId,
               ).length,
-              lastAction: state.phase2.rivalAi.lastAction,
-              lastReason: state.phase2.rivalAi.lastReason,
             },
             heat: state.phase2.crime.heatByOrganizationId[PLAYER_ORGANIZATION_ID] ?? 0,
             policePressure: state.phase2.crime.policePressure,

@@ -21,6 +21,7 @@ import {
 import { effectiveRentBudget } from "./employment";
 import { buildCoverageIndex } from "./urban-services";
 import { HOUSING_SEGMENTS, type HousingSegment } from "./housing-segments";
+import { activeMacroModifiers, rentModifierPercentFor } from "./macro-events";
 import { Xoshiro128ss } from "./prng";
 import { residentFactorPercentFor } from "./reputation";
 import type { GameState } from "./state";
@@ -82,10 +83,7 @@ function rentIndexFor(state: GameState, type: BuildingType): number {
  * precio que ve el jugador, el que valida un contrato y el que cobra el motor sean el mismo.
  */
 export function askingRentFor(state: GameState, building: Building): Money {
-  const policyModifier =
-    state.phase2.ordinance.status === "active"
-      ? 1 + state.phase2.ordinance.rentModifierPercent / 100
-      : 1;
+  const policyModifier = 1 + rentModifierPercentFor(state) / 100;
   return parseMoney(
     Math.max(
       0,
@@ -377,13 +375,21 @@ function adjustRentIndices(
   vacancy: Record<string, number>,
 ): void {
   const market = state.phase2.housingMarket;
+  /**
+   * La vacancia observada es física; el shock macroeconómico no crea plazas vacías, cambia lo que el
+   * mercado tolera. El modifier escala la señal que alimenta el descubrimiento de precio: una
+   * recesión hace que la misma vacancia presione más la renta a la baja y una crisis de vivienda, lo
+   * contrario. La cifra publicada sigue siendo la observada.
+   */
+  const vacancySignalModifier = 1 + (activeMacroModifiers(state).vacancyModifierPercent ?? 0) / 100;
   for (const type of BUILDING_TYPES) {
     if (
       stock.filter((unit) => unit.building.type === type).length <
       HOUSING_MARKET_POLICY.minimumUnitsForPriceDiscovery
     )
       continue;
-    const gap = HOUSING_MARKET_POLICY.targetVacancyPercent - vacancy[type]!;
+    const signal = Math.max(0, vacancy[type]! * vacancySignalModifier);
+    const gap = HOUSING_MARKET_POLICY.targetVacancyPercent - signal;
     const step = clamp(
       Math.round(gap * HOUSING_MARKET_POLICY.indexPointsPerVacancyPoint),
       -HOUSING_MARKET_POLICY.maximumIndexStepPercent,
@@ -408,6 +414,8 @@ function nextTenantOrdinal(state: GameState): number {
 
 function admitArrivals(state: GameState, stock: readonly StockUnit[], prng: Xoshiro128ss): void {
   const market = state.phase2.housingMarket;
+  /** La demanda macroeconómica multiplica la llegada de hogares antes de los topes de plazas. */
+  const demandFactor = 1 + (activeMacroModifiers(state).demandModifierPercent ?? 0) / 100;
   // Las plazas se reservan en una sola pasada para que dos segmentos que comparten tipo de
   // edificio (artesanos y comerciantes en talleres) no cuenten dos veces la misma vacante.
   const remaining = new Map<BuildingId, number>(
@@ -439,7 +447,10 @@ function admitArrivals(state: GameState, stock: readonly StockUnit[], prng: Xosh
     // Sin plazas libres Y asequibles no llega nadie: construir caro no atrae demanda, sólo vacancia.
     const arrivals = Math.min(
       Math.min(free, affordable),
-      Math.round(segment.arrivalsAtFullAppeal * (appeal / 100) * pressure),
+      Math.max(
+        0,
+        Math.round(segment.arrivalsAtFullAppeal * (appeal / 100) * pressure * demandFactor),
+      ),
     );
     let pending = arrivals;
     for (const unit of compatible) {

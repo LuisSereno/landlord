@@ -12,6 +12,7 @@ import {
   viewProjectionV1Schema,
 } from "@landlord/shared";
 import { dispatchPlaceTestStructure, dispatchProductCommand } from "./commands";
+import { activateMacroEvent } from "./macro-events";
 import { createViewProjection } from "./projection";
 import { createInitialState } from "./state";
 
@@ -130,5 +131,31 @@ describe("simulation view projection", () => {
       monthlyPayment: 51,
     });
     expect(() => viewProjectionV1Schema.parse(createViewProjection(state, true))).not.toThrow();
+  });
+
+  it("publica los macroeventos activos sin exponer el arroyo del sorteo", () => {
+    const state = createInitialState(6);
+    state.phase2.macroEvents = activateMacroEvent(
+      state.phase2.macroEvents,
+      "economic_recession",
+      parseTick(0),
+      0.8,
+    );
+    const projection = createViewProjection(state, true);
+    expect(projection.economy?.macroEvents.active).toEqual([
+      expect.objectContaining({
+        type: "economic_recession",
+        label: "Recesión económica",
+        intensity: 0.8,
+        startTick: 0,
+      }),
+    ]);
+    expect(projection.economy?.macroEvents.aggregatedModifiers.rentModifierPercent).toBeCloseTo(
+      -12,
+      5,
+    );
+    expect(() => viewProjectionV1Schema.parse(projection)).not.toThrow();
+    /** El arroyo del sorteo y la probabilidad mensual son superficie privada del motor. */
+    expect(JSON.stringify(projection)).not.toMatch(/xoshiro|prng|triggerChance/i);
   });
 });

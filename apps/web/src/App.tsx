@@ -1248,6 +1248,21 @@ export function App() {
                   ))}
                 </ul>
                 <p>
+                  <strong>Clima económico:</strong>{" "}
+                  {economy.macroEvents.active.length === 0
+                    ? `sin macroeventos activos · próximo sorteo en el tick ${economy.macroEvents.nextCheckTick}`
+                    : economy.macroEvents.active
+                        .map(
+                          (event) =>
+                            `${event.label} (intensidad ${Math.round(event.intensity * 100)} % · hasta el tick ${event.endTick})`,
+                        )
+                        .join(" · ")}
+                  {economy.macroEvents.active.length > 0 &&
+                  Object.keys(economy.macroEvents.aggregatedModifiers).length > 0
+                    ? ` · efectos: ${macroModifierSummary(economy.macroEvents.aggregatedModifiers)}`
+                    : ""}
+                </p>
+                <p>
                   <strong>Contratos públicos:</strong> {economy.publicContracts.open.length} en
                   curso · {economy.publicContracts.reliability.completed} completados ·{" "}
                   {economy.publicContracts.reliability.defaulted} incumplidos ·{" "}
@@ -1491,6 +1506,25 @@ function municipalPlannedTotal(planned: Record<string, number>): number {
     (planned.transport ?? 0) +
     (planned.cleaning ?? 0)
   );
+}
+
+const MACRO_MODIFIER_LABELS: Record<string, string> = {
+  materialCostModifierPercent: "materiales",
+  rentModifierPercent: "rentas",
+  vacancyModifierPercent: "presión de vacancia",
+  constructionCostModifierPercent: "esfuerzo de obra",
+  laborCostModifierPercent: "coste laboral",
+  demandModifierPercent: "demanda de vivienda",
+};
+
+function macroModifierSummary(modifiers: Record<string, number | undefined>): string {
+  return Object.entries(modifiers)
+    .filter((entry): entry is [string, number] => entry[1] !== undefined)
+    .map(
+      ([key, value]) =>
+        `${MACRO_MODIFIER_LABELS[key] ?? key} ${value >= 0 ? "+" : "−"}${Math.abs(value)} %`,
+    )
+    .join(", ");
 }
 
 function IsometricCanvas({

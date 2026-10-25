@@ -35,7 +35,7 @@ import {
 } from "./game-data";
 import type { GameState } from "./state";
 import { runEmployment } from "./employment";
-import { runMacroEvents } from "./macro-events";
+import { macroShockBiasFor, runMacroEvents } from "./macro-events";
 import { runMunicipalBudget } from "./municipal-budget";
 import { runMunicipalPolitics } from "./municipal-politics";
 import { hasActiveAward, operationalBuildingsOwned, runPublicContracts } from "./public-contracts";
@@ -1337,16 +1337,18 @@ function rivalAction(state: GameState): void {
     });
   }
   /**
-   * La utilidad base se corrige dos veces: el perfil pondera la familia de objetivos y la memoria
-   * castiga repetir un intento ya rechazado. Con el perfil conservador y sin choques registrados los
-   * números salen idénticos a los de antes de WP4.10, así que sólo se mueve lo que de verdad cambió.
+   * La utilidad base se corrige tres veces: el perfil pondera la familia de objetivos, el shock
+   * macroeconómico activo inclina esa misma familia y la memoria castiga repetir un intento ya
+   * rechazado. Los macroeventos son información pública del mundo, así que la IA no gana nada privado.
    */
-  const biased = candidates.map((candidate) => ({
-    ...candidate,
-    utility:
-      candidate.score +
-      profile.goalBiasByFamily[FACTION_ACTION_FAMILY[candidate.action] ?? "develop"],
-  }));
+  const biased = candidates.map((candidate) => {
+    const family = FACTION_ACTION_FAMILY[candidate.action] ?? "develop";
+    return {
+      ...candidate,
+      utility:
+        candidate.score + profile.goalBiasByFamily[family] + macroShockBiasFor(state, family),
+    };
+  });
   const remembered = [...biased].sort((left, right) => right.utility - left.utility)[0];
   const ordered = biased
     .filter(

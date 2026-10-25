@@ -77,6 +77,15 @@ import { createScaledCity } from "./system-cost";
  * `c9880ee1531a61c2`, `7c2c82428577dd48`, `69b80619079b5568`, `e5011f6ed4c2e30a`). Además en estos diez
  * casos ningún incidente queda con autor atribuido y ningún estado registra `violent_sabotage`, así que
  * la puerta de atribución nueva no mueve reputación, caja ni decisiones: el delta es superficie.
+ *
+ * Regeneración WP4.12-R (2026-10-25): el estado canónico gana `phase2.macroEvents` completo (eventos
+ * activos, ordinal, arroyo de shocks y próximo sorteo). Cambian los diez digestos por superficie; la
+ * atribución se verificó eliminando la clave `macroEvents` del estado canónico nuevo, con lo que los
+ * diez recuperan exactamente sus valores de WP4.11-H.1 (`290ae56589918230`, `81470bc663a2116a`,
+ * `2eedd2a42fda6677`, `440287b1646aa604`, `c99ebd1caffb8af6`, `2b460e2479f02a02`, `2ae6584f346b79b3`,
+ * `a7c43328b70b75c5`, `787f7087a4af7f99`, `f5fcd654560b88e7`). El sorteo natural no disparó ningún
+ * shock en estos diez casos (10 % mensual y sólo tres cruzan un cierre), así que tampoco hay delta
+ * económico que atribuir: las pruebas de macroeventos cubren trigger, efectos y reacción de IA aparte.
  */
 function digest(value: string): string {
   let left = 0x811c9dc5;
@@ -107,54 +116,54 @@ function cityDigest(input: {
 const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => string }> = [
   {
     id: "scenario:seed-1:1200",
-    expected: "290ae56589918230",
+    expected: "f7867a5a1e57fdd9",
     run: () => digest(canonicalizeState(runScenario(1, [], 1_200).state)),
   },
   {
     id: "scenario:seed-7:1200",
-    expected: "81470bc663a2116a",
+    expected: "26267ba2389a386f",
     run: () => digest(canonicalizeState(runScenario(7, [], 1_200).state)),
   },
   {
     id: "scenario:seed-42:1200",
-    expected: "2eedd2a42fda6677",
+    expected: "9cc24e739ecde8bf",
     run: () => digest(canonicalizeState(runScenario(42, [], 1_200).state)),
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "440287b1646aa604",
+    expected: "d766a1f2d895a5cd",
     run: () => digest(canonicalizeState(runScenario(1, [], 36_000).state)),
   },
   {
     id: "city:50-parcels:1300-ticks",
-    expected: "c99ebd1caffb8af6",
+    expected: "0281775ece6fa189",
     run: () => cityDigest({ parcelCount: 50, ticks: 1_300 }),
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "2b460e2479f02a02",
+    expected: "6940184eb08761a5",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "2ae6584f346b79b3",
+    expected: "74d9cf8b0fe0ecc0",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "a7c43328b70b75c5",
+    expected: "ed5e94dedebe2ea8",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "787f7087a4af7f99",
+    expected: "8b4904c945c9f8ff",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "f5fcd654560b88e7",
+    expected: "94b9cc664d254f39",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];

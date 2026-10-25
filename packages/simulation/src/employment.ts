@@ -1,6 +1,7 @@
 import { parseMoney, parseTick, type BuildingType, type Tenant } from "@landlord/shared";
 import { GAME_MONTH_TICKS } from "./game-data";
 import { HOUSING_SEGMENTS } from "./housing-segments";
+import { activeMacroModifiers } from "./macro-events";
 import type { GameState } from "./state";
 
 export type EmploymentSector = "materials" | "commerce";
@@ -152,8 +153,14 @@ export function runEmployment(state: GameState): void {
     -EMPLOYMENT_POLICY.maximumSalaryStepPercent,
     EMPLOYMENT_POLICY.maximumSalaryStepPercent,
   );
+  /**
+   * La escasez de mano de obra empuja el salario aunque el mercado esté equilibrado: el modifier es
+   * presión mensual sobre el índice a escala 1/10 (+20 % de coste laboral = +2 puntos de índice).
+   * Es un empuje distinto del ajuste por tensión, así que no se recorta con el paso máximo.
+   */
+  const shockDrift = Math.round((activeMacroModifiers(state).laborCostModifierPercent ?? 0) / 10);
   employment.salaryIndexPercent = clamp(
-    employment.salaryIndexPercent + step,
+    employment.salaryIndexPercent + step + shockDrift,
     EMPLOYMENT_POLICY.minimumSalaryIndexPercent,
     EMPLOYMENT_POLICY.maximumSalaryIndexPercent,
   );

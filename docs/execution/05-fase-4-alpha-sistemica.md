@@ -348,6 +348,24 @@ PROVISIONAL: 8 layouts × 3 posiciones sintéticas, no 24 campañas. Ver nota de
 - Permitir que IA reaccione.
 - Probar inicio, stacking, finalización, save/load y recuperación.
 
+**Estado 2026-10-25:** `DONE` tras WP4.12-R, que reabre el cierre anterior (`50e7f49`) por auditoría
+humana. Evidencia en `docs/execution/phase-4/wp4-12-macro-events-2026-10-25.md` y decisión en
+`docs/engineering/adr/D-077-macroeventos-acotados.md`.
+
+- Seis tipos con duración en meses del juego (`GAME_MONTH_TICKS`), no en días.
+- Cota estructural: un evento por tipo, seis como máximo; agregación O(eventos activos), nunca
+  barrido de entidades.
+- Trigger mensual determinista con PRNG propio derivado de la seed, sin desplazar el arroyo
+  económico; el arroyo y el próximo sorteo viven en snapshot y estado canónico.
+- Los seis modifiers tienen consumidor central: materiales (mercado, arranque de obra y proyección),
+  renta (`askingRentFor`), demanda y señal de vacancia, deriva salarial y esfuerzo de obra.
+- La IA rival sesga su utilidad por familia de objetivos con información pública; la proyección
+  publica eventos, intensidad, ventana y efectos agregados.
+- Persistencia aditiva con derivación desde la seed para partidas anteriores; diez digestos
+  regenerados con atribución verificada (el delta es superficie canónica).
+- Benchmark longitudinal con A/B `natural | none | representative | max`, desglose mes 1 / meses 2-3
+  / maduros 4+ y muestra por cierre con `tenants`, `buildings`, `vacantSlots` y `loansDue`.
+
 ## WP4.13 — Automatización, delegación y Gameplay LOD mínimo
 
 - Medir tareas repetidas en carteras grandes.

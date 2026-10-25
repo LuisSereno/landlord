@@ -316,3 +316,10 @@ WP4.12 (macroeventos) mantiene su GO, con la misma condición que ya tenía: no 
 cierre mensual sin volver a medir. Con la precisión añadida por esta nota: "volver a medir" significa
 "medir longitudinalmente", no "repetir la distribución actual sobre sintéticos". Ver la nota de revisión
 equivalente en `docs/engineering/adr/D-076-follow-up-hardening-alpha.md`.
+
+**Nota de revisión 2026-10-25 (WP4.12-R).** La reescritura longitudinal de `measureMonthlyCloses` que
+D-076 dejó como paso obligatorio está hecha y publicada en D-077: una ciudad por semilla que vive sus
+cierres en secuencia, desglose por maduración y muestra con la carga de cada cierre. El cierre de 800
+parcelas mide 30,12 ms de media (p95 40,87 ms) en modo natural y 28,44 ms sin shocks, frente a un tick
+ordinario de p95 0,079 ms. El disparador de 5 ms sigue cruzado; la optimización exacta de
+`placeSearchers` es el siguiente paso antes de WP4.13.

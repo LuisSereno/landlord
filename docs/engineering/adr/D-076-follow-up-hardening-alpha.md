@@ -213,3 +213,10 @@ coste y `housing` domina el cierre— sigue en pie: los datos actuales lo muestr
 la carga acumulada, y una campaña longitudinal sólo puede afinar la magnitud. La GO para WP4.12 se
 mantiene; WP4.12 no debe añadir trabajo nuevo al cierre mensual sin volver a medir, exactamente igual
 que antes, sólo que ahora "medir" significa "medir longitudinalmente".
+
+**Nota de revisión 2026-10-25 (WP4.12-R).** La distribución PROVISIONAL de este ADR queda sustituida
+por el baseline longitudinal de D-077: `measureMonthlyCloses` crea una ciudad por semilla que vive sus
+cierres en secuencia y publica mes 1, meses 2-3 y maduros 4+, con la carga de cada cierre. Medición
+`natural` 8×6: media 30,12 ms, p50 29,01 ms, p95 40,87 ms, máximo 48,53 ms; A/B sin shocks 28,44 ms,
+tres shocks 33,64 ms y seis 37,60 ms. El cierre sigue fuera del presupuesto p95 y del disparador de
+5 ms, y la optimización de `placeSearchers` sigue siendo obligatoria antes de WP4.13.

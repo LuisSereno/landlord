@@ -659,3 +659,33 @@ llegan sin acumular. La asimetría y la concentración en `housing` sí quedan f
 calienta sin incendios y los inyecta al empezar a medir. Falta la reconciliación de las tablas de
 reputación en la documentación. Ver `docs/engineering/adr/D-076-follow-up-hardening-alpha.md`, su nota de
 revisión 2026-10-25 y `docs/execution/phase-4/wp4-11-h-1-alpha-follow-up-2026-10-25.md`.
+
+## D-077 — Macroeventos económicos acotados, con trigger propio y efectos cableados
+Estado: aceptada el 2026-10-25 para WP4.12-R (reapertura de WP4.12 tras auditoría humana; sustituye
+la lectura «sólo infraestructura»). Las duraciones se declaran en meses del juego (`durationMonths ×
+GAME_MONTH_TICKS`), no en días: escasez 3, recesión 6, migración 4, auge 3, crisis 5, mano de obra 4.
+Cota estructural: un evento por tipo y seis como máximo; la agregación es O(eventos activos ≤ 6) e
+independiente de parcelas, edificios, hogares y agentes —«coste acotado», no «O(1) literal»—. Trigger
+mensual determinista en `nextCheckTick`: si no hay evento activo, un `Xoshiro128ss` propio derivado de
+la seed (`seed ^ 0x9e3779b9`) sortea 10 % mensual, tipo uniforme e intensidad 50–100 %; el arroyo vive
+en `MacroEventsState.prng`, entra en snapshot y estado canónico y **no desplaza el PRNG económico**
+(probado: campaña con y sin trigger terminan con el mismo `state.prng`). Los efectos se conectan por
+helpers centrales, no por excepciones: `materialCost` en precio efectivo de `BuyMaterials`, arranque
+de obra, `constructionOptions` y `market.prices` de la proyección (sumado a la ordenanza);
+`rent` en `askingRentFor` (sumado a la ordenanza); `demand` multiplica llegadas antes de los topes;
+`vacancy` escala la **señal** de vacancia del descubrimiento de precio (la publicada sigue siendo la
+observada); `laborCost` deriva el índice salarial a escala 1/10 (+20 % ⇒ +2 puntos/mes), separado del
+paso por tensión; `constructionCost` se aplica al **esfuerzo de obra** (`workRequired`), no a un coste
+en caja artificial. La IA rival sesga su utilidad por familia de objetivos (`macroShockBiasFor`) con
+información pública del mundo; la proyección publica eventos, intensidad, ventana y modifiers
+agregados, sin arroyo ni probabilidad. Persistencia aditiva: `prng` y `nextCheckTick` opcionales para
+partidas anteriores, derivados de la seed al restaurar. `canonicalizeState` incluye el bloque
+completo; se regeneran los diez dorados y se verifica que, quitando `phase2.macroEvents`, recuperan
+exactamente los valores de WP4.11-H.1 (`290ae56589918230`, `81470bc663a2116a`, `2eedd2a42fda6677`,
+`440287b1646aa604`, `c99ebd1caffb8af6`, `2b460e2479f02a02`, `2ae6584f346b79b3`, `a7c43328b70b75c5`,
+`787f7087a4af7f99`, `f5fcd654560b88e7`): en esos diez casos el sorteo no disparó ningún shock, así que
+el delta es superficie. `measureMonthlyCloses` gana `macroMode: natural | none | representative | max`
+(reactiva lo caducado antes de cada cierre), desglose mes 1 / meses 2-3 / maduros 4+ y muestra por
+cierre con la carga (`tenants`, `buildings`, `vacantSlots`, `loansDue`) para diagnosticar
+`placeSearchers`. Ver `docs/engineering/adr/D-077-macroeventos-acotados.md` y
+`docs/execution/phase-4/wp4-12-macro-events-2026-10-25.md`.

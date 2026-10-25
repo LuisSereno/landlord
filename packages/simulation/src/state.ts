@@ -61,6 +61,7 @@ import { initialHousingMarketState } from "./housing-market";
 import { initialPublicContractsState } from "./public-contracts";
 import { initialReputationState } from "./reputation";
 import { initialIntelligenceState } from "./information";
+import { initialMacroEventsState } from "./macro-events";
 import { initialFactionState } from "./factions";
 import {
   PLAYER_ORGANIZATION_ID,
@@ -365,10 +366,7 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
         lastOutcome: "none",
         nextAvailableTickByOrganizationId: {},
       },
-      macroEvents: {
-        events: [],
-        nextEventOrdinal: 1,
-      },
+      macroEvents: initialMacroEventsState(normalizedSeed),
       influenceByOrganizationId: new Map([
         [PLAYER_ORGANIZATION_ID, 2],
         [RIVAL_ORGANIZATION_ID, 1],

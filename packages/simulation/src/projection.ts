@@ -39,6 +39,12 @@ import {
   describeHousingMarket,
   vacancyPercentByBuildingType,
 } from "./housing-market";
+import {
+  activeMacroModifiers,
+  effectiveMarketPriceFor,
+  MACRO_EVENT_LABELS,
+  materialCostModifierPercentFor,
+} from "./macro-events";
 
 function currentPropertyTaxRateBps(state: GameState): number {
   return effectiveTaxRateBps(
@@ -494,12 +500,7 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
               type: definition.type,
               name: definition.name,
               allowedZoning: [...definition.allowedZoning],
-              cost: Math.round(
-                definition.cost *
-                  (state.phase2.ordinance.status === "active"
-                    ? 1 + state.phase2.ordinance.materialCostModifierPercent / 100
-                    : 1),
-              ),
+              cost: Math.round(definition.cost * (1 + materialCostModifierPercentFor(state) / 100)),
               baseCost: definition.cost,
               workRequired: definition.workRequired,
               capacity: definition.capacity,
@@ -583,6 +584,19 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
               },
               vacancyPercentByBuildingType: vacancyPercentByBuildingType(state),
               segments: describeHousingMarket(state),
+            },
+            macroEvents: {
+              active: state.phase2.macroEvents.events.map((event) => ({
+                id: event.id,
+                type: event.type,
+                label: MACRO_EVENT_LABELS[event.type],
+                startTick: event.startTick,
+                endTick: event.endTick,
+                intensity: event.intensity,
+                modifiers: { ...event.modifiers },
+              })),
+              aggregatedModifiers: { ...activeMacroModifiers(state) },
+              nextCheckTick: state.phase2.macroEvents.nextCheckTick,
             },
             publicContracts: (() => {
               const report = describePublicContracts(state);
@@ -675,7 +689,13 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                   0) - state.clock.tick,
               ),
             },
-            market: { prices: { ...MARKET_PRICES } },
+            market: {
+              prices: {
+                cement: effectiveMarketPriceFor(state, "cement"),
+                brick: effectiveMarketPriceFor(state, "brick"),
+                steel: effectiveMarketPriceFor(state, "steel"),
+              },
+            },
             maintenance: {
               policy: state.phase2.maintenance.policy,
               nextSettlementTick: state.phase2.maintenance.nextSettlementTick,

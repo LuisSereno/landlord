@@ -295,6 +295,39 @@ export type ViewProjectionV1 = {
         affordableVacantSlots: number;
       }>;
     };
+    macroEvents: {
+      active: Array<{
+        id: string;
+        type:
+          | "material_scarcity"
+          | "economic_recession"
+          | "population_migration"
+          | "construction_boom"
+          | "housing_crisis"
+          | "labor_shortage";
+        label: string;
+        startTick: Tick;
+        endTick: Tick;
+        intensity: number;
+        modifiers: {
+          materialCostModifierPercent?: number;
+          rentModifierPercent?: number;
+          vacancyModifierPercent?: number;
+          constructionCostModifierPercent?: number;
+          laborCostModifierPercent?: number;
+          demandModifierPercent?: number;
+        };
+      }>;
+      aggregatedModifiers: {
+        materialCostModifierPercent?: number;
+        rentModifierPercent?: number;
+        vacancyModifierPercent?: number;
+        constructionCostModifierPercent?: number;
+        laborCostModifierPercent?: number;
+        demandModifierPercent?: number;
+      };
+      nextCheckTick: Tick;
+    };
     publicContracts: {
       open: Array<{
         id: string;
@@ -796,6 +829,42 @@ export const viewProjectionV1Schema = z.object({
             affordableVacantSlots: z.number().int().nonnegative(),
           }),
         ),
+      }),
+      macroEvents: z.object({
+        active: z.array(
+          z.object({
+            id: z.string().min(1),
+            type: z.enum([
+              "material_scarcity",
+              "economic_recession",
+              "population_migration",
+              "construction_boom",
+              "housing_crisis",
+              "labor_shortage",
+            ]),
+            label: z.string(),
+            startTick: tickSchema,
+            endTick: tickSchema,
+            intensity: z.number().min(0).max(1),
+            modifiers: z.object({
+              materialCostModifierPercent: z.number().optional(),
+              rentModifierPercent: z.number().optional(),
+              vacancyModifierPercent: z.number().optional(),
+              constructionCostModifierPercent: z.number().optional(),
+              laborCostModifierPercent: z.number().optional(),
+              demandModifierPercent: z.number().optional(),
+            }),
+          }),
+        ),
+        aggregatedModifiers: z.object({
+          materialCostModifierPercent: z.number().optional(),
+          rentModifierPercent: z.number().optional(),
+          vacancyModifierPercent: z.number().optional(),
+          constructionCostModifierPercent: z.number().optional(),
+          laborCostModifierPercent: z.number().optional(),
+          demandModifierPercent: z.number().optional(),
+        }),
+        nextCheckTick: tickSchema,
       }),
       publicContracts: z.object({
         open: z.array(

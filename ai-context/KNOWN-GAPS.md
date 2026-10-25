@@ -187,19 +187,19 @@ Sigue abierto:
 
 ## Rendimiento y Alpha
 
-- El cierre mensual de 800 parcelas es la frontera cara: p50 ~28 ms, p95 ~37 ms y máximo ~38 ms frente a
-  un tick ordinario con p95 ~0,08 ms, y `housing` concentra ~69 % del cierre (D-065, corregido de métrica
-  en D-076: el antiguo "p95 mensual" era el máximo de un solo cierre en una ventana de seis ticks). **La
-  distribución es PROVISIONAL**: `measureMonthlyCloses` entrega hoy 8 layouts × 3 posiciones sintéticas
-  del reloj, no 24 campañas longitudinales, así que las muestras 2 y 3 no han vivido el cierre anterior y
-  llegan con préstamos (`nextPaymentTick`), buscadores y stock en su estado de siembra. La asimetría y la
-  concentración en `housing` son firmes; las magnitudes absolutas, no. Cruza el presupuesto p95 y el
-  disparador de 5 ms, y desde D-076 cruzarlo **abre remediación obligatoria**: cuatro pasos en orden
-  antes de WP4.13 — (1) reescribir `measureMonthlyCloses` como campaña longitudinal real (recomendado 8
-  semillas × 6-12 cierres para separar mes 1 / meses 2-3 / meses maduros 4-12), (2) volver a medir y
-  publicar el baseline definitivo, (3) optimizar `placeSearchers` exacto (O(búsquedas × unidades) en el
-  cierre) preservando los diez digestos, (4) re-medir y sólo si sigue fuera, evaluar LOD. WP4.12 no debe
-  añadir trabajo nuevo al cierre sin volver a medir, entendido ya como "medir longitudinalmente".
+- El cierre mensual de 800 parcelas es la frontera cara. Medido como campaña longitudinal real en
+  WP4.12-R (`measureMonthlyCloses`, una ciudad por semilla que vive sus cierres en secuencia):
+  `natural` 8 semillas × 6 cierres da media 30,12 ms, p50 29,01 ms, p95 40,87 ms y máximo 48,53 ms,
+  frente a un tick ordinario con p95 0,079 ms. El desglose por maduración (mes 1 30,97 ms · meses 2-3
+  29,25 ms · maduros 4+ 30,41 ms) no muestra degradación con la edad: el coste es estructural del
+  cierre. A/B con la misma metodología: sin shocks 28,44 ms de media; tres shocks representativos
+  33,64 ms; los seis permitidos 37,60 ms. El delta de los shocks es económico —más vacancia y más
+  buscadores que `placeSearchers` recorre—, no del lookup de modifiers, que está acotado a seis
+  eventos. **Sigue fuera del presupuesto p95 y del disparador de 5 ms de D-065**, así que la
+  remediación obligatoria de D-076 continúa: con la métrica longitudinal ya publicada y los diez
+  digestos regenerados, toca optimizar `placeSearchers` exacto (O(búsquedas × unidades) en el cierre)
+  preservando los goldens, volver a medir con los modos `none | representative | max` y sólo si sigue
+  fuera, evaluar LOD. Debe hacerse antes de WP4.13.
 - El estado canónico completo hace más caras las campañas headless largas (la de dos años tarda
   ~5 s); no afecta al tick de producto.
 - El fixture del smoke Alpha es un snapshot versionado de 160 KB y debe regenerarse con los goldens.

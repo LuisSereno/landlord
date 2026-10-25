@@ -141,6 +141,11 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
           modifiers: { ...event.modifiers },
         })),
         nextEventOrdinal: state.phase2.macroEvents.nextEventOrdinal,
+        prng: {
+          algorithm: "xoshiro128ss-v1",
+          state: [...state.phase2.macroEvents.prng.state],
+        },
+        nextCheckTick: state.phase2.macroEvents.nextCheckTick,
       },
       influenceByOrganizationId: [...state.phase2.influenceByOrganizationId.entries()]
         .map(([organizationId, influence]) => ({ organizationId, influence }))
@@ -618,6 +623,21 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                   modifiers: { ...event.modifiers },
                 })),
                 nextEventOrdinal: snapshot.phase2.macroEvents.nextEventOrdinal,
+                // Una partida anterior a WP4.12-R no trae arroyo propio: se deriva de la seed.
+                prng: snapshot.phase2.macroEvents.prng
+                  ? {
+                      algorithm: "xoshiro128ss-v1" as const,
+                      state: [...snapshot.phase2.macroEvents.prng.state] as [
+                        number,
+                        number,
+                        number,
+                        number,
+                      ],
+                    }
+                  : { ...defaults.macroEvents.prng },
+                nextCheckTick: parseTick(
+                  snapshot.phase2.macroEvents.nextCheckTick ?? defaults.macroEvents.nextCheckTick,
+                ),
               }
             : defaults.macroEvents,
           influenceByOrganizationId: new Map(

@@ -169,12 +169,37 @@ describe("WP4.2 system cost harness", () => {
       scale: SYSTEM_COST_SCALES[0]!,
       seeds: [5, 11],
       closesPerSeed: 2,
+      macroMode: "none",
       now,
     });
     expect(measurement.closeSamplesMs).toHaveLength(4);
+    expect(measurement.samples).toHaveLength(4);
+    expect(measurement.samples[0]).toMatchObject({ seed: 5, month: 1 });
     expect(measurement.close.meanMs).toBeGreaterThan(measurement.ordinaryTick.meanMs);
     /** Con cuatro muestras el p95 del cierre vuelve a ser el máximo: se documenta, no se vende de otra cosa. */
     expect(measurement.close.p95Ms).toBeCloseTo(measurement.close.maxMs, 10);
+    expect(measurement.months.mature.meanMs).toBe(0);
+  });
+
+  it("compara el cierre con y sin shocks macroeconómicos bajo la misma metodología", () => {
+    const run = (macroMode: "none" | "representative" | "max") =>
+      measureMonthlyCloses({
+        scale: SYSTEM_COST_SCALES[0]!,
+        seeds: [5],
+        closesPerSeed: 2,
+        macroMode,
+        now,
+      });
+    const none = run("none");
+    const representative = run("representative");
+    const max = run("max");
+    expect(representative.macroMode).toBe("representative");
+    expect(representative.closeSamplesMs).toHaveLength(2);
+    expect(max.closeSamplesMs).toHaveLength(2);
+    /** Los tres modos comparten metodología y carga de campaña: sólo cambian los shocks activos. */
+    expect(none.macroMode).toBe("none");
+    expect(max.samples.map((sample) => sample.month)).toEqual([1, 2]);
+    expect(representative.samples[0]!.tenants).toBe(none.samples[0]!.tenants);
   });
 
   it("ordena los ids del juego igual por comparación relacional que por localeCompare", () => {
@@ -246,6 +271,21 @@ describe("WP4.2 system cost harness", () => {
               closesPerSeed: 6,
               now,
             }),
+            /**
+             * A/B con la misma metodología: sin shocks, tres representativos y el máximo permitido.
+             * Los modos forzados reactivan lo que caduque antes de cada cierre, así que la diferencia
+             * mide el coste de los modifiers y no la suerte del sorteo natural.
+             */
+            monthlyCloseMacroComparison: (["none", "representative", "max"] as const).map(
+              (macroMode) =>
+                measureMonthlyCloses({
+                  scale: SYSTEM_COST_SCALES[SYSTEM_COST_SCALES.length - 1]!,
+                  seeds: [1, 2, 3, 4],
+                  closesPerSeed: 6,
+                  macroMode,
+                  now,
+                }),
+            ),
           },
           null,
           2,

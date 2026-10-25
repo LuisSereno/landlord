@@ -716,11 +716,15 @@ export type MacroEvent = {
 };
 
 /**
- * Estado de macroeventos en el distrito.
+ * Estado de macroeventos en el distrito. El PRNG propio decide cuándo y qué shock entra, sin
+ * desplazar el arroyo económico (mismo patrón que el expediente de inteligencia de D-072).
  */
 export type MacroEventsState = {
   events: MacroEvent[];
   nextEventOrdinal: number;
+  prng: { algorithm: "xoshiro128ss-v1"; state: [number, number, number, number] };
+  /** Próximo cierre mensual en el que se sortea si entra un shock; 0 = sin sorteo pendiente. */
+  nextCheckTick: Tick;
 };
 
 export const macroEventTypeSchema = z.enum([
@@ -753,6 +757,19 @@ export const macroEventSchema = z.object({
 export const macroEventsStateSchema = z.object({
   events: z.array(macroEventSchema),
   nextEventOrdinal: z.number().int().nonnegative(),
+  /** Opcionales para cargar partidas anteriores a WP4.12-R; el restaurador deriva ambos de la seed. */
+  prng: z
+    .object({
+      algorithm: z.literal("xoshiro128ss-v1"),
+      state: z.tuple([
+        z.number().int().min(0).max(0xffffffff),
+        z.number().int().min(0).max(0xffffffff),
+        z.number().int().min(0).max(0xffffffff),
+        z.number().int().min(0).max(0xffffffff),
+      ]),
+    })
+    .optional(),
+  nextCheckTick: tickSchema.optional(),
 });
 
 export const districtGenerationSchema = z.object({

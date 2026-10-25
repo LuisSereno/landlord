@@ -29,6 +29,7 @@ import {
   type IncidentRecord,
   type InsuranceContract,
   type Loan,
+  type MacroEventType,
   type OrganizationId,
   type Parcel,
   type ProductionFacility,
@@ -51,6 +52,7 @@ import {
 } from "./game-data";
 import { createPrng } from "./prng";
 import { createInitialState, type GameState } from "./state";
+import { activateMacroEvent, MACRO_EVENT_TEMPLATES } from "./macro-events";
 import { PRODUCT_SYSTEMS, advanceProductSystems } from "./systems";
 
 /** Escalas de referencia: el ratio de entidades entre ellas es lo que revela la degradación. */
@@ -740,17 +742,104 @@ export function measureScaledCity(input: MeasureScaledCityInput): ScaledCityMeas
   };
 }
 
+export type MonthlyCloseSample = {
+  seed: number;
+  month: number;
+  tick: number;
+  closeMs: number;
+  tenants: number;
+  buildings: number;
+  vacantSlots: number;
+  loansDue: number;
+};
+
+export type MonthlyCloseMacroMode = "natural" | "none" | "representative" | "max";
+
+export const MONTHLY_CLOSE_MACRO_MODES: readonly MonthlyCloseMacroMode[] = [
+  "natural",
+  "none",
+  "representative",
+  "max",
+];
+
+/** Tres shocks representativos de familias distintas: vivienda, obra y empleo. */
+export const REPRESENTATIVE_MACRO_EVENTS = [
+  "economic_recession",
+  "construction_boom",
+  "labor_shortage",
+] as const satisfies readonly MacroEventType[];
+
 export type MonthlyCloseMeasurement = {
   scaleId: string;
   parcelCount: number;
   seeds: number[];
   closesPerSeed: number;
   warmupTicks: number;
+  macroMode: MonthlyCloseMacroMode;
   /** Muestra cruda de cada cierre, en el orden en que se midió. */
   closeSamplesMs: number[];
   close: CostDistribution;
   ordinaryTick: CostDistribution;
+  /** Cada cierre con la carga que lo produjo: alimenta la optimización de `placeSearchers`. */
+  samples: MonthlyCloseSample[];
+  /** Desglose de maduración: mes 1, meses 2-3 y meses maduros 4+. */
+  months: {
+    first: CostDistribution;
+    transition: CostDistribution;
+    mature: CostDistribution;
+  };
 };
+
+function forceMacroScenario(
+  state: GameState,
+  mode: MonthlyCloseMacroMode,
+  currentTick: number,
+): void {
+  if (mode === "natural") return;
+  state.phase2.macroEvents = {
+    ...state.phase2.macroEvents,
+    nextCheckTick: parseTick(Number.MAX_SAFE_INTEGER),
+  };
+  if (mode === "none") return;
+  const types: readonly MacroEventType[] =
+    mode === "max"
+      ? (Object.keys(MACRO_EVENT_TEMPLATES) as MacroEventType[])
+      : REPRESENTATIVE_MACRO_EVENTS;
+  for (const type of types) {
+    state.phase2.macroEvents = activateMacroEvent(
+      state.phase2.macroEvents,
+      type,
+      parseTick(currentTick),
+      1,
+    );
+  }
+}
+
+function closeLoad(
+  state: GameState,
+): Pick<MonthlyCloseSample, "tenants" | "buildings" | "vacantSlots" | "loansDue"> {
+  let tenants = 0;
+  for (const tenant of state.phase2.tenants.values()) {
+    if (tenant.status === "contracted") tenants += 1;
+  }
+  let buildings = 0;
+  let vacantSlots = 0;
+  for (const building of state.phase2.buildings.values()) {
+    if (building.state !== "operational") continue;
+    buildings += 1;
+    vacantSlots += Math.max(
+      0,
+      BUILDING_DEFINITIONS[building.type].capacity - building.tenantIds.length,
+    );
+  }
+  let loansDue = 0;
+  for (const loan of state.phase2.loans.values()) {
+    if (loan.status === "active" || loan.status === "delinquent") {
+      if ((loan.nextPaymentTick ?? 0) <= state.clock.tick) loansDue += 1;
+    }
+  }
+  return { tenants, buildings, vacantSlots, loansDue };
+}
 
 /**
  * Distribución del cierre mensual medida sobre campañas longitudinales reales. Cada semilla genera
@@ -758,12 +847,12 @@ export type MonthlyCloseMeasurement = {
  * de vivienda evolucionado, etc.). Esto reemplaza el benchmark sintético anterior que saltaba el reloj
  * y medía ciudades que nunca vivieron el cierre anterior.
  *
- * La ventana `month` del arnés recorre seis ticks, así que su p95 no es una distribución: es el máximo
- * de un único cierre. Aquí medimos cierres reales de campañas que han vivido meses anteriores, lo que
- * da una estadística significativa de p50, p95 y máximo.
+ * `macroMode` permite comparar con la misma metodología: `none` desactiva el sorteo, `representative`
+ * mantiene tres shocks activos y `max` los seis; los modos forzados reactivan lo que caduque antes de
+ * cada cierre, así que la comparación A/B no depende de dónde caiga el sorteo natural.
  *
- * Reporta por separado: mes 1 (estado inicial), meses 2-3 (transición), meses maduros 4+ (estado estable).
- * Esto permite diagnosticar si `placeSearchers` empeora con el tiempo (O(búsquedas × unidades)).
+ * Reporta además por separado mes 1 (estado inicial), meses 2-3 (transición) y meses maduros 4+, y
+ * adjunta la carga de cada cierre para diagnosticar si `placeSearchers` empeora con el tiempo.
  */
 export function measureMonthlyCloses(input: {
   scale: SystemCostScale;
@@ -771,12 +860,15 @@ export function measureMonthlyCloses(input: {
   closesPerSeed?: number;
   warmupTicks?: number;
   districtProfileId?: string;
+  macroMode?: MonthlyCloseMacroMode;
   now: () => number;
 }): MonthlyCloseMeasurement {
   const closesPerSeed = input.closesPerSeed ?? 6;
   const warmupTicks = input.warmupTicks ?? 60;
+  const macroMode = input.macroMode ?? "natural";
   const closeSamplesMs: number[] = [];
   const ordinarySamples: number[] = [];
+  const samples: MonthlyCloseSample[] = [];
 
   for (const seed of input.seeds) {
     // Crear UNA ciudad por semilla y dejarla vivir múltiples cierres
@@ -784,6 +876,7 @@ export function measureMonthlyCloses(input: {
       parcelCount: input.scale.parcels,
       districtProfileId: input.districtProfileId,
     });
+    forceMacroScenario(state, macroMode, 0);
 
     // Warmup inicial
     for (let tick = 0; tick < warmupTicks; tick += 1) advanceProductSystems(state);
@@ -795,16 +888,20 @@ export function measureMonthlyCloses(input: {
       while (state.clock.tick < targetTick - 3) {
         advanceProductSystems(state);
       }
+      forceMacroScenario(state, macroMode, state.clock.tick);
 
       // Medir los 6 ticks alrededor del cierre (3 antes, el cierre, 2 después)
       for (let tick = 0; tick < 6; tick += 1) {
         const currentTick = state.clock.tick;
+        const isClose = currentTick > 0 && currentTick % GAME_MONTH_TICKS === 0;
+        const load = isClose ? closeLoad(state) : null;
         const from = input.now();
         advanceProductSystems(state);
         const elapsed = input.now() - from;
 
-        if (currentTick > 0 && currentTick % GAME_MONTH_TICKS === 0) {
+        if (isClose) {
           closeSamplesMs.push(elapsed);
+          samples.push({ seed, month: closeIndex, tick: currentTick, closeMs: elapsed, ...load! });
         } else {
           ordinarySamples.push(elapsed);
         }
@@ -812,15 +909,25 @@ export function measureMonthlyCloses(input: {
     }
   }
 
+  const byMonth = (predicate: (month: number) => boolean): number[] =>
+    samples.filter((sample) => predicate(sample.month)).map((sample) => sample.closeMs);
+
   return {
     scaleId: input.scale.id,
     parcelCount: input.scale.parcels,
     seeds: [...input.seeds],
     closesPerSeed,
     warmupTicks,
+    macroMode,
     closeSamplesMs,
     close: distribution(summarize(closeSamplesMs)),
     ordinaryTick: distribution(summarize(ordinarySamples)),
+    samples,
+    months: {
+      first: distribution(summarize(byMonth((month) => month === 1))),
+      transition: distribution(summarize(byMonth((month) => month >= 2 && month <= 3))),
+      mature: distribution(summarize(byMonth((month) => month >= 4))),
+    },
   };
 }
 

@@ -45,7 +45,8 @@ Fecha de consolidación: 2026-10-23.
 - reputación por tres grupos con memoria y decaimiento;
 - información imperfecta con expediente de estimaciones;
 - IA rival con perfiles de facción, postura y memoria antirrepetición;
-- concejo municipal electo, opinión por cinco ejes y transferencia presupuestaria.
+- concejo municipal electo, opinión por cinco ejes y transferencia presupuestaria;
+- macroeventos económicos acotados con trigger propio, efectos cableados, señales y reacción de IA.
 
 ### Parcialmente implementado
 
@@ -170,14 +171,20 @@ desalojo, con la tabla vigente apuntando a `REPUTATION_POLICY.facts`. Antes de W
 `measureMonthlyCloses` como campaña longitudinal por semilla, (2) volver a medir, (3) optimizar
 `placeSearchers` (`runHousingMarket`) exacto, (4) re-medir, y sólo si sigue fuera, LOD. WP4.12 no debe
 añadir trabajo nuevo al cierre sin volver a medir, ahora entendido como "medir longitudinalmente".
-**WP4.12 (macroeventos económicos) quedó cerrado el 2026-10-25**: infraestructura O(1) de macroeventos
-con seis tipos (escasez de materiales, recesión, migración, boom constructivo, crisis de vivienda, falta
-de mano de obra), modifiers aditivos escalados por intensidad, benchmark longitudinal reescrito (UNA
-ciudad por semilla que vive múltiples cierres, estado acumulado real, p50: 32.90 ms, p95: 37.72 ms,
-máximo: 40.27 ms con macroeventos activos), tests unitarios (15 tests) y persistencia en snapshot v1.
-La conexión de modifiers a sistemas de producto (housing, production, employment, construction), señales
-UI y reacciones de IA queda diferida: la infraestructura está lista y medida, el impacto en sistemas
-concretos se hará cuando se conecten. El siguiente es WP4.13 (Gameplay LOD y delegación).
+**WP4.12 (macroeventos económicos) quedó cerrado el 2026-10-25 bajo D-077** tras reapertura por
+auditoría: seis tipos (escasez de materiales, recesión, migración, boom constructivo, crisis de
+vivienda, falta de mano de obra) con duración en meses del juego, cota de un evento por tipo (máximo
+seis) y modifiers aditivos escalados por intensidad. Trigger mensual determinista con PRNG propio
+derivado de la seed y decorrelacionado del económico; el arroyo vive en el snapshot y en el estado
+canónico. Los seis modifiers tienen consumidor central: materiales (mercado, arranque de obra y
+proyección), renta (`askingRentFor`), demanda y señal de vacancia del mercado de vivienda, deriva
+salarial y esfuerzo de obra —nunca un coste en caja artificial—. La IA rival sesga su utilidad por
+familia de objetivos con información pública; la proyección publica eventos, intensidad, ventana y
+modifiers agregados. Persistencia aditiva con derivación desde la seed para partidas anteriores y diez
+digestos regenerados con atribución de superficie. Benchmark longitudinal con A/B
+`natural | none | representative | max`, desglose mes 1 / meses 2-3 / maduros 4+ y muestra por cierre
+con su carga. El siguiente es la optimización de `placeSearchers` y después WP4.13 (Gameplay LOD y
+delegación).
 
 El baseline económico actual cubre calendario
 económico (30 minutos reales = un mes a 1×), mercado frente a producción propia, dos cuadrillas

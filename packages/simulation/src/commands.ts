@@ -21,7 +21,6 @@ import {
   PLAYER_CREW_CAPACITY,
   UPGRADE_RESOURCES,
   CRIME_COOLDOWN_TICKS,
-  MARKET_PRICES,
   REPAIR_COST,
   REPAIR_WORK_REQUIRED,
   BANK_ORGANIZATION_ID,
@@ -40,6 +39,11 @@ import {
 } from "./game-data";
 import { Xoshiro128ss } from "./prng";
 import { askingRentFor } from "./housing-market";
+import {
+  activeMacroModifiers,
+  effectiveMarketPriceFor,
+  materialCostModifierPercentFor,
+} from "./macro-events";
 import { bankRateModifierBpsFor } from "./reputation";
 import { INFORMATION_POLICY, commissionIntelligence, commissionRejection } from "./information";
 import { recordFactionEncounter } from "./factions";
@@ -489,7 +493,9 @@ export function dispatchProductCommand(
     const inventory = state.phase2.inventories.get(command.actingAsOrganizationId)!;
     if (totalInventory(inventory) + command.payload.amount > inventory.capacity)
       return { accepted: false, code: "INVENTORY_CAPACITY" };
-    const cost = parseMoney(MARKET_PRICES[command.payload.resource] * command.payload.amount);
+    const cost = parseMoney(
+      effectiveMarketPriceFor(state, command.payload.resource) * command.payload.amount,
+    );
     if (
       !debit(
         state,
@@ -648,16 +654,19 @@ export function dispatchProductCommand(
     const inventory = state.phase2.inventories.get(command.actingAsOrganizationId)!;
     if (!hasResources(inventory, definition.resources))
       return { accepted: false, code: "INSUFFICIENT_RESOURCES" };
-    const materialModifier =
-      state.phase2.ordinance.status === "active"
-        ? 1 + state.phase2.ordinance.materialCostModifierPercent / 100
-        : 1;
+    const materialModifier = 1 + materialCostModifierPercentFor(state) / 100;
     const cost = parseMoney(Math.max(0, Math.round(definition.cost * materialModifier)));
     if (!debit(state, command.actingAsOrganizationId, cost, "construction_start", parcel.id))
       return { accepted: false, code: "INSUFFICIENT_FUNDS" };
     inventory.cement -= definition.resources.cement;
     inventory.brick -= definition.resources.brick;
     inventory.steel -= definition.resources.steel;
+    /**
+     * El modelo construye con recursos y trabajo, no con un coste en caja adicional: el modifier de
+     * coste constructivo se aplica como esfuerzo, que es su consumidor semánticamente correcto.
+     */
+    const workModifier =
+      1 + (activeMacroModifiers(state).constructionCostModifierPercent ?? 0) / 100;
     state.phase2.idCounters.constructionSite += 1;
     const siteId = parseConstructionSiteId(
       `site_${String(state.phase2.idCounters.constructionSite).padStart(8, "0")}`,
@@ -668,7 +677,7 @@ export function dispatchProductCommand(
       ownerOrganizationId: command.actingAsOrganizationId,
       buildingType: definition.type,
       progress: 0,
-      workRequired: definition.workRequired * 2,
+      workRequired: Math.max(1, Math.round(definition.workRequired * 2 * workModifier)),
       resourcesReserved: { ...definition.resources },
       crewCapacity: 0,
       upgradeBuildingId: null,

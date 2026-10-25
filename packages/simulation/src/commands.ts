@@ -40,7 +40,7 @@ import {
 import { Xoshiro128ss } from "./prng";
 import { askingRentFor } from "./housing-market";
 import {
-  activeMacroModifiers,
+  effectiveConstructionWorkRequired,
   effectiveMarketPriceFor,
   materialCostModifierPercentFor,
 } from "./macro-events";
@@ -684,8 +684,6 @@ export function dispatchProductCommand(
      * El modelo construye con recursos y trabajo, no con un coste en caja adicional: el modifier de
      * coste constructivo se aplica como esfuerzo, que es su consumidor semánticamente correcto.
      */
-    const workModifier =
-      1 + (activeMacroModifiers(state).constructionCostModifierPercent ?? 0) / 100;
     state.phase2.idCounters.constructionSite += 1;
     const siteId = parseConstructionSiteId(
       `site_${String(state.phase2.idCounters.constructionSite).padStart(8, "0")}`,
@@ -696,7 +694,7 @@ export function dispatchProductCommand(
       ownerOrganizationId: command.actingAsOrganizationId,
       buildingType: definition.type,
       progress: 0,
-      workRequired: Math.max(1, Math.round(definition.workRequired * 2 * workModifier)),
+      workRequired: effectiveConstructionWorkRequired(state, definition),
       resourcesReserved: { ...definition.resources },
       crewCapacity: 0,
       upgradeBuildingId: null,

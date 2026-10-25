@@ -4,25 +4,30 @@ import {
   parseBuildingId,
   parseIncidentId,
   parseMoney,
+  parseSeed,
   parseTenantId,
   parseTick,
   type Building,
   type BuildingId,
   type BuildingType,
+  type GridCell,
   type Tenant,
   type TenantId,
 } from "@landlord/shared";
 import { GAME_MONTH_TICKS, PLAYER_ORGANIZATION_ID } from "./game-data";
 import {
+  countNeighbours,
   HOUSING_MARKET_POLICY,
   HOUSING_SEGMENTS,
   askingRentFor,
   describeHousingMarket,
   describeHousingStock,
   desirabilityOf,
+  indexCells,
   runHousingMarket,
   vacancyPercentByBuildingType,
 } from "./housing-market";
+import { Xoshiro128ss } from "./prng";
 import { canonicalizeState } from "./runner";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { createInitialState, type GameState } from "./state";
@@ -390,5 +395,24 @@ describe("WP4.3 oferta y demanda de vivienda", () => {
 
     expect(base).toBe(180);
     expect(askingRentFor(state, building)).toBe(198);
+  });
+
+  it("el índice espacial cuenta exactamente los mismos vecinos que el barrido completo", () => {
+    const prng = new Xoshiro128ss(parseSeed(11));
+    const cells: GridCell[] = [];
+    for (let index = 0; index < 400; index += 1) {
+      cells.push({ x: prng.nextInt(0, 63), y: prng.nextInt(0, 63) });
+    }
+    /** Fronteras de bucket (radio 6 → bucket de 7) y dos edificios compartiendo celda. */
+    cells.push({ x: 6, y: 6 }, { x: 6, y: 6 }, { x: 7, y: 7 }, { x: 0, y: 13 }, { x: 13, y: 0 });
+
+    const buckets = indexCells(cells.map((cell) => ({ cell })));
+    const radius = HOUSING_MARKET_POLICY.serviceRadiusCells;
+    for (const cell of cells) {
+      const bruteForce =
+        cells.filter((other) => Math.abs(other.x - cell.x) + Math.abs(other.y - cell.y) <= radius)
+          .length - 1;
+      expect(countNeighbours(cell, buckets), `${cell.x},${cell.y}`).toBe(bruteForce);
+    }
   });
 });

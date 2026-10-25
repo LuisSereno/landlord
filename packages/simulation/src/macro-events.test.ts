@@ -10,7 +10,12 @@ import {
   type MacroEventType,
   type Tenant,
 } from "@landlord/shared";
-import { GAME_DAY_TICKS, GAME_MONTH_TICKS, PLAYER_ORGANIZATION_ID } from "./game-data";
+import {
+  BUILDING_DEFINITIONS,
+  GAME_DAY_TICKS,
+  GAME_MONTH_TICKS,
+  PLAYER_ORGANIZATION_ID,
+} from "./game-data";
 import {
   activateMacroEvent,
   activeMacroModifiers,
@@ -28,6 +33,7 @@ import {
 import { askingRentFor, runHousingMarket } from "./housing-market";
 import { runEmployment } from "./employment";
 import { dispatchProductCommand } from "./commands";
+import { createViewProjection } from "./projection";
 import { canonicalizeState } from "./runner";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { createInitialState, type GameState } from "./state";
@@ -394,6 +400,10 @@ describe("WP4.12-R macroeventos", () => {
       state.phase2.inventories.get(PLAYER_ORGANIZATION_ID)!.cement = 20;
       state.phase2.inventories.get(PLAYER_ORGANIZATION_ID)!.brick = 20;
       state.phase2.inventories.get(PLAYER_ORGANIZATION_ID)!.steel = 20;
+      const hoursWithoutShock = createViewProjection(state, true).economy!.constructionOptions.find(
+        (entry) => entry.type === "courtyard_home",
+      )!.workRequired;
+      expect(hoursWithoutShock).toBe(BUILDING_DEFINITIONS["courtyard_home"].workRequired);
       state.phase2.macroEvents = activateMacroEvent(
         state.phase2.macroEvents,
         "construction_boom",
@@ -411,6 +421,12 @@ describe("WP4.12-R macroeventos", () => {
       const site = [...state.phase2.constructionSites.values()][0]!;
       /** courtyard_home declara 96 de obra: ×2 del sitio y −20 % del auge = 154. */
       expect(site.workRequired).toBe(154);
+      const option = createViewProjection(state, true).economy!.constructionOptions.find(
+        (entry) => entry.type === "courtyard_home",
+      )!;
+      /** La UI publica la misma obra que ejecuta el motor: 154 medias horas = 77 h. */
+      expect(option.workRequired).toBe(77);
+      expect(option.workRequired * 2).toBe(site.workRequired);
     });
   });
 

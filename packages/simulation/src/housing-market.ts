@@ -74,6 +74,70 @@ function manhattan(left: GridCell, right: GridCell): number {
   return Math.abs(left.x - right.x) + Math.abs(left.y - right.y);
 }
 
+/**
+ * Índice espacial del parque. La distancia de servicio es Manhattan, así que un vecino dentro del
+ * radio está como mucho a `radius` celdas en cada eje y sólo hace falta recorrer los nueve buckets
+ * adyacentes. El recuento resultante es idéntico al de todos contra todos: cambia el orden de
+ * visita, no qué edificios cuentan.
+ */
+const NEIGHBOUR_BUCKET_SIZE = HOUSING_MARKET_POLICY.serviceRadiusCells + 1;
+const CELL_KEY_SPAN = 8192;
+const CELL_KEY_OFFSET = 4096;
+
+function neighbourBucketKey(bucketX: number, bucketY: number): number {
+  return (bucketX + CELL_KEY_OFFSET) * CELL_KEY_SPAN + (bucketY + CELL_KEY_OFFSET);
+}
+
+function cellKeyOf(cell: GridCell): number {
+  return (cell.x + CELL_KEY_OFFSET) * CELL_KEY_SPAN + (cell.y + CELL_KEY_OFFSET);
+}
+
+type CellOccupancy = { cell: GridCell; buildings: number };
+
+/** Cuenta los edificios operativos por celda y agrupa las celdas ocupadas en buckets. */
+export function indexCells(raw: ReadonlyArray<{ cell: GridCell }>): Map<number, CellOccupancy[]> {
+  const occupancyByCell = new Map<number, CellOccupancy>();
+  const buckets = new Map<number, CellOccupancy[]>();
+  for (const entry of raw) {
+    const key = cellKeyOf(entry.cell);
+    const occupancy = occupancyByCell.get(key);
+    if (occupancy) {
+      occupancy.buildings += 1;
+      continue;
+    }
+    const created: CellOccupancy = { cell: entry.cell, buildings: 1 };
+    occupancyByCell.set(key, created);
+    const bucketX = Math.floor(entry.cell.x / NEIGHBOUR_BUCKET_SIZE);
+    const bucketY = Math.floor(entry.cell.y / NEIGHBOUR_BUCKET_SIZE);
+    const bucketKey = neighbourBucketKey(bucketX, bucketY);
+    const bucket = buckets.get(bucketKey);
+    if (bucket) bucket.push(created);
+    else buckets.set(bucketKey, [created]);
+  }
+  return buckets;
+}
+
+/** Edificios distintos al propio dentro del radio de servicio de una celda. */
+export function countNeighbours(
+  cell: GridCell,
+  buckets: ReadonlyMap<number, CellOccupancy[]>,
+): number {
+  const radius = HOUSING_MARKET_POLICY.serviceRadiusCells;
+  const bucketX = Math.floor(cell.x / NEIGHBOUR_BUCKET_SIZE);
+  const bucketY = Math.floor(cell.y / NEIGHBOUR_BUCKET_SIZE);
+  let total = -1;
+  for (let offsetX = -1; offsetX <= 1; offsetX += 1) {
+    for (let offsetY = -1; offsetY <= 1; offsetY += 1) {
+      for (const occupancy of buckets.get(
+        neighbourBucketKey(bucketX + offsetX, bucketY + offsetY),
+      ) ?? []) {
+        if (manhattan(cell, occupancy.cell) <= radius) total += occupancy.buildings;
+      }
+    }
+  }
+  return total;
+}
+
 function rentIndexFor(state: GameState, type: BuildingType): number {
   return state.phase2.housingMarket.rentIndexPercentByBuildingType[type] ?? 100;
 }
@@ -140,14 +204,10 @@ function buildStock(state: GameState): StockUnit[] {
   );
 
   const stock: StockUnit[] = [];
+  const cellsByBucket = indexCells(raw);
   for (const entry of raw) {
-    let nearbyOffices = 0;
+    const nearbyOffices = countNeighbours(entry.cell, cellsByBucket);
     let nearbyIncidents = 0;
-    for (const other of raw) {
-      if (other.building.id === entry.building.id) continue;
-      if (manhattan(entry.cell, other.cell) > HOUSING_MARKET_POLICY.serviceRadiusCells) continue;
-      nearbyOffices += 1;
-    }
     for (const cell of activeIncidentCells) {
       if (manhattan(entry.cell, cell) <= HOUSING_MARKET_POLICY.serviceRadiusCells)
         nearbyIncidents += 1;

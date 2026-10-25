@@ -339,8 +339,10 @@ describe("WP4.13 automatización y delegación", () => {
           }
         }
         city.phase2.automation.property = "fill_vacancies";
+        /** Los diez días discurren después de la maduración: nunca se rebobina el reloj. */
+        const startTick = city.clock.tick;
         for (let day = 1; day <= 10; day += 1) {
-          city.clock = { ...city.clock, tick: parseTick(day * GAME_DAY_TICKS) };
+          city.clock = { ...city.clock, tick: parseTick(startTick + day * GAME_DAY_TICKS) };
           runAutomation(city);
         }
         const filledByManager = preparedTenantIds.filter(

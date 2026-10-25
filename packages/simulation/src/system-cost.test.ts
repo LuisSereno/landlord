@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 
 import { advanceProductSystems, PRODUCT_SYSTEMS } from "./systems";
 import { canonicalizeState } from "./runner";
+import { describeHousingStock } from "./housing-market";
+import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { GAME_HOUR_TICKS, GAME_MONTH_TICKS } from "./game-data";
 import { parseTick } from "@landlord/shared";
 import {
@@ -291,6 +293,48 @@ describe("WP4.2 system cost harness", () => {
           2,
         ),
       );
+    },
+    900_000,
+  );
+
+  /**
+   * Sonda del parque de vivienda: `buildStock` era el componente dominante del cierre mensual con un
+   * recuento de vecinos `O(edificios²)`. Aquí se mide sobre copias restauradas del mismo snapshot —el
+   * estado no se modifica entre repeticiones— y se comprueba que el coste por edificio ya no crece con
+   * la escala, que es la firma de haber dejado atrás el comportamiento cuadrático.
+   */
+  it.skipIf(environment.process?.env?.SYSTEM_COST !== "1")(
+    "mide el coste de construir el parque de vivienda entre escalas",
+    () => {
+      const measureStock = (parcelCount: number, repeats = 9) => {
+        const city = createScaledCity(7, { parcelCount });
+        for (let tick = 0; tick < GAME_MONTH_TICKS * 6; tick += 1) advanceProductSystems(city);
+        const snapshot = serializeSnapshot(city);
+        const samples: number[] = [];
+        let buildings = 0;
+        for (let repeat = 0; repeat < repeats; repeat += 1) {
+          const copy = restoreStateFromSnapshot(snapshot);
+          const start = now();
+          const stock = describeHousingStock(copy);
+          samples.push(now() - start);
+          buildings = stock.length;
+        }
+        samples.sort((left, right) => left - right);
+        const medianMs = samples[Math.floor(repeats / 2)]!;
+        return {
+          parcelCount,
+          buildings,
+          medianMs,
+          minMs: samples[0]!,
+          maxMs: samples[samples.length - 1]!,
+          microsecondsPerBuilding: (medianMs * 1000) / Math.max(1, buildings),
+        };
+      };
+      const small = measureStock(200);
+      const large = measureStock(800);
+      environment.console.log(`HOUSING_STOCK ${JSON.stringify({ small, large })}`);
+      expect(large.buildings).toBeGreaterThan(small.buildings);
+      expect(large.microsecondsPerBuilding).toBeLessThan(small.microsecondsPerBuilding * 2);
     },
     900_000,
   );

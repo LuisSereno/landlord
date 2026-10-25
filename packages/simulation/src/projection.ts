@@ -43,6 +43,7 @@ import {
 } from "./housing-market";
 import {
   activeMacroModifiers,
+  effectiveConstructionWorkRequired,
   effectiveMarketPriceFor,
   MACRO_EVENT_LABELS,
   materialCostModifierPercentFor,
@@ -521,7 +522,7 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
               allowedZoning: [...definition.allowedZoning],
               cost: Math.round(definition.cost * (1 + materialCostModifierPercentFor(state) / 100)),
               baseCost: definition.cost,
-              workRequired: definition.workRequired,
+              workRequired: Math.round(effectiveConstructionWorkRequired(state, definition) / 2),
               capacity: definition.capacity,
               baseRent: definition.baseRent,
               resources: { ...definition.resources },

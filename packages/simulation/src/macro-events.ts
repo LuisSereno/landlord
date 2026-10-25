@@ -1,6 +1,7 @@
 import {
   parseSeed,
   parseTick,
+  type BuildingDefinition,
   type FactionGoalFamily,
   type MacroEvent,
   type MacroEventModifiers,
@@ -229,6 +230,19 @@ export function rentModifierPercentFor(state: GameState): number {
   const ordinance =
     state.phase2.ordinance.status === "active" ? state.phase2.ordinance.rentModifierPercent : 0;
   return ordinance + (activeMacroModifiers(state).rentModifierPercent ?? 0);
+}
+
+/**
+ * Esfuerzo de obra en medias horas bajo los shocks activos. Es la única fuente de la cifra: la usa
+ * `StartConstruction` para crear la obra y la proyección para publicar las horas al jugador, de modo
+ * que la duración anunciada nunca difiere de la que ejecuta el motor.
+ */
+export function effectiveConstructionWorkRequired(
+  state: GameState,
+  definition: Pick<BuildingDefinition, "workRequired">,
+): number {
+  const workModifier = 1 + (activeMacroModifiers(state).constructionCostModifierPercent ?? 0) / 100;
+  return Math.max(1, Math.round(definition.workRequired * 2 * workModifier));
 }
 
 /** Precio de mercado que paga hoy una unidad de recurso, redondeado a unidad entera. */

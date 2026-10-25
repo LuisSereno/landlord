@@ -1,10 +1,12 @@
 {
   "schemaVersion": 1,
-  "datasetId": "alpha-baseline-v1",
+  "datasetId": "synthetic-city-balance-v1",
   "generatedAt": "2026-10-25",
   "tool": "pnpm balance:campaign",
+  "worldKind": "synthetic_load_harness",
+  "usage": "Arnés de carga, no balance de gameplay: el mundo viene de createScaledCity (packages/simulation/src/system-cost.ts), que regala caja HARNESS_BALANCE, capacidad de inventario HARNESS_INVENTORY_CAPACITY, parcelas, edificios, inquilinos, préstamos, cuadrillas y agentes que el jugador nunca compró ni construyó. Úsalo para detectar invariantes rotas y degradación bajo volumen. La baseline jugable es playable-alpha-baseline-v1.json.",
   "engine": {
-    "commit": "f33c698",
+    "commit": "8f9b323",
     "seeds": [
       1,
       2,

@@ -174,8 +174,17 @@ describe("WP4.14 métricas de balance", () => {
     expect(violations).toContain(`parcel_building_missing:${parseParcelId(parcel.id)}`);
   });
 
+  /**
+   * Arnés de carga, no baseline de balance de gameplay. `createScaledCity` inyecta 5 000 000 de caja,
+   * 1 000 000 de capacidad de inventario y regala parcelas, edificios, fábricas, inquilinos, préstamos,
+   * cuadrillas y agentes que el jugador nunca compró ni construyó, así que aquí `financeCashFloor` es
+   * irrelevante y las diferencias las domina la ocupación automática de una cartera ya montada. Sirve
+   * para detectar invariantes rotas y degradación bajo volumen; su dataset se publica como
+   * `docs/balance/synthetic-city-balance-v1.json`. La campaña comparable con una partida real está en
+   * `balance-playable.test.ts` (`pnpm balance:playable`).
+   */
   it.skipIf(environment.process?.env?.BALANCE_CAMPAIGN !== "1")(
-    "campaña de balance con seeds registradas y detección de dominancia",
+    "campaña sintética de carga con seeds registradas y detección de dominancia",
     () => {
       const seeds = [1, 2, 3, 4, 5, 6, 7, 8];
       const months = 12;

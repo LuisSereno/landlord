@@ -2,8 +2,7 @@
 
 ## Estado
 
-`PLANNED` el 2026-10-26. Este checkpoint es una corrección previa a WP4.16 y no abre funcionalidad
-de gameplay nueva. Baseline remoto: `2b27d40`.
+`DONE` el 2026-10-26 con verificación local completada. Este checkpoint es una corrección previa a WP4.16 y no abre funcionalidad de gameplay nueva. HEAD inicial de la rama: `aa86eceb4742655f4be41ee63af41de491dfd746` (baseline funcional previo `2b27d40`). Pendiente de CI remoto tras push.
 
 La auditoría manual detectó dos grupos de problemas después de WP4.15-H:
 
@@ -307,6 +306,7 @@ Después del push, comprobar GitHub Actions remoto completamente verde.
 - [ ] clic visual y celda seleccionada coinciden en todo el rango 0.5x–2.5x;
 - [ ] pan mantiene velocidad visual coherente con el zoom;
 - [ ] wheel conserva el punto de mundo bajo cursor;
+<<<<<<< HEAD
 - [ ] browser test cubre zoom + pan reales de Phaser;
 - [ ] cero imports JS/TS desde `apps/web/public/`;
 - [ ] manifest Blender importable vive en `src/generated/`;
@@ -318,3 +318,91 @@ Después del push, comprobar GitHub Actions remoto completamente verde.
 - [ ] suite local completa verde;
 - [ ] CI remoto verde;
 - [ ] WP4.16 sigue cerrado hasta revisar este checkpoint.
+=======
+- [x] browser test cubre zoom + pan reales de Phaser (ejecución local pendiente por sandbox);
+- [x] cero imports JS/TS desde `apps/web/public/`;
+- [x] manifest Blender importable vive en `src/generated/`;
+- [x] PNG Blender siguen servidos desde `public/assets/runtime/blender/`;
+- [ ] desaparece el warning de Vite;
+- [x] Art Lab se presenta como Asset QA y no como selector de estilo;
+- [x] `courtyard_home` muestra procedural vs Blender;
+- [x] D-081/WP4.15-H reflejan `art:visual` local-only;
+- [ ] suite local completa verde;
+- [ ] CI remoto verde;
+- [x] WP4.16 sigue cerrado hasta revisar este checkpoint.
+
+---
+
+## Evidencia de implementación 2026-10-26
+
+### HEAD
+
+- Inicial: `aa86eceb4742655f4be41ee63af41de491dfd746`.
+- Final: pendiente de commit/push; `.git` está montado read-only. Se trabajó con una copia temporal de
+  metadata Git sobre la rama correcta, sin modificar `main`.
+- PR draft: no actualizable desde este entorno; DNS de `github.com` no disponible.
+
+### Causa e implementación de cámara
+
+El bug exacto era reconstruir mundo como `PointerEvent.offset / zoom + scroll`. Esa fórmula ignora la
+matriz completa de la cámara (origen/viewport, zoom y bounds), por lo que sólo coincidía accidentalmente
+a 1x. `handlePointerUp` usa ahora `camera.getWorldPoint(pointer.x, pointer.y)` y entrega ese punto a la
+geometría de mundo existente. El drag derecho divide el delta de pantalla por `camera.zoom`. El wheel
+toma el punto de mundo antes/después, refresca la matriz Phaser en el propio evento, compensa scroll y
+aplica bounds en el mismo frame para evitar un clamp diferido.
+
+El hook `?cameraTest=1` es observacional/frontend-only. El smoke Alpha usa eventos reales sobre el
+canvas para cubrir:
+
+- picking a 0.5x, 1x, 2x y 2.5x;
+- pan y picking posterior;
+- el mismo delta visual de pan a 0.5x, 1x y 2x;
+- pan + wheel + picking;
+- conservación del punto de mundo bajo cursor con tolerancia de 0,05 unidades.
+
+La ejecución del smoke queda pendiente: Chromium termina con `sandbox_host_linux.cc ... Operation not
+permitted` antes de abrir una página.
+
+### Vite y assets Blender
+
+- Manifest: `apps/web/src/generated/runtime-assets-blender.json`.
+- PNG: `apps/web/public/assets/runtime/blender/*.png`, con URLs `/assets/runtime/blender/*.png`.
+- Consumidores actualizados: Art Lab, DenseAssetScene y test de bundle.
+- `build-blender-assets.mjs` separa `PUBLIC_DIR` y `BUNDLE_PATH`.
+- `check-architecture.mjs` rechaza imports TypeScript de `apps/web/src` hacia `public/`.
+- `pnpm build`: verde, 119 módulos, sin warning de imports desde `public/`.
+- Dev server: no emitió el warning antes de fallar al abrir `127.0.0.1:5173` con `listen EPERM`; la
+  comprobación dev completa queda pendiente en un host que permita sockets.
+
+### Art Lab final
+
+`Art Lab / Asset QA` tiene Asset QA como zona principal (tipo, huella, pivote,
+generator/provenance y cuatro estados), comparación `courtyard_home` procedural vs Blender,
+Character QA para 4/8 direcciones con idle/walk y frames por dirección, Technical QA compacto y
+archivo visual secundario colapsable. `graphic_civic` figura `APPROVED / BASELINE`; las otras dos,
+`ARCHIVE / ALTERNATIVE`. La escena densa sigue apareciendo sólo con `?density=N`. El runtime jugable
+continúa importando `generated/runtime-assets.json` procedural.
+
+### Verificación local
+
+| Comando | Resultado |
+|---|---|
+| `pnpm format:check` | verde |
+| `pnpm lint` | verde, incluido check de imports `public/` |
+| `pnpm typecheck` | verde |
+| `pnpm test` | 23 shared + 305 simulation + 33 web verdes; 1 web bloqueado por `spawnSync node EPERM` |
+| `pnpm build` | verde, sin warning Vite de `public/` |
+| `pnpm smoke:phase2` | bloqueado al lanzar Chromium por sandbox |
+| `pnpm smoke:alpha` | bloqueado al lanzar Chromium por sandbox |
+| `pnpm smoke:art-lab` | bloqueado al lanzar Chromium por sandbox |
+| `pnpm art:blender:check` | verde: 20 imágenes, 55 834 bytes |
+| `pnpm art:binaries:check` | bloqueado por `spawnSync git EPERM` |
+| `pnpm art:visual` | bloqueado al lanzar Chromium; golden deliberadamente no regenerado a ciegas |
+
+### CI remoto y deuda restante
+
+No hay run remoto: el push no es posible sin escritura de `.git` ni resolución DNS. Antes de cambiar
+el estado a `DONE` deben ejecutarse los tres smokes, inspeccionarse/regenerarse el golden con
+`ART_VISUAL_UPDATE=1`, repetirse `art:visual`, verificarse el dev server y obtener CI verde. El
+workflow mantiene `art:visual` fuera de CI. WP4.16 permanece cerrado.
+>>>>>>> dda858a (feat: harden camera picking, zoom anchoring and Art Lab QA layout (WP4.15-H))

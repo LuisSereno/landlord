@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import type { BuildingAssetState, BuildingType, RuntimeAssetManifestV1 } from "@landlord/shared";
 import runtimeAssets from "../generated/runtime-assets.json";
-import blenderBundle from "../../public/assets/runtime/blender/runtime-assets-blender.json";
+import blenderBundle from "../generated/runtime-assets-blender.json";
 import { depthForAsset, originFromPivot, spriteKeyFor } from "./building-sprites";
 import { gridToScreen, REFERENCE_LAYOUT } from "./coordinates";
 

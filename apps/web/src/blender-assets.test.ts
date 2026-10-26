@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { runtimeAssetManifestV1Schema, type RuntimeAssetManifestV1 } from "@landlord/shared";
-import blenderBundle from "../public/assets/runtime/blender/runtime-assets-blender.json";
+import blenderBundle from "./generated/runtime-assets-blender.json";
 
 const PUBLIC_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..", "public");
 

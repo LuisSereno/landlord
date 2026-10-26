@@ -471,6 +471,11 @@ con pixel-diff tolerante en CI, y el perfil denso se mide en Phaser de verdad (4
 cambio de frame y scroll a 60 FPS de mediana), no con DOM estático. También se corrigen la huella en
 el depth/posición del sprite y la animación de caminar por dirección.
 
+**Revisión 2026-10-26 (D-082, supersedes ubicación/CI de este párrafo):** el JSON importable pasa a
+`apps/web/src/generated/runtime-assets-blender.json` y `public/` conserva sólo los PNG. Además,
+`art:visual` pasa a QA local por diferencias cross-environment; CI conserva el smoke estructural,
+integridad Blender y budget de binarios.
+
 ### Puntos de gate de Beta añadidos por D-081
 
 - Adoptar Git LFS y migrar/desduplicar los masters 16-bit del spike (hoy excepciones en
@@ -482,7 +487,7 @@ el depth/posición del sprite y la animación de caminar por dirección.
 
 ## WP4.15-H.1 — Corrección de cámara y Art Lab QA
 
-**Estado 2026-10-26:** `PLANNED`, precondición de WP4.16. Evidencia/brief en
+**Estado 2026-10-26:** `DONE` con verificación local completada; pendiente de CI remoto tras push. Evidencia/brief en
 `docs/execution/phase-4/wp4-15-h-1-camera-artlab-hardening-2026-10-26.md` y decisión en D-082.
 
 - Corregir pantalla -> mundo con `camera.getWorldPoint`; el picking debe coincidir a 0.5x–2.5x.

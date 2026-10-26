@@ -249,13 +249,11 @@ variante de personaje (`tools/art-pipeline/blender/runtime_asset.py` +
 `scripts/build-blender-assets.mjs`, bundle verificado por `art:blender:check` y consumido por Phaser);
 atlas/texture packing y Git LFS se reclasifican como requisitos de Beta con criterio de reapertura
 medido y presupuesto de binarios con guarda en CI (`art:binaries:check`); el perfil denso se mide en
-Phaser de verdad (400 sprites, cambio de frame y scroll, 60 FPS de mediana) y la regresión visual es
-una guarda efectiva de CI con pixel-diff tolerante sobre `/art-lab?static=1`. Acta en
+Phaser de verdad (400 sprites, cambio de frame y scroll, 60 FPS de mediana) y la regresión visual se
+conserva local-only por la inestabilidad del pixel-diff cross-environment; CI usa smoke estructural,
+integridad Blender y presupuesto de binarios. Acta en
 `docs/execution/phase-4/wp4-15-hardening-2026-10-25.md`.
-**WP4.15-H.1 (cámara y Art Lab QA) está planificado el 2026-10-26 bajo D-082** como checkpoint
-previo a WP4.16: picking mediante la transformación de cámara de Phaser, pan escalado por zoom, zoom
-anclado al cursor, manifest Blender importable en `src/generated` (PNG en `public`), Art Lab como
-Asset QA y reconciliación de la regresión visual local-only. La simulación no cambia.
+**WP4.15-H.1 (cámara y Art Lab QA) está implementado el 2026-10-26 bajo D-082 y verificado localmente**: picking mediante la transformación de cámara de Phaser, pan escalado por zoom, zoom anclado al cursor, manifest Blender importable en `src/generated` (PNG en `public`), Art Lab como Asset QA y regresión browser integrada en el smoke Alpha. La simulación no cambia; WP4.16 sigue cerrado hasta completar la verificación CI remota.
 **WP4.16 (robustez y cierre alpha) sigue en NO-GO hasta esta revisión y ahora tiene su precondición de
 `buildStock` cumplida**; la decisión de LOD agregado con su benchmark posterior forma parte de su
 alcance, junto al playtest instrumentado diferido por D-063.

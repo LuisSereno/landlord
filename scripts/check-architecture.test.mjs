@@ -12,11 +12,16 @@ const fixtureRoot = mkdtempSync(join(tmpdir(), "landlord-architecture-"));
 try {
   mkdirSync(join(fixtureRoot, "packages/simulation/src"), { recursive: true });
   mkdirSync(join(fixtureRoot, "packages/shared/src"), { recursive: true });
+  mkdirSync(join(fixtureRoot, "apps/web/src"), { recursive: true });
   writeFileSync(
     join(fixtureRoot, "packages/simulation/src/forbidden.ts"),
     'import Phaser from "phaser";\nexport { Phaser };\n',
   );
   writeFileSync(join(fixtureRoot, "packages/shared/src/valid.ts"), "export const valid = true;\n");
+  writeFileSync(
+    join(fixtureRoot, "apps/web/src/forbidden-public.ts"),
+    'import manifest from "../public/assets/manifest.json";\nexport { manifest };\n',
+  );
 
   const result = spawnSync(process.execPath, [checker], {
     cwd: repositoryRoot,
@@ -26,6 +31,7 @@ try {
 
   assert.notEqual(result.status, 0, "forbidden fixture must fail architecture check");
   assert.match(result.stdout + result.stderr, /forbidden import/);
+  assert.match(result.stdout + result.stderr, /Vite source cannot import from public/);
   console.log("Architecture negative fixture is detected.");
 } finally {
   rmSync(fixtureRoot, { recursive: true, force: true });

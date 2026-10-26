@@ -2,11 +2,12 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   BUILDING_ASSET_STATES,
   type BuildingAssetState,
+  type BuildingAssetV1,
   type CharacterAssetV1,
   type RuntimeAssetManifestV1,
 } from "@landlord/shared";
 import runtimeAssets from "./generated/runtime-assets.json";
-import blenderBundle from "../public/assets/runtime/blender/runtime-assets-blender.json";
+import blenderBundle from "./generated/runtime-assets-blender.json";
 import { animationFrameFor, framesPerDirection } from "./isometric/building-sprites";
 import { mountDenseAssetScene } from "./isometric/DenseAssetScene";
 
@@ -17,41 +18,72 @@ const directions = [
   {
     id: "graphic_civic",
     title: "Graphic civic",
-    role: "Baseline recomendada",
-    rationale: "Mayor contraste estructural, ownership legible y mejor separación de categoría.",
+    role: "APPROVED / BASELINE",
+    rationale: "Dirección aprobada: contraste estructural y ownership legible.",
     image: "/assets/art-spike/visual_direction_spike_graphic_civic_2026-10-23.png",
   },
   {
     id: "warm_editorial",
     title: "Warm editorial",
-    role: "Alternativa de tono",
-    rationale: "Más calidez material y narrativa; exige vigilar contraste en escenas densas.",
+    role: "ARCHIVE / ALTERNATIVE",
+    rationale: "Alternativa histórica conservada como referencia, no como candidata activa.",
     image: "/assets/art-spike/visual_direction_spike_warm_editorial_2026-10-23.png",
   },
   {
     id: "blue_hour",
     title: "Blue hour ledger",
-    role: "Preset atmosférico",
-    rationale: "Buen modo nocturno estilizado; no es baseline por su menor margen de contraste.",
+    role: "ARCHIVE / ALTERNATIVE",
+    rationale: "Preset atmosférico archivado; no reabre la baseline visual.",
     image: "/assets/art-spike/visual_direction_spike_blue_hour_2026-10-23.png",
   },
 ] as const;
 
 const STATE_LABELS: Record<BuildingAssetState, string> = {
-  complete: "Completo",
-  construction: "En obra",
-  damaged: "Dañado",
-  burning: "Incendio",
+  complete: "Complete",
+  construction: "Construction",
+  damaged: "Damaged",
+  burning: "Burning",
 };
+
+function manifestProvenance(manifest: RuntimeAssetManifestV1): string {
+  return `${manifest.generator.id} v${manifest.generator.version} · ${manifest.generator.method} · ${manifest.provenance.author} · ${manifest.provenance.license}`;
+}
+
+function BuildingStates({
+  building,
+  source,
+}: {
+  building: BuildingAssetV1;
+  source: "Procedural" | "Blender";
+}) {
+  return (
+    <div className="asset-state-grid" data-asset-source={source.toLowerCase()}>
+      {BUILDING_ASSET_STATES.map((state) => (
+        <figure key={state}>
+          <img
+            src={building.states[state].src}
+            alt={`${building.name} ${STATE_LABELS[state]} (${source})`}
+          />
+          <figcaption>{STATE_LABELS[state]}</figcaption>
+        </figure>
+      ))}
+    </div>
+  );
+}
 
 function CharacterStrip({
   character,
+  manifest,
+  source,
   staticMode,
 }: {
   character: CharacterAssetV1;
+  manifest: RuntimeAssetManifestV1;
+  source: "Procedural" | "Blender";
   staticMode: boolean;
 }) {
   const perDirection = framesPerDirection(character, "walk");
+  const idlePerDirection = framesPerDirection(character, "idle");
   const [phase, setPhase] = useState(0);
   useEffect(() => {
     if (staticMode) return;
@@ -61,32 +93,49 @@ function CharacterStrip({
     );
     return () => window.clearInterval(timer);
   }, [character.animations.walk.frameDurationMs, perDirection, staticMode]);
-  const walk = character.animations.walk.frames;
   return (
-    <article className="art-lab-card" data-character={character.id}>
+    <article
+      className="art-lab-card"
+      data-character={character.id}
+      data-character-directions={character.directions}
+      data-character-source={source}
+    >
       <div className="art-lab-card-heading">
         <div>
-          <p className="eyebrow">Personaje · {character.directions} direcciones</p>
+          <p className="eyebrow">
+            {source} · {character.directions} directions
+          </p>
           <h3>{character.name}</h3>
         </div>
-        <span className="art-lab-status">
-          {walk.length} frames · {perDirection} por dirección
-        </span>
+        <span className="art-lab-status">idle + walk</span>
       </div>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+      <dl className="asset-metadata">
+        <div>
+          <dt>Frames</dt>
+          <dd>
+            idle {idlePerDirection}/dir · walk {perDirection}/dir
+          </dd>
+        </div>
+        <div>
+          <dt>Generator / provenance</dt>
+          <dd>{manifestProvenance(manifest)}</dd>
+        </div>
+      </dl>
+      <div className="character-direction-grid">
         {Array.from({ length: character.directions }, (_, direction) => {
           const idleFrame = animationFrameFor(character, "idle", direction, 0);
           const walkFrame = animationFrameFor(character, "walk", direction, phase);
           return (
-            <figure key={direction} style={{ margin: 0, textAlign: "center" }}>
-              <img src={idleFrame.src} alt={`${character.name} quieto ${direction}`} width={36} />
-              <img
-                data-walk-direction={direction}
-                src={walkFrame.src}
-                alt={`${character.name} andando ${direction}`}
-                width={36}
-              />
-              <figcaption style={{ fontSize: 10 }}>dir {direction}</figcaption>
+            <figure key={direction}>
+              <div>
+                <img src={idleFrame.src} alt={`${character.name} idle ${direction}`} />
+                <img
+                  data-walk-direction={direction}
+                  src={walkFrame.src}
+                  alt={`${character.name} walk ${direction}`}
+                />
+              </div>
+              <figcaption>dir {direction} · idle / walk</figcaption>
             </figure>
           );
         })}
@@ -104,107 +153,178 @@ function DenseScene({ count, staticMode }: { count: number; staticMode: boolean 
   return <div data-testid="dense-scene" ref={container} />;
 }
 
-function RuntimeAssetFactory() {
+function RuntimeAssetQa() {
   const denseCount = useMemo(() => {
     const value = Number(new URLSearchParams(window.location.search).get("density") ?? 0);
     return Number.isFinite(value) && value > 0 ? Math.min(600, Math.round(value)) : 0;
   }, []);
-  /** `?static=1` congela la animación para que la captura de regresión visual sea determinista. */
   const staticMode = useMemo(
     () => new URLSearchParams(window.location.search).get("static") === "1",
     [],
   );
-  const blenderBuilding = Object.values(BLENDER.buildings)[0]!;
-  const blenderCharacter = Object.values(BLENDER.characters)[0]!;
+  const proceduralComparison = ASSETS.buildings["courtyard_home"]!;
+  const blenderComparison = BLENDER.buildings["courtyard_home"]!;
+
   return (
-    <section aria-label="Factoría runtime de assets" style={{ marginTop: 32 }}>
-      <header>
-        <p className="eyebrow">Factoría procedural · contrato v1</p>
-        <h2>Assets runtime generados</h2>
-        <p>
-          {Object.keys(ASSETS.buildings).length} edificios × {BUILDING_ASSET_STATES.length} estados
-          · {Object.keys(ASSETS.characters).length} variantes de personaje · imágenes SVG en data
-          URI con pivote, huella y hash.
-        </p>
-      </header>
-      <div style={{ display: "grid", gap: 16 }}>
-        {Object.values(ASSETS.buildings).map((building) => (
-          <article className="art-lab-card" data-building={building.type} key={building.type}>
-            <div className="art-lab-card-heading">
-              <div>
-                <p className="eyebrow">
-                  Edificio · huella {building.footprint.width}×{building.footprint.height}
-                </p>
-                <h3>{building.name}</h3>
-              </div>
-              <span className="art-lab-status">
-                pivote {building.pivot.x.toFixed(2)}, {building.pivot.y.toFixed(2)}
-              </span>
-            </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {BUILDING_ASSET_STATES.map((state) => (
-                <figure key={state} style={{ margin: 0, textAlign: "center" }}>
-                  <img
-                    src={building.states[state].src}
-                    alt={`${building.name} ${STATE_LABELS[state]}`}
-                    width={96}
-                  />
-                  <figcaption style={{ fontSize: 11 }}>{STATE_LABELS[state]}</figcaption>
-                </figure>
-              ))}
-            </div>
-          </article>
-        ))}
-        <article className="art-lab-card" data-blender-e2e={blenderBuilding.type}>
-          <div className="art-lab-card-heading">
-            <div>
-              <p className="eyebrow">Ruta Blender E2E · render → trim → metadata → Phaser</p>
-              <h3>{blenderBuilding.name}</h3>
-            </div>
-            <span className="art-lab-status">
-              pivote {blenderBuilding.pivot.x.toFixed(2)}, {blenderBuilding.pivot.y.toFixed(2)}
-            </span>
+    <>
+      <section aria-labelledby="asset-qa-title" data-testid="asset-qa">
+        <header className="art-lab-section-header">
+          <div>
+            <p className="eyebrow">Primary workspace · procedural baseline</p>
+            <h2 id="asset-qa-title">Asset QA</h2>
           </div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-            {BUILDING_ASSET_STATES.map((state) => (
-              <figure key={state} style={{ margin: 0, textAlign: "center" }}>
-                <img
-                  src={blenderBuilding.states[state].src}
-                  alt={`${blenderBuilding.name} ${STATE_LABELS[state]} (Blender)`}
-                  width={96}
-                />
-                <figcaption style={{ fontSize: 11 }}>{STATE_LABELS[state]}</figcaption>
-              </figure>
-            ))}
-            {Array.from({ length: blenderCharacter.directions }, (_, direction) => (
-              <figure key={direction} style={{ margin: 0, textAlign: "center" }}>
-                <img
-                  src={animationFrameFor(blenderCharacter, "walk", direction, 0).src}
-                  alt={`${blenderCharacter.name} andando ${direction} (Blender)`}
-                  width={48}
-                />
-                <figcaption style={{ fontSize: 11 }}>dir {direction}</figcaption>
-              </figure>
-            ))}
+          <span className="art-lab-status">
+            {ASSETS.schemaVersion === 1 ? "schema v1" : "invalid"}
+          </span>
+        </header>
+        <div className="asset-card-grid">
+          {Object.values(ASSETS.buildings).map((building) => (
+            <article className="art-lab-card" data-building={building.type} key={building.type}>
+              <div className="art-lab-card-heading">
+                <div>
+                  <p className="eyebrow">Building · {building.type}</p>
+                  <h3>{building.name}</h3>
+                </div>
+                <span className="art-lab-status">validated</span>
+              </div>
+              <dl className="asset-metadata">
+                <div>
+                  <dt>Footprint</dt>
+                  <dd>
+                    {building.footprint.width} × {building.footprint.height}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Pivot</dt>
+                  <dd>
+                    {building.pivot.x.toFixed(3)}, {building.pivot.y.toFixed(3)}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Generator / provenance</dt>
+                  <dd>{manifestProvenance(ASSETS)}</dd>
+                </div>
+              </dl>
+              <BuildingStates building={building} source="Procedural" />
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="comparison-title"
+        className="art-lab-section"
+        data-testid="procedural-blender-comparison"
+      >
+        <header className="art-lab-section-header">
+          <div>
+            <p className="eyebrow">Per-asset promotion review · runtime unchanged</p>
+            <h2 id="comparison-title">Procedural vs Blender</h2>
+          </div>
+          <span className="art-lab-status">courtyard_home</span>
+        </header>
+        <article className="art-lab-card comparison-card" data-blender-e2e="courtyard_home">
+          <h3>Patio compacto</h3>
+          <div className="asset-comparison-grid">
+            <section aria-label="Procedural courtyard_home">
+              <p className="eyebrow">Procedural · Alpha baseline</p>
+              <BuildingStates building={proceduralComparison} source="Procedural" />
+              <small>{manifestProvenance(ASSETS)}</small>
+            </section>
+            <section aria-label="Blender courtyard_home">
+              <p className="eyebrow">Blender · candidate / not promoted</p>
+              <BuildingStates building={blenderComparison} source="Blender" />
+              <small>{manifestProvenance(BLENDER)}</small>
+            </section>
           </div>
         </article>
-        {Object.values(ASSETS.characters).map((character) => (
-          <CharacterStrip key={character.id} character={character} staticMode={staticMode} />
-        ))}
-        {denseCount > 0 && (
+      </section>
+
+      <section
+        aria-labelledby="character-qa-title"
+        className="art-lab-section"
+        data-testid="character-qa"
+      >
+        <header className="art-lab-section-header">
+          <div>
+            <p className="eyebrow">Directions · animations · frame ownership</p>
+            <h2 id="character-qa-title">Character QA</h2>
+          </div>
+        </header>
+        <div className="asset-card-grid">
+          {Object.values(ASSETS.characters).map((character) => (
+            <CharacterStrip
+              key={`procedural:${character.id}`}
+              character={character}
+              manifest={ASSETS}
+              source="Procedural"
+              staticMode={staticMode}
+            />
+          ))}
+          {Object.values(BLENDER.characters).map((character) => (
+            <CharacterStrip
+              key={`blender:${character.id}`}
+              character={character}
+              manifest={BLENDER}
+              source="Blender"
+              staticMode={staticMode}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="technical-qa-title"
+        className="art-lab-section"
+        data-testid="technical-qa"
+      >
+        <header className="art-lab-section-header">
+          <div>
+            <p className="eyebrow">Manifest and repository guards</p>
+            <h2 id="technical-qa-title">Technical QA</h2>
+          </div>
+        </header>
+        <dl className="technical-qa-grid">
+          <div>
+            <dt>Contract</dt>
+            <dd>RuntimeAssetManifest schema v1</dd>
+          </div>
+          <div>
+            <dt>Manifest generator</dt>
+            <dd>
+              {ASSETS.generator.id} v{ASSETS.generator.version}
+            </dd>
+          </div>
+          <div>
+            <dt>Hashes / validation</dt>
+            <dd>SHA-256 + dimensions + required states</dd>
+          </div>
+          <div>
+            <dt>Blender E2E</dt>
+            <dd>20 PNG · building + character · static manifest import</dd>
+          </div>
+          <div>
+            <dt>Binary budget</dt>
+            <dd>&lt; 120 KB bundle · 1 MB repository guard</dd>
+          </div>
+        </dl>
+      </section>
+
+      {denseCount > 0 && (
+        <section className="art-lab-section" aria-label="Dense performance scene">
           <article className="art-lab-card">
             <div className="art-lab-card-heading">
               <div>
-                <p className="eyebrow">Perfil de distrito denso en Phaser</p>
-                <h3>{denseCount} sprites</h3>
+                <p className="eyebrow">Dense performance scene · opt-in query</p>
+                <h2>{denseCount} sprites</h2>
               </div>
-              <span className="art-lab-status">FPS en vivo</span>
+              <span className="art-lab-status">FPS live</span>
             </div>
             <DenseScene count={denseCount} staticMode={staticMode} />
           </article>
-        )}
-      </div>
-    </section>
+        </section>
+      )}
+    </>
   );
 }
 
@@ -213,42 +333,47 @@ export function ArtLab() {
     <main className="art-lab-shell">
       <header className="art-lab-header">
         <div>
-          <p className="eyebrow">Landlord · visual direction spike</p>
-          <h1>Art Lab</h1>
+          <p className="eyebrow">Landlord · internal content tooling</p>
+          <h1>Art Lab / Asset QA</h1>
           <p className="art-lab-lede">
-            Mismo kit funcional, cámara ortográfica y composición. Sólo cambia la capa de estilo.
+            QA de estados, huellas, pivotes, animación y provenance. Graphic civic es la baseline
+            aprobada; Blender se revisa por asset antes de cualquier promoción.
           </p>
         </div>
         <a className="art-lab-back" href="/">
           Volver al slice
         </a>
       </header>
-      <section className="art-lab-grid" aria-label="Direcciones visuales comparables">
-        {directions.map((direction) => (
-          <article className="art-lab-card" data-direction={direction.id} key={direction.id}>
-            <div className="art-lab-card-heading">
-              <div>
-                <p className="eyebrow">{direction.role}</p>
-                <h2>{direction.title}</h2>
+
+      <RuntimeAssetQa />
+
+      <details className="visual-archive art-lab-section" data-testid="visual-direction-archive">
+        <summary>
+          <span>
+            <span className="eyebrow">Historical reference · secondary</span>
+            <strong>Visual direction archive</strong>
+          </span>
+          <span>3 renders</span>
+        </summary>
+        <div className="art-lab-grid" aria-label="Visual direction archive">
+          {directions.map((direction) => (
+            <article className="art-lab-card" data-direction={direction.id} key={direction.id}>
+              <div className="art-lab-card-heading">
+                <div>
+                  <p className="eyebrow">{direction.role}</p>
+                  <h2>{direction.title}</h2>
+                </div>
               </div>
-              <span className="art-lab-status" aria-label="Render cargado">
-                Render
-              </span>
-            </div>
-            <img src={direction.image} alt={`${direction.title}: escena del kit del spike`} />
-            <p>{direction.rationale}</p>
-            <ul>
-              <li>Ortho 45° / 30° · 1024×576 RGBA16</li>
-              <li>Residencial, industrial, road, parcela, worker, civilian, vehículo</li>
-              <li>Selección, ownership, andamio y humo incluidos</li>
-            </ul>
-          </article>
-        ))}
-      </section>
-      <RuntimeAssetFactory />
+              <img src={direction.image} alt={`${direction.title}: archived visual direction`} />
+              <p>{direction.rationale}</p>
+            </article>
+          ))}
+        </div>
+      </details>
+
       <footer className="art-lab-footer">
-        <span>Fuente reproducible: factoría SVG + Blender 5.2.2 para assets finales</span>
-        <span>Baseline propuesta: graphic civic</span>
+        <span>Procedural runtime baseline + Blender 5.2.2 candidate assets</span>
+        <span>Visual direction: graphic_civic · APPROVED</span>
       </footer>
     </main>
   );

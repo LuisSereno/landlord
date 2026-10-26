@@ -33,7 +33,14 @@ const BLENDER =
   join(REPO_ROOT, "blender_artist", "toolchain", "blender-5.2.2-linux-x64", "blender");
 const BLENDER_SCRIPT = join(REPO_ROOT, "tools", "art-pipeline", "blender", "runtime_asset.py");
 const PUBLIC_DIR = join(REPO_ROOT, "apps", "web", "public", "assets", "runtime", "blender");
-const BUNDLE_PATH = join(PUBLIC_DIR, "runtime-assets-blender.json");
+const BUNDLE_PATH = join(
+  REPO_ROOT,
+  "apps",
+  "web",
+  "src",
+  "generated",
+  "runtime-assets-blender.json",
+);
 const METADATA_PATH = join(
   REPO_ROOT,
   "blender_artist",
@@ -117,6 +124,7 @@ function render() {
   if (!existsSync(BLENDER))
     throw new Error(`No existe el binario de Blender: ${BLENDER} (define BLENDER_BIN)`);
   mkdirSync(PUBLIC_DIR, { recursive: true });
+  mkdirSync(dirname(BUNDLE_PATH), { recursive: true });
   const workDir = mkdtempSync(join(tmpdir(), "landlord-blender-assets-"));
   const metadata = [];
   const bundle = {

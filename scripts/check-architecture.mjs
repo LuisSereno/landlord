@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
 
 const repositoryRoot =
@@ -53,6 +53,16 @@ for (const [packageName, packageDirectory] of [
       /@landlord\/(simulation|web)|from ["']\.\.\/simulation/.test(content)
     ) {
       violations.push(`${display}: shared cannot depend on simulation or web`);
+    }
+  }
+}
+
+const webSource = join(repositoryRoot, "apps/web/src");
+if (existsSync(webSource)) {
+  for (const file of sourceFiles(webSource)) {
+    const content = readFileSync(file, "utf8");
+    if (/(?:from\s+|import\s*\()\s*["'][^"']*public\//.test(content)) {
+      violations.push(`${relative(repositoryRoot, file)}: Vite source cannot import from public/`);
     }
   }
 }

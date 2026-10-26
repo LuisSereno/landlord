@@ -1,4 +1,4 @@
-/* global setTimeout */
+/* global setTimeout, window */
 
 import { readFileSync } from "node:fs";
 import { spawn } from "node:child_process";
@@ -20,6 +20,140 @@ const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
 const pageErrors = [];
 page.on("pageerror", (error) => pageErrors.push(error.message));
+
+const CAMERA_CELL = { x: 25, y: 20 };
+
+async function canvasPointForCell(cell) {
+  const point = await page.evaluate(
+    (target) => window.__landlordCameraTest.getCellScreenPoint(target),
+    cell,
+  );
+  const canvas = page.locator(".map-canvas canvas").first();
+  const metrics = await canvas.evaluate((element) => {
+    const bounds = element.getBoundingClientRect();
+    return {
+      x: bounds.x,
+      y: bounds.y,
+      scaleX: bounds.width / element.width,
+      scaleY: bounds.height / element.height,
+      width: element.width,
+      height: element.height,
+    };
+  });
+  if (point.x < 0 || point.y < 0 || point.x > metrics.width || point.y > metrics.height) {
+    throw new Error(`La celda ${cell.x},${cell.y} no queda visible: ${JSON.stringify(point)}`);
+  }
+  return {
+    game: point,
+    page: {
+      x: metrics.x + point.x * metrics.scaleX,
+      y: metrics.y + point.y * metrics.scaleY,
+    },
+    metrics,
+  };
+}
+
+async function configureCamera(zoom, scrollX, scrollY) {
+  await page.evaluate((next) => window.__landlordCameraTest.configure(next), {
+    zoom,
+    scrollX,
+    scrollY,
+  });
+  await page.waitForFunction(
+    (expected) => Math.abs(window.__landlordCameraTest.getCamera().zoom - expected) < 0.001,
+    zoom,
+  );
+}
+
+async function pickCell(cell) {
+  const point = await canvasPointForCell(cell);
+  await page.mouse.click(point.page.x, point.page.y);
+  await page.waitForFunction((expected) => {
+    const selected = window.__landlordCameraTest.getSelectedCell();
+    return selected?.x === expected.x && selected?.y === expected.y;
+  }, cell);
+  return point;
+}
+
+async function dragCameraAtZoom(zoom) {
+  await configureCamera(zoom, 1_000, 1_000);
+  const before = await page.evaluate(() => window.__landlordCameraTest.getCamera());
+  const canvas = page.locator(".map-canvas canvas").first();
+  const metrics = await canvas.evaluate((element) => {
+    const bounds = element.getBoundingClientRect();
+    return {
+      x: bounds.x,
+      y: bounds.y,
+      scaleX: bounds.width / element.width,
+      scaleY: bounds.height / element.height,
+      width: element.width,
+      height: element.height,
+    };
+  });
+  const start = {
+    x: metrics.x + metrics.width * 0.45 * metrics.scaleX,
+    y: metrics.y + metrics.height * 0.45 * metrics.scaleY,
+  };
+  const screenDelta = { x: 120, y: 60 };
+  await page.mouse.move(start.x, start.y);
+  await page.mouse.down({ button: "right" });
+  await page.mouse.move(
+    start.x + screenDelta.x * metrics.scaleX,
+    start.y + screenDelta.y * metrics.scaleY,
+    { steps: 5 },
+  );
+  await page.mouse.up({ button: "right" });
+  const after = await page.evaluate(() => window.__landlordCameraTest.getCamera());
+  const visualX = (after.scrollX - before.scrollX) * zoom;
+  const visualY = (after.scrollY - before.scrollY) * zoom;
+  if (Math.abs(visualX + screenDelta.x) > 1.5 || Math.abs(visualY + screenDelta.y) > 1.5) {
+    throw new Error(
+      `Pan inconsistente a ${zoom}x: world ${after.scrollX - before.scrollX},${after.scrollY - before.scrollY}; visual ${visualX},${visualY}`,
+    );
+  }
+  return after;
+}
+
+async function verifyCameraRegression() {
+  await page.waitForFunction(() => window.__landlordCameraTest !== undefined);
+  await page.locator(".map-canvas canvas").first().waitFor();
+
+  for (const zoom of [0.5, 1, 2, 2.5]) {
+    await configureCamera(zoom, 300, 500);
+    await pickCell(CAMERA_CELL);
+  }
+
+  for (const zoom of [0.5, 1, 2]) await dragCameraAtZoom(zoom);
+
+  await configureCamera(1, 1_000, 1_000);
+  await dragCameraAtZoom(1);
+  await pickCell({ x: 45, y: 20 });
+
+  await dragCameraAtZoom(1);
+  const anchoredCell = { x: 45, y: 20 };
+  const anchor = await canvasPointForCell(anchoredCell);
+  const before = await page.evaluate(
+    (point) => window.__landlordCameraTest.getWorldPoint(point),
+    anchor.game,
+  );
+  await page.mouse.move(anchor.page.x, anchor.page.y);
+  await page.mouse.wheel(0, -750);
+  await page.waitForFunction(() => window.__landlordCameraTest.getCamera().zoom > 1.7);
+  const after = await page.evaluate(
+    (point) => window.__landlordCameraTest.getWorldPoint(point),
+    anchor.game,
+  );
+  if (Math.abs(before.x - after.x) > 0.05 || Math.abs(before.y - after.y) > 0.05) {
+    throw new Error(
+      `El zoom no conservó el punto bajo cursor: ${JSON.stringify(before)} → ${JSON.stringify(after)}`,
+    );
+  }
+  await page.mouse.click(anchor.page.x, anchor.page.y);
+  await page.waitForFunction((expected) => {
+    const selected = window.__landlordCameraTest.getSelectedCell();
+    return selected?.x === expected.x && selected?.y === expected.y;
+  }, anchoredCell);
+}
 
 async function waitForServer() {
   for (let attempt = 0; attempt < 100; attempt += 1) {
@@ -69,6 +203,10 @@ function readCash(text) {
 
 try {
   await waitForServer();
+  const cameraTestUrl = new URL(baseUrl);
+  cameraTestUrl.searchParams.set("cameraTest", "1");
+  await page.goto(cameraTestUrl.toString(), { waitUntil: "domcontentloaded" });
+  await verifyCameraRegression();
   await page.getByText("Worker conectado · simulación ejecutándose").waitFor({ timeout: 10000 });
   await injectSnapshot();
   await page.getByRole("button", { name: "Cargar" }).click();

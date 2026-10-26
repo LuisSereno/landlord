@@ -1,8 +1,8 @@
 /* global setTimeout, window */
 /**
- * Smoke del Art Lab en navegador (WP4.15-H): comprueba las tres direcciones, la galería procedural,
- * la tarjeta de la ruta Blender y —a diferencia del smoke anterior— que el perfil denso es una escena
- * Phaser real con texturas registradas, incluidas las cuatro de Blender.
+ * Smoke del Art Lab / Asset QA (WP4.15-H.1): comprueba edificios, comparación procedural/Blender,
+ * personajes, QA técnico y archivo visual secundario. El perfil denso sigue siendo opt-in y usa una
+ * escena Phaser real con las cuatro texturas Blender registradas.
  */
 import { spawn } from "node:child_process";
 import { chromium } from "@playwright/test";
@@ -42,9 +42,19 @@ async function waitForServer() {
 
 try {
   await waitForServer();
-  await page.getByRole("heading", { name: "Art Lab" }).waitFor();
+  await page.getByRole("heading", { name: "Art Lab / Asset QA" }).waitFor();
+  await page.getByTestId("asset-qa").waitFor();
+  await page.getByTestId("procedural-blender-comparison").waitFor();
+  await page.getByTestId("character-qa").waitFor();
+  await page.getByTestId("technical-qa").waitFor();
+  const archive = page.getByTestId("visual-direction-archive");
+  await archive.waitFor();
+  if (await archive.evaluate((element) => element.hasAttribute("open"))) {
+    throw new Error("El archivo visual no debe dominar la pantalla por defecto");
+  }
+  await archive.locator("summary").click();
   const cards = page.locator("[data-direction]");
-  if ((await cards.count()) !== 3) throw new Error("El Art Lab no muestra las tres direcciones");
+  if ((await cards.count()) !== 3) throw new Error("El archivo no conserva las tres direcciones");
   const images = page.locator("[data-direction] img");
   for (let index = 0; index < 3; index += 1) {
     const image = images.nth(index);
@@ -57,7 +67,18 @@ try {
   if ((await buildings.count()) !== 5)
     throw new Error("La factoría no muestra los cinco edificios");
   const characters = page.locator("[data-character]");
-  if ((await characters.count()) !== 2) throw new Error("La factoría no muestra dos personajes");
+  if ((await characters.count()) !== 3)
+    throw new Error("Character QA no muestra dos personajes procedurales y el E2E Blender");
+  for (const card of await characters.all()) {
+    const directionFrames = card.locator("[data-walk-direction]");
+    const directionCount = Number(await card.getAttribute("data-character-directions"));
+    if ((await directionFrames.count()) !== directionCount || directionCount < 4) {
+      throw new Error("Character QA no muestra walk por dirección");
+    }
+    if (!(await card.innerText()).includes("idle") || !(await card.innerText()).includes("walk")) {
+      throw new Error("Character QA no identifica idle y walk");
+    }
+  }
   for (const card of await buildings.all()) {
     const stateImages = card.locator("img");
     if ((await stateImages.count()) !== 4) throw new Error("Faltan estados de edificio");
@@ -73,9 +94,7 @@ try {
   const blenderImages = blenderCard.locator("img");
   const blenderImageCount = await blenderImages.count();
   if (blenderImageCount !== 8)
-    throw new Error(
-      `La tarjeta Blender no muestra 4 estados y 4 direcciones (${blenderImageCount})`,
-    );
+    throw new Error(`La comparación no muestra 4 estados por fuente (${blenderImageCount})`);
   for (const image of await blenderImages.all()) {
     await image.waitFor({ state: "visible" });
     if ((await image.evaluate((element) => element.naturalWidth)) === 0) {

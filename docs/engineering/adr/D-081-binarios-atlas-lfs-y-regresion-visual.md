@@ -83,3 +83,5 @@ D-082 corrige únicamente esta parte de D-081:
   estabilidad cross-environment.
 
 Las decisiones de atlas, LFS, presupuesto de binarios y ruta Blender E2E de D-081 permanecen vigentes.
+
+La ubicación del manifest citada en la decisión 4 también es histórica y quedó **superada por D-082**: desde WP4.15-H.1 la metadata vive en `apps/web/src/generated/runtime-assets-blender.json`; `public/assets/runtime/blender/` conserva sólo los PNG servidos por URL. La demostración E2E y sus hashes no cambian.

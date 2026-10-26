@@ -12,12 +12,23 @@ spec de la factoría (scripts/generate-runtime-assets.mjs)
   → apps/web/src/generated/runtime-assets.json   (data URIs, sin binarios)
   → validación Zod + hashes + budget en CI        (apps/web/src/assets.test.ts)
   → texturas de Phaser + pivote + depth           (IsometricSpikeScene)
-  → galería y animación en /art-lab               (ArtLab)
+  → Asset QA y animación en /art-lab               (ArtLab)
   → captura visual y perfil denso                 (art:visual, art:profile)
 ```
 
-Para el arte final, el paso 1 se sustituye por renders Blender y el manifiesto declara
-`generator.method: "blender_render"`; el resto del contrato no cambia.
+La ruta Blender separa metadata importable y binarios HTTP:
+
+```text
+Blender
+  → PNG en apps/web/public/assets/runtime/blender/
+  → manifest en apps/web/src/generated/runtime-assets-blender.json
+  → import TypeScript estático
+  → Phaser / Art Lab
+```
+
+Los campos `src` del manifest siguen siendo URLs `/assets/runtime/blender/*.png`. El JSON no se
+sirve con `fetch()` ni se importa con `?url`: es metadata generada de build; sólo los PNG pertenecen
+a `public/`.
 
 ## Contrato (`@landlord/shared`, `assets.ts`)
 
@@ -46,12 +57,16 @@ pnpm art:generate        # regenera el manifiesto procedural
 pnpm art:assets:check    # falla si el manifiesto no coincide con la factoría
 pnpm art:blender         # renderiza la ruta Blender E2E (requiere Blender local)
 pnpm art:blender:check   # verifica hashes y medidas del bundle Blender sin Blender
-pnpm art:visual          # captura y compara contra el golden con pixel-diff tolerante
+pnpm art:visual          # QA local: captura y compara contra el golden con pixel-diff tolerante
 ART_VISUAL_UPDATE=1 pnpm art:visual   # regenera el golden tras un cambio aprobado
 pnpm art:profile         # 400 sprites en Phaser con cambio de frame y scroll, FPS real
 pnpm art:binaries:check  # presupuesto de binarios de D-081 (1 MB, allowlist del spike)
-pnpm smoke:art-lab       # galería completa + escena densa en Chromium
+pnpm smoke:art-lab       # Asset QA completa + escena densa opt-in en Chromium
 ```
+
+`art:visual` es una validación **local-only**. GitHub Actions no la ejecuta porque Phaser, SVG y DOM
+produjeron diferencias cross-environment del 17–22 % y demasiados falsos positivos. La guarda remota
+es `smoke:art-lab` + `art:blender:check` + `art:binaries:check` (D-082).
 
 ## Ruta Blender E2E (WP4.15-H)
 
@@ -59,11 +74,21 @@ pnpm smoke:art-lab       # galería completa + escena densa en Chromium
 (`courtyard_home`, cuatro estados) y una variante de personaje (`vecino_variante`, cuatro
 direcciones): render EEVEE ortográfico 45°/30° con fondo transparente, recorte al contenido opaco,
 reducción 2× por filtro de caja y metadata con tamaño, SHA-256 y pivote proyectado del origen 3D.
-`scripts/build-blender-assets.mjs` publica el bundle
-`apps/web/public/assets/runtime/blender/runtime-assets-blender.json`, que cumple el mismo contrato
-v1 y que Phaser consume en la escena densa. El resto de assets Alpha sigue siendo procedural: la ruta
-queda probada, no impuesta. Atlas y Git LFS están reclasificados como requisitos de Beta con
-criterio de reapertura medido (D-081).
+`scripts/build-blender-assets.mjs` publica los PNG en
+`apps/web/public/assets/runtime/blender/` y el bundle importable en
+`apps/web/src/generated/runtime-assets-blender.json`. Cumple el mismo contrato v1 y Phaser lo consume
+en la escena densa. El runtime principal sigue usando `runtime-assets.json`: la ruta Blender queda
+probada, no promovida. Atlas y Git LFS están reclasificados como requisitos de Beta con criterio de
+reapertura medido (D-081).
+
+## Función del Art Lab
+
+`/art-lab` es una herramienta interna de **Asset QA**, no un selector de dirección visual. Su zona
+principal revisa estados, tipo, huella, pivote, generator/provenance y personajes. `courtyard_home`
+compara procedural y Blender lado a lado antes de una futura promoción por asset. La escena densa
+sólo aparece con `?density=N`. Los tres renders de dirección permanecen como archivo secundario y
+colapsable: `graphic_civic` está `APPROVED / BASELINE`; las otras dos son
+`ARCHIVE / ALTERNATIVE`.
 
 ## Budgets de Alpha
 

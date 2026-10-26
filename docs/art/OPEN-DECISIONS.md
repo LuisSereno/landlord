@@ -22,7 +22,7 @@
 | Texture packing | TexturePacker o alternativa CI | **cerrada como diferida a Beta — D-081**, junto al atlas | mismo criterio de reapertura que el atlas |
 | Git LFS | binarios fuente grandes | **cerrada con política — D-081**: presupuesto de 1 MB con guarda en CI y allowlist; adopción y migración en Beta | gate de Beta |
 | Tipografías | familias abiertas/licenciadas | abierta | UI design + legal |
-| Golden scenes | Art Lab + Playwright | **cerrada — D-081**: regresión visual por pixel-diff tolerante en CI sobre `/art-lab?static=1` con golden versionado | `pnpm art:visual` |
+| Golden scenes | Art Lab + Playwright | **cerrada y revisada — D-081/D-082**: golden + pixel-diff local-only; CI usa smoke estructural por inestabilidad cross-environment | `pnpm art:visual` local; `pnpm smoke:art-lab` CI |
 | Repo de arte separado | no inicialmente | diferida | revisar al crecer binarios |
 | Building Factory | generación modular/procedural offline | **parcial — D-080/D-081**: factoría procedural para los 5 edificios + ruta Blender E2E demostrada para `courtyard_home` | línea por-asset completa en Beta |
 | Character Factory | base rig + variantes offline + batch directions | **parcial — D-080/D-081**: variantes procedurales 8/4 direcciones + E2E Blender para `vecino_variante` | rig y batch en Beta |

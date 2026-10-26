@@ -42,6 +42,20 @@ const STRUCTURE_TEXTURE_KEY = "benchmark-structure-marker";
 const AGENT_TEXTURE_KEY = "benchmark-agent-marker";
 const ASSETS = runtimeAssets as RuntimeAssetManifestV1;
 
+type CameraTestApi = {
+  configure(camera: { zoom: number; scrollX: number; scrollY: number }): void;
+  getCamera(): { zoom: number; scrollX: number; scrollY: number };
+  getCellScreenPoint(cell: GridCell): ScreenPoint;
+  getWorldPoint(point: ScreenPoint): ScreenPoint;
+  getSelectedCell(): GridCell | null;
+};
+
+declare global {
+  interface Window {
+    __landlordCameraTest?: CameraTestApi;
+  }
+}
+
 export type MapOverlay = "ownership" | "profitability" | "condition" | "zoning" | "risk";
 
 export class IsometricSpikeScene extends Phaser.Scene {
@@ -89,6 +103,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.drawOverlay();
     this.cameras.main.setZoom(1);
     this.cameras.main.setBounds(0, 0, 4096, 4096);
+    this.installCameraTestHook();
     this.cursors = this.input.keyboard?.createCursorKeys();
     this.input.on("pointerdown", this.handlePointerDown, this);
     this.input.on("pointermove", this.handlePointerMove, this);
@@ -460,10 +475,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
 
   private handlePointerMove(pointer: Phaser.Input.Pointer): void {
     if (!this.dragStart || !pointer.isDown) return;
-    this.cameras.main.setScroll(
-      this.dragStart.scrollX - (pointer.x - this.dragStart.x),
-      this.dragStart.scrollY - (pointer.y - this.dragStart.y),
-    );
+    const camera = this.cameras.main;
+    const dx = (pointer.x - this.dragStart.x) / camera.zoom;
+    const dy = (pointer.y - this.dragStart.y) / camera.zoom;
+    camera.setScroll(this.dragStart.scrollX - dx, this.dragStart.scrollY - dy);
   }
 
   private handlePointerUp(pointer: Phaser.Input.Pointer): void {
@@ -472,11 +487,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
       return;
     }
     const camera = this.cameras.main;
-    const nativePointer = pointer.event as PointerEvent;
+    const world = camera.getWorldPoint(pointer.x, pointer.y);
     const selected = pickGridCell(
       {
-        x: nativePointer.offsetX / camera.zoom + camera.scrollX,
-        y: nativePointer.offsetY / camera.zoom + camera.scrollY,
+        x: world.x,
+        y: world.y,
       },
       this.layout,
     );
@@ -491,16 +506,63 @@ export class IsometricSpikeScene extends Phaser.Scene {
   }
 
   private handleWheel(
-    _pointer: Phaser.Input.Pointer,
+    pointer: Phaser.Input.Pointer,
     _gameObjects: Phaser.GameObjects.GameObject[],
     deltaX: number,
     deltaY: number,
   ): void {
     void deltaX;
     void _gameObjects;
-    const nextZoom = Phaser.Math.Clamp(this.cameras.main.zoom - deltaY * 0.001, 0.5, 2.5);
-    this.cameras.main.setZoom(nextZoom);
+    const camera = this.cameras.main;
+    const nextZoom = Phaser.Math.Clamp(camera.zoom - deltaY * 0.001, 0.5, 2.5);
+    const before = camera.getWorldPoint(pointer.x, pointer.y);
+    camera.setZoom(nextZoom);
+    // `getWorldPoint` reads Phaser's camera matrix, which is refreshed during pre-render. Refresh it
+    // here as well so the second sample observes the new zoom within this wheel event.
+    camera.preRender();
+    const after = camera.getWorldPoint(pointer.x, pointer.y);
+    camera.scrollX += before.x - after.x;
+    camera.scrollY += before.y - after.y;
+    // Apply bounds now; the next render must not introduce a delayed clamp/jump.
+    camera.preRender();
     this.debugText?.setText(this.debugLabel());
+  }
+
+  /**
+   * Hook observacional para la regresión Playwright de cámara. Sólo existe con `?cameraTest=1` y no
+   * participa en input, reglas ni estado autoritativo: los eventos siguen atravesando Phaser.
+   */
+  private installCameraTestHook(): void {
+    if (new URLSearchParams(window.location.search).get("cameraTest") !== "1") return;
+    const camera = this.cameras.main;
+    const api: CameraTestApi = {
+      configure: (next) => {
+        camera.setZoom(next.zoom);
+        camera.setScroll(next.scrollX, next.scrollY);
+        camera.preRender();
+      },
+      getCamera: () => ({
+        zoom: camera.zoom,
+        scrollX: camera.scrollX,
+        scrollY: camera.scrollY,
+      }),
+      getCellScreenPoint: (cell) => {
+        camera.preRender();
+        const world = gridToScreen(cell, this.layout);
+        const screen = camera.matrixCombined.transformPoint(world.x, world.y);
+        return { x: screen.x, y: screen.y };
+      },
+      getWorldPoint: (point) => {
+        camera.preRender();
+        const world = camera.getWorldPoint(point.x, point.y);
+        return { x: world.x, y: world.y };
+      },
+      getSelectedCell: () => (this.selectedCell ? { ...this.selectedCell } : null),
+    };
+    window.__landlordCameraTest = api;
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      if (window.__landlordCameraTest === api) delete window.__landlordCameraTest;
+    });
   }
 }
 

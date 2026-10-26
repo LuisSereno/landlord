@@ -47,8 +47,10 @@
     "eslint-plugin-react-hooks": "7.1.1",
     "fake-indexeddb": "6.2.6",
     "prettier": "3.9.6",
+    "tar": "^7.5.22",
     "typescript": "6.0.3",
     "typescript-eslint": "8.66.0",
+    "unzipper": "^0.12.5",
     "vitest": "4.1.10"
   }
 }

@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "palette": "graphic_civic",
+  "description": "Style layer configuration for WP4.15-V visual slice. Maps CC0 geometry and Poly Haven PBR materials to the approved graphic_civic aesthetic.",
+  "materialRecipes": {
+    "road_asphalt": {
+      "source": "PolyHaven/asphalt_07",
+      "baseColorTint": [0.15, 0.15, 0.16],
+      "roughnessRange": [0.85, 0.95],
+      "normalStrength": 0.6,
+      "textureScaleMeters": 2.0,
+      "description": "Road surface with slight color grading toward cool gray"
+    },
+    "residential_brick": {
+      "source": "PolyHaven/red_brick_03",
+      "tint": [0.52, 0.28, 0.26],
+      "saturation": 0.85,
+      "roughness": 0.78,
+      "description": "Warm brick for residential building facades"
+    },
+    "industrial_metal": {
+      "source": "PolyHaven/rusty_metal_02",
+      "rustAmount": 0.45,
+      "metallic": 0.35,
+      "roughness": 0.68,
+      "description": "Weathered metal for industrial structures"
+    },
+    "concrete": {
+      "source": "PolyHaven/concrete_wall_003",
+      "tint": [0.62, 0.61, 0.58],
+      "roughness": 0.82,
+      "description": "Concrete for sidewalks and building bases"
+    },
+    "wood": {
+      "source": "PolyHaven/wood_planks_grey",
+      "tint": [0.45, 0.42, 0.38],
+      "roughness": 0.75,
+      "description": "Weathered wood for doors, frames, and props"
+    }
+  },
+  "paletteOverrides": {
+    "window": {
+      "baseColor": [0.98, 0.75, 0.25],
+      "emission": [0.98, 0.75, 0.25],
+      "emissionStrength": 2.6,
+      "roughness": 0.15,
+      "description": "Warm lit windows (graphic_civic signature)"
+    },
+    "green": {
+      "baseColor": [0.22, 0.36, 0.28],
+      "roughness": 0.8,
+      "description": "Vegetation (trees, plants)"
+    },
+    "plaster": {
+      "baseColor": [0.68, 0.67, 0.54],
+      "roughness": 0.62,
+      "description": "Light plaster for building accents"
+    }
+  },
+  "proportions": {
+    "characterHeight": 1.8,
+    "buildingFloorHeight": 3.0,
+    "doorHeight": 2.1,
+    "cellSizeMeters": 4.0,
+    "note": "cellSizeMeters is visual convention for WP4.15-V, not yet a simulation contract"
+  },
+  "lighting": {
+    "keyEnergy": 900,
+    "keyColor": [0.72, 0.82, 0.89],
+    "keyDirection": [0.3, 0.8, 0.5],
+    "fillEnergy": 380,
+    "fillColor": [0.21, 0.34, 0.44],
+    "fillDirection": [-0.5, 0.3, -0.2],
+    "description": "Cool key light with warm fill (graphic_civic signature)"
+  },
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 45,
+    "elevationDegrees": 30,
+    "rollDegrees": 0,
+    "description": "Isometric camera matching approved direction"
+  },
+  "rendering": {
+    "renderer": "EEVEE",
+    "filmTransparent": true,
+    "colorDepth": "RGBA_8BIT",
+    "postProcessing": "AgX - Medium High Contrast",
+    "description": "Render settings for runtime asset pipeline"
+  },
+  "styleLayerRule": "Quaternius/Kenney → geometry; Poly Haven → material base/PBR; Graphic Civic Style Layer → color grading + roughness + scale + lighting"
+}

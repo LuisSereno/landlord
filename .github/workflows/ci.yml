@@ -57,6 +57,9 @@ jobs:
       # Visual regression runs locally only (pnpm art:visual) — Phaser/SVG canvas rendering
       # differs across environments, making cross-environment pixel comparison non-viable.
 
+      - name: Asset jobs manifest (WP4.15-V.a)
+        run: pnpm art:jobs:validate
+
       - name: Blender bundle integrity
         run: pnpm art:blender:check
 

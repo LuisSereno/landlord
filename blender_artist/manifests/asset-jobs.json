@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Lista de trabajos del pipeline de render (WP4.15-V.a 〔R4〕). Data-driven: build-blender-assets.mjs itera esto en vez de bucles hardcodeados. Validado por scripts/validate-asset-jobs.mjs (pnpm art:jobs:validate).",
+  "conventions": {
+    "target": "bundle = se ensambla en runtime-assets-blender.json; evidence = se renderiza a blender_artist/generated/runtime-evidence/ para validar ingesta sin publicar. Un job evidence usa sólo la primera pasada de su matriz (una dirección, una animación, un frame, un estado): valida la fuente, no el catálogo.",
+    "render": "render.width/height es el tamaño PUBLICADO. runtime_asset.py renderiza al doble y recorta con filtro de caja, así que el manifiesto no repite el supersampling.",
+    "procedural": "Los jobs legacy no declaran camera ni render: sus parámetros están congelados en runtime_asset.py y cambiarlos rompería la regresión byte-idéntica.",
+    "unitScale": "Por defecto se hereda de staging-sources.json vía sourceId. Un job sólo lo sobrescribe con unitScaleOverride + unitScaleReason documentados."
+  },
+  "defaults": {
+    "render": { "width": 256, "height": 256 }
+  },
+  "jobs": [
+    {
+      "id": "bld_courtyard_home",
+      "kind": "building",
+      "assetId": "courtyard_home",
+      "target": "bundle",
+      "source": { "kind": "procedural" },
+      "states": ["complete", "construction", "damaged", "burning"]
+    },
+    {
+      "id": "chr_vecino_variante",
+      "kind": "character",
+      "assetId": "vecino_variante",
+      "target": "bundle",
+      "source": { "kind": "procedural" },
+      "directions": 4,
+      "animations": ["idle", "walk"],
+      "frameIndices": [0, 1],
+      "frameDurationMs": { "idle": 400, "walk": 180 }
+    },
+    {
+      "id": "chr_worker",
+      "kind": "character",
+      "assetId": "chr_worker",
+      "target": "evidence",
+      "reason": "La rama externa aún no rota la cámara por dirección ni reproduce clips de animación: publicar 16 frames idénticos etiquetados idle/walk sería metadata falsa. Se renderiza como evidencia de que el FBX con armadura importa normalizado; la animación llega con la Fase 5 de azure-dale-dory.md.",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_05/Export/Male_Adult_05.fbx"
+      },
+      "directions": 4,
+      "animations": ["idle", "walk"],
+      "frameIndices": [0, 1],
+      "frameDurationMs": { "idle": 400, "walk": 180 },
+      "camera": { "orthoScale": 1.7, "targetZ": 0.9 },
+      "render": { "width": 256, "height": 256 }
+    },
+    {
+      "id": "bld_shopfront_kenney",
+      "kind": "building",
+      "assetId": "bld_shopfront",
+      "target": "evidence",
+      "reason": "runtimeAssetManifestV1 exige los cuatro estados y Kenney no tiene variantes de daño hasta Fase 2; se renderiza como evidencia de ingesta GLB.",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-a.glb"
+      },
+      "states": ["complete"],
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 8.5, "targetZ": 2.6 },
+      "render": { "width": 256, "height": 256 }
+    },
+    {
+      "id": "bld_downtown_quaternius",
+      "kind": "building",
+      "assetId": "bld_downtown",
+      "target": "evidence",
+      "reason": "Mismo caso que Kenney; además valida el remapeo de rutas de texturas de un FBX de Quaternius.",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_quaternius_downtown_city_megakit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/FBX (Unity)/Building_Medium_2_001.fbx"
+      },
+      "states": ["complete"],
+      "footprint": { "width": 4, "height": 4 },
+      "camera": { "orthoScale": 40.0, "targetZ": 12.5 },
+      "render": { "width": 256, "height": 256 }
+    },
+    {
+      "id": "ter_road_straight",
+      "kind": "terrain",
+      "assetId": "ter_road_straight",
+      "target": "evidence",
+      "reason": "El contrato runtime aún no tiene categoría terrain; se ensambla en Fase 4. Aquí valida el kind y la ingesta de una losa.",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_roads",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/road-straight.glb"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 6.0, "targetZ": 0.05 },
+      "render": { "width": 256, "height": 256 }
+    }
+  ]
+}

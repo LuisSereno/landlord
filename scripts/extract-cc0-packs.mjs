@@ -63,7 +63,7 @@ async function verifyZip(source) {
 
 async function extractZip(source) {
   const fullPath = join(ROOT, source.path);
-  const packDir = getPackDirectory(source.id);
+  const packDir = getPackDirectory(source);
   const targetDir = join(EXTRACTED, packDir);
 
   if (!existsSync(targetDir)) {
@@ -81,28 +81,14 @@ async function extractZip(source) {
   return targetDir;
 }
 
-function getPackDirectory(sourceId) {
-  // Map source IDs to directory structure
-  const mappings = {
-    src_quaternius_downtown_city_megakit: "quaternius/downtown-city-megakit",
-    src_quaternius_base_characters: "quaternius/base-characters",
-    src_quaternius_animation_library: "quaternius/animation-library",
-    src_quaternius_animation_library_2: "quaternius/animation-library-2",
-    src_kenney_city_commercial: "kenney/city-kit-commercial",
-    src_kenney_city_industrial: "kenney/city-kit-industrial",
-    src_kenney_city_roads: "kenney/city-kit-roads",
-    src_kenney_city_suburban: "kenney/city-kit-suburban",
-    src_kenney_car_kit: "kenney/car-kit",
-    src_kenney_nature_kit: "kenney/nature-kit",
-    src_kaykit_city_builder_bits: "kaykit/city-builder-bits",
-    src_polyhaven_asphalt_07: "polyhaven/asphalt_07",
-    src_polyhaven_concrete_wall_003: "polyhaven/concrete_wall_003",
-    src_polyhaven_red_brick_03: "polyhaven/red_brick_03",
-    src_polyhaven_red_bricks_02: "polyhaven/red_bricks_02",
-    src_polyhaven_rusty_metal_02: "polyhaven/rusty_metal_02",
-    src_polyhaven_wood_planks_grey: "polyhaven/wood_planks_grey",
-  };
-  return mappings[sourceId] || sourceId.replace(/^src_/, "").replace(/_/g, "-");
+function getPackDirectory(source) {
+  // El directorio de extracción es dato del registro, no una tabla en este script:
+  // `validate-asset-jobs.mjs` confina las rutas de los jobs contra ese mismo valor, y dos
+  // copias del mapeo acabarían divergiendo.
+  if (!source.extractDir) {
+    throw new Error(`${source.id}: falta extractDir en staging-sources.json`);
+  }
+  return source.extractDir;
 }
 
 function scanDirectory(dir, relativeTo) {
@@ -195,7 +181,7 @@ async function main() {
   };
 
   for (const source of archiveSources) {
-    const packDir = getPackDirectory(source.id);
+    const packDir = getPackDirectory(source);
     const fullPackDir = join(EXTRACTED, packDir);
     const files = scanDirectory(fullPackDir, EXTRACTED);
 

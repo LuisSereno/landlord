@@ -9,7 +9,7 @@
   "provenance": {
     "license": "original",
     "author": "Landlord project",
-    "notes": "E2E de la ruta Blender para un edificio y una variante de personaje; el resto de assets Alpha sigue siendo procedural."
+    "notes": "Resumen del bundle: la procedencia real es por asset (D-083). Los renders son obra del proyecto; la geometría de cada asset declara su fuente y su licencia."
   },
   "buildings": {
     "courtyard_home": {

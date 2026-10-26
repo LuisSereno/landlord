@@ -10,6 +10,7 @@
   },
   "scripts": {
     "art:staging:validate": "node scripts/validate-art-staging.mjs",
+    "art:jobs:validate": "node scripts/validate-asset-jobs.mjs",
     "art:spike:validate": "node scripts/validate-visual-direction-spike.mjs",
     "art:generate": "node scripts/generate-runtime-assets.mjs",
     "art:assets:check": "node scripts/generate-runtime-assets.mjs --check",

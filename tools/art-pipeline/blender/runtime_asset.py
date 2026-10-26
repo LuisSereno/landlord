@@ -15,6 +15,17 @@ Personajes:
   blender --background --python tools/art-pipeline/blender/runtime_asset.py -- \
     --asset vecino_variante --direction 2 --animation walk --frame 1 \
     --output salida.png --metadata salida.json
+
+Assets de terceros (WP4.15-V.a, ruta CC0/MIT):
+  blender --background --python tools/art-pipeline/blender/runtime_asset.py -- \
+    --asset bld_commercial --source glb:blender_artist/staging/third_party/cc0/extracted/kenney/... \\
+    --unit-scale 4 --ortho-scale 1.6 --target-z 0.65 \
+    --render-width 256 --render-height 256 --source-id src_kenney_city_commercial \\
+    --output salida.png --metadata salida.json
+
+Sin `--source` se ejecuta la ruta procedural legacy, que queda congelada: sus parámetros de
+cámara y resolución viven en los dicts BUILDINGS/CHARACTERS y su salida debe seguir siendo
+byte-idéntica (〔R2〕 y requisito de regresión del plan).
 """
 
 import argparse
@@ -29,6 +40,19 @@ import bpy
 import numpy as np
 from bpy_extras.object_utils import world_to_camera_view
 from mathutils import Vector
+
+HERE = Path(__file__).resolve().parent
+REPO_ROOT = HERE.parents[2]
+sys.path.insert(0, str(HERE))
+
+from source_import import (  # noqa: E402
+    SourceImportError,
+    assert_textures_resolved,
+    fix_texture_paths,
+    import_source,
+    normalize_import_root,
+    world_bounds,
+)
 
 BUILDINGS = {
     "courtyard_home": {
@@ -55,6 +79,10 @@ CHARACTERS = {
 BUILDING_STATES = ("complete", "construction", "damaged", "burning")
 ANIMATIONS = ("idle", "walk")
 
+STYLE_LAYER_PATH = HERE / "style_layer_graphic_civic.json"
+CAMERA_AZIMUTH_DEGREES = 45
+CAMERA_ELEVATION_DEGREES = 30
+
 # Paleta graphic civic, la baseline aprobada en el Visual Direction Spike (D-054).
 PALETTE = {
     "brick": (0.48, 0.25, 0.24, 1),
@@ -70,11 +98,28 @@ PALETTE = {
 
 ALPHA_THRESHOLD = 0.02
 CAMERA_DISTANCE = 18.0
+# El recorte final reduce 2× por filtro de caja (ver `trim_and_scale`), así que se renderiza al
+# doble y se baja: `render.width/height` de un job es el tamaño PUBLICADO, no el de render.
+SUPERSAMPLE = 2
 
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--asset", required=True, choices=sorted(BUILDINGS) + sorted(CHARACTERS))
+    parser.add_argument("--asset", required=True)
+    parser.add_argument(
+        "--kind",
+        choices=("building", "character", "terrain", "prop", "vehicle"),
+        default="building",
+        help="categoría del job; la ruta legacy la deduce de sus dicts",
+    )
+    parser.add_argument("--source", help="glb:|gltf:|fbx:<ruta> para geometría de terceros")
+    parser.add_argument("--source-id", help="id lógico en staging-sources.json")
+    parser.add_argument("--license", dest="license", help="licencia SPDX declarada por la fuente")
+    parser.add_argument("--unit-scale", type=float, help="〔R7〕 escala física de la fuente")
+    parser.add_argument("--ortho-scale", type=float)
+    parser.add_argument("--target-z", type=float)
+    parser.add_argument("--render-width", type=int)
+    parser.add_argument("--render-height", type=int)
     parser.add_argument("--state", choices=BUILDING_STATES, default="complete")
     parser.add_argument("--direction", type=int, default=0)
     parser.add_argument("--animation", choices=ANIMATIONS, default="idle")
@@ -83,6 +128,17 @@ def parse_args():
     parser.add_argument("--metadata", required=True)
     values, _ = parser.parse_known_args(sys.argv[sys.argv.index("--") + 1 :])
     return values
+
+
+def parse_source(value):
+    """`glb:ruta/relativa.glb` -> Path. Sin `--source` la ruta es la procedural legacy."""
+    if not value:
+        return None
+    kind, _, raw = value.partition(":")
+    if kind not in ("glb", "gltf", "fbx") or not raw:
+        raise SystemExit(f"--source debe ser glb:|gltf:|fbx:<ruta>, recibido '{value}'")
+    path = Path(raw)
+    return path if path.is_absolute() else REPO_ROOT / path
 
 
 def material(name, color, metallic=0.0, roughness=0.62, emission=None):
@@ -201,6 +257,33 @@ def build_character(spec, direction, animation, frame, mats):
         obj.parent = root
 
 
+def place_camera(target_z, ortho_scale, name="CAM_ASSET"):
+    """Cámara ortográfica isométrica fija (45° azimut, 30° elevación).
+
+    Compartida entre la ruta legacy y la de terceros: los mismos números, el mismo orden de
+    creación. El test de regresión byte-idéntica es lo que demuestra que extraerla no cambió
+    el render procedural.
+    """
+    azimuth = math.radians(CAMERA_AZIMUTH_DEGREES)
+    elevation = math.radians(CAMERA_ELEVATION_DEGREES)
+    direction_vector = Vector(
+        (
+            math.cos(elevation) * math.cos(azimuth),
+            -math.cos(elevation) * math.sin(azimuth),
+            math.sin(elevation),
+        )
+    )
+    target = Vector((0.0, 0.0, target_z))
+    bpy.ops.object.camera_add(location=tuple(target + direction_vector * CAMERA_DISTANCE))
+    camera = bpy.context.object
+    camera.name = name
+    camera.data.type = "ORTHO"
+    camera.data.ortho_scale = ortho_scale
+    camera.rotation_euler = (target - camera.location).to_track_quat("-Z", "Y").to_euler()
+    bpy.context.scene.camera = camera
+    return camera, target
+
+
 def create_scene(args):
     mats = {key: material(f"mat_{key}", value, metallic=0.2 if key == "metal" else 0.0)
             for key, value in PALETTE.items() if key not in ("lighting", "fill")}
@@ -216,23 +299,7 @@ def create_scene(args):
     else:
         build_character(CHARACTERS[args.asset], args.direction, args.animation, args.frame, mats)
 
-    azimuth = math.radians(45)
-    elevation = math.radians(30)
-    direction_vector = Vector(
-        (
-            math.cos(elevation) * math.cos(azimuth),
-            -math.cos(elevation) * math.sin(azimuth),
-            math.sin(elevation),
-        )
-    )
-    target = Vector((0.0, 0.0, spec["targetZ"]))
-    bpy.ops.object.camera_add(location=tuple(target + direction_vector * CAMERA_DISTANCE))
-    camera = bpy.context.object
-    camera.name = "CAM_ASSET"
-    camera.data.type = "ORTHO"
-    camera.data.ortho_scale = spec["orthoScale"]
-    camera.rotation_euler = (target - camera.location).to_track_quat("-Z", "Y").to_euler()
-    bpy.context.scene.camera = camera
+    camera, target = place_camera(spec["targetZ"], spec["orthoScale"])
 
     bpy.ops.object.light_add(type="AREA", location=(-4.0, -5.0, 9.0))
     key = bpy.context.object
@@ -261,6 +328,72 @@ def create_scene(args):
     scene.render.film_transparent = True
     scene.view_settings.look = "AgX - Medium High Contrast"
     return scene, camera, spec
+
+
+def apply_style_layer_lighting(scene, style_layer):
+    """Rig SUN del style layer, igual al que validó el spike de compatibilidad.
+
+    La ruta legacy usa dos AREA con energías congeladas; un asset con texturas PBR propias se
+    quemaba con ellas, así que la rama externa ilumina con lo que declara el JSON de estilo.
+    """
+    lighting = style_layer["lighting"]
+    world = scene.world or bpy.data.worlds.new("World")
+    scene.world = world
+    world.use_nodes = True
+    background = world.node_tree.nodes.get("Background")
+    if background:
+        background.inputs["Color"].default_value = (*lighting["worldColor"], 1.0)
+        background.inputs["Strength"].default_value = lighting["worldStrength"]
+    rig = (
+        ("LIGHT_KEY", (8.0, -8.0, 12.0), "keyEnergy", "keyColor"),
+        ("LIGHT_FILL", (-6.0, 4.0, 6.0), "fillEnergy", "fillColor"),
+        ("LIGHT_RIM", (0.0, 8.0, 5.0), "rimEnergy", "rimColor"),
+    )
+    for name, location, energy_key, color_key in rig:
+        bpy.ops.object.light_add(type="SUN", location=location)
+        light = bpy.context.object
+        light.name = name
+        light.data.energy = lighting[energy_key]
+        light.data.color = tuple(lighting[color_key])
+    return world
+
+
+def create_external_scene(args, source_path, style_layer):
+    """Rama CC0/MIT: importa geometría externa y la normaliza sin tocar su jerarquía interna."""
+    objects = import_source(source_path)
+    if source_path.suffix.lower() == ".fbx":
+        fix_texture_paths(source_path)
+    # El magenta no es un aviso: una textura sin resolver aborta el render.
+    assert_textures_resolved(objects, source_path)
+
+    normalization = normalize_import_root(objects, unit_scale=args.unit_scale)
+    meshes = [obj for obj in objects if obj.type == "MESH"]
+    body = max(meshes, key=lambda obj: len(obj.data.vertices))
+
+    camera, _ = place_camera(args.target_z, args.ortho_scale)
+    apply_style_layer_lighting(bpy.context.scene, style_layer)
+
+    scene = bpy.context.scene
+    scene.render.engine = "BLENDER_EEVEE"
+    scene.render.resolution_x = args.render_width * SUPERSAMPLE
+    scene.render.resolution_y = args.render_height * SUPERSAMPLE
+    scene.render.resolution_percentage = 100
+    scene.render.image_settings.file_format = "PNG"
+    scene.render.image_settings.color_mode = "RGBA"
+    scene.render.image_settings.color_depth = "8"
+    scene.render.image_settings.compression = 15
+    scene.render.film_transparent = True
+    post = style_layer["rendering"]["postProcessing"]
+    scene.view_settings.view_transform = post.split(" - ")[0]
+    scene.view_settings.look = post
+
+    mins, maxs = world_bounds(objects)
+    normalization["worldSizeMeters"] = {
+        "x": round(maxs[0] - mins[0], 4),
+        "y": round(maxs[1] - mins[1], 4),
+        "z": round(maxs[2] - mins[2], 4),
+    }
+    return scene, camera, body, normalization
 
 
 def trim_and_scale(render_path, output_path, alpha_threshold=ALPHA_THRESHOLD):
@@ -331,7 +464,37 @@ def main():
     for obj in list(bpy.data.objects):
         bpy.data.objects.remove(obj, do_unlink=True)
 
-    scene, camera, spec = create_scene(args)
+    source_path = parse_source(args.source)
+    normalization = None
+    if source_path is None:
+        if args.asset not in BUILDINGS and args.asset not in CHARACTERS:
+            raise SystemExit(
+                f"--asset '{args.asset}' no es un asset procedural y no se pasó --source"
+            )
+        scene, camera, spec = create_scene(args)
+        kind = "building" if args.asset in BUILDINGS else "character"
+        label = spec["label"]
+        footprint = spec.get("footprint")
+    else:
+        required = (
+            ("--unit-scale", args.unit_scale),
+            ("--ortho-scale", args.ortho_scale),
+            ("--target-z", args.target_z),
+            ("--render-width", args.render_width),
+            ("--render-height", args.render_height),
+        )
+        missing = [flag for flag, value in required if value is None]
+        if missing:
+            raise SystemExit("los jobs de terceros requieren " + ", ".join(missing))
+        style_layer = json.loads(STYLE_LAYER_PATH.read_text(encoding="utf-8"))
+        scene, camera, _body, normalization = create_external_scene(
+            args, source_path, style_layer
+        )
+        kind = args.kind
+        label = args.asset
+        # La huella la conoce el manifiesto de jobs; el render sólo publica geometría.
+        footprint = None
+
     render_path = output.with_suffix(".render.png")
     scene.render.filepath = str(render_path)
     bpy.ops.render.render(write_still=True)
@@ -342,17 +505,17 @@ def main():
     digest = hashlib.sha256(output.read_bytes()).hexdigest()
     elapsed_ms = round((time.perf_counter() - started) * 1000, 2)
 
-    is_building = args.asset in BUILDINGS
+    is_building = kind == "building"
     metadata = {
         "schemaVersion": 1,
         "assetId": args.asset,
-        "kind": "building" if is_building else "character",
-        "label": spec["label"],
+        "kind": kind,
+        "label": label,
         "state": args.state if is_building else None,
         "direction": None if is_building else args.direction,
         "animation": None if is_building else args.animation,
         "frame": None if is_building else args.frame,
-        "footprint": spec.get("footprint"),
+        "footprint": footprint,
         "pivot": pivot,
         "image": {
             "path": str(output),
@@ -371,8 +534,8 @@ def main():
         },
         "camera": {
             "projection": "ORTHO",
-            "azimuthDegrees": 45,
-            "elevationDegrees": 30,
+            "azimuthDegrees": CAMERA_AZIMUTH_DEGREES,
+            "elevationDegrees": CAMERA_ELEVATION_DEGREES,
             "orthoScale": camera.data.ortho_scale,
         },
         "palette": "graphic_civic",
@@ -388,6 +551,17 @@ def main():
             "argv": sys.argv[sys.argv.index("--") + 1 :],
         },
     }
+    if source_path is not None:
+        # La rama legacy conserva su bloque `original` intacto; esto sólo existe en terceros.
+        metadata["origin"] = "licensed"
+        metadata["license"] = args.license
+        metadata["author"] = f"{args.source_id} via {source_path.name}"
+        metadata["source"] = {
+            "id": args.source_id,
+            "path": str(source_path.relative_to(REPO_ROOT)),
+            "kind": source_path.suffix.lstrip(".").lower(),
+            **normalization,
+        }
     metadata_path.write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
     print(
         json.dumps(

@@ -10,7 +10,8 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://quaternius.itch.io/downtown-city-megakit",
-      "unitScale": 1.0
+      "unitScale": 1.0,
+      "extractDir": "quaternius/downtown-city-megakit"
     },
     {
       "id": "src_quaternius_base_characters",
@@ -20,7 +21,8 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://quaternius.itch.io/universal-base-characters",
-      "unitScale": 1.0
+      "unitScale": 1.0,
+      "extractDir": "quaternius/base-characters"
     },
     {
       "id": "src_quaternius_animation_library",
@@ -29,7 +31,8 @@
       "origin": "licensed",
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://quaternius.itch.io/universal-animation-library"
+      "sourceUrl": "https://quaternius.itch.io/universal-animation-library",
+      "extractDir": "quaternius/animation-library"
     },
     {
       "id": "src_quaternius_animation_library_2",
@@ -38,7 +41,8 @@
       "origin": "licensed",
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://quaternius.itch.io/universal-animation-library-2"
+      "sourceUrl": "https://quaternius.itch.io/universal-animation-library-2",
+      "extractDir": "quaternius/animation-library-2"
     },
     {
       "id": "src_kenney_city_commercial",
@@ -48,7 +52,8 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/city-kit-commercial",
-      "unitScale": 4.0
+      "unitScale": 4.0,
+      "extractDir": "kenney/city-kit-commercial"
     },
     {
       "id": "src_kenney_city_industrial",
@@ -58,7 +63,8 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/city-kit-industrial",
-      "unitScale": 4.0
+      "unitScale": 4.0,
+      "extractDir": "kenney/city-kit-industrial"
     },
     {
       "id": "src_kenney_city_roads",
@@ -68,7 +74,8 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/city-kit-roads",
-      "unitScale": 4.0
+      "unitScale": 4.0,
+      "extractDir": "kenney/city-kit-roads"
     },
     {
       "id": "src_kenney_city_suburban",
@@ -78,7 +85,8 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/city-kit-suburban",
-      "unitScale": 4.0
+      "unitScale": 4.0,
+      "extractDir": "kenney/city-kit-suburban"
     },
     {
       "id": "src_kenney_car_kit",
@@ -88,7 +96,8 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/car-kit",
-      "unitScale": 1.3
+      "unitScale": 1.3,
+      "extractDir": "kenney/car-kit"
     },
     {
       "id": "src_kenney_nature_kit",
@@ -98,7 +107,8 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/nature-kit",
-      "unitScale": 4.0
+      "unitScale": 4.0,
+      "extractDir": "kenney/nature-kit"
     },
     {
       "id": "src_kaykit_city_builder_bits",
@@ -108,7 +118,8 @@
       "license": "CC0-1.0",
       "verification": "CC0 asserted by the author at the sourceUrl and shipped inside the archive as Assets/LICENSE.txt",
       "sourceUrl": "https://kaylousberg.itch.io/city-builder-bits",
-      "unitScale": 4.0
+      "unitScale": 4.0,
+      "extractDir": "kaykit/city-builder-bits"
     },
     {
       "id": "src_polyhaven_asphalt_07",
@@ -117,7 +128,8 @@
       "origin": "public_domain",
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://polyhaven.com/a/asphalt_07"
+      "sourceUrl": "https://polyhaven.com/a/asphalt_07",
+      "extractDir": "polyhaven/asphalt_07"
     },
     {
       "id": "src_polyhaven_concrete_wall_003",
@@ -126,7 +138,8 @@
       "origin": "public_domain",
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://polyhaven.com/a/concrete_wall_003"
+      "sourceUrl": "https://polyhaven.com/a/concrete_wall_003",
+      "extractDir": "polyhaven/concrete_wall_003"
     },
     {
       "id": "src_polyhaven_red_brick_03",
@@ -135,7 +148,8 @@
       "origin": "public_domain",
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://polyhaven.com/a/red_brick_03"
+      "sourceUrl": "https://polyhaven.com/a/red_brick_03",
+      "extractDir": "polyhaven/red_brick_03"
     },
     {
       "id": "src_polyhaven_red_bricks_02",
@@ -144,7 +158,8 @@
       "origin": "public_domain",
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://polyhaven.com/a/red_bricks_02"
+      "sourceUrl": "https://polyhaven.com/a/red_bricks_02",
+      "extractDir": "polyhaven/red_bricks_02"
     },
     {
       "id": "src_polyhaven_rusty_metal_02",
@@ -153,7 +168,8 @@
       "origin": "public_domain",
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://polyhaven.com/a/rusty_metal_02"
+      "sourceUrl": "https://polyhaven.com/a/rusty_metal_02",
+      "extractDir": "polyhaven/rusty_metal_02"
     },
     {
       "id": "src_polyhaven_wood_planks_grey",
@@ -162,7 +178,8 @@
       "origin": "public_domain",
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://polyhaven.com/a/wood_planks_grey"
+      "sourceUrl": "https://polyhaven.com/a/wood_planks_grey",
+      "extractDir": "polyhaven/wood_planks_grey"
     },
     {
       "id": "src_microsoft_rocketbox",
@@ -172,6 +189,12 @@
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
       "unitScale": 1,
+      "author": "Microsoft",
+      "attribution": {
+        "licenseUrl": "https://opensource.org/licenses/MIT",
+        "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+        "verifiedAt": "2026-10-26"
+      },
       "integrity": {
         "type": "git-commit",
         "commit": "0943055db6ec570bcef9f2c8b41c9e5467c808f9",

@@ -87,6 +87,9 @@ Cada incorporación debe dejar la evidencia registrada:
   correspondiente del manifiesto runtime; `pnpm art:licenses:check` falla si falta o si la
   licencia declarada no coincide con la de la fuente registrada;
 - la nota en `docs/art/BOOTSTRAP-ASSET-LIBRARY.md`.
+- el trabajo de render en `blender_artist/manifests/asset-jobs.json`, apuntando a la fuente por su
+  `sourceId` (el job no redeclara licencia). Mientras el asset no cubra el contrato del `kind` se
+  declara `target: "evidence"`, así se valida la ingesta sin publicar un asset incompleto.
 
 No subir automáticamente archivos descargados sólo porque sean gratuitos.
 

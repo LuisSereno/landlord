@@ -153,6 +153,75 @@ def world_bounds(objects):
     return mins, maxs
 
 
+def hierarchy_signature(objects):
+    """Huella de la jerarquía interna de la fuente, para demostrar 〔R2〕.
+
+    `IMPORT_ROOT` se omite a propósito: es el único contenedor que la normalización SÍ mueve.
+    Padres, matrices locales, huesos y vértices deben quedar idénticos: una normalización que
+    reescala vértices en vez de contenedor rompería skinning y root motion sin dejar rastro.
+    """
+    # `matrix_local` se recalcula perezosamente: sin actualizar la depsgraph la huella sería stale.
+    bpy.context.view_layer.update()
+    signature = []
+    for obj in sorted(objects, key=lambda item: item.name):
+        parent = obj.parent
+        if parent is not None and parent.name == "IMPORT_ROOT":
+            parent = None
+        vertices = (
+            round(sum(v.co.x + v.co.y + v.co.z for v in obj.data.vertices), 4)
+            if obj.type == "MESH"
+            else 0.0
+        )
+        bones = (
+            round(sum(b.head.x + b.head.y + b.head.z for b in obj.data.bones), 4)
+            if obj.type == "ARMATURE"
+            else 0
+        )
+        signature.append(
+            (
+                obj.name,
+                obj.type,
+                parent.name if parent is not None else None,
+                tuple(round(value, 6) for row in obj.matrix_local for value in row),
+                len(obj.data.vertices) if obj.type == "MESH" else 0,
+                vertices,
+                len(obj.data.bones) if obj.type == "ARMATURE" else 0,
+                bones,
+            )
+        )
+    return signature
+
+
+def armature_report(objects):
+    """Lo que una normalización sobre los vértices habría roto: huesos y meshes skinneados."""
+    return {
+        "armatures": [
+            {"name": obj.name, "bones": len(obj.data.bones)}
+            for obj in objects
+            if obj.type == "ARMATURE"
+        ],
+        "skinnedMeshes": sum(
+            1
+            for obj in objects
+            if obj.type == "MESH"
+            and any(mod.type == "ARMATURE" and mod.object for mod in obj.modifiers)
+        ),
+    }
+
+
+def assert_hierarchy_preserved(objects, before):
+    after = hierarchy_signature(objects)
+    if len(after) != len(before):
+        raise SourceImportError(
+            f"la normalización cambió el número de objetos: {len(before)} -> {len(after)}"
+        )
+    changed = [a[0] for a, b in zip(after, before) if a != b]
+    if changed:
+        raise SourceImportError(
+            "la normalización tocó la jerarquía importada (〔R2〕): " + ", ".join(changed[:5])
+        )
+
+
 def normalize_import_root(objects, unit_scale=1.0):
     """Escala y asienta la jerarquía importada sin tocar sus objetos.
 
@@ -167,6 +236,7 @@ def normalize_import_root(objects, unit_scale=1.0):
     if unit_scale <= 0:
         raise SourceImportError(f"unitScale debe ser > 0, recibido {unit_scale}")
 
+    before = hierarchy_signature(objects)
     roots = [obj for obj in objects if obj.parent is None]
     import_root = bpy.data.objects.new("IMPORT_ROOT", None)
     bpy.context.collection.objects.link(import_root)
@@ -195,10 +265,12 @@ def normalize_import_root(objects, unit_scale=1.0):
     bpy.context.view_layer.update()
 
     mins, maxs = world_bounds(objects)
+    assert_hierarchy_preserved(objects, before)
     return {
         "sourceBounds": source_bounds,
         "importScale": unit_scale,
         "importOffset": [round(v, 4) for v in import_root.location],
+        "hierarchy": armature_report(objects),
         "normalizedSize": {
             "width": round(maxs.x - mins.x, 4),
             "depth": round(maxs.y - mins.y, 4),

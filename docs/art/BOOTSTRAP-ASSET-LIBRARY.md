@@ -334,6 +334,12 @@ Por eso `unitScale` es un **dato declarado por fuente** en
 coche grande y un edificio pequeño confundirían cualquier inferencia. Un job puede
 sobrescribirlo sólo como excepción documentada.
 
+Desde WP4.15-V.a la normalización lo aplica y lo registra en cada render (`sourceBounds`,
+`importScale`, `importOffset`, `worldSizeMeters`). Medido sobre los cuatro fixtures reales:
+Kenney `building-a` 1.29 → **5.17 m** con `unitScale` 4; Quaternius `Building_Medium_2` 25.01 →
+**25.01 m** con 1; Rocketbox `Male_Adult_05` 1.8124 → **1.812 m** con 1, conservando su armadura
+`Bip01` de 80 huesos; Kenney `road-straight` 0.02 → **0.08 m** de firme sobre loseta de 4 m.
+
 Comprobación que debe pasar (ASSET SCALE GATE del STOP V1): personaje coherente con la puerta
 (1.8 m contra 2.1 m), coche cabiendo en el carril, árbol coherente con el edificio y edificio
 coherente con su footprint.

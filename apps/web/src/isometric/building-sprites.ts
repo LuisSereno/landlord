@@ -112,3 +112,19 @@ export function directionIndexFor(dx: number, dy: number, directions: 4 | 8): nu
   const step = 360 / directions;
   return Math.round(normalized / step) % directions;
 }
+
+/**
+ * Selecciona la textura Blender si está disponible; si no, usa la procedural.
+ * Implementa la degradación por asset (caso C): un Blender corrupto no bloquea el fallback.
+ *
+ * @param proceduralKey Clave del sprite procedural (`building-{type}-{state}`).
+ * @param blenderAvailable Set de claves Blender disponibles (`blender-building-{type}-{state}`).
+ * @returns La clave a usar.
+ */
+export function selectBuildingTextureKey(
+  proceduralKey: string,
+  blenderAvailable: Set<string>,
+): string {
+  const blenderKey = `blender-${proceduralKey}`;
+  return blenderAvailable.has(blenderKey) ? blenderKey : proceduralKey;
+}

@@ -129,7 +129,7 @@ export const assetImageSchema = z.object({
 export const buildingAssetStateSchema = z.enum(["complete", "construction", "damaged", "burning"]);
 
 export const buildingAssetSchema = z.object({
-  type: z.enum(["courtyard_home", "workshop", "cement_plant", "brickworks", "steelworks"]),
+  type: z.enum(["courtyard_home", "workshop", "cement_plant", "brickworks", "steelworks", "bld_shopfront"]),
   name: z.string().min(1),
   footprint: z.object({
     width: z.number().positive().max(8),

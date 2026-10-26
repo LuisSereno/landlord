@@ -52,14 +52,14 @@
       "id": "bld_shopfront_kenney",
       "kind": "building",
       "assetId": "bld_shopfront",
-      "target": "evidence",
-      "reason": "runtimeAssetManifestV1 exige los cuatro estados y Kenney no tiene variantes de daño hasta Fase 2; se renderiza como evidencia de ingesta GLB.",
+      "target": "bundle",
+      "reason": "Primer edificio Kenney promocionado al runtime (V.a3). Los estados construction/damaged/burning reutilizan complete hasta Fase 2.",
       "source": {
         "kind": "glb",
         "sourceId": "src_kenney_city_commercial",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-a.glb"
       },
-      "states": ["complete"],
+      "states": ["complete", "construction", "damaged", "burning"],
       "footprint": { "width": 1, "height": 1 },
       "camera": { "orthoScale": 8.5, "targetZ": 2.6 },
       "render": { "width": 256, "height": 256 }

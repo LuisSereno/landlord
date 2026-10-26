@@ -49,6 +49,49 @@
           "sha256": "d1dcc062a89c09880612b0e053510aee14eef4eec1445322013fb17919bddc54"
         }
       }
+    },
+    "bld_shopfront": {
+      "type": "bld_shopfront",
+      "name": "bld_shopfront",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5142,
+        "y": 0.8137
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender/bld_shopfront-complete.png",
+          "width": 141,
+          "height": 205,
+          "sha256": "69ce729c5c9f82e41ff4c3ddbbedde2c3d9398054eff11ebd52d344f8d619746"
+        },
+        "construction": {
+          "src": "/assets/runtime/blender/bld_shopfront-construction.png",
+          "width": 141,
+          "height": 205,
+          "sha256": "69ce729c5c9f82e41ff4c3ddbbedde2c3d9398054eff11ebd52d344f8d619746"
+        },
+        "damaged": {
+          "src": "/assets/runtime/blender/bld_shopfront-damaged.png",
+          "width": 141,
+          "height": 205,
+          "sha256": "69ce729c5c9f82e41ff4c3ddbbedde2c3d9398054eff11ebd52d344f8d619746"
+        },
+        "burning": {
+          "src": "/assets/runtime/blender/bld_shopfront-burning.png",
+          "width": 141,
+          "height": 205,
+          "sha256": "69ce729c5c9f82e41ff4c3ddbbedde2c3d9398054eff11ebd52d344f8d619746"
+        }
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_commercial",
+        "sourceId": "src_kenney_city_commercial"
+      }
     }
   },
   "characters": {

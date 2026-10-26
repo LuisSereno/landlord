@@ -7,12 +7,14 @@ import type {
   ViewProjectionV1,
 } from "@landlord/shared";
 import runtimeAssets from "../generated/runtime-assets.json";
+import runtimeAssetsBlender from "../generated/runtime-assets-blender.json";
 import {
   assetFor,
   buildingAssetStateFor,
   depthForAsset,
   footprintCenter,
   originFromPivot,
+  selectBuildingTextureKey,
   spriteKeyFor,
 } from "./building-sprites";
 import {
@@ -41,6 +43,7 @@ const COLORS = {
 const STRUCTURE_TEXTURE_KEY = "benchmark-structure-marker";
 const AGENT_TEXTURE_KEY = "benchmark-agent-marker";
 const ASSETS = runtimeAssets as RuntimeAssetManifestV1;
+const ASSETS_BLENDER = runtimeAssetsBlender as RuntimeAssetManifestV1;
 
 type CameraTestApi = {
   configure(camera: { zoom: number; scrollX: number; scrollY: number }): void;
@@ -299,27 +302,35 @@ export class IsometricSpikeScene extends Phaser.Scene {
    * respaldo en vez de romper la escena.
    */
   private async registerBuildingTextures(): Promise<void> {
-    for (const [type, asset] of Object.entries(ASSETS.buildings)) {
+    await this.registerTexturesFromBundle(ASSETS, "");
+    await this.registerTexturesFromBundle(ASSETS_BLENDER, "blender-");
+    this.assetsReady = true;
+    this.syncBuildingSprites();
+    this.drawOverlay();
+  }
+
+  private async registerTexturesFromBundle(
+    manifest: RuntimeAssetManifestV1,
+    keyPrefix: string,
+  ): Promise<void> {
+    for (const [type, asset] of Object.entries(manifest.buildings)) {
       for (const [state, image] of Object.entries(asset.states)) {
-        const key = spriteKeyFor(type as BuildingType, state as BuildingAssetState);
+        const key = `${keyPrefix}${spriteKeyFor(type as BuildingType, state as BuildingAssetState)}`;
         if (this.textures.exists(key)) continue;
         const element = new Image();
         element.src = image.src;
         try {
           await element.decode();
         } catch {
-          return;
+          continue;
         }
-        if (!element.complete || element.naturalWidth === 0) return;
+        if (!element.complete || element.naturalWidth === 0) continue;
         const texture = this.textures.createCanvas(key, image.width, image.height);
-        if (!texture) return;
+        if (!texture) continue;
         texture.context.drawImage(element, 0, 0, image.width, image.height);
         texture.refresh();
       }
     }
-    this.assetsReady = true;
-    this.syncBuildingSprites();
-    this.drawOverlay();
   }
 
   /** Mantiene un sprite por edificio y sitio de obra, con pivote y depth derivados del manifiesto. */
@@ -328,14 +339,19 @@ export class IsometricSpikeScene extends Phaser.Scene {
     const economy = this.projection.economy;
     const view = this.cameras.main.worldView;
     const seen = new Set<string>();
+    const blenderKeys = new Set<string>();
+    for (const key of this.textures.getTextureKeys()) {
+      if (key.startsWith("blender-building-")) blenderKeys.add(key);
+    }
     for (const building of economy.buildings) {
       const parcel = economy.parcels.find((entry) => entry.buildingId === building.id);
       const asset = assetFor(ASSETS, building.type);
       if (!parcel || !asset) continue;
-      const key = spriteKeyFor(
+      const proceduralKey = spriteKeyFor(
         building.type,
         buildingAssetStateFor(building.state, building.condition),
       );
+      const key = selectBuildingTextureKey(proceduralKey, blenderKeys);
       if (!this.textures.exists(key)) continue;
       const id = `building:${building.id}`;
       const center = gridToScreen(footprintCenter(parcel.cell, asset.footprint), this.layout);
@@ -350,7 +366,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
       const parcel = economy.parcels.find((entry) => entry.id === site.parcelId);
       const asset = assetFor(ASSETS, site.buildingType);
       if (!parcel || !asset) continue;
-      const key = spriteKeyFor(site.buildingType, "construction");
+      const proceduralKey = spriteKeyFor(site.buildingType, "construction");
+      const key = selectBuildingTextureKey(proceduralKey, blenderKeys);
       if (!this.textures.exists(key)) continue;
       const id = `site:${site.id}`;
       const center = gridToScreen(footprintCenter(parcel.cell, asset.footprint), this.layout);

@@ -92,6 +92,221 @@
         "author": "src_kenney_city_commercial",
         "sourceId": "src_kenney_city_commercial"
       }
+    },
+    "bld_commercial_b": {
+      "type": "bld_commercial_b",
+      "name": "bld_commercial_b",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5199,
+        "y": 0.803
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender/bld_commercial_b-complete.png",
+          "width": 151,
+          "height": 204,
+          "sha256": "cedbe7c3dca86a722b19df11b59856eeaa8eeb53d00ae23e144350f4017491c8"
+        },
+        "construction": {
+          "src": "/assets/runtime/blender/bld_commercial_b-construction.png",
+          "width": 151,
+          "height": 204,
+          "sha256": "cedbe7c3dca86a722b19df11b59856eeaa8eeb53d00ae23e144350f4017491c8"
+        },
+        "damaged": {
+          "src": "/assets/runtime/blender/bld_commercial_b-damaged.png",
+          "width": 151,
+          "height": 204,
+          "sha256": "cedbe7c3dca86a722b19df11b59856eeaa8eeb53d00ae23e144350f4017491c8"
+        },
+        "burning": {
+          "src": "/assets/runtime/blender/bld_commercial_b-burning.png",
+          "width": 151,
+          "height": 204,
+          "sha256": "cedbe7c3dca86a722b19df11b59856eeaa8eeb53d00ae23e144350f4017491c8"
+        }
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_commercial",
+        "sourceId": "src_kenney_city_commercial"
+      }
+    },
+    "bld_residential_a": {
+      "type": "bld_residential_a",
+      "name": "bld_residential_a",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5105,
+        "y": 0.6748
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender/bld_residential_a-complete.png",
+          "width": 190,
+          "height": 142,
+          "sha256": "e44464c95d70fe99eed9bb42de249e9d0dcf339daa989e57b0a62a8c710efcc1"
+        },
+        "construction": {
+          "src": "/assets/runtime/blender/bld_residential_a-construction.png",
+          "width": 190,
+          "height": 142,
+          "sha256": "e44464c95d70fe99eed9bb42de249e9d0dcf339daa989e57b0a62a8c710efcc1"
+        },
+        "damaged": {
+          "src": "/assets/runtime/blender/bld_residential_a-damaged.png",
+          "width": 190,
+          "height": 142,
+          "sha256": "e44464c95d70fe99eed9bb42de249e9d0dcf339daa989e57b0a62a8c710efcc1"
+        },
+        "burning": {
+          "src": "/assets/runtime/blender/bld_residential_a-burning.png",
+          "width": 190,
+          "height": 142,
+          "sha256": "e44464c95d70fe99eed9bb42de249e9d0dcf339daa989e57b0a62a8c710efcc1"
+        }
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_suburban",
+        "sourceId": "src_kenney_city_suburban"
+      }
+    },
+    "bld_commercial_c": {
+      "type": "bld_commercial_c",
+      "name": "bld_commercial_c",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5197,
+        "y": 0.7443
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender/bld_commercial_c-complete.png",
+          "width": 152,
+          "height": 163,
+          "sha256": "f09c3cccea36669320718d9f62c321ad0cadcfae53085e8e2e20efe2fa5de685"
+        },
+        "construction": {
+          "src": "/assets/runtime/blender/bld_commercial_c-construction.png",
+          "width": 152,
+          "height": 163,
+          "sha256": "f09c3cccea36669320718d9f62c321ad0cadcfae53085e8e2e20efe2fa5de685"
+        },
+        "damaged": {
+          "src": "/assets/runtime/blender/bld_commercial_c-damaged.png",
+          "width": 152,
+          "height": 163,
+          "sha256": "f09c3cccea36669320718d9f62c321ad0cadcfae53085e8e2e20efe2fa5de685"
+        },
+        "burning": {
+          "src": "/assets/runtime/blender/bld_commercial_c-burning.png",
+          "width": 152,
+          "height": 163,
+          "sha256": "f09c3cccea36669320718d9f62c321ad0cadcfae53085e8e2e20efe2fa5de685"
+        }
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_commercial",
+        "sourceId": "src_kenney_city_commercial"
+      }
+    },
+    "bld_residential_b": {
+      "type": "bld_residential_b",
+      "name": "bld_residential_b",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.4783,
+        "y": 0.6857
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender/bld_residential_b-complete.png",
+          "width": 230,
+          "height": 174,
+          "sha256": "d14a742cb52683dda9bb1044c6cd6c4df4a4e671b0ff9b275336f12e770ee0fa"
+        },
+        "construction": {
+          "src": "/assets/runtime/blender/bld_residential_b-construction.png",
+          "width": 230,
+          "height": 174,
+          "sha256": "d14a742cb52683dda9bb1044c6cd6c4df4a4e671b0ff9b275336f12e770ee0fa"
+        },
+        "damaged": {
+          "src": "/assets/runtime/blender/bld_residential_b-damaged.png",
+          "width": 230,
+          "height": 174,
+          "sha256": "d14a742cb52683dda9bb1044c6cd6c4df4a4e671b0ff9b275336f12e770ee0fa"
+        },
+        "burning": {
+          "src": "/assets/runtime/blender/bld_residential_b-burning.png",
+          "width": 230,
+          "height": 174,
+          "sha256": "d14a742cb52683dda9bb1044c6cd6c4df4a4e671b0ff9b275336f12e770ee0fa"
+        }
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_suburban",
+        "sourceId": "src_kenney_city_suburban"
+      }
+    },
+    "bld_residential_c": {
+      "type": "bld_residential_c",
+      "name": "bld_residential_c",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5027,
+        "y": 0.7167
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender/bld_residential_c-complete.png",
+          "width": 187,
+          "height": 163,
+          "sha256": "79c773d6fc1e9c5c8496c806c848727dfd5270551d75e027565c1904f161b98d"
+        },
+        "construction": {
+          "src": "/assets/runtime/blender/bld_residential_c-construction.png",
+          "width": 187,
+          "height": 163,
+          "sha256": "79c773d6fc1e9c5c8496c806c848727dfd5270551d75e027565c1904f161b98d"
+        },
+        "damaged": {
+          "src": "/assets/runtime/blender/bld_residential_c-damaged.png",
+          "width": 187,
+          "height": 163,
+          "sha256": "79c773d6fc1e9c5c8496c806c848727dfd5270551d75e027565c1904f161b98d"
+        },
+        "burning": {
+          "src": "/assets/runtime/blender/bld_residential_c-burning.png",
+          "width": 187,
+          "height": 163,
+          "sha256": "79c773d6fc1e9c5c8496c806c848727dfd5270551d75e027565c1904f161b98d"
+        }
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_suburban",
+        "sourceId": "src_kenney_city_suburban"
+      }
     }
   },
   "characters": {

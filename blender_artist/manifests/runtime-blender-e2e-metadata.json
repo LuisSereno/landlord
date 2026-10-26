@@ -17,7 +17,7 @@
       "y": 0.7941
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/courtyard_home-complete.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-complete.png",
       "width": 72,
       "height": 73,
       "sha256": "b197476f2efd46b78289d51c20c08f2d177494757527d3805e72d298809269b8"
@@ -57,8 +57,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2743.96,
-      "totalMs": 2776.03
+      "renderMs": 2792.53,
+      "totalMs": 2852.23
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -68,9 +68,9 @@
         "--state",
         "complete",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/courtyard_home-complete.png",
+        "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-complete.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/courtyard_home-complete.json"
+        "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-complete.json"
       ]
     }
   },
@@ -92,7 +92,7 @@
       "y": 0.6962
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/courtyard_home-construction.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-construction.png",
       "width": 74,
       "height": 61,
       "sha256": "e322fcfb17660885fb2761afb9cb894bbafd7aeace888661200fc1fe445b70a7"
@@ -132,8 +132,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2573.44,
-      "totalMs": 2607.83
+      "renderMs": 2950.29,
+      "totalMs": 2992.03
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -143,9 +143,9 @@
         "--state",
         "construction",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/courtyard_home-construction.png",
+        "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-construction.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/courtyard_home-construction.json"
+        "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-construction.json"
       ]
     }
   },
@@ -167,7 +167,7 @@
       "y": 0.7941
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/courtyard_home-damaged.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-damaged.png",
       "width": 72,
       "height": 73,
       "sha256": "6e8739ee65491c30ad59a3b534ea1b9eb32e2744d49d7be02a167a82f946ea60"
@@ -207,8 +207,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2149.39,
-      "totalMs": 2177.83
+      "renderMs": 2835.78,
+      "totalMs": 2884.2
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -218,9 +218,9 @@
         "--state",
         "damaged",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/courtyard_home-damaged.png",
+        "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-damaged.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/courtyard_home-damaged.json"
+        "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-damaged.json"
       ]
     }
   },
@@ -242,7 +242,7 @@
       "y": 0.7941
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/courtyard_home-burning.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-burning.png",
       "width": 72,
       "height": 73,
       "sha256": "d1dcc062a89c09880612b0e053510aee14eef4eec1445322013fb17919bddc54"
@@ -282,8 +282,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2168.66,
-      "totalMs": 2199.4
+      "renderMs": 3629.03,
+      "totalMs": 3680.69
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -293,9 +293,9 @@
         "--state",
         "burning",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/courtyard_home-burning.png",
+        "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-burning.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/courtyard_home-burning.json"
+        "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-burning.json"
       ]
     }
   },
@@ -314,7 +314,7 @@
       "y": 0.9376
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d0-idle-0.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-idle-0.png",
       "width": 15,
       "height": 38,
       "sha256": "d1902e1f4c8037dfd5d78b43a566cacaacc5cc79465cd3704c0f05931718958c"
@@ -354,8 +354,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1718.18,
-      "totalMs": 1727.83
+      "renderMs": 2438.97,
+      "totalMs": 2448.31
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -369,9 +369,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d0-idle-0.png",
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-idle-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d0-idle-0.json"
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-idle-0.json"
       ]
     }
   },
@@ -390,7 +390,7 @@
       "y": 0.9507
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d0-idle-1.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-idle-1.png",
       "width": 15,
       "height": 38,
       "sha256": "eaee230950c335a0ea9ecf4b834c70d300c9727f317919b8510d7075ec6a1441"
@@ -430,8 +430,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2303.45,
-      "totalMs": 2316.66
+      "renderMs": 2490.81,
+      "totalMs": 2502.31
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -445,9 +445,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d0-idle-1.png",
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-idle-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d0-idle-1.json"
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-idle-1.json"
       ]
     }
   },
@@ -466,7 +466,7 @@
       "y": 0.9157
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d0-walk-0.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-walk-0.png",
       "width": 15,
       "height": 40,
       "sha256": "15240a0beec2be29165966bd02f5cdeffb1e9df215d39fba9113b4d23fe238c2"
@@ -506,8 +506,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2136.24,
-      "totalMs": 2148.74
+      "renderMs": 2377.87,
+      "totalMs": 2386.38
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -521,9 +521,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d0-walk-0.png",
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-walk-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d0-walk-0.json"
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-walk-0.json"
       ]
     }
   },
@@ -542,7 +542,7 @@
       "y": 0.9507
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d0-walk-1.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-walk-1.png",
       "width": 16,
       "height": 38,
       "sha256": "cf9dbc3cdbfa56d7cc9a1023f100c91b827e40e15a5a5a4b96100b216395f844"
@@ -582,8 +582,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2112.47,
-      "totalMs": 2120.98
+      "renderMs": 2598.2,
+      "totalMs": 2606.14
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -597,9 +597,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d0-walk-1.png",
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-walk-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d0-walk-1.json"
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-walk-1.json"
       ]
     }
   },
@@ -618,7 +618,7 @@
       "y": 0.9376
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d1-idle-0.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-idle-0.png",
       "width": 15,
       "height": 38,
       "sha256": "bd5fd3023cc4948c0c6a3d6dfa51e45e58a2a0087d70795b04a622bd8b673d22"
@@ -658,8 +658,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1775.39,
-      "totalMs": 1782.27
+      "renderMs": 2811.05,
+      "totalMs": 2822.32
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -673,9 +673,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d1-idle-0.png",
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-idle-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d1-idle-0.json"
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-idle-0.json"
       ]
     }
   },
@@ -694,7 +694,7 @@
       "y": 0.9507
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d1-idle-1.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-idle-1.png",
       "width": 15,
       "height": 38,
       "sha256": "6e7377e8da25e3d933df4bb2ee32204cb3ac8ce9cc43fabbd6784c0c97e1f2f1"
@@ -734,8 +734,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1739.93,
-      "totalMs": 1749.99
+      "renderMs": 2744.02,
+      "totalMs": 2754.04
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -749,9 +749,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d1-idle-1.png",
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-idle-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d1-idle-1.json"
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-idle-1.json"
       ]
     }
   },
@@ -770,7 +770,7 @@
       "y": 0.9639
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d1-walk-0.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-walk-0.png",
       "width": 16,
       "height": 38,
       "sha256": "6719351fae65a4ebc723b7b60a14a7e16db59f3902389169767b292e183fd468"
@@ -810,8 +810,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1770.06,
-      "totalMs": 1780.33
+      "renderMs": 2393.84,
+      "totalMs": 2406.04
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -825,9 +825,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d1-walk-0.png",
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-walk-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d1-walk-0.json"
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-walk-0.json"
       ]
     }
   },
@@ -846,7 +846,7 @@
       "y": 0.9032
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d1-walk-1.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-walk-1.png",
       "width": 15,
       "height": 40,
       "sha256": "372d14cb4dda71e4c3a223358b081bdac8777dc55059d6ab1cf949ab02ff9dc2"
@@ -886,8 +886,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1781.77,
-      "totalMs": 1791.11
+      "renderMs": 2497.73,
+      "totalMs": 2508.34
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -901,9 +901,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d1-walk-1.png",
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-walk-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d1-walk-1.json"
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-walk-1.json"
       ]
     }
   },
@@ -922,7 +922,7 @@
       "y": 0.9392
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d2-idle-0.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-idle-0.png",
       "width": 15,
       "height": 39,
       "sha256": "2f5fa0f3020897b0e793cd89d9c2eb739d29948cbc928b2af94a5e0f870e009d"
@@ -962,8 +962,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2371.05,
-      "totalMs": 2383.36
+      "renderMs": 2529.29,
+      "totalMs": 2541.15
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -977,9 +977,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d2-idle-0.png",
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-idle-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d2-idle-0.json"
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-idle-0.json"
       ]
     }
   },
@@ -998,7 +998,7 @@
       "y": 0.952
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d2-idle-1.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-idle-1.png",
       "width": 15,
       "height": 39,
       "sha256": "6390c29203ad28d02fd624c6911211b67b1c5773dbc3a0d0b22acb130940dacf"
@@ -1038,8 +1038,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2519.07,
-      "totalMs": 2528.21
+      "renderMs": 2630.92,
+      "totalMs": 2642.34
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1053,9 +1053,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d2-idle-1.png",
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-idle-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d2-idle-1.json"
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-idle-1.json"
       ]
     }
   },
@@ -1074,7 +1074,7 @@
       "y": 0.9157
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d2-walk-0.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-walk-0.png",
       "width": 15,
       "height": 40,
       "sha256": "97e68c0a6d20d7db58f1eb993d31f744c102615433e9a5e282f6488686c0343c"
@@ -1114,8 +1114,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 3058.45,
-      "totalMs": 3071.64
+      "renderMs": 2869.52,
+      "totalMs": 2880.51
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1129,9 +1129,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d2-walk-0.png",
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-walk-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d2-walk-0.json"
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-walk-0.json"
       ]
     }
   },
@@ -1150,7 +1150,7 @@
       "y": 0.9507
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d2-walk-1.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-walk-1.png",
       "width": 16,
       "height": 38,
       "sha256": "c3c75045b0f64aec057dbf356342c0957ceb778db09b2b22d230f1dc3456a965"
@@ -1190,8 +1190,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2899.2,
-      "totalMs": 2912.47
+      "renderMs": 2393.7,
+      "totalMs": 2404.22
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1205,9 +1205,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d2-walk-1.png",
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-walk-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d2-walk-1.json"
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-walk-1.json"
       ]
     }
   },
@@ -1226,7 +1226,7 @@
       "y": 0.9392
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d3-idle-0.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-idle-0.png",
       "width": 15,
       "height": 39,
       "sha256": "ea5d617fa76b65050574f9d59e5471760ad0d1e177e92c55f0cf3fe8752ff826"
@@ -1266,8 +1266,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 3132.64,
-      "totalMs": 3144.08
+      "renderMs": 2467.47,
+      "totalMs": 2478.74
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1281,9 +1281,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d3-idle-0.png",
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-idle-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d3-idle-0.json"
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-idle-0.json"
       ]
     }
   },
@@ -1302,7 +1302,7 @@
       "y": 0.952
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d3-idle-1.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-idle-1.png",
       "width": 15,
       "height": 39,
       "sha256": "4a2696ac5a5116d3c4b86abc1e123038f5b10b75ed489fe18c984ec77aedb5a4"
@@ -1342,8 +1342,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2766.52,
-      "totalMs": 2779.8
+      "renderMs": 2862.44,
+      "totalMs": 2875.48
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1357,9 +1357,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d3-idle-1.png",
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-idle-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d3-idle-1.json"
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-idle-1.json"
       ]
     }
   },
@@ -1378,7 +1378,7 @@
       "y": 0.9639
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d3-walk-0.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-walk-0.png",
       "width": 16,
       "height": 38,
       "sha256": "637f1445dccc1f39f4ed83a483614c3020b211c3185887ed2c3e5c185e4a1318"
@@ -1418,8 +1418,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2869.81,
-      "totalMs": 2882.26
+      "renderMs": 2432.22,
+      "totalMs": 2444.71
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1433,9 +1433,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d3-walk-0.png",
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-walk-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d3-walk-0.json"
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-walk-0.json"
       ]
     }
   },
@@ -1454,7 +1454,7 @@
       "y": 0.9032
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d3-walk-1.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-walk-1.png",
       "width": 15,
       "height": 40,
       "sha256": "3153803800490225e20fd646548f97e4e2b755ca731abcb56098958665777370"
@@ -1494,8 +1494,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2840.1,
-      "totalMs": 2853.91
+      "renderMs": 2410.87,
+      "totalMs": 2420.86
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1509,9 +1509,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d3-walk-1.png",
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-walk-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/vecino_variante-d3-walk-1.json"
+        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-walk-1.json"
       ]
     }
   },
@@ -1530,7 +1530,7 @@
       "y": 0.8137
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/bld_shopfront-complete.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-complete.png",
       "width": 141,
       "height": 205,
       "sha256": "69ce729c5c9f82e41ff4c3ddbbedde2c3d9398054eff11ebd52d344f8d619746"
@@ -1570,8 +1570,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 5408.66,
-      "totalMs": 5597.24
+      "renderMs": 4717.31,
+      "totalMs": 4911.78
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1599,9 +1599,9 @@
         "--state",
         "complete",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/bld_shopfront-complete.png",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-complete.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/bld_shopfront-complete.json"
+        "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-complete.json"
       ]
     },
     "source": {
@@ -1651,7 +1651,7 @@
       "y": 0.8137
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/bld_shopfront-construction.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-construction.png",
       "width": 141,
       "height": 205,
       "sha256": "69ce729c5c9f82e41ff4c3ddbbedde2c3d9398054eff11ebd52d344f8d619746"
@@ -1691,8 +1691,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 6085.85,
-      "totalMs": 6290.63
+      "renderMs": 5599.79,
+      "totalMs": 5827.73
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1720,9 +1720,9 @@
         "--state",
         "construction",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/bld_shopfront-construction.png",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-construction.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/bld_shopfront-construction.json"
+        "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-construction.json"
       ]
     },
     "source": {
@@ -1772,7 +1772,7 @@
       "y": 0.8137
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/bld_shopfront-damaged.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-damaged.png",
       "width": 141,
       "height": 205,
       "sha256": "69ce729c5c9f82e41ff4c3ddbbedde2c3d9398054eff11ebd52d344f8d619746"
@@ -1812,8 +1812,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 5246.22,
-      "totalMs": 5436.07
+      "renderMs": 5444.41,
+      "totalMs": 5629.72
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1841,9 +1841,9 @@
         "--state",
         "damaged",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/bld_shopfront-damaged.png",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-damaged.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/bld_shopfront-damaged.json"
+        "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-damaged.json"
       ]
     },
     "source": {
@@ -1893,7 +1893,7 @@
       "y": 0.8137
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-WUl0pk/bld_shopfront-burning.png",
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-burning.png",
       "width": 141,
       "height": 205,
       "sha256": "69ce729c5c9f82e41ff4c3ddbbedde2c3d9398054eff11ebd52d344f8d619746"
@@ -1933,8 +1933,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 6061.82,
-      "totalMs": 6343.62
+      "renderMs": 5295.23,
+      "totalMs": 5506.58
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1962,9 +1962,9 @@
         "--state",
         "burning",
         "--output",
-        "/tmp/landlord-blender-assets-WUl0pk/bld_shopfront-burning.png",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-burning.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-WUl0pk/bld_shopfront-burning.json"
+        "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-burning.json"
       ]
     },
     "source": {
@@ -1996,6 +1996,2426 @@
         "x": 3.5344,
         "y": 3.76,
         "z": 5.172
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_commercial_b",
+    "kind": "building",
+    "label": "bld_commercial_b",
+    "state": "complete",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5199,
+      "y": 0.803
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-complete.png",
+      "width": 151,
+      "height": 204,
+      "sha256": "cedbe7c3dca86a722b19df11b59856eeaa8eeb53d00ae23e144350f4017491c8"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 302,
+        "height": 408,
+        "offsetX": 99,
+        "offsetY": 64
+      },
+      "final": {
+        "width": 151,
+        "height": 204
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_commercial via building-b.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 5542.44,
+      "totalMs": 5776.91
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_commercial_b",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-b.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_commercial",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "complete",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-complete.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-complete.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_commercial",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-b.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 0.97,
+        "depth": 0.94,
+        "height": 1.293,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 3.88,
+        "depth": 3.76,
+        "height": 5.172
+      },
+      "worldSizeMeters": {
+        "x": 3.88,
+        "y": 3.76,
+        "z": 5.172
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_commercial_b",
+    "kind": "building",
+    "label": "bld_commercial_b",
+    "state": "construction",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5199,
+      "y": 0.803
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-construction.png",
+      "width": 151,
+      "height": 204,
+      "sha256": "cedbe7c3dca86a722b19df11b59856eeaa8eeb53d00ae23e144350f4017491c8"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 302,
+        "height": 408,
+        "offsetX": 99,
+        "offsetY": 64
+      },
+      "final": {
+        "width": 151,
+        "height": 204
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_commercial via building-b.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 5177.66,
+      "totalMs": 5358.29
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_commercial_b",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-b.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_commercial",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "construction",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-construction.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-construction.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_commercial",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-b.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 0.97,
+        "depth": 0.94,
+        "height": 1.293,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 3.88,
+        "depth": 3.76,
+        "height": 5.172
+      },
+      "worldSizeMeters": {
+        "x": 3.88,
+        "y": 3.76,
+        "z": 5.172
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_commercial_b",
+    "kind": "building",
+    "label": "bld_commercial_b",
+    "state": "damaged",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5199,
+      "y": 0.803
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-damaged.png",
+      "width": 151,
+      "height": 204,
+      "sha256": "cedbe7c3dca86a722b19df11b59856eeaa8eeb53d00ae23e144350f4017491c8"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 302,
+        "height": 408,
+        "offsetX": 99,
+        "offsetY": 64
+      },
+      "final": {
+        "width": 151,
+        "height": 204
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_commercial via building-b.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 5183.75,
+      "totalMs": 5422.22
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_commercial_b",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-b.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_commercial",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "damaged",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-damaged.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-damaged.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_commercial",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-b.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 0.97,
+        "depth": 0.94,
+        "height": 1.293,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 3.88,
+        "depth": 3.76,
+        "height": 5.172
+      },
+      "worldSizeMeters": {
+        "x": 3.88,
+        "y": 3.76,
+        "z": 5.172
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_commercial_b",
+    "kind": "building",
+    "label": "bld_commercial_b",
+    "state": "burning",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5199,
+      "y": 0.803
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-burning.png",
+      "width": 151,
+      "height": 204,
+      "sha256": "cedbe7c3dca86a722b19df11b59856eeaa8eeb53d00ae23e144350f4017491c8"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 302,
+        "height": 408,
+        "offsetX": 99,
+        "offsetY": 64
+      },
+      "final": {
+        "width": 151,
+        "height": 204
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_commercial via building-b.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 5704.64,
+      "totalMs": 5899.52
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_commercial_b",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-b.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_commercial",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "burning",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-burning.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-burning.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_commercial",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-b.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 0.97,
+        "depth": 0.94,
+        "height": 1.293,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 3.88,
+        "depth": 3.76,
+        "height": 5.172
+      },
+      "worldSizeMeters": {
+        "x": 3.88,
+        "y": 3.76,
+        "z": 5.172
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_residential_a",
+    "kind": "building",
+    "label": "bld_residential_a",
+    "state": "complete",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5105,
+      "y": 0.6748
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-complete.png",
+      "width": 190,
+      "height": 142,
+      "sha256": "e44464c95d70fe99eed9bb42de249e9d0dcf339daa989e57b0a62a8c710efcc1"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 380,
+        "height": 284,
+        "offsetX": 62,
+        "offsetY": 200
+      },
+      "final": {
+        "width": 190,
+        "height": 142
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_suburban via building-type-a.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 4551.05,
+      "totalMs": 4763.24
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_residential_a",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-a.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_suburban",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "complete",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-complete.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-complete.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_suburban",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-a.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1.3,
+        "depth": 1.0281,
+        "height": 0.8335,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 5.2,
+        "depth": 4.1126,
+        "height": 3.3342
+      },
+      "worldSizeMeters": {
+        "x": 5.2,
+        "y": 4.1126,
+        "z": 3.3342
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_residential_a",
+    "kind": "building",
+    "label": "bld_residential_a",
+    "state": "construction",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5105,
+      "y": 0.6748
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-construction.png",
+      "width": 190,
+      "height": 142,
+      "sha256": "e44464c95d70fe99eed9bb42de249e9d0dcf339daa989e57b0a62a8c710efcc1"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 380,
+        "height": 284,
+        "offsetX": 62,
+        "offsetY": 200
+      },
+      "final": {
+        "width": 190,
+        "height": 142
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_suburban via building-type-a.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 4375.34,
+      "totalMs": 4568.6
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_residential_a",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-a.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_suburban",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "construction",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-construction.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-construction.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_suburban",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-a.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1.3,
+        "depth": 1.0281,
+        "height": 0.8335,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 5.2,
+        "depth": 4.1126,
+        "height": 3.3342
+      },
+      "worldSizeMeters": {
+        "x": 5.2,
+        "y": 4.1126,
+        "z": 3.3342
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_residential_a",
+    "kind": "building",
+    "label": "bld_residential_a",
+    "state": "damaged",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5105,
+      "y": 0.6748
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-damaged.png",
+      "width": 190,
+      "height": 142,
+      "sha256": "e44464c95d70fe99eed9bb42de249e9d0dcf339daa989e57b0a62a8c710efcc1"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 380,
+        "height": 284,
+        "offsetX": 62,
+        "offsetY": 200
+      },
+      "final": {
+        "width": 190,
+        "height": 142
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_suburban via building-type-a.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 5346.23,
+      "totalMs": 5543.79
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_residential_a",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-a.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_suburban",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "damaged",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-damaged.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-damaged.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_suburban",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-a.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1.3,
+        "depth": 1.0281,
+        "height": 0.8335,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 5.2,
+        "depth": 4.1126,
+        "height": 3.3342
+      },
+      "worldSizeMeters": {
+        "x": 5.2,
+        "y": 4.1126,
+        "z": 3.3342
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_residential_a",
+    "kind": "building",
+    "label": "bld_residential_a",
+    "state": "burning",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5105,
+      "y": 0.6748
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-burning.png",
+      "width": 190,
+      "height": 142,
+      "sha256": "e44464c95d70fe99eed9bb42de249e9d0dcf339daa989e57b0a62a8c710efcc1"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 380,
+        "height": 284,
+        "offsetX": 62,
+        "offsetY": 200
+      },
+      "final": {
+        "width": 190,
+        "height": 142
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_suburban via building-type-a.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 4411.85,
+      "totalMs": 4603.76
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_residential_a",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-a.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_suburban",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "burning",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-burning.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-burning.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_suburban",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-a.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1.3,
+        "depth": 1.0281,
+        "height": 0.8335,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 5.2,
+        "depth": 4.1126,
+        "height": 3.3342
+      },
+      "worldSizeMeters": {
+        "x": 5.2,
+        "y": 4.1126,
+        "z": 3.3342
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_commercial_c",
+    "kind": "building",
+    "label": "bld_commercial_c",
+    "state": "complete",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5197,
+      "y": 0.7443
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-complete.png",
+      "width": 152,
+      "height": 163,
+      "sha256": "f09c3cccea36669320718d9f62c321ad0cadcfae53085e8e2e20efe2fa5de685"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 304,
+        "height": 326,
+        "offsetX": 98,
+        "offsetY": 149
+      },
+      "final": {
+        "width": 152,
+        "height": 163
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_commercial via building-c.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 4945.4,
+      "totalMs": 5158.54
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_commercial_c",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-c.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_commercial",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "complete",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-complete.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-complete.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_commercial",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-c.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 0.8836,
+        "depth": 1.09,
+        "height": 0.893,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 3.5344,
+        "depth": 4.36,
+        "height": 3.572
+      },
+      "worldSizeMeters": {
+        "x": 3.5344,
+        "y": 4.36,
+        "z": 3.572
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_commercial_c",
+    "kind": "building",
+    "label": "bld_commercial_c",
+    "state": "construction",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5197,
+      "y": 0.7443
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-construction.png",
+      "width": 152,
+      "height": 163,
+      "sha256": "f09c3cccea36669320718d9f62c321ad0cadcfae53085e8e2e20efe2fa5de685"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 304,
+        "height": 326,
+        "offsetX": 98,
+        "offsetY": 149
+      },
+      "final": {
+        "width": 152,
+        "height": 163
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_commercial via building-c.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 4672.49,
+      "totalMs": 4853.45
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_commercial_c",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-c.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_commercial",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "construction",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-construction.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-construction.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_commercial",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-c.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 0.8836,
+        "depth": 1.09,
+        "height": 0.893,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 3.5344,
+        "depth": 4.36,
+        "height": 3.572
+      },
+      "worldSizeMeters": {
+        "x": 3.5344,
+        "y": 4.36,
+        "z": 3.572
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_commercial_c",
+    "kind": "building",
+    "label": "bld_commercial_c",
+    "state": "damaged",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5197,
+      "y": 0.7443
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-damaged.png",
+      "width": 152,
+      "height": 163,
+      "sha256": "f09c3cccea36669320718d9f62c321ad0cadcfae53085e8e2e20efe2fa5de685"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 304,
+        "height": 326,
+        "offsetX": 98,
+        "offsetY": 149
+      },
+      "final": {
+        "width": 152,
+        "height": 163
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_commercial via building-c.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 4511.93,
+      "totalMs": 4734.68
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_commercial_c",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-c.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_commercial",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "damaged",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-damaged.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-damaged.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_commercial",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-c.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 0.8836,
+        "depth": 1.09,
+        "height": 0.893,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 3.5344,
+        "depth": 4.36,
+        "height": 3.572
+      },
+      "worldSizeMeters": {
+        "x": 3.5344,
+        "y": 4.36,
+        "z": 3.572
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_commercial_c",
+    "kind": "building",
+    "label": "bld_commercial_c",
+    "state": "burning",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5197,
+      "y": 0.7443
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-burning.png",
+      "width": 152,
+      "height": 163,
+      "sha256": "f09c3cccea36669320718d9f62c321ad0cadcfae53085e8e2e20efe2fa5de685"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 304,
+        "height": 326,
+        "offsetX": 98,
+        "offsetY": 149
+      },
+      "final": {
+        "width": 152,
+        "height": 163
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_commercial via building-c.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 5155.82,
+      "totalMs": 5341.38
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_commercial_c",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-c.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_commercial",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "burning",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-burning.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-burning.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_commercial",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-c.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 0.8836,
+        "depth": 1.09,
+        "height": 0.893,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 3.5344,
+        "depth": 4.36,
+        "height": 3.572
+      },
+      "worldSizeMeters": {
+        "x": 3.5344,
+        "y": 4.36,
+        "z": 3.572
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_residential_b",
+    "kind": "building",
+    "label": "bld_residential_b",
+    "state": "complete",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.4783,
+      "y": 0.6857
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-complete.png",
+      "width": 230,
+      "height": 174,
+      "sha256": "d14a742cb52683dda9bb1044c6cd6c4df4a4e671b0ff9b275336f12e770ee0fa"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 460,
+        "height": 348,
+        "offsetX": 36,
+        "offsetY": 153
+      },
+      "final": {
+        "width": 230,
+        "height": 174
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_suburban via building-type-b.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 5035.1,
+      "totalMs": 5246.12
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_residential_b",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-b.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_suburban",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "complete",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-complete.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-complete.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_suburban",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-b.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1.828,
+        "depth": 1.14,
+        "height": 1.1375,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 7.312,
+        "depth": 4.56,
+        "height": 4.55
+      },
+      "worldSizeMeters": {
+        "x": 7.312,
+        "y": 4.56,
+        "z": 4.55
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_residential_b",
+    "kind": "building",
+    "label": "bld_residential_b",
+    "state": "construction",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.4783,
+      "y": 0.6857
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-construction.png",
+      "width": 230,
+      "height": 174,
+      "sha256": "d14a742cb52683dda9bb1044c6cd6c4df4a4e671b0ff9b275336f12e770ee0fa"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 460,
+        "height": 348,
+        "offsetX": 36,
+        "offsetY": 153
+      },
+      "final": {
+        "width": 230,
+        "height": 174
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_suburban via building-type-b.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 5688.43,
+      "totalMs": 5914.63
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_residential_b",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-b.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_suburban",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "construction",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-construction.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-construction.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_suburban",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-b.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1.828,
+        "depth": 1.14,
+        "height": 1.1375,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 7.312,
+        "depth": 4.56,
+        "height": 4.55
+      },
+      "worldSizeMeters": {
+        "x": 7.312,
+        "y": 4.56,
+        "z": 4.55
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_residential_b",
+    "kind": "building",
+    "label": "bld_residential_b",
+    "state": "damaged",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.4783,
+      "y": 0.6857
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-damaged.png",
+      "width": 230,
+      "height": 174,
+      "sha256": "d14a742cb52683dda9bb1044c6cd6c4df4a4e671b0ff9b275336f12e770ee0fa"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 460,
+        "height": 348,
+        "offsetX": 36,
+        "offsetY": 153
+      },
+      "final": {
+        "width": 230,
+        "height": 174
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_suburban via building-type-b.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 5080.45,
+      "totalMs": 5301.45
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_residential_b",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-b.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_suburban",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "damaged",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-damaged.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-damaged.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_suburban",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-b.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1.828,
+        "depth": 1.14,
+        "height": 1.1375,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 7.312,
+        "depth": 4.56,
+        "height": 4.55
+      },
+      "worldSizeMeters": {
+        "x": 7.312,
+        "y": 4.56,
+        "z": 4.55
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_residential_b",
+    "kind": "building",
+    "label": "bld_residential_b",
+    "state": "burning",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.4783,
+      "y": 0.6857
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-burning.png",
+      "width": 230,
+      "height": 174,
+      "sha256": "d14a742cb52683dda9bb1044c6cd6c4df4a4e671b0ff9b275336f12e770ee0fa"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 460,
+        "height": 348,
+        "offsetX": 36,
+        "offsetY": 153
+      },
+      "final": {
+        "width": 230,
+        "height": 174
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_suburban via building-type-b.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 5222.06,
+      "totalMs": 5430.3
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_residential_b",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-b.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_suburban",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "burning",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-burning.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-burning.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_suburban",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-b.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1.828,
+        "depth": 1.14,
+        "height": 1.1375,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 7.312,
+        "depth": 4.56,
+        "height": 4.55
+      },
+      "worldSizeMeters": {
+        "x": 7.312,
+        "y": 4.56,
+        "z": 4.55
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_residential_c",
+    "kind": "building",
+    "label": "bld_residential_c",
+    "state": "complete",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5027,
+      "y": 0.7167
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-complete.png",
+      "width": 187,
+      "height": 163,
+      "sha256": "79c773d6fc1e9c5c8496c806c848727dfd5270551d75e027565c1904f161b98d"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 374,
+        "height": 326,
+        "offsetX": 68,
+        "offsetY": 158
+      },
+      "final": {
+        "width": 187,
+        "height": 163
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_suburban via building-type-c.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 4846.31,
+      "totalMs": 5080
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_residential_c",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-c.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_suburban",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "complete",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-complete.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-complete.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_suburban",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-c.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1.2864,
+        "depth": 1.0281,
+        "height": 1.0335,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 5.1455,
+        "depth": 4.1126,
+        "height": 4.1342
+      },
+      "worldSizeMeters": {
+        "x": 5.1455,
+        "y": 4.1126,
+        "z": 4.1342
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_residential_c",
+    "kind": "building",
+    "label": "bld_residential_c",
+    "state": "construction",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5027,
+      "y": 0.7167
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-construction.png",
+      "width": 187,
+      "height": 163,
+      "sha256": "79c773d6fc1e9c5c8496c806c848727dfd5270551d75e027565c1904f161b98d"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 374,
+        "height": 326,
+        "offsetX": 68,
+        "offsetY": 158
+      },
+      "final": {
+        "width": 187,
+        "height": 163
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_suburban via building-type-c.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 5042.73,
+      "totalMs": 5236.95
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_residential_c",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-c.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_suburban",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "construction",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-construction.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-construction.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_suburban",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-c.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1.2864,
+        "depth": 1.0281,
+        "height": 1.0335,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 5.1455,
+        "depth": 4.1126,
+        "height": 4.1342
+      },
+      "worldSizeMeters": {
+        "x": 5.1455,
+        "y": 4.1126,
+        "z": 4.1342
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_residential_c",
+    "kind": "building",
+    "label": "bld_residential_c",
+    "state": "damaged",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5027,
+      "y": 0.7167
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-damaged.png",
+      "width": 187,
+      "height": 163,
+      "sha256": "79c773d6fc1e9c5c8496c806c848727dfd5270551d75e027565c1904f161b98d"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 374,
+        "height": 326,
+        "offsetX": 68,
+        "offsetY": 158
+      },
+      "final": {
+        "width": 187,
+        "height": 163
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_suburban via building-type-c.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 4395.66,
+      "totalMs": 4597.1
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_residential_c",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-c.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_suburban",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "damaged",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-damaged.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-damaged.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_suburban",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-c.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1.2864,
+        "depth": 1.0281,
+        "height": 1.0335,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 5.1455,
+        "depth": 4.1126,
+        "height": 4.1342
+      },
+      "worldSizeMeters": {
+        "x": 5.1455,
+        "y": 4.1126,
+        "z": 4.1342
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "bld_residential_c",
+    "kind": "building",
+    "label": "bld_residential_c",
+    "state": "burning",
+    "direction": null,
+    "animation": null,
+    "frame": null,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5027,
+      "y": 0.7167
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-burning.png",
+      "width": 187,
+      "height": 163,
+      "sha256": "79c773d6fc1e9c5c8496c806c848727dfd5270551d75e027565c1904f161b98d"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 374,
+        "height": 326,
+        "offsetX": 68,
+        "offsetY": 158
+      },
+      "final": {
+        "width": 187,
+        "height": 163
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_suburban via building-type-c.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 4958.37,
+      "totalMs": 5201.57
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "bld_residential_c",
+        "--kind",
+        "building",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-c.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8.5",
+        "--target-z",
+        "2.6",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_suburban",
+        "--license",
+        "CC0-1.0",
+        "--state",
+        "burning",
+        "--output",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-burning.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-burning.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_suburban",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-c.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1.2864,
+        "depth": 1.0281,
+        "height": 1.0335,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        0,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 5.1455,
+        "depth": 4.1126,
+        "height": 4.1342
+      },
+      "worldSizeMeters": {
+        "x": 5.1455,
+        "y": 4.1126,
+        "z": 4.1342
       }
     }
   }

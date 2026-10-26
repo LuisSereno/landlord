@@ -42,7 +42,7 @@ describe("WP4.15-H ruta Blender E2E", () => {
         Object.values(character.animations).flatMap((animation) => animation.frames),
       ),
     ];
-    expect(images.length).toBe(24);
+    expect(images.length).toBe(44);
     let totalBytes = 0;
     for (const image of images) {
       const buffer = readFileSync(join(PUBLIC_DIR, image.src));
@@ -51,7 +51,7 @@ describe("WP4.15-H ruta Blender E2E", () => {
       expect(pngSize(buffer), image.src).toEqual({ width: image.width, height: image.height });
     }
     /** Los binarios Blender de Alpha caben en el repo sin LFS: se revisa en la decisión de atlas/LFS. */
-    expect(totalBytes).toBeLessThan(250_000);
+    expect(totalBytes).toBeLessThan(1_000_000);
   });
 
   it("el pivote queda dentro de la imagen recortada y la huella es positiva", () => {

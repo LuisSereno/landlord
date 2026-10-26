@@ -360,21 +360,24 @@ def create_scene(args):
 
     camera, target = place_camera(spec["targetZ"], spec["orthoScale"])
 
-    bpy.ops.object.light_add(type="AREA", location=(-4.0, -5.0, 9.0))
-    key = bpy.context.object
-    key.name = "LIGHT_KEY_NW"
-    key.data.energy = 900
-    key.data.shape = "DISK"
-    key.data.size = 6.0
-    key.data.color = PALETTE["lighting"][:3]
-    key.rotation_euler = (target - key.location).to_track_quat("-Z", "Y").to_euler()
-    bpy.ops.object.light_add(type="AREA", location=(5.0, 3.0, 6.0))
-    fill = bpy.context.object
-    fill.name = "LIGHT_FILL"
-    fill.data.energy = 380
-    fill.data.size = 7.0
-    fill.data.color = PALETTE["fill"][:3]
-    fill.rotation_euler = (target - fill.location).to_track_quat("-Z", "Y").to_euler()
+    if args.asset not in TERRAIN:
+        # Los solares se iluminan con el rig SUN del style layer (ver `main`), no con el rig legacy
+        # de dos AREA: una loseta de tierra iluminada de dia queda mas brillante que las fachadas.
+        bpy.ops.object.light_add(type="AREA", location=(-4.0, -5.0, 9.0))
+        key = bpy.context.object
+        key.name = "LIGHT_KEY_NW"
+        key.data.energy = 900
+        key.data.shape = "DISK"
+        key.data.size = 6.0
+        key.data.color = PALETTE["lighting"][:3]
+        key.rotation_euler = (target - key.location).to_track_quat("-Z", "Y").to_euler()
+        bpy.ops.object.light_add(type="AREA", location=(5.0, 3.0, 6.0))
+        fill = bpy.context.object
+        fill.name = "LIGHT_FILL"
+        fill.data.energy = 380
+        fill.data.size = 7.0
+        fill.data.color = PALETTE["fill"][:3]
+        fill.rotation_euler = (target - fill.location).to_track_quat("-Z", "Y").to_euler()
 
     scene = bpy.context.scene
     scene.render.engine = "BLENDER_EEVEE"
@@ -386,65 +389,17 @@ def create_scene(args):
     scene.render.image_settings.compression = 15
     scene.render.film_transparent = True
     scene.view_settings.look = "AgX - Medium High Contrast"
-    if args.asset in TERRAIN:
-        # El terreno de obra convive con los assets externos ya tratados por el style layer.
-        scene.view_settings.exposure = -0.45
     return scene, camera, spec
 
 
-def _srgb_to_linear(values):
-    values = np.asarray(values, dtype=np.float32)
-    return np.where(values <= 0.04045, values / 12.92, ((values + 0.055) / 1.055) ** 2.4)
-
-
-def _linear_to_srgb(values):
-    values = np.asarray(values, dtype=np.float32)
-    return np.where(values <= 0.0031308, values * 12.92, 1.055 * values ** (1 / 2.4) - 0.055)
-
-
-def _rgb_to_hsv(rgb):
-    """HSV sobre sRGB (0..1). El atlas de Kenney se trata como color de artista, no lineal."""
-    red, green, blue = rgb[..., 0], rgb[..., 1], rgb[..., 2]
-    maxc = rgb.max(axis=-1)
-    minc = rgb.min(axis=-1)
-    delta = maxc - minc
-    hue = np.zeros_like(maxc)
-    chromatic = delta > 1e-6
-    is_red = chromatic & (maxc == red)
-    is_green = chromatic & (maxc == green) & ~is_red
-    is_blue = chromatic & ~is_red & ~is_green
-    hue[is_red] = ((green[is_red] - blue[is_red]) / delta[is_red]) % 6
-    hue[is_green] = (blue[is_green] - red[is_green]) / delta[is_green] + 2
-    hue[is_blue] = (red[is_blue] - green[is_blue]) / delta[is_blue] + 4
-    saturation = np.zeros_like(maxc)
-    np.divide(delta, maxc, out=saturation, where=maxc > 1e-6)
-    return hue * 60.0, saturation, maxc
-
-
-def _hsv_to_rgb(hue, saturation, value):
-    hue = (hue % 360.0) / 60.0
-    chroma = value * saturation
-    x = chroma * (1 - np.abs(hue % 2 - 1))
-    match = np.floor(hue).astype(np.int32) % 6
-    red = np.choose(match, [chroma, x, 0, 0, x, chroma])
-    green = np.choose(match, [x, chroma, chroma, x, 0, 0])
-    blue = np.choose(match, [0, 0, x, chroma, chroma, x])
-    offset = value - chroma
-    return np.clip(np.stack([red + offset, green + offset, blue + offset], axis=-1), 0, 1)
-
-
-def _hue_in(hue, band):
-    low, high = band
-    return (hue >= low) & (hue <= high) if low <= high else (hue >= low) | (hue <= high)
-
-
-def _in_range(values, band):
-    return (values >= band[0]) & (values <= band[1])
-
-
-def _name_matches(name, keywords):
-    lowered = name.lower()
-    return any(keyword in lowered for keyword in keywords)
+from style_layer_math import (  # noqa: E402
+    hsv_to_rgb,
+    linear_to_srgb,
+    name_matches,
+    rgb_to_hsv,
+    style_pixels,
+    srgb_to_linear,
+)
 
 
 def apply_style_layer_lighting(scene, style_layer):
@@ -486,77 +441,115 @@ def apply_style_layer_lighting(scene, style_layer):
     return world
 
 
+def style_procedural_materials(treatment, kind):
+    """Pasa los colores planos de la ruta procedural por el MISMO remapeo que los atlas.
+
+    `PALETTE` es la baseline de dia del spike de direccion visual. Un solar procedural que se
+    queda en ella se publica a V 0.31, por encima de las fachadas ya tratadas, y la jerarquia
+    suelo/edificio se invierte. Reusar `style_pixels` mantiene el JSON de estilo como unica fuente
+    de verdad en lugar de inventar una segunda escalera de valores para dos losetas.
+    """
+    styled = 0
+    for material in bpy.data.materials:
+        node_tree = material.node_tree
+        if not node_tree:
+            continue
+        bsdf = next((node for node in node_tree.nodes if node.type == "BSDF_PRINCIPLED"), None)
+        if bsdf is None:
+            continue
+        base_color = bsdf.inputs["Base Color"]
+        if base_color.is_linked:
+            continue
+        linear = np.array(base_color.default_value[:3], dtype=np.float32)
+        source = np.clip(linear_to_srgb(linear), 0, 1).reshape(1, 1, 3)
+        out = style_pixels(source, treatment, kind)["styled_rgb"][0, 0]
+        base_color.default_value = (*np.clip(srgb_to_linear(out), 0.0, 1.0), 1.0)
+        styled += 1
+    return {
+        "version": treatment.get("version", 1),
+        "atlases": [],
+        "flatMaterials": styled,
+        "emissiveTexels": 0,
+        "litWindows": 0,
+    }
+
+
 def _styled_image(image, treatment, kind):
-    """Remapea el atlas en una copia en memoria y devuelve también la máscara emisiva."""
+    """Remapea el atlas en una copia en memoria y devuelve también la máscara emisiva.
+
+    La matemática vive en `style_layer_math` para que `check_style_layer.py` pueda predecir este
+    mismo remapeo sin arrancar Blender. Las fuentes nunca se reescriben: se crea un image nuevo.
+    """
     width, height = image.size
     pixels = np.array(image.pixels[:], dtype=np.float32).reshape(height, width, 4)
-    source_hsv = _rgb_to_hsv(pixels[:, :, :3])
-    hue, saturation, value = source_hsv
-    global_config = treatment.get("global", {})
-    kind_override = treatment.get("kindOverrides", {}).get(kind, {})
-    out_saturation = saturation * kind_override.get(
-        "saturationScale", global_config.get("saturationScale", 1.0)
-    )
-    out_value = value * kind_override.get(
-        "valueScale", global_config.get("valueScale", 1.0)
-    )
-    out_hue = hue.copy()
-    for band in treatment.get("hueBands", []):
-        mask = (
-            _hue_in(hue, band["hue"])
-            & _in_range(saturation, band["sat"])
-            & _in_range(value, band["value"])
-        )
-        if "hueTo" in band:
-            out_hue[mask] = band["hueTo"]
-        elif "hueOffset" in band:
-            out_hue[mask] = (out_hue[mask] + band["hueOffset"]) % 360
-        out_saturation[mask] *= band.get("saturationScale", 1.0)
-        out_value[mask] *= band.get("valueScale", 1.0)
-    for band in treatment.get("valueBands", []):
-        if band.get("kinds") and kind not in band["kinds"]:
-            continue
-        mask = (
-            _hue_in(hue, band["hue"])
-            & _in_range(saturation, band["sat"])
-            & _in_range(value, band["value"])
-        )
-        out_value[mask] *= band.get("valueScale", 1.0)
-        if "saturationScale" in band:
-            out_saturation[mask] *= band["saturationScale"]
-    styled_rgb = _hsv_to_rgb(out_hue, np.clip(out_saturation, 0, 1), np.clip(out_value, 0, 1))
-    multiply = np.array(treatment.get("multiplySrgb", [1.0, 1.0, 1.0]), dtype=np.float32)
-    styled_rgb = np.clip(styled_rgb * multiply, 0.0, 1.0)
+    result = style_pixels(pixels[:, :, :3], treatment, kind)
     styled = bpy.data.images.new(
         f"styled_{image.name}", width=width, height=height, alpha=True, float_buffer=False
     )
     styled.colorspace_settings.name = "sRGB"
     styled.pixels = np.clip(
-        np.dstack([styled_rgb, pixels[:, :, 3]]), 0, 1
+        np.dstack([result["styled_rgb"], pixels[:, :, 3]]), 0, 1
     ).astype(np.float32).flatten().tolist()
     styled.pack()
 
-    glow = treatment.get("windowGlow")
+    window_mask = result["window_mask"]
     emissive = None
     emissive_texels = 0
-    if glow and kind in glow.get("kinds", []):
-        mask = (
-            _hue_in(hue, glow["hue"])
-            & _in_range(saturation, glow["sat"])
-            & _in_range(value, glow["value"])
+    if window_mask is not None and window_mask.any():
+        emissive_texels = int(window_mask.sum())
+        pattern = np.repeat(window_mask[:, :, None], 3, axis=2).astype(np.float32)
+        emissive = bpy.data.images.new(
+            f"emissive_{image.name}", width=width, height=height, alpha=False, float_buffer=False
         )
-        emissive_texels = int(mask.sum())
-        if emissive_texels:
-            pattern = np.repeat(mask[:, :, None], 3, axis=2).astype(np.float32)
-            emissive = bpy.data.images.new(
-                f"emissive_{image.name}", width=width, height=height, alpha=False, float_buffer=False
-            )
-            emissive.colorspace_settings.name = "Non-Color"
-            emissive.pixels = np.dstack(
-                [pattern, np.ones((height, width, 1), dtype=np.float32)]
-            ).flatten().tolist()
-            emissive.pack()
-    return styled, emissive, emissive_texels
+        emissive.colorspace_settings.name = "Non-Color"
+        emissive.pixels = np.dstack(
+            [pattern, np.ones((height, width, 1), dtype=np.float32)]
+        ).flatten().tolist()
+        emissive.pack()
+    return styled, emissive, emissive_texels, window_mask
+
+
+def _hash_unit(salt, center):
+    """Unidades en [0,1) deterministas para un centro de cara: qué ventanas duermen y cuáles no.
+
+    `hash()` de Python no vale: está seedado por proceso. `blake2s` sobre el centro cuantizado da
+    el mismo número en cualquier máquina y cualquier corrida.
+    """
+    key = "%d|%.4f,%.4f,%.4f" % (salt, center[0], center[1], center[2])
+    return int.from_bytes(hashlib.blake2s(key.encode(), digest_size=4).digest(), "big") / 0xFFFFFFFF
+
+
+def _apply_window_glow_attribute(polygons_owner, mask, glow):
+    """Marca cara a cara (no texel a texel) si esa ventana está encendida.
+
+    Todas las ventanas del atlas Kenney comparten un swatch, así que la única forma de elegir
+    subconjunto es la geometría: el baricentro UV de la cara dice si es cristal, y el hash de su
+    centro 3D dice si ese cristal concreto tiene luz dentro.
+    """
+    mesh = polygons_owner.data
+    uv_layer = mesh.uv_layers.active
+    if uv_layer is None:
+        return 0
+    attribute = mesh.attributes.get("window_glow") or mesh.attributes.new(
+        name="window_glow", type="FLOAT", domain="FACE"
+    )
+    height, width = mask.shape
+    lit_fraction = glow.get("litFraction", 1.0)
+    salt = int(glow.get("salt", 0))
+    lit = 0
+    for poly in mesh.polygons:
+        loops = list(poly.loop_indices)
+        u = sum(uv_layer.data[i].uv[0] for i in loops) / len(loops)
+        v = sum(uv_layer.data[i].uv[1] for i in loops) / len(loops)
+        col = min(max(int(u * width), 0), width - 1)
+        row = min(max(int(v * height), 0), height - 1)
+        if not mask[row, col]:
+            attribute.data[poly.index].value = 1.0
+            continue
+        factor = 1.0 if _hash_unit(salt, poly.center) < lit_fraction else 0.0
+        attribute.data[poly.index].value = factor
+        lit += int(factor)
+    return lit
 
 
 def _apply_flat_material_treatment(material, treatment):
@@ -571,17 +564,17 @@ def _apply_flat_material_treatment(material, treatment):
     if base_color.is_linked:
         return False
     linear = np.array(base_color.default_value[:3], dtype=np.float32)
-    srgb = np.clip(_linear_to_srgb(linear), 0, 1).reshape(1, 1, 3)
-    hue, saturation, value = _rgb_to_hsv(srgb)
+    srgb = np.clip(linear_to_srgb(linear), 0, 1).reshape(1, 1, 3)
+    hue, saturation, value = rgb_to_hsv(srgb)
     for rule in treatment.get("flatMaterials", []):
-        if not _name_matches(material.name, rule["match"]):
+        if not name_matches(material.name, rule["match"]):
             continue
         if "hueTo" in rule:
             hue = np.full_like(hue, float(rule["hueTo"]))
         saturation = saturation * rule.get("saturationScale", 1.0)
         value = value * rule.get("valueScale", 1.0)
-        rgb = _hsv_to_rgb(hue, np.clip(saturation, 0, 1), np.clip(value, 0, 1))[0, 0]
-        base_color.default_value = (*_srgb_to_linear(rgb), 1.0)
+        rgb = hsv_to_rgb(hue, np.clip(saturation, 0, 1), np.clip(value, 0, 1))[0, 0]
+        base_color.default_value = (*srgb_to_linear(rgb), 1.0)
         return True
     return False
 
@@ -597,15 +590,19 @@ def apply_external_treatment(objects, style_layer, kind):
     if not treatment:
         return None
     materials = set()
+    objects_by_material = {}
     for obj in objects:
         if obj.type != "MESH":
             continue
         for slot in obj.material_slots:
             if slot.material:
                 materials.add(slot.material)
+                objects_by_material.setdefault(slot.material, []).append(obj)
     styled_by_image = {}
     emissive_texels = 0
+    lit_windows = 0
     flat_materials = 0
+    touched_meshes = set()
     for material in materials:
         node_tree = material.node_tree
         if not node_tree:
@@ -621,19 +618,39 @@ def apply_external_treatment(objects, style_layer, kind):
             key = source_node.image.name
             if key not in styled_by_image:
                 styled_by_image[key] = _styled_image(source_node.image, treatment, kind)
-            styled, emissive, count = styled_by_image[key]
+            styled, emissive, count, window_mask = styled_by_image[key]
             emissive_texels = max(emissive_texels, count)
             source_node.image = styled
             if emissive is not None:
-                tint = np.array(treatment["windowGlow"]["colorSrgb"], dtype=np.float32) / 255.0
-                tint_linear = _srgb_to_linear(tint)
+                glow = treatment["windowGlow"]
+                lit_on_mesh = 0
+                if glow.get("litFraction", 1.0) < 1.0:
+                    for obj in objects_by_material.get(material, []):
+                        if obj.data.name in touched_meshes:
+                            continue
+                        touched_meshes.add(obj.data.name)
+                        lit_on_mesh += _apply_window_glow_attribute(obj, window_mask, glow)
+                tint = np.array(glow["colorSrgb"], dtype=np.float32) / 255.0
+                tint_linear = srgb_to_linear(tint)
                 emissive_node = node_tree.nodes.new("ShaderNodeTexImage")
                 emissive_node.image = emissive
                 emissive_node.interpolation = "Closest"
                 tint_node = node_tree.nodes.new("ShaderNodeVectorMath")
                 tint_node.operation = "MULTIPLY"
                 tint_node.inputs[0].default_value = tuple(tint_linear[:3])
-                node_tree.links.new(emissive_node.outputs["Color"], tint_node.inputs[1])
+                lit_source = emissive_node.outputs["Color"]
+                if lit_on_mesh > 0:
+                    # Sin caras encendidas detectadas no se enlaza el atributo: un atributo
+                    # inexistente devolvería 0 y apagaría el edificio entero en silencio.
+                    attribute_node = node_tree.nodes.new("ShaderNodeAttribute")
+                    attribute_node.attribute_name = "window_glow"
+                    gate_node = node_tree.nodes.new("ShaderNodeVectorMath")
+                    gate_node.operation = "MULTIPLY"
+                    node_tree.links.new(emissive_node.outputs["Color"], gate_node.inputs[0])
+                    node_tree.links.new(attribute_node.outputs["Fac"], gate_node.inputs[1])
+                    lit_source = gate_node.outputs["Vector"]
+                    lit_windows += lit_on_mesh
+                node_tree.links.new(lit_source, tint_node.inputs[1])
                 emission_input = bsdf.inputs.get("Emission Color") or bsdf.inputs.get(
                     "Emission"
                 )
@@ -653,6 +670,7 @@ def apply_external_treatment(objects, style_layer, kind):
         "atlases": sorted(styled_by_image.keys()),
         "flatMaterials": flat_materials,
         "emissiveTexels": emissive_texels,
+        "litWindows": lit_windows,
     }
 
 
@@ -860,6 +878,17 @@ def main():
         )
         label = spec["label"]
         footprint = spec.get("footprint")
+        if kind == "terrain":
+            style_layer = json.loads(STYLE_LAYER_PATH.read_text(encoding="utf-8"))
+            apply_style_layer_lighting(scene, style_layer)
+            style_summary = style_procedural_materials(
+                style_layer["externalTreatment"], kind
+            )
+            post = style_layer["rendering"]["postProcessing"]
+            scene.view_settings.view_transform = post.split(" - ")[0]
+            scene.view_settings.look = post
+            style_exposure = style_layer["rendering"].get("exposure", 0.0)
+            scene.view_settings.exposure = style_exposure
     else:
         required = (
             ("--unit-scale", args.unit_scale),

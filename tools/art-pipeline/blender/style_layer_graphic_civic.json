@@ -65,17 +65,17 @@
     "note": "cellSizeMeters is visual convention for WP4.15-V, not yet a simulation contract"
   },
   "lighting": {
-    "keyEnergy": 3.2,
-    "keyColor": [0.98, 0.94, 0.88],
+    "keyEnergy": 2.35,
+    "keyColor": [0.95, 0.88, 0.78],
     "keyDirection": [0.35, 0.82, 0.45],
-    "fillEnergy": 1.1,
-    "fillColor": [0.72, 0.82, 0.89],
+    "fillEnergy": 0.6,
+    "fillColor": [0.5, 0.62, 0.8],
     "fillDirection": [-0.5, 0.3, -0.2],
-    "rimEnergy": 1.6,
-    "rimColor": [0.8, 0.85, 0.9],
-    "worldColor": [0.75, 0.75, 0.75],
-    "worldStrength": 0.22,
-    "description": "Neutral-warm key with cool fill; SUN irradiances calibrated so a 1.8 m avatar keeps skin and light cloth out of clipping",
+    "rimEnergy": 1.3,
+    "rimColor": [0.55, 0.7, 0.9],
+    "worldColor": [0.16, 0.22, 0.34],
+    "worldStrength": 0.4,
+    "description": "WP4.15-V.b1: la key ya no es un sol de mediodia. Baja energia calida (farola lejana), relleno frio tenue y un rim que separa el volumen del fondo; el ambiente sube de 0.22 a 0.4 pero con color de noche, no gris. Las irradiancias van a pares con las escaleras de valor de externalTreatment: el asset se oscurece en el atlas y la luz deja de volver a quemarlo.",
     "keyPosition": [9.0, 16.0, 10.0],
     "fillPosition": [-10.0, -6.0, 8.0],
     "rimPosition": [0.0, -12.0, 6.0]
@@ -92,69 +92,159 @@
     "filmTransparent": true,
     "colorDepth": "RGBA_8BIT",
     "postProcessing": "AgX - Medium High Contrast",
-    "exposure": -0.45,
+    "exposure": -0.25,
     "description": "Render settings for runtime asset pipeline"
   },
   "externalTreatment": {
-    "version": 1,
-    "note": "Kenney comparte un único atlas colormap entre paredes, tejados, ventanas y calzada. El tratamiento remapea el atlas en memoria (bandas HSV deterministas) y los colores planos por nombre de material; las fuentes no se reescriben.",
+    "version": 6,
+    "note": "WP4.15-V.b1. Tratamiento de color de los assets externos, evaluado sobre el HSV del atlas de ORIGEN y sobre una copia en memoria: las fuentes nunca se reescriben. Se aplica a cualquier pack sin reglas por archivo.",
     "global": {
-      "saturationScale": 0.7,
-      "valueScale": 0.64,
-      "multiplySrgb": [0.9, 0.95, 1.04]
+      "saturationScale": 1.0,
+      "valueScale": 1.55,
+      "multiplySrgb": [1.0, 1.0, 1.0],
+      "description": "El nivel de noche es una decision de VALOR, no de croma. Con saturationScale 0.62 aqui, las bandas que subian su croma (fachadas 1.43) se cancelaban y la ciudad salia gris azulada; ahora cada familia declara su croma final. valueScale 1.55 levanta el albedo antes de que las bandas lo recorten, para que la escalera siga teniendo pelda\u00f1os despues de la luz. El tinte azul se quita del albedo y pasa a ser solo del rig: restar azul en las dos capas convertia todo en azul oscuro, que es justo lo que la paleta prohibe."
+    },
+    "kindOverrides": {
+      "terrain": {
+        "saturationScale": 0.6,
+        "valueScale": 0.85
+      },
+      "vehicle": {
+        "saturationScale": 1.0,
+        "valueScale": 1.15
+      },
+      "character": {
+        "saturationScale": 0.85,
+        "valueScale": 1.0
+      },
+      "description": "Modulan el global en multiplicacion. Vehiculos dejan de desaturarse: son elementos de interes y su pintura es el unico acento cromatico movil del plano. Terreno baja a 0.60/0.85 para que el suelo quede por debajo de edificios y coches."
     },
     "hueBands": [
       {
-        "id": "foliage_green_to_slate",
-        "hue": [70, 185],
-        "sat": [0.2, 1.0],
+        "id": "roof_and_verge_green_to_slate",
+        "hue": [70, 178],
+        "sat": [0.15, 1.0],
         "value": [0.1, 1.0],
-        "hueTo": 196,
-        "saturationScale": 0.42,
-        "valueScale": 0.55
+        "saturationScale": 0.22,
+        "valueScale": 0.22,
+        "hueTo": 165,
+        "description": "Tejados y bordillos verdes de Kenney: pizarra fria casi neutra. Es la banda que quita al techo el protagonismo de dia."
       },
       {
-        "id": "warm_accents",
-        "hue": [330, 45],
+        "id": "civic_teal_accent",
+        "hue": [178, 196],
+        "sat": [0.28, 1.0],
+        "value": [0.1, 1.0],
+        "saturationScale": 0.7,
+        "valueScale": 0.29,
+        "hueTo": 186,
+        "description": "Acento civico teal: se conserva como acento, no como color dominante, y por eso mantiene croma pero baja valor."
+      },
+      {
+        "id": "headlamp_yellow",
+        "hue": [40, 70],
         "sat": [0.25, 1.0],
-        "value": [0.1, 1.0],
-        "saturationScale": 0.85,
-        "valueScale": 0.92
-      }
-    ],
-    "valueBands": [
-      {
-        "id": "asphalt_dark",
-        "hue": [185, 265],
-        "sat": [0.0, 0.3],
-        "value": [0.1, 0.55],
-        "valueScale": 0.68,
-        "kinds": ["terrain"]
+        "value": [0.4, 1.0],
+        "saturationScale": 0.9,
+        "valueScale": 0.34,
+        "hueTo": 48,
+        "description": "Faros y senalizacion amarilla. Va antes que la banda de vehiculos para que un faro no se confunda con la carroceria."
       },
       {
-        "id": "concrete_mid",
-        "hue": [185, 265],
-        "sat": [0.0, 0.3],
-        "value": [0.55, 0.83],
-        "valueScale": 0.92,
-        "kinds": ["terrain"]
+        "id": "window_blue_to_dark_glass",
+        "hue": [195, 250],
+        "sat": [0.35, 1.0],
+        "value": [0.55, 1.0],
+        "saturationScale": 0.45,
+        "valueScale": 0.24,
+        "hueTo": 216,
+        "description": "Cristal del atlas: vidrio oscuro de noche. La luz calida no viene del albedo sino del windowGlow, que decide cara a cara que ventana esta encendida."
       },
       {
-        "id": "bright_trim",
-        "hue": [185, 265],
-        "sat": [0.0, 0.3],
-        "value": [0.83, 1.0],
-        "valueScale": 0.85,
-        "kinds": ["terrain"]
+        "id": "pale_cyan_wash",
+        "hue": [170, 200],
+        "sat": [0.16, 0.4],
+        "value": [0.5, 1.0],
+        "saturationScale": 0.55,
+        "valueScale": 0.31,
+        "hueTo": 200,
+        "description": "Lavados cyan palidos (chapas, toldos, cornisas): se apagan sin volverse grises del todo."
       },
       {
-        "id": "building_walls_shade",
+        "id": "facade_blue_grey_to_warm_stone",
+        "hue": [200, 250],
+        "sat": [0.08, 0.34],
+        "value": [0.52, 0.75],
+        "saturationScale": 1.55,
+        "valueScale": 0.51,
+        "hueTo": 36,
         "kinds": ["building", "prop"],
-        "hue": [185, 265],
-        "sat": [0.0, 0.32],
-        "value": [0.5, 0.88],
-        "valueScale": 0.72,
-        "description": "Muros claros del atlas Kenney: bajan a masa oscura legible, conservando el detalle"
+        "description": "Fachadas gris azulado -> piedra calida. Con el global desaturando, el 1.43 anterior se cancelaba y la fachada salia gris; ahora el croma sube de verdad y el edificio es lo mas claro del plano."
+      },
+      {
+        "id": "panel_lavender_stays_cool",
+        "hue": [200, 250],
+        "sat": [0.08, 0.34],
+        "value": [0.75, 1.0],
+        "saturationScale": 1.35,
+        "valueScale": 0.3,
+        "hueTo": 219,
+        "kinds": ["building", "prop"],
+        "description": "Paneles lavanda muy palidos: se quedan frios a proposito para que el edificio tenga dos temperaturas y no un solo bloque."
+      },
+      {
+        "id": "near_white_trim",
+        "hue": [0, 360],
+        "sat": [0.0, 0.16],
+        "value": [0.85, 1.0],
+        "saturationScale": 1.0,
+        "valueScale": 0.35,
+        "description": "Remates y marcos casi blancos: el escalon mas alto de la noche."
+      },
+      {
+        "id": "pale_neutral",
+        "hue": [0, 360],
+        "sat": [0.0, 0.16],
+        "value": [0.5, 0.85],
+        "saturationScale": 1.0,
+        "valueScale": 0.4,
+        "description": "Neutros medios: hormigon, yeso, chapas sin pigmento."
+      },
+      {
+        "id": "neutral_dark_asphalt",
+        "hue": [0, 360],
+        "sat": [0.0, 0.34],
+        "value": [0.1, 0.52],
+        "saturationScale": 0.85,
+        "valueScale": 0.33,
+        "description": "Asfaltos y grises oscuros: el suelo tiene que quedar por debajo de todo lo demas."
+      },
+      {
+        "id": "warm_accents_muted",
+        "hue": [330, 40],
+        "sat": [0.09, 1.0],
+        "value": [0.1, 1.0],
+        "saturationScale": 0.8,
+        "valueScale": 0.34,
+        "description": "Rojos, naranjas y marrones de props y terreno: se atenuan pero conservan su familia."
+      },
+      {
+        "id": "violet_accents_muted",
+        "hue": [250, 330],
+        "sat": [0.09, 1.0],
+        "value": [0.1, 1.0],
+        "saturationScale": 0.6,
+        "valueScale": 0.32,
+        "description": "Violetas de KayKit y nature-kit. Sin esta banda se caian en el hueco 250-265 y seguian quedandose a brillo de dia, que es como aparecio el punto violeta de la captura V.b0."
+      },
+      {
+        "id": "unclassified_night_fallback",
+        "hue": [0, 360],
+        "sat": [0.0, 1.0],
+        "value": [0.05, 1.0],
+        "saturationScale": 0.75,
+        "valueScale": 0.42,
+        "description": "Red de seguridad: cualquier texel que ninguna banda anterior reclam\u00f3 baja igualmente a la noche. Con primer-match-gana no puede acumular escalas sobre otra banda."
       }
     ],
     "windowGlow": {
@@ -162,34 +252,36 @@
       "hue": [195, 250],
       "sat": [0.35, 0.9],
       "value": [0.55, 1.0],
-      "strength": 2.0,
-      "colorSrgb": [255, 178, 96],
-      "description": "Ventanas azules del atlas Kenney pasan a emisión cálida sólo en edificios"
+      "strength": 1.15,
+      "colorSrgb": [255, 199, 146],
+      "litFraction": 0.42,
+      "salt": 1741,
+      "description": "Ventanas del atlas Kenney = cara con texeles en la familia de cristal. La seleccion de cuales estan encendidas es por cara de malla (hash del baricentro 3D), no por texel: todas las ventanas comparten un swatch, asi que la geometria es la unica identificacion fiable. Reproduce un bloque real, donde media ciudad duerme."
     },
     "flatMaterials": [
       {
         "match": ["leaf", "green"],
-        "hueTo": 170,
-        "saturationScale": 0.5,
-        "valueScale": 0.5
+        "hueTo": 138,
+        "saturationScale": 0.62,
+        "valueScale": 0.55,
+        "description": "Follaje plano de nature-kit: verde de noche, distinguible de la pizarra de los tejados. Va por encima de lo que pediria el suelo porque `flatMaterials` no pasa por `global.valueScale`: sin esta compensacion el arbol caia al mismo valor que la loseta y desaparecia de la jerarquia."
       },
       {
         "match": ["bark", "wood", "trunk"],
-        "saturationScale": 0.6,
+        "saturationScale": 0.55,
         "valueScale": 0.42
       },
       {
         "match": ["default"],
-        "valueScale": 0.7
+        "valueScale": 0.6
       }
     ],
     "metallic": 0.0,
     "roughness": 0.88,
-    "kindOverrides": {
-      "terrain": {
-        "saturationScale": 0.62,
-        "valueScale": 0.72
-      }
+    "acceptance": {
+      "nightValueCeiling": 0.62,
+      "darkestValueFloor": 0.05,
+      "description": "Umbrales que comprueba check_style_layer.py sobre el albedo resultante: ningun swatch puede quedarse en luz de dia (techo) ni aplastarse a negro (suelo)."
     }
   },
   "shadow": {
@@ -197,7 +289,7 @@
     "keySunAngleDegrees": 3.0,
     "strength": 1.5,
     "colorSrgb": [4, 6, 10],
-    "description": "Segunda pasada con plano blanco: la sombra es la del rig SUN, con dirección y tamaño reales"
+    "description": "Segunda pasada con plano blanco: la sombra es la del rig SUN, con direcci\u00f3n y tama\u00f1o reales"
   },
-  "styleLayerRule": "Quaternius/Kenney → geometry; Poly Haven → material base/PBR; Graphic Civic Style Layer → color grading + roughness + scale + lighting"
+  "styleLayerRule": "Quaternius/Kenney \u2192 geometry; Poly Haven \u2192 material base/PBR; Graphic Civic Style Layer \u2192 color grading + roughness + scale + lighting"
 }

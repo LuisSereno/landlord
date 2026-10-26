@@ -10,6 +10,7 @@
  * Uso:
  *   node scripts/build-blender-assets.mjs           # renderiza y publica el bundle
  *   node scripts/build-blender-assets.mjs --check   # verifica hashes, medidas y completitud
+ *   node scripts/build-blender-assets.mjs --only=bld_residential_a,veh_sedan --outDir=/tmp/lab
  *
  * El binario de Blender es local (no existe en CI): `BLENDER_BIN` lo puede sustituir.
  */
@@ -53,6 +54,21 @@ const METADATA_PATH = join(
 );
 const EVIDENCE_DIR = join(REPO_ROOT, "blender_artist", "generated", "runtime-evidence");
 const ASSET_GROUPS = ["buildings", "characters", "terrain", "props", "vehicles"];
+
+/**
+ * Modo laboratorio de estilo (WP4.15-V.b1): `--only=id,id` re-renderiza una muestra a `--outDir`
+ * sin publicar ni un bundle a medias, para iterar el `style_layer` sobre cinco assets en segundos.
+ */
+function styleLabOptions() {
+  const argv = process.argv.slice(2);
+  const read = (flag) => argv.find((f) => f.startsWith(flag))?.slice(flag.length);
+  const only = read("--only=");
+  if (!only) return null;
+  return {
+    ids: new Set(only.split(",").filter(Boolean)),
+    outDir: read("--outDir=") ?? join(REPO_ROOT, "blender_artist", "generated", "style-lab"),
+  };
+}
 
 function sha256(buffer) {
   return createHash("sha256").update(buffer).digest("hex");
@@ -271,7 +287,7 @@ function renderTask(job, task, sourcesById, workDir) {
       "--metadata",
       workJson,
     ],
-    { encoding: "utf8" },
+    { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 },
   );
   if (result.status !== 0) {
     throw new Error(`Blender falló para ${task.file}:\n${result.stderr ?? result.stdout}`);
@@ -355,6 +371,7 @@ function render() {
   if (!existsSync(BLENDER)) {
     throw new Error(`No existe el binario de Blender: ${BLENDER} (define BLENDER_BIN)`);
   }
+  const lab = styleLabOptions();
   const { manifest, sourcesById } = readJobs();
   const bundle = {
     schemaVersion: 1,
@@ -383,8 +400,16 @@ function render() {
   let evidenceCount = 0;
 
   for (const job of manifest.jobs) {
+    if (lab && !lab.ids.has(job.id)) continue;
     for (const task of tasksFor(job, manifest.defaults)) {
       const { workPng, workJson, entry } = renderTask(job, task, sourcesById, workDir);
+      if (lab) {
+        mkdirSync(lab.outDir, { recursive: true });
+        copyFileSync(workPng, join(lab.outDir, `${task.file}.png`));
+        copyFileSync(workJson, join(lab.outDir, `${task.file}.json`));
+        published.push(task.file);
+        continue;
+      }
       if (job.target === "evidence") {
         copyFileSync(workPng, join(EVIDENCE_DIR, `${task.file}.png`));
         copyFileSync(workJson, join(EVIDENCE_DIR, `${task.file}.json`));
@@ -406,6 +431,17 @@ function render() {
     }
   }
   rmSync(workDir, { recursive: true, force: true });
+  if (lab) {
+    console.log(
+      JSON.stringify({
+        status: "style-lab",
+        note: "muestra del laboratorio de estilo: el bundle publicado no se ha tocado",
+        images: published.length,
+        outDir: lab.outDir,
+      }),
+    );
+    return;
+  }
   writeFileSync(BUNDLE_PATH, `${JSON.stringify(bundle, null, 2)}\n`);
   writeFileSync(METADATA_PATH, `${JSON.stringify(metadata, null, 2)}\n`);
   const totalBytes = published.reduce(

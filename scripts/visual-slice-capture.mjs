@@ -18,6 +18,12 @@ const port = 4177;
 const externalServerUrl = process.env.VISUAL_SLICE_BASE_URL;
 const baseUrl = externalServerUrl ?? `http://127.0.0.1:${port}`;
 const outputDir = process.env.VISUAL_SLICE_OUTPUT ?? "artifacts/visual-slice";
+/**
+ * Prefijo para el par A/B de un pase de estilo (WP4.15-V.b1): `vb1-before`, `vb1-after`.
+ * Duplica la serie de zooms sin borrar la evidencia canónica, así la comparación deja de
+ * depender de qué bundle estaba montado cuando se tomó la captura.
+ */
+const evidencePrefix = process.env.VISUAL_SLICE_EVIDENCE;
 const server = externalServerUrl
   ? null
   : spawn(
@@ -100,7 +106,14 @@ try {
     captures.push(await capture(name, 1.0));
   }
   for (const zoom of ZOOMS) {
-    captures.push(await capture(`visual-slice-zoom-${zoom.toFixed(1)}`, zoom));
+    const name = `visual-slice-zoom-${zoom.toFixed(1)}`;
+    const file = await capture(name, zoom);
+    captures.push(file);
+    if (evidencePrefix) {
+      const copy = `${outputDir}/${evidencePrefix}-${name}.png`;
+      copyFileSync(file, copy);
+      captures.push(copy);
+    }
   }
   /** Captura principal: misma composición sin personajes a zoom de gameplay estándar. */
   captures.push(await capture("visual-slice-main", 1.0));

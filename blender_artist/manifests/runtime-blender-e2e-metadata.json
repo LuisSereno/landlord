@@ -17,7 +17,7 @@
       "y": 0.7941
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/courtyard_home-complete.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/courtyard_home-complete.png",
       "width": 72,
       "height": 73,
       "sha256": "b197476f2efd46b78289d51c20c08f2d177494757527d3805e72d298809269b8"
@@ -59,8 +59,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1456.1,
-      "totalMs": 1479.4
+      "renderMs": 1486.29,
+      "totalMs": 1512.33
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -70,9 +70,9 @@
         "--state",
         "complete",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/courtyard_home-complete.png",
+        "/tmp/landlord-blender-assets-9QUGkI/courtyard_home-complete.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/courtyard_home-complete.json"
+        "/tmp/landlord-blender-assets-9QUGkI/courtyard_home-complete.json"
       ]
     }
   },
@@ -94,7 +94,7 @@
       "y": 0.6962
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/courtyard_home-construction.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/courtyard_home-construction.png",
       "width": 74,
       "height": 61,
       "sha256": "e322fcfb17660885fb2761afb9cb894bbafd7aeace888661200fc1fe445b70a7"
@@ -136,8 +136,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1547.51,
-      "totalMs": 1570.85
+      "renderMs": 1515.93,
+      "totalMs": 1538.96
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -147,9 +147,9 @@
         "--state",
         "construction",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/courtyard_home-construction.png",
+        "/tmp/landlord-blender-assets-9QUGkI/courtyard_home-construction.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/courtyard_home-construction.json"
+        "/tmp/landlord-blender-assets-9QUGkI/courtyard_home-construction.json"
       ]
     }
   },
@@ -171,7 +171,7 @@
       "y": 0.7941
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/courtyard_home-damaged.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/courtyard_home-damaged.png",
       "width": 72,
       "height": 73,
       "sha256": "6e8739ee65491c30ad59a3b534ea1b9eb32e2744d49d7be02a167a82f946ea60"
@@ -213,8 +213,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1582.29,
-      "totalMs": 1612
+      "renderMs": 1502.6,
+      "totalMs": 1530.77
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -224,9 +224,9 @@
         "--state",
         "damaged",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/courtyard_home-damaged.png",
+        "/tmp/landlord-blender-assets-9QUGkI/courtyard_home-damaged.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/courtyard_home-damaged.json"
+        "/tmp/landlord-blender-assets-9QUGkI/courtyard_home-damaged.json"
       ]
     }
   },
@@ -248,7 +248,7 @@
       "y": 0.7941
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/courtyard_home-burning.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/courtyard_home-burning.png",
       "width": 72,
       "height": 73,
       "sha256": "d1dcc062a89c09880612b0e053510aee14eef4eec1445322013fb17919bddc54"
@@ -290,8 +290,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1768.48,
-      "totalMs": 1797.23
+      "renderMs": 1628.22,
+      "totalMs": 1656.76
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -301,9 +301,9 @@
         "--state",
         "burning",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/courtyard_home-burning.png",
+        "/tmp/landlord-blender-assets-9QUGkI/courtyard_home-burning.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/courtyard_home-burning.json"
+        "/tmp/landlord-blender-assets-9QUGkI/courtyard_home-burning.json"
       ]
     }
   },
@@ -322,7 +322,7 @@
       "y": 0.9376
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d0-idle-0.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d0-idle-0.png",
       "width": 15,
       "height": 38,
       "sha256": "d1902e1f4c8037dfd5d78b43a566cacaacc5cc79465cd3704c0f05931718958c"
@@ -364,8 +364,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1619.5,
-      "totalMs": 1629.48
+      "renderMs": 1301.59,
+      "totalMs": 1306.47
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -379,9 +379,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d0-idle-0.png",
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d0-idle-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d0-idle-0.json"
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d0-idle-0.json"
       ]
     }
   },
@@ -400,7 +400,7 @@
       "y": 0.9507
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d0-idle-1.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d0-idle-1.png",
       "width": 15,
       "height": 38,
       "sha256": "eaee230950c335a0ea9ecf4b834c70d300c9727f317919b8510d7075ec6a1441"
@@ -442,8 +442,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1512.64,
-      "totalMs": 1518.66
+      "renderMs": 1373.8,
+      "totalMs": 1378.92
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -457,9 +457,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d0-idle-1.png",
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d0-idle-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d0-idle-1.json"
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d0-idle-1.json"
       ]
     }
   },
@@ -478,7 +478,7 @@
       "y": 0.9157
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d0-walk-0.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d0-walk-0.png",
       "width": 15,
       "height": 40,
       "sha256": "15240a0beec2be29165966bd02f5cdeffb1e9df215d39fba9113b4d23fe238c2"
@@ -520,8 +520,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1360.66,
-      "totalMs": 1367.62
+      "renderMs": 1272.47,
+      "totalMs": 1279.09
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -535,9 +535,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d0-walk-0.png",
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d0-walk-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d0-walk-0.json"
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d0-walk-0.json"
       ]
     }
   },
@@ -556,7 +556,7 @@
       "y": 0.9507
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d0-walk-1.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d0-walk-1.png",
       "width": 16,
       "height": 38,
       "sha256": "cf9dbc3cdbfa56d7cc9a1023f100c91b827e40e15a5a5a4b96100b216395f844"
@@ -598,8 +598,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1365.67,
-      "totalMs": 1372.16
+      "renderMs": 1301.64,
+      "totalMs": 1307.36
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -613,9 +613,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d0-walk-1.png",
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d0-walk-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d0-walk-1.json"
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d0-walk-1.json"
       ]
     }
   },
@@ -634,7 +634,7 @@
       "y": 0.9376
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d1-idle-0.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d1-idle-0.png",
       "width": 15,
       "height": 38,
       "sha256": "bd5fd3023cc4948c0c6a3d6dfa51e45e58a2a0087d70795b04a622bd8b673d22"
@@ -676,8 +676,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1422.78,
-      "totalMs": 1428.66
+      "renderMs": 1283.57,
+      "totalMs": 1291.48
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -691,9 +691,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d1-idle-0.png",
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d1-idle-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d1-idle-0.json"
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d1-idle-0.json"
       ]
     }
   },
@@ -712,7 +712,7 @@
       "y": 0.9507
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d1-idle-1.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d1-idle-1.png",
       "width": 15,
       "height": 38,
       "sha256": "6e7377e8da25e3d933df4bb2ee32204cb3ac8ce9cc43fabbd6784c0c97e1f2f1"
@@ -754,8 +754,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1333.1,
-      "totalMs": 1338.51
+      "renderMs": 1533.99,
+      "totalMs": 1539.1
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -769,9 +769,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d1-idle-1.png",
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d1-idle-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d1-idle-1.json"
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d1-idle-1.json"
       ]
     }
   },
@@ -790,7 +790,7 @@
       "y": 0.9639
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d1-walk-0.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d1-walk-0.png",
       "width": 16,
       "height": 38,
       "sha256": "6719351fae65a4ebc723b7b60a14a7e16db59f3902389169767b292e183fd468"
@@ -832,8 +832,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1300.72,
-      "totalMs": 1306.84
+      "renderMs": 1322.04,
+      "totalMs": 1330.28
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -847,9 +847,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d1-walk-0.png",
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d1-walk-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d1-walk-0.json"
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d1-walk-0.json"
       ]
     }
   },
@@ -868,7 +868,7 @@
       "y": 0.9032
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d1-walk-1.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d1-walk-1.png",
       "width": 15,
       "height": 40,
       "sha256": "372d14cb4dda71e4c3a223358b081bdac8777dc55059d6ab1cf949ab02ff9dc2"
@@ -910,8 +910,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1307.11,
-      "totalMs": 1312.16
+      "renderMs": 1356.7,
+      "totalMs": 1363.92
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -925,9 +925,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d1-walk-1.png",
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d1-walk-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d1-walk-1.json"
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d1-walk-1.json"
       ]
     }
   },
@@ -946,7 +946,7 @@
       "y": 0.9392
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d2-idle-0.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d2-idle-0.png",
       "width": 15,
       "height": 39,
       "sha256": "2f5fa0f3020897b0e793cd89d9c2eb739d29948cbc928b2af94a5e0f870e009d"
@@ -988,8 +988,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1319.03,
-      "totalMs": 1325.22
+      "renderMs": 1346.29,
+      "totalMs": 1355.3
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1003,9 +1003,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d2-idle-0.png",
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d2-idle-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d2-idle-0.json"
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d2-idle-0.json"
       ]
     }
   },
@@ -1024,7 +1024,7 @@
       "y": 0.952
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d2-idle-1.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d2-idle-1.png",
       "width": 15,
       "height": 39,
       "sha256": "6390c29203ad28d02fd624c6911211b67b1c5773dbc3a0d0b22acb130940dacf"
@@ -1066,8 +1066,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1289.03,
-      "totalMs": 1295.2
+      "renderMs": 1323.15,
+      "totalMs": 1329.16
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1081,9 +1081,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d2-idle-1.png",
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d2-idle-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d2-idle-1.json"
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d2-idle-1.json"
       ]
     }
   },
@@ -1102,7 +1102,7 @@
       "y": 0.9157
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d2-walk-0.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d2-walk-0.png",
       "width": 15,
       "height": 40,
       "sha256": "97e68c0a6d20d7db58f1eb993d31f744c102615433e9a5e282f6488686c0343c"
@@ -1144,8 +1144,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1341.77,
-      "totalMs": 1349.22
+      "renderMs": 1289.67,
+      "totalMs": 1295.61
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1159,9 +1159,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d2-walk-0.png",
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d2-walk-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d2-walk-0.json"
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d2-walk-0.json"
       ]
     }
   },
@@ -1180,7 +1180,7 @@
       "y": 0.9507
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d2-walk-1.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d2-walk-1.png",
       "width": 16,
       "height": 38,
       "sha256": "c3c75045b0f64aec057dbf356342c0957ceb778db09b2b22d230f1dc3456a965"
@@ -1222,8 +1222,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1325.19,
-      "totalMs": 1333.89
+      "renderMs": 1367.11,
+      "totalMs": 1375.19
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1237,9 +1237,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d2-walk-1.png",
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d2-walk-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d2-walk-1.json"
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d2-walk-1.json"
       ]
     }
   },
@@ -1258,7 +1258,7 @@
       "y": 0.9392
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d3-idle-0.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d3-idle-0.png",
       "width": 15,
       "height": 39,
       "sha256": "ea5d617fa76b65050574f9d59e5471760ad0d1e177e92c55f0cf3fe8752ff826"
@@ -1300,8 +1300,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1301.9,
-      "totalMs": 1309.89
+      "renderMs": 1342.93,
+      "totalMs": 1351.36
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1315,9 +1315,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d3-idle-0.png",
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d3-idle-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d3-idle-0.json"
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d3-idle-0.json"
       ]
     }
   },
@@ -1336,7 +1336,7 @@
       "y": 0.952
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d3-idle-1.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d3-idle-1.png",
       "width": 15,
       "height": 39,
       "sha256": "4a2696ac5a5116d3c4b86abc1e123038f5b10b75ed489fe18c984ec77aedb5a4"
@@ -1378,8 +1378,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1368.44,
-      "totalMs": 1375.85
+      "renderMs": 1270.46,
+      "totalMs": 1275.76
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1393,9 +1393,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d3-idle-1.png",
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d3-idle-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d3-idle-1.json"
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d3-idle-1.json"
       ]
     }
   },
@@ -1414,7 +1414,7 @@
       "y": 0.9639
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d3-walk-0.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d3-walk-0.png",
       "width": 16,
       "height": 38,
       "sha256": "637f1445dccc1f39f4ed83a483614c3020b211c3185887ed2c3e5c185e4a1318"
@@ -1456,8 +1456,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1442.43,
-      "totalMs": 1449.12
+      "renderMs": 1318.14,
+      "totalMs": 1323.62
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1471,9 +1471,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d3-walk-0.png",
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d3-walk-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d3-walk-0.json"
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d3-walk-0.json"
       ]
     }
   },
@@ -1492,7 +1492,7 @@
       "y": 0.9032
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d3-walk-1.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d3-walk-1.png",
       "width": 15,
       "height": 40,
       "sha256": "3153803800490225e20fd646548f97e4e2b755ca731abcb56098958665777370"
@@ -1534,8 +1534,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1508.79,
-      "totalMs": 1515.68
+      "renderMs": 1281.14,
+      "totalMs": 1287.52
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1549,9 +1549,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d3-walk-1.png",
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d3-walk-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/vecino_variante-d3-walk-1.json"
+        "/tmp/landlord-blender-assets-9QUGkI/vecino_variante-d3-walk-1.json"
       ]
     }
   },
@@ -1570,10 +1570,10 @@
       "y": 0.8137
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_shopfront-complete.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_shopfront-complete.png",
       "width": 185,
       "height": 205,
-      "sha256": "4c66c37761211210a08613e1d7b3dd1c32167f30e2d90cb4cab1c8e59061160d"
+      "sha256": "88d817a00b318cd41a8540c16912992f8c678ed88db5f42fd7385bf553ddcd87"
     },
     "trim": {
       "rendered": {
@@ -1607,11 +1607,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
-      "exposure": -0.45
+      "litWindows": 10,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -1623,8 +1624,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2975.21,
-      "totalMs": 26368.09
+      "renderMs": 2884.96,
+      "totalMs": 26530.21
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1653,9 +1654,9 @@
         "complete",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_shopfront-complete.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_shopfront-complete.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_shopfront-complete.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_shopfront-complete.json"
       ]
     },
     "source": {
@@ -1701,10 +1702,10 @@
       "y": 0.8137
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_shopfront-construction.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_shopfront-construction.png",
       "width": 185,
       "height": 205,
-      "sha256": "4c66c37761211210a08613e1d7b3dd1c32167f30e2d90cb4cab1c8e59061160d"
+      "sha256": "88d817a00b318cd41a8540c16912992f8c678ed88db5f42fd7385bf553ddcd87"
     },
     "trim": {
       "rendered": {
@@ -1738,11 +1739,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
-      "exposure": -0.45
+      "litWindows": 10,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -1754,8 +1756,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 3031.26,
-      "totalMs": 26537.44
+      "renderMs": 2776.62,
+      "totalMs": 26611.59
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1784,9 +1786,9 @@
         "construction",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_shopfront-construction.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_shopfront-construction.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_shopfront-construction.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_shopfront-construction.json"
       ]
     },
     "source": {
@@ -1832,10 +1834,10 @@
       "y": 0.8137
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_shopfront-damaged.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_shopfront-damaged.png",
       "width": 185,
       "height": 205,
-      "sha256": "4c66c37761211210a08613e1d7b3dd1c32167f30e2d90cb4cab1c8e59061160d"
+      "sha256": "88d817a00b318cd41a8540c16912992f8c678ed88db5f42fd7385bf553ddcd87"
     },
     "trim": {
       "rendered": {
@@ -1869,11 +1871,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
-      "exposure": -0.45
+      "litWindows": 10,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -1885,8 +1888,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2771.86,
-      "totalMs": 26343.3
+      "renderMs": 2900.62,
+      "totalMs": 26590.53
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1915,9 +1918,9 @@
         "damaged",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_shopfront-damaged.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_shopfront-damaged.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_shopfront-damaged.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_shopfront-damaged.json"
       ]
     },
     "source": {
@@ -1963,10 +1966,10 @@
       "y": 0.8137
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_shopfront-burning.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_shopfront-burning.png",
       "width": 185,
       "height": 205,
-      "sha256": "4c66c37761211210a08613e1d7b3dd1c32167f30e2d90cb4cab1c8e59061160d"
+      "sha256": "88d817a00b318cd41a8540c16912992f8c678ed88db5f42fd7385bf553ddcd87"
     },
     "trim": {
       "rendered": {
@@ -2000,11 +2003,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
-      "exposure": -0.45
+      "litWindows": 10,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -2016,8 +2020,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2778.55,
-      "totalMs": 26468.9
+      "renderMs": 2862.29,
+      "totalMs": 26645.73
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -2046,9 +2050,9 @@
         "burning",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_shopfront-burning.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_shopfront-burning.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_shopfront-burning.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_shopfront-burning.json"
       ]
     },
     "source": {
@@ -2094,10 +2098,10 @@
       "y": 0.5148
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/ter_road_straight.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/ter_road_straight.png",
       "width": 242,
       "height": 125,
-      "sha256": "88cc9b1cb49d898eada21d8e16bec07dcac677591765fd0646480a35ea920538"
+      "sha256": "4888d755097c5c0dfdbffbdfc98723d548a0aed23ebbc96b4ccd8d29b8d7f63e"
     },
     "trim": {
       "rendered": {
@@ -2131,19 +2135,20 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": null,
     "render": {
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2447.87,
-      "totalMs": 2561.71
+      "renderMs": 2355.91,
+      "totalMs": 2465.13
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -2169,9 +2174,9 @@
         "--license",
         "CC0-1.0",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/ter_road_straight.png",
+        "/tmp/landlord-blender-assets-9QUGkI/ter_road_straight.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/ter_road_straight.json"
+        "/tmp/landlord-blender-assets-9QUGkI/ter_road_straight.json"
       ]
     },
     "source": {
@@ -2213,14 +2218,14 @@
     "frame": null,
     "footprint": null,
     "pivot": {
-      "x": 0.6123,
+      "x": 0.6117,
       "y": 0.803
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_commercial_b-complete.png",
-      "width": 187,
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_b-complete.png",
+      "width": 188,
       "height": 204,
-      "sha256": "573b91cc7682ec7dbe97771c26e7469ce84c2427daeb6b051cf50cd53176eeb1"
+      "sha256": "59402a62da2c1284e582e14de1c51b167b93d1a3a894e1f3c428e6e533fa2815"
     },
     "trim": {
       "rendered": {
@@ -2228,13 +2233,13 @@
         "height": 512
       },
       "cropped": {
-        "width": 374,
+        "width": 376,
         "height": 408,
-        "offsetX": 27,
+        "offsetX": 26,
         "offsetY": 64
       },
       "final": {
-        "width": 187,
+        "width": 188,
         "height": 204
       }
     },
@@ -2254,11 +2259,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
-      "exposure": -0.45
+      "litWindows": 2,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -2270,8 +2276,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2950.61,
-      "totalMs": 26722.08
+      "renderMs": 2984.66,
+      "totalMs": 26641.91
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -2300,9 +2306,9 @@
         "complete",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_commercial_b-complete.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_b-complete.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_commercial_b-complete.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_b-complete.json"
       ]
     },
     "source": {
@@ -2344,14 +2350,14 @@
     "frame": null,
     "footprint": null,
     "pivot": {
-      "x": 0.6123,
+      "x": 0.6117,
       "y": 0.803
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_commercial_b-construction.png",
-      "width": 187,
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_b-construction.png",
+      "width": 188,
       "height": 204,
-      "sha256": "573b91cc7682ec7dbe97771c26e7469ce84c2427daeb6b051cf50cd53176eeb1"
+      "sha256": "59402a62da2c1284e582e14de1c51b167b93d1a3a894e1f3c428e6e533fa2815"
     },
     "trim": {
       "rendered": {
@@ -2359,13 +2365,13 @@
         "height": 512
       },
       "cropped": {
-        "width": 374,
+        "width": 376,
         "height": 408,
-        "offsetX": 27,
+        "offsetX": 26,
         "offsetY": 64
       },
       "final": {
-        "width": 187,
+        "width": 188,
         "height": 204
       }
     },
@@ -2385,11 +2391,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
-      "exposure": -0.45
+      "litWindows": 2,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -2401,8 +2408,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2962.01,
-      "totalMs": 26472.82
+      "renderMs": 2752.4,
+      "totalMs": 26601.75
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -2431,9 +2438,9 @@
         "construction",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_commercial_b-construction.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_b-construction.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_commercial_b-construction.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_b-construction.json"
       ]
     },
     "source": {
@@ -2475,14 +2482,14 @@
     "frame": null,
     "footprint": null,
     "pivot": {
-      "x": 0.6123,
+      "x": 0.6117,
       "y": 0.803
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_commercial_b-damaged.png",
-      "width": 187,
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_b-damaged.png",
+      "width": 188,
       "height": 204,
-      "sha256": "573b91cc7682ec7dbe97771c26e7469ce84c2427daeb6b051cf50cd53176eeb1"
+      "sha256": "59402a62da2c1284e582e14de1c51b167b93d1a3a894e1f3c428e6e533fa2815"
     },
     "trim": {
       "rendered": {
@@ -2490,13 +2497,13 @@
         "height": 512
       },
       "cropped": {
-        "width": 374,
+        "width": 376,
         "height": 408,
-        "offsetX": 27,
+        "offsetX": 26,
         "offsetY": 64
       },
       "final": {
-        "width": 187,
+        "width": 188,
         "height": 204
       }
     },
@@ -2516,11 +2523,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
-      "exposure": -0.45
+      "litWindows": 2,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -2532,8 +2540,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2851.97,
-      "totalMs": 26441.87
+      "renderMs": 2861.03,
+      "totalMs": 26576.52
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -2562,9 +2570,9 @@
         "damaged",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_commercial_b-damaged.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_b-damaged.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_commercial_b-damaged.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_b-damaged.json"
       ]
     },
     "source": {
@@ -2606,14 +2614,14 @@
     "frame": null,
     "footprint": null,
     "pivot": {
-      "x": 0.6123,
+      "x": 0.6117,
       "y": 0.803
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_commercial_b-burning.png",
-      "width": 187,
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_b-burning.png",
+      "width": 188,
       "height": 204,
-      "sha256": "573b91cc7682ec7dbe97771c26e7469ce84c2427daeb6b051cf50cd53176eeb1"
+      "sha256": "59402a62da2c1284e582e14de1c51b167b93d1a3a894e1f3c428e6e533fa2815"
     },
     "trim": {
       "rendered": {
@@ -2621,13 +2629,13 @@
         "height": 512
       },
       "cropped": {
-        "width": 374,
+        "width": 376,
         "height": 408,
-        "offsetX": 27,
+        "offsetX": 26,
         "offsetY": 64
       },
       "final": {
-        "width": 187,
+        "width": 188,
         "height": 204
       }
     },
@@ -2647,11 +2655,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
-      "exposure": -0.45
+      "litWindows": 2,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -2663,8 +2672,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2877.57,
-      "totalMs": 26597.51
+      "renderMs": 2965.5,
+      "totalMs": 26695.21
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -2693,9 +2702,9 @@
         "burning",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_commercial_b-burning.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_b-burning.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_commercial_b-burning.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_b-burning.json"
       ]
     },
     "source": {
@@ -2741,10 +2750,10 @@
       "y": 0.6748
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_residential_a-complete.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_residential_a-complete.png",
       "width": 190,
       "height": 142,
-      "sha256": "b9d796eac6cf1a941cd859791e722fad8bb218f8b844237b71c004e252ad2255"
+      "sha256": "ce5ec7e1618d2a16a862e7c2301d46f9483af0186ce546cdd8e41b0cd6118b58"
     },
     "trim": {
       "rendered": {
@@ -2778,11 +2787,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
-      "exposure": -0.45
+      "litWindows": 4,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -2794,8 +2804,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2697.92,
-      "totalMs": 26307.65
+      "renderMs": 2646.1,
+      "totalMs": 26303.91
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -2824,9 +2834,9 @@
         "complete",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_a-complete.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_a-complete.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_a-complete.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_a-complete.json"
       ]
     },
     "source": {
@@ -2872,10 +2882,10 @@
       "y": 0.6748
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_residential_a-construction.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_residential_a-construction.png",
       "width": 190,
       "height": 142,
-      "sha256": "b9d796eac6cf1a941cd859791e722fad8bb218f8b844237b71c004e252ad2255"
+      "sha256": "ce5ec7e1618d2a16a862e7c2301d46f9483af0186ce546cdd8e41b0cd6118b58"
     },
     "trim": {
       "rendered": {
@@ -2909,11 +2919,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
-      "exposure": -0.45
+      "litWindows": 4,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -2925,8 +2936,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2708.04,
-      "totalMs": 26302.29
+      "renderMs": 2658.98,
+      "totalMs": 26422.14
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -2955,9 +2966,9 @@
         "construction",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_a-construction.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_a-construction.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_a-construction.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_a-construction.json"
       ]
     },
     "source": {
@@ -3003,10 +3014,10 @@
       "y": 0.6748
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_residential_a-damaged.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_residential_a-damaged.png",
       "width": 190,
       "height": 142,
-      "sha256": "b9d796eac6cf1a941cd859791e722fad8bb218f8b844237b71c004e252ad2255"
+      "sha256": "ce5ec7e1618d2a16a862e7c2301d46f9483af0186ce546cdd8e41b0cd6118b58"
     },
     "trim": {
       "rendered": {
@@ -3040,11 +3051,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
-      "exposure": -0.45
+      "litWindows": 4,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -3056,8 +3068,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2607.3,
-      "totalMs": 26009.36
+      "renderMs": 2610.02,
+      "totalMs": 26301.08
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -3086,9 +3098,9 @@
         "damaged",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_a-damaged.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_a-damaged.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_a-damaged.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_a-damaged.json"
       ]
     },
     "source": {
@@ -3134,10 +3146,10 @@
       "y": 0.6748
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_residential_a-burning.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_residential_a-burning.png",
       "width": 190,
       "height": 142,
-      "sha256": "b9d796eac6cf1a941cd859791e722fad8bb218f8b844237b71c004e252ad2255"
+      "sha256": "ce5ec7e1618d2a16a862e7c2301d46f9483af0186ce546cdd8e41b0cd6118b58"
     },
     "trim": {
       "rendered": {
@@ -3171,11 +3183,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
-      "exposure": -0.45
+      "litWindows": 4,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -3187,8 +3200,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2582.48,
-      "totalMs": 26009.43
+      "renderMs": 2572.67,
+      "totalMs": 26085.61
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -3217,9 +3230,9 @@
         "burning",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_a-burning.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_a-burning.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_a-burning.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_a-burning.json"
       ]
     },
     "source": {
@@ -3265,10 +3278,10 @@
       "y": 0.756
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/veh_sedan.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/veh_sedan.png",
       "width": 215,
       "height": 161,
-      "sha256": "77da82dfed2978b1bffe94a68fe77fa665f978c09827dfe09ae629d6f24d6090"
+      "sha256": "d15eefd5d4796eb52ee243fad13af955f5c26c0ae3c52bdd39e929b8bb664c68"
     },
     "trim": {
       "rendered": {
@@ -3302,11 +3315,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -3318,8 +3332,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2620.3,
-      "totalMs": 26398.51
+      "renderMs": 2625.42,
+      "totalMs": 26357.54
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -3348,9 +3362,9 @@
         "--azimuth",
         "45",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/veh_sedan.png",
+        "/tmp/landlord-blender-assets-9QUGkI/veh_sedan.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/veh_sedan.json"
+        "/tmp/landlord-blender-assets-9QUGkI/veh_sedan.json"
       ]
     },
     "source": {
@@ -3396,10 +3410,10 @@
       "y": 0.7415
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/veh_sedan-az225.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/veh_sedan-az225.png",
       "width": 215,
       "height": 152,
-      "sha256": "66a1ae1a4a294c22b4b9a4f51231546fb01fa2078efd8a6b08b7756e95685e8c"
+      "sha256": "5f331b91ded3d5127479c3e4652d4963cee3065ffa7a998591da073a48509066"
     },
     "trim": {
       "rendered": {
@@ -3433,11 +3447,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -3449,8 +3464,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2573.11,
-      "totalMs": 26279.99
+      "renderMs": 2466.01,
+      "totalMs": 26148.39
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -3479,9 +3494,9 @@
         "--azimuth",
         "225",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/veh_sedan-az225.png",
+        "/tmp/landlord-blender-assets-9QUGkI/veh_sedan-az225.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/veh_sedan-az225.json"
+        "/tmp/landlord-blender-assets-9QUGkI/veh_sedan-az225.json"
       ]
     },
     "source": {
@@ -3523,14 +3538,14 @@
     "frame": 0,
     "footprint": null,
     "pivot": {
-      "x": 0.6657,
+      "x": 0.6687,
       "y": 0.9678
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/prp_tree_detailed.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/prp_tree_detailed.png",
       "width": 166,
       "height": 168,
-      "sha256": "3e4b3d58b468ea8430af5bc904ac46daa6c403ab2337bedea9384567ca298294"
+      "sha256": "f790d840d83080eb09d3602fad966c4b711d00d4cfe7a6f1c62e399d98bc890d"
     },
     "trim": {
       "rendered": {
@@ -3540,7 +3555,7 @@
       "cropped": {
         "width": 332,
         "height": 336,
-        "offsetX": 35,
+        "offsetX": 34,
         "offsetY": 86
       },
       "final": {
@@ -3564,11 +3579,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": [],
       "flatMaterials": 3,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -3580,8 +3596,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2857.19,
-      "totalMs": 26406.33
+      "renderMs": 2849.56,
+      "totalMs": 26315.36
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -3608,9 +3624,9 @@
         "CC0-1.0",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/prp_tree_detailed.png",
+        "/tmp/landlord-blender-assets-9QUGkI/prp_tree_detailed.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/prp_tree_detailed.json"
+        "/tmp/landlord-blender-assets-9QUGkI/prp_tree_detailed.json"
       ]
     },
     "source": {
@@ -3656,10 +3672,10 @@
       "y": 0.9291
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/prp_traffic_light.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/prp_traffic_light.png",
       "width": 97,
       "height": 128,
-      "sha256": "5f5f5cb724b1c54b6db475bb6ec41e774453af953f6544fe8c79ac62d15f1420"
+      "sha256": "0d601240eda42c2aaafcd99185159243564233e691b97fb4dbcd1c318bfdc518"
     },
     "trim": {
       "rendered": {
@@ -3693,11 +3709,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -3709,8 +3726,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1857.46,
-      "totalMs": 25512.32
+      "renderMs": 1765.94,
+      "totalMs": 25692.75
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -3739,9 +3756,9 @@
         "--azimuth",
         "45",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/prp_traffic_light.png",
+        "/tmp/landlord-blender-assets-9QUGkI/prp_traffic_light.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/prp_traffic_light.json"
+        "/tmp/landlord-blender-assets-9QUGkI/prp_traffic_light.json"
       ]
     },
     "source": {
@@ -3787,10 +3804,10 @@
       "y": 0.9474
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/prp_traffic_light-az225.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/prp_traffic_light-az225.png",
       "width": 97,
       "height": 125,
-      "sha256": "3266099e767b335175efeea75180740bc2d973cd6b02b1349c4b1ede4306bb61"
+      "sha256": "da715db43142d00118d836bdb48367e5c607f66e144bc0bf233ae335d65dd2fa"
     },
     "trim": {
       "rendered": {
@@ -3824,11 +3841,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -3840,8 +3858,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1681.61,
-      "totalMs": 25415.77
+      "renderMs": 1750.82,
+      "totalMs": 25415
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -3870,9 +3888,9 @@
         "--azimuth",
         "225",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/prp_traffic_light-az225.png",
+        "/tmp/landlord-blender-assets-9QUGkI/prp_traffic_light-az225.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/prp_traffic_light-az225.json"
+        "/tmp/landlord-blender-assets-9QUGkI/prp_traffic_light-az225.json"
       ]
     },
     "source": {
@@ -3918,10 +3936,10 @@
       "y": 0.7443
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_commercial_c-complete.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_c-complete.png",
       "width": 162,
       "height": 163,
-      "sha256": "991d8f2d10ce2ced09d04f86c5d0fe46723d2036905df020a7080a22bf67c796"
+      "sha256": "be328aa5e9dcb617b022d62b4ab1f35705686d025d859256e342626320f0c368"
     },
     "trim": {
       "rendered": {
@@ -3955,11 +3973,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
-      "exposure": -0.45
+      "litWindows": 7,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -3971,8 +3990,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2628.74,
-      "totalMs": 26519.8
+      "renderMs": 2631.38,
+      "totalMs": 26390.57
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -4001,9 +4020,9 @@
         "complete",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_commercial_c-complete.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_c-complete.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_commercial_c-complete.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_c-complete.json"
       ]
     },
     "source": {
@@ -4049,10 +4068,10 @@
       "y": 0.7443
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_commercial_c-construction.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_c-construction.png",
       "width": 162,
       "height": 163,
-      "sha256": "991d8f2d10ce2ced09d04f86c5d0fe46723d2036905df020a7080a22bf67c796"
+      "sha256": "be328aa5e9dcb617b022d62b4ab1f35705686d025d859256e342626320f0c368"
     },
     "trim": {
       "rendered": {
@@ -4086,11 +4105,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
-      "exposure": -0.45
+      "litWindows": 7,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -4102,8 +4122,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2636.02,
-      "totalMs": 26281.02
+      "renderMs": 2742.85,
+      "totalMs": 26549.04
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -4132,9 +4152,9 @@
         "construction",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_commercial_c-construction.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_c-construction.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_commercial_c-construction.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_c-construction.json"
       ]
     },
     "source": {
@@ -4180,10 +4200,10 @@
       "y": 0.7443
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_commercial_c-damaged.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_c-damaged.png",
       "width": 162,
       "height": 163,
-      "sha256": "991d8f2d10ce2ced09d04f86c5d0fe46723d2036905df020a7080a22bf67c796"
+      "sha256": "be328aa5e9dcb617b022d62b4ab1f35705686d025d859256e342626320f0c368"
     },
     "trim": {
       "rendered": {
@@ -4217,11 +4237,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
-      "exposure": -0.45
+      "litWindows": 7,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -4233,8 +4254,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2760.72,
-      "totalMs": 26264.11
+      "renderMs": 2878.39,
+      "totalMs": 26458.5
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -4263,9 +4284,9 @@
         "damaged",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_commercial_c-damaged.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_c-damaged.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_commercial_c-damaged.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_c-damaged.json"
       ]
     },
     "source": {
@@ -4311,10 +4332,10 @@
       "y": 0.7443
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_commercial_c-burning.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_c-burning.png",
       "width": 162,
       "height": 163,
-      "sha256": "991d8f2d10ce2ced09d04f86c5d0fe46723d2036905df020a7080a22bf67c796"
+      "sha256": "be328aa5e9dcb617b022d62b4ab1f35705686d025d859256e342626320f0c368"
     },
     "trim": {
       "rendered": {
@@ -4348,11 +4369,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
-      "exposure": -0.45
+      "litWindows": 7,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -4364,8 +4386,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2621.03,
-      "totalMs": 26133.74
+      "renderMs": 2562.85,
+      "totalMs": 26279.64
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -4394,9 +4416,9 @@
         "burning",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_commercial_c-burning.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_c-burning.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_commercial_c-burning.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_commercial_c-burning.json"
       ]
     },
     "source": {
@@ -4442,10 +4464,10 @@
       "y": 0.6857
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_residential_b-complete.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_residential_b-complete.png",
       "width": 230,
       "height": 174,
-      "sha256": "82209e4b32aeeb3eaea7fb2630d4c62588adffc64c28ac5eb12a0c675cc24412"
+      "sha256": "845b02a3a93834888c78ff399cf47c59ea26728d09b16f4c294f318e9bc3a113"
     },
     "trim": {
       "rendered": {
@@ -4479,11 +4501,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
-      "exposure": -0.45
+      "litWindows": 7,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -4495,8 +4518,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2827.02,
-      "totalMs": 26529.87
+      "renderMs": 2929.95,
+      "totalMs": 26816.77
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -4525,9 +4548,9 @@
         "complete",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_b-complete.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_b-complete.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_b-complete.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_b-complete.json"
       ]
     },
     "source": {
@@ -4573,10 +4596,10 @@
       "y": 0.6857
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_residential_b-construction.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_residential_b-construction.png",
       "width": 230,
       "height": 174,
-      "sha256": "82209e4b32aeeb3eaea7fb2630d4c62588adffc64c28ac5eb12a0c675cc24412"
+      "sha256": "845b02a3a93834888c78ff399cf47c59ea26728d09b16f4c294f318e9bc3a113"
     },
     "trim": {
       "rendered": {
@@ -4610,11 +4633,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
-      "exposure": -0.45
+      "litWindows": 7,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -4626,8 +4650,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2943.39,
-      "totalMs": 26411.54
+      "renderMs": 2990.21,
+      "totalMs": 26728.02
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -4656,9 +4680,9 @@
         "construction",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_b-construction.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_b-construction.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_b-construction.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_b-construction.json"
       ]
     },
     "source": {
@@ -4704,10 +4728,10 @@
       "y": 0.6857
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_residential_b-damaged.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_residential_b-damaged.png",
       "width": 230,
       "height": 174,
-      "sha256": "82209e4b32aeeb3eaea7fb2630d4c62588adffc64c28ac5eb12a0c675cc24412"
+      "sha256": "845b02a3a93834888c78ff399cf47c59ea26728d09b16f4c294f318e9bc3a113"
     },
     "trim": {
       "rendered": {
@@ -4741,11 +4765,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
-      "exposure": -0.45
+      "litWindows": 7,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -4757,8 +4782,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2983.62,
-      "totalMs": 26402.6
+      "renderMs": 2954.07,
+      "totalMs": 26541.68
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -4787,9 +4812,9 @@
         "damaged",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_b-damaged.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_b-damaged.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_b-damaged.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_b-damaged.json"
       ]
     },
     "source": {
@@ -4835,10 +4860,10 @@
       "y": 0.6857
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_residential_b-burning.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_residential_b-burning.png",
       "width": 230,
       "height": 174,
-      "sha256": "82209e4b32aeeb3eaea7fb2630d4c62588adffc64c28ac5eb12a0c675cc24412"
+      "sha256": "845b02a3a93834888c78ff399cf47c59ea26728d09b16f4c294f318e9bc3a113"
     },
     "trim": {
       "rendered": {
@@ -4872,11 +4897,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
-      "exposure": -0.45
+      "litWindows": 7,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -4888,8 +4914,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 3010.12,
-      "totalMs": 26472.2
+      "renderMs": 2999.61,
+      "totalMs": 26642.05
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -4918,9 +4944,9 @@
         "burning",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_b-burning.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_b-burning.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_b-burning.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_b-burning.json"
       ]
     },
     "source": {
@@ -4966,10 +4992,10 @@
       "y": 0.7167
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_residential_c-complete.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_residential_c-complete.png",
       "width": 187,
       "height": 163,
-      "sha256": "81395c2b0c313569ffdb7410ff821c9bb6c6a5cad0f990a37a0212d796bbe0ad"
+      "sha256": "31f9a6076dd1ab3310d7bfeeaa8b23a2c84513f7e86700e9c303cc6bd1b6cfb2"
     },
     "trim": {
       "rendered": {
@@ -5003,11 +5029,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
-      "exposure": -0.45
+      "litWindows": 6,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -5019,8 +5046,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2801.99,
-      "totalMs": 26586.81
+      "renderMs": 2775.66,
+      "totalMs": 26669.9
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -5049,9 +5076,9 @@
         "complete",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_c-complete.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_c-complete.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_c-complete.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_c-complete.json"
       ]
     },
     "source": {
@@ -5097,10 +5124,10 @@
       "y": 0.7167
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_residential_c-construction.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_residential_c-construction.png",
       "width": 187,
       "height": 163,
-      "sha256": "81395c2b0c313569ffdb7410ff821c9bb6c6a5cad0f990a37a0212d796bbe0ad"
+      "sha256": "31f9a6076dd1ab3310d7bfeeaa8b23a2c84513f7e86700e9c303cc6bd1b6cfb2"
     },
     "trim": {
       "rendered": {
@@ -5134,11 +5161,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
-      "exposure": -0.45
+      "litWindows": 6,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -5150,8 +5178,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2810.4,
-      "totalMs": 26500.57
+      "renderMs": 2852.65,
+      "totalMs": 26674.98
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -5180,9 +5208,9 @@
         "construction",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_c-construction.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_c-construction.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_c-construction.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_c-construction.json"
       ]
     },
     "source": {
@@ -5228,10 +5256,10 @@
       "y": 0.7167
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_residential_c-damaged.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_residential_c-damaged.png",
       "width": 187,
       "height": 163,
-      "sha256": "81395c2b0c313569ffdb7410ff821c9bb6c6a5cad0f990a37a0212d796bbe0ad"
+      "sha256": "31f9a6076dd1ab3310d7bfeeaa8b23a2c84513f7e86700e9c303cc6bd1b6cfb2"
     },
     "trim": {
       "rendered": {
@@ -5265,11 +5293,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
-      "exposure": -0.45
+      "litWindows": 6,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -5281,8 +5310,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2758.72,
-      "totalMs": 26417.4
+      "renderMs": 2711.66,
+      "totalMs": 26200.06
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -5311,9 +5340,9 @@
         "damaged",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_c-damaged.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_c-damaged.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_c-damaged.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_c-damaged.json"
       ]
     },
     "source": {
@@ -5359,10 +5388,10 @@
       "y": 0.7167
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/bld_residential_c-burning.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/bld_residential_c-burning.png",
       "width": 187,
       "height": 163,
-      "sha256": "81395c2b0c313569ffdb7410ff821c9bb6c6a5cad0f990a37a0212d796bbe0ad"
+      "sha256": "31f9a6076dd1ab3310d7bfeeaa8b23a2c84513f7e86700e9c303cc6bd1b6cfb2"
     },
     "trim": {
       "rendered": {
@@ -5396,11 +5425,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
-      "exposure": -0.45
+      "litWindows": 6,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -5412,8 +5442,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2706.66,
-      "totalMs": 26479.13
+      "renderMs": 2706.46,
+      "totalMs": 26289.23
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -5442,9 +5472,9 @@
         "burning",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_c-burning.png",
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_c-burning.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/bld_residential_c-burning.json"
+        "/tmp/landlord-blender-assets-9QUGkI/bld_residential_c-burning.json"
       ]
     },
     "source": {
@@ -5490,10 +5520,10 @@
       "y": 0.5148
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/ter_road_corner.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/ter_road_corner.png",
       "width": 172,
       "height": 125,
-      "sha256": "f8a9736879fb3cae5b312f0565e909528b805f8f69dee80cccaa5a2de876e00b"
+      "sha256": "3bd239b1efccb89716d76229c6332fa743437fafb7c523001e66b160ddc849bd"
     },
     "trim": {
       "rendered": {
@@ -5527,19 +5557,20 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": null,
     "render": {
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2194.43,
-      "totalMs": 2297.93
+      "renderMs": 2180.16,
+      "totalMs": 2284.03
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -5565,9 +5596,9 @@
         "--license",
         "CC0-1.0",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/ter_road_corner.png",
+        "/tmp/landlord-blender-assets-9QUGkI/ter_road_corner.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/ter_road_corner.json"
+        "/tmp/landlord-blender-assets-9QUGkI/ter_road_corner.json"
       ]
     },
     "source": {
@@ -5613,10 +5644,10 @@
       "y": 0.5148
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/ter_road_intersection.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/ter_road_intersection.png",
       "width": 242,
       "height": 125,
-      "sha256": "1586c8f1252a45985955c8f7f939d5b779aed429f4336dc53f3303f9b19d0d35"
+      "sha256": "02f2096019e89fa44a01c09e3eb111404e2a38b0a1ccdefadcc410371b73fec9"
     },
     "trim": {
       "rendered": {
@@ -5650,19 +5681,20 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": null,
     "render": {
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2415.91,
-      "totalMs": 2525.01
+      "renderMs": 2341.65,
+      "totalMs": 2441.44
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -5688,9 +5720,9 @@
         "--license",
         "CC0-1.0",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/ter_road_intersection.png",
+        "/tmp/landlord-blender-assets-9QUGkI/ter_road_intersection.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/ter_road_intersection.json"
+        "/tmp/landlord-blender-assets-9QUGkI/ter_road_intersection.json"
       ]
     },
     "source": {
@@ -5732,14 +5764,14 @@
     "frame": 0,
     "footprint": null,
     "pivot": {
-      "x": 0.7961,
+      "x": 0.801,
       "y": 0.9265
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/prp_street_light.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/prp_street_light.png",
       "width": 103,
       "height": 141,
-      "sha256": "17ca7e3c05efb1c509e697f46cf6b291cbf7fd71b4eab7502ef8a55d6f04ccf5"
+      "sha256": "d063351e9defb70c146e814708fc4366f3b867c3dcbd1b219370dd76e5d1eec9"
     },
     "trim": {
       "rendered": {
@@ -5749,7 +5781,7 @@
       "cropped": {
         "width": 206,
         "height": 282,
-        "offsetX": 92,
+        "offsetX": 91,
         "offsetY": 110
       },
       "final": {
@@ -5773,11 +5805,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -5789,8 +5822,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1687.17,
-      "totalMs": 25380.66
+      "renderMs": 1714.48,
+      "totalMs": 25605.15
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -5817,9 +5850,9 @@
         "CC0-1.0",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/prp_street_light.png",
+        "/tmp/landlord-blender-assets-9QUGkI/prp_street_light.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/prp_street_light.json"
+        "/tmp/landlord-blender-assets-9QUGkI/prp_street_light.json"
       ]
     },
     "source": {
@@ -5865,10 +5898,10 @@
       "y": 0.7143
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/prp_bench.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/prp_bench.png",
       "width": 121,
       "height": 84,
-      "sha256": "6b64eb3d4e9a48287c7f6a9666e6feb485cec3413a6816343f381b3bc5b56c6d"
+      "sha256": "8177e4846c191faf5840a2913b47cd0a936011bcc56c4c37922330bee49a2d07"
     },
     "trim": {
       "rendered": {
@@ -5902,11 +5935,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["citybits_texture"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -5918,8 +5952,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2651.28,
-      "totalMs": 26353.63
+      "renderMs": 2698.35,
+      "totalMs": 26680.89
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -5946,9 +5980,9 @@
         "CC0-1.0",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/prp_bench.png",
+        "/tmp/landlord-blender-assets-9QUGkI/prp_bench.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/prp_bench.json"
+        "/tmp/landlord-blender-assets-9QUGkI/prp_bench.json"
       ]
     },
     "source": {
@@ -5994,10 +6028,10 @@
       "y": 0.7387
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/prp_trash_can.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/prp_trash_can.png",
       "width": 127,
       "height": 111,
-      "sha256": "3237b9dedc74ebcae8dab9211c03784ff8cd8710330cba53c75943192a0ba89e"
+      "sha256": "ab696150b8b2f5bf9f34067b9d53387248cd2daf6ce91e2616d546a3e7421976"
     },
     "trim": {
       "rendered": {
@@ -6031,11 +6065,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -6047,8 +6082,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2123.27,
-      "totalMs": 25693.22
+      "renderMs": 2112.78,
+      "totalMs": 25994.38
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -6075,9 +6110,9 @@
         "CC0-1.0",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/prp_trash_can.png",
+        "/tmp/landlord-blender-assets-9QUGkI/prp_trash_can.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/prp_trash_can.json"
+        "/tmp/landlord-blender-assets-9QUGkI/prp_trash_can.json"
       ]
     },
     "source": {
@@ -6123,10 +6158,10 @@
       "y": 0.7468
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/veh_taxi.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/veh_taxi.png",
       "width": 226,
       "height": 167,
-      "sha256": "88dbb69b31f1eaf04ebc6d04e4a23e4e8336266a5064d183d87379fe82e0fa3a"
+      "sha256": "dcd0807cbd6a26210ecb58ffd7aa4ec636d9a0e9434f033d1198de589239ca45"
     },
     "trim": {
       "rendered": {
@@ -6160,11 +6195,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -6176,8 +6212,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2888.77,
-      "totalMs": 26566.53
+      "renderMs": 2753.47,
+      "totalMs": 26554.87
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -6206,9 +6242,9 @@
         "--azimuth",
         "45",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/veh_taxi.png",
+        "/tmp/landlord-blender-assets-9QUGkI/veh_taxi.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/veh_taxi.json"
+        "/tmp/landlord-blender-assets-9QUGkI/veh_taxi.json"
       ]
     },
     "source": {
@@ -6254,10 +6290,10 @@
       "y": 0.7289
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/veh_taxi-az225.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/veh_taxi-az225.png",
       "width": 226,
       "height": 156,
-      "sha256": "e3ab804b943e4c470200c553e8a696d21d44c2cfa48e2a1605aa81ee66f8e40e"
+      "sha256": "dc6bebf805e41db037ca59098eabc201742041e49e3d6f8484bb23a8bcccb84f"
     },
     "trim": {
       "rendered": {
@@ -6291,11 +6327,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -6307,8 +6344,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2609.79,
-      "totalMs": 26093.35
+      "renderMs": 2718.34,
+      "totalMs": 26552.1
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -6337,9 +6374,9 @@
         "--azimuth",
         "225",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/veh_taxi-az225.png",
+        "/tmp/landlord-blender-assets-9QUGkI/veh_taxi-az225.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/veh_taxi-az225.json"
+        "/tmp/landlord-blender-assets-9QUGkI/veh_taxi-az225.json"
       ]
     },
     "source": {
@@ -6385,10 +6422,10 @@
       "y": 0.717
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/veh_truck.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/veh_truck.png",
       "width": 238,
       "height": 160,
-      "sha256": "0197b243a3e766e0d79f762ab5bf8e54bdb21994f6352765d06f2077db591d75"
+      "sha256": "030d2b990d59412afb7a17398647d08af060a3fe3334039b739ba2d7b4d14d75"
     },
     "trim": {
       "rendered": {
@@ -6422,11 +6459,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -6438,8 +6476,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2716.46,
-      "totalMs": 26361.56
+      "renderMs": 2737.67,
+      "totalMs": 26597.2
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -6468,9 +6506,9 @@
         "--azimuth",
         "45",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/veh_truck.png",
+        "/tmp/landlord-blender-assets-9QUGkI/veh_truck.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/veh_truck.json"
+        "/tmp/landlord-blender-assets-9QUGkI/veh_truck.json"
       ]
     },
     "source": {
@@ -6516,10 +6554,10 @@
       "y": 0.7239
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/veh_truck-az225.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/veh_truck-az225.png",
       "width": 238,
       "height": 164,
-      "sha256": "83f5aad795e3532b14e003be2d176a92e53f4e351ad9ad3613ae58b61da91d41"
+      "sha256": "32b45c7eb83fd5fc4bd72cc7cb6c24f362b9306f5c0b302e66d33244e0883586"
     },
     "trim": {
       "rendered": {
@@ -6553,11 +6591,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -6569,8 +6608,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2651.71,
-      "totalMs": 26201.86
+      "renderMs": 2614.29,
+      "totalMs": 26271.52
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -6599,9 +6638,9 @@
         "--azimuth",
         "225",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/veh_truck-az225.png",
+        "/tmp/landlord-blender-assets-9QUGkI/veh_truck-az225.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/veh_truck-az225.json"
+        "/tmp/landlord-blender-assets-9QUGkI/veh_truck-az225.json"
       ]
     },
     "source": {
@@ -6643,14 +6682,14 @@
     "frame": 0,
     "footprint": null,
     "pivot": {
-      "x": 0.6827,
+      "x": 0.6859,
       "y": 0.9171
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/prp_tree_oak.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/prp_tree_oak.png",
       "width": 156,
       "height": 170,
-      "sha256": "d5099f2f7f5775340e323e559f5c184be2fb94b4aeca1712cf83299923222b16"
+      "sha256": "6cb2257e02dcdff95edede6f6328b528354e0befe0a98032d1386558c971e9a4"
     },
     "trim": {
       "rendered": {
@@ -6660,7 +6699,7 @@
       "cropped": {
         "width": 312,
         "height": 340,
-        "offsetX": 43,
+        "offsetX": 42,
         "offsetY": 92
       },
       "final": {
@@ -6684,11 +6723,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": [],
       "flatMaterials": 2,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -6700,8 +6740,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2812.49,
-      "totalMs": 26501.31
+      "renderMs": 2834.45,
+      "totalMs": 26646.27
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -6728,9 +6768,9 @@
         "CC0-1.0",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/prp_tree_oak.png",
+        "/tmp/landlord-blender-assets-9QUGkI/prp_tree_oak.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/prp_tree_oak.json"
+        "/tmp/landlord-blender-assets-9QUGkI/prp_tree_oak.json"
       ]
     },
     "source": {
@@ -6776,10 +6816,10 @@
       "y": 0.9589
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/prp_tree_pine.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/prp_tree_pine.png",
       "width": 149,
       "height": 179,
-      "sha256": "af6889191657669d45ccfe7b72ff2b5ef2465cb597648964209717d69f032b2b"
+      "sha256": "cd80ba5414bf48e5037582c98b09ec89e1a2504cec73dd806438cc01133bda6a"
     },
     "trim": {
       "rendered": {
@@ -6813,11 +6853,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": [],
       "flatMaterials": 2,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -6829,8 +6870,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2686.13,
-      "totalMs": 26148.99
+      "renderMs": 2612.27,
+      "totalMs": 26443.6
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -6857,9 +6898,9 @@
         "CC0-1.0",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/prp_tree_pine.png",
+        "/tmp/landlord-blender-assets-9QUGkI/prp_tree_pine.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/prp_tree_pine.json"
+        "/tmp/landlord-blender-assets-9QUGkI/prp_tree_pine.json"
       ]
     },
     "source": {
@@ -6905,10 +6946,10 @@
       "y": 0.7237
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/prp_construction_barrier.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/prp_construction_barrier.png",
       "width": 83,
       "height": 76,
-      "sha256": "2c128fe8be028b30157b2d4324dd0a893ecb2c9c4dc70054c85a6eaf4460400a"
+      "sha256": "b543b2d9f3ebeca08338b286ee959c8044ee72eaa67cf8d6dcc72a130efb763c"
     },
     "trim": {
       "rendered": {
@@ -6942,11 +6983,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -6958,8 +7000,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1886,
-      "totalMs": 25773.79
+      "renderMs": 1947.91,
+      "totalMs": 25438.13
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -6986,9 +7028,9 @@
         "CC0-1.0",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/prp_construction_barrier.png",
+        "/tmp/landlord-blender-assets-9QUGkI/prp_construction_barrier.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/prp_construction_barrier.json"
+        "/tmp/landlord-blender-assets-9QUGkI/prp_construction_barrier.json"
       ]
     },
     "source": {
@@ -7034,10 +7076,10 @@
       "y": 0.7821
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/prp_construction_cone.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/prp_construction_cone.png",
       "width": 34,
       "height": 39,
-      "sha256": "2698e422c94d45e67074943b3eb146202ba36b41510e3c1cedfc30d542d2ca22"
+      "sha256": "cc759d064e0e6f7de309a9ba62d1b55e3048db8e2f4133c41d994208acdf3449"
     },
     "trim": {
       "rendered": {
@@ -7071,11 +7113,12 @@
     },
     "palette": "graphic_civic",
     "styleLayer": {
-      "version": 1,
+      "version": 6,
       "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
-      "exposure": -0.45
+      "litWindows": 0,
+      "exposure": -0.25
     },
     "shadow": {
       "pass": true,
@@ -7087,8 +7130,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 1666.57,
-      "totalMs": 25185.49
+      "renderMs": 1721.05,
+      "totalMs": 25429.03
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -7115,9 +7158,9 @@
         "CC0-1.0",
         "--shadow",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/prp_construction_cone.png",
+        "/tmp/landlord-blender-assets-9QUGkI/prp_construction_cone.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/prp_construction_cone.json"
+        "/tmp/landlord-blender-assets-9QUGkI/prp_construction_cone.json"
       ]
     },
     "source": {
@@ -7166,10 +7209,10 @@
       "y": 0.5
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/ter_lot_dirt_a.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/ter_lot_dirt_a.png",
       "width": 64,
       "height": 32,
-      "sha256": "ebb22879aeb922d5a8c6309de8dca922e4008f62fb53e00912d337197106c413"
+      "sha256": "1862b83f1c95c2a4ab90124fee0cf32457e9ae2224532a0adeb415185aca0e02"
     },
     "trim": {
       "rendered": {
@@ -7202,14 +7245,21 @@
       "orthoScale": 5.6570000648498535
     },
     "palette": "graphic_civic",
-    "styleLayer": null,
+    "styleLayer": {
+      "version": 6,
+      "atlases": [],
+      "flatMaterials": 17,
+      "emissiveTexels": 0,
+      "litWindows": 0,
+      "exposure": -0.25
+    },
     "shadow": null,
     "render": {
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2394.8,
-      "totalMs": 2399.3
+      "renderMs": 2299.55,
+      "totalMs": 2304.39
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -7217,9 +7267,9 @@
         "--asset",
         "ter_lot_dirt_a",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/ter_lot_dirt_a.png",
+        "/tmp/landlord-blender-assets-9QUGkI/ter_lot_dirt_a.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/ter_lot_dirt_a.json"
+        "/tmp/landlord-blender-assets-9QUGkI/ter_lot_dirt_a.json"
       ]
     }
   },
@@ -7241,10 +7291,10 @@
       "y": 0.5
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-zm36fi/ter_lot_dirt_b.png",
+      "path": "/tmp/landlord-blender-assets-9QUGkI/ter_lot_dirt_b.png",
       "width": 64,
       "height": 32,
-      "sha256": "0973108f7ccd4cb687a203ee934cac7d6ef7dda5d28851c9b2b595a2d8676636"
+      "sha256": "948304cb9912ecbbe5af08fac161aaf6e77f5171ad6471de3d7a89738c43cba5"
     },
     "trim": {
       "rendered": {
@@ -7277,14 +7327,21 @@
       "orthoScale": 5.6570000648498535
     },
     "palette": "graphic_civic",
-    "styleLayer": null,
+    "styleLayer": {
+      "version": 6,
+      "atlases": [],
+      "flatMaterials": 17,
+      "emissiveTexels": 0,
+      "litWindows": 0,
+      "exposure": -0.25
+    },
     "shadow": null,
     "render": {
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2375.73,
-      "totalMs": 2380.84
+      "renderMs": 2323,
+      "totalMs": 2327.56
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -7292,9 +7349,9 @@
         "--asset",
         "ter_lot_dirt_b",
         "--output",
-        "/tmp/landlord-blender-assets-zm36fi/ter_lot_dirt_b.png",
+        "/tmp/landlord-blender-assets-9QUGkI/ter_lot_dirt_b.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-zm36fi/ter_lot_dirt_b.json"
+        "/tmp/landlord-blender-assets-9QUGkI/ter_lot_dirt_b.json"
       ]
     }
   }

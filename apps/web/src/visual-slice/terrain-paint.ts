@@ -27,21 +27,29 @@ type SurfaceStyle = {
   stroke?: string;
 };
 
-/** Graphic Civic: valores oscuros y desaturados, contraste con fachadas claras, sin color brillante. */
+/**
+ * Graphic Civic: valores oscuros y desaturados, sin color brillante.
+ *
+ * WP4.15-V.b1 baja la escalera entera un 18 % respecto al suelo aprobado en V.b0. No es un cambio
+ * de lenguaje — el grano, las juntas y las parcelas siguen igual — sino de jerarquía: con las
+ * fachadas de Blender subidas a V≈0.5 de albedo, un pavimento a V 0.25 competía con los edificios
+ * y la escena se leía plana. El suelo tiene que quedar por debajo de todo lo demás.
+ */
 export const SURFACE_STYLE: Record<GroundSurface, SurfaceStyle> = {
-  urban: { base: "#222a36", shade: "#1a212b", light: "#29323f", grain: 90 },
-  grass: { base: "#1f2c25", shade: "#18221c", light: "#26362c", grain: 150, stroke: "#2a3f31" },
-  dirt: { base: "#332c22", shade: "#251f18", light: "#3d3428", grain: 120 },
-  gravel: { base: "#2c3138", shade: "#23272d", light: "#383e47", grain: 230 },
-  pavement: { base: "#2f3641", shade: "#272d36", light: "#38404c", grain: 55 },
-  asphalt: { base: "#232830", shade: "#1c2027", light: "#2b3038", grain: 40 },
-  construction: { base: "#322b1d", shade: "#252015", light: "#3d3526", grain: 190 },
+  urban: { base: "#1c222c", shade: "#151b23", light: "#222934", grain: 90 },
+  grass: { base: "#19241e", shade: "#141c17", light: "#1f2c24", grain: 150, stroke: "#223428" },
+  dirt: { base: "#2a241c", shade: "#1e1914", light: "#322b21", grain: 120 },
+  gravel: { base: "#24282e", shade: "#1d2025", light: "#2e333a", grain: 230 },
+  pavement: { base: "#272c35", shade: "#20252c", light: "#2e343e", grain: 55 },
+  asphalt: { base: "#1d2127", shade: "#171a20", light: "#23272e", grain: 40 },
+  construction: { base: "#292318", shade: "#1e1a11", light: "#322b1f", grain: 190 },
 };
 
 /** Bordillos y juntas: casi imperceptibles a zoom 0.5, firmes a zoom 2.5. */
-const EDGE_LIGHT = "rgba(94, 104, 120, 0.32)";
-const EDGE_DARK = "rgba(13, 17, 23, 0.5)";
-const MARKING = "#c3ccd8";
+const EDGE_LIGHT = "rgba(77, 85, 98, 0.32)";
+const EDGE_DARK = "rgba(11, 14, 19, 0.5)";
+/** Marcaje vial: sigue siendo lo más claro del suelo, pero por debajo de las fachadas iluminadas. */
+const MARKING = "#838a93";
 
 /** Tamaño del lienzo de un paso de peatones: cubre las cuatro bocas del cruce. */
 export const CROSSING_TEXTURE = { width: 176, height: 88 } as const;

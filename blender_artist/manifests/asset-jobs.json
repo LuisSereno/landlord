@@ -97,7 +97,6 @@
       "kind": "building",
       "assetId": "bld_downtown",
       "target": "evidence",
-      "reason": "Mismo caso que Kenney; además valida el remapeo de rutas de texturas de un FBX de Quaternius.",
       "source": {
         "kind": "fbx",
         "sourceId": "src_quaternius_downtown_city_megakit",
@@ -115,7 +114,8 @@
       "render": {
         "width": 256,
         "height": 256
-      }
+      },
+      "reason": "Rechazado en A/B de V.b3: a escala real domina la escena y su lenguaje (ladrillo oscuro, ventanas detalladas) no encaja con Kenney; a 0,55 sigue leyéndose como un monolito ajeno. Se conserva como evidencia."
     },
     {
       "id": "ter_road_straight",
@@ -209,7 +209,8 @@
       "render": {
         "width": 256,
         "height": 256
-      }
+      },
+      "orientations": [45, 225]
     },
     {
       "id": "prp_tree_detailed",
@@ -255,7 +256,9 @@
       "render": {
         "width": 256,
         "height": 256
-      }
+      },
+      "orientations": [45, 225],
+      "reason": "Semáforo con dos azimuts: la cara de señal debe mirar a cada calle del cruce."
     },
     {
       "id": "bld_commercial_c",
@@ -468,7 +471,8 @@
       "render": {
         "width": 256,
         "height": 256
-      }
+      },
+      "orientations": [45, 225]
     },
     {
       "id": "veh_truck",
@@ -491,7 +495,8 @@
       "render": {
         "width": 256,
         "height": 256
-      }
+      },
+      "orientations": [45, 225]
     },
     {
       "id": "prp_tree_oak",
@@ -583,6 +588,32 @@
       "render": {
         "width": 256,
         "height": 256
+      }
+    },
+    {
+      "id": "ter_lot_dirt_a",
+      "kind": "terrain",
+      "assetId": "ter_lot_dirt_a",
+      "target": "bundle",
+      "source": {
+        "kind": "procedural"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      }
+    },
+    {
+      "id": "ter_lot_dirt_b",
+      "kind": "terrain",
+      "assetId": "ter_lot_dirt_b",
+      "target": "bundle",
+      "source": {
+        "kind": "procedural"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 1
       }
     }
   ]

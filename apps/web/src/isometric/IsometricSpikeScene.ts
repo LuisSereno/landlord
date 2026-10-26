@@ -3,11 +3,12 @@ import type {
   BuildingAssetState,
   BuildingAssetV1,
   RuntimeAssetManifestV1,
+  SceneryAssetV1,
   ViewProjectionV1,
 } from "@landlord/shared";
 import runtimeAssets from "../generated/runtime-assets.json";
 import runtimeAssetsBlender from "../generated/runtime-assets-blender.json";
-import type { VisualSliceLayout } from "../visual-slice/layout";
+import type { SliceLot, VisualSliceLayout } from "../visual-slice/layout";
 import {
   assetFor,
   buildingAssetStateFor,
@@ -49,10 +50,6 @@ const ASSETS_BLENDER = runtimeAssetsBlender as RuntimeAssetManifestV1;
 
 /** Las piezas Kenney están modeladas a escala pequeña; el slice las lleva a presencia de calle. */
 const SLICE_BUILDING_SCALE = 1.45;
-/** Asfalto más oscuro que el gris claro del render base, para acercarlo a Graphic Civic. */
-const SLICE_TERRAIN_TINT = 0xaab6c8;
-/** Diminuto enfriado del catálogo Kenney para integrarlo con el fondo nocturno. */
-const SLICE_SCENERY_TINT = 0xe2e6ec;
 
 export type IsometricSceneOptions = {
   /** Capa de presentación del Visual Slice; no altera la simulación. */
@@ -91,7 +88,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private structureBobs: Phaser.GameObjects.Bob[] = [];
   private agentBobs: Phaser.GameObjects.Bob[] = [];
   private buildingSprites = new Map<string, Phaser.GameObjects.Image>();
-  private sliceObjects: Phaser.GameObjects.Image[] = [];
+  private sliceObjects: Phaser.GameObjects.GameObject[] = [];
   private assetsReady = false;
   private debugText?: Phaser.GameObjects.Text;
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
@@ -386,6 +383,14 @@ export class IsometricSpikeScene extends Phaser.Scene {
           asset.image.width,
           asset.image.height,
         );
+        for (const [azimuth, frame] of Object.entries(asset.orientations ?? {})) {
+          await this.registerImageTexture(
+            `${key}-az${azimuth}`,
+            frame.image.src,
+            frame.image.width,
+            frame.image.height,
+          );
+        }
       }
     }
   }
@@ -439,8 +444,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       const image = this.add
         .image(center.x, center.y, key)
         .setOrigin(asset.pivot.x, asset.pivot.y)
-        .setScale(spriteScaleFor(asset, this.layout.tileWidth))
-        .setTint(SLICE_TERRAIN_TINT)
+        .setScale(spriteScaleFor(asset, this.layout.tileWidth) * (tile.scale ?? 1))
         .setDepth(TERRAIN_DEPTH + tile.cell.x + tile.cell.y);
       this.sliceObjects.push(image);
     }
@@ -455,11 +459,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
         .image(center.x, center.y, key)
         .setOrigin(asset.pivot.x, asset.pivot.y)
         .setScale(spriteScaleFor(asset, this.layout.tileWidth) * SLICE_BUILDING_SCALE)
-        .setTint(SLICE_SCENERY_TINT)
         .setFlipX(building.flipX ?? false)
         .setDepth(depthForAsset(building.cell, asset.footprint));
       this.sliceObjects.push(image);
-      this.addSliceShadow(image, center.x, center.y, depthForAsset(building.cell, asset.footprint));
     }
     for (const [group, placements] of [
       ["props", slice.props],
@@ -468,24 +470,26 @@ export class IsometricSpikeScene extends Phaser.Scene {
       const assets = ASSETS_BLENDER[group] ?? {};
       for (const placement of placements) {
         const asset = assets[placement.asset];
-        const key = `blender-sprite-${placement.asset}`;
-        if (!asset || !this.textures.exists(key)) continue;
+        if (!asset) continue;
+        const frame = this.sceneryFrame(asset, placement.azimuth);
+        const key = `blender-sprite-${placement.asset}${frame.keySuffix}`;
+        if (!this.textures.exists(key)) continue;
         const center = gridToScreen(footprintCenter(placement.cell, asset.footprint), this.layout);
+        const offset = "offset" in placement ? placement.offset : undefined;
         const depth = depthForAsset(placement.cell, asset.footprint);
         const image = this.add
-          .image(center.x, center.y, key)
-          .setOrigin(asset.pivot.x, asset.pivot.y)
+          .image(center.x + (offset?.x ?? 0), center.y + (offset?.y ?? 0), key)
+          .setOrigin(frame.pivot.x, frame.pivot.y)
           .setScale(
-            spriteScaleFor(asset, this.layout.tileWidth) *
+            spriteScaleFor(frame, this.layout.tileWidth) *
               ("scale" in placement ? (placement.scale ?? 1) : 1),
           )
-          .setTint(SLICE_SCENERY_TINT)
           .setFlipX(placement.flipX ?? false)
           .setDepth(depth);
         this.sliceObjects.push(image);
-        this.addSliceShadow(image, center.x, center.y, depth);
       }
     }
+    if (slice.lots?.length) this.drawSliceLots(slice.lots);
     if (this.sliceCharacters) {
       for (const character of slice.characters) {
         const asset = ASSETS.characters["vecino_variante"];
@@ -505,9 +509,63 @@ export class IsometricSpikeScene extends Phaser.Scene {
     window.__visualSliceObjects = this.sliceObjects.length;
   }
 
+  /** Frame por defecto o variante de orientación de un asset escénico. */
+  private sceneryFrame(
+    asset: SceneryAssetV1,
+    azimuth: number | undefined,
+  ): { keySuffix: string; pivot: { x: number; y: number }; pixelsPerMeter: number | undefined } {
+    const frame = azimuth === undefined ? undefined : asset.orientations?.[String(azimuth)];
+    return frame
+      ? { keySuffix: `-az${azimuth}`, pivot: frame.pivot, pixelsPerMeter: frame.pixelsPerMeter }
+      : { keySuffix: "", pivot: asset.pivot, pixelsPerMeter: asset.pixelsPerMeter };
+  }
+
+  /** Contorno discontinuo de parcela: lenguaje visual del juego, sólo presentación. */
+  private drawSliceLots(lots: SliceLot[]): void {
+    const graphics = this.add.graphics().setDepth(TERRAIN_DEPTH + 300);
+    const halfWidth = this.layout.tileWidth / 2;
+    const halfHeight = this.layout.tileHeight / 2;
+    for (const lot of lots) {
+      const northWest = gridToScreen(lot.from, this.layout);
+      const northEast = gridToScreen({ x: lot.to.x, y: lot.from.y }, this.layout);
+      const southEast = gridToScreen(lot.to, this.layout);
+      const southWest = gridToScreen({ x: lot.from.x, y: lot.to.y }, this.layout);
+      const corners = [
+        { x: northWest.x, y: northWest.y - halfHeight },
+        { x: northEast.x + halfWidth, y: northEast.y },
+        { x: southEast.x, y: southEast.y + halfHeight },
+        { x: southWest.x - halfWidth, y: southWest.y },
+      ];
+      graphics.lineStyle(2, COLORS.construction, 0.85);
+      for (let index = 0; index < corners.length; index += 1) {
+        this.drawDashedSegment(graphics, corners[index]!, corners[(index + 1) % corners.length]!);
+      }
+      graphics.fillStyle(COLORS.construction, 0.9);
+      for (const corner of corners) graphics.fillRect(corner.x - 2, corner.y - 2, 4, 4);
+    }
+    this.sliceObjects.push(graphics);
+  }
+
+  private drawDashedSegment(
+    graphics: Phaser.GameObjects.Graphics,
+    from: { x: number; y: number },
+    to: { x: number; y: number },
+  ): void {
+    const length = Math.hypot(to.x - from.x, to.y - from.y);
+    const dash = 7;
+    const gap = 5;
+    for (let travelled = 0; travelled < length; travelled += dash + gap) {
+      const start = Math.min(1, travelled / length);
+      const end = Math.min(1, (travelled + dash) / length);
+      graphics.beginPath();
+      graphics.moveTo(from.x + (to.x - from.x) * start, from.y + (to.y - from.y) * start);
+      graphics.lineTo(from.x + (to.x - from.x) * end, from.y + (to.y - from.y) * end);
+      graphics.strokePath();
+    }
+  }
+
   /**
-   * Sombra de contacto sutil: los renders Blender no traen plano de suelo, y sin ella los objetos
-   * parecen flotar sobre la loseta.
+   * Sombra de contacto para los personajes procedurales, que no pasan por el bake de Blender.
    */
   private addSliceShadow(
     image: Phaser.GameObjects.Image,

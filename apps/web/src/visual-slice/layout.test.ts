@@ -1,7 +1,17 @@
 import { describe, expect, it } from "vitest";
 import type { RuntimeAssetManifestV1 } from "@landlord/shared";
 import blenderBundle from "../generated/runtime-assets-blender.json";
-import { AVENUE_X, STREET_Y, VISUAL_SLICE_LAYOUT, ZONE_FROM, ZONE_TO } from "./layout";
+import {
+  AVENUE_X,
+  EAST_AVENUE_X,
+  SECOND_STREET_Y,
+  STREET_Y,
+  VISUAL_SLICE_LAYOUT,
+  WORKS_LOT,
+  ZONE_FROM,
+  ZONE_TO,
+  roadCells,
+} from "./layout";
 
 const BUNDLE = blenderBundle as unknown as RuntimeAssetManifestV1;
 
@@ -9,64 +19,78 @@ function key(cell: { x: number; y: number }): string {
   return `${cell.x}:${cell.y}`;
 }
 
-const roadCells = new Set(VISUAL_SLICE_LAYOUT.terrain.map((tile) => key(tile.cell)));
+const roads = roadCells();
+const lotCells = new Set<string>();
+for (let y = WORKS_LOT.from.y; y <= WORKS_LOT.to.y; y += 1) {
+  for (let x = WORKS_LOT.from.x; x <= WORKS_LOT.to.x; x += 1) lotCells.add(`${x}:${y}`);
+}
 
-describe("WP4.15-V Visual Slice: composición", () => {
-  it("compone entre 8 y 12 edificios sin repetir celda", () => {
+describe("WP4.15-V.b Visual Slice: composición densa", () => {
+  it("compone un barrio de 3–4 manzanas con masa suficiente", () => {
     const cells = VISUAL_SLICE_LAYOUT.buildings.map((building) => key(building.cell));
-    expect(VISUAL_SLICE_LAYOUT.buildings.length).toBeGreaterThanOrEqual(8);
-    expect(VISUAL_SLICE_LAYOUT.buildings.length).toBeLessThanOrEqual(12);
+    expect(VISUAL_SLICE_LAYOUT.buildings.length).toBeGreaterThanOrEqual(20);
+    expect(VISUAL_SLICE_LAYOUT.buildings.length).toBeLessThanOrEqual(30);
     expect(new Set(cells).size).toBe(cells.length);
+    // Dos frentes de calle distintos (principal y secundaria) más frentes de avenida.
+    const rows = new Set(VISUAL_SLICE_LAYOUT.buildings.map((building) => building.cell.y));
+    expect(rows.size).toBeGreaterThanOrEqual(4);
   });
 
-  it("todos los assets de la escena existen en el bundle runtime", () => {
+  it("todos los assets y orientaciones de la escena existen en el bundle", () => {
     for (const building of VISUAL_SLICE_LAYOUT.buildings) {
       const asset = BUNDLE.buildings[building.type];
       expect(asset, building.type).toBeDefined();
       expect(asset!.states).toHaveProperty(building.state ?? "complete");
     }
     for (const prop of VISUAL_SLICE_LAYOUT.props) {
-      expect(BUNDLE.props?.[prop.asset], prop.asset).toBeDefined();
+      const asset = BUNDLE.props?.[prop.asset];
+      expect(asset, prop.asset).toBeDefined();
+      if (prop.azimuth !== undefined && prop.azimuth !== 45) {
+        expect(asset!.orientations?.[String(prop.azimuth)], prop.asset).toBeDefined();
+      }
     }
     for (const vehicle of VISUAL_SLICE_LAYOUT.vehicles) {
-      expect(BUNDLE.vehicles?.[vehicle.asset], vehicle.asset).toBeDefined();
+      const asset = BUNDLE.vehicles?.[vehicle.asset];
+      expect(asset, vehicle.asset).toBeDefined();
+      if (vehicle.azimuth !== undefined && vehicle.azimuth !== 45) {
+        expect(asset!.orientations?.[String(vehicle.azimuth)], vehicle.asset).toBeDefined();
+      }
     }
     for (const tile of VISUAL_SLICE_LAYOUT.terrain) {
       expect(BUNDLE.terrain?.[tile.asset], tile.asset).toBeDefined();
     }
   });
 
-  it("la avenida y la calle son continuas y comparten un cruce", () => {
+  it("las calles son continuas y el solar ocupa su manzana", () => {
+    const terrain = new Set(VISUAL_SLICE_LAYOUT.terrain.map((tile) => key(tile.cell)));
+    for (const cell of roads) expect(terrain.has(cell), cell).toBe(true);
     for (let y = ZONE_FROM; y <= ZONE_TO; y += 1) {
-      const expected = y === STREET_Y ? "ter_road_intersection" : "ter_road_straight";
-      const tile = VISUAL_SLICE_LAYOUT.terrain.find(
-        (entry) => entry.cell.x === AVENUE_X && entry.cell.y === y,
-      );
-      expect(tile?.asset, `avenida x=${AVENUE_X} y=${y}`).toBe(expected);
+      expect(roads.has(`${AVENUE_X}:${y}`), `avenida ${AVENUE_X}:${y}`).toBe(true);
+      expect(roads.has(`${EAST_AVENUE_X}:${y}`), `avenida ${EAST_AVENUE_X}:${y}`).toBe(true);
     }
     for (let x = ZONE_FROM; x <= ZONE_TO; x += 1) {
-      if (x === AVENUE_X) continue;
-      const tile = VISUAL_SLICE_LAYOUT.terrain.find(
-        (entry) => entry.cell.y === STREET_Y && entry.cell.x === x,
-      );
-      expect(tile?.asset, `calle y=${STREET_Y} x=${x}`).toBe("ter_road_straight");
+      expect(roads.has(`${x}:${STREET_Y}`), `calle ${x}:${STREET_Y}`).toBe(true);
+      expect(roads.has(`${x}:${SECOND_STREET_Y}`), `calle ${x}:${SECOND_STREET_Y}`).toBe(true);
     }
-    expect(roadCells.size).toBe(VISUAL_SLICE_LAYOUT.terrain.length);
+    for (const cell of lotCells) expect(terrain.has(cell), `solar ${cell}`).toBe(true);
+    expect(VISUAL_SLICE_LAYOUT.lots?.[0]).toEqual(WORKS_LOT);
   });
 
-  it("los vehículos circulan por la calzada y los edificios no la invaden", () => {
+  it("los vehículos circulan por la calzada y la escena no invade el asfalto", () => {
     for (const vehicle of VISUAL_SLICE_LAYOUT.vehicles) {
-      expect(roadCells.has(key(vehicle.cell)), vehicle.asset).toBe(true);
+      expect(roads.has(key(vehicle.cell)) || lotCells.has(key(vehicle.cell)), vehicle.asset).toBe(
+        true,
+      );
     }
     for (const building of VISUAL_SLICE_LAYOUT.buildings) {
-      expect(roadCells.has(key(building.cell)), building.type).toBe(false);
+      expect(roads.has(key(building.cell)), building.type).toBe(false);
     }
     for (const prop of VISUAL_SLICE_LAYOUT.props) {
-      expect(roadCells.has(key(prop.cell)), `${prop.asset} en ${key(prop.cell)}`).toBe(false);
+      expect(roads.has(key(prop.cell)), `${prop.asset} en ${key(prop.cell)}`).toBe(false);
     }
   });
 
-  it("los elementos de escena caben en el mapa y no se apilan en la misma celda", () => {
+  it("no hay dos objetos en la misma celda y todo cabe en el mapa", () => {
     const occupied = new Set<string>();
     for (const placement of [
       ...VISUAL_SLICE_LAYOUT.buildings,

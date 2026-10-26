@@ -10,7 +10,7 @@
  *   node scripts/visual-slice-capture.mjs
  */
 import { spawn } from "node:child_process";
-import { mkdirSync } from "node:fs";
+import { copyFileSync, mkdirSync } from "node:fs";
 import { chromium } from "@playwright/test";
 
 const port = 4177;
@@ -81,6 +81,11 @@ try {
   }
   /** Captura principal: misma composición sin personajes a zoom de gameplay estándar. */
   captures.push(await capture("visual-slice-main", 1.0));
+  const tag = process.env.VISUAL_SLICE_TAG;
+  if (tag) {
+    copyFileSync(`${outputDir}/visual-slice-main.png`, `${outputDir}/visual-slice-main-${tag}.png`);
+    captures.push(`${outputDir}/visual-slice-main-${tag}.png`);
+  }
 
   await page.goto(`${baseUrl}/visual-slice?cameraTest=1&characters=1`, {
     waitUntil: "domcontentloaded",

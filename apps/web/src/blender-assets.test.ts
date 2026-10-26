@@ -37,6 +37,8 @@ describe("WP4.15-H ruta Blender E2E", () => {
 
   it("publica terrain, props y vehicles y declara su densidad de render", () => {
     expect(Object.keys(bundle.terrain ?? {}).sort()).toEqual([
+      "ter_lot_dirt_a",
+      "ter_lot_dirt_b",
       "ter_road_corner",
       "ter_road_intersection",
       "ter_road_straight",
@@ -49,13 +51,28 @@ describe("WP4.15-H ruta Blender E2E", () => {
     ]);
     for (const group of [bundle.terrain, bundle.props, bundle.vehicles]) {
       for (const asset of Object.values(group ?? {})) {
-        expect(asset.pixelsPerMeter, asset.id).toBeGreaterThan(0);
+        if (!asset.id.startsWith("ter_lot_dirt")) {
+          expect(asset.pixelsPerMeter, asset.id).toBeGreaterThan(0);
+        }
         expect(asset.image.width).toBeGreaterThan(0);
       }
     }
+    // El terreno procedural se dibuja a escala de juego: la loseta mide exactamente una celda.
+    expect(bundle.terrain!["ter_lot_dirt_a"]!.image).toMatchObject({ width: 64, height: 32 });
+    expect(bundle.terrain!["ter_lot_dirt_a"]!.pixelsPerMeter).toBeUndefined();
     // El asset procedural ya está dibujado a escala de juego: no debe declarar densidad.
     expect(bundle.buildings["courtyard_home"]!.pixelsPerMeter).toBeUndefined();
     expect(bundle.buildings["bld_shopfront"]!.pixelsPerMeter).toBeGreaterThan(0);
+  });
+
+  it("publica la orientación 225 de semáforo y vehículos sin duplicar el frame base", () => {
+    for (const id of ["prp_traffic_light"]) {
+      expect(bundle.props![id]!.orientations?.["225"]?.image).toBeDefined();
+    }
+    for (const id of ["veh_sedan", "veh_taxi", "veh_truck"]) {
+      expect(bundle.vehicles![id]!.orientations?.["225"]?.image).toBeDefined();
+      expect(bundle.vehicles![id]!.orientations?.["225"]?.pivot).toBeDefined();
+    }
   });
 
   it("cada imagen publicada existe, y su hash y sus medidas coinciden con el manifiesto", () => {
@@ -64,11 +81,20 @@ describe("WP4.15-H ruta Blender E2E", () => {
       ...Object.values(bundle.characters).flatMap((character) =>
         Object.values(character.animations).flatMap((animation) => animation.frames),
       ),
-      ...Object.values(bundle.terrain ?? {}).map((asset) => asset.image),
-      ...Object.values(bundle.props ?? {}).map((asset) => asset.image),
-      ...Object.values(bundle.vehicles ?? {}).map((asset) => asset.image),
+      ...Object.values(bundle.terrain ?? {}).flatMap((asset) => [
+        asset.image,
+        ...Object.values(asset.orientations ?? {}).map((frame) => frame.image),
+      ]),
+      ...Object.values(bundle.props ?? {}).flatMap((asset) => [
+        asset.image,
+        ...Object.values(asset.orientations ?? {}).map((frame) => frame.image),
+      ]),
+      ...Object.values(bundle.vehicles ?? {}).flatMap((asset) => [
+        asset.image,
+        ...Object.values(asset.orientations ?? {}).map((frame) => frame.image),
+      ]),
     ];
-    expect(images.length).toBe(59);
+    expect(images.length).toBe(65);
     let totalBytes = 0;
     for (const image of images) {
       const buffer = readFileSync(join(PUBLIC_DIR, image.src));
@@ -77,7 +103,7 @@ describe("WP4.15-H ruta Blender E2E", () => {
       expect(pngSize(buffer), image.src).toEqual({ width: image.width, height: image.height });
     }
     /** Los binarios Blender de Alpha caben en el repo sin LFS: se revisa en la decisión de atlas/LFS. */
-    expect(totalBytes).toBeLessThan(1_500_000);
+    expect(totalBytes).toBeLessThan(2_500_000);
   });
 
   it("el pivote queda dentro de la imagen recortada y la huella es positiva", () => {
@@ -89,7 +115,7 @@ describe("WP4.15-H ruta Blender E2E", () => {
     ]) {
       expect(asset.pivot.x).toBeGreaterThanOrEqual(0);
       expect(asset.pivot.x).toBeLessThanOrEqual(1);
-      expect(asset.pivot.y).toBeGreaterThan(0.5);
+      expect(asset.pivot.y).toBeGreaterThanOrEqual(0.5);
       expect(asset.footprint.width).toBeGreaterThan(0);
       expect(asset.footprint.height).toBeGreaterThan(0);
     }

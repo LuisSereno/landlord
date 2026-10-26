@@ -69,6 +69,7 @@ const KIND_KEYS = {
     "reason",
     "source",
     "footprint",
+    "orientations",
     "camera",
     "render",
   ]),
@@ -80,6 +81,7 @@ const KIND_KEYS = {
     "reason",
     "source",
     "footprint",
+    "orientations",
     "camera",
     "render",
   ]),
@@ -260,6 +262,24 @@ for (const job of jobs.jobs ?? []) {
         if (!(job.animations ?? []).includes(key)) {
           fail(`${job.id}: frameDurationMs.${key} no corresponde a ninguna animation`);
         }
+      }
+    }
+  }
+
+  if (job.orientations !== undefined && ["prop", "vehicle"].includes(job.kind)) {
+    if (!Array.isArray(job.orientations) || job.orientations.length === 0) {
+      fail(`${job.id}: orientations debe ser una lista no vacía`);
+    } else {
+      if (new Set(job.orientations).size !== job.orientations.length) {
+        fail(`${job.id}: orientations tiene azimuts duplicados`);
+      }
+      for (const azimuth of job.orientations) {
+        if (!Number.isInteger(azimuth) || azimuth < 0 || azimuth >= 360) {
+          fail(`${job.id}: azimut inválido ${azimuth}`);
+        }
+      }
+      if (!job.orientations.includes(45)) {
+        fail(`${job.id}: orientations debe incluir 45 (frame por defecto)`);
       }
     }
   }

@@ -129,15 +129,20 @@ function tasksFor(job, defaults) {
     }
     return tasks;
   }
-  for (const state of representative(job.states ?? [null])) {
-    tasks.push({
-      file: state ? `${job.assetId}-${state}` : job.assetId,
-      state,
-      direction: null,
-      animation: null,
-      frame: null,
-      render,
-    });
+  const orientations = job.orientations ?? [null];
+  for (const azimuth of orientations) {
+    const suffix = azimuth === null || azimuth === 45 ? "" : `-az${azimuth}`;
+    for (const state of representative(job.states ?? [null])) {
+      tasks.push({
+        file: `${state ? `${job.assetId}-${state}` : job.assetId}${suffix}`,
+        state,
+        direction: null,
+        animation: null,
+        frame: null,
+        azimuth,
+        render,
+      });
+    }
   }
   return tasks;
 }
@@ -169,6 +174,13 @@ function argsFor(job, task, sourcesById) {
     );
   }
   if (task.state) args.push("--state", task.state);
+  // La sombra se hornea con el rig para edificios, props y vehículos; el terreno no proyecta.
+  if (job.source.kind !== "procedural" && job.kind !== "terrain" && job.kind !== "character") {
+    args.push("--shadow");
+  }
+  if (task.azimuth !== null && task.azimuth !== undefined) {
+    args.push("--azimuth", String(task.azimuth));
+  }
   if (task.direction !== null) {
     args.push("--direction", String(task.direction));
     args.push("--animation", task.animation);
@@ -199,6 +211,7 @@ function check() {
         images.push(...Object.values(asset.animations).flatMap((animation) => animation.frames));
       }
       if (asset.image) images.push(asset.image);
+      for (const frame of Object.values(asset.orientations ?? {})) images.push(frame.image);
     }
   }
 
@@ -311,16 +324,31 @@ function assembleInto(bundle, job, task, entry, image, provenance) {
   if (!group) {
     throw new Error(`${job.id}: kind '${job.kind}' no tiene grupo runtime`);
   }
-  const asset = ((bundle[group] ??= {})[entry.assetId] = {
-    id: entry.assetId,
-    name: entry.label,
-    footprint: job.footprint ?? { width: 1, height: 1 },
-    pivot: entry.pivot,
-    image,
-  });
   const pixelsPerMeter = pixelsPerMeterFor(job, task);
-  if (pixelsPerMeter !== undefined) asset.pixelsPerMeter = pixelsPerMeter;
-  if (provenance) asset.provenance = provenance;
+  const orientation = task.azimuth ?? 45;
+  let asset = (bundle[group] ??= {})[entry.assetId];
+  if (!asset) {
+    asset = bundle[group][entry.assetId] = {
+      id: entry.assetId,
+      name: entry.label,
+      footprint: job.footprint ?? { width: 1, height: 1 },
+      pivot: entry.pivot,
+      image,
+    };
+    if (provenance) asset.provenance = provenance;
+  }
+  if (orientation === 45) {
+    asset.pivot = entry.pivot;
+    asset.image = image;
+  } else {
+    asset.orientations ??= {};
+    asset.orientations[String(orientation)] = { image, pivot: entry.pivot };
+  }
+  const density = pixelsPerMeter;
+  if (density !== undefined) {
+    if (orientation === 45) asset.pixelsPerMeter = density;
+    else asset.orientations[String(orientation)].pixelsPerMeter = density;
+  }
 }
 
 function render() {

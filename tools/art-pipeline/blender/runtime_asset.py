@@ -76,6 +76,25 @@ CHARACTERS = {
     },
 }
 
+TERRAIN = {
+    "ter_lot_dirt_a": {
+        "label": "Solar de obra A",
+        "footprint": {"width": 1, "height": 1},
+        "renderSize": (128, 64),
+        "orthoScale": 5.657,
+        "targetZ": 0.0,
+        "seed": 11,
+    },
+    "ter_lot_dirt_b": {
+        "label": "Solar de obra B",
+        "footprint": {"width": 1, "height": 1},
+        "renderSize": (128, 64),
+        "orthoScale": 5.657,
+        "targetZ": 0.0,
+        "seed": 23,
+    },
+}
+
 BUILDING_STATES = ("complete", "construction", "damaged", "burning")
 ANIMATIONS = ("idle", "walk")
 
@@ -92,6 +111,9 @@ PALETTE = {
     "window": (0.98, 0.75, 0.25, 1),
     "green": (0.22, 0.36, 0.28, 1),
     "ground": (0.20, 0.25, 0.25, 1),
+    "dirt": (0.30, 0.23, 0.17, 1),
+    "dirt_dark": (0.20, 0.15, 0.11, 1),
+    "dirt_light": (0.40, 0.32, 0.23, 1),
     "lighting": (0.72, 0.82, 0.89, 1),
     "fill": (0.21, 0.34, 0.44, 1),
 }
@@ -124,6 +146,16 @@ def parse_args():
     parser.add_argument("--direction", type=int, default=0)
     parser.add_argument("--animation", choices=ANIMATIONS, default="idle")
     parser.add_argument("--frame", type=int, default=0)
+    parser.add_argument(
+        "--azimuth",
+        type=float,
+        help="azimut de cámara en grados para variantes de orientación de terceros",
+    )
+    parser.add_argument(
+        "--shadow",
+        action="store_true",
+        help="compone la sombra proyectada del rig (segunda pasada con plano blanco)",
+    )
     parser.add_argument("--output", required=True)
     parser.add_argument("--metadata", required=True)
     values, _ = parser.parse_known_args(sys.argv[sys.argv.index("--") + 1 :])
@@ -257,14 +289,16 @@ def build_character(spec, direction, animation, frame, mats):
         obj.parent = root
 
 
-def place_camera(target_z, ortho_scale, name="CAM_ASSET"):
+def place_camera(target_z, ortho_scale, name="CAM_ASSET", azimuth_degrees=None):
     """Cámara ortográfica isométrica fija (45° azimut, 30° elevación).
 
     Compartida entre la ruta legacy y la de terceros: los mismos números, el mismo orden de
     creación. El test de regresión byte-idéntica es lo que demuestra que extraerla no cambió
-    el render procedural.
+    el render procedural. `azimuth_degrees` permite variantes de orientación en terceros.
     """
-    azimuth = math.radians(CAMERA_AZIMUTH_DEGREES)
+    azimuth = math.radians(
+        CAMERA_AZIMUTH_DEGREES if azimuth_degrees is None else azimuth_degrees
+    )
     elevation = math.radians(CAMERA_ELEVATION_DEGREES)
     direction_vector = Vector(
         (
@@ -284,6 +318,29 @@ def place_camera(target_z, ortho_scale, name="CAM_ASSET"):
     return camera, target
 
 
+def build_dirt_lot(spec, mats):
+    """Solar de obra procedimental: losa de tierra con zanja y cascotes, cubre una celda."""
+    bpy.ops.mesh.primitive_plane_add(size=4.2, location=(0.0, 0.0, 0.0))
+    ground = bpy.context.object
+    ground.name = "ter_lot_ground"
+    ground.data.materials.append(mats["dirt"])
+    rng = np.random.default_rng(spec["seed"])
+    cube("ter_lot_trench", (-0.55, 0.65, 0.035), (1.9, 0.95, 0.07), mats["dirt_dark"], bevel=0.02)
+    for index in range(8):
+        x = float(rng.uniform(-1.7, 1.7))
+        y = float(rng.uniform(-1.7, 1.7))
+        width = float(rng.uniform(0.22, 0.62))
+        depth = float(rng.uniform(0.18, 0.45))
+        height = float(rng.uniform(0.03, 0.08))
+        cube(
+            f"ter_lot_clod_{index}",
+            (x, y, height / 2),
+            (width, depth, height),
+            mats["dirt_light" if index % 2 == 0 else "dirt_dark"],
+            bevel=0.01,
+        )
+
+
 def create_scene(args):
     mats = {key: material(f"mat_{key}", value, metallic=0.2 if key == "metal" else 0.0)
             for key, value in PALETTE.items() if key not in ("lighting", "fill")}
@@ -293,9 +350,11 @@ def create_scene(args):
     mats["coat"] = material("mat_coat", CHARACTERS["vecino_variante"]["coat"])
     mats["accent"] = material("mat_accent_char", CHARACTERS["vecino_variante"]["accent"])
 
-    spec = BUILDINGS.get(args.asset) or CHARACTERS[args.asset]
+    spec = BUILDINGS.get(args.asset) or CHARACTERS.get(args.asset) or TERRAIN.get(args.asset)
     if args.asset in BUILDINGS:
         build_courtyard_home(args.state, mats)
+    elif args.asset in TERRAIN:
+        build_dirt_lot(TERRAIN[args.asset], mats)
     else:
         build_character(CHARACTERS[args.asset], args.direction, args.animation, args.frame, mats)
 
@@ -327,7 +386,65 @@ def create_scene(args):
     scene.render.image_settings.compression = 15
     scene.render.film_transparent = True
     scene.view_settings.look = "AgX - Medium High Contrast"
+    if args.asset in TERRAIN:
+        # El terreno de obra convive con los assets externos ya tratados por el style layer.
+        scene.view_settings.exposure = -0.45
     return scene, camera, spec
+
+
+def _srgb_to_linear(values):
+    values = np.asarray(values, dtype=np.float32)
+    return np.where(values <= 0.04045, values / 12.92, ((values + 0.055) / 1.055) ** 2.4)
+
+
+def _linear_to_srgb(values):
+    values = np.asarray(values, dtype=np.float32)
+    return np.where(values <= 0.0031308, values * 12.92, 1.055 * values ** (1 / 2.4) - 0.055)
+
+
+def _rgb_to_hsv(rgb):
+    """HSV sobre sRGB (0..1). El atlas de Kenney se trata como color de artista, no lineal."""
+    red, green, blue = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    maxc = rgb.max(axis=-1)
+    minc = rgb.min(axis=-1)
+    delta = maxc - minc
+    hue = np.zeros_like(maxc)
+    chromatic = delta > 1e-6
+    is_red = chromatic & (maxc == red)
+    is_green = chromatic & (maxc == green) & ~is_red
+    is_blue = chromatic & ~is_red & ~is_green
+    hue[is_red] = ((green[is_red] - blue[is_red]) / delta[is_red]) % 6
+    hue[is_green] = (blue[is_green] - red[is_green]) / delta[is_green] + 2
+    hue[is_blue] = (red[is_blue] - green[is_blue]) / delta[is_blue] + 4
+    saturation = np.zeros_like(maxc)
+    np.divide(delta, maxc, out=saturation, where=maxc > 1e-6)
+    return hue * 60.0, saturation, maxc
+
+
+def _hsv_to_rgb(hue, saturation, value):
+    hue = (hue % 360.0) / 60.0
+    chroma = value * saturation
+    x = chroma * (1 - np.abs(hue % 2 - 1))
+    match = np.floor(hue).astype(np.int32) % 6
+    red = np.choose(match, [chroma, x, 0, 0, x, chroma])
+    green = np.choose(match, [x, chroma, chroma, x, 0, 0])
+    blue = np.choose(match, [0, 0, x, chroma, chroma, x])
+    offset = value - chroma
+    return np.clip(np.stack([red + offset, green + offset, blue + offset], axis=-1), 0, 1)
+
+
+def _hue_in(hue, band):
+    low, high = band
+    return (hue >= low) & (hue <= high) if low <= high else (hue >= low) | (hue <= high)
+
+
+def _in_range(values, band):
+    return (values >= band[0]) & (values <= band[1])
+
+
+def _name_matches(name, keywords):
+    lowered = name.lower()
+    return any(keyword in lowered for keyword in keywords)
 
 
 def apply_style_layer_lighting(scene, style_layer):
@@ -335,8 +452,10 @@ def apply_style_layer_lighting(scene, style_layer):
 
     La ruta legacy usa dos AREA con energías congeladas; un asset con texturas PBR propias se
     quemaba con ellas, así que la rama externa ilumina con lo que declara el JSON de estilo.
+    Sólo la key proyecta sombra: tres soles proyectando sombras superpuestas ensuciaban el suelo.
     """
     lighting = style_layer["lighting"]
+    shadow_config = style_layer.get("shadow", {})
     world = scene.world or bpy.data.worlds.new("World")
     scene.world = world
     world.use_nodes = True
@@ -345,9 +464,9 @@ def apply_style_layer_lighting(scene, style_layer):
         background.inputs["Color"].default_value = (*lighting["worldColor"], 1.0)
         background.inputs["Strength"].default_value = lighting["worldStrength"]
     rig = (
-        ("LIGHT_KEY", (8.0, -8.0, 12.0), "keyEnergy", "keyColor"),
-        ("LIGHT_FILL", (-6.0, 4.0, 6.0), "fillEnergy", "fillColor"),
-        ("LIGHT_RIM", (0.0, 8.0, 5.0), "rimEnergy", "rimColor"),
+        ("LIGHT_KEY", tuple(lighting.get("keyPosition", (6.0, -12.0, 12.0))), "keyEnergy", "keyColor"),
+        ("LIGHT_FILL", tuple(lighting.get("fillPosition", (-8.0, 6.0, 7.0))), "fillEnergy", "fillColor"),
+        ("LIGHT_RIM", tuple(lighting.get("rimPosition", (0.0, 8.0, 5.0))), "rimEnergy", "rimColor"),
     )
     for name, location, energy_key, color_key in rig:
         bpy.ops.object.light_add(type="SUN", location=location)
@@ -355,7 +474,186 @@ def apply_style_layer_lighting(scene, style_layer):
         light.name = name
         light.data.energy = lighting[energy_key]
         light.data.color = tuple(lighting[color_key])
+        # Una SUN sólo importa por su rotación; sin orientarla, todas caían verticales y no
+        # proyectaban sombra visible.
+        light.rotation_euler = (
+            Vector((0.0, 0.0, 0.0)) - light.location
+        ).to_track_quat("-Z", "Y").to_euler()
+        if name == "LIGHT_KEY":
+            light.data.angle = math.radians(shadow_config.get("keySunAngleDegrees", 3.0))
+        else:
+            light.data.use_shadow = False
     return world
+
+
+def _styled_image(image, treatment, kind):
+    """Remapea el atlas en una copia en memoria y devuelve también la máscara emisiva."""
+    width, height = image.size
+    pixels = np.array(image.pixels[:], dtype=np.float32).reshape(height, width, 4)
+    source_hsv = _rgb_to_hsv(pixels[:, :, :3])
+    hue, saturation, value = source_hsv
+    global_config = treatment.get("global", {})
+    kind_override = treatment.get("kindOverrides", {}).get(kind, {})
+    out_saturation = saturation * kind_override.get(
+        "saturationScale", global_config.get("saturationScale", 1.0)
+    )
+    out_value = value * kind_override.get(
+        "valueScale", global_config.get("valueScale", 1.0)
+    )
+    out_hue = hue.copy()
+    for band in treatment.get("hueBands", []):
+        mask = (
+            _hue_in(hue, band["hue"])
+            & _in_range(saturation, band["sat"])
+            & _in_range(value, band["value"])
+        )
+        if "hueTo" in band:
+            out_hue[mask] = band["hueTo"]
+        elif "hueOffset" in band:
+            out_hue[mask] = (out_hue[mask] + band["hueOffset"]) % 360
+        out_saturation[mask] *= band.get("saturationScale", 1.0)
+        out_value[mask] *= band.get("valueScale", 1.0)
+    for band in treatment.get("valueBands", []):
+        if band.get("kinds") and kind not in band["kinds"]:
+            continue
+        mask = (
+            _hue_in(hue, band["hue"])
+            & _in_range(saturation, band["sat"])
+            & _in_range(value, band["value"])
+        )
+        out_value[mask] *= band.get("valueScale", 1.0)
+        if "saturationScale" in band:
+            out_saturation[mask] *= band["saturationScale"]
+    styled_rgb = _hsv_to_rgb(out_hue, np.clip(out_saturation, 0, 1), np.clip(out_value, 0, 1))
+    multiply = np.array(treatment.get("multiplySrgb", [1.0, 1.0, 1.0]), dtype=np.float32)
+    styled_rgb = np.clip(styled_rgb * multiply, 0.0, 1.0)
+    styled = bpy.data.images.new(
+        f"styled_{image.name}", width=width, height=height, alpha=True, float_buffer=False
+    )
+    styled.colorspace_settings.name = "sRGB"
+    styled.pixels = np.clip(
+        np.dstack([styled_rgb, pixels[:, :, 3]]), 0, 1
+    ).astype(np.float32).flatten().tolist()
+    styled.pack()
+
+    glow = treatment.get("windowGlow")
+    emissive = None
+    emissive_texels = 0
+    if glow and kind in glow.get("kinds", []):
+        mask = (
+            _hue_in(hue, glow["hue"])
+            & _in_range(saturation, glow["sat"])
+            & _in_range(value, glow["value"])
+        )
+        emissive_texels = int(mask.sum())
+        if emissive_texels:
+            pattern = np.repeat(mask[:, :, None], 3, axis=2).astype(np.float32)
+            emissive = bpy.data.images.new(
+                f"emissive_{image.name}", width=width, height=height, alpha=False, float_buffer=False
+            )
+            emissive.colorspace_settings.name = "Non-Color"
+            emissive.pixels = np.dstack(
+                [pattern, np.ones((height, width, 1), dtype=np.float32)]
+            ).flatten().tolist()
+            emissive.pack()
+    return styled, emissive, emissive_texels
+
+
+def _apply_flat_material_treatment(material, treatment):
+    """Aplica la paleta a colores planos (vegetación, KayKit). Los nodos trabajan en lineal."""
+    node_tree = material.node_tree
+    if not node_tree:
+        return False
+    bsdf = next((node for node in node_tree.nodes if node.type == "BSDF_PRINCIPLED"), None)
+    if not bsdf:
+        return False
+    base_color = bsdf.inputs["Base Color"]
+    if base_color.is_linked:
+        return False
+    linear = np.array(base_color.default_value[:3], dtype=np.float32)
+    srgb = np.clip(_linear_to_srgb(linear), 0, 1).reshape(1, 1, 3)
+    hue, saturation, value = _rgb_to_hsv(srgb)
+    for rule in treatment.get("flatMaterials", []):
+        if not _name_matches(material.name, rule["match"]):
+            continue
+        if "hueTo" in rule:
+            hue = np.full_like(hue, float(rule["hueTo"]))
+        saturation = saturation * rule.get("saturationScale", 1.0)
+        value = value * rule.get("valueScale", 1.0)
+        rgb = _hsv_to_rgb(hue, np.clip(saturation, 0, 1), np.clip(value, 0, 1))[0, 0]
+        base_color.default_value = (*_srgb_to_linear(rgb), 1.0)
+        return True
+    return False
+
+
+def apply_external_treatment(objects, style_layer, kind):
+    """Aplica Graphic Civic a materiales externos sin reescribir las fuentes.
+
+    Kenney comparte un único atlas `colormap` entre paredes, tejados, ventanas y calzada, así que
+    el tratamiento es un remapeo determinista del atlas (bandas de tono/saturación/valor), no un
+    cambio por material. Los colores planos (vegetación) se tratan por nombre de material.
+    """
+    treatment = style_layer.get("externalTreatment")
+    if not treatment:
+        return None
+    materials = set()
+    for obj in objects:
+        if obj.type != "MESH":
+            continue
+        for slot in obj.material_slots:
+            if slot.material:
+                materials.add(slot.material)
+    styled_by_image = {}
+    emissive_texels = 0
+    flat_materials = 0
+    for material in materials:
+        node_tree = material.node_tree
+        if not node_tree:
+            continue
+        bsdf = next((node for node in node_tree.nodes if node.type == "BSDF_PRINCIPLED"), None)
+        if not bsdf:
+            continue
+        # Sólo se trata la textura que alimenta Base Color: normales, rugosidad y emisión propias
+        # de la fuente (p. ej. Quaternius) deben llegar intactas al render.
+        base_color = bsdf.inputs["Base Color"]
+        source_node = base_color.links[0].from_node if base_color.is_linked else None
+        if source_node is not None and source_node.type == "TEX_IMAGE" and source_node.image:
+            key = source_node.image.name
+            if key not in styled_by_image:
+                styled_by_image[key] = _styled_image(source_node.image, treatment, kind)
+            styled, emissive, count = styled_by_image[key]
+            emissive_texels = max(emissive_texels, count)
+            source_node.image = styled
+            if emissive is not None:
+                tint = np.array(treatment["windowGlow"]["colorSrgb"], dtype=np.float32) / 255.0
+                tint_linear = _srgb_to_linear(tint)
+                emissive_node = node_tree.nodes.new("ShaderNodeTexImage")
+                emissive_node.image = emissive
+                emissive_node.interpolation = "Closest"
+                tint_node = node_tree.nodes.new("ShaderNodeVectorMath")
+                tint_node.operation = "MULTIPLY"
+                tint_node.inputs[0].default_value = tuple(tint_linear[:3])
+                node_tree.links.new(emissive_node.outputs["Color"], tint_node.inputs[1])
+                emission_input = bsdf.inputs.get("Emission Color") or bsdf.inputs.get(
+                    "Emission"
+                )
+                if emission_input:
+                    node_tree.links.new(tint_node.outputs["Vector"], emission_input)
+                    bsdf.inputs["Emission Strength"].default_value = treatment["windowGlow"][
+                        "strength"
+                    ]
+        if _apply_flat_material_treatment(material, treatment):
+            flat_materials += 1
+        if not bsdf.inputs["Metallic"].is_linked:
+            bsdf.inputs["Metallic"].default_value = treatment.get("metallic", 0.0)
+        if not bsdf.inputs["Roughness"].is_linked:
+            bsdf.inputs["Roughness"].default_value = treatment.get("roughness", 0.9)
+    return {
+        "version": treatment.get("version", 1),
+        "atlases": sorted(styled_by_image.keys()),
+        "flatMaterials": flat_materials,
+        "emissiveTexels": emissive_texels,
+    }
 
 
 def create_external_scene(args, source_path, style_layer):
@@ -370,8 +668,11 @@ def create_external_scene(args, source_path, style_layer):
     meshes = [obj for obj in objects if obj.type == "MESH"]
     body = max(meshes, key=lambda obj: len(obj.data.vertices))
 
-    camera, _ = place_camera(args.target_z, args.ortho_scale)
+    camera, _ = place_camera(
+        args.target_z, args.ortho_scale, azimuth_degrees=args.azimuth
+    )
     apply_style_layer_lighting(bpy.context.scene, style_layer)
+    style_summary = apply_external_treatment(objects, style_layer, args.kind)
 
     scene = bpy.context.scene
     scene.render.engine = "BLENDER_EEVEE"
@@ -386,6 +687,7 @@ def create_external_scene(args, source_path, style_layer):
     post = style_layer["rendering"]["postProcessing"]
     scene.view_settings.view_transform = post.split(" - ")[0]
     scene.view_settings.look = post
+    scene.view_settings.exposure = style_layer["rendering"].get("exposure", 0.0)
 
     mins, maxs = world_bounds(objects)
     normalization["worldSizeMeters"] = {
@@ -393,17 +695,90 @@ def create_external_scene(args, source_path, style_layer):
         "y": round(maxs[1] - mins[1], 4),
         "z": round(maxs[2] - mins[2], 4),
     }
-    return scene, camera, body, normalization
+    return scene, camera, body, normalization, style_summary, mins[2]
 
 
-def trim_and_scale(render_path, output_path, alpha_threshold=ALPHA_THRESHOLD):
-    """Recorta el margen transparente y reduce a la mitad. Devuelve medidas, offset y pivote."""
+def render_shadow_pass(scene, style_layer, ground_z, shadow_path):
+    """Segunda pasada con un plano blanco: la sombra real del rig, no una elipse inventada.
+
+    La cámara se abre 3× para que la sombra quepa entera; luego se reduce a la resolución del
+    pase principal y se compone.
+    """
+    shadow_config = style_layer.get("shadow", {})
+    camera = scene.camera
+    original_ortho = camera.data.ortho_scale
+    original_width = scene.render.resolution_x
+    original_height = scene.render.resolution_y
+    camera.data.ortho_scale = original_ortho * 3.0
+    scene.render.resolution_x = original_width * 3
+    scene.render.resolution_y = original_height * 3
+    plane_size = max(16.0, camera.data.ortho_scale * 4.0)
+    bpy.ops.mesh.primitive_plane_add(
+        size=plane_size, location=(0.0, 0.0, ground_z - 0.002)
+    )
+    plane = bpy.context.object
+    plane.name = "SHADOW_CATCHER"
+    catcher = bpy.data.materials.new("mat_shadow_catcher")
+    catcher.use_nodes = True
+    bsdf = catcher.node_tree.nodes.get("Principled BSDF")
+    bsdf.inputs["Base Color"].default_value = (1.0, 1.0, 1.0, 1.0)
+    bsdf.inputs["Roughness"].default_value = 1.0
+    bsdf.inputs["Metallic"].default_value = 0.0
+    plane.data.materials.append(catcher)
+    scene.render.filepath = str(shadow_path)
+    bpy.ops.render.render(write_still=True)
+    bpy.data.objects.remove(plane, do_unlink=True)
+    camera.data.ortho_scale = original_ortho
+    scene.render.resolution_x = original_width
+    scene.render.resolution_y = original_height
+    return {
+        "pass": True,
+        "keySunAngleDegrees": shadow_config.get("keySunAngleDegrees", 3.0),
+        "strength": shadow_config.get("strength", 0.55),
+        "frameScale": 3,
+    }
+
+
+def trim_and_scale(render_path, output_path, shadow_path=None, shadow_style=None):
+    """Recorta el margen transparente, compone la sombra y reduce a la mitad."""
     image = bpy.data.images.load(str(render_path))
     width, height = image.size
     pixels = np.array(image.pixels[:], dtype=np.float32).reshape(height, width, 4)
+    if shadow_path is not None and shadow_style is not None:
+        shadow_image = bpy.data.images.load(str(shadow_path))
+        shadow_width, shadow_height = shadow_image.size
+        shadow_pixels = np.array(shadow_image.pixels[:], dtype=np.float32).reshape(
+            shadow_height, shadow_width, 4
+        )
+        bpy.data.images.remove(shadow_image)
+        factor = shadow_width // width
+        if factor > 1 and shadow_width % width == 0 and shadow_height % height == 0:
+            shadow_pixels = shadow_pixels.reshape(
+                height, factor, width, factor, 4
+            ).mean(axis=(1, 3))
+        luminance = (
+            shadow_pixels[:, :, 0] * 0.2126
+            + shadow_pixels[:, :, 1] * 0.7152
+            + shadow_pixels[:, :, 2] * 0.0722
+        )
+        plane_mask = (pixels[:, :, 3] < 0.02) & (shadow_pixels[:, :, 3] > 0.5)
+        if plane_mask.any():
+            lit = float(np.percentile(luminance[plane_mask], 97))
+            darkness = np.clip((lit - luminance) / max(lit, 1e-4), 0.0, 1.0)
+            shadow_alpha = darkness * float(shadow_style.get("strength", 0.55)) * plane_mask
+            shadow_color = np.array(shadow_style.get("colorSrgb", [12, 18, 26]), dtype=np.float32) / 255.0
+            object_alpha = pixels[:, :, 3:4]
+            out_alpha = object_alpha + shadow_alpha[:, :, None] * (1 - object_alpha)
+            out_rgb = (
+                pixels[:, :, :3] * object_alpha
+                + shadow_color * shadow_alpha[:, :, None] * (1 - object_alpha)
+            ) / np.maximum(out_alpha, 1e-6)
+            pixels = np.clip(
+                np.concatenate([out_rgb, out_alpha], axis=-1), 0.0, 1.0
+            ).astype(np.float32)
     alpha = pixels[:, :, 3]
-    opaque_rows = np.where(np.any(alpha > alpha_threshold, axis=1))[0]
-    opaque_cols = np.where(np.any(alpha > alpha_threshold, axis=0))[0]
+    opaque_rows = np.where(np.any(alpha > ALPHA_THRESHOLD, axis=1))[0]
+    opaque_cols = np.where(np.any(alpha > ALPHA_THRESHOLD, axis=0))[0]
     if opaque_rows.size == 0 or opaque_cols.size == 0:
         raise ValueError("El render no tiene ningún píxel opaco: nada que recortar")
     # `pixels` está en orden Blender (fila 0 = abajo); los offsets publicados se expresan arriba-abajo.
@@ -466,13 +841,23 @@ def main():
 
     source_path = parse_source(args.source)
     normalization = None
+    style_summary = None
+    ground_z = None
+    shadow_style = None
+    style_exposure = 0.0
     if source_path is None:
-        if args.asset not in BUILDINGS and args.asset not in CHARACTERS:
+        if args.asset not in BUILDINGS and args.asset not in CHARACTERS and args.asset not in TERRAIN:
             raise SystemExit(
                 f"--asset '{args.asset}' no es un asset procedural y no se pasó --source"
             )
         scene, camera, spec = create_scene(args)
-        kind = "building" if args.asset in BUILDINGS else "character"
+        kind = (
+            "building"
+            if args.asset in BUILDINGS
+            else "terrain"
+            if args.asset in TERRAIN
+            else "character"
+        )
         label = spec["label"]
         footprint = spec.get("footprint")
     else:
@@ -487,20 +872,30 @@ def main():
         if missing:
             raise SystemExit("los jobs de terceros requieren " + ", ".join(missing))
         style_layer = json.loads(STYLE_LAYER_PATH.read_text(encoding="utf-8"))
-        scene, camera, _body, normalization = create_external_scene(
+        scene, camera, _body, normalization, style_summary, ground_z = create_external_scene(
             args, source_path, style_layer
         )
+        style_exposure = style_layer["rendering"].get("exposure", 0.0)
         kind = args.kind
         label = args.asset
         # La huella la conoce el manifiesto de jobs; el render sólo publica geometría.
         footprint = None
+        if args.shadow:
+            shadow_style = style_layer.get("shadow", {})
 
     render_path = output.with_suffix(".render.png")
     scene.render.filepath = str(render_path)
     bpy.ops.render.render(write_still=True)
     render_ms = round((time.perf_counter() - started) * 1000, 2)
-    trim = trim_and_scale(render_path, output)
+    shadow_path = None
+    shadow_meta = None
+    if shadow_style is not None and shadow_style.get("enabled", True) and ground_z is not None:
+        shadow_path = output.with_suffix(".shadow.png")
+        shadow_meta = render_shadow_pass(scene, style_layer, ground_z, shadow_path)
+    trim = trim_and_scale(render_path, output, shadow_path, shadow_style)
     render_path.unlink(missing_ok=True)
+    if shadow_path is not None:
+        shadow_path.unlink(missing_ok=True)
     pivot = pivot_from_origin(scene, camera, trim)
     digest = hashlib.sha256(output.read_bytes()).hexdigest()
     elapsed_ms = round((time.perf_counter() - started) * 1000, 2)
@@ -534,11 +929,20 @@ def main():
         },
         "camera": {
             "projection": "ORTHO",
-            "azimuthDegrees": CAMERA_AZIMUTH_DEGREES,
+            "azimuthDegrees": args.azimuth if args.azimuth is not None else CAMERA_AZIMUTH_DEGREES,
             "elevationDegrees": CAMERA_ELEVATION_DEGREES,
             "orthoScale": camera.data.ortho_scale,
         },
         "palette": "graphic_civic",
+        "styleLayer": (
+            {
+                **style_summary,
+                "exposure": style_exposure,
+            }
+            if style_summary
+            else None
+        ),
+        "shadow": shadow_meta,
         "render": {
             "colorMode": "RGBA",
             "colorDepth": 8,

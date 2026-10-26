@@ -103,7 +103,10 @@ export const CELL_METERS = 4;
  * (`pixelsPerMeter`); el grid del juego mide la diagonal de una celda de 4 m como `tileWidth` px.
  * Los assets procedurales ya están dibujados a esa escala y no declaran densidad.
  */
-export function spriteScaleFor(asset: { pixelsPerMeter?: number }, tileWidth: number): number {
+export function spriteScaleFor(
+  asset: { pixelsPerMeter?: number | undefined },
+  tileWidth: number,
+): number {
   if (!asset.pixelsPerMeter) return 1;
   const gamePixelsPerMeter = tileWidth / (CELL_METERS * Math.SQRT2);
   return gamePixelsPerMeter / asset.pixelsPerMeter;

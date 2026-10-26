@@ -58,33 +58,33 @@
         "height": 1
       },
       "pivot": {
-        "x": 0.5142,
+        "x": 0.627,
         "y": 0.8137
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/bld_shopfront-complete.png",
-          "width": 141,
+          "width": 185,
           "height": 205,
-          "sha256": "69ce729c5c9f82e41ff4c3ddbbedde2c3d9398054eff11ebd52d344f8d619746"
+          "sha256": "4c66c37761211210a08613e1d7b3dd1c32167f30e2d90cb4cab1c8e59061160d"
         },
         "construction": {
           "src": "/assets/runtime/blender/bld_shopfront-construction.png",
-          "width": 141,
+          "width": 185,
           "height": 205,
-          "sha256": "69ce729c5c9f82e41ff4c3ddbbedde2c3d9398054eff11ebd52d344f8d619746"
+          "sha256": "4c66c37761211210a08613e1d7b3dd1c32167f30e2d90cb4cab1c8e59061160d"
         },
         "damaged": {
           "src": "/assets/runtime/blender/bld_shopfront-damaged.png",
-          "width": 141,
+          "width": 185,
           "height": 205,
-          "sha256": "69ce729c5c9f82e41ff4c3ddbbedde2c3d9398054eff11ebd52d344f8d619746"
+          "sha256": "4c66c37761211210a08613e1d7b3dd1c32167f30e2d90cb4cab1c8e59061160d"
         },
         "burning": {
           "src": "/assets/runtime/blender/bld_shopfront-burning.png",
-          "width": 141,
+          "width": 185,
           "height": 205,
-          "sha256": "69ce729c5c9f82e41ff4c3ddbbedde2c3d9398054eff11ebd52d344f8d619746"
+          "sha256": "4c66c37761211210a08613e1d7b3dd1c32167f30e2d90cb4cab1c8e59061160d"
         }
       },
       "pixelsPerMeter": 30.11764705882353,
@@ -102,33 +102,33 @@
         "height": 1
       },
       "pivot": {
-        "x": 0.5199,
+        "x": 0.6123,
         "y": 0.803
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/bld_commercial_b-complete.png",
-          "width": 151,
+          "width": 187,
           "height": 204,
-          "sha256": "cedbe7c3dca86a722b19df11b59856eeaa8eeb53d00ae23e144350f4017491c8"
+          "sha256": "573b91cc7682ec7dbe97771c26e7469ce84c2427daeb6b051cf50cd53176eeb1"
         },
         "construction": {
           "src": "/assets/runtime/blender/bld_commercial_b-construction.png",
-          "width": 151,
+          "width": 187,
           "height": 204,
-          "sha256": "cedbe7c3dca86a722b19df11b59856eeaa8eeb53d00ae23e144350f4017491c8"
+          "sha256": "573b91cc7682ec7dbe97771c26e7469ce84c2427daeb6b051cf50cd53176eeb1"
         },
         "damaged": {
           "src": "/assets/runtime/blender/bld_commercial_b-damaged.png",
-          "width": 151,
+          "width": 187,
           "height": 204,
-          "sha256": "cedbe7c3dca86a722b19df11b59856eeaa8eeb53d00ae23e144350f4017491c8"
+          "sha256": "573b91cc7682ec7dbe97771c26e7469ce84c2427daeb6b051cf50cd53176eeb1"
         },
         "burning": {
           "src": "/assets/runtime/blender/bld_commercial_b-burning.png",
-          "width": 151,
+          "width": 187,
           "height": 204,
-          "sha256": "cedbe7c3dca86a722b19df11b59856eeaa8eeb53d00ae23e144350f4017491c8"
+          "sha256": "573b91cc7682ec7dbe97771c26e7469ce84c2427daeb6b051cf50cd53176eeb1"
         }
       },
       "pixelsPerMeter": 30.11764705882353,
@@ -154,25 +154,25 @@
           "src": "/assets/runtime/blender/bld_residential_a-complete.png",
           "width": 190,
           "height": 142,
-          "sha256": "e44464c95d70fe99eed9bb42de249e9d0dcf339daa989e57b0a62a8c710efcc1"
+          "sha256": "b9d796eac6cf1a941cd859791e722fad8bb218f8b844237b71c004e252ad2255"
         },
         "construction": {
           "src": "/assets/runtime/blender/bld_residential_a-construction.png",
           "width": 190,
           "height": 142,
-          "sha256": "e44464c95d70fe99eed9bb42de249e9d0dcf339daa989e57b0a62a8c710efcc1"
+          "sha256": "b9d796eac6cf1a941cd859791e722fad8bb218f8b844237b71c004e252ad2255"
         },
         "damaged": {
           "src": "/assets/runtime/blender/bld_residential_a-damaged.png",
           "width": 190,
           "height": 142,
-          "sha256": "e44464c95d70fe99eed9bb42de249e9d0dcf339daa989e57b0a62a8c710efcc1"
+          "sha256": "b9d796eac6cf1a941cd859791e722fad8bb218f8b844237b71c004e252ad2255"
         },
         "burning": {
           "src": "/assets/runtime/blender/bld_residential_a-burning.png",
           "width": 190,
           "height": 142,
-          "sha256": "e44464c95d70fe99eed9bb42de249e9d0dcf339daa989e57b0a62a8c710efcc1"
+          "sha256": "b9d796eac6cf1a941cd859791e722fad8bb218f8b844237b71c004e252ad2255"
         }
       },
       "pixelsPerMeter": 30.11764705882353,
@@ -190,33 +190,33 @@
         "height": 1
       },
       "pivot": {
-        "x": 0.5197,
+        "x": 0.5494,
         "y": 0.7443
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/bld_commercial_c-complete.png",
-          "width": 152,
+          "width": 162,
           "height": 163,
-          "sha256": "f09c3cccea36669320718d9f62c321ad0cadcfae53085e8e2e20efe2fa5de685"
+          "sha256": "991d8f2d10ce2ced09d04f86c5d0fe46723d2036905df020a7080a22bf67c796"
         },
         "construction": {
           "src": "/assets/runtime/blender/bld_commercial_c-construction.png",
-          "width": 152,
+          "width": 162,
           "height": 163,
-          "sha256": "f09c3cccea36669320718d9f62c321ad0cadcfae53085e8e2e20efe2fa5de685"
+          "sha256": "991d8f2d10ce2ced09d04f86c5d0fe46723d2036905df020a7080a22bf67c796"
         },
         "damaged": {
           "src": "/assets/runtime/blender/bld_commercial_c-damaged.png",
-          "width": 152,
+          "width": 162,
           "height": 163,
-          "sha256": "f09c3cccea36669320718d9f62c321ad0cadcfae53085e8e2e20efe2fa5de685"
+          "sha256": "991d8f2d10ce2ced09d04f86c5d0fe46723d2036905df020a7080a22bf67c796"
         },
         "burning": {
           "src": "/assets/runtime/blender/bld_commercial_c-burning.png",
-          "width": 152,
+          "width": 162,
           "height": 163,
-          "sha256": "f09c3cccea36669320718d9f62c321ad0cadcfae53085e8e2e20efe2fa5de685"
+          "sha256": "991d8f2d10ce2ced09d04f86c5d0fe46723d2036905df020a7080a22bf67c796"
         }
       },
       "pixelsPerMeter": 30.11764705882353,
@@ -242,25 +242,25 @@
           "src": "/assets/runtime/blender/bld_residential_b-complete.png",
           "width": 230,
           "height": 174,
-          "sha256": "d14a742cb52683dda9bb1044c6cd6c4df4a4e671b0ff9b275336f12e770ee0fa"
+          "sha256": "82209e4b32aeeb3eaea7fb2630d4c62588adffc64c28ac5eb12a0c675cc24412"
         },
         "construction": {
           "src": "/assets/runtime/blender/bld_residential_b-construction.png",
           "width": 230,
           "height": 174,
-          "sha256": "d14a742cb52683dda9bb1044c6cd6c4df4a4e671b0ff9b275336f12e770ee0fa"
+          "sha256": "82209e4b32aeeb3eaea7fb2630d4c62588adffc64c28ac5eb12a0c675cc24412"
         },
         "damaged": {
           "src": "/assets/runtime/blender/bld_residential_b-damaged.png",
           "width": 230,
           "height": 174,
-          "sha256": "d14a742cb52683dda9bb1044c6cd6c4df4a4e671b0ff9b275336f12e770ee0fa"
+          "sha256": "82209e4b32aeeb3eaea7fb2630d4c62588adffc64c28ac5eb12a0c675cc24412"
         },
         "burning": {
           "src": "/assets/runtime/blender/bld_residential_b-burning.png",
           "width": 230,
           "height": 174,
-          "sha256": "d14a742cb52683dda9bb1044c6cd6c4df4a4e671b0ff9b275336f12e770ee0fa"
+          "sha256": "82209e4b32aeeb3eaea7fb2630d4c62588adffc64c28ac5eb12a0c675cc24412"
         }
       },
       "pixelsPerMeter": 30.11764705882353,
@@ -286,25 +286,25 @@
           "src": "/assets/runtime/blender/bld_residential_c-complete.png",
           "width": 187,
           "height": 163,
-          "sha256": "79c773d6fc1e9c5c8496c806c848727dfd5270551d75e027565c1904f161b98d"
+          "sha256": "81395c2b0c313569ffdb7410ff821c9bb6c6a5cad0f990a37a0212d796bbe0ad"
         },
         "construction": {
           "src": "/assets/runtime/blender/bld_residential_c-construction.png",
           "width": 187,
           "height": 163,
-          "sha256": "79c773d6fc1e9c5c8496c806c848727dfd5270551d75e027565c1904f161b98d"
+          "sha256": "81395c2b0c313569ffdb7410ff821c9bb6c6a5cad0f990a37a0212d796bbe0ad"
         },
         "damaged": {
           "src": "/assets/runtime/blender/bld_residential_c-damaged.png",
           "width": 187,
           "height": 163,
-          "sha256": "79c773d6fc1e9c5c8496c806c848727dfd5270551d75e027565c1904f161b98d"
+          "sha256": "81395c2b0c313569ffdb7410ff821c9bb6c6a5cad0f990a37a0212d796bbe0ad"
         },
         "burning": {
           "src": "/assets/runtime/blender/bld_residential_c-burning.png",
           "width": 187,
           "height": 163,
-          "sha256": "79c773d6fc1e9c5c8496c806c848727dfd5270551d75e027565c1904f161b98d"
+          "sha256": "81395c2b0c313569ffdb7410ff821c9bb6c6a5cad0f990a37a0212d796bbe0ad"
         }
       },
       "pixelsPerMeter": 30.11764705882353,
@@ -446,14 +446,14 @@
         "src": "/assets/runtime/blender/ter_road_straight.png",
         "width": 242,
         "height": 125,
-        "sha256": "dbd9a86ea45718cc1513ffbce03b16128c615c2d450c60f2bd2b29fc63276ee1"
+        "sha256": "88cc9b1cb49d898eada21d8e16bec07dcac677591765fd0646480a35ea920538"
       },
-      "pixelsPerMeter": 42.666666666666664,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_roads",
         "sourceId": "src_kenney_city_roads"
-      }
+      },
+      "pixelsPerMeter": 42.666666666666664
     },
     "ter_road_corner": {
       "id": "ter_road_corner",
@@ -470,14 +470,14 @@
         "src": "/assets/runtime/blender/ter_road_corner.png",
         "width": 172,
         "height": 125,
-        "sha256": "da0166c40782a3b255e870bf329637f892266c8d7fb2cec1e6fe56c43137e5c4"
+        "sha256": "f8a9736879fb3cae5b312f0565e909528b805f8f69dee80cccaa5a2de876e00b"
       },
-      "pixelsPerMeter": 42.666666666666664,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_roads",
         "sourceId": "src_kenney_city_roads"
-      }
+      },
+      "pixelsPerMeter": 42.666666666666664
     },
     "ter_road_intersection": {
       "id": "ter_road_intersection",
@@ -494,13 +494,49 @@
         "src": "/assets/runtime/blender/ter_road_intersection.png",
         "width": 242,
         "height": 125,
-        "sha256": "ec2677cb7d30932d699fe585b92daa47c21763be7504edf05432046fb714af47"
+        "sha256": "1586c8f1252a45985955c8f7f939d5b779aed429f4336dc53f3303f9b19d0d35"
       },
-      "pixelsPerMeter": 42.666666666666664,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_roads",
         "sourceId": "src_kenney_city_roads"
+      },
+      "pixelsPerMeter": 42.666666666666664
+    },
+    "ter_lot_dirt_a": {
+      "id": "ter_lot_dirt_a",
+      "name": "Solar de obra A",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "image": {
+        "src": "/assets/runtime/blender/ter_lot_dirt_a.png",
+        "width": 64,
+        "height": 32,
+        "sha256": "ebb22879aeb922d5a8c6309de8dca922e4008f62fb53e00912d337197106c413"
+      }
+    },
+    "ter_lot_dirt_b": {
+      "id": "ter_lot_dirt_b",
+      "name": "Solar de obra B",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "image": {
+        "src": "/assets/runtime/blender/ter_lot_dirt_b.png",
+        "width": 64,
+        "height": 32,
+        "sha256": "0973108f7ccd4cb687a203ee934cac7d6ef7dda5d28851c9b2b595a2d8676636"
       }
     }
   },
@@ -520,13 +556,28 @@
         "src": "/assets/runtime/blender/veh_sedan.png",
         "width": 215,
         "height": 161,
-        "sha256": "d1a101e4137ac853b3d5f58cb3ef3e6a6652f03e87f056d776d297ec49991c59"
+        "sha256": "77da82dfed2978b1bffe94a68fe77fa665f978c09827dfe09ae629d6f24d6090"
       },
-      "pixelsPerMeter": 64,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_car_kit",
         "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 64,
+      "orientations": {
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_sedan-az225.png",
+            "width": 215,
+            "height": 152,
+            "sha256": "66a1ae1a4a294c22b4b9a4f51231546fb01fa2078efd8a6b08b7756e95685e8c"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7415
+          },
+          "pixelsPerMeter": 64
+        }
       }
     },
     "veh_taxi": {
@@ -544,13 +595,28 @@
         "src": "/assets/runtime/blender/veh_taxi.png",
         "width": 226,
         "height": 167,
-        "sha256": "6dc565b0b6c148deefe5625b604e1045ee56c546bb7c7ecf48a66f44b83fd384"
+        "sha256": "88dbb69b31f1eaf04ebc6d04e4a23e4e8336266a5064d183d87379fe82e0fa3a"
       },
-      "pixelsPerMeter": 64,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_car_kit",
         "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 64,
+      "orientations": {
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_taxi-az225.png",
+            "width": 226,
+            "height": 156,
+            "sha256": "e3ab804b943e4c470200c553e8a696d21d44c2cfa48e2a1605aa81ee66f8e40e"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7289
+          },
+          "pixelsPerMeter": 64
+        }
       }
     },
     "veh_truck": {
@@ -568,13 +634,28 @@
         "src": "/assets/runtime/blender/veh_truck.png",
         "width": 238,
         "height": 160,
-        "sha256": "cf96402ab7cc5ea63171c44ee799c18f20aa8ba64dd76196c1b401ad67b7100a"
+        "sha256": "0197b243a3e766e0d79f762ab5bf8e54bdb21994f6352765d06f2077db591d75"
       },
-      "pixelsPerMeter": 64,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_car_kit",
         "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 64,
+      "orientations": {
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_truck-az225.png",
+            "width": 238,
+            "height": 164,
+            "sha256": "83f5aad795e3532b14e003be2d176a92e53f4e351ad9ad3613ae58b61da91d41"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7239
+          },
+          "pixelsPerMeter": 64
+        }
       }
     }
   },
@@ -587,21 +668,21 @@
         "height": 1
       },
       "pivot": {
-        "x": 0.4505,
+        "x": 0.6657,
         "y": 0.9678
       },
       "image": {
         "src": "/assets/runtime/blender/prp_tree_detailed.png",
-        "width": 101,
+        "width": 166,
         "height": 168,
-        "sha256": "c2837a68e5950e396bf33905ed4f880b3ac255f0affa1e4c7bcbd7ba7bc545d2"
+        "sha256": "3e4b3d58b468ea8430af5bc904ac46daa6c403ab2337bedea9384567ca298294"
       },
-      "pixelsPerMeter": 32,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_nature_kit",
         "sourceId": "src_kenney_nature_kit"
-      }
+      },
+      "pixelsPerMeter": 32
     },
     "prp_traffic_light": {
       "id": "prp_traffic_light",
@@ -611,20 +692,35 @@
         "height": 1
       },
       "pivot": {
-        "x": 0.4531,
-        "y": 0.9285
+        "x": 0.8196,
+        "y": 0.9291
       },
       "image": {
         "src": "/assets/runtime/blender/prp_traffic_light.png",
-        "width": 32,
-        "height": 127,
-        "sha256": "f90cfe76b4646f60ac4ebf880a8b655a59f17a7f3a484a46702a1d51bfc1300c"
+        "width": 97,
+        "height": 128,
+        "sha256": "5f5f5cb724b1c54b6db475bb6ec41e774453af953f6544fe8c79ac62d15f1420"
       },
-      "pixelsPerMeter": 64,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_roads",
         "sourceId": "src_kenney_city_roads"
+      },
+      "pixelsPerMeter": 64,
+      "orientations": {
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_traffic_light-az225.png",
+            "width": 97,
+            "height": 125,
+            "sha256": "3266099e767b335175efeea75180740bc2d973cd6b02b1349c4b1ede4306bb61"
+          },
+          "pivot": {
+            "x": 0.1804,
+            "y": 0.9474
+          },
+          "pixelsPerMeter": 64
+        }
       }
     },
     "prp_street_light": {
@@ -635,21 +731,21 @@
         "height": 1
       },
       "pivot": {
-        "x": 0.5,
+        "x": 0.7961,
         "y": 0.9265
       },
       "image": {
         "src": "/assets/runtime/blender/prp_street_light.png",
-        "width": 41,
+        "width": 103,
         "height": 141,
-        "sha256": "df1a56c0f97ca5b567a673498c0899fd70622e87ddc6ec67741481edf539c32f"
+        "sha256": "17ca7e3c05efb1c509e697f46cf6b291cbf7fd71b4eab7502ef8a55d6f04ccf5"
       },
-      "pixelsPerMeter": 51.2,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_roads",
         "sourceId": "src_kenney_city_roads"
-      }
+      },
+      "pixelsPerMeter": 51.2
     },
     "prp_bench": {
       "id": "prp_bench",
@@ -666,14 +762,14 @@
         "src": "/assets/runtime/blender/prp_bench.png",
         "width": 121,
         "height": 84,
-        "sha256": "5ec44e40b487fa0b9eb1b067c1d909c5743b668c9ab0bc8ce52f30be5490719b"
+        "sha256": "6b64eb3d4e9a48287c7f6a9666e6feb485cec3413a6816343f381b3bc5b56c6d"
       },
-      "pixelsPerMeter": 85.33333333333333,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kaykit_city_builder_bits",
         "sourceId": "src_kaykit_city_builder_bits"
-      }
+      },
+      "pixelsPerMeter": 85.33333333333333
     },
     "prp_trash_can": {
       "id": "prp_trash_can",
@@ -690,14 +786,14 @@
         "src": "/assets/runtime/blender/prp_trash_can.png",
         "width": 127,
         "height": 111,
-        "sha256": "1dcae1f9aa3acc2b7e3137bcad7b2add2e67b7e0251054967a107493b694fa18"
+        "sha256": "3237b9dedc74ebcae8dab9211c03784ff8cd8710330cba53c75943192a0ba89e"
       },
-      "pixelsPerMeter": 85.33333333333333,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_roads",
         "sourceId": "src_kenney_city_roads"
-      }
+      },
+      "pixelsPerMeter": 85.33333333333333
     },
     "prp_tree_oak": {
       "id": "prp_tree_oak",
@@ -707,21 +803,21 @@
         "height": 1
       },
       "pivot": {
-        "x": 0.5,
+        "x": 0.6827,
         "y": 0.9171
       },
       "image": {
         "src": "/assets/runtime/blender/prp_tree_oak.png",
-        "width": 98,
+        "width": 156,
         "height": 170,
-        "sha256": "7c1a613f3404ada923ba5ec150467bac6b1b640cad9ad563f287deb11ccacbbc"
+        "sha256": "d5099f2f7f5775340e323e559f5c184be2fb94b4aeca1712cf83299923222b16"
       },
-      "pixelsPerMeter": 34.13333333333333,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_nature_kit",
         "sourceId": "src_kenney_nature_kit"
-      }
+      },
+      "pixelsPerMeter": 34.13333333333333
     },
     "prp_tree_pine": {
       "id": "prp_tree_pine",
@@ -731,21 +827,21 @@
         "height": 1
       },
       "pivot": {
-        "x": 0.5,
+        "x": 0.7685,
         "y": 0.9589
       },
       "image": {
         "src": "/assets/runtime/blender/prp_tree_pine.png",
-        "width": 69,
+        "width": 149,
         "height": 179,
-        "sha256": "9d47dfcb643ef492202771dbac67b198d9c1ca3cade5fbf3e7b761f4d770af24"
+        "sha256": "af6889191657669d45ccfe7b72ff2b5ef2465cb597648964209717d69f032b2b"
       },
-      "pixelsPerMeter": 32,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_nature_kit",
         "sourceId": "src_kenney_nature_kit"
-      }
+      },
+      "pixelsPerMeter": 32
     },
     "prp_construction_barrier": {
       "id": "prp_construction_barrier",
@@ -762,14 +858,14 @@
         "src": "/assets/runtime/blender/prp_construction_barrier.png",
         "width": 83,
         "height": 76,
-        "sha256": "c47ff3d310537593c26d90202e3d4a971f463d92ab62605daec6f5962226d9f7"
+        "sha256": "2c128fe8be028b30157b2d4324dd0a893ecb2c9c4dc70054c85a6eaf4460400a"
       },
-      "pixelsPerMeter": 85.33333333333333,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_roads",
         "sourceId": "src_kenney_city_roads"
-      }
+      },
+      "pixelsPerMeter": 85.33333333333333
     },
     "prp_construction_cone": {
       "id": "prp_construction_cone",
@@ -779,21 +875,21 @@
         "height": 1
       },
       "pivot": {
-        "x": 0.5,
+        "x": 0.5147,
         "y": 0.7821
       },
       "image": {
         "src": "/assets/runtime/blender/prp_construction_cone.png",
-        "width": 32,
+        "width": 34,
         "height": 39,
-        "sha256": "c443819fb93acda022c532b2eeb7734d4901eb6800b3a08904c54e3135342a55"
+        "sha256": "2698e422c94d45e67074943b3eb146202ba36b41510e3c1cedfc30d542d2ca22"
       },
-      "pixelsPerMeter": 85.33333333333333,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_roads",
         "sourceId": "src_kenney_city_roads"
-      }
+      },
+      "pixelsPerMeter": 85.33333333333333
     }
   }
 }

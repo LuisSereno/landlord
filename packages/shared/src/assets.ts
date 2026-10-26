@@ -69,6 +69,16 @@ export type BuildingAssetV1 = {
 };
 
 /**
+ * Frame alternativo de un asset escénico para una orientación concreta (azimut de cámara).
+ * El pivote se publica por frame porque la proyección del origen cambia con el azimut.
+ */
+export type SceneryFrameV1 = {
+  image: AssetImageV1;
+  pivot: { x: number; y: number };
+  pixelsPerMeter?: number;
+};
+
+/**
  * Asset escénico de una sola imagen (terrain, prop o vehicle). Comparte pivote y huella con los
  * edificios para que el depth se resuelva con la misma función `depthForAsset`.
  */
@@ -79,6 +89,11 @@ export type SceneryAssetV1 = {
   pivot: { x: number; y: number };
   image: AssetImageV1;
   pixelsPerMeter?: number;
+  /**
+   * Orientaciones adicionales indexadas por azimut en grados ("225", "315"...). El frame por
+   * defecto (45°) vive en `image`/`pivot` para no duplicarlo. La escena elige por colocación.
+   */
+  orientations?: Record<string, SceneryFrameV1>;
   provenance?: AssetProvenanceV1;
 };
 
@@ -176,6 +191,15 @@ export const buildingAssetSchema = z.object({
   provenance: assetProvenanceSchema.optional(),
 });
 
+export const sceneryFrameSchema = z.object({
+  image: assetImageSchema,
+  pivot: z.object({
+    x: z.number().min(0).max(1),
+    y: z.number().min(0).max(1),
+  }),
+  pixelsPerMeter: z.number().positive().optional(),
+});
+
 export const sceneryAssetSchema = z.object({
   id: z.string().min(1),
   name: z.string().min(1),
@@ -189,6 +213,7 @@ export const sceneryAssetSchema = z.object({
   }),
   image: assetImageSchema,
   pixelsPerMeter: z.number().positive().optional(),
+  orientations: z.record(z.string(), sceneryFrameSchema).optional(),
   provenance: assetProvenanceSchema.optional(),
 });
 

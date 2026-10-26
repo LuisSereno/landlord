@@ -67,15 +67,18 @@
   "lighting": {
     "keyEnergy": 3.2,
     "keyColor": [0.98, 0.94, 0.88],
-    "keyDirection": [0.3, 0.8, 0.5],
+    "keyDirection": [0.35, 0.82, 0.45],
     "fillEnergy": 1.1,
     "fillColor": [0.72, 0.82, 0.89],
     "fillDirection": [-0.5, 0.3, -0.2],
     "rimEnergy": 1.6,
     "rimColor": [0.8, 0.85, 0.9],
     "worldColor": [0.75, 0.75, 0.75],
-    "worldStrength": 0.35,
-    "description": "Neutral-warm key with cool fill; SUN irradiances calibrated so a 1.8 m avatar keeps skin and light cloth out of clipping"
+    "worldStrength": 0.22,
+    "description": "Neutral-warm key with cool fill; SUN irradiances calibrated so a 1.8 m avatar keeps skin and light cloth out of clipping",
+    "keyPosition": [9.0, 16.0, 10.0],
+    "fillPosition": [-10.0, -6.0, 8.0],
+    "rimPosition": [0.0, -12.0, 6.0]
   },
   "camera": {
     "projection": "ORTHO",
@@ -89,7 +92,112 @@
     "filmTransparent": true,
     "colorDepth": "RGBA_8BIT",
     "postProcessing": "AgX - Medium High Contrast",
+    "exposure": -0.45,
     "description": "Render settings for runtime asset pipeline"
+  },
+  "externalTreatment": {
+    "version": 1,
+    "note": "Kenney comparte un único atlas colormap entre paredes, tejados, ventanas y calzada. El tratamiento remapea el atlas en memoria (bandas HSV deterministas) y los colores planos por nombre de material; las fuentes no se reescriben.",
+    "global": {
+      "saturationScale": 0.7,
+      "valueScale": 0.64,
+      "multiplySrgb": [0.9, 0.95, 1.04]
+    },
+    "hueBands": [
+      {
+        "id": "foliage_green_to_slate",
+        "hue": [70, 185],
+        "sat": [0.2, 1.0],
+        "value": [0.1, 1.0],
+        "hueTo": 196,
+        "saturationScale": 0.42,
+        "valueScale": 0.55
+      },
+      {
+        "id": "warm_accents",
+        "hue": [330, 45],
+        "sat": [0.25, 1.0],
+        "value": [0.1, 1.0],
+        "saturationScale": 0.85,
+        "valueScale": 0.92
+      }
+    ],
+    "valueBands": [
+      {
+        "id": "asphalt_dark",
+        "hue": [185, 265],
+        "sat": [0.0, 0.3],
+        "value": [0.1, 0.55],
+        "valueScale": 0.68,
+        "kinds": ["terrain"]
+      },
+      {
+        "id": "concrete_mid",
+        "hue": [185, 265],
+        "sat": [0.0, 0.3],
+        "value": [0.55, 0.83],
+        "valueScale": 0.92,
+        "kinds": ["terrain"]
+      },
+      {
+        "id": "bright_trim",
+        "hue": [185, 265],
+        "sat": [0.0, 0.3],
+        "value": [0.83, 1.0],
+        "valueScale": 0.85,
+        "kinds": ["terrain"]
+      },
+      {
+        "id": "building_walls_shade",
+        "kinds": ["building", "prop"],
+        "hue": [185, 265],
+        "sat": [0.0, 0.32],
+        "value": [0.5, 0.88],
+        "valueScale": 0.72,
+        "description": "Muros claros del atlas Kenney: bajan a masa oscura legible, conservando el detalle"
+      }
+    ],
+    "windowGlow": {
+      "kinds": ["building"],
+      "hue": [195, 250],
+      "sat": [0.35, 0.9],
+      "value": [0.55, 1.0],
+      "strength": 2.0,
+      "colorSrgb": [255, 178, 96],
+      "description": "Ventanas azules del atlas Kenney pasan a emisión cálida sólo en edificios"
+    },
+    "flatMaterials": [
+      {
+        "match": ["leaf", "green"],
+        "hueTo": 170,
+        "saturationScale": 0.5,
+        "valueScale": 0.5
+      },
+      {
+        "match": ["bark", "wood", "trunk"],
+        "saturationScale": 0.6,
+        "valueScale": 0.42
+      },
+      {
+        "match": ["default"],
+        "valueScale": 0.7
+      }
+    ],
+    "metallic": 0.0,
+    "roughness": 0.88,
+    "kindOverrides": {
+      "terrain": {
+        "saturationScale": 0.62,
+        "valueScale": 0.72
+      }
+    }
+  },
+  "shadow": {
+    "enabled": true,
+    "keySunAngleDegrees": 3.0,
+    "strength": 1.5,
+    "colorSrgb": [4, 6, 10],
+    "description": "Segunda pasada con plano blanco: la sombra es la del rig SUN, con dirección y tamaño reales"
   },
   "styleLayerRule": "Quaternius/Kenney → geometry; Poly Haven → material base/PBR; Graphic Civic Style Layer → color grading + roughness + scale + lighting"
 }

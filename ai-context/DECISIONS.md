@@ -810,3 +810,16 @@ huella participa en depth y posición (`depthForAsset`/`footprintCenter`) y cada
 sus propios frames (`animationFrameFor`). Ver
 `docs/engineering/adr/D-081-binarios-atlas-lfs-y-regresion-visual.md` y
 `docs/execution/phase-4/wp4-15-hardening-2026-10-25.md`.
+
+## D-082 — Cámara isométrica autoritativa en Phaser y Art Lab como Asset QA
+Estado: aceptada el 2026-10-26 para WP4.15-H.1. El picking usa
+`camera.getWorldPoint(pointer.x, pointer.y)`; el pan convierte delta de pantalla a mundo dividiendo
+por zoom y el wheel conserva el punto de mundo bajo cursor. El JSON generado de Blender se mueve de
+`public/` a `apps/web/src/generated/runtime-assets-blender.json`; los PNG siguen servidos desde
+`public/assets/runtime/blender/`. El Art Lab deja de actuar como selector de dirección visual:
+`graphic_civic` está aprobado y las alternativas quedan como archivo secundario; la herramienta se
+centra en estados, pivote/huella, personajes, provenance y comparación procedural/Blender. Corrige
+D-081 en un punto: `pnpm art:visual` es validación local-only por variación cross-environment; CI
+mantiene smoke Art Lab, integridad Blender y presupuesto de binarios. No cambia simulación ni
+snapshots. Ver `docs/engineering/adr/D-082-camara-picking-y-art-lab-qa.md` y
+`docs/execution/phase-4/wp4-15-h-1-camera-artlab-hardening-2026-10-26.md`.

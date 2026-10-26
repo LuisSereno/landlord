@@ -480,9 +480,27 @@ el depth/posición del sprite y la animación de caminar por dirección.
 - Línea por-asset completa (todos los edificios y personajes Alpha por la ruta Blender) y rig/batch
   de personajes.
 
+## WP4.15-H.1 — Corrección de cámara y Art Lab QA
+
+**Estado 2026-10-26:** `PLANNED`, precondición de WP4.16. Evidencia/brief en
+`docs/execution/phase-4/wp4-15-h-1-camera-artlab-hardening-2026-10-26.md` y decisión en D-082.
+
+- Corregir pantalla -> mundo con `camera.getWorldPoint`; el picking debe coincidir a 0.5x–2.5x.
+- Escalar el pan por zoom y mantener el punto bajo cursor al hacer wheel.
+- Mover el manifiesto Blender importable de `public/` a `src/generated/`, dejando los PNG en
+  `public/assets/runtime/blender/`.
+- Reconducir el Art Lab a Asset QA: baseline aprobada, archivo histórico secundario, matriz de estados,
+  personajes y comparación procedural/Blender del asset E2E.
+- Reconciliar D-081/WP4.15-H con la realidad del workflow: `art:visual` es local-only; CI mantiene
+  smoke Art Lab, integridad Blender y budget de binarios.
+- Añadir regresiones browser de picking/pan/zoom y eliminar los warnings de Vite.
+
+**Aceptación:** interacción isométrica exacta bajo zoom/pan, dev server sin imports de `public/`,
+Art Lab útil como QA y toda la cadena local/remota verde sin tocar simulación.
+
 ## WP4.16 — Robustez y cierre alpha
 
-**Precondición (auditoría 2026-10-25):** no abrir hasta cerrar el endurecimiento WP4.15-H. El
+**Precondición (revisión 2026-10-26):** no abrir hasta cerrar WP4.15-H.1 (D-082), además del endurecimiento WP4.15-H. El
 hotspot `buildStock` quedó optimizado de forma exacta el 2026-10-25 (17,6 → 2,70 ms de mediana con
 607 edificios) y el cierre mensual bajó a 15,5–18,9 ms de media según modo macro, todavía por encima
 del presupuesto de 10 ms p95 de D-065/D-076: el coste restante está repartido entre sistemas, así que

@@ -209,6 +209,25 @@ Sigue abierto:
 - El perfil de 400 sprites mide pintado DOM, no el frame Phaser; el frame del juego sigue cubierto por
   `pnpm benchmark:browser`.
 
+## Cámara y Art Lab — bloqueo previo a WP4.16 (WP4.15-H.1)
+
+- **Picking bajo zoom:** `IsometricSpikeScene.handlePointerUp` reconstruye pantalla -> mundo con
+  `offsetX / zoom + scroll`; debe usar `camera.getWorldPoint(pointer.x, pointer.y)`. La prueba
+  manual confirma desalineación de celda al variar el zoom.
+- **Pan bajo zoom:** el drag aplica píxeles de pantalla directamente al scroll de mundo; debe dividir
+  el delta por `camera.zoom`.
+- **Zoom:** debe conservar el punto de mundo bajo cursor compensando el scroll.
+- **Vite/public:** `ArtLab.tsx`, `DenseAssetScene.ts` y el test Blender importan
+  `runtime-assets-blender.json` desde `public/`; Vite lo advierte. El manifest importable debe
+  vivir en `src/generated/`; los PNG permanecen en `public/assets/runtime/blender/`.
+- **Art Lab:** `graphic_civic` ya está aprobado. La herramienta debe pasar de comparador de estilos
+  a Asset QA, dejando alternativas históricas secundarias y mostrando procedural vs Blender para el
+  E2E.
+- **Regresión visual:** `pnpm art:visual` funciona localmente, pero ya no es required CI porque el
+  pixel-diff produjo diferencias cross-environment no fiables. D-081 y el acta WP4.15-H deben quedar
+  reconciliados con el workflow actual.
+- Brief completo: `docs/execution/phase-4/wp4-15-h-1-camera-artlab-hardening-2026-10-26.md`.
+
 ## Balance (hallazgo WP4.14, revisado 2026-10-25)
 - **Dos datasets, no uno.** `docs/balance/synthetic-city-balance-v1.json` (antes
   `alpha-baseline-v1.json`) viene de `createScaledCity`: es un **arnés de carga** con 5 000 000 de caja

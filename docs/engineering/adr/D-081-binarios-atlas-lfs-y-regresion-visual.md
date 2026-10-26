@@ -66,3 +66,20 @@ Los datos medidos el 2026-10-25:
   masters y estrategia de atlas con el criterio de reapertura medido.
 - CI suma tres pasos: `art:visual` (regresión), `art:blender:check` (integridad del bundle) y
   `art:binaries:check` (presupuesto de binarios).
+
+## Revisión 2026-10-26 — regresión visual local-only
+
+Los intentos posteriores de ejecutar el pixel-diff en GitHub Actions mostraron diferencias de
+renderizado cross-environment del orden del 17–22 % incluso después de congelar la escena y excluir
+el canvas Phaser. Esa señal no distingue de forma fiable una regresión de arte de una diferencia del
+runner.
+
+D-082 corrige únicamente esta parte de D-081:
+
+- `pnpm art:visual` conserva golden y pixel-diff para validación local reproducible;
+- GitHub Actions **no** ejecuta `art:visual`;
+- CI sí mantiene `smoke:art-lab`, `art:blender:check` y `art:binaries:check`;
+- una futura regresión visual remota requiere entorno de render fijado u otra técnica que demuestre
+  estabilidad cross-environment.
+
+Las decisiones de atlas, LFS, presupuesto de binarios y ruta Blender E2E de D-081 permanecen vigentes.

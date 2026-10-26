@@ -252,6 +252,10 @@ medido y presupuesto de binarios con guarda en CI (`art:binaries:check`); el per
 Phaser de verdad (400 sprites, cambio de frame y scroll, 60 FPS de mediana) y la regresión visual es
 una guarda efectiva de CI con pixel-diff tolerante sobre `/art-lab?static=1`. Acta en
 `docs/execution/phase-4/wp4-15-hardening-2026-10-25.md`.
+**WP4.15-H.1 (cámara y Art Lab QA) está planificado el 2026-10-26 bajo D-082** como checkpoint
+previo a WP4.16: picking mediante la transformación de cámara de Phaser, pan escalado por zoom, zoom
+anclado al cursor, manifest Blender importable en `src/generated` (PNG en `public`), Art Lab como
+Asset QA y reconciliación de la regresión visual local-only. La simulación no cambia.
 **WP4.16 (robustez y cierre alpha) sigue en NO-GO hasta esta revisión y ahora tiene su precondición de
 `buildStock` cumplida**; la decisión de LOD agregado con su benchmark posterior forma parte de su
 alcance, junto al playtest instrumentado diferido por D-063.

@@ -1,0 +1,390 @@
+{
+  "schemaVersion": 1,
+  "purpose": "WP4.15-V.a \u3014R3\u3015 presupuesto de binario y \u3014R7\u3015 escala f\u00edsica com\u00fan",
+  "renderContract": "PNG RGBA 8-bit, film_transparent, EEVEE, AgX",
+  "budget": {
+    "schemaVersion": 1,
+    "maxBinaryBytes": 1048576,
+    "policy": "D-081: ning\u00fan binario nuevo por encima de maxBinaryBytes sin LFS (requisito de Beta) o excepci\u00f3n registrada aqu\u00ed.",
+    "exceptions": [
+      {
+        "path": "blender_artist/generated/concepts/visual_direction_spike_direction_a_warm_editorial_2026-10-23.png",
+        "reason": "Render 16-bit del Visual Direction Spike (WP2.14), anterior a D-081."
+      },
+      {
+        "path": "blender_artist/generated/concepts/visual_direction_spike_direction_b_graphic_civic_2026-10-23.png",
+        "reason": "Render 16-bit del Visual Direction Spike (WP2.14), anterior a D-081."
+      },
+      {
+        "path": "blender_artist/generated/concepts/visual_direction_spike_direction_c_blue_hour_2026-10-23.png",
+        "reason": "Render 16-bit del Visual Direction Spike (WP2.14), anterior a D-081."
+      },
+      {
+        "path": "blender_artist/generated/renders/visual_direction_spike_blue_hour_2026-10-23.png",
+        "reason": "Master 16-bit del spike (WP2.14), anterior a D-081."
+      },
+      {
+        "path": "blender_artist/generated/renders/visual_direction_spike_graphic_civic_2026-10-23.png",
+        "reason": "Master 16-bit del spike (WP2.14), anterior a D-081."
+      },
+      {
+        "path": "blender_artist/generated/renders/visual_direction_spike_warm_editorial_2026-10-23.png",
+        "reason": "Master 16-bit del spike (WP2.14), anterior a D-081."
+      },
+      {
+        "path": "apps/web/public/assets/art-spike/visual_direction_spike_blue_hour_2026-10-23.png",
+        "reason": "Copia servida del master del spike para /art-lab; duplicaci\u00f3n a resolver con LFS en Beta."
+      },
+      {
+        "path": "apps/web/public/assets/art-spike/visual_direction_spike_graphic_civic_2026-10-23.png",
+        "reason": "Copia servida del master del spike para /art-lab; duplicaci\u00f3n a resolver con LFS en Beta."
+      },
+      {
+        "path": "apps/web/public/assets/art-spike/visual_direction_spike_warm_editorial_2026-10-23.png",
+        "reason": "Copia servida del master del spike para /art-lab; duplicaci\u00f3n a resolver con LFS en Beta."
+      }
+    ]
+  },
+  "fixtures": [
+    {
+      "id": "bld_commercial",
+      "category": "building",
+      "sourceId": "src_kenney_city_commercial",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-a.glb",
+      "unitScale": 1.0,
+      "worldSizeMeters": {
+        "x": 0.884,
+        "y": 0.94,
+        "z": 1.293
+      },
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.8836,
+          "depth": 0.94,
+          "height": 1.293,
+          "minZ": 0.0
+        },
+        "importScale": 1.0,
+        "importOffset": [-0.0, 0.0, -0.0],
+        "normalizedSize": {
+          "width": 0.8836,
+          "depth": 0.94,
+          "height": 1.293
+        }
+      },
+      "pngBytes": {
+        "256": 88111,
+        "512": 313771
+      },
+      "vertices": 2074,
+      "objects": 1
+    },
+    {
+      "id": "bld_suburban",
+      "category": "building",
+      "sourceId": "src_kenney_city_suburban",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-u.glb",
+      "unitScale": 1.0,
+      "worldSizeMeters": {
+        "x": 1.428,
+        "y": 1.087,
+        "z": 1.138
+      },
+      "normalization": {
+        "sourceBounds": {
+          "width": 1.428,
+          "depth": 1.0869,
+          "height": 1.1375,
+          "minZ": 0.0
+        },
+        "importScale": 1.0,
+        "importOffset": [0.0, 0.0, -0.0],
+        "normalizedSize": {
+          "width": 1.428,
+          "depth": 1.0869,
+          "height": 1.1375
+        }
+      },
+      "pngBytes": {
+        "256": 69550,
+        "512": 239380
+      },
+      "vertices": 2250,
+      "objects": 1
+    },
+    {
+      "id": "bld_downtown",
+      "category": "building",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/FBX (Unity)/Building_Medium_2_001.fbx",
+      "unitScale": 1.0,
+      "worldSizeMeters": {
+        "x": 15.056,
+        "y": 13.056,
+        "z": 25.009
+      },
+      "normalization": {
+        "sourceBounds": {
+          "width": 15.0557,
+          "depth": 13.0557,
+          "height": 25.0087,
+          "minZ": -0.0103
+        },
+        "importScale": 1.0,
+        "importOffset": [0.0, -5.9598, 0.0103],
+        "normalizedSize": {
+          "width": 15.0557,
+          "depth": 13.0557,
+          "height": 25.0087
+        }
+      },
+      "pngBytes": {
+        "256": 95927,
+        "512": 390095
+      },
+      "vertices": 18014,
+      "objects": 1
+    },
+    {
+      "id": "bld_kaykit",
+      "category": "building",
+      "sourceId": "src_kaykit_city_builder_bits",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/building_A.gltf",
+      "unitScale": 1.0,
+      "worldSizeMeters": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.65
+      },
+      "normalization": {
+        "sourceBounds": {
+          "width": 2.0,
+          "depth": 2.0,
+          "height": 1.65,
+          "minZ": 0.0
+        },
+        "importScale": 1.0,
+        "importOffset": [-0.0, -0.0, -0.0],
+        "normalizedSize": {
+          "width": 2.0,
+          "depth": 2.0,
+          "height": 1.65
+        }
+      },
+      "pngBytes": {
+        "256": 78073,
+        "512": 265255
+      },
+      "vertices": 1392,
+      "objects": 1
+    },
+    {
+      "id": "ter_road",
+      "category": "terrain",
+      "sourceId": "src_kenney_city_roads",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/road-straight.glb",
+      "unitScale": 1.0,
+      "worldSizeMeters": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 0.02
+      },
+      "normalization": {
+        "sourceBounds": {
+          "width": 1.0,
+          "depth": 1.0,
+          "height": 0.02,
+          "minZ": 0.0
+        },
+        "importScale": 1.0,
+        "importOffset": [-0.0, -0.0, -0.0],
+        "normalizedSize": {
+          "width": 1.0,
+          "depth": 1.0,
+          "height": 0.02
+        }
+      },
+      "pngBytes": {
+        "256": 40128,
+        "512": 134418
+      },
+      "vertices": 72,
+      "objects": 1
+    },
+    {
+      "id": "veh_truck",
+      "category": "vehicle",
+      "sourceId": "src_kenney_car_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/truck.glb",
+      "unitScale": 1.0,
+      "worldSizeMeters": {
+        "x": 1.5,
+        "y": 2.95,
+        "z": 1.3
+      },
+      "normalization": {
+        "sourceBounds": {
+          "width": 1.5,
+          "depth": 2.95,
+          "height": 1.3,
+          "minZ": 0.0
+        },
+        "importScale": 1.0,
+        "importOffset": [-0.0, -0.025, -0.0],
+        "normalizedSize": {
+          "width": 1.5,
+          "depth": 2.95,
+          "height": 1.3
+        }
+      },
+      "pngBytes": {
+        "256": 52510,
+        "512": 169845
+      },
+      "vertices": 1152,
+      "objects": 5
+    },
+    {
+      "id": "prp_tree",
+      "category": "prop",
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_pineTallB_detailed.glb",
+      "unitScale": 1.0,
+      "worldSizeMeters": {
+        "x": 0.386,
+        "y": 0.392,
+        "z": 1.935
+      },
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.3863,
+          "depth": 0.392,
+          "height": 1.9346,
+          "minZ": -0.05
+        },
+        "importScale": 1.0,
+        "importOffset": [-0.014, 0.0021, 0.05],
+        "normalizedSize": {
+          "width": 0.3863,
+          "depth": 0.392,
+          "height": 1.9346
+        }
+      },
+      "pngBytes": {
+        "256": 39172,
+        "512": 144049
+      },
+      "vertices": 272,
+      "objects": 2
+    },
+    {
+      "id": "chr_worker",
+      "category": "character",
+      "sourceId": "src_microsoft_rocketbox",
+      "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_05/Export/Male_Adult_05.fbx",
+      "unitScale": 1.0,
+      "worldSizeMeters": {
+        "x": 1.348,
+        "y": 0.368,
+        "z": 1.812
+      },
+      "normalization": {
+        "sourceBounds": {
+          "width": 1.3482,
+          "depth": 0.3679,
+          "height": 1.8124,
+          "minZ": -0.0009
+        },
+        "importScale": 1.0,
+        "importOffset": [0.0, 0.0198, 0.0009],
+        "normalizedSize": {
+          "width": 1.3482,
+          "depth": 0.3679,
+          "height": 1.8124
+        }
+      },
+      "pngBytes": {
+        "256": 59524,
+        "512": 215013
+      },
+      "vertices": 4180,
+      "objects": 3
+    }
+  ],
+  "projection": {
+    "fase2": {
+      "assumptions": {
+        "buildingStates": 4,
+        "buildings": 3,
+        "terrainPropsVehicles": 5,
+        "characters": 3,
+        "directions": 4,
+        "animations": 2,
+        "framesPerAnimation": 2
+      },
+      "bySize": {
+        "256": {
+          "pngCount": 65,
+          "meanBytesByCategory": {
+            "building": 82915,
+            "terrain": 40128,
+            "vehicle": 52510,
+            "prop": 39172,
+            "character": 59524
+          },
+          "bytes": 4071818,
+          "megabytes": 3.9
+        },
+        "512": {
+          "pngCount": 65,
+          "meanBytesByCategory": {
+            "building": 302125,
+            "terrain": 134418,
+            "vehicle": 169845,
+            "prop": 144049,
+            "character": 215013
+          },
+          "bytes": 14693314,
+          "megabytes": 14.0
+        }
+      }
+    },
+    "beta": {
+      "assumptions": {
+        "buildingStates": 4,
+        "buildings": 8,
+        "terrainPropsVehicles": 12,
+        "characters": 6,
+        "directions": 4,
+        "animations": 2,
+        "framesPerAnimation": 4
+      },
+      "bySize": {
+        "256": {
+          "pngCount": 236,
+          "meanBytesByCategory": {
+            "building": 82915,
+            "terrain": 40128,
+            "vehicle": 52510,
+            "prop": 39172,
+            "character": 59524
+          },
+          "bytes": 14609136,
+          "megabytes": 13.9
+        },
+        "512": {
+          "pngCount": 236,
+          "meanBytesByCategory": {
+            "building": 302125,
+            "terrain": 134418,
+            "vehicle": 169845,
+            "prop": 144049,
+            "character": 215013
+          },
+          "bytes": 52743752,
+          "megabytes": 50.3
+        }
+      }
+    }
+  }
+}

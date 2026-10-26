@@ -6,6 +6,10 @@
  * del spike (WP2.14), que quedan como deuda registrada. Añadir una excepción exige editar a mano
  * `docs/art/BINARY-ALLOWLIST.json`, un acto visible en revisión.
  *
+ * Dos dimensiones: `maxBinaryBytes` por fichero y `maxBundleBytes` acumulado por directorio de
+ * `bundleTargets`. La segunda existe porque un bundle de cientos de PNG puede cumplir el límite
+ * individual y aun así meter 120 MB en el repositorio (〔R3〕 de WP4.15-V.a).
+ *
  * Uso: node scripts/check-binary-budget.mjs
  */
 import { execFileSync } from "node:child_process";
@@ -27,6 +31,8 @@ const BINARY_EXTENSIONS = [
 const allowlistPath = "docs/art/BINARY-ALLOWLIST.json";
 const allowlist = JSON.parse(readFileSync(allowlistPath, "utf8"));
 const maxBytes = allowlist.maxBinaryBytes;
+const maxBundleBytes = allowlist.maxBundleBytes;
+const bundleBytes = new Map((allowlist.bundleTargets ?? []).map((target) => [target, 0]));
 const exceptions = new Map(allowlist.exceptions.map((entry) => [entry.path, entry.reason]));
 
 const files = execFileSync("git", ["ls-files", "-z"], { encoding: "utf8" })
@@ -41,6 +47,11 @@ let totalBytes = 0;
 for (const file of files) {
   const { size } = statSync(join(process.cwd(), file));
   totalBytes += size;
+  for (const target of bundleBytes.keys()) {
+    if (file.startsWith(`${target}/`)) {
+      bundleBytes.set(target, bundleBytes.get(target) + size);
+    }
+  }
   if (size <= maxBytes) continue;
   if (exceptions.has(file)) {
     stale.delete(file);
@@ -49,6 +60,17 @@ for (const file of files) {
   violations.push({ path: file, bytes: size });
 }
 for (const path of stale) violations.push({ path, bytes: 0, error: "excepción obsoleta" });
+if (maxBundleBytes) {
+  for (const [target, bytes] of bundleBytes) {
+    if (bytes > maxBundleBytes) {
+      violations.push({
+        path: target,
+        bytes,
+        error: `bundle acumulado supera maxBundleBytes=${maxBundleBytes}`,
+      });
+    }
+  }
+}
 
 if (violations.length > 0) {
   console.error(
@@ -71,6 +93,8 @@ console.log(
     binaries: files.length,
     totalBytes,
     maxBytes,
+    maxBundleBytes,
+    bundleBytes: Object.fromEntries(bundleBytes),
     exceptions: exceptions.size,
   }),
 );

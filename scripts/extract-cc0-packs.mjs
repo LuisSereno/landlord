@@ -10,7 +10,15 @@
  */
 
 import { createHash } from "node:crypto";
-import { createReadStream, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import {
+  createReadStream,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  statSync,
+  writeFileSync,
+} from "node:fs";
 import { basename, dirname, join, relative } from "node:path";
 import { pipeline } from "node:stream/promises";
 import { fileURLToPath } from "node:url";
@@ -80,6 +88,10 @@ function getPackDirectory(sourceId) {
     src_kenney_city_commercial: "kenney/city-kit-commercial",
     src_kenney_city_industrial: "kenney/city-kit-industrial",
     src_kenney_city_roads: "kenney/city-kit-roads",
+    src_kenney_city_suburban: "kenney/city-kit-suburban",
+    src_kenney_car_kit: "kenney/car-kit",
+    src_kenney_nature_kit: "kenney/nature-kit",
+    src_kaykit_city_builder_bits: "kaykit/city-builder-bits",
     src_polyhaven_asphalt_07: "polyhaven/asphalt_07",
     src_polyhaven_concrete_wall_003: "polyhaven/concrete_wall_003",
     src_polyhaven_red_brick_03: "polyhaven/red_brick_03",

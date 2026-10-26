@@ -1,7 +1,9 @@
 {
   "schemaVersion": 1,
   "maxBinaryBytes": 1048576,
-  "policy": "D-081: ningún binario nuevo por encima de maxBinaryBytes sin LFS (requisito de Beta) o excepción registrada aquí.",
+  "maxBundleBytes": 8388608,
+  "bundleTargets": ["apps/web/public/assets/runtime/blender"],
+  "policy": "D-081: ningún binario nuevo por encima de maxBinaryBytes sin LFS (requisito de Beta) o excepción registrada aquí. maxBundleBytes limita además el acumulado de un directorio servido en runtime: 200 PNG de 600 KB cumplirían el límite individual y serían 120 MB. El valor de 8 MiB sale de blender_artist/manifests/asset-metrics.json (Fase 2 proyectada: 3.9 MB a 256px, 14 MB a 512px), de modo que cambiar de resolución obliga a decidirlo explícitamente.",
   "exceptions": [
     {
       "path": "blender_artist/generated/concepts/visual_direction_spike_direction_a_warm_editorial_2026-10-23.png",

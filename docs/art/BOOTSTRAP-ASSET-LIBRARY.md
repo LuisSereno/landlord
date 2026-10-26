@@ -266,7 +266,7 @@ Procedencia:
 - Commit: `0943055db6ec570bcef9f2c8b41c9e5467c808f9`.
 - Obtenido por `git clone` el 2026-10-26.
 
-Subconjunto conservado en `blender_artist/staging/third_party/rocketbox/` (staging local,
+Subconjunto conservado en `blender_artist/staging/third_party/mit/rocketbox/` (staging local,
 ignorado por Git):
 
 | Avatar               | Ropa visible                        | Rol visual candidato        |
@@ -298,6 +298,45 @@ Advertencias de formato:
   igual que los FBX de Quaternius; hay que remapear rutas al importar.
 - Cada avatar trae dos FBX: `<Name>.fbx` (cuerpo) y `<Name>_facial.fbx` (blendshapes
   faciales, innecesarios para sprites isométricos).
+
+### Escala física de las fuentes
+
+Medido con `tools/art-pipeline/blender/measure_asset_fixtures.py` sobre 8 fixtures reales
+(informe en `blender_artist/manifests/asset-metrics.json`). Las dimensiones son **tal como
+sale del importador, sin escalar**:
+
+| Fixture                          | Categoría | x × y × z (unidades fuente) |
+| -------------------------------- | --------- | --------------------------- |
+| Kenney commercial `building-a`   | edificio  | 0.88 × 0.94 × 1.29          |
+| Kenney suburban `building-type-u`| edificio  | 1.43 × 1.09 × 1.14          |
+| Kenney roads `road-straight`     | terreno   | 1.00 × 1.00 × 0.02          |
+| Kenney roads `road-curve`        | terreno   | 2.00 × 2.00 × 0.02          |
+| Kenney car kit `police`          | vehículo  | 1.50 × 3.10 × 1.30          |
+| Kenney nature `tree_pineTallB_d` | prop      | 0.39 × 0.39 × 1.94          |
+| KayKit `building_A`              | edificio  | 2.00 × 2.00 × 1.65          |
+| KayKit `bench`                   | prop      | 0.40 × 0.15 × 0.10          |
+| Quaternius `Building_Medium_2`   | edificio  | 15.06 × 13.06 × 25.01       |
+| Rocketbox `Male_Adult_05`        | personaje | 1.35 × 0.37 × **1.812 m**   |
+
+Lectura: **cada pack está autorreferido a su propia unidad**, no a los metros de Landlord.
+
+- Quaternius y Rocketbox ya están en metros (edificio de 25 m, persona de 1.812 m).
+- Los city kits de Kenney están en **casillas**: una losa de carretera mide 1×1 y una curva 2×2.
+  Con `cellSizeMeters: 4.0` del style layer, 1 unidad = 1 celda = 4 m deja el edificio comercial
+  en 3.5 × 3.8 × 5.2 m y el pino en 7.7 m de alto.
+- KayKit usa casillas de 2 unidades: a 4 m/unidad el banco sale de 1.6 × 0.6 × 0.4 m, que es
+  exactamente un banco real.
+- **El car kit de Kenney NO comparte unidad con el city kit**: a 4 m/unidad una furgonetta
+  mediría 6 m de ancha. A 1.3 m/unidad sale 1.95 × 4.03 × 1.69 m, que es un coche real.
+
+Por eso `unitScale` es un **dato declarado por fuente** en
+`blender_artist/manifests/staging-sources.json` y no una heurística sobre la bounding box: un
+coche grande y un edificio pequeño confundirían cualquier inferencia. Un job puede
+sobrescribirlo sólo como excepción documentada.
+
+Comprobación que debe pasar (ASSET SCALE GATE del STOP V1): personaje coherente con la puerta
+(1.8 m contra 2.1 m), coche cabiendo en el carril, árbol coherente con el edificio y edificio
+coherente con su footprint.
 
 ## 5. Regla de repositorio
 

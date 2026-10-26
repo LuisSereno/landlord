@@ -5,3 +5,7 @@ docs/
 dist/
 node_modules/
 pnpm-lock.yaml
+
+# Generated inventory/metrics: any hand formatting is undone by the next script run.
+blender_artist/manifests/cc0-inventory.json
+blender_artist/manifests/asset-metrics.json

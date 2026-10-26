@@ -31,7 +31,7 @@ from spike_compatibility import (  # noqa: E402
     setup_lighting,
 )
 
-ROCKETBOX = ROOT / "blender_artist/staging/third_party/rocketbox"
+ROCKETBOX = ROOT / "blender_artist/staging/third_party/mit/rocketbox"
 SPIKE_DIR = ROOT / "blender_artist/spike"
 STYLE_LAYER = HERE / "style_layer_graphic_civic.json"
 

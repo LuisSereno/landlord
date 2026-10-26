@@ -163,6 +163,21 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://polyhaven.com/a/wood_planks_grey"
+    },
+    {
+      "id": "src_microsoft_rocketbox",
+      "path": "blender_artist/staging/third_party/mit/rocketbox",
+      "origin": "licensed",
+      "license": "MIT",
+      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+      "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+      "unitScale": 1,
+      "integrity": {
+        "type": "git-commit",
+        "commit": "0943055db6ec570bcef9f2c8b41c9e5467c808f9",
+        "licenseFile": "blender_artist/staging/third_party/mit/rocketbox/LICENSE-MIT.txt",
+        "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+      }
     }
   ],
   "quarantined": [

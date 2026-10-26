@@ -34,7 +34,14 @@ a `public/`.
 
 - `RuntimeAssetManifestV1.schemaVersion = 1`.
 - `generator`: id, versión, método (`procedural_svg` o `blender_render`) y fuente.
-- `provenance`: licencia (`original`, `cc0`, `cc_by`), autor y notas.
+- `provenance`: licencia y autor. Los literales válidos son SPDX y salen de
+  `blender_artist/manifests/license-allowlist.json` (`original`, `CC0-1.0`, `MIT`, `CC-BY-4.0`);
+  `assets.test.ts` falla si el enum de Zod y el allowlist divergen. Cada asset puede declarar su
+  `provenance` propia (D-083), porque un bundle real mezcla CC0 (Kenney/Quaternius) con MIT
+  (Rocketbox); la del bundle es resumen y valor por defecto. Con `MIT` o `CC-BY-4.0`, el campo
+  `attribution` (`sourceUrl`, `licenseUrl`, `attributionText`, `verifiedAt`, `licenseFileSha256`)
+  es obligatorio y Zod rechaza sin él. `pnpm art:licenses:check` lo verifica en CI sobre los
+  bundles publicados.
 - `buildings[type]`: huella (`footprint`), pivote normalizado 0..1 y cuatro estados obligatorios:
   `complete`, `construction`, `damaged`, `burning`.
 - `characters[id]`: 4 u 8 direcciones y animaciones `idle`/`walk` con `frameDurationMs` y frames.

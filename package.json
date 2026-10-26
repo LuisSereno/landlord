@@ -18,6 +18,7 @@
     "art:blender": "node scripts/build-blender-assets.mjs",
     "art:blender:check": "node scripts/build-blender-assets.mjs --check",
     "art:binaries:check": "node scripts/check-binary-budget.mjs",
+    "art:licenses:check": "node scripts/check-third-party-license.mjs",
     "lint": "eslint . && pnpm check:architecture",
     "check:architecture": "node scripts/check-architecture.mjs",
     "typecheck": "pnpm -r --if-present typecheck",

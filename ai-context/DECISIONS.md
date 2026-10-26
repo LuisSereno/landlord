@@ -823,3 +823,38 @@ D-081 en un punto: `pnpm art:visual` es validación local-only por variación cr
 mantiene smoke Art Lab, integridad Blender y presupuesto de binarios. No cambia simulación ni
 snapshots. Ver `docs/engineering/adr/D-082-camara-picking-y-art-lab-qa.md` y
 `docs/execution/phase-4/wp4-15-h-1-camera-artlab-hardening-2026-10-26.md`.
+
+## D-083 — Licencias de terceros: allowlist SPDX, procedencia por asset y escala física declarada
+Estado: aceptada el 2026-10-26 para WP4.15-V.a. Abre D-054 (procedencia de binarios de terceros)
+para el caso concreto de las licencias permisivas y corrige D-080 en el campo `provenance`.
+
+Motivo: Rocketbox (MIT) ya alimenta los personajes del slice, pero el contrato no podía
+declararlo. `packages/shared/src/assets.ts` admitía sólo `original|cc0|cc_by` y
+`scripts/validate-art-staging.mjs` exigía `license === "CC0-1.0"` y ruta bajo `cc0/`: dos reglas
+que rechazaban MIT por separado. Y las dos representaban la misma licencia con literales
+distintos, lo que garantiza deriva futura.
+
+Decisiones: (1) **allowlist canónica única** en
+`blender_artist/manifests/license-allowlist.json` con literales SPDX
+(`original`, `CC0-1.0`, `MIT`, `CC-BY-4.0`), `directoryByLicense` que fija el directorio de
+staging por familia (`cc0/`, `mit/`, `cc-by/`) y `denied` explícita. Es allowlist estricta:
+CC-BY-3.0 queda denegada aunque sea permisible, porque ningún asset la usa hoy; habilitarla es un
+acto visible en revisión. `packages/shared/src/assets.test.ts` falla si el enum de Zod y el JSON
+divergen. (2) **Procedencia por asset**: cada entrada de `buildings`/`characters` (y futuras
+`terrain`/`props`/`vehicles`) declara su `provenance`; la del bundle pasa a ser resumen, porque un
+bundle real mezclará CC0 y MIT. `attribution` (`sourceUrl`, `licenseUrl`, `attributionText`,
+`verifiedAt`, `licenseFileSha256`) es obligatoria por `superRefine` cuando
+`license ∈ attributionRequiredFor`. (3) **Integridad con dos anclas**: `zip-sha256` como hasta
+ahora, y `git-commit` (commit de origen + hash del aviso de licencia) para fuentes clonadas sin
+ZIP, que era el caso de Rocketbox. (4) **Nueva guarda en CI** `pnpm art:licenses:check`
+(`scripts/check-third-party-license.mjs`): cruza cada procedencia publicada contra el registro y
+el allowlist, y falla si un asset MIT se declara CC0 o si desaparece la evidencia. Verificado por
+negativo: inyectar `MIT` sin atribución en el bundle Blender hace fallar la guarda.
+`art:staging:validate` **no** entra en CI porque valida archivos de staging que D-054 mantiene
+fuera de Git. (5) **Escala física declarada, no inferida** (〔R7〕): cada fuente registra
+`unitScale` en `staging-sources.json`. Medido sobre 8 fixtures, Kenney city kits y KayKit usan
+casillas de 1 y 2 unidades (4 m por celda), Quaternius y Rocketbox ya están en metros, y el car
+kit de Kenney no comparte unidad con su city kit (a 4 m una furgonetta mediría 6 m de ancha). Una
+heurística sobre la bounding box confundiría un coche grande con un edificio pequeño.
+No cambia simulación ni snapshots. Ver
+`docs/engineering/adr/D-083-licencias-permisivas-procedencia-por-asset-y-escala.md`.

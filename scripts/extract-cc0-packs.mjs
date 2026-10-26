@@ -19,14 +19,11 @@ import {
   statSync,
   writeFileSync,
 } from "node:fs";
-import { basename, dirname, join, relative } from "node:path";
+import { dirname, join, relative } from "node:path";
 import { pipeline } from "node:stream/promises";
 import { fileURLToPath } from "node:url";
-import { createGunzip } from "node:zlib";
 import { extract as tarExtract } from "tar";
 import unzipper from "unzipper";
-
-const { Open: openZip } = unzipper;
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -39,6 +36,12 @@ const INVENTORY_PATH = join(MANIFESTS, "cc0-inventory.json");
 const args = process.argv.slice(2);
 const VERIFY_ONLY = args.includes("--verify");
 const INVENTORY_ONLY = args.includes("--inventory");
+
+const ARCHIVE_SUFFIXES = [".zip", ".tar.gz", ".tgz"];
+
+function isArchiveSource(source) {
+  return ARCHIVE_SUFFIXES.some((suffix) => source.path.endsWith(suffix));
+}
 
 async function sha256File(filePath) {
   const hash = createHash("sha256");
@@ -133,12 +136,24 @@ async function main() {
   const stagingData = JSON.parse(readFileSync(STAGING_SOURCES, "utf-8"));
   const sources = stagingData.sources;
 
-  console.log(`Found ${sources.length} CC0 sources in staging-sources.json\n`);
+  console.log(`Found ${sources.length} approved sources in staging-sources.json\n`);
+
+  // Las fuentes obtenidas por clon (integridad git-commit) ya vienen desempaquetadas: no hay ZIP
+  // que verificar ni extraer. Su evidencia la valida scripts/validate-art-staging.mjs.
+  const archiveSources = sources.filter(isArchiveSource);
+  const clonedSources = sources.filter((source) => !isArchiveSource(source));
+  if (clonedSources.length > 0) {
+    console.log(
+      `Skipping ${clonedSources.length} cloned source(s) with no archive: ${clonedSources
+        .map((source) => source.id)
+        .join(", ")}\n`,
+    );
+  }
 
   // Phase 1: Verify all ZIPs
   console.log("Phase 1: Verifying ZIP hashes...");
   const verificationResults = [];
-  for (const source of sources) {
+  for (const source of archiveSources) {
     const result = await verifyZip(source);
     verificationResults.push({ id: source.id, ...result });
     if (result.ok) {
@@ -163,7 +178,7 @@ async function main() {
   // Phase 2: Extract
   if (!INVENTORY_ONLY) {
     console.log("Phase 2: Extracting packs...");
-    for (const source of sources) {
+    for (const source of archiveSources) {
       console.log(`  Extracting ${source.id}...`);
       const targetDir = await extractZip(source);
       console.log(`    → ${relative(ROOT, targetDir)}`);
@@ -179,7 +194,7 @@ async function main() {
     packs: {},
   };
 
-  for (const source of sources) {
+  for (const source of archiveSources) {
     const packDir = getPackDirectory(source.id);
     const fullPackDir = join(EXTRACTED, packDir);
     const files = scanDirectory(fullPackDir, EXTRACTED);
@@ -201,8 +216,11 @@ async function main() {
   // Summary
   const totalFiles = Object.values(inventory.packs).reduce((sum, p) => sum + p.fileCount, 0);
   console.log(`\n=== Summary ===`);
-  console.log(`Total packs: ${sources.length}`);
+  console.log(`Total packs: ${archiveSources.length}`);
   console.log(`Total files: ${totalFiles}`);
+  if (clonedSources.length > 0) {
+    console.log(`Cloned sources (no archive): ${clonedSources.length}`);
+  }
   console.log(`Inventory: ${relative(ROOT, INVENTORY_PATH)}`);
 }
 

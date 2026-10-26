@@ -73,9 +73,25 @@ El proyecto mantiene una selección inicial de assets externos para preproducci�
 
 `docs/art/BOOTSTRAP-ASSET-LIBRARY.md`
 
-Aunque los packs seleccionados se han elegido por licencias permisivas/CC0, cada incorporación al repositorio debe conservar provenance y evidencia de licencia.
+Aunque los packs seleccionados se han elegido por licencias permisivas, **no todo lo permisivo
+está habilitado**: la lista canónica es `blender_artist/manifests/license-allowlist.json`
+(D-083) y hoy admite `CC0-1.0`, `MIT` y `CC-BY-4.0` además de material propio `original`. El
+directorio de staging codifica la familia (`third_party/cc0/`, `third_party/mit/`,
+`third_party/cc-by/`).
+
+Cada incorporación debe dejar la evidencia registrada:
+
+- la fuente en `blender_artist/manifests/staging-sources.json`, con su integridad
+  (`zip-sha256` o `git-commit` + hash del aviso de licencia) y su `unitScale` declarado;
+- para licencias que exigen atribución (`MIT`, `CC-BY-4.0`), el bloque `attribution` en el asset
+  correspondiente del manifiesto runtime; `pnpm art:licenses:check` falla si falta o si la
+  licencia declarada no coincide con la de la fuente registrada;
+- la nota en `docs/art/BOOTSTRAP-ASSET-LIBRARY.md`.
 
 No subir automáticamente archivos descargados sólo porque sean gratuitos.
+
+Habilitar una licencia nueva (por ejemplo `CC-BY-3.0`, que hoy está denegada) requiere que exista
+un asset que la necesite y una edición visible del allowlist en revisión.
 
 Antes de introducir fuentes binarias:
 - confirmar licencia del recurso concreto;

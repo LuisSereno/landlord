@@ -18,6 +18,37 @@ export type AssetImageV1 = {
 
 export type BuildingAssetState = "complete" | "construction" | "damaged" | "burning";
 
+/**
+ * Licencias admitidas. Los literales son SPDX y son los mismos que
+ * `blender_artist/manifests/license-allowlist.json`; `assets.test.ts` falla si divergen, para
+ * que contrato y validador de staging no puedan volver a representar dos veces la misma licencia.
+ */
+export const ASSET_LICENSES = ["original", "CC0-1.0", "MIT", "CC-BY-4.0"] as const;
+
+/** Licencias que obligan a conservar aviso de autoría: sin evidencia, el manifiesto no pasa. */
+export const ATTRIBUTION_REQUIRED_LICENSES = ["MIT", "CC-BY-4.0"] as const;
+
+export type AssetLicense = (typeof ASSET_LICENSES)[number];
+
+export type AssetAttributionV1 = {
+  sourceUrl: string;
+  licenseUrl: string;
+  attributionText: string;
+  /** Fecha ISO en la que se verificó la licencia en la fuente. */
+  verifiedAt: string;
+  /** SHA-256 del archivo de licencia que viaja con el material. */
+  licenseFileSha256: string;
+};
+
+export type AssetProvenanceV1 = {
+  license: AssetLicense;
+  author: string;
+  /** id lógico contra blender_artist/manifests/staging-sources.json. */
+  sourceId?: string;
+  attribution?: AssetAttributionV1;
+  notes?: string;
+};
+
 export type BuildingAssetV1 = {
   type: BuildingType;
   name: string;
@@ -26,6 +57,8 @@ export type BuildingAssetV1 = {
   /** Punto de anclaje normalizado 0..1 dentro de la imagen (suelo, centro de la huella). */
   pivot: { x: number; y: number };
   states: Record<BuildingAssetState, AssetImageV1>;
+  /** Procedencia de este asset; si falta, heredaba la del bundle. */
+  provenance?: AssetProvenanceV1;
 };
 
 export type CharacterAnimation = "idle" | "walk";
@@ -35,6 +68,7 @@ export type CharacterAssetV1 = {
   name: string;
   directions: 4 | 8;
   animations: Record<CharacterAnimation, { frameDurationMs: number; frames: AssetImageV1[] }>;
+  provenance?: AssetProvenanceV1;
 };
 
 export type RuntimeAssetManifestV1 = {
@@ -45,16 +79,45 @@ export type RuntimeAssetManifestV1 = {
     method: "procedural_svg" | "blender_render";
     source: string;
   };
-  provenance: {
-    license: "original" | "cc0" | "cc_by";
-    author: string;
-    notes: string;
-  };
+  /**
+   * Resumen del bundle. Un bundle puede mezclar CC0 y MIT, así que cada asset declara su
+   * `provenance` propia (D-083); esto queda como valor por defecto y como resumen legible.
+   */
+  provenance: AssetProvenanceV1;
   buildings: Record<BuildingType, BuildingAssetV1>;
   characters: Record<string, CharacterAssetV1>;
 };
 
 const sha256Schema = z.string().regex(/^[0-9a-f]{64}$/);
+
+export const assetAttributionSchema = z.object({
+  sourceUrl: z.string().url(),
+  licenseUrl: z.string().url(),
+  attributionText: z.string().min(1),
+  verifiedAt: z.string().min(1),
+  licenseFileSha256: sha256Schema,
+});
+
+export const assetProvenanceSchema = z
+  .object({
+    license: z.enum(ASSET_LICENSES),
+    author: z.string().min(1),
+    sourceId: z.string().min(1).optional(),
+    attribution: assetAttributionSchema.optional(),
+    notes: z.string().optional(),
+  })
+  .superRefine((provenance, ctx) => {
+    const required = (ATTRIBUTION_REQUIRED_LICENSES as readonly string[]).includes(
+      provenance.license,
+    );
+    if (required && !provenance.attribution) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["attribution"],
+        message: `la licencia ${provenance.license} exige evidencia de atribución (sourceUrl, licenseUrl, attributionText, verifiedAt, licenseFileSha256)`,
+      });
+    }
+  });
 
 export const assetImageSchema = z.object({
   src: z.string().min(1),
@@ -82,6 +145,7 @@ export const buildingAssetSchema = z.object({
     damaged: assetImageSchema,
     burning: assetImageSchema,
   }),
+  provenance: assetProvenanceSchema.optional(),
 });
 
 export const characterAssetSchema = z.object({
@@ -98,6 +162,7 @@ export const characterAssetSchema = z.object({
       frames: z.array(assetImageSchema).min(1),
     }),
   }),
+  provenance: assetProvenanceSchema.optional(),
 });
 
 export const runtimeAssetManifestV1Schema = z.object({
@@ -108,11 +173,7 @@ export const runtimeAssetManifestV1Schema = z.object({
     method: z.enum(["procedural_svg", "blender_render"]),
     source: z.string().min(1),
   }),
-  provenance: z.object({
-    license: z.enum(["original", "cc0", "cc_by"]),
-    author: z.string().min(1),
-    notes: z.string(),
-  }),
+  provenance: assetProvenanceSchema,
   buildings: z.record(z.string(), buildingAssetSchema),
   characters: z.record(z.string(), characterAssetSchema),
 });

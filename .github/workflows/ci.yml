@@ -63,5 +63,11 @@ jobs:
       - name: Binary budget (D-081)
         run: pnpm art:binaries:check
 
+      # Licencias de terceros sobre los bundles publicados. `art:staging:validate` NO va aquí:
+      # valida archivos físicos de staging que están fuera de Git por D-054, así que sólo puede
+      # correr en la máquina del artista.
+      - name: Third-party licence guard (D-083)
+        run: pnpm art:licenses:check
+
       - name: Check formatting
         run: pnpm format:check

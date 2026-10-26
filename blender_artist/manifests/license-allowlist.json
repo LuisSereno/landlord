@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Lista canónica de licencias admitidas para assets de terceros. El enum de Zod en packages/shared/src/assets.ts y scripts/validate-art-staging.mjs leen estos mismos literales; packages/shared/src/assets.test.ts falla si las dos representaciones divergen.",
+  "allowed": ["original", "CC0-1.0", "MIT", "CC-BY-4.0"],
+  "directoryByLicense": {
+    "original": null,
+    "CC0-1.0": "cc0",
+    "MIT": "mit",
+    "CC-BY-4.0": "cc-by"
+  },
+  "attributionRequiredFor": ["MIT", "CC-BY-4.0"],
+  "denied": [
+    "CC-BY-3.0",
+    "CC-BY-NC-4.0",
+    "CC-BY-ND-4.0",
+    "NC",
+    "ND",
+    "non-commercial",
+    "all-rights-reserved",
+    "GPL-3.0",
+    "AGPL-3.0",
+    "Epic-Content-License",
+    "Unity-Asset-Store-EULA"
+  ],
+  "policy": "Allowlist estricta: sólo se habilitan licencias que algún asset use hoy. CC-BY-3.0 está denegada aunque sea permisible, porque ningún asset la necesita; habilitarla es un cambio visible en revisión. Añadir una licencia exige registrar antes la fuente, su URL y la evidencia en docs/art/BOOTSTRAP-ASSET-LIBRARY.md.",
+  "integrity": {
+    "zip-sha256": "sha256 del archivo físico bajo staging (política D-054).",
+    "git-commit": "commit SHA del repositorio de origen + sha256 del archivo de licencia que viaja con el material, para fuentes obtenidas por clon y sin ZIP."
+  }
+}

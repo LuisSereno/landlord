@@ -6,6 +6,7 @@ import {
   type MapOverlay,
 } from "./IsometricSpikeScene";
 import { VISUAL_SLICE_LAYOUT } from "../visual-slice/layout";
+import type { TerrainStage } from "../visual-slice/terrain-paint";
 
 export type { MapOverlay } from "./IsometricSpikeScene";
 
@@ -32,7 +33,7 @@ export function mountIsometricSpike(
  */
 export function mountVisualSlice(
   parent: HTMLElement,
-  options: { characters: boolean },
+  options: { characters: boolean; terrainStage?: TerrainStage; showGrid?: boolean },
 ): () => void {
   const game = new Phaser.Game({
     ...isometricSpikeGameConfig,
@@ -40,6 +41,8 @@ export function mountVisualSlice(
       new IsometricSpikeScene({
         visualSlice: VISUAL_SLICE_LAYOUT,
         sliceCharacters: options.characters,
+        terrainStage: options.terrainStage,
+        showGrid: options.showGrid ?? false,
       }),
     ],
     parent,

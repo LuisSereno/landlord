@@ -8,6 +8,14 @@ import type {
 } from "@landlord/shared";
 import runtimeAssets from "../generated/runtime-assets.json";
 import runtimeAssetsBlender from "../generated/runtime-assets-blender.json";
+import { planGround, type GroundPlan } from "../visual-slice/ground";
+import {
+  CROSSING_TEXTURE,
+  paintCrossing,
+  paintGround,
+  type GroundBounds,
+  type TerrainStage,
+} from "../visual-slice/terrain-paint";
 import type { SliceLot, VisualSliceLayout } from "../visual-slice/layout";
 import {
   assetFor,
@@ -42,9 +50,17 @@ const COLORS = {
 const STRUCTURE_TEXTURE_KEY = "benchmark-structure-marker";
 const AGENT_TEXTURE_KEY = "benchmark-agent-marker";
 const TILE_TEXTURE_KEY = "district-ground-tiles";
+const CROSSING_TEXTURE_KEY = "district-crossings";
 const SLICE_SHADOW_TEXTURE_KEY = "slice-contact-shadow";
 /** Las capas de terreno viven por debajo de cualquier objeto con depth isométrico. */
 const TERRAIN_DEPTH = 100;
+/** Marca de vial por encima de todos los tiles de calzada, por debajo del mobiliario. */
+const ROAD_MARKING_DEPTH = TERRAIN_DEPTH + 250;
+/**
+ * Profundidad de las parcelas en obra. La cesión de suelo es una decisión de la simulación; el
+ * contorno ámbar es presentación y sólo aparece en el Visual Slice.
+ */
+const CONSTRUCTION_SITE_DEPTH = TERRAIN_DEPTH + 300;
 const ASSETS = runtimeAssets as RuntimeAssetManifestV1;
 const ASSETS_BLENDER = runtimeAssetsBlender as RuntimeAssetManifestV1;
 
@@ -56,6 +72,13 @@ export type IsometricSceneOptions = {
   visualSlice?: VisualSliceLayout;
   /** Personajes de la capa de presentación (`?characters=1`). */
   sliceCharacters?: boolean;
+  /**
+   * Capa del suelo hasta la que se hornea (evidence BEFORE/AFTER de WP4.15-V.b0). `full` es el
+   * estado normal; los demás valores sirven para aislar qué aporta cada capa.
+   */
+  terrainStage?: TerrainStage | undefined;
+  /** Cuadrícula de edición por celda. La captura de referencia del gate no debe parecer un editor. */
+  showGrid?: boolean | undefined;
 };
 
 type CameraTestApi = {
@@ -81,6 +104,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private readonly layout: IsometricLayout = REFERENCE_LAYOUT;
   private readonly sliceLayout: VisualSliceLayout | undefined;
   private readonly sliceCharacters: boolean;
+  private readonly terrainStage: TerrainStage;
+  private readonly showGrid: boolean;
+  private groundPlan: GroundPlan | null = null;
   private readonly screenCenters: ScreenPoint[] = [];
   private mapGraphics?: Phaser.GameObjects.Graphics;
   private structureBlitter?: Phaser.GameObjects.Blitter;
@@ -102,11 +128,16 @@ export class IsometricSpikeScene extends Phaser.Scene {
     super({ key: "IsometricSpikeScene" });
     this.sliceLayout = options.visualSlice;
     this.sliceCharacters = options.sliceCharacters ?? false;
+    this.terrainStage = options.terrainStage ?? (this.sliceLayout ? "full" : "base");
+    this.showGrid = options.showGrid ?? !this.sliceLayout;
   }
 
   public create(): void {
     this.buildScreenCenterCache();
-    this.bakeGroundTiles();
+    this.groundPlan = this.sliceLayout
+      ? planGround(this.sliceLayout, this.layout.mapWidth, this.layout.mapHeight)
+      : null;
+    this.bakeGround();
     this.mapGraphics = this.add.graphics().setDepth(20_000);
     this.createMarkerTexture(STRUCTURE_TEXTURE_KEY, 16, 16, "#d97757");
     this.createMarkerTexture(AGENT_TEXTURE_KEY, 4, 4, "#8fcae7");
@@ -171,49 +202,63 @@ export class IsometricSpikeScene extends Phaser.Scene {
   }
 
   /**
-   * Hornea la retícula de losetas una sola vez en una CanvasTexture. Se pinta con Canvas 2D y no
-   * con Graphics: en Phaser 4 el horneado de Graphics (RenderTexture.draw / generateTexture) no
-   * resulta fiable y el suelo desaparecía de la escena, dejando edificios flotando en el vacío.
+   * Hornea el suelo del distrito una sola vez en una CanvasTexture con Canvas 2D. No se usa
+   * Graphics: en Phaser 4 el horneado de Graphics (RenderTexture.draw / generateTexture) no resulta
+   * fiable y el suelo ya desapareció de la escena una vez, dejando los edificios flotando.
    */
-  private bakeGroundTiles(): void {
+  private bakeGround(): void {
     const bounds = this.groundBounds();
     if (!this.textures.exists(TILE_TEXTURE_KEY)) {
       const texture = this.textures.createCanvas(TILE_TEXTURE_KEY, bounds.width, bounds.height);
       if (texture) {
-        const context = texture.context;
-        const halfWidth = this.layout.tileWidth / 2;
-        const halfHeight = this.layout.tileHeight / 2;
-        const cells: GridCell[] = [];
-        for (let y = 0; y < this.layout.mapHeight; y += 1) {
-          for (let x = 0; x < this.layout.mapWidth; x += 1) cells.push({ x, y });
-        }
-        cells.sort(
-          (left, right) =>
-            left.x + left.y - (right.x + right.y) || left.y - right.y || left.x - right.x,
-        );
-        context.lineWidth = 1;
-        context.fillStyle = "#1f2a39";
-        context.fillRect(0, 0, bounds.width, bounds.height);
-        for (const cell of cells) {
-          const center = this.screenCenter(cell);
-          const x = center.x - bounds.x;
-          const y = center.y - bounds.y;
-          context.strokeStyle = "rgba(126, 148, 176, 0.03)";
-          context.beginPath();
-          context.moveTo(x, y - halfHeight);
-          context.lineTo(x + halfWidth, y);
-          context.lineTo(x, y + halfHeight);
-          context.lineTo(x - halfWidth, y);
-          context.closePath();
-          context.stroke();
-        }
+        paintGround({
+          context: texture.context,
+          document: this.game.canvas.ownerDocument,
+          layout: this.layout,
+          bounds,
+          plan: this.groundPlan,
+          stage: this.terrainStage,
+          showGrid: this.showGrid,
+        });
         texture.refresh();
       }
     }
     this.add.image(bounds.x, bounds.y, TILE_TEXTURE_KEY).setOrigin(0, 0).setDepth(0);
+    /** Los decalcos viales son la capa 4: sólo aparecen en el horneado completo. */
+    if (this.groundPlan && this.terrainStage === "full") {
+      this.drawCrossings();
+    }
   }
 
-  private groundBounds(): { x: number; y: number; width: number; height: number } {
+  /**
+   * Pasos de peatones sobre la calzada. Una sola textura horneada se reutiliza en cada cruce: la
+   * calzada es un sprite de Blender por encima del suelo, así que su marca vial va en su propia capa.
+   */
+  private drawCrossings(): void {
+    const plan = this.groundPlan;
+    if (!plan) return;
+    if (!this.textures.exists(CROSSING_TEXTURE_KEY)) {
+      const texture = this.textures.createCanvas(
+        CROSSING_TEXTURE_KEY,
+        CROSSING_TEXTURE.width,
+        CROSSING_TEXTURE.height,
+      );
+      if (texture) {
+        paintCrossing(texture.context, this.layout);
+        texture.refresh();
+      }
+    }
+    for (const crossing of plan.crossings) {
+      const center = this.screenCenter(crossing);
+      const image = this.add
+        .image(center.x, center.y, CROSSING_TEXTURE_KEY)
+        .setOrigin(0.5, 0.5)
+        .setDepth(ROAD_MARKING_DEPTH);
+      this.sliceObjects.push(image);
+    }
+  }
+
+  private groundBounds(): GroundBounds {
     const halfWidth = this.layout.tileWidth / 2;
     const halfHeight = this.layout.tileHeight / 2;
     return {
@@ -445,6 +490,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
         .image(center.x, center.y, key)
         .setOrigin(asset.pivot.x, asset.pivot.y)
         .setScale(spriteScaleFor(asset, this.layout.tileWidth) * (tile.scale ?? 1))
+        .setFlipX(tile.flipX ?? false)
         .setDepth(TERRAIN_DEPTH + tile.cell.x + tile.cell.y);
       this.sliceObjects.push(image);
     }
@@ -520,9 +566,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
       : { keySuffix: "", pivot: asset.pivot, pixelsPerMeter: asset.pixelsPerMeter };
   }
 
-  /** Contorno discontinuo de parcela: lenguaje visual del juego, sólo presentación. */
+  /** Contorno discontinuo de parcela en obra: lenguaje visual del juego, sólo presentación. */
   private drawSliceLots(lots: SliceLot[]): void {
-    const graphics = this.add.graphics().setDepth(TERRAIN_DEPTH + 300);
+    const graphics = this.add.graphics().setDepth(CONSTRUCTION_SITE_DEPTH);
     const halfWidth = this.layout.tileWidth / 2;
     const halfHeight = this.layout.tileHeight / 2;
     for (const lot of lots) {

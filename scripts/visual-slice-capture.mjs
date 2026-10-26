@@ -4,8 +4,9 @@
  * Capturas del Visual Slice (WP4.15-V) sobre la escena Phaser real.
  *
  * Monta `/visual-slice` en el preview de producción, centra la cámara del gameplay en el cruce de
- * la microzona y guarda la misma composición a zoom 0.5, 1.0, 2.0 y 2.5, más una variante con
- * personajes (`?characters=1`). No retoca las imágenes: son la salida literal de Phaser.
+ * la microzona y guarda la evidencia por capas del suelo (WP4.15-V.b0, misma cámara), la misma
+ * composición a zoom 0.5, 1.0, 2.0 y 2.5, y una variante con personajes (`?characters=1`).
+ * No retoca las imágenes: son la salida literal de Phaser.
  *
  *   node scripts/visual-slice-capture.mjs
  */
@@ -26,6 +27,16 @@ const server = externalServerUrl
     );
 const CENTER = { x: 30, y: 30 };
 const ZOOMS = [0.5, 1.0, 2.0, 2.5];
+/**
+ * Capas del suelo horneadas por la escena, en orden de evidencia (WP4.15-V.b0). Todas las etapas
+ * salen de la misma composición y de la misma cámara: sólo cambia hasta qué capa pinta el bake.
+ */
+const TERRAIN_STAGES = [
+  { stage: "none", name: "terrain-stage-1-before-dressing" },
+  { stage: "base", name: "terrain-stage-2-after-base-terrain" },
+  { stage: "parcels", name: "terrain-stage-3-after-parcel-surfaces" },
+  { stage: "full", name: "terrain-stage-4-after-vegetation-dressing" },
+];
 
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({
@@ -71,11 +82,23 @@ async function capture(name, zoom) {
   return file;
 }
 
+async function openSlice(query) {
+  await page.goto(`${baseUrl}/visual-slice?cameraTest=1${query}`, {
+    waitUntil: "domcontentloaded",
+  });
+  await waitForSlice();
+}
+
 try {
   mkdirSync(outputDir, { recursive: true });
   await waitForServer();
   await waitForSlice();
   const captures = [];
+  /** Evidencia por capas: misma cámara, misma composición, distinto horneado de suelo. */
+  for (const { stage, name } of TERRAIN_STAGES) {
+    await openSlice(`&terrain=${stage}`);
+    captures.push(await capture(name, 1.0));
+  }
   for (const zoom of ZOOMS) {
     captures.push(await capture(`visual-slice-zoom-${zoom.toFixed(1)}`, zoom));
   }
@@ -87,10 +110,7 @@ try {
     captures.push(`${outputDir}/visual-slice-main-${tag}.png`);
   }
 
-  await page.goto(`${baseUrl}/visual-slice?cameraTest=1&characters=1`, {
-    waitUntil: "domcontentloaded",
-  });
-  await waitForSlice();
+  await openSlice("&characters=1");
   captures.push(await capture("visual-slice-characters", 1.0));
 
   if (pageErrors.length > 0) throw new Error(`Page errors: ${pageErrors.join("; ")}`);

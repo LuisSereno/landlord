@@ -20,6 +20,11 @@ export type SliceTerrain = {
   cell: GridCell;
   /** Multiplicador sólo para losetas procedurales que deben cubrir la celda completa. */
   scale?: number;
+  /**
+   * Espejo horizontal. El tile de calzada está renderizado a lo largo de +x; una calzada que corre
+   * a lo largo de +y necesita el espejo para que bordillos y eje coincidan con la banda.
+   */
+  flipX?: boolean;
 };
 
 export type SliceProp = {
@@ -75,8 +80,9 @@ export const EAST_AVENUE_X = 42;
 export const ZONE_FROM = 12;
 export const ZONE_TO = 48;
 
-const HORIZONTAL_STREETS = [SECOND_STREET_Y, STREET_Y];
-const VERTICAL_AVENUES = [AVENUE_X, EAST_AVENUE_X];
+/** Bandas de calzada: las consume también el planificador de terreno (aceras, frentes, cruces). */
+export const HORIZONTAL_STREETS = [SECOND_STREET_Y, STREET_Y];
+export const VERTICAL_AVENUES = [AVENUE_X, EAST_AVENUE_X];
 
 /** Solar en obra del bloque sureste: terreno, contorno y props; la mecánica se lee sin UI. */
 export const WORKS_LOT = { from: { x: 33, y: 34 }, to: { x: 36, y: 37 } };
@@ -107,7 +113,7 @@ function roadTiles(): SliceTerrain[] {
   for (const x of VERTICAL_AVENUES) {
     for (let y = ZONE_FROM; y <= ZONE_TO; y += 1) {
       if (HORIZONTAL_STREETS.includes(y)) continue;
-      tiles.push({ asset: "ter_road_straight", cell: { x, y } });
+      tiles.push({ asset: "ter_road_straight", cell: { x, y }, flipX: true });
     }
   }
   for (const value of intersections) {

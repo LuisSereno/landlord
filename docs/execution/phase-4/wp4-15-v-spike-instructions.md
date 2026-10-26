@@ -60,7 +60,46 @@ Basado en los renders, decide:
 - **CONDITIONAL GO**: Edificio funciona, personaje necesita más trabajo (retargeting de animaciones, materiales de ropa) → continuar edificios/terrain/props, pero **WP4.15-V no puede declararse DONE hasta resolver personajes**
 - **NO-GO**: Las fuentes CC0 no sobreviven al pipeline (materiales rotos, geometría incompatible) → detener WP4.15-V
 
-### 5. Si GO o CONDITIONAL GO: continuar con Fase 2
+### 5. Spike de personajes vestidos (Microsoft Rocketbox, MIT)
+
+Los Universal Base Characters de Quaternius llegan sin ropa y no existe un pack CC0 de
+ropa urbana, así que se añadió Microsoft Rocketbox (licencia MIT, ver
+`docs/art/BOOTSTRAP-ASSET-LIBRARY.md`):
+
+```bash
+blender --background --python tools/art-pipeline/blender/spike_rocketbox.py
+```
+
+Genera:
+
+- `blender_artist/spike/rocketbox_chr_worker.png` (Male_Adult_05, chaleco utilitario)
+- `blender_artist/spike/rocketbox_chr_enforcer.png` (Male_Adult_10, chaqueta deportiva)
+- `blender_artist/spike/rocketbox_chr_civilian.png` (Male_Adult_09, camiseta y vaqueros)
+- `blender_artist/spike/rocketbox_chr_professional.png` (Female_Adult_09, blazer)
+- `blender_artist/spike/rocketbox_walk/frame_*.png` (ciclo de marcha)
+- `tools/art-pipeline/blender/inspect_rocketbox.py` permite inspeccionar cualquier FBX
+  del pack: `blender --background --python .../inspect_rocketbox.py -- <ruta.fbx>`
+
+Resultados medidos en el spike:
+
+- Los 4 avatares importan con armadura `Bip01` (80 huesos) y 3 slots de material
+  (body / head / opacity) con texturas `.tga` correctas tras remapear rutas.
+- Altura del bind pose 1.812 m — coincide con `proportions.characterHeight`.
+- El clip `m_walk_neutral.max.fbx` comparte **80 de 80 huesos** con el rig del avatar:
+  no hace falta retargeting, basta con asignar la action a la armadura.
+- Los clips de la variante `xy` traen movimiento de raíz (~1 m por ciclo), así que para
+  generar sprites hay que recentrar el personaje en cada frame o despojar la traslación
+  del hueso raíz.
+
+### 6. Rig de iluminación del style layer
+
+El primer paso del spike dejaba los personajes sobreexpuestos (sol a 360 W/m² y sin tone
+mapping). `style_layer_graphic_civic.json` ahora declara irradiances reales para luces
+SUN (`keyEnergy` 3.2 / `fillEnergy` 1.1 / `rimEnergy` 1.6), `worldStrength` 0.35 y el
+`postProcessing` AgX que ya estaba escrito en el propio JSON. `setup_lighting()` lee esos
+valores sin multiplicadores mágicos, así que el JSON es la única fuente de verdad.
+
+### 7. Si GO o CONDITIONAL GO: continuar con Fase 2
 
 Crear los archivos `.blend` para el vertical slice completo (3 edificios, terrain, props, vehicles, 3 personajes).
 
@@ -82,6 +121,7 @@ El archivo `tools/art-pipeline/blender/style_layer_graphic_civic.json` define:
 
 ## Notas
 
-- Este spike **no incluye animaciones** — solo valida geometría + materiales
-- El retargeting de animaciones se evaluará en un spike separado si este pasa
+- El spike CC0 (Quaternius) valida geometría + materiales sin animación
+- El spike de Rocketbox sí comprueba animación: `m_walk_neutral` se aplica al rig sin
+  retargeting (80/80 huesos compartidos)
 - La escala 4×4m por celda es **convención visual del slice**, no contrato de simulación

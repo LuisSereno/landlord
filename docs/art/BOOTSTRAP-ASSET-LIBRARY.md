@@ -238,6 +238,67 @@ Uso:
 Estado de licencia de Poly Haven:
 - CC0 para sus assets.
 
+### Microsoft Rocketbox — avatares rigged (MIT, no CC0)
+
+https://github.com/microsoft/Microsoft-Rocketbox
+
+Motivo de inclusión: los Universal Base Characters de Quaternius son cuerpos sin ropa
+(sólo ropa interior) y no existe ningún pack CC0 de ropa urbana para trabajadores de
+ciudad. Rocketbox aporta 115 avatares ya vestidos —la ropa va horneada en el difuso del
+cuerpo— con rig completo y niveles de polígono (hipoly / midpoly / lowpoly / ultralowpoly).
+
+Estado de licencia:
+
+- MIT License, Copyright (c) 2020 Microsoft (relicenciada a MIT en 12/2020).
+- Verificado vía API de GitHub: `license.spdx_id = MIT`.
+- MIT permite uso comercial, modificación, distribución y sublicencia.
+- Única obligación: conservar el aviso de copyright y el texto de la licencia en las
+  copias o porciones sustanciales del material.
+
+Compromiso de atribución:
+
+- `LICENSE-MIT.txt` junto al staging local.
+- Mención en los créditos del juego: personajes base derivados de Microsoft Rocketbox.
+
+Procedencia:
+
+- Repositorio archivado (read-only) el 2026-10-02.
+- Commit: `0943055db6ec570bcef9f2c8b41c9e5467c808f9`.
+- Obtenido por `git clone` el 2026-10-26.
+
+Subconjunto conservado en `blender_artist/staging/third_party/rocketbox/` (staging local,
+ignorado por Git):
+
+| Avatar               | Ropa visible                        | Rol visual candidato        |
+| -------------------- | ----------------------------------- | --------------------------- |
+| Male_Adult_02        | jersey claro + pantalón oscuro      | oficinista / civil          |
+| Male_Adult_03        | americana tweed + camisa roja       | empresario / político       |
+| Male_Adult_05        | chaleco utilitario verde            | obrero                      |
+| Male_Adult_09        | camiseta oscura + vaqueros          | civil                       |
+| Male_Adult_10        | chaqueta deportiva roja             | matón / enforcement         |
+| Male_Adult_12        | cazadora vaquera + camisa blanca    | civil                       |
+| Female_Adult_04      | chaqueta de cuero + cargo + botas   | enforcement femenino        |
+| Female_Adult_09      | blazer gris + camisa blanca         | profesional / política      |
+| Female_Adult_13      | chaleco + vaqueros                  | obrera                      |
+
+Animaciones (hay 417 en el pack; se conservan 15):
+
+- `animations/walk/`: `m_walk_neutral*`, `f_walk_neutral*`.
+- `animations/idle/`: `m_idle_breathe*`, `f_idle_breathe*`, `m_idle_neutral*`.
+
+Descartado por presupuesto de disco local:
+
+- `Assets/Animals` (27 modelos, 719 MB): no hay fauna jugable en el slice.
+- El resto de avatares y librerías de animación (≈6 GB): son volver a descargar del
+  repositorio archivado cuando haga falta.
+
+Advertencias de formato:
+
+- Los FBX salen de 3ds Max y referencian texturas `.tga` con rutas absolutas de Windows,
+  igual que los FBX de Quaternius; hay que remapear rutas al importar.
+- Cada avatar trae dos FBX: `<Name>.fbx` (cuerpo) y `<Name>_facial.fbx` (blendshapes
+  faciales, innecesarios para sprites isométricos).
+
 ## 5. Regla de repositorio
 
 Que un recurso sea CC0 no significa que debamos copiar inmediatamente todos los ZIP al repositorio.

@@ -65,13 +65,17 @@
     "note": "cellSizeMeters is visual convention for WP4.15-V, not yet a simulation contract"
   },
   "lighting": {
-    "keyEnergy": 900,
-    "keyColor": [0.72, 0.82, 0.89],
+    "keyEnergy": 3.2,
+    "keyColor": [0.98, 0.94, 0.88],
     "keyDirection": [0.3, 0.8, 0.5],
-    "fillEnergy": 380,
-    "fillColor": [0.21, 0.34, 0.44],
+    "fillEnergy": 1.1,
+    "fillColor": [0.72, 0.82, 0.89],
     "fillDirection": [-0.5, 0.3, -0.2],
-    "description": "Cool key light with warm fill (graphic_civic signature)"
+    "rimEnergy": 1.6,
+    "rimColor": [0.8, 0.85, 0.9],
+    "worldColor": [0.75, 0.75, 0.75],
+    "worldStrength": 0.35,
+    "description": "Neutral-warm key with cool fill; SUN irradiances calibrated so a 1.8 m avatar keeps skin and light cloth out of clipping"
   },
   "camera": {
     "projection": "ORTHO",

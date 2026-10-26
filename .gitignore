@@ -12,3 +12,10 @@ blender_artist/staging/third_party/
 blender_artist/toolchain/
 blender_artist/generated/*
 !blender_artist/generated/.gitkeep
+
+# Blender helper modules import each other, which leaves bytecode next to the scripts.
+__pycache__/
+
+# Spike renders are local STOP-gate evidence, not runtime assets: 16-bit PNGs of 2-5 MB
+# each would blow the binary budget for artifacts nobody loads at runtime.
+blender_artist/spike/

@@ -87,6 +87,7 @@
           "sha256": "69ce729c5c9f82e41ff4c3ddbbedde2c3d9398054eff11ebd52d344f8d619746"
         }
       },
+      "pixelsPerMeter": 30.11764705882353,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_commercial",
@@ -130,6 +131,7 @@
           "sha256": "cedbe7c3dca86a722b19df11b59856eeaa8eeb53d00ae23e144350f4017491c8"
         }
       },
+      "pixelsPerMeter": 30.11764705882353,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_commercial",
@@ -173,6 +175,7 @@
           "sha256": "e44464c95d70fe99eed9bb42de249e9d0dcf339daa989e57b0a62a8c710efcc1"
         }
       },
+      "pixelsPerMeter": 30.11764705882353,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_suburban",
@@ -216,6 +219,7 @@
           "sha256": "f09c3cccea36669320718d9f62c321ad0cadcfae53085e8e2e20efe2fa5de685"
         }
       },
+      "pixelsPerMeter": 30.11764705882353,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_commercial",
@@ -259,6 +263,7 @@
           "sha256": "d14a742cb52683dda9bb1044c6cd6c4df4a4e671b0ff9b275336f12e770ee0fa"
         }
       },
+      "pixelsPerMeter": 30.11764705882353,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_suburban",
@@ -302,6 +307,7 @@
           "sha256": "79c773d6fc1e9c5c8496c806c848727dfd5270551d75e027565c1904f161b98d"
         }
       },
+      "pixelsPerMeter": 30.11764705882353,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_suburban",
@@ -421,6 +427,372 @@
             }
           ]
         }
+      }
+    }
+  },
+  "terrain": {
+    "ter_road_straight": {
+      "id": "ter_road_straight",
+      "name": "ter_road_straight",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5148
+      },
+      "image": {
+        "src": "/assets/runtime/blender/ter_road_straight.png",
+        "width": 242,
+        "height": 125,
+        "sha256": "dbd9a86ea45718cc1513ffbce03b16128c615c2d450c60f2bd2b29fc63276ee1"
+      },
+      "pixelsPerMeter": 42.666666666666664,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_roads",
+        "sourceId": "src_kenney_city_roads"
+      }
+    },
+    "ter_road_corner": {
+      "id": "ter_road_corner",
+      "name": "ter_road_corner",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.7035,
+        "y": 0.5148
+      },
+      "image": {
+        "src": "/assets/runtime/blender/ter_road_corner.png",
+        "width": 172,
+        "height": 125,
+        "sha256": "da0166c40782a3b255e870bf329637f892266c8d7fb2cec1e6fe56c43137e5c4"
+      },
+      "pixelsPerMeter": 42.666666666666664,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_roads",
+        "sourceId": "src_kenney_city_roads"
+      }
+    },
+    "ter_road_intersection": {
+      "id": "ter_road_intersection",
+      "name": "ter_road_intersection",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5148
+      },
+      "image": {
+        "src": "/assets/runtime/blender/ter_road_intersection.png",
+        "width": 242,
+        "height": 125,
+        "sha256": "ec2677cb7d30932d699fe585b92daa47c21763be7504edf05432046fb714af47"
+      },
+      "pixelsPerMeter": 42.666666666666664,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_roads",
+        "sourceId": "src_kenney_city_roads"
+      }
+    }
+  },
+  "vehicles": {
+    "veh_sedan": {
+      "id": "veh_sedan",
+      "name": "veh_sedan",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.756
+      },
+      "image": {
+        "src": "/assets/runtime/blender/veh_sedan.png",
+        "width": 215,
+        "height": 161,
+        "sha256": "d1a101e4137ac853b3d5f58cb3ef3e6a6652f03e87f056d776d297ec49991c59"
+      },
+      "pixelsPerMeter": 64,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      }
+    },
+    "veh_taxi": {
+      "id": "veh_taxi",
+      "name": "veh_taxi",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.7468
+      },
+      "image": {
+        "src": "/assets/runtime/blender/veh_taxi.png",
+        "width": 226,
+        "height": 167,
+        "sha256": "6dc565b0b6c148deefe5625b604e1045ee56c546bb7c7ecf48a66f44b83fd384"
+      },
+      "pixelsPerMeter": 64,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      }
+    },
+    "veh_truck": {
+      "id": "veh_truck",
+      "name": "veh_truck",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.717
+      },
+      "image": {
+        "src": "/assets/runtime/blender/veh_truck.png",
+        "width": 238,
+        "height": 160,
+        "sha256": "cf96402ab7cc5ea63171c44ee799c18f20aa8ba64dd76196c1b401ad67b7100a"
+      },
+      "pixelsPerMeter": 64,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      }
+    }
+  },
+  "props": {
+    "prp_tree_detailed": {
+      "id": "prp_tree_detailed",
+      "name": "prp_tree_detailed",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.4505,
+        "y": 0.9678
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_tree_detailed.png",
+        "width": 101,
+        "height": 168,
+        "sha256": "c2837a68e5950e396bf33905ed4f880b3ac255f0affa1e4c7bcbd7ba7bc545d2"
+      },
+      "pixelsPerMeter": 32,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      }
+    },
+    "prp_traffic_light": {
+      "id": "prp_traffic_light",
+      "name": "prp_traffic_light",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.4531,
+        "y": 0.9285
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_traffic_light.png",
+        "width": 32,
+        "height": 127,
+        "sha256": "f90cfe76b4646f60ac4ebf880a8b655a59f17a7f3a484a46702a1d51bfc1300c"
+      },
+      "pixelsPerMeter": 64,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_roads",
+        "sourceId": "src_kenney_city_roads"
+      }
+    },
+    "prp_street_light": {
+      "id": "prp_street_light",
+      "name": "prp_street_light",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9265
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_street_light.png",
+        "width": 41,
+        "height": 141,
+        "sha256": "df1a56c0f97ca5b567a673498c0899fd70622e87ddc6ec67741481edf539c32f"
+      },
+      "pixelsPerMeter": 51.2,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_roads",
+        "sourceId": "src_kenney_city_roads"
+      }
+    },
+    "prp_bench": {
+      "id": "prp_bench",
+      "name": "prp_bench",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.7143
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_bench.png",
+        "width": 121,
+        "height": 84,
+        "sha256": "5ec44e40b487fa0b9eb1b067c1d909c5743b668c9ab0bc8ce52f30be5490719b"
+      },
+      "pixelsPerMeter": 85.33333333333333,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kaykit_city_builder_bits",
+        "sourceId": "src_kaykit_city_builder_bits"
+      }
+    },
+    "prp_trash_can": {
+      "id": "prp_trash_can",
+      "name": "prp_trash_can",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5079,
+        "y": 0.7387
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_trash_can.png",
+        "width": 127,
+        "height": 111,
+        "sha256": "1dcae1f9aa3acc2b7e3137bcad7b2add2e67b7e0251054967a107493b694fa18"
+      },
+      "pixelsPerMeter": 85.33333333333333,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_roads",
+        "sourceId": "src_kenney_city_roads"
+      }
+    },
+    "prp_tree_oak": {
+      "id": "prp_tree_oak",
+      "name": "prp_tree_oak",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9171
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_tree_oak.png",
+        "width": 98,
+        "height": 170,
+        "sha256": "7c1a613f3404ada923ba5ec150467bac6b1b640cad9ad563f287deb11ccacbbc"
+      },
+      "pixelsPerMeter": 34.13333333333333,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      }
+    },
+    "prp_tree_pine": {
+      "id": "prp_tree_pine",
+      "name": "prp_tree_pine",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9589
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_tree_pine.png",
+        "width": 69,
+        "height": 179,
+        "sha256": "9d47dfcb643ef492202771dbac67b198d9c1ca3cade5fbf3e7b761f4d770af24"
+      },
+      "pixelsPerMeter": 32,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      }
+    },
+    "prp_construction_barrier": {
+      "id": "prp_construction_barrier",
+      "name": "prp_construction_barrier",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.7237
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_construction_barrier.png",
+        "width": 83,
+        "height": 76,
+        "sha256": "c47ff3d310537593c26d90202e3d4a971f463d92ab62605daec6f5962226d9f7"
+      },
+      "pixelsPerMeter": 85.33333333333333,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_roads",
+        "sourceId": "src_kenney_city_roads"
+      }
+    },
+    "prp_construction_cone": {
+      "id": "prp_construction_cone",
+      "name": "prp_construction_cone",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.7821
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_construction_cone.png",
+        "width": 32,
+        "height": 39,
+        "sha256": "c443819fb93acda022c532b2eeb7734d4901eb6800b3a08904c54e3135342a55"
+      },
+      "pixelsPerMeter": 85.33333333333333,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_roads",
+        "sourceId": "src_kenney_city_roads"
       }
     }
   }

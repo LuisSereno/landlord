@@ -5,6 +5,7 @@ import {
   isometricSpikeGameConfig,
   type MapOverlay,
 } from "./IsometricSpikeScene";
+import { VISUAL_SLICE_LAYOUT } from "../visual-slice/layout";
 
 export type { MapOverlay } from "./IsometricSpikeScene";
 
@@ -23,6 +24,27 @@ export function mountIsometricSpike(
   });
   mountedScenes.set(game, scene);
   return game;
+}
+
+/**
+ * Monta la escena de gameplay con la capa de presentación del Visual Slice. La simulación no
+ * participa: se evalúa la composición con la misma cámara, grid y depth que el juego real.
+ */
+export function mountVisualSlice(
+  parent: HTMLElement,
+  options: { characters: boolean },
+): () => void {
+  const game = new Phaser.Game({
+    ...isometricSpikeGameConfig,
+    scene: [
+      new IsometricSpikeScene({
+        visualSlice: VISUAL_SLICE_LAYOUT,
+        sliceCharacters: options.characters,
+      }),
+    ],
+    parent,
+  });
+  return () => game.destroy(true);
 }
 
 export function updateIsometricProjection(game: Phaser.Game, projection: ViewProjectionV1): void {

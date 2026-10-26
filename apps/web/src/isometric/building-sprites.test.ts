@@ -5,6 +5,7 @@ import {
   animationFrameFor,
   assetFor,
   buildingAssetStateFor,
+  CELL_METERS,
   depthForAsset,
   depthForCell,
   directionIndexFor,
@@ -12,6 +13,7 @@ import {
   framesPerDirection,
   originFromPivot,
   spriteKeyFor,
+  spriteScaleFor,
 } from "./building-sprites";
 
 const ASSETS = runtimeAssets as RuntimeAssetManifestV1;
@@ -87,6 +89,19 @@ describe("WP4.15 sprites de edificios", () => {
     expect(footprintCenter({ x: 3, y: 3 }, oneByOne)).toEqual({ x: 3, y: 3 });
     expect(footprintCenter({ x: 3, y: 3 }, twoByTwo)).toEqual({ x: 3.5, y: 3.5 });
     expect(ASSETS.buildings["cement_plant"]!.footprint).toEqual(twoByTwo);
+  });
+
+  it("escala los renders Blender a la celda de 4 m y deja intactos los procedurales", () => {
+    expect(CELL_METERS).toBe(4);
+    expect(spriteScaleFor({}, 64)).toBe(1);
+    /** Carretera Kenney: la loseta de 4 m debe medir la diagonal de la celda (64 px). */
+    const roadPixelsPerMeter = 256 / 6;
+    const roadScale = spriteScaleFor({ pixelsPerMeter: roadPixelsPerMeter }, 64);
+    expect(242 * roadScale).toBeCloseTo(64, 0);
+    /** Edificio Kenney: un comercio de ~3.5 m debe medir ~1 celda de ancho. */
+    const buildingScale = spriteScaleFor({ pixelsPerMeter: 256 / 8.5 }, 64);
+    expect(141 * buildingScale).toBeGreaterThan(45);
+    expect(141 * buildingScale).toBeLessThan(60);
   });
 
   it("cada dirección camina con sus propios frames", () => {

@@ -266,6 +266,13 @@ function renderTask(job, task, sourcesById, workDir) {
   return { workPng, workJson, entry: JSON.parse(readFileSync(workJson, "utf8")) };
 }
 
+function pixelsPerMeterFor(job, task) {
+  // Los jobs procedurales ya están dibujados a la escala del juego; sólo las cámaras Blender
+  // necesitan declarar su densidad para que el renderer las lleve a la celda de 4 m.
+  if (job.source.kind === "procedural") return undefined;
+  return task.render.width / job.camera.orthoScale;
+}
+
 function assembleInto(bundle, job, task, entry, image, provenance) {
   if (job.kind === "building") {
     const asset = (bundle.buildings[entry.assetId] ??= {
@@ -275,6 +282,8 @@ function assembleInto(bundle, job, task, entry, image, provenance) {
       pivot: entry.pivot,
       states: {},
     });
+    const pixelsPerMeter = pixelsPerMeterFor(job, task);
+    if (pixelsPerMeter !== undefined) asset.pixelsPerMeter = pixelsPerMeter;
     if (provenance) asset.provenance = provenance;
     asset.states[entry.state] = image;
     return;
@@ -298,9 +307,20 @@ function assembleInto(bundle, job, task, entry, image, provenance) {
       image;
     return;
   }
-  throw new Error(
-    `${job.id}: kind '${job.kind}' se renderiza pero aún no se ensambla (Fase 4 amplía el contrato runtime)`,
-  );
+  const group = { terrain: "terrain", prop: "props", vehicle: "vehicles" }[job.kind];
+  if (!group) {
+    throw new Error(`${job.id}: kind '${job.kind}' no tiene grupo runtime`);
+  }
+  const asset = ((bundle[group] ??= {})[entry.assetId] = {
+    id: entry.assetId,
+    name: entry.label,
+    footprint: job.footprint ?? { width: 1, height: 1 },
+    pivot: entry.pivot,
+    image,
+  });
+  const pixelsPerMeter = pixelsPerMeterFor(job, task);
+  if (pixelsPerMeter !== undefined) asset.pixelsPerMeter = pixelsPerMeter;
+  if (provenance) asset.provenance = provenance;
 }
 
 function render() {

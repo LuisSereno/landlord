@@ -752,3 +752,16 @@ button:disabled {
     min-height: 55vh;
   }
 }
+
+.visual-slice-canvas {
+  position: fixed;
+  inset: 0;
+  background: #101827;
+}
+
+.visual-slice-canvas > div,
+.visual-slice-canvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}

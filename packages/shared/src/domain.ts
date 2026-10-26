@@ -151,12 +151,6 @@ export const buildingTypeSchema = z.enum([
   "cement_plant",
   "brickworks",
   "steelworks",
-  "bld_shopfront",
-  "bld_commercial_b",
-  "bld_commercial_c",
-  "bld_residential_a",
-  "bld_residential_b",
-  "bld_residential_c",
 ]);
 export type BuildingType = z.infer<typeof buildingTypeSchema>;
 

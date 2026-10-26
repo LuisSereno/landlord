@@ -80,7 +80,6 @@ const KIND_KEYS = {
     "reason",
     "source",
     "footprint",
-    "states",
     "camera",
     "render",
   ]),
@@ -225,7 +224,7 @@ for (const job of jobs.jobs ?? []) {
 
   checkSource(job);
 
-  if (job.kind === "building" || job.kind === "vehicle") {
+  if (job.kind === "building") {
     const states = job.states ?? [];
     if (states.length === 0) fail(`${job.id}: falta states`);
     for (const state of states) {

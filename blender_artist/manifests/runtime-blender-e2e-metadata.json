@@ -17,7 +17,7 @@
       "y": 0.7941
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-complete.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/courtyard_home-complete.png",
       "width": 72,
       "height": 73,
       "sha256": "b197476f2efd46b78289d51c20c08f2d177494757527d3805e72d298809269b8"
@@ -57,8 +57,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2792.53,
-      "totalMs": 2852.23
+      "renderMs": 2991.91,
+      "totalMs": 3032.56
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -68,9 +68,9 @@
         "--state",
         "complete",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-complete.png",
+        "/tmp/landlord-blender-assets-JH8seK/courtyard_home-complete.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-complete.json"
+        "/tmp/landlord-blender-assets-JH8seK/courtyard_home-complete.json"
       ]
     }
   },
@@ -92,7 +92,7 @@
       "y": 0.6962
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-construction.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/courtyard_home-construction.png",
       "width": 74,
       "height": 61,
       "sha256": "e322fcfb17660885fb2761afb9cb894bbafd7aeace888661200fc1fe445b70a7"
@@ -132,8 +132,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2950.29,
-      "totalMs": 2992.03
+      "renderMs": 2449.5,
+      "totalMs": 2493.99
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -143,9 +143,9 @@
         "--state",
         "construction",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-construction.png",
+        "/tmp/landlord-blender-assets-JH8seK/courtyard_home-construction.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-construction.json"
+        "/tmp/landlord-blender-assets-JH8seK/courtyard_home-construction.json"
       ]
     }
   },
@@ -167,7 +167,7 @@
       "y": 0.7941
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-damaged.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/courtyard_home-damaged.png",
       "width": 72,
       "height": 73,
       "sha256": "6e8739ee65491c30ad59a3b534ea1b9eb32e2744d49d7be02a167a82f946ea60"
@@ -207,8 +207,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2835.78,
-      "totalMs": 2884.2
+      "renderMs": 2903.08,
+      "totalMs": 2949.46
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -218,9 +218,9 @@
         "--state",
         "damaged",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-damaged.png",
+        "/tmp/landlord-blender-assets-JH8seK/courtyard_home-damaged.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-damaged.json"
+        "/tmp/landlord-blender-assets-JH8seK/courtyard_home-damaged.json"
       ]
     }
   },
@@ -242,7 +242,7 @@
       "y": 0.7941
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-burning.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/courtyard_home-burning.png",
       "width": 72,
       "height": 73,
       "sha256": "d1dcc062a89c09880612b0e053510aee14eef4eec1445322013fb17919bddc54"
@@ -282,8 +282,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 3629.03,
-      "totalMs": 3680.69
+      "renderMs": 2658.33,
+      "totalMs": 2707.68
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -293,9 +293,9 @@
         "--state",
         "burning",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-burning.png",
+        "/tmp/landlord-blender-assets-JH8seK/courtyard_home-burning.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/courtyard_home-burning.json"
+        "/tmp/landlord-blender-assets-JH8seK/courtyard_home-burning.json"
       ]
     }
   },
@@ -314,7 +314,7 @@
       "y": 0.9376
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-idle-0.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d0-idle-0.png",
       "width": 15,
       "height": 38,
       "sha256": "d1902e1f4c8037dfd5d78b43a566cacaacc5cc79465cd3704c0f05931718958c"
@@ -354,8 +354,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2438.97,
-      "totalMs": 2448.31
+      "renderMs": 2742.49,
+      "totalMs": 2755.39
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -369,9 +369,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-idle-0.png",
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d0-idle-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-idle-0.json"
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d0-idle-0.json"
       ]
     }
   },
@@ -390,7 +390,7 @@
       "y": 0.9507
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-idle-1.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d0-idle-1.png",
       "width": 15,
       "height": 38,
       "sha256": "eaee230950c335a0ea9ecf4b834c70d300c9727f317919b8510d7075ec6a1441"
@@ -430,8 +430,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2490.81,
-      "totalMs": 2502.31
+      "renderMs": 2515,
+      "totalMs": 2527.21
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -445,9 +445,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-idle-1.png",
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d0-idle-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-idle-1.json"
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d0-idle-1.json"
       ]
     }
   },
@@ -466,7 +466,7 @@
       "y": 0.9157
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-walk-0.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d0-walk-0.png",
       "width": 15,
       "height": 40,
       "sha256": "15240a0beec2be29165966bd02f5cdeffb1e9df215d39fba9113b4d23fe238c2"
@@ -506,8 +506,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2377.87,
-      "totalMs": 2386.38
+      "renderMs": 2606.46,
+      "totalMs": 2620.2
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -521,9 +521,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-walk-0.png",
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d0-walk-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-walk-0.json"
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d0-walk-0.json"
       ]
     }
   },
@@ -542,7 +542,7 @@
       "y": 0.9507
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-walk-1.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d0-walk-1.png",
       "width": 16,
       "height": 38,
       "sha256": "cf9dbc3cdbfa56d7cc9a1023f100c91b827e40e15a5a5a4b96100b216395f844"
@@ -582,8 +582,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2598.2,
-      "totalMs": 2606.14
+      "renderMs": 2356.44,
+      "totalMs": 2364.71
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -597,9 +597,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-walk-1.png",
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d0-walk-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d0-walk-1.json"
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d0-walk-1.json"
       ]
     }
   },
@@ -618,7 +618,7 @@
       "y": 0.9376
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-idle-0.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d1-idle-0.png",
       "width": 15,
       "height": 38,
       "sha256": "bd5fd3023cc4948c0c6a3d6dfa51e45e58a2a0087d70795b04a622bd8b673d22"
@@ -658,8 +658,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2811.05,
-      "totalMs": 2822.32
+      "renderMs": 2383.05,
+      "totalMs": 2393.68
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -673,9 +673,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-idle-0.png",
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d1-idle-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-idle-0.json"
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d1-idle-0.json"
       ]
     }
   },
@@ -694,7 +694,7 @@
       "y": 0.9507
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-idle-1.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d1-idle-1.png",
       "width": 15,
       "height": 38,
       "sha256": "6e7377e8da25e3d933df4bb2ee32204cb3ac8ce9cc43fabbd6784c0c97e1f2f1"
@@ -734,8 +734,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2744.02,
-      "totalMs": 2754.04
+      "renderMs": 2656.9,
+      "totalMs": 2669.53
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -749,9 +749,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-idle-1.png",
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d1-idle-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-idle-1.json"
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d1-idle-1.json"
       ]
     }
   },
@@ -770,7 +770,7 @@
       "y": 0.9639
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-walk-0.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d1-walk-0.png",
       "width": 16,
       "height": 38,
       "sha256": "6719351fae65a4ebc723b7b60a14a7e16db59f3902389169767b292e183fd468"
@@ -810,8 +810,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2393.84,
-      "totalMs": 2406.04
+      "renderMs": 2796.18,
+      "totalMs": 2809.38
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -825,9 +825,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-walk-0.png",
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d1-walk-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-walk-0.json"
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d1-walk-0.json"
       ]
     }
   },
@@ -846,7 +846,7 @@
       "y": 0.9032
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-walk-1.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d1-walk-1.png",
       "width": 15,
       "height": 40,
       "sha256": "372d14cb4dda71e4c3a223358b081bdac8777dc55059d6ab1cf949ab02ff9dc2"
@@ -886,8 +886,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2497.73,
-      "totalMs": 2508.34
+      "renderMs": 2542.12,
+      "totalMs": 2555.17
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -901,9 +901,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-walk-1.png",
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d1-walk-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d1-walk-1.json"
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d1-walk-1.json"
       ]
     }
   },
@@ -922,7 +922,7 @@
       "y": 0.9392
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-idle-0.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d2-idle-0.png",
       "width": 15,
       "height": 39,
       "sha256": "2f5fa0f3020897b0e793cd89d9c2eb739d29948cbc928b2af94a5e0f870e009d"
@@ -962,8 +962,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2529.29,
-      "totalMs": 2541.15
+      "renderMs": 2344.87,
+      "totalMs": 2356.72
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -977,9 +977,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-idle-0.png",
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d2-idle-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-idle-0.json"
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d2-idle-0.json"
       ]
     }
   },
@@ -998,7 +998,7 @@
       "y": 0.952
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-idle-1.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d2-idle-1.png",
       "width": 15,
       "height": 39,
       "sha256": "6390c29203ad28d02fd624c6911211b67b1c5773dbc3a0d0b22acb130940dacf"
@@ -1038,8 +1038,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2630.92,
-      "totalMs": 2642.34
+      "renderMs": 2256.48,
+      "totalMs": 2267.92
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1053,9 +1053,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-idle-1.png",
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d2-idle-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-idle-1.json"
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d2-idle-1.json"
       ]
     }
   },
@@ -1074,7 +1074,7 @@
       "y": 0.9157
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-walk-0.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d2-walk-0.png",
       "width": 15,
       "height": 40,
       "sha256": "97e68c0a6d20d7db58f1eb993d31f744c102615433e9a5e282f6488686c0343c"
@@ -1114,8 +1114,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2869.52,
-      "totalMs": 2880.51
+      "renderMs": 2751.5,
+      "totalMs": 2764.53
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1129,9 +1129,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-walk-0.png",
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d2-walk-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-walk-0.json"
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d2-walk-0.json"
       ]
     }
   },
@@ -1150,7 +1150,7 @@
       "y": 0.9507
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-walk-1.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d2-walk-1.png",
       "width": 16,
       "height": 38,
       "sha256": "c3c75045b0f64aec057dbf356342c0957ceb778db09b2b22d230f1dc3456a965"
@@ -1190,8 +1190,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2393.7,
-      "totalMs": 2404.22
+      "renderMs": 2489.44,
+      "totalMs": 2497.47
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1205,9 +1205,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-walk-1.png",
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d2-walk-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d2-walk-1.json"
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d2-walk-1.json"
       ]
     }
   },
@@ -1226,7 +1226,7 @@
       "y": 0.9392
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-idle-0.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d3-idle-0.png",
       "width": 15,
       "height": 39,
       "sha256": "ea5d617fa76b65050574f9d59e5471760ad0d1e177e92c55f0cf3fe8752ff826"
@@ -1266,8 +1266,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2467.47,
-      "totalMs": 2478.74
+      "renderMs": 2716.62,
+      "totalMs": 2731.78
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1281,9 +1281,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-idle-0.png",
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d3-idle-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-idle-0.json"
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d3-idle-0.json"
       ]
     }
   },
@@ -1302,7 +1302,7 @@
       "y": 0.952
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-idle-1.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d3-idle-1.png",
       "width": 15,
       "height": 39,
       "sha256": "4a2696ac5a5116d3c4b86abc1e123038f5b10b75ed489fe18c984ec77aedb5a4"
@@ -1342,8 +1342,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2862.44,
-      "totalMs": 2875.48
+      "renderMs": 2639.02,
+      "totalMs": 2651.65
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1357,9 +1357,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-idle-1.png",
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d3-idle-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-idle-1.json"
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d3-idle-1.json"
       ]
     }
   },
@@ -1378,7 +1378,7 @@
       "y": 0.9639
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-walk-0.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d3-walk-0.png",
       "width": 16,
       "height": 38,
       "sha256": "637f1445dccc1f39f4ed83a483614c3020b211c3185887ed2c3e5c185e4a1318"
@@ -1418,8 +1418,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2432.22,
-      "totalMs": 2444.71
+      "renderMs": 2280.02,
+      "totalMs": 2290.13
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1433,9 +1433,9 @@
         "--frame",
         "0",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-walk-0.png",
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d3-walk-0.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-walk-0.json"
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d3-walk-0.json"
       ]
     }
   },
@@ -1454,7 +1454,7 @@
       "y": 0.9032
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-walk-1.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d3-walk-1.png",
       "width": 15,
       "height": 40,
       "sha256": "3153803800490225e20fd646548f97e4e2b755ca731abcb56098958665777370"
@@ -1494,8 +1494,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 2410.87,
-      "totalMs": 2420.86
+      "renderMs": 2424.18,
+      "totalMs": 2437.94
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1509,9 +1509,9 @@
         "--frame",
         "1",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-walk-1.png",
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d3-walk-1.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/vecino_variante-d3-walk-1.json"
+        "/tmp/landlord-blender-assets-JH8seK/vecino_variante-d3-walk-1.json"
       ]
     }
   },
@@ -1530,7 +1530,7 @@
       "y": 0.8137
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-complete.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_shopfront-complete.png",
       "width": 141,
       "height": 205,
       "sha256": "69ce729c5c9f82e41ff4c3ddbbedde2c3d9398054eff11ebd52d344f8d619746"
@@ -1570,8 +1570,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 4717.31,
-      "totalMs": 4911.78
+      "renderMs": 5448.41,
+      "totalMs": 5657.64
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1599,9 +1599,9 @@
         "--state",
         "complete",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-complete.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_shopfront-complete.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-complete.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_shopfront-complete.json"
       ]
     },
     "source": {
@@ -1615,11 +1615,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -1651,7 +1647,7 @@
       "y": 0.8137
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-construction.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_shopfront-construction.png",
       "width": 141,
       "height": 205,
       "sha256": "69ce729c5c9f82e41ff4c3ddbbedde2c3d9398054eff11ebd52d344f8d619746"
@@ -1691,8 +1687,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 5599.79,
-      "totalMs": 5827.73
+      "renderMs": 4827.5,
+      "totalMs": 5001.75
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1720,9 +1716,9 @@
         "--state",
         "construction",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-construction.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_shopfront-construction.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-construction.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_shopfront-construction.json"
       ]
     },
     "source": {
@@ -1736,11 +1732,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -1772,7 +1764,7 @@
       "y": 0.8137
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-damaged.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_shopfront-damaged.png",
       "width": 141,
       "height": 205,
       "sha256": "69ce729c5c9f82e41ff4c3ddbbedde2c3d9398054eff11ebd52d344f8d619746"
@@ -1812,8 +1804,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 5444.41,
-      "totalMs": 5629.72
+      "renderMs": 5437.2,
+      "totalMs": 5634.52
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1841,9 +1833,9 @@
         "--state",
         "damaged",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-damaged.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_shopfront-damaged.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-damaged.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_shopfront-damaged.json"
       ]
     },
     "source": {
@@ -1857,11 +1849,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -1893,7 +1881,7 @@
       "y": 0.8137
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-burning.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_shopfront-burning.png",
       "width": 141,
       "height": 205,
       "sha256": "69ce729c5c9f82e41ff4c3ddbbedde2c3d9398054eff11ebd52d344f8d619746"
@@ -1933,8 +1921,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 5295.23,
-      "totalMs": 5506.58
+      "renderMs": 4754.29,
+      "totalMs": 4945.01
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -1962,9 +1950,9 @@
         "--state",
         "burning",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-burning.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_shopfront-burning.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_shopfront-burning.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_shopfront-burning.json"
       ]
     },
     "source": {
@@ -1978,11 +1966,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -2001,6 +1985,121 @@
   },
   {
     "schemaVersion": 1,
+    "assetId": "ter_road_straight",
+    "kind": "terrain",
+    "label": "ter_road_straight",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.5148
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-JH8seK/ter_road_straight.png",
+      "width": 242,
+      "height": 125,
+      "sha256": "dbd9a86ea45718cc1513ffbce03b16128c615c2d450c60f2bd2b29fc63276ee1"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 484,
+        "height": 250,
+        "offsetX": 14,
+        "offsetY": 131
+      },
+      "final": {
+        "width": 242,
+        "height": 125
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_roads via road-straight.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 6
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 4518.28,
+      "totalMs": 4687.96
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "ter_road_straight",
+        "--kind",
+        "terrain",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/road-straight.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "6",
+        "--target-z",
+        "0.05",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_roads",
+        "--license",
+        "CC0-1.0",
+        "--output",
+        "/tmp/landlord-blender-assets-JH8seK/ter_road_straight.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-JH8seK/ter_road_straight.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_roads",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/road-straight.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1,
+        "depth": 1,
+        "height": 0.02,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [0, 0, 0],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 4,
+        "depth": 4,
+        "height": 0.08
+      },
+      "worldSizeMeters": {
+        "x": 4,
+        "y": 4,
+        "z": 0.08
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
     "assetId": "bld_commercial_b",
     "kind": "building",
     "label": "bld_commercial_b",
@@ -2014,7 +2113,7 @@
       "y": 0.803
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-complete.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_commercial_b-complete.png",
       "width": 151,
       "height": 204,
       "sha256": "cedbe7c3dca86a722b19df11b59856eeaa8eeb53d00ae23e144350f4017491c8"
@@ -2054,8 +2153,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 5542.44,
-      "totalMs": 5776.91
+      "renderMs": 4770.56,
+      "totalMs": 4967.31
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -2083,9 +2182,9 @@
         "--state",
         "complete",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-complete.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_commercial_b-complete.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-complete.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_commercial_b-complete.json"
       ]
     },
     "source": {
@@ -2099,11 +2198,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -2135,7 +2230,7 @@
       "y": 0.803
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-construction.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_commercial_b-construction.png",
       "width": 151,
       "height": 204,
       "sha256": "cedbe7c3dca86a722b19df11b59856eeaa8eeb53d00ae23e144350f4017491c8"
@@ -2175,8 +2270,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 5177.66,
-      "totalMs": 5358.29
+      "renderMs": 5419.94,
+      "totalMs": 5629.73
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -2204,9 +2299,9 @@
         "--state",
         "construction",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-construction.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_commercial_b-construction.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-construction.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_commercial_b-construction.json"
       ]
     },
     "source": {
@@ -2220,11 +2315,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -2256,7 +2347,7 @@
       "y": 0.803
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-damaged.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_commercial_b-damaged.png",
       "width": 151,
       "height": 204,
       "sha256": "cedbe7c3dca86a722b19df11b59856eeaa8eeb53d00ae23e144350f4017491c8"
@@ -2296,8 +2387,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 5183.75,
-      "totalMs": 5422.22
+      "renderMs": 4996.92,
+      "totalMs": 5239.69
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -2325,9 +2416,9 @@
         "--state",
         "damaged",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-damaged.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_commercial_b-damaged.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-damaged.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_commercial_b-damaged.json"
       ]
     },
     "source": {
@@ -2341,11 +2432,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -2377,7 +2464,7 @@
       "y": 0.803
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-burning.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_commercial_b-burning.png",
       "width": 151,
       "height": 204,
       "sha256": "cedbe7c3dca86a722b19df11b59856eeaa8eeb53d00ae23e144350f4017491c8"
@@ -2417,8 +2504,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 5704.64,
-      "totalMs": 5899.52
+      "renderMs": 5622.32,
+      "totalMs": 5814.52
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -2446,9 +2533,9 @@
         "--state",
         "burning",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-burning.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_commercial_b-burning.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_b-burning.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_commercial_b-burning.json"
       ]
     },
     "source": {
@@ -2462,11 +2549,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -2498,7 +2581,7 @@
       "y": 0.6748
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-complete.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_residential_a-complete.png",
       "width": 190,
       "height": 142,
       "sha256": "e44464c95d70fe99eed9bb42de249e9d0dcf339daa989e57b0a62a8c710efcc1"
@@ -2538,8 +2621,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 4551.05,
-      "totalMs": 4763.24
+      "renderMs": 4182.43,
+      "totalMs": 4388.99
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -2567,9 +2650,9 @@
         "--state",
         "complete",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-complete.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_a-complete.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-complete.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_a-complete.json"
       ]
     },
     "source": {
@@ -2583,11 +2666,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -2619,7 +2698,7 @@
       "y": 0.6748
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-construction.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_residential_a-construction.png",
       "width": 190,
       "height": 142,
       "sha256": "e44464c95d70fe99eed9bb42de249e9d0dcf339daa989e57b0a62a8c710efcc1"
@@ -2659,8 +2738,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 4375.34,
-      "totalMs": 4568.6
+      "renderMs": 4585.86,
+      "totalMs": 4808.66
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -2688,9 +2767,9 @@
         "--state",
         "construction",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-construction.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_a-construction.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-construction.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_a-construction.json"
       ]
     },
     "source": {
@@ -2704,11 +2783,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -2740,7 +2815,7 @@
       "y": 0.6748
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-damaged.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_residential_a-damaged.png",
       "width": 190,
       "height": 142,
       "sha256": "e44464c95d70fe99eed9bb42de249e9d0dcf339daa989e57b0a62a8c710efcc1"
@@ -2780,8 +2855,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 5346.23,
-      "totalMs": 5543.79
+      "renderMs": 4804.69,
+      "totalMs": 4987.83
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -2809,9 +2884,9 @@
         "--state",
         "damaged",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-damaged.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_a-damaged.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-damaged.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_a-damaged.json"
       ]
     },
     "source": {
@@ -2825,11 +2900,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -2861,7 +2932,7 @@
       "y": 0.6748
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-burning.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_residential_a-burning.png",
       "width": 190,
       "height": 142,
       "sha256": "e44464c95d70fe99eed9bb42de249e9d0dcf339daa989e57b0a62a8c710efcc1"
@@ -2901,8 +2972,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 4411.85,
-      "totalMs": 4603.76
+      "renderMs": 4399.89,
+      "totalMs": 4561.16
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -2930,9 +3001,9 @@
         "--state",
         "burning",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-burning.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_a-burning.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_a-burning.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_a-burning.json"
       ]
     },
     "source": {
@@ -2946,11 +3017,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -2969,6 +3036,351 @@
   },
   {
     "schemaVersion": 1,
+    "assetId": "veh_sedan",
+    "kind": "vehicle",
+    "label": "veh_sedan",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.756
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-JH8seK/veh_sedan.png",
+      "width": 215,
+      "height": 161,
+      "sha256": "d1a101e4137ac853b3d5f58cb3ef3e6a6652f03e87f056d776d297ec49991c59"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 430,
+        "height": 322,
+        "offsetX": 41,
+        "offsetY": 68
+      },
+      "final": {
+        "width": 215,
+        "height": 161
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_car_kit via sedan.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 4
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 4955.43,
+      "totalMs": 5174.04
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "veh_sedan",
+        "--kind",
+        "vehicle",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/sedan.glb",
+        "--unit-scale",
+        "1.3",
+        "--ortho-scale",
+        "4",
+        "--target-z",
+        "0.5",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_car_kit",
+        "--license",
+        "CC0-1.0",
+        "--output",
+        "/tmp/landlord-blender-assets-JH8seK/veh_sedan.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-JH8seK/veh_sedan.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_car_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/sedan.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1.5,
+        "depth": 2.55,
+        "height": 1.3,
+        "minZ": 0
+      },
+      "importScale": 1.3,
+      "importOffset": [0, -0.0325, 0],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 1.95,
+        "depth": 3.315,
+        "height": 1.69
+      },
+      "worldSizeMeters": {
+        "x": 1.95,
+        "y": 3.315,
+        "z": 1.69
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "prp_tree_detailed",
+    "kind": "prop",
+    "label": "prp_tree_detailed",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.4505,
+      "y": 0.9678
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-JH8seK/prp_tree_detailed.png",
+      "width": 101,
+      "height": 168,
+      "sha256": "c2837a68e5950e396bf33905ed4f880b3ac255f0affa1e4c7bcbd7ba7bc545d2"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 202,
+        "height": 336,
+        "offsetX": 165,
+        "offsetY": 86
+      },
+      "final": {
+        "width": 101,
+        "height": 168
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_nature_kit via tree_detailed.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 3699.04,
+      "totalMs": 3885.3
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "prp_tree_detailed",
+        "--kind",
+        "prop",
+        "--source",
+        "gltf:blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_detailed.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8",
+        "--target-z",
+        "2.8",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_nature_kit",
+        "--license",
+        "CC0-1.0",
+        "--output",
+        "/tmp/landlord-blender-assets-JH8seK/prp_tree_detailed.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-JH8seK/prp_tree_detailed.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_detailed.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 0.8471,
+        "depth": 0.7616,
+        "height": 1.3324,
+        "minZ": -0.05
+      },
+      "importScale": 4,
+      "importOffset": [0.0357, 0.0347, 0.2],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 3.3885,
+        "depth": 3.0464,
+        "height": 5.3297
+      },
+      "worldSizeMeters": {
+        "x": 3.3885,
+        "y": 3.0464,
+        "z": 5.3297
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "prp_traffic_light",
+    "kind": "prop",
+    "label": "prp_traffic_light",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.4531,
+      "y": 0.9285
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-JH8seK/prp_traffic_light.png",
+      "width": 32,
+      "height": 127,
+      "sha256": "f90cfe76b4646f60ac4ebf880a8b655a59f17a7f3a484a46702a1d51bfc1300c"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 64,
+        "height": 254,
+        "offsetX": 227,
+        "offsetY": 131
+      },
+      "final": {
+        "width": 32,
+        "height": 127
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_roads via traffic-light.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 4
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 2661.41,
+      "totalMs": 2818.12
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "prp_traffic_light",
+        "--kind",
+        "prop",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/traffic-light.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "4",
+        "--target-z",
+        "1",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_roads",
+        "--license",
+        "CC0-1.0",
+        "--output",
+        "/tmp/landlord-blender-assets-JH8seK/prp_traffic_light.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-JH8seK/prp_traffic_light.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_roads",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/traffic-light.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 0.1176,
+        "depth": 0.09,
+        "height": 0.515,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [0.0552, 0, 0],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 0.4704,
+        "depth": 0.36,
+        "height": 2.06
+      },
+      "worldSizeMeters": {
+        "x": 0.4704,
+        "y": 0.36,
+        "z": 2.06
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
     "assetId": "bld_commercial_c",
     "kind": "building",
     "label": "bld_commercial_c",
@@ -2982,7 +3394,7 @@
       "y": 0.7443
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-complete.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_commercial_c-complete.png",
       "width": 152,
       "height": 163,
       "sha256": "f09c3cccea36669320718d9f62c321ad0cadcfae53085e8e2e20efe2fa5de685"
@@ -3022,8 +3434,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 4945.4,
-      "totalMs": 5158.54
+      "renderMs": 5220.78,
+      "totalMs": 5438.54
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -3051,9 +3463,9 @@
         "--state",
         "complete",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-complete.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_commercial_c-complete.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-complete.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_commercial_c-complete.json"
       ]
     },
     "source": {
@@ -3067,11 +3479,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -3103,7 +3511,7 @@
       "y": 0.7443
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-construction.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_commercial_c-construction.png",
       "width": 152,
       "height": 163,
       "sha256": "f09c3cccea36669320718d9f62c321ad0cadcfae53085e8e2e20efe2fa5de685"
@@ -3143,8 +3551,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 4672.49,
-      "totalMs": 4853.45
+      "renderMs": 4616.27,
+      "totalMs": 4783.63
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -3172,9 +3580,9 @@
         "--state",
         "construction",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-construction.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_commercial_c-construction.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-construction.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_commercial_c-construction.json"
       ]
     },
     "source": {
@@ -3188,11 +3596,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -3224,7 +3628,7 @@
       "y": 0.7443
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-damaged.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_commercial_c-damaged.png",
       "width": 152,
       "height": 163,
       "sha256": "f09c3cccea36669320718d9f62c321ad0cadcfae53085e8e2e20efe2fa5de685"
@@ -3264,8 +3668,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 4511.93,
-      "totalMs": 4734.68
+      "renderMs": 4489.75,
+      "totalMs": 4693.45
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -3293,9 +3697,9 @@
         "--state",
         "damaged",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-damaged.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_commercial_c-damaged.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-damaged.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_commercial_c-damaged.json"
       ]
     },
     "source": {
@@ -3309,11 +3713,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -3345,7 +3745,7 @@
       "y": 0.7443
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-burning.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_commercial_c-burning.png",
       "width": 152,
       "height": 163,
       "sha256": "f09c3cccea36669320718d9f62c321ad0cadcfae53085e8e2e20efe2fa5de685"
@@ -3385,8 +3785,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 5155.82,
-      "totalMs": 5341.38
+      "renderMs": 4973.23,
+      "totalMs": 5149.74
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -3414,9 +3814,9 @@
         "--state",
         "burning",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-burning.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_commercial_c-burning.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_commercial_c-burning.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_commercial_c-burning.json"
       ]
     },
     "source": {
@@ -3430,11 +3830,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -3466,7 +3862,7 @@
       "y": 0.6857
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-complete.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_residential_b-complete.png",
       "width": 230,
       "height": 174,
       "sha256": "d14a742cb52683dda9bb1044c6cd6c4df4a4e671b0ff9b275336f12e770ee0fa"
@@ -3506,8 +3902,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 5035.1,
-      "totalMs": 5246.12
+      "renderMs": 4770.92,
+      "totalMs": 4951.78
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -3535,9 +3931,9 @@
         "--state",
         "complete",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-complete.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_b-complete.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-complete.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_b-complete.json"
       ]
     },
     "source": {
@@ -3551,11 +3947,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -3587,7 +3979,7 @@
       "y": 0.6857
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-construction.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_residential_b-construction.png",
       "width": 230,
       "height": 174,
       "sha256": "d14a742cb52683dda9bb1044c6cd6c4df4a4e671b0ff9b275336f12e770ee0fa"
@@ -3627,8 +4019,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 5688.43,
-      "totalMs": 5914.63
+      "renderMs": 5134.34,
+      "totalMs": 5373.27
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -3656,9 +4048,9 @@
         "--state",
         "construction",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-construction.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_b-construction.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-construction.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_b-construction.json"
       ]
     },
     "source": {
@@ -3672,11 +4064,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -3708,7 +4096,7 @@
       "y": 0.6857
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-damaged.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_residential_b-damaged.png",
       "width": 230,
       "height": 174,
       "sha256": "d14a742cb52683dda9bb1044c6cd6c4df4a4e671b0ff9b275336f12e770ee0fa"
@@ -3748,8 +4136,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 5080.45,
-      "totalMs": 5301.45
+      "renderMs": 5578.8,
+      "totalMs": 5762.48
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -3777,9 +4165,9 @@
         "--state",
         "damaged",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-damaged.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_b-damaged.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-damaged.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_b-damaged.json"
       ]
     },
     "source": {
@@ -3793,11 +4181,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -3829,7 +4213,7 @@
       "y": 0.6857
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-burning.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_residential_b-burning.png",
       "width": 230,
       "height": 174,
       "sha256": "d14a742cb52683dda9bb1044c6cd6c4df4a4e671b0ff9b275336f12e770ee0fa"
@@ -3869,8 +4253,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 5222.06,
-      "totalMs": 5430.3
+      "renderMs": 5039.76,
+      "totalMs": 5248.06
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -3898,9 +4282,9 @@
         "--state",
         "burning",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-burning.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_b-burning.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_b-burning.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_b-burning.json"
       ]
     },
     "source": {
@@ -3914,11 +4298,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -3950,7 +4330,7 @@
       "y": 0.7167
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-complete.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_residential_c-complete.png",
       "width": 187,
       "height": 163,
       "sha256": "79c773d6fc1e9c5c8496c806c848727dfd5270551d75e027565c1904f161b98d"
@@ -3990,8 +4370,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 4846.31,
-      "totalMs": 5080
+      "renderMs": 4410.45,
+      "totalMs": 4599.82
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -4019,9 +4399,9 @@
         "--state",
         "complete",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-complete.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_c-complete.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-complete.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_c-complete.json"
       ]
     },
     "source": {
@@ -4035,11 +4415,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -4071,7 +4447,7 @@
       "y": 0.7167
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-construction.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_residential_c-construction.png",
       "width": 187,
       "height": 163,
       "sha256": "79c773d6fc1e9c5c8496c806c848727dfd5270551d75e027565c1904f161b98d"
@@ -4111,8 +4487,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 5042.73,
-      "totalMs": 5236.95
+      "renderMs": 5220.91,
+      "totalMs": 5455.87
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -4140,9 +4516,9 @@
         "--state",
         "construction",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-construction.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_c-construction.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-construction.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_c-construction.json"
       ]
     },
     "source": {
@@ -4156,11 +4532,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -4192,7 +4564,7 @@
       "y": 0.7167
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-damaged.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_residential_c-damaged.png",
       "width": 187,
       "height": 163,
       "sha256": "79c773d6fc1e9c5c8496c806c848727dfd5270551d75e027565c1904f161b98d"
@@ -4232,8 +4604,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 4395.66,
-      "totalMs": 4597.1
+      "renderMs": 4349.34,
+      "totalMs": 4541.28
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -4261,9 +4633,9 @@
         "--state",
         "damaged",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-damaged.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_c-damaged.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-damaged.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_c-damaged.json"
       ]
     },
     "source": {
@@ -4277,11 +4649,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -4313,7 +4681,7 @@
       "y": 0.7167
     },
     "image": {
-      "path": "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-burning.png",
+      "path": "/tmp/landlord-blender-assets-JH8seK/bld_residential_c-burning.png",
       "width": 187,
       "height": 163,
       "sha256": "79c773d6fc1e9c5c8496c806c848727dfd5270551d75e027565c1904f161b98d"
@@ -4353,8 +4721,8 @@
       "colorMode": "RGBA",
       "colorDepth": 8,
       "transparentFilm": true,
-      "renderMs": 4958.37,
-      "totalMs": 5201.57
+      "renderMs": 4372.57,
+      "totalMs": 4565.72
     },
     "reproducibility": {
       "script": "tools/art-pipeline/blender/runtime_asset.py",
@@ -4382,9 +4750,9 @@
         "--state",
         "burning",
         "--output",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-burning.png",
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_c-burning.png",
         "--metadata",
-        "/tmp/landlord-blender-assets-o2N1k0/bld_residential_c-burning.json"
+        "/tmp/landlord-blender-assets-JH8seK/bld_residential_c-burning.json"
       ]
     },
     "source": {
@@ -4398,11 +4766,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -4416,6 +4780,1271 @@
         "x": 5.1455,
         "y": 4.1126,
         "z": 4.1342
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "ter_road_corner",
+    "kind": "terrain",
+    "label": "ter_road_corner",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.7035,
+      "y": 0.5148
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-JH8seK/ter_road_corner.png",
+      "width": 172,
+      "height": 125,
+      "sha256": "da0166c40782a3b255e870bf329637f892266c8d7fb2cec1e6fe56c43137e5c4"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 344,
+        "height": 250,
+        "offsetX": 14,
+        "offsetY": 131
+      },
+      "final": {
+        "width": 172,
+        "height": 125
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_roads via road-bend.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 6
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 4202.64,
+      "totalMs": 4378.74
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "ter_road_corner",
+        "--kind",
+        "terrain",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/road-bend.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "6",
+        "--target-z",
+        "0.05",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_roads",
+        "--license",
+        "CC0-1.0",
+        "--output",
+        "/tmp/landlord-blender-assets-JH8seK/ter_road_corner.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-JH8seK/ter_road_corner.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_roads",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/road-bend.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1,
+        "depth": 1,
+        "height": 0.02,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [0, 0, 0],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 4,
+        "depth": 4,
+        "height": 0.08
+      },
+      "worldSizeMeters": {
+        "x": 4,
+        "y": 4,
+        "z": 0.08
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "ter_road_intersection",
+    "kind": "terrain",
+    "label": "ter_road_intersection",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.5148
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-JH8seK/ter_road_intersection.png",
+      "width": 242,
+      "height": 125,
+      "sha256": "ec2677cb7d30932d699fe585b92daa47c21763be7504edf05432046fb714af47"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 484,
+        "height": 250,
+        "offsetX": 14,
+        "offsetY": 131
+      },
+      "final": {
+        "width": 242,
+        "height": 125
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_roads via road-intersection.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 6
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 4295.82,
+      "totalMs": 4521.5
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "ter_road_intersection",
+        "--kind",
+        "terrain",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/road-intersection.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "6",
+        "--target-z",
+        "0.05",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_roads",
+        "--license",
+        "CC0-1.0",
+        "--output",
+        "/tmp/landlord-blender-assets-JH8seK/ter_road_intersection.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-JH8seK/ter_road_intersection.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_roads",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/road-intersection.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1,
+        "depth": 1,
+        "height": 0.02,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [0, 0, 0],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 4,
+        "depth": 4,
+        "height": 0.08
+      },
+      "worldSizeMeters": {
+        "x": 4,
+        "y": 4,
+        "z": 0.08
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "prp_street_light",
+    "kind": "prop",
+    "label": "prp_street_light",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.9265
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-JH8seK/prp_street_light.png",
+      "width": 41,
+      "height": 141,
+      "sha256": "df1a56c0f97ca5b567a673498c0899fd70622e87ddc6ec67741481edf539c32f"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 82,
+        "height": 282,
+        "offsetX": 215,
+        "offsetY": 110
+      },
+      "final": {
+        "width": 41,
+        "height": 141
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_roads via light-curved.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 3351.16,
+      "totalMs": 3517.12
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "prp_street_light",
+        "--kind",
+        "prop",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "5",
+        "--target-z",
+        "1.3",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_roads",
+        "--license",
+        "CC0-1.0",
+        "--output",
+        "/tmp/landlord-blender-assets-JH8seK/prp_street_light.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-JH8seK/prp_street_light.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_roads",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 0.05,
+        "depth": 0.225,
+        "height": 0.675,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [0, -0.35, 0],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 0.2,
+        "depth": 0.9,
+        "height": 2.7
+      },
+      "worldSizeMeters": {
+        "x": 0.2,
+        "y": 0.9,
+        "z": 2.7
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "prp_bench",
+    "kind": "prop",
+    "label": "prp_bench",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.7143
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-JH8seK/prp_bench.png",
+      "width": 121,
+      "height": 84,
+      "sha256": "5ec44e40b487fa0b9eb1b067c1d909c5743b668c9ab0bc8ce52f30be5490719b"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 242,
+        "height": 168,
+        "offsetX": 135,
+        "offsetY": 136
+      },
+      "final": {
+        "width": 121,
+        "height": 84
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kaykit_city_builder_bits via bench.gltf",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 3
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 2986.74,
+      "totalMs": 3144.62
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "prp_bench",
+        "--kind",
+        "prop",
+        "--source",
+        "gltf:blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "3",
+        "--target-z",
+        "0",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kaykit_city_builder_bits",
+        "--license",
+        "CC0-1.0",
+        "--output",
+        "/tmp/landlord-blender-assets-JH8seK/prp_bench.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-JH8seK/prp_bench.json"
+      ]
+    },
+    "source": {
+      "id": "src_kaykit_city_builder_bits",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
+      "kind": "gltf",
+      "sourceBounds": {
+        "width": 0.4,
+        "depth": 0.15,
+        "height": 0.1,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [0, 0, 0],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 1.6,
+        "depth": 0.6,
+        "height": 0.4
+      },
+      "worldSizeMeters": {
+        "x": 1.6,
+        "y": 0.6,
+        "z": 0.4
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "prp_trash_can",
+    "kind": "prop",
+    "label": "prp_trash_can",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5079,
+      "y": 0.7387
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-JH8seK/prp_trash_can.png",
+      "width": 127,
+      "height": 111,
+      "sha256": "1dcae1f9aa3acc2b7e3137bcad7b2add2e67b7e0251054967a107493b694fa18"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 254,
+        "height": 222,
+        "offsetX": 127,
+        "offsetY": 92
+      },
+      "final": {
+        "width": 127,
+        "height": 111
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_roads via dumpster.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 3
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 3504.03,
+      "totalMs": 3659.92
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "prp_trash_can",
+        "--kind",
+        "prop",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/dumpster.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "3",
+        "--target-z",
+        "0",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_roads",
+        "--license",
+        "CC0-1.0",
+        "--output",
+        "/tmp/landlord-blender-assets-JH8seK/prp_trash_can.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-JH8seK/prp_trash_can.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_roads",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/dumpster.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 0.275,
+        "depth": 0.37,
+        "height": 0.2094,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [-0.03, 0, 0],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 1.1,
+        "depth": 1.48,
+        "height": 0.8378
+      },
+      "worldSizeMeters": {
+        "x": 1.1,
+        "y": 1.48,
+        "z": 0.8378
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "veh_taxi",
+    "kind": "vehicle",
+    "label": "veh_taxi",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.7468
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-JH8seK/veh_taxi.png",
+      "width": 226,
+      "height": 167,
+      "sha256": "6dc565b0b6c148deefe5625b604e1045ee56c546bb7c7ecf48a66f44b83fd384"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 452,
+        "height": 334,
+        "offsetX": 30,
+        "offsetY": 62
+      },
+      "final": {
+        "width": 226,
+        "height": 167
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_car_kit via taxi.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 4
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 5603.45,
+      "totalMs": 5784.21
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "veh_taxi",
+        "--kind",
+        "vehicle",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/taxi.glb",
+        "--unit-scale",
+        "1.3",
+        "--ortho-scale",
+        "4",
+        "--target-z",
+        "0.5",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_car_kit",
+        "--license",
+        "CC0-1.0",
+        "--output",
+        "/tmp/landlord-blender-assets-JH8seK/veh_taxi.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-JH8seK/veh_taxi.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_car_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/taxi.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1.5,
+        "depth": 2.75,
+        "height": 1.5,
+        "minZ": 0
+      },
+      "importScale": 1.3,
+      "importOffset": [0, -0.0325, 0],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 1.95,
+        "depth": 3.575,
+        "height": 1.95
+      },
+      "worldSizeMeters": {
+        "x": 1.95,
+        "y": 3.575,
+        "z": 1.95
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "veh_truck",
+    "kind": "vehicle",
+    "label": "veh_truck",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.717
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-JH8seK/veh_truck.png",
+      "width": 238,
+      "height": 160,
+      "sha256": "cf96402ab7cc5ea63171c44ee799c18f20aa8ba64dd76196c1b401ad67b7100a"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 476,
+        "height": 320,
+        "offsetX": 18,
+        "offsetY": 82
+      },
+      "final": {
+        "width": 238,
+        "height": 160
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_car_kit via truck.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 4
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 4758,
+      "totalMs": 4954.88
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "veh_truck",
+        "--kind",
+        "vehicle",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/truck.glb",
+        "--unit-scale",
+        "1.3",
+        "--ortho-scale",
+        "4",
+        "--target-z",
+        "0.5",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_car_kit",
+        "--license",
+        "CC0-1.0",
+        "--output",
+        "/tmp/landlord-blender-assets-JH8seK/veh_truck.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-JH8seK/veh_truck.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_car_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/truck.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 1.5,
+        "depth": 2.95,
+        "height": 1.3,
+        "minZ": 0
+      },
+      "importScale": 1.3,
+      "importOffset": [0, -0.0325, 0],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 1.95,
+        "depth": 3.835,
+        "height": 1.69
+      },
+      "worldSizeMeters": {
+        "x": 1.95,
+        "y": 3.835,
+        "z": 1.69
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "prp_tree_oak",
+    "kind": "prop",
+    "label": "prp_tree_oak",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.9171
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-JH8seK/prp_tree_oak.png",
+      "width": 98,
+      "height": 170,
+      "sha256": "7c1a613f3404ada923ba5ec150467bac6b1b640cad9ad563f287deb11ccacbbc"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 196,
+        "height": 340,
+        "offsetX": 158,
+        "offsetY": 92
+      },
+      "final": {
+        "width": 98,
+        "height": 170
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_nature_kit via tree_oak.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 7.5
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 3918.11,
+      "totalMs": 4141.95
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "prp_tree_oak",
+        "--kind",
+        "prop",
+        "--source",
+        "gltf:blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_oak.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "7.5",
+        "--target-z",
+        "2.5",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_nature_kit",
+        "--license",
+        "CC0-1.0",
+        "--output",
+        "/tmp/landlord-blender-assets-JH8seK/prp_tree_oak.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-JH8seK/prp_tree_oak.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_oak.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 0.6406,
+        "depth": 0.7396,
+        "height": 1.2262,
+        "minZ": -0.05
+      },
+      "importScale": 4,
+      "importOffset": [0, 0, 0.2],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 2.5622,
+        "depth": 2.9586,
+        "height": 4.905
+      },
+      "worldSizeMeters": {
+        "x": 2.5622,
+        "y": 2.9586,
+        "z": 4.905
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "prp_tree_pine",
+    "kind": "prop",
+    "label": "prp_tree_pine",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.9589
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-JH8seK/prp_tree_pine.png",
+      "width": 69,
+      "height": 179,
+      "sha256": "9d47dfcb643ef492202771dbac67b198d9c1ca3cade5fbf3e7b761f4d770af24"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 138,
+        "height": 358,
+        "offsetX": 187,
+        "offsetY": 79
+      },
+      "final": {
+        "width": 69,
+        "height": 179
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_nature_kit via tree_pineDefaultA.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 8
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 3236.65,
+      "totalMs": 3393.9
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "prp_tree_pine",
+        "--kind",
+        "prop",
+        "--source",
+        "gltf:blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_pineDefaultA.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "8",
+        "--target-z",
+        "3",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_nature_kit",
+        "--license",
+        "CC0-1.0",
+        "--output",
+        "/tmp/landlord-blender-assets-JH8seK/prp_tree_pine.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-JH8seK/prp_tree_pine.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_pineDefaultA.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 0.532,
+        "depth": 0.532,
+        "height": 1.5458,
+        "minZ": -0.05
+      },
+      "importScale": 4,
+      "importOffset": [0, 0, 0.2],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 2.1278,
+        "depth": 2.1278,
+        "height": 6.1833
+      },
+      "worldSizeMeters": {
+        "x": 2.1278,
+        "y": 2.1278,
+        "z": 6.1833
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "prp_construction_barrier",
+    "kind": "prop",
+    "label": "prp_construction_barrier",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.7237
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-JH8seK/prp_construction_barrier.png",
+      "width": 83,
+      "height": 76,
+      "sha256": "c47ff3d310537593c26d90202e3d4a971f463d92ab62605daec6f5962226d9f7"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 166,
+        "height": 152,
+        "offsetX": 173,
+        "offsetY": 146
+      },
+      "final": {
+        "width": 83,
+        "height": 76
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_roads via construction-barrier.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 3
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 2961.22,
+      "totalMs": 3136.94
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "prp_construction_barrier",
+        "--kind",
+        "prop",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/construction-barrier.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "3",
+        "--target-z",
+        "0",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_roads",
+        "--license",
+        "CC0-1.0",
+        "--output",
+        "/tmp/landlord-blender-assets-JH8seK/prp_construction_barrier.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-JH8seK/prp_construction_barrier.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_roads",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/construction-barrier.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 0.1355,
+        "depth": 0.225,
+        "height": 0.13,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [0, 0, 0],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 0.542,
+        "depth": 0.9,
+        "height": 0.52
+      },
+      "worldSizeMeters": {
+        "x": 0.542,
+        "y": 0.9,
+        "z": 0.52
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "prp_construction_cone",
+    "kind": "prop",
+    "label": "prp_construction_cone",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.7821
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-JH8seK/prp_construction_cone.png",
+      "width": 32,
+      "height": 39,
+      "sha256": "c443819fb93acda022c532b2eeb7734d4901eb6800b3a08904c54e3135342a55"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 64,
+        "height": 78,
+        "offsetX": 224,
+        "offsetY": 195
+      },
+      "final": {
+        "width": 32,
+        "height": 39
+      }
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kenney_city_roads via construction-cone.glb",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 3
+    },
+    "palette": "graphic_civic",
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 3067.28,
+      "totalMs": 3263.75
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "prp_construction_cone",
+        "--kind",
+        "prop",
+        "--source",
+        "glb:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/construction-cone.glb",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "3",
+        "--target-z",
+        "0",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kenney_city_roads",
+        "--license",
+        "CC0-1.0",
+        "--output",
+        "/tmp/landlord-blender-assets-JH8seK/prp_construction_cone.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-JH8seK/prp_construction_cone.json"
+      ]
+    },
+    "source": {
+      "id": "src_kenney_city_roads",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/construction-cone.glb",
+      "kind": "glb",
+      "sourceBounds": {
+        "width": 0.075,
+        "depth": 0.075,
+        "height": 0.0938,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [0, 0, 0],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 0.3,
+        "depth": 0.3,
+        "height": 0.375
+      },
+      "worldSizeMeters": {
+        "x": 0.3,
+        "y": 0.3,
+        "z": 0.375
       }
     }
   }

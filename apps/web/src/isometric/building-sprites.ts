@@ -2,7 +2,6 @@ import {
   type AssetImageV1,
   type BuildingAssetState,
   type BuildingAssetV1,
-  type BuildingType,
   type CharacterAnimation,
   type CharacterAssetV1,
   type GridCell,
@@ -24,7 +23,7 @@ export function buildingAssetStateFor(
   return condition < 60 ? "damaged" : "complete";
 }
 
-export function spriteKeyFor(type: BuildingType, state: BuildingAssetState): string {
+export function spriteKeyFor(type: string, state: BuildingAssetState): string {
   return `building-${type}-${state}`;
 }
 
@@ -92,11 +91,22 @@ export function animationFrameFor(
   return frames[index]!;
 }
 
-export function assetFor(
-  manifest: RuntimeAssetManifestV1,
-  type: BuildingType,
-): BuildingAssetV1 | null {
+export function assetFor(manifest: RuntimeAssetManifestV1, type: string): BuildingAssetV1 | null {
   return manifest.buildings[type] ?? null;
+}
+
+/** Lado de la celda lógica en metros: las losetas Kenney que definen el grid miden 4 m. */
+export const CELL_METERS = 4;
+
+/**
+ * Escala que lleva un render Blender a la celda isométrica. La cámara del pack declara su densidad
+ * (`pixelsPerMeter`); el grid del juego mide la diagonal de una celda de 4 m como `tileWidth` px.
+ * Los assets procedurales ya están dibujados a esa escala y no declaran densidad.
+ */
+export function spriteScaleFor(asset: { pixelsPerMeter?: number }, tileWidth: number): number {
+  if (!asset.pixelsPerMeter) return 1;
+  const gamePixelsPerMeter = tileWidth / (CELL_METERS * Math.SQRT2);
+  return gamePixelsPerMeter / asset.pixelsPerMeter;
 }
 
 /** Origen normalizado listo para `setOrigin`: el pivote es el punto de suelo del sprite. */

@@ -2,12 +2,12 @@ import Phaser from "phaser";
 import type {
   BuildingAssetState,
   BuildingAssetV1,
-  BuildingType,
   RuntimeAssetManifestV1,
   ViewProjectionV1,
 } from "@landlord/shared";
 import runtimeAssets from "../generated/runtime-assets.json";
 import runtimeAssetsBlender from "../generated/runtime-assets-blender.json";
+import type { VisualSliceLayout } from "../visual-slice/layout";
 import {
   assetFor,
   buildingAssetStateFor,
@@ -16,6 +16,7 @@ import {
   originFromPivot,
   selectBuildingTextureKey,
   spriteKeyFor,
+  spriteScaleFor,
 } from "./building-sprites";
 import {
   gridToScreen,
@@ -27,9 +28,6 @@ import {
 } from "./coordinates";
 
 const COLORS = {
-  tile: 0x314158,
-  tileAlternate: 0x384b68,
-  outline: 0x536b8b,
   selected: 0xf2c14e,
   parcelAvailable: 0x7f8fa6,
   parcelPlayer: 0x4db6ac,
@@ -42,8 +40,26 @@ const COLORS = {
 
 const STRUCTURE_TEXTURE_KEY = "benchmark-structure-marker";
 const AGENT_TEXTURE_KEY = "benchmark-agent-marker";
+const TILE_TEXTURE_KEY = "district-ground-tiles";
+const SLICE_SHADOW_TEXTURE_KEY = "slice-contact-shadow";
+/** Las capas de terreno viven por debajo de cualquier objeto con depth isométrico. */
+const TERRAIN_DEPTH = 100;
 const ASSETS = runtimeAssets as RuntimeAssetManifestV1;
 const ASSETS_BLENDER = runtimeAssetsBlender as RuntimeAssetManifestV1;
+
+/** Las piezas Kenney están modeladas a escala pequeña; el slice las lleva a presencia de calle. */
+const SLICE_BUILDING_SCALE = 1.45;
+/** Asfalto más oscuro que el gris claro del render base, para acercarlo a Graphic Civic. */
+const SLICE_TERRAIN_TINT = 0xaab6c8;
+/** Diminuto enfriado del catálogo Kenney para integrarlo con el fondo nocturno. */
+const SLICE_SCENERY_TINT = 0xe2e6ec;
+
+export type IsometricSceneOptions = {
+  /** Capa de presentación del Visual Slice; no altera la simulación. */
+  visualSlice?: VisualSliceLayout;
+  /** Personajes de la capa de presentación (`?characters=1`). */
+  sliceCharacters?: boolean;
+};
 
 type CameraTestApi = {
   configure(camera: { zoom: number; scrollX: number; scrollY: number }): void;
@@ -51,11 +67,14 @@ type CameraTestApi = {
   getCellScreenPoint(cell: GridCell): ScreenPoint;
   getWorldPoint(point: ScreenPoint): ScreenPoint;
   getSelectedCell(): GridCell | null;
+  centerOnCell(cell: GridCell): void;
 };
 
 declare global {
   interface Window {
     __landlordCameraTest?: CameraTestApi;
+    __visualSliceReady?: boolean;
+    __visualSliceObjects?: number;
   }
 }
 
@@ -63,6 +82,8 @@ export type MapOverlay = "ownership" | "profitability" | "condition" | "zoning" 
 
 export class IsometricSpikeScene extends Phaser.Scene {
   private readonly layout: IsometricLayout = REFERENCE_LAYOUT;
+  private readonly sliceLayout: VisualSliceLayout | undefined;
+  private readonly sliceCharacters: boolean;
   private readonly screenCenters: ScreenPoint[] = [];
   private mapGraphics?: Phaser.GameObjects.Graphics;
   private structureBlitter?: Phaser.GameObjects.Blitter;
@@ -70,6 +91,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private structureBobs: Phaser.GameObjects.Bob[] = [];
   private agentBobs: Phaser.GameObjects.Bob[] = [];
   private buildingSprites = new Map<string, Phaser.GameObjects.Image>();
+  private sliceObjects: Phaser.GameObjects.Image[] = [];
   private assetsReady = false;
   private debugText?: Phaser.GameObjects.Text;
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
@@ -79,33 +101,38 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private cellPickedListener?: (cell: GridCell) => void;
   private dragStart: { x: number; y: number; scrollX: number; scrollY: number } | null = null;
 
-  public constructor() {
+  public constructor(options: IsometricSceneOptions = {}) {
     super({ key: "IsometricSpikeScene" });
+    this.sliceLayout = options.visualSlice;
+    this.sliceCharacters = options.sliceCharacters ?? false;
   }
 
   public create(): void {
     this.buildScreenCenterCache();
-    const tileGraphics = this.add.graphics();
-    this.drawTiles(tileGraphics);
-    const staticMap = this.add.renderTexture(0, 0, 4096, 4096).setOrigin(0, 0);
-    staticMap.draw(tileGraphics);
-    tileGraphics.destroy();
+    this.bakeGroundTiles();
     this.mapGraphics = this.add.graphics().setDepth(20_000);
     this.createMarkerTexture(STRUCTURE_TEXTURE_KEY, 16, 16, "#d97757");
     this.createMarkerTexture(AGENT_TEXTURE_KEY, 4, 4, "#8fcae7");
     this.structureBlitter = this.add.blitter(0, 0, STRUCTURE_TEXTURE_KEY).setDepth(15_000);
     this.agentBlitter = this.add.blitter(0, 0, AGENT_TEXTURE_KEY).setDepth(15_000);
-    this.debugText = this.add
-      .text(16, 16, "cell: — | zoom: 1.00", {
-        color: "#f4f7fb",
-        fontFamily: "monospace",
-        fontSize: "14px",
-      })
-      .setScrollFactor(0)
-      .setDepth(1000);
+    if (!this.sliceLayout) {
+      this.debugText = this.add
+        .text(16, 16, "cell: — | zoom: 1.00", {
+          color: "#f4f7fb",
+          fontFamily: "monospace",
+          fontSize: "14px",
+        })
+        .setScrollFactor(0)
+        .setDepth(1000);
+    }
     this.drawOverlay();
     this.cameras.main.setZoom(1);
-    this.cameras.main.setBounds(0, 0, 4096, 4096);
+    if (this.sliceLayout) {
+      /** La cámara de captura debe poder centrar la microzona en cualquier zoom. */
+      this.cameras.main.setBounds(-4096, -4096, 16_384, 16_384);
+    } else {
+      this.cameras.main.setBounds(0, 0, 4096, 4096);
+    }
     this.installCameraTestHook();
     this.cursors = this.input.keyboard?.createCursorKeys();
     this.input.on("pointerdown", this.handlePointerDown, this);
@@ -146,31 +173,58 @@ export class IsometricSpikeScene extends Phaser.Scene {
     return `cell: ${selected} | zoom: ${this.cameras.main.zoom.toFixed(2)}`;
   }
 
-  private drawTiles(graphics: Phaser.GameObjects.Graphics): void {
-    const cells: GridCell[] = [];
-    for (let y = 0; y < this.layout.mapHeight; y += 1) {
-      for (let x = 0; x < this.layout.mapWidth; x += 1) cells.push({ x, y });
+  /**
+   * Hornea la retícula de losetas una sola vez en una CanvasTexture. Se pinta con Canvas 2D y no
+   * con Graphics: en Phaser 4 el horneado de Graphics (RenderTexture.draw / generateTexture) no
+   * resulta fiable y el suelo desaparecía de la escena, dejando edificios flotando en el vacío.
+   */
+  private bakeGroundTiles(): void {
+    const bounds = this.groundBounds();
+    if (!this.textures.exists(TILE_TEXTURE_KEY)) {
+      const texture = this.textures.createCanvas(TILE_TEXTURE_KEY, bounds.width, bounds.height);
+      if (texture) {
+        const context = texture.context;
+        const halfWidth = this.layout.tileWidth / 2;
+        const halfHeight = this.layout.tileHeight / 2;
+        const cells: GridCell[] = [];
+        for (let y = 0; y < this.layout.mapHeight; y += 1) {
+          for (let x = 0; x < this.layout.mapWidth; x += 1) cells.push({ x, y });
+        }
+        cells.sort(
+          (left, right) =>
+            left.x + left.y - (right.x + right.y) || left.y - right.y || left.x - right.x,
+        );
+        context.lineWidth = 1;
+        context.fillStyle = "#1f2a39";
+        context.fillRect(0, 0, bounds.width, bounds.height);
+        for (const cell of cells) {
+          const center = this.screenCenter(cell);
+          const x = center.x - bounds.x;
+          const y = center.y - bounds.y;
+          context.strokeStyle = "rgba(126, 148, 176, 0.03)";
+          context.beginPath();
+          context.moveTo(x, y - halfHeight);
+          context.lineTo(x + halfWidth, y);
+          context.lineTo(x, y + halfHeight);
+          context.lineTo(x - halfWidth, y);
+          context.closePath();
+          context.stroke();
+        }
+        texture.refresh();
+      }
     }
-    cells.sort(
-      (left, right) =>
-        left.x + left.y - (right.x + right.y) || left.y - right.y || left.x - right.x,
-    );
-    for (const cell of cells) {
-      const center = this.screenCenter(cell);
-      const halfWidth = this.layout.tileWidth / 2;
-      const halfHeight = this.layout.tileHeight / 2;
-      const color = (cell.x + cell.y) % 2 === 0 ? COLORS.tile : COLORS.tileAlternate;
-      graphics.fillStyle(color, 1);
-      graphics.lineStyle(1, COLORS.outline, 0.65);
-      graphics.beginPath();
-      graphics.moveTo(center.x, center.y - halfHeight);
-      graphics.lineTo(center.x + halfWidth, center.y);
-      graphics.lineTo(center.x, center.y + halfHeight);
-      graphics.lineTo(center.x - halfWidth, center.y);
-      graphics.closePath();
-      graphics.fillPath();
-      graphics.strokePath();
-    }
+    this.add.image(bounds.x, bounds.y, TILE_TEXTURE_KEY).setOrigin(0, 0).setDepth(0);
+  }
+
+  private groundBounds(): { x: number; y: number; width: number; height: number } {
+    const halfWidth = this.layout.tileWidth / 2;
+    const halfHeight = this.layout.tileHeight / 2;
+    return {
+      x: this.layout.origin.x - (this.layout.mapHeight - 1) * halfWidth - halfWidth,
+      y: this.layout.origin.y - halfHeight,
+      width: (this.layout.mapWidth + this.layout.mapHeight) * halfWidth,
+      height: (this.layout.mapWidth + this.layout.mapHeight) * halfHeight,
+    };
   }
 
   private drawOverlay(): void {
@@ -304,9 +358,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private async registerBuildingTextures(): Promise<void> {
     await this.registerTexturesFromBundle(ASSETS, "");
     await this.registerTexturesFromBundle(ASSETS_BLENDER, "blender-");
+    if (this.sliceCharacters) await this.registerSliceCharacterTextures();
     this.assetsReady = true;
     this.syncBuildingSprites();
     this.drawOverlay();
+    if (this.sliceLayout) this.renderVisualSlice();
   }
 
   private async registerTexturesFromBundle(
@@ -315,22 +371,174 @@ export class IsometricSpikeScene extends Phaser.Scene {
   ): Promise<void> {
     for (const [type, asset] of Object.entries(manifest.buildings)) {
       for (const [state, image] of Object.entries(asset.states)) {
-        const key = `${keyPrefix}${spriteKeyFor(type as BuildingType, state as BuildingAssetState)}`;
-        if (this.textures.exists(key)) continue;
-        const element = new Image();
-        element.src = image.src;
-        try {
-          await element.decode();
-        } catch {
-          continue;
-        }
-        if (!element.complete || element.naturalWidth === 0) continue;
-        const texture = this.textures.createCanvas(key, image.width, image.height);
-        if (!texture) continue;
-        texture.context.drawImage(element, 0, 0, image.width, image.height);
-        texture.refresh();
+        const key = `${keyPrefix}${spriteKeyFor(type, state as BuildingAssetState)}`;
+        await this.registerImageTexture(key, image.src, image.width, image.height);
       }
     }
+    for (const group of ["terrain", "props", "vehicles"] as const) {
+      // La ruta de gameplay sólo consume edificios; la escenografía se carga para el slice.
+      if (!this.sliceLayout) continue;
+      for (const [id, asset] of Object.entries(manifest[group] ?? {})) {
+        const key = `${keyPrefix}sprite-${id}`;
+        await this.registerImageTexture(
+          key,
+          asset.image.src,
+          asset.image.width,
+          asset.image.height,
+        );
+      }
+    }
+  }
+
+  /** Rasteriza un src (data URI o ruta) en una textura de Phaser; un fallo no bloquea al resto. */
+  private async registerImageTexture(
+    key: string,
+    src: string,
+    width: number,
+    height: number,
+  ): Promise<void> {
+    if (this.textures.exists(key)) return;
+    const element = new Image();
+    element.src = src;
+    try {
+      await element.decode();
+    } catch {
+      return;
+    }
+    if (!element.complete || element.naturalWidth === 0) return;
+    const texture = this.textures.createCanvas(key, width, height);
+    if (!texture) return;
+    texture.context.drawImage(element, 0, 0, width, height);
+    texture.refresh();
+  }
+
+  private async registerSliceCharacterTextures(): Promise<void> {
+    for (const [id, character] of Object.entries(ASSETS.characters)) {
+      for (const animation of ["idle", "walk"] as const) {
+        for (const [index, frame] of character.animations[animation].frames.entries()) {
+          await this.registerImageTexture(
+            `character-${id}-${animation}-${index}`,
+            frame.src,
+            frame.width,
+            frame.height,
+          );
+        }
+      }
+    }
+  }
+
+  /** Capa de presentación del Visual Slice: suelo, edificios, props, vehículos y personajes. */
+  private renderVisualSlice(): void {
+    const slice = this.sliceLayout;
+    if (!slice || !this.assetsReady) return;
+    for (const tile of slice.terrain) {
+      const key = `blender-sprite-${tile.asset}`;
+      const asset = ASSETS_BLENDER.terrain?.[tile.asset];
+      if (!asset || !this.textures.exists(key)) continue;
+      const center = this.screenCenter(tile.cell);
+      const image = this.add
+        .image(center.x, center.y, key)
+        .setOrigin(asset.pivot.x, asset.pivot.y)
+        .setScale(spriteScaleFor(asset, this.layout.tileWidth))
+        .setTint(SLICE_TERRAIN_TINT)
+        .setDepth(TERRAIN_DEPTH + tile.cell.x + tile.cell.y);
+      this.sliceObjects.push(image);
+    }
+    const blenderKeys = new Set(this.textures.getTextureKeys());
+    for (const building of slice.buildings) {
+      const asset = assetFor(ASSETS_BLENDER, building.type) ?? assetFor(ASSETS, building.type);
+      const proceduralKey = spriteKeyFor(building.type, building.state ?? "complete");
+      const key = selectBuildingTextureKey(proceduralKey, blenderKeys);
+      if (!asset || !this.textures.exists(key)) continue;
+      const center = gridToScreen(footprintCenter(building.cell, asset.footprint), this.layout);
+      const image = this.add
+        .image(center.x, center.y, key)
+        .setOrigin(asset.pivot.x, asset.pivot.y)
+        .setScale(spriteScaleFor(asset, this.layout.tileWidth) * SLICE_BUILDING_SCALE)
+        .setTint(SLICE_SCENERY_TINT)
+        .setFlipX(building.flipX ?? false)
+        .setDepth(depthForAsset(building.cell, asset.footprint));
+      this.sliceObjects.push(image);
+      this.addSliceShadow(image, center.x, center.y, depthForAsset(building.cell, asset.footprint));
+    }
+    for (const [group, placements] of [
+      ["props", slice.props],
+      ["vehicles", slice.vehicles],
+    ] as const) {
+      const assets = ASSETS_BLENDER[group] ?? {};
+      for (const placement of placements) {
+        const asset = assets[placement.asset];
+        const key = `blender-sprite-${placement.asset}`;
+        if (!asset || !this.textures.exists(key)) continue;
+        const center = gridToScreen(footprintCenter(placement.cell, asset.footprint), this.layout);
+        const depth = depthForAsset(placement.cell, asset.footprint);
+        const image = this.add
+          .image(center.x, center.y, key)
+          .setOrigin(asset.pivot.x, asset.pivot.y)
+          .setScale(
+            spriteScaleFor(asset, this.layout.tileWidth) *
+              ("scale" in placement ? (placement.scale ?? 1) : 1),
+          )
+          .setTint(SLICE_SCENERY_TINT)
+          .setFlipX(placement.flipX ?? false)
+          .setDepth(depth);
+        this.sliceObjects.push(image);
+        this.addSliceShadow(image, center.x, center.y, depth);
+      }
+    }
+    if (this.sliceCharacters) {
+      for (const character of slice.characters) {
+        const asset = ASSETS.characters["vecino_variante"];
+        const key = `character-vecino_variante-idle-${character.direction * 2}`;
+        if (!asset || !this.textures.exists(key)) continue;
+        const center = this.screenCenter(character.cell);
+        const image = this.add
+          .image(center.x, center.y, key)
+          .setOrigin(0.5, 0.94)
+          .setScale(0.7)
+          .setDepth(depthForAsset(character.cell, { width: 1, height: 1 }));
+        this.sliceObjects.push(image);
+        this.addSliceShadow(image, center.x, center.y, image.depth);
+      }
+    }
+    window.__visualSliceReady = true;
+    window.__visualSliceObjects = this.sliceObjects.length;
+  }
+
+  /**
+   * Sombra de contacto sutil: los renders Blender no traen plano de suelo, y sin ella los objetos
+   * parecen flotar sobre la loseta.
+   */
+  private addSliceShadow(
+    image: Phaser.GameObjects.Image,
+    x: number,
+    y: number,
+    depth: number,
+  ): void {
+    const key = this.ensureSliceShadowTexture();
+    if (!this.textures.exists(key)) return;
+    const width = Math.max(12, image.displayWidth * 0.95);
+    const shadow = this.add
+      .image(x - 6, y + 3, key)
+      .setOrigin(0.5, 0.5)
+      .setScale(width / 64, (width * 0.36) / 32)
+      .setAlpha(0.55)
+      .setDepth(depth - 0.5);
+    this.sliceObjects.push(shadow);
+  }
+
+  private ensureSliceShadowTexture(): string {
+    if (this.textures.exists(SLICE_SHADOW_TEXTURE_KEY)) return SLICE_SHADOW_TEXTURE_KEY;
+    const texture = this.textures.createCanvas(SLICE_SHADOW_TEXTURE_KEY, 64, 32);
+    if (!texture) return SLICE_SHADOW_TEXTURE_KEY;
+    const gradient = texture.context.createRadialGradient(32, 16, 2, 32, 16, 30);
+    gradient.addColorStop(0, "rgba(10, 16, 26, 0.55)");
+    gradient.addColorStop(0.55, "rgba(10, 16, 26, 0.3)");
+    gradient.addColorStop(1, "rgba(10, 16, 26, 0)");
+    texture.context.fillStyle = gradient;
+    texture.context.fillRect(0, 0, 64, 32);
+    texture.refresh();
+    return SLICE_SHADOW_TEXTURE_KEY;
   }
 
   /** Mantiene un sprite por edificio y sitio de obra, con pivote y depth derivados del manifiesto. */
@@ -575,6 +783,13 @@ export class IsometricSpikeScene extends Phaser.Scene {
         return { x: world.x, y: world.y };
       },
       getSelectedCell: () => (this.selectedCell ? { ...this.selectedCell } : null),
+      centerOnCell: (cell) => {
+        // Phaser hace zoom sobre el centro del viewport: el scroll es el mundo del borde
+        // superior izquierdo sin escalar, así que el centro cae en scroll + tamaño/2.
+        const world = gridToScreen(cell, this.layout);
+        camera.setScroll(world.x - camera.width / 2, world.y - camera.height / 2);
+        camera.preRender();
+      },
     };
     window.__landlordCameraTest = api;
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {

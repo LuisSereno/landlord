@@ -15,6 +15,7 @@
     "art:generate": "node scripts/generate-runtime-assets.mjs",
     "art:assets:check": "node scripts/generate-runtime-assets.mjs --check",
     "art:visual": "node scripts/art-visual-capture.mjs",
+    "art:slice:capture": "node scripts/visual-slice-capture.mjs",
     "art:profile": "node scripts/art-dense-profile.mjs",
     "art:blender": "node scripts/build-blender-assets.mjs",
     "art:blender:check": "node scripts/build-blender-assets.mjs --check",

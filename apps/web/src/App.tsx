@@ -13,10 +13,12 @@ import {
 import { SimulationWorkerClient, type ClientDiagnostic } from "./worker/client";
 import { BenchmarkApp } from "./BenchmarkApp";
 import { ArtLab } from "./ArtLab";
+import { VisualSlice } from "./VisualSlice";
 import { playFeedback } from "./audio/feedback";
 
 export function RootApp() {
   if (window.location.pathname === "/art-lab") return <ArtLab />;
+  if (window.location.pathname === "/visual-slice") return <VisualSlice />;
   return new URLSearchParams(window.location.search).get("benchmark") === "gate1-reference-v1" ? (
     <BenchmarkApp />
   ) : (

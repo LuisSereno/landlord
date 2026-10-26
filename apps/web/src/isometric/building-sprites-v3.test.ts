@@ -11,7 +11,7 @@ describe("WP4.15-V.a3 degradación por asset", () => {
 
   it("caso B: Blender ausente → se selecciona procedural sin error", () => {
     const proceduralKey = "building-courtyard_home-complete";
-    const blenderAvailable = new Set();
+    const blenderAvailable = new Set<string>();
     const selected = selectBuildingTextureKey(proceduralKey, blenderAvailable);
     expect(selected).toBe("building-courtyard_home-complete");
   });

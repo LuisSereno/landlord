@@ -8,7 +8,10 @@
     "unitScale": "Por defecto se hereda de staging-sources.json vía sourceId. Un job sólo lo sobrescribe con unitScaleOverride + unitScaleReason documentados."
   },
   "defaults": {
-    "render": { "width": 256, "height": 256 }
+    "render": {
+      "width": 256,
+      "height": 256
+    }
   },
   "jobs": [
     {
@@ -16,7 +19,9 @@
       "kind": "building",
       "assetId": "courtyard_home",
       "target": "bundle",
-      "source": { "kind": "procedural" },
+      "source": {
+        "kind": "procedural"
+      },
       "states": ["complete", "construction", "damaged", "burning"]
     },
     {
@@ -24,11 +29,16 @@
       "kind": "character",
       "assetId": "vecino_variante",
       "target": "bundle",
-      "source": { "kind": "procedural" },
+      "source": {
+        "kind": "procedural"
+      },
       "directions": 4,
       "animations": ["idle", "walk"],
       "frameIndices": [0, 1],
-      "frameDurationMs": { "idle": 400, "walk": 180 }
+      "frameDurationMs": {
+        "idle": 400,
+        "walk": 180
+      }
     },
     {
       "id": "chr_worker",
@@ -44,9 +54,18 @@
       "directions": 4,
       "animations": ["idle", "walk"],
       "frameIndices": [0, 1],
-      "frameDurationMs": { "idle": 400, "walk": 180 },
-      "camera": { "orthoScale": 1.7, "targetZ": 0.9 },
-      "render": { "width": 256, "height": 256 }
+      "frameDurationMs": {
+        "idle": 400,
+        "walk": 180
+      },
+      "camera": {
+        "orthoScale": 1.7,
+        "targetZ": 0.9
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_shopfront_kenney",
@@ -60,9 +79,18 @@
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-a.glb"
       },
       "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 8.5, "targetZ": 2.6 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 8.5,
+        "targetZ": 2.6
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_downtown_quaternius",
@@ -76,39 +104,41 @@
         "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/FBX (Unity)/Building_Medium_2_001.fbx"
       },
       "states": ["complete"],
-      "footprint": { "width": 4, "height": 4 },
-      "camera": { "orthoScale": 40.0, "targetZ": 12.5 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 4,
+        "height": 4
+      },
+      "camera": {
+        "orthoScale": 40.0,
+        "targetZ": 12.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "ter_road_straight",
       "kind": "terrain",
       "assetId": "ter_road_straight",
-      "target": "evidence",
-      "reason": "El contrato runtime aún no tiene categoría terrain; se ensambla en Fase 4. Aquí valida el kind y la ingesta de una losa.",
+      "target": "bundle",
       "source": {
         "kind": "glb",
         "sourceId": "src_kenney_city_roads",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/road-straight.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 6.0, "targetZ": 0.05 },
-      "render": { "width": 256, "height": 256 }
-    },
-    {
-      "id": "ter_road_straight_slice",
-      "kind": "terrain",
-      "assetId": "ter_road_straight_slice",
-      "target": "evidence",
-      "reason": "El contrato runtime aún no ensambla kind terrain (Fase 4). Se renderiza como evidencia de ingesta GLB.",
-      "source": {
-        "kind": "glb",
-        "sourceId": "src_kenney_city_roads",
-        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/road-straight.glb"
+      "footprint": {
+        "width": 1,
+        "height": 1
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 6.0, "targetZ": 0.05 },
-      "render": { "width": 256, "height": 256 }
+      "camera": {
+        "orthoScale": 6.0,
+        "targetZ": 0.05
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_commercial_b",
@@ -121,9 +151,18 @@
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-b.glb"
       },
       "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 8.5, "targetZ": 2.6 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 8.5,
+        "targetZ": 2.6
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_residential_a",
@@ -136,54 +175,87 @@
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-a.glb"
       },
       "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 8.5, "targetZ": 2.6 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 8.5,
+        "targetZ": 2.6
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "veh_sedan",
-      "kind": "prop",
+      "kind": "vehicle",
       "assetId": "veh_sedan",
-      "target": "evidence",
-      "reason": "El contrato runtime aún no ensambla kind prop (Fase 4). Se renderiza como evidencia de ingesta GLB.",
+      "target": "bundle",
       "source": {
         "kind": "glb",
         "sourceId": "src_kenney_car_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/sedan.glb"
       },
-      "footprint": { "width": 1, "height": 2 },
-      "camera": { "orthoScale": 4.0, "targetZ": 0.5 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "camera": {
+        "orthoScale": 4.0,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "prp_tree_detailed",
       "kind": "prop",
       "assetId": "prp_tree_detailed",
-      "target": "evidence",
-      "reason": "El contrato runtime aún no ensambla kind prop (Fase 4). Se renderiza como evidencia de ingesta GLTF.",
+      "target": "bundle",
       "source": {
         "kind": "gltf",
         "sourceId": "src_kenney_nature_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_detailed.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 5.0, "targetZ": 0.0 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 8.0,
+        "targetZ": 2.8
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "prp_traffic_light",
       "kind": "prop",
       "assetId": "prp_traffic_light",
-      "target": "evidence",
-      "reason": "El contrato runtime aún no ensambla kind prop (Fase 4). Se renderiza como evidencia de ingesta GLB.",
+      "target": "bundle",
       "source": {
         "kind": "glb",
         "sourceId": "src_kenney_city_roads",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/traffic-light.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 3.0, "targetZ": 0.0 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 4.0,
+        "targetZ": 1.0
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_commercial_c",
@@ -197,9 +269,18 @@
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-c.glb"
       },
       "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 8.5, "targetZ": 2.6 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 8.5,
+        "targetZ": 2.6
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_residential_b",
@@ -213,9 +294,18 @@
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-b.glb"
       },
       "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 8.5, "targetZ": 2.6 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 8.5,
+        "targetZ": 2.6
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_residential_c",
@@ -229,174 +319,271 @@
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-c.glb"
       },
       "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 8.5, "targetZ": 2.6 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 8.5,
+        "targetZ": 2.6
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "ter_road_corner",
       "kind": "terrain",
       "assetId": "ter_road_corner",
-      "target": "evidence",
-      "reason": "Pieza de esquina para la microzona; evidencia de ingesta.",
+      "target": "bundle",
       "source": {
         "kind": "glb",
         "sourceId": "src_kenney_city_roads",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/road-bend.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 6.0, "targetZ": 0.05 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 6.0,
+        "targetZ": 0.05
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "ter_road_intersection",
       "kind": "terrain",
       "assetId": "ter_road_intersection",
-      "target": "evidence",
-      "reason": "Pieza de cruce para la microzona; evidencia de ingesta.",
+      "target": "bundle",
       "source": {
         "kind": "glb",
         "sourceId": "src_kenney_city_roads",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/road-intersection.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 6.0, "targetZ": 0.05 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 6.0,
+        "targetZ": 0.05
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "prp_street_light",
       "kind": "prop",
       "assetId": "prp_street_light",
-      "target": "evidence",
-      "reason": "Farola para la microzona; evidencia de ingesta.",
+      "target": "bundle",
       "source": {
         "kind": "glb",
         "sourceId": "src_kenney_city_roads",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 4.0, "targetZ": 0.0 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 5.0,
+        "targetZ": 1.3
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "prp_bench",
       "kind": "prop",
       "assetId": "prp_bench",
-      "target": "evidence",
-      "reason": "Banco para la microzona; evidencia de ingesta GLTF de KayKit.",
+      "target": "bundle",
       "source": {
         "kind": "gltf",
         "sourceId": "src_kaykit_city_builder_bits",
         "path": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 3.0, "targetZ": 0.0 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 3.0,
+        "targetZ": 0.0
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "prp_trash_can",
       "kind": "prop",
       "assetId": "prp_trash_can",
-      "target": "evidence",
-      "reason": "Papelera para la microzona; evidencia de ingesta.",
+      "target": "bundle",
       "source": {
         "kind": "glb",
         "sourceId": "src_kenney_city_roads",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/dumpster.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 3.0, "targetZ": 0.0 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 3.0,
+        "targetZ": 0.0
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "veh_taxi",
-      "kind": "prop",
+      "kind": "vehicle",
       "assetId": "veh_taxi",
-      "target": "evidence",
-      "reason": "Taxi para la microzona; evidencia de ingesta.",
+      "target": "bundle",
       "source": {
         "kind": "glb",
         "sourceId": "src_kenney_car_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/taxi.glb"
       },
-      "footprint": { "width": 1, "height": 2 },
-      "camera": { "orthoScale": 4.0, "targetZ": 0.5 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "camera": {
+        "orthoScale": 4.0,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "veh_truck",
-      "kind": "prop",
+      "kind": "vehicle",
       "assetId": "veh_truck",
-      "target": "evidence",
-      "reason": "Camión para la microzona; evidencia de ingesta.",
+      "target": "bundle",
       "source": {
         "kind": "glb",
         "sourceId": "src_kenney_car_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/truck.glb"
       },
-      "footprint": { "width": 1, "height": 2 },
-      "camera": { "orthoScale": 4.0, "targetZ": 0.5 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "camera": {
+        "orthoScale": 4.0,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "prp_tree_oak",
       "kind": "prop",
       "assetId": "prp_tree_oak",
-      "target": "evidence",
-      "reason": "Árbol roble para la microzona; evidencia de ingesta.",
+      "target": "bundle",
       "source": {
         "kind": "gltf",
         "sourceId": "src_kenney_nature_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_oak.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 5.0, "targetZ": 0.0 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 7.5,
+        "targetZ": 2.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "prp_tree_pine",
       "kind": "prop",
       "assetId": "prp_tree_pine",
-      "target": "evidence",
-      "reason": "Árbol pino para la microzona; evidencia de ingesta.",
+      "target": "bundle",
       "source": {
         "kind": "gltf",
         "sourceId": "src_kenney_nature_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_pineDefaultA.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 5.0, "targetZ": 0.0 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 8.0,
+        "targetZ": 3.0
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "prp_construction_barrier",
       "kind": "prop",
       "assetId": "prp_construction_barrier",
-      "target": "evidence",
-      "reason": "Barrera de obra para la microzona (mecánica Landlord); evidencia de ingesta.",
+      "target": "bundle",
       "source": {
         "kind": "glb",
         "sourceId": "src_kenney_city_roads",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/construction-barrier.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 3.0, "targetZ": 0.0 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 3.0,
+        "targetZ": 0.0
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "prp_construction_cone",
       "kind": "prop",
       "assetId": "prp_construction_cone",
-      "target": "evidence",
-      "reason": "Cono de obra para la microzona (mecánica Landlord); evidencia de ingesta.",
+      "target": "bundle",
       "source": {
         "kind": "glb",
         "sourceId": "src_kenney_city_roads",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/construction-cone.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 3.0, "targetZ": 0.0 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 3.0,
+        "targetZ": 0.0
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     }
   ]
 }

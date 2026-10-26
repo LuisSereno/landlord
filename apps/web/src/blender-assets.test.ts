@@ -35,14 +35,40 @@ describe("WP4.15-H ruta Blender E2E", () => {
     }
   });
 
+  it("publica terrain, props y vehicles y declara su densidad de render", () => {
+    expect(Object.keys(bundle.terrain ?? {}).sort()).toEqual([
+      "ter_road_corner",
+      "ter_road_intersection",
+      "ter_road_straight",
+    ]);
+    expect(Object.keys(bundle.props ?? {})).toHaveLength(9);
+    expect(Object.keys(bundle.vehicles ?? {}).sort()).toEqual([
+      "veh_sedan",
+      "veh_taxi",
+      "veh_truck",
+    ]);
+    for (const group of [bundle.terrain, bundle.props, bundle.vehicles]) {
+      for (const asset of Object.values(group ?? {})) {
+        expect(asset.pixelsPerMeter, asset.id).toBeGreaterThan(0);
+        expect(asset.image.width).toBeGreaterThan(0);
+      }
+    }
+    // El asset procedural ya está dibujado a escala de juego: no debe declarar densidad.
+    expect(bundle.buildings["courtyard_home"]!.pixelsPerMeter).toBeUndefined();
+    expect(bundle.buildings["bld_shopfront"]!.pixelsPerMeter).toBeGreaterThan(0);
+  });
+
   it("cada imagen publicada existe, y su hash y sus medidas coinciden con el manifiesto", () => {
     const images = [
       ...Object.values(bundle.buildings).flatMap((asset) => Object.values(asset.states)),
       ...Object.values(bundle.characters).flatMap((character) =>
         Object.values(character.animations).flatMap((animation) => animation.frames),
       ),
+      ...Object.values(bundle.terrain ?? {}).map((asset) => asset.image),
+      ...Object.values(bundle.props ?? {}).map((asset) => asset.image),
+      ...Object.values(bundle.vehicles ?? {}).map((asset) => asset.image),
     ];
-    expect(images.length).toBe(44);
+    expect(images.length).toBe(59);
     let totalBytes = 0;
     for (const image of images) {
       const buffer = readFileSync(join(PUBLIC_DIR, image.src));
@@ -51,11 +77,16 @@ describe("WP4.15-H ruta Blender E2E", () => {
       expect(pngSize(buffer), image.src).toEqual({ width: image.width, height: image.height });
     }
     /** Los binarios Blender de Alpha caben en el repo sin LFS: se revisa en la decisión de atlas/LFS. */
-    expect(totalBytes).toBeLessThan(1_000_000);
+    expect(totalBytes).toBeLessThan(1_500_000);
   });
 
   it("el pivote queda dentro de la imagen recortada y la huella es positiva", () => {
-    for (const asset of Object.values(bundle.buildings)) {
+    for (const asset of [
+      ...Object.values(bundle.buildings),
+      ...Object.values(bundle.terrain ?? {}),
+      ...Object.values(bundle.props ?? {}),
+      ...Object.values(bundle.vehicles ?? {}),
+    ]) {
       expect(asset.pivot.x).toBeGreaterThanOrEqual(0);
       expect(asset.pivot.x).toBeLessThanOrEqual(1);
       expect(asset.pivot.y).toBeGreaterThan(0.5);

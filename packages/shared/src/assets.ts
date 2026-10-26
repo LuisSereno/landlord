@@ -1,7 +1,5 @@
 import { z } from "zod";
 
-import type { BuildingType } from "./domain";
-
 /**
  * Contrato runtime de assets (WP4.15). La fuente puede ser Blender o la factoría procedural; el
  * runtime sólo consume este manifiesto. Las imágenes viajan como data URI SVG en Alpha para no
@@ -50,14 +48,37 @@ export type AssetProvenanceV1 = {
 };
 
 export type BuildingAssetV1 = {
-  type: BuildingType;
+  /**
+   * Id del asset de arte. No tiene por qué coincidir con `BuildingType` del motor: el bundle
+   * puede publicar catálogo externo (Kenney) sin ampliar los tipos de la simulación.
+   */
+  type: string;
   name: string;
   /** Huella en celdas isométricas; ordena el depth frente a vecinos. */
   footprint: { width: number; height: number };
   /** Punto de anclaje normalizado 0..1 dentro de la imagen (suelo, centro de la huella). */
   pivot: { x: number; y: number };
   states: Record<BuildingAssetState, AssetImageV1>;
+  /**
+   * Densidad de la fuente: píxeles por metro de la cámara que produjo el sprite. El renderer
+   * lo usa para escalar al grid del juego (celda de 4 m = 64 px de diagonal).
+   */
+  pixelsPerMeter?: number;
   /** Procedencia de este asset; si falta, heredaba la del bundle. */
+  provenance?: AssetProvenanceV1;
+};
+
+/**
+ * Asset escénico de una sola imagen (terrain, prop o vehicle). Comparte pivote y huella con los
+ * edificios para que el depth se resuelva con la misma función `depthForAsset`.
+ */
+export type SceneryAssetV1 = {
+  id: string;
+  name: string;
+  footprint: { width: number; height: number };
+  pivot: { x: number; y: number };
+  image: AssetImageV1;
+  pixelsPerMeter?: number;
   provenance?: AssetProvenanceV1;
 };
 
@@ -84,8 +105,14 @@ export type RuntimeAssetManifestV1 = {
    * `provenance` propia (D-083); esto queda como valor por defecto y como resumen legible.
    */
   provenance: AssetProvenanceV1;
-  buildings: Record<BuildingType, BuildingAssetV1>;
+  buildings: Record<string, BuildingAssetV1>;
   characters: Record<string, CharacterAssetV1>;
+  /** Capa de suelo (carreteras y losas). Opcional: el bundle procedural no la publica. */
+  terrain?: Record<string, SceneryAssetV1>;
+  /** Mobiliario urbano y vegetación. Opcional por la misma razón. */
+  props?: Record<string, SceneryAssetV1>;
+  /** Vehículos. Opcional por la misma razón. */
+  vehicles?: Record<string, SceneryAssetV1>;
 };
 
 const sha256Schema = z.string().regex(/^[0-9a-f]{64}$/);
@@ -129,7 +156,7 @@ export const assetImageSchema = z.object({
 export const buildingAssetStateSchema = z.enum(["complete", "construction", "damaged", "burning"]);
 
 export const buildingAssetSchema = z.object({
-  type: z.enum(["courtyard_home", "workshop", "cement_plant", "brickworks", "steelworks", "bld_shopfront", "bld_commercial_b", "bld_commercial_c", "bld_residential_a", "bld_residential_b", "bld_residential_c"]),
+  type: z.string().min(1),
   name: z.string().min(1),
   footprint: z.object({
     width: z.number().positive().max(8),
@@ -145,6 +172,23 @@ export const buildingAssetSchema = z.object({
     damaged: assetImageSchema,
     burning: assetImageSchema,
   }),
+  pixelsPerMeter: z.number().positive().optional(),
+  provenance: assetProvenanceSchema.optional(),
+});
+
+export const sceneryAssetSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  footprint: z.object({
+    width: z.number().positive().max(8),
+    height: z.number().positive().max(8),
+  }),
+  pivot: z.object({
+    x: z.number().min(0).max(1),
+    y: z.number().min(0).max(1),
+  }),
+  image: assetImageSchema,
+  pixelsPerMeter: z.number().positive().optional(),
   provenance: assetProvenanceSchema.optional(),
 });
 
@@ -176,6 +220,9 @@ export const runtimeAssetManifestV1Schema = z.object({
   provenance: assetProvenanceSchema,
   buildings: z.record(z.string(), buildingAssetSchema),
   characters: z.record(z.string(), characterAssetSchema),
+  terrain: z.record(z.string(), sceneryAssetSchema).optional(),
+  props: z.record(z.string(), sceneryAssetSchema).optional(),
+  vehicles: z.record(z.string(), sceneryAssetSchema).optional(),
 });
 
 export const BUILDING_ASSET_STATES: readonly BuildingAssetState[] = [

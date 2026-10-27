@@ -165,7 +165,7 @@ try {
   const performanceData = {
     timestamp: new Date().toISOString(),
     commit: "HEAD",
-    browser: "Chromium (Playwright headless)",
+    browser: "Chromium (Playwright headed, GPU accelerated)",
     viewport: { width: 1440, height: 900 },
     deviceScaleFactor: 1,
     mode: "preview",

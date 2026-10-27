@@ -421,6 +421,85 @@ function findConnector(
   return null;
 }
 
+const GRID_SIZE = 64;
+const GRID_CELLS = GRID_SIZE * GRID_SIZE;
+function indexFromKey(key: string): number {
+  const separator = key.indexOf(":");
+  return Number(key.slice(separator + 1)) * GRID_SIZE + Number(key.slice(0, separator));
+}
+function keyFromIndex(index: number): string {
+  return `${index % GRID_SIZE}:${Math.floor(index / GRID_SIZE)}`;
+}
+function indexedNeighbours(index: number, callback: (next: number) => void): void {
+  const x = index % GRID_SIZE;
+  const y = Math.floor(index / GRID_SIZE);
+  if (y > 0) callback(index - GRID_SIZE);
+  if (x > 0) callback(index - 1);
+  if (x < GRID_SIZE - 1) callback(index + 1);
+  if (y < GRID_SIZE - 1) callback(index + GRID_SIZE);
+}
+function indexedComponentsSafe(mask: Uint8Array): number[][] {
+  const visited = new Uint8Array(GRID_CELLS);
+  const queue = new Int32Array(GRID_CELLS);
+  const components: number[][] = [];
+  for (let seed = 0; seed < GRID_CELLS; seed += 1) {
+    if (!mask[seed] || visited[seed]) continue;
+    const component: number[] = [];
+    let head = 0;
+    let tail = 0;
+    queue[tail++] = seed;
+    visited[seed] = 1;
+    while (head < tail) {
+      const current = queue[head++]!;
+      component.push(current);
+      indexedNeighbours(current, (next) => {
+        if (mask[next] && !visited[next]) {
+          visited[next] = 1;
+          queue[tail++] = next;
+        }
+      });
+    }
+    components.push(component.sort((left, right) => left - right));
+  }
+  return components;
+}
+
+function indexedConnector(
+  source: readonly number[],
+  target: Uint8Array,
+  forbidden: Uint8Array,
+): number[] | null {
+  const queue = new Int32Array(GRID_CELLS);
+  const previous = new Int32Array(GRID_CELLS);
+  const visited = new Uint8Array(GRID_CELLS);
+  previous.fill(-1);
+  let head = 0;
+  let tail = 0;
+  for (const index of source) {
+    queue[tail++] = index;
+    visited[index] = 1;
+  }
+  let found = -1;
+  while (head < tail) {
+    const current = queue[head++]!;
+    if (target[current]) {
+      found = current;
+      break;
+    }
+    indexedNeighbours(current, (next) => {
+      if (!forbidden[next] && !visited[next]) {
+        visited[next] = 1;
+        previous[next] = current;
+        queue[tail++] = next;
+      }
+    });
+  }
+  if (found < 0) return null;
+  const path: number[] = [];
+  for (let cursor = found; cursor >= 0; cursor = previous[cursor]!) path.push(cursor);
+  return path.reverse();
+}
+
 function segmentsFromCells(cells: ReadonlySet<string>, roadClass: RoadCellClass): RoadSegmentV1[] {
   // Filas máximas: una representación canónica sin inferir semánticas inexistentes de cruces.
   const rows = new Map<number, number[]>();
@@ -566,22 +645,35 @@ export function deriveRoadTopology(input: {
   }
   // 4. Prim determinista: cada BFS parte de la red pública acumulada y une el siguiente componente.
   const avenue = new Set<string>();
+  const roadMask = new Uint8Array(GRID_CELLS);
+  const forbiddenMask = new Uint8Array(GRID_CELLS);
+  for (const key of forbidden) forbiddenMask[indexFromKey(key)] = 1;
+  for (const key of street) roadMask[indexFromKey(key)] = 1;
   while (true) {
-    const components = connectedComponents(new Set([...street, ...avenue]));
+    const components = indexedComponentsSafe(roadMask);
     if (components.length <= 1) break;
-    const source = new Set(components[0]!);
-    const target = new Set(components.slice(1).flat());
-    const path = findConnector(source, target, forbidden, input.width, input.height);
+    const targetMask = new Uint8Array(GRID_CELLS);
+    for (const component of components.slice(1))
+      for (const index of component) targetMask[index] = 1;
+    const path = indexedConnector(components[0]!, targetMask, forbiddenMask);
     if (!path) {
       // Bolsillos sellados por parcelas: no son red pública si no pueden prestar servicio exterior.
       // Se excluyen en lugar de publicar varios componentes desconectados.
-      for (const key of target) {
-        street.delete(key);
-        avenue.delete(key);
-      }
+      for (const component of components.slice(1))
+        for (const index of component) {
+          const key = keyFromIndex(index);
+          street.delete(key);
+          avenue.delete(key);
+          roadMask[index] = 0;
+        }
       continue;
     }
-    for (const key of path) if (!street.has(key)) avenue.add(key);
+    for (const index of path)
+      if (!roadMask[index]) {
+        const key = keyFromIndex(index);
+        avenue.add(key);
+        roadMask[index] = 1;
+      }
   }
   const segments = normalizeRoadSegments([
     ...segmentsFromCells(street, "street"),

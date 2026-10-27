@@ -941,8 +941,8 @@ export const isometricSpikeGameConfig: Phaser.Types.Core.GameConfig = {
   },
   backgroundColor: "#101827",
   render: {
-    antialias: false,
-    roundPixels: true,
+    antialias: true,
+    roundPixels: false,
   },
   scene: [IsometricSpikeScene],
 };

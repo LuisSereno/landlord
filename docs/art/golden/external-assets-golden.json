@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "generator": "external_visual_golden.py",
+  "assets": [
+    "bld_residential_a",
+    "prp_tree_oak",
+    "veh_sedan"
+  ],
+  "sha256": "a49847294d3b0da9197d2b6458c62dda3d908c8612d4b19ca47196db70e7c007",
+  "size": {
+    "width": 848,
+    "height": 336
+  }
+}

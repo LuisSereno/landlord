@@ -163,7 +163,7 @@ function tasksFor(job, defaults) {
   return tasks;
 }
 
-function argsFor(job, task, sourcesById) {
+function argsFor(job, task, sourcesById, noShadow = false) {
   const args = ["--asset", job.assetId];
   if (job.source.kind !== "procedural") {
     // Un job procedural NO redeclara cámara ni resolución: sus parámetros están congelados en
@@ -191,9 +191,15 @@ function argsFor(job, task, sourcesById) {
   }
   if (task.state) args.push("--state", task.state);
   // La sombra se hornea con el rig para edificios, props y vehículos; el terreno no proyecta.
-  if (job.source.kind !== "procedural" && job.kind !== "terrain" && job.kind !== "character") {
+  if (
+    job.source.kind !== "procedural" &&
+    job.kind !== "terrain" &&
+    job.kind !== "character" &&
+    !noShadow
+  ) {
     args.push("--shadow");
   }
+  if (noShadow) args.push("--no-shadow");
   if (task.azimuth !== null && task.azimuth !== undefined) {
     args.push("--azimuth", String(task.azimuth));
   }
@@ -271,7 +277,7 @@ function check() {
   );
 }
 
-function renderTask(job, task, sourcesById, workDir) {
+function renderTask(job, task, sourcesById, workDir, noShadow = false) {
   const workPng = join(workDir, `${task.file}.png`);
   const workJson = join(workDir, `${task.file}.json`);
   const result = spawnSync(
@@ -281,7 +287,7 @@ function renderTask(job, task, sourcesById, workDir) {
       "--python",
       BLENDER_SCRIPT,
       "--",
-      ...argsFor(job, task, sourcesById),
+      ...argsFor(job, task, sourcesById, noShadow),
       "--output",
       workPng,
       "--metadata",
@@ -367,7 +373,7 @@ function assembleInto(bundle, job, task, entry, image, provenance) {
   }
 }
 
-function render() {
+function render(noShadow = false) {
   if (!existsSync(BLENDER)) {
     throw new Error(`No existe el binario de Blender: ${BLENDER} (define BLENDER_BIN)`);
   }
@@ -402,7 +408,7 @@ function render() {
   for (const job of manifest.jobs) {
     if (lab && !lab.ids.has(job.id)) continue;
     for (const task of tasksFor(job, manifest.defaults)) {
-      const { workPng, workJson, entry } = renderTask(job, task, sourcesById, workDir);
+      const { workPng, workJson, entry } = renderTask(job, task, sourcesById, workDir, noShadow);
       if (lab) {
         mkdirSync(lab.outDir, { recursive: true });
         copyFileSync(workPng, join(lab.outDir, `${task.file}.png`));

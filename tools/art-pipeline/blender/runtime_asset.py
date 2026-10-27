@@ -156,6 +156,11 @@ def parse_args():
         action="store_true",
         help="compone la sombra proyectada del rig (segunda pasada con plano blanco)",
     )
+    parser.add_argument(
+        "--no-shadow",
+        action="store_true",
+        help="fuerza desactivar sombras incluso si el job las declara (para A/B de evidencia)",
+    )
     parser.add_argument("--output", required=True)
     parser.add_argument("--metadata", required=True)
     values, _ = parser.parse_known_args(sys.argv[sys.argv.index("--") + 1 :])
@@ -909,7 +914,7 @@ def main():
         label = args.asset
         # La huella la conoce el manifiesto de jobs; el render sólo publica geometría.
         footprint = None
-        if args.shadow:
+        if args.shadow and not args.no_shadow:
             shadow_style = style_layer.get("shadow", {})
 
     render_path = output.with_suffix(".render.png")

@@ -20,6 +20,7 @@
     "art:blender": "node scripts/build-blender-assets.mjs",
     "art:blender:check": "node scripts/build-blender-assets.mjs --check",
     "art:style:check": "python3 tools/art-pipeline/blender/check_style_layer.py",
+    "art:render:check": "python3 tools/art-pipeline/blender/check_rendered_night.py",
     "art:binaries:check": "node scripts/check-binary-budget.mjs",
     "art:licenses:check": "node scripts/check-third-party-license.mjs",
     "lint": "eslint . && pnpm check:architecture",

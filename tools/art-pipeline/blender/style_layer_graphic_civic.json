@@ -289,7 +289,9 @@
     "keySunAngleDegrees": 3.0,
     "strength": 1.5,
     "colorSrgb": [4, 6, 10],
-    "description": "Segunda pasada con plano blanco: la sombra es la del rig SUN, con direcci\u00f3n y tama\u00f1o reales"
+    "direction2D": [-9.0, -16.0],
+    "angleDegrees": 240.6,
+    "description": "Segunda pasada con plano blanco: la sombra es la del rig SUN, con direcci\u00f3n y tama\u00f1o reales. direction2D es la proyecci\u00f3n XY de keyPosition=[9,16,10]\u2192origen; angleDegrees=240.6\u00b0 (0\u00b0=E, 90\u00b0=N). Para Phaser (Y-down): 330.6\u00b0."
   },
   "styleLayerRule": "Quaternius/Kenney \u2192 geometry; Poly Haven \u2192 material base/PBR; Graphic Civic Style Layer \u2192 color grading + roughness + scale + lighting"
 }

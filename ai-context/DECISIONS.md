@@ -919,7 +919,7 @@ enlaces Prim multi-fuente. Sin campos nuevos en `DistrictProfile` y sin `state.p
 rol**: corredor de manzana = `street`, enlace entre manzanas = `avenue`; no existe arte de clase todavía,
 así que es semántica para V.c.3. (6) **Ninguna regla de juego cambia en 2B/2C**: medido 989/989 parcelas
 con frente vial, 0 pérdida de suelo edificable (la construcción de producto es parcela-scoped y nunca mira
-celdas) y pathfinding idéntico (las calzadas se tallan de celdas libres y no entra en `blockedCells`). El
+celdas) y pathfinding idéntico (las calzadas se tallan de celdas libres y no entran en `blockedCells`). El
 coste `road < open terrain` y `hasRoadAccess` como regla real pertenecen a V.c.2D con su propio gate.
 (7) **Se persiste**, con backfill determinista para saves sin el campo, siguiendo el precedente de
 `blockedCells`: `restoreStateFromSnapshot` lee del save (`snapshot.ts:342`), no regenera. (8) **Entra en

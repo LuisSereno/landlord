@@ -956,3 +956,23 @@ en la rama ausente de una T; el cruce pleno añade un rombo central de baja opac
 props, cambios de simulación, snapshots, contratos ni rebake por tick. V.c.3B (mobiliario) y V.c.3C
 (vehículos) permanecen diferidas. Ver
 `docs/execution/phase-4/wp4-15-vc3a-junction-pedestrian-language-2026-10-27.md`.
+
+## D-086 — Street dressing presentacional determinista sobre la proyección vial
+
+Estado: aceptada el 2026-10-27 para WP4.15-V.c.3B/C. La fase no añade entidades ni reglas a
+`GameState`, snapshot, worker, navegación o economía. `buildGameplayVisualModel()` deriva desde
+`ViewProjectionV1` dos colecciones efímeras: `streetFurniture` y `parkedVehicles`.
+
+Reglas: (1) farolas sólo en rectas, espaciadas por línea y alejadas dos celdas de T/intersecciones;
+(2) semáforos sólo en intersecciones completas, dos candidatos diagonales opuestos, y cero en T;
+(3) bancos y papeleras sólo en hosts libres próximos a frentes residenciales/mixtos, nunca sobre
+industria pesada, obra, árbol, parcela o carretera; (4) vehículos sólo en celdas de recta, con
+clearance Manhattan 2, lateralidad determinista, huecos irregulares y variantes sedan/taxi/truck;
+(5) IDs espaciales estables, hash determinista, sin `Math.random`, tick ni economía; (6) azimuts sólo
+45 (frame base) y 225 (frame manifestado), sin `flipX`, `rotation` o transformaciones falsas; (7)
+la escena reutiliza sprites por ID, aplica depth/culling existentes y no rebakea el suelo.
+
+El distrito runtime medido tiene 240 road cells, 10 junctions (todas T), 10 crossings, 26 farolas,
+0 semáforos, 4 bancos, 2 papeleras, 29 vehículos, 108 árboles y 179 sprites presentacionales. La
+ausencia de semáforos es consecuencia de la topología real y de no semaforizar T. La evidencia y
+deudas restantes constan en `docs/execution/phase-4/wp4-15-vc3-street-dressing-2026-10-27.md`.

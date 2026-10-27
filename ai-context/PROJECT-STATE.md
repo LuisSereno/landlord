@@ -55,11 +55,10 @@ Fecha de consolidación: 2026-10-27.
 
 ### Parcialmente implementado
 
-- representación visual del distrito (WP4.15-V): V.c.1 y V.c.2B/C están cerradas y V.c.3A añade
-  lenguaje peatonal presentacional. Gameplay consume exclusivamente `ViewProjectionV1.map.roads.cells`;
-  `/visual-slice` conserva su topología autoral como fixture independiente. V.c.2D
-  (acceso/edificabilidad como regla de producto), V.c.3B (mobiliario) y V.c.3C (vehículos) siguen
-  sin implementar; tampoco hay selección de distrito en la UI;
+- representación visual del distrito (WP4.15-V): V.c.1, V.c.2B/C y V.c.3A/B/C están cerradas.
+  Gameplay consume exclusivamente `ViewProjectionV1.map.roads.cells`; `/visual-slice` conserva su
+  topología autoral como fixture independiente. V.c.2D (acceso/edificabilidad como regla de producto)
+  sigue diferida; tampoco hay selección de distrito en la UI;
 - commuting: el empleo sigue siendo agregado, sin trayectos por agente;
 - planificador de la IA: no existe; sólo cadenas inmediatas tras un `dispatch`;
 - expediente de inteligencia de las facciones: diferido;
@@ -96,10 +95,11 @@ Gate 2 en `GO` para producción representativa desde el 2026-10-23: el responsab
 prueba manual OK, WP2.15 está cerrado, el benchmark/smoke pasan y WP2.14 aprobó `graphic_civic`.
 
 ## Próximo objetivo
-WP4.15-V.c.2C-H y V.c.3A están cerrados: lint, contratos, harnesses, documentación y el 404 de
+WP4.15-V.c.2C-H y V.c.3A/B/C están cerrados: lint, contratos, harnesses, documentación y el 404 de
 favicon quedan corregidos; las T e intersecciones publicadas reciben pasos de peatones discretos,
-derivados de la máscara vial real. V.c.3B es el siguiente trabajo permitido. No reabrir el derivador
-ni la arquitectura vial: `ROAD_TOPOLOGY_CORE = PASS` y `GRAPHIC_CIVIC_ROADS = PASS`.
+derivados de la máscara vial real; el dressing estático añade farolas, semáforos sólo en
+intersecciones completas, bancos, papeleras y vehículos aparcados deterministas. No reabrir el
+derivador ni la arquitectura vial: `ROAD_TOPOLOGY_CORE = PASS` y `GRAPHIC_CIVIC_ROADS = PASS`.
 
 Fase 3 cerrada con `GO CONTROLLED ALPHA`. Bajo la excepción D-063 (2026-10-23) el responsable
 adelanta la producción de contenido de Fase 4 sin la medición de sesiones reales que exigía

@@ -98,6 +98,7 @@
 - execution/phase-4/wp4-15-vc-promote-visual-slice-2026-10-27.md — promoción Graphic Civic a gameplay y cierre de V.c.1/V.c.2C desde la proyección autoritativa.
 - execution/phase-4/wp4-15-vc2c-hardening-2026-10-27.md — hardening posterior a la revisión remota: lint, contratos, harnesses, documentación y auditoría de archivos históricos.
 - execution/phase-4/wp4-15-vc3a-junction-pedestrian-language-2026-10-27.md — pasos de peatones y marcas discretas derivados de T/intersecciones reales, sin ampliar la topología ni el gameplay.
+- execution/phase-4/wp4-15-vc3-street-dressing-2026-10-27.md — cierre V.c.3B/C: mobiliario urbano y vehículos aparcados deterministas, QA browser y rendimiento.
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

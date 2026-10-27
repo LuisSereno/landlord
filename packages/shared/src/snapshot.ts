@@ -45,6 +45,9 @@ import {
   crewSchema,
   incidentSchema,
   testStructureSchema,
+  roadTopologyV1Schema,
+  roadCellsFromSegments,
+  roadSegmentId,
   type Organization,
   type OrganizationControlGrant,
   type Person,
@@ -85,6 +88,8 @@ export type SnapshotV1 = {
     width: 64;
     height: 64;
     blockedCells: GridCell[];
+    /** Optional only for compatibility with saves created before WP4.15-V.c.2B. */
+    roads?: import("./domain").RoadTopologyV1;
   };
   playerIdentities: PlayerIdentity[];
   persons: Person[];
@@ -175,6 +180,7 @@ const mapSnapshotSchema = z.object({
   width: z.literal(64),
   height: z.literal(64),
   blockedCells: z.array(gridCellSchema),
+  roads: roadTopologyV1Schema.optional(),
 });
 const agentSnapshotSchema = z.object({
   id: agentIdSchema,
@@ -345,6 +351,9 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
     ...snapshot.map.blockedCells,
     ...snapshot.structures.map((structure) => structure.cell),
   ];
+  const roadCells = snapshot.map.roads
+    ? roadCellsFromSegments(snapshot.map.roads.segments)
+    : new Set<string>();
 
   if (hasDuplicate(snapshot.playerIdentities.map((identity) => identity.id))) {
     issues.push({ code: "DUPLICATE_ID", path: "playerIdentities" });
@@ -363,6 +372,47 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
   }
   if (cells.some((cell) => !inBounds(cell))) {
     issues.push({ code: "CELL_OUT_OF_BOUNDS", path: "map/structures" });
+  }
+  if (snapshot.map.roads) {
+    const segments = snapshot.map.roads.segments;
+    const ids = segments.map((segment) => segment.id);
+    if (hasDuplicate(ids)) issues.push({ code: "DUPLICATE_ID", path: "map/roads/segments" });
+    const canonical = [...segments].sort(
+      (left, right) =>
+        left.from.y - right.from.y ||
+        left.from.x - right.from.x ||
+        left.class.localeCompare(right.class),
+    );
+    if (canonical.some((segment, index) => segment !== segments[index])) {
+      issues.push({ code: "DUPLICATE_ORDER", path: "map/roads/segments" });
+    }
+    for (const segment of segments) {
+      if (
+        (segment.from.x !== segment.to.x && segment.from.y !== segment.to.y) ||
+        segment.from.y > segment.to.y ||
+        (segment.from.y === segment.to.y && segment.from.x > segment.to.x) ||
+        !inBounds(segment.from) ||
+        !inBounds(segment.to)
+      ) {
+        issues.push({ code: "CELL_OUT_OF_BOUNDS", path: `map/roads/segments/${segment.id}` });
+      }
+      if (segment.id !== roadSegmentId(segment.class, segment.from, segment.to)) {
+        issues.push({ code: "DUPLICATE_ID", path: `map/roads/segments/${segment.id}` });
+      }
+    }
+    if (
+      [...roadCells].some((key) => snapshot.map.blockedCells.some((cell) => cellKey(cell) === key))
+    ) {
+      issues.push({ code: "DUPLICATE_CELL", path: "map/roads/blockedCells" });
+    }
+    if (
+      snapshot.phase2 &&
+      [...roadCells].some((key) =>
+        snapshot.phase2!.parcels.some((parcel) => cellKey(parcel.cell) === key),
+      )
+    ) {
+      issues.push({ code: "DUPLICATE_CELL", path: "map/roads/phase2/parcels" });
+    }
   }
 
   for (const identity of snapshot.playerIdentities) {

@@ -176,6 +176,88 @@ export type District = {
   generation?: DistrictGeneration;
 };
 
+export const roadCellClassSchema = z.enum(["street", "avenue"]);
+export type RoadCellClass = z.infer<typeof roadCellClassSchema>;
+
+/** Segmento vial ortogonal, cerrado e identificado por su geometría canónica. */
+export type RoadSegmentV1 = {
+  id: string;
+  from: GridCell;
+  to: GridCell;
+  class: RoadCellClass;
+};
+
+export type RoadTopologyV1 = {
+  topologyVersion: 1;
+  derivationVersion: 1;
+  segments: RoadSegmentV1[];
+};
+
+export const roadSegmentV1Schema = z.object({
+  id: z.string().min(1),
+  from: gridCellSchema,
+  to: gridCellSchema,
+  class: roadCellClassSchema,
+});
+
+export const roadTopologyV1Schema = z.object({
+  topologyVersion: z.literal(1),
+  derivationVersion: z.literal(1),
+  segments: z.array(roadSegmentV1Schema),
+});
+
+function roadCellKey(cell: GridCell): string {
+  return `${cell.x}:${cell.y}`;
+}
+
+/** FNV-1a estable para identidades que no dependan del orden de descubrimiento. */
+export function roadSegmentId(roadClass: RoadCellClass, from: GridCell, to: GridCell): string {
+  let hash = 0x811c9dc5;
+  const source = `${roadClass}|${from.x}:${from.y}|${to.x}:${to.y}`;
+  for (let index = 0; index < source.length; index += 1) {
+    hash = Math.imul((hash ^ source.charCodeAt(index)) >>> 0, 0x01000193) >>> 0;
+  }
+  return `road_${hash.toString(16).padStart(8, "0")}`;
+}
+
+/** La única derivación de celdas de carretera: segmentos inclusivos, en orden canónico. */
+export function roadCellsFromSegments(segments: readonly RoadSegmentV1[]): ReadonlySet<string> {
+  const cells = new Set<string>();
+  for (const segment of segments) {
+    const dx = Math.sign(segment.to.x - segment.from.x);
+    const dy = Math.sign(segment.to.y - segment.from.y);
+    if (dx !== 0 && dy !== 0) throw new Error(`Road segment ${segment.id} is not orthogonal`);
+    const length = Math.max(
+      Math.abs(segment.to.x - segment.from.x),
+      Math.abs(segment.to.y - segment.from.y),
+    );
+    for (let step = 0; step <= length; step += 1) {
+      cells.add(roadCellKey({ x: segment.from.x + dx * step, y: segment.from.y + dy * step }));
+    }
+  }
+  return cells;
+}
+
+/** Si dos trazados coinciden, avenue domina la semántica derivada de la celda. */
+export function roadCellClassesFromSegments(
+  segments: readonly RoadSegmentV1[],
+): ReadonlyMap<string, RoadCellClass> {
+  const classes = new Map<string, RoadCellClass>();
+  for (const segment of segments) {
+    const dx = Math.sign(segment.to.x - segment.from.x);
+    const dy = Math.sign(segment.to.y - segment.from.y);
+    const length = Math.max(
+      Math.abs(segment.to.x - segment.from.x),
+      Math.abs(segment.to.y - segment.from.y),
+    );
+    for (let step = 0; step <= length; step += 1) {
+      const key = roadCellKey({ x: segment.from.x + dx * step, y: segment.from.y + dy * step });
+      if (segment.class === "avenue" || !classes.has(key)) classes.set(key, segment.class);
+    }
+  }
+  return classes;
+}
+
 export type Parcel = {
   id: ParcelId;
   districtId: DistrictId;

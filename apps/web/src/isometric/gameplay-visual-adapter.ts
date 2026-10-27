@@ -241,7 +241,7 @@ const NEIGHBOURS = [
  */
 export function gameplayGeometryKey(projection: ViewProjectionV1): string {
   const economy = projection.economy;
-  if (!economy) return "empty";
+  if (!economy) return `roads:${projection.map.roads.digest}`;
   const constructionParcelIds = new Set(economy.constructionSites.map((site) => site.parcelId));
   const parts = economy.parcels
     .map((parcel) => {
@@ -255,7 +255,7 @@ export function gameplayGeometryKey(projection: ViewProjectionV1): string {
       return `${parcel.cell.x},${parcel.cell.y},${parcel.zoning},${status}`;
     })
     .sort();
-  return fnv1a32(parts.join("|")).toString(16);
+  return fnv1a32(`${projection.map.roads.digest}|${parts.join("|")}`).toString(16);
 }
 
 export function buildGameplayVisualModel(

@@ -47,6 +47,7 @@ export function canonicalizeState(state: GameState): string {
       width: state.map.width,
       height: state.map.height,
       blockedCells: [...state.map.blockedCells].sort(),
+      roads: state.map.roads,
     },
     playerIdentities: orderedMapValues(state.playerIdentities),
     persons: orderedMapValues(state.persons),

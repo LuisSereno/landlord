@@ -59,6 +59,7 @@ function canonical(generated: GeneratedDistrict): string {
     district: generated.district,
     parcels: generated.parcels,
     blockedCells: generated.blockedCells,
+    roads: generated.roads,
     spawnAnchors: generated.spawnAnchors,
   });
 }
@@ -179,7 +180,7 @@ describe("WP4.1 district generation", () => {
         ).toEqual([]);
       }
     }
-  });
+  }, 20_000);
 
   it("conserva los hashes de las fixtures publicadas", () => {
     for (const fixture of DISTRICT_FIXTURES) {

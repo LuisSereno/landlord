@@ -40,7 +40,11 @@ import {
 export type ViewProjectionV1 = {
   projectionVersion: 1;
   tick: Tick;
-  map: { width: 64; height: 64 };
+  map: {
+    width: 64;
+    height: 64;
+    roads: { revision: number; digest: string; cells: string[] };
+  };
   structures: Array<{
     id: StructureId;
     ownerOrganizationId: OrganizationId;
@@ -517,6 +521,11 @@ export type ViewProjectionV1 = {
 const mapSchema = z.object({
   width: z.literal(64),
   height: z.literal(64),
+  roads: z.object({
+    revision: z.number().int().nonnegative(),
+    digest: z.string().regex(/^[0-9a-f]{8}$/),
+    cells: z.array(z.string().regex(/^\d+:\d+$/)),
+  }),
 });
 
 export const viewProjectionV1Schema = z.object({

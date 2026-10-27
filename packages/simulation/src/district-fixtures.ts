@@ -21,7 +21,7 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "barrio_del_umbral",
     seed: 1,
-    hash: "5e83d3c8",
+    hash: "c0fcf5b0",
     parcelCount: 23,
     anchorParcelCount: 8,
     blockedCellCount: 0,
@@ -30,7 +30,7 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "barrio_del_umbral",
     seed: 7,
-    hash: "eb2a78c3",
+    hash: "bc4a7b8e",
     parcelCount: 28,
     anchorParcelCount: 8,
     blockedCellCount: 0,
@@ -39,7 +39,7 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "barrio_del_umbral",
     seed: 42,
-    hash: "0eade538",
+    hash: "63235de9",
     parcelCount: 34,
     anchorParcelCount: 8,
     blockedCellCount: 0,
@@ -48,7 +48,7 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "barrio_del_umbral",
     seed: 1337,
-    hash: "287d78fc",
+    hash: "8bcf0dc5",
     parcelCount: 29,
     anchorParcelCount: 8,
     blockedCellCount: 0,
@@ -57,7 +57,7 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "ensanche_ferroviario",
     seed: 1,
-    hash: "c8ed5c81",
+    hash: "18d44d2a",
     parcelCount: 64,
     anchorParcelCount: 6,
     blockedCellCount: 5,
@@ -66,7 +66,7 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "ensanche_ferroviario",
     seed: 7,
-    hash: "0c888ed7",
+    hash: "ac7704b0",
     parcelCount: 32,
     anchorParcelCount: 6,
     blockedCellCount: 11,
@@ -75,7 +75,7 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "ensanche_ferroviario",
     seed: 42,
-    hash: "d407938d",
+    hash: "8743da74",
     parcelCount: 54,
     anchorParcelCount: 6,
     blockedCellCount: 6,
@@ -84,7 +84,7 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "ensanche_ferroviario",
     seed: 1337,
-    hash: "332f4f5e",
+    hash: "c395a1d6",
     parcelCount: 49,
     anchorParcelCount: 6,
     blockedCellCount: 12,
@@ -93,7 +93,7 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "vega_del_cauce",
     seed: 1,
-    hash: "ea4b94cf",
+    hash: "da0f216e",
     parcelCount: 57,
     anchorParcelCount: 4,
     blockedCellCount: 20,
@@ -102,7 +102,7 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "vega_del_cauce",
     seed: 7,
-    hash: "fdc9ba45",
+    hash: "a45a99f4",
     parcelCount: 57,
     anchorParcelCount: 4,
     blockedCellCount: 11,
@@ -111,7 +111,7 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "vega_del_cauce",
     seed: 42,
-    hash: "9e5581fc",
+    hash: "ddfcee47",
     parcelCount: 49,
     anchorParcelCount: 4,
     blockedCellCount: 19,
@@ -120,7 +120,7 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "vega_del_cauce",
     seed: 1337,
-    hash: "8cfe6f45",
+    hash: "5581ea3c",
     parcelCount: 48,
     anchorParcelCount: 4,
     blockedCellCount: 13,

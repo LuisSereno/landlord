@@ -361,7 +361,7 @@ export function createBenchmarkProjection(scenario: BenchmarkScenario): ViewProj
   return {
     projectionVersion: 1,
     tick: scenario.tick,
-    map: { width: 64, height: 64 },
+    map: { width: 64, height: 64, roads: { revision: 0, digest: "811c9dc5", cells: [] } },
     structures: scenario.buildings.map((building) => ({
       id: building.id,
       ownerOrganizationId: parseOrganizationId("org_00000001"),

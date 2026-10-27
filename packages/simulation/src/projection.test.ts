@@ -30,7 +30,7 @@ describe("simulation view projection", () => {
     expect(projection).toMatchObject({
       projectionVersion: 1,
       tick: 0,
-      map: { width: 64, height: 64 },
+      map: expect.objectContaining({ width: 64, height: 64, roads: expect.any(Object) }),
       structures: [
         { id: "structure_00000001", ownerOrganizationId: "org_00000001", cell: { x: 3, y: 4 } },
       ],

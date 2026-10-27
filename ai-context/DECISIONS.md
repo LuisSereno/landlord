@@ -908,8 +908,8 @@ transitable), road (no edificable, **transitable**), parcel (potencialmente edif
 `map.blockedCells` son clústeres de `profile.obstacles` y son el muro del A\*; convertirlos en calzada
 haría intransitables las calles. (2) **Segmentos ortogonales autoritativos** (`RoadSegmentV1 { id, from,
 to, class }`) con el conjunto de celdas derivado por **una única** función pura
-`roadCellsFromSegments()`; la carga valida que lo persistido coincida con lo derivado — divergencia es
-error de integridad, no tolerancia. Sin carriles, sentidos, nombres, anchos variables ni tráfico.
+`roadCellsFromSegments()`; las celdas no se persisten ni se validan como segunda verdad: la carga
+valida segmentos, límites y solapes contra el dominio. Sin carriles, sentidos, nombres, anchos variables ni tráfico.
 (3) **Vive en `GameState.map.roads`** y sólo llega al render por la frontera autorizada
 `ViewProjectionV1.map.roads = { revision, digest, cells: string[] }`; el renderer sigue sin poder
 importar simulación. (4) **Derivación post-composición**, cuatro pasos deterministas: corredores del

@@ -3,6 +3,11 @@ import {
   parseMoney,
   parseParcelId,
   parseSeed,
+  roadCellsFromSegments,
+  roadSegmentId,
+  type RoadCellClass,
+  type RoadSegmentV1,
+  type RoadTopologyV1,
   type District,
   type GridCell,
   type Parcel,
@@ -39,7 +44,10 @@ export type DistrictGenerationIssue = {
     | "DUPLICATE_PARCEL_CELL"
     | "PARCEL_ADJACENCY"
     | "SPAWN_BLOCKED"
-    | "PARCEL_WITHOUT_ACCESS";
+    | "PARCEL_WITHOUT_ACCESS"
+    | "ROAD_SEGMENTS_INVALID"
+    | "ROAD_CROSSES_PARCEL"
+    | "ROAD_UNREACHABLE_SPAWNS";
   detail: string;
 };
 
@@ -52,6 +60,7 @@ export type DistrictGenerationReport = {
   anchorParcelCount: number;
   zoningCounts: Record<Zoning, number>;
   blockedCellCount: number;
+  roadCellCount: number;
   cheapestParcelPrice: number;
   mostExpensiveParcelPrice: number;
   averageParcelPrice: number;
@@ -63,6 +72,7 @@ export type GeneratedDistrict = {
   district: District;
   parcels: Parcel[];
   blockedCells: string[];
+  roads: RoadTopologyV1;
   spawnAnchors: DistrictSpawnAnchors;
   report: DistrictGenerationReport;
 };
@@ -344,6 +354,244 @@ function reachableCells(
   return reachable;
 }
 
+const ROAD_DERIVATION_VERSION = 1 as const;
+const ROAD_MESH_MAX_RUN = 12;
+
+function inBounds(cell: GridCell, width: number, height: number): boolean {
+  return cell.x >= 0 && cell.y >= 0 && cell.x < width && cell.y < height;
+}
+
+function neighbours(key: string): string[] {
+  const [x, y] = key.split(":").map(Number) as [number, number];
+  return CARDINAL_OFFSETS.map((offset) => cellKey({ x: x + offset.x, y: y + offset.y }));
+}
+
+function connectedComponents(cells: ReadonlySet<string>): string[][] {
+  const unvisited = new Set(cells);
+  const result: string[][] = [];
+  while (unvisited.size > 0) {
+    const first = [...unvisited].sort(compareCellKey)[0]!;
+    const component: string[] = [];
+    const queue = [first];
+    unvisited.delete(first);
+    for (let head = 0; head < queue.length; head += 1) {
+      const current = queue[head]!;
+      component.push(current);
+      for (const next of neighbours(current).sort(compareCellKey)) {
+        if (unvisited.delete(next)) queue.push(next);
+      }
+    }
+    result.push(component.sort(compareCellKey));
+  }
+  return result.sort((left, right) => compareCellKey(left[0]!, right[0]!));
+}
+
+function findConnector(
+  source: ReadonlySet<string>,
+  target: ReadonlySet<string>,
+  forbidden: ReadonlySet<string>,
+  width: number,
+  height: number,
+): string[] | null {
+  const queue = [...source].sort(compareCellKey);
+  const previous = new Map<string, string | null>(queue.map((key) => [key, null]));
+  for (let head = 0; head < queue.length; head += 1) {
+    const current = queue[head]!;
+    if (target.has(current)) {
+      const path: string[] = [];
+      for (
+        let cursor: string | null = current;
+        cursor !== null;
+        cursor = previous.get(cursor) ?? null
+      ) {
+        path.push(cursor);
+      }
+      return path.reverse();
+    }
+    for (const next of neighbours(current).sort(compareCellKey)) {
+      const [x, y] = next.split(":").map(Number) as [number, number];
+      if (!inBounds({ x, y }, width, height) || forbidden.has(next) || previous.has(next)) continue;
+      previous.set(next, current);
+      queue.push(next);
+    }
+  }
+  return null;
+}
+
+function segmentsFromCells(cells: ReadonlySet<string>, roadClass: RoadCellClass): RoadSegmentV1[] {
+  // Filas máximas: una representación canónica sin inferir semánticas inexistentes de cruces.
+  const rows = new Map<number, number[]>();
+  for (const key of cells) {
+    const [x, y] = key.split(":").map(Number) as [number, number];
+    const row = rows.get(y) ?? [];
+    row.push(x);
+    rows.set(y, row);
+  }
+  const segments: RoadSegmentV1[] = [];
+  for (const [y, xs] of [...rows.entries()].sort(([left], [right]) => left - right)) {
+    const sorted = [...new Set(xs)].sort((left, right) => left - right);
+    for (let index = 0; index < sorted.length;) {
+      const start = sorted[index]!;
+      let end = start;
+      index += 1;
+      while (sorted[index] === end + 1) {
+        end = sorted[index]!;
+        index += 1;
+      }
+      const from = { x: start, y };
+      const to = { x: end, y };
+      segments.push({ id: roadSegmentId(roadClass, from, to), from, to, class: roadClass });
+    }
+  }
+  return segments;
+}
+
+function normalizeRoadSegments(segments: readonly RoadSegmentV1[]): RoadSegmentV1[] {
+  const unique = new Map<string, RoadSegmentV1>();
+  for (const segment of segments) {
+    const fromBeforeTo =
+      segment.from.y < segment.to.y ||
+      (segment.from.y === segment.to.y && segment.from.x <= segment.to.x);
+    const from = fromBeforeTo ? segment.from : segment.to;
+    const to = fromBeforeTo ? segment.to : segment.from;
+    if ((from.x !== to.x && from.y !== to.y) || from.x < 0 || from.y < 0 || to.x < 0 || to.y < 0) {
+      throw new Error("ROAD_SEGMENTS_INVALID");
+    }
+    const normalized = {
+      ...segment,
+      from: { ...from },
+      to: { ...to },
+      id: roadSegmentId(segment.class, from, to),
+    };
+    unique.set(
+      `${normalized.class}|${normalized.from.x}:${normalized.from.y}|${normalized.to.x}:${normalized.to.y}`,
+      normalized,
+    );
+  }
+  return [...unique.values()].sort(
+    (left, right) =>
+      left.from.y - right.from.y ||
+      left.from.x - right.from.x ||
+      left.class.localeCompare(right.class) ||
+      left.to.y - right.to.y ||
+      left.to.x - right.to.x,
+  );
+}
+
+/**
+ * Trazado post-composición: corredores del spacing → cierre de retícula → malla rectilínea →
+ * Prim/BFS multi-fuente determinista. No consume el PRNG de partida ni depende de Set/Map sin ordenar.
+ */
+export function deriveRoadTopology(input: {
+  parcels: readonly Parcel[];
+  blockedCells: ReadonlySet<string>;
+  width: number;
+  height: number;
+}): RoadTopologyV1 {
+  const parcelCells = new Set(input.parcels.map((parcel) => cellKey(parcel.cell)));
+  const forbidden = new Set([...parcelCells, ...input.blockedCells]);
+  const street = new Set<string>();
+  const orderedParcels = [...input.parcels].sort((left, right) =>
+    compareCellKey(cellKey(left.cell), cellKey(right.cell)),
+  );
+  // 1. corredores de spacing
+  for (const parcel of orderedParcels) {
+    for (const offset of [
+      { x: 2, y: 0 },
+      { x: 0, y: 2 },
+    ]) {
+      const other = { x: parcel.cell.x + offset.x, y: parcel.cell.y + offset.y };
+      if (!parcelCells.has(cellKey(other))) continue;
+      const middle = { x: parcel.cell.x + offset.x / 2, y: parcel.cell.y + offset.y / 2 };
+      if (!forbidden.has(cellKey(middle))) street.add(cellKey(middle));
+    }
+  }
+  // 2. cierre de retícula (iterado hasta punto fijo)
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const key of [...street].sort(compareCellKey)) {
+      const [x, y] = key.split(":").map(Number) as [number, number];
+      for (const offset of [
+        { x: 2, y: 0 },
+        { x: 0, y: 2 },
+      ]) {
+        const other = cellKey({ x: x + offset.x, y: y + offset.y });
+        const middle = cellKey({ x: x + offset.x / 2, y: y + offset.y / 2 });
+        if (street.has(other) && !forbidden.has(middle) && !street.has(middle)) {
+          street.add(middle);
+          changed = true;
+        }
+      }
+    }
+  }
+  // 3. cierre de malla rectilíneo desde hojas, conservando el eje del tramo.
+  for (const key of [...street].sort(compareCellKey)) {
+    const adjacent = neighbours(key).filter((candidate) => street.has(candidate));
+    if (adjacent.length !== 1) continue;
+    const [x, y] = key.split(":").map(Number) as [number, number];
+    const [nx, ny] = adjacent[0]!.split(":").map(Number) as [number, number];
+    const dx = x - nx;
+    const dy = y - ny;
+    for (let run = 1; run <= ROAD_MESH_MAX_RUN; run += 1) {
+      const next = { x: x + dx * run, y: y + dy * run };
+      const nextKey = cellKey(next);
+      if (!inBounds(next, input.width, input.height) || forbidden.has(nextKey)) break;
+      street.add(nextKey);
+      if (
+        neighbours(nextKey).some(
+          (candidate) =>
+            street.has(candidate) &&
+            candidate !== cellKey({ x: x + dx * (run - 1), y: y + dy * (run - 1) }),
+        )
+      )
+        break;
+    }
+  }
+  // Las parcelas aisladas por un bloque válido reciben un frente canónico antes de enlazar la red.
+  // No altera la composición: sólo ocupa una celda abierta adyacente ya persistida fuera de la parcela.
+  for (const parcel of orderedParcels) {
+    if (hasRoadAccess(parcel, street)) continue;
+    const frontage = CARDINAL_OFFSETS.map((offset) => ({
+      x: parcel.cell.x + offset.x,
+      y: parcel.cell.y + offset.y,
+    }))
+      .filter((cell) => inBounds(cell, input.width, input.height) && !forbidden.has(cellKey(cell)))
+      .sort((left, right) => compareCellKey(cellKey(left), cellKey(right)))[0];
+    if (!frontage) throw new Error("ROAD_UNREACHABLE_SPAWNS");
+    street.add(cellKey(frontage));
+  }
+  // 4. Prim determinista: cada BFS parte de la red pública acumulada y une el siguiente componente.
+  const avenue = new Set<string>();
+  while (connectedComponents(new Set([...street, ...avenue])).length > 1) {
+    const components = connectedComponents(new Set([...street, ...avenue]));
+    const source = new Set(components[0]!);
+    const target = new Set(components.slice(1).flat());
+    const path = findConnector(source, target, forbidden, input.width, input.height);
+    if (!path) {
+      // Bolsillos sellados por parcelas: no son red pública si no pueden prestar servicio exterior.
+      // Se excluyen en lugar de publicar varios componentes desconectados.
+      for (const key of target) {
+        street.delete(key);
+        avenue.delete(key);
+      }
+      continue;
+    }
+    for (const key of path) if (!street.has(key)) avenue.add(key);
+  }
+  const segments = normalizeRoadSegments([
+    ...segmentsFromCells(street, "street"),
+    ...segmentsFromCells(avenue, "avenue"),
+  ]);
+  return { topologyVersion: 1, derivationVersion: ROAD_DERIVATION_VERSION, segments };
+}
+
+export function hasRoadAccess(parcel: Parcel, roadCells: ReadonlySet<string>): boolean {
+  return CARDINAL_OFFSETS.some((offset) =>
+    roadCells.has(cellKey({ x: parcel.cell.x + offset.x, y: parcel.cell.y + offset.y })),
+  );
+}
+
 export function validateDistrictPlayability(input: {
   profile: DistrictProfile;
   parcels: readonly Parcel[];
@@ -442,9 +690,10 @@ export function districtCanonicalString(input: {
   district: District;
   parcels: readonly Parcel[];
   blockedCells: readonly string[];
+  roads: RoadTopologyV1;
   spawnAnchors: DistrictSpawnAnchors;
 }): string {
-  const { profileId, seed, district, parcels, blockedCells, spawnAnchors } = input;
+  const { profileId, seed, district, parcels, blockedCells, roads, spawnAnchors } = input;
   const parcelEntries = [...parcels]
     .sort((left, right) => left.id.localeCompare(right.id))
     .map((parcel) => {
@@ -468,6 +717,12 @@ export function districtCanonicalString(input: {
     `spawns=${spawnAnchors.player.x},${spawnAnchors.player.y}|${spawnAnchors.rival.x},${spawnAnchors.rival.y}`,
     `parcels=${parcelEntries}`,
     `blocked=${[...blockedCells].sort(compareCellKey).join(",")}`,
+    `roads=${roads.segments
+      .map(
+        (segment) =>
+          `${segment.id}:${segment.class}:${segment.from.x},${segment.from.y}-${segment.to.x},${segment.to.y}`,
+      )
+      .join(";")}`,
   ].join("~");
 }
 
@@ -477,6 +732,7 @@ export function districtGenerationHash(input: {
   district: District;
   parcels: readonly Parcel[];
   blockedCells: readonly string[];
+  roads: RoadTopologyV1;
   spawnAnchors: DistrictSpawnAnchors;
 }): string {
   return fnv1a32(districtCanonicalString(input)).toString(16).padStart(8, "0");
@@ -488,11 +744,13 @@ function buildReport(input: {
   attempts: number;
   parcels: readonly Parcel[];
   blockedCells: readonly string[];
+  roads: RoadTopologyV1;
   anchorParcelCount: number;
   hash: string;
   issues: readonly DistrictGenerationIssue[];
 }): DistrictGenerationReport {
-  const { profile, seed, attempts, parcels, blockedCells, anchorParcelCount, hash, issues } = input;
+  const { profile, seed, attempts, parcels, blockedCells, roads, anchorParcelCount, hash, issues } =
+    input;
   const zoningCounts: Record<Zoning, number> = { residential: 0, mixed: 0, industrial: 0 };
   for (const parcel of parcels) zoningCounts[parcel.zoning] += 1;
   const prices = parcels.map((parcel) => parcel.price);
@@ -506,6 +764,7 @@ function buildReport(input: {
     anchorParcelCount,
     zoningCounts,
     blockedCellCount: blockedCells.length,
+    roadCellCount: roadCellsFromSegments(roads.segments).size,
     cheapestParcelPrice: prices.length === 0 ? 0 : Math.min(...prices),
     mostExpensiveParcelPrice: prices.length === 0 ? 0 : Math.max(...prices),
     averageParcelPrice: prices.length === 0 ? 0 : Math.round(total / prices.length),
@@ -533,6 +792,42 @@ export function generateDistrictFromProfile(
     });
     if (issues.length > 0) continue;
 
+    let roads: RoadTopologyV1;
+    try {
+      roads = deriveRoadTopology({
+        parcels,
+        blockedCells: composition.blocked,
+        width: profile.width,
+        height: profile.height,
+      });
+    } catch (error) {
+      issues = [{ code: "ROAD_SEGMENTS_INVALID", detail: String(error) }];
+      continue;
+    }
+    const roadCells = roadCellsFromSegments(roads.segments);
+    const roadIssues: DistrictGenerationIssue[] = [];
+    if (roadCells.size === 0 || connectedComponents(roadCells).length !== 1) {
+      roadIssues.push({ code: "ROAD_UNREACHABLE_SPAWNS", detail: "red pública no 4-conexa" });
+    }
+    if (
+      [...roadCells].some(
+        (key) =>
+          composition.blocked.has(key) || parcels.some((parcel) => cellKey(parcel.cell) === key),
+      )
+    ) {
+      roadIssues.push({
+        code: "ROAD_CROSSES_PARCEL",
+        detail: "road intersecta parcela u obstáculo",
+      });
+    }
+    if (parcels.some((parcel) => !hasRoadAccess(parcel, roadCells))) {
+      roadIssues.push({ code: "PARCEL_WITHOUT_ACCESS", detail: "parcela sin frente vial" });
+    }
+    if (roadIssues.length > 0) {
+      issues = roadIssues;
+      continue;
+    }
+
     const district: District = {
       id: GENERATED_DISTRICT_ID,
       name: profile.name,
@@ -546,12 +841,14 @@ export function generateDistrictFromProfile(
       district,
       parcels,
       blockedCells,
+      roads,
       spawnAnchors: profile.spawnAnchors,
     });
     return {
       district,
       parcels,
       blockedCells,
+      roads,
       spawnAnchors: {
         player: { ...profile.spawnAnchors.player },
         rival: { ...profile.spawnAnchors.rival },
@@ -562,6 +859,7 @@ export function generateDistrictFromProfile(
         attempts: attempt,
         parcels,
         blockedCells,
+        roads,
         anchorParcelCount: composition.slots.filter((slot) => slot.anchor).length,
         hash,
         issues: [],

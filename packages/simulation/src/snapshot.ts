@@ -24,6 +24,7 @@ import type { ProductCommand } from "@landlord/shared";
 import { parseSeed, parseTick } from "@landlord/shared";
 import { PRNG_ALGORITHM } from "./prng";
 import { createInitialState, type GameState } from "./state";
+import { deriveRoadTopology } from "./district-generator";
 import {
   BUILDING_DEFINITIONS,
   MUNICIPAL_PARTY_CATALOG,
@@ -72,6 +73,15 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
       width: 64,
       height: 64,
       blockedCells: [...state.map.blockedCells].map(cellFromKey).sort(compareCell),
+      roads: {
+        topologyVersion: state.map.roads.topologyVersion,
+        derivationVersion: state.map.roads.derivationVersion,
+        segments: state.map.roads.segments.map((segment) => ({
+          ...segment,
+          from: { ...segment.from },
+          to: { ...segment.to },
+        })),
+      },
     },
     playerIdentities: [...state.playerIdentities.values()].sort(compareId),
     persons: [...state.persons.values()].sort(compareId),
@@ -328,6 +338,20 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
     districtProfileId: snapshot.phase2?.district.generation?.profileId,
   });
   const defaults = defaultState.phase2;
+  const restoredBlockedCells = new Set(
+    snapshot.map.blockedCells.map((cell) => `${cell.x}:${cell.y}`),
+  );
+  // El backfill depende sólo de la geometría persistida (parcelas + obstáculos), nunca del perfil actual.
+  const restoredRoads =
+    snapshot.map.roads ??
+    (snapshot.phase2
+      ? deriveRoadTopology({
+          parcels: snapshot.phase2.parcels,
+          blockedCells: restoredBlockedCells,
+          width: snapshot.map.width,
+          height: snapshot.map.height,
+        })
+      : defaultState.map.roads);
   const state: GameState = {
     seed: snapshot.seed,
     clock: { tick: parseTick(snapshot.tick), runState: "paused", speed: 1 },
@@ -339,7 +363,16 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
     map: {
       width: 64,
       height: 64,
-      blockedCells: new Set(snapshot.map.blockedCells.map((cell) => `${cell.x}:${cell.y}`)),
+      blockedCells: restoredBlockedCells,
+      roads: {
+        topologyVersion: restoredRoads.topologyVersion,
+        derivationVersion: restoredRoads.derivationVersion,
+        segments: restoredRoads.segments.map((segment) => ({
+          ...segment,
+          from: { ...segment.from },
+          to: { ...segment.to },
+        })),
+      },
     },
     playerIdentities: new Map(
       snapshot.playerIdentities.map((identity) => [

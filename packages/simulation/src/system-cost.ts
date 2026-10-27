@@ -37,7 +37,7 @@ import {
   type TenantProfile,
   type Zoning,
 } from "@landlord/shared";
-import { cellKey } from "./district-generator";
+import { cellKey, deriveRoadTopology } from "./district-generator";
 import { DEFAULT_DISTRICT_PROFILE_ID } from "./district-profiles";
 import {
   BANK_ORGANIZATION_ID,
@@ -505,6 +505,14 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
 
   if (incidentCount > 0) injectScaledIncidents(state, incidentCount);
 
+  // El harness también modifica la geometría persistida: reconstruye la única topología autorizada
+  // desde sus parcelas sintéticas para conservar road ∩ parcel = ∅ en save/load.
+  state.map.roads = deriveRoadTopology({
+    parcels: [...state.phase2.parcels.values()],
+    blockedCells: state.map.blockedCells,
+    width: state.map.width,
+    height: state.map.height,
+  });
   state.idCounters.agent = counters.agent;
   return state;
 }

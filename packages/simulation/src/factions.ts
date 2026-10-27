@@ -307,7 +307,7 @@ export function noteCycleSuppressed(state: GameState, organizationId: Organizati
  * plantan con `spacingX = spacingY = 2` dentro de cada manzana, así que "compartir manzana" significa
  * estar a una o dos celdas en la misma fila o columna: mirar sólo la celda vecina no encontraría nada en
  * un distrito real. NO es la calzada — el origen de cada manzana se sortea, la paridad cambia de manzana
- * en manzana y todavía no existe una topología vial autoritativa (WP4.15-V.c.2A, D-085).
+ * en manzana. La topología vial autoritativa no cambia todavía esta métrica de territorio (D-085).
  */
 function territoryContacts(state: GameState): Array<[string, number]> {
   const ownerByCell = new Map<string, OrganizationId>();

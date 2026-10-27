@@ -40,6 +40,7 @@ import {
   type PermittingState,
   type InsolvencyState,
   type MacroEventsState,
+  type RoadTopologyV1,
 } from "@landlord/shared";
 import type { Money } from "@landlord/shared";
 import type {
@@ -148,6 +149,7 @@ export type GameState = {
     width: 64;
     height: 64;
     blockedCells: Set<string>;
+    roads: RoadTopologyV1;
   };
   playerIdentities: Map<PlayerIdentityId, PlayerIdentity>;
   persons: Map<PersonId, Person>;
@@ -265,6 +267,7 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
       width: district.width,
       height: district.height,
       blockedCells: new Set(generated.blockedCells),
+      roads: generated.roads,
     },
     playerIdentities: new Map([[playerIdentityId, { id: playerIdentityId, personId }]]),
     persons: new Map([

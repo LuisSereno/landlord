@@ -1,4 +1,4 @@
-import type { ViewProjectionV1 } from "@landlord/shared";
+import { roadCellsFromSegments, type ViewProjectionV1 } from "@landlord/shared";
 import { parseTick } from "@landlord/shared";
 import { type GameState } from "./state";
 import {
@@ -322,10 +322,23 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
       message: `${building.id} tiene ${BUILDING_DEFINITIONS[building.type].capacity - building.tenantIds.length} plaza(s) vacante(s).`,
       targetId: building.parcelId,
     });
+  const roadCells = [...roadCellsFromSegments(state.map.roads.segments)].sort((left, right) => {
+    const [leftX, leftY] = left.split(":").map(Number) as [number, number];
+    const [rightX, rightY] = right.split(":").map(Number) as [number, number];
+    return leftY - rightY || leftX - rightX;
+  });
+  let roadDigest = 0x811c9dc5;
+  for (const character of roadCells.join(",")) {
+    roadDigest = Math.imul((roadDigest ^ character.charCodeAt(0)) >>> 0, 0x01000193) >>> 0;
+  }
   return {
     projectionVersion: 1,
     tick: parseTick(state.clock.tick),
-    map: { width: 64, height: 64 },
+    map: {
+      width: 64,
+      height: 64,
+      roads: { revision: 0, digest: roadDigest.toString(16).padStart(8, "0"), cells: roadCells },
+    },
     structures: [...state.structures.values()]
       .sort((left, right) => left.id.localeCompare(right.id))
       .map((structure) => ({

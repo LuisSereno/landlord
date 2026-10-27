@@ -34,7 +34,7 @@ function projection(
   return {
     projectionVersion: 1,
     tick: 0,
-    map: { width: 64, height: 64 },
+    map: { width: 64, height: 64, roads: { revision: 0, digest: "811c9dc5", cells: [] } },
     structures: [],
     agents: [],
     economy: {

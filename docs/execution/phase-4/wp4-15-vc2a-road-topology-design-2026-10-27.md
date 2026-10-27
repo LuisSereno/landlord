@@ -172,12 +172,11 @@ destruiría parcelas: 502 celdas en 24 distritos.
 |---|---|---|
 | **A. Sólo celdas** `roadCells: string[]` | trivial para buildability y render; simple en 64×64 | poca semántica: clase, tramos y conectividad tienen que reinventarse en cada consumidor |
 | **B. Sólo segmentos** `RoadSegment[]` | compacta y semántica; orientación y clase nativas | tres consumidores derivando celdas por su cuenta → tres derivaciones que pueden divergir |
-| **C. Híbrida** (segmentos autoritativos + celdas derivadas por **una** función pura y cacheadas) | semántica sin duplicar verdad; la carga puede validar que lo persistido coincide con lo derivado | exige mantener la función de derivación versionada |
+| **C. Híbrida** (segmentos autoritativos + celdas derivadas por **una** función pura y cacheadas) | semántica sin duplicar verdad; la carga valida segmentos y sus invariantes contra el dominio | exige mantener la función de derivación versionada |
 
 **Recomendada: C.** Es la única que da orientación, clase y conectividad sin crear una segunda verdad.
-Regla operativa: `roadCellsFromSegments(segments)` es la única fuente del conjunto de celdas; si la
-snapshot lleva celdas persistidas y difieren de las derivadas, es un **error de integridad**, no una
-diferencia tolerada.
+Regla operativa: `roadCellsFromSegments(segments)` es la única fuente del conjunto de celdas. Las celdas
+no viajan en la snapshot, por lo que no existe una segunda verdad que reconciliar.
 
 No se modelan carriles, sentidos, nombres, anchos variables ni tráfico. Un segmento es ortogonal y
 closure-inclusivo (`from`..`to`), ancho 1 celda.

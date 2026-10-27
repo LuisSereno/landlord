@@ -113,7 +113,7 @@ function roadTiles(): SliceTerrain[] {
   for (const x of VERTICAL_AVENUES) {
     for (let y = ZONE_FROM; y <= ZONE_TO; y += 1) {
       if (HORIZONTAL_STREETS.includes(y)) continue;
-      tiles.push({ asset: "ter_road_straight", cell: { x, y }, flipX: true });
+      tiles.push({ asset: "ter_road_straight", cell: { x, y } });
     }
   }
   for (const value of intersections) {
@@ -140,97 +140,97 @@ function worksLotTiles(): SliceTerrain[] {
 const BUILDINGS: SliceBuilding[] = [
   // === PRIMARY FRONTAGE: Avenida principal x=30 (oeste, x=28) ===
   { type: "bld_shopfront", cell: { x: 28, y: 20 } },
-  { type: "bld_commercial_b", cell: { x: 28, y: 24 }, flipX: true },
+  { type: "bld_commercial_b", cell: { x: 28, y: 24 } },
   { type: "bld_commercial_c", cell: { x: 28, y: 28 } },
-  { type: "bld_shopfront", cell: { x: 28, y: 32 }, flipX: true },
+  { type: "bld_shopfront", cell: { x: 28, y: 32 } },
   { type: "bld_commercial_b", cell: { x: 28, y: 36 } },
-  { type: "bld_commercial_c", cell: { x: 28, y: 40 }, flipX: true },
+  { type: "bld_commercial_c", cell: { x: 28, y: 40 } },
 
   // === PRIMARY FRONTAGE: Avenida principal x=42 (este, x=40) ===
   { type: "bld_commercial_c", cell: { x: 40, y: 20 } },
-  { type: "bld_shopfront", cell: { x: 40, y: 24 }, flipX: true },
+  { type: "bld_shopfront", cell: { x: 40, y: 24 } },
   { type: "bld_commercial_b", cell: { x: 40, y: 28 } },
-  { type: "bld_commercial_c", cell: { x: 40, y: 32 }, flipX: true },
+  { type: "bld_commercial_c", cell: { x: 40, y: 32 } },
   { type: "bld_shopfront", cell: { x: 40, y: 36 } },
-  { type: "bld_commercial_b", cell: { x: 40, y: 40 }, flipX: true },
+  { type: "bld_commercial_b", cell: { x: 40, y: 40 } },
 
   // === SECONDARY STREET: Calle principal y=30 (norte, y=28) ===
   { type: "bld_shopfront", cell: { x: 20, y: 28 } },
-  { type: "bld_commercial_b", cell: { x: 24, y: 28 }, flipX: true },
+  { type: "bld_commercial_b", cell: { x: 24, y: 28 } },
   { type: "bld_residential_a", cell: { x: 34, y: 28 } },
-  { type: "bld_residential_b", cell: { x: 38, y: 28 }, flipX: true },
+  { type: "bld_residential_b", cell: { x: 38, y: 28 } },
 
   // === SECONDARY STREET: Calle principal y=30 (sur, y=32) ===
-  { type: "bld_residential_c", cell: { x: 22, y: 32 }, flipX: true },
+  { type: "bld_residential_c", cell: { x: 22, y: 32 } },
   { type: "bld_commercial_c", cell: { x: 26, y: 32 } },
-  { type: "bld_residential_a", cell: { x: 36, y: 32 }, flipX: true },
-  { type: "bld_residential_b", cell: { x: 40, y: 32 } },
+  { type: "bld_residential_a", cell: { x: 36, y: 32 } },
+  { type: "bld_residential_b", cell: { x: 44, y: 32 } },
 
   // === SECONDARY STREET: Calle secundaria y=18 (norte, y=16) ===
   { type: "bld_residential_a", cell: { x: 20, y: 16 } },
-  { type: "bld_residential_b", cell: { x: 24, y: 16 }, flipX: true },
+  { type: "bld_residential_b", cell: { x: 24, y: 16 } },
   { type: "bld_shopfront", cell: { x: 34, y: 16 } },
-  { type: "bld_residential_c", cell: { x: 38, y: 16 }, flipX: true },
+  { type: "bld_residential_c", cell: { x: 38, y: 16 } },
 
   // === SECONDARY STREET: Calle secundaria y=18 (sur, y=20) ===
-  { type: "bld_residential_b", cell: { x: 22, y: 20 }, flipX: true },
+  { type: "bld_residential_b", cell: { x: 22, y: 20 } },
   { type: "bld_residential_c", cell: { x: 26, y: 20 } },
-  { type: "bld_residential_a", cell: { x: 36, y: 20 }, flipX: true },
-  { type: "bld_shopfront", cell: { x: 40, y: 20 } },
+  { type: "bld_residential_a", cell: { x: 36, y: 20 } },
+  { type: "bld_shopfront", cell: { x: 48, y: 20 } },
 
   // === TERTIARY STREET: y=6 (norte extremo, y=4) ===
   { type: "bld_residential_a", cell: { x: 22, y: 4 } },
-  { type: "bld_residential_b", cell: { x: 28, y: 4 }, flipX: true },
+  { type: "bld_residential_b", cell: { x: 28, y: 4 } },
   { type: "bld_residential_c", cell: { x: 34, y: 4 } },
-  { type: "bld_residential_a", cell: { x: 40, y: 4 }, flipX: true },
+  { type: "bld_residential_a", cell: { x: 40, y: 4 } },
 
   // === TERTIARY STREET: y=42 (sur extremo, y=40) ===
-  { type: "bld_residential_b", cell: { x: 24, y: 40 }, flipX: true },
-  { type: "bld_residential_c", cell: { x: 30, y: 40 } },
-  { type: "bld_residential_a", cell: { x: 36, y: 40 }, flipX: true },
-  { type: "bld_residential_b", cell: { x: 42, y: 40 } },
+  { type: "bld_residential_b", cell: { x: 24, y: 40 } },
+  { type: "bld_residential_c", cell: { x: 32, y: 40 } },
+  { type: "bld_residential_a", cell: { x: 36, y: 40 } },
+  { type: "bld_residential_b", cell: { x: 44, y: 40 } },
 
   // === TERTIARY STREET: x=18 (oeste extremo, x=16) ===
   { type: "bld_residential_c", cell: { x: 16, y: 22 } },
-  { type: "bld_residential_a", cell: { x: 16, y: 28 }, flipX: true },
+  { type: "bld_residential_a", cell: { x: 16, y: 28 } },
   { type: "bld_residential_b", cell: { x: 16, y: 34 } },
-  { type: "bld_residential_c", cell: { x: 16, y: 40 }, flipX: true },
+  { type: "bld_residential_c", cell: { x: 16, y: 40 } },
 
   // === TERTIARY STREET: x=54 (este extremo, x=52) ===
-  { type: "bld_residential_a", cell: { x: 52, y: 24 }, flipX: true },
-  { type: "bld_residential_b", cell: { x: 52, y: 30 } },
-  { type: "bld_residential_c", cell: { x: 52, y: 36 }, flipX: true },
-  { type: "bld_residential_a", cell: { x: 52, y: 42 } },
+  { type: "bld_residential_a", cell: { x: 52, y: 24 } },
+  { type: "bld_residential_b", cell: { x: 52, y: 28 } },
+  { type: "bld_residential_c", cell: { x: 52, y: 36 } },
+  { type: "bld_residential_a", cell: { x: 52, y: 44 } },
 
   // === SECOND ROW: profundidad detrás de fachada principal ===
   { type: "bld_residential_b", cell: { x: 25, y: 23 } },
-  { type: "bld_residential_c", cell: { x: 35, y: 23 }, flipX: true },
-  { type: "bld_residential_a", cell: { x: 25, y: 37 }, flipX: true },
-  { type: "bld_residential_b", cell: { x: 35, y: 37 } },
+  { type: "bld_residential_c", cell: { x: 35, y: 23 } },
+  { type: "bld_residential_a", cell: { x: 25, y: 37 } },
+  { type: "bld_residential_b", cell: { x: 35, y: 39 } },
 
   // === THIRD ROW: más profundidad ===
   { type: "bld_residential_c", cell: { x: 22, y: 22 } },
-  { type: "bld_residential_a", cell: { x: 38, y: 22 }, flipX: true },
-  { type: "bld_residential_b", cell: { x: 22, y: 38 }, flipX: true },
+  { type: "bld_residential_a", cell: { x: 38, y: 22 } },
+  { type: "bld_residential_b", cell: { x: 22, y: 38 } },
   { type: "bld_residential_c", cell: { x: 38, y: 38 } },
 
   // === FOURTH ROW: bloques adicionales ===
   { type: "bld_residential_a", cell: { x: 14, y: 14 } },
-  { type: "bld_residential_b", cell: { x: 20, y: 14 }, flipX: true },
+  { type: "bld_residential_b", cell: { x: 20, y: 14 } },
   { type: "bld_residential_c", cell: { x: 44, y: 14 } },
-  { type: "bld_residential_a", cell: { x: 50, y: 14 }, flipX: true },
+  { type: "bld_residential_a", cell: { x: 50, y: 14 } },
   { type: "bld_residential_b", cell: { x: 14, y: 46 } },
-  { type: "bld_residential_c", cell: { x: 20, y: 46 }, flipX: true },
+  { type: "bld_residential_c", cell: { x: 20, y: 46 } },
   { type: "bld_residential_a", cell: { x: 44, y: 46 } },
-  { type: "bld_residential_b", cell: { x: 50, y: 46 }, flipX: true },
-  { type: "bld_residential_c", cell: { x: 10, y: 30 } },
-  { type: "bld_residential_a", cell: { x: 46, y: 30 }, flipX: true },
+  { type: "bld_residential_b", cell: { x: 50, y: 46 } },
+  { type: "bld_residential_c", cell: { x: 10, y: 28 } },
+  { type: "bld_residential_a", cell: { x: 46, y: 32 } },
 ];
 
 const PROPS: SliceProp[] = [
   // Arborado de fondo, en grupos irregulares.
   { asset: "prp_tree_pine", cell: { x: 14, y: 22 }, scale: 1.3 },
-  { asset: "prp_tree_detailed", cell: { x: 18, y: 24 }, scale: 1.3 },
+  { asset: "prp_tree_detailed", cell: { x: 19, y: 24 }, scale: 1.3 },
   { asset: "prp_tree_oak", cell: { x: 23, y: 22 }, scale: 1.3 },
   { asset: "prp_tree_pine", cell: { x: 27, y: 20 }, scale: 1.3 },
   { asset: "prp_tree_oak", cell: { x: 33, y: 21 }, scale: 1.3 },
@@ -239,19 +239,19 @@ const PROPS: SliceProp[] = [
   { asset: "prp_tree_oak", cell: { x: 45, y: 33 }, scale: 1.3 },
   { asset: "prp_tree_detailed", cell: { x: 45, y: 43 }, scale: 1.3 },
   // Parque del suroeste, en el interior de la manzana.
-  { asset: "prp_tree_oak", cell: { x: 18, y: 34 }, scale: 1.3 },
+  { asset: "prp_tree_oak", cell: { x: 19, y: 34 }, scale: 1.3 },
   { asset: "prp_tree_detailed", cell: { x: 21, y: 37 }, scale: 1.3 },
-  { asset: "prp_tree_pine", cell: { x: 18, y: 41 }, scale: 1.3 },
-  { asset: "prp_tree_oak", cell: { x: 24, y: 42 }, scale: 1.3 },
+  { asset: "prp_tree_pine", cell: { x: 19, y: 41 }, scale: 1.3 },
+  { asset: "prp_tree_oak", cell: { x: 24, y: 43 }, scale: 1.3 },
   { asset: "prp_tree_detailed", cell: { x: 26, y: 38 }, scale: 1.3 },
   // Farolas sobre las aceras de la calle y la avenida principales.
-  { asset: "prp_street_light", cell: { x: 18, y: 29 }, scale: 1.8, flipX: true },
-  { asset: "prp_street_light", cell: { x: 23, y: 29 }, scale: 1.8, flipX: true },
-  { asset: "prp_street_light", cell: { x: 27, y: 29 }, scale: 1.8, flipX: true },
+  { asset: "prp_street_light", cell: { x: 19, y: 29 }, scale: 1.8 },
+  { asset: "prp_street_light", cell: { x: 23, y: 29 }, scale: 1.8 },
+  { asset: "prp_street_light", cell: { x: 27, y: 29 }, scale: 1.8 },
   { asset: "prp_street_light", cell: { x: 34, y: 29 }, scale: 1.8 },
   { asset: "prp_street_light", cell: { x: 38, y: 29 }, scale: 1.8 },
-  { asset: "prp_street_light", cell: { x: 29, y: 22 }, scale: 1.8, flipX: true },
-  { asset: "prp_street_light", cell: { x: 29, y: 36 }, scale: 1.8, flipX: true },
+  { asset: "prp_street_light", cell: { x: 29, y: 22 }, scale: 1.8 },
+  { asset: "prp_street_light", cell: { x: 29, y: 36 }, scale: 1.8 },
   { asset: "prp_street_light", cell: { x: 31, y: 26 }, scale: 1.8 },
   { asset: "prp_street_light", cell: { x: 31, y: 39 }, scale: 1.8 },
   { asset: "prp_street_light", cell: { x: 41, y: 20 }, scale: 1.8 },
@@ -261,7 +261,6 @@ const PROPS: SliceProp[] = [
     asset: "prp_traffic_light",
     cell: { x: 31, y: 31 },
     azimuth: 225,
-    flipX: true,
     scale: 2.0,
   },
   { asset: "prp_traffic_light", cell: { x: 41, y: 29 }, azimuth: 225, scale: 2.0 },
@@ -269,12 +268,11 @@ const PROPS: SliceProp[] = [
     asset: "prp_traffic_light",
     cell: { x: 29, y: 17 },
     azimuth: 225,
-    flipX: true,
     scale: 2.0,
   },
   // Mobiliario de acera y parque.
   { asset: "prp_bench", cell: { x: 24, y: 31 }, scale: 2.0 },
-  { asset: "prp_bench", cell: { x: 19, y: 36 }, scale: 2.0, flipX: true },
+  { asset: "prp_bench", cell: { x: 19, y: 36 }, scale: 2.0 },
   { asset: "prp_bench", cell: { x: 23, y: 41 }, scale: 2.0 },
   { asset: "prp_trash_can", cell: { x: 26, y: 31 }, scale: 1.6 },
   { asset: "prp_trash_can", cell: { x: 20, y: 39 }, scale: 1.6 },
@@ -283,7 +281,7 @@ const PROPS: SliceProp[] = [
   { asset: "prp_construction_barrier", cell: { x: 33, y: 34 }, scale: 3.2 },
   { asset: "prp_construction_barrier", cell: { x: 34, y: 34 }, scale: 3.2 },
   { asset: "prp_construction_barrier", cell: { x: 35, y: 34 }, scale: 3.2 },
-  { asset: "prp_construction_barrier", cell: { x: 36, y: 34 }, scale: 3.2, flipX: true },
+  { asset: "prp_construction_barrier", cell: { x: 36, y: 34 }, scale: 3.2 },
   { asset: "prp_construction_cone", cell: { x: 33, y: 36 }, scale: 2.8 },
   { asset: "prp_construction_cone", cell: { x: 35, y: 36 }, scale: 2.8 },
   { asset: "prp_construction_cone", cell: { x: 34, y: 37 }, scale: 2.8 },
@@ -292,20 +290,18 @@ const PROPS: SliceProp[] = [
 
 const VEHICLES: SliceVehicle[] = [
   // Calle principal: carril derecho según el sentido (offsets de presentación).
-  { asset: "veh_sedan", cell: { x: 21, y: 30 }, flipX: true, offset: { x: -8, y: 4 } },
-  { asset: "veh_truck", cell: { x: 26, y: 30 }, flipX: true, offset: { x: -8, y: 4 } },
+  { asset: "veh_sedan", cell: { x: 21, y: 30 }, offset: { x: -8, y: 4 } },
+  { asset: "veh_truck", cell: { x: 26, y: 30 }, offset: { x: -8, y: 4 } },
   {
     asset: "veh_taxi",
     cell: { x: 35, y: 30 },
     azimuth: 225,
-    flipX: true,
     offset: { x: 8, y: -4 },
   },
   {
     asset: "veh_sedan",
     cell: { x: 39, y: 30 },
     azimuth: 225,
-    flipX: true,
     offset: { x: 8, y: -4 },
   },
   // Avenida principal.

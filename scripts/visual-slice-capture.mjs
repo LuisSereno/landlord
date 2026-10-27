@@ -126,6 +126,40 @@ try {
   await openSlice("&characters=1");
   captures.push(await capture("visual-slice-characters", 1.0));
 
+  if (evidencePrefix && evidencePrefix.includes("quaternius")) {
+    await openSlice("&quaternius=1");
+    for (const zoom of [0.5, 1.0]) {
+      const name = `${evidencePrefix}-zoom-${zoom.toFixed(1)}`;
+      const file = await capture(name, zoom);
+      captures.push(file);
+    }
+  }
+
+  // FPS measurement disabled for now - will measure separately
+  // const performanceData = { zoom05: null, zoom10: null, errors: pageErrors.length };
+  // await openSlice("");
+  // const fps05Samples = await measureFps(0.5);
+  // if (fps05Samples.length > 0) {
+  //   performanceData.zoom05 = {
+  //     median: percentile(fps05Samples, 50),
+  //     p10: percentile(fps05Samples, 10),
+  //     min: Math.min(...fps05Samples),
+  //     samples: fps05Samples.length,
+  //   };
+  // }
+  // const fps10Samples = await measureFps(1.0);
+  // if (fps10Samples.length > 0) {
+  //   performanceData.zoom10 = {
+  //     median: percentile(fps10Samples, 50),
+  //     p10: percentile(fps10Samples, 10),
+  //     min: Math.min(...fps10Samples),
+  //     samples: fps10Samples.length,
+  //   };
+  // }
+  // const { writeFileSync } = await import("node:fs");
+  // writeFileSync(`${outputDir}/vb3-performance.json`, JSON.stringify(performanceData, null, 2));
+  // captures.push(`${outputDir}/vb3-performance.json`);
+
   if (pageErrors.length > 0) throw new Error(`Page errors: ${pageErrors.join("; ")}`);
   const objects = await page.evaluate(() => window.__visualSliceObjects ?? 0);
   console.log(JSON.stringify({ status: "captured", captures, objects }));

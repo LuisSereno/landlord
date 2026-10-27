@@ -74,12 +74,12 @@ export type OpenSpace = {
  * (jardín o explanada) se lea por separado de la plaza pública.
  */
 export const OPEN_SPACES: readonly OpenSpace[] = [
-  { id: "park_north_west", from: { x: 14, y: 19 }, to: { x: 27, y: 24 }, kind: "park" },
-  { id: "park_north_east", from: { x: 32, y: 19 }, to: { x: 39, y: 24 }, kind: "park" },
-  { id: "park_south", from: { x: 16, y: 32 }, to: { x: 24, y: 43 }, kind: "park" },
-  { id: "park_east", from: { x: 44, y: 20 }, to: { x: 48, y: 45 }, kind: "park" },
-  { id: "lot_vacant_west", from: { x: 13, y: 32 }, to: { x: 15, y: 35 }, kind: "vacant" },
-  { id: "lot_vacant_south", from: { x: 37, y: 32 }, to: { x: 39, y: 34 }, kind: "vacant" },
+  { id: "park_north_west", from: { x: 8, y: 8 }, to: { x: 12, y: 12 }, kind: "park" },
+  { id: "park_north_east", from: { x: 48, y: 8 }, to: { x: 52, y: 12 }, kind: "park" },
+  { id: "park_south", from: { x: 8, y: 48 }, to: { x: 12, y: 52 }, kind: "park" },
+  { id: "park_east", from: { x: 56, y: 48 }, to: { x: 60, y: 52 }, kind: "park" },
+  { id: "lot_vacant_west", from: { x: 13, y: 32 }, to: { x: 15, y: 34 }, kind: "vacant" },
+  { id: "lot_vacant_south", from: { x: 46, y: 46 }, to: { x: 48, y: 48 }, kind: "vacant" },
 ];
 
 /** franja de acceso de la obra: entrada de rodadura desde la calle hasta el solar. */

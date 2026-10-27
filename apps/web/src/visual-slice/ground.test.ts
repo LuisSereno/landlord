@@ -67,10 +67,10 @@ describe("plan de terreno del Visual Slice (WP4.15-V.b0)", () => {
   });
 
   it("da trasera de servicio a los comerciales y jardín a los residenciales", () => {
-    // bld_commercial_b en (19,28): la trasera mira al norte, hacia el interior de la manzana.
-    expect(surface(19, 27)).toBe("asphalt");
-    // bld_residential_a en (22,28): su trasera sigue siendo suelo del solar, no explanada.
-    expect(surface(22, 27)).not.toBe("asphalt");
+    // bld_commercial_b en (28,24): la trasera mira al norte.
+    expect(surface(28, 23)).toBe("pavement");
+    // bld_residential_a en (34,28): su trasera sigue siendo suelo del solar, no explanada.
+    expect(surface(34, 27)).not.toBe("asphalt");
   });
 
   it("mantiene parques en césped y solares vacíos en tierra", () => {
@@ -115,19 +115,31 @@ describe("plan de terreno del Visual Slice (WP4.15-V.b0)", () => {
   });
 
   it("da solar propio a cada edificio: jardín residencial y explanada comercial", () => {
-    // bld_residential_a (22,28) → jardín; bld_commercial_b (19,28) → pavimento y trasera de servicio.
-    expect(surface(22, 26)).toBe("grass");
-    expect(surface(19, 26)).toBe("pavement");
-    // A más de un solar de distancia no hay parcela: el suelo vuelve a ser terreno urbano.
-    expect(surface(46, 14)).toBe("urban");
+    // bld_residential_a (34,28) → jardín; bld_commercial_b (28,24) → pavimento y trasera de servicio.
+    expect(surface(34, 26)).toBe("grass");
+    expect(surface(28, 22)).toBe("pavement");
+    // A más de un solar de distancia no hay parcela: el suelo vuelve a ser terreno no edificado.
+    expect(surface(50, 10)).not.toBe("gravel");
   });
 
-  it("expone los cuatro cruces donde tiene sentido el paso de peatones", () => {
+  it("expone los dieciséis cruces de la malla 4×4", () => {
     expect(plan.crossings).toEqual([
+      { x: 18, y: 6 },
+      { x: 18, y: 18 },
+      { x: 18, y: 30 },
+      { x: 18, y: 42 },
+      { x: 30, y: 6 },
       { x: 30, y: 18 },
       { x: 30, y: 30 },
+      { x: 30, y: 42 },
+      { x: 42, y: 6 },
       { x: 42, y: 18 },
       { x: 42, y: 30 },
+      { x: 42, y: 42 },
+      { x: 54, y: 6 },
+      { x: 54, y: 18 },
+      { x: 54, y: 30 },
+      { x: 54, y: 42 },
     ]);
   });
 
@@ -152,16 +164,16 @@ describe("plan de terreno del Visual Slice (WP4.15-V.b0)", () => {
     let far = 0;
     for (let y = 0; y < 64; y += 1) {
       for (let x = 0; x < 64; x += 1) {
-        if (x >= 12 && x <= 48 && y >= 12 && y <= 48) continue;
+        if (x >= 4 && x <= 56 && y >= 4 && y <= 56) continue;
         const value = surface(x, y);
         const wild = value === "grass" || value === "dirt";
         const distance = Math.max(
           0,
-          x < 12 ? 12 - x : x > 48 ? x - 48 : 0,
-          y < 12 ? 12 - y : y > 48 ? y - 48 : 0,
+          x < 4 ? 4 - x : x > 56 ? x - 56 : 0,
+          y < 4 ? 4 - y : y > 56 ? y - 56 : 0,
         );
-        if (distance <= 4) near += wild ? 1 : 0;
-        if (distance >= 8) far += wild ? 1 : 0;
+        if (distance <= 2) near += wild ? 1 : 0;
+        if (distance >= 4) far += wild ? 1 : 0;
       }
     }
     expect(far).toBeGreaterThan(near);

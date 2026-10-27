@@ -66,6 +66,7 @@ const ASSETS_BLENDER = runtimeAssetsBlender as RuntimeAssetManifestV1;
 
 /** Las piezas Kenney están modeladas a escala pequeña; el slice las lleva a presencia de calle. */
 const SLICE_BUILDING_SCALE = 1.45;
+const FPS_WINDOW_MS = 500;
 
 export type IsometricSceneOptions = {
   /** Capa de presentación del Visual Slice; no altera la simulación. */
@@ -95,6 +96,7 @@ declare global {
     __landlordCameraTest?: CameraTestApi;
     __visualSliceReady?: boolean;
     __visualSliceObjects?: number;
+    __visualSliceFps?: number;
   }
 }
 
@@ -123,6 +125,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private overlay: MapOverlay = "ownership";
   private cellPickedListener?: (cell: GridCell) => void;
   private dragStart: { x: number; y: number; scrollX: number; scrollY: number } | null = null;
+  private fpsAccumulator = 0;
+  private fpsFrames = 0;
 
   public constructor(options: IsometricSceneOptions = {}) {
     super({ key: "IsometricSpikeScene" });
@@ -170,7 +174,14 @@ export class IsometricSpikeScene extends Phaser.Scene {
     void this.registerBuildingTextures();
   }
 
-  public override update(): void {
+  public override update(time: number, delta: number): void {
+    this.fpsFrames += 1;
+    this.fpsAccumulator += delta;
+    if (this.fpsAccumulator >= FPS_WINDOW_MS) {
+      window.__visualSliceFps = Math.round((this.fpsFrames * 1000) / this.fpsAccumulator);
+      this.fpsFrames = 0;
+      this.fpsAccumulator = 0;
+    }
     if (!this.cursors) return;
     const camera = this.cameras.main;
     const speed = 8 / camera.zoom;
@@ -508,6 +519,25 @@ export class IsometricSpikeScene extends Phaser.Scene {
         .setFlipX(building.flipX ?? false)
         .setDepth(depthForAsset(building.cell, asset.footprint));
       this.sliceObjects.push(image);
+    }
+    // Quaternius A/B test: load evidence PNG if ?quaternius=1
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("quaternius") === "1") {
+      const quaterniusKey = "qa-quaternius-evidence";
+      if (!this.textures.exists(quaterniusKey)) {
+        this.textures.addImage(quaterniusKey, "/assets/runtime-evidence/bld_downtown-complete.png");
+      }
+      if (this.textures.exists(quaterniusKey)) {
+        const quaterniusCell = { x: 32, y: 24 };
+        const quaterniusFootprint = { width: 4, height: 4 };
+        const center = gridToScreen(footprintCenter(quaterniusCell, quaterniusFootprint), this.layout);
+        const image = this.add
+          .image(center.x, center.y, quaterniusKey)
+          .setOrigin(0.6456, 0.8479) // pivot from evidence metadata
+          .setScale(SLICE_BUILDING_SCALE)
+          .setDepth(depthForAsset(quaterniusCell, quaterniusFootprint));
+        this.sliceObjects.push(image);
+      }
     }
     for (const [group, placements] of [
       ["props", slice.props],

@@ -77,12 +77,12 @@ export const AVENUE_X = 30;
 export const STREET_Y = 30;
 export const SECOND_STREET_Y = 18;
 export const EAST_AVENUE_X = 42;
-export const ZONE_FROM = 12;
-export const ZONE_TO = 48;
+export const ZONE_FROM = 4;
+export const ZONE_TO = 56;
 
 /** Bandas de calzada: las consume también el planificador de terreno (aceras, frentes, cruces). */
-export const HORIZONTAL_STREETS = [SECOND_STREET_Y, STREET_Y];
-export const VERTICAL_AVENUES = [AVENUE_X, EAST_AVENUE_X];
+export const HORIZONTAL_STREETS = [6, SECOND_STREET_Y, STREET_Y, 42];
+export const VERTICAL_AVENUES = [18, AVENUE_X, EAST_AVENUE_X, 54];
 
 /** Solar en obra del bloque sureste: terreno, contorno y props; la mecánica se lee sin UI. */
 export const WORKS_LOT = { from: { x: 33, y: 34 }, to: { x: 36, y: 37 } };
@@ -138,34 +138,93 @@ function worksLotTiles(): SliceTerrain[] {
 }
 
 const BUILDINGS: SliceBuilding[] = [
-  // Frente de la calle principal: pared urbana continua a ambos lados de la avenida.
-  { type: "bld_shopfront", cell: { x: 16, y: 28 } },
-  { type: "bld_commercial_b", cell: { x: 19, y: 28 }, flipX: true },
-  { type: "bld_residential_a", cell: { x: 22, y: 28 } },
-  { type: "bld_residential_b", cell: { x: 25, y: 28 }, flipX: true },
+  // === PRIMARY FRONTAGE: Avenida principal x=30 (oeste, x=28) ===
+  { type: "bld_shopfront", cell: { x: 28, y: 20 } },
+  { type: "bld_commercial_b", cell: { x: 28, y: 24 }, flipX: true },
   { type: "bld_commercial_c", cell: { x: 28, y: 28 } },
-  { type: "bld_residential_c", cell: { x: 32, y: 28 }, flipX: true },
-  { type: "bld_commercial_b", cell: { x: 35, y: 28 } },
-  { type: "bld_residential_a", cell: { x: 38, y: 28 }, flipX: true },
-  // Frente de la calle secundaria: segunda profundidad y silueta.
-  { type: "bld_residential_c", cell: { x: 16, y: 16 }, flipX: true },
-  { type: "bld_commercial_c", cell: { x: 20, y: 16 } },
-  { type: "bld_residential_a", cell: { x: 24, y: 16 } },
-  { type: "bld_shopfront", cell: { x: 28, y: 16 }, flipX: true },
-  { type: "bld_commercial_b", cell: { x: 33, y: 16 } },
-  { type: "bld_residential_b", cell: { x: 37, y: 16 }, flipX: true },
-  { type: "bld_residential_c", cell: { x: 41, y: 16 } },
-  // Frentes de las avenidas, siempre al oeste de la calzada para no taparla.
-  { type: "bld_residential_b", cell: { x: 28, y: 22 }, flipX: true },
-  { type: "bld_commercial_c", cell: { x: 28, y: 25 } },
-  { type: "bld_shopfront", cell: { x: 28, y: 33 } },
-  { type: "bld_residential_a", cell: { x: 28, y: 36 }, flipX: true },
-  { type: "bld_commercial_b", cell: { x: 28, y: 39 } },
-  { type: "bld_residential_c", cell: { x: 40, y: 22 }, flipX: true },
-  { type: "bld_commercial_b", cell: { x: 40, y: 25 } },
-  { type: "bld_residential_a", cell: { x: 40, y: 33 } },
-  { type: "bld_shopfront", cell: { x: 40, y: 36 }, flipX: true },
-  { type: "bld_residential_b", cell: { x: 40, y: 39 } },
+  { type: "bld_shopfront", cell: { x: 28, y: 32 }, flipX: true },
+  { type: "bld_commercial_b", cell: { x: 28, y: 36 } },
+  { type: "bld_commercial_c", cell: { x: 28, y: 40 }, flipX: true },
+
+  // === PRIMARY FRONTAGE: Avenida principal x=42 (este, x=40) ===
+  { type: "bld_commercial_c", cell: { x: 40, y: 20 } },
+  { type: "bld_shopfront", cell: { x: 40, y: 24 }, flipX: true },
+  { type: "bld_commercial_b", cell: { x: 40, y: 28 } },
+  { type: "bld_commercial_c", cell: { x: 40, y: 32 }, flipX: true },
+  { type: "bld_shopfront", cell: { x: 40, y: 36 } },
+  { type: "bld_commercial_b", cell: { x: 40, y: 40 }, flipX: true },
+
+  // === SECONDARY STREET: Calle principal y=30 (norte, y=28) ===
+  { type: "bld_shopfront", cell: { x: 20, y: 28 } },
+  { type: "bld_commercial_b", cell: { x: 24, y: 28 }, flipX: true },
+  { type: "bld_residential_a", cell: { x: 34, y: 28 } },
+  { type: "bld_residential_b", cell: { x: 38, y: 28 }, flipX: true },
+
+  // === SECONDARY STREET: Calle principal y=30 (sur, y=32) ===
+  { type: "bld_residential_c", cell: { x: 22, y: 32 }, flipX: true },
+  { type: "bld_commercial_c", cell: { x: 26, y: 32 } },
+  { type: "bld_residential_a", cell: { x: 36, y: 32 }, flipX: true },
+  { type: "bld_residential_b", cell: { x: 40, y: 32 } },
+
+  // === SECONDARY STREET: Calle secundaria y=18 (norte, y=16) ===
+  { type: "bld_residential_a", cell: { x: 20, y: 16 } },
+  { type: "bld_residential_b", cell: { x: 24, y: 16 }, flipX: true },
+  { type: "bld_shopfront", cell: { x: 34, y: 16 } },
+  { type: "bld_residential_c", cell: { x: 38, y: 16 }, flipX: true },
+
+  // === SECONDARY STREET: Calle secundaria y=18 (sur, y=20) ===
+  { type: "bld_residential_b", cell: { x: 22, y: 20 }, flipX: true },
+  { type: "bld_residential_c", cell: { x: 26, y: 20 } },
+  { type: "bld_residential_a", cell: { x: 36, y: 20 }, flipX: true },
+  { type: "bld_shopfront", cell: { x: 40, y: 20 } },
+
+  // === TERTIARY STREET: y=6 (norte extremo, y=4) ===
+  { type: "bld_residential_a", cell: { x: 22, y: 4 } },
+  { type: "bld_residential_b", cell: { x: 28, y: 4 }, flipX: true },
+  { type: "bld_residential_c", cell: { x: 34, y: 4 } },
+  { type: "bld_residential_a", cell: { x: 40, y: 4 }, flipX: true },
+
+  // === TERTIARY STREET: y=42 (sur extremo, y=40) ===
+  { type: "bld_residential_b", cell: { x: 24, y: 40 }, flipX: true },
+  { type: "bld_residential_c", cell: { x: 30, y: 40 } },
+  { type: "bld_residential_a", cell: { x: 36, y: 40 }, flipX: true },
+  { type: "bld_residential_b", cell: { x: 42, y: 40 } },
+
+  // === TERTIARY STREET: x=18 (oeste extremo, x=16) ===
+  { type: "bld_residential_c", cell: { x: 16, y: 22 } },
+  { type: "bld_residential_a", cell: { x: 16, y: 28 }, flipX: true },
+  { type: "bld_residential_b", cell: { x: 16, y: 34 } },
+  { type: "bld_residential_c", cell: { x: 16, y: 40 }, flipX: true },
+
+  // === TERTIARY STREET: x=54 (este extremo, x=52) ===
+  { type: "bld_residential_a", cell: { x: 52, y: 24 }, flipX: true },
+  { type: "bld_residential_b", cell: { x: 52, y: 30 } },
+  { type: "bld_residential_c", cell: { x: 52, y: 36 }, flipX: true },
+  { type: "bld_residential_a", cell: { x: 52, y: 42 } },
+
+  // === SECOND ROW: profundidad detrás de fachada principal ===
+  { type: "bld_residential_b", cell: { x: 25, y: 23 } },
+  { type: "bld_residential_c", cell: { x: 35, y: 23 }, flipX: true },
+  { type: "bld_residential_a", cell: { x: 25, y: 37 }, flipX: true },
+  { type: "bld_residential_b", cell: { x: 35, y: 37 } },
+
+  // === THIRD ROW: más profundidad ===
+  { type: "bld_residential_c", cell: { x: 22, y: 22 } },
+  { type: "bld_residential_a", cell: { x: 38, y: 22 }, flipX: true },
+  { type: "bld_residential_b", cell: { x: 22, y: 38 }, flipX: true },
+  { type: "bld_residential_c", cell: { x: 38, y: 38 } },
+
+  // === FOURTH ROW: bloques adicionales ===
+  { type: "bld_residential_a", cell: { x: 14, y: 14 } },
+  { type: "bld_residential_b", cell: { x: 20, y: 14 }, flipX: true },
+  { type: "bld_residential_c", cell: { x: 44, y: 14 } },
+  { type: "bld_residential_a", cell: { x: 50, y: 14 }, flipX: true },
+  { type: "bld_residential_b", cell: { x: 14, y: 46 } },
+  { type: "bld_residential_c", cell: { x: 20, y: 46 }, flipX: true },
+  { type: "bld_residential_a", cell: { x: 44, y: 46 } },
+  { type: "bld_residential_b", cell: { x: 50, y: 46 }, flipX: true },
+  { type: "bld_residential_c", cell: { x: 10, y: 30 } },
+  { type: "bld_residential_a", cell: { x: 46, y: 30 }, flipX: true },
 ];
 
 const PROPS: SliceProp[] = [

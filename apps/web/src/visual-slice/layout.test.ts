@@ -28,8 +28,8 @@ for (let y = WORKS_LOT.from.y; y <= WORKS_LOT.to.y; y += 1) {
 describe("WP4.15-V.b Visual Slice: composición densa", () => {
   it("compone un barrio de 3–4 manzanas con masa suficiente", () => {
     const cells = VISUAL_SLICE_LAYOUT.buildings.map((building) => key(building.cell));
-    expect(VISUAL_SLICE_LAYOUT.buildings.length).toBeGreaterThanOrEqual(20);
-    expect(VISUAL_SLICE_LAYOUT.buildings.length).toBeLessThanOrEqual(30);
+    expect(VISUAL_SLICE_LAYOUT.buildings.length).toBeGreaterThanOrEqual(50);
+    expect(VISUAL_SLICE_LAYOUT.buildings.length).toBeLessThanOrEqual(70);
     expect(new Set(cells).size).toBe(cells.length);
     // Dos frentes de calle distintos (principal y secundaria) más frentes de avenida.
     const rows = new Set(VISUAL_SLICE_LAYOUT.buildings.map((building) => building.cell.y));

@@ -361,9 +361,10 @@ function inBounds(cell: GridCell, width: number, height: number): boolean {
   return cell.x >= 0 && cell.y >= 0 && cell.x < width && cell.y < height;
 }
 
+// Orden canónico (y, x): N, W, E, S. Evita ordenar cuatro vecinos en cada expansión.
 function neighbours(key: string): string[] {
   const [x, y] = key.split(":").map(Number) as [number, number];
-  return CARDINAL_OFFSETS.map((offset) => cellKey({ x: x + offset.x, y: y + offset.y }));
+  return [`${x}:${y - 1}`, `${x - 1}:${y}`, `${x + 1}:${y}`, `${x}:${y + 1}`];
 }
 
 function connectedComponents(cells: ReadonlySet<string>): string[][] {
@@ -379,7 +380,7 @@ function connectedComponents(cells: ReadonlySet<string>): string[][] {
     for (let head = 0; head < queue.length; head += 1) {
       const current = queue[head]!;
       component.push(current);
-      for (const next of neighbours(current).sort(compareCellKey)) {
+      for (const next of neighbours(current)) {
         if (unvisited.delete(next)) queue.push(next);
       }
     }
@@ -410,7 +411,7 @@ function findConnector(
       }
       return path.reverse();
     }
-    for (const next of neighbours(current).sort(compareCellKey)) {
+    for (const next of neighbours(current)) {
       const [x, y] = next.split(":").map(Number) as [number, number];
       if (!inBounds({ x, y }, width, height) || forbidden.has(next) || previous.has(next)) continue;
       previous.set(next, current);

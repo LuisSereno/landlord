@@ -195,7 +195,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
         window.__visualSlicePerformance.currentFps = currentFps;
         window.__visualSlicePerformance.samples.push(currentFps);
       }
-      console.log(`[FPS] ${currentFps}, samples: ${window.__visualSlicePerformance.samples.length}`);
+      console.log(
+        `[FPS] ${currentFps}, samples: ${window.__visualSlicePerformance.samples.length}`,
+      );
       this.fpsFrames = 0;
       this.fpsAccumulator = 0;
     }
@@ -542,12 +544,19 @@ export class IsometricSpikeScene extends Phaser.Scene {
     if (urlParams.get("quaternius") === "1") {
       const quaterniusKey = "qa-quaternius-evidence";
       if (!this.textures.exists(quaterniusKey)) {
-        this.textures.addImage(quaterniusKey, "/assets/runtime-evidence/bld_downtown-complete.png");
+        const img = new Image();
+        img.src = "/assets/runtime-evidence/bld_downtown-complete.png";
+        img.onload = () => {
+          this.textures.addImage(quaterniusKey, img);
+        };
       }
       if (this.textures.exists(quaterniusKey)) {
         const quaterniusCell = { x: 32, y: 24 };
         const quaterniusFootprint = { width: 4, height: 4 };
-        const center = gridToScreen(footprintCenter(quaterniusCell, quaterniusFootprint), this.layout);
+        const center = gridToScreen(
+          footprintCenter(quaterniusCell, quaterniusFootprint),
+          this.layout,
+        );
         const image = this.add
           .image(center.x, center.y, quaterniusKey)
           .setOrigin(0.6456, 0.8479) // pivot from evidence metadata

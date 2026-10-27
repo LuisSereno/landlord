@@ -113,7 +113,7 @@ function roadTiles(): SliceTerrain[] {
   for (const x of VERTICAL_AVENUES) {
     for (let y = ZONE_FROM; y <= ZONE_TO; y += 1) {
       if (HORIZONTAL_STREETS.includes(y)) continue;
-      tiles.push({ asset: "ter_road_straight", cell: { x, y } });
+      tiles.push({ asset: "ter_road_straight", cell: { x, y }, flipX: true });
     }
   }
   for (const value of intersections) {

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* global window, document */
 /**
- * Captura BEFORE/AFTER de la partida real `/` para WP4.15-V.c.1 (no el Visual Slice).
+ * Captura BEFORE/AFTER de la partida real `/` para WP4.15-V.c (no el Visual Slice).
  *
  * Se ejecuta dos veces: una contra el build anterior (BEFORE, ground plano) y otra contra el
  * actual (AFTER, Graphic Civic). Ambos usan el mismo seed (1), el mismo viewport y la misma cámara.
@@ -21,7 +21,7 @@ function flag(name, fallback) {
 const baseUrl = flag("--base-url", "http://127.0.0.1:4179");
 const label = flag("--label", "CAPTURE");
 const outputDir = "artifacts/visual-slice";
-const ZOOMS = [0.5, 1.0, 2.0];
+const ZOOMS = [0.5, 1.0, 2.0, 2.5];
 
 const browser = await chromium.launch({ headless: false });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });

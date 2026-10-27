@@ -67,6 +67,24 @@ if (existsSync(webSource)) {
   }
 }
 
+/**
+ * Frontera de gameplay (WP4.15-V.c.1): el adapter que alimenta la partida normal desde la
+ * proyección no puede depender de la composición fija del Visual Slice. Gameplay y fixture quedan
+ * desacoplados: `/` se alimenta de `ViewProjectionV1`, no de `visual-slice/layout.ts`.
+ */
+const gameplayAdapter = join(webSource, "isometric/gameplay-visual-adapter.ts");
+if (existsSync(gameplayAdapter)) {
+  const adapterSource = readFileSync(gameplayAdapter, "utf8");
+  const importsSliceLayout = /(?:from\s+|import\s*\()\s*["'][^"']*visual-slice\/layout["']/.test(
+    adapterSource,
+  );
+  if (importsSliceLayout) {
+    violations.push(
+      `${relative(repositoryRoot, gameplayAdapter)}: gameplay adapter cannot depend on visual-slice/layout`,
+    );
+  }
+}
+
 if (violations.length > 0) {
   console.error(violations.join("\n"));
   process.exitCode = 1;

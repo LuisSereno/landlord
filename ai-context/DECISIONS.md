@@ -858,3 +858,35 @@ kit de Kenney no comparte unidad con su city kit (a 4 m una furgonetta mediría 
 heurística sobre la bounding box confundiría un coche grande con un edificio pequeño.
 No cambia simulación ni snapshots. Ver
 `docs/engineering/adr/D-083-licencias-permisivas-procedencia-por-asset-y-escala.md`.
+
+## D-084 — Promoción del renderer Graphic Civic a gameplay vía adapter de proyección
+Estado: aceptada el 2026-10-27 para WP4.15-V.c.1. La partida normal `/` consume la dirección visual
+aprobada en V.b sin copiar la composición fija del Visual Slice.
+
+Motivo: `/visual-slice` demostró el lenguaje Graphic Civic pero sobre un `layout.ts` autoral. El
+objetivo es que gameplay se alimente de estado real sin acoplarse a ese fixture ni inventar
+carreteras que la simulación no modela.
+
+Decisiones: (1) **Frontera de presentación explícita** en
+`apps/web/src/isometric/gameplay-visual-adapter.ts`: `buildGameplayVisualModel(projection)` es puro,
+sólo lee `ViewProjectionV1`, no importa `GameState` ni paquetes internos de simulación, y no depende
+de `visual-slice/layout.ts` (guarda en `check-architecture.mjs`, verificada por fixture negativa). La
+cadena es `GameState → createViewProjection → ViewProjectionV1 → adapter → renderer → Phaser`.
+(2) **Domain type ≠ visual archetype**: `visualArchetypeForBuilding(domainType, stableId)` separa el
+tipo económico de la elección artística. `courtyard_home` resuelve entre `bld_residential_a/b/c` y
+`courtyard_home`; `workshop` entre `bld_shopfront`/`bld_commercial_b/c`; los industriales
+(`cement_plant`/`brickworks`/`steelworks`) conservan su asset procedural — una cementera nunca se
+dibuja como vivienda. (3) **Variación determinista** por hash FNV-1a de `domainType|building.id`; sin
+`Math.random`, sin tick, sin orden de array, sin `GameState.seed`. (4) **Ground derivado de datos
+reales**: parcela construida/vacía/obra y zoning residencial/mixto/industrial deciden la superficie;
+**prohibido** clasificar huecos entre parcelas como `asphalt`/road. El plan de gameplay no declara
+`worksLot`/`access`/`zone`/`crossings` (campos ahora opcionales en `GroundPlan`). (5) **No re-bake por
+tick**: `gameplayGeometryKey` sólo incluye geometría (celdas, zoning, status de parcela); caja, renta,
+condición, reputación, política y tick no disparan repintado. Medido: `groundRebakes` se mantiene en 1
+mientras la simulación corre sin cambios espaciales. (6) **Escala física**: gameplay usa
+`spriteScaleFor` (pixelsPerMeter), NO el `SLICE_BUILDING_SCALE = 1.45` artístico del slice. (7) **El
+renderer reutilizado no duplicado**: `terrain-paint.ts`, `depthForAsset`, `footprintCenter`,
+`addSliceShadow`, carga de assets y cámara comparten slice y gameplay; `/visual-slice` queda como
+fixture de regresión (552 objetos, 60 FPS tras el cambio). No cambia simulación, snapshots ni digestos
+(ningún digesto dorado se mueve: el adapter es capa de presentación). Ver
+`docs/execution/phase-4/wp4-15-vc-promote-visual-slice-2026-10-27.md`.

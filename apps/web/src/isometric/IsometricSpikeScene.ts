@@ -35,6 +35,7 @@ import {
   type IsometricLayout,
   type ScreenPoint,
 } from "./coordinates";
+import { buildGameplayVisualModel, type GameplayVisualModel } from "./gameplay-visual-adapter";
 
 const COLORS = {
   selected: 0xf2c14e,
@@ -89,6 +90,8 @@ type CameraTestApi = {
   getWorldPoint(point: ScreenPoint): ScreenPoint;
   getSelectedCell(): GridCell | null;
   centerOnCell(cell: GridCell): void;
+  /** Inyecta una proyección (captura QA): atraviesa el mismo camino de render que la partida real. */
+  injectProjection(projection: ViewProjectionV1): void;
 };
 
 declare global {
@@ -101,6 +104,12 @@ declare global {
       currentFps: number;
       samples: number[];
       objectCount: number;
+    };
+    /** Sonda de gameplay (WP4.15-V.c.1): objetos renderizados y rebakes de suelo. */
+    __gameplayVisualStats?: () => {
+      buildings: number;
+      decorations: number;
+      groundRebakes: number;
     };
   }
 }
@@ -132,13 +141,19 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private dragStart: { x: number; y: number; scrollX: number; scrollY: number } | null = null;
   private fpsAccumulator = 0;
   private fpsFrames = 0;
+  /** Modelo visual del gameplay derivado de la proyección; nulo en modo Visual Slice. */
+  private gameplayVisual: GameplayVisualModel | null = null;
+  private gameplayGroundKey: string | null = null;
+  private groundRebakeCount = 0;
+  private buildingArchetypes = new Map<string, string>();
+  private decorSprites: Phaser.GameObjects.Image[] = [];
 
   public constructor(options: IsometricSceneOptions = {}) {
     super({ key: "IsometricSpikeScene" });
     this.sliceLayout = options.visualSlice;
     this.sliceCharacters = options.sliceCharacters ?? false;
-    this.terrainStage = options.terrainStage ?? (this.sliceLayout ? "full" : "base");
-    this.showGrid = options.showGrid ?? !this.sliceLayout;
+    this.terrainStage = options.terrainStage ?? "full";
+    this.showGrid = options.showGrid ?? false;
   }
 
   public create(): void {
@@ -152,25 +167,16 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.createMarkerTexture(AGENT_TEXTURE_KEY, 4, 4, "#8fcae7");
     this.structureBlitter = this.add.blitter(0, 0, STRUCTURE_TEXTURE_KEY).setDepth(15_000);
     this.agentBlitter = this.add.blitter(0, 0, AGENT_TEXTURE_KEY).setDepth(15_000);
-    if (!this.sliceLayout) {
-      this.debugText = this.add
-        .text(16, 16, "cell: — | zoom: 1.00", {
-          color: "#f4f7fb",
-          fontFamily: "monospace",
-          fontSize: "14px",
-        })
-        .setScrollFactor(0)
-        .setDepth(1000);
-    }
     this.drawOverlay();
     this.cameras.main.setZoom(1);
-    if (this.sliceLayout) {
-      /** La cámara de captura debe poder centrar la microzona en cualquier zoom. */
-      this.cameras.main.setBounds(-4096, -4096, 16_384, 16_384);
-    } else {
-      this.cameras.main.setBounds(0, 0, 4096, 4096);
-    }
+    /** La cámara debe poder panear y centrar el distrito completo en cualquier zoom. */
+    this.cameras.main.setBounds(-4096, -4096, 16_384, 16_384);
     this.installCameraTestHook();
+    window.__gameplayVisualStats = () => ({
+      buildings: this.buildingSprites.size,
+      decorations: this.decorSprites.length,
+      groundRebakes: this.groundRebakeCount,
+    });
     this.cursors = this.input.keyboard?.createCursorKeys();
     this.input.on("pointerdown", this.handlePointerDown, this);
     this.input.on("pointermove", this.handlePointerMove, this);
@@ -212,6 +218,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
 
   public setProjection(projection: ViewProjectionV1): void {
     this.projection = projection;
+    if (!this.sliceLayout) this.syncGameplayVisual();
     this.updateBlitterPositions();
     this.syncBuildingSprites();
     this.drawOverlay();
@@ -241,22 +248,80 @@ export class IsometricSpikeScene extends Phaser.Scene {
     if (!this.textures.exists(TILE_TEXTURE_KEY)) {
       const texture = this.textures.createCanvas(TILE_TEXTURE_KEY, bounds.width, bounds.height);
       if (texture) {
-        paintGround({
-          context: texture.context,
-          document: this.game.canvas.ownerDocument,
-          layout: this.layout,
-          bounds,
-          plan: this.groundPlan,
-          stage: this.terrainStage,
-          showGrid: this.showGrid,
-        });
+        this.paintGroundInto(texture.context);
         texture.refresh();
       }
     }
     this.add.image(bounds.x, bounds.y, TILE_TEXTURE_KEY).setOrigin(0, 0).setDepth(0);
-    /** Los decalcos viales son la capa 4: sólo aparecen en el horneado completo. */
-    if (this.groundPlan && this.terrainStage === "full") {
+    /** Los decalcos viales son la capa 4: sólo aparecen en el horneado completo con calzadas. */
+    if (this.groundPlan && this.terrainStage === "full" && this.groundPlan.crossings.length > 0) {
       this.drawCrossings();
+    }
+  }
+
+  private paintGroundInto(context: CanvasRenderingContext2D): void {
+    paintGround({
+      context,
+      document: this.game.canvas.ownerDocument,
+      layout: this.layout,
+      bounds: this.groundBounds(),
+      plan: this.groundPlan,
+      stage: this.terrainStage,
+      showGrid: this.showGrid,
+    });
+  }
+
+  /** Repinta la textura de suelo ya creada sin volver a instanciar la imagen del mapa. */
+  private repaintGround(): void {
+    const existing = this.textures.exists(TILE_TEXTURE_KEY)
+      ? (this.textures.get(TILE_TEXTURE_KEY) as Phaser.Textures.CanvasTexture)
+      : undefined;
+    if (existing?.context) {
+      this.paintGroundInto(existing.context);
+      existing.refresh();
+      return;
+    }
+    this.bakeGround();
+  }
+
+  /**
+   * Reconstruye el modelo visual del gameplay desde la proyección. Sólo repinta el suelo y las
+   * decoraciones cuando cambia la clave de geometría, no cuando cambian caja, renta, condición o tick.
+   */
+  private syncGameplayVisual(): void {
+    const projection = this.projection;
+    if (!projection) return;
+    const model = buildGameplayVisualModel(projection);
+    if (model.geometryKey === this.gameplayGroundKey) return;
+    this.gameplayGroundKey = model.geometryKey;
+    this.gameplayVisual = model;
+    this.groundPlan = model.groundPlan;
+    this.buildingArchetypes = new Map(model.buildings.map((entry) => [entry.id, entry.archetype]));
+    this.repaintGround();
+    this.groundRebakeCount += 1;
+    if (this.assetsReady) this.renderGameplayDecorations();
+  }
+
+  /** Coloca la decoración sin carretera (árboles) derivada del modelo visual de gameplay. */
+  private renderGameplayDecorations(): void {
+    for (const sprite of this.decorSprites) sprite.destroy();
+    this.decorSprites = [];
+    const model = this.gameplayVisual;
+    if (!model || !this.assetsReady) return;
+    const assets = ASSETS_BLENDER.props ?? {};
+    for (const decoration of model.decorations) {
+      const asset = assets[decoration.asset];
+      if (!asset) continue;
+      const key = `blender-sprite-${decoration.asset}`;
+      if (!this.textures.exists(key)) continue;
+      const frame = this.sceneryFrame(asset, undefined);
+      const center = gridToScreen(footprintCenter(decoration.cell, asset.footprint), this.layout);
+      const image = this.add
+        .image(center.x, center.y, key)
+        .setOrigin(frame.pivot.x, frame.pivot.y)
+        .setScale(spriteScaleFor(asset, this.layout.tileWidth) * decoration.scale)
+        .setDepth(depthForAsset(decoration.cell, asset.footprint));
+      this.decorSprites.push(image);
     }
   }
 
@@ -435,6 +500,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.syncBuildingSprites();
     this.drawOverlay();
     if (this.sliceLayout) this.renderVisualSlice();
+    else this.renderGameplayDecorations();
   }
 
   private async registerTexturesFromBundle(
@@ -448,8 +514,6 @@ export class IsometricSpikeScene extends Phaser.Scene {
       }
     }
     for (const group of ["terrain", "props", "vehicles"] as const) {
-      // La ruta de gameplay sólo consume edificios; la escenografía se carga para el slice.
-      if (!this.sliceLayout) continue;
       for (const [id, asset] of Object.entries(manifest[group] ?? {})) {
         const key = `${keyPrefix}sprite-${id}`;
         await this.registerImageTexture(
@@ -712,50 +776,72 @@ export class IsometricSpikeScene extends Phaser.Scene {
     const economy = this.projection.economy;
     const view = this.cameras.main.worldView;
     const seen = new Set<string>();
-    const blenderKeys = new Set<string>();
-    for (const key of this.textures.getTextureKeys()) {
-      if (key.startsWith("blender-building-")) blenderKeys.add(key);
-    }
-    for (const building of economy.buildings) {
-      const parcel = economy.parcels.find((entry) => entry.buildingId === building.id);
-      const asset = assetFor(ASSETS, building.type);
-      if (!parcel || !asset) continue;
-      const proceduralKey = spriteKeyFor(
-        building.type,
-        buildingAssetStateFor(building.state, building.condition),
-      );
-      const key = selectBuildingTextureKey(proceduralKey, blenderKeys);
-      if (!this.textures.exists(key)) continue;
-      const id = `building:${building.id}`;
-      const center = gridToScreen(footprintCenter(parcel.cell, asset.footprint), this.layout);
+    const place = (
+      id: string,
+      domainType: string,
+      state: BuildingAssetState,
+      cell: GridCell,
+      alpha: number,
+      depthBias: number,
+    ): void => {
+      const archetype = this.buildingArchetypes.get(id) ?? domainType;
+      const resolved = this.resolveBuildingVisual(archetype, domainType, state);
+      if (!resolved) return;
+      const { key, asset } = resolved;
+      const center = gridToScreen(footprintCenter(cell, asset.footprint), this.layout);
       const sprite = this.ensureBuildingSprite(id, key, asset);
       sprite.setPosition(center.x, center.y);
-      sprite.setDepth(depthForAsset(parcel.cell, asset.footprint));
-      sprite.setAlpha(building.state === "ruin" ? 0.4 : 1);
+      sprite.setScale(spriteScaleFor(asset, this.layout.tileWidth));
+      sprite.setDepth(depthForAsset(cell, asset.footprint) + depthBias);
+      sprite.setAlpha(alpha);
       sprite.setVisible(this.isInViewport(center.x, center.y, view, 96));
       seen.add(id);
+    };
+    for (const building of economy.buildings) {
+      const parcel = economy.parcels.find((entry) => entry.buildingId === building.id);
+      if (!parcel) continue;
+      place(
+        `building:${building.id}`,
+        building.type,
+        buildingAssetStateFor(building.state, building.condition),
+        parcel.cell,
+        building.state === "ruin" ? 0.4 : 1,
+        0,
+      );
     }
     for (const site of economy.constructionSites) {
       const parcel = economy.parcels.find((entry) => entry.id === site.parcelId);
-      const asset = assetFor(ASSETS, site.buildingType);
-      if (!parcel || !asset) continue;
-      const proceduralKey = spriteKeyFor(site.buildingType, "construction");
-      const key = selectBuildingTextureKey(proceduralKey, blenderKeys);
-      if (!this.textures.exists(key)) continue;
-      const id = `site:${site.id}`;
-      const center = gridToScreen(footprintCenter(parcel.cell, asset.footprint), this.layout);
-      const sprite = this.ensureBuildingSprite(id, key, asset);
-      sprite.setPosition(center.x, center.y);
-      sprite.setDepth(depthForAsset(parcel.cell, asset.footprint) + 1);
-      sprite.setAlpha(1);
-      sprite.setVisible(this.isInViewport(center.x, center.y, view, 96));
-      seen.add(id);
+      if (!parcel) continue;
+      place(`site:${site.id}`, site.buildingType, "construction", parcel.cell, 1, 1);
     }
     for (const [id, sprite] of this.buildingSprites) {
       if (seen.has(id)) continue;
       sprite.destroy();
       this.buildingSprites.delete(id);
     }
+  }
+
+  /**
+   * Prioriza el asset Blender del archetype resuelto por el adapter; si no existe, cae al procedural
+   * del tipo de dominio. Un edificio nunca desaparece por falta de un Blender: el fallback sostiene
+   * la cadena `simulation → projection → archetype → Blender si existe → procedural fallback`.
+   */
+  private resolveBuildingVisual(
+    archetype: string,
+    domainType: string,
+    state: BuildingAssetState,
+  ): { key: string; asset: BuildingAssetV1 } | null {
+    const blenderKey = `blender-building-${archetype}-${state}`;
+    const blenderAsset = ASSETS_BLENDER.buildings[archetype];
+    if (blenderAsset && this.textures.exists(blenderKey)) {
+      return { key: blenderKey, asset: blenderAsset };
+    }
+    const proceduralKey = spriteKeyFor(domainType, state);
+    const proceduralAsset = ASSETS.buildings[domainType];
+    if (proceduralAsset && this.textures.exists(proceduralKey)) {
+      return { key: proceduralKey, asset: proceduralAsset };
+    }
+    return null;
   }
 
   private ensureBuildingSprite(
@@ -954,6 +1040,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
         const world = gridToScreen(cell, this.layout);
         camera.setScroll(world.x - camera.width / 2, world.y - camera.height / 2);
         camera.preRender();
+      },
+      injectProjection: (projection) => {
+        this.setProjection(projection);
       },
     };
     window.__landlordCameraTest = api;

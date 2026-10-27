@@ -52,8 +52,13 @@ Fecha de consolidación: 2026-10-23.
 
 ### Parcialmente implementado
 
-- calles y representación visual del distrito (WP4.15): la topología existe y la calzada bloquea
-  celdas, pero no hay red de calles dibujada ni selección de distrito en la UI;
+- representación visual del distrito (WP4.15-V): el distrito genera parcelas y celdas no construibles
+  (`map.blockedCells`, derivadas de `profile.obstacles`), pero **no existe una topología autoritativa
+  de calles**: no hay red vial en `GameState` ni en la proyección; la ocupación de un edificio se
+  calcula aparte (`occupiedBuildingCells`), no como calle. La calzada de `/visual-slice` es una
+  composición presentacional hardcodeada (`HORIZONTAL_STREETS` / `VERTICAL_AVENUES` en `layout.ts`),
+  no estado de juego. Diferido a WP4.15-V.c.2 (Authoritative Road Topology); tampoco hay selección de
+  distrito en la UI;
 - commuting: el empleo sigue siendo agregado, sin trayectos por agente;
 - planificador de la IA: no existe; sólo cadenas inmediatas tras un `dispatch`;
 - expediente de inteligencia de las facciones: diferido;

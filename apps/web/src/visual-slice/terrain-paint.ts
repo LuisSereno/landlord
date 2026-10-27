@@ -638,15 +638,17 @@ function dress(
     blob(context, center.x, center.y + 4, 16 * 1.7, 7, "rgba(44, 38, 28, 0.35)");
   }
   const access = plan.access;
-  context.strokeStyle = "rgba(20, 24, 30, 0.3)";
-  context.lineWidth = 3;
-  for (const offset of [-4, 4]) {
-    const from = local({ x: access.from.x, y: access.from.y });
-    const to = local({ x: access.to.x, y: access.to.y + 1 });
-    context.beginPath();
-    context.moveTo(from.x + offset, from.y);
-    context.lineTo(to.x + offset, to.y);
-    context.stroke();
+  if (access) {
+    context.strokeStyle = "rgba(20, 24, 30, 0.3)";
+    context.lineWidth = 3;
+    for (const offset of [-4, 4]) {
+      const from = local({ x: access.from.x, y: access.from.y });
+      const to = local({ x: access.to.x, y: access.to.y + 1 });
+      context.beginPath();
+      context.moveTo(from.x + offset, from.y);
+      context.lineTo(to.x + offset, to.y);
+      context.stroke();
+    }
   }
 }
 

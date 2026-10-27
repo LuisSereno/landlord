@@ -455,3 +455,120 @@ This keeps V.c focused on **terrain promotion** (Graphic Civic ground) without i
 5. **Road topology (future WP):** Should a future WP add explicit road topology to the simulation (road cells, intersections, traffic lanes)? This would enable Blender road tiles, crossings, and traffic simulation.
 
 These questions should be resolved during implementation, not during planning.
+
+---
+
+## V.c.1 — Implementation Results (2026-10-27)
+
+**Status:** GAMEPLAY_VISUAL_PROMOTION = PASS. Under D-084.
+
+### Section 0 confirmed by code
+
+`map.blockedCells` is populated from `profile.obstacles` (unbuildable clusters) in
+`composeDistrict()` and restored in `state.ts:267`. It is NOT a road network; building occupancy is
+computed separately (`occupiedBuildingCells`, `hasStructureAt`). `ViewProjectionV1` exposes only
+`map: { width, height }` — no road data at all. `PROJECT-STATE.md` corrected accordingly.
+
+### Adapter architecture (final)
+
+`apps/web/src/isometric/gameplay-visual-adapter.ts` — pure, reads only `ViewProjectionV1`:
+
+```
+buildGameplayVisualModel(projection) → {
+  groundPlan: GroundPlan,        // surfaces from real parcels
+  geometryKey: string,           // spatial-only signature (no cash/rent/condition/tick)
+  buildings: [{ id, domainType, archetype }],
+  decorations: [{ cell, asset, scale }],  // trees only (no road-dependent props)
+}
+```
+
+Chain: `GameState → createViewProjection → ViewProjectionV1 → adapter → Graphic Civic renderer → Phaser`.
+Enforced by `check-architecture.mjs` (gameplay adapter must not import `visual-slice/layout`).
+
+### Domain type → visual archetypes
+
+| Domain type | Visual archetypes (deterministic by `fnv1a32(domainType|building.id)`) |
+|---|---|
+| `courtyard_home` | `bld_residential_a`, `bld_residential_b`, `bld_residential_c`, `courtyard_home` |
+| `workshop` | `bld_shopfront`, `bld_commercial_b`, `bld_commercial_c` |
+| `cement_plant` | `cement_plant` (procedural fallback — no compatible Blender geometry) |
+| `brickworks` | `brickworks` (procedural fallback) |
+| `steelworks` | `steelworks` (procedural fallback) |
+
+Resolution in `resolveBuildingVisual`: Blender for the archetype if the texture exists, else
+procedural for the domain type. A building never disappears for a missing Blender asset.
+
+### Ground surfaces used (real data, no invented roads)
+
+- built residential → `gravel` apron + `grass` ring
+- built mixed → `pavement`
+- built industrial → `gravel`
+- vacant parcel → `dirt`
+- construction site → `construction`
+- non-parcel cells → `urban` base (textured by `paintGround` value noise + dressing)
+- **No `asphalt`** produced by the gameplay plan (asserted by test).
+
+### Determinism
+
+`fnv1a32` over immutable identity (`building.id`, `domainType`); spatial hash over cell coords for
+decoration. No `Math.random`, no tick, no array order, no `GameState.seed`. Same projection → same
+model (test-verified).
+
+### Evidence (real `/`, not `/visual-slice`)
+
+- `artifacts/visual-slice/gameplay-before-zoom-{0.5,1,2}.png` — flat ground + technical grid + debug text.
+- `artifacts/visual-slice/gameplay-after-zoom-{0.5,1,2}.png` — Graphic Civic terrain + trees + parcel
+  surfaces, grid and debug removed.
+- `artifacts/visual-slice/gameplay-after-built-zoom-{1,2}.png` — a REAL simulation projection (built by
+  `VC1_PROJECTION=1` harness: buy parcels + construct courtyard homes + leave uncrewed works) injected
+  through the camera-test hook into the same `setProjection` path. Shows a Blender courtyard_home, a
+  construction site, vacant lots and dressing.
+- `artifacts/visual-slice/vc1-gameplay-performance.json` — FPS + rebake-stability.
+
+### Gameplay FPS (headed Chromium, GPU, preview build)
+
+| Zoom | Samples | Median | P10 | Min | Max | First half | Second half |
+|---|---|---|---|---|---|---|---|
+| 0.5 | 24 | 60 | 60 | 60 | 60 | 60 | 60 |
+| 1.0 | 23 | 60 | 60 | 60 | 60 | 60 | 60 |
+| 2.0 | 23 | 60 | 60 | 60 | 60 | 60 | 60 |
+| 2.5 | 23 | 60 | 60 | 60 | 60 | 60 | 60 |
+
+`groundRebakes` stayed at 1 across the whole measurement while the simulation ran with no spatial
+change → confirms no per-tick rebake. 0 page errors; 1 console error (automatic `/favicon.ico` 404,
+cosmetic).
+
+### Gate criteria
+
+1. `/` shows Graphic Civic terrain — PASS
+2. Buildings come from the simulation projection — PASS (harness-injected real projection + unchanged sync path)
+3. Visual variety without changing domain types — PASS (archetype layer)
+4. Construction still real — PASS (construction-site sprites from projection)
+5. Picking works — PASS (unchanged; 0 errors)
+6. Overlays work — PASS (Propiedad layer visible in captures)
+7. Pan/zoom work — PASS (60 FPS at all zooms)
+8. Fallback works — PASS (industrial → procedural; test-verified)
+9. No dependency on Visual Slice layout — PASS (architecture guard + test)
+10. `/visual-slice` still works — PASS (552 objects, 60 FPS)
+11. Gameplay performance acceptable — PASS (60 FPS median)
+
+### Remaining visual defects (deferred, not blockers)
+
+- **No roads/crossings/street furniture/vehicles** — deferred to WP4.15-V.c.2 (Authoritative Road
+  Topology). Deliberately not faked.
+- **Sparse starting district** — seed-1 gameplay begins with few buildings (lean economy by design);
+  the built-cluster evidence uses a richer real projection.
+- **Building scale** — uses physical `spriteScaleFor`; if a future A/B finds it too small vs the
+  slice, fix the physical/render cause, not a global multiplier.
+- **Industrial geometry** — cement/brick/steel remain procedural until Blender geometry exists.
+
+### Tests added
+
+- `apps/web/src/isometric/gameplay-visual-adapter.test.ts` (10): determinism, stable archetype,
+  commercial/industrial mapping, no-asphalt rule, real-data surfaces, no decoration on built cells,
+  geometry key ignores non-spatial economy, geometry key reacts to relocation, no slice fields.
+- `scripts/check-architecture.mjs` + fixture: gameplay adapter must not import `visual-slice/layout`.
+- `packages/simulation/src/vc1-projection.test.ts` (opt-in): real projection generator for capture.
+
+All green: typecheck (all), lint (0 errors), format, build, simulation 305 tests, web 70 tests,
+architecture, asset/blender/binary/license guards.

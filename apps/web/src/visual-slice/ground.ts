@@ -95,17 +95,22 @@ export function lotRole(type: string): "residential" | "commercial" {
 
 export type GroundPlan = {
   surfaces: Map<string, GroundSurface>;
-  /** Encrucijadas donde tiene sentido un paso de peatones. */
+  /** Encrucijadas donde tiene sentido un paso de peatones. Vacío sin topología vial. */
   crossings: GridCell[];
   /** Parques del plan: el pintado los usa para trazar caminos de tierra. */
   parks: OpenSpace[];
   treeCells: GridCell[];
   binCells: GridCell[];
   benchCells: GridCell[];
-  worksLot: { from: GridCell; to: GridCell };
-  access: { from: GridCell; to: GridCell };
-  zone: { from: GridCell; to: GridCell };
   zoneCenter: GridCell;
+  /**
+   * Campos propios de la composición autoral del Visual Slice. El plan de gameplay se alimenta de
+   * estado real y no los declara: el pintado los trata como opcionales y omite la rodera de acceso
+   * y el solar de obra cuando no existen.
+   */
+  worksLot?: { from: GridCell; to: GridCell };
+  access?: { from: GridCell; to: GridCell };
+  zone?: { from: GridCell; to: GridCell };
 };
 
 function inRect(cell: GridCell, rect: { from: GridCell; to: GridCell }): boolean {

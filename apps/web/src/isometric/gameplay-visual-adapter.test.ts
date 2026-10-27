@@ -6,6 +6,8 @@ import {
   planGameplayDecorations,
   planGameplayGround,
   deriveRoadMarkings,
+  planGameplayParkedVehicles,
+  planGameplayStreetFurniture,
   deriveRoadVisuals,
   visualArchetypeForBuilding,
 } from "./gameplay-visual-adapter";
@@ -95,6 +97,17 @@ const BUILDINGS: BuildingInput[] = [
 ];
 
 const SITES: SiteInput[] = [{ id: "site_1", parcelId: "par_5", buildingType: "courtyard_home" }];
+
+function streetDressingRoads() {
+  const cells: string[] = [];
+  for (let x = 4; x <= 20; x += 1) cells.push(`${x}:10`);
+  for (let y = 4; y <= 16; y += 1) cells.push(`10:${y}`);
+  for (let y = 5; y <= 15; y += 1) cells.push(`5:${y}`);
+  for (let x = 5; x <= 12; x += 1) cells.push(`${x}:5`);
+  for (let x = 4; x <= 12; x += 1) cells.push(`${x}:20`);
+  for (let y = 16; y <= 20; y += 1) cells.push(`5:${y}`);
+  return deriveRoadVisuals({ digest: "street-dressing-fixture", cells });
+}
 
 describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
   it("es determinista: la misma proyección produce el mismo modelo visual", () => {
@@ -279,6 +292,82 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
     const roads = ["10:10", "10:9", "11:10", "10:11"];
     const model = buildGameplayVisualModel(projection(PARCELS, BUILDINGS, SITES, roads));
     expect(model.groundPlan.roadMarkings).toEqual([{ cell: { x: 10, y: 10 }, mask: 7 }]);
+  });
+
+  it("planifica street furniture determinista, sin hosts ilegales ni semáforos en T", () => {
+    const roads = streetDressingRoads();
+    const parcels = [
+      { id: "res", cell: { x: 12, y: 8 }, zoning: "residential", buildingId: "b" },
+      { id: "mixed", cell: { x: 16, y: 9 }, zoning: "mixed", buildingId: "c" },
+      { id: "industrial", cell: { x: 17, y: 11 }, zoning: "industrial", buildingId: "i" },
+    ];
+    const trees = [{ x: 13, y: 9 }];
+    const first = planGameplayStreetFurniture(roads, parcels, new Set(), trees, 32, 32);
+    const second = planGameplayStreetFurniture(roads, parcels, new Set(), trees, 32, 32);
+    expect(second).toEqual(first);
+    expect(new Set(first.map((entry) => entry.id)).size).toBe(first.length);
+    const intersections = roads.filter((road) => road.shape === "intersection");
+    expect(first.filter((entry) => entry.kind === "traffic_light")).toHaveLength(
+      intersections.length * 2,
+    );
+    expect(first.some((entry) => entry.roadCell.x === 5 && entry.roadCell.y === 20)).toBe(false);
+    for (const entry of first) {
+      expect(
+        roads.some((road) => `${road.cell.x}:${road.cell.y}` === `${entry.cell.x}:${entry.cell.y}`),
+      ).toBe(false);
+      expect(
+        parcels.some(
+          (parcel) => `${parcel.cell.x}:${parcel.cell.y}` === `${entry.cell.x}:${entry.cell.y}`,
+        ),
+      ).toBe(false);
+      expect(trees).not.toContainEqual(entry.cell);
+    }
+  });
+
+  it("planifica vehículos aparcados sólo en rectas, con clearance y orientación de manifest", () => {
+    const roads = streetDressingRoads();
+    const parcels = [
+      { id: "res", cell: { x: 12, y: 8 }, zoning: "residential", buildingId: "b" },
+      { id: "mixed", cell: { x: 16, y: 9 }, zoning: "mixed", buildingId: "c" },
+    ];
+    const furniture = planGameplayStreetFurniture(roads, parcels, new Set(), [], 32, 32);
+    const vehicles = planGameplayParkedVehicles(roads, parcels, new Set(), [], furniture, 32, 32);
+    expect(vehicles.length).toBeGreaterThan(0);
+    expect(new Set(vehicles.map((vehicle) => vehicle.id)).size).toBe(vehicles.length);
+    for (const vehicle of vehicles) {
+      const road = roads.find(
+        (entry) =>
+          `${entry.cell.x}:${entry.cell.y}` === `${vehicle.roadCell.x}:${vehicle.roadCell.y}`,
+      )!;
+      expect(road.shape).toBe("straight");
+      expect([45, 225]).toContain(vehicle.azimuth);
+      expect(
+        roads
+          .filter((entry) => entry.shape === "t_junction" || entry.shape === "intersection")
+          .every(
+            (junction) =>
+              Math.abs(junction.cell.x - vehicle.roadCell.x) +
+                Math.abs(junction.cell.y - vehicle.roadCell.y) >
+              2,
+          ),
+      ).toBe(true);
+    }
+  });
+
+  it("mantiene street dressing y vehículos aunque cambien caja, tick o condición", () => {
+    const roads = streetDressingRoads().map((road) => `${road.cell.x}:${road.cell.y}`);
+    const first = projection(PARCELS, BUILDINGS, SITES, roads, "street-dressing");
+    const mutated = projection(PARCELS, BUILDINGS, SITES, roads, "street-dressing");
+    (mutated as { tick: number }).tick = 777;
+    (mutated.economy as { cash: number }).cash = 2;
+    mutated.economy!.buildings = BUILDINGS.map((building) => ({
+      ...building,
+      condition: 10,
+    })) as never;
+    const firstModel = buildGameplayVisualModel(first);
+    const secondModel = buildGameplayVisualModel(mutated);
+    expect(secondModel.streetFurniture).toEqual(firstModel.streetFurniture);
+    expect(secondModel.parkedVehicles).toEqual(firstModel.parkedVehicles);
   });
 
   it("reutiliza la representación vial cuando digest y cells canónicas no cambian", () => {

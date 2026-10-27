@@ -35,7 +35,11 @@ import {
   type IsometricLayout,
   type ScreenPoint,
 } from "./coordinates";
-import { buildGameplayVisualModel, type GameplayVisualModel } from "./gameplay-visual-adapter";
+import {
+  buildGameplayVisualModel,
+  type GameplayParkedVehicle,
+  type GameplayVisualModel,
+} from "./gameplay-visual-adapter";
 
 const COLORS = {
   selected: 0xf2c14e,
@@ -109,6 +113,16 @@ declare global {
     __gameplayVisualStats?: () => {
       buildings: number;
       decorations: number;
+      roadCells: number;
+      junctions: number;
+      crossings: number;
+      streetLights: number;
+      trafficLights: number;
+      benches: number;
+      trashCans: number;
+      parkedVehicles: number;
+      trees: number;
+      totalSprites: number;
       groundRebakes: number;
       groundBakeLastMs: number;
       groundBakeMaxMs: number;
@@ -154,6 +168,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private decorSprites: Phaser.GameObjects.Image[] = [];
   /** Decalcos de cruces derivados de la proyección; se reconstruyen sólo con la geometría vial. */
   private roadMarkingSprites: Phaser.GameObjects.Image[] = [];
+  private streetFurnitureSprites: Phaser.GameObjects.Image[] = [];
+  private parkedVehicleSprites: Phaser.GameObjects.Image[] = [];
 
   public constructor(options: IsometricSceneOptions = {}) {
     super({ key: "IsometricSpikeScene" });
@@ -183,6 +199,33 @@ export class IsometricSpikeScene extends Phaser.Scene {
     window.__gameplayVisualStats = () => ({
       buildings: this.buildingSprites.size,
       decorations: this.decorSprites.length,
+      roadCells: this.gameplayVisual?.roadVisuals.length ?? 0,
+      junctions:
+        this.gameplayVisual?.roadVisuals.filter(
+          (road) => road.shape === "t_junction" || road.shape === "intersection",
+        ).length ?? 0,
+      crossings: this.gameplayVisual?.groundPlan.roadMarkings?.length ?? 0,
+      streetLights:
+        this.gameplayVisual?.streetFurniture.filter((entry) => entry.kind === "street_light")
+          .length ?? 0,
+      trafficLights:
+        this.gameplayVisual?.streetFurniture.filter((entry) => entry.kind === "traffic_light")
+          .length ?? 0,
+      benches:
+        this.gameplayVisual?.streetFurniture.filter((entry) => entry.kind === "bench").length ?? 0,
+      trashCans:
+        this.gameplayVisual?.streetFurniture.filter((entry) => entry.kind === "trash_can").length ??
+        0,
+      parkedVehicles: this.gameplayVisual?.parkedVehicles.length ?? 0,
+      trees: this.decorSprites.length,
+      totalSprites:
+        this.buildingSprites.size +
+        this.decorSprites.length +
+        this.streetFurnitureSprites.length +
+        this.parkedVehicleSprites.length +
+        this.roadMarkingSprites.length +
+        this.structureBobs.length +
+        this.agentBobs.length,
       groundRebakes: this.groundRebakeCount,
       groundBakeLastMs: this.groundBakeLastMs,
       groundBakeMaxMs: this.groundBakeMaxMs,
@@ -219,6 +262,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       this.fpsFrames = 0;
       this.fpsAccumulator = 0;
     }
+    this.updateGameplayStreetLifeVisibility();
     if (!this.cursors) return;
     const camera = this.cameras.main;
     const speed = 8 / camera.zoom;
@@ -317,7 +361,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.repaintGround();
     this.groundRebakeCount += 1;
     this.renderGameplayRoadMarkings();
-    if (this.assetsReady) this.renderGameplayDecorations();
+    if (this.assetsReady) this.renderGameplayStreetLife();
   }
 
   /** Coloca la decoración sin carretera (árboles) derivada del modelo visual de gameplay. */
@@ -339,7 +383,100 @@ export class IsometricSpikeScene extends Phaser.Scene {
         .setOrigin(frame.pivot.x, frame.pivot.y)
         .setScale(spriteScaleFor(asset, this.layout.tileWidth) * decoration.scale)
         .setDepth(depthForAsset(decoration.cell, asset.footprint));
+      image.setVisible(this.isInViewport(center.x, center.y, this.cameras.main.worldView, 96));
       this.decorSprites.push(image);
+    }
+  }
+
+  private renderGameplayStreetLife(): void {
+    this.renderGameplayDecorations();
+    for (const sprite of this.streetFurnitureSprites) sprite.destroy();
+    for (const sprite of this.parkedVehicleSprites) sprite.destroy();
+    this.streetFurnitureSprites = [];
+    this.parkedVehicleSprites = [];
+    const model = this.gameplayVisual;
+    if (!model || !this.assetsReady) return;
+    const props = ASSETS_BLENDER.props ?? {};
+    for (const furniture of model.streetFurniture) {
+      const asset = props[furniture.asset];
+      if (!asset) continue;
+      const frame = this.sceneryFrame(asset, furniture.azimuth);
+      const center = gridToScreen(furniture.cell, this.layout);
+      const offset = furniture.curbEdge
+        ? this.screenOffsetTowardRoad(furniture.curbEdge, 0.28)
+        : { x: 0, y: 0 };
+      const key = `blender-sprite-${furniture.asset}${frame.keySuffix}`;
+      if (!this.textures.exists(key)) continue;
+      const image = this.add
+        .image(center.x + offset.x, center.y + offset.y, key)
+        .setOrigin(frame.pivot.x, frame.pivot.y)
+        .setScale(spriteScaleFor(frame, this.layout.tileWidth) * furniture.scale)
+        .setDepth(depthForAsset(furniture.cell, asset.footprint));
+      image.setVisible(this.isInViewport(image.x, image.y, this.cameras.main.worldView, 96));
+      this.streetFurnitureSprites.push(image);
+    }
+    const vehicles = ASSETS_BLENDER.vehicles ?? {};
+    for (const vehicle of model.parkedVehicles) {
+      const asset = vehicles[vehicle.asset];
+      if (!asset) continue;
+      const frame = this.sceneryFrame(asset, vehicle.azimuth);
+      const key = `blender-sprite-${vehicle.asset}${frame.keySuffix}`;
+      if (!this.textures.exists(key)) continue;
+      const center = gridToScreen(footprintCenter(vehicle.roadCell, asset.footprint), this.layout);
+      const offset = this.screenOffsetForVehicle(vehicle);
+      const image = this.add
+        .image(center.x + offset.x, center.y + offset.y, key)
+        .setOrigin(frame.pivot.x, frame.pivot.y)
+        .setScale(spriteScaleFor(frame, this.layout.tileWidth) * vehicle.scale)
+        .setDepth(depthForAsset(vehicle.roadCell, asset.footprint));
+      image.setVisible(this.isInViewport(image.x, image.y, this.cameras.main.worldView, 128));
+      this.parkedVehicleSprites.push(image);
+    }
+  }
+
+  private screenOffsetTowardRoad(edge: "n" | "e" | "s" | "w", cells: number): ScreenPoint {
+    const delta =
+      edge === "n"
+        ? { x: 0, y: cells }
+        : edge === "e"
+          ? { x: -cells, y: 0 }
+          : edge === "s"
+            ? { x: 0, y: -cells }
+            : { x: cells, y: 0 };
+    const origin = gridToScreen({ x: 0, y: 0 }, this.layout);
+    const target = gridToScreen(delta, this.layout);
+    return { x: target.x - origin.x, y: target.y - origin.y };
+  }
+
+  private screenOffsetForVehicle(vehicle: GameplayParkedVehicle): ScreenPoint {
+    const lateral =
+      vehicle.side === "n"
+        ? { x: 0, y: -vehicle.lateralOffset }
+        : vehicle.side === "e"
+          ? { x: vehicle.lateralOffset, y: 0 }
+          : vehicle.side === "s"
+            ? { x: 0, y: vehicle.lateralOffset }
+            : { x: -vehicle.lateralOffset, y: 0 };
+    const longitudinal =
+      vehicle.azimuth === 45
+        ? { x: 0, y: vehicle.longitudinalOffset }
+        : { x: vehicle.longitudinalOffset, y: 0 };
+    const origin = gridToScreen({ x: 0, y: 0 }, this.layout);
+    const target = gridToScreen(
+      { x: lateral.x + longitudinal.x, y: lateral.y + longitudinal.y },
+      this.layout,
+    );
+    return { x: target.x - origin.x, y: target.y - origin.y };
+  }
+
+  private updateGameplayStreetLifeVisibility(): void {
+    if (this.sliceLayout) return;
+    const view = this.cameras.main.worldView;
+    for (const sprite of [...this.decorSprites, ...this.streetFurnitureSprites]) {
+      sprite.setVisible(this.isInViewport(sprite.x, sprite.y, view, 96));
+    }
+    for (const sprite of this.parkedVehicleSprites) {
+      sprite.setVisible(this.isInViewport(sprite.x, sprite.y, view, 128));
     }
   }
 
@@ -547,7 +684,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.syncBuildingSprites();
     this.drawOverlay();
     if (this.sliceLayout) this.renderVisualSlice();
-    else this.renderGameplayDecorations();
+    else this.renderGameplayStreetLife();
   }
 
   private async registerTexturesFromBundle(

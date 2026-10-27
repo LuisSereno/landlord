@@ -53,12 +53,38 @@ export type GameplayDecoration = {
   scale: number;
 };
 
+export type GameplayStreetFurnitureKind = "street_light" | "traffic_light" | "bench" | "trash_can";
+
+export type GameplayStreetFurniture = {
+  id: string;
+  kind: GameplayStreetFurnitureKind;
+  asset: string;
+  cell: GridCell;
+  roadCell: GridCell;
+  curbEdge?: "n" | "e" | "s" | "w";
+  azimuth?: 45 | 225;
+  scale: number;
+};
+
+export type GameplayParkedVehicle = {
+  id: string;
+  asset: "veh_sedan" | "veh_taxi" | "veh_truck";
+  roadCell: GridCell;
+  side: "n" | "e" | "s" | "w";
+  azimuth: 45 | 225;
+  lateralOffset: number;
+  longitudinalOffset: number;
+  scale: number;
+};
+
 export type GameplayVisualModel = {
   groundPlan: GroundPlan;
   /** Clave de geometría: cambia sólo con datos que afectan al terreno, no con economía no espacial. */
   geometryKey: string;
   buildings: GameplayBuildingVisual[];
   decorations: GameplayDecoration[];
+  streetFurniture: GameplayStreetFurniture[];
+  parkedVehicles: GameplayParkedVehicle[];
   /** Metadatos presentacionales derivados de `projection.map.roads.cells`; no son datos de dominio. */
   roadVisuals: readonly GameplayRoadVisual[];
 };
@@ -221,6 +247,321 @@ function spatialHash(x: number, y: number, salt: number): number {
   let h = (Math.imul(x, 374761393) + Math.imul(y, 668265263) + Math.imul(salt, 2246822519)) >>> 0;
   h = Math.imul(h ^ (h >>> 13), 1274126177) >>> 0;
   return (h ^ (h >>> 16)) >>> 0;
+}
+
+const CARDINAL_HOSTS = [
+  { dx: 0, dy: -1, edge: "n" },
+  { dx: 1, dy: 0, edge: "e" },
+  { dx: 0, dy: 1, edge: "s" },
+  { dx: -1, dy: 0, edge: "w" },
+] as const;
+const JUNCTION_CLEARANCE = 2;
+
+type GameplayParcel = {
+  id: string;
+  cell: GridCell;
+  zoning: string;
+  buildingId: string | null;
+};
+
+function inMap(cell: GridCell, mapWidth: number, mapHeight: number): boolean {
+  return cell.x >= 0 && cell.y >= 0 && cell.x < mapWidth && cell.y < mapHeight;
+}
+
+function manhattanDistance(left: GridCell, right: GridCell): number {
+  return Math.abs(left.x - right.x) + Math.abs(left.y - right.y);
+}
+
+function isJunction(road: GameplayRoadVisual): boolean {
+  return road.shape === "t_junction" || road.shape === "intersection";
+}
+
+function roadLineKey(road: GameplayRoadVisual): string {
+  return road.orientation === "straight_ns" ? `ns:${road.cell.x}` : `ew:${road.cell.y}`;
+}
+
+function roadProgress(road: GameplayRoadVisual): number {
+  return road.orientation === "straight_ns" ? road.cell.y : road.cell.x;
+}
+
+function hostCandidates(road: GameplayRoadVisual): readonly {
+  cell: GridCell;
+  edge: "n" | "e" | "s" | "w";
+}[] {
+  const sides =
+    road.orientation === "straight_ns"
+      ? [CARDINAL_HOSTS[1], CARDINAL_HOSTS[3]]
+      : [CARDINAL_HOSTS[0], CARDINAL_HOSTS[2]];
+  const ordered =
+    spatialHash(road.cell.x, road.cell.y, 0x71f3) % 2 === 0 ? sides : sides.slice().reverse();
+  return ordered.map(({ dx, dy, edge }) => ({
+    cell: { x: road.cell.x + dx, y: road.cell.y + dy },
+    edge,
+  }));
+}
+
+function nearestZoning(
+  cell: GridCell,
+  parcels: readonly GameplayParcel[],
+  maxDistance: number,
+): string | null {
+  let nearest: { distance: number; zoning: string } | null = null;
+  for (const parcel of parcels) {
+    const distance = manhattanDistance(cell, parcel.cell);
+    if (distance > maxDistance || (nearest && distance >= nearest.distance)) continue;
+    nearest = { distance, zoning: parcel.zoning };
+  }
+  return nearest?.zoning ?? null;
+}
+
+function isNearJunction(cell: GridCell, junctions: readonly GridCell[]): boolean {
+  return junctions.some((junction) => manhattanDistance(cell, junction) <= JUNCTION_CLEARANCE);
+}
+
+function hostIsFree(
+  cell: GridCell,
+  mapWidth: number,
+  mapHeight: number,
+  roadCells: ReadonlySet<string>,
+  parcelCells: ReadonlySet<string>,
+  treeCells: ReadonlySet<string>,
+  occupiedFurniture: ReadonlySet<string>,
+  constructionCells: ReadonlySet<string>,
+): boolean {
+  const key = cellKey(cell);
+  return (
+    inMap(cell, mapWidth, mapHeight) &&
+    !roadCells.has(key) &&
+    !parcelCells.has(key) &&
+    !treeCells.has(key) &&
+    !occupiedFurniture.has(key) &&
+    !constructionCells.has(key)
+  );
+}
+
+/**
+ * Genera mobiliario urbano sin Phaser. Los hosts viven junto al bordillo, nunca en carretera ni en
+ * parcela; las uniones reservan el espacio de V.c.3A y las reglas son sólo visuales.
+ */
+export function planGameplayStreetFurniture(
+  roadVisuals: readonly GameplayRoadVisual[],
+  parcels: readonly GameplayParcel[],
+  constructionParcelIds: ReadonlySet<string>,
+  treeCells: readonly GridCell[],
+  mapWidth: number,
+  mapHeight: number,
+): GameplayStreetFurniture[] {
+  const roadCells = new Set(roadVisuals.map((road) => cellKey(road.cell)));
+  const parcelCells = new Set(parcels.map((parcel) => cellKey(parcel.cell)));
+  const treeSet = new Set(treeCells.map(cellKey));
+  const constructionCells = new Set<string>();
+  for (const parcel of parcels) {
+    if (!constructionParcelIds.has(parcel.id)) continue;
+    constructionCells.add(cellKey(parcel.cell));
+    for (const neighbour of CARDINAL_HOSTS) {
+      constructionCells.add(`${parcel.cell.x + neighbour.dx}:${parcel.cell.y + neighbour.dy}`);
+    }
+  }
+  const junctions = roadVisuals.filter(isJunction).map((road) => road.cell);
+  const occupied = new Set<string>();
+  const furniture: GameplayStreetFurniture[] = [];
+  const add = (entry: GameplayStreetFurniture): void => {
+    const key = cellKey(entry.cell);
+    if (occupied.has(key)) return;
+    occupied.add(key);
+    furniture.push(entry);
+  };
+
+  // Un cruce pleno recibe dos semáforos opuestos; las T no se convierten en cruces regulados.
+  for (const junction of roadVisuals.filter((road) => road.shape === "intersection")) {
+    const candidates = [
+      { cell: { x: junction.cell.x - 1, y: junction.cell.y - 1 }, azimuth: 225 as const },
+      { cell: { x: junction.cell.x + 1, y: junction.cell.y + 1 }, azimuth: 45 as const },
+      { cell: { x: junction.cell.x + 1, y: junction.cell.y - 1 }, azimuth: 225 as const },
+      { cell: { x: junction.cell.x - 1, y: junction.cell.y + 1 }, azimuth: 45 as const },
+    ];
+    const pairs = [
+      [candidates[0]!, candidates[1]!],
+      [candidates[2]!, candidates[3]!],
+    ];
+    const pair = pairs.find(([first, second]) => {
+      if (!first || !second) return false;
+      return [first, second].every((candidate) =>
+        hostIsFree(
+          candidate.cell,
+          mapWidth,
+          mapHeight,
+          roadCells,
+          parcelCells,
+          treeSet,
+          occupied,
+          constructionCells,
+        ),
+      );
+    });
+    if (!pair) continue;
+    for (const { cell, azimuth } of pair) {
+      add({
+        id: `traffic-light:${cellKey(junction.cell)}:${cellKey(cell)}`,
+        kind: "traffic_light",
+        asset: "prp_traffic_light",
+        cell,
+        roadCell: { ...junction.cell },
+        azimuth,
+        scale: 0.82,
+      });
+    }
+  }
+
+  const straightRoads = roadVisuals
+    .filter((road) => road.shape === "straight")
+    .slice()
+    .sort(
+      (left, right) =>
+        roadLineKey(left).localeCompare(roadLineKey(right)) ||
+        roadProgress(left) - roadProgress(right),
+    );
+  const placeAlongStraight = (
+    salt: number,
+    spacing: number,
+    threshold: number,
+    kind: GameplayStreetFurnitureKind,
+    asset: string,
+    scale: number,
+    zoningRequired: boolean,
+  ): void => {
+    const lastPlaced = new Map<string, number>();
+    for (const road of straightRoads) {
+      if (isNearJunction(road.cell, junctions)) continue;
+      const line = roadLineKey(road);
+      const progress = roadProgress(road);
+      if ((lastPlaced.get(line) ?? Number.NEGATIVE_INFINITY) + spacing > progress) continue;
+      if (spatialHash(road.cell.x, road.cell.y, salt) % 100 >= threshold) continue;
+      const host = hostCandidates(road).find(({ cell }) =>
+        hostIsFree(
+          cell,
+          mapWidth,
+          mapHeight,
+          roadCells,
+          parcelCells,
+          treeSet,
+          occupied,
+          constructionCells,
+        ),
+      );
+      if (!host) continue;
+      if (
+        zoningRequired &&
+        !["residential", "mixed"].includes(nearestZoning(host.cell, parcels, 3) ?? "")
+      )
+        continue;
+      add({
+        id: `${kind.replace("_", "-")}:${cellKey(road.cell)}:${cellKey(host.cell)}`,
+        kind,
+        asset,
+        cell: host.cell,
+        roadCell: { ...road.cell },
+        curbEdge: host.edge,
+        scale,
+      });
+      lastPlaced.set(line, progress);
+    }
+  };
+  placeAlongStraight(0x44a1, 5, 38, "street_light", "prp_street_light", 0.86, false);
+  placeAlongStraight(0x89b2, 9, 24, "bench", "prp_bench", 0.78, true);
+  placeAlongStraight(0xb7c3, 11, 16, "trash_can", "prp_trash_can", 0.74, true);
+  return furniture;
+}
+
+/** Vehículos aparcados estáticos: sólo rectas, con distancia a toda T/intersección y sin economía. */
+export function planGameplayParkedVehicles(
+  roadVisuals: readonly GameplayRoadVisual[],
+  parcels: readonly GameplayParcel[],
+  constructionParcelIds: ReadonlySet<string>,
+  treeCells: readonly GridCell[],
+  furniture: readonly GameplayStreetFurniture[],
+  mapWidth: number,
+  mapHeight: number,
+): GameplayParkedVehicle[] {
+  const roadCells = new Set(roadVisuals.map((road) => cellKey(road.cell)));
+  const parcelCells = new Set(parcels.map((parcel) => cellKey(parcel.cell)));
+  const treeSet = new Set(treeCells.map(cellKey));
+  const furnitureCells = new Set(furniture.map((entry) => cellKey(entry.cell)));
+  const constructionCells = new Set(
+    parcels
+      .filter((parcel) => constructionParcelIds.has(parcel.id))
+      .flatMap((parcel) => {
+        const cells = [cellKey(parcel.cell)];
+        for (const neighbour of CARDINAL_HOSTS) {
+          cells.push(`${parcel.cell.x + neighbour.dx}:${parcel.cell.y + neighbour.dy}`);
+        }
+        return cells;
+      }),
+  );
+  const junctions = roadVisuals.filter(isJunction).map((road) => road.cell);
+  const occupied = new Set<string>();
+  const vehicles: GameplayParkedVehicle[] = [];
+  const lastByLine = new Map<string, number>();
+  const candidates = roadVisuals
+    .filter((road) => road.shape === "straight")
+    .slice()
+    .sort(
+      (left, right) =>
+        roadLineKey(left).localeCompare(roadLineKey(right)) ||
+        roadProgress(left) - roadProgress(right),
+    );
+  for (const road of candidates) {
+    if (isNearJunction(road.cell, junctions)) continue;
+    const line = roadLineKey(road);
+    const progress = roadProgress(road);
+    if ((lastByLine.get(line) ?? Number.NEGATIVE_INFINITY) + 6 > progress) continue;
+    if (spatialHash(road.cell.x, road.cell.y, 0xc4d5) % 100 >= 45) continue;
+    const preferred = spatialHash(road.cell.x, road.cell.y, 0xe6f7) % 2 === 0;
+    const sides =
+      road.orientation === "straight_ns"
+        ? preferred
+          ? (["e", "w"] as const)
+          : (["w", "e"] as const)
+        : preferred
+          ? (["n", "s"] as const)
+          : (["s", "n"] as const);
+    const side = sides.find((value) => {
+      const host =
+        value === "n"
+          ? { x: road.cell.x, y: road.cell.y - 1 }
+          : value === "e"
+            ? { x: road.cell.x + 1, y: road.cell.y }
+            : value === "s"
+              ? { x: road.cell.x, y: road.cell.y + 1 }
+              : { x: road.cell.x - 1, y: road.cell.y };
+      return (
+        inMap(host, mapWidth, mapHeight) &&
+        !roadCells.has(cellKey(host)) &&
+        !parcelCells.has(cellKey(host)) &&
+        !treeSet.has(cellKey(host)) &&
+        !furnitureCells.has(cellKey(host)) &&
+        !constructionCells.has(cellKey(host))
+      );
+    });
+    if (!side || occupied.has(cellKey(road.cell))) continue;
+    occupied.add(cellKey(road.cell));
+    const variant = spatialHash(road.cell.x, road.cell.y, 0xf809) % 100;
+    const asset: GameplayParkedVehicle["asset"] =
+      variant < 72 ? "veh_sedan" : variant < 92 ? "veh_taxi" : "veh_truck";
+    const azimuth: 45 | 225 = road.orientation === "straight_ns" ? 45 : 225;
+    vehicles.push({
+      id: `parked-${asset}:${cellKey(road.cell)}:${side}`,
+      asset,
+      roadCell: { ...road.cell },
+      side,
+      azimuth,
+      lateralOffset: 0.22,
+      longitudinalOffset: ((spatialHash(road.cell.x, road.cell.y, 0xa10b) % 3) - 1) * 0.08,
+      scale: asset === "veh_truck" ? 0.82 : 0.78,
+    });
+    lastByLine.set(line, progress);
+  }
+  return vehicles;
 }
 
 /**
@@ -452,12 +793,31 @@ export function buildGameplayVisualModel(
     deriveRoadMarkings(projection.map.roads),
   );
   groundPlan.treeCells = treeCells;
+  const streetFurniture = planGameplayStreetFurniture(
+    roadVisuals,
+    parcels,
+    constructionParcelIds,
+    treeCells,
+    mapWidth,
+    mapHeight,
+  );
+  const parkedVehicles = planGameplayParkedVehicles(
+    roadVisuals,
+    parcels,
+    constructionParcelIds,
+    treeCells,
+    streetFurniture,
+    mapWidth,
+    mapHeight,
+  );
 
   return {
     groundPlan,
     geometryKey: gameplayGeometryKey(projection),
     buildings: [...buildingVisuals, ...siteVisuals],
     decorations,
+    streetFurniture,
+    parkedVehicles,
     roadVisuals,
   };
 }

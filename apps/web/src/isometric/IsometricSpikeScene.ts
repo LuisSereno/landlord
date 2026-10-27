@@ -152,6 +152,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private groundBakeMaxMs = 0;
   private buildingArchetypes = new Map<string, string>();
   private decorSprites: Phaser.GameObjects.Image[] = [];
+  /** Decalcos de cruces derivados de la proyección; se reconstruyen sólo con la geometría vial. */
+  private roadMarkingSprites: Phaser.GameObjects.Image[] = [];
 
   public constructor(options: IsometricSceneOptions = {}) {
     super({ key: "IsometricSpikeScene" });
@@ -314,6 +316,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.buildingArchetypes = new Map(model.buildings.map((entry) => [entry.id, entry.archetype]));
     this.repaintGround();
     this.groundRebakeCount += 1;
+    this.renderGameplayRoadMarkings();
     if (this.assetsReady) this.renderGameplayDecorations();
   }
 
@@ -337,6 +340,35 @@ export class IsometricSpikeScene extends Phaser.Scene {
         .setScale(spriteScaleFor(asset, this.layout.tileWidth) * decoration.scale)
         .setDepth(depthForAsset(decoration.cell, asset.footprint));
       this.decorSprites.push(image);
+    }
+  }
+
+  /**
+   * Renderiza pasos de peatones sólo en T y cruces publicados por la simulación. Los decals no
+   * rederivan carreteras: consumen la máscara que ya calculó el adapter desde `roads.cells`.
+   */
+  private renderGameplayRoadMarkings(): void {
+    for (const sprite of this.roadMarkingSprites) sprite.destroy();
+    this.roadMarkingSprites = [];
+    const markings = this.groundPlan?.roadMarkings ?? [];
+    for (const marking of markings) {
+      const key = `${CROSSING_TEXTURE_KEY}-${marking.mask}`;
+      if (!this.textures.exists(key)) {
+        const texture = this.textures.createCanvas(
+          key,
+          CROSSING_TEXTURE.width,
+          CROSSING_TEXTURE.height,
+        );
+        if (texture) {
+          paintCrossing(texture.context, this.layout, marking.mask);
+          texture.refresh();
+        }
+      }
+      if (!this.textures.exists(key)) continue;
+      const center = this.screenCenter(marking.cell);
+      this.roadMarkingSprites.push(
+        this.add.image(center.x, center.y, key).setOrigin(0.5, 0.5).setDepth(ROAD_MARKING_DEPTH),
+      );
     }
   }
 

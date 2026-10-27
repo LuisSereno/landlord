@@ -1,5 +1,5 @@
 import type { GridCell, ViewProjectionV1 } from "@landlord/shared";
-import type { GroundPlan, GroundSurface } from "../visual-slice/ground";
+import type { GroundPlan, GroundRoadMarking, GroundSurface } from "../visual-slice/ground";
 
 /**
  * Frontera de presentación del gameplay (WP4.15-V.c.1). Convierte `ViewProjectionV1` en el modelo
@@ -186,6 +186,20 @@ export function deriveRoadVisuals(roads: {
   return value;
 }
 
+/**
+ * Sólo T y cruces reciben lenguaje peatonal. La máscara mantiene qué bocas existen para que el
+ * renderer no pinte una cebra en una prolongación ausente; rectas, esquinas y extremos quedan
+ * deliberadamente sin marcas en V.c.3A.
+ */
+export function deriveRoadMarkings(roads: {
+  digest: string;
+  cells: ReadonlyArray<string>;
+}): readonly GroundRoadMarking[] {
+  return deriveRoadVisuals(roads)
+    .filter((road) => road.shape === "t_junction" || road.shape === "intersection")
+    .map((road) => ({ cell: { ...road.cell }, mask: road.mask }));
+}
+
 let roadVisualCache: { key: string; value: readonly GameplayRoadVisual[] } | null = null;
 
 /** Hash FNV-1a determinista sobre una cadena: la misma identidad siempre produce el mismo valor. */
@@ -255,6 +269,7 @@ export function planGameplayGround(
   mapWidth: number,
   mapHeight: number,
   roadCells: ReadonlySet<string> | ReadonlyArray<string> = [],
+  roadMarkings: readonly GroundRoadMarking[] = [],
 ): GroundPlan {
   const surfaces = new Map<string, GroundSurface>();
   for (let y = 0; y < mapHeight; y += 1) {
@@ -296,6 +311,7 @@ export function planGameplayGround(
   return {
     surfaces,
     crossings: [],
+    roadMarkings,
     parks: [],
     treeCells: [],
     binCells: [],
@@ -433,6 +449,7 @@ export function buildGameplayVisualModel(
     mapWidth,
     mapHeight,
     roadCellKeys,
+    deriveRoadMarkings(projection.map.roads),
   );
   groundPlan.treeCells = treeCells;
 

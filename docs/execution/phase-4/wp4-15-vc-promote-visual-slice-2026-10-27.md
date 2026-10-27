@@ -1,6 +1,7 @@
 # WP4.15-V.c — Promote Visual Slice to Gameplay
 
-**Status:** V.c.1, V.c.2B and V.c.2C implemented and PASS (D-084/D-085). V.c.2C-H required before V.c.3
+**Status:** V.c.1, V.c.2B/C, V.c.2C-H and V.c.3A implemented and PASS (D-084/D-085). This document's
+earlier V.c.3 proposal is historical; its V.c.3A closure lives in the dedicated acta.
 **Date:** 2026-10-27  
 **Baseline:** commit 9b60bef (post V.b3.2 PERFORMANCE = PASS)
 
@@ -32,7 +33,8 @@ terrain-paint.ts (Graphic Civic Canvas asphalt)
 - Las formas presentacionales cubren los 16 masks N/E/S/W y no entran en shared ni simulación.
 - Decoración no vial y dressing quedan excluidos de asphalt; el digest estable no provoca rebakes.
 - `/visual-slice` conserva su topología autoral como fixture independiente.
-- Crossings, mobiliario y vehículos siguen fuera de scope hasta V.c.3.
+- V.c.3A añade cruces y pasos de peatones presentacionales; mobiliario y vehículos siguen fuera de
+  scope hasta V.c.3B/C.
 
 ---
 

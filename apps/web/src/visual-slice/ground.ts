@@ -27,6 +27,15 @@ export const GROUND_SURFACES = [
 
 export type GroundSurface = (typeof GROUND_SURFACES)[number];
 
+/**
+ * Marca vial puramente presentacional. `mask` usa los bits cardinales N/E/S/W de la topología
+ * proyectada; no es una segunda representación de la carretera ni participa en gameplay.
+ */
+export type GroundRoadMarking = {
+  cell: GridCell;
+  mask: number;
+};
+
 export function cellKey(cell: GridCell): string {
   return `${cell.x}:${cell.y}`;
 }
@@ -97,6 +106,11 @@ export type GroundPlan = {
   surfaces: Map<string, GroundSurface>;
   /** Encrucijadas donde tiene sentido un paso de peatones. Vacío sin topología vial. */
   crossings: GridCell[];
+  /**
+   * Lenguaje vial derivado de una topología real. Sólo T (tres bocas) e intersecciones (cuatro)
+   * reciben marcas; cada máscara evita pintar un paso sobre un brazo que no existe.
+   */
+  roadMarkings?: readonly GroundRoadMarking[];
   /** Parques del plan: el pintado los usa para trazar caminos de tierra. */
   parks: OpenSpace[];
   treeCells: GridCell[];

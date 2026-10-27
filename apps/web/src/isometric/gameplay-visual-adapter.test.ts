@@ -5,6 +5,7 @@ import {
   gameplayGeometryKey,
   planGameplayDecorations,
   planGameplayGround,
+  deriveRoadMarkings,
   deriveRoadVisuals,
   visualArchetypeForBuilding,
 } from "./gameplay-visual-adapter";
@@ -248,6 +249,36 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
       expect([visual.shape, visual.orientation]).toEqual(expected[mask]);
       expect(visual.mask).toBe(mask);
     }
+  });
+
+  it("sólo asigna lenguaje peatonal a T e intersecciones y conserva sus bocas reales", () => {
+    const roads = [
+      // T: N+E+S (sin oeste), con sus vecinos.
+      "10:10",
+      "10:9",
+      "11:10",
+      "10:11",
+      // Cruce completo, con sus vecinos.
+      "20:20",
+      "20:19",
+      "21:20",
+      "20:21",
+      "19:20",
+      // Recta: queda deliberadamente sin marcas en esta subfase.
+      "30:30",
+      "30:29",
+      "30:31",
+    ];
+    expect(deriveRoadMarkings({ digest: "junction-fixture", cells: roads })).toEqual([
+      { cell: { x: 10, y: 10 }, mask: 7 },
+      { cell: { x: 20, y: 20 }, mask: 15 },
+    ]);
+  });
+
+  it("incluye las marcas viales derivadas en el GroundPlan sin crear una topología nueva", () => {
+    const roads = ["10:10", "10:9", "11:10", "10:11"];
+    const model = buildGameplayVisualModel(projection(PARCELS, BUILDINGS, SITES, roads));
+    expect(model.groundPlan.roadMarkings).toEqual([{ cell: { x: 10, y: 10 }, mask: 7 }]);
   });
 
   it("reutiliza la representación vial cuando digest y cells canónicas no cambian", () => {

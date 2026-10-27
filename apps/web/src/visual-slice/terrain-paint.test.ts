@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { curbEdgesForCell, type CurbMode } from "./terrain-paint";
+import { crossingArms, curbEdgesForCell, type CurbMode } from "./terrain-paint";
 import type { GroundSurface } from "./ground";
 
 function surfaces(entries: Record<string, GroundSurface>) {
@@ -31,5 +31,15 @@ describe("Graphic Civic curbs", () => {
     });
     expect(curbEdgesForCell({ x: 1, y: 1 }, surfaceAt, mode)).toEqual([]);
     expect(curbEdgesForCell({ x: 1, y: 0 }, surfaceAt, mode)).toEqual([]);
+  });
+});
+
+describe("Graphic Civic pedestrian markings", () => {
+  it("pinta sólo los brazos publicados de una T, en orden cardinal estable", () => {
+    expect(crossingArms(7).map((arm) => arm.bit)).toEqual([1, 2, 4]);
+  });
+
+  it("pinta los cuatro brazos sólo para una intersección plena", () => {
+    expect(crossingArms(15).map((arm) => arm.bit)).toEqual([1, 2, 4, 8]);
   });
 });

@@ -57,6 +57,18 @@ export const CROSSING_TEXTURE = { width: 176, height: 88 } as const;
 type Context = CanvasRenderingContext2D;
 type Point = { x: number; y: number };
 
+const CROSSING_ARMS = [
+  { bit: 1, alongX: 0, alongY: -1 }, // norte
+  { bit: 2, alongX: 1, alongY: 0 }, // este
+  { bit: 4, alongX: 0, alongY: 1 }, // sur
+  { bit: 8, alongX: -1, alongY: 0 }, // oeste
+] as const;
+
+/** Brazos que recibe una marca, en el orden cardinal canónico N/E/S/W. */
+export function crossingArms(mask: number): readonly (typeof CROSSING_ARMS)[number][] {
+  return CROSSING_ARMS.filter((arm) => (mask & arm.bit) !== 0);
+}
+
 function random(seed: number): () => number {
   let state = seed >>> 0;
   return () => {
@@ -687,7 +699,7 @@ function dress(
  * Paso de peatones del cruce. Va en su propia textura porque la calzada es un sprite de Blender por
  * encima del suelo horneado; una sola imagen se reutiliza en los cuatro cruces de la composición.
  */
-export function paintCrossing(context: Context, layout: IsometricLayout): void {
+export function paintCrossing(context: Context, layout: IsometricLayout, mask = 15): void {
   const origin = gridToScreen({ x: 0, y: 0 }, layout);
   const point = (gx: number, gy: number) => {
     const screen = gridToScreen({ x: gx, y: gy }, layout);
@@ -698,12 +710,7 @@ export function paintCrossing(context: Context, layout: IsometricLayout): void {
   };
   context.fillStyle = MARKING;
   context.globalAlpha = 0.45;
-  for (const [alongX, alongY] of [
-    [1, 0],
-    [-1, 0],
-    [0, 1],
-    [0, -1],
-  ] as const) {
+  for (const { alongX, alongY } of crossingArms(mask)) {
     for (let step = 0; step < 4; step += 1) {
       const near = 0.62 + step * 0.2;
       const far = near + 0.1;
@@ -722,6 +729,22 @@ export function paintCrossing(context: Context, layout: IsometricLayout): void {
       context.closePath();
       context.fill();
     }
+  }
+  /** El rombo central sólo aparece en una intersección plena: diferencia T de cruce sin recargar. */
+  if (mask === 15) {
+    const north = point(0, -0.18);
+    const east = point(0.18, 0);
+    const south = point(0, 0.18);
+    const west = point(-0.18, 0);
+    context.globalAlpha = 0.26;
+    context.strokeStyle = MARKING;
+    context.beginPath();
+    context.moveTo(north.x, north.y);
+    context.lineTo(east.x, east.y);
+    context.lineTo(south.x, south.y);
+    context.lineTo(west.x, west.y);
+    context.closePath();
+    context.stroke();
   }
   context.globalAlpha = 1;
 }

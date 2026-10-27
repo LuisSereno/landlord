@@ -947,3 +947,12 @@ El adapter aplica road al final (`road > apron > parcela > urban`), deriva los 1
 excluye decoración incompatible; el Canvas horneado mantiene 60 FPS y un digest estable no provoca
 rebake. `segmentsFromCells` conserva como deuda una representación horizontal no mínima para tramos
 verticales; no cambia ninguna celda ni justifica reabrir el core.
+
+V.c.3A cerrada el 2026-10-27: el lenguaje peatonal sigue siendo sólo presentación. El adapter filtra
+las máscaras ya derivadas de `ViewProjectionV1.map.roads.cells`: sólo `t_junction` (7/11/13/14) e
+`intersection` (15) producen `GroundRoadMarking { cell, mask }`; rectas, esquinas y extremos no
+reciben marca. El renderer pinta una cebra por boca presente, por lo que nunca inventa una prolongación
+en la rama ausente de una T; el cruce pleno añade un rombo central de baja opacidad. No hay assets,
+props, cambios de simulación, snapshots, contratos ni rebake por tick. V.c.3B (mobiliario) y V.c.3C
+(vehículos) permanecen diferidas. Ver
+`docs/execution/phase-4/wp4-15-vc3a-junction-pedestrian-language-2026-10-27.md`.

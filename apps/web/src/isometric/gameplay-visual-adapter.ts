@@ -59,7 +59,134 @@ export type GameplayVisualModel = {
   geometryKey: string;
   buildings: GameplayBuildingVisual[];
   decorations: GameplayDecoration[];
+  /** Metadatos presentacionales derivados de `projection.map.roads.cells`; no son datos de dominio. */
+  roadVisuals: readonly GameplayRoadVisual[];
 };
+
+export const ROAD_NEIGHBOUR_BITS = {
+  n: 1,
+  e: 2,
+  s: 4,
+  w: 8,
+} as const;
+
+export type RoadNeighbourMask = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
+
+export type RoadShape =
+  "isolated" | "endpoint" | "straight" | "corner" | "t_junction" | "intersection";
+
+export type RoadOrientation =
+  | "isolated"
+  | "endpoint_n"
+  | "endpoint_e"
+  | "endpoint_s"
+  | "endpoint_w"
+  | "straight_ns"
+  | "straight_ew"
+  | "corner_ne"
+  | "corner_nw"
+  | "corner_se"
+  | "corner_sw"
+  | "t_n"
+  | "t_e"
+  | "t_s"
+  | "t_w"
+  | "intersection";
+
+export type GameplayRoadVisual = {
+  cell: GridCell;
+  mask: RoadNeighbourMask;
+  shape: RoadShape;
+  orientation: RoadOrientation;
+};
+
+export type RoadShapeInfo = { shape: RoadShape; orientation: RoadOrientation };
+
+/**
+ * Las orientaciones de las T nombran el brazo ausente (por ejemplo, `t_n` = E+S+W). Esto evita
+ * confundir la orientación de la forma con el class street/avenue, que no está en la proyección.
+ */
+const ROAD_SHAPE_BY_MASK: readonly RoadShapeInfo[] = [
+  { shape: "isolated", orientation: "isolated" },
+  { shape: "endpoint", orientation: "endpoint_n" },
+  { shape: "endpoint", orientation: "endpoint_e" },
+  { shape: "corner", orientation: "corner_ne" },
+  { shape: "endpoint", orientation: "endpoint_s" },
+  { shape: "straight", orientation: "straight_ns" },
+  { shape: "corner", orientation: "corner_se" },
+  { shape: "t_junction", orientation: "t_w" },
+  { shape: "endpoint", orientation: "endpoint_w" },
+  { shape: "corner", orientation: "corner_nw" },
+  { shape: "straight", orientation: "straight_ew" },
+  { shape: "t_junction", orientation: "t_s" },
+  { shape: "corner", orientation: "corner_sw" },
+  { shape: "t_junction", orientation: "t_e" },
+  { shape: "t_junction", orientation: "t_n" },
+  { shape: "intersection", orientation: "intersection" },
+];
+
+function parseCellKey(key: string): GridCell | null {
+  const separator = key.indexOf(":");
+  if (separator <= 0 || separator === key.length - 1) return null;
+  const x = Number(key.slice(0, separator));
+  const y = Number(key.slice(separator + 1));
+  if (!Number.isInteger(x) || !Number.isInteger(y)) return null;
+  return { x, y };
+}
+
+function roadSet(roadCells: ReadonlySet<string> | ReadonlyArray<string>): ReadonlySet<string> {
+  return roadCells instanceof Set ? roadCells : new Set(roadCells);
+}
+
+/** Máscara N/E/S/W pura y presentacional. No comparte lógica con simulación ni pathfinding. */
+export function roadNeighbourMask(
+  cell: GridCell,
+  roadCells: ReadonlySet<string> | ReadonlyArray<string>,
+): RoadNeighbourMask {
+  const roads = roadSet(roadCells);
+  let mask = 0;
+  if (roads.has(`${cell.x}:${cell.y - 1}`)) mask |= ROAD_NEIGHBOUR_BITS.n;
+  if (roads.has(`${cell.x + 1}:${cell.y}`)) mask |= ROAD_NEIGHBOUR_BITS.e;
+  if (roads.has(`${cell.x}:${cell.y + 1}`)) mask |= ROAD_NEIGHBOUR_BITS.s;
+  if (roads.has(`${cell.x - 1}:${cell.y}`)) mask |= ROAD_NEIGHBOUR_BITS.w;
+  return mask as RoadNeighbourMask;
+}
+
+/** Alias ortográfico para consumidores que usan la grafía americana. */
+export const roadNeighborMask = roadNeighbourMask;
+
+export function roadShapeForMask(mask: RoadNeighbourMask): RoadShapeInfo {
+  return ROAD_SHAPE_BY_MASK[mask]!;
+}
+
+/** Deriva una representación estable, ordenada por fila y columna, de la red publicada. */
+export function deriveRoadVisuals(roads: {
+  digest: string;
+  cells: ReadonlyArray<string>;
+}): readonly GameplayRoadVisual[] {
+  const canonicalCells = [...new Set(roads.cells)].sort((left, right) => {
+    const leftCell = parseCellKey(left);
+    const rightCell = parseCellKey(right);
+    if (!leftCell || !rightCell) return left.localeCompare(right);
+    return leftCell.y - rightCell.y || leftCell.x - rightCell.x;
+  });
+  const cacheKey = `${roads.digest}|${canonicalCells.join(",")}`;
+  if (roadVisualCache?.key === cacheKey) return roadVisualCache.value;
+  const cells = canonicalCells.flatMap((key) => {
+    const cell = parseCellKey(key);
+    return cell ? [{ key, cell }] : [];
+  });
+  const roadCells = new Set(cells.map(({ key }) => key));
+  const value = cells.map(({ cell }) => {
+    const mask = roadNeighbourMask(cell, roadCells);
+    const shape = roadShapeForMask(mask);
+    return { cell: { ...cell }, mask, ...shape };
+  });
+  roadVisualCache = { key: cacheKey, value };
+  return value;
+}
+
+let roadVisualCache: { key: string; value: readonly GameplayRoadVisual[] } | null = null;
 
 /** Hash FNV-1a determinista sobre una cadena: la misma identidad siempre produce el mismo valor. */
 function fnv1a32(input: string): number {
@@ -113,8 +240,9 @@ function apronForParcel(zoning: string, status: ParcelStatus): GroundSurface | n
 
 /**
  * Plano de suelo derivado de estado real. Clasifica cada parcela según su zoning y si está
- * construida, en obra o vacía. NO inventa calzadas: las celdas sin parcela quedan como terreno
- * base, que el pintado ya texturiza con grano, manchas de valor y desgaste.
+ * construida, en obra o vacía, y sólo aplica calzadas que ya vengan en `roadCells`. Las celdas sin
+ * parcela ni carretera quedan como terreno base, que el pintado ya texturiza con grano, manchas de
+ * valor y desgaste.
  */
 export function planGameplayGround(
   parcels: ReadonlyArray<{
@@ -126,6 +254,7 @@ export function planGameplayGround(
   constructionParcelIds: ReadonlySet<string>,
   mapWidth: number,
   mapHeight: number,
+  roadCells: ReadonlySet<string> | ReadonlyArray<string> = [],
 ): GroundPlan {
   const surfaces = new Map<string, GroundSurface>();
   for (let y = 0; y < mapHeight; y += 1) {
@@ -158,6 +287,12 @@ export function planGameplayGround(
     }
   }
 
+  // La calzada se aplica al final para que ROAD > apron > parcela > base sea una regla explícita.
+  // Las strings proceden únicamente de ViewProjectionV1.map.roads.cells; no se infiere geometría.
+  for (const key of roadSet(roadCells)) {
+    if (surfaces.has(key)) surfaces.set(key, "asphalt");
+  }
+
   return {
     surfaces,
     crossings: [],
@@ -184,8 +319,10 @@ export function planGameplayDecorations(
   constructionParcelIds: ReadonlySet<string>,
   mapWidth: number,
   mapHeight: number,
+  roadCells: ReadonlySet<string> | ReadonlyArray<string> = [],
 ): { decorations: GameplayDecoration[]; treeCells: GridCell[] } {
   const parcelCells = new Set(parcels.map((parcel) => cellKey(parcel.cell)));
+  const roadCellKeys = roadSet(roadCells);
   const blocked = new Set<string>();
   for (const parcel of parcels) {
     const built = parcel.buildingId || constructionParcelIds.has(parcel.id);
@@ -197,6 +334,7 @@ export function planGameplayDecorations(
 
   const decorations: GameplayDecoration[] = [];
   const pushTree = (cell: GridCell, salt: number): void => {
+    if (roadCellKeys.has(cellKey(cell))) return;
     const asset = TREE_ASSETS[spatialHash(cell.x, cell.y, salt) % TREE_ASSETS.length]!;
     const jitter = 0.9 + (spatialHash(cell.x, cell.y, salt ^ 0x9e37) % 31) / 100;
     decorations.push({ cell: { ...cell }, asset, scale: jitter });
@@ -217,7 +355,7 @@ export function planGameplayDecorations(
     for (let x = 1; x < mapWidth - 1; x += 2) {
       const cell = { x, y };
       const key = cellKey(cell);
-      if (parcelCells.has(key) || blocked.has(key)) continue;
+      if (parcelCells.has(key) || blocked.has(key) || roadCellKeys.has(key)) continue;
       if (spatialHash(x, y, 0x3c5d) % 100 >= 10) continue;
       pushTree(cell, 0x3c5d);
     }
@@ -265,6 +403,8 @@ export function buildGameplayVisualModel(
 ): GameplayVisualModel {
   const economy = projection.economy;
   const parcels = economy?.parcels ?? [];
+  const roadVisuals = deriveRoadVisuals(projection.map.roads);
+  const roadCellKeys = new Set(projection.map.roads.cells);
   const constructionParcelIds = new Set(
     (economy?.constructionSites ?? []).map((site) => site.parcelId),
   );
@@ -285,8 +425,15 @@ export function buildGameplayVisualModel(
     constructionParcelIds,
     mapWidth,
     mapHeight,
+    roadCellKeys,
   );
-  const groundPlan = planGameplayGround(parcels, constructionParcelIds, mapWidth, mapHeight);
+  const groundPlan = planGameplayGround(
+    parcels,
+    constructionParcelIds,
+    mapWidth,
+    mapHeight,
+    roadCellKeys,
+  );
   groundPlan.treeCells = treeCells;
 
   return {
@@ -294,5 +441,6 @@ export function buildGameplayVisualModel(
     geometryKey: gameplayGeometryKey(projection),
     buildings: [...buildingVisuals, ...siteVisuals],
     decorations,
+    roadVisuals,
   };
 }

@@ -110,6 +110,8 @@ declare global {
       buildings: number;
       decorations: number;
       groundRebakes: number;
+      groundBakeLastMs: number;
+      groundBakeMaxMs: number;
     };
   }
 }
@@ -145,6 +147,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private gameplayVisual: GameplayVisualModel | null = null;
   private gameplayGroundKey: string | null = null;
   private groundRebakeCount = 0;
+  private groundBakeLastMs = 0;
+  private groundBakeMaxMs = 0;
   private buildingArchetypes = new Map<string, string>();
   private decorSprites: Phaser.GameObjects.Image[] = [];
 
@@ -176,6 +180,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
       buildings: this.buildingSprites.size,
       decorations: this.decorSprites.length,
       groundRebakes: this.groundRebakeCount,
+      groundBakeLastMs: this.groundBakeLastMs,
+      groundBakeMaxMs: this.groundBakeMaxMs,
     });
     this.cursors = this.input.keyboard?.createCursorKeys();
     this.input.on("pointerdown", this.handlePointerDown, this);
@@ -260,6 +266,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   }
 
   private paintGroundInto(context: CanvasRenderingContext2D): void {
+    const startedAt = performance.now();
     paintGround({
       context,
       document: this.game.canvas.ownerDocument,
@@ -268,7 +275,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
       plan: this.groundPlan,
       stage: this.terrainStage,
       showGrid: this.showGrid,
+      // El Visual Slice conserva sus aceras fixture; gameplay marca todo frente asphalt/no-asphalt.
+      curbMode: this.sliceLayout ? "pavement" : "all_non_asphalt",
     });
+    this.groundBakeLastMs = performance.now() - startedAt;
+    this.groundBakeMaxMs = Math.max(this.groundBakeMaxMs, this.groundBakeLastMs);
   }
 
   /** Repinta la textura de suelo ya creada sin volver a instanciar la imagen del mapa. */

@@ -141,7 +141,12 @@ export type GroundPaintInput = {
   plan: GroundPlan | null;
   stage: TerrainStage;
   showGrid: boolean;
+  /** Gameplay usa la red autoritativa y necesita bordillo en cualquier límite asphalt/no-asphalt. */
+  curbMode?: CurbMode;
 };
+
+export type CurbMode = "pavement" | "all_non_asphalt";
+export type CurbEdge = "n" | "e" | "s" | "w";
 
 /**
  * Pinta el suelo completo. `none` reconstruye la loseta plana histórica, así que la evidencia
@@ -241,7 +246,7 @@ export function paintGround(input: GroundPaintInput): void {
   /** 3 · Bordes: mezcla de transición, juntas de losa y bordillo. */
   blendEdges(input, surfaceAt, local);
   strokeSidewalks(input, surfaceAt, local);
-  strokeCurbs(input, surfaceAt, local);
+  strokeCurbs(input, surfaceAt, local, input.curbMode ?? "pavement");
   const border = local(plan.zoneCenter);
   /** `parcels` se detiene aquí: la evidencia muestra el suelo sin dressing por encima. */
   if (stage === "parcels") {
@@ -473,13 +478,15 @@ function strokeCurbs(
   input: GroundPaintInput,
   surfaceAt: (cell: GridCell) => GroundSurface,
   local: (cell: GridCell) => Point,
+  curbMode: CurbMode,
 ): void {
   const { context, layout } = input;
   const hw = layout.tileWidth / 2;
   const hh = layout.tileHeight / 2;
   for (let y = 0; y < layout.mapHeight; y += 1) {
     for (let x = 0; x < layout.mapWidth; x += 1) {
-      if (surfaceAt({ x, y }) !== "pavement") continue;
+      const edges = curbEdgesForCell({ x, y }, surfaceAt, curbMode);
+      if (edges.length === 0) continue;
       const center = local({ x, y });
       const corners: Record<string, Point> = {
         n: { x: center.x, y: center.y - hh },
@@ -487,12 +494,15 @@ function strokeCurbs(
         s: { x: center.x, y: center.y + hh },
         w: { x: center.x - hw, y: center.y },
       };
-      const edges: [Point, Point][] = [];
-      if (surfaceAt({ x: x + 1, y }) === "asphalt") edges.push([corners.e!, corners.s!]);
-      if (surfaceAt({ x, y: y + 1 }) === "asphalt") edges.push([corners.s!, corners.w!]);
-      if (surfaceAt({ x: x - 1, y }) === "asphalt") edges.push([corners.w!, corners.n!]);
-      if (surfaceAt({ x, y: y - 1 }) === "asphalt") edges.push([corners.n!, corners.e!]);
-      for (const [from, to] of edges) {
+      for (const edge of edges) {
+        const [from, to] =
+          edge === "e"
+            ? [corners.e!, corners.s!]
+            : edge === "s"
+              ? [corners.s!, corners.w!]
+              : edge === "w"
+                ? [corners.w!, corners.n!]
+                : [corners.n!, corners.e!];
         context.lineWidth = 1.5;
         context.strokeStyle = EDGE_DARK;
         context.beginPath();
@@ -512,6 +522,27 @@ function strokeCurbs(
       }
     }
   }
+}
+
+/**
+ * Límites de bordillo de una celda no asfaltada. En `pavement` se conserva el comportamiento del
+ * Visual Slice; `all_non_asphalt` añade los frentes de parcela dirt/grass/gravel/urban del gameplay.
+ * Una celda asfaltada nunca genera sus propios bordillos, por lo que una unión asphalt-asphalt no
+ * puede producir una línea interna en rectas, esquinas, T o cruces.
+ */
+export function curbEdgesForCell(
+  cell: GridCell,
+  surfaceAt: (cell: GridCell) => GroundSurface,
+  curbMode: CurbMode = "pavement",
+): CurbEdge[] {
+  const own = surfaceAt(cell);
+  if (curbMode === "pavement" ? own !== "pavement" : own === "asphalt") return [];
+  const edges: CurbEdge[] = [];
+  if (surfaceAt({ x: cell.x + 1, y: cell.y }) === "asphalt") edges.push("e");
+  if (surfaceAt({ x: cell.x, y: cell.y + 1 }) === "asphalt") edges.push("s");
+  if (surfaceAt({ x: cell.x - 1, y: cell.y }) === "asphalt") edges.push("w");
+  if (surfaceAt({ x: cell.x, y: cell.y - 1 }) === "asphalt") edges.push("n");
+  return edges;
 }
 
 /** Dressing determinista: mechones, tierra, grava, hojarasca, desgaste y rodera de la obra. */

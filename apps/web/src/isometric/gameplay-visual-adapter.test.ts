@@ -5,6 +5,7 @@ import {
   gameplayGeometryKey,
   planGameplayDecorations,
   planGameplayGround,
+  deriveRoadVisuals,
   visualArchetypeForBuilding,
 } from "./gameplay-visual-adapter";
 
@@ -30,11 +31,13 @@ function projection(
   parcels: ParcelInput[],
   buildings: BuildingInput[],
   sites: SiteInput[],
+  roads: string[] = [],
+  digest = roads.length > 0 ? "road-fixture" : "811c9dc5",
 ): ViewProjectionV1 {
   return {
     projectionVersion: 1,
     tick: 0,
-    map: { width: 64, height: 64, roads: { revision: 0, digest: "811c9dc5", cells: [] } },
+    map: { width: 64, height: 64, roads: { revision: 0, digest, cells: roads } },
     structures: [],
     agents: [],
     economy: {
@@ -139,6 +142,33 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
     expect(plan.crossings).toEqual([]);
   });
 
+  it("pinta roads.cells como asphalt con precedencia sobre parcela y apron", () => {
+    const roadCells = ["10:10", "11:10", "14:10"];
+    const model = buildGameplayVisualModel(projection(PARCELS, BUILDINGS, SITES, roadCells));
+    expect(model.groundPlan.surfaces.get("10:10")).toBe("asphalt"); // parcela residencial
+    expect(model.groundPlan.surfaces.get("11:10")).toBe("asphalt"); // apron grass
+    expect(model.groundPlan.surfaces.get("14:10")).toBe("asphalt"); // parcela pavement
+    expect(model.roadVisuals.map((road) => `${road.cell.x}:${road.cell.y}`)).toEqual(roadCells);
+  });
+
+  it("mantiene visible la road cell que da frontage a una parcela", () => {
+    const plan = planGameplayGround(
+      PARCELS.map((p) => ({ id: p.id, cell: p.cell, zoning: p.zoning, buildingId: p.buildingId })),
+      new Set<string>(),
+      64,
+      64,
+      ["11:10"],
+    );
+    const parcel = PARCELS[0]!;
+    const hasVisibleFrontage = [
+      `${parcel.cell.x + 1}:${parcel.cell.y}`,
+      `${parcel.cell.x - 1}:${parcel.cell.y}`,
+      `${parcel.cell.x}:${parcel.cell.y + 1}`,
+      `${parcel.cell.x}:${parcel.cell.y - 1}`,
+    ].some((key) => plan.surfaces.get(key) === "asphalt");
+    expect(hasVisibleFrontage).toBe(true);
+  });
+
   it("usa datos reales para superficies de parcela", () => {
     const plan = planGameplayGround(
       PARCELS.map((p) => ({ id: p.id, cell: p.cell, zoning: p.zoning, buildingId: p.buildingId })),
@@ -170,6 +200,62 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
     }
   });
 
+  it("no coloca decoración sobre ninguna road cell", () => {
+    const roadCells = ["1:1", "10:16", "11:10", "13:13"];
+    const model = buildGameplayVisualModel(projection(PARCELS, BUILDINGS, SITES, roadCells));
+    const roadSet = new Set(roadCells);
+    for (const decoration of model.decorations) {
+      expect(roadSet.has(`${decoration.cell.x}:${decoration.cell.y}`)).toBe(false);
+    }
+    expect(model.groundPlan.treeCells).toEqual(
+      expect.arrayContaining(model.decorations.map((decoration) => decoration.cell)),
+    );
+  });
+
+  it("deriva los 16 masks de road de forma determinista", () => {
+    const neighbours = [
+      { key: "0:-1", bit: 1 },
+      { key: "1:0", bit: 2 },
+      { key: "0:1", bit: 4 },
+      { key: "-1:0", bit: 8 },
+    ];
+    const expected: Array<[string, string]> = [
+      ["isolated", "isolated"],
+      ["endpoint", "endpoint_n"],
+      ["endpoint", "endpoint_e"],
+      ["corner", "corner_ne"],
+      ["endpoint", "endpoint_s"],
+      ["straight", "straight_ns"],
+      ["corner", "corner_se"],
+      ["t_junction", "t_w"],
+      ["endpoint", "endpoint_w"],
+      ["corner", "corner_nw"],
+      ["straight", "straight_ew"],
+      ["t_junction", "t_s"],
+      ["corner", "corner_sw"],
+      ["t_junction", "t_e"],
+      ["t_junction", "t_n"],
+      ["intersection", "intersection"],
+    ];
+    for (let mask = 0; mask < 16; mask += 1) {
+      const roads = [
+        "0:0",
+        ...neighbours.filter(({ bit }) => (mask & bit) !== 0).map(({ key }) => key),
+      ];
+      const visual = deriveRoadVisuals({ digest: `mask-${mask}`, cells: roads }).find(
+        (entry) => entry.cell.x === 0 && entry.cell.y === 0,
+      )!;
+      expect([visual.shape, visual.orientation]).toEqual(expected[mask]);
+      expect(visual.mask).toBe(mask);
+    }
+  });
+
+  it("reutiliza la representación vial cuando digest y cells canónicas no cambian", () => {
+    const first = deriveRoadVisuals({ digest: "cached-roads", cells: ["2:1", "1:1"] });
+    const second = deriveRoadVisuals({ digest: "cached-roads", cells: ["1:1", "2:1"] });
+    expect(second).toBe(first);
+  });
+
   it("la clave de geometría ignora cambios económicos no espaciales", () => {
     const spatial = projection(PARCELS, BUILDINGS, SITES);
     const mutated = projection(PARCELS, BUILDINGS, SITES);
@@ -189,6 +275,14 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
     const relocated = PARCELS.map((p) => ({ ...p, cell: { x: p.cell.x + 1, y: p.cell.y } }));
     const after = gameplayGeometryKey(projection(relocated, BUILDINGS, SITES));
     expect(after).not.toBe(before);
+  });
+
+  it("incluye el digest vial en la geometría sin depender del orden de cells", () => {
+    const first = projection(PARCELS, BUILDINGS, SITES, ["11:10", "10:10"], "roads-a");
+    const same = projection(PARCELS, BUILDINGS, SITES, ["10:10", "11:10"], "roads-a");
+    const changed = projection(PARCELS, BUILDINGS, SITES, ["11:10", "10:10"], "roads-b");
+    expect(gameplayGeometryKey(first)).toBe(gameplayGeometryKey(same));
+    expect(gameplayGeometryKey(changed)).not.toBe(gameplayGeometryKey(first));
   });
 
   it("no añade cruces ni campos de composición del Visual Slice al plan de gameplay", () => {

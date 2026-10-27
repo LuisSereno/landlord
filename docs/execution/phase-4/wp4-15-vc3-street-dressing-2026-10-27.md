@@ -87,7 +87,7 @@ Preview de producción Chromium headed, `/`, 1440×900:
 | parked vehicles | 29 |
 | trees | 108 |
 | buildings | 0 en estado inicial |
-| total sprites | 179 |
+| total sprites | 195 |
 | ground rebakes | 1 estable |
 
 Los 0 semáforos no son una carencia del planner: el distrito real no contiene ninguna máscara

@@ -973,6 +973,6 @@ clearance Manhattan 2, lateralidad determinista, huecos irregulares y variantes 
 la escena reutiliza sprites por ID, aplica depth/culling existentes y no rebakea el suelo.
 
 El distrito runtime medido tiene 240 road cells, 10 junctions (todas T), 10 crossings, 26 farolas,
-0 semáforos, 4 bancos, 2 papeleras, 29 vehículos, 108 árboles y 179 sprites presentacionales. La
+0 semáforos, 4 bancos, 2 papeleras, 29 vehículos, 108 árboles y 195 sprites presentacionales. La
 ausencia de semáforos es consecuencia de la topología real y de no semaforizar T. La evidencia y
 deudas restantes constan en `docs/execution/phase-4/wp4-15-vc3-street-dressing-2026-10-27.md`.

@@ -1,6 +1,7 @@
 /* global setTimeout */
 
-import { spawn } from "node:child_process";
+import { mkdirSync, writeFileSync } from "node:fs";
+import { execSync, spawn } from "node:child_process";
 import { chromium } from "@playwright/test";
 
 const port = 4174;
@@ -13,6 +14,25 @@ const server = externalServerUrl
       ["--filter", "@landlord/web", "preview", "--host", "127.0.0.1", "--port", String(port)],
       { stdio: "ignore", detached: true },
     );
+const artifactPath = "artifacts/browser/phase2-smoke-result.json";
+mkdirSync("artifacts/browser", { recursive: true });
+const result = {
+  head: execSync("git rev-parse HEAD").toString().trim(),
+  startedAt: new Date().toISOString(),
+  functionalAssertionsComplete: false,
+  functionalStatus: "RUNNING",
+  cleanupComplete: false,
+  steps: [],
+};
+function saveResult(extra = {}) {
+  writeFileSync(artifactPath, `${JSON.stringify({ ...result, ...extra }, null, 2)}\n`);
+}
+function milestone(name, status = "PASS") {
+  result.steps.push({ name, status, elapsedMs: Math.round(performance.now() - startedAt) });
+  saveResult();
+}
+const startedAt = performance.now();
+saveResult();
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
 const pageErrors = [];
@@ -32,12 +52,15 @@ async function waitForServer() {
 
 try {
   await waitForServer();
+  milestone("server-ready");
   await page.getByText("Worker conectado · simulación ejecutándose").waitFor({ timeout: 10000 });
+  milestone("worker-connected");
   await page.getByRole("button", { name: "4×" }).click();
   await page.getByText("Velocidad ajustada a 4×.").waitFor();
   await page.getByText("Materiales y producción").click();
   await page.getByRole("button", { name: "Comprar 2" }).first().click();
   await page.getByText(/Compradas 2 unidades/).waitFor();
+  milestone("materials-purchased");
   const canvas = page.locator("canvas").first();
   let parcelFound = false;
   for (const position of [
@@ -62,18 +85,21 @@ try {
   await page.getByText(/Aptitud productiva/).waitFor();
   await page.getByRole("button", { name: /Planta de cemento/ }).click();
   await page.getByText(/en construcción/).waitFor();
+  milestone("construction-started");
   await page.getByRole("button", { name: /crew_00000001/ }).click();
   await page.getByText(/Crew enviada a la obra/).waitFor();
   await page.getByRole("button", { name: /crew_00000002/ }).click();
   await page.getByText(/Crew enviada a la obra/).waitFor();
   await page.getByText(/1 edificios/).waitFor({ timeout: 60000 });
   await page.getByText(/Producción media:/).waitFor();
+  milestone("construction-completed");
   await page.getByRole("button", { name: /Ampliar fábrica/ }).click();
   await page.getByText(/Ampliación iniciada/).waitFor();
   await page.getByRole("button", { name: /crew_00000001/ }).click();
   await page.getByText(/Crew enviada a la obra/).waitFor();
   await page.getByRole("button", { name: /crew_00000002/ }).click();
   await page.getByText(/Ampliación completada/).waitFor({ timeout: 60000 });
+  milestone("upgrade-completed");
   await page.getByRole("button", { name: "Promover ordenanza" }).click();
   await page.getByText(/propuesta fue resuelta/).waitFor();
   await page.getByRole("button", { name: "Guardar" }).click();
@@ -89,6 +115,9 @@ try {
   if ((await page.locator("#operations-panel").getAttribute("aria-hidden")) !== "true") {
     throw new Error("El panel operativo no se plegó");
   }
+  result.functionalAssertionsComplete = true;
+  result.functionalStatus = "PASS";
+  milestone("functional-assertions-complete");
   await page.getByRole("button", { name: "Abrir panel" }).click();
   if (pageErrors.length > 0) throw new Error(`Page errors: ${pageErrors.join("; ")}`);
   console.log(
@@ -98,13 +127,26 @@ try {
       metrics: (await page.locator("main").innerText()).match(/CAJA\n.*|ACTIVOS\n.*/g),
     }),
   );
+} catch (error) {
+  result.functionalStatus = "FAIL";
+  saveResult({ failure: { phase: "functional", message: String(error) } });
+  throw error;
 } finally {
-  await browser.close();
-  if (server) {
-    try {
-      process.kill(-server.pid, "SIGTERM");
-    } catch {
-      server.kill("SIGTERM");
+  try {
+    await browser.close();
+    if (server) {
+      try {
+        process.kill(-server.pid, "SIGTERM");
+      } catch {
+        server.kill("SIGTERM");
+      }
     }
+    result.cleanupComplete = true;
+    saveResult();
+  } catch (error) {
+    result.functionalStatus =
+      result.functionalStatus === "RUNNING" ? "FAIL" : result.functionalStatus;
+    saveResult({ failure: { phase: "cleanup", message: String(error) } });
+    throw error;
   }
 }

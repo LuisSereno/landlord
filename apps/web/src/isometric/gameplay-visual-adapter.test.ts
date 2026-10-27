@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { ViewProjectionV1 } from "@landlord/shared";
+import type { RuntimeAssetManifestV1 } from "@landlord/shared";
+import blenderBundle from "../generated/runtime-assets-blender.json";
 import {
   buildGameplayVisualModel,
   gameplayGeometryKey,
@@ -11,6 +13,8 @@ import {
   deriveRoadVisuals,
   visualArchetypeForBuilding,
 } from "./gameplay-visual-adapter";
+
+const BLENDER_BUNDLE = blenderBundle as unknown as RuntimeAssetManifestV1;
 
 type ParcelInput = {
   id: string;
@@ -351,6 +355,26 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
               2,
           ),
       ).toBe(true);
+    }
+  });
+
+  it("usa sólo assets y azimuts existentes en el bundle Blender aprobado", () => {
+    const props = BLENDER_BUNDLE.props!;
+    const vehicles = BLENDER_BUNDLE.vehicles!;
+    expect(props.prp_street_light).toBeDefined();
+    expect(props.prp_traffic_light).toBeDefined();
+    expect(props.prp_bench).toBeDefined();
+    expect(props.prp_trash_can).toBeDefined();
+    expect(vehicles.veh_sedan).toBeDefined();
+    expect(vehicles.veh_taxi).toBeDefined();
+    expect(vehicles.veh_truck).toBeDefined();
+    for (const asset of [
+      props.prp_traffic_light!,
+      vehicles.veh_sedan!,
+      vehicles.veh_taxi!,
+      vehicles.veh_truck!,
+    ]) {
+      expect(asset.orientations?.["225"]).toBeDefined();
     }
   });
 

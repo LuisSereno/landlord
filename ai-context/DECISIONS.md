@@ -893,9 +893,9 @@ fixture de regresión (552 objetos, 60 FPS tras el cambio). No cambia simulació
 `docs/execution/phase-4/wp4-15-vc-promote-visual-slice-2026-10-27.md`.
 
 ## D-085 — Topología vial autoritativa: semántica separada, segmentos con celdas derivadas y contrato de proyección
-Estado: diseñada el 2026-10-27 en WP4.15-V.c.2A y aprobada por el responsable de gate. El contrato queda
-fijado; la implementación se diferida a V.c.2B (generación + estado + proyección), V.c.2C (render) y
-V.c.2D (acceso y edificabilidad mínimos).
+Estado: diseñada en WP4.15-V.c.2A e implementada y aprobada el 2026-10-27 en V.c.2B/C. El contrato,
+la generación, `GameState`, snapshot/backfill, proyección y render Graphic Civic están cerrados;
+V.c.2D (acceso y edificabilidad como reglas de producto) sigue diferida.
 
 Motivo: la única diferencia visible grande entre la partida real y `/visual-slice` son las calles, y hoy
 no existen como dato — `ViewProjectionV1.map` es literalmente `{ width: 64; height: 64 }`. Una calzada
@@ -940,3 +940,10 @@ va como `string[]` con presupuesto < 2 ms; `createScaledCity` derivaría 2948 ce
 1 de 24 distritos (`vega_del_cauce` seed 7, `fdc9ba45`) conserva bolsillos sellados fuera de la red
 pública sin dejar ninguna parcela sin frente. Ver
 `docs/execution/phase-4/wp4-15-vc2a-road-topology-design-2026-10-27.md`.
+
+Implementación cerrada: el derivador cumple p95 holgadamente por debajo de 25 ms, los 24 fixtures y
+el sweep 300 no tienen fallos estructurales, y el render consume sólo `projection.map.roads.cells`.
+El adapter aplica road al final (`road > apron > parcela > urban`), deriva los 16 masks N/E/S/W y
+excluye decoración incompatible; el Canvas horneado mantiene 60 FPS y un digest estable no provoca
+rebake. `segmentsFromCells` conserva como deuda una representación horizontal no mínima para tramos
+verticales; no cambia ninguna celda ni justifica reabrir el core.

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { roadSegmentId } from "./domain";
 import { parseSnapshotV1, snapshotV1Schema, validateSnapshotReferences } from "./snapshot";
 
 function validSnapshot() {
@@ -73,5 +74,34 @@ describe("snapshot v1", () => {
         ],
       }),
     ).toThrow(/ownerOrganizationId/);
+  });
+
+  it("validates the full canonical road-segment order, including the destination", () => {
+    const longer = {
+      class: "street" as const,
+      from: { x: 1, y: 1 },
+      to: { x: 1, y: 3 },
+    };
+    const shorter = { ...longer, to: { x: 1, y: 2 } };
+    const snapshot = {
+      ...validSnapshot(),
+      map: {
+        width: 64,
+        height: 64,
+        blockedCells: [{ x: 0, y: 0 }],
+        roads: {
+          topologyVersion: 1,
+          derivationVersion: 1,
+          segments: [
+            { ...longer, id: roadSegmentId(longer.class, longer.from, longer.to) },
+            { ...shorter, id: roadSegmentId(shorter.class, shorter.from, shorter.to) },
+          ],
+        },
+      },
+    };
+    expect(validateSnapshotReferences(snapshot as never)).toContainEqual({
+      code: "DUPLICATE_ORDER",
+      path: "map/roads/segments",
+    });
   });
 });

@@ -1,15 +1,38 @@
 # WP4.15-V.c — Promote Visual Slice to Gameplay
 
-**Status:** V.c.1 implemented and PASS (D-084). Road topology superseded by the V.c.2A design — see below  
+**Status:** V.c.1, V.c.2B and V.c.2C implemented and PASS (D-084/D-085). V.c.2C-H required before V.c.3
 **Date:** 2026-10-27  
 **Baseline:** commit 9b60bef (post V.b3.2 PERFORMANCE = PASS)
 
-> **Superado en lo relativo a las calles.** Este plan proponía `deriveRoadsFromBlockedCells` y
+> **Registro histórico, no plan vigente.** Las secciones de propuesta anteriores a los resultados de
+> implementación describen el conocimiento disponible al abrir V.c.1. No deben usarse para inferir el
+> estado actual. Este plan proponía `deriveRoadsFromBlockedCells` y
 > `blockedCells → asphalt`. Ambas ideas son inviables: `map.blockedCells` son clústeres de
 > `profile.obstacles` y constituyen el muro del A\* (`navigation.ts:40`), así que derivar calles de ellas
 > haría las calles intransitables. La topología vial autoritativa se diseñó en
 > `wp4-15-vc2a-road-topology-design-2026-10-27.md` (D-085), con semánticas separadas
-> obstacle/road/parcel/open. El resto del documento sigue siendo el registro de V.c.1.
+> obstacle/road/parcel/open. V.c.2B/C ya implementaron y renderizaron esa topología.
+
+## Estado autoritativo actual
+
+```text
+GameState.map.roads (segmentos persistidos)
+        ↓
+ViewProjectionV1.map.roads (digest + cells)
+        ↓
+gameplay-visual-adapter.ts
+        ↓
+GroundPlan (road > apron > parcela > urban)
+        ↓
+terrain-paint.ts (Graphic Civic Canvas asphalt)
+```
+
+- `ROAD_TOPOLOGY_CORE = PASS`; no reabrir el derivador por trabajo de street dressing.
+- `GRAPHIC_CIVIC_ROADS = PASS`; gameplay pinta el 100 % de `projection.map.roads.cells` como asphalt.
+- Las formas presentacionales cubren los 16 masks N/E/S/W y no entran en shared ni simulación.
+- Decoración no vial y dressing quedan excluidos de asphalt; el digest estable no provoca rebakes.
+- `/visual-slice` conserva su topología autoral como fixture independiente.
+- Crossings, mobiliario y vehículos siguen fuera de scope hasta V.c.3.
 
 ---
 
@@ -469,6 +492,9 @@ These questions should be resolved during implementation, not during planning.
 
 **Status:** GAMEPLAY_VISUAL_PROMOTION = PASS. Under D-084.
 
+> Esta sección conserva la foto exacta del cierre de V.c.1. Sus frases “sin roads” eran correctas en
+> ese punto histórico, pero fueron superadas por V.c.2B/C; el estado vigente está al inicio del acta.
+
 ### Section 0 confirmed by code
 
 `map.blockedCells` is populated from `profile.obstacles` (unbuildable clusters) in
@@ -559,10 +585,10 @@ cosmetic).
 10. `/visual-slice` still works — PASS (552 objects, 60 FPS)
 11. Gameplay performance acceptable — PASS (60 FPS median)
 
-### Remaining visual defects (deferred, not blockers)
+### Remaining visual defects at the V.c.1 checkpoint (historical)
 
-- **No roads/crossings/street furniture/vehicles** — deferred to WP4.15-V.c.2 (Authoritative Road
-  Topology). Deliberately not faked.
+- **Roads were absent at this checkpoint** — V.c.2B/C subsequently implemented authoritative roads
+  and Graphic Civic Canvas asphalt. Crossings, street furniture and vehicles remain deferred to V.c.3.
 - **Sparse starting district** — seed-1 gameplay begins with few buildings (lean economy by design);
   the built-cluster evidence uses a richer real projection.
 - **Building scale** — uses physical `spriteScaleFor`; if a future A/B finds it too small vs the
@@ -577,5 +603,5 @@ cosmetic).
 - `scripts/check-architecture.mjs` + fixture: gameplay adapter must not import `visual-slice/layout`.
 - `packages/simulation/src/vc1-projection.test.ts` (opt-in): real projection generator for capture.
 
-All green: typecheck (all), lint (0 errors), format, build, simulation 305 tests, web 70 tests,
-architecture, asset/blender/binary/license guards.
+At the V.c.1 checkpoint all checks were green: typecheck, lint, format, build, tests, architecture and
+asset guards. V.c.2C later accumulated tooling/documentation debt, closed separately by V.c.2C-H.

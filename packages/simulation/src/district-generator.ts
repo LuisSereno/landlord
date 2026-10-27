@@ -389,38 +389,6 @@ function connectedComponents(cells: ReadonlySet<string>): string[][] {
   return result.sort((left, right) => compareCellKey(left[0]!, right[0]!));
 }
 
-function findConnector(
-  source: ReadonlySet<string>,
-  target: ReadonlySet<string>,
-  forbidden: ReadonlySet<string>,
-  width: number,
-  height: number,
-): string[] | null {
-  const queue = [...source].sort(compareCellKey);
-  const previous = new Map<string, string | null>(queue.map((key) => [key, null]));
-  for (let head = 0; head < queue.length; head += 1) {
-    const current = queue[head]!;
-    if (target.has(current)) {
-      const path: string[] = [];
-      for (
-        let cursor: string | null = current;
-        cursor !== null;
-        cursor = previous.get(cursor) ?? null
-      ) {
-        path.push(cursor);
-      }
-      return path.reverse();
-    }
-    for (const next of neighbours(current)) {
-      const [x, y] = next.split(":").map(Number) as [number, number];
-      if (!inBounds({ x, y }, width, height) || forbidden.has(next) || previous.has(next)) continue;
-      previous.set(next, current);
-      queue.push(next);
-    }
-  }
-  return null;
-}
-
 const GRID_SIZE = 64;
 const GRID_CELLS = GRID_SIZE * GRID_SIZE;
 function indexFromKey(key: string): number {

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* global window, document */
 /**
- * Mide FPS de la PARTIDA NORMAL `/` para WP4.15-V.c.1 (no reutiliza el dato del Visual Slice).
+ * Mide FPS de la PARTIDA NORMAL `/` para WP4.15-V.c.2C (no reutiliza el dato del Visual Slice).
  * Verifica además que el suelo no se re-hornea en cada tick: `groundRebakes` debe quedarse en 1
  * mientras la simulación corre sin cambios de geometría (sin construir).
  *
@@ -9,9 +9,10 @@
  *   node scripts/gameplay-fps-measure.mjs --base-url http://127.0.0.1:4179
  *
  * Output:
- *   artifacts/visual-slice/vc1-gameplay-performance.json
+ *   artifacts/visual-slice/gameplay-performance.json
  */
 import { writeFileSync, mkdirSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { chromium } from "@playwright/test";
 
 const args = process.argv.slice(2);
@@ -21,6 +22,8 @@ function flag(name, fallback) {
 }
 const baseUrl = flag("--base-url", "http://127.0.0.1:4179");
 const outputDir = "artifacts/visual-slice";
+const artifactPath = `${outputDir}/gameplay-performance.json`;
+const head = execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim();
 const ZOOMS = [0.5, 1.0, 2.0, 2.5];
 const WARMUP_MS = 2000;
 const MEASUREMENT_MS = 10000;
@@ -37,8 +40,12 @@ const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 const pageErrors = [];
 page.on("pageerror", (error) => pageErrors.push(error.message));
 const consoleErrors = [];
+const httpErrors = [];
 page.on("console", (msg) => {
   if (msg.type() === "error") consoleErrors.push(msg.text());
+});
+page.on("response", (response) => {
+  if (response.status() >= 400) httpErrors.push({ status: response.status(), url: response.url() });
 });
 
 try {
@@ -93,8 +100,9 @@ try {
   const statsAfter = await page.evaluate(() => window.__gameplayVisualStats?.() ?? null);
 
   const data = {
+    head,
     timestamp: new Date().toISOString(),
-    commit: "vc1",
+    complete: true,
     browser: "Chromium (Playwright headed, GPU accelerated)",
     viewport: { width: 1440, height: 900 },
     mode: "preview",
@@ -110,8 +118,9 @@ try {
     pageErrorMessages: pageErrors,
     consoleErrors: consoleErrors.length,
     consoleErrorMessages: consoleErrors,
+    httpErrors,
   };
-  writeFileSync(`${outputDir}/vc1-gameplay-performance.json`, JSON.stringify(data, null, 2));
+  writeFileSync(artifactPath, `${JSON.stringify(data, null, 2)}\n`);
   console.log(JSON.stringify(data, null, 2));
 } finally {
   await browser.close();

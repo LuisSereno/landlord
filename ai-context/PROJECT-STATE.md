@@ -1,6 +1,6 @@
 # Estado actual
 
-Fecha de consolidación: 2026-10-23.
+Fecha de consolidación: 2026-10-27.
 
 ## Repositorio
 - Inicializado.
@@ -49,18 +49,16 @@ Fecha de consolidación: 2026-10-23.
 - macroeventos económicos acotados con trigger propio, efectos cableados, señales y reacción de IA;
 - automatización delegada de propiedad, finanzas y mantenimiento con los mismos comandos y permisos,
   y bandeja de excepciones priorizada.
+- topología vial autoritativa determinista en `GameState.map.roads`, persistida como segmentos y
+  proyectada como `digest + cells`; render Graphic Civic de gameplay desde esas celdas con precedencia
+  road > apron > parcela > suelo base (WP4.15-V.c.2B/C, D-085).
 
 ### Parcialmente implementado
 
-- representación visual del distrito (WP4.15-V): el distrito genera parcelas y celdas no construibles
-  (`map.blockedCells`, derivadas de `profile.obstacles`), pero **no existe una topología autoritativa
-  de calles**: no hay red vial en `GameState` ni en la proyección; la ocupación de un edificio se
-  calcula aparte (`occupiedBuildingCells`), no como calle. La calzada de `/visual-slice` es una
-  composición presentacional hardcodeada (`HORIZONTAL_STREETS` / `VERTICAL_AVENUES` en `layout.ts`),
-  no estado de juego. **El contrato vial está diseñado y aprobado (WP4.15-V.c.2A, D-085)** con evidencia
-  medida sobre 24 distritos, pero sigue sin implementarse: la implementación va a WP4.15-V.c.2B
-  (generación + `GameState` + proyección), V.c.2C (render Graphic Civic) y V.c.2D (acceso y
-  edificabilidad mínimos); tampoco hay selección de distrito en la UI;
+- representación visual del distrito (WP4.15-V): V.c.1 y V.c.2B/C están cerradas. Gameplay consume
+  exclusivamente `ViewProjectionV1.map.roads.cells`; `/visual-slice` conserva su topología autoral
+  como fixture independiente. V.c.2D (acceso/edificabilidad como regla de producto) y V.c.3 (cruces,
+  street dressing y vehículos) siguen sin implementar; tampoco hay selección de distrito en la UI;
 - commuting: el empleo sigue siendo agregado, sin trayectos por agente;
 - planificador de la IA: no existe; sólo cadenas inmediatas tras un `dispatch`;
 - expediente de inteligencia de las facciones: diferido;
@@ -97,6 +95,10 @@ Gate 2 en `GO` para producción representativa desde el 2026-10-23: el responsab
 prueba manual OK, WP2.15 está cerrado, el benchmark/smoke pasan y WP2.14 aprobó `graphic_civic`.
 
 ## Próximo objetivo
+WP4.15-V.c.2C-H está cerrado: lint, contratos, harnesses, documentación y el 404 de favicon quedan
+corregidos. V.c.3A es el siguiente trabajo permitido, pero no está iniciado. No reabrir el derivador
+ni la arquitectura vial: `ROAD_TOPOLOGY_CORE = PASS` y `GRAPHIC_CIVIC_ROADS = PASS`.
+
 Fase 3 cerrada con `GO CONTROLLED ALPHA`. Bajo la excepción D-063 (2026-10-23) el responsable
 adelanta la producción de contenido de Fase 4 sin la medición de sesiones reales que exigía
 WP3.15; la instrumentación persistente de cohortes/seed queda diferida y debe ejecutarse antes

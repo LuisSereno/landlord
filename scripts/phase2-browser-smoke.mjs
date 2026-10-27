@@ -2,6 +2,7 @@
 
 import { mkdirSync, writeFileSync } from "node:fs";
 import { execSync, spawn } from "node:child_process";
+import { performance } from "node:perf_hooks";
 import { chromium } from "@playwright/test";
 
 const port = 4174;
@@ -23,9 +24,10 @@ const result = {
   functionalStatus: "RUNNING",
   cleanupComplete: false,
   steps: [],
+  failure: null,
 };
-function saveResult(extra = {}) {
-  writeFileSync(artifactPath, `${JSON.stringify({ ...result, ...extra }, null, 2)}\n`);
+function saveResult() {
+  writeFileSync(artifactPath, `${JSON.stringify(result, null, 2)}\n`);
 }
 function milestone(name, status = "PASS") {
   result.steps.push({ name, status, elapsedMs: Math.round(performance.now() - startedAt) });
@@ -50,6 +52,7 @@ async function waitForServer() {
   throw new Error("El servidor del smoke de Gate 2 no arrancó");
 }
 
+let pendingError = null;
 try {
   await waitForServer();
   milestone("server-ready");
@@ -129,8 +132,9 @@ try {
   );
 } catch (error) {
   result.functionalStatus = "FAIL";
-  saveResult({ failure: { phase: "functional", message: String(error) } });
-  throw error;
+  result.failure = { phase: "functional", message: String(error) };
+  saveResult();
+  pendingError = error;
 } finally {
   try {
     await browser.close();
@@ -146,7 +150,9 @@ try {
   } catch (error) {
     result.functionalStatus =
       result.functionalStatus === "RUNNING" ? "FAIL" : result.functionalStatus;
-    saveResult({ failure: { phase: "cleanup", message: String(error) } });
-    throw error;
+    result.failure ??= { phase: "cleanup", message: String(error) };
+    saveResult();
+    pendingError ??= error;
   }
 }
+if (pendingError) throw pendingError;

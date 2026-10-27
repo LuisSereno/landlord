@@ -381,7 +381,9 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
       (left, right) =>
         left.from.y - right.from.y ||
         left.from.x - right.from.x ||
-        left.class.localeCompare(right.class),
+        left.class.localeCompare(right.class) ||
+        left.to.y - right.to.y ||
+        left.to.x - right.to.x,
     );
     if (canonical.some((segment, index) => segment !== segments[index])) {
       issues.push({ code: "DUPLICATE_ORDER", path: "map/roads/segments" });

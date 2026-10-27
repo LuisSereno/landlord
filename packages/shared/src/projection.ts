@@ -518,13 +518,17 @@ export type ViewProjectionV1 = {
   };
 };
 
+const projectedRoadCellSchema = z
+  .string()
+  .regex(/^(?:0|[1-9]|[1-5]\d|6[0-3]):(?:0|[1-9]|[1-5]\d|6[0-3])$/);
+
 const mapSchema = z.object({
   width: z.literal(64),
   height: z.literal(64),
   roads: z.object({
     revision: z.number().int().nonnegative(),
     digest: z.string().regex(/^[0-9a-f]{8}$/),
-    cells: z.array(z.string().regex(/^\d+:\d+$/)),
+    cells: z.array(projectedRoadCellSchema),
   }),
 });
 

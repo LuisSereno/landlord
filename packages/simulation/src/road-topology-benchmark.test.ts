@@ -150,7 +150,7 @@ describe.skipIf(!enabled)("WP4.15-V.c.2B.2 road performance harness", () => {
         "artifacts/road-topology/vc2b-performance.json",
         `${JSON.stringify(artifact, null, 2)}\n`,
       );
-      console.log(JSON.stringify(artifact, null, 2));
+      process.stdout.write(`${JSON.stringify(artifact, null, 2)}\n`);
     } catch (error) {
       const failure = {
         phase: "benchmark",

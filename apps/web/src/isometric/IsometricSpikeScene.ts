@@ -124,6 +124,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private readonly sliceCharacters: boolean;
   private readonly terrainStage: TerrainStage;
   private readonly showGrid: boolean;
+  private readonly logFps: boolean;
   private groundPlan: GroundPlan | null = null;
   private readonly screenCenters: ScreenPoint[] = [];
   private mapGraphics?: Phaser.GameObjects.Graphics;
@@ -158,6 +159,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.sliceCharacters = options.sliceCharacters ?? false;
     this.terrainStage = options.terrainStage ?? "full";
     this.showGrid = options.showGrid ?? false;
+    this.logFps = new URLSearchParams(window.location.search).get("fpsDebug") === "1";
   }
 
   public create(): void {
@@ -207,9 +209,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
         window.__visualSlicePerformance.currentFps = currentFps;
         window.__visualSlicePerformance.samples.push(currentFps);
       }
-      console.log(
-        `[FPS] ${currentFps}, samples: ${window.__visualSlicePerformance.samples.length}`,
-      );
+      if (this.logFps) {
+        window.console.info(
+          `[FPS] ${currentFps}, samples: ${window.__visualSlicePerformance.samples.length}`,
+        );
+      }
       this.fpsFrames = 0;
       this.fpsAccumulator = 0;
     }

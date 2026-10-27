@@ -139,10 +139,10 @@ describe("generador de proyección de gameplay (WP4.15-V.c.1)", () => {
         "artifacts/visual-slice/vc1-projection.json",
         JSON.stringify(projection, null, 2),
       );
-      console.log(
+      process.stdout.write(
         `VC1 projection: ${projection.economy!.parcels.length} parcels, ` +
           `${projection.economy!.buildings.length} buildings, ` +
-          `${projection.economy!.constructionSites.length} construction sites`,
+          `${projection.economy!.constructionSites.length} construction sites\n`,
       );
     },
   );

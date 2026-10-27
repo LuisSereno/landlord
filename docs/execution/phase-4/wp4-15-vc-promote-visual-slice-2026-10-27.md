@@ -1,8 +1,15 @@
 # WP4.15-V.c — Promote Visual Slice to Gameplay
 
-**Status:** Analysis complete, pending review  
+**Status:** V.c.1 implemented and PASS (D-084). Road topology superseded by the V.c.2A design — see below  
 **Date:** 2026-10-27  
 **Baseline:** commit 9b60bef (post V.b3.2 PERFORMANCE = PASS)
+
+> **Superado en lo relativo a las calles.** Este plan proponía `deriveRoadsFromBlockedCells` y
+> `blockedCells → asphalt`. Ambas ideas son inviables: `map.blockedCells` son clústeres de
+> `profile.obstacles` y constituyen el muro del A\* (`navigation.ts:40`), así que derivar calles de ellas
+> haría las calles intransitables. La topología vial autoritativa se diseñó en
+> `wp4-15-vc2a-road-topology-design-2026-10-27.md` (D-085), con semánticas separadas
+> obstacle/road/parcel/open. El resto del documento sigue siendo el registro de V.c.1.
 
 ---
 

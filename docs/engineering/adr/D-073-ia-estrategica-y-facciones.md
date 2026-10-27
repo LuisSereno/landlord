@@ -63,9 +63,11 @@ completo. Este WP cierra la parte que puede cerrarse sin montar el multirol.
    supresión, la misma campaña cierra con **12 fallidas** y 190 ciclos cortados. Sólo cuentan los rechazos:
    repetir con éxito es trabajo, no un bucle, y cinco `buy_materials` seguidos no deben vetar la compra de
    materiales.
-9. **La presión territorial usa la trama real.** Las parcelas se plantan con `spacingX = spacingY = 2` porque
-   los impares son la calzada, así que "compartir manzana" es estar a **una o dos** celdas en la misma fila o
-   columna. Con la vecindad a distancia 1 la regla no disparaba nunca —en una ciudad de 50 parcelas el mapa
+9. **La presión territorial usa la trama real.** Las parcelas se plantan con `spacingX = spacingY = 2` dentro
+   de cada manzana, así que "compartir manzana" es estar a **una o dos** celdas en la misma fila o
+   columna. (La justificación original decía "porque los impares son la calzada"; es falsa globalmente — el
+   origen de cada manzana se sortea y no existía topología vial autoritativa al cerrar esta decisión; D-085
+   lo mide.) Con la vecindad a distancia 1 la regla no disparaba nunca —en una ciudad de 50 parcelas el mapa
    de posturas quedaba vacío tras dos meses—; con la distancia 2 incluida, esas dos promotoras cierran el mes
    a −4 mutuo, el tope mensual.
 10. **Detección de ciclos visible sin leer el log.** Cuando la memoria desbanca al candidato que la utilidad

@@ -534,7 +534,8 @@ y la modulación de la puja por hostilidad. Las relaciones no se decretran: la p
 víctima (`commands.ts`), `auction_outbid` −6 al desbancado y al vendedor (`settleAuctions`),
 `tender_contested` −2 por competidor (`submitPublicBid`) y `territory` −1 por frontera compartida con tope de
 −4 al mes (`runFactions`)—. La regla territorial mira a **una y dos** celdas en fila y columna porque las
-parcelas se plantan con `spacingX = spacingY = 2` y los impares son la calzada; con sólo la celda contigua
+parcelas se plantan con `spacingX = spacingY = 2` dentro de cada manzana (no porque "los impares sean la
+calzada": eso es falso globalmente, ver D-085); con sólo la celda contigua
 la presión nunca disparaba en un distrito generado. Decae 3 puntos al mes hacia cero, se detiene ahí y la
 entrada se borra al llegar. La memoria guarda doce acciones por organización —`action`, `target`, `accepted`,
 `rejectionCode`— en una ventana de tres meses, y la antirrepetición escala: −60 de utilidad al segundo
@@ -890,3 +891,52 @@ renderer reutilizado no duplicado**: `terrain-paint.ts`, `depthForAsset`, `footp
 fixture de regresión (552 objetos, 60 FPS tras el cambio). No cambia simulación, snapshots ni digestos
 (ningún digesto dorado se mueve: el adapter es capa de presentación). Ver
 `docs/execution/phase-4/wp4-15-vc-promote-visual-slice-2026-10-27.md`.
+
+## D-085 — Topología vial autoritativa: semántica separada, segmentos con celdas derivadas y contrato de proyección
+Estado: diseñada el 2026-10-27 en WP4.15-V.c.2A y aprobada por el responsable de gate. El contrato queda
+fijado; la implementación se diferida a V.c.2B (generación + estado + proyección), V.c.2C (render) y
+V.c.2D (acceso y edificabilidad mínimos).
+
+Motivo: la única diferencia visible grande entre la partida real y `/visual-slice` son las calles, y hoy
+no existen como dato — `ViewProjectionV1.map` es literalmente `{ width: 64; height: 64 }`. Una calzada
+deja de ser presentación en cuanto es dato de mundo, así que el diseño se apoyó en mediciones sobre el
+generador real (3 perfiles × 8 seeds = 24 distritos, 989 parcelas) y no en la intuición de la retícula
+del slice.
+
+Decisiones: (1) **Semánticas separadas, nunca `blockedCells` para calles**: obstacle (no edificable, no
+transitable), road (no edificable, **transitable**), parcel (potencialmente edificable), open.
+`map.blockedCells` son clústeres de `profile.obstacles` y son el muro del A\*; convertirlos en calzada
+haría intransitables las calles. (2) **Segmentos ortogonales autoritativos** (`RoadSegmentV1 { id, from,
+to, class }`) con el conjunto de celdas derivado por **una única** función pura
+`roadCellsFromSegments()`; la carga valida que lo persistido coincida con lo derivado — divergencia es
+error de integridad, no tolerancia. Sin carriles, sentidos, nombres, anchos variables ni tráfico.
+(3) **Vive en `GameState.map.roads`** y sólo llega al render por la frontera autorizada
+`ViewProjectionV1.map.roads = { revision, digest, cells: string[] }`; el renderer sigue sin poder
+importar simulación. (4) **Derivación post-composición**, cuatro pasos deterministas: corredores del
+`spacing` (celda media de parcelas a distancia 2, garantizados libres por `isParcelCompatible`) → cierre
+de retícula → **cierre de malla rectilíneo** (prolongar sólo en el eje del tramo, `maxRun = 12`) →
+enlaces Prim multi-fuente. Sin campos nuevos en `DistrictProfile` y sin `state.prng`. (5) **Clase vial por
+rol**: corredor de manzana = `street`, enlace entre manzanas = `avenue`; no existe arte de clase todavía,
+así que es semántica para V.c.3. (6) **Ninguna regla de juego cambia en 2B/2C**: medido 989/989 parcelas
+con frente vial, 0 pérdida de suelo edificable (la construcción de producto es parcela-scoped y nunca mira
+celdas) y pathfinding idéntico (las calzadas se tallan de celdas libres y no entra en `blockedCells`). El
+coste `road < open terrain` y `hasRoadAccess` como regla real pertenecen a V.c.2D con su propio gate.
+(7) **Se persiste**, con backfill determinista para saves sin el campo, siguiendo el precedente de
+`blockedCells`: `restoreStateFromSnapshot` lee del save (`snapshot.ts:342`), no regenera. (8) **Entra en
+ambas superficies canónicas** (`canonicalizeState` y `districtCanonicalString`), lo que regenera 10
+digestos dorados y 12 hashes de fixture en un commit propio, con `parcelCount`/`blockedCellCount` sin
+cambios como control. (9) **Rectificación documental**: `spacingX = spacingY = 2` **no** implica "los
+impares son la calzada" — el origen de cada manzana se sortea, las parcelas caen en 2–4 clases de paridad
+y la mejor celosía global de fase choca con 502 celdas de parcela (75 % del mapa sería calzada). Se
+corrigen el comentario de `territoryContacts` (`factions.ts`), D-073 y su ADR; la regla territorial a 1–2
+celdas sigue siendo correcta, sólo era falsa su justificación. (10) `deriveRoadsFromBlockedCells`,
+propuesto en el plan de V.c., queda **superado**.
+
+Coste medido de la red adoptada: 451 celdas (11,0 % del mapa, 2,5× el árbol de enlaces), 87 % tramos
+rectos, 1 % esquinas, 6 % callejones — y podar esos callejones hunde el acceso del 100 % al 27,4 %, porque
+son el frente de la parcela. Riesgos fijados para V.c.2B: los `z.object` de zod son no estrictos y
+borrarían el campo nuevo en el viaje worker→UI; la proyección se publica cada 2 ticks, así que el payload
+va como `string[]` con presupuesto < 2 ms; `createScaledCity` derivaría 2948 celdas (72 % del mapa); y
+1 de 24 distritos (`vega_del_cauce` seed 7, `fdc9ba45`) conserva bolsillos sellados fuera de la red
+pública sin dejar ninguna parcela sin frente. Ver
+`docs/execution/phase-4/wp4-15-vc2a-road-topology-design-2026-10-27.md`.

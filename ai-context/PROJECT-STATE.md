@@ -57,8 +57,10 @@ Fecha de consolidación: 2026-10-23.
   de calles**: no hay red vial en `GameState` ni en la proyección; la ocupación de un edificio se
   calcula aparte (`occupiedBuildingCells`), no como calle. La calzada de `/visual-slice` es una
   composición presentacional hardcodeada (`HORIZONTAL_STREETS` / `VERTICAL_AVENUES` en `layout.ts`),
-  no estado de juego. Diferido a WP4.15-V.c.2 (Authoritative Road Topology); tampoco hay selección de
-  distrito en la UI;
+  no estado de juego. **El contrato vial está diseñado y aprobado (WP4.15-V.c.2A, D-085)** con evidencia
+  medida sobre 24 distritos, pero sigue sin implementarse: la implementación va a WP4.15-V.c.2B
+  (generación + `GameState` + proyección), V.c.2C (render Graphic Civic) y V.c.2D (acceso y
+  edificabilidad mínimos); tampoco hay selección de distrito en la UI;
 - commuting: el empleo sigue siendo agregado, sin trayectos por agente;
 - planificador de la IA: no existe; sólo cadenas inmediatas tras un `dispatch`;
 - expediente de inteligencia de las facciones: diferido;

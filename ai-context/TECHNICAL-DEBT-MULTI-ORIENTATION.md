@@ -8,7 +8,7 @@
 
 ## Problem Statement
 
-Several props and vehicles in the Visual Slice use a single orientation or orientations designed only for horizontal streets. This causes visual inconsistencies when these assets are placed on vertical streets or on different sides of the road.
+Several props, vehicles and road tiles in the Visual Slice use a single orientation or orientations designed only for horizontal streets. This causes visual inconsistencies when these assets are placed on vertical streets or on different sides of the road, and it forces at least one workaround (`flipX` on vertical avenues) that contradicts the baked-lighting policy below.
 
 ---
 
@@ -100,6 +100,41 @@ const PROPS: SliceProp[] = [
 
 ---
 
+## Issue 3: Road Tiles Without Orientation Metadata
+
+**Añadido el 2026-10-27 en WP4.15-V.c.2A (D-085).**
+
+### Current State
+
+El catálogo vial del manifiesto (`apps/web/src/generated/runtime-assets-blender.json:433-505`) tiene tres
+assets — `ter_road_straight`, `ter_road_corner`, `ter_road_intersection` — todos 1×1, con
+`pixelsPerMeter` 42,667 y **sin ningún metadato de orientación** (`orientations`/`azimuth`), a diferencia
+de props y vehículos. `ter_road_corner` no se usa en ninguna parte del layout.
+
+Las avenidas verticales se dibujan hoy con `ter_road_straight` + **`flipX: true`**
+(`apps/web/src/visual-slice/layout.ts:116`), introducido en `685a352` para alinear bordillo y línea
+central. Eso **viola la política de este documento**: la iluminación y las sombras van horneadas, así que
+espejar la textura invierte la dirección de la luz en esas celdas.
+
+### Required geometries for an arbitrary orthogonal network
+
+Medido sobre la red que produciría el contrato V.c.2A (451 celdas de media en 24 distritos reales):
+
+| Geometría | Orientaciones necesarias | Arte actual | Peso medido |
+|---|---|---|---|
+| Recta E–W | 1 | existe | 32,7 % |
+| Recta N–S | 1 | **no existe sin flipX** | 35,7 % |
+| Esquina | 4 | asset sin variantes, sin uso | ~1 % |
+| T-junction | 4 | **no existe** | ~2 % |
+| Cruz | 1 | existe | ~3,5 % |
+| Tope de callejón | 4 | no existe | ~6 % (hoy se cierra con acera) |
+
+Ninguna de estas geometrías se produce en V.c.2A/V.c.2B. La orientación es derivable desde la proyección
+(patrones de vecinos de calzada), así que el contrato no bloquea el trabajo de arte: lo deja para cuando
+el render de calzadas (V.c.2C) realmente lo necesite.
+
+---
+
 ## Why Not Use flipX?
 
 Both vehicles and street lights have **baked lighting** from the Blender rig:
@@ -173,6 +208,7 @@ Regenerate golden hash with new orientations.
 
 - [V.b2: Shadow Strategy](./VB2-SHADOW-STRATEGY.md) — Baked lighting direction established
 - [V.b3: flipX Removal](./VB3-CLOSURE-CORRECTIONS.md) — Policy against flipX for baked lighting
+- [D-085 Road Topology Design](../../docs/execution/phase-4/wp4-15-vc2a-road-topology-design-2026-10-27.md) — Measured junction distribution that sizes the road-tile catalog
 - [Graphic Civic Style Guide](../../tools/art-pipeline/blender/style_layer_graphic_civic.json) — Lighting consistency requirements
 
 ---

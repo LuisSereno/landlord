@@ -94,6 +94,7 @@
 - execution/phase-4/wp4-11-municipal-politics-2026-10-24.md — concejo ficticio de nueve escaños, cinco ejes de opinión leídos del estado social, voto y participación con resto mayor y la transferencia institucional sobre el presupuesto, el debate y el cabildeo.
 - execution/phase-4/wp4-11-h-alpha-systems-hardening-2026-10-25.md — censo electoral efectivo, tasa de servicios en el ánimo fiscal, estado canónico completo y estable, referencias de snapshot hasta WP4.11, benchmark mensual real, fin de la fuga del rival, UI de oferta/inteligencia/concejo, ordenanza activa y duración única, y CI verde con smoke Alpha.
 - execution/phase-4/wp4-11-h-1-alpha-follow-up-2026-10-25.md — correcciones que pidió la auditoría de WP4.11-H: ley activa no retirable, atribución pública del sabotaje, tipos de organización en el snapshot, canonicalidad del reloj, tasa de servicios visible, gobernanza de rendimiento y reconciliación de la documentación de reputación (D-076).
+- execution/phase-4/wp4-15-vc2a-road-topology-design-2026-10-27.md — diseño de la topología vial autoritativa: semánticas obstacle/road/parcel/open separadas, segmentos con celdas derivadas, medición de 24 distritos reales y contrato de proyección (D-085).
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

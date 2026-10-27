@@ -97,6 +97,11 @@ declare global {
     __visualSliceReady?: boolean;
     __visualSliceObjects?: number;
     __visualSliceFps?: number;
+    __visualSlicePerformance?: {
+      currentFps: number;
+      samples: number[];
+      objectCount: number;
+    };
   }
 }
 
@@ -178,7 +183,19 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.fpsFrames += 1;
     this.fpsAccumulator += delta;
     if (this.fpsAccumulator >= FPS_WINDOW_MS) {
-      window.__visualSliceFps = Math.round((this.fpsFrames * 1000) / this.fpsAccumulator);
+      const currentFps = Math.round((this.fpsFrames * 1000) / this.fpsAccumulator);
+      window.__visualSliceFps = currentFps;
+      if (!window.__visualSlicePerformance) {
+        window.__visualSlicePerformance = {
+          currentFps,
+          samples: [],
+          objectCount: this.sliceObjects.length,
+        };
+      } else {
+        window.__visualSlicePerformance.currentFps = currentFps;
+        window.__visualSlicePerformance.samples.push(currentFps);
+      }
+      console.log(`[FPS] ${currentFps}, samples: ${window.__visualSlicePerformance.samples.length}`);
       this.fpsFrames = 0;
       this.fpsAccumulator = 0;
     }
@@ -583,6 +600,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
     }
     window.__visualSliceReady = true;
     window.__visualSliceObjects = this.sliceObjects.length;
+    window.__visualSlicePerformance = {
+      currentFps: 0,
+      samples: [],
+      objectCount: this.sliceObjects.length,
+    };
   }
 
   /** Frame por defecto o variante de orientación de un asset escénico. */

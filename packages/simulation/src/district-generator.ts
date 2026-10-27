@@ -369,8 +369,10 @@ function neighbours(key: string): string[] {
 function connectedComponents(cells: ReadonlySet<string>): string[][] {
   const unvisited = new Set(cells);
   const result: string[][] = [];
-  while (unvisited.size > 0) {
-    const first = [...unvisited].sort(compareCellKey)[0]!;
+  // Una única ordenación canónica. Ordenar el Set restante para cada componente era O(C² log C)
+  // en la malla sintética y no cambia qué semilla canónica se escoge para cada componente.
+  for (const first of [...cells].sort(compareCellKey)) {
+    if (!unvisited.has(first)) continue;
     const component: string[] = [];
     const queue = [first];
     unvisited.delete(first);
@@ -563,8 +565,9 @@ export function deriveRoadTopology(input: {
   }
   // 4. Prim determinista: cada BFS parte de la red pública acumulada y une el siguiente componente.
   const avenue = new Set<string>();
-  while (connectedComponents(new Set([...street, ...avenue])).length > 1) {
+  while (true) {
     const components = connectedComponents(new Set([...street, ...avenue]));
+    if (components.length <= 1) break;
     const source = new Set(components[0]!);
     const target = new Set(components.slice(1).flat());
     const path = findConnector(source, target, forbidden, input.width, input.height);

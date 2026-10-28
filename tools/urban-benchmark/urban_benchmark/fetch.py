@@ -16,11 +16,11 @@ import osmnx as ox
 
 # Public Overpass instances, base form: OSMnx appends "/interpreter" itself.
 # Probed 2026-10-28: kumi.systems and maps.mail.ru answer empty or refuse non-allowlisted
-# clients, so they are deliberately absent — a rotating dead endpoint silently yields zero-metric
-# windows, which is worse than a failed run.
+# clients, private.coffee exhausts the read timeout and openstreetmap.fr returns 403. Keeping a
+# dead mirror in the rotation is worse than having fewer endpoints: it burns the full timeout on
+# every window. Re-probe before adding one back.
 OVERPASS_ENDPOINTS = (
     "https://overpass-api.de/api",
-    "https://overpass.private.coffee/api",
 )
 
 USER_AGENT = "landlord-urban-benchmark/1.0 (offline research tool; https://github.com/landlord)"
@@ -70,10 +70,23 @@ def configure(cache_folder: Path, verbose: bool = False) -> None:
     # OSMnx 1.9.3 crashes with UnboundLocalError inside _get_overpass_pause whenever a status
     # probe fails, so the probe is disabled and the backoff is owned by _fetch_with_retry.
     ox.settings.overpass_rate_limit = False
+    # OSMnx's `_config_dns` rewrites socket.getaddrinfo process-wide so every request uses the first
+    # IP that gethostbyname returns. overpass-api.de round-robins addresses and some of them refuse
+    # connections, so every query dies with "connection refused" while a plain `requests` call to the
+    # same hostname succeeds. The pinning exists to keep the status probe and the submission on the
+    # same machine; with `overpass_rate_limit = False` there is no status probe to keep in sync.
+    ox.settings.doh_url_template = None
+    _disable_dns_pinning()
     ox.settings.requests_timeout = (10, 45)
     ox.settings.requests_kwargs = {"allow_redirects": True}
     ox.settings.log_console = verbose
     ox.settings.log_level = "INFO" if verbose else "ERROR"
+
+
+def _disable_dns_pinning() -> None:
+    from osmnx import _downloader
+
+    _downloader._config_dns = lambda url: None
 
 
 def load_windows(manifest_path: Path) -> list[Window]:
@@ -118,12 +131,13 @@ def _is_transient(error: Exception) -> bool:
     )
 
 
-def _fetch_with_retry(fn, *args, attempts_per_endpoint: int = 2, rounds: int = 2, **kwargs):
+def _fetch_with_retry(fn, *args, attempts_per_endpoint: int = 3, rounds: int = 4, **kwargs):
     """Try every endpoint in rotation, then give up on this window.
 
     A 400 from a mirror is not a reason to abandon a 28-window sweep: an endpoint that
-    rejects the query tells us nothing about the query, only about that mirror. The sweep
-    records the failure, keeps the windows already extracted, and a re-run resumes only the gaps.
+    rejects the query tells us nothing about the query, only about that mirror. A 502
+    "at capacity" is a reason to wait: public Overpass queues drain in minutes, and the
+    sweep is resumable, so an impatient failure costs more re-runs than a patient sleep.
     """
     last_error: Exception | None = None
     for attempt_round in range(rounds):
@@ -136,8 +150,8 @@ def _fetch_with_retry(fn, *args, attempts_per_endpoint: int = 2, rounds: int = 2
                     last_error = error
                     if not _is_transient(error):
                         break
-                    time.sleep(min(20.0, 2.0 ** (attempt + attempt_round) + random.random()))
-        time.sleep(3.0)
+                    time.sleep(min(75.0, 8.0 * (attempt + 1) + 4.0 * attempt_round + random.random()))
+        time.sleep(5.0)
     raise RuntimeError(f"all Overpass endpoints failed: {last_error}") from last_error
 
 

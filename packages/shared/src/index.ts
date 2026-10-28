@@ -6,6 +6,7 @@ export * from "./money";
 export * from "./contracts";
 export * from "./responses";
 export * from "./domain";
+export * from "./urban";
 export * from "./assets";
 export * from "./projection";
 export * from "./snapshot";

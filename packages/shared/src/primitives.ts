@@ -23,6 +23,15 @@ export type FacilityId = Brand<string, "FacilityId">;
 export type TransactionId = Brand<string, "TransactionId">;
 export type PolicyId = Brand<string, "PolicyId">;
 export type LoanId = Brand<string, "LoanId">;
+export type CityId = Brand<string, "CityId">;
+export type CityProfileId = Brand<string, "CityProfileId">;
+export type BlockId = Brand<string, "BlockId">;
+export type DevelopmentCodeId = Brand<string, "DevelopmentCodeId">;
+export type PublicSpaceId = Brand<string, "PublicSpaceId">;
+export type UrbanFacilityId = Brand<string, "UrbanFacilityId">;
+export type DistrictGatewayId = Brand<string, "DistrictGatewayId">;
+export type DistrictConnectionId = Brand<string, "DistrictConnectionId">;
+export type PermitId = Brand<string, "PermitId">;
 
 export type RequestId = Brand<string, "RequestId">;
 export type CommandId = Brand<string, "CommandId">;
@@ -68,6 +77,42 @@ export const transactionIdSchema = entityIdSchema("txn").transform(
 );
 export const policyIdSchema = entityIdSchema("policy").transform((value) => value as PolicyId);
 export const loanIdSchema = entityIdSchema("loan").transform((value) => value as LoanId);
+export const cityIdSchema = entityIdSchema("city").transform((value) => value as CityId);
+export const publicSpaceIdSchema = entityIdSchema("publicspace").transform(
+  (value) => value as PublicSpaceId,
+);
+export const urbanFacilityIdSchema = entityIdSchema("urbanfacility").transform(
+  (value) => value as UrbanFacilityId,
+);
+export const permitIdSchema = entityIdSchema("permit").transform((value) => value as PermitId);
+
+/**
+ * Identifiers derived from canonical geometry rather than from a counter. A block, a gateway or a
+ * connection has no emission order that means anything, so their ids come from a stable hash of the
+ * thing they are (D-090). The numeric prefix form would imply an ordinal that the generator cannot
+ * honestly promise.
+ */
+function geometryEntityIdSchema(prefix: string) {
+  return z
+    .string()
+    .regex(new RegExp(`^${prefix}_[0-9a-f]{8,16}$`))
+    .transform((value) => value as string);
+}
+
+export const blockIdSchema = geometryEntityIdSchema("block").transform((value) => value as BlockId);
+export const districtGatewayIdSchema = geometryEntityIdSchema("gateway").transform(
+  (value) => value as DistrictGatewayId,
+);
+export const districtConnectionIdSchema = geometryEntityIdSchema("connection").transform(
+  (value) => value as DistrictConnectionId,
+);
+
+/** Profile identifiers are authored slugs: renaming one breaks every save that references it (D-064). */
+const profileIdSchema = z.string().regex(/^[a-z][a-z0-9_]{2,63}$/);
+export const cityProfileIdSchema = profileIdSchema.transform((value) => value as CityProfileId);
+export const developmentCodeIdSchema = profileIdSchema.transform(
+  (value) => value as DevelopmentCodeId,
+);
 
 export const requestIdSchema = opaqueString.transform((value) => value as RequestId);
 export const commandIdSchema = opaqueString.transform((value) => value as CommandId);
@@ -136,6 +181,42 @@ export function parsePolicyId(value: string): PolicyId {
 
 export function parseLoanId(value: string): LoanId {
   return loanIdSchema.parse(value);
+}
+
+export function parseCityId(value: string): CityId {
+  return cityIdSchema.parse(value);
+}
+
+export function parseCityProfileId(value: string): CityProfileId {
+  return cityProfileIdSchema.parse(value);
+}
+
+export function parseBlockId(value: string): BlockId {
+  return blockIdSchema.parse(value);
+}
+
+export function parseDevelopmentCodeId(value: string): DevelopmentCodeId {
+  return developmentCodeIdSchema.parse(value);
+}
+
+export function parsePublicSpaceId(value: string): PublicSpaceId {
+  return publicSpaceIdSchema.parse(value);
+}
+
+export function parseUrbanFacilityId(value: string): UrbanFacilityId {
+  return urbanFacilityIdSchema.parse(value);
+}
+
+export function parseDistrictGatewayId(value: string): DistrictGatewayId {
+  return districtGatewayIdSchema.parse(value);
+}
+
+export function parseDistrictConnectionId(value: string): DistrictConnectionId {
+  return districtConnectionIdSchema.parse(value);
+}
+
+export function parsePermitId(value: string): PermitId {
+  return permitIdSchema.parse(value);
 }
 
 export function parseRequestId(value: string): RequestId {

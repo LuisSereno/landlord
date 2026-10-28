@@ -99,6 +99,13 @@
 - execution/phase-4/wp4-15-vc2c-hardening-2026-10-27.md — hardening posterior a la revisión remota: lint, contratos, harnesses, documentación y auditoría de archivos históricos.
 - execution/phase-4/wp4-15-vc3a-junction-pedestrian-language-2026-10-27.md — pasos de peatones y marcas discretas derivados de T/intersecciones reales, sin ampliar la topología ni el gameplay.
 - execution/phase-4/wp4-15-vc3-street-dressing-2026-10-27.md — cierre V.c.3B/C: mobiliario urbano y vehículos aparcados deterministas, QA browser y rendimiento.
+- execution/phase-4/playtest-30min-2026-10-28.md — playtest instrumentado de 30 minutos a 4×: resultados, P0 de integridad y rendimiento, y secuencias de reproducción.
+- execution/phase-4/fase-0-vd-baseline-2026-10-28.md — Fase 0 de V.d: baseline re-ejecutado y archivado, corrección del smoke Alpha rojo, herramienta `tools/urban-benchmark`, corpus morfológico bloqueado por Overpass y ADRs D-087…D-092 en propuesta (D-087 a D-092).
+
+## Benchmark morfológico
+- `tools/urban-benchmark/README.md` — herramienta offline (OSMnx fijado por versión), las 28 ventanas de
+  referencia 4×7, las métricas agregadas extraídas y la atribución ODbL. Ninguna geometría de OSM entra
+  en el juego ni en el repositorio.
 
 ## Investigación
 - research/01-constructor-mob-rule-research.md

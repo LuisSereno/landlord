@@ -467,7 +467,7 @@ export function planGameplayStreetFurniture(
       lastPlaced.set(line, progress);
     }
   };
-  placeAlongStraight(0x44a1, 5, 38, "street_light", "prp_street_light", 0.86, false);
+  placeAlongStraight(0x44a1, 5, 38, "street_light", "prp_street_light", 1.0, false);
   placeAlongStraight(0x89b2, 9, 24, "bench", "prp_bench", 0.78, true);
   placeAlongStraight(0xb7c3, 11, 16, "trash_can", "prp_trash_can", 0.74, true);
   return furniture;
@@ -547,7 +547,7 @@ export function planGameplayParkedVehicles(
     occupied.add(cellKey(road.cell));
     const variant = spatialHash(road.cell.x, road.cell.y, 0xf809) % 100;
     const asset: GameplayParkedVehicle["asset"] =
-      variant < 72 ? "veh_sedan" : variant < 92 ? "veh_taxi" : "veh_truck";
+      variant < 55 ? "veh_sedan" : variant < 80 ? "veh_taxi" : "veh_truck";
     const azimuth: 45 | 225 = road.orientation === "straight_ns" ? 45 : 225;
     vehicles.push({
       id: `parked-${asset}:${cellKey(road.cell)}:${side}`,
@@ -555,9 +555,9 @@ export function planGameplayParkedVehicles(
       roadCell: { ...road.cell },
       side,
       azimuth,
-      lateralOffset: 0.22,
+      lateralOffset: 0.28,
       longitudinalOffset: ((spatialHash(road.cell.x, road.cell.y, 0xa10b) % 3) - 1) * 0.08,
-      scale: asset === "veh_truck" ? 0.82 : 0.78,
+      scale: asset === "veh_truck" ? 0.92 : 0.88,
     });
     lastByLine.set(line, progress);
   }

@@ -490,6 +490,17 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
               health: agent.health ?? 100,
               state: agent.state ?? "idle",
               task: (agent.task as import("@landlord/shared").Agent["task"]) ?? null,
+              ...(agent.travel
+                ? {
+                    travel: {
+                      fromDistrictId: parseDistrictId(agent.travel.fromDistrictId),
+                      toDistrictId: parseDistrictId(agent.travel.toDistrictId),
+                      departAtTick: parseTick(Number(agent.travel.departAtTick)),
+                      arriveAtTick: parseTick(Number(agent.travel.arriveAtTick)),
+                      route: agent.travel.route.map((id) => parseDistrictId(id)),
+                    },
+                  }
+                : {}),
               cooldownUntilTick: parseTick(agent.cooldownUntilTick ?? 0),
               injuredUntilTick: agent.injuredUntilTick ?? null,
               lastPathRecalculationTick: parseTick(agent.lastPathRecalculationTick ?? 0),

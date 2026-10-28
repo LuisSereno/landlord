@@ -353,6 +353,18 @@ export type Agent = {
     | { kind: "attack_agent"; targetAgentId: AgentId }
     | { kind: "sabotage_building"; targetBuildingId: BuildingId }
     | null;
+  /**
+   * Traslado en curso entre distritos (D-088). Mientras exista, el agente no acepta tareas: el
+   * viaje es una orden explícita del jugador, no un teletransporte. `route` guarda las paradas por
+   * gateway para que el progreso sea determinista y auditable.
+   */
+  travel?: {
+    fromDistrictId: DistrictId;
+    toDistrictId: DistrictId;
+    departAtTick: Tick;
+    arriveAtTick: Tick;
+    route: DistrictId[];
+  } | null;
   cooldownUntilTick?: Tick;
   injuredUntilTick?: Tick | null;
   lastPathRecalculationTick?: Tick;
@@ -1456,7 +1468,9 @@ export type ProductCommand =
   | BuyInsurance
   | CancelInsurance
   | SubmitPublicBid
-  | CommissionIntelligence;
+  | CommissionIntelligence
+  | TransferCrew
+  | TransferAgent;
 
 function commandSchema<TType extends string>(type: TType, payload: z.ZodType) {
   return z.object({
@@ -1607,6 +1621,26 @@ export const commissionIntelligenceSchema = commandSchema(
     kind: z.enum(["balance", "exposure", "arrears", "bid_intent"]),
   }),
 );
+export type TransferCrew = DomainCommandBase & {
+  type: "TransferCrew";
+  payload: { crewId: CrewId; toDistrictId: DistrictId };
+};
+
+export const transferCrewSchema = commandSchema(
+  "TransferCrew",
+  z.object({ crewId: crewIdSchema, toDistrictId: districtIdSchema }),
+);
+
+export type TransferAgent = DomainCommandBase & {
+  type: "TransferAgent";
+  payload: { agentId: AgentId; toDistrictId: DistrictId };
+};
+
+export const transferAgentSchema = commandSchema(
+  "TransferAgent",
+  z.object({ agentId: agentIdSchema, toDistrictId: districtIdSchema }),
+);
+
 export const productCommandSchema = z.discriminatedUnion("type", [
   placeTestStructureSchema,
   buyParcelSchema,
@@ -1639,4 +1673,6 @@ export const productCommandSchema = z.discriminatedUnion("type", [
   cancelInsuranceSchema,
   submitPublicBidSchema,
   commissionIntelligenceSchema,
+  transferCrewSchema,
+  transferAgentSchema,
 ]);

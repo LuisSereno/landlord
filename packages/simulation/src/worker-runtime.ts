@@ -77,6 +77,8 @@ const errorMessages: Record<ErrorCode, string> = {
     "Esta partida es de una versión anterior (v1). V.d no la migra: crea una partida nueva o borra el slot incompatible.",
   AGENT_NOT_IN_DISTRICT:
     "El agente o la cuadrilla no está en el distrito del objetivo; trasládalo primero.",
+  AGENT_ALREADY_TRAVELLING: "El agente o la cuadrilla ya está viajando a otro distrito.",
+  DISTRICT_NOT_CONNECTED: "No hay ruta por gateways entre esos dos distritos.",
   CONTRACT_NOT_FOUND: "El contrato público no existe.",
   CONTRACT_CLOSED: "La licitación ya está cerrada.",
   CONTRACT_CONFLICT: "La organización ya ejecuta otro contrato público.",

@@ -12,6 +12,7 @@ import {
 } from "@landlord/shared";
 import { blockedCellsOf, districtMapOf, hasOrganizationControl, type GameState } from "./state";
 import { credit, debit } from "./ledger";
+import { startAgentTravel } from "./transfers";
 import { submitPublicBid } from "./public-contracts";
 
 export { credit, debit } from "./ledger";
@@ -921,6 +922,15 @@ export function dispatchProductCommand(
     if (!interactionCell) return { accepted: false, code: "INVALID_AGENT_ACTION" };
     // Construction needs the crew physically in the target district (D-088): transfers are an
     // explicit command, never an implicit teleport inside an assignment.
+    // El viaje se comprueba antes que la distancia: "ya está viajando" explica mejor el rechazo
+    // que "no está en el distrito", que también sería cierto mientras el agente va de camino.
+    if (
+      [crew.supervisorAgentId, ...crew.workerAgentIds].some(
+        (agentId) => state.agents.get(agentId)?.travel,
+      )
+    ) {
+      return { accepted: false, code: "AGENT_ALREADY_TRAVELLING" };
+    }
     if (
       [crew.supervisorAgentId, ...crew.workerAgentIds].some((agentId) => {
         const member = state.agents.get(agentId);
@@ -973,6 +983,7 @@ export function dispatchProductCommand(
         agent.specialty === "maintenance_technician" &&
         agent.districtId === buildingParcel.districtId &&
         agent.state === "idle" &&
+        !agent.travel &&
         !agent.task,
     );
     if (!technician) return { accepted: false, code: "AGENT_NOT_FOUND" };
@@ -1011,6 +1022,7 @@ export function dispatchProductCommand(
       return { accepted: false, code: "AGENT_NOT_FOUND" };
     if (enforcer.organizationId !== command.actingAsOrganizationId)
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
+    if (enforcer.travel) return { accepted: false, code: "AGENT_ALREADY_TRAVELLING" };
     if (command.payload.action === "attack_agent" && command.payload.targetAgentId) {
       const target = state.agents.get(command.payload.targetAgentId);
       if (!target || target.organizationId === enforcer.organizationId)
@@ -1208,6 +1220,57 @@ export function dispatchProductCommand(
       estimateId: estimate.id,
       cost: INFORMATION_POLICY.commissionCost,
     });
+  }
+
+  if (command.type === "TransferCrew") {
+    const crew = state.phase2.crews.get(command.payload.crewId);
+    if (!crew) return { accepted: false, code: "CREW_NOT_FOUND" };
+    if (crew.organizationId !== command.actingAsOrganizationId)
+      return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
+    if (!state.world.districts.has(command.payload.toDistrictId))
+      return { accepted: false, code: "DISTRICT_NOT_FOUND" };
+    const members = [crew.supervisorAgentId, ...crew.workerAgentIds]
+      .map((agentId) => state.agents.get(agentId))
+      .filter((agent): agent is NonNullable<typeof agent> => agent !== undefined);
+    if (members.length === 0) return { accepted: false, code: "AGENT_NOT_FOUND" };
+    if (members.some((agent) => agent.districtId !== members[0]!.districtId))
+      return { accepted: false, code: "AGENT_NOT_IN_DISTRICT" };
+    if (members.some((agent) => agent.travel))
+      return { accepted: false, code: "AGENT_ALREADY_TRAVELLING" };
+    const plan = startAgentTravel(state, members[0]!.id, command.payload.toDistrictId);
+    if (!plan) return { accepted: false, code: "DISTRICT_NOT_CONNECTED" };
+    for (const agent of members.slice(1)) {
+      startAgentTravel(state, agent.id, command.payload.toDistrictId);
+    }
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "CrewTransferred", {
+      crewId: crew.id,
+      toDistrictId: command.payload.toDistrictId,
+      arriveAtTick: Number(plan.arriveAtTick),
+      route: plan.route,
+    });
+  }
+  if (command.type === "TransferAgent") {
+    const agent = state.agents.get(command.payload.agentId);
+    if (!agent) return { accepted: false, code: "AGENT_NOT_FOUND" };
+    if (agent.organizationId !== command.actingAsOrganizationId)
+      return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
+    if (!state.world.districts.has(command.payload.toDistrictId))
+      return { accepted: false, code: "DISTRICT_NOT_FOUND" };
+    if (agent.travel) return { accepted: false, code: "AGENT_ALREADY_TRAVELLING" };
+    const plan = startAgentTravel(state, agent.id, command.payload.toDistrictId);
+    if (!plan) return { accepted: false, code: "DISTRICT_NOT_CONNECTED" };
+    rememberProcessed(state, command.commandId);
+    return productEvent(state, command.commandId, "AgentTransferred", {
+      agentId: agent.id,
+      toDistrictId: command.payload.toDistrictId,
+      arriveAtTick: Number(plan.arriveAtTick),
+      route: plan.route,
+    });
+  }
+  // A partir de aquí sólo queda el comando ilegal.
+  if (command.type !== "CommitCrime") {
+    return { accepted: false, code: "INVALID_PAYLOAD" };
   }
 
   const target = state.phase2.balances.get(command.payload.targetOrganizationId);

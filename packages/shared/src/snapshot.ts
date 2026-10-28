@@ -104,6 +104,7 @@ export type SnapshotV2 = {
     health?: number;
     state?: "idle" | "moving" | "working" | "injured" | "dead";
     task?: import("./domain").Agent["task"];
+    travel?: import("./domain").Agent["travel"];
     cooldownUntilTick?: Tick;
     injuredUntilTick?: Tick | null;
     lastPathRecalculationTick?: Tick;
@@ -209,6 +210,14 @@ export type SnapshotWorld = {
     publicSpaces: import("./urban").PublicSpace[];
   }>;
 };
+const agentTravelSchema = z.object({
+  fromDistrictId: districtIdSchema,
+  toDistrictId: districtIdSchema,
+  departAtTick: tickSchema,
+  arriveAtTick: tickSchema,
+  route: z.array(districtIdSchema),
+});
+
 const agentSnapshotSchema = z.object({
   id: agentIdSchema,
   districtId: districtIdSchema,
@@ -223,6 +232,7 @@ const agentSnapshotSchema = z.object({
   health: z.number().int().min(0).max(100).optional(),
   state: z.enum(["idle", "moving", "working", "injured", "dead"]).optional(),
   task: agentTaskSchema.nullable().optional(),
+  travel: agentTravelSchema.nullable().optional(),
   cooldownUntilTick: tickSchema.optional(),
   injuredUntilTick: tickSchema.nullable().optional(),
   lastPathRecalculationTick: tickSchema.optional(),

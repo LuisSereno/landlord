@@ -35,6 +35,7 @@ import {
   REPAIR_COST,
 } from "./game-data";
 import { blockedCellsOf, type GameState } from "./state";
+import { advanceTransfers } from "./transfers";
 import { runEmployment } from "./employment";
 import { runAutomation } from "./automation";
 import { macroShockBiasFor, runMacroEvents } from "./macro-events";
@@ -1477,6 +1478,8 @@ export type ProductSystem = {
  * todas las partidas aunque el código de cada sistema no varíe.
  */
 export const PRODUCT_SYSTEMS: readonly ProductSystem[] = [
+  // Los traslados llegan antes que el trabajo táctico: quien aparece este tick puede trabajar este tick.
+  { name: "transfers", run: advanceTransfers },
   { name: "tactical", run: tacticalTick },
   // Los macroeventos se limpian al inicio del tick para que los modifiers estén disponibles O(1).
   { name: "macroEvents", run: runMacroEvents },

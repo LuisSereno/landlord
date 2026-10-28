@@ -121,3 +121,32 @@ El plan fija la cadena geométrica, la norma como dato, la autocolocación y las
 ADR añade que los índices derivados (edificios por parcela, huellas ocupadas, edificios por distrito,
 parcelas por bloque) **no se persisten**, por coherencia con la prohibición de D-085 de guardar una
 segunda verdad derivable. El plan no lo dice; se marca como decisión propia.
+
+## Implementación V.d.1 (2026-10-28)
+
+La cadena `RoadAnchor[] → RoadTopology → Block → Parcel` está implementada en
+`packages/simulation/src/urban-fabric.ts` y orquestada por `district-generator.ts`. La red se traza
+sobre una retícula autoral de 3 o 4 líneas por eje y se conecta a gateways, centro cívico, corredores
+comerciales, accesos industriales y spawns; las parcelas no participan en la derivación. Las manzanas
+son componentes 4-conexos de suelo desarrollable; los componentes que superan el envelope se parten
+con cortes guillotina deterministas convertidos en callejones (obstáculo, no vía). Las parcelas nacen
+de frentes viales, crecen por BFS multi-fuente y las celdas huérfanas se asignan al vecino con mayor
+borde común.
+
+Adiciones de implementación, marcadas como propias:
+
+- `UrbanFabricConfig.connectSpawns`: las recetas de baja densidad no conectan físicamente el spawn a
+  la retícula. Es lo que mantiene la densidad en 23,07 km/km², dentro del envelope de su familia;
+  con conector subía a 23,8 y lo rebasaba.
+- Los `ParcelId` son ordinales en orden geométrico canónico, con las parcelas ancla primero. El plan
+  exige que no dependan del descubrimiento; el orden de las anclas es autorado y conserva la
+  continuidad económica de D-064.
+- Una manzana completa por distrito se reserva como `PublicSpace` provisional (`blockId: null`) hasta
+  V.d.3. No es el programa municipal: es el mecanismo mínimo para que la reserva pública exista y se
+  valide desde V.d.1.
+- Un guardado v2 anterior a V.d.1 se rechaza por nombre (`UNSUPPORTED_URBAN_FABRIC`), no se migra.
+- `zoning` y `buildingId` permanecen en `Parcel` hasta V.d.2; retirarlos ahora habría obligado a
+  refactorizar los consumidores dos veces.
+
+Evidencia del gate en `docs/execution/phase-4/vd1-red-vial-manzanas-parcelacion-2026-10-28.md` y
+`docs/execution/phase-4/vd1-fabric-gate.json`.

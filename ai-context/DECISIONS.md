@@ -1050,6 +1050,16 @@ identifica ciudad, distrito, seed e issues; (8) los índices derivados (edificio
 ocupadas, edificios por distrito, parcelas por bloque) se recalculan y no se persisten. Ver
 `docs/engineering/adr/D-090-tejido-urbano-y-parcela-multicell.md`.
 
+**Implementación V.d.1 (2026-10-28).** La cadena `RoadAnchor[] → RoadTopology (derivationVersion 2)
+→ Block (flood fill) → Parcel (BFS multi-fuente desde frentes)` está en `urban-fabric.ts`. Añadidos
+propios, marcados en la ADR: `connectSpawns` se apaga en recetas de baja densidad para no rebasar el
+envelope (23,07 km/km² frente a 23,26); los ordinales de parcela siguen el orden geométrico canónico
+con las anclas autoradas primero; una manzana completa por distrito se reserva como espacio público
+provisional hasta V.d.3; los saves v2 pre-V.d.1 se rechazan por nombre (`UNSUPPORTED_URBAN_FABRIC`).
+`zoning` y `buildingId` siguen en `Parcel` hasta V.d.2. Gate: 900 distritos sin fallos, generación
+p95 169,86 ms, derivación vial p95 2,83 ms, todas las recetas dentro de su envelope. El cierre
+mensual maduro sube a p95 34,62 ms y queda como deuda de V.d.2.
+
 ## D-091 — Mercados híbridos: vivienda y empleo por distrito, dinero y política de ciudad
 
 Estado: ratificada el 2026-10-28 en lo que refleja `PLAN_improvements.md`. Amplía D-066 y

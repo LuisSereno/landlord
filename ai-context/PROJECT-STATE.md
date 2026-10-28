@@ -131,6 +131,18 @@ pondera por población efectiva) y `centro_civico` necesitó tolerancias más an
 generación. El coste del cierre mensual con nueve distritos es el riesgo abierto número uno y se
 mide antes de V.d.1.
 
+**V.d.1 está cerrada el 2026-10-28**
+(`docs/execution/phase-4/vd1-red-vial-manzanas-parcelacion-2026-10-28.md`, código `0418a5d`). La
+parcela deja de ser un punto: el generador traza la red desde `RoadAnchor[]`, forma manzanas por flood
+fill, las parte con callejones deterministas si exceden el envelope y subdivide por frentes con BFS
+multi-fuente. `RoadTopology` mantiene `topologyVersion: 1` y sube `derivationVersion` a 2; `Parcel`
+gana `blockId`, `cells`, `anchorCell`, `roadFrontages` y `disposition`, y el snapshot persiste
+manzanas y reservas públicas. Evidencia del gate: 100 city seeds / 900 distritos, 81.266 parcelas, 0
+fallos; generación p95 169,86 ms (< 300), derivación vial p95 2,83 ms (≤ 25) y cada receta dentro de
+su envelope morfológico (`docs/execution/phase-4/vd1-fabric-gate.json`). El cierre mensual maduro
+sube a p95 34,62 ms y sigue fuera del presupuesto de D-065: V.d.2 debe introducir los índices
+derivados y re-medir. Los saves v2 anteriores a V.d.1 se rechazan por nombre y no se migran.
+
 WP4.15-V.c.2C-H y V.c.3A/B/C están cerrados: lint, contratos, harnesses, documentación y el 404 de
 favicon quedan corregidos; las T e intersecciones publicadas reciben pasos de peatones discretos,
 derivados de la máscara vial real; el dressing estático añade farolas, semáforos sólo en

@@ -115,14 +115,21 @@ ventanas, 0 degeneradas, con SHA-256 de los cuatro extractos y atribución ODbL 
 runtime importe la herramienta. El responsable aprobó los envelopes y ratificó D-087…D-092 en lo que
 reflejan el plan, autorizando explícitamente `SnapshotV2` sin compatibilidad con saves v1.
 
-**V.d.0 está en curso.** Commiteado: los contratos urbanos de `packages/shared/src/urban.ts` y la
-capa de ciudad `packages/simulation/src/city.ts` (nueve distritos autorados, seed derivada por
-distrito, doce gateways sobre celdas de borde, doce conexiones con coste entero, ocho tests propios y
-40 seeds × 9 distritos sin fallos). **Sin commitear:** la reestructuración de `GameState` alrededor de
-`WorldState` está escrita y compila en los tres paquetes, pero deja 58 tests en rojo; `develop` se
-dejó verde y el trabajo se conserva como parche. El punto de traspaso completo —qué hace el parche,
-qué falta, qué invariantes no se negocian y cómo verificarlo— está en
-`docs/execution/phase-4/vd0-worldstate-handoff.md`.
+**V.d.0 está cerrada el 2026-10-28** (`docs/execution/phase-4/vd0-ciudad-multidistrito-2026-10-28.md`).
+`GameState` vive sobre un `WorldState` con ciudad, doce gateways y nueve distritos; `SnapshotV2` y el
+protocolo v2 son los únicos aceptados y un guardado v1 se rechaza por nombre, se lista como
+incompatible y sólo se borra a petición. Los agentes y las estructuras técnicas llevan `districtId`,
+el trabajo exige presencia en el distrito del objetivo y `TransferCrew`/`TransferAgent` mueven gente
+por el grafo de ciudad con duración determinista y sin coste monetario. La proyección es
+`ViewProjectionV2`: distrito observado, resumen público de los nueve y mapa/parcelas/edificios sólo
+del observado, con la caja intacta al cambiar de vista. React ofrece la cuadrícula 3×3 y el smoke
+Alpha la recorre. El gate está verde en sus seis criterios con evidencia en tests.
+
+Consecuencias registradas: los perfiles de facción convergen porque el rival opera en un solo
+distrito (vuelve en V.d.2), la opinión municipal se satura con ocho distritos sin stock (V.d.2 la
+pondera por población efectiva) y `centro_civico` necesitó tolerancias más anchas para no romper la
+generación. El coste del cierre mensual con nueve distritos es el riesgo abierto número uno y se
+mide antes de V.d.1.
 
 WP4.15-V.c.2C-H y V.c.3A/B/C están cerrados: lint, contratos, harnesses, documentación y el 404 de
 favicon quedan corregidos; las T e intersecciones publicadas reciben pasos de peatones discretos,

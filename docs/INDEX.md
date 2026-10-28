@@ -101,7 +101,7 @@
 - execution/phase-4/wp4-15-vc3-street-dressing-2026-10-27.md — cierre V.c.3B/C: mobiliario urbano y vehículos aparcados deterministas, QA browser y rendimiento.
 - execution/phase-4/playtest-30min-2026-10-28.md — playtest instrumentado de 30 minutos a 4×: resultados, P0 de integridad y rendimiento, y secuencias de reproducción.
 - execution/phase-4/fase-0-vd-baseline-2026-10-28.md — Fase 0 de V.d: baseline re-ejecutado y archivado, corrección del smoke Alpha rojo, herramienta `tools/urban-benchmark`, corpus morfológico de 28 ventanas y ADRs D-087…D-092 ratificados.
-- execution/phase-4/vd0-worldstate-handoff.md — punto de traspaso de V.d.0: qué está commiteado, qué contiene el parche `vd0-worldstate-wip.patch` sin aplicar, los 58 tests que faltan por migrar y las invariantes vigentes.
+- execution/phase-4/vd0-ciudad-multidistrito-2026-10-28.md — V.d.0 cerrada: WorldState, SnapshotV2 sin compatibilidad v1, ciudad 3×3, gateways, traslados deterministas, ViewProjectionV2 y vista de ciudad, con el gate criterio por criterio y las consecuencias medidas.
 
 ## Benchmark morfológico
 - `tools/urban-benchmark/README.md` — herramienta offline (OSMnx fijado por versión), las 28 ventanas de

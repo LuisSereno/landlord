@@ -165,3 +165,36 @@ describe("simulation view projection", () => {
     expect(JSON.stringify(projection)).not.toMatch(/xoshiro|prng|triggerChance/i);
   });
 });
+
+describe("V.d.0 resúmenes de ciudad", () => {
+  it("no publica caja, estrategia ni memoria privada del rival en los resúmenes distritales", () => {
+    const state = createInitialState(5);
+    state.phase2.rivalAi.lastReason = "RAZON-PRIVADA-RIVAL";
+    state.phase2.rivalAi.lastAction = "accion-privada-rival";
+    const projection = createViewProjection(state);
+    const summaries = JSON.stringify(projection.city);
+    expect(summaries).not.toContain("RAZON-PRIVADA-RIVAL");
+    expect(summaries).not.toContain("accion-privada-rival");
+    for (const forbidden of ["cash", "balance", "strategy", "memory", "reserve"]) {
+      expect(summaries.toLowerCase()).not.toContain(`"${forbidden}`);
+    }
+  });
+
+  it("publica sólo las parcelas y edificios del distrito observado", () => {
+    const state = createInitialState(6);
+    const projection = createViewProjection(state);
+    const observed = projection.observedDistrictId;
+    for (const parcel of projection.economy?.parcels ?? []) {
+      expect(
+        state.phase2.parcels.get(parcel.id as never)?.districtId,
+        `parcela ${parcel.id} fuera del distrito observado`,
+      ).toBe(observed);
+    }
+    for (const building of projection.economy?.buildings ?? []) {
+      const parent = state.phase2.parcels.get(
+        state.phase2.buildings.get(building.id as never)!.parcelId,
+      )!;
+      expect(parent.districtId).toBe(observed);
+    }
+  });
+});

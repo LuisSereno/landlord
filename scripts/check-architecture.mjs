@@ -85,6 +85,27 @@ if (existsSync(gameplayAdapter)) {
   }
 }
 
+/**
+ * Frontera del benchmark morfológico (V.d Fase 0): `tools/urban-benchmark` es investigación
+ * offline. Si el runtime lo importara, el juego dependería de datos externos de OpenStreetMap,
+ * que es justo lo que el gate prohíbe.
+ */
+const runtimeSources = [
+  join(repositoryRoot, "packages/shared/src"),
+  join(repositoryRoot, "packages/simulation/src"),
+  join(repositoryRoot, "apps/web/src"),
+]
+  .filter((directory) => existsSync(directory))
+  .flatMap(sourceFiles);
+for (const file of runtimeSources) {
+  const content = readFileSync(file, "utf8");
+  if (/urban[-_]benchmark/.test(content)) {
+    violations.push(
+      `${relative(repositoryRoot, file)}: runtime cannot depend on tools/urban-benchmark`,
+    );
+  }
+}
+
 if (violations.length > 0) {
   console.error(violations.join("\n"));
   process.exitCode = 1;

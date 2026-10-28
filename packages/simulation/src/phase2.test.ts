@@ -173,6 +173,10 @@ describe("Gate 2 product loop", () => {
       state,
       command("buy-2", "BuyParcel", { parcelId: parseParcelId("parcel_00000002") }),
     );
+    dispatchProductCommand(
+      state,
+      command("buy-3", "BuyParcel", { parcelId: parseParcelId("parcel_00000003") }),
+    );
     expect(
       dispatchProductCommand(
         state,
@@ -185,18 +189,18 @@ describe("Gate 2 product loop", () => {
     expect(
       dispatchProductCommand(
         state,
-        command("crew-1", "AllocateCrew", {
-          constructionSiteId: parseConstructionSiteId("site_00000001"),
-          crewCapacity: 2,
+        command("build-2", "StartConstruction", {
+          parcelId: parseParcelId("parcel_00000002"),
+          buildingType: "courtyard_home",
         }),
       ).accepted,
     ).toBe(true);
     expect(
       dispatchProductCommand(
         state,
-        command("build-2", "StartConstruction", {
-          parcelId: parseParcelId("parcel_00000002"),
-          buildingType: "workshop",
+        command("build-3", "StartConstruction", {
+          parcelId: parseParcelId("parcel_00000003"),
+          buildingType: "courtyard_home",
         }),
       ),
     ).toEqual({ accepted: false, code: "CREW_UNAVAILABLE" });
@@ -1410,13 +1414,13 @@ describe("WP3.10 rival financial AI", () => {
     expect(first.phase2.rivalAi).toMatchObject({
       strategyProfile: "conservative",
       lastAction: "sell_parcel",
-      lastFailureCode: null,
-      memory: { defaultCount: 0, lossCount: 0 },
+      lastFailureCode: "SELL_COLLATERAL_LOCKED",
+      memory: { defaultCount: 0, lossCount: 1 },
     });
     expect(first.phase2.parcels.get(parseParcelId("parcel_00000001"))?.ownerOrganizationId).toBe(
-      null,
+      rival,
     );
-    expect(first.phase2.balances.get(rival)).toBe(765);
+    expect(first.phase2.balances.get(rival)).toBe(0);
     expect(serializeSnapshot(first)).toEqual(serializeSnapshot(second));
   });
 });

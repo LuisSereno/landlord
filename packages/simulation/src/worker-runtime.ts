@@ -72,6 +72,7 @@ const errorMessages: Record<ErrorCode, string> = {
   AUCTION_NOT_BIDDER: "La organización no tiene una puja activa en esa subasta.",
   LOAN_REFINANCE_UNAVAILABLE: "La deuda no puede refinanciarse en su estado actual.",
   SELL_NOT_AVAILABLE: "La parcela no puede venderse en su estado actual.",
+  SELL_COLLATERAL_LOCKED: "La parcela respalda un préstamo activo o una oferta pendiente.",
   CONTRACT_NOT_FOUND: "El contrato público no existe.",
   CONTRACT_CLOSED: "La licitación ya está cerrada.",
   CONTRACT_CONFLICT: "La organización ya ejecuta otro contrato público.",

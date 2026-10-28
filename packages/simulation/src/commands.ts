@@ -626,6 +626,17 @@ export function dispatchProductCommand(
       [...state.phase2.constructionSites.values()].some((site) => site.parcelId === parcel.id)
     )
       return { accepted: false, code: "SELL_NOT_AVAILABLE" };
+    const hasActiveLoan = [...state.phase2.loans.values()].some(
+      (loan) =>
+        loan.collateralParcelId === parcel.id &&
+        loan.status !== "paid_off" &&
+        loan.status !== "defaulted",
+    );
+    if (hasActiveLoan) return { accepted: false, code: "SELL_COLLATERAL_LOCKED" };
+    const hasOfferedLoan = [...state.phase2.loans.values()].some(
+      (loan) => loan.collateralParcelId === parcel.id && loan.status === "offered",
+    );
+    if (hasOfferedLoan) return { accepted: false, code: "SELL_COLLATERAL_LOCKED" };
     const salePrice = parseMoney(
       Math.floor((parcel.price * RIVAL_AI_POLICY.salePricePercent) / 100),
     );
@@ -665,10 +676,12 @@ export function dispatchProductCommand(
     ) {
       return { accepted: false, code: "CONSTRUCTION_ALREADY_ACTIVE" };
     }
-    const activeCrewAssignments = [...state.phase2.constructionSites.values()]
-      .filter((site) => site.ownerOrganizationId === command.actingAsOrganizationId)
-      .reduce((sum, site) => sum + site.crewCapacity, 0);
-    if (activeCrewAssignments >= PLAYER_CREW_CAPACITY)
+    const activeSites = [...state.phase2.constructionSites.values()].filter(
+      (site) =>
+        site.ownerOrganizationId === command.actingAsOrganizationId &&
+        site.progress < site.workRequired,
+    ).length;
+    if (activeSites >= PLAYER_CREW_CAPACITY)
       return { accepted: false, code: "CREW_UNAVAILABLE" };
     const inventory = state.phase2.inventories.get(command.actingAsOrganizationId)!;
     if (!hasResources(inventory, definition.resources))
@@ -780,10 +793,12 @@ export function dispatchProductCommand(
     ) {
       return { accepted: false, code: "CONSTRUCTION_ALREADY_ACTIVE" };
     }
-    const activeCrewAssignments = [...state.phase2.constructionSites.values()]
-      .filter((site) => site.ownerOrganizationId === command.actingAsOrganizationId)
-      .reduce((sum, site) => sum + site.crewCapacity, 0);
-    if (activeCrewAssignments >= PLAYER_CREW_CAPACITY)
+    const activeSites = [...state.phase2.constructionSites.values()].filter(
+      (site) =>
+        site.ownerOrganizationId === command.actingAsOrganizationId &&
+        site.progress < site.workRequired,
+    ).length;
+    if (activeSites >= PLAYER_CREW_CAPACITY)
       return { accepted: false, code: "CREW_UNAVAILABLE" };
     const definition = BUILDING_DEFINITIONS[building.type];
     const inventory = state.phase2.inventories.get(command.actingAsOrganizationId)!;

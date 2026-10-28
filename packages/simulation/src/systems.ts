@@ -15,6 +15,7 @@ import { credit, debit, dispatchProductCommand } from "./commands";
 import {
   BUILDING_DEFINITIONS,
   RIVAL_ORGANIZATION_ID,
+  PLAYER_ORGANIZATION_ID,
   GAME_DAY_TICKS,
   GAME_HOUR_TICKS,
   GAME_MONTH_TICKS,
@@ -637,6 +638,7 @@ function settleMaintenance(state: GameState): void {
     a.id.localeCompare(b.id),
   )) {
     if (building.state === "ruin") continue;
+    if (building.ownerOrganizationId !== PLAYER_ORGANIZATION_ID) continue;
     building.condition = Math.max(0, building.condition - MAINTENANCE_POLICY.wearPerSettlement);
     const currentCost = MAINTENANCE_POLICY.costsByBuildingType[building.type];
     const backlog = state.phase2.maintenance.backlogByBuildingId[building.id] ?? 0;

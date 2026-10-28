@@ -429,7 +429,7 @@ export function App() {
                 </p>
                 <p>
                   <strong>Fiscalidad:</strong> propiedad {economy.taxation.propertyRateBps / 100}%
-                  anual · próxima liquidación en tick {economy.taxation.nextSettlementTick} ·
+                  mensual · próxima liquidación en tick {economy.taxation.nextSettlementTick} ·
                   previsión {economy.taxation.projectedMonthlyPropertyTax} u./mes
                   {economy.taxation.playerArrears > 0 &&
                     ` · atrasos ${economy.taxation.playerArrears} u.`}
@@ -1537,7 +1537,7 @@ function ContractBidForm({
   disabled: boolean;
   onSubmit: (amount: number) => void;
 }) {
-  const [amount, setAmount] = useState(String(contract.budget));
+  const [amount, setAmount] = useState(String(Math.ceil((contract.budget * 92) / 100)));
   const parsed = Number(amount);
   const valid = Number.isSafeInteger(parsed) && parsed > 0 && parsed <= contract.budget;
   return (

@@ -91,7 +91,10 @@ function createFinancialSummary(
     .filter((parcel) => parcel.ownerOrganizationId === PLAYER_ORGANIZATION_ID)
     .reduce((total, parcel) => total + parcel.price, 0);
   const buildingValue = [...state.phase2.buildings.values()]
-    .filter((building) => building.ownerOrganizationId === PLAYER_ORGANIZATION_ID)
+    .filter(
+      (building) =>
+        building.ownerOrganizationId === PLAYER_ORGANIZATION_ID && building.state !== "ruin",
+    )
     .reduce(
       (total, building) =>
         total +
@@ -425,7 +428,11 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
                   collateralParcelId: loan.collateralParcelId,
                 })),
               loans: [...state.phase2.loans.values()]
-                .filter((loan) => loan.borrowerOrganizationId === PLAYER_ORGANIZATION_ID)
+                .filter(
+                  (loan) =>
+                    loan.borrowerOrganizationId === PLAYER_ORGANIZATION_ID &&
+                    loan.status !== "offered",
+                )
                 .map((loan) => ({
                   id: loan.id,
                   status: loan.status as "active" | "delinquent" | "paid_off" | "defaulted",

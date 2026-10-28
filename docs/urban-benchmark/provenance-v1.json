@@ -1,0 +1,86 @@
+{
+  "attribution": {
+    "extractedData": "aggregate morphometric statistics only; no OSM geometry is versioned or shipped",
+    "license": "ODbL 1.0",
+    "licenseUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+    "source": "OpenStreetMap (https://www.openstreetmap.org/copyright)"
+  },
+  "cellMeters": 4,
+  "cities": [
+    "bilbao",
+    "liverpool",
+    "manchester",
+    "philadelphia"
+  ],
+  "families": [
+    "irregular_historic",
+    "ensanche",
+    "mixed_dense",
+    "low_density_residential",
+    "industrial_edge",
+    "railway",
+    "civic_centre"
+  ],
+  "knownLimitation": "Multipolygon landuse relations are kept only when every member falls inside the window cut, so very large parks that straddle a window boundary are undercounted in green coverage. Overpass returns partial relations; a regional cut cannot.",
+  "notVersioned": [
+    "downloaded regional .osm.pbf extracts and window cuts (.cache, gitignored)",
+    "building/road/green geometry of any kind"
+  ],
+  "recordedAt": "2026-10-28T14:16:11+00:00",
+  "regionalExtracts": {
+    "bilbao": {
+      "bytes": 69205709,
+      "regionId": "pais-vasco",
+      "retrievedAt": "2026-10-28T14:11:22+00:00",
+      "sha256": "5817ee02c0fe9a48e6453f90600b7b888f269c0dc08d022dc3b4c15679d06df1",
+      "url": "https://download.geofabrik.de/europe/spain/pais-vasco-latest.osm.pbf"
+    },
+    "liverpool": {
+      "bytes": 25461621,
+      "regionId": "merseyside",
+      "retrievedAt": "2026-10-28T14:11:50+00:00",
+      "sha256": "04d7b67988c7a77f9a9514cd2d8b9f7cecdd0d524c63367b5672076c3d05ef24",
+      "url": "https://download.geofabrik.de/europe/united-kingdom/england/merseyside-latest.osm.pbf"
+    },
+    "manchester": {
+      "bytes": 51698491,
+      "regionId": "greater-manchester",
+      "retrievedAt": "2026-10-28T14:12:29+00:00",
+      "sha256": "c6bdbe9434522463de9462040cda5d84821302c806dcf01785fee230d28b1812",
+      "url": "https://download.geofabrik.de/europe/united-kingdom/england/greater-manchester-latest.osm.pbf"
+    },
+    "philadelphia": {
+      "bytes": 349464615,
+      "regionId": "pennsylvania",
+      "retrievedAt": "2026-10-28T14:13:38+00:00",
+      "sha256": "2ec5209b40267c339b84a3476c7eecb027550a18d38b1ddf4ba1a5d3cc59225a",
+      "url": "https://download.geofabrik.de/north-america/us/pennsylvania-latest.osm.pbf"
+    }
+  },
+  "sampleCount": 28,
+  "schemaVersion": 1,
+  "source": "geofabrik",
+  "sourceDescription": "Geofabrik regional OpenStreetMap extracts",
+  "toolchain": {
+    "geopandas": "1.2.0",
+    "networkx": "3.7",
+    "numpy": "2.5.4",
+    "osmnx": "1.9.3",
+    "overpassEndpoints": [
+      "https://overpass-api.de/api"
+    ],
+    "pandas": "3.1.0",
+    "platform": "Linux/x86_64",
+    "python": "3.12.3",
+    "shapely": "2.2.0",
+    "urbanBenchmarkVersion": "1.0.0"
+  },
+  "versionedArtifacts": [
+    "tools/urban-benchmark/windows.json",
+    "tools/urban-benchmark/sources.json",
+    "docs/urban-benchmark/metrics-v1.json",
+    "docs/urban-benchmark/envelopes-v1.json",
+    "docs/urban-benchmark/provenance-v1.json"
+  ],
+  "windowSideMeters": 256
+}

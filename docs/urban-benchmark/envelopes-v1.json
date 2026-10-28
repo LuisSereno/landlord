@@ -1,0 +1,1035 @@
+{
+  "attribution": {
+    "extractedData": "aggregate morphometric statistics only; no OSM geometry is versioned or shipped",
+    "license": "ODbL 1.0",
+    "licenseUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+    "source": "OpenStreetMap (https://www.openstreetmap.org/copyright)"
+  },
+  "families": {
+    "civic_centre": {
+      "cities": [
+        "bilbao",
+        "liverpool",
+        "manchester",
+        "philadelphia"
+      ],
+      "metrics": {
+        "blocks.count": {
+          "max": 16.0,
+          "median": 12.5,
+          "min": 8.0,
+          "p25": 10.25,
+          "p75": 14.5,
+          "samples": 4
+        },
+        "blocks.meanAreaM2": {
+          "max": 5930.45,
+          "median": 4940.88,
+          "min": 3100.43,
+          "p25": 4334.262,
+          "p75": 5334.778,
+          "samples": 4
+        },
+        "blocks.medianAreaCells4m": {
+          "max": 375.16,
+          "median": 178.745,
+          "min": 45.33,
+          "p25": 116.843,
+          "p75": 256.398,
+          "samples": 4
+        },
+        "blocks.medianAreaM2": {
+          "max": 6002.55,
+          "median": 2859.925,
+          "min": 725.28,
+          "p25": 1869.457,
+          "p75": 4102.387,
+          "samples": 4
+        },
+        "built.buildingCount": {
+          "max": 90.0,
+          "median": 34.0,
+          "min": 22.0,
+          "p25": 29.5,
+          "p75": 49.5,
+          "samples": 4
+        },
+        "built.coveragePercent": {
+          "max": 54.53,
+          "median": 46.065,
+          "min": 33.52,
+          "p25": 40.892,
+          "p75": 50.218,
+          "samples": 4
+        },
+        "facilities.amenityCount": {
+          "max": 34.0,
+          "median": 5.5,
+          "min": 1.0,
+          "p25": 3.25,
+          "p75": 13.75,
+          "samples": 4
+        },
+        "facilities.shopCount": {
+          "max": 9.0,
+          "median": 0.0,
+          "min": 0.0,
+          "p25": 0.0,
+          "p75": 2.25,
+          "samples": 4
+        },
+        "functionalMix.amenityFamilyEntropyBits": {
+          "max": 1.585,
+          "median": 1.111,
+          "min": 0.0,
+          "p25": 0.541,
+          "p75": 1.521,
+          "samples": 4
+        },
+        "functionalMix.distinctAmenityClasses": {
+          "max": 8.0,
+          "median": 4.5,
+          "min": 1.0,
+          "p25": 2.5,
+          "p75": 6.5,
+          "samples": 4
+        },
+        "green.coveragePercent": {
+          "max": 31.49,
+          "median": 2.115,
+          "min": 0.0,
+          "p25": 0.068,
+          "p75": 10.977,
+          "samples": 4
+        },
+        "street.densityKmPerKm2": {
+          "max": 42.447,
+          "median": 30.626,
+          "min": 22.795,
+          "p25": 26.21,
+          "p75": 36.038,
+          "samples": 4
+        },
+        "street.intersectionDensityPerKm2": {
+          "max": 320.43,
+          "median": 267.03,
+          "min": 137.33,
+          "p25": 205.993,
+          "p75": 308.993,
+          "samples": 4
+        },
+        "street.intersections": {
+          "max": 21.0,
+          "median": 17.5,
+          "min": 9.0,
+          "p25": 13.5,
+          "p75": 20.25,
+          "samples": 4
+        },
+        "street.meanEdgeLengthMeters": {
+          "max": 31.74,
+          "median": 24.32,
+          "min": 12.47,
+          "p25": 18.26,
+          "p75": 29.273,
+          "samples": 4
+        },
+        "street.orientationEntropyBits": {
+          "max": 2.468,
+          "median": 2.072,
+          "min": 1.556,
+          "p25": 1.786,
+          "p75": 2.328,
+          "samples": 4
+        }
+      },
+      "windowIds": [
+        "bilbao__civic_centre",
+        "liverpool__civic_centre",
+        "manchester__civic_centre",
+        "philadelphia__civic_centre"
+      ]
+    },
+    "ensanche": {
+      "cities": [
+        "bilbao",
+        "liverpool",
+        "manchester",
+        "philadelphia"
+      ],
+      "metrics": {
+        "blocks.count": {
+          "max": 8.0,
+          "median": 7.0,
+          "min": 6.0,
+          "p25": 6.75,
+          "p75": 7.25,
+          "samples": 4
+        },
+        "blocks.meanAreaM2": {
+          "max": 6700.78,
+          "median": 4948.695,
+          "min": 2938.83,
+          "p25": 3196.275,
+          "p75": 6636.67,
+          "samples": 4
+        },
+        "blocks.medianAreaCells4m": {
+          "max": 420.03,
+          "median": 249.955,
+          "min": 79.38,
+          "p25": 151.778,
+          "p75": 348.007,
+          "samples": 4
+        },
+        "blocks.medianAreaM2": {
+          "max": 6720.49,
+          "median": 3999.26,
+          "min": 1270.14,
+          "p25": 2428.418,
+          "p75": 5568.13,
+          "samples": 4
+        },
+        "built.buildingCount": {
+          "max": 213.0,
+          "median": 73.0,
+          "min": 12.0,
+          "p25": 22.5,
+          "p75": 143.25,
+          "samples": 4
+        },
+        "built.coveragePercent": {
+          "max": 61.62,
+          "median": 25.11,
+          "min": 21.58,
+          "p25": 23.395,
+          "p75": 35.07,
+          "samples": 4
+        },
+        "facilities.amenityCount": {
+          "max": 24.0,
+          "median": 5.0,
+          "min": 4.0,
+          "p25": 4.0,
+          "p75": 10.5,
+          "samples": 4
+        },
+        "facilities.shopCount": {
+          "max": 1.0,
+          "median": 0.0,
+          "min": 0.0,
+          "p25": 0.0,
+          "p75": 0.25,
+          "samples": 4
+        },
+        "functionalMix.amenityFamilyEntropyBits": {
+          "max": 1.0,
+          "median": 0.531,
+          "min": -0.0,
+          "p25": 0.187,
+          "p75": 0.858,
+          "samples": 4
+        },
+        "functionalMix.distinctAmenityClasses": {
+          "max": 3.0,
+          "median": 2.5,
+          "min": 2.0,
+          "p25": 2.0,
+          "p75": 3.0,
+          "samples": 4
+        },
+        "green.coveragePercent": {
+          "max": 31.88,
+          "median": 4.98,
+          "min": 0.7,
+          "p25": 3.183,
+          "p75": 12.433,
+          "samples": 4
+        },
+        "street.densityKmPerKm2": {
+          "max": 26.547,
+          "median": 26.279,
+          "min": 19.918,
+          "p25": 24.552,
+          "p75": 26.483,
+          "samples": 4
+        },
+        "street.intersectionDensityPerKm2": {
+          "max": 335.69,
+          "median": 213.625,
+          "min": 167.85,
+          "p25": 179.295,
+          "p75": 267.027,
+          "samples": 4
+        },
+        "street.intersections": {
+          "max": 22.0,
+          "median": 14.0,
+          "min": 11.0,
+          "p25": 11.75,
+          "p75": 17.5,
+          "samples": 4
+        },
+        "street.meanEdgeLengthMeters": {
+          "max": 30.54,
+          "median": 25.755,
+          "min": 10.67,
+          "p25": 19.258,
+          "p75": 29.678,
+          "samples": 4
+        },
+        "street.orientationEntropyBits": {
+          "max": 2.455,
+          "median": 2.017,
+          "min": 1.359,
+          "p25": 1.679,
+          "p75": 2.3,
+          "samples": 4
+        }
+      },
+      "windowIds": [
+        "bilbao__ensanche",
+        "liverpool__ensanche",
+        "manchester__ensanche",
+        "philadelphia__ensanche"
+      ]
+    },
+    "industrial_edge": {
+      "cities": [
+        "bilbao",
+        "liverpool",
+        "manchester",
+        "philadelphia"
+      ],
+      "metrics": {
+        "blocks.count": {
+          "max": 9.0,
+          "median": 4.5,
+          "min": 1.0,
+          "p25": 1.0,
+          "p75": 8.25,
+          "samples": 4
+        },
+        "blocks.meanAreaM2": {
+          "max": 5762.77,
+          "median": 3920.175,
+          "min": 282.38,
+          "p25": 2146.445,
+          "p75": 5245.105,
+          "samples": 4
+        },
+        "blocks.medianAreaCells4m": {
+          "max": 351.0,
+          "median": 257.87,
+          "min": 17.65,
+          "p25": 153.445,
+          "p75": 325.522,
+          "samples": 4
+        },
+        "blocks.medianAreaM2": {
+          "max": 5616.0,
+          "median": 4125.915,
+          "min": 282.38,
+          "p25": 2455.055,
+          "p75": 5208.413,
+          "samples": 4
+        },
+        "built.buildingCount": {
+          "max": 344.0,
+          "median": 51.0,
+          "min": 35.0,
+          "p25": 44.75,
+          "p75": 126.5,
+          "samples": 4
+        },
+        "built.coveragePercent": {
+          "max": 45.28,
+          "median": 28.385,
+          "min": 11.4,
+          "p25": 17.902,
+          "p75": 38.845,
+          "samples": 4
+        },
+        "facilities.amenityCount": {
+          "max": 22.0,
+          "median": 3.0,
+          "min": 2.0,
+          "p25": 2.75,
+          "p75": 7.75,
+          "samples": 4
+        },
+        "facilities.shopCount": {
+          "max": 2.0,
+          "median": 0.0,
+          "min": 0.0,
+          "p25": 0.0,
+          "p75": 0.5,
+          "samples": 4
+        },
+        "functionalMix.amenityFamilyEntropyBits": {
+          "max": 1.585,
+          "median": 0.5,
+          "min": -0.0,
+          "p25": -0.0,
+          "p75": 1.146,
+          "samples": 4
+        },
+        "functionalMix.distinctAmenityClasses": {
+          "max": 3.0,
+          "median": 2.5,
+          "min": 1.0,
+          "p25": 1.75,
+          "p75": 3.0,
+          "samples": 4
+        },
+        "green.coveragePercent": {
+          "max": 36.45,
+          "median": 1.36,
+          "min": 0.04,
+          "p25": 0.227,
+          "p75": 10.935,
+          "samples": 4
+        },
+        "street.densityKmPerKm2": {
+          "max": 26.912,
+          "median": 21.431,
+          "min": 16.865,
+          "p25": 18.689,
+          "p75": 24.401,
+          "samples": 4
+        },
+        "street.intersectionDensityPerKm2": {
+          "max": 198.36,
+          "median": 183.11,
+          "min": 137.33,
+          "p25": 171.665,
+          "p75": 186.923,
+          "samples": 4
+        },
+        "street.intersections": {
+          "max": 13.0,
+          "median": 12.0,
+          "min": 9.0,
+          "p25": 11.25,
+          "p75": 12.25,
+          "samples": 4
+        },
+        "street.meanEdgeLengthMeters": {
+          "max": 42.15,
+          "median": 37.78,
+          "min": 22.06,
+          "p25": 31.42,
+          "p75": 41.303,
+          "samples": 4
+        },
+        "street.orientationEntropyBits": {
+          "max": 2.799,
+          "median": 1.823,
+          "min": 1.054,
+          "p25": 1.083,
+          "p75": 2.614,
+          "samples": 4
+        }
+      },
+      "windowIds": [
+        "bilbao__industrial_edge",
+        "liverpool__industrial_edge",
+        "manchester__industrial_edge",
+        "philadelphia__industrial_edge"
+      ]
+    },
+    "irregular_historic": {
+      "cities": [
+        "bilbao",
+        "liverpool",
+        "manchester",
+        "philadelphia"
+      ],
+      "metrics": {
+        "blocks.count": {
+          "max": 73.0,
+          "median": 11.0,
+          "min": 6.0,
+          "p25": 6.75,
+          "p75": 29.5,
+          "samples": 4
+        },
+        "blocks.meanAreaM2": {
+          "max": 13070.11,
+          "median": 3393.005,
+          "min": 724.2,
+          "p25": 1137.832,
+          "p75": 7400.253,
+          "samples": 4
+        },
+        "blocks.medianAreaCells4m": {
+          "max": 505.19,
+          "median": 203.235,
+          "min": 14.19,
+          "p25": 60.487,
+          "p75": 374.21,
+          "samples": 4
+        },
+        "blocks.medianAreaM2": {
+          "max": 8082.97,
+          "median": 3251.8,
+          "min": 227.05,
+          "p25": 967.855,
+          "p75": 5987.35,
+          "samples": 4
+        },
+        "built.buildingCount": {
+          "max": 120.0,
+          "median": 68.5,
+          "min": 27.0,
+          "p25": 45.75,
+          "p75": 93.75,
+          "samples": 4
+        },
+        "built.coveragePercent": {
+          "max": 40.67,
+          "median": 31.8,
+          "min": 26.81,
+          "p25": 29.082,
+          "p75": 35.487,
+          "samples": 4
+        },
+        "facilities.amenityCount": {
+          "max": 23.0,
+          "median": 5.5,
+          "min": 4.0,
+          "p25": 4.75,
+          "p75": 10.25,
+          "samples": 4
+        },
+        "facilities.shopCount": {
+          "max": 4.0,
+          "median": 0.0,
+          "min": 0.0,
+          "p25": 0.0,
+          "p75": 1.0,
+          "samples": 4
+        },
+        "functionalMix.amenityFamilyEntropyBits": {
+          "max": 2.0,
+          "median": 1.329,
+          "min": 0.722,
+          "p25": 0.93,
+          "p75": 1.743,
+          "samples": 4
+        },
+        "functionalMix.distinctAmenityClasses": {
+          "max": 5.0,
+          "median": 4.0,
+          "min": 3.0,
+          "p25": 3.75,
+          "p75": 4.25,
+          "samples": 4
+        },
+        "green.coveragePercent": {
+          "max": 31.81,
+          "median": 9.64,
+          "min": 5.87,
+          "p25": 7.34,
+          "p75": 16.54,
+          "samples": 4
+        },
+        "street.densityKmPerKm2": {
+          "max": 89.405,
+          "median": 33.498,
+          "min": 18.807,
+          "p25": 24.86,
+          "p75": 52.441,
+          "samples": 4
+        },
+        "street.intersectionDensityPerKm2": {
+          "max": 1800.54,
+          "median": 396.73,
+          "min": 91.55,
+          "p25": 194.548,
+          "p75": 873.57,
+          "samples": 4
+        },
+        "street.intersections": {
+          "max": 118.0,
+          "median": 26.0,
+          "min": 6.0,
+          "p25": 12.75,
+          "p75": 57.25,
+          "samples": 4
+        },
+        "street.meanEdgeLengthMeters": {
+          "max": 23.25,
+          "median": 16.295,
+          "min": 10.5,
+          "p25": 14.723,
+          "p75": 18.157,
+          "samples": 4
+        },
+        "street.orientationEntropyBits": {
+          "max": 2.703,
+          "median": 2.331,
+          "min": 1.828,
+          "p25": 1.926,
+          "p75": 2.703,
+          "samples": 4
+        }
+      },
+      "windowIds": [
+        "bilbao__irregular_historic",
+        "liverpool__irregular_historic",
+        "manchester__irregular_historic",
+        "philadelphia__irregular_historic"
+      ]
+    },
+    "low_density_residential": {
+      "cities": [
+        "bilbao",
+        "liverpool",
+        "manchester",
+        "philadelphia"
+      ],
+      "metrics": {
+        "blocks.count": {
+          "max": 3.0,
+          "median": 2.0,
+          "min": 0.0,
+          "p25": 1.5,
+          "p75": 2.25,
+          "samples": 4
+        },
+        "blocks.meanAreaM2": {
+          "max": 10705.24,
+          "median": 4626.4,
+          "min": 0.0,
+          "p25": 542.265,
+          "p75": 9073.645,
+          "samples": 4
+        },
+        "blocks.medianAreaCells4m": {
+          "max": 672.99,
+          "median": 289.15,
+          "min": 0.0,
+          "p25": 33.892,
+          "p75": 568.08,
+          "samples": 4
+        },
+        "blocks.medianAreaM2": {
+          "max": 10767.76,
+          "median": 4626.4,
+          "min": 0.0,
+          "p25": 542.265,
+          "p75": 9089.275,
+          "samples": 4
+        },
+        "built.buildingCount": {
+          "max": 257.0,
+          "median": 106.0,
+          "min": 5.0,
+          "p25": 11.0,
+          "p75": 213.5,
+          "samples": 4
+        },
+        "built.coveragePercent": {
+          "max": 32.61,
+          "median": 16.65,
+          "min": 10.71,
+          "p25": 14.242,
+          "p75": 21.562,
+          "samples": 4
+        },
+        "facilities.amenityCount": {
+          "max": 8.0,
+          "median": 2.5,
+          "min": 0.0,
+          "p25": 1.5,
+          "p75": 4.25,
+          "samples": 4
+        },
+        "facilities.shopCount": {
+          "max": 1.0,
+          "median": 0.0,
+          "min": 0.0,
+          "p25": 0.0,
+          "p75": 0.25,
+          "samples": 4
+        },
+        "functionalMix.amenityFamilyEntropyBits": {
+          "max": 1.0,
+          "median": 0.459,
+          "min": -0.0,
+          "p25": 0.0,
+          "p75": 0.939,
+          "samples": 4
+        },
+        "functionalMix.distinctAmenityClasses": {
+          "max": 2.0,
+          "median": 2.0,
+          "min": 0.0,
+          "p25": 1.5,
+          "p75": 2.0,
+          "samples": 4
+        },
+        "green.coveragePercent": {
+          "max": 50.26,
+          "median": 7.57,
+          "min": 0.0,
+          "p25": 0.225,
+          "p75": 23.695,
+          "samples": 4
+        },
+        "street.densityKmPerKm2": {
+          "max": 23.26,
+          "median": 19.958,
+          "min": 8.355,
+          "p25": 16.607,
+          "p75": 21.234,
+          "samples": 4
+        },
+        "street.intersectionDensityPerKm2": {
+          "max": 152.59,
+          "median": 106.81,
+          "min": 15.26,
+          "p25": 72.477,
+          "p75": 129.7,
+          "samples": 4
+        },
+        "street.intersections": {
+          "max": 10.0,
+          "median": 7.0,
+          "min": 1.0,
+          "p25": 4.75,
+          "p75": 8.5,
+          "samples": 4
+        },
+        "street.meanEdgeLengthMeters": {
+          "max": 56.46,
+          "median": 39.305,
+          "min": 36.24,
+          "p25": 36.435,
+          "p75": 45.697,
+          "samples": 4
+        },
+        "street.orientationEntropyBits": {
+          "max": 2.439,
+          "median": 1.309,
+          "min": 1.101,
+          "p25": 1.178,
+          "p75": 1.671,
+          "samples": 4
+        }
+      },
+      "windowIds": [
+        "bilbao__low_density_residential",
+        "liverpool__low_density_residential",
+        "manchester__low_density_residential",
+        "philadelphia__low_density_residential"
+      ]
+    },
+    "mixed_dense": {
+      "cities": [
+        "bilbao",
+        "liverpool",
+        "manchester",
+        "philadelphia"
+      ],
+      "metrics": {
+        "blocks.count": {
+          "max": 19.0,
+          "median": 9.5,
+          "min": 6.0,
+          "p25": 6.0,
+          "p75": 14.5,
+          "samples": 4
+        },
+        "blocks.meanAreaM2": {
+          "max": 14180.99,
+          "median": 4617.84,
+          "min": 1711.77,
+          "p25": 2977.665,
+          "p75": 7922.285,
+          "samples": 4
+        },
+        "blocks.medianAreaCells4m": {
+          "max": 811.06,
+          "median": 275.805,
+          "min": 54.76,
+          "p25": 131.553,
+          "p75": 498.61,
+          "samples": 4
+        },
+        "blocks.medianAreaM2": {
+          "max": 12976.98,
+          "median": 4412.87,
+          "min": 876.21,
+          "p25": 2104.86,
+          "p75": 7977.743,
+          "samples": 4
+        },
+        "built.buildingCount": {
+          "max": 165.0,
+          "median": 105.0,
+          "min": 22.0,
+          "p25": 75.25,
+          "p75": 129.0,
+          "samples": 4
+        },
+        "built.coveragePercent": {
+          "max": 58.46,
+          "median": 50.245,
+          "min": 28.02,
+          "p25": 44.483,
+          "p75": 52.505,
+          "samples": 4
+        },
+        "facilities.amenityCount": {
+          "max": 32.0,
+          "median": 7.0,
+          "min": 1.0,
+          "p25": 5.5,
+          "p75": 13.25,
+          "samples": 4
+        },
+        "facilities.shopCount": {
+          "max": 3.0,
+          "median": 0.5,
+          "min": 0.0,
+          "p25": 0.0,
+          "p75": 1.5,
+          "samples": 4
+        },
+        "functionalMix.amenityFamilyEntropyBits": {
+          "max": 1.108,
+          "median": 0.459,
+          "min": -0.0,
+          "p25": 0.0,
+          "p75": 0.966,
+          "samples": 4
+        },
+        "functionalMix.distinctAmenityClasses": {
+          "max": 9.0,
+          "median": 2.0,
+          "min": 1.0,
+          "p25": 1.0,
+          "p75": 4.5,
+          "samples": 4
+        },
+        "green.coveragePercent": {
+          "max": 43.83,
+          "median": 1.27,
+          "min": 0.11,
+          "p25": 0.462,
+          "p75": 12.427,
+          "samples": 4
+        },
+        "street.densityKmPerKm2": {
+          "max": 36.777,
+          "median": 27.761,
+          "min": 16.174,
+          "p25": 21.658,
+          "p75": 33.221,
+          "samples": 4
+        },
+        "street.intersectionDensityPerKm2": {
+          "max": 411.99,
+          "median": 259.4,
+          "min": 61.04,
+          "p25": 186.92,
+          "p75": 320.438,
+          "samples": 4
+        },
+        "street.intersections": {
+          "max": 27.0,
+          "median": 17.0,
+          "min": 4.0,
+          "p25": 12.25,
+          "p75": 21.0,
+          "samples": 4
+        },
+        "street.meanEdgeLengthMeters": {
+          "max": 30.28,
+          "median": 18.885,
+          "min": 17.49,
+          "p25": 18.383,
+          "p75": 21.887,
+          "samples": 4
+        },
+        "street.orientationEntropyBits": {
+          "max": 1.79,
+          "median": 1.45,
+          "min": 0.913,
+          "p25": 1.291,
+          "p75": 1.56,
+          "samples": 4
+        }
+      },
+      "windowIds": [
+        "bilbao__mixed_dense",
+        "liverpool__mixed_dense",
+        "manchester__mixed_dense",
+        "philadelphia__mixed_dense"
+      ]
+    },
+    "railway": {
+      "cities": [
+        "bilbao",
+        "liverpool",
+        "manchester",
+        "philadelphia"
+      ],
+      "metrics": {
+        "blocks.count": {
+          "max": 8.0,
+          "median": 5.5,
+          "min": 1.0,
+          "p25": 4.0,
+          "p75": 6.5,
+          "samples": 4
+        },
+        "blocks.meanAreaM2": {
+          "max": 16481.64,
+          "median": 9699.24,
+          "min": 3680.53,
+          "p25": 4149.182,
+          "p75": 15440.22,
+          "samples": 4
+        },
+        "blocks.medianAreaCells4m": {
+          "max": 1037.67,
+          "median": 513.01,
+          "min": 72.59,
+          "p25": 80.172,
+          "p75": 966.908,
+          "samples": 4
+        },
+        "blocks.medianAreaM2": {
+          "max": 16602.78,
+          "median": 8208.15,
+          "min": 1161.49,
+          "p25": 1282.787,
+          "p75": 15470.505,
+          "samples": 4
+        },
+        "built.buildingCount": {
+          "max": 119.0,
+          "median": 46.5,
+          "min": 31.0,
+          "p25": 42.25,
+          "p75": 65.0,
+          "samples": 4
+        },
+        "built.coveragePercent": {
+          "max": 46.51,
+          "median": 41.045,
+          "min": 13.4,
+          "p25": 30.935,
+          "p75": 45.61,
+          "samples": 4
+        },
+        "facilities.amenityCount": {
+          "max": 10.0,
+          "median": 5.5,
+          "min": 2.0,
+          "p25": 3.5,
+          "p75": 7.75,
+          "samples": 4
+        },
+        "facilities.shopCount": {
+          "max": 1.0,
+          "median": 0.5,
+          "min": 0.0,
+          "p25": 0.0,
+          "p75": 1.0,
+          "samples": 4
+        },
+        "functionalMix.amenityFamilyEntropyBits": {
+          "max": 1.0,
+          "median": 0.577,
+          "min": 0.0,
+          "p25": 0.377,
+          "p75": 0.738,
+          "samples": 4
+        },
+        "functionalMix.distinctAmenityClasses": {
+          "max": 3.0,
+          "median": 3.0,
+          "min": 2.0,
+          "p25": 2.75,
+          "p75": 3.0,
+          "samples": 4
+        },
+        "green.coveragePercent": {
+          "max": 12.38,
+          "median": 0.32,
+          "min": 0.0,
+          "p25": 0.217,
+          "p75": 3.358,
+          "samples": 4
+        },
+        "street.densityKmPerKm2": {
+          "max": 21.202,
+          "median": 15.633,
+          "min": 14.226,
+          "p25": 14.566,
+          "p75": 17.741,
+          "samples": 4
+        },
+        "street.intersectionDensityPerKm2": {
+          "max": 183.11,
+          "median": 99.18,
+          "min": 45.78,
+          "p25": 80.108,
+          "p75": 125.885,
+          "samples": 4
+        },
+        "street.intersections": {
+          "max": 12.0,
+          "median": 6.5,
+          "min": 3.0,
+          "p25": 5.25,
+          "p75": 8.25,
+          "samples": 4
+        },
+        "street.meanEdgeLengthMeters": {
+          "max": 38.48,
+          "median": 34.19,
+          "min": 18.28,
+          "p25": 28.682,
+          "p75": 36.792,
+          "samples": 4
+        },
+        "street.orientationEntropyBits": {
+          "max": 2.444,
+          "median": 2.207,
+          "min": 0.851,
+          "p25": 1.825,
+          "p75": 2.308,
+          "samples": 4
+        }
+      },
+      "windowIds": [
+        "bilbao__railway",
+        "liverpool__railway",
+        "manchester__railway",
+        "philadelphia__railway"
+      ]
+    }
+  },
+  "generatedAt": "2026-10-28T14:16:10+00:00",
+  "note": "Envelopes derived from real cities steer generator parameters. They are aggregate spreads, not layouts: no reference geometry is reproduced.",
+  "schemaVersion": 1,
+  "toolchain": {
+    "geopandas": "1.2.0",
+    "networkx": "3.7",
+    "numpy": "2.5.4",
+    "osmnx": "1.9.3",
+    "overpassEndpoints": [
+      "https://overpass-api.de/api"
+    ],
+    "pandas": "3.1.0",
+    "platform": "Linux/x86_64",
+    "python": "3.12.3",
+    "shapely": "2.2.0",
+    "urbanBenchmarkVersion": "1.0.0"
+  }
+}

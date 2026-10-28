@@ -1,0 +1,1628 @@
+{
+  "attribution": {
+    "extractedData": "aggregate morphometric statistics only; no OSM geometry is versioned or shipped",
+    "license": "ODbL 1.0",
+    "licenseUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+    "source": "OpenStreetMap (https://www.openstreetmap.org/copyright)"
+  },
+  "degenerateWindows": [],
+  "failures": [],
+  "generatedAt": "2026-10-28T14:14:20+00:00",
+  "inputs": {
+    "bilbao": {
+      "bytes": 69205709,
+      "regionId": "pais-vasco",
+      "retrievedAt": "2026-10-28T14:11:22+00:00",
+      "sha256": "5817ee02c0fe9a48e6453f90600b7b888f269c0dc08d022dc3b4c15679d06df1",
+      "url": "https://download.geofabrik.de/europe/spain/pais-vasco-latest.osm.pbf"
+    },
+    "liverpool": {
+      "bytes": 25461621,
+      "regionId": "merseyside",
+      "retrievedAt": "2026-10-28T14:11:50+00:00",
+      "sha256": "04d7b67988c7a77f9a9514cd2d8b9f7cecdd0d524c63367b5672076c3d05ef24",
+      "url": "https://download.geofabrik.de/europe/united-kingdom/england/merseyside-latest.osm.pbf"
+    },
+    "manchester": {
+      "bytes": 51698491,
+      "regionId": "greater-manchester",
+      "retrievedAt": "2026-10-28T14:12:29+00:00",
+      "sha256": "c6bdbe9434522463de9462040cda5d84821302c806dcf01785fee230d28b1812",
+      "url": "https://download.geofabrik.de/europe/united-kingdom/england/greater-manchester-latest.osm.pbf"
+    },
+    "philadelphia": {
+      "bytes": 349464615,
+      "regionId": "pennsylvania",
+      "retrievedAt": "2026-10-28T14:13:38+00:00",
+      "sha256": "2ec5209b40267c339b84a3476c7eecb027550a18d38b1ddf4ba1a5d3cc59225a",
+      "url": "https://download.geofabrik.de/north-america/us/pennsylvania-latest.osm.pbf"
+    }
+  },
+  "manifest": 256,
+  "schemaVersion": 1,
+  "source": "geofabrik",
+  "toolchain": {
+    "geopandas": "1.2.0",
+    "networkx": "3.7",
+    "numpy": "2.5.4",
+    "osmnx": "1.9.3",
+    "overpassEndpoints": [
+      "https://overpass-api.de/api"
+    ],
+    "pandas": "3.1.0",
+    "platform": "Linux/x86_64",
+    "python": "3.12.3",
+    "shapely": "2.2.0",
+    "urbanBenchmarkVersion": "1.0.0"
+  },
+  "windows": [
+    {
+      "blocks": {
+        "count": 11,
+        "maxAreaM2": 13246.15,
+        "meanAreaM2": 5930.45,
+        "medianAreaCells4m": 375.16,
+        "medianAreaM2": 6002.55,
+        "p25AreaM2": 5831.36,
+        "p75AreaM2": 7031.1
+      },
+      "built": {
+        "buildingCount": 36,
+        "coveragePercent": 43.35,
+        "footprintAreaM2": 28408.4
+      },
+      "center": {
+        "lat": 43.2629,
+        "lon": -2.9359
+      },
+      "city": "bilbao",
+      "facilities": {
+        "amenityCount": 1,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 0,
+          "public_service": 0,
+          "worship": 0
+        },
+        "shopCount": 0
+      },
+      "family": "civic_centre",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 0.0,
+        "distinctAmenityClasses": 1,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 2715.9,
+        "coveragePercent": 4.14
+      },
+      "label": "Plaza Moyua / Gran Via",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 27.349,
+        "intersectionDensityPerKm2": 305.18,
+        "intersections": 20,
+        "lengthMetersTotal": 1792.3,
+        "meanEdgeLengthMeters": 28.45,
+        "orientationEntropyBits": 2.4681
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "bilbao__civic_centre",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 8,
+        "maxAreaM2": 12733.63,
+        "meanAreaM2": 6615.3,
+        "medianAreaCells4m": 420.03,
+        "medianAreaM2": 6720.49,
+        "p25AreaM2": 4918.4,
+        "p75AreaM2": 7960.27
+      },
+      "built": {
+        "buildingCount": 26,
+        "coveragePercent": 61.62,
+        "footprintAreaM2": 40386.3
+      },
+      "center": {
+        "lat": 43.2606,
+        "lon": -2.9343
+      },
+      "city": "bilbao",
+      "facilities": {
+        "amenityCount": 4,
+        "byFamily": {
+          "education": 3,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 1,
+          "public_service": 0,
+          "worship": 0
+        },
+        "shopCount": 0
+      },
+      "family": "ensanche",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 0.8113,
+        "distinctAmenityClasses": 3,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 457.2,
+        "coveragePercent": 0.7
+      },
+      "label": "Ensanche / Plaza Circular",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 26.462,
+        "intersectionDensityPerKm2": 167.85,
+        "intersections": 11,
+        "lengthMetersTotal": 1734.2,
+        "meanEdgeLengthMeters": 29.39,
+        "orientationEntropyBits": 2.248
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "bilbao__ensanche",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 1,
+        "maxAreaM2": 282.38,
+        "meanAreaM2": 282.38,
+        "medianAreaCells4m": 17.65,
+        "medianAreaM2": 282.38,
+        "p25AreaM2": 282.38,
+        "p75AreaM2": 282.38
+      },
+      "built": {
+        "buildingCount": 35,
+        "coveragePercent": 11.4,
+        "footprintAreaM2": 7472.2
+      },
+      "center": {
+        "lat": 43.2474,
+        "lon": -2.9516
+      },
+      "city": "bilbao",
+      "facilities": {
+        "amenityCount": 3,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 3,
+          "public_service": 0,
+          "worship": 0
+        },
+        "shopCount": 0
+      },
+      "family": "industrial_edge",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": -0.0,
+        "distinctAmenityClasses": 1,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 23885.8,
+        "coveragePercent": 36.45
+      },
+      "label": "Zorrotza / Ribera",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 16.865,
+        "intersectionDensityPerKm2": 137.33,
+        "intersections": 9,
+        "lengthMetersTotal": 1105.3,
+        "meanEdgeLengthMeters": 34.54,
+        "orientationEntropyBits": 2.7988
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "bilbao__industrial_edge",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 15,
+        "maxAreaM2": 3618.09,
+        "meanAreaM2": 1275.71,
+        "medianAreaCells4m": 75.92,
+        "medianAreaM2": 1214.79,
+        "p25AreaM2": 499.44,
+        "p75AreaM2": 1598.88
+      },
+      "built": {
+        "buildingCount": 52,
+        "coveragePercent": 33.76,
+        "footprintAreaM2": 22124.4
+      },
+      "center": {
+        "lat": 43.2596,
+        "lon": -2.9213
+      },
+      "city": "bilbao",
+      "facilities": {
+        "amenityCount": 5,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 0,
+          "public_service": 1,
+          "worship": 1
+        },
+        "shopCount": 0
+      },
+      "family": "irregular_historic",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 1.0,
+        "distinctAmenityClasses": 4,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 20844.2,
+        "coveragePercent": 31.81
+      },
+      "label": "Casco Viejo / Santiago",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 40.119,
+        "intersectionDensityPerKm2": 564.58,
+        "intersections": 37,
+        "lengthMetersTotal": 2629.2,
+        "meanEdgeLengthMeters": 16.13,
+        "orientationEntropyBits": 2.7033
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "bilbao__irregular_historic",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 2,
+        "maxAreaM2": 1351.34,
+        "meanAreaM2": 723.02,
+        "medianAreaCells4m": 45.19,
+        "medianAreaM2": 723.02,
+        "p25AreaM2": 408.87,
+        "p75AreaM2": 1037.18
+      },
+      "built": {
+        "buildingCount": 13,
+        "coveragePercent": 10.71,
+        "footprintAreaM2": 7019.8
+      },
+      "center": {
+        "lat": 43.2706,
+        "lon": -2.9218
+      },
+      "city": "bilbao",
+      "facilities": {
+        "amenityCount": 2,
+        "byFamily": {
+          "education": 1,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 1,
+          "public_service": 0,
+          "worship": 0
+        },
+        "shopCount": 0
+      },
+      "family": "low_density_residential",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 1.0,
+        "distinctAmenityClasses": 2,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 32938.6,
+        "coveragePercent": 50.26
+      },
+      "label": "Artxanda hillside",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 20.559,
+        "intersectionDensityPerKm2": 91.55,
+        "intersections": 6,
+        "lengthMetersTotal": 1347.4,
+        "meanEdgeLengthMeters": 42.11,
+        "orientationEntropyBits": 2.4395
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "bilbao__low_density_residential",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 6,
+        "maxAreaM2": 5841.59,
+        "meanAreaM2": 1711.77,
+        "medianAreaCells4m": 54.76,
+        "medianAreaM2": 876.21,
+        "p25AreaM2": 803.9,
+        "p75AreaM2": 1454.18
+      },
+      "built": {
+        "buildingCount": 22,
+        "coveragePercent": 28.02,
+        "footprintAreaM2": 18361.4
+      },
+      "center": {
+        "lat": 43.2648,
+        "lon": -2.9388
+      },
+      "city": "bilbao",
+      "facilities": {
+        "amenityCount": 1,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 0,
+          "public_service": 0,
+          "worship": 0
+        },
+        "shopCount": 0
+      },
+      "family": "mixed_dense",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 0.0,
+        "distinctAmenityClasses": 1,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 28723.5,
+        "coveragePercent": 43.83
+      },
+      "label": "Indautxu",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 23.486,
+        "intersectionDensityPerKm2": 228.88,
+        "intersections": 15,
+        "lengthMetersTotal": 1539.2,
+        "meanEdgeLengthMeters": 17.49,
+        "orientationEntropyBits": 1.4829
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "bilbao__mixed_dense",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 5,
+        "maxAreaM2": 12006.53,
+        "meanAreaM2": 3680.53,
+        "medianAreaCells4m": 72.59,
+        "medianAreaM2": 1161.49,
+        "p25AreaM2": 265.23,
+        "p75AreaM2": 4881.82
+      },
+      "built": {
+        "buildingCount": 46,
+        "coveragePercent": 36.78,
+        "footprintAreaM2": 24104.5
+      },
+      "center": {
+        "lat": 43.2578,
+        "lon": -2.9308
+      },
+      "city": "bilbao",
+      "facilities": {
+        "amenityCount": 2,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 0,
+          "public_service": 0,
+          "worship": 0
+        },
+        "shopCount": 0
+      },
+      "family": "railway",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 0.0,
+        "distinctAmenityClasses": 2,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 189.1,
+        "coveragePercent": 0.29
+      },
+      "label": "Bilbao-Concordia rail edge",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 16.587,
+        "intersectionDensityPerKm2": 106.81,
+        "intersections": 7,
+        "lengthMetersTotal": 1087.0,
+        "meanEdgeLengthMeters": 36.23,
+        "orientationEntropyBits": 2.1503
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "bilbao__railway",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 14,
+        "maxAreaM2": 17976.12,
+        "meanAreaM2": 4745.54,
+        "medianAreaCells4m": 216.81,
+        "medianAreaM2": 3469.0,
+        "p25AreaM2": 289.15,
+        "p75AreaM2": 6561.75
+      },
+      "built": {
+        "buildingCount": 90,
+        "coveragePercent": 54.53,
+        "footprintAreaM2": 35736.0
+      },
+      "center": {
+        "lat": 53.4079,
+        "lon": -2.9883
+      },
+      "city": "liverpool",
+      "facilities": {
+        "amenityCount": 34,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 20,
+          "health": 0,
+          "mobility": 5,
+          "public_service": 0,
+          "worship": 0
+        },
+        "shopCount": 9
+      },
+      "family": "civic_centre",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 0.7219,
+        "distinctAmenityClasses": 8,
+        "distinctShopClasses": 8
+      },
+      "green": {
+        "areaM2": 60.7,
+        "coveragePercent": 0.09
+      },
+      "label": "St George's Plateau / Lime Street",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 33.902,
+        "intersectionDensityPerKm2": 228.88,
+        "intersections": 15,
+        "lengthMetersTotal": 2221.8,
+        "meanEdgeLengthMeters": 31.74,
+        "orientationEntropyBits": 1.5556
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "liverpool__civic_centre",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 6,
+        "maxAreaM2": 8479.4,
+        "meanAreaM2": 3282.09,
+        "medianAreaCells4m": 79.38,
+        "medianAreaM2": 1270.14,
+        "p25AreaM2": 247.87,
+        "p75AreaM2": 6759.25
+      },
+      "built": {
+        "buildingCount": 120,
+        "coveragePercent": 24.0,
+        "footprintAreaM2": 15726.5
+      },
+      "center": {
+        "lat": 53.39593,
+        "lon": -2.96767
+      },
+      "city": "liverpool",
+      "facilities": {
+        "amenityCount": 4,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 2,
+          "public_service": 0,
+          "worship": 2
+        },
+        "shopCount": 0
+      },
+      "family": "ensanche",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 1.0,
+        "distinctAmenityClasses": 2,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 2626.1,
+        "coveragePercent": 4.01
+      },
+      "label": "Frutonian / Princes Park grid",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 26.096,
+        "intersectionDensityPerKm2": 244.14,
+        "intersections": 16,
+        "lengthMetersTotal": 1710.2,
+        "meanEdgeLengthMeters": 30.54,
+        "orientationEntropyBits": 1.785
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "liverpool__ensanche",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 1,
+        "maxAreaM2": 5072.55,
+        "meanAreaM2": 5072.55,
+        "medianAreaCells4m": 317.03,
+        "medianAreaM2": 5072.55,
+        "p25AreaM2": 5072.55,
+        "p75AreaM2": 5072.55
+      },
+      "built": {
+        "buildingCount": 54,
+        "coveragePercent": 20.07,
+        "footprintAreaM2": 13155.7
+      },
+      "center": {
+        "lat": 53.452,
+        "lon": -2.988
+      },
+      "city": "liverpool",
+      "facilities": {
+        "amenityCount": 2,
+        "byFamily": {
+          "education": 1,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 1,
+          "public_service": 0,
+          "worship": 0
+        },
+        "shopCount": 0
+      },
+      "family": "industrial_edge",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 1.0,
+        "distinctAmenityClasses": 2,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 188.4,
+        "coveragePercent": 0.29
+      },
+      "label": "Bootle docks / Derby Road",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 19.297,
+        "intersectionDensityPerKm2": 183.11,
+        "intersections": 12,
+        "lengthMetersTotal": 1264.6,
+        "meanEdgeLengthMeters": 42.15,
+        "orientationEntropyBits": 2.5525
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "liverpool__industrial_edge",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 7,
+        "maxAreaM2": 9099.26,
+        "meanAreaM2": 5510.3,
+        "medianAreaCells4m": 330.55,
+        "medianAreaM2": 5288.81,
+        "p25AreaM2": 3838.2,
+        "p75AreaM2": 7220.44
+      },
+      "built": {
+        "buildingCount": 85,
+        "coveragePercent": 29.84,
+        "footprintAreaM2": 19554.5
+      },
+      "center": {
+        "lat": 53.39948,
+        "lon": -2.98415
+      },
+      "city": "liverpool",
+      "facilities": {
+        "amenityCount": 4,
+        "byFamily": {
+          "education": 1,
+          "food_retail": 1,
+          "health": 0,
+          "mobility": 1,
+          "public_service": 0,
+          "worship": 1
+        },
+        "shopCount": 0
+      },
+      "family": "irregular_historic",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 2.0,
+        "distinctAmenityClasses": 4,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 7506.3,
+        "coveragePercent": 11.45
+      },
+      "label": "Baltic Triangle / Old Town",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 26.878,
+        "intersectionDensityPerKm2": 228.88,
+        "intersections": 15,
+        "lengthMetersTotal": 1761.4,
+        "meanEdgeLengthMeters": 16.46,
+        "orientationEntropyBits": 1.9589
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "liverpool__irregular_historic",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 3,
+        "maxAreaM2": 11371.67,
+        "meanAreaM2": 10705.24,
+        "medianAreaCells4m": 672.99,
+        "medianAreaM2": 10767.76,
+        "p25AreaM2": 10372.03,
+        "p75AreaM2": 11069.72
+      },
+      "built": {
+        "buildingCount": 257,
+        "coveragePercent": 32.61,
+        "footprintAreaM2": 21368.6
+      },
+      "center": {
+        "lat": 53.3746,
+        "lon": -2.9402
+      },
+      "city": "liverpool",
+      "facilities": {
+        "amenityCount": 0,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 0,
+          "public_service": 0,
+          "worship": 0
+        },
+        "shopCount": 1
+      },
+      "family": "low_density_residential",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 0.0,
+        "distinctAmenityClasses": 0,
+        "distinctShopClasses": 1
+      },
+      "green": {
+        "areaM2": 195.8,
+        "coveragePercent": 0.3
+      },
+      "label": "Childwall / Allerton",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 23.26,
+        "intersectionDensityPerKm2": 122.07,
+        "intersections": 8,
+        "lengthMetersTotal": 1524.3,
+        "meanEdgeLengthMeters": 56.46,
+        "orientationEntropyBits": 1.1005
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "liverpool__low_density_residential",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 13,
+        "maxAreaM2": 13369.79,
+        "meanAreaM2": 5836.05,
+        "medianAreaCells4m": 394.46,
+        "medianAreaM2": 6311.33,
+        "p25AreaM2": 496.85,
+        "p75AreaM2": 9596.98
+      },
+      "built": {
+        "buildingCount": 93,
+        "coveragePercent": 49.97,
+        "footprintAreaM2": 32747.3
+      },
+      "center": {
+        "lat": 53.40103,
+        "lon": -2.97897
+      },
+      "city": "liverpool",
+      "facilities": {
+        "amenityCount": 32,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 18,
+          "health": 1,
+          "mobility": 9,
+          "public_service": 0,
+          "worship": 0
+        },
+        "shopCount": 3
+      },
+      "family": "mixed_dense",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 1.1078,
+        "distinctAmenityClasses": 9,
+        "distinctShopClasses": 3
+      },
+      "green": {
+        "areaM2": 381.6,
+        "coveragePercent": 0.58
+      },
+      "label": "Ropewalks / Berry Street",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 32.035,
+        "intersectionDensityPerKm2": 289.92,
+        "intersections": 19,
+        "lengthMetersTotal": 2099.4,
+        "meanEdgeLengthMeters": 19.09,
+        "orientationEntropyBits": 1.4172
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "liverpool__mixed_dense",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 1,
+        "maxAreaM2": 15093.08,
+        "meanAreaM2": 15093.08,
+        "medianAreaCells4m": 943.32,
+        "medianAreaM2": 15093.08,
+        "p25AreaM2": 15093.08,
+        "p75AreaM2": 15093.08
+      },
+      "built": {
+        "buildingCount": 47,
+        "coveragePercent": 13.4,
+        "footprintAreaM2": 8781.7
+      },
+      "center": {
+        "lat": 53.4032,
+        "lon": -2.9596
+      },
+      "city": "liverpool",
+      "facilities": {
+        "amenityCount": 4,
+        "byFamily": {
+          "education": 2,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 2,
+          "public_service": 0,
+          "worship": 0
+        },
+        "shopCount": 0
+      },
+      "family": "railway",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 1.0,
+        "distinctAmenityClasses": 3,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 8113.6,
+        "coveragePercent": 12.38
+      },
+      "label": "Edge Hill cutting / Victoria",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 14.679,
+        "intersectionDensityPerKm2": 91.55,
+        "intersections": 6,
+        "lengthMetersTotal": 962.0,
+        "meanEdgeLengthMeters": 38.48,
+        "orientationEntropyBits": 2.263
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "liverpool__railway",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 16,
+        "maxAreaM2": 9542.67,
+        "meanAreaM2": 3100.43,
+        "medianAreaCells4m": 140.68,
+        "medianAreaM2": 2250.85,
+        "p25AreaM2": 644.81,
+        "p75AreaM2": 4700.23
+      },
+      "built": {
+        "buildingCount": 32,
+        "coveragePercent": 48.78,
+        "footprintAreaM2": 31967.1
+      },
+      "center": {
+        "lat": 53.4776,
+        "lon": -2.2433
+      },
+      "city": "manchester",
+      "facilities": {
+        "amenityCount": 4,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 1,
+          "health": 0,
+          "mobility": 2,
+          "public_service": 1,
+          "worship": 0
+        },
+        "shopCount": 0
+      },
+      "family": "civic_centre",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 1.5,
+        "distinctAmenityClasses": 3,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 0.0,
+        "coveragePercent": 0.0
+      },
+      "label": "St Peter's Square / Town Hall",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 42.447,
+        "intersectionDensityPerKm2": 320.43,
+        "intersections": 21,
+        "lengthMetersTotal": 2781.8,
+        "meanEdgeLengthMeters": 12.47,
+        "orientationEntropyBits": 2.2818
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "manchester__civic_centre",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 7,
+        "maxAreaM2": 11590.31,
+        "meanAreaM2": 6700.78,
+        "medianAreaCells4m": 324.0,
+        "medianAreaM2": 5184.01,
+        "p25AreaM2": 4049.51,
+        "p75AreaM2": 9168.84
+      },
+      "built": {
+        "buildingCount": 213,
+        "coveragePercent": 21.58,
+        "footprintAreaM2": 14142.3
+      },
+      "center": {
+        "lat": 53.4706,
+        "lon": -2.2276
+      },
+      "city": "manchester",
+      "facilities": {
+        "amenityCount": 24,
+        "byFamily": {
+          "education": 1,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 23,
+          "public_service": 0,
+          "worship": 0
+        },
+        "shopCount": 0
+      },
+      "family": "ensanche",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 0.2499,
+        "distinctAmenityClasses": 2,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 20889.9,
+        "coveragePercent": 31.88
+      },
+      "label": "Victoria Park grid",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 26.547,
+        "intersectionDensityPerKm2": 335.69,
+        "intersections": 22,
+        "lengthMetersTotal": 1739.8,
+        "meanEdgeLengthMeters": 10.67,
+        "orientationEntropyBits": 2.4552
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "manchester__ensanche",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 8,
+        "maxAreaM2": 5062.09,
+        "meanAreaM2": 2767.8,
+        "medianAreaCells4m": 198.71,
+        "medianAreaM2": 3179.28,
+        "p25AreaM2": 1593.47,
+        "p75AreaM2": 3649.5
+      },
+      "built": {
+        "buildingCount": 48,
+        "coveragePercent": 45.28,
+        "footprintAreaM2": 29672.4
+      },
+      "center": {
+        "lat": 53.4872,
+        "lon": -2.2266
+      },
+      "city": "manchester",
+      "facilities": {
+        "amenityCount": 22,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 20,
+          "public_service": 0,
+          "worship": 0
+        },
+        "shopCount": 2
+      },
+      "family": "industrial_edge",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": -0.0,
+        "distinctAmenityClasses": 3,
+        "distinctShopClasses": 2
+      },
+      "green": {
+        "areaM2": 1591.7,
+        "coveragePercent": 2.43
+      },
+      "label": "Ancoats mills",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 23.564,
+        "intersectionDensityPerKm2": 198.36,
+        "intersections": 13,
+        "lengthMetersTotal": 1544.3,
+        "meanEdgeLengthMeters": 22.06,
+        "orientationEntropyBits": 1.0539
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "manchester__industrial_edge",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 73,
+        "maxAreaM2": 9048.72,
+        "meanAreaM2": 724.2,
+        "medianAreaCells4m": 14.19,
+        "medianAreaM2": 227.05,
+        "p25AreaM2": 72.85,
+        "p75AreaM2": 503.42
+      },
+      "built": {
+        "buildingCount": 27,
+        "coveragePercent": 40.67,
+        "footprintAreaM2": 26656.7
+      },
+      "center": {
+        "lat": 53.4847,
+        "lon": -2.245
+      },
+      "city": "manchester",
+      "facilities": {
+        "amenityCount": 23,
+        "byFamily": {
+          "education": 1,
+          "food_retail": 2,
+          "health": 0,
+          "mobility": 5,
+          "public_service": 0,
+          "worship": 1
+        },
+        "shopCount": 4
+      },
+      "family": "irregular_historic",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 1.6577,
+        "distinctAmenityClasses": 5,
+        "distinctShopClasses": 2
+      },
+      "green": {
+        "areaM2": 3844.1,
+        "coveragePercent": 5.87
+      },
+      "label": "Cathedral Gates / Shambles",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 89.405,
+        "intersectionDensityPerKm2": 1800.54,
+        "intersections": 118,
+        "lengthMetersTotal": 5859.2,
+        "meanEdgeLengthMeters": 10.5,
+        "orientationEntropyBits": 2.7034
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "manchester__irregular_historic",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 2,
+        "maxAreaM2": 9410.49,
+        "meanAreaM2": 8529.78,
+        "medianAreaCells4m": 533.11,
+        "medianAreaM2": 8529.78,
+        "p25AreaM2": 8089.43,
+        "p75AreaM2": 8970.14
+      },
+      "built": {
+        "buildingCount": 199,
+        "coveragePercent": 17.88,
+        "footprintAreaM2": 11716.3
+      },
+      "center": {
+        "lat": 53.4481,
+        "lon": -2.2704
+      },
+      "city": "manchester",
+      "facilities": {
+        "amenityCount": 3,
+        "byFamily": {
+          "education": 1,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 0,
+          "public_service": 2,
+          "worship": 0
+        },
+        "shopCount": 0
+      },
+      "family": "low_density_residential",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 0.9183,
+        "distinctAmenityClasses": 2,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 9726.5,
+        "coveragePercent": 14.84
+      },
+      "label": "Chorlton-cum-Hardy",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 19.357,
+        "intersectionDensityPerKm2": 152.59,
+        "intersections": 10,
+        "lengthMetersTotal": 1268.6,
+        "meanEdgeLengthMeters": 36.24,
+        "orientationEntropyBits": 1.4146
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "manchester__low_density_residential",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 19,
+        "maxAreaM2": 10916.6,
+        "meanAreaM2": 3399.63,
+        "medianAreaCells4m": 157.15,
+        "medianAreaM2": 2514.41,
+        "p25AreaM2": 2268.12,
+        "p75AreaM2": 3912.89
+      },
+      "built": {
+        "buildingCount": 117,
+        "coveragePercent": 50.52,
+        "footprintAreaM2": 33106.8
+      },
+      "center": {
+        "lat": 53.4823,
+        "lon": -2.233
+      },
+      "city": "manchester",
+      "facilities": {
+        "amenityCount": 7,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 7,
+          "public_service": 0,
+          "worship": 0
+        },
+        "shopCount": 0
+      },
+      "family": "mixed_dense",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": -0.0,
+        "distinctAmenityClasses": 1,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 70.5,
+        "coveragePercent": 0.11
+      },
+      "label": "Northern Quarter",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 36.777,
+        "intersectionDensityPerKm2": 411.99,
+        "intersections": 27,
+        "lengthMetersTotal": 2410.2,
+        "meanEdgeLengthMeters": 18.68,
+        "orientationEntropyBits": 1.7902
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "manchester__mixed_dense",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 8,
+        "maxAreaM2": 19633.55,
+        "meanAreaM2": 4305.4,
+        "medianAreaCells4m": 82.7,
+        "medianAreaM2": 1323.22,
+        "p25AreaM2": 907.83,
+        "p75AreaM2": 4266.99
+      },
+      "built": {
+        "buildingCount": 31,
+        "coveragePercent": 45.31,
+        "footprintAreaM2": 29696.6
+      },
+      "center": {
+        "lat": 53.4775,
+        "lon": -2.2315
+      },
+      "city": "manchester",
+      "facilities": {
+        "amenityCount": 10,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 1,
+          "health": 0,
+          "mobility": 8,
+          "public_service": 0,
+          "worship": 0
+        },
+        "shopCount": 1
+      },
+      "family": "railway",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 0.5033,
+        "distinctAmenityClasses": 3,
+        "distinctShopClasses": 1
+      },
+      "green": {
+        "areaM2": 232.4,
+        "coveragePercent": 0.35
+      },
+      "label": "Piccadilly / Castlefield viaducts",
+      "projection": "EPSG:32630",
+      "street": {
+        "densityKmPerKm2": 21.202,
+        "intersectionDensityPerKm2": 183.11,
+        "intersections": 12,
+        "lengthMetersTotal": 1389.5,
+        "meanEdgeLengthMeters": 18.28,
+        "orientationEntropyBits": 2.4436
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "manchester__railway",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 8,
+        "maxAreaM2": 23162.28,
+        "meanAreaM2": 5136.22,
+        "medianAreaCells4m": 45.33,
+        "medianAreaM2": 725.28,
+        "p25AreaM2": 317.49,
+        "p75AreaM2": 5163.89
+      },
+      "built": {
+        "buildingCount": 22,
+        "coveragePercent": 33.52,
+        "footprintAreaM2": 21967.7
+      },
+      "center": {
+        "lat": 39.9526,
+        "lon": -75.1652
+      },
+      "city": "philadelphia",
+      "facilities": {
+        "amenityCount": 7,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 1,
+          "health": 0,
+          "mobility": 1,
+          "public_service": 1,
+          "worship": 0
+        },
+        "shopCount": 0
+      },
+      "family": "civic_centre",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 1.585,
+        "distinctAmenityClasses": 6,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 20636.4,
+        "coveragePercent": 31.49
+      },
+      "label": "City Hall / LOVE Park",
+      "projection": "EPSG:32618",
+      "street": {
+        "densityKmPerKm2": 22.795,
+        "intersectionDensityPerKm2": 137.33,
+        "intersections": 9,
+        "lengthMetersTotal": 1493.9,
+        "meanEdgeLengthMeters": 20.19,
+        "orientationEntropyBits": 1.8626
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "philadelphia__civic_centre",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 7,
+        "maxAreaM2": 6912.41,
+        "meanAreaM2": 2938.83,
+        "medianAreaCells4m": 175.91,
+        "medianAreaM2": 2814.51,
+        "p25AreaM2": 801.22,
+        "p75AreaM2": 4462.91
+      },
+      "built": {
+        "buildingCount": 12,
+        "coveragePercent": 26.22,
+        "footprintAreaM2": 17182.3
+      },
+      "center": {
+        "lat": 39.961,
+        "lon": -75.137
+      },
+      "city": "philadelphia",
+      "facilities": {
+        "amenityCount": 6,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 4,
+          "public_service": 0,
+          "worship": 0
+        },
+        "shopCount": 1
+      },
+      "family": "ensanche",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": -0.0,
+        "distinctAmenityClasses": 3,
+        "distinctShopClasses": 1
+      },
+      "green": {
+        "areaM2": 3901.3,
+        "coveragePercent": 5.95
+      },
+      "label": "Northern Liberties grid",
+      "projection": "EPSG:32618",
+      "street": {
+        "densityKmPerKm2": 19.918,
+        "intersectionDensityPerKm2": 183.11,
+        "intersections": 12,
+        "lengthMetersTotal": 1305.3,
+        "meanEdgeLengthMeters": 22.12,
+        "orientationEntropyBits": 1.3593
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "philadelphia__ensanche",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 9,
+        "maxAreaM2": 6430.06,
+        "meanAreaM2": 5762.77,
+        "medianAreaCells4m": 351.0,
+        "medianAreaM2": 5616.0,
+        "p25AreaM2": 5347.15,
+        "p75AreaM2": 6415.91
+      },
+      "built": {
+        "buildingCount": 344,
+        "coveragePercent": 36.7,
+        "footprintAreaM2": 24050.9
+      },
+      "center": {
+        "lat": 39.9818,
+        "lon": -75.1248
+      },
+      "city": "philadelphia",
+      "facilities": {
+        "amenityCount": 3,
+        "byFamily": {
+          "education": 1,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 1,
+          "public_service": 0,
+          "worship": 1
+        },
+        "shopCount": 0
+      },
+      "family": "industrial_edge",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 1.585,
+        "distinctAmenityClasses": 3,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 24.2,
+        "coveragePercent": 0.04
+      },
+      "label": "Port Richmond rail-front",
+      "projection": "EPSG:32618",
+      "street": {
+        "densityKmPerKm2": 26.912,
+        "intersectionDensityPerKm2": 183.11,
+        "intersections": 12,
+        "lengthMetersTotal": 1763.7,
+        "meanEdgeLengthMeters": 41.02,
+        "orientationEntropyBits": 1.0926
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "philadelphia__industrial_edge",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 6,
+        "maxAreaM2": 39971.91,
+        "meanAreaM2": 13070.11,
+        "medianAreaCells4m": 505.19,
+        "medianAreaM2": 8082.97,
+        "p25AreaM2": 4159.34,
+        "p75AreaM2": 14444.69
+      },
+      "built": {
+        "buildingCount": 120,
+        "coveragePercent": 26.81,
+        "footprintAreaM2": 17571.8
+      },
+      "center": {
+        "lat": 39.9453,
+        "lon": -75.1447
+      },
+      "city": "philadelphia",
+      "facilities": {
+        "amenityCount": 6,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 4,
+          "public_service": 0,
+          "worship": 1
+        },
+        "shopCount": 0
+      },
+      "family": "irregular_historic",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 0.7219,
+        "distinctAmenityClasses": 3,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 5130.9,
+        "coveragePercent": 7.83
+      },
+      "label": "Society Hill / Old City",
+      "projection": "EPSG:32618",
+      "street": {
+        "densityKmPerKm2": 18.807,
+        "intersectionDensityPerKm2": 91.55,
+        "intersections": 6,
+        "lengthMetersTotal": 1232.5,
+        "meanEdgeLengthMeters": 23.25,
+        "orientationEntropyBits": 1.8281
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "philadelphia__irregular_historic",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 0,
+        "maxAreaM2": 0.0,
+        "meanAreaM2": 0.0,
+        "medianAreaCells4m": 0.0,
+        "medianAreaM2": 0.0,
+        "p25AreaM2": 0.0,
+        "p75AreaM2": 0.0
+      },
+      "built": {
+        "buildingCount": 5,
+        "coveragePercent": 15.42,
+        "footprintAreaM2": 10103.0
+      },
+      "center": {
+        "lat": 40.0104,
+        "lon": -75.2112
+      },
+      "city": "philadelphia",
+      "facilities": {
+        "amenityCount": 8,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 7,
+          "public_service": 0,
+          "worship": 0
+        },
+        "shopCount": 0
+      },
+      "family": "low_density_residential",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": -0.0,
+        "distinctAmenityClasses": 2,
+        "distinctShopClasses": 0
+      },
+      "green": {
+        "areaM2": 0.0,
+        "coveragePercent": 0.0
+      },
+      "label": "Roxborough",
+      "projection": "EPSG:32618",
+      "street": {
+        "densityKmPerKm2": 8.355,
+        "intersectionDensityPerKm2": 15.26,
+        "intersections": 1,
+        "lengthMetersTotal": 547.5,
+        "meanEdgeLengthMeters": 36.5,
+        "orientationEntropyBits": 1.2036
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "philadelphia__low_density_residential",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 6,
+        "maxAreaM2": 21675.66,
+        "meanAreaM2": 14180.99,
+        "medianAreaCells4m": 811.06,
+        "medianAreaM2": 12976.98,
+        "p25AreaM2": 11699.3,
+        "p75AreaM2": 14296.6
+      },
+      "built": {
+        "buildingCount": 165,
+        "coveragePercent": 58.46,
+        "footprintAreaM2": 38313.8
+      },
+      "center": {
+        "lat": 39.951,
+        "lon": -75.174
+      },
+      "city": "philadelphia",
+      "facilities": {
+        "amenityCount": 7,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 4,
+          "public_service": 0,
+          "worship": 2
+        },
+        "shopCount": 1
+      },
+      "family": "mixed_dense",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 0.9183,
+        "distinctAmenityClasses": 3,
+        "distinctShopClasses": 1
+      },
+      "green": {
+        "areaM2": 1287.2,
+        "coveragePercent": 1.96
+      },
+      "label": "Rittenhouse / Center City West",
+      "projection": "EPSG:32618",
+      "street": {
+        "densityKmPerKm2": 16.174,
+        "intersectionDensityPerKm2": 61.04,
+        "intersections": 4,
+        "lengthMetersTotal": 1060.0,
+        "meanEdgeLengthMeters": 30.28,
+        "orientationEntropyBits": 0.9133
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "philadelphia__mixed_dense",
+      "windowSideMeters": 256
+    },
+    {
+      "blocks": {
+        "count": 6,
+        "maxAreaM2": 27839.79,
+        "meanAreaM2": 16481.64,
+        "medianAreaCells4m": 1037.67,
+        "medianAreaM2": 16602.78,
+        "p25AreaM2": 11124.48,
+        "p75AreaM2": 18201.93
+      },
+      "built": {
+        "buildingCount": 119,
+        "coveragePercent": 46.51,
+        "footprintAreaM2": 30483.7
+      },
+      "center": {
+        "lat": 39.9545,
+        "lon": -75.2045
+      },
+      "city": "philadelphia",
+      "facilities": {
+        "amenityCount": 7,
+        "byFamily": {
+          "education": 0,
+          "food_retail": 0,
+          "health": 0,
+          "mobility": 5,
+          "public_service": 1,
+          "worship": 0
+        },
+        "shopCount": 1
+      },
+      "family": "railway",
+      "functionalMix": {
+        "amenityFamilyEntropyBits": 0.65,
+        "distinctAmenityClasses": 3,
+        "distinctShopClasses": 1
+      },
+      "green": {
+        "areaM2": 0.0,
+        "coveragePercent": 0.0
+      },
+      "label": "30th Street Station corridor",
+      "projection": "EPSG:32618",
+      "street": {
+        "densityKmPerKm2": 14.226,
+        "intersectionDensityPerKm2": 45.78,
+        "intersections": 3,
+        "lengthMetersTotal": 932.3,
+        "meanEdgeLengthMeters": 32.15,
+        "orientationEntropyBits": 0.8509
+      },
+      "windowAreaM2": 65536.0,
+      "windowId": "philadelphia__railway",
+      "windowSideMeters": 256
+    }
+  ]
+}

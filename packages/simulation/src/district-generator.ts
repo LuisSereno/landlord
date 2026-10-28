@@ -9,6 +9,7 @@ import {
   type RoadSegmentV1,
   type RoadTopologyV1,
   type District,
+  type DistrictId,
   type GridCell,
   type Parcel,
   type ProductionSuitability,
@@ -311,10 +312,14 @@ function composeDistrict(profile: DistrictProfile, prng: Xoshiro128ss): Composit
   return { slots, blocked };
 }
 
-function assignParcelIds(slots: readonly ParcelSlot[]): Parcel[] {
+function assignParcelIds(
+  slots: readonly ParcelSlot[],
+  districtId: DistrictId,
+  parcelIdOrdinal: number,
+): Parcel[] {
   return slots.map((slot, index) => ({
-    id: parseParcelId(`parcel_${String(index + 1).padStart(8, "0")}`),
-    districtId: GENERATED_DISTRICT_ID,
+    id: parseParcelId(`parcel_${String(parcelIdOrdinal + index + 1).padStart(8, "0")}`),
+    districtId,
     cell: { ...slot.cell },
     price: parseMoney(slot.price),
     zoning: slot.zoning,
@@ -837,17 +842,30 @@ function buildReport(input: {
   };
 }
 
+export type DistrictGenerationOptions = {
+  /**
+   * Identity of the district being generated. Defaults to the single-district identity that
+   * predates V.d so existing fixtures and hashes keep their meaning.
+   */
+  districtId?: DistrictId;
+  /** Offset added to parcel ordinals so a city of nine districts has globally unique parcel ids. */
+  parcelIdOrdinal?: number;
+};
+
 export function generateDistrictFromProfile(
   profile: DistrictProfile,
   seedValue: number,
+  options: DistrictGenerationOptions = {},
 ): GeneratedDistrict {
   const seed = parseSeed(seedValue);
+  const districtId = options.districtId ?? GENERATED_DISTRICT_ID;
+  const parcelIdOrdinal = options.parcelIdOrdinal ?? 0;
   const prng = createPrng(deriveGenerationSeed(seed, profile.id));
   let issues: DistrictGenerationIssue[] = [];
 
   for (let attempt = 1; attempt <= MAX_COMPOSITION_ATTEMPTS; attempt += 1) {
     const composition = composeDistrict(profile, prng);
-    const parcels = assignParcelIds(composition.slots);
+    const parcels = assignParcelIds(composition.slots, districtId, parcelIdOrdinal);
     const blockedCells = [...composition.blocked].sort(compareCellKey);
     issues = validateDistrictPlayability({
       profile,
@@ -893,7 +911,7 @@ export function generateDistrictFromProfile(
     }
 
     const district: District = {
-      id: GENERATED_DISTRICT_ID,
+      id: districtId,
       name: profile.name,
       width: profile.width,
       height: profile.height,

@@ -33,10 +33,29 @@ function componentCount(cells: ReadonlySet<string>): number {
   return count;
 }
 
+/**
+ * Parcelas con frente vial por perfil sobre las ocho semillas. Los tres perfiles de Fase 4 suman
+ * 989, el total que esta prueba exigía antes de V.d; los seis perfiles nuevos de la ciudad 3×3
+ * aportan el resto. Fijado por perfil para que una regresión nombre al responsable en vez de mover
+ * una cifra global.
+ */
+const EXPECTED_FRONTAGE_BY_PROFILE: Record<string, number> = {
+  barrio_del_taller: 335,
+  barrio_del_umbral: 229,
+  centro_civico: 424,
+  ensanche_ferroviario: 385,
+  ensanche_ferroviario_oeste: 401,
+  lomas_del_umbral: 273,
+  mercado_del_norte: 351,
+  patios_del_este: 345,
+  vega_del_cauce: 375,
+};
+
 describe("WP4.15-V.c.2B authoritative road topology", () => {
-  it("mantiene los 24 distritos aprobados con frente, sin solapes y una red pública 4-conexa", () => {
-    let frontage = 0;
+  it("mantiene los distritos aprobados con frente, sin solapes y una red pública 4-conexa", () => {
+    const frontageByProfile: Record<string, number> = {};
     for (const profileId of DISTRICT_PROFILE_IDS) {
+      let frontage = 0;
       for (const seed of SEEDS) {
         const generated = generateDistrict({ profileId, seed });
         const roads = roadCellsFromSegments(generated.roads.segments);
@@ -55,9 +74,10 @@ describe("WP4.15-V.c.2B authoritative road topology", () => {
           frontage += 1;
         }
       }
+      frontageByProfile[profileId] = frontage;
     }
-    expect(frontage).toBe(989);
-  }, 30_000);
+    expect(frontageByProfile).toEqual(EXPECTED_FRONTAGE_BY_PROFILE);
+  }, 60_000);
 
   it("resuelve el bolsillo de vega_del_cauce seed 7 como una única red publicada", () => {
     const generated = generateDistrict({ profileId: "vega_del_cauce", seed: 7 });

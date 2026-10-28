@@ -106,14 +106,23 @@ balance jugable en verde, con el cierre mensual de 800 parcelas aún fuera del p
 D-065 (p95 maduro 40,5 ms) y `pre-vd-baseline` etiquetado. El smoke Alpha **estaba rojo en `95804ee`**
 por una aserción que codificaba 260 en vez de la puja por defecto del 92 %; corregido.
 
-**El corpus morfológico está entregado**: `tools/urban-benchmark` trabaja sobre extractos
-regionales de Geofabrik (Merseyside, Greater Manchester, País Vasco, Pennsylvania), así que el corpus
-no depende de la API pública de Overpass; 28/28 ventanas, 0 degeneradas, con SHA-256 de los cuatro
-extractos y atribución ODbL en `docs/urban-benchmark/provenance-v1.json`. Sólo se versionan
-agregados: ni geometría OSM ni los `.pbf` descargados entran en el repositorio, y una guarda en
-`check-architecture` impide que el runtime importe la herramienta. **Queda pendiente la aprobación
-de los envelopes por el responsable**, único criterio de Fase 0 sin firmar; sin ella no se inicia la
-parte destructiva de V.d.0 (`WorldState`, `SnapshotV2`, protocolo v2, gateways, `ViewProjectionV2`).
+**Fase 0 de V.d quedó cerrada el 2026-10-28.** El corpus morfológico está entregado:
+`tools/urban-benchmark` trabaja sobre extractos regionales de Geofabrik (Merseyside, Greater
+Manchester, País Vasco, Pennsylvania), así que no depende de la API pública de Overpass; 28/28
+ventanas, 0 degeneradas, con SHA-256 de los cuatro extractos y atribución ODbL en
+`docs/urban-benchmark/provenance-v1.json`. Sólo se versionan agregados: ni geometría OSM ni los
+`.pbf` descargados entran en el repositorio, y una guarda en `check-architecture` impide que el
+runtime importe la herramienta. El responsable aprobó los envelopes y ratificó D-087…D-092 en lo que
+reflejan el plan, autorizando explícitamente `SnapshotV2` sin compatibilidad con saves v1.
+
+**V.d.0 está en curso.** Commiteado: los contratos urbanos de `packages/shared/src/urban.ts` y la
+capa de ciudad `packages/simulation/src/city.ts` (nueve distritos autorados, seed derivada por
+distrito, doce gateways sobre celdas de borde, doce conexiones con coste entero, ocho tests propios y
+40 seeds × 9 distritos sin fallos). **Sin commitear:** la reestructuración de `GameState` alrededor de
+`WorldState` está escrita y compila en los tres paquetes, pero deja 58 tests en rojo; `develop` se
+dejó verde y el trabajo se conserva como parche. El punto de traspaso completo —qué hace el parche,
+qué falta, qué invariantes no se negocian y cómo verificarlo— está en
+`docs/execution/phase-4/vd0-worldstate-handoff.md`.
 
 WP4.15-V.c.2C-H y V.c.3A/B/C están cerrados: lint, contratos, harnesses, documentación y el 404 de
 favicon quedan corregidos; las T e intersecciones publicadas reciben pasos de peatones discretos,

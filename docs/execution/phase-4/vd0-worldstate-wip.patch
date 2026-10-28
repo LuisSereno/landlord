@@ -1,0 +1,2890 @@
+diff --git a/apps/web/src/App.tsx b/apps/web/src/App.tsx
+index 3a178a5..0c8e897 100644
+--- a/apps/web/src/App.tsx
++++ b/apps/web/src/App.tsx
+@@ -104,8 +104,9 @@ export function App() {
+   }, [recordDiagnostic]);
+ 
+   const placeStructure = async () => {
+-    if (!selectedCell || !clientRef.current) return;
+-    const response = await clientRef.current.placeTestStructure(selectedCell);
++    const districtId = projection?.economy?.district.id;
++    if (!selectedCell || !clientRef.current || !districtId) return;
++    const response = await clientRef.current.placeTestStructure(selectedCell, districtId);
+     setMessage(responseMessage(response, "Comando enviado; esperando el tick efectivo."));
+   };
+ 
+diff --git a/apps/web/src/persistence/indexed-db.ts b/apps/web/src/persistence/indexed-db.ts
+index da55bf9..79e2c70 100644
+--- a/apps/web/src/persistence/indexed-db.ts
++++ b/apps/web/src/persistence/indexed-db.ts
+@@ -1,24 +1,41 @@
+-import { parseSnapshotV1, type SnapshotV1 } from "@landlord/shared";
++import { parseSnapshotV2, type SnapshotV2 } from "@landlord/shared";
+ 
+ const DEFAULT_DATABASE_NAME = "landlord-gate1";
+ const DATABASE_VERSION = 1;
+ const STORE_NAME = "snapshots";
+ 
++/**
++ * The stored shape is versioned separately from the database version: the IndexedDB schema did not
++ * change, the snapshot contract did (D-089). A v1 record stays readable as metadata so the UI can
++ * name the slot incompatible instead of silently dropping it.
++ */
++type StoredRecord = {
++  slotId: string;
++  schemaVersion: number;
++  engineVersion: string;
++  savedAt: number;
++  snapshot: unknown;
++};
++
+ type SnapshotRecord = {
+   slotId: string;
+-  schemaVersion: 1;
++  schemaVersion: 2;
+   engineVersion: string;
+   savedAt: number;
+-  snapshot: SnapshotV1;
++  snapshot: SnapshotV2;
+ };
+ 
+ export type SnapshotSlot = {
+   slotId: string;
+-  schemaVersion: 1;
++  schemaVersion: number;
+   engineVersion: string;
+   savedAt: number;
++  /** False for Alpha v1 saves: they are listed, never loaded, and only removed explicitly. */
++  compatible: boolean;
+ };
+ 
++export const SUPPORTED_SCHEMA_VERSION = 2;
++
+ export class SnapshotPersistenceError extends Error {
+   public override readonly cause?: unknown;
+ 
+@@ -82,15 +99,15 @@ export function createIndexedDbPersistence(options: IndexedDbPersistenceOptions
+   return {
+     async save(slotId: string, snapshotValue: unknown): Promise<SnapshotSlot> {
+       if (!slotId.trim()) throw new SnapshotPersistenceError("Slot ID must not be empty");
+-      let snapshot: SnapshotV1;
++      let snapshot: SnapshotV2;
+       try {
+-        snapshot = parseSnapshotV1(snapshotValue);
++        snapshot = parseSnapshotV2(snapshotValue);
+       } catch (error) {
+         throw new SnapshotPersistenceError("Snapshot validation failed", error);
+       }
+       const record: SnapshotRecord = {
+         slotId,
+-        schemaVersion: 1,
++        schemaVersion: SUPPORTED_SCHEMA_VERSION,
+         engineVersion: snapshot.engineVersion,
+         savedAt: now(),
+         snapshot,
+@@ -104,6 +121,7 @@ export function createIndexedDbPersistence(options: IndexedDbPersistenceOptions
+         schemaVersion: record.schemaVersion,
+         engineVersion: record.engineVersion,
+         savedAt: record.savedAt,
++        compatible: true,
+       };
+     },
+ 
+@@ -112,29 +130,43 @@ export function createIndexedDbPersistence(options: IndexedDbPersistenceOptions
+       const transaction = database.transaction(STORE_NAME, "readonly");
+       const records = await requestResult(transaction.objectStore(STORE_NAME).getAll());
+       return records
+-        .map((record) => ({
++        .map((record: StoredRecord) => ({
+           slotId: record.slotId,
+           schemaVersion: record.schemaVersion,
+           engineVersion: record.engineVersion,
+           savedAt: record.savedAt,
++          compatible: record.schemaVersion === SUPPORTED_SCHEMA_VERSION,
+         }))
+         .sort((left, right) => left.slotId.localeCompare(right.slotId));
+     },
+ 
+-    async load(slotId: string): Promise<SnapshotV1 | null> {
++    async load(slotId: string): Promise<SnapshotV2 | null> {
+       const database = await openDatabase();
+       const transaction = database.transaction(STORE_NAME, "readonly");
+-      const record = await requestResult<SnapshotRecord | undefined>(
++      const record = await requestResult<StoredRecord | undefined>(
+         transaction.objectStore(STORE_NAME).get(slotId),
+       );
+       if (!record) return null;
++      if (record.schemaVersion !== SUPPORTED_SCHEMA_VERSION) {
++        throw new SnapshotPersistenceError(
++          `UNSUPPORTED_SNAPSHOT_VERSION: el slot "${slotId}" guarda una partida v${record.schemaVersion} y esta versión sólo carga v${SUPPORTED_SCHEMA_VERSION}. Las partidas Alpha v1 no se migran; elimínalo explícitamente para liberar el slot.`,
++        );
++      }
+       try {
+-        return parseSnapshotV1(record.snapshot);
++        return parseSnapshotV2(record.snapshot);
+       } catch (error) {
+         throw new SnapshotPersistenceError("Stored snapshot validation failed", error);
+       }
+     },
+ 
++    /** Explicit deletion: an incompatible slot is never removed on the player's behalf (D-089). */
++    async remove(slotId: string): Promise<void> {
++      const database = await openDatabase();
++      const transaction = database.transaction(STORE_NAME, "readwrite");
++      transaction.objectStore(STORE_NAME).delete(slotId);
++      await transactionComplete(transaction);
++    },
++
+     close(): void {
+       database?.close();
+       database = undefined;
+diff --git a/apps/web/src/worker/client.test.ts b/apps/web/src/worker/client.test.ts
+index 02cccb8..2c3b652 100644
+--- a/apps/web/src/worker/client.test.ts
++++ b/apps/web/src/worker/client.test.ts
+@@ -30,16 +30,16 @@ describe("SimulationWorkerClient", () => {
+       (error) => errors.push(error),
+     );
+     const promise = client.initialize(1);
+-    expect(worker.sent[0]).toMatchObject({ type: "InitializeGame", protocolVersion: 1 });
++    expect(worker.sent[0]).toMatchObject({ type: "InitializeGame", protocolVersion: 2 });
+     worker.emit({
+-      protocolVersion: 1,
++      protocolVersion: 2,
+       requestId: "request-1",
+       type: "RequestSucceeded",
+       payload: { acceptedAtTick: 0 },
+     });
+     await expect(promise).resolves.toMatchObject({ type: "RequestSucceeded" });
+     worker.emit({
+-      protocolVersion: 1,
++      protocolVersion: 2,
+       requestId: null,
+       type: "ProjectionPublished",
+       payload: {
+@@ -107,7 +107,7 @@ describe("SimulationWorkerClient", () => {
+       (entry) => diagnostics.push(entry),
+     );
+     worker.emit({
+-      protocolVersion: 1,
++      protocolVersion: 2,
+       requestId: null,
+       type: "SimulationMetricsPublished",
+       payload: {
+diff --git a/apps/web/src/worker/client.ts b/apps/web/src/worker/client.ts
+index db847e8..f9ffbb6 100644
+--- a/apps/web/src/worker/client.ts
++++ b/apps/web/src/worker/client.ts
+@@ -1,3 +1,4 @@
++import type { DistrictId } from "@landlord/shared";
+ import {
+   initializeGameRequestSchema,
+   loadSnapshotRequestSchema,
+@@ -19,7 +20,7 @@ import {
+   submitCommandRequestSchema,
+   viewProjectionV1Schema,
+   workerResponseSchema,
+-  type SnapshotV1,
++  type SnapshotV2,
+   type IntelKind,
+   type ProductCommand,
+   type SimulationMetrics,
+@@ -67,7 +68,7 @@ export class SimulationWorkerClient {
+   public initialize(seed: number): Promise<WorkerResponse> {
+     return this.send(
+       initializeGameRequestSchema.parse({
+-        protocolVersion: 1,
++        protocolVersion: 2,
+         requestId: this.nextRequestId(),
+         type: "InitializeGame",
+         payload: { seed },
+@@ -78,7 +79,7 @@ export class SimulationWorkerClient {
+   public setRunState(state: "paused" | "running", speed: 1 | 2 | 4): Promise<WorkerResponse> {
+     return this.send(
+       setRunStateRequestSchema.parse({
+-        protocolVersion: 1,
++        protocolVersion: 2,
+         requestId: this.nextRequestId(),
+         type: "SetRunState",
+         payload: { state, speed },
+@@ -86,10 +87,13 @@ export class SimulationWorkerClient {
+     );
+   }
+ 
+-  public placeTestStructure(cell: { x: number; y: number }): Promise<WorkerResponse> {
++  public placeTestStructure(
++    cell: { x: number; y: number },
++    districtId: DistrictId,
++  ): Promise<WorkerResponse> {
+     return this.send(
+       submitCommandRequestSchema.parse({
+-        protocolVersion: 1,
++        protocolVersion: 2,
+         requestId: this.nextRequestId(),
+         type: "SubmitCommand",
+         payload: {
+@@ -98,7 +102,7 @@ export class SimulationWorkerClient {
+             issuedByPersonId: parsePersonId("person_00000001"),
+             actingAsOrganizationId: parseOrganizationId("org_00000001"),
+             type: "PlaceTestStructure",
+-            payload: { cell },
++            payload: { districtId, cell },
+           },
+         },
+       }),
+@@ -426,7 +430,7 @@ export class SimulationWorkerClient {
+   public saveSnapshot(): Promise<WorkerResponse> {
+     return this.send(
+       saveSnapshotRequestSchema.parse({
+-        protocolVersion: 1,
++        protocolVersion: 2,
+         requestId: this.nextRequestId(),
+         type: "SaveSnapshot",
+         payload: {},
+@@ -434,10 +438,10 @@ export class SimulationWorkerClient {
+     );
+   }
+ 
+-  public loadSnapshot(snapshot: SnapshotV1): Promise<WorkerResponse> {
++  public loadSnapshot(snapshot: SnapshotV2): Promise<WorkerResponse> {
+     return this.send(
+       loadSnapshotRequestSchema.parse({
+-        protocolVersion: 1,
++        protocolVersion: 2,
+         requestId: this.nextRequestId(),
+         type: "LoadSnapshot",
+         payload: { snapshot },
+@@ -461,7 +465,7 @@ export class SimulationWorkerClient {
+   private submitProductCommand(command: ProductCommand): Promise<WorkerResponse> {
+     return this.send(
+       submitCommandRequestSchema.parse({
+-        protocolVersion: 1,
++        protocolVersion: 2,
+         requestId: this.nextRequestId(),
+         type: "SubmitCommand",
+         payload: { command },
+diff --git a/packages/shared/src/contracts.test.ts b/packages/shared/src/contracts.test.ts
+index 6b22b58..0f5d0e1 100644
+--- a/packages/shared/src/contracts.test.ts
++++ b/packages/shared/src/contracts.test.ts
+@@ -10,7 +10,7 @@ import {
+ } from "./contracts";
+ 
+ const envelope = {
+-  protocolVersion: 1,
++  protocolVersion: 2,
+   requestId: "request-17",
+ } as const;
+ 
+@@ -33,7 +33,7 @@ describe("Worker request envelopes", () => {
+             issuedByPersonId: "person_00000001",
+             actingAsOrganizationId: "org_00000001",
+             type: "PlaceTestStructure",
+-            payload: { cell: { x: 10, y: 12 } },
++            payload: { districtId: "district_00000004", cell: { x: 10, y: 12 } },
+           },
+         },
+       }).type,
+@@ -72,7 +72,7 @@ describe("Worker request envelopes", () => {
+     expect(() =>
+       initializeGameRequestSchema.parse({
+         ...envelope,
+-        protocolVersion: 2,
++        protocolVersion: 1,
+         type: "InitializeGame",
+         payload: { seed: 1 },
+       }),
+diff --git a/packages/shared/src/domain.test.ts b/packages/shared/src/domain.test.ts
+index 202f07c..2fb8667 100644
+--- a/packages/shared/src/domain.test.ts
++++ b/packages/shared/src/domain.test.ts
+@@ -30,6 +30,7 @@ describe("Gate 1 domain contracts", () => {
+       testStructureSchema.parse({
+         id: "structure_00000001",
+         ownerOrganizationId: "org_00000002",
++        districtId: "district_00000004",
+         cell: { x: 10, y: 12 },
+       }).ownerOrganizationId,
+     ).toBe("org_00000002");
+@@ -42,7 +43,7 @@ describe("Gate 1 domain contracts", () => {
+         issuedByPersonId: "person_00000001",
+         actingAsOrganizationId: "org_00000001",
+         type: "PlaceTestStructure",
+-        payload: { cell: { x: 10, y: 12 } },
++        payload: { districtId: "district_00000004", cell: { x: 10, y: 12 } },
+       }).type,
+     ).toBe("PlaceTestStructure");
+     expect(
+@@ -66,7 +67,7 @@ describe("Gate 1 domain contracts", () => {
+         commandId: "command-9",
+         actingAsOrganizationId: "org_00000001",
+         type: "PlaceTestStructure",
+-        payload: { cell: { x: 10, y: 12 } },
++        payload: { districtId: "district_00000004", cell: { x: 10, y: 12 } },
+       }),
+     ).toThrow();
+     expect(() =>
+diff --git a/packages/shared/src/domain.ts b/packages/shared/src/domain.ts
+index 1e5e4e3..af37a65 100644
+--- a/packages/shared/src/domain.ts
++++ b/packages/shared/src/domain.ts
+@@ -70,6 +70,8 @@ export type OrganizationControlGrant = {
+ export type TestStructure = {
+   id: StructureId;
+   ownerOrganizationId: OrganizationId;
++  /** A cell alone does not identify a place once the city has nine 64×64 maps (D-088). */
++  districtId: DistrictId;
+   cell: GridCell;
+ };
+ 
+@@ -95,6 +97,7 @@ export const organizationControlGrantSchema = z.object({
+ export const testStructureSchema = z.object({
+   id: structureIdSchema,
+   ownerOrganizationId: organizationIdSchema,
++  districtId: districtIdSchema,
+   cell: gridCellSchema,
+ });
+ 
+@@ -104,6 +107,7 @@ export type PlaceTestStructure = {
+   actingAsOrganizationId: OrganizationId;
+   type: "PlaceTestStructure";
+   payload: {
++    districtId: DistrictId;
+     cell: GridCell;
+   };
+ };
+@@ -114,6 +118,7 @@ export const placeTestStructureSchema = z.object({
+   actingAsOrganizationId: organizationIdSchema,
+   type: z.literal("PlaceTestStructure"),
+   payload: z.object({
++    districtId: districtIdSchema,
+     cell: gridCellSchema,
+   }),
+ });
+@@ -337,6 +342,8 @@ export type Agent = {
+   specialty?: AgentSpecialty;
+   health?: number;
+   state?: "idle" | "moving" | "working" | "injured" | "dead";
++  /** District the agent is physically in. Pathfinding never crosses it; transfers are explicit (D-088). */
++  districtId: DistrictId;
+   cell: GridCell;
+   target?: GridCell;
+   path?: GridCell[];
+diff --git a/packages/shared/src/primitives.ts b/packages/shared/src/primitives.ts
+index 247407d..1abef82 100644
+--- a/packages/shared/src/primitives.ts
++++ b/packages/shared/src/primitives.ts
+@@ -4,8 +4,8 @@ export type Brand<T, Name extends string> = T & {
+   readonly __brand: Name;
+ };
+ 
+-export type ProtocolVersion = Brand<1, "ProtocolVersion">;
+-export type SchemaVersion = Brand<1, "SchemaVersion">;
++export type ProtocolVersion = Brand<2, "ProtocolVersion">;
++export type SchemaVersion = Brand<2, "SchemaVersion">;
+ 
+ export type PlayerIdentityId = Brand<string, "PlayerIdentityId">;
+ export type PersonId = Brand<string, "PersonId">;
+@@ -118,8 +118,12 @@ export const requestIdSchema = opaqueString.transform((value) => value as Reques
+ export const commandIdSchema = opaqueString.transform((value) => value as CommandId);
+ export const eventIdSchema = opaqueString.transform((value) => value as EventId);
+ 
+-export const protocolVersionSchema = z.literal(1).transform((value) => value as ProtocolVersion);
+-export const schemaVersionSchema = z.literal(1).transform((value) => value as SchemaVersion);
++/**
++ * Protocol and snapshot versions are v2 (D-089). A v1 payload must fail here rather than be
++ * silently reinterpreted: the single-district world it describes cannot be derived into nine.
++ */
++export const protocolVersionSchema = z.literal(2).transform((value) => value as ProtocolVersion);
++export const schemaVersionSchema = z.literal(2).transform((value) => value as SchemaVersion);
+ 
+ export function parsePlayerIdentityId(value: string): PlayerIdentityId {
+   return playerIdentityIdSchema.parse(value);
+diff --git a/packages/shared/src/responses.test.ts b/packages/shared/src/responses.test.ts
+index 662cd29..b9ca5ce 100644
+--- a/packages/shared/src/responses.test.ts
++++ b/packages/shared/src/responses.test.ts
+@@ -7,7 +7,7 @@ import {
+   simulationMetricsPublishedSchema,
+ } from "./responses";
+ 
+-const responseVersion = 1 as const;
++const responseVersion = 2 as const;
+ 
+ describe("Worker responses", () => {
+   it("keeps correlated responses separate from notifications", () => {
+diff --git a/packages/shared/src/responses.ts b/packages/shared/src/responses.ts
+index 06be254..92ff0e9 100644
+--- a/packages/shared/src/responses.ts
++++ b/packages/shared/src/responses.ts
+@@ -64,6 +64,9 @@ export type ErrorCode =
+   | "LOAN_REFINANCE_UNAVAILABLE"
+   | "SELL_NOT_AVAILABLE"
+   | "SELL_COLLATERAL_LOCKED"
++  | "DISTRICT_NOT_FOUND"
++  | "UNSUPPORTED_SNAPSHOT_VERSION"
++  | "AGENT_NOT_IN_DISTRICT"
+   | "CONTRACT_NOT_FOUND"
+   | "CONTRACT_CLOSED"
+   | "CONTRACT_CONFLICT"
+@@ -166,6 +169,9 @@ const errorCodeSchema = z.enum([
+   "LOAN_REFINANCE_UNAVAILABLE",
+   "SELL_NOT_AVAILABLE",
+   "SELL_COLLATERAL_LOCKED",
++  "DISTRICT_NOT_FOUND",
++  "UNSUPPORTED_SNAPSHOT_VERSION",
++  "AGENT_NOT_IN_DISTRICT",
+   "CONTRACT_NOT_FOUND",
+   "CONTRACT_CLOSED",
+   "CONTRACT_CONFLICT",
+diff --git a/packages/shared/src/snapshot.test.ts b/packages/shared/src/snapshot.test.ts
+index 057dd35..b5926e0 100644
+--- a/packages/shared/src/snapshot.test.ts
++++ b/packages/shared/src/snapshot.test.ts
+@@ -1,24 +1,118 @@
+ import { describe, expect, it } from "vitest";
+ 
+ import { roadSegmentId } from "./domain";
+-import { parseSnapshotV1, snapshotV1Schema, validateSnapshotReferences } from "./snapshot";
++import {
++  parseSnapshotV2,
++  snapshotV2Schema,
++  UnsupportedSnapshotVersionError,
++  validateSnapshotReferences,
++} from "./snapshot";
++
++const districtId = (ordinal: number) => `district_${String(ordinal).padStart(8, "0")}`;
++
++/** Minimal but complete nine-district world: the shape a v2 save must carry. */
++function validWorld(overrides: { blockedCells?: Array<{ x: number; y: number }> } = {}) {
++  const districts = Array.from({ length: 9 }, (_, index) => ({
++    district: {
++      id: districtId(index + 1),
++      name: `Distrito ${index + 1}`,
++      width: 64 as const,
++      height: 64 as const,
++      generation: { profileId: "perfil_de_prueba", generatorVersion: 1, seed: index + 1 },
++    },
++    map: {
++      width: 64 as const,
++      height: 64 as const,
++      blockedCells: index === 0 ? (overrides.blockedCells ?? [{ x: 0, y: 0 }]) : [],
++      roads: { topologyVersion: 1 as const, derivationVersion: 1 as const, segments: [] },
++    },
++    blocks: [],
++    publicSpaces: [],
++  }));
++
++  const gateways: Array<Record<string, unknown>> = [];
++  const connections: Array<Record<string, unknown>> = [];
++  for (let slotY = 0; slotY < 3; slotY += 1) {
++    for (let slotX = 0; slotX < 3; slotX += 1) {
++      const ordinal = slotY * 3 + slotX + 1;
++      if (slotX + 1 < 3) {
++        const id = `gateway_${(ordinal * 16).toString(16).padStart(8, "0")}`;
++        gateways.push({
++          id,
++          districtIds: [districtId(ordinal), districtId(ordinal + 1)],
++          sides: ["east", "west"],
++          cells: [
++            { x: 63, y: 32 },
++            { x: 0, y: 32 },
++          ],
++          roadSegmentIds: [],
++        });
++        connections.push({
++          id: `connection_${(ordinal * 16).toString(16).padStart(8, "0")}`,
++          gatewayId: id,
++          fromDistrictId: districtId(ordinal),
++          toDistrictId: districtId(ordinal + 1),
++          cost: 4,
++        });
++      }
++      if (slotY + 1 < 3) {
++        const id = `gateway_${(ordinal * 16 + 1).toString(16).padStart(8, "0")}`;
++        gateways.push({
++          id,
++          districtIds: [districtId(ordinal), districtId(ordinal + 3)],
++          sides: ["south", "north"],
++          cells: [
++            { x: 32, y: 63 },
++            { x: 32, y: 0 },
++          ],
++          roadSegmentIds: [],
++        });
++        connections.push({
++          id: `connection_${(ordinal * 16 + 1).toString(16).padStart(8, "0")}`,
++          gatewayId: id,
++          fromDistrictId: districtId(ordinal),
++          toDistrictId: districtId(ordinal + 3),
++          cost: 4,
++        });
++      }
++    }
++  }
++
++  return {
++    city: {
++      id: "city_00000001",
++      name: "Ciudad de prueba",
++      municipalityOrganizationId: "org_00000004",
++      layout: { columns: 3 as const, rows: 3 as const },
++      districtIds: Array.from({ length: 9 }, (_, index) => districtId(index + 1)),
++      connections,
++      generation: { profileId: "ciudad_de_prueba_v1", generatorVersion: 1, seed: 1 },
++    },
++    gateways,
++    districts,
++  };
++}
+ 
+ function validSnapshot() {
+   return {
+-    schemaVersion: 1,
++    schemaVersion: 2,
+     engineVersion: "gate1-dev",
+     seed: 1,
+     tick: 0,
+     prng: { algorithm: "xoshiro128ss-v1", state: [1, 2, 3, 4] },
+     idCounters: { structure: 1, agent: 1, event: 0, commandOrder: 0 },
+-    map: { width: 64, height: 64, blockedCells: [{ x: 0, y: 0 }] },
++    world: validWorld(),
+     playerIdentities: [{ id: "player_00000001", personId: "person_00000001" }],
+     persons: [{ id: "person_00000001" }],
+-    organizations: [{ id: "org_00000001", kind: "company" }],
++    organizations: [
++      { id: "org_00000001", kind: "company" },
++      { id: "org_00000004", kind: "municipality" },
++    ],
+     controlGrants: [{ personId: "person_00000001", organizationId: "org_00000001" }],
+     agents: [
+       {
+         id: "agent_00000001",
++        districtId: districtId(1),
+         cell: { x: 1, y: 1 },
+         target: { x: 2, y: 2 },
+         path: [
+@@ -28,24 +122,39 @@ function validSnapshot() {
+       },
+     ],
+     structures: [
+-      { id: "structure_00000001", ownerOrganizationId: "org_00000001", cell: { x: 3, y: 3 } },
++      {
++        id: "structure_00000001",
++        ownerOrganizationId: "org_00000001",
++        districtId: districtId(1),
++        cell: { x: 3, y: 3 },
++      },
+     ],
+     processedCommandIds: ["command-1"],
+     pendingCommands: [],
+   };
+ }
+ 
+-describe("snapshot v1", () => {
++describe("snapshot v2", () => {
+   it("parses a valid fixture and validates references", () => {
+-    const parsed = parseSnapshotV1(validSnapshot());
+-    expect(parsed.schemaVersion).toBe(1);
++    const parsed = parseSnapshotV2(validSnapshot());
++    expect(parsed.schemaVersion).toBe(2);
++    expect(parsed.world.districts).toHaveLength(9);
++    expect(parsed.world.gateways).toHaveLength(12);
+     expect(validateSnapshotReferences(parsed)).toEqual([]);
+   });
+ 
+-  it("rejects incompatible schema, invalid PRNG shape and duplicate cells", () => {
+-    expect(() => snapshotV1Schema.parse({ ...validSnapshot(), schemaVersion: 2 })).toThrow();
++  it("rejects a v1 save by name instead of by schema diff", () => {
++    expect(() => parseSnapshotV2({ ...validSnapshot(), schemaVersion: 1 })).toThrowError(
++      UnsupportedSnapshotVersionError,
++    );
++    expect(() => parseSnapshotV2({ ...validSnapshot(), schemaVersion: 1 })).toThrowError(
++      /UNSUPPORTED_SNAPSHOT_VERSION/,
++    );
++  });
++
++  it("rejects invalid PRNG shape and duplicate structure cells", () => {
+     expect(() =>
+-      snapshotV1Schema.parse({
++      snapshotV2Schema.parse({
+         ...validSnapshot(),
+         prng: { algorithm: "xoshiro128ss-v1", state: [1, 2, 3] },
+       }),
+@@ -53,55 +162,75 @@ describe("snapshot v1", () => {
+     expect(
+       validateSnapshotReferences({
+         ...validSnapshot(),
+-        map: {
+-          width: 64,
+-          height: 64,
+-          blockedCells: [
+-            { x: 0, y: 0 },
+-            { x: 0, y: 0 },
+-          ],
+-        },
++        structures: [
++          {
++            id: "structure_00000001",
++            ownerOrganizationId: "org_00000001",
++            districtId: districtId(1),
++            cell: { x: 3, y: 3 },
++          },
++          {
++            id: "structure_00000002",
++            ownerOrganizationId: "org_00000001",
++            districtId: districtId(1),
++            cell: { x: 3, y: 3 },
++          },
++        ],
+       } as never),
+-    ).toContainEqual({ code: "DUPLICATE_CELL", path: "map/structures" });
++    ).toContainEqual({ code: "DUPLICATE_CELL", path: "world/structures" });
++  });
++
++  it("flags an agent or a parcel that points at a district the city does not have", () => {
++    const issues = validateSnapshotReferences({
++      ...validSnapshot(),
++      agents: [
++        {
++          id: "agent_00000001",
++          districtId: districtId(99),
++          cell: { x: 1, y: 1 },
++          target: { x: 2, y: 2 },
++          path: [],
++        },
++      ],
++    } as never);
++    expect(issues).toContainEqual({
++      code: "MISSING_REFERENCE",
++      path: `world/agents/agent_00000001`,
++    });
+   });
+ 
+   it("rejects broken entity references before hydration", () => {
+     expect(() =>
+-      parseSnapshotV1({
++      parseSnapshotV2({
+         ...validSnapshot(),
+         structures: [
+-          { id: "structure_00000001", ownerOrganizationId: "org_00000002", cell: { x: 3, y: 3 } },
++          {
++            id: "structure_00000001",
++            ownerOrganizationId: "org_00000002",
++            districtId: districtId(1),
++            cell: { x: 3, y: 3 },
++          },
+         ],
+       }),
+     ).toThrow(/ownerOrganizationId/);
+   });
+ 
+-  it("validates the full canonical road-segment order, including the destination", () => {
++  it("validates the canonical road-segment order per district, including the destination", () => {
+     const longer = {
+       class: "street" as const,
+       from: { x: 1, y: 1 },
+       to: { x: 1, y: 3 },
+     };
+     const shorter = { ...longer, to: { x: 1, y: 2 } };
+-    const snapshot = {
+-      ...validSnapshot(),
+-      map: {
+-        width: 64,
+-        height: 64,
+-        blockedCells: [{ x: 0, y: 0 }],
+-        roads: {
+-          topologyVersion: 1,
+-          derivationVersion: 1,
+-          segments: [
+-            { ...longer, id: roadSegmentId(longer.class, longer.from, longer.to) },
+-            { ...shorter, id: roadSegmentId(shorter.class, shorter.from, shorter.to) },
+-          ],
+-        },
+-      },
+-    };
++    const world = validWorld();
++    world.districts[0]!.map.roads.segments = [
++      { ...longer, id: roadSegmentId(longer.class, longer.from, longer.to) },
++      { ...shorter, id: roadSegmentId(shorter.class, shorter.from, shorter.to) },
++    ] as never;
++    const snapshot = { ...validSnapshot(), world };
+     expect(validateSnapshotReferences(snapshot as never)).toContainEqual({
+       code: "DUPLICATE_ORDER",
+-      path: "map/roads/segments",
++      path: `world/districts/${districtId(1)}/roads/segments`,
+     });
+   });
+ });
+diff --git a/packages/shared/src/snapshot.ts b/packages/shared/src/snapshot.ts
+index 62085ed..b9513a8 100644
+--- a/packages/shared/src/snapshot.ts
++++ b/packages/shared/src/snapshot.ts
+@@ -3,11 +3,19 @@ import { z } from "zod";
+ import {
+   agentIdSchema,
+   commandIdSchema,
++  districtIdSchema,
+   schemaVersionSchema,
+   type CommandId,
+   type AgentId,
++  type DistrictId,
+   type SchemaVersion,
+ } from "./primitives";
++import {
++  blockSchema,
++  citySchema,
++  districtGatewaySchema,
++  publicSpaceSchema,
++} from "./urban";
+ import {
+   organizationControlGrantSchema,
+   organizationSchema,
+@@ -64,7 +72,7 @@ import {
+   type Tick,
+ } from "./time-and-grid";
+ 
+-export type SnapshotV1 = {
++export type SnapshotV2 = {
+   schemaVersion: SchemaVersion;
+   engineVersion: string;
+   seed: Seed;
+@@ -84,19 +92,14 @@ export type SnapshotV1 = {
+     transaction?: number;
+     loan?: number;
+   };
+-  map: {
+-    width: 64;
+-    height: 64;
+-    blockedCells: GridCell[];
+-    /** Optional only for compatibility with saves created before WP4.15-V.c.2B. */
+-    roads?: import("./domain").RoadTopologyV1;
+-  };
++  world: SnapshotWorld;
+   playerIdentities: PlayerIdentity[];
+   persons: Person[];
+   organizations: Organization[];
+   controlGrants: OrganizationControlGrant[];
+   agents: Array<{
+     id: AgentId;
++    districtId: DistrictId;
+     cell: GridCell;
+     target: GridCell;
+     path: GridCell[];
+@@ -126,7 +129,6 @@ export type SnapshotV1 = {
+       loan?: number;
+       incident?: number;
+     };
+-    district: import("./domain").District;
+     parcels: import("./domain").Parcel[];
+     balances: Array<{ organizationId: import("./primitives").OrganizationId; balance: number }>;
+     inventories: Array<{
+@@ -176,14 +178,45 @@ export type SnapshotV1 = {
+ const safeCounter = z.number().int().nonnegative().safe();
+ const uint32 = z.number().int().nonnegative().max(0xffffffff).safe();
+ const prngStateSchema = z.tuple([uint32, uint32, uint32, uint32]);
+-const mapSnapshotSchema = z.object({
++const districtMapSnapshotSchema = z.object({
+   width: z.literal(64),
+   height: z.literal(64),
+   blockedCells: z.array(gridCellSchema),
+-  roads: roadTopologyV1Schema.optional(),
++  roads: roadTopologyV1Schema,
++});
++
++const snapshotDistrictSchema = z.object({
++  district: districtSchema,
++  map: districtMapSnapshotSchema,
++  blocks: z.array(blockSchema),
++  publicSpaces: z.array(publicSpaceSchema),
++});
++
++const worldSnapshotSchema = z.object({
++  city: citySchema,
++  gateways: z.array(districtGatewaySchema),
++  districts: z.array(snapshotDistrictSchema).length(9),
+ });
++
++/** Persisted shape of `WorldState` (D-088, D-089). */
++export type SnapshotWorld = {
++  city: import("./urban").City;
++  gateways: import("./urban").DistrictGateway[];
++  districts: Array<{
++    district: import("./domain").District;
++    map: {
++      width: 64;
++      height: 64;
++      blockedCells: GridCell[];
++      roads: import("./domain").RoadTopologyV1;
++    };
++    blocks: import("./urban").Block[];
++    publicSpaces: import("./urban").PublicSpace[];
++  }>;
++};
+ const agentSnapshotSchema = z.object({
+   id: agentIdSchema,
++  districtId: districtIdSchema,
+   cell: gridCellSchema,
+   target: gridCellSchema,
+   path: z.array(gridCellSchema),
+@@ -284,7 +317,7 @@ const phase2SnapshotSchema = z.object({
+   insolvency: insolvencyStateSchema.optional(),
+ });
+ 
+-export const snapshotV1Schema = z.object({
++export const snapshotV2Schema = z.object({
+   schemaVersion: schemaVersionSchema,
+   engineVersion: z.string().min(1).max(128),
+   seed: seedSchema,
+@@ -304,7 +337,7 @@ export const snapshotV1Schema = z.object({
+     facility: safeCounter.optional(),
+     transaction: safeCounter.optional(),
+   }),
+-  map: mapSnapshotSchema,
++  world: worldSnapshotSchema,
+   playerIdentities: z.array(playerIdentitySchema),
+   persons: z.array(personSchema),
+   organizations: z.array(organizationSchema),
+@@ -338,7 +371,7 @@ function inBounds(cell: GridCell): boolean {
+   return cell.x < 64 && cell.y < 64;
+ }
+ 
+-export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValidationIssue[] {
++export function validateSnapshotReferences(snapshot: SnapshotV2): SnapshotValidationIssue[] {
+   const issues: SnapshotValidationIssue[] = [];
+   const personIds = new Set(snapshot.persons.map((person) => person.id));
+   const organizationIds = new Set(snapshot.organizations.map((organization) => organization.id));
+@@ -347,13 +380,9 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
+   );
+   const structureIds = snapshot.structures.map((structure) => structure.id);
+   const agentIds = snapshot.agents.map((agent) => agent.id);
+-  const cells = [
+-    ...snapshot.map.blockedCells,
+-    ...snapshot.structures.map((structure) => structure.cell),
+-  ];
+-  const roadCells = snapshot.map.roads
+-    ? roadCellsFromSegments(snapshot.map.roads.segments)
+-    : new Set<string>();
++  const districtIds = new Set<DistrictId>(snapshot.world.city.districtIds);
++  const districtById = new Map(snapshot.world.districts.map((entry) => [entry.district.id, entry]));
++  const cells = snapshot.structures.map((structure) => structure.cell);
+ 
+   if (hasDuplicate(snapshot.playerIdentities.map((identity) => identity.id))) {
+     issues.push({ code: "DUPLICATE_ID", path: "playerIdentities" });
+@@ -368,15 +397,53 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
+     issues.push({ code: "DUPLICATE_ID", path: "entities" });
+   }
+   if (new Set(cells.map(cellKey)).size !== cells.length) {
+-    issues.push({ code: "DUPLICATE_CELL", path: "map/structures" });
++    issues.push({ code: "DUPLICATE_CELL", path: "world/structures" });
+   }
+   if (cells.some((cell) => !inBounds(cell))) {
+-    issues.push({ code: "CELL_OUT_OF_BOUNDS", path: "map/structures" });
++    issues.push({ code: "CELL_OUT_OF_BOUNDS", path: "world/structures" });
++  }
++  for (const structure of snapshot.structures) {
++    if (!districtIds.has(structure.districtId)) {
++      issues.push({ code: "MISSING_REFERENCE", path: `world/structures/${structure.id}` });
++    }
++  }
++  for (const agent of snapshot.agents) {
++    if (!districtIds.has(agent.districtId)) {
++      issues.push({ code: "MISSING_REFERENCE", path: `world/agents/${agent.id}` });
++    }
++  }
++  if (snapshot.world.districts.length !== snapshot.world.city.districtIds.length) {
++    issues.push({ code: "MISSING_REFERENCE", path: "world/districts" });
+   }
+-  if (snapshot.map.roads) {
+-    const segments = snapshot.map.roads.segments;
+-    const ids = segments.map((segment) => segment.id);
+-    if (hasDuplicate(ids)) issues.push({ code: "DUPLICATE_ID", path: "map/roads/segments" });
++  for (const districtId of snapshot.world.city.districtIds) {
++    if (!districtById.has(districtId)) {
++      issues.push({ code: "MISSING_REFERENCE", path: `world/districts/${districtId}` });
++    }
++  }
++  for (const gateway of snapshot.world.gateways) {
++    if (gateway.districtIds.some((id) => !districtIds.has(id))) {
++      issues.push({ code: "MISSING_REFERENCE", path: `world/gateways/${gateway.id}` });
++    }
++  }
++  for (const connection of snapshot.world.city.connections) {
++    if (
++      !districtIds.has(connection.fromDistrictId) ||
++      !districtIds.has(connection.toDistrictId) ||
++      !snapshot.world.gateways.some((gateway) => gateway.id === connection.gatewayId)
++    ) {
++      issues.push({ code: "MISSING_REFERENCE", path: `world/connections/${connection.id}` });
++    }
++  }
++
++  for (const entry of snapshot.world.districts) {
++    const scope = `world/districts/${entry.district.id}`;
++    const segments = entry.map.roads.segments;
++    const roadCells = roadCellsFromSegments(segments);
++    const blockedKeys = new Set(entry.map.blockedCells.map(cellKey));
++
++    if (hasDuplicate(segments.map((segment) => segment.id))) {
++      issues.push({ code: "DUPLICATE_ID", path: `${scope}/roads/segments` });
++    }
+     const canonical = [...segments].sort(
+       (left, right) =>
+         left.from.y - right.from.y ||
+@@ -386,7 +453,7 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
+         left.to.x - right.to.x,
+     );
+     if (canonical.some((segment, index) => segment !== segments[index])) {
+-      issues.push({ code: "DUPLICATE_ORDER", path: "map/roads/segments" });
++      issues.push({ code: "DUPLICATE_ORDER", path: `${scope}/roads/segments` });
+     }
+     for (const segment of segments) {
+       if (
+@@ -396,24 +463,27 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
+         !inBounds(segment.from) ||
+         !inBounds(segment.to)
+       ) {
+-        issues.push({ code: "CELL_OUT_OF_BOUNDS", path: `map/roads/segments/${segment.id}` });
++        issues.push({ code: "CELL_OUT_OF_BOUNDS", path: `${scope}/roads/segments/${segment.id}` });
+       }
+       if (segment.id !== roadSegmentId(segment.class, segment.from, segment.to)) {
+-        issues.push({ code: "DUPLICATE_ID", path: `map/roads/segments/${segment.id}` });
++        issues.push({ code: "DUPLICATE_ID", path: `${scope}/roads/segments/${segment.id}` });
+       }
+     }
+-    if (
+-      [...roadCells].some((key) => snapshot.map.blockedCells.some((cell) => cellKey(cell) === key))
+-    ) {
+-      issues.push({ code: "DUPLICATE_CELL", path: "map/roads/blockedCells" });
++    if ([...roadCells].some((key) => blockedKeys.has(key))) {
++      issues.push({ code: "DUPLICATE_CELL", path: `${scope}/roads/blockedCells` });
++    }
++    if (entry.map.blockedCells.some((cell) => !inBounds(cell))) {
++      issues.push({ code: "CELL_OUT_OF_BOUNDS", path: `${scope}/blockedCells` });
+     }
+     if (
+       snapshot.phase2 &&
+       [...roadCells].some((key) =>
+-        snapshot.phase2!.parcels.some((parcel) => cellKey(parcel.cell) === key),
++        snapshot.phase2!.parcels.some(
++          (parcel) => parcel.districtId === entry.district.id && cellKey(parcel.cell) === key,
++        ),
+       )
+     ) {
+-      issues.push({ code: "DUPLICATE_CELL", path: "map/roads/phase2/parcels" });
++      issues.push({ code: "DUPLICATE_CELL", path: `${scope}/roads/phase2/parcels` });
+     }
+   }
+ 
+@@ -499,7 +569,7 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
+       issues.push({ code: "DUPLICATE_ID", path: "phase2/organizationState" });
+     }
+     for (const parcel of snapshot.phase2.parcels) {
+-      if (parcel.districtId !== snapshot.phase2.district.id) {
++      if (!districtIds.has(parcel.districtId)) {
+         issues.push({ code: "MISSING_REFERENCE", path: `phase2/parcels/${parcel.id}/districtId` });
+       }
+       if (parcel.ownerOrganizationId && !organizationIds.has(parcel.ownerOrganizationId)) {
+@@ -846,8 +916,32 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
+   return issues;
+ }
+ 
+-export function parseSnapshotV1(value: unknown): SnapshotV1 {
+-  const snapshot = snapshotV1Schema.parse(value) as unknown as SnapshotV1;
++/**
++ * A v1 save is rejected by name, not by a schema diff (D-089). The single-district world it
++ * describes has no roads-per-district, no blocks and no development codes, so it cannot be derived
++ * into nine districts; the player needs to hear that instead of reading a Zod path.
++ */
++export class UnsupportedSnapshotVersionError extends Error {
++  public readonly schemaVersion: unknown;
++
++  public constructor(schemaVersion: unknown) {
++    super(
++      `UNSUPPORTED_SNAPSHOT_VERSION: el guardado tiene schemaVersion ${String(schemaVersion)} y esta versión sólo acepta 2. Las partidas Alpha v1 no se migran; crea una partida nueva o borra el slot incompatible.`,
++    );
++    this.name = "UnsupportedSnapshotVersionError";
++    this.schemaVersion = schemaVersion;
++  }
++}
++
++export function parseSnapshotV2(value: unknown): SnapshotV2 {
++  const declaredVersion =
++    typeof value === "object" && value !== null && "schemaVersion" in value
++      ? (value as { schemaVersion?: unknown }).schemaVersion
++      : undefined;
++  if (declaredVersion !== 2) {
++    throw new UnsupportedSnapshotVersionError(declaredVersion);
++  }
++  const snapshot = snapshotV2Schema.parse(value) as unknown as SnapshotV2;
+   const issues = validateSnapshotReferences(snapshot);
+   if (issues.length > 0) {
+     throw new Error(`Invalid snapshot references: ${issues.map((issue) => issue.path).join(", ")}`);
+diff --git a/packages/shared/src/structured-clone.test.ts b/packages/shared/src/structured-clone.test.ts
+index b7b7b93..143c17a 100644
+--- a/packages/shared/src/structured-clone.test.ts
++++ b/packages/shared/src/structured-clone.test.ts
+@@ -6,13 +6,40 @@ const clone = <T>(value: T): T =>
+   (globalThis as typeof globalThis & { structuredClone<T>(value: T): T }).structuredClone(value);
+ 
+ const snapshot = {
+-  schemaVersion: 1,
++  schemaVersion: 2,
+   engineVersion: "gate1-dev",
+   seed: 1,
+   tick: 0,
+   prng: { algorithm: "xoshiro128ss-v1", state: [1, 2, 3, 4] },
+   idCounters: { structure: 1, agent: 1, event: 0, commandOrder: 0 },
+-  map: { width: 64, height: 64, blockedCells: [] },
++  world: {
++    city: {
++      id: "city_00000001",
++      name: "Ciudad de prueba",
++      municipalityOrganizationId: "org_00000001",
++      layout: { columns: 3, rows: 3 },
++      districtIds: Array.from({ length: 9 }, (_, index) => `district_${String(index + 1).padStart(8, "0")}`),
++      connections: [],
++      generation: { profileId: "ciudad_de_prueba_v1", generatorVersion: 1, seed: 1 },
++    },
++    gateways: [],
++    districts: Array.from({ length: 9 }, (_, index) => ({
++      district: {
++        id: `district_${String(index + 1).padStart(8, "0")}`,
++        name: `Distrito ${index + 1}`,
++        width: 64,
++        height: 64,
++      },
++      map: {
++        width: 64,
++        height: 64,
++        blockedCells: [],
++        roads: { topologyVersion: 1, derivationVersion: 1, segments: [] },
++      },
++      blocks: [],
++      publicSpaces: [],
++    })),
++  },
+   playerIdentities: [{ id: "player_00000001", personId: "person_00000001" }],
+   persons: [{ id: "person_00000001" }],
+   organizations: [{ id: "org_00000001", kind: "company" }],
+@@ -21,19 +48,19 @@ const snapshot = {
+   structures: [],
+   processedCommandIds: [],
+   pendingCommands: [],
+-} as const;
++};
+ 
+ describe("shared wire data", () => {
+   it("structured-clones requests, responses, domain events, projections and snapshots", () => {
+     const values = [
+       shared.initializeGameRequestSchema.parse({
+-        protocolVersion: 1,
++        protocolVersion: 2,
+         requestId: "request-1",
+         type: "InitializeGame",
+         payload: { seed: 1 },
+       }),
+       shared.requestSucceededSchema.parse({
+-        protocolVersion: 1,
++        protocolVersion: 2,
+         requestId: "request-1",
+         type: "RequestSucceeded",
+         payload: { acceptedAtTick: 1 },
+@@ -43,7 +70,7 @@ describe("shared wire data", () => {
+         issuedByPersonId: "person_00000001",
+         actingAsOrganizationId: "org_00000001",
+         type: "PlaceTestStructure",
+-        payload: { cell: { x: 1, y: 1 } },
++        payload: { districtId: "district_00000004", cell: { x: 1, y: 1 } },
+       }),
+       shared.testStructurePlacedSchema.parse({
+         eventId: "event-1",
+@@ -63,7 +90,7 @@ describe("shared wire data", () => {
+         structures: [],
+         agents: [],
+       }),
+-      shared.snapshotV1Schema.parse(snapshot),
++      shared.snapshotV2Schema.parse(snapshot),
+     ];
+ 
+     for (const value of values) {
+@@ -73,7 +100,7 @@ describe("shared wire data", () => {
+ 
+   it("exposes the package through its public barrel", () => {
+     expect(shared.sharedPackage).toBe("@landlord/shared");
+-    expect(shared.snapshotV1Schema).toBeDefined();
++    expect(shared.snapshotV2Schema).toBeDefined();
+     expect(shared.placeTestStructureSchema).toBeDefined();
+   });
+ });
+diff --git a/packages/simulation/src/alpha-actions-runtime.test.ts b/packages/simulation/src/alpha-actions-runtime.test.ts
+index 91efa0d..05e2add 100644
+--- a/packages/simulation/src/alpha-actions-runtime.test.ts
++++ b/packages/simulation/src/alpha-actions-runtime.test.ts
+@@ -14,7 +14,7 @@ import { bondFor } from "./public-contracts";
+ import { SimulationWorkerRuntime } from "./worker-runtime";
+ 
+ const initialize = {
+-  protocolVersion: 1,
++  protocolVersion: 2,
+   requestId: "request-init",
+   type: "InitializeGame" as const,
+   payload: { seed: 3 },
+@@ -26,7 +26,7 @@ function commandRequest(
+   command: { type: string; payload: Record<string, unknown> },
+ ): object {
+   return {
+-    protocolVersion: 1,
++    protocolVersion: 2,
+     requestId,
+     type: "SubmitCommand",
+     payload: {
+diff --git a/packages/simulation/src/audit-metrics.test.ts b/packages/simulation/src/audit-metrics.test.ts
+index 756d386..3e16ab5 100644
+--- a/packages/simulation/src/audit-metrics.test.ts
++++ b/packages/simulation/src/audit-metrics.test.ts
+@@ -1,3 +1,4 @@
++import { PLAYER_HOME_DISTRICT_ID } from "./city";
+ import { describe, it } from "vitest";
+ 
+ import { parseCommandId, parseOrganizationId, parsePersonId } from "@landlord/shared";
+@@ -23,7 +24,7 @@ describe("Gate 1 audit metrics", () => {
+     () => {
+       const worker = new SimulationWorkerRuntime();
+       worker.handle({
+-        protocolVersion: 1,
++        protocolVersion: 2,
+         requestId: "audit-init",
+         type: "InitializeGame",
+         payload: { seed: 1 },
+@@ -32,7 +33,7 @@ describe("Gate 1 audit metrics", () => {
+       for (let index = 0; index < 100; index += 1) {
+         const start = environment.performance.now();
+         worker.handle({
+-          protocolVersion: 1,
++          protocolVersion: 2,
+           requestId: `audit-command-${index}`,
+           type: "SubmitCommand",
+           payload: {
+@@ -41,7 +42,7 @@ describe("Gate 1 audit metrics", () => {
+               issuedByPersonId: parsePersonId("person_00000001"),
+               actingAsOrganizationId: parseOrganizationId("org_00000001"),
+               type: "PlaceTestStructure",
+-              payload: { cell: { x: index % 64, y: Math.floor(index / 64) } },
++              payload: { districtId: PLAYER_HOME_DISTRICT_ID, cell: { x: index % 64, y: Math.floor(index / 64) } },
+             },
+           },
+         });
+diff --git a/packages/simulation/src/city.ts b/packages/simulation/src/city.ts
+index 52770f5..61bea84 100644
+--- a/packages/simulation/src/city.ts
++++ b/packages/simulation/src/city.ts
+@@ -181,13 +181,26 @@ export function slotForDistrictId(
+   return { slotX: ordinal % columns, slotY: Math.floor(ordinal / columns) };
+ }
+ 
+-/** Per-district parcel ordinal block, so nine districts never collide on a parcel id. */
++/**
++ * Per-district parcel ordinal block, so nine districts never collide on a parcel id.
++ *
++ * The district that hosts the player roster takes block 0: its parcels keep the `parcel_00000001…`
++ * identity that every economic test and fixture was written against, and "the first parcels" keeps
++ * meaning "the player's neighbourhood" instead of an arbitrary corner of the grid.
++ */
++export function parcelOrdinalBlock(slotX: number, slotY: number): number {
++  if (slotX === CITY_ROSTER_SLOTS.player.slotX && slotY === CITY_ROSTER_SLOTS.player.slotY) return 0;
++  const ordinal = slotOrdinal(slotX, slotY);
++  const playerOrdinal = slotOrdinal(CITY_ROSTER_SLOTS.player.slotX, CITY_ROSTER_SLOTS.player.slotY);
++  return (ordinal < playerOrdinal ? ordinal + 1 : ordinal) * 1_000_000;
++}
++
+ export function parcelIdOrdinalForSlot(
+   slotX: number,
+   slotY: number,
+-  columns: number = CITY_LAYOUT.columns,
++  _columns: number = CITY_LAYOUT.columns,
+ ): number {
+-  return slotOrdinal(slotX, slotY, columns) * 1_000_000;
++  return parcelOrdinalBlock(slotX, slotY);
+ }
+ 
+ export type GeneratedDistrictState = {
+@@ -337,6 +350,15 @@ export const CITY_ROSTER_SLOTS = {
+   rival: { slotX: 2, slotY: 1 },
+ } as const;
+ 
++export const PLAYER_HOME_DISTRICT_ID = districtIdForSlot(
++  CITY_ROSTER_SLOTS.player.slotX,
++  CITY_ROSTER_SLOTS.player.slotY,
++);
++export const RIVAL_HOME_DISTRICT_ID = districtIdForSlot(
++  CITY_ROSTER_SLOTS.rival.slotX,
++  CITY_ROSTER_SLOTS.rival.slotY,
++);
++
+ function connectionIdFromGateway(gatewayId: string): string {
+   return `connection_${gatewayId.slice("gateway_".length)}`;
+ }
+diff --git a/packages/simulation/src/commands.test.ts b/packages/simulation/src/commands.test.ts
+index 0144788..c7a22a0 100644
+--- a/packages/simulation/src/commands.test.ts
++++ b/packages/simulation/src/commands.test.ts
+@@ -1,3 +1,4 @@
++import { PLAYER_HOME_DISTRICT_ID } from "./city";
+ import { describe, expect, it } from "vitest";
+ 
+ import {
+@@ -20,7 +21,7 @@ function command(
+     issuedByPersonId: parsePersonId("person_00000001"),
+     actingAsOrganizationId: parseOrganizationId(organizationId),
+     type: "PlaceTestStructure" as const,
+-    payload: { cell },
++    payload: { districtId: PLAYER_HOME_DISTRICT_ID, cell },
+   };
+ }
+ 
+diff --git a/packages/simulation/src/commands.ts b/packages/simulation/src/commands.ts
+index e3ba410..a15ec83 100644
+--- a/packages/simulation/src/commands.ts
++++ b/packages/simulation/src/commands.ts
+@@ -10,7 +10,12 @@ import {
+   type PlaceTestStructure,
+   type TestStructurePlaced,
+ } from "@landlord/shared";
+-import { hasOrganizationControl, type GameState } from "./state";
++import {
++  blockedCellsOf,
++  districtMapOf,
++  hasOrganizationControl,
++  type GameState,
++} from "./state";
+ import { credit, debit } from "./ledger";
+ import { submitPublicBid } from "./public-contracts";
+ 
+@@ -70,8 +75,13 @@ export type ProductCommandResult =
+       event: { type: string; tick: number; commandId: string; payload: Record<string, unknown> };
+     };
+ 
+-function inMap(state: GameState, cell: { x: number; y: number }): boolean {
+-  return cell.x >= 0 && cell.y >= 0 && cell.x < state.map.width && cell.y < state.map.height;
++function inMap(
++  state: GameState,
++  districtId: import("@landlord/shared").DistrictId,
++  cell: { x: number; y: number },
++): boolean {
++  const map = districtMapOf(state, districtId);
++  return cell.x >= 0 && cell.y >= 0 && cell.x < map.width && cell.y < map.height;
+ }
+ 
+ function cellKey(cell: { x: number; y: number }): string {
+@@ -82,9 +92,16 @@ function nextEntityId(prefix: "structure" | "event", value: number): string {
+   return `${prefix}_${String(value).padStart(8, "0")}`;
+ }
+ 
+-function hasStructureAt(state: GameState, cell: { x: number; y: number }): boolean {
++function hasStructureAt(
++  state: GameState,
++  districtId: import("@landlord/shared").DistrictId,
++  cell: { x: number; y: number },
++): boolean {
+   const key = cellKey(cell);
+-  return [...state.structures.values()].some((structure) => cellKey(structure.cell) === key);
++  return [...state.structures.values()].some(
++    (structure) =>
++      structure.districtId === districtId && cellKey(structure.cell) === key,
++  );
+ }
+ 
+ function validateActor(
+@@ -898,16 +915,26 @@ export function dispatchProductCommand(
+     )
+       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
+     const parcel = state.phase2.parcels.get(site.parcelId);
+-    const interactionCell = parcel
+-      ? chooseInteractionCell(
+-          parcel.cell,
+-          state.map.blockedCells,
+-          64,
+-          64,
+-          occupiedBuildingCells(state),
+-        )
+-      : null;
++    if (!parcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
++    const siteMap = districtMapOf(state, parcel.districtId);
++    const interactionCell = chooseInteractionCell(
++      parcel.cell,
++      blockedCellsOf(state, parcel.districtId),
++      siteMap.width,
++      siteMap.height,
++      occupiedBuildingCells(state),
++    );
+     if (!interactionCell) return { accepted: false, code: "INVALID_AGENT_ACTION" };
++    // Construction needs the crew physically in the target district (D-088): transfers are an
++    // explicit command, never an implicit teleport inside an assignment.
++    if (
++      [crew.supervisorAgentId, ...crew.workerAgentIds].some((agentId) => {
++        const member = state.agents.get(agentId);
++        return member !== undefined && member.districtId !== parcel.districtId;
++      })
++    ) {
++      return { accepted: false, code: "AGENT_NOT_IN_DISTRICT" };
++    }
+     for (const other of state.phase2.constructionSites.values()) {
+       if (other.assignedCrewIds.includes(crew.id)) {
+         for (const agentId of [crew.supervisorAgentId, ...crew.workerAgentIds]) {
+@@ -926,7 +953,11 @@ export function dispatchProductCommand(
+       if (!agent || agent.state === "dead" || agent.state === "injured") continue;
+       agent.task = { kind: "work_order", workOrderId: site.id };
+       agent.target = { ...interactionCell };
+-      agent.path = findDeterministicPath(agent.cell, interactionCell, state.map.blockedCells);
++      agent.path = findDeterministicPath(
++        agent.cell,
++        interactionCell,
++        blockedCellsOf(state, agent.districtId),
++      );
+       agent.state = "moving";
+     }
+     rememberProcessed(state, command.commandId);
+@@ -940,20 +971,24 @@ export function dispatchProductCommand(
+     if (!building) return { accepted: false, code: "BUILDING_NOT_FOUND" };
+     if (building.ownerOrganizationId !== command.actingAsOrganizationId)
+       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
++    const buildingParcel = state.phase2.parcels.get(building.parcelId);
++    if (!buildingParcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
+     const technician = [...state.agents.values()].find(
+       (agent) =>
+         agent.organizationId === command.actingAsOrganizationId &&
+         agent.specialty === "maintenance_technician" &&
++        agent.districtId === buildingParcel.districtId &&
+         agent.state === "idle" &&
+         !agent.task,
+     );
+     if (!technician) return { accepted: false, code: "AGENT_NOT_FOUND" };
+     technician.task = { kind: "maintenance", buildingId: building.id };
++    const maintenanceMap = districtMapOf(state, buildingParcel.districtId);
+     const interactionCell = chooseInteractionCell(
+-      state.phase2.parcels.get(building.parcelId)!.cell,
+-      state.map.blockedCells,
+-      64,
+-      64,
++      buildingParcel.cell,
++      blockedCellsOf(state, buildingParcel.districtId),
++      maintenanceMap.width,
++      maintenanceMap.height,
+       occupiedBuildingCells(state, building.id),
+     );
+     if (!interactionCell) return { accepted: false, code: "INVALID_AGENT_ACTION" };
+@@ -961,7 +996,7 @@ export function dispatchProductCommand(
+     technician.path = findDeterministicPath(
+       technician.cell,
+       interactionCell,
+-      state.map.blockedCells,
++      blockedCellsOf(state, technician.districtId),
+     );
+     technician.state = "moving";
+     const repairOrder = [...state.phase2.constructionSites.values()].find(
+@@ -986,6 +1021,8 @@ export function dispatchProductCommand(
+       const target = state.agents.get(command.payload.targetAgentId);
+       if (!target || target.organizationId === enforcer.organizationId)
+         return { accepted: false, code: "INVALID_AGENT_ACTION" };
++      if (target.districtId !== enforcer.districtId)
++        return { accepted: false, code: "AGENT_NOT_IN_DISTRICT" };
+       enforcer.task = { kind: "attack_agent", targetAgentId: target.id };
+       enforcer.target = { ...target.cell };
+       enforcer.state = "moving";
+@@ -993,17 +1030,26 @@ export function dispatchProductCommand(
+       const target = state.phase2.buildings.get(command.payload.targetBuildingId);
+       if (!target || target.ownerOrganizationId === enforcer.organizationId)
+         return { accepted: false, code: "INVALID_AGENT_ACTION" };
++      const targetParcel = state.phase2.parcels.get(target.parcelId);
++      if (!targetParcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
++      if (enforcer.districtId !== targetParcel.districtId)
++        return { accepted: false, code: "AGENT_NOT_IN_DISTRICT" };
++      const sabotageMap = districtMapOf(state, targetParcel.districtId);
+       const interactionCell = chooseInteractionCell(
+-        state.phase2.parcels.get(target.parcelId)!.cell,
+-        state.map.blockedCells,
+-        64,
+-        64,
++        targetParcel.cell,
++        blockedCellsOf(state, targetParcel.districtId),
++        sabotageMap.width,
++        sabotageMap.height,
+         occupiedBuildingCells(state, target.id),
+       );
+       if (!interactionCell) return { accepted: false, code: "INVALID_AGENT_ACTION" };
+       enforcer.task = { kind: "sabotage_building", targetBuildingId: target.id };
+       enforcer.target = { ...interactionCell };
+-      enforcer.path = findDeterministicPath(enforcer.cell, interactionCell, state.map.blockedCells);
++      enforcer.path = findDeterministicPath(
++        enforcer.cell,
++        interactionCell,
++        blockedCellsOf(state, enforcer.districtId),
++      );
+       enforcer.state = "moving";
+     } else return { accepted: false, code: "INVALID_AGENT_ACTION" };
+     rememberProcessed(state, command.commandId);
+@@ -1244,12 +1290,15 @@ export function dispatchPlaceTestStructure(
+   if (!hasOrganizationControl(state, command.issuedByPersonId, command.actingAsOrganizationId)) {
+     return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
+   }
+-  if (!inMap(state, command.payload.cell)) {
++  if (!state.world.districts.has(command.payload.districtId)) {
++    return { accepted: false, code: "DISTRICT_NOT_FOUND" };
++  }
++  if (!inMap(state, command.payload.districtId, command.payload.cell)) {
+     return { accepted: false, code: "CELL_OUT_OF_BOUNDS" };
+   }
+   if (
+-    state.map.blockedCells.has(cellKey(command.payload.cell)) ||
+-    hasStructureAt(state, command.payload.cell)
++    blockedCellsOf(state, command.payload.districtId).has(cellKey(command.payload.cell)) ||
++    hasStructureAt(state, command.payload.districtId, command.payload.cell)
+   ) {
+     return { accepted: false, code: "CELL_OCCUPIED" };
+   }
+@@ -1275,6 +1324,7 @@ export function dispatchPlaceTestStructure(
+   state.structures.set(structureId, {
+     id: structureId,
+     ownerOrganizationId: command.actingAsOrganizationId,
++    districtId: command.payload.districtId,
+     cell: { ...command.payload.cell },
+   });
+   state.processedCommandIds.add(command.commandId);
+diff --git a/packages/simulation/src/district-generation.test.ts b/packages/simulation/src/district-generation.test.ts
+index 067060b..410ec42 100644
+--- a/packages/simulation/src/district-generation.test.ts
++++ b/packages/simulation/src/district-generation.test.ts
+@@ -1,11 +1,12 @@
+ import { describe, expect, it } from "vitest";
+ 
+ import {
++  parseDistrictId,
+   parseCommandId,
+   parseOrganizationId,
+   parseParcelId,
+   parsePersonId,
+-  parseSnapshotV1,
++  parseSnapshotV2,
+   parseTenantId,
+   type ProductCommand,
+ } from "@landlord/shared";
+@@ -31,7 +32,7 @@ import { GAME_DAY_TICKS, GAME_MONTH_TICKS } from "./game-data";
+ import { createPrng } from "./prng";
+ import { canonicalizeState, runScenario, type ScheduledCommand } from "./runner";
+ import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
+-import { createInitialState, type GameState } from "./state";
++import { createInitialState, districtMapOf, type GameState } from "./state";
+ import { advanceProductSystems } from "./systems";
+ 
+ const actor = parsePersonId("person_00000001");
+@@ -87,13 +88,12 @@ describe("WP4.1 district generation", () => {
+   });
+ 
+   it("mantiene determinista el estado inicial sin consumir el PRNG de la partida", () => {
+-    const first = createInitialState(9, { districtProfileId: "vega_del_cauce" });
+-    const second = createInitialState(9, { districtProfileId: "vega_del_cauce" });
++    const first = createInitialState(9);
++    const second = createInitialState(9);
+     expect(canonicalizeState(second)).toBe(canonicalizeState(first));
+     expect(first.prng).toEqual(createPrng(9).exportState());
+-    expect(canonicalizeState(createInitialState(3))).toBe(
+-      canonicalizeState(createInitialState(3, { districtProfileId: DEFAULT_DISTRICT_PROFILE_ID })),
+-    );
++    expect(first.world.city.districtIds).toHaveLength(9);
++    expect(second.world.city.districtIds).toEqual(first.world.city.districtIds);
+   });
+ 
+   it("varía el distrito entre seeds conservando las anclas autoradas del perfil", () => {
+@@ -206,8 +206,11 @@ describe("WP4.1 district generation", () => {
+ 
+   it("completa comprar, construir, ocupar y cobrar renta sobre un distrito generado", () => {
+     const profile = resolveDistrictProfile("vega_del_cauce");
+-    const state = createInitialState(1337, { districtProfileId: profile.id });
+-    expect(state.map.blockedCells.size).toBeGreaterThan(0);
++    const state = createInitialState(1337);
++    const vegaDistrictId = [...state.world.districts].find(
++      ([, entry]) => entry.district.generation?.profileId === profile.id,
++    )![0];
++    expect(districtMapOf(state, vegaDistrictId).blockedCells.size).toBeGreaterThan(0);
+     expect(state.phase2.parcels.size).toBeGreaterThan(profile.anchorSlots.length);
+ 
+     const spawn = profile.spawnAnchors.player;
+@@ -293,7 +296,7 @@ describe("WP4.1 district generation", () => {
+         }),
+       },
+     ];
+-    const options = { districtProfileId: "ensanche_ferroviario" };
++    const options = {};
+     const first = runScenario(5, commands, 240, options);
+     const second = runScenario(5, commands, 240, options);
+ 
+@@ -309,37 +312,43 @@ describe("WP4.1 district generation", () => {
+     );
+   });
+ 
+-  it("persiste la identidad de generación y las celdas bloqueadas en la partida guardada", () => {
+-    const state = createInitialState(1337, { districtProfileId: "vega_del_cauce" });
++  it("persiste la identidad de generación de la ciudad y las celdas bloqueadas por distrito", () => {
++    const state = createInitialState(1337);
+     const snapshot = serializeSnapshot(state);
+-    const persisted = snapshot.phase2!.district;
+ 
+-    expect(persisted.generation?.profileId).toBe("vega_del_cauce");
+-    expect(persisted.generation?.generatorVersion).toBe(DISTRICT_GENERATOR_VERSION);
+-    expect(Number(persisted.generation?.seed)).toBe(1337);
+-    expect(snapshot.map.blockedCells).toHaveLength(state.map.blockedCells.size);
++    expect(snapshot.world.city.generation.profileId).toBe("ciudad_del_umbral_v1");
++    expect(snapshot.world.city.generation.generatorVersion).toBe(DISTRICT_GENERATOR_VERSION);
++    expect(Number(snapshot.world.city.generation.seed)).toBe(1337);
++    expect(snapshot.world.districts).toHaveLength(9);
++    expect(snapshot.world.gateways).toHaveLength(12);
++    for (const entry of snapshot.world.districts) {
++      const live = districtMapOf(state, parseDistrictId(entry.district.id));
++      expect(entry.map.blockedCells).toHaveLength(live.blockedCells.size);
++      expect(typeof entry.district.generation?.profileId).toBe("string");
++    }
+ 
+-    const parsed = parseSnapshotV1(JSON.parse(JSON.stringify(snapshot)));
++    const parsed = parseSnapshotV2(JSON.parse(JSON.stringify(snapshot)));
+     const restored = restoreStateFromSnapshot(parsed);
+-    expect([...restored.map.blockedCells].sort()).toEqual([...state.map.blockedCells].sort());
+-    expect(restored.phase2.district.generation?.profileId).toBe("vega_del_cauce");
++    for (const districtId of state.world.city.districtIds) {
++      expect([...districtMapOf(restored, districtId).blockedCells].sort()).toEqual(
++        [...districtMapOf(state, districtId).blockedCells].sort(),
++      );
++    }
+     /** El estado canónico ordena maps y claves: dos estados equivalentes deben coincidir en cadena. */
+     expect(canonicalizeState(restored)).toBe(canonicalizeState(state));
+     expect(serializeSnapshot(restored)).toEqual(snapshot);
+   });
+ 
+-  it("sigue cargando partidas guardadas anteriores a la generación procedural", () => {
+-    const fresh = createInitialState(4);
+-    const snapshot = serializeSnapshot(fresh);
+-    const legacy: typeof snapshot = JSON.parse(JSON.stringify(snapshot));
+-    delete legacy.phase2!.district.generation;
+-
+-    const restored = restoreStateFromSnapshot(legacy);
+-    expect(restored.phase2.district.generation).toBeUndefined();
+-    expect(restored.phase2.parcels.size).toBe(fresh.phase2.parcels.size);
+-    expect([...restored.phase2.parcels.values()]).toEqual([...fresh.phase2.parcels.values()]);
+-    expect([...restored.map.blockedCells].sort()).toEqual([...fresh.map.blockedCells].sort());
+-    expect([...restored.phase2.crews.values()]).toEqual([...fresh.phase2.crews.values()]);
++  it("rechaza un guardado v1 con un mensaje comprensible, sin migrarlo ni borrarlo", () => {
++    const state = createInitialState(4);
++    const snapshot = serializeSnapshot(state);
++    const legacy = JSON.parse(JSON.stringify(snapshot)) as Record<string, unknown>;
++    legacy.schemaVersion = 1;
++    delete legacy.world;
++
++    expect(() => restoreStateFromSnapshot(legacy)).toThrowError(/UNSUPPORTED_SNAPSHOT_VERSION/);
++    // Rechazar no es destruir: el estado en memoria sigue intacto.
++    expect(state.world.districts.size).toBe(9);
+   });
+ 
+   it("falla de forma explícita cuando un perfil no produce un distrito jugable", () => {
+diff --git a/packages/simulation/src/phase4-integration.test.ts b/packages/simulation/src/phase4-integration.test.ts
+index 6043033..e2b9009 100644
+--- a/packages/simulation/src/phase4-integration.test.ts
++++ b/packages/simulation/src/phase4-integration.test.ts
+@@ -43,7 +43,10 @@ function command(
+ describe("WP4.11-H integración transversal de Fase 4", () => {
+   it("cruza distrito, economía, contratos, reputación, inteligencia y elección con save/load", () => {
+     const state = createScaledCity(SEED, { parcelCount: PARCELS });
+-    expect(state.phase2.district.generation).toBeDefined();
++    expect(state.world.districts.size).toBe(9);
++    for (const entry of state.world.districts.values()) {
++      expect(entry.district.generation).toBeDefined();
++    }
+ 
+     advanceToMonthClose(state, 2);
+     expect(state.phase2.employment.lastSettlementTick).toBe(GAME_MONTH_TICKS * 2);
+diff --git a/packages/simulation/src/projection.test.ts b/packages/simulation/src/projection.test.ts
+index 1c77a83..530338e 100644
+--- a/packages/simulation/src/projection.test.ts
++++ b/packages/simulation/src/projection.test.ts
+@@ -1,3 +1,4 @@
++import { PLAYER_HOME_DISTRICT_ID } from "./city";
+ import { describe, expect, it } from "vitest";
+ 
+ import {
+@@ -24,7 +25,7 @@ describe("simulation view projection", () => {
+       issuedByPersonId: parsePersonId("person_00000001"),
+       actingAsOrganizationId: parseOrganizationId("org_00000001"),
+       type: "PlaceTestStructure",
+-      payload: { cell: { x: 3, y: 4 } },
++      payload: { districtId: PLAYER_HOME_DISTRICT_ID, cell: { x: 3, y: 4 } },
+     });
+     const projection = createViewProjection(state);
+     expect(projection).toMatchObject({
+diff --git a/packages/simulation/src/projection.ts b/packages/simulation/src/projection.ts
+index 1cb13a0..992c2d8 100644
+--- a/packages/simulation/src/projection.ts
++++ b/packages/simulation/src/projection.ts
+@@ -1,6 +1,11 @@
+-import { roadCellsFromSegments, type ViewProjectionV1 } from "@landlord/shared";
++import {
++  roadCellsFromSegments,
++  type DistrictId,
++  type ViewProjectionV1,
++} from "@landlord/shared";
+ import { parseTick } from "@landlord/shared";
+-import { type GameState } from "./state";
++import { districtStateOf, type GameState } from "./state";
++import { CITY_ROSTER_SLOTS, districtIdForSlot } from "./city";
+ import {
+   BUILDING_DEFINITIONS,
+   ILLEGAL_ROUTE,
+@@ -197,7 +202,21 @@ function createFinancialSummary(
+   };
+ }
+ 
+-export function createViewProjection(state: GameState, includeEconomy = false): ViewProjectionV1 {
++/**
++ * District the projection describes. V.d renders one district at a time (D-088); the default is the
++ * district that hosts the player roster, and `SetObservedDistrict` overrides it without touching
++ * `GameState`.
++ */
++export function defaultObservedDistrictId(state: GameState): DistrictId {
++  return districtIdForSlot(CITY_ROSTER_SLOTS.player.slotX, CITY_ROSTER_SLOTS.player.slotY);
++}
++
++export function createViewProjection(
++  state: GameState,
++  includeEconomy = false,
++  observedDistrictId: DistrictId = defaultObservedDistrictId(state),
++): ViewProjectionV1 {
++  const observedDistrict = districtStateOf(state, observedDistrictId);
+   const playerInventory = state.phase2.inventories.get(PLAYER_ORGANIZATION_ID)!;
+   const propertyTaxRateBps = currentPropertyTaxRateBps(state);
+   const propertyTaxExpense = projectedMonthlyPropertyTax(state, propertyTaxRateBps);
+@@ -325,11 +344,13 @@ export function createViewProjection(state: GameState, includeEconomy = false):
+       message: `${building.id} tiene ${BUILDING_DEFINITIONS[building.type].capacity - building.tenantIds.length} plaza(s) vacante(s).`,
+       targetId: building.parcelId,
+     });
+-  const roadCells = [...roadCellsFromSegments(state.map.roads.segments)].sort((left, right) => {
+-    const [leftX, leftY] = left.split(":").map(Number) as [number, number];
+-    const [rightX, rightY] = right.split(":").map(Number) as [number, number];
+-    return leftY - rightY || leftX - rightX;
+-  });
++  const roadCells = [...roadCellsFromSegments(observedDistrict.map.roads.segments)].sort(
++    (left, right) => {
++      const [leftX, leftY] = left.split(":").map(Number) as [number, number];
++      const [rightX, rightY] = right.split(":").map(Number) as [number, number];
++      return leftY - rightY || leftX - rightX;
++    },
++  );
+   let roadDigest = 0x811c9dc5;
+   for (const character of roadCells.join(",")) {
+     roadDigest = Math.imul((roadDigest ^ character.charCodeAt(0)) >>> 0, 0x01000193) >>> 0;
+@@ -368,7 +389,10 @@ export function createViewProjection(state: GameState, includeEconomy = false):
+               hour: Math.floor((state.clock.tick % GAME_DAY_TICKS) / GAME_HOUR_TICKS),
+               ticksPerMonth: GAME_MONTH_TICKS,
+             },
+-            district: { id: state.phase2.district.id, name: state.phase2.district.name },
++            district: {
++              id: observedDistrict.district.id,
++              name: observedDistrict.district.name,
++            },
+             parcels: [...state.phase2.parcels.values()]
+               .sort((left, right) => left.id.localeCompare(right.id))
+               .map((parcel) => {
+diff --git a/packages/simulation/src/road-topology.test.ts b/packages/simulation/src/road-topology.test.ts
+index ff25221..12077fc 100644
+--- a/packages/simulation/src/road-topology.test.ts
++++ b/packages/simulation/src/road-topology.test.ts
+@@ -1,3 +1,4 @@
++import { PLAYER_HOME_DISTRICT_ID } from "./city";
+ import { describe, expect, it } from "vitest";
+ 
+ import {
+@@ -11,6 +12,7 @@ import { findDeterministicPath } from "./navigation";
+ import { cellKey, generateDistrict, hasRoadAccess } from "./district-generator";
+ import { DISTRICT_PROFILE_IDS } from "./district-profiles";
+ import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
++import { districtMapOf } from "./state";
+ import { createInitialState } from "./state";
+ import { createViewProjection } from "./projection";
+ 
+@@ -103,15 +105,18 @@ describe("WP4.15-V.c.2B authoritative road topology", () => {
+     expect(roadCellClassesFromSegments([street, avenue]).get("4:3")).toBe("avenue");
+   });
+ 
+-  it("backfill legacy depende sólo de la geometría persistida y se materializa byte a byte", () => {
+-    const state = createInitialState(7, { districtProfileId: "vega_del_cauce" });
+-    const legacy = serializeSnapshot(state) as { map: { roads?: unknown } };
+-    delete legacy.map.roads;
+-    const first = serializeSnapshot(restoreStateFromSnapshot(legacy));
+-    const second = serializeSnapshot(restoreStateFromSnapshot(legacy));
+-    expect(first.map.roads).toEqual(second.map.roads);
+-    expect(serializeSnapshot(restoreStateFromSnapshot(first)).map.roads).toEqual(first.map.roads);
+-  }, 20_000);
++  it("conserva la topología vial de los nueve distritos byte a byte en el round-trip v2", () => {
++    const state = createInitialState(7);
++    const first = serializeSnapshot(restoreStateFromSnapshot(serializeSnapshot(state)));
++    const second = serializeSnapshot(restoreStateFromSnapshot(serializeSnapshot(state)));
++    expect(first.world.districts).toHaveLength(9);
++    expect(first.world.districts.map((entry) => entry.map.roads)).toEqual(
++      second.world.districts.map((entry) => entry.map.roads),
++    );
++    expect(first.world.districts.map((entry) => entry.map.roads)).toEqual(
++      serializeSnapshot(state).world.districts.map((entry) => entry.map.roads),
++    );
++  }, 40_000);
+ 
+   it("conserva roads en el round-trip Zod completo de la proyección", () => {
+     const projection = createViewProjection(createInitialState(1));
+@@ -121,15 +126,14 @@ describe("WP4.15-V.c.2B authoritative road topology", () => {
+ 
+   it("las celdas viales no están bloqueadas y siguen siendo transitables para el A* vigente", () => {
+     const state = createInitialState(1);
+-    const road = [...roadCellsFromSegments(state.map.roads.segments)][0]!;
++    const map = districtMapOf(state, PLAYER_HOME_DISTRICT_ID);
++    const road = [...roadCellsFromSegments(map.roads.segments)][0]!;
+     const [x, y] = road.split(":").map(Number) as [number, number];
+-    expect(state.map.blockedCells.has(road)).toBe(false);
++    expect(map.blockedCells.has(road)).toBe(false);
+     const target = [
+       { x: x + 1, y },
+       { x, y: y + 1 },
+-    ].find((cell) => !state.map.blockedCells.has(`${cell.x}:${cell.y}`))!;
+-    expect(findDeterministicPath({ x, y }, target, state.map.blockedCells, 64, 64)).toEqual([
+-      target,
+-    ]);
++    ].find((cell) => !map.blockedCells.has(`${cell.x}:${cell.y}`))!;
++    expect(findDeterministicPath({ x, y }, target, map.blockedCells, 64, 64)).toEqual([target]);
+   });
+ });
+diff --git a/packages/simulation/src/runner.test.ts b/packages/simulation/src/runner.test.ts
+index ac3c23a..136c242 100644
+--- a/packages/simulation/src/runner.test.ts
++++ b/packages/simulation/src/runner.test.ts
+@@ -1,3 +1,4 @@
++import { PLAYER_HOME_DISTRICT_ID } from "./city";
+ import { describe, expect, it } from "vitest";
+ 
+ import { parseCommandId, parseOrganizationId, parsePersonId } from "@landlord/shared";
+@@ -11,7 +12,7 @@ function scheduled(commandId: string, atTick: number, x: number): ScheduledComma
+       issuedByPersonId: parsePersonId("person_00000001"),
+       actingAsOrganizationId: parseOrganizationId("org_00000001"),
+       type: "PlaceTestStructure",
+-      payload: { cell: { x, y: 12 } },
++      payload: { districtId: PLAYER_HOME_DISTRICT_ID, cell: { x, y: 12 } },
+     },
+   };
+ }
+diff --git a/packages/simulation/src/runner.ts b/packages/simulation/src/runner.ts
+index 0e0cdd6..29b5318 100644
+--- a/packages/simulation/src/runner.ts
++++ b/packages/simulation/src/runner.ts
+@@ -43,11 +43,42 @@ export function canonicalizeState(state: GameState): string {
+     clock: { tick: state.clock.tick },
+     prng: state.prng,
+     idCounters: state.idCounters,
+-    map: {
+-      width: state.map.width,
+-      height: state.map.height,
+-      blockedCells: [...state.map.blockedCells].sort(),
+-      roads: state.map.roads,
++    /**
++     * La ciudad entra en la superficie canónica en el orden de slots del perfil, no en el de
++     * inserción del Map (D-089). Cambiar el distrito observado no toca este bloque: es una petición
++     * técnica, no estado del mundo.
++     */
++    world: {
++      city: {
++        ...state.world.city,
++        districtIds: [...state.world.city.districtIds].sort((left, right) =>
++          left.localeCompare(right),
++        ),
++        connections: [...state.world.city.connections].sort((left, right) =>
++          left.id.localeCompare(right.id),
++        ),
++      },
++      gateways: [...state.world.gateways].sort((left, right) => left.id.localeCompare(right.id)),
++      districts: [...state.world.city.districtIds]
++        .sort((left, right) => left.localeCompare(right))
++        .map((districtId) => {
++          const entry = state.world.districts.get(districtId)!;
++          return {
++            district: entry.district,
++            map: {
++              width: entry.map.width,
++              height: entry.map.height,
++              blockedCells: [...entry.map.blockedCells].sort(),
++              roads: entry.map.roads,
++            },
++            blocks: [...entry.blocks.values()].sort((left, right) =>
++              left.id.localeCompare(right.id),
++            ),
++            publicSpaces: [...entry.publicSpaces.values()].sort((left, right) =>
++              left.id.localeCompare(right.id),
++            ),
++          };
++        }),
+     },
+     playerIdentities: orderedMapValues(state.playerIdentities),
+     persons: orderedMapValues(state.persons),
+@@ -67,7 +98,6 @@ export function canonicalizeState(state: GameState): string {
+     ),
+     phase2: {
+       idCounters: state.phase2.idCounters,
+-      district: state.phase2.district,
+       parcels: orderedMapValues(state.phase2.parcels),
+       balances: orderedEntries(state.phase2.balances).map(([organizationId, balance]) => ({
+         organizationId,
+diff --git a/packages/simulation/src/snapshot-integrity.test.ts b/packages/simulation/src/snapshot-integrity.test.ts
+index f98bc6c..76bc34b 100644
+--- a/packages/simulation/src/snapshot-integrity.test.ts
++++ b/packages/simulation/src/snapshot-integrity.test.ts
+@@ -1,13 +1,13 @@
+ import { describe, expect, it } from "vitest";
+ 
+-import { parseMoney, parseOrganizationId, parseTick, type SnapshotV1 } from "@landlord/shared";
++import { parseMoney, parseOrganizationId, parseTick, type SnapshotV2 } from "@landlord/shared";
+ import { RIVAL_ORGANIZATION_ID, PLAYER_ORGANIZATION_ID } from "./game-data";
+ import { recordFactionEncounter, rememberFactionAction } from "./factions";
+ import { recordReputationFact } from "./reputation";
+ import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
+ import { createInitialState } from "./state";
+ 
+-function snapshotWithSubsystems(): SnapshotV1 {
++function snapshotWithSubsystems(): SnapshotV2 {
+   const state = createInitialState(5);
+   state.phase2.contracts.contracts.contract_00000001 = {
+     id: "contract_00000001",
+@@ -57,11 +57,11 @@ function snapshotWithSubsystems(): SnapshotV1 {
+   return serializeSnapshot(state);
+ }
+ 
+-function clone(snapshot: SnapshotV1): SnapshotV1 {
+-  return JSON.parse(JSON.stringify(snapshot)) as SnapshotV1;
++function clone(snapshot: SnapshotV2): SnapshotV2 {
++  return JSON.parse(JSON.stringify(snapshot)) as SnapshotV2;
+ }
+ 
+-function expectRejected(mutate: (snapshot: SnapshotV1) => void, path: RegExp): void {
++function expectRejected(mutate: (snapshot: SnapshotV2) => void, path: RegExp): void {
+   const snapshot = clone(snapshotWithSubsystems());
+   mutate(snapshot);
+   expect(() => restoreStateFromSnapshot(snapshot)).toThrow(path);
+diff --git a/packages/simulation/src/snapshot.test.ts b/packages/simulation/src/snapshot.test.ts
+index 2f648b4..e5f534b 100644
+--- a/packages/simulation/src/snapshot.test.ts
++++ b/packages/simulation/src/snapshot.test.ts
+@@ -1,3 +1,4 @@
++import { PLAYER_HOME_DISTRICT_ID } from "./city";
+ import { describe, expect, it } from "vitest";
+ 
+ import { parseCommandId, parseOrganizationId, parsePersonId, parseTick } from "@landlord/shared";
+@@ -12,7 +13,7 @@ function command(id: string, x: number) {
+     issuedByPersonId: parsePersonId("person_00000001"),
+     actingAsOrganizationId: parseOrganizationId("org_00000001"),
+     type: "PlaceTestStructure" as const,
+-    payload: { cell: { x, y: 4 } },
++    payload: { districtId: PLAYER_HOME_DISTRICT_ID, cell: { x, y: 4 } },
+   };
+ }
+ 
+diff --git a/packages/simulation/src/snapshot.ts b/packages/simulation/src/snapshot.ts
+index 5b32993..1697070 100644
+--- a/packages/simulation/src/snapshot.ts
++++ b/packages/simulation/src/snapshot.ts
+@@ -1,15 +1,21 @@
+ import {
+   parseAgentId,
++  parseBlockId,
++  parseCityId,
++  parseCityProfileId,
+   parseCrewId,
+   parseIncidentId,
+   parseBuildingId,
+   parseCommandId,
+   parseConstructionSiteId,
++  parseDistrictConnectionId,
++  parseDistrictGatewayId,
+   parseDistrictId,
+   parseFacilityId,
+   parseOrganizationId,
+   parseParcelId,
+   parsePolicyId,
++  parsePublicSpaceId,
+   parseMoney,
+   parsePersonId,
+   parsePlayerIdentityId,
+@@ -17,14 +23,18 @@ import {
+   parseTenantId,
+   parseTransactionId,
+   parseLoanId,
+-  parseSnapshotV1,
+-  type SnapshotV1,
++  parseSnapshotV2,
++  type SnapshotV2,
+ } from "@landlord/shared";
+ import type { ProductCommand } from "@landlord/shared";
+ import { parseSeed, parseTick } from "@landlord/shared";
+ import { PRNG_ALGORITHM } from "./prng";
+-import { createInitialState, type GameState } from "./state";
+-import { deriveRoadTopology } from "./district-generator";
++import {
++  createInitialState,
++  type DistrictState,
++  type GameState,
++  type WorldState,
++} from "./state";
+ import {
+   BUILDING_DEFINITIONS,
+   MUNICIPAL_PARTY_CATALOG,
+@@ -58,30 +68,59 @@ function cloneCommand(command: ProductCommand): ProductCommand {
+   } as ProductCommand;
+ }
+ 
+-export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSION): SnapshotV1 {
++export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSION): SnapshotV2 {
+   return {
+-    schemaVersion: 1 as SnapshotV1["schemaVersion"],
++    schemaVersion: 2 as SnapshotV2["schemaVersion"],
+     engineVersion,
+     seed: state.seed,
+     tick: state.clock.tick,
+     prng: {
+       algorithm: PRNG_ALGORITHM,
+-      state: [...state.prng.state] as SnapshotV1["prng"]["state"],
++      state: [...state.prng.state] as SnapshotV2["prng"]["state"],
+     },
+     idCounters: { ...state.idCounters },
+-    map: {
+-      width: 64,
+-      height: 64,
+-      blockedCells: [...state.map.blockedCells].map(cellFromKey).sort(compareCell),
+-      roads: {
+-        topologyVersion: state.map.roads.topologyVersion,
+-        derivationVersion: state.map.roads.derivationVersion,
+-        segments: state.map.roads.segments.map((segment) => ({
+-          ...segment,
+-          from: { ...segment.from },
+-          to: { ...segment.to },
+-        })),
++    world: {
++      city: {
++        ...state.world.city,
++        districtIds: [...state.world.city.districtIds],
++        connections: state.world.city.connections.map((connection) => ({ ...connection })),
++        generation: { ...state.world.city.generation },
+       },
++      gateways: state.world.gateways.map((gateway) => ({
++        ...gateway,
++        districtIds: [...gateway.districtIds],
++        sides: [...gateway.sides],
++        cells: gateway.cells.map((cell) => ({ ...cell })),
++        roadSegmentIds: [...gateway.roadSegmentIds],
++      })),
++      // Canonical order is the city's own slot order, never Map insertion order (D-089).
++      districts: state.world.city.districtIds.map((districtId) => {
++        const entry = state.world.districts.get(districtId)!;
++        return {
++          district: {
++            ...entry.district,
++            ...(entry.district.generation
++              ? { generation: { ...entry.district.generation } }
++              : {}),
++          },
++          map: {
++            width: entry.map.width,
++            height: entry.map.height,
++            blockedCells: [...entry.map.blockedCells].map(cellFromKey).sort(compareCell),
++            roads: {
++              topologyVersion: entry.map.roads.topologyVersion,
++              derivationVersion: entry.map.roads.derivationVersion,
++              segments: entry.map.roads.segments.map((segment) => ({
++                ...segment,
++                from: { ...segment.from },
++                to: { ...segment.to },
++              })),
++            },
++          },
++          blocks: [...entry.blocks.values()].sort(compareId),
++          publicSpaces: [...entry.publicSpaces.values()].sort(compareId),
++        };
++      }),
+     },
+     playerIdentities: [...state.playerIdentities.values()].sort(compareId),
+     persons: [...state.persons.values()].sort(compareId),
+@@ -94,6 +133,7 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
+     agents: [...state.agents.values()]
+       .map((agent) => ({
+         ...agent,
++        districtId: agent.districtId,
+         cell: { ...agent.cell },
+         target: { ...(agent.target ?? agent.cell) },
+         path: (agent.path ?? []).map((cell) => ({ ...cell })),
+@@ -110,12 +150,6 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
+       .sort((left, right) => left.acceptedOrder - right.acceptedOrder),
+     phase2: {
+       idCounters: { ...state.phase2.idCounters },
+-      district: {
+-        ...state.phase2.district,
+-        ...(state.phase2.district.generation
+-          ? { generation: { ...state.phase2.district.generation } }
+-          : {}),
+-      },
+       parcels: [...state.phase2.parcels.values()]
+         .map((parcel) => ({ ...parcel, cell: { ...parcel.cell } }))
+         .sort(compareId),
+@@ -320,38 +354,83 @@ function assertMunicipalPoliticsReferences(state: GameState): void {
+ }
+ 
+ export function restoreStateFromSnapshot(value: unknown): GameState {
+-  const snapshot = parseSnapshotV1(value);
+-  const rawPhase2 =
+-    typeof value === "object" &&
+-    value !== null &&
+-    "phase2" in value &&
+-    typeof value.phase2 === "object" &&
+-    value.phase2 !== null
+-      ? (value.phase2 as { constructionSites?: Array<{ id?: string; kind?: string }> })
+-      : undefined;
+-  const legacyWorkOrders = new Set(
+-    (rawPhase2?.constructionSites ?? []).filter((site) => !site.kind).map((site) => site.id),
+-  );
+-  // El distrito guardado manda: los valores por defecto (plantillas, saldos iniciales) deben
++  const snapshot = parseSnapshotV2(value);
++  // La ciudad guardada manda: los valores por defecto (plantillas, saldos iniciales) deben
+   // derivarse del mismo perfil que generó la partida, no del perfil por defecto.
+   const defaultState = createInitialState(snapshot.seed, {
+-    districtProfileId: snapshot.phase2?.district.generation?.profileId,
++    cityProfileId: snapshot.world.city.generation.profileId,
+   });
+   const defaults = defaultState.phase2;
+-  const restoredBlockedCells = new Set(
+-    snapshot.map.blockedCells.map((cell) => `${cell.x}:${cell.y}`),
+-  );
+-  // El backfill depende sólo de la geometría persistida (parcelas + obstáculos), nunca del perfil actual.
+-  const restoredRoads =
+-    snapshot.map.roads ??
+-    (snapshot.phase2
+-      ? deriveRoadTopology({
+-          parcels: snapshot.phase2.parcels,
+-          blockedCells: restoredBlockedCells,
+-          width: snapshot.map.width,
+-          height: snapshot.map.height,
+-        })
+-      : defaultState.map.roads);
++  const world: WorldState = {
++    city: {
++      ...snapshot.world.city,
++      id: parseCityId(snapshot.world.city.id),
++      municipalityOrganizationId: parseOrganizationId(snapshot.world.city.municipalityOrganizationId),
++      districtIds: snapshot.world.city.districtIds.map((id) => parseDistrictId(id)),
++      connections: snapshot.world.city.connections.map((connection) => ({
++        ...connection,
++        id: parseDistrictConnectionId(connection.id),
++        gatewayId: parseDistrictGatewayId(connection.gatewayId),
++        fromDistrictId: parseDistrictId(connection.fromDistrictId),
++        toDistrictId: parseDistrictId(connection.toDistrictId),
++      })),
++      generation: {
++        profileId: parseCityProfileId(snapshot.world.city.generation.profileId),
++        generatorVersion: snapshot.world.city.generation.generatorVersion,
++        seed: parseSeed(snapshot.world.city.generation.seed),
++      },
++    },
++    gateways: snapshot.world.gateways.map((gateway) => ({
++      ...gateway,
++      id: parseDistrictGatewayId(gateway.id),
++      districtIds: gateway.districtIds.map((id) => parseDistrictId(id)),
++      cells: gateway.cells.map((cell) => ({ ...cell })),
++      roadSegmentIds: [...gateway.roadSegmentIds],
++    })),
++    districts: new Map(
++      snapshot.world.districts.map((entry) => {
++        const districtId = parseDistrictId(entry.district.id);
++        return [
++          districtId,
++          {
++            district: {
++              id: districtId,
++              name: entry.district.name,
++              width: entry.district.width,
++              height: entry.district.height,
++              ...(entry.district.generation
++                ? {
++                    generation: {
++                      profileId: entry.district.generation.profileId,
++                      generatorVersion: entry.district.generation.generatorVersion,
++                      seed: parseSeed(entry.district.generation.seed),
++                    },
++                  }
++                : {}),
++            },
++            map: {
++              width: entry.map.width,
++              height: entry.map.height,
++              blockedCells: new Set(entry.map.blockedCells.map((cell) => `${cell.x}:${cell.y}`)),
++              roads: {
++                topologyVersion: entry.map.roads.topologyVersion,
++                derivationVersion: entry.map.roads.derivationVersion,
++                segments: entry.map.roads.segments.map((segment) => ({
++                  ...segment,
++                  from: { ...segment.from },
++                  to: { ...segment.to },
++                })),
++              },
++            },
++            blocks: new Map(entry.blocks.map((block) => [parseBlockId(block.id), block])),
++            publicSpaces: new Map(
++              entry.publicSpaces.map((space) => [parsePublicSpaceId(space.id), space]),
++            ),
++          } satisfies DistrictState,
++        ] as const;
++      }),
++    ),
++  };
+   const state: GameState = {
+     seed: snapshot.seed,
+     clock: { tick: parseTick(snapshot.tick), runState: "paused", speed: 1 },
+@@ -360,20 +439,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
+       state: [...snapshot.prng.state] as GameState["prng"]["state"],
+     },
+     idCounters: { ...snapshot.idCounters },
+-    map: {
+-      width: 64,
+-      height: 64,
+-      blockedCells: restoredBlockedCells,
+-      roads: {
+-        topologyVersion: restoredRoads.topologyVersion,
+-        derivationVersion: restoredRoads.derivationVersion,
+-        segments: restoredRoads.segments.map((segment) => ({
+-          ...segment,
+-          from: { ...segment.from },
+-          to: { ...segment.to },
+-        })),
+-      },
+-    },
++    world,
+     playerIdentities: new Map(
+       snapshot.playerIdentities.map((identity) => [
+         parsePlayerIdentityId(identity.id),
+@@ -417,6 +483,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
+             parseAgentId(agent.id),
+             {
+               id: parseAgentId(agent.id),
++              districtId: parseDistrictId(agent.districtId),
+               cell: { ...agent.cell },
+               target: { ...agent.target },
+               path: agent.path.map((cell) => ({ ...cell })),
+@@ -441,6 +508,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
+         {
+           id: parseStructureId(structure.id),
+           ownerOrganizationId: parseOrganizationId(structure.ownerOrganizationId),
++          districtId: parseDistrictId(structure.districtId),
+           cell: { ...structure.cell },
+         },
+       ]),
+@@ -463,21 +531,6 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
+             incident: snapshot.phase2.idCounters.incident ?? 0,
+             loan: snapshot.phase2.idCounters.loan ?? 0,
+           },
+-          district: {
+-            id: parseDistrictId(snapshot.phase2.district.id),
+-            name: snapshot.phase2.district.name,
+-            width: 64,
+-            height: 64,
+-            ...(snapshot.phase2.district.generation
+-              ? {
+-                  generation: {
+-                    profileId: snapshot.phase2.district.generation.profileId,
+-                    generatorVersion: snapshot.phase2.district.generation.generatorVersion,
+-                    seed: parseSeed(snapshot.phase2.district.generation.seed),
+-                  },
+-                }
+-              : {}),
+-          },
+           parcels: new Map(
+             snapshot.phase2.parcels.map((parcel) => [
+               parseParcelId(parcel.id),
+@@ -572,8 +625,8 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
+                   site.targetBuildingId ?? site.repairBuildingId ?? site.upgradeBuildingId ?? null,
+                 assignedCrewIds: site.assignedCrewIds ?? [],
+                 assignedTechnicianId: site.assignedTechnicianId ?? null,
+-                progress: (site.progress ?? 0) * (legacyWorkOrders.has(site.id) ? 2 : 1),
+-                workRequired: (site.workRequired ?? 0) * (legacyWorkOrders.has(site.id) ? 2 : 1),
++                progress: site.progress ?? 0,
++                workRequired: site.workRequired ?? 0,
+               },
+             ]),
+           ),
+diff --git a/packages/simulation/src/soak.test.ts b/packages/simulation/src/soak.test.ts
+index a56e08a..dbb08a7 100644
+--- a/packages/simulation/src/soak.test.ts
++++ b/packages/simulation/src/soak.test.ts
+@@ -1,3 +1,4 @@
++import { PLAYER_HOME_DISTRICT_ID } from "./city";
+ import { describe, expect, it } from "vitest";
+ 
+ import { parseCommandId, parseOrganizationId, parsePersonId } from "@landlord/shared";
+@@ -39,7 +40,7 @@ describe("Gate 1 soak harness", () => {
+         issuedByPersonId: parsePersonId("person_00000001"),
+         actingAsOrganizationId: parseOrganizationId("org_00000001"),
+         type: "PlaceTestStructure",
+-        payload: { cell: { x: 10, y: 10 } },
++        payload: { districtId: PLAYER_HOME_DISTRICT_ID, cell: { x: 10, y: 10 } },
+       });
+       const restored = restoreStateFromSnapshot(serializeSnapshot(state));
+       expect(serializeSnapshot(restored)).toEqual(serializeSnapshot(state));
+diff --git a/packages/simulation/src/state.test.ts b/packages/simulation/src/state.test.ts
+index 6db0145..e1fe32b 100644
+--- a/packages/simulation/src/state.test.ts
++++ b/packages/simulation/src/state.test.ts
+@@ -1,7 +1,8 @@
+ import { describe, expect, it } from "vitest";
+ 
+ import { parseOrganizationId, parsePersonId } from "@landlord/shared";
+-import { createInitialState, hasOrganizationControl } from "./state";
++import { createInitialState, districtMapOf, hasOrganizationControl } from "./state";
++import { PLAYER_HOME_DISTRICT_ID } from "./city";
+ 
+ describe("minimum simulation state", () => {
+   it("creates one person, two companies, one bank, one insurer and one control grant", () => {
+@@ -25,7 +26,12 @@ describe("minimum simulation state", () => {
+     expect(state.idCounters).toEqual({ structure: 0, agent: 16, event: 0, commandOrder: 0 });
+     expect(state.phase2.crews.size).toBe(4);
+     expect(state.agents.size).toBe(16);
+-    expect(state.map).toMatchObject({ width: 64, height: 64 });
++    expect(state.world.districts.size).toBe(9);
++    expect(state.world.gateways).toHaveLength(12);
++    expect(districtMapOf(state, PLAYER_HOME_DISTRICT_ID)).toMatchObject({
++      width: 64,
++      height: 64,
++    });
+   });
+ 
+   it("rejects an invalid seed before creating state", () => {
+diff --git a/packages/simulation/src/state.ts b/packages/simulation/src/state.ts
+index a586e48..d7c66d3 100644
+--- a/packages/simulation/src/state.ts
++++ b/packages/simulation/src/state.ts
+@@ -41,6 +41,14 @@ import {
+   type InsolvencyState,
+   type MacroEventsState,
+   type RoadTopologyV1,
++  type Block,
++  type BlockId,
++  type City,
++  type CityProfileId,
++  type DistrictGateway,
++  type DistrictId,
++  type PublicSpace,
++  type PublicSpaceId,
+ } from "@landlord/shared";
+ import type { Money } from "@landlord/shared";
+ import type {
+@@ -54,7 +62,7 @@ import type { Seed } from "@landlord/shared";
+ import { SimulationClock, type ClockState } from "./clock";
+ import { createPrng, type PrngState } from "./prng";
+ import { initialAutomationState } from "./automation";
+-import { generateDistrict } from "./district-generator";
++import { createCity, CITY_ROSTER_SLOTS, districtIdForSlot, type GeneratedDistrictState } from "./city";
+ import { rosterLayout } from "./district-profiles";
+ import { initialEmploymentState } from "./employment";
+ import { initialMunicipalBudgetState } from "./municipal-budget";
+@@ -86,6 +94,47 @@ export type EntityCounters = {
+   commandOrder: number;
+ };
+ 
++export type DistrictMap = {
++  width: 64;
++  height: 64;
++  blockedCells: Set<string>;
++  roads: RoadTopologyV1;
++};
++
++/**
++ * Authoritative spatial state of one district (D-088). Parcels, buildings, agents and organizations
++ * stay in the global maps; everything that is a *place* lives here. `blocks` and `publicSpaces` are
++ * declared now and filled by V.d.1 and V.d.3, so the shape does not change twice.
++ */
++export type DistrictState = {
++  district: District;
++  map: DistrictMap;
++  blocks: Map<BlockId, Block>;
++  publicSpaces: Map<PublicSpaceId, PublicSpace>;
++};
++
++export type WorldState = {
++  city: City;
++  gateways: DistrictGateway[];
++  districts: Map<DistrictId, DistrictState>;
++};
++
++export function districtStateOf(state: GameState, districtId: DistrictId): DistrictState {
++  const district = state.world.districts.get(districtId);
++  if (!district) {
++    throw new RangeError(`Unknown district: ${districtId}`);
++  }
++  return district;
++}
++
++export function districtMapOf(state: GameState, districtId: DistrictId): DistrictMap {
++  return districtStateOf(state, districtId).map;
++}
++
++export function blockedCellsOf(state: GameState, districtId: DistrictId): ReadonlySet<string> {
++  return districtMapOf(state, districtId).blockedCells;
++}
++
+ export type Phase2State = {
+   idCounters: {
+     building: number;
+@@ -95,7 +144,6 @@ export type Phase2State = {
+     incident: number;
+     loan: number;
+   };
+-  district: District;
+   parcels: Map<import("@landlord/shared").ParcelId, Parcel>;
+   balances: Map<OrganizationId, Money>;
+   inventories: Map<OrganizationId, ResourceInventory>;
+@@ -145,12 +193,7 @@ export type GameState = {
+   clock: ClockState;
+   prng: PrngState;
+   idCounters: EntityCounters;
+-  map: {
+-    width: 64;
+-    height: 64;
+-    blockedCells: Set<string>;
+-    roads: RoadTopologyV1;
+-  };
++  world: WorldState;
+   playerIdentities: Map<PlayerIdentityId, PlayerIdentity>;
+   persons: Map<PersonId, Person>;
+   organizations: Map<OrganizationId, Organization>;
+@@ -178,23 +221,40 @@ export function hasOrganizationControl(
+ }
+ 
+ export type InitialStateOptions = {
+-  /** Perfil de distrito data-driven; por defecto `barrio_del_umbral`. */
+-  districtProfileId?: string | undefined;
++  /** Perfil de ciudad data-driven; por defecto `ciudad_del_umbral_v1`. */
++  cityProfileId?: CityProfileId | undefined;
+ };
+ 
+ export function createInitialState(seed = 1, options: InitialStateOptions = {}): GameState {
+   const normalizedSeed = parseSeed(seed);
+-  const generated = generateDistrict({
+-    seed: normalizedSeed,
+-    profileId: options.districtProfileId,
+-  });
++  const city = createCity({ seed: normalizedSeed, profileId: options.cityProfileId });
+   const personId = parsePersonId("person_00000001");
+   const playerIdentityId = parsePlayerIdentityId("player_00000001");
+   const controlledOrganizationId = parseOrganizationId("org_00000001");
+   const independentOrganizationId = parseOrganizationId("org_00000002");
+   const clock = new SimulationClock();
+-  const district: District = generated.district;
+-  const parcels = new Map(generated.parcels.map((parcel) => [parcel.id, parcel]));
++  const districts = new Map<DistrictId, DistrictState>(
++    [...city.districts].map(([districtId, generated]: [DistrictId, GeneratedDistrictState]) => [
++      districtId,
++      {
++        district: generated.district,
++        map: {
++          width: generated.district.width,
++          height: generated.district.height,
++          blockedCells: new Set(generated.blockedCells),
++          roads: generated.roads,
++        },
++        blocks: new Map(),
++        publicSpaces: new Map(),
++      } satisfies DistrictState,
++    ]),
++  );
++  const parcels = new Map(
++    [...city.districts].flatMap(([districtId, generated]) =>
++      generated.parcels.map((parcel) => [parcel.id, parcel] as const),
++    ),
++  );
++  void districtIdForSlot;
+   const tenants = new Map(PROTOTYPE_TENANTS.map((tenant) => [tenant.id, { ...tenant }]));
+   const emptyInventory = (): ResourceInventory => ({
+     cement: 0,
+@@ -214,9 +274,21 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
+   const roster = new Map<AgentId, Agent>();
+   const crews = new Map<import("@landlord/shared").CrewId, Crew>();
+   let rosterIndex = 0;
+-  for (const [organizationId, spawnAnchor] of [
+-    [controlledOrganizationId, generated.spawnAnchors.player],
+-    [independentOrganizationId, generated.spawnAnchors.rival],
++  const playerDistrictId = districtIdForSlot(
++    CITY_ROSTER_SLOTS.player.slotX,
++    CITY_ROSTER_SLOTS.player.slotY,
++  );
++  const rivalDistrictId = districtIdForSlot(
++    CITY_ROSTER_SLOTS.rival.slotX,
++    CITY_ROSTER_SLOTS.rival.slotY,
++  );
++  for (const [organizationId, rosterDistrictId, spawnAnchor] of [
++    [
++      controlledOrganizationId,
++      playerDistrictId,
++      city.districts.get(playerDistrictId)!.spawnAnchors.player,
++    ],
++    [independentOrganizationId, rivalDistrictId, city.districts.get(rivalDistrictId)!.spawnAnchors.rival],
+   ] as const) {
+     const membersByCrewIndex = new Map<number, AgentId[]>();
+     for (const slot of rosterLayout(spawnAnchor)) {
+@@ -229,6 +301,7 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
+         specialty: slot.specialty,
+         health: 100,
+         state: "idle",
++        districtId: rosterDistrictId,
+         cell: { ...slot.cell },
+         target: { ...slot.cell },
+         path: [],
+@@ -263,11 +336,10 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
+       event: 0,
+       commandOrder: 0,
+     },
+-    map: {
+-      width: district.width,
+-      height: district.height,
+-      blockedCells: new Set(generated.blockedCells),
+-      roads: generated.roads,
++    world: {
++      city: city.city,
++      gateways: city.gateways,
++      districts,
+     },
+     playerIdentities: new Map([[playerIdentityId, { id: playerIdentityId, personId }]]),
+     persons: new Map([
+@@ -305,7 +377,6 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
+         incident: 0,
+         loan: 0,
+       },
+-      district,
+       parcels,
+       balances: new Map([
+         [PLAYER_ORGANIZATION_ID, parseMoney(12000)],
+diff --git a/packages/simulation/src/system-cost.ts b/packages/simulation/src/system-cost.ts
+index b1093c1..845062d 100644
+--- a/packages/simulation/src/system-cost.ts
++++ b/packages/simulation/src/system-cost.ts
+@@ -37,6 +37,7 @@ import {
+   type TenantProfile,
+   type Zoning,
+ } from "@landlord/shared";
++import type { DistrictId } from "@landlord/shared";
+ import { cellKey, deriveRoadTopology } from "./district-generator";
+ import { DEFAULT_DISTRICT_PROFILE_ID } from "./district-profiles";
+ import {
+@@ -51,7 +52,14 @@ import {
+   calculateInsuranceOffer,
+ } from "./game-data";
+ import { createPrng } from "./prng";
+-import { createInitialState, type GameState } from "./state";
++import {
++  createInitialState,
++  districtMapOf,
++  districtStateOf,
++  type DistrictMap,
++  type GameState,
++} from "./state";
++import { CITY_ROSTER_SLOTS, districtIdForSlot } from "./city";
+ import { activateMacroEvent, MACRO_EVENT_TEMPLATES } from "./macro-events";
+ import { PRODUCT_SYSTEMS, advanceProductSystems } from "./systems";
+ 
+@@ -119,6 +127,9 @@ const VACANCY_PERCENT = 15;
+ const POPULATION_PER_PARCELS = 8;
+ const TECHNICIAN_PER_BUILDINGS = 20;
+ const CREW_WALK_DISTANCE = 12;
++/** Bloque de ordinales propio del harness: nunca colisiona con los de los nueve distritos. */
++const HARNESS_PARCEL_ORDINAL = 9_000_000;
++
+ const HARNESS_BALANCE = 5_000_000;
+ const HARNESS_INVENTORY_CAPACITY = 1_000_000;
+ const SITE_WORK_REQUIRED = 100_000;
+@@ -146,6 +157,7 @@ export type ScaledCityCounts = {
+   incidents: number;
+   insuranceContracts: number;
+   blockedCells: number;
++  districts: number;
+ };
+ 
+ export function describeScaledCity(state: GameState): ScaledCityCounts {
+@@ -160,13 +172,18 @@ export function describeScaledCity(state: GameState): ScaledCityCounts {
+     loans: state.phase2.loans.size,
+     incidents: state.phase2.incidents.size,
+     insuranceContracts: Object.keys(state.phase2.insurance.contractsByBuildingId).length,
+-    blockedCells: state.map.blockedCells.size,
++    blockedCells: [...state.world.districts.values()].reduce(
++      (total, district) => total + district.map.blockedCells.size,
++      0,
++    ),
++    districts: state.world.districts.size,
+   };
+ }
+ 
+ export type ScaledCityOptions = {
+   parcelCount: number;
+-  districtProfileId?: string | undefined;
++  /** Distrito que recibe la carga sintética; por defecto el del roster del jugador. */
++  districtId?: DistrictId | undefined;
+   /** Incidentes activos inyectados. 0 mantiene la ciudad en régimen estable, sin cascadas. */
+   incidentCount?: number | undefined;
+ };
+@@ -174,15 +191,15 @@ export type ScaledCityOptions = {
+ function freeNeighbour(
+   cell: GridCell,
+   taken: ReadonlySet<string>,
+-  state: GameState,
++  map: DistrictMap,
+ ): GridCell | null {
+   for (const offset of STANDING_OFFSETS) {
+     const candidate = { x: cell.x + offset.x, y: cell.y + offset.y };
+     if (
+       candidate.x < 0 ||
+       candidate.y < 0 ||
+-      candidate.x >= state.map.width ||
+-      candidate.y >= state.map.height
++      candidate.x >= map.width ||
++      candidate.y >= map.height
+     )
+       continue;
+     if (taken.has(cellKey(candidate))) continue;
+@@ -197,6 +214,7 @@ function createAgent(
+   input: {
+     organizationId: OrganizationId;
+     specialty: AgentSpecialty;
++    districtId: DistrictId;
+     cell: GridCell;
+     target: GridCell;
+     task: NonNullable<Agent["task"]> | null;
+@@ -213,6 +231,7 @@ function createAgent(
+     organizationId: input.organizationId,
+     specialty: input.specialty,
+     health: 100,
++    districtId: input.districtId,
+     state: input.working ? "working" : "idle",
+     cell: { ...input.cell },
+     target: { ...input.target },
+@@ -228,7 +247,10 @@ function createAgent(
+ 
+ export function createScaledCity(seedValue: number, options: ScaledCityOptions): GameState {
+   const seed = parseSeed(seedValue);
+-  const state = createInitialState(seed, { districtProfileId: options.districtProfileId });
++  const state = createInitialState(seed);
++  const targetDistrictId =
++    options.districtId ?? districtIdForSlot(CITY_ROSTER_SLOTS.player.slotX, CITY_ROSTER_SLOTS.player.slotY);
++  const targetMap = districtMapOf(state, targetDistrictId);
+   // Flujo propio del harness: `state.prng` queda intacto para que la partida siga siendo la misma.
+   const prng = createPrng(seed);
+   const incidentCount = options.incidentCount ?? 0;
+@@ -241,13 +263,13 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
+   state.phase2.balances.set(BANK_ORGANIZATION_ID, parseMoney(HARNESS_BALANCE * 10));
+   state.phase2.balances.set(INSURER_ORGANIZATION_ID, parseMoney(HARNESS_BALANCE * 10));
+ 
+-  const taken = new Set<string>(state.map.blockedCells);
++  const taken = new Set<string>(targetMap.blockedCells);
+   for (const parcel of state.phase2.parcels.values()) taken.add(cellKey(parcel.cell));
+   for (const agent of state.agents.values()) taken.add(cellKey(agent.cell));
+ 
+   const cells: GridCell[] = [];
+-  for (let y = 0; y < state.map.height && cells.length < options.parcelCount; y += 2) {
+-    for (let x = 0; x < state.map.width && cells.length < options.parcelCount; x += 2) {
++  for (let y = 0; y < targetMap.height && cells.length < options.parcelCount; y += 2) {
++    for (let x = 0; x < targetMap.width && cells.length < options.parcelCount; x += 2) {
+       const key = cellKey({ x, y });
+       if (taken.has(key)) continue;
+       taken.add(key);
+@@ -266,7 +288,7 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
+   const createdBuildings: Building[] = [];
+ 
+   for (const cell of cells) {
+-    const parcelId = parseParcelId(`parcel_${pad(state.phase2.parcels.size + 1)}`);
++    const parcelId = parseParcelId(`parcel_${pad(HARNESS_PARCEL_ORDINAL + createdParcels.length + 1)}`);
+     const zoning = ZONING_BAG[prng.nextInt(0, ZONING_BAG.length)]!;
+     const ownership = prng.nextInt(0, 100);
+     const ownerOrganizationId =
+@@ -278,7 +300,7 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
+     };
+     const parcel: Parcel = {
+       id: parcelId,
+-      districtId: state.phase2.district.id,
++      districtId: targetDistrictId,
+       cell: { ...cell },
+       price: parseMoney(600 + prng.nextInt(0, 900)),
+       zoning,
+@@ -393,17 +415,18 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
+     state.phase2.constructionSites.set(siteId, site);
+     const memberIds: AgentId[] = [];
+     for (let member = 0; member < 3; member += 1) {
+-      const home = freeNeighbour(parcel.cell, taken, state);
++      const home = freeNeighbour(parcel.cell, taken, targetMap);
+       if (!home) break;
+       taken.add(cellKey(home));
+       // Nacen lejos de la obra y caminan: así la ventana medida incluye navegación real.
+       const spawn = {
+-        x: Math.max(0, Math.min(state.map.width - 1, home.x - CREW_WALK_DISTANCE)),
++        x: Math.max(0, Math.min(targetMap.width - 1, home.x - CREW_WALK_DISTANCE)),
+         y: home.y,
+       };
+       const agent = createAgent(state, counters, {
+         organizationId,
+         specialty: member === 0 ? "supervisor" : "construction_worker",
++        districtId: targetDistrictId,
+         cell: spawn,
+         target: home,
+         task: { kind: "work_order", workOrderId: siteId },
+@@ -427,12 +450,13 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
+     if (index % TECHNICIAN_PER_BUILDINGS !== 0) continue;
+     const building = createdBuildings[index]!;
+     const parcel = state.phase2.parcels.get(building.parcelId)!;
+-    const spot = freeNeighbour(parcel.cell, taken, state);
++    const spot = freeNeighbour(parcel.cell, taken, targetMap);
+     if (!spot) continue;
+     taken.add(cellKey(spot));
+     createAgent(state, counters, {
+       organizationId: building.ownerOrganizationId,
+       specialty: "maintenance_technician",
++      districtId: targetDistrictId,
+       cell: spot,
+       target: spot,
+       task: { kind: "maintenance", buildingId: building.id },
+@@ -443,12 +467,13 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
+   const population = Math.floor(cells.length / POPULATION_PER_PARCELS);
+   for (let index = 0; index < population; index += 1) {
+     const parcel = createdParcels[(index * 7) % createdParcels.length]!;
+-    const spot = freeNeighbour(parcel.cell, taken, state);
++    const spot = freeNeighbour(parcel.cell, taken, targetMap);
+     if (!spot) continue;
+     taken.add(cellKey(spot));
+     createAgent(state, counters, {
+       organizationId: PLAYER_ORGANIZATION_ID,
+       specialty: "construction_worker",
++      districtId: targetDistrictId,
+       cell: spot,
+       target: spot,
+       task: null,
+@@ -507,11 +532,13 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
+ 
+   // El harness también modifica la geometría persistida: reconstruye la única topología autorizada
+   // desde sus parcelas sintéticas para conservar road ∩ parcel = ∅ en save/load.
+-  state.map.roads = deriveRoadTopology({
+-    parcels: [...state.phase2.parcels.values()],
+-    blockedCells: state.map.blockedCells,
+-    width: state.map.width,
+-    height: state.map.height,
++  targetMap.roads = deriveRoadTopology({
++    parcels: [...state.phase2.parcels.values()].filter(
++      (parcel) => parcel.districtId === targetDistrictId,
++    ),
++    blockedCells: targetMap.blockedCells,
++    width: targetMap.width,
++    height: targetMap.height,
+   });
+   state.idCounters.agent = counters.agent;
+   return state;
+@@ -635,7 +662,7 @@ export type MeasureScaledCityInput = {
+   scale: SystemCostScale;
+   windows?: readonly SystemCostWindow[];
+   warmupTicks?: number;
+-  districtProfileId?: string;
++  districtId?: DistrictId;
+   now: () => number;
+ };
+ 
+@@ -643,7 +670,7 @@ function prepareCity(input: MeasureScaledCityInput, parcelCount: number): GameSt
+   /** El fuego se coloca después del warmup, no en la generación: ver `injectScaledIncidents`. */
+   return createScaledCity(input.seed, {
+     parcelCount,
+-    districtProfileId: input.districtProfileId,
++    districtId: input.districtId,
+     incidentCount: 0,
+   });
+ }
+@@ -656,7 +683,12 @@ function prepareCity(input: MeasureScaledCityInput, parcelCount: number): GameSt
+ export function measureScaledCity(input: MeasureScaledCityInput): ScaledCityMeasurement {
+   const warmupTicks = input.warmupTicks ?? 60;
+   const windows = input.windows ?? SYSTEM_COST_WINDOWS;
+-  const districtProfileId = input.districtProfileId ?? DEFAULT_DISTRICT_PROFILE_ID;
++  const districtProfileId =
++    districtStateOf(
++      createInitialState(parseSeed(input.seed)),
++      input.districtId ??
++        districtIdForSlot(CITY_ROSTER_SLOTS.player.slotX, CITY_ROSTER_SLOTS.player.slotY),
++    ).district.generation?.profileId ?? DEFAULT_DISTRICT_PROFILE_ID;
+   const reports: SystemCostWindowReport[] = [];
+ 
+   for (const costWindow of windows) {
+@@ -867,7 +899,7 @@ export function measureMonthlyCloses(input: {
+   seeds: readonly number[];
+   closesPerSeed?: number;
+   warmupTicks?: number;
+-  districtProfileId?: string;
++  districtId?: DistrictId;
+   macroMode?: MonthlyCloseMacroMode;
+   now: () => number;
+ }): MonthlyCloseMeasurement {
+@@ -882,7 +914,7 @@ export function measureMonthlyCloses(input: {
+     // Crear UNA ciudad por semilla y dejarla vivir múltiples cierres
+     const state = createScaledCity(seed, {
+       parcelCount: input.scale.parcels,
+-      districtProfileId: input.districtProfileId,
++      districtId: input.districtId,
+     });
+     forceMacroScenario(state, macroMode, 0);
+ 
+diff --git a/packages/simulation/src/systems.ts b/packages/simulation/src/systems.ts
+index 8ec933e..773fcae 100644
+--- a/packages/simulation/src/systems.ts
++++ b/packages/simulation/src/systems.ts
+@@ -34,7 +34,7 @@ import {
+   calculateInsuranceOffer,
+   REPAIR_COST,
+ } from "./game-data";
+-import type { GameState } from "./state";
++import { blockedCellsOf, type GameState } from "./state";
+ import { runEmployment } from "./employment";
+ import { runAutomation } from "./automation";
+ import { macroShockBiasFor, runMacroEvents } from "./macro-events";
+@@ -746,12 +746,12 @@ function tacticalTick(state: GameState): void {
+             agent.path?.length === 0)
+         ) {
+           agent.target = { ...target.cell };
+-          agent.path = findDeterministicPath(agent.cell, agent.target, state.map.blockedCells);
++          agent.path = findDeterministicPath(agent.cell, agent.target, blockedCellsOf(state, agent.districtId));
+           agent.lastPathRecalculationTick = state.clock.tick;
+         }
+       }
+       if (!agent.path?.length && agent.target && !adjacent(agent.cell, agent.target))
+-        agent.path = findDeterministicPath(agent.cell, agent.target, state.map.blockedCells);
++        agent.path = findDeterministicPath(agent.cell, agent.target, blockedCellsOf(state, agent.districtId));
+       const next = agent.path?.shift();
+       if (next) agent.cell = next;
+       if (agent.target && adjacent(agent.cell, agent.target)) agent.state = "working";
+diff --git a/packages/simulation/src/vc1-projection.test.ts b/packages/simulation/src/vc1-projection.test.ts
+index 1bd0462..3302849 100644
+--- a/packages/simulation/src/vc1-projection.test.ts
++++ b/packages/simulation/src/vc1-projection.test.ts
+@@ -49,8 +49,13 @@ describe("generador de proyección de gameplay (WP4.15-V.c.1)", () => {
+     { skip: !process.env.VC1_PROJECTION },
+     () => {
+       const profile = resolveDistrictProfile("vega_del_cauce");
+-      const state = createInitialState(2026, { districtProfileId: profile.id });
+-      const spawn = profile.spawnAnchors.player;
++      const state = createInitialState(2026);
++      const vegaDistrictId = [...state.world.districts].find(
++        ([, entry]) => entry.district.generation?.profileId === profile.id,
++      )![0];
++      const spawn = state.world.districts.get(vegaDistrictId)!.district.generation
++        ? profile.spawnAnchors.player
++        : profile.spawnAnchors.player;
+       const parcels = [...state.phase2.parcels.values()]
+         .slice(profile.anchorSlots.length)
+         .sort(
+diff --git a/packages/simulation/src/worker-runtime.test.ts b/packages/simulation/src/worker-runtime.test.ts
+index 561fe0b..16a0c0b 100644
+--- a/packages/simulation/src/worker-runtime.test.ts
++++ b/packages/simulation/src/worker-runtime.test.ts
+@@ -1,3 +1,4 @@
++import { PLAYER_HOME_DISTRICT_ID } from "./city";
+ import { describe, expect, it } from "vitest";
+ 
+ import { parseCommandId, parseOrganizationId, parsePersonId } from "@landlord/shared";
+@@ -5,14 +6,14 @@ import { ENGINE_VERSION } from "./snapshot";
+ import { SimulationWorkerRuntime } from "./worker-runtime";
+ 
+ const initialize = {
+-  protocolVersion: 1,
++  protocolVersion: 2,
+   requestId: "request-init",
+   type: "InitializeGame" as const,
+   payload: { seed: 1 },
+ };
+ 
+ const submit = {
+-  protocolVersion: 1,
++  protocolVersion: 2,
+   requestId: "request-command",
+   type: "SubmitCommand" as const,
+   payload: {
+@@ -21,7 +22,7 @@ const submit = {
+       issuedByPersonId: parsePersonId("person_00000001"),
+       actingAsOrganizationId: parseOrganizationId("org_00000001"),
+       type: "PlaceTestStructure" as const,
+-      payload: { cell: { x: 10, y: 12 } },
++      payload: { districtId: PLAYER_HOME_DISTRICT_ID, cell: { x: 10, y: 12 } },
+     },
+   },
+ };
+@@ -81,7 +82,7 @@ describe("simulation Worker runtime", () => {
+     ]);
+     expect(
+       runtime.handle({
+-        protocolVersion: 1,
++        protocolVersion: 2,
+         requestId: "request-metrics",
+         type: "GetMetrics" as const,
+         payload: {},
+@@ -98,7 +99,7 @@ describe("simulation Worker runtime", () => {
+     runtime.handle(submit);
+     runtime.advanceTicks(1);
+     const saved = runtime.handle({
+-      protocolVersion: 1,
++      protocolVersion: 2,
+       requestId: "request-save",
+       type: "SaveSnapshot" as const,
+       payload: {},
+@@ -113,7 +114,7 @@ describe("simulation Worker runtime", () => {
+       .snapshot;
+     expect(
+       runtime.handle({
+-        protocolVersion: 1,
++        protocolVersion: 2,
+         requestId: "request-invalid-load",
+         type: "LoadSnapshot" as const,
+         payload: { snapshot: { schemaVersion: 2 } },
+@@ -123,7 +124,7 @@ describe("simulation Worker runtime", () => {
+     expect(
+       runtime
+         .handle({
+-          protocolVersion: 1,
++          protocolVersion: 2,
+           requestId: "request-load",
+           type: "LoadSnapshot" as const,
+           payload: { snapshot },
+@@ -137,7 +138,7 @@ describe("simulation Worker runtime", () => {
+     runtime.handle(initialize);
+     runtime.handle(submit);
+     const saved = runtime.handle({
+-      protocolVersion: 1,
++      protocolVersion: 2,
+       requestId: "request-save-pending",
+       type: "SaveSnapshot" as const,
+       payload: {},
+@@ -150,7 +151,7 @@ describe("simulation Worker runtime", () => {
+     const restored = new SimulationWorkerRuntime();
+     restored.handle(initialize);
+     restored.handle({
+-      protocolVersion: 1,
++      protocolVersion: 2,
+       requestId: "request-load-pending",
+       type: "LoadSnapshot" as const,
+       payload: { snapshot },
+diff --git a/packages/simulation/src/worker-runtime.ts b/packages/simulation/src/worker-runtime.ts
+index 37aff8e..bb394a5 100644
+--- a/packages/simulation/src/worker-runtime.ts
++++ b/packages/simulation/src/worker-runtime.ts
+@@ -73,6 +73,10 @@ const errorMessages: Record<ErrorCode, string> = {
+   LOAN_REFINANCE_UNAVAILABLE: "La deuda no puede refinanciarse en su estado actual.",
+   SELL_NOT_AVAILABLE: "La parcela no puede venderse en su estado actual.",
+   SELL_COLLATERAL_LOCKED: "La parcela respalda un préstamo activo o una oferta pendiente.",
++  DISTRICT_NOT_FOUND: "El distrito indicado no existe en la ciudad.",
++  UNSUPPORTED_SNAPSHOT_VERSION:
++    "Esta partida es de una versión anterior (v1). V.d no la migra: crea una partida nueva o borra el slot incompatible.",
++  AGENT_NOT_IN_DISTRICT: "El agente o la cuadrilla no está en el distrito del objetivo; trasládalo primero.",
+   CONTRACT_NOT_FOUND: "El contrato público no existe.",
+   CONTRACT_CLOSED: "La licitación ya está cerrada.",
+   CONTRACT_CONFLICT: "La organización ya ejecuta otro contrato público.",

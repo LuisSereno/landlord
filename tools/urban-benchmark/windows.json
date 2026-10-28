@@ -35,9 +35,9 @@
         "lon": -2.9402
       },
       "industrial_edge": {
-        "label": "Brunswick Dock / Garston",
-        "lat": 53.3773,
-        "lon": -2.9962
+        "label": "Bootle docks / Derby Road",
+        "lat": 53.452,
+        "lon": -2.988
       },
       "railway": {
         "label": "Edge Hill cutting / Victoria",
@@ -134,14 +134,14 @@
         "lon": -75.1447
       },
       "ensanche": {
-        "label": "Northern Liberties / Fishtown grid",
-        "lat": 39.9643,
-        "lon": -75.1288
+        "label": "Northern Liberties grid",
+        "lat": 39.961,
+        "lon": -75.137
       },
       "mixed_dense": {
-        "label": "University City / Walnut West",
-        "lat": 39.9526,
-        "lon": -75.1902
+        "label": "Rittenhouse / Center City West",
+        "lat": 39.951,
+        "lon": -75.174
       },
       "low_density_residential": {
         "label": "Roxborough",

@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "source": "Geofabrik regional OpenStreetMap extracts",
+  "sourceUrl": "https://download.geofabrik.de/",
+  "retrievedFormat": "osm.pbf",
+  "note": "Byte sizes and hashes are recorded at extraction time. Geofabrik serves -latest only, so a later re-run may see a newer snapshot; provenance-v1.json stores the bytes and SHA-256 actually used.",
+  "regions": {
+    "liverpool": {
+      "id": "merseyside",
+      "url": "https://download.geofabrik.de/europe/united-kingdom/england/merseyside-latest.osm.pbf",
+      "bytes": 25461621
+    },
+    "manchester": {
+      "id": "greater-manchester",
+      "url": "https://download.geofabrik.de/europe/united-kingdom/england/greater-manchester-latest.osm.pbf",
+      "bytes": 51698491
+    },
+    "bilbao": {
+      "id": "pais-vasco",
+      "url": "https://download.geofabrik.de/europe/spain/pais-vasco-latest.osm.pbf",
+      "bytes": 69205709
+    },
+    "philadelphia": {
+      "id": "pennsylvania",
+      "url": "https://download.geofabrik.de/north-america/us/pennsylvania-latest.osm.pbf",
+      "bytes": 349464615
+    }
+  }
+}

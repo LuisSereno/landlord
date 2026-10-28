@@ -23,9 +23,9 @@ python3 -m venv /tmp/osm-venv
 /tmp/osm-venv/bin/pip install -r requirements.lock.txt
 ```
 
-Versiones fijadas en `requirements.lock.txt` (resueltas el 2026-10-28): osmnx 1.9.3, networkx 3.7,
-geopandas 1.2.0, shapely 2.2.0, pyproj 3.8.0. Cambiar osmnx sin revisar su API de `bbox` y de
-settings cambia resultados.
+Versiones fijadas en `requirements.lock.txt` (resueltas el 2026-10-28): osmnx 1.9.3, osmium 4.3.2,
+networkx 3.7, geopandas 1.2.0, shapely 2.2.0, pyproj 3.8.0. Cambiar osmnx sin revisar su API de
+`bbox`, de settings y de los cargadores XML cambia resultados.
 
 ## Uso
 
@@ -36,9 +36,22 @@ python3 -m urban_benchmark.cli envelopes
 python3 -m urban_benchmark.cli provenance
 ```
 
-`run.sh` repite la barrida hasta tener las 28 ventanas o agotar los intentos, porque los endpoints
-públicos de Overpass están saturados buena parte del día. Las ventanas ya extraídas se cachean en
-`.cache/metrics/` (ignorado por Git): re-ejecutar sólo rehace los huecos.
+Hay dos fuentes y la diferencia importa:
+
+- **`--source geofabrik` (por defecto).** Descarga un extracto regional `.osm.pbf` por ciudad
+  (`sources.json`: Merseyside, Greater Manchester, País Vasco, Pennsylvania), lo recorta a las siete
+  ventanas con pyosmium y lo entrega a OSMnx como XML local. Sin colas, sin `502`, reproducible en
+  cualquier máquina con red: el corpus completo se produce de una pasada.
+- **`--source overpass`.** Consulta la API pública. Se conserva porque fue el camino original y sirve
+  para muestrear una ventana suelta, pero **no es reproducible**: el 2026-10-28 la API respondió
+  `502 at capacity` durante horas, también en `/api/status`.
+
+Ambas fuentes comparten el mismo extractor de métricas, así que una ventana calculada por Overpass y
+la misma ventana calculada desde el extracto regional son comparables.
+
+`run.sh` repite la barrida hasta tener las 28 ventanas. Las ventanas ya extraídas se cachean en
+`.cache/metrics/` (ignorado por Git): re-ejecutar sólo rehace los huecos. Los `.pbf` descargados y
+los recortes `.osm` viven en `.cache/` y tampoco se versionan.
 
 ## Muestras
 
@@ -70,6 +83,24 @@ producir; no son distritos concretos de esas ciudades.
 - **mezcla funcional**: clases distintas de `amenity`/`shop` y entropía sobre las familias.
 
 Todo se calcula en la proyección UTM local de la ventana (`_utm_crs`), nunca en grados.
+
+### Tres definiciones que cambian el número y no son obvias
+
+1. **Red rodada, no "todo lo que tiene `highway`".** El grafo se filtra a `STREET_CLASSES` y se
+   convierte a no dirigido. Contar aceras, escaleras y cruces como calle triplicaba la densidad
+   (medido: 200 km/km² frente a 61 en la misma ventana de Liverpool), y contar cada sentido la
+   duplicaba. Un generador que produce calzadas no se compara con una red peatonal.
+2. **Las manzanas son las que quedan cerradas dentro de la ventana.** Un bloque cortado por el borde
+   no se cierra en `polygonize`, así que ventanas con pocas manzanas completas dan medianas altas con
+   muestra pequeña (`blocks.count` viaja en el JSON justo para eso).
+3. **Longitud recalculada tras el recorte.** `gpd.clip` acorta la geometría pero deja el atributo
+   `length` original; sumarlo tal cual contaba tramos enteros que solo rozaban la ventana.
+
+### Ventanas degeneradas
+
+`metrics-v1.json` incluye `degenerateWindows`: ventanas con densidad vial < 5 km/km² o cobertura
+edificada < 2 %. No se borran ni se corrigen a mano — se nombran, porque una ventana sobre agua o un
+patio portuario entraría en el envelope como si describiera una trama urbana.
 
 ## Qué se versiona
 

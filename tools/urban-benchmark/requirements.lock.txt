@@ -7,6 +7,7 @@ geopandas==1.2.0
 idna==3.20
 networkx==3.7
 numpy==2.5.4
+osmium==4.3.2
 osmnx==1.9.3
 packaging==26.3
 pandas==3.1.0

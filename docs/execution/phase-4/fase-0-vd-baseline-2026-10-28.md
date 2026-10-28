@@ -1,8 +1,8 @@
 # Fase 0 de V.d — Baseline reproducible y benchmark morfológico
 
 - **Fecha:** 2026-10-28
-- **Commit medido:** `95804ee` (`fix: resolve P0 bugs from 30-min playtest and add report`), rama
-  `develop`, más los cambios de esta acta
+- **Commit medido:** `95804ee` (`fix: resolve P0 bugs from 30-min playtest and add report`) más
+  los cuatro commits de cierre de esta fase en `develop`; el árbol medido es el de `f900d02`
 - **Plan de referencia:** `PLAN_improvements.md` §5 "Fase 0"
 - **Entorno:** Linux x64, Node 24.19, pnpm 12.11.2, Chromium headless (Playwright 1.64.1, SwiftShader)
 
@@ -21,8 +21,8 @@
 | Balance jugable | `pnpm balance:playable` | **PASS**, 16 semillas, sin dominancia (§4) |
 | Format | `pnpm format:check` | **PASS sobre el árbol versionado** (§5) |
 
-Ninguna cifra de este acta es heredada de documentaciones anteriores: las once filas se ejecutaron en
-esta sesión sobre el mismo HEAD.
+Ninguna cifra de este acta es heredada de documentaciones anteriores: las diez filas se ejecutaron en
+esta sesión sobre el mismo árbol.
 
 ## 2. Corrección de baseline obligatoria: el smoke Alpha estaba rojo en `95804ee`
 

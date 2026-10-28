@@ -3,6 +3,8 @@
 > Estado: cerrado — baseline `graphic_civic` aprobada el 2026-10-23.
 >
 > Objetivo: reducir incertidumbre antes de producir arte masivamente y convertir propuestas de la Art Bible/Pipeline en decisiones medibles.
+>
+> Ejecución operativa: seguir [WP2-14-CODEX-RUNBOOK.md](WP2-14-CODEX-RUNBOOK.md). El runbook separa trabajo GPT-5.6 Sol High de los checkpoints de decisión que exigen Extra High y obliga a detener la ejecución en esos puntos.
 
 ## Librería bootstrap disponible
 

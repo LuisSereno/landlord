@@ -1,8 +1,9 @@
 # D-092 — Equipamientos municipales físicos y servicios que recorren la red
 
-Estado: propuesta el 2026-10-28 para V.d.3 y V.d.5. Ratificación pendiente del responsable. Cambia el
-modelo de cobertura de D-069 (radial desde un centro abstracto) y preserva el modelo presupuestario de
-D-068 (caja real y orden de gasto únicos).
+Estado: ratificada el 2026-10-28 por el responsable para V.d.3 y V.d.5, en la medida en que refleja
+las decisiones fijadas en `PLAN_improvements.md`. Equipamientos municipales físicos y cobertura de servicios por grafo.
+Los detalles de implementación añadidos por esta ADR se listan al final, en
+"Adiciones respecto a `PLAN_improvements.md`", y no forman parte de la ratificación.
 
 ## Contexto
 

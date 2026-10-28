@@ -100,7 +100,7 @@
 - execution/phase-4/wp4-15-vc3a-junction-pedestrian-language-2026-10-27.md — pasos de peatones y marcas discretas derivados de T/intersecciones reales, sin ampliar la topología ni el gameplay.
 - execution/phase-4/wp4-15-vc3-street-dressing-2026-10-27.md — cierre V.c.3B/C: mobiliario urbano y vehículos aparcados deterministas, QA browser y rendimiento.
 - execution/phase-4/playtest-30min-2026-10-28.md — playtest instrumentado de 30 minutos a 4×: resultados, P0 de integridad y rendimiento, y secuencias de reproducción.
-- execution/phase-4/fase-0-vd-baseline-2026-10-28.md — Fase 0 de V.d: baseline re-ejecutado y archivado, corrección del smoke Alpha rojo, herramienta `tools/urban-benchmark`, corpus morfológico bloqueado por Overpass y ADRs D-087…D-092 en propuesta (D-087 a D-092).
+- execution/phase-4/fase-0-vd-baseline-2026-10-28.md — Fase 0 de V.d: baseline re-ejecutado y archivado, corrección del smoke Alpha rojo, herramienta `tools/urban-benchmark`, corpus morfológico de 28 ventanas y ADRs D-087…D-092 ratificados.
 
 ## Benchmark morfológico
 - `tools/urban-benchmark/README.md` — herramienta offline (OSMnx fijado por versión), las 28 ventanas de
@@ -113,6 +113,8 @@
 - research/03-lessons-learned.md
 - research/04-ip-and-preservation-notes.md
 - research/05-art-direction-and-pipeline-research.md — investigación avanzada de referencias, Art Bible, pipeline, QA y producción artística.
+- research/06-vd-tejido-urbano-investigacion.md — diagnóstico que originó V.d: jerarquía calle → manzana → parcela → edificio, escala física 4 m/celda, y por qué la red vial de D-085 se conserva como esqueleto.
+- urban-benchmark/ (provenance, metrics y envelopes) — corpus morfológico de 28 ventanas de cuatro ciudades atlánticas; sólo agregados, con atribución ODbL.
 
 ## IA
 La carpeta ai-context/ resume todo lo anterior para que un agente pueda incorporarse al proyecto con poco contexto previo.

@@ -1,8 +1,9 @@
 # D-090 — Tejido urbano autoritativo: manzanas, parcelas multi-cell y normativa separada
 
-Estado: propuesta el 2026-10-28 para V.d.1 y V.d.2. Ratificación pendiente del responsable. Amplía
-D-085 (semánticas separadas de vía/obstáculo/parcela/open) y deja sin efecto `Parcel.cell`,
-`Parcel.zoning` y `Parcel.buildingId`.
+Estado: ratificada el 2026-10-28 por el responsable para V.d.1 y V.d.2, en la medida en que refleja
+las decisiones fijadas en `PLAN_improvements.md`. Manzanas, parcelas multi-cell, códigos urbanísticos y autocolocación.
+Los detalles de implementación añadidos por esta ADR se listan al final, en
+"Adiciones respecto a `PLAN_improvements.md`", y no forman parte de la ratificación.
 
 ## Contexto
 
@@ -113,3 +114,10 @@ que D-085 prohibió para las celdas de vía.
 - Alturas automáticas por "downtown": la altura surge de código + valor + tipo + parcela (§V.d.4).
 - Traza de vía variable, carriles, sentidos o tráfico: excluidos por §1 del plan.
 - Que el jugador pueda editar el código urbanístico: no hay capability política en V.d.
+
+## Adiciones respecto a `PLAN_improvements.md`
+
+El plan fija la cadena geométrica, la norma como dato, la autocolocación y las reglas de obra. Esta
+ADR añade que los índices derivados (edificios por parcela, huellas ocupadas, edificios por distrito,
+parcelas por bloque) **no se persisten**, por coherencia con la prohibición de D-085 de guardar una
+segunda verdad derivable. El plan no lo dice; se marca como decisión propia.

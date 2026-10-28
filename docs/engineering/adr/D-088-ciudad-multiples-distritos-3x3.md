@@ -1,7 +1,9 @@
 # D-088 — Ciudad 3×3 de nueve distritos y escala física permanente
 
-Estado: propuesta el 2026-10-28 para V.d.0. Ratificación pendiente del responsable; el código descrito
-aquí no existe todavía.
+Estado: ratificada el 2026-10-28 por el responsable para V.d.0, en la medida en que refleja
+las decisiones fijadas en `PLAN_improvements.md`. Ciudad 3×3, escala física y simultaneidad de los nueve distritos.
+Los detalles de implementación añadidos por esta ADR se listan al final, en
+"Adiciones respecto a `PLAN_improvements.md`", y no forman parte de la ratificación.
 
 ## Contexto
 
@@ -118,3 +120,10 @@ layout sin conexión declarada no son alcanzables.
 - LOD: latente, sólo se activa con medición que lo exija.
 - Tráfico, commuting individual, peatones inter-distrito y perspectivas política/criminal jugables:
   excluidos por §1 y por AGENTS.md.
+
+## Adiciones respecto a `PLAN_improvements.md`
+
+El plan fija la rejilla 3×3, la escala, la simultaneidad y la frontera ciudad/distrito. Esta ADR
+añade un detalle que el plan no formula: la adyacencia autoritativa vive en `City.connections` y
+**nunca se infiere de la rejilla**. Se deriva de §3.1 (que declara `connections` como dato), pero la
+regla explícita es una decisión propia y se marca como tal.

@@ -106,12 +106,14 @@ balance jugable en verde, con el cierre mensual de 800 parcelas aún fuera del p
 D-065 (p95 maduro 40,5 ms) y `pre-vd-baseline` etiquetado. El smoke Alpha **estaba rojo en `95804ee`**
 por una aserción que codificaba 260 en vez de la puja por defecto del 92 %; corregido.
 
-**El gate de Fase 0 sigue abierto**: faltan las 28 muestras del benchmark morfológico. La herramienta
-`tools/urban-benchmark` está escrita, fijada por versión y probada end-to-end, pero los endpoints
-públicos de Overpass respondieron `502 at capacity` durante toda la sesión y no se fabrican métricas.
-Ejecutar `tools/urban-benchmark/run.sh` cuando el servicio responda y someter los envelopes a
-aprobación. Los seis ADR nuevos (D-087…D-092) están en **propuesta**, pendientes de ratificación del
-responsable; sin ratificación no se abre V.d.0.
+**El corpus morfológico está entregado**: `tools/urban-benchmark` trabaja sobre extractos
+regionales de Geofabrik (Merseyside, Greater Manchester, País Vasco, Pennsylvania), así que el corpus
+no depende de la API pública de Overpass; 28/28 ventanas, 0 degeneradas, con SHA-256 de los cuatro
+extractos y atribución ODbL en `docs/urban-benchmark/provenance-v1.json`. Sólo se versionan
+agregados: ni geometría OSM ni los `.pbf` descargados entran en el repositorio, y una guarda en
+`check-architecture` impide que el runtime importe la herramienta. **Queda pendiente la aprobación
+de los envelopes por el responsable**, único criterio de Fase 0 sin firmar; sin ella no se inicia la
+parte destructiva de V.d.0 (`WorldState`, `SnapshotV2`, protocolo v2, gateways, `ViewProjectionV2`).
 
 WP4.15-V.c.2C-H y V.c.3A/B/C están cerrados: lint, contratos, harnesses, documentación y el 404 de
 favicon quedan corregidos; las T e intersecciones publicadas reciben pasos de peatones discretos,

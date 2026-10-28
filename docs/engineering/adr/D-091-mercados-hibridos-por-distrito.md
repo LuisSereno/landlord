@@ -1,8 +1,9 @@
 # D-091 — Mercados híbridos: vivienda y empleo por distrito, dinero y política de ciudad
 
-Estado: propuesta el 2026-10-28 para V.d.2. Ratificación pendiente del responsable. Amplía D-066
-(vivienda segmentada con índice descubierto por vacancia) y D-067 (empleo agregado y salario) sin
-sustituir sus mecanismos.
+Estado: ratificada el 2026-10-28 por el responsable para V.d.2, en la medida en que refleja
+las decisiones fijadas en `PLAN_improvements.md`. Vivienda y empleo por distrito; banca, política y macroeventos de ciudad.
+Los detalles de implementación añadidos por esta ADR se listan al final, en
+"Adiciones respecto a `PLAN_improvements.md`", y no forman parte de la ratificación.
 
 ## Contexto
 
@@ -108,3 +109,10 @@ bandeja** en vez de mover agentes. Dos motivos:
 - Elasticidad de migración entre distritos (V.d la pone a cero).
 - Segregación residencial por ingreso dentro del distrito: los segmentos existen (D-066), la
   concentración espacial como fenómeno propio no.
+
+## Adiciones respecto a `PLAN_improvements.md`
+
+El plan fija la frontera de mercados, el fallback de tres niveles, la ausencia de mudanza
+inter-distrito, la ponderación por población y los frentes compartidos. Esta ADR añade publicar en la
+proyección **qué nivel de fallback se usó** (distrito, ciudad o 100). Es una exigencia de
+transparencia propia, no del plan, y no cambia ninguna regla de simulación.

@@ -979,7 +979,8 @@ deudas restantes constan en `docs/execution/phase-4/wp4-15-vc3-street-dressing-2
 
 ## D-087 — Evidencia de sesión de Alpha: qué cierra el playtest del 2026-10-28 y qué excepción queda abierta
 
-Estado: propuesta el 2026-10-28 para la Fase 0 de V.d. Ratificación pendiente del responsable.
+Estado: ratificada el 2026-10-28 por el responsable en lo que refleja `PLAN_improvements.md`; las
+adiciones propias constan en el ADR.
 
 El playtest instrumentado de 30 minutos a 4× (semilla 1, build de producción, commit base `01ebb5b`)
 sí existe y está versionado en `docs/execution/phase-4/playtest-30min-2026-10-28.md`, con los P0
@@ -996,7 +997,8 @@ ser evidencia de gate de V.d, no tarea posterior. Ver
 
 ## D-088 — Ciudad 3×3 de nueve distritos y escala física permanente
 
-Estado: propuesta el 2026-10-28 para V.d.0. Ratificación pendiente del responsable.
+Estado: ratificada el 2026-10-28 por el responsable en lo que refleja `PLAN_improvements.md`; las
+adiciones propias constan en el ADR.
 
 Sustituye el supuesto de mapa único de `GameState` por nueve distritos de 64×64 celdas. Decisiones:
 (1) la escala 4 m/celda de D-083 es contrato y dimensiona el mundo —distrito 256×256 m, ciudad
@@ -1012,7 +1014,8 @@ y nunca se infiere de la rejilla. Ver `docs/engineering/adr/D-088-ciudad-multipl
 
 ## D-089 — SnapshotV2, protocolo v2 y rechazo explícito de los guardados Alpha v1
 
-Estado: propuesta el 2026-10-28 para V.d.0. Ratificación pendiente del responsable. Deja sin efecto la
+Estado: ratificada el 2026-10-28 por el responsable en lo que refleja `PLAN_improvements.md`; las
+adiciones propias constan en el ADR. Deja sin efecto la
 compatibilidad aditiva de D-064 y el patrón de backfill de D-085 **para esta ruptura**.
 
 Un snapshot v1 no puede migrarse a un mundo con red vial, manzanas, parcelas multi-cell y normativa:
@@ -1029,7 +1032,7 @@ commit propio y atribuido. Ver `docs/engineering/adr/D-089-snapshot-v2-protocolo
 
 ## D-090 — Tejido urbano autoritativo: manzanas, parcelas multi-cell y normativa separada
 
-Estado: propuesta el 2026-10-28 para V.d.1 y V.d.2. Ratificación pendiente del responsable. Amplía
+Estado: ratificada el 2026-10-28 en lo que refleja `PLAN_improvements.md`. Amplía
 D-085 y elimina `Parcel.cell`, `Parcel.zoning` y `Parcel.buildingId`.
 
 Hoy la parcela es un punto con etiqueta, la norma es un enum de tres valores y `buildingId` duplica la
@@ -1049,7 +1052,7 @@ ocupadas, edificios por distrito, parcelas por bloque) se recalculan y no se per
 
 ## D-091 — Mercados híbridos: vivienda y empleo por distrito, dinero y política de ciudad
 
-Estado: propuesta el 2026-10-28 para V.d.2. Ratificación pendiente del responsable. Amplía D-066 y
+Estado: ratificada el 2026-10-28 en lo que refleja `PLAN_improvements.md`. Amplía D-066 y
 D-067 sin sustituir sus mecanismos.
 
 Nueve mercados independientes romperían D-068, D-074 y D-077; un mercado único promedio borraría la
@@ -1066,7 +1069,7 @@ necesite una cuadrilla en otro distrito **crea una excepción**, no teletranspor
 
 ## D-092 — Equipamientos municipales físicos y servicios que recorren la red
 
-Estado: propuesta el 2026-10-28 para V.d.3 y V.d.5. Ratificación pendiente del responsable. Cambia el
+Estado: ratificada el 2026-10-28 en lo que refleja `PLAN_improvements.md`. Cambia el
 modelo de cobertura de D-069 y preserva el presupuesto de D-068.
 
 La cobertura radial desde un centro abstracto no cubre nueve distritos, atraviesa obstáculos y no es un

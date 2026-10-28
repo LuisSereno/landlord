@@ -1,7 +1,9 @@
 # D-087 — Evidencia de sesión de Alpha: qué cierra el playtest del 2026-10-28 y qué excepción queda abierta
 
-Estado: propuesta el 2026-10-28 para la Fase 0 de V.d. Ratificación pendiente del responsable; sin
-ella, el gate de Fase 0 permanece abierto y V.d.0 no puede arrancar.
+Estado: ratificada el 2026-10-28 por el responsable para Fase 0 de V.d, en la medida en que refleja
+las decisiones fijadas en `PLAN_improvements.md`. Cierra parcialmente la evidencia de D-063 y registra la excepción residual.
+Los detalles de implementación añadidos por esta ADR se listan al final, en
+"Adiciones respecto a `PLAN_improvements.md`", y no forman parte de la ratificación.
 
 ## Contexto
 
@@ -65,3 +67,13 @@ estadística".
 - No autoriza a declarar ningún gate de V.d como PASS sin datos propios.
 - No define la condición de victoria del juego, que el playtest identificó como ausencia de producto
   y que sigue sin estar en el alcance de V.d.
+
+## Adiciones respecto a `PLAN_improvements.md`
+
+El plan pide (a) cerrar la evidencia de D-063 y (b) registrar una excepción nueva si no se cierra.
+Esta ADR añade dos cosas que el plan no dice literalmente, y se marcan como propuesta propia:
+
+1. la obligación de renovar la excepción en `DECISIONS.md` si V.d cierra sin al menos dos observadores
+   humanos con overlays y cambio de distrito usados;
+2. tratar la campaña `pnpm balance:playable` como evidencia de gate de V.d. El plan ya exige esa
+   campaña (§6) y playtests de 45–60 min, así que no cambia el alcance; sólo declara dónde cuenta.

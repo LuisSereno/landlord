@@ -1,8 +1,9 @@
 # D-089 — SnapshotV2, protocolo v2 y rechazo explícito de los guardados Alpha v1
 
-Estado: propuesta el 2026-10-28 para V.d.0. Ratificación pendiente del responsable. Sustituye, en lo
-relativo a la versión de esquema, la decisión de compatibilidad aditiva de D-064 y el patrón de
-backfill de D-085.
+Estado: ratificada el 2026-10-28 por el responsable para V.d.0, en la medida en que refleja
+las decisiones fijadas en `PLAN_improvements.md`. `SnapshotV2`, protocolo v2 y rechazo explícito de los guardados Alpha v1.
+Los detalles de implementación añadidos por esta ADR se listan al final, en
+"Adiciones respecto a `PLAN_improvements.md`", y no forman parte de la ratificación.
 
 ## Contexto
 
@@ -104,3 +105,15 @@ cambio económico, y decirlo en el commit es lo que permite revisar el resto.
 - El formato de una eventual migración entre versiones *de v2 en adelante* (se decidirá cuando exista
   un v3 con necesidad real).
 - La exportación de partidas v1 como datos históricos legibles: deseable, fuera del gate.
+
+## Adiciones respecto a `PLAN_improvements.md`
+
+El plan fija `SnapshotV2`, el rechazo de v1, el protocolo v2 y que el distrito observado no es
+comando de dominio. Esta ADR añade dos detalles de implementación que el plan no especifica:
+
+1. el orden canónico de distritos (`slotY` y luego `slotX`) para que la cadena no dependa del orden
+   de inserción;
+2. separar la versión de la base IndexedDB de la versión del esquema del snapshot, hoy fundidas en
+   `indexed-db.ts`.
+
+Ambas son decisiones técnicas, no de producto, y quedan sujetas a revisión sin reabrir el contrato.

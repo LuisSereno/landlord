@@ -14,6 +14,9 @@ import {
   slotForDistrictId,
 } from "./city";
 import { MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
+import { canonicalizeState } from "./runner";
+import { createInitialState } from "./state";
+import { advanceProductSystems } from "./systems";
 
 const PROFILE = resolveCityProfile();
 
@@ -142,5 +145,45 @@ describe("V.d.0 city layer", () => {
     expect(PROFILE.slots).toHaveLength(9);
     expect(CITY_ROSTER_SLOTS.player).toEqual({ slotX: 0, slotY: 1 });
     expect(CITY_ROSTER_SLOTS.rival).toEqual({ slotX: 2, slotY: 1 });
+  });
+});
+
+describe("V.d.0 gate de ciudad", () => {
+  it("produce los mismos nueve hashes de distrito para la misma seed", async () => {
+    const { districtGenerationHash } = await import("./district-generator");
+    const hashes = (seed: number) => {
+      const city = createCity({ seed });
+      return city.city.districtIds.map((districtId) => {
+        const entry = city.districts.get(districtId)!;
+        return districtGenerationHash({
+          profileId: entry.district.generation!.profileId,
+          seed: Number(entry.district.generation!.seed),
+          district: entry.district,
+          parcels: entry.parcels,
+          blockedCells: entry.blockedCells,
+          roads: entry.roads,
+          spawnAnchors: entry.spawnAnchors,
+        });
+      });
+    };
+    const first = hashes(11);
+    expect(first).toHaveLength(9);
+    expect(new Set(first).size).toBe(9);
+    expect(hashes(11)).toEqual(first);
+    expect(hashes(12)).not.toEqual(first);
+  });
+
+  it("avanza los nueve distritos en el mismo tick: la ciudad es un solo reloj", () => {
+    const state = createInitialState(3);
+    expect(state.world.city.districtIds).toHaveLength(9);
+    const before = canonicalizeState(state);
+    for (let tick = 0; tick < 1_200; tick += 1) advanceProductSystems(state);
+    expect(state.clock.tick).toBe(1_200);
+    // El estado canónico cubre los nueve mapas: avanzar un día cambia el mundo entero, no un distrito.
+    const canonical = canonicalizeState(state);
+    expect(canonical).not.toBe(before);
+    for (const districtId of state.world.city.districtIds) {
+      expect(canonical).toContain(districtId);
+    }
   });
 });

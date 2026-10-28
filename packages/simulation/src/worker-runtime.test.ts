@@ -174,3 +174,41 @@ describe("simulation Worker runtime", () => {
     expect(restored.getState()?.pendingCommands).toHaveLength(0);
   });
 });
+
+describe("V.d.0 distrito observado", () => {
+  it("cambia la vista sin tocar el estado canónico y rechaza distritos inexistentes", async () => {
+    const { canonicalizeState } = await import("./runner");
+    const { PLAYER_HOME_DISTRICT_ID, districtIdForSlot } = await import("./city");
+    const runtime = new SimulationWorkerRuntime();
+    runtime.handle(initialize);
+    const before = canonicalizeState(runtime.getState()!);
+    const target = districtIdForSlot(2, 2);
+
+    const responses = runtime.handle({
+      protocolVersion: 2,
+      requestId: "request-observed",
+      type: "SetObservedDistrict",
+      payload: { districtId: target },
+    });
+    expect(responses.map((response) => response.type)).toEqual([
+      "RequestSucceeded",
+      "ProjectionPublished",
+    ]);
+    const projection = (responses[1] as { payload: { observedDistrictId: string } }).payload;
+    expect(projection.observedDistrictId).toBe(target);
+
+    // La vista es una petición técnica: el estado canónico ni se mueve.
+    expect(canonicalizeState(runtime.getState()!)).toBe(before);
+    expect(runtime.getState()!.world.districts.has(PLAYER_HOME_DISTRICT_ID)).toBe(true);
+
+    const rejected = runtime.handle({
+      protocolVersion: 2,
+      requestId: "request-observed-bad",
+      type: "SetObservedDistrict",
+      payload: { districtId: "district_99999999" },
+    });
+    expect(rejected).toMatchObject([
+      { type: "RequestFailed", payload: { code: "DISTRICT_NOT_FOUND" } },
+    ]);
+  });
+});

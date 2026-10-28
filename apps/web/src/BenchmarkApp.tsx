@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import type { ViewProjectionV1 } from "@landlord/shared";
+import type { ViewProjectionV2 } from "@landlord/shared";
 import type { BenchmarkSnapshot } from "@landlord/simulation";
 import { mountIsometricSpike, updateIsometricProjection } from "./isometric/mount";
 
@@ -31,7 +31,7 @@ type BenchmarkWorkerMessage =
   | { type: "RequestFailed"; requestId: string; message: string }
   | {
       type: "Ready" | "Projection";
-      projection: ViewProjectionV1;
+      projection: ViewProjectionV2;
       projectionId?: number;
       metrics?: BenchmarkMetrics;
     }
@@ -54,7 +54,7 @@ declare global {
 export function BenchmarkApp() {
   const container = useRef<HTMLDivElement>(null);
   const game = useRef<ReturnType<typeof mountIsometricSpike> | null>(null);
-  const projection = useRef<ViewProjectionV1 | null>(null);
+  const projection = useRef<ViewProjectionV2 | null>(null);
   const [status, setStatus] = useState("Inicializando fixture Gate 1…");
 
   useEffect(() => {

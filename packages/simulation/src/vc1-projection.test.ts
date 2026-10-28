@@ -16,7 +16,7 @@ import { GAME_DAY_TICKS } from "./game-data";
 /**
  * Harness opt-in de WP4.15-V.c.1: construye una partida REAL con comandos auténticos (comprar
  * parcelas, levantar courtyard homes y un taller, dejar una obra en curso) y vuelca la
- * `ViewProjectionV1` resultante a un JSON. La captura de gameplay inyecta esa proyección a través
+ * `ViewProjectionV2` resultante a un JSON. La captura de gameplay inyecta esa proyección a través
  * del hook de prueba de cámara, así los edificios y la construcción que se ven en `/` proceden del
  * motor de simulación, no de una composición fija.
  *

@@ -179,7 +179,7 @@ async function injectSnapshot() {
         const transaction = database.transaction("snapshots", "readwrite");
         transaction.objectStore("snapshots").put({
           slotId: "default",
-          schemaVersion: 1,
+          schemaVersion: 2,
           engineVersion: snapshot.engineVersion,
           savedAt: Date.now(),
           snapshot,
@@ -239,6 +239,28 @@ try {
   for (const issue of ["vivienda", "empleo", "seguridad", "servicios", "impuestos"]) {
     if (!mood.includes(issue)) throw new Error(`Falta el eje de ánimo ${issue}`);
   }
+
+  // V.d.0: la vista de ciudad lista los nueve distritos; cambiar el observado no ejecuta un comando.
+  const cityTiles = page.locator('[aria-label="Distritos"] [role="gridcell"]');
+  const tileCount = await cityTiles.count();
+  if (tileCount !== 9)
+    throw new Error(`La vista de ciudad debería listar 9 distritos y lista ${tileCount}`);
+  // La caja es de ciudad: cambiar de distrito no puede moverla.
+  const cashBeforeSwitch = readCash(await page.locator("main").innerText());
+  await cityTiles.filter({ hasText: "Patios del Este" }).click();
+  await page
+    .getByLabel("Distrito observado")
+    .filter({ hasText: "Patios del Este" })
+    .waitFor({ timeout: 15000 });
+  const cashAfterSwitch = readCash(await page.locator("main").innerText());
+  if (cashAfterSwitch !== cashBeforeSwitch) {
+    throw new Error(`Cambiar de distrito movió la caja: ${cashBeforeSwitch} → ${cashAfterSwitch}`);
+  }
+  await cityTiles.filter({ hasText: "Barrio del Umbral" }).click();
+  await page
+    .getByLabel("Distrito observado")
+    .filter({ hasText: "Barrio del Umbral" })
+    .waitFor({ timeout: 15000 });
 
   const bidButton = page.getByRole("button", { name: /Presentar oferta/ });
   const tenderLine = await page

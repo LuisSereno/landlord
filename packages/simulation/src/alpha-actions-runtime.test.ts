@@ -6,7 +6,7 @@ import {
   parseOrganizationId,
   parsePersonId,
   parseTick,
-  type ViewProjectionV1,
+  type ViewProjectionV2,
   type WorkerResponse,
 } from "@landlord/shared";
 import { GAME_MONTH_TICKS, PLAYER_ORGANIZATION_ID, RIVAL_ORGANIZATION_ID } from "./game-data";
@@ -40,11 +40,11 @@ function commandRequest(
   };
 }
 
-function projectionOf(responses: readonly WorkerResponse[]): ViewProjectionV1 {
+function projectionOf(responses: readonly WorkerResponse[]): ViewProjectionV2 {
   const published = responses.filter((response) => response.type === "ProjectionPublished");
   const last = published[published.length - 1];
   if (!last || last.type !== "ProjectionPublished") throw new Error("No projection published");
-  return last.payload as ViewProjectionV1;
+  return last.payload as ViewProjectionV2;
 }
 
 describe("WP4.11-H acciones Alpha end-to-end", () => {

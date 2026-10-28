@@ -15,7 +15,7 @@ import {
   parseTenantId,
   parseTick,
   type ProductCommand,
-  viewProjectionV1Schema,
+  viewProjectionV2Schema,
 } from "@landlord/shared";
 import { dispatchProductCommand } from "./commands";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
@@ -529,7 +529,7 @@ describe("Gate 2 product loop", () => {
     expect(facility.upgradePercent).toBe(125);
     expect(createViewProjection(state, true).economy?.production[0]?.averageOutputAmount).toBe(3);
     const physicalProjection = createViewProjection(state, true);
-    viewProjectionV1Schema.parse(physicalProjection);
+    viewProjectionV2Schema.parse(physicalProjection);
 
     building.state = "ruin";
     state.phase2.incidents.set(parseIncidentId("incident_00000001"), {
@@ -1538,7 +1538,7 @@ describe("WP3.12 portfolio automation and exception UX", () => {
       message: `El permiso de ${parcelId} está denied; revisa el uso antes de construir.`,
       targetId: parcelId,
     });
-    expect(viewProjectionV1Schema.parse(projection).economy?.alerts).toEqual(
+    expect(viewProjectionV2Schema.parse(projection).economy?.alerts).toEqual(
       projection.economy?.alerts,
     );
   });

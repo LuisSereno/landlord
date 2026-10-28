@@ -16,15 +16,16 @@ import {
   parseMoney,
   requestIdSchema,
   saveSnapshotRequestSchema,
+  setObservedDistrictRequestSchema,
   setRunStateRequestSchema,
   submitCommandRequestSchema,
-  viewProjectionV1Schema,
+  viewProjectionV2Schema,
   workerResponseSchema,
   type SnapshotV2,
   type IntelKind,
   type ProductCommand,
   type SimulationMetrics,
-  type ViewProjectionV1,
+  type ViewProjectionV2,
   type WorkerRequest,
   type WorkerResponse,
 } from "@landlord/shared";
@@ -58,7 +59,7 @@ export class SimulationWorkerClient {
 
   public constructor(
     private readonly port: WorkerPort,
-    private readonly onProjection: (projection: ViewProjectionV1) => void,
+    private readonly onProjection: (projection: ViewProjectionV2) => void,
     private readonly onTransportError: (message: string) => void,
     private readonly onDiagnostic: (diagnostic: ClientDiagnostic) => void = () => undefined,
   ) {
@@ -72,6 +73,18 @@ export class SimulationWorkerClient {
         requestId: this.nextRequestId(),
         type: "InitializeGame",
         payload: { seed },
+      }),
+    );
+  }
+
+  /** Petición técnica: cambia lo que se dibuja, no el mundo (D-089). */
+  public setObservedDistrict(districtId: string): Promise<WorkerResponse> {
+    return this.send(
+      setObservedDistrictRequestSchema.parse({
+        protocolVersion: 2,
+        requestId: this.nextRequestId(),
+        type: "SetObservedDistrict",
+        payload: { districtId },
       }),
     );
   }
@@ -491,8 +504,8 @@ export class SimulationWorkerClient {
     }
     const response = parsed.data;
     if (response.type === "ProjectionPublished") {
-      const projection = viewProjectionV1Schema.safeParse(response.payload);
-      if (projection.success) this.onProjection(projection.data as ViewProjectionV1);
+      const projection = viewProjectionV2Schema.safeParse(response.payload);
+      if (projection.success) this.onProjection(projection.data as ViewProjectionV2);
       else this.onTransportError("La proyección del Worker no es válida.");
       return;
     }

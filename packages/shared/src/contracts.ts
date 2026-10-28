@@ -1,8 +1,10 @@
 import { z } from "zod";
 
 import {
+  districtIdSchema,
   protocolVersionSchema,
   requestIdSchema,
+  type DistrictId,
   type ProtocolVersion,
   type RequestId,
 } from "./primitives";
@@ -75,6 +77,19 @@ export const loadSnapshotRequestSchema = requestEnvelopeSchema(
 export type GetMetricsRequest = RequestEnvelope<"GetMetrics", Record<string, never>>;
 export const getMetricsRequestSchema = requestEnvelopeSchema("GetMetrics", z.object({}).strict());
 
+/**
+ * Cambiar el distrito que se dibuja no es una acción del juego (D-089): no consume caja, no entra en
+ * la cola de comandos, no se persiste y no altera el estado canónico. Por eso es petición técnica.
+ */
+export type SetObservedDistrictRequest = RequestEnvelope<
+  "SetObservedDistrict",
+  { districtId: DistrictId }
+>;
+export const setObservedDistrictRequestSchema = requestEnvelopeSchema(
+  "SetObservedDistrict",
+  z.object({ districtId: districtIdSchema }),
+);
+
 export const workerRequestSchemas = [
   initializeGameRequestSchema,
   submitCommandRequestSchema,
@@ -82,6 +97,7 @@ export const workerRequestSchemas = [
   saveSnapshotRequestSchema,
   loadSnapshotRequestSchema,
   getMetricsRequestSchema,
+  setObservedDistrictRequestSchema,
 ] as const;
 
 export const workerRequestSchema = z.discriminatedUnion("type", [
@@ -91,6 +107,7 @@ export const workerRequestSchema = z.discriminatedUnion("type", [
   saveSnapshotRequestSchema,
   loadSnapshotRequestSchema,
   getMetricsRequestSchema,
+  setObservedDistrictRequestSchema,
 ]);
 
 export type WorkerRequest = z.infer<typeof workerRequestSchema>;

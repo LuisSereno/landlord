@@ -19,7 +19,12 @@ import { RIVAL_HOME_DISTRICT_ID, PLAYER_HOME_DISTRICT_ID, districtIdForSlot } fr
 
 let commandCounter = 0;
 
-function command(type: ProductCommand["type"], payload: unknown): ProductCommand {
+type CommandOf<T extends ProductCommand["type"]> = Extract<ProductCommand, { type: T }>;
+
+function command<T extends ProductCommand["type"]>(
+  type: T,
+  payload: CommandOf<T>["payload"],
+): CommandOf<T> {
   commandCounter += 1;
   return {
     commandId: parseCommandId(`transfer-${type}-${commandCounter}`),
@@ -27,7 +32,7 @@ function command(type: ProductCommand["type"], payload: unknown): ProductCommand
     actingAsOrganizationId: PLAYER_ORGANIZATION_ID,
     type,
     payload,
-  } as ProductCommand;
+  } as CommandOf<T>;
 }
 
 const NEIGHBOUR_EAST = districtIdForSlot(1, 1);
@@ -74,23 +79,17 @@ describe("V.d.0 traslado de cuadrillas y agentes", () => {
     )!;
     state.phase2.parcels.get(rivalParcel.id)!.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
     expect(
-      dispatchProductCommand(state, {
-        commandId: parseCommandId("transfer-build-while-travelling"),
-        issuedByPersonId: parsePersonId("person_00000001"),
-        actingAsOrganizationId: PLAYER_ORGANIZATION_ID,
-        type: "StartConstruction",
-        payload: { parcelId: rivalParcel.id, buildingType: "courtyard_home" },
-      } as ProductCommand),
+      dispatchProductCommand(
+        state,
+        command("StartConstruction", { parcelId: rivalParcel.id, buildingType: "courtyard_home" }),
+      ),
     ).toMatchObject({ accepted: true });
     const site = [...state.phase2.constructionSites.values()][0]!;
     expect(
-      dispatchProductCommand(state, {
-        commandId: parseCommandId("transfer-assign-while-travelling"),
-        issuedByPersonId: parsePersonId("person_00000001"),
-        actingAsOrganizationId: PLAYER_ORGANIZATION_ID,
-        type: "AssignCrewToWorkOrder",
-        payload: { crewId: crew.id, workOrderId: site.id },
-      } as ProductCommand),
+      dispatchProductCommand(
+        state,
+        command("AssignCrewToWorkOrder", { crewId: crew.id, workOrderId: site.id }),
+      ),
     ).toMatchObject({ accepted: false, code: "AGENT_ALREADY_TRAVELLING" });
 
     // El reloj avanza al final del tick, así que la llegada se ejecuta en la llamada siguiente.

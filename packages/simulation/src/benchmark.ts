@@ -1,5 +1,6 @@
 import {
   parseAgentId,
+  parseDistrictId,
   parseOrganizationId,
   parseSeed,
   parseStructureId,
@@ -7,7 +8,7 @@ import {
   type GridCell,
   type Seed,
   type Tick,
-  type ViewProjectionV1,
+  type ViewProjectionV2,
 } from "@landlord/shared";
 import { createPrng, type PrngState } from "./prng";
 
@@ -357,9 +358,35 @@ export function createBenchmarkScenario(
   return scenario;
 }
 
-export function createBenchmarkProjection(scenario: BenchmarkScenario): ViewProjectionV1 {
+export function createBenchmarkProjection(scenario: BenchmarkScenario): ViewProjectionV2 {
+  const districts = Array.from({ length: 9 }, (_, index) => ({
+    id: parseDistrictId(`district_${String(index + 1).padStart(8, "0")}`),
+    name: `Distrito ${index + 1}`,
+    slotX: index % 3,
+    slotY: Math.floor(index / 3),
+    role: "mixed_core",
+    parcels: 0,
+    marketableParcels: 0,
+    ownParcels: 0,
+    rivalParcels: 0,
+    buildings: 0,
+    ownBuildings: 0,
+    rivalBuildings: 0,
+    occupiedUnits: 0,
+    vacantUnits: 0,
+    rentIndexPercent: 100,
+    averageLandValue: 0,
+    alerts: 0,
+  }));
   return {
-    projectionVersion: 1,
+    projectionVersion: 2,
+    observedDistrictId: parseDistrictId("district_00000004"),
+    city: {
+      id: "city_00000001",
+      name: "Ciudad del Umbral",
+      layout: { columns: 3, rows: 3 },
+      districts,
+    },
     tick: scenario.tick,
     map: { width: 64, height: 64, roads: { revision: 0, digest: "811c9dc5", cells: [] } },
     structures: scenario.buildings.map((building) => ({

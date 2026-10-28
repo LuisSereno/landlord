@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import type { SimulationMetrics, ViewProjectionV1, WorkerResponse } from "@landlord/shared";
+import type { SimulationMetrics, ViewProjectionV2, WorkerResponse } from "@landlord/shared";
 import { appendDiagnostic, summarizeDiagnostics, type DiagnosticEntry } from "./diagnostics";
 import { SnapshotPersistenceError, createIndexedDbPersistence } from "./persistence/indexed-db";
 import type { GridCell } from "./isometric/coordinates";
@@ -12,6 +12,7 @@ import {
 } from "./isometric/mount";
 import { SimulationWorkerClient, type ClientDiagnostic } from "./worker/client";
 import { BenchmarkApp } from "./BenchmarkApp";
+import { CityView } from "./CityView";
 import { ArtLab } from "./ArtLab";
 import { VisualSlice } from "./VisualSlice";
 import { playFeedback } from "./audio/feedback";
@@ -108,6 +109,13 @@ export function App() {
     if (!selectedCell || !clientRef.current || !districtId) return;
     const response = await clientRef.current.placeTestStructure(selectedCell, districtId);
     setMessage(responseMessage(response, "Comando enviado; esperando el tick efectivo."));
+  };
+
+  /** Cambiar de distrito es una petición técnica: no consume caja ni mueve el mundo. */
+  const selectDistrict = async (districtId: string) => {
+    if (!clientRef.current) return;
+    const response = await clientRef.current.setObservedDistrict(districtId);
+    setMessage(responseMessage(response, "Distrito observado cambiado."));
   };
 
   const sendAction = async (action: () => Promise<WorkerResponse>, success: string) => {
@@ -344,6 +352,11 @@ export function App() {
         <section className="map-panel" aria-label="Mapa del distrito">
           <header className="map-header">
             <strong>Mapa operativo</strong>
+            <span className="map-district" aria-label="Distrito observado">
+              {projection?.city.districts.find(
+                (district) => district.id === projection.observedDistrictId,
+              )?.name ?? "—"}
+            </span>
             <label>
               <span className="sr-only">Capa del mapa</span>
               <select
@@ -380,6 +393,13 @@ export function App() {
               <li>Construye, asigna unidades, mantén los activos y reinvierte.</li>
             </ol>
           </details>
+          {projection ? (
+            <CityView
+              districts={projection.city.districts}
+              observedDistrictId={projection.observedDistrictId}
+              onSelect={(districtId) => void selectDistrict(districtId)}
+            />
+          ) : null}
           <section className="side-panel">
             <p className="status-line" role="status">
               {message}
@@ -1524,7 +1544,7 @@ export function App() {
 }
 
 type ProjectedContract = NonNullable<
-  NonNullable<ViewProjectionV1["economy"]>["publicContracts"]
+  NonNullable<ViewProjectionV2["economy"]>["publicContracts"]
 >["open"][number];
 
 function ContractBidForm({
@@ -1611,7 +1631,7 @@ function IsometricCanvas({
   overlay,
   onCellPicked,
 }: {
-  projection: ViewProjectionV1 | null;
+  projection: ViewProjectionV2 | null;
   overlay: MapOverlay;
   onCellPicked: (cell: GridCell) => void;
 }) {

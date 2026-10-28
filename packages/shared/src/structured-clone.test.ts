@@ -2,6 +2,36 @@ import { describe, expect, it } from "vitest";
 
 import * as shared from "./index";
 
+function cityFixture(observedDistrictId: string) {
+  return {
+    observedDistrictId,
+    city: {
+      id: "city_00000001",
+      name: "Ciudad de prueba",
+      layout: { columns: 3, rows: 3 },
+      districts: Array.from({ length: 9 }, (_, index) => ({
+        id: `district_${String(index + 1).padStart(8, "0")}`,
+        name: `Distrito ${index + 1}`,
+        slotX: index % 3,
+        slotY: Math.floor(index / 3),
+        role: "mixed_core",
+        parcels: 0,
+        marketableParcels: 0,
+        ownParcels: 0,
+        rivalParcels: 0,
+        buildings: 0,
+        ownBuildings: 0,
+        rivalBuildings: 0,
+        occupiedUnits: 0,
+        vacantUnits: 0,
+        rentIndexPercent: 100,
+        averageLandValue: 0,
+        alerts: 0,
+      })),
+    },
+  };
+}
+
 const clone = <T>(value: T): T =>
   (globalThis as typeof globalThis & { structuredClone<T>(value: T): T }).structuredClone(value);
 
@@ -86,8 +116,9 @@ describe("shared wire data", () => {
           cell: { x: 1, y: 1 },
         },
       }),
-      shared.viewProjectionV1Schema.parse({
-        projectionVersion: 1,
+      shared.viewProjectionV2Schema.parse({
+        projectionVersion: 2,
+        ...cityFixture("district_00000001"),
         tick: 1,
         map: { width: 64, height: 64, roads: { revision: 0, digest: "811c9dc5", cells: [] } },
         structures: [],

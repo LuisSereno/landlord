@@ -10,7 +10,7 @@ import {
   parseParcelId,
   parsePersonId,
   parseTick,
-  viewProjectionV1Schema,
+  viewProjectionV2Schema,
 } from "@landlord/shared";
 import { dispatchPlaceTestStructure, dispatchProductCommand } from "./commands";
 import { activateMacroEvent } from "./macro-events";
@@ -29,13 +29,18 @@ describe("simulation view projection", () => {
     });
     const projection = createViewProjection(state);
     expect(projection).toMatchObject({
-      projectionVersion: 1,
+      projectionVersion: 2,
       tick: 0,
+      observedDistrictId: PLAYER_HOME_DISTRICT_ID,
       map: expect.objectContaining({ width: 64, height: 64, roads: expect.any(Object) }),
       structures: [
         { id: "structure_00000001", ownerOrganizationId: "org_00000001", cell: { x: 3, y: 4 } },
       ],
     });
+    expect(projection.city.districts).toHaveLength(9);
+    expect(projection.city.districts.map((district) => district.name)).toContain(
+      "Barrio del Umbral",
+    );
     expect(projection.agents).toHaveLength(16);
   });
 
@@ -64,7 +69,7 @@ describe("simulation view projection", () => {
       equity: 14548,
       period: { expenses: 812, netIncome: -812, cashFlow: -812 },
     });
-    expect(() => viewProjectionV1Schema.parse(afterPurchase)).not.toThrow();
+    expect(() => viewProjectionV2Schema.parse(afterPurchase)).not.toThrow();
   });
 
   it("forecasts a shortfall without creating a negative authoritative balance", () => {
@@ -131,7 +136,7 @@ describe("simulation view projection", () => {
       outstandingPrincipal: 600,
       monthlyPayment: 51,
     });
-    expect(() => viewProjectionV1Schema.parse(createViewProjection(state, true))).not.toThrow();
+    expect(() => viewProjectionV2Schema.parse(createViewProjection(state, true))).not.toThrow();
   });
 
   it("publica los macroeventos activos sin exponer el arroyo del sorteo", () => {
@@ -155,7 +160,7 @@ describe("simulation view projection", () => {
       -12,
       5,
     );
-    expect(() => viewProjectionV1Schema.parse(projection)).not.toThrow();
+    expect(() => viewProjectionV2Schema.parse(projection)).not.toThrow();
     /** El arroyo del sorteo y la probabilidad mensual son superficie privada del motor. */
     expect(JSON.stringify(projection)).not.toMatch(/xoshiro|prng|triggerChance/i);
   });

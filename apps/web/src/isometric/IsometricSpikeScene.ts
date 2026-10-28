@@ -4,7 +4,7 @@ import type {
   BuildingAssetV1,
   RuntimeAssetManifestV1,
   SceneryAssetV1,
-  ViewProjectionV1,
+  ViewProjectionV2,
 } from "@landlord/shared";
 import runtimeAssets from "../generated/runtime-assets.json";
 import runtimeAssetsBlender from "../generated/runtime-assets-blender.json";
@@ -95,7 +95,7 @@ type CameraTestApi = {
   getSelectedCell(): GridCell | null;
   centerOnCell(cell: GridCell): void;
   /** Inyecta una proyección (captura QA): atraviesa el mismo camino de render que la partida real. */
-  injectProjection(projection: ViewProjectionV1): void;
+  injectProjection(projection: ViewProjectionV2): void;
 };
 
 declare global {
@@ -152,7 +152,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private debugText?: Phaser.GameObjects.Text;
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   private selectedCell: GridCell | null = null;
-  private projection: ViewProjectionV1 | null = null;
+  private projection: ViewProjectionV2 | null = null;
   private overlay: MapOverlay = "ownership";
   private cellPickedListener?: (cell: GridCell) => void;
   private dragStart: { x: number; y: number; scrollX: number; scrollY: number } | null = null;
@@ -272,7 +272,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     if (this.cursors.down?.isDown) camera.scrollY += speed;
   }
 
-  public setProjection(projection: ViewProjectionV1): void {
+  public setProjection(projection: ViewProjectionV2): void {
     this.projection = projection;
     if (!this.sliceLayout) this.syncGameplayVisual();
     this.updateBlitterPositions();
@@ -642,7 +642,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   }
 
   private parcelOverlayColor(
-    parcel: NonNullable<ViewProjectionV1["economy"]>["parcels"][number],
+    parcel: NonNullable<ViewProjectionV2["economy"]>["parcels"][number],
   ): number {
     if (this.overlay === "condition") {
       const building = this.projection?.economy?.buildings.find(

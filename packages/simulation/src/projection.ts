@@ -1,7 +1,13 @@
-import { roadCellsFromSegments, type DistrictId, type ViewProjectionV1 } from "@landlord/shared";
-import { parseTick } from "@landlord/shared";
+import {
+  parseMoney,
+  parseTick,
+  roadCellsFromSegments,
+  type DistrictId,
+  type PublicDistrictSummary,
+  type ViewProjectionV2,
+} from "@landlord/shared";
 import { districtStateOf, type GameState } from "./state";
-import { PLAYER_HOME_DISTRICT_ID } from "./city";
+import { canonicalSlots, PLAYER_HOME_DISTRICT_ID, resolveCityProfile } from "./city";
 import {
   BUILDING_DEFINITIONS,
   ILLEGAL_ROUTE,
@@ -72,7 +78,7 @@ function createFinancialSummary(
   state: GameState,
   cash: number,
   playerInventory: { cement: number; brick: number; steel: number },
-): NonNullable<NonNullable<ViewProjectionV1["economy"]>["financials"]> {
+): NonNullable<NonNullable<ViewProjectionV2["economy"]>["financials"]> {
   const periodStartTick = Math.floor(state.clock.tick / GAME_MONTH_TICKS) * GAME_MONTH_TICKS;
   let periodIncome = 0;
   let periodExpenses = 0;
@@ -204,12 +210,94 @@ function createFinancialSummary(
  * without touching `GameState`.
  */
 
+/**
+ * Resumen público de los nueve distritos (D-088, plan §3.5). Sólo agregados: nada de caja, estrategia
+ * ni memoria privada del rival. En V.d.0 el índice de renta sigue siendo municipal, así que el mismo
+ * valor aparece en los nueve; V.d.2 lo convierte en índice por distrito con su fallback declarado.
+ */
+function buildCitySummaries(state: GameState): PublicDistrictSummary[] {
+  const profile = resolveCityProfile(state.world.city.generation.profileId);
+  const slots = canonicalSlots(profile);
+  const parcelById = new Map(
+    [...state.phase2.parcels.values()].map((parcel) => [parcel.id, parcel] as const),
+  );
+  const rentIndices = Object.values(state.phase2.housingMarket.rentIndexPercentByBuildingType);
+  const rentIndexPercent =
+    rentIndices.length === 0
+      ? 100
+      : Math.round(rentIndices.reduce((total, value) => total + value, 0) / rentIndices.length);
+
+  return state.world.city.districtIds.map((districtId, index) => {
+    const slot = slots[index]!;
+    const district = state.world.districts.get(districtId)!;
+    const parcels = [...state.phase2.parcels.values()].filter(
+      (parcel) => parcel.districtId === districtId,
+    );
+    const buildings = [...state.phase2.buildings.values()].filter(
+      (building) => parcelById.get(building.parcelId)?.districtId === districtId,
+    );
+    const occupiedUnits = buildings.reduce(
+      (total, building) => total + building.tenantIds.length,
+      0,
+    );
+    const totalUnits = buildings.reduce(
+      (total, building) => total + BUILDING_DEFINITIONS[building.type].capacity,
+      0,
+    );
+    return {
+      id: districtId,
+      name: district.district.name,
+      slotX: slot.slotX,
+      slotY: slot.slotY,
+      role: slot.dominantRole,
+      parcels: parcels.length,
+      marketableParcels: parcels.filter((parcel) => parcel.ownerOrganizationId === null).length,
+      ownParcels: parcels.filter((parcel) => parcel.ownerOrganizationId === PLAYER_ORGANIZATION_ID)
+        .length,
+      rivalParcels: parcels.filter((parcel) => parcel.ownerOrganizationId === RIVAL_ORGANIZATION_ID)
+        .length,
+      buildings: buildings.length,
+      ownBuildings: buildings.filter(
+        (building) => building.ownerOrganizationId === PLAYER_ORGANIZATION_ID,
+      ).length,
+      rivalBuildings: buildings.filter(
+        (building) => building.ownerOrganizationId === RIVAL_ORGANIZATION_ID,
+      ).length,
+      occupiedUnits,
+      vacantUnits: Math.max(0, totalUnits - occupiedUnits),
+      rentIndexPercent,
+      averageLandValue: parseMoney(
+        parcels.length === 0
+          ? 0
+          : Math.round(parcels.reduce((total, parcel) => total + parcel.price, 0) / parcels.length),
+      ),
+      alerts: buildings.filter((building) => building.state !== "operational").length,
+    };
+  });
+}
+
 export function createViewProjection(
   state: GameState,
   includeEconomy = false,
   observedDistrictId: DistrictId = PLAYER_HOME_DISTRICT_ID,
-): ViewProjectionV1 {
+): ViewProjectionV2 {
   const observedDistrict = districtStateOf(state, observedDistrictId);
+  /**
+   * El mapa, las parcelas, los edificios y las obras publicados son sólo del distrito observado
+   * (plan §3.5). Los agregados económicos del jugador siguen siendo de ciudad.
+   */
+  const observedParcels = [...state.phase2.parcels.values()].filter(
+    (parcel) => parcel.districtId === observedDistrictId,
+  );
+  const observedParcelIds = new Set(observedParcels.map((parcel) => parcel.id));
+  const observedBuildings = [...state.phase2.buildings.values()].filter((building) =>
+    observedParcelIds.has(building.parcelId),
+  );
+  const observedSiteIds = new Set(
+    [...state.phase2.constructionSites.values()]
+      .filter((site) => observedParcelIds.has(site.parcelId))
+      .map((site) => site.id),
+  );
   const playerInventory = state.phase2.inventories.get(PLAYER_ORGANIZATION_ID)!;
   const propertyTaxRateBps = currentPropertyTaxRateBps(state);
   const propertyTaxExpense = projectedMonthlyPropertyTax(state, propertyTaxRateBps);
@@ -233,7 +321,7 @@ export function createViewProjection(
     state.phase2.balances.get(PLAYER_ORGANIZATION_ID) ?? 0,
     playerInventory,
   );
-  const alerts: NonNullable<NonNullable<ViewProjectionV1["economy"]>["alerts"]> = [];
+  const alerts: NonNullable<NonNullable<ViewProjectionV2["economy"]>["alerts"]> = [];
   if (financialSummary.forecast.shortfall > 0)
     alerts.push({
       id: "liquidity-forecast",
@@ -349,7 +437,14 @@ export function createViewProjection(
     roadDigest = Math.imul((roadDigest ^ character.charCodeAt(0)) >>> 0, 0x01000193) >>> 0;
   }
   return {
-    projectionVersion: 1,
+    projectionVersion: 2,
+    observedDistrictId,
+    city: {
+      id: state.world.city.id,
+      name: state.world.city.name,
+      layout: { ...state.world.city.layout },
+      districts: buildCitySummaries(state),
+    },
     tick: parseTick(state.clock.tick),
     map: {
       width: 64,
@@ -386,7 +481,7 @@ export function createViewProjection(
               id: observedDistrict.district.id,
               name: observedDistrict.district.name,
             },
-            parcels: [...state.phase2.parcels.values()]
+            parcels: observedParcels
               .sort((left, right) => left.id.localeCompare(right.id))
               .map((parcel) => {
                 const permit = state.phase2.permitting.permitsByParcelId[parcel.id];
@@ -569,7 +664,7 @@ export function createViewProjection(
               upgradeRentBonusPercent: UPGRADE_RENT_BONUS_PERCENT,
               production: definition.production ? { ...definition.production } : null,
             })),
-            buildings: [...state.phase2.buildings.values()]
+            buildings: observedBuildings
               .sort((left, right) => left.id.localeCompare(right.id))
               .map((building) => ({
                 ...building,
@@ -596,6 +691,7 @@ export function createViewProjection(
                   (state.phase2.maintenance.backlogByBuildingId[building.id] ?? 0),
               })),
             constructionSites: [...state.phase2.constructionSites.values()]
+              .filter((site) => observedSiteIds.has(site.id))
               .sort((left, right) => left.id.localeCompare(right.id))
               .map((site) => ({
                 id: site.id,

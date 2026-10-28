@@ -37,8 +37,37 @@ import {
   type IntelSource,
 } from "./domain";
 
-export type ViewProjectionV1 = {
-  projectionVersion: 1;
+/** Resumen público de un distrito: lo que la vista de ciudad puede enseñar sin filtrar estado privado. */
+export type PublicDistrictSummary = {
+  id: DistrictId;
+  name: string;
+  slotX: number;
+  slotY: number;
+  role: string;
+  parcels: number;
+  marketableParcels: number;
+  ownParcels: number;
+  rivalParcels: number;
+  buildings: number;
+  ownBuildings: number;
+  rivalBuildings: number;
+  occupiedUnits: number;
+  vacantUnits: number;
+  rentIndexPercent: number;
+  averageLandValue: number;
+  alerts: number;
+};
+
+export type ViewProjectionV2 = {
+  projectionVersion: 2;
+  /** Distrito que el renderer dibuja; cambiarlo no toca `GameState` (D-089). */
+  observedDistrictId: DistrictId;
+  city: {
+    id: string;
+    name: string;
+    layout: { columns: number; rows: number };
+    districts: PublicDistrictSummary[];
+  };
   tick: Tick;
   map: {
     width: 64;
@@ -532,8 +561,35 @@ const mapSchema = z.object({
   }),
 });
 
-export const viewProjectionV1Schema = z.object({
-  projectionVersion: z.literal(1),
+export const publicDistrictSummarySchema = z.object({
+  id: districtIdSchema,
+  name: z.string().min(1),
+  slotX: z.number().int().min(0),
+  slotY: z.number().int().min(0),
+  role: z.string().min(1),
+  parcels: z.number().int().nonnegative(),
+  marketableParcels: z.number().int().nonnegative(),
+  ownParcels: z.number().int().nonnegative(),
+  rivalParcels: z.number().int().nonnegative(),
+  buildings: z.number().int().nonnegative(),
+  ownBuildings: z.number().int().nonnegative(),
+  rivalBuildings: z.number().int().nonnegative(),
+  occupiedUnits: z.number().int().nonnegative(),
+  vacantUnits: z.number().int().nonnegative(),
+  rentIndexPercent: z.number(),
+  averageLandValue: moneySchema,
+  alerts: z.number().int().nonnegative(),
+});
+
+export const viewProjectionV2Schema = z.object({
+  projectionVersion: z.literal(2),
+  observedDistrictId: districtIdSchema,
+  city: z.object({
+    id: z.string().min(1),
+    name: z.string().min(1),
+    layout: z.object({ columns: z.number().int(), rows: z.number().int() }),
+    districts: z.array(publicDistrictSummarySchema).length(9),
+  }),
   tick: tickSchema,
   map: mapSchema,
   structures: z.array(

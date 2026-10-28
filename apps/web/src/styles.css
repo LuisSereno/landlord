@@ -765,3 +765,46 @@ button:disabled {
   width: 100% !important;
   height: 100% !important;
 }
+
+/* Vista estratégica de ciudad (V.d.0): cuadrícula 3×3 de distritos comparables. */
+.city-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.city-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  color: inherit;
+  font-size: 11px;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+}
+
+.city-tile:hover {
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+.city-tile-selected {
+  border-color: #e0a44a;
+  background: rgba(224, 164, 74, 0.14);
+}
+
+.city-tile strong {
+  font-size: 12px;
+}
+
+.city-role {
+  opacity: 0.75;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 10px;
+}

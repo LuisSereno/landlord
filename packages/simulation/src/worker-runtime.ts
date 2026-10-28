@@ -125,6 +125,8 @@ function succeeded(requestId: RequestId, tick: number, result?: unknown): Worker
 
 export class SimulationWorkerRuntime {
   private state: GameState | null = null;
+  /** Petición técnica, no estado del mundo: no entra en el snapshot ni en la cadena canónica. */
+  private observedDistrictId: import("@landlord/shared").DistrictId | null = null;
   private readonly pendingRequestIds = new Map<string, RequestId>();
   private acceptedCommands = 0;
   private readonly rejectedCommands = new Map<ErrorCode, number>();
@@ -184,6 +186,7 @@ export class SimulationWorkerRuntime {
     switch (request.type) {
       case "InitializeGame": {
         this.state = createInitialState(request.payload.seed);
+        this.observedDistrictId = null;
         this.pendingRequestIds.clear();
         this.resetDiagnostics();
         return [succeeded(request.requestId, this.state.clock.tick), this.projectionMessage()];
@@ -216,6 +219,14 @@ export class SimulationWorkerRuntime {
           speed: request.payload.speed,
         };
         return [succeeded(request.requestId, this.state.clock.tick)];
+      }
+      case "SetObservedDistrict": {
+        if (!this.state) return [failed(request.requestId, "INVALID_PAYLOAD")];
+        if (!this.state.world.districts.has(request.payload.districtId)) {
+          return [failed(request.requestId, "DISTRICT_NOT_FOUND")];
+        }
+        this.observedDistrictId = request.payload.districtId;
+        return [succeeded(request.requestId, this.state.clock.tick), this.projectionMessage()];
       }
       case "GetMetrics": {
         if (!this.state) return [failed(request.requestId, "INVALID_PAYLOAD")];
@@ -250,6 +261,7 @@ export class SimulationWorkerRuntime {
         try {
           const nextState = restoreStateFromSnapshot(rawSnapshot);
           this.state = nextState;
+          this.observedDistrictId = null;
           this.pendingRequestIds.clear();
           this.resetDiagnostics();
           return [succeeded(request.requestId, nextState.clock.tick), this.projectionMessage()];
@@ -266,7 +278,7 @@ export class SimulationWorkerRuntime {
       protocolVersion: PROTOCOL_VERSION,
       requestId: null,
       type: "ProjectionPublished",
-      payload: createViewProjection(this.state, true),
+      payload: createViewProjection(this.state, true, this.observedDistrictId ?? undefined),
     };
   }
 

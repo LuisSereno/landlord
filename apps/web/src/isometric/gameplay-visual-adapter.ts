@@ -1,8 +1,8 @@
-import type { GridCell, ViewProjectionV1 } from "@landlord/shared";
+import type { GridCell, ViewProjectionV2 } from "@landlord/shared";
 import type { GroundPlan, GroundRoadMarking, GroundSurface } from "../visual-slice/ground";
 
 /**
- * Frontera de presentación del gameplay (WP4.15-V.c.1). Convierte `ViewProjectionV1` en el modelo
+ * Frontera de presentación del gameplay (WP4.15-V.c.1). Convierte `ViewProjectionV2` en el modelo
  * visual que consume la escena isométrica: qué archetype de edificio pintar, qué superficie tiene
  * cada celda y qué decoración sin carretera puede dibujarse.
  *
@@ -10,7 +10,7 @@ import type { GroundPlan, GroundRoadMarking, GroundSurface } from "../visual-sli
  * simulación, ni la composición fija de `visual-slice/layout.ts`. La dirección autoritativa sigue
  * siendo la simulación; aquí sólo se decide cómo se ve.
  *
- * Simulación → ViewProjectionV1 → este adapter → renderer Graphic Civic → Phaser.
+ * Simulación → ViewProjectionV2 → este adapter → renderer Graphic Civic → Phaser.
  */
 
 /** Tipos económicos sin geometría Blender homologable: se mantienen en el fallback procedural. */
@@ -644,7 +644,7 @@ export function planGameplayGround(
   }
 
   // La calzada se aplica al final para que ROAD > apron > parcela > base sea una regla explícita.
-  // Las strings proceden únicamente de ViewProjectionV1.map.roads.cells; no se infiere geometría.
+  // Las strings proceden únicamente de ViewProjectionV2.map.roads.cells; no se infiere geometría.
   for (const key of roadSet(roadCells)) {
     if (surfaces.has(key)) surfaces.set(key, "asphalt");
   }
@@ -734,7 +734,7 @@ const NEIGHBOURS = [
  * zoning y si están construidas o en obra. Excluye caja, renta, condición, reputación, política y
  * tick: dos proyecciones con la misma geometría y economía distinta generan la misma clave.
  */
-export function gameplayGeometryKey(projection: ViewProjectionV1): string {
+export function gameplayGeometryKey(projection: ViewProjectionV2): string {
   const economy = projection.economy;
   if (!economy) return `roads:${projection.map.roads.digest}`;
   const constructionParcelIds = new Set(economy.constructionSites.map((site) => site.parcelId));
@@ -754,7 +754,7 @@ export function gameplayGeometryKey(projection: ViewProjectionV1): string {
 }
 
 export function buildGameplayVisualModel(
-  projection: ViewProjectionV1,
+  projection: ViewProjectionV2,
   mapWidth = projection.map.width,
   mapHeight = projection.map.height,
 ): GameplayVisualModel {

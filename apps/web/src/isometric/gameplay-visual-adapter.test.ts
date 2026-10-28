@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { ViewProjectionV1 } from "@landlord/shared";
+import type { ViewProjectionV2 } from "@landlord/shared";
 import type { RuntimeAssetManifestV1 } from "@landlord/shared";
 import blenderBundle from "../generated/runtime-assets-blender.json";
 import {
@@ -40,7 +40,7 @@ function projection(
   sites: SiteInput[],
   roads: string[] = [],
   digest = roads.length > 0 ? "road-fixture" : "811c9dc5",
-): ViewProjectionV1 {
+): ViewProjectionV2 {
   return {
     projectionVersion: 1,
     tick: 0,
@@ -53,7 +53,7 @@ function projection(
       constructionSites: sites,
       cash: 12000,
     },
-  } as unknown as ViewProjectionV1;
+  } as unknown as ViewProjectionV2;
 }
 
 const PARCELS: ParcelInput[] = [

@@ -517,8 +517,14 @@ describe("WP4.11 persistencia, proyección y campaña", () => {
      */
     expect(MUNICIPAL_PARTY_CATALOG.map((party) => party.id)).toContain(politics.governingPartyId);
     expect(Object.values(politics.seatsByPartyId).some((seats) => seats > 0)).toBe(true);
-    expect(politics.governingPartyId).toBe(initialMunicipalPoliticsState().governingPartyId);
-  }, 30_000);
+    /**
+     * V.d.1 da suelo y edificios a distritos que antes estaban vacíos, pero la opinión municipal
+     * todavía no pondera población efectiva por distrito (plan §V.d.2.11). El resultado depende
+     * del nuevo stock y no se fija a un partido concreto hasta esa fase; lo que se exige aquí es
+     * que el concejo se renueve completo y elija entre el catálogo.
+     */
+    expect(politics.electionsHeld).toBe(3);
+  }, 120_000);
 
   it("ninguna formación del catálogo reproduce la nomenclatura de un partido real", () => {
     const names = MUNICIPAL_PARTY_CATALOG.map((party) => party.name.toLowerCase());

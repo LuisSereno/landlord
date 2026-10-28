@@ -98,6 +98,8 @@ const runtimeSources = [
   .filter((directory) => existsSync(directory))
   .flatMap(sourceFiles);
 for (const file of runtimeSources) {
+  // Los tests de gate leen los envelopes versionados; el runtime no puede hacerlo (V.d Fase 0).
+  if (file.endsWith(".test.ts")) continue;
   const content = readFileSync(file, "utf8");
   if (/urban[-_]benchmark/.test(content)) {
     violations.push(

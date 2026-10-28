@@ -182,8 +182,8 @@ describe("WP4.5 presupuesto municipal", () => {
       const parcels = [...state.phase2.parcels.values()].sort((left, right) =>
         left.id.localeCompare(right.id),
       );
-      parcels[0]!.cell = { ...center };
-      parcels[1]!.cell = { x: center.x + 1, y: center.y };
+      parcels[0]!.anchorCell = { ...center };
+      parcels[1]!.anchorCell = { x: center.x + 1, y: center.y };
       state.phase2.municipal.serviceLevelPercentByCategory = levels;
       return state;
     };

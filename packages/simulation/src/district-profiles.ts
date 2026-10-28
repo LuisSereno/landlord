@@ -1,7 +1,15 @@
-import type { AgentSpecialty, GridCell, ProductionSuitability, Zoning } from "@landlord/shared";
+import type {
+  AgentSpecialty,
+  GridCell,
+  ProductionSuitability,
+  UrbanRole,
+  Zoning,
+} from "@landlord/shared";
+
+import type { UrbanFabricConfig } from "./urban-fabric";
 
 /** Versión del algoritmo de generación. Cambiarla invalida los hashes de fixtures. */
-export const DISTRICT_GENERATOR_VERSION = 1;
+export const DISTRICT_GENERATOR_VERSION = 2;
 
 export const DEFAULT_DISTRICT_PROFILE_ID = "barrio_del_umbral";
 
@@ -25,6 +33,10 @@ export type DistrictProfile = {
   name: string;
   width: 64;
   height: 64;
+  /** Dominant function of the district; V.d.2 will refine it block by block. */
+  dominantRole: UrbanRole;
+  /** Road lattice and parcel envelope of the recipe (D-090). */
+  fabric: UrbanFabricConfig;
   spawnAnchors: DistrictSpawnAnchors;
   /**
    * Composición fija del perfil. Garantiza que el bucle de juego siempre dispone de suelo
@@ -101,10 +113,94 @@ const CONTINUITY_SUITABILITY: DistrictProfile["suitability"] = {
   industrial: { cement: 120, brick: 100, steel: 135 },
 };
 
+/**
+ * Fabric envelopes (D-090). A 3-line lattice yields ≈ 23 km/km² of street and 31-cell blocks;
+ * a 4-line lattice yields ≈ 31 km/km² and 20-cell blocks. Both sit inside the Fase 0 envelopes of
+ * their morphological family; block splitting inside the envelope only adds alleys, never streets.
+ */
+const FABRIC_URBAN: DistrictProfile["fabric"] = {
+  latticeLines: 3,
+  connectSpawns: true,
+  maxBlockAreaCells: 340,
+  maxBlockDepthCells: 15,
+  parcelFrontageCells: [2, 4],
+  parcelDepthCells: [5, 15],
+  parcelAreaCells: [12, 96],
+  maxParcelAspectRatio: 8,
+};
+
+const FABRIC_DENSE: DistrictProfile["fabric"] = {
+  latticeLines: 4,
+  connectSpawns: true,
+  maxBlockAreaCells: 340,
+  maxBlockDepthCells: 10,
+  parcelFrontageCells: [2, 4],
+  parcelDepthCells: [4, 10],
+  parcelAreaCells: [10, 72],
+  maxParcelAspectRatio: 6,
+};
+
+const FABRIC_MIXED: DistrictProfile["fabric"] = {
+  latticeLines: 4,
+  connectSpawns: true,
+  maxBlockAreaCells: 460,
+  maxBlockDepthCells: 10,
+  parcelFrontageCells: [2, 5],
+  parcelDepthCells: [5, 10],
+  parcelAreaCells: [12, 96],
+  maxParcelAspectRatio: 6,
+};
+
+const FABRIC_CIVIC: DistrictProfile["fabric"] = {
+  latticeLines: 4,
+  connectSpawns: true,
+  maxBlockAreaCells: 360,
+  maxBlockDepthCells: 10,
+  parcelFrontageCells: [3, 6],
+  parcelDepthCells: [5, 10],
+  parcelAreaCells: [15, 96],
+  maxParcelAspectRatio: 6,
+};
+
+const FABRIC_LOW_DENSITY: DistrictProfile["fabric"] = {
+  latticeLines: 3,
+  connectSpawns: false,
+  maxBlockAreaCells: 620,
+  maxBlockDepthCells: 15,
+  parcelFrontageCells: [2, 4],
+  parcelDepthCells: [8, 15],
+  parcelAreaCells: [24, 140],
+  maxParcelAspectRatio: 8,
+};
+
+const FABRIC_INDUSTRIAL: DistrictProfile["fabric"] = {
+  latticeLines: 3,
+  connectSpawns: true,
+  maxBlockAreaCells: 330,
+  maxBlockDepthCells: 15,
+  parcelFrontageCells: [4, 8],
+  parcelDepthCells: [8, 15],
+  parcelAreaCells: [32, 220],
+  maxParcelAspectRatio: 8,
+};
+
+const FABRIC_RAIL: DistrictProfile["fabric"] = {
+  latticeLines: 3,
+  connectSpawns: true,
+  maxBlockAreaCells: 420,
+  maxBlockDepthCells: 15,
+  parcelFrontageCells: [2, 4],
+  parcelDepthCells: [8, 15],
+  parcelAreaCells: [24, 160],
+  maxParcelAspectRatio: 8,
+};
+
 export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
   barrio_del_umbral: {
     id: "barrio_del_umbral",
     name: "Barrio del Umbral",
+    dominantRole: "urban_residential",
+    fabric: FABRIC_URBAN,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 4, y: 4 }, rival: { x: 56, y: 4 } },
@@ -146,6 +242,8 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
   vega_del_cauce: {
     id: "vega_del_cauce",
     name: "Vega del Cauce",
+    dominantRole: "green_open_space",
+    fabric: FABRIC_LOW_DENSITY,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 6, y: 6 }, rival: { x: 52, y: 8 } },
@@ -186,6 +284,8 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
   ensanche_ferroviario: {
     id: "ensanche_ferroviario",
     name: "Ensanche Ferroviario",
+    dominantRole: "commercial_corridor",
+    fabric: FABRIC_RAIL,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 8, y: 4 }, rival: { x: 48, y: 4 } },
@@ -228,6 +328,8 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
   lomas_del_umbral: {
     id: "lomas_del_umbral",
     name: "Lomas del Umbral",
+    dominantRole: "low_density_residential",
+    fabric: FABRIC_LOW_DENSITY,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 5, y: 5 }, rival: { x: 54, y: 6 } },
@@ -268,6 +370,8 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
   mercado_del_norte: {
     id: "mercado_del_norte",
     name: "Mercado del Norte",
+    dominantRole: "commercial_corridor",
+    fabric: FABRIC_MIXED,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 6, y: 4 }, rival: { x: 52, y: 4 } },
@@ -310,6 +414,8 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
   centro_civico: {
     id: "centro_civico",
     name: "Centro Cívico",
+    dominantRole: "civic_core",
+    fabric: FABRIC_CIVIC,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 4, y: 4 }, rival: { x: 56, y: 4 } },
@@ -352,6 +458,8 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
   barrio_del_taller: {
     id: "barrio_del_taller",
     name: "Barrio del Taller",
+    dominantRole: "mixed_core",
+    fabric: FABRIC_DENSE,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 8, y: 6 }, rival: { x: 50, y: 6 } },
@@ -394,6 +502,8 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
   ensanche_ferroviario_oeste: {
     id: "ensanche_ferroviario_oeste",
     name: "Ensanche Ferroviario Oeste",
+    dominantRole: "industrial_logistics",
+    fabric: FABRIC_INDUSTRIAL,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 6, y: 5 }, rival: { x: 52, y: 5 } },
@@ -436,6 +546,8 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
   patios_del_este: {
     id: "patios_del_este",
     name: "Patios del Este",
+    dominantRole: "industrial_logistics",
+    fabric: FABRIC_INDUSTRIAL,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 8, y: 5 }, rival: { x: 50, y: 7 } },

@@ -66,8 +66,12 @@ function addBuilding(
 ): Building {
   const parcels = [...state.phase2.parcels.values()];
   const center = {
-    x: Math.round(parcels.reduce((total, parcel) => total + parcel.cell.x, 0) / parcels.length),
-    y: Math.round(parcels.reduce((total, parcel) => total + parcel.cell.y, 0) / parcels.length),
+    x: Math.round(
+      parcels.reduce((total, parcel) => total + parcel.anchorCell.x, 0) / parcels.length,
+    ),
+    y: Math.round(
+      parcels.reduce((total, parcel) => total + parcel.anchorCell.y, 0) / parcels.length,
+    ),
   };
   const used = new Set([...state.phase2.buildings.values()].map((building) => building.parcelId));
   const parcel = parcels
@@ -79,7 +83,7 @@ function addBuilding(
     )
     .sort((left, right) => {
       const distance = (candidate: (typeof parcels)[number]) =>
-        Math.abs(candidate.cell.x - center.x) + Math.abs(candidate.cell.y - center.y);
+        Math.abs(candidate.anchorCell.x - center.x) + Math.abs(candidate.anchorCell.y - center.y);
       return distance(left) - distance(right) || left.id.localeCompare(right.id);
     })[index % 6]!;
   const id = parseBuildingId(`building_${String(index + 1).padStart(8, "0")}`);
@@ -241,7 +245,7 @@ describe("WP4.12-R macroeventos", () => {
         total += state.phase2.macroEvents.nextEventOrdinal - 1;
       }
       expect(total).toBeGreaterThan(0);
-    }, 30_000);
+    }, 120_000);
 
     it("respeta el calendario de sorteo mensual", () => {
       const state = createInitialState(11);

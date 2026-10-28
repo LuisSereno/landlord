@@ -38,6 +38,7 @@
     "smoke:art-lab": "node scripts/art-lab-browser-smoke.mjs",
     "district:inspect": "DISTRICT_INSPECT=1 vitest run --config vitest.config.ts packages/simulation/src/district-inspect.test.ts --reporter=verbose",
     "road:benchmark": "ROAD_BENCHMARK=1 vitest run --config vitest.config.ts packages/simulation/src/road-topology-benchmark.test.ts --reporter=verbose",
+    "fabric:gate": "FABRIC_GATE=1 vitest run --config vitest.config.ts packages/simulation/src/urban-fabric-gate.test.ts --reporter=verbose",
     "system:cost": "SYSTEM_COST=1 vitest run --config vitest.config.ts packages/simulation/src/system-cost.test.ts --reporter=verbose",
     "soak": "SOAK_FULL=1 vitest run --config vitest.config.ts packages/simulation/src/soak.test.ts --reporter=verbose",
     "audit:metrics": "AUDIT_METRICS=1 vitest run --config vitest.config.ts packages/simulation/src/audit-metrics.test.ts --reporter=verbose",

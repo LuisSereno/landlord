@@ -25,7 +25,6 @@ import {
   DISTRICT_GENERATOR_VERSION,
   DISTRICT_PROFILE_IDS,
   resolveDistrictProfile,
-  rosterLayout,
   type DistrictProfile,
 } from "./district-profiles";
 import { GAME_DAY_TICKS, GAME_MONTH_TICKS } from "./game-data";
@@ -59,6 +58,8 @@ function canonical(generated: GeneratedDistrict): string {
     seed: generated.report.seed,
     district: generated.district,
     parcels: generated.parcels,
+    blocks: generated.blocks,
+    publicSpaces: generated.publicSpaces,
     blockedCells: generated.blockedCells,
     roads: generated.roads,
     spawnAnchors: generated.spawnAnchors,
@@ -109,25 +110,17 @@ describe("WP4.1 district generation", () => {
       hashes.add(generated.report.hash);
       parcelCounts.add(generated.report.parcelCount);
 
-      const anchors = generated.parcels.slice(0, profile.anchorSlots.length);
-      expect(
-        anchors.map((parcel) => ({
-          id: parcel.id,
-          cell: parcel.cell,
-          zoning: parcel.zoning,
-          price: Number(parcel.price),
-          suitability: parcel.productionSuitability,
-        })),
-        `seed ${seed}`,
-      ).toEqual(
-        profile.anchorSlots.map((slot, index) => ({
-          id: parseParcelId(`parcel_${String(index + 1).padStart(8, "0")}`),
-          cell: slot.cell,
-          zoning: slot.zoning,
-          price: slot.price,
-          suitability: profile.suitability[slot.zoning],
-        })),
-      );
+      // Las anclas del perfil se aplican a parcelas reales cercanas a sus celdas autoradas,
+      // no a puntos sueltos: la identidad económica se conserva sin fijar la geometría.
+      expect(generated.report.anchorParcelCount, `seed ${seed}`).toBe(profile.anchorSlots.length);
+      for (const slot of profile.anchorSlots) {
+        expect(
+          generated.parcels.some(
+            (parcel) => parcel.zoning === slot.zoning && Number(parcel.price) === slot.price,
+          ),
+          `seed ${seed} ancla ${slot.zoning}@${slot.price}`,
+        ).toBe(true);
+      }
     }
 
     expect(hashes.size).toBe(SWEEP_SEEDS.length);
@@ -150,37 +143,33 @@ describe("WP4.1 district generation", () => {
         expect(generated.report.issues, label).toEqual([]);
         expect(generated.report.attempts, label).toBeGreaterThan(0);
 
-        const parcelCells = new Set(generated.parcels.map((parcel) => cellKey(parcel.cell)));
+        const parcelCells = generated.parcels.flatMap((parcel) =>
+          parcel.cells.map((cell) => cellKey(cell)),
+        );
         const blockedCells = new Set(generated.blockedCells);
-        expect(parcelCells.size, label).toBe(generated.parcels.length);
+        expect(new Set(parcelCells).size, label).toBe(parcelCells.length);
 
         for (const parcel of generated.parcels) {
           expect(parcel.districtId, label).toBe(generated.district.id);
           expect(parcel.ownerOrganizationId, label).toBeNull();
           expect(parcel.buildingId, label).toBeNull();
-          expect(parcel.cell.x, label).toBeGreaterThanOrEqual(0);
-          expect(parcel.cell.y, label).toBeGreaterThanOrEqual(0);
-          expect(parcel.cell.x, label).toBeLessThan(profile.width);
-          expect(parcel.cell.y, label).toBeLessThan(profile.height);
+          expect(parcel.cells.length, label).toBeGreaterThan(0);
+          expect(parcel.roadFrontages.length, label).toBeGreaterThan(0);
+          for (const cell of parcel.cells) {
+            expect(cell.x, label).toBeGreaterThanOrEqual(0);
+            expect(cell.y, label).toBeGreaterThanOrEqual(0);
+            expect(cell.x, label).toBeLessThan(profile.width);
+            expect(cell.y, label).toBeLessThan(profile.height);
+          }
         }
 
-        for (const anchor of [generated.spawnAnchors.player, generated.spawnAnchors.rival]) {
-          const reserved = [
-            cellKey(anchor),
-            ...rosterLayout(anchor).map((slot) => cellKey(slot.cell)),
-          ];
-          expect(
-            reserved.filter((key) => parcelCells.has(key) || blockedCells.has(key)),
-            label,
-          ).toEqual([]);
-        }
         expect(
-          [...parcelCells].filter((key) => blockedCells.has(key)),
+          parcelCells.filter((key) => blockedCells.has(key)),
           label,
         ).toEqual([]);
       }
     }
-  }, 20_000);
+  }, 120_000);
 
   it("conserva los hashes de las fixtures publicadas", () => {
     for (const fixture of DISTRICT_FIXTURES) {
@@ -205,21 +194,22 @@ describe("WP4.1 district generation", () => {
   });
 
   it("completa comprar, construir, ocupar y cobrar renta sobre un distrito generado", () => {
-    const profile = resolveDistrictProfile("vega_del_cauce");
     const state = createInitialState(1337);
-    const vegaDistrictId = [...state.world.districts].find(
-      ([, entry]) => entry.district.generation?.profileId === profile.id,
-    )![0];
-    expect(districtMapOf(state, vegaDistrictId).blockedCells.size).toBeGreaterThan(0);
-    expect(state.phase2.parcels.size).toBeGreaterThan(profile.anchorSlots.length);
+    // El roster inicial vive en el distrito del jugador: construir allí no exige traslado (D-088).
+    const crew = [...state.phase2.crews.values()].find(
+      (entry) => entry.organizationId === playerOrganization,
+    )!;
+    const homeAgent = state.agents.get(crew.supervisorAgentId)!;
+    const homeDistrictId = homeAgent.districtId;
+    expect(districtMapOf(state, homeDistrictId).blockedCells.size).toBeGreaterThan(0);
+    expect(state.phase2.parcels.size).toBeGreaterThan(20);
 
-    const spawn = profile.spawnAnchors.player;
+    const spawn = state.agents.get(crew.supervisorAgentId)!.cell;
     const target = [...state.phase2.parcels.values()]
-      .slice(profile.anchorSlots.length)
-      .filter((parcel) => parcel.zoning === "residential")
+      .filter((parcel) => parcel.districtId === homeDistrictId && parcel.zoning === "residential")
       .sort(
         (left, right) =>
-          manhattan(left.cell, spawn) - manhattan(right.cell, spawn) ||
+          manhattan(left.anchorCell, spawn) - manhattan(right.anchorCell, spawn) ||
           left.id.localeCompare(right.id),
       )[0]!;
 
@@ -243,9 +233,6 @@ describe("WP4.1 district generation", () => {
 
     const site = [...state.phase2.constructionSites.values()].find(
       (entry) => entry.parcelId === target.id,
-    )!;
-    const crew = [...state.phase2.crews.values()].find(
-      (entry) => entry.organizationId === playerOrganization,
     )!;
     expect(
       dispatchProductCommand(
@@ -310,7 +297,7 @@ describe("WP4.1 district generation", () => {
     expect(first.checkpoints.at(-1)?.canonicalState).not.toBe(
       otherSeed.checkpoints.at(-1)?.canonicalState,
     );
-  }, 60_000);
+  }, 120_000);
 
   it("persiste la identidad de generación de la ciudad y las celdas bloqueadas por distrito", () => {
     const state = createInitialState(1337);

@@ -316,7 +316,7 @@ function territoryContacts(state: GameState): Array<[string, number]> {
   )) {
     if (!parcel.ownerOrganizationId) continue;
     if (state.organizations.get(parcel.ownerOrganizationId)?.kind !== "company") continue;
-    ownerByCell.set(`${parcel.cell.x}:${parcel.cell.y}`, parcel.ownerOrganizationId);
+    ownerByCell.set(`${parcel.anchorCell.x}:${parcel.anchorCell.y}`, parcel.ownerOrganizationId);
   }
   const contacts = new Map<string, number>();
   /** Sólo hacia adelante: cada frontera entre dos parcelas se cuenta una vez. */

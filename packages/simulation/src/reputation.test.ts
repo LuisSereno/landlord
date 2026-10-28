@@ -450,7 +450,9 @@ describe("WP4.11-H atribución de víctimas y exploit bancario", () => {
   ): import("@landlord/shared").IncidentRecord {
     const state = newState(seed);
     const buildingId = addBuilding(state, 0);
-    const parcel = state.phase2.parcels.get(state.phase2.buildings.get(buildingId)!.parcelId)!.cell;
+    const parcel = state.phase2.parcels.get(
+      state.phase2.buildings.get(buildingId)!.parcelId,
+    )!.anchorCell;
     const enforcer = [...state.agents.values()].find((agent) => agent.specialty === "enforcer")!;
     enforcer.organizationId = RIVAL_ORGANIZATION_ID;
     expect(

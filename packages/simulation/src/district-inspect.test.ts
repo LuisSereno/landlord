@@ -71,7 +71,7 @@ describe("WP4.1 district inspector", () => {
               `   parcelas: ${generated.parcels
                 .map(
                   (parcel) =>
-                    `${parcel.id.slice(-4)}@${parcel.cell.x},${parcel.cell.y}:${parcel.zoning[0]}`,
+                    `${parcel.id.slice(-4)}@${parcel.anchorCell.x},${parcel.anchorCell.y}:${parcel.zoning[0]}`,
                 )
                 .join(" ")}`,
             ].join("\n"),

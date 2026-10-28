@@ -1,56 +1,58 @@
 import {
+  parseBlockId,
   parseDistrictId,
   parseMoney,
   parseParcelId,
+  parsePublicSpaceId,
   parseSeed,
   roadCellsFromSegments,
-  roadSegmentId,
-  type RoadCellClass,
-  type RoadSegmentV1,
-  type RoadTopologyV1,
+  type Block,
+  type CityId,
   type District,
   type DistrictId,
   type GridCell,
   type Parcel,
   type ProductionSuitability,
+  type PublicSpace,
+  type RoadAnchor,
+  type RoadTopology,
   type Seed,
   type Zoning,
 } from "@landlord/shared";
+
 import {
   DISTRICT_GENERATOR_VERSION,
   resolveDistrictProfile,
-  rosterLayout,
   ZONING_ORDER,
   type DistrictProfile,
   type DistrictSpawnAnchors,
 } from "./district-profiles";
+import { DEFAULT_DEVELOPMENT_CODE_BY_ROLE } from "./development-codes";
+import type { DistrictGenerationIssue } from "./district-issues";
+import { MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
 import { createPrng, type Xoshiro128ss } from "./prng";
+import {
+  blockIdForGeometry,
+  canonicalCellKeys,
+  canonicalGridCells,
+  cellKey,
+  compareCellKey,
+  compareCells,
+  deriveRoadNetwork,
+  formBlocks,
+  fnv1a32,
+  generateObstacles,
+  keyToCell,
+  publicSpaceIdForDistrict,
+  subdivideBlock,
+  validateUrbanFabric,
+} from "./urban-fabric";
+
+export type { DistrictGenerationIssue } from "./district-issues";
+export { cellKey } from "./urban-fabric";
 
 const MAX_COMPOSITION_ATTEMPTS = 12;
-const MAX_BLOCK_PLACEMENT_ATTEMPTS = 24;
 const GENERATED_DISTRICT_ID = parseDistrictId("district_00000001");
-const CARDINAL_OFFSETS: readonly GridCell[] = [
-  { x: 0, y: -1 },
-  { x: 1, y: 0 },
-  { x: 0, y: 1 },
-  { x: -1, y: 0 },
-];
-
-export type DistrictGenerationIssue = {
-  code:
-    | "INSUFFICIENT_PARCELS"
-    | "ZONING_SHORTAGE"
-    | "ZONING_CONCENTRATION"
-    | "UNAFFORDABLE_ENTRY"
-    | "DUPLICATE_PARCEL_CELL"
-    | "PARCEL_ADJACENCY"
-    | "SPAWN_BLOCKED"
-    | "PARCEL_WITHOUT_ACCESS"
-    | "ROAD_SEGMENTS_INVALID"
-    | "ROAD_CROSSES_PARCEL"
-    | "ROAD_UNREACHABLE_SPAWNS";
-  detail: string;
-};
 
 export type DistrictGenerationReport = {
   profileId: string;
@@ -59,6 +61,9 @@ export type DistrictGenerationReport = {
   attempts: number;
   parcelCount: number;
   anchorParcelCount: number;
+  blockCount: number;
+  publicSpaceCount: number;
+  parcelCellCount: number;
   zoningCounts: Record<Zoning, number>;
   blockedCellCount: number;
   roadCellCount: number;
@@ -72,53 +77,45 @@ export type DistrictGenerationReport = {
 export type GeneratedDistrict = {
   district: District;
   parcels: Parcel[];
+  blocks: Block[];
+  publicSpaces: PublicSpace[];
   blockedCells: string[];
-  roads: RoadTopologyV1;
+  roads: RoadTopology;
   spawnAnchors: DistrictSpawnAnchors;
+  roadAnchors: RoadAnchor[];
   report: DistrictGenerationReport;
 };
 
 export class DistrictGenerationError extends Error {
   public readonly profileId: string;
   public readonly seed: number;
+  public readonly cityId: CityId | null;
+  public readonly districtId: DistrictId;
   public readonly issues: readonly DistrictGenerationIssue[];
 
-  public constructor(profileId: string, seed: number, issues: readonly DistrictGenerationIssue[]) {
+  public constructor(input: {
+    profileId: string;
+    seed: number;
+    districtId: DistrictId;
+    cityId?: CityId | undefined;
+    issues: readonly DistrictGenerationIssue[];
+  }) {
     super(
-      `No se pudo generar un distrito jugable para el perfil ${profileId} con seed ${seed}: ${issues
+      `No se pudo generar el distrito ${input.districtId} de la ciudad ${
+        input.cityId ?? "single-district"
+      } (perfil ${input.profileId}, seed ${input.seed}): ${input.issues
         .map((issue) => `${issue.code} (${issue.detail})`)
         .join("; ")}`,
     );
     this.name = "DistrictGenerationError";
-    this.profileId = profileId;
-    this.seed = seed;
-    this.issues = issues;
+    this.profileId = input.profileId;
+    this.seed = input.seed;
+    this.districtId = input.districtId;
+    this.cityId = input.cityId ?? null;
+    this.issues = input.issues;
   }
 }
 
-export function cellKey(cell: GridCell): string {
-  return `${cell.x}:${cell.y}`;
-}
-
-function compareCellKey(left: string, right: string): number {
-  const [leftX, leftY] = left.split(":").map(Number) as [number, number];
-  const [rightX, rightY] = right.split(":").map(Number) as [number, number];
-  return leftY - rightY || leftX - rightX || left.localeCompare(right);
-}
-
-function fnv1a32(input: string): number {
-  let hash = 0x811c9dc5;
-  for (let index = 0; index < input.length; index += 1) {
-    hash = (hash ^ input.charCodeAt(index)) >>> 0;
-    hash = Math.imul(hash, 0x01000193) >>> 0;
-  }
-  return hash >>> 0;
-}
-
-/**
- * La generación consume un flujo propio derivado de la seed, de modo que el PRNG de la
- * partida (`createPrng(seed)`) conserva exactamente la misma secuencia que antes de WP4.1.
- */
 function deriveGenerationSeed(seed: Seed, profileId: string): number {
   let mixed = fnv1a32(`landlord.district.v${DISTRICT_GENERATOR_VERSION}|${profileId}`);
   mixed = (mixed ^ seed) >>> 0;
@@ -126,6 +123,15 @@ function deriveGenerationSeed(seed: Seed, profileId: string): number {
   mixed ^= mixed >>> 15;
   mixed = Math.imul(mixed, 0x85ebca6b) >>> 0;
   mixed ^= mixed >>> 13;
+  return mixed >>> 0;
+}
+
+/** Each retry gets its own derived stream: an attempt never inherits the failed attempt's draws. */
+function deriveAttemptSeed(baseSeed: number, attempt: number): number {
+  let mixed = fnv1a32(`landlord.district-attempt.v1|${baseSeed}|${attempt}`);
+  mixed ^= mixed >>> 16;
+  mixed = Math.imul(mixed, 0x7feb352d) >>> 0;
+  mixed ^= mixed >>> 15;
   return mixed >>> 0;
 }
 
@@ -142,11 +148,6 @@ function nextInRange(prng: Xoshiro128ss, range: readonly [number, number]): numb
   return minimum === maximum ? minimum : prng.nextInt(minimum, maximum + 1);
 }
 
-/**
- * Bolsa proporcional a los pesos del perfil, mezclada con el PRNG. Reparte el zoning entre
- * las manzanas de forma que la mezcla resultante siga la composición declarada del perfil
- * en lugar de depender de tiradas independientes.
- */
 function drawZoningBag(
   prng: Xoshiro128ss,
   weights: Record<Zoning, number>,
@@ -194,496 +195,151 @@ function drawSuitability(
   };
 }
 
-type ParcelSlot = {
-  cell: GridCell;
-  zoning: Zoning;
-  price: number;
-  suitability: ProductionSuitability;
-  anchor: boolean;
-};
-
-type Composition = {
-  slots: ParcelSlot[];
-  blocked: Set<string>;
-};
-
-function isParcelCompatible(cell: GridCell, parcelCells: ReadonlySet<string>): boolean {
-  return CARDINAL_OFFSETS.every(
-    (offset) => !parcelCells.has(cellKey({ x: cell.x + offset.x, y: cell.y + offset.y })),
-  );
-}
-
-function composeDistrict(profile: DistrictProfile, prng: Xoshiro128ss): Composition {
-  const reserved = new Set<string>();
-  for (const anchor of [profile.spawnAnchors.player, profile.spawnAnchors.rival]) {
-    reserved.add(cellKey(anchor));
-    for (const slot of rosterLayout(anchor)) reserved.add(cellKey(slot.cell));
-  }
-
-  const parcelCells = new Set<string>();
-  const slots: ParcelSlot[] = [];
-
-  for (const anchorSlot of profile.anchorSlots) {
-    parcelCells.add(cellKey(anchorSlot.cell));
-    slots.push({
-      cell: { ...anchorSlot.cell },
-      zoning: anchorSlot.zoning,
-      price: anchorSlot.price,
-      suitability: { ...profile.suitability[anchorSlot.zoning] },
-      anchor: true,
-    });
-  }
-
-  const { margin, spacingX, spacingY, zoningWeights } = profile.expansion;
-  const maxX = profile.width - 1 - margin;
-  const maxY = profile.height - 1 - margin;
-  const expansionSlots: ParcelSlot[] = [];
-  const blockCount = nextInRange(prng, profile.expansion.blockCount);
-  const zoningPlan = drawZoningBag(prng, zoningWeights, blockCount);
-  for (let block = 0; block < blockCount; block += 1) {
-    const columns = nextInRange(prng, profile.expansion.blockColumns);
-    const rows = nextInRange(prng, profile.expansion.blockRows);
-    const zoning = zoningPlan[block]!;
-    const widest = (columns - 1) * spacingX;
-    const tallest = (rows - 1) * spacingY;
-    if (widest > maxX - margin || tallest > maxY - margin) continue;
-    let placed = false;
-    for (let attempt = 0; attempt < MAX_BLOCK_PLACEMENT_ATTEMPTS && !placed; attempt += 1) {
-      const originX = prng.nextInt(margin, maxX - widest + 1);
-      const originY = prng.nextInt(margin, maxY - tallest + 1);
-      const cells: GridCell[] = [];
-      for (let row = 0; row < rows; row += 1) {
-        for (let column = 0; column < columns; column += 1) {
-          cells.push({ x: originX + column * spacingX, y: originY + row * spacingY });
-        }
-      }
-      const available = cells.every(
-        (cell) =>
-          !reserved.has(cellKey(cell)) &&
-          !parcelCells.has(cellKey(cell)) &&
-          isParcelCompatible(cell, parcelCells),
-      );
-      if (!available) continue;
-      const blockParcelCells = new Set(cells.map(cellKey));
-      const isolated = cells.every((cell) => isParcelCompatible(cell, blockParcelCells));
-      if (!isolated) continue;
-      for (const cell of cells) {
-        parcelCells.add(cellKey(cell));
-        expansionSlots.push({
-          cell: { ...cell },
-          zoning,
-          price: drawPrice(prng, profile, zoning),
-          suitability: drawSuitability(prng, profile, zoning),
-          anchor: false,
-        });
-      }
-      placed = true;
-    }
-  }
-  expansionSlots.sort((left, right) => left.cell.y - right.cell.y || left.cell.x - right.cell.x);
-  slots.push(...expansionSlots);
-
-  const blocked = new Set<string>();
-  const clusterCount = nextInRange(prng, profile.obstacles.clusters);
-  for (let cluster = 0; cluster < clusterCount; cluster += 1) {
-    const cellsPerCluster = nextInRange(prng, profile.obstacles.cellsPerCluster);
-    if (cellsPerCluster <= 0) continue;
-    let cursor = {
-      x: prng.nextInt(margin, maxX + 1),
-      y: prng.nextInt(margin, maxY + 1),
-    };
-    for (let step = 0; step < cellsPerCluster; step += 1) {
-      const offset = CARDINAL_OFFSETS[prng.nextInt(0, CARDINAL_OFFSETS.length)]!;
-      cursor = { x: cursor.x + offset.x, y: cursor.y + offset.y };
-      const key = cellKey(cursor);
-      const walkable =
-        cursor.x >= 0 &&
-        cursor.y >= 0 &&
-        cursor.x < profile.width &&
-        cursor.y < profile.height &&
-        !reserved.has(key) &&
-        !parcelCells.has(key) &&
-        isParcelCompatible(cursor, parcelCells);
-      if (!walkable) continue;
-      blocked.add(key);
-    }
-  }
-
-  return { slots, blocked };
-}
-
-function assignParcelIds(
-  slots: readonly ParcelSlot[],
-  districtId: DistrictId,
-  parcelIdOrdinal: number,
-): Parcel[] {
-  return slots.map((slot, index) => ({
-    id: parseParcelId(`parcel_${String(parcelIdOrdinal + index + 1).padStart(8, "0")}`),
-    districtId,
-    cell: { ...slot.cell },
-    price: parseMoney(slot.price),
-    zoning: slot.zoning,
-    ownerOrganizationId: null,
-    buildingId: null,
-    productionSuitability: { ...slot.suitability },
-  }));
-}
-
-/** Celdas transitables alcanzables desde los spawns, evitando obstáculos y límites del mapa. */
-function reachableCells(
-  anchors: readonly GridCell[],
-  blocked: ReadonlySet<string>,
-  width: number,
-  height: number,
-): Set<string> {
-  const reachable = new Set<string>();
-  const queue: GridCell[] = [];
-  for (const anchor of anchors) {
-    const key = cellKey(anchor);
-    if (anchor.x < 0 || anchor.y < 0 || anchor.x >= width || anchor.y >= height) continue;
-    if (blocked.has(key) || reachable.has(key)) continue;
-    reachable.add(key);
-    queue.push(anchor);
-  }
-  for (let head = 0; head < queue.length; head += 1) {
-    const current = queue[head]!;
-    for (const offset of CARDINAL_OFFSETS) {
-      const next = { x: current.x + offset.x, y: current.y + offset.y };
-      if (next.x < 0 || next.y < 0 || next.x >= width || next.y >= height) continue;
-      const key = cellKey(next);
-      if (blocked.has(key) || reachable.has(key)) continue;
-      reachable.add(key);
-      queue.push(next);
-    }
-  }
-  return reachable;
-}
-
-const ROAD_DERIVATION_VERSION = 1 as const;
-const ROAD_MESH_MAX_RUN = 12;
-
-function inBounds(cell: GridCell, width: number, height: number): boolean {
-  return cell.x >= 0 && cell.y >= 0 && cell.x < width && cell.y < height;
-}
-
-// Orden canónico (y, x): N, W, E, S. Evita ordenar cuatro vecinos en cada expansión.
-function neighbours(key: string): string[] {
-  const [x, y] = key.split(":").map(Number) as [number, number];
-  return [`${x}:${y - 1}`, `${x - 1}:${y}`, `${x + 1}:${y}`, `${x}:${y + 1}`];
-}
-
-function connectedComponents(cells: ReadonlySet<string>): string[][] {
-  const unvisited = new Set(cells);
-  const result: string[][] = [];
-  // Una única ordenación canónica. Ordenar el Set restante para cada componente era O(C² log C)
-  // en la malla sintética y no cambia qué semilla canónica se escoge para cada componente.
-  for (const first of [...cells].sort(compareCellKey)) {
-    if (!unvisited.has(first)) continue;
-    const component: string[] = [];
-    const queue = [first];
-    unvisited.delete(first);
-    for (let head = 0; head < queue.length; head += 1) {
-      const current = queue[head]!;
-      component.push(current);
-      for (const next of neighbours(current)) {
-        if (unvisited.delete(next)) queue.push(next);
-      }
-    }
-    result.push(component.sort(compareCellKey));
-  }
-  return result.sort((left, right) => compareCellKey(left[0]!, right[0]!));
-}
-
-const GRID_SIZE = 64;
-const GRID_CELLS = GRID_SIZE * GRID_SIZE;
-function indexFromKey(key: string): number {
-  const separator = key.indexOf(":");
-  return Number(key.slice(separator + 1)) * GRID_SIZE + Number(key.slice(0, separator));
-}
-function keyFromIndex(index: number): string {
-  return `${index % GRID_SIZE}:${Math.floor(index / GRID_SIZE)}`;
-}
-function indexedNeighbours(index: number, callback: (next: number) => void): void {
-  const x = index % GRID_SIZE;
-  const y = Math.floor(index / GRID_SIZE);
-  if (y > 0) callback(index - GRID_SIZE);
-  if (x > 0) callback(index - 1);
-  if (x < GRID_SIZE - 1) callback(index + 1);
-  if (y < GRID_SIZE - 1) callback(index + GRID_SIZE);
-}
-function indexedComponentsSafe(mask: Uint8Array): number[][] {
-  const visited = new Uint8Array(GRID_CELLS);
-  const queue = new Int32Array(GRID_CELLS);
-  const components: number[][] = [];
-  for (let seed = 0; seed < GRID_CELLS; seed += 1) {
-    if (!mask[seed] || visited[seed]) continue;
-    const component: number[] = [];
-    let head = 0;
-    let tail = 0;
-    queue[tail++] = seed;
-    visited[seed] = 1;
-    while (head < tail) {
-      const current = queue[head++]!;
-      component.push(current);
-      indexedNeighbours(current, (next) => {
-        if (mask[next] && !visited[next]) {
-          visited[next] = 1;
-          queue[tail++] = next;
-        }
-      });
-    }
-    components.push(component.sort((left, right) => left - right));
-  }
-  return components;
-}
-
-function indexedConnector(
-  source: readonly number[],
-  target: Uint8Array,
-  forbidden: Uint8Array,
-): number[] | null {
-  const queue = new Int32Array(GRID_CELLS);
-  const previous = new Int32Array(GRID_CELLS);
-  const visited = new Uint8Array(GRID_CELLS);
-  previous.fill(-1);
-  let head = 0;
-  let tail = 0;
-  for (const index of source) {
-    queue[tail++] = index;
-    visited[index] = 1;
-  }
-  let found = -1;
-  while (head < tail) {
-    const current = queue[head++]!;
-    if (target[current]) {
-      found = current;
-      break;
-    }
-    indexedNeighbours(current, (next) => {
-      if (!forbidden[next] && !visited[next]) {
-        visited[next] = 1;
-        previous[next] = current;
-        queue[tail++] = next;
-      }
-    });
-  }
-  if (found < 0) return null;
-  const path: number[] = [];
-  for (let cursor = found; cursor >= 0; cursor = previous[cursor]!) path.push(cursor);
-  return path.reverse();
-}
-
-function segmentsFromCells(cells: ReadonlySet<string>, roadClass: RoadCellClass): RoadSegmentV1[] {
-  // Filas máximas: una representación canónica sin inferir semánticas inexistentes de cruces.
-  const rows = new Map<number, number[]>();
-  for (const key of cells) {
-    const [x, y] = key.split(":").map(Number) as [number, number];
-    const row = rows.get(y) ?? [];
-    row.push(x);
-    rows.set(y, row);
-  }
-  const segments: RoadSegmentV1[] = [];
-  for (const [y, xs] of [...rows.entries()].sort(([left], [right]) => left - right)) {
-    const sorted = [...new Set(xs)].sort((left, right) => left - right);
-    for (let index = 0; index < sorted.length;) {
-      const start = sorted[index]!;
-      let end = start;
-      index += 1;
-      while (sorted[index] === end + 1) {
-        end = sorted[index]!;
-        index += 1;
-      }
-      const from = { x: start, y };
-      const to = { x: end, y };
-      segments.push({ id: roadSegmentId(roadClass, from, to), from, to, class: roadClass });
-    }
-  }
-  return segments;
-}
-
-function normalizeRoadSegments(segments: readonly RoadSegmentV1[]): RoadSegmentV1[] {
-  const unique = new Map<string, RoadSegmentV1>();
-  for (const segment of segments) {
-    const fromBeforeTo =
-      segment.from.y < segment.to.y ||
-      (segment.from.y === segment.to.y && segment.from.x <= segment.to.x);
-    const from = fromBeforeTo ? segment.from : segment.to;
-    const to = fromBeforeTo ? segment.to : segment.from;
-    if ((from.x !== to.x && from.y !== to.y) || from.x < 0 || from.y < 0 || to.x < 0 || to.y < 0) {
-      throw new Error("ROAD_SEGMENTS_INVALID");
-    }
-    const normalized = {
-      ...segment,
-      from: { ...from },
-      to: { ...to },
-      id: roadSegmentId(segment.class, from, to),
-    };
-    unique.set(
-      `${normalized.class}|${normalized.from.x}:${normalized.from.y}|${normalized.to.x}:${normalized.to.y}`,
-      normalized,
+/**
+ * Anchors of a district when no city supplies gateways. The civic centre is always the map centre;
+ * role-specific corridors add the commercial/industrial accesses the recipe needs.
+ */
+export function defaultRoadAnchors(
+  profile: DistrictProfile,
+  gatewayAnchors: readonly RoadAnchor[] = [],
+): RoadAnchor[] {
+  const center = { x: profile.width / 2, y: profile.height / 2 };
+  const anchors: RoadAnchor[] = [...gatewayAnchors];
+  anchors.push({ id: "civic_center", kind: "civic_center", cell: { ...center } });
+  if (
+    profile.dominantRole === "commercial_corridor" ||
+    profile.dominantRole === "mixed_core" ||
+    profile.dominantRole === "civic_core"
+  ) {
+    anchors.push(
+      {
+        id: "commercial_north",
+        kind: "commercial_corridor",
+        cell: { x: center.x, y: center.y - 16 },
+      },
+      {
+        id: "commercial_south",
+        kind: "commercial_corridor",
+        cell: { x: center.x, y: center.y + 16 },
+      },
     );
   }
-  return [...unique.values()].sort(
-    (left, right) =>
-      left.from.y - right.from.y ||
-      left.from.x - right.from.x ||
-      left.class.localeCompare(right.class) ||
-      left.to.y - right.to.y ||
-      left.to.x - right.to.x,
+  if (profile.dominantRole === "industrial_logistics") {
+    anchors.push({
+      id: "industrial_access",
+      kind: "industrial_access",
+      cell: { x: center.x + 16, y: center.y + 16 },
+    });
+  }
+  anchors.push(
+    { id: "spawn_player", kind: "spawn", cell: { ...profile.spawnAnchors.player } },
+    { id: "spawn_rival", kind: "spawn", cell: { ...profile.spawnAnchors.rival } },
   );
+  const seen = new Set<string>();
+  return anchors
+    .filter((anchor) => {
+      const key = `${anchor.kind}|${cellKey(anchor.cell)}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .sort((left, right) => left.id.localeCompare(right.id));
 }
 
-/**
- * Trazado post-composición: corredores del spacing → cierre de retícula → malla rectilínea →
- * Prim/BFS multi-fuente determinista. No consume el PRNG de partida ni depende de Set/Map sin ordenar.
- */
-export function deriveRoadTopology(input: {
-  parcels: readonly Parcel[];
-  blockedCells: ReadonlySet<string>;
-  width: number;
-  height: number;
-}): RoadTopologyV1 {
-  const parcelCells = new Set(input.parcels.map((parcel) => cellKey(parcel.cell)));
-  const forbidden = new Set([...parcelCells, ...input.blockedCells]);
-  const street = new Set<string>();
-  const orderedParcels = [...input.parcels].sort((left, right) =>
-    compareCellKey(cellKey(left.cell), cellKey(right.cell)),
-  );
-  // 1. corredores de spacing
-  for (const parcel of orderedParcels) {
+function blockFrontageSegmentIds(input: {
+  cells: readonly GridCell[];
+  roadCells: ReadonlySet<string>;
+  segmentsByCell: ReadonlyMap<string, readonly string[]>;
+}): string[] {
+  const ids = new Set<string>();
+  for (const cell of input.cells) {
     for (const offset of [
-      { x: 2, y: 0 },
-      { x: 0, y: 2 },
+      { x: 0, y: -1 },
+      { x: 1, y: 0 },
+      { x: 0, y: 1 },
+      { x: -1, y: 0 },
     ]) {
-      const other = { x: parcel.cell.x + offset.x, y: parcel.cell.y + offset.y };
-      if (!parcelCells.has(cellKey(other))) continue;
-      const middle = { x: parcel.cell.x + offset.x / 2, y: parcel.cell.y + offset.y / 2 };
-      if (!forbidden.has(cellKey(middle))) street.add(cellKey(middle));
+      const roadKey = cellKey({ x: cell.x + offset.x, y: cell.y + offset.y });
+      if (!input.roadCells.has(roadKey)) continue;
+      for (const id of input.segmentsByCell.get(roadKey) ?? []) ids.add(id);
     }
   }
-  // 2. cierre de retícula (iterado hasta punto fijo)
-  let changed = true;
-  while (changed) {
-    changed = false;
-    for (const key of [...street].sort(compareCellKey)) {
-      const [x, y] = key.split(":").map(Number) as [number, number];
-      for (const offset of [
-        { x: 2, y: 0 },
-        { x: 0, y: 2 },
-      ]) {
-        const other = cellKey({ x: x + offset.x, y: y + offset.y });
-        const middle = cellKey({ x: x + offset.x / 2, y: y + offset.y / 2 });
-        if (street.has(other) && !forbidden.has(middle) && !street.has(middle)) {
-          street.add(middle);
-          changed = true;
-        }
-      }
-    }
-  }
-  // 3. cierre de malla rectilíneo desde hojas, conservando el eje del tramo.
-  for (const key of [...street].sort(compareCellKey)) {
-    const adjacent = neighbours(key).filter((candidate) => street.has(candidate));
-    if (adjacent.length !== 1) continue;
-    const [x, y] = key.split(":").map(Number) as [number, number];
-    const [nx, ny] = adjacent[0]!.split(":").map(Number) as [number, number];
-    const dx = x - nx;
-    const dy = y - ny;
-    for (let run = 1; run <= ROAD_MESH_MAX_RUN; run += 1) {
-      const next = { x: x + dx * run, y: y + dy * run };
-      const nextKey = cellKey(next);
-      if (!inBounds(next, input.width, input.height) || forbidden.has(nextKey)) break;
-      street.add(nextKey);
-      if (
-        neighbours(nextKey).some(
-          (candidate) =>
-            street.has(candidate) &&
-            candidate !== cellKey({ x: x + dx * (run - 1), y: y + dy * (run - 1) }),
-        )
-      )
-        break;
-    }
-  }
-  // Las parcelas aisladas por un bloque válido reciben un frente canónico antes de enlazar la red.
-  // No altera la composición: sólo ocupa una celda abierta adyacente ya persistida fuera de la parcela.
-  for (const parcel of orderedParcels) {
-    if (hasRoadAccess(parcel, street)) continue;
-    const frontage = CARDINAL_OFFSETS.map((offset) => ({
-      x: parcel.cell.x + offset.x,
-      y: parcel.cell.y + offset.y,
-    }))
-      .filter((cell) => inBounds(cell, input.width, input.height) && !forbidden.has(cellKey(cell)))
-      .sort((left, right) => compareCellKey(cellKey(left), cellKey(right)))[0];
-    if (!frontage) throw new Error("ROAD_UNREACHABLE_SPAWNS");
-    street.add(cellKey(frontage));
-  }
-  // 4. Prim determinista: cada BFS parte de la red pública acumulada y une el siguiente componente.
-  const avenue = new Set<string>();
-  const roadMask = new Uint8Array(GRID_CELLS);
-  const forbiddenMask = new Uint8Array(GRID_CELLS);
-  for (const key of forbidden) forbiddenMask[indexFromKey(key)] = 1;
-  for (const key of street) roadMask[indexFromKey(key)] = 1;
-  while (true) {
-    const components = indexedComponentsSafe(roadMask);
-    if (components.length <= 1) break;
-    const targetMask = new Uint8Array(GRID_CELLS);
-    for (const component of components.slice(1))
-      for (const index of component) targetMask[index] = 1;
-    const path = indexedConnector(components[0]!, targetMask, forbiddenMask);
-    if (!path) {
-      // Bolsillos sellados por parcelas: no son red pública si no pueden prestar servicio exterior.
-      // Se excluyen en lugar de publicar varios componentes desconectados.
-      for (const component of components.slice(1))
-        for (const index of component) {
-          const key = keyFromIndex(index);
-          street.delete(key);
-          avenue.delete(key);
-          roadMask[index] = 0;
-        }
-      continue;
-    }
-    for (const index of path)
-      if (!roadMask[index]) {
-        const key = keyFromIndex(index);
-        avenue.add(key);
-        roadMask[index] = 1;
-      }
-  }
-  const segments = normalizeRoadSegments([
-    ...segmentsFromCells(street, "street"),
-    ...segmentsFromCells(avenue, "avenue"),
-  ]);
-  return { topologyVersion: 1, derivationVersion: ROAD_DERIVATION_VERSION, segments };
+  return [...ids].sort((left, right) => left.localeCompare(right));
 }
 
-export function hasRoadAccess(parcel: Parcel, roadCells: ReadonlySet<string>): boolean {
-  return CARDINAL_OFFSETS.some((offset) =>
-    roadCells.has(cellKey({ x: parcel.cell.x + offset.x, y: parcel.cell.y + offset.y })),
-  );
+type DraftParcel = {
+  blockId: string;
+  cells: GridCell[];
+  anchorCell: GridCell;
+  roadFrontages: Parcel["roadFrontages"];
+};
+
+function selectPublicReservationBlock(input: {
+  blocks: readonly string[][];
+  reservedCells: ReadonlySet<string>;
+  center: GridCell;
+}): string[] | null {
+  const candidates = input.blocks
+    .filter((cells) => !cells.some((key) => input.reservedCells.has(key)))
+    .map((cells) => {
+      const gridCells = cells.map(keyToCell);
+      const centroid = {
+        x: gridCells.reduce((sum, cell) => sum + cell.x, 0) / gridCells.length,
+        y: gridCells.reduce((sum, cell) => sum + cell.y, 0) / gridCells.length,
+      };
+      const distance =
+        Math.abs(centroid.x - input.center.x) + Math.abs(centroid.y - input.center.y);
+      return { cells, distance };
+    })
+    .sort(
+      (left, right) =>
+        left.distance - right.distance || compareCellKey(left.cells[0]!, right.cells[0]!),
+    );
+  return candidates[0]?.cells ?? null;
 }
 
-export function validateDistrictPlayability(input: {
+function assignAnchorOverrides(input: {
+  parcels: Array<{
+    draft: DraftParcel;
+    zoning: Zoning;
+    price: number;
+    suitability: ProductionSuitability;
+  }>;
+  profile: DistrictProfile;
+}): number[] {
+  const claimed = new Set<number>();
+  const assigned: number[] = [];
+  for (const slot of input.profile.anchorSlots) {
+    let bestIndex = -1;
+    let bestDistance = Number.POSITIVE_INFINITY;
+    for (let index = 0; index < input.parcels.length; index += 1) {
+      if (claimed.has(index)) continue;
+      const cell = input.parcels[index]!.draft.anchorCell;
+      const distance = Math.abs(cell.x - slot.cell.x) + Math.abs(cell.y - slot.cell.y);
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        bestIndex = index;
+      }
+    }
+    if (bestIndex < 0) break;
+    claimed.add(bestIndex);
+    const target = input.parcels[bestIndex]!;
+    target.zoning = slot.zoning;
+    target.price = slot.price;
+    target.suitability = { ...input.profile.suitability[slot.zoning] };
+    assigned.push(bestIndex);
+  }
+  return assigned;
+}
+
+function validatePlayability(input: {
   profile: DistrictProfile;
   parcels: readonly Parcel[];
   blockedCells: ReadonlySet<string>;
 }): DistrictGenerationIssue[] {
-  const { profile, parcels, blockedCells } = input;
   const issues: DistrictGenerationIssue[] = [];
-  const { playability } = profile;
-
-  const parcelCellSet = new Set(parcels.map((parcel) => cellKey(parcel.cell)));
-  if (parcelCellSet.size !== parcels.length) {
-    issues.push({ code: "DUPLICATE_PARCEL_CELL", detail: `${parcels.length} parcelas repetidas` });
-  }
-  for (const parcel of parcels) {
-    const key = cellKey(parcel.cell);
-    const adjacent = CARDINAL_OFFSETS.filter((offset) =>
-      parcelCellSet.has(cellKey({ x: parcel.cell.x + offset.x, y: parcel.cell.y + offset.y })),
-    );
-    if (adjacent.length > 0) {
-      issues.push({ code: "PARCEL_ADJACENCY", detail: `${parcel.id} en ${key}` });
-    }
-  }
-
+  const { profile, parcels, blockedCells } = input;
+  const playability = profile.playability;
   const zoningCounts: Record<Zoning, number> = { residential: 0, mixed: 0, industrial: 0 };
   for (const parcel of parcels) zoningCounts[parcel.zoning] += 1;
   if (parcels.length < playability.minimumParcels) {
@@ -707,7 +363,6 @@ export function validateDistrictPlayability(input: {
       });
     }
   }
-
   const prices = parcels.map((parcel) => parcel.price);
   const cheapest = prices.length === 0 ? Number.POSITIVE_INFINITY : Math.min(...prices);
   if (cheapest > playability.maximumCheapestParcelPrice) {
@@ -716,40 +371,11 @@ export function validateDistrictPlayability(input: {
       detail: `${cheapest} > ${playability.maximumCheapestParcelPrice}`,
     });
   }
-
   for (const anchor of [profile.spawnAnchors.player, profile.spawnAnchors.rival]) {
     if (blockedCells.has(cellKey(anchor))) {
       issues.push({ code: "SPAWN_BLOCKED", detail: `spawn en ${cellKey(anchor)}` });
     }
   }
-  const reachable = reachableCells(
-    [profile.spawnAnchors.player, profile.spawnAnchors.rival],
-    blockedCells,
-    profile.width,
-    profile.height,
-  );
-  for (const parcel of parcels) {
-    const hasAccess = CARDINAL_OFFSETS.some((offset) => {
-      const neighbour = { x: parcel.cell.x + offset.x, y: parcel.cell.y + offset.y };
-      if (
-        neighbour.x < 0 ||
-        neighbour.y < 0 ||
-        neighbour.x >= profile.width ||
-        neighbour.y >= profile.height
-      ) {
-        return false;
-      }
-      const key = cellKey(neighbour);
-      return !blockedCells.has(key) && !parcelCellSet.has(key) && reachable.has(key);
-    });
-    if (!hasAccess) {
-      issues.push({
-        code: "PARCEL_WITHOUT_ACCESS",
-        detail: `${parcel.id} en ${cellKey(parcel.cell)}`,
-      });
-    }
-  }
-
   return issues;
 }
 
@@ -758,23 +384,50 @@ export function districtCanonicalString(input: {
   seed: number;
   district: District;
   parcels: readonly Parcel[];
+  blocks: readonly Block[];
+  publicSpaces: readonly PublicSpace[];
   blockedCells: readonly string[];
-  roads: RoadTopologyV1;
+  roads: RoadTopology;
   spawnAnchors: DistrictSpawnAnchors;
 }): string {
-  const { profileId, seed, district, parcels, blockedCells, roads, spawnAnchors } = input;
+  const { profileId, seed, district, parcels, blocks, publicSpaces, blockedCells, roads } = input;
   const parcelEntries = [...parcels]
     .sort((left, right) => left.id.localeCompare(right.id))
     .map((parcel) => {
       const suitability = parcel.productionSuitability ?? { cement: 100, brick: 100, steel: 100 };
       return [
         parcel.id,
-        `${parcel.cell.x},${parcel.cell.y}`,
+        parcel.blockId,
+        canonicalCellKeys(parcel.cells).join(","),
+        cellKey(parcel.anchorCell),
+        parcel.roadFrontages
+          .map(
+            (frontage) =>
+              `${frontage.roadSegmentId}@${canonicalCellKeys(frontage.cells).join(",")}`,
+          )
+          .join("|"),
+        parcel.disposition,
         parcel.zoning,
         parcel.price,
         `${suitability.cement}/${suitability.brick}/${suitability.steel}`,
       ].join("@");
     })
+    .join(";");
+  const blockEntries = [...blocks]
+    .sort((left, right) => left.id.localeCompare(right.id))
+    .map((block) =>
+      [
+        block.id,
+        block.urbanRole,
+        block.defaultDevelopmentCodeId,
+        canonicalCellKeys(block.cells).join(","),
+        block.frontageRoadSegmentIds.join(","),
+      ].join("@"),
+    )
+    .join(";");
+  const publicEntries = [...publicSpaces]
+    .sort((left, right) => left.id.localeCompare(right.id))
+    .map((space) => `${space.id}@${space.kind}@${canonicalCellKeys(space.cells).join(",")}`)
     .join(";");
   return [
     "landlord-district",
@@ -783,7 +436,9 @@ export function districtCanonicalString(input: {
     `seed=${seed}`,
     `name=${district.name}`,
     `size=${district.width}x${district.height}`,
-    `spawns=${spawnAnchors.player.x},${spawnAnchors.player.y}|${spawnAnchors.rival.x},${spawnAnchors.rival.y}`,
+    `spawns=${input.spawnAnchors.player.x},${input.spawnAnchors.player.y}|${input.spawnAnchors.rival.x},${input.spawnAnchors.rival.y}`,
+    `blocks=${blockEntries}`,
+    `public=${publicEntries}`,
     `parcels=${parcelEntries}`,
     `blocked=${[...blockedCells].sort(compareCellKey).join(",")}`,
     `roads=${roads.segments
@@ -795,15 +450,9 @@ export function districtCanonicalString(input: {
   ].join("~");
 }
 
-export function districtGenerationHash(input: {
-  profileId: string;
-  seed: number;
-  district: District;
-  parcels: readonly Parcel[];
-  blockedCells: readonly string[];
-  roads: RoadTopologyV1;
-  spawnAnchors: DistrictSpawnAnchors;
-}): string {
+export function districtGenerationHash(
+  input: Parameters<typeof districtCanonicalString>[0],
+): string {
   return fnv1a32(districtCanonicalString(input)).toString(16).padStart(8, "0");
 }
 
@@ -812,14 +461,27 @@ function buildReport(input: {
   seed: number;
   attempts: number;
   parcels: readonly Parcel[];
+  blocks: readonly Block[];
+  publicSpaces: readonly PublicSpace[];
   blockedCells: readonly string[];
-  roads: RoadTopologyV1;
+  roads: RoadTopology;
   anchorParcelCount: number;
   hash: string;
   issues: readonly DistrictGenerationIssue[];
 }): DistrictGenerationReport {
-  const { profile, seed, attempts, parcels, blockedCells, roads, anchorParcelCount, hash, issues } =
-    input;
+  const {
+    profile,
+    seed,
+    attempts,
+    parcels,
+    blocks,
+    publicSpaces,
+    blockedCells,
+    roads,
+    anchorParcelCount,
+    hash,
+    issues,
+  } = input;
   const zoningCounts: Record<Zoning, number> = { residential: 0, mixed: 0, industrial: 0 };
   for (const parcel of parcels) zoningCounts[parcel.zoning] += 1;
   const prices = parcels.map((parcel) => parcel.price);
@@ -831,6 +493,9 @@ function buildReport(input: {
     attempts,
     parcelCount: parcels.length,
     anchorParcelCount,
+    blockCount: blocks.length,
+    publicSpaceCount: publicSpaces.length,
+    parcelCellCount: parcels.reduce((sum, parcel) => sum + parcel.cells.length, 0),
     zoningCounts,
     blockedCellCount: blockedCells.length,
     roadCellCount: roadCellsFromSegments(roads.segments).size,
@@ -843,14 +508,210 @@ function buildReport(input: {
 }
 
 export type DistrictGenerationOptions = {
-  /**
-   * Identity of the district being generated. Defaults to the single-district identity that
-   * predates V.d so existing fixtures and hashes keep their meaning.
-   */
   districtId?: DistrictId;
-  /** Offset added to parcel ordinals so a city of nine districts has globally unique parcel ids. */
   parcelIdOrdinal?: number;
+  /** Gateways of the city, already on this district's border (D-088, D-090). */
+  gatewayCells?: readonly GridCell[];
+  cityId?: CityId;
 };
+
+function attemptComposition(input: {
+  profile: DistrictProfile;
+  prng: Xoshiro128ss;
+  districtId: DistrictId;
+  parcelIdOrdinal: number;
+  gatewayCells: readonly GridCell[];
+}): {
+  parcels: Parcel[];
+  blocks: Block[];
+  publicSpaces: PublicSpace[];
+  blockedCells: Set<string>;
+  roads: RoadTopology;
+  anchorParcelCount: number;
+  issues: DistrictGenerationIssue[];
+} {
+  const { profile, prng, districtId, parcelIdOrdinal, gatewayCells } = input;
+  const config = profile.fabric;
+  const gatewayAnchors: RoadAnchor[] = gatewayCells.map((cell, index) => ({
+    id: `gateway_${String(index + 1).padStart(2, "0")}`,
+    kind: "gateway",
+    cell: { ...cell },
+  }));
+  const roadAnchors = defaultRoadAnchors(profile, gatewayAnchors);
+  const issues: DistrictGenerationIssue[] = [];
+
+  const network = deriveRoadNetwork({
+    anchors: roadAnchors,
+    latticeLines: config.latticeLines,
+    connectSpawns: config.connectSpawns,
+    width: profile.width,
+    height: profile.height,
+  });
+  const reservedCells = new Set<string>(
+    [profile.spawnAnchors.player, profile.spawnAnchors.rival].map(cellKey),
+  );
+  const obstacles = generateObstacles({
+    prng,
+    profile,
+    roadCells: network.roadCells,
+    reservedCells,
+  });
+  const formed = formBlocks({
+    roadCells: network.roadCells,
+    obstacleCells: obstacles,
+    width: profile.width,
+    height: profile.height,
+    config,
+  });
+  const blocked = new Set<string>([...obstacles, ...formed.alleys]);
+  const openBlocks = formed.blocks;
+
+  const reservationCells = selectPublicReservationBlock({
+    blocks: openBlocks,
+    reservedCells,
+    center: { x: profile.width / 2, y: profile.height / 2 },
+  });
+  if (!reservationCells) {
+    issues.push({
+      code: "PUBLIC_RESERVATION_INVALID",
+      detail: "ninguna manzana admite la reserva pública",
+    });
+    return {
+      parcels: [],
+      blocks: [],
+      publicSpaces: [],
+      blockedCells: blocked,
+      roads: network.topology,
+      anchorParcelCount: 0,
+      issues,
+    };
+  }
+  const publicSpaces: PublicSpace[] = [
+    {
+      id: parsePublicSpaceId(publicSpaceIdForDistrict(districtId, 1)),
+      districtId,
+      blockId: null,
+      kind:
+        profile.dominantRole === "civic_core" ||
+        profile.dominantRole === "commercial_corridor" ||
+        profile.dominantRole === "mixed_core"
+          ? "plaza"
+          : "park",
+      cells: canonicalGridCells(reservationCells.map(keyToCell)),
+      operatorOrganizationId: MUNICIPALITY_ORGANIZATION_ID,
+    },
+  ];
+  const blocks: Block[] = [];
+  const drafts: DraftParcel[] = [];
+  for (const cells of openBlocks) {
+    if (cells === reservationCells) continue;
+    const gridCells = canonicalGridCells(cells.map(keyToCell));
+    const frontageRoadSegmentIds = blockFrontageSegmentIds({
+      cells: gridCells,
+      roadCells: network.roadCells,
+      segmentsByCell: network.segmentsByCell,
+    });
+    if (frontageRoadSegmentIds.length === 0) {
+      issues.push({
+        code: "BLOCK_DISCONNECTED",
+        detail: `${cellKey(gridCells[0]!)} sin frente vial`,
+      });
+      continue;
+    }
+    const blockId = blockIdForGeometry(districtId, gridCells);
+    blocks.push({
+      id: parseBlockId(blockId),
+      districtId,
+      cells: gridCells,
+      frontageRoadSegmentIds,
+      urbanRole: profile.dominantRole,
+      defaultDevelopmentCodeId: DEFAULT_DEVELOPMENT_CODE_BY_ROLE[profile.dominantRole],
+    });
+    const subdivision = subdivideBlock({
+      blockCells: cells,
+      roadCells: network.roadCells,
+      segmentsByCell: network.segmentsByCell,
+      config,
+      prng,
+    });
+    if (subdivision.unassigned.length > 0) {
+      issues.push({
+        code: "BLOCK_UNASSIGNED_CELLS",
+        detail: `${blockId} deja ${subdivision.unassigned.length} celdas`,
+      });
+    }
+    for (const parcel of subdivision.parcels) {
+      drafts.push({ blockId, ...parcel });
+    }
+  }
+
+  drafts.sort(
+    (left, right) =>
+      compareCells(left.anchorCell, right.anchorCell) ||
+      compareCellKey(canonicalCellKeys(left.cells)[0]!, canonicalCellKeys(right.cells)[0]!),
+  );
+  const bag = drawZoningBag(prng, profile.expansion.zoningWeights, drafts.length);
+  const working = drafts.map((draft, index) => {
+    const zoning = bag[index] ?? "mixed";
+    return {
+      draft,
+      zoning,
+      price: drawPrice(prng, profile, zoning),
+      suitability: drawSuitability(prng, profile, zoning),
+    };
+  });
+  const anchorIndices = assignAnchorOverrides({ parcels: working, profile });
+  // Authored anchors keep the first parquet ordinals, in slot order: they are the economic
+  // reference of the profile (D-064) and the geometry around them is still generated.
+  const anchorSet = new Set(anchorIndices);
+  const ordered = [
+    ...anchorIndices.map((index) => working[index]!),
+    ...working.filter((_, index) => !anchorSet.has(index)),
+  ];
+  const anchorParcelCount = anchorIndices.length;
+  const parcels: Parcel[] = ordered.map((entry, index) => ({
+    id: parseParcelId(`parcel_${String(parcelIdOrdinal + index + 1).padStart(8, "0")}`),
+    districtId,
+    blockId: parseBlockId(entry.draft.blockId),
+    cells: entry.draft.cells.map((cell) => ({ ...cell })),
+    anchorCell: { ...entry.draft.anchorCell },
+    roadFrontages: entry.draft.roadFrontages.map((frontage) => ({
+      roadSegmentId: frontage.roadSegmentId,
+      cells: frontage.cells.map((cell) => ({ ...cell })),
+    })),
+    disposition: "marketable",
+    price: parseMoney(entry.price),
+    zoning: entry.zoning,
+    ownerOrganizationId: null,
+    buildingId: null,
+    productionSuitability: { ...entry.suitability },
+  }));
+
+  issues.push(
+    ...validateUrbanFabric({
+      width: profile.width,
+      height: profile.height,
+      config,
+      roads: network.topology,
+      blockedCells: blocked,
+      blocks,
+      parcels,
+      publicSpaces,
+      gatewayCells,
+      spawnCells: [profile.spawnAnchors.player, profile.spawnAnchors.rival],
+    }),
+    ...validatePlayability({ profile, parcels, blockedCells: blocked }),
+  );
+  return {
+    parcels,
+    blocks,
+    publicSpaces,
+    blockedCells: blocked,
+    roads: network.topology,
+    anchorParcelCount,
+    issues,
+  };
+}
 
 export function generateDistrictFromProfile(
   profile: DistrictProfile,
@@ -860,56 +721,23 @@ export function generateDistrictFromProfile(
   const seed = parseSeed(seedValue);
   const districtId = options.districtId ?? GENERATED_DISTRICT_ID;
   const parcelIdOrdinal = options.parcelIdOrdinal ?? 0;
-  const prng = createPrng(deriveGenerationSeed(seed, profile.id));
+  const gatewayCells = options.gatewayCells ?? [];
   let issues: DistrictGenerationIssue[] = [];
 
   for (let attempt = 1; attempt <= MAX_COMPOSITION_ATTEMPTS; attempt += 1) {
-    const composition = composeDistrict(profile, prng);
-    const parcels = assignParcelIds(composition.slots, districtId, parcelIdOrdinal);
-    const blockedCells = [...composition.blocked].sort(compareCellKey);
-    issues = validateDistrictPlayability({
+    const prng = createPrng(deriveAttemptSeed(deriveGenerationSeed(seed, profile.id), attempt));
+    const composition = attemptComposition({
       profile,
-      parcels,
-      blockedCells: composition.blocked,
+      prng,
+      districtId,
+      parcelIdOrdinal,
+      gatewayCells,
     });
-    if (issues.length > 0) continue;
-
-    let roads: RoadTopologyV1;
-    try {
-      roads = deriveRoadTopology({
-        parcels,
-        blockedCells: composition.blocked,
-        width: profile.width,
-        height: profile.height,
-      });
-    } catch (error) {
-      issues = [{ code: "ROAD_SEGMENTS_INVALID", detail: String(error) }];
+    if (composition.issues.length > 0) {
+      issues = composition.issues;
       continue;
     }
-    const roadCells = roadCellsFromSegments(roads.segments);
-    const roadIssues: DistrictGenerationIssue[] = [];
-    if (roadCells.size === 0 || connectedComponents(roadCells).length !== 1) {
-      roadIssues.push({ code: "ROAD_UNREACHABLE_SPAWNS", detail: "red pública no 4-conexa" });
-    }
-    if (
-      [...roadCells].some(
-        (key) =>
-          composition.blocked.has(key) || parcels.some((parcel) => cellKey(parcel.cell) === key),
-      )
-    ) {
-      roadIssues.push({
-        code: "ROAD_CROSSES_PARCEL",
-        detail: "road intersecta parcela u obstáculo",
-      });
-    }
-    if (parcels.some((parcel) => !hasRoadAccess(parcel, roadCells))) {
-      roadIssues.push({ code: "PARCEL_WITHOUT_ACCESS", detail: "parcela sin frente vial" });
-    }
-    if (roadIssues.length > 0) {
-      issues = roadIssues;
-      continue;
-    }
-
+    const blockedCells = [...composition.blockedCells].sort(compareCellKey);
     const district: District = {
       id: districtId,
       name: profile.name,
@@ -921,35 +749,55 @@ export function generateDistrictFromProfile(
       profileId: profile.id,
       seed,
       district,
-      parcels,
+      parcels: composition.parcels,
+      blocks: composition.blocks,
+      publicSpaces: composition.publicSpaces,
       blockedCells,
-      roads,
+      roads: composition.roads,
       spawnAnchors: profile.spawnAnchors,
     });
     return {
       district,
-      parcels,
+      parcels: composition.parcels,
+      blocks: composition.blocks,
+      publicSpaces: composition.publicSpaces,
       blockedCells,
-      roads,
+      roads: composition.roads,
       spawnAnchors: {
         player: { ...profile.spawnAnchors.player },
         rival: { ...profile.spawnAnchors.rival },
       },
+      roadAnchors: defaultRoadAnchors(
+        profile,
+        gatewayCells.map((cell, index) => ({
+          id: `gateway_${String(index + 1).padStart(2, "0")}`,
+          kind: "gateway",
+          cell: { ...cell },
+        })),
+      ),
       report: buildReport({
         profile,
         seed,
         attempts: attempt,
-        parcels,
+        parcels: composition.parcels,
+        blocks: composition.blocks,
+        publicSpaces: composition.publicSpaces,
         blockedCells,
-        roads,
-        anchorParcelCount: composition.slots.filter((slot) => slot.anchor).length,
+        roads: composition.roads,
+        anchorParcelCount: composition.anchorParcelCount,
         hash,
         issues: [],
       }),
     };
   }
 
-  throw new DistrictGenerationError(profile.id, seed, issues);
+  throw new DistrictGenerationError({
+    profileId: profile.id,
+    seed,
+    districtId,
+    cityId: options.cityId,
+    issues,
+  });
 }
 
 export function generateDistrict(options: {
@@ -957,4 +805,21 @@ export function generateDistrict(options: {
   profileId?: string | undefined;
 }): GeneratedDistrict {
   return generateDistrictFromProfile(resolveDistrictProfile(options.profileId), options.seed);
+}
+
+export function hasRoadAccess(
+  parcel: Pick<Parcel, "cells">,
+  roadCells: ReadonlySet<string>,
+): boolean {
+  const offsets = [
+    { x: 0, y: -1 },
+    { x: 1, y: 0 },
+    { x: 0, y: 1 },
+    { x: -1, y: 0 },
+  ];
+  return parcel.cells.some((cell) =>
+    offsets.some((offset) =>
+      roadCells.has(cellKey({ x: cell.x + offset.x, y: cell.y + offset.y })),
+    ),
+  );
 }

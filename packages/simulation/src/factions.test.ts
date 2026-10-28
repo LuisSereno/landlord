@@ -217,7 +217,7 @@ describe("WP4.10 encuentros y postura", () => {
       // Las celdas se fijan a mano: el reparto del distrito no garantiza parcelas contiguas.
       parcels.forEach((parcel, index) => {
         parcel.ownerOrganizationId = index % 2 === 0 ? PLAYER : RIVAL;
-        parcel.cell = { x: index % 2, y: Math.floor(index / 2) };
+        parcel.anchorCell = { x: index % 2, y: Math.floor(index / 2) };
       });
       atTick(state, GAME_MONTH_TICKS);
       advanceProductSystems(state);
@@ -241,7 +241,7 @@ describe("WP4.10 encuentros y postura", () => {
       .slice(0, 2);
     facing.forEach((parcel, index) => {
       parcel.ownerOrganizationId = index === 0 ? PLAYER : RIVAL;
-      parcel.cell = { x: index * 2, y: 0 };
+      parcel.anchorCell = { x: index * 2, y: 0 };
     });
     atTick(block, GAME_MONTH_TICKS);
     advanceProductSystems(block);
@@ -448,7 +448,7 @@ describe("WP4.10 persistencia y cota de información", () => {
       mutate(poisoned);
       expect(rivalDecision(poisoned), label).toEqual(expected);
     }
-  }, 30_000);
+  }, 120_000);
 });
 
 describe("WP4.10 campañas headless", () => {

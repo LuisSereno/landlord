@@ -93,6 +93,8 @@ export type ViewProjectionV2 = {
     parcels: Array<{
       id: ParcelId;
       cell: GridCell;
+      /** Every cell of the parcel; `cell` remains its stable anchor for picking and sprites. */
+      cells: GridCell[];
       price: number;
       zoning: "residential" | "industrial" | "mixed";
       ownerOrganizationId: OrganizationId | null;
@@ -624,6 +626,7 @@ export const viewProjectionV2Schema = z.object({
         z.object({
           id: parcelIdSchema,
           cell: gridCellSchema,
+          cells: z.array(gridCellSchema).min(1),
           price: moneySchema,
           zoning: zoningSchema,
           ownerOrganizationId: organizationIdSchema.nullable(),

@@ -1,6 +1,8 @@
 import { z } from "zod";
 
+import { roadFrontageSchema, type RoadFrontage } from "./urban";
 import {
+  blockIdSchema,
   commandIdSchema,
   buildingIdSchema,
   agentIdSchema,
@@ -19,6 +21,7 @@ import {
   tenantIdSchema,
   transactionIdSchema,
   loanIdSchema,
+  type BlockId,
   type BuildingId,
   type AgentId,
   type CrewId,
@@ -185,30 +188,34 @@ export const roadCellClassSchema = z.enum(["street", "avenue"]);
 export type RoadCellClass = z.infer<typeof roadCellClassSchema>;
 
 /** Segmento vial ortogonal, cerrado e identificado por su geometría canónica. */
-export type RoadSegmentV1 = {
+export type RoadSegment = {
   id: string;
   from: GridCell;
   to: GridCell;
   class: RoadCellClass;
 };
 
-export type RoadTopologyV1 = {
+/**
+ * Road topology of one district (D-085, D-090). The shape is unchanged; `derivationVersion: 2`
+ * records that segments now come from `RoadAnchor[]` instead of from already placed parcels.
+ */
+export type RoadTopology = {
   topologyVersion: 1;
-  derivationVersion: 1;
-  segments: RoadSegmentV1[];
+  derivationVersion: 2;
+  segments: RoadSegment[];
 };
 
-export const roadSegmentV1Schema = z.object({
+export const roadSegmentSchema = z.object({
   id: z.string().min(1),
   from: gridCellSchema,
   to: gridCellSchema,
   class: roadCellClassSchema,
 });
 
-export const roadTopologyV1Schema = z.object({
+export const roadTopologySchema = z.object({
   topologyVersion: z.literal(1),
-  derivationVersion: z.literal(1),
-  segments: z.array(roadSegmentV1Schema),
+  derivationVersion: z.literal(2),
+  segments: z.array(roadSegmentSchema),
 });
 
 function roadCellKey(cell: GridCell): string {
@@ -226,7 +233,7 @@ export function roadSegmentId(roadClass: RoadCellClass, from: GridCell, to: Grid
 }
 
 /** La única derivación de celdas de carretera: segmentos inclusivos, en orden canónico. */
-export function roadCellsFromSegments(segments: readonly RoadSegmentV1[]): ReadonlySet<string> {
+export function roadCellsFromSegments(segments: readonly RoadSegment[]): ReadonlySet<string> {
   const cells = new Set<string>();
   for (const segment of segments) {
     const dx = Math.sign(segment.to.x - segment.from.x);
@@ -245,7 +252,7 @@ export function roadCellsFromSegments(segments: readonly RoadSegmentV1[]): Reado
 
 /** Si dos trazados coinciden, avenue domina la semántica derivada de la celda. */
 export function roadCellClassesFromSegments(
-  segments: readonly RoadSegmentV1[],
+  segments: readonly RoadSegment[],
 ): ReadonlyMap<string, RoadCellClass> {
   const classes = new Map<string, RoadCellClass>();
   for (const segment of segments) {
@@ -263,10 +270,23 @@ export function roadCellClassesFromSegments(
   return classes;
 }
 
+export const parcelDispositionSchema = z.enum(["marketable", "public", "infrastructure"]);
+export type ParcelDisposition = z.infer<typeof parcelDispositionSchema>;
+
+/**
+ * A parcel is a connected subset of one block with at least one road frontage (D-090). The visible
+ * identity stays single: picking any of its cells resolves the same `ParcelId`. `zoning` and
+ * `buildingId` are still the v1 economic surfaces; V.d.2 replaces them with development codes and
+ * derived building indexes.
+ */
 export type Parcel = {
   id: ParcelId;
   districtId: DistrictId;
-  cell: GridCell;
+  blockId: BlockId;
+  cells: GridCell[];
+  anchorCell: GridCell;
+  roadFrontages: RoadFrontage[];
+  disposition: ParcelDisposition;
   price: Money;
   zoning: Zoning;
   ownerOrganizationId: OrganizationId | null;
@@ -903,7 +923,11 @@ export const districtSchema = z.object({
 export const parcelSchema = z.object({
   id: parcelIdSchema,
   districtId: districtIdSchema,
-  cell: gridCellSchema,
+  blockId: blockIdSchema,
+  cells: z.array(gridCellSchema).min(1),
+  anchorCell: gridCellSchema,
+  roadFrontages: z.array(roadFrontageSchema),
+  disposition: parcelDispositionSchema,
   price: moneySchema,
   zoning: zoningSchema,
   ownerOrganizationId: organizationIdSchema.nullable(),

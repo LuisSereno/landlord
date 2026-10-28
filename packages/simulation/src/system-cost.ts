@@ -13,11 +13,13 @@ import {
   parseIncidentId,
   parseLoanId,
   parseMoney,
+  parseBlockId,
   parseParcelId,
   parsePersonId,
   parseSeed,
   parseTenantId,
   parseTick,
+  roadCellsFromSegments,
   type Agent,
   type AgentId,
   type AgentSpecialty,
@@ -38,7 +40,7 @@ import {
   type Zoning,
 } from "@landlord/shared";
 import type { DistrictId } from "@landlord/shared";
-import { cellKey, deriveRoadTopology } from "./district-generator";
+import { cellKey } from "./district-generator";
 import { DEFAULT_DISTRICT_PROFILE_ID } from "./district-profiles";
 import {
   BANK_ORGANIZATION_ID,
@@ -259,13 +261,22 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
   state.phase2.balances.set(BANK_ORGANIZATION_ID, parseMoney(HARNESS_BALANCE * 10));
   state.phase2.balances.set(INSURER_ORGANIZATION_ID, parseMoney(HARNESS_BALANCE * 10));
 
+  // El harness sustituye el tejido del distrito objetivo por una carga sintética; no pretende
+  // respetar vías ni manzanas, sólo medir sistemas con el número de parcelas solicitado.
+  for (const [parcelId, parcel] of [...state.phase2.parcels]) {
+    if (parcel.districtId === targetDistrictId) state.phase2.parcels.delete(parcelId);
+  }
   const taken = new Set<string>(targetMap.blockedCells);
-  for (const parcel of state.phase2.parcels.values()) taken.add(cellKey(parcel.cell));
+  for (const cell of roadCellsFromSegments(targetMap.roads.segments)) taken.add(cell);
+  const targetState = state.world.districts.get(targetDistrictId)!;
+  for (const space of targetState.publicSpaces.values()) {
+    for (const cell of space.cells) taken.add(cellKey(cell));
+  }
   for (const agent of state.agents.values()) taken.add(cellKey(agent.cell));
 
   const cells: GridCell[] = [];
-  for (let y = 0; y < targetMap.height && cells.length < options.parcelCount; y += 2) {
-    for (let x = 0; x < targetMap.width && cells.length < options.parcelCount; x += 2) {
+  for (let y = 0; y < targetMap.height && cells.length < options.parcelCount; y += 1) {
+    for (let x = 0; x < targetMap.width && cells.length < options.parcelCount; x += 1) {
       const key = cellKey({ x, y });
       if (taken.has(key)) continue;
       taken.add(key);
@@ -299,7 +310,11 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
     const parcel: Parcel = {
       id: parcelId,
       districtId: targetDistrictId,
-      cell: { ...cell },
+      blockId: parseBlockId(`block_${String(createdParcels.length + 1).padStart(8, "0")}`),
+      cells: [{ ...cell }],
+      anchorCell: { ...cell },
+      roadFrontages: [],
+      disposition: "marketable",
       price: parseMoney(600 + prng.nextInt(0, 900)),
       zoning,
       ownerOrganizationId,
@@ -413,7 +428,7 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
     state.phase2.constructionSites.set(siteId, site);
     const memberIds: AgentId[] = [];
     for (let member = 0; member < 3; member += 1) {
-      const home = freeNeighbour(parcel.cell, taken, targetMap);
+      const home = freeNeighbour(parcel.anchorCell, taken, targetMap);
       if (!home) break;
       taken.add(cellKey(home));
       // Nacen lejos de la obra y caminan: así la ventana medida incluye navegación real.
@@ -448,7 +463,7 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
     if (index % TECHNICIAN_PER_BUILDINGS !== 0) continue;
     const building = createdBuildings[index]!;
     const parcel = state.phase2.parcels.get(building.parcelId)!;
-    const spot = freeNeighbour(parcel.cell, taken, targetMap);
+    const spot = freeNeighbour(parcel.anchorCell, taken, targetMap);
     if (!spot) continue;
     taken.add(cellKey(spot));
     createAgent(state, counters, {
@@ -465,7 +480,7 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
   const population = Math.floor(cells.length / POPULATION_PER_PARCELS);
   for (let index = 0; index < population; index += 1) {
     const parcel = createdParcels[(index * 7) % createdParcels.length]!;
-    const spot = freeNeighbour(parcel.cell, taken, targetMap);
+    const spot = freeNeighbour(parcel.anchorCell, taken, targetMap);
     if (!spot) continue;
     taken.add(cellKey(spot));
     createAgent(state, counters, {
@@ -528,16 +543,8 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
 
   if (incidentCount > 0) injectScaledIncidents(state, incidentCount);
 
-  // El harness también modifica la geometría persistida: reconstruye la única topología autorizada
-  // desde sus parcelas sintéticas para conservar road ∩ parcel = ∅ en save/load.
-  targetMap.roads = deriveRoadTopology({
-    parcels: [...state.phase2.parcels.values()].filter(
-      (parcel) => parcel.districtId === targetDistrictId,
-    ),
-    blockedCells: targetMap.blockedCells,
-    width: targetMap.width,
-    height: targetMap.height,
-  });
+  // Las parcelas sintéticas son carga de rendimiento: la topología vial generada se conserva y
+  // las parcelas ocupan celdas libres, de modo que vía y parcela nunca comparten celda.
   state.idCounters.agent = counters.agent;
   return state;
 }

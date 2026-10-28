@@ -52,7 +52,7 @@ function addBuilding(
     left.id.localeCompare(right.id),
   );
   const parcel = parcels[index]!;
-  if (options.cell) parcel.cell = { ...options.cell };
+  if (options.cell) parcel.anchorCell = { ...options.cell };
   const id = parseBuildingId(`building_${String(index + 1).padStart(8, "0")}`);
   parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
   parcel.buildingId = id;
@@ -285,9 +285,9 @@ describe("WP4.3 oferta y demanda de vivienda", () => {
     const nearParcel = state.phase2.buildings.get(near)!.parcelId;
     const farParcel = state.phase2.buildings.get(far)!.parcelId;
     const center = coverage.center;
-    state.phase2.parcels.get(nearParcel)!.cell = { x: center.x - 5, y: center.y };
-    state.phase2.parcels.get(farParcel)!.cell = { x: center.x + 5, y: center.y };
-    state.phase2.parcels.get(state.phase2.buildings.get(burning)!.parcelId)!.cell = {
+    state.phase2.parcels.get(nearParcel)!.anchorCell = { x: center.x - 5, y: center.y };
+    state.phase2.parcels.get(farParcel)!.anchorCell = { x: center.x + 5, y: center.y };
+    state.phase2.parcels.get(state.phase2.buildings.get(burning)!.parcelId)!.anchorCell = {
       x: center.x - 6,
       y: center.y,
     };

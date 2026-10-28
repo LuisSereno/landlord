@@ -59,7 +59,9 @@ describe("generador de proyección de gameplay (WP4.15-V.c.1)", () => {
       const parcels = [...state.phase2.parcels.values()]
         .slice(profile.anchorSlots.length)
         .sort(
-          (a, b) => manhattan(a.cell, spawn) - manhattan(b.cell, spawn) || a.id.localeCompare(b.id),
+          (a, b) =>
+            manhattan(a.anchorCell, spawn) - manhattan(b.anchorCell, spawn) ||
+            a.id.localeCompare(b.id),
         );
 
       const residential = parcels

@@ -144,7 +144,15 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
     phase2: {
       idCounters: { ...state.phase2.idCounters },
       parcels: [...state.phase2.parcels.values()]
-        .map((parcel) => ({ ...parcel, cell: { ...parcel.cell } }))
+        .map((parcel) => ({
+          ...parcel,
+          cells: parcel.cells.map((cell) => ({ ...cell })),
+          anchorCell: { ...parcel.anchorCell },
+          roadFrontages: parcel.roadFrontages.map((frontage) => ({
+            ...frontage,
+            cells: frontage.cells.map((cell) => ({ ...cell })),
+          })),
+        }))
         .sort(compareId),
       balances: [...state.phase2.balances.entries()]
         .map(([organizationId, balance]) => ({ organizationId, balance }))
@@ -544,7 +552,13 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 ...parcel,
                 id: parseParcelId(parcel.id),
                 districtId: parseDistrictId(parcel.districtId),
-                cell: { ...parcel.cell },
+                blockId: parseBlockId(parcel.blockId),
+                cells: parcel.cells.map((cell) => ({ ...cell })),
+                anchorCell: { ...parcel.anchorCell },
+                roadFrontages: parcel.roadFrontages.map((frontage) => ({
+                  ...frontage,
+                  cells: frontage.cells.map((cell) => ({ ...cell })),
+                })),
                 price: parseMoney(parcel.price),
               },
             ]),

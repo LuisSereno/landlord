@@ -407,7 +407,7 @@
           ],
           "roads": {
             "topologyVersion": 1,
-            "derivationVersion": 1,
+            "derivationVersion": 2,
             "segments": [
               {
                 "id": "road_3c3db438",
@@ -2998,7 +2998,7 @@
           ],
           "roads": {
             "topologyVersion": 1,
-            "derivationVersion": 1,
+            "derivationVersion": 2,
             "segments": [
               {
                 "id": "road_4a92afc6",
@@ -4969,7 +4969,7 @@
           ],
           "roads": {
             "topologyVersion": 1,
-            "derivationVersion": 1,
+            "derivationVersion": 2,
             "segments": [
               {
                 "id": "road_4a92afc6",
@@ -7383,7 +7383,7 @@
           "blockedCells": [],
           "roads": {
             "topologyVersion": 1,
-            "derivationVersion": 1,
+            "derivationVersion": 2,
             "segments": []
           }
         },
@@ -7441,7 +7441,7 @@
           ],
           "roads": {
             "topologyVersion": 1,
-            "derivationVersion": 1,
+            "derivationVersion": 2,
             "segments": [
               {
                 "id": "road_e9d61a68",
@@ -10260,7 +10260,7 @@
           ],
           "roads": {
             "topologyVersion": 1,
-            "derivationVersion": 1,
+            "derivationVersion": 2,
             "segments": [
               {
                 "id": "road_7bcbe2dc",
@@ -13183,7 +13183,7 @@
           ],
           "roads": {
             "topologyVersion": 1,
-            "derivationVersion": 1,
+            "derivationVersion": 2,
             "segments": [
               {
                 "id": "road_4a92afc6",
@@ -16778,7 +16778,7 @@
           ],
           "roads": {
             "topologyVersion": 1,
-            "derivationVersion": 1,
+            "derivationVersion": 2,
             "segments": [
               {
                 "id": "road_2d44cad6",
@@ -19677,7 +19677,7 @@
           ],
           "roads": {
             "topologyVersion": 1,
-            "derivationVersion": 1,
+            "derivationVersion": 2,
             "segments": [
               {
                 "id": "road_34152304",
@@ -22169,10 +22169,6 @@
       {
         "id": "parcel_00000001",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 7,
-          "y": 7
-        },
         "price": 900,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22181,15 +22177,24 @@
           "cement": 70,
           "brick": 85,
           "steel": 55
-        }
+        },
+        "blockId": "block_00000001",
+        "cells": [
+          {
+            "x": 7,
+            "y": 7
+          }
+        ],
+        "anchorCell": {
+          "x": 7,
+          "y": 7
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000002",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 9,
-          "y": 7
-        },
         "price": 1000,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000002",
@@ -22198,15 +22203,24 @@
           "cement": 95,
           "brick": 125,
           "steel": 80
-        }
+        },
+        "blockId": "block_00000002",
+        "cells": [
+          {
+            "x": 9,
+            "y": 7
+          }
+        ],
+        "anchorCell": {
+          "x": 9,
+          "y": 7
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000003",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 11,
-          "y": 7
-        },
         "price": 1050,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22215,15 +22229,24 @@
           "cement": 70,
           "brick": 85,
           "steel": 55
-        }
+        },
+        "blockId": "block_00000003",
+        "cells": [
+          {
+            "x": 11,
+            "y": 7
+          }
+        ],
+        "anchorCell": {
+          "x": 11,
+          "y": 7
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000004",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 13,
-          "y": 7
-        },
         "price": 1200,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000002",
@@ -22232,15 +22255,24 @@
           "cement": 95,
           "brick": 125,
           "steel": 80
-        }
+        },
+        "blockId": "block_00000004",
+        "cells": [
+          {
+            "x": 13,
+            "y": 7
+          }
+        ],
+        "anchorCell": {
+          "x": 13,
+          "y": 7
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000005",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 7,
-          "y": 11
-        },
         "price": 800,
         "zoning": "industrial",
         "ownerOrganizationId": "org_00000002",
@@ -22249,15 +22281,24 @@
           "cement": 120,
           "brick": 100,
           "steel": 135
-        }
+        },
+        "blockId": "block_00000005",
+        "cells": [
+          {
+            "x": 7,
+            "y": 11
+          }
+        ],
+        "anchorCell": {
+          "x": 7,
+          "y": 11
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000006",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 9,
-          "y": 11
-        },
         "price": 950,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000002",
@@ -22266,15 +22307,24 @@
           "cement": 95,
           "brick": 125,
           "steel": 80
-        }
+        },
+        "blockId": "block_00000006",
+        "cells": [
+          {
+            "x": 9,
+            "y": 11
+          }
+        ],
+        "anchorCell": {
+          "x": 9,
+          "y": 11
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000007",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 11,
-          "y": 11
-        },
         "price": 850,
         "zoning": "industrial",
         "ownerOrganizationId": "org_00000002",
@@ -22283,15 +22333,24 @@
           "cement": 120,
           "brick": 100,
           "steel": 135
-        }
+        },
+        "blockId": "block_00000007",
+        "cells": [
+          {
+            "x": 11,
+            "y": 11
+          }
+        ],
+        "anchorCell": {
+          "x": 11,
+          "y": 11
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000008",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 13,
-          "y": 11
-        },
         "price": 1100,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000002",
@@ -22300,15 +22359,24 @@
           "cement": 95,
           "brick": 125,
           "steel": 80
-        }
+        },
+        "blockId": "block_00000008",
+        "cells": [
+          {
+            "x": 13,
+            "y": 11
+          }
+        ],
+        "anchorCell": {
+          "x": 13,
+          "y": 11
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000009",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 43,
-          "y": 16
-        },
         "price": 1043,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000002",
@@ -22317,15 +22385,24 @@
           "cement": 107,
           "brick": 136,
           "steel": 83
-        }
+        },
+        "blockId": "block_00000009",
+        "cells": [
+          {
+            "x": 43,
+            "y": 16
+          }
+        ],
+        "anchorCell": {
+          "x": 43,
+          "y": 16
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000010",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 45,
-          "y": 16
-        },
         "price": 1120,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000002",
@@ -22334,15 +22411,24 @@
           "cement": 100,
           "brick": 119,
           "steel": 86
-        }
+        },
+        "blockId": "block_0000000a",
+        "cells": [
+          {
+            "x": 45,
+            "y": 16
+          }
+        ],
+        "anchorCell": {
+          "x": 45,
+          "y": 16
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000011",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 47,
-          "y": 16
-        },
         "price": 1029,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000002",
@@ -22351,15 +22437,24 @@
           "cement": 84,
           "brick": 138,
           "steel": 92
-        }
+        },
+        "blockId": "block_0000000b",
+        "cells": [
+          {
+            "x": 47,
+            "y": 16
+          }
+        ],
+        "anchorCell": {
+          "x": 47,
+          "y": 16
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000012",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 43,
-          "y": 18
-        },
         "price": 1082,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000002",
@@ -22368,15 +22463,24 @@
           "cement": 105,
           "brick": 140,
           "steel": 68
-        }
+        },
+        "blockId": "block_0000000c",
+        "cells": [
+          {
+            "x": 43,
+            "y": 18
+          }
+        ],
+        "anchorCell": {
+          "x": 43,
+          "y": 18
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000013",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 45,
-          "y": 18
-        },
         "price": 1064,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000002",
@@ -22385,15 +22489,24 @@
           "cement": 99,
           "brick": 131,
           "steel": 88
-        }
+        },
+        "blockId": "block_0000000d",
+        "cells": [
+          {
+            "x": 45,
+            "y": 18
+          }
+        ],
+        "anchorCell": {
+          "x": 45,
+          "y": 18
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000014",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 47,
-          "y": 18
-        },
         "price": 1164,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000002",
@@ -22402,15 +22515,24 @@
           "cement": 98,
           "brick": 129,
           "steel": 68
-        }
+        },
+        "blockId": "block_0000000e",
+        "cells": [
+          {
+            "x": 47,
+            "y": 18
+          }
+        ],
+        "anchorCell": {
+          "x": 47,
+          "y": 18
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000015",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 14,
-          "y": 30
-        },
         "price": 953,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22419,15 +22541,24 @@
           "cement": 73,
           "brick": 75,
           "steel": 52
-        }
+        },
+        "blockId": "block_0000000f",
+        "cells": [
+          {
+            "x": 14,
+            "y": 30
+          }
+        ],
+        "anchorCell": {
+          "x": 14,
+          "y": 30
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000016",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 16,
-          "y": 30
-        },
         "price": 1090,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22436,15 +22567,24 @@
           "cement": 60,
           "brick": 79,
           "steel": 52
-        }
+        },
+        "blockId": "block_00000010",
+        "cells": [
+          {
+            "x": 16,
+            "y": 30
+          }
+        ],
+        "anchorCell": {
+          "x": 16,
+          "y": 30
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000017",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 18,
-          "y": 30
-        },
         "price": 913,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22453,15 +22593,24 @@
           "cement": 75,
           "brick": 93,
           "steel": 61
-        }
+        },
+        "blockId": "block_00000011",
+        "cells": [
+          {
+            "x": 18,
+            "y": 30
+          }
+        ],
+        "anchorCell": {
+          "x": 18,
+          "y": 30
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000018",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 14,
-          "y": 32
-        },
         "price": 982,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22470,15 +22619,24 @@
           "cement": 66,
           "brick": 96,
           "steel": 60
-        }
+        },
+        "blockId": "block_00000012",
+        "cells": [
+          {
+            "x": 14,
+            "y": 32
+          }
+        ],
+        "anchorCell": {
+          "x": 14,
+          "y": 32
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000019",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 16,
-          "y": 32
-        },
         "price": 925,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22487,15 +22645,24 @@
           "cement": 63,
           "brick": 94,
           "steel": 51
-        }
+        },
+        "blockId": "block_00000013",
+        "cells": [
+          {
+            "x": 16,
+            "y": 32
+          }
+        ],
+        "anchorCell": {
+          "x": 16,
+          "y": 32
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000020",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 18,
-          "y": 32
-        },
         "price": 1041,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22504,15 +22671,24 @@
           "cement": 80,
           "brick": 90,
           "steel": 53
-        }
+        },
+        "blockId": "block_00000014",
+        "cells": [
+          {
+            "x": 18,
+            "y": 32
+          }
+        ],
+        "anchorCell": {
+          "x": 18,
+          "y": 32
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000021",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 26,
-          "y": 35
-        },
         "price": 1069,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22521,15 +22697,24 @@
           "cement": 79,
           "brick": 97,
           "steel": 47
-        }
+        },
+        "blockId": "block_00000015",
+        "cells": [
+          {
+            "x": 26,
+            "y": 35
+          }
+        ],
+        "anchorCell": {
+          "x": 26,
+          "y": 35
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000022",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 28,
-          "y": 35
-        },
         "price": 1022,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22538,15 +22723,24 @@
           "cement": 60,
           "brick": 82,
           "steel": 47
-        }
+        },
+        "blockId": "block_00000016",
+        "cells": [
+          {
+            "x": 28,
+            "y": 35
+          }
+        ],
+        "anchorCell": {
+          "x": 28,
+          "y": 35
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000023",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 26,
-          "y": 37
-        },
         "price": 1054,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22555,15 +22749,24 @@
           "cement": 70,
           "brick": 87,
           "steel": 59
-        }
+        },
+        "blockId": "block_00000017",
+        "cells": [
+          {
+            "x": 26,
+            "y": 37
+          }
+        ],
+        "anchorCell": {
+          "x": 26,
+          "y": 37
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000024",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 28,
-          "y": 37
-        },
         "price": 998,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22572,15 +22775,24 @@
           "cement": 63,
           "brick": 78,
           "steel": 54
-        }
+        },
+        "blockId": "block_00000018",
+        "cells": [
+          {
+            "x": 28,
+            "y": 37
+          }
+        ],
+        "anchorCell": {
+          "x": 28,
+          "y": 37
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000025",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 26,
-          "y": 39
-        },
         "price": 1058,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22589,15 +22801,24 @@
           "cement": 62,
           "brick": 87,
           "steel": 51
-        }
+        },
+        "blockId": "block_00000019",
+        "cells": [
+          {
+            "x": 26,
+            "y": 39
+          }
+        ],
+        "anchorCell": {
+          "x": 26,
+          "y": 39
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000026",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 28,
-          "y": 39
-        },
         "price": 961,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22606,15 +22827,24 @@
           "cement": 63,
           "brick": 91,
           "steel": 55
-        }
+        },
+        "blockId": "block_0000001a",
+        "cells": [
+          {
+            "x": 28,
+            "y": 39
+          }
+        ],
+        "anchorCell": {
+          "x": 28,
+          "y": 39
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000027",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 40,
-          "y": 50
-        },
         "price": 1039,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22623,15 +22853,24 @@
           "cement": 67,
           "brick": 96,
           "steel": 53
-        }
+        },
+        "blockId": "block_0000001b",
+        "cells": [
+          {
+            "x": 40,
+            "y": 50
+          }
+        ],
+        "anchorCell": {
+          "x": 40,
+          "y": 50
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000028",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 42,
-          "y": 50
-        },
         "price": 928,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22640,15 +22879,24 @@
           "cement": 62,
           "brick": 79,
           "steel": 48
-        }
+        },
+        "blockId": "block_0000001c",
+        "cells": [
+          {
+            "x": 42,
+            "y": 50
+          }
+        ],
+        "anchorCell": {
+          "x": 42,
+          "y": 50
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000029",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 40,
-          "y": 52
-        },
         "price": 1065,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22657,15 +22905,24 @@
           "cement": 71,
           "brick": 75,
           "steel": 56
-        }
+        },
+        "blockId": "block_0000001d",
+        "cells": [
+          {
+            "x": 40,
+            "y": 52
+          }
+        ],
+        "anchorCell": {
+          "x": 40,
+          "y": 52
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000030",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 42,
-          "y": 52
-        },
         "price": 958,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22674,15 +22931,24 @@
           "cement": 62,
           "brick": 83,
           "steel": 51
-        }
+        },
+        "blockId": "block_0000001e",
+        "cells": [
+          {
+            "x": 42,
+            "y": 52
+          }
+        ],
+        "anchorCell": {
+          "x": 42,
+          "y": 52
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000031",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 0,
-          "y": 0
-        },
         "price": 718,
         "zoning": "industrial",
         "ownerOrganizationId": "org_00000002",
@@ -22691,15 +22957,24 @@
           "cement": 102,
           "brick": 99,
           "steel": 103
-        }
+        },
+        "blockId": "block_0000001f",
+        "cells": [
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 0,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000032",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 2,
-          "y": 0
-        },
         "price": 1124,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22708,15 +22983,24 @@
           "cement": 93,
           "brick": 115,
           "steel": 99
-        }
+        },
+        "blockId": "block_00000020",
+        "cells": [
+          {
+            "x": 2,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 2,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000033",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 4,
-          "y": 0
-        },
         "price": 609,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000001",
@@ -22725,15 +23009,24 @@
           "cement": 115,
           "brick": 96,
           "steel": 63
-        }
+        },
+        "blockId": "block_00000021",
+        "cells": [
+          {
+            "x": 4,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 4,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000034",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 6,
-          "y": 0
-        },
         "price": 604,
         "zoning": "industrial",
         "ownerOrganizationId": "org_00000002",
@@ -22742,15 +23035,24 @@
           "cement": 64,
           "brick": 109,
           "steel": 99
-        }
+        },
+        "blockId": "block_00000022",
+        "cells": [
+          {
+            "x": 6,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 6,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000035",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 8,
-          "y": 0
-        },
         "price": 1201,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000002",
@@ -22759,15 +23061,24 @@
           "cement": 133,
           "brick": 106,
           "steel": 101
-        }
+        },
+        "blockId": "block_00000023",
+        "cells": [
+          {
+            "x": 8,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 8,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000036",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 10,
-          "y": 0
-        },
         "price": 647,
         "zoning": "industrial",
         "ownerOrganizationId": "org_00000001",
@@ -22776,15 +23087,24 @@
           "cement": 65,
           "brick": 71,
           "steel": 139
-        }
+        },
+        "blockId": "block_00000024",
+        "cells": [
+          {
+            "x": 10,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 10,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000037",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 12,
-          "y": 0
-        },
         "price": 1386,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000001",
@@ -22793,15 +23113,24 @@
           "cement": 90,
           "brick": 115,
           "steel": 75
-        }
+        },
+        "blockId": "block_00000025",
+        "cells": [
+          {
+            "x": 12,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 12,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000038",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 14,
-          "y": 0
-        },
         "price": 813,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000001",
@@ -22810,15 +23139,24 @@
           "cement": 66,
           "brick": 113,
           "steel": 134
-        }
+        },
+        "blockId": "block_00000026",
+        "cells": [
+          {
+            "x": 14,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 14,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000039",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 16,
-          "y": 0
-        },
         "price": 859,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000001",
@@ -22827,15 +23165,24 @@
           "cement": 70,
           "brick": 82,
           "steel": 139
-        }
+        },
+        "blockId": "block_00000027",
+        "cells": [
+          {
+            "x": 16,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 16,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000040",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 18,
-          "y": 0
-        },
         "price": 1243,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22844,15 +23191,24 @@
           "cement": 64,
           "brick": 109,
           "steel": 82
-        }
+        },
+        "blockId": "block_00000028",
+        "cells": [
+          {
+            "x": 18,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 18,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000041",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 20,
-          "y": 0
-        },
         "price": 1137,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000001",
@@ -22861,15 +23217,24 @@
           "cement": 94,
           "brick": 64,
           "steel": 88
-        }
+        },
+        "blockId": "block_00000029",
+        "cells": [
+          {
+            "x": 20,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 20,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000042",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 22,
-          "y": 0
-        },
         "price": 1279,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000002",
@@ -22878,15 +23243,24 @@
           "cement": 77,
           "brick": 62,
           "steel": 136
-        }
+        },
+        "blockId": "block_0000002a",
+        "cells": [
+          {
+            "x": 22,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 22,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000043",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 24,
-          "y": 0
-        },
         "price": 1431,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000002",
@@ -22895,15 +23269,24 @@
           "cement": 68,
           "brick": 108,
           "steel": 61
-        }
+        },
+        "blockId": "block_0000002b",
+        "cells": [
+          {
+            "x": 24,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 24,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000044",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 26,
-          "y": 0
-        },
         "price": 1220,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000002",
@@ -22912,15 +23295,24 @@
           "cement": 105,
           "brick": 122,
           "steel": 84
-        }
+        },
+        "blockId": "block_0000002c",
+        "cells": [
+          {
+            "x": 26,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 26,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000045",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 28,
-          "y": 0
-        },
         "price": 1405,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22929,15 +23321,24 @@
           "cement": 101,
           "brick": 75,
           "steel": 106
-        }
+        },
+        "blockId": "block_0000002d",
+        "cells": [
+          {
+            "x": 28,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 28,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000046",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 30,
-          "y": 0
-        },
         "price": 1127,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22946,15 +23347,24 @@
           "cement": 125,
           "brick": 114,
           "steel": 138
-        }
+        },
+        "blockId": "block_0000002e",
+        "cells": [
+          {
+            "x": 30,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 30,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000047",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 32,
-          "y": 0
-        },
         "price": 1366,
         "zoning": "industrial",
         "ownerOrganizationId": "org_00000002",
@@ -22963,15 +23373,24 @@
           "cement": 60,
           "brick": 64,
           "steel": 86
-        }
+        },
+        "blockId": "block_0000002f",
+        "cells": [
+          {
+            "x": 32,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 32,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000048",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 34,
-          "y": 0
-        },
         "price": 1256,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000001",
@@ -22980,15 +23399,24 @@
           "cement": 83,
           "brick": 97,
           "steel": 120
-        }
+        },
+        "blockId": "block_00000030",
+        "cells": [
+          {
+            "x": 34,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 34,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000049",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 36,
-          "y": 0
-        },
         "price": 828,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000002",
@@ -22997,15 +23425,24 @@
           "cement": 120,
           "brick": 136,
           "steel": 71
-        }
+        },
+        "blockId": "block_00000031",
+        "cells": [
+          {
+            "x": 36,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 36,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000050",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 38,
-          "y": 0
-        },
         "price": 638,
         "zoning": "mixed",
         "ownerOrganizationId": "org_00000002",
@@ -23014,15 +23451,24 @@
           "cement": 100,
           "brick": 94,
           "steel": 89
-        }
+        },
+        "blockId": "block_00000032",
+        "cells": [
+          {
+            "x": 38,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 38,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000051",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 40,
-          "y": 0
-        },
         "price": 1115,
         "zoning": "industrial",
         "ownerOrganizationId": "org_00000001",
@@ -23031,15 +23477,24 @@
           "cement": 81,
           "brick": 113,
           "steel": 130
-        }
+        },
+        "blockId": "block_00000033",
+        "cells": [
+          {
+            "x": 40,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 40,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000052",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 42,
-          "y": 0
-        },
         "price": 1265,
         "zoning": "industrial",
         "ownerOrganizationId": "org_00000001",
@@ -23048,15 +23503,24 @@
           "cement": 60,
           "brick": 99,
           "steel": 113
-        }
+        },
+        "blockId": "block_00000034",
+        "cells": [
+          {
+            "x": 42,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 42,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000053",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 44,
-          "y": 0
-        },
         "price": 631,
         "zoning": "industrial",
         "ownerOrganizationId": "org_00000002",
@@ -23065,15 +23529,24 @@
           "cement": 104,
           "brick": 67,
           "steel": 107
-        }
+        },
+        "blockId": "block_00000035",
+        "cells": [
+          {
+            "x": 44,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 44,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       },
       {
         "id": "parcel_00000054",
         "districtId": "district_00000004",
-        "cell": {
-          "x": 46,
-          "y": 0
-        },
         "price": 871,
         "zoning": "residential",
         "ownerOrganizationId": "org_00000001",
@@ -23082,7 +23555,20 @@
           "cement": 108,
           "brick": 112,
           "steel": 71
-        }
+        },
+        "blockId": "block_00000036",
+        "cells": [
+          {
+            "x": 46,
+            "y": 0
+          }
+        ],
+        "anchorCell": {
+          "x": 46,
+          "y": 0
+        },
+        "roadFrontages": [],
+        "disposition": "marketable"
       }
     ],
     "balances": [

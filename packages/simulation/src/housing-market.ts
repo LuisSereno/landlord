@@ -181,7 +181,7 @@ function buildStock(state: GameState): StockUnit[] {
   for (const incident of state.phase2.incidents.values()) {
     if (incident.status !== "active") continue;
     const building = state.phase2.buildings.get(incident.buildingId);
-    const cell = building ? state.phase2.parcels.get(building.parcelId)?.cell : undefined;
+    const cell = building ? state.phase2.parcels.get(building.parcelId)?.anchorCell : undefined;
     if (cell) activeIncidentCells.push(cell);
   }
 
@@ -190,7 +190,7 @@ function buildStock(state: GameState): StockUnit[] {
     left.id.localeCompare(right.id),
   )) {
     if (building.state !== "operational") continue;
-    const cell = state.phase2.parcels.get(building.parcelId)?.cell;
+    const cell = state.phase2.parcels.get(building.parcelId)?.anchorCell;
     if (!cell) continue;
     raw.push({ building, cell });
   }

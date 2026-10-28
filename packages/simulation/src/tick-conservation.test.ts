@@ -123,54 +123,54 @@ function cityDigest(input: {
 const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => string }> = [
   {
     id: "scenario:seed-1:1200",
-    expected: "06c2eed9be0901f6",
+    expected: "1a855208503337b8",
     run: () => digest(canonicalizeState(runScenario(1, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-7:1200",
-    expected: "4d8094d142187e6b",
+    expected: "5123b7ffc7b9d897",
     run: () => digest(canonicalizeState(runScenario(7, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-42:1200",
-    expected: "7f985a5243f133cf",
+    expected: "7d18728cb03dc3b0",
     run: () => digest(canonicalizeState(runScenario(42, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "0b2a8662c2e2080b",
+    expected: "e19ade1585a2b94f",
     run: () => digest(canonicalizeState(runScenario(1, [], 36_000, { checkpointEvery: 0 }).state)),
   },
   {
     id: "city:50-parcels:1300-ticks",
-    expected: "d45666029cdadebb",
+    expected: "87d0e3da7b2f408f",
     run: () => cityDigest({ parcelCount: 50, ticks: 1_300 }),
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "cc58a8b2944f5a1f",
+    expected: "8276f27aece2021b",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "38e14ee0a44a6e47",
+    expected: "ffdd775da081ce2d",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "d9b4a932f3116526",
+    expected: "396aa827aec21853",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "24f299906428fedd",
+    expected: "e08624a97dbffe25",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "533cb1f69f245e5d",
+    expected: "b37ab5f5c4e40a14",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];
@@ -183,6 +183,16 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
  * y el resultado económico cambia de verdad porque las parcelas ya no salen de un único distrito.
  * Los diez digestos se regeneran de forma deliberada; `checkpointEvery: 0` sólo evita serializar
  * 291 KB por tick en un harness que compara el estado final.
+ */
+
+/**
+ * Regeneración V.d.1 (2026-10-28): la parcela deja de ser un punto y pasa a ser un subconjunto
+ * conexo de una manzana; cada distrito se llena con ~800 parcelas multi-cell, ids y precios nuevos.
+ * Cambian los diez digestos por geometría y por economía de escenario (no sólo por superficie).
+ * Además `createScaledCity` sustituye el tejido del distrito objetivo antes de plantar sus parcelas
+ * sintéticas, porque el tejido generado ya ocupa todo el suelo y las cargas de 50/200/800 no caben
+ * encima. La conservación económica se sigue verificando en `phase2`, `tick-conservation` de caja y
+ * el resto de la suite; ningún cambio de esta fase toca las reglas de débito/crédito.
  */
 
 describe("WP4.2 conservación del resultado económico", () => {

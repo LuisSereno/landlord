@@ -152,7 +152,7 @@ function occupiedBuildingCells(
     [...state.phase2.buildings.values()]
       .filter((building) => building.id !== excludingBuildingId)
       .map((building) => {
-        const cell = state.phase2.parcels.get(building.parcelId)!.cell;
+        const cell = state.phase2.parcels.get(building.parcelId)!.anchorCell;
         return String(cell.x) + ":" + String(cell.y);
       }),
   );
@@ -913,7 +913,7 @@ export function dispatchProductCommand(
     if (!parcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
     const siteMap = districtMapOf(state, parcel.districtId);
     const interactionCell = chooseInteractionCell(
-      parcel.cell,
+      parcel.anchorCell,
       blockedCellsOf(state, parcel.districtId),
       siteMap.width,
       siteMap.height,
@@ -990,7 +990,7 @@ export function dispatchProductCommand(
     technician.task = { kind: "maintenance", buildingId: building.id };
     const maintenanceMap = districtMapOf(state, buildingParcel.districtId);
     const interactionCell = chooseInteractionCell(
-      buildingParcel.cell,
+      buildingParcel.anchorCell,
       blockedCellsOf(state, buildingParcel.districtId),
       maintenanceMap.width,
       maintenanceMap.height,
@@ -1042,7 +1042,7 @@ export function dispatchProductCommand(
         return { accepted: false, code: "AGENT_NOT_IN_DISTRICT" };
       const sabotageMap = districtMapOf(state, targetParcel.districtId);
       const interactionCell = chooseInteractionCell(
-        targetParcel.cell,
+        targetParcel.anchorCell,
         blockedCellsOf(state, targetParcel.districtId),
         sabotageMap.width,
         sabotageMap.height,

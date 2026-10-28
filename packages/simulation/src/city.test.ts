@@ -160,6 +160,8 @@ describe("V.d.0 gate de ciudad", () => {
           seed: Number(entry.district.generation!.seed),
           district: entry.district,
           parcels: entry.parcels,
+          blocks: entry.blocks,
+          publicSpaces: entry.publicSpaces,
           blockedCells: entry.blockedCells,
           roads: entry.roads,
           spawnAnchors: entry.spawnAnchors,

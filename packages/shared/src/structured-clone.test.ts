@@ -67,7 +67,7 @@ const snapshot = {
         width: 64,
         height: 64,
         blockedCells: [],
-        roads: { topologyVersion: 1, derivationVersion: 1, segments: [] },
+        roads: { topologyVersion: 1, derivationVersion: 2, segments: [] },
       },
       blocks: [],
       publicSpaces: [],

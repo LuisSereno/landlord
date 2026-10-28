@@ -2,8 +2,9 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
 import { describe, it } from "vitest";
 import { roadCellsFromSegments } from "@landlord/shared";
-import { deriveRoadTopology, generateDistrict, hasRoadAccess } from "./district-generator";
-import { DISTRICT_PROFILE_IDS } from "./district-profiles";
+import { defaultRoadAnchors, generateDistrict, hasRoadAccess } from "./district-generator";
+import { DISTRICT_PROFILE_IDS, resolveDistrictProfile } from "./district-profiles";
+import { deriveRoadNetwork } from "./urban-fabric";
 import { createViewProjection } from "./projection";
 import { createScaledCity } from "./system-cost";
 import { createInitialState } from "./state";
@@ -38,16 +39,20 @@ describe.skipIf(!enabled)("WP4.15-V.c.2B.2 road performance harness", () => {
         for (const seed of seeds) {
           const generated = generateDistrict({ profileId, seed });
           const start = now();
-          const roads = deriveRoadTopology({
-            parcels: generated.parcels,
-            blockedCells: new Set(generated.blockedCells),
+          const districtProfile = resolveDistrictProfile(profileId);
+          const roads = deriveRoadNetwork({
+            anchors: defaultRoadAnchors(districtProfile),
+            latticeLines: districtProfile.fabric.latticeLines,
+            connectSpawns: districtProfile.fabric.connectSpawns,
             width: 64,
             height: 64,
-          });
+          }).topology;
           const elapsed = now() - start;
           const cells = roadCellsFromSegments(roads.segments);
           const parcelCells = new Set(
-            generated.parcels.map((parcel) => `${parcel.cell.x}:${parcel.cell.y}`),
+            generated.parcels.flatMap((parcel) =>
+              parcel.cells.map((cell) => `${cell.x}:${cell.y}`),
+            ),
           );
           const overlaps = [...cells].filter(
             (cell) => parcelCells.has(cell) || generated.blockedCells.includes(cell),
@@ -77,14 +82,15 @@ describe.skipIf(!enabled)("WP4.15-V.c.2B.2 road performance harness", () => {
       let maxSegments = 0;
       for (const profileId of DISTRICT_PROFILE_IDS)
         for (let seed = 1; seed <= 100; seed += 1) {
-          const district = generateDistrict({ profileId, seed });
           const start = now();
-          const roads = deriveRoadTopology({
-            parcels: district.parcels,
-            blockedCells: new Set(district.blockedCells),
+          const districtProfile = resolveDistrictProfile(profileId);
+          const roads = deriveRoadNetwork({
+            anchors: defaultRoadAnchors(districtProfile),
+            latticeLines: districtProfile.fabric.latticeLines,
+            connectSpawns: districtProfile.fabric.connectSpawns,
             width: 64,
             height: 64,
-          });
+          }).topology;
           sweepTimes.push(now() - start);
           maxCells = Math.max(maxCells, roadCellsFromSegments(roads.segments).size);
           maxSegments = Math.max(maxSegments, roads.segments.length);

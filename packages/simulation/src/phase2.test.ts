@@ -99,7 +99,7 @@ describe("Gate 2 product loop", () => {
         }),
       ).accepted,
     ).toBe(true);
-    advanceToTick(state, 96 * 50);
+    advanceToTick(state, 120 * 50);
 
     const buildingId = parseBuildingId("building_00000001");
     expect(state.phase2.buildings.has(buildingId)).toBe(true);
@@ -262,7 +262,7 @@ describe("Gate 2 product loop", () => {
         buildingType: "courtyard_home",
       }),
     );
-    advanceToTick(state, 96 * 50);
+    advanceToTick(state, 120 * 50);
     const buildingId = parseBuildingId("building_00000001");
     expect(
       dispatchProductCommand(state, command("upgrade", "UpgradeBuilding", { buildingId })).accepted,
@@ -340,7 +340,7 @@ describe("Gate 2 product loop", () => {
         buildingType: "courtyard_home",
       }),
     );
-    advanceToTick(state, 96 * 50);
+    advanceToTick(state, 120 * 50);
     const buildingId = parseBuildingId("building_00000001");
     expect(
       dispatchProductCommand(
@@ -384,7 +384,7 @@ describe("Gate 2 product loop", () => {
         buildingType: "courtyard_home",
       }),
     );
-    advanceToTick(second, 96 * 50);
+    advanceToTick(second, 120 * 50);
     second.phase2.tenants.get(parseTenantId("tenant_00000001"))!.budget = parseMoney(100);
     expect(
       dispatchProductCommand(
@@ -410,7 +410,7 @@ describe("Gate 2 product loop", () => {
         buildingType: "courtyard_home",
       }),
     );
-    advanceToTick(state, 96 * 50);
+    advanceToTick(state, 120 * 50);
     const buildingId = parseBuildingId("building_00000001");
     state.phase2.buildings.get(buildingId)!.condition = 55;
     const balanceBefore = state.phase2.balances.get(organization)!;
@@ -503,7 +503,10 @@ describe("Gate 2 product loop", () => {
     expect(state.phase2.incidents.get(parseIncidentId("incident_00000002"))?.status).toBe(
       "resolved",
     );
-    advanceToTick(state, state.clock.tick + 50);
+    const afterFire = inventory.cement;
+    for (let tick = 0; tick < 500 && inventory.cement === afterFire; tick += 1) {
+      advanceProductSystems(state);
+    }
     expect(inventory.cement).toBeGreaterThan(duringFire);
 
     building.condition = 55;

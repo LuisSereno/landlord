@@ -91,7 +91,7 @@ function indexAdjacentTechnicians(
     const building = state.phase2.buildings.get(buildingId);
     if (!building) continue;
     const parcel = state.phase2.parcels.get(building.parcelId);
-    if (!parcel || !adjacent(agent.cell, parcel.cell)) continue;
+    if (!parcel || !adjacent(agent.cell, parcel.anchorCell)) continue;
     index.set(buildingId, agent);
   }
   return index;
@@ -814,7 +814,10 @@ function tacticalTick(state: GameState): void {
     }
     if (agent.task.kind === "sabotage_building") {
       const building = state.phase2.buildings.get(agent.task.targetBuildingId);
-      if (building && adjacent(agent.cell, state.phase2.parcels.get(building.parcelId)!.cell)) {
+      if (
+        building &&
+        adjacent(agent.cell, state.phase2.parcels.get(building.parcelId)!.anchorCell)
+      ) {
         const prng = new Xoshiro128ss(state.seed);
         prng.restoreState(state.prng);
         const detected = prng.nextInt(0, 100) < 35 + state.phase2.crime.policePressure * 3;
@@ -910,12 +913,20 @@ function tacticalTick(state: GameState): void {
       ownIncident.status = "resolved";
     }
     for (const agent of agents)
-      if (Math.abs(agent.cell.x - parcel.cell.x) + Math.abs(agent.cell.y - parcel.cell.y) <= 3)
+      if (
+        Math.abs(agent.cell.x - parcel.anchorCell.x) +
+          Math.abs(agent.cell.y - parcel.anchorCell.y) <=
+        3
+      )
         hurtAgent(state, agent, 60);
     for (const building of state.phase2.buildings.values()) {
       if (building.id === root.id || building.state !== "operational") continue;
       const target = state.phase2.parcels.get(building.parcelId)!;
-      if (Math.abs(target.cell.x - parcel.cell.x) + Math.abs(target.cell.y - parcel.cell.y) <= 3) {
+      if (
+        Math.abs(target.anchorCell.x - parcel.anchorCell.x) +
+          Math.abs(target.anchorCell.y - parcel.anchorCell.y) <=
+        3
+      ) {
         building.structuralIntegrity = Math.max(0, building.structuralIntegrity - 35);
         ignite(state, building, "blast", 25);
         if (building.structuralIntegrity <= 0) building.state = "collapse_pending";

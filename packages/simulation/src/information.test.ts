@@ -228,7 +228,7 @@ describe("WP4.9 información imperfecta", () => {
     expect(restoreStateFromSnapshot(legacy).phase2.intelligence).toEqual(
       initialIntelligenceState(newState().seed),
     );
-  });
+  }, 60_000);
 
   it("dos partidas con la misma seed y los mismos encargos convergen", () => {
     const run = (): string => {

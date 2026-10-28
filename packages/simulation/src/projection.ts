@@ -493,7 +493,8 @@ export function createViewProjection(
                     : (permit?.status ?? null);
                 return {
                   id: parcel.id,
-                  cell: { ...parcel.cell },
+                  cell: { ...parcel.anchorCell },
+                  cells: parcel.cells.map((cell) => ({ ...cell })),
                   price: parcel.price,
                   zoning: parcel.zoning,
                   ownerOrganizationId: parcel.ownerOrganizationId,

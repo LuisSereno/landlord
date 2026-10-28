@@ -27,6 +27,26 @@ import { gridCellSchema, seedSchema, type GridCell, type Seed } from "./time-and
  * field carries presentation.
  */
 
+/**
+ * Point the road network must serve (D-090). Roads are derived from these anchors, never from
+ * already placed parcels, so changing the parcel recipe cannot silently move a street.
+ */
+export const roadAnchorKindSchema = z.enum([
+  "gateway",
+  "civic_center",
+  "commercial_corridor",
+  "industrial_access",
+  "spawn",
+]);
+export type RoadAnchorKind = z.infer<typeof roadAnchorKindSchema>;
+
+export const roadAnchorSchema = z.object({
+  id: z.string().min(1).max(96),
+  kind: roadAnchorKindSchema,
+  cell: gridCellSchema,
+});
+export type RoadAnchor = z.infer<typeof roadAnchorSchema>;
+
 /** Function of a block in the city. It steers the development code; it does not say what was built. */
 export const urbanRoleSchema = z.enum([
   "civic_core",

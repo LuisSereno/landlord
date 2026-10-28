@@ -48,7 +48,7 @@ import {
   crewSchema,
   incidentSchema,
   testStructureSchema,
-  roadTopologyV1Schema,
+  roadTopologySchema,
   roadCellsFromSegments,
   roadSegmentId,
   type Organization,
@@ -178,7 +178,7 @@ const districtMapSnapshotSchema = z.object({
   width: z.literal(64),
   height: z.literal(64),
   blockedCells: z.array(gridCellSchema),
-  roads: roadTopologyV1Schema,
+  roads: roadTopologySchema,
 });
 
 const snapshotDistrictSchema = z.object({
@@ -204,7 +204,7 @@ export type SnapshotWorld = {
       width: 64;
       height: 64;
       blockedCells: GridCell[];
-      roads: import("./domain").RoadTopologyV1;
+      roads: import("./domain").RoadTopology;
     };
     blocks: import("./urban").Block[];
     publicSpaces: import("./urban").PublicSpace[];
@@ -439,6 +439,15 @@ export function validateSnapshotReferences(snapshot: SnapshotV2): SnapshotValida
     }
   }
 
+  const parcelCellsByDistrict = new Map<string, Set<string>>();
+  if (snapshot.phase2) {
+    for (const parcel of snapshot.phase2.parcels) {
+      const cells = parcelCellsByDistrict.get(parcel.districtId) ?? new Set<string>();
+      for (const cell of parcel.cells) cells.add(cellKey(cell));
+      parcelCellsByDistrict.set(parcel.districtId, cells);
+    }
+  }
+
   for (const entry of snapshot.world.districts) {
     const scope = `world/districts/${entry.district.id}`;
     const segments = entry.map.roads.segments;
@@ -479,14 +488,8 @@ export function validateSnapshotReferences(snapshot: SnapshotV2): SnapshotValida
     if (entry.map.blockedCells.some((cell) => !inBounds(cell))) {
       issues.push({ code: "CELL_OUT_OF_BOUNDS", path: `${scope}/blockedCells` });
     }
-    if (
-      snapshot.phase2 &&
-      [...roadCells].some((key) =>
-        snapshot.phase2!.parcels.some(
-          (parcel) => parcel.districtId === entry.district.id && cellKey(parcel.cell) === key,
-        ),
-      )
-    ) {
+    const districtParcelCells = parcelCellsByDistrict.get(entry.district.id);
+    if (districtParcelCells && [...roadCells].some((key) => districtParcelCells.has(key))) {
       issues.push({ code: "DUPLICATE_CELL", path: `${scope}/roads/phase2/parcels` });
     }
   }
@@ -937,6 +940,34 @@ export class UnsupportedSnapshotVersionError extends Error {
   }
 }
 
+/**
+ * A v2 save written before V.d.1 has point parcels and a derivationVersion 1 road network. It is
+ * rejected by name instead of by a Zod path: the fabric cannot be reinterpreted without inventing
+ * blocks and frontages the original save never had. The slot is left untouched.
+ */
+export class UnsupportedUrbanFabricError extends Error {
+  public constructor() {
+    super(
+      "UNSUPPORTED_URBAN_FABRIC: este guardado v2 es anterior a V.d.1 (parcelas de una celda y red vial derivationVersion 1) y no se migra; crea una partida nueva o borra explícitamente el slot. El archivo no se ha modificado.",
+    );
+    this.name = "UnsupportedUrbanFabricError";
+  }
+}
+
+function isPreVd1Snapshot(value: unknown): boolean {
+  if (typeof value !== "object" || value === null) return false;
+  const snapshot = value as {
+    world?: { districts?: Array<{ map?: { roads?: { derivationVersion?: unknown } } }> };
+    phase2?: { parcels?: Array<Record<string, unknown>> };
+  };
+  const district = snapshot.world?.districts?.[0];
+  if (district?.map?.roads?.derivationVersion === 1) return true;
+  const parcel = snapshot.phase2?.parcels?.[0];
+  return (
+    parcel !== undefined && typeof parcel === "object" && "cell" in parcel && !("cells" in parcel)
+  );
+}
+
 export function parseSnapshotV2(value: unknown): SnapshotV2 {
   const declaredVersion =
     typeof value === "object" && value !== null && "schemaVersion" in value
@@ -944,6 +975,9 @@ export function parseSnapshotV2(value: unknown): SnapshotV2 {
       : undefined;
   if (declaredVersion !== 2) {
     throw new UnsupportedSnapshotVersionError(declaredVersion);
+  }
+  if (isPreVd1Snapshot(value)) {
+    throw new UnsupportedUrbanFabricError();
   }
   const snapshot = snapshotV2Schema.parse(value) as unknown as SnapshotV2;
   const issues = validateSnapshotReferences(snapshot);

@@ -49,7 +49,10 @@ describe("WP2.15 tactical spike", () => {
         }),
       ),
     ).toMatchObject({ accepted: true });
-    for (let tick = 0; tick < 51; tick += 1) advanceProductSystems(state);
+    // La geometría v2 aleja el tajo del spawn: se espera la llegada física, no un tick fijo.
+    for (let tick = 0; tick < 500 && site.progress === 0; tick += 1) {
+      advanceProductSystems(state);
+    }
     expect(site.progress).toBeGreaterThan(0);
     expect(state.agents.get(parseAgentId("agent_00000001"))?.state).toBe("working");
   });

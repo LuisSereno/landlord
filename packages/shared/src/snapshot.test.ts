@@ -5,6 +5,7 @@ import {
   parseSnapshotV2,
   snapshotV2Schema,
   UnsupportedSnapshotVersionError,
+  UnsupportedUrbanFabricError,
   validateSnapshotReferences,
 } from "./snapshot";
 
@@ -24,7 +25,7 @@ function validWorld(overrides: { blockedCells?: Array<{ x: number; y: number }> 
       width: 64 as const,
       height: 64 as const,
       blockedCells: index === 0 ? (overrides.blockedCells ?? [{ x: 0, y: 0 }]) : [],
-      roads: { topologyVersion: 1 as const, derivationVersion: 1 as const, segments: [] },
+      roads: { topologyVersion: 1 as const, derivationVersion: 2 as const, segments: [] },
     },
     blocks: [],
     publicSpaces: [],
@@ -197,6 +198,25 @@ describe("snapshot v2", () => {
       code: "MISSING_REFERENCE",
       path: `world/agents/agent_00000001`,
     });
+  });
+
+  it("rejects a pre-V.d.1 v2 save by name, leaving the slot untouched", () => {
+    const legacyRoads = validSnapshot();
+    (
+      legacyRoads.world.districts[0]!.map.roads as unknown as { derivationVersion: number }
+    ).derivationVersion = 1;
+    expect(() => parseSnapshotV2(legacyRoads)).toThrow(UnsupportedUrbanFabricError);
+    expect(() =>
+      parseSnapshotV2({
+        schemaVersion: 2,
+        world: { districts: [{ map: { roads: { derivationVersion: 2 } } }] },
+        phase2: {
+          parcels: [
+            { id: "parcel_00000001", districtId: "district_00000001", cell: { x: 1, y: 1 } },
+          ],
+        },
+      }),
+    ).toThrow(UnsupportedUrbanFabricError);
   });
 
   it("rejects broken entity references before hydration", () => {

@@ -87,8 +87,8 @@ describe("WP4.6 servicios urbanos y accesibilidad", () => {
     const centerParcel = parcels[0]!;
     const edgeParcel = parcels[1]!;
     const center = buildCoverageIndex(state).center;
-    centerParcel.cell = { ...center };
-    edgeParcel.cell = {
+    centerParcel.anchorCell = { ...center };
+    edgeParcel.anchorCell = {
       x: center.x + URBAN_SERVICE_POLICY.transport.baseRadiusCells,
       y: center.y,
     };
@@ -127,8 +127,8 @@ describe("WP4.6 servicios urbanos y accesibilidad", () => {
     const parcels = [...state.phase2.parcels.values()].sort((left, right) =>
       left.id.localeCompare(right.id),
     );
-    parcels[0]!.cell = { ...center };
-    parcels[1]!.cell = {
+    parcels[0]!.anchorCell = { ...center };
+    parcels[1]!.anchorCell = {
       x: center.x + URBAN_SERVICE_POLICY.cleaning.minimumRadiusCells,
       y: center.y,
     };
@@ -193,7 +193,7 @@ describe("WP4.6 servicios urbanos y accesibilidad", () => {
         left.id.localeCompare(right.id),
       );
       for (let index = 0; index < 5; index += 1) {
-        parcels[index]!.cell = { x: center.x + index, y: center.y };
+        parcels[index]!.anchorCell = { x: center.x + index, y: center.y };
       }
       return state;
     };

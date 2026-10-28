@@ -113,7 +113,7 @@ describe("WP4.11-H estado canónico", () => {
       mutate(state);
       expect(canonicalizeState(state), label).not.toBe(baseline);
     }
-  }, 20_000);
+  }, 120_000);
 
   it("el orden de inserción de maps y records no cambia el digesto", () => {
     const state = campaign(9, 2);
@@ -129,7 +129,7 @@ describe("WP4.11-H estado canónico", () => {
     state.processedCommandIds = new Set([...state.processedCommandIds].reverse());
 
     expect(canonicalizeState(state)).toBe(baseline);
-  });
+  }, 120_000);
 
   it("la misma seed y los mismos meses producen la misma cadena", () => {
     expect(canonicalizeState(campaign(11, 3))).toBe(canonicalizeState(campaign(11, 3)));

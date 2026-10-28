@@ -101,19 +101,19 @@ export function buildCoverageIndex(state: GameState): CoverageIndex {
       ? { x: 0, y: 0 }
       : {
           x: Math.round(
-            parcels.reduce((total, parcel) => total + parcel.cell.x, 0) / parcels.length,
+            parcels.reduce((total, parcel) => total + parcel.anchorCell.x, 0) / parcels.length,
           ),
           y: Math.round(
-            parcels.reduce((total, parcel) => total + parcel.cell.y, 0) / parcels.length,
+            parcels.reduce((total, parcel) => total + parcel.anchorCell.y, 0) / parcels.length,
           ),
         };
   const buildingCount = buildings.filter((building) => building.state !== "ruin").length;
   const byParcelId = new Map<ParcelId, Record<UrbanServiceId, number>>();
   for (const parcel of parcels) {
     byParcelId.set(parcel.id, {
-      transport: coverageOf(state, "transport", parcel.cell, center, buildingCount),
-      security: coverageOf(state, "security", parcel.cell, center, buildingCount),
-      cleaning: coverageOf(state, "cleaning", parcel.cell, center, buildingCount),
+      transport: coverageOf(state, "transport", parcel.anchorCell, center, buildingCount),
+      security: coverageOf(state, "security", parcel.anchorCell, center, buildingCount),
+      cleaning: coverageOf(state, "cleaning", parcel.anchorCell, center, buildingCount),
     });
   }
   const byBuildingId = new Map<BuildingId, Record<UrbanServiceId, number>>();

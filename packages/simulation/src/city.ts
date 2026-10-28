@@ -6,7 +6,7 @@ import {
   parseDistrictConnectionId,
   parseDistrictId,
   parseSeed,
-  roadCellsFromSegments,
+  type Block,
   type City,
   type CityProfileId,
   type District,
@@ -14,8 +14,10 @@ import {
   type DistrictGateway,
   type DistrictId,
   type DistrictSide,
+  type GridCell,
   type Parcel,
-  type RoadTopologyV1,
+  type PublicSpace,
+  type RoadTopology,
   type UrbanRole,
 } from "@landlord/shared";
 
@@ -203,8 +205,10 @@ export function parcelIdOrdinalForSlot(slotX: number, slotY: number): number {
 export type GeneratedDistrictState = {
   district: District;
   parcels: Parcel[];
+  blocks: Block[];
+  publicSpaces: PublicSpace[];
   blockedCells: string[];
-  roads: RoadTopologyV1;
+  roads: RoadTopology;
   spawnAnchors: GeneratedDistrict["spawnAnchors"];
   report: GeneratedDistrict["report"];
 };
@@ -251,82 +255,100 @@ export function adjacentPairs(
   return pairs;
 }
 
-function borderCells(side: DistrictSide): ReadonlyArray<{ x: number; y: number }> {
-  const cells: Array<{ x: number; y: number }> = [];
-  const span = side === "north" || side === "south" ? DISTRICT_WIDTH : DISTRICT_HEIGHT;
-  for (let index = 0; index < span; index += 1) {
-    if (side === "north") cells.push({ x: index, y: 0 });
-    else if (side === "south") cells.push({ x: index, y: DISTRICT_HEIGHT - 1 });
-    else if (side === "west") cells.push({ x: 0, y: index });
-    else cells.push({ x: DISTRICT_WIDTH - 1, y: index });
-  }
-  return cells;
+/**
+ * Gateway cell of a shared border. The middle of the border sits on the central lattice line of
+ * three-line recipes (x = y = 32), so a gateway is already a road cell there and only short
+ * connectors are needed on four-line recipes (D-090).
+ */
+export function gatewayCellForSide(side: DistrictSide): GridCell {
+  const index = Math.floor(DISTRICT_WIDTH / 2);
+  if (side === "north") return { x: index, y: 0 };
+  if (side === "south") return { x: index, y: DISTRICT_HEIGHT - 1 };
+  if (side === "west") return { x: 0, y: index };
+  return { x: DISTRICT_WIDTH - 1, y: index };
 }
 
 export type GatewayCandidate = {
   pair: AdjacentPair;
   leftId: DistrictId;
-  leftCell: { x: number; y: number };
+  leftCell: GridCell;
   rightId: DistrictId;
-  rightCell: { x: number; y: number };
+  rightCell: GridCell;
 };
 
+/** Gateway cells per district, before any geometry is generated. */
+export function gatewayCellsByDistrict(
+  columns: number = CITY_LAYOUT.columns,
+  rows: number = CITY_LAYOUT.rows,
+): ReadonlyMap<DistrictId, GridCell[]> {
+  const result = new Map<DistrictId, GridCell[]>();
+  for (const pair of adjacentPairs(columns, rows)) {
+    const leftId = districtIdForSlot(pair.slotX, pair.slotY, columns);
+    const rightId = districtIdForSlot(pair.neighbourSlotX, pair.neighbourSlotY, columns);
+    const left = result.get(leftId) ?? [];
+    left.push(gatewayCellForSide(pair.side));
+    result.set(leftId, left);
+    const right = result.get(rightId) ?? [];
+    right.push(gatewayCellForSide(pair.neighbourSide));
+    result.set(rightId, right);
+  }
+  for (const cells of result.values()) {
+    cells.sort((left, right) => left.y - right.y || left.x - right.x);
+  }
+  return result;
+}
+
+function segmentsCovering(roads: RoadTopology, cell: GridCell): string[] {
+  const ids: string[] = [];
+  for (const segment of roads.segments) {
+    const dx = Math.sign(segment.to.x - segment.from.x);
+    const dy = Math.sign(segment.to.y - segment.from.y);
+    const length = Math.max(
+      Math.abs(segment.to.x - segment.from.x),
+      Math.abs(segment.to.y - segment.from.y),
+    );
+    for (let step = 0; step <= length; step += 1) {
+      if (segment.from.x + dx * step === cell.x && segment.from.y + dy * step === cell.y) {
+        ids.push(segment.id);
+        break;
+      }
+    }
+  }
+  return ids.sort((left, right) => left.localeCompare(right));
+}
+
 /**
- * One gateway per adjacent pair, on border cells, preferring a cell that is public road in both
- * districts so a service route can actually cross it (D-092). Deterministic: lowest border index
- * wins every tie.
+ * One gateway per adjacent pair, on the pre-computed border cells. The generator connected every
+ * gateway to the district's public network; this function only records which segments touch each
+ * side (D-092).
  */
 export function deriveGateways(
   districts: ReadonlyMap<DistrictId, GeneratedDistrictState>,
 ): readonly GatewayCandidate[] {
-  const roadsByDistrict = new Map<DistrictId, ReadonlySet<string>>();
-  const blockedByDistrict = new Map<DistrictId, ReadonlySet<string>>();
-  for (const [districtId, state] of districts) {
-    roadsByDistrict.set(districtId, roadCellsFromSegments(state.roads.segments));
-    blockedByDistrict.set(districtId, new Set(state.blockedCells));
-  }
-
+  void districts;
   return adjacentPairs().map((pair) => {
     const leftId = districtIdForSlot(pair.slotX, pair.slotY);
     const rightId = districtIdForSlot(pair.neighbourSlotX, pair.neighbourSlotY);
-    const leftCells = borderCells(pair.side);
-    const rightCells = borderCells(pair.neighbourSide);
-    const leftRoads = roadsByDistrict.get(leftId)!;
-    const rightRoads = roadsByDistrict.get(rightId)!;
-    const leftBlocked = blockedByDistrict.get(leftId)!;
-    const rightBlocked = blockedByDistrict.get(rightId)!;
-
-    const rank = (
-      cell: { x: number; y: number },
-      roads: ReadonlySet<string>,
-      blocked: ReadonlySet<string>,
-    ) => {
-      const key = `${cell.x}:${cell.y}`;
-      if (roads.has(key)) return 0;
-      return blocked.has(key) ? 2 : 1;
-    };
-
-    let best = 0;
-    let bestScore = Number.POSITIVE_INFINITY;
-    for (let index = 0; index < leftCells.length; index += 1) {
-      const score =
-        (rank(leftCells[index]!, leftRoads, leftBlocked) +
-          rank(rightCells[index]!, rightRoads, rightBlocked)) *
-          leftCells.length +
-        index;
-      if (score < bestScore) {
-        bestScore = score;
-        best = index;
-      }
-    }
     return {
       pair,
       leftId,
-      leftCell: { ...leftCells[best]! },
+      leftCell: gatewayCellForSide(pair.side),
       rightId,
-      rightCell: { ...rightCells[best]! },
+      rightCell: gatewayCellForSide(pair.neighbourSide),
     };
   });
+}
+
+export function gatewayRoadSegmentIds(
+  districts: ReadonlyMap<DistrictId, GeneratedDistrictState>,
+  candidate: GatewayCandidate,
+): string[] {
+  const ids = new Set<string>();
+  for (const id of segmentsCovering(districts.get(candidate.leftId)!.roads, candidate.leftCell))
+    ids.add(id);
+  for (const id of segmentsCovering(districts.get(candidate.rightId)!.roads, candidate.rightCell))
+    ids.add(id);
+  return [...ids].sort((left, right) => left.localeCompare(right));
 }
 
 export type GeneratedCity = {
@@ -366,6 +388,8 @@ export function createCity(options: {
 }): GeneratedCity {
   const profile = resolveCityProfile(options.profileId);
   const districts = new Map<DistrictId, GeneratedDistrictState>();
+  const cityId = parseCityId("city_00000001");
+  const gatewaysByDistrict = gatewayCellsByDistrict();
 
   for (const slot of canonicalSlots(profile)) {
     const districtProfile: DistrictProfile = resolveDistrictProfile(slot.districtProfileId);
@@ -380,10 +404,14 @@ export function createCity(options: {
     const generated = generateDistrictFromProfile(districtProfile, districtSeed, {
       districtId,
       parcelIdOrdinal: parcelIdOrdinalForSlot(slot.slotX, slot.slotY),
+      gatewayCells: gatewaysByDistrict.get(districtId) ?? [],
+      cityId,
     });
     districts.set(districtId, {
       district: { ...generated.district, name: slot.districtName },
       parcels: generated.parcels,
+      blocks: generated.blocks,
+      publicSpaces: generated.publicSpaces,
       blockedCells: generated.blockedCells,
       roads: generated.roads,
       spawnAnchors: generated.spawnAnchors,
@@ -411,7 +439,7 @@ export function createCity(options: {
       cells: firstIsLeft
         ? [candidate.leftCell, candidate.rightCell]
         : [candidate.rightCell, candidate.leftCell],
-      roadSegmentIds: [],
+      roadSegmentIds: gatewayRoadSegmentIds(districts, candidate),
     };
   });
 
@@ -424,7 +452,7 @@ export function createCity(options: {
   }));
 
   const city: City = {
-    id: parseCityId("city_00000001"),
+    id: cityId,
     name: profile.name,
     municipalityOrganizationId: MUNICIPALITY_ORGANIZATION_ID,
     layout: { columns: CITY_LAYOUT.columns, rows: CITY_LAYOUT.rows },

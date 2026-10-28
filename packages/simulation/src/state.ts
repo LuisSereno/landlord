@@ -40,7 +40,7 @@ import {
   type PermittingState,
   type InsolvencyState,
   type MacroEventsState,
-  type RoadTopologyV1,
+  type RoadTopology,
   type Block,
   type BlockId,
   type City,
@@ -103,7 +103,7 @@ export type DistrictMap = {
   width: 64;
   height: 64;
   blockedCells: Set<string>;
-  roads: RoadTopologyV1;
+  roads: RoadTopology;
 };
 
 /**
@@ -249,8 +249,8 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
           blockedCells: new Set(generated.blockedCells),
           roads: generated.roads,
         },
-        blocks: new Map(),
-        publicSpaces: new Map(),
+        blocks: new Map(generated.blocks.map((block) => [block.id, block])),
+        publicSpaces: new Map(generated.publicSpaces.map((space) => [space.id, space])),
       } satisfies DistrictState,
     ]),
   );

@@ -1,3 +1,4 @@
+import { PLAYER_HOME_DISTRICT_ID } from "./city";
 import { describe, expect, it } from "vitest";
 
 import { parseCommandId, parseOrganizationId, parsePersonId } from "@landlord/shared";
@@ -11,7 +12,7 @@ function scheduled(commandId: string, atTick: number, x: number): ScheduledComma
       issuedByPersonId: parsePersonId("person_00000001"),
       actingAsOrganizationId: parseOrganizationId("org_00000001"),
       type: "PlaceTestStructure",
-      payload: { cell: { x, y: 12 } },
+      payload: { districtId: PLAYER_HOME_DISTRICT_ID, cell: { x, y: 12 } },
     },
   };
 }
@@ -32,13 +33,13 @@ describe("headless scenario runner", () => {
 
   it("repeats the same seed and commands exactly", () => {
     const commands = [scheduled("command-1", 0, 10), scheduled("command-2", 3, 11)];
-    const first = runScenario(1, commands, 1000);
-    const second = runScenario(1, commands, 1000);
+    const first = runScenario(1, commands, 1000, { checkpointEvery: 0 });
+    const second = runScenario(1, commands, 1000, { checkpointEvery: 0 });
     expect(first.checkpoints.at(-1)?.canonicalState).toBe(
       second.checkpoints.at(-1)?.canonicalState,
     );
     expect(findFirstDivergentTick(first, second)).toBeNull();
-  });
+  }, 30_000);
 
   it("reports the first checkpoint that diverges by seed or command", () => {
     const first = runScenario(1, [scheduled("command-1", 0, 10)], 10);

@@ -181,13 +181,23 @@ export function slotForDistrictId(
   return { slotX: ordinal % columns, slotY: Math.floor(ordinal / columns) };
 }
 
-/** Per-district parcel ordinal block, so nine districts never collide on a parcel id. */
-export function parcelIdOrdinalForSlot(
-  slotX: number,
-  slotY: number,
-  columns: number = CITY_LAYOUT.columns,
-): number {
-  return slotOrdinal(slotX, slotY, columns) * 1_000_000;
+/**
+ * Per-district parcel ordinal block, so nine districts never collide on a parcel id.
+ *
+ * The district that hosts the player roster takes block 0: its parcels keep the `parcel_00000001…`
+ * identity that every economic test and fixture was written against, and "the first parcels" keeps
+ * meaning "the player's neighbourhood" instead of an arbitrary corner of the grid.
+ */
+export function parcelOrdinalBlock(slotX: number, slotY: number): number {
+  if (slotX === CITY_ROSTER_SLOTS.player.slotX && slotY === CITY_ROSTER_SLOTS.player.slotY)
+    return 0;
+  const ordinal = slotOrdinal(slotX, slotY);
+  const playerOrdinal = slotOrdinal(CITY_ROSTER_SLOTS.player.slotX, CITY_ROSTER_SLOTS.player.slotY);
+  return (ordinal < playerOrdinal ? ordinal + 1 : ordinal) * 1_000_000;
+}
+
+export function parcelIdOrdinalForSlot(slotX: number, slotY: number): number {
+  return parcelOrdinalBlock(slotX, slotY);
 }
 
 export type GeneratedDistrictState = {
@@ -336,6 +346,15 @@ export const CITY_ROSTER_SLOTS = {
   player: { slotX: 0, slotY: 1 },
   rival: { slotX: 2, slotY: 1 },
 } as const;
+
+export const PLAYER_HOME_DISTRICT_ID = districtIdForSlot(
+  CITY_ROSTER_SLOTS.player.slotX,
+  CITY_ROSTER_SLOTS.player.slotY,
+);
+export const RIVAL_HOME_DISTRICT_ID = districtIdForSlot(
+  CITY_ROSTER_SLOTS.rival.slotX,
+  CITY_ROSTER_SLOTS.rival.slotY,
+);
 
 function connectionIdFromGateway(gatewayId: string): string {
   return `connection_${gatewayId.slice("gateway_".length)}`;

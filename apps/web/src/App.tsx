@@ -104,8 +104,9 @@ export function App() {
   }, [recordDiagnostic]);
 
   const placeStructure = async () => {
-    if (!selectedCell || !clientRef.current) return;
-    const response = await clientRef.current.placeTestStructure(selectedCell);
+    const districtId = projection?.economy?.district.id;
+    if (!selectedCell || !clientRef.current || !districtId) return;
+    const response = await clientRef.current.placeTestStructure(selectedCell, districtId);
     setMessage(responseMessage(response, "Comando enviado; esperando el tick efectivo."));
   };
 

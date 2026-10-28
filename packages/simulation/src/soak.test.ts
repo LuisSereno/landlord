@@ -1,3 +1,4 @@
+import { PLAYER_HOME_DISTRICT_ID } from "./city";
 import { describe, expect, it } from "vitest";
 
 import { parseCommandId, parseOrganizationId, parsePersonId } from "@landlord/shared";
@@ -39,7 +40,7 @@ describe("Gate 1 soak harness", () => {
         issuedByPersonId: parsePersonId("person_00000001"),
         actingAsOrganizationId: parseOrganizationId("org_00000001"),
         type: "PlaceTestStructure",
-        payload: { cell: { x: 10, y: 10 } },
+        payload: { districtId: PLAYER_HOME_DISTRICT_ID, cell: { x: 10, y: 10 } },
       });
       const restored = restoreStateFromSnapshot(serializeSnapshot(state));
       expect(serializeSnapshot(restored)).toEqual(serializeSnapshot(state));

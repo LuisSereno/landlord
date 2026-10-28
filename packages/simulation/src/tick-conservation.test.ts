@@ -123,57 +123,67 @@ function cityDigest(input: {
 const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => string }> = [
   {
     id: "scenario:seed-1:1200",
-    expected: "80b5e947d5ac0b14",
-    run: () => digest(canonicalizeState(runScenario(1, [], 1_200).state)),
+    expected: "06c2eed9be0901f6",
+    run: () => digest(canonicalizeState(runScenario(1, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-7:1200",
-    expected: "ec608f12d4cce193",
-    run: () => digest(canonicalizeState(runScenario(7, [], 1_200).state)),
+    expected: "4d8094d142187e6b",
+    run: () => digest(canonicalizeState(runScenario(7, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-42:1200",
-    expected: "c160789903a4dc73",
-    run: () => digest(canonicalizeState(runScenario(42, [], 1_200).state)),
+    expected: "7f985a5243f133cf",
+    run: () => digest(canonicalizeState(runScenario(42, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "8af34f9b6a33fde8",
-    run: () => digest(canonicalizeState(runScenario(1, [], 36_000).state)),
+    expected: "0b2a8662c2e2080b",
+    run: () => digest(canonicalizeState(runScenario(1, [], 36_000, { checkpointEvery: 0 }).state)),
   },
   {
     id: "city:50-parcels:1300-ticks",
-    expected: "bd28d49f01b26795",
+    expected: "d45666029cdadebb",
     run: () => cityDigest({ parcelCount: 50, ticks: 1_300 }),
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "ab8e67d7ba402e76",
+    expected: "cc58a8b2944f5a1f",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "45c9d030caa8b065",
+    expected: "38e14ee0a44a6e47",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "9fc280e9d92a3ca2",
+    expected: "d9b4a932f3116526",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "d5ccc69b4e0d4399",
+    expected: "24f299906428fedd",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "bd4d88efc92c2524",
+    expected: "533cb1f69f245e5d",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];
+
+/**
+ * Regeneración V.d.0 (2026-10-28): el estado canónico gana `world` —ciudad, doce gateways y los nueve
+ * mapas distritales— y cada distrito deriva su propia seed. Son dos cambios a la vez y se declaran
+ * por separado: la huella crece por superficie (un bloque nuevo que es función pura de la seed y que
+ * ningún sistema económico escribe; verificado con grep sobre las asignaciones a `district.map`),
+ * y el resultado económico cambia de verdad porque las parcelas ya no salen de un único distrito.
+ * Los diez digestos se regeneran de forma deliberada; `checkpointEvery: 0` sólo evita serializar
+ * 291 KB por tick en un harness que compara el estado final.
+ */
 
 describe("WP4.2 conservación del resultado económico", () => {
   it("mantiene el digesto de carreras largas al optimizar el coste del tick", () => {

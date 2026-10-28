@@ -1,3 +1,4 @@
+import { PLAYER_HOME_DISTRICT_ID } from "./city";
 import { describe, expect, it } from "vitest";
 
 import {
@@ -20,7 +21,7 @@ function command(
     issuedByPersonId: parsePersonId("person_00000001"),
     actingAsOrganizationId: parseOrganizationId(organizationId),
     type: "PlaceTestStructure" as const,
-    payload: { cell },
+    payload: { districtId: PLAYER_HOME_DISTRICT_ID, cell },
   };
 }
 

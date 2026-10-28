@@ -344,8 +344,8 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     obstacles: { clusters: [1, 2], cellsPerCluster: [3, 6] },
     playability: {
       minimumParcels: 20,
-      minimumParcelsPerZoning: { residential: 5, mixed: 7, industrial: 3 },
-      maximumZoningSharePercent: 55,
+      minimumParcelsPerZoning: { residential: 4, mixed: 6, industrial: 2 },
+      maximumZoningSharePercent: 60,
       maximumCheapestParcelPrice: 1150,
     },
   },

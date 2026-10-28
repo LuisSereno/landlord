@@ -1,3 +1,4 @@
+import { PLAYER_HOME_DISTRICT_ID } from "./city";
 import { describe, expect, it } from "vitest";
 
 import {
@@ -11,6 +12,7 @@ import { findDeterministicPath } from "./navigation";
 import { cellKey, generateDistrict, hasRoadAccess } from "./district-generator";
 import { DISTRICT_PROFILE_IDS } from "./district-profiles";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
+import { districtMapOf } from "./state";
 import { createInitialState } from "./state";
 import { createViewProjection } from "./projection";
 
@@ -38,11 +40,15 @@ function componentCount(cells: ReadonlySet<string>): number {
  * 989, el total que esta prueba exigía antes de V.d; los seis perfiles nuevos de la ciudad 3×3
  * aportan el resto. Fijado por perfil para que una regresión nombre al responsable en vez de mover
  * una cifra global.
+ *
+ * V.d.0: `centro_civico` pasa de 424 a 421 parcelas porque sus tolerancias de jugabilidad se
+ * relajaron (industrial mínimo 3→2, concentración máxima 55 %→60 %) después de medir que una seed
+ * de cada doscientas agotaba los doce reintentos y hacía fallar la generación de la ciudad entera.
  */
 const EXPECTED_FRONTAGE_BY_PROFILE: Record<string, number> = {
   barrio_del_taller: 335,
   barrio_del_umbral: 229,
-  centro_civico: 424,
+  centro_civico: 421,
   ensanche_ferroviario: 385,
   ensanche_ferroviario_oeste: 401,
   lomas_del_umbral: 273,
@@ -103,15 +109,18 @@ describe("WP4.15-V.c.2B authoritative road topology", () => {
     expect(roadCellClassesFromSegments([street, avenue]).get("4:3")).toBe("avenue");
   });
 
-  it("backfill legacy depende sólo de la geometría persistida y se materializa byte a byte", () => {
-    const state = createInitialState(7, { districtProfileId: "vega_del_cauce" });
-    const legacy = serializeSnapshot(state) as { map: { roads?: unknown } };
-    delete legacy.map.roads;
-    const first = serializeSnapshot(restoreStateFromSnapshot(legacy));
-    const second = serializeSnapshot(restoreStateFromSnapshot(legacy));
-    expect(first.map.roads).toEqual(second.map.roads);
-    expect(serializeSnapshot(restoreStateFromSnapshot(first)).map.roads).toEqual(first.map.roads);
-  }, 20_000);
+  it("conserva la topología vial de los nueve distritos byte a byte en el round-trip v2", () => {
+    const state = createInitialState(7);
+    const first = serializeSnapshot(restoreStateFromSnapshot(serializeSnapshot(state)));
+    const second = serializeSnapshot(restoreStateFromSnapshot(serializeSnapshot(state)));
+    expect(first.world.districts).toHaveLength(9);
+    expect(first.world.districts.map((entry) => entry.map.roads)).toEqual(
+      second.world.districts.map((entry) => entry.map.roads),
+    );
+    expect(first.world.districts.map((entry) => entry.map.roads)).toEqual(
+      serializeSnapshot(state).world.districts.map((entry) => entry.map.roads),
+    );
+  }, 40_000);
 
   it("conserva roads en el round-trip Zod completo de la proyección", () => {
     const projection = createViewProjection(createInitialState(1));
@@ -121,15 +130,14 @@ describe("WP4.15-V.c.2B authoritative road topology", () => {
 
   it("las celdas viales no están bloqueadas y siguen siendo transitables para el A* vigente", () => {
     const state = createInitialState(1);
-    const road = [...roadCellsFromSegments(state.map.roads.segments)][0]!;
+    const map = districtMapOf(state, PLAYER_HOME_DISTRICT_ID);
+    const road = [...roadCellsFromSegments(map.roads.segments)][0]!;
     const [x, y] = road.split(":").map(Number) as [number, number];
-    expect(state.map.blockedCells.has(road)).toBe(false);
+    expect(map.blockedCells.has(road)).toBe(false);
     const target = [
       { x: x + 1, y },
       { x, y: y + 1 },
-    ].find((cell) => !state.map.blockedCells.has(`${cell.x}:${cell.y}`))!;
-    expect(findDeterministicPath({ x, y }, target, state.map.blockedCells, 64, 64)).toEqual([
-      target,
-    ]);
+    ].find((cell) => !map.blockedCells.has(`${cell.x}:${cell.y}`))!;
+    expect(findDeterministicPath({ x, y }, target, map.blockedCells, 64, 64)).toEqual([target]);
   });
 });

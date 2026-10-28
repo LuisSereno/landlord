@@ -10,7 +10,7 @@ import {
 } from "./contracts";
 
 const envelope = {
-  protocolVersion: 1,
+  protocolVersion: 2,
   requestId: "request-17",
 } as const;
 
@@ -33,7 +33,7 @@ describe("Worker request envelopes", () => {
             issuedByPersonId: "person_00000001",
             actingAsOrganizationId: "org_00000001",
             type: "PlaceTestStructure",
-            payload: { cell: { x: 10, y: 12 } },
+            payload: { districtId: "district_00000004", cell: { x: 10, y: 12 } },
           },
         },
       }).type,
@@ -72,7 +72,7 @@ describe("Worker request envelopes", () => {
     expect(() =>
       initializeGameRequestSchema.parse({
         ...envelope,
-        protocolVersion: 2,
+        protocolVersion: 1,
         type: "InitializeGame",
         payload: { seed: 1 },
       }),

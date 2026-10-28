@@ -34,7 +34,7 @@ import {
   calculateInsuranceOffer,
   REPAIR_COST,
 } from "./game-data";
-import type { GameState } from "./state";
+import { blockedCellsOf, type GameState } from "./state";
 import { runEmployment } from "./employment";
 import { runAutomation } from "./automation";
 import { macroShockBiasFor, runMacroEvents } from "./macro-events";
@@ -746,12 +746,20 @@ function tacticalTick(state: GameState): void {
             agent.path?.length === 0)
         ) {
           agent.target = { ...target.cell };
-          agent.path = findDeterministicPath(agent.cell, agent.target, state.map.blockedCells);
+          agent.path = findDeterministicPath(
+            agent.cell,
+            agent.target,
+            blockedCellsOf(state, agent.districtId),
+          );
           agent.lastPathRecalculationTick = state.clock.tick;
         }
       }
       if (!agent.path?.length && agent.target && !adjacent(agent.cell, agent.target))
-        agent.path = findDeterministicPath(agent.cell, agent.target, state.map.blockedCells);
+        agent.path = findDeterministicPath(
+          agent.cell,
+          agent.target,
+          blockedCellsOf(state, agent.districtId),
+        );
       const next = agent.path?.shift();
       if (next) agent.cell = next;
       if (agent.target && adjacent(agent.cell, agent.target)) agent.state = "working";
@@ -975,16 +983,32 @@ function rivalAction(state: GameState): void {
         )
         .sort((a, b) => a.id.localeCompare(b.id))[0]
     : undefined;
+  /**
+   * La IA sólo opera donde tiene agentes: una cuadrilla no puede trabajar en otro distrito hasta que
+   * exista un traslado explícito (D-088). Sin este filtro el rival compraba suelo inalcanzable,
+   * fallaba cada obra y se quedaba quieto.
+   */
+  const rivalDistricts = new Set(
+    [...state.agents.values()]
+      .filter(
+        (agent) =>
+          agent.organizationId === RIVAL_ORGANIZATION_ID &&
+          agent.state !== "dead" &&
+          agent.state !== "injured",
+      )
+      .map((agent) => agent.districtId),
+  );
   const ownedParcel = [...state.phase2.parcels.values()]
     .filter(
       (parcel) =>
         parcel.ownerOrganizationId === RIVAL_ORGANIZATION_ID &&
+        rivalDistricts.has(parcel.districtId) &&
         !parcel.buildingId &&
         ![...state.phase2.constructionSites.values()].some((site) => site.parcelId === parcel.id),
     )
     .sort((a, b) => a.price - b.price)[0];
   const available = [...state.phase2.parcels.values()]
-    .filter((parcel) => !parcel.ownerOrganizationId)
+    .filter((parcel) => !parcel.ownerOrganizationId && rivalDistricts.has(parcel.districtId))
     .sort((a, b) => a.price - b.price)[0];
   const balance = state.phase2.balances.get(RIVAL_ORGANIZATION_ID) ?? 0;
   const inventory = state.phase2.inventories.get(RIVAL_ORGANIZATION_ID)!;

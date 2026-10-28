@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 
 import { parseOrganizationId, parsePersonId } from "@landlord/shared";
-import { createInitialState, hasOrganizationControl } from "./state";
+import { createInitialState, districtMapOf, hasOrganizationControl } from "./state";
+import { PLAYER_HOME_DISTRICT_ID } from "./city";
 
 describe("minimum simulation state", () => {
   it("creates one person, two companies, one bank, one insurer and one control grant", () => {
@@ -25,7 +26,12 @@ describe("minimum simulation state", () => {
     expect(state.idCounters).toEqual({ structure: 0, agent: 16, event: 0, commandOrder: 0 });
     expect(state.phase2.crews.size).toBe(4);
     expect(state.agents.size).toBe(16);
-    expect(state.map).toMatchObject({ width: 64, height: 64 });
+    expect(state.world.districts.size).toBe(9);
+    expect(state.world.gateways).toHaveLength(12);
+    expect(districtMapOf(state, PLAYER_HOME_DISTRICT_ID)).toMatchObject({
+      width: 64,
+      height: 64,
+    });
   });
 
   it("rejects an invalid seed before creating state", () => {

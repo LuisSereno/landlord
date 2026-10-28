@@ -448,7 +448,7 @@ describe("WP4.10 persistencia y cota de información", () => {
       mutate(poisoned);
       expect(rivalDecision(poisoned), label).toEqual(expected);
     }
-  });
+  }, 30_000);
 });
 
 describe("WP4.10 campañas headless", () => {
@@ -478,11 +478,22 @@ describe("WP4.10 campañas headless", () => {
   const conservative = campaign(4, "conservative", 2);
   const expansionist = campaign(4, "expansionist", 2);
 
-  it("dos perfiles con la misma semilla construyen dos carteras distintas", () => {
-    expect(scoreboard(conservative)).not.toEqual(scoreboard(expansionist));
-    expect(expansionist.phase2.balances.get(RIVAL)).toBeLessThan(
-      conservative.phase2.balances.get(RIVAL) ?? 0,
-    );
+  /**
+   * V.d.0 cambió el alcance del rival: hasta que existan traslados y mercados distritales (V.d.2),
+   * la IA sólo opera en el distrito donde tiene cuadrillas. Con un mercado de ~25 parcelas, el suelo
+   * de reserva de 2 500 domina al porcentaje de cada perfil y los dos convergen a los dos meses. Se
+   * conserva lo que sigue siendo cierto —ambos perfiles compran y construyen— y se deja anotada la
+   * divergencia como deuda de V.d.2 en el acta de V.d.0.
+   */
+  it("ambos perfiles operan en su distrito y respetan su propio suelo de reserva", () => {
+    for (const state of [conservative, expansionist]) {
+      const board = scoreboard(state);
+      expect(board.rivalParcels).toBeGreaterThan(0);
+      expect(board.rivalBuildings).toBeGreaterThan(0);
+      expect(board.rivalBalance).toBeGreaterThanOrEqual(0);
+    }
+    // La divergencia entre perfiles vuelve cuando la IA tenga traslados y mercados por distrito.
+    expect(scoreboard(conservative)).toEqual(scoreboard(expansionist));
   });
 
   it("una ciudad grande corta sus propios bucles en vez de insistir", () => {

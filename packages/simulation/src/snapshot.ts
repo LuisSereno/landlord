@@ -1,15 +1,21 @@
 import {
   parseAgentId,
+  parseBlockId,
+  parseCityId,
+  parseCityProfileId,
   parseCrewId,
   parseIncidentId,
   parseBuildingId,
   parseCommandId,
   parseConstructionSiteId,
+  parseDistrictConnectionId,
+  parseDistrictGatewayId,
   parseDistrictId,
   parseFacilityId,
   parseOrganizationId,
   parseParcelId,
   parsePolicyId,
+  parsePublicSpaceId,
   parseMoney,
   parsePersonId,
   parsePlayerIdentityId,
@@ -17,14 +23,13 @@ import {
   parseTenantId,
   parseTransactionId,
   parseLoanId,
-  parseSnapshotV1,
-  type SnapshotV1,
+  parseSnapshotV2,
+  type SnapshotV2,
 } from "@landlord/shared";
 import type { ProductCommand } from "@landlord/shared";
 import { parseSeed, parseTick } from "@landlord/shared";
 import { PRNG_ALGORITHM } from "./prng";
-import { createInitialState, type GameState } from "./state";
-import { deriveRoadTopology } from "./district-generator";
+import { createInitialState, type DistrictState, type GameState, type WorldState } from "./state";
 import {
   BUILDING_DEFINITIONS,
   MUNICIPAL_PARTY_CATALOG,
@@ -58,30 +63,57 @@ function cloneCommand(command: ProductCommand): ProductCommand {
   } as ProductCommand;
 }
 
-export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSION): SnapshotV1 {
+export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSION): SnapshotV2 {
   return {
-    schemaVersion: 1 as SnapshotV1["schemaVersion"],
+    schemaVersion: 2 as SnapshotV2["schemaVersion"],
     engineVersion,
     seed: state.seed,
     tick: state.clock.tick,
     prng: {
       algorithm: PRNG_ALGORITHM,
-      state: [...state.prng.state] as SnapshotV1["prng"]["state"],
+      state: [...state.prng.state] as SnapshotV2["prng"]["state"],
     },
     idCounters: { ...state.idCounters },
-    map: {
-      width: 64,
-      height: 64,
-      blockedCells: [...state.map.blockedCells].map(cellFromKey).sort(compareCell),
-      roads: {
-        topologyVersion: state.map.roads.topologyVersion,
-        derivationVersion: state.map.roads.derivationVersion,
-        segments: state.map.roads.segments.map((segment) => ({
-          ...segment,
-          from: { ...segment.from },
-          to: { ...segment.to },
-        })),
+    world: {
+      city: {
+        ...state.world.city,
+        districtIds: [...state.world.city.districtIds],
+        connections: state.world.city.connections.map((connection) => ({ ...connection })),
+        generation: { ...state.world.city.generation },
       },
+      gateways: state.world.gateways.map((gateway) => ({
+        ...gateway,
+        districtIds: [...gateway.districtIds],
+        sides: [...gateway.sides],
+        cells: gateway.cells.map((cell) => ({ ...cell })),
+        roadSegmentIds: [...gateway.roadSegmentIds],
+      })),
+      // Canonical order is the city's own slot order, never Map insertion order (D-089).
+      districts: state.world.city.districtIds.map((districtId) => {
+        const entry = state.world.districts.get(districtId)!;
+        return {
+          district: {
+            ...entry.district,
+            ...(entry.district.generation ? { generation: { ...entry.district.generation } } : {}),
+          },
+          map: {
+            width: entry.map.width,
+            height: entry.map.height,
+            blockedCells: [...entry.map.blockedCells].map(cellFromKey).sort(compareCell),
+            roads: {
+              topologyVersion: entry.map.roads.topologyVersion,
+              derivationVersion: entry.map.roads.derivationVersion,
+              segments: entry.map.roads.segments.map((segment) => ({
+                ...segment,
+                from: { ...segment.from },
+                to: { ...segment.to },
+              })),
+            },
+          },
+          blocks: [...entry.blocks.values()].sort(compareId),
+          publicSpaces: [...entry.publicSpaces.values()].sort(compareId),
+        };
+      }),
     },
     playerIdentities: [...state.playerIdentities.values()].sort(compareId),
     persons: [...state.persons.values()].sort(compareId),
@@ -94,6 +126,7 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
     agents: [...state.agents.values()]
       .map((agent) => ({
         ...agent,
+        districtId: agent.districtId,
         cell: { ...agent.cell },
         target: { ...(agent.target ?? agent.cell) },
         path: (agent.path ?? []).map((cell) => ({ ...cell })),
@@ -110,12 +143,6 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
       .sort((left, right) => left.acceptedOrder - right.acceptedOrder),
     phase2: {
       idCounters: { ...state.phase2.idCounters },
-      district: {
-        ...state.phase2.district,
-        ...(state.phase2.district.generation
-          ? { generation: { ...state.phase2.district.generation } }
-          : {}),
-      },
       parcels: [...state.phase2.parcels.values()]
         .map((parcel) => ({ ...parcel, cell: { ...parcel.cell } }))
         .sort(compareId),
@@ -320,38 +347,85 @@ function assertMunicipalPoliticsReferences(state: GameState): void {
 }
 
 export function restoreStateFromSnapshot(value: unknown): GameState {
-  const snapshot = parseSnapshotV1(value);
-  const rawPhase2 =
-    typeof value === "object" &&
-    value !== null &&
-    "phase2" in value &&
-    typeof value.phase2 === "object" &&
-    value.phase2 !== null
-      ? (value.phase2 as { constructionSites?: Array<{ id?: string; kind?: string }> })
-      : undefined;
-  const legacyWorkOrders = new Set(
-    (rawPhase2?.constructionSites ?? []).filter((site) => !site.kind).map((site) => site.id),
-  );
-  // El distrito guardado manda: los valores por defecto (plantillas, saldos iniciales) deben
+  const snapshot = parseSnapshotV2(value);
+  // La ciudad guardada manda: los valores por defecto (plantillas, saldos iniciales) deben
   // derivarse del mismo perfil que generó la partida, no del perfil por defecto.
   const defaultState = createInitialState(snapshot.seed, {
-    districtProfileId: snapshot.phase2?.district.generation?.profileId,
+    cityProfileId: snapshot.world.city.generation.profileId,
   });
   const defaults = defaultState.phase2;
-  const restoredBlockedCells = new Set(
-    snapshot.map.blockedCells.map((cell) => `${cell.x}:${cell.y}`),
-  );
-  // El backfill depende sólo de la geometría persistida (parcelas + obstáculos), nunca del perfil actual.
-  const restoredRoads =
-    snapshot.map.roads ??
-    (snapshot.phase2
-      ? deriveRoadTopology({
-          parcels: snapshot.phase2.parcels,
-          blockedCells: restoredBlockedCells,
-          width: snapshot.map.width,
-          height: snapshot.map.height,
-        })
-      : defaultState.map.roads);
+  const world: WorldState = {
+    city: {
+      ...snapshot.world.city,
+      id: parseCityId(snapshot.world.city.id),
+      municipalityOrganizationId: parseOrganizationId(
+        snapshot.world.city.municipalityOrganizationId,
+      ),
+      districtIds: snapshot.world.city.districtIds.map((id) => parseDistrictId(id)),
+      connections: snapshot.world.city.connections.map((connection) => ({
+        ...connection,
+        id: parseDistrictConnectionId(connection.id),
+        gatewayId: parseDistrictGatewayId(connection.gatewayId),
+        fromDistrictId: parseDistrictId(connection.fromDistrictId),
+        toDistrictId: parseDistrictId(connection.toDistrictId),
+      })),
+      generation: {
+        profileId: parseCityProfileId(snapshot.world.city.generation.profileId),
+        generatorVersion: snapshot.world.city.generation.generatorVersion,
+        seed: parseSeed(snapshot.world.city.generation.seed),
+      },
+    },
+    gateways: snapshot.world.gateways.map((gateway) => ({
+      ...gateway,
+      id: parseDistrictGatewayId(gateway.id),
+      districtIds: gateway.districtIds.map((id) => parseDistrictId(id)),
+      cells: gateway.cells.map((cell) => ({ ...cell })),
+      roadSegmentIds: [...gateway.roadSegmentIds],
+    })),
+    districts: new Map(
+      snapshot.world.districts.map((entry) => {
+        const districtId = parseDistrictId(entry.district.id);
+        return [
+          districtId,
+          {
+            district: {
+              id: districtId,
+              name: entry.district.name,
+              width: entry.district.width,
+              height: entry.district.height,
+              ...(entry.district.generation
+                ? {
+                    generation: {
+                      profileId: entry.district.generation.profileId,
+                      generatorVersion: entry.district.generation.generatorVersion,
+                      seed: parseSeed(entry.district.generation.seed),
+                    },
+                  }
+                : {}),
+            },
+            map: {
+              width: entry.map.width,
+              height: entry.map.height,
+              blockedCells: new Set(entry.map.blockedCells.map((cell) => `${cell.x}:${cell.y}`)),
+              roads: {
+                topologyVersion: entry.map.roads.topologyVersion,
+                derivationVersion: entry.map.roads.derivationVersion,
+                segments: entry.map.roads.segments.map((segment) => ({
+                  ...segment,
+                  from: { ...segment.from },
+                  to: { ...segment.to },
+                })),
+              },
+            },
+            blocks: new Map(entry.blocks.map((block) => [parseBlockId(block.id), block])),
+            publicSpaces: new Map(
+              entry.publicSpaces.map((space) => [parsePublicSpaceId(space.id), space]),
+            ),
+          } satisfies DistrictState,
+        ] as const;
+      }),
+    ),
+  };
   const state: GameState = {
     seed: snapshot.seed,
     clock: { tick: parseTick(snapshot.tick), runState: "paused", speed: 1 },
@@ -360,20 +434,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
       state: [...snapshot.prng.state] as GameState["prng"]["state"],
     },
     idCounters: { ...snapshot.idCounters },
-    map: {
-      width: 64,
-      height: 64,
-      blockedCells: restoredBlockedCells,
-      roads: {
-        topologyVersion: restoredRoads.topologyVersion,
-        derivationVersion: restoredRoads.derivationVersion,
-        segments: restoredRoads.segments.map((segment) => ({
-          ...segment,
-          from: { ...segment.from },
-          to: { ...segment.to },
-        })),
-      },
-    },
+    world,
     playerIdentities: new Map(
       snapshot.playerIdentities.map((identity) => [
         parsePlayerIdentityId(identity.id),
@@ -417,6 +478,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
             parseAgentId(agent.id),
             {
               id: parseAgentId(agent.id),
+              districtId: parseDistrictId(agent.districtId),
               cell: { ...agent.cell },
               target: { ...agent.target },
               path: agent.path.map((cell) => ({ ...cell })),
@@ -441,6 +503,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
         {
           id: parseStructureId(structure.id),
           ownerOrganizationId: parseOrganizationId(structure.ownerOrganizationId),
+          districtId: parseDistrictId(structure.districtId),
           cell: { ...structure.cell },
         },
       ]),
@@ -462,21 +525,6 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
               }, 0),
             incident: snapshot.phase2.idCounters.incident ?? 0,
             loan: snapshot.phase2.idCounters.loan ?? 0,
-          },
-          district: {
-            id: parseDistrictId(snapshot.phase2.district.id),
-            name: snapshot.phase2.district.name,
-            width: 64,
-            height: 64,
-            ...(snapshot.phase2.district.generation
-              ? {
-                  generation: {
-                    profileId: snapshot.phase2.district.generation.profileId,
-                    generatorVersion: snapshot.phase2.district.generation.generatorVersion,
-                    seed: parseSeed(snapshot.phase2.district.generation.seed),
-                  },
-                }
-              : {}),
           },
           parcels: new Map(
             snapshot.phase2.parcels.map((parcel) => [
@@ -572,8 +620,8 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                   site.targetBuildingId ?? site.repairBuildingId ?? site.upgradeBuildingId ?? null,
                 assignedCrewIds: site.assignedCrewIds ?? [],
                 assignedTechnicianId: site.assignedTechnicianId ?? null,
-                progress: (site.progress ?? 0) * (legacyWorkOrders.has(site.id) ? 2 : 1),
-                workRequired: (site.workRequired ?? 0) * (legacyWorkOrders.has(site.id) ? 2 : 1),
+                progress: site.progress ?? 0,
+                workRequired: site.workRequired ?? 0,
               },
             ]),
           ),

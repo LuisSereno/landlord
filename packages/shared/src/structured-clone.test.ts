@@ -6,13 +6,43 @@ const clone = <T>(value: T): T =>
   (globalThis as typeof globalThis & { structuredClone<T>(value: T): T }).structuredClone(value);
 
 const snapshot = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   engineVersion: "gate1-dev",
   seed: 1,
   tick: 0,
   prng: { algorithm: "xoshiro128ss-v1", state: [1, 2, 3, 4] },
   idCounters: { structure: 1, agent: 1, event: 0, commandOrder: 0 },
-  map: { width: 64, height: 64, blockedCells: [] },
+  world: {
+    city: {
+      id: "city_00000001",
+      name: "Ciudad de prueba",
+      municipalityOrganizationId: "org_00000001",
+      layout: { columns: 3, rows: 3 },
+      districtIds: Array.from(
+        { length: 9 },
+        (_, index) => `district_${String(index + 1).padStart(8, "0")}`,
+      ),
+      connections: [],
+      generation: { profileId: "ciudad_de_prueba_v1", generatorVersion: 1, seed: 1 },
+    },
+    gateways: [],
+    districts: Array.from({ length: 9 }, (_, index) => ({
+      district: {
+        id: `district_${String(index + 1).padStart(8, "0")}`,
+        name: `Distrito ${index + 1}`,
+        width: 64,
+        height: 64,
+      },
+      map: {
+        width: 64,
+        height: 64,
+        blockedCells: [],
+        roads: { topologyVersion: 1, derivationVersion: 1, segments: [] },
+      },
+      blocks: [],
+      publicSpaces: [],
+    })),
+  },
   playerIdentities: [{ id: "player_00000001", personId: "person_00000001" }],
   persons: [{ id: "person_00000001" }],
   organizations: [{ id: "org_00000001", kind: "company" }],
@@ -21,19 +51,19 @@ const snapshot = {
   structures: [],
   processedCommandIds: [],
   pendingCommands: [],
-} as const;
+};
 
 describe("shared wire data", () => {
   it("structured-clones requests, responses, domain events, projections and snapshots", () => {
     const values = [
       shared.initializeGameRequestSchema.parse({
-        protocolVersion: 1,
+        protocolVersion: 2,
         requestId: "request-1",
         type: "InitializeGame",
         payload: { seed: 1 },
       }),
       shared.requestSucceededSchema.parse({
-        protocolVersion: 1,
+        protocolVersion: 2,
         requestId: "request-1",
         type: "RequestSucceeded",
         payload: { acceptedAtTick: 1 },
@@ -43,7 +73,7 @@ describe("shared wire data", () => {
         issuedByPersonId: "person_00000001",
         actingAsOrganizationId: "org_00000001",
         type: "PlaceTestStructure",
-        payload: { cell: { x: 1, y: 1 } },
+        payload: { districtId: "district_00000004", cell: { x: 1, y: 1 } },
       }),
       shared.testStructurePlacedSchema.parse({
         eventId: "event-1",
@@ -63,7 +93,7 @@ describe("shared wire data", () => {
         structures: [],
         agents: [],
       }),
-      shared.snapshotV1Schema.parse(snapshot),
+      shared.snapshotV2Schema.parse(snapshot),
     ];
 
     for (const value of values) {
@@ -73,7 +103,7 @@ describe("shared wire data", () => {
 
   it("exposes the package through its public barrel", () => {
     expect(shared.sharedPackage).toBe("@landlord/shared");
-    expect(shared.snapshotV1Schema).toBeDefined();
+    expect(shared.snapshotV2Schema).toBeDefined();
     expect(shared.placeTestStructureSchema).toBeDefined();
   });
 });

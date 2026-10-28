@@ -10,7 +10,7 @@ import {
   type PlaceTestStructure,
   type TestStructurePlaced,
 } from "@landlord/shared";
-import { hasOrganizationControl, type GameState } from "./state";
+import { blockedCellsOf, districtMapOf, hasOrganizationControl, type GameState } from "./state";
 import { credit, debit } from "./ledger";
 import { submitPublicBid } from "./public-contracts";
 
@@ -70,8 +70,13 @@ export type ProductCommandResult =
       event: { type: string; tick: number; commandId: string; payload: Record<string, unknown> };
     };
 
-function inMap(state: GameState, cell: { x: number; y: number }): boolean {
-  return cell.x >= 0 && cell.y >= 0 && cell.x < state.map.width && cell.y < state.map.height;
+function inMap(
+  state: GameState,
+  districtId: import("@landlord/shared").DistrictId,
+  cell: { x: number; y: number },
+): boolean {
+  const map = districtMapOf(state, districtId);
+  return cell.x >= 0 && cell.y >= 0 && cell.x < map.width && cell.y < map.height;
 }
 
 function cellKey(cell: { x: number; y: number }): string {
@@ -82,9 +87,15 @@ function nextEntityId(prefix: "structure" | "event", value: number): string {
   return `${prefix}_${String(value).padStart(8, "0")}`;
 }
 
-function hasStructureAt(state: GameState, cell: { x: number; y: number }): boolean {
+function hasStructureAt(
+  state: GameState,
+  districtId: import("@landlord/shared").DistrictId,
+  cell: { x: number; y: number },
+): boolean {
   const key = cellKey(cell);
-  return [...state.structures.values()].some((structure) => cellKey(structure.cell) === key);
+  return [...state.structures.values()].some(
+    (structure) => structure.districtId === districtId && cellKey(structure.cell) === key,
+  );
 }
 
 function validateActor(
@@ -898,16 +909,26 @@ export function dispatchProductCommand(
     )
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
     const parcel = state.phase2.parcels.get(site.parcelId);
-    const interactionCell = parcel
-      ? chooseInteractionCell(
-          parcel.cell,
-          state.map.blockedCells,
-          64,
-          64,
-          occupiedBuildingCells(state),
-        )
-      : null;
+    if (!parcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
+    const siteMap = districtMapOf(state, parcel.districtId);
+    const interactionCell = chooseInteractionCell(
+      parcel.cell,
+      blockedCellsOf(state, parcel.districtId),
+      siteMap.width,
+      siteMap.height,
+      occupiedBuildingCells(state),
+    );
     if (!interactionCell) return { accepted: false, code: "INVALID_AGENT_ACTION" };
+    // Construction needs the crew physically in the target district (D-088): transfers are an
+    // explicit command, never an implicit teleport inside an assignment.
+    if (
+      [crew.supervisorAgentId, ...crew.workerAgentIds].some((agentId) => {
+        const member = state.agents.get(agentId);
+        return member !== undefined && member.districtId !== parcel.districtId;
+      })
+    ) {
+      return { accepted: false, code: "AGENT_NOT_IN_DISTRICT" };
+    }
     for (const other of state.phase2.constructionSites.values()) {
       if (other.assignedCrewIds.includes(crew.id)) {
         for (const agentId of [crew.supervisorAgentId, ...crew.workerAgentIds]) {
@@ -926,7 +947,11 @@ export function dispatchProductCommand(
       if (!agent || agent.state === "dead" || agent.state === "injured") continue;
       agent.task = { kind: "work_order", workOrderId: site.id };
       agent.target = { ...interactionCell };
-      agent.path = findDeterministicPath(agent.cell, interactionCell, state.map.blockedCells);
+      agent.path = findDeterministicPath(
+        agent.cell,
+        interactionCell,
+        blockedCellsOf(state, agent.districtId),
+      );
       agent.state = "moving";
     }
     rememberProcessed(state, command.commandId);
@@ -940,20 +965,24 @@ export function dispatchProductCommand(
     if (!building) return { accepted: false, code: "BUILDING_NOT_FOUND" };
     if (building.ownerOrganizationId !== command.actingAsOrganizationId)
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
+    const buildingParcel = state.phase2.parcels.get(building.parcelId);
+    if (!buildingParcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
     const technician = [...state.agents.values()].find(
       (agent) =>
         agent.organizationId === command.actingAsOrganizationId &&
         agent.specialty === "maintenance_technician" &&
+        agent.districtId === buildingParcel.districtId &&
         agent.state === "idle" &&
         !agent.task,
     );
     if (!technician) return { accepted: false, code: "AGENT_NOT_FOUND" };
     technician.task = { kind: "maintenance", buildingId: building.id };
+    const maintenanceMap = districtMapOf(state, buildingParcel.districtId);
     const interactionCell = chooseInteractionCell(
-      state.phase2.parcels.get(building.parcelId)!.cell,
-      state.map.blockedCells,
-      64,
-      64,
+      buildingParcel.cell,
+      blockedCellsOf(state, buildingParcel.districtId),
+      maintenanceMap.width,
+      maintenanceMap.height,
       occupiedBuildingCells(state, building.id),
     );
     if (!interactionCell) return { accepted: false, code: "INVALID_AGENT_ACTION" };
@@ -961,7 +990,7 @@ export function dispatchProductCommand(
     technician.path = findDeterministicPath(
       technician.cell,
       interactionCell,
-      state.map.blockedCells,
+      blockedCellsOf(state, technician.districtId),
     );
     technician.state = "moving";
     const repairOrder = [...state.phase2.constructionSites.values()].find(
@@ -986,6 +1015,8 @@ export function dispatchProductCommand(
       const target = state.agents.get(command.payload.targetAgentId);
       if (!target || target.organizationId === enforcer.organizationId)
         return { accepted: false, code: "INVALID_AGENT_ACTION" };
+      if (target.districtId !== enforcer.districtId)
+        return { accepted: false, code: "AGENT_NOT_IN_DISTRICT" };
       enforcer.task = { kind: "attack_agent", targetAgentId: target.id };
       enforcer.target = { ...target.cell };
       enforcer.state = "moving";
@@ -993,17 +1024,26 @@ export function dispatchProductCommand(
       const target = state.phase2.buildings.get(command.payload.targetBuildingId);
       if (!target || target.ownerOrganizationId === enforcer.organizationId)
         return { accepted: false, code: "INVALID_AGENT_ACTION" };
+      const targetParcel = state.phase2.parcels.get(target.parcelId);
+      if (!targetParcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
+      if (enforcer.districtId !== targetParcel.districtId)
+        return { accepted: false, code: "AGENT_NOT_IN_DISTRICT" };
+      const sabotageMap = districtMapOf(state, targetParcel.districtId);
       const interactionCell = chooseInteractionCell(
-        state.phase2.parcels.get(target.parcelId)!.cell,
-        state.map.blockedCells,
-        64,
-        64,
+        targetParcel.cell,
+        blockedCellsOf(state, targetParcel.districtId),
+        sabotageMap.width,
+        sabotageMap.height,
         occupiedBuildingCells(state, target.id),
       );
       if (!interactionCell) return { accepted: false, code: "INVALID_AGENT_ACTION" };
       enforcer.task = { kind: "sabotage_building", targetBuildingId: target.id };
       enforcer.target = { ...interactionCell };
-      enforcer.path = findDeterministicPath(enforcer.cell, interactionCell, state.map.blockedCells);
+      enforcer.path = findDeterministicPath(
+        enforcer.cell,
+        interactionCell,
+        blockedCellsOf(state, enforcer.districtId),
+      );
       enforcer.state = "moving";
     } else return { accepted: false, code: "INVALID_AGENT_ACTION" };
     rememberProcessed(state, command.commandId);
@@ -1244,12 +1284,15 @@ export function dispatchPlaceTestStructure(
   if (!hasOrganizationControl(state, command.issuedByPersonId, command.actingAsOrganizationId)) {
     return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
   }
-  if (!inMap(state, command.payload.cell)) {
+  if (!state.world.districts.has(command.payload.districtId)) {
+    return { accepted: false, code: "DISTRICT_NOT_FOUND" };
+  }
+  if (!inMap(state, command.payload.districtId, command.payload.cell)) {
     return { accepted: false, code: "CELL_OUT_OF_BOUNDS" };
   }
   if (
-    state.map.blockedCells.has(cellKey(command.payload.cell)) ||
-    hasStructureAt(state, command.payload.cell)
+    blockedCellsOf(state, command.payload.districtId).has(cellKey(command.payload.cell)) ||
+    hasStructureAt(state, command.payload.districtId, command.payload.cell)
   ) {
     return { accepted: false, code: "CELL_OCCUPIED" };
   }
@@ -1275,6 +1318,7 @@ export function dispatchPlaceTestStructure(
   state.structures.set(structureId, {
     id: structureId,
     ownerOrganizationId: command.actingAsOrganizationId,
+    districtId: command.payload.districtId,
     cell: { ...command.payload.cell },
   });
   state.processedCommandIds.add(command.commandId);

@@ -1,3 +1,4 @@
+import type { DistrictId } from "@landlord/shared";
 import {
   initializeGameRequestSchema,
   loadSnapshotRequestSchema,
@@ -19,7 +20,7 @@ import {
   submitCommandRequestSchema,
   viewProjectionV1Schema,
   workerResponseSchema,
-  type SnapshotV1,
+  type SnapshotV2,
   type IntelKind,
   type ProductCommand,
   type SimulationMetrics,
@@ -67,7 +68,7 @@ export class SimulationWorkerClient {
   public initialize(seed: number): Promise<WorkerResponse> {
     return this.send(
       initializeGameRequestSchema.parse({
-        protocolVersion: 1,
+        protocolVersion: 2,
         requestId: this.nextRequestId(),
         type: "InitializeGame",
         payload: { seed },
@@ -78,7 +79,7 @@ export class SimulationWorkerClient {
   public setRunState(state: "paused" | "running", speed: 1 | 2 | 4): Promise<WorkerResponse> {
     return this.send(
       setRunStateRequestSchema.parse({
-        protocolVersion: 1,
+        protocolVersion: 2,
         requestId: this.nextRequestId(),
         type: "SetRunState",
         payload: { state, speed },
@@ -86,10 +87,13 @@ export class SimulationWorkerClient {
     );
   }
 
-  public placeTestStructure(cell: { x: number; y: number }): Promise<WorkerResponse> {
+  public placeTestStructure(
+    cell: { x: number; y: number },
+    districtId: DistrictId,
+  ): Promise<WorkerResponse> {
     return this.send(
       submitCommandRequestSchema.parse({
-        protocolVersion: 1,
+        protocolVersion: 2,
         requestId: this.nextRequestId(),
         type: "SubmitCommand",
         payload: {
@@ -98,7 +102,7 @@ export class SimulationWorkerClient {
             issuedByPersonId: parsePersonId("person_00000001"),
             actingAsOrganizationId: parseOrganizationId("org_00000001"),
             type: "PlaceTestStructure",
-            payload: { cell },
+            payload: { districtId, cell },
           },
         },
       }),
@@ -426,7 +430,7 @@ export class SimulationWorkerClient {
   public saveSnapshot(): Promise<WorkerResponse> {
     return this.send(
       saveSnapshotRequestSchema.parse({
-        protocolVersion: 1,
+        protocolVersion: 2,
         requestId: this.nextRequestId(),
         type: "SaveSnapshot",
         payload: {},
@@ -434,10 +438,10 @@ export class SimulationWorkerClient {
     );
   }
 
-  public loadSnapshot(snapshot: SnapshotV1): Promise<WorkerResponse> {
+  public loadSnapshot(snapshot: SnapshotV2): Promise<WorkerResponse> {
     return this.send(
       loadSnapshotRequestSchema.parse({
-        protocolVersion: 1,
+        protocolVersion: 2,
         requestId: this.nextRequestId(),
         type: "LoadSnapshot",
         payload: { snapshot },
@@ -461,7 +465,7 @@ export class SimulationWorkerClient {
   private submitProductCommand(command: ProductCommand): Promise<WorkerResponse> {
     return this.send(
       submitCommandRequestSchema.parse({
-        protocolVersion: 1,
+        protocolVersion: 2,
         requestId: this.nextRequestId(),
         type: "SubmitCommand",
         payload: { command },

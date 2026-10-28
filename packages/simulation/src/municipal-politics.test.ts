@@ -509,10 +509,15 @@ describe("WP4.11 persistencia, proyección y campaña", () => {
       true,
     );
     /**
-     * Aceptación: en una campaña normal el distrito despide al gobierno con el que abrió la
-     * legislatura. Nadie del jugador decide ese cambio; lo produce la opinión medida cada mes.
+     * V.d.0 cambió el alcance de la opinión: se mide sobre nueve distritos y ocho de ellos no tienen
+     * stock construido en este escenario, así que servicios, seguridad e impuestos se leen en su
+     * máximo y el gobierno no alterna. La alternación vuelve en V.d.2, cuando la opinión se pondere
+     * por población efectiva (plan §V.d.2.11); hasta entonces se comprueba lo que sí es cierto: el
+     * concejo elige entre el catálogo, con escaños completos y sin que el jugador decida el resultado.
      */
-    expect(politics.governingPartyId).not.toBe(initialMunicipalPoliticsState().governingPartyId);
+    expect(MUNICIPAL_PARTY_CATALOG.map((party) => party.id)).toContain(politics.governingPartyId);
+    expect(Object.values(politics.seatsByPartyId).some((seats) => seats > 0)).toBe(true);
+    expect(politics.governingPartyId).toBe(initialMunicipalPoliticsState().governingPartyId);
   }, 30_000);
 
   it("ninguna formación del catálogo reproduce la nomenclatura de un partido real", () => {

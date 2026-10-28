@@ -37,6 +37,7 @@ import {
   type TenantProfile,
   type Zoning,
 } from "@landlord/shared";
+import type { DistrictId } from "@landlord/shared";
 import { cellKey, deriveRoadTopology } from "./district-generator";
 import { DEFAULT_DISTRICT_PROFILE_ID } from "./district-profiles";
 import {
@@ -51,7 +52,14 @@ import {
   calculateInsuranceOffer,
 } from "./game-data";
 import { createPrng } from "./prng";
-import { createInitialState, type GameState } from "./state";
+import {
+  createInitialState,
+  districtMapOf,
+  districtStateOf,
+  type DistrictMap,
+  type GameState,
+} from "./state";
+import { CITY_ROSTER_SLOTS, districtIdForSlot } from "./city";
 import { activateMacroEvent, MACRO_EVENT_TEMPLATES } from "./macro-events";
 import { PRODUCT_SYSTEMS, advanceProductSystems } from "./systems";
 
@@ -119,6 +127,9 @@ const VACANCY_PERCENT = 15;
 const POPULATION_PER_PARCELS = 8;
 const TECHNICIAN_PER_BUILDINGS = 20;
 const CREW_WALK_DISTANCE = 12;
+/** Bloque de ordinales propio del harness: nunca colisiona con los de los nueve distritos. */
+const HARNESS_PARCEL_ORDINAL = 9_000_000;
+
 const HARNESS_BALANCE = 5_000_000;
 const HARNESS_INVENTORY_CAPACITY = 1_000_000;
 const SITE_WORK_REQUIRED = 100_000;
@@ -146,6 +157,7 @@ export type ScaledCityCounts = {
   incidents: number;
   insuranceContracts: number;
   blockedCells: number;
+  districts: number;
 };
 
 export function describeScaledCity(state: GameState): ScaledCityCounts {
@@ -160,13 +172,18 @@ export function describeScaledCity(state: GameState): ScaledCityCounts {
     loans: state.phase2.loans.size,
     incidents: state.phase2.incidents.size,
     insuranceContracts: Object.keys(state.phase2.insurance.contractsByBuildingId).length,
-    blockedCells: state.map.blockedCells.size,
+    blockedCells: [...state.world.districts.values()].reduce(
+      (total, district) => total + district.map.blockedCells.size,
+      0,
+    ),
+    districts: state.world.districts.size,
   };
 }
 
 export type ScaledCityOptions = {
   parcelCount: number;
-  districtProfileId?: string | undefined;
+  /** Distrito que recibe la carga sintética; por defecto el del roster del jugador. */
+  districtId?: DistrictId | undefined;
   /** Incidentes activos inyectados. 0 mantiene la ciudad en régimen estable, sin cascadas. */
   incidentCount?: number | undefined;
 };
@@ -174,16 +191,11 @@ export type ScaledCityOptions = {
 function freeNeighbour(
   cell: GridCell,
   taken: ReadonlySet<string>,
-  state: GameState,
+  map: DistrictMap,
 ): GridCell | null {
   for (const offset of STANDING_OFFSETS) {
     const candidate = { x: cell.x + offset.x, y: cell.y + offset.y };
-    if (
-      candidate.x < 0 ||
-      candidate.y < 0 ||
-      candidate.x >= state.map.width ||
-      candidate.y >= state.map.height
-    )
+    if (candidate.x < 0 || candidate.y < 0 || candidate.x >= map.width || candidate.y >= map.height)
       continue;
     if (taken.has(cellKey(candidate))) continue;
     return candidate;
@@ -197,6 +209,7 @@ function createAgent(
   input: {
     organizationId: OrganizationId;
     specialty: AgentSpecialty;
+    districtId: DistrictId;
     cell: GridCell;
     target: GridCell;
     task: NonNullable<Agent["task"]> | null;
@@ -213,6 +226,7 @@ function createAgent(
     organizationId: input.organizationId,
     specialty: input.specialty,
     health: 100,
+    districtId: input.districtId,
     state: input.working ? "working" : "idle",
     cell: { ...input.cell },
     target: { ...input.target },
@@ -228,7 +242,11 @@ function createAgent(
 
 export function createScaledCity(seedValue: number, options: ScaledCityOptions): GameState {
   const seed = parseSeed(seedValue);
-  const state = createInitialState(seed, { districtProfileId: options.districtProfileId });
+  const state = createInitialState(seed);
+  const targetDistrictId =
+    options.districtId ??
+    districtIdForSlot(CITY_ROSTER_SLOTS.player.slotX, CITY_ROSTER_SLOTS.player.slotY);
+  const targetMap = districtMapOf(state, targetDistrictId);
   // Flujo propio del harness: `state.prng` queda intacto para que la partida siga siendo la misma.
   const prng = createPrng(seed);
   const incidentCount = options.incidentCount ?? 0;
@@ -241,13 +259,13 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
   state.phase2.balances.set(BANK_ORGANIZATION_ID, parseMoney(HARNESS_BALANCE * 10));
   state.phase2.balances.set(INSURER_ORGANIZATION_ID, parseMoney(HARNESS_BALANCE * 10));
 
-  const taken = new Set<string>(state.map.blockedCells);
+  const taken = new Set<string>(targetMap.blockedCells);
   for (const parcel of state.phase2.parcels.values()) taken.add(cellKey(parcel.cell));
   for (const agent of state.agents.values()) taken.add(cellKey(agent.cell));
 
   const cells: GridCell[] = [];
-  for (let y = 0; y < state.map.height && cells.length < options.parcelCount; y += 2) {
-    for (let x = 0; x < state.map.width && cells.length < options.parcelCount; x += 2) {
+  for (let y = 0; y < targetMap.height && cells.length < options.parcelCount; y += 2) {
+    for (let x = 0; x < targetMap.width && cells.length < options.parcelCount; x += 2) {
       const key = cellKey({ x, y });
       if (taken.has(key)) continue;
       taken.add(key);
@@ -266,7 +284,9 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
   const createdBuildings: Building[] = [];
 
   for (const cell of cells) {
-    const parcelId = parseParcelId(`parcel_${pad(state.phase2.parcels.size + 1)}`);
+    const parcelId = parseParcelId(
+      `parcel_${pad(HARNESS_PARCEL_ORDINAL + createdParcels.length + 1)}`,
+    );
     const zoning = ZONING_BAG[prng.nextInt(0, ZONING_BAG.length)]!;
     const ownership = prng.nextInt(0, 100);
     const ownerOrganizationId =
@@ -278,7 +298,7 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
     };
     const parcel: Parcel = {
       id: parcelId,
-      districtId: state.phase2.district.id,
+      districtId: targetDistrictId,
       cell: { ...cell },
       price: parseMoney(600 + prng.nextInt(0, 900)),
       zoning,
@@ -393,17 +413,18 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
     state.phase2.constructionSites.set(siteId, site);
     const memberIds: AgentId[] = [];
     for (let member = 0; member < 3; member += 1) {
-      const home = freeNeighbour(parcel.cell, taken, state);
+      const home = freeNeighbour(parcel.cell, taken, targetMap);
       if (!home) break;
       taken.add(cellKey(home));
       // Nacen lejos de la obra y caminan: así la ventana medida incluye navegación real.
       const spawn = {
-        x: Math.max(0, Math.min(state.map.width - 1, home.x - CREW_WALK_DISTANCE)),
+        x: Math.max(0, Math.min(targetMap.width - 1, home.x - CREW_WALK_DISTANCE)),
         y: home.y,
       };
       const agent = createAgent(state, counters, {
         organizationId,
         specialty: member === 0 ? "supervisor" : "construction_worker",
+        districtId: targetDistrictId,
         cell: spawn,
         target: home,
         task: { kind: "work_order", workOrderId: siteId },
@@ -427,12 +448,13 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
     if (index % TECHNICIAN_PER_BUILDINGS !== 0) continue;
     const building = createdBuildings[index]!;
     const parcel = state.phase2.parcels.get(building.parcelId)!;
-    const spot = freeNeighbour(parcel.cell, taken, state);
+    const spot = freeNeighbour(parcel.cell, taken, targetMap);
     if (!spot) continue;
     taken.add(cellKey(spot));
     createAgent(state, counters, {
       organizationId: building.ownerOrganizationId,
       specialty: "maintenance_technician",
+      districtId: targetDistrictId,
       cell: spot,
       target: spot,
       task: { kind: "maintenance", buildingId: building.id },
@@ -443,12 +465,13 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
   const population = Math.floor(cells.length / POPULATION_PER_PARCELS);
   for (let index = 0; index < population; index += 1) {
     const parcel = createdParcels[(index * 7) % createdParcels.length]!;
-    const spot = freeNeighbour(parcel.cell, taken, state);
+    const spot = freeNeighbour(parcel.cell, taken, targetMap);
     if (!spot) continue;
     taken.add(cellKey(spot));
     createAgent(state, counters, {
       organizationId: PLAYER_ORGANIZATION_ID,
       specialty: "construction_worker",
+      districtId: targetDistrictId,
       cell: spot,
       target: spot,
       task: null,
@@ -507,11 +530,13 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
 
   // El harness también modifica la geometría persistida: reconstruye la única topología autorizada
   // desde sus parcelas sintéticas para conservar road ∩ parcel = ∅ en save/load.
-  state.map.roads = deriveRoadTopology({
-    parcels: [...state.phase2.parcels.values()],
-    blockedCells: state.map.blockedCells,
-    width: state.map.width,
-    height: state.map.height,
+  targetMap.roads = deriveRoadTopology({
+    parcels: [...state.phase2.parcels.values()].filter(
+      (parcel) => parcel.districtId === targetDistrictId,
+    ),
+    blockedCells: targetMap.blockedCells,
+    width: targetMap.width,
+    height: targetMap.height,
   });
   state.idCounters.agent = counters.agent;
   return state;
@@ -635,7 +660,7 @@ export type MeasureScaledCityInput = {
   scale: SystemCostScale;
   windows?: readonly SystemCostWindow[];
   warmupTicks?: number;
-  districtProfileId?: string;
+  districtId?: DistrictId;
   now: () => number;
 };
 
@@ -643,7 +668,7 @@ function prepareCity(input: MeasureScaledCityInput, parcelCount: number): GameSt
   /** El fuego se coloca después del warmup, no en la generación: ver `injectScaledIncidents`. */
   return createScaledCity(input.seed, {
     parcelCount,
-    districtProfileId: input.districtProfileId,
+    districtId: input.districtId,
     incidentCount: 0,
   });
 }
@@ -656,7 +681,12 @@ function prepareCity(input: MeasureScaledCityInput, parcelCount: number): GameSt
 export function measureScaledCity(input: MeasureScaledCityInput): ScaledCityMeasurement {
   const warmupTicks = input.warmupTicks ?? 60;
   const windows = input.windows ?? SYSTEM_COST_WINDOWS;
-  const districtProfileId = input.districtProfileId ?? DEFAULT_DISTRICT_PROFILE_ID;
+  const districtProfileId =
+    districtStateOf(
+      createInitialState(parseSeed(input.seed)),
+      input.districtId ??
+        districtIdForSlot(CITY_ROSTER_SLOTS.player.slotX, CITY_ROSTER_SLOTS.player.slotY),
+    ).district.generation?.profileId ?? DEFAULT_DISTRICT_PROFILE_ID;
   const reports: SystemCostWindowReport[] = [];
 
   for (const costWindow of windows) {
@@ -867,7 +897,7 @@ export function measureMonthlyCloses(input: {
   seeds: readonly number[];
   closesPerSeed?: number;
   warmupTicks?: number;
-  districtProfileId?: string;
+  districtId?: DistrictId;
   macroMode?: MonthlyCloseMacroMode;
   now: () => number;
 }): MonthlyCloseMeasurement {
@@ -882,7 +912,7 @@ export function measureMonthlyCloses(input: {
     // Crear UNA ciudad por semilla y dejarla vivir múltiples cierres
     const state = createScaledCity(seed, {
       parcelCount: input.scale.parcels,
-      districtProfileId: input.districtProfileId,
+      districtId: input.districtId,
     });
     forceMacroScenario(state, macroMode, 0);
 

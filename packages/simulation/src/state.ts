@@ -41,6 +41,14 @@ import {
   type InsolvencyState,
   type MacroEventsState,
   type RoadTopologyV1,
+  type Block,
+  type BlockId,
+  type City,
+  type CityProfileId,
+  type DistrictGateway,
+  type DistrictId,
+  type PublicSpace,
+  type PublicSpaceId,
 } from "@landlord/shared";
 import type { Money } from "@landlord/shared";
 import type {
@@ -54,7 +62,12 @@ import type { Seed } from "@landlord/shared";
 import { SimulationClock, type ClockState } from "./clock";
 import { createPrng, type PrngState } from "./prng";
 import { initialAutomationState } from "./automation";
-import { generateDistrict } from "./district-generator";
+import {
+  createCity,
+  CITY_ROSTER_SLOTS,
+  districtIdForSlot,
+  type GeneratedDistrictState,
+} from "./city";
 import { rosterLayout } from "./district-profiles";
 import { initialEmploymentState } from "./employment";
 import { initialMunicipalBudgetState } from "./municipal-budget";
@@ -86,6 +99,47 @@ export type EntityCounters = {
   commandOrder: number;
 };
 
+export type DistrictMap = {
+  width: 64;
+  height: 64;
+  blockedCells: Set<string>;
+  roads: RoadTopologyV1;
+};
+
+/**
+ * Authoritative spatial state of one district (D-088). Parcels, buildings, agents and organizations
+ * stay in the global maps; everything that is a *place* lives here. `blocks` and `publicSpaces` are
+ * declared now and filled by V.d.1 and V.d.3, so the shape does not change twice.
+ */
+export type DistrictState = {
+  district: District;
+  map: DistrictMap;
+  blocks: Map<BlockId, Block>;
+  publicSpaces: Map<PublicSpaceId, PublicSpace>;
+};
+
+export type WorldState = {
+  city: City;
+  gateways: DistrictGateway[];
+  districts: Map<DistrictId, DistrictState>;
+};
+
+export function districtStateOf(state: GameState, districtId: DistrictId): DistrictState {
+  const district = state.world.districts.get(districtId);
+  if (!district) {
+    throw new RangeError(`Unknown district: ${districtId}`);
+  }
+  return district;
+}
+
+export function districtMapOf(state: GameState, districtId: DistrictId): DistrictMap {
+  return districtStateOf(state, districtId).map;
+}
+
+export function blockedCellsOf(state: GameState, districtId: DistrictId): ReadonlySet<string> {
+  return districtMapOf(state, districtId).blockedCells;
+}
+
 export type Phase2State = {
   idCounters: {
     building: number;
@@ -95,7 +149,6 @@ export type Phase2State = {
     incident: number;
     loan: number;
   };
-  district: District;
   parcels: Map<import("@landlord/shared").ParcelId, Parcel>;
   balances: Map<OrganizationId, Money>;
   inventories: Map<OrganizationId, ResourceInventory>;
@@ -145,12 +198,7 @@ export type GameState = {
   clock: ClockState;
   prng: PrngState;
   idCounters: EntityCounters;
-  map: {
-    width: 64;
-    height: 64;
-    blockedCells: Set<string>;
-    roads: RoadTopologyV1;
-  };
+  world: WorldState;
   playerIdentities: Map<PlayerIdentityId, PlayerIdentity>;
   persons: Map<PersonId, Person>;
   organizations: Map<OrganizationId, Organization>;
@@ -178,23 +226,40 @@ export function hasOrganizationControl(
 }
 
 export type InitialStateOptions = {
-  /** Perfil de distrito data-driven; por defecto `barrio_del_umbral`. */
-  districtProfileId?: string | undefined;
+  /** Perfil de ciudad data-driven; por defecto `ciudad_del_umbral_v1`. */
+  cityProfileId?: CityProfileId | undefined;
 };
 
 export function createInitialState(seed = 1, options: InitialStateOptions = {}): GameState {
   const normalizedSeed = parseSeed(seed);
-  const generated = generateDistrict({
-    seed: normalizedSeed,
-    profileId: options.districtProfileId,
-  });
+  const city = createCity({ seed: normalizedSeed, profileId: options.cityProfileId });
   const personId = parsePersonId("person_00000001");
   const playerIdentityId = parsePlayerIdentityId("player_00000001");
   const controlledOrganizationId = parseOrganizationId("org_00000001");
   const independentOrganizationId = parseOrganizationId("org_00000002");
   const clock = new SimulationClock();
-  const district: District = generated.district;
-  const parcels = new Map(generated.parcels.map((parcel) => [parcel.id, parcel]));
+  const districts = new Map<DistrictId, DistrictState>(
+    [...city.districts].map(([districtId, generated]: [DistrictId, GeneratedDistrictState]) => [
+      districtId,
+      {
+        district: generated.district,
+        map: {
+          width: generated.district.width,
+          height: generated.district.height,
+          blockedCells: new Set(generated.blockedCells),
+          roads: generated.roads,
+        },
+        blocks: new Map(),
+        publicSpaces: new Map(),
+      } satisfies DistrictState,
+    ]),
+  );
+  const parcels = new Map(
+    [...city.districts].flatMap(([, generated]) =>
+      generated.parcels.map((parcel) => [parcel.id, parcel] as const),
+    ),
+  );
+  void districtIdForSlot;
   const tenants = new Map(PROTOTYPE_TENANTS.map((tenant) => [tenant.id, { ...tenant }]));
   const emptyInventory = (): ResourceInventory => ({
     cement: 0,
@@ -214,9 +279,25 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
   const roster = new Map<AgentId, Agent>();
   const crews = new Map<import("@landlord/shared").CrewId, Crew>();
   let rosterIndex = 0;
-  for (const [organizationId, spawnAnchor] of [
-    [controlledOrganizationId, generated.spawnAnchors.player],
-    [independentOrganizationId, generated.spawnAnchors.rival],
+  const playerDistrictId = districtIdForSlot(
+    CITY_ROSTER_SLOTS.player.slotX,
+    CITY_ROSTER_SLOTS.player.slotY,
+  );
+  const rivalDistrictId = districtIdForSlot(
+    CITY_ROSTER_SLOTS.rival.slotX,
+    CITY_ROSTER_SLOTS.rival.slotY,
+  );
+  for (const [organizationId, rosterDistrictId, spawnAnchor] of [
+    [
+      controlledOrganizationId,
+      playerDistrictId,
+      city.districts.get(playerDistrictId)!.spawnAnchors.player,
+    ],
+    [
+      independentOrganizationId,
+      rivalDistrictId,
+      city.districts.get(rivalDistrictId)!.spawnAnchors.rival,
+    ],
   ] as const) {
     const membersByCrewIndex = new Map<number, AgentId[]>();
     for (const slot of rosterLayout(spawnAnchor)) {
@@ -229,6 +310,7 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
         specialty: slot.specialty,
         health: 100,
         state: "idle",
+        districtId: rosterDistrictId,
         cell: { ...slot.cell },
         target: { ...slot.cell },
         path: [],
@@ -263,11 +345,10 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
       event: 0,
       commandOrder: 0,
     },
-    map: {
-      width: district.width,
-      height: district.height,
-      blockedCells: new Set(generated.blockedCells),
-      roads: generated.roads,
+    world: {
+      city: city.city,
+      gateways: city.gateways,
+      districts,
     },
     playerIdentities: new Map([[playerIdentityId, { id: playerIdentityId, personId }]]),
     persons: new Map([
@@ -305,7 +386,6 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
         incident: 0,
         loan: 0,
       },
-      district,
       parcels,
       balances: new Map([
         [PLAYER_ORGANIZATION_ID, parseMoney(12000)],

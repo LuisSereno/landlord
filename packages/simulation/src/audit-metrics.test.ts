@@ -1,3 +1,4 @@
+import { PLAYER_HOME_DISTRICT_ID } from "./city";
 import { describe, it } from "vitest";
 
 import { parseCommandId, parseOrganizationId, parsePersonId } from "@landlord/shared";
@@ -23,7 +24,7 @@ describe("Gate 1 audit metrics", () => {
     () => {
       const worker = new SimulationWorkerRuntime();
       worker.handle({
-        protocolVersion: 1,
+        protocolVersion: 2,
         requestId: "audit-init",
         type: "InitializeGame",
         payload: { seed: 1 },
@@ -32,7 +33,7 @@ describe("Gate 1 audit metrics", () => {
       for (let index = 0; index < 100; index += 1) {
         const start = environment.performance.now();
         worker.handle({
-          protocolVersion: 1,
+          protocolVersion: 2,
           requestId: `audit-command-${index}`,
           type: "SubmitCommand",
           payload: {
@@ -41,7 +42,10 @@ describe("Gate 1 audit metrics", () => {
               issuedByPersonId: parsePersonId("person_00000001"),
               actingAsOrganizationId: parseOrganizationId("org_00000001"),
               type: "PlaceTestStructure",
-              payload: { cell: { x: index % 64, y: Math.floor(index / 64) } },
+              payload: {
+                districtId: PLAYER_HOME_DISTRICT_ID,
+                cell: { x: index % 64, y: Math.floor(index / 64) },
+              },
             },
           },
         });

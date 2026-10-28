@@ -1,23 +1,40 @@
-import { parseSnapshotV1, type SnapshotV1 } from "@landlord/shared";
+import { parseSnapshotV2, type SnapshotV2 } from "@landlord/shared";
 
 const DEFAULT_DATABASE_NAME = "landlord-gate1";
 const DATABASE_VERSION = 1;
 const STORE_NAME = "snapshots";
 
-type SnapshotRecord = {
+/**
+ * The stored shape is versioned separately from the database version: the IndexedDB schema did not
+ * change, the snapshot contract did (D-089). A v1 record stays readable as metadata so the UI can
+ * name the slot incompatible instead of silently dropping it.
+ */
+type StoredRecord = {
   slotId: string;
-  schemaVersion: 1;
+  schemaVersion: number;
   engineVersion: string;
   savedAt: number;
-  snapshot: SnapshotV1;
+  snapshot: unknown;
+};
+
+type SnapshotRecord = {
+  slotId: string;
+  schemaVersion: 2;
+  engineVersion: string;
+  savedAt: number;
+  snapshot: SnapshotV2;
 };
 
 export type SnapshotSlot = {
   slotId: string;
-  schemaVersion: 1;
+  schemaVersion: number;
   engineVersion: string;
   savedAt: number;
+  /** False for Alpha v1 saves: they are listed, never loaded, and only removed explicitly. */
+  compatible: boolean;
 };
+
+export const SUPPORTED_SCHEMA_VERSION = 2;
 
 export class SnapshotPersistenceError extends Error {
   public override readonly cause?: unknown;
@@ -82,15 +99,15 @@ export function createIndexedDbPersistence(options: IndexedDbPersistenceOptions 
   return {
     async save(slotId: string, snapshotValue: unknown): Promise<SnapshotSlot> {
       if (!slotId.trim()) throw new SnapshotPersistenceError("Slot ID must not be empty");
-      let snapshot: SnapshotV1;
+      let snapshot: SnapshotV2;
       try {
-        snapshot = parseSnapshotV1(snapshotValue);
+        snapshot = parseSnapshotV2(snapshotValue);
       } catch (error) {
         throw new SnapshotPersistenceError("Snapshot validation failed", error);
       }
       const record: SnapshotRecord = {
         slotId,
-        schemaVersion: 1,
+        schemaVersion: SUPPORTED_SCHEMA_VERSION,
         engineVersion: snapshot.engineVersion,
         savedAt: now(),
         snapshot,
@@ -104,6 +121,7 @@ export function createIndexedDbPersistence(options: IndexedDbPersistenceOptions 
         schemaVersion: record.schemaVersion,
         engineVersion: record.engineVersion,
         savedAt: record.savedAt,
+        compatible: true,
       };
     },
 
@@ -112,27 +130,41 @@ export function createIndexedDbPersistence(options: IndexedDbPersistenceOptions 
       const transaction = database.transaction(STORE_NAME, "readonly");
       const records = await requestResult(transaction.objectStore(STORE_NAME).getAll());
       return records
-        .map((record) => ({
+        .map((record: StoredRecord) => ({
           slotId: record.slotId,
           schemaVersion: record.schemaVersion,
           engineVersion: record.engineVersion,
           savedAt: record.savedAt,
+          compatible: record.schemaVersion === SUPPORTED_SCHEMA_VERSION,
         }))
         .sort((left, right) => left.slotId.localeCompare(right.slotId));
     },
 
-    async load(slotId: string): Promise<SnapshotV1 | null> {
+    async load(slotId: string): Promise<SnapshotV2 | null> {
       const database = await openDatabase();
       const transaction = database.transaction(STORE_NAME, "readonly");
-      const record = await requestResult<SnapshotRecord | undefined>(
+      const record = await requestResult<StoredRecord | undefined>(
         transaction.objectStore(STORE_NAME).get(slotId),
       );
       if (!record) return null;
+      if (record.schemaVersion !== SUPPORTED_SCHEMA_VERSION) {
+        throw new SnapshotPersistenceError(
+          `UNSUPPORTED_SNAPSHOT_VERSION: el slot "${slotId}" guarda una partida v${record.schemaVersion} y esta versión sólo carga v${SUPPORTED_SCHEMA_VERSION}. Las partidas Alpha v1 no se migran; elimínalo explícitamente para liberar el slot.`,
+        );
+      }
       try {
-        return parseSnapshotV1(record.snapshot);
+        return parseSnapshotV2(record.snapshot);
       } catch (error) {
         throw new SnapshotPersistenceError("Stored snapshot validation failed", error);
       }
+    },
+
+    /** Explicit deletion: an incompatible slot is never removed on the player's behalf (D-089). */
+    async remove(slotId: string): Promise<void> {
+      const database = await openDatabase();
+      const transaction = database.transaction(STORE_NAME, "readwrite");
+      transaction.objectStore(STORE_NAME).delete(slotId);
+      await transactionComplete(transaction);
     },
 
     close(): void {

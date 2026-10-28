@@ -1,3 +1,4 @@
+import { PLAYER_HOME_DISTRICT_ID } from "./city";
 import { describe, expect, it } from "vitest";
 
 import {
@@ -24,7 +25,7 @@ describe("simulation view projection", () => {
       issuedByPersonId: parsePersonId("person_00000001"),
       actingAsOrganizationId: parseOrganizationId("org_00000001"),
       type: "PlaceTestStructure",
-      payload: { cell: { x: 3, y: 4 } },
+      payload: { districtId: PLAYER_HOME_DISTRICT_ID, cell: { x: 3, y: 4 } },
     });
     const projection = createViewProjection(state);
     expect(projection).toMatchObject({

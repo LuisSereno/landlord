@@ -70,6 +70,8 @@ export type OrganizationControlGrant = {
 export type TestStructure = {
   id: StructureId;
   ownerOrganizationId: OrganizationId;
+  /** A cell alone does not identify a place once the city has nine 64×64 maps (D-088). */
+  districtId: DistrictId;
   cell: GridCell;
 };
 
@@ -95,6 +97,7 @@ export const organizationControlGrantSchema = z.object({
 export const testStructureSchema = z.object({
   id: structureIdSchema,
   ownerOrganizationId: organizationIdSchema,
+  districtId: districtIdSchema,
   cell: gridCellSchema,
 });
 
@@ -104,6 +107,7 @@ export type PlaceTestStructure = {
   actingAsOrganizationId: OrganizationId;
   type: "PlaceTestStructure";
   payload: {
+    districtId: DistrictId;
     cell: GridCell;
   };
 };
@@ -114,6 +118,7 @@ export const placeTestStructureSchema = z.object({
   actingAsOrganizationId: organizationIdSchema,
   type: z.literal("PlaceTestStructure"),
   payload: z.object({
+    districtId: districtIdSchema,
     cell: gridCellSchema,
   }),
 });
@@ -337,6 +342,8 @@ export type Agent = {
   specialty?: AgentSpecialty;
   health?: number;
   state?: "idle" | "moving" | "working" | "injured" | "dead";
+  /** District the agent is physically in. Pathfinding never crosses it; transfers are explicit (D-088). */
+  districtId: DistrictId;
   cell: GridCell;
   target?: GridCell;
   path?: GridCell[];

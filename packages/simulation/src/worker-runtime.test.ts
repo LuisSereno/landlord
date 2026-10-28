@@ -1,3 +1,4 @@
+import { PLAYER_HOME_DISTRICT_ID } from "./city";
 import { describe, expect, it } from "vitest";
 
 import { parseCommandId, parseOrganizationId, parsePersonId } from "@landlord/shared";
@@ -5,14 +6,14 @@ import { ENGINE_VERSION } from "./snapshot";
 import { SimulationWorkerRuntime } from "./worker-runtime";
 
 const initialize = {
-  protocolVersion: 1,
+  protocolVersion: 2,
   requestId: "request-init",
   type: "InitializeGame" as const,
   payload: { seed: 1 },
 };
 
 const submit = {
-  protocolVersion: 1,
+  protocolVersion: 2,
   requestId: "request-command",
   type: "SubmitCommand" as const,
   payload: {
@@ -21,7 +22,7 @@ const submit = {
       issuedByPersonId: parsePersonId("person_00000001"),
       actingAsOrganizationId: parseOrganizationId("org_00000001"),
       type: "PlaceTestStructure" as const,
-      payload: { cell: { x: 10, y: 12 } },
+      payload: { districtId: PLAYER_HOME_DISTRICT_ID, cell: { x: 10, y: 12 } },
     },
   },
 };
@@ -53,8 +54,13 @@ describe("simulation Worker runtime", () => {
 
   it("rejects malformed protocol and duplicate pending commands without mutation", () => {
     const runtime = new SimulationWorkerRuntime();
-    expect(runtime.handle({ protocolVersion: 2, requestId: "request-bad" })).toMatchObject([
+    // v1 is the only version the runtime must refuse by name; a v2 envelope missing its
+    // discriminant is a payload error, not a protocol error.
+    expect(runtime.handle({ protocolVersion: 1, requestId: "request-bad" })).toMatchObject([
       { type: "RequestFailed", payload: { code: "UNSUPPORTED_PROTOCOL" } },
+    ]);
+    expect(runtime.handle({ protocolVersion: 2, requestId: "request-bad" })).toMatchObject([
+      { type: "RequestFailed", payload: { code: "INVALID_PAYLOAD" } },
     ]);
     runtime.handle(initialize);
     expect(runtime.handle(submit)).toEqual([]);
@@ -81,7 +87,7 @@ describe("simulation Worker runtime", () => {
     ]);
     expect(
       runtime.handle({
-        protocolVersion: 1,
+        protocolVersion: 2,
         requestId: "request-metrics",
         type: "GetMetrics" as const,
         payload: {},
@@ -98,7 +104,7 @@ describe("simulation Worker runtime", () => {
     runtime.handle(submit);
     runtime.advanceTicks(1);
     const saved = runtime.handle({
-      protocolVersion: 1,
+      protocolVersion: 2,
       requestId: "request-save",
       type: "SaveSnapshot" as const,
       payload: {},
@@ -106,24 +112,32 @@ describe("simulation Worker runtime", () => {
     expect(saved[0]).toMatchObject({
       type: "RequestSucceeded",
       payload: {
-        result: { engineVersion: ENGINE_VERSION, schemaVersion: 1 },
+        result: { engineVersion: ENGINE_VERSION, schemaVersion: 2 },
       },
     });
     const snapshot = (saved[0] as { payload: { result: { snapshot: unknown } } }).payload.result
       .snapshot;
     expect(
       runtime.handle({
-        protocolVersion: 1,
+        protocolVersion: 2,
         requestId: "request-invalid-load",
         type: "LoadSnapshot" as const,
         payload: { snapshot: { schemaVersion: 2 } },
       }),
-    ).toMatchObject([{ type: "RequestFailed", payload: { code: "INCOMPATIBLE_SCHEMA" } }]);
+    ).toMatchObject([{ type: "RequestFailed", payload: { code: "INVALID_SNAPSHOT" } }]);
+    expect(
+      runtime.handle({
+        protocolVersion: 2,
+        requestId: "request-v1-load",
+        type: "LoadSnapshot" as const,
+        payload: { snapshot: { schemaVersion: 1 } },
+      }),
+    ).toMatchObject([{ type: "RequestFailed", payload: { code: "UNSUPPORTED_SNAPSHOT_VERSION" } }]);
     expect(runtime.getState()?.structures.size).toBe(1);
     expect(
       runtime
         .handle({
-          protocolVersion: 1,
+          protocolVersion: 2,
           requestId: "request-load",
           type: "LoadSnapshot" as const,
           payload: { snapshot },
@@ -137,7 +151,7 @@ describe("simulation Worker runtime", () => {
     runtime.handle(initialize);
     runtime.handle(submit);
     const saved = runtime.handle({
-      protocolVersion: 1,
+      protocolVersion: 2,
       requestId: "request-save-pending",
       type: "SaveSnapshot" as const,
       payload: {},
@@ -150,7 +164,7 @@ describe("simulation Worker runtime", () => {
     const restored = new SimulationWorkerRuntime();
     restored.handle(initialize);
     restored.handle({
-      protocolVersion: 1,
+      protocolVersion: 2,
       requestId: "request-load-pending",
       type: "LoadSnapshot" as const,
       payload: { snapshot },

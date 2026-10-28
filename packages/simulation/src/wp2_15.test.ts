@@ -58,6 +58,9 @@ describe("WP2.15 tactical spike", () => {
     const state = createInitialState(102);
     const enforcer = state.agents.get(parseAgentId("agent_00000008"))!;
     const target = state.agents.get(parseAgentId("agent_00000009"))!;
+    // V.d: una agresión exige presencia en el mismo distrito; el objetivo rival se traslada aquí
+    // porque este test mide el daño táctico, no la regla de traslado (que tiene su propio test).
+    target.districtId = enforcer.districtId;
     enforcer.cell = { x: 20, y: 20 };
     target.cell = { x: 20, y: 21 };
     const order = () =>

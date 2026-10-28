@@ -30,6 +30,7 @@ describe("Gate 1 domain contracts", () => {
       testStructureSchema.parse({
         id: "structure_00000001",
         ownerOrganizationId: "org_00000002",
+        districtId: "district_00000004",
         cell: { x: 10, y: 12 },
       }).ownerOrganizationId,
     ).toBe("org_00000002");
@@ -42,7 +43,7 @@ describe("Gate 1 domain contracts", () => {
         issuedByPersonId: "person_00000001",
         actingAsOrganizationId: "org_00000001",
         type: "PlaceTestStructure",
-        payload: { cell: { x: 10, y: 12 } },
+        payload: { districtId: "district_00000004", cell: { x: 10, y: 12 } },
       }).type,
     ).toBe("PlaceTestStructure");
     expect(
@@ -66,7 +67,7 @@ describe("Gate 1 domain contracts", () => {
         commandId: "command-9",
         actingAsOrganizationId: "org_00000001",
         type: "PlaceTestStructure",
-        payload: { cell: { x: 10, y: 12 } },
+        payload: { districtId: "district_00000004", cell: { x: 10, y: 12 } },
       }),
     ).toThrow();
     expect(() =>

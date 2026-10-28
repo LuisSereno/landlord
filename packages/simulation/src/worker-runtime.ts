@@ -27,7 +27,6 @@ const errorMessages: Record<ErrorCode, string> = {
   INVALID_PAYLOAD: "La solicitud no es válida para el protocolo actual.",
   UNSUPPORTED_PROTOCOL: "La versión del protocolo no está soportada.",
   INVALID_SNAPSHOT: "La partida guardada no es válida.",
-  INCOMPATIBLE_SCHEMA: "La partida guardada usa un schema incompatible.",
   PARCEL_NOT_FOUND: "La parcela no existe.",
   PARCEL_UNAVAILABLE: "La parcela ya tiene propietario.",
   INSUFFICIENT_FUNDS: "La organización no tiene caja suficiente.",
@@ -73,6 +72,11 @@ const errorMessages: Record<ErrorCode, string> = {
   LOAN_REFINANCE_UNAVAILABLE: "La deuda no puede refinanciarse en su estado actual.",
   SELL_NOT_AVAILABLE: "La parcela no puede venderse en su estado actual.",
   SELL_COLLATERAL_LOCKED: "La parcela respalda un préstamo activo o una oferta pendiente.",
+  DISTRICT_NOT_FOUND: "El distrito indicado no existe en la ciudad.",
+  UNSUPPORTED_SNAPSHOT_VERSION:
+    "Esta partida es de una versión anterior (v1). V.d no la migra: crea una partida nueva o borra el slot incompatible.",
+  AGENT_NOT_IN_DISTRICT:
+    "El agente o la cuadrilla no está en el distrito del objetivo; trasládalo primero.",
   CONTRACT_NOT_FOUND: "El contrato público no existe.",
   CONTRACT_CLOSED: "La licitación ya está cerrada.",
   CONTRACT_CONFLICT: "La organización ya ejecuta otro contrato público.",
@@ -87,7 +91,7 @@ const errorMessages: Record<ErrorCode, string> = {
   INTEL_UNAFFORDABLE: "La caja no cubre el encargo de la investigación.",
 } as const;
 
-const PROTOCOL_VERSION = protocolVersionSchema.parse(1);
+const PROTOCOL_VERSION = protocolVersionSchema.parse(2);
 const INVALID_REQUEST_ID = parseRequestId("invalid-request");
 
 function requestIdFromUnknown(value: unknown): RequestId | null {
@@ -129,7 +133,7 @@ export class SimulationWorkerRuntime {
       rawRequest &&
       typeof rawRequest === "object" &&
       "protocolVersion" in rawRequest &&
-      rawRequest.protocolVersion !== 1
+      rawRequest.protocolVersion !== PROTOCOL_VERSION
     ) {
       return [failed(requestId, "UNSUPPORTED_PROTOCOL")];
     }
@@ -237,9 +241,9 @@ export class SimulationWorkerRuntime {
           rawSnapshot &&
           typeof rawSnapshot === "object" &&
           "schemaVersion" in rawSnapshot &&
-          rawSnapshot.schemaVersion !== 1
+          rawSnapshot.schemaVersion !== 2
         ) {
-          return [failed(request.requestId, "INCOMPATIBLE_SCHEMA")];
+          return [failed(request.requestId, "UNSUPPORTED_SNAPSHOT_VERSION")];
         }
         try {
           const nextState = restoreStateFromSnapshot(rawSnapshot);

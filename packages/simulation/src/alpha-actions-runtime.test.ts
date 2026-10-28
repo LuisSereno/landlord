@@ -14,7 +14,7 @@ import { bondFor } from "./public-contracts";
 import { SimulationWorkerRuntime } from "./worker-runtime";
 
 const initialize = {
-  protocolVersion: 1,
+  protocolVersion: 2,
   requestId: "request-init",
   type: "InitializeGame" as const,
   payload: { seed: 3 },
@@ -26,7 +26,7 @@ function commandRequest(
   command: { type: string; payload: Record<string, unknown> },
 ): object {
   return {
-    protocolVersion: 1,
+    protocolVersion: 2,
     requestId,
     type: "SubmitCommand",
     payload: {

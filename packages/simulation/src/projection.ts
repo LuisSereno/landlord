@@ -1,6 +1,7 @@
-import { roadCellsFromSegments, type ViewProjectionV1 } from "@landlord/shared";
+import { roadCellsFromSegments, type DistrictId, type ViewProjectionV1 } from "@landlord/shared";
 import { parseTick } from "@landlord/shared";
-import { type GameState } from "./state";
+import { districtStateOf, type GameState } from "./state";
+import { PLAYER_HOME_DISTRICT_ID } from "./city";
 import {
   BUILDING_DEFINITIONS,
   ILLEGAL_ROUTE,
@@ -197,7 +198,18 @@ function createFinancialSummary(
   };
 }
 
-export function createViewProjection(state: GameState, includeEconomy = false): ViewProjectionV1 {
+/**
+ * District the projection describes by default. V.d renders one district at a time (D-088); the
+ * player's roster district is the natural starting view and `SetObservedDistrict` overrides it
+ * without touching `GameState`.
+ */
+
+export function createViewProjection(
+  state: GameState,
+  includeEconomy = false,
+  observedDistrictId: DistrictId = PLAYER_HOME_DISTRICT_ID,
+): ViewProjectionV1 {
+  const observedDistrict = districtStateOf(state, observedDistrictId);
   const playerInventory = state.phase2.inventories.get(PLAYER_ORGANIZATION_ID)!;
   const propertyTaxRateBps = currentPropertyTaxRateBps(state);
   const propertyTaxExpense = projectedMonthlyPropertyTax(state, propertyTaxRateBps);
@@ -325,11 +337,13 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
       message: `${building.id} tiene ${BUILDING_DEFINITIONS[building.type].capacity - building.tenantIds.length} plaza(s) vacante(s).`,
       targetId: building.parcelId,
     });
-  const roadCells = [...roadCellsFromSegments(state.map.roads.segments)].sort((left, right) => {
-    const [leftX, leftY] = left.split(":").map(Number) as [number, number];
-    const [rightX, rightY] = right.split(":").map(Number) as [number, number];
-    return leftY - rightY || leftX - rightX;
-  });
+  const roadCells = [...roadCellsFromSegments(observedDistrict.map.roads.segments)].sort(
+    (left, right) => {
+      const [leftX, leftY] = left.split(":").map(Number) as [number, number];
+      const [rightX, rightY] = right.split(":").map(Number) as [number, number];
+      return leftY - rightY || leftX - rightX;
+    },
+  );
   let roadDigest = 0x811c9dc5;
   for (const character of roadCells.join(",")) {
     roadDigest = Math.imul((roadDigest ^ character.charCodeAt(0)) >>> 0, 0x01000193) >>> 0;
@@ -368,7 +382,10 @@ export function createViewProjection(state: GameState, includeEconomy = false): 
               hour: Math.floor((state.clock.tick % GAME_DAY_TICKS) / GAME_HOUR_TICKS),
               ticksPerMonth: GAME_MONTH_TICKS,
             },
-            district: { id: state.phase2.district.id, name: state.phase2.district.name },
+            district: {
+              id: observedDistrict.district.id,
+              name: observedDistrict.district.name,
+            },
             parcels: [...state.phase2.parcels.values()]
               .sort((left, right) => left.id.localeCompare(right.id))
               .map((parcel) => {

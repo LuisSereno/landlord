@@ -43,7 +43,10 @@ function command(
 describe("WP4.11-H integración transversal de Fase 4", () => {
   it("cruza distrito, economía, contratos, reputación, inteligencia y elección con save/load", () => {
     const state = createScaledCity(SEED, { parcelCount: PARCELS });
-    expect(state.phase2.district.generation).toBeDefined();
+    expect(state.world.districts.size).toBe(9);
+    for (const entry of state.world.districts.values()) {
+      expect(entry.district.generation).toBeDefined();
+    }
 
     advanceToMonthClose(state, 2);
     expect(state.phase2.employment.lastSettlementTick).toBe(GAME_MONTH_TICKS * 2);

@@ -21,6 +21,7 @@ import { dispatchProductCommand } from "./commands";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { advanceProductSystems } from "./systems";
 import { controlGrantKey, createInitialState } from "./state";
+import { rivalParcel } from "./test-support";
 import { createViewProjection } from "./projection";
 import { GAME_DAY_TICKS, GAME_MONTH_TICKS, deteriorationRiskPercent } from "./game-data";
 
@@ -603,7 +604,7 @@ describe("Gate 2 product loop", () => {
 
   it("lets the rival choose market supply or a physical factory through normal commands", () => {
     const productionState = createInitialState(47);
-    productionState.phase2.parcels.get(parseParcelId("parcel_00000005"))!.ownerOrganizationId =
+    rivalParcel(productionState, (parcel) => parcel.zoning === "industrial").ownerOrganizationId =
       parseOrganizationId("org_00000002");
     productionState.clock.tick = parseTick(50 * 24);
     advanceProductSystems(productionState);
@@ -613,7 +614,7 @@ describe("Gate 2 product loop", () => {
     );
 
     const marketState = createInitialState(53);
-    marketState.phase2.parcels.get(parseParcelId("parcel_00000005"))!.ownerOrganizationId =
+    rivalParcel(marketState, (parcel) => parcel.zoning === "industrial").ownerOrganizationId =
       parseOrganizationId("org_00000002");
     marketState.phase2.inventories.get(parseOrganizationId("org_00000002"))!.brick = 0;
     marketState.clock.tick = parseTick(50 * 24);

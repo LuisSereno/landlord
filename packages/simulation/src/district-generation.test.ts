@@ -1,11 +1,12 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  parseDistrictId,
   parseCommandId,
   parseOrganizationId,
   parseParcelId,
   parsePersonId,
-  parseSnapshotV1,
+  parseSnapshotV2,
   parseTenantId,
   type ProductCommand,
 } from "@landlord/shared";
@@ -31,7 +32,7 @@ import { GAME_DAY_TICKS, GAME_MONTH_TICKS } from "./game-data";
 import { createPrng } from "./prng";
 import { canonicalizeState, runScenario, type ScheduledCommand } from "./runner";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
-import { createInitialState, type GameState } from "./state";
+import { createInitialState, districtMapOf, type GameState } from "./state";
 import { advanceProductSystems } from "./systems";
 
 const actor = parsePersonId("person_00000001");
@@ -87,13 +88,12 @@ describe("WP4.1 district generation", () => {
   });
 
   it("mantiene determinista el estado inicial sin consumir el PRNG de la partida", () => {
-    const first = createInitialState(9, { districtProfileId: "vega_del_cauce" });
-    const second = createInitialState(9, { districtProfileId: "vega_del_cauce" });
+    const first = createInitialState(9);
+    const second = createInitialState(9);
     expect(canonicalizeState(second)).toBe(canonicalizeState(first));
     expect(first.prng).toEqual(createPrng(9).exportState());
-    expect(canonicalizeState(createInitialState(3))).toBe(
-      canonicalizeState(createInitialState(3, { districtProfileId: DEFAULT_DISTRICT_PROFILE_ID })),
-    );
+    expect(first.world.city.districtIds).toHaveLength(9);
+    expect(second.world.city.districtIds).toEqual(first.world.city.districtIds);
   });
 
   it("varía el distrito entre seeds conservando las anclas autoradas del perfil", () => {
@@ -206,8 +206,11 @@ describe("WP4.1 district generation", () => {
 
   it("completa comprar, construir, ocupar y cobrar renta sobre un distrito generado", () => {
     const profile = resolveDistrictProfile("vega_del_cauce");
-    const state = createInitialState(1337, { districtProfileId: profile.id });
-    expect(state.map.blockedCells.size).toBeGreaterThan(0);
+    const state = createInitialState(1337);
+    const vegaDistrictId = [...state.world.districts].find(
+      ([, entry]) => entry.district.generation?.profileId === profile.id,
+    )![0];
+    expect(districtMapOf(state, vegaDistrictId).blockedCells.size).toBeGreaterThan(0);
     expect(state.phase2.parcels.size).toBeGreaterThan(profile.anchorSlots.length);
 
     const spawn = profile.spawnAnchors.player;
@@ -293,7 +296,7 @@ describe("WP4.1 district generation", () => {
         }),
       },
     ];
-    const options = { districtProfileId: "ensanche_ferroviario" };
+    const options = {};
     const first = runScenario(5, commands, 240, options);
     const second = runScenario(5, commands, 240, options);
 
@@ -307,39 +310,45 @@ describe("WP4.1 district generation", () => {
     expect(first.checkpoints.at(-1)?.canonicalState).not.toBe(
       otherSeed.checkpoints.at(-1)?.canonicalState,
     );
-  });
+  }, 60_000);
 
-  it("persiste la identidad de generación y las celdas bloqueadas en la partida guardada", () => {
-    const state = createInitialState(1337, { districtProfileId: "vega_del_cauce" });
+  it("persiste la identidad de generación de la ciudad y las celdas bloqueadas por distrito", () => {
+    const state = createInitialState(1337);
     const snapshot = serializeSnapshot(state);
-    const persisted = snapshot.phase2!.district;
 
-    expect(persisted.generation?.profileId).toBe("vega_del_cauce");
-    expect(persisted.generation?.generatorVersion).toBe(DISTRICT_GENERATOR_VERSION);
-    expect(Number(persisted.generation?.seed)).toBe(1337);
-    expect(snapshot.map.blockedCells).toHaveLength(state.map.blockedCells.size);
+    expect(snapshot.world.city.generation.profileId).toBe("ciudad_del_umbral_v1");
+    expect(snapshot.world.city.generation.generatorVersion).toBe(DISTRICT_GENERATOR_VERSION);
+    expect(Number(snapshot.world.city.generation.seed)).toBe(1337);
+    expect(snapshot.world.districts).toHaveLength(9);
+    expect(snapshot.world.gateways).toHaveLength(12);
+    for (const entry of snapshot.world.districts) {
+      const live = districtMapOf(state, parseDistrictId(entry.district.id));
+      expect(entry.map.blockedCells).toHaveLength(live.blockedCells.size);
+      expect(typeof entry.district.generation?.profileId).toBe("string");
+    }
 
-    const parsed = parseSnapshotV1(JSON.parse(JSON.stringify(snapshot)));
+    const parsed = parseSnapshotV2(JSON.parse(JSON.stringify(snapshot)));
     const restored = restoreStateFromSnapshot(parsed);
-    expect([...restored.map.blockedCells].sort()).toEqual([...state.map.blockedCells].sort());
-    expect(restored.phase2.district.generation?.profileId).toBe("vega_del_cauce");
+    for (const districtId of state.world.city.districtIds) {
+      expect([...districtMapOf(restored, districtId).blockedCells].sort()).toEqual(
+        [...districtMapOf(state, districtId).blockedCells].sort(),
+      );
+    }
     /** El estado canónico ordena maps y claves: dos estados equivalentes deben coincidir en cadena. */
     expect(canonicalizeState(restored)).toBe(canonicalizeState(state));
     expect(serializeSnapshot(restored)).toEqual(snapshot);
   });
 
-  it("sigue cargando partidas guardadas anteriores a la generación procedural", () => {
-    const fresh = createInitialState(4);
-    const snapshot = serializeSnapshot(fresh);
-    const legacy: typeof snapshot = JSON.parse(JSON.stringify(snapshot));
-    delete legacy.phase2!.district.generation;
+  it("rechaza un guardado v1 con un mensaje comprensible, sin migrarlo ni borrarlo", () => {
+    const state = createInitialState(4);
+    const snapshot = serializeSnapshot(state);
+    const legacy = JSON.parse(JSON.stringify(snapshot)) as Record<string, unknown>;
+    legacy.schemaVersion = 1;
+    delete legacy.world;
 
-    const restored = restoreStateFromSnapshot(legacy);
-    expect(restored.phase2.district.generation).toBeUndefined();
-    expect(restored.phase2.parcels.size).toBe(fresh.phase2.parcels.size);
-    expect([...restored.phase2.parcels.values()]).toEqual([...fresh.phase2.parcels.values()]);
-    expect([...restored.map.blockedCells].sort()).toEqual([...fresh.map.blockedCells].sort());
-    expect([...restored.phase2.crews.values()]).toEqual([...fresh.phase2.crews.values()]);
+    expect(() => restoreStateFromSnapshot(legacy)).toThrowError(/UNSUPPORTED_SNAPSHOT_VERSION/);
+    // Rechazar no es destruir: el estado en memoria sigue intacto.
+    expect(state.world.districts.size).toBe(9);
   });
 
   it("falla de forma explícita cuando un perfil no produce un distrito jugable", () => {

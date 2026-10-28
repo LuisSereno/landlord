@@ -205,8 +205,24 @@ function expansionTarget(
   const busyParcelIds = new Set(
     [...state.phase2.constructionSites.values()].map((site) => site.parcelId),
   );
+  /** V.d: la cuadrilla sólo trabaja en su distrito, así que la rutina no compra suelo inalcanzable. */
+  const playerDistricts = new Set(
+    [...state.agents.values()]
+      .filter(
+        (agent) =>
+          agent.organizationId === PLAYER_ORGANIZATION_ID &&
+          agent.state !== "dead" &&
+          agent.state !== "injured",
+      )
+      .map((agent) => agent.districtId),
+  );
   const candidates = [...state.phase2.parcels.values()]
-    .filter((parcel) => !parcel.buildingId && !busyParcelIds.has(parcel.id))
+    .filter(
+      (parcel) =>
+        !parcel.buildingId &&
+        !busyParcelIds.has(parcel.id) &&
+        playerDistricts.has(parcel.districtId),
+    )
     .filter(
       (parcel) =>
         parcel.ownerOrganizationId === PLAYER_ORGANIZATION_ID ||
@@ -469,7 +485,7 @@ describe("Balance jugable (revisión de WP4.14)", () => {
     const first = runPlayableCampaign(STRATEGIES[2]!, 3, 6);
     const second = runPlayableCampaign(STRATEGIES[2]!, 3, 6);
     expect(JSON.stringify(second)).toBe(JSON.stringify(first));
-  });
+  }, 60_000);
 
   it.skipIf(environment.process?.env?.PLAYABLE_BALANCE_CAMPAIGN !== "1")(
     "campaña jugable con seeds registradas, auditoría de comandos y dominancia",

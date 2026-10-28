@@ -43,11 +43,42 @@ export function canonicalizeState(state: GameState): string {
     clock: { tick: state.clock.tick },
     prng: state.prng,
     idCounters: state.idCounters,
-    map: {
-      width: state.map.width,
-      height: state.map.height,
-      blockedCells: [...state.map.blockedCells].sort(),
-      roads: state.map.roads,
+    /**
+     * La ciudad entra en la superficie canónica en el orden de slots del perfil, no en el de
+     * inserción del Map (D-089). Cambiar el distrito observado no toca este bloque: es una petición
+     * técnica, no estado del mundo.
+     */
+    world: {
+      city: {
+        ...state.world.city,
+        districtIds: [...state.world.city.districtIds].sort((left, right) =>
+          left.localeCompare(right),
+        ),
+        connections: [...state.world.city.connections].sort((left, right) =>
+          left.id.localeCompare(right.id),
+        ),
+      },
+      gateways: [...state.world.gateways].sort((left, right) => left.id.localeCompare(right.id)),
+      districts: [...state.world.city.districtIds]
+        .sort((left, right) => left.localeCompare(right))
+        .map((districtId) => {
+          const entry = state.world.districts.get(districtId)!;
+          return {
+            district: entry.district,
+            map: {
+              width: entry.map.width,
+              height: entry.map.height,
+              blockedCells: [...entry.map.blockedCells].sort(),
+              roads: entry.map.roads,
+            },
+            blocks: [...entry.blocks.values()].sort((left, right) =>
+              left.id.localeCompare(right.id),
+            ),
+            publicSpaces: [...entry.publicSpaces.values()].sort((left, right) =>
+              left.id.localeCompare(right.id),
+            ),
+          };
+        }),
     },
     playerIdentities: orderedMapValues(state.playerIdentities),
     persons: orderedMapValues(state.persons),
@@ -67,7 +98,6 @@ export function canonicalizeState(state: GameState): string {
     ),
     phase2: {
       idCounters: state.phase2.idCounters,
-      district: state.phase2.district,
       parcels: orderedMapValues(state.phase2.parcels),
       balances: orderedEntries(state.phase2.balances).map(([organizationId, balance]) => ({
         organizationId,
@@ -131,11 +161,14 @@ export function createScenarioState(seed: number, options: InitialStateOptions =
   return createInitialState(seed, options);
 }
 
+/** `checkpointEvery` es del harness, no del estado: 0 registra sólo el estado final. */
+export type ScenarioOptions = InitialStateOptions & { checkpointEvery?: number };
+
 export function runScenario(
   seed: number,
   scheduledCommands: readonly ScheduledCommand[],
   totalTicks: number,
-  options: InitialStateOptions = {},
+  options: ScenarioOptions = {},
 ): ScenarioRun {
   if (!Number.isSafeInteger(totalTicks) || totalTicks < 0) {
     throw new RangeError("Scenario duration must be a non-negative safe integer");
@@ -151,6 +184,7 @@ export function runScenario(
   }
 
   const state = createScenarioState(seed, options);
+  const checkpointEvery = options.checkpointEvery ?? 1;
   const results: ScenarioRun["results"] = [];
   const checkpoints: ScenarioCheckpoint[] = [];
   let commandIndex = 0;
@@ -169,6 +203,16 @@ export function runScenario(
       commandIndex += 1;
     }
     advanceProductSystems(state);
+    if (checkpointEvery > 0 && step % checkpointEvery === 0) {
+      checkpoints.push({ tick: state.clock.tick, canonicalState: canonicalizeState(state) });
+    }
+  }
+  /**
+   * El estado final siempre queda registrado: los tests de conservación comparan el digesto de la
+   * carrera completa y no necesitan una cadena canónica de 291 KB por tick, que a 6,9 ms dominaba el
+   * coste del harness desde que el mundo son nueve distritos.
+   */
+  if (checkpoints.at(-1)?.tick !== state.clock.tick) {
     checkpoints.push({ tick: state.clock.tick, canonicalState: canonicalizeState(state) });
   }
 

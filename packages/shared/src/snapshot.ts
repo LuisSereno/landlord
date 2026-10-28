@@ -3,11 +3,14 @@ import { z } from "zod";
 import {
   agentIdSchema,
   commandIdSchema,
+  districtIdSchema,
   schemaVersionSchema,
   type CommandId,
   type AgentId,
+  type DistrictId,
   type SchemaVersion,
 } from "./primitives";
+import { blockSchema, citySchema, districtGatewaySchema, publicSpaceSchema } from "./urban";
 import {
   organizationControlGrantSchema,
   organizationSchema,
@@ -64,7 +67,7 @@ import {
   type Tick,
 } from "./time-and-grid";
 
-export type SnapshotV1 = {
+export type SnapshotV2 = {
   schemaVersion: SchemaVersion;
   engineVersion: string;
   seed: Seed;
@@ -84,19 +87,14 @@ export type SnapshotV1 = {
     transaction?: number;
     loan?: number;
   };
-  map: {
-    width: 64;
-    height: 64;
-    blockedCells: GridCell[];
-    /** Optional only for compatibility with saves created before WP4.15-V.c.2B. */
-    roads?: import("./domain").RoadTopologyV1;
-  };
+  world: SnapshotWorld;
   playerIdentities: PlayerIdentity[];
   persons: Person[];
   organizations: Organization[];
   controlGrants: OrganizationControlGrant[];
   agents: Array<{
     id: AgentId;
+    districtId: DistrictId;
     cell: GridCell;
     target: GridCell;
     path: GridCell[];
@@ -126,7 +124,6 @@ export type SnapshotV1 = {
       loan?: number;
       incident?: number;
     };
-    district: import("./domain").District;
     parcels: import("./domain").Parcel[];
     balances: Array<{ organizationId: import("./primitives").OrganizationId; balance: number }>;
     inventories: Array<{
@@ -176,14 +173,45 @@ export type SnapshotV1 = {
 const safeCounter = z.number().int().nonnegative().safe();
 const uint32 = z.number().int().nonnegative().max(0xffffffff).safe();
 const prngStateSchema = z.tuple([uint32, uint32, uint32, uint32]);
-const mapSnapshotSchema = z.object({
+const districtMapSnapshotSchema = z.object({
   width: z.literal(64),
   height: z.literal(64),
   blockedCells: z.array(gridCellSchema),
-  roads: roadTopologyV1Schema.optional(),
+  roads: roadTopologyV1Schema,
 });
+
+const snapshotDistrictSchema = z.object({
+  district: districtSchema,
+  map: districtMapSnapshotSchema,
+  blocks: z.array(blockSchema),
+  publicSpaces: z.array(publicSpaceSchema),
+});
+
+const worldSnapshotSchema = z.object({
+  city: citySchema,
+  gateways: z.array(districtGatewaySchema),
+  districts: z.array(snapshotDistrictSchema).length(9),
+});
+
+/** Persisted shape of `WorldState` (D-088, D-089). */
+export type SnapshotWorld = {
+  city: import("./urban").City;
+  gateways: import("./urban").DistrictGateway[];
+  districts: Array<{
+    district: import("./domain").District;
+    map: {
+      width: 64;
+      height: 64;
+      blockedCells: GridCell[];
+      roads: import("./domain").RoadTopologyV1;
+    };
+    blocks: import("./urban").Block[];
+    publicSpaces: import("./urban").PublicSpace[];
+  }>;
+};
 const agentSnapshotSchema = z.object({
   id: agentIdSchema,
+  districtId: districtIdSchema,
   cell: gridCellSchema,
   target: gridCellSchema,
   path: z.array(gridCellSchema),
@@ -212,7 +240,6 @@ const phase2SnapshotSchema = z.object({
     loan: safeCounter.optional(),
     transaction: safeCounter,
   }),
-  district: districtSchema,
   parcels: z.array(parcelSchema),
   balances: z.array(
     z.object({
@@ -284,7 +311,7 @@ const phase2SnapshotSchema = z.object({
   insolvency: insolvencyStateSchema.optional(),
 });
 
-export const snapshotV1Schema = z.object({
+export const snapshotV2Schema = z.object({
   schemaVersion: schemaVersionSchema,
   engineVersion: z.string().min(1).max(128),
   seed: seedSchema,
@@ -304,7 +331,7 @@ export const snapshotV1Schema = z.object({
     facility: safeCounter.optional(),
     transaction: safeCounter.optional(),
   }),
-  map: mapSnapshotSchema,
+  world: worldSnapshotSchema,
   playerIdentities: z.array(playerIdentitySchema),
   persons: z.array(personSchema),
   organizations: z.array(organizationSchema),
@@ -338,7 +365,7 @@ function inBounds(cell: GridCell): boolean {
   return cell.x < 64 && cell.y < 64;
 }
 
-export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValidationIssue[] {
+export function validateSnapshotReferences(snapshot: SnapshotV2): SnapshotValidationIssue[] {
   const issues: SnapshotValidationIssue[] = [];
   const personIds = new Set(snapshot.persons.map((person) => person.id));
   const organizationIds = new Set(snapshot.organizations.map((organization) => organization.id));
@@ -347,13 +374,9 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
   );
   const structureIds = snapshot.structures.map((structure) => structure.id);
   const agentIds = snapshot.agents.map((agent) => agent.id);
-  const cells = [
-    ...snapshot.map.blockedCells,
-    ...snapshot.structures.map((structure) => structure.cell),
-  ];
-  const roadCells = snapshot.map.roads
-    ? roadCellsFromSegments(snapshot.map.roads.segments)
-    : new Set<string>();
+  const districtIds = new Set<DistrictId>(snapshot.world.city.districtIds);
+  const districtById = new Map(snapshot.world.districts.map((entry) => [entry.district.id, entry]));
+  const cells = snapshot.structures.map((structure) => structure.cell);
 
   if (hasDuplicate(snapshot.playerIdentities.map((identity) => identity.id))) {
     issues.push({ code: "DUPLICATE_ID", path: "playerIdentities" });
@@ -368,15 +391,53 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
     issues.push({ code: "DUPLICATE_ID", path: "entities" });
   }
   if (new Set(cells.map(cellKey)).size !== cells.length) {
-    issues.push({ code: "DUPLICATE_CELL", path: "map/structures" });
+    issues.push({ code: "DUPLICATE_CELL", path: "world/structures" });
   }
   if (cells.some((cell) => !inBounds(cell))) {
-    issues.push({ code: "CELL_OUT_OF_BOUNDS", path: "map/structures" });
+    issues.push({ code: "CELL_OUT_OF_BOUNDS", path: "world/structures" });
   }
-  if (snapshot.map.roads) {
-    const segments = snapshot.map.roads.segments;
-    const ids = segments.map((segment) => segment.id);
-    if (hasDuplicate(ids)) issues.push({ code: "DUPLICATE_ID", path: "map/roads/segments" });
+  for (const structure of snapshot.structures) {
+    if (!districtIds.has(structure.districtId)) {
+      issues.push({ code: "MISSING_REFERENCE", path: `world/structures/${structure.id}` });
+    }
+  }
+  for (const agent of snapshot.agents) {
+    if (!districtIds.has(agent.districtId)) {
+      issues.push({ code: "MISSING_REFERENCE", path: `world/agents/${agent.id}` });
+    }
+  }
+  if (snapshot.world.districts.length !== snapshot.world.city.districtIds.length) {
+    issues.push({ code: "MISSING_REFERENCE", path: "world/districts" });
+  }
+  for (const districtId of snapshot.world.city.districtIds) {
+    if (!districtById.has(districtId)) {
+      issues.push({ code: "MISSING_REFERENCE", path: `world/districts/${districtId}` });
+    }
+  }
+  for (const gateway of snapshot.world.gateways) {
+    if (gateway.districtIds.some((id) => !districtIds.has(id))) {
+      issues.push({ code: "MISSING_REFERENCE", path: `world/gateways/${gateway.id}` });
+    }
+  }
+  for (const connection of snapshot.world.city.connections) {
+    if (
+      !districtIds.has(connection.fromDistrictId) ||
+      !districtIds.has(connection.toDistrictId) ||
+      !snapshot.world.gateways.some((gateway) => gateway.id === connection.gatewayId)
+    ) {
+      issues.push({ code: "MISSING_REFERENCE", path: `world/connections/${connection.id}` });
+    }
+  }
+
+  for (const entry of snapshot.world.districts) {
+    const scope = `world/districts/${entry.district.id}`;
+    const segments = entry.map.roads.segments;
+    const roadCells = roadCellsFromSegments(segments);
+    const blockedKeys = new Set(entry.map.blockedCells.map(cellKey));
+
+    if (hasDuplicate(segments.map((segment) => segment.id))) {
+      issues.push({ code: "DUPLICATE_ID", path: `${scope}/roads/segments` });
+    }
     const canonical = [...segments].sort(
       (left, right) =>
         left.from.y - right.from.y ||
@@ -386,7 +447,7 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
         left.to.x - right.to.x,
     );
     if (canonical.some((segment, index) => segment !== segments[index])) {
-      issues.push({ code: "DUPLICATE_ORDER", path: "map/roads/segments" });
+      issues.push({ code: "DUPLICATE_ORDER", path: `${scope}/roads/segments` });
     }
     for (const segment of segments) {
       if (
@@ -396,24 +457,27 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
         !inBounds(segment.from) ||
         !inBounds(segment.to)
       ) {
-        issues.push({ code: "CELL_OUT_OF_BOUNDS", path: `map/roads/segments/${segment.id}` });
+        issues.push({ code: "CELL_OUT_OF_BOUNDS", path: `${scope}/roads/segments/${segment.id}` });
       }
       if (segment.id !== roadSegmentId(segment.class, segment.from, segment.to)) {
-        issues.push({ code: "DUPLICATE_ID", path: `map/roads/segments/${segment.id}` });
+        issues.push({ code: "DUPLICATE_ID", path: `${scope}/roads/segments/${segment.id}` });
       }
     }
-    if (
-      [...roadCells].some((key) => snapshot.map.blockedCells.some((cell) => cellKey(cell) === key))
-    ) {
-      issues.push({ code: "DUPLICATE_CELL", path: "map/roads/blockedCells" });
+    if ([...roadCells].some((key) => blockedKeys.has(key))) {
+      issues.push({ code: "DUPLICATE_CELL", path: `${scope}/roads/blockedCells` });
+    }
+    if (entry.map.blockedCells.some((cell) => !inBounds(cell))) {
+      issues.push({ code: "CELL_OUT_OF_BOUNDS", path: `${scope}/blockedCells` });
     }
     if (
       snapshot.phase2 &&
       [...roadCells].some((key) =>
-        snapshot.phase2!.parcels.some((parcel) => cellKey(parcel.cell) === key),
+        snapshot.phase2!.parcels.some(
+          (parcel) => parcel.districtId === entry.district.id && cellKey(parcel.cell) === key,
+        ),
       )
     ) {
-      issues.push({ code: "DUPLICATE_CELL", path: "map/roads/phase2/parcels" });
+      issues.push({ code: "DUPLICATE_CELL", path: `${scope}/roads/phase2/parcels` });
     }
   }
 
@@ -499,7 +563,7 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
       issues.push({ code: "DUPLICATE_ID", path: "phase2/organizationState" });
     }
     for (const parcel of snapshot.phase2.parcels) {
-      if (parcel.districtId !== snapshot.phase2.district.id) {
+      if (!districtIds.has(parcel.districtId)) {
         issues.push({ code: "MISSING_REFERENCE", path: `phase2/parcels/${parcel.id}/districtId` });
       }
       if (parcel.ownerOrganizationId && !organizationIds.has(parcel.ownerOrganizationId)) {
@@ -846,8 +910,32 @@ export function validateSnapshotReferences(snapshot: SnapshotV1): SnapshotValida
   return issues;
 }
 
-export function parseSnapshotV1(value: unknown): SnapshotV1 {
-  const snapshot = snapshotV1Schema.parse(value) as unknown as SnapshotV1;
+/**
+ * A v1 save is rejected by name, not by a schema diff (D-089). The single-district world it
+ * describes has no roads-per-district, no blocks and no development codes, so it cannot be derived
+ * into nine districts; the player needs to hear that instead of reading a Zod path.
+ */
+export class UnsupportedSnapshotVersionError extends Error {
+  public readonly schemaVersion: unknown;
+
+  public constructor(schemaVersion: unknown) {
+    super(
+      `UNSUPPORTED_SNAPSHOT_VERSION: el guardado tiene schemaVersion ${String(schemaVersion)} y esta versión sólo acepta 2. Las partidas Alpha v1 no se migran; crea una partida nueva o borra el slot incompatible.`,
+    );
+    this.name = "UnsupportedSnapshotVersionError";
+    this.schemaVersion = schemaVersion;
+  }
+}
+
+export function parseSnapshotV2(value: unknown): SnapshotV2 {
+  const declaredVersion =
+    typeof value === "object" && value !== null && "schemaVersion" in value
+      ? (value as { schemaVersion?: unknown }).schemaVersion
+      : undefined;
+  if (declaredVersion !== 2) {
+    throw new UnsupportedSnapshotVersionError(declaredVersion);
+  }
+  const snapshot = snapshotV2Schema.parse(value) as unknown as SnapshotV2;
   const issues = validateSnapshotReferences(snapshot);
   if (issues.length > 0) {
     throw new Error(`Invalid snapshot references: ${issues.map((issue) => issue.path).join(", ")}`);

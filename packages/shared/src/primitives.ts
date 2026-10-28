@@ -4,8 +4,8 @@ export type Brand<T, Name extends string> = T & {
   readonly __brand: Name;
 };
 
-export type ProtocolVersion = Brand<1, "ProtocolVersion">;
-export type SchemaVersion = Brand<1, "SchemaVersion">;
+export type ProtocolVersion = Brand<2, "ProtocolVersion">;
+export type SchemaVersion = Brand<2, "SchemaVersion">;
 
 export type PlayerIdentityId = Brand<string, "PlayerIdentityId">;
 export type PersonId = Brand<string, "PersonId">;
@@ -118,8 +118,12 @@ export const requestIdSchema = opaqueString.transform((value) => value as Reques
 export const commandIdSchema = opaqueString.transform((value) => value as CommandId);
 export const eventIdSchema = opaqueString.transform((value) => value as EventId);
 
-export const protocolVersionSchema = z.literal(1).transform((value) => value as ProtocolVersion);
-export const schemaVersionSchema = z.literal(1).transform((value) => value as SchemaVersion);
+/**
+ * Protocol and snapshot versions are v2 (D-089). A v1 payload must fail here rather than be
+ * silently reinterpreted: the single-district world it describes cannot be derived into nine.
+ */
+export const protocolVersionSchema = z.literal(2).transform((value) => value as ProtocolVersion);
+export const schemaVersionSchema = z.literal(2).transform((value) => value as SchemaVersion);
 
 export function parsePlayerIdentityId(value: string): PlayerIdentityId {
   return playerIdentityIdSchema.parse(value);

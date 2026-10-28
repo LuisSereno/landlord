@@ -49,8 +49,13 @@ describe("generador de proyección de gameplay (WP4.15-V.c.1)", () => {
     { skip: !process.env.VC1_PROJECTION },
     () => {
       const profile = resolveDistrictProfile("vega_del_cauce");
-      const state = createInitialState(2026, { districtProfileId: profile.id });
-      const spawn = profile.spawnAnchors.player;
+      const state = createInitialState(2026);
+      const vegaDistrictId = [...state.world.districts].find(
+        ([, entry]) => entry.district.generation?.profileId === profile.id,
+      )![0];
+      const spawn = state.world.districts.get(vegaDistrictId)!.district.generation
+        ? profile.spawnAnchors.player
+        : profile.spawnAnchors.player;
       const parcels = [...state.phase2.parcels.values()]
         .slice(profile.anchorSlots.length)
         .sort(

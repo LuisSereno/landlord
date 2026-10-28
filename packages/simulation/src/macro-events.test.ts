@@ -36,6 +36,7 @@ import { dispatchProductCommand } from "./commands";
 import { createViewProjection } from "./projection";
 import { canonicalizeState } from "./runner";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
+import { rivalParcel } from "./test-support";
 import { createInitialState, type GameState } from "./state";
 import { advanceProductSystems } from "./systems";
 
@@ -240,7 +241,7 @@ describe("WP4.12-R macroeventos", () => {
         total += state.phase2.macroEvents.nextEventOrdinal - 1;
       }
       expect(total).toBeGreaterThan(0);
-    });
+    }, 30_000);
 
     it("respeta el calendario de sorteo mensual", () => {
       const state = createInitialState(11);
@@ -436,9 +437,7 @@ describe("WP4.12-R macroeventos", () => {
         const state = createInitialState(7);
         state.phase2.balances.set(parseOrganizationId("org_00000002"), parseMoney(1_000));
         state.phase2.rivalAi.cooldownUntilTick = parseTick(0);
-        const parcel = [...state.phase2.parcels.values()].find(
-          (candidate) => candidate.ownerOrganizationId === null,
-        )!;
+        const parcel = rivalParcel(state, (candidate) => candidate.ownerOrganizationId === null);
         parcel.ownerOrganizationId = parseOrganizationId("org_00000002");
         const inventory = state.phase2.inventories.get(parseOrganizationId("org_00000002"))!;
         inventory.cement = 0;

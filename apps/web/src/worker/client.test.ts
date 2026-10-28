@@ -30,16 +30,16 @@ describe("SimulationWorkerClient", () => {
       (error) => errors.push(error),
     );
     const promise = client.initialize(1);
-    expect(worker.sent[0]).toMatchObject({ type: "InitializeGame", protocolVersion: 1 });
+    expect(worker.sent[0]).toMatchObject({ type: "InitializeGame", protocolVersion: 2 });
     worker.emit({
-      protocolVersion: 1,
+      protocolVersion: 2,
       requestId: "request-1",
       type: "RequestSucceeded",
       payload: { acceptedAtTick: 0 },
     });
     await expect(promise).resolves.toMatchObject({ type: "RequestSucceeded" });
     worker.emit({
-      protocolVersion: 1,
+      protocolVersion: 2,
       requestId: null,
       type: "ProjectionPublished",
       payload: {
@@ -107,7 +107,7 @@ describe("SimulationWorkerClient", () => {
       (entry) => diagnostics.push(entry),
     );
     worker.emit({
-      protocolVersion: 1,
+      protocolVersion: 2,
       requestId: null,
       type: "SimulationMetricsPublished",
       payload: {

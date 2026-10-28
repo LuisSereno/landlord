@@ -62,7 +62,10 @@ Fecha de consolidación: 2026-10-27.
 - commuting: el empleo sigue siendo agregado, sin trayectos por agente;
 - planificador de la IA: no existe; sólo cadenas inmediatas tras un `dispatch`;
 - expediente de inteligencia de las facciones: diferido;
-- instrumentación persistente de sesiones de Alpha (D-063): diferida a WP4.16.
+- instrumentación persistente de sesiones de Alpha (D-063): **parcialmente cerrada el 2026-10-28**.
+  Existe un playtest instrumentado real de 30 minutos a 4× con informe versionado
+  (`docs/execution/phase-4/playtest-30min-2026-10-28.md`) y sus P0 corregidos en `95804ee`; faltan
+  cohortes con n > 1 y persistencia en producto, que quedan bajo la excepción propuesta D-087.
 
 ### Conceptual / futuro
 
@@ -95,6 +98,21 @@ Gate 2 en `GO` para producción representativa desde el 2026-10-23: el responsab
 prueba manual OK, WP2.15 está cerrado, el benchmark/smoke pasan y WP2.14 aprobó `graphic_civic`.
 
 ## Próximo objetivo
+
+Fase 0 de V.d ejecutada el 2026-10-28
+(`docs/execution/phase-4/fase-0-vd-baseline-2026-10-28.md`). Baseline medido en esta sesión, no
+heredado: lint, typecheck, tests, build, smoke Alpha, benchmark, coste por sistema, benchmark vial y
+balance jugable en verde, con el cierre mensual de 800 parcelas aún fuera del presupuesto p95 de
+D-065 (p95 maduro 40,5 ms) y `pre-vd-baseline` etiquetado. El smoke Alpha **estaba rojo en `95804ee`**
+por una aserción que codificaba 260 en vez de la puja por defecto del 92 %; corregido.
+
+**El gate de Fase 0 sigue abierto**: faltan las 28 muestras del benchmark morfológico. La herramienta
+`tools/urban-benchmark` está escrita, fijada por versión y probada end-to-end, pero los endpoints
+públicos de Overpass respondieron `502 at capacity` durante toda la sesión y no se fabrican métricas.
+Ejecutar `tools/urban-benchmark/run.sh` cuando el servicio responda y someter los envelopes a
+aprobación. Los seis ADR nuevos (D-087…D-092) están en **propuesta**, pendientes de ratificación del
+responsable; sin ratificación no se abre V.d.0.
+
 WP4.15-V.c.2C-H y V.c.3A/B/C están cerrados: lint, contratos, harnesses, documentación y el 404 de
 favicon quedan corregidos; las T e intersecciones publicadas reciben pasos de peatones discretos,
 derivados de la máscara vial real; el dressing estático añade farolas, semáforos sólo en

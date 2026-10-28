@@ -40,3 +40,24 @@ Una decisión aceptada sólo se modifica mediante un ADR posterior que la sustit
 - [D-074 — Política y elecciones municipales: opinión por eje, partido gobernante y transferencia del presupuesto](D-074-politica-y-elecciones-municipales.md)
 - [D-075 — Hardening transversal de los sistemas Alpha](D-075-hardening-alpha-sistemica.md)
 - [D-076 — Follow-up de corrección del hardening Alpha](D-076-follow-up-hardening-alpha.md)
+- [D-077 — Macroeventos económicos acotados](D-077-macroeventos-acotados.md)
+- [D-078 — Delegación con los mismos comandos y bandeja de excepciones](D-078-delegacion-y-excepciones.md)
+- [D-079 — Herramientas internas, invariantes y dataset de balance](D-079-herramientas-internas-y-balance.md)
+- [D-080 — Contrato runtime de assets y factoría procedural](D-080-contrato-assets-y-factoria.md)
+- [D-081 — Presupuesto de binarios, atlas y Git LFS reclasificados a Beta](D-081-binarios-atlas-lfs-y-regresion-visual.md)
+- [D-082 — Cámara isométrica autoritativa y Art Lab como Asset QA](D-082-camara-picking-y-art-lab-qa.md)
+- [D-083 — Licencias de terceros, procedencia por asset y escala física](D-083-licencias-permisivas-procedencia-por-asset-y-escala.md)
+
+**Deuda documental**: D-084, D-085 y D-086 existen como entrada condensada en
+`ai-context/DECISIONS.md` pero **no tienen ADR propio**, y D-084/D-085 son cambios de contrato
+(promoción del renderer Graphic Civic a gameplay y topología vial autoritativa). Escritos el
+2026-10-28 al preparar la Fase 0 de V.d; se rellenan con su propia evidencia, no de rebote.
+
+## V.d — Ciudad multidistrito (propuestas del 2026-10-28, pendientes de ratificación)
+
+- [D-087 — Evidencia de sesión de Alpha y excepción residual de D-063](D-087-evidencia-sesion-alpha-vd.md)
+- [D-088 — Ciudad 3×3 de nueve distritos y escala física permanente](D-088-ciudad-multiples-distritos-3x3.md)
+- [D-089 — SnapshotV2, protocolo v2 y rechazo de guardados v1](D-089-snapshot-v2-protocolo-v2.md)
+- [D-090 — Tejido urbano, manzanas y parcela multi-cell](D-090-tejido-urbano-y-parcela-multicell.md)
+- [D-091 — Mercados híbridos por distrito](D-091-mercados-hibridos-por-distrito.md)
+- [D-092 — Equipamientos municipales y servicios espaciales](D-092-equipamientos-y-servicios-espaciales.md)

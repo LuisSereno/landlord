@@ -1,0 +1,20 @@
+# Pinned interpreter dependencies for tools/urban-benchmark (offline research only).
+# Resolved on 2026-10-28 with `python3 -m venv` + `pip install osmnx==1.9.3`.
+# The game runtime never imports any of this.
+certifi==2026.10.23
+charset-normalizer==3.5.2
+geopandas==1.2.0
+idna==3.20
+networkx==3.7
+numpy==2.5.4
+osmnx==1.9.3
+packaging==26.3
+pandas==3.1.0
+pyogrio==0.13.0
+pyproj==3.8.0
+python-dateutil==3.0.0
+requests==2.34.2
+shapely==2.2.0
+six==1.17.0
+tzdata==2026.6
+urllib3==2.8.0

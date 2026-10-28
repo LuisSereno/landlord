@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "windowSideMeters": 256,
+  "cellMeters": 4,
+  "families": [
+    "irregular_historic",
+    "ensanche",
+    "mixed_dense",
+    "low_density_residential",
+    "industrial_edge",
+    "railway",
+    "civic_centre"
+  ],
+  "cities": {
+    "liverpool": {
+      "label": "Liverpool (UK)",
+      "irregular_historic": {
+        "label": "Baltic Triangle / Old Town",
+        "lat": 53.39948,
+        "lon": -2.98415
+      },
+      "ensanche": {
+        "label": "Frutonian / Princes Park grid",
+        "lat": 53.39593,
+        "lon": -2.96767
+      },
+      "mixed_dense": {
+        "label": "Ropewalks / Berry Street",
+        "lat": 53.40103,
+        "lon": -2.97897
+      },
+      "low_density_residential": {
+        "label": "Childwall / Allerton",
+        "lat": 53.3746,
+        "lon": -2.9402
+      },
+      "industrial_edge": {
+        "label": "Brunswick Dock / Garston",
+        "lat": 53.3773,
+        "lon": -2.9962
+      },
+      "railway": {
+        "label": "Edge Hill cutting / Victoria",
+        "lat": 53.4032,
+        "lon": -2.9596
+      },
+      "civic_centre": {
+        "label": "St George's Plateau / Lime Street",
+        "lat": 53.4079,
+        "lon": -2.9883
+      }
+    },
+    "manchester": {
+      "label": "Manchester (UK)",
+      "irregular_historic": {
+        "label": "Cathedral Gates / Shambles",
+        "lat": 53.4847,
+        "lon": -2.245
+      },
+      "ensanche": {
+        "label": "Victoria Park grid",
+        "lat": 53.4706,
+        "lon": -2.2276
+      },
+      "mixed_dense": {
+        "label": "Northern Quarter",
+        "lat": 53.4823,
+        "lon": -2.233
+      },
+      "low_density_residential": {
+        "label": "Chorlton-cum-Hardy",
+        "lat": 53.4481,
+        "lon": -2.2704
+      },
+      "industrial_edge": {
+        "label": "Ancoats mills",
+        "lat": 53.4872,
+        "lon": -2.2266
+      },
+      "railway": {
+        "label": "Piccadilly / Castlefield viaducts",
+        "lat": 53.4775,
+        "lon": -2.2315
+      },
+      "civic_centre": {
+        "label": "St Peter's Square / Town Hall",
+        "lat": 53.4776,
+        "lon": -2.2433
+      }
+    },
+    "bilbao": {
+      "label": "Bilbao (Spain)",
+      "irregular_historic": {
+        "label": "Casco Viejo / Santiago",
+        "lat": 43.2596,
+        "lon": -2.9213
+      },
+      "ensanche": {
+        "label": "Ensanche / Plaza Circular",
+        "lat": 43.2606,
+        "lon": -2.9343
+      },
+      "mixed_dense": {
+        "label": "Indautxu",
+        "lat": 43.2648,
+        "lon": -2.9388
+      },
+      "low_density_residential": {
+        "label": "Artxanda hillside",
+        "lat": 43.2706,
+        "lon": -2.9218
+      },
+      "industrial_edge": {
+        "label": "Zorrotza / Ribera",
+        "lat": 43.2474,
+        "lon": -2.9516
+      },
+      "railway": {
+        "label": "Bilbao-Concordia rail edge",
+        "lat": 43.2578,
+        "lon": -2.9308
+      },
+      "civic_centre": {
+        "label": "Plaza Moyua / Gran Via",
+        "lat": 43.2629,
+        "lon": -2.9359
+      }
+    },
+    "philadelphia": {
+      "label": "Philadelphia (USA)",
+      "irregular_historic": {
+        "label": "Society Hill / Old City",
+        "lat": 39.9453,
+        "lon": -75.1447
+      },
+      "ensanche": {
+        "label": "Northern Liberties / Fishtown grid",
+        "lat": 39.9643,
+        "lon": -75.1288
+      },
+      "mixed_dense": {
+        "label": "University City / Walnut West",
+        "lat": 39.9526,
+        "lon": -75.1902
+      },
+      "low_density_residential": {
+        "label": "Roxborough",
+        "lat": 40.0104,
+        "lon": -75.2112
+      },
+      "industrial_edge": {
+        "label": "Port Richmond rail-front",
+        "lat": 39.9818,
+        "lon": -75.1248
+      },
+      "railway": {
+        "label": "30th Street Station corridor",
+        "lat": 39.9545,
+        "lon": -75.2045
+      },
+      "civic_centre": {
+        "label": "City Hall / LOVE Park",
+        "lat": 39.9526,
+        "lon": -75.1652
+      }
+    }
+  }
+}

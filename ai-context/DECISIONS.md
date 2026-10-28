@@ -976,3 +976,111 @@ El distrito runtime medido tiene 240 road cells, 10 junctions (todas T), 10 cros
 0 semáforos, 4 bancos, 2 papeleras, 29 vehículos, 108 árboles y 195 sprites presentacionales. La
 ausencia de semáforos es consecuencia de la topología real y de no semaforizar T. La evidencia y
 deudas restantes constan en `docs/execution/phase-4/wp4-15-vc3-street-dressing-2026-10-27.md`.
+
+## D-087 — Evidencia de sesión de Alpha: qué cierra el playtest del 2026-10-28 y qué excepción queda abierta
+
+Estado: propuesta el 2026-10-28 para la Fase 0 de V.d. Ratificación pendiente del responsable.
+
+El playtest instrumentado de 30 minutos a 4× (semilla 1, build de producción, commit base `01ebb5b`)
+sí existe y está versionado en `docs/execution/phase-4/playtest-30min-2026-10-28.md`, con los P0
+corregidos en `95804ee`. Mide duración efectiva, primera parcela/obra/ingreso y la secuencia de
+decisiones de una partida real. **No** mide lo que D-063 aplazó: cohortes con n > 1 ni instrumentación
+persistente en producto, que sigue siendo el diagnóstico efímero de D-057.
+
+Decisión: la evidencia pendiente de D-063 se cierra **parcialmente** y se registra una excepción
+explícita nueva para el componente estadístico, en la rama que `PLAN_improvements.md` §2 permite. La
+excepción no es gratis: la campaña `pnpm balance:playable` y los playtests de 45–60 min de §6 pasan a
+ser evidencia de gate de V.d, no tarea posterior. Ver
+`docs/engineering/adr/D-087-evidencia-sesion-alpha-vd.md` y
+`docs/execution/phase-4/fase-0-vd-baseline-2026-10-28.md`.
+
+## D-088 — Ciudad 3×3 de nueve distritos y escala física permanente
+
+Estado: propuesta el 2026-10-28 para V.d.0. Ratificación pendiente del responsable.
+
+Sustituye el supuesto de mapa único de `GameState` por nueve distritos de 64×64 celdas. Decisiones:
+(1) la escala 4 m/celda de D-083 es contrato y dimensiona el mundo —distrito 256×256 m, ciudad
+768×768 m—; (2) los nueve distritos avanzan con detalle completo y **LOD sólo si lo demuestra la
+medición**, con el orden de D-065/D-076 (medir → optimizar exacto → re-medir → evaluar LOD), sabiendo
+que el cierre mensual ya está fuera de presupuesto con un distrito (p95 maduro 40,5 ms medido el
+2026-10-28) y que V.d multiplica por nueve el trabajo; (3) todos los distritos son observables desde
+el tick uno —lo privado sigue siendo caja, estrategia y memoria del rival (D-072)—; (4) municipio,
+banca, política y macroeventos son de ciudad; vivienda, suelo, vacancia, demanda y puestos, de
+distrito; (5) `ciudad_del_umbral_v1` autoría la composición de los nueve roles y el generador decide
+la geometría; (6) `City.layout` es el perfil inicial, la adyacencia autoritativa vive en `connections`
+y nunca se infiere de la rejilla. Ver `docs/engineering/adr/D-088-ciudad-multiples-distritos-3x3.md`.
+
+## D-089 — SnapshotV2, protocolo v2 y rechazo explícito de los guardados Alpha v1
+
+Estado: propuesta el 2026-10-28 para V.d.0. Ratificación pendiente del responsable. Deja sin efecto la
+compatibilidad aditiva de D-064 y el patrón de backfill de D-085 **para esta ruptura**.
+
+Un snapshot v1 no puede migrarse a un mundo con red vial, manzanas, parcelas multi-cell y normativa:
+no tiene ninguno de esos datos, y reconstruirlos sería inventarlos y luego llamar determinista al
+invento. Decisiones: (1) `SnapshotV2` con `schemaVersion: 2`, sin migrador; (2) los v1 no se borran,
+el slot se marca incompatible con eliminación explícita —separar versión de la base IndexedDB de
+versión del esquema, hoy fundidas en `apps/web/src/persistence/indexed-db.ts:93`; (3) protocolo Worker a
+v2, porque un literal `z.literal(1)` compartido (`primitives.ts:76`) no puede negociar un esquema que
+no interpreta; (4) `SetObservedDistrict` es petición técnica, no comando de dominio —no consume caja,
+no mueve el PRNG, no entra en `canonicalizeState`— con el gate "cambiar de distrito no altera el
+digest" como prueba; (5) `WorldState` entra en la superficie canónica por `slotY` y luego `slotX`, no
+por orden de descubrimiento, y los diez digestos dorados más los hashes de fixture se regeneran en un
+commit propio y atribuido. Ver `docs/engineering/adr/D-089-snapshot-v2-protocolo-v2.md`.
+
+## D-090 — Tejido urbano autoritativo: manzanas, parcelas multi-cell y normativa separada
+
+Estado: propuesta el 2026-10-28 para V.d.1 y V.d.2. Ratificación pendiente del responsable. Amplía
+D-085 y elimina `Parcel.cell`, `Parcel.zoning` y `Parcel.buildingId`.
+
+Hoy la parcela es un punto con etiqueta, la norma es un enum de tres valores y `buildingId` duplica la
+inversa de `Building.parcelId`. Decisiones: (1) cadena `red → manzana → parcela → huella`, cada eslabón
+con celdas propias y conexidad exigida, derivada siempre hacia adelante; (2) `RoadTopology` conserva
+`topologyVersion: 1` y sube `derivationVersion` a 2 porque cambia cómo se producen los segmentos
+(desde `RoadAnchor[]`, nunca desde parcelas ya colocadas); (3) IDs de bloque y parcela derivados de la
+geometría canónica, no del orden de descubrimiento —la rectificación de D-085 generalizada; (4)
+`DevelopmentCode` con usos, pisos, cobertura, FAR y retranqueos en **enteros**, `UrbanRole` como función
+del bloque y `LandUse` como uso permitido: tres niveles porque colapsarlos es el error actual; (5)
+autocolocación determinista de la huella —el motor puntúa candidatos, el jugador no coloca celdas— con
+desempate por orientación, `y`, `x` y firma; (6) varios edificios por parcela pero una sola obra activa
+(`ACTIVE_SITE_ON_PARCEL`); (7) issues estructurales nuevos y doce reintentos por distrito con error que
+identifica ciudad, distrito, seed e issues; (8) los índices derivados (edificios por parcela, huellas
+ocupadas, edificios por distrito, parcelas por bloque) se recalculan y no se persisten. Ver
+`docs/engineering/adr/D-090-tejido-urbano-y-parcela-multicell.md`.
+
+## D-091 — Mercados híbridos: vivienda y empleo por distrito, dinero y política de ciudad
+
+Estado: propuesta el 2026-10-28 para V.d.2. Ratificación pendiente del responsable. Amplía D-066 y
+D-067 sin sustituir sus mecanismos.
+
+Nueve mercados independientes romperían D-068, D-074 y D-077; un mercado único promedio borraría la
+diferencia entre distritos, que es el objetivo de V.d. Decisiones: (1) frontera —vacancia, demanda,
+renta, movilidad y puestos por distrito; salario base, banca, municipio, política y macroeventos de
+ciudad; inventarios organizacionales y globales—; (2) `askingRentFor` con fallback en tres niveles:
+índice distrital sólo con **≥ 3 edificios comparables**, luego ciudad, luego 100, y el nivel usado se
+publica en la proyección; (3) sin mudanza inter-distrito automática: cada buscador lleva
+`marketDistrictId`; (4) el ánimo municipal pondera población efectiva de toda la ciudad, respetando el
+censo de D-076; (5) la presión territorial de facciones usa bloques y frentes compartidos en vez de
+distancia entre anchors, que era la aproximación que D-085 ya rectificó; (6) la automatización que
+necesite una cuadrilla en otro distrito **crea una excepción**, no teletransporta agentes. Ver
+`docs/engineering/adr/D-091-mercados-hibridos-por-distrito.md`.
+
+## D-092 — Equipamientos municipales físicos y servicios que recorren la red
+
+Estado: propuesta el 2026-10-28 para V.d.3 y V.d.5. Ratificación pendiente del responsable. Cambia el
+modelo de cobertura de D-069 y preserva el presupuesto de D-068.
+
+La cobertura radial desde un centro abstracto no cubre nueve distritos, atraviesa obstáculos y no es un
+lugar donde comprar, mantener ni visitar. Decisiones: (1) `UrbanFacility` es función operativa con
+`parcelIds`, `buildingIds` y `publicSpaceIds` —colegio con patio y mercado trasladable—, separada de
+`FacilityId` de producción (D-062); (2) el municipio genera y opera, y **no se introduce ninguna
+capability política**: el jugador no coloca equipamientos; (3) `disposition: "public"` bloquea compra,
+venta, garantía, subasta y obra empresarial con códigos de rechazo propios; (4) las reservas públicas
+van **antes** de parcelar y si el programa de §4.4 no cabe se reintenta el distrito entero —ningún
+equipamiento obligatorio se omite en silencio—; (5) cobertura por Dijkstra multi-source con costes
+enteros (avenida 1, calle 2, gateway desde `CityProfile`) y caché por firma de topología, facilities,
+capacidad y presupuesto, nunca por tick; (6) cerrar un gateway degrada sólo las coberturas dependientes
+—ese es el criterio de gate y la prueba de que el grafo no es decorado—; (7) tres excepciones
+declaradas: transporte es accesibilidad de red, limpieza sigue siendo red municipal sin edificio y
+administración no usa radio; (8) la calidad presupuestaria multiplica la capacidad efectiva y la
+demanda se asigna en orden estable al alcanzable de menor coste, sin coste monetario inventado. Ver
+`docs/engineering/adr/D-092-equipamientos-y-servicios-espaciales.md`.

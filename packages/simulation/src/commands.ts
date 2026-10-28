@@ -681,8 +681,7 @@ export function dispatchProductCommand(
         site.ownerOrganizationId === command.actingAsOrganizationId &&
         site.progress < site.workRequired,
     ).length;
-    if (activeSites >= PLAYER_CREW_CAPACITY)
-      return { accepted: false, code: "CREW_UNAVAILABLE" };
+    if (activeSites >= PLAYER_CREW_CAPACITY) return { accepted: false, code: "CREW_UNAVAILABLE" };
     const inventory = state.phase2.inventories.get(command.actingAsOrganizationId)!;
     if (!hasResources(inventory, definition.resources))
       return { accepted: false, code: "INSUFFICIENT_RESOURCES" };
@@ -798,8 +797,7 @@ export function dispatchProductCommand(
         site.ownerOrganizationId === command.actingAsOrganizationId &&
         site.progress < site.workRequired,
     ).length;
-    if (activeSites >= PLAYER_CREW_CAPACITY)
-      return { accepted: false, code: "CREW_UNAVAILABLE" };
+    if (activeSites >= PLAYER_CREW_CAPACITY) return { accepted: false, code: "CREW_UNAVAILABLE" };
     const definition = BUILDING_DEFINITIONS[building.type];
     const inventory = state.phase2.inventories.get(command.actingAsOrganizationId)!;
     if (!hasResources(inventory, UPGRADE_RESOURCES))

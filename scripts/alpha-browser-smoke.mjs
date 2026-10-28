@@ -240,9 +240,21 @@ try {
     if (!mood.includes(issue)) throw new Error(`Falta el eje de ánimo ${issue}`);
   }
 
-  await page.getByRole("button", { name: /Presentar oferta/ }).click();
+  const bidButton = page.getByRole("button", { name: /Presentar oferta/ });
+  const tenderLine = await page
+    .getByText(/presupuesto \d+ u\. · fianza/)
+    .first()
+    .innerText();
+  const budget = Number(tenderLine.match(/presupuesto (\d+) u\./)[1]);
+  const submittedBid = Number(
+    (await bidButton.innerText()).match(/Presentar oferta · (\d+) u\./)[1],
+  );
+  if (!(submittedBid >= 1 && submittedBid <= budget)) {
+    throw new Error(`La puja por defecto ${submittedBid} no cabe en el presupuesto ${budget}`);
+  }
+  await bidButton.click();
   await page.getByText(/Oferta presentada/).waitFor({ timeout: 15000 });
-  await page.getByText(/tu oferta 260 u\./).waitFor({ timeout: 15000 });
+  await page.getByText(new RegExp(`tu oferta ${submittedBid} u\\.`)).waitFor({ timeout: 15000 });
 
   const cashBefore = readCash(await page.locator("main").innerText());
   await page.getByRole("button", { name: /Investigar caja disponible/ }).click();
@@ -263,7 +275,7 @@ try {
   await page.getByText(/Snapshot cargado/).waitFor({ timeout: 15000 });
   await page.getByText("Concejo municipal").click();
   await page.getByText(/Gobierna:/).waitFor({ timeout: 15000 });
-  await page.getByText(/tu oferta 260 u\./).waitFor({ timeout: 15000 });
+  await page.getByText(new RegExp(`tu oferta ${submittedBid} u\\.`)).waitFor({ timeout: 15000 });
 
   const finalBody = await page.locator("main").innerText();
   if (finalBody.includes("RAZON-PRIVADA-RIVAL")) {

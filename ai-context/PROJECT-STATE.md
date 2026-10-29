@@ -180,6 +180,17 @@ sumado, bandas distintas, servicios mueven el valor, 64 campañas jugables sin d
 distritos con generación p95 221,58 ms y cierre mensual maduro p95 50,35 ms (deuda de rendimiento
 para V.d.5).
 
+**V.d.5 está cerrada el 2026-10-29**
+(`docs/execution/phase-4/vd5-servicios-espaciales-2026-10-29.md`). La cobertura de equipamientos se
+calcula sobre un grafo de celdas viales con avenidas coste 1, calles 2 y gateways con el coste del
+perfil; la demanda se asigna a la facility alcanzable de menor coste, la capacidad se satura y el
+nivel presupuestario multiplica la capacidad efectiva. Seguridad y transporte dejan de ser radiales;
+bomberos reduce la progresión del fuego y salud acorta la recuperación con helpers únicos;
+educación, mercado y parques alimentan vivienda y valor. La proyección publica cobertura por parcela,
+saturación por facility y overlays de servicios. 376 tests de simulación verdes, cierre maduro p95
+43,30 ms y 64 campañas jugables sin dominancia. El arranque frío del grafo (~312 ms una vez) queda
+como deuda de carga para V.d.6.
+
 WP4.15-V.c.2C-H y V.c.3A/B/C están cerrados: lint, contratos, harnesses, documentación y el 404 de
 favicon quedan corregidos; las T e intersecciones publicadas reciben pasos de peatones discretos,
 derivados de la máscara vial real; el dressing estático añade farolas, semáforos sólo en

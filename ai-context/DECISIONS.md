@@ -1136,3 +1136,15 @@ acceso vial para la cobertura futura. Ajuste declarado: reservar manzanas entera
 privada; los techos de concentración de Vega/Mercado/Centro se fijan en 70/68/65 tras medir máximos
 de 66,0/61,5/60,0 % en 100 seeds, y Vega declara mínimo mixto 0 porque su receta verde no produce
 manzanas mixtas. La cobertura por grafo y el mantenimiento municipal siguen siendo deuda de V.d.5.
+
+**Implementación V.d.5 (2026-10-29).** La cobertura de facilities pasa a un grafo de celdas viales
+por distrito con avenidas coste 1, calles 2 y gateways con el coste de `CityProfile`; la demanda se
+asigna a la facility alcanzable de menor coste (desempate por ID) y una unidad de capacidad cubre 25
+parcelas, multiplicada por el nivel presupuestario. La caché separa geometría de presupuesto: un
+recorte cambia capacidad sin repetir Dijkstra. Seguridad y transporte dejan de ser radiales
+(limpieza y administración siguen como excepciones declaradas). Bomberos reduce progresión de fuego
+y salud acorta recuperación mediante helpers únicos; educación/parques y mercado alimentan vivienda
+y valor. La proyección publica cobertura por parcela, saturación por facility y overlays de
+seguridad, bomberos, salud, educación y transporte. El arranque frío del grafo cuesta ~312 ms una vez
+y queda como deuda; el cierre maduro baja a p95 43,30 ms. Gate en
+`docs/execution/phase-4/vd5-servicios-espaciales-2026-10-29.md`.

@@ -175,3 +175,29 @@ Ajuste declarado: reservar manzanas enteras reduce la mezcla privada. El barrido
 máximos de 66,0 % (Vega), 61,5 % (Mercado del Norte) y 60,0 % (Centro Cívico); los techos de
 concentración se fijaron en 70/68/65 respectivamente y el resto conserva los de V.d.1. Vega declara
 mínimo mixto 0 porque su receta verde/baja densidad no produce manzanas mixtas.
+
+## Implementación V.d.5 (2026-10-29)
+
+El grafo de viaje vive en `facility-coverage.ts`: nodos de celda vial por distrito, coste de
+avenida 1 y calle 2, aristas de gateway con el coste de `CityProfile`, y fuentes en las celdas
+viales adyacentes al frente de cada facility o espacio público. Un gateway sin conexión no es un
+cruce gratuito. La demanda (parcelas marketable) se asigna a la facility alcanzable de menor coste,
+con desempate por ID; una unidad de capacidad autorada cubre 25 parcelas y la calidad presupuestaria
+multiplica la capacidad efectiva. La cobertura de parcela es 100/0 y cada facility publica demanda,
+capacidad efectiva, servidas, porcentaje y saturación.
+
+La caché separa geometría (red, facilities, capacidades, gateways y accesos) de presupuesto: un
+cambio de nivel de servicio recalcula la asignación de capacidad sin repetir Dijkstra; un cambio
+espacial invalida ambos. Seguridad y transporte son cobertura de grafo; limpieza sigue siendo la red
+radial municipal y administración no usa radio.
+
+Bomberos usa `fireDamageForBuilding` para reducir progresión de intensidad y daño estructural; salud
+usa `injuredRecoveryDays` para acortar la recuperación; educación y parques suman calidad de
+vivienda, mercado suma servicios y el valor del suelo conserva su componente de amenidades cívicas.
+La proyección publica `serviceCoverage` por parcela, el informe de cobertura por facility y las
+capas de seguridad, bomberos, salud, educación, transporte y valor.
+
+La constante `DEMAND_UNITS_PER_CAPACITY = 25` es una adición de implementación: las capacidades de
+V.d.3 no distinguían plazas de hogares. El arranque frío del grafo (p95 ~312 ms una vez) queda como
+deuda de carga/presentación; el cierre maduro p95 es 43,30 ms. Evidencia en
+`docs/execution/phase-4/vd5-servicios-espaciales-2026-10-29.md`.

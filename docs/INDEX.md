@@ -107,6 +107,7 @@
 - execution/phase-4/vd2-composicion-urbana-2026-10-28.md — V.d.2 cerrada: roles y códigos urbanísticos, usos, huellas autocolocadas, índices derivados, vivienda/empleo por distrito, política ponderada por población, facciones por manzanas y automatización sin traslados; gate del ciclo inmobiliario en nueve distritos.
 - execution/phase-4/vd3-ciudad-civica-2026-10-29.md — V.d.3 cerrada: programa municipal exacto de §4.4, reservas de manzanas antes de parcelar, parcelas públicas intransferibles, espacios públicos y edificios físicos enlazados a `UrbanFacility`, inspector de equipamientos y bloqueo de compra/venta/garantía/obra; gate criterio por criterio y techos de mezcla ajustados con medición.
 - execution/phase-4/vd4-densidad-skyline-valor-2026-10-29.md — V.d.4 cerrada: `baseLandValue`/`marketValue`, score entero con desglose, límite mensual del 5 %, ensayo de densidad de corredor con derechos adquiridos, autocolocación por frente/continuidad, overlay de valor y gates de valor, 900 distritos y 64 campañas jugables.
+- execution/phase-4/vd5-servicios-espaciales-2026-10-29.md — V.d.5 cerrada: grafo de viaje con gateways y costes enteros, cobertura por capacidad y presupuesto, seguridad/transporte sin radio, helpers únicos de bomberos y salud, amenidades de educación/mercado/parques, overlays de servicio y gate de cobertura/64 campañas.
 
 ## Benchmark morfológico
 - `tools/urban-benchmark/README.md` — herramienta offline (OSMnx fijado por versión), las 28 ventanas de

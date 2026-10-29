@@ -50,30 +50,3 @@ export function findDeterministicPath(
   }
   return [];
 }
-
-export function chooseInteractionCell(
-  origin: { x: number; y: number },
-  blocked: ReadonlySet<string>,
-  width = 64,
-  height = 64,
-  occupied = new Set<string>(),
-): { x: number; y: number } | null {
-  for (const [dx, dy] of [
-    [0, -1],
-    [1, 0],
-    [0, 1],
-    [-1, 0],
-  ] as const) {
-    const cell = { x: origin.x + dx, y: origin.y + dy };
-    if (
-      cell.x >= 0 &&
-      cell.y >= 0 &&
-      cell.x < width &&
-      cell.y < height &&
-      !blocked.has(`${cell.x}:${cell.y}`) &&
-      !occupied.has(`${cell.x}:${cell.y}`)
-    )
-      return cell;
-  }
-  return null;
-}

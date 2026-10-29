@@ -58,7 +58,8 @@ import { bankRateModifierBpsFor } from "./reputation";
 import { INFORMATION_POLICY, commissionIntelligence, commissionRejection } from "./information";
 import { recordFactionEncounter } from "./factions";
 import { councilAlignmentPercent } from "./municipal-politics";
-import { chooseInteractionCell, findDeterministicPath } from "./navigation";
+import { districtObstacles, interactionCellCandidates } from "./district-obstacles";
+import { findDeterministicPath } from "./navigation";
 
 export type CommandRejection = {
   accepted: false;
@@ -151,20 +152,6 @@ function hasResources(
 
 function totalInventory(inventory: { cement: number; brick: number; steel: number }): number {
   return inventory.cement + inventory.brick + inventory.steel;
-}
-
-function occupiedBuildingCells(
-  state: GameState,
-  excludingBuildingId?: import("@landlord/shared").BuildingId,
-): Set<string> {
-  return new Set(
-    [...state.phase2.buildings.values()]
-      .filter((building) => building.id !== excludingBuildingId)
-      .map((building) => {
-        const cell = state.phase2.parcels.get(building.parcelId)!.anchorCell;
-        return String(cell.x) + ":" + String(cell.y);
-      }),
-  );
 }
 
 const MAX_PROCESSED_COMMANDS = 2048;
@@ -1006,36 +993,46 @@ export function dispatchProductCommand(
     const parcel = state.phase2.parcels.get(site.parcelId);
     if (!parcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
     const siteMap = districtMapOf(state, parcel.districtId);
-    const interactionCell = chooseInteractionCell(
-      parcel.anchorCell,
-      blockedCellsOf(state, parcel.districtId),
+    const obstacles = districtObstacles(state, parcel.districtId);
+    const candidates = interactionCellCandidates(
+      site.footprintCells,
+      obstacles,
       siteMap.width,
       siteMap.height,
-      occupiedBuildingCells(state),
     );
-    if (!interactionCell) return { accepted: false, code: "INVALID_AGENT_ACTION" };
+    if (candidates.length === 0) return { accepted: false, code: "INVALID_AGENT_ACTION" };
     // Construction needs the crew physically in the target district (D-088): transfers are an
     // explicit command, never an implicit teleport inside an assignment.
     // El viaje se comprueba antes que la distancia: "ya está viajando" explica mejor el rechazo
     // que "no está en el distrito", que también sería cierto mientras el agente va de camino.
-    if (
-      [crew.supervisorAgentId, ...crew.workerAgentIds].some(
-        (agentId) => state.agents.get(agentId)?.travel,
-      )
-    ) {
+    const memberIds = [crew.supervisorAgentId, ...crew.workerAgentIds];
+    if (memberIds.some((agentId) => state.agents.get(agentId)?.travel))
       return { accepted: false, code: "AGENT_ALREADY_TRAVELLING" };
-    }
     if (
-      [crew.supervisorAgentId, ...crew.workerAgentIds].some((agentId) => {
+      memberIds.some((agentId) => {
         const member = state.agents.get(agentId);
         return member !== undefined && member.districtId !== parcel.districtId;
       })
     ) {
       return { accepted: false, code: "AGENT_NOT_IN_DISTRICT" };
     }
+    /**
+     * Entre las celdas válidas se elige la primera alcanzable por toda la cuadrilla en orden canónico:
+     * se recorre la lista, no el orden de inserción de un `Map`, y si ninguna se alcanza la obra es
+     * inaccesible y la orden se rechaza en vez de dejar a la cuadrilla caminando hacia la nada.
+     */
+    const interactionCell = candidates.find((cell) =>
+      memberIds.every((agentId) => {
+        const member = state.agents.get(agentId);
+        if (!member) return false;
+        if (member.cell.x === cell.x && member.cell.y === cell.y) return true;
+        return findDeterministicPath(member.cell, cell, obstacles.impassable).length > 0;
+      }),
+    );
+    if (!interactionCell) return { accepted: false, code: "INVALID_AGENT_ACTION" };
     for (const other of state.phase2.constructionSites.values()) {
       if (other.assignedCrewIds.includes(crew.id)) {
-        for (const agentId of [crew.supervisorAgentId, ...crew.workerAgentIds]) {
+        for (const agentId of memberIds) {
           const member = state.agents.get(agentId);
           if (member?.task?.kind === "work_order" && member.task.workOrderId === other.id) {
             member.task = null;
@@ -1046,16 +1043,12 @@ export function dispatchProductCommand(
       other.assignedCrewIds = other.assignedCrewIds.filter((id) => id !== crew.id);
     }
     site.assignedCrewIds.push(crew.id);
-    for (const agentId of [crew.supervisorAgentId, ...crew.workerAgentIds]) {
+    for (const agentId of memberIds) {
       const agent = state.agents.get(agentId);
       if (!agent || agent.state === "dead" || agent.state === "injured") continue;
       agent.task = { kind: "work_order", workOrderId: site.id };
       agent.target = { ...interactionCell };
-      agent.path = findDeterministicPath(
-        agent.cell,
-        interactionCell,
-        blockedCellsOf(state, agent.districtId),
-      );
+      agent.path = findDeterministicPath(agent.cell, interactionCell, obstacles.impassable);
       agent.state = "moving";
     }
     rememberProcessed(state, command.commandId);
@@ -1071,32 +1064,43 @@ export function dispatchProductCommand(
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
     const buildingParcel = state.phase2.parcels.get(building.parcelId);
     if (!buildingParcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
-    const technician = [...state.agents.values()].find(
-      (agent) =>
-        agent.organizationId === command.actingAsOrganizationId &&
-        agent.specialty === "maintenance_technician" &&
-        agent.districtId === buildingParcel.districtId &&
-        agent.state === "idle" &&
-        !agent.travel &&
-        !agent.task,
-    );
+    /**
+     * Técnico elegible de menor id: un `find` sobre el orden de inserción del `Map` daría otro
+     * resultado si ese orden cambiara, y la asignación tiene que ser canónica.
+     */
+    const technician = [...state.agents.values()]
+      .filter(
+        (agent) =>
+          agent.organizationId === command.actingAsOrganizationId &&
+          agent.specialty === "maintenance_technician" &&
+          agent.districtId === buildingParcel.districtId &&
+          agent.state === "idle" &&
+          !agent.travel &&
+          !agent.task,
+      )
+      .sort((left, right) => left.id.localeCompare(right.id))[0];
     if (!technician) return { accepted: false, code: "AGENT_NOT_FOUND" };
-    technician.task = { kind: "maintenance", buildingId: building.id };
     const maintenanceMap = districtMapOf(state, buildingParcel.districtId);
-    const interactionCell = chooseInteractionCell(
-      buildingParcel.anchorCell,
-      blockedCellsOf(state, buildingParcel.districtId),
+    const obstacles = districtObstacles(state, buildingParcel.districtId);
+    /**
+     * Se trabaja junto a la huella del edificio, no junto al ancla de la parcela: en una parcela con
+     * dos edificios el ancla puede estar sobre el otro, y el técnico contaba como operativo sin
+     * estarlo. La tarea sólo se escribe cuando ya hay destino, para no dejarla huérfana.
+     */
+    const interactionCell = interactionCellCandidates(
+      building.footprintCells,
+      obstacles,
       maintenanceMap.width,
       maintenanceMap.height,
-      occupiedBuildingCells(state, building.id),
+    ).find(
+      (cell) =>
+        (technician.cell.x === cell.x && technician.cell.y === cell.y) ||
+        findDeterministicPath(technician.cell, cell, obstacles.impassable).length > 0,
     );
     if (!interactionCell) return { accepted: false, code: "INVALID_AGENT_ACTION" };
+    technician.task = { kind: "maintenance", buildingId: building.id };
     technician.target = { ...interactionCell };
-    technician.path = findDeterministicPath(
-      technician.cell,
-      interactionCell,
-      blockedCellsOf(state, technician.districtId),
-    );
+    technician.path = findDeterministicPath(technician.cell, interactionCell, obstacles.impassable);
     technician.state = "moving";
     const repairOrder = [...state.phase2.constructionSites.values()].find(
       (site) =>
@@ -1135,21 +1139,21 @@ export function dispatchProductCommand(
       if (enforcer.districtId !== targetParcel.districtId)
         return { accepted: false, code: "AGENT_NOT_IN_DISTRICT" };
       const sabotageMap = districtMapOf(state, targetParcel.districtId);
-      const interactionCell = chooseInteractionCell(
-        targetParcel.anchorCell,
-        blockedCellsOf(state, targetParcel.districtId),
+      const obstacles = districtObstacles(state, targetParcel.districtId);
+      const interactionCell = interactionCellCandidates(
+        target.footprintCells,
+        obstacles,
         sabotageMap.width,
         sabotageMap.height,
-        occupiedBuildingCells(state, target.id),
+      ).find(
+        (cell) =>
+          (enforcer.cell.x === cell.x && enforcer.cell.y === cell.y) ||
+          findDeterministicPath(enforcer.cell, cell, obstacles.impassable).length > 0,
       );
       if (!interactionCell) return { accepted: false, code: "INVALID_AGENT_ACTION" };
       enforcer.task = { kind: "sabotage_building", targetBuildingId: target.id };
       enforcer.target = { ...interactionCell };
-      enforcer.path = findDeterministicPath(
-        enforcer.cell,
-        interactionCell,
-        blockedCellsOf(state, enforcer.districtId),
-      );
+      enforcer.path = findDeterministicPath(enforcer.cell, interactionCell, obstacles.impassable);
       enforcer.state = "moving";
     } else return { accepted: false, code: "INVALID_AGENT_ACTION" };
     rememberProcessed(state, command.commandId);

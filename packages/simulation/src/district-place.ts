@@ -10,19 +10,6 @@ export type DistrictPlace = {
   cell: GridCell;
 };
 
-export function placeKey(place: DistrictPlace): string {
-  return `${place.districtId}|${place.cell.x}:${place.cell.y}`;
-}
-
-/** Dos lugares son el mismo sitio solo si coinciden distrito y coordenada. */
-export function sameDistrictPlace(left: DistrictPlace, right: DistrictPlace): boolean {
-  return (
-    left.districtId === right.districtId &&
-    left.cell.x === right.cell.x &&
-    left.cell.y === right.cell.y
-  );
-}
-
 /**
  * Distancia entre dos lugares, o `null` si pertenecen a distritos diferentes: en ese caso no hay
  * ninguna relación espacial que medir, no una distancia larga.

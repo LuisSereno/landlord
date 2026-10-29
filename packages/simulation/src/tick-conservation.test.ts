@@ -138,7 +138,7 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "54134da156443056",
+    expected: "52c8a6bb2e43606e",
     run: () => digest(canonicalizeState(runScenario(1, [], 36_000, { checkpointEvery: 0 }).state)),
   },
   {
@@ -240,6 +240,19 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
  * En los tres casos bajas (45/45, 159/160, 42/43), hogares, transacciones y las cinco cajas quedan
  * idénticos, y la carrera sin incendios (`50-parcels:1300-ticks`) no mueve ni un bit: el delta es
  * exactamente el daño entre distritos que deja de producirse.
+ */
+
+/**
+ * Regeneración H1-02 (2026-10-29): la capa táctica deja de modelar el edificio como el `anchorCell`
+ * de su parcela. El destino de interacción se calcula ahora contra la huella física, y las rutas
+ * respetan huellas de edificios y obras del distrito. Cambia un solo digesto,
+ * `scenario:seed-1:36000`, el único caso con cuadrillas trabajando. Atribución medida antes/después
+ * sobre el mismo código salvo el fix: cajas idénticas (jugador 12000, rival 2225, banco 100000,
+ * municipio 36, aseguradora 100000), 20 transacciones, 16 edificios operativos, integridad 1600,
+ * condición 1600, cero incidentes y cero ruinas; lo único que se mueve son las celdas donde quedan
+ * los seis agentes de obra —de (55,33)/(54,30) a (59,33)/(59,30)— porque ahora están junto a la
+ * huella del edificio que levantan y no junto al ancla de la parcela. El digesto cambia por la
+ * posición autoritativa de los agentes, no por la economía.
  */
 
 describe("WP4.2 conservación del resultado económico", () => {

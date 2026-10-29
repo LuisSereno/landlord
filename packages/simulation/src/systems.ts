@@ -34,7 +34,7 @@ import {
   calculateInsuranceOffer,
   REPAIR_COST,
 } from "./game-data";
-import { blockedCellsOf, type GameState } from "./state";
+import { type GameState } from "./state";
 import {
   activeSiteOnParcel,
   blockOfParcel,
@@ -67,6 +67,7 @@ import {
   runFactions,
 } from "./factions";
 import { Xoshiro128ss } from "./prng";
+import { buildDistrictObstacleIndex, isAdjacentToCells } from "./district-obstacles";
 import { isWithinDistrictRadius } from "./district-place";
 import { findDeterministicPath } from "./navigation";
 
@@ -91,7 +92,7 @@ function indexActiveIncidents(state: GameState): Map<BuildingId, IncidentRecord>
   return index;
 }
 
-/** Técnico en mantenimiento adyacente y trabajando, primero por id de agente. */
+/** Técnico junto a la huella del edificio y trabajando, primero por id de agente. */
 function indexAdjacentTechnicians(
   state: GameState,
   agents: readonly Agent[],
@@ -103,10 +104,12 @@ function indexAdjacentTechnicians(
     if (index.has(buildingId)) continue;
     const building = state.phase2.buildings.get(buildingId);
     if (!building) continue;
-    const parcel = state.phase2.parcels.get(building.parcelId);
-    if (!parcel) continue;
-    if (parcel.districtId !== agent.districtId) continue;
-    if (!adjacent(agent.cell, parcel.anchorCell)) continue;
+    if (building.districtId !== agent.districtId) continue;
+    /**
+     * Se trabaja pegado a la huella, no al ancla de la parcela: con dos edificios en una parcela el
+     * ancla puede estar sobre el otro y el técnico contaba como operativo sin estarlo (H1-02).
+     */
+    if (!isAdjacentToCells(agent.cell, building.footprintCells)) continue;
     index.set(buildingId, agent);
   }
   return index;
@@ -757,9 +760,15 @@ function tacticalTick(state: GameState): void {
   if (!movementDue && !hourDue) return;
   const agents = [...state.agents.values()].sort((a, b) => a.id.localeCompare(b.id));
   // 1. Movement: target agents are re-evaluated at most once per game second.
-  if (movementDue)
+  if (movementDue) {
+    /**
+     * Una sola derivación de obstáculos por tick: las rutas respetan las huellas de edificios y de
+     * obras del distrito, no sólo el terreno bloqueado de la generación.
+     */
+    const obstacleIndex = buildDistrictObstacleIndex(state);
     for (const agent of agents) {
       if (agent.state === "dead" || agent.state === "injured" || !agent.task) continue;
+      const impassable = obstacleIndex.get(agent.districtId)?.impassable ?? new Set<string>();
       if (agent.task.kind === "attack_agent") {
         const target = state.agents.get(agent.task.targetAgentId);
         if (
@@ -769,24 +778,17 @@ function tacticalTick(state: GameState): void {
             agent.path?.length === 0)
         ) {
           agent.target = { ...target.cell };
-          agent.path = findDeterministicPath(
-            agent.cell,
-            agent.target,
-            blockedCellsOf(state, agent.districtId),
-          );
+          agent.path = findDeterministicPath(agent.cell, agent.target, impassable);
           agent.lastPathRecalculationTick = state.clock.tick;
         }
       }
       if (!agent.path?.length && agent.target && !adjacent(agent.cell, agent.target))
-        agent.path = findDeterministicPath(
-          agent.cell,
-          agent.target,
-          blockedCellsOf(state, agent.districtId),
-        );
+        agent.path = findDeterministicPath(agent.cell, agent.target, impassable);
       const next = agent.path?.shift();
       if (next) agent.cell = next;
       if (agent.target && adjacent(agent.cell, agent.target)) agent.state = "working";
     }
+  }
   // Stage 2-3: arrival activates work, then physical crews contribute before hostile actions.
   progressConstruction(state);
   if (!hourDue) return;
@@ -836,13 +838,11 @@ function tacticalTick(state: GameState): void {
     }
     if (agent.task.kind === "sabotage_building") {
       const building = state.phase2.buildings.get(agent.task.targetBuildingId);
-      const buildingParcel = building ? state.phase2.parcels.get(building.parcelId) : undefined;
       if (
         building &&
-        buildingParcel &&
         /** El matón solo alcanza un edificio de su distrito, aunque otro mapa repita la coordenada. */
-        buildingParcel.districtId === agent.districtId &&
-        adjacent(agent.cell, buildingParcel.anchorCell)
+        building.districtId === agent.districtId &&
+        isAdjacentToCells(agent.cell, building.footprintCells)
       ) {
         const prng = new Xoshiro128ss(state.seed);
         prng.restoreState(state.prng);

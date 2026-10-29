@@ -16,6 +16,7 @@ import {
   blockOfParcel,
   buildBuildingIndex,
   buildingsOnParcel,
+  reconcileParcelUses,
 } from "./building-index";
 import { chooseFootprint } from "./footprints";
 import { credit, debit } from "./ledger";
@@ -1141,6 +1142,7 @@ export function dispatchProductCommand(
       assignedCrewIds: [],
       assignedTechnicianId: null,
     });
+    reconcileParcelUses(state, building.parcelId);
     rememberProcessed(state, command.commandId);
     return productEvent(state, command.commandId, "RuinClearStarted", {
       buildingId: building.id,

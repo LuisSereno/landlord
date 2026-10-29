@@ -40,6 +40,7 @@ import {
   blockOfParcel,
   buildBuildingIndex,
   buildingsOnParcel,
+  reconcileParcelUses,
 } from "./building-index";
 import { developmentCodeById } from "./development-codes";
 import { advanceTransfers } from "./transfers";
@@ -330,6 +331,7 @@ function progressConstruction(state: GameState): void {
           state.phase2.facilities.delete(ruin.productionFacilityId);
         }
         state.phase2.buildings.delete(ruin.id);
+        reconcileParcelUses(state, ruin.parcelId);
       }
     } else if (site.repairBuildingId) {
       const building = state.phase2.buildings.get(site.repairBuildingId);
@@ -372,10 +374,7 @@ function progressConstruction(state: GameState): void {
       };
       state.phase2.buildings.set(buildingId, building);
       const parcel = state.phase2.parcels.get(site.parcelId);
-      if (parcel) {
-        const use = BUILDING_DEFINITIONS[building.type].allowedUses[0];
-        if (use && !parcel.currentUses.includes(use)) parcel.currentUses.push(use);
-      }
+      reconcileParcelUses(state, site.parcelId);
       const production = BUILDING_DEFINITIONS[building.type].production;
       if (production) {
         state.phase2.idCounters.facility += 1;
@@ -883,6 +882,7 @@ function tacticalTick(state: GameState): void {
   const rootIncidents = indexActiveIncidents(state);
   for (const root of pending) {
     root.state = "ruin";
+    reconcileParcelUses(state, root.parcelId);
     const parcel = state.phase2.parcels.get(root.parcelId)!;
     for (const tenantId of root.tenantIds) {
       const tenant = state.phase2.tenants.get(tenantId);

@@ -9,6 +9,7 @@ import type {
 } from "@landlord/shared";
 
 import { developmentCodeById } from "./development-codes";
+import { PRIMARY_USE_BY_BUILDING_TYPE } from "./game-data";
 import { districtStateOf, type GameState } from "./state";
 
 /**
@@ -101,4 +102,31 @@ export function developmentCodeOfParcelById(
   const parcel = state.phase2.parcels.get(parcelId);
   if (!parcel) return null;
   return developmentCodeOfParcel(state, parcel);
+}
+
+const LAND_USE_ORDER = [
+  "residential",
+  "retail",
+  "office",
+  "industrial",
+  "civic",
+  "education",
+  "health",
+  "utility",
+] as const;
+
+/**
+ * Rebuilds a parcel's `currentUses` from the buildings that physically exist on it. Called after
+ * construction completes and after a ruin is cleared, so the field never keeps a use that no longer
+ * has a building behind it.
+ */
+export function reconcileParcelUses(state: GameState, parcelId: ParcelId): void {
+  const parcel = state.phase2.parcels.get(parcelId);
+  if (!parcel) return;
+  const uses = new Set<string>();
+  for (const building of buildingsOnParcel(buildBuildingIndex(state), parcelId)) {
+    if (building.state === "ruin") continue;
+    uses.add(PRIMARY_USE_BY_BUILDING_TYPE[building.type]);
+  }
+  parcel.currentUses = LAND_USE_ORDER.filter((use) => uses.has(use));
 }

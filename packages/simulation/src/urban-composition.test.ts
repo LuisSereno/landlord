@@ -279,6 +279,34 @@ describe("V.d.2 ciclo inmobiliario en los nueve distritos", () => {
   }, 180_000);
 });
 
+describe("V.d.2 usos existentes", () => {
+  it("keeps a use while a building stands and removes it when the ruin is cleared", () => {
+    const state = createInitialState(31);
+    state.phase2.balances.set(organization, parseMoney(1_000_000));
+    const parcel = largeParcel(state)!;
+    dispatchProductCommand(state, command("uses-buy", "BuyParcel", { parcelId: parcel.id }));
+    dispatchProductCommand(
+      state,
+      command("uses-build", "StartConstruction", {
+        parcelId: parcel.id,
+        buildingType: "courtyard_home",
+      }),
+    );
+    completeSite(state);
+    expect(parcel.currentUses).toEqual(["residential"]);
+    const building = buildingAt(state, parcel.id);
+    building.state = "ruin";
+    expect(
+      dispatchProductCommand(state, command("uses-clear", "ClearRuin", { buildingId: building.id }))
+        .accepted,
+    ).toBe(true);
+    expect(parcel.currentUses).toEqual([]);
+    completeSite(state);
+    expect(parcel.currentUses).toEqual([]);
+    expect(buildingsOnParcel(buildBuildingIndex(state), parcel.id)).toHaveLength(0);
+  });
+});
+
 describe("V.d.2 reglas de convivencia", () => {
   it("rejects assigning a tenant outside its market district", () => {
     const state = createInitialState(19);

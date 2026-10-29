@@ -15,6 +15,25 @@ import {
 } from "@landlord/shared";
 import { parseTenantId, parsePolicyId, parseOrganizationId } from "@landlord/shared";
 
+/** Uso que declara el edificio terminado; `currentUses` se reconcilia desde aquí. */
+export const PRIMARY_USE_BY_BUILDING_TYPE: Record<BuildingType, LandUse> = {
+  courtyard_home: "residential",
+  workshop: "industrial",
+  cement_plant: "industrial",
+  brickworks: "industrial",
+  steelworks: "industrial",
+  row_house: "residential",
+  apartment_block: "residential",
+  mixed_tenement: "residential",
+  warehouse: "industrial",
+  town_hall: "civic",
+  school_block: "education",
+  clinic: "health",
+  police_station: "civic",
+  fire_station: "civic",
+  market_hall: "retail",
+};
+
 export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDefinition> = {
   courtyard_home: {
     type: "courtyard_home",

@@ -77,8 +77,9 @@ Fecha: 2026-10-28. Rama: `develop`.
 - **Código de ancla vs código de manzana.** Las anclas autoradas pueden tener un código propio; la
   proyección publica el código de la parcela y el rol de la manzana por separado. No se permite al
   jugador cambiar el código.
-- **Usos existentes.** `currentUses` añade el primer uso del edificio al terminar; limpiar una ruina
-  no lo retira todavía. V.d.3/V.d.4 deben reconciliar usos con el parque físico.
+- **Usos existentes.** Resuelto: `currentUses` se reconstruye desde los edificios no ruinosos al
+  terminar una obra, al iniciar y completar el desescombro y al declararse una ruina. No queda un uso
+  sin edificio detrás.
 - **Índice distrital de vivienda.** Se actualiza en el cierre mensual; antes del primer cierre usa el
   índice de ciudad (fallback correcto, pero no hay precio distrital hasta que hay muestra).
 - **Edificios municipales.** Están en el catálogo pero no se generan hasta V.d.3.

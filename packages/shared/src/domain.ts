@@ -3,6 +3,7 @@ import { z } from "zod";
 import {
   landUseSchema,
   roadFrontageSchema,
+  urbanRoleSchema,
   type LandUse,
   type RoadFrontage,
   type UrbanRole,
@@ -305,7 +306,10 @@ export type Parcel = {
   anchorCell: GridCell;
   roadFrontages: RoadFrontage[];
   disposition: ParcelDisposition;
-  price: Money;
+  /** Authored land value; never overwritten, kept for audit (V.d.4). */
+  baseLandValue: Money;
+  /** Monthly market value used by purchases, collateral, taxes and balance (V.d.4). */
+  marketValue: Money;
   /** Normative envelope inherited from its block (D-090). */
   developmentCodeId: DevelopmentCodeId;
   /** Uses already built on the parcel; empty for a vacant plot. */
@@ -850,6 +854,10 @@ export type Ordinance = {
   propertyTaxModifierPercent: number;
   transferTaxModifierPercent: number;
   permitApprovalModifierPercent: number;
+  /** V.d.4 density trial: extra floors and FAR only for the declared block role. */
+  densityBonusFloors: number;
+  densityBonusFarPercent: number;
+  densityAppliesToRole: UrbanRole | null;
 };
 
 export type PermitStatus = "approved" | "denied" | "expired";
@@ -862,6 +870,9 @@ export type Permit = {
   developmentCodeIdAtDecision: DevelopmentCodeId;
   allowedUsesAtDecision: LandUse[];
   currentUsesAtDecision: LandUse[];
+  /** Acquired density rights: construction keeps them after the ordinance expires (V.d.4). */
+  densityBonusFloors: number;
+  densityBonusFarPercent: number;
   status: PermitStatus;
   requestedAtTick: Tick;
   decidedAtTick: Tick;
@@ -994,7 +1005,8 @@ export const parcelSchema = z.object({
   anchorCell: gridCellSchema,
   roadFrontages: z.array(roadFrontageSchema),
   disposition: parcelDispositionSchema,
-  price: moneySchema,
+  baseLandValue: moneySchema,
+  marketValue: moneySchema,
   developmentCodeId: developmentCodeIdSchema,
   currentUses: z.array(landUseSchema),
   ownerOrganizationId: organizationIdSchema.nullable(),
@@ -1384,6 +1396,9 @@ export const ordinanceSchema = z.object({
   propertyTaxModifierPercent: z.number().int().default(0),
   transferTaxModifierPercent: z.number().int().default(0),
   permitApprovalModifierPercent: z.number().int().default(0),
+  densityBonusFloors: z.number().int().min(0).default(0),
+  densityBonusFarPercent: z.number().int().min(0).default(0),
+  densityAppliesToRole: urbanRoleSchema.nullable().default(null),
 });
 export const permitSchema = z.object({
   parcelId: parcelIdSchema,
@@ -1393,6 +1408,8 @@ export const permitSchema = z.object({
   developmentCodeIdAtDecision: developmentCodeIdSchema,
   allowedUsesAtDecision: z.array(landUseSchema),
   currentUsesAtDecision: z.array(landUseSchema),
+  densityBonusFloors: z.number().int().min(0).default(0),
+  densityBonusFarPercent: z.number().int().min(0).default(0),
   status: z.enum(["approved", "denied", "expired"]),
   requestedAtTick: tickSchema,
   decidedAtTick: tickSchema,

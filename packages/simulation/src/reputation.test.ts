@@ -132,7 +132,7 @@ function collateralizedParcel(state: GameState): ParcelId {
     payload: { parcelId },
   });
   const parcel = state.phase2.parcels.get(parcelId)!;
-  parcel.price = parseMoney(2_000);
+  parcel.marketValue = parseMoney(2_000);
   return parcelId;
 }
 

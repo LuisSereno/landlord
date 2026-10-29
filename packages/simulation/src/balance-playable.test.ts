@@ -277,7 +277,7 @@ function expansionBudget(
       ? state.phase2.ordinance.transferTaxModifierPercent
       : 0,
   );
-  const transferTax = owned ? 0 : calculateTax(parcel.price, transferRateBps);
+  const transferTax = owned ? 0 : calculateTax(parcel.marketValue, transferRateBps);
   const inventory = playerInventory(state);
   const missing = { cement: 0, brick: 0, steel: 0 } as Record<ResourceKind, number>;
   for (const resource of RESOURCES) {
@@ -293,7 +293,7 @@ function expansionBudget(
   const used = inventory.cement + inventory.brick + inventory.steel;
   const missingTotal = RESOURCES.reduce((total, resource) => total + missing[resource], 0);
   return {
-    total: (owned ? 0 : parcel.price) + transferTax + materialCost + buildCost,
+    total: (owned ? 0 : parcel.marketValue) + transferTax + materialCost + buildCost,
     missing,
     materialsFit: missingTotal <= inventory.capacity - used,
   };
@@ -315,7 +315,7 @@ function playerAssetBookValue(state: GameState): number {
   const index = buildBuildingIndex(state);
   for (const parcel of state.phase2.parcels.values()) {
     if (parcel.ownerOrganizationId !== PLAYER_ORGANIZATION_ID) continue;
-    total += parcel.price;
+    total += parcel.marketValue;
     for (const building of buildingsOnParcel(index, parcel.id)) {
       total += BUILDING_DEFINITIONS[building.type].cost;
     }

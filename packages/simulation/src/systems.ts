@@ -48,6 +48,7 @@ import { runEmployment } from "./employment";
 import { runAutomation } from "./automation";
 import { macroShockBiasFor, runMacroEvents } from "./macro-events";
 import { runMunicipalBudget } from "./municipal-budget";
+import { updateLandValues } from "./land-value";
 import { runMunicipalPolitics } from "./municipal-politics";
 import { hasActiveAward, operationalBuildingsOwned, runPublicContracts } from "./public-contracts";
 import { askingRentFor, runHousingMarket } from "./housing-market";
@@ -509,7 +510,7 @@ function collateralValue(state: GameState, loan: import("@landlord/shared").Loan
   if (!parcel) return 0;
   const index = buildBuildingIndex(state);
   return (
-    parcel.price +
+    parcel.marketValue +
     buildingsOnParcel(index, parcel.id).reduce(
       (total, building) =>
         total + Math.round((BUILDING_DEFINITIONS[building.type].cost * building.condition) / 100),
@@ -611,7 +612,7 @@ function settlePropertyTaxes(state: GameState): void {
     if (!parcel.ownerOrganizationId) continue;
     owners.set(
       parcel.ownerOrganizationId,
-      (owners.get(parcel.ownerOrganizationId) ?? 0) + parcel.price,
+      (owners.get(parcel.ownerOrganizationId) ?? 0) + parcel.marketValue,
     );
   }
   const propertyRateBps = effectiveTaxRateBps(
@@ -1033,10 +1034,10 @@ function rivalAction(state: GameState): void {
         buildingsOnParcel(rivalIndex, parcel.id).length === 0 &&
         activeSiteOnParcel(state, parcel.id) === undefined,
     )
-    .sort((a, b) => a.price - b.price)[0];
+    .sort((a, b) => a.marketValue - b.marketValue)[0];
   const available = [...state.phase2.parcels.values()]
     .filter((parcel) => !parcel.ownerOrganizationId && rivalDistricts.has(parcel.districtId))
-    .sort((a, b) => a.price - b.price)[0];
+    .sort((a, b) => a.marketValue - b.marketValue)[0];
   const balance = state.phase2.balances.get(RIVAL_ORGANIZATION_ID) ?? 0;
   const inventory = state.phase2.inventories.get(RIVAL_ORGANIZATION_ID)!;
   const rivalLoans = [...state.phase2.loans.values()].filter(
@@ -1178,7 +1179,7 @@ function rivalAction(state: GameState): void {
       },
     });
   }
-  if (available && canSpend(available.price)) {
+  if (available && canSpend(available.marketValue)) {
     candidates.push({
       score: 40,
       action: "buy_parcel",
@@ -1300,7 +1301,7 @@ function rivalAction(state: GameState): void {
             ["offered", "active", "delinquent"].includes(loan.status),
         ),
     )
-    .sort((left, right) => right.price - left.price)[0];
+    .sort((left, right) => right.marketValue - left.marketValue)[0];
   if (financeCollateral && balance < liquidityReserve && rivalLoans.length === 0) {
     candidates.push({
       score: 78,
@@ -1325,7 +1326,7 @@ function rivalAction(state: GameState): void {
         buildingsOnParcel(rivalIndex, parcel.id).length === 0 &&
         activeSiteOnParcel(state, parcel.id) === undefined,
     )
-    .sort((left, right) => left.price - right.price)[0];
+    .sort((left, right) => left.marketValue - right.marketValue)[0];
   if (saleCandidate && balance < liquidityReserve) {
     candidates.push({
       score: 70,
@@ -1547,6 +1548,8 @@ export const PRODUCT_SYSTEMS: readonly ProductSystem[] = [
   { name: "politics", run: runMunicipalPolitics },
   // El municipio paga al final, cuando ya ha cobrado los impuestos del mes.
   { name: "municipal", run: runMunicipalBudget },
+  // El valor del suelo cierra después del presupuesto: lee los servicios y la caja ya resueltos.
+  { name: "landValue", run: updateLandValues },
   // Las facciones cierran el mes con el roce territorial ya observado: decaen posturas y recortan
   // memoria antes de que la inteligencia re-base el expediente sobre un estado estable.
   { name: "factions", run: runFactions },

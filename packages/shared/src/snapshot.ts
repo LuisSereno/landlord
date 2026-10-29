@@ -1033,7 +1033,7 @@ export class UnsupportedSnapshotVersionError extends Error {
 export class UnsupportedUrbanFabricError extends Error {
   public constructor() {
     super(
-      "UNSUPPORTED_URBAN_FABRIC: este guardado v2 es anterior a V.d.1/V.d.2 (parcelas puntuales, red vial derivationVersion 1 o edificios sin huella) y no se migra; crea una partida nueva o borra explícitamente el slot. El archivo no se ha modificado.",
+      "UNSUPPORTED_URBAN_FABRIC: este guardado v2 es anterior a V.d.1/V.d.2/V.d.4 (parcelas puntuales, red vial derivationVersion 1, edificios sin huella o parcelas sin valor de mercado) y no se migra; crea una partida nueva o borra explícitamente el slot. El archivo no se ha modificado.",
     );
     this.name = "UnsupportedUrbanFabricError";
   }
@@ -1055,7 +1055,7 @@ function isPreVd1Snapshot(value: unknown): boolean {
   if (
     parcel !== undefined &&
     typeof parcel === "object" &&
-    ("cell" in parcel || "zoning" in parcel || "buildingId" in parcel)
+    ("cell" in parcel || "zoning" in parcel || "buildingId" in parcel || "price" in parcel)
   )
     return true;
   const building = snapshot.phase2?.buildings?.[0];

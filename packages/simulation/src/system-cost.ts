@@ -316,6 +316,7 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
       brick: 60 + prng.nextInt(0, 80),
       steel: 60 + prng.nextInt(0, 80),
     };
+    const landValue = parseMoney(600 + prng.nextInt(0, 900));
     const parcel: Parcel = {
       id: parcelId,
       districtId: targetDistrictId,
@@ -328,7 +329,8 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
       anchorCell: { ...cell },
       roadFrontages: [],
       disposition: "marketable",
-      price: parseMoney(600 + prng.nextInt(0, 900)),
+      baseLandValue: landValue,
+      marketValue: landValue,
       developmentCodeId: developmentCodeForRole("urban_residential").id,
       currentUses: [],
       ownerOrganizationId,

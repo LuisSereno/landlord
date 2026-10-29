@@ -126,6 +126,8 @@ export function chooseFootprint(input: {
   parcel: Pick<Parcel, "cells" | "roadFrontages">;
   code: DevelopmentCode;
   definition: BuildingDefinition;
+  /** Street cells of the main frontage; placement prefers them over secondary edges. */
+  principalFrontageCells?: readonly GridCell[];
   buildings: readonly Pick<Building, "footprintCells" | "floors">[];
 }): FootprintChoice {
   const buildable = buildableEnvelope(input);
@@ -153,11 +155,37 @@ export function chooseFootprint(input: {
   const target = input.definition.targetFootprintCells;
   const baseFloors = Math.max(1, Math.min(input.code.maxFloors, input.definition.defaultFloors));
 
+  const principalFrontage = input.principalFrontageCells ?? [];
+  const existingCells = new Set(
+    input.buildings.flatMap((building) => building.footprintCells.map(cellKey)),
+  );
+  const frontageDistanceByCell = new Map<string, number>();
+  if (principalFrontage.length > 0) {
+    for (const cell of input.parcel.cells) {
+      let distance = Number.POSITIVE_INFINITY;
+      for (const frontage of principalFrontage) {
+        distance = Math.min(
+          distance,
+          Math.abs(cell.x - frontage.x) + Math.abs(cell.y - frontage.y),
+        );
+      }
+      frontageDistanceByCell.set(cellKey(cell), distance);
+    }
+  }
+  const adjacentToExisting = new Set<string>();
+  for (const key of existingCells) {
+    const [x, y] = key.split(":").map(Number) as [number, number];
+    for (const offset of OFFSETS) {
+      adjacentToExisting.add(`${x + offset.x}:${y + offset.y}`);
+    }
+  }
   type Candidate = {
     cells: GridCell[];
     area: number;
     floors: number;
     orientation: 0 | 90 | 180 | 270;
+    frontageDistance: number;
+    continuity: number;
     signature: string;
   };
   let best: Candidate | null = null;
@@ -168,6 +196,9 @@ export function chooseFootprint(input: {
     const leftDistance = Math.abs(left.area - target);
     const rightDistance = Math.abs(right.area - target);
     if (leftDistance !== rightDistance) return leftDistance < rightDistance;
+    if (left.frontageDistance !== right.frontageDistance)
+      return left.frontageDistance < right.frontageDistance;
+    if (left.continuity !== right.continuity) return left.continuity > right.continuity;
     if (left.floors !== right.floors) return left.floors > right.floors;
     if (left.area !== right.area) return left.area > right.area;
     if (left.orientation !== right.orientation) return left.orientation === 0;
@@ -189,7 +220,22 @@ export function chooseFootprint(input: {
           if (!cells) continue;
           const orientation: 0 | 90 | 180 | 270 = width >= height ? 0 : 90;
           const signature = `${x},${y},${width},${height}`;
-          const candidate: Candidate = { cells, area, floors, orientation, signature };
+          let frontageDistance = principalFrontage.length === 0 ? 0 : Number.POSITIVE_INFINITY;
+          let continuity = 0;
+          for (const cell of cells) {
+            const key = cellKey(cell);
+            frontageDistance = Math.min(frontageDistance, frontageDistanceByCell.get(key) ?? 0);
+            if (adjacentToExisting.has(key)) continuity += 1;
+          }
+          const candidate: Candidate = {
+            cells,
+            area,
+            floors,
+            orientation,
+            frontageDistance,
+            continuity,
+            signature,
+          };
           if (!best || better(candidate, best)) best = candidate;
         }
       }

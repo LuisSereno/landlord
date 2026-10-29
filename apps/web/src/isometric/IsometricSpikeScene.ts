@@ -131,7 +131,8 @@ declare global {
   }
 }
 
-export type MapOverlay = "ownership" | "profitability" | "condition" | "zoning" | "risk";
+export type MapOverlay =
+  "ownership" | "profitability" | "condition" | "zoning" | "risk" | "landValue";
 
 export class IsometricSpikeScene extends Phaser.Scene {
   private readonly layout: IsometricLayout = REFERENCE_LAYOUT;
@@ -673,6 +674,13 @@ export class IsometricSpikeScene extends Phaser.Scene {
       if (parcel.regulatoryRiskPercent >= 30) return COLORS.fire;
       if (parcel.regulatoryRiskPercent >= 15) return COLORS.construction;
       return COLORS.parcelPlayer;
+    }
+    if (this.overlay === "landValue") {
+      const score = parcel.landValueBreakdown.score;
+      if (score >= 25) return COLORS.parcelPlayer;
+      if (score >= 5) return COLORS.construction;
+      if (score >= -10) return COLORS.parcelAvailable;
+      return COLORS.fire;
     }
     return parcel.ownerOrganizationId === "org_00000001"
       ? COLORS.parcelPlayer

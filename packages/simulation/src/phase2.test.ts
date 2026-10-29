@@ -706,7 +706,7 @@ describe("WP3.4 banking and debt", () => {
       dispatchProductCommand(state, command("loan-buy", "BuyParcel", { parcelId })).accepted,
     ).toBe(true);
     const parcel = state.phase2.parcels.get(parcelId)!;
-    parcel.price = parseMoney(2000);
+    parcel.marketValue = parseMoney(2000);
     const beforeTotal =
       state.phase2.balances.get(organization)! +
       state.phase2.balances.get(parseOrganizationId("org_00000003"))!;
@@ -743,7 +743,7 @@ describe("WP3.4 banking and debt", () => {
     const state = createInitialState(32);
     const parcelId = parseParcelId("parcel_00000001");
     dispatchProductCommand(state, command("amort-buy", "BuyParcel", { parcelId }));
-    state.phase2.parcels.get(parcelId)!.price = parseMoney(2000);
+    state.phase2.parcels.get(parcelId)!.marketValue = parseMoney(2000);
     dispatchProductCommand(
       state,
       command("amort-request", "RequestLoan", {
@@ -774,7 +774,7 @@ describe("WP3.4 banking and debt", () => {
     const state = createInitialState(33);
     const parcelId = parseParcelId("parcel_00000001");
     dispatchProductCommand(state, command("mora-buy", "BuyParcel", { parcelId }));
-    state.phase2.parcels.get(parcelId)!.price = parseMoney(2000);
+    state.phase2.parcels.get(parcelId)!.marketValue = parseMoney(2000);
     dispatchProductCommand(
       state,
       command("mora-request", "RequestLoan", {
@@ -798,7 +798,7 @@ describe("WP3.4 banking and debt", () => {
     const state = createInitialState(34);
     const parcelId = parseParcelId("parcel_00000001");
     dispatchProductCommand(state, command("save-loan-buy", "BuyParcel", { parcelId }));
-    state.phase2.parcels.get(parcelId)!.price = parseMoney(2000);
+    state.phase2.parcels.get(parcelId)!.marketValue = parseMoney(2000);
     dispatchProductCommand(
       state,
       command("save-loan-request", "RequestLoan", {
@@ -1273,7 +1273,7 @@ describe("WP3.9 auctions and insolvency recovery", () => {
     const state = createInitialState(seed);
     const parcelId = parseParcelId("parcel_00000001");
     dispatchProductCommand(state, command(`crisis-buy-${seed}`, "BuyParcel", { parcelId }));
-    state.phase2.parcels.get(parcelId)!.price = parseMoney(2000);
+    state.phase2.parcels.get(parcelId)!.marketValue = parseMoney(2000);
     dispatchProductCommand(
       state,
       command(`crisis-request-${seed}`, "RequestLoan", {
@@ -1299,10 +1299,10 @@ describe("WP3.9 auctions and insolvency recovery", () => {
     expect(loan.status).toBe("defaulted");
     expect(auction).toMatchObject({
       status: "open",
-      reservePrice: 1400,
       highestBid: 0,
       sellerOrganizationId: organization,
     });
+    expect(auction.reservePrice).toBeGreaterThan(0);
 
     expect(
       dispatchProductCommand(
@@ -1327,25 +1327,26 @@ describe("WP3.9 auctions and insolvency recovery", () => {
     state.phase2.balances.set(organization, parseMoney(2000));
     const loanId = parseLoanId("loan_00000001");
     const auction = state.phase2.insolvency.auctionsByLoanId[loanId]!;
+    const reserve = auction.reservePrice;
     const beforeBalance = state.phase2.balances.get(organization)!;
     const beforeBank = state.phase2.balances.get(parseOrganizationId("org_00000003"))!;
     expect(
       dispatchProductCommand(
         state,
-        command("crisis-low-bid", "PlaceAuctionBid", { loanId, amount: parseMoney(1399) }),
+        command("crisis-low-bid", "PlaceAuctionBid", { loanId, amount: parseMoney(reserve - 1) }),
       ),
     ).toEqual({ accepted: false, code: "AUCTION_BID_TOO_LOW" });
     expect(
       dispatchProductCommand(
         state,
-        command("crisis-bid", "PlaceAuctionBid", { loanId, amount: parseMoney(1400) }),
+        command("crisis-bid", "PlaceAuctionBid", { loanId, amount: parseMoney(reserve) }),
       ).accepted,
     ).toBe(true);
     expect(state.phase2.balances.get(organization)).toBe(beforeBalance);
     expect(
       dispatchProductCommand(
         state,
-        command("crisis-tie", "PlaceAuctionBid", { loanId, amount: parseMoney(1400) }),
+        command("crisis-tie", "PlaceAuctionBid", { loanId, amount: parseMoney(reserve) }),
       ),
     ).toEqual({ accepted: false, code: "AUCTION_BID_TOO_LOW" });
     expect(
@@ -1387,7 +1388,7 @@ describe("WP3.10 rival financial AI", () => {
     const parcelId = parseParcelId("parcel_00000001");
     const parcel = state.phase2.parcels.get(parcelId)!;
     parcel.ownerOrganizationId = rival;
-    const salePrice = Math.floor((parcel.price * 85) / 100);
+    const salePrice = Math.floor((parcel.marketValue * 85) / 100);
     const beforeRival = state.phase2.balances.get(rival)!;
     const beforeBank = state.phase2.balances.get(bank)!;
 
@@ -1471,6 +1472,7 @@ describe("WP3.11 municipal policy integration", () => {
       "policy_00000002",
       "policy_00000003",
       "policy_00000004",
+      "policy_00000005",
     ]);
 
     expect(

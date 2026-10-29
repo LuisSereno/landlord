@@ -187,7 +187,7 @@ describe("WP4.13 automatización y delegación", () => {
     const state = newState();
     const parcel = [...state.phase2.parcels.values()][0]!;
     parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
-    parcel.price = parseMoney(2_000);
+    parcel.marketValue = parseMoney(2_000);
     state.phase2.balances.set(PLAYER_ORGANIZATION_ID, parseMoney(100));
     state.phase2.automation.finance = "cover_shortfall";
     runAutomation(state);
@@ -209,7 +209,7 @@ describe("WP4.13 automatización y delegación", () => {
     const withDebt = newState();
     const parcel = [...withDebt.phase2.parcels.values()][0]!;
     parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
-    parcel.price = parseMoney(2_000);
+    parcel.marketValue = parseMoney(2_000);
     withDebt.phase2.balances.set(PLAYER_ORGANIZATION_ID, parseMoney(0));
     withDebt.phase2.automation.finance = "cover_shortfall";
     const manual = dispatchProductCommand(withDebt, {

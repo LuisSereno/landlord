@@ -63,6 +63,23 @@ export type PublicDistrictSummary = {
   alerts: number;
 };
 
+/** Integer land-value scoring of V.d.4. Components sum to `rawScore`; clamp produces `score`. */
+export type LandValueBreakdown = {
+  roadCentrality: number;
+  commercialAccess: number;
+  civicAmenities: number;
+  frontage: number;
+  codePotential: number;
+  services: number;
+  industrialExternality: number;
+  isolation: number;
+  seedVariation: number;
+  rawScore: number;
+  clampAdjustment: number;
+  score: number;
+  targetValue: number;
+};
+
 export type ViewProjectionV2 = {
   projectionVersion: 2;
   /** Distrito que el renderer dibuja; cambiarlo no toca `GameState` (D-089). */
@@ -122,7 +139,9 @@ export type ViewProjectionV2 = {
       cell: GridCell;
       /** Every cell of the parcel; `cell` remains its stable anchor for picking and sprites. */
       cells: GridCell[];
-      price: number;
+      baseLandValue: number;
+      marketValue: number;
+      landValueBreakdown: LandValueBreakdown;
       /** Display/legacy family derived from the development code; not a rule. */
       zoning: "residential" | "industrial" | "mixed";
       disposition: "marketable" | "public" | "infrastructure";
@@ -232,6 +251,8 @@ export type ViewProjectionV2 = {
       name: string;
       allowedUses: LandUse[];
       municipal: boolean;
+      densityBonusFloors: number;
+      densityBonusFarPercent: number;
       cost: number;
       baseCost: number;
       workRequired: number;
@@ -489,6 +510,9 @@ export type ViewProjectionV2 = {
       propertyTaxModifierPercent: number;
       transferTaxModifierPercent: number;
       permitApprovalModifierPercent: number;
+      densityBonusFloors: number;
+      densityBonusFarPercent: number;
+      densityAppliesToRole: string | null;
     };
     policyOptions: Array<{
       id: PolicyId;
@@ -500,6 +524,9 @@ export type ViewProjectionV2 = {
       propertyTaxModifierPercent: number;
       transferTaxModifierPercent: number;
       permitApprovalModifierPercent: number;
+      densityBonusFloors: number;
+      densityBonusFarPercent: number;
+      densityAppliesToRole: string | null;
     }>;
     alerts: Array<{
       id: string;
@@ -620,6 +647,22 @@ export const publicDistrictSummarySchema = z.object({
   alerts: z.number().int().nonnegative(),
 });
 
+export const landValueBreakdownSchema = z.object({
+  roadCentrality: z.number().int().min(0).max(20),
+  commercialAccess: z.number().int().min(0).max(12),
+  civicAmenities: z.number().int().min(0).max(10),
+  frontage: z.number().int().min(0).max(6),
+  codePotential: z.number().int().min(0).max(12),
+  services: z.number().int().min(0).max(10),
+  industrialExternality: z.number().int().min(-18).max(0),
+  isolation: z.number().int().min(-20).max(0),
+  seedVariation: z.number().int().min(-3).max(3),
+  rawScore: z.number().int().min(-41).max(73),
+  clampAdjustment: z.number().int(),
+  score: z.number().int().min(-40).max(60),
+  targetValue: moneySchema,
+});
+
 export const viewProjectionV2Schema = z.object({
   projectionVersion: z.literal(2),
   observedDistrictId: districtIdSchema,
@@ -687,7 +730,9 @@ export const viewProjectionV2Schema = z.object({
           id: parcelIdSchema,
           cell: gridCellSchema,
           cells: z.array(gridCellSchema).min(1),
-          price: moneySchema,
+          baseLandValue: moneySchema,
+          marketValue: moneySchema,
+          landValueBreakdown: landValueBreakdownSchema,
           zoning: zoningSchema,
           disposition: z.enum(["marketable", "public", "infrastructure"]),
           developmentCodeId: developmentCodeIdSchema,
@@ -819,6 +864,8 @@ export const viewProjectionV2Schema = z.object({
           name: z.string(),
           allowedUses: z.array(landUseSchema),
           municipal: z.boolean(),
+          densityBonusFloors: z.number().int().min(0),
+          densityBonusFarPercent: z.number().int().min(0),
           cost: moneySchema,
           baseCost: moneySchema,
           workRequired: z.number().int().positive(),
@@ -1123,6 +1170,9 @@ export const viewProjectionV2Schema = z.object({
         propertyTaxModifierPercent: z.number().int(),
         transferTaxModifierPercent: z.number().int(),
         permitApprovalModifierPercent: z.number().int(),
+        densityBonusFloors: z.number().int().min(0),
+        densityBonusFarPercent: z.number().int().min(0),
+        densityAppliesToRole: z.string().nullable(),
       }),
       policyOptions: z.array(
         z.object({
@@ -1135,6 +1185,9 @@ export const viewProjectionV2Schema = z.object({
           propertyTaxModifierPercent: z.number().int(),
           transferTaxModifierPercent: z.number().int(),
           permitApprovalModifierPercent: z.number().int(),
+          densityBonusFloors: z.number().int().min(0),
+          densityBonusFarPercent: z.number().int().min(0),
+          densityAppliesToRole: z.string().nullable(),
         }),
       ),
       alerts: z.array(

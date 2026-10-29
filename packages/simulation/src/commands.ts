@@ -48,7 +48,7 @@ import {
 } from "./game-data";
 import { Xoshiro128ss } from "./prng";
 import { askingRentFor } from "./housing-market";
-import { developmentCodeById } from "./development-codes";
+import { developmentCodeById, effectiveDevelopmentCode } from "./development-codes";
 import {
   effectiveConstructionWorkRequired,
   effectiveMarketPriceFor,
@@ -185,6 +185,20 @@ function effectiveRent(state: GameState, building: import("@landlord/shared").Bu
   return askingRentFor(state, building);
 }
 
+function densityBonusFor(
+  state: GameState,
+  role: import("@landlord/shared").UrbanRole,
+): { floors: number; farPercent: number } {
+  const ordinance = state.phase2.ordinance;
+  if (ordinance.status !== "active" || ordinance.densityAppliesToRole !== role) {
+    return { floors: 0, farPercent: 0 };
+  }
+  return {
+    floors: ordinance.densityBonusFloors,
+    farPercent: ordinance.densityBonusFarPercent,
+  };
+}
+
 function issuePermit(
   state: GameState,
   parcel: import("@landlord/shared").Parcel,
@@ -206,6 +220,7 @@ function issuePermit(
     state.phase2.ordinance.status === "active"
       ? state.phase2.ordinance.permitApprovalModifierPercent
       : 0;
+  const densityBonus = densityBonusFor(state, block.urbanRole);
   const chance = Math.max(0, Math.min(100, baseChance + ordinanceModifier));
   let approved = chance >= 100;
   if (chance > 0 && chance < 100) {
@@ -222,6 +237,8 @@ function issuePermit(
     developmentCodeIdAtDecision: code.id,
     allowedUsesAtDecision: [...code.allowedUses],
     currentUsesAtDecision: [...parcel.currentUses],
+    densityBonusFloors: densityBonus.floors,
+    densityBonusFarPercent: densityBonus.farPercent,
     status: approved ? "approved" : "denied",
     requestedAtTick: parseTick(state.clock.tick),
     decidedAtTick: parseTick(state.clock.tick),
@@ -471,7 +488,7 @@ export function dispatchProductCommand(
       return { accepted: false, code: "LOAN_AMOUNT_INVALID" };
     const buildingIndex = buildBuildingIndex(state);
     const collateralValue =
-      parcel.price +
+      parcel.marketValue +
       buildingsOnParcel(buildingIndex, parcel.id).reduce(
         (total, building) => total + BUILDING_DEFINITIONS[building.type].cost,
         0,
@@ -633,12 +650,12 @@ export function dispatchProductCommand(
         ? state.phase2.ordinance.transferTaxModifierPercent
         : 0,
     );
-    const transferTax = parseMoney(calculateTax(parcel.price, transferRateBps));
+    const transferTax = parseMoney(calculateTax(parcel.marketValue, transferRateBps));
     const balance = state.phase2.balances.get(command.actingAsOrganizationId) ?? 0;
-    if (balance < parcel.price + transferTax) {
+    if (balance < parcel.marketValue + transferTax) {
       return { accepted: false, code: "INSUFFICIENT_FUNDS" };
     }
-    debit(state, command.actingAsOrganizationId, parcel.price, "parcel_purchase", parcel.id);
+    debit(state, command.actingAsOrganizationId, parcel.marketValue, "parcel_purchase", parcel.id);
     if (transferTax > 0) {
       debit(state, command.actingAsOrganizationId, transferTax, "property_transfer_tax", parcel.id);
       credit(state, MUNICIPALITY_ORGANIZATION_ID, transferTax, "property_transfer_tax", parcel.id);
@@ -654,7 +671,7 @@ export function dispatchProductCommand(
     return productEvent(state, command.commandId, "ParcelPurchased", {
       parcelId: parcel.id,
       ownerOrganizationId: parcel.ownerOrganizationId,
-      price: parcel.price,
+      price: parcel.marketValue,
       transferTax,
     });
   }
@@ -684,7 +701,7 @@ export function dispatchProductCommand(
     );
     if (hasOfferedLoan) return { accepted: false, code: "SELL_COLLATERAL_LOCKED" };
     const salePrice = parseMoney(
-      Math.floor((parcel.price * RIVAL_AI_POLICY.salePricePercent) / 100),
+      Math.floor((parcel.marketValue * RIVAL_AI_POLICY.salePricePercent) / 100),
     );
     if (!debit(state, BANK_ORGANIZATION_ID, salePrice, "asset_sale", parcel.id))
       return { accepted: false, code: "SELL_NOT_AVAILABLE" };
@@ -712,16 +729,7 @@ export function dispatchProductCommand(
     if (activeSiteOnParcel(state, parcel.id)) {
       return { accepted: false, code: "ACTIVE_SITE_ON_PARCEL" };
     }
-    const code = developmentCodeById(parcel.developmentCodeId);
-    const buildingIndex = buildBuildingIndex(state);
-    const footprint = chooseFootprint({
-      parcel,
-      code,
-      definition,
-      buildings: buildingsOnParcel(buildingIndex, parcel.id),
-    });
-    if ("error" in footprint) return { accepted: false, code: footprint.error };
-    const permit = state.phase2.permitting.permitsByParcelId[parcel.id];
+    let permit = state.phase2.permitting.permitsByParcelId[parcel.id];
     if (
       permit?.status !== "approved" ||
       permit.buildingType !== command.payload.buildingType ||
@@ -729,7 +737,34 @@ export function dispatchProductCommand(
     ) {
       if (issuePermit(state, parcel, command.payload.buildingType) !== "approved")
         return { accepted: false, code: "PERMIT_DENIED" };
+      permit = state.phase2.permitting.permitsByParcelId[parcel.id]!;
     }
+    const code = effectiveDevelopmentCode(
+      permit.developmentCodeIdAtDecision,
+      permit.densityBonusFloors,
+      permit.densityBonusFarPercent,
+    );
+    const avenueSegmentIds = new Set(
+      state.world.districts
+        .get(parcel.districtId)!
+        .map.roads.segments.filter((segment) => segment.class === "avenue")
+        .map((segment) => segment.id as string),
+    );
+    const principalFrontageCells = parcel.roadFrontages
+      .filter((frontage) => avenueSegmentIds.has(frontage.roadSegmentId))
+      .flatMap((frontage) => frontage.cells);
+    const buildingIndex = buildBuildingIndex(state);
+    const footprint = chooseFootprint({
+      parcel,
+      code,
+      definition,
+      principalFrontageCells:
+        principalFrontageCells.length > 0
+          ? principalFrontageCells
+          : parcel.roadFrontages.flatMap((frontage) => frontage.cells),
+      buildings: buildingsOnParcel(buildingIndex, parcel.id),
+    });
+    if ("error" in footprint) return { accepted: false, code: footprint.error };
     const activeSites = [...state.phase2.constructionSites.values()].filter(
       (site) =>
         site.ownerOrganizationId === command.actingAsOrganizationId &&

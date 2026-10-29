@@ -7393,7 +7393,7 @@
       {
         "district": {
           "id": "district_00000005",
-          "name": "Centro Cívico",
+          "name": "Centro C\u00edvico",
           "width": 64,
           "height": 64,
           "generation": {
@@ -22169,7 +22169,6 @@
       {
         "id": "parcel_00000001",
         "districtId": "district_00000004",
-        "price": 900,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 70,
@@ -22190,12 +22189,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 900,
+        "marketValue": 900
       },
       {
         "id": "parcel_00000002",
         "districtId": "district_00000004",
-        "price": 1000,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 95,
@@ -22216,12 +22216,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 1000,
+        "marketValue": 1000
       },
       {
         "id": "parcel_00000003",
         "districtId": "district_00000004",
-        "price": 1050,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 70,
@@ -22242,12 +22243,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 1050,
+        "marketValue": 1050
       },
       {
         "id": "parcel_00000004",
         "districtId": "district_00000004",
-        "price": 1200,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 95,
@@ -22268,12 +22270,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 1200,
+        "marketValue": 1200
       },
       {
         "id": "parcel_00000005",
         "districtId": "district_00000004",
-        "price": 800,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 120,
@@ -22294,12 +22297,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "industrial_yard_2f",
-        "currentUses": ["industrial"]
+        "currentUses": ["industrial"],
+        "baseLandValue": 800,
+        "marketValue": 800
       },
       {
         "id": "parcel_00000006",
         "districtId": "district_00000004",
-        "price": 950,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 95,
@@ -22320,12 +22324,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 950,
+        "marketValue": 950
       },
       {
         "id": "parcel_00000007",
         "districtId": "district_00000004",
-        "price": 850,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 120,
@@ -22346,12 +22351,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "industrial_yard_2f",
-        "currentUses": ["industrial"]
+        "currentUses": ["industrial"],
+        "baseLandValue": 850,
+        "marketValue": 850
       },
       {
         "id": "parcel_00000008",
         "districtId": "district_00000004",
-        "price": 1100,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 95,
@@ -22372,12 +22378,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 1100,
+        "marketValue": 1100
       },
       {
         "id": "parcel_00000009",
         "districtId": "district_00000004",
-        "price": 1043,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 107,
@@ -22398,12 +22405,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 1043,
+        "marketValue": 1043
       },
       {
         "id": "parcel_00000010",
         "districtId": "district_00000004",
-        "price": 1120,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 100,
@@ -22424,12 +22432,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 1120,
+        "marketValue": 1120
       },
       {
         "id": "parcel_00000011",
         "districtId": "district_00000004",
-        "price": 1029,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 84,
@@ -22450,12 +22459,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 1029,
+        "marketValue": 1029
       },
       {
         "id": "parcel_00000012",
         "districtId": "district_00000004",
-        "price": 1082,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 105,
@@ -22476,12 +22486,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 1082,
+        "marketValue": 1082
       },
       {
         "id": "parcel_00000013",
         "districtId": "district_00000004",
-        "price": 1064,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 99,
@@ -22502,12 +22513,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 1064,
+        "marketValue": 1064
       },
       {
         "id": "parcel_00000014",
         "districtId": "district_00000004",
-        "price": 1164,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 98,
@@ -22528,12 +22540,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 1164,
+        "marketValue": 1164
       },
       {
         "id": "parcel_00000015",
         "districtId": "district_00000004",
-        "price": 953,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 73,
@@ -22554,12 +22567,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 953,
+        "marketValue": 953
       },
       {
         "id": "parcel_00000016",
         "districtId": "district_00000004",
-        "price": 1090,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 60,
@@ -22580,12 +22594,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 1090,
+        "marketValue": 1090
       },
       {
         "id": "parcel_00000017",
         "districtId": "district_00000004",
-        "price": 913,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 75,
@@ -22606,12 +22621,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 913,
+        "marketValue": 913
       },
       {
         "id": "parcel_00000018",
         "districtId": "district_00000004",
-        "price": 982,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 66,
@@ -22632,12 +22648,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 982,
+        "marketValue": 982
       },
       {
         "id": "parcel_00000019",
         "districtId": "district_00000004",
-        "price": 925,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 63,
@@ -22658,12 +22675,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 925,
+        "marketValue": 925
       },
       {
         "id": "parcel_00000020",
         "districtId": "district_00000004",
-        "price": 1041,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 80,
@@ -22684,12 +22702,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 1041,
+        "marketValue": 1041
       },
       {
         "id": "parcel_00000021",
         "districtId": "district_00000004",
-        "price": 1069,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 79,
@@ -22710,12 +22729,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 1069,
+        "marketValue": 1069
       },
       {
         "id": "parcel_00000022",
         "districtId": "district_00000004",
-        "price": 1022,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 60,
@@ -22736,12 +22756,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 1022,
+        "marketValue": 1022
       },
       {
         "id": "parcel_00000023",
         "districtId": "district_00000004",
-        "price": 1054,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 70,
@@ -22762,12 +22783,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 1054,
+        "marketValue": 1054
       },
       {
         "id": "parcel_00000024",
         "districtId": "district_00000004",
-        "price": 998,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 63,
@@ -22788,12 +22810,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 998,
+        "marketValue": 998
       },
       {
         "id": "parcel_00000025",
         "districtId": "district_00000004",
-        "price": 1058,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 62,
@@ -22814,12 +22837,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 1058,
+        "marketValue": 1058
       },
       {
         "id": "parcel_00000026",
         "districtId": "district_00000004",
-        "price": 961,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 63,
@@ -22840,12 +22864,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 961,
+        "marketValue": 961
       },
       {
         "id": "parcel_00000027",
         "districtId": "district_00000004",
-        "price": 1039,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 67,
@@ -22866,12 +22891,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 1039,
+        "marketValue": 1039
       },
       {
         "id": "parcel_00000028",
         "districtId": "district_00000004",
-        "price": 928,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 62,
@@ -22892,12 +22918,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 928,
+        "marketValue": 928
       },
       {
         "id": "parcel_00000029",
         "districtId": "district_00000004",
-        "price": 1065,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 71,
@@ -22918,12 +22945,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 1065,
+        "marketValue": 1065
       },
       {
         "id": "parcel_00000030",
         "districtId": "district_00000004",
-        "price": 958,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 62,
@@ -22944,12 +22972,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 958,
+        "marketValue": 958
       },
       {
         "id": "parcel_00000031",
         "districtId": "district_00000004",
-        "price": 718,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 102,
@@ -22970,12 +22999,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "industrial_yard_2f",
-        "currentUses": ["industrial"]
+        "currentUses": ["industrial"],
+        "baseLandValue": 718,
+        "marketValue": 718
       },
       {
         "id": "parcel_00000032",
         "districtId": "district_00000004",
-        "price": 1124,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 93,
@@ -22996,12 +23026,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 1124,
+        "marketValue": 1124
       },
       {
         "id": "parcel_00000033",
         "districtId": "district_00000004",
-        "price": 609,
         "ownerOrganizationId": "org_00000001",
         "productionSuitability": {
           "cement": 115,
@@ -23022,12 +23053,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 609,
+        "marketValue": 609
       },
       {
         "id": "parcel_00000034",
         "districtId": "district_00000004",
-        "price": 604,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 64,
@@ -23048,12 +23080,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "industrial_yard_2f",
-        "currentUses": ["industrial"]
+        "currentUses": ["industrial"],
+        "baseLandValue": 604,
+        "marketValue": 604
       },
       {
         "id": "parcel_00000035",
         "districtId": "district_00000004",
-        "price": 1201,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 133,
@@ -23074,12 +23107,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 1201,
+        "marketValue": 1201
       },
       {
         "id": "parcel_00000036",
         "districtId": "district_00000004",
-        "price": 647,
         "ownerOrganizationId": "org_00000001",
         "productionSuitability": {
           "cement": 65,
@@ -23100,12 +23134,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "industrial_yard_2f",
-        "currentUses": ["industrial"]
+        "currentUses": ["industrial"],
+        "baseLandValue": 647,
+        "marketValue": 647
       },
       {
         "id": "parcel_00000037",
         "districtId": "district_00000004",
-        "price": 1386,
         "ownerOrganizationId": "org_00000001",
         "productionSuitability": {
           "cement": 90,
@@ -23126,12 +23161,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": []
+        "currentUses": [],
+        "baseLandValue": 1386,
+        "marketValue": 1386
       },
       {
         "id": "parcel_00000038",
         "districtId": "district_00000004",
-        "price": 813,
         "ownerOrganizationId": "org_00000001",
         "productionSuitability": {
           "cement": 66,
@@ -23152,12 +23188,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 813,
+        "marketValue": 813
       },
       {
         "id": "parcel_00000039",
         "districtId": "district_00000004",
-        "price": 859,
         "ownerOrganizationId": "org_00000001",
         "productionSuitability": {
           "cement": 70,
@@ -23178,12 +23215,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 859,
+        "marketValue": 859
       },
       {
         "id": "parcel_00000040",
         "districtId": "district_00000004",
-        "price": 1243,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 64,
@@ -23204,12 +23242,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 1243,
+        "marketValue": 1243
       },
       {
         "id": "parcel_00000041",
         "districtId": "district_00000004",
-        "price": 1137,
         "ownerOrganizationId": "org_00000001",
         "productionSuitability": {
           "cement": 94,
@@ -23230,12 +23269,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 1137,
+        "marketValue": 1137
       },
       {
         "id": "parcel_00000042",
         "districtId": "district_00000004",
-        "price": 1279,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 77,
@@ -23256,12 +23296,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 1279,
+        "marketValue": 1279
       },
       {
         "id": "parcel_00000043",
         "districtId": "district_00000004",
-        "price": 1431,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 68,
@@ -23282,12 +23323,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 1431,
+        "marketValue": 1431
       },
       {
         "id": "parcel_00000044",
         "districtId": "district_00000004",
-        "price": 1220,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 105,
@@ -23308,12 +23350,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 1220,
+        "marketValue": 1220
       },
       {
         "id": "parcel_00000045",
         "districtId": "district_00000004",
-        "price": 1405,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 101,
@@ -23334,12 +23377,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 1405,
+        "marketValue": 1405
       },
       {
         "id": "parcel_00000046",
         "districtId": "district_00000004",
-        "price": 1127,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 125,
@@ -23360,12 +23404,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 1127,
+        "marketValue": 1127
       },
       {
         "id": "parcel_00000047",
         "districtId": "district_00000004",
-        "price": 1366,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 60,
@@ -23386,12 +23431,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "industrial_yard_2f",
-        "currentUses": ["industrial"]
+        "currentUses": ["industrial"],
+        "baseLandValue": 1366,
+        "marketValue": 1366
       },
       {
         "id": "parcel_00000048",
         "districtId": "district_00000004",
-        "price": 1256,
         "ownerOrganizationId": "org_00000001",
         "productionSuitability": {
           "cement": 83,
@@ -23412,12 +23458,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 1256,
+        "marketValue": 1256
       },
       {
         "id": "parcel_00000049",
         "districtId": "district_00000004",
-        "price": 828,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 120,
@@ -23438,12 +23485,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 828,
+        "marketValue": 828
       },
       {
         "id": "parcel_00000050",
         "districtId": "district_00000004",
-        "price": 638,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 100,
@@ -23464,12 +23512,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "mixed_core_5f",
-        "currentUses": ["retail"]
+        "currentUses": ["retail"],
+        "baseLandValue": 638,
+        "marketValue": 638
       },
       {
         "id": "parcel_00000051",
         "districtId": "district_00000004",
-        "price": 1115,
         "ownerOrganizationId": "org_00000001",
         "productionSuitability": {
           "cement": 81,
@@ -23490,12 +23539,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "industrial_yard_2f",
-        "currentUses": ["industrial"]
+        "currentUses": ["industrial"],
+        "baseLandValue": 1115,
+        "marketValue": 1115
       },
       {
         "id": "parcel_00000052",
         "districtId": "district_00000004",
-        "price": 1265,
         "ownerOrganizationId": "org_00000001",
         "productionSuitability": {
           "cement": 60,
@@ -23516,12 +23566,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "industrial_yard_2f",
-        "currentUses": ["industrial"]
+        "currentUses": ["industrial"],
+        "baseLandValue": 1265,
+        "marketValue": 1265
       },
       {
         "id": "parcel_00000053",
         "districtId": "district_00000004",
-        "price": 631,
         "ownerOrganizationId": "org_00000002",
         "productionSuitability": {
           "cement": 104,
@@ -23542,12 +23593,13 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "industrial_yard_2f",
-        "currentUses": ["industrial"]
+        "currentUses": ["industrial"],
+        "baseLandValue": 631,
+        "marketValue": 631
       },
       {
         "id": "parcel_00000054",
         "districtId": "district_00000004",
-        "price": 871,
         "ownerOrganizationId": "org_00000001",
         "productionSuitability": {
           "cement": 108,
@@ -23568,7 +23620,9 @@
         "roadFrontages": [],
         "disposition": "marketable",
         "developmentCodeId": "res_urban_4f",
-        "currentUses": ["residential"]
+        "currentUses": ["residential"],
+        "baseLandValue": 871,
+        "marketValue": 871
       }
     ],
     "balances": [
@@ -30710,7 +30764,7 @@
         "contract_00000001": {
           "id": "contract_00000001",
           "kind": "public_works",
-          "title": "Rehabilitación de aceras del casco",
+          "title": "Rehabilitaci\u00f3n de aceras del casco",
           "budget": 420,
           "bond": 42,
           "requiredBuildings": 1,
@@ -30731,7 +30785,7 @@
         "contract_00000002": {
           "id": "contract_00000002",
           "kind": "supply",
-          "title": "Suministro de materiales al depósito municipal",
+          "title": "Suministro de materiales al dep\u00f3sito municipal",
           "budget": 260,
           "bond": 26,
           "requiredBuildings": 0,

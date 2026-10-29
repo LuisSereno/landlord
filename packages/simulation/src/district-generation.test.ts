@@ -119,7 +119,7 @@ describe("WP4.1 district generation", () => {
       expect(generated.report.anchorParcelCount, `seed ${seed}`).toBe(profile.anchorSlots.length);
       for (const slot of profile.anchorSlots) {
         expect(
-          generated.parcels.some((parcel) => Number(parcel.price) === slot.price),
+          generated.parcels.some((parcel) => Number(parcel.marketValue) === slot.price),
           `seed ${seed} ancla @${slot.price}`,
         ).toBe(true);
       }

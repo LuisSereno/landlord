@@ -68,11 +68,11 @@ describe("generador de proyección de gameplay (WP4.15-V.c.1)", () => {
 
       const residential = parcels
         .filter((p) => developmentCodeById(p.developmentCodeId).allowedUses.includes("residential"))
-        .sort((a, b) => a.price - b.price || a.id.localeCompare(b.id))
+        .sort((a, b) => a.marketValue - b.marketValue || a.id.localeCompare(b.id))
         .slice(0, 6);
       const mixed = parcels
         .filter((p) => developmentCodeById(p.developmentCodeId).allowedUses.includes("retail"))
-        .sort((a, b) => a.price - b.price || a.id.localeCompare(b.id))
+        .sort((a, b) => a.marketValue - b.marketValue || a.id.localeCompare(b.id))
         .slice(0, 3);
       let seq = 0;
       const nextId = (prefix: string): string => `${prefix}-${(seq += 1)}`;

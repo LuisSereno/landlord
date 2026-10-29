@@ -43,6 +43,7 @@ import { describeEmployment } from "./employment";
 import { AUTOMATION_POLICY, describeAutomation } from "./automation";
 import { describeIntelligence } from "./information";
 import { describeMunicipalBudget } from "./municipal-budget";
+import { buildLandValueContext, landValueBreakdownFor } from "./land-value";
 import { describeMunicipalPolitics } from "./municipal-politics";
 import { describePublicContracts } from "./public-contracts";
 import { describeReputation } from "./reputation";
@@ -75,7 +76,7 @@ function projectedMonthlyPropertyTax(
 ): number {
   return [...state.phase2.parcels.values()]
     .filter((parcel) => parcel.ownerOrganizationId === PLAYER_ORGANIZATION_ID)
-    .reduce((total, parcel) => total + calculateTax(parcel.price, rateBps), 0);
+    .reduce((total, parcel) => total + calculateTax(parcel.marketValue, rateBps), 0);
 }
 
 function createFinancialSummary(
@@ -100,7 +101,7 @@ function createFinancialSummary(
     playerInventory.steel * MARKET_PRICES.steel;
   const parcelValue = [...state.phase2.parcels.values()]
     .filter((parcel) => parcel.ownerOrganizationId === PLAYER_ORGANIZATION_ID)
-    .reduce((total, parcel) => total + parcel.price, 0);
+    .reduce((total, parcel) => total + parcel.marketValue, 0);
   const buildingValue = [...state.phase2.buildings.values()]
     .filter(
       (building) =>
@@ -278,7 +279,7 @@ function buildCitySummaries(state: GameState): PublicDistrictSummary[] {
           : Math.round(
               parcels
                 .filter((parcel) => parcel.disposition === "marketable")
-                .reduce((total, parcel) => total + parcel.price, 0) /
+                .reduce((total, parcel) => total + parcel.marketValue, 0) /
                 Math.max(1, parcels.filter((parcel) => parcel.disposition === "marketable").length),
             ),
       ),
@@ -318,6 +319,9 @@ export function createViewProjection(
   const observedParcelIds = new Set(observedParcels.map((parcel) => parcel.id));
   const buildingIndex = buildBuildingIndex(state);
   const observedDistrictBlocks = districtStateOf(state, observedDistrictId).blocks;
+  const landValueContext = includeEconomy
+    ? buildLandValueContext(state, observedDistrictId)
+    : undefined;
   const observedBuildings = [...state.phase2.buildings.values()].filter((building) =>
     observedParcelIds.has(building.parcelId),
   );
@@ -549,7 +553,9 @@ export function createViewProjection(
                   id: parcel.id,
                   cell: { ...parcel.anchorCell },
                   cells: parcel.cells.map((cell) => ({ ...cell })),
-                  price: parcel.price,
+                  baseLandValue: parcel.baseLandValue,
+                  marketValue: parcel.marketValue,
+                  landValueBreakdown: landValueBreakdownFor(parcel, landValueContext!),
                   zoning: zoningFamilyForCode(code),
                   disposition: parcel.disposition,
                   developmentCodeId: code.id,
@@ -576,7 +582,7 @@ export function createViewProjection(
                     block?.urbanRole ?? "urban_residential",
                   ),
                   estimatedTransferTax: calculateTax(
-                    parcel.price,
+                    parcel.marketValue,
                     effectiveTaxRateBps(
                       state.phase2.taxation.transferRateBps,
                       state.phase2.ordinance.status === "active"
@@ -584,7 +590,7 @@ export function createViewProjection(
                         : 0,
                     ),
                   ),
-                  estimatedMonthlyPropertyTax: calculateTax(parcel.price, propertyTaxRateBps),
+                  estimatedMonthlyPropertyTax: calculateTax(parcel.marketValue, propertyTaxRateBps),
                 };
               }),
             cash: state.phase2.balances.get(PLAYER_ORGANIZATION_ID) ?? 0,
@@ -721,6 +727,14 @@ export function createViewProjection(
                 name: definition.name,
                 allowedUses: [...definition.allowedUses],
                 municipal: definition.municipal,
+                densityBonusFloors:
+                  state.phase2.ordinance.status === "active"
+                    ? state.phase2.ordinance.densityBonusFloors
+                    : 0,
+                densityBonusFarPercent:
+                  state.phase2.ordinance.status === "active"
+                    ? state.phase2.ordinance.densityBonusFarPercent
+                    : 0,
                 cost: Math.round(
                   definition.cost * (1 + materialCostModifierPercentFor(state) / 100),
                 ),
@@ -889,6 +903,9 @@ export function createViewProjection(
               propertyTaxModifierPercent: state.phase2.ordinance.propertyTaxModifierPercent,
               transferTaxModifierPercent: state.phase2.ordinance.transferTaxModifierPercent,
               permitApprovalModifierPercent: state.phase2.ordinance.permitApprovalModifierPercent,
+              densityBonusFloors: state.phase2.ordinance.densityBonusFloors,
+              densityBonusFarPercent: state.phase2.ordinance.densityBonusFarPercent,
+              densityAppliesToRole: state.phase2.ordinance.densityAppliesToRole,
             },
             policyOptions: MUNICIPAL_POLICY_CATALOG.map((policy) => ({
               id: policy.id,
@@ -900,6 +917,9 @@ export function createViewProjection(
               propertyTaxModifierPercent: policy.propertyTaxModifierPercent,
               transferTaxModifierPercent: policy.transferTaxModifierPercent,
               permitApprovalModifierPercent: policy.permitApprovalModifierPercent,
+              densityBonusFloors: policy.densityBonusFloors,
+              densityBonusFarPercent: policy.densityBonusFarPercent,
+              densityAppliesToRole: policy.densityAppliesToRole,
             })),
             illegalRoute: {
               detectionChancePercent: Math.min(

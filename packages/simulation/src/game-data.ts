@@ -161,7 +161,8 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     upgradeWorkRequired: 84,
     resources: { cement: 8, brick: 12, steel: 5 },
     form: "perimeter",
-    defaultFloors: 4,
+    // V.d.4: the tallest private type; the corridor trial's +1 floor is observable here.
+    defaultFloors: 5,
     targetFootprintCells: 10,
     municipal: false,
   },
@@ -388,6 +389,9 @@ export const PROTOTYPE_ORDINANCE = {
   propertyTaxModifierPercent: 0,
   transferTaxModifierPercent: 0,
   permitApprovalModifierPercent: 0,
+  densityBonusFloors: 0,
+  densityBonusFarPercent: 0,
+  densityAppliesToRole: null,
 };
 
 export const MUNICIPAL_POLICY_CATALOG: readonly Ordinance[] = [
@@ -406,6 +410,9 @@ export const MUNICIPAL_POLICY_CATALOG: readonly Ordinance[] = [
     propertyTaxModifierPercent: -10,
     transferTaxModifierPercent: 10,
     permitApprovalModifierPercent: 15,
+    densityBonusFloors: 0,
+    densityBonusFarPercent: 0,
+    densityAppliesToRole: null,
   },
   {
     id: parsePolicyId("policy_00000003"),
@@ -421,6 +428,9 @@ export const MUNICIPAL_POLICY_CATALOG: readonly Ordinance[] = [
     propertyTaxModifierPercent: -25,
     transferTaxModifierPercent: -15,
     permitApprovalModifierPercent: -10,
+    densityBonusFloors: 0,
+    densityBonusFarPercent: 0,
+    densityAppliesToRole: null,
   },
   {
     id: parsePolicyId("policy_00000004"),
@@ -436,6 +446,27 @@ export const MUNICIPAL_POLICY_CATALOG: readonly Ordinance[] = [
     propertyTaxModifierPercent: 0,
     transferTaxModifierPercent: 0,
     permitApprovalModifierPercent: -15,
+    densityBonusFloors: 0,
+    densityBonusFarPercent: 0,
+    densityAppliesToRole: null,
+  },
+  {
+    id: parsePolicyId("policy_00000005"),
+    name: "Ensayo de densidad de corredor",
+    status: "proposed",
+    proposedAtTick: null,
+    activeFromTick: null,
+    expiresAtTick: null,
+    materialCostModifierPercent: 0,
+    rentModifierPercent: 0,
+    influenceRequired: 2,
+    approvalChancePercent: 50,
+    propertyTaxModifierPercent: 0,
+    transferTaxModifierPercent: 0,
+    permitApprovalModifierPercent: 0,
+    densityBonusFloors: 1,
+    densityBonusFarPercent: 100,
+    densityAppliesToRole: "commercial_corridor",
   },
 ];
 

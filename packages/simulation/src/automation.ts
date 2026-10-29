@@ -153,7 +153,7 @@ function runFinanceManager(state: GameState): void {
           (loan) => loan.collateralParcelId === parcel.id && activeLoanStatus(loan),
         ),
     )
-    .sort((left, right) => right.price - left.price || byId(left, right))[0];
+    .sort((left, right) => right.marketValue - left.marketValue || byId(left, right))[0];
   if (!collateral) return;
   const shortfall = policy.financeCashFloor - cash;
   const preferred = Math.min(

@@ -495,7 +495,7 @@ function validatePlayability(input: {
       });
     }
   }
-  const prices = parcels.map((parcel) => parcel.price);
+  const prices = parcels.map((parcel) => parcel.marketValue);
   const cheapest = prices.length === 0 ? Number.POSITIVE_INFINITY : Math.min(...prices);
   if (cheapest > playability.maximumCheapestParcelPrice) {
     issues.push({
@@ -554,7 +554,8 @@ export function districtCanonicalString(input: {
         parcel.disposition,
         parcel.developmentCodeId,
         parcel.currentUses.join("+"),
-        parcel.price,
+        parcel.baseLandValue,
+        parcel.marketValue,
         `${suitability.cement}/${suitability.brick}/${suitability.steel}`,
       ].join("@");
     })
@@ -681,7 +682,7 @@ function buildReport(input: {
     roleCounts[role] += 1;
   }
   const marketable = parcels.filter((parcel) => parcel.disposition === "marketable");
-  const prices = marketable.map((parcel) => parcel.price);
+  const prices = marketable.map((parcel) => parcel.marketValue);
   const total = prices.reduce((sum, price) => sum + price, 0);
   return {
     profileId: profile.id,
@@ -959,7 +960,8 @@ function attemptComposition(input: {
       cells: frontage.cells.map((cell) => ({ ...cell })),
     })),
     disposition: "marketable",
-    price: parseMoney(entry.price),
+    baseLandValue: parseMoney(entry.price),
+    marketValue: parseMoney(entry.price),
     developmentCodeId: entry.developmentCodeId,
     currentUses: [],
     ownerOrganizationId: null,
@@ -982,6 +984,7 @@ function attemptComposition(input: {
       parcel: { cells: reservation.gridCells, roadFrontages: frontages },
       code,
       definition,
+      principalFrontageCells: frontages.flatMap((frontage) => frontage.cells),
       buildings: [],
     });
     if ("error" in footprint) {
@@ -1007,7 +1010,8 @@ function attemptComposition(input: {
         cells: frontage.cells.map((cell) => ({ ...cell })),
       })),
       disposition: "public",
-      price: parseMoney(0),
+      baseLandValue: parseMoney(0),
+      marketValue: parseMoney(0),
       developmentCodeId: code.id,
       currentUses: [use],
       ownerOrganizationId: MUNICIPALITY_ORGANIZATION_ID,

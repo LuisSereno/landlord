@@ -92,6 +92,21 @@ export function developmentCodeById(id: DevelopmentCodeId): DevelopmentCode {
   return code;
 }
 
+/** Code plus the density rights an approved permit acquired under a trial ordinance (V.d.4). */
+export function effectiveDevelopmentCode(
+  id: DevelopmentCodeId,
+  bonusFloors: number,
+  bonusFarPercent: number,
+): DevelopmentCode {
+  const code = developmentCodeById(id);
+  if (bonusFloors === 0 && bonusFarPercent === 0) return code;
+  return {
+    ...code,
+    maxFloors: code.maxFloors + bonusFloors,
+    maxFloorAreaRatioPercent: code.maxFloorAreaRatioPercent + bonusFarPercent,
+  };
+}
+
 /** The display family of a parcel is derived from its code, never stored on the parcel. */
 export function zoningFamilyForCode(code: DevelopmentCode): "residential" | "mixed" | "industrial" {
   if (code.allowedUses.includes("industrial")) return "industrial";

@@ -78,7 +78,7 @@ describe("WP4.5 presupuesto municipal", () => {
     );
     for (const parcel of parcels.slice(0, 2)) {
       parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
-      parcel.price = parseMoney(10_000);
+      parcel.marketValue = parseMoney(10_000);
     }
     addBuilding(state, 0);
     addBuilding(state, 1);
@@ -153,7 +153,7 @@ describe("WP4.5 presupuesto municipal", () => {
     state.phase2.balances.set(MUNICIPALITY_ORGANIZATION_ID, parseMoney(0));
     const parcelId = parseParcelId("parcel_00000001");
     const parcel = state.phase2.parcels.get(parcelId)!;
-    parcel.price = parseMoney(1_000);
+    parcel.marketValue = parseMoney(1_000);
 
     dispatchProductCommand(state, {
       type: "BuyParcel",

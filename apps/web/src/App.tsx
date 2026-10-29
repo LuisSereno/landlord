@@ -371,6 +371,7 @@ export function App() {
                 <option value="condition">Condición</option>
                 <option value="zoning">Zoning</option>
                 <option value="risk">Riesgo regulatorio</option>
+                <option value="landValue">Valor del suelo</option>
               </select>
             </label>
             <span className="map-help">Rueda: zoom · flechas o botón derecho: desplazamiento</span>
@@ -778,7 +779,7 @@ export function App() {
                         ? `${buildingLabel(selectedConstructionSite.buildingType)} en obra · ${selectedConstructionSite.progress}/${selectedConstructionSite.workRequired}`
                         : selectedParcel.disposition === "public"
                           ? "Reserva municipal: no transferible"
-                          : `Solar disponible · precio ${selectedParcel.price} u.`}
+                          : `Solar disponible · precio ${selectedParcel.marketValue} u.`}
                   </p>
                   <div className="selection-detail">
                     <strong>Aptitud productiva</strong>
@@ -793,6 +794,23 @@ export function App() {
                     {selectedParcel.estimatedTransferTax} u. · propiedad{" "}
                     {selectedParcel.estimatedMonthlyPropertyTax} u./mes
                   </p>
+                  {selectedParcel.disposition === "marketable" ? (
+                    <p className="selection-detail">
+                      <strong>Valor del suelo:</strong> base {selectedParcel.baseLandValue} u. ·
+                      mercado {selectedParcel.marketValue} u. · score{" "}
+                      {selectedParcel.landValueBreakdown.score}
+                      <br />
+                      centralidad {selectedParcel.landValueBreakdown.roadCentrality} · comercio{" "}
+                      {selectedParcel.landValueBreakdown.commercialAccess} · amenidades{" "}
+                      {selectedParcel.landValueBreakdown.civicAmenities} · frente{" "}
+                      {selectedParcel.landValueBreakdown.frontage} · código{" "}
+                      {selectedParcel.landValueBreakdown.codePotential} · servicios{" "}
+                      {selectedParcel.landValueBreakdown.services} · industria{" "}
+                      {selectedParcel.landValueBreakdown.industrialExternality} · aislamiento{" "}
+                      {selectedParcel.landValueBreakdown.isolation} · seed{" "}
+                      {selectedParcel.landValueBreakdown.seedVariation}
+                    </p>
+                  ) : null}
                   <p className="selection-detail">
                     <strong>Regulación:</strong> riesgo conocido{" "}
                     {selectedParcel.regulatoryRiskPercent}% · usos{" "}

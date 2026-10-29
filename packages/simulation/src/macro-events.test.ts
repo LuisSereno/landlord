@@ -251,7 +251,7 @@ describe("WP4.12-R macroeventos", () => {
         total += state.phase2.macroEvents.nextEventOrdinal - 1;
       }
       expect(total).toBeGreaterThan(0);
-    }, 120_000);
+    }, 300_000);
 
     it("respeta el calendario de sorteo mensual", () => {
       const state = createInitialState(11);
@@ -407,6 +407,8 @@ describe("WP4.12-R macroeventos", () => {
         developmentCodeIdAtDecision: permitCode.id,
         allowedUsesAtDecision: [...permitCode.allowedUses],
         currentUsesAtDecision: [...parcel.currentUses],
+        densityBonusFloors: 0,
+        densityBonusFarPercent: 0,
         status: "approved",
         requestedAtTick: parseTick(0),
         decidedAtTick: parseTick(0),

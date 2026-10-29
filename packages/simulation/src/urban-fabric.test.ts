@@ -203,7 +203,7 @@ describe("V.d.1 front-first multi-cell parcels", () => {
   it("picks the id ordinally from canonical geometry and anchors first", () => {
     const district = generated();
     expect(district.parcels[0]!.id).toBe(parseParcelId("parcel_00000001"));
-    expect(district.parcels[0]!.price).toBe(900);
+    expect(district.parcels[0]!.marketValue).toBe(900);
     expect(developmentCodeById(district.parcels[0]!.developmentCodeId).allowedUses).toContain(
       "residential",
     );

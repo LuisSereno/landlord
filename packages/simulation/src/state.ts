@@ -151,6 +151,7 @@ export type Phase2State = {
     transaction: number;
     incident: number;
     loan: number;
+    permit: number;
   };
   parcels: Map<import("@landlord/shared").ParcelId, Parcel>;
   balances: Map<OrganizationId, Money>;
@@ -392,6 +393,7 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
         transaction: 0,
         incident: 0,
         loan: 0,
+        permit: 0,
       },
       parcels,
       balances: new Map([
@@ -447,7 +449,7 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
       permitting: {
         validityTicks: PERMIT_POLICY.validityTicks,
         approvalChanceByRole: { ...PERMIT_POLICY.approvalChanceByRole },
-        permitsByParcelId: {},
+        permitsById: {},
       },
       insolvency: {
         auctionsByLoanId: {},

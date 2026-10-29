@@ -7,6 +7,7 @@ import {
   districtIdSchema,
   organizationIdSchema,
   parcelIdSchema,
+  permitIdSchema,
   policyIdSchema,
   structureIdSchema,
   agentIdSchema,
@@ -16,6 +17,7 @@ import {
   type DistrictId,
   type OrganizationId,
   type ParcelId,
+  type PermitId,
   type PolicyId,
   type StructureId,
   type AgentId,
@@ -174,7 +176,9 @@ export type ViewProjectionV2 = {
       estimatedTransferTax: number;
       estimatedMonthlyPropertyTax: number;
       permittedBuildingTypes: BuildingType[];
-      permitStatus: "approved" | "denied" | "expired" | null;
+      permitStatus: "approved" | "denied" | "expired" | "consumed" | null;
+      /** Identidad de la decisión publicada; `null` si la parcela no tiene permiso vigente. */
+      permitId: PermitId | null;
       permitExpiresAtTick: Tick | null;
       regulatoryRiskPercent: number;
     }>;
@@ -786,7 +790,8 @@ export const viewProjectionV2Schema = z.object({
           estimatedTransferTax: moneySchema,
           estimatedMonthlyPropertyTax: moneySchema,
           permittedBuildingTypes: z.array(buildingTypeSchema),
-          permitStatus: z.enum(["approved", "denied", "expired"]).nullable(),
+          permitStatus: z.enum(["approved", "denied", "expired", "consumed"]).nullable(),
+          permitId: permitIdSchema.nullable(),
           permitExpiresAtTick: tickSchema.nullable(),
           regulatoryRiskPercent: z.number().int().min(0).max(100),
         }),

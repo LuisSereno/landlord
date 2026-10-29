@@ -8,6 +8,7 @@ import {
 } from "@landlord/shared";
 
 import { dispatchProductCommand } from "./commands";
+import { activePermitFor } from "./permitting";
 import { developmentCodeForRole, effectiveDevelopmentCode } from "./development-codes";
 import { BUILDING_DEFINITIONS, createMunicipalPolicy, PLAYER_ORGANIZATION_ID } from "./game-data";
 import { chooseFootprint } from "./footprints";
@@ -81,7 +82,7 @@ describe("V.d.4 densidad de corredor", () => {
       }),
     );
     expect(result.accepted).toBe(true);
-    const permit = state.phase2.permitting.permitsByParcelId[parcel.id]!;
+    const permit = activePermitFor(state, parcel.id, "apartment_block", state.clock.tick)!;
     expect(permit.densityBonusFloors).toBe(1);
     expect(permit.densityBonusFarPercent).toBe(100);
   });
@@ -147,7 +148,7 @@ describe("V.d.4 densidad de corredor", () => {
         }),
       ).accepted,
     ).toBe(true);
-    const permit = state.phase2.permitting.permitsByParcelId[second.id]!;
+    const permit = activePermitFor(state, second.id, "apartment_block", state.clock.tick)!;
     expect(permit.densityBonusFloors).toBe(0);
     expect(permit.densityBonusFarPercent).toBe(0);
   });

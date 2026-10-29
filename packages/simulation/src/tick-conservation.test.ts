@@ -123,54 +123,54 @@ function cityDigest(input: {
 const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => string }> = [
   {
     id: "scenario:seed-1:1200",
-    expected: "158e7cc46097e3ab",
+    expected: "7b9f8b44a0126934",
     run: () => digest(canonicalizeState(runScenario(1, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-7:1200",
-    expected: "7f41578b7fa8330d",
+    expected: "107877d75330c137",
     run: () => digest(canonicalizeState(runScenario(7, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-42:1200",
-    expected: "24125c4ba3caee1b",
+    expected: "eecd14f55a886042",
     run: () => digest(canonicalizeState(runScenario(42, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "52c8a6bb2e43606e",
+    expected: "638911642611e350",
     run: () => digest(canonicalizeState(runScenario(1, [], 36_000, { checkpointEvery: 0 }).state)),
   },
   {
     id: "city:50-parcels:1300-ticks",
-    expected: "9f15b21faa7415c3",
+    expected: "b0da0195cda5a973",
     run: () => cityDigest({ parcelCount: 50, ticks: 1_300 }),
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "abf7ed544b8aa2e4",
+    expected: "1e2e373aa92f5e8c",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "274df72bc8c36b18",
+    expected: "78b9a6f173f2dfeb",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "55f818f651ff81d9",
+    expected: "6d7092e071c2d219",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "a7d366cac5f16145",
+    expected: "b7a9bc0c08827329",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "d87e0f2a7e557ae0",
+    expected: "0553e0da42cb1235",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];
@@ -253,6 +253,28 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
  * los seis agentes de obra —de (55,33)/(54,30) a (59,33)/(59,30)— porque ahora están junto a la
  * huella del edificio que levantan y no junto al ancla de la parcela. El digesto cambia por la
  * posición autoritativa de los agentes, no por la economía.
+ */
+
+/**
+ * Regeneración H1-03/H1-04 (2026-10-29): el permiso gana `PermitId`, estado `consumed`,
+ * `consumedAtTick` y se guarda en `permitsById` (antes un único registro mutable por parcela que
+ * nunca se gastaba); el contador `idCounters.permit` entra en la superficie canónica. Además
+ * `allowedUses` pasa a leerse como compatibilidad (OR) y no como requisitos acumulativos (AND), que
+ * era la causa de que `workshop` no fuese construible en ningún código.
+ *
+ * Cambian los diez digestos. Atribución verificada reconstruyendo la superficie canónica anterior
+ * (colección reindexada por parcela, sin `id` ni `consumedAtTick`, sin el contador) sobre el estado
+ * nuevo: nueve de los diez recuperan exactamente su valor comprometido —
+ * `158e7cc46097e3ab`, `7f41578b7fa8330d`, `24125c4ba3caee1b`, `9f15b21faa7415c3`,
+ * `abf7ed544b8aa2e4`, `274df72bc8c36b18`, `55f818f651ff81d9`, `a7d366cac5f16145`,
+ * `d87e0f2a7e557ae0`— así que en ellos el delta es sólo superficie y ningún observable económico se
+ * mueve (edificios, ruinas, bajas, transacciones, hogares y las cinco cajas coinciden con las
+ * medidas de H1-02). El único caso con actividad de permisos, `scenario:seed-1:36000`, no se
+ * reconstituye: deja tres decisiones (una aprobada y dos consumidas) donde el modelo viejo guardaba
+ * un único registro por parcela y no gastaba nada; su economía medida sigue siendo la misma
+ * (16 edificios, 20 transacciones, rival con 3 parcelas y 2 naves, cajas 12000/2225/100000/36/100000).
+ * Ninguna semilla de cambio afecta a las constantes económicas, a los límites morfológicos ni a los
+ * guards de jugabilidad por perfil.
  */
 
 describe("WP4.2 conservación del resultado económico", () => {

@@ -18,7 +18,7 @@ import {
 } from "@landlord/shared";
 import { detectInvariantViolations, measureBalance, type BalanceMetrics } from "./balance";
 import { buildBuildingIndex, buildingsOnParcel } from "./building-index";
-import { developmentCodeById } from "./development-codes";
+import { developmentCodeById, isBuildingAllowedByDevelopmentCode } from "./development-codes";
 import { dispatchProductCommand, type ProductCommandResult } from "./commands";
 import {
   BUILDING_DEFINITIONS,
@@ -188,15 +188,13 @@ function playerInventory(state: GameState) {
   return state.phase2.inventories.get(PLAYER_ORGANIZATION_ID)!;
 }
 
-/** Edificio rentable más barato que la zonificación admite; `null` si la parcela sólo permite producción. */
+/** Edificio rentable más barato que el código admite; `null` si la parcela sólo permite producción. */
 function rentableDefinitionFor(codeId: Parcel["developmentCodeId"]): BuildingDefinition | null {
   const code = developmentCodeById(codeId);
   const candidates = Object.values(BUILDING_DEFINITIONS)
     .filter(
       (definition) =>
-        definition.capacity > 0 &&
-        !definition.municipal &&
-        definition.allowedUses.every((use) => code.allowedUses.includes(use)),
+        definition.capacity > 0 && isBuildingAllowedByDevelopmentCode(definition, code),
     )
     .sort((left, right) => left.cost - right.cost || left.type.localeCompare(right.type));
   return candidates[0] ?? null;

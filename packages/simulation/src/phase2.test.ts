@@ -18,6 +18,7 @@ import {
   viewProjectionV2Schema,
 } from "@landlord/shared";
 import { dispatchProductCommand } from "./commands";
+import { activePermitFor, publishedPermitForParcel } from "./permitting";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { advanceProductSystems } from "./systems";
 import { controlGrantKey, createInitialState } from "./state";
@@ -1189,7 +1190,12 @@ describe("WP3.8 zoning and permits", () => {
       createViewProjection(state, true).economy?.parcels.find((p) => p.id === parcelId),
     ).toMatchObject({
       zoning: "industrial",
-      permittedBuildingTypes: ["cement_plant", "brickworks", "steelworks", "warehouse"],
+      /**
+       * H1-04: `allowedUses` es compatibilidad, no requisitos acumulativos. El taller declara
+       * `["industrial", "retail"]` y aquí era ilegal con la lectura `every`, es decir, no existía
+       * ninguna parcela donde construirlo.
+       */
+      permittedBuildingTypes: ["workshop", "cement_plant", "brickworks", "steelworks", "warehouse"],
       regulatoryRiskPercent: 25,
       permitStatus: null,
     });
@@ -1211,7 +1217,7 @@ describe("WP3.8 zoning and permits", () => {
         }),
       ),
     ).toMatchObject({ accepted: true, event: { type: "PermitDenied" } });
-    expect(state.phase2.permitting.permitsByParcelId[parcelId]).toMatchObject({
+    expect(publishedPermitForParcel(state, parcelId, state.clock.tick)).toMatchObject({
       status: "denied",
       authorityOrganizationId: "org_00000004",
       requirements: expect.arrayContaining(["code:res_urban_4f", "use:courtyard_home"]),
@@ -1240,7 +1246,7 @@ describe("WP3.8 zoning and permits", () => {
         }),
       ),
     ).toMatchObject({ accepted: true, event: { type: "PermitApproved" } });
-    const permit = state.phase2.permitting.permitsByParcelId[parcelId]!;
+    const permit = activePermitFor(state, parcelId, "courtyard_home", state.clock.tick)!;
     expect(permit).toMatchObject({
       status: "approved",
       expiresAtTick: GAME_MONTH_TICKS * 6,
@@ -1255,12 +1261,48 @@ describe("WP3.8 zoning and permits", () => {
       ).accepted,
     ).toBe(true);
 
-    state.clock = { ...state.clock, tick: permit.expiresAtTick! };
+    /**
+     * El permiso de esta parcela se gastó en la obra aceptada, así que la inspección publica la
+     * decisión cerrada, no una caducidad (H1-03). La caducidad se comprueba en una parcela cuyo
+     * permiso sigue sin consumir.
+     */
     expect(
       createViewProjection(state, true).economy?.parcels.find((p) => p.id === parcelId),
     ).toMatchObject({
-      permitStatus: "expired",
+      permitStatus: "consumed",
       permitExpiresAtTick: GAME_MONTH_TICKS * 6,
+    });
+
+    const unusedParcelId = parseParcelId("parcel_00000002");
+    dispatchProductCommand(
+      state,
+      command("permit-buy-unused", "BuyParcel", { parcelId: unusedParcelId }),
+    );
+    expect(
+      dispatchProductCommand(
+        state,
+        command("permit-approve-unused", "RequestPermit", {
+          parcelId: unusedParcelId,
+          buildingType: "courtyard_home",
+        }),
+      ).accepted,
+    ).toBe(true);
+    const unusedPermit = activePermitFor(
+      state,
+      unusedParcelId,
+      "courtyard_home",
+      state.clock.tick,
+    )!;
+    expect(
+      createViewProjection(state, true).economy?.parcels.find((p) => p.id === unusedParcelId),
+    ).toMatchObject({ permitStatus: "approved", permitId: unusedPermit.id });
+
+    state.clock = { ...state.clock, tick: unusedPermit.expiresAtTick! };
+    expect(
+      createViewProjection(state, true).economy?.parcels.find((p) => p.id === unusedParcelId),
+    ).toMatchObject({
+      permitStatus: "expired",
+      permitExpiresAtTick: unusedPermit.expiresAtTick,
     });
     const restored = restoreStateFromSnapshot(serializeSnapshot(state));
     expect(restored.phase2.permitting).toEqual(state.phase2.permitting);

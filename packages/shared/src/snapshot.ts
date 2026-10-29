@@ -130,6 +130,7 @@ export type SnapshotV2 = {
       transaction: number;
       loan?: number;
       incident?: number;
+      permit?: number;
     };
     parcels: import("./domain").Parcel[];
     balances: Array<{ organizationId: import("./primitives").OrganizationId; balance: number }>;
@@ -256,6 +257,8 @@ const phase2SnapshotSchema = z.object({
     facility: safeCounter.optional(),
     incident: safeCounter.optional(),
     loan: safeCounter.optional(),
+    /** `PermitId` counter from V.d-H1; saves without it simply start issuing at 1. */
+    permit: safeCounter.optional(),
     transaction: safeCounter,
   }),
   parcels: z.array(parcelSchema),
@@ -1046,7 +1049,7 @@ function isPreVd1Snapshot(value: unknown): boolean {
     phase2?: {
       parcels?: Array<Record<string, unknown>>;
       buildings?: Array<Record<string, unknown>>;
-      permitting?: { permitsByParcelId?: Record<string, Record<string, unknown>> };
+      permitting?: { permitsById?: Record<string, Record<string, unknown>> };
     };
   };
   const district = snapshot.world?.districts?.[0];
@@ -1061,8 +1064,30 @@ function isPreVd1Snapshot(value: unknown): boolean {
   const building = snapshot.phase2?.buildings?.[0];
   if (building !== undefined && typeof building === "object" && !("footprintCells" in building))
     return true;
-  const permit = Object.values(snapshot.phase2?.permitting?.permitsByParcelId ?? {})[0];
+  const permit = Object.values(snapshot.phase2?.permitting?.permitsById ?? {})[0];
   return permit !== undefined && "zoningAtDecision" in permit;
+}
+
+/**
+ * Permits stored by parcel id predate the `PermitId` contract (V.d-H1). Rejected by name rather
+ * than by a Zod path: giving a historical decision an identity after the fact would invent an
+ * issuance event the save never recorded.
+ */
+export class UnsupportedPermitContractError extends Error {
+  public constructor() {
+    super(
+      "UNSUPPORTED_PERMIT_CONTRACT: este guardado v2 es anterior a V.d-H1 (permisos indexados por parcela, sin PermitId ni consumo) y no se migra; crea una partida nueva o borra explícitamente el slot. El archivo no se ha modificado.",
+    );
+    this.name = "UnsupportedPermitContractError";
+  }
+}
+
+function hasLegacyPermitShape(value: unknown): boolean {
+  if (typeof value !== "object" || value === null) return false;
+  const permitting = (value as { phase2?: { permitting?: Record<string, unknown> } }).phase2
+    ?.permitting;
+  if (permitting === undefined) return false;
+  return "permitsByParcelId" in permitting || !("permitsById" in permitting);
 }
 
 export function parseSnapshotV2(value: unknown): SnapshotV2 {
@@ -1075,6 +1100,9 @@ export function parseSnapshotV2(value: unknown): SnapshotV2 {
   }
   if (isPreVd1Snapshot(value)) {
     throw new UnsupportedUrbanFabricError();
+  }
+  if (hasLegacyPermitShape(value)) {
+    throw new UnsupportedPermitContractError();
   }
   const snapshot = snapshotV2Schema.parse(value) as unknown as SnapshotV2;
   const issues = validateSnapshotReferences(snapshot);

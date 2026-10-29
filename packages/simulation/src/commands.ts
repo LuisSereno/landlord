@@ -2,6 +2,7 @@ import {
   parseEventId,
   parseConstructionSiteId,
   parseMoney,
+  parsePermitId,
   parseStructureId,
   parseTick,
   parseLoanId,
@@ -48,7 +49,12 @@ import {
 } from "./game-data";
 import { Xoshiro128ss } from "./prng";
 import { askingRentFor } from "./housing-market";
-import { developmentCodeById, effectiveDevelopmentCode } from "./development-codes";
+import {
+  developmentCodeById,
+  effectiveDevelopmentCode,
+  isBuildingAllowedByDevelopmentCode,
+} from "./development-codes";
+import { activePermitFor, permitsFor } from "./permitting";
 import {
   effectiveConstructionWorkRequired,
   effectiveMarketPriceFor,
@@ -186,22 +192,22 @@ function densityBonusFor(
   };
 }
 
+/**
+ * Emite la decisión administrativa y devuelve el registro. Un permiso ya vigente se reutiliza sin
+ * volver a sortear; uno caducado pasa a `expired` y conserva su evidencia, y la nueva decisión nace
+ * con `PermitId` propio porque pueden convivir varios tipos de edificio en la misma parcela (H1-03).
+ */
 function issuePermit(
   state: GameState,
   parcel: import("@landlord/shared").Parcel,
   buildingType: import("@landlord/shared").BuildingType,
-): "approved" | "denied" {
+): import("@landlord/shared").Permit {
   const block = blockOfParcel(state, parcel);
   const code = developmentCodeById(parcel.developmentCodeId);
-  const existing = state.phase2.permitting.permitsByParcelId[parcel.id];
-  if (
-    existing?.status === "approved" &&
-    existing.buildingType === buildingType &&
-    (existing.expiresAtTick === null || existing.expiresAtTick > state.clock.tick)
-  )
-    return "approved";
-  if (existing?.status === "approved" && existing.expiresAtTick !== null)
-    existing.status = "expired";
+  const live = activePermitFor(state, parcel.id, buildingType, state.clock.tick);
+  if (live) return live;
+  for (const permit of permitsFor(state, parcel.id, buildingType))
+    if (permit.status === "approved" && permit.expiresAtTick !== null) permit.status = "expired";
   const baseChance = state.phase2.permitting.approvalChanceByRole[block.urbanRole] ?? 100;
   const ordinanceModifier =
     state.phase2.ordinance.status === "active"
@@ -216,7 +222,10 @@ function issuePermit(
     approved = generator.nextInt(0, 100) < chance;
     state.prng = generator.exportState();
   }
-  state.phase2.permitting.permitsByParcelId[parcel.id] = {
+  state.phase2.idCounters.permit += 1;
+  const id = parsePermitId(`permit_${String(state.phase2.idCounters.permit).padStart(8, "0")}`);
+  const permit: import("@landlord/shared").Permit = {
+    id,
     parcelId: parcel.id,
     buildingType,
     authorityOrganizationId: MUNICIPALITY_ORGANIZATION_ID,
@@ -232,18 +241,21 @@ function issuePermit(
     expiresAtTick: approved
       ? parseTick(state.clock.tick + state.phase2.permitting.validityTicks)
       : null,
+    consumedAtTick: null,
   };
-  return approved ? "approved" : "denied";
+  state.phase2.permitting.permitsById[permit.id] = permit;
+  return permit;
 }
 
-function isUseAllowed(
-  state: GameState,
+/** La parcela manda a su código; la regla de compatibilidad vive en `development-codes`. */
+function isParcelUseAllowed(
   parcel: import("@landlord/shared").Parcel,
   definition: import("@landlord/shared").BuildingDefinition,
 ): boolean {
-  if (definition.municipal) return false;
-  const code = developmentCodeById(parcel.developmentCodeId);
-  return definition.allowedUses.every((use) => code.allowedUses.includes(use));
+  return isBuildingAllowedByDevelopmentCode(
+    definition,
+    developmentCodeById(parcel.developmentCodeId),
+  );
 }
 
 function reservedFundsForOrganization(
@@ -303,19 +315,20 @@ export function dispatchProductCommand(
       return { accepted: false, code: "PUBLIC_LAND_NOT_BUILDABLE" };
     if (parcel.ownerOrganizationId !== command.actingAsOrganizationId)
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
-    if (!isUseAllowed(state, parcel, definition))
+    if (!isParcelUseAllowed(parcel, definition))
       return { accepted: false, code: "USE_NOT_ALLOWED" };
-    const status = issuePermit(state, parcel, command.payload.buildingType);
+    const permit = issuePermit(state, parcel, command.payload.buildingType);
     rememberProcessed(state, command.commandId);
     return productEvent(
       state,
       command.commandId,
-      status === "approved" ? "PermitApproved" : "PermitDenied",
+      permit.status === "approved" ? "PermitApproved" : "PermitDenied",
       {
         parcelId: parcel.id,
         buildingType: command.payload.buildingType,
-        status,
-        expiresAtTick: state.phase2.permitting.permitsByParcelId[parcel.id]!.expiresAtTick,
+        status: permit.status,
+        permitId: permit.id,
+        expiresAtTick: permit.expiresAtTick,
       },
     );
   }
@@ -694,7 +707,11 @@ export function dispatchProductCommand(
       return { accepted: false, code: "SELL_NOT_AVAILABLE" };
     credit(state, command.actingAsOrganizationId, salePrice, "asset_sale", parcel.id);
     parcel.ownerOrganizationId = null;
-    delete state.phase2.permitting.permitsByParcelId[parcel.id];
+    /**
+     * La venta no borre el expediente: un permiso es una decisión de la autoridad sobre la parcela,
+     * no un atributo del dueño. La obra sigue exigiendo propiedad, así que conservar el registro no
+     * permite construir a quien ya no es dueño (H1-03).
+     */
     rememberProcessed(state, command.commandId);
     return productEvent(state, command.commandId, "ParcelSold", {
       parcelId: parcel.id,
@@ -711,21 +728,20 @@ export function dispatchProductCommand(
       return { accepted: false, code: "PUBLIC_LAND_NOT_BUILDABLE" };
     if (parcel.ownerOrganizationId !== command.actingAsOrganizationId)
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
-    if (!isUseAllowed(state, parcel, definition))
+    if (!isParcelUseAllowed(parcel, definition))
       return { accepted: false, code: "USE_NOT_ALLOWED" };
     if (activeSiteOnParcel(state, parcel.id)) {
       return { accepted: false, code: "ACTIVE_SITE_ON_PARCEL" };
     }
-    let permit = state.phase2.permitting.permitsByParcelId[parcel.id];
-    if (
-      permit?.status !== "approved" ||
-      permit.buildingType !== command.payload.buildingType ||
-      (permit.expiresAtTick !== null && permit.expiresAtTick <= state.clock.tick)
-    ) {
-      if (issuePermit(state, parcel, command.payload.buildingType) !== "approved")
-        return { accepted: false, code: "PERMIT_DENIED" };
-      permit = state.phase2.permitting.permitsByParcelId[parcel.id]!;
-    }
+    /**
+     * Solo vale un permiso aprobado, sin consumir, del tipo exacto y sin caducar. Si no lo hay se
+     * emite uno nuevo —la autoemisión del flujo actual se conserva— y un rechazo aquí tampoco quema
+     * el permiso de una obra que no llega a iniciarse.
+     */
+    const permit =
+      activePermitFor(state, parcel.id, command.payload.buildingType, state.clock.tick) ??
+      issuePermit(state, parcel, command.payload.buildingType);
+    if (permit.status !== "approved") return { accepted: false, code: "PERMIT_DENIED" };
     const code = effectiveDevelopmentCode(
       permit.developmentCodeIdAtDecision,
       permit.densityBonusFloors,
@@ -769,6 +785,13 @@ export function dispatchProductCommand(
     inventory.brick -= definition.resources.brick;
     inventory.steel -= definition.resources.steel;
     /**
+     * El permiso se consume aquí, cuando ya no queda ningún rechazo posible: footprint, cuadrícula,
+     * recursos y fondos se resolvieron antes. Un permiso consumido no puede financiar una segunda
+     * obra, y su registro histórico sigue visible con `consumedAtTick`.
+     */
+    permit.status = "consumed";
+    permit.consumedAtTick = parseTick(state.clock.tick);
+    /**
      * El modelo construye con recursos y trabajo, no con un coste en caja adicional: el modifier de
      * coste constructivo se aplica como esfuerzo, que es su consumidor semánticamente correcto.
      */
@@ -801,6 +824,7 @@ export function dispatchProductCommand(
     return productEvent(state, command.commandId, "ConstructionStarted", {
       siteId,
       parcelId: parcel.id,
+      permitId: permit.id,
     });
   }
 

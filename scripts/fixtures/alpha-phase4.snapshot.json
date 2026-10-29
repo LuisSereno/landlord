@@ -22163,7 +22163,8 @@
       "facility": 7,
       "transaction": 1756,
       "incident": 0,
-      "loan": 2
+      "loan": 2,
+      "permit": 31
     },
     "parcels": [
       {
@@ -31094,8 +31095,19 @@
     },
     "permitting": {
       "validityTicks": 216000,
-      "permitsByParcelId": {
-        "parcel_00000049": {
+      "approvalChanceByRole": {
+        "civic_core": 100,
+        "mixed_core": 100,
+        "commercial_corridor": 100,
+        "urban_residential": 100,
+        "low_density_residential": 100,
+        "industrial_logistics": 100,
+        "institutional": 100,
+        "green_open_space": 100
+      },
+      "permitsById": {
+        "permit_00000001": {
+          "id": "permit_00000001",
           "parcelId": "parcel_00000049",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31106,9 +31118,11 @@
           "expiresAtTick": 217200,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000005": {
+        "permit_00000002": {
+          "id": "permit_00000002",
           "parcelId": "parcel_00000005",
           "buildingType": "workshop",
           "authorityOrganizationId": "org_00000004",
@@ -31119,9 +31133,11 @@
           "expiresAtTick": 229200,
           "developmentCodeIdAtDecision": "industrial_yard_2f",
           "allowedUsesAtDecision": ["industrial", "utility"],
-          "currentUsesAtDecision": ["industrial"]
+          "currentUsesAtDecision": ["industrial"],
+          "consumedAtTick": null
         },
-        "parcel_00000007": {
+        "permit_00000003": {
+          "id": "permit_00000003",
           "parcelId": "parcel_00000007",
           "buildingType": "workshop",
           "authorityOrganizationId": "org_00000004",
@@ -31132,9 +31148,11 @@
           "expiresAtTick": 236400,
           "developmentCodeIdAtDecision": "industrial_yard_2f",
           "allowedUsesAtDecision": ["industrial", "utility"],
-          "currentUsesAtDecision": ["industrial"]
+          "currentUsesAtDecision": ["industrial"],
+          "consumedAtTick": null
         },
-        "parcel_00000001": {
+        "permit_00000004": {
+          "id": "permit_00000004",
           "parcelId": "parcel_00000001",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31145,9 +31163,11 @@
           "expiresAtTick": 242400,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000017": {
+        "permit_00000005": {
+          "id": "permit_00000005",
           "parcelId": "parcel_00000017",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31158,9 +31178,11 @@
           "expiresAtTick": 247200,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000019": {
+        "permit_00000006": {
+          "id": "permit_00000006",
           "parcelId": "parcel_00000019",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31171,9 +31193,11 @@
           "expiresAtTick": 252000,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000028": {
+        "permit_00000007": {
+          "id": "permit_00000007",
           "parcelId": "parcel_00000028",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31184,9 +31208,11 @@
           "expiresAtTick": 258000,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000006": {
+        "permit_00000008": {
+          "id": "permit_00000008",
           "parcelId": "parcel_00000006",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31197,9 +31223,11 @@
           "expiresAtTick": 262800,
           "developmentCodeIdAtDecision": "mixed_core_5f",
           "allowedUsesAtDecision": ["residential", "retail", "office"],
-          "currentUsesAtDecision": ["retail"]
+          "currentUsesAtDecision": ["retail"],
+          "consumedAtTick": null
         },
-        "parcel_00000015": {
+        "permit_00000009": {
+          "id": "permit_00000009",
           "parcelId": "parcel_00000015",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31210,9 +31238,11 @@
           "expiresAtTick": 267600,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000030": {
+        "permit_00000010": {
+          "id": "permit_00000010",
           "parcelId": "parcel_00000030",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31223,9 +31253,11 @@
           "expiresAtTick": 272400,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000026": {
+        "permit_00000011": {
+          "id": "permit_00000011",
           "parcelId": "parcel_00000026",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31236,9 +31268,11 @@
           "expiresAtTick": 278400,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000018": {
+        "permit_00000012": {
+          "id": "permit_00000012",
           "parcelId": "parcel_00000018",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31249,9 +31283,11 @@
           "expiresAtTick": 283200,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000024": {
+        "permit_00000013": {
+          "id": "permit_00000013",
           "parcelId": "parcel_00000024",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31262,9 +31298,11 @@
           "expiresAtTick": 288000,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000002": {
+        "permit_00000014": {
+          "id": "permit_00000014",
           "parcelId": "parcel_00000002",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31275,9 +31313,11 @@
           "expiresAtTick": 294000,
           "developmentCodeIdAtDecision": "mixed_core_5f",
           "allowedUsesAtDecision": ["residential", "retail", "office"],
-          "currentUsesAtDecision": ["retail"]
+          "currentUsesAtDecision": ["retail"],
+          "consumedAtTick": null
         },
-        "parcel_00000022": {
+        "permit_00000015": {
+          "id": "permit_00000015",
           "parcelId": "parcel_00000022",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31288,9 +31328,11 @@
           "expiresAtTick": 298800,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000011": {
+        "permit_00000016": {
+          "id": "permit_00000016",
           "parcelId": "parcel_00000011",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31301,9 +31343,11 @@
           "expiresAtTick": 303600,
           "developmentCodeIdAtDecision": "mixed_core_5f",
           "allowedUsesAtDecision": ["residential", "retail", "office"],
-          "currentUsesAtDecision": ["retail"]
+          "currentUsesAtDecision": ["retail"],
+          "consumedAtTick": null
         },
-        "parcel_00000027": {
+        "permit_00000017": {
+          "id": "permit_00000017",
           "parcelId": "parcel_00000027",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31314,9 +31358,11 @@
           "expiresAtTick": 308400,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000020": {
+        "permit_00000018": {
+          "id": "permit_00000018",
           "parcelId": "parcel_00000020",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31327,9 +31373,11 @@
           "expiresAtTick": 314400,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000009": {
+        "permit_00000019": {
+          "id": "permit_00000019",
           "parcelId": "parcel_00000009",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31340,9 +31388,11 @@
           "expiresAtTick": 319200,
           "developmentCodeIdAtDecision": "mixed_core_5f",
           "allowedUsesAtDecision": ["residential", "retail", "office"],
-          "currentUsesAtDecision": ["retail"]
+          "currentUsesAtDecision": ["retail"],
+          "consumedAtTick": null
         },
-        "parcel_00000003": {
+        "permit_00000020": {
+          "id": "permit_00000020",
           "parcelId": "parcel_00000003",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31353,9 +31403,11 @@
           "expiresAtTick": 328800,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000023": {
+        "permit_00000021": {
+          "id": "permit_00000021",
           "parcelId": "parcel_00000023",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31366,9 +31418,11 @@
           "expiresAtTick": 334800,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000025": {
+        "permit_00000022": {
+          "id": "permit_00000022",
           "parcelId": "parcel_00000025",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31379,9 +31433,11 @@
           "expiresAtTick": 338400,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000013": {
+        "permit_00000023": {
+          "id": "permit_00000023",
           "parcelId": "parcel_00000013",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31392,9 +31448,11 @@
           "expiresAtTick": 343200,
           "developmentCodeIdAtDecision": "mixed_core_5f",
           "allowedUsesAtDecision": ["residential", "retail", "office"],
-          "currentUsesAtDecision": ["retail"]
+          "currentUsesAtDecision": ["retail"],
+          "consumedAtTick": null
         },
-        "parcel_00000029": {
+        "permit_00000024": {
+          "id": "permit_00000024",
           "parcelId": "parcel_00000029",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31405,9 +31463,11 @@
           "expiresAtTick": 354000,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000021": {
+        "permit_00000025": {
+          "id": "permit_00000025",
           "parcelId": "parcel_00000021",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31418,9 +31478,11 @@
           "expiresAtTick": 357600,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000012": {
+        "permit_00000026": {
+          "id": "permit_00000026",
           "parcelId": "parcel_00000012",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31431,9 +31493,11 @@
           "expiresAtTick": 362400,
           "developmentCodeIdAtDecision": "mixed_core_5f",
           "allowedUsesAtDecision": ["residential", "retail", "office"],
-          "currentUsesAtDecision": ["retail"]
+          "currentUsesAtDecision": ["retail"],
+          "consumedAtTick": null
         },
-        "parcel_00000016": {
+        "permit_00000027": {
+          "id": "permit_00000027",
           "parcelId": "parcel_00000016",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31444,9 +31508,11 @@
           "expiresAtTick": 374400,
           "developmentCodeIdAtDecision": "res_urban_4f",
           "allowedUsesAtDecision": ["residential"],
-          "currentUsesAtDecision": ["residential"]
+          "currentUsesAtDecision": ["residential"],
+          "consumedAtTick": null
         },
-        "parcel_00000008": {
+        "permit_00000028": {
+          "id": "permit_00000028",
           "parcelId": "parcel_00000008",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31457,9 +31523,11 @@
           "expiresAtTick": 378000,
           "developmentCodeIdAtDecision": "mixed_core_5f",
           "allowedUsesAtDecision": ["residential", "retail", "office"],
-          "currentUsesAtDecision": ["retail"]
+          "currentUsesAtDecision": ["retail"],
+          "consumedAtTick": null
         },
-        "parcel_00000010": {
+        "permit_00000029": {
+          "id": "permit_00000029",
           "parcelId": "parcel_00000010",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31470,9 +31538,11 @@
           "expiresAtTick": 382800,
           "developmentCodeIdAtDecision": "mixed_core_5f",
           "allowedUsesAtDecision": ["residential", "retail", "office"],
-          "currentUsesAtDecision": ["retail"]
+          "currentUsesAtDecision": ["retail"],
+          "consumedAtTick": null
         },
-        "parcel_00000014": {
+        "permit_00000030": {
+          "id": "permit_00000030",
           "parcelId": "parcel_00000014",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31483,9 +31553,11 @@
           "expiresAtTick": 393600,
           "developmentCodeIdAtDecision": "mixed_core_5f",
           "allowedUsesAtDecision": ["residential", "retail", "office"],
-          "currentUsesAtDecision": ["retail"]
+          "currentUsesAtDecision": ["retail"],
+          "consumedAtTick": null
         },
-        "parcel_00000004": {
+        "permit_00000031": {
+          "id": "permit_00000031",
           "parcelId": "parcel_00000004",
           "buildingType": "courtyard_home",
           "authorityOrganizationId": "org_00000004",
@@ -31496,18 +31568,9 @@
           "expiresAtTick": 397200,
           "developmentCodeIdAtDecision": "mixed_core_5f",
           "allowedUsesAtDecision": ["residential", "retail", "office"],
-          "currentUsesAtDecision": ["retail"]
+          "currentUsesAtDecision": ["retail"],
+          "consumedAtTick": null
         }
-      },
-      "approvalChanceByRole": {
-        "civic_core": 100,
-        "mixed_core": 100,
-        "commercial_corridor": 100,
-        "urban_residential": 100,
-        "low_density_residential": 100,
-        "industrial_logistics": 100,
-        "institutional": 100,
-        "green_open_space": 100
       }
     },
     "insolvency": {

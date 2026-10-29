@@ -5,6 +5,7 @@ import {
   parseSnapshotV2,
   snapshotV2Schema,
   UnsupportedSnapshotVersionError,
+  UnsupportedPermitContractError,
   UnsupportedUrbanFabricError,
   validateSnapshotReferences,
 } from "./snapshot";
@@ -217,6 +218,29 @@ describe("snapshot v2", () => {
         },
       }),
     ).toThrow(UnsupportedUrbanFabricError);
+  });
+
+  it("rejects a permit ledger without PermitId instead of inventing one", () => {
+    const legacyPermits = {
+      ...validSnapshot(),
+      phase2: {
+        permitting: {
+          validityTicks: 216_000,
+          approvalChanceByRole: {},
+          permitsByParcelId: {
+            parcel_00000001: { parcelId: "parcel_00000001", status: "approved" },
+          },
+        },
+      },
+    };
+    expect(() => parseSnapshotV2(legacyPermits)).toThrow(UnsupportedPermitContractError);
+
+    /** Un expediente sin permisos no dispara el rechazo: lo que se rechaza es la forma antigua. */
+    const modernLedger = {
+      ...validSnapshot(),
+      phase2: { permitting: { validityTicks: 216_000, approvalChanceByRole: {}, permitsById: {} } },
+    };
+    expect(() => parseSnapshotV2(modernLedger)).not.toThrow(UnsupportedPermitContractError);
   });
 
   it("rejects broken entity references before hydration", () => {

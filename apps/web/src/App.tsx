@@ -221,11 +221,13 @@ export function App() {
     selectedConstructionSite?.ownerOrganizationId === "org_00000001"
       ? selectedConstructionSite
       : undefined;
+  /**
+   * La lista la decide el backend: `permittedBuildingTypes` sale de la única regla de compatibilidad
+   * uso-código. La UI no puede reimplementarla o discrepará del motor.
+   */
   const eligibleConstructionOptions =
     economy?.constructionOptions.filter(
-      (option) =>
-        selectedParcel &&
-        option.allowedUses.every((use) => selectedParcel.allowedUses.includes(use)),
+      (option) => selectedParcel?.permittedBuildingTypes.includes(option.type) ?? false,
     ) ?? [];
   const debugToolsEnabled = new URLSearchParams(window.location.search).get("debug") === "1";
 

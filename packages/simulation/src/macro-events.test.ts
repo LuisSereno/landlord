@@ -3,6 +3,7 @@ import {
   parseBuildingId,
   parseMoney,
   parseOrganizationId,
+  parsePermitId,
   parseSeed,
   parseTenantId,
   parseTick,
@@ -399,7 +400,8 @@ describe("WP4.12-R macroeventos", () => {
       )!;
       parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
       const permitCode = developmentCodeById(parcel.developmentCodeId);
-      state.phase2.permitting.permitsByParcelId[parcel.id] = {
+      state.phase2.permitting.permitsById["permit_00000001"] = {
+        id: parsePermitId("permit_00000001"),
         parcelId: parcel.id,
         buildingType: "courtyard_home",
         authorityOrganizationId: parseOrganizationId("org_00000004"),
@@ -413,6 +415,7 @@ describe("WP4.12-R macroeventos", () => {
         requestedAtTick: parseTick(0),
         decidedAtTick: parseTick(0),
         expiresAtTick: null,
+        consumedAtTick: null,
       };
       state.phase2.balances.set(PLAYER_ORGANIZATION_ID, parseMoney(50_000));
       state.phase2.inventories.get(PLAYER_ORGANIZATION_ID)!.cement = 20;

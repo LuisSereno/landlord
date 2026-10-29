@@ -22,6 +22,7 @@ import {
   facilityIdSchema,
   organizationIdSchema,
   parcelIdSchema,
+  permitIdSchema,
   policyIdSchema,
   personIdSchema,
   playerIdentityIdSchema,
@@ -42,6 +43,7 @@ import {
   type FacilityId,
   type OrganizationId,
   type ParcelId,
+  type PermitId,
   type PersonId,
   type PolicyId,
   type PlayerIdentityId,
@@ -354,7 +356,11 @@ export type BuildingForm = z.infer<typeof buildingFormSchema>;
 export type BuildingDefinition = {
   type: BuildingType;
   name: string;
-  /** Uses the development code must allow for this building to be permitted (D-090). */
+  /**
+   * Uses this building is compatible with — the successor of the old zoning-compatibility set.
+   * Compatibility, not a cumulative requirement: a code allowing any one of them admits the
+   * building. See `isBuildingAllowedByDevelopmentCode`, the only authoritative reading (D-090, H1-04).
+   */
   allowedUses: LandUse[];
   cost: Money;
   workRequired: number;
@@ -860,8 +866,14 @@ export type Ordinance = {
   densityAppliesToRole: UrbanRole | null;
 };
 
-export type PermitStatus = "approved" | "denied" | "expired";
+/**
+ * `consumed` es terminal: un permiso es una decisión administrativa y sólo puede financiar una obra.
+ * `expired` conserva el registro histórico, nunca se borra al consumir (V.d-H1).
+ */
+export type PermitStatus = "approved" | "denied" | "expired" | "consumed";
 export type Permit = {
+  /** Identidad propia (plan §3.2): el permiso es la decisión, no un estado colgado de la parcela. */
+  id: PermitId;
   parcelId: ParcelId;
   buildingType: BuildingType;
   authorityOrganizationId: OrganizationId;
@@ -877,11 +889,17 @@ export type Permit = {
   requestedAtTick: Tick;
   decidedAtTick: Tick;
   expiresAtTick: Tick | null;
+  /** Tick en el que una obra aceptada gastó el permiso; `null` mientras sigue vigente. */
+  consumedAtTick: Tick | null;
 };
 export type PermittingState = {
   validityTicks: number;
   approvalChanceByRole: Record<UrbanRole, number>;
-  permitsByParcelId: Record<string, Permit>;
+  /**
+   * Colección por identidad. La vigencia por parcela y tipo se deriva canónicamente
+   * (`activePermitFor`), así que no existe un índice duplicado que pueda desincronizarse.
+   */
+  permitsById: Record<string, Permit>;
 };
 
 export type CrimeState = {
@@ -1401,6 +1419,7 @@ export const ordinanceSchema = z.object({
   densityAppliesToRole: urbanRoleSchema.nullable().default(null),
 });
 export const permitSchema = z.object({
+  id: permitIdSchema,
   parcelId: parcelIdSchema,
   buildingType: buildingTypeSchema,
   authorityOrganizationId: organizationIdSchema,
@@ -1410,15 +1429,16 @@ export const permitSchema = z.object({
   currentUsesAtDecision: z.array(landUseSchema),
   densityBonusFloors: z.number().int().min(0).default(0),
   densityBonusFarPercent: z.number().int().min(0).default(0),
-  status: z.enum(["approved", "denied", "expired"]),
+  status: z.enum(["approved", "denied", "expired", "consumed"]),
   requestedAtTick: tickSchema,
   decidedAtTick: tickSchema,
   expiresAtTick: tickSchema.nullable(),
+  consumedAtTick: tickSchema.nullable().default(null),
 });
 export const permittingStateSchema = z.object({
   validityTicks: z.number().int().positive(),
   approvalChanceByRole: z.record(z.string(), z.number().int().min(0).max(100)),
-  permitsByParcelId: z.record(z.string(), permitSchema),
+  permitsById: z.record(z.string(), permitSchema),
 });
 export const crimeStateSchema = z.object({
   heatByOrganizationId: z.record(z.string(), z.number().int().nonnegative()),

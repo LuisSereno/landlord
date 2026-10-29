@@ -1,5 +1,6 @@
 import {
   parseDevelopmentCodeId,
+  type BuildingDefinition,
   type LandUse,
   type DevelopmentCode,
   type DevelopmentCodeId,
@@ -90,6 +91,21 @@ export function developmentCodeById(id: DevelopmentCodeId): DevelopmentCode {
   const code = DEVELOPMENT_CODES[id];
   if (!code) throw new RangeError(`Unknown development code: ${id}`);
   return code;
+}
+
+/**
+ * Regla autoritativa de compatibilidad entre edificio y DevelopmentCode (H1-04). `allowedUses` del
+ * edificio es el conjunto de usos con los que es compatible —heredero del antiguo conjunto de
+ * zonificaciones—, no una lista de requisitos acumulativos: leído como `every`, `workshop`
+ * (`industrial` + `retail`) no podía construirse en ningún código de la ciudad. Un edificio municipal
+ * nunca está disponible para una empresa. Backend, proyección y UI consumen esta única función.
+ */
+export function isBuildingAllowedByDevelopmentCode(
+  definition: BuildingDefinition,
+  code: DevelopmentCode,
+): boolean {
+  if (definition.municipal) return false;
+  return definition.allowedUses.some((use) => code.allowedUses.includes(use));
 }
 
 /** Code plus the density rights an approved permit acquired under a trial ordinance (V.d.4). */

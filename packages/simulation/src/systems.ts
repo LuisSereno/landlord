@@ -42,7 +42,7 @@ import {
   buildingsOnParcel,
   reconcileParcelUses,
 } from "./building-index";
-import { developmentCodeById } from "./development-codes";
+import { developmentCodeById, isBuildingAllowedByDevelopmentCode } from "./development-codes";
 import { advanceTransfers } from "./transfers";
 import { runEmployment } from "./employment";
 import { runAutomation } from "./automation";
@@ -1086,9 +1086,7 @@ function rivalAction(state: GameState): void {
     ownedParcel && ownedCode
       ? Object.values(BUILDING_DEFINITIONS)
           .filter(
-            (entry) =>
-              entry.production &&
-              entry.allowedUses.every((use) => ownedCode.allowedUses.includes(use)),
+            (entry) => entry.production && isBuildingAllowedByDevelopmentCode(entry, ownedCode),
           )
           .sort(
             (left, right) =>

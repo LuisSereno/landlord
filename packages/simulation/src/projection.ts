@@ -10,7 +10,12 @@ import {
 } from "@landlord/shared";
 import { districtStateOf, type GameState } from "./state";
 import { buildBuildingIndex, buildingsOnParcel } from "./building-index";
-import { developmentCodeById, zoningFamilyForCode } from "./development-codes";
+import {
+  developmentCodeById,
+  isBuildingAllowedByDevelopmentCode,
+  zoningFamilyForCode,
+} from "./development-codes";
+import { publishedPermitForParcel } from "./permitting";
 import { canonicalSlots, PLAYER_HOME_DISTRICT_ID, resolveCityProfile } from "./city";
 import {
   BUILDING_DEFINITIONS,
@@ -423,13 +428,22 @@ export function createViewProjection(
   for (const parcel of [...state.phase2.parcels.values()]
     .filter((entry) => entry.ownerOrganizationId === PLAYER_ORGANIZATION_ID)
     .sort((left, right) => left.id.localeCompare(right.id))) {
-    const permit = state.phase2.permitting.permitsByParcelId[parcel.id];
-    if (permit?.status === "denied" || permit?.status === "expired")
+    /**
+     * Cualquier decisión negativa sin resolver del expediente de la parcela: los permisos ya no se
+     * sobreescriben, así que hay que mirar la colección y no un único registro por parcela.
+     */
+    const denied = Object.values(state.phase2.permitting.permitsById)
+      .filter(
+        (entry) =>
+          entry.parcelId === parcel.id && (entry.status === "denied" || entry.status === "expired"),
+      )
+      .sort((left, right) => left.id.localeCompare(right.id))[0];
+    if (denied)
       alerts.push({
         id: `permit-${parcel.id}`,
         severity: "medium",
         kind: "permit",
-        message: `El permiso de ${parcel.id} está ${permit.status}; revisa el uso antes de construir.`,
+        message: `El permiso de ${parcel.id} está ${denied.status}; revisa el uso antes de construir.`,
         targetId: parcel.id,
       });
   }
@@ -554,16 +568,23 @@ export function createViewProjection(
             parcels: observedParcels
               .sort((left, right) => left.id.localeCompare(right.id))
               .map((parcel) => {
-                const permit = state.phase2.permitting.permitsByParcelId[parcel.id];
-                const permitStatus =
-                  permit?.status === "approved" &&
-                  permit.expiresAtTick !== null &&
-                  permit.expiresAtTick <= state.clock.tick
-                    ? "expired"
-                    : (permit?.status ?? null);
                 const block = observedDistrictBlocks.get(parcel.blockId);
                 const code = developmentCodeById(parcel.developmentCodeId);
                 const parcelBuildings = buildingsOnParcel(buildingIndex, parcel.id);
+                /**
+                 * Se publica el permiso vigente más reciente de la parcela resolviendo la colección,
+                 * no un registro único por parcela: con varios tipos en juego la inspección necesita
+                 * saber a qué decisión corresponde el estado que muestra.
+                 */
+                const permit = publishedPermitForParcel(state, parcel.id, state.clock.tick);
+                const permitStatus =
+                  permit === null
+                    ? null
+                    : permit.status === "approved" &&
+                        permit.expiresAtTick !== null &&
+                        permit.expiresAtTick <= state.clock.tick
+                      ? "expired"
+                      : permit.status;
                 return {
                   id: parcel.id,
                   cell: { ...parcel.anchorCell },
@@ -595,13 +616,10 @@ export function createViewProjection(
                     steel: parcel.productionSuitability?.steel ?? 100,
                   },
                   permittedBuildingTypes: Object.values(BUILDING_DEFINITIONS)
-                    .filter(
-                      (definition) =>
-                        !definition.municipal &&
-                        definition.allowedUses.every((use) => code.allowedUses.includes(use)),
-                    )
+                    .filter((definition) => isBuildingAllowedByDevelopmentCode(definition, code))
                     .map((definition) => definition.type),
                   permitStatus,
+                  permitId: permit?.id ?? null,
                   permitExpiresAtTick: permit?.expiresAtTick ?? null,
                   regulatoryRiskPercent: regulatoryRiskPercent(
                     block?.urbanRole ?? "urban_residential",

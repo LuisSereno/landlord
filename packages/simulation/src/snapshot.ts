@@ -14,6 +14,7 @@ import {
   parseFacilityId,
   parseOrganizationId,
   parseParcelId,
+  parsePermitId,
   parsePolicyId,
   parsePublicSpaceId,
   parseMoney,
@@ -326,9 +327,9 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
       permitting: {
         ...state.phase2.permitting,
         approvalChanceByRole: { ...state.phase2.permitting.approvalChanceByRole },
-        permitsByParcelId: Object.fromEntries(
-          Object.entries(state.phase2.permitting.permitsByParcelId).map(([parcelId, permit]) => [
-            parcelId,
+        permitsById: Object.fromEntries(
+          Object.entries(state.phase2.permitting.permitsById).map(([permitId, permit]) => [
+            permitId,
             {
               ...permit,
               requirements: [...permit.requirements],
@@ -337,6 +338,7 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
               requestedAtTick: permit.requestedAtTick,
               decidedAtTick: permit.decidedAtTick,
               expiresAtTick: permit.expiresAtTick,
+              consumedAtTick: permit.consumedAtTick,
             },
           ]),
         ),
@@ -570,6 +572,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
               }, 0),
             incident: snapshot.phase2.idCounters.incident ?? 0,
             loan: snapshot.phase2.idCounters.loan ?? 0,
+            permit: snapshot.phase2.idCounters.permit ?? 0,
           },
           parcels: new Map(
             snapshot.phase2.parcels.map((parcel) => [
@@ -1105,14 +1108,15 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
             ? {
                 ...snapshot.phase2.permitting,
                 approvalChanceByRole: { ...snapshot.phase2.permitting.approvalChanceByRole },
-                permitsByParcelId: Object.fromEntries(
-                  Object.entries(snapshot.phase2.permitting.permitsByParcelId).map(
-                    ([parcelId, permit]) => [
-                      parcelId,
+                permitsById: Object.fromEntries(
+                  Object.entries(snapshot.phase2.permitting.permitsById).map(
+                    ([permitId, permit]) => [
+                      permitId,
                       {
                         ...permit,
                         allowedUsesAtDecision: [...permit.allowedUsesAtDecision],
                         currentUsesAtDecision: [...permit.currentUsesAtDecision],
+                        id: parsePermitId(permit.id),
                         parcelId: parseParcelId(permit.parcelId),
                         authorityOrganizationId: parseOrganizationId(
                           permit.authorityOrganizationId,
@@ -1121,6 +1125,10 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                         decidedAtTick: parseTick(permit.decidedAtTick),
                         expiresAtTick:
                           permit.expiresAtTick === null ? null : parseTick(permit.expiresAtTick),
+                        consumedAtTick:
+                          permit.consumedAtTick === null || permit.consumedAtTick === undefined
+                            ? null
+                            : parseTick(permit.consumedAtTick),
                         requirements: [...permit.requirements],
                       },
                     ],

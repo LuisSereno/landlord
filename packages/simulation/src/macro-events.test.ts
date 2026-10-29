@@ -39,6 +39,7 @@ import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { rivalParcel } from "./test-support";
 import { createInitialState, type GameState } from "./state";
 import { advanceProductSystems } from "./systems";
+import { developmentCodeById } from "./development-codes";
 
 const ALL_TYPES = Object.keys(MACRO_EVENT_TEMPLATES) as MacroEventType[];
 
@@ -77,9 +78,9 @@ function addBuilding(
   const parcel = parcels
     .filter(
       (candidate) =>
-        !candidate.buildingId &&
         !used.has(candidate.id) &&
-        (type !== "cement_plant" || candidate.zoning !== "residential"),
+        (type !== "cement_plant" ||
+          !developmentCodeById(candidate.developmentCodeId).allowedUses.includes("residential")),
     )
     .sort((left, right) => {
       const distance = (candidate: (typeof parcels)[number]) =>
@@ -88,10 +89,14 @@ function addBuilding(
     })[index % 6]!;
   const id = parseBuildingId(`building_${String(index + 1).padStart(8, "0")}`);
   parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
-  parcel.buildingId = id;
   const building: Building = {
     id,
     parcelId: parcel.id,
+    districtId: parcel.districtId,
+    footprintCells: [{ ...parcel.anchorCell }],
+    orientation: 0,
+    floors: 1,
+    form: "detached",
     ownerOrganizationId: PLAYER_ORGANIZATION_ID,
     productionFacilityId: null,
     type,
@@ -114,6 +119,7 @@ function addBuilding(
       budget: parseMoney(260),
       preferredBuildingType: "courtyard_home",
       activeContractBuildingId: id,
+      marketDistrictId: null,
       satisfaction: 60,
       leaseRemaining: 24,
       status: "contracted",
@@ -387,15 +393,20 @@ describe("WP4.12-R macroeventos", () => {
     it("el modifier de obra cambia el esfuerzo requerido, no un coste en caja artificial", () => {
       const state = idleState(7);
       const parcel = [...state.phase2.parcels.values()].find(
-        (candidate) => candidate.ownerOrganizationId === null && candidate.zoning !== "industrial",
+        (candidate) =>
+          candidate.ownerOrganizationId === null &&
+          !developmentCodeById(candidate.developmentCodeId).allowedUses.includes("industrial"),
       )!;
       parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
+      const permitCode = developmentCodeById(parcel.developmentCodeId);
       state.phase2.permitting.permitsByParcelId[parcel.id] = {
         parcelId: parcel.id,
         buildingType: "courtyard_home",
         authorityOrganizationId: parseOrganizationId("org_00000004"),
         requirements: [],
-        zoningAtDecision: parcel.zoning,
+        developmentCodeIdAtDecision: permitCode.id,
+        allowedUsesAtDecision: [...permitCode.allowedUses],
+        currentUsesAtDecision: [...parcel.currentUses],
         status: "approved",
         requestedAtTick: parseTick(0),
         decidedAtTick: parseTick(0),

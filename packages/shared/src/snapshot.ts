@@ -585,9 +585,6 @@ export function validateSnapshotReferences(snapshot: SnapshotV2): SnapshotValida
           path: `phase2/parcels/${parcel.id}/ownerOrganizationId`,
         });
       }
-      if (parcel.buildingId && !buildingIds.has(parcel.buildingId)) {
-        issues.push({ code: "MISSING_REFERENCE", path: `phase2/parcels/${parcel.id}/buildingId` });
-      }
     }
     for (const building of snapshot.phase2.buildings) {
       if (!parcelIds.has(building.parcelId)) {
@@ -941,14 +938,15 @@ export class UnsupportedSnapshotVersionError extends Error {
 }
 
 /**
- * A v2 save written before V.d.1 has point parcels and a derivationVersion 1 road network. It is
- * rejected by name instead of by a Zod path: the fabric cannot be reinterpreted without inventing
- * blocks and frontages the original save never had. The slot is left untouched.
+ * A v2 save written before V.d.1/V.d.2 has point parcels, derivationVersion 1 roads, `Parcel.zoning`
+ * or buildings without footprints. It is rejected by name instead of by a Zod path: the fabric
+ * cannot be reinterpreted without inventing blocks, codes or footprints the original save never
+ * had. The slot is left untouched.
  */
 export class UnsupportedUrbanFabricError extends Error {
   public constructor() {
     super(
-      "UNSUPPORTED_URBAN_FABRIC: este guardado v2 es anterior a V.d.1 (parcelas de una celda y red vial derivationVersion 1) y no se migra; crea una partida nueva o borra explícitamente el slot. El archivo no se ha modificado.",
+      "UNSUPPORTED_URBAN_FABRIC: este guardado v2 es anterior a V.d.1/V.d.2 (parcelas puntuales, red vial derivationVersion 1 o edificios sin huella) y no se migra; crea una partida nueva o borra explícitamente el slot. El archivo no se ha modificado.",
     );
     this.name = "UnsupportedUrbanFabricError";
   }
@@ -958,14 +956,26 @@ function isPreVd1Snapshot(value: unknown): boolean {
   if (typeof value !== "object" || value === null) return false;
   const snapshot = value as {
     world?: { districts?: Array<{ map?: { roads?: { derivationVersion?: unknown } } }> };
-    phase2?: { parcels?: Array<Record<string, unknown>> };
+    phase2?: {
+      parcels?: Array<Record<string, unknown>>;
+      buildings?: Array<Record<string, unknown>>;
+      permitting?: { permitsByParcelId?: Record<string, Record<string, unknown>> };
+    };
   };
   const district = snapshot.world?.districts?.[0];
   if (district?.map?.roads?.derivationVersion === 1) return true;
   const parcel = snapshot.phase2?.parcels?.[0];
-  return (
-    parcel !== undefined && typeof parcel === "object" && "cell" in parcel && !("cells" in parcel)
-  );
+  if (
+    parcel !== undefined &&
+    typeof parcel === "object" &&
+    ("cell" in parcel || "zoning" in parcel || "buildingId" in parcel)
+  )
+    return true;
+  const building = snapshot.phase2?.buildings?.[0];
+  if (building !== undefined && typeof building === "object" && !("footprintCells" in building))
+    return true;
+  const permit = Object.values(snapshot.phase2?.permitting?.permitsByParcelId ?? {})[0];
+  return permit !== undefined && "zoningAtDecision" in permit;
 }
 
 export function parseSnapshotV2(value: unknown): SnapshotV2 {

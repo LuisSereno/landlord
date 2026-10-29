@@ -73,10 +73,14 @@ function addBuilding(
   const parcel = parcels[index]!;
   const id = parseBuildingId(`building_${String(index + 1).padStart(8, "0")}`);
   parcel.ownerOrganizationId = owner;
-  parcel.buildingId = id;
   const building: Building = {
     id,
     parcelId: parcel.id,
+    districtId: parcel.districtId,
+    footprintCells: [{ ...parcel.anchorCell }],
+    orientation: 0,
+    floors: 1,
+    form: "detached",
     ownerOrganizationId: owner,
     productionFacilityId: null,
     type: "courtyard_home",
@@ -101,6 +105,7 @@ function addTenant(state: GameState, index: number, buildingId: BuildingId): voi
     budget: parseMoney(0),
     preferredBuildingType: "courtyard_home",
     activeContractBuildingId: buildingId,
+    marketDistrictId: null,
     satisfaction: 0,
     leaseRemaining: 12,
     status: "contracted",

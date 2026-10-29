@@ -12,6 +12,16 @@ export const SECTOR_BY_BUILDING_TYPE: Record<BuildingType, EmploymentSector | nu
   cement_plant: "materials",
   brickworks: "materials",
   steelworks: "materials",
+  row_house: null,
+  apartment_block: null,
+  mixed_tenement: "commerce",
+  warehouse: "materials",
+  town_hall: null,
+  school_block: null,
+  clinic: null,
+  police_station: null,
+  fire_station: null,
+  market_hall: "commerce",
 };
 
 /**
@@ -25,6 +35,16 @@ export const JOBS_BY_BUILDING_TYPE: Record<BuildingType, number> = {
   cement_plant: 4,
   brickworks: 4,
   steelworks: 4,
+  row_house: 0,
+  apartment_block: 0,
+  mixed_tenement: 0,
+  warehouse: 4,
+  town_hall: 0,
+  school_block: 0,
+  clinic: 0,
+  police_station: 0,
+  fire_station: 0,
+  market_hall: 0,
 };
 
 export const EMPLOYMENT_POLICY = {
@@ -53,6 +73,7 @@ export type LaborMarket = {
 export function initialEmploymentState(): import("@landlord/shared").EmploymentState {
   return {
     salaryIndexPercent: EMPLOYMENT_POLICY.initialSalaryIndexPercent,
+    postsByDistrictId: {},
     lastSettlementTick: null,
   };
 }
@@ -165,6 +186,14 @@ export function runEmployment(state: GameState): void {
     EMPLOYMENT_POLICY.maximumSalaryIndexPercent,
   );
   employment.lastSettlementTick = parseTick(state.clock.tick);
+  const postsByDistrictId: Record<string, number> = {};
+  for (const building of state.phase2.buildings.values()) {
+    if (building.state !== "operational") continue;
+    const jobs = JOBS_BY_BUILDING_TYPE[building.type];
+    if (jobs === 0) continue;
+    postsByDistrictId[building.districtId] = (postsByDistrictId[building.districtId] ?? 0) + jobs;
+  }
+  employment.postsByDistrictId = postsByDistrictId;
 
   for (const tenant of state.phase2.tenants.values()) {
     if (tenant.origin !== "market" || tenant.status === "displaced") continue;

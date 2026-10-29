@@ -283,6 +283,9 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
     CITY_ROSTER_SLOTS.player.slotX,
     CITY_ROSTER_SLOTS.player.slotY,
   );
+  for (const tenant of tenants.values()) {
+    if (tenant.origin === "authored") tenant.marketDistrictId = playerDistrictId;
+  }
   const rivalDistrictId = districtIdForSlot(
     CITY_ROSTER_SLOTS.rival.slotX,
     CITY_ROSTER_SLOTS.rival.slotY,
@@ -424,7 +427,7 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
       employment: initialEmploymentState(),
       municipal: initialMunicipalBudgetState(),
       politics: initialMunicipalPoliticsState(),
-      housingMarket: initialHousingMarketState(),
+      housingMarket: initialHousingMarketState(city.city.districtIds),
       contracts: initialPublicContractsState(),
       reputation: initialReputationState(),
       intelligence: initialIntelligenceState(normalizedSeed),
@@ -435,7 +438,7 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
       },
       permitting: {
         validityTicks: PERMIT_POLICY.validityTicks,
-        approvalChanceByZoning: { ...PERMIT_POLICY.approvalChanceByZoning },
+        approvalChanceByRole: { ...PERMIT_POLICY.approvalChanceByRole },
         permitsByParcelId: {},
       },
       insolvency: {

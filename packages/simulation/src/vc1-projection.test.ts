@@ -7,6 +7,8 @@ import {
   type ProductCommand,
 } from "@landlord/shared";
 import { createInitialState } from "./state";
+import { buildBuildingIndex, buildingsOnParcel } from "./building-index";
+import { developmentCodeById } from "./development-codes";
 import { dispatchProductCommand } from "./commands";
 import { advanceProductSystems } from "./systems";
 import { createViewProjection } from "./projection";
@@ -65,11 +67,11 @@ describe("generador de proyección de gameplay (WP4.15-V.c.1)", () => {
         );
 
       const residential = parcels
-        .filter((p) => p.zoning === "residential")
+        .filter((p) => developmentCodeById(p.developmentCodeId).allowedUses.includes("residential"))
         .sort((a, b) => a.price - b.price || a.id.localeCompare(b.id))
         .slice(0, 6);
       const mixed = parcels
-        .filter((p) => p.zoning === "mixed")
+        .filter((p) => developmentCodeById(p.developmentCodeId).allowedUses.includes("retail"))
         .sort((a, b) => a.price - b.price || a.id.localeCompare(b.id))
         .slice(0, 3);
       let seq = 0;
@@ -116,7 +118,9 @@ describe("generador de proyección de gameplay (WP4.15-V.c.1)", () => {
       // Avanzar hasta que las obras cuadrilladas terminen.
       for (let step = 0; step < GAME_DAY_TICKS * 90; step += 1) {
         advanceProductSystems(state);
-        const completed = built.filter((p) => state.phase2.parcels.get(p.id)?.buildingId).length;
+        const completed = built.filter(
+          (p) => buildingsOnParcel(buildBuildingIndex(state), p.id).length > 0,
+        ).length;
         if (completed >= targetCompleted) break;
       }
 

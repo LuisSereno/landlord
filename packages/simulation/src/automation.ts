@@ -46,7 +46,12 @@ export function initialAutomationState(): AutomationState {
 }
 
 export type AutomationExceptionKind =
-  "loan_delinquent" | "tax_arrears" | "building_condition" | "uninsured_building" | "vacant_unit";
+  | "loan_delinquent"
+  | "tax_arrears"
+  | "building_condition"
+  | "uninsured_building"
+  | "vacant_unit"
+  | "crew_unavailable";
 
 export type AutomationException = {
   id: string;
@@ -111,6 +116,7 @@ function runPropertyManager(state: GameState): void {
           candidate.status === "available" &&
           candidate.activeContractBuildingId === null &&
           candidate.preferredBuildingType === building.type &&
+          candidate.marketDistrictId === building.districtId &&
           candidate.budget >= askingRentFor(state, building),
       );
       if (!tenant) break;
@@ -231,10 +237,13 @@ function runMaintenanceManager(state: GameState): void {
     ),
   );
   const crew = [...state.phase2.crews.values()]
-    .filter(
-      (candidate) =>
-        candidate.organizationId === PLAYER_ORGANIZATION_ID && !busyCrewIds.has(candidate.id),
-    )
+    .filter((candidate) => {
+      if (candidate.organizationId !== PLAYER_ORGANIZATION_ID || busyCrewIds.has(candidate.id))
+        return false;
+      return [candidate.supervisorAgentId, ...candidate.workerAgentIds].every(
+        (agentId) => state.agents.get(agentId)?.districtId === building.districtId,
+      );
+    })
     .sort(byId)[0];
   if (!crew) return;
   dispatchProductCommand(state, {
@@ -270,6 +279,7 @@ export function describeAutomation(state: GameState): AutomationReport {
     building_condition: 0,
     uninsured_building: 0,
     vacant_unit: 0,
+    crew_unavailable: 0,
   };
   let routineTaskCount = 0;
   const add = (exception: AutomationException) => {
@@ -340,8 +350,29 @@ export function describeAutomation(state: GameState): AutomationReport {
         kind: "vacant_unit",
         severity: 1,
         referenceId: building.id,
-        label: `${vacantSlots} plaza(s) vacante(s)`,
+        label: `${vacantSlots} plaza(s) vacante(s) en ${building.districtId}`,
       });
+    }
+    if (
+      state.phase2.automation.maintenanceRepairThreshold !== null &&
+      building.condition <= state.phase2.automation.maintenanceRepairThreshold
+    ) {
+      const localCrew = [...state.phase2.crews.values()].some(
+        (crew) =>
+          crew.organizationId === PLAYER_ORGANIZATION_ID &&
+          [crew.supervisorAgentId, ...crew.workerAgentIds].every(
+            (agentId) => state.agents.get(agentId)?.districtId === building.districtId,
+          ),
+      );
+      if (!localCrew) {
+        add({
+          id: `crew_${building.id}`,
+          kind: "crew_unavailable",
+          severity: 2,
+          referenceId: building.id,
+          label: `Sin cuadrilla local en ${building.districtId}; no se traslada personal automáticamente.`,
+        });
+      }
     }
   }
 

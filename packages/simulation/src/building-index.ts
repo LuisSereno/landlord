@@ -1,0 +1,104 @@
+import type {
+  Block,
+  Building,
+  BuildingId,
+  ConstructionSite,
+  DevelopmentCode,
+  Parcel,
+  ParcelId,
+} from "@landlord/shared";
+
+import { developmentCodeById } from "./development-codes";
+import { districtStateOf, type GameState } from "./state";
+
+/**
+ * Derived, rebuildable indexes over the building stock (D-090). They are never persisted: every
+ * consumer rebuilds them from `phase2.buildings` and `phase2.parcels`, which stays the single
+ * authoritative source. The whole point is that `Parcel` no longer carries `buildingId`.
+ */
+export type BuildingIndex = {
+  byId: Map<BuildingId, Building>;
+  byParcel: Map<ParcelId, Building[]>;
+  byDistrict: Map<string, Building[]>;
+  footprintCellsByParcel: Map<ParcelId, Set<string>>;
+  parcelsByBlock: Map<string, Parcel[]>;
+};
+
+export function cellKey(cell: { x: number; y: number }): string {
+  return `${cell.x}:${cell.y}`;
+}
+
+export function buildBuildingIndex(state: GameState): BuildingIndex {
+  const byId = new Map<BuildingId, Building>();
+  const byParcel = new Map<ParcelId, Building[]>();
+  const byDistrict = new Map<string, Building[]>();
+  const footprintCellsByParcel = new Map<ParcelId, Set<string>>();
+  for (const building of state.phase2.buildings.values()) {
+    byId.set(building.id, building);
+    const parcelBuildings = byParcel.get(building.parcelId) ?? [];
+    parcelBuildings.push(building);
+    byParcel.set(building.parcelId, parcelBuildings);
+    const districtBuildings = byDistrict.get(building.districtId) ?? [];
+    districtBuildings.push(building);
+    byDistrict.set(building.districtId, districtBuildings);
+    const footprint = footprintCellsByParcel.get(building.parcelId) ?? new Set<string>();
+    for (const cell of building.footprintCells) footprint.add(cellKey(cell));
+    footprintCellsByParcel.set(building.parcelId, footprint);
+  }
+  for (const buildings of byParcel.values())
+    buildings.sort((left, right) => left.id.localeCompare(right.id));
+  for (const buildings of byDistrict.values())
+    buildings.sort((left, right) => left.id.localeCompare(right.id));
+  const parcelsByBlock = new Map<string, Parcel[]>();
+  for (const parcel of state.phase2.parcels.values()) {
+    const blockParcels = parcelsByBlock.get(parcel.blockId) ?? [];
+    blockParcels.push(parcel);
+    parcelsByBlock.set(parcel.blockId, blockParcels);
+  }
+  for (const parcels of parcelsByBlock.values()) {
+    parcels.sort((left, right) => left.id.localeCompare(right.id));
+  }
+  return { byId, byParcel, byDistrict, footprintCellsByParcel, parcelsByBlock };
+}
+
+export function buildingsOnParcel(index: BuildingIndex, parcelId: ParcelId): Building[] {
+  return index.byParcel.get(parcelId) ?? [];
+}
+
+export function activeSiteOnParcel(
+  state: GameState,
+  parcelId: ParcelId,
+): ConstructionSite | undefined {
+  return [...state.phase2.constructionSites.values()]
+    .filter((site) => site.parcelId === parcelId)
+    .sort((left, right) => left.id.localeCompare(right.id))[0];
+}
+
+export function blockOfParcel(state: GameState, parcel: Parcel): Block {
+  const block = districtStateOf(state, parcel.districtId).blocks.get(parcel.blockId);
+  if (block) return block;
+  // Synthetic loads (system-cost harness) and legacy parcels may carry a block id without a
+  // persisted block. They still need a normative code, which the parcel itself already has.
+  return {
+    id: parcel.blockId,
+    districtId: parcel.districtId,
+    cells: parcel.cells.map((cell) => ({ ...cell })),
+    frontageRoadSegmentIds: ["synthetic_frontage"],
+    urbanRole: "urban_residential",
+    defaultDevelopmentCodeId: parcel.developmentCodeId,
+  };
+}
+
+export function developmentCodeOfParcel(_state: GameState, parcel: Parcel): DevelopmentCode {
+  // The parcel carries the code it was generated or varied with; the block keeps the default.
+  return developmentCodeById(parcel.developmentCodeId);
+}
+
+export function developmentCodeOfParcelById(
+  state: GameState,
+  parcelId: ParcelId,
+): DevelopmentCode | null {
+  const parcel = state.phase2.parcels.get(parcelId);
+  if (!parcel) return null;
+  return developmentCodeOfParcel(state, parcel);
+}

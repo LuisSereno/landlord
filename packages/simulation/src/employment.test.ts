@@ -37,10 +37,14 @@ function addBuilding(
   const parcel = parcels[index]!;
   const id = parseBuildingId(`building_${String(index + 1).padStart(8, "0")}`);
   parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
-  parcel.buildingId = id;
   const building: Building = {
     id,
     parcelId: parcel.id,
+    districtId: parcel.districtId,
+    footprintCells: [{ ...parcel.anchorCell }],
+    orientation: 0,
+    floors: 1,
+    form: "detached",
     ownerOrganizationId: PLAYER_ORGANIZATION_ID,
     productionFacilityId: null,
     type,
@@ -79,6 +83,7 @@ function addHousehold(
     budget: parseMoney(260),
     preferredBuildingType: "courtyard_home",
     activeContractBuildingId: options.contracted === false ? null : buildingId,
+    marketDistrictId: null,
     satisfaction: 70,
     leaseRemaining: 24,
     status: options.contracted === false ? "available" : "contracted",
@@ -270,6 +275,7 @@ describe("WP4.4 empleo y actividad económica", () => {
 
     expect(restored.phase2.employment).toEqual({
       salaryIndexPercent: EMPLOYMENT_POLICY.initialSalaryIndexPercent,
+      postsByDistrictId: {},
       lastSettlementTick: null,
     });
     expect(

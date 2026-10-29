@@ -11,6 +11,13 @@ import {
   type TestStructurePlaced,
 } from "@landlord/shared";
 import { blockedCellsOf, districtMapOf, hasOrganizationControl, type GameState } from "./state";
+import {
+  activeSiteOnParcel,
+  blockOfParcel,
+  buildBuildingIndex,
+  buildingsOnParcel,
+} from "./building-index";
+import { chooseFootprint } from "./footprints";
 import { credit, debit } from "./ledger";
 import { startAgentTravel } from "./transfers";
 import { submitPublicBid } from "./public-contracts";
@@ -40,6 +47,7 @@ import {
 } from "./game-data";
 import { Xoshiro128ss } from "./prng";
 import { askingRentFor } from "./housing-market";
+import { developmentCodeById } from "./development-codes";
 import {
   effectiveConstructionWorkRequired,
   effectiveMarketPriceFor,
@@ -181,6 +189,8 @@ function issuePermit(
   parcel: import("@landlord/shared").Parcel,
   buildingType: import("@landlord/shared").BuildingType,
 ): "approved" | "denied" {
+  const block = blockOfParcel(state, parcel);
+  const code = developmentCodeById(parcel.developmentCodeId);
   const existing = state.phase2.permitting.permitsByParcelId[parcel.id];
   if (
     existing?.status === "approved" &&
@@ -190,7 +200,7 @@ function issuePermit(
     return "approved";
   if (existing?.status === "approved" && existing.expiresAtTick !== null)
     existing.status = "expired";
-  const baseChance = state.phase2.permitting.approvalChanceByZoning[parcel.zoning];
+  const baseChance = state.phase2.permitting.approvalChanceByRole[block.urbanRole] ?? 100;
   const ordinanceModifier =
     state.phase2.ordinance.status === "active"
       ? state.phase2.ordinance.permitApprovalModifierPercent
@@ -207,8 +217,10 @@ function issuePermit(
     parcelId: parcel.id,
     buildingType,
     authorityOrganizationId: MUNICIPALITY_ORGANIZATION_ID,
-    requirements: permitRequirements(parcel.zoning, buildingType),
-    zoningAtDecision: parcel.zoning,
+    requirements: permitRequirements(block.urbanRole, code, parcel.currentUses, buildingType),
+    developmentCodeIdAtDecision: code.id,
+    allowedUsesAtDecision: [...code.allowedUses],
+    currentUsesAtDecision: [...parcel.currentUses],
     status: approved ? "approved" : "denied",
     requestedAtTick: parseTick(state.clock.tick),
     decidedAtTick: parseTick(state.clock.tick),
@@ -217,6 +229,16 @@ function issuePermit(
       : null,
   };
   return approved ? "approved" : "denied";
+}
+
+function isUseAllowed(
+  state: GameState,
+  parcel: import("@landlord/shared").Parcel,
+  definition: import("@landlord/shared").BuildingDefinition,
+): boolean {
+  if (definition.municipal) return false;
+  const code = developmentCodeById(parcel.developmentCodeId);
+  return definition.allowedUses.every((use) => code.allowedUses.includes(use));
 }
 
 function reservedFundsForOrganization(
@@ -274,8 +296,8 @@ export function dispatchProductCommand(
     if (!parcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
     if (parcel.ownerOrganizationId !== command.actingAsOrganizationId)
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
-    if (!definition.allowedZoning.includes(parcel.zoning))
-      return { accepted: false, code: "INVALID_ZONING" };
+    if (!isUseAllowed(state, parcel, definition))
+      return { accepted: false, code: "USE_NOT_ALLOWED" };
     const status = issuePermit(state, parcel, command.payload.buildingType);
     rememberProcessed(state, command.commandId);
     return productEvent(
@@ -441,13 +463,13 @@ export function dispatchProductCommand(
       )
     )
       return { accepted: false, code: "LOAN_AMOUNT_INVALID" };
+    const buildingIndex = buildBuildingIndex(state);
     const collateralValue =
       parcel.price +
-      (parcel.buildingId
-        ? (BUILDING_DEFINITIONS[
-            state.phase2.buildings.get(parcel.buildingId)?.type ?? "courtyard_home"
-          ]?.cost ?? 0)
-        : 0);
+      buildingsOnParcel(buildingIndex, parcel.id).reduce(
+        (total, building) => total + BUILDING_DEFINITIONS[building.type].cost,
+        0,
+      );
     if (
       command.payload.amount >
       Math.floor((collateralValue * LOAN_POLICY.collateralLoanToValuePercent) / 100)
@@ -633,9 +655,10 @@ export function dispatchProductCommand(
     const parcel = state.phase2.parcels.get(command.payload.parcelId);
     if (!parcel || parcel.ownerOrganizationId !== command.actingAsOrganizationId)
       return { accepted: false, code: "SELL_NOT_AVAILABLE" };
+    const sellIndex = buildBuildingIndex(state);
     if (
-      parcel.buildingId ||
-      [...state.phase2.constructionSites.values()].some((site) => site.parcelId === parcel.id)
+      buildingsOnParcel(sellIndex, parcel.id).length > 0 ||
+      activeSiteOnParcel(state, parcel.id) !== undefined
     )
       return { accepted: false, code: "SELL_NOT_AVAILABLE" };
     const hasActiveLoan = [...state.phase2.loans.values()].some(
@@ -671,8 +694,20 @@ export function dispatchProductCommand(
     if (!parcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
     if (parcel.ownerOrganizationId !== command.actingAsOrganizationId)
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
-    if (!definition.allowedZoning.includes(parcel.zoning))
-      return { accepted: false, code: "INVALID_ZONING" };
+    if (!isUseAllowed(state, parcel, definition))
+      return { accepted: false, code: "USE_NOT_ALLOWED" };
+    if (activeSiteOnParcel(state, parcel.id)) {
+      return { accepted: false, code: "ACTIVE_SITE_ON_PARCEL" };
+    }
+    const code = developmentCodeById(parcel.developmentCodeId);
+    const buildingIndex = buildBuildingIndex(state);
+    const footprint = chooseFootprint({
+      parcel,
+      code,
+      definition,
+      buildings: buildingsOnParcel(buildingIndex, parcel.id),
+    });
+    if ("error" in footprint) return { accepted: false, code: footprint.error };
     const permit = state.phase2.permitting.permitsByParcelId[parcel.id];
     if (
       permit?.status !== "approved" ||
@@ -681,12 +716,6 @@ export function dispatchProductCommand(
     ) {
       if (issuePermit(state, parcel, command.payload.buildingType) !== "approved")
         return { accepted: false, code: "PERMIT_DENIED" };
-    }
-    if (
-      parcel.buildingId ||
-      [...state.phase2.constructionSites.values()].some((site) => site.parcelId === parcel.id)
-    ) {
-      return { accepted: false, code: "CONSTRUCTION_ALREADY_ACTIVE" };
     }
     const activeSites = [...state.phase2.constructionSites.values()].filter(
       (site) =>
@@ -715,8 +744,13 @@ export function dispatchProductCommand(
     state.phase2.constructionSites.set(siteId, {
       id: siteId,
       parcelId: parcel.id,
+      districtId: parcel.districtId,
       ownerOrganizationId: command.actingAsOrganizationId,
       buildingType: definition.type,
+      footprintCells: footprint.footprintCells.map((cell) => ({ ...cell })),
+      orientation: footprint.orientation,
+      floors: footprint.floors,
+      form: footprint.form,
       progress: 0,
       workRequired: effectiveConstructionWorkRequired(state, definition),
       resourcesReserved: { ...definition.resources },
@@ -777,6 +811,8 @@ export function dispatchProductCommand(
       return { accepted: false, code: "TENANT_ALREADY_ASSIGNED" };
     if (tenant.preferredBuildingType !== building.type)
       return { accepted: false, code: "TENANT_INCOMPATIBLE" };
+    if (tenant.marketDistrictId && tenant.marketDistrictId !== building.districtId)
+      return { accepted: false, code: "TENANT_INCOMPATIBLE" };
     if (tenant.budget < effectiveRent(state, building))
       return { accepted: false, code: "TENANT_BUDGET_TOO_LOW" };
     building.tenantIds.push(tenant.id);
@@ -834,8 +870,13 @@ export function dispatchProductCommand(
     state.phase2.constructionSites.set(siteId, {
       id: siteId,
       parcelId: building.parcelId,
+      districtId: building.districtId,
       ownerOrganizationId: command.actingAsOrganizationId,
       buildingType: building.type,
+      footprintCells: building.footprintCells.map((cell) => ({ ...cell })),
+      orientation: building.orientation,
+      floors: building.floors,
+      form: building.form,
       progress: 0,
       workRequired: definition.upgradeWorkRequired * 2,
       resourcesReserved: { ...UPGRADE_RESOURCES },
@@ -879,8 +920,13 @@ export function dispatchProductCommand(
     state.phase2.constructionSites.set(siteId, {
       id: siteId,
       parcelId: building.parcelId,
+      districtId: building.districtId,
       ownerOrganizationId: command.actingAsOrganizationId,
       buildingType: building.type,
+      footprintCells: building.footprintCells.map((cell) => ({ ...cell })),
+      orientation: building.orientation,
+      floors: building.floors,
+      form: building.form,
       progress: 0,
       workRequired: REPAIR_WORK_REQUIRED * 2,
       resourcesReserved: { cement: 0, brick: 0, steel: 0 },
@@ -1077,8 +1123,13 @@ export function dispatchProductCommand(
     state.phase2.constructionSites.set(siteId, {
       id: siteId,
       parcelId: building.parcelId,
+      districtId: building.districtId,
       ownerOrganizationId: building.ownerOrganizationId,
       buildingType: building.type,
+      footprintCells: building.footprintCells.map((cell) => ({ ...cell })),
+      orientation: building.orientation,
+      floors: building.floors,
+      form: building.form,
       progress: 0,
       workRequired: 48,
       resourcesReserved: { cement: 0, brick: 0, steel: 0 },

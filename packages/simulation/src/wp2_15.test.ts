@@ -12,6 +12,7 @@ import {
 import { createInitialState } from "./state";
 import { dispatchProductCommand } from "./commands";
 import { advanceProductSystems } from "./systems";
+import { buildBuildingIndex, buildingsOnParcel } from "./building-index";
 
 const actor = {
   issuedByPersonId: parsePersonId("person_00000001"),
@@ -89,9 +90,15 @@ describe("WP2.15 tactical spike", () => {
     const state = createInitialState(103);
     const buildingId = parseBuildingId("building_00000001");
     const parcelId = parseParcelId("parcel_00000001");
+    const buildingParcel = state.phase2.parcels.get(parcelId)!;
     const building = {
       id: buildingId,
       parcelId,
+      districtId: buildingParcel.districtId,
+      footprintCells: [{ ...buildingParcel.anchorCell }],
+      orientation: 0 as const,
+      floors: 1,
+      form: "detached" as const,
       ownerOrganizationId: actor.actingAsOrganizationId,
       type: "courtyard_home" as const,
       level: 1,
@@ -104,7 +111,6 @@ describe("WP2.15 tactical spike", () => {
       casualtiesTotal: { injured: 0, dead: 0 },
     };
     state.phase2.parcels.get(parcelId)!.ownerOrganizationId = actor.actingAsOrganizationId;
-    state.phase2.parcels.get(parcelId)!.buildingId = buildingId;
     state.phase2.buildings.set(buildingId, building);
     for (const tenantId of building.tenantIds) {
       const tenant = state.phase2.tenants.get(tenantId)!;
@@ -115,6 +121,6 @@ describe("WP2.15 tactical spike", () => {
     expect(building.state).toBe("ruin");
     expect(building.casualtiesTotal).toEqual({ dead: 3, injured: 3 });
     expect(state.phase2.tenants.get(parseTenantId("tenant_00000001"))?.status).toBe("displaced");
-    expect(state.phase2.parcels.get(parcelId)?.buildingId).toBe(buildingId);
+    expect(buildingsOnParcel(buildBuildingIndex(state), parcelId)[0]?.id).toBe(buildingId);
   });
 });

@@ -5,6 +5,8 @@ import {
   type Building,
   type BuildingId,
   type BuildingType,
+  type DistrictId,
+  type DistrictHousingMarket,
   type GridCell,
   type HousingMarketState,
   type Money,
@@ -56,9 +58,24 @@ export const HOUSING_MARKET_POLICY = {
   appealWeights: { stock: 40, safety: 20, affordability: 20, employment: 20 },
 } as const;
 
-export function initialHousingMarketState(): HousingMarketState {
+export function initialHousingMarketState(
+  districtIds: readonly import("@landlord/shared").DistrictId[] = [],
+): HousingMarketState {
   return {
     rentIndexPercentByBuildingType: Object.fromEntries(BUILDING_TYPES.map((type) => [type, 100])),
+    byDistrictId: Object.fromEntries(
+      districtIds.map((districtId) => [
+        districtId,
+        {
+          rentIndexPercentByBuildingType: Object.fromEntries(
+            BUILDING_TYPES.map((type) => [type, 100]),
+          ),
+          unitsByBuildingType: {},
+          demandByBuildingType: {},
+          lastSettlementTick: null,
+        },
+      ]),
+    ),
     lastSettlementTick: null,
     arrivalsTotal: 0,
     departuresTotal: 0,
@@ -138,7 +155,32 @@ export function countNeighbours(
   return total;
 }
 
-function rentIndexFor(state: GameState, type: BuildingType): number {
+function districtMarket(state: GameState, districtId: DistrictId): DistrictHousingMarket {
+  const market = state.phase2.housingMarket;
+  const existing = market.byDistrictId[districtId];
+  if (existing) return existing;
+  const created: DistrictHousingMarket = {
+    rentIndexPercentByBuildingType: Object.fromEntries(BUILDING_TYPES.map((type) => [type, 100])),
+    unitsByBuildingType: {},
+    demandByBuildingType: {},
+    lastSettlementTick: null,
+  };
+  market.byDistrictId[districtId] = created;
+  return created;
+}
+
+/** District index first; city index when the district sample is below three comparable buildings. */
+function rentIndexFor(state: GameState, type: BuildingType, districtId?: DistrictId): number {
+  if (districtId) {
+    const district = state.phase2.housingMarket.byDistrictId[districtId];
+    if (
+      district &&
+      (district.unitsByBuildingType[type] ?? 0) >=
+        HOUSING_MARKET_POLICY.minimumUnitsForPriceDiscovery
+    ) {
+      return district.rentIndexPercentByBuildingType[type] ?? 100;
+    }
+  }
   return state.phase2.housingMarket.rentIndexPercentByBuildingType[type] ?? 100;
 }
 
@@ -156,7 +198,7 @@ export function askingRentFor(state: GameState, building: Building): Money {
           (building.upgraded ? 1 + UPGRADE_RENT_BONUS_PERCENT / 100 : 1) *
           policyModifier *
           (conditionRentMultiplierPercent(building.condition) / 100) *
-          (rentIndexFor(state, building.type) / 100),
+          (rentIndexFor(state, building.type, building.districtId) / 100),
       ),
     ),
   );
@@ -429,6 +471,20 @@ export function vacancyPercentByBuildingType(
   return result;
 }
 
+function applyRentStep(market: HousingMarketState, type: BuildingType, signal: number): void {
+  const gap = HOUSING_MARKET_POLICY.targetVacancyPercent - signal;
+  const step = clamp(
+    Math.round(gap * HOUSING_MARKET_POLICY.indexPointsPerVacancyPoint),
+    -HOUSING_MARKET_POLICY.maximumIndexStepPercent,
+    HOUSING_MARKET_POLICY.maximumIndexStepPercent,
+  );
+  market.rentIndexPercentByBuildingType[type] = clamp(
+    (market.rentIndexPercentByBuildingType[type] ?? 100) + step,
+    HOUSING_MARKET_POLICY.minimumIndexPercent,
+    HOUSING_MARKET_POLICY.maximumIndexPercent,
+  );
+}
+
 function adjustRentIndices(
   state: GameState,
   stock: readonly StockUnit[],
@@ -449,17 +505,49 @@ function adjustRentIndices(
     )
       continue;
     const signal = Math.max(0, vacancy[type]! * vacancySignalModifier);
-    const gap = HOUSING_MARKET_POLICY.targetVacancyPercent - signal;
-    const step = clamp(
-      Math.round(gap * HOUSING_MARKET_POLICY.indexPointsPerVacancyPoint),
-      -HOUSING_MARKET_POLICY.maximumIndexStepPercent,
-      HOUSING_MARKET_POLICY.maximumIndexStepPercent,
-    );
-    market.rentIndexPercentByBuildingType[type] = clamp(
-      (market.rentIndexPercentByBuildingType[type] ?? 100) + step,
-      HOUSING_MARKET_POLICY.minimumIndexPercent,
-      HOUSING_MARKET_POLICY.maximumIndexPercent,
-    );
+    applyRentStep(market, type, signal);
+  }
+
+  const byDistrict = new Map<DistrictId, StockUnit[]>();
+  for (const unit of stock) {
+    const list = byDistrict.get(unit.building.districtId) ?? [];
+    list.push(unit);
+    byDistrict.set(unit.building.districtId, list);
+  }
+  for (const [districtId, units] of [...byDistrict.entries()].sort(([left], [right]) =>
+    left.localeCompare(right),
+  )) {
+    const district = districtMarket(state, districtId);
+    const districtVacancy = vacancyPercentByBuildingType(state, units);
+    const unitsByType: Record<string, number> = {};
+    const demandByType: Record<string, number> = {};
+    for (const type of BUILDING_TYPES) {
+      unitsByType[type] = units.filter((unit) => unit.building.type === type).length;
+      demandByType[type] = [...state.phase2.tenants.values()].filter(
+        (tenant) =>
+          tenant.status === "available" &&
+          tenant.marketDistrictId === districtId &&
+          tenant.preferredBuildingType === type,
+      ).length;
+    }
+    district.unitsByBuildingType = unitsByType;
+    district.demandByBuildingType = demandByType;
+    for (const type of BUILDING_TYPES) {
+      if (unitsByType[type]! < HOUSING_MARKET_POLICY.minimumUnitsForPriceDiscovery) continue;
+      const signal = Math.max(0, districtVacancy[type]! * vacancySignalModifier);
+      const gap = HOUSING_MARKET_POLICY.targetVacancyPercent - signal;
+      const step = clamp(
+        Math.round(gap * HOUSING_MARKET_POLICY.indexPointsPerVacancyPoint),
+        -HOUSING_MARKET_POLICY.maximumIndexStepPercent,
+        HOUSING_MARKET_POLICY.maximumIndexStepPercent,
+      );
+      district.rentIndexPercentByBuildingType[type] = clamp(
+        (district.rentIndexPercentByBuildingType[type] ?? 100) + step,
+        HOUSING_MARKET_POLICY.minimumIndexPercent,
+        HOUSING_MARKET_POLICY.maximumIndexPercent,
+      );
+    }
+    district.lastSettlementTick = parseTick(state.clock.tick);
   }
 }
 
@@ -522,6 +610,13 @@ function admitArrivals(state: GameState, stock: readonly StockUnit[], prng: Xosh
       remaining.set(unit.building.id, slots - taken);
       pending -= taken;
     }
+    const districtsWithFree = [
+      ...new Set(
+        compatible
+          .filter((unit) => (remaining.get(unit.building.id) ?? 0) > 0 && unit.askingRent <= budget)
+          .map((unit) => unit.building.districtId),
+      ),
+    ].sort((left, right) => left.localeCompare(right));
     for (let index = 0; index < arrivals; index += 1) {
       const jitter = prng.nextInt(0, 2 * HOUSING_MARKET_POLICY.budgetJitterPercent + 1);
       const factor = 100 - HOUSING_MARKET_POLICY.budgetJitterPercent + jitter;
@@ -539,6 +634,10 @@ function admitArrivals(state: GameState, stock: readonly StockUnit[], prng: Xosh
         status: "available",
         size: TENANT_PROFILE_DEFAULTS[segment.id].size,
         segmentId: segment.id,
+        marketDistrictId:
+          districtsWithFree.length === 0
+            ? null
+            : districtsWithFree[index % districtsWithFree.length]!,
         searchMonths: 0,
         incomeFactorPercent: factor,
         origin: "market",
@@ -607,6 +706,8 @@ function placeSearchers(state: GameState, stock: readonly StockUnit[]): void {
     for (const candidate of candidates) {
       if ((vacant.get(candidate.unit.building.id) ?? 0) <= 0) continue;
       if (candidate.unit.askingRent > tenant.budget) continue;
+      if (tenant.marketDistrictId && candidate.unit.building.districtId !== tenant.marketDistrictId)
+        continue;
       chosen = candidate.unit;
       break;
     }
@@ -629,6 +730,7 @@ function placeSearchers(state: GameState, stock: readonly StockUnit[]): void {
 export function runHousingMarket(state: GameState): void {
   if (state.clock.tick === 0 || state.clock.tick % GAME_MONTH_TICKS !== 0) return;
   const market = state.phase2.housingMarket;
+  for (const districtId of state.world.city.districtIds) districtMarket(state, districtId);
   const stock = buildStock(state);
   const vacancy = vacancyPercentByBuildingType(state, stock);
   adjustRentIndices(state, stock, vacancy);

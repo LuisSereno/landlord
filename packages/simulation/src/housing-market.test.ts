@@ -14,7 +14,7 @@ import {
   type Tenant,
   type TenantId,
 } from "@landlord/shared";
-import { GAME_MONTH_TICKS, PLAYER_ORGANIZATION_ID } from "./game-data";
+import { BUILDING_DEFINITIONS, GAME_MONTH_TICKS, PLAYER_ORGANIZATION_ID } from "./game-data";
 import {
   countNeighbours,
   HOUSING_MARKET_POLICY,
@@ -55,10 +55,14 @@ function addBuilding(
   if (options.cell) parcel.anchorCell = { ...options.cell };
   const id = parseBuildingId(`building_${String(index + 1).padStart(8, "0")}`);
   parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
-  parcel.buildingId = id;
   const building: Building = {
     id,
     parcelId: parcel.id,
+    districtId: parcel.districtId,
+    footprintCells: [{ ...parcel.anchorCell }],
+    orientation: 0,
+    floors: 1,
+    form: "detached",
     ownerOrganizationId: PLAYER_ORGANIZATION_ID,
     productionFacilityId: null,
     type,
@@ -83,6 +87,7 @@ function addTenant(state: GameState, id: number, overrides: Partial<Tenant> = {}
     budget: parseMoney(220),
     preferredBuildingType: "courtyard_home",
     activeContractBuildingId: null,
+    marketDistrictId: null,
     satisfaction: 60,
     leaseRemaining: 0,
     status: "available",
@@ -359,18 +364,16 @@ describe("WP4.3 oferta y demanda de vivienda", () => {
     const restored = restoreStateFromSnapshot(raw);
 
     expect(restored.phase2.housingMarket).toEqual({
-      rentIndexPercentByBuildingType: {
-        courtyard_home: 100,
-        workshop: 100,
-        cement_plant: 100,
-        brickworks: 100,
-        steelworks: 100,
-      },
+      rentIndexPercentByBuildingType: Object.fromEntries(
+        Object.keys(BUILDING_DEFINITIONS).map((type) => [type, 100]),
+      ),
+      byDistrictId: expect.any(Object),
       lastSettlementTick: null,
       arrivalsTotal: 0,
       departuresTotal: 0,
       nextTenantOrdinal: 1,
     });
+    expect(Object.keys(restored.phase2.housingMarket.byDistrictId)).toHaveLength(9);
     expect([...restored.phase2.tenants.values()].map((tenant) => tenant.size)).toEqual([
       3, 2, 2, 3,
     ]);

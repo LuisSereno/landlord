@@ -303,38 +303,69 @@ export function noteCycleSuppressed(state: GameState, organizationId: Organizati
 }
 
 /**
- * Pares ordenados de empresas que se tocan en el mapa, con cuántas fronteras comparten. Las parcelas se
- * plantan con `spacingX = spacingY = 2` dentro de cada manzana, así que "compartir manzana" significa
- * estar a una o dos celdas en la misma fila o columna: mirar sólo la celda vecina no encontraría nada en
- * un distrito real. NO es la calzada — el origen de cada manzana se sortea, la paridad cambia de manzana
- * en manzana. La topología vial autoritativa no cambia todavía esta métrica de territorio (D-085).
+ * Pares ordenados de empresas que comparten tejido: la misma manzana o el frente del mismo segmento
+ * vial. No usa distancias entre anchors: la relación territorial es topológica (D-090) y sobrevive a
+ * que el generador mueva las parcelas.
  */
 function territoryContacts(state: GameState): Array<[string, number]> {
-  const ownerByCell = new Map<string, OrganizationId>();
+  const contacts = new Map<string, number>();
+  const blocksByPair = new Set<string>();
+  const addContact = (left: OrganizationId, right: OrganizationId, weight: number) => {
+    if (left === right) return;
+    const pair = left < right ? pairKey(left, right) : pairKey(right, left);
+    contacts.set(pair, (contacts.get(pair) ?? 0) + weight);
+  };
+  const ownersByBlock = new Map<string, Set<OrganizationId>>();
+  const blockSegmentIds = new Map<string, readonly string[]>();
+  for (const [, district] of [...state.world.districts.entries()].sort(([left], [right]) =>
+    left.localeCompare(right),
+  )) {
+    for (const block of district.blocks.values()) {
+      blockSegmentIds.set(block.id as string, block.frontageRoadSegmentIds);
+    }
+  }
   for (const parcel of [...state.phase2.parcels.values()].sort((left, right) =>
     left.id.localeCompare(right.id),
   )) {
     if (!parcel.ownerOrganizationId) continue;
     if (state.organizations.get(parcel.ownerOrganizationId)?.kind !== "company") continue;
-    ownerByCell.set(`${parcel.anchorCell.x}:${parcel.anchorCell.y}`, parcel.ownerOrganizationId);
+    const owners = ownersByBlock.get(parcel.blockId) ?? new Set<OrganizationId>();
+    owners.add(parcel.ownerOrganizationId);
+    ownersByBlock.set(parcel.blockId, owners);
   }
-  const contacts = new Map<string, number>();
-  /** Sólo hacia adelante: cada frontera entre dos parcelas se cuenta una vez. */
-  const offsets: ReadonlyArray<readonly [number, number]> = [
-    [1, 0],
-    [2, 0],
-    [0, 1],
-    [0, 2],
-  ];
-  for (const [key, owner] of [...ownerByCell.entries()].sort(([left], [right]) =>
+  for (const [, owners] of [...ownersByBlock.entries()].sort(([left], [right]) =>
     left.localeCompare(right),
   )) {
-    const [x, y] = key.split(":");
-    for (const [dx, dy] of offsets) {
-      const neighbour = ownerByCell.get(`${Number(x) + dx}:${Number(y) + dy}`);
-      if (!neighbour || neighbour === owner) continue;
-      const pair = owner < neighbour ? pairKey(owner, neighbour) : pairKey(neighbour, owner);
-      contacts.set(pair, (contacts.get(pair) ?? 0) + 1);
+    const sorted = [...owners].sort();
+    for (let left = 0; left < sorted.length; left += 1) {
+      for (let right = left + 1; right < sorted.length; right += 1) {
+        addContact(sorted[left]!, sorted[right]!, 1);
+        blocksByPair.add(pairKey(sorted[left]!, sorted[right]!));
+      }
+    }
+  }
+  /** Bloques distintos que comparten acera sobre el mismo segmento: un contacto por segmento. */
+  const ownersBySegment = new Map<string, Set<OrganizationId>>();
+  for (const [blockId, owners] of ownersByBlock) {
+    for (const segmentId of blockSegmentIds.get(blockId) ?? []) {
+      const segmentOwners = ownersBySegment.get(segmentId) ?? new Set<OrganizationId>();
+      for (const owner of owners) segmentOwners.add(owner);
+      ownersBySegment.set(segmentId, segmentOwners);
+    }
+  }
+  for (const owners of [...ownersBySegment.values()].sort((left, right) =>
+    [...left]
+      .sort()
+      .join(",")
+      .localeCompare([...right].sort().join(",")),
+  )) {
+    const sorted = [...owners].sort();
+    for (let left = 0; left < sorted.length; left += 1) {
+      for (let right = left + 1; right < sorted.length; right += 1) {
+        const pair = pairKey(sorted[left]!, sorted[right]!);
+        if (blocksByPair.has(pair)) continue;
+        addContact(sorted[left]!, sorted[right]!, 1);
+      }
     }
   }
   return [...contacts.entries()].sort(([left], [right]) => left.localeCompare(right));

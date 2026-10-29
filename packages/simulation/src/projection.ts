@@ -7,6 +7,8 @@ import {
   type ViewProjectionV2,
 } from "@landlord/shared";
 import { districtStateOf, type GameState } from "./state";
+import { buildBuildingIndex, buildingsOnParcel } from "./building-index";
+import { developmentCodeById, zoningFamilyForCode } from "./development-codes";
 import { canonicalSlots, PLAYER_HOME_DISTRICT_ID, resolveCityProfile } from "./city";
 import {
   BUILDING_DEFINITIONS,
@@ -290,6 +292,8 @@ export function createViewProjection(
     (parcel) => parcel.districtId === observedDistrictId,
   );
   const observedParcelIds = new Set(observedParcels.map((parcel) => parcel.id));
+  const buildingIndex = buildBuildingIndex(state);
+  const observedDistrictBlocks = districtStateOf(state, observedDistrictId).blocks;
   const observedBuildings = [...state.phase2.buildings.values()].filter((building) =>
     observedParcelIds.has(building.parcelId),
   );
@@ -491,25 +495,38 @@ export function createViewProjection(
                   permit.expiresAtTick <= state.clock.tick
                     ? "expired"
                     : (permit?.status ?? null);
+                const block = observedDistrictBlocks.get(parcel.blockId);
+                const code = developmentCodeById(parcel.developmentCodeId);
+                const parcelBuildings = buildingsOnParcel(buildingIndex, parcel.id);
                 return {
                   id: parcel.id,
                   cell: { ...parcel.anchorCell },
                   cells: parcel.cells.map((cell) => ({ ...cell })),
                   price: parcel.price,
-                  zoning: parcel.zoning,
+                  zoning: zoningFamilyForCode(code),
+                  developmentCodeId: code.id,
+                  allowedUses: [...code.allowedUses],
+                  currentUses: [...parcel.currentUses],
                   ownerOrganizationId: parcel.ownerOrganizationId,
-                  buildingId: parcel.buildingId,
+                  buildingId: parcelBuildings[0]?.id ?? null,
+                  buildingIds: parcelBuildings.map((building) => building.id),
                   productionSuitability: {
                     cement: parcel.productionSuitability?.cement ?? 100,
                     brick: parcel.productionSuitability?.brick ?? 100,
                     steel: parcel.productionSuitability?.steel ?? 100,
                   },
                   permittedBuildingTypes: Object.values(BUILDING_DEFINITIONS)
-                    .filter((definition) => definition.allowedZoning.includes(parcel.zoning))
+                    .filter(
+                      (definition) =>
+                        !definition.municipal &&
+                        definition.allowedUses.every((use) => code.allowedUses.includes(use)),
+                    )
                     .map((definition) => definition.type),
                   permitStatus,
                   permitExpiresAtTick: permit?.expiresAtTick ?? null,
-                  regulatoryRiskPercent: regulatoryRiskPercent(parcel.zoning),
+                  regulatoryRiskPercent: regulatoryRiskPercent(
+                    block?.urbanRole ?? "urban_residential",
+                  ),
                   estimatedTransferTax: calculateTax(
                     parcel.price,
                     effectiveTaxRateBps(
@@ -649,22 +666,27 @@ export function createViewProjection(
                   )?.id ?? null,
               })),
             influence: state.phase2.influenceByOrganizationId.get(PLAYER_ORGANIZATION_ID) ?? 0,
-            constructionOptions: Object.values(BUILDING_DEFINITIONS).map((definition) => ({
-              type: definition.type,
-              name: definition.name,
-              allowedZoning: [...definition.allowedZoning],
-              cost: Math.round(definition.cost * (1 + materialCostModifierPercentFor(state) / 100)),
-              baseCost: definition.cost,
-              workRequired: Math.round(effectiveConstructionWorkRequired(state, definition) / 2),
-              capacity: definition.capacity,
-              baseRent: definition.baseRent,
-              resources: { ...definition.resources },
-              upgradeCost: definition.upgradeCost,
-              upgradeWorkRequired: definition.upgradeWorkRequired,
-              upgradeResources: { ...UPGRADE_RESOURCES },
-              upgradeRentBonusPercent: UPGRADE_RENT_BONUS_PERCENT,
-              production: definition.production ? { ...definition.production } : null,
-            })),
+            constructionOptions: Object.values(BUILDING_DEFINITIONS)
+              .filter((definition) => !definition.municipal)
+              .map((definition) => ({
+                type: definition.type,
+                name: definition.name,
+                allowedUses: [...definition.allowedUses],
+                municipal: definition.municipal,
+                cost: Math.round(
+                  definition.cost * (1 + materialCostModifierPercentFor(state) / 100),
+                ),
+                baseCost: definition.cost,
+                workRequired: Math.round(effectiveConstructionWorkRequired(state, definition) / 2),
+                capacity: definition.capacity,
+                baseRent: definition.baseRent,
+                resources: { ...definition.resources },
+                upgradeCost: definition.upgradeCost,
+                upgradeWorkRequired: definition.upgradeWorkRequired,
+                upgradeResources: { ...UPGRADE_RESOURCES },
+                upgradeRentBonusPercent: UPGRADE_RENT_BONUS_PERCENT,
+                production: definition.production ? { ...definition.production } : null,
+              })),
             buildings: observedBuildings
               .sort((left, right) => left.id.localeCompare(right.id))
               .map((building) => ({

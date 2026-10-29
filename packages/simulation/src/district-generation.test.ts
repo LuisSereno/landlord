@@ -28,6 +28,8 @@ import {
   type DistrictProfile,
 } from "./district-profiles";
 import { GAME_DAY_TICKS, GAME_MONTH_TICKS } from "./game-data";
+import { buildBuildingIndex, buildingsOnParcel } from "./building-index";
+import { developmentCodeById } from "./development-codes";
 import { createPrng } from "./prng";
 import { canonicalizeState, runScenario, type ScheduledCommand } from "./runner";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
@@ -115,10 +117,8 @@ describe("WP4.1 district generation", () => {
       expect(generated.report.anchorParcelCount, `seed ${seed}`).toBe(profile.anchorSlots.length);
       for (const slot of profile.anchorSlots) {
         expect(
-          generated.parcels.some(
-            (parcel) => parcel.zoning === slot.zoning && Number(parcel.price) === slot.price,
-          ),
-          `seed ${seed} ancla ${slot.zoning}@${slot.price}`,
+          generated.parcels.some((parcel) => Number(parcel.price) === slot.price),
+          `seed ${seed} ancla @${slot.price}`,
         ).toBe(true);
       }
     }
@@ -152,7 +152,6 @@ describe("WP4.1 district generation", () => {
         for (const parcel of generated.parcels) {
           expect(parcel.districtId, label).toBe(generated.district.id);
           expect(parcel.ownerOrganizationId, label).toBeNull();
-          expect(parcel.buildingId, label).toBeNull();
           expect(parcel.cells.length, label).toBeGreaterThan(0);
           expect(parcel.roadFrontages.length, label).toBeGreaterThan(0);
           for (const cell of parcel.cells) {
@@ -184,10 +183,10 @@ describe("WP4.1 district generation", () => {
         parcelCount,
         anchorParcelCount,
         blockedCellCount,
-        zoningCounts,
+        roleCounts,
       } = generated.report;
       expect(
-        { profileId, seed, hash, parcelCount, anchorParcelCount, blockedCellCount, zoningCounts },
+        { profileId, seed, hash, parcelCount, anchorParcelCount, blockedCellCount, roleCounts },
         `${fixture.profileId} seed ${fixture.seed}`,
       ).toEqual(fixture);
     }
@@ -206,7 +205,11 @@ describe("WP4.1 district generation", () => {
 
     const spawn = state.agents.get(crew.supervisorAgentId)!.cell;
     const target = [...state.phase2.parcels.values()]
-      .filter((parcel) => parcel.districtId === homeDistrictId && parcel.zoning === "residential")
+      .filter(
+        (parcel) =>
+          parcel.districtId === homeDistrictId &&
+          developmentCodeById(parcel.developmentCodeId).allowedUses.includes("residential"),
+      )
       .sort(
         (left, right) =>
           manhattan(left.anchorCell, spawn) - manhattan(right.anchorCell, spawn) ||
@@ -243,11 +246,11 @@ describe("WP4.1 district generation", () => {
 
     advanceUntil(
       state,
-      () => (state.phase2.parcels.get(target.id)?.buildingId ?? null) !== null,
+      () => buildingsOnParcel(buildBuildingIndex(state), target.id).length > 0,
       GAME_DAY_TICKS * 12,
     );
-    const buildingId = state.phase2.parcels.get(target.id)?.buildingId;
-    expect(buildingId, `obra sin terminar en el tick ${state.clock.tick}`).not.toBeNull();
+    const buildingId = buildingsOnParcel(buildBuildingIndex(state), target.id)[0]?.id;
+    expect(buildingId, `obra sin terminar en el tick ${state.clock.tick}`).not.toBeUndefined();
 
     const tenantId = parseTenantId("tenant_00000001");
     expect(

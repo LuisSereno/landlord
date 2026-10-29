@@ -22,6 +22,7 @@ import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { advanceProductSystems } from "./systems";
 import { controlGrantKey, createInitialState } from "./state";
 import { rivalParcel } from "./test-support";
+import { developmentCodeById } from "./development-codes";
 import { createViewProjection } from "./projection";
 import { GAME_DAY_TICKS, GAME_MONTH_TICKS, deteriorationRiskPercent } from "./game-data";
 
@@ -299,9 +300,15 @@ describe("Gate 2 product loop", () => {
     state.phase2.ordinance.status = "active";
     state.clock.tick = parseTick(36_000);
     const rivalBuildingId = parseBuildingId("building_00000009");
+    const rivalParcelForBuilding = state.phase2.parcels.get(parseParcelId("parcel_00000005"))!;
     state.phase2.buildings.set(rivalBuildingId, {
       id: rivalBuildingId,
-      parcelId: parseParcelId("parcel_00000005"),
+      parcelId: rivalParcelForBuilding.id,
+      districtId: rivalParcelForBuilding.districtId,
+      footprintCells: [{ ...rivalParcelForBuilding.anchorCell }],
+      orientation: 0,
+      floors: 1,
+      form: "shed",
       ownerOrganizationId: parseOrganizationId("org_00000002"),
       type: "workshop",
       level: 1,
@@ -567,8 +574,15 @@ describe("Gate 2 product loop", () => {
   });
 
   it("does not produce before completion and applies parcel suitability", () => {
-    const buildFactory = (seed: number, parcelId: string) => {
+    const buildFactory = (seed: number, parcelId: string, suitability?: number) => {
       const state = createInitialState(seed);
+      if (suitability !== undefined) {
+        const parcel = state.phase2.parcels.get(parseParcelId(parcelId))!;
+        parcel.productionSuitability = {
+          ...(parcel.productionSuitability ?? { cement: 100, brick: 100, steel: 100 }),
+          cement: suitability,
+        };
+      }
       dispatchProductCommand(
         state,
         command(`factory-buy-${seed}`, "BuyParcel", { parcelId: parseParcelId(parcelId) }),
@@ -586,14 +600,14 @@ describe("Gate 2 product loop", () => {
       expect(state.phase2.facilities).toHaveLength(0);
       expect(state.phase2.inventories.get(organization)).toEqual(inventoryBefore);
 
-      advanceToTick(state, 120 * 50 + 50);
+      advanceToTick(state, 180 * 50);
       const building = [...state.phase2.buildings.values()][0]!;
       const facility = state.phase2.facilities.get(building.productionFacilityId!)!;
       return { state, facility };
     };
 
     const highSuitability = buildFactory(41, "parcel_00000005");
-    const mixedSuitability = buildFactory(43, "parcel_00000006");
+    const mixedSuitability = buildFactory(43, "parcel_00000007", 95);
     expect(highSuitability.facility.suitabilityPercent).toBe(120);
     expect(mixedSuitability.facility.suitabilityPercent).toBe(95);
     expect(
@@ -607,8 +621,9 @@ describe("Gate 2 product loop", () => {
 
   it("lets the rival choose market supply or a physical factory through normal commands", () => {
     const productionState = createInitialState(47);
-    rivalParcel(productionState, (parcel) => parcel.zoning === "industrial").ownerOrganizationId =
-      parseOrganizationId("org_00000002");
+    rivalParcel(productionState, (parcel) =>
+      developmentCodeById(parcel.developmentCodeId).allowedUses.includes("industrial"),
+    ).ownerOrganizationId = parseOrganizationId("org_00000002");
     productionState.clock.tick = parseTick(50 * 24);
     advanceProductSystems(productionState);
     expect(productionState.phase2.rivalAi.lastAction).toBe("build_production");
@@ -617,8 +632,9 @@ describe("Gate 2 product loop", () => {
     );
 
     const marketState = createInitialState(53);
-    rivalParcel(marketState, (parcel) => parcel.zoning === "industrial").ownerOrganizationId =
-      parseOrganizationId("org_00000002");
+    rivalParcel(marketState, (parcel) =>
+      developmentCodeById(parcel.developmentCodeId).allowedUses.includes("industrial"),
+    ).ownerOrganizationId = parseOrganizationId("org_00000002");
     marketState.phase2.inventories.get(parseOrganizationId("org_00000002"))!.brick = 0;
     marketState.clock.tick = parseTick(50 * 24);
     advanceProductSystems(marketState);
@@ -886,10 +902,14 @@ describe("WP3.6 maintenance and deterioration", () => {
     const buildingId = parseBuildingId("building_00000001");
     const parcel = state.phase2.parcels.get(parseParcelId("parcel_00000001"))!;
     parcel.ownerOrganizationId = organization;
-    parcel.buildingId = buildingId;
     state.phase2.buildings.set(buildingId, {
       id: buildingId,
       parcelId: parcel.id,
+      districtId: parcel.districtId,
+      footprintCells: [{ ...parcel.anchorCell }],
+      orientation: 0,
+      floors: 1,
+      form: "detached",
       ownerOrganizationId: organization,
       productionFacilityId: null,
       type: "courtyard_home",
@@ -1012,10 +1032,14 @@ describe("WP3.7 insurance and covered events", () => {
     const buildingId = parseBuildingId("building_00000001");
     const parcel = state.phase2.parcels.get(parseParcelId("parcel_00000001"))!;
     parcel.ownerOrganizationId = organization;
-    parcel.buildingId = buildingId;
     state.phase2.buildings.set(buildingId, {
       id: buildingId,
       parcelId: parcel.id,
+      districtId: parcel.districtId,
+      footprintCells: [{ ...parcel.anchorCell }],
+      orientation: 0,
+      floors: 1,
+      form: "detached",
       ownerOrganizationId: organization,
       productionFacilityId: null,
       type: "courtyard_home",
@@ -1154,12 +1178,12 @@ describe("WP3.8 zoning and permits", () => {
           buildingType: "courtyard_home",
         }),
       ),
-    ).toEqual({ accepted: false, code: "INVALID_ZONING" });
+    ).toEqual({ accepted: false, code: "USE_NOT_ALLOWED" });
     expect(
       createViewProjection(state, true).economy?.parcels.find((p) => p.id === parcelId),
     ).toMatchObject({
       zoning: "industrial",
-      permittedBuildingTypes: ["workshop", "cement_plant", "brickworks", "steelworks"],
+      permittedBuildingTypes: ["cement_plant", "brickworks", "steelworks", "warehouse"],
       regulatoryRiskPercent: 25,
       permitStatus: null,
     });
@@ -1184,7 +1208,10 @@ describe("WP3.8 zoning and permits", () => {
     expect(state.phase2.permitting.permitsByParcelId[parcelId]).toMatchObject({
       status: "denied",
       authorityOrganizationId: "org_00000004",
-      requirements: ["zoning:residential", "use:courtyard_home"],
+      requirements: expect.arrayContaining(["code:res_urban_4f", "use:courtyard_home"]),
+      developmentCodeIdAtDecision: "res_urban_4f",
+      allowedUsesAtDecision: ["residential"],
+      currentUsesAtDecision: [],
       expiresAtTick: null,
     });
     expect(
@@ -1525,7 +1552,11 @@ describe("WP3.12 portfolio automation and exception UX", () => {
     const state = createInitialState(137);
     const parcelId = parseParcelId("parcel_00000001");
     dispatchProductCommand(state, command("alert-buy", "BuyParcel", { parcelId }));
-    state.phase2.permitting.approvalChanceByZoning.residential = 0;
+    for (const role of Object.keys(state.phase2.permitting.approvalChanceByRole)) {
+      state.phase2.permitting.approvalChanceByRole[
+        role as keyof typeof state.phase2.permitting.approvalChanceByRole
+      ] = 0;
+    }
     dispatchProductCommand(
       state,
       command("alert-permit", "RequestPermit", {

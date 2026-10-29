@@ -35,7 +35,7 @@ function fixtureLiteral(report: DistrictGenerationReport): string {
     `    parcelCount: ${report.parcelCount},`,
     `    anchorParcelCount: ${report.anchorParcelCount},`,
     `    blockedCellCount: ${report.blockedCellCount},`,
-    `    zoningCounts: { residential: ${report.zoningCounts.residential}, mixed: ${report.zoningCounts.mixed}, industrial: ${report.zoningCounts.industrial} },`,
+    `    roleCounts: ${JSON.stringify(report.roleCounts)},`,
     "  },",
   ].join("\n");
 }
@@ -62,8 +62,9 @@ describe("WP4.1 district inspector", () => {
               `   hash=${generated.report.hash} intentos=${generated.report.attempts} ` +
                 `parcelas=${generated.report.parcelCount} (anclas ${generated.report.anchorParcelCount}) ` +
                 `bloqueadas=${generated.report.blockedCellCount}`,
-              `   zoning R/M/I=${generated.report.zoningCounts.residential}/` +
-                `${generated.report.zoningCounts.mixed}/${generated.report.zoningCounts.industrial} ` +
+              `   roles=${Object.entries(generated.report.roleCounts)
+                .map(([role, count]) => `${role}:${count}`)
+                .join(",")} ` +
                 `precio min/media/max=${generated.report.cheapestParcelPrice}/` +
                 `${generated.report.averageParcelPrice}/${generated.report.mostExpensiveParcelPrice}`,
               `   spawns jugador=${generated.spawnAnchors.player.x},${generated.spawnAnchors.player.y} ` +
@@ -71,7 +72,7 @@ describe("WP4.1 district inspector", () => {
               `   parcelas: ${generated.parcels
                 .map(
                   (parcel) =>
-                    `${parcel.id.slice(-4)}@${parcel.anchorCell.x},${parcel.anchorCell.y}:${parcel.zoning[0]}`,
+                    `${parcel.id.slice(-4)}@${parcel.anchorCell.x},${parcel.anchorCell.y}:${parcel.developmentCodeId.slice(0, 8)}`,
                 )
                 .join(" ")}`,
             ].join("\n"),

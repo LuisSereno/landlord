@@ -40,10 +40,14 @@ function addBuilding(state: GameState, index: number): BuildingId {
   const parcel = parcels[index]!;
   const id = parseBuildingId(`building_${String(index + 1).padStart(8, "0")}`);
   parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
-  parcel.buildingId = id;
   const building: Building = {
     id,
     parcelId: parcel.id,
+    districtId: parcel.districtId,
+    footprintCells: [{ ...parcel.anchorCell }],
+    orientation: 0,
+    floors: 1,
+    form: "detached",
     ownerOrganizationId: PLAYER_ORGANIZATION_ID,
     productionFacilityId: null,
     type: "courtyard_home",

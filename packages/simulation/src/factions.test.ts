@@ -214,10 +214,11 @@ describe("WP4.10 encuentros y postura", () => {
       const parcels = [...state.phase2.parcels.values()]
         .sort((left, right) => left.id.localeCompare(right.id))
         .slice(0, pairs * 2);
-      // Las celdas se fijan a mano: el reparto del distrito no garantiza parcelas contiguas.
+      // Cada pareja comparte una manzana: el vínculo es topológico, no una distancia.
       parcels.forEach((parcel, index) => {
         parcel.ownerOrganizationId = index % 2 === 0 ? PLAYER : RIVAL;
-        parcel.anchorCell = { x: index % 2, y: Math.floor(index / 2) };
+        parcel.blockId =
+          `block_${(Math.floor(index / 2) + 1).toString(16).padStart(8, "0")}` as typeof parcel.blockId;
       });
       atTick(state, GAME_MONTH_TICKS);
       advanceProductSystems(state);
@@ -234,14 +235,15 @@ describe("WP4.10 encuentros y postura", () => {
     expect(stanceFor(wide, PLAYER, RIVAL)).toBe(FACTION_POLICY.territoryCapPerMonth);
     expect(stanceFor(wide, RIVAL, PLAYER)).toBe(FACTION_POLICY.territoryCapPerMonth);
 
-    // La trama real planta a dos celdas porque la calzada va en medio: cara a cara también roza.
+    // Dos parcelas de la misma manzana comparten tejido aunque no sean vecinas celda a celda.
     const block = newState();
     const facing = [...block.phase2.parcels.values()]
       .sort((left, right) => left.id.localeCompare(right.id))
       .slice(0, 2);
+    const sharedBlock = facing[0]!.blockId;
     facing.forEach((parcel, index) => {
       parcel.ownerOrganizationId = index === 0 ? PLAYER : RIVAL;
-      parcel.anchorCell = { x: index * 2, y: 0 };
+      parcel.blockId = sharedBlock;
     });
     atTick(block, GAME_MONTH_TICKS);
     advanceProductSystems(block);

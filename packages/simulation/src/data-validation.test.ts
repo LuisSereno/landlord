@@ -25,9 +25,21 @@ describe("WP4.14 validación de datos", () => {
       expect(definition.upgradeWorkRequired, type).toBeGreaterThan(0);
       expect(definition.capacity, type).toBeGreaterThanOrEqual(0);
       expect(definition.baseRent, type).toBeGreaterThanOrEqual(0);
-      expect(definition.allowedZoning.length, type).toBeGreaterThan(0);
-      for (const zoning of definition.allowedZoning) {
-        expect(ZONING_ORDER, type).toContain(zoning);
+      expect(definition.allowedUses.length, type).toBeGreaterThan(0);
+      for (const use of definition.allowedUses) {
+        expect(
+          [
+            "residential",
+            "retail",
+            "office",
+            "industrial",
+            "civic",
+            "education",
+            "health",
+            "utility",
+          ],
+          type,
+        ).toContain(use);
       }
       for (const amount of Object.values(definition.resources)) {
         expect(amount, type).toBeGreaterThanOrEqual(0);
@@ -128,7 +140,6 @@ describe("WP4.14 validación de datos", () => {
         expect(cell.y, id).toBeLessThan(64);
       }
       for (const zoning of ZONING_ORDER) {
-        expect(profile.expansion.zoningWeights[zoning], id).toBeGreaterThanOrEqual(0);
         expect(profile.priceBand[zoning][0], id).toBeLessThanOrEqual(profile.priceBand[zoning][1]);
         expect(profile.suitability[zoning], id).toBeDefined();
       }

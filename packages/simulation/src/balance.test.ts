@@ -29,10 +29,14 @@ function playerBuilding(state: GameState, index: number, condition = 100): Build
   const parcel = [...state.phase2.parcels.values()][index]!;
   const id = parseBuildingId(`building_${String(index + 1).padStart(8, "0")}`);
   parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
-  parcel.buildingId = id;
   const building: Building = {
     id,
     parcelId: parcel.id,
+    districtId: parcel.districtId,
+    footprintCells: [{ ...parcel.anchorCell }],
+    orientation: 0,
+    floors: 1,
+    form: "detached",
     ownerOrganizationId: PLAYER_ORGANIZATION_ID,
     productionFacilityId: null,
     type: "courtyard_home",
@@ -57,6 +61,7 @@ function addTenant(state: GameState, ordinal: number): Tenant {
     budget: parseMoney(300),
     preferredBuildingType: "courtyard_home",
     activeContractBuildingId: null,
+    marketDistrictId: null,
     satisfaction: 60,
     leaseRemaining: 0,
     status: "available",
@@ -166,12 +171,32 @@ describe("WP4.14 métricas de balance", () => {
       nextPaymentTick: parseTick(36_000),
       missedPayments: 0,
     });
-    state.phase2.parcels.get(parcel.id)!.buildingId = parseBuildingId("building_99999998");
+    const orphanBuildingId = parseBuildingId("building_00000099");
+    state.phase2.buildings.set(orphanBuildingId, {
+      id: orphanBuildingId,
+      parcelId: parseParcelId("parcel_99999999"),
+      districtId: parcel.districtId,
+      footprintCells: [{ x: 1, y: 1 }],
+      orientation: 0,
+      floors: 1,
+      form: "detached",
+      ownerOrganizationId: PLAYER_ORGANIZATION_ID,
+      productionFacilityId: null,
+      type: "courtyard_home",
+      level: 1,
+      condition: 100,
+      tenantId: null,
+      tenantIds: [],
+      upgraded: false,
+      structuralIntegrity: 100,
+      state: "operational",
+      casualtiesTotal: { injured: 0, dead: 0 },
+    });
     const violations = detectInvariantViolations(state);
     expect(violations).toContain("tenant_orphan:tenant_00000001");
     expect(violations).toContain("loan_principal_invalid:loan_00000099");
     expect(violations).toContain("loan_remaining_invalid:loan_00000099");
-    expect(violations).toContain(`parcel_building_missing:${parseParcelId(parcel.id)}`);
+    expect(violations).toContain(`building_parcel_missing:${orphanBuildingId}`);
   });
 
   /**

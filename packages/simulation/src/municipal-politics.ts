@@ -448,6 +448,21 @@ function runCouncilDebate(state: GameState): void {
  * existe; los que buscan piso y los desplazados no están en el padrón. Los desplazados de un colapso
  * siguen en el estado como memoria del hogar, pero no vuelven a votar ni inflan la participación.
  */
+/** Población efectiva por distrito: residentes con contrato, ponderados por tamaño del hogar. */
+export function effectivePopulationByDistrict(state: GameState): Record<string, number> {
+  const population: Record<string, number> = {};
+  for (const tenant of state.phase2.tenants.values()) {
+    if (tenant.status !== "contracted") continue;
+    const building = tenant.activeContractBuildingId
+      ? state.phase2.buildings.get(tenant.activeContractBuildingId)
+      : undefined;
+    const districtId = building?.districtId ?? tenant.marketDistrictId;
+    if (!districtId) continue;
+    population[districtId] = (population[districtId] ?? 0) + Math.max(1, tenant.size);
+  }
+  return population;
+}
+
 export function eligibleVoters(state: GameState): Tenant[] {
   const voters: Tenant[] = [];
   for (const tenant of state.phase2.tenants.values()) {
@@ -472,8 +487,10 @@ function holdElection(state: GameState): void {
   const voters = eligibleVoters(state);
   const votesByPartyId: Record<string, number> = {};
   for (const party of MUNICIPAL_PARTY_CATALOG) votesByPartyId[party.id] = 0;
+  const totalPopulation = voters.reduce((sum, voter) => sum + Math.max(1, voter.size), 0);
   let voted = 0;
   for (const voter of voters) {
+    const voterWeight = Math.max(1, voter.size);
     const turnoutPercent = clamp(
       MUNICIPAL_ELECTION_POLICY.baseTurnoutPercent +
         grievanceFor(state, voter.segmentId) * MUNICIPAL_ELECTION_POLICY.turnoutPerGrievancePoint,
@@ -481,7 +498,7 @@ function holdElection(state: GameState): void {
       MUNICIPAL_ELECTION_POLICY.maximumTurnoutPercent,
     );
     if (generator.nextInt(0, 100) >= turnoutPercent) continue;
-    voted += 1;
+    voted += voterWeight;
     const voterWeights = priorityWeightsOf(voter.segmentId);
     let bestPartyId = MUNICIPAL_PARTY_CATALOG[0]!.id;
     let bestAppeal = Number.NEGATIVE_INFINITY;
@@ -495,13 +512,14 @@ function holdElection(state: GameState): void {
         bestPartyId = party.id;
       }
     }
-    votesByPartyId[bestPartyId] = (votesByPartyId[bestPartyId] ?? 0) + 1;
+    votesByPartyId[bestPartyId] = (votesByPartyId[bestPartyId] ?? 0) + voterWeight;
   }
   state.prng = generator.exportState();
 
   politics.seatsByPartyId = allocateSeats(votesByPartyId);
   politics.governingPartyId = governingPartyOf(politics.seatsByPartyId);
-  politics.lastTurnoutPercent = voters.length === 0 ? 0 : Math.round((100 * voted) / voters.length);
+  politics.lastTurnoutPercent =
+    totalPopulation === 0 ? 0 : Math.round((100 * voted) / totalPopulation);
   for (const party of MUNICIPAL_PARTY_CATALOG) {
     politics.supportPercentByPartyId[party.id] =
       voted === 0

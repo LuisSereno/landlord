@@ -67,10 +67,14 @@ function addOwnedBuilding(
   const parcel = parcels[index]!;
   const id = parseBuildingId(`building_${String(index + 1).padStart(8, "0")}`);
   parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
-  parcel.buildingId = id;
   const building: Building = {
     id,
     parcelId: parcel.id,
+    districtId: parcel.districtId,
+    footprintCells: [{ ...parcel.anchorCell }],
+    orientation: 0,
+    floors: 1,
+    form: "detached",
     ownerOrganizationId: PLAYER_ORGANIZATION_ID,
     productionFacilityId: null,
     type: "courtyard_home",
@@ -103,6 +107,7 @@ function addTenant(state: GameState, id: number, overrides: Partial<Tenant> = {}
     budget: parseMoney(300),
     preferredBuildingType: "courtyard_home",
     activeContractBuildingId: null,
+    marketDistrictId: null,
     satisfaction: 60,
     leaseRemaining: 0,
     status: "available",
@@ -135,9 +140,12 @@ describe("WP4.13 automatización y delegación", () => {
   it("el gestor de propiedad coloca inquilinos compatibles y respeta el presupuesto", () => {
     const state = newState();
     state.phase2.tenants.clear();
-    addOwnedBuilding(state, 0);
-    const rich = addTenant(state, 1);
-    const poor = addTenant(state, 2, { budget: parseMoney(10) });
+    const owned = addOwnedBuilding(state, 0);
+    const rich = addTenant(state, 1, { marketDistrictId: owned.districtId });
+    const poor = addTenant(state, 2, {
+      budget: parseMoney(10),
+      marketDistrictId: owned.districtId,
+    });
     state.phase2.automation.property = "fill_vacancies";
     runAutomation(state);
     const building = [...state.phase2.buildings.values()][0]!;
@@ -145,6 +153,25 @@ describe("WP4.13 automatización y delegación", () => {
     expect(rich.status).toBe("contracted");
     /** El inquilino sin presupuesto no entra: la automatización no salta la validación. */
     expect(poor.status).toBe("available");
+  });
+
+  it("no coloca un buscador de otro distrito y deja la vacante como excepción", () => {
+    const state = newState();
+    state.phase2.tenants.clear();
+    const building = addOwnedBuilding(state, 0);
+    const otherDistrict = state.world.city.districtIds.find(
+      (districtId) => districtId !== building.districtId,
+    )!;
+    const tenant = addTenant(state, 1, { marketDistrictId: otherDistrict });
+    state.phase2.automation.property = "fill_vacancies";
+    runAutomation(state);
+    expect(building.tenantIds).toEqual([]);
+    expect(tenant.status).toBe("available");
+    expect(
+      describeAutomation(state).exceptions.some(
+        (exception) => exception.kind === "vacant_unit" && exception.referenceId === building.id,
+      ),
+    ).toBe(true);
   });
 
   it("el gestor de propiedad no hace nada en modo manual", () => {
@@ -232,10 +259,14 @@ describe("WP4.13 automatización y delegación", () => {
     const parcel = [...state.phase2.parcels.values()][0]!;
     parcel.ownerOrganizationId = RIVAL_ORGANIZATION_ID;
     const buildingId = parseBuildingId("building_00000099");
-    parcel.buildingId = buildingId;
     const building: Building = {
       id: buildingId,
       parcelId: parcel.id,
+      districtId: parcel.districtId,
+      footprintCells: [{ ...parcel.anchorCell }],
+      orientation: 0,
+      floors: 1,
+      form: "detached",
       ownerOrganizationId: RIVAL_ORGANIZATION_ID,
       productionFacilityId: null,
       type: "courtyard_home",

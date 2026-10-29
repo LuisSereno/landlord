@@ -1,4 +1,4 @@
-import type { DistrictId } from "@landlord/shared";
+import type { BuildingType, DistrictId } from "@landlord/shared";
 import {
   initializeGameRequestSchema,
   loadSnapshotRequestSchema,
@@ -142,10 +142,7 @@ export class SimulationWorkerClient {
     });
   }
 
-  public startConstruction(
-    parcelId: string,
-    buildingType: "courtyard_home" | "workshop" | "cement_plant" | "brickworks" | "steelworks",
-  ) {
+  public startConstruction(parcelId: string, buildingType: BuildingType) {
     return this.submitProductCommand({
       commandId: this.nextCommandId(),
       issuedByPersonId: parsePersonId("person_00000001"),

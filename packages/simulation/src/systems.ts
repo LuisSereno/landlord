@@ -35,6 +35,13 @@ import {
   REPAIR_COST,
 } from "./game-data";
 import { blockedCellsOf, type GameState } from "./state";
+import {
+  activeSiteOnParcel,
+  blockOfParcel,
+  buildBuildingIndex,
+  buildingsOnParcel,
+} from "./building-index";
+import { developmentCodeById } from "./development-codes";
 import { advanceTransfers } from "./transfers";
 import { runEmployment } from "./employment";
 import { runAutomation } from "./automation";
@@ -319,8 +326,6 @@ function progressConstruction(state: GameState): void {
     if (site.kind === "clear_ruin" && site.targetBuildingId) {
       const ruin = state.phase2.buildings.get(site.targetBuildingId);
       if (ruin) {
-        const parcel = state.phase2.parcels.get(ruin.parcelId);
-        if (parcel) parcel.buildingId = null;
         if (ruin.productionFacilityId) {
           state.phase2.facilities.delete(ruin.productionFacilityId);
         }
@@ -348,9 +353,14 @@ function progressConstruction(state: GameState): void {
       const building: import("@landlord/shared").Building = {
         id: buildingId,
         parcelId: site.parcelId,
+        districtId: site.districtId,
         ownerOrganizationId: site.ownerOrganizationId,
         productionFacilityId: null,
         type: site.buildingType,
+        footprintCells: site.footprintCells.map((cell) => ({ ...cell })),
+        orientation: site.orientation,
+        floors: site.floors,
+        form: site.form,
         level: 1,
         condition: 100,
         tenantId: null,
@@ -362,7 +372,10 @@ function progressConstruction(state: GameState): void {
       };
       state.phase2.buildings.set(buildingId, building);
       const parcel = state.phase2.parcels.get(site.parcelId);
-      if (parcel) parcel.buildingId = buildingId;
+      if (parcel) {
+        const use = BUILDING_DEFINITIONS[building.type].allowedUses[0];
+        if (use && !parcel.currentUses.includes(use)) parcel.currentUses.push(use);
+      }
       const production = BUILDING_DEFINITIONS[building.type].production;
       if (production) {
         state.phase2.idCounters.facility += 1;
@@ -495,12 +508,14 @@ function processLoanPayments(state: GameState): void {
 function collateralValue(state: GameState, loan: import("@landlord/shared").Loan): number {
   const parcel = state.phase2.parcels.get(loan.collateralParcelId);
   if (!parcel) return 0;
-  const building = parcel.buildingId ? state.phase2.buildings.get(parcel.buildingId) : undefined;
+  const index = buildBuildingIndex(state);
   return (
     parcel.price +
-    (building
-      ? Math.round((BUILDING_DEFINITIONS[building.type].cost * building.condition) / 100)
-      : 0)
+    buildingsOnParcel(index, parcel.id).reduce(
+      (total, building) =>
+        total + Math.round((BUILDING_DEFINITIONS[building.type].cost * building.condition) / 100),
+      0,
+    )
   );
 }
 
@@ -561,9 +576,8 @@ function settleAuctions(state: GameState): void {
       state.phase2.rivalAi.memory.lastLossAmount = parseMoney(shortfall);
     }
     parcel.ownerOrganizationId = winner;
-    if (parcel.buildingId) {
-      const building = state.phase2.buildings.get(parcel.buildingId);
-      if (building) building.ownerOrganizationId = winner;
+    for (const building of buildingsOnParcel(buildBuildingIndex(state), parcel.id)) {
+      building.ownerOrganizationId = winner;
     }
     loan.outstandingPrincipal = parseMoney(0);
     loan.nextPaymentTick = null;
@@ -1010,13 +1024,14 @@ function rivalAction(state: GameState): void {
       )
       .map((agent) => agent.districtId),
   );
+  const rivalIndex = buildBuildingIndex(state);
   const ownedParcel = [...state.phase2.parcels.values()]
     .filter(
       (parcel) =>
         parcel.ownerOrganizationId === RIVAL_ORGANIZATION_ID &&
         rivalDistricts.has(parcel.districtId) &&
-        !parcel.buildingId &&
-        ![...state.phase2.constructionSites.values()].some((site) => site.parcelId === parcel.id),
+        buildingsOnParcel(rivalIndex, parcel.id).length === 0 &&
+        activeSiteOnParcel(state, parcel.id) === undefined,
     )
     .sort((a, b) => a.price - b.price)[0];
   const available = [...state.phase2.parcels.values()]
@@ -1037,19 +1052,29 @@ function rivalAction(state: GameState): void {
       state.phase2.rivalAi.memory.defaultCount * 500,
   );
   const canSpend = (amount: number) => balance >= amount + liquidityReserve;
-  const buildingType: BuildingType =
-    ownedParcel?.zoning === "industrial" ? "workshop" : "courtyard_home";
+  const ownedBlock = ownedParcel ? blockOfParcel(state, ownedParcel) : undefined;
+  const ownedCode = ownedBlock
+    ? developmentCodeById(ownedBlock.defaultDevelopmentCodeId)
+    : undefined;
+  const buildingType: BuildingType = ownedCode?.allowedUses.includes("industrial")
+    ? "workshop"
+    : "courtyard_home";
   const definition = BUILDING_DEFINITIONS[buildingType];
-  const productionDefinitions = ownedParcel
-    ? Object.values(BUILDING_DEFINITIONS)
-        .filter((entry) => entry.production && entry.allowedZoning.includes(ownedParcel.zoning))
-        .sort(
-          (left, right) =>
-            (ownedParcel.productionSuitability?.[right.production!.output] ?? 100) -
-              (ownedParcel.productionSuitability?.[left.production!.output] ?? 100) ||
-            left.cost - right.cost,
-        )
-    : [];
+  const productionDefinitions =
+    ownedParcel && ownedCode
+      ? Object.values(BUILDING_DEFINITIONS)
+          .filter(
+            (entry) =>
+              entry.production &&
+              entry.allowedUses.every((use) => ownedCode.allowedUses.includes(use)),
+          )
+          .sort(
+            (left, right) =>
+              (ownedParcel.productionSuitability?.[right.production!.output] ?? 100) -
+                (ownedParcel.productionSuitability?.[left.production!.output] ?? 100) ||
+              left.cost - right.cost,
+          )
+      : [];
   const productionDefinition = productionDefinitions[0];
   const productionBuildingType = productionDefinition?.type;
   const missingResource = (["cement", "brick", "steel"] as const).find(
@@ -1297,8 +1322,8 @@ function rivalAction(state: GameState): void {
     .filter(
       (parcel) =>
         parcel.ownerOrganizationId === RIVAL_ORGANIZATION_ID &&
-        parcel.buildingId === null &&
-        ![...state.phase2.constructionSites.values()].some((site) => site.parcelId === parcel.id),
+        buildingsOnParcel(rivalIndex, parcel.id).length === 0 &&
+        activeSiteOnParcel(state, parcel.id) === undefined,
     )
     .sort((left, right) => left.price - right.price)[0];
   if (saleCandidate && balance < liquidityReserve) {

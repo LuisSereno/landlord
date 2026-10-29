@@ -1,5 +1,6 @@
 import {
   parseDevelopmentCodeId,
+  type LandUse,
   type DevelopmentCode,
   type DevelopmentCodeId,
   type UrbanRole,
@@ -56,3 +57,51 @@ export const DEFAULT_DEVELOPMENT_CODE_BY_ROLE: Record<UrbanRole, DevelopmentCode
   civic_core: DEVELOPMENT_CODES.civic_landmark_5f!.id,
   green_open_space: DEVELOPMENT_CODES.res_low_2f!.id,
 };
+
+/** Coarse family used only for price bands, suitability and display; never for a rule. */
+export function zoningFamilyForRole(role: UrbanRole): "residential" | "mixed" | "industrial" {
+  if (role === "industrial_logistics") return "industrial";
+  if (
+    role === "mixed_core" ||
+    role === "commercial_corridor" ||
+    role === "civic_core" ||
+    role === "institutional"
+  )
+    return "mixed";
+  return "residential";
+}
+
+export function developmentCodeForRole(role: UrbanRole): DevelopmentCode {
+  const id = DEFAULT_DEVELOPMENT_CODE_BY_ROLE[role];
+  const code = Object.values(DEVELOPMENT_CODES).find((entry) => entry.id === id);
+  if (!code) throw new RangeError(`No development code for role ${role}`);
+  return code;
+}
+
+export function developmentCodeForAnchorUse(use: LandUse): DevelopmentCode {
+  if (use === "industrial" || use === "utility") return DEVELOPMENT_CODES.industrial_yard_2f!;
+  if (use === "civic" || use === "education" || use === "health")
+    return DEVELOPMENT_CODES.institutional_3f!;
+  if (use === "retail" || use === "office") return DEVELOPMENT_CODES.mixed_core_5f!;
+  return DEVELOPMENT_CODES.res_urban_4f!;
+}
+
+export function developmentCodeById(id: DevelopmentCodeId): DevelopmentCode {
+  const code = DEVELOPMENT_CODES[id];
+  if (!code) throw new RangeError(`Unknown development code: ${id}`);
+  return code;
+}
+
+/** The display family of a parcel is derived from its code, never stored on the parcel. */
+export function zoningFamilyForCode(code: DevelopmentCode): "residential" | "mixed" | "industrial" {
+  if (code.allowedUses.includes("industrial")) return "industrial";
+  if (code.allowedUses.some((use) => use === "retail" || use === "office")) return "mixed";
+  return "residential";
+}
+
+/** Display/economic family of a parcel, derived from its development code. */
+export function zoningFamilyForParcel(parcel: {
+  developmentCodeId: DevelopmentCodeId;
+}): "residential" | "mixed" | "industrial" {
+  return zoningFamilyForCode(developmentCodeById(parcel.developmentCodeId));
+}

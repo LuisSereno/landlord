@@ -25,7 +25,9 @@ import {
   type CrewId,
   type IncidentId,
   loanIdSchema,
+  developmentCodeIdSchema,
   type LoanId,
+  type DevelopmentCodeId,
 } from "./primitives";
 import { gridCellSchema, tickSchema, type GridCell, type Tick } from "./time-and-grid";
 import { moneySchema, type Money } from "./money";
@@ -36,6 +38,7 @@ import {
   type IntelKind,
   type IntelSource,
 } from "./domain";
+import { landUseSchema, type LandUse } from "./urban";
 
 /** Resumen público de un distrito: lo que la vista de ciudad puede enseñar sin filtrar estado privado. */
 export type PublicDistrictSummary = {
@@ -96,9 +99,15 @@ export type ViewProjectionV2 = {
       /** Every cell of the parcel; `cell` remains its stable anchor for picking and sprites. */
       cells: GridCell[];
       price: number;
+      /** Display/legacy family derived from the development code; not a rule. */
       zoning: "residential" | "industrial" | "mixed";
+      developmentCodeId: DevelopmentCodeId;
+      allowedUses: LandUse[];
+      currentUses: LandUse[];
       ownerOrganizationId: OrganizationId | null;
+      /** Derived first building, kept for the current UI; `buildingIds` is the full relation. */
       buildingId: BuildingId | null;
+      buildingIds: BuildingId[];
       productionSuitability: { cement: number; brick: number; steel: number };
       estimatedTransferTax: number;
       estimatedMonthlyPropertyTax: number;
@@ -196,7 +205,8 @@ export type ViewProjectionV2 = {
     constructionOptions: Array<{
       type: BuildingType;
       name: string;
-      allowedZoning: Array<"residential" | "industrial" | "mixed">;
+      allowedUses: LandUse[];
+      municipal: boolean;
       cost: number;
       baseCost: number;
       workRequired: number;
@@ -629,8 +639,12 @@ export const viewProjectionV2Schema = z.object({
           cells: z.array(gridCellSchema).min(1),
           price: moneySchema,
           zoning: zoningSchema,
+          developmentCodeId: developmentCodeIdSchema,
+          allowedUses: z.array(landUseSchema),
+          currentUses: z.array(landUseSchema),
           ownerOrganizationId: organizationIdSchema.nullable(),
           buildingId: buildingIdSchema.nullable(),
+          buildingIds: z.array(buildingIdSchema),
           productionSuitability: z.object({
             cement: z.number().int().positive(),
             brick: z.number().int().positive(),
@@ -752,7 +766,8 @@ export const viewProjectionV2Schema = z.object({
         z.object({
           type: buildingTypeSchema,
           name: z.string(),
-          allowedZoning: z.array(zoningSchema),
+          allowedUses: z.array(landUseSchema),
+          municipal: z.boolean(),
           cost: moneySchema,
           baseCost: moneySchema,
           workRequired: z.number().int().positive(),

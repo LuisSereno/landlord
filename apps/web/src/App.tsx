@@ -223,7 +223,9 @@ export function App() {
       : undefined;
   const eligibleConstructionOptions =
     economy?.constructionOptions.filter(
-      (option) => selectedParcel && option.allowedZoning.includes(selectedParcel.zoning),
+      (option) =>
+        selectedParcel &&
+        option.allowedUses.every((use) => selectedParcel.allowedUses.includes(use)),
     ) ?? [];
   const debugToolsEnabled = new URLSearchParams(window.location.search).get("debug") === "1";
 

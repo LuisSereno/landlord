@@ -148,6 +148,7 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
           ...parcel,
           cells: parcel.cells.map((cell) => ({ ...cell })),
           anchorCell: { ...parcel.anchorCell },
+          currentUses: [...parcel.currentUses],
           roadFrontages: parcel.roadFrontages.map((frontage) => ({
             ...frontage,
             cells: frontage.cells.map((cell) => ({ ...cell })),
@@ -164,7 +165,11 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
         .map((facility) => ({ ...facility }))
         .sort(compareId),
       buildings: [...state.phase2.buildings.values()]
-        .map((building) => ({ ...building, tenantIds: [...building.tenantIds] }))
+        .map((building) => ({
+          ...building,
+          footprintCells: building.footprintCells.map((cell) => ({ ...cell })),
+          tenantIds: [...building.tenantIds],
+        }))
         .sort(compareId),
       constructionSites: [...state.phase2.constructionSites.values()]
         .map((site) => ({ ...site, resourcesReserved: { ...site.resourcesReserved } }))
@@ -213,7 +218,10 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
         ...state.phase2.maintenance,
         backlogByBuildingId: { ...state.phase2.maintenance.backlogByBuildingId },
       },
-      employment: { ...state.phase2.employment },
+      employment: {
+        ...state.phase2.employment,
+        postsByDistrictId: { ...state.phase2.employment.postsByDistrictId },
+      },
       municipal: {
         ...state.phase2.municipal,
         revenueThisMonthBySource: { ...state.phase2.municipal.revenueThisMonthBySource },
@@ -235,6 +243,17 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
         rentIndexPercentByBuildingType: {
           ...state.phase2.housingMarket.rentIndexPercentByBuildingType,
         },
+        byDistrictId: Object.fromEntries(
+          Object.entries(state.phase2.housingMarket.byDistrictId).map(([districtId, market]) => [
+            districtId,
+            {
+              ...market,
+              rentIndexPercentByBuildingType: { ...market.rentIndexPercentByBuildingType },
+              unitsByBuildingType: { ...market.unitsByBuildingType },
+              demandByBuildingType: { ...market.demandByBuildingType },
+            },
+          ]),
+        ),
       },
       contracts: {
         ...state.phase2.contracts,
@@ -304,13 +323,15 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
       },
       permitting: {
         ...state.phase2.permitting,
-        approvalChanceByZoning: { ...state.phase2.permitting.approvalChanceByZoning },
+        approvalChanceByRole: { ...state.phase2.permitting.approvalChanceByRole },
         permitsByParcelId: Object.fromEntries(
           Object.entries(state.phase2.permitting.permitsByParcelId).map(([parcelId, permit]) => [
             parcelId,
             {
               ...permit,
               requirements: [...permit.requirements],
+              allowedUsesAtDecision: [...permit.allowedUsesAtDecision],
+              currentUsesAtDecision: [...permit.currentUsesAtDecision],
               requestedAtTick: permit.requestedAtTick,
               decidedAtTick: permit.decidedAtTick,
               expiresAtTick: permit.expiresAtTick,
@@ -555,6 +576,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 blockId: parseBlockId(parcel.blockId),
                 cells: parcel.cells.map((cell) => ({ ...cell })),
                 anchorCell: { ...parcel.anchorCell },
+                currentUses: [...parcel.currentUses],
                 roadFrontages: parcel.roadFrontages.map((frontage) => ({
                   ...frontage,
                   cells: frontage.cells.map((cell) => ({ ...cell })),
@@ -875,6 +897,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
           employment: snapshot.phase2.employment
             ? {
                 ...snapshot.phase2.employment,
+                postsByDistrictId: { ...snapshot.phase2.employment.postsByDistrictId },
                 lastSettlementTick:
                   snapshot.phase2.employment.lastSettlementTick === null
                     ? null
@@ -887,6 +910,21 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                 rentIndexPercentByBuildingType: {
                   ...snapshot.phase2.housingMarket.rentIndexPercentByBuildingType,
                 },
+                byDistrictId: Object.fromEntries(
+                  Object.entries(snapshot.phase2.housingMarket.byDistrictId).map(
+                    ([districtId, market]) => [
+                      districtId,
+                      {
+                        ...market,
+                        rentIndexPercentByBuildingType: {
+                          ...market.rentIndexPercentByBuildingType,
+                        },
+                        unitsByBuildingType: { ...market.unitsByBuildingType },
+                        demandByBuildingType: { ...market.demandByBuildingType },
+                      },
+                    ],
+                  ),
+                ),
                 lastSettlementTick:
                   snapshot.phase2.housingMarket.lastSettlementTick === null
                     ? null
@@ -1060,13 +1098,15 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
           permitting: snapshot.phase2.permitting
             ? {
                 ...snapshot.phase2.permitting,
-                approvalChanceByZoning: { ...snapshot.phase2.permitting.approvalChanceByZoning },
+                approvalChanceByRole: { ...snapshot.phase2.permitting.approvalChanceByRole },
                 permitsByParcelId: Object.fromEntries(
                   Object.entries(snapshot.phase2.permitting.permitsByParcelId).map(
                     ([parcelId, permit]) => [
                       parcelId,
                       {
                         ...permit,
+                        allowedUsesAtDecision: [...permit.allowedUsesAtDecision],
+                        currentUsesAtDecision: [...permit.currentUsesAtDecision],
                         parcelId: parseParcelId(permit.parcelId),
                         authorityOrganizationId: parseOrganizationId(
                           permit.authorityOrganizationId,

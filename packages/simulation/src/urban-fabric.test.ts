@@ -12,6 +12,7 @@ import {
 } from "@landlord/shared";
 import { defaultRoadAnchors, generateDistrict } from "./district-generator";
 import { resolveDistrictProfile } from "./district-profiles";
+import { DEFAULT_DEVELOPMENT_CODE_BY_ROLE, developmentCodeById } from "./development-codes";
 import {
   blockIdForGeometry,
   canonicalCellKeys,
@@ -146,7 +147,9 @@ describe("V.d.1 flood-fill blocks", () => {
     }
     expect([...blockCells].sort()).toEqual(developable.sort());
     for (const block of district.blocks) {
-      expect(block.urbanRole).toBe(PROFILE.dominantRole);
+      expect(block.defaultDevelopmentCodeId).toBe(
+        DEFAULT_DEVELOPMENT_CODE_BY_ROLE[block.urbanRole],
+      );
       expect(block.frontageRoadSegmentIds.length).toBeGreaterThan(0);
     }
   });
@@ -201,7 +204,9 @@ describe("V.d.1 front-first multi-cell parcels", () => {
     const district = generated();
     expect(district.parcels[0]!.id).toBe(parseParcelId("parcel_00000001"));
     expect(district.parcels[0]!.price).toBe(900);
-    expect(district.parcels[0]!.zoning).toBe("residential");
+    expect(developmentCodeById(district.parcels[0]!.developmentCodeId).allowedUses).toContain(
+      "residential",
+    );
     expect(district.report.anchorParcelCount).toBe(PROFILE.anchorSlots.length);
   });
 });

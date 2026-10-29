@@ -17,6 +17,8 @@ import {
   type ResourceKind,
 } from "@landlord/shared";
 import { detectInvariantViolations, measureBalance, type BalanceMetrics } from "./balance";
+import { buildBuildingIndex, buildingsOnParcel } from "./building-index";
+import { developmentCodeById } from "./development-codes";
 import { dispatchProductCommand, type ProductCommandResult } from "./commands";
 import {
   BUILDING_DEFINITIONS,
@@ -187,9 +189,15 @@ function playerInventory(state: GameState) {
 }
 
 /** Edificio rentable más barato que la zonificación admite; `null` si la parcela sólo permite producción. */
-function rentableDefinitionFor(zoning: Parcel["zoning"]): BuildingDefinition | null {
+function rentableDefinitionFor(codeId: Parcel["developmentCodeId"]): BuildingDefinition | null {
+  const code = developmentCodeById(codeId);
   const candidates = Object.values(BUILDING_DEFINITIONS)
-    .filter((definition) => definition.capacity > 0 && definition.allowedZoning.includes(zoning))
+    .filter(
+      (definition) =>
+        definition.capacity > 0 &&
+        !definition.municipal &&
+        definition.allowedUses.every((use) => code.allowedUses.includes(use)),
+    )
     .sort((left, right) => left.cost - right.cost || left.type.localeCompare(right.type));
   return candidates[0] ?? null;
 }
@@ -216,10 +224,11 @@ function expansionTarget(
       )
       .map((agent) => agent.districtId),
   );
+  const buildingIndex = buildBuildingIndex(state);
   const candidates = [...state.phase2.parcels.values()]
     .filter(
       (parcel) =>
-        !parcel.buildingId &&
+        buildingsOnParcel(buildingIndex, parcel.id).length === 0 &&
         !busyParcelIds.has(parcel.id) &&
         playerDistricts.has(parcel.districtId),
     )
@@ -230,7 +239,7 @@ function expansionTarget(
     )
     .map((parcel) => ({
       parcel,
-      definition: rentableDefinitionFor(parcel.zoning),
+      definition: rentableDefinitionFor(parcel.developmentCodeId),
       owned: parcel.ownerOrganizationId === PLAYER_ORGANIZATION_ID,
     }))
     .filter(
@@ -303,12 +312,13 @@ function playerConstructionSites(state: GameState) {
  */
 function playerAssetBookValue(state: GameState): number {
   let total = 0;
+  const index = buildBuildingIndex(state);
   for (const parcel of state.phase2.parcels.values()) {
     if (parcel.ownerOrganizationId !== PLAYER_ORGANIZATION_ID) continue;
     total += parcel.price;
-    if (!parcel.buildingId) continue;
-    const building = state.phase2.buildings.get(parcel.buildingId);
-    if (building) total += BUILDING_DEFINITIONS[building.type].cost;
+    for (const building of buildingsOnParcel(index, parcel.id)) {
+      total += BUILDING_DEFINITIONS[building.type].cost;
+    }
   }
   return total;
 }

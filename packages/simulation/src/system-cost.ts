@@ -37,9 +37,9 @@ import {
   type ProductionFacility,
   type Tenant,
   type TenantProfile,
-  type Zoning,
 } from "@landlord/shared";
 import type { DistrictId } from "@landlord/shared";
+import { developmentCodeForRole } from "./development-codes";
 import { cellKey } from "./district-generator";
 import { DEFAULT_DISTRICT_PROFILE_ID } from "./district-profiles";
 import {
@@ -114,12 +114,17 @@ export function windowCrossesMonthClose(
   return nextClose < start + costWindow.ticks;
 }
 
-const ZONING_BAG: readonly Zoning[] = ["residential", "residential", "mixed", "industrial"];
-const BUILDING_TYPES_BY_ZONING: Record<Zoning, readonly BuildingType[]> = {
-  residential: ["courtyard_home"],
-  mixed: ["courtyard_home", "workshop"],
-  industrial: ["workshop", "cement_plant", "brickworks", "steelworks"],
-};
+const SYNTHETIC_BUILDING_TYPES: readonly BuildingType[] = [
+  "courtyard_home",
+  "row_house",
+  "apartment_block",
+  "mixed_tenement",
+  "workshop",
+  "warehouse",
+  "cement_plant",
+  "brickworks",
+  "steelworks",
+];
 const SYNTHETIC_TENANT_START = 1_000;
 const BUILT_PERCENT = 85;
 const SITE_PERCENT = 6;
@@ -298,7 +303,6 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
     const parcelId = parseParcelId(
       `parcel_${pad(HARNESS_PARCEL_ORDINAL + createdParcels.length + 1)}`,
     );
-    const zoning = ZONING_BAG[prng.nextInt(0, ZONING_BAG.length)]!;
     const ownership = prng.nextInt(0, 100);
     const ownerOrganizationId =
       ownership < 10 ? null : ownership < 40 ? RIVAL_ORGANIZATION_ID : PLAYER_ORGANIZATION_ID;
@@ -310,31 +314,40 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
     const parcel: Parcel = {
       id: parcelId,
       districtId: targetDistrictId,
-      blockId: parseBlockId(`block_${String(createdParcels.length + 1).padStart(8, "0")}`),
+      blockId: parseBlockId(
+        `block_${(Math.floor(cell.x / 4) * 100 + Math.floor(cell.y / 4))
+          .toString(16)
+          .padStart(8, "0")}`,
+      ),
       cells: [{ ...cell }],
       anchorCell: { ...cell },
       roadFrontages: [],
       disposition: "marketable",
       price: parseMoney(600 + prng.nextInt(0, 900)),
-      zoning,
+      developmentCodeId: developmentCodeForRole("urban_residential").id,
+      currentUses: [],
       ownerOrganizationId,
-      buildingId: null,
       productionSuitability: suitability,
     };
     state.phase2.parcels.set(parcelId, parcel);
     createdParcels.push(parcel);
     if (ownerOrganizationId === null || prng.nextInt(0, 100) >= BUILT_PERCENT) continue;
 
-    const types = BUILDING_TYPES_BY_ZONING[zoning];
-    const type = types[prng.nextInt(0, types.length)]!;
+    const type = SYNTHETIC_BUILDING_TYPES[prng.nextInt(0, SYNTHETIC_BUILDING_TYPES.length)]!;
+    const definition = BUILDING_DEFINITIONS[type];
     state.phase2.idCounters.building += 1;
     const buildingId = parseBuildingId(`building_${pad(state.phase2.idCounters.building)}`);
     const building: Building = {
       id: buildingId,
       parcelId,
+      districtId: targetDistrictId,
       ownerOrganizationId,
       productionFacilityId: null,
       type,
+      footprintCells: [{ ...cell }],
+      orientation: 0,
+      floors: definition.defaultFloors,
+      form: definition.form,
       level: 1,
       condition: 100,
       tenantId: null,
@@ -345,7 +358,8 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
       casualtiesTotal: { injured: 0, dead: 0 },
     };
     state.phase2.buildings.set(buildingId, building);
-    parcel.buildingId = buildingId;
+    const primaryUse = definition.allowedUses[0];
+    if (primaryUse && !parcel.currentUses.includes(primaryUse)) parcel.currentUses.push(primaryUse);
     createdBuildings.push(building);
 
     const capacity = BUILDING_DEFINITIONS[type].capacity;
@@ -366,6 +380,7 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
         status: "contracted",
         size: TENANT_PROFILE_DEFAULTS[profile].size,
         segmentId: profile,
+        marketDistrictId: targetDistrictId,
         searchMonths: 0,
         incomeFactorPercent: 100,
         origin: "authored",
@@ -401,19 +416,26 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
   }
 
   const siteTarget = Math.max(1, Math.floor((cells.length * SITE_PERCENT) / 100));
+  const builtParcelIds = new Set(createdBuildings.map((building) => building.parcelId));
   const siteParcels = createdParcels
-    .filter((parcel) => parcel.ownerOrganizationId !== null && parcel.buildingId === null)
+    .filter((parcel) => parcel.ownerOrganizationId !== null && !builtParcelIds.has(parcel.id))
     .slice(0, siteTarget);
   for (const parcel of siteParcels) {
     const organizationId = parcel.ownerOrganizationId!;
     state.phase2.idCounters.constructionSite += 1;
     const siteId = parseConstructionSiteId(`site_${pad(state.phase2.idCounters.constructionSite)}`);
-    const types = BUILDING_TYPES_BY_ZONING[parcel.zoning];
+    const siteType = SYNTHETIC_BUILDING_TYPES[prng.nextInt(0, SYNTHETIC_BUILDING_TYPES.length)]!;
+    const siteDefinition = BUILDING_DEFINITIONS[siteType];
     const site: ConstructionSite = {
       id: siteId,
       parcelId: parcel.id,
+      districtId: targetDistrictId,
       ownerOrganizationId: organizationId,
-      buildingType: types[0]!,
+      buildingType: siteType,
+      footprintCells: parcel.cells.map((cell) => ({ ...cell })),
+      orientation: 0,
+      floors: siteDefinition.defaultFloors,
+      form: siteDefinition.form,
       progress: 0,
       workRequired: SITE_WORK_REQUIRED,
       resourcesReserved: { cement: 0, brick: 0, steel: 0 },

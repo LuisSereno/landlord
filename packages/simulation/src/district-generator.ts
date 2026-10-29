@@ -17,17 +17,21 @@ import {
   type RoadAnchor,
   type RoadTopology,
   type Seed,
-  type Zoning,
+  type UrbanRole,
 } from "@landlord/shared";
 
 import {
   DISTRICT_GENERATOR_VERSION,
   resolveDistrictProfile,
-  ZONING_ORDER,
   type DistrictProfile,
   type DistrictSpawnAnchors,
 } from "./district-profiles";
-import { DEFAULT_DEVELOPMENT_CODE_BY_ROLE } from "./development-codes";
+import {
+  developmentCodeForAnchorUse,
+  developmentCodeForRole,
+  zoningFamilyForCode,
+  zoningFamilyForRole,
+} from "./development-codes";
 import type { DistrictGenerationIssue } from "./district-issues";
 import { MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
 import { createPrng, type Xoshiro128ss } from "./prng";
@@ -64,7 +68,7 @@ export type DistrictGenerationReport = {
   blockCount: number;
   publicSpaceCount: number;
   parcelCellCount: number;
-  zoningCounts: Record<Zoning, number>;
+  roleCounts: Record<UrbanRole, number>;
   blockedCellCount: number;
   roadCellCount: number;
   cheapestParcelPrice: number;
@@ -148,40 +152,20 @@ function nextInRange(prng: Xoshiro128ss, range: readonly [number, number]): numb
   return minimum === maximum ? minimum : prng.nextInt(minimum, maximum + 1);
 }
 
-function drawZoningBag(
+function drawPrice(
   prng: Xoshiro128ss,
-  weights: Record<Zoning, number>,
-  size: number,
-): Zoning[] {
-  const entries: Zoning[] = [];
-  for (const zoning of ZONING_ORDER) {
-    const weight = Math.max(0, Math.trunc(weights[zoning]));
-    for (let index = 0; index < weight; index += 1) entries.push(zoning);
-  }
-  if (entries.length === 0) {
-    throw new RangeError("El perfil de distrito necesita al menos un peso de zoning positivo");
-  }
-  const bag: Zoning[] = [];
-  while (bag.length < size) bag.push(...entries);
-  for (let index = bag.length - 1; index > 0; index -= 1) {
-    const swap = prng.nextInt(0, index + 1);
-    const kept = bag[index]!;
-    bag[index] = bag[swap]!;
-    bag[swap] = kept;
-  }
-  return bag.slice(0, size);
-}
-
-function drawPrice(prng: Xoshiro128ss, profile: DistrictProfile, zoning: Zoning): number {
-  return nextInRange(prng, profile.priceBand[zoning]);
+  profile: DistrictProfile,
+  family: "residential" | "mixed" | "industrial",
+): number {
+  return nextInRange(prng, profile.priceBand[family]);
 }
 
 function drawSuitability(
   prng: Xoshiro128ss,
   profile: DistrictProfile,
-  zoning: Zoning,
+  family: "residential" | "mixed" | "industrial",
 ): ProductionSuitability {
-  const base = profile.suitability[zoning];
+  const base = profile.suitability[family];
   if (profile.suitabilityJitterPercent <= 0) return { ...base };
   const jitter = (value: number): number => {
     const amplitude = Math.floor((value * profile.suitabilityJitterPercent) / 100);
@@ -269,10 +253,70 @@ function blockFrontageSegmentIds(input: {
 
 type DraftParcel = {
   blockId: string;
+  role: UrbanRole;
   cells: GridCell[];
   anchorCell: GridCell;
   roadFrontages: Parcel["roadFrontages"];
 };
+
+/**
+ * Urban-role recipe of a block (PLAN_improvements.md §V.d.2.2): road centrality (avenues), civic
+ * distance, gateways and the district's dominant role. The role chooses the development code; it
+ * does not decide what was built.
+ */
+function roleForBlock(input: {
+  dominant: UrbanRole;
+  distanceToCivic: number;
+  onAvenue: boolean;
+  nearGateway: boolean;
+  middleRank: number;
+  edgeRank: number;
+}): UrbanRole {
+  const { dominant, distanceToCivic, onAvenue, nearGateway, middleRank, edgeRank } = input;
+  if (dominant === "industrial_logistics") {
+    if (distanceToCivic <= 12) return "mixed_core";
+    if (distanceToCivic <= 34) {
+      return onAvenue && middleRank % 2 === 0 ? "commercial_corridor" : "urban_residential";
+    }
+    return "industrial_logistics";
+  }
+  if (dominant === "civic_core") {
+    if (distanceToCivic <= 9) return "civic_core";
+    if (distanceToCivic <= 20) return "mixed_core";
+    if (distanceToCivic <= 34) {
+      return onAvenue && middleRank % 2 === 0 ? "commercial_corridor" : "urban_residential";
+    }
+    return "industrial_logistics";
+  }
+  if (dominant === "commercial_corridor") {
+    if (distanceToCivic <= 14) return "commercial_corridor";
+    if (distanceToCivic <= 34) {
+      return middleRank % 2 === 0 ? "mixed_core" : "urban_residential";
+    }
+    return "industrial_logistics";
+  }
+  if (dominant === "mixed_core") {
+    if (distanceToCivic <= 12) return "mixed_core";
+    if (distanceToCivic <= 34) {
+      return onAvenue && middleRank % 2 === 0 ? "commercial_corridor" : "urban_residential";
+    }
+    return "industrial_logistics";
+  }
+  if (dominant === "low_density_residential" || dominant === "green_open_space") {
+    if (distanceToCivic <= 24) {
+      return nearGateway || middleRank % 3 !== 2 ? "mixed_core" : "low_density_residential";
+    }
+    return edgeRank % 3 === 0 ? "industrial_logistics" : "low_density_residential";
+  }
+  if (dominant === "urban_residential") {
+    if (distanceToCivic <= 10) return "mixed_core";
+    if (distanceToCivic <= 34) {
+      return onAvenue && middleRank % 2 === 0 ? "commercial_corridor" : "urban_residential";
+    }
+    return "industrial_logistics";
+  }
+  return dominant;
+}
 
 function selectPublicReservationBlock(input: {
   blocks: readonly string[][];
@@ -301,7 +345,7 @@ function selectPublicReservationBlock(input: {
 function assignAnchorOverrides(input: {
   parcels: Array<{
     draft: DraftParcel;
-    zoning: Zoning;
+    developmentCodeId: import("@landlord/shared").DevelopmentCodeId;
     price: number;
     suitability: ProductionSuitability;
   }>;
@@ -324,31 +368,45 @@ function assignAnchorOverrides(input: {
     if (bestIndex < 0) break;
     claimed.add(bestIndex);
     const target = input.parcels[bestIndex]!;
-    target.zoning = slot.zoning;
+    const code = developmentCodeForAnchorUse(slot.use);
+    target.developmentCodeId = code.id;
     target.price = slot.price;
-    target.suitability = { ...input.profile.suitability[slot.zoning] };
+    target.suitability = {
+      ...input.profile.suitability[zoningFamilyForCode(code)],
+    };
     assigned.push(bestIndex);
   }
   return assigned;
 }
 
+const FAMILY_ORDER = ["residential", "mixed", "industrial"] as const;
+
 function validatePlayability(input: {
   profile: DistrictProfile;
   parcels: readonly Parcel[];
+  blocks: readonly Block[];
   blockedCells: ReadonlySet<string>;
 }): DistrictGenerationIssue[] {
   const issues: DistrictGenerationIssue[] = [];
-  const { profile, parcels, blockedCells } = input;
+  const { profile, parcels, blocks, blockedCells } = input;
   const playability = profile.playability;
-  const zoningCounts: Record<Zoning, number> = { residential: 0, mixed: 0, industrial: 0 };
-  for (const parcel of parcels) zoningCounts[parcel.zoning] += 1;
+  const roleByBlock = new Map(blocks.map((block) => [block.id as string, block.urbanRole]));
+  const zoningCounts: Record<(typeof FAMILY_ORDER)[number], number> = {
+    residential: 0,
+    mixed: 0,
+    industrial: 0,
+  };
+  for (const parcel of parcels) {
+    const role = roleByBlock.get(parcel.blockId as string) ?? profile.dominantRole;
+    zoningCounts[zoningFamilyForRole(role)] += 1;
+  }
   if (parcels.length < playability.minimumParcels) {
     issues.push({
       code: "INSUFFICIENT_PARCELS",
       detail: `${parcels.length} < ${playability.minimumParcels}`,
     });
   }
-  for (const zoning of ZONING_ORDER) {
+  for (const zoning of FAMILY_ORDER) {
     if (zoningCounts[zoning] < playability.minimumParcelsPerZoning[zoning]) {
       issues.push({
         code: "ZONING_SHORTAGE",
@@ -407,7 +465,8 @@ export function districtCanonicalString(input: {
           )
           .join("|"),
         parcel.disposition,
-        parcel.zoning,
+        parcel.developmentCodeId,
+        parcel.currentUses.join("+"),
         parcel.price,
         `${suitability.cement}/${suitability.brick}/${suitability.steel}`,
       ].join("@");
@@ -482,8 +541,23 @@ function buildReport(input: {
     hash,
     issues,
   } = input;
-  const zoningCounts: Record<Zoning, number> = { residential: 0, mixed: 0, industrial: 0 };
-  for (const parcel of parcels) zoningCounts[parcel.zoning] += 1;
+  const roleCounts = Object.fromEntries(
+    [
+      "civic_core",
+      "mixed_core",
+      "commercial_corridor",
+      "urban_residential",
+      "low_density_residential",
+      "industrial_logistics",
+      "institutional",
+      "green_open_space",
+    ].map((role) => [role, 0]),
+  ) as Record<UrbanRole, number>;
+  const roleByBlock = new Map(blocks.map((block) => [block.id as string, block.urbanRole]));
+  for (const parcel of parcels) {
+    const role = roleByBlock.get(parcel.blockId as string) ?? "urban_residential";
+    roleCounts[role] += 1;
+  }
   const prices = parcels.map((parcel) => parcel.price);
   const total = prices.reduce((sum, price) => sum + price, 0);
   return {
@@ -496,7 +570,7 @@ function buildReport(input: {
     blockCount: blocks.length,
     publicSpaceCount: publicSpaces.length,
     parcelCellCount: parcels.reduce((sum, parcel) => sum + parcel.cells.length, 0),
-    zoningCounts,
+    roleCounts,
     blockedCellCount: blockedCells.length,
     roadCellCount: roadCellsFromSegments(roads.segments).size,
     cheapestParcelPrice: prices.length === 0 ? 0 : Math.min(...prices),
@@ -603,6 +677,7 @@ function attemptComposition(input: {
   ];
   const blocks: Block[] = [];
   const drafts: DraftParcel[] = [];
+  const bandCounters = { core: 0, middle: 0, edge: 0 };
   for (const cells of openBlocks) {
     if (cells === reservationCells) continue;
     const gridCells = canonicalGridCells(cells.map(keyToCell));
@@ -619,13 +694,41 @@ function attemptComposition(input: {
       continue;
     }
     const blockId = blockIdForGeometry(districtId, gridCells);
+    const centroid = {
+      x: gridCells.reduce((sum, cell) => sum + cell.x, 0) / gridCells.length,
+      y: gridCells.reduce((sum, cell) => sum + cell.y, 0) / gridCells.length,
+    };
+    const distanceToCivic =
+      Math.abs(centroid.x - profile.width / 2) + Math.abs(centroid.y - profile.height / 2);
+    const avenueSegments = new Set(
+      network.topology.segments
+        .filter((segment) => segment.class === "avenue")
+        .map((segment) => segment.id),
+    );
+    const onAvenue = frontageRoadSegmentIds.some((id) => avenueSegments.has(id));
+    const nearGateway = gatewayCells.some(
+      (cell) => Math.abs(cell.x - centroid.x) + Math.abs(cell.y - centroid.y) <= 8,
+    );
+    const band = distanceToCivic <= 12 ? "core" : distanceToCivic <= 34 ? "middle" : "edge";
+    const middleRank = band === "middle" ? bandCounters.middle++ : bandCounters.middle;
+    const edgeRank = band === "edge" ? bandCounters.edge++ : bandCounters.edge;
+    if (band === "core") bandCounters.core += 1;
+    const role = roleForBlock({
+      dominant: profile.dominantRole,
+      distanceToCivic,
+      onAvenue,
+      nearGateway,
+      middleRank,
+      edgeRank,
+    });
+    const code = developmentCodeForRole(role);
     blocks.push({
       id: parseBlockId(blockId),
       districtId,
       cells: gridCells,
       frontageRoadSegmentIds,
-      urbanRole: profile.dominantRole,
-      defaultDevelopmentCodeId: DEFAULT_DEVELOPMENT_CODE_BY_ROLE[profile.dominantRole],
+      urbanRole: role,
+      defaultDevelopmentCodeId: code.id,
     });
     const subdivision = subdivideBlock({
       blockCells: cells,
@@ -641,7 +744,7 @@ function attemptComposition(input: {
       });
     }
     for (const parcel of subdivision.parcels) {
-      drafts.push({ blockId, ...parcel });
+      drafts.push({ blockId, role, ...parcel });
     }
   }
 
@@ -650,14 +753,13 @@ function attemptComposition(input: {
       compareCells(left.anchorCell, right.anchorCell) ||
       compareCellKey(canonicalCellKeys(left.cells)[0]!, canonicalCellKeys(right.cells)[0]!),
   );
-  const bag = drawZoningBag(prng, profile.expansion.zoningWeights, drafts.length);
-  const working = drafts.map((draft, index) => {
-    const zoning = bag[index] ?? "mixed";
+  const working = drafts.map((draft) => {
+    const family = zoningFamilyForRole(draft.role);
     return {
       draft,
-      zoning,
-      price: drawPrice(prng, profile, zoning),
-      suitability: drawSuitability(prng, profile, zoning),
+      developmentCodeId: developmentCodeForRole(draft.role).id,
+      price: drawPrice(prng, profile, family),
+      suitability: drawSuitability(prng, profile, family),
     };
   });
   const anchorIndices = assignAnchorOverrides({ parcels: working, profile });
@@ -681,9 +783,9 @@ function attemptComposition(input: {
     })),
     disposition: "marketable",
     price: parseMoney(entry.price),
-    zoning: entry.zoning,
+    developmentCodeId: entry.developmentCodeId,
+    currentUses: [],
     ownerOrganizationId: null,
-    buildingId: null,
     productionSuitability: { ...entry.suitability },
   }));
 
@@ -700,7 +802,7 @@ function attemptComposition(input: {
       gatewayCells,
       spawnCells: [profile.spawnAnchors.player, profile.spawnAnchors.rival],
     }),
-    ...validatePlayability({ profile, parcels, blockedCells: blocked }),
+    ...validatePlayability({ profile, parcels, blocks, blockedCells: blocked }),
   );
   return {
     parcels,

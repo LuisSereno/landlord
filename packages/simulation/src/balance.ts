@@ -234,8 +234,8 @@ export function detectInvariantViolations(state: GameState): string[] {
     }
     const parcel = state.phase2.parcels.get(building.parcelId);
     if (!parcel) violations.push(`building_parcel_missing:${building.id}`);
-    else if (parcel.buildingId !== building.id)
-      violations.push(`building_parcel_mismatch:${building.id}`);
+    else if (parcel.districtId !== building.districtId)
+      violations.push(`building_district_mismatch:${building.id}`);
   }
   for (const tenant of state.phase2.tenants.values()) {
     if (tenant.status !== "contracted" || !tenant.activeContractBuildingId) continue;
@@ -243,13 +243,6 @@ export function detectInvariantViolations(state: GameState): string[] {
     if (!building || !building.tenantIds.includes(tenant.id)) {
       violations.push(`tenant_orphan:${tenant.id}`);
     }
-  }
-  for (const parcel of state.phase2.parcels.values()) {
-    if (!parcel.buildingId) continue;
-    const building = state.phase2.buildings.get(parcel.buildingId);
-    if (!building) violations.push(`parcel_building_missing:${parcel.id}`);
-    else if (building.parcelId !== parcel.id)
-      violations.push(`parcel_building_mismatch:${parcel.id}`);
   }
   for (const loan of state.phase2.loans.values()) {
     if (

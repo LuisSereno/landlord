@@ -104,6 +104,7 @@
 - execution/phase-4/vd0-ciudad-multidistrito-2026-10-28.md — V.d.0 cerrada: WorldState, SnapshotV2 sin compatibilidad v1, ciudad 3×3, gateways, traslados deterministas, ViewProjectionV2 y vista de ciudad, con el gate criterio por criterio y las consecuencias medidas.
 - execution/phase-4/vd1-red-vial-manzanas-parcelacion-2026-10-28.md — V.d.1 cerrada: red vial desde RoadAnchor[], manzanas por flood fill, parcelas multi-cell con frente, IDs canónicos, nueve issues y evidencia de 900 distritos; envelopes morfológicos y presupuestos de generación/derivación cumplidos.
 - execution/phase-4/vd1-fabric-gate.json — evidencia reproducible del gate V.d.1 (100 city seeds, 900 distritos, métricas, p50/p95 y fecha).
+- execution/phase-4/vd2-composicion-urbana-2026-10-28.md — V.d.2 cerrada: roles y códigos urbanísticos, usos, huellas autocolocadas, índices derivados, vivienda/empleo por distrito, política ponderada por población, facciones por manzanas y automatización sin traslados; gate del ciclo inmobiliario en nueve distritos.
 
 ## Benchmark morfológico
 - `tools/urban-benchmark/README.md` — herramienta offline (OSMnx fijado por versión), las 28 ventanas de

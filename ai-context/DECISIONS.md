@@ -1060,6 +1060,19 @@ provisional hasta V.d.3; los saves v2 pre-V.d.1 se rechazan por nombre (`UNSUPPO
 p95 169,86 ms, derivación vial p95 2,83 ms, todas las recetas dentro de su envelope. El cierre
 mensual maduro sube a p95 34,62 ms y queda como deuda de V.d.2.
 
+**Implementación V.d.2 (2026-10-28).** La norma se separa del uso: `Parcel` pierde `zoning` y
+`buildingId`, gana `developmentCodeId` y `currentUses`; edificios y obras llevan distrito, huella,
+orientación, plantas y forma. `allowedZoning` se sustituye por `allowedUses`; el permiso registra
+código, usos permitidos y usos existentes. Los roles de bloque se asignan por bandas de centralidad,
+avenidas, gateways y rol dominante, con rango dentro de la banda para evitar paridades accidentales;
+las anclas autoradas conservan su uso y pueden tener un código propio. La huella se autocoloca con
+retranqueos, cobertura y FAR; una parcela admite varios edificios y una sola obra activa. Los índices
+de edificios por parcela, por distrito, huellas y parcelas por bloque son derivados y no se
+persisten. Vivienda y empleo se miden por distrito con fallback de ciudad, la opinión electoral se
+pondera por población efectiva, el territorio de facciones usa manzanas/frentes y la automatización
+no cruza distritos: crea una excepción. Los saves v2 pre-V.d.2 se rechazan con
+`UNSUPPORTED_URBAN_FABRIC`. Gate en `docs/execution/phase-4/vd2-composicion-urbana-2026-10-28.md`.
+
 ## D-091 — Mercados híbridos: vivienda y empleo por distrito, dinero y política de ciudad
 
 Estado: ratificada el 2026-10-28 en lo que refleja `PLAN_improvements.md`. Amplía D-066 y

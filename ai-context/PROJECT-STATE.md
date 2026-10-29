@@ -143,6 +143,18 @@ su envelope morfológico (`docs/execution/phase-4/vd1-fabric-gate.json`). El cie
 sube a p95 34,62 ms y sigue fuera del presupuesto de D-065: V.d.2 debe introducir los índices
 derivados y re-medir. Los saves v2 anteriores a V.d.1 se rechazan por nombre y no se migran.
 
+**V.d.2 está cerrada el 2026-10-28**
+(`docs/execution/phase-4/vd2-composicion-urbana-2026-10-28.md`). `Parcel` deja de tener `zoning` y
+`buildingId`: cada parcela lleva un `DevelopmentCode` y sus `currentUses`; cada edificio y obra lleva
+distrito, huella autocolocada, orientación, plantas y forma. Una parcela admite varios edificios
+terminados pero una sola obra activa. Los índices de edificios por parcela, por distrito, huellas y
+parcelas por bloque se reconstruyen y no se persisten. Vivienda y empleo tienen mercado/puestos por
+distrito con fallback de ciudad, la elección pondera población efectiva, las facciones miden manzanas
+y frentes compartidos y la automatización no traslada agentes: deja una excepción. El ciclo
+comprar → permiso → construir → ocupar → cobrar está verde en los nueve distritos; los saves v2
+anteriores se rechazan por nombre. El cierre mensual sigue en p95 ~34,3 ms y es deuda de rendimiento
+para V.d.3/V.d.4.
+
 WP4.15-V.c.2C-H y V.c.3A/B/C están cerrados: lint, contratos, harnesses, documentación y el 404 de
 favicon quedan corregidos; las T e intersecciones publicadas reciben pasos de peatones discretos,
 derivados de la máscara vial real; el dressing estático añade farolas, semáforos sólo en

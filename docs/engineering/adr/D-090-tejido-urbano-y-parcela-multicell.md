@@ -150,3 +150,30 @@ Adiciones de implementación, marcadas como propias:
 
 Evidencia del gate en `docs/execution/phase-4/vd1-red-vial-manzanas-parcelacion-2026-10-28.md` y
 `docs/execution/phase-4/vd1-fabric-gate.json`.
+
+## Implementación V.d.2 (2026-10-28)
+
+La norma se separa del uso existente: `Parcel` pierde `zoning` y `buildingId`, gana
+`developmentCodeId` y `currentUses`; `Building` y `ConstructionSite` incorporan `districtId`,
+`footprintCells`, `orientation`, `floors` y `form`. `BuildingDefinition.allowedZoning` se sustituye
+por `allowedUses`, y el permiso guarda el código, los usos permitidos y los usos existentes en el
+momento de decidir.
+
+Los roles de bloque se asignan por bandas de centralidad (núcleo, intermedio, borde), frentes de
+avenida, gateways y el rol dominante del perfil, con desempate por rango dentro de la banda para que
+la mezcla no dependa de la paridad accidental de un recorrido. Las anclas autoradas conservan su uso
+de referencia y pueden llevar un código propio distinto del código por defecto de su manzana: es una
+excepción de continuidad económica, no una regla de composición.
+
+La huella se autocoloca: el motor construye el envelope edificable (retranqueos de calle y laterales,
+huellas existentes), enumera rectángulos, descarta los que exceden cobertura o FAR y elige el más
+cercano al área objetivo con desempate por orientación, `y`, `x` y firma. Una parcela admite varios
+edificios terminados, pero una sola obra activa (`ACTIVE_SITE_ON_PARCEL`).
+
+Los índices `buildingsByParcel`, `buildingsByDistrict`, `footprintCellsByParcel` y `parcelsByBlock`
+se reconstruyen desde `phase2.buildings` y `phase2.parcels`; no se persisten. `Parcel.buildingId` deja
+de existir y sus lectores usan el índice derivado.
+
+Los saves v2 anteriores a V.d.2 (parcela con `zoning`/`buildingId` o edificio sin huella) se rechazan
+por nombre con `UNSUPPORTED_URBAN_FABRIC`; no se migran. La evidencia del gate está en
+`docs/execution/phase-4/vd2-composicion-urbana-2026-10-28.md`.

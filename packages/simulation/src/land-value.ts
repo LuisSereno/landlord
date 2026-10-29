@@ -7,7 +7,11 @@ import {
   type UrbanRole,
 } from "@landlord/shared";
 import type { GameState } from "./state";
-import { developmentCodeById } from "./development-codes";
+import {
+  effectiveDensityBonus,
+  effectiveDevelopmentCode,
+  type OrdinanceDensity,
+} from "./development-codes";
 import { GAME_MONTH_TICKS } from "./game-data";
 import { buildCoverageIndex, type CoverageIndex } from "./urban-services";
 import { cellKey } from "./urban-fabric";
@@ -88,9 +92,14 @@ export type LandValueContext = {
   industrialDistance: ReadonlyMap<string, number>;
   civicDistance: ReadonlyMap<string, number>;
   coverage: CoverageIndex;
+  /**
+   * Oportunidad urbanística vigente de la ordenanza activa (H1-09B). Viaja con el contexto y no con
+   * la geometría cacheada: la ordenanza cambia cada mes y las distancias no.
+   */
+  density: OrdinanceDensity;
 };
 
-type GeometryCache = Omit<LandValueContext, "districtId" | "coverage">;
+type GeometryCache = Omit<LandValueContext, "districtId" | "coverage" | "density">;
 
 /**
  * Distance maps depend only on generated geometry, which V.d.4 never mutates. The district state
@@ -107,7 +116,9 @@ export function buildLandValueContext(
   const district = state.world.districts.get(districtId);
   if (!district) throw new RangeError(`Unknown district for land value: ${districtId}`);
   const cached = geometryCache.get(district);
-  if (cached) return { ...cached, districtId, coverage };
+  const ordinance = state.phase2.ordinance;
+  const live = { districtId, coverage, density: ordinance };
+  if (cached) return { ...cached, ...live };
   const roadClassBySegmentId = new Map(
     district.map.roads.segments.map((segment) => [segment.id as string, segment.class]),
   );
@@ -146,7 +157,7 @@ export function buildLandValueContext(
     civicDistance: distanceMap(civicSources),
   };
   geometryCache.set(district, geometry);
-  return { ...geometry, districtId, coverage };
+  return { ...geometry, ...live };
 }
 
 function frontageScore(parcel: Parcel, context: LandValueContext): number {
@@ -158,8 +169,19 @@ function frontageScore(parcel: Parcel, context: LandValueContext): number {
     : 3;
 }
 
-function codePotential(codeId: DevelopmentCodeId): number {
-  const code = developmentCodeById(codeId);
+/**
+ * Potencial normativo del suelo: el código de la parcela más la densidad que la ordenanza vigente
+ * concede a su rol (H1-09B). Mientras el ensayo de corredor está activo, la oportunidad del solar
+ * sube; al expirar, vuelve a ser la del código base. Los derechos adquiridos de un permiso privado
+ * no entran aquí —eso los consume sólo su titular al construir, y revalorizaría toda la ciudad.
+ */
+function codePotential(
+  codeId: DevelopmentCodeId,
+  role: UrbanRole | undefined,
+  context: LandValueContext,
+): number {
+  const bonus = effectiveDensityBonus(context.density, role);
+  const code = effectiveDevelopmentCode(codeId, bonus.floors, bonus.farPercent);
   return clamp(code.maxFloors + Math.floor(code.maxFloorAreaRatioPercent / 100), 0, 12);
 }
 
@@ -185,9 +207,9 @@ export function landValueBreakdownFor(
   );
   const civicAmenities = clamp(10 - distanceAt(context.civicDistance, parcel.anchorCell), 0, 10);
   const frontage = frontageScore(parcel, context);
-  const potential = codePotential(parcel.developmentCodeId);
-  const services = serviceScore(parcel, context.coverage);
   const role = context.roleByBlockId.get(parcel.blockId as string);
+  const potential = codePotential(parcel.developmentCodeId, role, context);
+  const services = serviceScore(parcel, context.coverage);
   const industrialExternality =
     role === "industrial_logistics"
       ? 0

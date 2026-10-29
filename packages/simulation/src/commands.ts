@@ -51,6 +51,7 @@ import { Xoshiro128ss } from "./prng";
 import { askingRentFor } from "./housing-market";
 import {
   developmentCodeById,
+  effectiveDensityBonus,
   effectiveDevelopmentCode,
   isBuildingAllowedByDevelopmentCode,
 } from "./development-codes";
@@ -178,18 +179,12 @@ function effectiveRent(state: GameState, building: import("@landlord/shared").Bu
   return askingRentFor(state, building);
 }
 
+/** La misma regla que lee el valor del suelo: la ordenanza vigente, sólo para su rol. */
 function densityBonusFor(
   state: GameState,
   role: import("@landlord/shared").UrbanRole,
 ): { floors: number; farPercent: number } {
-  const ordinance = state.phase2.ordinance;
-  if (ordinance.status !== "active" || ordinance.densityAppliesToRole !== role) {
-    return { floors: 0, farPercent: 0 };
-  }
-  return {
-    floors: ordinance.densityBonusFloors,
-    farPercent: ordinance.densityBonusFarPercent,
-  };
+  return effectiveDensityBonus(state.phase2.ordinance, role);
 }
 
 /**

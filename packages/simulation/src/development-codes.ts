@@ -4,6 +4,7 @@ import {
   type LandUse,
   type DevelopmentCode,
   type DevelopmentCodeId,
+  type Ordinance,
   type UrbanRole,
 } from "@landlord/shared";
 
@@ -106,6 +107,31 @@ export function isBuildingAllowedByDevelopmentCode(
 ): boolean {
   if (definition.municipal) return false;
   return definition.allowedUses.some((use) => code.allowedUses.includes(use));
+}
+
+/**
+ * Densidad que la ordenanza vigente añade al código de un rol (V.d.4, H1-09). Es la oportunidad
+ * urbanística del suelo mientras la ordenanza está activa, y por eso la leen tanto el permision
+ * (derecho adquirido) como el valor del suelo (potencial normativo vigente). Los derechos de un
+ * permiso concreto no pasan por aquí: un permiso no revaloriza toda la ciudad.
+ */
+/** La parte de la ordenanza que decide densidad: suficiente para el motor y para el valor del suelo. */
+export type OrdinanceDensity = Pick<
+  Ordinance,
+  "status" | "densityAppliesToRole" | "densityBonusFloors" | "densityBonusFarPercent"
+>;
+
+export function effectiveDensityBonus(
+  ordinance: OrdinanceDensity,
+  role: UrbanRole | null | undefined,
+): { floors: number; farPercent: number } {
+  if (role === null || role === undefined) return { floors: 0, farPercent: 0 };
+  if (ordinance.status !== "active" || ordinance.densityAppliesToRole !== role)
+    return { floors: 0, farPercent: 0 };
+  return {
+    floors: ordinance.densityBonusFloors,
+    farPercent: ordinance.densityBonusFarPercent,
+  };
 }
 
 /** Code plus the density rights an approved permit acquired under a trial ordinance (V.d.4). */

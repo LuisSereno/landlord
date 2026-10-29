@@ -168,6 +168,18 @@ p95 169,54 ms, red p95 2,65 ms) con techos de mezcla ajustados a la baja tras me
 reales. La cobertura por grafo, la saturación de capacidad y el mantenimiento municipal quedan como
 deuda de V.d.5.
 
+**V.d.4 está cerrada el 2026-10-29**
+(`docs/execution/phase-4/vd4-densidad-skyline-valor-2026-10-29.md`). `Parcel` separa
+`baseLandValue` y `marketValue`: el score entero del suelo combina centralidad, comercio, amenidades,
+frente, código, servicios, industria, aislamiento y seed, el valor se mueve como máximo un 5 % por
+cierre y compras/garantías/impuestos/balance leen el mercado. El bloque de viviendas sube a cinco
+plantas y el ensayo `corridor_density_trial` permite +1 planta y +100 FAR en corredores; el permiso
+congela el derecho adquirido y su expiración no invalida activos. La autocolocación prefiere frente
+principal y continuidad, y el inspector/overlay publican el desglose. Gates: valor reproducible y
+sumado, bandas distintas, servicios mueven el valor, 64 campañas jugables sin dominancia, 900
+distritos con generación p95 221,58 ms y cierre mensual maduro p95 50,35 ms (deuda de rendimiento
+para V.d.5).
+
 WP4.15-V.c.2C-H y V.c.3A/B/C están cerrados: lint, contratos, harnesses, documentación y el 404 de
 favicon quedan corregidos; las T e intersecciones publicadas reciben pasos de peatones discretos,
 derivados de la máscara vial real; el dressing estático añade farolas, semáforos sólo en

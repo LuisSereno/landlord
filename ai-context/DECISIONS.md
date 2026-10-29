@@ -1073,6 +1073,17 @@ pondera por población efectiva, el territorio de facciones usa manzanas/frentes
 no cruza distritos: crea una excepción. Los saves v2 pre-V.d.2 se rechazan con
 `UNSUPPORTED_URBAN_FABRIC`. Gate en `docs/execution/phase-4/vd2-composicion-urbana-2026-10-28.md`.
 
+**Implementación V.d.4 (2026-10-29).** `Parcel.price` se sustituye por `baseLandValue` (autorado,
+inmutable) y `marketValue` (dinámico); compras, garantías, impuestos, balance y activos usan el
+mercado. El score entero de `land-value.ts` suma centralidad vial, acceso comercial, amenidades,
+frente, potencial del código, servicios, externalidad industrial, aislamiento y variación por seed,
+aplica el clamp −40…60 y mueve el valor hacia el objetivo como máximo un 5 % por cierre mensual. El
+bloque de viviendas pasa a cinco plantas base y `corridor_density_trial` (+1 planta, +100 FAR sólo en
+corredores) congela el bonus en el permiso: la obra conserva el derecho adquirido tras expirar y la
+expiración no invalida activos. La autocolocación prefiere frente principal y continuidad; la capa de
+valor y el inspector publican el desglose. Los saves pre-V.d.4 se rechazan por nombre. Gate en
+`docs/execution/phase-4/vd4-densidad-skyline-valor-2026-10-29.md`.
+
 ## D-091 — Mercados híbridos: vivienda y empleo por distrito, dinero y política de ciudad
 
 Estado: ratificada el 2026-10-28 en lo que refleja `PLAN_improvements.md`. Amplía D-066 y

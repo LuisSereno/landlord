@@ -177,3 +177,28 @@ de existir y sus lectores usan el índice derivado.
 Los saves v2 anteriores a V.d.2 (parcela con `zoning`/`buildingId` o edificio sin huella) se rechazan
 por nombre con `UNSUPPORTED_URBAN_FABRIC`; no se migran. La evidencia del gate está en
 `docs/execution/phase-4/vd2-composicion-urbana-2026-10-28.md`.
+
+## Implementación V.d.4 (2026-10-29)
+
+La parcela separa `baseLandValue` (autorado e inmutable) de `marketValue` (dinámico). `price`
+desaparece: compras, garantías, impuestos, valoración de activos y balance leen `marketValue`, y el
+base queda sólo para auditoría. `land-value.ts` puntúa cada parcela marketable con los rangos enteros
+del plan —centralidad vial, acceso comercial, amenidades, frente, potencial del código, servicios,
+externalidad industrial, aislamiento y variación por seed—, aplica el clamp −40…60 y mueve el valor
+hacia `targetValue = floor(base × (100 + score) / 100)` como máximo un 5 % por cierre mensual. El
+desglose se deriva en la proyección; no se persiste una segunda verdad.
+
+El bloque de viviendas declara cinco plantas base: el código de corredor lo limita a cuatro y el
+ensayo `corridor_density_trial` (+1 planta, +100 FAR, sólo `commercial_corridor`) permite la quinta.
+El permiso congela esos bonus y la obra usa el código efectivo del permiso, de modo que el derecho
+adquirido sobrevive a la expiración de la ordenanza; expirar no toca edificios ni obras existentes.
+La autocolocación prefiere el frente principal y la continuidad con huellas de la misma parcela,
+después de área objetivo y plantas.
+
+El cálculo de distancias se cachea por geometría de distrito en un `WeakMap`: V.d.4 no muta la red,
+las manzanas ni los equipamientos, y un save/load reconstruye el objeto de distrito. La caché de
+cobertura por grafo sigue siendo responsabilidad de V.d.5.
+
+Los saves v2 anteriores a V.d.4 (parcela con `price`) se rechazan por nombre
+(`UNSUPPORTED_URBAN_FABRIC`) y no se migran. La evidencia del gate está en
+`docs/execution/phase-4/vd4-densidad-skyline-valor-2026-10-29.md`.

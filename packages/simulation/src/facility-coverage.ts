@@ -271,7 +271,39 @@ function emptyCoverage(): Record<FacilityServiceId, number> {
   return { security: 0, fire: 0, health: 0, education: 0, market: 0, parks: 0, transport: 0 };
 }
 
-function geometrySignature(state: GameState): string {
+/**
+ * Capacidad realmente disponible (H1-05). V.d.3 separó la función urbana del edificio físico, pero la
+ * cobertura seguía usando la capacidad declarada aunque el edificio ardiera, pendientes de derrumbe o
+ * en ruina: una comisaría destruida daba seguridad y un parque de bomberos destruido apagaba fuegos.
+ * Semántica binaria por ahora —la curva por condición no es todavía una regla de producto—: o hay al
+ * menos un edificio asociado operativo, o la función no sirve.
+ */
+export function operationalFacilityCapacity(state: GameState, facility: UrbanFacility): number {
+  for (const buildingId of facility.buildingIds)
+    if (state.phase2.buildings.get(buildingId)?.state === "operational") return facility.capacity;
+  return 0;
+}
+
+/**
+ * Firma de disponibilidad. Es separada de la geométrica a propósito: un edificio que pasa de
+ * operativo a ruina cambia quién sirve, no dónde están las calles, y reconstruir Dijkstra por eso
+ * sería cachear con la clave equivocada (D-092 §5).
+ */
+function availabilitySignature(state: GameState): string {
+  const facilities: string[] = [];
+  for (const district of [...state.world.districts.values()].sort((left, right) =>
+    left.district.id.localeCompare(right.district.id),
+  )) {
+    for (const facility of [...district.facilities.values()].sort((left, right) =>
+      left.id.localeCompare(right.id),
+    ))
+      facilities.push(`${facility.id}=${operationalFacilityCapacity(state, facility)}`);
+  }
+  return facilities.join(";");
+}
+
+/** Visible para las pruebas de caché: es la clave de la geometría, sin disponibilidad. */
+export function geometrySignature(state: GameState): string {
   const districts = [...state.world.districts.entries()]
     .sort(([left], [right]) => left.localeCompare(right))
     .map(([districtId, district]) => {
@@ -401,7 +433,9 @@ function rawCoverage(state: GameState): RawCoverage {
 
 export function facilityCoverageIndex(state: GameState): FacilityCoverageIndex {
   const raw = rawCoverage(state);
-  const signature = `${raw.geometrySignature}|${budgetSignature(state)}`;
+  const signature = `${raw.geometrySignature}|${budgetSignature(state)}|${availabilitySignature(
+    state,
+  )}`;
   const cached = indexCache.get(state);
   if (cached?.signature === signature) return cached.index;
 
@@ -447,7 +481,8 @@ export function facilityCoverageIndex(state: GameState): FacilityCoverageIndex {
         (left, right) => left.cost - right.cost || left.parcel.id.localeCompare(right.parcel.id),
       );
       const effectiveCapacity =
-        Math.floor((facility.capacity * level) / 100) * DEMAND_UNITS_PER_CAPACITY;
+        Math.floor((operationalFacilityCapacity(state, facility) * level) / 100) *
+        DEMAND_UNITS_PER_CAPACITY;
       const served = Math.min(group.length, effectiveCapacity);
       for (let index = 0; index < served; index += 1) {
         byParcelId.get(group[index]!.parcel.id)![service] = 100;

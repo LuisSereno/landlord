@@ -9,7 +9,6 @@ import {
 import { describeHousingStock } from "./housing-market";
 import { describeMunicipalBudget, runMunicipalBudget } from "./municipal-budget";
 import { createInitialState, type GameState } from "./state";
-import { createScaledCity } from "./system-cost";
 import {
   MUNICIPAL_FEE_PER_OCCUPIED_UNIT,
   URBAN_SERVICE_POLICY,
@@ -82,16 +81,27 @@ function addBuilding(
   return id;
 }
 
+/**
+ * Parcelas de un solo distrito y su geometría de limpieza. Los nueve mapas comparten el rango local
+ * 0..63, así que centro, densidad y radio se miden dentro de un distrito (H1-06).
+ */
+function districtScope(state: GameState, districtIndex = 0) {
+  const districtId = state.world.city.districtIds[districtIndex]!;
+  const parcels = [...state.phase2.parcels.values()]
+    .filter((parcel) => parcel.districtId === districtId && parcel.disposition === "marketable")
+    .sort((left, right) => left.id.localeCompare(right.id));
+  const geometry = buildCoverageIndex(state).cleaningByDistrictId.get(districtId)!;
+  return { districtId, parcels, center: geometry.center, radiusCells: geometry.radiusCells };
+}
+
 describe("WP4.6 servicios urbanos y accesibilidad", () => {
   it("la cobertura es máxima en el centro y cae con la distancia", () => {
     const state = newState();
     addBuilding(state, 0);
-    const parcels = [...state.phase2.parcels.values()].sort((left, right) =>
-      left.id.localeCompare(right.id),
-    );
-    const centerParcel = parcels[0]!;
-    const edgeParcel = parcels[1]!;
-    const center = buildCoverageIndex(state).center;
+    const scope = districtScope(state);
+    const centerParcel = scope.parcels[0]!;
+    const edgeParcel = scope.parcels[1]!;
+    const center = scope.center;
     centerParcel.anchorCell = { ...center };
     edgeParcel.anchorCell = {
       x: center.x + URBAN_SERVICE_POLICY.cleaning.baseRadiusCells,
@@ -108,29 +118,79 @@ describe("WP4.6 servicios urbanos y accesibilidad", () => {
     expect(edgeCoverage.cleaning).toBeLessThan(centerCoverage.cleaning);
   });
 
-  it("crecer diluye el radio: la capacidad se satura", () => {
-    const small = newState();
-    addBuilding(small, 0);
-    const large = createScaledCity(7, { parcelCount: 200 });
+  it("crecer dentro del distrito diluye su radio, y no el del vecino", () => {
+    const quiet = newState();
+    const quietCleaning = describeUrbanServices(quiet).find((entry) => entry.id === "cleaning")!;
+    expect(quietCleaning.radiusCells).toBe(URBAN_SERVICE_POLICY.cleaning.baseRadiusCells);
 
-    const smallCleaning = describeUrbanServices(small).find((entry) => entry.id === "cleaning")!;
-    const largeCleaning = describeUrbanServices(large).find((entry) => entry.id === "cleaning")!;
+    /** Un distrito por encima de su referencia de capacidad: su radio se corta. */
+    const dense = newState();
+    const districtId = dense.world.city.districtIds[0]!;
+    const parcels = [...dense.phase2.parcels.values()]
+      .filter((parcel) => parcel.districtId === districtId && parcel.disposition === "marketable")
+      .sort((left, right) => left.id.localeCompare(right.id))
+      .slice(0, URBAN_SERVICE_POLICY.cleaning.referenceBuildings + 20);
+    parcels.forEach((parcel, index) => {
+      const id = parseBuildingId(`building_${String(index + 100).padStart(8, "0")}`);
+      parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
+      dense.phase2.buildings.set(id, {
+        id,
+        parcelId: parcel.id,
+        districtId: parcel.districtId,
+        footprintCells: [{ ...parcel.anchorCell }],
+        orientation: 0,
+        floors: 1,
+        form: "detached",
+        ownerOrganizationId: PLAYER_ORGANIZATION_ID,
+        productionFacilityId: null,
+        type: "courtyard_home",
+        level: 1,
+        condition: 100,
+        tenantId: null,
+        tenantIds: [],
+        upgraded: false,
+        structuralIntegrity: 100,
+        state: "operational",
+        casualtiesTotal: { injured: 0, dead: 0 },
+      });
+    });
 
-    expect(smallCleaning.radiusCells).toBe(URBAN_SERVICE_POLICY.cleaning.baseRadiusCells);
-    expect(largeCleaning.radiusCells).toBeLessThan(smallCleaning.radiusCells);
-    expect(largeCleaning.radiusCells).toBeGreaterThanOrEqual(
+    const index = buildCoverageIndex(dense);
+    const saturated = index.cleaningByDistrictId.get(districtId)!;
+    const neighbour = index.cleaningByDistrictId.get(dense.world.city.districtIds[1]!)!;
+    expect(saturated.buildingCount).toBeGreaterThan(
+      URBAN_SERVICE_POLICY.cleaning.referenceBuildings,
+    );
+    expect(saturated.radiusCells).toBeLessThan(URBAN_SERVICE_POLICY.cleaning.baseRadiusCells);
+    expect(saturated.radiusCells).toBeGreaterThanOrEqual(
       URBAN_SERVICE_POLICY.cleaning.minimumRadiusCells,
     );
+    /** El distrito vecino, sin edificios nuevos, conserva el radio completo. */
+    expect(neighbour.buildingCount).toBe(0);
+    expect(neighbour.radiusCells).toBe(URBAN_SERVICE_POLICY.cleaning.baseRadiusCells);
+    /** El resumen municipal es la media de los nueve radios, no un radio único para la ciudad. */
+    const radii = [...index.cleaningByDistrictId.values()].map((entry) => entry.radiusCells);
+    const cleaning = describeUrbanServices(dense).find((entry) => entry.id === "cleaning")!;
+    expect(cleaning.radiusCells).toBe(
+      Math.round(radii.reduce((total, value) => total + value, 0) / radii.length),
+    );
+    expect(cleaning.radiusCells).toBeLessThanOrEqual(URBAN_SERVICE_POLICY.cleaning.baseRadiusCells);
+    expect(cleaning.radiusCells).toBeGreaterThan(saturated.radiusCells);
   });
 
   it("recortar servicios empeora el barrio y el borde sufre más que el centro", () => {
     const state = newState();
     addBuilding(state, 0);
     addBuilding(state, 1);
-    const center = buildCoverageIndex(state).center;
-    const parcels = [...state.phase2.parcels.values()].sort((left, right) =>
-      left.id.localeCompare(right.id),
-    );
+    /** Los dos edificios comparten distrito: el centro con el que se miden es el de su propio mapa. */
+    const parcels = ["building_00000001", "building_00000002"].map((id) => {
+      const parcelId = state.phase2.buildings.get(id as never)!.parcelId;
+      return state.phase2.parcels.get(parcelId)!;
+    });
+    expect(parcels[0]!.districtId).toBe(parcels[1]!.districtId);
+    const center = buildCoverageIndex(state).cleaningByDistrictId.get(
+      parcels[0]!.districtId,
+    )!.center;
     parcels[0]!.anchorCell = { ...center };
     parcels[1]!.anchorCell = {
       x: center.x + URBAN_SERVICE_POLICY.cleaning.minimumRadiusCells,
@@ -192,12 +252,17 @@ describe("WP4.6 servicios urbanos y accesibilidad", () => {
     const build = (): GameState => {
       const state = newState(23);
       for (let index = 0; index < 5; index += 1) addBuilding(state, index);
-      const center = buildCoverageIndex(state).center;
-      const parcels = [...state.phase2.parcels.values()].sort((left, right) =>
-        left.id.localeCompare(right.id),
-      );
+      /** Cada edificio se coloca junto al centro de limpieza de su propio distrito. */
       for (let index = 0; index < 5; index += 1) {
-        parcels[index]!.anchorCell = { x: center.x + index, y: center.y };
+        const parcel = state.phase2.parcels.get(
+          state.phase2.buildings.get(
+            parseBuildingId(`building_${String(index + 1).padStart(8, "0")}`),
+          )!.parcelId,
+        )!;
+        const center = buildCoverageIndex(state).cleaningByDistrictId.get(
+          parcel.districtId,
+        )!.center;
+        parcel.anchorCell = { x: center.x + index, y: center.y };
       }
       return state;
     };

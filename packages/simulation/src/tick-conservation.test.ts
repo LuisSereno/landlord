@@ -148,12 +148,12 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "1e2e373aa92f5e8c",
+    expected: "1a6c324780f8bc19",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "78b9a6f173f2dfeb",
+    expected: "c6a317866f27ad1a",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
@@ -275,6 +275,21 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
  * (16 edificios, 20 transacciones, rival con 3 parcelas y 2 naves, cajas 12000/2225/100000/36/100000).
  * Ninguna semilla de cambio afecta a las constantes económicas, a los límites morfológicos ni a los
  * guards de jugabilidad por perfil.
+ */
+
+/**
+ * Regeneración H1-05/H1-06 (2026-10-29): la disponibilidad física entra en la capacidad de servicio
+ * (una facility sin ningún edificio operativo sirve cero) y la limpieza, que sigue radial por
+ * excepción, se calcula dentro de cada distrito en vez de mezclar los nueve mapas. Cambian sólo los
+ * dos casos que cruzan un cierre mensual, y sólo por la limpieza: `city:50-parcels:month-boundary` y
+ * `city:200-parcels:month-boundary`. Atribución medida: cajas idénticas (50: 5004708/4997954/
+ * 50001263/484/50000225 y 200: 5023433/5014607/50006700/2203/50000975), transacciones idénticas (107
+ * y 475), incidentes (12 y 12), hogares (45 y 245), cero ruinas y cero bajas en ambos. Lo que cambia
+ * es el término `services` del score de suelo, que deja de medir la distancia a un centroide ficticio
+ * de la ciudad y mide la distancia al centro del propio distrito. Las tres carreras de incendios y la
+ * de 1300 ticks quedan bit a bit idénticas: en esos escenarios ningún edificio de bomberos resulta
+ * destruido (`civicRuins` 3/4/3 son escuelas y mercados), así que la capacidad operativa no altera su
+ * resultado. Ninguna constante económica, semilla ni guard de jugabilidad se ha tocado.
  */
 
 describe("WP4.2 conservación del resultado económico", () => {

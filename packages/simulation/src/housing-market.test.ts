@@ -289,7 +289,10 @@ describe("WP4.3 oferta y demanda de vivienda", () => {
     const coverage = buildCoverageIndex(state);
     const nearParcel = state.phase2.buildings.get(near)!.parcelId;
     const farParcel = state.phase2.buildings.get(far)!.parcelId;
-    const center = coverage.center;
+    /** La limpieza es radial dentro del distrito de las parcelas, no del centro de la ciudad. */
+    const center = coverage.cleaningByDistrictId.get(
+      state.phase2.parcels.get(nearParcel)!.districtId,
+    )!.center;
     state.phase2.parcels.get(nearParcel)!.anchorCell = { x: center.x - 5, y: center.y };
     state.phase2.parcels.get(farParcel)!.anchorCell = { x: center.x + 5, y: center.y };
     state.phase2.parcels.get(state.phase2.buildings.get(burning)!.parcelId)!.anchorCell = {

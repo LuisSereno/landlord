@@ -184,10 +184,13 @@ describe("WP4.5 presupuesto municipal", () => {
       addBuilding(state, 1);
       // Los dos edificios se colocan en el centro de cobertura para aislar el efecto del nivel de
       // servicio de la distancia geográfica.
-      const center = buildCoverageIndex(state).center;
       const parcels = [...state.phase2.parcels.values()].sort((left, right) =>
         left.id.localeCompare(right.id),
       );
+      /** Centro del distrito de esas parcelas: los nueve mapas comparten coordenadas (H1-06). */
+      const center = buildCoverageIndex(state).cleaningByDistrictId.get(
+        parcels[0]!.districtId,
+      )!.center;
       parcels[0]!.anchorCell = { ...center };
       parcels[1]!.anchorCell = { x: center.x + 1, y: center.y };
       state.phase2.municipal.serviceLevelPercentByCategory = levels;

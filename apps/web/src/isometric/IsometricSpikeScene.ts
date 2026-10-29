@@ -132,7 +132,17 @@ declare global {
 }
 
 export type MapOverlay =
-  "ownership" | "profitability" | "condition" | "zoning" | "risk" | "landValue";
+  | "ownership"
+  | "profitability"
+  | "condition"
+  | "zoning"
+  | "risk"
+  | "landValue"
+  | "security"
+  | "fire"
+  | "health"
+  | "education"
+  | "transport";
 
 export class IsometricSpikeScene extends Phaser.Scene {
   private readonly layout: IsometricLayout = REFERENCE_LAYOUT;
@@ -680,6 +690,19 @@ export class IsometricSpikeScene extends Phaser.Scene {
       if (score >= 25) return COLORS.parcelPlayer;
       if (score >= 5) return COLORS.construction;
       if (score >= -10) return COLORS.parcelAvailable;
+      return COLORS.fire;
+    }
+    if (
+      this.overlay === "security" ||
+      this.overlay === "fire" ||
+      this.overlay === "health" ||
+      this.overlay === "education" ||
+      this.overlay === "transport"
+    ) {
+      const coverage = parcel.serviceCoverage?.[this.overlay] ?? 0;
+      if (coverage >= 75) return COLORS.parcelPlayer;
+      if (coverage >= 40) return COLORS.construction;
+      if (coverage > 0) return COLORS.parcelAvailable;
       return COLORS.fire;
     }
     return parcel.ownerOrganizationId === "org_00000001"

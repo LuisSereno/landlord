@@ -148,29 +148,29 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "d8dda133093db66b",
+    expected: "abf7ed544b8aa2e4",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "736fa831b0172ba6",
+    expected: "274df72bc8c36b18",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "5c31630b0810e8d2",
+    expected: "2f3d8f9506dd9004",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "7377afbba5924d77",
+    expected: "b35d9f6f85f70087",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "5dc95c25c8334e35",
+    expected: "59c43f71afa59eb7",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];
@@ -201,6 +201,13 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
  * plantas y forma, y el estado canónico gana mercados de vivienda por distrito, puestos de trabajo
  * por distrito y el censo electoral ponderado por tamaño del hogar. Cambian los diez digestos por
  * superficie y por economía de escenario; `phase2` y el resto de la suite siguen verdes.
+ */
+
+/**
+ * Regeneración V.d.5 (2026-10-29): seguridad y transporte pasan a cobertura de grafo, bomberos
+ * reduce la progresión del fuego y salud acorta la recuperación. Cambian los digestos de las
+ * ventanas mensuales y de las carreras con incendios; las carreras sin cierre mensual ni fuego
+ * conservan su resultado.
  */
 
 /**

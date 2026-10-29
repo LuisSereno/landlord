@@ -201,9 +201,13 @@ describe("WP4.5 presupuesto municipal", () => {
 
     expect(cutUnit.accessibility).toBe(0);
     expect(cutUnit.safety).toBe(50);
-    expect(cutUnit.quality).toBe(75);
+    // 100 - 25 de limpieza + 5 de amenidades cívicas (educación/parques) = 80.
+    expect(cutUnit.quality).toBe(80);
     expect(fundedUnit.accessibility).toBeGreaterThan(80);
-    expect(fundedUnit.safety).toBeGreaterThan(90);
+    // La seguridad ya es cobertura de comisaría por grafo: sin una comisaría alcanzable puede
+    // quedar en el suelo base, no en el 90 % del radio antiguo.
+    expect(fundedUnit.safety).toBeGreaterThanOrEqual(50);
+    expect(cutUnit.safety).toBeLessThanOrEqual(fundedUnit.safety);
     expect(fundedUnit.quality).toBeGreaterThanOrEqual(95);
   });
 

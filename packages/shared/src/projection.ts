@@ -115,8 +115,15 @@ export type ViewProjectionV2 = {
     operatorOrganizationId: OrganizationId;
     capacity: number;
     serviceProfileId: string;
-    /** Road cells the future service graph will start from (D-092, V.d.5). */
+    /** Road cells the service graph starts from (D-092, V.d.5). */
     accessCells: GridCell[];
+    coverage: {
+      demand: number;
+      effectiveCapacity: number;
+      served: number;
+      coveragePercent: number;
+      saturated: boolean;
+    } | null;
   }>;
   structures: Array<{
     id: StructureId;
@@ -142,6 +149,16 @@ export type ViewProjectionV2 = {
       baseLandValue: number;
       marketValue: number;
       landValueBreakdown: LandValueBreakdown;
+      /** Accessibility and facility coverage of V.d.5, in percent. */
+      serviceCoverage: {
+        transport: number;
+        security: number;
+        fire: number;
+        health: number;
+        education: number;
+        market: number;
+        parks: number;
+      };
       /** Display/legacy family derived from the development code; not a rule. */
       zoning: "residential" | "industrial" | "mixed";
       disposition: "marketable" | "public" | "infrastructure";
@@ -695,6 +712,15 @@ export const viewProjectionV2Schema = z.object({
       capacity: z.number().int().positive(),
       serviceProfileId: z.string().min(1),
       accessCells: z.array(gridCellSchema),
+      coverage: z
+        .object({
+          demand: z.number().int().nonnegative(),
+          effectiveCapacity: z.number().int().nonnegative(),
+          served: z.number().int().nonnegative(),
+          coveragePercent: z.number().int().min(0).max(100),
+          saturated: z.boolean(),
+        })
+        .nullable(),
     }),
   ),
   structures: z.array(
@@ -733,6 +759,15 @@ export const viewProjectionV2Schema = z.object({
           baseLandValue: moneySchema,
           marketValue: moneySchema,
           landValueBreakdown: landValueBreakdownSchema,
+          serviceCoverage: z.object({
+            transport: z.number().int().min(0).max(100),
+            security: z.number().int().min(0).max(100),
+            fire: z.number().int().min(0).max(100),
+            health: z.number().int().min(0).max(100),
+            education: z.number().int().min(0).max(100),
+            market: z.number().int().min(0).max(100),
+            parks: z.number().int().min(0).max(100),
+          }),
           zoning: zoningSchema,
           disposition: z.enum(["marketable", "public", "infrastructure"]),
           developmentCodeId: developmentCodeIdSchema,

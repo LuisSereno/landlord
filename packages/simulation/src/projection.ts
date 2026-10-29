@@ -47,7 +47,8 @@ import { buildLandValueContext, landValueBreakdownFor } from "./land-value";
 import { describeMunicipalPolitics } from "./municipal-politics";
 import { describePublicContracts } from "./public-contracts";
 import { describeReputation } from "./reputation";
-import { describeUrbanServices } from "./urban-services";
+import { buildCoverageIndex, describeUrbanServices } from "./urban-services";
+import { facilityCoverageIndex } from "./facility-coverage";
 import {
   askingRentFor,
   describeHousingMarket,
@@ -322,6 +323,8 @@ export function createViewProjection(
   const landValueContext = includeEconomy
     ? buildLandValueContext(state, observedDistrictId)
     : undefined;
+  const facilityCoverage = includeEconomy ? facilityCoverageIndex(state) : undefined;
+  const urbanCoverage = includeEconomy ? buildCoverageIndex(state) : undefined;
   const observedBuildings = [...state.phase2.buildings.values()].filter((building) =>
     observedParcelIds.has(building.parcelId),
   );
@@ -505,6 +508,18 @@ export function createViewProjection(
         capacity: facility.capacity,
         serviceProfileId: facility.serviceProfileId,
         accessCells: facilityAccessCells(state, facility),
+        coverage: (() => {
+          const report = facilityCoverage?.facilities.get(facility.id);
+          return report
+            ? {
+                demand: report.demand,
+                effectiveCapacity: report.effectiveCapacity,
+                served: report.served,
+                coveragePercent: report.coveragePercent,
+                saturated: report.saturated,
+              }
+            : null;
+        })(),
       })),
     structures: [...state.structures.values()]
       .sort((left, right) => left.id.localeCompare(right.id))
@@ -556,6 +571,15 @@ export function createViewProjection(
                   baseLandValue: parcel.baseLandValue,
                   marketValue: parcel.marketValue,
                   landValueBreakdown: landValueBreakdownFor(parcel, landValueContext!),
+                  serviceCoverage: {
+                    transport: urbanCoverage!.byParcelId.get(parcel.id)?.transport ?? 0,
+                    security: facilityCoverage!.byParcelId.get(parcel.id)?.security ?? 0,
+                    fire: facilityCoverage!.byParcelId.get(parcel.id)?.fire ?? 0,
+                    health: facilityCoverage!.byParcelId.get(parcel.id)?.health ?? 0,
+                    education: facilityCoverage!.byParcelId.get(parcel.id)?.education ?? 0,
+                    market: facilityCoverage!.byParcelId.get(parcel.id)?.market ?? 0,
+                    parks: facilityCoverage!.byParcelId.get(parcel.id)?.parks ?? 0,
+                  },
                   zoning: zoningFamilyForCode(code),
                   disposition: parcel.disposition,
                   developmentCodeId: code.id,

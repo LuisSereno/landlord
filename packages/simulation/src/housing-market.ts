@@ -23,6 +23,7 @@ import {
 } from "./game-data";
 import { effectiveRentBudget } from "./employment";
 import { buildCoverageIndex } from "./urban-services";
+import { facilityCoverageIndex } from "./facility-coverage";
 import { HOUSING_SEGMENTS, type HousingSegment } from "./housing-segments";
 import { activeMacroModifiers, rentModifierPercentFor } from "./macro-events";
 import { Xoshiro128ss } from "./prng";
@@ -241,6 +242,7 @@ function buildStock(state: GameState): StockUnit[] {
   if (raw.length === 0) return [];
 
   const coverage = buildCoverageIndex(state);
+  const facilityCoverage = facilityCoverageIndex(state);
   const policePenalty = Math.min(
     HOUSING_MARKET_POLICY.desirability.maximumPoliceSafetyPenalty,
     state.phase2.crime.policePressure *
@@ -257,6 +259,7 @@ function buildStock(state: GameState): StockUnit[] {
         nearbyIncidents += 1;
     }
     const parcelCoverage = coverage.byParcelId.get(entry.building.parcelId);
+    const amenities = facilityCoverage.byParcelId.get(entry.building.parcelId);
     stock.push({
       building: entry.building,
       cell: entry.cell,
@@ -265,7 +268,8 @@ function buildStock(state: GameState): StockUnit[] {
       quality: clamp(
         entry.building.condition +
           (entry.building.upgraded ? 10 : 0) -
-          Math.round((100 - (parcelCoverage?.cleaning ?? 0)) / 4),
+          Math.round((100 - (parcelCoverage?.cleaning ?? 0)) / 4) +
+          Math.round(((amenities?.education ?? 0) + (amenities?.parks ?? 0)) / 20),
         0,
         100,
       ),
@@ -281,7 +285,12 @@ function buildStock(state: GameState): StockUnit[] {
         0,
         100,
       ),
-      services: clamp(nearbyOffices * HOUSING_MARKET_POLICY.desirability.servicesPerPoint, 0, 100),
+      services: clamp(
+        nearbyOffices * HOUSING_MARKET_POLICY.desirability.servicesPerPoint +
+          Math.round((amenities?.market ?? 0) / 10),
+        0,
+        100,
+      ),
       askingRent: askingRentFor(state, entry.building),
       vacantSlots: Math.max(
         0,

@@ -94,7 +94,7 @@ describe("WP4.6 servicios urbanos y accesibilidad", () => {
     const center = buildCoverageIndex(state).center;
     centerParcel.anchorCell = { ...center };
     edgeParcel.anchorCell = {
-      x: center.x + URBAN_SERVICE_POLICY.transport.baseRadiusCells,
+      x: center.x + URBAN_SERVICE_POLICY.cleaning.baseRadiusCells,
       y: center.y,
     };
 
@@ -102,11 +102,10 @@ describe("WP4.6 servicios urbanos y accesibilidad", () => {
     const centerCoverage = index.byParcelId.get(centerParcel.id)!;
     const edgeCoverage = index.byParcelId.get(edgeParcel.id)!;
 
-    // Mover las parcelas desplaza ligeramente el centroide, así que el centro no llega a 100
-    // exacto; lo que importa es que el borde queda prácticamente sin cobertura.
-    expect(centerCoverage.transport).toBeGreaterThanOrEqual(85);
-    expect(edgeCoverage.transport).toBeLessThan(10);
-    expect(edgeCoverage.transport).toBeLessThan(centerCoverage.transport);
+    // La limpieza sigue siendo radial; transporte y seguridad son grafo (V.d.5).
+    expect(centerCoverage.cleaning).toBeGreaterThanOrEqual(85);
+    expect(edgeCoverage.cleaning).toBeLessThan(10);
+    expect(edgeCoverage.cleaning).toBeLessThan(centerCoverage.cleaning);
   });
 
   it("crecer diluye el radio: la capacidad se satura", () => {
@@ -114,13 +113,13 @@ describe("WP4.6 servicios urbanos y accesibilidad", () => {
     addBuilding(small, 0);
     const large = createScaledCity(7, { parcelCount: 200 });
 
-    const smallTransport = describeUrbanServices(small).find((entry) => entry.id === "transport")!;
-    const largeTransport = describeUrbanServices(large).find((entry) => entry.id === "transport")!;
+    const smallCleaning = describeUrbanServices(small).find((entry) => entry.id === "cleaning")!;
+    const largeCleaning = describeUrbanServices(large).find((entry) => entry.id === "cleaning")!;
 
-    expect(smallTransport.radiusCells).toBe(URBAN_SERVICE_POLICY.transport.baseRadiusCells);
-    expect(largeTransport.radiusCells).toBeLessThan(smallTransport.radiusCells);
-    expect(largeTransport.radiusCells).toBeGreaterThanOrEqual(
-      URBAN_SERVICE_POLICY.transport.minimumRadiusCells,
+    expect(smallCleaning.radiusCells).toBe(URBAN_SERVICE_POLICY.cleaning.baseRadiusCells);
+    expect(largeCleaning.radiusCells).toBeLessThan(smallCleaning.radiusCells);
+    expect(largeCleaning.radiusCells).toBeGreaterThanOrEqual(
+      URBAN_SERVICE_POLICY.cleaning.minimumRadiusCells,
     );
   });
 
@@ -141,8 +140,8 @@ describe("WP4.6 servicios urbanos y accesibilidad", () => {
     const funded = describeHousingStock(state);
     const centerUnit = funded.find((unit) => unit.buildingId === "building_00000001")!;
     const edgeUnit = funded.find((unit) => unit.buildingId === "building_00000002")!;
-    expect(centerUnit.accessibility).toBeGreaterThan(edgeUnit.accessibility);
-    expect(centerUnit.quality).toBeGreaterThanOrEqual(edgeUnit.quality);
+    // El borde pierde limpieza (radio) aunque el transporte ya se mide por grafo.
+    expect(centerUnit.quality).toBeGreaterThan(edgeUnit.quality);
 
     state.phase2.municipal.serviceLevelPercentByCategory = {
       administration: 100,
@@ -208,8 +207,13 @@ describe("WP4.6 servicios urbanos y accesibilidad", () => {
     expect(describeUrbanServices(first)).toEqual(describeUrbanServices(second));
     for (const service of describeUrbanServices(first)) {
       expect(service.qualityPercent).toBe(100);
-      expect(service.buildingsCovered).toBeGreaterThan(0);
-      expect(service.meanCoveragePercent).toBeGreaterThan(0);
+      // La seguridad ya no es un radio: una parcela lejos de una comisaría puede quedar a cero.
+      if (service.id !== "security") {
+        expect(service.buildingsCovered).toBeGreaterThan(0);
+        expect(service.meanCoveragePercent).toBeGreaterThan(0);
+      } else {
+        expect(service.buildingsCovered).toBeGreaterThanOrEqual(0);
+      }
     }
   });
 });

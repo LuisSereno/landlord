@@ -1,5 +1,6 @@
 import type { BuildingId, GridCell, ParcelId } from "@landlord/shared";
 import { MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
+import { facilityCoverageIndex } from "./facility-coverage";
 import type { GameState } from "./state";
 
 export type UrbanServiceId = "transport" | "security" | "cleaning";
@@ -109,11 +110,14 @@ export function buildCoverageIndex(state: GameState): CoverageIndex {
           ),
         };
   const buildingCount = buildings.filter((building) => building.state !== "ruin").length;
+  const facilityCoverage = facilityCoverageIndex(state);
   const byParcelId = new Map<ParcelId, Record<UrbanServiceId, number>>();
   for (const parcel of parcels) {
     byParcelId.set(parcel.id, {
-      transport: coverageOf(state, "transport", parcel.anchorCell, center, buildingCount),
-      security: coverageOf(state, "security", parcel.anchorCell, center, buildingCount),
+      // Transport is accessibility to the network/gateways and security comes from stations;
+      // both are graph coverage. Cleaning remains the municipal radial network (V.d.5 exception).
+      transport: facilityCoverage.byParcelId.get(parcel.id)?.transport ?? 0,
+      security: facilityCoverage.byParcelId.get(parcel.id)?.security ?? 0,
       cleaning: coverageOf(state, "cleaning", parcel.anchorCell, center, buildingCount),
     });
   }
@@ -143,7 +147,10 @@ export function describeUrbanServices(state: GameState): UrbanServiceReport[] {
     return {
       id: service,
       qualityPercent: qualityOf(state, service),
-      radiusCells: radiusOf(state, service, index.buildingCount),
+      radiusCells:
+        service === "security" || service === "transport"
+          ? 0
+          : radiusOf(state, service, index.buildingCount),
       buildingsCovered: covered,
       meanCoveragePercent:
         values.length === 0

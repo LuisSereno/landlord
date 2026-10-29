@@ -49,6 +49,7 @@ import { runAutomation } from "./automation";
 import { macroShockBiasFor, runMacroEvents } from "./macro-events";
 import { runMunicipalBudget } from "./municipal-budget";
 import { updateLandValues } from "./land-value";
+import { fireDamageForBuilding, injuredRecoveryDays } from "./facility-coverage";
 import { runMunicipalPolitics } from "./municipal-politics";
 import { hasActiveAward, operationalBuildingsOwned, runPublicContracts } from "./public-contracts";
 import { askingRentFor, runHousingMarket } from "./housing-market";
@@ -128,7 +129,9 @@ function hurtAgent(
   }
   if (agent.health < 100) {
     agent.state = "injured";
-    agent.injuredUntilTick = parseTick(state.clock.tick + GAME_DAY_TICKS * 2);
+    agent.injuredUntilTick = parseTick(
+      state.clock.tick + GAME_DAY_TICKS * injuredRecoveryDays(state, agent.districtId),
+    );
     agent.task = null;
   }
 }
@@ -863,10 +866,11 @@ function tacticalTick(state: GameState): void {
       continue;
     }
     const tech = maintenanceOnDuty.has(building.id);
-    if (!tech) incident.intensity = Math.min(100, incident.intensity + 15);
+    const fire = fireDamageForBuilding(state, building, incident.intensity);
+    if (!tech) incident.intensity = Math.min(100, incident.intensity + fire.intensityGrowth);
     building.structuralIntegrity = Math.max(
       0,
-      building.structuralIntegrity - Math.ceil(incident.intensity / 10),
+      building.structuralIntegrity - fire.structuralDamage,
     );
     if (incident.intensity === 0) {
       incident.status = "resolved";

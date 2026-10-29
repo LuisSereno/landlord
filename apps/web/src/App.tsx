@@ -372,6 +372,11 @@ export function App() {
                 <option value="zoning">Zoning</option>
                 <option value="risk">Riesgo regulatorio</option>
                 <option value="landValue">Valor del suelo</option>
+                <option value="security">Seguridad</option>
+                <option value="fire">Bomberos</option>
+                <option value="health">Salud</option>
+                <option value="education">Educación</option>
+                <option value="transport">Transporte</option>
               </select>
             </label>
             <span className="map-help">Rueda: zoom · flechas o botón derecho: desplazamiento</span>
@@ -419,7 +424,11 @@ export function App() {
                       {facility.buildingIds.join(", ") || "—"} · parcelas{" "}
                       {facility.parcelIds.join(", ")}
                       <br />
-                      cobertura futura: {facility.accessCells.length} celdas de acceso vial
+                      cobertura: {facility.coverage?.coveragePercent ?? 0}% (
+                      {facility.coverage?.served ?? 0}/{facility.coverage?.demand ?? 0} parcelas ·
+                      capacidad {facility.coverage?.effectiveCapacity ?? 0}
+                      {facility.coverage?.saturated ? " · saturada" : ""}) ·{" "}
+                      {facility.accessCells.length} celdas de acceso vial
                     </p>
                   ))}
                   {projection.publicSpaces.map((space) => (

@@ -409,13 +409,16 @@ describe("WP4.3 oferta y demanda de vivienda", () => {
     /** Fronteras de bucket (radio 6 → bucket de 7) y dos edificios compartiendo celda. */
     cells.push({ x: 6, y: 6 }, { x: 6, y: 6 }, { x: 7, y: 7 }, { x: 0, y: 13 }, { x: 13, y: 0 });
 
-    const buckets = indexCells(cells.map((cell) => ({ cell })));
+    const districtId = createInitialState(7).world.city.districtIds[0]!;
+    const buckets = indexCells(cells.map((cell) => ({ districtId, cell })));
     const radius = HOUSING_MARKET_POLICY.serviceRadiusCells;
     for (const cell of cells) {
       const bruteForce =
         cells.filter((other) => Math.abs(other.x - cell.x) + Math.abs(other.y - cell.y) <= radius)
           .length - 1;
-      expect(countNeighbours(cell, buckets), `${cell.x},${cell.y}`).toBe(bruteForce);
+      expect(countNeighbours({ districtId, cell }, buckets), `${cell.x},${cell.y}`).toBe(
+        bruteForce,
+      );
     }
   });
 });

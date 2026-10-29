@@ -160,17 +160,17 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "2f3d8f9506dd9004",
+    expected: "55f818f651ff81d9",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "b35d9f6f85f70087",
+    expected: "a7d366cac5f16145",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "59c43f71afa59eb7",
+    expected: "d87e0f2a7e557ae0",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];
@@ -225,6 +225,21 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
  * frente pasan a terreno bloqueado, de modo que cambia la geometría además de la carga
  * institucional. Los mercados privados, el mantenimiento y la cobertura de servicios excluyen el
  * suelo municipal para que esta fase no adelante reglas de V.d.5.
+ */
+
+/**
+ * Regeneración H1-01 (2026-10-29): la identidad espacial pasa a ser `districtId + cell`. Antes de
+ * este fix la onda de choque de un derrumbe y la vecindad del mercado de vivienda comparaban sólo
+ * coordenadas, y los nueve distritos comparten el rango local 0..63: un edificio podía ser vecino de
+ * otro situado en el mismo `(x,y)` de un distrito distinto, y una explosión podía derribar ese gemelo
+ * lógico. Cambian sólo los tres digestos con incendios, y en la dirección esperada —menos daño
+ * espurio, nunca más. Atribución medida antes/después sobre el mismo código salvo el fix:
+ * - `50-parcels:fire-cascade`: ruinas 43→40, incidentes 44→41, integridad total 2710→2902.
+ * - `200-parcels:fire-cascade`: ruinas 163→161, incidentes 94→92, integridad 7954→8082.
+ * - `800-parcels:fire-cascade`: ruinas 613→612, integridad 25042→25106.
+ * En los tres casos bajas (45/45, 159/160, 42/43), hogares, transacciones y las cinco cajas quedan
+ * idénticos, y la carrera sin incendios (`50-parcels:1300-ticks`) no mueve ni un bit: el delta es
+ * exactamente el daño entre distritos que deja de producirse.
  */
 
 describe("WP4.2 conservación del resultado económico", () => {

@@ -22,6 +22,7 @@ import {
   conditionRentMultiplierPercent,
 } from "./game-data";
 import { effectiveRentBudget } from "./employment";
+import { isWithinDistrictRadius, type DistrictPlace } from "./district-place";
 import { buildCoverageIndex } from "./urban-services";
 import { facilityCoverageIndex } from "./facility-coverage";
 import { HOUSING_SEGMENTS, type HousingSegment } from "./housing-segments";
@@ -89,10 +90,6 @@ function clamp(value: number, minimum: number, maximum: number): number {
   return Math.max(minimum, Math.min(maximum, value));
 }
 
-function manhattan(left: GridCell, right: GridCell): number {
-  return Math.abs(left.x - right.x) + Math.abs(left.y - right.y);
-}
-
 /**
  * Índice espacial del parque. La distancia de servicio es Manhattan, así que un vecino dentro del
  * radio está como mucho a `radius` celdas en cada eje y sólo hace falta recorrer los nueve buckets
@@ -113,12 +110,22 @@ function cellKeyOf(cell: GridCell): number {
 
 type CellOccupancy = { cell: GridCell; buildings: number };
 
-/** Cuenta los edificios operativos por celda y agrupa las celdas ocupadas en buckets. */
-export function indexCells(raw: ReadonlyArray<{ cell: GridCell }>): Map<number, CellOccupancy[]> {
-  const occupancyByCell = new Map<number, CellOccupancy>();
-  const buckets = new Map<number, CellOccupancy[]>();
+/**
+ * Clave de bucket: el distrito es prefijo, así que dos celdas con la misma coordenada en distritos
+ * diferentes caen en buckets distintos y nunca se cuentan como vecinas (H1-01).
+ */
+function bucketKey(districtId: DistrictId, bucketX: number, bucketY: number): string {
+  return `${districtId}|${neighbourBucketKey(bucketX, bucketY)}`;
+}
+
+/** Cuenta los edificios operativos por celda y agrupa las celdas ocupadas en buckets de distrito. */
+export function indexCells(
+  raw: ReadonlyArray<{ districtId: DistrictId; cell: GridCell }>,
+): Map<string, CellOccupancy[]> {
+  const occupancyByCell = new Map<string, CellOccupancy>();
+  const buckets = new Map<string, CellOccupancy[]>();
   for (const entry of raw) {
-    const key = cellKeyOf(entry.cell);
+    const key = `${entry.districtId}|${cellKeyOf(entry.cell)}`;
     const occupancy = occupancyByCell.get(key);
     if (occupancy) {
       occupancy.buildings += 1;
@@ -128,29 +135,35 @@ export function indexCells(raw: ReadonlyArray<{ cell: GridCell }>): Map<number, 
     occupancyByCell.set(key, created);
     const bucketX = Math.floor(entry.cell.x / NEIGHBOUR_BUCKET_SIZE);
     const bucketY = Math.floor(entry.cell.y / NEIGHBOUR_BUCKET_SIZE);
-    const bucketKey = neighbourBucketKey(bucketX, bucketY);
-    const bucket = buckets.get(bucketKey);
+    const bucket = buckets.get(bucketKey(entry.districtId, bucketX, bucketY));
     if (bucket) bucket.push(created);
-    else buckets.set(bucketKey, [created]);
+    else buckets.set(bucketKey(entry.districtId, bucketX, bucketY), [created]);
   }
   return buckets;
 }
 
-/** Edificios distintos al propio dentro del radio de servicio de una celda. */
+/** Edificios del mismo distrito, distintos al propio, dentro del radio de servicio de una celda. */
 export function countNeighbours(
-  cell: GridCell,
-  buckets: ReadonlyMap<number, CellOccupancy[]>,
+  place: DistrictPlace,
+  buckets: ReadonlyMap<string, CellOccupancy[]>,
 ): number {
   const radius = HOUSING_MARKET_POLICY.serviceRadiusCells;
-  const bucketX = Math.floor(cell.x / NEIGHBOUR_BUCKET_SIZE);
-  const bucketY = Math.floor(cell.y / NEIGHBOUR_BUCKET_SIZE);
+  const bucketX = Math.floor(place.cell.x / NEIGHBOUR_BUCKET_SIZE);
+  const bucketY = Math.floor(place.cell.y / NEIGHBOUR_BUCKET_SIZE);
   let total = -1;
   for (let offsetX = -1; offsetX <= 1; offsetX += 1) {
     for (let offsetY = -1; offsetY <= 1; offsetY += 1) {
       for (const occupancy of buckets.get(
-        neighbourBucketKey(bucketX + offsetX, bucketY + offsetY),
+        bucketKey(place.districtId, bucketX + offsetX, bucketY + offsetY),
       ) ?? []) {
-        if (manhattan(cell, occupancy.cell) <= radius) total += occupancy.buildings;
+        if (
+          isWithinDistrictRadius(
+            place,
+            { districtId: place.districtId, cell: occupancy.cell },
+            radius,
+          )
+        )
+          total += occupancy.buildings;
       }
     }
   }
@@ -219,25 +232,33 @@ type StockUnit = {
   vacantSlots: number;
 };
 
+/** Una vivienda situada: el par `districtId + cell` es lo que la identifica, no la coordenada. */
+type StockUnitLocation = { building: Building; districtId: DistrictId; cell: GridCell };
+
 /** Estado del parque operativo del distrito en el momento del cierre mensual. */
 function buildStock(state: GameState): StockUnit[] {
-  const activeIncidentCells: GridCell[] = [];
+  /**
+   * Un incidente sólo ensucia su propio distrito: la coordenada local se repite en los nueve mapas,
+   * así que sin distrito penalizaría viviendas de otro barrio (H1-01).
+   */
+  const activeIncidentPlaces: DistrictPlace[] = [];
   for (const incident of state.phase2.incidents.values()) {
     if (incident.status !== "active") continue;
     const building = state.phase2.buildings.get(incident.buildingId);
-    const cell = building ? state.phase2.parcels.get(building.parcelId)?.anchorCell : undefined;
-    if (cell) activeIncidentCells.push(cell);
+    const parcel = building ? state.phase2.parcels.get(building.parcelId) : undefined;
+    if (parcel)
+      activeIncidentPlaces.push({ districtId: parcel.districtId, cell: parcel.anchorCell });
   }
 
-  const raw: Array<{ building: Building; cell: GridCell }> = [];
+  const raw: Array<StockUnitLocation> = [];
   for (const building of [...state.phase2.buildings.values()].sort((left, right) =>
     left.id.localeCompare(right.id),
   )) {
     if (building.state !== "operational") continue;
     if (building.ownerOrganizationId === MUNICIPALITY_ORGANIZATION_ID) continue;
-    const cell = state.phase2.parcels.get(building.parcelId)?.anchorCell;
-    if (!cell) continue;
-    raw.push({ building, cell });
+    const parcel = state.phase2.parcels.get(building.parcelId);
+    if (!parcel) continue;
+    raw.push({ building, districtId: parcel.districtId, cell: parcel.anchorCell });
   }
   if (raw.length === 0) return [];
 
@@ -252,10 +273,10 @@ function buildStock(state: GameState): StockUnit[] {
   const stock: StockUnit[] = [];
   const cellsByBucket = indexCells(raw);
   for (const entry of raw) {
-    const nearbyOffices = countNeighbours(entry.cell, cellsByBucket);
+    const nearbyOffices = countNeighbours(entry, cellsByBucket);
     let nearbyIncidents = 0;
-    for (const cell of activeIncidentCells) {
-      if (manhattan(entry.cell, cell) <= HOUSING_MARKET_POLICY.serviceRadiusCells)
+    for (const place of activeIncidentPlaces) {
+      if (isWithinDistrictRadius(entry, place, HOUSING_MARKET_POLICY.serviceRadiusCells))
         nearbyIncidents += 1;
     }
     const parcelCoverage = coverage.byParcelId.get(entry.building.parcelId);

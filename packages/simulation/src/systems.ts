@@ -67,11 +67,14 @@ import {
   runFactions,
 } from "./factions";
 import { Xoshiro128ss } from "./prng";
+import { isWithinDistrictRadius } from "./district-place";
 import { findDeterministicPath } from "./navigation";
 
 const MOVEMENT_TICKS_PER_CELL = 10;
 const INCIDENT_LIMIT = 50;
 const PRODUCTION_SCALE = 1_000_000;
+/** Radio de la onda de choque de un derrumbe, en celdas del propio distrito. */
+const COLLAPSE_BLAST_RADIUS_CELLS = 3;
 const adjacent = (a: { x: number; y: number }, b: { x: number; y: number }) =>
   Math.abs(a.x - b.x) + Math.abs(a.y - b.y) <= 1;
 
@@ -101,7 +104,9 @@ function indexAdjacentTechnicians(
     const building = state.phase2.buildings.get(buildingId);
     if (!building) continue;
     const parcel = state.phase2.parcels.get(building.parcelId);
-    if (!parcel || !adjacent(agent.cell, parcel.anchorCell)) continue;
+    if (!parcel) continue;
+    if (parcel.districtId !== agent.districtId) continue;
+    if (!adjacent(agent.cell, parcel.anchorCell)) continue;
     index.set(buildingId, agent);
   }
   return index;
@@ -824,16 +829,20 @@ function tacticalTick(state: GameState): void {
       continue;
     if (agent.task.kind === "attack_agent") {
       const target = state.agents.get(agent.task.targetAgentId);
-      if (target && adjacent(agent.cell, target.cell)) {
+      if (target && target.districtId === agent.districtId && adjacent(agent.cell, target.cell)) {
         hurtAgent(state, target, 50);
         agent.cooldownUntilTick = parseTick(state.clock.tick + GAME_HOUR_TICKS);
       }
     }
     if (agent.task.kind === "sabotage_building") {
       const building = state.phase2.buildings.get(agent.task.targetBuildingId);
+      const buildingParcel = building ? state.phase2.parcels.get(building.parcelId) : undefined;
       if (
         building &&
-        adjacent(agent.cell, state.phase2.parcels.get(building.parcelId)!.anchorCell)
+        buildingParcel &&
+        /** El matón solo alcanza un edificio de su distrito, aunque otro mapa repita la coordenada. */
+        buildingParcel.districtId === agent.districtId &&
+        adjacent(agent.cell, buildingParcel.anchorCell)
       ) {
         const prng = new Xoshiro128ss(state.seed);
         prng.restoreState(state.prng);
@@ -933,18 +942,26 @@ function tacticalTick(state: GameState): void {
     }
     for (const agent of agents)
       if (
-        Math.abs(agent.cell.x - parcel.anchorCell.x) +
-          Math.abs(agent.cell.y - parcel.anchorCell.y) <=
-        3
+        isWithinDistrictRadius(
+          { districtId: parcel.districtId, cell: parcel.anchorCell },
+          { districtId: agent.districtId, cell: agent.cell },
+          COLLAPSE_BLAST_RADIUS_CELLS,
+        )
       )
         hurtAgent(state, agent, 60);
     for (const building of state.phase2.buildings.values()) {
       if (building.id === root.id || building.state !== "operational") continue;
       const target = state.phase2.parcels.get(building.parcelId)!;
+      /**
+       * La onda no cruza distritos: con `(x,y)` repetidos en los nueve mapas, una explosión en uno
+       * derrumbaría el edificio gemelo de otro (H1-01).
+       */
       if (
-        Math.abs(target.anchorCell.x - parcel.anchorCell.x) +
-          Math.abs(target.anchorCell.y - parcel.anchorCell.y) <=
-        3
+        isWithinDistrictRadius(
+          { districtId: parcel.districtId, cell: parcel.anchorCell },
+          { districtId: target.districtId, cell: target.anchorCell },
+          COLLAPSE_BLAST_RADIUS_CELLS,
+        )
       ) {
         building.structuralIntegrity = Math.max(0, building.structuralIntegrity - 35);
         ignite(state, building, "blast", 25);

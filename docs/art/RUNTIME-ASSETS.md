@@ -169,3 +169,12 @@ impresión.
 4. Revisar `/art-lab` con `pnpm smoke:art-lab` y, si cambia la escena, regenerar la captura visual.
 5. Si el edificio es de gameplay, el contrato ya está listo: la escena lo pinta en cuanto el tipo
    exista en `BuildingType` y el manifiesto lo declare.
+
+## Ampliación V.d.6 (2026-10-29)
+
+La factoría procedural incorpora seis formas cívicas originales (`town_hall`, `school_block`,
+`clinic`, `police_station`, `fire_station`, `market_hall`) con los cuatro estados y provenance
+`original`. El manifiesto V1 pasa de 5 a 11 edificios y de 105.810 a 145.076 bytes, dentro del budget
+Alpha de 200 KB. El adapter mapea los tipos municipales a su asset propio; no hay modelos Blender
+específicos todavía. Las orientaciones de edificios asimétricos y una huella de dominio explícita
+por tipo quedan como deuda de Beta, no como cambio de contrato.

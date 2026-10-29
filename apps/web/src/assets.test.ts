@@ -34,9 +34,21 @@ describe("WP4.15 manifiesto de assets runtime", () => {
     expect(manifest.provenance.license).toBe("original");
   });
 
-  it("cubre los cinco edificios con los cuatro estados y hashes íntegros", () => {
+  it("cubre los edificios base y cívicos con los cuatro estados y hashes íntegros", () => {
     expect(Object.keys(manifest.buildings).sort()).toEqual(
-      ["brickworks", "cement_plant", "courtyard_home", "steelworks", "workshop"].sort(),
+      [
+        "brickworks",
+        "cement_plant",
+        "clinic",
+        "courtyard_home",
+        "fire_station",
+        "market_hall",
+        "police_station",
+        "school_block",
+        "steelworks",
+        "town_hall",
+        "workshop",
+      ].sort(),
     );
     for (const [type, asset] of Object.entries(manifest.buildings)) {
       expect(asset.type, type).toBe(type);

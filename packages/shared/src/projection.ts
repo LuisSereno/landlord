@@ -162,6 +162,7 @@ export type ViewProjectionV2 = {
       /** Display/legacy family derived from the development code; not a rule. */
       zoning: "residential" | "industrial" | "mixed";
       disposition: "marketable" | "public" | "infrastructure";
+      urbanRole: string;
       developmentCodeId: DevelopmentCodeId;
       allowedUses: LandUse[];
       currentUses: LandUse[];
@@ -770,6 +771,7 @@ export const viewProjectionV2Schema = z.object({
           }),
           zoning: zoningSchema,
           disposition: z.enum(["marketable", "public", "infrastructure"]),
+          urbanRole: z.string(),
           developmentCodeId: developmentCodeIdSchema,
           allowedUses: z.array(landUseSchema),
           currentUses: z.array(landUseSchema),

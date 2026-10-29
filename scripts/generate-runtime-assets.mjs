@@ -46,6 +46,42 @@ const BUILDINGS = [
     footprint: [2, 2],
     palette: ["#9aa4ae", "#77818c", "#5b636c"],
   },
+  {
+    type: "town_hall",
+    name: "Ayuntamiento",
+    footprint: [2, 2],
+    palette: ["#d8c9a8", "#b7a482", "#8f7d5f"],
+  },
+  {
+    type: "school_block",
+    name: "Colegio",
+    footprint: [2, 1],
+    palette: ["#cfb18a", "#a98b66", "#82684c"],
+  },
+  {
+    type: "clinic",
+    name: "Clínica",
+    footprint: [1, 1],
+    palette: ["#dfe6e4", "#b8c7c4", "#8da19d"],
+  },
+  {
+    type: "police_station",
+    name: "Comisaría",
+    footprint: [1, 1],
+    palette: ["#aebfd0", "#879caf", "#667d91"],
+  },
+  {
+    type: "fire_station",
+    name: "Parque de bomberos",
+    footprint: [2, 1],
+    palette: ["#c98f7f", "#a56d5f", "#7e5045"],
+  },
+  {
+    type: "market_hall",
+    name: "Mercado",
+    footprint: [2, 1],
+    palette: ["#d8b67a", "#b18e58", "#876a40"],
+  },
 ];
 
 const CHARACTERS = [
@@ -114,6 +150,39 @@ function buildingSvg(building, state) {
     `<rect x="38" y="58" width="8" height="8"/><rect x="52" y="66" width="8" height="8"/>` +
     `<rect x="72" y="66" width="8" height="8"/><rect x="86" y="58" width="8" height="8"/></g>`;
 
+  if (building.type === "town_hall") {
+    const civic =
+      `<g><polygon points="50,40 64,28 78,40" fill="#f2e6c8" stroke="#7c6c52" stroke-width="2"/>` +
+      `<rect x="50" y="40" width="28" height="26" fill="#e7dcc1" stroke="#7c6c52" stroke-width="2"/>` +
+      `<g fill="#c9b98f"><rect x="54" y="46" width="4" height="20"/><rect x="62" y="46" width="4" height="20"/><rect x="70" y="46" width="4" height="20"/></g>` +
+      `<rect x="61" y="10" width="6" height="20" fill="#8f7d5f"/><polygon points="58,10 64,2 70,10" fill="#b7a482"/></g>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 112" width="128" height="112" role="img">${base.ground}${base.body}${civic}${scaffolding}${damage}${flames}</svg>`;
+  }
+  if (building.type === "school_block" || building.type === "clinic" || building.type === "market_hall") {
+    const sign =
+      building.type === "school_block"
+        ? `<g><rect x="92" y="24" width="3" height="30" fill="#6a5a45"/><polygon points="95,24 114,28 95,32" fill="#d97757"/></g>` +
+          `<g fill="#f3d98a"><rect x="38" y="58" width="10" height="8"/><rect x="54" y="66" width="10" height="8"/><rect x="70" y="66" width="10" height="8"/></g>`
+        : building.type === "clinic"
+          ? `<g><rect x="58" y="34" width="12" height="6" fill="#4db6ac"/><rect x="61" y="31" width="6" height="12" fill="#4db6ac"/></g>` +
+            `<g fill="#f3d98a"><rect x="40" y="60" width="8" height="8"/><rect x="80" y="60" width="8" height="8"/></g>`
+          : `<g><polygon points="28,50 64,34 100,50 64,66" fill="#e0b04b" stroke="#876a40" stroke-width="2"/>` +
+            `<g stroke="#876a40"><line x1="40" y1="48" x2="40" y2="58"/><line x1="56" y1="45" x2="56" y2="55"/><line x1="72" y1="45" x2="72" y2="55"/><line x1="88" y1="48" x2="88" y2="58"/></g></g>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 112" width="128" height="112" role="img">${base.ground}${base.body}${sign}${scaffolding}${damage}${flames}</svg>`;
+  }
+  if (building.type === "police_station") {
+    const beacon =
+      `<g><rect x="52" y="32" width="24" height="6" fill="#667d91"/><rect x="58" y="24" width="12" height="8" fill="#4f7f9e" stroke="#3f5f75" stroke-width="1.5"/><circle cx="64" cy="22" r="3" fill="#9fd4e8"/></g>` +
+      `<g fill="#f3d98a"><rect x="38" y="60" width="8" height="8"/><rect x="82" y="60" width="8" height="8"/></g>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 112" width="128" height="112" role="img">${base.ground}${base.body}${beacon}${scaffolding}${damage}${flames}</svg>`;
+  }
+  if (building.type === "fire_station") {
+    const station =
+      `<g><rect x="40" y="44" width="18" height="30" fill="#6f4a42" stroke="#4f332e" stroke-width="2"/><rect x="70" y="44" width="18" height="30" fill="#6f4a42" stroke="#4f332e" stroke-width="2"/></g>` +
+      `<g fill="#d8b67a"><rect x="44" y="52" width="10" height="3"/><rect x="74" y="52" width="10" height="3"/></g>` +
+      `<rect x="60" y="16" width="8" height="30" fill="#a56d5f" stroke="#7e5045" stroke-width="2"/>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 112" width="128" height="112" role="img">${base.ground}${base.body}${station}${scaffolding}${damage}${flames}</svg>`;
+  }
   if (building.type === "cement_plant" || building.type === "steelworks") {
     const chimneys =
       building.type === "cement_plant"

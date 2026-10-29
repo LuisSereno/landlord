@@ -182,8 +182,8 @@ export function App() {
         : "No hay excepciones rutinarias que resolver.",
     );
   };
-  const selectedParcel = economy?.parcels.find(
-    (parcel) => parcel.cell.x === selectedCell?.x && parcel.cell.y === selectedCell?.y,
+  const selectedParcel = economy?.parcels.find((parcel) =>
+    parcel.cells.some((cell) => cell.x === selectedCell?.x && cell.y === selectedCell?.y),
   );
   const selectedBuilding = selectedParcel?.buildingId
     ? economy?.buildings.find((building) => building.id === selectedParcel.buildingId)
@@ -377,6 +377,9 @@ export function App() {
                 <option value="health">Salud</option>
                 <option value="education">Educación</option>
                 <option value="transport">Transporte</option>
+                <option value="use">Uso</option>
+                <option value="developmentCode">Código urbanístico</option>
+                <option value="urbanRole">Rol urbano</option>
               </select>
             </label>
             <span className="map-help">Rueda: zoom · flechas o botón derecho: desplazamiento</span>

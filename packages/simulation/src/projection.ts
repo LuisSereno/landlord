@@ -582,6 +582,7 @@ export function createViewProjection(
                   },
                   zoning: zoningFamilyForCode(code),
                   disposition: parcel.disposition,
+                  urbanRole: block?.urbanRole ?? "urban_residential",
                   developmentCodeId: code.id,
                   allowedUses: [...code.allowedUses],
                   currentUses: [...parcel.currentUses],

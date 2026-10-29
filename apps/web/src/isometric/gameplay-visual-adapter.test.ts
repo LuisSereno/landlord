@@ -19,6 +19,7 @@ const BLENDER_BUNDLE = blenderBundle as unknown as RuntimeAssetManifestV1;
 type ParcelInput = {
   id: string;
   cell: { x: number; y: number };
+  cells?: Array<{ x: number; y: number }>;
   zoning: "residential" | "industrial" | "mixed";
   disposition?: "marketable" | "public" | "infrastructure";
   ownerOrganizationId: string | null;
@@ -467,5 +468,60 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
     expect(model.groundPlan.worksLot).toBeUndefined();
     expect(model.groundPlan.access).toBeUndefined();
     expect(model.groundPlan.zone).toBeUndefined();
+  });
+});
+
+describe("V.d.6 parcelas multi-cell", () => {
+  it("pinta todas las celdas de la parcela, no sólo el ancla", () => {
+    const plan = planGameplayGround(
+      [
+        {
+          id: "multi",
+          cell: { x: 30, y: 30 },
+          cells: [
+            { x: 30, y: 30 },
+            { x: 31, y: 30 },
+            { x: 30, y: 31 },
+          ],
+          zoning: "residential",
+          disposition: "marketable",
+          buildingId: null,
+        },
+      ],
+      new Set(),
+      64,
+      64,
+    );
+    expect(plan.surfaces.get("30:30")).toBe("dirt");
+    expect(plan.surfaces.get("31:30")).toBe("dirt");
+    expect(plan.surfaces.get("30:31")).toBe("dirt");
+  });
+
+  it("la clave de geometría incluye todas las celdas y no cambia con el tick", () => {
+    const base = projection(PARCELS, BUILDINGS, SITES);
+    const withCells = projection(
+      PARCELS.map((parcel) => ({
+        ...parcel,
+        cells: [parcel.cell, { x: parcel.cell.x + 1, y: parcel.cell.y }],
+      })),
+      BUILDINGS,
+      SITES,
+    );
+    expect(gameplayGeometryKey(withCells)).not.toBe(gameplayGeometryKey(base));
+  });
+});
+
+describe("V.d.6 formas cívicas", () => {
+  it("asigna los seis tipos municipales a su asset cívico", () => {
+    for (const type of [
+      "town_hall",
+      "school_block",
+      "clinic",
+      "police_station",
+      "fire_station",
+      "market_hall",
+    ]) {
+      expect(visualArchetypeForBuilding(type, `building:${type}`)).toBe(type);
+    }
   });
 });

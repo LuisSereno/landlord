@@ -142,7 +142,10 @@ export type MapOverlay =
   | "fire"
   | "health"
   | "education"
-  | "transport";
+  | "transport"
+  | "use"
+  | "developmentCode"
+  | "urbanRole";
 
 export class IsometricSpikeScene extends Phaser.Scene {
   private readonly layout: IsometricLayout = REFERENCE_LAYOUT;
@@ -691,6 +694,41 @@ export class IsometricSpikeScene extends Phaser.Scene {
       if (score >= 5) return COLORS.construction;
       if (score >= -10) return COLORS.parcelAvailable;
       return COLORS.fire;
+    }
+    if (this.overlay === "urbanRole") {
+      const colors: Record<string, number> = {
+        civic_core: 0xf2c14e,
+        mixed_core: 0xd98f6a,
+        commercial_corridor: 0xe0b04b,
+        urban_residential: 0x69a86b,
+        low_density_residential: 0x8fbf7a,
+        industrial_logistics: 0x9b7ede,
+        institutional: 0x6fa8dc,
+        green_open_space: 0x4db6ac,
+      };
+      return colors[parcel.urbanRole] ?? COLORS.parcelAvailable;
+    }
+    if (this.overlay === "developmentCode") {
+      const palette = [0x69a86b, 0x6fa8dc, 0xe0b04b, 0xd98f6a, 0x9b7ede, 0x4db6ac, 0xf2c14e];
+      let hash = 0;
+      for (let index = 0; index < parcel.developmentCodeId.length; index += 1) {
+        hash = (hash * 31 + parcel.developmentCodeId.charCodeAt(index)) >>> 0;
+      }
+      return palette[hash % palette.length]!;
+    }
+    if (this.overlay === "use") {
+      const use = parcel.currentUses[0] ?? parcel.allowedUses[0] ?? "residential";
+      const colors: Record<string, number> = {
+        residential: 0x69a86b,
+        retail: 0xe0b04b,
+        office: 0x6fa8dc,
+        industrial: 0x9b7ede,
+        civic: 0xf2c14e,
+        education: 0x4db6ac,
+        health: 0xd98f6a,
+        utility: 0x7f8fa6,
+      };
+      return colors[use] ?? COLORS.parcelAvailable;
     }
     if (
       this.overlay === "security" ||

@@ -15,6 +15,14 @@ import type { GroundPlan, GroundRoadMarking, GroundSurface } from "../visual-sli
 
 /** Tipos económicos sin geometría Blender homologable: se mantienen en el fallback procedural. */
 const INDUSTRIAL_TYPES: readonly string[] = ["cement_plant", "brickworks", "steelworks"];
+const CIVIC_TYPES: readonly string[] = [
+  "town_hall",
+  "school_block",
+  "clinic",
+  "police_station",
+  "fire_station",
+  "market_hall",
+];
 
 /**
  * Archetypes residenciales compatibles (huella 1×1 en el bundle Blender). Se listan ordenados para
@@ -571,7 +579,7 @@ export function planGameplayParkedVehicles(
  * procedural: una cementera nunca se dibuja como una vivienda sólo por variedad.
  */
 export function visualArchetypeForBuilding(domainType: string, stableId: string): string {
-  if (INDUSTRIAL_TYPES.includes(domainType)) return domainType;
+  if (INDUSTRIAL_TYPES.includes(domainType) || CIVIC_TYPES.includes(domainType)) return domainType;
   const candidates = domainType === "workshop" ? COMMERCIAL_ARCHETYPES : RESIDENTIAL_ARCHETYPES;
   const index = fnv1a32(`${domainType}|${stableId}`) % candidates.length;
   return candidates[index]!;
@@ -602,6 +610,13 @@ function surfaceForPublicSpace(kind: string): GroundSurface {
     : "grass";
 }
 
+function geometryCells(parcel: {
+  cell: GridCell;
+  cells?: readonly GridCell[];
+}): readonly GridCell[] {
+  return parcel.cells && parcel.cells.length > 0 ? parcel.cells : [parcel.cell];
+}
+
 /**
  * Plano de suelo derivado de estado real. Clasifica cada parcela según su zoning y si está
  * construida, en obra o vacía, y sólo aplica calzadas que ya vengan en `roadCells`. Las celdas sin
@@ -612,6 +627,7 @@ export function planGameplayGround(
   parcels: ReadonlyArray<{
     id: string;
     cell: GridCell;
+    cells?: readonly GridCell[];
     zoning: string;
     disposition?: "marketable" | "public" | "infrastructure";
     buildingId: string | null;
@@ -642,25 +658,32 @@ export function planGameplayGround(
           : "vacant";
 
   const sorted = [...parcels].sort((a, b) => a.cell.y - b.cell.y || a.cell.x - b.cell.x);
-  const parcelCells = new Set(sorted.map((parcel) => cellKey(parcel.cell)));
+  const parcelCells = new Set<string>();
+  for (const parcel of sorted) {
+    for (const cell of geometryCells(parcel)) parcelCells.add(cellKey(cell));
+  }
 
   for (const parcel of sorted) {
     const status = statusOf(parcel);
-    surfaces.set(cellKey(parcel.cell), surfaceForParcel(parcel.zoning, status));
+    for (const cell of geometryCells(parcel)) {
+      surfaces.set(cellKey(cell), surfaceForParcel(parcel.zoning, status));
+    }
     const apron = apronForParcel(parcel.zoning, status);
     if (!apron) continue;
-    for (const [dx, dy] of [
-      [1, 0],
-      [-1, 0],
-      [0, 1],
-      [0, -1],
-    ] as const) {
-      const neighbor = { x: parcel.cell.x + dx, y: parcel.cell.y + dy };
-      if (neighbor.x < 0 || neighbor.y < 0 || neighbor.x >= mapWidth || neighbor.y >= mapHeight)
-        continue;
-      const key = cellKey(neighbor);
-      if (parcelCells.has(key)) continue;
-      surfaces.set(key, apron);
+    for (const cell of geometryCells(parcel)) {
+      for (const [dx, dy] of [
+        [1, 0],
+        [-1, 0],
+        [0, 1],
+        [0, -1],
+      ] as const) {
+        const neighbor = { x: cell.x + dx, y: cell.y + dy };
+        if (neighbor.x < 0 || neighbor.y < 0 || neighbor.x >= mapWidth || neighbor.y >= mapHeight)
+          continue;
+        const key = cellKey(neighbor);
+        if (parcelCells.has(key)) continue;
+        surfaces.set(key, apron);
+      }
     }
   }
 
@@ -696,6 +719,7 @@ export function planGameplayDecorations(
   parcels: ReadonlyArray<{
     id: string;
     cell: GridCell;
+    cells?: readonly GridCell[];
     zoning: string;
     disposition?: "marketable" | "public" | "infrastructure";
     buildingId: string | null;
@@ -711,8 +735,10 @@ export function planGameplayDecorations(
   for (const parcel of parcels) {
     const built = parcel.buildingId || constructionParcelIds.has(parcel.id);
     if (!built) continue;
-    for (const [dx, dy] of NEIGHBOURS) {
-      blocked.add(`${parcel.cell.x + dx}:${parcel.cell.y + dy}`);
+    for (const cell of geometryCells(parcel)) {
+      for (const [dx, dy] of NEIGHBOURS) {
+        blocked.add(`${cell.x + dx}:${cell.y + dy}`);
+      }
     }
   }
 
@@ -784,7 +810,11 @@ export function gameplayGeometryKey(projection: ViewProjectionV2): string {
           : parcel.ownerOrganizationId
             ? "o"
             : "v";
-      return `${parcel.cell.x},${parcel.cell.y},${parcel.zoning},${parcel.disposition ?? "marketable"},${status}`;
+      const cells = (parcel.cells ?? [parcel.cell])
+        .map((cell) => `${cell.x},${cell.y}`)
+        .sort()
+        .join("+");
+      return `${cells},${parcel.zoning},${parcel.disposition ?? "marketable"},${status}`;
     })
     .sort();
   return fnv1a32(`${projection.map.roads.digest}|${parts.join("|")}`).toString(16);

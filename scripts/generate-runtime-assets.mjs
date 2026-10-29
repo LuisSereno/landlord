@@ -158,7 +158,11 @@ function buildingSvg(building, state) {
       `<rect x="61" y="10" width="6" height="20" fill="#8f7d5f"/><polygon points="58,10 64,2 70,10" fill="#b7a482"/></g>`;
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 112" width="128" height="112" role="img">${base.ground}${base.body}${civic}${scaffolding}${damage}${flames}</svg>`;
   }
-  if (building.type === "school_block" || building.type === "clinic" || building.type === "market_hall") {
+  if (
+    building.type === "school_block" ||
+    building.type === "clinic" ||
+    building.type === "market_hall"
+  ) {
     const sign =
       building.type === "school_block"
         ? `<g><rect x="92" y="24" width="3" height="30" fill="#6a5a45"/><polygon points="95,24 114,28 95,32" fill="#d97757"/></g>` +

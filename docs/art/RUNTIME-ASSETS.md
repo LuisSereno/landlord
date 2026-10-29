@@ -32,7 +32,10 @@ a `public/`.
 
 ## Contrato (`@landlord/shared`, `assets.ts`)
 
-- `RuntimeAssetManifestV1.schemaVersion = 1`.
+- `RuntimeAssetManifestV2.schemaVersion = 2` es el contrato del runtime. `RuntimeAssetManifestV1`
+  (`schemaVersion = 1`) sigue publicándose desde la cadena de Blender y entra por el mismo parser,
+  con conversión explícita (`fromRuntimeAssetManifestV1`): no hay rama silenciosa por versión y un
+  `schemaVersion` desconocido es un error (`RUNTIME_ASSET_MANIFEST_VERSION`).
 - `generator`: id, versión, método (`procedural_svg` o `blender_render`) y fuente.
 - `provenance`: licencia y autor. Los literales válidos son SPDX y salen de
   `blender_artist/manifests/license-allowlist.json` (`original`, `CC0-1.0`, `MIT`, `CC-BY-4.0`);
@@ -42,8 +45,13 @@ a `public/`.
   `attribution` (`sourceUrl`, `licenseUrl`, `attributionText`, `verifiedAt`, `licenseFileSha256`)
   es obligatorio y Zod rechaza sin él. `pnpm art:licenses:check` lo verifica en CI sobre los
   bundles publicados.
-- `buildings[type]`: huella (`footprint`), pivote normalizado 0..1 y cuatro estados obligatorios:
-  `complete`, `construction`, `damaged`, `burning`.
+- `buildings[type]`: huella dibujada (`footprint`), huella de dominio (`domainFootprint`, las celdas
+  de 4 m que ocupa el tipo en la simulación), pivote normalizado 0..1, cuatro estados obligatorios
+  (`complete`, `construction`, `damaged`, `burning`), `allowedOrientations` (subconjunto de 45/135/225/315)
+  y `symmetry` (`omni` exige las cuatro orientaciones; `none` obliga a declarar la frontal 45).
+  `validateRuntimeAssetManifestV2` devuelve la lista de incidencias y `buildingFrameForOrientation`
+  responde `null` ante un azimut no autorizado: el runtime no puede dibujar de lado una silueta
+  pintada de frente.
 - `characters[id]`: 4 u 8 direcciones y animaciones `idle`/`walk` con `frameDurationMs` y frames.
 - `AssetImageV1`: `src` (data URI o ruta), `width`, `height`, `sha256` del contenido fuente.
 
@@ -177,4 +185,10 @@ La factoría procedural incorpora seis formas cívicas originales (`town_hall`, 
 `original`. El manifiesto V1 pasa de 5 a 11 edificios y de 105.810 a 145.076 bytes, dentro del budget
 Alpha de 200 KB. El adapter mapea los tipos municipales a su asset propio; no hay modelos Blender
 específicos todavía. Las orientaciones de edificios asimétricos y una huella de dominio explícita
-por tipo quedan como deuda de Beta, no como cambio de contrato.
+por tipo quedaban como deuda de Beta. **Cerrado en V.d-H1 (§3)**: el bundle procedural es V2
+(`generator.version = 2`) y declara `domainFootprint`, `allowedOrientations` y `symmetry` por tipo;
+`assets.test.ts` comprueba que cada huella de dominio cuadra con `targetFootprintCells` del catálogo
+del motor y que el manifiesto valida sin incidencias. Los SVG cívicos no se sustituyeron ni se
+añadieron binarios: el manifiesto pasó de 145.076 a 146.759 bytes, dentro del budget de 200 KB. La
+conversión del bundle Blender (que su herramienta sigue publicando en V1) es explícita y está
+cubierta por `blender-assets.test.ts`.

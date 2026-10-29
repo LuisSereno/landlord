@@ -256,3 +256,174 @@ export const BUILDING_ASSET_STATES: readonly BuildingAssetState[] = [
   "damaged",
   "burning",
 ];
+
+/**
+ * RuntimeAssetManifestV2 (V.d.6 §3, cerrado en V.d-H1).
+ *
+ * V1 describe el dibujo: asset, estados, pivote y huella en celdas isométricas. Le faltaban las dos
+ * cosas que el motor necesita para no adivinar —qué huella de dominio representa ese dibujo y en qué
+ * orientaciones de cámara es legal mostrarlo— y la simetría, que es lo que permite a un asset
+ * cuadrado servirse de cualquier azimut mientras uno asimétrico sólo vale de frente.
+ */
+export const BUILDING_ORIENTATIONS = [45, 135, 225, 315] as const;
+export type BuildingOrientation = (typeof BUILDING_ORIENTATIONS)[number];
+
+/**
+ * `omni`  — todas las orientaciones producen la misma silueta (asset cuadrado y sin fachada única).
+ * `mirror` — el frame declarado vale también para su espejo en X.
+ * `none`   — el asset sólo puede mostrarse en las orientaciones que enumera.
+ */
+export const ASSET_SYMMETRIES = ["omni", "mirror", "none"] as const;
+export type AssetSymmetry = (typeof ASSET_SYMMETRIES)[number];
+
+export type BuildingAssetV2 = {
+  type: string;
+  name: string;
+  /** Celdas isométricas que pinta el sprite: manda en el depth y en el anclaje visual. */
+  footprint: { width: number; height: number };
+  /** Celdas de 4 m que ocupa el tipo en la simulación. Es lo que el dibujo representa. */
+  domainFootprint: { width: number; height: number };
+  pivot: { x: number; y: number };
+  states: Record<BuildingAssetState, AssetImageV1>;
+  pixelsPerMeter?: number;
+  provenance?: AssetProvenanceV1;
+  /** Azimuts de cámara en los que este asset es legal. El runtime no puede inventar otros. */
+  allowedOrientations: BuildingOrientation[];
+  symmetry: AssetSymmetry;
+  /** Frames adicionales por azimut; sólo pueden declararse orientaciones permitidas. */
+  orientations?: Record<string, SceneryFrameV1>;
+};
+
+export type RuntimeAssetManifestV2 = {
+  schemaVersion: 2;
+  generator: RuntimeAssetManifestV1["generator"];
+  provenance: AssetProvenanceV1;
+  buildings: Record<string, BuildingAssetV2>;
+  characters: Record<string, CharacterAssetV1>;
+  terrain?: Record<string, SceneryAssetV1>;
+  props?: Record<string, SceneryAssetV1>;
+  vehicles?: Record<string, SceneryAssetV1>;
+};
+
+export const buildingAssetV2Schema = buildingAssetSchema.extend({
+  domainFootprint: z.object({
+    width: z.number().int().positive().max(8),
+    height: z.number().int().positive().max(8),
+  }),
+  allowedOrientations: z
+    .array(z.union([z.literal(45), z.literal(135), z.literal(225), z.literal(315)]))
+    .min(1),
+  symmetry: z.enum(ASSET_SYMMETRIES),
+  orientations: z.record(z.string(), sceneryFrameSchema).optional(),
+});
+
+export const runtimeAssetManifestV2Schema = z.object({
+  schemaVersion: z.literal(2),
+  generator: runtimeAssetManifestV1Schema.shape.generator,
+  provenance: assetProvenanceSchema,
+  buildings: z.record(z.string(), buildingAssetV2Schema),
+  characters: z.record(z.string(), characterAssetSchema),
+  terrain: z.record(z.string(), sceneryAssetSchema).optional(),
+  props: z.record(z.string(), sceneryAssetSchema).optional(),
+  vehicles: z.record(z.string(), sceneryAssetSchema).optional(),
+});
+
+/**
+ * Conversión V1 → V2, explícita y sin ramas silenciosas. Un manifiesto V1 nunca declaró orientación
+ * legal: sólo se dibujó a 45°, así que eso es lo que se le puede garantizar. La huella de dominio de
+ * un asset V1 se desconoce, y `footprint` es lo único que se puede afirmar de él; la validación
+ * posterior es la que denuncia los tipos cuyo dominio real es más ancho.
+ */
+export function fromRuntimeAssetManifestV1(
+  manifest: RuntimeAssetManifestV1,
+): RuntimeAssetManifestV2 {
+  return {
+    schemaVersion: 2,
+    generator: manifest.generator,
+    provenance: manifest.provenance,
+    characters: manifest.characters,
+    ...(manifest.terrain ? { terrain: manifest.terrain } : {}),
+    ...(manifest.props ? { props: manifest.props } : {}),
+    ...(manifest.vehicles ? { vehicles: manifest.vehicles } : {}),
+    buildings: Object.fromEntries(
+      Object.entries(manifest.buildings).map(([key, asset]) => [
+        key,
+        {
+          ...asset,
+          domainFootprint: { ...asset.footprint },
+          allowedOrientations: [45] as BuildingOrientation[],
+          symmetry: "none" as AssetSymmetry,
+        },
+      ]),
+    ),
+  };
+}
+
+/** Punto único de entrada: un `schemaVersion` desconocido es un error, no una rama por defecto. */
+export function parseRuntimeAssetManifest(value: unknown): RuntimeAssetManifestV2 {
+  const declared =
+    typeof value === "object" && value !== null && "schemaVersion" in value
+      ? (value as { schemaVersion?: unknown }).schemaVersion
+      : undefined;
+  if (declared === 2)
+    return runtimeAssetManifestV2Schema.parse(value) as unknown as RuntimeAssetManifestV2;
+  if (declared === 1)
+    return runtimeAssetManifestV2Schema.parse(
+      fromRuntimeAssetManifestV1(
+        runtimeAssetManifestV1Schema.parse(value) as unknown as RuntimeAssetManifestV1,
+      ),
+    ) as unknown as RuntimeAssetManifestV2;
+  throw new Error(
+    `RUNTIME_ASSET_MANIFEST_VERSION: se esperaba schemaVersion 1 o 2 y el manifiesto declara ${String(declared)}`,
+  );
+}
+
+/**
+ * Comprobaciones de contrato que el runtime no puede asumir. Devuelve la lista de incidencias en
+ * orden canónico: vacío significa que el manifiesto es dibujable sin adivinar nada.
+ */
+export function validateRuntimeAssetManifestV2(manifest: RuntimeAssetManifestV2): string[] {
+  const issues: string[] = [];
+  for (const [key, asset] of Object.entries(manifest.buildings).sort(([left], [right]) =>
+    left.localeCompare(right),
+  )) {
+    if (asset.type !== key) issues.push(`${key}: type no coincide con la clave del catálogo`);
+    for (const state of BUILDING_ASSET_STATES)
+      if (!asset.states[state]) issues.push(`${key}: falta el estado ${state}`);
+    if (asset.footprint.width < 1 || asset.footprint.height < 1)
+      issues.push(`${key}: huella de sprite inválida`);
+    if (asset.domainFootprint.width < 1 || asset.domainFootprint.height < 1)
+      issues.push(`${key}: huella de dominio inválida`);
+    const allowed = new Set<number>(asset.allowedOrientations);
+    if (allowed.size !== asset.allowedOrientations.length)
+      issues.push(`${key}: orientaciones permitidas duplicadas`);
+    if (asset.symmetry === "omni" && allowed.size !== BUILDING_ORIENTATIONS.length)
+      issues.push(`${key}: simetría omni exige las cuatro orientaciones`);
+    if (asset.symmetry === "none" && !allowed.has(45))
+      issues.push(`${key}: un asset asimétrico debe poder dibujarse de frente (45°)`);
+    for (const frame of Object.keys(asset.orientations ?? {})) {
+      const azimuth = Number(frame);
+      if (!BUILDING_ORIENTATIONS.includes(azimuth as BuildingOrientation))
+        issues.push(`${key}: frame en orientación inexistente ${frame}`);
+      else if (!allowed.has(azimuth)) issues.push(`${key}: frame en ${frame} no está permitido`);
+    }
+  }
+  return issues;
+}
+
+/**
+ * El runtime pregunta aquí en vez de asumir. Un `null` significa "no dibujes este asset desde este
+ * azimut": la alternativa sería mostrar de lado un edificio pintado de frente.
+ */
+export function buildingFrameForOrientation(
+  asset: BuildingAssetV2,
+  azimuth: number,
+): SceneryFrameV1 | null {
+  if (!asset.allowedOrientations.includes(azimuth as BuildingOrientation)) return null;
+  const frame = asset.orientations?.[String(azimuth)];
+  if (frame) return frame;
+  /** `mirror` comparte silueta con su espejo; el resto de azimuts no tiene frame que ofrecer. */
+  if (azimuth === 45 || asset.symmetry === "omni" || asset.symmetry === "mirror")
+    return { image: asset.states.complete, pivot: asset.pivot };
+  return null;
+}

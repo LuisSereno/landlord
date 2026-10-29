@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { RuntimeAssetManifestV1 } from "@landlord/shared";
+import { parseRuntimeAssetManifest, type RuntimeAssetManifestV2 } from "@landlord/shared";
 import blenderBundle from "../generated/runtime-assets-blender.json";
 import {
   AVENUE_X,
@@ -13,7 +13,7 @@ import {
   roadCells,
 } from "./layout";
 
-const BUNDLE = blenderBundle as unknown as RuntimeAssetManifestV1;
+const BUNDLE: RuntimeAssetManifestV2 = parseRuntimeAssetManifest(blenderBundle);
 
 function key(cell: { x: number; y: number }): string {
   return `${cell.x}:${cell.y}`;

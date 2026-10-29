@@ -20,66 +20,88 @@ const BUILDINGS = [
     type: "courtyard_home",
     name: "Patio compacto",
     footprint: [1, 1],
+    // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS).
+    domain: [2, 2],
     palette: ["#c9a77c", "#a9855f", "#8c6a4a"],
   },
   {
     type: "workshop",
     name: "Taller de barrio",
     footprint: [1, 1],
+    // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS).
+    domain: [2, 4],
     palette: ["#b9a88f", "#937f66", "#75634d"],
   },
   {
     type: "cement_plant",
     name: "Planta de cemento",
     footprint: [2, 2],
+    // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS).
+    domain: [2, 5],
     palette: ["#aeb6bd", "#8a939c", "#6d757d"],
   },
   {
     type: "brickworks",
     name: "Ladrillera",
     footprint: [2, 1],
+    // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS).
+    domain: [2, 5],
     palette: ["#c28a72", "#a06a54", "#80523f"],
   },
   {
     type: "steelworks",
     name: "Acería",
     footprint: [2, 2],
+    // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS).
+    domain: [3, 4],
     palette: ["#9aa4ae", "#77818c", "#5b636c"],
   },
   {
     type: "town_hall",
     name: "Ayuntamiento",
     footprint: [2, 2],
+    // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS).
+    domain: [3, 4],
     palette: ["#d8c9a8", "#b7a482", "#8f7d5f"],
   },
   {
     type: "school_block",
     name: "Colegio",
     footprint: [2, 1],
+    // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS).
+    domain: [2, 7],
     palette: ["#cfb18a", "#a98b66", "#82684c"],
   },
   {
     type: "clinic",
     name: "Clínica",
     footprint: [1, 1],
+    // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS).
+    domain: [2, 3],
     palette: ["#dfe6e4", "#b8c7c4", "#8da19d"],
   },
   {
     type: "police_station",
     name: "Comisaría",
     footprint: [1, 1],
+    // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS).
+    domain: [2, 3],
     palette: ["#aebfd0", "#879caf", "#667d91"],
   },
   {
     type: "fire_station",
     name: "Parque de bomberos",
     footprint: [2, 1],
+    // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS).
+    domain: [2, 4],
     palette: ["#c98f7f", "#a56d5f", "#7e5045"],
   },
   {
     type: "market_hall",
     name: "Mercado",
     footprint: [2, 1],
+    // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS).
+    domain: [2, 5],
     palette: ["#d8b67a", "#b18e58", "#876a40"],
   },
 ];
@@ -248,8 +270,17 @@ function buildManifest() {
       type: building.type,
       name: building.name,
       footprint: { width: building.footprint[0], height: building.footprint[1] },
+      /** Huella de dominio: lo que el dibujo representa, no lo que el sprite pinta. */
+      domainFootprint: { width: building.domain[0], height: building.domain[1] },
       pivot: { x: 0.5, y: 0.93 },
       states,
+      /**
+       * La silueta procedural se dibuja desde un único azimut y su cubierta no es simétrica: no se
+       * puede ofrecer de lado sin redibujarla. V2 lo declara en vez de dejar que el runtime lo
+       * adivine (V.d.6 §3).
+       */
+      allowedOrientations: [45],
+      symmetry: "none",
     };
   }
   const characters = {};
@@ -272,10 +303,10 @@ function buildManifest() {
     };
   }
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     generator: {
       id: "procedural-building-character-factory",
-      version: 1,
+      version: 2,
       method: "procedural_svg",
       source: "scripts/generate-runtime-assets.mjs",
     },
@@ -308,7 +339,19 @@ if (process.argv.includes("--check")) {
     console.error(`falta ${OUTPUT}; ejecuta el generador`);
     process.exit(1);
   }
-  if (committed !== serialized) {
+  /**
+   * Comparación semántica, no byte a byte: el fichero versionado pasa por Prettier, que colapsa los
+   * arrays de un solo elemento. Lo que tiene que ser determinista es el contenido —claves, orden,
+   * hashes—, no el guión de formato del repositorio.
+   */
+  let parsedCommitted = null;
+  try {
+    parsedCommitted = JSON.parse(committed);
+  } catch {
+    console.error(`el manifiesto versionado no es JSON válido: ${OUTPUT}`);
+    process.exit(1);
+  }
+  if (JSON.stringify(parsedCommitted) !== JSON.stringify(manifest)) {
     console.error(
       "el manifiesto versionado no coincide con la factoría; regenera y revisa el diff",
     );

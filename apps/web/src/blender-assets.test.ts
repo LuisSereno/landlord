@@ -3,7 +3,12 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { runtimeAssetManifestV1Schema, type RuntimeAssetManifestV1 } from "@landlord/shared";
+import {
+  parseRuntimeAssetManifest,
+  runtimeAssetManifestV1Schema,
+  validateRuntimeAssetManifestV2,
+  type RuntimeAssetManifestV1,
+} from "@landlord/shared";
 import blenderBundle from "./generated/runtime-assets-blender.json";
 
 const PUBLIC_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..", "public");
@@ -23,6 +28,17 @@ describe("WP4.15-H ruta Blender E2E", () => {
     expect(bundle.buildings["courtyard_home"]!.states).toHaveProperty("complete");
     expect(bundle.buildings["bld_shopfront"]!.states).toHaveProperty("complete");
     expect(bundle.characters["vecino_variante"]!.directions).toBe(4);
+  });
+
+  it("el bundle V1 de la herramienta entra por el parser y valida como V2", () => {
+    /** La cadena de Blender sigue publicando V1: la conversión es explícita, no una rama silenciosa. */
+    const converted = parseRuntimeAssetManifest(blenderBundle);
+    expect(converted.schemaVersion).toBe(2);
+    expect(validateRuntimeAssetManifestV2(converted)).toEqual([]);
+    for (const asset of Object.values(converted.buildings)) {
+      expect(asset.allowedOrientations).toEqual([45]);
+      expect(asset.domainFootprint).toEqual(asset.footprint);
+    }
   });
 
   it("cubre los cuatro estados del edificio y las cuatro direcciones del personaje", () => {

@@ -1,10 +1,12 @@
 import Phaser from "phaser";
-import type {
-  BuildingAssetState,
-  BuildingAssetV1,
-  RuntimeAssetManifestV1,
-  SceneryAssetV1,
-  ViewProjectionV2,
+import {
+  buildingFrameForOrientation,
+  parseRuntimeAssetManifest,
+  type BuildingAssetState,
+  type BuildingAssetV1,
+  type RuntimeAssetManifestV2,
+  type SceneryAssetV1,
+  type ViewProjectionV2,
 } from "@landlord/shared";
 import runtimeAssets from "../generated/runtime-assets.json";
 import runtimeAssetsBlender from "../generated/runtime-assets-blender.json";
@@ -67,8 +69,14 @@ const ROAD_MARKING_DEPTH = TERRAIN_DEPTH + 250;
  * contorno ámbar es presentación y sólo aparece en el Visual Slice.
  */
 const CONSTRUCTION_SITE_DEPTH = TERRAIN_DEPTH + 300;
-const ASSETS = runtimeAssets as RuntimeAssetManifestV1;
-const ASSETS_BLENDER = runtimeAssetsBlender as RuntimeAssetManifestV1;
+/**
+ * Los dos bundles entran por el mismo parser: el procedural ya es V2 y el de Blender sigue siendo V1,
+ * que se convierte de forma explícita. Aquí no hay rama silenciosa por versión.
+ */
+const ASSETS = parseRuntimeAssetManifest(runtimeAssets);
+const ASSETS_BLENDER = parseRuntimeAssetManifest(runtimeAssetsBlender);
+/** Azimut fijo de la cámara isométrica del juego. Un asset que no lo declare no se dibuja. */
+const SCENE_AZIMUTH = 45;
 
 /** Las piezas Kenney están modeladas a escala pequeña; el slice las lleva a presencia de calle. */
 const SLICE_BUILDING_SCALE = 1.45;
@@ -778,7 +786,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   }
 
   private async registerTexturesFromBundle(
-    manifest: RuntimeAssetManifestV1,
+    manifest: RuntimeAssetManifestV2,
     keyPrefix: string,
   ): Promise<void> {
     for (const [type, asset] of Object.entries(manifest.buildings)) {
@@ -1107,14 +1115,26 @@ export class IsometricSpikeScene extends Phaser.Scene {
   ): { key: string; asset: BuildingAssetV1 } | null {
     const blenderKey = `blender-building-${archetype}-${state}`;
     const blenderAsset = ASSETS_BLENDER.buildings[archetype];
-    if (blenderAsset && this.textures.exists(blenderKey)) {
+    if (
+      blenderAsset &&
+      this.textures.exists(blenderKey) &&
+      buildingFrameForOrientation(blenderAsset, SCENE_AZIMUTH)
+    ) {
       return { key: blenderKey, asset: blenderAsset };
     }
     const proceduralKey = spriteKeyFor(domainType, state);
     const proceduralAsset = ASSETS.buildings[domainType];
-    if (proceduralAsset && this.textures.exists(proceduralKey)) {
+    if (
+      proceduralAsset &&
+      this.textures.exists(proceduralKey) &&
+      buildingFrameForOrientation(proceduralAsset, SCENE_AZIMUTH)
+    ) {
       return { key: proceduralKey, asset: proceduralAsset };
     }
+    /**
+     * Sin frame legal para el azimut de la escena no se dibuja el edificio: mostrar de lado una
+     * silueta pintada de frente sería inventarse una orientación que el manifiesto no autoriza.
+     */
     return null;
   }
 

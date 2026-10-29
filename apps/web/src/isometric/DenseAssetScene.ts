@@ -1,5 +1,10 @@
 import Phaser from "phaser";
-import type { BuildingAssetState, BuildingType, RuntimeAssetManifestV1 } from "@landlord/shared";
+import {
+  parseRuntimeAssetManifest,
+  type BuildingAssetState,
+  type BuildingType,
+  type RuntimeAssetManifestV2,
+} from "@landlord/shared";
 import runtimeAssets from "../generated/runtime-assets.json";
 import blenderBundle from "../generated/runtime-assets-blender.json";
 import { depthForAsset, originFromPivot, spriteKeyFor } from "./building-sprites";
@@ -14,8 +19,8 @@ declare global {
   }
 }
 
-const ASSETS = runtimeAssets as RuntimeAssetManifestV1;
-const BLENDER = blenderBundle as unknown as RuntimeAssetManifestV1;
+const ASSETS: RuntimeAssetManifestV2 = parseRuntimeAssetManifest(runtimeAssets);
+const BLENDER: RuntimeAssetManifestV2 = parseRuntimeAssetManifest(blenderBundle);
 
 const STATE_ORDER: readonly BuildingAssetState[] = [
   "complete",

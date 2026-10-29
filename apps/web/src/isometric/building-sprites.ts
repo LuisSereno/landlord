@@ -2,10 +2,11 @@ import {
   type AssetImageV1,
   type BuildingAssetState,
   type BuildingAssetV1,
+  type BuildingAssetV2,
   type CharacterAnimation,
   type CharacterAssetV1,
   type GridCell,
-  type RuntimeAssetManifestV1,
+  type RuntimeAssetManifestV2,
 } from "@landlord/shared";
 
 /**
@@ -91,7 +92,7 @@ export function animationFrameFor(
   return frames[index]!;
 }
 
-export function assetFor(manifest: RuntimeAssetManifestV1, type: string): BuildingAssetV1 | null {
+export function assetFor(manifest: RuntimeAssetManifestV2, type: string): BuildingAssetV2 | null {
   return manifest.buildings[type] ?? null;
 }
 

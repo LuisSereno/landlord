@@ -1,8 +1,8 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "generator": {
     "id": "procedural-building-character-factory",
-    "version": 1,
+    "version": 2,
     "method": "procedural_svg",
     "source": "scripts/generate-runtime-assets.mjs"
   },
@@ -18,6 +18,10 @@
       "footprint": {
         "width": 1,
         "height": 1
+      },
+      "domainFootprint": {
+        "width": 2,
+        "height": 2
       },
       "pivot": {
         "x": 0.5,
@@ -48,7 +52,9 @@
           "height": 112,
           "sha256": "72771307caf80906f792112e96e5b8e1c032df1e4d2148449ca6fec332caa6ff"
         }
-      }
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
     },
     "workshop": {
       "type": "workshop",
@@ -56,6 +62,10 @@
       "footprint": {
         "width": 1,
         "height": 1
+      },
+      "domainFootprint": {
+        "width": 2,
+        "height": 4
       },
       "pivot": {
         "x": 0.5,
@@ -86,7 +96,9 @@
           "height": 112,
           "sha256": "68e1725c2a71aee6e57665e1e9e9ed882ac0b4698ac9cc0641916256a04bfdab"
         }
-      }
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
     },
     "cement_plant": {
       "type": "cement_plant",
@@ -94,6 +106,10 @@
       "footprint": {
         "width": 2,
         "height": 2
+      },
+      "domainFootprint": {
+        "width": 2,
+        "height": 5
       },
       "pivot": {
         "x": 0.5,
@@ -124,7 +140,9 @@
           "height": 112,
           "sha256": "f2c94198434b2da9a6c074f1668ef66f88cb386b7d7681e6244392c3808abd13"
         }
-      }
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
     },
     "brickworks": {
       "type": "brickworks",
@@ -132,6 +150,10 @@
       "footprint": {
         "width": 2,
         "height": 1
+      },
+      "domainFootprint": {
+        "width": 2,
+        "height": 5
       },
       "pivot": {
         "x": 0.5,
@@ -162,7 +184,9 @@
           "height": 112,
           "sha256": "eb5c150a201da949fe764d1fea583e28b5965e5e03b89af9488718f181c069bd"
         }
-      }
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
     },
     "steelworks": {
       "type": "steelworks",
@@ -170,6 +194,10 @@
       "footprint": {
         "width": 2,
         "height": 2
+      },
+      "domainFootprint": {
+        "width": 3,
+        "height": 4
       },
       "pivot": {
         "x": 0.5,
@@ -200,7 +228,9 @@
           "height": 112,
           "sha256": "38ac7c56104c0b1c9a29cd21986a26933995fd471d59b585685d46e57df40ecd"
         }
-      }
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
     },
     "town_hall": {
       "type": "town_hall",
@@ -208,6 +238,10 @@
       "footprint": {
         "width": 2,
         "height": 2
+      },
+      "domainFootprint": {
+        "width": 3,
+        "height": 4
       },
       "pivot": {
         "x": 0.5,
@@ -238,7 +272,9 @@
           "height": 112,
           "sha256": "d47144eb69e454c1d9e31362dcf9a881a3c0ea3bcee22d1193bedcfe4b6e125f"
         }
-      }
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
     },
     "school_block": {
       "type": "school_block",
@@ -246,6 +282,10 @@
       "footprint": {
         "width": 2,
         "height": 1
+      },
+      "domainFootprint": {
+        "width": 2,
+        "height": 7
       },
       "pivot": {
         "x": 0.5,
@@ -276,7 +316,9 @@
           "height": 112,
           "sha256": "bd93b8f3f28dc9082ed1fa91ee4507fac84f8aa4407d2c417ad445b9e5daba9c"
         }
-      }
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
     },
     "clinic": {
       "type": "clinic",
@@ -284,6 +326,10 @@
       "footprint": {
         "width": 1,
         "height": 1
+      },
+      "domainFootprint": {
+        "width": 2,
+        "height": 3
       },
       "pivot": {
         "x": 0.5,
@@ -314,7 +360,9 @@
           "height": 112,
           "sha256": "9729975f94cc773c854de66704ec320febf93f657e91c3bc61fc61e2641342e2"
         }
-      }
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
     },
     "police_station": {
       "type": "police_station",
@@ -322,6 +370,10 @@
       "footprint": {
         "width": 1,
         "height": 1
+      },
+      "domainFootprint": {
+        "width": 2,
+        "height": 3
       },
       "pivot": {
         "x": 0.5,
@@ -352,7 +404,9 @@
           "height": 112,
           "sha256": "86cd1e9705f7e7ecd05b55ceac1a59bea97c8a9d30362ba5d6ad3093c1e17c21"
         }
-      }
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
     },
     "fire_station": {
       "type": "fire_station",
@@ -360,6 +414,10 @@
       "footprint": {
         "width": 2,
         "height": 1
+      },
+      "domainFootprint": {
+        "width": 2,
+        "height": 4
       },
       "pivot": {
         "x": 0.5,
@@ -390,7 +448,9 @@
           "height": 112,
           "sha256": "33c05f3e276950f69fef113a36be701f157968f3c38628dfaec905b148837669"
         }
-      }
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
     },
     "market_hall": {
       "type": "market_hall",
@@ -398,6 +458,10 @@
       "footprint": {
         "width": 2,
         "height": 1
+      },
+      "domainFootprint": {
+        "width": 2,
+        "height": 5
       },
       "pivot": {
         "x": 0.5,
@@ -428,7 +492,9 @@
           "height": 112,
           "sha256": "67c6e81deebe750edf0c732bb7c5cc75606d50f459dffe0d11c4d41b237b8217"
         }
-      }
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
     }
   },
   "characters": {

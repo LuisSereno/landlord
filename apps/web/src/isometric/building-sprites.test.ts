@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import type { BuildingAssetV1, RuntimeAssetManifestV1 } from "@landlord/shared";
+import {
+  parseRuntimeAssetManifest,
+  type BuildingAssetV1,
+  type RuntimeAssetManifestV2,
+} from "@landlord/shared";
 import runtimeAssets from "../generated/runtime-assets.json";
 import {
   animationFrameFor,
@@ -16,13 +20,13 @@ import {
   spriteScaleFor,
 } from "./building-sprites";
 
-const ASSETS = runtimeAssets as RuntimeAssetManifestV1;
+const ASSETS = parseRuntimeAssetManifest(runtimeAssets);
 
 const manifest = {
   buildings: {
     courtyard_home: { pivot: { x: 0.5, y: 0.93 } },
   },
-} as unknown as RuntimeAssetManifestV1;
+} as unknown as RuntimeAssetManifestV2;
 
 /** La factoría dibuja la cara desplazada según la dirección: así se comprueba el frame real. */
 function headCx(frameSrc: string): number {

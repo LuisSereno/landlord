@@ -191,6 +191,14 @@ saturación por facility y overlays de servicios. 376 tests de simulación verde
 43,30 ms y 64 campañas jugables sin dominancia. El arranque frío del grafo (~312 ms una vez) queda
 como deuda de carga para V.d.6.
 
+**V.d.6 está cerrada el 2026-10-29**
+(`docs/execution/phase-4/vd6-presentacion-dressing-2026-10-29.md`). El adapter pinta parcelas
+multi-cell y resuelve picking por cualquier celda a un único `ParcelId`; la factoría añade seis
+formas cívicas originales y el manifiesto V1 queda en 145 KB. La capa de mapa incorpora uso, código
+urbanístico y rol urbano, y seis capturas golden documentan centro cívico, HUD oculto, residencial,
+industria, valor y densidad. Web 92 tests, build y smoke verdes. Queda como deuda de Beta el
+`RuntimeAssetManifestV2` con orientaciones de edificios asimétricos y huella de dominio explícita.
+
 WP4.15-V.c.2C-H y V.c.3A/B/C están cerrados: lint, contratos, harnesses, documentación y el 404 de
 favicon quedan corregidos; las T e intersecciones publicadas reciben pasos de peatones discretos,
 derivados de la máscara vial real; el dressing estático añade farolas, semáforos sólo en

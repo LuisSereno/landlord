@@ -1148,3 +1148,12 @@ y valor. La proyección publica cobertura por parcela, saturación por facility 
 seguridad, bomberos, salud, educación y transporte. El arranque frío del grafo cuesta ~312 ms una vez
 y queda como deuda; el cierre maduro baja a p95 43,30 ms. Gate en
 `docs/execution/phase-4/vd5-servicios-espaciales-2026-10-29.md`.
+
+**Implementación V.d.6 (2026-10-29).** El adapter pinta todas las celdas de la parcela, la clave de
+geometría incluye el conjunto completo y el picking resuelve cualquier celda a un único `ParcelId`.
+La factoría procedural añade seis formas cívicas originales (ayuntamiento, colegio, clínica,
+comisaría, bomberos y mercado) y el manifiesto V1 queda en 145.076 bytes, bajo el budget Alpha; las
+orientaciones de edificios asimétricos y la huella de dominio explícita quedan como deuda de Beta.
+La capa de mapa añade uso, código urbanístico y rol urbano; las capturas golden viven en
+`docs/art/golden/vd6/`. Evidencia en
+`docs/execution/phase-4/vd6-presentacion-dressing-2026-10-29.md`.

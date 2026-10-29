@@ -1784,6 +1784,8 @@ function Metric({ label, value }: { label: string; value: string | number }) {
 function ownershipLabel(ownerOrganizationId: string | null): string {
   if (ownerOrganizationId === "org_00000001") return "Tu organización";
   if (ownerOrganizationId === "org_00000002") return "Rival";
+  /** El suelo público pertenece al ayuntamiento: llamarlo "Disponible" invitaba a comprarlo. */
+  if (ownerOrganizationId === "org_00000004") return "Ayuntamiento";
   return "Disponible";
 }
 

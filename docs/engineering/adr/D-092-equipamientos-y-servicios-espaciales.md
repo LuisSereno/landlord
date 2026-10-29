@@ -132,3 +132,46 @@ sea exacta antes que aproximada: una caché con clave incorrecta es más rápida
 - Política de equipamientos jugable: el municipio no es un rol del jugador en V.d.
 - Coste de mantenimiento de los edificios municipales en la caja del municipio: entra como gasto
   ordinario del presupuesto existente (D-068), sin fondo nuevo.
+
+## Implementación V.d.3 (2026-10-29)
+
+El programa exacto vive en `municipal-program.ts` como receta por perfil de distrito: 14
+equipamientos (1 ayuntamiento, 3 escuelas, 3 clínicas, 2 comisarías, 2 parques de bomberos, 3
+mercados) y 7 espacios públicos (1 plaza, 6 parques). El generador reserva **una manzana completa
+por entrada** antes de subdividir el suelo privado, eligiendo la más cercana al centro cívico entre
+las que tienen frente vial; una manzana sin frente pasa a terreno bloqueado. Si el programa no cabe,
+el intento se rechaza y el distrito se regenera con la seed de intento, como exige la decisión 4.
+
+Cada equipamiento produce:
+
+- una `Parcel` con `disposition: "public"`, precio 0, propietario el municipio, código
+  institucional (comercial para mercados), `currentUses` con su uso primario y frentes viales;
+- un `Building` municipal con huella autocolocada por `chooseFootprint`, tipo del catálogo,
+  orientación, plantas y forma;
+- una `UrbanFacility` que enlaza ambos, con capacidad y `serviceProfileId` por tipo.
+
+Las parcelas públicas quedan exentas de los mínimos dimensionales de la oferta privada —una parcela
+de equipamiento no es una parcela en venta— pero no del frente vial. Los espacios públicos son
+manzanas completas con `blockId: null` y operador municipal; su selección exige adyacencia a la red,
+así que son alcanzables desde el tick uno.
+
+Los comandos rechazan el suelo público con códigos propios: `PUBLIC_LAND_NOT_FOR_SALE`,
+`PUBLIC_LAND_NOT_TRANSFERABLE`, `PUBLIC_LAND_NOT_COLLATERAL` y `PUBLIC_LAND_NOT_BUILDABLE`; los
+tipos municipales se rechazan además en `isUseAllowed`. La subasta no necesita un rechazo nuevo:
+sólo ejecuta garantías de préstamos y una parcela pública no puede ser garantía. `SnapshotV2`
+valida distrito, operador, parcelas, edificios, espacios y ausencia de edificios compartidos entre
+equipamientos.
+
+La proyección publica el programa del distrito observado con sus celdas de acceso vial; el inspector
+las muestra como origen de la cobertura futura. En el mapa, las parcelas municipales llevan contorno
+cívico y las plazas/parques se pavimentan o se pintan verdes desde sus celdas, de modo que el
+programa se localiza sin depender del panel. La cobertura por grafo, la saturación de capacidad y
+el cierre de gateways siguen siendo V.d.5. Hasta entonces los edificios municipales se excluyen del
+stock privado de vivienda, del balance y de los costes de servicio para no adelantar reglas de esa
+fase. El mantenimiento ordinario de los edificios municipales en la caja municipal que menciona
+"No decide" **no se cobra todavía**: queda registrado como deuda explícita de V.d.5.
+
+Ajuste declarado: reservar manzanas enteras reduce la mezcla privada. El barrido de 100 seeds midió
+máximos de 66,0 % (Vega), 61,5 % (Mercado del Norte) y 60,0 % (Centro Cívico); los techos de
+concentración se fijaron en 70/68/65 respectivamente y el resto conserva los de V.d.1. Vega declara
+mínimo mixto 0 porque su receta verde/baja densidad no produce manzanas mixtas.

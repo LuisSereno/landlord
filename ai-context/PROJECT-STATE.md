@@ -1,6 +1,6 @@
 # Estado actual
 
-Fecha de consolidación: 2026-10-27.
+Fecha de consolidación: 2026-10-29.
 
 ## Repositorio
 - Inicializado.
@@ -154,6 +154,19 @@ y frentes compartidos y la automatización no traslada agentes: deja una excepci
 comprar → permiso → construir → ocupar → cobrar está verde en los nueve distritos; los saves v2
 anteriores se rechazan por nombre. El cierre mensual sigue en p95 ~34,3 ms y es deuda de rendimiento
 para V.d.3/V.d.4.
+
+**V.d.3 está cerrada el 2026-10-29**
+(`docs/execution/phase-4/vd3-ciudad-civica-2026-10-29.md`). La ciudad nace con el programa municipal
+exacto de §4.4: 14 equipamientos (ayuntamiento, 3 escuelas, 3 clínicas, 2 comisarías, 2 parques de
+bomberos y 3 mercados), 7 espacios públicos (1 plaza y 6 parques), 14 parcelas públicas y 14
+edificios municipales. El generador reserva manzanas enteras antes de subdividir, exige frente vial y
+falla el intento si el programa no cabe; las parcelas públicas son intransferibles, no admiten
+garantía ni obra empresarial y los espacios públicos son reservas reales, no decoración. La
+proyección y el inspector muestran función, capacidad, operador, edificios, parcelas y celdas de
+acceso para la cobertura futura. El barrido de 900 distritos sigue verde (73.289 parcelas, generación
+p95 169,54 ms, red p95 2,65 ms) con techos de mezcla ajustados a la baja tras medir los máximos
+reales. La cobertura por grafo, la saturación de capacidad y el mantenimiento municipal quedan como
+deuda de V.d.5.
 
 WP4.15-V.c.2C-H y V.c.3A/B/C están cerrados: lint, contratos, harnesses, documentación y el 404 de
 favicon quedan corregidos; las T e intersecciones publicadas reciben pasos de peatones discretos,

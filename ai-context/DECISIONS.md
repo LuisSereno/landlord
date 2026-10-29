@@ -1110,3 +1110,18 @@ declaradas: transporte es accesibilidad de red, limpieza sigue siendo red munici
 administración no usa radio; (8) la calidad presupuestaria multiplica la capacidad efectiva y la
 demanda se asigna en orden estable al alcanzable de menor coste, sin coste monetario inventado. Ver
 `docs/engineering/adr/D-092-equipamientos-y-servicios-espaciales.md`.
+
+**Implementación V.d.3 (2026-10-29).** El programa exacto de §4.4 se declara por receta en
+`municipal-program.ts`: 14 equipamientos (1 ayuntamiento, 3 escuelas, 3 clínicas, 2 comisarías, 2
+parques de bomberos, 3 mercados) y 7 espacios públicos (1 plaza, 6 parques). El generador reserva una
+manzana entera por entrada antes de subdividir; la manzana debe tocar la red y una sin frente pasa a
+terreno bloqueado. Cada equipamiento crea parcela pública (precio 0, propietario y operador
+municipales), edificio físico con huella autocolocada y `UrbanFacility` 1:1. Los espacios públicos
+son manzanas completas de celdas con operador municipal. Compra, venta, garantía, permiso y obra sobre
+suelo público se rechazan con códigos propios; la subasta queda fuera porque sólo ejecuta garantías
+privadas. `SnapshotV2` valida operador, distrito, parcelas, edificios, espacios y duplicados. La
+proyección y el inspector muestran función, capacidad, operador, edificios, parcelas y celdas de
+acceso vial para la cobertura futura. Ajuste declarado: reservar manzanas enteras reduce la mezcla
+privada; los techos de concentración de Vega/Mercado/Centro se fijan en 70/68/65 tras medir máximos
+de 66,0/61,5/60,0 % en 100 seeds, y Vega declara mínimo mixto 0 porque su receta verde no produce
+manzanas mixtas. La cobertura por grafo y el mantenimiento municipal siguen siendo deuda de V.d.5.

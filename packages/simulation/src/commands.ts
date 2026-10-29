@@ -295,6 +295,8 @@ export function dispatchProductCommand(
     const parcel = state.phase2.parcels.get(command.payload.parcelId);
     const definition = BUILDING_DEFINITIONS[command.payload.buildingType];
     if (!parcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
+    if (parcel.disposition !== "marketable")
+      return { accepted: false, code: "PUBLIC_LAND_NOT_BUILDABLE" };
     if (parcel.ownerOrganizationId !== command.actingAsOrganizationId)
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
     if (!isUseAllowed(state, parcel, definition))
@@ -454,7 +456,10 @@ export function dispatchProductCommand(
     if (command.actingAsOrganizationId === BANK_ORGANIZATION_ID)
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
     const parcel = state.phase2.parcels.get(command.payload.collateralParcelId);
-    if (!parcel || parcel.ownerOrganizationId !== command.actingAsOrganizationId)
+    if (!parcel) return { accepted: false, code: "LOAN_COLLATERAL_INVALID" };
+    if (parcel.disposition !== "marketable")
+      return { accepted: false, code: "PUBLIC_LAND_NOT_COLLATERAL" };
+    if (parcel.ownerOrganizationId !== command.actingAsOrganizationId)
       return { accepted: false, code: "LOAN_COLLATERAL_INVALID" };
     if (
       command.payload.amount < LOAN_POLICY.minimumPrincipal ||
@@ -619,6 +624,8 @@ export function dispatchProductCommand(
   if (command.type === "BuyParcel") {
     const parcel = state.phase2.parcels.get(command.payload.parcelId);
     if (!parcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
+    if (parcel.disposition !== "marketable")
+      return { accepted: false, code: "PUBLIC_LAND_NOT_FOR_SALE" };
     if (parcel.ownerOrganizationId) return { accepted: false, code: "PARCEL_UNAVAILABLE" };
     const transferRateBps = effectiveTaxRateBps(
       state.phase2.taxation.transferRateBps,
@@ -654,7 +661,10 @@ export function dispatchProductCommand(
 
   if (command.type === "SellParcel") {
     const parcel = state.phase2.parcels.get(command.payload.parcelId);
-    if (!parcel || parcel.ownerOrganizationId !== command.actingAsOrganizationId)
+    if (!parcel) return { accepted: false, code: "SELL_NOT_AVAILABLE" };
+    if (parcel.disposition !== "marketable")
+      return { accepted: false, code: "PUBLIC_LAND_NOT_TRANSFERABLE" };
+    if (parcel.ownerOrganizationId !== command.actingAsOrganizationId)
       return { accepted: false, code: "SELL_NOT_AVAILABLE" };
     const sellIndex = buildBuildingIndex(state);
     if (
@@ -693,6 +703,8 @@ export function dispatchProductCommand(
     const parcel = state.phase2.parcels.get(command.payload.parcelId);
     const definition = BUILDING_DEFINITIONS[command.payload.buildingType];
     if (!parcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
+    if (parcel.disposition !== "marketable")
+      return { accepted: false, code: "PUBLIC_LAND_NOT_BUILDABLE" };
     if (parcel.ownerOrganizationId !== command.actingAsOrganizationId)
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
     if (!isUseAllowed(state, parcel, definition))

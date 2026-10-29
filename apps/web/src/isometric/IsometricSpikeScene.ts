@@ -46,6 +46,7 @@ const COLORS = {
   parcelAvailable: 0x7f8fa6,
   parcelPlayer: 0x4db6ac,
   parcelRival: 0xd97757,
+  parcelCivic: 0x6fa8dc,
   building: 0xead7a1,
   construction: 0xb8a46a,
   fire: 0xf05a28,
@@ -677,7 +678,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
       ? COLORS.parcelPlayer
       : parcel.ownerOrganizationId === "org_00000002"
         ? COLORS.parcelRival
-        : COLORS.parcelAvailable;
+        : parcel.ownerOrganizationId === "org_00000004"
+          ? COLORS.parcelCivic
+          : COLORS.parcelAvailable;
   }
 
   private createMarkerTexture(key: string, width: number, height: number, color: string): void {

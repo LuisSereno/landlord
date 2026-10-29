@@ -109,7 +109,10 @@ describe("WP4.15-V.c.2B authoritative road topology", () => {
       serializeSnapshot(state).world.districts.map((entry) => entry.publicSpaces),
     );
     expect(first.world.districts.every((entry) => entry.blocks.length > 0)).toBe(true);
-    expect(first.world.districts.every((entry) => entry.publicSpaces.length === 1)).toBe(true);
+    expect(first.world.districts.reduce((sum, entry) => sum + entry.publicSpaces.length, 0)).toBe(
+      7,
+    );
+    expect(first.world.districts.reduce((sum, entry) => sum + entry.facilities.length, 0)).toBe(14);
   }, 40_000);
 
   it("conserva roads en el round-trip Zod completo de la proyección", () => {

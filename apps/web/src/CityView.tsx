@@ -58,6 +58,9 @@ export function CityView({
                 {district.marketableParcels} parcelas libres
                 {district.alerts > 0 ? ` · ${district.alerts} en alerta` : ""}
               </span>
+              <span>
+                {district.facilities} equipamientos · {district.publicSpaces} espacios públicos
+              </span>
             </button>
           );
         })}

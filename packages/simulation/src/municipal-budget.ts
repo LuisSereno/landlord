@@ -58,7 +58,9 @@ export function initialMunicipalBudgetState(): MunicipalBudgetState {
 export function plannedMunicipalCosts(state: GameState): Record<MunicipalBudgetCategory, number> {
   let buildings = 0;
   for (const building of state.phase2.buildings.values()) {
-    if (building.state !== "ruin") buildings += 1;
+    if (building.state === "ruin") continue;
+    if (building.ownerOrganizationId === MUNICIPALITY_ORGANIZATION_ID) continue;
+    buildings += 1;
   }
   return {
     administration: MUNICIPAL_BUDGET_POLICY.administrationCost,

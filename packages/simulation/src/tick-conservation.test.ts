@@ -123,54 +123,54 @@ function cityDigest(input: {
 const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => string }> = [
   {
     id: "scenario:seed-1:1200",
-    expected: "b2d6c108e224fda0",
+    expected: "0143cf33efe4ad9b",
     run: () => digest(canonicalizeState(runScenario(1, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-7:1200",
-    expected: "ec78f2f65ff8e0e6",
+    expected: "12ab2dcd30474ac9",
     run: () => digest(canonicalizeState(runScenario(7, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-42:1200",
-    expected: "49923f2c32657c84",
+    expected: "b226620236deec37",
     run: () => digest(canonicalizeState(runScenario(42, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "d2e230b5597007ae",
+    expected: "f58b6170965b4b6c",
     run: () => digest(canonicalizeState(runScenario(1, [], 36_000, { checkpointEvery: 0 }).state)),
   },
   {
     id: "city:50-parcels:1300-ticks",
-    expected: "75d680ef342ffedd",
+    expected: "c0514c2aa383e361",
     run: () => cityDigest({ parcelCount: 50, ticks: 1_300 }),
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "b8e5beac7ed3765d",
+    expected: "784608c3fa488a33",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "eea8efd3115b90d6",
+    expected: "6ec661a03ae00ecf",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "12fa9b6ba86d4b6b",
+    expected: "69aff38ea0b02cec",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "3533825ec3fbaf8b",
+    expected: "83d7b5e0ca72c377",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "d9117efd90158a9a",
+    expected: "9e089740d392da9f",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];
@@ -201,6 +201,15 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
  * plantas y forma, y el estado canónico gana mercados de vivienda por distrito, puestos de trabajo
  * por distrito y el censo electoral ponderado por tamaño del hogar. Cambian los diez digestos por
  * superficie y por economía de escenario; `phase2` y el resto de la suite siguen verdes.
+ */
+
+/**
+ * Regeneración V.d.3 (2026-10-29): la ciudad nace con el programa municipal exacto —catorce
+ * edificios, catorce parcelas públicas y siete espacios públicos— y sus edificios entran en el
+ * estado canónico con IDs propios. La reserva de programa exige frente vial y las manzanas sin
+ * frente pasan a terreno bloqueado, de modo que cambia la geometría además de la carga
+ * institucional. Los mercados privados, el mantenimiento y la cobertura de servicios excluyen el
+ * suelo municipal para que esta fase no adelante reglas de V.d.5.
  */
 
 describe("WP4.2 conservación del resultado económico", () => {

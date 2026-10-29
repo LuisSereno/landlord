@@ -21,6 +21,7 @@ import {
   parsePlayerIdentityId,
   parseStructureId,
   parseTenantId,
+  parseUrbanFacilityId,
   parseTransactionId,
   parseLoanId,
   parseSnapshotV2,
@@ -112,6 +113,7 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
           },
           blocks: [...entry.blocks.values()].sort(compareId),
           publicSpaces: [...entry.publicSpaces.values()].sort(compareId),
+          facilities: [...entry.facilities.values()].sort(compareId),
         };
       }),
     },
@@ -449,6 +451,9 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
             blocks: new Map(entry.blocks.map((block) => [parseBlockId(block.id), block])),
             publicSpaces: new Map(
               entry.publicSpaces.map((space) => [parsePublicSpaceId(space.id), space]),
+            ),
+            facilities: new Map(
+              entry.facilities.map((facility) => [parseUrbanFacilityId(facility.id), facility]),
             ),
           } satisfies DistrictState,
         ] as const;

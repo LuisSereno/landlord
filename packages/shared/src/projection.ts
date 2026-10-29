@@ -58,6 +58,8 @@ export type PublicDistrictSummary = {
   vacantUnits: number;
   rentIndexPercent: number;
   averageLandValue: number;
+  facilities: number;
+  publicSpaces: number;
   alerts: number;
 };
 
@@ -77,6 +79,28 @@ export type ViewProjectionV2 = {
     height: 64;
     roads: { revision: number; digest: string; cells: string[] };
   };
+  /** Reserved public land of the observed district (D-092). */
+  publicSpaces: Array<{
+    id: string;
+    kind: string;
+    blockId: string | null;
+    cells: GridCell[];
+    operatorOrganizationId: OrganizationId;
+  }>;
+  /** Municipal functions of the observed district, with their physical buildings. */
+  facilities: Array<{
+    id: string;
+    kind: string;
+    districtId: DistrictId;
+    parcelIds: ParcelId[];
+    buildingIds: BuildingId[];
+    publicSpaceIds: string[];
+    operatorOrganizationId: OrganizationId;
+    capacity: number;
+    serviceProfileId: string;
+    /** Road cells the future service graph will start from (D-092, V.d.5). */
+    accessCells: GridCell[];
+  }>;
   structures: Array<{
     id: StructureId;
     ownerOrganizationId: OrganizationId;
@@ -101,6 +125,7 @@ export type ViewProjectionV2 = {
       price: number;
       /** Display/legacy family derived from the development code; not a rule. */
       zoning: "residential" | "industrial" | "mixed";
+      disposition: "marketable" | "public" | "infrastructure";
       developmentCodeId: DevelopmentCodeId;
       allowedUses: LandUse[];
       currentUses: LandUse[];
@@ -590,6 +615,8 @@ export const publicDistrictSummarySchema = z.object({
   vacantUnits: z.number().int().nonnegative(),
   rentIndexPercent: z.number(),
   averageLandValue: moneySchema,
+  facilities: z.number().int().nonnegative(),
+  publicSpaces: z.number().int().nonnegative(),
   alerts: z.number().int().nonnegative(),
 });
 
@@ -604,6 +631,29 @@ export const viewProjectionV2Schema = z.object({
   }),
   tick: tickSchema,
   map: mapSchema,
+  publicSpaces: z.array(
+    z.object({
+      id: z.string().min(1),
+      kind: z.string().min(1),
+      blockId: z.string().min(1).nullable(),
+      cells: z.array(gridCellSchema).min(1),
+      operatorOrganizationId: organizationIdSchema,
+    }),
+  ),
+  facilities: z.array(
+    z.object({
+      id: z.string().min(1),
+      kind: z.string().min(1),
+      districtId: districtIdSchema,
+      parcelIds: z.array(parcelIdSchema).min(1),
+      buildingIds: z.array(buildingIdSchema),
+      publicSpaceIds: z.array(z.string().min(1)),
+      operatorOrganizationId: organizationIdSchema,
+      capacity: z.number().int().positive(),
+      serviceProfileId: z.string().min(1),
+      accessCells: z.array(gridCellSchema),
+    }),
+  ),
   structures: z.array(
     z.object({
       id: structureIdSchema,
@@ -639,6 +689,7 @@ export const viewProjectionV2Schema = z.object({
           cells: z.array(gridCellSchema).min(1),
           price: moneySchema,
           zoning: zoningSchema,
+          disposition: z.enum(["marketable", "public", "infrastructure"]),
           developmentCodeId: developmentCodeIdSchema,
           allowedUses: z.array(landUseSchema),
           currentUses: z.array(landUseSchema),

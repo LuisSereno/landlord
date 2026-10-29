@@ -148,8 +148,7 @@ describe("WP4.13 automatización y delegación", () => {
     });
     state.phase2.automation.property = "fill_vacancies";
     runAutomation(state);
-    const building = [...state.phase2.buildings.values()][0]!;
-    expect(building.tenantIds).toEqual([rich.id]);
+    expect(owned.tenantIds).toEqual([rich.id]);
     expect(rich.status).toBe("contracted");
     /** El inquilino sin presupuesto no entra: la automatización no salta la validación. */
     expect(poor.status).toBe("available");

@@ -1,12 +1,15 @@
 import {
   parseBlockId,
+  parseBuildingId,
   parseDistrictId,
   parseMoney,
   parseParcelId,
   parsePublicSpaceId,
   parseSeed,
+  parseUrbanFacilityId,
   roadCellsFromSegments,
   type Block,
+  type Building,
   type CityId,
   type District,
   type DistrictId,
@@ -17,6 +20,7 @@ import {
   type RoadAnchor,
   type RoadTopology,
   type Seed,
+  type UrbanFacility,
   type UrbanRole,
 } from "@landlord/shared";
 
@@ -33,7 +37,18 @@ import {
   zoningFamilyForRole,
 } from "./development-codes";
 import type { DistrictGenerationIssue } from "./district-issues";
-import { MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
+import {
+  BUILDING_DEFINITIONS,
+  MUNICIPALITY_ORGANIZATION_ID,
+  PRIMARY_USE_BY_BUILDING_TYPE,
+} from "./game-data";
+import { chooseFootprint } from "./footprints";
+import {
+  MUNICIPAL_FACILITY_CAPACITY,
+  MUNICIPAL_FACILITY_SERVICE_PROFILE,
+  municipalProgramForProfile,
+  type MunicipalProgramEntry,
+} from "./municipal-program";
 import { createPrng, type Xoshiro128ss } from "./prng";
 import {
   blockIdForGeometry,
@@ -48,6 +63,7 @@ import {
   generateObstacles,
   keyToCell,
   publicSpaceIdForDistrict,
+  roadFrontagesForCells,
   subdivideBlock,
   validateUrbanFabric,
 } from "./urban-fabric";
@@ -68,6 +84,9 @@ export type DistrictGenerationReport = {
   blockCount: number;
   publicSpaceCount: number;
   parcelCellCount: number;
+  publicParcelCount: number;
+  buildingCount: number;
+  facilityCount: number;
   roleCounts: Record<UrbanRole, number>;
   blockedCellCount: number;
   roadCellCount: number;
@@ -83,6 +102,8 @@ export type GeneratedDistrict = {
   parcels: Parcel[];
   blocks: Block[];
   publicSpaces: PublicSpace[];
+  buildings: Building[];
+  facilities: UrbanFacility[];
   blockedCells: string[];
   roads: RoadTopology;
   spawnAnchors: DistrictSpawnAnchors;
@@ -318,28 +339,81 @@ function roleForBlock(input: {
   return dominant;
 }
 
-function selectPublicReservationBlock(input: {
-  blocks: readonly string[][];
+type ReservedProgramBlock = {
+  entry: MunicipalProgramEntry;
+  cells: string[];
+  gridCells: GridCell[];
+  distanceToCivic: number;
+};
+
+/**
+ * Reserves one whole block per programme entry before private subdivision. Facilities go to the
+ * blocks closest to the civic centre; public spaces take the next free blocks in a fixed order. If
+ * any entry has no free block the attempt fails: a missing mandatory facility is never silently
+ * dropped (V.d.3).
+ */
+function reserveProgramBlocks(input: {
+  openBlocks: readonly string[][];
+  program: readonly MunicipalProgramEntry[];
   reservedCells: ReadonlySet<string>;
+  roadCells: ReadonlySet<string>;
   center: GridCell;
-}): string[] | null {
-  const candidates = input.blocks
+}): { selected: ReservedProgramBlock[]; issues: DistrictGenerationIssue[] } {
+  const candidates = input.openBlocks
     .filter((cells) => !cells.some((key) => input.reservedCells.has(key)))
+    .filter((cells) =>
+      cells.some((key) => {
+        const [x, y] = key.split(":").map(Number) as [number, number];
+        return [`${x}:${y - 1}`, `${x + 1}:${y}`, `${x}:${y + 1}`, `${x - 1}:${y}`].some(
+          (neighbour) => input.roadCells.has(neighbour),
+        );
+      }),
+    )
     .map((cells) => {
       const gridCells = cells.map(keyToCell);
       const centroid = {
         x: gridCells.reduce((sum, cell) => sum + cell.x, 0) / gridCells.length,
         y: gridCells.reduce((sum, cell) => sum + cell.y, 0) / gridCells.length,
       };
-      const distance =
-        Math.abs(centroid.x - input.center.x) + Math.abs(centroid.y - input.center.y);
-      return { cells, distance };
+      return {
+        cells,
+        gridCells,
+        distanceToCivic:
+          Math.abs(centroid.x - input.center.x) + Math.abs(centroid.y - input.center.y),
+      };
     })
     .sort(
       (left, right) =>
-        left.distance - right.distance || compareCellKey(left.cells[0]!, right.cells[0]!),
+        left.distanceToCivic - right.distanceToCivic ||
+        compareCellKey(left.cells[0]!, right.cells[0]!),
     );
-  return candidates[0]?.cells ?? null;
+  const used = new Set<number>();
+  const selected: ReservedProgramBlock[] = [];
+  const issues: DistrictGenerationIssue[] = [];
+  for (const entry of input.program) {
+    let chosen = -1;
+    for (let index = 0; index < candidates.length; index += 1) {
+      if (used.has(index)) continue;
+      chosen = index;
+      break;
+    }
+    if (chosen < 0) {
+      issues.push({
+        code: "PUBLIC_RESERVATION_INVALID",
+        detail: `no hay manzana para ${entry.id}`,
+      });
+      break;
+    }
+    used.add(chosen);
+    const candidate = candidates[chosen]!;
+    selected.push({
+      entry,
+      cells: candidate.cells,
+      gridCells: candidate.gridCells,
+      distanceToCivic: candidate.distanceToCivic,
+    });
+  }
+  return { selected, issues };
 }
 
 function assignAnchorOverrides(input: {
@@ -444,11 +518,24 @@ export function districtCanonicalString(input: {
   parcels: readonly Parcel[];
   blocks: readonly Block[];
   publicSpaces: readonly PublicSpace[];
+  buildings: readonly Building[];
+  facilities: readonly UrbanFacility[];
   blockedCells: readonly string[];
   roads: RoadTopology;
   spawnAnchors: DistrictSpawnAnchors;
 }): string {
-  const { profileId, seed, district, parcels, blocks, publicSpaces, blockedCells, roads } = input;
+  const {
+    profileId,
+    seed,
+    district,
+    parcels,
+    blocks,
+    publicSpaces,
+    buildings,
+    facilities,
+    blockedCells,
+    roads,
+  } = input;
   const parcelEntries = [...parcels]
     .sort((left, right) => left.id.localeCompare(right.id))
     .map((parcel) => {
@@ -488,6 +575,35 @@ export function districtCanonicalString(input: {
     .sort((left, right) => left.id.localeCompare(right.id))
     .map((space) => `${space.id}@${space.kind}@${canonicalCellKeys(space.cells).join(",")}`)
     .join(";");
+  const buildingEntries = [...buildings]
+    .sort((left, right) => left.id.localeCompare(right.id))
+    .map((building) =>
+      [
+        building.id,
+        building.type,
+        building.districtId,
+        canonicalCellKeys(building.footprintCells).join(","),
+        building.orientation,
+        building.floors,
+        building.form,
+      ].join("@"),
+    )
+    .join(";");
+  const facilityEntries = [...facilities]
+    .sort((left, right) => left.id.localeCompare(right.id))
+    .map((facility) =>
+      [
+        facility.id,
+        facility.kind,
+        facility.districtId,
+        facility.parcelIds.join(","),
+        facility.buildingIds.join(","),
+        facility.operatorOrganizationId,
+        facility.capacity,
+        facility.serviceProfileId,
+      ].join("@"),
+    )
+    .join(";");
   return [
     "landlord-district",
     `v${DISTRICT_GENERATOR_VERSION}`,
@@ -498,6 +614,8 @@ export function districtCanonicalString(input: {
     `spawns=${input.spawnAnchors.player.x},${input.spawnAnchors.player.y}|${input.spawnAnchors.rival.x},${input.spawnAnchors.rival.y}`,
     `blocks=${blockEntries}`,
     `public=${publicEntries}`,
+    `buildings=${buildingEntries}`,
+    `facilities=${facilityEntries}`,
     `parcels=${parcelEntries}`,
     `blocked=${[...blockedCells].sort(compareCellKey).join(",")}`,
     `roads=${roads.segments
@@ -522,6 +640,8 @@ function buildReport(input: {
   parcels: readonly Parcel[];
   blocks: readonly Block[];
   publicSpaces: readonly PublicSpace[];
+  buildings: readonly Building[];
+  facilities: readonly UrbanFacility[];
   blockedCells: readonly string[];
   roads: RoadTopology;
   anchorParcelCount: number;
@@ -535,6 +655,8 @@ function buildReport(input: {
     parcels,
     blocks,
     publicSpaces,
+    buildings,
+    facilities,
     blockedCells,
     roads,
     anchorParcelCount,
@@ -558,7 +680,8 @@ function buildReport(input: {
     const role = roleByBlock.get(parcel.blockId as string) ?? "urban_residential";
     roleCounts[role] += 1;
   }
-  const prices = parcels.map((parcel) => parcel.price);
+  const marketable = parcels.filter((parcel) => parcel.disposition === "marketable");
+  const prices = marketable.map((parcel) => parcel.price);
   const total = prices.reduce((sum, price) => sum + price, 0);
   return {
     profileId: profile.id,
@@ -570,6 +693,9 @@ function buildReport(input: {
     blockCount: blocks.length,
     publicSpaceCount: publicSpaces.length,
     parcelCellCount: parcels.reduce((sum, parcel) => sum + parcel.cells.length, 0),
+    publicParcelCount: parcels.filter((parcel) => parcel.disposition === "public").length,
+    buildingCount: buildings.length,
+    facilityCount: facilities.length,
     roleCounts,
     blockedCellCount: blockedCells.length,
     roadCellCount: roadCellsFromSegments(roads.segments).size,
@@ -584,6 +710,8 @@ function buildReport(input: {
 export type DistrictGenerationOptions = {
   districtId?: DistrictId;
   parcelIdOrdinal?: number;
+  buildingIdOrdinal?: number;
+  facilityIdOrdinal?: number;
   /** Gateways of the city, already on this district's border (D-088, D-090). */
   gatewayCells?: readonly GridCell[];
   cityId?: CityId;
@@ -594,17 +722,29 @@ function attemptComposition(input: {
   prng: Xoshiro128ss;
   districtId: DistrictId;
   parcelIdOrdinal: number;
+  buildingIdOrdinal: number;
+  facilityIdOrdinal: number;
   gatewayCells: readonly GridCell[];
 }): {
   parcels: Parcel[];
   blocks: Block[];
   publicSpaces: PublicSpace[];
+  buildings: Building[];
+  facilities: UrbanFacility[];
   blockedCells: Set<string>;
   roads: RoadTopology;
   anchorParcelCount: number;
   issues: DistrictGenerationIssue[];
 } {
-  const { profile, prng, districtId, parcelIdOrdinal, gatewayCells } = input;
+  const {
+    profile,
+    prng,
+    districtId,
+    parcelIdOrdinal,
+    buildingIdOrdinal,
+    facilityIdOrdinal,
+    gatewayCells,
+  } = input;
   const config = profile.fabric;
   const gatewayAnchors: RoadAnchor[] = gatewayCells.map((cell, index) => ({
     id: `gateway_${String(index + 1).padStart(2, "0")}`,
@@ -640,46 +780,84 @@ function attemptComposition(input: {
   const blocked = new Set<string>([...obstacles, ...formed.alleys]);
   const openBlocks = formed.blocks;
 
-  const reservationCells = selectPublicReservationBlock({
-    blocks: openBlocks,
+  const program = municipalProgramForProfile(profile.id);
+  const reservation = reserveProgramBlocks({
+    openBlocks,
+    program,
     reservedCells,
+    roadCells: network.roadCells,
     center: { x: profile.width / 2, y: profile.height / 2 },
   });
-  if (!reservationCells) {
-    issues.push({
-      code: "PUBLIC_RESERVATION_INVALID",
-      detail: "ninguna manzana admite la reserva pública",
-    });
+  issues.push(...reservation.issues);
+  if (issues.length > 0) {
     return {
       parcels: [],
       blocks: [],
       publicSpaces: [],
+      buildings: [],
+      facilities: [],
       blockedCells: blocked,
       roads: network.topology,
       anchorParcelCount: 0,
       issues,
     };
   }
-  const publicSpaces: PublicSpace[] = [
-    {
-      id: parsePublicSpaceId(publicSpaceIdForDistrict(districtId, 1)),
-      districtId,
-      blockId: null,
-      kind:
-        profile.dominantRole === "civic_core" ||
-        profile.dominantRole === "commercial_corridor" ||
-        profile.dominantRole === "mixed_core"
-          ? "plaza"
-          : "park",
-      cells: canonicalGridCells(reservationCells.map(keyToCell)),
-      operatorOrganizationId: MUNICIPALITY_ORGANIZATION_ID,
-    },
-  ];
+  const reservedBlockCells = new Set(reservation.selected.flatMap((entry) => entry.cells));
   const blocks: Block[] = [];
   const drafts: DraftParcel[] = [];
+  type ReservedFacility = {
+    entry: Extract<MunicipalProgramEntry, { kind: "facility" }>;
+    gridCells: GridCell[];
+    block: Block;
+  };
+  const reservedFacilities: ReservedFacility[] = [];
+  for (const selected of reservation.selected) {
+    if (selected.entry.kind !== "facility") continue;
+    const role: UrbanRole =
+      selected.entry.facilityKind === "market" ? "commercial_corridor" : "institutional";
+    const code = developmentCodeForRole(role);
+    const frontageRoadSegmentIds = blockFrontageSegmentIds({
+      cells: selected.gridCells,
+      roadCells: network.roadCells,
+      segmentsByCell: network.segmentsByCell,
+    });
+    if (frontageRoadSegmentIds.length === 0) {
+      issues.push({
+        code: "FACILITY_SITE_INVALID",
+        detail: `${selected.entry.id} sin acceso vial`,
+      });
+      continue;
+    }
+    const block: Block = {
+      id: parseBlockId(blockIdForGeometry(districtId, selected.gridCells)),
+      districtId,
+      cells: selected.gridCells,
+      frontageRoadSegmentIds,
+      urbanRole: role,
+      defaultDevelopmentCodeId: code.id,
+    };
+    blocks.push(block);
+    reservedFacilities.push({ entry: selected.entry, gridCells: selected.gridCells, block });
+  }
+  const publicSpaces: PublicSpace[] = reservation.selected
+    .filter(
+      (
+        selected,
+      ): selected is typeof selected & {
+        entry: Extract<MunicipalProgramEntry, { kind: "public_space" }>;
+      } => selected.entry.kind === "public_space",
+    )
+    .map((selected, index) => ({
+      id: parsePublicSpaceId(publicSpaceIdForDistrict(districtId, index + 1)),
+      districtId,
+      blockId: null,
+      kind: selected.entry.publicSpaceKind,
+      cells: canonicalGridCells(selected.gridCells),
+      operatorOrganizationId: MUNICIPALITY_ORGANIZATION_ID,
+    }));
   const bandCounters = { core: 0, middle: 0, edge: 0 };
   for (const cells of openBlocks) {
-    if (cells === reservationCells) continue;
+    if (cells.some((key) => reservedBlockCells.has(key))) continue;
     const gridCells = canonicalGridCells(cells.map(keyToCell));
     const frontageRoadSegmentIds = blockFrontageSegmentIds({
       cells: gridCells,
@@ -687,10 +865,9 @@ function attemptComposition(input: {
       segmentsByCell: network.segmentsByCell,
     });
     if (frontageRoadSegmentIds.length === 0) {
-      issues.push({
-        code: "BLOCK_DISCONNECTED",
-        detail: `${cellKey(gridCells[0]!)} sin frente vial`,
-      });
+      // A block fully enclosed by obstacles is not developable terrain: it becomes an alley-like
+      // obstruction instead of failing the whole district.
+      for (const key of cells) blocked.add(key);
       continue;
     }
     const blockId = blockIdForGeometry(districtId, gridCells);
@@ -789,6 +966,102 @@ function attemptComposition(input: {
     productionSuitability: { ...entry.suitability },
   }));
 
+  const publicParcels: Parcel[] = [];
+  const municipalBuildings: Building[] = [];
+  const facilities: UrbanFacility[] = [];
+  let facilityIndex = 0;
+  for (const reservation of reservedFacilities) {
+    const definition = BUILDING_DEFINITIONS[reservation.entry.buildingType];
+    const code = developmentCodeForRole(reservation.block.urbanRole);
+    const frontages = roadFrontagesForCells({
+      cells: reservation.gridCells,
+      roadCells: network.roadCells,
+      segmentsByCell: network.segmentsByCell,
+    });
+    const footprint = chooseFootprint({
+      parcel: { cells: reservation.gridCells, roadFrontages: frontages },
+      code,
+      definition,
+      buildings: [],
+    });
+    if ("error" in footprint) {
+      issues.push({
+        code: "FACILITY_SITE_INVALID",
+        detail: `${reservation.entry.id}: ${footprint.error}`,
+      });
+      continue;
+    }
+    const parcelId = parseParcelId(
+      `parcel_${String(parcelIdOrdinal + parcels.length + publicParcels.length + 1).padStart(8, "0")}`,
+    );
+    const anchorCell = reservation.gridCells[0]!;
+    const use = PRIMARY_USE_BY_BUILDING_TYPE[reservation.entry.buildingType];
+    const parcel: Parcel = {
+      id: parcelId,
+      districtId,
+      blockId: reservation.block.id,
+      cells: reservation.gridCells.map((cell) => ({ ...cell })),
+      anchorCell: { ...anchorCell },
+      roadFrontages: frontages.map((frontage) => ({
+        roadSegmentId: frontage.roadSegmentId,
+        cells: frontage.cells.map((cell) => ({ ...cell })),
+      })),
+      disposition: "public",
+      price: parseMoney(0),
+      developmentCodeId: code.id,
+      currentUses: [use],
+      ownerOrganizationId: MUNICIPALITY_ORGANIZATION_ID,
+      productionSuitability: { cement: 100, brick: 100, steel: 100 },
+    };
+    const buildingId = parseBuildingId(
+      `building_${String(buildingIdOrdinal + facilityIndex + 1).padStart(8, "0")}`,
+    );
+    const building: Building = {
+      id: buildingId,
+      parcelId,
+      districtId,
+      ownerOrganizationId: MUNICIPALITY_ORGANIZATION_ID,
+      productionFacilityId: null,
+      type: reservation.entry.buildingType,
+      footprintCells: footprint.footprintCells.map((cell) => ({ ...cell })),
+      orientation: footprint.orientation,
+      floors: footprint.floors,
+      form: footprint.form,
+      level: 1,
+      condition: 100,
+      tenantId: null,
+      tenantIds: [],
+      upgraded: false,
+      structuralIntegrity: 100,
+      state: "operational",
+      casualtiesTotal: { injured: 0, dead: 0 },
+    };
+    const facility: UrbanFacility = {
+      id: parseUrbanFacilityId(
+        `urbanfacility_${String(facilityIdOrdinal + facilityIndex + 1).padStart(8, "0")}`,
+      ),
+      kind: reservation.entry.facilityKind,
+      districtId,
+      parcelIds: [parcelId],
+      buildingIds: [buildingId],
+      publicSpaceIds: [],
+      operatorOrganizationId: MUNICIPALITY_ORGANIZATION_ID,
+      capacity: MUNICIPAL_FACILITY_CAPACITY[reservation.entry.facilityKind],
+      serviceProfileId: MUNICIPAL_FACILITY_SERVICE_PROFILE[reservation.entry.facilityKind],
+    };
+    facilityIndex += 1;
+    publicParcels.push(parcel);
+    municipalBuildings.push(building);
+    facilities.push(facility);
+  }
+  if (facilities.length !== program.filter((entry) => entry.kind === "facility").length) {
+    issues.push({
+      code: "FACILITY_SITE_INVALID",
+      detail: `programa incompleto: ${facilities.length} equipamientos`,
+    });
+  }
+  const allParcels = [...parcels, ...publicParcels];
+
   issues.push(
     ...validateUrbanFabric({
       width: profile.width,
@@ -797,17 +1070,25 @@ function attemptComposition(input: {
       roads: network.topology,
       blockedCells: blocked,
       blocks,
-      parcels,
+      parcels: allParcels,
       publicSpaces,
+      facilities,
       gatewayCells,
       spawnCells: [profile.spawnAnchors.player, profile.spawnAnchors.rival],
     }),
-    ...validatePlayability({ profile, parcels, blocks, blockedCells: blocked }),
+    ...validatePlayability({
+      profile,
+      parcels: allParcels.filter((parcel) => parcel.disposition === "marketable"),
+      blocks,
+      blockedCells: blocked,
+    }),
   );
   return {
-    parcels,
+    parcels: allParcels,
     blocks,
     publicSpaces,
+    buildings: municipalBuildings,
+    facilities,
     blockedCells: blocked,
     roads: network.topology,
     anchorParcelCount,
@@ -823,6 +1104,8 @@ export function generateDistrictFromProfile(
   const seed = parseSeed(seedValue);
   const districtId = options.districtId ?? GENERATED_DISTRICT_ID;
   const parcelIdOrdinal = options.parcelIdOrdinal ?? 0;
+  const buildingIdOrdinal = options.buildingIdOrdinal ?? 0;
+  const facilityIdOrdinal = options.facilityIdOrdinal ?? 0;
   const gatewayCells = options.gatewayCells ?? [];
   let issues: DistrictGenerationIssue[] = [];
 
@@ -833,6 +1116,8 @@ export function generateDistrictFromProfile(
       prng,
       districtId,
       parcelIdOrdinal,
+      buildingIdOrdinal,
+      facilityIdOrdinal,
       gatewayCells,
     });
     if (composition.issues.length > 0) {
@@ -854,6 +1139,8 @@ export function generateDistrictFromProfile(
       parcels: composition.parcels,
       blocks: composition.blocks,
       publicSpaces: composition.publicSpaces,
+      buildings: composition.buildings,
+      facilities: composition.facilities,
       blockedCells,
       roads: composition.roads,
       spawnAnchors: profile.spawnAnchors,
@@ -863,6 +1150,8 @@ export function generateDistrictFromProfile(
       parcels: composition.parcels,
       blocks: composition.blocks,
       publicSpaces: composition.publicSpaces,
+      buildings: composition.buildings,
+      facilities: composition.facilities,
       blockedCells,
       roads: composition.roads,
       spawnAnchors: {
@@ -884,6 +1173,8 @@ export function generateDistrictFromProfile(
         parcels: composition.parcels,
         blocks: composition.blocks,
         publicSpaces: composition.publicSpaces,
+        buildings: composition.buildings,
+        facilities: composition.facilities,
         blockedCells,
         roads: composition.roads,
         anchorParcelCount: composition.anchorParcelCount,

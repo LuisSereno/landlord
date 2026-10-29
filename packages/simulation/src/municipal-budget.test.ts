@@ -65,7 +65,9 @@ function addBuilding(state: GameState, index: number): BuildingId {
 }
 
 function clearOwnership(state: GameState): void {
-  for (const parcel of state.phase2.parcels.values()) parcel.ownerOrganizationId = null;
+  for (const parcel of state.phase2.parcels.values()) {
+    if (parcel.disposition !== "public") parcel.ownerOrganizationId = null;
+  }
 }
 
 describe("WP4.5 presupuesto municipal", () => {

@@ -938,6 +938,7 @@ export function validateUrbanFabric(input: {
         }
       }
     }
+    if (parcel.disposition !== "marketable") continue;
     const frontageWidth = parcelFrontageWidth(parcel);
     if (frontageWidth < input.config.parcelFrontageCells[0]) {
       issues.push({
@@ -1049,4 +1050,13 @@ export function validateUrbanFabric(input: {
   }
 
   return issues;
+}
+
+/** Public API for reserved parcels that are not produced by the normal subdivision. */
+export function roadFrontagesForCells(input: {
+  cells: readonly GridCell[];
+  roadCells: ReadonlySet<string>;
+  segmentsByCell: ReadonlyMap<string, readonly string[]>;
+}): Array<{ roadSegmentId: string; cells: GridCell[] }> {
+  return parcelRoadFrontages(input);
 }

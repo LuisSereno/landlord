@@ -3,7 +3,9 @@ import {
   parseTick,
   roadCellsFromSegments,
   type DistrictId,
+  type GridCell,
   type PublicDistrictSummary,
+  type UrbanFacility,
   type ViewProjectionV2,
 } from "@landlord/shared";
 import { districtStateOf, type GameState } from "./state";
@@ -253,7 +255,9 @@ function buildCitySummaries(state: GameState): PublicDistrictSummary[] {
       slotY: slot.slotY,
       role: slot.dominantRole,
       parcels: parcels.length,
-      marketableParcels: parcels.filter((parcel) => parcel.ownerOrganizationId === null).length,
+      marketableParcels: parcels.filter(
+        (parcel) => parcel.disposition === "marketable" && parcel.ownerOrganizationId === null,
+      ).length,
       ownParcels: parcels.filter((parcel) => parcel.ownerOrganizationId === PLAYER_ORGANIZATION_ID)
         .length,
       rivalParcels: parcels.filter((parcel) => parcel.ownerOrganizationId === RIVAL_ORGANIZATION_ID)
@@ -271,11 +275,31 @@ function buildCitySummaries(state: GameState): PublicDistrictSummary[] {
       averageLandValue: parseMoney(
         parcels.length === 0
           ? 0
-          : Math.round(parcels.reduce((total, parcel) => total + parcel.price, 0) / parcels.length),
+          : Math.round(
+              parcels
+                .filter((parcel) => parcel.disposition === "marketable")
+                .reduce((total, parcel) => total + parcel.price, 0) /
+                Math.max(1, parcels.filter((parcel) => parcel.disposition === "marketable").length),
+            ),
       ),
+      facilities: district.facilities.size,
+      publicSpaces: district.publicSpaces.size,
       alerts: buildings.filter((building) => building.state !== "operational").length,
     };
   });
+}
+
+/** Road cells from which the V.d.5 service graph will reach a municipal facility. */
+function facilityAccessCells(state: GameState, facility: UrbanFacility): GridCell[] {
+  const cells = new Map<string, GridCell>();
+  for (const parcelId of facility.parcelIds) {
+    const parcel = state.phase2.parcels.get(parcelId);
+    if (!parcel) continue;
+    for (const frontage of parcel.roadFrontages) {
+      for (const cell of frontage.cells) cells.set(`${cell.x}:${cell.y}`, { ...cell });
+    }
+  }
+  return [...cells.values()].sort((left, right) => left.y - right.y || left.x - right.x);
 }
 
 export function createViewProjection(
@@ -455,6 +479,29 @@ export function createViewProjection(
       height: 64,
       roads: { revision: 0, digest: roadDigest.toString(16).padStart(8, "0"), cells: roadCells },
     },
+    publicSpaces: [...observedDistrict.publicSpaces.values()]
+      .sort((left, right) => left.id.localeCompare(right.id))
+      .map((space) => ({
+        id: space.id,
+        kind: space.kind,
+        blockId: space.blockId,
+        cells: space.cells.map((cell) => ({ ...cell })),
+        operatorOrganizationId: space.operatorOrganizationId,
+      })),
+    facilities: [...observedDistrict.facilities.values()]
+      .sort((left, right) => left.id.localeCompare(right.id))
+      .map((facility) => ({
+        id: facility.id,
+        kind: facility.kind,
+        districtId: facility.districtId,
+        parcelIds: [...facility.parcelIds],
+        buildingIds: [...facility.buildingIds],
+        publicSpaceIds: [...facility.publicSpaceIds],
+        operatorOrganizationId: facility.operatorOrganizationId,
+        capacity: facility.capacity,
+        serviceProfileId: facility.serviceProfileId,
+        accessCells: facilityAccessCells(state, facility),
+      })),
     structures: [...state.structures.values()]
       .sort((left, right) => left.id.localeCompare(right.id))
       .map((structure) => ({
@@ -504,6 +551,7 @@ export function createViewProjection(
                   cells: parcel.cells.map((cell) => ({ ...cell })),
                   price: parcel.price,
                   zoning: zoningFamilyForCode(code),
+                  disposition: parcel.disposition,
                   developmentCodeId: code.id,
                   allowedUses: [...code.allowedUses],
                   currentUses: [...parcel.currentUses],

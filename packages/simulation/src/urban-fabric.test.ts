@@ -185,7 +185,7 @@ describe("V.d.1 front-first multi-cell parcels", () => {
       expect(connectedComponents(new Set(keys)).length).toBe(1);
       expect(keys).toContain(cellKey(parcel.anchorCell));
       expect(parcel.roadFrontages.length).toBeGreaterThan(0);
-      expect(parcel.disposition).toBe("marketable");
+      expect(["marketable", "public"]).toContain(parcel.disposition);
       expect(parcel.cells.some((cell) => roads.has(cellKey(cell)))).toBe(false);
       for (const frontage of parcel.roadFrontages) {
         expect(roadSegments.has(frontage.roadSegmentId)).toBe(true);

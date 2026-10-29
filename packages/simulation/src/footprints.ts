@@ -174,9 +174,12 @@ export function chooseFootprint(input: {
     return left.signature < right.signature;
   };
 
-  for (let height = 1; height <= maxY - minY + 1; height += 1) {
-    for (let width = 1; width <= maxX - minX + 1; width += 1) {
+  const maximumWidth = Math.min(maxX - minX + 1, Math.max(1, target * 2));
+  const maximumHeight = Math.min(maxY - minY + 1, Math.max(1, target * 2));
+  for (let height = 1; height <= maximumHeight; height += 1) {
+    for (let width = 1; width <= maximumWidth; width += 1) {
       const area = width * height;
+      if (area > target * 2) continue;
       if (existingArea + area > coverageLimit) continue;
       const floors = Math.min(baseFloors, Math.floor((farLimit - existingFar) / area));
       if (floors < 1) continue;

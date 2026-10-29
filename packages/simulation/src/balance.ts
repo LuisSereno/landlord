@@ -96,13 +96,14 @@ export function measureBalance(state: GameState): BalanceMetrics {
   const parcelsByOrganization = new Map<string, number>();
   for (const parcel of state.phase2.parcels.values()) {
     const owner = parcel.ownerOrganizationId;
-    if (!owner) continue;
+    if (!owner || owner === MUNICIPALITY_ORGANIZATION_ID) continue;
     ensure(owner).parcels += 1;
     parcelsByOrganization.set(owner, (parcelsByOrganization.get(owner) ?? 0) + 1);
   }
   const buildingsByOrganization = new Map<string, number>();
   for (const building of state.phase2.buildings.values()) {
     const owner = building.ownerOrganizationId;
+    if (owner === MUNICIPALITY_ORGANIZATION_ID) continue;
     ensure(owner).buildings += 1;
     buildingsByOrganization.set(owner, (buildingsByOrganization.get(owner) ?? 0) + 1);
   }
@@ -111,6 +112,7 @@ export function measureBalance(state: GameState): BalanceMetrics {
   let vacantSlots = 0;
   for (const building of state.phase2.buildings.values()) {
     if (building.state !== "operational") continue;
+    if (building.ownerOrganizationId === MUNICIPALITY_ORGANIZATION_ID) continue;
     const capacity = capacityOf(building.type);
     slots += capacity;
     vacantSlots += Math.max(0, capacity - building.tenantIds.length);

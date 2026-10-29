@@ -93,7 +93,7 @@ describe("V.d.2 composición urbana y códigos", () => {
       for (const parcel of state.phase2.parcels.values()) {
         if (parcel.districtId !== district.district.id) continue;
         expect(developmentCodeById(parcel.developmentCodeId).allowedUses.length).toBeGreaterThan(0);
-        expect(parcel.currentUses).toEqual([]);
+        if (parcel.disposition === "marketable") expect(parcel.currentUses).toEqual([]);
       }
     }
   });

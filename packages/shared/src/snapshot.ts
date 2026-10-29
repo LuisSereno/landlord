@@ -10,7 +10,13 @@ import {
   type DistrictId,
   type SchemaVersion,
 } from "./primitives";
-import { blockSchema, citySchema, districtGatewaySchema, publicSpaceSchema } from "./urban";
+import {
+  blockSchema,
+  citySchema,
+  districtGatewaySchema,
+  publicSpaceSchema,
+  urbanFacilitySchema,
+} from "./urban";
 import {
   organizationControlGrantSchema,
   organizationSchema,
@@ -186,6 +192,7 @@ const snapshotDistrictSchema = z.object({
   map: districtMapSnapshotSchema,
   blocks: z.array(blockSchema),
   publicSpaces: z.array(publicSpaceSchema),
+  facilities: z.array(urbanFacilitySchema).default([]),
 });
 
 const worldSnapshotSchema = z.object({
@@ -208,6 +215,7 @@ export type SnapshotWorld = {
     };
     blocks: import("./urban").Block[];
     publicSpaces: import("./urban").PublicSpace[];
+    facilities: import("./urban").UrbanFacility[];
   }>;
 };
 const agentTravelSchema = z.object({
@@ -492,6 +500,85 @@ export function validateSnapshotReferences(snapshot: SnapshotV2): SnapshotValida
     if (districtParcelCells && [...roadCells].some((key) => districtParcelCells.has(key))) {
       issues.push({ code: "DUPLICATE_CELL", path: `${scope}/roads/phase2/parcels` });
     }
+  }
+
+  const facilityIds: string[] = [];
+  const facilityBuildingIds = new Set<string>();
+  const publicSpaceIdsByDistrict = new Map<string, Set<string>>();
+  for (const entry of snapshot.world.districts) {
+    publicSpaceIdsByDistrict.set(
+      entry.district.id,
+      new Set(entry.publicSpaces.map((space) => space.id)),
+    );
+  }
+  const parcelById = new Map((snapshot.phase2?.parcels ?? []).map((parcel) => [parcel.id, parcel]));
+  const buildingDistrict = new Map(
+    (snapshot.phase2?.buildings ?? []).map((building) => [building.id, building.districtId]),
+  );
+  for (const entry of snapshot.world.districts) {
+    for (const facility of entry.facilities ?? []) {
+      facilityIds.push(facility.id);
+      if (facility.districtId !== entry.district.id || !districtIds.has(facility.districtId)) {
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `world/districts/${entry.district.id}/facilities/${facility.id}/districtId`,
+        });
+      }
+      if (organizationById.get(facility.operatorOrganizationId)?.kind !== "municipality") {
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `world/districts/${entry.district.id}/facilities/${facility.id}/operator`,
+        });
+      }
+      for (const parcelId of facility.parcelIds) {
+        const parcel = parcelById.get(parcelId);
+        if (
+          !parcel ||
+          parcel.districtId !== facility.districtId ||
+          parcel.disposition !== "public"
+        ) {
+          issues.push({
+            code: "MISSING_REFERENCE",
+            path: `world/districts/${entry.district.id}/facilities/${facility.id}/parcels/${parcelId}/public`,
+          });
+        } else if (parcel.ownerOrganizationId !== facility.operatorOrganizationId) {
+          issues.push({
+            code: "MISSING_REFERENCE",
+            path: `world/districts/${entry.district.id}/facilities/${facility.id}/parcels/${parcelId}/owner`,
+          });
+        }
+      }
+      for (const buildingId of facility.buildingIds) {
+        if (
+          !buildingDistrict.has(buildingId) ||
+          buildingDistrict.get(buildingId) !== facility.districtId
+        ) {
+          issues.push({
+            code: "MISSING_REFERENCE",
+            path: `world/districts/${entry.district.id}/facilities/${facility.id}/buildings/${buildingId}`,
+          });
+        }
+        if (facilityBuildingIds.has(buildingId)) {
+          issues.push({
+            code: "DUPLICATE_ID",
+            path: `world/districts/${entry.district.id}/facilities/${facility.id}/buildings/${buildingId}`,
+          });
+        }
+        facilityBuildingIds.add(buildingId);
+      }
+      const districtSpaces = publicSpaceIdsByDistrict.get(entry.district.id) ?? new Set();
+      for (const spaceId of facility.publicSpaceIds) {
+        if (!districtSpaces.has(spaceId)) {
+          issues.push({
+            code: "MISSING_REFERENCE",
+            path: `world/districts/${entry.district.id}/facilities/${facility.id}/publicSpaces/${spaceId}`,
+          });
+        }
+      }
+    }
+  }
+  if (hasDuplicate(facilityIds)) {
+    issues.push({ code: "DUPLICATE_ID", path: "world/districts/facilities" });
   }
 
   for (const identity of snapshot.playerIdentities) {

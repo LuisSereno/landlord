@@ -596,12 +596,18 @@ describe("Gate 2 product loop", () => {
       );
       const inventoryBefore = { ...state.phase2.inventories.get(organization)! };
       advanceToTick(state, 120 * 50 - 1);
-      expect(state.phase2.buildings).toHaveLength(0);
+      expect(
+        [...state.phase2.buildings.values()].filter(
+          (entry) => entry.ownerOrganizationId === organization,
+        ),
+      ).toHaveLength(0);
       expect(state.phase2.facilities).toHaveLength(0);
       expect(state.phase2.inventories.get(organization)).toEqual(inventoryBefore);
 
       advanceToTick(state, 180 * 50);
-      const building = [...state.phase2.buildings.values()][0]!;
+      const building = [...state.phase2.buildings.values()].find(
+        (entry) => entry.parcelId === parseParcelId(parcelId),
+      )!;
       const facility = state.phase2.facilities.get(building.productionFacilityId!)!;
       return { state, facility };
     };

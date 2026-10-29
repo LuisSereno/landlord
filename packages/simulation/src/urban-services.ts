@@ -1,4 +1,5 @@
 import type { BuildingId, GridCell, ParcelId } from "@landlord/shared";
+import { MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
 import type { GameState } from "./state";
 
 export type UrbanServiceId = "transport" | "security" | "cleaning";
@@ -90,12 +91,12 @@ function coverageOf(
 
 /** Índice de cobertura por edificio y por parcela con edificio, en una sola pasada. */
 export function buildCoverageIndex(state: GameState): CoverageIndex {
-  const parcels = [...state.phase2.parcels.values()].sort((left, right) =>
-    left.id.localeCompare(right.id),
-  );
-  const buildings = [...state.phase2.buildings.values()].sort((left, right) =>
-    left.id.localeCompare(right.id),
-  );
+  const parcels = [...state.phase2.parcels.values()]
+    .filter((parcel) => parcel.disposition === "marketable")
+    .sort((left, right) => left.id.localeCompare(right.id));
+  const buildings = [...state.phase2.buildings.values()]
+    .filter((building) => building.ownerOrganizationId !== MUNICIPALITY_ORGANIZATION_ID)
+    .sort((left, right) => left.id.localeCompare(right.id));
   const center: GridCell =
     parcels.length === 0
       ? { x: 0, y: 0 }

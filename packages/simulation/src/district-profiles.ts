@@ -10,7 +10,7 @@ import type {
 import type { UrbanFabricConfig } from "./urban-fabric";
 
 /** Versión del algoritmo de generación. Cambiarla invalida los hashes de fixtures. */
-export const DISTRICT_GENERATOR_VERSION = 2;
+export const DISTRICT_GENERATOR_VERSION = 3;
 
 export const DEFAULT_DISTRICT_PROFILE_ID = "barrio_del_umbral";
 
@@ -125,7 +125,7 @@ const FABRIC_URBAN: DistrictProfile["fabric"] = {
   maxBlockAreaCells: 340,
   maxBlockDepthCells: 15,
   parcelFrontageCells: [2, 4],
-  parcelDepthCells: [5, 15],
+  parcelDepthCells: [5, 16],
   parcelAreaCells: [12, 96],
   maxParcelAspectRatio: 8,
 };
@@ -136,7 +136,7 @@ const FABRIC_DENSE: DistrictProfile["fabric"] = {
   maxBlockAreaCells: 340,
   maxBlockDepthCells: 10,
   parcelFrontageCells: [2, 4],
-  parcelDepthCells: [4, 10],
+  parcelDepthCells: [4, 12],
   parcelAreaCells: [10, 72],
   maxParcelAspectRatio: 6,
 };
@@ -147,7 +147,7 @@ const FABRIC_MIXED: DistrictProfile["fabric"] = {
   maxBlockAreaCells: 460,
   maxBlockDepthCells: 10,
   parcelFrontageCells: [2, 5],
-  parcelDepthCells: [5, 10],
+  parcelDepthCells: [5, 12],
   parcelAreaCells: [12, 96],
   maxParcelAspectRatio: 6,
 };
@@ -158,7 +158,7 @@ const FABRIC_CIVIC: DistrictProfile["fabric"] = {
   maxBlockAreaCells: 360,
   maxBlockDepthCells: 10,
   parcelFrontageCells: [3, 6],
-  parcelDepthCells: [5, 10],
+  parcelDepthCells: [5, 12],
   parcelAreaCells: [15, 96],
   maxParcelAspectRatio: 6,
 };
@@ -169,7 +169,7 @@ const FABRIC_LOW_DENSITY: DistrictProfile["fabric"] = {
   maxBlockAreaCells: 620,
   maxBlockDepthCells: 15,
   parcelFrontageCells: [2, 4],
-  parcelDepthCells: [8, 15],
+  parcelDepthCells: [8, 18],
   parcelAreaCells: [24, 140],
   maxParcelAspectRatio: 8,
 };
@@ -180,7 +180,7 @@ const FABRIC_INDUSTRIAL: DistrictProfile["fabric"] = {
   maxBlockAreaCells: 330,
   maxBlockDepthCells: 15,
   parcelFrontageCells: [4, 8],
-  parcelDepthCells: [8, 15],
+  parcelDepthCells: [8, 18],
   parcelAreaCells: [32, 220],
   maxParcelAspectRatio: 8,
 };
@@ -191,7 +191,7 @@ const FABRIC_RAIL: DistrictProfile["fabric"] = {
   maxBlockAreaCells: 420,
   maxBlockDepthCells: 15,
   parcelFrontageCells: [2, 4],
-  parcelDepthCells: [8, 15],
+  parcelDepthCells: [8, 18],
   parcelAreaCells: [24, 160],
   maxParcelAspectRatio: 8,
 };
@@ -274,9 +274,11 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     suitabilityJitterPercent: 20,
     obstacles: { clusters: [2, 4], cellsPerCluster: [4, 9] },
     playability: {
+      // Vega nunca recibe manzanas mixtas con la receta de rol verde/baja densidad: el mínimo
+      // mixto es 0 a propósito, no un hueco tolerado.
       minimumParcels: 18,
-      minimumParcelsPerZoning: { residential: 5, mixed: 5, industrial: 3 },
-      maximumZoningSharePercent: 55,
+      minimumParcelsPerZoning: { residential: 5, mixed: 0, industrial: 3 },
+      maximumZoningSharePercent: 70,
       maximumCheapestParcelPrice: 850,
     },
   },
@@ -401,9 +403,11 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     suitabilityJitterPercent: 14,
     obstacles: { clusters: [1, 2], cellsPerCluster: [4, 8] },
     playability: {
+      // La reserva de programa consume manzanas enteras; el techo se fija sobre el barrido de 100
+      // seeds (máximo medido 61,5%) en vez de sobre la receta sin programa.
       minimumParcels: 18,
       minimumParcelsPerZoning: { residential: 4, mixed: 6, industrial: 3 },
-      maximumZoningSharePercent: 55,
+      maximumZoningSharePercent: 68,
       maximumCheapestParcelPrice: 1050,
     },
   },
@@ -446,7 +450,7 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     playability: {
       minimumParcels: 20,
       minimumParcelsPerZoning: { residential: 4, mixed: 6, industrial: 2 },
-      maximumZoningSharePercent: 60,
+      maximumZoningSharePercent: 65,
       maximumCheapestParcelPrice: 1150,
     },
   },

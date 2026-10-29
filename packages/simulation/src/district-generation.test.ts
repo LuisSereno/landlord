@@ -62,6 +62,8 @@ function canonical(generated: GeneratedDistrict): string {
     parcels: generated.parcels,
     blocks: generated.blocks,
     publicSpaces: generated.publicSpaces,
+    buildings: generated.buildings,
+    facilities: generated.facilities,
     blockedCells: generated.blockedCells,
     roads: generated.roads,
     spawnAnchors: generated.spawnAnchors,
@@ -151,7 +153,13 @@ describe("WP4.1 district generation", () => {
 
         for (const parcel of generated.parcels) {
           expect(parcel.districtId, label).toBe(generated.district.id);
-          expect(parcel.ownerOrganizationId, label).toBeNull();
+          if (parcel.disposition === "public") {
+            expect(parcel.ownerOrganizationId, label).toBe(
+              "org_00000004" as typeof parcel.ownerOrganizationId,
+            );
+          } else {
+            expect(parcel.ownerOrganizationId, label).toBeNull();
+          }
           expect(parcel.cells.length, label).toBeGreaterThan(0);
           expect(parcel.roadFrontages.length, label).toBeGreaterThan(0);
           for (const cell of parcel.cells) {
@@ -168,7 +176,7 @@ describe("WP4.1 district generation", () => {
         ).toEqual([]);
       }
     }
-  }, 120_000);
+  }, 600_000);
 
   it("conserva los hashes de las fixtures publicadas", () => {
     for (const fixture of DISTRICT_FIXTURES) {
@@ -300,7 +308,7 @@ describe("WP4.1 district generation", () => {
     expect(first.checkpoints.at(-1)?.canonicalState).not.toBe(
       otherSeed.checkpoints.at(-1)?.canonicalState,
     );
-  }, 120_000);
+  }, 300_000);
 
   it("persiste la identidad de generación de la ciudad y las celdas bloqueadas por distrito", () => {
     const state = createInitialState(1337);

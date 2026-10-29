@@ -14,10 +14,12 @@ import {
   type DistrictGateway,
   type DistrictId,
   type DistrictSide,
+  type Building,
   type GridCell,
   type Parcel,
   type PublicSpace,
   type RoadTopology,
+  type UrbanFacility,
   type UrbanRole,
 } from "@landlord/shared";
 
@@ -207,6 +209,8 @@ export type GeneratedDistrictState = {
   parcels: Parcel[];
   blocks: Block[];
   publicSpaces: PublicSpace[];
+  buildings: Building[];
+  facilities: UrbanFacility[];
   blockedCells: string[];
   roads: RoadTopology;
   spawnAnchors: GeneratedDistrict["spawnAnchors"];
@@ -404,6 +408,8 @@ export function createCity(options: {
     const generated = generateDistrictFromProfile(districtProfile, districtSeed, {
       districtId,
       parcelIdOrdinal: parcelIdOrdinalForSlot(slot.slotX, slot.slotY),
+      buildingIdOrdinal: 90_000_000 + slotOrdinal(slot.slotX, slot.slotY) * 1_000,
+      facilityIdOrdinal: slotOrdinal(slot.slotX, slot.slotY) * 1_000,
       gatewayCells: gatewaysByDistrict.get(districtId) ?? [],
       cityId,
     });
@@ -412,6 +418,8 @@ export function createCity(options: {
       parcels: generated.parcels,
       blocks: generated.blocks,
       publicSpaces: generated.publicSpaces,
+      buildings: generated.buildings,
+      facilities: generated.facilities,
       blockedCells: generated.blockedCells,
       roads: generated.roads,
       spawnAnchors: generated.spawnAnchors,

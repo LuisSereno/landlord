@@ -49,6 +49,8 @@ import {
   type DistrictId,
   type PublicSpace,
   type PublicSpaceId,
+  type UrbanFacility,
+  type UrbanFacilityId,
 } from "@landlord/shared";
 import type { Money } from "@landlord/shared";
 import type {
@@ -116,6 +118,7 @@ export type DistrictState = {
   map: DistrictMap;
   blocks: Map<BlockId, Block>;
   publicSpaces: Map<PublicSpaceId, PublicSpace>;
+  facilities: Map<UrbanFacilityId, UrbanFacility>;
 };
 
 export type WorldState = {
@@ -251,6 +254,7 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
         },
         blocks: new Map(generated.blocks.map((block) => [block.id, block])),
         publicSpaces: new Map(generated.publicSpaces.map((space) => [space.id, space])),
+        facilities: new Map(generated.facilities.map((facility) => [facility.id, facility])),
       } satisfies DistrictState,
     ]),
   );
@@ -402,7 +406,11 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
         [RIVAL_ORGANIZATION_ID, rivalInventory],
       ]),
       facilities: new Map(),
-      buildings: new Map(),
+      buildings: new Map(
+        [...city.districts].flatMap(([, generated]) =>
+          generated.buildings.map((building) => [building.id, building] as const),
+        ),
+      ),
       constructionSites: new Map(),
       crews,
       incidents: new Map(),

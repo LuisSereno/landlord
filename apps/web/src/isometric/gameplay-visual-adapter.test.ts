@@ -20,6 +20,7 @@ type ParcelInput = {
   id: string;
   cell: { x: number; y: number };
   zoning: "residential" | "industrial" | "mixed";
+  disposition?: "marketable" | "public" | "infrastructure";
   ownerOrganizationId: string | null;
   buildingId: string | null;
 };
@@ -90,6 +91,14 @@ const PARCELS: ParcelInput[] = [
     cell: { x: 14, y: 16 },
     zoning: "residential",
     ownerOrganizationId: "org_1",
+    buildingId: null,
+  },
+  {
+    id: "par_6",
+    cell: { x: 22, y: 16 },
+    zoning: "residential",
+    disposition: "public",
+    ownerOrganizationId: "org_00000004",
     buildingId: null,
   },
 ];
@@ -189,7 +198,13 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
 
   it("usa datos reales para superficies de parcela", () => {
     const plan = planGameplayGround(
-      PARCELS.map((p) => ({ id: p.id, cell: p.cell, zoning: p.zoning, buildingId: p.buildingId })),
+      PARCELS.map((p) => ({
+        id: p.id,
+        cell: p.cell,
+        zoning: p.zoning,
+        ...(p.disposition ? { disposition: p.disposition } : {}),
+        buildingId: p.buildingId,
+      })),
       new Set(["par_5"]),
       64,
       64,
@@ -199,7 +214,25 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
     expect(plan.surfaces.get("18:10")).toBe("gravel"); // industrial built
     expect(plan.surfaces.get("10:16")).toBe("dirt"); // vacant
     expect(plan.surfaces.get("14:16")).toBe("construction"); // construction site
+    expect(plan.surfaces.get("22:16")).toBe("grass"); // public land
     expect(plan.surfaces.get("11:10")).toBe("grass"); // residential apron ring
+  });
+
+  it("pinta plazas y parques desde la proyección, no como terreno base", () => {
+    const plan = planGameplayGround(
+      [],
+      new Set(),
+      64,
+      64,
+      [],
+      [],
+      [
+        { kind: "plaza", cells: [{ x: 5, y: 5 }] },
+        { kind: "park", cells: [{ x: 6, y: 6 }] },
+      ],
+    );
+    expect(plan.surfaces.get("5:5")).toBe("pavement"); // plaza
+    expect(plan.surfaces.get("6:6")).toBe("grass"); // park
   });
 
   it("no coloca decoración sobre una parcela construida ni sobre su entorno inmediato", () => {

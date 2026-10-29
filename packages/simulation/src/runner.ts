@@ -77,6 +77,9 @@ export function canonicalizeState(state: GameState): string {
             publicSpaces: [...entry.publicSpaces.values()].sort((left, right) =>
               left.id.localeCompare(right.id),
             ),
+            facilities: [...entry.facilities.values()].sort((left, right) =>
+              left.id.localeCompare(right.id),
+            ),
           };
         }),
     },

@@ -162,6 +162,8 @@ describe("V.d.0 gate de ciudad", () => {
           parcels: entry.parcels,
           blocks: entry.blocks,
           publicSpaces: entry.publicSpaces,
+          buildings: entry.buildings,
+          facilities: entry.facilities,
           blockedCells: entry.blockedCells,
           roads: entry.roads,
           spawnAnchors: entry.spawnAnchors,

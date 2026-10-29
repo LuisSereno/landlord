@@ -402,6 +402,36 @@ export function App() {
               onSelect={(districtId) => void selectDistrict(districtId)}
             />
           ) : null}
+          {projection ? (
+            <details className="side-panel">
+              <summary>Equipamientos y espacios públicos</summary>
+              {projection.facilities.length === 0 && projection.publicSpaces.length === 0 ? (
+                <p>Este distrito no tiene programa municipal.</p>
+              ) : (
+                <>
+                  {projection.facilities.map((facility) => (
+                    <p key={facility.id} className="selection-detail">
+                      <strong>{facilityLabel(facility.kind)}</strong> · capacidad{" "}
+                      {facility.capacity} · operador {facility.operatorOrganizationId}
+                      <br />
+                      función {facility.serviceProfileId} · edificios{" "}
+                      {facility.buildingIds.join(", ") || "—"} · parcelas{" "}
+                      {facility.parcelIds.join(", ")}
+                      <br />
+                      cobertura futura: {facility.accessCells.length} celdas de acceso vial
+                    </p>
+                  ))}
+                  {projection.publicSpaces.map((space) => (
+                    <p key={space.id} className="selection-detail">
+                      <strong>{publicSpaceLabel(space.kind)}</strong> · {space.cells.length} celdas
+                      · operador {space.operatorOrganizationId}
+                      {space.blockId ? ` · manzana ${space.blockId}` : ""}
+                    </p>
+                  ))}
+                </>
+              )}
+            </details>
+          ) : null}
           <section className="side-panel">
             <p className="status-line" role="status">
               {message}
@@ -736,15 +766,19 @@ export function App() {
               selectedParcel ? (
                 <>
                   <p className="selection-title">
-                    {zoningLabel(selectedParcel.zoning)} ·{" "}
-                    {ownershipLabel(selectedParcel.ownerOrganizationId)}
+                    {selectedParcel.disposition === "public"
+                      ? "Suelo público"
+                      : zoningLabel(selectedParcel.zoning)}{" "}
+                    · {ownershipLabel(selectedParcel.ownerOrganizationId)}
                   </p>
                   <p className="selection-detail">
                     {selectedBuilding
                       ? `${buildingLabel(selectedBuilding.type)} · nivel ${selectedBuilding.level} · estado ${selectedBuilding.condition}%`
                       : selectedConstructionSite
                         ? `${buildingLabel(selectedConstructionSite.buildingType)} en obra · ${selectedConstructionSite.progress}/${selectedConstructionSite.workRequired}`
-                        : `Solar disponible · precio ${selectedParcel.price} u.`}
+                        : selectedParcel.disposition === "public"
+                          ? "Reserva municipal: no transferible"
+                          : `Solar disponible · precio ${selectedParcel.price} u.`}
                   </p>
                   <div className="selection-detail">
                     <strong>Aptitud productiva</strong>
@@ -1684,6 +1718,31 @@ function buildingLabel(type: string): string {
       brickworks: "Ladrillera",
       steelworks: "Acería",
     }[type] ?? type
+  );
+}
+
+function facilityLabel(kind: string): string {
+  return (
+    {
+      town_hall: "Ayuntamiento",
+      school: "Escuela",
+      clinic: "Clínica",
+      police_station: "Comisaría",
+      fire_station: "Parque de bomberos",
+      market: "Mercado",
+    }[kind] ?? kind
+  );
+}
+
+function publicSpaceLabel(kind: string): string {
+  return (
+    {
+      plaza: "Plaza",
+      park: "Parque",
+      pocket_park: "Pocket park",
+      civic_courtyard: "Patio cívico",
+      schoolyard: "Patio escolar",
+    }[kind] ?? kind
   );
 }
 

@@ -26,6 +26,8 @@ function cityFixture(observedDistrictId: string) {
         vacantUnits: 0,
         rentIndexPercent: 100,
         averageLandValue: 0,
+        facilities: 0,
+        publicSpaces: 0,
         alerts: 0,
       })),
     },
@@ -38,6 +40,8 @@ describe("view projection v1", () => {
     ...cityFixture("district_00000001"),
     tick: 2,
     map: { width: 64, height: 64, roads: { revision: 0, digest: "811c9dc5", cells } },
+    publicSpaces: [],
+    facilities: [],
     structures: [
       { id: "structure_00000001", ownerOrganizationId: "org_00000001", cell: { x: 1, y: 2 } },
     ],

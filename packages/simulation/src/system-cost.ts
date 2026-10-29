@@ -269,13 +269,18 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
   // El harness sustituye el tejido del distrito objetivo por una carga sintética; no pretende
   // respetar vías ni manzanas, sólo medir sistemas con el número de parcelas solicitado.
   for (const [parcelId, parcel] of [...state.phase2.parcels]) {
-    if (parcel.districtId === targetDistrictId) state.phase2.parcels.delete(parcelId);
+    if (parcel.districtId === targetDistrictId && parcel.disposition === "marketable")
+      state.phase2.parcels.delete(parcelId);
   }
   const taken = new Set<string>(targetMap.blockedCells);
   for (const cell of roadCellsFromSegments(targetMap.roads.segments)) taken.add(cell);
   const targetState = state.world.districts.get(targetDistrictId)!;
   for (const space of targetState.publicSpaces.values()) {
     for (const cell of space.cells) taken.add(cellKey(cell));
+  }
+  for (const parcel of state.phase2.parcels.values()) {
+    if (parcel.districtId !== targetDistrictId) continue;
+    for (const cell of parcel.cells) taken.add(cellKey(cell));
   }
   for (const agent of state.agents.values()) taken.add(cellKey(agent.cell));
 

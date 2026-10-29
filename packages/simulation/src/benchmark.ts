@@ -376,6 +376,8 @@ export function createBenchmarkProjection(scenario: BenchmarkScenario): ViewProj
     vacantUnits: 0,
     rentIndexPercent: 100,
     averageLandValue: 0,
+    facilities: 0,
+    publicSpaces: 0,
     alerts: 0,
   }));
   return {
@@ -389,6 +391,8 @@ export function createBenchmarkProjection(scenario: BenchmarkScenario): ViewProj
     },
     tick: scenario.tick,
     map: { width: 64, height: 64, roads: { revision: 0, digest: "811c9dc5", cells: [] } },
+    publicSpaces: [],
+    facilities: [],
     structures: scenario.buildings.map((building) => ({
       id: building.id,
       ownerOrganizationId: parseOrganizationId("org_00000001"),

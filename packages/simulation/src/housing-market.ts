@@ -16,6 +16,7 @@ import {
 import {
   BUILDING_DEFINITIONS,
   GAME_MONTH_TICKS,
+  MUNICIPALITY_ORGANIZATION_ID,
   TENANT_PROFILE_DEFAULTS,
   UPGRADE_RENT_BONUS_PERCENT,
   conditionRentMultiplierPercent,
@@ -232,6 +233,7 @@ function buildStock(state: GameState): StockUnit[] {
     left.id.localeCompare(right.id),
   )) {
     if (building.state !== "operational") continue;
+    if (building.ownerOrganizationId === MUNICIPALITY_ORGANIZATION_ID) continue;
     const cell = state.phase2.parcels.get(building.parcelId)?.anchorCell;
     if (!cell) continue;
     raw.push({ building, cell });

@@ -261,6 +261,7 @@ type GameplayParcel = {
   id: string;
   cell: GridCell;
   zoning: string;
+  disposition?: "marketable" | "public" | "infrastructure";
   buildingId: string | null;
 };
 
@@ -576,10 +577,11 @@ export function visualArchetypeForBuilding(domainType: string, stableId: string)
   return candidates[index]!;
 }
 
-type ParcelStatus = "built" | "construction" | "vacant";
+type ParcelStatus = "built" | "construction" | "vacant" | "public";
 
 function surfaceForParcel(zoning: string, status: ParcelStatus): GroundSurface {
   if (status === "construction") return "construction";
+  if (status === "public") return "grass";
   if (status === "vacant") return "dirt";
   if (zoning === "residential") return "gravel";
   if (zoning === "industrial") return "gravel";
@@ -587,10 +589,17 @@ function surfaceForParcel(zoning: string, status: ParcelStatus): GroundSurface {
 }
 
 function apronForParcel(zoning: string, status: ParcelStatus): GroundSurface | null {
-  if (status !== "built") return null;
+  if (status !== "built" && status !== "public") return null;
   if (zoning === "residential") return "grass";
   if (zoning === "industrial") return "gravel";
   return "pavement";
+}
+
+/** A plaza is paved; parks and pocket parks are green. The kind comes from the projection. */
+function surfaceForPublicSpace(kind: string): GroundSurface {
+  return kind === "plaza" || kind === "civic_courtyard" || kind === "schoolyard"
+    ? "pavement"
+    : "grass";
 }
 
 /**
@@ -604,6 +613,7 @@ export function planGameplayGround(
     id: string;
     cell: GridCell;
     zoning: string;
+    disposition?: "marketable" | "public" | "infrastructure";
     buildingId: string | null;
   }>,
   constructionParcelIds: ReadonlySet<string>,
@@ -611,14 +621,25 @@ export function planGameplayGround(
   mapHeight: number,
   roadCells: ReadonlySet<string> | ReadonlyArray<string> = [],
   roadMarkings: readonly GroundRoadMarking[] = [],
+  publicSpaces: ReadonlyArray<{ kind: string; cells: readonly GridCell[] }> = [],
 ): GroundPlan {
   const surfaces = new Map<string, GroundSurface>();
   for (let y = 0; y < mapHeight; y += 1) {
     for (let x = 0; x < mapWidth; x += 1) surfaces.set(`${x}:${y}`, "urban");
   }
 
-  const statusOf = (parcel: { id: string; buildingId: string | null }): ParcelStatus =>
-    parcel.buildingId ? "built" : constructionParcelIds.has(parcel.id) ? "construction" : "vacant";
+  const statusOf = (parcel: {
+    id: string;
+    buildingId: string | null;
+    disposition?: "marketable" | "public" | "infrastructure";
+  }): ParcelStatus =>
+    parcel.disposition === "public"
+      ? "public"
+      : parcel.buildingId
+        ? "built"
+        : constructionParcelIds.has(parcel.id)
+          ? "construction"
+          : "vacant";
 
   const sorted = [...parcels].sort((a, b) => a.cell.y - b.cell.y || a.cell.x - b.cell.x);
   const parcelCells = new Set(sorted.map((parcel) => cellKey(parcel.cell)));
@@ -641,6 +662,11 @@ export function planGameplayGround(
       if (parcelCells.has(key)) continue;
       surfaces.set(key, apron);
     }
+  }
+
+  for (const space of publicSpaces) {
+    const surface = surfaceForPublicSpace(space.kind);
+    for (const cell of space.cells) surfaces.set(cellKey(cell), surface);
   }
 
   // La calzada se aplica al final para que ROAD > apron > parcela > base sea una regla explícita.
@@ -671,6 +697,7 @@ export function planGameplayDecorations(
     id: string;
     cell: GridCell;
     zoning: string;
+    disposition?: "marketable" | "public" | "infrastructure";
     buildingId: string | null;
   }>,
   constructionParcelIds: ReadonlySet<string>,
@@ -697,8 +724,18 @@ export function planGameplayDecorations(
     decorations.push({ cell: { ...cell }, asset, scale: jitter });
   };
 
-  const statusOf = (parcel: { id: string; buildingId: string | null }): ParcelStatus =>
-    parcel.buildingId ? "built" : constructionParcelIds.has(parcel.id) ? "construction" : "vacant";
+  const statusOf = (parcel: {
+    id: string;
+    buildingId: string | null;
+    disposition?: "marketable" | "public" | "infrastructure";
+  }): ParcelStatus =>
+    parcel.disposition === "public"
+      ? "public"
+      : parcel.buildingId
+        ? "built"
+        : constructionParcelIds.has(parcel.id)
+          ? "construction"
+          : "vacant";
 
   // Árboles en solares vacíos (un jardín en el solar propio).
   for (const parcel of [...parcels].sort((a, b) => a.cell.y - b.cell.y || a.cell.x - b.cell.x)) {
@@ -747,7 +784,7 @@ export function gameplayGeometryKey(projection: ViewProjectionV2): string {
           : parcel.ownerOrganizationId
             ? "o"
             : "v";
-      return `${parcel.cell.x},${parcel.cell.y},${parcel.zoning},${status}`;
+      return `${parcel.cell.x},${parcel.cell.y},${parcel.zoning},${parcel.disposition ?? "marketable"},${status}`;
     })
     .sort();
   return fnv1a32(`${projection.map.roads.digest}|${parts.join("|")}`).toString(16);
@@ -791,6 +828,7 @@ export function buildGameplayVisualModel(
     mapHeight,
     roadCellKeys,
     deriveRoadMarkings(projection.map.roads),
+    projection.publicSpaces,
   );
   groundPlan.treeCells = treeCells;
   const streetFurniture = planGameplayStreetFurniture(

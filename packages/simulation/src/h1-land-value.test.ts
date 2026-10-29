@@ -180,15 +180,15 @@ describe("H1-09A · los servicios espaciales mueven el valor en la dirección es
     const state = createInitialState(7);
     const sample = parcelsByRole(state, "commercial_corridor").slice(0, 5);
     const before = sample.map((parcel) => breakdown(state, parcel));
-    const transportBefore = before.reduce((total, entry) => total + entry.services, 0);
 
     /** Un corte de red: conexiones vacías = todos los gateways cerrados. */
     const connections = [...state.world.city.connections];
     state.world.city.connections.length = 0;
     const after = sample.map((parcel) => breakdown(state, parcel));
-    expect(after.reduce((total, entry) => total + entry.services, 0)).toBeLessThanOrEqual(
-      transportBefore,
-    );
+    /** Medido: el cierre de gateways es una pérdida neta de cobertura en toda la ciudad. */
+    const citySum = (entries: { services: number }[]) =>
+      entries.reduce((total, entry) => total + entry.services, 0);
+    expect(citySum(after)).toBeLessThan(citySum(before));
     state.world.city.connections.push(...connections);
     expect(sample.map((parcel) => breakdown(state, parcel).services)).toEqual(
       before.map((entry) => entry.services),

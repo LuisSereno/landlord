@@ -61,10 +61,6 @@ function quietState(seed = 7): GameState {
   return state;
 }
 
-function manhattan(left: GridCell, right: GridCell): number {
-  return Math.abs(left.x - right.x) + Math.abs(left.y - right.y);
-}
-
 function parcelsWithRoom(state: GameState, districtId: DistrictId): Parcel[] {
   return [...state.phase2.parcels.values()]
     .filter(

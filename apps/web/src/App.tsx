@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import type { SimulationMetrics, ViewProjectionV2, WorkerResponse } from "@landlord/shared";
+import type {
+  BuildingId,
+  SimulationMetrics,
+  ViewProjectionV2,
+  WorkerResponse,
+} from "@landlord/shared";
+import { resolveBuildingSelection } from "./building-selection";
 import { appendDiagnostic, summarizeDiagnostics, type DiagnosticEntry } from "./diagnostics";
 import { SnapshotPersistenceError, createIndexedDbPersistence } from "./persistence/indexed-db";
 import type { GridCell } from "./isometric/coordinates";
@@ -29,6 +35,8 @@ export function RootApp() {
 
 export function App() {
   const [selectedCell, setSelectedCell] = useState<GridCell | null>(null);
+  /** Edificio elegido dentro de la parcela seleccionada; se reinicia al cambiar de parcela. */
+  const [selectedBuildingId, setSelectedBuildingId] = useState<BuildingId | null>(null);
   const [mapOverlay, setMapOverlay] = useState<MapOverlay>("ownership");
   const [projection, setProjection] = useState<
     Parameters<typeof updateIsometricProjection>[1] | null
@@ -185,8 +193,19 @@ export function App() {
   const selectedParcel = economy?.parcels.find((parcel) =>
     parcel.cells.some((cell) => cell.x === selectedCell?.x && cell.y === selectedCell?.y),
   );
-  const selectedBuilding = selectedParcel?.buildingId
-    ? economy?.buildings.find((building) => building.id === selectedParcel.buildingId)
+  const parcelBuildingIds = selectedParcel?.buildingIds ?? [];
+  /**
+   * H1-07: una parcela puede tener varios edificios, así que la autoridad funcional es la selección
+   * explícita, no `selectedParcel.buildingId` (que la proyección conserva sólo como compatibilidad).
+   * Al cambiar de parcela la selección previa deja de pertenecer al conjunto y cae sola: con un único
+   * edificio ése es la selección; con varios se exige una elección explícita antes de actuar.
+   */
+  const { activeBuildingId, requiresBuildingChoice } = resolveBuildingSelection(
+    parcelBuildingIds,
+    selectedBuildingId,
+  );
+  const selectedBuilding = activeBuildingId
+    ? economy?.buildings.find((building) => building.id === activeBuildingId)
     : undefined;
   const compatibleTenants =
     economy?.tenants.filter(
@@ -724,7 +743,7 @@ export function App() {
                   {(economy.banking.offers[0]?.annualInterestRateBps ?? 900) / 100}%.
                 </p>
                 {selectedParcel?.ownerOrganizationId === "org_00000001" &&
-                  !selectedParcel.buildingId && (
+                  parcelBuildingIds.length === 0 && (
                     <button
                       type="button"
                       onClick={() =>
@@ -786,6 +805,33 @@ export function App() {
                       : zoningLabel(selectedParcel.zoning)}{" "}
                     · {ownershipLabel(selectedParcel.ownerOrganizationId)}
                   </p>
+                  {parcelBuildingIds.length > 0 ? (
+                    <div className="selection-detail">
+                      <strong>Edificios de la parcela</strong>
+                      <span>
+                        {parcelBuildingIds.map((buildingId) => {
+                          const entry = economy?.buildings.find(
+                            (building) => building.id === buildingId,
+                          );
+                          if (!entry) return null;
+                          return (
+                            <button
+                              key={buildingId}
+                              type="button"
+                              onClick={() => setSelectedBuildingId(buildingId)}
+                              aria-pressed={buildingId === activeBuildingId}
+                            >
+                              {buildingLabel(entry.type)} · {buildingId.slice(-4)} · {entry.state} ·{" "}
+                              {ownershipLabel(entry.ownerOrganizationId)}
+                            </button>
+                          );
+                        })}
+                      </span>
+                      {requiresBuildingChoice ? (
+                        <span>Elige un edificio para gestionarlo.</span>
+                      ) : null}
+                    </div>
+                  ) : null}
                   <p className="selection-detail">
                     {selectedBuilding
                       ? `${buildingLabel(selectedBuilding.type)} · nivel ${selectedBuilding.level} · estado ${selectedBuilding.condition}%`
@@ -993,7 +1039,7 @@ export function App() {
                           const missing = missingResources(economy?.inventory, option.resources);
                           const unavailable =
                             !client ||
-                            Boolean(selectedParcel.buildingId) ||
+                            parcelBuildingIds.length > 0 ||
                             missing.length > 0 ||
                             (economy?.cash ?? 0) < option.cost;
                           const crewUnavailable =

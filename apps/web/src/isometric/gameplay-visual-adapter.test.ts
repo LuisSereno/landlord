@@ -123,6 +123,151 @@ function streetDressingRoads() {
   return deriveRoadVisuals({ digest: "street-dressing-fixture", cells });
 }
 
+function multiCellRoads() {
+  const cells: string[] = [];
+  for (let y = 4; y <= 28; y += 1) cells.push(`10:${y}`);
+  for (let x = 4; x <= 20; x += 1) cells.push(`${x}:16`);
+  return deriveRoadVisuals({ digest: "multi-cell-fixture", cells });
+}
+
+/** Parcela multi-celda con el ancla lejos de una de sus celdas: el caso que H1-08 corrige. */
+const FAR_CELLS = [
+  { x: 2, y: 2 },
+  { x: 11, y: 16 },
+  { x: 11, y: 17 },
+];
+
+function hostOf(vehicle: { roadCell: { x: number; y: number }; side: string }): string {
+  const offset =
+    vehicle.side === "n"
+      ? { x: 0, y: -1 }
+      : vehicle.side === "s"
+        ? { x: 0, y: 1 }
+        : vehicle.side === "e"
+          ? { x: 1, y: 0 }
+          : { x: -1, y: 0 };
+  return `${String(vehicle.roadCell.x + offset.x)}:${String(vehicle.roadCell.y + offset.y)}`;
+}
+
+describe("H1-08 · ocupación multi-celda del dressing", () => {
+  it("ningún prop cae sobre una celda lejana de la parcela, aunque el ancla esté en otro sitio", () => {
+    const roads = multiCellRoads();
+    const parcels = [
+      {
+        id: "wide",
+        cell: FAR_CELLS[0]!,
+        cells: FAR_CELLS,
+        zoning: "residential",
+        buildingId: "b1",
+      },
+      { id: "plain", cell: { x: 18, y: 4 }, zoning: "mixed", buildingId: null },
+    ];
+
+    const furniture = planGameplayStreetFurniture(roads, parcels, new Set(), [], 32, 32);
+    const vehicles = planGameplayParkedVehicles(roads, parcels, new Set(), [], furniture, 32, 32);
+    const { decorations } = planGameplayDecorations(parcels, new Set(), 32, 32);
+    const occupied = new Set(
+      parcels.flatMap((parcel) =>
+        (parcel.cells ?? [parcel.cell]).map((cell) => `${String(cell.x)}:${String(cell.y)}`),
+      ),
+    );
+
+    for (const entry of furniture)
+      expect(occupied.has(`${entry.cell.x}:${entry.cell.y}`)).toBe(false);
+    for (const vehicle of vehicles) expect(occupied.has(hostOf(vehicle))).toBe(false);
+    for (const decoration of decorations)
+      expect(occupied.has(`${decoration.cell.x}:${decoration.cell.y}`)).toBe(false);
+    /** La celda lejana de la parcela construida sigue siendo suya: ningún host la pisa. */
+    expect(occupied.has("11:16")).toBe(true);
+  });
+
+  it("una obra multi-celda reserva todas sus celdas y su franja", () => {
+    const roads = multiCellRoads();
+    const parcels = [
+      {
+        id: "site",
+        cell: FAR_CELLS[0]!,
+        cells: FAR_CELLS,
+        zoning: "residential",
+        buildingId: null,
+      },
+    ];
+    const construction = new Set(["site"]);
+
+    const furniture = planGameplayStreetFurniture(roads, parcels, construction, [], 32, 32);
+    const vehicles = planGameplayParkedVehicles(
+      roads,
+      parcels,
+      construction,
+      [],
+      furniture,
+      32,
+      32,
+    );
+
+    for (const entry of furniture) {
+      expect(`${entry.cell.x}:${entry.cell.y}`).not.toBe("11:16");
+      expect(`${entry.cell.x}:${entry.cell.y}`).not.toBe("12:16");
+    }
+    for (const vehicle of vehicles) {
+      expect(hostOf(vehicle)).not.toBe("11:17");
+      expect(hostOf(vehicle)).not.toBe("12:17");
+    }
+  });
+
+  it("un solar vacío con ancla apartada planta su jardín en una celda real y nada más", () => {
+    const cells = [
+      { x: 1, y: 1 },
+      { x: 20, y: 20 },
+      { x: 20, y: 21 },
+      { x: 21, y: 21 },
+      { x: 22, y: 22 },
+    ];
+    const vacant = [
+      { id: "garden", cell: cells[0]!, cells, zoning: "residential", buildingId: null },
+    ];
+    const { decorations } = planGameplayDecorations(vacant, new Set(), 32, 32);
+    const onParcel = decorations.filter((decoration) =>
+      cells.some((cell) => cell.x === decoration.cell.x && cell.y === decoration.cell.y),
+    );
+    /** Como mucho el jardín propio: ninguna decoración dispersa invade una celda de la parcela. */
+    expect(onParcel.length).toBeLessThanOrEqual(1);
+    for (const decoration of onParcel) expect(cells).toContainEqual(decoration.cell);
+  });
+
+  it("el resultado no depende del orden en que llegan las celdas de la parcela", () => {
+    const roads = multiCellRoads();
+    const forward = [
+      {
+        id: "wide",
+        cell: FAR_CELLS[0]!,
+        cells: FAR_CELLS,
+        zoning: "residential",
+        buildingId: "b1",
+      },
+    ];
+    const backward = [
+      {
+        id: "wide",
+        cell: FAR_CELLS[0]!,
+        cells: [...FAR_CELLS].reverse(),
+        zoning: "residential",
+        buildingId: "b1",
+      },
+    ];
+    expect(planGameplayDecorations(backward, new Set(), 32, 32)).toEqual(
+      planGameplayDecorations(forward, new Set(), 32, 32),
+    );
+    const furnitureForward = planGameplayStreetFurniture(roads, forward, new Set(), [], 32, 32);
+    expect(planGameplayStreetFurniture(roads, backward, new Set(), [], 32, 32)).toEqual(
+      furnitureForward,
+    );
+    expect(
+      planGameplayParkedVehicles(roads, backward, new Set(), [], furnitureForward, 32, 32),
+    ).toEqual(planGameplayParkedVehicles(roads, forward, new Set(), [], furnitureForward, 32, 32));
+  });
+});
+
 describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
   it("es determinista: la misma proyección produce el mismo modelo visual", () => {
     const first = buildGameplayVisualModel(projection(PARCELS, BUILDINGS, SITES));

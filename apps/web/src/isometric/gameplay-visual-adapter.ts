@@ -268,6 +268,8 @@ const JUNCTION_CLEARANCE = 2;
 type GameplayParcel = {
   id: string;
   cell: GridCell;
+  /** Celdas reales de la parcela multi-celda; `cell` es sólo su ancla. */
+  cells?: readonly GridCell[];
   zoning: string;
   disposition?: "marketable" | "public" | "infrastructure";
   buildingId: string | null;
@@ -316,7 +318,10 @@ function nearestZoning(
 ): string | null {
   let nearest: { distance: number; zoning: string } | null = null;
   for (const parcel of parcels) {
-    const distance = manhattanDistance(cell, parcel.cell);
+    // Una parcela multi-celda define su frente en cualquiera de sus celdas, no sólo en el ancla.
+    const distance = Math.min(
+      ...geometryCells(parcel).map((host) => manhattanDistance(cell, host)),
+    );
     if (distance > maxDistance || (nearest && distance >= nearest.distance)) continue;
     nearest = { distance, zoning: parcel.zoning };
   }
@@ -361,14 +366,17 @@ export function planGameplayStreetFurniture(
   mapHeight: number,
 ): GameplayStreetFurniture[] {
   const roadCells = new Set(roadVisuals.map((road) => cellKey(road.cell)));
-  const parcelCells = new Set(parcels.map((parcel) => cellKey(parcel.cell)));
+  /** Toda prueba de ocupación recorre `geometryCells`: el ancla ya no representa a la parcela. */
+  const parcelCells = new Set(parcels.flatMap((parcel) => geometryCells(parcel).map(cellKey)));
   const treeSet = new Set(treeCells.map(cellKey));
   const constructionCells = new Set<string>();
   for (const parcel of parcels) {
     if (!constructionParcelIds.has(parcel.id)) continue;
-    constructionCells.add(cellKey(parcel.cell));
-    for (const neighbour of CARDINAL_HOSTS) {
-      constructionCells.add(`${parcel.cell.x + neighbour.dx}:${parcel.cell.y + neighbour.dy}`);
+    for (const cell of geometryCells(parcel)) {
+      constructionCells.add(cellKey(cell));
+      for (const neighbour of CARDINAL_HOSTS) {
+        constructionCells.add(`${String(cell.x + neighbour.dx)}:${String(cell.y + neighbour.dy)}`);
+      }
     }
   }
   const junctions = roadVisuals.filter(isJunction).map((road) => road.cell);
@@ -493,16 +501,18 @@ export function planGameplayParkedVehicles(
   mapHeight: number,
 ): GameplayParkedVehicle[] {
   const roadCells = new Set(roadVisuals.map((road) => cellKey(road.cell)));
-  const parcelCells = new Set(parcels.map((parcel) => cellKey(parcel.cell)));
+  const parcelCells = new Set(parcels.flatMap((parcel) => geometryCells(parcel).map(cellKey)));
   const treeSet = new Set(treeCells.map(cellKey));
   const furnitureCells = new Set(furniture.map((entry) => cellKey(entry.cell)));
   const constructionCells = new Set(
     parcels
       .filter((parcel) => constructionParcelIds.has(parcel.id))
       .flatMap((parcel) => {
-        const cells = [cellKey(parcel.cell)];
-        for (const neighbour of CARDINAL_HOSTS) {
-          cells.push(`${parcel.cell.x + neighbour.dx}:${parcel.cell.y + neighbour.dy}`);
+        const cells = geometryCells(parcel).map(cellKey);
+        for (const cell of geometryCells(parcel)) {
+          for (const neighbour of CARDINAL_HOSTS) {
+            cells.push(`${String(cell.x + neighbour.dx)}:${String(cell.y + neighbour.dy)}`);
+          }
         }
         return cells;
       }),
@@ -729,7 +739,7 @@ export function planGameplayDecorations(
   mapHeight: number,
   roadCells: ReadonlySet<string> | ReadonlyArray<string> = [],
 ): { decorations: GameplayDecoration[]; treeCells: GridCell[] } {
-  const parcelCells = new Set(parcels.map((parcel) => cellKey(parcel.cell)));
+  const parcelCells = new Set(parcels.flatMap((parcel) => geometryCells(parcel).map(cellKey)));
   const roadCellKeys = roadSet(roadCells);
   const blocked = new Set<string>();
   for (const parcel of parcels) {
@@ -763,11 +773,13 @@ export function planGameplayDecorations(
           ? "construction"
           : "vacant";
 
-  // Árboles en solares vacíos (un jardín en el solar propio).
+  // Árboles en solares vacíos (un jardín en el solar propio), sobre una celda real de la parcela.
   for (const parcel of [...parcels].sort((a, b) => a.cell.y - b.cell.y || a.cell.x - b.cell.x)) {
     if (statusOf(parcel) !== "vacant") continue;
-    if (spatialHash(parcel.cell.x, parcel.cell.y, 0x1a2b) % 100 >= 45) continue;
-    pushTree(parcel.cell, 0x1a2b);
+    const salt = spatialHash(parcel.cell.x, parcel.cell.y, 0x1a2b);
+    if (salt % 100 >= 45) continue;
+    const cells = [...geometryCells(parcel)].sort((a, b) => a.y - b.y || a.x - b.x);
+    pushTree(cells[salt % cells.length]!, 0x1a2b);
   }
 
   // Árboles dispersos en terreno libre, lejos de parcelas construidas.

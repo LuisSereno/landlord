@@ -17,6 +17,15 @@ import { createInitialState, type GameState } from "./state";
  * envolvente de parcelas, conectividad por gateway y determinismo.
  */
 
+/**
+ * Cada test que recorre las doce ciudades genera nueve distritos por seed, y el de determinismo lo
+ * hace dos veces por seed. Medido en esta máquina: 33,3 s el más lento en solitario, más de 60 s
+ * cuando `pnpm test` ejecuta los ficheros pesados en paralelo. El timeout por defecto de vitest no
+ * es un umbral del contrato, así que se declara explícito con holgura para que un fallo de
+ * determinismo siga siendo un fallo real y no una carrera de scheduling.
+ */
+const TWELVE_CITY_TIMEOUT_MS = 180_000;
+
 function digest(value: string): string {
   let left = 0x811c9dc5;
   let right = 0x01000193;
@@ -102,76 +111,92 @@ describe("§2.1 · doce seeds canónicas de ciudad", () => {
     expect(CITY_SEED_FIXTURES.length).toBe(CANONICAL_CITY_SEEDS.length);
   });
 
-  it("cada seed reproduce su medida: nueve distritos, programa municipal y geometría", () => {
-    for (const fixture of CITY_SEED_FIXTURES) {
-      const state = createInitialState(fixture.seed);
-      expect(measure(state), `seed ${String(fixture.seed)}`).toEqual({
-        digestValue: fixture.digest,
-        districtCount: fixture.districtCount,
-        blockCount: fixture.blockCount,
-        parcelCount: fixture.parcelCount,
-        marketableParcelCount: fixture.marketableParcelCount,
-        publicParcelCount: fixture.publicParcelCount,
-        facilityCount: fixture.facilityCount,
-        publicSpaceCount: fixture.publicSpaceCount,
-        municipalBuildingCount: fixture.municipalBuildingCount,
-        gatewayCount: fixture.gatewayCount,
-        connectionCount: fixture.connectionCount,
-        blockRoleCounts: fixture.blockRoleCounts,
-      });
-    }
-  });
-
-  it("el programa municipal es idéntico en las doce ciudades", () => {
-    /** §9: 14 facilities, 7 espacios públicos, 14 parcelas públicas y 14 edificios municipales. */
-    for (const seed of CANONICAL_CITY_SEEDS) {
-      const state = createInitialState(seed);
-      const facilities = [...state.world.districts.values()].flatMap((district) => [
-        ...district.facilities.values(),
-      ]);
-      expect(facilities.filter((entry) => entry.kind === "town_hall")).toHaveLength(1);
-      expect(facilities.filter((entry) => entry.kind === "school")).toHaveLength(3);
-      expect(facilities.filter((entry) => entry.kind === "clinic")).toHaveLength(3);
-      expect(facilities.filter((entry) => entry.kind === "police_station")).toHaveLength(2);
-      expect(facilities.filter((entry) => entry.kind === "fire_station")).toHaveLength(2);
-      expect(facilities.filter((entry) => entry.kind === "market")).toHaveLength(3);
-      expect(facilities).toHaveLength(14);
-      for (const facility of facilities) {
-        expect(facility.operatorOrganizationId).toBe(MUNICIPALITY_ORGANIZATION_ID);
-        expect(facility.buildingIds.length).toBeGreaterThan(0);
-        for (const buildingId of facility.buildingIds)
-          expect(state.phase2.buildings.get(buildingId)!.ownerOrganizationId).toBe(
-            MUNICIPALITY_ORGANIZATION_ID,
-          );
+  it(
+    "cada seed reproduce su medida: nueve distritos, programa municipal y geometría",
+    () => {
+      for (const fixture of CITY_SEED_FIXTURES) {
+        const state = createInitialState(fixture.seed);
+        expect(measure(state), `seed ${String(fixture.seed)}`).toEqual({
+          digestValue: fixture.digest,
+          districtCount: fixture.districtCount,
+          blockCount: fixture.blockCount,
+          parcelCount: fixture.parcelCount,
+          marketableParcelCount: fixture.marketableParcelCount,
+          publicParcelCount: fixture.publicParcelCount,
+          facilityCount: fixture.facilityCount,
+          publicSpaceCount: fixture.publicSpaceCount,
+          municipalBuildingCount: fixture.municipalBuildingCount,
+          gatewayCount: fixture.gatewayCount,
+          connectionCount: fixture.connectionCount,
+          blockRoleCounts: fixture.blockRoleCounts,
+        });
       }
-      /** Suelo público inalienable: nunca en manos de una empresa. */
-      for (const parcel of state.phase2.parcels.values()) {
-        if (parcel.disposition !== "marketable")
-          expect(parcel.ownerOrganizationId).toBe(MUNICIPALITY_ORGANIZATION_ID);
-        else expect(parcel.ownerOrganizationId).toBeNull();
-      }
-    }
-  });
+    },
+    TWELVE_CITY_TIMEOUT_MS,
+  );
 
-  it("no hay referencias rotas en ninguna ciudad canónica", () => {
-    for (const seed of CANONICAL_CITY_SEEDS) {
-      const snapshot = serializeSnapshot(createInitialState(seed));
-      expect(validateSnapshotReferences(snapshot), `seed ${String(seed)}`).toEqual([]);
-    }
-  });
-
-  it("los nueve distritos están conectados por gateways en las doce semillas", () => {
-    for (const seed of CANONICAL_CITY_SEEDS) {
-      const state = createInitialState(seed);
-      expect(reachableDistrictCount(state), `seed ${String(seed)}`).toBe(9);
-      for (const connection of state.world.city.connections) {
-        const gateway = state.world.gateways.find((entry) => entry.id === connection.gatewayId)!;
-        expect(gateway.districtIds).toHaveLength(2);
-        expect(gateway.districtIds[0]).not.toBe(gateway.districtIds[1]);
-        expect(connection.cost).toBeGreaterThan(0);
+  it(
+    "el programa municipal es idéntico en las doce ciudades",
+    () => {
+      /** §9: 14 facilities, 7 espacios públicos, 14 parcelas públicas y 14 edificios municipales. */
+      for (const seed of CANONICAL_CITY_SEEDS) {
+        const state = createInitialState(seed);
+        const facilities = [...state.world.districts.values()].flatMap((district) => [
+          ...district.facilities.values(),
+        ]);
+        expect(facilities.filter((entry) => entry.kind === "town_hall")).toHaveLength(1);
+        expect(facilities.filter((entry) => entry.kind === "school")).toHaveLength(3);
+        expect(facilities.filter((entry) => entry.kind === "clinic")).toHaveLength(3);
+        expect(facilities.filter((entry) => entry.kind === "police_station")).toHaveLength(2);
+        expect(facilities.filter((entry) => entry.kind === "fire_station")).toHaveLength(2);
+        expect(facilities.filter((entry) => entry.kind === "market")).toHaveLength(3);
+        expect(facilities).toHaveLength(14);
+        for (const facility of facilities) {
+          expect(facility.operatorOrganizationId).toBe(MUNICIPALITY_ORGANIZATION_ID);
+          expect(facility.buildingIds.length).toBeGreaterThan(0);
+          for (const buildingId of facility.buildingIds)
+            expect(state.phase2.buildings.get(buildingId)!.ownerOrganizationId).toBe(
+              MUNICIPALITY_ORGANIZATION_ID,
+            );
+        }
+        /** Suelo público inalienable: nunca en manos de una empresa. */
+        for (const parcel of state.phase2.parcels.values()) {
+          if (parcel.disposition !== "marketable")
+            expect(parcel.ownerOrganizationId).toBe(MUNICIPALITY_ORGANIZATION_ID);
+          else expect(parcel.ownerOrganizationId).toBeNull();
+        }
       }
-    }
-  });
+    },
+    TWELVE_CITY_TIMEOUT_MS,
+  );
+
+  it(
+    "no hay referencias rotas en ninguna ciudad canónica",
+    () => {
+      for (const seed of CANONICAL_CITY_SEEDS) {
+        const snapshot = serializeSnapshot(createInitialState(seed));
+        expect(validateSnapshotReferences(snapshot), `seed ${String(seed)}`).toEqual([]);
+      }
+    },
+    TWELVE_CITY_TIMEOUT_MS,
+  );
+
+  it(
+    "los nueve distritos están conectados por gateways en las doce semillas",
+    () => {
+      for (const seed of CANONICAL_CITY_SEEDS) {
+        const state = createInitialState(seed);
+        expect(reachableDistrictCount(state), `seed ${String(seed)}`).toBe(9);
+        for (const connection of state.world.city.connections) {
+          const gateway = state.world.gateways.find((entry) => entry.id === connection.gatewayId)!;
+          expect(gateway.districtIds).toHaveLength(2);
+          expect(gateway.districtIds[0]).not.toBe(gateway.districtIds[1]);
+          expect(connection.cost).toBeGreaterThan(0);
+        }
+      }
+    },
+    TWELVE_CITY_TIMEOUT_MS,
+  );
 
   it("el número de parcelas se mantiene dentro de la envolvente medida", () => {
     for (const fixture of CITY_SEED_FIXTURES) {
@@ -181,13 +206,17 @@ describe("§2.1 · doce seeds canónicas de ciudad", () => {
     }
   });
 
-  it("la generación es determinista y cada semilla produce una ciudad distinta", () => {
-    const digests = CANONICAL_CITY_SEEDS.map((seed) => {
-      const first = canonicalizeState(createInitialState(seed));
-      const second = canonicalizeState(createInitialState(seed));
-      expect(second).toBe(first);
-      return digest(first);
-    });
-    expect(new Set(digests).size).toBe(digests.length);
-  });
+  it(
+    "la generación es determinista y cada semilla produce una ciudad distinta",
+    () => {
+      const digests = CANONICAL_CITY_SEEDS.map((seed) => {
+        const first = canonicalizeState(createInitialState(seed));
+        const second = canonicalizeState(createInitialState(seed));
+        expect(second).toBe(first);
+        return digest(first);
+      });
+      expect(new Set(digests).size).toBe(digests.length);
+    },
+    TWELVE_CITY_TIMEOUT_MS,
+  );
 });

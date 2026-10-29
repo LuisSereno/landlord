@@ -1,4 +1,5 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname } from "node:path";
 import { execSync } from "node:child_process";
 import { describe, expect, it } from "vitest";
 
@@ -28,6 +29,10 @@ import {
   streetDensityKmPerKm2,
   intersectionDensityPerKm2,
 } from "./urban-morphology";
+
+const environment = globalThis as typeof globalThis & {
+  process?: { env?: Record<string, string | undefined> };
+};
 
 const enabled = process.env.FABRIC_GATE === "1";
 const SEEDS = Array.from({ length: 100 }, (_, index) => index + 1);
@@ -208,11 +213,14 @@ describe.skipIf(!enabled)("V.d.1 gate de tejido urbano", () => {
       morphology: summary,
     };
     console.log(JSON.stringify(evidence, null, 2));
-    mkdirSync("docs/execution/phase-4", { recursive: true });
-    writeFileSync(
-      "docs/execution/phase-4/vd1-fabric-gate.json",
-      `${JSON.stringify(evidence, null, 2)}\n`,
-    );
+    /**
+     * El destino es configurable para que una corrida de hardening no pise la evidencia de V.d.1,
+     * que es histórica. Sin variable, sigue escribiendo el fichero original de la fase.
+     */
+    const evidencePath =
+      environment.process?.env?.FABRIC_GATE_OUT ?? "docs/execution/phase-4/vd1-fabric-gate.json";
+    mkdirSync(dirname(evidencePath), { recursive: true });
+    writeFileSync(evidencePath, `${JSON.stringify(evidence, null, 2)}\n`);
 
     expect(districts).toBe(100 * 9);
     expect(generationP95).toBeLessThan(300);

@@ -1,0 +1,209 @@
+{
+  "head": "b37693f4ea927787fdf6bb9eb9451bb22971f2c3",
+  "generatedAt": "2026-10-29T22:37:06.514Z",
+  "tool": "pnpm fabric:gate",
+  "seeds": 100,
+  "districts": 900,
+  "parcels": 73289,
+  "generationMs": {
+    "p50": 140.23,
+    "p95": 198.24,
+    "max": 398.4
+  },
+  "roadDerivationMs": {
+    "p50": 1.41,
+    "p95": 2.27,
+    "max": 4.59
+  },
+  "morphology": [
+    {
+      "profileId": "barrio_del_taller",
+      "family": "mixed_dense",
+      "density": 32.9,
+      "intersections": 320.4,
+      "blockAreaCells": 193,
+      "envelope": {
+        "density": [
+          16.174,
+          36.777
+        ],
+        "intersections": [
+          61.04,
+          411.99
+        ],
+        "blockArea": [
+          54.76,
+          811.06
+        ]
+      }
+    },
+    {
+      "profileId": "barrio_del_umbral",
+      "family": "ensanche",
+      "density": 23.62,
+      "intersections": 167.8,
+      "blockAreaCells": 221,
+      "envelope": {
+        "density": [
+          19.918,
+          26.547
+        ],
+        "intersections": [
+          167.85,
+          335.69
+        ],
+        "blockArea": [
+          79.38,
+          420.03
+        ]
+      }
+    },
+    {
+      "profileId": "centro_civico",
+      "family": "civic_centre",
+      "density": 32.59,
+      "intersections": 320.4,
+      "blockAreaCells": 196,
+      "envelope": {
+        "density": [
+          22.795,
+          42.447
+        ],
+        "intersections": [
+          137.33,
+          320.43
+        ],
+        "blockArea": [
+          45.33,
+          375.16
+        ]
+      }
+    },
+    {
+      "profileId": "ensanche_ferroviario",
+      "family": "ensanche",
+      "density": 23.68,
+      "intersections": 167.8,
+      "blockAreaCells": 225,
+      "envelope": {
+        "density": [
+          19.918,
+          26.547
+        ],
+        "intersections": [
+          167.85,
+          335.69
+        ],
+        "blockArea": [
+          79.38,
+          420.03
+        ]
+      }
+    },
+    {
+      "profileId": "ensanche_ferroviario_oeste",
+      "family": "industrial_edge",
+      "density": 24.72,
+      "intersections": 183.1,
+      "blockAreaCells": 219,
+      "envelope": {
+        "density": [
+          16.865,
+          26.912
+        ],
+        "intersections": [
+          137.33,
+          198.36
+        ],
+        "blockArea": [
+          17.65,
+          351
+        ]
+      }
+    },
+    {
+      "profileId": "lomas_del_umbral",
+      "family": "low_density_residential",
+      "density": 23.07,
+      "intersections": 137.3,
+      "blockAreaCells": 450,
+      "envelope": {
+        "density": [
+          8.355,
+          23.26
+        ],
+        "intersections": [
+          15.26,
+          152.59
+        ],
+        "blockArea": [
+          0,
+          672.99
+        ]
+      }
+    },
+    {
+      "profileId": "mercado_del_norte",
+      "family": "mixed_dense",
+      "density": 32.65,
+      "intersections": 320.4,
+      "blockAreaCells": 395,
+      "envelope": {
+        "density": [
+          16.174,
+          36.777
+        ],
+        "intersections": [
+          61.04,
+          411.99
+        ],
+        "blockArea": [
+          54.76,
+          811.06
+        ]
+      }
+    },
+    {
+      "profileId": "patios_del_este",
+      "family": "industrial_edge",
+      "density": 24.84,
+      "intersections": 183.1,
+      "blockAreaCells": 219,
+      "envelope": {
+        "density": [
+          16.865,
+          26.912
+        ],
+        "intersections": [
+          137.33,
+          198.36
+        ],
+        "blockArea": [
+          17.65,
+          351
+        ]
+      }
+    },
+    {
+      "profileId": "vega_del_cauce",
+      "family": "low_density_residential",
+      "density": 23.07,
+      "intersections": 137.3,
+      "blockAreaCells": 450,
+      "envelope": {
+        "density": [
+          8.355,
+          23.26
+        ],
+        "intersections": [
+          15.26,
+          152.59
+        ],
+        "blockArea": [
+          0,
+          672.99
+        ]
+      }
+    }
+  ]
+}

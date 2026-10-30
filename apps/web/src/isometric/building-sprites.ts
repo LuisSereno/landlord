@@ -7,6 +7,7 @@ import {
   type CharacterAssetV1,
   type GridCell,
   type RuntimeAssetManifestV2,
+  type ViewProjectionV2,
 } from "@landlord/shared";
 
 /**
@@ -64,6 +65,139 @@ export function footprintCenter(
     x: cell.x + (Math.max(1, Math.round(footprint.width)) - 1) / 2,
     y: cell.y + (Math.max(1, Math.round(footprint.height)) - 1) / 2,
   };
+}
+
+/**
+ * Bounds de una huella arbitraria (H2-01). Los edificios del dominio ya no se dibujan desde el
+ * anchor de su parcela: se colocan y ordenan por su `footprintCells` real, que puede estar lejos
+ * del anchor y no ser un rectángulo sólido. Se devuelve el bounding box, no la forma: la forma
+ * vive en las celdas concretas.
+ */
+export type FootprintBounds = {
+  minX: number;
+  minY: number;
+  maxX: number;
+  maxY: number;
+  width: number;
+  height: number;
+};
+
+export function footprintBounds(cells: readonly GridCell[]): FootprintBounds {
+  if (cells.length === 0) {
+    throw new RangeError("footprintBounds: la huella necesita al menos una celda");
+  }
+  let minX = cells[0]!.x;
+  let minY = cells[0]!.y;
+  let maxX = cells[0]!.x;
+  let maxY = cells[0]!.y;
+  for (const cell of cells) {
+    if (cell.x < minX) minX = cell.x;
+    if (cell.y < minY) minY = cell.y;
+    if (cell.x > maxX) maxX = cell.x;
+    if (cell.y > maxY) maxY = cell.y;
+  }
+  return { minX, minY, maxX, maxY, width: maxX - minX + 1, height: maxY - minY + 1 };
+}
+
+/**
+ * Centro visual de la huella: punto medio del bounding box. Es fraccionario cuando la huella es
+ * par, igual que `footprintCenter(cell, {width,height})`, pero se deriva de las celdas físicas y
+ * no de un rectángulo declarado: dos edificios de la misma parcela con huellas distintas quedan en
+ * centros distintos.
+ */
+export function footprintVisualCenter(cells: readonly GridCell[]): GridCell {
+  const { minX, minY, maxX, maxY } = footprintBounds(cells);
+  return { x: (minX + maxX) / 2, y: (minY + maxY) / 2 };
+}
+
+/**
+ * Depth derivado de la huella física: la celda más próxima a cámara es la que tiene x+y mayor
+ * (empates resueltos por la fórmula clásica de `depthForCell`). Sin esto, un edificio desplazado
+ * respecto al anchor de su parcela se ordenaría por una celda que no ocupa.
+ */
+export function depthForFootprintCells(cells: readonly GridCell[]): number {
+  const { maxX, maxY } = footprintBounds(cells);
+  return depthForCell({ x: maxX, y: maxY });
+}
+
+/**
+ * Una entrada del plan de sprites: todo lo que la escena necesita para colocar, escalar y ordenar
+ * un edificio u obra concreta. Es pura —sin Phaser— para poder comprobar la paridad
+ * "sprites == edificios proyectados renderizables" sin levantar la escena (H2-01).
+ */
+export type BuildingSpritePlacement = {
+  id: string;
+  domainType: string;
+  assetState: BuildingAssetState;
+  cells: readonly GridCell[];
+  alpha: number;
+  depthBias: number;
+};
+
+/**
+ * Proyección del `economy` de la vista al plan de sprites. Una entrada por edificio y una por obra,
+ * en el mismo orden en que viajan en la proyección. El scene sólo tiene que recorrer el plan.
+ *
+ * La resolución del asset (Blender → procedural → null) se inyecta para poder probar la paridad:
+ * una parcela con dos edificios produce dos entradas en el plan, no una, porque el plan no vuelve
+ * a la parcela para localizar su `buildingId` (H2-01).
+ */
+export function buildingSpritePlan(
+  economy: Pick<
+    NonNullable<ViewProjectionV2["economy"]>,
+    "buildings" | "constructionSites"
+  >,
+  opts: {
+    /** Id → archetype (puede caer en `domainType` si el adapter no lo ha resuelto aún). */
+    archetypeFor: (id: string, domainType: string) => string;
+    /**
+     * Resolver el par `{key, asset}` o `null` si ni el Blender ni el procedural cubren el tipo.
+     * En H2-02 se exige que ningún tipo del catálogo devuelva `null`, así que la paridad del
+     * plan se convierte en la paridad de los edificios proyectados.
+     */
+    resolveVisual: (
+      archetype: string,
+      domainType: string,
+      state: BuildingAssetState,
+    ) => { key: string; asset: BuildingAssetV1 } | null;
+  },
+): Array<BuildingSpritePlacement & { textureKey: string; asset: BuildingAssetV1 }> {
+  const plan: Array<BuildingSpritePlacement & { textureKey: string; asset: BuildingAssetV1 }> = [];
+  for (const building of economy.buildings) {
+    const id = `building:${building.id}`;
+    const state = buildingAssetStateFor(building.state, building.condition);
+    const archetype = opts.archetypeFor(id, building.type);
+    const resolved = opts.resolveVisual(archetype, building.type, state);
+    if (!resolved) continue;
+    plan.push({
+      id,
+      domainType: building.type,
+      assetState: state,
+      cells: building.footprintCells,
+      alpha: building.state === "ruin" ? 0.4 : 1,
+      depthBias: 0,
+      textureKey: resolved.key,
+      asset: resolved.asset,
+    });
+  }
+  for (const site of economy.constructionSites) {
+    const id = `site:${site.id}`;
+    const state: BuildingAssetState = "construction";
+    const archetype = opts.archetypeFor(id, site.buildingType);
+    const resolved = opts.resolveVisual(archetype, site.buildingType, state);
+    if (!resolved) continue;
+    plan.push({
+      id,
+      domainType: site.buildingType,
+      assetState: state,
+      cells: site.footprintCells,
+      alpha: 1,
+      depthBias: 1,
+      textureKey: resolved.key,
+      asset: resolved.asset,
+    });
+  }
+  return plan;
 }
 
 /**

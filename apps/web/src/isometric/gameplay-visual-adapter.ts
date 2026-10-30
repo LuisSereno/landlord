@@ -808,14 +808,20 @@ const NEIGHBOURS = [
  * Clave estable de geometría. Sólo incluye datos que cambian el suelo: qué parcelas existen, su
  * zoning y si están construidas o en obra. Excluye caja, renta, condición, reputación, política y
  * tick: dos proyecciones con la misma geometría y economía distinta generan la misma clave.
+ *
+ * H2-01: la condición de "construida" se deriva del conjunto de `parcelId`s que aparecen en
+ * `economy.buildings`, no de `parcel.buildingId`. `buildingId` sólo publica el primer edificio
+ * derivado, así que una parcela multi-edificio cambiaría de clave si el orden de la colección
+ * de edificios cambia sin que cambie el suelo. La clave debe detectar *cualquier* edificio.
  */
 export function gameplayGeometryKey(projection: ViewProjectionV2): string {
   const economy = projection.economy;
   if (!economy) return `roads:${projection.map.roads.digest}`;
   const constructionParcelIds = new Set(economy.constructionSites.map((site) => site.parcelId));
+  const builtParcelIds = new Set(economy.buildings.map((building) => building.parcelId));
   const parts = economy.parcels
     .map((parcel) => {
-      const status = parcel.buildingId
+      const status = builtParcelIds.has(parcel.id)
         ? "b"
         : constructionParcelIds.has(parcel.id)
           ? "c"

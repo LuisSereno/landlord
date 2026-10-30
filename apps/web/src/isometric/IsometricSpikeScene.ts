@@ -21,9 +21,11 @@ import {
 import type { SliceLot, VisualSliceLayout } from "../visual-slice/layout";
 import {
   assetFor,
-  buildingAssetStateFor,
+  buildingSpritePlan,
   depthForAsset,
+  depthForFootprintCells,
   footprintCenter,
+  footprintVisualCenter,
   originFromPivot,
   selectBuildingTextureKey,
   spriteKeyFor,
@@ -607,13 +609,22 @@ export class IsometricSpikeScene extends Phaser.Scene {
       graphics.closePath();
       graphics.strokePath();
     }
+    /**
+     * H2-01: el overlay es el fallback mientras los sprites no están listos, así que también debe
+     * leerse por la huella física del edificio. Antes se resolvía la parcela vía
+     * `parcel.buildingId === building.id`, que es sólo el primer edificio derivado, así que un
+     * parcela multi-edificio ocultaba al segundo también aquí.
+     */
+    const buildingById = new Map<string, { footprintCells: readonly GridCell[]; level: number }>();
+    for (const building of this.projection?.economy?.buildings ?? []) {
+      buildingById.set(building.id, {
+        footprintCells: building.footprintCells,
+        level: building.level,
+      });
+    }
     for (const building of this.projection?.economy?.buildings ?? []) {
       if (this.assetsReady) break;
-      const parcel = this.projection?.economy?.parcels.find(
-        (entry) => entry.buildingId === building.id,
-      );
-      if (!parcel) continue;
-      const center = this.screenCenter(parcel.cell);
+      const center = gridToScreen(footprintVisualCenter(building.footprintCells), this.layout);
       graphics.fillStyle(
         building.state === "ruin"
           ? COLORS.ruin
@@ -625,9 +636,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       graphics.fillRect(center.x - 7, center.y - 12, 14, 12 + building.level * 3);
     }
     for (const site of this.projection?.economy?.constructionSites ?? []) {
-      const parcel = this.projection?.economy?.parcels.find((entry) => entry.id === site.parcelId);
-      if (!parcel) continue;
-      const center = this.screenCenter(parcel.cell);
+      const center = gridToScreen(footprintVisualCenter(site.footprintCells), this.layout);
       graphics.lineStyle(3, COLORS.construction, 1);
       graphics.strokeRect(center.x - 8, center.y - 8, 16, 8);
       graphics.fillStyle(COLORS.construction, 1);
@@ -641,11 +650,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
     for (const incident of this.projection?.economy?.incidents.filter(
       (entry) => entry.status === "active",
     ) ?? []) {
-      const parcel = this.projection?.economy?.parcels.find(
-        (entry) => entry.buildingId === incident.buildingId,
-      );
-      if (!parcel) continue;
-      const center = this.screenCenter(parcel.cell);
+      const building = buildingById.get(incident.buildingId);
+      if (!building) continue;
+      const center = gridToScreen(footprintVisualCenter(building.footprintCells), this.layout);
       graphics.fillStyle(COLORS.fire, 0.9);
       graphics.fillCircle(center.x + 8, center.y - 14, 4 + Math.min(6, incident.intensity / 20));
     }
@@ -667,22 +674,32 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private parcelOverlayColor(
     parcel: NonNullable<ViewProjectionV2["economy"]>["parcels"][number],
   ): number {
+    /**
+     * H2-01: en una parcela multi-edificio el overlay debe enseñar el peor caso, no el primero.
+     * `parcel.buildingId` sólo publica el primer edificio derivado; usarlo para colorear hacía que
+     * un edificio en ruinas pasara desapercibido si otro edificio de la parcela estaba intacto.
+     */
+    const buildingsOfParcel = (this.projection?.economy?.buildings ?? []).filter(
+      (entry) => entry.parcelId === parcel.id,
+    );
     if (this.overlay === "condition") {
-      const building = this.projection?.economy?.buildings.find(
-        (entry) => entry.id === parcel.buildingId,
-      );
-      if (!building) return COLORS.parcelAvailable;
-      if (building.condition <= 35) return COLORS.fire;
-      if (building.condition <= 70) return COLORS.construction;
+      if (buildingsOfParcel.length === 0) return COLORS.parcelAvailable;
+      const worst = Math.min(...buildingsOfParcel.map((entry) => entry.condition));
+      if (worst <= 35) return COLORS.fire;
+      if (worst <= 70) return COLORS.construction;
       return COLORS.parcelPlayer;
     }
     if (this.overlay === "profitability") {
-      const building = this.projection?.economy?.buildings.find(
-        (entry) => entry.id === parcel.buildingId,
-      );
-      if (!building) return COLORS.parcelAvailable;
-      if (building.effectiveRent <= building.maintenanceDue) return COLORS.fire;
-      if (building.effectiveRent < building.maintenanceDue * 2) return COLORS.construction;
+      if (buildingsOfParcel.length === 0) return COLORS.parcelAvailable;
+      /**
+       * Rentabilidad agregada: la suma de rentas menos la suma de deudas. Si la parcela en conjunto
+       * pierde, el rojo manda; si gana menos del doble, ámbar; si dobla la deuda, verde. Es la misma
+       * banda que antes aplicada al primer edificio, pero ahora es la de la parcela.
+       */
+      const rent = buildingsOfParcel.reduce((total, entry) => total + entry.effectiveRent, 0);
+      const due = buildingsOfParcel.reduce((total, entry) => total + entry.maintenanceDue, 0);
+      if (rent <= due) return COLORS.fire;
+      if (rent < due * 2) return COLORS.construction;
       return COLORS.parcelPlayer;
     }
     if (this.overlay === "zoning")
@@ -1057,44 +1074,29 @@ export class IsometricSpikeScene extends Phaser.Scene {
     if (!this.assetsReady || !this.projection?.economy) return;
     const economy = this.projection.economy;
     const view = this.cameras.main.worldView;
+    /**
+     * H2-01: el plan de sprites es puro y se construye recorriendo `economy.buildings` y
+     * `economy.constructionSites` una vez cada uno, con su `footprintCells` real. Antes el scene
+     * resolvía cada edificio buscando `parcel.buildingId === building.id`, que sólo publica el
+     * primer edificio derivado: una parcela con dos edificios pintaba uno. Ahora la paridad
+     * "sprites == entradas proyectadas renderizables" se sostiene por construcción y se prueba
+     * en `building-sprites.test.ts`.
+     */
+    const plan = buildingSpritePlan(economy, {
+      archetypeFor: (id, domainType) => this.buildingArchetypes.get(id) ?? domainType,
+      resolveVisual: (archetype, domainType, state) =>
+        this.resolveBuildingVisual(archetype, domainType, state),
+    });
     const seen = new Set<string>();
-    const place = (
-      id: string,
-      domainType: string,
-      state: BuildingAssetState,
-      cell: GridCell,
-      alpha: number,
-      depthBias: number,
-    ): void => {
-      const archetype = this.buildingArchetypes.get(id) ?? domainType;
-      const resolved = this.resolveBuildingVisual(archetype, domainType, state);
-      if (!resolved) return;
-      const { key, asset } = resolved;
-      const center = gridToScreen(footprintCenter(cell, asset.footprint), this.layout);
-      const sprite = this.ensureBuildingSprite(id, key, asset);
+    for (const placement of plan) {
+      const center = gridToScreen(footprintVisualCenter(placement.cells), this.layout);
+      const sprite = this.ensureBuildingSprite(placement.id, placement.textureKey, placement.asset);
       sprite.setPosition(center.x, center.y);
-      sprite.setScale(spriteScaleFor(asset, this.layout.tileWidth));
-      sprite.setDepth(depthForAsset(cell, asset.footprint) + depthBias);
-      sprite.setAlpha(alpha);
+      sprite.setScale(spriteScaleFor(placement.asset, this.layout.tileWidth));
+      sprite.setDepth(depthForFootprintCells(placement.cells) + placement.depthBias);
+      sprite.setAlpha(placement.alpha);
       sprite.setVisible(this.isInViewport(center.x, center.y, view, 96));
-      seen.add(id);
-    };
-    for (const building of economy.buildings) {
-      const parcel = economy.parcels.find((entry) => entry.buildingId === building.id);
-      if (!parcel) continue;
-      place(
-        `building:${building.id}`,
-        building.type,
-        buildingAssetStateFor(building.state, building.condition),
-        parcel.cell,
-        building.state === "ruin" ? 0.4 : 1,
-        0,
-      );
-    }
-    for (const site of economy.constructionSites) {
-      const parcel = economy.parcels.find((entry) => entry.id === site.parcelId);
-      if (!parcel) continue;
-      place(`site:${site.id}`, site.buildingType, "construction", parcel.cell, 1, 1);
+      seen.add(placement.id);
     }
     for (const [id, sprite] of this.buildingSprites) {
       if (seen.has(id)) continue;

@@ -795,8 +795,24 @@ export function createViewProjection(
             buildings: observedBuildings
               .sort((left, right) => left.id.localeCompare(right.id))
               .map((building) => ({
-                ...building,
+                /**
+                 * Publicación explícita (H2-01): los campos geométricos del dominio viajan hasta el
+                 * renderer para que un edificio multi-celda se coloque y ordene por su huella real y
+                 * no por el anchor de la parcela. Se acabó el `{...building}` que dependía de
+                 * propiedades que el schema no declaraba y que Zod filtraba en el navegador.
+                 */
+                id: building.id,
+                ownerOrganizationId: building.ownerOrganizationId,
                 productionFacilityId: building.productionFacilityId ?? null,
+                parcelId: building.parcelId,
+                districtId: building.districtId,
+                type: building.type,
+                footprintCells: building.footprintCells.map((cell) => ({ ...cell })),
+                orientation: building.orientation,
+                floors: building.floors,
+                form: building.form,
+                level: building.level,
+                condition: building.condition,
                 tenantIds:
                   building.ownerOrganizationId === PLAYER_ORGANIZATION_ID
                     ? [...building.tenantIds]
@@ -806,6 +822,7 @@ export function createViewProjection(
                     ? building.tenantId
                     : null,
                 capacity: BUILDING_DEFINITIONS[building.type].capacity,
+                upgraded: building.upgraded,
                 structuralIntegrity: building.structuralIntegrity,
                 state: building.state,
                 casualtiesTotal: { ...building.casualtiesTotal },
@@ -824,8 +841,13 @@ export function createViewProjection(
               .map((site) => ({
                 id: site.id,
                 parcelId: site.parcelId,
+                districtId: site.districtId,
                 ownerOrganizationId: site.ownerOrganizationId,
                 buildingType: site.buildingType,
+                footprintCells: site.footprintCells.map((cell) => ({ ...cell })),
+                orientation: site.orientation,
+                floors: site.floors,
+                form: site.form,
                 progress: site.progress,
                 workRequired: site.workRequired,
                 upgradeBuildingId: site.upgradeBuildingId,

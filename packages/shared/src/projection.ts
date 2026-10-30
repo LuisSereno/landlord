@@ -34,8 +34,10 @@ import {
 import { gridCellSchema, tickSchema, type GridCell, type Tick } from "./time-and-grid";
 import { moneySchema, type Money } from "./money";
 import {
+  buildingFormSchema,
   buildingTypeSchema,
   zoningSchema,
+  type BuildingForm,
   type BuildingType,
   type IntelKind,
   type IntelSource,
@@ -297,7 +299,19 @@ export type ViewProjectionV2 = {
       ownerOrganizationId: OrganizationId;
       productionFacilityId: import("./primitives").FacilityId | null;
       parcelId: ParcelId;
+      /** Distrito donde vive el edificio: la coordenada local sola no identifica un lugar (D-093 §1). */
+      districtId: DistrictId;
       type: BuildingType;
+      /**
+       * Huella física autoritativa (H1-02). El render la consume para colocar y ordenar el sprite;
+       * no es opcional ni se deduce de `parcelId` ni de un asset —dos edificios de la misma parcela
+       * pueden tener huellas distintas y alejadas del anchor (H2-01).
+       */
+      footprintCells: GridCell[];
+      /** Orientación del dominio (0/90/180/270). No es el azimut de cámara del manifiesto (H2-03). */
+      orientation: 0 | 90 | 180 | 270;
+      floors: number;
+      form: BuildingForm;
       level: number;
       condition: number;
       tenantId: TenantId | null;
@@ -314,8 +328,13 @@ export type ViewProjectionV2 = {
     constructionSites: Array<{
       id: ConstructionSiteId;
       parcelId: ParcelId;
+      districtId: DistrictId;
       ownerOrganizationId: OrganizationId;
       buildingType: BuildingType;
+      footprintCells: GridCell[];
+      orientation: 0 | 90 | 180 | 270;
+      floors: number;
+      form: BuildingForm;
       progress: number;
       workRequired: number;
       upgradeBuildingId: BuildingId | null;
@@ -942,7 +961,12 @@ export const viewProjectionV2Schema = z.object({
           ownerOrganizationId: organizationIdSchema,
           productionFacilityId: facilityIdSchema.nullable(),
           parcelId: parcelIdSchema,
+          districtId: districtIdSchema,
           type: buildingTypeSchema,
+          footprintCells: z.array(gridCellSchema).min(1),
+          orientation: z.union([z.literal(0), z.literal(90), z.literal(180), z.literal(270)]),
+          floors: z.number().int().min(1).max(64),
+          form: buildingFormSchema,
           level: z.number().int().positive(),
           condition: z.number().int().min(0).max(100),
           tenantId: tenantIdSchema.nullable(),
@@ -964,8 +988,13 @@ export const viewProjectionV2Schema = z.object({
         z.object({
           id: constructionSiteIdSchema,
           parcelId: parcelIdSchema,
+          districtId: districtIdSchema,
           ownerOrganizationId: organizationIdSchema,
           buildingType: buildingTypeSchema,
+          footprintCells: z.array(gridCellSchema).min(1),
+          orientation: z.union([z.literal(0), z.literal(90), z.literal(180), z.literal(270)]),
+          floors: z.number().int().min(1).max(64),
+          form: buildingFormSchema,
           progress: z.number().int().nonnegative(),
           workRequired: z.number().int().positive(),
           upgradeBuildingId: buildingIdSchema.nullable(),

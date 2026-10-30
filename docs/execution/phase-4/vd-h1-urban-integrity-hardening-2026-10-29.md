@@ -388,7 +388,9 @@ milisegundos.
 | `a2047f6` | §5 destino configurable del fabric gate + evidencia nueva |
 | `c0bda82` | fix del timeout de la suite (§4, N6) |
 
-- **HEAD final:** el último commit de esta fase, que incluye el cierre documental (`docs:`).
+- **HEAD final:** `21731de` (`docs: register the V.d-H1 contracts in the wiki and the ADR log`), el
+  último de los tres commits de cierre documental (`3096aa4`, `9da539c`, `21731de`). Cualquier commit
+  posterior de esta fase sólo toca la documentación de este acta.
 - **push:** **no.** Los trece commits funcionales más los documentales quedan locales en `develop`
   hasta autorización expresa.
 - Sin `reset` destructivo, sin reescritura de historia y sin trabajo ajeno borrado: `git worktree list`

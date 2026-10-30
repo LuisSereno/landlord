@@ -31,10 +31,50 @@ const SERVICE_FACILITY_KIND: Partial<Record<FacilityServiceId, UrbanFacilityKind
 };
 
 /**
- * A capacity unit is authored in service cohorts, not individual plots: one unit serves 25 parcels.
- * The number is deliberately explicit so the inspector can explain a saturated facility.
+ * Unidad canónica de capacidad por servicio (H2-07). Antes una constante global (`25`)
+ * imponía que una cohorte de policía, una de bomberos, una de clínica, una de colegio y una
+ * de mercado significaran exactamente lo mismo en el dominio. No hay razón para exigirlo: las
+ * cinco facilities tienen arquitecturas, ratios de uso y programas municipales distintos.
+ *
+ * Derivación medida sobre las 12 seeds canónicas y los escenarios de crecimiento 25/50/75 %
+ * de H2-08, para que la cobertura citywide de los cinco capacity services caiga en las bandas
+ * de diseño: 60–90 % al 50 % de desarrollo y 45–80 % al 75 %. El programa municipal NO se
+ * toca (2 comisarías, 2 parques de bomberos, 3 clínicas, 3 colegios, 3 mercados); sólo cambia
+ * cuántas parcelas sirve cada cohorte.
+ *
+ *  - security y fire   75 parcelas / cohorte → 2 × 2 × 75 = 300 slots citywide.
+ *  - health y market   25 parcelas / cohorte → 3 × 4 × 25  = 300 slots.
+ *  - education         17 parcelas / cohorte → 3 × 6 × 17  = 306 slots.
+ *
+ * `parks` y `transport` quedan fuera: no son servicios de facility con capacity (`PARK_MAX_
+ * TRAVEL_COST` y `TRANSPORT_MAX_TRAVEL_COST` son radios de accesibilidad, no slots).
+ */
+export const DEMAND_UNITS_PER_CAPACITY_BY_SERVICE: Record<
+  "security" | "fire" | "health" | "education" | "market",
+  number
+> = {
+  security: 75,
+  fire: 75,
+  health: 25,
+  education: 17,
+  market: 25,
+};
+
+/**
+ * Compatibilidad: la constante global que D-092 y las pruebas antiguas referencian. Se queda
+ * como el valor "por defecto" para el helper genérico, pero los services con tabla propia la
+ * sobreescriben. No es un tuning arbitrario: es el valor con el que el modelo funcionaba antes
+ * de H2-07 y que los tests de facility-coverage usan al construir fixtures sintéticos.
  */
 export const DEMAND_UNITS_PER_CAPACITY = 25;
+
+export function demandUnitsPerCapacityFor(service: FacilityServiceId): number {
+  if (service in DEMAND_UNITS_PER_CAPACITY_BY_SERVICE)
+    return DEMAND_UNITS_PER_CAPACITY_BY_SERVICE[
+      service as keyof typeof DEMAND_UNITS_PER_CAPACITY_BY_SERVICE
+    ];
+  return DEMAND_UNITS_PER_CAPACITY;
+}
 
 /** Parks are an amenity, not a capacity service: reachable on the network within this integer cost. */
 export const PARK_MAX_TRAVEL_COST = 40;
@@ -504,6 +544,7 @@ export function facilityCoverageIndex(state: GameState): FacilityCoverageIndex {
   for (const [service, data] of raw.services) {
     if (data.facilities.length === 0) continue;
     const level = budgetLevelFor(state, service);
+    const demandUnits = demandUnitsPerCapacityFor(service);
     /**
      * H2-06 · asignación determinista con capacidad. La Voronoi "nearest-first" dejaba a una
      * parcela sin servir cuando la facility más cercana estaba llena o sin edificio, aunque
@@ -522,8 +563,7 @@ export function facilityCoverageIndex(state: GameState): FacilityCoverageIndex {
     const voronoiDemandByFacilityId = new Map<UrbanFacilityId, number>();
     for (const facility of data.facilities) {
       const effective =
-        Math.floor((operationalFacilityCapacity(state, facility) * level) / 100) *
-        DEMAND_UNITS_PER_CAPACITY;
+        Math.floor((operationalFacilityCapacity(state, facility) * level) / 100) * demandUnits;
       effectiveCapacityByFacilityId.set(facility.id, effective);
       usedCapacityByFacilityId.set(facility.id, 0);
       voronoiDemandByFacilityId.set(facility.id, 0);

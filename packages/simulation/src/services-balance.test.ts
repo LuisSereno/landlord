@@ -3,8 +3,10 @@ import { dirname } from "node:path";
 import { execSync } from "node:child_process";
 import { describe, expect, it } from "vitest";
 
+import { parseBuildingId, type Building, type Parcel } from "@landlord/shared";
 import {
   MUNICIPALITY_ORGANIZATION_ID,
+  PLAYER_ORGANIZATION_ID,
 } from "./game-data";
 import {
   DEMAND_UNITS_PER_CAPACITY,
@@ -15,7 +17,7 @@ import {
   type FacilityServiceId,
 } from "./facility-coverage";
 import { CANONICAL_CITY_SEEDS } from "./city-fixtures";
-import { createInitialState } from "./state";
+import { createInitialState, type GameState } from "./state";
 
 /**
  * V.d-H2 · H2-04 harness de balance de servicios municipales.
@@ -70,8 +72,73 @@ function round2(value: number): number {
   return Math.round(value * 100) / 100;
 }
 
-function measureSeed(seed: number) {
+/**
+ * H2-08 · escenarios de crecimiento. Se colocan edificios privados deterministas hasta alcanzar
+ * un porcentaje objetivo de parcelas marketable DESARROLLADAS, respetando la topología y sin
+ * tocar las seeds: sólo se añade estado. `state.phase2.buildings.set` es el único mutation.
+ * Orden canónico: parcelas por `parcelId.localeCompare`, distritos por `districtId.localeCompare`.
+ */
+function growCity(state: GameState, targetDevelopedPercent: number): void {
+  if (targetDevelopedPercent <= 0) return;
+  const marketable = [...state.phase2.parcels.values()]
+    .filter((parcel) => parcel.disposition === "marketable")
+    .sort((left, right) => {
+      const districtOrder = left.districtId.localeCompare(right.districtId);
+      if (districtOrder !== 0) return districtOrder;
+      return left.id.localeCompare(right.id);
+    });
+  const alreadyDeveloped = new Set(
+    [...state.phase2.buildings.values()]
+      .filter(
+        (building) =>
+          building.state !== "ruin" && building.ownerOrganizationId !== MUNICIPALITY_ORGANIZATION_ID,
+      )
+      .map((building) => building.parcelId),
+  );
+  const target = Math.round((marketable.length * targetDevelopedPercent) / 100);
+  let developed = alreadyDeveloped.size;
+  let serial = 20_000;
+  for (const parcel of marketable) {
+    if (developed >= target) return;
+    if (alreadyDeveloped.has(parcel.id)) continue;
+    const id = parseBuildingId(`building_${String(serial).padStart(8, "0")}`);
+    serial += 1;
+    parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
+    state.phase2.buildings.set(id, {
+      id,
+      parcelId: parcel.id,
+      districtId: parcel.districtId,
+      footprintCells: [{ ...parcel.anchorCell }],
+      orientation: 0,
+      floors: 1,
+      form: "detached",
+      ownerOrganizationId: PLAYER_ORGANIZATION_ID,
+      productionFacilityId: null,
+      type: "courtyard_home",
+      level: 1,
+      condition: 100,
+      tenantId: null,
+      tenantIds: [],
+      upgraded: false,
+      structuralIntegrity: 100,
+      state: "operational",
+      casualtiesTotal: { injured: 0, dead: 0 },
+    } satisfies Building);
+    developed += 1;
+  }
+}
+
+const SCENARIOS: ReadonlyArray<{ name: string; developedPercent: number; band?: [number, number] }> =
+  [
+    { name: "initial", developedPercent: 0 },
+    { name: "25_percent", developedPercent: 25 },
+    { name: "50_percent", developedPercent: 50, band: [60, 90] },
+    { name: "75_percent", developedPercent: 75, band: [45, 80] },
+  ];
+
+function measureSeed(seed: number, developedPercent = 0) {
   const state = createInitialState(seed);
+  growCity(state, developedPercent);
   const coverage = facilityCoverageIndex(state);
   const parcels = [...state.phase2.parcels.values()];
   const marketable = parcels.filter((parcel) => parcel.disposition === "marketable");
@@ -116,11 +183,10 @@ function measureSeed(seed: number) {
     const reports = [...coverage.facilities.values()].filter((entry) => entry.service === service);
     const voronoiDemand = reports.reduce((total, entry) => total + entry.demand, 0);
     /**
-     * `served` uniforme: parcelas marketable con cobertura ≥ 50 en este servicio. Es lo mismo
-     * que suman los `entry.served` de las capacity facilities, pero también funciona para parks
-     * y transport, donde no hay facility reports.
+     * `served` uniforme: parcelas DESARROLLADAS con cobertura ≥ 50 en este servicio. Bajo H2-05
+     * una parcela vacante no puede aparecer servida en un capacity service; sí en parks/transport.
      */
-    const served = marketable.filter(
+    const served = (CAPACITY_SERVICES.has(service) ? developedParcels : marketable).filter(
       (parcel) => (coverage.byParcelId.get(parcel.id)?.[service] ?? 0) >= 50,
     ).length;
     const effectiveCapacity = reports.reduce((total, entry) => total + entry.effectiveCapacity, 0);
@@ -161,13 +227,27 @@ function measureSeed(seed: number) {
 
     /**
      * Métricas estructurales de capacidad (H2-07/08):
-     * - `theoreticalCapacityCoverage`: qué porcentaje de la demanda ALCANZABLE (parcels con coste
-     *   finito) podría servir la capacidad efectiva TOTAL de este servicio, sin Voronoi.
-     * - `actualCoverage`: el mismo denominador, pero lo que el algoritmo sirve HOY.
-     * - `strandedCapacity`: capacidad efectiva disponible que el algoritmo deja ociosa mientras
-     *   hay demanda alcanzable sin servir — la firma del Voronoi "nearest first, capacity applied".
+     * - `reachableDemand` (capacity services) = parcelas marketable ALCANZABLES **y DESARROLLADAS**.
+     *   Bajo H2-05 una vacante puede estar "al alcance" de una facility sin consumir su capacidad;
+     *   no es parte de la cobertura que se quiere medir.
+     * - `theoreticalCapacityCoverage`: qué porcentaje de esa demanda podría servir la capacidad
+     *   efectiva TOTAL, sin Voronoi ni spill.
+     * - `actualCoverage`: el mismo denominador, lo que el algoritmo sirve hoy.
+     * - `strandedCapacity`: capacidad disponible ociosa mientras hay demanda alcanzable sin servir
+     *   — la firma del Voronoi "nearest first, capacity applied" antes de H2-06.
+     *
+     * Para parks y transport el denominador sigue siendo TODAS las marketables: son accesibilidad
+     * geográfica, no consumo de slots.
      */
-    const reachableDemand = reachableCosts.length;
+    const reachableCostsActive = CAPACITY_SERVICES.has(service)
+      ? developedParcels
+          .map((parcel) => {
+            const entry = distances.find((candidate) => candidate.parcelId === parcel.id);
+            return entry?.cost ?? null;
+          })
+          .filter((cost): cost is number => cost !== null)
+      : reachableCosts;
+    const reachableDemand = reachableCostsActive.length;
     const theoreticalCapacityCoverage =
       reachableDemand === 0
         ? 100
@@ -217,35 +297,74 @@ function measureSeed(seed: number) {
 
 describe.skipIf(!enabled)("V.d-H2 · baseline de balance de servicios municipales", () => {
   it("barre las 12 seeds canónicas y publica el baseline JSON", () => {
-    const perSeed = CANONICAL_CITY_SEEDS.map((seed) => measureSeed(seed));
+    /**
+     * H2-04 · `initial` preserva la semántica del baseline: la ciudad recién generada, sin
+     * desarrollo humano. H2-08 · `25_percent`, `50_percent` y `75_percent` fijan las bandas
+     * de calibración sin alterar topología, programa municipal ni seeds. Los escenarios no
+     * son una simulación temporal: son harnesses de balance.
+     */
+    const scenarioResults: Record<string, { perSeed: ReturnType<typeof measureSeed>[]; aggregate: Record<string, Record<string, number>> }> = {};
+    for (const scenario of SCENARIOS) {
+      const perSeed = CANONICAL_CITY_SEEDS.map((seed) => measureSeed(seed, scenario.developedPercent));
 
-    const aggregate: Record<string, Record<string, number>> = {};
-    for (const service of SERVICES) {
-      const field = (name: string): number[] =>
-        perSeed.map((entry) => {
-          const record = entry.services[service] as Record<string, number | undefined> | undefined;
-          const value = record?.[name];
-          return typeof value === "number" ? value : 0;
-        });
-      aggregate[service] = {
-        medianMarketable: median(perSeed.map((entry) => entry.marketableParcels)),
-        medianDeveloped: median(perSeed.map((entry) => entry.developedParcels)),
-        medianDemand: median(field("demand")),
-        medianServed: median(field("served")),
-        medianCoverage: median(field("coveragePercent")),
-        medianEffectiveCapacity: median(field("effectiveCapacityParcels")),
-        medianSaturatedFacilities: median(field("saturatedFacilities")),
-        medianUnreachable: median(field("unreachableDemand")),
-        medianUnusedCapacity: median(field("unusedCapacity")),
-        medianStrandedCapacity: median(field("strandedCapacity")),
-        medianActualCoverage: median(field("actualCoverage")),
-        medianTheoreticalCoverage: median(field("theoreticalCapacityCoverage")),
-        medianTravelCostP95: median(field("travelCostP95")),
-        maxDemand: Math.max(...field("demand")),
-        maxStranded: Math.max(...field("strandedCapacity")),
-      };
-      for (const key of Object.keys(aggregate[service]!)) {
-        aggregate[service]![key] = round2(aggregate[service]![key]!);
+      const aggregate: Record<string, Record<string, number>> = {};
+      for (const service of SERVICES) {
+        const field = (name: string): number[] =>
+          perSeed.map((entry) => {
+            const record = entry.services[service] as Record<string, number | undefined> | undefined;
+            const value = record?.[name];
+            return typeof value === "number" ? value : 0;
+          });
+        aggregate[service] = {
+          medianMarketable: median(perSeed.map((entry) => entry.marketableParcels)),
+          medianDeveloped: median(perSeed.map((entry) => entry.developedParcels)),
+          medianDemand: median(field("demand")),
+          medianServed: median(field("served")),
+          medianCoverage: median(field("coveragePercent")),
+          medianEffectiveCapacity: median(field("effectiveCapacityParcels")),
+          medianSaturatedFacilities: median(field("saturatedFacilities")),
+          medianUnreachable: median(field("unreachableDemand")),
+          medianUnusedCapacity: median(field("unusedCapacity")),
+          medianStrandedCapacity: median(field("strandedCapacity")),
+          medianActualCoverage: median(field("actualCoverage")),
+          medianTheoreticalCoverage: median(field("theoreticalCapacityCoverage")),
+          medianTravelCostP95: median(field("travelCostP95")),
+          p10ActualCoverage: percentile(field("actualCoverage"), 0.1),
+          p90ActualCoverage: percentile(field("actualCoverage"), 0.9),
+          maxDemand: Math.max(...field("demand")),
+          maxStranded: Math.max(...field("strandedCapacity")),
+        };
+        for (const key of Object.keys(aggregate[service]!)) {
+          aggregate[service]![key] = round2(aggregate[service]![key]!);
+        }
+      }
+
+      scenarioResults[scenario.name] = { perSeed, aggregate };
+
+      /**
+       * Bandas de H2-08: se evalúan sobre la mediana y el p10/p90 de `actualCoverage` de los
+       * cinco capacity services. No se exige que cada seed individual caiga dentro: la banda
+       * es una señal de calibración, no un contrato por semilla.
+       *
+       * El flag `SERVICES_BALANCE_BANDS=0` desactiva las aserciones para la corrida de
+       * calibración: H2-07 deriva las constantes leyendo estos números, no al revés.
+       */
+      const enforceBands = environment.process?.env?.SERVICES_BALANCE_BANDS !== "0";
+      if (scenario.band && enforceBands) {
+        for (const service of CAPACITY_SERVICES) {
+          const entry = aggregate[service]!;
+          const demand = entry["medianDemand"]!;
+          if (demand === 0) continue;
+          const median_ = entry["medianActualCoverage"]!;
+          expect(
+            median_,
+            `${scenario.name}/${service}: mediana ${median_} fuera de banda [${scenario.band.join(", ")}]`,
+          ).toBeGreaterThanOrEqual(scenario.band[0]);
+          expect(
+            median_,
+            `${scenario.name}/${service}: mediana ${median_} fuera de banda [${scenario.band.join(", ")}]`,
+          ).toBeLessThanOrEqual(scenario.band[1]);
+        }
       }
     }
 
@@ -253,21 +372,38 @@ describe.skipIf(!enabled)("V.d-H2 · baseline de balance de servicios municipale
       head: execSync("git rev-parse HEAD").toString().trim(),
       generatedAt: new Date().toISOString(),
       tool: "pnpm services:balance",
-      phase: "V.d-H2 · H2-04 (baseline pre-hardening)",
-      demandModel: "toda parcela marketable cuenta como demanda (modelo actual, antes de H2-05)",
+      phase: "V.d-H2 · H2-04 + H2-08",
+      demandModel: "demanda = parcela marketable desarrollada (H2-05); asignación capacity-aware (H2-06)",
       seeds: CANONICAL_CITY_SEEDS.length,
       capacityUnitParcels: DEMAND_UNITS_PER_CAPACITY,
-      aggregate,
-      perSeed,
+      scenarios: SCENARIOS.map((scenario) => ({
+        name: scenario.name,
+        developedPercent: scenario.developedPercent,
+        band: scenario.band,
+      })),
+      aggregate: scenarioResults["initial"]!.aggregate,
+      scenarioAggregates: Object.fromEntries(
+        Object.entries(scenarioResults).map(([name, value]) => [name, value.aggregate]),
+      ),
+      perSeed: scenarioResults["initial"]!.perSeed,
+      scenarioPerSeed: Object.fromEntries(
+        Object.entries(scenarioResults).map(([name, value]) => [name, value.perSeed]),
+      ),
     };
-    console.log(JSON.stringify({ head: evidence.head, aggregate }, null, 2));
+    console.log(JSON.stringify({ head: evidence.head, aggregate: evidence.aggregate }, null, 2));
+    /**
+     * H2-04 escribió la primera corrida en `vd-h2-service-baseline.json` (modelo pre-H2, sin
+     * filtros de desarrollo). Con H2-05/H2-06/H2-07/H2-08 el mismo comando refleja el modelo
+     * nuevo y se guarda como `vd-h2-service-final.json`, sin pisar la evidencia histórica.
+     */
     const evidencePath =
       environment.process?.env?.SERVICES_BALANCE_OUT ??
-      "docs/execution/phase-4/vd-h2-service-baseline.json";
+      "docs/execution/phase-4/vd-h2-service-final.json";
     mkdirSync(dirname(evidencePath), { recursive: true });
     writeFileSync(evidencePath, `${JSON.stringify(evidence, null, 2)}\n`);
 
-    expect(perSeed).toHaveLength(12);
-    for (const entry of perSeed) expect(entry.marketableParcels).toBeGreaterThan(0);
+    expect(scenarioResults["initial"]!.perSeed).toHaveLength(12);
+    for (const entry of scenarioResults["initial"]!.perSeed)
+      expect(entry.marketableParcels).toBeGreaterThan(0);
   }, 900_000);
 });

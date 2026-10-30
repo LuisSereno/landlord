@@ -71,7 +71,7 @@ describe("H2-05 · demanda = parcela desarrollada, no parcela marketable", () =>
     const state = createInitialState(7);
     const index = facilityCoverageIndex(state);
     for (const report of index.facilities.values()) {
-      expect(report.demand, report.facilityId).toBe(0);
+      expect(report.firstChoiceDemand, report.facilityId).toBe(0);
       expect(report.served, report.facilityId).toBe(0);
       expect(report.saturated, report.facilityId).toBe(false);
     }
@@ -91,10 +91,10 @@ describe("H2-05 · demanda = parcela desarrollada, no parcela marketable", () =>
     const developed = developedParcelsOf(state);
     expect(developed.map((entry) => entry.id)).toContain(parcel.id);
     /** El informe de security puede o no servir esta parcela concreta (depende de la Voronoi),
-     * pero al menos una facility debe reportar `demand === 1`. */
+     * pero al menos una facility debe reportar `firstChoiceDemand === 1`. */
     const totalSecurityDemand = [...facilityCoverageIndex(state).facilities.values()]
       .filter((report) => report.service === "security")
-      .reduce((total, report) => total + report.demand, 0);
+      .reduce((total, report) => total + report.firstChoiceDemand, 0);
     expect(totalSecurityDemand).toBe(1);
   });
 
@@ -104,7 +104,7 @@ describe("H2-05 · demanda = parcela desarrollada, no parcela marketable", () =>
     const parcels = developParcels(state, districtId!, 5, 600);
     const before = [...facilityCoverageIndex(state).facilities.values()]
       .filter((report) => report.service === "security")
-      .reduce((total, report) => total + report.demand, 0);
+      .reduce((total, report) => total + report.firstChoiceDemand, 0);
     expect(before).toBe(5);
 
     /** Quemar el único edificio de la parcela 3: deja de contar como demanda. */
@@ -114,7 +114,7 @@ describe("H2-05 · demanda = parcela desarrollada, no parcela marketable", () =>
     }
     const after = [...facilityCoverageIndex(state).facilities.values()]
       .filter((report) => report.service === "security")
-      .reduce((total, report) => total + report.demand, 0);
+      .reduce((total, report) => total + report.firstChoiceDemand, 0);
     expect(after).toBe(4);
   });
 
@@ -178,7 +178,7 @@ describe("H2-05 · demanda = parcela desarrollada, no parcela marketable", () =>
       const index = facilityCoverageIndex(state);
       const total = [...index.facilities.values()]
         .filter((report) => report.service === "security")
-        .reduce((sum, report) => sum + report.demand, 0);
+        .reduce((sum, report) => sum + report.firstChoiceDemand, 0);
       demands.push(total);
     }
     /** Cada salto añade demanda neta: la ciudad ya no nace saturada; la saturación es crecimiento. */

@@ -325,11 +325,15 @@ function assertInvariants(state: GameState, month: number, previous: Map<ParcelI
   const facilityIndex = facilityCoverageIndex(state);
   for (const report of facilityIndex.facilities.values()) {
     expect(report.served, label).toBeLessThanOrEqual(report.effectiveCapacity);
-    expect(report.served, label).toBeLessThanOrEqual(report.demand);
-    expect(report.coveragePercent, label).toBeGreaterThanOrEqual(0);
-    expect(report.coveragePercent, label).toBeLessThanOrEqual(100);
+    /**
+     * H2.1-01: `served` ya no está acotado por `firstChoiceDemand` —el spill-in de una vecina
+     * llena puede dar a esta facility más parcelas que las que la elegían como primera opción—,
+     * pero sí lo está por su capacidad. La utilización se mide sólo contra esa capacidad.
+     */
+    expect(report.utilizationPercent, label).toBeGreaterThanOrEqual(0);
+    expect(report.utilizationPercent, label).toBeLessThanOrEqual(100);
     expect(report.saturated, `saturación de ${report.facilityId} en ${label}`).toBe(
-      report.demand > report.effectiveCapacity,
+      report.effectiveCapacity > 0 && report.served >= report.effectiveCapacity,
     );
   }
 

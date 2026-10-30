@@ -85,7 +85,8 @@ describe("V.d.5 cobertura por grafo", () => {
      *   - education 3 × 6 cohortes × 17 = 306 slots.
      * Se llenan 500 parcelas en el Centro Cívico y 100 en los demás distritos. El objetivo no
      * es saturar un servicio concreto sino demostrar que, más allá de la capacidad, el informe
-     * reporta `saturated: true` y `coveragePercent < 100`.
+     * reporta `saturated: true` y la utilización llena el cupo: `served === effectiveCapacity`,
+     * `utilizationPercent === 100` (H2.1-01).
      */
     const centro = districtIdByName(state, "Centro Cívico");
     developParcels(state, centro, 500, 0);
@@ -99,8 +100,17 @@ describe("V.d.5 cobertura por grafo", () => {
     const saturated = reports.filter((report) => report.saturated);
     expect(saturated.length, "al menos una facility saturada").toBeGreaterThan(0);
     for (const report of saturated) {
-      expect(report.demand).toBeGreaterThan(report.effectiveCapacity);
-      expect(report.coveragePercent).toBeLessThan(100);
+      expect(report.served).toBe(report.effectiveCapacity);
+      expect(report.utilizationPercent).toBe(100);
+    }
+    /**
+     * H2.1-01: ninguna facility puede reportar una utilización fuera de 0..100 ni una cifra que
+     * se preste a leer `served / firstChoiceDemand` como si fuera un porcentaje de cobertura.
+     */
+    for (const report of reports) {
+      expect(report.utilizationPercent).toBeGreaterThanOrEqual(0);
+      expect(report.utilizationPercent).toBeLessThanOrEqual(100);
+      expect(report.served).toBeLessThanOrEqual(report.effectiveCapacity);
     }
   });
 
@@ -307,7 +317,8 @@ describe("V.d.5 proyección de servicios", () => {
     expect(parcel!.serviceCoverage.transport).toBeGreaterThanOrEqual(0);
     expect(
       projection.facilities.some(
-        (facility) => facility.coverage !== null && facility.coverage.demand > 0,
+        (facility) =>
+          facility.serviceMetrics !== null && facility.serviceMetrics.firstChoiceDemand > 0,
       ),
     ).toBe(true);
   });

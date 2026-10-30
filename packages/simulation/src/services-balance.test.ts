@@ -183,7 +183,7 @@ function measureSeed(seed: number, developedPercent = 0) {
      * el número de parcelas alcanzables.
      */
     const reports = [...coverage.facilities.values()].filter((entry) => entry.service === service);
-    const voronoiDemand = reports.reduce((total, entry) => total + entry.demand, 0);
+    const voronoiDemand = reports.reduce((total, entry) => total + entry.firstChoiceDemand, 0);
     /**
      * `served` uniforme: parcelas DESARROLLADAS con cobertura ≥ 50 en este servicio. Bajo H2-05
      * una parcela vacante no puede aparecer servida en un capacity service; sí en parks/transport.

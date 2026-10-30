@@ -121,8 +121,14 @@ describe("H1-05 · la cobertura depende del edificio físico", () => {
     expect(operationalFacilityCapacity(state, station)).toBe(0);
     expect(report.effectiveCapacity).toBe(0);
     expect(report.served).toBe(0);
-    expect(report.coveragePercent).toBe(0);
-    expect(report.saturated).toBe(report.demand > 0);
+    expect(report.utilizationPercent).toBe(0);
+    /**
+     * H2.1-01: una facility sin capacidad no está "saturada" —está apagada. `saturated` significa
+     * hoy "sin hueco libre", y sin huecos que existan no hay nada que llenar. Tampoco es primera
+     * opción de ninguna parcela, así que su demanda primaria es 0 y no 20.
+     */
+    expect(report.saturated).toBe(false);
+    expect(report.firstChoiceDemand).toBe(0);
     for (const parcelId of after.byParcelId.keys())
       expect(after.byParcelId.get(parcelId)!.security).toBeLessThanOrEqual(
         before.byParcelId.get(parcelId)!.security ?? 0,
@@ -156,10 +162,13 @@ describe("H1-05 · la cobertura depende del edificio físico", () => {
       .map(([id]) => id);
     expect(parcelServedByStationBefore.length).toBeGreaterThan(0);
     /** Y la cobertura global no sube: si se mantiene, es porque otra facility absorbe. */
+    const coveredBefore = [...before.byParcelId.values()].filter(
+      (coverage) => coverage.fire > 0,
+    ).length;
     const coveredAfter = [...after.byParcelId.values()].filter(
       (coverage) => coverage.fire > 0,
     ).length;
-    expect(coveredAfter).toBeLessThanOrEqual(reportBefore.demand + coveredAfter);
+    expect(coveredAfter).toBeLessThanOrEqual(coveredBefore);
   });
 
   it("un edificio ardiendo tampoco sirve, y restaurarlo recupera la cobertura", () => {

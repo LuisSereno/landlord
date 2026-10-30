@@ -7,6 +7,7 @@ import type {
   WorkerResponse,
 } from "@landlord/shared";
 import { resolveBuildingSelection } from "./building-selection";
+import { facilityMetricsSummary } from "./facility-metrics";
 import { appendDiagnostic, summarizeDiagnostics, type DiagnosticEntry } from "./diagnostics";
 import { SnapshotPersistenceError, createIndexedDbPersistence } from "./persistence/indexed-db";
 import type { GridCell } from "./isometric/coordinates";
@@ -441,17 +442,14 @@ export function App() {
                 <>
                   {projection.facilities.map((facility) => (
                     <p key={facility.id} className="selection-detail">
-                      <strong>{facilityLabel(facility.kind)}</strong> · capacidad{" "}
+                      <strong>{facilityLabel(facility.kind)}</strong> · cohortes de capacidad{" "}
                       {facility.capacity} · operador {facility.operatorOrganizationId}
                       <br />
                       función {facility.serviceProfileId} · edificios{" "}
                       {facility.buildingIds.join(", ") || "—"} · parcelas{" "}
                       {facility.parcelIds.join(", ")}
                       <br />
-                      cobertura: {facility.coverage?.coveragePercent ?? 0}% (
-                      {facility.coverage?.served ?? 0}/{facility.coverage?.demand ?? 0} parcelas ·
-                      capacidad {facility.coverage?.effectiveCapacity ?? 0}
-                      {facility.coverage?.saturated ? " · saturada" : ""}) ·{" "}
+                      {facilityMetricsSummary(facility.serviceMetrics)} ·{" "}
                       {facility.accessCells.length} celdas de acceso vial
                     </p>
                   ))}

@@ -323,7 +323,7 @@ describe("H1-10 B · incendio real por el pipeline de producto", () => {
     const served = [...before.byParcelId.entries()].filter(([, values]) => values.fire > 0);
     expect(served.length).toBeGreaterThan(0);
     const demandByFacility = [...before.facilities.values()].map(
-      (report) => `${report.facilityId}:${report.demand}/${report.served}`,
+      (report) => `${report.facilityId}:${report.firstChoiceDemand}/${report.served}`,
     );
     const coverageSum = (index: typeof before) =>
       [...index.byParcelId.values()].reduce(
@@ -342,7 +342,7 @@ describe("H1-10 B · incendio real por el pipeline de producto", () => {
     /** Y el reparto por facility cambia: es la señal de que antes se cruzaba de distrito. */
     expect(
       [...after.facilities.values()].map(
-        (report) => `${report.facilityId}:${report.demand}/${report.served}`,
+        (report) => `${report.facilityId}:${report.firstChoiceDemand}/${report.served}`,
       ),
     ).not.toEqual(demandByFacility);
     /** El índice sigue cubriendo las mismas parcelas: no se pierde geometría, se pierde ruta. */

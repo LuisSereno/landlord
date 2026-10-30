@@ -522,14 +522,14 @@ export function createViewProjection(
         capacity: facility.capacity,
         serviceProfileId: facility.serviceProfileId,
         accessCells: facilityAccessCells(state, facility),
-        coverage: (() => {
+        serviceMetrics: (() => {
           const report = facilityCoverage?.facilities.get(facility.id);
           return report
             ? {
-                demand: report.demand,
+                firstChoiceDemand: report.firstChoiceDemand,
                 effectiveCapacity: report.effectiveCapacity,
                 served: report.served,
-                coveragePercent: report.coveragePercent,
+                utilizationPercent: report.utilizationPercent,
                 saturated: report.saturated,
               }
             : null;

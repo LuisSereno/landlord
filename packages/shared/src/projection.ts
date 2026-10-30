@@ -84,6 +84,21 @@ export type LandValueBreakdown = {
   targetValue: number;
 };
 
+/**
+ * Carga de una facility (H2.1-01). `firstChoiceDemand` y `served` son magnitudes de naturaleza
+ * distinta —la primera es una elección geográfica (Voronoi estricto), la segunda es capacidad
+ * consumida, incluyendo el spill-in de vecinas llenas— y la utilización sólo se mide contra
+ * `effectiveCapacity`. Ninguna de estas cifras se llama "cobertura": la cobertura por parcela
+ * vive en `serviceCoverage`.
+ */
+export type FacilityServiceMetrics = {
+  firstChoiceDemand: number;
+  effectiveCapacity: number;
+  served: number;
+  utilizationPercent: number;
+  saturated: boolean;
+};
+
 export type ViewProjectionV2 = {
   projectionVersion: 2;
   /** Distrito que el renderer dibuja; cambiarlo no toca `GameState` (D-089). */
@@ -121,13 +136,7 @@ export type ViewProjectionV2 = {
     serviceProfileId: string;
     /** Road cells the service graph starts from (D-092, V.d.5). */
     accessCells: GridCell[];
-    coverage: {
-      demand: number;
-      effectiveCapacity: number;
-      served: number;
-      coveragePercent: number;
-      saturated: boolean;
-    } | null;
+    serviceMetrics: FacilityServiceMetrics | null;
   }>;
   structures: Array<{
     id: StructureId;
@@ -750,12 +759,12 @@ export const viewProjectionV2Schema = z.object({
       capacity: z.number().int().positive(),
       serviceProfileId: z.string().min(1),
       accessCells: z.array(gridCellSchema),
-      coverage: z
+      serviceMetrics: z
         .object({
-          demand: z.number().int().nonnegative(),
+          firstChoiceDemand: z.number().int().nonnegative(),
           effectiveCapacity: z.number().int().nonnegative(),
           served: z.number().int().nonnegative(),
-          coveragePercent: z.number().int().min(0).max(100),
+          utilizationPercent: z.number().int().min(0).max(100),
           saturated: z.boolean(),
         })
         .nullable(),

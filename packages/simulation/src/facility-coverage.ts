@@ -89,13 +89,31 @@ const OFFSETS: readonly GridCell[] = [
   { x: -1, y: 0 },
 ];
 
+/**
+ * H2.1-01 · métricas del informe de una facility. Son magnitudes de naturaleza distinta y no
+ * son intercambiables entre sí:
+ * - `firstChoiceDemand` es la parcela que ELIJE a esta facility como opción más cercana
+ *   (Voronoi estricto). Ni se la atiende ni se la deja de atender por estar aquí contada.
+ * - `served` es lo que la facility efectivamente admite: sus primeras opciones más el
+ *   spill-in de vecinas que fueron llenas antes de llegar a ellas.
+ * - `effectiveCapacity` son los slots disponibles (capacidad operativa × cohorte × presupuesto).
+ *   Es el único denominador de la utilización: `served / firstChoiceDemand` no es un porcentaje
+ *   de nada —con spill-in puede superar 100 y con demanda primaria 0 no existe.
+ * Por eso el informe ya no publica ninguna magnitud llamada "cobertura". La cobertura por
+ * parcela vive en `byParcelId`; aquí sólo se describe la carga de la facility.
+ */
 export type FacilityCoverageReport = {
   facilityId: UrbanFacilityId;
   service: FacilityServiceId;
-  demand: number;
+  firstChoiceDemand: number;
   effectiveCapacity: number;
   served: number;
-  coveragePercent: number;
+  utilizationPercent: number;
+  /**
+   * Sin hueco libre: con capacidad efectiva > 0 y `served === effectiveCapacity`, la próxima
+   * parcela que llegue será derivada a otra facility. No afirma que haya demanda insatisfecha
+   * en la ciudad —el spill puede resolverla—; afirma que esta facility no admite más.
+   */
   saturated: boolean;
 };
 
@@ -583,9 +601,11 @@ export function facilityCoverageIndex(state: GameState): FacilityCoverageIndex {
      * parcela se sirve en la primera facility que la admita; si esa facility se llena antes,
      * la siguiente alternativa puede cogerla.
      *
-     * Se conserva el `demand` por facility como el número de parcelas para las que es la
-     * primera opción (Voronoi estricto). `served` es lo que realmente admite, incluyendo
-     * el spill-in de vecinos saturados.
+     * Se conserva la Voronoi estricta como `firstChoiceDemand`: número de parcelas para las que
+     * esta facility es la primera opción ENTRE LAS QUE TIENEN CAPACIDAD. Una facility con
+     * capacidad efectiva 0 no es primera opción de nadie —se descarta antes del greedy— y por eso
+     * reporta `firstChoiceDemand: 0`, no su cuenca geográfica. `served` es lo que realmente
+     * admite, incluyendo el spill-in de vecinas saturadas: puede ser mayor que su demanda primaria.
      */
     const effectiveCapacityByFacilityId = new Map<UrbanFacilityId, number>();
     const usedCapacityByFacilityId = new Map<UrbanFacilityId, number>();
@@ -659,15 +679,17 @@ export function facilityCoverageIndex(state: GameState): FacilityCoverageIndex {
     for (const facility of data.facilities) {
       const effectiveCapacity = effectiveCapacityByFacilityId.get(facility.id)!;
       const served = usedCapacityByFacilityId.get(facility.id)!;
-      const demand = voronoiDemandByFacilityId.get(facility.id)!;
       facilities.set(facility.id, {
         facilityId: facility.id,
         service,
-        demand,
+        firstChoiceDemand: voronoiDemandByFacilityId.get(facility.id)!,
         effectiveCapacity,
         served,
-        coveragePercent: demand === 0 ? 0 : Math.round((served * 100) / demand),
-        saturated: demand > effectiveCapacity,
+        utilizationPercent:
+          effectiveCapacity === 0
+            ? 0
+            : Math.min(100, Math.max(0, Math.round((served * 100) / effectiveCapacity))),
+        saturated: effectiveCapacity > 0 && served >= effectiveCapacity,
       });
     }
 

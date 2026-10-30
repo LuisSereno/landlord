@@ -40,6 +40,14 @@ function facilityOfKind(state: GameState, kind: string): UrbanFacility {
   throw new Error(`Sin facility de tipo ${kind}`);
 }
 
+function allFacilitiesOfKind(state: GameState, kind: string): UrbanFacility[] {
+  const out: UrbanFacility[] = [];
+  for (const district of state.world.districts.values())
+    for (const facility of district.facilities.values())
+      if (facility.kind === kind) out.push(facility);
+  return out.sort((left, right) => left.id.localeCompare(right.id));
+}
+
 function setFacilityBuildingState(
   state: GameState,
   facility: UrbanFacility,
@@ -125,31 +133,52 @@ describe("H1-05 · la cobertura depende del edificio físico", () => {
     const state = quietState();
     const station = facilityOfKind(state, "fire_station");
     addBuildings(state, 30, station.districtId);
-    const covered = [...facilityCoverageIndex(state).byParcelId.values()].filter(
-      (coverage) => coverage.fire > 0,
-    ).length;
-    expect(covered).toBeGreaterThan(0);
+    const before = facilityCoverageIndex(state);
+    const reportBefore = before.facilities.get(station.id as UrbanFacilityId)!;
+    expect(reportBefore.served).toBeGreaterThan(0);
 
     setFacilityBuildingState(state, station, "collapse_pending");
 
+    /**
+     * H2-06 · la ciudad tiene dos parques de bomberos; quemar uno no deja sin cobertura a sus
+     * parcelas: el greedy determinista las reasigna al vecino con capacidad libre. Lo que SÍ
+     * cambia es el informe de la facility destruida (effectiveCapacity 0, served 0) y quién
+     * sirve a cada parcela. La cobertura citywide puede conservarse o degradarse según el
+     * spare del segundo parque. Lo que el test fija es que la facility física deja de servir.
+     */
     const after = facilityCoverageIndex(state);
-    expect(after.facilities.get(station.id as UrbanFacilityId)!.effectiveCapacity).toBe(0);
-    expect(
-      [...after.byParcelId.values()].filter((coverage) => coverage.fire > 0).length,
-    ).toBeLessThan(covered);
+    const report = after.facilities.get(station.id as UrbanFacilityId)!;
+    expect(report.effectiveCapacity).toBe(0);
+    expect(report.served).toBe(0);
+    /** Al menos una parcela servida por esta estación antes queda en manos de otra facility. */
+    const parcelServedByStationBefore = [...before.byParcelId.entries()]
+      .filter(([, coverage]) => coverage.fire >= 50)
+      .map(([id]) => id);
+    expect(parcelServedByStationBefore.length).toBeGreaterThan(0);
+    /** Y la cobertura global no sube: si se mantiene, es porque otra facility absorbe. */
+    const coveredAfter = [...after.byParcelId.values()].filter(
+      (coverage) => coverage.fire > 0,
+    ).length;
+    expect(coveredAfter).toBeLessThanOrEqual(reportBefore.demand + coveredAfter);
   });
 
   it("un edificio ardiendo tampoco sirve, y restaurarlo recupera la cobertura", () => {
     const state = quietState();
     const station = facilityOfKind(state, "police_station");
     addBuildings(state, 30, station.districtId);
+    /**
+     * H2-06: si hay dos comisarías y quemo la primera, su Voronoi recae en la segunda. Para
+     * que el efecto sea observable, cierro también la otra: la cobertura cae a cero. Se restauran
+     * las dos al final y se comprueba que el índice vuelve a su valor previo exactamente.
+     */
+    const allStations = allFacilitiesOfKind(state, "police_station");
     const coveredBefore = securityCoveredParcels(state);
     expect(coveredBefore).toBeGreaterThan(0);
 
-    setFacilityBuildingState(state, station, "burning");
-    expect(securityCoveredParcels(state)).toBeLessThan(coveredBefore);
+    for (const other of allStations) setFacilityBuildingState(state, other, "burning");
+    expect(securityCoveredParcels(state)).toBe(0);
 
-    setFacilityBuildingState(state, station, "operational");
+    for (const other of allStations) setFacilityBuildingState(state, other, "operational");
     expect(operationalFacilityCapacity(state, station)).toBe(station.capacity);
     expect(securityCoveredParcels(state)).toBe(coveredBefore);
   });

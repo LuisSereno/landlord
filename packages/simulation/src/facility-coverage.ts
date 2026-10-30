@@ -503,55 +503,102 @@ export function facilityCoverageIndex(state: GameState): FacilityCoverageIndex {
 
   for (const [service, data] of raw.services) {
     if (data.facilities.length === 0) continue;
-    const bestForParcel = new Map<ParcelId, { cost: number; facilityId: UrbanFacilityId }>();
-    for (const facility of data.facilities) {
-      const distance = data.distances.get(facility.id)!;
-      for (const parcel of demandParcels) {
-        const access = raw.accessByParcel.get(parcel.id) ?? [];
-        if (access.length === 0) continue;
-        let cost = Number.POSITIVE_INFINITY;
-        for (const node of access)
-          cost = Math.min(cost, distance.get(node) ?? Number.POSITIVE_INFINITY);
-        if (!Number.isFinite(cost)) continue;
-        const previous = bestForParcel.get(parcel.id);
-        if (
-          !previous ||
-          cost < previous.cost ||
-          (cost === previous.cost && facility.id < previous.facilityId)
-        ) {
-          bestForParcel.set(parcel.id, { cost, facilityId: facility.id });
-        }
-      }
-    }
-    const groups = new Map<UrbanFacilityId, Array<{ parcel: Parcel; cost: number }>>();
-    for (const parcel of demandParcels) {
-      const best = bestForParcel.get(parcel.id);
-      if (!best) continue;
-      const group = groups.get(best.facilityId) ?? [];
-      group.push({ parcel, cost: best.cost });
-      groups.set(best.facilityId, group);
-    }
     const level = budgetLevelFor(state, service);
+    /**
+     * H2-06 · asignación determinista con capacidad. La Voronoi "nearest-first" dejaba a una
+     * parcela sin servir cuando la facility más cercana estaba llena o sin edificio, aunque
+     * hubiera otra alcanzable con capacidad libre. El algoritmo nuevo genera todos los pares
+     * (parcel, facility, cost) alcanzables, excluye facilities con capacidad efectiva 0 y
+     * recorre la lista en orden canónico (cost asc → parcelId asc → facilityId asc). Cada
+     * parcela se sirve en la primera facility que la admita; si esa facility se llena antes,
+     * la siguiente alternativa puede cogerla.
+     *
+     * Se conserva el `demand` por facility como el número de parcelas para las que es la
+     * primera opción (Voronoi estricto). `served` es lo que realmente admite, incluyendo
+     * el spill-in de vecinos saturados.
+     */
+    const effectiveCapacityByFacilityId = new Map<UrbanFacilityId, number>();
+    const usedCapacityByFacilityId = new Map<UrbanFacilityId, number>();
+    const voronoiDemandByFacilityId = new Map<UrbanFacilityId, number>();
     for (const facility of data.facilities) {
-      const group = groups.get(facility.id) ?? [];
-      group.sort(
-        (left, right) => left.cost - right.cost || left.parcel.id.localeCompare(right.parcel.id),
-      );
-      const effectiveCapacity =
+      const effective =
         Math.floor((operationalFacilityCapacity(state, facility) * level) / 100) *
         DEMAND_UNITS_PER_CAPACITY;
-      const served = Math.min(group.length, effectiveCapacity);
-      for (let index = 0; index < served; index += 1) {
-        byParcelId.get(group[index]!.parcel.id)![service] = 100;
+      effectiveCapacityByFacilityId.set(facility.id, effective);
+      usedCapacityByFacilityId.set(facility.id, 0);
+      voronoiDemandByFacilityId.set(facility.id, 0);
+    }
+
+    type Candidate = { parcel: Parcel; facilityId: UrbanFacilityId; cost: number };
+    const candidates: Candidate[] = [];
+    for (const parcel of demandParcels) {
+      const access = raw.accessByParcel.get(parcel.id) ?? [];
+      if (access.length === 0) continue;
+      for (const facility of data.facilities) {
+        const capacity = effectiveCapacityByFacilityId.get(facility.id)!;
+        if (capacity === 0) continue;
+        const distance = data.distances.get(facility.id)!;
+        let cost = Number.POSITIVE_INFINITY;
+        for (const node of access) {
+          const value = distance.get(node) ?? Number.POSITIVE_INFINITY;
+          if (value < cost) cost = value;
+        }
+        if (!Number.isFinite(cost)) continue;
+        /** Voronoi: esta facility es la primera opción de la parcela si gana en coste/lex-id. */
+        candidates.push({ parcel, facilityId: facility.id, cost });
       }
+    }
+    /** Marca la demanda Voronoi por facility antes del greedy de asignación. */
+    const bestByParcel = new Map<ParcelId, { cost: number; facilityId: UrbanFacilityId }>();
+    for (const candidate of candidates) {
+      const previous = bestByParcel.get(candidate.parcel.id);
+      if (
+        !previous ||
+        candidate.cost < previous.cost ||
+        (candidate.cost === previous.cost && candidate.facilityId < previous.facilityId)
+      ) {
+        bestByParcel.set(candidate.parcel.id, {
+          cost: candidate.cost,
+          facilityId: candidate.facilityId,
+        });
+      }
+    }
+    for (const entry of bestByParcel.values())
+      voronoiDemandByFacilityId.set(
+        entry.facilityId,
+        (voronoiDemandByFacilityId.get(entry.facilityId) ?? 0) + 1,
+      );
+
+    /** Orden canónico del greedy: coste ascendente, después parcelId, después facilityId. */
+    candidates.sort(
+      (left, right) =>
+        left.cost - right.cost ||
+        left.parcel.id.localeCompare(right.parcel.id) ||
+        left.facilityId.localeCompare(right.facilityId),
+    );
+    const servedByParcel = new Set<ParcelId>();
+    for (const candidate of candidates) {
+      if (servedByParcel.has(candidate.parcel.id)) continue;
+      const capacity = effectiveCapacityByFacilityId.get(candidate.facilityId)!;
+      const used = usedCapacityByFacilityId.get(candidate.facilityId)!;
+      if (used >= capacity) continue;
+      usedCapacityByFacilityId.set(candidate.facilityId, used + 1);
+      servedByParcel.add(candidate.parcel.id);
+      byParcelId.get(candidate.parcel.id)![service] = 100;
+    }
+
+    for (const facility of data.facilities) {
+      const effectiveCapacity = effectiveCapacityByFacilityId.get(facility.id)!;
+      const served = usedCapacityByFacilityId.get(facility.id)!;
+      const demand = voronoiDemandByFacilityId.get(facility.id)!;
       facilities.set(facility.id, {
         facilityId: facility.id,
         service,
-        demand: group.length,
+        demand,
         effectiveCapacity,
         served,
-        coveragePercent: group.length === 0 ? 0 : Math.round((served * 100) / group.length),
-        saturated: group.length > effectiveCapacity,
+        coveragePercent: demand === 0 ? 0 : Math.round((served * 100) / demand),
+        saturated: demand > effectiveCapacity,
       });
     }
   }

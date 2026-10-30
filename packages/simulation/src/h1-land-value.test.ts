@@ -61,6 +61,14 @@ function facilityBuildingIds(state: GameState, kind: string): string[] {
   return [];
 }
 
+function allFacilityBuildingIds(state: GameState, kind: string): string[] {
+  const out: string[] = [];
+  for (const district of state.world.districts.values())
+    for (const facility of district.facilities.values())
+      if (facility.kind === kind) out.push(...facility.buildingIds);
+  return out.sort((left, right) => left.localeCompare(right));
+}
+
 /**
  * H2-05: sin edificios privados no hay demanda activa y la cobertura de capacidad es cero por
  * diseño. Los tres tests de servicios de este acta necesitan parcelas desarrolladas cerca de la
@@ -196,13 +204,19 @@ describe("H1-09B · el potencial normativo consume la ordenanza vigente", () => 
 });
 
 describe("H1-09A · los servicios espaciales mueven el valor en la dirección esperada", () => {
-  it("destruir la comisaría baja el valor donde sólo ella daba seguridad", () => {
+  it("destruir la red de comisarías baja el valor donde los solares dependían de la seguridad", () => {
     const state = createInitialState(7);
     /** H2-05: desarrollar parcelas en el distrito de la comisaría para generar demanda activa. */
     const stationDistrict = districtOfFacilityKind(state, "police_station");
     developParcels(state, stationDistrict, 30, 200);
-    const station = facilityBuildingIds(state, "police_station");
-    expect(station.length).toBeGreaterThan(0);
+    /**
+     * H2-06: con dos comisarías y greedy capacity-aware, quemar una sola deja intacta la
+     * cobertura —el spill reasigna al otro. Para ver el efecto sobre el valor del suelo hay
+     * que tumbar la red de comisarías entera. Los cinco solares testigos pierden `services`,
+     * `civicAmenities` (que es geométrica y no consulta disponibilidad) no se toca.
+     */
+    const stationBuildings = allFacilityBuildingIds(state, "police_station");
+    expect(stationBuildings.length).toBeGreaterThan(0);
     const covered = [...buildCoverageIndex(state).byParcelId.entries()]
       .filter(([parcelId]) => {
         const parcel = state.phase2.parcels.get(parcelId)!;
@@ -212,7 +226,7 @@ describe("H1-09A · los servicios espaciales mueven el valor en la dirección es
     expect(covered.length).toBeGreaterThan(0);
 
     const before = covered.slice(0, 5).map((parcel) => breakdown(state, parcel));
-    for (const id of station) {
+    for (const id of stationBuildings) {
       const building = state.phase2.buildings.get(id as never);
       if (building) building.state = "ruin";
     }

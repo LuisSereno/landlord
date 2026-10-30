@@ -492,3 +492,123 @@ describe("H2-02 ausencia de Blender → fallback procedural para los 15 tipos", 
     }
   });
 });
+
+/**
+ * H2-03 · dos vocabularios de "orientación" conviven en el repo y no significan lo mismo:
+ *
+ * - `Building.orientation ∈ {0, 90, 180, 270}` es **rotación física del sólido** dentro de la
+ *   parcela (la elige `chooseFootprint` en `packages/simulation/src/footprints.ts` según el eje
+ *   largo del rectángulo). Viaja en `ViewProjectionV2.economy.buildings[i].orientation` desde H2-01.
+ *
+ * - `RuntimeAssetManifestV2.buildings[t].allowedOrientations ⊂ {45, 135, 225, 315}` es **azimut de
+ *   la cámara isométrica** para el que existe un frame. `SCENE_AZIMUTH = 45` es la única orientación
+ *   de cámara que el juego ofrece, así que el bundle procedural la declara `[45]` y nada más.
+ *
+ * El contrato actual NO conecta los dos: la representación visual del edificio es la misma
+ * aunque su huella física gire 90°, porque no existen frames laterales. Esta decisión se toma
+ * en H2-03 opción B: el arte no da para A, así que se documenta la separación, se fija con test
+ * y se registra la representación física como deuda visual P2 en `ai-context/KNOWN-GAPS.md`.
+ */
+describe("H2-03 orientación física del dominio ≠ azimut de cámara del manifiesto", () => {
+  it("el helper no lee `Building.orientation`: girar el sólido no elige otro asset", () => {
+    /**
+     * La firma de `resolveBuildingVisual` es `(archetype, domainType, state, options)`: cuatro
+     * argumentos, ninguno de ellos la orientación física del edificio. Un `Building.orientation`
+     * que gire 90° en el dominio NO cambia la textura escogida. Es el contrato H2-03 —no un
+     * bug—: el arte actual no tiene frames laterales, así que la representación física de la
+     * rotación queda como deuda visual P2 (ver `ai-context/KNOWN-GAPS.md`).
+     */
+    expect(resolveBuildingVisual.length).toBe(4);
+    /** Llamar al helper con la misma triplete cuatro veces produce exactamente el mismo asset. */
+    const outputs = [0, 90, 180, 270].map(() =>
+      resolveBuildingVisual("row_house", "row_house", "complete", {
+        blenderBundle: undefined,
+        proceduralBundle: ASSETS,
+        textureExists: () => true,
+        azimuth: 45,
+      }),
+    );
+    for (const resolved of outputs) {
+      expect(resolved).not.toBeNull();
+      expect(resolved!.key).toBe("building-row_house-complete");
+    }
+    /** Los cuatro son literalmente idénticos: la orientación del dominio no tiene ninguna vía de entrada. */
+    expect(new Set(outputs.map((entry) => JSON.stringify(entry))).size).toBe(1);
+  });
+
+  it("el plan de sprites tampoco recibe la orientación física del edificio", () => {
+    /**
+     * Un edificio con `orientation = 0` y su gemelo con `orientation = 270` ocupan la misma celda,
+     * misma textura, mismo depth. La huella cambia —por eso el bounding box difiere— pero el asset
+     * elegido es idéntico. Sin arte por azimut, rotar un edificio en el dominio NO rota su
+     * representación: es la deuda visual P2 fijada por H2-03.
+     */
+    const economy = {
+      buildings: [
+        {
+          id: "b0",
+          type: "row_house",
+          condition: 100,
+          state: "operational",
+          orientation: 0,
+          footprintCells: [
+            { x: 1, y: 1 },
+            { x: 2, y: 1 },
+          ],
+        },
+        {
+          id: "b90",
+          type: "row_house",
+          condition: 100,
+          state: "operational",
+          orientation: 90,
+          footprintCells: [
+            { x: 1, y: 1 },
+            { x: 1, y: 2 },
+          ],
+        },
+      ],
+      constructionSites: [],
+    } as unknown as Pick<
+      NonNullable<ViewProjectionV2["economy"]>,
+      "buildings" | "constructionSites"
+    >;
+    const plan = buildingSpritePlan(economy, {
+      archetypeFor: (_id, domainType) => domainType,
+      resolveVisual: (_archetype, domainType, state) => ({
+        key: `building-${domainType}-${state}`,
+        asset: FAKE_ASSET,
+      }),
+    });
+    /** Dos orientaciones físicas distintas: misma textura. Distintas huellas: distinto bounding box. */
+    expect(plan[0]!.textureKey).toBe(plan[1]!.textureKey);
+    expect(plan[0]!.cells).not.toEqual(plan[1]!.cells);
+    /** El bounding box de 0° (horizontal) y 90° (vertical) mide diferente: el depth también. */
+    expect(footprintBounds(plan[0]!.cells).width).toBe(2);
+    expect(footprintBounds(plan[0]!.cells).height).toBe(1);
+    expect(footprintBounds(plan[1]!.cells).width).toBe(1);
+    expect(footprintBounds(plan[1]!.cells).height).toBe(2);
+  });
+
+  it("V2 declara azimuts de cámara, no rotaciones físicas: el vocabulario no se confunde", () => {
+    /**
+     * El dominio usa `{0, 90, 180, 270}` (grados cardinales de una retícula); V2 usa `{45, 135,
+     * 225, 315}` (azimuts isométricos de cámara). Las dos palabras "orientación" significan cosas
+     * distintas y los conjuntos son disjuntos. Si algún día se conecta arte a `Building.orientation`,
+     * hay que añadir un mapa explícito (rotación física → azimut visual) —no mezclar los tipos.
+     */
+    const domainOrientations = new Set([0, 90, 180, 270]);
+    const assetOrientations = new Set([45, 135, 225, 315]);
+    for (const value of domainOrientations) expect(assetOrientations.has(value)).toBe(false);
+    for (const value of assetOrientations) expect(domainOrientations.has(value)).toBe(false);
+    /**
+     * El manifiesto procedural actual sólo declara `[45]`: el resto son azimuts legales del tipo
+     * pero no tienen frame. El helper los rechaza (test de arriba); no existe un cuarto argumento
+     * que "gire" el sprite sin autorización del contrato.
+     */
+    for (const asset of Object.values(ASSETS.buildings)) {
+      expect(asset.allowedOrientations).toEqual([45]);
+      expect(asset.symmetry).toBe("none");
+    }
+  });
+});

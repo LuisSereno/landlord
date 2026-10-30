@@ -289,6 +289,24 @@ Sigue abierto:
 - **Conservado a propósito:** los guards de jugabilidad específicos por perfil introducidos después de
   V.d.3. No volver a un límite global del 85 %.
 
+## V.d-H2 — presentación y cierre de servicios municipales (2026-10-30)
+
+- **V.d sigue sin cerrar:** el playtest humano pendiente (`PENDING HUMAN PLAYTEST` en
+  `docs/execution/phase-4/vd-final-playtest-checklist.md`) y el P1 de escala municipal heredado de
+  H1 siguen abiertos. H2 arregla tres inconsistencias técnicas concretas, no sustituye ninguna de
+  las dos.
+- **Deuda visual P2 — orientación física no representada (H2-03 opción B).** `Building.orientation`
+  `{0, 90, 180, 270}` es la rotación del sólido dentro de la parcela; `RuntimeAssetManifestV2.allowedOrientations`
+  `{45, 135, 225, 315}` es el azimut de cámara para el que existe un frame. Los dos conjuntos son
+  disjuntos, el helper `resolveBuildingVisual` no lee `orientation`, y el bundle procedural declara
+  `[45]` con `symmetry: "none"`. **Consecuencia:** girar 90° un edificio en la simulación no rota
+  su sprite. Es una limitación del arte, no del motor: cerrar la deuda exige renders laterales,
+  no un parche en la presentación. `building-sprites.test.ts` (H2-03) fija la separación para que
+  nadie vuelva a afirmar que la orientación física ya se representa.
+- **Conservado a propósito:** el programa municipal sigue en 2 comisarías / 2 parques de bomberos /
+  3 clínicas / 3 colegios / 3 mercados por ciudad. Cualquier recalibración de capacidad que salga
+  de H2 es por servicio, no por cambiar la receta.
+
 ## Rendimiento y Alpha
 
 - El cierre mensual de 800 parcelas es la frontera cara. Medido como campaña longitudinal real en

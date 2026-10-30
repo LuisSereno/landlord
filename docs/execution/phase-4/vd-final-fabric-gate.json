@@ -1,19 +1,19 @@
 {
-  "head": "b37693f4ea927787fdf6bb9eb9451bb22971f2c3",
-  "generatedAt": "2026-10-29T22:37:06.514Z",
+  "head": "c0bda82cfe1280e44855dc44a05d8e951dde9327",
+  "generatedAt": "2026-10-29T23:45:14.936Z",
   "tool": "pnpm fabric:gate",
   "seeds": 100,
   "districts": 900,
   "parcels": 73289,
   "generationMs": {
-    "p50": 140.23,
-    "p95": 198.24,
-    "max": 398.4
+    "p50": 153.48,
+    "p95": 227.91,
+    "max": 520.87
   },
   "roadDerivationMs": {
-    "p50": 1.41,
-    "p95": 2.27,
-    "max": 4.59
+    "p50": 1.55,
+    "p95": 2.73,
+    "max": 5.13
   },
   "morphology": [
     {

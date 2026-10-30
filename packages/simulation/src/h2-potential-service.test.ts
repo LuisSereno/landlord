@@ -14,7 +14,9 @@ import {
   facilityPotentialForParcel,
 } from "./facility-coverage";
 import { PLAYER_ORGANIZATION_ID } from "./game-data";
+import { buildLandValueContext, landValueBreakdownFor } from "./land-value";
 import { createViewProjection } from "./projection";
+import { buildCoverageIndex } from "./urban-services";
 import { createInitialState, type GameState } from "./state";
 
 /**
@@ -280,5 +282,49 @@ describe("H2-10 · cobertura potencial de las parcelas vacantes", () => {
     /** Vacante: helper no lanza, devuelve un número 0 o 100. */
     const value = facilityPotentialForParcel(state, vacant.id, "security");
     expect(value === 0 || value === 100).toBe(true);
+  });
+
+  it("H2-11 · el desglose del suelo conserva `civicAmenities` geométrica ≠ `services` operativa", () => {
+    /**
+     * Contrato de D-093 §7 (aclaración H2-11): las dos componentes conviven en el desglose y
+     * miden cosas distintas. Quemar un equipamiento debe bajar `services` —que consulta la
+     * disponibilidad operativa vía `CoverageIndex`— y dejar `civicAmenities` intacta —que mide
+     * proximidad geométrica a parcelas de facility y espacios públicos, sin consultar grafo,
+     * edificio ni presupuesto. `h1-land-value.test.ts` fija el mismo invariante para el caso
+     * de una sola comisaría; este test lo refuerza sobre la red completa con el nuevo potencial
+     * (H2-10) expuesto, que NO puede sustituir a ninguno de los dos.
+     */
+    const state = createInitialState(7);
+    const built = developParcels(state, PLAYER_HOME_DISTRICT_ID, 30, 6000);
+    const context = () =>
+      buildLandValueContext(state, PLAYER_HOME_DISTRICT_ID, buildCoverageIndex(state));
+    const before = built.map((parcel) => landValueBreakdownFor(parcel, context()));
+    const stations = facilitiesOfKind(state, "police_station");
+    for (const station of stations) setFacilityBuildingState(state, station, "ruin");
+    const after = built.map((parcel) => landValueBreakdownFor(parcel, context()));
+
+    /** `civicAmenities` es la misma componente antes y después de la quema. */
+    expect(after.map((entry) => entry.civicAmenities)).toEqual(
+      before.map((entry) => entry.civicAmenities),
+    );
+    /** `services` baja si antes había disponibilidad; nunca sube artificialmente. */
+    const servicesBefore = before.reduce((total, entry) => total + entry.services, 0);
+    const servicesAfter = after.reduce((total, entry) => total + entry.services, 0);
+    expect(servicesAfter).toBeLessThanOrEqual(servicesBefore);
+    /**
+     * El desglose tiene las nueve componentes del score de V.d.4 —`civicAmenities` y `services`
+     * son dos términos distintos, no el mismo dos veces (D-093 §7).
+     */
+    const sum =
+      after[0]!.roadCentrality +
+      after[0]!.commercialAccess +
+      after[0]!.civicAmenities +
+      after[0]!.frontage +
+      after[0]!.codePotential +
+      after[0]!.services +
+      after[0]!.industrialExternality +
+      after[0]!.isolation +
+      after[0]!.seedVariation;
+    expect(after[0]!.rawScore).toBe(sum);
   });
 });

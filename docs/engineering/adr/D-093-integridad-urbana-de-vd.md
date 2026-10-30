@@ -5,6 +5,14 @@ Estado: aceptada y aplicada. La decide el plan **V.d-H1 Urban Integrity Hardenin
 D-088/D-089/D-090/D-091/D-092 ni a D-080: los amplía donde su texto asumía todavía un solo distrito,
 un edificio de una sola celda o un permiso sin identidad.
 
+> **Aclaración V.d-H2 · H2-11 (2026-10-30).** El punto 7 se redactó en H1 de forma que podía leerse
+> como "las amenidades cívicas se absorben dentro de `services`". No es así, y el código siempre
+> las mantuvo como canales distintos. La formulación correcta es que H1-09 elimina el **doble
+> conteo semántico** (ambos términos medían proximidad geométrica antes del fix) y deja
+> `civicAmenities` como componente de proximidad geométrica e intacta bajo quema del edificio, y
+> `services` como componente de disponibilidad operativa vía `CoverageIndex`. El resto de la
+> decisión se conserva sin cambios.
+
 ## Contexto
 
 V.d saltó de un distrito a una ciudad 3×3 en una sola fase (D-088) y fue añadiendo capas encima:
@@ -95,8 +103,13 @@ centro, densidad y radio se calculan sobre las parcelas del distrito
 responde por estatus de ordenanza y rol urbano; el valor del suelo la consume a través del contexto y
 por eso la ordenanza **no** está en la caché de geometría
 ([packages/simulation/src/land-value.ts:102](../../../packages/simulation/src/land-value.ts)). El doble
-cuento de `civicAmenities` se elimina: la amenidad la aporta el equipamiento alcanzable, no una suma
-paralela.
+cuento que H1-09 elimina es **semántico**: antes de la corrección `services` medía la misma señal
+distintiva que `civicAmenities` —proximidad geométrica—, así que una facility cercana contaba dos veces
+en el desglose. La corrección da a `services` su propio canal —disponibilidad operativa vía
+`CoverageIndex`— y deja `civicAmenities` intacta como proximidad geométrica a equipamientos y espacios
+públicos. Las dos componentes son canales ortogonales del mismo desglose; ninguna se funde en la otra
+ni desaparece. `h1-land-value.test.ts` fija el contrato: quemar el edificio de una comisaría cambia
+`services` y `targetValue`, pero `civicAmenities` permanece idéntica.
 
 ### 8. La presentación deja de adivinar
 

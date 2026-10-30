@@ -65,7 +65,9 @@ Implementado en WP4.1/WP4.3/WP4.7/WP3.9 y V.d.4/V.d-H1: precio de parcela por pe
 oferta/demanda segmentada, elasticidad de renta acotada, venta y subasta de activos con fianza y
 ejecución. `baseLandValue`/`marketValue` con score entero desglosado, límite mensual del 5 % y
 derechos adquiridos del ensayo de corredor; desde H1-09 el valor consume el `CoverageIndex` de los
-servicios de V.d.5 y la densidad realmente vigente, sin sumar dos veces las amenidades cívicas.
+servicios de V.d.5 y la densidad realmente vigente, sin duplicar la señal geométrica que ya aporta
+`civicAmenities` (los dos canales —proximidad geométrica y disponibilidad operativa— siguen siendo
+distintos y coexisten en el desglose; ver D-093 §7 con la aclaración H2-11).
 
 Sigue abierto:
 - coste de oportunidad de mantener solares vacíos;

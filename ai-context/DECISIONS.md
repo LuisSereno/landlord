@@ -1185,8 +1185,10 @@ test de regresión cada una, y el test se ejecuta contra el código previo para 
 - **limpieza radial por distrito** (D-092 mantiene la excepción radial; cambian centro, densidad y
   radio al ámbito del distrito);
 - **densidad vigente en una sola lectura** (`effectiveDensityBonus`) y valor del suelo consumiendo
-  `CoverageIndex`, sin sumar `civicAmenities` dos veces; por eso la ordenanza sale de la caché de
-  geometría de `land-value.ts`;
+  `CoverageIndex`, sin que `services` repita la señal geométrica de `civicAmenities` (los dos
+  canales siguen existiendo: `civicAmenities` mide proximidad geométrica y es invariante bajo
+  quema de facility; `services` mide disponibilidad operativa vía el grafo; ver D-093 §7 y su
+  aclaración H2-11); por eso la ordenanza sale de la caché de geometría de `land-value.ts`;
 - **presentación que no adivina**: selección explícita de edificio cuando la parcela tiene varios
   (`building-selection.ts`) y dressing sobre `geometryCells`;
 - **`RuntimeAssetManifestV2`**: `domainFootprint`, `allowedOrientations` y `symmetry` por tipo,

@@ -5,6 +5,8 @@ Estado: aceptada y aplicada. La decide el plan **V.d-H1 Urban Integrity Hardenin
 D-088/D-089/D-090/D-091/D-092 ni a D-080: los amplía donde su texto asumía todavía un solo distrito,
 un edificio de una sola celda o un permiso sin identidad.
 
+> **Ampliada por D-094** (V.d-H2, 2026-10-30): la demanda activa de los servicios municipales se reancla al desarrollo urbano; la asignación pasa a greedy capacity-aware; la capacidad se calibra por servicio; la respuesta al presupuesto es suave; y la proyección publica la huella física real.
+
 > **Aclaración V.d-H2 · H2-11 (2026-10-30).** El punto 7 se redactó en H1 de forma que podía leerse
 > como "las amenidades cívicas se absorben dentro de `services`". No es así, y el código siempre
 > las mantuvo como canales distintos. La formulación correcta es que H1-09 elimina el **doble

@@ -226,6 +226,33 @@ parcelas comercializables con cobertura de seguridad con 12 de 14 equipamientos 
 `delegated_deferred` ganando en 16/16 seeds, comportamiento reproducido idéntico en `95e8937`, es
 decir preexistente a H1.
 
+**V.d-H2 (cierre de presentación y servicios municipales) está ejecutada el 2026-10-30, pero V.d
+sigue sin cerrarse** (`docs/execution/phase-4/vd-h2-presentation-service-closure-2026-10-30.md`,
+D-094, con aclaración documental en D-093 §7 por H2-11). Sobre `3f3c707` se cierran las tres
+inconsistencias que H1 dejó latentes y una reconciliación documental: (a) la proyección y el
+renderer representan ahora el footprint físico real de cada edificio y obra (H2-01), con
+`ViewProjectionV2.economy.buildings[]` publicando `districtId`, `footprintCells`, `orientation`,
+`floors` y `form`, y con el scene recorriendo las colecciones directamente en lugar de resolver
+por `parcel.buildingId === building.id`; (b) la demanda de servicios municipales sigue el
+desarrollo urbano, no el censo catastral (H2-05), la asignación es greedy determinista
+capacity-aware (H2-06), la capacidad se calibra por servicio (H2-07) sobre las doce seeds
+canónicas y los cuatro escenarios 25/50/75 % (H2-08), la respuesta al presupuesto modula
+unidades no cohortes (H2-09) y las parcelas vacantes exponen servicio potencial sin reservar
+slot (H2-10); y (c) el bundle procedural cubre los 15 tipos de dominio (H2-02), `row_house`,
+`apartment_block`, `mixed_tenement` y `warehouse` tienen silueta propia y un test estructural
+derivado de `BUILDING_DEFINITIONS` lo fuerza. `Building.orientation` (física) y
+`allowedOrientations` (azimut) quedan explícitamente separados, sin conectar hasta que exista
+arte lateral: deuda visual P2 declarada (H2-03). Un solo digesto dorado cambia, atribuido en H2-05
+(Voronoi sobre 200 desarroladas vs 716 marketables); H2-06…H2-10 conservan los diez bit a bit.
+
+**Lo que impide cerrar la fase sigue siendo el playtest humano de §2.4** más el hallazgo P1 de
+escala municipal bajo desarrollo extremo: con la banda nueva el 75 % de desarrollo da
+55 % de cobertura en security, fire, health y market y 56 % en education —tensión real dentro de
+la banda 45-80 %—. Subir ese techo exigiría decisiones de producto (más facilities, cohortes
+más grandes) que D-094 no autoriza. `delegated_deferred` dominante, cold graph hitch, snapshots
+pre-H1, arte final cívico y la representación visual de la orientación física siguen como deuda
+declarada.
+
 WP4.15-V.c.2C-H y V.c.3A/B/C están cerrados: lint, contratos, harnesses, documentación y el 404 de
 favicon quedan corregidos; las T e intersecciones publicadas reciben pasos de peatones discretos,
 derivados de la máscara vial real; el dressing estático añade farolas, semáforos sólo en

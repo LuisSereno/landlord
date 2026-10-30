@@ -1202,3 +1202,83 @@ la escala del programa municipal (100 de ~709 parcelas con cobertura de segurida
 equipamientos saturados) y la dominancia de `delegated_deferred` (16/16 seeds), que se reproduce
 idéntica en `95e8937`: es balance, no integridad. V.d **no** se cierra: falta el playtest humano de
 `docs/execution/phase-4/vd-final-playtest-checklist.md`.
+
+## D-094 — Semántica de demanda urbana y asignación capacity-aware en los servicios municipales
+
+Fecha: 2026-10-30. Plan: **V.d-H2 Presentation & Municipal Service Closure**, sobre `3f3c707`.
+
+Amplía D-092 y D-093 donde dejaban la demanda anclada al censo catastral y la asignación atada a
+un Voronoí estricto. No sustituye ninguna decisión anterior. Aclaración documental en D-093 §7
+(H2-11): `civicAmenities` (geométrica) y `services` (operativa) son canales ortogonales del
+desglose, no una suma paralela ni la misma señal dos veces.
+
+Contexto: una ciudad recién generada tenía 12 de 14 facilities saturadas al nacer porque la
+demanda = TODAS las parcelas marketables (~716) y la capacidad municipal era de ~600 slots. No
+podía expresarse "la ciudad crece → aumenta la demanda → aparecen saturaciones": la saturación
+venía de serie. Y el Voronoí estricto dejaba parcelas sin servir cuando su primer destino estaba
+lleno, aunque otra facility alcanzable tuviera hueco. En presentación, la proyección no publicaba
+la huella física: `syncBuildingSprites` resolvía la parcela por `parcel.buildingId === building.id`
+(sólo el primer edificio derivado) y colocaba el sprite en `parcel.cell`, así que una parcela
+multi-edificio perdía al segundo. El bundle procedural cubría 11/15 tipos: cuatro dependían de
+un Blender que no siempre estaba, y `resolveBuildingVisual` los convertía en silencio en un
+edificio invisible.
+
+Diez hallazgos H2-01…H2-11. Correcciones clave:
+
+- **demanda = parcela desarrollada** (H2-05, D-094 §1): una parcela marketable con al menos un
+  Building privado no-ruin encima genera una unidad; las vacantes conservan accesibilidad pero no
+  consumen capacidad. Aproximación Alpha: una parcela con dos edificios sigue valiendo una unidad
+  —sin modelo demográfico todavía—.
+- **asignación greedy determinista con capacidad** (H2-06, D-094 §2): todos los pares
+  (parcela, facility, cost) alcanzables se ordenan por `cost asc → parcelId → facilityId` y se
+  asigna mientras la parcela no esté servida y la facility conserve hueco. No depende del orden
+  de Map, no reconstruye Dijkstra cuando cambia la disponibilidad.
+- **capacidad por servicio** (H2-07, D-094 §3): `DEMAND_UNITS_PER_CAPACITY_BY_SERVICE` sustituye
+  a la constante global 25. Valores derivados del baseline H2-04 y las bandas H2-08: security y
+  fire 75, health y market 25, education 17. Programa municipal **sin cambios** (2/2/3/3/3).
+- **bandas de calibración** (H2-08, D-094 §5): escenarios 25 % / 50 % / 75 % de desarrollo medidos
+  sobre las doce seeds canónicas. 50 % → 60-90 % cobertura; 75 % → 45-80 %. Mediana y p10/p90, no
+  tuning a una seed.
+- **respuesta suave al presupuesto** (H2-09, D-094 §4):
+  `Math.floor(capacity × demandUnits × level / 100)` sustituye a
+  `Math.floor((capacity × level) / 100) × demandUnits`. Curva suave 150/112/75/37/0 en lugar de
+  saltos 150 → 0 → 0 → 0 → 0.
+- **cobertura potencial de vacantes** (H2-10, D-094 §5): `potentialByParcelId` expone, para cada
+  solar sin edificio, si hay facilities alcanzables con capacidad residual. No reserva slot.
+  Land value **no** lo consulta: `services` sigue leyendo disponibilidad operativa.
+- **huella física en proyección y renderer** (H2-01, D-094 §6):
+  `ViewProjectionV2.economy.buildings[]` publica `districtId`, `footprintCells`, `orientation`,
+  `floors` y `form`. `constructionSites[]` también. El renderer recorre las colecciones
+  directamente con `building.parcelId` y `building.footprintCells`; tres helpers nuevos sobre
+  `GridCell[]` (`footprintBounds`, `footprintVisualCenter`, `depthForFootprintCells`) y una
+  función pura `buildingSpritePlan` que da la paridad "sprites == edificios proyectados
+  renderizables" observable sin Phaser.
+- **cobertura 15/15 del bundle procedural** (H2-02, D-094 §8): cuatro siluetas nuevas
+  (`row_house`, `apartment_block`, `mixed_tenement`, `warehouse`) con gramática isométrica propia.
+  `assets.test.ts` se deriva de `BUILDING_DEFINITIONS`, no de una lista mantenida a mano.
+  `resolveBuildingVisual` se extrae como helper puro y se prueba simulando ausencia de Blender:
+  los 15 tipos resuelven una textura procedural válida en los cuatro estados.
+- **separación orientación de dominio vs azimut de cámara** (H2-03, D-094 §7, opción B):
+  `Building.orientation ∈ {0, 90, 180, 270}` (rotación física) y `allowedOrientations ⊂ {45, 135,
+  225, 315}` (azimut de cámara) son dos vocabularios disjuntos; el helper nuevo tiene firma de
+  cuatro argumentos, ninguno es `orientation`. **Sin arte lateral** no se inventan rotaciones:
+  la representación visual de la orientación física queda como **deuda P2** en KNOWN-GAPS.
+
+Consecuencias:
+
+- **Determinismo.** Un único golden digest cambia, en H2-05 (`city:200-parcels:month-boundary`
+  `c6a317866f27ad1a → b58283d43f7fd764`, Voronoí sobre 200 desarroladas en lugar de 716
+  marketables). H2-06…H2-10 conservan los diez digestos bit a bit: las correcciones afectan a
+  cobertura y capacidad, no a caja, transacciones, incidentes ni hogares. Ninguna seed, constante
+  económica, límite morfológico ni guard de jugabilidad por perfil se toca para conseguir un
+  verde.
+- **Guardados.** Ninguna incompatibilidad nueva: `SnapshotV2` conserva los campos de demanda sin
+  cambiar forma. `demandSignature` es derivada, no persistida.
+- **Rendimiento.** El greedy canónico es O(pairs log pairs); sobre los 12 seeds y 7 services se
+  mantiene dentro de mature close p95 < 60 ms de D-065. Cold graph hitch (~312 ms) sigue vivo:
+  primer cierre del GameState, el resto reutiliza WeakMap.
+- **Lo que esto no arregla.** Escala municipal bajo desarrollo extremo (>75 %): la banda 45-80 %
+  da cobertura pero no saturación por encima del techo; cerrar eso requiere nuevas facilities o
+  cohortes, decisión de producto no de esta fase. Arte final cívico, representación visual de la
+  orientación física y playtest humano siguen pendientes. `delegated_deferred` dominante en la
+  campaña jugable queda tal como H1 la dejó. V.d **no** se cierra: sigue `PENDING HUMAN PLAYTEST`.

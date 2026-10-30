@@ -291,23 +291,38 @@ Sigue abierto:
 - **Conservado a propósito:** los guards de jugabilidad específicos por perfil introducidos después de
   V.d.3. No volver a un límite global del 85 %.
 
-## V.d-H2 — presentación y cierre de servicios municipales (2026-10-30)
+## V.d-H2 — Presentación fiel y cierre de servicios municipales (2026-10-30)
 
-- **V.d sigue sin cerrar:** el playtest humano pendiente (`PENDING HUMAN PLAYTEST` en
-  `docs/execution/phase-4/vd-final-playtest-checklist.md`) y el P1 de escala municipal heredado de
-  H1 siguen abiertos. H2 arregla tres inconsistencias técnicas concretas, no sustituye ninguna de
-  las dos.
-- **Deuda visual P2 — orientación física no representada (H2-03 opción B).** `Building.orientation`
-  `{0, 90, 180, 270}` es la rotación del sólido dentro de la parcela; `RuntimeAssetManifestV2.allowedOrientations`
-  `{45, 135, 225, 315}` es el azimut de cámara para el que existe un frame. Los dos conjuntos son
-  disjuntos, el helper `resolveBuildingVisual` no lee `orientation`, y el bundle procedural declara
-  `[45]` con `symmetry: "none"`. **Consecuencia:** girar 90° un edificio en la simulación no rota
-  su sprite. Es una limitación del arte, no del motor: cerrar la deuda exige renders laterales,
-  no un parche en la presentación. `building-sprites.test.ts` (H2-03) fija la separación para que
-  nadie vuelva a afirmar que la orientación física ya se representa.
-- **Conservado a propósito:** el programa municipal sigue en 2 comisarías / 2 parques de bomberos /
-  3 clínicas / 3 colegios / 3 mercados por ciudad. Cualquier recalibración de capacidad que salga
-  de H2 es por servicio, no por cambiar la receta.
+- **V.d sigue sin cerrar**: el playtest humano de §2.4 y el P1 de escala municipal bajo desarrollo
+  extremo (>75 %) siguen abiertos. H2 cierra tres inconsistencias concretas —footprint físico en
+  presentación, demanda atada al desarrollo urbano, cobertura 15/15 del catálogo procedural— y una
+  reconciliación documental en D-093 §7. No añade features de producto.
+- **Deuda visual P2 — orientación física no representada (H2-03 opción B).**
+  `Building.orientation ∈ {0, 90, 180, 270}` es rotación del sólido dentro de la parcela;
+  `allowedOrientations ⊂ {45, 135, 225, 315}` es azimut de cámara. Los dos conjuntos son disjuntos,
+  el helper `resolveBuildingVisual` no recibe `orientation`, y el bundle procedural declara `[45]`
+  con `symmetry: "none"` para los 15 tipos. **Consecuencia:** girar 90° un edificio en la simulación
+  NO rota su sprite. Cerrar la deuda exige renders laterales, no un parche de presentación.
+- **Bundle procedural 15/15 tipos.** `row_house`, `apartment_block`, `mixed_tenement` y `warehouse`
+  tienen silueta propia. El manifiesto llega a 181 985 bytes —91 % del budget Alpha de 200 KB—;
+  un quinto tipo adicional fuera de la tabla obligaría a reabrir el presupuesto.
+- **Demanda = desarrollo urbano (H2-05).** Las parcelas vacantes conservan accesibilidad pero no
+  consumen slots. El contrato Alpha: una parcela con dos edificios sigue valiendo **una** unidad
+  de demanda; ponderear por residentes/floors/usos/children/empleo es una Beta con su propia ADR,
+  no una extensión de D-094.
+- **Escala del programa municipal: reevaluado, no arreglado.** Con el calibrado nuevo
+  (security/fire 75, health/market 25, education 17) la ciudad al 50 % de desarrollo da 83-85 %
+  de cobertura citywide en los cinco capacity services (banda 60-90 %) y al 75 % da 55-56 %
+  (banda 45-80 %). Subir ese techo bajo desarrollo extremo seguiría requiriendo más facilities
+  o más cohortes —decisión de producto, no de H2—. El número de equipamientos autorados
+  (2/2/3/3/3) **no** se toca.
+- **El Voronoí clásico como `demand` en el informe** es ahora "parcels whose first option is
+  this facility"; `served` es lo que realmente admite, incluyendo spill-in. La UI que aún lee
+  `demand` como carga asignada ve una señal parcial: queda como P2 para Beta reetiquetar el
+  inspector con ambos números.
+- **Golden digest drift** en H2-05: un único caso (`city:200-parcels:month-boundary`
+  `c6a317866f27ad1a → b58283d43f7fd764`). Atribución completa en
+  `packages/simulation/src/tick-conservation.test.ts`. H2-06…H2-10 no mueven ningún digesto.
 
 ## Rendimiento y Alpha
 

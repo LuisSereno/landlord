@@ -249,6 +249,59 @@ Regla para cualquier función nueva que toque espacio: si necesita «cercano», 
 recibe un `DistrictPlace` o un `districtId` explícito. Si necesita una celda de trabajo, la huella y
 los obstáculos del distrito deciden, no el ancla de la parcela.
 
+## Demanda urbana y presentación fiel (V.d-H2, D-094)
+
+D-093 dejó claro que la identidad espacial es `districtId + cell`, que la huella física manda
+sobre el anchor y que un equipamiento existe si su edificio existe. Quedaban cuatro huecos que
+D-094 cierra; los cuatro son **de semántica**, no de tuning:
+
+- **demanda = desarrollo urbano**: `facilityCoverageIndex` separa ACCESSIBILITY (llegar) de
+  ACTIVE DEMAND (consumir). Una parcela marketable vacante no presiona la cola de ninguna
+  facility: genera demanda sólo si tiene al menos un Building privado no-ruin encima. Es la
+  consecuencia de que "una ciudad nueva al 100 % de presupuesto nace con 12/14 facilities
+  saturadas" sea indefendible. Una firma `demandSignature` entra en el cache key del índice,
+  no en la de geometría: poner el primer edificio recalcula la asignación sin reconstruir
+  Dijkstra.
+- **asignación greedy determinista con capacidad**: se generan todos los pares (parcel,
+  facility, cost) alcanzables, se excluyen facilities con `effectiveCapacity === 0`, se
+  ordenan canónicamente por `cost asc → parcelId → facilityId` y se asigna mientras la
+  parcela no esté servida y la facility conserve hueco. El Voronoí clásico se conserva como
+  dato (`FacilityCoverageReport.demand`); `served` incluye el spill. `demand > served` es
+  saturación; `served > demand` es absorción.
+- **capacidad por servicio y respuesta suave al presupuesto**: `DEMAND_UNITS_PER_CAPACITY_BY_SERVICE`
+  sustituye a la constante global 25, con valores derivados de las 12 seeds y los cuatro
+  escenarios de crecimiento 25/50/75 %. La fórmula de capacidad efectiva pasa de
+  `Math.floor((capacity × level) / 100) × demandUnits` a
+  `Math.floor(capacity × demandUnits × level / 100)`: sigue siendo aritmética entera, pero el
+  presupuesto modula unidades, no cohortes enteras.
+- **cobertura potencial sin reservar slot**: `potentialByParcelId` expone, para parcelas
+  vacantes, si hay facilities alcanzables con capacidad residual. Land value **no** lo
+  consulta: `services` sigue midiendo disponibilidad operativa (`CoverageIndex`), no potencial.
+- **presentación que refleja la física**: `ViewProjectionV2.economy.buildings[]` publica
+  `districtId`, `footprintCells`, `orientation`, `floors` y `form`. `constructionSites[]`
+  también. `syncBuildingSprites` recorre las colecciones directamente —sin resolver
+  `parcel.buildingId === building.id`— y coloca sprites por `footprintBounds` /
+  `footprintVisualCenter` / `depthForFootprintCells` sobre `GridCell[]`. `buildingSpritePlan`
+  es una función pura que da paridad "sprites == entradas proyectadas renderizables" observable
+  sin levantar Phaser. El renderer deja de depender de `parcel.buildingId` en el camino de
+  colocación.
+- **catálogo de assets total**: el bundle procedural cubre los 15 tipos de dominio, no 11.
+  `assets.test.ts` deriva el catálogo esperado de `BUILDING_DEFINITIONS`, no de una lista
+  mantenida a mano. `resolveBuildingVisual` es helper puro con cuatro argumentos, y una prueba
+  simula Blender ausente: los 15 tipos resuelven una textura procedural válida en los cuatro
+  estados.
+- **dos vocabularios de "orientación"**: `Building.orientation ∈ {0, 90, 180, 270}` es rotación
+  física dentro de la parcela; `RuntimeAssetManifestV2.allowedOrientations ⊂ {45, 135, 225,
+  315}` es azimut de cámara. Los conjuntos son disjuntos. El helper no recibe `orientation`:
+  no hay forma de que la confusión vuelva a colar. Hasta que exista arte lateral, la
+  representación visual de la orientación física queda como deuda P2 declarada en KNOWN-GAPS.
+
+Regla para cualquier función nueva que toque servicios: si decide *a quién sirve una facility*,
+recibe un `Parcel` y la lista de edificios sobre ella (`buildBuildingIndex`), no el `disposition`
+catastral. Si decide *dónde colocar un sprite*, recibe la huella física (`footprintCells`), no
+el anchor de la parcela. Si decide *qué azimut usar*, recibe el de la escena —no la orientación
+física del dominio—.
+
 ## Dinero, tiempo y datos
 
 - `Money` entero en unidad menor; nada de floats para moneda.

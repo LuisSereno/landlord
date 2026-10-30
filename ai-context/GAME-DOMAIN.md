@@ -30,17 +30,25 @@ Parcelas, estadísticas, servicios, población, accesibilidad y condiciones urba
 los nueve distritos de la ciudad comparten el rango de coordenadas, así que un lugar es
 `districtId + cell` y dos puntos de distritos distintos no están «lejos»: no tienen relación espacial
 (D-093). Ninguna regla de radio, vecindad u onda expansiva puede comparar coordenadas sueltas.
+La **demanda activa de servicios** es el desarrollo urbano del distrito, no su censo: las parcelas
+vacantes conservan accesibilidad, pero no presionan la cola de ninguna facility (D-094 §1).
 
 ### Parcel
 Owner, valor, zoning, restricciones, accesibilidad y building. Desde V.d es **multi-celda**
 (`geometryCells`, frente vial, `disposition` `marketable | public`, `buildingIds` con varios edificios
 y `baseLandValue`/`marketValue` con desglose entero). El suelo público es inalienable: no se compra,
-no se vende, no se garantiza, no se licencia ni se edifica.
+no se vende, no se garantiza, no se licencia ni se edifica. Desde H2-10 una parcela vacante puede
+exponer servicio **potencial** (facility alcanzable con capacidad residual) sin reservar slot,
+pero ese potencial **no** revaloriza el suelo: land value consume disponibilidad operativa, no
+potencial.
 
 ### Building
 Type, level, state, condition, tenants, maintenance, insurance y obligaciones operativas. Su **huella**
-(`footprintCells`) es autoritativa: lo que la simulación considera construido, lo que bloquea el paso y
-lo que recibe una interacción táctica (D-093). Vive en un distrito concreto.
+(`footprintCells`) es autoritativa: lo que la simulación considera construido, lo que bloquea el paso,
+lo que recibe una interacción táctica (D-093) y lo que coloca y ordena el sprite en el renderer
+(D-094 §6). Vive en un distrito concreto. Su `orientation ∈ {0, 90, 180, 270}` es la rotación física
+del sólido dentro de la parcela —no el azimut de cámara—, y hasta que el arte tenga frames
+laterales no se representa visualmente (D-094 §7, deuda P2 declarada).
 
 ### Permit
 Decisión municipal **con identidad propia** (`PermitId`) y ciclo de vida completo:
@@ -51,7 +59,11 @@ borra el expediente. Los derechos de densidad de un permiso adquirido son sólo 
 ### UrbanFacility
 Función urbana (ayuntamiento, escuela, clínica, comisaría, parque de bomberos, mercado) separada del
 edificio físico que la encarna, operada por el municipio. Su capacidad efectiva es **0 mientras ningún
-edificio propio esté operacional**: un equipamiento destruido no presta servicio (D-093).
+edificio propio esté operacional**: un equipamiento destruido no presta servicio (D-093). La capacidad
+se calcula en cohortes por servicio —no con una constante global— (D-094 §3) y el presupuesto
+modula unidades de servicio, no cohortes enteras (D-094 §4). La asignación de demanda usa un
+greedy determinista con capacidad y spillover hacia la siguiente alternativa alcanzable
+(D-094 §2).
 
 ### Organization
 Concepto colectivo independiente. Puede representar Company, Government, Bank, Union, Media, Association o Criminal Faction.

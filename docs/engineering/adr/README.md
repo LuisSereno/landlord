@@ -68,3 +68,14 @@ Una decisión aceptada sólo se modifica mediante un ADR posterior que la sustit
 
 Amplía D-088/D-089/D-090/D-092 y D-080 donde su texto aún asumía un solo distrito, un edificio de una
 celda o un permiso sin identidad. No sustituye ninguna de esas decisiones.
+
+## V.d-H2 — Cierre de presentación y servicios municipales (2026-10-30)
+
+- [D-094 — Semántica de demanda urbana y asignación capacity-aware](D-094-demanda-urbana-y-asignacion-capacity-aware.md)
+
+Amplía D-092 y D-093: la demanda activa es el desarrollo urbano, no el censo catastral; la asignación
+pasa a greedy capacity-aware; la capacidad se calibra por servicio; la respuesta al presupuesto
+modula unidades, no cohortes enteras; la proyección publica la huella física real; el bundle
+procedural cubre los 15 tipos de dominio; la orientación de dominio se separa explícitamente del
+azimut de cámara. D-093 §7 se aclara (H2-11): `civicAmenities` geométrica y `services` operativa
+son canales ortogonales, no una suma paralela.

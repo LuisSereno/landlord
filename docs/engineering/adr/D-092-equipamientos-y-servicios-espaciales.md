@@ -7,6 +7,8 @@ Los detalles de implementación añadidos por esta ADR se listan al final, en
 
 > **Ampliada por [D-093](D-093-integridad-urbana-de-vd.md)** (V.d-H1, 2026-10-29): la capacidad de un equipamiento depende de su edificio físico y la limpieza se calcula por distrito.
 
+> **Sucesora: [D-094](D-094-demanda-urbana-y-asignacion-capacity-aware.md)** (V.d-H2, 2026-10-30): la demanda activa es el desarrollo urbano, no el censo catastral; la asignación es greedy capacity-aware; la capacidad se calibra por servicio y la respuesta al presupuesto modula unidades, no cohortes enteras.
+
 ## Contexto
 
 Los servicios urbanos de D-069 se calculan como radio sobre celdas

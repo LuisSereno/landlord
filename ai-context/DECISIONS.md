@@ -1267,6 +1267,34 @@ Diez hallazgos H2-01…H2-11. Correcciones clave:
   cuatro argumentos, ninguno es `orientation`. **Sin arte lateral** no se inventan rotaciones:
   la representación visual de la orientación física queda como **deuda P2** en KNOWN-GAPS.
 
+## D-095 — Interfaz jugable, paneles contextuales y vocabulario visual
+
+Fase V.d-UX (2026-10-30). La especificación `docs/execution/phase-4/vd-ux-playable-interface-spec.md`
+es el contrato; estas son las reglas permanentes que deja:
+
+- **La ciudad es el producto.** No hay panel lateral permanente; el panel contextual abre con la
+  selección o un hub y cierra con ×/Escape. El HUD sólo lleva estado frecuente y accesos globales.
+- **Contexto antes que catálogo; hubs para lo global.** Parcela, edificio (con pestañas), obra,
+  rival y equipamiento son contextos; Gobierno, Finanzas, Cartera y Ciudad son hubs. No se inventa
+  un banco físico.
+- **El shell sólo consume proyección.** Se añaden al contrato dos datos de calendario
+  (`ticksPerDay`, `daysPerMonth`) y las razones de bloqueo se explican con números proyectados; la
+  UI no lee `GameState` ni reimplementa elegibilidad. Leído/no leído de notificaciones es estado
+  local de presentación.
+- **Cero vocabulario de implementación en el flujo normal:** ni ticks, ni IDs, ni enums; el
+  diagnóstico técnico queda tras `?debug=1`.
+- **Iconografía y miniaturas derivan del contrato de assets:** `UiIcon` (51 SVG internos 24×24) y
+  `BuildingThumbnail` desde el `RuntimeAssetManifestV2`, con preferencia por Blender; sin segunda
+  colección de miniaturas.
+- **Una sola fuente para las capas del mapa:** `ui/overlay-catalog.ts` da etiquetas, iconos, grupos
+  y leyendas, y la escena importa de ahí sus colores. Se añade `none` (vista normal).
+- **El overlay de servicios muestra cobertura potencial en solares vacíos** (su cobertura activa
+  es 0 por H2-05); es presentación y no reserva capacidad.
+- **Notificaciones = alertas derivadas con destino semántico;** los indicadores de mundo se limitan
+  a doce, priorizados y con pooling. El onboarding propone el siguiente paso sin crear misiones.
+
+ADR completo: `docs/engineering/adr/D-095-interfaz-jugable-y-vocabulario-visual.md`.
+
 ### Enmiendas V.d-H2.1 (2026-10-30) sobre D-094
 
 Cuatro correcciones posteriores a la auditoría de H2. No son decisiones nuevas ni amplían scope:

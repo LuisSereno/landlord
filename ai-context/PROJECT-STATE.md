@@ -282,13 +282,32 @@ diez digestos dorados sin cambio). **No se abrió un refactor de rendimiento par
 44 ms de H1: el plan lo prohíbe y no hay regresión demostrable.** Estado literal de la fase según
 §5: `BLOCKED` por rendimiento hasta que el responsable decida cómo se mide ese umbral.
 
+**V.d-UX (interfaz jugable, UX contextual y vocabulario visual) está ejecutada el 2026-10-30
+sobre `1bce442`; V.d sigue sin cerrarse.** La especificación
+`docs/execution/phase-4/vd-ux-playable-interface-spec.md` se implementa en su integridad
+(acta `vd-ux-playable-interface-2026-10-30.md`, D-095): `App.tsx` pasa de 1 912 a 539 líneas con
+la sesión en `session/use-game-session.ts` y quince módulos en `ui/`; el panel lateral permanente
+desaparece (HUD compacto + viewport dominante + panel contextual que abre la selección o un hub y
+cierra con ×/Escape); paneles por entidad (parcela con catálogo primero si está vacía, edificio con
+pestañas, obra, rival, equipamiento) y hubs Gobierno/Finanzas/Cartera/Ciudad sin inventar banco
+físico; registro `UiIcon` de 51 símbolos SVG internos, iconos de material y `BuildingThumbnail`
+15/15 derivada del `RuntimeAssetManifestV2` que dibuja la escena; catálogo de construcción por
+tarjetas con motivo exacto de bloqueo; campana con categorías, severidad y navegación al origen, e
+indicadores de mundo en Phaser (12 máximo, pooling por firma, ocultos en zoom lejano salvo los
+críticos); ayuda contextual desde un `helpCatalog` único; lenguaje sin ticks, IDs ni enums
+(calendario en la proyección, formateadores centrales); onboarding derivado del estado; toolbar de
+overlays con leyenda y vista normal, y el overlay de servicios pinta cobertura potencial en solares
+vacíos. `pnpm smoke:vd-ux` (19 pasos) genera y valida 13 capturas revisadas una a una; `smoke:alpha`
+y `smoke:vd-core-loop` siguen verdes tras adaptarse a los hubs. **No se añadió ninguna regla de
+simulación** y los gates de coste y conservación se mantienen.
+
 **Incidencia del entorno registrada:** a mitad de la batería de gates el ejecutor de `pnpm`
-12.11.2 comenzó a fallar todo spawn con `Input/output error (os error 5)`. Los gates se
-repitieron invocando directamente los mismos binarios con los mismos argumentos y entorno que
-declaran los scripts (`node node_modules/vitest/vitest.mjs …` con sus variables de gate, `eslint`,
-`tsc`, `prettier`, `vite build`; los smokes de navegador contra `vite preview` propio vía
-`ALPHA_BASE_URL`/`VD_SMOKE_BASE_URL`). Todos en verde por esa vía; queda pendiente repetir la
-batería con `pnpm` cuando el gestor funcione.
+12.11.2 comenzó a fallar todo spawn con `Input/output error (os error 5)`. Causa raíz encontrada
+en V.d-UX: hay entradas de `PATH` en un SSD externo desconectado (`/media/luis/CacheSSD/...`) y una
+`/snap/bin` rota; al recorrer el `PATH`, `execvp` devuelve `EIO` en vez de `ENOENT`. Con un `PATH`
+saneado vuelven a funcionar tanto `pnpm` como `git` lanzado desde Node. Los gates se repitieron dos
+veces: por invocación directa de los mismos binarios, y con los comandos `pnpm` oficiales bajo el
+`PATH` limpio; ambos registros están en el acta de V.d-UX.
 
 **Lo que impide cerrar la fase sigue siendo el playtest humano de §2.4** más el hallazgo P1 de
 escala municipal bajo desarrollo extremo: con la banda nueva el 75 % de desarrollo da

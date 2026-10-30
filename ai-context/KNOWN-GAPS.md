@@ -339,6 +339,17 @@ Sigue abierto:
   33,64 ms; los seis permitidos 37,60 ms. El delta de los shocks es económico —más vacancia y más
   buscadores que el cierre recorre—, no del lookup de modifiers, que está acotado a seis eventos.
   **Sigue fuera del presupuesto p95 y del disparador de 5 ms de D-065.**
+- **Cifras derivadas en la UI (V.d-UX).** La rentabilidad por edificio es
+  `plazas ocupadas × renta efectiva − coste de mantenimiento`, y el tiempo de obra se estima a
+  jornada completa (`workRequired` horas / 24). Son lecturas de presentación sobre datos
+  proyectados, no reglas: si el motor cambia la velocidad de las cuadrillas, la estimación de obra
+  quedará optimista. Declarado para no prometer una simulación temporal que no existe.
+- **El mapa se selecciona con puntero.** El shell cumple foco visible, Escape jerárquico, tooltips
+  por teclado y nombres accesibles, pero no hay navegación por teclado de celdas isométricas: es
+  una deuda P2 de accesibilidad del renderer, no del shell.
+- **`smoke:vd-ux` usa el hook `__landlordUiTest`** (sólo con `?cameraTest=1`) para localizar
+  parcelas y el edificio propio sin barrer el mapa a ciegas. No participa en reglas ni en input;
+  si se retira el flag, el smoke deja de poder localizar entidades.
 - La optimización exacta de `placeSearchers` está hecha (D-065/D-076, acta del 2026-10-25) y también
   la de `buildStock` (WP4.15-H, misma fecha): el recuento de vecinos dentro del radio pasó de
   todos-contra-todos a un índice espacial de buckets con test de equivalencia contra el barrido

@@ -71,6 +71,7 @@ celda o un permiso sin identidad. No sustituye ninguna de esas decisiones.
 
 ## V.d-H2 — Cierre de presentación y servicios municipales (2026-10-30)
 
+- [D-095 — Interfaz jugable, paneles contextuales y vocabulario visual](D-095-interfaz-jugable-y-vocabulario-visual.md)
 - [D-094 — Semántica de demanda urbana y asignación capacity-aware](D-094-demanda-urbana-y-asignacion-capacity-aware.md) — enmendado en V.d-H2.1 (§2 métricas del informe, §5 suelo vacante, §3 evidencia de cohortes)
 
 Amplía D-092 y D-093: la demanda activa es el desarrollo urbano, no el censo catastral; la asignación

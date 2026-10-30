@@ -36,6 +36,7 @@
     "smoke:phase2": "node scripts/phase2-browser-smoke.mjs",
     "smoke:alpha": "node scripts/alpha-browser-smoke.mjs",
     "smoke:vd-core-loop": "node scripts/vd-core-loop-smoke.mjs",
+    "smoke:vd-ux": "node scripts/vd-ux-smoke.mjs",
     "smoke:art-lab": "node scripts/art-lab-browser-smoke.mjs",
     "district:inspect": "DISTRICT_INSPECT=1 vitest run --config vitest.config.ts packages/simulation/src/district-inspect.test.ts --reporter=verbose",
     "road:benchmark": "ROAD_BENCHMARK=1 vitest run --config vitest.config.ts packages/simulation/src/road-topology-benchmark.test.ts --reporter=verbose",

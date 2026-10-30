@@ -28,6 +28,7 @@ import {
   UPGRADE_RESOURCES,
   GAME_DAY_TICKS,
   GAME_HOUR_TICKS,
+  GAME_MONTH_DAYS,
   GAME_MONTH_TICKS,
   MARKET_PRICES,
   REPAIR_COST,
@@ -560,6 +561,8 @@ export function createViewProjection(
               day: Math.floor((state.clock.tick % GAME_MONTH_TICKS) / GAME_DAY_TICKS) + 1,
               hour: Math.floor((state.clock.tick % GAME_DAY_TICKS) / GAME_HOUR_TICKS),
               ticksPerMonth: GAME_MONTH_TICKS,
+              ticksPerDay: GAME_DAY_TICKS,
+              daysPerMonth: GAME_MONTH_DAYS,
             },
             district: {
               id: observedDistrict.district.id,

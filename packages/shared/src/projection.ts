@@ -152,7 +152,19 @@ export type ViewProjectionV2 = {
     state?: "idle" | "moving" | "working" | "injured" | "dead";
   }>;
   economy?: {
-    gameTime: { month: number; day: number; hour: number; ticksPerMonth: number };
+    /**
+     * V.d-UX · el calendario viaja con la proyección para que la UI traduzca ticks a fechas sin
+     * copiar constantes del motor (spec §11.1). `ticksPerDay` y `daysPerMonth` describen la base
+     * del calendario; no son reglas de juego.
+     */
+    gameTime: {
+      month: number;
+      day: number;
+      hour: number;
+      ticksPerMonth: number;
+      ticksPerDay: number;
+      daysPerMonth: number;
+    };
     district: { id: DistrictId; name: string };
     parcels: Array<{
       id: ParcelId;
@@ -796,6 +808,8 @@ export const viewProjectionV2Schema = z.object({
         day: z.number().int().positive(),
         hour: z.number().int().min(0).max(23),
         ticksPerMonth: z.number().int().positive(),
+        ticksPerDay: z.number().int().positive(),
+        daysPerMonth: z.number().int().positive(),
       }),
       district: z.object({ id: districtIdSchema, name: z.string() }),
       parcels: z.array(

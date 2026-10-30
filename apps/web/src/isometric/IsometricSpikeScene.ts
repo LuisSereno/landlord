@@ -1,14 +1,12 @@
 import Phaser from "phaser";
 import {
-  parseRuntimeAssetManifest,
   type BuildingAssetState,
   type BuildingAssetV1,
   type RuntimeAssetManifestV2,
   type SceneryAssetV1,
   type ViewProjectionV2,
 } from "@landlord/shared";
-import runtimeAssets from "../generated/runtime-assets.json";
-import runtimeAssetsBlender from "../generated/runtime-assets-blender.json";
+import { BLENDER_ASSETS, PROCEDURAL_ASSETS } from "../assets/runtime-assets";
 import { planGround, type GroundPlan } from "../visual-slice/ground";
 import {
   CROSSING_TEXTURE,
@@ -75,8 +73,8 @@ const CONSTRUCTION_SITE_DEPTH = TERRAIN_DEPTH + 300;
  * Los dos bundles entran por el mismo parser: el procedural ya es V2 y el de Blender sigue siendo V1,
  * que se convierte de forma explícita. Aquí no hay rama silenciosa por versión.
  */
-const ASSETS = parseRuntimeAssetManifest(runtimeAssets);
-const ASSETS_BLENDER = parseRuntimeAssetManifest(runtimeAssetsBlender);
+const ASSETS = PROCEDURAL_ASSETS;
+const ASSETS_BLENDER = BLENDER_ASSETS;
 /** Azimut fijo de la cámara isométrica del juego. Un asset que no lo declare no se dibuja. */
 const SCENE_AZIMUTH = 45;
 

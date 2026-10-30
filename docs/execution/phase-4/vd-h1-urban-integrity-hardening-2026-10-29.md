@@ -1,5 +1,16 @@
 # V.d-H1 — Urban Integrity Hardening (acta)
 
+> **⚠ Revisado por V.d-H2 (2026-10-30).** Esta acta sigue vigente para los diez hallazgos
+> H1-01…H1-10, pero **tres afirmaciones han quedado desactualizadas**: (a) el §"Deuda real"
+> punto 2 describe la escala municipal como 100/~709 solar con cobertura de seguridad, cifra
+> medida con el modelo antiguo que contaba toda parcela marketable como demanda; H2-05 reancla
+> la demanda al desarrollo urbano y la señal se ha recalibrado en
+> `docs/execution/phase-4/vd-h2-presentation-service-closure-2026-10-30.md`; (b) la sección
+> "Estado final" declaraba `BLOCKED`; tras V.d-H2 el bloque técnico está cerrado en `PASS WITH
+> MANUAL GATE` y el `BLOCKED` real sigue siendo únicamente el playtest humano de §2.4; (c) el
+> acta no menciona que H2-03 dejó explícitamente como deuda visual P2 la representación de la
+> orientación física del edificio. Esta acta no se reescribe: se consulta junto al acta H2.
+
 Fecha: 2026-10-29. Rama: `develop`.
 
 - **HEAD inicial:** `95e893742a399a4535778ba2f55158a5aaba2481` (`docs: record V.d hardening evidence
@@ -410,3 +421,25 @@ milisegundos.
   humana.
 - `V.d todavía no debe cerrarse por: (1) la ausencia de playtest humano de §2.4 y (2) el hallazgo P1
   de escala del programa municipal (N1), que necesita decisión de balance del responsable.`
+
+## Revisión V.d-H2 (2026-10-30, sobre `3f3c707`)
+
+V.d-H2 Presentation & Municipal Service Closure (**HEAD final: ver
+`docs/execution/phase-4/vd-h2-presentation-service-closure-2026-10-30.md`**) reabre tres
+puntos materiales de esta acta:
+
+| Requisito H1 | Lo que decía esta acta | Lo que V.d-H2 verificó |
+|---|---|---|
+| H1-07 · UI multi-edificio | La selección es explícita cuando la parcela tiene varios edificios (`resolveBuildingSelection`). | **Parcial.** La UI ya elegía entre varios edificios, pero el renderer los colocaba a todos en `parcel.cell` porque `ViewProjectionV2` no publicaba `footprintCells`. Un parcela multi-edificio se seleccionaba bien y se dibujaba mal (uno encima de otro). H2-01 cierra el hueco. |
+| H1-08 · ocupación visual sobre `geometryCells` | El dressing consume `geometryCells` y no pinta sobre celdas construidas. | **Parcial.** El dressing sí, pero `syncBuildingSprites` seguía resolviendo la parcela por `parcel.buildingId === building.id` (el primer edificio derivado) y colocando en `parcel.cell`, no en `building.footprintCells`. H2-01 reescribe ese camino. |
+| §"Deuda real" punto 2 · escala municipal | 100/~709 parcelas con cobertura de seguridad y 12/14 facilities saturadas de forma permanente. | **Recalibrada.** El modelo H1 contaba toda parcela marketable como demanda. Con H2-05 (demanda = parcela desarrollada) + H2-06 (greedy capacity-aware) + H2-07 (capacidad por servicio derivada de datos) la señal es otra: initial 0 demanda / 0 saturada, 25 % 100 % servida, 50 % 83-85 %, 75 % 55-56 % con bandas 60-90 % y 45-80 % respetadas. La P1 queda como decisión de producto bajo desarrollo extremo, no como defecto técnico. |
+
+Ninguno de los diez hallazgos H1-01…H1-10 se reabre: todos siguen corregidos con sus tests de
+regresión en verde. Lo que cambia es el alcance de H1-07 y H1-08, que H1 cerró a nivel de
+selección y dressing pero no de colocación de edificios, y el estado de la deuda P1, que H2
+recalibra sobre una medición nueva.
+
+Estado tras V.d-H2: **`PASS WITH MANUAL GATE`.** El playtest humano de §2.4 sigue siendo lo
+único que impide cerrar la fase. La decisión de escala municipal bajo desarrollo extremo queda
+en manos del responsable, no es reescribible desde el código.
+

@@ -1340,3 +1340,47 @@ Consecuencias:
   cohortes, decisión de producto no de esta fase. Arte final cívico, representación visual de la
   orientación física y playtest humano siguen pendientes. `delegated_deferred` dominante en la
   campaña jugable queda tal como H1 la dejó. V.d **no** se cierra: sigue `PENDING HUMAN PLAYTEST`.
+
+## D-096 — Contrato multi-parcela: proyectos sobre un conjunto catastral exacto
+
+Fase V.d-7A (2026-10-30). Un edificio, una obra y un permiso pueden apoyarse en VARIAS parcelas
+existentes, sin fusionarlas. Estas son las reglas permanentes:
+
+- **`parcelIds` es la única fuente de verdad** en `Building`, `ConstructionSite`, `Permit`,
+  `StartConstruction` y `RequestPermit`. Orden canónico determinista (`canonicalParcelIds`), sin
+  duplicados; `primaryParcelId` es sólo ancla de presentación y nunca una regla económica.
+- **Invariantes**: ≥ 1 parcela, mismo distrito, mismo `developmentCodeId`, unión 4-conexa por
+  borde, propiedad del actor, `marketable`, área combinada suficiente y ocupación compatible.
+  Diagonal no cuenta.
+- **`siteRequirements`**: nave, ladrillera y cementera 2 parcelas; acería 3; el resto 1 (los
+  municipales también 1). `minCombinedAreaCells` = `targetFootprintCells` del tipo.
+- **Huella sobre la unión**: `chooseFootprint` puede cruzar la frontera catastral interna; el
+  envelope normativo se aplica a la unión porque todas las parcelas comparten código.
+- **Reserva de complejo**: obra, edificio o ruina bloquean TODAS sus parcelas para otro proyecto
+  (`PARCEL_OCCUPIED`). Los edificios de una parcela conservan la convivencia intra-solar.
+- **Permiso exacto**: `buildingType + canonical(parcelIds)`; `[A,B]` no sirve para `[A,C]`, `[A]`
+  ni `[A,B,C]`. Consumo único al iniciar la obra.
+- **Ciclo de vida hereda el conjunto**: completion → edificio; upgrade/repair/ClearRuin →
+  `building.parcelIds`. La ruina reserva sus parcelas hasta terminar la limpieza. `currentUses`
+  se reconcilia en todas las parcelas. El índice devuelve edificio y obra activa desde cualquiera
+  de ellas; sigue siendo derivado y no persistido.
+- **Venta individual bloqueada** en cualquier parcela con edificio, obra o ruina. No hay venta
+  conjunta todavía.
+- **Colateral prorrateado exacto**: `floor(C/n)` por parcela y el resto (+1) a las primeras
+  `remainder` en orden canónico; la suma es siempre `C`. LTV y política bancaria intactos.
+- **Snapshot**: `SnapshotV2` mantiene `schemaVersion: 2` con `parcelIds`; un guardado anterior sin
+  `parcelIds` es incompatible y se rechaza (sin migración ficticia).
+- **Proyección**: buildings y constructionSites publican `parcelIds`; el permiso se sigue
+  publicando por parcela. El worker envía `parcelIds`; la UI de una parcela envía `[parcelId]`.
+- **Selección común**: `findDevelopmentSite` puro y determinista (máx. 3 parcelas Alpha) para IA
+  y automatización. El rival elige la primera opción de producción que cabe en su terreno; si no
+  hay site válido, no construye. La automatización actual no emite `StartConstruction`.
+
+Consecuencias: los diez golden digests y las doce medidas de ciudad cambian sólo por superficie
+canónica (normalizando `parcelIds`→`parcelId` recuperan exactamente sus valores previos); ninguna
+constante económica se toca. La ciudad generada tiene pares industriales pero ningún triplete, así
+que la acería queda como deuda de contenido/generación. V.d-7B (geometría visual de parcelas,
+frente vial, selección semántica, picking, tooltip portal, lenguaje de facilities, smoke visual)
+sigue pendiente; V.d no se cierra y el playtest humano sigue `PENDING HUMAN PLAYTEST`.
+
+ADR completo: `docs/engineering/adr/D-096-contrato-multi-parcela.md`.

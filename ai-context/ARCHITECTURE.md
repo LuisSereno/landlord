@@ -302,6 +302,40 @@ catastral. Si decide *dónde colocar un sprite*, recibe la huella física (`foot
 el anchor de la parcela. Si decide *qué azimut usar*, recibe el de la escena —no la orientación
 física del dominio—.
 
+## Desarrollo multi-parcela (V.d-7A, D-096)
+
+Un proyecto físico se apoya en un **conjunto canónico de parcelas** sin fusionarlas. Las reglas
+viven en el dominio y ningún consumidor puede reintroducir una parcela única como fuente de verdad:
+
+- **Contrato**: `Building.parcelIds`, `ConstructionSite.parcelIds`, `Permit.parcelIds`,
+  `StartConstruction.payload.parcelIds` y `RequestPermit.payload.parcelIds`. Helpers compartidos
+  `canonicalParcelIds`, `primaryParcelId` (sólo ancla de presentación), `areSameParcelSet` y
+  `areCellGroupsEdgeConnected`.
+- **Validación en el comando**: duplicados, cardinalidad exacta, existencia, `marketable`,
+  propiedad, distrito único, código único, uso permitido, contigüidad 4-conexa, área combinada y
+  ocupación. Códigos estables: `DUPLICATE_PARCELS`, `WRONG_PARCEL_COUNT`,
+  `PARCELS_DIFFERENT_DISTRICT`, `PARCELS_NOT_EDGE_CONTIGUOUS`, `MIXED_DEVELOPMENT_CODES`,
+  `SITE_AREA_TOO_SMALL`, `PARCEL_OCCUPIED`; no se devuelve `INVALID_ACTION` para todo.
+- **`siteRequirements`**: nave/ladrillera/cementera 2, acería 3, resto 1. La huella se elige sobre
+  la unión de celdas y frentes; la frontera catastral interna no bloquea.
+- **Ciclo de vida**: completion copia `site.parcelIds`; upgrade/repair/`ClearRuin` copian
+  `building.parcelIds`; la ruina reserva todas sus parcelas. `currentUses` se reconcilia en todas.
+- **Índices**: `buildBuildingIndex` indexa cada edificio bajo cada `parcelIds`; `buildingsOnParcel`
+  y `activeSiteOnParcel` responden igual desde cualquiera. Siguen siendo derivados y se reconstruyen
+  (no se persisten).
+- **Venta y colateral**: `SellParcel` rechaza cualquier parcela con edificio, obra o ruina.
+  El colateral reparte el valor del edificio `floor(C/n)` + resto canónico; la suma es exacta y el
+  índice multi-parcela no duplica el activo.
+- **Persistencia y proyección**: snapshot V2 con `parcelIds` (un guardado anterior sin el campo se
+  rechaza) y proyección que publica `parcelIds` en buildings y sites. El worker envía el conjunto;
+  la UI de una parcela envía `[parcelId]`.
+- **Selección de solar**: `findDevelopmentSite` es puro, determinista y acotado (máx. 3 parcelas
+  Alpha). La IA rival y cualquier automatización futura lo comparten; el rival elige la primera
+  opción de producción que cabe en su terreno y no emite comandos que el backend rechace.
+
+V.d-7B (visual) queda fuera de este contrato de dominio: geometría de parcela, frente vial,
+selección semántica, picking de sprites, tooltip portal, lenguaje de facilities y smoke visual.
+
 ## Dinero, tiempo y datos
 
 - `Money` entero en unidad menor; nada de floats para moneda.

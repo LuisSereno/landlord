@@ -328,6 +328,29 @@ Sigue abierto:
   en cada caso, revirtiendo sólo esa línea los diez digestos recuperan su valor previo. H2-06…H2-10
   y H2.1-01 no mueven ningún digesto.
 
+## V.d-7A — Dominio multi-parcela (2026-10-30)
+
+- **V.d-7B sigue pendiente: la capa visual no está hecha.** Esta fase cierra sólo el dominio
+  (contrato, comandos, ciclo de vida, permisos, colateral, snapshot, proyección, IA y pruebas).
+  Queda expresamente para V.d-7B: límites visuales de parcela (dibujar `parcel.cells` en vez del
+  rombo del anchor), representación del frente vial, selección semántica por entidad, picking
+  propio de sprites de edificio y obra, portal de tooltips fuera del clipping, lenguaje
+  player-facing de facilities y smoke/capturas visuales. El playtest humano sigue
+  `PENDING HUMAN PLAYTEST`; V.d no se cierra.
+- **Acería inalcanzable con la ciudad generada.** La acería exige 3 parcelas industriales
+  contiguas del mismo `developmentCodeId`; los bloques industriales se generan por pares, así que
+  ningún seed canónico contiene un triplete natural (medido: 281-305 parcelas industriales y 784-850
+  pares por seed, 0 tripletes en los ocho seeds comprobados). La regla no se relaja: es deuda de
+  contenido/generación (agrupar tres parcelas industriales o permitir subdivisión) que debe
+  decidirse antes de prometer la acería como edificio jugable.
+- **La idoneidad de producción de un complejo se lee de la parcela primaria.** Al completar, la
+  facility toma `productionSuitability` de `parcelIds[0]` (ancla canónica). Para Alpha es una
+  simplificación declarada: un complejo no promedia la idoneidad de todas sus parcelas. Cambiarlo
+  es una regla nueva, no un bug de V.d-7A.
+- **Demanda municipal por parcela, también en complejos.** Un edificio que ocupa tres parcelas
+  marca las tres como desarrolladas para la demanda de servicios (H2-05). Es intencional: el proxy
+  Alpha mide suelo desarrollado, no edificios. No se convierte en demanda por edificio sin una ADR.
+
 ## Rendimiento y Alpha
 
 - El cierre mensual de 800 parcelas es la frontera cara. Medido como campaña longitudinal real en

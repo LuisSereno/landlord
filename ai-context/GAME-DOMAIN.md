@@ -34,27 +34,41 @@ La **demanda activa de servicios** es el desarrollo urbano del distrito, no su c
 vacantes conservan accesibilidad, pero no presionan la cola de ninguna facility (D-094 §1).
 
 ### Parcel
-Owner, valor, zoning, restricciones, accesibilidad y building. Desde V.d es **multi-celda**
-(`geometryCells`, frente vial, `disposition` `marketable | public`, `buildingIds` con varios edificios
-y `baseLandValue`/`marketValue` con desglose entero). El suelo público es inalienable: no se compra,
-no se vende, no se garantiza, no se licencia ni se edifica. Desde H2-10 una parcela vacante puede
-exponer servicio **potencial** (facility alcanzable con capacidad residual) sin reservar slot,
-pero ese potencial **no** revaloriza el suelo: land value consume disponibilidad operativa, no
-potencial.
+Owner, valor, zoning, restricciones, accesibilidad y edificios. Desde V.d es **multi-celda**
+(`cells`, `roadFrontages`, `disposition` `marketable | public`, `baseLandValue`/`marketValue` con
+desglose entero). Los edificios que la ocupan se leen de `buildBuildingIndex` (índice derivado, no
+persistido): desde V.d-7A un edificio multi-parcela aparece bajo TODAS sus `parcelIds`. El suelo
+público es inalienable: no se compra, no se vende, no se garantiza, no se licencia ni se edifica.
+Desde H2-10 una parcela vacante puede exponer servicio **potencial** (facility alcanzable con
+capacidad residual) sin reservar slot, pero ese potencial **no** revaloriza el suelo: land value
+consume disponibilidad operativa, no potencial.
 
 ### Building
 Type, level, state, condition, tenants, maintenance, insurance y obligaciones operativas. Su **huella**
 (`footprintCells`) es autoritativa: lo que la simulación considera construido, lo que bloquea el paso,
 lo que recibe una interacción táctica (D-093) y lo que coloca y ordena el sprite en el renderer
-(D-094 §6). Vive en un distrito concreto. Su `orientation ∈ {0, 90, 180, 270}` es la rotación física
+(D-094 §6). Vive en un distrito concreto. Desde V.d-7A pertenece a un **conjunto de parcelas**
+(`parcelIds`, D-096): el conjunto es canónico, sin duplicados, del mismo distrito y código, 4-conexo
+por borde, y todas sus parcelas quedan reservadas mientras el edificio exista. La huella puede cruzar
+la frontera catastral interna; las parcelas nunca se fusionan y siguen conservando valor, dueño,
+impuestos y frente. Su `orientation ∈ {0, 90, 180, 270}` es la rotación física
 del sólido dentro de la parcela —no el azimut de cámara—, y hasta que el arte tenga frames
 laterales no se representa visualmente (D-094 §7, deuda P2 declarada).
 
+### ConstructionSite
+Obra en curso sobre el mismo conjunto exacto de parcelas (`parcelIds`) y el mismo distrito. Tipos:
+construcción, upgrade, repair y limpieza de ruina. Un complejo multi-parcela reserva TODAS sus
+parcelas: no se inicia otro proyecto en ninguna mientras exista la obra (D-096). Al completar una
+construcción, el edificio hereda `site.parcelIds`; upgrade, repair y `ClearRuin` heredan
+`building.parcelIds` sin recalcular el conjunto.
+
 ### Permit
 Decisión municipal **con identidad propia** (`PermitId`) y ciclo de vida completo:
-`approved | denied | expired | consumed`, con `consumedAtTick`. Se emite al resolver una solicitud, se
-publica por parcela y tipo, y se gasta exactamente una vez al iniciar la obra; vender la parcela no
-borra el expediente. Los derechos de densidad de un permiso adquirido son sólo de su titular.
+`approved | denied | expired | consumed`, con `consumedAtTick`. Se emite al resolver una solicitud,
+se publica por parcela y tipo, y se gasta exactamente una vez al iniciar la obra; vender la parcela no
+borra el expediente. Desde V.d-7A el permiso está ligado al **conjunto exacto** de parcelas
+(`buildingType + canonical(parcelIds)`, D-096): un permiso de `[A,B]` no vale para `[A,C]`, `[A]`
+ni `[A,B,C]`. Los derechos de densidad de un permiso adquirido son sólo de su titular.
 
 ### UrbanFacility
 Función urbana (ayuntamiento, escuela, clínica, comisaría, parque de bomberos, mercado) separada del

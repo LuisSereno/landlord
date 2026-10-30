@@ -301,6 +301,26 @@ vacíos. `pnpm smoke:vd-ux` (19 pasos) genera y valida 13 capturas revisadas una
 y `smoke:vd-core-loop` siguen verdes tras adaptarse a los hubs. **No se añadió ninguna regla de
 simulación** y los gates de coste y conservación se mantienen.
 
+**V.d-7A (dominio multi-parcela) está ejecutada el 2026-10-30 sobre la rama local
+`wip/vd7-multiparcel-domain`, partiendo de `1afa0c8`; `develop` no se ha tocado.** Cierra el
+contrato `parcelIds` en `Building`, `ConstructionSite`, `Permit`, `StartConstruction` y
+`RequestPermit` (D-096): conjunto canónico sin duplicados, mismo distrito y código, unión 4-conexa
+por borde, área combinada y ocupación; `siteRequirements` con nave/ladrillera/cementera 2 y acería
+3; huella sobre la unión; permisos ligados al conjunto exacto; completion/upgrade/repair/ClearRuin
+heredan el conjunto; la ruina reserva todas las parcelas; venta individual bloqueada; colateral
+prorrateado exacto `floor(C/n)` + resto canónico; snapshot V2 con `parcelIds` (la forma anterior se
+rechaza); proyección y worker envían el conjunto; IA rival y `findDevelopmentSite` eligen sites
+válidos y la automatización hereda el solar al reparar. Los diez golden digests y las doce medidas
+de ciudad cambian sólo por superficie canónica, atribuido normalizando `parcelIds`→`parcelId`
+(los diez recuperan sus valores previos) y con contraprueba `requiredParcels=1` en
+`scenario:seed-1:36000` (mismo digesto, cajas y edificios). Tests A–T, índices, colateral, IA y
+automatización en verde; gates y build se registran en el acta
+`docs/execution/phase-4/vd7a-multiparcel-domain-2026-10-30.md`. **V.d-7B visual (límites de
+parcela, frente vial, selección semántica, picking, tooltip portal, lenguaje de facilities, smoke
+visual) sigue pendiente; V.d no se cierra y el playtest humano sigue `PENDING HUMAN PLAYTEST`.**
+La ciudad generada no produce tripletes industriales contiguos, así que la acería queda como deuda
+de contenido/generación.
+
 **Incidencia del entorno registrada:** a mitad de la batería de gates el ejecutor de `pnpm`
 12.11.2 comenzó a fallar todo spawn con `Input/output error (os error 5)`. Causa raíz encontrada
 en V.d-UX: hay entradas de `PATH` en un SSD externo desconectado (`/media/luis/CacheSSD/...`) y una

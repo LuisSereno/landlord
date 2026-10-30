@@ -153,7 +153,7 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "b58283d43f7fd764",
+    expected: "9c01fa414acf9739",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
@@ -304,6 +304,25 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
  * incendios y las cuatro carreras sin cierre mensual siguen siendo idénticas bit a bit, porque
  * en ellas ningún `services` del score de suelo cambia entre los dos modelos. Ninguna semilla,
  * constante de balance o guard de perfil se ha tocado; el cambio es de regla, no de tuning.
+ */
+
+/**
+ * Regeneración H2.1-02 (2026-10-30): el término `services` del score de suelo deja de medir sólo
+ * la cobertura activa y, para los solares VACANTES, mide la cobertura potencial del servicio de
+ * seguridad (H2-10). Cambia un solo digesto, `city:200-parcels:month-boundary`, de
+ * `b58283d43f7fd764` a `9c01fa414acf9739`. Atribución medida, no supuesta: revirtiendo
+ * exclusivamente esa línea —`serviceScore` leyendo `levels.security` para toda parcela— los diez
+ * digestos recuperan exactamente sus valores comprometidos, así que la regla nueva es la causa
+ * única y ningún otro canal participó en el delta. Diff hoja a hoja de los dos estados finales:
+ * 90 diferencias, TODAS `phase2.parcels[*].marketValue` de parcelas sin edificio privado
+ * (Σ +2604, media +28,9, todas al alza: el solar ahora ve el hueco libre al que podría acceder).
+ * Cero diferencias en las 157 parcelas desarrolladas, en las cinco cajas (5023433 / 5014607 /
+ * 50006700 / 2203 / 50000975, las mismas que registró el acta de H1-05/H1-06 para este caso), en
+ * transacciones, hogares, incidentes, ruinas, bajas, agentes, permisos o relojes. El potencial no
+ * reserva capacidad: sobre 676 solares vacantes y 300 huecos teóricos, sólo se revalorizan los 90
+ * cuyo término `services` cambia de verdad. Los otros nueve casos quedan bit a bit idénticos:
+ * `city:50-parcels:month-boundary` tiene sus 50 solares construidos (no hay vacante a la que dar
+ * señal) y las carreras sin cierre mensual no ejecutan `updateLandValues`.
  */
 
 describe("WP4.2 conservación del resultado económico", () => {

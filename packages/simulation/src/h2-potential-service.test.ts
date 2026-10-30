@@ -239,14 +239,14 @@ describe("H2-10 · cobertura potencial de las parcelas vacantes", () => {
     expect(report.served).toBe(0);
   });
 
-  it("el land value sigue respondiendo a la disponibilidad, no al potencial", () => {
+  it("el land value de una parcela desarrollada responde a la disponibilidad real", () => {
     /**
-     * H2-10 no inventa pesos nuevos en el score de suelo. El término `services` de
-     * `landValueBreakdownFor` consume `CoverageIndex` —cobertura ACTIVA—, no el potencial. Una
-     * parcela vacante conserva su valoración por `civicAmenities` (geométrica) sin que el
-     * potencial la revalorice artificialmente. Se comprueba quemando la red de comisarías: si
-     * el potencial afectara al score, el suelo vacante perdería valor; sólo lo pierden los
-     * solares DESARROLLADOS que estaban servidos.
+     * H2-10 no inventa pesos nuevos en el score de suelo y H2.1-02 no cambia esta garantía: el
+     * término `services` de una parcela DESARROLLADA consume cobertura ACTIVA, nunca el potencial.
+     * Se comprueba quemando la red de comisarías: el solar construido y servido pierde la
+     * señal. Lo que H2.1-02 añade —y prueba `h21-vacant-land-value.test.ts`— es que el SOLAR
+     * VACANTE puntúa por cobertura potencial, sin consumir capacidad. `civicAmenities` sigue
+     * siendo la componente geométrica, independiente de ambas.
      */
     const state = createInitialState(7);
     const stations = facilitiesOfKind(state, "police_station");

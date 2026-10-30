@@ -1,6 +1,10 @@
 import type { BuildingId, DistrictId, GridCell, ParcelId } from "@landlord/shared";
 import { MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
-import { facilityCoverageIndex } from "./facility-coverage";
+import {
+  developedParcelsOf,
+  facilityCoverageIndex,
+  type FacilityCoverageIndex,
+} from "./facility-coverage";
 import type { GameState } from "./state";
 
 export type UrbanServiceId = "transport" | "security" | "cleaning";
@@ -66,6 +70,18 @@ export type CoverageIndex = {
   cleaningByDistrictId: ReadonlyMap<string, DistrictCleaningGeometry>;
   byBuildingId: Map<BuildingId, Record<UrbanServiceId, number>>;
   byParcelId: Map<ParcelId, Record<UrbanServiceId, number>>;
+  /**
+   * H2.1-02 · dos señales separadas para quien tenga que tasar suelo sin construir. `byParcelId`
+   * es cobertura ACTIVA y no cambia su significado: un solar vacío sigue teniendo demanda 0 y no
+   * consume capacidad. `potentialByParcelId` es la cobertura POTENCIAL de H2-10 (pasada por
+   * referencia desde el índice de facilities: algún servicio alcanzable con hueco libre) y
+   * `developedParcelIds` dice qué parcelas tienen ya edificio privada no en ruina. La regla de
+   * valoración las combina: desarrollada → real, vacante → potencial. Ninguna de las dos cifras
+   * entra en `byParcelId`, así que overlays, UI y consumo de capacidad siguen leyendo sólo la
+   * cobertura servida.
+   */
+  potentialByParcelId: FacilityCoverageIndex["potentialByParcelId"];
+  developedParcelIds: ReadonlySet<ParcelId>;
 };
 
 /** Radio medio de los distritos: es el resumen municipal, no una geometría autoritativa. */
@@ -172,7 +188,13 @@ export function buildCoverageIndex(state: GameState): CoverageIndex {
     const coverage = byParcelId.get(building.parcelId);
     if (coverage) byBuildingId.set(building.id, coverage);
   }
-  return { cleaningByDistrictId, byBuildingId, byParcelId };
+  return {
+    cleaningByDistrictId,
+    byBuildingId,
+    byParcelId,
+    potentialByParcelId: facilityCoverage.potentialByParcelId,
+    developedParcelIds: new Set(developedParcelsOf(state).map((parcel) => parcel.id)),
+  };
 }
 
 export function coverageFor(

@@ -185,10 +185,25 @@ function codePotential(
   return clamp(code.maxFloors + Math.floor(code.maxFloorAreaRatioPercent / 100), 0, 12);
 }
 
+/**
+ * H2.1-02 · un solar vacío junto a una red operativa ya vale más que un erial sin acceso, y el
+ * jugador lo ve en el mapa antes de construir. La tasación usa la señal disponible según el
+ * estado de la parcela: desarrollada → cobertura REAL servida; vacante → cobertura POTENCIAL
+ * (H2-10: hay un servicio alcanzable con hueco libre). Sólo se sustituye `security`, que es el
+ * único término de esta composición que viene de las facilities con capacidad; `transport` y
+ * `cleaning` son accesibilidad y red radial y ya se computan para toda parcela marketable. La
+ * composición y los pesos no cambian: `(transport + security + cleaning) / 30`, banda 0..10.
+ *
+ * El potencial no reserva capacidad: dos solares vacantes contiguos pueden ver el mismo hueco
+ * libre. Cuando uno se construya, la demanda activa dirá quién lo ocupó.
+ */
 function serviceScore(parcel: Parcel, coverage: CoverageIndex): number {
   const levels = coverage.byParcelId.get(parcel.id);
   if (!levels) return 0;
-  return clamp(Math.round((levels.transport + levels.security + levels.cleaning) / 30), 0, 10);
+  const security = coverage.developedParcelIds.has(parcel.id)
+    ? levels.security
+    : (coverage.potentialByParcelId.get(parcel.id)?.security ?? 0);
+  return clamp(Math.round((levels.transport + security + levels.cleaning) / 30), 0, 10);
 }
 
 /**

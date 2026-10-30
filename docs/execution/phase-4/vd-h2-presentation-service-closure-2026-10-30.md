@@ -511,10 +511,11 @@ capacidad por defecto, guard de perfil ni constante económica para ganar milise
 | 11 | `52168f2` | chore: apply prettier to V.d-H2 test sources |
 | 12 | `02c9904` | docs: record V.d-H2 service and presentation closure |
 | 13 | `46a20ab` | test: develop demand before fire and gateway coverage in H1-10 |
-| 14 | HEAD final | docs: close V.d-H2 with gates, tables and evidence |
+| 14 | `110aebd` | docs: close V.d-H2 with gates, tables and evidence |
+| 15 | `c7a6281` | docs: reconcile the V.d hardening act with its H1 review |
 
-**push: no, según §0 y §16 del plan.** Los catorce commits quedan locales en `develop`
-empezando en `3f3c707`.
+**HEAD final: `c7a6281`.** **push: no, según §0 y §16 del plan.** Los quince commits quedan
+locales en `develop` empezando en `3f3c707`.
 
 ## Estado
 

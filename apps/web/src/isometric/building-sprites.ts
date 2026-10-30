@@ -1,4 +1,5 @@
 import {
+  buildingFrameForOrientation,
   type AssetImageV1,
   type BuildingAssetState,
   type BuildingAssetV1,
@@ -275,4 +276,52 @@ export function selectBuildingTextureKey(
 ): string {
   const blenderKey = `blender-${proceduralKey}`;
   return blenderAvailable.has(blenderKey) ? blenderKey : proceduralKey;
+}
+
+/**
+ * H2-02 · resolución pura de la cadena Blender → procedural → null. `IsometricSpikeScene`
+ * la invierte con sus bundles registrados y con `this.textures.exists`; aquí se prueba sin
+ * Phaser que, ante un Blender ausente o corrupto, los 15 tipos del catálogo de dominio
+ * resuelven una textura procedural válida. Con un procedural incompleto el helper devuelve
+ * `null` y el edificio desaparece: el manifiesto tiene que cubrir el catálogo entero, y
+ * `assets.test.ts` lo fuerza estructuralmente.
+ */
+export type BuildingVisualBundle = {
+  buildings: Record<string, BuildingAssetV2 | undefined>;
+};
+
+export function resolveBuildingVisual(
+  archetype: string,
+  domainType: string,
+  state: BuildingAssetState,
+  options: {
+    /** Bundle Blender: puede faltar (`undefined` o vacío) sin que la cadena se rompa. */
+    blenderBundle: BuildingVisualBundle | undefined;
+    /** Bundle procedural: tiene que declarar el tipo de dominio o el edificio desaparece. */
+    proceduralBundle: BuildingVisualBundle;
+    /** Registrar en la textura de Phaser; se inyecta para poder llamar al helper sin escena. */
+    textureExists: (key: string) => boolean;
+    /** Azimut de cámara declarado por la escena; un asset que no lo autorice se rechaza. */
+    azimuth: number;
+  },
+): { key: string; asset: BuildingAssetV1 } | null {
+  const blenderKey = `blender-building-${archetype}-${state}`;
+  const blenderAsset = options.blenderBundle?.buildings[archetype];
+  if (
+    blenderAsset &&
+    options.textureExists(blenderKey) &&
+    buildingFrameForOrientation(blenderAsset, options.azimuth)
+  ) {
+    return { key: blenderKey, asset: blenderAsset };
+  }
+  const proceduralKey = spriteKeyFor(domainType, state);
+  const proceduralAsset = options.proceduralBundle.buildings[domainType];
+  if (
+    proceduralAsset &&
+    options.textureExists(proceduralKey) &&
+    buildingFrameForOrientation(proceduralAsset, options.azimuth)
+  ) {
+    return { key: proceduralKey, asset: proceduralAsset };
+  }
+  return null;
 }

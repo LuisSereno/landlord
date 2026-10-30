@@ -9,6 +9,7 @@ import {
   parseRuntimeAssetManifest,
   runtimeAssetManifestV2Schema,
   validateRuntimeAssetManifestV2,
+  type BuildingType,
   type RuntimeAssetManifestV1,
   type RuntimeAssetManifestV2,
 } from "@landlord/shared";
@@ -18,6 +19,11 @@ const manifestPath = new URL("./generated/runtime-assets.json", import.meta.url)
 const repoRoot = fileURLToPath(new URL("../../../", import.meta.url));
 const rawManifest = JSON.parse(readFileSync(manifestPath, "utf8"));
 const manifest = parseRuntimeAssetManifest(rawManifest) as RuntimeAssetManifestV2;
+/**
+ * Catálogo derivado del dominio, no una lista mantenida a mano. Un tipo añadido a
+ * `BUILDING_DEFINITIONS` pero olvidado en la factoría cae aquí sin editar dos sitios (H2-02).
+ */
+const DOMAIN_BUILDING_TYPES = Object.keys(BUILDING_DEFINITIONS).sort();
 
 function decodedSvg(src: string): string {
   const prefix = "data:image/svg+xml;base64,";
@@ -44,18 +50,29 @@ describe("WP4.15 manifiesto de assets runtime", () => {
   });
 
   it("declara la huella de dominio del tipo que representa el dibujo", () => {
-    for (const [type, asset] of Object.entries(manifest.buildings)) {
+    /**
+     * H2-02 · el test estructural recorre el catálogo de dominio, no las claves del manifiesto.
+     * Un tipo nuevo en `BUILDING_DEFINITIONS` sin entrada procedural aparece aquí como
+     * `Expected: … Received: undefined`; antes el `for (const [type, asset] of Object.entries(manifest…))`
+     * + `if (!definition) continue` sólo detectaba manifiestos huérfanos, no catálogos sin
+     * manifiesto, así que cuatro tipos convivían verde en producción y desaparecían en el render.
+     */
+    const missing: string[] = [];
+    for (const type of DOMAIN_BUILDING_TYPES) {
+      const asset = manifest.buildings[type];
+      if (!asset) {
+        missing.push(type);
+        continue;
+      }
+      const definition = BUILDING_DEFINITIONS[type as BuildingType];
       expect(asset.domainFootprint.width, type).toBeGreaterThanOrEqual(asset.footprint.width);
       expect(asset.domainFootprint.height, type).toBeGreaterThanOrEqual(asset.footprint.height);
-      const definition = (BUILDING_DEFINITIONS as Record<string, { targetFootprintCells: number }>)[
-        type
-      ];
-      if (!definition) continue;
       expect(
         asset.domainFootprint.width * asset.domainFootprint.height,
         `${type}: la huella de dominio debe cuadrar con targetFootprintCells`,
       ).toBe(definition.targetFootprintCells);
     }
+    expect(missing, `tipos de dominio sin fallback procedural: ${missing.join(", ")}`).toEqual([]);
   });
 
   it("el runtime no puede inventar una orientación ilegal", () => {
@@ -97,22 +114,14 @@ describe("WP4.15 manifiesto de assets runtime", () => {
     );
   });
 
-  it("cubre los edificios base y cívicos con los cuatro estados y hashes íntegros", () => {
-    expect(Object.keys(manifest.buildings).sort()).toEqual(
-      [
-        "brickworks",
-        "cement_plant",
-        "clinic",
-        "courtyard_home",
-        "fire_station",
-        "market_hall",
-        "police_station",
-        "school_block",
-        "steelworks",
-        "town_hall",
-        "workshop",
-      ].sort(),
-    );
+  it("cubre el catálogo de dominio con los cuatro estados y hashes íntegros", () => {
+    /**
+     * H2-02 · la lista se deriva de `BUILDING_DEFINITIONS`; un manifiesto con claves huérfanas
+     * y un catálogo con tipos sin manifiestro fallan igual. Era `[brickworks, cement_plant,
+     * …]` mantenido a mano: cuatro tipos residenciales/industriales se quedaron fuera sin que
+     * el test lo notara, y el renderer los perdía en cuanto el Blender faltaba.
+     */
+    expect(Object.keys(manifest.buildings).sort()).toEqual(DOMAIN_BUILDING_TYPES);
     for (const [type, asset] of Object.entries(manifest.buildings)) {
       expect(asset.type, type).toBe(type);
       expect(asset.footprint.width, type).toBeGreaterThan(0);

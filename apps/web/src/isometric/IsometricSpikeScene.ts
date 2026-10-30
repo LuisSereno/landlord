@@ -1,6 +1,5 @@
 import Phaser from "phaser";
 import {
-  buildingFrameForOrientation,
   parseRuntimeAssetManifest,
   type BuildingAssetState,
   type BuildingAssetV1,
@@ -27,6 +26,7 @@ import {
   footprintCenter,
   footprintVisualCenter,
   originFromPivot,
+  resolveBuildingVisual,
   selectBuildingTextureKey,
   spriteKeyFor,
   spriteScaleFor,
@@ -1109,35 +1109,22 @@ export class IsometricSpikeScene extends Phaser.Scene {
    * Prioriza el asset Blender del archetype resuelto por el adapter; si no existe, cae al procedural
    * del tipo de dominio. Un edificio nunca desaparece por falta de un Blender: el fallback sostiene
    * la cadena `simulation → projection → archetype → Blender si existe → procedural fallback`.
+   *
+   * H2-02 · la cadena vive en `resolveBuildingVisual` (helper puro de `building-sprites.ts`); aquí
+   * sólo se inyectan los bundles registrados y el estado de `this.textures`, así que los 15 tipos
+   * del catálogo se pueden probar sin levantar la escena.
    */
   private resolveBuildingVisual(
     archetype: string,
     domainType: string,
     state: BuildingAssetState,
   ): { key: string; asset: BuildingAssetV1 } | null {
-    const blenderKey = `blender-building-${archetype}-${state}`;
-    const blenderAsset = ASSETS_BLENDER.buildings[archetype];
-    if (
-      blenderAsset &&
-      this.textures.exists(blenderKey) &&
-      buildingFrameForOrientation(blenderAsset, SCENE_AZIMUTH)
-    ) {
-      return { key: blenderKey, asset: blenderAsset };
-    }
-    const proceduralKey = spriteKeyFor(domainType, state);
-    const proceduralAsset = ASSETS.buildings[domainType];
-    if (
-      proceduralAsset &&
-      this.textures.exists(proceduralKey) &&
-      buildingFrameForOrientation(proceduralAsset, SCENE_AZIMUTH)
-    ) {
-      return { key: proceduralKey, asset: proceduralAsset };
-    }
-    /**
-     * Sin frame legal para el azimut de la escena no se dibuja el edificio: mostrar de lado una
-     * silueta pintada de frente sería inventarse una orientación que el manifiesto no autoriza.
-     */
-    return null;
+    return resolveBuildingVisual(archetype, domainType, state, {
+      blenderBundle: ASSETS_BLENDER,
+      proceduralBundle: ASSETS,
+      textureExists: (key) => this.textures.exists(key),
+      azimuth: SCENE_AZIMUTH,
+    });
   }
 
   private ensureBuildingSprite(

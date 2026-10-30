@@ -2,9 +2,12 @@ import { describe, expect, it } from "vitest";
 import {
   parseRuntimeAssetManifest,
   type BuildingAssetV1,
+  type BuildingAssetState,
+  type BuildingType,
   type RuntimeAssetManifestV2,
   type ViewProjectionV2,
 } from "@landlord/shared";
+import { BUILDING_DEFINITIONS } from "@landlord/simulation";
 import runtimeAssets from "../generated/runtime-assets.json";
 import {
   animationFrameFor,
@@ -21,6 +24,7 @@ import {
   footprintVisualCenter,
   framesPerDirection,
   originFromPivot,
+  resolveBuildingVisual,
   spriteKeyFor,
   spriteScaleFor,
 } from "./building-sprites";
@@ -397,5 +401,94 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
         domainType === "warehouse" ? null : { key: "resolved", asset: FAKE_ASSET },
     });
     expect(plan.map((entry) => entry.id)).toEqual(["building:b1"]);
+  });
+});
+
+/**
+ * H2-02 · el contrato de `resolveBuildingVisual` dice "un edificio nunca desaparece por falta de
+ * un Blender". El test simula esa ausencia y comprueba que los 15 tipos del catálogo de dominio
+ * resuelven una textura procedural válida. Si un tipo nuevo entra en `BUILDING_DEFINITIONS` sin
+ * fallback, este test falla antes de que el render pierda el edificio.
+ */
+const ALL_BUILDING_STATES: BuildingAssetState[] = ["complete", "construction", "damaged", "burning"];
+
+describe("H2-02 ausencia de Blender → fallback procedural para los 15 tipos", () => {
+  it("cada BuildingType del catálogo resuelve una textura procedural válida sin Blender", () => {
+    const proceduralBundle = ASSETS;
+    const emptyBlender = { buildings: {} };
+    const types = Object.keys(BUILDING_DEFINITIONS) as BuildingType[];
+    /** Invariante estructural: 15 tipos, no una lista mantenida a mano. */
+    expect(types).toHaveLength(15);
+    for (const type of types) {
+      for (const state of ALL_BUILDING_STATES) {
+        const resolved = resolveBuildingVisual(type, type, state, {
+          blenderBundle: emptyBlender,
+          proceduralBundle,
+          textureExists: () => true,
+          azimuth: 45,
+        });
+        expect(
+          resolved,
+          `${type}:${state} — el catálogo procedural debe sostener el fallback sin Blender`,
+        ).not.toBeNull();
+        expect(resolved!.key).toBe(spriteKeyFor(type, state));
+        expect(resolved!.asset.states[state]).toBeDefined();
+      }
+    }
+  });
+
+  it("un Blender corrupto (textura no registrada) tampoco tumba el fallback", () => {
+    /**
+     * Cadena Blender → texture.exists() → procedural: si la clave Blender está declarada en el
+     * bundle pero la textura no se cargó (caso C de la degradación por asset), el procedural
+     * cubre igualmente. Era el mismo bug de H2-02 pero por el lado de la carga.
+     */
+    const blenderBundle = {
+      buildings: Object.fromEntries(
+        Object.keys(BUILDING_DEFINITIONS).map((t) => [
+          t,
+          {
+            type: t,
+            name: t,
+            footprint: { width: 1, height: 1 },
+            domainFootprint: { width: 1, height: 1 },
+            pivot: { x: 0.5, y: 0.93 },
+            states: {},
+            allowedOrientations: [45],
+            symmetry: "none",
+          },
+        ]),
+      ),
+    };
+    for (const type of Object.keys(BUILDING_DEFINITIONS) as BuildingType[]) {
+      const resolved = resolveBuildingVisual(type, type, "complete", {
+        blenderBundle: blenderBundle as unknown as RuntimeAssetManifestV2,
+        proceduralBundle: ASSETS,
+        /** Ninguna textura Blender está realmente cargada: el helper debe caer al procedural. */
+        textureExists: (key) => !key.startsWith("blender-building-"),
+        azimuth: 45,
+      });
+      expect(resolved, type).not.toBeNull();
+      expect(resolved!.key).toBe(spriteKeyFor(type, "complete"));
+    }
+  });
+
+  it("un azimut no declarado por el asset procedural devuelve null: el renderer no inventa", () => {
+    /**
+     * El procedural sólo declara `[45]` con `symmetry: "none"`. Para 135/225/315 el helper tiene
+     * que rechazar pintar el edificio en lugar de usar un frame ilegal: eso es H2-03 y la
+     * deuda visual de orientación.
+     */
+    for (const azimuth of [135, 225, 315]) {
+      for (const type of Object.keys(BUILDING_DEFINITIONS) as BuildingType[]) {
+        const resolved = resolveBuildingVisual(type, type, "complete", {
+          blenderBundle: undefined,
+          proceduralBundle: ASSETS,
+          textureExists: () => true,
+          azimuth,
+        });
+        expect(resolved, `${type} @ ${azimuth}`).toBeNull();
+      }
+    }
   });
 });

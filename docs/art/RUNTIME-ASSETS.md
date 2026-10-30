@@ -183,6 +183,23 @@ seis tipos añadidos desde entonces (los seis cívicos de V.d.6). Lo que aporta 
 **946 bytes** en total, 86 de media por tipo, al declarar `domainFootprint`, `allowedOrientations` y
 `symmetry`. `pnpm art:binaries:check` sigue en verde y no se ha versionado ningún binario.
 
+### Re-medición V.d-H2 (2026-10-30, manifiesto `schemaVersion = 2`, cobertura 15/15)
+
+H2-02 cierra el hueco entre `BUILDING_DEFINITIONS` (15 tipos) y el catálogo procedural (11 tipos):
+`row_house`, `apartment_block`, `mixed_tenement` y `warehouse` tienen ahora silueta procedural
+propietaria, diferenciada por forma, escala y altura aparente. Antes caían al default `workshop`,
+y con un Blender ausente desaparecían del render a pesar del contrato que declaraba lo contrario.
+
+| Métrica | Budget | Medido 2026-10-30 |
+|---|---|---|
+| Manifiesto completo | < 200 KB | 181 985 bytes (181,99 KB) — crecimiento +35 402 vs H1 |
+| Imágenes | — | 108 frames (+16); 153 880 bytes en data URIs |
+| SVG por frame | < 8 KB | 1 816 bytes el mayor (`apartment_block:construction`) |
+| Bundle Blender E2E | < 120 KB | sin cambios: 26 789 bytes, sigue V1 |
+
+El presupuesto de manifiesto queda en el 91 % del budget Alpha. Un quinto tipo adicional de dominio
+obligaría a declarar un nuevo número o a reabrir el budget.
+
 ## Añadir un edificio o variante
 
 1. Añadir la entrada a `BUILDINGS`/`CHARACTERS` en `scripts/generate-runtime-assets.mjs`.

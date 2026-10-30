@@ -56,6 +56,41 @@ const BUILDINGS = [
     domain: [3, 4],
     palette: ["#9aa4ae", "#77818c", "#5b636c"],
   },
+  /**
+   * H2-02 · los cuatro tipos residenciales/industriales que antes sólo tenían camino Blender
+   * reciben ahora una silueta procedural propia. Reutilizan la gramática isométrica base
+   * (`isometricBase` + `scaffolding` + `damage` + `flames`) pero se diferencian por forma,
+   * escala y altura aparente. No son arte final: son el fallback que garantiza que la
+   * presentación no desaparezca cuando el asset Blender falta.
+   */
+  {
+    type: "row_house",
+    name: "Casa adosada",
+    footprint: [2, 1],
+    domain: [4, 1],
+    palette: ["#c9a07a", "#a07856", "#7d5a3d"],
+  },
+  {
+    type: "apartment_block",
+    name: "Bloque de viviendas",
+    footprint: [2, 2],
+    domain: [2, 5],
+    palette: ["#c6bcae", "#a09689", "#7a6f63"],
+  },
+  {
+    type: "mixed_tenement",
+    name: "Inmueble mixto",
+    footprint: [2, 1],
+    domain: [2, 4],
+    palette: ["#d0a573", "#a3785a", "#7d573c"],
+  },
+  {
+    type: "warehouse",
+    name: "Nave logística",
+    footprint: [2, 2],
+    domain: [3, 4],
+    palette: ["#a4b0bb", "#818d97", "#5e6a75"],
+  },
   {
     type: "town_hall",
     name: "Ayuntamiento",
@@ -230,6 +265,62 @@ function buildingSvg(building, state) {
   if (building.type === "courtyard_home") {
     const courtyard = `<polygon points="58,66 64,69 70,66 64,63" fill="#5c6b4f" stroke="#3f4a37" stroke-width="1.5"/>`;
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 112" width="128" height="112" role="img">${base.ground}${base.body}${courtyard}${details}${scaffolding}${damage}${flames}</svg>`;
+  }
+  /**
+   * H2-02 · siluetas procedurales de los cuatro tipos residenciales/industriales que antes
+   * sólo existían vía Blender. Cada rama distingue forma, escala y altura aparente sobre el
+   * cubo isométrico común, sin pretender arte final.
+   */
+  if (building.type === "row_house") {
+    /** Adosada: cubierta a dos aguas con dos chimeneas separadas, fachada continua de ventanas. */
+    const rowDetail =
+      `<g><polygon points="30,42 64,26 98,42 64,58" fill="#8a5e45" stroke="#5c3d28" stroke-width="2"/>` +
+      `<rect x="40" y="16" width="4" height="14" fill="#8a5e45"/>` +
+      `<rect x="84" y="16" width="4" height="14" fill="#8a5e45"/>` +
+      `<line x1="64" y1="26" x2="64" y2="58" stroke="#5c3d28" stroke-width="1.5"/></g>` +
+      `<g fill="#f3d98a"><rect x="34" y="58" width="6" height="8"/><rect x="46" y="64" width="6" height="8"/>` +
+      `<rect x="72" y="66" width="6" height="8"/><rect x="84" y="60" width="6" height="8"/></g>` +
+      `<g fill="#5c3d28"><rect x="56" y="72" width="6" height="10"/><rect x="94" y="66" width="6" height="10"/></g>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 112" width="128" height="112" role="img">${base.ground}${base.body}${rowDetail}${scaffolding}${damage}${flames}</svg>`;
+  }
+  if (building.type === "apartment_block") {
+    /** Bloque alto: cuerpo alargado con parapeto y cinco hileras de ventanas iguales, sin cubierta a dos aguas. */
+    const blockTop =
+      `<g><polygon points="30,42 64,26 98,42 98,20 64,4 30,20" fill="${building.palette[0]}" stroke="${building.palette[2]}" stroke-width="2"/>` +
+      `<polygon points="30,20 64,4 98,20 64,36" fill="${building.palette[1]}" stroke="${building.palette[2]}" stroke-width="2"/></g>`;
+    const blockWindows =
+      `<g fill="#f3d98a">` +
+      `<rect x="38" y="34" width="6" height="6"/><rect x="52" y="34" width="6" height="6"/><rect x="66" y="34" width="6" height="6"/><rect x="80" y="34" width="6" height="6"/>` +
+      `<rect x="38" y="46" width="6" height="6"/><rect x="52" y="46" width="6" height="6"/><rect x="66" y="46" width="6" height="6"/><rect x="80" y="46" width="6" height="6"/>` +
+      `<rect x="38" y="58" width="6" height="6"/><rect x="52" y="58" width="6" height="6"/><rect x="66" y="58" width="6" height="6"/><rect x="80" y="58" width="6" height="6"/>` +
+      `<rect x="38" y="70" width="6" height="6"/><rect x="52" y="70" width="6" height="6"/><rect x="66" y="70" width="6" height="6"/><rect x="80" y="70" width="6" height="6"/>` +
+      `</g>` +
+      `<g stroke="${building.palette[2]}" stroke-width="1"><line x1="30" y1="24" x2="98" y2="24"/></g>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 112" width="128" height="112" role="img">${base.ground}${blockTop}${base.body}${blockWindows}${scaffolding}${damage}${flames}</svg>`;
+  }
+  if (building.type === "mixed_tenement") {
+    /** Esquina mixta: planta baja comercial con marquesina, dos pisos residenciales con balcones. */
+    const shopfront =
+      `<g><rect x="30" y="72" width="68" height="16" fill="#4f6b57" stroke="#2f4a36" stroke-width="2"/>` +
+      `<polygon points="30,72 98,72 92,62 36,62" fill="#d97757" stroke="#8a4431" stroke-width="1.5"/>` +
+      `<g fill="#f3d98a"><rect x="34" y="76" width="12" height="10"/><rect x="52" y="76" width="12" height="10"/><rect x="70" y="76" width="12" height="10"/></g></g>`;
+    const residential =
+      `<g fill="#f3d98a"><rect x="38" y="46" width="6" height="8"/><rect x="52" y="52" width="6" height="8"/>` +
+      `<rect x="66" y="52" width="6" height="8"/><rect x="80" y="46" width="6" height="8"/></g>` +
+      `<g stroke="${building.palette[2]}" stroke-width="1.5"><line x1="34" y1="58" x2="60" y2="66"/><line x1="68" y1="66" x2="94" y2="58"/></g>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 112" width="128" height="112" role="img">${base.ground}${base.body}${shopfront}${residential}${scaffolding}${damage}${flames}</svg>`;
+  }
+  if (building.type === "warehouse") {
+    /** Nave logística: cubierta a un agua muy baja, portón rodable y ventanales altos. */
+    const warehouse =
+      `<g><polygon points="28,72 64,86 100,72 100,38 64,24 28,38" fill="${building.palette[1]}" stroke="${building.palette[2]}" stroke-width="2"/>` +
+      `<line x1="28" y1="38" x2="100" y2="38" stroke="${building.palette[2]}" stroke-width="2"/>` +
+      `<g fill="#2f3a44"><rect x="38" y="52" width="18" height="14" stroke="${building.palette[2]}" stroke-width="1.5"/>` +
+      `<line x1="38" y1="58" x2="56" y2="58" stroke="${building.palette[2]}" stroke-width="1"/>` +
+      `<line x1="38" y1="62" x2="56" y2="62" stroke="${building.palette[2]}" stroke-width="1"/></g>` +
+      `<g fill="#f3d98a" opacity="0.85"><rect x="70" y="44" width="6" height="4"/><rect x="80" y="44" width="6" height="4"/>` +
+      `<rect x="70" y="62" width="6" height="4"/><rect x="80" y="62" width="6" height="4"/></g></g>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 112" width="128" height="112" role="img">${base.ground}${base.body}${warehouse}${scaffolding}${damage}${flames}</svg>`;
   }
   const workshopChimney = `<rect x="84" y="20" width="8" height="22" fill="#75634d" stroke="#4d4035" stroke-width="2"/>`;
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 112" width="128" height="112" role="img">${base.ground}${base.body}${workshopChimney}${details}${scaffolding}${damage}${flames}</svg>`;

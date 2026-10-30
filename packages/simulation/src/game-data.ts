@@ -49,6 +49,7 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     form: "detached",
     defaultFloors: 1,
     targetFootprintCells: 4,
+    siteRequirements: { requiredParcels: 1, minCombinedAreaCells: 4, requireEdgeContiguous: true },
     municipal: false,
   },
   workshop: {
@@ -65,6 +66,7 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     form: "shed",
     defaultFloors: 1,
     targetFootprintCells: 8,
+    siteRequirements: { requiredParcels: 1, minCombinedAreaCells: 8, requireEdgeContiguous: true },
     municipal: false,
   },
   cement_plant: {
@@ -81,6 +83,7 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     form: "shed",
     defaultFloors: 2,
     targetFootprintCells: 10,
+    siteRequirements: { requiredParcels: 2, minCombinedAreaCells: 10, requireEdgeContiguous: true },
     municipal: false,
     production: {
       output: "cement",
@@ -103,6 +106,7 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     form: "shed",
     defaultFloors: 2,
     targetFootprintCells: 10,
+    siteRequirements: { requiredParcels: 2, minCombinedAreaCells: 10, requireEdgeContiguous: true },
     municipal: false,
     production: {
       output: "brick",
@@ -125,6 +129,7 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     form: "shed",
     defaultFloors: 2,
     targetFootprintCells: 12,
+    siteRequirements: { requiredParcels: 3, minCombinedAreaCells: 12, requireEdgeContiguous: true },
     municipal: false,
     production: {
       output: "steel",
@@ -147,6 +152,7 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     form: "row",
     defaultFloors: 2,
     targetFootprintCells: 4,
+    siteRequirements: { requiredParcels: 1, minCombinedAreaCells: 4, requireEdgeContiguous: true },
     municipal: false,
   },
   apartment_block: {
@@ -164,6 +170,7 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     // V.d.4: the tallest private type; the corridor trial's +1 floor is observable here.
     defaultFloors: 5,
     targetFootprintCells: 10,
+    siteRequirements: { requiredParcels: 1, minCombinedAreaCells: 10, requireEdgeContiguous: true },
     municipal: false,
   },
   mixed_tenement: {
@@ -180,6 +187,7 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     form: "perimeter",
     defaultFloors: 3,
     targetFootprintCells: 8,
+    siteRequirements: { requiredParcels: 1, minCombinedAreaCells: 8, requireEdgeContiguous: true },
     municipal: false,
   },
   warehouse: {
@@ -196,6 +204,7 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     form: "shed",
     defaultFloors: 1,
     targetFootprintCells: 12,
+    siteRequirements: { requiredParcels: 2, minCombinedAreaCells: 12, requireEdgeContiguous: true },
     municipal: false,
   },
   town_hall: {
@@ -212,6 +221,7 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     form: "civic_landmark",
     defaultFloors: 4,
     targetFootprintCells: 12,
+    siteRequirements: { requiredParcels: 1, minCombinedAreaCells: 12, requireEdgeContiguous: true },
     municipal: true,
   },
   school_block: {
@@ -228,6 +238,7 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     form: "pavilion",
     defaultFloors: 3,
     targetFootprintCells: 14,
+    siteRequirements: { requiredParcels: 1, minCombinedAreaCells: 14, requireEdgeContiguous: true },
     municipal: true,
   },
   clinic: {
@@ -244,6 +255,7 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     form: "pavilion",
     defaultFloors: 2,
     targetFootprintCells: 6,
+    siteRequirements: { requiredParcels: 1, minCombinedAreaCells: 6, requireEdgeContiguous: true },
     municipal: true,
   },
   police_station: {
@@ -260,6 +272,7 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     form: "pavilion",
     defaultFloors: 2,
     targetFootprintCells: 6,
+    siteRequirements: { requiredParcels: 1, minCombinedAreaCells: 6, requireEdgeContiguous: true },
     municipal: true,
   },
   fire_station: {
@@ -276,6 +289,7 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     form: "pavilion",
     defaultFloors: 2,
     targetFootprintCells: 8,
+    siteRequirements: { requiredParcels: 1, minCombinedAreaCells: 8, requireEdgeContiguous: true },
     municipal: true,
   },
   market_hall: {
@@ -292,6 +306,7 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     form: "pavilion",
     defaultFloors: 2,
     targetFootprintCells: 10,
+    siteRequirements: { requiredParcels: 1, minCombinedAreaCells: 10, requireEdgeContiguous: true },
     municipal: true,
   },
 };

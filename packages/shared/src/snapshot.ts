@@ -677,10 +677,10 @@ export function validateSnapshotReferences(snapshot: SnapshotV2): SnapshotValida
       }
     }
     for (const building of snapshot.phase2.buildings) {
-      if (!parcelIds.has(building.parcelId)) {
+      if (building.parcelIds.some((parcelId) => !parcelIds.has(parcelId))) {
         issues.push({
           code: "MISSING_REFERENCE",
-          path: `phase2/buildings/${building.id}/parcelId`,
+          path: `phase2/buildings/${building.id}/parcelIds`,
         });
       }
       if (building.tenantId && !tenantIds.has(building.tenantId)) {
@@ -753,7 +753,10 @@ export function validateSnapshotReferences(snapshot: SnapshotV2): SnapshotValida
       }
     }
     for (const site of snapshot.phase2.constructionSites) {
-      if (!parcelIds.has(site.parcelId) || !organizationIds.has(site.ownerOrganizationId)) {
+      if (
+        site.parcelIds.some((parcelId) => !parcelIds.has(parcelId)) ||
+        !organizationIds.has(site.ownerOrganizationId)
+      ) {
         issues.push({ code: "MISSING_REFERENCE", path: `phase2/constructionSites/${site.id}` });
       }
       if (site.upgradeBuildingId && !buildingIds.has(site.upgradeBuildingId)) {

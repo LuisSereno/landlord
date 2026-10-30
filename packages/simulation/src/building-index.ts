@@ -36,15 +36,22 @@ export function buildBuildingIndex(state: GameState): BuildingIndex {
   const footprintCellsByParcel = new Map<ParcelId, Set<string>>();
   for (const building of state.phase2.buildings.values()) {
     byId.set(building.id, building);
-    const parcelBuildings = byParcel.get(building.parcelId) ?? [];
-    parcelBuildings.push(building);
-    byParcel.set(building.parcelId, parcelBuildings);
+    /**
+     * V.d-7 · un edificio multi-parcela aparece indexado desde TODAS sus parcelas: preguntar por
+     * cualquiera de ellas lo devuelve. La huella se registra en cada parcela del conjunto porque
+     * todo el complejo reserva su suelo.
+     */
+    for (const parcelId of building.parcelIds) {
+      const parcelBuildings = byParcel.get(parcelId) ?? [];
+      parcelBuildings.push(building);
+      byParcel.set(parcelId, parcelBuildings);
+      const footprint = footprintCellsByParcel.get(parcelId) ?? new Set<string>();
+      for (const cell of building.footprintCells) footprint.add(cellKey(cell));
+      footprintCellsByParcel.set(parcelId, footprint);
+    }
     const districtBuildings = byDistrict.get(building.districtId) ?? [];
     districtBuildings.push(building);
     byDistrict.set(building.districtId, districtBuildings);
-    const footprint = footprintCellsByParcel.get(building.parcelId) ?? new Set<string>();
-    for (const cell of building.footprintCells) footprint.add(cellKey(cell));
-    footprintCellsByParcel.set(building.parcelId, footprint);
   }
   for (const buildings of byParcel.values())
     buildings.sort((left, right) => left.id.localeCompare(right.id));
@@ -71,7 +78,7 @@ export function activeSiteOnParcel(
   parcelId: ParcelId,
 ): ConstructionSite | undefined {
   return [...state.phase2.constructionSites.values()]
-    .filter((site) => site.parcelId === parcelId)
+    .filter((site) => site.parcelIds.includes(parcelId))
     .sort((left, right) => left.id.localeCompare(right.id))[0];
 }
 

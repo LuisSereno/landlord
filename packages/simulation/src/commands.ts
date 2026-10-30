@@ -1,4 +1,7 @@
 import {
+  areCellGroupsEdgeConnected,
+  canonicalParcelIds,
+  primaryParcelId,
   parseEventId,
   parseConstructionSiteId,
   parseMoney,
@@ -194,15 +197,21 @@ function densityBonusFor(
  */
 function issuePermit(
   state: GameState,
-  parcel: import("@landlord/shared").Parcel,
+  parcels: readonly import("@landlord/shared").Parcel[],
   buildingType: import("@landlord/shared").BuildingType,
 ): import("@landlord/shared").Permit {
+  /** V.d-7 · el permiso queda ligado al conjunto canónico exacto de parcelas del proyecto. */
+  const parcelIds = canonicalParcelIds(parcels.map((parcel) => parcel.id));
+  const parcel = parcels[0]!;
   const block = blockOfParcel(state, parcel);
   const code = developmentCodeById(parcel.developmentCodeId);
-  const live = activePermitFor(state, parcel.id, buildingType, state.clock.tick);
+  const live = activePermitFor(state, parcelIds, buildingType, state.clock.tick);
   if (live) return live;
-  for (const permit of permitsFor(state, parcel.id, buildingType))
+  for (const permit of permitsFor(state, parcelIds, buildingType))
     if (permit.status === "approved" && permit.expiresAtTick !== null) permit.status = "expired";
+  const combinedUses = [
+    ...new Set(parcels.flatMap((entry) => entry.currentUses)),
+  ].sort() as typeof parcel.currentUses;
   const baseChance = state.phase2.permitting.approvalChanceByRole[block.urbanRole] ?? 100;
   const ordinanceModifier =
     state.phase2.ordinance.status === "active"
@@ -221,13 +230,13 @@ function issuePermit(
   const id = parsePermitId(`permit_${String(state.phase2.idCounters.permit).padStart(8, "0")}`);
   const permit: import("@landlord/shared").Permit = {
     id,
-    parcelId: parcel.id,
+    parcelIds,
     buildingType,
     authorityOrganizationId: MUNICIPALITY_ORGANIZATION_ID,
-    requirements: permitRequirements(block.urbanRole, code, parcel.currentUses, buildingType),
+    requirements: permitRequirements(block.urbanRole, code, combinedUses, buildingType),
     developmentCodeIdAtDecision: code.id,
     allowedUsesAtDecision: [...code.allowedUses],
-    currentUsesAtDecision: [...parcel.currentUses],
+    currentUsesAtDecision: [...combinedUses],
     densityBonusFloors: densityBonus.floors,
     densityBonusFarPercent: densityBonus.farPercent,
     status: approved ? "approved" : "denied",
@@ -312,7 +321,7 @@ export function dispatchProductCommand(
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
     if (!isParcelUseAllowed(parcel, definition))
       return { accepted: false, code: "USE_NOT_ALLOWED" };
-    const permit = issuePermit(state, parcel, command.payload.buildingType);
+    const permit = issuePermit(state, [parcel], command.payload.buildingType);
     rememberProcessed(state, command.commandId);
     return productEvent(
       state,
@@ -716,26 +725,63 @@ export function dispatchProductCommand(
   }
 
   if (command.type === "StartConstruction") {
-    const parcel = state.phase2.parcels.get(command.payload.parcelId);
     const definition = BUILDING_DEFINITIONS[command.payload.buildingType];
-    if (!parcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
-    if (parcel.disposition !== "marketable")
-      return { accepted: false, code: "PUBLIC_LAND_NOT_BUILDABLE" };
-    if (parcel.ownerOrganizationId !== command.actingAsOrganizationId)
-      return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
-    if (!isParcelUseAllowed(parcel, definition))
-      return { accepted: false, code: "USE_NOT_ALLOWED" };
-    if (activeSiteOnParcel(state, parcel.id)) {
-      return { accepted: false, code: "ACTIVE_SITE_ON_PARCEL" };
-    }
+    const requirements = definition.siteRequirements;
     /**
-     * Solo vale un permiso aprobado, sin consumir, del tipo exacto y sin caducar. Si no lo hay se
-     * emite uno nuevo —la autoemisión del flujo actual se conserva— y un rechazo aquí tampoco quema
-     * el permiso de una obra que no llega a iniciarse.
+     * V.d-7 · el proyecto se apoya en un CONJUNTO de parcelas. El engine no confía en el orden ni
+     * en la ausencia de duplicados del cliente: canonicaliza y valida el conjunto completo antes de
+     * tocar caja, recursos o permisos.
+     */
+    if (new Set(command.payload.parcelIds).size !== command.payload.parcelIds.length)
+      return { accepted: false, code: "DUPLICATE_PARCELS" };
+    const parcelIds = canonicalParcelIds(command.payload.parcelIds);
+    if (parcelIds.length !== requirements.requiredParcels)
+      return { accepted: false, code: "WRONG_PARCEL_COUNT" };
+    const resolved = parcelIds.map((id) => state.phase2.parcels.get(id));
+    if (resolved.some((entry) => entry === undefined))
+      return { accepted: false, code: "PARCEL_NOT_FOUND" };
+    const parcels = resolved as import("@landlord/shared").Parcel[];
+    const primary = parcels[0]!;
+    if (parcels.some((parcel) => parcel.disposition !== "marketable"))
+      return { accepted: false, code: "PUBLIC_LAND_NOT_BUILDABLE" };
+    if (parcels.some((parcel) => parcel.ownerOrganizationId !== command.actingAsOrganizationId))
+      return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
+    if (parcels.some((parcel) => parcel.districtId !== primary.districtId))
+      return { accepted: false, code: "PARCELS_DIFFERENT_DISTRICT" };
+    /** Alpha no mezcla normas: un proyecto multi-parcela exige el mismo código urbanístico. */
+    if (parcels.some((parcel) => parcel.developmentCodeId !== primary.developmentCodeId))
+      return { accepted: false, code: "MIXED_DEVELOPMENT_CODES" };
+    if (parcels.some((parcel) => !isParcelUseAllowed(parcel, definition)))
+      return { accepted: false, code: "USE_NOT_ALLOWED" };
+    if (parcels.some((parcel) => activeSiteOnParcel(state, parcel.id)))
+      return { accepted: false, code: "ACTIVE_SITE_ON_PARCEL" };
+    const buildingIndex = buildBuildingIndex(state);
+    /**
+     * Un complejo reserva TODAS sus parcelas (§10): mientras exista obra, edificio o ruina, no se
+     * inicia otro proyecto en ninguna de ellas. Los edificios de una sola parcela conservan el
+     * comportamiento actual de convivir dentro del solar.
+     */
+    if (
+      requirements.requiredParcels > 1 &&
+      parcels.some((parcel) => buildingsOnParcel(buildingIndex, parcel.id).length > 0)
+    )
+      return { accepted: false, code: "PARCEL_OCCUPIED" };
+    if (
+      requirements.requireEdgeContiguous &&
+      !areCellGroupsEdgeConnected(parcels.map((parcel) => parcel.cells))
+    )
+      return { accepted: false, code: "PARCELS_NOT_EDGE_CONTIGUOUS" };
+    const combinedArea = parcels.reduce((total, parcel) => total + parcel.cells.length, 0);
+    if (combinedArea < requirements.minCombinedAreaCells)
+      return { accepted: false, code: "SITE_AREA_TOO_SMALL" };
+    /**
+     * Solo vale un permiso aprobado, sin consumir, del tipo exacto y para ESTE conjunto de parcelas.
+     * Si no lo hay se emite uno nuevo; un rechazo aquí tampoco quema el permiso de una obra que no
+     * llega a iniciarse.
      */
     const permit =
-      activePermitFor(state, parcel.id, command.payload.buildingType, state.clock.tick) ??
-      issuePermit(state, parcel, command.payload.buildingType);
+      activePermitFor(state, parcelIds, command.payload.buildingType, state.clock.tick) ??
+      issuePermit(state, parcels, command.payload.buildingType);
     if (permit.status !== "approved") return { accepted: false, code: "PERMIT_DENIED" };
     const code = effectiveDevelopmentCode(
       permit.developmentCodeIdAtDecision,
@@ -744,23 +790,27 @@ export function dispatchProductCommand(
     );
     const avenueSegmentIds = new Set(
       state.world.districts
-        .get(parcel.districtId)!
+        .get(primary.districtId)!
         .map.roads.segments.filter((segment) => segment.class === "avenue")
         .map((segment) => segment.id as string),
     );
-    const principalFrontageCells = parcel.roadFrontages
+    const frontages = parcels.flatMap((parcel) => parcel.roadFrontages);
+    const principalFrontageCells = frontages
       .filter((frontage) => avenueSegmentIds.has(frontage.roadSegmentId))
       .flatMap((frontage) => frontage.cells);
-    const buildingIndex = buildBuildingIndex(state);
     const footprint = chooseFootprint({
-      parcel,
+      /** La unión es el solar normativo: la frontera catastral interna no bloquea la huella. */
+      parcel: {
+        cells: parcels.flatMap((parcel) => parcel.cells),
+        roadFrontages: frontages,
+      },
       code,
       definition,
       principalFrontageCells:
         principalFrontageCells.length > 0
           ? principalFrontageCells
-          : parcel.roadFrontages.flatMap((frontage) => frontage.cells),
-      buildings: buildingsOnParcel(buildingIndex, parcel.id),
+          : frontages.flatMap((frontage) => frontage.cells),
+      buildings: parcels.flatMap((parcel) => buildingsOnParcel(buildingIndex, parcel.id)),
     });
     if ("error" in footprint) return { accepted: false, code: footprint.error };
     const activeSites = [...state.phase2.constructionSites.values()].filter(
@@ -774,30 +824,30 @@ export function dispatchProductCommand(
       return { accepted: false, code: "INSUFFICIENT_RESOURCES" };
     const materialModifier = 1 + materialCostModifierPercentFor(state) / 100;
     const cost = parseMoney(Math.max(0, Math.round(definition.cost * materialModifier)));
-    if (!debit(state, command.actingAsOrganizationId, cost, "construction_start", parcel.id))
+    /** La caja se anota contra la parcela primaria: es un ancla contable, no una regla de reparto. */
+    if (
+      !debit(
+        state,
+        command.actingAsOrganizationId,
+        cost,
+        "construction_start",
+        primaryParcelId(parcelIds)!,
+      )
+    )
       return { accepted: false, code: "INSUFFICIENT_FUNDS" };
     inventory.cement -= definition.resources.cement;
     inventory.brick -= definition.resources.brick;
     inventory.steel -= definition.resources.steel;
-    /**
-     * El permiso se consume aquí, cuando ya no queda ningún rechazo posible: footprint, cuadrícula,
-     * recursos y fondos se resolvieron antes. Un permiso consumido no puede financiar una segunda
-     * obra, y su registro histórico sigue visible con `consumedAtTick`.
-     */
     permit.status = "consumed";
     permit.consumedAtTick = parseTick(state.clock.tick);
-    /**
-     * El modelo construye con recursos y trabajo, no con un coste en caja adicional: el modifier de
-     * coste constructivo se aplica como esfuerzo, que es su consumidor semánticamente correcto.
-     */
     state.phase2.idCounters.constructionSite += 1;
     const siteId = parseConstructionSiteId(
       `site_${String(state.phase2.idCounters.constructionSite).padStart(8, "0")}`,
     );
     state.phase2.constructionSites.set(siteId, {
       id: siteId,
-      parcelId: parcel.id,
-      districtId: parcel.districtId,
+      parcelIds,
+      districtId: primary.districtId,
       ownerOrganizationId: command.actingAsOrganizationId,
       buildingType: definition.type,
       footprintCells: footprint.footprintCells.map((cell) => ({ ...cell })),
@@ -818,7 +868,7 @@ export function dispatchProductCommand(
     rememberProcessed(state, command.commandId);
     return productEvent(state, command.commandId, "ConstructionStarted", {
       siteId,
-      parcelId: parcel.id,
+      parcelIds,
       permitId: permit.id,
     });
   }

@@ -269,7 +269,7 @@ describe("H1-10 D · secuencia completa de permisos", () => {
       ),
     ).toMatchObject({ accepted: true, event: { type: "PermitApproved" } });
 
-    const permit = activePermitFor(state, parcel.id, "courtyard_home", state.clock.tick)!;
+    const permit = activePermitFor(state, [parcel.id], "courtyard_home", state.clock.tick)!;
     expect(permit.id).toBe("permit_00000001");
     expect(permit.consumedAtTick).toBeNull();
 

@@ -35,7 +35,10 @@ describe("WP2.15 tactical spike", () => {
     expect(
       dispatchProductCommand(
         state,
-        command("start", "StartConstruction", { parcelId, buildingType: "courtyard_home" }),
+        command("start", "StartConstruction", {
+          parcelIds: [parcelId],
+          buildingType: "courtyard_home",
+        }),
       ),
     ).toMatchObject({ accepted: true });
     const site = [...state.phase2.constructionSites.values()][0]!;
@@ -93,7 +96,7 @@ describe("WP2.15 tactical spike", () => {
     const buildingParcel = state.phase2.parcels.get(parcelId)!;
     const building = {
       id: buildingId,
-      parcelId,
+      parcelIds: [parcelId],
       districtId: buildingParcel.districtId,
       footprintCells: [{ ...buildingParcel.anchorCell }],
       orientation: 0 as const,

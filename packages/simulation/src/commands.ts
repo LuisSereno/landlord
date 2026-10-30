@@ -524,11 +524,7 @@ export function dispatchProductCommand(
           buildingCollateralContribution(
             building,
             parcel.id,
-            collateralBuildingValue(
-              building,
-              BUILDING_DEFINITIONS[building.type].cost,
-              "cost",
-            ),
+            collateralBuildingValue(building, BUILDING_DEFINITIONS[building.type].cost, "cost"),
           ),
         0,
       );
@@ -793,12 +789,16 @@ export function dispatchProductCommand(
     const buildingIndex = buildBuildingIndex(state);
     /**
      * Un complejo reserva TODAS sus parcelas (§10): mientras exista obra, edificio o ruina, no se
-     * inicia otro proyecto en ninguna de ellas. Los edificios de una sola parcela conservan el
-     * comportamiento actual de convivir dentro del solar.
+     * inicia otro proyecto en ninguna de ellas —tampoco una vivienda de una parcela—. Los edificios
+     * de una sola parcela conservan el comportamiento actual de convivir dentro del solar.
      */
+    const occupiedByComplex = parcels.some((parcel) =>
+      buildingsOnParcel(buildingIndex, parcel.id).some((building) => building.parcelIds.length > 1),
+    );
     if (
-      requirements.requiredParcels > 1 &&
-      parcels.some((parcel) => buildingsOnParcel(buildingIndex, parcel.id).length > 0)
+      occupiedByComplex ||
+      (requirements.requiredParcels > 1 &&
+        parcels.some((parcel) => buildingsOnParcel(buildingIndex, parcel.id).length > 0))
     )
       return { accepted: false, code: "PARCEL_OCCUPIED" };
     if (

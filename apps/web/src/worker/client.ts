@@ -356,7 +356,7 @@ export class SimulationWorkerClient {
   }
 
   public requestPermit(
-    parcelId: string,
+    parcelIds: readonly string[],
     buildingType: "courtyard_home" | "workshop" | "cement_plant" | "brickworks" | "steelworks",
   ) {
     return this.submitProductCommand({
@@ -364,7 +364,7 @@ export class SimulationWorkerClient {
       issuedByPersonId: parsePersonId("person_00000001"),
       actingAsOrganizationId: parseOrganizationId("org_00000001"),
       type: "RequestPermit",
-      payload: { parcelIds: [parseParcelId(parcelId)], buildingType },
+      payload: { parcelIds: parcelIds.map(parseParcelId), buildingType },
     });
   }
 

@@ -360,7 +360,7 @@ describe("V.d.2 mercados y población", () => {
     const districtId = state.world.city.districtIds[0]!;
     const building = {
       id: parseBuildingId("building_00000999"),
-      parcelId: parseParcelId("parcel_00000001"),
+      parcelIds: [parseParcelId("parcel_00000001")],
       districtId,
       ownerOrganizationId: organization,
       productionFacilityId: null,

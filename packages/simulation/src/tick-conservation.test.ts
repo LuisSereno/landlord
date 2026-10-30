@@ -123,54 +123,54 @@ function cityDigest(input: {
 const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => string }> = [
   {
     id: "scenario:seed-1:1200",
-    expected: "7b9f8b44a0126934",
+    expected: "6a8fe8f431d4eced",
     run: () => digest(canonicalizeState(runScenario(1, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-7:1200",
-    expected: "107877d75330c137",
+    expected: "81351e019d425f7a",
     run: () => digest(canonicalizeState(runScenario(7, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-42:1200",
-    expected: "eecd14f55a886042",
+    expected: "89fc2fb31d8ae0bd",
     run: () => digest(canonicalizeState(runScenario(42, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "638911642611e350",
+    expected: "c0f6e213bd64d01a",
     run: () => digest(canonicalizeState(runScenario(1, [], 36_000, { checkpointEvery: 0 }).state)),
   },
   {
     id: "city:50-parcels:1300-ticks",
-    expected: "b0da0195cda5a973",
+    expected: "39beb62c734d0751",
     run: () => cityDigest({ parcelCount: 50, ticks: 1_300 }),
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "1a6c324780f8bc19",
+    expected: "32f9c24430611fc5",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "9c01fa414acf9739",
+    expected: "df66ce26f94175a5",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "6d7092e071c2d219",
+    expected: "23b579fc494211ce",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "b7a9bc0c08827329",
+    expected: "fa0ee2cfbab17485",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "0553e0da42cb1235",
+    expected: "e10c0f4332b2d424",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];
@@ -323,6 +323,22 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
  * cuyo término `services` cambia de verdad. Los otros nueve casos quedan bit a bit idénticos:
  * `city:50-parcels:month-boundary` tiene sus 50 solares construidos (no hay vacante a la que dar
  * señal) y las carreras sin cierre mensual no ejecutan `updateLandValues`.
+ */
+
+/**
+ * Regeneración V.d-7A (2026-10-30): cambian los diez digestos por superficie canónica. `Building`,
+ * `ConstructionSite` y `Permit` pasan de `parcelId` a `parcelIds` (contrato multi-parcela), y la
+ * ciudad inicial lleva 14 edificios municipales con `parcelIds: [id]`. Atribución medida: sobre los
+ * diez estados finales nuevos se reconstruyó la forma canónica anterior —cada `parcelIds` de un solo
+ * elemento vuelto a `parcelId` y las claves reordenadas— y los diez recuperan EXACTAMENTE sus valores
+ * previos (`7b9f8b44a0126934`, `107877d75330c137`, `eecd14f55a886042`, `638911642611e350`,
+ * `b0da0195cda5a973`, `1a6c324780f8bc19`, `9c01fa414acf9739`, `6d7092e071c2d219`,
+ * `b7a9bc0c08827329`, `0553e0da42cb1235`). Ninguno de los diez escenarios contiene edificios,
+ * obras ni permisos multi-parcela al terminar, así que la regla nueva no altera sus decisiones.
+ * Contraprueba adicional en `scenario:seed-1:36000`: con `siteRequirements.requiredParcels = 1` en
+ * todas las definiciones el digesto normalizado vuelve a `638911642611e350` —el mismo valor— y las
+ * cajas, transacciones y edificios finales coinciden con la ejecución real (rival 2225, 20
+ * transacciones, dos viviendas). El delta es de forma, no de economía.
  */
 
 describe("WP4.2 conservación del resultado económico", () => {

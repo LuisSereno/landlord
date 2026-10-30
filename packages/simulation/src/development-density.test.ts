@@ -82,7 +82,7 @@ describe("V.d.4 densidad de corredor", () => {
       }),
     );
     expect(result.accepted).toBe(true);
-    const permit = activePermitFor(state, parcel.id, "apartment_block", state.clock.tick)!;
+    const permit = activePermitFor(state, [parcel.id], "apartment_block", state.clock.tick)!;
     expect(permit.densityBonusFloors).toBe(1);
     expect(permit.densityBonusFarPercent).toBe(100);
   });
@@ -148,7 +148,7 @@ describe("V.d.4 densidad de corredor", () => {
         }),
       ).accepted,
     ).toBe(true);
-    const permit = activePermitFor(state, second.id, "apartment_block", state.clock.tick)!;
+    const permit = activePermitFor(state, [second.id], "apartment_block", state.clock.tick)!;
     expect(permit.densityBonusFloors).toBe(0);
     expect(permit.densityBonusFarPercent).toBe(0);
   });

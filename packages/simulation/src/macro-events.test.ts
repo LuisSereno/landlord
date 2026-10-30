@@ -75,7 +75,9 @@ function addBuilding(
       parcels.reduce((total, parcel) => total + parcel.anchorCell.y, 0) / parcels.length,
     ),
   };
-  const used = new Set([...state.phase2.buildings.values()].map((building) => building.parcelIds[0]!));
+  const used = new Set(
+    [...state.phase2.buildings.values()].map((building) => building.parcelIds[0]!),
+  );
   const parcel = parcels
     .filter(
       (candidate) =>

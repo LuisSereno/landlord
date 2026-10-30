@@ -102,7 +102,9 @@ export function App() {
           (entry) => entry.ownerOrganizationId === "org_00000001",
         );
         if (!building) return null;
-        return economy?.parcels.find((parcel) => parcel.id === building.parcelIds[0]!)?.cell ?? null;
+        return (
+          economy?.parcels.find((parcel) => parcel.id === building.parcelIds[0]!)?.cell ?? null
+        );
       },
       marketableParcelCellForType: (buildingType: string) =>
         economy?.parcels.find(

@@ -37,7 +37,7 @@ export const CITY_PARCEL_COUNT_ENVELOPE = { min: 700, max: 760 } as const;
 export const CITY_SEED_FIXTURES: readonly CitySeedFixture[] = [
   {
     seed: 1,
-    digest: "f82e1c935cdcc5c3",
+    digest: "c92a0e6bb0f08e48",
     districtCount: 9,
     blockCount: 119,
     parcelCount: 723,
@@ -61,7 +61,7 @@ export const CITY_SEED_FIXTURES: readonly CitySeedFixture[] = [
   },
   {
     seed: 2,
-    digest: "f6116626881de756",
+    digest: "01ab45a69776b8f3",
     districtCount: 9,
     blockCount: 119,
     parcelCount: 738,
@@ -85,7 +85,7 @@ export const CITY_SEED_FIXTURES: readonly CitySeedFixture[] = [
   },
   {
     seed: 3,
-    digest: "231641c150a102ce",
+    digest: "8b1d6609ef6a4ed3",
     districtCount: 9,
     blockCount: 119,
     parcelCount: 722,
@@ -109,7 +109,7 @@ export const CITY_SEED_FIXTURES: readonly CitySeedFixture[] = [
   },
   {
     seed: 5,
-    digest: "5eb40584de5da0bd",
+    digest: "fa9322c4c03999ee",
     districtCount: 9,
     blockCount: 119,
     parcelCount: 739,
@@ -133,7 +133,7 @@ export const CITY_SEED_FIXTURES: readonly CitySeedFixture[] = [
   },
   {
     seed: 7,
-    digest: "d0daa97a66e9ffeb",
+    digest: "d6a3a20cffce83f2",
     districtCount: 9,
     blockCount: 119,
     parcelCount: 726,
@@ -157,7 +157,7 @@ export const CITY_SEED_FIXTURES: readonly CitySeedFixture[] = [
   },
   {
     seed: 11,
-    digest: "13faa1a13624fcc1",
+    digest: "e316da53b22255f4",
     districtCount: 9,
     blockCount: 119,
     parcelCount: 712,
@@ -181,7 +181,7 @@ export const CITY_SEED_FIXTURES: readonly CitySeedFixture[] = [
   },
   {
     seed: 13,
-    digest: "bcb0cfa27a7ba4db",
+    digest: "0870aca47685c0de",
     districtCount: 9,
     blockCount: 119,
     parcelCount: 736,
@@ -205,7 +205,7 @@ export const CITY_SEED_FIXTURES: readonly CitySeedFixture[] = [
   },
   {
     seed: 17,
-    digest: "4ebb3d5f3ced8827",
+    digest: "eeaacf635d3af59c",
     districtCount: 9,
     blockCount: 119,
     parcelCount: 730,
@@ -229,7 +229,7 @@ export const CITY_SEED_FIXTURES: readonly CitySeedFixture[] = [
   },
   {
     seed: 23,
-    digest: "0250bfc02e649f62",
+    digest: "ab1852886e6e949f",
     districtCount: 9,
     blockCount: 119,
     parcelCount: 738,
@@ -253,7 +253,7 @@ export const CITY_SEED_FIXTURES: readonly CitySeedFixture[] = [
   },
   {
     seed: 42,
-    digest: "06d8ee329f9ef3ed",
+    digest: "3a3d2c5cc5ee55d4",
     districtCount: 9,
     blockCount: 119,
     parcelCount: 730,
@@ -277,7 +277,7 @@ export const CITY_SEED_FIXTURES: readonly CitySeedFixture[] = [
   },
   {
     seed: 1337,
-    digest: "65718b251d7a306b",
+    digest: "2304a2b14a8bbe08",
     districtCount: 9,
     blockCount: 119,
     parcelCount: 739,
@@ -301,7 +301,7 @@ export const CITY_SEED_FIXTURES: readonly CitySeedFixture[] = [
   },
   {
     seed: 2026,
-    digest: "6055198940d74d3e",
+    digest: "0195955977d0b87b",
     districtCount: 9,
     blockCount: 119,
     parcelCount: 740,

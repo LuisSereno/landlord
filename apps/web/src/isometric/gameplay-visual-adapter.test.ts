@@ -29,12 +29,12 @@ type ParcelInput = {
 type BuildingInput = {
   id: string;
   type: string;
-  parcelId: string;
+  parcelIds: string[];
   state: "operational" | "burning" | "collapse_pending" | "ruin";
   condition: number;
 };
 
-type SiteInput = { id: string; parcelId: string; buildingType: string };
+type SiteInput = { id: string; parcelIds: string[]; buildingType: string };
 
 function projection(
   parcels: ParcelInput[],
@@ -105,7 +105,13 @@ const PARCELS: ParcelInput[] = [
 ];
 
 const BUILDINGS: BuildingInput[] = [
-  { id: "bld_1", type: "courtyard_home", parcelIds: ["par_1"], state: "operational", condition: 90 },
+  {
+    id: "bld_1",
+    type: "courtyard_home",
+    parcelIds: ["par_1"],
+    state: "operational",
+    condition: 90,
+  },
   { id: "bld_2", type: "workshop", parcelIds: ["par_2"], state: "operational", condition: 40 },
   { id: "bld_3", type: "cement_plant", parcelIds: ["par_3"], state: "operational", condition: 80 },
 ];

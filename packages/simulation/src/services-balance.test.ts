@@ -246,7 +246,7 @@ function measureSeed(seed: number, developedPercent = 0) {
     const reachableCostsActive = CAPACITY_SERVICES.has(service)
       ? developedParcels
           .map((parcel) => {
-            const entry = distances.find((candidate) => candidate.parcelIds[0]! === parcel.id);
+            const entry = distances.find((candidate) => candidate.parcelId === parcel.id);
             return entry?.cost ?? null;
           })
           .filter((cost): cost is number => cost !== null)

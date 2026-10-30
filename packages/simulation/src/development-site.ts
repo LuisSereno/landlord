@@ -8,7 +8,7 @@ import type {
 import { areCellGroupsEdgeConnected, canonicalParcelIds } from "@landlord/shared";
 
 import { activeSiteOnParcel, buildBuildingIndex, buildingsOnParcel } from "./building-index";
-import { districtStateOf, type GameState } from "./state";
+import { type GameState } from "./state";
 import { developmentCodeById, isBuildingAllowedByDevelopmentCode } from "./development-codes";
 
 /**
@@ -54,10 +54,14 @@ export function findDevelopmentSite(input: {
       : null;
   }
 
-  /** Vecindad por borde entre parcelas candidatas: comparten al menos una celda adyacente. */
+  /**
+   * Vecindad por borde entre parcelas candidatas. La clave incluye el distrito: los nueve mapas
+   * comparten rango local 0..63 y una celda de otro distrito no es vecina de nada (D-093/H1-01).
+   */
   const cellOwner = new Map<string, ParcelId>();
   for (const parcel of all)
-    for (const cell of parcel.cells) cellOwner.set(`${cell.x}:${cell.y}`, parcel.id);
+    for (const cell of parcel.cells)
+      cellOwner.set(`${parcel.districtId}:${cell.x}:${cell.y}`, parcel.id);
   const neighbours = new Map<ParcelId, ParcelId[]>();
   for (const parcel of all) {
     const found = new Set<ParcelId>();
@@ -68,7 +72,7 @@ export function findDevelopmentSite(input: {
         [0, 1],
         [-1, 0],
       ] as const) {
-        const owner = cellOwner.get(`${cell.x + dx}:${cell.y + dy}`);
+        const owner = cellOwner.get(`${parcel.districtId}:${cell.x + dx}:${cell.y + dy}`);
         if (owner && owner !== parcel.id) found.add(owner);
       }
     }
@@ -81,9 +85,7 @@ export function findDevelopmentSite(input: {
   const maxExplored = input.maxExplored ?? 512;
   let explored = 0;
   const seeds =
-    input.seedParcelId && byId.has(input.seedParcelId)
-      ? [byId.get(input.seedParcelId)!]
-      : all;
+    input.seedParcelId && byId.has(input.seedParcelId) ? [byId.get(input.seedParcelId)!] : all;
   const candidateSets = new Set<string>();
   for (const seed of seeds) {
     const frontier: ParcelId[][] = [[seed.id]];

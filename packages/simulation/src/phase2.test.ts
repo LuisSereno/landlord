@@ -22,10 +22,55 @@ import { activePermitFor, publishedPermitForParcel } from "./permitting";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { advanceProductSystems } from "./systems";
 import { controlGrantKey, createInitialState } from "./state";
-import { rivalParcel } from "./test-support";
+import { PLAYER_HOME_DISTRICT_ID } from "./city";
 import { developmentCodeById } from "./development-codes";
 import { createViewProjection } from "./projection";
 import { GAME_DAY_TICKS, GAME_MONTH_TICKS, deteriorationRiskPercent } from "./game-data";
+
+/**
+ * V.d-7 · para probar una cementera hace falta un par de parcelas contiguas del mismo distrito y
+ * código que permita uso industrial. Se busca en orden canónico en vez de fijar ids.
+ */
+function findIndustrialPair(state: ReturnType<typeof createInitialState>, districtId?: string) {
+  const parcels = [...state.phase2.parcels.values()]
+    .filter(
+      (parcel) =>
+        parcel.disposition === "marketable" &&
+        !parcel.ownerOrganizationId &&
+        (districtId === undefined || parcel.districtId === districtId),
+    )
+    .sort(
+      (left, right) =>
+        left.districtId.localeCompare(right.districtId) || left.id.localeCompare(right.id),
+    );
+  const owner = new Map<string, string>();
+  for (const parcel of parcels)
+    for (const cell of parcel.cells)
+      owner.set(`${parcel.districtId}:${cell.x}:${cell.y}`, parcel.id as string);
+  for (const parcel of parcels) {
+    if (!developmentCodeById(parcel.developmentCodeId).allowedUses.includes("industrial")) continue;
+    const neighbours = new Set<string>();
+    for (const cell of parcel.cells)
+      for (const [dx, dy] of [
+        [0, -1],
+        [1, 0],
+        [0, 1],
+        [-1, 0],
+      ] as const) {
+        const id = owner.get(`${parcel.districtId}:${cell.x + dx}:${cell.y + dy}`);
+        if (id && id !== parcel.id) neighbours.add(id);
+      }
+    for (const id of [...neighbours].sort()) {
+      const other = state.phase2.parcels.get(parseParcelId(id))!;
+      if (other.disposition !== "marketable" || other.ownerOrganizationId) continue;
+      if (other.districtId !== parcel.districtId) continue;
+      if (other.developmentCodeId !== parcel.developmentCodeId) continue;
+      if (parcel.cells.length + other.cells.length < 10) continue;
+      return [parcel, other] as const;
+    }
+  }
+  throw new Error("no hay par industrial contiguo en la ciudad de fixture");
+}
 
 const actor = parsePersonId("person_00000001");
 const organization = "org_00000001" as ProductCommand["actingAsOrganizationId"];
@@ -445,33 +490,46 @@ describe("Gate 2 product loop", () => {
 
   it("builds a physical factory with parcel suitability and pauses production during fire", () => {
     const state = createInitialState(31);
-    dispatchProductCommand(
-      state,
-      command("factory-buy", "BuyParcel", { parcelId: parseParcelId("parcel_00000005") }),
-    );
+    const [factorySeed, factoryNeighbour] = findIndustrialPair(state, PLAYER_HOME_DISTRICT_ID);
+    factorySeed.productionSuitability = {
+      ...(factorySeed.productionSuitability ?? { cement: 100, brick: 100, steel: 100 }),
+      cement: 120,
+    };
+    for (const parcel of [factorySeed, factoryNeighbour])
+      dispatchProductCommand(
+        state,
+        command(`factory-buy-${parcel.id}`, "BuyParcel", { parcelId: parcel.id }),
+      );
     expect(
       dispatchProductCommand(
         state,
         command("factory-build", "StartConstruction", {
-          parcelIds: [parseParcelId("parcel_00000005")],
+          parcelIds: [factorySeed.id, factoryNeighbour.id],
           buildingType: "cement_plant",
         }),
       ).accepted,
     ).toBe(true);
 
     advanceToTick(state, 120 * 2 * 50);
-    const building = state.phase2.buildings.get(parseBuildingId("building_00000001"))!;
+    const building = [...state.phase2.buildings.values()].find(
+      (entry) => entry.ownerOrganizationId === organization && entry.type === "cement_plant",
+    )!;
     expect(building.type).toBe("cement_plant");
     expect(building.productionFacilityId).not.toBeNull();
     const facility = state.phase2.facilities.get(building.productionFacilityId!)!;
     expect(facility.buildingId).toBe(building.id);
     expect(facility.suitabilityPercent).toBe(120);
-    expect(createViewProjection(state, true).economy?.production[0]).toMatchObject({
+    /**
+     * V.d-7 · el ciclo de producción depende de cuándo termina la obra multi-parcela; el contrato
+     * estable es la producción base/media, no la fase del acumulador en un tick arbitrario.
+     */
+    const firstProduction = createViewProjection(state, true).economy?.production[0];
+    expect(firstProduction).toMatchObject({
       baseOutputAmount: 2,
       averageOutputAmount: 2.4,
-      nextCycleOutputAmount: 2,
-      remainder: 0,
     });
+    expect(firstProduction!.nextCycleOutputAmount).toBeGreaterThanOrEqual(2);
+    expect(firstProduction!.nextCycleOutputAmount).toBeLessThanOrEqual(3);
     facility.suitabilityPercent = 95;
     expect(createViewProjection(state, true).economy?.production[0]?.averageOutputAmount).toBe(1.9);
     facility.suitabilityPercent = 135;
@@ -482,7 +540,7 @@ describe("Gate 2 product loop", () => {
     const beforeProduction = inventory.cement;
     advanceToTick(state, state.clock.tick + 72 * 50);
     expect(inventory.cement - beforeProduction).toBe(7);
-    expect(facility.remainder).toBe(200_000);
+    expect(facility.remainder).toBe(800_000);
 
     building.state = "burning";
     state.phase2.incidents.set(parseIncidentId("incident_00000002"), {
@@ -505,8 +563,19 @@ describe("Gate 2 product loop", () => {
         command("factory-maintenance", "AssignMaintenance", { buildingId: building.id }),
       ).accepted,
     ).toBe(true);
-    advanceToTick(state, state.clock.tick + 23 * 50);
-    expect(inventory.cement).toBe(duringFire);
+    /**
+     * V.d-7 · el momento del ciclo de producción depende del calendario de la obra; lo que debe
+     * cumplirse siempre es que mientras el incendio sigue activo no entra ninguna hornada.
+     */
+    let fireTicks = 0;
+    while (
+      state.phase2.incidents.get(parseIncidentId("incident_00000002"))?.status === "active" &&
+      fireTicks < 23 * 50
+    ) {
+      advanceProductSystems(state);
+      fireTicks += 1;
+      expect(inventory.cement).toBe(duringFire);
+    }
     expect(building.state).toBe("operational");
     expect(state.phase2.incidents.get(parseIncidentId("incident_00000002"))?.status).toBe(
       "resolved",
@@ -575,23 +644,22 @@ describe("Gate 2 product loop", () => {
   });
 
   it("does not produce before completion and applies parcel suitability", () => {
-    const buildFactory = (seed: number, parcelIds: [string], suitability?: number) => {
+    const buildFactory = (seed: number, suitability = 120) => {
       const state = createInitialState(seed);
-      if (suitability !== undefined) {
-        const parcel = state.phase2.parcels.get(parseParcelId(parcelId))!;
-        parcel.productionSuitability = {
-          ...(parcel.productionSuitability ?? { cement: 100, brick: 100, steel: 100 }),
-          cement: suitability,
-        };
-      }
-      dispatchProductCommand(
-        state,
-        command(`factory-buy-${seed}`, "BuyParcel", { parcelId: parseParcelId(parcelId) }),
-      );
+      const [siteSeed, siteNeighbour] = findIndustrialPair(state, PLAYER_HOME_DISTRICT_ID);
+      siteSeed.productionSuitability = {
+        ...(siteSeed.productionSuitability ?? { cement: 100, brick: 100, steel: 100 }),
+        cement: suitability,
+      };
+      for (const parcel of [siteSeed, siteNeighbour])
+        dispatchProductCommand(
+          state,
+          command(`factory-buy-${seed}-${parcel.id}`, "BuyParcel", { parcelId: parcel.id }),
+        );
       dispatchProductCommand(
         state,
         command(`factory-build-${seed}`, "StartConstruction", {
-          parcelIds: [parseParcelId(parcelId)],
+          parcelIds: [siteSeed.id, siteNeighbour.id],
           buildingType: "cement_plant",
         }),
       );
@@ -607,14 +675,15 @@ describe("Gate 2 product loop", () => {
 
       advanceToTick(state, 180 * 50);
       const building = [...state.phase2.buildings.values()].find(
-        (entry) => entry.parcelIds[0]! === parseParcelId(parcelId),
+        (entry) =>
+          entry.ownerOrganizationId === organization && entry.parcelIds.includes(siteSeed.id),
       )!;
       const facility = state.phase2.facilities.get(building.productionFacilityId!)!;
       return { state, facility };
     };
 
-    const highSuitability = buildFactory(41, "parcel_00000005");
-    const mixedSuitability = buildFactory(43, "parcel_00000007", 95);
+    const highSuitability = buildFactory(41);
+    const mixedSuitability = buildFactory(43, 95);
     expect(highSuitability.facility.suitabilityPercent).toBe(120);
     expect(mixedSuitability.facility.suitabilityPercent).toBe(95);
     expect(
@@ -628,9 +697,14 @@ describe("Gate 2 product loop", () => {
 
   it("lets the rival choose market supply or a physical factory through normal commands", () => {
     const productionState = createInitialState(47);
-    rivalParcel(productionState, (parcel) =>
-      developmentCodeById(parcel.developmentCodeId).allowedUses.includes("industrial"),
-    ).ownerOrganizationId = parseOrganizationId("org_00000002");
+    const productionPair = findIndustrialPair(productionState);
+    for (const parcel of productionPair)
+      parcel.ownerOrganizationId = parseOrganizationId("org_00000002");
+    /** El rival sólo construye en distritos donde tiene agentes (D-088): se le da presencia allí. */
+    const rivalAgent = [...productionState.agents.values()].find(
+      (agent) => agent.organizationId === parseOrganizationId("org_00000002"),
+    )!;
+    rivalAgent.districtId = productionPair[0].districtId;
     productionState.clock.tick = parseTick(50 * 24);
     advanceProductSystems(productionState);
     expect(productionState.phase2.rivalAi.lastAction).toBe("build_production");
@@ -639,9 +713,13 @@ describe("Gate 2 product loop", () => {
     );
 
     const marketState = createInitialState(53);
-    rivalParcel(marketState, (parcel) =>
-      developmentCodeById(parcel.developmentCodeId).allowedUses.includes("industrial"),
-    ).ownerOrganizationId = parseOrganizationId("org_00000002");
+    const marketPair = findIndustrialPair(marketState);
+    for (const parcel of marketPair)
+      parcel.ownerOrganizationId = parseOrganizationId("org_00000002");
+    const marketAgent = [...marketState.agents.values()].find(
+      (agent) => agent.organizationId === parseOrganizationId("org_00000002"),
+    )!;
+    marketAgent.districtId = marketPair[0].districtId;
     marketState.phase2.inventories.get(parseOrganizationId("org_00000002"))!.brick = 0;
     marketState.clock.tick = parseTick(50 * 24);
     advanceProductSystems(marketState);
@@ -651,14 +729,16 @@ describe("Gate 2 product loop", () => {
 
   it("migrates snapshots without kind by building linkage", () => {
     const state = createInitialState(37);
-    dispatchProductCommand(
-      state,
-      command("migration-buy", "BuyParcel", { parcelId: parseParcelId("parcel_00000005") }),
-    );
+    const [migrationSeed, migrationNeighbour] = findIndustrialPair(state, PLAYER_HOME_DISTRICT_ID);
+    for (const parcel of [migrationSeed, migrationNeighbour])
+      dispatchProductCommand(
+        state,
+        command(`migration-buy-${parcel.id}`, "BuyParcel", { parcelId: parcel.id }),
+      );
     dispatchProductCommand(
       state,
       command("migration-build", "StartConstruction", {
-        parcelIds: [parseParcelId("parcel_00000005")],
+        parcelIds: [migrationSeed.id, migrationNeighbour.id],
         buildingType: "cement_plant",
       }),
     );
@@ -1181,7 +1261,7 @@ describe("WP3.8 zoning and permits", () => {
       dispatchProductCommand(
         state,
         command("permit-invalid-use", "RequestPermit", {
-          parcelId,
+          parcelIds: [parcelId],
           buildingType: "courtyard_home",
         }),
       ),
@@ -1212,7 +1292,7 @@ describe("WP3.8 zoning and permits", () => {
       dispatchProductCommand(
         state,
         command("permit-denied", "RequestPermit", {
-          parcelId,
+          parcelIds: [parcelId],
           buildingType: "courtyard_home",
         }),
       ),
@@ -1230,7 +1310,7 @@ describe("WP3.8 zoning and permits", () => {
       dispatchProductCommand(
         state,
         command("permit-construction-denied", "StartConstruction", {
-          parcelId,
+          parcelIds: [parcelId],
           buildingType: "courtyard_home",
         }),
       ),
@@ -1241,12 +1321,12 @@ describe("WP3.8 zoning and permits", () => {
       dispatchProductCommand(
         state,
         command("permit-approved", "RequestPermit", {
-          parcelId,
+          parcelIds: [parcelId],
           buildingType: "courtyard_home",
         }),
       ),
     ).toMatchObject({ accepted: true, event: { type: "PermitApproved" } });
-    const permit = activePermitFor(state, parcelId, "courtyard_home", state.clock.tick)!;
+    const permit = activePermitFor(state, [parcelId], "courtyard_home", state.clock.tick)!;
     expect(permit).toMatchObject({
       status: "approved",
       expiresAtTick: GAME_MONTH_TICKS * 6,
@@ -1255,7 +1335,7 @@ describe("WP3.8 zoning and permits", () => {
       dispatchProductCommand(
         state,
         command("permit-construction-approved", "StartConstruction", {
-          parcelId,
+          parcelIds: [parcelId],
           buildingType: "courtyard_home",
         }),
       ).accepted,
@@ -1289,7 +1369,7 @@ describe("WP3.8 zoning and permits", () => {
     ).toBe(true);
     const unusedPermit = activePermitFor(
       state,
-      unusedParcelId,
+      [unusedParcelId],
       "courtyard_home",
       state.clock.tick,
     )!;
@@ -1610,7 +1690,7 @@ describe("WP3.12 portfolio automation and exception UX", () => {
     dispatchProductCommand(
       state,
       command("alert-permit", "RequestPermit", {
-        parcelId,
+        parcelIds: [parcelId],
         buildingType: "courtyard_home",
       }),
     );

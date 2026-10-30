@@ -21,10 +21,7 @@ export function primaryParcelId(ids: readonly ParcelId[]): ParcelId | null {
   return canonicalParcelIds(ids)[0] ?? null;
 }
 
-export function areSameParcelSet(
-  left: readonly ParcelId[],
-  right: readonly ParcelId[],
-): boolean {
+export function areSameParcelSet(left: readonly ParcelId[], right: readonly ParcelId[]): boolean {
   const a = canonicalParcelIds(left);
   const b = canonicalParcelIds(right);
   return a.length === b.length && a.every((id, index) => id === b[index]);

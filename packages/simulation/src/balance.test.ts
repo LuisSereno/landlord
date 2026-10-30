@@ -174,7 +174,7 @@ describe("WP4.14 métricas de balance", () => {
     const orphanBuildingId = parseBuildingId("building_00000099");
     state.phase2.buildings.set(orphanBuildingId, {
       id: orphanBuildingId,
-      parcelId: parseParcelId("parcel_99999999"),
+      parcelIds: [parseParcelId("parcel_99999999")],
       districtId: parcel.districtId,
       footprintCells: [{ x: 1, y: 1 }],
       orientation: 0,

@@ -201,12 +201,14 @@ describe("V.d.5 cobertura por grafo", () => {
     );
     const covered = parcels.find((parcel) => index.byParcelId.get(parcel.id)!.fire === 100)!;
     const uncovered = parcels.find((parcel) => index.byParcelId.get(parcel.id)!.fire === 0)!;
-    expect(fireDamageForBuilding(state, { parcelId: covered.id }, 50).intensityGrowth).toBeLessThan(
-      fireDamageForBuilding(state, { parcelId: uncovered.id }, 50).intensityGrowth,
-    );
     expect(
-      fireDamageForBuilding(state, { parcelId: covered.id }, 50).structuralDamage,
-    ).toBeLessThan(fireDamageForBuilding(state, { parcelId: uncovered.id }, 50).structuralDamage);
+      fireDamageForBuilding(state, { parcelIds: [covered.id] }, 50).intensityGrowth,
+    ).toBeLessThan(fireDamageForBuilding(state, { parcelIds: [uncovered.id] }, 50).intensityGrowth);
+    expect(
+      fireDamageForBuilding(state, { parcelIds: [covered.id] }, 50).structuralDamage,
+    ).toBeLessThan(
+      fireDamageForBuilding(state, { parcelIds: [uncovered.id] }, 50).structuralDamage,
+    );
     const coveredHealth = districtIds.find(
       (districtId) => facilityCoverageForDistrict(state, districtId, "health") >= 50,
     )!;

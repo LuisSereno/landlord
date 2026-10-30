@@ -143,7 +143,10 @@ describe("H1-03 · ciclo de vida del permiso", () => {
     );
     dispatchProductCommand(
       replay,
-      command("permit-b", "RequestPermit", { parcelIds: [replayParcel.id], buildingType: "workshop" }),
+      command("permit-b", "RequestPermit", {
+        parcelIds: [replayParcel.id],
+        buildingType: "workshop",
+      }),
     );
     expect(Object.keys(replay.phase2.permitting.permitsById)).toEqual(ids);
   });
@@ -169,8 +172,8 @@ describe("H1-03 · ciclo de vida del permiso", () => {
         }),
       ),
     ).toEqual({ accepted: false, code: "PERMIT_DENIED" });
-    expect(activePermitFor(state, parcel.id, "workshop", state.clock.tick)).toBeNull();
-    expect(activePermitFor(state, parcel.id, "courtyard_home", state.clock.tick)).not.toBeNull();
+    expect(activePermitFor(state, [parcel.id], "workshop", state.clock.tick)).toBeNull();
+    expect(activePermitFor(state, [parcel.id], "courtyard_home", state.clock.tick)).not.toBeNull();
   });
 
   it("StartConstruction consume el permiso correcto y un segundo intento no lo reutiliza", () => {
@@ -217,7 +220,7 @@ describe("H1-03 · ciclo de vida del permiso", () => {
       }),
     );
     expect(state.phase2.permitting.permitsById[permitId]).toBeDefined();
-    for (const permit of permitsFor(state, other.id, "courtyard_home"))
+    for (const permit of permitsFor(state, [other.id], "courtyard_home"))
       state.phase2.permitting.permitsById[permit.id] = {
         ...permit,
         expiresAtTick: parseTick(state.clock.tick),
@@ -245,7 +248,7 @@ describe("H1-03 · ciclo de vida del permiso", () => {
         buildingType: "courtyard_home",
       }),
     );
-    const live = activePermitFor(state, parcel.id, "courtyard_home", state.clock.tick)!;
+    const live = activePermitFor(state, [parcel.id], "courtyard_home", state.clock.tick)!;
 
     /** Huella imposible: la parcela ya está físicamente ocupada por otro edificio. */
     const blocker: Building = {
@@ -349,7 +352,7 @@ describe("H1-03 · ciclo de vida del permiso", () => {
         buildingType: "apartment_block",
       }),
     );
-    const permit = activePermitFor(state, parcel.id, "apartment_block", state.clock.tick)!;
+    const permit = activePermitFor(state, [parcel.id], "apartment_block", state.clock.tick)!;
     expect(permit.densityBonusFloors).toBe(1);
     expect(permit.densityBonusFarPercent).toBe(100);
 
@@ -380,7 +383,10 @@ describe("H1-03 · ciclo de vida del permiso", () => {
     const consumedId = startAndConsume(state, parcel, "courtyard_home");
     dispatchProductCommand(
       state,
-      command("permit-extra", "RequestPermit", { parcelIds: [parcel.id], buildingType: "workshop" }),
+      command("permit-extra", "RequestPermit", {
+        parcelIds: [parcel.id],
+        buildingType: "workshop",
+      }),
     );
 
     const restored = restoreStateFromSnapshot(serializeSnapshot(state));
@@ -401,7 +407,10 @@ describe("H1-03 · ciclo de vida del permiso", () => {
     const parcel = ownedParcel(state, developmentCodeForRole("mixed_core").id);
     dispatchProductCommand(
       state,
-      command("canon-a", "RequestPermit", { parcelIds: [parcel.id], buildingType: "courtyard_home" }),
+      command("canon-a", "RequestPermit", {
+        parcelIds: [parcel.id],
+        buildingType: "courtyard_home",
+      }),
     );
     const second = ownedParcel(state, developmentCodeForRole("mixed_core").id, 1);
     dispatchProductCommand(
@@ -516,7 +525,7 @@ describe("H1-04 · compatibilidad de usos", () => {
         }),
       ).accepted,
     ).toBe(true);
-    expect(permitsFor(state, parcel.id, "courtyard_home")).toHaveLength(1);
-    expect(permitsFor(state, parcel.id, "workshop")).toHaveLength(1);
+    expect(permitsFor(state, [parcel.id], "courtyard_home")).toHaveLength(1);
+    expect(permitsFor(state, [parcel.id], "workshop")).toHaveLength(1);
   });
 });

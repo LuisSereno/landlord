@@ -102,7 +102,7 @@ function scoreOf(state: GameState, parcel: Parcel): ReturnType<typeof landValueB
 /** La composición de V.d.4, término a término, para atribuir quién se movió. */
 function expectedServicesScore(
   coverage: CoverageIndex,
-  parcelIds: [ParcelId],
+  parcelId: ParcelId,
   security: number,
 ): number {
   const levels = coverage.byParcelId.get(parcelId)!;

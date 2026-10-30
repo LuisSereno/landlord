@@ -1,4 +1,5 @@
 import {
+  canonicalParcelIds,
   parseBuildingId,
   parseFacilityId,
   parseCommandId,
@@ -39,7 +40,6 @@ import { findDevelopmentSite } from "./development-site";
 import { buildingCollateralContribution, collateralBuildingValue } from "./collateral";
 import {
   activeSiteOnParcel,
-  blockOfParcel,
   buildBuildingIndex,
   buildingsOnParcel,
   reconcileParcelUses,
@@ -1007,6 +1007,14 @@ const RIVAL_TARGET_KEYS = [
 
 function rivalActionTarget(command: RivalCommand): string {
   const payload = command.payload as Record<string, unknown>;
+  /**
+   * V.d-7 · la memoria de rechazos distingue el CONJUNTO del proyecto: un fallo con [A,B] no debe
+   * silenciar [A,C]. Para acciones de una parcela el join coincide con el id antiguo, así que la
+   * semántica previa se conserva.
+   */
+  const parcelIds = payload.parcelIds;
+  if (Array.isArray(parcelIds))
+    return canonicalParcelIds(parcelIds as import("@landlord/shared").ParcelId[]).join(",");
   for (const key of RIVAL_TARGET_KEYS) {
     const value = payload[key];
     if (typeof value === "string") return value;
@@ -1081,10 +1089,7 @@ function rivalAction(state: GameState): void {
       state.phase2.rivalAi.memory.defaultCount * 500,
   );
   const canSpend = (amount: number) => balance >= amount + liquidityReserve;
-  const ownedBlock = ownedParcel ? blockOfParcel(state, ownedParcel) : undefined;
-  const ownedCode = ownedBlock
-    ? developmentCodeById(ownedBlock.defaultDevelopmentCodeId)
-    : undefined;
+  const ownedCode = ownedParcel ? developmentCodeById(ownedParcel.developmentCodeId) : undefined;
   const buildingType: BuildingType = ownedCode?.allowedUses.includes("industrial")
     ? "workshop"
     : "courtyard_home";
@@ -1102,8 +1107,28 @@ function rivalAction(state: GameState): void {
               left.cost - right.cost,
           )
       : [];
-  const productionDefinition = productionDefinitions[0];
+  /**
+   * V.d-7 · un edificio multi-parcela sólo se ofrece si el rival posee un site válido del tamaño
+   * exacto. Se recorre la lista ya ordenada por idoneidad y se elige la primera opción que encaja:
+   * preferir una acería que exige tres parcelas cuando sólo hay dos equivale a no producir nunca.
+   */
+  const sitedProduction = ownedParcel
+    ? productionDefinitions
+        .map((entry) => ({
+          definition: entry,
+          site: findDevelopmentSite({
+            state,
+            definition: entry,
+            ownerOrganizationId: RIVAL_ORGANIZATION_ID,
+            seedParcelId: ownedParcel.id,
+            districtIds: rivalDistricts,
+          }),
+        }))
+        .find((entry) => entry.site !== null)
+    : undefined;
+  const productionDefinition = sitedProduction?.definition;
   const productionBuildingType = productionDefinition?.type;
+  const productionSite = sitedProduction?.site ?? null;
   const missingResource = (["cement", "brick", "steel"] as const).find(
     (resource) => inventory[resource] < definition.resources[resource],
   );
@@ -1170,16 +1195,6 @@ function rivalAction(state: GameState): void {
         (resource) => inventory[resource] < productionDefinition.resources[resource],
       )
     : undefined;
-  const productionSite =
-    ownedParcel && productionDefinition
-      ? findDevelopmentSite({
-          state,
-          definition: productionDefinition,
-          ownerOrganizationId: RIVAL_ORGANIZATION_ID,
-          seedParcelId: ownedParcel.id,
-          districtIds: rivalDistricts,
-        })
-      : null;
   if (
     productionSite &&
     productionDefinition &&

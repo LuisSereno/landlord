@@ -81,7 +81,10 @@ describe("V.d.0 traslado de cuadrillas y agentes", () => {
     expect(
       dispatchProductCommand(
         state,
-        command("StartConstruction", { parcelIds: [rivalParcel.id], buildingType: "courtyard_home" }),
+        command("StartConstruction", {
+          parcelIds: [rivalParcel.id],
+          buildingType: "courtyard_home",
+        }),
       ),
     ).toMatchObject({ accepted: true });
     const site = [...state.phase2.constructionSites.values()][0]!;

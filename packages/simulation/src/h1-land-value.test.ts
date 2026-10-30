@@ -178,7 +178,7 @@ describe("H1-09B · el potencial normativo consume la ordenanza vigente", () => 
         payload: { parcelIds: [parcel.id], buildingType: "apartment_block" },
       } as never).accepted,
     ).toBe(true);
-    const permit = activePermitFor(state, parcel.id, "apartment_block", state.clock.tick)!;
+    const permit = activePermitFor(state, [parcel.id], "apartment_block", state.clock.tick)!;
     expect(permit.densityBonusFloors).toBe(1);
 
     /** Al expirar la ordenanza, el potencial del suelo vuelve al código base pese al permiso vivo. */
@@ -186,7 +186,7 @@ describe("H1-09B · el potencial normativo consume la ordenanza vigente", () => 
     expect(sample.map((entry) => breakdown(state, entry).codePotential)).toEqual(base);
     /** Y el permiso conserva su derecho: lo consume su titular al construir, no el mercado. */
     expect(
-      activePermitFor(state, parcel.id, "apartment_block", state.clock.tick)!.densityBonusFloors,
+      activePermitFor(state, [parcel.id], "apartment_block", state.clock.tick)!.densityBonusFloors,
     ).toBe(1);
   });
 });

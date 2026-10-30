@@ -710,8 +710,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
      * `parcel.buildingId` sólo publica el primer edificio derivado; usarlo para colorear hacía que
      * un edificio en ruinas pasara desapercibido si otro edificio de la parcela estaba intacto.
      */
-    const buildingsOfParcel = (this.projection?.economy?.buildings ?? []).filter(
-      (entry) => entry.parcelIds.includes(parcel.id),
+    const buildingsOfParcel = (this.projection?.economy?.buildings ?? []).filter((entry) =>
+      entry.parcelIds.includes(parcel.id),
     );
     if (this.overlay === "condition") {
       if (buildingsOfParcel.length === 0) return COLORS.parcelAvailable;

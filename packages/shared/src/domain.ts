@@ -1647,7 +1647,7 @@ export const buyParcelSchema = commandSchema("BuyParcel", z.object({ parcelId: p
 export const sellParcelSchema = commandSchema("SellParcel", z.object({ parcelId: parcelIdSchema }));
 export const startConstructionSchema = commandSchema(
   "StartConstruction",
-  z.object({ parcelId: parcelIdSchema, buildingType: buildingTypeSchema }),
+  z.object({ parcelIds: z.array(parcelIdSchema).min(1), buildingType: buildingTypeSchema }),
 );
 export const cancelConstructionSchema = commandSchema(
   "CancelConstruction",
@@ -1759,7 +1759,7 @@ export const setAutomationPolicySchema = commandSchema(
 );
 export const requestPermitSchema = commandSchema(
   "RequestPermit",
-  z.object({ parcelId: parcelIdSchema, buildingType: buildingTypeSchema }),
+  z.object({ parcelIds: z.array(parcelIdSchema).min(1), buildingType: buildingTypeSchema }),
 );
 export const buyInsuranceSchema = commandSchema(
   "BuyInsurance",

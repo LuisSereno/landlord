@@ -169,10 +169,10 @@ function createCommandSender(state: GameState, prefix: string, audit: CommandAud
     buyParcel: (parcelId) => emit(withIdentity({ type: "BuyParcel", payload: { parcelId } })),
     buyMaterials: (resource, amount) =>
       emit(withIdentity({ type: "BuyMaterials", payload: { resource, amount } })),
-    requestPermit: (parcelId, buildingType) =>
-      emit(withIdentity({ type: "RequestPermit", payload: { parcelId, buildingType } })),
-    startConstruction: (parcelId, buildingType) =>
-      emit(withIdentity({ type: "StartConstruction", payload: { parcelId, buildingType } })),
+    requestPermit: (parcelIds, buildingType) =>
+      emit(withIdentity({ type: "RequestPermit", payload: { parcelIds, buildingType } })),
+    startConstruction: (parcelIds, buildingType) =>
+      emit(withIdentity({ type: "StartConstruction", payload: { parcelIds, buildingType } })),
     allocateCrew: (constructionSiteId, crewCapacity) =>
       emit(withIdentity({ type: "AllocateCrew", payload: { constructionSiteId, crewCapacity } })),
     assignCrewToWorkOrder: (crewId, workOrderId) =>
@@ -354,8 +354,8 @@ function runGrowthRoutine(state: GameState, send: CommandSender): void {
             const amount = budget.missing[resource];
             if (amount > 0) send.buyMaterials(resource, amount);
           }
-          send.requestPermit(target.parcel.id, target.definition.type);
-          send.startConstruction(target.parcel.id, target.definition.type);
+          send.requestPermit([target.parcel.id], target.definition.type);
+          send.startConstruction([target.parcel.id], target.definition.type);
         }
       }
     }

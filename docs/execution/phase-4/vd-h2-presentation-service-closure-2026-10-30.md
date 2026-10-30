@@ -317,9 +317,222 @@ observable. Se conserva como deuda declarada y no se ha optimizado cambiando reg
 
 | Suite | Tests | Duración |
 |---|---:|---:|
-| shared | 50 | ~1.5 s |
-| simulation | ~460 (incluye 12 nuevos H2-05, 5 nuevos H2-06, 7 nuevos H2-07/08/09, 9 nuevos H2-10/11, 5 nuevos H2-01) | ~10-11 min |
-| web | 120 (31 nuevos en `building-sprites.test.ts` H2-01/H2-02/H2-03, 8 nuevos en `assets.test.ts` H2-02) | ~11 s |
-| arquitectura (check-architecture.mjs + fixtures negativos) | pass | ~1 s |
+| shared | 50/50 | ~1.5 s |
+| simulation | 480 pasan · 14 skipped (incluye los 5 tests nuevos de H2-01, 11 de H2-05, 5 de H2-06, 7 de H2-07/08/09, 9 de H2-10/11 y el gate `services:balance`) | ~12 min |
+| web | 120/120 (31 nuevos en `building-sprites.test.ts` H2-01/H2-02/H2-03, 8 en `assets.test.ts` H2-02) | ~11 s |
+| arquitectura (`check-architecture.mjs` + fixtures negativos) | PASS | ~1 s |
 
-<!--TABLES-PENDING-->
+## Gates
+
+| Gate | Resultado | Detalle medido |
+|---|---|---|
+| `pnpm lint` | PASS | 2 warnings `no-console` en los dos harnesses de evidencia; 0 errores |
+| `pnpm typecheck` | PASS | `packages/shared`, `packages/simulation`, `apps/web` |
+| `pnpm format:check` | PASS | tras `pnpm format` en `52168f2` |
+| `pnpm test` | PASS | shared 50 · simulation 480 + 14 skipped · web 120 · arquitectura OK |
+| `pnpm build` | PASS | `simulation.worker-CvdL7Y1a.js` 400,71 kB · `index-CJQo5vO8.js` 2,01 MB gzip 505 kB (warning de chunk preexistente, sin cambio) |
+| `pnpm smoke:alpha` | PASS | snapshot cargado · council «Concentración del Suelo Común» · caja 49 850 · 0 page errors |
+| `pnpm smoke:vd-core-loop` | PASS | 15/15 pasos · 0 page errors |
+| `pnpm art:assets:check` | PASS | 108 imágenes · 153 880 bytes en data URIs · manifiesto determinista |
+| `pnpm art:binaries:check` | PASS | 85 binarios · 23 190 097 bytes · bundle Blender 1 585 136 |
+| `pnpm fabric:gate` | PASS | 100 seeds · 900 distritos · 73 289 parcelas · generación p95 233,04 ms (presupuesto <300) · red p95 2,86 ms (presupuesto ≤25) |
+| `pnpm road:benchmark` | PASS | 24 distritos · derivación p95 2,454 ms · `structuredClone` denso p95 21,98 ms · jugable 5,40 ms |
+| `pnpm system:cost` | PASS | 13/13 · mature p95 55,61 ms, por debajo del trigger D-065 de 60 ms (ver investigación de regresión abajo) |
+| `pnpm balance:playable` | PASS | 64 campañas · `delegated_deferred` gana en 16/16 por caja — señal de balance preexistente a H2, reproducida idéntica en `95e8937` |
+| `pnpm soak` | PASS | 144 000 ticks en 96 460 ms · RSS final ~359 MB |
+| `pnpm services:balance` | PASS | 12 seeds × 4 escenarios · bandas H2-08 en verde sobre las tres corridas con banda |
+
+## Services before / after
+
+Medido sobre las doce seeds canónicas (`CANONICAL_CITY_SEEDS`) y 100 % de presupuesto
+municipal. **Antes**: modelo H1 (toda parcela marketable es demanda, Voronoi estricto sin
+spillover, `DEMAND_UNITS_PER_CAPACITY = 25` global). **Después**: modelo H2 (demanda =
+parcela desarrollada, greedy determinista capacity-aware, tabla por servicio, respuesta
+suave al presupuesto, cobertura potencial en vacantes).
+
+### Initial (ciudad recién generada, 0 parcelas desarrolladas)
+
+| service | demand antes | capacity antes | cov% antes | saturated antes | stranded antes | demand después | capacity después | cov% después | saturated después | stranded después |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| security | 716 | 100 | 14 % | 2/2 | 0 | 0 | 300 | 0 % | 0/2 | 0 |
+| fire | 716 | 100 | 14 % | 2/2 | 0 | 0 | 300 | 0 % | 0/2 | 0 |
+| health | 716 | 300 | 42 % | 3/3 | 0 | 0 | 300 | 0 % | 0/3 | 0 |
+| education | 716 | 450 | 62 % | 2/3 | 6 | 0 | 306 | 0 % | 0/3 | 0 |
+| market | 716 | 300 | 42 % | 3/3 | 0 | 0 | 300 | 0 % | 0/3 | 0 |
+| parks | 716 | — | 54 % | — | — | 716 | — | 54 % | — | — |
+| transport | 716 | — | 96 % | — | — | 716 | — | 96 % | — | — |
+
+Antes: la ciudad **nacía saturada** —12 de 14 facilities al límite sin un solo edificio privado—.
+Después: demanda 0, saturación 0, parks/transport intactos (son accesibilidad, no slots).
+
+### 25 % de parcelas desarrolladas
+
+| service | demand | capacity | served | cov% | stranded |
+|---|---:|---:|---:|---:|---:|
+| security | 179 | 300 | 179 | 100 % | 0 |
+| fire | 179 | 300 | 179 | 100 % | 0 |
+| health | 179 | 300 | 179 | 100 % | 0 |
+| education | 179 | 306 | 179 | 100 % | 0 |
+| market | 179 | 300 | 179 | 100 % | 0 |
+| parks | 716 | — | 388 | 54 % | — |
+| transport | 716 | — | 688 | 96 % | — |
+
+Ciudad joven bien financiada: servicios disponibles sin crisis estructural —no 12/14
+saturadas por definición, tal como exige §8 del plan—.
+
+### 50 % de parcelas desarrolladas (banda objetivo 60–90 %)
+
+| service | demand | capacity | served | cov% | p10 | p90 | stranded |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| security | 358 | 300 | 300 | 83 % | 83 | 85 | 0 |
+| fire | 358 | 300 | 300 | 83 % | 83 | 85 | 0 |
+| health | 358 | 300 | 300 | 83 % | 83 | 85 | 0 |
+| education | 358 | 306 | 306 | 85 % | 84 | 86 | 0 |
+| market | 358 | 300 | 300 | 83 % | 83 | 85 | 0 |
+| parks | 716 | — | 388 | 54 % | 53 | 55 | — |
+| transport | 716 | — | 688 | 96 % | 96 | 97 | — |
+
+Todos los cinco capacity services en banda. `strandedCapacity` = 0 confirma que H2-06
+absorbe el spill: ninguna facility queda ociosa mientras hay demanda alcanzable sin servir.
+
+### 75 % de parcelas desarrolladas (banda objetivo 45–80 %)
+
+| service | demand | capacity | served | cov% | p10 | p90 | stranded |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| security | 537 | 300 | 300 | 55 % | 55 | 56 | 0 |
+| fire | 537 | 300 | 300 | 55 % | 55 | 56 | 0 |
+| health | 537 | 300 | 300 | 55 % | 55 | 56 | 0 |
+| education | 537 | 306 | 306 | 56 % | 56 | 58 | 0 |
+| market | 537 | 300 | 300 | 55 % | 55 | 56 | 0 |
+| parks | 716 | — | 388 | 54 % | 53 | 55 | — |
+| transport | 716 | — | 688 | 96 % | 96 | 97 | — |
+
+Tensión real: 55-56 % de cobertura dentro de la banda 45-80 %, sin tocar el programa
+municipal (2 comisarías / 2 parques / 3 clínicas / 3 colegios / 3 mercados) ni las seeds.
+
+### Respuesta al presupuesto (security, seed 23)
+
+| level | 100 % | 75 % | 50 % | 25 % | 0 % |
+|---|---:|---:|---:|---:|---:|
+| fórmula antigua | 300 | 150 | 150 | 75 | 0 |
+| fórmula nueva (H2-09) | 300 | 225 | 150 | 75 | 0 |
+
+La curva nueva es monotónica estricta. La antigua tenía un salto "150 a 25 %" → "0 a 24 %":
+en términos de slots por city, la policía desaparecía al bajar poco el presupuesto.
+
+## Gates — investigación de la regresión ≥25 %
+
+El `pnpm system:cost` marca +26 % en `mature p95` y +30 % en `mature p50` respecto a H1. Se
+midió por separado el coste de `facilityCoverageIndex` —la función que H2-05, H2-06, H2-09 y
+H2-10 tocan— sobre una ciudad `createScaledCity(7, {parcelCount: 800})` con 20 muestras y
+cache invalidado en cada iteración: **p50 12,01 ms · p95 14,16 ms · max 18,67 ms**. Eso es
+~25 % del `mature close p95` medido; el resto del cierre (housing-market, employment, macro,
+insurance, land-value) no ha cambiado.
+
+Causa estructural:
+
+- H2-06 greedy canónico genera la lista de candidatos `(parcel, facility, cost)` y la
+  ordena —O(pairs log pairs) por service, 5 servicios— donde el Voronoí clásico era O(facilities
+  × parcels) sin ordenación.
+- H2-10 añade un segundo barrido `(vacantes × facilities)` por service para calcular
+  `potentialByParcelId`.
+
+Ambos son trabajo que no puede evitarse sin romper el contrato fijado por D-094 §2 y §5.
+No es tuning, no es un radio mal ajustado: es coste de correctness nuevo.
+
+**Estado tras la investigación:** `mature p95 55,61 ms` sigue por debajo del trigger D-065
+de 60 ms. Ninguna constante, radio o coste económico se ha tocado para reducir el número.
+La decisión de cerrar H2 se sostiene sobre un p95 por debajo del presupuesto y sobre que
+la regresión no cruza el trigger.
+
+## Performance antes / después
+
+| Métrica | baseline H1 (`3f3c707`) | V.d-H2 (HEAD final, corrida sola) | delta |
+|---|---|---|---|
+| generación ciudad p95 (`fabric:gate`) | 227,91 ms (evidencia archivada) · 205,57 ms (mediana tres corridas) | 233,04 ms | +13,4 % sobre la evidencia archivada · presupuesto 300 ms intacto |
+| derivación vial p95 (`road:benchmark`) | 2,73 ms (evidencia archivada) · 2,33 ms (mediana) | 2,454 ms | −10 % sobre la evidencia archivada · dentro del presupuesto 25 ms |
+| cierre maduro p50 (`system:cost`) | 38,31 ms | 49,71 ms | **+29,8 %** — investigado, bajo D-065 |
+| cierre maduro p95 (`system:cost`) | 44,04 ms | 55,61 ms | **+26,3 %** — investigado, bajo el trigger de 60 ms |
+| primer cierre p95 (cold graph hitch) | 260,21 ms | 341,27 ms | +31 % — N4 declarado en H1 sigue vivo |
+| soak 144 000 ticks | 87 530 ms · RSS final 297 MB | 96 460 ms · RSS final ~359 MB | +10,2 % tiempo · +21 % RSS · sin crecimiento descontrolado |
+
+Ninguna optimización se hizo cambiando reglas de juego: no se tocó ningún radio, coste,
+capacidad por defecto, guard de perfil ni constante económica para ganar milisegundos.
+
+## Deuda real que sigue existiendo
+
+1. **Playtest humano de §2.4 no realizado.** Único motivo por el que V.d no cierra más allá
+   del balance: `docs/execution/phase-4/vd-final-playtest-checklist.md` sigue `PENDING HUMAN
+   PLAYTEST`. El smoke `pnpm smoke:vd-core-loop` recorre los 15 pasos por la interfaz real
+   pero no mide comprensión ni fricción y **no** sustituye la sesión humana.
+2. **Escala del programa municipal bajo desarrollo extremo.** Al 75 % de desarrollo la
+   cobertura es 55 % en security/fire/health/market y 56 % en education. La banda 45-80 %
+   del plan acepta esa tensión, pero el techo del 100 % de demanda no se alcanza sin subir
+   el número de facilities o las cohortes — decisión de producto, no de H2.
+3. **`delegated_deferred` dominante en la campaña jugable** (16/16 por caja). Preexistente:
+   reproducida idéntica en `95e8937` (N2 de H1). `balance:playable` la registra pero no la
+   afirma como requisito; H2 no la toca.
+4. **Hitch de arranque frío del grafo (N4).** El primer `facilityCoverageIndex` de una ciudad
+   nueva sigue costando ~260-340 ms; los siguientes reutilizan `WeakMap`. No afecta al
+   presupuesto de `mature close` pero es observable en el primer tick tras `createInitialState`.
+5. **Deuda visual P2 · orientación física no representada (H2-03 opción B).** `Building.
+   orientation` (0/90/180/270, dominio) y `allowedOrientations` (45/135/225/315, cámara)
+   son conjuntos disjuntos; el helper `resolveBuildingVisual` tiene aridad 4 y ninguno de los
+   argumentos es `orientation`. Cerrar la deuda exige renders laterales, no un parche de
+   presentación.
+6. **Arte final cívico pendiente** (D-093 §9). Los seis edificios cívicos y los cuatro
+   residenciales/industriales de H2-02 son siluetas procedurales; la ruta Blender puede
+   sustituirlos sin tocar el contrato.
+7. **Bundle procedural al 91 % del budget Alpha.** 181 985 / 200 000 bytes. Añadir un quinto
+   tipo fuera de la tabla obliga a declarar un número nuevo en `docs/art/RUNTIME-ASSETS.md`
+   o reabrir el presupuesto.
+8. **Guardados pre-H1 rechazados.** `UnsupportedPermitContractError` sigue activo. Tres
+   incompatibilidades declaradas (v1 D-089, pre-V.d.1 D-090, pre-H1 D-093).
+9. **Capturas golden sin pixel-diff cross-environment.** D-081 declaró la inestabilidad; H2
+   no la aborda.
+10. **El Voronoí `demand` en el informe** es ahora "parcels whose first option is this facility",
+    no "parcels served by this facility". La UI que lee `demand` como carga asignada ve una
+    señal parcial. Queda como deuda P2 para Beta reetiquetar el inspector.
+
+## Git
+
+| # | SHA | Mensaje |
+|---:|---|---|
+| 1 | `68fca94` | fix: project and render physical building footprints |
+| 2 | `bed7914` | fix: complete runtime asset fallback coverage |
+| 3 | `fcb4a15` | test: audit building orientation semantics |
+| 4 | `9284434` | test: measure municipal service demand baseline |
+| 5 | `bddc88d` | fix: make service demand follow urban development |
+| 6 | `6e69d85` | fix: make facility assignment capacity aware |
+| 7 | `d79c19e` | balance: calibrate municipal service cohorts |
+| 8 | `c05ac5f` | fix: smooth municipal budget response |
+| 9 | `7117919` | fix: expose vacant parcel service potential |
+| 10 | `08afec7` | docs: reconcile D-093 with land value behaviour |
+| 11 | `52168f2` | chore: apply prettier to V.d-H2 test sources |
+| 12 | `02c9904` | docs: record V.d-H2 service and presentation closure |
+| 13 | `46a20ab` | test: develop demand before fire and gateway coverage in H1-10 |
+| 14 | HEAD final | docs: close V.d-H2 with gates, tables and evidence |
+
+**push: no, según §0 y §16 del plan.** Los catorce commits quedan locales en `develop`
+empezando en `3f3c707`.
+
+## Estado
+
+**PASS WITH MANUAL GATE.**
+
+V.d sigue abierta — el playtest humano de §2.4 no se ha ejecutado, y el P1 de escala
+municipal bajo desarrollo extremo queda tal como D-094 lo declara: tensión real dentro de
+la banda, no una decisión de producto que esta fase pueda tomar.
+
+Los once ítems (H2-01…H2-11) están corregidos con su test de regresión, ejecutado contra el
+código previo. Los gates automáticos están verdes. El bundle procedural cubre 15/15 tipos.
+La orientación física y el azimut de cámara están separados con test que impide volver a
+confundirlos. La demanda urbana es el desarrollo urbano, no el censo catastral. La asignación
+es greedy determinista con capacidad y spillover. La capacidad se calibra por servicio y
+deriva de las 12 seeds, no de tuning. La respuesta al presupuesto es suave. Las parcelas
+vacantes conservan accesibilidad y servicio potencial sin reservar slot. D-093 §7 se aclara
+para que nadie vuelva a leer que `civicAmenities` se absorbe en `services`.
+
+**Decisión final:** V.d está técnicamente preparada para el playtest humano final.
+
+

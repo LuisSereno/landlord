@@ -1,6 +1,6 @@
 {
-  "head": "d79c19e194a4092e1513628be070965fababefe9",
-  "generatedAt": "2026-10-30T09:07:12.436Z",
+  "head": "46a20ab7b560ae0d1705ea06f3129a3e34ee46c7",
+  "generatedAt": "2026-10-30T10:46:02.091Z",
   "tool": "pnpm services:balance",
   "phase": "V.d-H2 · H2-04 + H2-08",
   "demandModel": "demanda = parcela marketable desarrollada (H2-05); asignación capacity-aware (H2-06)",

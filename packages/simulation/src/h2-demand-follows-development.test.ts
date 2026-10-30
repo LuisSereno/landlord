@@ -1,9 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  parseBuildingId,
-  type Building,
-  type Parcel,
-} from "@landlord/shared";
+import { parseBuildingId, type Building, type Parcel } from "@landlord/shared";
 
 import {
   developedParcelsOf,
@@ -152,9 +148,7 @@ describe("H2-05 · demanda = parcela desarrollada, no parcela marketable", () =>
     const [firstDistrict] = cityDistricts(state);
     const developed = developParcels(state, firstDistrict!, 30, 800);
     const developedIds = new Set(developed.map((parcel) => parcel.id));
-    const vacantSample = all
-      .filter((parcel) => !developedIds.has(parcel.id))
-      .slice(0, 20);
+    const vacantSample = all.filter((parcel) => !developedIds.has(parcel.id)).slice(0, 20);
     expect(vacantSample.length).toBeGreaterThan(0);
     for (const parcel of vacantSample) {
       expect(coverageOfParcel(state, parcel, "security"), parcel.id).toBe(0);
@@ -231,11 +225,15 @@ describe("H2-05 · demanda = parcela desarrollada, no parcela marketable", () =>
     const districtIds = [...first.world.city.districtIds];
     const [targetDistrict] = districtIds;
     const targetParcels = [...first.phase2.parcels.values()]
-      .filter((parcel) => parcel.districtId === targetDistrict && parcel.disposition === "marketable")
+      .filter(
+        (parcel) => parcel.districtId === targetDistrict && parcel.disposition === "marketable",
+      )
       .sort((left, right) => left.id.localeCompare(right.id))
       .slice(0, 5);
     for (const parcel of targetParcels) {
-      const id = parseBuildingId(`building_${String(2000 + Number(parcel.id.slice(-8))).padStart(8, "0")}`);
+      const id = parseBuildingId(
+        `building_${String(2000 + Number(parcel.id.slice(-8))).padStart(8, "0")}`,
+      );
       parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
       const shared: Building = {
         id,
@@ -278,7 +276,12 @@ describe("H2-05 · helper `developedParcelsOf`", () => {
     const state = createInitialState(7);
     const districtIds = [...state.world.city.districtIds];
     for (const districtId of districtIds)
-      developParcels(state, districtId as Parcel["districtId"], 2, 100 + districtIds.indexOf(districtId) * 10);
+      developParcels(
+        state,
+        districtId as Parcel["districtId"],
+        2,
+        100 + districtIds.indexOf(districtId) * 10,
+      );
     const developed = developedParcelsOf(state);
     for (const parcel of developed) {
       expect(parcel.disposition).toBe("marketable");

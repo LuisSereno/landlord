@@ -3,11 +3,8 @@ import { dirname } from "node:path";
 import { execSync } from "node:child_process";
 import { describe, expect, it } from "vitest";
 
-import { parseBuildingId, type Building, type Parcel } from "@landlord/shared";
-import {
-  MUNICIPALITY_ORGANIZATION_ID,
-  PLAYER_ORGANIZATION_ID,
-} from "./game-data";
+import { parseBuildingId, type Building } from "@landlord/shared";
+import { MUNICIPALITY_ORGANIZATION_ID, PLAYER_ORGANIZATION_ID } from "./game-data";
 import {
   DEMAND_UNITS_PER_CAPACITY,
   facilityCoverageIndex,
@@ -91,7 +88,8 @@ function growCity(state: GameState, targetDevelopedPercent: number): void {
     [...state.phase2.buildings.values()]
       .filter(
         (building) =>
-          building.state !== "ruin" && building.ownerOrganizationId !== MUNICIPALITY_ORGANIZATION_ID,
+          building.state !== "ruin" &&
+          building.ownerOrganizationId !== MUNICIPALITY_ORGANIZATION_ID,
       )
       .map((building) => building.parcelId),
   );
@@ -128,13 +126,16 @@ function growCity(state: GameState, targetDevelopedPercent: number): void {
   }
 }
 
-const SCENARIOS: ReadonlyArray<{ name: string; developedPercent: number; band?: [number, number] }> =
-  [
-    { name: "initial", developedPercent: 0 },
-    { name: "25_percent", developedPercent: 25 },
-    { name: "50_percent", developedPercent: 50, band: [60, 90] },
-    { name: "75_percent", developedPercent: 75, band: [45, 80] },
-  ];
+const SCENARIOS: ReadonlyArray<{
+  name: string;
+  developedPercent: number;
+  band?: [number, number];
+}> = [
+  { name: "initial", developedPercent: 0 },
+  { name: "25_percent", developedPercent: 25 },
+  { name: "50_percent", developedPercent: 50, band: [60, 90] },
+  { name: "75_percent", developedPercent: 75, band: [45, 80] },
+];
 
 function measureSeed(seed: number, developedPercent = 0) {
   const state = createInitialState(seed);
@@ -151,7 +152,8 @@ function measureSeed(seed: number, developedPercent = 0) {
     [...state.phase2.buildings.values()]
       .filter(
         (building) =>
-          building.state !== "ruin" && building.ownerOrganizationId !== MUNICIPALITY_ORGANIZATION_ID,
+          building.state !== "ruin" &&
+          building.ownerOrganizationId !== MUNICIPALITY_ORGANIZATION_ID,
       )
       .map((building) => building.parcelId),
   );
@@ -210,7 +212,9 @@ function measureSeed(seed: number, developedPercent = 0) {
      */
     const coverageByDistrict = [...state.world.city.districtIds].map((districtId) => {
       const districtParcels = marketable.filter((parcel) => parcel.districtId === districtId);
-      const districtDeveloped = districtParcels.filter((parcel) => developedParcelIds.has(parcel.id));
+      const districtDeveloped = districtParcels.filter((parcel) =>
+        developedParcelIds.has(parcel.id),
+      );
       const coveredCount = districtParcels.filter(
         (parcel) => (coverage.byParcelId.get(parcel.id)?.[service] ?? 0) >= 50,
       ).length;
@@ -252,13 +256,10 @@ function measureSeed(seed: number, developedPercent = 0) {
       reachableDemand === 0
         ? 100
         : Math.min(100, Math.round((effectiveCapacity * 100) / reachableDemand));
-    const actualCoverage =
-      reachableDemand === 0 ? 0 : Math.round((served * 100) / reachableDemand);
+    const actualCoverage = reachableDemand === 0 ? 0 : Math.round((served * 100) / reachableDemand);
     const unfulfilledReachableDemand = Math.max(0, reachableDemand - served);
     const strandedCapacity =
-      unfulfilledReachableDemand === 0
-        ? 0
-        : Math.min(unusedCapacity, unfulfilledReachableDemand);
+      unfulfilledReachableDemand === 0 ? 0 : Math.min(unusedCapacity, unfulfilledReachableDemand);
 
     perService[service] = {
       hasCapacity: CAPACITY_SERVICES.has(service),
@@ -270,8 +271,7 @@ function measureSeed(seed: number, developedPercent = 0) {
       effectiveCapacityParcels: effectiveCapacity,
       demand: CAPACITY_SERVICES.has(service) ? voronoiDemand : reachableDemand,
       served,
-      coveragePercent:
-        marketable.length === 0 ? 0 : Math.round((served * 100) / marketable.length),
+      coveragePercent: marketable.length === 0 ? 0 : Math.round((served * 100) / marketable.length),
       saturatedFacilities,
       unreachableDemand: unreachable,
       unusedCapacity,
@@ -303,15 +303,24 @@ describe.skipIf(!enabled)("V.d-H2 · baseline de balance de servicios municipale
      * de calibración sin alterar topología, programa municipal ni seeds. Los escenarios no
      * son una simulación temporal: son harnesses de balance.
      */
-    const scenarioResults: Record<string, { perSeed: ReturnType<typeof measureSeed>[]; aggregate: Record<string, Record<string, number>> }> = {};
+    const scenarioResults: Record<
+      string,
+      {
+        perSeed: ReturnType<typeof measureSeed>[];
+        aggregate: Record<string, Record<string, number>>;
+      }
+    > = {};
     for (const scenario of SCENARIOS) {
-      const perSeed = CANONICAL_CITY_SEEDS.map((seed) => measureSeed(seed, scenario.developedPercent));
+      const perSeed = CANONICAL_CITY_SEEDS.map((seed) =>
+        measureSeed(seed, scenario.developedPercent),
+      );
 
       const aggregate: Record<string, Record<string, number>> = {};
       for (const service of SERVICES) {
         const field = (name: string): number[] =>
           perSeed.map((entry) => {
-            const record = entry.services[service] as Record<string, number | undefined> | undefined;
+            const record = entry.services[service] as
+              Record<string, number | undefined> | undefined;
             const value = record?.[name];
             return typeof value === "number" ? value : 0;
           });
@@ -373,7 +382,8 @@ describe.skipIf(!enabled)("V.d-H2 · baseline de balance de servicios municipale
       generatedAt: new Date().toISOString(),
       tool: "pnpm services:balance",
       phase: "V.d-H2 · H2-04 + H2-08",
-      demandModel: "demanda = parcela marketable desarrollada (H2-05); asignación capacity-aware (H2-06)",
+      demandModel:
+        "demanda = parcela marketable desarrollada (H2-05); asignación capacity-aware (H2-06)",
       seeds: CANONICAL_CITY_SEEDS.length,
       capacityUnitParcels: DEMAND_UNITS_PER_CAPACITY,
       scenarios: SCENARIOS.map((scenario) => ({

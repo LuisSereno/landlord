@@ -1,10 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  parseBuildingId,
-  type Building,
-  type Parcel,
-} from "@landlord/shared";
+import { parseBuildingId, type Building, type Parcel } from "@landlord/shared";
 import {
   facilityCoverageForDistrict,
   facilityCoverageIndex,
@@ -245,8 +241,7 @@ describe("V.d.5 cobertura por grafo", () => {
     /** Lomas tiene cobertura sólo si las comisarías de Centro alcanzan por grafo. */
     /** Se cortan las conexiones del distrito: la cobertura por grafo desaparece. */
     state.world.city.connections = state.world.city.connections.filter(
-      (connection) =>
-        connection.fromDistrictId !== lomas && connection.toDistrictId !== lomas,
+      (connection) => connection.fromDistrictId !== lomas && connection.toDistrictId !== lomas,
     );
     const isolated = facilityCoverageIndex(state);
     expect(isolated.byDistrictId.get(lomas as never)!.security).toBe(0);

@@ -144,10 +144,7 @@ export type BuildingSpritePlacement = {
  * a la parcela para localizar su `buildingId` (H2-01).
  */
 export function buildingSpritePlan(
-  economy: Pick<
-    NonNullable<ViewProjectionV2["economy"]>,
-    "buildings" | "constructionSites"
-  >,
+  economy: Pick<NonNullable<ViewProjectionV2["economy"]>, "buildings" | "constructionSites">,
   opts: {
     /** Id → archetype (puede caer en `domainType` si el adapter no lo ha resuelto aún). */
     archetypeFor: (id: string, domainType: string) => string;

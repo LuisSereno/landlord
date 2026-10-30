@@ -9,10 +9,7 @@ import {
 } from "@landlord/shared";
 
 import { PLAYER_HOME_DISTRICT_ID } from "./city";
-import {
-  facilityCoverageIndex,
-  facilityPotentialForParcel,
-} from "./facility-coverage";
+import { facilityCoverageIndex, facilityPotentialForParcel } from "./facility-coverage";
 import { PLAYER_ORGANIZATION_ID } from "./game-data";
 import { buildLandValueContext, landValueBreakdownFor } from "./land-value";
 import { createViewProjection } from "./projection";
@@ -141,9 +138,7 @@ describe("H2-10 · cobertura potencial de las parcelas vacantes", () => {
       .slice(0, 5)
       .map((parcel) => parcel.id);
     expect(
-      vacantIds.some(
-        (id) => (withSecurity.potentialByParcelId.get(id)?.security ?? 0) > 0,
-      ),
+      vacantIds.some((id) => (withSecurity.potentialByParcelId.get(id)?.security ?? 0) > 0),
     ).toBe(true);
 
     for (const station of stations) setFacilityBuildingState(state, station, "ruin");

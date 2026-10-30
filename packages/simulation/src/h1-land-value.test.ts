@@ -1,12 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { parseTick, type Block, type Building, type Parcel } from "@landlord/shared";
 
-import {
-  parseBuildingId,
-  parseCommandId,
-  parseMoney,
-  parsePersonId,
-} from "@landlord/shared";
+import { parseBuildingId, parseCommandId, parseMoney, parsePersonId } from "@landlord/shared";
 import { dispatchProductCommand } from "./commands";
 import { activePermitFor } from "./permitting";
 import { createMunicipalPolicy, GAME_MONTH_TICKS, PLAYER_ORGANIZATION_ID } from "./game-data";
@@ -52,13 +47,6 @@ function breakdown(state: GameState, parcel: Parcel) {
     parcel,
     buildLandValueContext(state, parcel.districtId, buildCoverageIndex(state)),
   );
-}
-
-function facilityBuildingIds(state: GameState, kind: string): string[] {
-  for (const district of state.world.districts.values())
-    for (const facility of district.facilities.values())
-      if (facility.kind === kind) return [...facility.buildingIds];
-  return [];
 }
 
 function allFacilityBuildingIds(state: GameState, kind: string): string[] {

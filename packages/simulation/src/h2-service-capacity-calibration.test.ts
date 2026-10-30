@@ -71,7 +71,9 @@ function facilitiesOfKind(state: GameState, kind: string): UrbanFacility[] {
 describe("H2-07 · capacidad por servicio, no constante global ciega", () => {
   it("los cinco capacity services tienen valor propio y parks/transport caen al default", () => {
     /** Los cinco con facility física tienen entrada en la tabla. */
-    expect(demandUnitsPerCapacityFor("security")).toBe(DEMAND_UNITS_PER_CAPACITY_BY_SERVICE.security);
+    expect(demandUnitsPerCapacityFor("security")).toBe(
+      DEMAND_UNITS_PER_CAPACITY_BY_SERVICE.security,
+    );
     expect(demandUnitsPerCapacityFor("fire")).toBe(DEMAND_UNITS_PER_CAPACITY_BY_SERVICE.fire);
     expect(demandUnitsPerCapacityFor("health")).toBe(DEMAND_UNITS_PER_CAPACITY_BY_SERVICE.health);
     expect(demandUnitsPerCapacityFor("education")).toBe(

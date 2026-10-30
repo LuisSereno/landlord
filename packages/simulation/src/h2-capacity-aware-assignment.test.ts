@@ -163,9 +163,9 @@ describe("H2-06 · asignación determinista con capacidad", () => {
     const stations = facilitiesOfKind(state, "police_station");
     const parcels = developParcels(state, stations[0]!.districtId, 30, 5000);
     for (const parcel of parcels)
-      expect((facilityCoverageIndex(state).byParcelId.get(parcel.id)?.security ?? 0)).toBeGreaterThanOrEqual(
-        0,
-      );
+      expect(
+        facilityCoverageIndex(state).byParcelId.get(parcel.id)?.security ?? 0,
+      ).toBeGreaterThanOrEqual(0);
     /** Antes de cortar, al menos una parcela estaba servida. */
     const before = facilityCoverageIndex(state);
     expect(

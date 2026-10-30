@@ -191,12 +191,25 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
 
   it("footprintVisualCenter es el punto medio del bounding box, no el anchor", () => {
     /** Huella 2×2 desplazada: el anchor (4,7) no coincide con el centro visual. */
-    expect(footprintVisualCenter([{ x: 4, y: 7 }, { x: 5, y: 7 }, { x: 4, y: 8 }, { x: 5, y: 8 }])).toEqual({
+    expect(
+      footprintVisualCenter([
+        { x: 4, y: 7 },
+        { x: 5, y: 7 },
+        { x: 4, y: 8 },
+        { x: 5, y: 8 },
+      ]),
+    ).toEqual({
       x: 4.5,
       y: 7.5,
     });
     /** Huella impar: el centro cae en una celda entera. */
-    expect(footprintVisualCenter([{ x: 2, y: 3 }, { x: 3, y: 3 }, { x: 4, y: 3 }])).toEqual({
+    expect(
+      footprintVisualCenter([
+        { x: 2, y: 3 },
+        { x: 3, y: 3 },
+        { x: 4, y: 3 },
+      ]),
+    ).toEqual({
       x: 3,
       y: 3,
     });
@@ -214,7 +227,12 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
     ];
     expect(depthForFootprintCells(block)).toBe(depthForCell({ x: 4, y: 4 }));
     /** Una huella con una celda más al sur-este se ordena por ella, aunque el bounding box sea el mismo. */
-    expect(depthForFootprintCells([{ x: 3, y: 3 }, { x: 4, y: 4 }])).toBe(depthForCell({ x: 4, y: 4 }));
+    expect(
+      depthForFootprintCells([
+        { x: 3, y: 3 },
+        { x: 4, y: 4 },
+      ]),
+    ).toBe(depthForCell({ x: 4, y: 4 }));
   });
 
   it("una parcela con dos edificios produce dos entradas en el plan con celdas distintas", () => {
@@ -276,7 +294,9 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
       { x: 11, y: 12 },
     ]);
     /** Centros visuales y depths distintos: la escena pinta dos sprites separados. */
-    expect(footprintVisualCenter(plan[0]!.cells)).not.toEqual(footprintVisualCenter(plan[1]!.cells));
+    expect(footprintVisualCenter(plan[0]!.cells)).not.toEqual(
+      footprintVisualCenter(plan[1]!.cells),
+    );
     expect(depthForFootprintCells(plan[1]!.cells)).toBeGreaterThan(
       depthForFootprintCells(plan[0]!.cells),
     );
@@ -332,12 +352,35 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
      */
     const economy = {
       buildings: [
-        { id: "b1", type: "row_house", condition: 100, state: "operational", footprintCells: [{ x: 1, y: 1 }] },
-        { id: "b2", type: "row_house", condition: 100, state: "operational", footprintCells: [{ x: 2, y: 2 }] },
-        { id: "b3", type: "clinic", condition: 100, state: "operational", footprintCells: [{ x: 3, y: 3 }] },
+        {
+          id: "b1",
+          type: "row_house",
+          condition: 100,
+          state: "operational",
+          footprintCells: [{ x: 1, y: 1 }],
+        },
+        {
+          id: "b2",
+          type: "row_house",
+          condition: 100,
+          state: "operational",
+          footprintCells: [{ x: 2, y: 2 }],
+        },
+        {
+          id: "b3",
+          type: "clinic",
+          condition: 100,
+          state: "operational",
+          footprintCells: [{ x: 3, y: 3 }],
+        },
       ],
       constructionSites: [
-        { id: "s1", buildingType: "workshop", footprintCells: [{ x: 4, y: 4 }], kind: "construction" },
+        {
+          id: "s1",
+          buildingType: "workshop",
+          footprintCells: [{ x: 4, y: 4 }],
+          kind: "construction",
+        },
       ],
     } as unknown as Pick<
       NonNullable<ViewProjectionV2["economy"]>,
@@ -358,8 +401,20 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
      */
     const both = {
       buildings: [
-        { id: "b1", type: "row_house", condition: 100, state: "operational", footprintCells: [{ x: 1, y: 1 }] },
-        { id: "b2", type: "row_house", condition: 100, state: "operational", footprintCells: [{ x: 2, y: 2 }] },
+        {
+          id: "b1",
+          type: "row_house",
+          condition: 100,
+          state: "operational",
+          footprintCells: [{ x: 1, y: 1 }],
+        },
+        {
+          id: "b2",
+          type: "row_house",
+          condition: 100,
+          state: "operational",
+          footprintCells: [{ x: 2, y: 2 }],
+        },
       ],
       constructionSites: [],
     } as unknown as Pick<
@@ -387,8 +442,20 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
      */
     const economy = {
       buildings: [
-        { id: "b1", type: "row_house", condition: 100, state: "operational", footprintCells: [{ x: 1, y: 1 }] },
-        { id: "b2", type: "warehouse", condition: 100, state: "operational", footprintCells: [{ x: 2, y: 2 }] },
+        {
+          id: "b1",
+          type: "row_house",
+          condition: 100,
+          state: "operational",
+          footprintCells: [{ x: 1, y: 1 }],
+        },
+        {
+          id: "b2",
+          type: "warehouse",
+          condition: 100,
+          state: "operational",
+          footprintCells: [{ x: 2, y: 2 }],
+        },
       ],
       constructionSites: [],
     } as unknown as Pick<
@@ -410,7 +477,12 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
  * resuelven una textura procedural válida. Si un tipo nuevo entra en `BUILDING_DEFINITIONS` sin
  * fallback, este test falla antes de que el render pierda el edificio.
  */
-const ALL_BUILDING_STATES: BuildingAssetState[] = ["complete", "construction", "damaged", "burning"];
+const ALL_BUILDING_STATES: BuildingAssetState[] = [
+  "complete",
+  "construction",
+  "damaged",
+  "burning",
+];
 
 describe("H2-02 ausencia de Blender → fallback procedural para los 15 tipos", () => {
   it("cada BuildingType del catálogo resuelve una textura procedural válida sin Blender", () => {

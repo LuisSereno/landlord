@@ -45,6 +45,7 @@
     "audit:metrics": "AUDIT_METRICS=1 vitest run --config vitest.config.ts packages/simulation/src/audit-metrics.test.ts --reporter=verbose",
     "balance:campaign": "BALANCE_CAMPAIGN=1 vitest run --config vitest.config.ts packages/simulation/src/balance.test.ts --reporter=verbose",
     "balance:playable": "PLAYABLE_BALANCE_CAMPAIGN=1 vitest run --config vitest.config.ts packages/simulation/src/balance-playable.test.ts --reporter=verbose",
+    "services:balance": "SERVICES_BALANCE=1 vitest run --config vitest.config.ts packages/simulation/src/services-balance.test.ts --reporter=verbose",
     "state:inspect": "STATE_INSPECT=1 vitest run --config vitest.config.ts packages/simulation/src/state-inspect.test.ts --reporter=verbose",
     "format:check": "prettier --check .",
     "format": "prettier --write ."

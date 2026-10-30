@@ -575,3 +575,117 @@ export function fireDamageForBuilding(
 export function injuredRecoveryDays(state: GameState, districtId: DistrictId): number {
   return facilityCoverageForDistrict(state, districtId, "health") >= 50 ? 1 : 2;
 }
+
+/**
+ * Diagnóstico (H2-04) · coste de viaje canónico de cada parcela a la facility más barata del
+ * servicio, ANTES de la capacidad. `facilityCoverageIndex` sabe el coste pero no lo expone;
+ * el harness de balance lo necesita para medir p50/p95 y para distinguir demanda inalcanzable
+ * (coste infinito) de saturada (coste finito pero capacidad cero).
+ *
+ * No es una regla de producto: es un asidero de observabilidad, se expone fuera del índice
+ * cacheado para no cambiar la superficie que consume el juego.
+ */
+export type FacilityServiceDistance = {
+  parcelId: ParcelId;
+  districtId: DistrictId;
+  /** Coste entero mínimo de la red; `null` si ningún nodo de acceso es alcanzable desde el servicio. */
+  cost: number | null;
+  /** Facility canónica del mínimo coste, resuelta por `facilityId.localeCompare` en empates. */
+  nearestFacilityId: UrbanFacilityId | null;
+};
+
+export function facilityServiceDistanceReport(
+  state: GameState,
+  service: FacilityServiceId,
+): FacilityServiceDistance[] {
+  const raw = rawCoverage(state);
+  const out: FacilityServiceDistance[] = [];
+  if (service === "parks") {
+    if (!raw.parkDistance) return [];
+    for (const parcel of raw.parcels) {
+      const access = raw.accessByParcel.get(parcel.id) ?? [];
+      let best = Number.POSITIVE_INFINITY;
+      for (const node of access) {
+        const value = raw.parkDistance.get(node) ?? Number.POSITIVE_INFINITY;
+        if (value < best) best = value;
+      }
+      out.push({
+        parcelId: parcel.id,
+        districtId: parcel.districtId,
+        cost: Number.isFinite(best) ? best : null,
+        nearestFacilityId: null,
+      });
+    }
+    return out;
+  }
+  if (service === "transport") {
+    if (!raw.transportDistance) return [];
+    for (const parcel of raw.parcels) {
+      const access = raw.accessByParcel.get(parcel.id) ?? [];
+      let best = Number.POSITIVE_INFINITY;
+      for (const node of access) {
+        const value = raw.transportDistance.get(node) ?? Number.POSITIVE_INFINITY;
+        if (value < best) best = value;
+      }
+      out.push({
+        parcelId: parcel.id,
+        districtId: parcel.districtId,
+        cost: Number.isFinite(best) ? best : null,
+        nearestFacilityId: null,
+      });
+    }
+    return out;
+  }
+  const data = raw.services.get(service);
+  if (!data) return out;
+  for (const parcel of raw.parcels) {
+    const access = raw.accessByParcel.get(parcel.id) ?? [];
+    if (access.length === 0) {
+      out.push({
+        parcelId: parcel.id,
+        districtId: parcel.districtId,
+        cost: null,
+        nearestFacilityId: null,
+      });
+      continue;
+    }
+    let bestCost = Number.POSITIVE_INFINITY;
+    let bestFacility: UrbanFacilityId | null = null;
+    for (const facility of data.facilities) {
+      const distance = data.distances.get(facility.id)!;
+      let cost = Number.POSITIVE_INFINITY;
+      for (const node of access) {
+        const value = distance.get(node) ?? Number.POSITIVE_INFINITY;
+        if (value < cost) cost = value;
+      }
+      if (!Number.isFinite(cost)) continue;
+      if (
+        cost < bestCost ||
+        (cost === bestCost && (bestFacility === null || facility.id < bestFacility))
+      ) {
+        bestCost = cost;
+        bestFacility = facility.id;
+      }
+    }
+    out.push({
+      parcelId: parcel.id,
+      districtId: parcel.districtId,
+      cost: Number.isFinite(bestCost) ? bestCost : null,
+      nearestFacilityId: bestFacility,
+    });
+  }
+  return out;
+}
+
+/** Facilidad para la caché de `facilityCoverageIndex`: reutilizar el mismo `rawCoverage` en el harness. */
+export function listFacilitiesForService(
+  state: GameState,
+  service: FacilityServiceId,
+): UrbanFacility[] {
+  const kind = SERVICE_FACILITY_KIND[service];
+  if (!kind) return [];
+  return [...state.world.districts.values()]
+    .flatMap((district) => [...district.facilities.values()])
+    .filter((facility) => facility.kind === kind)
+    .sort((left, right) => left.id.localeCompare(right.id));
+}

@@ -142,26 +142,6 @@ async function startFreshCity() {
   await page.getByText("Worker conectado · simulación ejecutándose").waitFor({ timeout: 30000 });
 }
 
-/**
- * Barrido determinista de celdas hasta que el panel ofrezca lo que busca el paso.
- * `escapeFirst` cierra el panel contextual antes de cada clic para que no intercepte el puntero;
- * `step: 1` recorre celdas impares, donde puede caer el programa municipal.
- */
-async function scanCells(predicate, options = {}) {
-  const { limit = 260, step = 2, escapeFirst = false } = options;
-  let visited = 0;
-  for (let y = 6; y <= 58; y += step) {
-    for (let x = 6; x <= 58; x += step) {
-      if (visited >= limit) return null;
-      visited += 1;
-      if (escapeFirst) await page.keyboard.press("Escape");
-      if (!(await clickCell({ x, y }))) continue;
-      if (await predicate(x, y)) return { x, y };
-    }
-  }
-  return null;
-}
-
 try {
   await waitForServer();
 

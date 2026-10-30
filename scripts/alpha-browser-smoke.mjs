@@ -66,6 +66,12 @@ async function configureCamera(zoom, scrollX, scrollY) {
 }
 
 async function pickCell(cell) {
+  /**
+   * V.d-UX: el viewport ya no es el mismo lienzo que en Alpha (HUD compacto arriba, sin panel
+   * permanente) así que una celda concreta puede caer fuera con un scroll fijo. Se centra antes
+   * de medir: el test verifica picking y cámara, no una posición de píxel concreta.
+   */
+  await page.evaluate((target) => window.__landlordCameraTest.centerOnCell(target), cell);
   const point = await canvasPointForCell(cell);
   await page.mouse.click(point.page.x, point.page.y);
   await page.waitForFunction((expected) => {
@@ -130,7 +136,9 @@ async function verifyCameraRegression() {
   await pickCell({ x: 45, y: 20 });
 
   await dragCameraAtZoom(1);
+  /** V.d-UX: se centra el ancla para que el zoom no toque los límites de la cámara. */
   const anchoredCell = { x: 45, y: 20 };
+  await page.evaluate((target) => window.__landlordCameraTest.centerOnCell(target), anchoredCell);
   const anchor = await canvasPointForCell(anchoredCell);
   const before = await page.evaluate(
     (point) => window.__landlordCameraTest.getWorldPoint(point),
@@ -212,35 +220,35 @@ try {
   await page.getByRole("button", { name: "Cargar" }).click();
   await page.getByText(/Snapshot cargado/).waitFor({ timeout: 15000 });
 
-  const body = await page.locator("main").innerText();
+  /** V.d-UX: los sistemas globales viven en hubs; el HUD sólo muestra estado frecuente. */
+  const openGovernment = async () => {
+    await page.getByRole("button", { name: "Gobierno", exact: true }).click();
+    await page
+      .getByRole("complementary", { name: "Gobierno municipal" })
+      .waitFor({ timeout: 15000 });
+  };
+  await openGovernment();
+  const body = await page.getByRole("complementary", { name: "Gobierno municipal" }).innerText();
   for (const category of ["administración", "seguridad", "transporte", "limpieza"]) {
     if (!body.includes(category)) throw new Error(`Falta la categoría municipal ${category}`);
   }
-  if (!/gasto planificado \d+ u\./.test(body)) throw new Error("El gasto municipal no suma");
+  if (!/Gasto planificado\s+\d+ u\./i.test(body)) throw new Error("El gasto municipal no suma");
   if (body.includes("RAZON-PRIVADA-RIVAL") || body.includes("ACCION-PRIVADA-RIVAL")) {
     throw new Error("La proyección filtró el razonamiento privado del rival");
   }
 
-  await page.getByText("Concejo municipal").click();
-  const council = await page
-    .getByText(/Gobierna:/)
-    .locator("..")
-    .innerText();
-  if (!/participación \d+%/.test(council)) throw new Error("El concejo no muestra participación");
-  const seats = await page
-    .getByText(/escaños ·/)
-    .first()
-    .innerText();
-  if (!/\d+% de apoyo/.test(seats)) throw new Error("El concejo no muestra apoyo por partido");
-  const mood = await page
-    .getByText(/Ánimo del distrito:/)
-    .locator("..")
-    .innerText();
+  if (!/Gobierna /i.test(body)) throw new Error("El concejo no se renderizó en Gobierno");
+  if (!/participación \d+ %/.test(body)) throw new Error("El concejo no muestra participación");
+  if (!/\d+ % de apoyo/.test(body)) throw new Error("El concejo no muestra apoyo por partido");
+  const moodIndex = body.indexOf("Ánimo del distrito");
+  if (moodIndex < 0) throw new Error("Falta el ánimo del distrito");
+  const mood = body.slice(moodIndex);
   for (const issue of ["vivienda", "empleo", "seguridad", "servicios", "impuestos"]) {
     if (!mood.includes(issue)) throw new Error(`Falta el eje de ánimo ${issue}`);
   }
 
   // V.d.0: la vista de ciudad lista los nueve distritos; cambiar el observado no ejecuta un comando.
+  await page.locator(".hud-district").click();
   const cityTiles = page.locator('[aria-label="Distritos"] [role="gridcell"]');
   const tileCount = await cityTiles.count();
   if (tileCount !== 9)
@@ -249,19 +257,21 @@ try {
   const cashBeforeSwitch = readCash(await page.locator("main").innerText());
   await cityTiles.filter({ hasText: "Patios del Este" }).click();
   await page
-    .getByLabel("Distrito observado")
+    .locator(".hud-district")
     .filter({ hasText: "Patios del Este" })
     .waitFor({ timeout: 15000 });
   const cashAfterSwitch = readCash(await page.locator("main").innerText());
   if (cashAfterSwitch !== cashBeforeSwitch) {
     throw new Error(`Cambiar de distrito movió la caja: ${cashBeforeSwitch} → ${cashAfterSwitch}`);
   }
+  await page.locator(".hud-district").click();
   await cityTiles.filter({ hasText: "Barrio del Umbral" }).click();
   await page
-    .getByLabel("Distrito observado")
+    .locator(".hud-district")
     .filter({ hasText: "Barrio del Umbral" })
     .waitFor({ timeout: 15000 });
 
+  await openGovernment();
   const bidButton = page.getByRole("button", { name: /Presentar oferta/ });
   const tenderLine = await page
     .getByText(/presupuesto \d+ u\. · fianza/)
@@ -278,10 +288,12 @@ try {
   await page.getByText(/Oferta presentada/).waitFor({ timeout: 15000 });
   await page.getByText(new RegExp(`tu oferta ${submittedBid} u\\.`)).waitFor({ timeout: 15000 });
 
+  await page.locator(".hud-district").click();
+  await page.getByRole("complementary", { name: "Ciudad" }).waitFor({ timeout: 15000 });
   const cashBefore = readCash(await page.locator("main").innerText());
   await page.getByRole("button", { name: /Investigar caja disponible/ }).click();
-  await page.getByText(/Encargo de caja disponible enviado/).waitFor({ timeout: 15000 });
-  await page.getByText(/caja disponible estimada .* por contacto/).waitFor({ timeout: 15000 });
+  await page.getByText(/Encargo de inteligencia enviado/).waitFor({ timeout: 15000 });
+  await page.getByText(/caja disponible: \d+ u\. · \d+ % de acierto/).waitFor({ timeout: 15000 });
   const cashAfter = readCash(await page.locator("main").innerText());
   if (cashAfter > cashBefore - 150) {
     throw new Error(
@@ -295,8 +307,11 @@ try {
   await page.getByText("Worker conectado · simulación ejecutándose").waitFor({ timeout: 10000 });
   await page.getByRole("button", { name: "Cargar" }).click();
   await page.getByText(/Snapshot cargado/).waitFor({ timeout: 15000 });
-  await page.getByText("Concejo municipal").click();
-  await page.getByText(/Gobierna:/).waitFor({ timeout: 15000 });
+  await openGovernment();
+  await page
+    .getByText(/Gobierna /)
+    .first()
+    .waitFor({ timeout: 15000 });
   await page.getByText(new RegExp(`tu oferta ${submittedBid} u\\.`)).waitFor({ timeout: 15000 });
 
   const finalBody = await page.locator("main").innerText();
@@ -308,8 +323,9 @@ try {
     JSON.stringify({
       status: await page.locator('[role="status"]').innerText(),
       council: await page
-        .getByText(/Gobierna:/)
-        .locator("..")
+        .getByRole("complementary", { name: "Gobierno municipal" })
+        .getByText(/Gobierna /i)
+        .first()
         .innerText(),
       metrics: finalBody.match(/CAJA\n.*/g),
     }),

@@ -90,7 +90,7 @@ export function BuildCatalog({
                     role="listitem"
                     type="button"
                   >
-                    <BuildingThumbnail size={64} type={option.type} />
+                    <BuildingThumbnail size={56} type={option.type} />
                     <span className="build-card-body">
                       <strong>{buildingTypeLabel(option.type)}</strong>
                       <span className="build-card-cost">
@@ -99,7 +99,9 @@ export function BuildCatalog({
                       <span className="build-card-function">
                         {option.production
                           ? `Produce ${resourceLabel(option.production.output)}`
-                          : `${option.capacity} plazas · renta ${option.baseRent} u.`}
+                          : option.capacity > 0
+                            ? `${option.capacity} plazas · renta ${option.baseRent} u.`
+                            : "Almacenamiento sin plazas de alquiler"}
                       </span>
                       {disabled ? (
                         <span className="build-card-blocked">

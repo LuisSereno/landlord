@@ -14,7 +14,7 @@ export function missingResourceLines(
   inventory: { cement: number; brick: number; steel: number } | undefined,
   requirements: { cement: number; brick: number; steel: number },
 ): DisabledReason[] {
-  const labels = { cement: "cemento", brick: "ladrillo", steel: "acero" } as const;
+  const labels = { cement: "de cemento", brick: "ladrillos", steel: "de acero" } as const;
   if (!inventory)
     return [{ code: "inventory_unknown", message: "Todavía no hay inventario disponible." }];
   return (["cement", "brick", "steel"] as const).flatMap((resource) => {
@@ -23,7 +23,7 @@ export function missingResourceLines(
     return [
       {
         code: `missing_${resource}`,
-        message: `Necesitas ${missing} ${labels[resource]}${missing === 1 ? "" : "s"} más.`,
+        message: `Te ${missing === 1 ? "falta" : "faltan"} ${missing} ${labels[resource]}.`,
       },
     ];
   });

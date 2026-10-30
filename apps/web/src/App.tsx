@@ -104,6 +104,13 @@ export function App() {
         if (!building) return null;
         return economy?.parcels.find((parcel) => parcel.id === building.parcelId)?.cell ?? null;
       },
+      marketableParcelCellForType: (buildingType: string) =>
+        economy?.parcels.find(
+          (parcel) =>
+            parcel.disposition === "marketable" &&
+            !parcel.ownerOrganizationId &&
+            parcel.permittedBuildingTypes.includes(buildingType as never),
+        )?.cell ?? null,
     };
     return () => {
       delete window.__landlordUiTest;
@@ -469,6 +476,7 @@ declare global {
       publicParcelCell: () => GridCell | null;
       marketableParcelCell: () => GridCell | null;
       ownedBuildingParcelCell: () => GridCell | null;
+      marketableParcelCellForType: (buildingType: string) => GridCell | null;
     };
   }
 }

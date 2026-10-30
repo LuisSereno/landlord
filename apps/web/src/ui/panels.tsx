@@ -31,7 +31,6 @@ import {
   permitStatusLabel,
   publicSpaceKindLabel,
   tenantProfileLabel,
-  urbanRoleLabel,
   zoningLabel,
 } from "./labels";
 import type {
@@ -98,16 +97,18 @@ export function ContextPanel({
       ? "Equipamiento"
       : selection.kind === "public-space"
         ? "Espacio público"
-        : "Parcela";
+        : selection.kind === "building"
+          ? "Edificio"
+          : selection.kind === "construction"
+            ? "Obra"
+            : "Parcela";
   return (
     <aside aria-label="Inspección de parcela" className="context-panel">
       <header className="context-header">
         <div>
           <p className="eyebrow">{eyebrow}</p>
           <h2>{title}</h2>
-          <p className="muted">
-            {context.projectionDistrictName} · {urbanRoleLabel(selection.parcel.urbanRole)}
-          </p>
+          <p className="muted">{context.projectionDistrictName}</p>
         </div>
         <button
           aria-label="Cerrar panel"
@@ -154,7 +155,7 @@ function ParcelPanel({ parcel, context }: { parcel: ProjectedParcel; context: Pa
             <UiIcon name="ownership" size={13} /> {parcelDispositionLabel(parcel.disposition)}
           </span>
           <span className="chip">
-            <UiIcon name="tenants" size={13} />{" "}
+            <UiIcon name="ownership" size={13} />{" "}
             {organizationDisplayName(parcel.ownerOrganizationId)}
           </span>
           <span className="chip">
@@ -187,6 +188,11 @@ function ParcelPanel({ parcel, context }: { parcel: ProjectedParcel; context: Pa
           </div>
         </dl>
       </section>
+
+      {/* Un solar propio y vacío prioriza construir: el catálogo va antes que el detalle. */}
+      {owned && vacant ? (
+        <BuildCatalog actions={actions} calendar={calendar} economy={economy} parcel={parcel} />
+      ) : null}
 
       <section className="panel-section">
         <h3>
@@ -275,9 +281,6 @@ function ParcelPanel({ parcel, context }: { parcel: ProjectedParcel; context: Pa
           <UiIcon name="money" /> Comprar parcela · {parcel.marketValue} u.
         </button>
       ) : null}
-      {owned && vacant ? (
-        <BuildCatalog actions={actions} calendar={calendar} economy={economy} parcel={parcel} />
-      ) : null}
       {owned && !vacant ? (
         <p className="muted">
           <UiIcon name="info" size={14} /> Este solar ya está edificado. Selecciona un edificio para
@@ -309,6 +312,13 @@ function BuildingPanel({
 }) {
   const { economy, calendar, actions } = context;
   const owned = building.ownerOrganizationId === PLAYER;
+  /**
+   * El estado de la pestaña se declara antes de cualquier retorno: un edificio rival delega en
+   * `RivalPanel`, pero los hooks deben ejecutarse siempre en el mismo orden.
+   */
+  const [tab, setTab] = useState<"summary" | "tenants" | "maintenance" | "insurance" | "finance">(
+    "summary",
+  );
   if (!owned) return <RivalPanel building={building} context={context} />;
   const option = economy.constructionOptions.find((entry) => entry.type === building.type);
   const production = economy.production.find((entry) => entry.buildingId === building.id);
@@ -316,9 +326,6 @@ function BuildingPanel({
   const offers = economy.insurance.offers.filter((offer) => offer.buildingId === building.id);
   const compatibleTenants = economy.tenants.filter(
     (tenant) => !tenant.activeContractBuildingId && tenant.preferredBuildingType === building.type,
-  );
-  const [tab, setTab] = useState<"summary" | "tenants" | "maintenance" | "insurance" | "finance">(
-    "summary",
   );
   const upgradeReasons = option
     ? upgradeBlockedReasons({ economy, option, alreadyUpgraded: building.upgraded })

@@ -768,7 +768,19 @@ export class IsometricSpikeScene extends Phaser.Scene {
       this.overlay === "education" ||
       this.overlay === "transport"
     ) {
-      const coverage = parcel.serviceCoverage?.[this.overlay] ?? 0;
+      /**
+       * V.d-UX · un solar vacío no consume capacidad (H2-05), así que su cobertura activa es 0 y
+       * pintarlo «sin cobertura» era alarmante y falso para el jugador: lo que necesita saber es
+       * si el servicio LLEGARÍA al construir. Se usa la cobertura potencial de H2-10 cuando
+       * existe; `transport` no tiene potencial porque es accesibilidad, no capacidad.
+       */
+      const vacant = buildingsOfParcel.length === 0;
+      const potential =
+        this.overlay === "transport" ? undefined : parcel.potentialService?.[this.overlay];
+      const coverage =
+        vacant && potential !== undefined
+          ? potential
+          : (parcel.serviceCoverage?.[this.overlay] ?? 0);
       if (coverage >= 75) return COLORS.parcelPlayer;
       if (coverage >= 40) return COLORS.construction;
       if (coverage > 0) return COLORS.parcelAvailable;

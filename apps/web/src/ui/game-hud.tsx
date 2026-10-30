@@ -3,7 +3,7 @@ import { useEffect, useId, useState } from "react";
 import type { GameSession } from "../session/use-game-session";
 import { HelpTooltip, helpCatalog, type HelpTopicKey } from "./help";
 import { ResourceIcon, UiIcon, type UiIconName } from "./icons";
-import { formatGameDate, formatMoney } from "./labels";
+import { alertSeverityLabel, formatGameDate, formatMoney } from "./labels";
 import {
   OVERLAY_GROUPS,
   OVERLAY_OPTIONS,
@@ -99,28 +99,13 @@ export function GameHud({
           </span>
         </div>
         <div className="hud-controls">
-          <button
-            aria-label="Abrir Gobierno"
-            className="hud-text-button"
-            onClick={() => onOpenHub("government")}
-            type="button"
-          >
+          <button className="hud-text-button" onClick={() => onOpenHub("government")} type="button">
             <UiIcon name="government" size={15} /> Gobierno
           </button>
-          <button
-            aria-label="Abrir Finanzas"
-            className="hud-text-button"
-            onClick={() => onOpenHub("finance")}
-            type="button"
-          >
+          <button className="hud-text-button" onClick={() => onOpenHub("finance")} type="button">
             <UiIcon name="finance" size={15} /> Finanzas
           </button>
-          <button
-            aria-label="Abrir Cartera"
-            className="hud-text-button"
-            onClick={() => onOpenHub("portfolio")}
-            type="button"
-          >
+          <button className="hud-text-button" onClick={() => onOpenHub("portfolio")} type="button">
             <UiIcon name="portfolio" size={15} /> Cartera
           </button>
           <button
@@ -352,6 +337,9 @@ export function NotificationCenter({
                       key={entry.id}
                     >
                       <span className="notification-body">
+                        <span className="notification-severity">
+                          {alertSeverityLabel(entry.severity)}
+                        </span>
                         <strong>{entry.title}</strong>
                         <span className="muted">{entry.body}</span>
                       </span>
@@ -461,7 +449,9 @@ export function OnboardingBanner({
           {step.missing.map((entry) => (
             <li key={entry.resource}>
               <ResourceIcon resource={entry.resource} showLabel />
-              <span className="muted">faltan {entry.amount}</span>
+              <span className="muted">
+                {entry.amount === 1 ? "falta 1" : `faltan ${entry.amount}`}
+              </span>
             </li>
           ))}
         </ul>

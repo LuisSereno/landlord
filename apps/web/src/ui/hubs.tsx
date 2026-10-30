@@ -10,7 +10,6 @@ import {
   auctionStatusLabel,
   buildingDisplayName,
   buildingStateLabel,
-  constructionKindLabel,
   formatGameDate,
   formatGameDuration,
   formatMoney,
@@ -19,11 +18,10 @@ import {
   loanStatusLabel,
   maintenancePolicyLabel,
   ordinanceStatusLabel,
-  organizationDisplayName,
   signedAmount,
   transactionLabel,
 } from "./labels";
-import type { Economy, GameActions, GameCalendar, HubKind, ProjectedParcel } from "./types";
+import type { Economy, GameActions, GameCalendar, HubKind } from "./types";
 
 const PLAYER = "org_00000001";
 
@@ -151,7 +149,7 @@ function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
           {economy.policyOptions
             .filter((option) => option.id !== economy.ordinance.id)
             .map((option) => (
-              <li key={option.id}>
+              <li className="policy-row" key={option.id}>
                 <button
                   disabled={["active", "proposed"].includes(economy.ordinance.status)}
                   onClick={() => actions.proposePolicy(option.id)}
@@ -160,7 +158,6 @@ function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
                   <UiIcon name="ordinance" /> Proponer {option.name}
                 </button>
                 <span className="muted">
-                  {" "}
                   materiales {option.materialCostModifierPercent} % · renta{" "}
                   {option.rentModifierPercent} % · permisos {option.permitApprovalModifierPercent} %
                 </span>

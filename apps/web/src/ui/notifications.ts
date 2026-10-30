@@ -1,10 +1,5 @@
 import type { Economy, HubKind } from "./types";
-import {
-  alertCategoryLabel,
-  alertSeverityLabel,
-  buildingTypeLabel,
-  urbanRoleLabel,
-} from "./labels";
+import { buildingTypeLabel, urbanRoleLabel } from "./labels";
 
 /**
  * V.d-UX · notificaciones derivadas de las alertas que ya produce el motor (spec §8). No se crean
@@ -25,6 +20,15 @@ export type GameNotification = {
   body: string;
   target: NotificationTarget;
   actionLabel: string | null;
+};
+
+const KIND_TITLES: Record<Economy["alerts"][number]["kind"], string> = {
+  liquidity: "Previsión de caja",
+  debt: "Deuda",
+  maintenance: "Mantenimiento",
+  permit: "Permiso",
+  auction: "Subasta",
+  occupancy: "Plazas vacantes",
 };
 
 const CATEGORY_TITLES: Record<NotificationCategory, string> = {
@@ -97,8 +101,8 @@ export function deriveNotifications(economy: Economy | undefined): GameNotificat
       id: alert.id,
       category,
       severity: alert.severity,
-      title: `${CATEGORY_TITLES[category]} · ${alertCategoryLabel(alert.kind)}`,
-      body: `${alertSeverityLabel(alert.severity)}: ${sanitizeAlertMessage(alert.message, economy)}`,
+      title: KIND_TITLES[alert.kind],
+      body: sanitizeAlertMessage(alert.message, economy),
       target,
       actionLabel:
         target.kind === "parcel" ? "Ver parcela" : target.kind === "hub" ? "Abrir Finanzas" : null,

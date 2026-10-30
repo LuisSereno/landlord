@@ -57,6 +57,7 @@ export type UiIconName =
   | "upgrade"
   | "intelligence"
   | "reputation"
+  | "influence"
   | "contract"
   | "illegal-route"
   | "crew"
@@ -113,6 +114,7 @@ export const UI_ICON_LABELS: Record<UiIconName, string> = {
   upgrade: "Mejorar",
   intelligence: "Inteligencia",
   reputation: "Reputación",
+  influence: "Influencia",
   contract: "Contrato",
   "illegal-route": "Ruta ilegal",
   crew: "Cuadrilla",
@@ -401,6 +403,12 @@ const ICON_GLYPHS: Record<UiIconName, ReactNode> = {
   reputation: (
     <>
       <path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z" />
+    </>
+  ),
+  influence: (
+    <>
+      <path d="M12 3v18M5 8l7-5 7 5" />
+      <path d="M5 8v3M19 8v3M9 21h6" />
     </>
   ),
   contract: (

@@ -7,6 +7,14 @@ import {
   type ViewProjectionV2,
 } from "@landlord/shared";
 import { BLENDER_ASSETS, PROCEDURAL_ASSETS } from "../assets/runtime-assets";
+import {
+  CODE_PALETTE,
+  MAP_COLORS,
+  ROLE_COLORS,
+  USE_COLORS,
+  ZONING_COLORS,
+  type MapOverlay,
+} from "../ui/overlay-catalog";
 import { planGround, type GroundPlan } from "../visual-slice/ground";
 import {
   CROSSING_TEXTURE,
@@ -43,17 +51,7 @@ import {
   type GameplayVisualModel,
 } from "./gameplay-visual-adapter";
 
-const COLORS = {
-  selected: 0xf2c14e,
-  parcelAvailable: 0x7f8fa6,
-  parcelPlayer: 0x4db6ac,
-  parcelRival: 0xd97757,
-  parcelCivic: 0x6fa8dc,
-  building: 0xead7a1,
-  construction: 0xb8a46a,
-  fire: 0xf05a28,
-  ruin: 0x6b5b73,
-};
+const COLORS = MAP_COLORS;
 
 const STRUCTURE_TEXTURE_KEY = "benchmark-structure-marker";
 const AGENT_TEXTURE_KEY = "benchmark-agent-marker";
@@ -139,21 +137,8 @@ declare global {
   }
 }
 
-export type MapOverlay =
-  | "ownership"
-  | "profitability"
-  | "condition"
-  | "zoning"
-  | "risk"
-  | "landValue"
-  | "security"
-  | "fire"
-  | "health"
-  | "education"
-  | "transport"
-  | "use"
-  | "developmentCode"
-  | "urbanRole";
+/** El catálogo del mapa vive en la UI para que la leyenda y el render compartan fuente. */
+export type { MapOverlay } from "../ui/overlay-catalog";
 
 export class IsometricSpikeScene extends Phaser.Scene {
   private readonly layout: IsometricLayout = REFERENCE_LAYOUT;
@@ -178,6 +163,15 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private projection: ViewProjectionV2 | null = null;
   private overlay: MapOverlay = "ownership";
   private cellPickedListener?: (cell: GridCell) => void;
+  private indicatorListener?: (target: { parcelId: string; buildingId?: string }) => void;
+  private indicatorLayer?: Phaser.GameObjects.Container;
+  private indicatorEntries: Array<{
+    object: Phaser.GameObjects.Container;
+    critical: boolean;
+  }> = [];
+  private indicatorTooltip?: Phaser.GameObjects.Text;
+  private indicatorSignature = "";
+  private lastIndicatorZoom = 1;
   private dragStart: { x: number; y: number; scrollX: number; scrollY: number } | null = null;
   private fpsAccumulator = 0;
   private fpsFrames = 0;
@@ -286,6 +280,17 @@ export class IsometricSpikeScene extends Phaser.Scene {
       this.fpsAccumulator = 0;
     }
     this.updateGameplayStreetLifeVisibility();
+    /**
+     * V.d-UX · en zoom lejano se ocultan los avisos no críticos para no llenar la ciudad de
+     * badges. Los críticos (incendio/colapso) siguen visibles siempre.
+     */
+    const zoom = this.cameras.main.zoom;
+    if (Math.abs(zoom - this.lastIndicatorZoom) > 0.001) {
+      this.lastIndicatorZoom = zoom;
+      const showSecondary = zoom >= 0.7;
+      for (const entry of this.indicatorEntries)
+        entry.object.setVisible(entry.critical || showSecondary);
+    }
     if (!this.cursors) return;
     const camera = this.cameras.main;
     const speed = 8 / camera.zoom;
@@ -301,11 +306,36 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.updateBlitterPositions();
     this.syncBuildingSprites();
     this.drawOverlay();
+    this.syncWorldIndicators();
   }
 
   public setOverlay(overlay: MapOverlay): void {
     this.overlay = overlay;
     this.drawOverlay();
+  }
+
+  /** Selección dirigida desde la UI (notificaciones, fichas): sólo presentación. */
+  public setSelectedCell(cell: GridCell | null): void {
+    this.selectedCell = cell ? { ...cell } : null;
+    this.drawOverlay();
+  }
+
+  /** Centra la cámara en una celda; respeta `prefers-reduced-motion`. */
+  public focusCell(cell: GridCell): void {
+    const world = gridToScreen(cell, this.layout);
+    const camera = this.cameras.main;
+    const reduced =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) camera.setScroll(world.x - camera.width / 2, world.y - camera.height / 2);
+    else camera.pan(world.x, world.y, 260, Phaser.Math.Easing.Sine.InOut);
+  }
+
+  /** Click en un indicador de mundo: navega al target sin decidir nada por el jugador. */
+  public setIndicatorListener(
+    listener: (target: { parcelId: string; buildingId?: string }) => void,
+  ): void {
+    this.indicatorListener = listener;
   }
 
   public setCellPickedListener(listener: (cell: GridCell) => void): void {
@@ -593,6 +623,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
     const graphics = this.mapGraphics;
     if (!graphics) return;
     graphics.clear();
+    /** Vista normal: sin contornos semánticos; la ciudad se lee por sus sprites. */
+    if (this.overlay === "none") return;
     for (const parcel of this.projection?.economy?.parcels ?? []) {
       const center = this.screenCenter(parcel.cell);
       const halfWidth = this.layout.tileWidth / 2 - 4;
@@ -700,12 +732,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       if (rent < due * 2) return COLORS.construction;
       return COLORS.parcelPlayer;
     }
-    if (this.overlay === "zoning")
-      return parcel.zoning === "industrial"
-        ? 0x9b7ede
-        : parcel.zoning === "mixed"
-          ? 0xe0b04b
-          : 0x69a86b;
+    if (this.overlay === "zoning") return ZONING_COLORS[parcel.zoning];
     if (this.overlay === "risk") {
       if (parcel.regulatoryRiskPercent >= 30) return COLORS.fire;
       if (parcel.regulatoryRiskPercent >= 15) return COLORS.construction;
@@ -719,38 +746,19 @@ export class IsometricSpikeScene extends Phaser.Scene {
       return COLORS.fire;
     }
     if (this.overlay === "urbanRole") {
-      const colors: Record<string, number> = {
-        civic_core: 0xf2c14e,
-        mixed_core: 0xd98f6a,
-        commercial_corridor: 0xe0b04b,
-        urban_residential: 0x69a86b,
-        low_density_residential: 0x8fbf7a,
-        industrial_logistics: 0x9b7ede,
-        institutional: 0x6fa8dc,
-        green_open_space: 0x4db6ac,
-      };
+      const colors: Record<string, number> = ROLE_COLORS;
       return colors[parcel.urbanRole] ?? COLORS.parcelAvailable;
     }
     if (this.overlay === "developmentCode") {
-      const palette = [0x69a86b, 0x6fa8dc, 0xe0b04b, 0xd98f6a, 0x9b7ede, 0x4db6ac, 0xf2c14e];
       let hash = 0;
       for (let index = 0; index < parcel.developmentCodeId.length; index += 1) {
         hash = (hash * 31 + parcel.developmentCodeId.charCodeAt(index)) >>> 0;
       }
-      return palette[hash % palette.length]!;
+      return CODE_PALETTE[hash % CODE_PALETTE.length]!;
     }
     if (this.overlay === "use") {
       const use = parcel.currentUses[0] ?? parcel.allowedUses[0] ?? "residential";
-      const colors: Record<string, number> = {
-        residential: 0x69a86b,
-        retail: 0xe0b04b,
-        office: 0x6fa8dc,
-        industrial: 0x9b7ede,
-        civic: 0xf2c14e,
-        education: 0x4db6ac,
-        health: 0xd98f6a,
-        utility: 0x7f8fa6,
-      };
+      const colors: Record<string, number> = USE_COLORS;
       return colors[use] ?? COLORS.parcelAvailable;
     }
     if (
@@ -1283,6 +1291,146 @@ export class IsometricSpikeScene extends Phaser.Scene {
     // Apply bounds now; the next render must not introduce a delayed clamp/jump.
     camera.preRender();
     this.debugText?.setText(this.debugLabel());
+  }
+
+  /**
+   * V.d-UX · indicadores de mundo (spec §9). Sólo asuntos espaciales y accionables, en orden de
+   * prioridad: incendio/colapso > mantenimiento crítico > obra sin cuadrilla. Se reconstruyen
+   * únicamente cuando cambia su firma —no hay un nodo por edificio ni un rebuild por tick— y su
+   * visibilidad depende del zoom: los críticos siempre, el resto a partir de 0,7.
+   */
+  private syncWorldIndicators(): void {
+    const economy = this.projection?.economy;
+    if (!economy) {
+      this.indicatorLayer?.setVisible(false);
+      return;
+    }
+    type Indicator = {
+      key: string;
+      critical: boolean;
+      cell: GridCell;
+      label: string;
+      parcelId: string;
+      buildingId?: string;
+    };
+    const candidates: Indicator[] = [];
+    for (const building of economy.buildings) {
+      if (building.ownerOrganizationId !== "org_00000001") continue;
+      const cell = footprintVisualCenter(building.footprintCells);
+      if (building.state === "burning" || building.state === "collapse_pending") {
+        candidates.push({
+          key: `building:${building.id}:critical`,
+          critical: true,
+          cell,
+          label:
+            building.state === "burning"
+              ? "Incendio activo: revisa el edificio"
+              : "Riesgo de colapso: revisa el edificio",
+          parcelId: building.parcelId,
+          buildingId: building.id,
+        });
+        continue;
+      }
+      if (building.condition <= 55)
+        candidates.push({
+          key: `building:${building.id}:maintenance`,
+          critical: false,
+          cell,
+          label: `Condición ${building.condition} %: conviene reparar`,
+          parcelId: building.parcelId,
+          buildingId: building.id,
+        });
+    }
+    for (const site of economy.constructionSites) {
+      if (site.ownerOrganizationId !== "org_00000001") continue;
+      if (site.assignedCrewIds.length > 0) continue;
+      candidates.push({
+        key: `site:${site.id}`,
+        critical: false,
+        cell: footprintVisualCenter(site.footprintCells),
+        label: "Obra sin cuadrilla: asígnala para avanzar",
+        parcelId: site.parcelId,
+      });
+    }
+    candidates.sort((left, right) => Number(right.critical) - Number(left.critical));
+    const indicators = candidates.slice(0, 12);
+    const signature = indicators.map((entry) => entry.key).join("|");
+    if (!this.indicatorLayer) {
+      this.indicatorLayer = this.add.container(0, 0).setDepth(1_000_000);
+    }
+    if (signature === this.indicatorSignature) {
+      this.indicatorLayer.setVisible(true);
+      this.syncIndicatorVisibility();
+      return;
+    }
+    this.indicatorSignature = signature;
+    this.indicatorLayer.removeAll(true);
+    this.indicatorLayer.setVisible(true);
+    this.indicatorEntries = [];
+    for (const entry of indicators) {
+      const center = gridToScreen(entry.cell, this.layout);
+      const color = entry.critical
+        ? COLORS.fire
+        : entry.label.startsWith("Condición")
+          ? COLORS.construction
+          : COLORS.parcelAvailable;
+      const graphic = this.add.graphics();
+      graphic.fillStyle(color, 0.95);
+      graphic.lineStyle(2, 0x0c1220, 1);
+      if (entry.critical) {
+        graphic.beginPath();
+        graphic.moveTo(0, -11);
+        graphic.lineTo(9, 0);
+        graphic.lineTo(0, 11);
+        graphic.lineTo(-9, 0);
+        graphic.closePath();
+        graphic.fillPath();
+        graphic.strokePath();
+      } else {
+        graphic.fillCircle(0, 0, 8);
+        graphic.strokeCircle(0, 0, 8);
+      }
+      const hit = this.add.zone(0, 0, 28, 28).setInteractive({ useHandCursor: true });
+      hit.on("pointerover", () => this.showIndicatorTooltip(center, entry.label));
+      hit.on("pointerout", () => this.indicatorTooltip?.setVisible(false));
+      hit.on("pointerdown", () =>
+        this.indicatorListener?.({
+          parcelId: entry.parcelId,
+          ...(entry.buildingId ? { buildingId: entry.buildingId } : {}),
+        }),
+      );
+      const item = this.add.container(center.x, center.y, [graphic, hit]);
+      this.indicatorLayer.add(item);
+      this.indicatorEntries.push({ object: item, critical: entry.critical });
+    }
+    this.lastIndicatorZoom = this.cameras.main.zoom;
+    this.syncIndicatorVisibility();
+  }
+
+  private syncIndicatorVisibility(): void {
+    const showSecondary = this.lastIndicatorZoom >= 0.7;
+    for (const entry of this.indicatorEntries)
+      entry.object.setVisible(entry.critical || showSecondary);
+  }
+
+  private showIndicatorTooltip(center: { x: number; y: number }, label: string): void {
+    if (!this.indicatorLayer) return;
+    if (!this.indicatorTooltip) {
+      this.indicatorTooltip = this.add
+        .text(0, 0, "", {
+          fontFamily: "Inter, system-ui, sans-serif",
+          fontSize: "12px",
+          color: "#f7f1df",
+          backgroundColor: "#0c1220",
+          padding: { x: 6, y: 4 },
+        })
+        .setDepth(1);
+      this.indicatorLayer.add(this.indicatorTooltip);
+    }
+    this.indicatorTooltip
+      .setText(label)
+      .setPosition(center.x + 12, center.y - 30)
+      .setVisible(true);
   }
 
   /**

@@ -57,3 +57,22 @@ export function updateIsometricProjection(game: Phaser.Game, projection: ViewPro
 export function updateIsometricOverlay(game: Phaser.Game, overlay: MapOverlay): void {
   mountedScenes.get(game)?.setOverlay(overlay);
 }
+
+/** V.d-UX · navegación desde fichas y notificaciones: centra la cámara en la parcela. */
+export function focusIsometricCell(game: Phaser.Game, cell: { x: number; y: number }): void {
+  mountedScenes.get(game)?.focusCell(cell);
+}
+
+export function setIsometricSelection(
+  game: Phaser.Game,
+  cell: { x: number; y: number } | null,
+): void {
+  mountedScenes.get(game)?.setSelectedCell(cell);
+}
+
+export function setIsometricIndicatorListener(
+  game: Phaser.Game,
+  listener: (target: { parcelId: string; buildingId?: string }) => void,
+): void {
+  mountedScenes.get(game)?.setIndicatorListener(listener);
+}

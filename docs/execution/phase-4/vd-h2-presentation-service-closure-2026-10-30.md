@@ -5,9 +5,13 @@ Fecha: 2026-10-30. Rama: `develop`.
 - **HEAD inicial:** `3f3c707efcd2df1efba68daf1d8dc8b101ed1c3c` (`docs: pin the final HEAD of the
   V.d-H1 phase in its act`) — el `3f3c707` que el plan fijó como referencia auditada. Comprobado
   con `git merge-base --is-ancestor 3f3c707 HEAD`, árbol limpio al inicio.
-- **HEAD final:** el de la tabla «Git» al final del documento.
-- **push:** no, según §0 del plan («no hagas push al terminar»). Los once commits de H2 quedan
-  locales en `develop`.
+- **HEAD final:** el de la tabla «Git» al final del documento. **Revisado en H2.1-04:** la tabla
+  fijaba `c7a6281` como HEAD final y era el último commit con código/evidencia; el HEAD real de la
+  fase era `b750fb3`, el commit que escribió esa frase —una acta no puede contener su propio SHA—.
+- **push:** no en el momento de escribirse el acta, según §0 del plan («no hagas push al terminar»).
+  **Revisado en H2.1-04:** después del cierre, y con autorización explícita del responsable,
+  `develop` se empujó a `origin` el 2026-10-30 (`3f3c707..b750fb3`). Los commits de H2 dejaron de
+  estar solo locales; ver la sección «Revisión V.d-H2.1».
 
 ## Qué se pidió y qué se entendió
 
@@ -493,6 +497,8 @@ capacidad por defecto, guard de perfil ni constante económica para ganar milise
 10. **El Voronoí `demand` en el informe** es ahora "parcels whose first option is this facility",
     no "parcels served by this facility". La UI que lee `demand` como carga asignada ve una
     señal parcial. Queda como deuda P2 para Beta reetiquetar el inspector.
+    **→ Cerrada en H2.1-01:** el informe separa `firstChoiceDemand`, `served`,
+    `effectiveCapacity` y `utilizationPercent`, y el inspector enuncia las cuatro cifras.
 
 ## Git
 
@@ -513,9 +519,14 @@ capacidad por defecto, guard de perfil ni constante económica para ganar milise
 | 13 | `46a20ab` | test: develop demand before fire and gateway coverage in H1-10 |
 | 14 | `110aebd` | docs: close V.d-H2 with gates, tables and evidence |
 | 15 | `c7a6281` | docs: reconcile the V.d hardening act with its H1 review |
+| 16 | `b750fb3` | docs: pin the final HEAD of the V.d-H2 phase in its act |
 
-**HEAD final: `c7a6281`.** **push: no, según §0 y §16 del plan.** Los quince commits quedan
-locales en `develop` empezando en `3f3c707`.
+**HEAD de cierre de la fase: `b750fb3`.** La tabla se escribió diciendo «HEAD final: `c7a6281`»;
+era el último commit con código o evidencia de H2, y `b750fb3` es el commit que fija esa frase en
+este documento —el acta no puede contener su propio SHA—. Correccion registrada en H2.1-04.
+
+**push: no en el momento del acta.** Con posterioridad al cierre, y por autorización explícita del
+responsable, `develop` se empujó a `origin` el 2026-10-30 (`3f3c707..b750fb3`).
 
 ## Estado
 
@@ -535,5 +546,324 @@ vacantes conservan accesibilidad y servicio potencial sin reservar slot. D-093 �
 para que nadie vuelva a leer que `civicAmenities` se absorbe en `services`.
 
 **Decisión final:** V.d está técnicamente preparada para el playtest humano final.
+
+*(Este «Estado» es el que firmó H2 en su momento. La sección «Revisión V.d-H2.1» al final del
+documento lo enmienda en dos puntos: el estado Git real (push efectuado y HEAD de cierre `b750fb3`)
+y la condición de rendimiento de §5, que con las mediciones de H2.1 no puede darse por limpia.)*
+
+---
+
+## Revisión V.d-H2.1 (2026-10-30) — corrección posterior a la auditoría de H2
+
+Fase corta de corrección sobre `develop`. No abre scope funcional ni añade features: cuatro
+puntos que la revisión independiente de H2 encontró, más sus gates, su medición de rendimiento y
+la reconciliación del estado publicado con el estado real.
+
+**HEAD inicial:** `b750fb3a166d810e566c53bed688eb33f0cb5f02`, comprobado con
+`git merge-base --is-ancestor b750fb3 HEAD`, rama `develop`, árbol limpio.
+
+### H2.1-01 · el informe de facilities mezclaba magnitudes — `70170d8`
+
+`FacilityCoverageReport.demand` era la cuenca Voronoi estricta (parcelas que eligen esta facility
+como más cercana) y `served` la capacidad realmente consumida (primeras opciones **más** spill-in
+de vecinas llenas, desde H2-06). El tercer campo, `coveragePercent = served / demand`, no era una
+cobertura de nada:
+
+- con spill-in puede superar 100 — medido en el escenario de este acta: una comisaría con cuenca
+  propia de 3 parcelas atendía 36 → «cobertura 1200 %»;
+- con `demand === 0` no existe (el código lo convertía en 0, otra mentira: una facility que
+  absorbe spill con cuenca 0 reportaba 0 %).
+
+Y el Zod del renderer acotaba ese campo a `min(0).max(100)`, así que la proyección de una ciudad
+con spill real se **rechazaba** en `worker/client.ts` o se truncaba en el benchmark worker (que no
+pasa por Zod). Es decir: el número estaba roto en las dos mitades del contrato.
+
+Cambio: el informe publica cuatro magnitudes sueltas y ninguna se llama cobertura.
+
+```
+firstChoiceDemand    cuenca Voronoi estricta (parámetros de elección)
+effectiveCapacity    huecos = cohortes operativas × cohorte del servicio × presupuesto / 100
+served               huecos consumidos (cuenca propia + spill-in)   ≤ effectiveCapacity
+utilizationPercent   served / effectiveCapacity, 0 si no hay huecos, 0..100
+```
+
+`saturated` pasa a significar **«sin hueco libre»** (`effectiveCapacity > 0 && served >=
+effectiveCapacity`) en lugar de `demand > effectiveCapacity`. Con la definición vieja una facility
+apagada (presupuesto 0 o edificio destruido) nunca aparecía saturada —0 > 0 es falso— mientras que
+una receptora de spill con cuenca pequeña tampoco lo aparecía aunque estuviera llena. Ahora la
+afirmación es una sola y comprobable: la próxima parcela que llegue será derivada a otra facility.
+No afirma demanda insatisfecha en la ciudad; para eso sigue existiendo
+`unfulfilledReachableDemand` del harness de balance.
+
+La proyección renombra el bloque `coverage` → `serviceMetrics` (tipo TS + schema Zod en
+`packages/shared/src/projection.ts:112` y `:757`, producer en
+`packages/simulation/src/projection.ts:525`). El inspector web enuncia cada cifra con su unidad
+mediante una función pura testeable, `facilityMetricsSummary` (`apps/web/src/facility-metrics.ts`):
+
+```
+atendidas: 36 / capacidad: 37 / utilización: 97 % / demanda primaria: 3
+```
+
+`App.tsx:444` etiqueta ahora `cohortes de capacidad` para el campo autorado (`facility.capacity`,
+en cohortes) y `capacidad` para los huecos en parcelas, que son magnitudes distintas y antes
+aparecían con la misma palabra en la misma línea.
+
+Tests nuevos: `packages/simulation/src/h21-facility-metrics.test.ts` (5) y
+`apps/web/src/facility-metrics.test.ts` (3). Cubren el spill-in con `served > firstChoiceDemand`
+y la división prohibida por encima de 100; ninguna utilización fuera de 0..100 en los cinco
+niveles de presupuesto; facility apagada ≠ saturada; igualdad del informe invirtiendo el orden de
+inserción de los Maps; y la proyección validando contra `viewProjectionV2Schema` con el nombre
+exacto de las cinco claves y sin ninguna propiedad `coverage`. Ajustes en seis suites existentes
+que leían `report.demand` / `coveragePercent`; dos de sus aserciones eran tautológicas y se han
+sustituido por comparaciones reales (`h1-service-availability.test.ts:162` comparaba una cifra
+contra sí misma más un sumando).
+
+### H2.1-02 · el solar vacante se tasa por acceso potencial — `6bbb6eb`
+
+`potentialService` existía desde H2-10 para el overlay, la compra y el inspector, pero la tasación
+seguía consultando sólo la cobertura activa: un solar vacío junto a una red operativa puntuaba
+`services: 0` igual que un erial sin acceso y no reaccionaba hasta que el jugador ya había
+construido. D-094 §5 lo afirmaba y lo negaba en la misma sección; el código hacía lo segundo.
+
+Contrato ahora implementado en `serviceScore()` (`packages/simulation/src/land-value.ts:197`):
+
+- demanda **activa** de una vacante: sigue siendo cero — no consume capacidad, y
+  `CoverageIndex.byParcelId` no cambia de significado;
+- **tasación**: desarrollada → cobertura real, vacante → cobertura potencial;
+- sólo sustituye el término `security` (el único de la composición que viene de facilities con
+  capacidad); `transport` y `cleaning` ya se computaban para toda parcela marketable;
+- composición y pesos **intactos**: `(transport + security + cleaning) / 30`, banda 0..10;
+- el potencial **no reserva** hueco: dos solares contiguos pueden ver el mismo;
+- `civicAmenities` **no se toca**: sigue siendo la componente geométrica sin grafo, edificio ni
+  presupuesto (D-093 §7).
+
+La señal viaja por `CoverageIndex` con dos campos nuevos (`potentialByParcelId` pasado por
+referencia desde el índice de facilities —cero coste— y `developedParcelIds`), de modo que ningún
+consumidor de la cobertura servida —overlays, UI, capacidad— ve alterado su lectura.
+
+Tests nuevos: `packages/simulation/src/h21-vacant-land-value.test.ts` (6), los cinco del plan más
+el de no-reserva: A vacante con potencial → demanda activa 0, potencial 100 y score estrictamente
+mayor que el de su gemelo sin potencial; B quemar todas las comisarías → potencial 0 y
+`targetValue` a la baja; C presupuesto de seguridad a 0 → potencial 0, valor a la baja y la parcela
+sin consumir capacidad; D saturar la red (74 huecos al 25 % de presupuesto) → potencial 0,
+`services` igual al cálculo con seguridad 0 y valor reflejando la pérdida; E parcela desarrollada
+→ usa cobertura real, incluyendo el caso de parcela desarrollada **no servida**, que no hereda el
+hueco de otra. El test H2-10 que documentaba la conducta antigua se reetiqueta, no se borra.
+
+**Determinismo atribuido antes de regenerar nada.** Un único digesto cambia,
+`city:200-parcels:month-boundary` (`b58283d43f7fd764 → 9c01fa414acf9739`). Método y medición:
+
+1. Revirtiendo **exclusivamente** la línea de `serviceScore` y volviendo a correr los diez casos,
+   los diez recuperan exactamente sus digestos comprometidos. La regla nueva es la causa única.
+2. Diff hoja a hoja de los dos estados finales (andando arrays por índice y objetos por clave):
+   **90 diferencias, todas `phase2.parcels[*].marketValue` de parcelas sin edificio privado**
+   (Σ +2604, media +28,9, todas al alza). Cero diferencias en las 157 parcelas desarrolladas, en
+   las cinco cajas (5023433 / 5014607 / 50006700 / 2203 / 50000975, idénticas a las registradas
+   por H1-05/H1-06 en este acta), en transacciones, hogares, incidentes, ruinas, bajas, agentes,
+   permisos o relojes.
+3. Sobre 676 solares vacantes y 300 huecos teóricos de seguridad solo se revalorizan los 90 cuyo
+   término `services` cambia de verdad: la señal no es una reserva de capacidad.
+
+Los otros nueve casos quedan bit a bit idénticos: `city:50-parcels:month-boundary` tiene sus 50
+solares construidos (no hay vacante a la que dar señal) y las carreras sin cierre mensual no
+ejecutan `updateLandValues`.
+
+### H2.1-03 · la evidencia de balance publicaba la cohorte equivocada — `4f7df7f`
+
+`pnpm services:balance` etiquetaba `capacityUnitParcels` con el scalar global
+`DEMAND_UNITS_PER_CAPACITY = 25`, que desde H2-07 no es la cohorte de ninguno de los cinco
+capacity services: la etiqueta no cuadraba con las capacidades que el propio informe medía
+(comisaría: 2 cohortes × 75 = 150 huecos, no 50).
+
+Se publica `demandUnitsPerCapacityFor(service)` por servicio y un mapa explícito en la cabecera.
+**Ninguna capacidad se modifica para cambiar la evidencia** — el §7 del plan lo prohíbe y no había
+bug matemático que justificara tocarlas: las cohortes medidas siguen siendo 75 / 75 / 25 / 17 / 25
+(parks y transport conservan 25 porque no consumen slots). La corrida de las doce seeds sobre los
+cuatro escenarios escribe en `docs/execution/phase-4/vd-h21-service-final.json`; el baseline
+histórico (`vd-h2-service-baseline.json`, congelado en `9284434`) y la foto final de H2
+(`vd-h2-service-final.json`, HEAD `46a20ab`) quedan intactos. Las bandas de diseño se siguen
+cumpliendo con la etiqueta corregida.
+
+### H2.1-04 · el estado publicado no coincidía con el estado real
+
+Corregido en este acta. Hay tres cabezas distintas y antes se confundían:
+
+| Concepto | SHA | Qué es |
+|---|---|---|
+| HEAD de implementación/evidencia de H2 | `c7a6281` | el último commit que lleva código o evidencia de H2; es el que la tabla «Git» dejaba como HEAD final |
+| HEAD del acta de cierre de H2 | `b750fb3` | el commit que escribe «HEAD final: …» en este acta. No puede contener su propio SHA: toda acta que fija su HEAD queda un commit por detrás de sí misma |
+| `develop` remoto observado al inicio de H2.1 | `b750fb3` | `git rev-parse origin/develop` tras `git fetch`, coincidiendo con la auditoría del plan |
+| HEAD de H2.1 | ver tabla «Git» de esta revisión | mismo fenómeno autorreferente |
+
+**Push.** El acta de H2 decía «push: no», que era cierto en el momento de escribirse. Después, y
+con autorización explícita del responsable, `develop` se empujó a remoto el 2026-10-30
+(`3f3c707..b750fb3`). No se inventa la causa: se registra el hecho. Durante la ejecución de H2.1,
+`git fetch` muestra que el remoto ha avanzado por su cuenta dos commits de documentación
+(`0d45b3a` especificación de UX jugable V.d y `19eae0c` su índice), así que `develop` local y
+remoto están **divergidos desde `b750fb3`**: el remoto lleva dos commits de docs que no están en
+HEAD local, y HEAD local lleva los commits de H2.1 que no están en el remoto. Los ficheros no se
+solapan salvo `docs/INDEX.md`, donde ambas partes añaden una línea. Esta fase no integra ni empuja
+nada: la decisión de integración es del responsable.
+
+### Cómo se ejecutaron los gates (incidencia del entorno, registrada)
+
+A mitad de la batería, el ejecutor de scripts de `pnpm` (12.11.2 vía corepack) empezó a fallar
+cualquier spawn con `Input/output error (os error 5)`:
+
+```
+$ pnpm exec node -e "console.log('ok')"
+  × Failed to spawn command "node": Input/output error (os error 5)
+```
+
+Falla **el spawn de pnpm, no Node ni el disco**: `node`, `/bin/sh`, ejecutar scripts desde `/tmp`,
+`df -i` (17 % de inodos) y las escrituras al repositorio funcionan;
+`./node_modules/.bin/vitest --version` y `node node_modules/vitest/vitest.mjs` funcionan; el
+`pnpm test` de las 12:59 llegó a ejecutar `packages/shared` y `packages/simulation` completos y
+murió al hacer spawn del tercer paquete. No se investigó ni se intentó reparar el gestor: está
+fuera del scope de la fase y tocar el estado global de pnpm/corepack tiene efectos fuera del repo.
+
+Consecuencia registrada: los gates de H2.1 se corrieron invocando **directamente los mismos
+binarios, con los mismos argumentos y el mismo entorno** que declaran los scripts de
+`package.json` — `node node_modules/vitest/vitest.mjs run --config vitest.config.ts …` con
+`FABRIC_GATE=1`, `SYSTEM_COST=1`, `SOAK_FULL=1`, `ROAD_BENCHMARK=1`,
+`PLAYABLE_BALANCE_CAMPAIGN=1`, `SERVICES_BALANCE=1`; `node node_modules/eslint/bin/eslint.js .`;
+`tsc -p <pkg>/tsconfig.json --noEmit`; `prettier --check .`; `apps/web/node_modules/.bin/vite
+build`). Los dos smokes de navegador no podían levantar su servidor porque lo hacen con
+`spawn("pnpm", …)`; se lanzaron con `vite preview` propio en el mismo puerto y se pasó la URL por
+los hooks que el propio script ya soporta (`ALPHA_BASE_URL`, `VD_SMOKE_BASE_URL`). Queda pendiente
+repetir la batería con `pnpm` cuando el gestor vuelva a funcionar. **Ninguna aserción, umbral ni
+presupuesto se modificó para esta ejecución.**
+
+### Gates V.d-H2.1
+
+| Gate | Resultado | Detalle medido |
+|---|---|---|
+| lint (raíz + `check:architecture`) | PASS | 0 errores · 2 warnings `no-console` en los harnesses de evidencia (preexistentes) · boundaries de arquitectura OK |
+| typecheck | PASS | `packages/shared`, `packages/simulation`, `apps/web` |
+| format:check | PASS | `All matched files use Prettier code style!` (todo el repo) |
+| test · shared | PASS | 12 ficheros · 50 tests |
+| test · simulation | PASS | 59 ficheros pasan · 8 skip (harnesses con env) · 491 tests · 14 skip |
+| test · web | PASS | 14 ficheros · 123 tests (incluidos los 3 nuevos de `facility-metrics.test.ts`) |
+| test:architecture | PASS | fixture negativa detectada |
+| build (web) | PASS | `dist/assets/index-DQRXTgjl.js` 2 016,15 kB · gzip 505,77 kB · 1,24 s · warning de tamaño de chunk preexistente sin cambio |
+| smoke:alpha | PASS | snapshot cargado y proyección resincronizada · council «Concentración del Suelo Común» · caja 49 850 · 0 page errors |
+| smoke:vd-core-loop | PASS | `{"status":"ok","steps":15,"pageErrors":0}` · dos JPEG golden reescritos por la corrida y **restaurados** con `git checkout --` (D-081: sin pixel-diff cross-environment) |
+| art:assets:check | PASS | manifiesto determinista · 108 imágenes · 153 880 bytes en data URIs · 15/15 tipos de dominio |
+| art:binaries:check | PASS | 85 binarios · 23 190 097 bytes · bundle Blender 1 585 136 · 9 excepciones declaradas |
+| fabric:gate | PASS | 100 seeds · 900 distritos · 73 289 parcelas · generación p50 163,02 · **p95 232,88 ms** (presupuesto <300) · max 468,80 · derivación vial p95 2,80 ms · evidencia nueva en `vd-h21-fabric-gate.json` (HEAD `4f7df7f`), `vd1-fabric-gate.json` intacto |
+| road:benchmark | PASS | barrido 300 distritos · derivación p50 1,43 · **p95 3,02 ms** · max 7,08 · 0 fallos · proyección jugable p95 14,13 ms · `structuredClone` denso p95 23,01 ms |
+| system:cost | ver «Rendimiento» | 13/13 tests en verde; la condición de §5 sobre `mature p95` **no sale limpia** y se documenta abajo con las cuatro corridas |
+| balance:playable | PASS | 4 tests · 16 seeds · `delegated_deferred` gana en 16/16 por caja — señal de balance preexistente, sin cambio frente a H1/H2 |
+| soak | PASS | 144 000 ticks en 101 539 ms · RSS final 342 MB (H2: 96 460 ms · ~359 MB) |
+| services:balance | PASS | 12 seeds × 4 escenarios · bandas H2-08 en verde · evidencia en `vd-h21-service-final.json` (HEAD `6bbb6eb`) con la cohorte por servicio corregida |
+| §2.1 doce seeds canónicas (`city-seeds.test.ts`) | PASS | 7 tests, corrida aparte además de ir dentro de la suite |
+| §2.2 campaña de 24 meses (`h1-campaign-24-months.test.ts`) | PASS | 7 tests · invariantes de servicios re-escritos con las métricas de H2.1-01 (`served ≤ effectiveCapacity`, utilización 0..100, `saturated` = sin hueco) |
+
+### Rendimiento (§5) y la condición de `mature p95`
+
+El plan fijó una regla clara: *si el `mature p95` del cierre mensual es ≥ 60 ms, el estado final
+es `BLOCKED`*. Aplicada tal cual, **no sale verde**. Se midieron cuatro corridas completas de
+`system:cost` (8 semillas × 6 cierres, 24 muestras maduras por corrida):
+
+| Corrida | HEAD | mature media | mature p50 | **mature p95** | mature max | primer cierre p95 | tick ordinario p95 |
+|---|---|---|---|---|---|---|---|
+| H2 · grabada en el acta | `b750fb3` (antes de H2.1) | — | 49,71 | **55,61** | — | 341,27 | — |
+| H2 · segunda corrida archivada del propio H2 | `46a20ab` | 48,17 | 46,13 | **63,85** | 83,90 | 343,05 | 0,079 |
+| H2.1 r1 (antes de la optimización) | `6bbb6eb` | 47,45 | 45,34 | 61,76 | 69,42 | 315,26 | 0,079 |
+| H2.1 r2 (antes) | `6bbb6eb` | 45,17 | 44,96 | 51,12 | 52,92 | 470,66 | 0,096 |
+| H2.1 r3 (tras la optimización) | `074aaa2` | 44,92 | 40,47 | 68,21 | 77,96 | 550,43 | 0,095 |
+| H2.1 r4 (tras, máquina más tranquila) | `074aaa2` | 47,99 | 46,61 | 66,92 | 74,15 | 494,08 | 0,084 |
+
+Lectura honesta de la tabla:
+
+- **La tendencia central de H2.1 no es peor que la de H2** medida en esta misma máquina: media
+  44,92–47,99 ms frente a 48,17 de H2; p50 40,47–46,61 frente a 46,13–49,71. Las aserciones del
+  gate (`system:cost` 13/13) están en verde en las cuatro corridas.
+- **El disparador no es resoluble con este instrumento.** El `p95` de 24 muestras es, a efectos
+  prácticos, la segunda muestra mayor: la misma sustitución de `p95` salta de 51,12 a 68,21 ms en
+  corridas consecutivas sin cambiar el código. H2 ya lo cruzó: su segunda corrida, archivada en
+  `/tmp/h2-syscost2.log` durante aquella fase, midió **63,85 ms** y el acta registró 55,61 ms de
+  otra corrida del mismo árbol. La regla del plan asume una precisión que el harness no tiene en
+  esta máquina.
+- **Lo que H2.1 añade está medido por separado y es pequeño.** La única obra nueva dentro del
+  cierre es el conjunto de parcelas desarrolladas de `buildCoverageIndex`: 0,73 ms p50 por la vía
+  del helper y **0,46 ms** tras la optimización exacta autorizada por §5 (`074aaa2`), sobre un
+  cierre de ~45 ms (~1 %). Las miradas de land value añaden una consulta a un `Set` por parcela
+  marketable (microsegundos). Ninguna regla de juego, constante, radio o coste económico se tocó
+  para mover el número; ningún digesto dorado cambia con la optimización (`tick-conservation`
+  idéntico antes y después).
+- **El `cold graph hitch` (N4) sigue vivo y también se movió** (315 → 550 ms de p95 del primer
+  cierre entre corridas): es el mismo fenómeno que H1 y H2 declararon, no algo introducido aquí.
+
+**Consecuencia para el estado de la fase:** con la regla literal de §5, H2.1 queda **`BLOCKED` por
+rendimiento** (3 de 4 corridas con `mature p95` ≥ 60 ms; mediana de las cuatro, 64,34 ms). Con la
+lectura por tendencia central y comparando con la evidencia de H2 en la misma máquina, no hay
+regresión atribuible a H2.1 y la fase sería `PASS WITH MANUAL GATE`. La decisión entre las dos
+lecturas es del responsable. Lo que esta fase **no** hace: abrir un refactor de rendimiento para
+recuperar los 44 ms de H1 (el plan lo prohíbe si el número está por debajo del presupuesto y aquí
+no lo está), ni rebajar el umbral, ni elegir la corrida bonita. Si se desea un número dirimente,
+hay que repetir `system:cost` con el equipo sin actividad de escritorio y varias corridas, o dar
+al harness un estadístico de cola con más muestras.
+
+## Deuda real tras H2.1
+
+1. **Condición de rendimiento de §5 sin resolver** (la de arriba): el disparador de 60 ms no es
+   evaluable con un `p95` de 24 muestras en esta máquina. Es la única salida de la fase que no
+   depende del código.
+2. **Playtest humano de §2.4**: sigue en `PENDING HUMAN PLAYTEST`. H2.1 no lo ejecuta ni lo marca.
+   La lista de verificación vive en `docs/execution/phase-4/vd-final-playtest-checklist.md`.
+3. **P1 de escala municipal bajo desarrollo extremo** (N1 de H2): heredado, intacto. H2.1 no añadió
+   facilities ni tocó el programa; la coherencia del informe (H2.1-01) hace que la saturación se
+   vea mejor —`utilizationPercent` y `served` reales—, pero no cambia cuánta capacidad existe.
+4. **N2, una parcela con N edificios vale 1 unidad de demanda**: sigue siendo la aproximación Alpha
+   declarada en D-094 §1 y KNOWN-GAPS.
+5. **Bundle procedural al 91 % del presupuesto Alpha** y **guardados pre-H1 rechazados**: sin
+   cambio.
+6. **Capturas golden sin pixel-diff cross-environment** (D-081): sigue. Esta corrida reescribió
+   `overlay-land-value.jpg` y `overlay-security.jpg` y se restauraron; conviene saber que el
+   overlay de valor **ya no representa lo que pintaba el acta de H1** tras H2.1-02, porque los
+   solares vacantes puntúan por potencial.
+7. **`delegated_deferred` gana en 16/16**: el plan prohíbe intentar arreglarlo en esta fase y no se
+   ha tocado.
+8. **Divergencia de `develop`** con los dos commits de documentación del remoto: decisión de
+   integración del responsable (esta fase no empuja).
+
+## Git (H2.1)
+
+| # | SHA | Mensaje |
+|---:|---|---|
+| 1 | `70170d8` | fix: clarify facility demand and utilization reporting |
+| 2 | `6bbb6eb` | fix: price vacant land from potential service access |
+| 3 | `4f7df7f` | test: correct per-service balance evidence |
+| 4 | `074aaa2` | perf: build the developed parcel set from collections at hand |
+| 5 | — | docs: reconcile H2 closure with published state (el commit que contiene esta tabla) |
+
+HEAD inicial de la fase: `b750fb3`. **push: no.** Los commits de H2.1 quedan locales en `develop`
+y, además, el remoto lleva dos commits de documentación que no están en este árbol: la integración
+pendiente es del responsable. La evidencia de services se generó con HEAD `6bbb6eb` (el commit que
+la contiene es `4f7df7f`) y la del fabric gate con `4f7df7f`.
+
+## Estado tras H2.1
+
+**No se declara `V.d CLOSED`, ni puede hacerlo esta fase.**
+
+- Los cuatro puntos de corrección (H2.1-01…H2.1-04) están hechos, cada uno con su test, y el plan
+  no autoriza ningún feature nuevo: no se añadieron facilities, ni se cambió el programa municipal,
+  ni las semillas, ni las cohortes 75/75/25/17/25, ni los pesos del score de suelo, ni la
+  ordenanza, ni la economía, ni el arte, ni la orientación visual.
+- Gates automáticos: todos en verde, ejecutados por la vía directa documentada arriba tras romperse
+  el ejecutor de `pnpm`.
+- **La condición de §5 (mature p95 < 60 ms) no se cumple en 3 de las 4 corridas**, con la
+  evidencia de que el mismo umbral ya lo cruzó la segunda corrida archivada de H2 sobre el código
+  anterior. Estado literal del plan: `BLOCKED` por rendimiento hasta que el responsable decida cómo
+  se mide ese disparador.
+
+**Decisión final:** la fase está técnicamente terminada y documentada; **V.d queda a la espera de
+(a) la resolución del disparador de rendimiento y (b) el playtest humano de §2.4** antes de poder
+declararse preparada para el cierre. No se avanza a otra fase.
+
+
+
+
 
 

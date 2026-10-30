@@ -71,7 +71,7 @@ celda o un permiso sin identidad. No sustituye ninguna de esas decisiones.
 
 ## V.d-H2 — Cierre de presentación y servicios municipales (2026-10-30)
 
-- [D-094 — Semántica de demanda urbana y asignación capacity-aware](D-094-demanda-urbana-y-asignacion-capacity-aware.md)
+- [D-094 — Semántica de demanda urbana y asignación capacity-aware](D-094-demanda-urbana-y-asignacion-capacity-aware.md) — enmendado en V.d-H2.1 (§2 métricas del informe, §5 suelo vacante, §3 evidencia de cohortes)
 
 Amplía D-092 y D-093: la demanda activa es el desarrollo urbano, no el censo catastral; la asignación
 pasa a greedy capacity-aware; la capacidad se calibra por servicio; la respuesta al presupuesto

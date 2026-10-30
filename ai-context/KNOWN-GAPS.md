@@ -316,13 +316,17 @@ Sigue abierto:
   (banda 45-80 %). Subir ese techo bajo desarrollo extremo seguiría requiriendo más facilities
   o más cohortes —decisión de producto, no de H2—. El número de equipamientos autorados
   (2/2/3/3/3) **no** se toca.
-- **El Voronoí clásico como `demand` en el informe** es ahora "parcels whose first option is
-  this facility"; `served` es lo que realmente admite, incluyendo spill-in. La UI que aún lee
-  `demand` como carga asignada ve una señal parcial: queda como P2 para Beta reetiquetar el
-  inspector con ambos números.
-- **Golden digest drift** en H2-05: un único caso (`city:200-parcels:month-boundary`
-  `c6a317866f27ad1a → b58283d43f7fd764`). Atribución completa en
-  `packages/simulation/src/tick-conservation.test.ts`. H2-06…H2-10 no mueven ningún digesto.
+- **Cerrado en V.d-H2.1 (H2.1-01): las dos magnitudes del informe están separadas.** El informe ya
+  no publica `demand` ni `coveragePercent`: publica `firstChoiceDemand` (cuenca Voronoi estricta),
+  `served` (capacidad consumida, con spill-in), `effectiveCapacity` y `utilizationPercent` medido
+  contra la capacidad. `saturated` significa «sin hueco libre» y una facility apagada ya no se
+  etiqueta como saturada. El inspector web enuncia las cuatro cifras (`facilityMetricsSummary`).
+- **Golden digest drift.** H2-05 movió `city:200-parcels:month-boundary`
+  (`c6a317866f27ad1a → b58283d43f7fd764`) y H2.1-02 lo vuelve a mover
+  (`b58283d43f7fd764 → 9c01fa414acf9739`, los solares vacantes empiezan a puntuar por cobertura
+  potencial). Atribución medida de las dos en `packages/simulation/src/tick-conservation.test.ts`:
+  en cada caso, revirtiendo sólo esa línea los diez digestos recuperan su valor previo. H2-06…H2-10
+  y H2.1-01 no mueven ningún digesto.
 
 ## Rendimiento y Alpha
 
@@ -345,6 +349,14 @@ Sigue abierto:
   pero ya sin hotspot único: el cierre instrumentado reparte ~11 ms entre sistemas (`housing` 3,9 ms
   el mayor). Con los dos cuadráticos conocidos optimizados de forma exacta, la decisión de LOD
   agregado con su benchmark pertenece a WP4.16, que la lleva como precondición documentada.
+- **El disparador de 60 ms del cierre maduro no es evaluable con el harness actual** (medido en
+  V.d-H2.1, acta §Rendimiento). `system:cost` calcula el `p95` sobre 24 muestras maduras (8 semillas
+  × meses 4-6), así que equivale a la segunda muestra mayor: cuatro corridas del mismo árbol dieron
+  51,12 · 61,76 · 66,92 · 68,21 ms, y H2, antes de cualquier cambio de H2.1, registró 55,61 ms en su
+  acta y 63,85 ms en su segunda corrida archivada. La tendencia central sí es medible y no empeoró
+  (H2.1 media 44,92-47,99 · p50 40,47-46,61 frente a 48,17/46,13 de H2). Mientras no se cambie el
+  estadístico de cola o se mida con el equipo ocioso, la regla «mature p95 < 60 ms» no decide nada:
+  está declarada como deuda de instrumentación, no como regresión de código.
 - El estado canónico completo hace más caras las campañas headless largas (la de dos años tarda
   ~5 s); no afecta al tick de producto.
 - El fixture del smoke Alpha es un snapshot versionado de 160 KB y debe regenerarse con los goldens.

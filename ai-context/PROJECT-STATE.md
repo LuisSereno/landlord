@@ -245,6 +245,51 @@ derivado de `BUILDING_DEFINITIONS` lo fuerza. `Building.orientation` (física) y
 arte lateral: deuda visual P2 declarada (H2-03). Un solo digesto dorado cambia, atribuido en H2-05
 (Voronoi sobre 200 desarroladas vs 716 marketables); H2-06…H2-10 conservan los diez bit a bit.
 
+**V.d-H2.1 (corrección posterior a la auditoría de H2) está ejecutada el 2026-10-30 sobre
+`b750fb3`; V.d sigue sin cerrarse.** Cuatro puntos, ningún feature nuevo: (H2.1-01) el informe de
+facilities dejaba de mezclar magnitudes — `demand` era cuenca Voronoi y `served` capacidad
+consumida con spill-in, y el tercer campo `coveragePercent = served/demand` no era una cobertura
+(podía superar el 100 con spill-in y el Zod del renderer lo acotaba, así que la proyección se
+rechazaba o se truncaba); publica `firstChoiceDemand` / `effectiveCapacity` / `served` /
+`utilizationPercent` (0..100 contra la capacidad) y `saturated` significa «sin hueco libre», no
+«la cuenca es mayor que el cupo»: una facility apagada ya no se confunde con una saturada. La
+proyección llama al bloque `serviceMetrics` y el inspector web enuncia las cuatro cifras.
+(H2.1-02) los solares **vacantes** se tasan por cobertura potencial y los desarrollados por la
+real, sin tocar la demanda activa (sigue en 0 para vacantes), sin nuevos pesos en
+`transport + security + cleaning`, sin reservar hueco y sin mover `civicAmenities`; cambia un
+digesto dorado (`city:200-parcels:month-boundary`) atribuido revirtiendo sólo esa línea —los diez
+recuperan su valor— y con diff hoja a hoja: 90 diferencias, todas `marketValue` de parcelas sin
+edificio privado, cero en las 157 desarrolladas, en las cinco cajas y en el resto de observables.
+(H2.1-03) la evidencia de balance etiquetaba `capacityUnitParcels` con el scalar global 25; pasa a
+`demandUnitsPerCapacityFor(service)` (75/75/25/17/25) y la corrida nueva se guarda en
+`docs/execution/phase-4/vd-h21-service-final.json` sin pisar la evidencia de H2 — ninguna capacidad
+se tocó para cambiar la evidencia —. (H2.1-04) el acta de H2 decía «push: no» y «HEAD final:
+c7a6281»: se registra el estado real — H2 se empujó a `origin/develop` (`3f3c707..b750fb3`) tras
+autorización explícita, el HEAD de cierre de la fase es `b750fb3` (un acta no puede contener su
+propio SHA) y durante H2.1 el remoto avanzó dos commits de documentación propios, así que
+**`develop` local y remoto están divergidos desde `b750fb3`**; la integración es decisión del
+responsable y esta fase no empuja nada.
+
+**Rendimiento de H2.1 — el disparador de 60 ms queda sin resolver.** Cuatro corridas de
+`system:cost` sobre los árboles de H2.1 dan `mature p95` 51,12 · 61,76 · 66,92 · 68,21 ms (mediana
+64,34). La regla del plan («si mature p95 ≥ 60 ms, estado final BLOCKED») se incumple en 3 de 4
+corridas; el mismo disparador ya se incumplió en la segunda corrida archivada de H2 (63,85 ms) con
+el acta registrando 55,61 ms del mismo código, porque el `p95` del harness se calcula sobre 24
+muestras maduras y equivale a la segunda muestra mayor. La tendencia central no empeoró (media
+44,92-47,99 · p50 40,47-46,61 frente a 48,17/46,13 de H2) y la única obra nueva dentro del cierre
+está medida y optimizada de forma exacta y neutra (`074aaa2`: 0,73 → 0,46 ms por cierre, ~1 %; los
+diez digestos dorados sin cambio). **No se abrió un refactor de rendimiento para recuperar los
+44 ms de H1: el plan lo prohíbe y no hay regresión demostrable.** Estado literal de la fase según
+§5: `BLOCKED` por rendimiento hasta que el responsable decida cómo se mide ese umbral.
+
+**Incidencia del entorno registrada:** a mitad de la batería de gates el ejecutor de `pnpm`
+12.11.2 comenzó a fallar todo spawn con `Input/output error (os error 5)`. Los gates se
+repitieron invocando directamente los mismos binarios con los mismos argumentos y entorno que
+declaran los scripts (`node node_modules/vitest/vitest.mjs …` con sus variables de gate, `eslint`,
+`tsc`, `prettier`, `vite build`; los smokes de navegador contra `vite preview` propio vía
+`ALPHA_BASE_URL`/`VD_SMOKE_BASE_URL`). Todos en verde por esa vía; queda pendiente repetir la
+batería con `pnpm` cuando el gestor funcione.
+
 **Lo que impide cerrar la fase sigue siendo el playtest humano de §2.4** más el hallazgo P1 de
 escala municipal bajo desarrollo extremo: con la banda nueva el 75 % de desarrollo da
 55 % de cobertura en security, fire, health y market y 56 % en education —tensión real dentro de

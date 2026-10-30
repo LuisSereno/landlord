@@ -86,6 +86,30 @@ spill-in de vecinos saturados. La diferencia entre ambos es el número que el in
 poder explicar: si `served < demand`, la facility perdió parcelas hacia otra por capacidad; si
 `served > demand`, la facility absorbió spill-in de un vecino.
 
+**Enmienda H2.1-01 (2026-10-30) — semántica publicada del informe.** El párrafo anterior describía
+dos magnitudes correctas y un tercer campo que no lo era: `coveragePercent = served / demand`. Con
+spill-in esa división puede pasar de 100 (una facility de cuenca pequeña que absorbe el excedente
+de varias vecinas atiende más parcelas de las que la elegían) y con `demand === 0` no existe. No era
+una cobertura y se llamaba así en el contrato del renderer y en el inspector. El informe pasa a
+publicar cuatro magnitudes sueltas, sin ratios cruzados entre ellas:
+
+```
+firstChoiceDemand    parcelas cuya primera opción es esta facility (Voronoi estricto)
+effectiveCapacity    huecos disponibles = cohortes operativas × cohorte del servicio × presupuesto
+served               huecos consumidos (primeras opciones + spill-in)
+utilizationPercent   served / effectiveCapacity, 0 si no hay huecos, acotado 0..100
+```
+
+Y `saturated` deja de ser `demand > effectiveCapacity` para significar **«sin hueco libre»**:
+`effectiveCapacity > 0 && served >= effectiveCapacity`. Con la definición anterior una facility
+apagada (presupuesto 0 o edificio destruido, capacidad 0) nunca aparecía saturada mientras que una
+receptora de spill podía no aparecer si su cuenca propia era pequeña; las dos readings eran
+incorrectas. Ahora `saturated` afirma una sola cosa comprobable: la próxima parcela que llegue será
+derivada a otra facility. No afirma demanda insatisfecha en la ciudad —el spill puede resolverla—,
+y para eso está `unfulfilledReachableDemand` del harness de balance. La proyección renombra el
+bloque a `serviceMetrics` y el inspector web enuncia cada cifra con su unidad
+(`atendidas / capacidad / utilización / demanda primaria`).
+
 ### 3. La capacidad se recalibra por servicio, no con una constante global
 
 `DEMAND_UNITS_PER_CAPACITY = 25` global queda sustituido por
@@ -108,6 +132,17 @@ no slots.
 bomberos, 3 clínicas, 3 colegios, 3 mercados) y `MUNICIPAL_FACILITY_CAPACITY` en cohortes se
 conservan intactas. Solo cambia cuántas parcelas vale cada cohorte.
 
+**Enmienda H2.1-03 (2026-10-30) — la evidencia publicaba la unidad equivocada.** El harness
+`pnpm services:balance` etiquetaba `capacityUnitParcels` con el scalar global
+`DEMAND_UNITS_PER_CAPACITY` (25), que desde H2-07 ya no es la cohorte de ninguno de los cinco
+capacity services: las cohortes medidas en el propio informe no cuadraban con la etiqueta. Pasa a
+publicar `demandUnitsPerCapacityFor(service)` por servicio y un mapa explícito en la cabecera
+(`security 75 · fire 75 · health 25 · education 17 · market 25`; parks y transport conservan 25
+porque no consumen slots). **Ninguna capacidad se modificó para cambiar la evidencia**: las
+demandas, coberturas y saturación medidas siguen siendo las de H2; la corrida corregida se guarda
+en `docs/execution/phase-4/vd-h21-service-final.json` sin pisar `vd-h2-service-final.json` ni el
+baseline histórico.
+
 ### 4. La respuesta al presupuesto modula unidades, no cohortes enteras
 
 Antes `Math.floor((facilityCapacity × level) / 100) × demandUnitsPerCapacity` truncaba a
@@ -128,9 +163,30 @@ overlay, en la compra, en el inspector y —a través de `CoverageIndex`— en e
 No reserva slot: si mañana dos jugadores construyen sobre dos solares que compartían el mismo
 hueco, la Voronoi y el greedy resuelven la contienda canónicamente.
 
-**Land value** no cambia su contrato: su término `services` consume `CoverageIndex` —disponibilidad
-operativa—, no el potencial. Una parcela vacante conserva su valoración por `civicAmenities`
-(geométrica) sin que el potencial la revalorice artificialmente.
+**Enmienda H2.1-02 (2026-10-30) — el potencial sí entra en la tasación del suelo.** La redacción
+original de este punto era contradictoria: afirmaba que el potencial llegaba al score «a través de
+`CoverageIndex`» y dos líneas después negaba que el score lo consumiera. En H2 el código hacía lo
+segundo —el término `services` leía sólo cobertura activa—, de modo que un solar vacío junto a una
+red operativa puntuaba `services: 0` igual que un erial sin acceso, y el mapa no reaccionaba hasta
+que el jugador ya había construido.
+
+El contrato queda así, y es el que implementa `serviceScore()`:
+
+- La **demanda activa** de una parcela vacante sigue siendo cero: no consume capacidad y no aparece
+  en `CoverageIndex.byParcelId`.
+- Para **tasar**: parcela desarrollada → cobertura real; parcela vacante → cobertura potencial.
+- Sólo sustituye el término `security`, que es el único de la composición que viene de facilities con
+  capacidad. `transport` (accesibilidad de red) y `cleaning` (radio por distrito) ya se computaban
+  para toda parcela marketable.
+- La composición y los pesos **no cambian**: `(transport + security + cleaning) / 30`, banda 0..10, y
+  `civicAmenities` sigue siendo la componente geométrica que no consulta grafo, edificio ni
+  presupuesto (D-093 §7).
+- El potencial **no reserva** capacidad: dos solares contiguos pueden ver el mismo hueco libre. El
+  día que se construyan, la Voronoi y el greedy resuelven la contienda sobre la demanda activa.
+
+Medida: sobre el caso dorado `city:200-parcels:month-boundary`, 90 de los 676 solares vacantes suben
+su `marketValue` (Σ +2604) y cero observables más se mueven —ni las 157 parcelas desarrolladas, ni
+las cinco cajas, ni transacciones, hogares, incidentes, ruinas ni bajas.
 
 ### 6. La proyección y el renderer consumen la huella física real
 

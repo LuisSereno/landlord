@@ -1,9 +1,6 @@
 import type { BuildingId, DistrictId, GridCell, ParcelId } from "@landlord/shared";
 import { MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
-import {
-  facilityCoverageIndex,
-  type FacilityCoverageIndex,
-} from "./facility-coverage";
+import { facilityCoverageIndex, type FacilityCoverageIndex } from "./facility-coverage";
 import type { GameState } from "./state";
 
 export type UrbanServiceId = "transport" | "security" | "cleaning";

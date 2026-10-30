@@ -1245,7 +1245,10 @@ Diez hallazgos H2-01…H2-11. Correcciones clave:
   saltos 150 → 0 → 0 → 0 → 0.
 - **cobertura potencial de vacantes** (H2-10, D-094 §5): `potentialByParcelId` expone, para cada
   solar sin edificio, si hay facilities alcanzables con capacidad residual. No reserva slot.
-  Land value **no** lo consulta: `services` sigue leyendo disponibilidad operativa.
+  **Enmendado por H2.1-02:** el land value **sí** lo consulta para tasar — parcela desarrollada →
+  cobertura real, solar vacante → cobertura potencial — sin cambiar la demanda activa (sigue en 0
+  para vacantes), sin nuevos pesos en `transport + security + cleaning` y sin tocar
+  `civicAmenities`.
 - **huella física en proyección y renderer** (H2-01, D-094 §6):
   `ViewProjectionV2.economy.buildings[]` publica `districtId`, `footprintCells`, `orientation`,
   `floors` y `form`. `constructionSites[]` también. El renderer recorre las colecciones
@@ -1264,14 +1267,41 @@ Diez hallazgos H2-01…H2-11. Correcciones clave:
   cuatro argumentos, ninguno es `orientation`. **Sin arte lateral** no se inventan rotaciones:
   la representación visual de la orientación física queda como **deuda P2** en KNOWN-GAPS.
 
+### Enmiendas V.d-H2.1 (2026-10-30) sobre D-094
+
+Cuatro correcciones posteriores a la auditoría de H2. No son decisiones nuevas ni amplían scope:
+enmiendan D-094 donde el informe publicado, la tasación del suelo vacante y la evidencia de
+balance decían algo distinto de lo que hacía el código.
+
+- **métricas del informe separadas** (H2.1-01, D-094 §2 enmendado): `firstChoiceDemand` (cuenca
+  Voronoi estricta), `effectiveCapacity`, `served` (cuenca propia + spill-in) y
+  `utilizationPercent = served / effectiveCapacity` acotado 0..100. Se elimina
+  `coveragePercent = served / demand`: no era una cobertura, podía superar 100 y el Zod del
+  renderer lo truncaba o rechazaba la proyección. `saturated` pasa a significar «sin hueco libre»
+  (`effectiveCapacity > 0 && served >= effectiveCapacity`), no «la cuenca excede el cupo». El
+  bloque de la proyección se llama `serviceMetrics` y el inspector enuncia las cuatro cifras.
+- **suelo vacante tasado por acceso potencial** (H2.1-02, D-094 §5 enmendado): desarrollada →
+  cobertura real, vacante → potencial; demanda activa intacta en 0, pesos y composición intactos,
+  sin reserva de hueco, `civicAmenities` intacta.
+- **evidencia de cohorte por servicio** (H2.1-03, D-094 §3): `capacityUnitParcels` deja de ser el
+  scalar global 25 y pasa a `demandUnitsPerCapacityFor(service)` — 75/75/25/17/25 —. Ninguna
+  capacidad se modificó para cambiar la evidencia.
+- **estado Git publicado reconciliado** (H2.1-04): H2 se empujó a `origin/develop` tras
+  autorización explícita (`3f3c707..b750fb3`); el HEAD de cierre de la fase es `b750fb3`, no
+  `c7a6281`, porque un acta no puede contener su propio SHA; y durante H2.1 el remoto avanzó dos
+  commits de documentación propios, con `develop` local y remoto **divergidos desde `b750fb3`**.
+
 Consecuencias:
 
 - **Determinismo.** Un único golden digest cambia, en H2-05 (`city:200-parcels:month-boundary`
   `c6a317866f27ad1a → b58283d43f7fd764`, Voronoí sobre 200 desarroladas en lugar de 716
   marketables). H2-06…H2-10 conservan los diez digestos bit a bit: las correcciones afectan a
-  cobertura y capacidad, no a caja, transacciones, incidentes ni hogares. Ninguna seed, constante
-  económica, límite morfológico ni guard de jugabilidad por perfil se toca para conseguir un
-  verde.
+  cobertura y capacidad, no a caja, transacciones, incidentes ni hogares. H2.1-02 vuelve a mover
+  ese mismo caso (`b58283d43f7fd764 → 9c01fa414acf9739`) por los solares vacantes que puntúan por
+  potencial; atribuido revirtiendo sólo esa línea (los diez recuperan su valor) y con diff hoja a
+  hoja: 90 diferencias, todas `marketValue` de parcelas sin edificio privado. H2.1-01, H2.1-03 y
+  H2.1-04 no mueven ningún digesto. Ninguna seed, constante económica, límite morfológico ni guard
+  de jugabilidad por perfil se toca para conseguir un verde.
 - **Guardados.** Ninguna incompatibilidad nueva: `SnapshotV2` conserva los campos de demanda sin
   cambiar forma. `demandSignature` es derivada, no persistida.
 - **Rendimiento.** El greedy canónico es O(pairs log pairs); sobre los 12 seeds y 7 services se

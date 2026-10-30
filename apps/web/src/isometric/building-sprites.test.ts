@@ -245,7 +245,7 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
       buildings: [
         {
           id: "b1",
-          parcelId: "p1",
+          parcelIds: ["p1"],
           districtId: "d1",
           type: "row_house",
           footprintCells: [
@@ -261,7 +261,7 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
         },
         {
           id: "b2",
-          parcelId: "p1",
+          parcelIds: ["p1"],
           districtId: "d1",
           type: "row_house",
           footprintCells: [
@@ -308,7 +308,7 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
       constructionSites: [
         {
           id: "s1",
-          parcelId: "p1",
+          parcelIds: ["p1"],
           districtId: "d1",
           buildingType: "row_house",
           /**

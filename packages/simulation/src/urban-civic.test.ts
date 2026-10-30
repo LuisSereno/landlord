@@ -106,7 +106,7 @@ describe("V.d.3 programa municipal", () => {
           expect(building.districtId).toBe(facility.districtId);
           expect(building.ownerOrganizationId).toBe(MUNICIPALITY_ORGANIZATION_ID);
           expect(building.footprintCells.length).toBeGreaterThan(0);
-          expect(facility.parcelIds).toContain(building.parcelId);
+          expect(facility.parcelIds).toContain(building.parcelIds[0]!);
         }
       }
       for (const space of spaces) {
@@ -143,7 +143,7 @@ describe("V.d.3 programa municipal", () => {
 
       for (const building of state.phase2.buildings.values()) {
         if (building.ownerOrganizationId !== MUNICIPALITY_ORGANIZATION_ID) continue;
-        const parcel = state.phase2.parcels.get(building.parcelId)!;
+        const parcel = state.phase2.parcels.get(building.parcelIds[0]!)!;
         const parcelCells = new Set(parcel.cells.map(cellKey));
         expect(building.footprintCells.every((cell) => parcelCells.has(cellKey(cell)))).toBe(true);
       }
@@ -163,7 +163,7 @@ describe("V.d.3 programa municipal", () => {
       dispatchProductCommand(
         state,
         command("civic-permit", "RequestPermit", {
-          parcelId: parcel.id,
+          parcelIds: [parcel.id],
           buildingType: "town_hall",
         }),
       ),
@@ -172,7 +172,7 @@ describe("V.d.3 programa municipal", () => {
       dispatchProductCommand(
         state,
         command("civic-build", "StartConstruction", {
-          parcelId: parcel.id,
+          parcelIds: [parcel.id],
           buildingType: "town_hall",
         }),
       ),

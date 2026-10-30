@@ -102,7 +102,7 @@ export function App() {
           (entry) => entry.ownerOrganizationId === "org_00000001",
         );
         if (!building) return null;
-        return economy?.parcels.find((parcel) => parcel.id === building.parcelId)?.cell ?? null;
+        return economy?.parcels.find((parcel) => parcel.id === building.parcelIds[0]!)?.cell ?? null;
       },
       marketableParcelCellForType: (buildingType: string) =>
         economy?.parcels.find(
@@ -191,7 +191,7 @@ export function App() {
         ),
       startConstruction: (parcelId, buildingType: BuildingType) =>
         run(
-          () => client!.startConstruction(parcelId, buildingType),
+          () => client!.startConstruction([parcelId], buildingType),
           "Obra iniciada; asigna una cuadrilla para que avance.",
         ),
       cancelConstruction: (siteId) =>
@@ -329,7 +329,7 @@ export function App() {
           (entry) => entry.ownerOrganizationId === PLAYER,
         );
         const target = site
-          ? economy.parcels.find((parcel) => parcel.id === site.parcelId)
+          ? economy.parcels.find((parcel) => parcel.id === site.parcelIds[0]!)
           : undefined;
         if (target) selectParcel(target);
       }

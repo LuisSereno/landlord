@@ -53,7 +53,7 @@ function developParcels(
     parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
     state.phase2.buildings.set(id, {
       id,
-      parcelId: parcel.id,
+      parcelIds: [parcel.id],
       districtId: parcel.districtId,
       footprintCells: [{ ...parcel.anchorCell }],
       orientation: 0,

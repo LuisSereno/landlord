@@ -59,6 +59,7 @@ import {
   isBuildingAllowedByDevelopmentCode,
 } from "./development-codes";
 import { activePermitFor, permitsFor } from "./permitting";
+import { buildingCollateralContribution, collateralBuildingValue } from "./collateral";
 import {
   effectiveConstructionWorkRequired,
   effectiveMarketPriceFor,
@@ -312,23 +313,43 @@ export function dispatchProductCommand(
   }
 
   if (command.type === "RequestPermit") {
-    const parcel = state.phase2.parcels.get(command.payload.parcelId);
     const definition = BUILDING_DEFINITIONS[command.payload.buildingType];
-    if (!parcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
-    if (parcel.disposition !== "marketable")
+    if (new Set(command.payload.parcelIds).size !== command.payload.parcelIds.length)
+      return { accepted: false, code: "DUPLICATE_PARCELS" };
+    const parcelIds = canonicalParcelIds(command.payload.parcelIds);
+    if (parcelIds.length !== definition.siteRequirements.requiredParcels)
+      return { accepted: false, code: "WRONG_PARCEL_COUNT" };
+    const resolved = parcelIds.map((id) => state.phase2.parcels.get(id));
+    if (resolved.some((entry) => entry === undefined))
+      return { accepted: false, code: "PARCEL_NOT_FOUND" };
+    const parcels = resolved as import("@landlord/shared").Parcel[];
+    const primary = parcels[0]!;
+    if (parcels.some((parcel) => parcel.disposition !== "marketable"))
       return { accepted: false, code: "PUBLIC_LAND_NOT_BUILDABLE" };
-    if (parcel.ownerOrganizationId !== command.actingAsOrganizationId)
+    if (parcels.some((parcel) => parcel.ownerOrganizationId !== command.actingAsOrganizationId))
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
-    if (!isParcelUseAllowed(parcel, definition))
+    if (parcels.some((parcel) => parcel.districtId !== primary.districtId))
+      return { accepted: false, code: "PARCELS_DIFFERENT_DISTRICT" };
+    if (parcels.some((parcel) => parcel.developmentCodeId !== primary.developmentCodeId))
+      return { accepted: false, code: "MIXED_DEVELOPMENT_CODES" };
+    if (parcels.some((parcel) => !isParcelUseAllowed(parcel, definition)))
       return { accepted: false, code: "USE_NOT_ALLOWED" };
-    const permit = issuePermit(state, [parcel], command.payload.buildingType);
+    if (
+      definition.siteRequirements.requireEdgeContiguous &&
+      !areCellGroupsEdgeConnected(parcels.map((parcel) => parcel.cells))
+    )
+      return { accepted: false, code: "PARCELS_NOT_EDGE_CONTIGUOUS" };
+    const combinedArea = parcels.reduce((total, parcel) => total + parcel.cells.length, 0);
+    if (combinedArea < definition.siteRequirements.minCombinedAreaCells)
+      return { accepted: false, code: "SITE_AREA_TOO_SMALL" };
+    const permit = issuePermit(state, parcels, command.payload.buildingType);
     rememberProcessed(state, command.commandId);
     return productEvent(
       state,
       command.commandId,
       permit.status === "approved" ? "PermitApproved" : "PermitDenied",
       {
-        parcelId: parcel.id,
+        parcelId: primary.id,
         buildingType: command.payload.buildingType,
         status: permit.status,
         permitId: permit.id,
@@ -491,10 +512,24 @@ export function dispatchProductCommand(
     )
       return { accepted: false, code: "LOAN_AMOUNT_INVALID" };
     const buildingIndex = buildBuildingIndex(state);
+    /**
+     * V.d-7 · un edificio multi-parcela aparece en el índice desde todas sus parcelas; se suma sólo
+     * su contribución a ESTA parcela, nunca el valor completo varias veces.
+     */
     const collateralValue =
       parcel.marketValue +
       buildingsOnParcel(buildingIndex, parcel.id).reduce(
-        (total, building) => total + BUILDING_DEFINITIONS[building.type].cost,
+        (total, building) =>
+          total +
+          buildingCollateralContribution(
+            building,
+            parcel.id,
+            collateralBuildingValue(
+              building,
+              BUILDING_DEFINITIONS[building.type].cost,
+              "cost",
+            ),
+          ),
         0,
       );
     if (
@@ -973,7 +1008,7 @@ export function dispatchProductCommand(
     );
     state.phase2.constructionSites.set(siteId, {
       id: siteId,
-      parcelId: building.parcelId,
+      parcelIds: [...building.parcelIds],
       districtId: building.districtId,
       ownerOrganizationId: command.actingAsOrganizationId,
       buildingType: building.type,
@@ -1023,7 +1058,7 @@ export function dispatchProductCommand(
     );
     state.phase2.constructionSites.set(siteId, {
       id: siteId,
-      parcelId: building.parcelId,
+      parcelIds: [...building.parcelIds],
       districtId: building.districtId,
       ownerOrganizationId: command.actingAsOrganizationId,
       buildingType: building.type,
@@ -1059,7 +1094,7 @@ export function dispatchProductCommand(
       crew.organizationId !== command.actingAsOrganizationId
     )
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
-    const parcel = state.phase2.parcels.get(site.parcelId);
+    const parcel = state.phase2.parcels.get(site.parcelIds[0]!);
     if (!parcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
     const siteMap = districtMapOf(state, parcel.districtId);
     const obstacles = districtObstacles(state, parcel.districtId);
@@ -1131,7 +1166,7 @@ export function dispatchProductCommand(
     if (!building) return { accepted: false, code: "BUILDING_NOT_FOUND" };
     if (building.ownerOrganizationId !== command.actingAsOrganizationId)
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
-    const buildingParcel = state.phase2.parcels.get(building.parcelId);
+    const buildingParcel = state.phase2.parcels.get(building.parcelIds[0]!);
     if (!buildingParcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
     /**
      * Técnico elegible de menor id: un `find` sobre el orden de inserción del `Map` daría otro
@@ -1203,7 +1238,7 @@ export function dispatchProductCommand(
       const target = state.phase2.buildings.get(command.payload.targetBuildingId);
       if (!target || target.ownerOrganizationId === enforcer.organizationId)
         return { accepted: false, code: "INVALID_AGENT_ACTION" };
-      const targetParcel = state.phase2.parcels.get(target.parcelId);
+      const targetParcel = state.phase2.parcels.get(target.parcelIds[0]!);
       if (!targetParcel) return { accepted: false, code: "PARCEL_NOT_FOUND" };
       if (enforcer.districtId !== targetParcel.districtId)
         return { accepted: false, code: "AGENT_NOT_IN_DISTRICT" };
@@ -1243,7 +1278,7 @@ export function dispatchProductCommand(
     );
     state.phase2.constructionSites.set(siteId, {
       id: siteId,
-      parcelId: building.parcelId,
+      parcelIds: [...building.parcelIds],
       districtId: building.districtId,
       ownerOrganizationId: building.ownerOrganizationId,
       buildingType: building.type,
@@ -1262,7 +1297,7 @@ export function dispatchProductCommand(
       assignedCrewIds: [],
       assignedTechnicianId: null,
     });
-    reconcileParcelUses(state, building.parcelId);
+    for (const parcelId of building.parcelIds) reconcileParcelUses(state, parcelId);
     rememberProcessed(state, command.commandId);
     return productEvent(state, command.commandId, "RuinClearStarted", {
       buildingId: building.id,

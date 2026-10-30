@@ -43,7 +43,7 @@ function develop(parcels: Parcel[], target: GameState, serialStart: number): voi
     parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
     target.phase2.buildings.set(id, {
       id,
-      parcelId: parcel.id,
+      parcelIds: [parcel.id],
       districtId: parcel.districtId,
       footprintCells: [{ ...parcel.anchorCell }],
       orientation: 0,

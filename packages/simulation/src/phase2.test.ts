@@ -96,7 +96,7 @@ describe("Gate 2 product loop", () => {
       dispatchProductCommand(
         state,
         command("build-1", "StartConstruction", {
-          parcelId: parseParcelId("parcel_00000001"),
+          parcelIds: [parseParcelId("parcel_00000001")],
           buildingType: "courtyard_home",
         }),
       ).accepted,
@@ -184,7 +184,7 @@ describe("Gate 2 product loop", () => {
       dispatchProductCommand(
         state,
         command("build-1", "StartConstruction", {
-          parcelId: parseParcelId("parcel_00000001"),
+          parcelIds: [parseParcelId("parcel_00000001")],
           buildingType: "courtyard_home",
         }),
       ).accepted,
@@ -193,7 +193,7 @@ describe("Gate 2 product loop", () => {
       dispatchProductCommand(
         state,
         command("build-2", "StartConstruction", {
-          parcelId: parseParcelId("parcel_00000002"),
+          parcelIds: [parseParcelId("parcel_00000002")],
           buildingType: "courtyard_home",
         }),
       ).accepted,
@@ -202,7 +202,7 @@ describe("Gate 2 product loop", () => {
       dispatchProductCommand(
         state,
         command("build-3", "StartConstruction", {
-          parcelId: parseParcelId("parcel_00000003"),
+          parcelIds: [parseParcelId("parcel_00000003")],
           buildingType: "courtyard_home",
         }),
       ),
@@ -260,7 +260,7 @@ describe("Gate 2 product loop", () => {
     dispatchProductCommand(
       state,
       command("build", "StartConstruction", {
-        parcelId: parseParcelId("parcel_00000001"),
+        parcelIds: [parseParcelId("parcel_00000001")],
         buildingType: "courtyard_home",
       }),
     );
@@ -304,7 +304,7 @@ describe("Gate 2 product loop", () => {
     const rivalParcelForBuilding = state.phase2.parcels.get(parseParcelId("parcel_00000005"))!;
     state.phase2.buildings.set(rivalBuildingId, {
       id: rivalBuildingId,
-      parcelId: rivalParcelForBuilding.id,
+      parcelIds: [rivalParcelForBuilding.id],
       districtId: rivalParcelForBuilding.districtId,
       footprintCells: [{ ...rivalParcelForBuilding.anchorCell }],
       orientation: 0,
@@ -344,7 +344,7 @@ describe("Gate 2 product loop", () => {
     dispatchProductCommand(
       state,
       command("build", "StartConstruction", {
-        parcelId: parseParcelId("parcel_00000001"),
+        parcelIds: [parseParcelId("parcel_00000001")],
         buildingType: "courtyard_home",
       }),
     );
@@ -388,7 +388,7 @@ describe("Gate 2 product loop", () => {
     dispatchProductCommand(
       second,
       command("build-b", "StartConstruction", {
-        parcelId: parseParcelId("parcel_00000001"),
+        parcelIds: [parseParcelId("parcel_00000001")],
         buildingType: "courtyard_home",
       }),
     );
@@ -414,7 +414,7 @@ describe("Gate 2 product loop", () => {
     dispatchProductCommand(
       state,
       command("repair-build", "StartConstruction", {
-        parcelId: parseParcelId("parcel_00000001"),
+        parcelIds: [parseParcelId("parcel_00000001")],
         buildingType: "courtyard_home",
       }),
     );
@@ -453,7 +453,7 @@ describe("Gate 2 product loop", () => {
       dispatchProductCommand(
         state,
         command("factory-build", "StartConstruction", {
-          parcelId: parseParcelId("parcel_00000005"),
+          parcelIds: [parseParcelId("parcel_00000005")],
           buildingType: "cement_plant",
         }),
       ).accepted,
@@ -575,7 +575,7 @@ describe("Gate 2 product loop", () => {
   });
 
   it("does not produce before completion and applies parcel suitability", () => {
-    const buildFactory = (seed: number, parcelId: string, suitability?: number) => {
+    const buildFactory = (seed: number, parcelIds: [string], suitability?: number) => {
       const state = createInitialState(seed);
       if (suitability !== undefined) {
         const parcel = state.phase2.parcels.get(parseParcelId(parcelId))!;
@@ -591,7 +591,7 @@ describe("Gate 2 product loop", () => {
       dispatchProductCommand(
         state,
         command(`factory-build-${seed}`, "StartConstruction", {
-          parcelId: parseParcelId(parcelId),
+          parcelIds: [parseParcelId(parcelId)],
           buildingType: "cement_plant",
         }),
       );
@@ -607,7 +607,7 @@ describe("Gate 2 product loop", () => {
 
       advanceToTick(state, 180 * 50);
       const building = [...state.phase2.buildings.values()].find(
-        (entry) => entry.parcelId === parseParcelId(parcelId),
+        (entry) => entry.parcelIds[0]! === parseParcelId(parcelId),
       )!;
       const facility = state.phase2.facilities.get(building.productionFacilityId!)!;
       return { state, facility };
@@ -658,7 +658,7 @@ describe("Gate 2 product loop", () => {
     dispatchProductCommand(
       state,
       command("migration-build", "StartConstruction", {
-        parcelId: parseParcelId("parcel_00000005"),
+        parcelIds: [parseParcelId("parcel_00000005")],
         buildingType: "cement_plant",
       }),
     );
@@ -911,7 +911,7 @@ describe("WP3.6 maintenance and deterioration", () => {
     parcel.ownerOrganizationId = organization;
     state.phase2.buildings.set(buildingId, {
       id: buildingId,
-      parcelId: parcel.id,
+      parcelIds: [parcel.id],
       districtId: parcel.districtId,
       footprintCells: [{ ...parcel.anchorCell }],
       orientation: 0,
@@ -1041,7 +1041,7 @@ describe("WP3.7 insurance and covered events", () => {
     parcel.ownerOrganizationId = organization;
     state.phase2.buildings.set(buildingId, {
       id: buildingId,
-      parcelId: parcel.id,
+      parcelIds: [parcel.id],
       districtId: parcel.districtId,
       footprintCells: [{ ...parcel.anchorCell }],
       orientation: 0,
@@ -1282,7 +1282,7 @@ describe("WP3.8 zoning and permits", () => {
       dispatchProductCommand(
         state,
         command("permit-approve-unused", "RequestPermit", {
-          parcelId: unusedParcelId,
+          parcelIds: [unusedParcelId],
           buildingType: "courtyard_home",
         }),
       ).accepted,

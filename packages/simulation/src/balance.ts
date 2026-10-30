@@ -234,9 +234,10 @@ export function detectInvariantViolations(state: GameState): string[] {
         violations.push(`tenant_contract_mismatch:${building.id}:${tenantId}`);
       }
     }
-    const parcel = state.phase2.parcels.get(building.parcelId);
-    if (!parcel) violations.push(`building_parcel_missing:${building.id}`);
-    else if (parcel.districtId !== building.districtId)
+    const parcels = building.parcelIds.map((parcelId) => state.phase2.parcels.get(parcelId));
+    if (parcels.some((parcel) => parcel === undefined))
+      violations.push(`building_parcel_missing:${building.id}`);
+    else if (parcels.some((parcel) => parcel!.districtId !== building.districtId))
       violations.push(`building_district_mismatch:${building.id}`);
   }
   for (const tenant of state.phase2.tenants.values()) {

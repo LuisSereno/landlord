@@ -435,7 +435,7 @@ export function developedParcelsOf(state: GameState): Parcel[] {
   for (const building of state.phase2.buildings.values()) {
     if (building.state === "ruin") continue;
     if (building.ownerOrganizationId === MUNICIPALITY_ORGANIZATION_ID) continue;
-    developed.add(building.parcelId);
+    for (const parcelId of building.parcelIds) developed.add(parcelId);
   }
   return [...state.phase2.parcels.values()]
     .filter((parcel) => parcel.disposition === "marketable" && developed.has(parcel.id))
@@ -456,7 +456,7 @@ function demandSignature(state: GameState): string {
         entry.state !== "ruin" && entry.ownerOrganizationId !== MUNICIPALITY_ORGANIZATION_ID,
     )
     .sort((left, right) => left.id.localeCompare(right.id))) {
-    developed.add(building.parcelId);
+    for (const parcelId of building.parcelIds) developed.add(parcelId);
   }
   for (const parcel of [...state.phase2.parcels.values()]
     .filter((entry) => entry.disposition === "marketable")
@@ -818,10 +818,11 @@ export function facilityCoverageForDistrict(
 /** Single helper used by the fire system: coverage reduces intensity growth and structural damage. */
 export function fireDamageForBuilding(
   state: GameState,
-  building: { parcelId: ParcelId },
+  building: { parcelIds: ParcelId[] },
   intensity: number,
 ): { intensityGrowth: number; structuralDamage: number } {
-  const coverage = facilityCoverageForParcel(state, building.parcelId, "fire");
+  /** El fuego se resuelve sobre el complejo: todas sus parcelas comparten district y servicio. */
+  const coverage = facilityCoverageForParcel(state, building.parcelIds[0]!, "fire");
   const uncovered = 100 - coverage;
   return {
     intensityGrowth: Math.round((15 * uncovered) / 100),

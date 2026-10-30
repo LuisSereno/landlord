@@ -51,7 +51,7 @@ function developParcels(
     parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
     state.phase2.buildings.set(id, {
       id,
-      parcelId: parcel.id,
+      parcelIds: [parcel.id],
       districtId: parcel.districtId,
       footprintCells: [{ ...parcel.anchorCell }],
       orientation: 0,
@@ -133,7 +133,7 @@ describe("H2-10 · cobertura potencial de las parcelas vacantes", () => {
       .filter(
         (parcel) =>
           parcel.disposition === "marketable" &&
-          ![...state.phase2.buildings.values()].some((b) => b.parcelId === parcel.id),
+          ![...state.phase2.buildings.values()].some((b) => b.parcelIds[0]! === parcel.id),
       )
       .slice(0, 5)
       .map((parcel) => parcel.id);
@@ -196,7 +196,7 @@ describe("H2-10 · cobertura potencial de las parcelas vacantes", () => {
     const builtIds = new Set(
       [...state.phase2.buildings.values()]
         .filter((entry) => entry.ownerOrganizationId === PLAYER_ORGANIZATION_ID)
-        .map((entry) => entry.parcelId),
+        .map((entry) => entry.parcelIds[0]!),
     );
     /** Una parcela construida: `serviceCoverage` manda, `potentialService` es cero. */
     const builtParcel = parcels.find((entry) => builtIds.has(entry.id))!;

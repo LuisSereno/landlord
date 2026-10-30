@@ -817,8 +817,10 @@ const NEIGHBOURS = [
 export function gameplayGeometryKey(projection: ViewProjectionV2): string {
   const economy = projection.economy;
   if (!economy) return `roads:${projection.map.roads.digest}`;
-  const constructionParcelIds = new Set(economy.constructionSites.map((site) => site.parcelId));
-  const builtParcelIds = new Set(economy.buildings.map((building) => building.parcelId));
+  const constructionParcelIds = new Set(
+    economy.constructionSites.flatMap((site) => site.parcelIds),
+  );
+  const builtParcelIds = new Set(economy.buildings.flatMap((building) => building.parcelIds));
   const parts = economy.parcels
     .map((parcel) => {
       const status = builtParcelIds.has(parcel.id)
@@ -848,7 +850,7 @@ export function buildGameplayVisualModel(
   const roadVisuals = deriveRoadVisuals(projection.map.roads);
   const roadCellKeys = new Set(projection.map.roads.cells);
   const constructionParcelIds = new Set(
-    (economy?.constructionSites ?? []).map((site) => site.parcelId),
+    (economy?.constructionSites ?? []).flatMap((site) => site.parcelIds),
   );
 
   const buildingVisuals: GameplayBuildingVisual[] = (economy?.buildings ?? []).map((building) => ({

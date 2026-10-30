@@ -333,7 +333,8 @@ export type ViewProjectionV2 = {
       id: BuildingId;
       ownerOrganizationId: OrganizationId;
       productionFacilityId: import("./primitives").FacilityId | null;
-      parcelId: ParcelId;
+      /** V.d-7 · parcelas catastrales del edificio, en orden canónico. */
+      parcelIds: ParcelId[];
       /** Distrito donde vive el edificio: la coordenada local sola no identifica un lugar (D-093 §1). */
       districtId: DistrictId;
       type: BuildingType;
@@ -362,7 +363,8 @@ export type ViewProjectionV2 = {
     }>;
     constructionSites: Array<{
       id: ConstructionSiteId;
-      parcelId: ParcelId;
+      /** V.d-7 · parcelas del proyecto, en orden canónico. */
+      parcelIds: ParcelId[];
       districtId: DistrictId;
       ownerOrganizationId: OrganizationId;
       buildingType: BuildingType;
@@ -1004,7 +1006,7 @@ export const viewProjectionV2Schema = z.object({
           id: buildingIdSchema,
           ownerOrganizationId: organizationIdSchema,
           productionFacilityId: facilityIdSchema.nullable(),
-          parcelId: parcelIdSchema,
+          parcelIds: z.array(parcelIdSchema).min(1),
           districtId: districtIdSchema,
           type: buildingTypeSchema,
           footprintCells: z.array(gridCellSchema).min(1),
@@ -1031,7 +1033,7 @@ export const viewProjectionV2Schema = z.object({
       constructionSites: z.array(
         z.object({
           id: constructionSiteIdSchema,
-          parcelId: parcelIdSchema,
+          parcelIds: z.array(parcelIdSchema).min(1),
           districtId: districtIdSchema,
           ownerOrganizationId: organizationIdSchema,
           buildingType: buildingTypeSchema,

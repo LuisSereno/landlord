@@ -142,13 +142,14 @@ export class SimulationWorkerClient {
     });
   }
 
-  public startConstruction(parcelId: string, buildingType: BuildingType) {
+  /** V.d-7 · el comando lleva el conjunto; la UI single-parcel envía `[parcelId]`. */
+  public startConstruction(parcelIds: readonly string[], buildingType: BuildingType) {
     return this.submitProductCommand({
       commandId: this.nextCommandId(),
       issuedByPersonId: parsePersonId("person_00000001"),
       actingAsOrganizationId: parseOrganizationId("org_00000001"),
       type: "StartConstruction",
-      payload: { parcelId: parseParcelId(parcelId), buildingType },
+      payload: { parcelIds: parcelIds.map(parseParcelId), buildingType },
     });
   }
 
@@ -363,7 +364,7 @@ export class SimulationWorkerClient {
       issuedByPersonId: parsePersonId("person_00000001"),
       actingAsOrganizationId: parseOrganizationId("org_00000001"),
       type: "RequestPermit",
-      payload: { parcelId: parseParcelId(parcelId), buildingType },
+      payload: { parcelIds: [parseParcelId(parcelId)], buildingType },
     });
   }
 

@@ -245,7 +245,7 @@ function buildStock(state: GameState): StockUnit[] {
   for (const incident of state.phase2.incidents.values()) {
     if (incident.status !== "active") continue;
     const building = state.phase2.buildings.get(incident.buildingId);
-    const parcel = building ? state.phase2.parcels.get(building.parcelId) : undefined;
+    const parcel = building ? state.phase2.parcels.get(building.parcelIds[0]!) : undefined;
     if (parcel)
       activeIncidentPlaces.push({ districtId: parcel.districtId, cell: parcel.anchorCell });
   }
@@ -256,7 +256,7 @@ function buildStock(state: GameState): StockUnit[] {
   )) {
     if (building.state !== "operational") continue;
     if (building.ownerOrganizationId === MUNICIPALITY_ORGANIZATION_ID) continue;
-    const parcel = state.phase2.parcels.get(building.parcelId);
+    const parcel = state.phase2.parcels.get(building.parcelIds[0]!);
     if (!parcel) continue;
     raw.push({ building, districtId: parcel.districtId, cell: parcel.anchorCell });
   }
@@ -279,8 +279,8 @@ function buildStock(state: GameState): StockUnit[] {
       if (isWithinDistrictRadius(entry, place, HOUSING_MARKET_POLICY.serviceRadiusCells))
         nearbyIncidents += 1;
     }
-    const parcelCoverage = coverage.byParcelId.get(entry.building.parcelId);
-    const amenities = facilityCoverage.byParcelId.get(entry.building.parcelId);
+    const parcelCoverage = coverage.byParcelId.get(entry.building.parcelIds[0]!);
+    const amenities = facilityCoverage.byParcelId.get(entry.building.parcelIds[0]!);
     stock.push({
       building: entry.building,
       cell: entry.cell,

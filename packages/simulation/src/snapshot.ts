@@ -638,7 +638,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
               {
                 ...building,
                 id: parseBuildingId(building.id),
-                parcelId: parseParcelId(building.parcelId),
+                parcelIds: building.parcelIds.map(parseParcelId),
                 ownerOrganizationId: parseOrganizationId(building.ownerOrganizationId),
                 tenantId: building.tenantId ? parseTenantId(building.tenantId) : null,
                 tenantIds:
@@ -656,7 +656,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
               {
                 ...site,
                 id: parseConstructionSiteId(site.id),
-                parcelId: parseParcelId(site.parcelId),
+                parcelIds: site.parcelIds.map(parseParcelId),
                 ownerOrganizationId: parseOrganizationId(site.ownerOrganizationId),
                 upgradeBuildingId: site.upgradeBuildingId
                   ? parseBuildingId(site.upgradeBuildingId)
@@ -1117,7 +1117,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
                         allowedUsesAtDecision: [...permit.allowedUsesAtDecision],
                         currentUsesAtDecision: [...permit.currentUsesAtDecision],
                         id: parsePermitId(permit.id),
-                        parcelId: parseParcelId(permit.parcelId),
+                        parcelIds: permit.parcelIds.map(parseParcelId),
                         authorityOrganizationId: parseOrganizationId(
                           permit.authorityOrganizationId,
                         ),

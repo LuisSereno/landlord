@@ -91,7 +91,7 @@ function growCity(state: GameState, targetDevelopedPercent: number): void {
           building.state !== "ruin" &&
           building.ownerOrganizationId !== MUNICIPALITY_ORGANIZATION_ID,
       )
-      .map((building) => building.parcelId),
+      .map((building) => building.parcelIds[0]!),
   );
   const target = Math.round((marketable.length * targetDevelopedPercent) / 100);
   let developed = alreadyDeveloped.size;
@@ -104,7 +104,7 @@ function growCity(state: GameState, targetDevelopedPercent: number): void {
     parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
     state.phase2.buildings.set(id, {
       id,
-      parcelId: parcel.id,
+      parcelIds: [parcel.id],
       districtId: parcel.districtId,
       footprintCells: [{ ...parcel.anchorCell }],
       orientation: 0,
@@ -155,7 +155,7 @@ function measureSeed(seed: number, developedPercent = 0) {
           building.state !== "ruin" &&
           building.ownerOrganizationId !== MUNICIPALITY_ORGANIZATION_ID,
       )
-      .map((building) => building.parcelId),
+      .map((building) => building.parcelIds[0]!),
   );
   const privateNonRuinBuildings = [...state.phase2.buildings.values()].filter(
     (building) =>
@@ -246,7 +246,7 @@ function measureSeed(seed: number, developedPercent = 0) {
     const reachableCostsActive = CAPACITY_SERVICES.has(service)
       ? developedParcels
           .map((parcel) => {
-            const entry = distances.find((candidate) => candidate.parcelId === parcel.id);
+            const entry = distances.find((candidate) => candidate.parcelIds[0]! === parcel.id);
             return entry?.cost ?? null;
           })
           .filter((cost): cost is number => cost !== null)

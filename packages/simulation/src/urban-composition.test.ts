@@ -128,7 +128,7 @@ describe("V.d.2 composición urbana y códigos", () => {
       dispatchProductCommand(
         state,
         command("composition-build-1", "StartConstruction", {
-          parcelId: parcel.id,
+          parcelIds: [parcel.id],
           buildingType: type,
         }),
       ).accepted,
@@ -137,7 +137,7 @@ describe("V.d.2 composición urbana y códigos", () => {
       dispatchProductCommand(
         state,
         command("composition-build-2", "StartConstruction", {
-          parcelId: parcel.id,
+          parcelIds: [parcel.id],
           buildingType: type,
         }),
       ),
@@ -148,7 +148,7 @@ describe("V.d.2 composición urbana y códigos", () => {
       dispatchProductCommand(
         state,
         command("composition-build-3", "StartConstruction", {
-          parcelId: parcel.id,
+          parcelIds: [parcel.id],
           buildingType: type,
         }),
       ).accepted,
@@ -159,7 +159,7 @@ describe("V.d.2 composición urbana y códigos", () => {
       const result = dispatchProductCommand(
         state,
         command(`composition-build-${attempt}`, "StartConstruction", {
-          parcelId: parcel.id,
+          parcelIds: [parcel.id],
           buildingType: type,
         }),
       );
@@ -194,7 +194,7 @@ describe("V.d.2 composición urbana y códigos", () => {
       dispatchProductCommand(
         state,
         command("det-build", "StartConstruction", {
-          parcelId: parcel.id,
+          parcelIds: [parcel.id],
           buildingType: "courtyard_home",
         }),
       );
@@ -228,7 +228,7 @@ describe("V.d.2 ciclo inmobiliario en los nueve distritos", () => {
         dispatchProductCommand(
           state,
           command(`nine-permit-${seed}`, "RequestPermit", {
-            parcelId: parcel!.id,
+            parcelIds: [parcel!.id],
             buildingType: "courtyard_home",
           }),
         ).accepted,
@@ -237,7 +237,7 @@ describe("V.d.2 ciclo inmobiliario en los nueve distritos", () => {
         dispatchProductCommand(
           state,
           command(`nine-build-${seed}`, "StartConstruction", {
-            parcelId: parcel!.id,
+            parcelIds: [parcel!.id],
             buildingType: "courtyard_home",
           }),
         ).accepted,
@@ -288,7 +288,7 @@ describe("V.d.2 usos existentes", () => {
     dispatchProductCommand(
       state,
       command("uses-build", "StartConstruction", {
-        parcelId: parcel.id,
+        parcelIds: [parcel.id],
         buildingType: "courtyard_home",
       }),
     );
@@ -322,7 +322,7 @@ describe("V.d.2 reglas de convivencia", () => {
     dispatchProductCommand(
       state,
       command("move-build", "StartConstruction", {
-        parcelId: parcel.id,
+        parcelIds: [parcel.id],
         buildingType: "courtyard_home",
       }),
     );

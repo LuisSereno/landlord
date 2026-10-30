@@ -711,7 +711,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
      * un edificio en ruinas pasara desapercibido si otro edificio de la parcela estaba intacto.
      */
     const buildingsOfParcel = (this.projection?.economy?.buildings ?? []).filter(
-      (entry) => entry.parcelId === parcel.id,
+      (entry) => entry.parcelIds.includes(parcel.id),
     );
     if (this.overlay === "condition") {
       if (buildingsOfParcel.length === 0) return COLORS.parcelAvailable;

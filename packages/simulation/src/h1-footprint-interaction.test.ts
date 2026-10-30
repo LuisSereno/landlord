@@ -99,7 +99,7 @@ function addBuilding(
   const id = parseBuildingId(`building_${String(serial).padStart(8, "0")}`);
   const building: Building = {
     id,
-    parcelId: parcel.id,
+    parcelIds: [parcel.id],
     districtId: parcel.districtId,
     footprintCells: footprintCells.map((cell) => ({ ...cell })),
     orientation: 0,
@@ -130,7 +130,7 @@ function addSite(
   const id = parseConstructionSiteId(`site_${String(serial).padStart(8, "0")}`);
   const site: ConstructionSite = {
     id,
-    parcelId: parcel.id,
+    parcelIds: [parcel.id],
     districtId: parcel.districtId,
     ownerOrganizationId: PLAYER_ORGANIZATION_ID,
     buildingType: "courtyard_home",

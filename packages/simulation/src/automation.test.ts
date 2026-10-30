@@ -69,7 +69,7 @@ function addOwnedBuilding(
   parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
   const building: Building = {
     id,
-    parcelId: parcel.id,
+    parcelIds: [parcel.id],
     districtId: parcel.districtId,
     footprintCells: [{ ...parcel.anchorCell }],
     orientation: 0,
@@ -260,7 +260,7 @@ describe("WP4.13 automatización y delegación", () => {
     const buildingId = parseBuildingId("building_00000099");
     const building: Building = {
       id: buildingId,
-      parcelId: parcel.id,
+      parcelIds: [parcel.id],
       districtId: parcel.districtId,
       footprintCells: [{ ...parcel.anchorCell }],
       orientation: 0,

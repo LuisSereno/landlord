@@ -85,7 +85,7 @@ const parcel = (overrides: Partial<Record<string, unknown>> = {}) =>
 const building = (overrides: Partial<Record<string, unknown>> = {}) =>
   ({
     id: "building_00000001",
-    parcelId: "parcel_00000001",
+    parcelIds: ["parcel_00000001"],
     ownerOrganizationId: PLAYER,
     type: "courtyard_home",
     condition: 100,
@@ -227,7 +227,7 @@ describe("V.d-UX · contratos de la interfaz", () => {
       constructionSites: [
         {
           id: "site_00000001",
-          parcelId: "parcel_00000001",
+          parcelIds: ["parcel_00000001"],
           ownerOrganizationId: PLAYER,
           assignedCrewIds: [],
         },
@@ -263,7 +263,7 @@ describe("V.d-UX · contratos de la interfaz", () => {
       constructionSites: [
         {
           id: "site_1",
-          parcelId: "parcel_other",
+          parcelIds: ["parcel_other"],
           ownerOrganizationId: PLAYER,
           assignedCrewIds: [],
         },
@@ -319,7 +319,7 @@ describe("V.d-UX · contratos de la interfaz", () => {
         constructionSites: [
           {
             id: "site_1",
-            parcelId: "parcel_00000001",
+            parcelIds: ["parcel_00000001"],
             ownerOrganizationId: PLAYER,
             assignedCrewIds: [],
             footprintCells: [{ x: 1, y: 1 }],

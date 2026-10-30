@@ -36,7 +36,7 @@ function developParcels(
     parcel.ownerOrganizationId = owner;
     state.phase2.buildings.set(id, {
       id,
-      parcelId: parcel.id,
+      parcelIds: [parcel.id],
       districtId: parcel.districtId,
       footprintCells: [{ ...parcel.anchorCell }],
       orientation: 0,
@@ -110,7 +110,7 @@ describe("H2-05 · demanda = parcela desarrollada, no parcela marketable", () =>
     /** Quemar el único edificio de la parcela 3: deja de contar como demanda. */
     const victim = parcels[2]!;
     for (const building of state.phase2.buildings.values()) {
-      if (building.parcelId === victim.id) building.state = "ruin";
+      if (building.parcelIds[0]! === victim.id) building.state = "ruin";
     }
     const after = [...facilityCoverageIndex(state).facilities.values()]
       .filter((report) => report.service === "security")
@@ -129,7 +129,7 @@ describe("H2-05 · demanda = parcela desarrollada, no parcela marketable", () =>
     const municipalParcels = new Set<string>();
     for (const building of state.phase2.buildings.values())
       if (building.ownerOrganizationId !== PLAYER_ORGANIZATION_ID)
-        municipalParcels.add(building.parcelId as string);
+        municipalParcels.add(building.parcelIds[0]! as string);
     /** Se coloca un edificio PLAYER_ORGANIZATION_ID encima para contrastar. */
     const playerParcels = developParcels(state, districtId!, 3, 700);
     const index = facilityCoverageIndex(state);
@@ -237,7 +237,7 @@ describe("H2-05 · demanda = parcela desarrollada, no parcela marketable", () =>
       parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
       const shared: Building = {
         id,
-        parcelId: parcel.id,
+        parcelIds: [parcel.id],
         districtId: parcel.districtId,
         footprintCells: [{ ...parcel.anchorCell }],
         orientation: 0,
@@ -260,7 +260,7 @@ describe("H2-05 · demanda = parcela desarrollada, no parcela marketable", () =>
       mirror.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
       second.phase2.buildings.set(shared.id, {
         ...shared,
-        parcelId: mirror.id,
+        parcelIds: [mirror.id],
         footprintCells: [{ ...mirror.anchorCell }],
       });
     }
@@ -287,7 +287,7 @@ describe("H2-05 · helper `developedParcelsOf`", () => {
       expect(parcel.disposition).toBe("marketable");
       const hasPrivate = [...state.phase2.buildings.values()].some(
         (entry) =>
-          entry.parcelId === parcel.id &&
+          entry.parcelIds[0]! === parcel.id &&
           entry.state !== "ruin" &&
           entry.ownerOrganizationId !== "org_00000003",
       );

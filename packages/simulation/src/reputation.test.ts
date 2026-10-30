@@ -75,7 +75,7 @@ function addBuilding(
   parcel.ownerOrganizationId = owner;
   const building: Building = {
     id,
-    parcelId: parcel.id,
+    parcelIds: [parcel.id],
     districtId: parcel.districtId,
     footprintCells: [{ ...parcel.anchorCell }],
     orientation: 0,
@@ -456,7 +456,7 @@ describe("WP4.11-H atribución de víctimas y exploit bancario", () => {
     const state = newState(seed);
     const buildingId = addBuilding(state, 0);
     const parcel = state.phase2.parcels.get(
-      state.phase2.buildings.get(buildingId)!.parcelId,
+      state.phase2.buildings.get(buildingId)!.parcelIds[0]!,
     )!.anchorCell;
     const enforcer = [...state.agents.values()].find((agent) => agent.specialty === "enforcer")!;
     enforcer.organizationId = RIVAL_ORGANIZATION_ID;

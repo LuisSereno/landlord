@@ -104,7 +104,7 @@ function scriptedMonth(state: GameState, month: number): string[] {
     dispatchProductCommand(
       state,
       playerCommand(`campaign-permit-${String(month)}`, "RequestPermit", {
-        parcelId: target.id,
+        parcelIds: [target.id],
         buildingType: "courtyard_home",
       }),
     ),
@@ -131,7 +131,7 @@ function scriptedMonth(state: GameState, month: number): string[] {
     dispatchProductCommand(
       state,
       playerCommand(`campaign-build-${String(month)}`, "StartConstruction", {
-        parcelId: target.id,
+        parcelIds: [target.id],
         buildingType: "courtyard_home",
       }),
     ),
@@ -226,7 +226,7 @@ function assertInvariants(state: GameState, month: number, previous: Map<ParcelI
 
   /** Edificios: dueño, distrito y huella consistentes; ningún edificio huérfano de parcela. */
   for (const building of state.phase2.buildings.values()) {
-    const parcel = state.phase2.parcels.get(building.parcelId);
+    const parcel = state.phase2.parcels.get(building.parcelIds[0]!);
     expect(parcel, `edificio ${building.id} sin parcela en ${label}`).toBeDefined();
     expect(building.districtId, `distrito de ${building.id} en ${label}`).toBe(parcel!.districtId);
     expect(building.footprintCells.length, `huella de ${building.id} en ${label}`).toBeGreaterThan(

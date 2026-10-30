@@ -236,14 +236,14 @@ describe("WP4.1 district generation", () => {
       dispatchProductCommand(
         state,
         command("build-1", "StartConstruction", {
-          parcelId: target.id,
+          parcelIds: [target.id],
           buildingType: "courtyard_home",
         }),
       ).accepted,
     ).toBe(true);
 
     const site = [...state.phase2.constructionSites.values()].find(
-      (entry) => entry.parcelId === target.id,
+      (entry) => entry.parcelIds[0]! === target.id,
     )!;
     expect(
       dispatchProductCommand(

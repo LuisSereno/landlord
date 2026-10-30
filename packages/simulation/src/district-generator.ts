@@ -1022,7 +1022,7 @@ function attemptComposition(input: {
     );
     const building: Building = {
       id: buildingId,
-      parcelId,
+      parcelIds: [parcelId],
       districtId,
       ownerOrganizationId: MUNICIPALITY_ORGANIZATION_ID,
       productionFacilityId: null,

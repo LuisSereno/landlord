@@ -61,7 +61,7 @@ function addBuilding(
   const id = parseBuildingId(`building_${String(serial).padStart(8, "0")}`);
   const building: Building = {
     id,
-    parcelId: parcel.id,
+    parcelIds: [parcel.id],
     districtId: parcel.districtId,
     footprintCells: footprintCells.map((cell) => ({ ...cell })),
     orientation: 0,
@@ -92,7 +92,7 @@ function addSite(
   const id = parseConstructionSiteId(`site_${String(serial).padStart(8, "0")}`);
   const site: ConstructionSite = {
     id,
-    parcelId: parcel.id,
+    parcelIds: [parcel.id],
     districtId: parcel.districtId,
     ownerOrganizationId: PLAYER_ORGANIZATION_ID,
     buildingType: "row_house",
@@ -132,8 +132,8 @@ describe("H2-01 · la proyección publica el footprint físico de edificios y ob
     const p2 = projected.find((entry) => entry.id === b2)!;
 
     /** Ambos viajan con su `parcelId`, `districtId` y su `footprintCells` propios. */
-    expect(p1.parcelId).toBe(parcel.id);
-    expect(p2.parcelId).toBe(parcel.id);
+    expect(p1.parcelIds[0]!).toBe(parcel.id);
+    expect(p2.parcelIds[0]!).toBe(parcel.id);
     expect(p1.districtId).toBe(parcel.districtId);
     expect(p2.districtId).toBe(parcel.districtId);
     expect(p1.footprintCells).toEqual(left);
@@ -161,7 +161,7 @@ describe("H2-01 · la proyección publica el footprint físico de edificios y ob
     expect(() => viewProjectionV2Schema.parse(projection)).not.toThrow();
     const site = projection.economy!.constructionSites.find((entry) => entry.id === siteId)!;
 
-    expect(site.parcelId).toBe(parcel.id);
+    expect(site.parcelIds[0]!).toBe(parcel.id);
     expect(site.districtId).toBe(parcel.districtId);
     expect(site.footprintCells).toEqual(right);
     expect(site.orientation).toBe(90);

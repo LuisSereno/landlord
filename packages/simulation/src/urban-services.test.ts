@@ -37,7 +37,7 @@ function addBuilding(
   parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
   const building: Building = {
     id,
-    parcelId: parcel.id,
+    parcelIds: [parcel.id],
     districtId: parcel.districtId,
     footprintCells: [{ ...parcel.anchorCell }],
     orientation: 0,
@@ -135,7 +135,7 @@ describe("WP4.6 servicios urbanos y accesibilidad", () => {
       parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
       dense.phase2.buildings.set(id, {
         id,
-        parcelId: parcel.id,
+        parcelIds: [parcel.id],
         districtId: parcel.districtId,
         footprintCells: [{ ...parcel.anchorCell }],
         orientation: 0,
@@ -184,7 +184,7 @@ describe("WP4.6 servicios urbanos y accesibilidad", () => {
     addBuilding(state, 1);
     /** Los dos edificios comparten distrito: el centro con el que se miden es el de su propio mapa. */
     const parcels = ["building_00000001", "building_00000002"].map((id) => {
-      const parcelId = state.phase2.buildings.get(id as never)!.parcelId;
+      const parcelId = state.phase2.buildings.get(id as never)!.parcelIds[0]!;
       return state.phase2.parcels.get(parcelId)!;
     });
     expect(parcels[0]!.districtId).toBe(parcels[1]!.districtId);
@@ -257,7 +257,7 @@ describe("WP4.6 servicios urbanos y accesibilidad", () => {
         const parcel = state.phase2.parcels.get(
           state.phase2.buildings.get(
             parseBuildingId(`building_${String(index + 1).padStart(8, "0")}`),
-          )!.parcelId,
+          )!.parcelIds[0]!,
         )!;
         const center = buildCoverageIndex(state).cleaningByDistrictId.get(
           parcel.districtId,

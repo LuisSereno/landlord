@@ -78,7 +78,7 @@ function developParcels(
     parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
     state.phase2.buildings.set(id, {
       id,
-      parcelId: parcel.id,
+      parcelIds: [parcel.id],
       districtId: parcel.districtId,
       footprintCells: [{ ...parcel.anchorCell }],
       orientation: 0,
@@ -175,7 +175,7 @@ describe("H1-09B · el potencial normativo consume la ordenanza vigente", () => 
         issuedByPersonId: parsePersonId("person_00000001"),
         actingAsOrganizationId: PLAYER_ORGANIZATION_ID,
         type: "RequestPermit",
-        payload: { parcelId: parcel.id, buildingType: "apartment_block" },
+        payload: { parcelIds: [parcel.id], buildingType: "apartment_block" },
       } as never).accepted,
     ).toBe(true);
     const permit = activePermitFor(state, parcel.id, "apartment_block", state.clock.tick)!;

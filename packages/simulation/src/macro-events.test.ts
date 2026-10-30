@@ -75,7 +75,7 @@ function addBuilding(
       parcels.reduce((total, parcel) => total + parcel.anchorCell.y, 0) / parcels.length,
     ),
   };
-  const used = new Set([...state.phase2.buildings.values()].map((building) => building.parcelId));
+  const used = new Set([...state.phase2.buildings.values()].map((building) => building.parcelIds[0]!));
   const parcel = parcels
     .filter(
       (candidate) =>
@@ -92,7 +92,7 @@ function addBuilding(
   parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
   const building: Building = {
     id,
-    parcelId: parcel.id,
+    parcelIds: [parcel.id],
     districtId: parcel.districtId,
     footprintCells: [{ ...parcel.anchorCell }],
     orientation: 0,
@@ -402,7 +402,7 @@ describe("WP4.12-R macroeventos", () => {
       const permitCode = developmentCodeById(parcel.developmentCodeId);
       state.phase2.permitting.permitsById["permit_00000001"] = {
         id: parsePermitId("permit_00000001"),
-        parcelId: parcel.id,
+        parcelIds: [parcel.id],
         buildingType: "courtyard_home",
         authorityOrganizationId: parseOrganizationId("org_00000004"),
         requirements: [],
@@ -436,7 +436,7 @@ describe("WP4.12-R macroeventos", () => {
         issuedByPersonId: "person_00000001" as never,
         actingAsOrganizationId: PLAYER_ORGANIZATION_ID,
         type: "StartConstruction",
-        payload: { parcelId: parcel.id, buildingType: "courtyard_home" },
+        payload: { parcelIds: [parcel.id], buildingType: "courtyard_home" },
       });
       expect(result.accepted).toBe(true);
       const site = [...state.phase2.constructionSites.values()][0]!;

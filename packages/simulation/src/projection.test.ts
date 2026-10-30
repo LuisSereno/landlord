@@ -192,7 +192,7 @@ describe("V.d.0 resúmenes de ciudad", () => {
     }
     for (const building of projection.economy?.buildings ?? []) {
       const parent = state.phase2.parcels.get(
-        state.phase2.buildings.get(building.id as never)!.parcelId,
+        state.phase2.buildings.get(building.id as never)!.parcelIds[0]!,
       )!;
       expect(parent.districtId).toBe(observed);
     }

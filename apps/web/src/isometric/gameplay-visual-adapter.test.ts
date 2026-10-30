@@ -105,12 +105,12 @@ const PARCELS: ParcelInput[] = [
 ];
 
 const BUILDINGS: BuildingInput[] = [
-  { id: "bld_1", type: "courtyard_home", parcelId: "par_1", state: "operational", condition: 90 },
-  { id: "bld_2", type: "workshop", parcelId: "par_2", state: "operational", condition: 40 },
-  { id: "bld_3", type: "cement_plant", parcelId: "par_3", state: "operational", condition: 80 },
+  { id: "bld_1", type: "courtyard_home", parcelIds: ["par_1"], state: "operational", condition: 90 },
+  { id: "bld_2", type: "workshop", parcelIds: ["par_2"], state: "operational", condition: 40 },
+  { id: "bld_3", type: "cement_plant", parcelIds: ["par_3"], state: "operational", condition: 80 },
 ];
 
-const SITES: SiteInput[] = [{ id: "site_1", parcelId: "par_5", buildingType: "courtyard_home" }];
+const SITES: SiteInput[] = [{ id: "site_1", parcelIds: ["par_5"], buildingType: "courtyard_home" }];
 
 function streetDressingRoads() {
   const cells: string[] = [];

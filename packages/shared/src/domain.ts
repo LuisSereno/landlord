@@ -1580,7 +1580,8 @@ export type SetAutomationPolicy = DomainCommandBase & {
 };
 export type RequestPermit = DomainCommandBase & {
   type: "RequestPermit";
-  payload: { parcelId: ParcelId; buildingType: BuildingType };
+  /** V.d-7 · el permiso se pide para el conjunto exacto del proyecto. */
+  payload: { parcelIds: ParcelId[]; buildingType: BuildingType };
 };
 export type SubmitPublicBid = DomainCommandBase & {
   type: "SubmitPublicBid";

@@ -64,7 +64,7 @@ function addHome(state: GameState, index: number): BuildingId {
   parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
   const building: Building = {
     id,
-    parcelId: parcel.id,
+    parcelIds: [parcel.id],
     districtId: parcel.districtId,
     footprintCells: [{ ...parcel.anchorCell }],
     orientation: 0,

@@ -60,7 +60,7 @@ function developParcels(
     parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
     state.phase2.buildings.set(id, {
       id,
-      parcelId: parcel.id,
+      parcelIds: [parcel.id],
       districtId: parcel.districtId,
       footprintCells: [{ ...parcel.anchorCell }],
       orientation: 0,
@@ -102,7 +102,7 @@ function scoreOf(state: GameState, parcel: Parcel): ReturnType<typeof landValueB
 /** La composición de V.d.4, término a término, para atribuir quién se movió. */
 function expectedServicesScore(
   coverage: CoverageIndex,
-  parcelId: ParcelId,
+  parcelIds: [ParcelId],
   security: number,
 ): number {
   const levels = coverage.byParcelId.get(parcelId)!;

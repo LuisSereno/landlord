@@ -57,7 +57,7 @@ export function resolveContextSelection(input: {
       building,
       owned: building.ownerOrganizationId === PLAYER,
     };
-  const site = economy.constructionSites.find((entry) => entry.parcelId === parcel.id);
+  const site = economy.constructionSites.find((entry) => entry.parcelIds.includes(parcel.id));
   if (site)
     return { kind: "construction", parcel, site, owned: site.ownerOrganizationId === PLAYER };
   return { kind: "parcel", parcel };

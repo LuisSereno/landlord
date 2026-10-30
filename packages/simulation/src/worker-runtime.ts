@@ -100,6 +100,13 @@ const errorMessages: Record<ErrorCode, string> = {
   INTEL_NOT_OBSERVER: "El expediente de inteligencia pertenece a otro observador.",
   INTEL_COOLDOWN: "Las fuentes aún no tienen información nueva sobre ese sujeto.",
   INTEL_UNAFFORDABLE: "La caja no cubre el encargo de la investigación.",
+  DUPLICATE_PARCELS: "La misma parcela aparece dos veces en el proyecto.",
+  WRONG_PARCEL_COUNT: "El proyecto no tiene el número de parcelas que exige.",
+  PARCELS_DIFFERENT_DISTRICT: "Las parcelas del proyecto pertenecen a distritos distintos.",
+  PARCELS_NOT_EDGE_CONTIGUOUS: "Las parcelas del proyecto no son contiguas por borde.",
+  MIXED_DEVELOPMENT_CODES: "Las parcelas seleccionadas tienen normas urbanísticas incompatibles.",
+  SITE_AREA_TOO_SMALL: "La superficie conjunta de las parcelas no alcanza el mínimo.",
+  PARCEL_OCCUPIED: "Alguna parcela del proyecto ya está ocupada por otro edificio u obra.",
 } as const;
 
 const PROTOCOL_VERSION = protocolVersionSchema.parse(2);

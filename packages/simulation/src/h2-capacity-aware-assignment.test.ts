@@ -52,7 +52,7 @@ function developParcels(
     parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
     state.phase2.buildings.set(id, {
       id,
-      parcelId: parcel.id,
+      parcelIds: [parcel.id],
       districtId: parcel.districtId,
       footprintCells: [{ ...parcel.anchorCell }],
       orientation: 0,
@@ -208,7 +208,7 @@ describe("H2-06 · asignación determinista con capacidad", () => {
       parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
       first.phase2.buildings.set(id, {
         id,
-        parcelId: parcel.id,
+        parcelIds: [parcel.id],
         districtId: parcel.districtId,
         footprintCells: [{ ...parcel.anchorCell }],
         orientation: 0,
@@ -232,7 +232,7 @@ describe("H2-06 · asignación determinista con capacidad", () => {
       parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
       second.phase2.buildings.set(id, {
         id,
-        parcelId: parcel.id,
+        parcelIds: [parcel.id],
         districtId: parcel.districtId,
         footprintCells: [{ ...parcel.anchorCell }],
         orientation: 0,

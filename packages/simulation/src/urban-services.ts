@@ -181,7 +181,8 @@ export function buildCoverageIndex(state: GameState): CoverageIndex {
   }
   const byBuildingId = new Map<BuildingId, Record<UrbanServiceId, number>>();
   for (const building of buildings) {
-    const coverage = byParcelId.get(building.parcelId);
+    /** La cobertura del edificio se publica por su parcelaancla; el complejo comparte district. */
+    const coverage = byParcelId.get(building.parcelIds[0]!);
     if (coverage) byBuildingId.set(building.id, coverage);
   }
   /**
@@ -197,9 +198,11 @@ export function buildCoverageIndex(state: GameState): CoverageIndex {
    */
   const marketableParcelIds = new Set<ParcelId>(parcels.map((parcel) => parcel.id));
   const developedParcelIds = new Set<ParcelId>();
-  for (const building of buildings)
-    if (building.state !== "ruin" && marketableParcelIds.has(building.parcelId))
-      developedParcelIds.add(building.parcelId);
+  for (const building of buildings) {
+    if (building.state === "ruin") continue;
+    for (const parcelId of building.parcelIds)
+      if (marketableParcelIds.has(parcelId)) developedParcelIds.add(parcelId);
+  }
   return {
     cleaningByDistrictId,
     byBuildingId,
@@ -214,7 +217,7 @@ export function coverageFor(
   buildingId: BuildingId,
   service: UrbanServiceId,
 ): number {
-  const parcelId = state.phase2.buildings.get(buildingId)?.parcelId;
+  const parcelId = state.phase2.buildings.get(buildingId)?.parcelIds[0];
   if (!parcelId) return 0;
   return buildCoverageIndex(state).byParcelId.get(parcelId)?.[service] ?? 0;
 }

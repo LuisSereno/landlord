@@ -61,7 +61,7 @@ function addBuilding(state: GameState, parcel: Parcel, serial: number): Building
   const id = parseBuildingId(`building_${String(serial).padStart(8, "0")}`);
   const building: Building = {
     id,
-    parcelId: parcel.id,
+    parcelIds: [parcel.id],
     districtId: parcel.districtId,
     footprintCells: [{ ...parcel.anchorCell }],
     orientation: 0,

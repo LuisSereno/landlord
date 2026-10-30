@@ -35,6 +35,8 @@ import {
   REPAIR_COST,
 } from "./game-data";
 import { type GameState } from "./state";
+import { findDevelopmentSite } from "./development-site";
+import { buildingCollateralContribution, collateralBuildingValue } from "./collateral";
 import {
   activeSiteOnParcel,
   blockOfParcel,
@@ -343,7 +345,7 @@ function progressConstruction(state: GameState): void {
           state.phase2.facilities.delete(ruin.productionFacilityId);
         }
         state.phase2.buildings.delete(ruin.id);
-        reconcileParcelUses(state, ruin.parcelId);
+        for (const parcelId of ruin.parcelIds) reconcileParcelUses(state, parcelId);
       }
     } else if (site.repairBuildingId) {
       const building = state.phase2.buildings.get(site.repairBuildingId);
@@ -366,7 +368,7 @@ function progressConstruction(state: GameState): void {
       );
       const building: import("@landlord/shared").Building = {
         id: buildingId,
-        parcelId: site.parcelId,
+        parcelIds: [...site.parcelIds],
         districtId: site.districtId,
         ownerOrganizationId: site.ownerOrganizationId,
         productionFacilityId: null,
@@ -385,8 +387,8 @@ function progressConstruction(state: GameState): void {
         casualtiesTotal: { injured: 0, dead: 0 },
       };
       state.phase2.buildings.set(buildingId, building);
-      const parcel = state.phase2.parcels.get(site.parcelId);
-      reconcileParcelUses(state, site.parcelId);
+      const parcel = state.phase2.parcels.get(site.parcelIds[0]!);
+      for (const parcelId of site.parcelIds) reconcileParcelUses(state, parcelId);
       const production = BUILDING_DEFINITIONS[building.type].production;
       if (production) {
         state.phase2.idCounters.facility += 1;
@@ -524,7 +526,12 @@ function collateralValue(state: GameState, loan: import("@landlord/shared").Loan
     parcel.marketValue +
     buildingsOnParcel(index, parcel.id).reduce(
       (total, building) =>
-        total + Math.round((BUILDING_DEFINITIONS[building.type].cost * building.condition) / 100),
+        total +
+        buildingCollateralContribution(
+          building,
+          parcel.id,
+          collateralBuildingValue(building, BUILDING_DEFINITIONS[building.type].cost, "condition"),
+        ),
       0,
     )
   );
@@ -896,8 +903,8 @@ function tacticalTick(state: GameState): void {
   const rootIncidents = indexActiveIncidents(state);
   for (const root of pending) {
     root.state = "ruin";
-    reconcileParcelUses(state, root.parcelId);
-    const parcel = state.phase2.parcels.get(root.parcelId)!;
+    for (const parcelId of root.parcelIds) reconcileParcelUses(state, parcelId);
+    const parcel = state.phase2.parcels.get(root.parcelIds[0]!)!;
     for (const tenantId of root.tenantIds) {
       const tenant = state.phase2.tenants.get(tenantId);
       if (tenant) {
@@ -951,7 +958,7 @@ function tacticalTick(state: GameState): void {
         hurtAgent(state, agent, 60);
     for (const building of state.phase2.buildings.values()) {
       if (building.id === root.id || building.state !== "operational") continue;
-      const target = state.phase2.parcels.get(building.parcelId)!;
+      const target = state.phase2.parcels.get(building.parcelIds[0]!)!;
       /**
        * La onda no cruza distritos: con `(x,y)` repetidos en los nueve mapas, una explosión en uno
        * derrumbaría el edificio gemelo de otro (H1-01).
@@ -1132,7 +1139,20 @@ function rivalAction(state: GameState): void {
       },
     });
   }
-  if (ownedParcel && !missingResource) {
+  /**
+   * V.d-7 · el rival busca un site válido para el proyecto, no una parcela suelta: los edificios
+   * multi-parcela exigen un conjunto contiguo propio. Si no lo encuentra, no construye.
+   */
+  const houseSite = ownedParcel
+    ? findDevelopmentSite({
+        state,
+        definition,
+        ownerOrganizationId: RIVAL_ORGANIZATION_ID,
+        seedParcelId: ownedParcel.id,
+        districtIds: rivalDistricts,
+      })
+    : null;
+  if (houseSite && !missingResource) {
     candidates.push({
       score: 80,
       action: "start_construction",
@@ -1141,7 +1161,7 @@ function rivalAction(state: GameState): void {
         ...base,
         commandId: parseCommandId(`ai-rival-${state.clock.tick}-build`),
         type: "StartConstruction",
-        payload: { parcelId: ownedParcel.id, buildingType },
+        payload: { parcelIds: houseSite, buildingType },
       },
     });
   }
@@ -1150,8 +1170,18 @@ function rivalAction(state: GameState): void {
         (resource) => inventory[resource] < productionDefinition.resources[resource],
       )
     : undefined;
+  const productionSite =
+    ownedParcel && productionDefinition
+      ? findDevelopmentSite({
+          state,
+          definition: productionDefinition,
+          ownerOrganizationId: RIVAL_ORGANIZATION_ID,
+          seedParcelId: ownedParcel.id,
+          districtIds: rivalDistricts,
+        })
+      : null;
   if (
-    ownedParcel &&
+    productionSite &&
     productionDefinition &&
     !productionMissingResource &&
     canSpend(productionDefinition.cost)
@@ -1164,7 +1194,7 @@ function rivalAction(state: GameState): void {
         ...base,
         commandId: parseCommandId(`ai-rival-${state.clock.tick}-factory`),
         type: "StartConstruction",
-        payload: { parcelId: ownedParcel.id, buildingType: productionBuildingType! },
+        payload: { parcelIds: productionSite, buildingType: productionBuildingType! },
       },
     });
   }
@@ -1485,10 +1515,12 @@ function rivalAction(state: GameState): void {
       });
   }
   if (result.accepted && selected.command.type === "StartConstruction") {
-    const parcelId = (selected.command as import("@landlord/shared").StartConstruction).payload
-      .parcelId;
+    const parcelIds = (selected.command as import("@landlord/shared").StartConstruction).payload
+      .parcelIds;
     const site = [...state.phase2.constructionSites.values()].find(
-      (entry) => entry.ownerOrganizationId === RIVAL_ORGANIZATION_ID && entry.parcelId === parcelId,
+      (entry) =>
+        entry.ownerOrganizationId === RIVAL_ORGANIZATION_ID &&
+        parcelIds.every((parcelId) => entry.parcelIds.includes(parcelId)),
     );
     const crew = [...state.phase2.crews.values()].find(
       (entry) =>

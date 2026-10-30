@@ -346,7 +346,7 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
     const buildingId = parseBuildingId(`building_${pad(state.phase2.idCounters.building)}`);
     const building: Building = {
       id: buildingId,
-      parcelId,
+      parcelIds: [parcelId],
       districtId: targetDistrictId,
       ownerOrganizationId,
       productionFacilityId: null,
@@ -423,7 +423,7 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
   }
 
   const siteTarget = Math.max(1, Math.floor((cells.length * SITE_PERCENT) / 100));
-  const builtParcelIds = new Set(createdBuildings.map((building) => building.parcelId));
+  const builtParcelIds = new Set(createdBuildings.flatMap((building) => building.parcelIds));
   const siteParcels = createdParcels
     .filter((parcel) => parcel.ownerOrganizationId !== null && !builtParcelIds.has(parcel.id))
     .slice(0, siteTarget);
@@ -435,7 +435,7 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
     const siteDefinition = BUILDING_DEFINITIONS[siteType];
     const site: ConstructionSite = {
       id: siteId,
-      parcelId: parcel.id,
+      parcelIds: [parcel.id],
       districtId: targetDistrictId,
       ownerOrganizationId: organizationId,
       buildingType: siteType,
@@ -491,7 +491,7 @@ export function createScaledCity(seedValue: number, options: ScaledCityOptions):
   for (let index = 0; index < createdBuildings.length; index += 1) {
     if (index % TECHNICIAN_PER_BUILDINGS !== 0) continue;
     const building = createdBuildings[index]!;
-    const parcel = state.phase2.parcels.get(building.parcelId)!;
+    const parcel = state.phase2.parcels.get(building.parcelIds[0]!)!;
     const spot = freeNeighbour(parcel.anchorCell, taken, targetMap);
     if (!spot) continue;
     taken.add(cellKey(spot));

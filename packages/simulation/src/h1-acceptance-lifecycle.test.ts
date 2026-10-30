@@ -82,7 +82,7 @@ function addBuilding(
   const id = parseBuildingId(`building_${String(serial).padStart(8, "0")}`);
   const building: Building = {
     id,
-    parcelId: parcel.id,
+    parcelIds: [parcel.id],
     districtId: parcel.districtId,
     footprintCells: footprintCells.map((cell) => ({ ...cell })),
     orientation: 0,
@@ -121,7 +121,7 @@ function site(
   const id = parseConstructionSiteId(`site_${String(serial).padStart(8, "0")}`);
   const entry: ConstructionSite = {
     id,
-    parcelId: parcel.id,
+    parcelIds: [parcel.id],
     districtId: parcel.districtId,
     ownerOrganizationId: PLAYER_ORGANIZATION_ID,
     buildingType: "courtyard_home",
@@ -263,7 +263,7 @@ describe("H1-10 D · secuencia completa de permisos", () => {
       dispatchProductCommand(
         state,
         command("vd-permit", "RequestPermit", {
-          parcelId: parcel.id,
+          parcelIds: [parcel.id],
           buildingType: "courtyard_home",
         }),
       ),
@@ -277,7 +277,7 @@ describe("H1-10 D · secuencia completa de permisos", () => {
       dispatchProductCommand(
         state,
         command("vd-build", "StartConstruction", {
-          parcelId: parcel.id,
+          parcelIds: [parcel.id],
           buildingType: "courtyard_home",
         }),
       ).accepted,
@@ -292,7 +292,7 @@ describe("H1-10 D · secuencia completa de permisos", () => {
       dispatchProductCommand(
         state,
         command("vd-build-again", "StartConstruction", {
-          parcelId: parcel.id,
+          parcelIds: [parcel.id],
           buildingType: "courtyard_home",
         }),
       ),
@@ -321,7 +321,7 @@ describe("H1-10 D · secuencia completa de permisos", () => {
       dispatchProductCommand(
         state,
         command("vd-build-no-permit", "StartConstruction", {
-          parcelId: other.id,
+          parcelIds: [other.id],
           buildingType: "courtyard_home",
         }),
       ),

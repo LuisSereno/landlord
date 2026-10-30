@@ -39,7 +39,7 @@ export function deriveWorldIndicators(
           building.state === "burning"
             ? "Incendio activo: revisa el edificio"
             : "Riesgo de colapso: revisa el edificio",
-        parcelId: building.parcelId,
+        parcelId: building.parcelIds[0]!,
         buildingId: building.id,
       });
       continue;
@@ -51,7 +51,7 @@ export function deriveWorldIndicators(
         critical: false,
         cell,
         label: `Condición ${building.condition} %: conviene reparar`,
-        parcelId: building.parcelId,
+        parcelId: building.parcelIds[0]!,
         buildingId: building.id,
       });
   }
@@ -64,7 +64,7 @@ export function deriveWorldIndicators(
       critical: false,
       cell: footprintVisualCenter(site.footprintCells),
       label: "Obra sin cuadrilla: asígnala para avanzar",
-      parcelId: site.parcelId,
+      parcelId: site.parcelIds[0]!,
     });
   }
   candidates.sort((left, right) => Number(right.critical) - Number(left.critical));

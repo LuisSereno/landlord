@@ -245,8 +245,8 @@ function buildCitySummaries(state: GameState): PublicDistrictSummary[] {
     const parcels = [...state.phase2.parcels.values()].filter(
       (parcel) => parcel.districtId === districtId,
     );
-    const buildings = [...state.phase2.buildings.values()].filter(
-      (building) => parcelById.get(building.parcelId)?.districtId === districtId,
+    const buildings = [...state.phase2.buildings.values()].filter((building) =>
+      building.parcelIds.some((parcelId) => parcelById.get(parcelId)?.districtId === districtId),
     );
     const occupiedUnits = buildings.reduce(
       (total, building) => total + building.tenantIds.length,
@@ -332,11 +332,11 @@ export function createViewProjection(
   const facilityCoverage = includeEconomy ? facilityCoverageIndex(state) : undefined;
   const urbanCoverage = includeEconomy ? buildCoverageIndex(state) : undefined;
   const observedBuildings = [...state.phase2.buildings.values()].filter((building) =>
-    observedParcelIds.has(building.parcelId),
+    building.parcelIds.some((parcelId) => observedParcelIds.has(parcelId)),
   );
   const observedSiteIds = new Set(
     [...state.phase2.constructionSites.values()]
-      .filter((site) => observedParcelIds.has(site.parcelId))
+      .filter((site) => site.parcelIds.some((parcelId) => observedParcelIds.has(parcelId)))
       .map((site) => site.id),
   );
   const playerInventory = state.phase2.inventories.get(PLAYER_ORGANIZATION_ID)!;
@@ -407,7 +407,7 @@ export function createViewProjection(
       severity: "medium",
       kind: "maintenance",
       message: `${building.id} está al ${building.condition}% de condición; reparar evita más deterioro.`,
-      targetId: building.parcelId,
+      targetId: building.parcelIds[0]!,
     });
   for (const building of [...state.phase2.buildings.values()]
     .filter(
@@ -424,7 +424,7 @@ export function createViewProjection(
       severity: "medium",
       kind: "maintenance",
       message: `${building.id} no tiene seguro y su riesgo de deterioro es ${deteriorationRiskPercent(building.condition)}%.`,
-      targetId: building.parcelId,
+      targetId: building.parcelIds[0]!,
     });
   for (const parcel of [...state.phase2.parcels.values()]
     .filter((entry) => entry.ownerOrganizationId === PLAYER_ORGANIZATION_ID)
@@ -436,7 +436,8 @@ export function createViewProjection(
     const denied = Object.values(state.phase2.permitting.permitsById)
       .filter(
         (entry) =>
-          entry.parcelId === parcel.id && (entry.status === "denied" || entry.status === "expired"),
+          entry.parcelIds.includes(parcel.id) &&
+          (entry.status === "denied" || entry.status === "expired"),
       )
       .sort((left, right) => left.id.localeCompare(right.id))[0];
     if (denied)
@@ -473,7 +474,7 @@ export function createViewProjection(
       severity: "low",
       kind: "occupancy",
       message: `${building.id} tiene ${BUILDING_DEFINITIONS[building.type].capacity - building.tenantIds.length} plaza(s) vacante(s).`,
-      targetId: building.parcelId,
+      targetId: building.parcelIds[0]!,
     });
   const roadCells = [...roadCellsFromSegments(observedDistrict.map.roads.segments)].sort(
     (left, right) => {
@@ -820,7 +821,7 @@ export function createViewProjection(
                 id: building.id,
                 ownerOrganizationId: building.ownerOrganizationId,
                 productionFacilityId: building.productionFacilityId ?? null,
-                parcelId: building.parcelId,
+                parcelIds: [...building.parcelIds],
                 districtId: building.districtId,
                 type: building.type,
                 footprintCells: building.footprintCells.map((cell) => ({ ...cell })),
@@ -856,7 +857,7 @@ export function createViewProjection(
               .sort((left, right) => left.id.localeCompare(right.id))
               .map((site) => ({
                 id: site.id,
-                parcelId: site.parcelId,
+                parcelIds: [...site.parcelIds],
                 districtId: site.districtId,
                 ownerOrganizationId: site.ownerOrganizationId,
                 buildingType: site.buildingType,

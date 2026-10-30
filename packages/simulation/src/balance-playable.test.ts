@@ -125,8 +125,8 @@ type CommandSender = {
   }): ProductCommandResult;
   buyParcel(parcelId: ParcelId): ProductCommandResult;
   buyMaterials(resource: ResourceKind, amount: number): ProductCommandResult;
-  requestPermit(parcelId: ParcelId, buildingType: BuildingType): ProductCommandResult;
-  startConstruction(parcelId: ParcelId, buildingType: BuildingType): ProductCommandResult;
+  requestPermit(parcelIds: [ParcelId], buildingType: BuildingType): ProductCommandResult;
+  startConstruction(parcelIds: [ParcelId], buildingType: BuildingType): ProductCommandResult;
   allocateCrew(constructionSiteId: ConstructionSiteId, crewCapacity: 1 | 2): ProductCommandResult;
   assignCrewToWorkOrder(crewId: CrewId, workOrderId: ConstructionSiteId): ProductCommandResult;
 };
@@ -209,7 +209,7 @@ function expansionTarget(
   state: GameState,
 ): { parcel: Parcel; definition: BuildingDefinition; owned: boolean } | null {
   const busyParcelIds = new Set(
-    [...state.phase2.constructionSites.values()].map((site) => site.parcelId),
+    [...state.phase2.constructionSites.values()].map((site) => site.parcelIds[0]!),
   );
   /** V.d: la cuadrilla sólo trabaja en su distrito, así que la rutina no compra suelo inalcanzable. */
   const playerDistricts = new Set(

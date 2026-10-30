@@ -39,7 +39,7 @@ function addBuilding(
   parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
   const building: Building = {
     id,
-    parcelId: parcel.id,
+    parcelIds: [parcel.id],
     districtId: parcel.districtId,
     footprintCells: [{ ...parcel.anchorCell }],
     orientation: 0,

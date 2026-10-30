@@ -77,7 +77,7 @@ describe("V.d.4 densidad de corredor", () => {
     const result = dispatchProductCommand(
       state,
       command("density-permit", "RequestPermit", {
-        parcelId: parcel.id,
+        parcelIds: [parcel.id],
         buildingType: "apartment_block",
       }),
     );
@@ -96,7 +96,7 @@ describe("V.d.4 densidad de corredor", () => {
       dispatchProductCommand(
         state,
         command("density-permit-2", "RequestPermit", {
-          parcelId: parcel.id,
+          parcelIds: [parcel.id],
           buildingType: "apartment_block",
         }),
       ).accepted,
@@ -109,13 +109,13 @@ describe("V.d.4 densidad de corredor", () => {
     const result = dispatchProductCommand(
       state,
       command("density-build", "StartConstruction", {
-        parcelId: parcel.id,
+        parcelIds: [parcel.id],
         buildingType: "apartment_block",
       }),
     );
     expect(result.accepted).toBe(true);
     const site = [...state.phase2.constructionSites.values()].find(
-      (entry) => entry.parcelId === parcel.id,
+      (entry) => entry.parcelIds[0]! === parcel.id,
     )!;
     expect(site.floors).toBe(5);
   });
@@ -130,7 +130,7 @@ describe("V.d.4 densidad de corredor", () => {
     dispatchProductCommand(
       state,
       command("density-permit-3", "RequestPermit", {
-        parcelId: first.id,
+        parcelIds: [first.id],
         buildingType: "apartment_block",
       }),
     );
@@ -143,7 +143,7 @@ describe("V.d.4 densidad de corredor", () => {
       dispatchProductCommand(
         state,
         command("density-permit-4", "RequestPermit", {
-          parcelId: second.id,
+          parcelIds: [second.id],
           buildingType: "apartment_block",
         }),
       ).accepted,

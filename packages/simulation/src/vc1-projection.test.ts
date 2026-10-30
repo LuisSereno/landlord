@@ -88,7 +88,7 @@ describe("generador de proyección de gameplay (WP4.15-V.c.1)", () => {
         const start = dispatchProductCommand(
           state,
           command(nextId("build"), "StartConstruction", {
-            parcelId: parcel.id,
+            parcelIds: [parcel.id],
             buildingType: "courtyard_home",
           }),
         );
@@ -134,7 +134,7 @@ describe("generador de proyección de gameplay (WP4.15-V.c.1)", () => {
         dispatchProductCommand(
           state,
           command(nextId("build"), "StartConstruction", {
-            parcelId: parcel.id,
+            parcelIds: [parcel.id],
             buildingType: "workshop",
           }),
         );

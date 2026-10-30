@@ -228,7 +228,7 @@ describe("snapshot v2", () => {
           validityTicks: 216_000,
           approvalChanceByRole: {},
           permitsByParcelId: {
-            parcel_00000001: { parcelId: "parcel_00000001", status: "approved" },
+            parcel_00000001: { parcelIds: ["parcel_00000001"], status: "approved" },
           },
         },
       },

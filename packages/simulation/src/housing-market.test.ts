@@ -57,7 +57,7 @@ function addBuilding(
   parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
   const building: Building = {
     id,
-    parcelId: parcel.id,
+    parcelIds: [parcel.id],
     districtId: parcel.districtId,
     footprintCells: [{ ...parcel.anchorCell }],
     orientation: 0,
@@ -287,15 +287,15 @@ describe("WP4.3 oferta y demanda de vivienda", () => {
     const far = addBuilding(state, 1, "courtyard_home", { cell: { x: 10, y: 20 } });
     const burning = addBuilding(state, 2, "courtyard_home", { cell: { x: 11, y: 10 } });
     const coverage = buildCoverageIndex(state);
-    const nearParcel = state.phase2.buildings.get(near)!.parcelId;
-    const farParcel = state.phase2.buildings.get(far)!.parcelId;
+    const nearParcel = state.phase2.buildings.get(near)!.parcelIds[0]!;
+    const farParcel = state.phase2.buildings.get(far)!.parcelIds[0]!;
     /** La limpieza es radial dentro del distrito de las parcelas, no del centro de la ciudad. */
     const center = coverage.cleaningByDistrictId.get(
       state.phase2.parcels.get(nearParcel)!.districtId,
     )!.center;
     state.phase2.parcels.get(nearParcel)!.anchorCell = { x: center.x - 5, y: center.y };
     state.phase2.parcels.get(farParcel)!.anchorCell = { x: center.x + 5, y: center.y };
-    state.phase2.parcels.get(state.phase2.buildings.get(burning)!.parcelId)!.anchorCell = {
+    state.phase2.parcels.get(state.phase2.buildings.get(burning)!.parcelIds[0]!)!.anchorCell = {
       x: center.x - 6,
       y: center.y,
     };

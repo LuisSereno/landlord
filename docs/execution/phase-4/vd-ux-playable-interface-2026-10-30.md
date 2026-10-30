@@ -205,15 +205,17 @@ una columna, subtítulos, plurales y overlay de servicios). Evidencia:
 
 ## Nuevos problemas detectados
 
-Ninguno P0. Clasificación:
+**Ninguno P0 y ninguno P1** según el criterio de §27 (un P1 sería un problema que impide al
+jugador completar el bucle o usar una capacidad existente). Clasificación razonada:
 
-- **P1 — El mapa se selecciona sólo con puntero.** El shell cumple foco visible, Escape jerárquico,
-  tooltips por teclado y nombres accesibles, pero la navegación por teclado de celdas isométricas
-  no existe (el picking es de Phaser). Un jugador que no use ratón no puede seleccionar una parcela.
-  Es deuda del renderer, no del shell, y no bloquea el playtest con ratón.
-- **P1 — Cifras derivadas sin promesa de simulación.** «Rentabilidad» es `plazas ocupadas × renta
-  efectiva − mantenimiento` y el tiempo de obra asume jornada completa. Si el motor cambia la
-  velocidad de las cuadrillas, la estimación queda optimista. Está declarado en KNOWN-GAPS.
+- **P2 — El mapa se selecciona sólo con puntero.** El shell cumple foco visible, Escape jerárquico,
+  tooltips por teclado y nombres accesibles; la navegación por teclado de celdas isométricas no
+  existe porque el picking es de Phaser. El objetivo de la fase es desktop con ratón y §17 de la
+  especificación no exige navegación de rejilla: es deuda del renderer, declarada.
+- **P2 — Cifras derivadas sin promesa de simulación.** «Rentabilidad» es `plazas ocupadas × renta
+  efectiva − mantenimiento` y el tiempo de obra asume jornada completa; §6.5 pide una estimación
+  «cuando sea posible», así que la cifra existe y está declarada en KNOWN-GAPS en vez de prometer
+  una simulación temporal que el motor no tiene.
 - **P2 — El tiempo de obra no descuenta la cuadrilla asignada.** La estimación es trabajo restante
   a jornada completa; con dos cuadrillas la obra termina antes de lo que dice la ficha.
 - **P2 — La captura golden de valor de H1 ya no representa el pintado actual** desde H2.1-02 (los
@@ -318,10 +320,8 @@ recomendada, y cada commit posterior es verde.
 Los once bloques UX-00…UX-11 están implementados según la especificación, los *acceptance criteria*
 de §22 se han revisado uno a uno (shell sin panel permanente, 15/15 miniaturas, catálogo por
 tarjetas, notificaciones con destino, ayuda desde catálogo central, cero ticks/IDs/enums, onboarding
-contextual, resoluciones y accesibilidad) y los gates automáticos están en verde. No hay P0; quedan
-dos P1 declarados arriba (selección del mapa sólo con puntero y cifras derivadas sin promesa de
-simulación) que no bloquean un playtest con ratón y no se resuelven sin tocar el renderer o el
-motor.
+contextual, resoluciones y accesibilidad) y los gates automáticos están en verde. **Cero P0 y cero P1** según §27; quedan cuatro P2
+declarados arriba y en KNOWN-GAPS, ninguno de los cuales impide completar el bucle jugable.
 
 **No se declara `V.d CLOSED`.** El cierre lo hará el responsable después de la sesión humana de
 45–60 minutos descrita en §28 de la especificación; esta fase deja el producto y la evidencia

@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { parseBuildingId, type Building } from "@landlord/shared";
 import { MUNICIPALITY_ORGANIZATION_ID, PLAYER_ORGANIZATION_ID } from "./game-data";
 import {
-  DEMAND_UNITS_PER_CAPACITY,
+  demandUnitsPerCapacityFor,
   facilityCoverageIndex,
   facilityServiceDistanceReport,
   listFacilitiesForService,
@@ -266,8 +266,14 @@ function measureSeed(seed: number, developedPercent = 0) {
       facilities: facilities.length,
       authoredCapacityCohorts,
       operationalCapacityCohorts,
-      /** Unidad canónica actual: un cohorte vale `DEMAND_UNITS_PER_CAPACITY` parcelas. */
-      capacityUnitParcels: DEMAND_UNITS_PER_CAPACITY,
+      /**
+       * H2.1-03: la unidad canónica es POR SERVICIO desde H2-07 (security 75 · fire 75 · health
+       * 25 · education 17 · market 25; parks y transport conservan 25 porque no consumen
+       * capacidad real). Publicar el scalar global `DEMAND_UNITS_PER_CAPACITY` = 25 como si fuera
+       * la unidad de los cinco services capacity-aware era un error de evidencia: las cohortes
+       * medidas en el informe no cuadran con ninguna de esas cinco cifras.
+       */
+      capacityUnitParcels: demandUnitsPerCapacityFor(service),
       effectiveCapacityParcels: effectiveCapacity,
       demand: CAPACITY_SERVICES.has(service) ? voronoiDemand : reachableDemand,
       served,
@@ -381,11 +387,14 @@ describe.skipIf(!enabled)("V.d-H2 · baseline de balance de servicios municipale
       head: execSync("git rev-parse HEAD").toString().trim(),
       generatedAt: new Date().toISOString(),
       tool: "pnpm services:balance",
-      phase: "V.d-H2 · H2-04 + H2-08",
+      phase: "V.d-H2 · H2-04 + H2-08 · corregido en H2.1-03 (cohorte por servicio)",
       demandModel:
         "demanda = parcela marketable desarrollada (H2-05); asignación capacity-aware (H2-06)",
       seeds: CANONICAL_CITY_SEEDS.length,
-      capacityUnitParcels: DEMAND_UNITS_PER_CAPACITY,
+      /** H2.1-03: mapa explícito por servicio; el scalar global ya no describe a ninguno de los cinco. */
+      capacityUnitParcelsByService: Object.fromEntries(
+        SERVICES.map((service) => [service, demandUnitsPerCapacityFor(service)]),
+      ),
       scenarios: SCENARIOS.map((scenario) => ({
         name: scenario.name,
         developedPercent: scenario.developedPercent,
@@ -404,11 +413,13 @@ describe.skipIf(!enabled)("V.d-H2 · baseline de balance de servicios municipale
     /**
      * H2-04 escribió la primera corrida en `vd-h2-service-baseline.json` (modelo pre-H2, sin
      * filtros de desarrollo). Con H2-05/H2-06/H2-07/H2-08 el mismo comando refleja el modelo
-     * nuevo y se guarda como `vd-h2-service-final.json`, sin pisar la evidencia histórica.
+     * nuevo y se guardó como `vd-h2-service-final.json`. H2.1-03 corrige UNA etiqueta de
+     * evidencia —la cohorte por servicio—, así que la corrida actual escribe en fichero propio y
+     * no pisa ninguna de las dos fotografías históricas.
      */
     const evidencePath =
       environment.process?.env?.SERVICES_BALANCE_OUT ??
-      "docs/execution/phase-4/vd-h2-service-final.json";
+      "docs/execution/phase-4/vd-h21-service-final.json";
     mkdirSync(dirname(evidencePath), { recursive: true });
     writeFileSync(evidencePath, `${JSON.stringify(evidence, null, 2)}\n`);
 

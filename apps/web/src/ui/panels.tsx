@@ -45,15 +45,10 @@ import type {
   ProjectedSite,
 } from "./types";
 import { facilityMetricsSummary } from "../facility-metrics";
+import type { ContextSelection } from "./selection";
+export type { ContextSelection };
 
 const PLAYER = "org_00000001";
-
-export type ContextSelection =
-  | { kind: "parcel"; parcel: ProjectedParcel }
-  | { kind: "building"; parcel: ProjectedParcel; building: ProjectedBuilding; owned: boolean }
-  | { kind: "construction"; parcel: ProjectedParcel; site: ProjectedSite; owned: boolean }
-  | { kind: "facility"; parcel: ProjectedParcel; facility: ProjectedFacility }
-  | { kind: "public-space"; parcel: ProjectedParcel; space: ProjectedPublicSpace };
 
 export type PanelContext = {
   economy: Economy;

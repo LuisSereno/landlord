@@ -10,7 +10,6 @@ import {
 
 import type { BuildingId, BuildingType, ViewProjectionV2 } from "@landlord/shared";
 
-import { resolveBuildingSelection } from "./building-selection";
 import {
   mountIsometricSpike,
   focusIsometricCell,
@@ -25,7 +24,7 @@ import { BenchmarkApp } from "./BenchmarkApp";
 import { ArtLab } from "./ArtLab";
 import { VisualSlice } from "./VisualSlice";
 import { useGameSession } from "./session/use-game-session";
-import { ContextPanel, type ContextSelection } from "./ui/panels";
+import { ContextPanel } from "./ui/panels";
 import { HubPanel } from "./ui/hubs";
 import {
   DebugPanel,
@@ -37,6 +36,7 @@ import {
 } from "./ui/game-hud";
 import { deriveNotifications, type GameNotification } from "./ui/notifications";
 import { deriveOnboardingStep, type OnboardingAction } from "./ui/onboarding";
+import { resolveContextSelection } from "./ui/selection";
 import type { GameActions, HubKind, ProjectedParcel } from "./ui/types";
 
 const PLAYER = "org_00000001";
@@ -256,50 +256,18 @@ export function App() {
     };
   }, [client, runPortfolioRoutine, session]);
 
-  const selection = useMemo<ContextSelection | null>(() => {
-    if (!economy || !selectedCell) return null;
-    const parcel = economy.parcels.find((entry) =>
-      entry.cells.some((cell) => cell.x === selectedCell.x && cell.y === selectedCell.y),
-    );
-    if (!parcel) return null;
-    /**
-     * El suelo municipal es contexto institucional: muestra el equipamiento o el espacio público,
-     * nunca la gestión privada de un edificio. Así una parcela pública con comisaría no se ofrece
-     * como «edificio rival».
-     */
-    if (parcel.disposition === "public" && projection) {
-      const facility = projection.facilities.find((entry) => entry.parcelIds.includes(parcel.id));
-      if (facility) return { kind: "facility", parcel, facility };
-      const space = projection.publicSpaces.find((entry) =>
-        entry.cells.some((cell) => cell.x === selectedCell.x && cell.y === selectedCell.y),
-      );
-      if (space) return { kind: "public-space", parcel, space };
-      return { kind: "parcel", parcel };
-    }
-    const { activeBuildingId } = resolveBuildingSelection(parcel.buildingIds, selectedBuildingId);
-    const building = activeBuildingId
-      ? economy.buildings.find((entry) => entry.id === activeBuildingId)
-      : undefined;
-    if (building)
-      return {
-        kind: "building",
-        parcel,
-        building,
-        owned: building.ownerOrganizationId === PLAYER,
-      };
-    const site = economy.constructionSites.find((entry) => entry.parcelId === parcel.id);
-    if (site)
-      return { kind: "construction", parcel, site, owned: site.ownerOrganizationId === PLAYER };
-    if (projection) {
-      const facility = projection.facilities.find((entry) => entry.parcelIds.includes(parcel.id));
-      if (facility) return { kind: "facility", parcel, facility };
-      const space = projection.publicSpaces.find((entry) =>
-        entry.cells.some((cell) => cell.x === selectedCell.x && cell.y === selectedCell.y),
-      );
-      if (space) return { kind: "public-space", parcel, space };
-    }
-    return { kind: "parcel", parcel };
-  }, [economy, projection, selectedCell, selectedBuildingId]);
+  const selection = useMemo(
+    () =>
+      economy && projection && selectedCell
+        ? resolveContextSelection({
+            economy,
+            projection,
+            cell: selectedCell,
+            selectedBuildingId,
+          })
+        : null,
+    [economy, projection, selectedCell, selectedBuildingId],
+  );
 
   const notifications = useMemo(() => deriveNotifications(economy), [economy]);
   const unread = notifications.filter((entry) => !readNotifications.has(entry.id)).length;

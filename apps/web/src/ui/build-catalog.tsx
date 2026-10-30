@@ -24,7 +24,7 @@ const CATEGORIES: ReadonlyArray<{ id: CategoryId; label: string }> = [
   { id: "production", label: "Producción" },
 ];
 
-const CATEGORY_BY_TYPE: Record<string, CategoryId> = {
+export const CATEGORY_BY_TYPE: Record<string, CategoryId> = {
   courtyard_home: "housing",
   row_house: "housing",
   apartment_block: "housing",
@@ -35,6 +35,17 @@ const CATEGORY_BY_TYPE: Record<string, CategoryId> = {
   brickworks: "production",
   steelworks: "production",
 };
+
+/** Agrupa las opciones por categoría real del catálogo; ninguna tarjeta queda fuera. */
+export function groupConstructionOptions(
+  options: Economy["constructionOptions"],
+): Array<{ id: CategoryId; label: string; options: Economy["constructionOptions"] }> {
+  return CATEGORIES.map((category) => ({
+    id: category.id,
+    label: category.label,
+    options: options.filter((option) => CATEGORY_BY_TYPE[option.type] === category.id),
+  })).filter((group) => group.options.length > 0);
+}
 
 export function BuildCatalog({
   economy,

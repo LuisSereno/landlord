@@ -77,9 +77,7 @@ export function sanitizeAlertMessage(message: string, economy: Economy | undefin
         const parcel = economy.parcels.find((entry) => entry.id === token);
         return parcel ? `la parcela de ${urbanRoleLabel(parcel.urbanRole).toLowerCase()}` : "";
       }
-      if (token.startsWith("loan_")) return "el préstamo";
-      if (token.startsWith("crew_")) return "la cuadrilla";
-      if (token.startsWith("org_")) return "la organización";
+      /** El resto de tokens ya está descrito por la frase: se retiran, no se duplican. */
       return "";
     })
     .replace(/\s{2,}/g, " ")

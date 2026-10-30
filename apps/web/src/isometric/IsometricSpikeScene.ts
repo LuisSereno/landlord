@@ -7,6 +7,7 @@ import {
   type ViewProjectionV2,
 } from "@landlord/shared";
 import { BLENDER_ASSETS, PROCEDURAL_ASSETS } from "../assets/runtime-assets";
+import { deriveWorldIndicators } from "../ui/world-indicators";
 import {
   CODE_PALETTE,
   MAP_COLORS,
@@ -1317,55 +1318,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
       this.indicatorLayer?.setVisible(false);
       return;
     }
-    type Indicator = {
-      key: string;
-      critical: boolean;
-      cell: GridCell;
-      label: string;
-      parcelId: string;
-      buildingId?: string;
-    };
-    const candidates: Indicator[] = [];
-    for (const building of economy.buildings) {
-      if (building.ownerOrganizationId !== "org_00000001") continue;
-      const cell = footprintVisualCenter(building.footprintCells);
-      if (building.state === "burning" || building.state === "collapse_pending") {
-        candidates.push({
-          key: `building:${building.id}:critical`,
-          critical: true,
-          cell,
-          label:
-            building.state === "burning"
-              ? "Incendio activo: revisa el edificio"
-              : "Riesgo de colapso: revisa el edificio",
-          parcelId: building.parcelId,
-          buildingId: building.id,
-        });
-        continue;
-      }
-      if (building.condition <= 55)
-        candidates.push({
-          key: `building:${building.id}:maintenance`,
-          critical: false,
-          cell,
-          label: `Condición ${building.condition} %: conviene reparar`,
-          parcelId: building.parcelId,
-          buildingId: building.id,
-        });
-    }
-    for (const site of economy.constructionSites) {
-      if (site.ownerOrganizationId !== "org_00000001") continue;
-      if (site.assignedCrewIds.length > 0) continue;
-      candidates.push({
-        key: `site:${site.id}`,
-        critical: false,
-        cell: footprintVisualCenter(site.footprintCells),
-        label: "Obra sin cuadrilla: asígnala para avanzar",
-        parcelId: site.parcelId,
-      });
-    }
-    candidates.sort((left, right) => Number(right.critical) - Number(left.critical));
-    const indicators = candidates.slice(0, 12);
+    /** La lista la decide `deriveWorldIndicators` (pura y probada); aquí sólo se pinta. */
+    const indicators = deriveWorldIndicators(economy);
     const signature = indicators.map((entry) => entry.key).join("|");
     if (!this.indicatorLayer) {
       this.indicatorLayer = this.add.container(0, 0).setDepth(1_000_000);
@@ -1381,11 +1335,12 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.indicatorEntries = [];
     for (const entry of indicators) {
       const center = gridToScreen(entry.cell, this.layout);
-      const color = entry.critical
-        ? COLORS.fire
-        : entry.label.startsWith("Condición")
-          ? COLORS.construction
-          : COLORS.parcelAvailable;
+      const color =
+        entry.kind === "danger"
+          ? COLORS.fire
+          : entry.kind === "maintenance"
+            ? COLORS.construction
+            : COLORS.parcelAvailable;
       const graphic = this.add.graphics();
       graphic.fillStyle(color, 0.95);
       graphic.lineStyle(2, 0x0c1220, 1);

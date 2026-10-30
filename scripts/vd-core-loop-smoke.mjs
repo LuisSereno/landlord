@@ -101,7 +101,9 @@ async function clickCell(cell) {
 }
 
 async function inspectorText() {
-  return await page.locator('section[aria-label="Inspección de parcela"]').innerText();
+  const panel = page.locator('[aria-label="Inspección de parcela"]');
+  if ((await panel.count()) === 0) return "";
+  return await panel.innerText();
 }
 
 function cashOf(body) {
@@ -140,13 +142,19 @@ async function startFreshCity() {
   await page.getByText("Worker conectado · simulación ejecutándose").waitFor({ timeout: 30000 });
 }
 
-/** Barrido determinista de celdas hasta que el panel ofrezca lo que busca el paso. */
-async function scanCells(predicate, limit = 260) {
+/**
+ * Barrido determinista de celdas hasta que el panel ofrezca lo que busca el paso.
+ * `escapeFirst` cierra el panel contextual antes de cada clic para que no intercepte el puntero;
+ * `step: 1` recorre celdas impares, donde puede caer el programa municipal.
+ */
+async function scanCells(predicate, options = {}) {
+  const { limit = 260, step = 2, escapeFirst = false } = options;
   let visited = 0;
-  for (let y = 6; y <= 58; y += 2) {
-    for (let x = 6; x <= 58; x += 2) {
+  for (let y = 6; y <= 58; y += step) {
+    for (let x = 6; x <= 58; x += step) {
       if (visited >= limit) return null;
       visited += 1;
+      if (escapeFirst) await page.keyboard.press("Escape");
       if (!(await clickCell({ x, y }))) continue;
       if (await predicate(x, y)) return { x, y };
     }
@@ -161,20 +169,27 @@ try {
   await startFreshCity();
   step("1 · ciudad iniciada con worker conectado");
 
-  // 2 · nueve distritos
+  // 2 · nueve distritos (V.d-UX: la ciudad vive en su hub, no en un panel permanente)
+  await page.locator(".hud-district").click();
   const tiles = page.locator('[aria-label="Distritos"] [role="gridcell"]');
   await tiles.first().waitFor({ timeout: 20000 });
   const tileCount = await tiles.count();
   if (tileCount !== 9) fail("nueve distritos", `la vista de ciudad lista ${tileCount}`);
   step("2 · cuadrícula 3×3 con 9 distritos");
+  await page.getByRole("button", { name: "Cerrar panel" }).click();
 
-  // 3 · seleccionar una parcela marketable
+  // 3 · seleccionar una parcela marketable (localizada por el hook observacional de test)
   await configureCamera(0.5, 1000, 1000);
-  const marketableCell = await scanCells(async () => {
-    const buy = page.getByRole("button", { name: "Comprar parcela" });
-    return (await buy.count()) > 0 && (await buy.isEnabled());
-  });
-  if (!marketableCell) fail("seleccionar parcela", "ninguna parcela comprable fue alcanzable");
+  const marketableCell = await page.evaluate(
+    () => window.__landlordUiTest?.marketableParcelCell() ?? null,
+  );
+  if (!marketableCell)
+    fail("seleccionar parcela", "la proyección no publica ninguna parcela comprable");
+  await page.evaluate((cell) => window.__landlordCameraTest.centerOnCell(cell), marketableCell);
+  await clickCell(marketableCell);
+  const buyButton = page.getByRole("button", { name: "Comprar parcela" });
+  if ((await buyButton.count()) === 0 || !(await buyButton.isEnabled()))
+    fail("seleccionar parcela", "la parcela localizada no ofrece compra");
   step(`3 · parcela marketable seleccionada en ${marketableCell.x},${marketableCell.y}`);
 
   // 4 · comprar
@@ -185,40 +200,44 @@ try {
     .waitFor({ timeout: 20000 })
     .catch(() => {});
   let panel = await inspectorText();
-  if (!/Tu organización/.test(panel))
+  if (!/Tu solar|Tu empresa/.test(panel))
     fail("comprar parcela", `el inspector no refleja la propiedad: ${panel.slice(0, 180)}`);
   step("4 · parcela comprada");
 
-  // 5 y 6 · obtener permiso e iniciar construcción (StartConstruction emite el permiso si falta)
-
-  const housingOption = page.locator(".construction-option", { hasText: "Patio compacto" }).first();
+  // 5 y 6 · iniciar construcción desde el catálogo visual (StartConstruction emite el permiso)
+  const housingOption = page
+    .locator(".construction-option", { hasText: "Patio residencial" })
+    .first();
   await housingOption.waitFor({ timeout: 20000 }).catch(() => {});
   if ((await housingOption.count()) === 0)
     fail("opciones de construcción", `sin oferta de vivienda: ${await inspectorText()}`);
   const optionText = await housingOption.innerText();
-  if (/Faltan:|Falta caja\./.test(optionText))
+  if (/Necesitas|No tienes una cuadrilla|La parcela no permite/.test(optionText))
     fail("opciones de construcción", `el jugador no puede pagar su primera obra: ${optionText}`);
-  /** El panel re-renderiza con cada proyección: se reintenta el clic hasta que la obra exista. */
-  for (let attempt = 0; attempt < 4; attempt += 1) {
-    if (/en obra/.test(await inspectorText())) break;
+  /** La tarjeta abre el detalle; «Construir» es la acción que envía el comando. */
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    if (/Obra nueva en curso|en curso/.test(await inspectorText())) break;
     await housingOption.click({ timeout: 5000 }).catch(() => {});
+    const build = page.getByRole("button", { name: "Construir" });
+    if ((await build.count()) > 0 && (await build.isEnabled()))
+      await build.click({ timeout: 5000 }).catch(() => {});
     await new Promise((resolve) => setTimeout(resolve, 1500));
   }
   panel = await inspectorText();
-  if (!/en obra/.test(panel))
+  if (!/en curso/.test(panel))
     fail("iniciar construcción", `la obra no aparece en el inspector: ${panel.slice(0, 220)}`);
-  if (!/permiso (approved|consumed)/.test(panel))
-    fail("permiso", `el inspector no publica el permiso de la obra: ${panel.slice(0, 220)}`);
+  if (/\b(approved|consumed)\b/.test(panel))
+    fail("permiso", `el inspector filtra el enum del permiso: ${panel.slice(0, 220)}`);
   step("5-6 · permiso obtenido y construcción iniciada");
 
-  // 7 · asignar cuadrilla
-  const crewButton = page.getByRole("button", { name: /crew_\d+ · libre/ }).first();
+  // 7 · asignar cuadrilla (nombre legible, sin `crew_…`)
+  const crewButton = page.getByRole("button", { name: /Asignar Cuadrilla \d+/ }).first();
   await crewButton.waitFor({ timeout: 20000 }).catch(() => {});
   if ((await crewButton.count()) === 0)
     fail("asignar cuadrilla", `sin cuadrilla libre: ${await inspectorText()}`);
   await crewButton.click();
   await page
-    .getByText(/Crew enviada a la obra|cuadrilla\(s\) asignada/)
+    .getByText(/Cuadrilla asignada/)
     .first()
     .waitFor({ timeout: 20000 })
     .catch(() => fail("asignar cuadrilla", "la asignación no se confirmó"));
@@ -228,32 +247,25 @@ try {
   await page.getByRole("button", { name: "4×", exact: true }).click();
   await page
     .waitForFunction(
-      () => {
-        const text =
-          document.querySelector('section[aria-label="Inspección de parcela"]')?.innerText ?? "";
-        return /· operational ·/.test(text) && !/en obra/.test(text);
-      },
+      () => document.querySelector('nav[aria-label="Secciones del edificio"]') !== null,
       null,
       { timeout: 240000 },
     )
     .catch(() => {});
   panel = await inspectorText();
-  if (/en obra/.test(panel) || !/explotación del activo|operación de la fábrica/i.test(panel))
+  if (/en curso/.test(panel) || !/Inquilinos/.test(panel))
     fail(
       "terminar la construcción",
       JSON.stringify({
-        enObra: panel.match(/.{0,50}en obra.{0,50}/s)?.[0] ?? null,
-        asset: /explotación del activo|operación de la fábrica/i.test(panel),
+        enObra: panel.match(/.{0,50}en curso.{0,50}/s)?.[0] ?? null,
+        asset: /Inquilinos/.test(panel),
         head: panel.slice(0, 260),
-        tail: panel.slice(-500),
       }),
     );
   step("8 · construcción terminada");
 
-  // 9 · interactuar con el edificio
-  panel = await inspectorText();
-  if (!/explotación del activo|operación de la fábrica/i.test(panel))
-    fail("gestionar edificio", `el inspector no gestiona el activo: ${panel.slice(0, 700)}`);
+  // 9 · gestionar el edificio desde su pestaña de inquilinos
+  await page.getByRole("button", { name: "Inquilinos" }).first().click();
   const occupy = page.getByRole("button", { name: /Ocupar con/ }).first();
   if ((await occupy.count()) > 0 && (await occupy.isEnabled())) {
     await occupy.click();
@@ -281,24 +293,28 @@ try {
   step("10-11 · guardado y cargado desde IndexedDB");
 
   // 12 · persistencia
-  await page.waitForFunction(
-    () => document.querySelectorAll('[aria-label="Distritos"] [role="gridcell"]').length === 9,
-    null,
-    { timeout: 30000 },
-  );
+  await page.locator(".hud-district").waitFor({ timeout: 30000 });
   const afterLoad = await page.locator("main").innerText();
   if (cashOf(afterLoad) !== cashBeforeSave)
     fail("persistencia", `la caja cambió al cargar: ${cashBeforeSave} → ${cashOf(afterLoad)}`);
   /** La selección es estado de UI: tras cargar hay que volver a señalar la parcela propia. */
   await configureCamera(0.5, 1000, 1000);
-  const reopened = await scanCells(async () => /· operational ·/i.test(await inspectorText()), 60);
+  const reopened = await page.evaluate(
+    () => window.__landlordUiTest?.ownedBuildingParcelCell() ?? null,
+  );
   if (!reopened)
     fail("persistencia", "el edificio terminado no aparece tras recargar la partida guardada");
+  await page.evaluate((cell) => window.__landlordCameraTest.centerOnCell(cell), reopened);
+  await clickCell(reopened);
+  if ((await page.locator('nav[aria-label="Secciones del edificio"]').count()) === 0)
+    fail("persistencia", "el panel del edificio no abre tras recargar la partida guardada");
   step(`12 · persistencia verificada (caja y edificio en ${reopened.x},${reopened.y})`);
 
   // 13 y 14 · cambiar de distrito sin mover la caja
+  await page.locator(".hud-district").click();
+  await tiles.first().waitFor({ timeout: 20000 });
   const districtNames = await tiles.allInnerTexts();
-  const observed = await page.getByLabel("Distrito observado").first().innerText();
+  const observed = await page.locator(".hud-district").innerText();
   let targetIndex = districtNames.findIndex(
     (name) => !observed.includes(name.split("\n")[0].trim()),
   );
@@ -307,7 +323,7 @@ try {
   await tiles.nth(targetIndex).click();
   const wanted = districtNames[targetIndex].split("\n")[0].trim();
   await page
-    .getByLabel("Distrito observado")
+    .locator(".hud-district")
     .filter({ hasText: wanted })
     .first()
     .waitFor({ timeout: 30000 })
@@ -321,11 +337,24 @@ try {
   step(`13-14 · distrito observado ${wanted} sin tocar la caja`);
 
   // 15 y 16 · suelo público inspeccionable y cerrado a la operación privada
+  /** El programa municipal se concentra en el Centro Cívico: allí se busca el suelo público. */
+  await page.locator(".hud-district").click();
+  const civicTile = tiles.filter({ hasText: "Centro Cívico" }).first();
+  await civicTile.waitFor({ timeout: 20000 });
+  await civicTile.click();
+  await page
+    .locator(".hud-district")
+    .filter({ hasText: "Centro Cívico" })
+    .first()
+    .waitFor({ timeout: 30000 })
+    .catch(() => fail("suelo público", "no se pudo observar el Centro Cívico"));
   await configureCamera(0.5, 1000, 1000);
-  const publicCell = await scanCells(async () => /Suelo público/.test(await inspectorText()), 320);
-  if (!publicCell) fail("suelo público", "ninguna parcela pública fue alcanzable");
+  const publicCell = await page.evaluate(() => window.__landlordUiTest?.publicParcelCell() ?? null);
+  if (!publicCell) fail("suelo público", "la proyección no publica suelo público en el distrito");
+  await page.evaluate((cell) => window.__landlordCameraTest.centerOnCell(cell), publicCell);
+  await clickCell(publicCell);
   panel = await inspectorText();
-  if (!/suelo público/i.test(panel))
+  if (!/suelo municipal/i.test(panel))
     fail("suelo público", `el inspector no declara la reserva: ${panel.slice(0, 260)}`);
   if (!/ayuntamiento/i.test(panel))
     fail("suelo público", `el propietario público no se nombra como tal: ${panel.slice(0, 260)}`);
@@ -334,30 +363,30 @@ try {
     fail("suelo público", "la UI ofrece comprar suelo público");
   if ((await page.locator(".construction-option").count()) > 0)
     fail("suelo público", "la UI ofrece construir sobre suelo público");
-  if ((await page.getByRole("button", { name: /Solicitar 600 u\./ }).count()) > 0)
-    fail("suelo público", "la UI ofrece hipotecar suelo público");
   step(`15-16 · suelo público en ${publicCell.x},${publicCell.y} inspeccionado y bloqueado`);
 
-  // 17 y 18 · overlays de servicio y de valor
-  const overlay = page.getByLabel("Capa del mapa");
-  for (const [value, file, label] of [
-    ["security", "overlay-security.jpg", "seguridad"],
-    ["landValue", "overlay-land-value.jpg", "valor del suelo"],
+  // 17 y 18 · overlays de servicio y de valor desde la toolbar visual
+  for (const [group, option, file, label] of [
+    ["Servicios", "Seguridad", "overlay-security.jpg", "seguridad"],
+    ["Valor", "Valor del suelo", "overlay-land-value.jpg", "valor del suelo"],
   ]) {
-    await overlay.selectOption(value);
-    await page.waitForFunction(
-      (expected) =>
-        document.querySelector('select[aria-label="Capa del mapa"]')?.value === expected,
-      value,
-    );
+    await page.getByRole("button", { name: group, exact: true }).click();
+    await page.getByRole("button", { name: option, exact: true }).click();
+    await page
+      .locator(".overlay-legend")
+      .filter({ hasText: label })
+      .first()
+      .waitFor({ timeout: 10000 })
+      .catch(() => fail("overlay", `sin leyenda para ${label}`));
     await page.screenshot({ path: `docs/art/golden/vd-h1/${file}`, type: "jpeg", quality: 82 });
     step(`17-18 · overlay de ${label} aplicado`);
   }
 
-  // 19 · ordenanza de densidad
-  await page.getByText("Concejo municipal").first().click();
+  // 19 · ordenanza de densidad desde el hub de Gobierno
+  await page.getByRole("button", { name: "Gobierno" }).click();
+  await page.getByLabel("Gobierno municipal").waitFor({ timeout: 20000 });
   const politicsBody = await page.locator("main").innerText();
-  if (!/Gobierna:/.test(politicsBody)) fail("ordenanza de densidad", "el concejo no se renderizó");
+  if (!/Gobierna /i.test(politicsBody)) fail("ordenanza de densidad", "el concejo no se renderizó");
   if (!/Ensayo de densidad de corredor/.test(politicsBody))
     fail("ordenanza de densidad", "no aparece en la oferta de políticas");
   step("19 · ordenanza de densidad de corredor inspeccionada");

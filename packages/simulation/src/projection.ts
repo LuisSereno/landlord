@@ -601,6 +601,19 @@ export function createViewProjection(
                     market: facilityCoverage!.byParcelId.get(parcel.id)?.market ?? 0,
                     parks: facilityCoverage!.byParcelId.get(parcel.id)?.parks ?? 0,
                   },
+                  /**
+                   * H2-10: una parcela DESARROLLADA tiene `potentialService = 0` porque su
+                   * servicio real ya viaja en `serviceCoverage`. Una VACANTE arrastra la
+                   * cobertura potencial: qué facilities alcanzables tienen capacidad residual
+                   * para atenderla el día que el jugador construya.
+                   */
+                  potentialService: {
+                    security: facilityCoverage!.potentialByParcelId.get(parcel.id)?.security ?? 0,
+                    fire: facilityCoverage!.potentialByParcelId.get(parcel.id)?.fire ?? 0,
+                    health: facilityCoverage!.potentialByParcelId.get(parcel.id)?.health ?? 0,
+                    education: facilityCoverage!.potentialByParcelId.get(parcel.id)?.education ?? 0,
+                    market: facilityCoverage!.potentialByParcelId.get(parcel.id)?.market ?? 0,
+                  },
                   zoning: zoningFamilyForCode(code),
                   disposition: parcel.disposition,
                   urbanRole: block?.urbanRole ?? "urban_residential",

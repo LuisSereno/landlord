@@ -163,6 +163,20 @@ export type ViewProjectionV2 = {
         market: number;
         parks: number;
       };
+      /**
+       * H2-10 · servicio potencial de la parcela vacante. Si la parcela ya está desarrollada,
+       * `serviceCoverage` manda y `potentialService` es cero. Para un solar sin edificio, el
+       * campo muestra las facilities que la parcela ALCANZARÍA por grafo si construyera, y
+       * que tienen capacidad residual en este momento. No reserva slot: es presentación para
+       * overlay, compra, land value e inspector.
+       */
+      potentialService: {
+        security: number;
+        fire: number;
+        health: number;
+        education: number;
+        market: number;
+      };
       /** Display/legacy family derived from the development code; not a rule. */
       zoning: "residential" | "industrial" | "mixed";
       disposition: "marketable" | "public" | "infrastructure";
@@ -791,6 +805,13 @@ export const viewProjectionV2Schema = z.object({
             education: z.number().int().min(0).max(100),
             market: z.number().int().min(0).max(100),
             parks: z.number().int().min(0).max(100),
+          }),
+          potentialService: z.object({
+            security: z.number().int().min(0).max(100),
+            fire: z.number().int().min(0).max(100),
+            health: z.number().int().min(0).max(100),
+            education: z.number().int().min(0).max(100),
+            market: z.number().int().min(0).max(100),
           }),
           zoning: zoningSchema,
           disposition: z.enum(["marketable", "public", "infrastructure"]),

@@ -103,6 +103,14 @@ export type FacilityCoverageIndex = {
   byParcelId: Map<ParcelId, Record<FacilityServiceId, number>>;
   byDistrictId: Map<DistrictId, Record<FacilityServiceId, number>>;
   facilities: Map<UrbanFacilityId, FacilityCoverageReport>;
+  /**
+   * Cobertura **potencial** de las parcelas vacantes (H2-10). Una parcela sin edificio no
+   * consume capacidad, pero el jugador la ve en el mapa, la puede comprar y necesita saber si
+   * ALGUNA facility alcanzable tiene hueco libre para atenderla el día que construya. No
+   * reserva slot: es un diagnóstico, no una asignación. En las parcelas ya desarrolladas este
+   * mapa no registra entrada —su servicio real está en `byParcelId`.
+   */
+  potentialByParcelId: Map<ParcelId, Record<FacilityServiceId, number>>;
 };
 
 type Graph = {
@@ -539,6 +547,16 @@ export function facilityCoverageIndex(state: GameState): FacilityCoverageIndex {
   const demandParcels = parcels.filter((parcel) => developedIds.has(parcel.id));
   const byParcelId = new Map<ParcelId, Record<FacilityServiceId, number>>();
   for (const parcel of parcels) byParcelId.set(parcel.id, emptyCoverage());
+  /**
+   * H2-10 · cobertura potencial. Se calcula sobre las parcelas VACANTES: si una facility
+   * alcanzable tiene capacidad residual (`effectiveCapacity − assigned > 0`), el solar puede
+   * mostrar "servicio potencial" para overlay, compra, land value e inspector. No reserva
+   * slot: cuando el jugador construya, la parcela entrará en la demanda activa y competirá
+   * por la capacidad como cualquier otra.
+   */
+  const potentialByParcelId = new Map<ParcelId, Record<FacilityServiceId, number>>();
+  for (const parcel of parcels)
+    if (!developedIds.has(parcel.id)) potentialByParcelId.set(parcel.id, emptyCoverage());
   const facilities = new Map<UrbanFacilityId, FacilityCoverageReport>();
 
   for (const [service, data] of raw.services) {
@@ -652,6 +670,36 @@ export function facilityCoverageIndex(state: GameState): FacilityCoverageIndex {
         saturated: demand > effectiveCapacity,
       });
     }
+
+    /**
+     * H2-10 · cobertura potencial de las vacantes. Un solar sin edificio no consume capacidad,
+     * pero el jugador lo ve en el mapa y necesita saber si ALGUNA facility alcanzable tiene
+     * hueco libre para atenderle el día que construya. Se evalúa por parcela y por facility
+     * con `residual > 0`: si la parcela llega a esa facility por grafo (coste finito), potencial
+     * = 100. No se reserva el slot —el residual no decrementa aquí—: si mañana dos jugadores
+     * construyen sobre dos solares que compartían un mismo hueco, la Voronoi + greedy resuelve
+     * la contienda canónicamente.
+     */
+    for (const parcel of parcels) {
+      if (developedIds.has(parcel.id)) continue;
+      const access = raw.accessByParcel.get(parcel.id) ?? [];
+      if (access.length === 0) continue;
+      const potential = potentialByParcelId.get(parcel.id);
+      if (!potential) continue;
+      for (const facility of data.facilities) {
+        const capacity = effectiveCapacityByFacilityId.get(facility.id)!;
+        const used = usedCapacityByFacilityId.get(facility.id)!;
+        if (used >= capacity) continue;
+        const distance = data.distances.get(facility.id)!;
+        let cost = Number.POSITIVE_INFINITY;
+        for (const node of access)
+          cost = Math.min(cost, distance.get(node) ?? Number.POSITIVE_INFINITY);
+        if (Number.isFinite(cost)) {
+          potential[service] = 100;
+          break;
+        }
+      }
+    }
   }
 
   if (raw.parkDistance) {
@@ -706,7 +754,12 @@ export function facilityCoverageIndex(state: GameState): FacilityCoverageIndex {
     byDistrictId.set(districtId, values);
   }
 
-  const index: FacilityCoverageIndex = { byParcelId, byDistrictId, facilities };
+  const index: FacilityCoverageIndex = {
+    byParcelId,
+    byDistrictId,
+    facilities,
+    potentialByParcelId,
+  };
   indexCache.set(state, { signature, index });
   return index;
 }
@@ -717,6 +770,19 @@ export function facilityCoverageForParcel(
   service: FacilityServiceId,
 ): number {
   return facilityCoverageIndex(state).byParcelId.get(parcelId)?.[service] ?? 0;
+}
+
+/**
+ * H2-10 · servicio potencial de una parcela vacante. Devuelve 0 si la parcela está construida
+ * (para ella manda `facilityCoverageForParcel`, que refleja consumo real de capacidad) o si
+ * ninguna facility alcanzable tiene hueco libre.
+ */
+export function facilityPotentialForParcel(
+  state: GameState,
+  parcelId: ParcelId,
+  service: FacilityServiceId,
+): number {
+  return facilityCoverageIndex(state).potentialByParcelId.get(parcelId)?.[service] ?? 0;
 }
 
 export function facilityCoverageForDistrict(

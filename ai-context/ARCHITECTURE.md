@@ -170,7 +170,9 @@ Implementado para el cierre de Gate 2, con alcance deliberadamente mínimo:
   y tick de recuperación por lesión. Un agente no es el jugador ni la organización.
 - `Crew` física: supervisor más trabajadores, asignable a órdenes de obra, mejora, reparación o
   limpieza de ruina.
-- Pathfinding determinista A* cardinal N/E/S/W (`packages/simulation/src/navigation.ts`).
+- Pathfinding determinista A* cardinal N/E/S/W (`packages/simulation/src/navigation.ts`) sobre los
+  obstáculos derivados por distrito (`district-obstacles.ts`), que desde D-093 incluyen las huellas de
+  los edificios y de las obras activas, no sólo el ancla de la parcela.
 - `IncidentRecord` con origen (`sabotage | deterioration | blast`), intensidad, estado, bajas y
   autoría por agente/organización.
 - Edificio con `condition` y `structuralIntegrity` separados, bajas acumuladas y estados
@@ -215,6 +217,37 @@ Implementado en WP4.1:
 - `DISTRICT_GENERATOR_VERSION` entra en la cadena canónica y en el hash: cambiar algoritmo o
   perfiles invalida las fixtures de forma visible. Reproducir una seed: `pnpm district:inspect` con
   `DISTRICT_PROFILE` y `DISTRICT_SEED`.
+
+## Integridad espacial y contratos urbanos (V.d-H1, D-093)
+
+Una ciudad son nueve mapas que **comparten el rango local de coordenadas**. Todo lo que compara
+posiciones tiene que pasar por ahí, así que la arquitectura fija cuatro puntos:
+
+- **identidad espacial**: `districtId + cell`. La semántica vive en
+  `packages/simulation/src/district-place.ts` (`DistrictPlace`, `distanceWithinDistrict`,
+  `isWithinDistrictRadius`), que devuelve `null` —no una distancia— entre distritos distintos. Ningún
+  consumidor hace Manhattan suelto: los índices de vecinos agrupan por distrito y las ondas de choque,
+  sabotaje y adyacencia de técnicos exigen el mismo distrito;
+- **obstáculos e interacción**: `packages/simulation/src/district-obstacles.ts` deriva por distrito lo
+  ocupado (huellas de edificios y de obras activas sobre `map.blockedCells`) y lo imparable, y ofrece
+  `interactionCellCandidates`, la lista canónica de celdas libres contiguas a una huella. Las rutas del
+  tick y los tres comandos tácticos la usan; si ningún candidato es alcanzable, la orden se rechaza.
+  La escena no decide nada de esto: `ViewProjectionV2` ya publicaba las huellas;
+- **contratos de dominio**: `permitting.ts` (permiso con identidad, vigencia derivada en orden canónico
+  y consumo al iniciar obra), `development-codes.ts` (una única regla de compatibilidad de usos y una
+  única lectura de la densidad vigente), `facility-coverage.ts` (capacidad efectiva 0 sin edificio
+  operacional, dentro de la firma de *capacidad* de la caché y no de la de geometría) y
+  `urban-services.ts` (limpieza radial por distrito, que sigue siendo la excepción declarada de D-092);
+- **presentación que no adivina**: `apps/web/src/building-selection.ts` exige elección explícita cuando
+  la parcela tiene varios edificios y el adapter pinta ocupación sobre `geometryCells`. Un id obsoleto
+  se ignora en el selector derivado, sin efectos que puedan desincronizar la selección;
+- **assets**: `RuntimeAssetManifestV2` declara `domainFootprint`, `allowedOrientations` y `symmetry`
+  por tipo, con `parseRuntimeAssetManifest` como único punto de entrada V1/V2 y conversión explícita
+  que no inventa. Un `schemaVersion` desconocido es un error.
+
+Regla para cualquier función nueva que toque espacio: si necesita «cercano», «adyacente» o «en radio»,
+recibe un `DistrictPlace` o un `districtId` explícito. Si necesita una celda de trabajo, la huella y
+los obstáculos del distrito deciden, no el ancla de la parcela.
 
 ## Dinero, tiempo y datos
 

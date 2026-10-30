@@ -5,6 +5,8 @@ las decisiones fijadas en `PLAN_improvements.md`. Manzanas, parcelas multi-cell,
 Los detalles de implementación añadidos por esta ADR se listan al final, en
 "Adiciones respecto a `PLAN_improvements.md`", y no forman parte de la ratificación.
 
+> **Ampliada por [D-093](D-093-integridad-urbana-de-vd.md)** (V.d-H1, 2026-10-29): la huella del edificio es autoritativa para navegación e interacción, y la identidad espacial es `districtId + cell`.
+
 ## Contexto
 
 `Parcel` hoy es un punto con etiqueta

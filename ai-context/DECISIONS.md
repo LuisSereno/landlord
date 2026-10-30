@@ -1157,3 +1157,46 @@ orientaciones de edificios asimétricos y la huella de dominio explícita quedan
 La capa de mapa añade uso, código urbanístico y rol urbano; las capturas golden viven en
 `docs/art/golden/vd6/`. Evidencia en
 `docs/execution/phase-4/vd6-presentacion-dressing-2026-10-29.md`.
+
+## D-093 — Integridad urbana de V.d: identidad espacial por distrito, huellas autoritativas y contratos completos
+
+Estado: aceptada y aplicada el 2026-10-29 por el plan V.d-H1 sobre `95e8937`. Amplía D-088/D-089/D-090/
+D-091/D-092 y D-080 sin sustituirlas. Ver `docs/engineering/adr/D-093-integridad-urbana-de-vd.md`.
+
+Diez reglas decían una cosa y hacían otra al pasar de un distrito a una ciudad 3×3. Se corrigen con
+test de regresión cada una, y el test se ejecuta contra el código previo para demostrar que falla:
+
+- **Identidad espacial `districtId + cell`** (`district-place.ts`). La coordenada local existe nueve
+  veces, así que la distancia entre distritos distintos es `null`, no un número grande: radio de
+  colapso, vecinos de vivienda, adyacencia de técnicos y sabotaje quedan dentro de su distrito;
+- **la huella del edificio manda** (`district-obstacles.ts`): obstáculos por distrito y
+  `interactionCellCandidates` en orden canónico; los tres comandos tácticos exigen camino real y
+  `chooseInteractionCell` desaparece;
+- **permiso con identidad y ciclo de vida**: `PermitId` del contador, `approved | denied | expired |
+  consumed`, `consumedAtTick`, publicación separada del consumo (`permitting.ts`) y `SellParcel` ya no
+  borra el historial. Un `SnapshotV2` con permisos indexados por parcela se rechaza por nombre
+  (`UnsupportedPermitContractError`) y no se migra: inventar la emisión de un hecho no registrado;
+- **una sola función de compatibilidad de usos** (`isBuildingAllowedByDevelopmentCode`, OR sobre
+  `allowedUses`, lo municipal nunca elegible por un privado): UI, comando y producción rival responden
+  igual;
+- **un servicio existe si su edificio existe** (`operationalFacilityCapacity`): ardido, en colapso
+  pendiente o en ruina da capacidad 0. Entra en la firma de presupuesto de la caché, no en la de
+  geometría, así que no reconstruye Dijkstra;
+- **limpieza radial por distrito** (D-092 mantiene la excepción radial; cambian centro, densidad y
+  radio al ámbito del distrito);
+- **densidad vigente en una sola lectura** (`effectiveDensityBonus`) y valor del suelo consumiendo
+  `CoverageIndex`, sin sumar `civicAmenities` dos veces; por eso la ordenanza sale de la caché de
+  geometría de `land-value.ts`;
+- **presentación que no adivina**: selección explícita de edificio cuando la parcela tiene varios
+  (`building-selection.ts`) y dressing sobre `geometryCells`;
+- **`RuntimeAssetManifestV2`**: `domainFootprint`, `allowedOrientations` y `symmetry` por tipo,
+  validación con incidencias en orden canónico, conversión V1 explícita que no inventa y
+  `schemaVersion` desconocido como error.
+
+Consecuencias: los diez digestos dorados se regeneran cuatro veces, cada una atribuida por medida;
+ninguna seed, constante económica ni límite morfológico se toca para conseguir un verde. Generación
+p95 221,58→198,24 ms, red p95 2,42→2,27 ms y cierre maduro p50 43,30→35,41 ms. Quedan como deuda real
+la escala del programa municipal (100 de ~709 parcelas con cobertura de seguridad, 12 de 14
+equipamientos saturados) y la dominancia de `delegated_deferred` (16/16 seeds), que se reproduce
+idéntica en `95e8937`: es balance, no integridad. V.d **no** se cierra: falta el playtest humano de
+`docs/execution/phase-4/vd-final-playtest-checklist.md`.

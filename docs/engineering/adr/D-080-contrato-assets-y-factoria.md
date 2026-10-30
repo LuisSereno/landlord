@@ -4,6 +4,8 @@ Estado: aceptada el 2026-10-25 para WP4.15. Convierte la baseline `graphic_civic
 assets verificable y en una línea de producción ejecutable: fuente → metadatos → runtime → Phaser →
 Art Lab → validación. No fija el arte final ni sustituye la dirección visual aprobada.
 
+> **Ampliada por [D-093](D-093-integridad-urbana-de-vd.md)** (V.d-H1, 2026-10-29): el contrato pasa a `RuntimeAssetManifestV2` con huella de dominio, orientaciones permitidas y simetría declaradas.
+
 ## Contexto
 
 El Visual Direction Spike cerró la dirección `graphic_civic` con renders de referencia, pero el

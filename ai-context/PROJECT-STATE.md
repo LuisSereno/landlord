@@ -37,10 +37,14 @@ Fecha de consolidación: 2026-10-29.
 
 - impuestos y tasas (propiedad, transmisión, tasa de servicios);
 - presupuesto municipal con prioridad de gasto y niveles de servicio;
-- permisos/licencias y zoning;
+- permisos con identidad propia y ciclo de vida completo (emitir → publicar → consumir o vencer),
+  zoning y compatibilidad de usos decididos por una sola regla (D-093);
 - seguros, mantenimiento, banca, subastas e insolvencia;
 - contratos públicos con licitación, fianza y ejecución;
-- servicios urbanos con cobertura radial;
+- servicios urbanos que recorren la red por grafo de viaje, con la cobertura ligada al edificio físico
+  del equipamiento y limpieza radial por distrito (D-092/D-093);
+- identidad espacial `districtId + cell` y huella de edificio autoritativa para obstáculos,
+  adyacencia e interacción táctica con requisito de camino real (D-093);
 - empleo agregado y capacidad de alquiler;
 - reputación por tres grupos con memoria y decaimiento;
 - información imperfecta con expediente de estimaciones;
@@ -78,8 +82,9 @@ Fecha de consolidación: 2026-10-29.
 - package.json: sí, raíz y workspaces mínimos de Gate 1.
 - CI: sí, checks base en GitHub Actions; desde WP4.11-H incluye lint, typecheck, tests, build,
   format y los smokes de Gate 2 y Alpha.
-- assets: runtime procedural generado y versionado como data URIs (68 SVG, manifiesto de 106 KB); no
-  hay binarios de arte final ni Blender ejecutado en CI.
+- assets: runtime procedural generado y versionado como data URIs (92 frames, 11 tipos de edificio,
+  manifiesto `RuntimeAssetManifestV2` de 146,6 KB bajo el budget de 200 KB); no hay binarios de arte
+  final ni Blender ejecutado en CI.
 - backend: no.
 - modelo de datos implementado: contratos shared v1 extendidos de forma aditiva, núcleo autoritativo
   headless de Gate 2, producción física localizada, proyección financiera derivada y distrito
@@ -88,9 +93,10 @@ Fecha de consolidación: 2026-10-29.
   arquitectura de fronteras, bucle económico determinista con superficie canónica completa,
   generación y jugabilidad de distritos con fixtures de hash, digestos dorados de conservación del
   tick, mercado de vivienda segmentado con índice de renta, mercado laboral agregado conectado a la
-  asequibilidad, presupuesto municipal con recortes, servicios urbanos con cobertura radial,
-  contratos con fianza, reputación con atribución, información imperfecta y un escenario transversal
-  de Fase 4 con save/load.
+  asequibilidad, presupuesto municipal con recortes, servicios urbanos sobre la red con disponibilidad
+  ligada al edificio, doce city seeds canónicas, contratos con fianza, reputación con atribución,
+  información imperfecta, los cinco escenarios de aceptación cross-district de V.d-H1, una campaña
+  instrumentada de 24 meses con hitos y un escenario transversal de Fase 4 con save/load.
 
 ## Fase
 Gate 1 aprobado `GO` el 2026-10-21; la evidencia técnica de G1-RW-01..04 quedó reunida.
@@ -198,6 +204,27 @@ formas cívicas originales y el manifiesto V1 queda en 145 KB. La capa de mapa i
 urbanístico y rol urbano, y seis capturas golden documentan centro cívico, HUD oculto, residencial,
 industria, valor y densidad. Web 92 tests, build y smoke verdes. Queda como deuda de Beta el
 `RuntimeAssetManifestV2` con orientaciones de edificios asimétricos y huella de dominio explícita.
+
+**V.d-H1 (hardening de integridad urbana) está ejecutada el 2026-10-29, pero V.d NO está cerrada**
+(`docs/execution/phase-4/vd-h1-urban-integrity-hardening-2026-10-29.md`, D-093). Sobre `95e8937` se
+corrigen los diez hallazgos que dejó el salto de un distrito a la ciudad 3×3 —H1-01 identidad espacial
+por distrito, H1-02 huella autoritativa, H1-03 contrato de permiso, H1-04 compatibilidad de usos,
+H1-05 disponibilidad ligada al edificio, H1-06 limpieza por distrito, H1-07 selección multi-edificio
+en UI, H1-08 ocupación visual sobre `geometryCells`, H1-09 valor del suelo con servicios y densidad
+vigentes, H1-10 aceptación de extremo a extremo—, cada uno con su test de regresión verificado contra
+el código previo. Se añaden además las doce city seeds canónicas (§2.1), la campaña instrumentada de
+24 meses con hitos (§2.2), el smoke del núcleo en navegador (§2.3) y `RuntimeAssetManifestV2` (§3, que
+cierra la deuda que V.d.6 declaró arriba).
+
+Los diez digestos dorados se regeneran cuatro veces, siempre atribuidos por medida y sin tocar seeds,
+constantes económicas ni límites morfológicos. Los gates de §4 quedan verdes y mejoran el baseline:
+generación p95 198,24 ms, red p95 2,27 ms, cierre maduro p50 35,41 ms, soak estable. **Lo que impide
+cerrar la fase:** no se ha jugado la partida humana de §2.4
+(`docs/execution/phase-4/vd-final-playtest-checklist.md`, `PENDING HUMAN PLAYTEST`) —el smoke
+automatizado no lo sustituye—, y quedan dos hallazgos de balance medidos y no parcheados: 100 de ~709
+parcelas comercializables con cobertura de seguridad con 12 de 14 equipamientos saturados, y
+`delegated_deferred` ganando en 16/16 seeds, comportamiento reproducido idéntico en `95e8937`, es
+decir preexistente a H1.
 
 WP4.15-V.c.2C-H y V.c.3A/B/C están cerrados: lint, contratos, harnesses, documentación y el 404 de
 favicon quedan corregidos; las T e intersecciones publicadas reciben pasos de peatones discretos,

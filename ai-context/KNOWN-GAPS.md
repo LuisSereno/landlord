@@ -61,14 +61,16 @@ Resuelto para Gate 1 en D-049/D-051: `PlayerIdentity -> Person`, `Organization`,
 
 ## Economía inmobiliaria
 
-Implementado en WP4.1/WP4.3/WP4.7/WP3.9: precio de parcela por perfil y seed, oferta/demanda
-segmentada, elasticidad de renta acotada, venta y subasta de activos con fianza y ejecución.
+Implementado en WP4.1/WP4.3/WP4.7/WP3.9 y V.d.4/V.d-H1: precio de parcela por perfil y seed,
+oferta/demanda segmentada, elasticidad de renta acotada, venta y subasta de activos con fianza y
+ejecución. `baseLandValue`/`marketValue` con score entero desglosado, límite mensual del 5 % y
+derechos adquiridos del ensayo de corredor; desde H1-09 el valor consume el `CoverageIndex` de los
+servicios de V.d.5 y la densidad realmente vigente, sin sumar dos veces las amenidades cívicas.
 
 Sigue abierto:
-- fórmula de valor de suelo a largo plazo (hoy el precio es un dato de generación, no un mercado de
-  suelo);
 - coste de oportunidad de mantener solares vacíos;
-- política de suelo público y recalificación (ver Urbanismo).
+- recalificación y política de suelo público más allá del programa municipal autorado (ver Urbanismo);
+- incidencia de la fiscalidad sobre el precio del suelo, hoy canalizada sólo por la deseabilidad.
 
 ## Producción física
 
@@ -132,14 +134,21 @@ Sigue abierto:
 
 ## Servicios públicos
 
-Implementado en WP4.5/WP4.6: administración, seguridad, transporte y limpieza; cobertura radial,
-saturación por crecimiento, tasa por unidad ocupada y recortes con nivel de servicio.
+Implementado en WP4.5/WP4.6, V.d.3, V.d.5 y V.d-H1: administración, seguridad, transporte y limpieza;
+equipamientos municipales físicos (14 por ciudad, con su parcela y sus edificios) operados por el
+ayuntamiento; cobertura de seguridad y transporte calculada por grafo de viaje con gateways, demanda
+asignada a la facility alcanzable de menor coste y capacidad efectiva modulada por presupuesto; desde
+H1-05 un equipamiento sin edificio operacional aporta capacidad 0, y desde H1-06 la limpieza —única
+excepción radial declarada— se calcula por distrito.
 
 Sigue abierto:
+- **escala del programa municipal:** 14 equipamientos para ~709 parcelas comercializables deja 100
+  parcelas con cobertura de seguridad y 12 de 14 equipamientos saturados de forma permanente (medido
+  en la campaña de 24 meses). Es el resultado de las capacidades fijas al autorar la receta municipal,
+  no un defecto de integridad; cambiarlo necesita decisión del responsable;
+- mantenimiento municipal de los equipamientos y su efecto presupuestario;
 - concesiones y ownership público/privado de la red;
-- servicios adicionales (agua, salud, educación);
-- efecto explícito sobre migración y precio del suelo más allá de la deseabilidad;
-- edificios de servicio en el mapa.
+- transporte como oferta de viajes más allá del coste de grafo.
 
 ## Información
 
@@ -249,6 +258,36 @@ Sigue abierto:
   con los dos archivos de `docs/balance/`.
 - Pendiente de tuning, ahora con datos jugables: coste y recuperación del mantenimiento equilibrado, y
   el ritmo de reinversión de la rutina frente a la caja disponible.
+- **Actualización V.d-H1 (2026-10-29).** `pnpm balance:playable` corre hoy sobre la ciudad 3×3 completa
+  (64 campañas, 4 estrategias × 16 seeds, 0 rechazos de comandos) y **sí** registra una estrategia
+  dominante por caja: `delegated_deferred` gana en 16/16 seeds (`anyDominant: true`, umbral 15/16). La
+  misma corrida sobre `95e8937` da el mismo resultado, así que no la introdujo el hardening. La
+  harness la registra, no la afirma como requisito, y queda como señal de balance. La campaña con
+  hitos 1/6/12/18/24 es `packages/simulation/src/h1-campaign-24-months.test.ts`.
+
+## V.d-H1 — integridad urbana y cierre de V.d (2026-10-29)
+
+- **V.d NO está cerrada.** El único requisito que falta es humano: la partida de §2.4 está en
+  `docs/execution/phase-4/vd-final-playtest-checklist.md` como `PENDING HUMAN PLAYTEST`. El smoke
+  automatizado del núcleo (`pnpm smoke:vd-core-loop`) recorre los 19 pasos por la interfaz real, pero
+  no mide comprensión ni fricción y **no** sustituye esa sesión.
+- Corregidos y con test los diez hallazgos H1-01…H1-10 (D-093); añadidos las doce city seeds canónicas,
+  la campaña instrumentada de 24 meses con hitos y `RuntimeAssetManifestV2`.
+- **Guardados:** un `SnapshotV2` anterior a H1 (permisos indexados por parcela) se rechaza por nombre
+  con `UnsupportedPermitContractError` y no se migra. Es la tercera incompatibilidad declarada tras v1
+  (D-089) y pre-V.d.1 (D-090); ninguna se resuelve con rellenos.
+- **Deuda de rendimiento que sigue viva:** el primer cierre del mes construye el grafo de servicios una
+  vez (~312 ms p95 medidos en V.d.5) y los siguientes reutilizan caché. Es un hitch de carga, no un
+  coste recurrente; se conserva como deuda declarada y no se optimizó cambiando reglas.
+- **Deuda de balance medida y no parcheada:** escala del programa municipal (ver Servicios públicos) y
+  `delegated_deferred` dominante en la campaña jugable. Reproducida idéntica en `95e8937`, así que
+  predato a H1; `balance:playable` la registra pero no la afirma como requisito.
+- **Capturas golden:** siguen siendo JPEG de evidencia local, no pixel-diff cross-environment (D-081
+  documentó esa inestabilidad).
+- **Arte cívico:** los seis edificios cívicos son SVG procedurales originales; la ruta Blender puede
+  sustituirlos sin tocar el contrato runtime, que ya declara huella de dominio y orientaciones.
+- **Conservado a propósito:** los guards de jugabilidad específicos por perfil introducidos después de
+  V.d.3. No volver a un límite global del 85 %.
 
 ## Rendimiento y Alpha
 

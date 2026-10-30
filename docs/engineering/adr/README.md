@@ -61,3 +61,10 @@ Una decisión aceptada sólo se modifica mediante un ADR posterior que la sustit
 - [D-090 — Tejido urbano, manzanas y parcela multi-cell](D-090-tejido-urbano-y-parcela-multicell.md)
 - [D-091 — Mercados híbridos por distrito](D-091-mercados-hibridos-por-distrito.md)
 - [D-092 — Equipamientos municipales y servicios espaciales](D-092-equipamientos-y-servicios-espaciales.md)
+
+## V.d-H1 — Hardening de integridad urbana (2026-10-29)
+
+- [D-093 — Identidad espacial por distrito, huellas autoritativas y contratos completos](D-093-integridad-urbana-de-vd.md)
+
+Amplía D-088/D-089/D-090/D-092 y D-080 donde su texto aún asumía un solo distrito, un edificio de una
+celda o un permiso sin identidad. No sustituye ninguna de esas decisiones.

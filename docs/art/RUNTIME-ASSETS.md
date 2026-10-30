@@ -169,6 +169,20 @@ colapsable: `graphic_civic` está `APPROVED / BASELINE`; las otras dos son
 Un cambio de arte que supere un budget debe declarar el nuevo número y su medición; no se acepta por
 impresión.
 
+### Re-medición V.d-H1 (2026-10-29, manifiesto `schemaVersion = 2`)
+
+| Métrica | Budget | Medido 2026-10-29 |
+|---|---|---|
+| Manifiesto completo | < 200 KB | 146 583 bytes (146,6 KB) en `apps/web/src/generated/runtime-assets.json` |
+| Imágenes | — | 92 frames; 123 308 bytes en data URIs |
+| SVG por frame | < 8 KB | 1 986 bytes el mayor |
+| Bundle Blender E2E | < 120 KB | sin cambios: 26 789 bytes en `runtime-assets-blender.json`, sigue publicando V1 |
+
+El crecimiento respecto a la fila anterior (106 KB) no es arte nuevo: son los mismos 92 frames y
+seis tipos añadidos desde entonces (los seis cívicos de V.d.6). Lo que aporta V2 como metadatos es
+**946 bytes** en total, 86 de media por tipo, al declarar `domainFootprint`, `allowedOrientations` y
+`symmetry`. `pnpm art:binaries:check` sigue en verde y no se ha versionado ningún binario.
+
 ## Añadir un edificio o variante
 
 1. Añadir la entrada a `BUILDINGS`/`CHARACTERS` en `scripts/generate-runtime-assets.mjs`.

@@ -26,13 +26,32 @@ Define perspectiva activa:
 Tiempo, seed, mundo y economía global.
 
 ### District
-Parcelas, estadísticas, servicios, población, accesibilidad y condiciones urbanas.
+Parcelas, estadísticas, servicios, población, accesibilidad y condiciones urbanas. Su mapa es **local**:
+los nueve distritos de la ciudad comparten el rango de coordenadas, así que un lugar es
+`districtId + cell` y dos puntos de distritos distintos no están «lejos»: no tienen relación espacial
+(D-093). Ninguna regla de radio, vecindad u onda expansiva puede comparar coordenadas sueltas.
 
 ### Parcel
-Owner, valor, zoning, restricciones, accesibilidad y building.
+Owner, valor, zoning, restricciones, accesibilidad y building. Desde V.d es **multi-celda**
+(`geometryCells`, frente vial, `disposition` `marketable | public`, `buildingIds` con varios edificios
+y `baseLandValue`/`marketValue` con desglose entero). El suelo público es inalienable: no se compra,
+no se vende, no se garantiza, no se licencia ni se edifica.
 
 ### Building
-Type, level, state, condition, tenants, maintenance, insurance y obligaciones operativas.
+Type, level, state, condition, tenants, maintenance, insurance y obligaciones operativas. Su **huella**
+(`footprintCells`) es autoritativa: lo que la simulación considera construido, lo que bloquea el paso y
+lo que recibe una interacción táctica (D-093). Vive en un distrito concreto.
+
+### Permit
+Decisión municipal **con identidad propia** (`PermitId`) y ciclo de vida completo:
+`approved | denied | expired | consumed`, con `consumedAtTick`. Se emite al resolver una solicitud, se
+publica por parcela y tipo, y se gasta exactamente una vez al iniciar la obra; vender la parcela no
+borra el expediente. Los derechos de densidad de un permiso adquirido son sólo de su titular.
+
+### UrbanFacility
+Función urbana (ayuntamiento, escuela, clínica, comisaría, parque de bomberos, mercado) separada del
+edificio físico que la encarna, operada por el municipio. Su capacidad efectiva es **0 mientras ningún
+edificio propio esté operacional**: un equipamiento destruido no presta servicio (D-093).
 
 ### Organization
 Concepto colectivo independiente. Puede representar Company, Government, Bank, Union, Media, Association o Criminal Faction.

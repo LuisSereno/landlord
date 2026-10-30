@@ -5,6 +5,8 @@ las decisiones fijadas en `PLAN_improvements.md`. `SnapshotV2`, protocolo v2 y r
 Los detalles de implementación añadidos por esta ADR se listan al final, en
 "Adiciones respecto a `PLAN_improvements.md`", y no forman parte de la ratificación.
 
+> **Ampliada por [D-093](D-093-integridad-urbana-de-vd.md)** (V.d-H1, 2026-10-29): el permiso con identidad propia cambia la forma de `permitting`: un v2 anterior a H1 se rechaza por nombre y no se migra.
+
 ## Contexto
 
 V.d cambia la forma del mundo, no sus campos. `GameState` pasa de un mapa único

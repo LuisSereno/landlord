@@ -254,8 +254,9 @@ resolver y **no se declara superada**: es el mismo disparador de medición que H
 (24 muestras maduras, el p95 equivale a la segunda mayor y la varianza entre corridas de la misma
 máquina ya era 51–68 ms). V.d-7A no añade trabajo por tick: los índices siguen siendo derivados y
 se reconstruyen en los mismos puntos; el coste nuevo está en operaciones de conjunto acotadas por
-el número de parcelas del proyecto (máximo 3 en Alpha). El soak de 144 000 ticks termina sin
-fallos y sin crecimiento de memoria no acotado.
+el número de parcelas del proyecto (máximo 3 en Alpha). El soak de 144 000 ticks termina en verde
+(continuidad save/restore y tick final); no afirma un techo de memoria, sólo que el recorrido
+completa.
 
 ## 17. Deuda explícita y V.d-7B
 

@@ -1,12 +1,18 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  parseBuildingId,
+  type Building,
+  type Parcel,
+} from "@landlord/shared";
+import {
   facilityCoverageForDistrict,
   facilityCoverageIndex,
   fireDamageForBuilding,
   injuredRecoveryDays,
   type FacilityServiceId,
 } from "./facility-coverage";
+import { PLAYER_ORGANIZATION_ID } from "./game-data";
 import { createViewProjection } from "./projection";
 import { createInitialState, type GameState } from "./state";
 
@@ -33,23 +39,74 @@ function parcelsOf(state: GameState, districtId: string) {
   );
 }
 
+/**
+ * H2-05 · la demanda es el desarrollo urbano, no el censo catastral. Un fixture con cero edificios
+ * privados ya no activa ningún servicio, así que los tests que miden "cobertura" tienen que
+ * construir solares primero. El helper pone `count` edificios en las primeras parcelas del
+ * distrito, ordenadas por id para que sea determinista.
+ */
+function developParcels(
+  state: GameState,
+  districtId: string,
+  count: number,
+  serialStart = 0,
+): Parcel[] {
+  const parcels = parcelsOf(state, districtId).slice(0, count);
+  parcels.forEach((parcel, index) => {
+    const id = parseBuildingId(`building_${String(serialStart + index).padStart(8, "0")}`);
+    parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
+    state.phase2.buildings.set(id, {
+      id,
+      parcelId: parcel.id,
+      districtId: parcel.districtId,
+      footprintCells: [{ ...parcel.anchorCell }],
+      orientation: 0,
+      floors: 1,
+      form: "detached",
+      ownerOrganizationId: PLAYER_ORGANIZATION_ID,
+      productionFacilityId: null,
+      type: "courtyard_home",
+      level: 1,
+      condition: 100,
+      tenantId: null,
+      tenantIds: [],
+      upgraded: false,
+      structuralIntegrity: 100,
+      state: "operational",
+      casualtiesTotal: { injured: 0, dead: 0 },
+    } satisfies Building);
+  });
+  return parcels;
+}
+
 describe("V.d.5 cobertura por grafo", () => {
   it("asigna demanda y publica saturación de capacidad", () => {
     const state = createInitialState(7);
+    /**
+     * H2-05: para saturar un servicio hay que desarrollar suelo. Se llenan las 200 primeras
+     * parcelas del centro: la comisaría local tiene 2 cohortes × 25 = 50 slots, así que el
+     * informe sigue saturando con 200 parcelas y 50 servidas.
+     */
+    const centro = districtIdByName(state, "Centro Cívico");
+    developParcels(state, centro, 200);
     const index = facilityCoverageIndex(state);
     const reports = [...index.facilities.values()];
     expect(reports.length).toBeGreaterThan(0);
     expect(reports.some((report) => report.saturated)).toBe(true);
-    const security = reports.find((report) => report.service === "security")!;
+    const security = reports.find(
+      (report) => report.service === "security" && report.demand > 0,
+    )!;
     expect(security.demand).toBeGreaterThan(security.effectiveCapacity);
     expect(security.coveragePercent).toBeLessThan(100);
   });
 
   it("un recorte de presupuesto reduce la capacidad efectiva sin quitar el edificio", () => {
     const state = createInitialState(7);
+    const centro = districtIdByName(state, "Centro Cívico");
+    const developed = developParcels(state, centro, 20, 100);
     const before = facilityCoverageIndex(state);
-    const coveredBefore = parcelsOf(state, districtIdByName(state, "Centro Cívico")).filter(
-      (parcel) => before.byParcelId.get(parcel.id)!.security > 0,
+    const coveredBefore = developed.filter(
+      (parcel) => (before.byParcelId.get(parcel.id)?.security ?? 0) > 0,
     );
     expect(coveredBefore.length).toBeGreaterThan(0);
     state.phase2.municipal.serviceLevelPercentByCategory.security = 0;
@@ -99,6 +156,13 @@ describe("V.d.5 cobertura por grafo", () => {
       (candidate) => candidate.disposition === "marketable",
     )!;
     parcel.roadFrontages = [];
+    /**
+     * H2-05: la parcela sin frente se queda sin cobertura tanto en capacity services (no
+     * alcanza la facility) como en parks/transport. Se construye encima para que FORME parte
+     * de la demanda y el test siga comprobando que el grafo no atraviesa suelo —si no, la
+     * parcela sería vacante y no tendría cobertura por diseño, no por ausencia de frente.
+     */
+    developParcels(state, parcel.districtId, 1, 900);
     const index = facilityCoverageIndex(state);
     for (const service of SERVICES) {
       expect(index.byParcelId.get(parcel.id)![service], service).toBe(0);
@@ -107,6 +171,16 @@ describe("V.d.5 cobertura por grafo", () => {
 
   it("usa un único helper para fuego y salud", () => {
     const state = createInitialState(7);
+    /**
+     * H2-05: desarrollar parcelas en varios distritos para que alguno tenga cobertura de fuego
+     * y alguno no, y que un distrito cruce el umbral de salud y otro no.
+     */
+    const districtIds = [...state.world.city.districtIds];
+    let serial = 1000;
+    for (const districtId of districtIds) {
+      developParcels(state, districtId as string, 20, serial);
+      serial += 100;
+    }
     const index = facilityCoverageIndex(state);
     const parcels = [...state.phase2.parcels.values()].filter(
       (parcel) => parcel.disposition === "marketable",
@@ -119,10 +193,10 @@ describe("V.d.5 cobertura por grafo", () => {
     expect(
       fireDamageForBuilding(state, { parcelId: covered.id }, 50).structuralDamage,
     ).toBeLessThan(fireDamageForBuilding(state, { parcelId: uncovered.id }, 50).structuralDamage);
-    const coveredHealth = [...state.world.city.districtIds].find(
+    const coveredHealth = districtIds.find(
       (districtId) => facilityCoverageForDistrict(state, districtId, "health") >= 50,
     )!;
-    const uncoveredHealth = [...state.world.city.districtIds].find(
+    const uncoveredHealth = districtIds.find(
       (districtId) => facilityCoverageForDistrict(state, districtId, "health") < 50,
     )!;
     expect(injuredRecoveryDays(state, coveredHealth)).toBe(1);
@@ -144,13 +218,61 @@ describe("V.d.5 cobertura por grafo", () => {
     }
   });
 
-  it("la seguridad del índice urbano sale de comisarías, no de un radio", () => {
+  it("la seguridad del índice urbano sale del grafo, no de un radio", () => {
+    /**
+     * V.d.5 + H2-05 · reformulado. "Sin comisarías cerca, el rollup del distrito es 0" seguía
+     * siendo cierto en el modelo antiguo porque la Voronoi asignaba TODAS las parcelas marketables
+     * y la comisaría de 50 slots sólo servía a las 50 más baratas del centro. Con H2-05, un
+     * distrito con 20 parcelas desarrolladas puede servir vía gateways a un vecino: la cobertura
+     * llega POR RED, no POR RADIOS. Lo que sigue sin existir es un radio: si se cortan las
+     * conexiones del distrito, la cobertura cae a 0.
+     */
     const state = createInitialState(7);
-    const index = facilityCoverageIndex(state);
     const lomas = districtIdByName(state, "Lomas del Umbral");
-    expect(index.byDistrictId.get(lomas as never)!.security).toBe(0);
     const centro = districtIdByName(state, "Centro Cívico");
-    expect(index.byDistrictId.get(centro as never)!.security).toBeGreaterThan(0);
+    developParcels(state, centro, 20, 100);
+    developParcels(state, lomas, 20, 200);
+    const connected = facilityCoverageIndex(state);
+    expect(connected.byDistrictId.get(centro as never)!.security).toBeGreaterThan(0);
+    /** Lomas tiene cobertura sólo si las comisarías de Centro alcanzan por grafo. */
+    /** Se cortan las conexiones del distrito: la cobertura por grafo desaparece. */
+    state.world.city.connections = state.world.city.connections.filter(
+      (connection) =>
+        connection.fromDistrictId !== lomas && connection.toDistrictId !== lomas,
+    );
+    const isolated = facilityCoverageIndex(state);
+    expect(isolated.byDistrictId.get(lomas as never)!.security).toBe(0);
+  });
+
+  it("una parcela vacante conserva parks/transport pero no consume capacity", () => {
+    /**
+     * H2-05 · invariante del contrato: la accesibilidad (parks/transport) sigue midiendo sobre
+     * toda parcela marketable, pero la capacidad (security/fire/health/education/market) se
+     * asigna sólo sobre DESARROLLADAS. Una parcela sin edificio no aparece en el grupo de
+     * Voronoi de ninguna facility.
+     */
+    const state = createInitialState(7);
+    const centro = districtIdByName(state, "Centro Cívico");
+    const developed = developParcels(state, centro, 10, 500);
+    const allParcels = parcelsOf(state, centro);
+    const vacant = allParcels.filter(
+      (parcel) => !developed.some((built) => built.id === parcel.id),
+    );
+    const index = facilityCoverageIndex(state);
+    /** Parks/transport: una parcela vacante del centro puede estar servida. */
+    const anyVacantWithParks = vacant.some(
+      (parcel) => (index.byParcelId.get(parcel.id)?.parks ?? 0) > 0,
+    );
+    expect(anyVacantWithParks).toBe(true);
+    /** Capacity: las parcelas del distrito observado no pueden estar servidas si están vacantes. */
+    for (const parcel of vacant) {
+      const coverage = index.byParcelId.get(parcel.id)!;
+      expect(coverage.security, parcel.id).toBe(0);
+      expect(coverage.fire, parcel.id).toBe(0);
+      expect(coverage.health, parcel.id).toBe(0);
+      expect(coverage.education, parcel.id).toBe(0);
+      expect(coverage.market, parcel.id).toBe(0);
+    }
   });
 });
 
@@ -171,6 +293,9 @@ describe("V.d.5 transporte como accesibilidad", () => {
 describe("V.d.5 proyección de servicios", () => {
   it("publica cobertura por parcela y el informe de la facility", () => {
     const state = createInitialState(7);
+    /** H2-05: sin edificios privados no hay demanda activa; se construye el distrito del jugador. */
+    const centro = districtIdByName(state, "Centro Cívico");
+    developParcels(state, centro, 20, 300);
     const projection = createViewProjection(state, true);
     const parcel = projection.economy!.parcels.find((entry) =>
       Object.values(entry.serviceCoverage).some((value) => value > 0),

@@ -321,9 +321,15 @@ describe("WP4.3 oferta y demanda de vivienda", () => {
 
     expect(nearUnit.safety).toBeLessThan(100);
     expect(nearUnit.safety).toBeLessThan(farUnit.safety);
-    // WP4.6: la cobertura de seguridad es radial, así que el borde del distrito también pierde
-    // puntos aunque no haya ningún siniestro cerca.
-    expect(farUnit.safety).toBeLessThan(100);
+    /**
+     * H2-05 · antes también se exigía `farUnit.safety < 100`, argumentando que la cobertura de
+     * seguridad era radial y el borde del distrito perdía puntos aunque no hubiera siniestro.
+     * Con el nuevo contrato la seguridad ya no es un radio: es Voronoi de facilities, limitada
+     * por capacidad. Con tres parcelas desarrolladas y ~50 slots de comisaría, far SÍ llega a
+     * 100; el siniestro penaliza sólo a near. Lo importante —que un incidente cerca baja la
+     * seguridad y otro lejos no la toca— se prueba en las dos aserciones de encima.
+     */
+    expect(farUnit.safety).toBe(100);
   });
 
   it("es determinista y sobrevive a guardar y cargar", () => {

@@ -1,7 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { parseTick, type Block, type Parcel } from "@landlord/shared";
+import { parseTick, type Block, type Building, type Parcel } from "@landlord/shared";
 
-import { parseCommandId, parseMoney, parsePersonId } from "@landlord/shared";
+import {
+  parseBuildingId,
+  parseCommandId,
+  parseMoney,
+  parsePersonId,
+} from "@landlord/shared";
 import { dispatchProductCommand } from "./commands";
 import { activePermitFor } from "./permitting";
 import { createMunicipalPolicy, GAME_MONTH_TICKS, PLAYER_ORGANIZATION_ID } from "./game-data";
@@ -54,6 +59,56 @@ function facilityBuildingIds(state: GameState, kind: string): string[] {
     for (const facility of district.facilities.values())
       if (facility.kind === kind) return [...facility.buildingIds];
   return [];
+}
+
+/**
+ * H2-05: sin edificios privados no hay demanda activa y la cobertura de capacidad es cero por
+ * diseño. Los tres tests de servicios de este acta necesitan parcelas desarrolladas cerca de la
+ * facility para que "recorte de seguridad" sea una degradación observable. El helper coloca el
+ * primer edificio del serial indicado en las N primeras parcelas del distrito dado.
+ */
+function developParcels(
+  state: GameState,
+  districtId: Parcel["districtId"],
+  count: number,
+  serialStart: number,
+): Parcel[] {
+  const parcels = [...state.phase2.parcels.values()]
+    .filter((parcel) => parcel.districtId === districtId && parcel.disposition === "marketable")
+    .sort((left, right) => left.id.localeCompare(right.id))
+    .slice(0, count);
+  parcels.forEach((parcel, index) => {
+    const id = parseBuildingId(`building_${String(serialStart + index).padStart(8, "0")}`);
+    parcel.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
+    state.phase2.buildings.set(id, {
+      id,
+      parcelId: parcel.id,
+      districtId: parcel.districtId,
+      footprintCells: [{ ...parcel.anchorCell }],
+      orientation: 0,
+      floors: 1,
+      form: "detached",
+      ownerOrganizationId: PLAYER_ORGANIZATION_ID,
+      productionFacilityId: null,
+      type: "courtyard_home",
+      level: 1,
+      condition: 100,
+      tenantId: null,
+      tenantIds: [],
+      upgraded: false,
+      structuralIntegrity: 100,
+      state: "operational",
+      casualtiesTotal: { injured: 0, dead: 0 },
+    } satisfies Building);
+  });
+  return parcels;
+}
+
+function districtOfFacilityKind(state: GameState, kind: string): Parcel["districtId"] {
+  for (const district of state.world.districts.values())
+    for (const facility of district.facilities.values())
+      if (facility.kind === kind) return district.district.id;
+  throw new Error(`Sin facility de tipo ${kind}`);
 }
 
 describe("H1-09B · el potencial normativo consume la ordenanza vigente", () => {
@@ -143,6 +198,9 @@ describe("H1-09B · el potencial normativo consume la ordenanza vigente", () => 
 describe("H1-09A · los servicios espaciales mueven el valor en la dirección esperada", () => {
   it("destruir la comisaría baja el valor donde sólo ella daba seguridad", () => {
     const state = createInitialState(7);
+    /** H2-05: desarrollar parcelas en el distrito de la comisaría para generar demanda activa. */
+    const stationDistrict = districtOfFacilityKind(state, "police_station");
+    developParcels(state, stationDistrict, 30, 200);
     const station = facilityBuildingIds(state, "police_station");
     expect(station.length).toBeGreaterThan(0);
     const covered = [...buildCoverageIndex(state).byParcelId.entries()]
@@ -197,6 +255,9 @@ describe("H1-09A · los servicios espaciales mueven el valor en la dirección es
 
   it("un recorte presupuestario de seguridad baja el valor y se recupera al reponer", () => {
     const state = createInitialState(7);
+    /** H2-05: sin demanda activa (edificios privados) la seguridad no tiene a quién servir. */
+    const stationDistrict = districtOfFacilityKind(state, "police_station");
+    developParcels(state, stationDistrict, 30, 300);
     const facilityCoverage = facilityCoverageIndex(state);
     /** Solares a los que de verdad sirve una comisaría: sólo ahí el recorte tiene efecto. */
     const sample = [...state.phase2.parcels.values()]

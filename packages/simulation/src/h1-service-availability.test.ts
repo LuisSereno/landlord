@@ -94,6 +94,13 @@ describe("H1-05 · la cobertura depende del edificio físico", () => {
   it("una comisaría destruida deja de dar seguridad donde sólo dependía de ella", () => {
     const state = quietState();
     const station = facilityOfKind(state, "police_station");
+    /**
+     * H2-05: hay que desarrollar suelo cerca de la comisaría para que tenga demanda a la que
+     * servir. Sin edificios privados, la Voronoi de security queda vacía y `served` es 0 por
+     * diseño, no por destrucción del edificio. Se llenan las primeras 30 parcelas del distrito
+     * de la facility.
+     */
+    addBuildings(state, 30, station.districtId);
     const before = facilityCoverageIndex(state);
     const reportBefore = before.facilities.get(station.id as UrbanFacilityId)!;
     expect(reportBefore.served).toBeGreaterThan(0);
@@ -110,13 +117,14 @@ describe("H1-05 · la cobertura depende del edificio físico", () => {
     expect(report.saturated).toBe(report.demand > 0);
     for (const parcelId of after.byParcelId.keys())
       expect(after.byParcelId.get(parcelId)!.security).toBeLessThanOrEqual(
-        before.byParcelId.get(parcelId)!.security,
+        before.byParcelId.get(parcelId)!.security ?? 0,
       );
   });
 
   it("un parque de bomberos destruido pierde su cobertura de fuego", () => {
     const state = quietState();
     const station = facilityOfKind(state, "fire_station");
+    addBuildings(state, 30, station.districtId);
     const covered = [...facilityCoverageIndex(state).byParcelId.values()].filter(
       (coverage) => coverage.fire > 0,
     ).length;
@@ -134,7 +142,9 @@ describe("H1-05 · la cobertura depende del edificio físico", () => {
   it("un edificio ardiendo tampoco sirve, y restaurarlo recupera la cobertura", () => {
     const state = quietState();
     const station = facilityOfKind(state, "police_station");
+    addBuildings(state, 30, station.districtId);
     const coveredBefore = securityCoveredParcels(state);
+    expect(coveredBefore).toBeGreaterThan(0);
 
     setFacilityBuildingState(state, station, "burning");
     expect(securityCoveredParcels(state)).toBeLessThan(coveredBefore);

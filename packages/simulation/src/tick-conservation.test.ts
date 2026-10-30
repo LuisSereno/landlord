@@ -153,7 +153,7 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "c6a317866f27ad1a",
+    expected: "b58283d43f7fd764",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
@@ -292,10 +292,30 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
  * resultado. Ninguna constante económica, semilla ni guard de jugabilidad se ha tocado.
  */
 
+/**
+ * Regeneración H2-05 (2026-10-30): la demanda activa de capacidad deja de ser `parcel.disposition
+ * === "marketable"` y pasa a ser "parcela marketable con al menos un edificio privado no-ruin".
+ * Cambia un solo digesto, `city:200-parcels:month-boundary`, de `c6a317866f27ad1a` a
+ * `b58283d43f7fd764`. Atribución medida: con el mismo estado final pero sin aplicar el filtro de
+ * desarrollo, el digesto vuelve a `c6a317866f27ad1a` exactamente —el delta es la Voronoi sobre
+ * 200 parcelas en lugar de 716, no una constante económica tocada. `city:50-parcels:month-boundary`
+ * conserva su dígito porque con 50 solares construidos la Voronoi coincide con el modelo viejo
+ * (todas las marketables del distrito del jugador están construidas); las tres carreras de
+ * incendios y las cuatro carreras sin cierre mensual siguen siendo idénticas bit a bit, porque
+ * en ellas ningún `services` del score de suelo cambia entre los dos modelos. Ninguna semilla,
+ * constante de balance o guard de perfil se ha tocado; el cambio es de regla, no de tuning.
+ */
+
 describe("WP4.2 conservación del resultado económico", () => {
   it("mantiene el digesto de carreras largas al optimizar el coste del tick", () => {
+    const drifts: string[] = [];
     for (const golden of GOLDEN_CASES) {
-      expect(golden.run(), golden.id).toBe(golden.expected);
+      const actual = golden.run();
+      if (actual !== golden.expected)
+        drifts.push(`${golden.id}: expected ${golden.expected}, got ${actual}`);
     }
+    /** Se reportan todos los cambios de una, no sólo el primero: una regeneración tiene que
+     *  enumerar exactamente qué digestos se mueven y por qué. */
+    expect(drifts).toEqual([]);
   }, 600_000);
 });

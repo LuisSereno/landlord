@@ -9,6 +9,7 @@ import {
   type UrbanFacilityKind,
 } from "@landlord/shared";
 import type { GameState } from "./state";
+import { MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
 import { cellKey } from "./urban-fabric";
 
 /**
@@ -351,6 +352,53 @@ function budgetSignature(state: GameState): string {
     .join(";");
 }
 
+/**
+ * Parcela "desarrollada" (H2-05): marketable con al menos un Building privado no-ruin encima.
+ * Un solar vacío NO consume capacidad: tiene accesibilidad (llegar a la facility), pero no
+ * demanda activa. El contrato anterior medía demanda como `parcel.disposition === "marketable"`,
+ * lo que hacía que una ciudad naciese prácticamente saturada (716 solares, ~600 edificios
+ * privados posibles, 2 comisarías con 2 cohortes × 25 parcelas = 100 slots). Con esta
+ * definición la saturación es consecuencia del desarrollo urbano, no del censo catastral.
+ *
+ * Aproximación Alpha: una parcela con dos edificios sigue valiendo una unidad de demanda —no
+ * hay aún un modelo demográfico que pondere residentes, floors o usos. Queda declarado en
+ * D-094 y en KNOWN-GAPS para una futura Beta.
+ */
+export function developedParcelsOf(state: GameState): Parcel[] {
+  const developed = new Set<ParcelId>();
+  for (const building of state.phase2.buildings.values()) {
+    if (building.state === "ruin") continue;
+    if (building.ownerOrganizationId === MUNICIPALITY_ORGANIZATION_ID) continue;
+    developed.add(building.parcelId);
+  }
+  return [...state.phase2.parcels.values()]
+    .filter((parcel) => parcel.disposition === "marketable" && developed.has(parcel.id))
+    .sort((left, right) => left.id.localeCompare(right.id));
+}
+
+/**
+ * Firma de la demanda activa. Va en la clave de la caché del índice —no en la de geometría—:
+ * poner el primer edificio en una parcela recalcula la asignación de capacidad sin reconstruir
+ * Dijkstra, igual que la disponibilidad física o el presupuesto.
+ */
+function demandSignature(state: GameState): string {
+  const ids: string[] = [];
+  const developed = new Set<ParcelId>();
+  for (const building of [...state.phase2.buildings.values()]
+    .filter(
+      (entry) =>
+        entry.state !== "ruin" && entry.ownerOrganizationId !== MUNICIPALITY_ORGANIZATION_ID,
+    )
+    .sort((left, right) => left.id.localeCompare(right.id))) {
+    developed.add(building.parcelId);
+  }
+  for (const parcel of [...state.phase2.parcels.values()]
+    .filter((entry) => entry.disposition === "marketable")
+    .sort((left, right) => left.id.localeCompare(right.id)))
+    if (developed.has(parcel.id)) ids.push(parcel.id);
+  return ids.join(",");
+}
+
 type RawServiceDistance = {
   facilities: UrbanFacility[];
   distances: Map<UrbanFacilityId, Map<string, number>>;
@@ -435,11 +483,20 @@ export function facilityCoverageIndex(state: GameState): FacilityCoverageIndex {
   const raw = rawCoverage(state);
   const signature = `${raw.geometrySignature}|${budgetSignature(state)}|${availabilitySignature(
     state,
-  )}`;
+  )}|${demandSignature(state)}`;
   const cached = indexCache.get(state);
   if (cached?.signature === signature) return cached.index;
 
   const parcels = raw.parcels;
+  /**
+   * H2-05 · demanda activa = parcela marketable DESARROLLADA. Los solares sin edificio conservan
+   * accesibilidad (aparecen en `byParcelId` y en parks/transport, que no consumen capacidad),
+   * pero no presionan la cola de ningún servicio. Era el "todas las marketables cuentan" de
+   * V.d.5, que hacía que una ciudad nueva naciese con 12 de 14 facilities saturadas por
+   * construcción.
+   */
+  const developedIds = new Set<ParcelId>(developedParcelsOf(state).map((parcel) => parcel.id));
+  const demandParcels = parcels.filter((parcel) => developedIds.has(parcel.id));
   const byParcelId = new Map<ParcelId, Record<FacilityServiceId, number>>();
   for (const parcel of parcels) byParcelId.set(parcel.id, emptyCoverage());
   const facilities = new Map<UrbanFacilityId, FacilityCoverageReport>();
@@ -449,7 +506,7 @@ export function facilityCoverageIndex(state: GameState): FacilityCoverageIndex {
     const bestForParcel = new Map<ParcelId, { cost: number; facilityId: UrbanFacilityId }>();
     for (const facility of data.facilities) {
       const distance = data.distances.get(facility.id)!;
-      for (const parcel of parcels) {
+      for (const parcel of demandParcels) {
         const access = raw.accessByParcel.get(parcel.id) ?? [];
         if (access.length === 0) continue;
         let cost = Number.POSITIVE_INFINITY;
@@ -467,7 +524,7 @@ export function facilityCoverageIndex(state: GameState): FacilityCoverageIndex {
       }
     }
     const groups = new Map<UrbanFacilityId, Array<{ parcel: Parcel; cost: number }>>();
-    for (const parcel of parcels) {
+    for (const parcel of demandParcels) {
       const best = bestForParcel.get(parcel.id);
       if (!best) continue;
       const group = groups.get(best.facilityId) ?? [];
@@ -519,19 +576,34 @@ export function facilityCoverageIndex(state: GameState): FacilityCoverageIndex {
     }
   }
 
+  /**
+   * H2-05: el denominador del rollup por distrito cambia según el servicio. Para los cinco
+   * capacity services se mide sobre las parcelas DESARROLLADAS del distrito (cobertura de la
+   * demanda activa); para parks y transport, que no consumen capacidad, sigue siendo la
+   * cobertura geográfica sobre todas las marketable del distrito.
+   */
+  const capacityServices = new Set<FacilityServiceId>([
+    "security",
+    "fire",
+    "health",
+    "education",
+    "market",
+  ]);
   const byDistrictId = new Map<DistrictId, Record<FacilityServiceId, number>>();
   for (const districtId of state.world.city.districtIds) {
     const districtParcels = parcels.filter((parcel) => parcel.districtId === districtId);
+    const districtDemandParcels = districtParcels.filter((parcel) => developedIds.has(parcel.id));
     const values = emptyCoverage();
-    if (districtParcels.length > 0) {
-      for (const service of Object.keys(values) as FacilityServiceId[]) {
-        values[service] = Math.round(
-          districtParcels.reduce(
-            (total, parcel) => total + (byParcelId.get(parcel.id)?.[service] ?? 0),
-            0,
-          ) / districtParcels.length,
-        );
+    for (const service of Object.keys(values) as FacilityServiceId[]) {
+      const pool = capacityServices.has(service) ? districtDemandParcels : districtParcels;
+      if (pool.length === 0) {
+        values[service] = 0;
+        continue;
       }
+      values[service] = Math.round(
+        pool.reduce((total, parcel) => total + (byParcelId.get(parcel.id)?.[service] ?? 0), 0) /
+          pool.length,
+      );
     }
     byDistrictId.set(districtId, values);
   }

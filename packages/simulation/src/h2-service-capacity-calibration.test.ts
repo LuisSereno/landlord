@@ -141,6 +141,49 @@ describe("H2-07 · capacidad por servicio, no constante global ciega", () => {
     const half = facilityCoverageIndex(state).facilities.get(station!.id as UrbanFacilityId)!;
     expect(half.effectiveCapacity).toBe(75);
   });
+
+  it("H2-09 · la respuesta al presupuesto es monotónica y sin saltos 0 → cohorte", () => {
+    /**
+     * Con la fórmula vieja (`floor(capacity × level / 100) × demandUnits`) una comisaría de
+     * capacity 2 pasaba de 0 slots al 49 % a 75 al 50 %: un salto discreto que hacía
+     * imposible una política presupuestaria intermedia. Con la nueva (`floor(capacity ×
+     * demandUnits × level / 100)`) la función es monotónica y las diferencias son suaves.
+     */
+    const state = createInitialState(7);
+    const [station] = facilitiesOfKind(state, "police_station");
+    developParcels(state, station!.districtId, 400, 1200);
+    const levels = [0, 25, 50, 75, 100] as const;
+    const capacities = levels.map((level) => {
+      state.phase2.municipal.serviceLevelPercentByCategory.security = level;
+      return facilityCoverageIndex(state).facilities.get(station!.id as UrbanFacilityId)!
+        .effectiveCapacity;
+    });
+    /** 0 al 0 %, 150 al 100 %, monotónico estricto entre los demás. */
+    expect(capacities[0]).toBe(0);
+    expect(capacities[4]).toBe(150);
+    for (let index = 1; index < capacities.length; index += 1)
+      expect(capacities[index]).toBeGreaterThan(capacities[index - 1]!);
+    /** Ninguna escala intermedia da un salto mayor que 40 parcelas (≈ 25 % de 150). */
+    for (let index = 1; index < capacities.length; index += 1)
+      expect(capacities[index]! - capacities[index - 1]!).toBeLessThanOrEqual(40);
+  });
+
+  it("H2-09 · un nivel del 49 % sigue dando capacidad, no cero", () => {
+    /**
+     * El salto brusco "49 % → 0, 50 % → 75" era exactamente el bug que H2-09 cierra. Con la
+     * fórmula nueva, 49 % da floor(2 × 75 × 49 / 100) = 73 —un servicio degradado, no
+     * inexistente—, y 1 % da 1 unidad, no cero.
+     */
+    const state = createInitialState(7);
+    const [station] = facilitiesOfKind(state, "police_station");
+    developParcels(state, station!.districtId, 200, 1500);
+    state.phase2.municipal.serviceLevelPercentByCategory.security = 49;
+    const report = facilityCoverageIndex(state).facilities.get(station!.id as UrbanFacilityId)!;
+    expect(report.effectiveCapacity).toBe(73);
+    state.phase2.municipal.serviceLevelPercentByCategory.security = 1;
+    const minimal = facilityCoverageIndex(state).facilities.get(station!.id as UrbanFacilityId)!;
+    expect(minimal.effectiveCapacity).toBe(1);
+  });
 });
 
 describe("H2-08 · demanda creciente y cobertura decreciente", () => {

@@ -546,6 +546,17 @@ export function facilityCoverageIndex(state: GameState): FacilityCoverageIndex {
     const level = budgetLevelFor(state, service);
     const demandUnits = demandUnitsPerCapacityFor(service);
     /**
+     * H2-09 · respuesta suave al presupuesto. Antes
+     *   `Math.floor((facilityCapacity × level) / 100) × demandUnitsPerCapacity`
+     * truncaba a cohortes ENTERAS antes de multiplicar: una comisaría con capacity 2 y
+     * demandUnits 75 pasaba de 150 slots al 100 % de presupuesto a 0 al 49 %, con un salto
+     * discreto de 0 → 75 al 50 %. La fórmula nueva multiplica primero y divide después:
+     *   `Math.floor(facilityCapacity × demandUnitsPerCapacity × level / 100)`
+     * sigue siendo aritmética entera y determinista, pero el presupuesto modula UNIDADES DE
+     * SERVICIO, no bloques enteros de facility. Con los mismos parámetros:
+     *   level 100 → 150 · level 75 → 112 · level 50 → 75 · level 25 → 37 · level 0 → 0.
+     */
+    /**
      * H2-06 · asignación determinista con capacidad. La Voronoi "nearest-first" dejaba a una
      * parcela sin servir cuando la facility más cercana estaba llena o sin edificio, aunque
      * hubiera otra alcanzable con capacidad libre. El algoritmo nuevo genera todos los pares
@@ -562,8 +573,8 @@ export function facilityCoverageIndex(state: GameState): FacilityCoverageIndex {
     const usedCapacityByFacilityId = new Map<UrbanFacilityId, number>();
     const voronoiDemandByFacilityId = new Map<UrbanFacilityId, number>();
     for (const facility of data.facilities) {
-      const effective =
-        Math.floor((operationalFacilityCapacity(state, facility) * level) / 100) * demandUnits;
+      const operational = operationalFacilityCapacity(state, facility);
+      const effective = Math.floor((operational * demandUnits * level) / 100);
       effectiveCapacityByFacilityId.set(facility.id, effective);
       usedCapacityByFacilityId.set(facility.id, 0);
       voronoiDemandByFacilityId.set(facility.id, 0);

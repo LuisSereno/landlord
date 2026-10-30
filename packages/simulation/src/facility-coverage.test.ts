@@ -83,21 +83,29 @@ describe("V.d.5 cobertura por grafo", () => {
   it("asigna demanda y publica saturación de capacidad", () => {
     const state = createInitialState(7);
     /**
-     * H2-05: para saturar un servicio hay que desarrollar suelo. Se llenan las 200 primeras
-     * parcelas del centro: la comisaría local tiene 2 cohortes × 25 = 50 slots, así que el
-     * informe sigue saturando con 200 parcelas y 50 servidas.
+     * H2-05 + H2-07: para saturar un capacity service hay que desarrollar más parcelas que su
+     * capacidad efectiva. Con el calibrado nuevo:
+     *   - security 2 × 2 cohortes × 75 = 300 slots por city;
+     *   - education 3 × 6 cohortes × 17 = 306 slots.
+     * Se llenan 500 parcelas en el Centro Cívico y 100 en los demás distritos. El objetivo no
+     * es saturar un servicio concreto sino demostrar que, más allá de la capacidad, el informe
+     * reporta `saturated: true` y `coveragePercent < 100`.
      */
     const centro = districtIdByName(state, "Centro Cívico");
-    developParcels(state, centro, 200);
+    developParcels(state, centro, 500, 0);
+    for (const district of state.world.districts.values()) {
+      if ((district.district.id as string) === centro) continue;
+      developParcels(state, district.district.id as string, 100, 800);
+    }
     const index = facilityCoverageIndex(state);
     const reports = [...index.facilities.values()];
     expect(reports.length).toBeGreaterThan(0);
-    expect(reports.some((report) => report.saturated)).toBe(true);
-    const security = reports.find(
-      (report) => report.service === "security" && report.demand > 0,
-    )!;
-    expect(security.demand).toBeGreaterThan(security.effectiveCapacity);
-    expect(security.coveragePercent).toBeLessThan(100);
+    const saturated = reports.filter((report) => report.saturated);
+    expect(saturated.length, "al menos una facility saturada").toBeGreaterThan(0);
+    for (const report of saturated) {
+      expect(report.demand).toBeGreaterThan(report.effectiveCapacity);
+      expect(report.coveragePercent).toBeLessThan(100);
+    }
   });
 
   it("un recorte de presupuesto reduce la capacidad efectiva sin quitar el edificio", () => {

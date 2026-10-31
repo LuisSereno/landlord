@@ -183,6 +183,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
     kind: "building" | "construction";
     id: string;
   }) => void;
+  /** Marca del handler de sprite para que el `pointerup` global no resuelva también el suelo. */
+  private suppressGroundPick = false;
   private indicatorListener?: (target: { parcelId: string; buildingId?: string }) => void;
   private indicatorLayer?: Phaser.GameObjects.Container;
   private indicatorEntries: Array<{
@@ -1285,7 +1287,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
         if (!pointer.leftButtonReleased()) return;
         const picked = sprite?.getData("entityTarget") as
           { kind: "building" | "construction"; id: string } | undefined;
-        if (picked) this.entityPickedListener?.(picked);
+        if (picked) {
+          this.suppressGroundPick = true;
+          this.entityPickedListener?.(picked);
+        }
         pointer.event.stopPropagation?.();
       });
       this.buildingSprites.set(id, sprite);
@@ -1397,6 +1402,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private handlePointerUp(pointer: Phaser.Input.Pointer): void {
     if (pointer.rightButtonReleased()) {
       this.dragStart = null;
+      return;
+    }
+    if (this.suppressGroundPick) {
+      this.suppressGroundPick = false;
       return;
     }
     const camera = this.cameras.main;

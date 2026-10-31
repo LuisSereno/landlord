@@ -121,7 +121,8 @@ export function App() {
     if (!economy || selectionTarget?.kind !== "parcel") return;
     const site = economy.constructionSites.find(
       (entry) =>
-        entry.ownerOrganizationId === PLAYER && entry.parcelIds.includes(selectionTarget.parcelId),
+        entry.ownerOrganizationId === PLAYER &&
+        entry.parcelIds.some((parcelId) => parcelId === selectionTarget.parcelId),
     );
     if (site) setSelectionTarget({ kind: "construction", siteId: site.id });
   }, [economy, selectionTarget]);

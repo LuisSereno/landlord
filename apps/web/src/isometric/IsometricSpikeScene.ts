@@ -1570,7 +1570,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
         return { x: screen.x, y: screen.y };
       },
       getEntityScreenPoint: (id) => {
-        const sprite = this.buildingSprites.get(id);
+        const sprite =
+          this.buildingSprites.get(id) ??
+          this.buildingSprites.get(`building:${id}`) ??
+          this.buildingSprites.get(`site:${id}`);
         if (!sprite) return null;
         camera.preRender();
         const screen = camera.matrixCombined.transformPoint(sprite.x, sprite.y);

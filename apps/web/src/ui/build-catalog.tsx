@@ -173,6 +173,7 @@ function BuildDetail({
     hasBuilding: parcel.buildingIds.length > 0,
     permitted: parcel.permittedBuildingTypes.includes(option.type),
   });
+  const isPlanningMultiParcel = option.siteRequirements.requiredParcels > 1;
   return (
     <div
       aria-label={`Detalle de ${buildingTypeLabel(option.type)}`}
@@ -271,7 +272,7 @@ function BuildDetail({
       )}
       <button
         className="primary-action"
-        disabled={reasons.length > 0 || economy.cash < option.cost}
+        disabled={!isPlanningMultiParcel && reasons.length > 0}
         onClick={() =>
           option.siteRequirements.requiredParcels === 1
             ? actions.startConstruction([parcel.id], option.type)

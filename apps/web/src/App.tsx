@@ -116,6 +116,33 @@ export function App() {
       setPendingSite(null);
   }, [economy, pendingSite]);
 
+  /** Tras iniciar una obra directa, conserva el contexto espacial en la ficha de esa obra. */
+  useEffect(() => {
+    if (!economy || selectionTarget?.kind !== "parcel") return;
+    const site = economy.constructionSites.find(
+      (entry) =>
+        entry.ownerOrganizationId === PLAYER && entry.parcelIds.includes(selectionTarget.parcelId),
+    );
+    if (site) setSelectionTarget({ kind: "construction", siteId: site.id });
+  }, [economy, selectionTarget]);
+
+  /** Mantiene la ficha espacial al completar una obra: site → edificio construido. */
+  useEffect(() => {
+    if (!economy || selectionTarget?.kind !== "construction") return;
+    const siteStillExists = economy.constructionSites.some(
+      (site) => site.id === selectionTarget.siteId,
+    );
+    if (siteStillExists) return;
+    const building = economy.buildings.find(
+      (entry) =>
+        entry.ownerOrganizationId === PLAYER &&
+        entry.parcelIds.some((parcelId) =>
+          economy.parcels.some((parcel) => parcel.id === parcelId),
+        ),
+    );
+    if (building) setSelectionTarget({ kind: "building", buildingId: building.id });
+  }, [economy, selectionTarget]);
+
   /**
    * Hook observacional para el smoke de Playwright (mismo patrón que `__landlordCameraTest`):
    * sólo existe con `?cameraTest=1`, no participa en reglas ni en input, y sirve para localizar

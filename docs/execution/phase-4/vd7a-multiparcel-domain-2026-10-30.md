@@ -271,7 +271,8 @@ Pendiente para V.d-7B (no implementado en esta sesión):
 - smoke visual y capturas.
 
 Deuda de contenido detectada: la ciudad generada contiene pares industriales contiguos naturales,
-pero **ningún triplete**, así que la acería (3 parcelas) no es alcanzable con el generador actual.
+pero la auditoría posterior V.d-7A.1 confirmó múltiples tripletes naturales en las 12 seeds
+canónicas; la acería (3 parcelas) sí es alcanzable con el generador actual.
 La regla no se relaja en V.d-7A; debe decidirse generación/contenido antes de prometerla.
 También queda declarado que la idoneidad de producción de un complejo se lee de la parcela
 primaria (simplificación Alpha) y que la demanda municipal sigue contando parcelas desarrolladas.

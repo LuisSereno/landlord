@@ -72,7 +72,7 @@ proyección, worker y IA rival. Cambiarlo exigía propagarlo entero o dejar dos 
   El código urbanístico de la IA se lee de la parcela, no del bloque, coherente con la regla de
   que la parcela manda.
 - **Jugabilidad observada.** La ciudad generada contiene pares industriales contiguos naturales,
-  pero **ningún triplete**: una acería (3 parcelas) exige geometría que el generador actual no
+  y tripletes naturales: la acería (3 parcelas) se verifica sobre ciudades generadas reales; la
   produce. Queda registrado como deuda de contenido/generación, no como regla a relajar en V.d-7A.
 - **Lo que no cierra esta fase.** V.d-7B sigue pendiente: límites visuales de parcela, frente
   vial dibujado, selección semántica, picking de sprites de edificio/obra, portal de tooltips,

@@ -1,0 +1,1001 @@
+{
+  "contract": "findDevelopmentSite-compatible physical capacity",
+  "cities": [
+    {
+      "seed": 1,
+      "totalMarketableParcels": 709,
+      "industrialParcels": 0,
+      "validTwoParcelIndustrialSites": 194,
+      "validThreeParcelIndustrialSites": 127,
+      "disjointTwoParcelSites": 60,
+      "disjointThreeParcelSites": 14,
+      "districts": [
+        {
+          "districtId": "district_00000001",
+          "profileId": "lomas_del_umbral",
+          "dominantRole": "low_density_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 22,
+          "threeParcelSites": 25
+        },
+        {
+          "districtId": "district_00000002",
+          "profileId": "mercado_del_norte",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 99,
+          "threeParcelSites": 156
+        },
+        {
+          "districtId": "district_00000003",
+          "profileId": "vega_del_cauce",
+          "dominantRole": "green_open_space",
+          "industrialParcels": 0,
+          "twoParcelSites": 30,
+          "threeParcelSites": 41
+        },
+        {
+          "districtId": "district_00000004",
+          "profileId": "barrio_del_umbral",
+          "dominantRole": "urban_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 34,
+          "threeParcelSites": 49
+        },
+        {
+          "districtId": "district_00000005",
+          "profileId": "centro_civico",
+          "dominantRole": "civic_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 57,
+          "threeParcelSites": 71
+        },
+        {
+          "districtId": "district_00000006",
+          "profileId": "barrio_del_taller",
+          "dominantRole": "mixed_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 103,
+          "threeParcelSites": 116
+        },
+        {
+          "districtId": "district_00000007",
+          "profileId": "ensanche_ferroviario_oeste",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 10,
+          "threeParcelSites": 3
+        },
+        {
+          "districtId": "district_00000008",
+          "profileId": "ensanche_ferroviario",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 28,
+          "threeParcelSites": 32
+        },
+        {
+          "districtId": "district_00000009",
+          "profileId": "patios_del_este",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 13,
+          "threeParcelSites": 9
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "totalMarketableParcels": 724,
+      "industrialParcels": 0,
+      "validTwoParcelIndustrialSites": 198,
+      "validThreeParcelIndustrialSites": 120,
+      "disjointTwoParcelSites": 60,
+      "disjointThreeParcelSites": 12,
+      "districts": [
+        {
+          "districtId": "district_00000001",
+          "profileId": "lomas_del_umbral",
+          "dominantRole": "low_density_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 22,
+          "threeParcelSites": 29
+        },
+        {
+          "districtId": "district_00000002",
+          "profileId": "mercado_del_norte",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 91,
+          "threeParcelSites": 152
+        },
+        {
+          "districtId": "district_00000003",
+          "profileId": "vega_del_cauce",
+          "dominantRole": "green_open_space",
+          "industrialParcels": 0,
+          "twoParcelSites": 33,
+          "threeParcelSites": 48
+        },
+        {
+          "districtId": "district_00000004",
+          "profileId": "barrio_del_umbral",
+          "dominantRole": "urban_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 36,
+          "threeParcelSites": 52
+        },
+        {
+          "districtId": "district_00000005",
+          "profileId": "centro_civico",
+          "dominantRole": "civic_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 63,
+          "threeParcelSites": 82
+        },
+        {
+          "districtId": "district_00000006",
+          "profileId": "barrio_del_taller",
+          "dominantRole": "mixed_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 103,
+          "threeParcelSites": 120
+        },
+        {
+          "districtId": "district_00000007",
+          "profileId": "ensanche_ferroviario_oeste",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 14,
+          "threeParcelSites": 7
+        },
+        {
+          "districtId": "district_00000008",
+          "profileId": "ensanche_ferroviario",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 31,
+          "threeParcelSites": 33
+        },
+        {
+          "districtId": "district_00000009",
+          "profileId": "patios_del_este",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 12,
+          "threeParcelSites": 6
+        }
+      ]
+    },
+    {
+      "seed": 3,
+      "totalMarketableParcels": 708,
+      "industrialParcels": 0,
+      "validTwoParcelIndustrialSites": 196,
+      "validThreeParcelIndustrialSites": 119,
+      "disjointTwoParcelSites": 57,
+      "disjointThreeParcelSites": 11,
+      "districts": [
+        {
+          "districtId": "district_00000001",
+          "profileId": "lomas_del_umbral",
+          "dominantRole": "low_density_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 22,
+          "threeParcelSites": 29
+        },
+        {
+          "districtId": "district_00000002",
+          "profileId": "mercado_del_norte",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 99,
+          "threeParcelSites": 153
+        },
+        {
+          "districtId": "district_00000003",
+          "profileId": "vega_del_cauce",
+          "dominantRole": "green_open_space",
+          "industrialParcels": 0,
+          "twoParcelSites": 28,
+          "threeParcelSites": 39
+        },
+        {
+          "districtId": "district_00000004",
+          "profileId": "barrio_del_umbral",
+          "dominantRole": "urban_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 35,
+          "threeParcelSites": 53
+        },
+        {
+          "districtId": "district_00000005",
+          "profileId": "centro_civico",
+          "dominantRole": "civic_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 58,
+          "threeParcelSites": 70
+        },
+        {
+          "districtId": "district_00000006",
+          "profileId": "barrio_del_taller",
+          "dominantRole": "mixed_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 110,
+          "threeParcelSites": 128
+        },
+        {
+          "districtId": "district_00000007",
+          "profileId": "ensanche_ferroviario_oeste",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 15,
+          "threeParcelSites": 8
+        },
+        {
+          "districtId": "district_00000008",
+          "profileId": "ensanche_ferroviario",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 31,
+          "threeParcelSites": 37
+        },
+        {
+          "districtId": "district_00000009",
+          "profileId": "patios_del_este",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 17,
+          "threeParcelSites": 12
+        }
+      ]
+    },
+    {
+      "seed": 5,
+      "totalMarketableParcels": 725,
+      "industrialParcels": 0,
+      "validTwoParcelIndustrialSites": 196,
+      "validThreeParcelIndustrialSites": 124,
+      "disjointTwoParcelSites": 57,
+      "disjointThreeParcelSites": 13,
+      "districts": [
+        {
+          "districtId": "district_00000001",
+          "profileId": "lomas_del_umbral",
+          "dominantRole": "low_density_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 26,
+          "threeParcelSites": 31
+        },
+        {
+          "districtId": "district_00000002",
+          "profileId": "mercado_del_norte",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 95,
+          "threeParcelSites": 157
+        },
+        {
+          "districtId": "district_00000003",
+          "profileId": "vega_del_cauce",
+          "dominantRole": "green_open_space",
+          "industrialParcels": 0,
+          "twoParcelSites": 29,
+          "threeParcelSites": 40
+        },
+        {
+          "districtId": "district_00000004",
+          "profileId": "barrio_del_umbral",
+          "dominantRole": "urban_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 29,
+          "threeParcelSites": 41
+        },
+        {
+          "districtId": "district_00000005",
+          "profileId": "centro_civico",
+          "dominantRole": "civic_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 62,
+          "threeParcelSites": 79
+        },
+        {
+          "districtId": "district_00000006",
+          "profileId": "barrio_del_taller",
+          "dominantRole": "mixed_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 100,
+          "threeParcelSites": 118
+        },
+        {
+          "districtId": "district_00000007",
+          "profileId": "ensanche_ferroviario_oeste",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 12,
+          "threeParcelSites": 6
+        },
+        {
+          "districtId": "district_00000008",
+          "profileId": "ensanche_ferroviario",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 39,
+          "threeParcelSites": 51
+        },
+        {
+          "districtId": "district_00000009",
+          "profileId": "patios_del_este",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 13,
+          "threeParcelSites": 4
+        }
+      ]
+    },
+    {
+      "seed": 7,
+      "totalMarketableParcels": 712,
+      "industrialParcels": 0,
+      "validTwoParcelIndustrialSites": 195,
+      "validThreeParcelIndustrialSites": 125,
+      "disjointTwoParcelSites": 57,
+      "disjointThreeParcelSites": 13,
+      "districts": [
+        {
+          "districtId": "district_00000001",
+          "profileId": "lomas_del_umbral",
+          "dominantRole": "low_density_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 28,
+          "threeParcelSites": 40
+        },
+        {
+          "districtId": "district_00000002",
+          "profileId": "mercado_del_norte",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 85,
+          "threeParcelSites": 152
+        },
+        {
+          "districtId": "district_00000003",
+          "profileId": "vega_del_cauce",
+          "dominantRole": "green_open_space",
+          "industrialParcels": 0,
+          "twoParcelSites": 31,
+          "threeParcelSites": 42
+        },
+        {
+          "districtId": "district_00000004",
+          "profileId": "barrio_del_umbral",
+          "dominantRole": "urban_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 30,
+          "threeParcelSites": 42
+        },
+        {
+          "districtId": "district_00000005",
+          "profileId": "centro_civico",
+          "dominantRole": "civic_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 73,
+          "threeParcelSites": 102
+        },
+        {
+          "districtId": "district_00000006",
+          "profileId": "barrio_del_taller",
+          "dominantRole": "mixed_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 108,
+          "threeParcelSites": 130
+        },
+        {
+          "districtId": "district_00000007",
+          "profileId": "ensanche_ferroviario_oeste",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 12,
+          "threeParcelSites": 6
+        },
+        {
+          "districtId": "district_00000008",
+          "profileId": "ensanche_ferroviario",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 29,
+          "threeParcelSites": 32
+        },
+        {
+          "districtId": "district_00000009",
+          "profileId": "patios_del_este",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 16,
+          "threeParcelSites": 9
+        }
+      ]
+    },
+    {
+      "seed": 11,
+      "totalMarketableParcels": 698,
+      "industrialParcels": 0,
+      "validTwoParcelIndustrialSites": 189,
+      "validThreeParcelIndustrialSites": 131,
+      "disjointTwoParcelSites": 58,
+      "disjointThreeParcelSites": 14,
+      "districts": [
+        {
+          "districtId": "district_00000001",
+          "profileId": "lomas_del_umbral",
+          "dominantRole": "low_density_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 26,
+          "threeParcelSites": 36
+        },
+        {
+          "districtId": "district_00000002",
+          "profileId": "mercado_del_norte",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 85,
+          "threeParcelSites": 152
+        },
+        {
+          "districtId": "district_00000003",
+          "profileId": "vega_del_cauce",
+          "dominantRole": "green_open_space",
+          "industrialParcels": 0,
+          "twoParcelSites": 23,
+          "threeParcelSites": 29
+        },
+        {
+          "districtId": "district_00000004",
+          "profileId": "barrio_del_umbral",
+          "dominantRole": "urban_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 34,
+          "threeParcelSites": 49
+        },
+        {
+          "districtId": "district_00000005",
+          "profileId": "centro_civico",
+          "dominantRole": "civic_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 53,
+          "threeParcelSites": 59
+        },
+        {
+          "districtId": "district_00000006",
+          "profileId": "barrio_del_taller",
+          "dominantRole": "mixed_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 102,
+          "threeParcelSites": 120
+        },
+        {
+          "districtId": "district_00000007",
+          "profileId": "ensanche_ferroviario_oeste",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 12,
+          "threeParcelSites": 8
+        },
+        {
+          "districtId": "district_00000008",
+          "profileId": "ensanche_ferroviario",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 33,
+          "threeParcelSites": 37
+        },
+        {
+          "districtId": "district_00000009",
+          "profileId": "patios_del_este",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 13,
+          "threeParcelSites": 8
+        }
+      ]
+    },
+    {
+      "seed": 13,
+      "totalMarketableParcels": 722,
+      "industrialParcels": 0,
+      "validTwoParcelIndustrialSites": 193,
+      "validThreeParcelIndustrialSites": 126,
+      "disjointTwoParcelSites": 60,
+      "disjointThreeParcelSites": 13,
+      "districts": [
+        {
+          "districtId": "district_00000001",
+          "profileId": "lomas_del_umbral",
+          "dominantRole": "low_density_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 22,
+          "threeParcelSites": 27
+        },
+        {
+          "districtId": "district_00000002",
+          "profileId": "mercado_del_norte",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 103,
+          "threeParcelSites": 151
+        },
+        {
+          "districtId": "district_00000003",
+          "profileId": "vega_del_cauce",
+          "dominantRole": "green_open_space",
+          "industrialParcels": 0,
+          "twoParcelSites": 29,
+          "threeParcelSites": 38
+        },
+        {
+          "districtId": "district_00000004",
+          "profileId": "barrio_del_umbral",
+          "dominantRole": "urban_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 27,
+          "threeParcelSites": 37
+        },
+        {
+          "districtId": "district_00000005",
+          "profileId": "centro_civico",
+          "dominantRole": "civic_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 54,
+          "threeParcelSites": 62
+        },
+        {
+          "districtId": "district_00000006",
+          "profileId": "barrio_del_taller",
+          "dominantRole": "mixed_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 102,
+          "threeParcelSites": 121
+        },
+        {
+          "districtId": "district_00000007",
+          "profileId": "ensanche_ferroviario_oeste",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 16,
+          "threeParcelSites": 12
+        },
+        {
+          "districtId": "district_00000008",
+          "profileId": "ensanche_ferroviario",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 41,
+          "threeParcelSites": 52
+        },
+        {
+          "districtId": "district_00000009",
+          "profileId": "patios_del_este",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 17,
+          "threeParcelSites": 10
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "totalMarketableParcels": 716,
+      "industrialParcels": 0,
+      "validTwoParcelIndustrialSites": 191,
+      "validThreeParcelIndustrialSites": 126,
+      "disjointTwoParcelSites": 61,
+      "disjointThreeParcelSites": 14,
+      "districts": [
+        {
+          "districtId": "district_00000001",
+          "profileId": "lomas_del_umbral",
+          "dominantRole": "low_density_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 28,
+          "threeParcelSites": 39
+        },
+        {
+          "districtId": "district_00000002",
+          "profileId": "mercado_del_norte",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 91,
+          "threeParcelSites": 151
+        },
+        {
+          "districtId": "district_00000003",
+          "profileId": "vega_del_cauce",
+          "dominantRole": "green_open_space",
+          "industrialParcels": 0,
+          "twoParcelSites": 24,
+          "threeParcelSites": 30
+        },
+        {
+          "districtId": "district_00000004",
+          "profileId": "barrio_del_umbral",
+          "dominantRole": "urban_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 31,
+          "threeParcelSites": 46
+        },
+        {
+          "districtId": "district_00000005",
+          "profileId": "centro_civico",
+          "dominantRole": "civic_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 57,
+          "threeParcelSites": 68
+        },
+        {
+          "districtId": "district_00000006",
+          "profileId": "barrio_del_taller",
+          "dominantRole": "mixed_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 97,
+          "threeParcelSites": 117
+        },
+        {
+          "districtId": "district_00000007",
+          "profileId": "ensanche_ferroviario_oeste",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 14,
+          "threeParcelSites": 9
+        },
+        {
+          "districtId": "district_00000008",
+          "profileId": "ensanche_ferroviario",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 36,
+          "threeParcelSites": 45
+        },
+        {
+          "districtId": "district_00000009",
+          "profileId": "patios_del_este",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 13,
+          "threeParcelSites": 9
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "totalMarketableParcels": 724,
+      "industrialParcels": 0,
+      "validTwoParcelIndustrialSites": 197,
+      "validThreeParcelIndustrialSites": 119,
+      "disjointTwoParcelSites": 57,
+      "disjointThreeParcelSites": 13,
+      "districts": [
+        {
+          "districtId": "district_00000001",
+          "profileId": "lomas_del_umbral",
+          "dominantRole": "low_density_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 26,
+          "threeParcelSites": 35
+        },
+        {
+          "districtId": "district_00000002",
+          "profileId": "mercado_del_norte",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 98,
+          "threeParcelSites": 156
+        },
+        {
+          "districtId": "district_00000003",
+          "profileId": "vega_del_cauce",
+          "dominantRole": "green_open_space",
+          "industrialParcels": 0,
+          "twoParcelSites": 32,
+          "threeParcelSites": 48
+        },
+        {
+          "districtId": "district_00000004",
+          "profileId": "barrio_del_umbral",
+          "dominantRole": "urban_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 28,
+          "threeParcelSites": 39
+        },
+        {
+          "districtId": "district_00000005",
+          "profileId": "centro_civico",
+          "dominantRole": "civic_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 64,
+          "threeParcelSites": 81
+        },
+        {
+          "districtId": "district_00000006",
+          "profileId": "barrio_del_taller",
+          "dominantRole": "mixed_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 107,
+          "threeParcelSites": 126
+        },
+        {
+          "districtId": "district_00000007",
+          "profileId": "ensanche_ferroviario_oeste",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 14,
+          "threeParcelSites": 7
+        },
+        {
+          "districtId": "district_00000008",
+          "profileId": "ensanche_ferroviario",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 33,
+          "threeParcelSites": 37
+        },
+        {
+          "districtId": "district_00000009",
+          "profileId": "patios_del_este",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 13,
+          "threeParcelSites": 7
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "totalMarketableParcels": 716,
+      "industrialParcels": 0,
+      "validTwoParcelIndustrialSites": 197,
+      "validThreeParcelIndustrialSites": 125,
+      "disjointTwoParcelSites": 58,
+      "disjointThreeParcelSites": 11,
+      "districts": [
+        {
+          "districtId": "district_00000001",
+          "profileId": "lomas_del_umbral",
+          "dominantRole": "low_density_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 26,
+          "threeParcelSites": 32
+        },
+        {
+          "districtId": "district_00000002",
+          "profileId": "mercado_del_norte",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 93,
+          "threeParcelSites": 156
+        },
+        {
+          "districtId": "district_00000003",
+          "profileId": "vega_del_cauce",
+          "dominantRole": "green_open_space",
+          "industrialParcels": 0,
+          "twoParcelSites": 29,
+          "threeParcelSites": 40
+        },
+        {
+          "districtId": "district_00000004",
+          "profileId": "barrio_del_umbral",
+          "dominantRole": "urban_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 31,
+          "threeParcelSites": 45
+        },
+        {
+          "districtId": "district_00000005",
+          "profileId": "centro_civico",
+          "dominantRole": "civic_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 69,
+          "threeParcelSites": 89
+        },
+        {
+          "districtId": "district_00000006",
+          "profileId": "barrio_del_taller",
+          "dominantRole": "mixed_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 102,
+          "threeParcelSites": 121
+        },
+        {
+          "districtId": "district_00000007",
+          "profileId": "ensanche_ferroviario_oeste",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 10,
+          "threeParcelSites": 3
+        },
+        {
+          "districtId": "district_00000008",
+          "profileId": "ensanche_ferroviario",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 32,
+          "threeParcelSites": 37
+        },
+        {
+          "districtId": "district_00000009",
+          "profileId": "patios_del_este",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 12,
+          "threeParcelSites": 8
+        }
+      ]
+    },
+    {
+      "seed": 1337,
+      "totalMarketableParcels": 725,
+      "industrialParcels": 0,
+      "validTwoParcelIndustrialSites": 194,
+      "validThreeParcelIndustrialSites": 120,
+      "disjointTwoParcelSites": 59,
+      "disjointThreeParcelSites": 13,
+      "districts": [
+        {
+          "districtId": "district_00000001",
+          "profileId": "lomas_del_umbral",
+          "dominantRole": "low_density_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 23,
+          "threeParcelSites": 30
+        },
+        {
+          "districtId": "district_00000002",
+          "profileId": "mercado_del_norte",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 101,
+          "threeParcelSites": 156
+        },
+        {
+          "districtId": "district_00000003",
+          "profileId": "vega_del_cauce",
+          "dominantRole": "green_open_space",
+          "industrialParcels": 0,
+          "twoParcelSites": 29,
+          "threeParcelSites": 41
+        },
+        {
+          "districtId": "district_00000004",
+          "profileId": "barrio_del_umbral",
+          "dominantRole": "urban_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 28,
+          "threeParcelSites": 37
+        },
+        {
+          "districtId": "district_00000005",
+          "profileId": "centro_civico",
+          "dominantRole": "civic_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 62,
+          "threeParcelSites": 85
+        },
+        {
+          "districtId": "district_00000006",
+          "profileId": "barrio_del_taller",
+          "dominantRole": "mixed_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 114,
+          "threeParcelSites": 124
+        },
+        {
+          "districtId": "district_00000007",
+          "profileId": "ensanche_ferroviario_oeste",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 14,
+          "threeParcelSites": 7
+        },
+        {
+          "districtId": "district_00000008",
+          "profileId": "ensanche_ferroviario",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 36,
+          "threeParcelSites": 45
+        },
+        {
+          "districtId": "district_00000009",
+          "profileId": "patios_del_este",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 14,
+          "threeParcelSites": 9
+        }
+      ]
+    },
+    {
+      "seed": 2026,
+      "totalMarketableParcels": 726,
+      "industrialParcels": 0,
+      "validTwoParcelIndustrialSites": 196,
+      "validThreeParcelIndustrialSites": 121,
+      "disjointTwoParcelSites": 59,
+      "disjointThreeParcelSites": 12,
+      "districts": [
+        {
+          "districtId": "district_00000001",
+          "profileId": "lomas_del_umbral",
+          "dominantRole": "low_density_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 25,
+          "threeParcelSites": 39
+        },
+        {
+          "districtId": "district_00000002",
+          "profileId": "mercado_del_norte",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 100,
+          "threeParcelSites": 149
+        },
+        {
+          "districtId": "district_00000003",
+          "profileId": "vega_del_cauce",
+          "dominantRole": "green_open_space",
+          "industrialParcels": 0,
+          "twoParcelSites": 25,
+          "threeParcelSites": 31
+        },
+        {
+          "districtId": "district_00000004",
+          "profileId": "barrio_del_umbral",
+          "dominantRole": "urban_residential",
+          "industrialParcels": 0,
+          "twoParcelSites": 28,
+          "threeParcelSites": 35
+        },
+        {
+          "districtId": "district_00000005",
+          "profileId": "centro_civico",
+          "dominantRole": "civic_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 67,
+          "threeParcelSites": 85
+        },
+        {
+          "districtId": "district_00000006",
+          "profileId": "barrio_del_taller",
+          "dominantRole": "mixed_core",
+          "industrialParcels": 0,
+          "twoParcelSites": 108,
+          "threeParcelSites": 119
+        },
+        {
+          "districtId": "district_00000007",
+          "profileId": "ensanche_ferroviario_oeste",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 14,
+          "threeParcelSites": 10
+        },
+        {
+          "districtId": "district_00000008",
+          "profileId": "ensanche_ferroviario",
+          "dominantRole": "commercial_corridor",
+          "industrialParcels": 0,
+          "twoParcelSites": 26,
+          "threeParcelSites": 31
+        },
+        {
+          "districtId": "district_00000009",
+          "profileId": "patios_del_este",
+          "dominantRole": "industrial_logistics",
+          "industrialParcels": 0,
+          "twoParcelSites": 11,
+          "threeParcelSites": 3
+        }
+      ]
+    }
+  ]
+}

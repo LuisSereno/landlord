@@ -318,7 +318,8 @@ automatización en verde; gates y build se registran en el acta
 `docs/execution/phase-4/vd7a-multiparcel-domain-2026-10-30.md`. **V.d-7B visual (límites de
 parcela, frente vial, selección semántica, picking, tooltip portal, lenguaje de facilities, smoke
 visual) sigue pendiente; V.d no se cierra y el playtest humano sigue `PENDING HUMAN PLAYTEST`.**
-La ciudad generada no produce tripletes industriales contiguos, así que la acería queda como deuda
+La auditoría V.d-7A.1 confirmó que las doce seeds canónicas producen múltiples tripletes industriales
+contiguos compatibles con la acería; no existe deuda de alcance de generación.
 de contenido/generación.
 
 **Incidencia del entorno registrada:** a mitad de la batería de gates el ejecutor de `pnpm`

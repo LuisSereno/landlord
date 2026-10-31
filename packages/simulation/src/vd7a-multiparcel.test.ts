@@ -35,12 +35,11 @@ import { canonicalizeState } from "./runner";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { createInitialState, type GameState } from "./state";
 import { advanceProductSystems } from "./systems";
+import { enumerateDevelopmentSites, findDevelopmentSite } from "./development-site";
 
 /**
- * V.d-7A · invariantes del dominio multi-parcela. La ciudad de fixture no contiene tripletes
- * industriales contiguos (los bloques industriales se generan por pares), así que los casos que
- * necesitan tres parcelas o una frontera catastral concreta reconstruyen la geometría de parcelas
- * ya compradas. El comando valida el contrato real; lo sintético es sólo el solar de prueba.
+ * V.d-7A · invariantes del dominio multi-parcela. Los fixtures sintéticos fijan geometrías límite
+ * (diagonales, área y frontera catastral); no sustituyen la aceptación sobre tejido generado real.
  */
 
 const ACTOR = parsePersonId("person_00000001");
@@ -163,7 +162,8 @@ function rectangle(x0: number, y0: number, width: number, height: number): GridC
 
 /**
  * Conjunto real de parcelas contiguas por borde, del mismo distrito y código, aptas para el tipo.
- * La ciudad genera pares industriales naturales; no hay tripletes, así que sólo se usa con 2.
+ * Busca conjuntos controlados para invariantes de dos parcelas; los tripletes reales se validan
+ * en la aceptación de ciudades canónicas más abajo.
  */
 function findConnectedParcels(
   state: GameState,
@@ -773,5 +773,39 @@ describe("V.d-7A · IA y automatización", () => {
     )!;
     expect(site.parcelIds).toEqual(building.parcelIds);
     for (const id of site.parcelIds) expect(building.parcelIds).toContain(id);
+  });
+});
+
+describe("V.d-7A.1 · acería sobre tejido generado", () => {
+  it.each([1, 42, 2026])("acepta una acería en un triplete natural de la seed %s", (seed) => {
+    const state = freshState(seed);
+    const natural = enumerateDevelopmentSites({
+      state,
+      definition: BUILDING_DEFINITIONS.steelworks,
+    })[0];
+    expect(natural).toBeDefined();
+    const parcels = natural!.map((id) => state.phase2.parcels.get(id)!);
+    buy(state, parcels);
+    expect(build(state, natural!, "steelworks", `generated-steel-${String(seed)}`)).toEqual({
+      accepted: true,
+    });
+    expect([...state.phase2.constructionSites.values()][0]!.parcelIds).toEqual(natural);
+  });
+
+  it("el rival encuentra un triplete natural cuando se le asigna legalmente", () => {
+    const state = createInitialState(42);
+    const natural = enumerateDevelopmentSites({
+      state,
+      definition: BUILDING_DEFINITIONS.steelworks,
+    })[0]!;
+    for (const parcelId of natural)
+      state.phase2.parcels.get(parcelId)!.ownerOrganizationId = RIVAL_ORGANIZATION_ID;
+    expect(
+      findDevelopmentSite({
+        state,
+        definition: BUILDING_DEFINITIONS.steelworks,
+        ownerOrganizationId: RIVAL_ORGANIZATION_ID,
+      }),
+    ).toEqual(natural);
   });
 });

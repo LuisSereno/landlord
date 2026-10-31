@@ -1378,7 +1378,8 @@ existentes, sin fusionarlas. Estas son las reglas permanentes:
 
 Consecuencias: los diez golden digests y las doce medidas de ciudad cambian sólo por superficie
 canónica (normalizando `parcelIds`→`parcelId` recuperan exactamente sus valores previos); ninguna
-constante económica se toca. La ciudad generada tiene pares industriales pero ningún triplete, así
+constante económica se toca. La auditoría V.d-7A.1 confirmó que la ciudad generada tiene pares y
+tripletes industriales naturales, así
 que la acería queda como deuda de contenido/generación. V.d-7B (geometría visual de parcelas,
 frente vial, selección semántica, picking, tooltip portal, lenguaje de facilities, smoke visual)
 sigue pendiente; V.d no se cierra y el playtest humano sigue `PENDING HUMAN PLAYTEST`.

@@ -165,6 +165,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private projection: ViewProjectionV2 | null = null;
   private overlay: MapOverlay = "ownership";
   private cellPickedListener?: (cell: GridCell) => void;
+  private entityPickedListener?: (target: { kind: "building" | "construction"; id: string }) => void;
   private indicatorListener?: (target: { parcelId: string; buildingId?: string }) => void;
   private indicatorLayer?: Phaser.GameObjects.Container;
   private indicatorEntries: Array<{
@@ -320,6 +321,13 @@ export class IsometricSpikeScene extends Phaser.Scene {
   public setSelectedCell(cell: GridCell | null): void {
     this.selectedCell = cell ? { ...cell } : null;
     this.drawOverlay();
+  }
+
+  /** Entity picking is semantic; React receives identity and Phaser keeps geometry local. */
+  public setEntityPickedListener(
+    listener: (target: { kind: "building" | "construction"; id: string }) => void,
+  ): void {
+    this.entityPickedListener = listener;
   }
 
   /** Centra la cámara en una celda; respeta `prefers-reduced-motion`. */
@@ -1130,7 +1138,12 @@ export class IsometricSpikeScene extends Phaser.Scene {
     const seen = new Set<string>();
     for (const placement of plan) {
       const center = gridToScreen(footprintVisualCenter(placement.cells), this.layout);
-      const sprite = this.ensureBuildingSprite(placement.id, placement.textureKey, placement.asset);
+      const sprite = this.ensureBuildingSprite(
+        placement.id,
+        placement.textureKey,
+        placement.asset,
+        { kind: placement.entityKind, id: placement.entityId },
+      );
       sprite.setPosition(center.x, center.y);
       sprite.setScale(spriteScaleFor(placement.asset, this.layout.tileWidth));
       sprite.setDepth(depthForFootprintCells(placement.cells) + placement.depthBias);
@@ -1171,16 +1184,27 @@ export class IsometricSpikeScene extends Phaser.Scene {
     id: string,
     key: string,
     asset: BuildingAssetV1,
+    target: { kind: "building" | "construction"; id: string },
   ): Phaser.GameObjects.Image {
     let sprite = this.buildingSprites.get(id);
     if (!sprite) {
       sprite = this.add.image(0, 0, key);
+      sprite.setInteractive({ useHandCursor: true });
+      sprite.on("pointerup", (pointer: Phaser.Input.Pointer) => {
+        if (!pointer.leftButtonReleased()) return;
+        const picked = sprite?.getData("entityTarget") as
+          | { kind: "building" | "construction"; id: string }
+          | undefined;
+        if (picked) this.entityPickedListener?.(picked);
+        pointer.event.stopPropagation?.();
+      });
       this.buildingSprites.set(id, sprite);
     } else if (sprite.texture.key !== key) {
       sprite.setTexture(key);
     }
     const origin = originFromPivot(asset);
     sprite.setOrigin(origin.x, origin.y);
+    sprite.setData("entityTarget", target);
     return sprite;
   }
 

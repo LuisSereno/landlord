@@ -70,6 +70,13 @@ export function setIsometricSelection(
   mountedScenes.get(game)?.setSelectedCell(cell);
 }
 
+export function setIsometricEntityPickedListener(
+  game: Phaser.Game,
+  listener: (target: { kind: "building" | "construction"; id: string }) => void,
+): void {
+  mountedScenes.get(game)?.setEntityPickedListener(listener);
+}
+
 export function setIsometricIndicatorListener(
   game: Phaser.Game,
   listener: (target: { parcelId: string; buildingId?: string }) => void,

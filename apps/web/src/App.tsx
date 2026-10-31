@@ -13,6 +13,7 @@ import type { BuildingId, BuildingType, ViewProjectionV2 } from "@landlord/share
 import {
   mountIsometricSpike,
   focusIsometricCell,
+  setIsometricEntityPickedListener,
   setIsometricIndicatorListener,
   setIsometricSelection,
   updateIsometricOverlay,
@@ -380,6 +381,28 @@ export function App() {
       <div className="game-body">
         <MapViewport
           onCellPicked={onCellPicked}
+          onEntityPicked={(target) => {
+            if (!economy) return;
+            if (target.kind === "building") {
+              const building = economy.buildings.find((entry) => entry.id === target.id);
+              if (!building) return;
+              const parcel = building
+                ? economy.parcels.find((entry) => entry.id === building.parcelIds[0])
+                : undefined;
+              if (!parcel) return;
+              setSelectedCell({ ...parcel.cell });
+              setSelectedBuildingId(building.id);
+            } else {
+              const site = economy.constructionSites.find((entry) => entry.id === target.id);
+              const parcel = site
+                ? economy.parcels.find((entry) => entry.id === site.parcelIds[0])
+                : undefined;
+              if (!parcel) return;
+              setSelectedCell({ ...parcel.cell });
+              setSelectedBuildingId(null);
+            }
+            setHub(null);
+          }}
           onIndicator={(target) => {
             const parcel = economy?.parcels.find((entry) => entry.id === target.parcelId);
             if (parcel) selectParcel(parcel);
@@ -457,19 +480,20 @@ const MapViewport = forwardRef<
     projection: ViewProjectionV2 | null;
     overlay: MapOverlay;
     onCellPicked: (cell: GridCell) => void;
+    onEntityPicked: (target: { kind: "building" | "construction"; id: string }) => void;
     onIndicator: (target: { parcelId: string; buildingId?: string }) => void;
   }
->(function MapViewport({ projection, overlay, onCellPicked, onIndicator }, ref) {
+>(function MapViewport({ projection, overlay, onCellPicked, onEntityPicked, onIndicator }, ref) {
   const container = useRef<HTMLDivElement>(null);
   const game = useRef<ReturnType<typeof mountIsometricSpike> | null>(null);
   /**
    * El motor Phaser se monta UNA vez. Los callbacks viven en una ref: si el efecto dependiera de
    * ellos, cada render de React destruiría y recrearía el canvas (y con él el contexto WebGL).
    */
-  const handlers = useRef({ onCellPicked, onIndicator });
+  const handlers = useRef({ onCellPicked, onEntityPicked, onIndicator });
   useEffect(() => {
-    handlers.current = { onCellPicked, onIndicator };
-  }, [onCellPicked, onIndicator]);
+    handlers.current = { onCellPicked, onEntityPicked, onIndicator };
+  }, [onCellPicked, onEntityPicked, onIndicator]);
 
   useEffect(() => {
     if (!container.current) return undefined;
@@ -477,6 +501,7 @@ const MapViewport = forwardRef<
       handlers.current.onCellPicked(cell),
     );
     game.current = mounted;
+    setIsometricEntityPickedListener(mounted, (target) => handlers.current.onEntityPicked(target));
     setIsometricIndicatorListener(mounted, (target) => handlers.current.onIndicator(target));
     return () => {
       mounted.destroy(true);

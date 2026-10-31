@@ -128,6 +128,8 @@ export function depthForFootprintCells(cells: readonly GridCell[]): number {
  */
 export type BuildingSpritePlacement = {
   id: string;
+  entityKind: "building" | "construction";
+  entityId: string;
   domainType: string;
   assetState: BuildingAssetState;
   cells: readonly GridCell[];
@@ -169,6 +171,8 @@ export function buildingSpritePlan(
     if (!resolved) continue;
     plan.push({
       id,
+      entityKind: "building",
+      entityId: building.id,
       domainType: building.type,
       assetState: state,
       cells: building.footprintCells,
@@ -186,6 +190,8 @@ export function buildingSpritePlan(
     if (!resolved) continue;
     plan.push({
       id,
+      entityKind: "construction",
+      entityId: site.id,
       domainType: site.buildingType,
       assetState: state,
       cells: site.footprintCells,

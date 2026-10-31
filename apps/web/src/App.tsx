@@ -44,6 +44,7 @@ import {
   type SpatialSelection,
 } from "./ui/selection";
 import type { GameActions, HubKind, ProjectedParcel } from "./ui/types";
+import type { PendingDevelopmentSite } from "./ui/site-assembly";
 
 const PLAYER = "org_00000001";
 
@@ -61,6 +62,7 @@ export function App() {
   const session = useGameSession();
   const { economy, projection, client } = session;
   const [selectionTarget, setSelectionTarget] = useState<SpatialSelection | null>(null);
+  const [pendingSite, setPendingSite] = useState<PendingDevelopmentSite | null>(null);
   const [overlay, setOverlay] = useState<MapOverlay>("ownership");
   const [hub, setHub] = useState<HubKind | null>(null);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -84,8 +86,26 @@ export function App() {
   }, [economy, projection]);
 
   useEffect(() => {
-    mapRef.current?.setSelection(selectionTarget);
-  }, [selectionTarget]);
+    mapRef.current?.setSelection(
+      pendingSite
+        ? { kind: "site-assembly", parcelIds: pendingSite.parcelIds }
+        : selectionTarget,
+    );
+  }, [pendingSite, selectionTarget]);
+
+  /** Sólo se cierra el ensamblado cuando la proyección confirma que el comando creó la obra. */
+  useEffect(() => {
+    if (
+      pendingSite &&
+      economy?.constructionSites.some(
+        (site) =>
+          site.buildingType === pendingSite.buildingType &&
+          site.parcelIds.length === pendingSite.parcelIds.length &&
+          site.parcelIds.every((id) => pendingSite.parcelIds.includes(id)),
+      )
+    )
+      setPendingSite(null);
+  }, [economy, pendingSite]);
 
   /**
    * Hook observacional para el smoke de Playwright (mismo patrón que `__landlordCameraTest`):
@@ -425,6 +445,10 @@ export function App() {
               onOpenHub: openHub,
               onSelectBuilding: (buildingId) =>
                 setSelectionTarget({ kind: "building", buildingId }),
+              pendingSite,
+              onBeginSite: setPendingSite,
+              onUpdateSite: setPendingSite,
+              onCancelSite: () => setPendingSite(null),
             }}
             selection={selection}
           />

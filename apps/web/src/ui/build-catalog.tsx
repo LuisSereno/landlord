@@ -8,6 +8,7 @@ import { HelpPopover, HelpTooltip } from "./help";
 import { ResourceIcon, UiIcon } from "./icons";
 import { buildingTypeLabel, formatGameDuration, resourceLabel } from "./labels";
 import type { Economy, GameActions, GameCalendar, ProjectedParcel } from "./types";
+import type { PendingDevelopmentSite } from "./site-assembly";
 
 /**
  * V.d-UX · catálogo de construcción visual (spec §7.3). Tarjetas con miniatura del asset real,
@@ -52,11 +53,13 @@ export function BuildCatalog({
   parcel,
   calendar,
   actions,
+  onBeginSite,
 }: {
   economy: Economy;
   parcel: ProjectedParcel;
   calendar: GameCalendar;
   actions: GameActions;
+  onBeginSite: (site: PendingDevelopmentSite) => void;
 }) {
   const [selected, setSelected] = useState<BuildingType | null>(null);
   const eligible = economy.constructionOptions
@@ -138,6 +141,7 @@ export function BuildCatalog({
           economy={economy}
           onClose={() => setSelected(null)}
           option={selectedOption}
+          onBeginSite={onBeginSite}
           parcel={parcel}
         />
       ) : null}
@@ -151,6 +155,7 @@ function BuildDetail({
   parcel,
   calendar,
   actions,
+  onBeginSite,
   onClose,
 }: {
   option: Economy["constructionOptions"][number];
@@ -158,6 +163,7 @@ function BuildDetail({
   parcel: ProjectedParcel;
   calendar: GameCalendar;
   actions: GameActions;
+  onBeginSite: (site: PendingDevelopmentSite) => void;
   onClose: () => void;
 }) {
   const reasons = constructionBlockedReasons({
@@ -235,6 +241,13 @@ function BuildDetail({
           <dd>{option.allowedUses.length} uso(s) compatibles con el código</dd>
         </div>
         <div>
+          <dt>Solar</dt>
+          <dd>
+            {option.siteRequirements.requiredParcels} parcela(s) · mínimo {option.siteRequirements.minCombinedAreaCells} celdas
+            {option.siteRequirements.requireEdgeContiguous ? " · contiguas por borde" : ""}
+          </dd>
+        </div>
+        <div>
           <dt>Mejora</dt>
           <dd>
             {option.upgradeCost} u. ·{" "}
@@ -258,10 +271,15 @@ function BuildDetail({
       <button
         className="primary-action"
         disabled={reasons.length > 0 || economy.cash < option.cost}
-        onClick={() => actions.startConstruction([parcel.id], option.type)}
+        onClick={() =>
+          option.siteRequirements.requiredParcels === 1
+            ? actions.startConstruction([parcel.id], option.type)
+            : onBeginSite({ buildingType: option.type, parcelIds: [parcel.id] })
+        }
         type="button"
       >
-        <UiIcon name="construction" /> Construir
+        <UiIcon name="construction" />{" "}
+        {option.siteRequirements.requiredParcels === 1 ? "Construir" : "Elegir solares"}
       </button>
       <p className="muted">
         <HelpTooltip topic="crew" /> Una cuadrilla libre debe quedar asignada para que la obra

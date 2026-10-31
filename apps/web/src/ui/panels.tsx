@@ -46,6 +46,14 @@ import type {
 } from "./types";
 import { facilityMetricsSummary } from "../facility-metrics";
 import type { ContextSelection } from "./selection";
+import {
+  addParcelToSite,
+  removeParcelFromSite,
+  siteAssemblyCandidates,
+  siteAssemblyIssues,
+  siteRequirementsFor,
+  type PendingDevelopmentSite,
+} from "./site-assembly";
 export type { ContextSelection };
 
 const PLAYER = "org_00000001";
@@ -59,6 +67,10 @@ export type PanelContext = {
   onClose: () => void;
   onOpenHub: (hub: HubKind) => void;
   onSelectBuilding: (buildingId: string) => void;
+  pendingSite: PendingDevelopmentSite | null;
+  onBeginSite: (site: PendingDevelopmentSite) => void;
+  onUpdateSite: (site: PendingDevelopmentSite | null) => void;
+  onCancelSite: () => void;
 };
 
 /**
@@ -184,9 +196,17 @@ function ParcelPanel({ parcel, context }: { parcel: ProjectedParcel; context: Pa
         </dl>
       </section>
 
+      {context.pendingSite ? <SiteAssemblyPanel context={context} parcel={parcel} /> : null}
+
       {/* Un solar propio y vacío prioriza construir: el catálogo va antes que el detalle. */}
       {owned && vacant ? (
-        <BuildCatalog actions={actions} calendar={calendar} economy={economy} parcel={parcel} />
+        <BuildCatalog
+          actions={actions}
+          calendar={calendar}
+          economy={economy}
+          onBeginSite={context.onBeginSite}
+          parcel={parcel}
+        />
       ) : null}
 
       <section className="panel-section">
@@ -273,7 +293,8 @@ function ParcelPanel({ parcel, context }: { parcel: ProjectedParcel; context: Pa
           onClick={() => actions.buyParcel(parcel.id)}
           type="button"
         >
-          <UiIcon name="money" /> Comprar parcela · {parcel.marketValue} u.
+          <UiIcon name="money" /> {context.pendingSite ? "Comprar para ampliar · " : "Comprar parcela · "}
+          {parcel.marketValue} u.
         </button>
       ) : null}
       {owned && !vacant ? (
@@ -283,6 +304,63 @@ function ParcelPanel({ parcel, context }: { parcel: ProjectedParcel; context: Pa
         </p>
       ) : null}
     </>
+  );
+}
+
+function SiteAssemblyPanel({ context, parcel }: { context: PanelContext; parcel: ProjectedParcel }) {
+  const pending = context.pendingSite;
+  if (!pending) return null;
+  const requirements = siteRequirementsFor(context.economy, pending.buildingType);
+  if (!requirements) return null;
+  const selected = pending.parcelIds.includes(parcel.id);
+  const candidates = siteAssemblyCandidates(context.economy, pending);
+  const canAdd = candidates.some((candidate) => candidate.id === parcel.id);
+  const issues = siteAssemblyIssues(context.economy, pending);
+  const ready = issues.length === 0;
+  return (
+    <section aria-label="Ensamblado de solar" className="panel-section site-assembly">
+      <h3>
+        <UiIcon name="construction" /> Proyecto en preparación
+      </h3>
+      <p className="muted">
+        {pending.parcelIds.length}/{requirements.requiredParcels} parcelas · {pending.parcelIds
+          .map((id) => id.replace("parcel_", "Solar "))
+          .join(", ")}
+      </p>
+      <p className="muted">
+        Mínimo {requirements.minCombinedAreaCells} celdas
+        {requirements.requireEdgeContiguous ? " y solares contiguos por borde." : "."}
+      </p>
+      {selected ? (
+        <button
+          onClick={() => context.onUpdateSite(removeParcelFromSite(pending, parcel.id))}
+          type="button"
+        >
+          Quitar este solar
+        </button>
+      ) : canAdd ? (
+        <button
+          onClick={() => context.onUpdateSite(addParcelToSite(context.economy, pending, parcel.id))}
+          type="button"
+        >
+          Añadir este solar
+        </button>
+      ) : null}
+      {ready ? (
+        <button
+          className="primary-action"
+          onClick={() => context.actions.startConstruction(pending.parcelIds, pending.buildingType)}
+          type="button"
+        >
+          <UiIcon name="construction" /> Iniciar obra con {pending.parcelIds.length} solares
+        </button>
+      ) : (
+        <p className="muted">Selecciona los solares contiguos que faltan para iniciar la obra.</p>
+      )}
+      <button className="text-action" onClick={context.onCancelSite} type="button">
+        Cancelar proyecto
+      </button>
+    </section>
   );
 }
 

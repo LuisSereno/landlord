@@ -102,7 +102,8 @@ export type MapSelectionTarget =
   | { kind: "building"; buildingId: string }
   | { kind: "construction"; siteId: string }
   | { kind: "facility"; facilityId: string }
-  | { kind: "public-space"; publicSpaceId: string };
+  | { kind: "public-space"; publicSpaceId: string }
+  | { kind: "site-assembly"; parcelIds: readonly string[] };
 
 type CameraTestApi = {
   configure(camera: { zoom: number; scrollX: number; scrollY: number }): void;
@@ -721,6 +722,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
     } else if (target?.kind === "public-space") {
       const space = this.projection?.publicSpaces.find((entry) => entry.id === target.publicSpaceId);
       if (space) this.drawParcelGeometry(space.cells, COLORS.selected, 0.12, 1, 3);
+    } else if (target?.kind === "site-assembly") {
+      for (const parcel of this.projection?.economy?.parcels.filter((entry) =>
+        target.parcelIds.includes(entry.id),
+      ) ?? [])
+        this.drawSelectedParcel(parcel);
     } else if (this.selectedCell) {
       const parcel = this.projection?.economy?.parcels.find((entry) =>
         entry.cells.some(

@@ -249,8 +249,11 @@ archivó en `vd7a-service-final.json` para no pisar la evidencia de H2.1.
 ## 16. Rendimiento
 
 `system:cost` midió en esta máquina (una corrida): `mature` media 52,91 ms, p50 51,25 ms y
-p95 79,43 ms en la escala grande; `transition` p95 54,89 ms. La regla de 60 ms de H2.1 sigue sin
-resolver y **no se declara superada**: es el mismo disparador de medición que H2.1 dejó abierto
+p95 79,43 ms en la escala grande; `transition` p95 54,89 ms. Esta observación aislada queda
+superseded by paired focused measurement en `vd7a2-focused-performance-2026-10-31.md`: tres corridas
+por versión con la metodología longitudinal autoritativa dieron WIP p95 mediano 54,89 ms frente a
+BASE 51,83 ms (+5,91 %). La regla de 60 ms de H2.1 queda resuelta para V.d-7A.1: no hay regresión
+material atribuible a V.d-7A.
 (24 muestras maduras, el p95 equivale a la segunda mayor y la varianza entre corridas de la misma
 máquina ya era 51–68 ms). V.d-7A no añade trabajo por tick: los índices siguen siendo derivados y
 se reconstruyen en los mismos puntos; el coste nuevo está en operaciones de conjunto acotadas por

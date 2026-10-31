@@ -125,6 +125,8 @@
 - execution/phase-4/vd7a-multiparcel-domain-2026-10-30.md — acta V.d-7A: cierre del dominio multi-parcela (contrato `parcelIds`, `siteRequirements`, contigüidad 4-conexa, permisos por conjunto exacto, completion/upgrade/repair/ruina, venta bloqueada, colateral prorrateado, snapshot, proyección, IA rival y automatización) con tests A–T, índices, colateral y selección de solar; **V.d-7B visual sigue pendiente y V.d no se cierra**.
 - execution/phase-4/vd7a-fabric-gate.json — gate de tejido re-ejecutado sobre V.d-7A (100 seeds, 900 distritos), archivado aparte para no pisar `vd1-fabric-gate.json`.
 - execution/phase-4/vd7a-service-final.json — corrida de `services:balance` sobre V.d-7A (12 seeds × cuatro escenarios), archivada aparte para no pisar `vd-h21-service-final.json`.
+- execution/phase-4/vd7a2-focused-performance-2026-10-31.md — gate enfocado de cierres mensuales V.d-7A.2: tres pares BASE/WIP, 144 muestras por versión y decisión de no regresión.
+- execution/phase-4/vd7a2-system-cost-comparison.json — resumen estructurado de las seis corridas del gate enfocado.
 
 ## Benchmark morfológico
 - `tools/urban-benchmark/README.md` — herramienta offline (OSMnx fijado por versión), las 28 ventanas de

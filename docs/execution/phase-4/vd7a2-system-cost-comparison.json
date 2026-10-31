@@ -1,0 +1,33 @@
+{
+  "baseSha": "1afa0c8df27e25c699ab236e950447a7fdc4f52f",
+  "wipSha": "b78e04f39b3d085da6e36fb65890a7b8dafb1437",
+  "method": {
+    "scaleParcels": 800,
+    "seeds": 8,
+    "closesPerSeed": 6,
+    "samplesPerRun": 48,
+    "runsPerVersion": 3,
+    "harness": "measureMonthlyCloses"
+  },
+  "base": {
+    "runs": [
+      { "meanMs": 39.97001975, "p50Ms": 39.746456, "p95Ms": 51.828154, "maxMs": 60.288205 },
+      { "meanMs": 39.24534917, "p50Ms": 38.115747, "p95Ms": 47.479474, "maxMs": 49.306485 },
+      { "meanMs": 41.65124679, "p50Ms": 40.973714, "p95Ms": 54.947641, "maxMs": 58.385107 }
+    ],
+    "median": { "meanMs": 39.97001975, "p50Ms": 39.746456, "p95Ms": 51.828154, "maxMs": 58.385107 }
+  },
+  "wip": {
+    "runs": [
+      { "meanMs": 40.67465775, "p50Ms": 39.138242, "p95Ms": 54.888698, "maxMs": 55.288481 },
+      { "meanMs": 37.54862496, "p50Ms": 37.023859, "p95Ms": 46.69569, "maxMs": 47.055606 },
+      { "meanMs": 42.36664467, "p50Ms": 40.838012, "p95Ms": 59.604291, "maxMs": 61.60674 }
+    ],
+    "median": { "meanMs": 40.67465775, "p50Ms": 39.138242, "p95Ms": 54.888698, "maxMs": 55.288481 }
+  },
+  "comparison": {
+    "p50DeltaPercent": -1.530884,
+    "p95DeltaPercent": 5.905113,
+    "decision": "PERFORMANCE PASS"
+  }
+}

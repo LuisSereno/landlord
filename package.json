@@ -42,6 +42,7 @@
     "road:benchmark": "ROAD_BENCHMARK=1 vitest run --config vitest.config.ts packages/simulation/src/road-topology-benchmark.test.ts --reporter=verbose",
     "fabric:gate": "FABRIC_GATE=1 vitest run --config vitest.config.ts packages/simulation/src/urban-fabric-gate.test.ts --reporter=verbose",
     "system:cost": "SYSTEM_COST=1 vitest run --config vitest.config.ts packages/simulation/src/system-cost.test.ts --reporter=verbose",
+    "system:cost:monthly": "SYSTEM_COST_MONTHLY=1 vitest run --config vitest.config.ts packages/simulation/src/system-cost-monthly.test.ts --reporter=verbose",
     "soak": "SOAK_FULL=1 vitest run --config vitest.config.ts packages/simulation/src/soak.test.ts --reporter=verbose",
     "audit:metrics": "AUDIT_METRICS=1 vitest run --config vitest.config.ts packages/simulation/src/audit-metrics.test.ts --reporter=verbose",
     "balance:campaign": "BALANCE_CAMPAIGN=1 vitest run --config vitest.config.ts packages/simulation/src/balance.test.ts --reporter=verbose",

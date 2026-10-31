@@ -171,6 +171,18 @@ function ParcelPanel({ parcel, context }: { parcel: ProjectedParcel; context: Pa
         </div>
         <dl className="detail-grid">
           <div>
+            <dt>Superficie</dt>
+            <dd>{parcel.cells.length} celdas</dd>
+          </div>
+          <div>
+            <dt>Acceso vial</dt>
+            <dd>
+              {parcel.roadFrontages.length === 0
+                ? "Sin frente de calle"
+                : `${parcel.roadFrontages.reduce((total, frontage) => total + frontage.cells.length, 0)} celdas de frente`}
+            </dd>
+          </div>
+          <div>
             <dt>Valor del suelo</dt>
             <dd>
               {parcel.landValueBreakdown.score} <HelpTooltip topic="land_value" />
@@ -324,7 +336,7 @@ function SiteAssemblyPanel({ context, parcel }: { context: PanelContext; parcel:
       </h3>
       <p className="muted">
         {pending.parcelIds.length}/{requirements.requiredParcels} parcelas · {pending.parcelIds
-          .map((id) => id.replace("parcel_", "Solar "))
+          .map((_, index) => `Solar ${index + 1}`)
           .join(", ")}
       </p>
       <p className="muted">
@@ -757,6 +769,9 @@ function ConstructionPanel({
             {formatGameDuration((remainingHours * calendar.ticksPerDay) / 24, calendar)} de trabajo
             restante
           </p>
+          <p className="muted">
+            {site.parcelIds.length} {site.parcelIds.length === 1 ? "solar" : "solares"} en el proyecto
+          </p>
         </div>
       </section>
       <section className="panel-section">
@@ -873,16 +888,16 @@ function FacilityPanel({
           <dd>{facilityServiceLabel(facility.serviceProfileId)}</dd>
         </div>
         <div>
-          <dt>Capacidad</dt>
-          <dd>{facility.capacity} cohortes</dd>
+          <dt>Capacidad de servicio</dt>
+          <dd>{facility.capacity} unidades</dd>
         </div>
         <div>
           <dt>Operador</dt>
           <dd>{organizationDisplayName(facility.operatorOrganizationId)}</dd>
         </div>
         <div>
-          <dt>Acceso</dt>
-          <dd>{facility.accessCells.length} celdas de acceso vial</dd>
+          <dt>Acceso vial</dt>
+          <dd>{facility.accessCells.length} puntos de acceso</dd>
         </div>
       </dl>
       <p className="muted">{facilityMetricsSummary(facility.serviceMetrics)}</p>

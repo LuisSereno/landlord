@@ -44,7 +44,7 @@ import {
   type SpatialSelection,
 } from "./ui/selection";
 import type { GameActions, HubKind, ProjectedParcel } from "./ui/types";
-import type { PendingDevelopmentSite } from "./ui/site-assembly";
+import { siteAssemblyCandidates, type PendingDevelopmentSite } from "./ui/site-assembly";
 
 const PLAYER = "org_00000001";
 
@@ -88,10 +88,16 @@ export function App() {
   useEffect(() => {
     mapRef.current?.setSelection(
       pendingSite
-        ? { kind: "site-assembly", parcelIds: pendingSite.parcelIds }
+        ? {
+            kind: "site-assembly",
+            parcelIds: pendingSite.parcelIds,
+            candidateParcelIds: economy
+              ? siteAssemblyCandidates(economy, pendingSite).map((parcel) => parcel.id)
+              : [],
+          }
         : selectionTarget,
     );
-  }, [pendingSite, selectionTarget]);
+  }, [economy, pendingSite, selectionTarget]);
 
   /** Sólo se cierra el ensamblado cuando la proyección confirma que el comando creó la obra. */
   useEffect(() => {
@@ -151,11 +157,12 @@ export function App() {
       else if (notificationsOpen) setNotificationsOpen(false);
       else if (debugOpen) setDebugOpen(false);
       else if (hub) setHub(null);
+      else if (pendingSite) setPendingSite(null);
       else if (selectionTarget) setSelectionTarget(null);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [debugOpen, helpOpen, hub, notificationsOpen, selectionTarget]);
+  }, [debugOpen, helpOpen, hub, notificationsOpen, pendingSite, selectionTarget]);
 
   /** Rutina de cartera (WP3.12): ocupa vacantes y asigna cuadrillas libres con comandos normales. */
   const runPortfolioRoutine = useCallback(async () => {

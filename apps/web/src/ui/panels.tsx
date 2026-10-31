@@ -430,6 +430,11 @@ function BuildingPanel({
           <p className="muted">
             Condición {building.condition} % · integridad {building.structuralIntegrity} %
           </p>
+          {building.parcelIds.length > 1 ? (
+            <p className="muted">
+              Complejo sobre {building.parcelIds.length} parcelas · {building.footprintCells.length} celdas
+            </p>
+          ) : null}
         </div>
       </section>
 

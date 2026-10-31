@@ -103,7 +103,11 @@ export type MapSelectionTarget =
   | { kind: "construction"; siteId: string }
   | { kind: "facility"; facilityId: string }
   | { kind: "public-space"; publicSpaceId: string }
-  | { kind: "site-assembly"; parcelIds: readonly string[] };
+  | {
+      kind: "site-assembly";
+      parcelIds: readonly string[];
+      candidateParcelIds: readonly string[];
+    };
 
 type CameraTestApi = {
   configure(camera: { zoom: number; scrollX: number; scrollY: number }): void;
@@ -709,23 +713,36 @@ export class IsometricSpikeScene extends Phaser.Scene {
       const building = this.projection?.economy?.buildings.find(
         (entry) => entry.id === target.buildingId,
       );
-      if (building) this.drawParcelGeometry(building.footprintCells, COLORS.selected, 0.16, 1, 4);
+      if (building) {
+        this.drawParcelContext(building.parcelIds);
+        this.drawParcelGeometry(building.footprintCells, COLORS.selected, 0.16, 1, 4);
+      }
     } else if (target?.kind === "construction") {
       const site = this.projection?.economy?.constructionSites.find((entry) => entry.id === target.siteId);
-      if (site) this.drawParcelGeometry(site.footprintCells, COLORS.selected, 0.16, 1, 4);
+      if (site) {
+        this.drawParcelContext(site.parcelIds);
+        this.drawParcelGeometry(site.footprintCells, COLORS.selected, 0.16, 1, 4);
+      }
     } else if (target?.kind === "facility") {
       const facility = this.projection?.facilities.find((entry) => entry.id === target.facilityId);
-      for (const parcel of facility
-        ? (this.projection?.economy?.parcels.filter((entry) => facility.parcelIds.includes(entry.id)) ?? [])
-        : [])
-        this.drawSelectedParcel(parcel);
+      const buildings = facility
+        ? (this.projection?.economy?.buildings.filter((entry) => facility.buildingIds.includes(entry.id)) ?? [])
+        : [];
+      if (buildings.length > 0)
+        for (const building of buildings)
+          this.drawParcelGeometry(building.footprintCells, COLORS.selected, 0.16, 1, 4);
+      else if (facility) this.drawParcelContext(facility.parcelIds, true);
     } else if (target?.kind === "public-space") {
       const space = this.projection?.publicSpaces.find((entry) => entry.id === target.publicSpaceId);
       if (space) this.drawParcelGeometry(space.cells, COLORS.selected, 0.12, 1, 3);
     } else if (target?.kind === "site-assembly") {
-      for (const parcel of this.projection?.economy?.parcels.filter((entry) =>
-        target.parcelIds.includes(entry.id),
-      ) ?? [])
+      for (const parcel of
+        this.projection?.economy?.parcels.filter((entry) => target.candidateParcelIds.includes(entry.id)) ??
+        [])
+        this.drawParcelGeometry(parcel.cells, COLORS.parcelPlayer, 0.05, 0.45, 2);
+      for (const parcel of
+        this.projection?.economy?.parcels.filter((entry) => target.parcelIds.includes(entry.id)) ??
+        [])
         this.drawSelectedParcel(parcel);
     } else if (this.selectedCell) {
       const parcel = this.projection?.economy?.parcels.find((entry) =>
@@ -749,6 +766,19 @@ export class IsometricSpikeScene extends Phaser.Scene {
         const center = gridToScreen(cell, this.layout);
         graphics.strokeCircle(center.x, center.y, 6);
       }
+  }
+
+  /** Contexto catastral secundario para obras/edificios que ocupan varios solares. */
+  private drawParcelContext(parcelIds: readonly string[], selected = false): void {
+    for (const parcel of this.projection?.economy?.parcels.filter((entry) => parcelIds.includes(entry.id)) ??
+      [])
+      this.drawParcelGeometry(
+        parcel.cells,
+        COLORS.selected,
+        selected ? 0.06 : 0,
+        selected ? 0.8 : 0.55,
+        2,
+      );
   }
 
   private drawParcelGeometry(

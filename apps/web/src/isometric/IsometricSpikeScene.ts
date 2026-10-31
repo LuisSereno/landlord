@@ -46,6 +46,7 @@ import {
   type IsometricLayout,
   type ScreenPoint,
 } from "./coordinates";
+import { gridEdgeToScreenLine, parcelBoundaryEdges } from "./parcel-geometry";
 import {
   buildGameplayVisualModel,
   type GameplayParkedVehicle,
@@ -624,22 +625,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
     const graphics = this.mapGraphics;
     if (!graphics) return;
     graphics.clear();
-    /** Vista normal: sin contornos semánticos; la ciudad se lee por sus sprites. */
-    if (this.overlay === "none") return;
-    for (const parcel of this.projection?.economy?.parcels ?? []) {
-      const center = this.screenCenter(parcel.cell);
-      const halfWidth = this.layout.tileWidth / 2 - 4;
-      const halfHeight = this.layout.tileHeight / 2 - 3;
-      const color = this.parcelOverlayColor(parcel);
-      graphics.lineStyle(2, color, 0.9);
-      graphics.beginPath();
-      graphics.moveTo(center.x, center.y - halfHeight);
-      graphics.lineTo(center.x + halfWidth, center.y);
-      graphics.lineTo(center.x, center.y + halfHeight);
-      graphics.lineTo(center.x - halfWidth, center.y);
-      graphics.closePath();
-      graphics.strokePath();
-    }
+    /** Vista normal: no se dibujan todas las parcelas; sólo su contexto seleccionado. */
+    if (this.overlay !== "none")
+      for (const parcel of this.projection?.economy?.parcels ?? [])
+        this.drawParcelGeometry(parcel.cells, this.parcelOverlayColor(parcel), 0.17, 0.68, 2);
     /**
      * H2-01: el overlay es el fallback mientras los sprites no están listos, así que también debe
      * leerse por la huella física del edificio. Antes se resolvía la parcela vía
@@ -688,17 +677,49 @@ export class IsometricSpikeScene extends Phaser.Scene {
       graphics.fillCircle(center.x + 8, center.y - 14, 4 + Math.min(6, incident.intensity / 20));
     }
     if (this.selectedCell) {
-      const center = this.screenCenter(this.selectedCell);
-      const halfWidth = this.layout.tileWidth / 2;
-      const halfHeight = this.layout.tileHeight / 2;
-      graphics.lineStyle(3, COLORS.selected, 1);
+      const parcel = this.projection?.economy?.parcels.find((entry) =>
+        entry.cells.some(
+          (cell) => cell.x === this.selectedCell?.x && cell.y === this.selectedCell?.y,
+        ),
+      );
+      if (parcel) {
+        this.drawParcelGeometry(parcel.cells, COLORS.selected, 0.08, 1, 3);
+        graphics.lineStyle(5, COLORS.selected, 1);
+        for (const frontage of parcel.roadFrontages)
+          for (const cell of frontage.cells) {
+            const center = gridToScreen(cell, this.layout);
+            graphics.strokeCircle(center.x, center.y, 6);
+          }
+      }
+    }
+  }
+
+  private drawParcelGeometry(
+    cells: readonly GridCell[],
+    color: number,
+    fillAlpha: number,
+    lineAlpha: number,
+    lineWidth: number,
+  ): void {
+    const graphics = this.mapGraphics;
+    if (!graphics) return;
+    const halfWidth = this.layout.tileWidth / 2;
+    const halfHeight = this.layout.tileHeight / 2;
+    graphics.fillStyle(color, fillAlpha);
+    for (const cell of cells) {
+      const center = gridToScreen(cell, this.layout);
       graphics.beginPath();
       graphics.moveTo(center.x, center.y - halfHeight);
       graphics.lineTo(center.x + halfWidth, center.y);
       graphics.lineTo(center.x, center.y + halfHeight);
       graphics.lineTo(center.x - halfWidth, center.y);
       graphics.closePath();
-      graphics.strokePath();
+      graphics.fillPath();
+    }
+    graphics.lineStyle(lineWidth, color, lineAlpha);
+    for (const edge of parcelBoundaryEdges(cells)) {
+      const line = gridEdgeToScreenLine(edge, this.layout);
+      graphics.lineBetween(line.from.x, line.from.y, line.to.x, line.to.y);
     }
   }
 

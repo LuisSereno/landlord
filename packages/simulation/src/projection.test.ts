@@ -16,6 +16,7 @@ import { dispatchPlaceTestStructure, dispatchProductCommand } from "./commands";
 import { activateMacroEvent } from "./macro-events";
 import { createViewProjection } from "./projection";
 import { createInitialState } from "./state";
+import { BUILDING_DEFINITIONS } from "./game-data";
 
 describe("simulation view projection", () => {
   it("projects confirmed state in stable entity order", () => {
@@ -70,6 +71,18 @@ describe("simulation view projection", () => {
       period: { expenses: 812, netIncome: -812, cashFlow: -812 },
     });
     expect(() => viewProjectionV2Schema.parse(afterPurchase)).not.toThrow();
+  });
+
+  it("projects authoritative parcel frontages and construction site requirements for the UI", () => {
+    const state = createInitialState(12);
+    const economy = createViewProjection(state, true).economy!;
+    const parcel = economy.parcels.find((entry) => entry.roadFrontages.length > 0)!;
+    const source = state.phase2.parcels.get(parcel.id as never)!;
+    expect(parcel.roadFrontages).toEqual(source.roadFrontages);
+
+    const option = economy.constructionOptions.find((entry) => entry.type === "steelworks")!;
+    expect(option.siteRequirements).toEqual(BUILDING_DEFINITIONS.steelworks.siteRequirements);
+    expect(() => viewProjectionV2Schema.parse(createViewProjection(state, true))).not.toThrow();
   });
 
   it("forecasts a shortfall without creating a negative authoritative balance", () => {

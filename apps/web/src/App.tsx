@@ -79,11 +79,14 @@ export function App() {
     mapRef.current?.focus(parcel.cell);
   }, []);
 
-  const onCellPicked = useCallback((cell: GridCell) => {
-    if (economy && projection)
-      setSelectionTarget(selectionTargetForCell({ economy, projection, cell }));
-    setHub(null);
-  }, [economy, projection]);
+  const onCellPicked = useCallback(
+    (cell: GridCell) => {
+      if (economy && projection)
+        setSelectionTarget(selectionTargetForCell({ economy, projection, cell }));
+      setHub(null);
+    },
+    [economy, projection],
+  );
 
   useEffect(() => {
     mapRef.current?.setSelection(

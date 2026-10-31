@@ -243,7 +243,8 @@ function BuildDetail({
         <div>
           <dt>Solar</dt>
           <dd>
-            {option.siteRequirements.requiredParcels} parcela(s) · mínimo {option.siteRequirements.minCombinedAreaCells} celdas
+            {option.siteRequirements.requiredParcels} parcela(s) · mínimo{" "}
+            {option.siteRequirements.minCombinedAreaCells} celdas
             {option.siteRequirements.requireEdgeContiguous ? " · contiguas por borde" : ""}
           </dd>
         </div>

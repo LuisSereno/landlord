@@ -305,7 +305,8 @@ function ParcelPanel({ parcel, context }: { parcel: ProjectedParcel; context: Pa
           onClick={() => actions.buyParcel(parcel.id)}
           type="button"
         >
-          <UiIcon name="money" /> {context.pendingSite ? "Comprar para ampliar · " : "Comprar parcela · "}
+          <UiIcon name="money" />{" "}
+          {context.pendingSite ? "Comprar para ampliar · " : "Comprar parcela · "}
           {parcel.marketValue} u.
         </button>
       ) : null}
@@ -319,7 +320,13 @@ function ParcelPanel({ parcel, context }: { parcel: ProjectedParcel; context: Pa
   );
 }
 
-function SiteAssemblyPanel({ context, parcel }: { context: PanelContext; parcel: ProjectedParcel }) {
+function SiteAssemblyPanel({
+  context,
+  parcel,
+}: {
+  context: PanelContext;
+  parcel: ProjectedParcel;
+}) {
   const pending = context.pendingSite;
   if (!pending) return null;
   const requirements = siteRequirementsFor(context.economy, pending.buildingType);
@@ -335,9 +342,8 @@ function SiteAssemblyPanel({ context, parcel }: { context: PanelContext; parcel:
         <UiIcon name="construction" /> Proyecto en preparación
       </h3>
       <p className="muted">
-        {pending.parcelIds.length}/{requirements.requiredParcels} parcelas · {pending.parcelIds
-          .map((_, index) => `Solar ${index + 1}`)
-          .join(", ")}
+        {pending.parcelIds.length}/{requirements.requiredParcels} parcelas ·{" "}
+        {pending.parcelIds.map((_, index) => `Solar ${index + 1}`).join(", ")}
       </p>
       <p className="muted">
         Mínimo {requirements.minCombinedAreaCells} celdas
@@ -432,7 +438,8 @@ function BuildingPanel({
           </p>
           {building.parcelIds.length > 1 ? (
             <p className="muted">
-              Complejo sobre {building.parcelIds.length} parcelas · {building.footprintCells.length} celdas
+              Complejo sobre {building.parcelIds.length} parcelas · {building.footprintCells.length}{" "}
+              celdas
             </p>
           ) : null}
         </div>
@@ -775,7 +782,8 @@ function ConstructionPanel({
             restante
           </p>
           <p className="muted">
-            {site.parcelIds.length} {site.parcelIds.length === 1 ? "solar" : "solares"} en el proyecto
+            {site.parcelIds.length} {site.parcelIds.length === 1 ? "solar" : "solares"} en el
+            proyecto
           </p>
         </div>
       </section>

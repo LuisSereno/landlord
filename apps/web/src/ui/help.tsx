@@ -219,7 +219,10 @@ export function tooltipPosition(
 ): CSSProperties {
   const width = 240;
   const gap = 8;
-  const left = Math.min(Math.max(8, rect.left + rect.width / 2 - width / 2), viewport.width - width - 8);
+  const left = Math.min(
+    Math.max(8, rect.left + rect.width / 2 - width / 2),
+    viewport.width - width - 8,
+  );
   const below = rect.top < 120;
   return {
     left: `${left}px`,
@@ -276,7 +279,11 @@ export function HelpTooltip({ topic, label }: { topic: HelpTopicKey; label?: str
       >
         <UiIcon name="help" size={14} />
       </button>
-      {typeof document === "undefined" ? tooltip : open ? createPortal(tooltip, document.body) : null}
+      {typeof document === "undefined"
+        ? tooltip
+        : open
+          ? createPortal(tooltip, document.body)
+          : null}
     </span>
   );
 }

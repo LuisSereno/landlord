@@ -125,7 +125,9 @@ describe("V.d-UX · contratos de la interfaz", () => {
     expect(markup).toContain('role="tooltip"');
     const popover = renderToStaticMarkup(<HelpPopover topic="services" />);
     expect(popover).toContain("Ayuda sobre Servicios municipales");
-    expect(tooltipPosition({ left: 2, top: 10, width: 18, height: 18 }, { width: 320, height: 600 })).toMatchObject({
+    expect(
+      tooltipPosition({ left: 2, top: 10, width: 18, height: 18 }, { width: 320, height: 600 }),
+    ).toMatchObject({
       left: "8px",
       top: "36px",
     });

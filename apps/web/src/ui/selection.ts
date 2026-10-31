@@ -138,7 +138,9 @@ function resolveSemanticSelection(
   const space = projection.publicSpaces.find((entry) => entry.id === target.publicSpaceId);
   if (!space) return null;
   const parcel = economy.parcels.find((entry) =>
-    entry.cells.some((cell) => space.cells.some((spaceCell) => spaceCell.x === cell.x && spaceCell.y === cell.y)),
+    entry.cells.some((cell) =>
+      space.cells.some((spaceCell) => spaceCell.x === cell.x && spaceCell.y === cell.y),
+    ),
   );
   return parcel ? { kind: "public-space", parcel, space } : null;
 }

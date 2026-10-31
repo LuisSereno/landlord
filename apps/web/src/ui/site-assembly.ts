@@ -10,10 +10,7 @@ export type PendingDevelopmentSite = {
 };
 
 export type SiteAssemblyIssue =
-  | "wrong-parcel-count"
-  | "area-too-small"
-  | "not-edge-contiguous"
-  | "parcel-not-eligible";
+  "wrong-parcel-count" | "area-too-small" | "not-edge-contiguous" | "parcel-not-eligible";
 
 type SiteRequirements = Economy["constructionOptions"][number]["siteRequirements"];
 
@@ -21,7 +18,10 @@ export function siteRequirementsFor(
   economy: Economy,
   buildingType: BuildingType,
 ): SiteRequirements | null {
-  return economy.constructionOptions.find((option) => option.type === buildingType)?.siteRequirements ?? null;
+  return (
+    economy.constructionOptions.find((option) => option.type === buildingType)?.siteRequirements ??
+    null
+  );
 }
 
 /** La contigüidad es por borde de celda, nunca por diagonales ni por el anchor de la parcela. */
@@ -77,11 +77,16 @@ export function siteAssemblyIssues(
     return ["parcel-not-eligible"];
   const issues: SiteAssemblyIssue[] = [];
   if (
-    parcels.some((parcel) => !isParcelEligibleForSite(economy, parcel, pending.buildingType, anchor))
+    parcels.some(
+      (parcel) => !isParcelEligibleForSite(economy, parcel, pending.buildingType, anchor),
+    )
   )
     issues.push("parcel-not-eligible");
   if (parcels.length !== requirements.requiredParcels) issues.push("wrong-parcel-count");
-  if (parcels.reduce((area, parcel) => area + parcel.cells.length, 0) < requirements.minCombinedAreaCells)
+  if (
+    parcels.reduce((area, parcel) => area + parcel.cells.length, 0) <
+    requirements.minCombinedAreaCells
+  )
     issues.push("area-too-small");
   if (requirements.requireEdgeContiguous && !parcelsAreEdgeConnected(parcels))
     issues.push("not-edge-contiguous");
@@ -95,7 +100,8 @@ export function siteAssemblyCandidates(
   const requirements = siteRequirementsFor(economy, pending.buildingType);
   const selected = new Set(pending.parcelIds);
   const anchor = economy.parcels.find((parcel) => parcel.id === pending.parcelIds[0]);
-  if (!requirements || !anchor || pending.parcelIds.length >= requirements.requiredParcels) return [];
+  if (!requirements || !anchor || pending.parcelIds.length >= requirements.requiredParcels)
+    return [];
   const current = economy.parcels.filter((parcel) => selected.has(parcel.id));
   return economy.parcels
     .filter(
@@ -112,7 +118,8 @@ export function addParcelToSite(
   pending: PendingDevelopmentSite,
   parcelId: string,
 ): PendingDevelopmentSite | null {
-  if (!siteAssemblyCandidates(economy, pending).some((parcel) => parcel.id === parcelId)) return null;
+  if (!siteAssemblyCandidates(economy, pending).some((parcel) => parcel.id === parcelId))
+    return null;
   return { ...pending, parcelIds: [...pending.parcelIds, parcelId].sort() };
 }
 

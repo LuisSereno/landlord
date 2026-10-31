@@ -5,12 +5,57 @@ import { gridEdgeToScreenLine, parcelBoundaryEdges } from "./parcel-geometry";
 
 const cases = [
   ["una celda", [{ x: 0, y: 0 }], 4],
-  ["dos horizontales", [{ x: 0, y: 0 }, { x: 1, y: 0 }], 6],
-  ["dos verticales", [{ x: 0, y: 0 }, { x: 0, y: 1 }], 6],
-  ["rectángulo 2×2", [{ x: 0, y: 0 }, { x: 1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }], 8],
-  ["rectángulo 3×4", Array.from({ length: 12 }, (_, index) => ({ x: index % 3, y: Math.floor(index / 3) })), 14],
-  ["L", [{ x: 0, y: 0 }, { x: 1, y: 0 }, { x: 0, y: 1 }], 8],
-  ["irregular", [{ x: 0, y: 0 }, { x: 1, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 1 }, { x: 1, y: 2 }], 12],
+  [
+    "dos horizontales",
+    [
+      { x: 0, y: 0 },
+      { x: 1, y: 0 },
+    ],
+    6,
+  ],
+  [
+    "dos verticales",
+    [
+      { x: 0, y: 0 },
+      { x: 0, y: 1 },
+    ],
+    6,
+  ],
+  [
+    "rectángulo 2×2",
+    [
+      { x: 0, y: 0 },
+      { x: 1, y: 0 },
+      { x: 0, y: 1 },
+      { x: 1, y: 1 },
+    ],
+    8,
+  ],
+  [
+    "rectángulo 3×4",
+    Array.from({ length: 12 }, (_, index) => ({ x: index % 3, y: Math.floor(index / 3) })),
+    14,
+  ],
+  [
+    "L",
+    [
+      { x: 0, y: 0 },
+      { x: 1, y: 0 },
+      { x: 0, y: 1 },
+    ],
+    8,
+  ],
+  [
+    "irregular",
+    [
+      { x: 0, y: 0 },
+      { x: 1, y: 0 },
+      { x: 1, y: 1 },
+      { x: 2, y: 1 },
+      { x: 1, y: 2 },
+    ],
+    12,
+  ],
 ] as const;
 
 describe("parcel boundary geometry", () => {

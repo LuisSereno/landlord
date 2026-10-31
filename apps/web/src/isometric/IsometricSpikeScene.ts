@@ -179,7 +179,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private projection: ViewProjectionV2 | null = null;
   private overlay: MapOverlay = "ownership";
   private cellPickedListener?: (cell: GridCell) => void;
-  private entityPickedListener?: (target: { kind: "building" | "construction"; id: string }) => void;
+  private entityPickedListener?: (target: {
+    kind: "building" | "construction";
+    id: string;
+  }) => void;
   private indicatorListener?: (target: { parcelId: string; buildingId?: string }) => void;
   private indicatorLayer?: Phaser.GameObjects.Container;
   private indicatorEntries: Array<{
@@ -707,7 +710,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
     }
     const target = this.selectionTarget;
     if (target?.kind === "parcel") {
-      const parcel = this.projection?.economy?.parcels.find((entry) => entry.id === target.parcelId);
+      const parcel = this.projection?.economy?.parcels.find(
+        (entry) => entry.id === target.parcelId,
+      );
       if (parcel) this.drawSelectedParcel(parcel);
     } else if (target?.kind === "building") {
       const building = this.projection?.economy?.buildings.find(
@@ -718,7 +723,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
         this.drawParcelGeometry(building.footprintCells, COLORS.selected, 0.16, 1, 4);
       }
     } else if (target?.kind === "construction") {
-      const site = this.projection?.economy?.constructionSites.find((entry) => entry.id === target.siteId);
+      const site = this.projection?.economy?.constructionSites.find(
+        (entry) => entry.id === target.siteId,
+      );
       if (site) {
         this.drawParcelContext(site.parcelIds);
         this.drawParcelGeometry(site.footprintCells, COLORS.selected, 0.16, 1, 4);
@@ -726,23 +733,27 @@ export class IsometricSpikeScene extends Phaser.Scene {
     } else if (target?.kind === "facility") {
       const facility = this.projection?.facilities.find((entry) => entry.id === target.facilityId);
       const buildings = facility
-        ? (this.projection?.economy?.buildings.filter((entry) => facility.buildingIds.includes(entry.id)) ?? [])
+        ? (this.projection?.economy?.buildings.filter((entry) =>
+            facility.buildingIds.includes(entry.id),
+          ) ?? [])
         : [];
       if (buildings.length > 0)
         for (const building of buildings)
           this.drawParcelGeometry(building.footprintCells, COLORS.selected, 0.16, 1, 4);
       else if (facility) this.drawParcelContext(facility.parcelIds, true);
     } else if (target?.kind === "public-space") {
-      const space = this.projection?.publicSpaces.find((entry) => entry.id === target.publicSpaceId);
+      const space = this.projection?.publicSpaces.find(
+        (entry) => entry.id === target.publicSpaceId,
+      );
       if (space) this.drawParcelGeometry(space.cells, COLORS.selected, 0.12, 1, 3);
     } else if (target?.kind === "site-assembly") {
-      for (const parcel of
-        this.projection?.economy?.parcels.filter((entry) => target.candidateParcelIds.includes(entry.id)) ??
-        [])
+      for (const parcel of this.projection?.economy?.parcels.filter((entry) =>
+        target.candidateParcelIds.includes(entry.id),
+      ) ?? [])
         this.drawParcelGeometry(parcel.cells, COLORS.parcelPlayer, 0.05, 0.45, 2);
-      for (const parcel of
-        this.projection?.economy?.parcels.filter((entry) => target.parcelIds.includes(entry.id)) ??
-        [])
+      for (const parcel of this.projection?.economy?.parcels.filter((entry) =>
+        target.parcelIds.includes(entry.id),
+      ) ?? [])
         this.drawSelectedParcel(parcel);
     } else if (this.selectedCell) {
       const parcel = this.projection?.economy?.parcels.find((entry) =>
@@ -770,8 +781,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
 
   /** Contexto catastral secundario para obras/edificios que ocupan varios solares. */
   private drawParcelContext(parcelIds: readonly string[], selected = false): void {
-    for (const parcel of this.projection?.economy?.parcels.filter((entry) => parcelIds.includes(entry.id)) ??
-      [])
+    for (const parcel of this.projection?.economy?.parcels.filter((entry) =>
+      parcelIds.includes(entry.id),
+    ) ?? [])
       this.drawParcelGeometry(
         parcel.cells,
         COLORS.selected,
@@ -1272,8 +1284,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       sprite.on("pointerup", (pointer: Phaser.Input.Pointer) => {
         if (!pointer.leftButtonReleased()) return;
         const picked = sprite?.getData("entityTarget") as
-          | { kind: "building" | "construction"; id: string }
-          | undefined;
+          { kind: "building" | "construction"; id: string } | undefined;
         if (picked) this.entityPickedListener?.(picked);
         pointer.event.stopPropagation?.();
       });

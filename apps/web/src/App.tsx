@@ -139,6 +139,9 @@ export function App() {
           economy?.parcels.find((parcel) => parcel.id === building.parcelIds[0]!)?.cell ?? null
         );
       },
+      ownedBuildingId: () =>
+        economy?.buildings.find((entry) => entry.ownerOrganizationId === "org_00000001")?.id ??
+        null,
       marketableParcelCellForType: (buildingType: string) =>
         economy?.parcels.find(
           (parcel) =>
@@ -494,6 +497,7 @@ declare global {
       publicParcelCell: () => GridCell | null;
       marketableParcelCell: () => GridCell | null;
       ownedBuildingParcelCell: () => GridCell | null;
+      ownedBuildingId: () => string | null;
       marketableParcelCellForType: (buildingType: string) => GridCell | null;
     };
   }

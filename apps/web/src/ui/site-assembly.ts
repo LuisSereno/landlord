@@ -6,6 +6,8 @@ const PLAYER = "org_00000001";
 
 export type PendingDevelopmentSite = {
   buildingType: BuildingType;
+  /** Punto de partida de la intención del jugador; no es geometría autoritativa. */
+  anchorParcelId: string;
   parcelIds: readonly string[];
 };
 
@@ -72,7 +74,7 @@ export function siteAssemblyIssues(
   const parcels = pending.parcelIds
     .map((id) => economy.parcels.find((parcel) => parcel.id === id))
     .filter((parcel): parcel is ProjectedParcel => Boolean(parcel));
-  const anchor = parcels[0];
+  const anchor = economy.parcels.find((parcel) => parcel.id === pending.anchorParcelId);
   if (!requirements || !anchor || parcels.length !== pending.parcelIds.length)
     return ["parcel-not-eligible"];
   const issues: SiteAssemblyIssue[] = [];
@@ -99,7 +101,7 @@ export function siteAssemblyCandidates(
 ): ProjectedParcel[] {
   const requirements = siteRequirementsFor(economy, pending.buildingType);
   const selected = new Set(pending.parcelIds);
-  const anchor = economy.parcels.find((parcel) => parcel.id === pending.parcelIds[0]);
+  const anchor = economy.parcels.find((parcel) => parcel.id === pending.anchorParcelId);
   if (!requirements || !anchor || pending.parcelIds.length >= requirements.requiredParcels)
     return [];
   const current = economy.parcels.filter((parcel) => selected.has(parcel.id));
@@ -128,5 +130,12 @@ export function removeParcelFromSite(
   parcelId: string,
 ): PendingDevelopmentSite | null {
   const parcelIds = pending.parcelIds.filter((id) => id !== parcelId);
-  return parcelIds.length > 0 ? { ...pending, parcelIds } : null;
+  return parcelIds.length > 0
+    ? {
+        ...pending,
+        anchorParcelId:
+          parcelId === pending.anchorParcelId ? parcelIds[0]! : pending.anchorParcelId,
+        parcelIds,
+      }
+    : null;
 }

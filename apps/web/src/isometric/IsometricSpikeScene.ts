@@ -113,6 +113,7 @@ type CameraTestApi = {
   configure(camera: { zoom: number; scrollX: number; scrollY: number }): void;
   getCamera(): { zoom: number; scrollX: number; scrollY: number };
   getCellScreenPoint(cell: GridCell): ScreenPoint;
+  getEntityScreenPoint(id: string): ScreenPoint | null;
   getWorldPoint(point: ScreenPoint): ScreenPoint;
   getSelectedCell(): GridCell | null;
   centerOnCell(cell: GridCell): void;
@@ -1566,6 +1567,13 @@ export class IsometricSpikeScene extends Phaser.Scene {
         camera.preRender();
         const world = gridToScreen(cell, this.layout);
         const screen = camera.matrixCombined.transformPoint(world.x, world.y);
+        return { x: screen.x, y: screen.y };
+      },
+      getEntityScreenPoint: (id) => {
+        const sprite = this.buildingSprites.get(id);
+        if (!sprite) return null;
+        camera.preRender();
+        const screen = camera.matrixCombined.transformPoint(sprite.x, sprite.y);
         return { x: screen.x, y: screen.y };
       },
       getWorldPoint: (point) => {

@@ -275,7 +275,11 @@ function BuildDetail({
         onClick={() =>
           option.siteRequirements.requiredParcels === 1
             ? actions.startConstruction([parcel.id], option.type)
-            : onBeginSite({ buildingType: option.type, parcelIds: [parcel.id] })
+            : onBeginSite({
+                buildingType: option.type,
+                anchorParcelId: parcel.id,
+                parcelIds: [parcel.id],
+              })
         }
         type="button"
       >

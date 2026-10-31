@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   addParcelToSite,
   parcelsAreEdgeConnected,
+  removeParcelFromSite,
   siteAssemblyCandidates,
   siteAssemblyIssues,
 } from "./site-assembly";
@@ -59,7 +60,11 @@ describe("site assembly", () => {
     ]);
     const diagonal = parcel("parcel_c", [{ x: 2, y: 2 }]);
     const state = economy([first, adjacent, diagonal]);
-    const pending = { buildingType: "apartment_block" as const, parcelIds: [first.id] };
+    const pending = {
+      buildingType: "apartment_block" as const,
+      anchorParcelId: first.id,
+      parcelIds: [first.id],
+    };
     expect(siteAssemblyCandidates(state, pending).map((entry) => entry.id)).toEqual([adjacent.id]);
     expect(addParcelToSite(state, pending, adjacent.id)?.parcelIds).toEqual([
       first.id,
@@ -68,5 +73,8 @@ describe("site assembly", () => {
     expect(siteAssemblyIssues(state, { ...pending, parcelIds: [first.id, adjacent.id] })).toEqual(
       [],
     );
+    expect(
+      removeParcelFromSite({ ...pending, parcelIds: [first.id, adjacent.id] }, first.id),
+    ).toMatchObject({ anchorParcelId: adjacent.id, parcelIds: [adjacent.id] });
   });
 });

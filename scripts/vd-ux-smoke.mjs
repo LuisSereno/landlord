@@ -230,6 +230,18 @@ try {
   await shot("05-residencial.jpg");
   step("9b · edificio residencial seleccionado");
 
+  // 9c · el sprite se selecciona directamente (no debe resolver la celda de suelo posterior).
+  const buildingId = await page.evaluate(() => window.__landlordUiTest?.ownedBuildingId() ?? null);
+  const buildingPoint = buildingId
+    ? await page.evaluate((id) => window.__landlordCameraTest.getEntityScreenPoint(id), buildingId)
+    : null;
+  if (!buildingPoint) fail("picking directo", "no se encontró el sprite del edificio propio");
+  const canvasBox = await page.locator(".map-canvas canvas").first().boundingBox();
+  if (!canvasBox) fail("picking directo", "no se encontró el canvas del mapa");
+  await page.mouse.click(canvasBox.x + buildingPoint.x, canvasBox.y + buildingPoint.y);
+  await page.locator('nav[aria-label="Secciones del edificio"]').waitFor({ timeout: 10000 });
+  step("9c · click directo sobre edificio conserva su ficha, sin caída al suelo");
+
   // 10 · centro de notificaciones
   await page.getByRole("button", { name: /Notificaciones/ }).click();
   await page

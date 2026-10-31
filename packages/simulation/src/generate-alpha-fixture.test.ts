@@ -1,4 +1,5 @@
 import { readFileSync, writeFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import {
   parseCityProfileId,
@@ -13,7 +14,9 @@ import { createInitialState } from "./state";
 import { serializeSnapshot } from "./snapshot";
 import { advanceProductSystems } from "./systems";
 
-const fixturePath = "scripts/fixtures/alpha-phase4.snapshot.json";
+const fixturePath = fileURLToPath(
+  new URL("../../../scripts/fixtures/alpha-phase4.snapshot.json", import.meta.url),
+);
 // Leave a full contract window open for the browser smoke before the worker advances it.
 const targetTick = 72_001;
 

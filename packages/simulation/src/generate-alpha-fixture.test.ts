@@ -74,7 +74,8 @@ describe("alpha fixture producer", () => {
 
     const snapshot = serializeSnapshot(state);
     const parsed = parseSnapshotV2(snapshot);
-    if (!parsed.phase2) throw new Error("Generated alpha fixture has no phase2 state");
+    if (!parsed.phase2 || !parsed.phase2.contracts)
+      throw new Error("Generated alpha fixture has no phase2 state");
     const openContracts = Object.values(parsed.phase2.contracts.contracts).filter(
       (contract) => contract.status === "open",
     );

@@ -258,7 +258,7 @@ function BuildDetail({
       <button
         className="primary-action"
         disabled={reasons.length > 0 || economy.cash < option.cost}
-        onClick={() => actions.startConstruction(parcel.id, option.type)}
+        onClick={() => actions.startConstruction([parcel.id], option.type)}
         type="button"
       >
         <UiIcon name="construction" /> Construir

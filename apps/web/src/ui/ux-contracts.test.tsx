@@ -15,7 +15,7 @@ import {
   unreadCount,
 } from "./notifications";
 import { deriveOnboardingStep } from "./onboarding";
-import { resolveContextSelection } from "./selection";
+import { resolveContextSelection, selectionTargetForCell } from "./selection";
 import { deriveWorldIndicators } from "./world-indicators";
 import { groupConstructionOptions } from "./build-catalog";
 import type { Economy } from "./types";
@@ -300,6 +300,17 @@ describe("V.d-UX · contratos de la interfaz", () => {
         selectedBuildingId: null,
       }),
     ).toBeNull();
+
+    expect(
+      selectionTargetForCell({ economy: economyFixture, projection, cell: { x: 10, y: 10 } }),
+    ).toEqual({ kind: "building", buildingId: "building_rival" });
+    expect(
+      resolveContextSelection({
+        economy: economyFixture,
+        projection,
+        target: { kind: "building", buildingId: "building_own" },
+      })?.kind,
+    ).toBe("building");
   });
 
   it("los indicadores de mundo priorizan lo crítico, excluyen rivales y respetan el tope", () => {

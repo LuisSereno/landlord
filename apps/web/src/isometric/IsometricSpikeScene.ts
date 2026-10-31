@@ -96,6 +96,14 @@ export type IsometricSceneOptions = {
   showGrid?: boolean | undefined;
 };
 
+/** Identidad semántica recibida desde la UI; las celdas se resuelven contra la proyección actual. */
+export type MapSelectionTarget =
+  | { kind: "parcel"; parcelId: string }
+  | { kind: "building"; buildingId: string }
+  | { kind: "construction"; siteId: string }
+  | { kind: "facility"; facilityId: string }
+  | { kind: "public-space"; publicSpaceId: string };
+
 type CameraTestApi = {
   configure(camera: { zoom: number; scrollX: number; scrollY: number }): void;
   getCamera(): { zoom: number; scrollX: number; scrollY: number };
@@ -162,6 +170,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private debugText?: Phaser.GameObjects.Text;
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   private selectedCell: GridCell | null = null;
+  private selectionTarget: MapSelectionTarget | null = null;
   private projection: ViewProjectionV2 | null = null;
   private overlay: MapOverlay = "ownership";
   private cellPickedListener?: (cell: GridCell) => void;
@@ -320,6 +329,13 @@ export class IsometricSpikeScene extends Phaser.Scene {
   /** Selección dirigida desde la UI (notificaciones, fichas): sólo presentación. */
   public setSelectedCell(cell: GridCell | null): void {
     this.selectedCell = cell ? { ...cell } : null;
+    this.selectionTarget = null;
+    this.drawOverlay();
+  }
+
+  /** La selección UI es una entidad, no el anchor de una celda. */
+  public setSelectionTarget(target: MapSelectionTarget | null): void {
+    this.selectionTarget = target ? { ...target } : null;
     this.drawOverlay();
   }
 
@@ -684,22 +700,49 @@ export class IsometricSpikeScene extends Phaser.Scene {
       graphics.fillStyle(COLORS.fire, 0.9);
       graphics.fillCircle(center.x + 8, center.y - 14, 4 + Math.min(6, incident.intensity / 20));
     }
-    if (this.selectedCell) {
+    const target = this.selectionTarget;
+    if (target?.kind === "parcel") {
+      const parcel = this.projection?.economy?.parcels.find((entry) => entry.id === target.parcelId);
+      if (parcel) this.drawSelectedParcel(parcel);
+    } else if (target?.kind === "building") {
+      const building = this.projection?.economy?.buildings.find(
+        (entry) => entry.id === target.buildingId,
+      );
+      if (building) this.drawParcelGeometry(building.footprintCells, COLORS.selected, 0.16, 1, 4);
+    } else if (target?.kind === "construction") {
+      const site = this.projection?.economy?.constructionSites.find((entry) => entry.id === target.siteId);
+      if (site) this.drawParcelGeometry(site.footprintCells, COLORS.selected, 0.16, 1, 4);
+    } else if (target?.kind === "facility") {
+      const facility = this.projection?.facilities.find((entry) => entry.id === target.facilityId);
+      for (const parcel of facility
+        ? (this.projection?.economy?.parcels.filter((entry) => facility.parcelIds.includes(entry.id)) ?? [])
+        : [])
+        this.drawSelectedParcel(parcel);
+    } else if (target?.kind === "public-space") {
+      const space = this.projection?.publicSpaces.find((entry) => entry.id === target.publicSpaceId);
+      if (space) this.drawParcelGeometry(space.cells, COLORS.selected, 0.12, 1, 3);
+    } else if (this.selectedCell) {
       const parcel = this.projection?.economy?.parcels.find((entry) =>
         entry.cells.some(
           (cell) => cell.x === this.selectedCell?.x && cell.y === this.selectedCell?.y,
         ),
       );
-      if (parcel) {
-        this.drawParcelGeometry(parcel.cells, COLORS.selected, 0.08, 1, 3);
-        graphics.lineStyle(5, COLORS.selected, 1);
-        for (const frontage of parcel.roadFrontages)
-          for (const cell of frontage.cells) {
-            const center = gridToScreen(cell, this.layout);
-            graphics.strokeCircle(center.x, center.y, 6);
-          }
-      }
+      if (parcel) this.drawSelectedParcel(parcel);
     }
+  }
+
+  private drawSelectedParcel(
+    parcel: NonNullable<ViewProjectionV2["economy"]>["parcels"][number],
+  ): void {
+    const graphics = this.mapGraphics;
+    if (!graphics) return;
+    this.drawParcelGeometry(parcel.cells, COLORS.selected, 0.08, 1, 3);
+    graphics.lineStyle(5, COLORS.selected, 1);
+    for (const frontage of parcel.roadFrontages)
+      for (const cell of frontage.cells) {
+        const center = gridToScreen(cell, this.layout);
+        graphics.strokeCircle(center.x, center.y, 6);
+      }
   }
 
   private drawParcelGeometry(

@@ -8,16 +8,17 @@ import {
   useState,
 } from "react";
 
-import type { BuildingId, BuildingType, ViewProjectionV2 } from "@landlord/shared";
+import type { BuildingType, ViewProjectionV2 } from "@landlord/shared";
 
 import {
   mountIsometricSpike,
   focusIsometricCell,
   setIsometricEntityPickedListener,
   setIsometricIndicatorListener,
-  setIsometricSelection,
+  setIsometricSelectionTarget,
   updateIsometricOverlay,
   updateIsometricProjection,
+  type MapSelectionTarget,
   type MapOverlay,
 } from "./isometric/mount";
 import type { GridCell } from "./isometric/coordinates";
@@ -37,7 +38,11 @@ import {
 } from "./ui/game-hud";
 import { deriveNotifications, type GameNotification } from "./ui/notifications";
 import { deriveOnboardingStep, type OnboardingAction } from "./ui/onboarding";
-import { resolveContextSelection } from "./ui/selection";
+import {
+  resolveContextSelection,
+  selectionTargetForCell,
+  type SpatialSelection,
+} from "./ui/selection";
 import type { GameActions, HubKind, ProjectedParcel } from "./ui/types";
 
 const PLAYER = "org_00000001";
@@ -55,8 +60,7 @@ export function RootApp() {
 export function App() {
   const session = useGameSession();
   const { economy, projection, client } = session;
-  const [selectedCell, setSelectedCell] = useState<GridCell | null>(null);
-  const [selectedBuildingId, setSelectedBuildingId] = useState<BuildingId | null>(null);
+  const [selectionTarget, setSelectionTarget] = useState<SpatialSelection | null>(null);
   const [overlay, setOverlay] = useState<MapOverlay>("ownership");
   const [hub, setHub] = useState<HubKind | null>(null);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -68,21 +72,20 @@ export function App() {
   const debug = useMemo(() => new URLSearchParams(window.location.search).get("debug") === "1", []);
 
   const selectParcel = useCallback((parcel: ProjectedParcel) => {
-    setSelectedCell({ ...parcel.cell });
-    setSelectedBuildingId(null);
+    setSelectionTarget({ kind: "parcel", parcelId: parcel.id });
     setHub(null);
     mapRef.current?.focus(parcel.cell);
   }, []);
 
   const onCellPicked = useCallback((cell: GridCell) => {
-    setSelectedCell(cell);
-    setSelectedBuildingId(null);
+    if (economy && projection)
+      setSelectionTarget(selectionTargetForCell({ economy, projection, cell }));
     setHub(null);
-  }, []);
+  }, [economy, projection]);
 
   useEffect(() => {
-    mapRef.current?.setSelection(selectedCell);
-  }, [selectedCell]);
+    mapRef.current?.setSelection(selectionTarget);
+  }, [selectionTarget]);
 
   /**
    * Hook observacional para el smoke de Playwright (mismo patrón que `__landlordCameraTest`):
@@ -128,11 +131,11 @@ export function App() {
       else if (notificationsOpen) setNotificationsOpen(false);
       else if (debugOpen) setDebugOpen(false);
       else if (hub) setHub(null);
-      else if (selectedCell) setSelectedCell(null);
+      else if (selectionTarget) setSelectionTarget(null);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [debugOpen, helpOpen, hub, notificationsOpen, selectedCell]);
+  }, [debugOpen, helpOpen, hub, notificationsOpen, selectionTarget]);
 
   /** Rutina de cartera (WP3.12): ocupa vacantes y asigna cuadrillas libres con comandos normales. */
   const runPortfolioRoutine = useCallback(async () => {
@@ -192,9 +195,9 @@ export function App() {
           () => client!.buyParcel(parcelId),
           "Parcela comprada; el rival también busca oportunidades.",
         ),
-      startConstruction: (parcelId, buildingType: BuildingType) =>
+      startConstruction: (parcelIds, buildingType: BuildingType) =>
         run(
-          () => client!.startConstruction([parcelId], buildingType),
+          () => client!.startConstruction([...parcelIds], buildingType),
           "Obra iniciada; asigna una cuadrilla para que avance.",
         ),
       cancelConstruction: (siteId) =>
@@ -261,15 +264,14 @@ export function App() {
 
   const selection = useMemo(
     () =>
-      economy && projection && selectedCell
+      economy && projection && selectionTarget
         ? resolveContextSelection({
             economy,
             projection,
-            cell: selectedCell,
-            selectedBuildingId,
+            target: selectionTarget,
           })
         : null,
-    [economy, projection, selectedCell, selectedBuildingId],
+    [economy, projection, selectionTarget],
   );
 
   const notifications = useMemo(() => deriveNotifications(economy), [economy]);
@@ -382,31 +384,19 @@ export function App() {
         <MapViewport
           onCellPicked={onCellPicked}
           onEntityPicked={(target) => {
-            if (!economy) return;
-            if (target.kind === "building") {
-              const building = economy.buildings.find((entry) => entry.id === target.id);
-              if (!building) return;
-              const parcel = building
-                ? economy.parcels.find((entry) => entry.id === building.parcelIds[0])
-                : undefined;
-              if (!parcel) return;
-              setSelectedCell({ ...parcel.cell });
-              setSelectedBuildingId(building.id);
-            } else {
-              const site = economy.constructionSites.find((entry) => entry.id === target.id);
-              const parcel = site
-                ? economy.parcels.find((entry) => entry.id === site.parcelIds[0])
-                : undefined;
-              if (!parcel) return;
-              setSelectedCell({ ...parcel.cell });
-              setSelectedBuildingId(null);
-            }
+            setSelectionTarget(
+              target.kind === "building"
+                ? { kind: "building", buildingId: target.id }
+                : { kind: "construction", siteId: target.id },
+            );
             setHub(null);
           }}
           onIndicator={(target) => {
-            const parcel = economy?.parcels.find((entry) => entry.id === target.parcelId);
-            if (parcel) selectParcel(parcel);
-            if (target.buildingId) setSelectedBuildingId(target.buildingId as BuildingId);
+            setSelectionTarget(
+              target.buildingId
+                ? { kind: "building", buildingId: target.buildingId }
+                : { kind: "parcel", parcelId: target.parcelId },
+            );
           }}
           overlay={overlay}
           projection={projection}
@@ -431,9 +421,10 @@ export function App() {
               projectionDistrictName: districtName,
               calendar: hubProps.calendar,
               actions,
-              onClose: () => setSelectedCell(null),
+              onClose: () => setSelectionTarget(null),
               onOpenHub: openHub,
-              onSelectBuilding: (buildingId) => setSelectedBuildingId(buildingId as BuildingId),
+              onSelectBuilding: (buildingId) =>
+                setSelectionTarget({ kind: "building", buildingId }),
             }}
             selection={selection}
           />
@@ -460,7 +451,7 @@ export function App() {
 
 export type MapViewportHandle = {
   focus: (cell: GridCell) => void;
-  setSelection: (cell: GridCell | null) => void;
+  setSelection: (target: MapSelectionTarget | null) => void;
 };
 
 declare global {
@@ -523,8 +514,8 @@ const MapViewport = forwardRef<
       focus: (cell) => {
         if (game.current) focusIsometricCell(game.current, cell);
       },
-      setSelection: (cell) => {
-        if (game.current) setIsometricSelection(game.current, cell);
+      setSelection: (target) => {
+        if (game.current) setIsometricSelectionTarget(game.current, target);
       },
     }),
     [],

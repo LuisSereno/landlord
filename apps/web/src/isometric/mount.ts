@@ -3,12 +3,14 @@ import type { ViewProjectionV2 } from "@landlord/shared";
 import {
   IsometricSpikeScene,
   isometricSpikeGameConfig,
+  type MapSelectionTarget,
   type MapOverlay,
 } from "./IsometricSpikeScene";
 import { VISUAL_SLICE_LAYOUT } from "../visual-slice/layout";
 import type { TerrainStage } from "../visual-slice/terrain-paint";
 
 export type { MapOverlay } from "./IsometricSpikeScene";
+export type { MapSelectionTarget } from "./IsometricSpikeScene";
 
 const mountedScenes = new WeakMap<Phaser.Game, IsometricSpikeScene>();
 
@@ -68,6 +70,13 @@ export function setIsometricSelection(
   cell: { x: number; y: number } | null,
 ): void {
   mountedScenes.get(game)?.setSelectedCell(cell);
+}
+
+export function setIsometricSelectionTarget(
+  game: Phaser.Game,
+  target: MapSelectionTarget | null,
+): void {
+  mountedScenes.get(game)?.setSelectionTarget(target);
 }
 
 export function setIsometricEntityPickedListener(

@@ -335,6 +335,11 @@ function SiteAssemblyPanel({
   const candidates = siteAssemblyCandidates(context.economy, pending);
   const canAdd = candidates.some((candidate) => candidate.id === parcel.id);
   const issues = siteAssemblyIssues(context.economy, pending);
+  const area = pending.parcelIds.reduce(
+    (total, id) =>
+      total + (context.economy.parcels.find((candidate) => candidate.id === id)?.cells.length ?? 0),
+    0,
+  );
   const ready = issues.length === 0;
   return (
     <section aria-label="Ensamblado de solar" className="panel-section site-assembly">
@@ -346,7 +351,7 @@ function SiteAssemblyPanel({
         {pending.parcelIds.map((_, index) => `Solar ${index + 1}`).join(", ")}
       </p>
       <p className="muted">
-        Mínimo {requirements.minCombinedAreaCells} celdas
+        Superficie disponible: {area} celdas · mínima: {requirements.minCombinedAreaCells}
         {requirements.requireEdgeContiguous ? " y solares contiguos por borde." : "."}
       </p>
       {selected ? (

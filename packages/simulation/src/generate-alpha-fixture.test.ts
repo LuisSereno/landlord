@@ -1,13 +1,8 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import {
-  parseCommandId,
-  parsePersonId,
-  parseSnapshotV2,
-  parseTick,
-} from "@landlord/shared";
+import { parseCommandId, parsePersonId, parseSnapshotV2, parseTick } from "@landlord/shared";
 import { dispatchProductCommand } from "./commands";
-import { BUILDING_DEFINITIONS, GAME_HOUR_TICKS, PLAYER_ORGANIZATION_ID } from "./game-data";
+import { GAME_HOUR_TICKS, PLAYER_ORGANIZATION_ID } from "./game-data";
 import { createInitialState } from "./state";
 import { serializeSnapshot } from "./snapshot";
 import { advanceProductSystems } from "./systems";
@@ -16,7 +11,11 @@ const fixturePath = "scripts/fixtures/alpha-phase4.snapshot.json";
 // Leave a full contract window open for the browser smoke before the worker advances it.
 const targetTick = 72_001;
 
-function command(id: string, type: "BuyParcel" | "StartConstruction" | "AllocateCrew", payload: object) {
+function command(
+  id: string,
+  type: "BuyParcel" | "StartConstruction" | "AllocateCrew",
+  payload: object,
+) {
   return {
     commandId: parseCommandId(id),
     type,
@@ -74,9 +73,7 @@ describe("alpha fixture producer", () => {
     );
     expect(openContracts.length).toBeGreaterThan(0);
     expect(snapshot.phase2.buildings.every((building) => building.parcelIds.length > 0)).toBe(true);
-    expect(
-      snapshot.phase2.constructionSites.every((site) => site.parcelIds.length > 0),
-    ).toBe(true);
+    expect(snapshot.phase2.constructionSites.every((site) => site.parcelIds.length > 0)).toBe(true);
     writeFileSync(fixturePath, `${JSON.stringify(snapshot, null, 2)}\n`);
   });
 });

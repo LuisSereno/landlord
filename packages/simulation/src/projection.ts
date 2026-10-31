@@ -593,6 +593,10 @@ export function createViewProjection(
                   id: parcel.id,
                   cell: { ...parcel.anchorCell },
                   cells: parcel.cells.map((cell) => ({ ...cell })),
+                  roadFrontages: parcel.roadFrontages.map((frontage) => ({
+                    roadSegmentId: frontage.roadSegmentId,
+                    cells: frontage.cells.map((cell) => ({ ...cell })),
+                  })),
                   baseLandValue: parcel.baseLandValue,
                   marketValue: parcel.marketValue,
                   landValueBreakdown: landValueBreakdownFor(parcel, landValueContext!),
@@ -808,6 +812,7 @@ export function createViewProjection(
                 upgradeResources: { ...UPGRADE_RESOURCES },
                 upgradeRentBonusPercent: UPGRADE_RENT_BONUS_PERCENT,
                 production: definition.production ? { ...definition.production } : null,
+                siteRequirements: { ...definition.siteRequirements },
               })),
             buildings: observedBuildings
               .sort((left, right) => left.id.localeCompare(right.id))

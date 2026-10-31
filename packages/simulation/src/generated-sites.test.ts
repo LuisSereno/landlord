@@ -7,7 +7,7 @@ import { resolveDistrictProfile } from "./district-profiles";
 import { generatedIndustrialSites } from "./generated-sites";
 import { selectDisjointSites } from "./generated-sites";
 import { enumerateCompatibleDevelopmentSites } from "./development-site";
-import { BUILDING_DEFINITIONS } from "./game-data";
+import { BUILDING_DEFINITIONS, RIVAL_ORGANIZATION_ID } from "./game-data";
 import { createInitialState } from "./state";
 
 const output = process.env.GENERATED_SITES_OUT;
@@ -71,5 +71,27 @@ describe("V.d-7A.1 · determinismo de enumeración", () => {
     });
     expect(shuffled).toEqual(normal);
     expect(selectDisjointSites([...normal].reverse())).toEqual(selectDisjointSites(normal));
+  });
+
+  it("mide capacidad física aunque un solar compatible pertenezca al rival", () => {
+    const state = createInitialState(42);
+    const parcels = [...state.phase2.parcels.values()].filter(
+      (parcel) => parcel.disposition === "marketable",
+    );
+    const natural = enumerateCompatibleDevelopmentSites({
+      parcels,
+      definition: BUILDING_DEFINITIONS.steelworks,
+    })[0]!;
+    const baseline = generatedIndustrialSites(state);
+    for (const parcelId of natural)
+      state.phase2.parcels.get(parcelId)!.ownerOrganizationId = RIVAL_ORGANIZATION_ID;
+
+    expect(
+      enumerateCompatibleDevelopmentSites({
+        parcels: natural.map((parcelId) => state.phase2.parcels.get(parcelId)!),
+        definition: BUILDING_DEFINITIONS.steelworks,
+      }),
+    ).toContainEqual(natural);
+    expect(generatedIndustrialSites(state)).toEqual(baseline);
   });
 });

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  areCellGroupsEdgeConnected,
   canonicalParcelIds,
   parseCommandId,
   parseMoney,
@@ -35,7 +36,12 @@ import { canonicalizeState } from "./runner";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { createInitialState, type GameState } from "./state";
 import { advanceProductSystems } from "./systems";
-import { enumerateDevelopmentSites, findDevelopmentSite } from "./development-site";
+import {
+  enumerateCompatibleDevelopmentSites,
+  enumerateDevelopmentSites,
+  enumeratePurchasableDevelopmentSites,
+  findDevelopmentSite,
+} from "./development-site";
 
 /**
  * V.d-7A · invariantes del dominio multi-parcela. Los fixtures sintéticos fijan geometrías límite
@@ -779,33 +785,80 @@ describe("V.d-7A · IA y automatización", () => {
 describe("V.d-7A.1 · acería sobre tejido generado", () => {
   it.each([1, 42, 2026])("acepta una acería en un triplete natural de la seed %s", (seed) => {
     const state = freshState(seed);
-    const natural = enumerateDevelopmentSites({
+    const natural = enumeratePurchasableDevelopmentSites({
       state,
       definition: BUILDING_DEFINITIONS.steelworks,
     })[0];
     expect(natural).toBeDefined();
     const parcels = natural!.map((id) => state.phase2.parcels.get(id)!);
+    expect(parcels).toHaveLength(3);
+    expect(parcels.every((parcel) => parcel.disposition === "marketable")).toBe(true);
+    expect(parcels.every((parcel) => parcel.ownerOrganizationId === null)).toBe(true);
+    expect(new Set(parcels.map((parcel) => parcel.districtId)).size).toBe(1);
+    expect(new Set(parcels.map((parcel) => parcel.developmentCodeId)).size).toBe(1);
+    expect(areCellGroupsEdgeConnected(parcels.map((parcel) => parcel.cells))).toBe(true);
     buy(state, parcels);
-    expect(build(state, natural!, "steelworks", `generated-steel-${String(seed)}`)).toEqual({
-      accepted: true,
-    });
-    expect([...state.phase2.constructionSites.values()][0]!.parcelIds).toEqual(natural);
+    expect(parcels.every((parcel) => parcel.ownerOrganizationId === PLAYER_ORGANIZATION_ID)).toBe(
+      true,
+    );
+    expect(build(state, natural!, "steelworks", `generated-steel-${String(seed)}`).accepted).toBe(
+      true,
+    );
+    expect([...state.phase2.constructionSites.values()][0]!.parcelIds).toEqual(
+      canonicalParcelIds(natural!),
+    );
+  });
+
+  it("separa el site físico de los sites comprables y poseídos", () => {
+    const state = freshState(42);
+    const purchasable = enumeratePurchasableDevelopmentSites({
+      state,
+      definition: BUILDING_DEFINITIONS.steelworks,
+    })[0]!;
+    const parcels = purchasable.map((id) => state.phase2.parcels.get(id)!);
+    parcels[2]!.ownerOrganizationId = RIVAL_ORGANIZATION_ID;
+
+    expect(
+      enumerateCompatibleDevelopmentSites({
+        parcels,
+        definition: BUILDING_DEFINITIONS.steelworks,
+      }),
+    ).toContainEqual(purchasable);
+    expect(
+      enumeratePurchasableDevelopmentSites({
+        state,
+        definition: BUILDING_DEFINITIONS.steelworks,
+      }),
+    ).not.toContainEqual(purchasable);
+    expect(
+      enumerateDevelopmentSites({
+        state,
+        definition: BUILDING_DEFINITIONS.steelworks,
+        ownerOrganizationId: PLAYER_ORGANIZATION_ID,
+      }),
+    ).not.toContainEqual(purchasable);
   });
 
   it("el rival encuentra un triplete natural cuando se le asigna legalmente", () => {
     const state = createInitialState(42);
-    const natural = enumerateDevelopmentSites({
+    const natural = enumeratePurchasableDevelopmentSites({
       state,
       definition: BUILDING_DEFINITIONS.steelworks,
     })[0]!;
     for (const parcelId of natural)
       state.phase2.parcels.get(parcelId)!.ownerOrganizationId = RIVAL_ORGANIZATION_ID;
+    const owned = enumerateDevelopmentSites({
+      state,
+      definition: BUILDING_DEFINITIONS.steelworks,
+      ownerOrganizationId: RIVAL_ORGANIZATION_ID,
+    })[0];
+    expect(owned).toEqual(natural);
     expect(
       findDevelopmentSite({
         state,
         definition: BUILDING_DEFINITIONS.steelworks,
         ownerOrganizationId: RIVAL_ORGANIZATION_ID,
       }),
-    ).toEqual(natural);
+    ).toEqual(owned);
   });
 });

@@ -318,6 +318,9 @@ automatización en verde; gates y build se registran en el acta
 `docs/execution/phase-4/vd7a-multiparcel-domain-2026-10-30.md`. **V.d-7B visual (límites de
 parcela, frente vial, selección semántica, picking, tooltip portal, lenguaje de facilities, smoke
 visual) sigue pendiente; V.d no se cierra y el playtest humano sigue `PENDING HUMAN PLAYTEST`.**
+La aceptación sobre tejido generado separa el site físico compatible del comprable sin dueño y del
+site propiedad de una organización antes de ejecutar el flujo real `BuyParcel`; no cambia los
+números de capacidad física ni el generador.
 La auditoría V.d-7A.1 confirmó que las doce seeds canónicas producen múltiples tripletes industriales
 contiguos compatibles con la acería; no existe deuda de alcance de generación.
 de contenido/generación.

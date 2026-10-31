@@ -219,6 +219,10 @@ Archivo `packages/simulation/src/vd7a-multiparcel.test.ts` (28 tests) y
 
 ## 14. Typecheck, tests y build
 
+Nota de corrección posterior a la integración: The generated-fabric acceptance test now selects an
+unowned physically compatible site before exercising the real `BuyParcel` flow. Physical site
+availability and organization-owned site availability are separate contracts.
+
 - `pnpm --filter @landlord/shared typecheck`: PASS.
 - `pnpm --filter @landlord/simulation typecheck`: PASS.
 - `pnpm --filter @landlord/web typecheck`: PASS.

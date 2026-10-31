@@ -127,7 +127,7 @@ export function enumerateCompatibleDevelopmentSites(input: {
 export function enumerateDevelopmentSites(input: {
   state: GameState;
   definition: BuildingDefinition;
-  ownerOrganizationId?: OrganizationId;
+  ownerOrganizationId: OrganizationId;
   seedParcelId?: ParcelId;
   districtIds?: ReadonlySet<DistrictId>;
   maxExplored?: number;
@@ -137,7 +137,37 @@ export function enumerateDevelopmentSites(input: {
   const parcels = [...state.phase2.parcels.values()].filter(
     (parcel) =>
       parcel.disposition === "marketable" &&
-      (ownerOrganizationId === undefined || parcel.ownerOrganizationId === ownerOrganizationId) &&
+      parcel.ownerOrganizationId === ownerOrganizationId &&
+      (input.districtIds === undefined || input.districtIds.has(parcel.districtId)) &&
+      buildingsOnParcel(index, parcel.id).length === 0 &&
+      activeSiteOnParcel(state, parcel.id) === undefined,
+  );
+  return enumerateCompatibleDevelopmentSites({
+    parcels,
+    definition,
+    ...(input.seedParcelId === undefined ? {} : { seedParcelId: input.seedParcelId }),
+    ...(input.maxExplored === undefined ? {} : { maxExplored: input.maxExplored }),
+  });
+}
+
+/**
+ * Gameplay acquisition selection: physically compatible market parcels that no organization owns
+ * yet. This intentionally differs from the owned runtime selector above and from the physical
+ * `enumerateCompatibleDevelopmentSites` core.
+ */
+export function enumeratePurchasableDevelopmentSites(input: {
+  state: GameState;
+  definition: BuildingDefinition;
+  seedParcelId?: ParcelId;
+  districtIds?: ReadonlySet<DistrictId>;
+  maxExplored?: number;
+}): ParcelId[][] {
+  const { state, definition } = input;
+  const index = buildBuildingIndex(state);
+  const parcels = [...state.phase2.parcels.values()].filter(
+    (parcel) =>
+      parcel.disposition === "marketable" &&
+      parcel.ownerOrganizationId === null &&
       (input.districtIds === undefined || input.districtIds.has(parcel.districtId)) &&
       buildingsOnParcel(index, parcel.id).length === 0 &&
       activeSiteOnParcel(state, parcel.id) === undefined,

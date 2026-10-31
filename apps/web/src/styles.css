@@ -1716,7 +1716,6 @@ button:disabled {
 /* ---------------- Ayuda ---------------- */
 
 .help-tooltip-wrap {
-  position: relative;
   display: inline-flex;
   vertical-align: middle;
 }
@@ -1767,6 +1766,14 @@ button:disabled {
 
 .help-tooltip-wrap:hover .help-tooltip,
 .help-tooltip-wrap:focus-within .help-tooltip {
+  display: block;
+}
+
+/* El contenido vive en un portal: no queda recortado por el scroll del panel contextual. */
+.help-tooltip-floating {
+  position: fixed;
+  bottom: auto;
+  z-index: calc(var(--ux-z-popover) + 10);
   display: block;
 }
 

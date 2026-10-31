@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import type { ViewProjectionV2 } from "@landlord/shared";
 
-import { HelpPopover, HelpTooltip, helpCatalog, type HelpTopicKey } from "./help";
+import { HelpPopover, HelpTooltip, helpCatalog, tooltipPosition, type HelpTopicKey } from "./help";
 import {
   constructionBlockedReasons,
   missingResourceLines,
@@ -125,6 +125,10 @@ describe("V.d-UX · contratos de la interfaz", () => {
     expect(markup).toContain('role="tooltip"');
     const popover = renderToStaticMarkup(<HelpPopover topic="services" />);
     expect(popover).toContain("Ayuda sobre Servicios municipales");
+    expect(tooltipPosition({ left: 2, top: 10, width: 18, height: 18 }, { width: 320, height: 600 })).toMatchObject({
+      left: "8px",
+      top: "36px",
+    });
   });
 
   it("las acciones bloqueadas explican la causa con números y sin enums", () => {

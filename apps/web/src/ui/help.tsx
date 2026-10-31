@@ -1,4 +1,5 @@
-import { useEffect, useId, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
+import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 import { UiIcon } from "./icons";
 
@@ -212,24 +213,70 @@ export const helpCatalog: Record<HelpTopicKey, HelpTopic> = {
   },
 };
 
-/** Icono de ayuda con tooltip accesible por hover y por foco de teclado. */
+export function tooltipPosition(
+  rect: Pick<DOMRect, "left" | "top" | "width" | "height">,
+  viewport: { width: number; height: number },
+): CSSProperties {
+  const width = 240;
+  const gap = 8;
+  const left = Math.min(Math.max(8, rect.left + rect.width / 2 - width / 2), viewport.width - width - 8);
+  const below = rect.top < 120;
+  return {
+    left: `${left}px`,
+    top: `${below ? rect.top + rect.height + gap : rect.top - gap}px`,
+    transform: below ? undefined : "translateY(-100%)",
+  };
+}
+
+/** Icono de ayuda con tooltip accesible que se porta a `document.body` para evitar clipping. */
 export function HelpTooltip({ topic, label }: { topic: HelpTopicKey; label?: string }) {
   const id = useId();
   const entry = helpCatalog[topic];
+  const anchor = useRef<HTMLSpanElement>(null);
+  const [open, setOpen] = useState(false);
+  const [position, setPosition] = useState<CSSProperties>({});
+  useEffect(() => {
+    if (!open || !anchor.current) return undefined;
+    const place = () =>
+      setPosition(
+        tooltipPosition(anchor.current!.getBoundingClientRect(), {
+          width: window.innerWidth,
+          height: window.innerHeight,
+        }),
+      );
+    place();
+    window.addEventListener("resize", place);
+    window.addEventListener("scroll", place, true);
+    return () => {
+      window.removeEventListener("resize", place);
+      window.removeEventListener("scroll", place, true);
+    };
+  }, [open]);
+  const tooltip = (
+    <span className="help-tooltip help-tooltip-floating" id={id} role="tooltip" style={position}>
+      <strong>{entry.title}</strong>
+      <span>{entry.summary}</span>
+    </span>
+  );
   return (
-    <span className="help-tooltip-wrap">
+    <span
+      className="help-tooltip-wrap"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      ref={anchor}
+    >
       <button
         aria-describedby={id}
         aria-label={label ?? `Ayuda: ${entry.title}`}
         className="help-dot"
+        onBlur={() => setOpen(false)}
+        onClick={() => setOpen((value) => !value)}
+        onFocus={() => setOpen(true)}
         type="button"
       >
         <UiIcon name="help" size={14} />
       </button>
-      <span className="help-tooltip" id={id} role="tooltip">
-        <strong>{entry.title}</strong>
-        <span>{entry.summary}</span>
-      </span>
+      {typeof document === "undefined" ? tooltip : open ? createPortal(tooltip, document.body) : null}
     </span>
   );
 }

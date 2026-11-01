@@ -55,6 +55,7 @@ export function selectionTargetForCell(input: {
       entry.cells.some((candidate) => candidate.x === cell.x && candidate.y === cell.y),
     );
     if (space) return { kind: "public-space", publicSpaceId: space.id };
+    return { kind: "parcel", parcelId: parcel.id };
   }
   const building = economy.buildings.find((entry) => entry.parcelIds.includes(parcel.id));
   if (building) return { kind: "building", buildingId: building.id };
@@ -117,17 +118,30 @@ function resolveSemanticSelection(
     const building = economy.buildings.find((entry) => entry.id === target.buildingId);
     if (!building) return null;
     const parcel = economy.parcels.find((entry) => entry.id === building.parcelIds[0]);
-    return parcel
-      ? { kind: "building", parcel, building, owned: building.ownerOrganizationId === PLAYER }
-      : null;
+    if (!parcel) return null;
+    if (parcel.disposition === "public") {
+      const facility = projection.facilities.find((entry) => entry.parcelIds.includes(parcel.id));
+      if (facility) return { kind: "facility", parcel, facility };
+      return { kind: "parcel", parcel };
+    }
+    return { kind: "building", parcel, building, owned: building.ownerOrganizationId === PLAYER };
   }
   if (target.kind === "construction") {
     const site = economy.constructionSites.find((entry) => entry.id === target.siteId);
     if (!site) return null;
     const parcel = economy.parcels.find((entry) => entry.id === site.parcelIds[0]);
-    return parcel
-      ? { kind: "construction", parcel, site, owned: site.ownerOrganizationId === PLAYER }
-      : null;
+    if (!parcel) return null;
+    if (parcel.disposition === "public") {
+      const facility = projection.facilities.find((entry) => entry.parcelIds.includes(parcel.id));
+      if (facility) return { kind: "facility", parcel, facility };
+      return { kind: "parcel", parcel };
+    }
+    return {
+      kind: "construction",
+      parcel,
+      site,
+      owned: site.ownerOrganizationId === PLAYER,
+    };
   }
   if (target.kind === "facility") {
     const facility = projection.facilities.find((entry) => entry.id === target.facilityId);

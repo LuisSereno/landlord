@@ -317,6 +317,66 @@ describe("V.d-UX · contratos de la interfaz", () => {
         target: { kind: "building", buildingId: "building_own" },
       })?.kind,
     ).toBe("building");
+
+    const publicParcelWithBuilding = parcel({
+      id: "parcel_public_b",
+      cell: { x: 40, y: 40 },
+      cells: [{ x: 40, y: 40 }],
+      disposition: "public",
+      ownerOrganizationId: "org_00000004",
+      buildingIds: ["building_on_public"],
+    });
+    const buildingOnPublic = building({
+      id: "building_on_public",
+      parcelIds: ["parcel_public_b"],
+      ownerOrganizationId: "org_00000002",
+    });
+    const economyPublicWithBuilding = economy({
+      parcels: [publicParcelWithBuilding],
+      buildings: [buildingOnPublic],
+    });
+    const projectionNoFacility = {
+      observedDistrictId: "district_00000001",
+      facilities: [],
+      publicSpaces: [],
+    } as unknown as ViewProjectionV2;
+    expect(
+      selectionTargetForCell({
+        economy: economyPublicWithBuilding,
+        projection: projectionNoFacility,
+        cell: { x: 40, y: 40 },
+      }),
+    ).toEqual({ kind: "parcel", parcelId: "parcel_public_b" });
+
+    const publicParcelWithFacility = parcel({
+      id: "parcel_public_c",
+      cell: { x: 50, y: 50 },
+      cells: [{ x: 50, y: 50 }],
+      disposition: "public",
+      ownerOrganizationId: "org_00000004",
+      buildingIds: ["building_on_public_c"],
+    });
+    const buildingOnPublicC = building({
+      id: "building_on_public_c",
+      parcelIds: ["parcel_public_c"],
+      ownerOrganizationId: "org_00000002",
+    });
+    const projectionWithFacilityC = {
+      observedDistrictId: "district_00000001",
+      facilities: [{ id: "facility_c", kind: "town_hall", parcelIds: ["parcel_public_c"] }],
+      publicSpaces: [],
+    } as unknown as ViewProjectionV2;
+    const economyPublicWithFacility = economy({
+      parcels: [publicParcelWithFacility],
+      buildings: [buildingOnPublicC],
+    });
+    expect(
+      resolveContextSelection({
+        economy: economyPublicWithFacility,
+        projection: projectionWithFacilityC,
+        target: { kind: "building", buildingId: "building_on_public_c" },
+      })?.kind,
+    ).toBe("facility");
   });
 
   it("los indicadores de mundo priorizan lo crítico, excluyen rivales y respetan el tope", () => {

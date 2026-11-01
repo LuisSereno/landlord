@@ -1,0 +1,63 @@
+{
+  "auditDate": "2026-10-31",
+  "branch": "wip/nightly-playtest-audit",
+  "baseCommit": "d425312",
+  "issues": [
+    {
+      "id": "NL-001",
+      "title": "Victory/defeat conditions absent",
+      "severity": "P2",
+      "category": "PRODUCT GAP",
+      "status": "OPEN",
+      "description": "No canonical win/lose condition exists in the codebase. The game runs indefinitely with no termination state.",
+      "rootCause": "Not yet designed. Current Gate focuses on core loop (buy→build→compete→react), not endgame.",
+      "proposedSolution": "Define victory condition in DECISIONS.md before implementation. Candidate: equity threshold at month 24, or bankruptcy (cash < 0 for 3 consecutive months).",
+      "affectedFiles": [],
+      "commitFix": null
+    },
+    {
+      "id": "NL-002",
+      "title": "Public land selection shows rival building instead of municipal context",
+      "severity": "P0",
+      "category": "BUG",
+      "status": "FIXED",
+      "description": "Clicking on a public parcel with a rival building but no facility/space showed 'Edificio rival' inspector instead of 'suelo municipal'. The selection logic fell through to building lookup on public land.",
+      "rootCause": "Two defects in apps/web/src/ui/selection.ts: (1) selectionTargetForCell lacked explicit return after public land facility/space checks, causing fallthrough to building lookup. (2) resolveSemanticSelection didn't check parcel.disposition === 'public' for building/construction targets from entity clicks.",
+      "proposedSolution": "Added explicit returns for public land cases in both functions. Regression tests cover both paths.",
+      "affectedFiles": [
+        "apps/web/src/ui/selection.ts",
+        "apps/web/src/ui/ux-contracts.test.tsx"
+      ],
+      "commitFix": "01b0327"
+    },
+    {
+      "id": "NL-003",
+      "title": "Onboarding banner stuck on 'first_parcel' after purchase",
+      "severity": "P2",
+      "category": "BUG",
+      "status": "OPEN",
+      "description": "Onboarding banner shows 'Compra tu primera parcela' even after the player has purchased a parcel and completed a building. The step should advance to 'resources' or later.",
+      "rootCause": "Hypothesis: deriveOnboardingStep uses useMemo(() => deriveOnboardingStep(economy), [economy]). The economy prop may not reflect current state, or the React component isn't re-rendering when ownedParcels changes. Needs devtools investigation.",
+      "proposedSolution": "Verify economy object identity and ownership data. Check if ownedParcels filter (ownerOrganizationId === PLAYER) matches actual parcel data. Add useEffect logging to trace reactivity.",
+      "affectedFiles": [
+        "apps/web/src/ui/onboarding.ts",
+        "apps/web/src/App.tsx"
+      ],
+      "commitFix": null
+    },
+    {
+      "id": "NL-004",
+      "title": "No compatible tenants available after building completion",
+      "severity": "P3",
+      "category": "PRODUCT GAP",
+      "status": "OPEN",
+      "description": "After completing a residential building, the UI shows 'No hay inquilinos compatibles disponibles'. This is expected alpha behavior: housing market runs monthly, tenants need searchMonths >= 1 before placement.",
+      "rootCause": "runHousingMarket executes at tick % GAME_MONTH_TICKS === 0. admitArrivals creates tenants with searchMonths: 0. placeSearchers requires searchMonths >= 1. Player must wait one full monthly settlement cycle.",
+      "proposedSolution": "Not a bug. Document as alpha limitation. Consider showing 'Los inquilinos llegarán el próximo mes' instead of error message.",
+      "affectedFiles": [
+        "packages/simulation/src/housing-market.ts"
+      ],
+      "commitFix": null
+    }
+  ]
+}

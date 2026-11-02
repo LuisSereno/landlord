@@ -623,7 +623,7 @@
       "target": "evidence",
       "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
       "source": { "kind": "procedural" },
-      "states": ["complete"],
+      "states": ["complete", "construction", "damaged", "burning"],
       "footprint": { "width": 4, "height": 1 }
     },
     {
@@ -633,7 +633,7 @@
       "target": "evidence",
       "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
       "source": { "kind": "procedural" },
-      "states": ["complete"],
+      "states": ["complete", "construction", "damaged", "burning"],
       "footprint": { "width": 2, "height": 5 }
     },
     {
@@ -643,7 +643,7 @@
       "target": "evidence",
       "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
       "source": { "kind": "procedural" },
-      "states": ["complete"],
+      "states": ["complete", "construction", "damaged", "burning"],
       "footprint": { "width": 2, "height": 4 }
     },
     {
@@ -653,7 +653,7 @@
       "target": "evidence",
       "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
       "source": { "kind": "procedural" },
-      "states": ["complete"],
+      "states": ["complete", "construction", "damaged", "burning"],
       "footprint": { "width": 2, "height": 4 }
     },
     {
@@ -663,7 +663,7 @@
       "target": "evidence",
       "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
       "source": { "kind": "procedural" },
-      "states": ["complete"],
+      "states": ["complete", "construction", "damaged", "burning"],
       "footprint": { "width": 3, "height": 4 }
     },
     {
@@ -673,7 +673,7 @@
       "target": "evidence",
       "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
       "source": { "kind": "procedural" },
-      "states": ["complete"],
+      "states": ["complete", "construction", "damaged", "burning"],
       "footprint": { "width": 2, "height": 5 }
     },
     {
@@ -683,7 +683,7 @@
       "target": "evidence",
       "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
       "source": { "kind": "procedural" },
-      "states": ["complete"],
+      "states": ["complete", "construction", "damaged", "burning"],
       "footprint": { "width": 2, "height": 5 }
     },
     {
@@ -693,7 +693,7 @@
       "target": "evidence",
       "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
       "source": { "kind": "procedural" },
-      "states": ["complete"],
+      "states": ["complete", "construction", "damaged", "burning"],
       "footprint": { "width": 3, "height": 4 }
     },
     {
@@ -703,7 +703,7 @@
       "target": "evidence",
       "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
       "source": { "kind": "procedural" },
-      "states": ["complete"],
+      "states": ["complete", "construction", "damaged", "burning"],
       "footprint": { "width": 3, "height": 4 }
     },
     {
@@ -713,7 +713,7 @@
       "target": "evidence",
       "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
       "source": { "kind": "procedural" },
-      "states": ["complete"],
+      "states": ["complete", "construction", "damaged", "burning"],
       "footprint": { "width": 2, "height": 7 }
     },
     {
@@ -723,7 +723,7 @@
       "target": "evidence",
       "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
       "source": { "kind": "procedural" },
-      "states": ["complete"],
+      "states": ["complete", "construction", "damaged", "burning"],
       "footprint": { "width": 2, "height": 3 }
     },
     {
@@ -733,7 +733,7 @@
       "target": "evidence",
       "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
       "source": { "kind": "procedural" },
-      "states": ["complete"],
+      "states": ["complete", "construction", "damaged", "burning"],
       "footprint": { "width": 2, "height": 3 }
     },
     {
@@ -743,7 +743,7 @@
       "target": "evidence",
       "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
       "source": { "kind": "procedural" },
-      "states": ["complete"],
+      "states": ["complete", "construction", "damaged", "burning"],
       "footprint": { "width": 2, "height": 4 }
     },
     {
@@ -753,7 +753,7 @@
       "target": "evidence",
       "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
       "source": { "kind": "procedural" },
-      "states": ["complete"],
+      "states": ["complete", "construction", "damaged", "burning"],
       "footprint": { "width": 2, "height": 5 }
     }
   ]

@@ -45,7 +45,7 @@ def _roof(cube, cylinder, preset, width, depth, height, mats):
         cylinder("clock_tower", (0, 0, height + 1.05), width * 0.16, 1.35, mats["brick"], vertices=12)
 
 
-def build_factory_building(spec, mats, cube, cylinder, sphere):
+def build_factory_building(spec, state, mats, cube, cylinder, sphere):
     """Compone un edificio completo desde el preset, sin ramas por id."""
     footprint = spec["footprint"]
     width = 2.2 + footprint["width"] * 0.55
@@ -57,6 +57,21 @@ def build_factory_building(spec, mats, cube, cylinder, sphere):
     wall = mats["brick"] if "brick" in family or "stone" in family else mats["plaster"]
     if "metal" in family:
         wall = mats["metal"]
+
+    if state == "construction":
+        _cube(cube, "foundation", (0, 0, 0.09), (width, depth, 0.18), mats["plaster"])
+        partial_height = max(0.8, height * 0.48)
+        _cube(cube, "partial_structure", (0, depth * 0.08, partial_height / 2),
+              (width * 0.72, depth * 0.68, partial_height), mats["brick"])
+        for x in (-width * 0.46, width * 0.46):
+            for y in (-depth * 0.42, depth * 0.42):
+                cylinder("scaffold_post", (x, y, 1.15), 0.045, 2.3, mats["accent"], vertices=8)
+        for z in (0.65, 1.45):
+            _cube(cube, "scaffold_plank", (0, -depth * 0.46, z), (width, 0.18, 0.1), mats["metal"])
+        _cube(cube, "material_pile", (width * 0.32, -depth * 0.3, 0.25), (0.75, 0.6, 0.5), mats["plaster"])
+        for x in (-width * 0.32, width * 0.32):
+            cylinder("barrier_cone", (x, -depth * 0.58, 0.2), 0.12, 0.4, mats["accent"], vertices=8)
+        return
 
     # La masa responde a presets morfológicos, no a ids de gameplay.
     if facade in ("terraced", "school_wings", "market_aisles"):
@@ -129,4 +144,16 @@ def build_factory_building(spec, mats, cube, cylinder, sphere):
         sign_width = 0.62 if spec["signage"] in ("medical_cross", "shield") else min(2.1, width * 0.55)
         _cube(cube, "signage", (0, -depth / 2 - 0.13, min(height - 0.25, 1.58)),
               (sign_width, 0.12, 0.28), mats["accent"])
+
+    if state in ("damaged", "burning"):
+        _cube(cube, "soot_panel", (-width * 0.23, -depth / 2 - 0.18, height * 0.62),
+              (width * 0.3, 0.1, height * 0.42), mats["metal"], rotation=(0, 0, math.radians(-7)))
+        for index, x in enumerate((-0.72, -0.18, 0.48)):
+            _cube(cube, f"debris_{index}", (x, -depth * 0.58, 0.12 + index * 0.025),
+                  (0.42, 0.34, 0.2), mats["brick" if index % 2 == 0 else "plaster"],
+                  rotation=(0, 0, math.radians(index * 19)))
+    if state == "burning":
+        for index, (x, z) in enumerate(((-width * 0.22, height * 0.72), (width * 0.18, height * 0.9))):
+            sphere(f"flame_{index}", (x, -depth * 0.34, z), 0.32, mats["flame"])
+            sphere(f"smoke_{index}", (x + 0.12, -depth * 0.28, z + 0.7), 0.38, mats["smoke"])
 

@@ -377,7 +377,7 @@ def create_scene(args):
         if "factory" in spec:
             from building_factory import build_factory_building
 
-            build_factory_building(spec["factory"], mats, cube, cylinder, sphere)
+            build_factory_building(spec["factory"], args.state, mats, cube, cylinder, sphere)
         else:
             build_courtyard_home(args.state, mats)
     elif args.asset in TERRAIN:

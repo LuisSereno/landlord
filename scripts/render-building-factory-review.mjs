@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdirSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const domainIds = [
@@ -42,4 +43,34 @@ const montage = spawnSync(
   { stdio: "inherit" },
 );
 if (montage.status !== 0) process.exit(montage.status ?? 1);
-console.log(JSON.stringify({ status: "passed", buildings: domainIds.length, sheet }));
+const states = ["complete", "construction", "damaged", "burning"];
+const stateInputs = domainIds.flatMap((id) =>
+  states.map((state) => `${output}/${id}-${state}.png`),
+);
+for (const id of domainIds) {
+  const hashes = states.map((state) =>
+    createHash("sha256")
+      .update(readFileSync(`${output}/${id}-${state}.png`))
+      .digest("hex"),
+  );
+  if (new Set(hashes).size !== states.length) throw new Error(`${id}: estados visuales duplicados`);
+}
+const statesSheet = `${output}/all-building-states.png`;
+const statesMontage = spawnSync(
+  "montage",
+  [
+    ...stateInputs,
+    "-background",
+    "#182027",
+    "-geometry",
+    "170x150+8+8",
+    "-tile",
+    "4x15",
+    statesSheet,
+  ],
+  { stdio: "inherit" },
+);
+if (statesMontage.status !== 0) process.exit(statesMontage.status ?? 1);
+console.log(
+  JSON.stringify({ status: "passed", buildings: domainIds.length, states: 60, sheet, statesSheet }),
+);

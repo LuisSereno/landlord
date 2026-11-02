@@ -130,8 +130,9 @@ obra en proceso visible con cuadrillas y recinto derivados.
 - execution/phase-4/vd7a-service-final.json — corrida de `services:balance` sobre V.d-7A (12 seeds × cuatro escenarios), archivada aparte para no pisar `vd-h21-service-final.json`.
 - execution/phase-4/vd7c-interactive-development-placement-plan.md — plan de V.d-7C por subfases (C.0…C.9), gates y condiciones de parada.
 - execution/phase-4/vd7c-luna-high-prompt.md — prompt operativo del nivel Luna High para ejecutar V.d-7C.
-- execution/phase-4/vd7c-interactive-development-placement-2026-11-02.md — acta V.d-7C: inventario del autoplacement anterior, enumerador autoritativo único, identidad determinista, revalidación y candidato obsoleto, petición de sólo lectura, UX de colocación, coreografía de obra y cuadrillas, entornos de propiedad, rendimiento medido y 16 capturas revisadas. **V.d sigue abierta: playtest humano pendiente.**
+- execution/phase-4/vd7c-interactive-development-placement-2026-11-02.md — acta V.d-7C: inventario del autoplacement anterior, enumerador autoritativo único, identidad determinista, revalidación y candidato obsoleto, petición de sólo lectura, UX de colocación, coreografía de obra y cuadrillas, entornos de propiedad, rendimiento medido y 16 capturas revisadas (§14.2 re-toma dedicada de 06/11/14: **P1-3 cerrado**). **V.d sigue abierta: playtest humano pendiente.**
 - execution/phase-4/vd7c-placement-performance.json — distribución medida de la enumeración de candidatas (p50/p95, recuento y latencia de la petición).
+- execution/phase-4/vd7c-placement-reachability.json — sonda de alcanzabilidad del caso «cero candidatas»: 2 297 proyectos abiertos en la semilla de la app, mínimo 15 candidatas, cero proyectos sin colocación (§14.1 del acta).
 - execution/phase-4/vd7a2-focused-performance-2026-10-31.md — gate enfocado de cierres mensuales V.d-7A.2: tres pares BASE/WIP, 144 muestras por versión y decisión de no regresión.
 - execution/phase-4/vd7a2-system-cost-comparison.json — resumen estructurado de las seis corridas del gate enfocado.
 

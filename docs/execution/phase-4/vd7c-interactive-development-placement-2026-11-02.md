@@ -1,7 +1,8 @@
 # V.d-7C — Colocación interactiva de proyectos y coreografía de obra (2026-11-02)
 
 Estado: **implementación completa y gates en verde, NO declarable `READY FOR HUMAN PLAYTEST` según
-§60 del prompt** porque `P1 ≠ 0` (ver §16). La decisión de aceptar los P1 y abrir el playtest
+§60 del prompt** porque `P1 ≠ 0` (ver §16: P1-3 cerrado el 2026-11-02 con la corrida dedicada de
+§14.2; quedan P1-1 y P1-2). La decisión de aceptar los P1 y abrir el playtest
 corresponde al responsable. No cierra V.d-7B, no cierra V.d y no sustituye el playtest humano de
 `docs/execution/phase-4/vd-final-playtest-checklist.md`.
 
@@ -13,6 +14,7 @@ corresponde al responsable. No cierra V.d-7B, no cierra V.d y no sustituye el pl
 | Baseline funcional elegido | `b6ff2cd` (árbol de `974cc42` + los cuatro commits documentales de V.d-7C) |
 | Rama de trabajo | `wip/vd7c-interactive-development-placement` |
 | HEAD funcional final | `79b71bc` (doce commits sobre `b6ff2cd`, ver §15); el acta se versiona en el commit siguiente, que no puede contener su propio SHA |
+| HEAD tras el cierre de P1-3 | `76bc527` (corrida dedicada de §14.2) más el commit documental que versiona esta actualización |
 | Push | solo a `wip/vd7c-interactive-development-placement`; **ningún merge a `develop`** |
 
 **Por qué este baseline y no el tip de V.d-7B.** El prompt exigía «el baseline funcional V.d-7B más
@@ -185,6 +187,8 @@ Ninguno de los dos toca propiedad, colisión, producción, valoración, cobertur
 | `pnpm smoke:vd-ux` | PASS — **25 pasos, 0 errores de página** (antes 20) |
 | `pnpm art:assets:check` / `art:binaries:check` | PASS |
 | `pnpm placement:bench` | evidencia escrita en `vd7c-placement-performance.json` |
+| `pnpm placement:reachability` | evidencia escrita en `vd7c-placement-reachability.json` — sonda de alcanzabilidad del caso «cero candidatas» (§14.1) |
+| `pnpm vd7c:evidence:followup` | PASS — re-toma dedicada de 06/11/14; evidencia en `evidence-followup.json` (§14.2) |
 
 Pasos nuevos del smoke de UX: 7b candidatas+fantasma, 7c cambio de candidata, 7d cancelar sin
 efectos, 7e confirmar una candidata no recomendada y exigir la huella exacta, 16b ensamblado 2/2 con
@@ -223,15 +227,15 @@ agrava en la unión de tres parcelas. Queda como **P1-1** con la medición de am
 | 03 | `03-rotated-candidate.png` | PASS |
 | 04 | `04-two-parcel-placement.png` | PASS |
 | 05 | `05-three-parcel-placement.png` | PASS (procedencia: captura `21-colocacion-tres-parcelas.jpg` del `smoke:vd-ux` sobre esta misma rama, convertida a PNG; el harness propio no llegó a ensamblar el triplete en la última corrida) |
-| 06 | `06-no-placement.png` | **ISSUE** — el harness no produjo el caso: el archivo muestra el catálogo, no la explicación de «sin hueco». El estado de cero candidatas sí está probado por ocho tests de `development-placement.test.ts` y por la ficha del triplete de acería (blockers reales en 05) |
+| 06 | `06-no-placement.png` | **PASS tras la corrida dedicada (§14.2)** — solar municipal de 225 celdas con su equipamiento (Escuela, 17,17): la ficha declara «Suelo municipal · gestionado por el Ayuntamiento; no es transferible» y no ofrece comprar, ni catálogo, ni colocación. Es el único «aquí no se puede colocar nada» alcanzable en una partida nueva; el cero de candidatas del modo colocación se documenta en §14.1 |
 | 07 | `07-foundation.png` | PASS |
 | 08 | `08-structure.png` | PASS |
 | 09 | `09-finishing.png` | PASS |
 | 10 | `10-complete-residential.png` | PASS |
-| 11 | `11-complete-industrial.png` | **ISSUE** — muestra el distrito industrial con un solar vacío y su frente vial, no una propiedad industrial terminada: la partida del harness no llegó a terminar una nave y el distrito observado no tenía stock industrial edificado a la vista |
+| 11 | `11-complete-industrial.png` | **PASS tras la corrida dedicada (§14.2)** — propiedad industrial terminada por el camino largo: solar comprado, Taller colocado con el modo de colocación (24 candidatas, `placement_01c6e42cc2011df2`), dos cuadrillas asignadas y obra liquidada a 4×; la ficha dice «EDIFICIO · Taller · En servicio · nivel 1 · Tu empresa · Condición 100 %» y el HUD refleja el consumo real (caja 12 000 → 6 785; cemento 8→2, ladrillo 16→6, acero 6→2) |
 | 12 | `12-crew-on-site.png` | PASS |
 | 13 | `13-residential-grounds.png` | PASS |
-| 14 | `14-industrial-grounds.png` | **ISSUE** — mismo motivo que 11: sin propiedad industrial terminada no hay `hardstanding`/`service yard` que fotografiar. El vocabulario industrial sí está fijado por tests (`property-grounds.test.ts`) |
+| 14 | `14-industrial-grounds.png` | **PASS tras la corrida dedicada (§14.2)** — el mismo recinto acercado con la rueda real del ratón (zoom 1,00 → 1,80): se leen el galpón, la pista de maniobras `hardstanding`, el patio de servicio, el área de carga y los contenedores/palets derivados, con el camino de acceso hasta el frente vial. Frame distinto de 11 (md5 diferente, comprobado por el arnés) |
 | 15 | `15-1280x720.png` | PASS |
 | 16 | `16-1920x1080.png` | PASS |
 
@@ -239,6 +243,71 @@ Preguntas de la revisión: qué se construye, dónde, con qué orientación, qu�
 la calle y cómo se cancela se leen en 01-05 y 15-16; la obra parece una obra en 07-09 (solera,
 volumen parcial con andamio, acabado) y no un sprite con alpha; la propiedad terminada se lee como
 recinto en 10 y 13 (jardín, seto y camino a la calle).
+
+### 14.1 El caso «cero candidatas» no es alcanzable en la ciudad que se entrega
+
+`pnpm placement:reachability` (`packages/simulation/src/placement-reachability.test.ts`, opt-in, 40 s)
+barre con el enumerador autoritativo **todos** los proyectos que una jugadora puede abrir en una
+partida nueva —comprar solar vacío → catálogo → «Elegir ubicación»—, incluyendo los ensamblados de
+dos y tres parcelas contiguas bajo la misma norma, y cuenta las candidatas que el motor devuelve:
+
+| Semilla | Proyectos barridos | Candidatas mínimas | Proyectos con cero |
+|---|---|---|---|
+| 1 (la de la app) | 2 297 | 15 | 0 |
+| 7 | 2 334 | 15 | 0 |
+| 42 | 2 341 | 15 | 0 |
+
+El mínimo por tipo (semilla 1) deja claro dónde está el borde: `workshop` 15 · `courtyard_home`,
+`row_house`, `apartment_block`, `mixed_tenement` 44 · `cement_plant`, `brickworks`, `warehouse` 70 ·
+`steelworks` 432. Ninguno roza el cero.
+
+Causa geométrica, medida en la misma sonda: el solar comprable más pequeño de la ciudad tiene
+**10 celdas** y el mayor `minCombinedAreaCells` entre los proyectos de una parcela es **10**, así que
+`SITE_AREA_TOO_SMALL` no puede dispararse; y sobre los pares/tríos adyacentes la unión siempre deja
+envelope para la huella objetivo. Los otros rechazos del panel (`WRONG_PARCEL_COUNT`,
+`MIXED_DEVELOPMENT_CODES`, `PARCEL_OCCUPIED`, `ACTIVE_SITE_ON_PARCEL`, `PUBLIC_LAND_NOT_BUILDABLE`)
+están cerrados antes por la propia interfaz: el ensamblado sólo ofrece solares contiguos, de la misma
+norma, vacíos y propios, y el botón de entrada aparece sólo con el proyecto completo.
+
+Consecuencia honesta: **el bloque `.placement-issue` del modo colocación no es fotografiable en una
+partida nueva**, aunque sí es real: lo fijan los tres casos de cero candidatas del enumerador
+(`NO_BUILDABLE_ENVELOPE`, `COVERAGE_LIMIT` y `FAR_LIMIT` en `development-placement.test.ts`), el
+`SITE_AREA_TOO_SMALL` de `vd7a-multiparcel.test.ts` y el paso «sin candidatas el modo se bloquea con
+la razón del motor» de `ui/placement.test.ts`. La captura 06 enseña el «no se puede colocar aquí» que
+la ciudad sí ofrece (suelo municipal intransferible). La sonda deja el umbral registrado: si un futuro
+generador produce solares más pequeños, `zeroCandidateProjects > 0` y 06 podrá re-tomarse con el panel
+de cero candidatas.
+
+Hallado secundario de esta sonda: `placementEntryIssues` (los códigos `not_owned`,
+`use_not_permitted`, `parcel_busy`) **nunca devuelve razones** en la UI actual, porque el catálogo
+sólo se monta para una parcela propia y vacía y sólo lista tipos permitidos. El botón «Elegir
+ubicación» de un proyecto de una parcela está, por tanto, siempre activo. Es código defensivo sin
+efecto visible; se anota en Deuda (§17), no como defecto jugable.
+
+### 14.2 Corrida dedicada de cierre (P1-3)
+
+`pnpm vd7c:evidence:followup` (`scripts/vd7c-evidence-followup.mjs`, puerto 4180) re-toma **sólo**
+06, 11 y 14 sobre una partida limpia (IndexedDB borrado, semilla 1 de la app) y escribe
+`docs/art/golden/vd7c/evidence-followup.json`. Todo el camino es la interfaz real: no se inyecta
+dinero, materiales ni estado, y las sondas usadas (`__landlordUiTest`, `__landlordCameraTest`,
+`__gameplayVisualStats`) son las ya existentes y sólo leen.
+
+- **06**: celda 17,17 del distrito natal (Barrio del Umbral) → ficha de equipamiento municipal; el
+  arnés verifica que el texto declara suelo municipal y que no hay botón de compra, ni catálogo, ni
+  «Elegir ubicación» antes de disparar.
+- **11**: `marketableParcelCellForType("workshop")` → comprar el solar con la caja de la partida
+  (12 000 u. iniciales, sin inyectar nada) → catálogo «Taller» → elegir ubicación (24 candidatas) →
+  confirmar → la huella construida coincide con la vista
+  (`10,1|10,2|…|10,8`, orientación 90°) → asignar las dos cuadrillas libres → 4× hasta que la obra
+  desaparece (288 unidades de trabajo) → `finishedBuildingCell("workshop")` y `ownedBuildingId`
+  (`building_00000001`) como prueba de que el edificio industrial existe y es propio. El HUD de la
+  captura muestra el consumo real: caja 6 785 u., cemento 8→2, ladrillo 16→6, acero 6→2.
+- **14**: la misma propiedad con la ficha cerrada y **dos golpes de rueda del ratón** sobre el canvas
+  (zoom 1,00 → 1,80, leído de la cámara) para que el recinto derivado ocupe el encuadre.
+- Integridad del set: el arnés compara md5 y mtime — las tres capturas se reescriben, 11 y 14 ya no
+  son idénticas entre sí, y `01`, `10` y `16` quedan byte a byte intactas. 0 errores de página.
+- Detalle visible que conviene registrar: la candidata recomendada para el Taller es una franja 1×8.
+  Es legal, pero es justo la forma que `shapePenalty` de la línea V.d-7B (P1-2) penalizaría.
 
 ## 15. Estado final de la rama
 
@@ -266,6 +335,13 @@ Superficie: 4 993 inserciones / 239 borrados en 53 archivos. **No se tocó `game
 Pruebas nuevas: `development-placement.test.ts` (31), `worker-placement.test.ts` (6),
 `ui/placement.test.ts` (8), `construction-stages.test.ts` (6), `property-grounds.test.ts` (8).
 
+Después del acta inicial quedaron dos commits documentales (`82addaa`, `fc51110`) y la corrida
+dedicada que cierra P1-3, `76bc527 test: retake the V.d-7C captures that missed their case`, que
+añade `placement-reachability.test.ts` (sonda opt-in), `scripts/vd7c-evidence-followup.mjs`, las tres
+capturas re-tomadas y sus dos JSON de evidencia. Tampoco en ese commit se tocó economía, generador ni
+datos de dominio: la obra industrial del 11/14 se pagó con la caja y el inventario con los que la
+partida arranca.
+
 ## 16. P0 / P1 / P2
 
 **P0: ninguno.**
@@ -279,13 +355,17 @@ presentación (rebake de suelo/overlay) o aceptar el estado actual.
 `0f323a4`/`a44ad67`/`f70f3bf`; `shapePenalty` cambiará el orden de candidatas cuando se integre, y
 con él la paridad de §7 habrá que re-medirla.
 
-**P1-3 — Tres de las dieciséis capturas no enseñan el caso que nombran** (06, 11 y 14, veredicto en
-§14). Causa: el arnés de evidencia no encuentra en la partida real (a) un solar propio sin hueco
-legal para ningún proyecto permitido, ni (b) una propiedad industrial terminada que fotografiar. Los
-dos estados sí están fijados por pruebas deterministas de motor y de planificador de entornos, pero
-la evidencia visual del paquete queda incompleta. Se cierra con una corrida dedicada (semilla con
-stock industrial edificado o una obra industrial terminada por el camino largo) o aceptando el
-hueco explícitamente.
+**P1-3 — CERRADO el 2026-11-02 por la corrida dedicada (§14.2).** Las tres capturas que no enseñaban
+su caso (06, 11 y 14) se re-tomaron sobre una partida limpia con la interfaz real y sin inyectar
+recursos: 11 muestra un Taller propio terminado (compra → colocación → dos cuadrillas → 288 unidades
+de obra liquidadas a 4×) y 14 el mismo recinto acercado con la rueda del ratón (zoom 1,80) donde se
+leen `hardstanding`, patio de servicio, área de carga y contenedores derivados; 06 muestra el suelo
+municipal intransferible, que es el único «aquí no cabe nada» alcanzable. El cero de candidatas del
+modo colocación queda **documentado como no alcanzable** con la sonda reproducible
+`pnpm placement:reachability` (2 297 proyectos barridos en la semilla de la app, mínimo 15 candidatas,
+cero proyectos sin candidatas; §14.1) y con los casos de rechazo de las pruebas de motor y de la
+ficha (`development-placement.test.ts`, `vd7a-multiparcel.test.ts`, `ui/placement.test.ts`). Quedan
+dos P1 abiertos (P1-1 FPS, P1-2 V.d-7B sin integrar).
 
 **P2:** seto/valla poco legible a zoom normal; la lista de candidatas repite «4 celdas · 0° · 1
 planta» sin más descriptor que el número (el mapa lo resuelve); `confirmar → obra visible` tarda
@@ -300,15 +380,21 @@ certificación visual de V.d-7B (captura 12 multi-parcela); trabajo de presentac
 decidir si `preferredFootprint` entra en la identidad del candidato (hoy no entra: dos huellas con la
 misma geometría comparten identidad, que es lo correcto); página de candidatas fija en 24 —si un
 solar enorme la agota, el jugador no ve las colas—; y `automation` sin consumidor de colocación.
+Añadido por el cierre de P1-3: el bloqueo de entrada `placementEntryIssues` es inalcanzable con el
+catálogo actual (§14.1) —o se le encuentra un caso real o es código que se puede quitar—; y si el
+generador llega a producir solares de menos de 10 celdas, `pnpm placement:reachability` lo avisará y
+la captura 06 podrá enseñar por fin el panel de cero candidatas.
 
 ## 18. Decisión
 
 **No se declara `V.d-7C READY FOR HUMAN PLAYTEST`**: el criterio §60 exige `P1 = 0` y esta acta
-registra tres P1. Todo lo demás del criterio está medido y en verde —un único enumerador
+sigue registrando dos P1 (P1-1 FPS, P1-2 V.d-7B sin integrar). Todo lo demás del criterio está medido
+y en verde —un único enumerador
 autoritativo, determinismo, paridad de IA, una parcela, dos parcelas, preview de tres, cancelar,
 candidato obsoleto, save/load, etapas de obra, 16/16 capturas revisadas y gates completos—.
-Corresponde al responsable aceptar P1-1/P1-2/P1-3 y autorizar el playtest, o pedir la corrida de
-evidencia que cierre P1-3. No se declara V.d cerrada ni playtest humano superado. D-097 pasa a ACEPTADA porque existe un único
+**P1-3 quedó cerrado el 2026-11-02** con la corrida dedicada de §14.2 y la sonda de alcanzabilidad de
+§14.1. Corresponde al responsable aceptar P1-1/P1-2 y autorizar el playtest. No se declara V.d
+cerrada ni playtest humano superado. D-097 pasa a ACEPTADA porque existe un único
 enumerador autoritativo, IA y jugador comparten legalidad, la enumeración es determinista, la
 evidencia de navegador muestra elección real de colocación y no se cruzó la frontera
 simulación/render ni se copió trade dress histórico.

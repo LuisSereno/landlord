@@ -348,9 +348,12 @@ determinista sin efecto en gameplay. Gates: lint, typecheck, format, suite compl
 `smoke:alpha`, `smoke:vd-core-loop` y `smoke:vd-ux` (25 pasos, 0 errores de página) en verde, más
 `art:assets:check` y `art:binaries:check`. **V.d-7B sigue sin certificar y V.d no se cierra: el
 playtest humano sigue `PENDING HUMAN PLAYTEST`. V.d-7C **no se declara `READY FOR HUMAN PLAYTEST`**:
-el criterio de la fase exige P1 = 0 y su acta registra tres P1 (FPS preexistente agravado por la
-unión de tres parcelas, línea V.d-7B sin integrar y tres capturas de evidencia incompletas). La
-aceptación de esa deuda y la apertura del playtest corresponden al responsable.**' 
+el criterio de la fase exige P1 = 0 y su acta registra dos P1 (FPS preexistente agravado por la
+unión de tres parcelas y línea V.d-7B sin integrar). El tercero, las tres capturas de evidencia que no
+enseñaban su caso, se cerró el 2026-11-02 con la corrida dedicada `pnpm vd7c:evidence:followup` y la
+sonda `pnpm placement:reachability`, que además documenta que el panel «cero candidatas» no es
+alcanzable en la ciudad entregada. La aceptación de esa deuda y la apertura del playtest corresponden
+al responsable.**' 
 
 **Incidencia del entorno registrada:** a mitad de la batería de gates el ejecutor de `pnpm`
 12.11.2 comenzó a fallar todo spawn con `Input/output error (os error 5)`. Causa raíz encontrada

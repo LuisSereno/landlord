@@ -11,14 +11,18 @@ import {
 function rectangle(x: number, y: number, width: number, height: number): GridCell[] {
   const cells: GridCell[] = [];
   for (let row = 0; row < height; row += 1)
-    for (let column = 0; column < width; column += 1)
-      cells.push({ x: x + column, y: y + row });
+    for (let column = 0; column < width; column += 1) cells.push({ x: x + column, y: y + row });
   return cells;
 }
 
 const SITE = rectangle(0, 0, 4, 4);
 const FOOTPRINT = rectangle(1, 1, 2, 2);
-const FRONTAGE = [{ x: 0, y: -1 }, { x: 1, y: -1 }, { x: 2, y: -1 }, { x: 3, y: -1 }];
+const FRONTAGE = [
+  { x: 0, y: -1 },
+  { x: 1, y: -1 },
+  { x: 2, y: -1 },
+  { x: 3, y: -1 },
+];
 
 function plan(family: "residential" | "industrial" | "mixed" | "civic", cells = SITE) {
   return planPropertyGrounds({

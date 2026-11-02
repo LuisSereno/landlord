@@ -228,6 +228,10 @@ declare global {
     /** Sonda de gameplay (WP4.15-V.c.1): objetos renderizados y rebakes de suelo. */
     __gameplayVisualStats?: () => {
       buildings: number;
+      placementObjects: number;
+      placementLabelPool: number;
+      placementDraws: number;
+      sceneChildren: number;
       decorations: number;
       roadCells: number;
       junctions: number;
@@ -278,6 +282,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private placementLabels?: Phaser.GameObjects.Container;
   private placementGhost?: Phaser.GameObjects.Image;
   private placementCandidateListener?: (candidateId: string) => void;
+  /** Contador de repintados, para detectar redraws por frame en modo de colocación. */
+  private placementDrawCount = 0;
   private projection: ViewProjectionV2 | null = null;
   private overlay: MapOverlay = "ownership";
   private cellPickedListener?: (cell: GridCell) => void;
@@ -362,6 +368,15 @@ export class IsometricSpikeScene extends Phaser.Scene {
         0,
       parkedVehicles: this.gameplayVisual?.parkedVehicles.length ?? 0,
       trees: this.decorSprites.length,
+      placementObjects:
+        (this.placementTarget ? 1 : 0) +
+        (this.placementLabels?.list.filter((entry) => (entry as Phaser.GameObjects.Text).visible)
+          .length ?? 0) +
+        (this.placementGhost && this.placementGhost.visible ? 1 : 0),
+      /** El pool de etiquetas está acotado por la página de candidatas, no por los ciclos. */
+      placementLabelPool: this.placementLabels?.list.length ?? 0,
+      placementDraws: this.placementDrawCount,
+      sceneChildren: this.children.list.length,
       totalSprites:
         this.buildingSprites.size +
         this.decorSprites.length +
@@ -442,7 +457,6 @@ export class IsometricSpikeScene extends Phaser.Scene {
       /** El solar desapareció de la vista (o de la partida): el modo no puede quedar flotando. */
       const known = new Set<string>((projection.economy?.parcels ?? []).map((parcel) => parcel.id));
       if (this.placementTarget.parcelIds.some((id) => !known.has(id))) this.setPlacement(null);
-      else this.drawPlacement();
     }
   }
 
@@ -831,10 +845,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
       graphics.fillRect(center.x - 7, center.y - 12, 14, 12 + building.level * 3);
     }
     this.drawPropertyGrounds(graphics);
-    this.constructionLabels?.removeAll(true);
+    let constructionLabelCount = 0;
     for (const site of this.projection?.economy?.constructionSites ?? [])
       this.drawConstructionSite(graphics, site);
-    this.drawCrewPresence(graphics);
+    constructionLabelCount = this.drawCrewPresence(graphics, constructionLabelCount);
+    this.trimLabels(this.constructionLabels, constructionLabelCount);
     for (const incident of this.projection?.economy?.incidents.filter(
       (entry) => entry.status === "active",
     ) ?? []) {
@@ -906,13 +921,43 @@ export class IsometricSpikeScene extends Phaser.Scene {
    * cuál es la recomendada, cuál está seleccionada y el frente vial del solar. Todo con la capa
    * propia; el overlay normal no se toca.
    */
+  /**
+   * Etiqueta reutilizada del contenedor `index`, creada sólo si hace falta. Sin esto, cada repintado
+   * de la colocación creaba 24 texturas nuevas y el mapa caía de 60 a ~10 FPS medidos.
+   */
+  private pooledLabel(
+    container: Phaser.GameObjects.Container | undefined,
+    index: number,
+    style: Phaser.Types.GameObjects.Text.TextStyle,
+  ): Phaser.GameObjects.Text | null {
+    if (!container) return null;
+    const existing = container.list[index] as Phaser.GameObjects.Text | undefined;
+    if (existing) {
+      existing.setVisible(true);
+      return existing;
+    }
+    const created = this.add.text(0, 0, "", { resolution: 2, ...style }).setOrigin(0.5);
+    created.setActive(false);
+    container.add(created);
+    return created;
+  }
+
+  /** Esconde las etiquetas del pool que este repintado no usó, sin destruirlas. */
+  private trimLabels(container: Phaser.GameObjects.Container | undefined, used: number): void {
+    if (!container) return;
+    for (let index = used; index < container.list.length; index += 1)
+      (container.list[index] as Phaser.GameObjects.Text).setVisible(false);
+  }
+
   private drawPlacement(): void {
+    this.placementDrawCount += 1;
     const graphics = this.placementGraphics;
     if (!graphics) return;
     graphics.clear();
-    this.placementLabels?.removeAll(true);
     const target = this.placementTarget;
     if (!target) {
+      /** Salir del modo limpia la capa entera: huérfanos no, aunque el pool siga vivo. */
+      this.trimLabels(this.placementLabels, 0);
       this.placementGhost?.setVisible(false);
       return;
     }
@@ -933,6 +978,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
      * Todas las candidatas se ven a la vez, numeradas igual que la lista de la ficha: sin número en
      * el mapa, una lista de «4 celdas · 0° · 1 planta» repetida 24 veces no le dice a nadie DÓNDE.
      */
+    let labelIndex = 0;
     target.candidates.forEach((candidate, index) => {
       const selected = candidate.id === target.selectedCandidateId;
       if (!selected)
@@ -954,17 +1000,23 @@ export class IsometricSpikeScene extends Phaser.Scene {
       graphics.fillCircle(point.x, point.y - 4, radius);
       graphics.lineStyle(2, 0x0c1220, 1);
       graphics.strokeCircle(point.x, point.y - 4, radius);
-      const label = this.add
-        .text(point.x, point.y - 4, String(index + 1), {
-          fontFamily: "Inter, system-ui, sans-serif",
-          fontSize: selected ? "13px" : "11px",
-          fontStyle: "bold",
-          color: "#0c1220",
-          resolution: 2,
-        })
-        .setOrigin(0.5);
-      this.placementLabels?.add(label);
+      const label = this.pooledLabel(this.placementLabels, labelIndex, {
+        fontFamily: "Inter, system-ui, sans-serif",
+        fontSize: "11px",
+        fontStyle: "bold",
+        color: "#0c1220",
+      });
+      const wanted = String(index + 1);
+      if (label && label.text !== wanted) label.setText(wanted);
+      /**
+       * Reescribir texto o tamaño regenera la textura del label: con 24 candidatas y una
+       * proyección cada dos ticks, el mapa bajaba de 60 a ~9 FPS. Sólo se toca lo que cambió.
+       */
+      if (label && (label.x !== point.x || label.y !== point.y - 4))
+        label.setPosition(point.x, point.y - 4);
+      labelIndex += 1;
     });
+    this.trimLabels(this.placementLabels, labelIndex);
     const selected = target.candidates.find(
       (candidate) => candidate.id === target.selectedCandidateId,
     );
@@ -1149,11 +1201,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
    * proyectada: a qué obra está asignada cada cuadrilla, en qué celda está cada agente y en qué
    * estado está. No hay un segundo sistema de movimiento.
    */
-  private drawCrewPresence(graphics: Phaser.GameObjects.Graphics): void {
+  private drawCrewPresence(graphics: Phaser.GameObjects.Graphics, labelIndex: number): number {
     const economy = this.projection?.economy;
-    if (!economy) return;
+    if (!economy) return labelIndex;
     const sites = economy.constructionSites.filter((site) => site.assignedCrewIds.length > 0);
-    if (sites.length === 0) return;
+    if (sites.length === 0) return labelIndex;
     const agentsById = new Map((this.projection?.agents ?? []).map((agent) => [agent.id, agent]));
     const crewsById = new Map(economy.crews.map((crew) => [crew.id, crew]));
     for (const site of sites) {
@@ -1189,22 +1241,20 @@ export class IsometricSpikeScene extends Phaser.Scene {
         }
       }
       const center = gridToScreen(footprintVisualCenter(site.footprintCells), this.layout);
-      const label = this.add.text(
-        center.x,
-        center.y - 34,
-        present > 0 ? `${present} en obra` : "cuadrilla de camino",
-        {
-          fontFamily: "Inter, system-ui, sans-serif",
-          fontSize: "11px",
-          color: "#e8edf5",
-          backgroundColor: "#0c1220cc",
-          padding: { x: 4, y: 2 },
-          resolution: 2,
-        },
-      );
-      label.setOrigin(0.5);
-      this.constructionLabels?.add(label);
+      const label = this.pooledLabel(this.constructionLabels, labelIndex, {
+        fontFamily: "Inter, system-ui, sans-serif",
+        fontSize: "11px",
+        color: "#e8edf5",
+        backgroundColor: "#0c1220cc",
+        padding: { x: 4, y: 2 },
+      });
+      const wanted = present > 0 ? `${present} en obra` : "cuadrilla de camino";
+      if (label && label.text !== wanted) label.setText(wanted);
+      if (label && (label.x !== center.x || label.y !== center.y - 34))
+        label.setPosition(center.x, center.y - 34);
+      labelIndex += 1;
     }
+    return labelIndex;
   }
 
   private crewColor(state: CrewVisualState): number {

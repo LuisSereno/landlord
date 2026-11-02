@@ -323,6 +323,27 @@ export function App() {
             .join("|"),
         };
       },
+      /** Progreso de la obra propia: permite capturar cada etapa visible sin acelerar trampas. */
+      ownedSiteProgress: () => {
+        const site = economy?.constructionSites.find(
+          (entry) => entry.ownerOrganizationId === PLAYER,
+        );
+        if (!site) return null;
+        return {
+          progress: site.progress,
+          workRequired: site.workRequired,
+          assignedCrewIds: [...site.assignedCrewIds],
+        };
+      },
+      /** Solar pequeño comprable: sirve para demostrar el «no cabe» con datos reales de la ciudad. */
+      smallMarketableParcelCell: () =>
+        economy?.parcels.find(
+          (parcel) =>
+            parcel.disposition === "marketable" &&
+            !parcel.ownerOrganizationId &&
+            parcel.buildingIds.length === 0 &&
+            parcel.cells.length <= 8,
+        )?.cell ?? null,
       /** Celda de la primera parcela ampliable del ensamblado en curso (observacional). */
       assemblyCandidateCell: () => {
         if (!pendingSite || !economy) return null;
@@ -832,6 +853,12 @@ declare global {
       cash: () => number | null;
       constructionSiteCount: () => number;
       assemblyCandidateCell: () => GridCell | null;
+      ownedSiteProgress: () => {
+        progress: number;
+        workRequired: number;
+        assignedCrewIds: string[];
+      } | null;
+      smallMarketableParcelCell: () => GridCell | null;
       purchasableSiteForType: (buildingType: string) => string[] | null;
       parcelCellById: (parcelId: string) => GridCell | null;
       ownedSiteFootprint: () => {

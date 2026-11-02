@@ -264,29 +264,39 @@ async function captureAssemblies() {
   await buyAndAddNextAssemblyParcel();
   await shot("10-cement-assembly-2-of-2.png");
 
+  // La cementera es el proyecto multi-parcela legítimo de menor trabajo disponible (120), por
+  // delante de la acería (168) que ya documenta el ensamblado 3/3 en la evidencia 11.
+  await page.getByRole("button", { name: /Iniciar obra con 2 solares/ }).click();
+  await page.getByText(/Obra nueva en curso/).waitFor({ timeout: 20_000 });
+  await page
+    .getByRole("button", { name: /Asignar Cuadrilla/ })
+    .first()
+    .click();
+  await page.getByRole("button", { name: "4×", exact: true }).click();
+  await page.waitForFunction(() => window.__landlordUiTest?.ownedBuildingId() !== null, null, {
+    // 120 unidades a 4×, con margen 1,5× sobre el avance observado en la proyección.
+    timeout: 300_000,
+  });
+  const cementBuildingId = await page.evaluate(() => window.__landlordUiTest.ownedBuildingId());
+  const cementPoint = cementBuildingId
+    ? await page.evaluate(
+        (id) => window.__landlordCameraTest.getEntityScreenPoint(id),
+        cementBuildingId,
+      )
+    : null;
+  if (!cementPoint) throw new Error("No se pudo localizar la cementera terminada");
+  const cementCanvas = await page.locator(".map-canvas canvas").first().boundingBox();
+  if (!cementCanvas) throw new Error("No hay canvas para la cementera terminada");
+  await page.mouse.click(cementCanvas.x + cementPoint.x, cementCanvas.y + cementPoint.y);
+  await page.locator('nav[aria-label="Secciones del edificio"]').waitFor({ timeout: 10_000 });
+  await shot("12-multiparcel-building.png");
+
   await freshCity();
   await selectIndustrialDistrict();
   await beginAssembly("steelworks", "Acería");
   await buyAndAddNextAssemblyParcel();
   await buyAndAddNextAssemblyParcel();
   await shot("11-steelworks-assembly-3-of-3.png");
-  if (process.env.VD7B_SKIP_COMPLETION === "1") return;
-  const start = page.getByRole("button", { name: /Iniciar obra con 3 solares/ });
-  if (await start.isEnabled()) {
-    await start.click();
-    await page.getByText(/Obra nueva en curso/).waitFor({ timeout: 20000 });
-    await page
-      .getByRole("button", { name: /Asignar Cuadrilla/ })
-      .first()
-      .click();
-    await page.getByRole("button", { name: "4×", exact: true }).click();
-    await page.waitForFunction(
-      () => document.querySelector('nav[aria-label="Secciones del edificio"]') !== null,
-      null,
-      { timeout: 720000 },
-    );
-  }
-  await shot("12-multiparcel-building.png");
 }
 
 function assertEvidenceIntegrity() {

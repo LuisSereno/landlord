@@ -615,6 +615,146 @@
         "width": 1,
         "height": 1
       }
+    },
+    {
+      "id": "bld_row_house_factory",
+      "kind": "building",
+      "assetId": "row_house",
+      "target": "evidence",
+      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
+      "source": { "kind": "procedural" },
+      "states": ["complete"],
+      "footprint": { "width": 4, "height": 1 }
+    },
+    {
+      "id": "bld_apartment_block_factory",
+      "kind": "building",
+      "assetId": "apartment_block",
+      "target": "evidence",
+      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
+      "source": { "kind": "procedural" },
+      "states": ["complete"],
+      "footprint": { "width": 2, "height": 5 }
+    },
+    {
+      "id": "bld_mixed_tenement_factory",
+      "kind": "building",
+      "assetId": "mixed_tenement",
+      "target": "evidence",
+      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
+      "source": { "kind": "procedural" },
+      "states": ["complete"],
+      "footprint": { "width": 2, "height": 4 }
+    },
+    {
+      "id": "bld_workshop_factory",
+      "kind": "building",
+      "assetId": "workshop",
+      "target": "evidence",
+      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
+      "source": { "kind": "procedural" },
+      "states": ["complete"],
+      "footprint": { "width": 2, "height": 4 }
+    },
+    {
+      "id": "bld_warehouse_factory",
+      "kind": "building",
+      "assetId": "warehouse",
+      "target": "evidence",
+      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
+      "source": { "kind": "procedural" },
+      "states": ["complete"],
+      "footprint": { "width": 3, "height": 4 }
+    },
+    {
+      "id": "bld_cement_plant_factory",
+      "kind": "building",
+      "assetId": "cement_plant",
+      "target": "evidence",
+      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
+      "source": { "kind": "procedural" },
+      "states": ["complete"],
+      "footprint": { "width": 2, "height": 5 }
+    },
+    {
+      "id": "bld_brickworks_factory",
+      "kind": "building",
+      "assetId": "brickworks",
+      "target": "evidence",
+      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
+      "source": { "kind": "procedural" },
+      "states": ["complete"],
+      "footprint": { "width": 2, "height": 5 }
+    },
+    {
+      "id": "bld_steelworks_factory",
+      "kind": "building",
+      "assetId": "steelworks",
+      "target": "evidence",
+      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
+      "source": { "kind": "procedural" },
+      "states": ["complete"],
+      "footprint": { "width": 3, "height": 4 }
+    },
+    {
+      "id": "bld_town_hall_factory",
+      "kind": "building",
+      "assetId": "town_hall",
+      "target": "evidence",
+      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
+      "source": { "kind": "procedural" },
+      "states": ["complete"],
+      "footprint": { "width": 3, "height": 4 }
+    },
+    {
+      "id": "bld_school_block_factory",
+      "kind": "building",
+      "assetId": "school_block",
+      "target": "evidence",
+      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
+      "source": { "kind": "procedural" },
+      "states": ["complete"],
+      "footprint": { "width": 2, "height": 7 }
+    },
+    {
+      "id": "bld_clinic_factory",
+      "kind": "building",
+      "assetId": "clinic",
+      "target": "evidence",
+      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
+      "source": { "kind": "procedural" },
+      "states": ["complete"],
+      "footprint": { "width": 2, "height": 3 }
+    },
+    {
+      "id": "bld_police_station_factory",
+      "kind": "building",
+      "assetId": "police_station",
+      "target": "evidence",
+      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
+      "source": { "kind": "procedural" },
+      "states": ["complete"],
+      "footprint": { "width": 2, "height": 3 }
+    },
+    {
+      "id": "bld_fire_station_factory",
+      "kind": "building",
+      "assetId": "fire_station",
+      "target": "evidence",
+      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
+      "source": { "kind": "procedural" },
+      "states": ["complete"],
+      "footprint": { "width": 2, "height": 4 }
+    },
+    {
+      "id": "bld_market_hall_factory",
+      "kind": "building",
+      "assetId": "market_hall",
+      "target": "evidence",
+      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
+      "source": { "kind": "procedural" },
+      "states": ["complete"],
+      "footprint": { "width": 2, "height": 5 }
     }
   ]
 }

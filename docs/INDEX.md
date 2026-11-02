@@ -133,6 +133,7 @@
 - execution/phase-4/ve4-character-production-2026-11-02.md — V.e.4: catálogo offline de 13 roles sin ampliar el contrato jugable.
 - execution/phase-4/ve5-world-assets-2026-11-02.md — V.e.5: cobertura gobernada de vehículos, props y terrenos del showcase.
 - execution/phase-4/ve6-visual-catalog-2026-11-02.md — V.e.6: enciclopedia `/visual-catalog`, cobertura automática y modo estático.
+- execution/phase-4/ve7-showcase-scene-2026-11-02.md — V.e.7: escena Phaser determinista con 15 edificios y vocabulario urbano completo.
 - execution/phase-4/vd7a-fabric-gate.json — gate de tejido re-ejecutado sobre V.d-7A (100 seeds, 900 distritos), archivado aparte para no pisar `vd1-fabric-gate.json`.
 - execution/phase-4/vd7a-service-final.json — corrida de `services:balance` sobre V.d-7A (12 seeds × cuatro escenarios), archivada aparte para no pisar `vd-h21-service-final.json`.
 - execution/phase-4/vd7a2-focused-performance-2026-10-31.md — gate enfocado de cierres mensuales V.d-7A.2: tres pares BASE/WIP, 144 muestras por versión y decisión de no regresión.

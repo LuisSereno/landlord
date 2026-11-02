@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import catalog from "./generated/visual-catalog.json";
+import type { ShowcaseSelection } from "./visual-catalog/showcase";
 
 const states = ["complete", "construction", "damaged", "burning"] as const;
 const tabs = [
@@ -25,6 +26,21 @@ export function VisualCatalog() {
     [],
   );
   const [category, setCategory] = useState("all");
+  const [selection, setSelection] = useState<ShowcaseSelection | null>(null);
+  const showcase = useRef<HTMLDivElement>(null);
+  const controller = useRef<{ destroy: () => void; zoom: (delta: number) => void } | null>(null);
+  useEffect(() => {
+    if (!showcase.current || typeof window === "undefined") return;
+    let active = true;
+    void import("./visual-catalog/showcase").then(({ mountVisualShowcase }) => {
+      if (active && showcase.current)
+        controller.current = mountVisualShowcase(showcase.current, setSelection);
+    });
+    return () => {
+      active = false;
+      controller.current?.destroy();
+    };
+  }, []);
   const buildings = catalog.buildings.filter(
     (building) => category === "all" || building.category === category,
   );
@@ -168,9 +184,43 @@ export function VisualCatalog() {
         </div>
       </section>
       <section id="showcase">
-        <h2>Showcase</h2>
-        <div data-testid="showcase-mount" className="showcase-placeholder">
-          Deterministic renderer scene mounts in V.e.7.
+        <div className="catalog-heading">
+          <h2>Showcase</h2>
+          <div>
+            <button onClick={() => controller.current?.zoom(-0.1)}>−</button>
+            <button onClick={() => controller.current?.zoom(0.1)}>+</button>
+          </div>
+        </div>
+        <div data-testid="showcase-mount" className="showcase-canvas" ref={showcase} />
+        {selection && (
+          <aside className="showcase-selection">
+            <strong>{selection.name}</strong>
+            <span>
+              {selection.category} · {selection.state} · {selection.footprint}
+            </span>
+            <small>{selection.source}</small>
+          </aside>
+        )}
+      </section>
+      <section id="construction-sequence">
+        <h2>Construction demo</h2>
+        <div className="construction-sequence">
+          {states.map((state) => (
+            <figure key={state}>
+              <img src={catalog.buildings[0]!.states[state].src} alt={state} />
+              <figcaption>{state}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+      <section id="scale-reference">
+        <h2>Scale reference</h2>
+        <div className="scale-reference">
+          <span className="scale-person">●</span>
+          <span className="scale-door" />
+          <span className="scale-car">▰</span>
+          <span className="scale-tree">♣</span>
+          <span className="scale-cell">4 m cell</span>
         </div>
       </section>
       <section id="coverage">

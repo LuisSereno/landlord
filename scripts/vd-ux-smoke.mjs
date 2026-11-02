@@ -191,11 +191,136 @@ try {
 
   // 7 · elegir edificio
   await card.click();
-  await page.getByRole("button", { name: "Construir" }).waitFor({ timeout: 10000 });
+  await page.getByRole("button", { name: "Elegir ubicación" }).waitFor({ timeout: 10000 });
   step("7 · edificio elegido con su detalle");
 
-  // 8 · iniciar obra
-  await page.getByRole("button", { name: "Construir" }).click();
+  // 7b · V.d-7C · el modo de colocación muestra las candidatas legales del motor
+  await page.getByRole("button", { name: "Elegir ubicación" }).click();
+  await page.locator(".placement-panel").waitFor({ timeout: 10000 });
+  await page
+    .waitForFunction(
+      () => (window.__landlordPlacementTest?.() ?? { candidates: 0 }).candidates > 0,
+      null,
+      {
+        timeout: 20000,
+      },
+    )
+    .catch(async () => {
+      const panel = await page.locator(".placement-panel").innerText();
+      fail("colocación", `el motor no devolvió candidatas: ${panel.slice(0, 300)}`);
+    });
+  const entryProbe = await page.evaluate(() => window.__landlordPlacementTest());
+  if (entryProbe.candidates === 0) fail("colocación", "la ficha está vacía sin razón visible");
+  if (entryProbe.ghostVisible !== true)
+    fail("colocación", `no se ve el fantasma de la colocación seleccionada`);
+  await shot("15-colocacion-candidatas.jpg");
+  step(
+    `7b · ${entryProbe.candidates} colocaciones legales con fantasma en ${entryProbe.selectedFootprint
+      .map((cell) => `${cell.x},${cell.y}`)
+      .join(" ")}`,
+  );
+
+  // 7c · cambiar de candidata y que el mapa siga la selección
+  const choices = page.locator(".placement-choice");
+  const choiceCount = await choices.count();
+  if (choiceCount > 1) {
+    await choices.last().click();
+    await page.waitForFunction(
+      (previous) => (window.__landlordPlacementTest?.() ?? {}).selectedId !== previous,
+      entryProbe.selectedId,
+      { timeout: 10000 },
+    );
+    const switched = await page.evaluate(() => window.__landlordPlacementTest());
+    if (switched.selectedId === entryProbe.selectedId) fail("colocación", "la selección no cambió");
+    if (JSON.stringify(switched.selectedFootprint) === JSON.stringify(entryProbe.selectedFootprint))
+      fail("colocación", "el fantasma no se movió al cambiar de candidata");
+    await shot("16-colocacion-alternativa.jpg");
+    step(
+      `7c · candidata ${choiceCount} seleccionada en ${switched.selectedFootprint
+        .map((cell) => `${cell.x},${cell.y}`)
+        .join(" ")}`,
+    );
+  } else {
+    step("7c · una sola colocación legal en este solar (no hay a qué cambiar)");
+  }
+
+  // 7d · cancelar sin efectos: ni obra, ni caja, ni materiales
+  const cashBefore = await page.evaluate(() => window.__landlordUiTest?.cash() ?? null);
+  const inventoryBefore = await page.evaluate(() =>
+    JSON.stringify(window.__landlordUiTest?.inventory() ?? null),
+  );
+  const sitesBefore = await page.evaluate(
+    () => window.__landlordUiTest?.constructionSiteCount() ?? 0,
+  );
+  await page.keyboard.press("Escape");
+  await page.waitForFunction(() => window.__landlordPlacementTest?.().candidates === 0, null, {
+    timeout: 10000,
+  });
+  if ((await page.locator(".placement-panel").count()) > 0)
+    fail("cancelar colocación", "la ficha sigue abierta después de Escape");
+  const afterCancel = {
+    cash: await page.evaluate(() => window.__landlordUiTest?.cash() ?? null),
+    inventory: await page.evaluate(() =>
+      JSON.stringify(window.__landlordUiTest?.inventory() ?? null),
+    ),
+    sites: await page.evaluate(() => window.__landlordUiTest?.constructionSiteCount() ?? 0),
+  };
+  if (afterCancel.sites !== sitesBefore)
+    fail("cancelar colocación", `cambió el número de obras: ${sitesBefore} → ${afterCancel.sites}`);
+  if (afterCancel.cash !== cashBefore)
+    fail(
+      "cancelar colocación",
+      `la caja cambió sin confirmar: ${cashBefore} → ${afterCancel.cash}`,
+    );
+  if (afterCancel.inventory !== inventoryBefore)
+    fail("cancelar colocación", "los materiales cambiaron sin confirmar");
+  await shot("17-colocacion-cancelada.jpg");
+  step("7d · cancelar colocación no gasta caja, materiales ni crea obra");
+
+  // 7e · confirmar una candidata NO recomendada y exigir ésa huella exacta
+  await card.click();
+  await page.getByRole("button", { name: "Elegir ubicación" }).click();
+  await page.waitForFunction(
+    () => (window.__landlordPlacementTest?.() ?? { candidates: 0 }).candidates > 0,
+    null,
+    { timeout: 20000 },
+  );
+  const confirmChoices = page.locator(".placement-choice");
+  if ((await confirmChoices.count()) > 1) await confirmChoices.last().click();
+  const preview = await page.evaluate(() => window.__landlordPlacementTest());
+  await page.getByRole("button", { name: "Confirmar proyecto" }).click();
+  await page
+    .waitForFunction(() => window.__landlordUiTest?.ownedSiteFootprint() !== null, null, {
+      timeout: 20000,
+    })
+    .catch(async () => {
+      const status = await page.locator(".status-strip").innerText();
+      fail("confirmar colocación", `no nació la obra · estado «${status}»`);
+    });
+  const built = await page.evaluate(() => window.__landlordUiTest?.ownedSiteFootprint());
+  const previewSignature = preview.selectedFootprint
+    .map((cell) => `${cell.x},${cell.y}`)
+    .sort()
+    .join("|");
+  if (built.signature !== previewSignature)
+    fail(
+      "confirmar colocación",
+      `la obra nació en otra huella: vista ${previewSignature} · construida ${built.signature}`,
+    );
+  if (preview.selectedOrientation !== null && built.orientation !== preview.selectedOrientation)
+    fail(
+      "confirmar colocación",
+      `la orientación construida (${built.orientation}) difiere de la vista (${preview.selectedOrientation})`,
+    );
+  if ((await page.locator(".placement-panel").count()) > 0)
+    fail("confirmar colocación", "el modo sigue abierto después de confirmar");
+  await page
+    .getByRole("complementary", { name: "Inspección de parcela" })
+    .waitFor({ timeout: 10000 });
+  await shot("18-colocacion-confirmada.jpg");
+  step(`7e · obra confirmada exactamente en la huella elegida (${built.signature})`);
+
+  // 8 · la obra existe y se puede seleccionar
   await page
     .getByText(/Obra nueva en curso/)
     .first()
@@ -310,7 +435,142 @@ try {
     fail("overlays", "la vista normal conserva leyenda");
   step("15 · overlay de servicios con leyenda y vuelta a vista normal");
 
-  // 16 · catálogo de producción (detalle de cementera) en un solar industrial
+  /**
+   * V.d-7C · multi-parcela real: se compran los solares con comandos normales, se ensambla el solar
+   * y se entra en colocación sobre la unión. No se inyecta dinero ni materiales: si la partida no
+   * da para comprar el conjunto, el paso lo documenta (§33, §47).
+   */
+  async function buyParcels(ids) {
+    const bought = [];
+    for (const id of ids) {
+      const cell = await page.evaluate(
+        (parcelId) => window.__landlordUiTest?.parcelCellById(parcelId) ?? null,
+        id,
+      );
+      if (!cell) break;
+      await clickCell(cell);
+      const buy = page
+        .getByRole("button", { name: /Comprar parcela|Comprar para ampliar/ })
+        .first();
+      await buy.waitFor({ timeout: 8000 }).catch(() => {});
+      if ((await buy.count()) === 0 || !(await buy.isEnabled())) break;
+      await buy.click();
+      await page
+        .getByText(/Parcela comprada/)
+        .first()
+        .waitFor({ timeout: 20000 })
+        .catch(() => {});
+      bought.push(id);
+    }
+    return bought;
+  }
+
+  async function assembleAndPlace(buildingType, cardLabel, required, shotName) {
+    const site = await page.evaluate(
+      (type) => window.__landlordUiTest?.purchasableSiteForType(type) ?? null,
+      buildingType,
+    );
+    if (!site || site.length !== required) {
+      step(
+        `${required} parcelas · sin conjunto comprable de ${cardLabel} en el distrito observado`,
+      );
+      return false;
+    }
+    const bought = await buyParcels(site);
+    if (bought.length < required) {
+      step(
+        `${required} parcelas · sólo ${bought.length}/${required} comprables con la caja de la partida (sin inyectar recursos)`,
+      );
+      return false;
+    }
+    await clickCell(
+      await page.evaluate((id) => window.__landlordUiTest.parcelCellById(id), bought[0]),
+    );
+    const panel = page.getByRole("complementary", { name: "Inspección de parcela" });
+    await panel.waitFor({ timeout: 10000 });
+    const projectCard = page.locator(".build-card", { hasText: cardLabel }).first();
+    if ((await projectCard.count()) === 0) {
+      step(`${required} parcelas · ${cardLabel} no se ofrece en este solar`);
+      return false;
+    }
+    await projectCard.click();
+    const begin = page.getByRole("button", { name: "Elegir solares" });
+    await begin.waitFor({ timeout: 10000 });
+    await begin.click();
+    await page.getByText("Proyecto en preparación").waitFor({ timeout: 10000 });
+    await page.getByText(`1/${required} parcelas`).first().waitFor({ timeout: 10000 });
+    if (required === 2) await shot("14-cement-assembly-1-of-2.jpg");
+    for (const id of bought.slice(1)) {
+      await clickCell(
+        await page.evaluate((parcelId) => window.__landlordUiTest.parcelCellById(parcelId), id),
+      );
+      const add = page.getByRole("button", { name: "Añadir este solar" });
+      await add.waitFor({ timeout: 8000 }).catch(() => {});
+      if ((await add.count()) === 0) {
+        step(`${required} parcelas · la parcela comprada no resultó elegible para el proyecto`);
+        return false;
+      }
+      await add.click();
+      await page
+        .getByText(`${Math.min(2 + bought.indexOf(id), required)}/${required} parcelas`)
+        .first()
+        .waitFor({ timeout: 8000 })
+        .catch(() => {});
+    }
+    await page.getByText(`${required}/${required} parcelas`).first().waitFor({ timeout: 10000 });
+    if (required === 2) await shot("19-cement-assembly-2-of-2.jpg");
+    const place = page.getByRole("button", {
+      name: new RegExp(`Elegir ubicación para ${required}`),
+    });
+    await place.waitFor({ timeout: 10000 });
+    const sitesBefore = await page.evaluate(() => window.__landlordUiTest.constructionSiteCount());
+    await place.click();
+    await page
+      .waitForFunction(
+        () => (window.__landlordPlacementTest?.() ?? { candidates: 0 }).candidates > 0,
+        null,
+        { timeout: 25000 },
+      )
+      .catch(() => {});
+    const probe = await page.evaluate(() => window.__landlordPlacementTest());
+    if (probe.candidates > 0) {
+      if (probe.parcelIds.length !== required)
+        fail(
+          `colocación ${required} parcelas`,
+          "la ficha no abarca el conjunto exacto del proyecto",
+        );
+      const union = await page.evaluate(
+        (ids) =>
+          ids.every((id) => window.__landlordUiTest.parcelCellById(id) !== null) ? ids.length : 0,
+        probe.parcelIds,
+      );
+      if (union !== required) fail(`colocación ${required} parcelas`, "una parcela no existe");
+      if (
+        (await page.evaluate(() => window.__landlordUiTest.constructionSiteCount())) !== sitesBefore
+      )
+        fail(`colocación ${required} parcelas`, "entrar en colocación creó una obra");
+      await shot(shotName);
+      step(
+        `${required} parcelas · ${probe.candidates} colocaciones sobre la unión (${probe.selectedFootprint.length} celdas visibles en el fantasma)`,
+      );
+    } else {
+      const issue = await page
+        .locator(".placement-issue")
+        .innerText()
+        .catch(() => "");
+      await shot(shotName.replace(".jpg", "-sin-hueco.jpg"));
+      step(`${required} parcelas · sin hueco legal sobre la unión: ${issue || "sin copia"}`);
+    }
+    await page.keyboard.press("Escape");
+    if ((await page.locator(".placement-panel").count()) > 0)
+      fail(`colocación ${required} parcelas`, "Escape no cerró el modo");
+    if (
+      (await page.evaluate(() => window.__landlordUiTest.constructionSiteCount())) !== sitesBefore
+    )
+      fail(`colocación ${required} parcelas`, "cancelar creó una obra");
+    return true;
+  }
+
   await ensureRunning();
   await page.locator(".hud-district").click();
   const industrialTile = page
@@ -327,61 +587,13 @@ try {
       .catch(() => {});
     /** La proyección del distrito nuevo llega por el worker: se espera antes de pedir celdas. */
     await page.waitForTimeout(1200);
-    const industrialCell = await page.evaluate(
-      () => window.__landlordUiTest?.marketableParcelCellForType("cement_plant") ?? null,
+    await assembleAndPlace(
+      "cement_plant",
+      "Planta de cemento",
+      2,
+      "20-colocacion-dos-parcelas.jpg",
     );
-    if (industrialCell) {
-      await clickCell(industrialCell);
-      const panel = page.getByRole("complementary", { name: "Inspección de parcela" });
-      const buy = page.getByRole("button", { name: "Comprar parcela" });
-      /** El panel anterior puede seguir montado: se espera al botón de la parcela nueva. */
-      await buy
-        .first()
-        .waitFor({ timeout: 10000 })
-        .catch(() => {});
-      if ((await buy.count()) > 0 && (await buy.isEnabled())) {
-        await buy.click();
-        await page
-          .getByText(/Parcela comprada/)
-          .first()
-          .waitFor({ timeout: 20000 })
-          .catch(async () => {
-            const status = await page.locator(".status-strip").innerText();
-            const body = (await panel.count())
-              ? (await panel.innerText()).slice(0, 200)
-              : "sin panel";
-            fail("compra industrial", `estado «${status}» · panel «${body}»`);
-          });
-      } else {
-        const status = await page.locator(".status-strip").innerText();
-        fail(
-          "compra industrial",
-          `sin botón de compra activo (panel: ${(await panel.count()) ? (await panel.innerText()).slice(0, 500) : "cerrado"}; estado: ${status})`,
-        );
-      }
-      const cementCard = page.locator(".build-card", { hasText: "Planta de cemento" }).first();
-      if ((await cementCard.count()) > 0) {
-        await cementCard.click();
-        await page.getByRole("button", { name: "Elegir solares" }).waitFor({ timeout: 10000 });
-        await page.evaluate(() => {
-          const body = document.querySelector('[aria-label="Inspección de parcela"] .context-body');
-          if (body) body.scrollTop = body.scrollHeight;
-        });
-        await page.waitForTimeout(200);
-        await shot("04-detalle-produccion.jpg");
-        await page.getByRole("button", { name: "Elegir solares" }).click();
-        await page.getByText("Proyecto en preparación").waitFor({ timeout: 10000 });
-        const assembly = await page.getByLabel("Ensamblado de solar").innerText();
-        if (!/1\/2 parcelas/.test(assembly))
-          fail("ensamblado", `la cementera no muestra 1/2 solares: ${assembly}`);
-        await shot("14-cement-assembly-1-of-2.jpg");
-        step("16 · cementera muestra requisito y ensamblado 1/2 sin mutar la simulación");
-      } else {
-        step("16 · el solar industrial no ofrece cementera en este estado");
-      }
-    } else {
-      step("16 · sin solar industrial comprable en el distrito observado");
-    }
+    await assembleAndPlace("steelworks", "Acería", 3, "21-colocacion-tres-parcelas.jpg");
   } else {
     step("16 · sin distrito industrial en la ciudad");
   }

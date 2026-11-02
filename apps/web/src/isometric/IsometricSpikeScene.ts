@@ -47,6 +47,7 @@ import {
   type ScreenPoint,
 } from "./coordinates";
 import { gridEdgeToScreenLine, parcelBoundaryEdges } from "./parcel-geometry";
+import { nearestCandidateToCell } from "../ui/placement";
 import {
   buildGameplayVisualModel,
   type GameplayParkedVehicle,
@@ -69,6 +70,27 @@ const ROAD_MARKING_DEPTH = TERRAIN_DEPTH + 250;
  * contorno ámbar es presentación y sólo aparece en el Visual Slice.
  */
 const CONSTRUCTION_SITE_DEPTH = TERRAIN_DEPTH + 300;
+/**
+ * V.d-7C · la colocación tiene capa propia, por encima del overlay de datos y del fantasma. No se
+ * reutiliza `mapGraphics` (overlays/selección): así cancelar, confirmar, cambiar de distrito o apagar
+ * la escena siempre limpian el modo sin tocar el resto del mapa.
+ */
+const PLACEMENT_GHOST_DEPTH = 20_450;
+const PLACEMENT_DEPTH = 20_500;
+const PLACEMENT_LABEL_DEPTH = 20_550;
+/** El fantasma es una promesa, no un edificio: semi-transparente y distinguible del terminado. */
+const PLACEMENT_GHOST_ALPHA = 0.55;
+/**
+ * V.d-7C · lenguaje de colocación original: azul para el contexto catastral, verde cívico para las
+ * candidatas legales, ámbar sólo para la seleccionada. Nunca verde/rojo como única señal (§53): la
+ * marca numerada y el borde grueso también distinguen.
+ */
+const PLACEMENT_COLORS = {
+  context: 0x6fa8dc,
+  candidate: 0x4db6ac,
+  recommended: 0x7ad1c4,
+  selected: 0xf2c14e,
+} as const;
 /**
  * Los dos bundles entran por el mismo parser: el procedural ya es V2 y el de Blender sigue siendo V1,
  * que se convierte de forma explícita. Aquí no hay rama silenciosa por versión.
@@ -109,6 +131,22 @@ export type MapSelectionTarget =
       candidateParcelIds: readonly string[];
     };
 
+/**
+ * V.d-7C · qué debe dibujar el modo de colocación. Son candidatas ya validadas por el motor: Phaser
+ * no decide si una huella es legal, sólo la pinta y resuelve cuál está más cerca del puntero.
+ */
+export type MapPlacementTarget = {
+  buildingType: string;
+  parcelIds: readonly string[];
+  candidates: readonly {
+    id: string;
+    footprintCells: readonly GridCell[];
+    orientation: number;
+    recommended: boolean;
+  }[];
+  selectedCandidateId: string | null;
+};
+
 type CameraTestApi = {
   configure(camera: { zoom: number; scrollX: number; scrollY: number }): void;
   getCamera(): { zoom: number; scrollX: number; scrollY: number };
@@ -131,6 +169,20 @@ declare global {
       currentFps: number;
       samples: number[];
       objectCount: number;
+    };
+    /**
+     * V.d-7C · sonda observacional del modo de colocación (sólo con `?cameraTest=1`). Lee qué se
+     * está mostrando; no selecciona candidatas, no muta el estado y no sustituye ningún click.
+     */
+    __landlordPlacementTest?: () => {
+      candidates: number;
+      selectedId: string | null;
+      selectedOrientation: number | null;
+      ghostVisible: boolean;
+      ghostCenter: { x: number; y: number } | null;
+      selectedFootprint: { x: number; y: number }[] | null;
+      buildingType: string | null;
+      parcelIds: string[];
     };
     /** Sonda de gameplay (WP4.15-V.c.1): objetos renderizados y rebakes de suelo. */
     __gameplayVisualStats?: () => {
@@ -177,6 +229,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   private selectedCell: GridCell | null = null;
   private selectionTarget: MapSelectionTarget | null = null;
+  private placementTarget: MapPlacementTarget | null = null;
+  private placementGraphics?: Phaser.GameObjects.Graphics;
+  private placementLabels?: Phaser.GameObjects.Container;
+  private placementGhost?: Phaser.GameObjects.Image;
+  private placementCandidateListener?: (candidateId: string) => void;
   private projection: ViewProjectionV2 | null = null;
   private overlay: MapOverlay = "ownership";
   private cellPickedListener?: (cell: GridCell) => void;
@@ -227,6 +284,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
       : null;
     this.bakeGround();
     this.mapGraphics = this.add.graphics().setDepth(20_000);
+    this.placementGraphics = this.add.graphics().setDepth(PLACEMENT_DEPTH);
+    this.placementLabels = this.add.container(0, 0).setDepth(PLACEMENT_LABEL_DEPTH);
     this.createMarkerTexture(STRUCTURE_TEXTURE_KEY, 16, 16, "#d97757");
     this.createMarkerTexture(AGENT_TEXTURE_KEY, 4, 4, "#8fcae7");
     this.structureBlitter = this.add.blitter(0, 0, STRUCTURE_TEXTURE_KEY).setDepth(15_000);
@@ -324,12 +383,22 @@ export class IsometricSpikeScene extends Phaser.Scene {
   }
 
   public setProjection(projection: ViewProjectionV2): void {
+    const districtChanged =
+      this.projection !== null &&
+      this.projection.observedDistrictId !== projection.observedDistrictId;
     this.projection = projection;
     if (!this.sliceLayout) this.syncGameplayVisual();
     this.updateBlitterPositions();
     this.syncBuildingSprites();
     this.drawOverlay();
     this.syncWorldIndicators();
+    if (districtChanged && this.placementTarget) this.setPlacement(null);
+    else if (this.placementTarget) {
+      /** El solar desapareció de la vista (o de la partida): el modo no puede quedar flotando. */
+      const known = new Set<string>((projection.economy?.parcels ?? []).map((parcel) => parcel.id));
+      if (this.placementTarget.parcelIds.some((id) => !known.has(id))) this.setPlacement(null);
+      else this.drawPlacement();
+    }
   }
 
   public setOverlay(overlay: MapOverlay): void {
@@ -348,6 +417,32 @@ export class IsometricSpikeScene extends Phaser.Scene {
   public setSelectionTarget(target: MapSelectionTarget | null): void {
     this.selectionTarget = target ? { ...target } : null;
     this.drawOverlay();
+  }
+
+  /**
+   * V.d-7C · entrar/salir del modo de colocación. `null` limpia la capa y el fantasma: se llama al
+   * confirmar, al cancelar, al cambiar de distrito y cuando la proyección deja de conocer el solar.
+   */
+  public setPlacement(target: MapPlacementTarget | null): void {
+    this.placementTarget = target
+      ? {
+          buildingType: target.buildingType,
+          parcelIds: [...target.parcelIds],
+          candidates: target.candidates.map((candidate) => ({
+            id: candidate.id,
+            footprintCells: candidate.footprintCells.map((cell) => ({ ...cell })),
+            orientation: candidate.orientation,
+            recommended: candidate.recommended,
+          })),
+          selectedCandidateId: target.selectedCandidateId,
+        }
+      : null;
+    this.drawPlacement();
+  }
+
+  /** El puntero elige candidata; la decisión de qué es legal sigue en el motor. */
+  public setPlacementCandidateListener(listener: (candidateId: string) => void): void {
+    this.placementCandidateListener = listener;
   }
 
   /** Entity picking is semantic; React receives identity and Phaser keeps geometry local. */
@@ -768,6 +863,122 @@ export class IsometricSpikeScene extends Phaser.Scene {
     }
   }
 
+  /**
+   * V.d-7C · dibujo del modo. Se ven: el contexto catastral del proyecto, las candidatas legales,
+   * cuál es la recomendada, cuál está seleccionada y el frente vial del solar. Todo con la capa
+   * propia; el overlay normal no se toca.
+   */
+  private drawPlacement(): void {
+    const graphics = this.placementGraphics;
+    if (!graphics) return;
+    graphics.clear();
+    this.placementLabels?.removeAll(true);
+    const target = this.placementTarget;
+    if (!target) {
+      this.placementGhost?.setVisible(false);
+      return;
+    }
+    const parcels = (this.projection?.economy?.parcels ?? []).filter((parcel) =>
+      target.parcelIds.includes(parcel.id),
+    );
+    for (const parcel of parcels)
+      this.drawParcelGeometry(parcel.cells, PLACEMENT_COLORS.context, 0.05, 0.85, 3, graphics);
+    /** Frente vial del solar: dónde toca la calle la propiedad que se va a construir. */
+    graphics.lineStyle(4, PLACEMENT_COLORS.context, 0.95);
+    for (const parcel of parcels)
+      for (const frontage of parcel.roadFrontages)
+        for (const cell of frontage.cells) {
+          const center = gridToScreen(cell, this.layout);
+          graphics.strokeCircle(center.x, center.y, 7);
+        }
+    /**
+     * Todas las candidatas se ven a la vez, numeradas igual que la lista de la ficha: sin número en
+     * el mapa, una lista de «4 celdas · 0° · 1 planta» repetida 24 veces no le dice a nadie DÓNDE.
+     */
+    target.candidates.forEach((candidate, index) => {
+      const selected = candidate.id === target.selectedCandidateId;
+      if (!selected)
+        this.drawParcelGeometry(
+          candidate.footprintCells,
+          candidate.recommended ? PLACEMENT_COLORS.recommended : PLACEMENT_COLORS.candidate,
+          candidate.recommended ? 0.14 : 0.08,
+          candidate.recommended ? 1 : 0.7,
+          candidate.recommended ? 3 : 2,
+          graphics,
+        );
+      const anchor = candidate.footprintCells.reduce(
+        (best, cell) => (cell.x + cell.y < best.x + best.y ? cell : best),
+        candidate.footprintCells[0]!,
+      );
+      const point = gridToScreen(anchor, this.layout);
+      const radius = selected ? 11 : 9;
+      graphics.fillStyle(selected ? PLACEMENT_COLORS.selected : PLACEMENT_COLORS.candidate, 1);
+      graphics.fillCircle(point.x, point.y - 4, radius);
+      graphics.lineStyle(2, 0x0c1220, 1);
+      graphics.strokeCircle(point.x, point.y - 4, radius);
+      const label = this.add
+        .text(point.x, point.y - 4, String(index + 1), {
+          fontFamily: "Inter, system-ui, sans-serif",
+          fontSize: selected ? "13px" : "11px",
+          fontStyle: "bold",
+          color: "#0c1220",
+          resolution: 2,
+        })
+        .setOrigin(0.5);
+      this.placementLabels?.add(label);
+    });
+    const selected = target.candidates.find(
+      (candidate) => candidate.id === target.selectedCandidateId,
+    );
+    if (selected)
+      this.drawParcelGeometry(
+        selected.footprintCells,
+        PLACEMENT_COLORS.selected,
+        0.26,
+        1,
+        5,
+        graphics,
+      );
+    this.updatePlacementGhost(selected?.footprintCells ?? null);
+  }
+
+  /**
+   * El fantasma usa el asset runtime real del tipo con alpha < 1 (D-097 · Ghost), con el mismo
+   * pivote y escala que un edificio terminado: así la silueta coincide con lo que se va a construir.
+   * Si el tipo aún no tiene textura, la huella dibujada sigue siendo la representación honesta.
+   */
+  private updatePlacementGhost(cells: readonly GridCell[] | null): void {
+    const target = this.placementTarget;
+    if (!cells || !target || !this.assetsReady) {
+      this.placementGhost?.setVisible(false);
+      return;
+    }
+    const resolved = this.resolveBuildingVisual(
+      target.buildingType,
+      target.buildingType,
+      "complete",
+    );
+    if (!resolved) {
+      this.placementGhost?.setVisible(false);
+      return;
+    }
+    const center = gridToScreen(footprintVisualCenter(cells), this.layout);
+    const origin = originFromPivot(resolved.asset);
+    const ghost =
+      this.placementGhost ??
+      (this.placementGhost = this.add
+        .image(center.x, center.y, resolved.key)
+        .setDepth(PLACEMENT_GHOST_DEPTH)
+        .setActive(false));
+    if (ghost.texture.key !== resolved.key) ghost.setTexture(resolved.key);
+    ghost.setPosition(center.x, center.y);
+    ghost.setOrigin(origin.x, origin.y);
+    ghost.setScale(spriteScaleFor(resolved.asset, this.layout.tileWidth));
+    ghost.setAlpha(PLACEMENT_GHOST_ALPHA);
+    ghost.setDepth(PLACEMENT_GHOST_DEPTH);
+    ghost.setVisible(true);
+  }
+
   private drawSelectedParcel(
     parcel: NonNullable<ViewProjectionV2["economy"]>["parcels"][number],
   ): void {
@@ -802,8 +1013,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
     fillAlpha: number,
     lineAlpha: number,
     lineWidth: number,
+    graphics = this.mapGraphics,
   ): void {
-    const graphics = this.mapGraphics;
     if (!graphics) return;
     const halfWidth = this.layout.tileWidth / 2;
     const halfHeight = this.layout.tileHeight / 2;
@@ -940,6 +1151,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.assetsReady = true;
     this.syncBuildingSprites();
     this.drawOverlay();
+    /** El fantasma necesita texturas: sin `assetsReady` sólo se ve la huella proxy. */
+    if (this.placementTarget) this.drawPlacement();
     if (this.sliceLayout) this.renderVisualSlice();
     else this.renderGameplayStreetLife();
   }
@@ -1418,6 +1631,18 @@ export class IsometricSpikeScene extends Phaser.Scene {
       },
       this.layout,
     );
+    /**
+     * V.d-7C · en modo colocación el puntero NO crea geometría: resuelve la candidata legal más
+     * cercana y manda su identidad a React. La cercanía se calcula con la misma función pura que usa
+     * la ficha, así que el scene no decide ninguna regla de elegibilidad.
+     */
+    if (selected && this.placementTarget && this.placementTarget.candidates.length > 0) {
+      const candidateId = nearestCandidateToCell(this.placementTarget.candidates, selected);
+      if (candidateId) {
+        this.placementCandidateListener?.(candidateId);
+        return;
+      }
+    }
     this.selectedCell = selected;
     this.drawOverlay();
     this.debugText?.setText(this.debugLabel());
@@ -1597,8 +1822,27 @@ export class IsometricSpikeScene extends Phaser.Scene {
       },
     };
     window.__landlordCameraTest = api;
+    const placementApi = () => {
+      const target = this.placementTarget;
+      const selected = target?.candidates.find((entry) => entry.id === target.selectedCandidateId);
+      return {
+        candidates: target?.candidates.length ?? 0,
+        selectedId: target?.selectedCandidateId ?? null,
+        selectedOrientation: selected?.orientation ?? null,
+        ghostVisible: this.placementGhost?.visible ?? false,
+        ghostCenter:
+          this.placementGhost && this.placementGhost.visible
+            ? { x: this.placementGhost.x, y: this.placementGhost.y }
+            : null,
+        selectedFootprint: selected ? selected.footprintCells.map((cell) => ({ ...cell })) : null,
+        buildingType: target?.buildingType ?? null,
+        parcelIds: target ? [...target.parcelIds] : [],
+      };
+    };
+    window.__landlordPlacementTest = placementApi;
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       if (window.__landlordCameraTest === api) delete window.__landlordCameraTest;
+      if (window.__landlordPlacementTest === placementApi) delete window.__landlordPlacementTest;
     });
   }
 }

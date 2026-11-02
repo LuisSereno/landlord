@@ -12,6 +12,13 @@ import {
 import { HelpPopover, HelpTooltip } from "./help";
 import { ResourceIcon, UiIcon } from "./icons";
 import { PlacementPanel } from "./placement-panel";
+import {
+  constructionStageLabel,
+  constructionVisualStage,
+  crewStateLabel,
+  crewVisualState,
+  type CrewVisualState,
+} from "../isometric/construction-stages";
 import type { PendingPlacement, PlacementHandlers } from "./placement";
 import {
   buildingDisplayName,
@@ -410,6 +417,39 @@ function SiteAssemblyPanel({
       </button>
     </section>
   );
+}
+
+/**
+ * V.d-7C · resumen de la plantilla de una cuadrilla. No mueve ni un agente: lee la posición y el
+ * estado que la proyección ya publica y los agrupa por etapa visible.
+ */
+function crewRosterSummary(context: PanelContext, site: ProjectedSite, crewId: string): string {
+  const crew = context.economy.crews.find((entry) => entry.id === crewId);
+  if (!crew) return "sin datos";
+  const near = new Set(
+    [...site.footprintCells].flatMap((cell) => [
+      `${cell.x + 1},${cell.y}`,
+      `${cell.x - 1},${cell.y}`,
+      `${cell.x},${cell.y + 1}`,
+      `${cell.x},${cell.y - 1}`,
+      `${cell.x},${cell.y}`,
+    ]),
+  );
+  const counts = new Map<CrewVisualState, number>();
+  for (const agentId of [crew.supervisorAgentId, ...crew.workerAgentIds]) {
+    const agent = context.projection.agents.find((entry) => entry.id === agentId);
+    const state = crewVisualState({
+      assignedToSite: true,
+      agentState: agent?.state,
+      atSite: agent ? near.has(`${agent.cell.x},${agent.cell.y}`) : false,
+    });
+    counts.set(state, (counts.get(state) ?? 0) + 1);
+  }
+  if (counts.size === 0) return "sin agentes";
+  return [...counts.entries()]
+    .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
+    .map(([state, count]) => `${count} ${crewStateLabel(state).toLowerCase()}`)
+    .join(" · ");
 }
 
 function serviceLabel(service: "security" | "fire" | "health" | "education" | "market"): string {
@@ -828,20 +868,30 @@ function ConstructionPanel({
         >
           <span style={{ width: `${progress}%` }} />
         </div>
-        <p className="muted">{progress} % completado</p>
+        <p className="muted">
+          {progress} % completado ·{" "}
+          {constructionStageLabel(constructionVisualStage(site.progress, site.workRequired))}
+        </p>
         <h3>
           <UiIcon name="crew" /> Cuadrillas <HelpTooltip topic="crew" />
         </h3>
         {site.assignedCrewIds.length === 0 ? (
           <p className="muted">Ninguna cuadrilla asignada todavía.</p>
         ) : (
-          <ul className="list-plain" role="list">
-            {site.assignedCrewIds.map((crewId) => (
-              <li key={crewId}>
-                <UiIcon name="crew" size={14} /> {crewDisplayName(crewId)}
-              </li>
-            ))}
-          </ul>
+          <>
+            <ul className="list-plain" role="list">
+              {site.assignedCrewIds.map((crewId) => (
+                <li key={crewId}>
+                  <UiIcon name="crew" size={14} /> {crewDisplayName(crewId)} ·{" "}
+                  {crewRosterSummary(context, site, crewId)}
+                </li>
+              ))}
+            </ul>
+            <p className="muted">
+              La obra sólo avanza con gente presente en el solar: los estados salen de la posición y
+              la tarea que ya decide la simulación.
+            </p>
+          </>
         )}
         {owned ? (
           <ul className="list-plain" role="list">

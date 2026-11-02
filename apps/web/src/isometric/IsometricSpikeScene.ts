@@ -16,6 +16,12 @@ import {
   ZONING_COLORS,
   type MapOverlay,
 } from "../ui/overlay-catalog";
+import {
+  constructionStageMassing,
+  constructionVisualStage,
+  crewVisualState,
+  type CrewVisualState,
+} from "./construction-stages";
 import { planGround, type GroundPlan } from "../visual-slice/ground";
 import {
   CROSSING_TEXTURE,
@@ -55,6 +61,21 @@ import {
 } from "./gameplay-visual-adapter";
 
 const COLORS = MAP_COLORS;
+/**
+ * V.d-7C · coreografía de obra. Paleta Graphic Civic propia: tierra para la cimentación, crema de
+ * muro para la estructura a medio hacer, andamio en línea fina y cuadrillas con anillo por estado.
+ * Nada de esto cambia el progreso autoritativo: es lectura del progreso que ya existe.
+ */
+const CONSTRUCTION_COLORS = {
+  excavation: 0x2f2621,
+  pad: 0x8a6f4e,
+  massing: 0xead7a1,
+  scaffold: 0xc9b98a,
+  crewAssigned: 0x7f8fa6,
+  crewTravelling: 0xf2c14e,
+  crewOnSite: 0x4db6ac,
+  crewWorking: 0x7fc8a9,
+} as const;
 
 const STRUCTURE_TEXTURE_KEY = "benchmark-structure-marker";
 const AGENT_TEXTURE_KEY = "benchmark-agent-marker";
@@ -231,6 +252,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private selectionTarget: MapSelectionTarget | null = null;
   private placementTarget: MapPlacementTarget | null = null;
   private placementGraphics?: Phaser.GameObjects.Graphics;
+  private constructionLabels?: Phaser.GameObjects.Container;
   private placementLabels?: Phaser.GameObjects.Container;
   private placementGhost?: Phaser.GameObjects.Image;
   private placementCandidateListener?: (candidateId: string) => void;
@@ -286,6 +308,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.mapGraphics = this.add.graphics().setDepth(20_000);
     this.placementGraphics = this.add.graphics().setDepth(PLACEMENT_DEPTH);
     this.placementLabels = this.add.container(0, 0).setDepth(PLACEMENT_LABEL_DEPTH);
+    this.constructionLabels = this.add.container(0, 0).setDepth(PLACEMENT_LABEL_DEPTH);
     this.createMarkerTexture(STRUCTURE_TEXTURE_KEY, 16, 16, "#d97757");
     this.createMarkerTexture(AGENT_TEXTURE_KEY, 4, 4, "#8fcae7");
     this.structureBlitter = this.add.blitter(0, 0, STRUCTURE_TEXTURE_KEY).setDepth(15_000);
@@ -785,18 +808,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
       );
       graphics.fillRect(center.x - 7, center.y - 12, 14, 12 + building.level * 3);
     }
-    for (const site of this.projection?.economy?.constructionSites ?? []) {
-      const center = gridToScreen(footprintVisualCenter(site.footprintCells), this.layout);
-      graphics.lineStyle(3, COLORS.construction, 1);
-      graphics.strokeRect(center.x - 8, center.y - 8, 16, 8);
-      graphics.fillStyle(COLORS.construction, 1);
-      graphics.fillRect(
-        center.x - 8,
-        center.y - 8,
-        16 * Math.min(1, site.progress / site.workRequired),
-        3,
-      );
-    }
+    this.constructionLabels?.removeAll(true);
+    for (const site of this.projection?.economy?.constructionSites ?? [])
+      this.drawConstructionSite(graphics, site);
+    this.drawCrewPresence(graphics);
     for (const incident of this.projection?.economy?.incidents.filter(
       (entry) => entry.status === "active",
     ) ?? []) {
@@ -940,6 +955,145 @@ export class IsometricSpikeScene extends Phaser.Scene {
         graphics,
       );
     this.updatePlacementGhost(selected?.footprintCells ?? null);
+  }
+
+  /**
+   * V.d-7C · la obra se lee como proceso físico sobre su huella exacta: hoyo y solera, estructura a
+   * medio hacer con andamio, acabados y nada cuando ya es edificio. Las bandas salen de
+   * `construction-stages`, que sólo mira el progreso autoritativo.
+   */
+  private drawConstructionSite(
+    graphics: Phaser.GameObjects.Graphics,
+    site: NonNullable<ViewProjectionV2["economy"]>["constructionSites"][number],
+  ): void {
+    const stage = constructionVisualStage(site.progress, site.workRequired);
+    if (stage === "complete") return;
+    const massing = constructionStageMassing(stage);
+    const halfWidth = this.layout.tileWidth / 2;
+    const halfHeight = this.layout.tileHeight / 2;
+    const height = (6 + site.floors * 5) * massing;
+    for (const cell of site.footprintCells) {
+      const center = gridToScreen(cell, this.layout);
+      /** Solera / excavación: el suelo preparado, distinto del solar sin edificar. */
+      graphics.fillStyle(
+        stage === "foundation" ? CONSTRUCTION_COLORS.excavation : CONSTRUCTION_COLORS.pad,
+        stage === "foundation" ? 0.85 : 0.5,
+      );
+      graphics.beginPath();
+      graphics.moveTo(center.x, center.y - halfHeight);
+      graphics.lineTo(center.x + halfWidth, center.y);
+      graphics.lineTo(center.x, center.y + halfHeight);
+      graphics.lineTo(center.x - halfWidth, center.y);
+      graphics.closePath();
+      graphics.fillPath();
+      /** Volumen parcial: crece con la etapa, nunca es el sprite final con alpha. */
+      graphics.fillStyle(CONSTRUCTION_COLORS.massing, stage === "finishing" ? 0.95 : 0.72);
+      graphics.fillRect(center.x - halfWidth * 0.55, center.y - height, halfWidth * 1.1, height);
+      graphics.lineStyle(1, CONSTRUCTION_COLORS.scaffold, 0.9);
+      graphics.strokeRect(center.x - halfWidth * 0.55, center.y - height, halfWidth * 1.1, height);
+    }
+    if (stage === "structure" || stage === "finishing") {
+      /** Andamio original: retícula fina sobre el volumen, sin copiar ningún cursor histórico. */
+      const bounds = site.footprintCells.reduce(
+        (box, cell) => {
+          const point = gridToScreen(cell, this.layout);
+          return {
+            left: Math.min(box.left, point.x - halfWidth),
+            right: Math.max(box.right, point.x + halfWidth),
+            top: Math.min(box.top, point.y - height),
+            bottom: Math.max(box.bottom, point.y + halfHeight),
+          };
+        },
+        {
+          left: Number.POSITIVE_INFINITY,
+          right: Number.NEGATIVE_INFINITY,
+          top: Number.POSITIVE_INFINITY,
+          bottom: Number.NEGATIVE_INFINITY,
+        },
+      );
+      graphics.lineStyle(1, CONSTRUCTION_COLORS.scaffold, 0.55);
+      for (let x = bounds.left; x <= bounds.right; x += 9)
+        graphics.lineBetween(x, bounds.top, x, bounds.bottom);
+      for (let y = bounds.top; y <= bounds.bottom; y += 9)
+        graphics.lineBetween(bounds.left, y, bounds.right, y);
+    }
+    const center = gridToScreen(footprintVisualCenter(site.footprintCells), this.layout);
+    const ratio =
+      site.workRequired > 0 ? Math.min(1, Math.max(0, site.progress / site.workRequired)) : 1;
+    graphics.fillStyle(0x0c1220, 0.75);
+    graphics.fillRect(center.x - 11, center.y - height - 12, 22, 4);
+    graphics.fillStyle(COLORS.construction, 1);
+    graphics.fillRect(center.x - 11, center.y - height - 12, 22 * ratio, 4);
+  }
+
+  /**
+   * V.d-7C · cuadrillas ligadas al solar. Se dibuja únicamente información ya autoritativa y
+   * proyectada: a qué obra está asignada cada cuadrilla, en qué celda está cada agente y en qué
+   * estado está. No hay un segundo sistema de movimiento.
+   */
+  private drawCrewPresence(graphics: Phaser.GameObjects.Graphics): void {
+    const economy = this.projection?.economy;
+    if (!economy) return;
+    const sites = economy.constructionSites.filter((site) => site.assignedCrewIds.length > 0);
+    if (sites.length === 0) return;
+    const agentsById = new Map((this.projection?.agents ?? []).map((agent) => [agent.id, agent]));
+    const crewsById = new Map(economy.crews.map((crew) => [crew.id, crew]));
+    for (const site of sites) {
+      const footprint = new Set(site.footprintCells.map((cell) => `${cell.x},${cell.y}`));
+      const working = new Set(
+        [...site.footprintCells]
+          .flatMap((cell) => [
+            `${cell.x + 1},${cell.y}`,
+            `${cell.x - 1},${cell.y}`,
+            `${cell.x},${cell.y + 1}`,
+            `${cell.x},${cell.y - 1}`,
+          ])
+          .concat([...footprint]),
+      );
+      let present = 0;
+      for (const crewId of site.assignedCrewIds) {
+        const crew = crewsById.get(crewId);
+        if (!crew) continue;
+        for (const agentId of [crew.supervisorAgentId, ...crew.workerAgentIds]) {
+          const agent = agentsById.get(agentId);
+          if (!agent) continue;
+          const state = crewVisualState({
+            assignedToSite: true,
+            agentState: agent.state,
+            atSite: working.has(`${agent.cell.x},${agent.cell.y}`),
+          });
+          if (state === "on-site" || state === "working") present += 1;
+          const point = gridToScreen(agent.cell, this.layout);
+          graphics.lineStyle(2, this.crewColor(state), 1);
+          graphics.strokeCircle(point.x, point.y, 7);
+          graphics.fillStyle(this.crewColor(state), 0.9);
+          graphics.fillCircle(point.x, point.y, 3);
+        }
+      }
+      const center = gridToScreen(footprintVisualCenter(site.footprintCells), this.layout);
+      const label = this.add.text(
+        center.x,
+        center.y - 34,
+        present > 0 ? `${present} en obra` : "cuadrilla de camino",
+        {
+          fontFamily: "Inter, system-ui, sans-serif",
+          fontSize: "11px",
+          color: "#e8edf5",
+          backgroundColor: "#0c1220cc",
+          padding: { x: 4, y: 2 },
+          resolution: 2,
+        },
+      );
+      label.setOrigin(0.5);
+      this.constructionLabels?.add(label);
+    }
+  }
+
+  private crewColor(state: CrewVisualState): number {
+    if (state === "working") return CONSTRUCTION_COLORS.crewWorking;
+    if (state === "on-site") return CONSTRUCTION_COLORS.crewOnSite;
+    if (state === "travelling") return CONSTRUCTION_COLORS.crewTravelling;
+    return CONSTRUCTION_COLORS.crewAssigned;
   }
 
   /**

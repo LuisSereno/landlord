@@ -1385,3 +1385,35 @@ frente vial, selección semántica, picking, tooltip portal, lenguaje de facilit
 sigue pendiente; V.d no se cierra y el playtest humano sigue `PENDING HUMAN PLAYTEST`.
 
 ADR completo: `docs/engineering/adr/D-096-contrato-multi-parcela.md`.
+
+## D-097 — Colocación interactiva de proyectos
+
+Fase V.d-7C (2026-11-02). El jugador recupera la decisión espacial sin crear un segundo algoritmo.
+
+- **Una sola fuente autoritativa**: `enumerateFootprintCandidates` (en `footprints.ts`) devuelve TODAS
+  las huellas legales del solar en un orden total canónico; `chooseFootprint` toma la primera. El
+  autoplacement anterior y la elección del jugador salen del mismo cálculo. `development-placement.ts`
+  resuelve además el conjunto de parcelas admisible, el código que rige y la identidad de cada
+  candidata, y es lo que usan el comando, la petición del worker y la IA.
+- **Identidad**: `DevelopmentPlacementId` deriva de `buildingType + parcelIds canónicos + firma de
+  huella + orientación` (dos FNV-1a → 64 bits, `placement_<16 hex>`). Nunca índice, nunca UUID, nunca
+  contador. Sobrevive a save/load y a la cadena canónica.
+- **Comando**: `StartConstruction { parcelIds, buildingType, placementId? }`. Con identidad, el motor
+  revalida y si la candidata ya no es legal rechaza `PLACEMENT_NO_LONGER_VALID` **antes** de mirar
+  cuadrillas, materiales y caja; no recoloca el edificio por su cuenta. Sin identidad toma la primera
+  candidata, que es exactamente la autocolocación anterior: por eso la IA, la automatización y el
+  generador municipal no necesitan reglas propias y los diez digestos dorados no se mueven.
+- **Orientación**: la decide la geometría (eje largo del rectángulo), así que el dominio sólo produce
+  0° y 90°; 180°/270° son la misma celda y se deduplican por huella. Rotar = otra candidata legal.
+- **Petición de sólo lectura**: `GetDevelopmentPlacementCandidates` (técnica, como
+  `SetObservedDistrict`) responde candidatas canónicas recortadas a 24 con `totalCandidates`. No avanza
+  tick, no toca el PRNG, no emite permisos y no deja estado: verificado contra la cadena canónica.
+- **Sin colocación libre**: el puntero elige la candidata más cercana con la MISMA función pura que usa
+  la ficha; nunca crea geometría.
+- **Cancelación y obsoleto**: cancelar no despacha comando; un candidato obsoleto no gasta caja,
+  materiales ni permiso y no crea obra.
+- **Coreografía**: `constructionVisualStage` deriva cimentación/estructura/acabados/terminado del
+  progreso existente (constantes de presentación, no de simulación) y las cuadrillas se dibujan con
+  posición y estado ya proyectados. Los entornos de propiedad (`property-grounds`) son descriptores
+  deterministas derivados de geometría y tipo, sin efecto en propiedad, colisión, producción,
+  valoración, cobertura ni FAR.

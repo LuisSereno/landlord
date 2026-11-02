@@ -1,8 +1,22 @@
 # D-097 — Interactive Development Placement
 
-Status: PROPOSED  
+Status: ACCEPTED (implementado en V.d-7C sobre `wip/vd7c-interactive-development-placement`, acta
+`docs/execution/phase-4/vd7c-interactive-development-placement-2026-11-02.md`)  
 Workstream: V.d-7C  
 Decision date: 2026-11-02
+
+## Command form adopted
+
+`StartConstruction { parcelIds, buildingType, placementId? }` — the identity form, not the inline
+geometry form. The engine re-enumerates and looks the identity up again at execution time, so a
+stale candidate is rejected with `PLACEMENT_NO_LONGER_VALID` instead of being silently replaced.
+
+`placementId` stays optional and means "take the deterministic best candidate", which is exactly the
+behaviour the engine already had. The human path always supplies it; the rival AI, the automation
+and the municipal generator omit it and therefore receive candidate #1 of the same authoritative
+enumeration. Both paths run through `development-placement.ts`, so no actor gets different rules.
+Omitting the field also keeps the canonical command payload byte-identical for every pre-existing
+scenario: the ten golden digests are unchanged by this workstream.
 
 ## Context
 

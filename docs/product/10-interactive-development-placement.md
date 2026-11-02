@@ -1,8 +1,11 @@
 # Interactive Development Placement — Product Specification
 
-Status: PROPOSED  
+Status: ACCEPTED — implemented by V.d-7C (acta
+`docs/execution/phase-4/vd7c-interactive-development-placement-2026-11-02.md`)  
 Target workstream: V.d-7C  
-Base branch for specification: `wip/vd7b-spatial-visual-integrity@974cc42`
+Base branch for specification: `wip/vd7b-spatial-visual-integrity@974cc42`  
+Implementation baseline: `docs/vd7c-interactive-development-placement@b6ff2cd` (same functional
+tree as `974cc42` plus the V.d-7C documents)
 
 ## 1. Product problem
 

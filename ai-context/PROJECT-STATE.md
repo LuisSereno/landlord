@@ -325,6 +325,33 @@ La auditoría V.d-7A.1 confirmó que las doce seeds canónicas producen múltipl
 contiguos compatibles con la acería; no existe deuda de alcance de generación.
 de contenido/generación.
 
+**V.d-7C (colocación interactiva de proyectos) está ejecutada el 2026-11-02 sobre la rama local
+`wip/vd7c-interactive-development-placement`, partiendo de `b6ff2cd` (el árbol funcional de `974cc42`
+más la documentación de la fase); `develop` no se ha tocado.** El baseline lo eligió el responsable
+después de registrar que `wip/vd7b-spatial-visual-integrity@f70f3bf` se autorregistra como
+`BLOCKED — no apto para revisión visual humana` y de que ningún acta aprueba V.d-7B. D-097 queda
+ACEPTADA con la forma de comando `placementId` opcional (acta
+`docs/execution/phase-4/vd7c-interactive-development-placement-2026-11-02.md`):
+`enumerateFootprintCandidates` es la única fuente de huellas legales y `chooseFootprint` toma la
+primera, así que la autocolocación anterior y la elección del jugador son el mismo cálculo —verificado
+por diferencial contra el `footprints.ts` de `b6ff2cd` en más de 2 000 combinaciones y en unions de 2 y
+3 parcelas, con los diez digestos dorados y `canonical-state` intactos—. `StartConstruction` revalida
+la identidad antes de tocar cuadrillas, materiales o caja y rechaza un candidato obsoleto con
+`PLACEMENT_NO_LONGER_VALID` sin reasignar huella. `GetDevelopmentPlacementCandidates` es petición
+técnica de sólo lectura (no avanza tick, no toca el PRNG, no emite permisos, no deja estado canónico)
+y responde 24 candidatas por página con el total real. La UI añade `PendingPlacement` transitorio,
+capa Phaser propia con fantasma del asset real y numeración de candidatas, controles
+Anterior/Siguiente/Rotar/Confirmar/Cancelar con ratón y teclado, y explicación legible cuando no hay
+huella legal. La obra se dibuja por etapas derivadas del progreso y las cuadrillas con la posición y el
+estado que ya proyecta el dominio; el recinto de propiedad (`property-grounds`) es presentación
+determinista sin efecto en gameplay. Gates: lint, typecheck, format, suite completa, build,
+`smoke:alpha`, `smoke:vd-core-loop` y `smoke:vd-ux` (25 pasos, 0 errores de página) en verde, más
+`art:assets:check` y `art:binaries:check`. **V.d-7B sigue sin certificar y V.d no se cierra: el
+playtest humano sigue `PENDING HUMAN PLAYTEST`. V.d-7C **no se declara `READY FOR HUMAN PLAYTEST`**:
+el criterio de la fase exige P1 = 0 y su acta registra tres P1 (FPS preexistente agravado por la
+unión de tres parcelas, línea V.d-7B sin integrar y tres capturas de evidencia incompletas). La
+aceptación de esa deuda y la apertura del playtest corresponden al responsable.**' 
+
 **Incidencia del entorno registrada:** a mitad de la batería de gates el ejecutor de `pnpm`
 12.11.2 comenzó a fallar todo spawn con `Input/output error (os error 5)`. Causa raíz encontrada
 en V.d-UX: hay entradas de `PATH` en un SSD externo desconectado (`/media/luis/CacheSSD/...`) y una

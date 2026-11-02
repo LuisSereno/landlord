@@ -336,6 +336,33 @@ viven en el dominio y ningún consumidor puede reintroducir una parcela única c
 V.d-7B (visual) queda fuera de este contrato de dominio: geometría de parcela, frente vial,
 selección semántica, picking de sprites, tooltip portal, lenguaje de facilities y smoke visual.
 
+## Colocación interactiva de proyectos (V.d-7C, D-097)
+
+La decisión espacial del jugador se apoya en el mismo motor que ya autocolocaba; nadie reimplementa
+reglas fuera de él:
+
+- **`packages/simulation/src/footprints.ts`** es la única geometría legal: `buildableEnvelope`
+  (parcela − retranqueos − huellas ocupadas) y `enumerateFootprintCandidates`, que devuelve todas las
+  huellas del solar ordenadas por un orden total canónico (objetivo → distancia al objetivo → frente
+  → continuidad → plantas → área → orientación → firma). `chooseFootprint` es ahora un envoltorio que
+  toma la primera: no existe un algoritmo antiguo y uno nuevo.
+- **`packages/simulation/src/development-placement.ts`** resuelve el proyecto (conjunto canónico,
+  distrito, código, usos, contigüidad, área, ocupación) y produce las candidaturas con identidad
+  derivada de geometría. Lo llaman `StartConstruction`, la petición del worker y quien necesite la
+  mejor opción sin interfaz. El código legal es el congelado en el permiso si lo hay; si no, el que
+  el permiso congelaría, así que la petición muestra las mismas huellas que el comando aceptará
+  después sin haber emitido permiso.
+- **Frontera con el render**: React guarda `PendingPlacement` (transitorio, no persistido) y Phaser
+  pinta la capa `placementGraphics` + el fantasma con el asset real a alpha 0,55. Ninguno decide
+  elegibilidad: el puntero sólo elige la candidata más cercana con la misma función pura que usa la
+  ficha (`apps/web/src/ui/placement.ts`).
+- **Etapa y entorno derivados**: `construction-stages.ts` traduce progreso → etapa visible y
+  `property-grounds.ts` traduce geometría + tipo → descriptores de recinto. Ninguno escribe estado,
+  ninguno afecta a cobertura, FAR, valoración, producción ni colisión autoritativa.
+
+Regla para cualquier función nueva que toque colocación: si genera o filtra una huella, vive en
+`packages/simulation`; si sólo la muestra, recibe la candidata ya validada y no vuelve a decidir.
+
 ## Dinero, tiempo y datos
 
 - `Money` entero en unidad menor; nada de floats para moneda.

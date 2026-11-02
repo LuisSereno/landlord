@@ -80,3 +80,13 @@ modula unidades, no cohortes enteras; la proyección publica la huella física r
 procedural cubre los 15 tipos de dominio; la orientación de dominio se separa explícitamente del
 azimut de cámara. D-093 §7 se aclara (H2-11): `civicAmenities` geométrica y `services` operativa
 son canales ortogonales, no una suma paralela.
+
+## V.d-7C — Colocación interactiva de proyectos (2026-11-02)
+
+- [D-097 — Interactive Development Placement](D-097-interactive-development-placement.md) — ACEPTADA
+
+Amplía D-090 §4 (autocolocación determinista) y D-096 (contrato multi-parcela) sin sustituirlos: la
+misma enumeración autoritativa de huellas se expone como candidatas ordenadas canónicamente, el
+jugador elige una identidad y el comando la revalida antes de gastar nada. La IA y la automatización
+omiten la identidad y reciben la primera candidata de esa misma lista, así que no existen reglas de
+colocación por actor.

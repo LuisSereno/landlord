@@ -1,0 +1,45 @@
+{
+  "measuredAt": "2026-11-02T14:29:02.390Z",
+  "homeDistrictName": "Barrio del Umbral",
+  "measurements": {
+    "fps": {
+      "normal": 60,
+      "placementTwoParcels": 8,
+      "placement": 9
+    },
+    "cycles": {
+      "cycles": 50,
+      "sceneChildrenBefore": 86,
+      "sceneChildrenDuring": [
+        86,
+        86,
+        86,
+        86,
+        86
+      ],
+      "sceneChildrenAfterCycle": 86,
+      "sceneChildrenAfterCancel": 86,
+      "placementObjectsAfterCancel": 0,
+      "placementLabelPoolAfterCycles": 24,
+      "placementDraws": 151,
+      "heapBefore": 167000000,
+      "heapAfter": 167000000,
+      "heapGrowthKb": 0
+    },
+    "candidates": {
+      "twoParcels": 24,
+      "single": 24
+    }
+  },
+  "notes": [
+    "distrito natal: Barrio del Umbral",
+    "04 · dos parcelas: 24 candidatas sobre la unión de 2 solares",
+    "05 · tres parcelas no alcanzables: locator.waitFor: Timeout 8000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('complementary', { name: 'Inspección de parcela' }).last().getByRole('button', { name: 'Añadir este solar' }) to be visible\u001b[22m\n",
+    "01 · 24 candidatas, recomendada en placement_6674144405af4ffa",
+    "02 · alternativa seleccionada en 7,2 8,2 7,3 8,3",
+    "03 · rotar pasó de 0° a 90°",
+    "estress · 50 ciclos: children 86 → 86, objetos 0, pool 24, repintados 151, heap 0 KB",
+    "06 · no se pudo alcanzar el caso sin hueco: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Elegir ubicación' }) to be visible\u001b[22m\n"
+  ],
+  "pageErrors": []
+}

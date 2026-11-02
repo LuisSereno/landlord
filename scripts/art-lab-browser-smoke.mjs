@@ -64,8 +64,8 @@ try {
     }
   }
   const buildings = page.locator("[data-building]");
-  if ((await buildings.count()) !== 5)
-    throw new Error("La factoría no muestra los cinco edificios");
+  if ((await buildings.count()) !== 15)
+    throw new Error("La factoría no muestra los quince edificios de dominio");
   const characters = page.locator("[data-character]");
   if ((await characters.count()) !== 3)
     throw new Error("Character QA no muestra dos personajes procedurales y el E2E Blender");

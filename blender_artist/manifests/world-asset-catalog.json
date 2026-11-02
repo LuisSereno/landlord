@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "vehicles": [
+    { "id": "sedan", "source": "veh_sedan", "status": "runtime" },
+    { "id": "taxi", "source": "veh_taxi", "status": "runtime" },
+    { "id": "delivery_truck", "source": "veh_truck", "status": "runtime" },
+    { "id": "police_vehicle", "source": "Kenney Car Kit police.glb", "status": "candidate" },
+    { "id": "service_vehicle", "source": "Kenney Car Kit delivery.glb", "status": "candidate" },
+    { "id": "fire_vehicle", "source": "Kenney Car Kit firetruck.glb", "status": "candidate" }
+  ],
+  "props": [
+    { "category": "trees", "source": "prp_tree_detailed/prp_tree_oak" },
+    { "category": "street_lights", "source": "prp_street_light" },
+    { "category": "traffic_lights", "source": "prp_traffic_light" },
+    { "category": "benches", "source": "prp_bench" },
+    { "category": "trash", "source": "prp_trash_can" },
+    { "category": "hydrant_service", "source": "Kenney City Roads hydrant" },
+    { "category": "signage", "source": "KayKit City Builder Bits" },
+    { "category": "crates", "source": "KayKit City Builder Bits" },
+    { "category": "barrels", "source": "Kenney Industrial" },
+    { "category": "pallets", "source": "Kenney Industrial" },
+    { "category": "construction_barriers", "source": "prp_construction_barrier" },
+    { "category": "cones", "source": "prp_construction_cone" },
+    { "category": "industrial_clutter", "source": "Kenney Industrial + KayKit" },
+    { "category": "park_props", "source": "Kenney Nature + KayKit" },
+    { "category": "market_props", "source": "KayKit City Builder Bits" }
+  ],
+  "terrain": [
+    { "id": "road_straight", "source": "ter_road_straight" },
+    { "id": "road_corner", "source": "ter_road_corner" },
+    { "id": "intersection", "source": "ter_road_intersection" },
+    { "id": "sidewalk", "source": "procedural ground painter" },
+    { "id": "residential_ground", "source": "procedural ground painter" },
+    { "id": "commercial_civic_paving", "source": "Poly Haven concrete + ground painter" },
+    { "id": "industrial_yard", "source": "Poly Haven asphalt + ground painter" },
+    { "id": "park_grass", "source": "Kenney Nature + ground painter" },
+    { "id": "park_path", "source": "ground painter" },
+    { "id": "construction_dirt", "source": "ter_lot_dirt_a/ter_lot_dirt_b" },
+    { "id": "plaza_paving", "source": "Poly Haven concrete + ground painter" }
+  ]
+}

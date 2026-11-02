@@ -123,7 +123,8 @@ function tasksFor(job, defaults) {
   const render = job.render ?? defaults.render;
   // Un job `evidence` valida la ingesta de SU fuente: basta una pasada representativa. Expandir
   // la matriz completa de un personaje multiplicaría por 16 la misma pose en A.
-  const representative = (values) => (job.target === "evidence" ? values.slice(0, 1) : values);
+  const representative = (values) =>
+    job.target === "evidence" && job.kind !== "building" ? values.slice(0, 1) : values;
   const tasks = [];
   if (job.kind === "character") {
     const directions = representative(Array.from({ length: job.directions }, (_, d) => d));

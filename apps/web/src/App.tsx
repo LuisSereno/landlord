@@ -23,6 +23,7 @@ import type { GridCell } from "./isometric/coordinates";
 import { BenchmarkApp } from "./BenchmarkApp";
 import { ArtLab } from "./ArtLab";
 import { VisualSlice } from "./VisualSlice";
+import { VisualCatalog } from "./VisualCatalog";
 import { useGameSession } from "./session/use-game-session";
 import { ContextPanel } from "./ui/panels";
 import { HubPanel } from "./ui/hubs";
@@ -44,6 +45,7 @@ const PLAYER = "org_00000001";
 export function RootApp() {
   if (window.location.pathname === "/art-lab") return <ArtLab />;
   if (window.location.pathname === "/visual-slice") return <VisualSlice />;
+  if (window.location.pathname === "/visual-catalog") return <VisualCatalog />;
   return new URLSearchParams(window.location.search).get("benchmark") === "gate1-reference-v1" ? (
     <BenchmarkApp />
   ) : (

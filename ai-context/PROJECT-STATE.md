@@ -63,6 +63,9 @@ Fecha de consolidación: 2026-10-29.
   Gameplay consume exclusivamente `ViewProjectionV1.map.roads.cells`; `/visual-slice` conserva su
   topología autoral como fixture independiente. V.c.2D (acceso/edificabilidad como regla de producto)
   sigue diferida; tampoco hay selección de distrito en la UI;
+  V.e quedó remediada el 2026-11-02 (D-098): los 15 edificios de dominio tienen evidencia Blender
+  desde geometría Kenney real publicada como candidata; el condicionamiento de estados sobre
+  fuentes importadas y la promoción al runtime siguen pendientes de WP y QA del responsable;
 - commuting: el empleo sigue siendo agregado, sin trayectos por agente;
 - planificador de la IA: no existe; sólo cadenas inmediatas tras un `dispatch`;
 - expediente de inteligencia de las facciones: diferido;

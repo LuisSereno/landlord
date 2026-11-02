@@ -1469,6 +1469,117 @@ button:disabled {
   background: var(--ux-panel-strong);
 }
 
+/* ---------------- V.d-7C colocación interactiva ---------------- */
+
+.placement-panel {
+  display: grid;
+  gap: var(--ux-space-2);
+  padding: var(--ux-space-3);
+  border: 1px solid var(--ux-accent);
+  border-radius: var(--ux-radius-md);
+  background: var(--ux-panel-strong);
+}
+
+.placement-target {
+  display: flex;
+  align-items: center;
+  gap: var(--ux-space-2);
+  margin: 0;
+  font-weight: 600;
+}
+
+.placement-summary {
+  margin: 0;
+  color: var(--ux-ok);
+}
+
+.placement-issue {
+  margin: 0;
+  color: #f2c9a8;
+}
+
+.placement-controls,
+.placement-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.placement-controls button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border: 1px solid var(--ux-border-strong);
+  border-radius: var(--ux-radius-sm);
+  background: rgba(45, 58, 79, 0.5);
+  color: var(--ux-text);
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.placement-controls button[disabled] {
+  color: var(--ux-text-muted);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.placement-list {
+  display: grid;
+  gap: 4px;
+  max-height: 168px;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.placement-choice {
+  display: flex;
+  align-items: center;
+  gap: var(--ux-space-2);
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--ux-border);
+  border-radius: var(--ux-radius-sm);
+  background: transparent;
+  color: var(--ux-text);
+  font-size: 0.76rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.placement-choice.selected {
+  border-color: var(--ux-accent);
+  background: rgba(79, 209, 197, 0.16);
+  font-weight: 600;
+}
+
+.placement-choice-index {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  border: 1px solid var(--ux-border-strong);
+  border-radius: 50%;
+  font-size: 0.7rem;
+}
+
+.placement-choice.selected .placement-choice-index {
+  border-color: var(--ux-accent);
+}
+
+.placement-choice-body {
+  flex: 1;
+}
+
+.placement-choice-tag {
+  color: var(--ux-ok);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 /* ---------------- Tabs y activos ---------------- */
 
 .tab-row {

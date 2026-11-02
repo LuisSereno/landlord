@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import type { ViewProjectionV2 } from "@landlord/shared";
+import type { BuildingType, ViewProjectionV2 } from "@landlord/shared";
 
 import { BuildCatalog } from "./build-catalog";
 import { BuildingThumbnail } from "./building-thumbnail";
@@ -11,6 +11,8 @@ import {
 } from "./disabled-reasons";
 import { HelpPopover, HelpTooltip } from "./help";
 import { ResourceIcon, UiIcon } from "./icons";
+import { PlacementPanel } from "./placement-panel";
+import type { PendingPlacement, PlacementHandlers } from "./placement";
 import {
   buildingDisplayName,
   buildingStateLabel,
@@ -71,6 +73,14 @@ export type PanelContext = {
   onBeginSite: (site: PendingDevelopmentSite) => void;
   onUpdateSite: (site: PendingDevelopmentSite | null) => void;
   onCancelSite: () => void;
+  /**
+   * V.d-7C · la colocación es estado de React (transitorio, nunca persistido). El panel la enseña y
+   * pide acciones; quién decide qué es legal sigue siendo el motor.
+   */
+  pendingPlacement: PendingPlacement | null;
+  placementHandlers: PlacementHandlers | null;
+  placementBlockers: readonly string[];
+  onBeginPlacement: (buildingType: BuildingType, parcelIds: readonly string[]) => void;
 };
 
 /**
@@ -208,18 +218,33 @@ function ParcelPanel({ parcel, context }: { parcel: ProjectedParcel; context: Pa
         </dl>
       </section>
 
-      {context.pendingSite ? <SiteAssemblyPanel context={context} parcel={parcel} /> : null}
-
-      {/* Un solar propio y vacío prioriza construir: el catálogo va antes que el detalle. */}
-      {owned && vacant ? (
-        <BuildCatalog
-          actions={actions}
-          calendar={calendar}
-          economy={economy}
-          onBeginSite={context.onBeginSite}
-          parcel={parcel}
+      {context.pendingPlacement && context.placementHandlers ? (
+        /**
+         * V.d-7C · mientras hay una colocación abierta, el mapa es el protagonista: la ficha muestra
+         * las candidatas legales del motor y el ensamblado/catálogo quedan detrás hasta confirmar o
+         * cancelar. Cancelar aquí no deshace la propiedad de las parcelas.
+         */
+        <PlacementPanel
+          blockers={context.placementBlockers}
+          handlers={context.placementHandlers}
+          pending={context.pendingPlacement}
         />
-      ) : null}
+      ) : (
+        <>
+          {context.pendingSite ? <SiteAssemblyPanel context={context} parcel={parcel} /> : null}
+
+          {/* Un solar propio y vacío prioriza construir: el catálogo va antes que el detalle. */}
+          {owned && vacant ? (
+            <BuildCatalog
+              calendar={calendar}
+              economy={economy}
+              onBeginPlacement={context.onBeginPlacement}
+              onBeginSite={context.onBeginSite}
+              parcel={parcel}
+            />
+          ) : null}
+        </>
+      )}
 
       <section className="panel-section">
         <h3>
@@ -372,10 +397,10 @@ function SiteAssemblyPanel({
       {ready ? (
         <button
           className="primary-action"
-          onClick={() => context.actions.startConstruction(pending.parcelIds, pending.buildingType)}
+          onClick={() => context.onBeginPlacement(pending.buildingType, pending.parcelIds)}
           type="button"
         >
-          <UiIcon name="construction" /> Iniciar obra con {pending.parcelIds.length} solares
+          <UiIcon name="construction" /> Elegir ubicación para {pending.parcelIds.length} solares
         </button>
       ) : (
         <p className="muted">Selecciona los solares contiguos que faltan para iniciar la obra.</p>

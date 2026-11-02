@@ -9,6 +9,9 @@
     "pnpm": "12.11.2"
   },
   "scripts": {
+    "art:sources:audit": "node scripts/audit-visual-sources.mjs",
+    "art:sources:audit:check": "node scripts/audit-visual-sources.mjs --check",
+    "art:sources:contact-sheets": "node scripts/render-visual-source-contact-sheets.mjs",
     "art:staging:validate": "node scripts/validate-art-staging.mjs",
     "art:jobs:validate": "node scripts/validate-asset-jobs.mjs",
     "art:spike:validate": "node scripts/validate-visual-direction-spike.mjs",

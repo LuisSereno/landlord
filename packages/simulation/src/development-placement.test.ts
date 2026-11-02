@@ -33,9 +33,12 @@ import {
 } from "./development-placement";
 import { chooseFootprint, enumerateFootprintCandidates } from "./footprints";
 import { BUILDING_DEFINITIONS, GAME_HOUR_TICKS } from "./game-data";
+import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
+import { canonicalizeState } from "./runner";
 import { activePermitFor } from "./permitting";
 import { advanceProductSystems } from "./systems";
 import { createInitialState, type GameState } from "./state";
+import { PLAYER_HOME_DISTRICT_ID } from "./city";
 
 const actor = parsePersonId("person_00000001");
 const organization = parseOrganizationId("org_00000001");
@@ -340,10 +343,18 @@ function fund(state: GameState): void {
   }
 }
 
-/** Compra el primer solar físico válido para el tipo y lo pone a nombre del jugador. */
+/**
+ * Compra el primer solar físico válido para el tipo y lo pone a nombre del jugador. Se limita al
+ * distrito natal de la jugadora: las cuadrillas sólo trabajan donde están (D-088), y los pasos que
+ * asignan personal necesitan un solar alcanzable sin órdenes de traslado.
+ */
 function acquireSite(state: GameState, buildingType: BuildingType): ParcelId[] {
   const definition = BUILDING_DEFINITIONS[buildingType];
-  const sites = enumeratePurchasableDevelopmentSites({ state, definition });
+  const sites = enumeratePurchasableDevelopmentSites({
+    state,
+    definition,
+    districtIds: new Set([PLAYER_HOME_DISTRICT_ID]),
+  });
   expect(sites.length).toBeGreaterThan(0);
   const ids = sites[0]!;
   for (const id of ids) state.phase2.parcels.get(id)!.ownerOrganizationId = organization;
@@ -767,5 +778,89 @@ describe("V.d-7C · StartConstruction revalidado", () => {
     expect(code.id).toBe(developmentCodeById(site.site.parcels[0]!.developmentCodeId).id);
     const chosen = choosePlacementFrom(site.site, code);
     expect(chosen.ok).toBe(true);
+  });
+});
+
+describe("V.d-7C · save/load de la colocación elegida", () => {
+  it("la obra conserva parcelas, huella, orientación, plantas, progreso y cuadrilla", () => {
+    const state = createInitialState(7);
+    fund(state);
+    const ids = acquireSite(state, "courtyard_home");
+    const enumerated = enumerateFor(state, ids, "courtyard_home");
+    const chosen = enumerated.candidates[enumerated.candidates.length - 1]!;
+    expect(
+      dispatchProductCommand(
+        state,
+        command("vd7c-save-build", "StartConstruction", {
+          parcelIds: ids,
+          buildingType: "courtyard_home",
+          placementId: chosen.id,
+        }),
+      ).accepted,
+    ).toBe(true);
+    const site = [...state.phase2.constructionSites.values()].at(-1)!;
+    const crew = [...state.phase2.crews.values()].find(
+      (entry) => entry.organizationId === organization,
+    )!;
+    expect(
+      dispatchProductCommand(
+        state,
+        command("vd7c-save-crew", "AssignCrewToWorkOrder", {
+          crewId: crew.id,
+          workOrderId: site.id,
+        }),
+      ).accepted,
+    ).toBe(true);
+    state.clock = { ...state.clock, tick: parseTick(state.clock.tick + GAME_HOUR_TICKS) };
+    advanceProductSystems(state);
+    const progressed = state.phase2.constructionSites.get(site.id)!;
+    const before = {
+      parcelIds: [...progressed.parcelIds],
+      footprint: footprintOf(progressed.footprintCells),
+      orientation: progressed.orientation,
+      floors: progressed.floors,
+      progress: progressed.progress,
+      crews: [...progressed.assignedCrewIds],
+    };
+    const restored = restoreStateFromSnapshot(serializeSnapshot(state));
+    const after = restored.phase2.constructionSites.get(site.id)!;
+    expect({
+      parcelIds: [...after.parcelIds],
+      footprint: footprintOf(after.footprintCells),
+      orientation: after.orientation,
+      floors: after.floors,
+      progress: after.progress,
+      crews: [...after.assignedCrewIds],
+    }).toEqual(before);
+    /** La identidad de la colocación sobrevive al viaje: la misma huella, el mismo id. */
+    const reEnumerated = enumerateDevelopmentPlacementCandidates(restored, {
+      parcelIds: ids,
+      buildingType: "courtyard_home",
+      organizationId: organization,
+    });
+    expect(canonicalizeState(restored)).toBe(canonicalizeState(state));
+    expect(reEnumerated.candidates.length).toBe(0);
+    expect(after.parcelIds).toEqual(ids);
+  });
+
+  it("una colocación sin confirmar no deja nada que guardar", () => {
+    const state = createInitialState(7);
+    const ids = acquireSite(state, "courtyard_home");
+    const enumerated = enumerateFor(state, ids, "courtyard_home");
+    expect(enumerated.candidates.length).toBeGreaterThan(1);
+    /** La UI cambia de candidata varias veces: nada de eso toca el estado autoritativo. */
+    const snapshot = serializeSnapshot(state);
+    const restored = restoreStateFromSnapshot(snapshot);
+    expect(canonicalizeState(restored)).toBe(canonicalizeState(state));
+    expect(restored.phase2.constructionSites.size).toBe(0);
+    const after = enumerateDevelopmentPlacementCandidates(restored, {
+      parcelIds: ids,
+      buildingType: "courtyard_home",
+      organizationId: organization,
+    });
+    /** Mismas candidatas y mismos ids después de guardar y cargar: el jugador ve lo mismo. */
+    expect(after.candidates.map((candidate) => candidate.id)).toEqual(
+      enumerated.candidates.map((candidate) => candidate.id),
+    );
   });
 });

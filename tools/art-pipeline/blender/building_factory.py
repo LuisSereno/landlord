@@ -156,4 +156,3 @@ def build_factory_building(spec, state, mats, cube, cylinder, sphere):
         for index, (x, z) in enumerate(((-width * 0.22, height * 0.72), (width * 0.18, height * 0.9))):
             sphere(f"flame_{index}", (x, -depth * 0.34, z), 0.32, mats["flame"])
             sphere(f"smoke_{index}", (x + 0.12, -depth * 0.28, z + 0.7), 0.38, mats["smoke"])
-

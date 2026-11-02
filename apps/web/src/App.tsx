@@ -233,6 +233,15 @@ export function App() {
               };
             })()
           : null,
+      constructionStatus: () =>
+        economy?.constructionSites.map((site) => ({
+          id: site.id,
+          kind: site.kind,
+          progress: site.progress,
+          workRequired: site.workRequired,
+          assignedCrewCount: site.assignedCrewIds.length,
+          crewCapacity: site.crewCapacity,
+        })) ?? [],
     };
     return () => {
       delete window.__landlordUiTest;
@@ -591,6 +600,14 @@ declare global {
         candidateCells: GridCell[];
         adjacentAvailableCells: GridCell[];
       } | null;
+      constructionStatus: () => Array<{
+        id: string;
+        kind: string;
+        progress: number;
+        workRequired: number;
+        assignedCrewCount: number;
+        crewCapacity: number;
+      }>;
     };
   }
 }

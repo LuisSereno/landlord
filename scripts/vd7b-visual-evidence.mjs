@@ -1,4 +1,4 @@
-/* global window, document, setTimeout */
+/* global window, document, setTimeout, setInterval, clearInterval */
 
 /**
  * Captura la evidencia de revisión humana de V.d-7B. Los hooks usados sólo viven bajo
@@ -25,6 +25,10 @@ const browser = await chromium.launch({ headless: true });
 const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
 const page = await context.newPage();
 const pageErrors = [];
+page.on("console", (message) => {
+  if (message.type() === "log" && message.text().startsWith("vd7b-progress"))
+    console.log(message.text());
+});
 page.on("pageerror", (error) => pageErrors.push(error.message));
 
 async function waitForServer() {
@@ -272,11 +276,19 @@ async function captureAssemblies() {
     .getByRole("button", { name: /Asignar Cuadrilla/ })
     .first()
     .click();
+  await page.getByText(/Cuadrilla asignada/).waitFor({ timeout: 20_000 });
   await page.getByRole("button", { name: "4×", exact: true }).click();
+  const progressLog = setInterval(() => {
+    page
+      .evaluate(() => window.__landlordUiTest?.constructionStatus())
+      .then((status) => console.log(`vd7b-progress ${JSON.stringify(status)}`))
+      .catch(() => undefined);
+  }, 10_000);
   await page.waitForFunction(() => window.__landlordUiTest?.ownedBuildingId() !== null, null, {
     // 120 unidades a 4×, con margen 1,5× sobre el avance observado en la proyección.
     timeout: 300_000,
   });
+  clearInterval(progressLog);
   const cementBuildingId = await page.evaluate(() => window.__landlordUiTest.ownedBuildingId());
   const cementPoint = cementBuildingId
     ? await page.evaluate(

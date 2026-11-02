@@ -831,8 +831,12 @@ def trim_and_scale(render_path, output_path, shadow_path=None, shadow_style=None
     col_min, col_hi = int(opaque_cols[0]), int(opaque_cols[-1]) + 1
     if (row_hi - row_min) % 2 == 1 and row_hi < height:
         row_hi += 1
+    elif (row_hi - row_min) % 2 == 1:
+        row_min += 1
     if (col_hi - col_min) % 2 == 1 and col_hi < width:
         col_hi += 1
+    elif (col_hi - col_min) % 2 == 1:
+        col_min += 1
     crop = pixels[row_min:row_hi, col_min:col_hi, :]
     crop_h, crop_w = crop.shape[0], crop.shape[1]
     # Reducción 2× por filtro de caja: conserva el supersampling sin depender de operadores de recorte.

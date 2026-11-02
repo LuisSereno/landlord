@@ -7,7 +7,7 @@
       "category": "residential",
       "footprint": { "width": 2, "height": 2 },
       "floors": 1,
-      "source": "original procedural courtyard",
+      "source": "Original procedural courtyard (legacy congelado, ruta interna)",
       "status": "candidate",
       "states": {
         "complete": {
@@ -43,7 +43,7 @@
       "category": "residential",
       "footprint": { "width": 4, "height": 1 },
       "floors": 2,
-      "source": "Kenney Suburban + original composition",
+      "source": "Kenney City Kit Suburban · building-type-f.glb · CC0-1.0",
       "status": "candidate",
       "states": {
         "complete": {
@@ -79,7 +79,7 @@
       "category": "residential",
       "footprint": { "width": 2, "height": 5 },
       "floors": 5,
-      "source": "Kenney Commercial + original composition",
+      "source": "Kenney City Kit Commercial · building-skyscraper-a.glb · CC0-1.0",
       "status": "candidate",
       "states": {
         "complete": {
@@ -115,7 +115,7 @@
       "category": "mixed",
       "footprint": { "width": 2, "height": 4 },
       "floors": 3,
-      "source": "Kenney Commercial + original composition",
+      "source": "Kenney City Kit Commercial · building-l.glb · CC0-1.0",
       "status": "candidate",
       "states": {
         "complete": {
@@ -151,7 +151,7 @@
       "category": "industrial",
       "footprint": { "width": 2, "height": 4 },
       "floors": 1,
-      "source": "Kenney Industrial + KayKit props",
+      "source": "Kenney City Kit Industrial · building-m.glb · CC0-1.0",
       "status": "candidate",
       "states": {
         "complete": {
@@ -187,7 +187,7 @@
       "category": "industrial",
       "footprint": { "width": 3, "height": 4 },
       "floors": 1,
-      "source": "Kenney Industrial + original composition",
+      "source": "Kenney City Kit Industrial · building-l.glb · CC0-1.0",
       "status": "candidate",
       "states": {
         "complete": {
@@ -223,7 +223,7 @@
       "category": "industrial",
       "footprint": { "width": 2, "height": 5 },
       "floors": 2,
-      "source": "Kenney Industrial + KayKit props",
+      "source": "Kenney City Kit Industrial · building-c.glb · CC0-1.0",
       "status": "candidate",
       "states": {
         "complete": {
@@ -259,7 +259,7 @@
       "category": "industrial",
       "footprint": { "width": 2, "height": 5 },
       "floors": 2,
-      "source": "Kenney Industrial + Poly Haven brick",
+      "source": "Kenney City Kit Industrial · building-j.glb · CC0-1.0",
       "status": "candidate",
       "states": {
         "complete": {
@@ -295,7 +295,7 @@
       "category": "industrial",
       "footprint": { "width": 3, "height": 4 },
       "floors": 2,
-      "source": "Kenney Industrial + Poly Haven rusty metal",
+      "source": "Kenney City Kit Industrial · building-h.glb · CC0-1.0",
       "status": "candidate",
       "states": {
         "complete": {
@@ -331,7 +331,7 @@
       "category": "civic",
       "footprint": { "width": 3, "height": 4 },
       "floors": 4,
-      "source": "Quaternius Downtown + original composition",
+      "source": "Kenney City Kit Commercial · building-k.glb · CC0-1.0",
       "status": "candidate",
       "states": {
         "complete": {
@@ -367,7 +367,7 @@
       "category": "civic",
       "footprint": { "width": 2, "height": 7 },
       "floors": 3,
-      "source": "Quaternius Downtown + original composition",
+      "source": "Kenney City Kit Commercial · building-i.glb · CC0-1.0",
       "status": "candidate",
       "states": {
         "complete": {
@@ -403,7 +403,7 @@
       "category": "civic",
       "footprint": { "width": 2, "height": 3 },
       "floors": 2,
-      "source": "Quaternius Downtown + original composition",
+      "source": "Kenney City Kit Commercial · building-e.glb · CC0-1.0",
       "status": "candidate",
       "states": {
         "complete": {
@@ -439,7 +439,7 @@
       "category": "civic",
       "footprint": { "width": 2, "height": 3 },
       "floors": 2,
-      "source": "Quaternius Downtown + KayKit props",
+      "source": "Kenney City Kit Commercial · building-f.glb · CC0-1.0",
       "status": "candidate",
       "states": {
         "complete": {
@@ -475,7 +475,7 @@
       "category": "civic",
       "footprint": { "width": 2, "height": 4 },
       "floors": 2,
-      "source": "Quaternius Downtown + Kenney vehicle language",
+      "source": "Kenney City Kit Commercial · building-g.glb · CC0-1.0",
       "status": "candidate",
       "states": {
         "complete": {
@@ -511,7 +511,7 @@
       "category": "mixed",
       "footprint": { "width": 2, "height": 5 },
       "floors": 2,
-      "source": "Kenney Commercial + Quaternius Downtown",
+      "source": "Kenney City Kit Commercial · building-h.glb · CC0-1.0",
       "status": "candidate",
       "states": {
         "complete": {

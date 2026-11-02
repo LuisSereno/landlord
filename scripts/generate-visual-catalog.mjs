@@ -5,7 +5,9 @@ import { format } from "prettier";
 
 const check = process.argv.includes("--check");
 const runtime = JSON.parse(readFileSync("apps/web/src/generated/runtime-assets.json", "utf8"));
-const factory = JSON.parse(readFileSync("blender_artist/manifests/building-factory.json", "utf8"));
+const buildingCatalog = JSON.parse(
+  readFileSync("blender_artist/manifests/building-catalog.json", "utf8"),
+);
 const characters = JSON.parse(
   readFileSync("blender_artist/manifests/character-factory.json", "utf8"),
 );
@@ -15,27 +17,19 @@ const sha = (path) =>
   createHash("sha256")
     .update(path.startsWith("data:") ? path : readFileSync(`apps/web/public${path}`))
     .digest("hex");
-const buildings = factory.buildings.map((preset) => {
-  const asset = runtime.buildings[preset.id];
-  if (!asset) throw new Error(`${preset.id}: missing runtime representation`);
+const buildings = buildingCatalog.buildings.map((entry) => {
+  const asset = runtime.buildings[entry.id];
+  if (!asset) throw new Error(`${entry.id}: missing runtime representation`);
   const hashes = Object.fromEntries(
     Object.entries(asset.states).map(([state, image]) => [state, sha(image.src)]),
   );
   return {
-    id: preset.id,
+    id: entry.id,
     displayName: asset.name,
-    category:
-      preset.facadePreset.includes("civic") ||
-      ["clinic", "police_station", "fire_station", "school_block"].includes(preset.id)
-        ? "civic"
-        : ["workshop", "warehouse", "cement_plant", "brickworks", "steelworks"].includes(preset.id)
-          ? "industrial"
-          : ["mixed_tenement", "market_hall"].includes(preset.id)
-            ? "mixed"
-            : "residential",
-    footprint: preset.footprint,
-    floors: preset.floorCount,
-    source: preset.baseSource,
+    category: entry.category,
+    footprint: entry.footprint,
+    floors: entry.floorCount,
+    source: entry.sourceLabel,
     status: "candidate",
     states: asset.states,
     duplicateStates: Object.keys(hashes).filter(

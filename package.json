@@ -17,6 +17,7 @@
     "art:building-factory:validate": "node scripts/validate-building-factory.mjs",
     "art:building-factory:review": "node scripts/render-building-factory-review.mjs",
     "art:character-factory:validate": "node scripts/validate-character-factory.mjs",
+    "art:world-catalog:validate": "node scripts/validate-world-asset-catalog.mjs",
     "art:staging:validate": "node scripts/validate-art-staging.mjs",
     "art:jobs:validate": "node scripts/validate-asset-jobs.mjs",
     "art:spike:validate": "node scripts/validate-visual-direction-spike.mjs",

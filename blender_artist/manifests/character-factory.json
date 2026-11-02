@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "directions": 4,
+  "runtimeAnimations": ["idle", "walk"],
+  "showcaseAnimations": ["work", "repair", "carry", "inspect", "sit", "panic", "sabotage_action"],
+  "sourceDecision": {
+    "quaternius": "Primary for readable low-poly silhouettes, reliable GLB/FBX ingestion and neutral bases.",
+    "rocketbox": "Secondary for clothing reference and future retarget tests; texture remap remains required.",
+    "winner": "per-role, not pack-wide"
+  },
+  "characters": [
+    {
+      "id": "civilian_male_a",
+      "displayName": "Civilian A",
+      "role": "civilian",
+      "scope": "gameplay",
+      "baseSource": "quaternius_universal_base",
+      "body": "masculine_a",
+      "hair": "short",
+      "clothing": "coat",
+      "palette": "ochre_navy",
+      "roleProp": "none"
+    },
+    {
+      "id": "civilian_male_b",
+      "displayName": "Civilian B",
+      "role": "civilian",
+      "scope": "gameplay",
+      "baseSource": "quaternius_universal_base",
+      "body": "masculine_b",
+      "hair": "cap",
+      "clothing": "jacket",
+      "palette": "teal_brown",
+      "roleProp": "bag"
+    },
+    {
+      "id": "civilian_female_a",
+      "displayName": "Civilian C",
+      "role": "civilian",
+      "scope": "gameplay",
+      "baseSource": "quaternius_universal_base",
+      "body": "feminine_a",
+      "hair": "bob",
+      "clothing": "coat",
+      "palette": "plum_cream",
+      "roleProp": "none"
+    },
+    {
+      "id": "civilian_female_b",
+      "displayName": "Civilian D",
+      "role": "civilian",
+      "scope": "gameplay",
+      "baseSource": "quaternius_universal_base",
+      "body": "feminine_b",
+      "hair": "tied",
+      "clothing": "jacket",
+      "palette": "green_ochre",
+      "roleProp": "bag"
+    },
+    {
+      "id": "supervisor",
+      "displayName": "Site supervisor",
+      "role": "supervisor",
+      "scope": "gameplay",
+      "baseSource": "quaternius_universal_base",
+      "body": "neutral_a",
+      "hair": "helmet",
+      "clothing": "high_visibility",
+      "palette": "orange_navy",
+      "roleProp": "clipboard"
+    },
+    {
+      "id": "construction_worker_a",
+      "displayName": "Construction worker A",
+      "role": "construction",
+      "scope": "gameplay",
+      "baseSource": "quaternius_universal_base",
+      "body": "masculine_a",
+      "hair": "helmet",
+      "clothing": "workwear",
+      "palette": "orange_denim",
+      "roleProp": "toolbox"
+    },
+    {
+      "id": "construction_worker_b",
+      "displayName": "Construction worker B",
+      "role": "construction",
+      "scope": "gameplay",
+      "baseSource": "quaternius_universal_base",
+      "body": "feminine_a",
+      "hair": "helmet",
+      "clothing": "workwear",
+      "palette": "yellow_teal",
+      "roleProp": "material"
+    },
+    {
+      "id": "maintenance_technician",
+      "displayName": "Maintenance technician",
+      "role": "maintenance",
+      "scope": "gameplay",
+      "baseSource": "quaternius_universal_base",
+      "body": "neutral_b",
+      "hair": "cap",
+      "clothing": "coveralls",
+      "palette": "teal_cream",
+      "roleProp": "wrench"
+    },
+    {
+      "id": "enforcer_male",
+      "displayName": "Enforcer A",
+      "role": "enforcer",
+      "scope": "showcase/future",
+      "baseSource": "rocketbox_subset",
+      "body": "masculine_b",
+      "hair": "short",
+      "clothing": "heavy_jacket",
+      "palette": "charcoal_rust",
+      "roleProp": "none"
+    },
+    {
+      "id": "enforcer_female",
+      "displayName": "Enforcer B",
+      "role": "enforcer",
+      "scope": "showcase/future",
+      "baseSource": "rocketbox_subset",
+      "body": "feminine_b",
+      "hair": "tied",
+      "clothing": "heavy_jacket",
+      "palette": "charcoal_plum",
+      "roleProp": "none"
+    },
+    {
+      "id": "police",
+      "displayName": "Police officer",
+      "role": "public_service",
+      "scope": "showcase/future",
+      "baseSource": "quaternius_universal_base",
+      "body": "neutral_a",
+      "hair": "cap",
+      "clothing": "uniform",
+      "palette": "navy_blue",
+      "roleProp": "radio"
+    },
+    {
+      "id": "firefighter",
+      "displayName": "Firefighter",
+      "role": "public_service",
+      "scope": "showcase/future",
+      "baseSource": "quaternius_universal_base",
+      "body": "neutral_b",
+      "hair": "helmet",
+      "clothing": "protective",
+      "palette": "ochre_charcoal",
+      "roleProp": "hose"
+    },
+    {
+      "id": "municipal_professional",
+      "displayName": "Municipal professional",
+      "role": "public_service",
+      "scope": "showcase/future",
+      "baseSource": "rocketbox_subset",
+      "body": "neutral_a",
+      "hair": "short",
+      "clothing": "office",
+      "palette": "blue_cream",
+      "roleProp": "folder"
+    }
+  ]
+}

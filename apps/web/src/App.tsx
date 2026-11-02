@@ -335,15 +335,26 @@ export function App() {
           assignedCrewIds: [...site.assignedCrewIds],
         };
       },
-      /** Solar pequeño comprable: sirve para demostrar el «no cabe» con datos reales de la ciudad. */
-      smallMarketableParcelCell: () =>
-        economy?.parcels.find(
+      /** Solar comprable más pequeño del distrito observado: caso natural de «no cabe». */
+      smallestMarketableParcelCell: () => {
+        const candidates = (economy?.parcels ?? []).filter(
           (parcel) =>
             parcel.disposition === "marketable" &&
             !parcel.ownerOrganizationId &&
-            parcel.buildingIds.length === 0 &&
-            parcel.cells.length <= 8,
-        )?.cell ?? null,
+            parcel.buildingIds.length === 0,
+        );
+        if (candidates.length === 0) return null;
+        const smallest = candidates.reduce((best, parcel) =>
+          parcel.cells.length < best.cells.length ? parcel : best,
+        );
+        return smallest.cell;
+      },
+      /** Celda de un edificio ya terminado del distrito, para fotografiar su recinto. */
+      finishedBuildingCell: (buildingType: string) => {
+        const building = economy?.buildings.find((entry) => entry.type === buildingType);
+        if (!building) return null;
+        return economy?.parcels.find((parcel) => parcel.id === building.parcelIds[0])?.cell ?? null;
+      },
       /** Celda de la primera parcela ampliable del ensamblado en curso (observacional). */
       assemblyCandidateCell: () => {
         if (!pendingSite || !economy) return null;
@@ -858,7 +869,8 @@ declare global {
         workRequired: number;
         assignedCrewIds: string[];
       } | null;
-      smallMarketableParcelCell: () => GridCell | null;
+      smallestMarketableParcelCell: () => GridCell | null;
+      finishedBuildingCell: (buildingType: string) => GridCell | null;
       purchasableSiteForType: (buildingType: string) => string[] | null;
       parcelCellById: (parcelId: string) => GridCell | null;
       ownedSiteFootprint: () => {

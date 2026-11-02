@@ -12,7 +12,7 @@ corresponde al responsable. No cierra V.d-7B, no cierra V.d y no sustituye el pl
 | Documentación de la fase | `origin/docs/vd7c-interactive-development-placement@b6ff2cd` |
 | Baseline funcional elegido | `b6ff2cd` (árbol de `974cc42` + los cuatro commits documentales de V.d-7C) |
 | Rama de trabajo | `wip/vd7c-interactive-development-placement` |
-| HEAD final | `79b71bc` (doce commits sobre `b6ff2cd`, ver §15) |
+| HEAD funcional final | `79b71bc` (doce commits sobre `b6ff2cd`, ver §15); el acta se versiona en el commit siguiente, que no puede contener su propio SHA |
 | Push | solo a `wip/vd7c-interactive-development-placement`; **ningún merge a `develop`** |
 
 **Por qué este baseline y no el tip de V.d-7B.** El prompt exigía «el baseline funcional V.d-7B más

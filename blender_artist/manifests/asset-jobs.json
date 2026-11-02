@@ -622,10 +622,15 @@
       "assetId": "row_house",
       "target": "evidence",
       "reason": "V.e remediation: genuine Kenney Suburban geometry; no runtime promotion before visual QA.",
-      "source": { "kind": "glb", "sourceId": "src_kenney_city_suburban", "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-f.glb" },
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_suburban",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-f.glb"
+      },
       "states": ["complete"],
       "footprint": { "width": 4, "height": 1 },
-      "camera": { "orthoScale": 8.5, "targetZ": 2.6 }, "render": { "width": 256, "height": 256 }
+      "camera": { "orthoScale": 8.5, "targetZ": 2.6 },
+      "render": { "width": 256, "height": 256 }
     },
     {
       "id": "bld_apartment_block_factory",
@@ -633,10 +638,15 @@
       "assetId": "apartment_block",
       "target": "evidence",
       "reason": "V.e remediation: genuine Kenney Commercial geometry; no runtime promotion before visual QA.",
-      "source": { "kind": "glb", "sourceId": "src_kenney_city_commercial", "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-skyscraper-a.glb" },
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-skyscraper-a.glb"
+      },
       "states": ["complete"],
       "footprint": { "width": 2, "height": 5 },
-      "camera": { "orthoScale": 10.5, "targetZ": 3.6 }, "render": { "width": 256, "height": 256 }
+      "camera": { "orthoScale": 10.5, "targetZ": 3.6 },
+      "render": { "width": 256, "height": 256 }
     },
     {
       "id": "bld_mixed_tenement_factory",
@@ -644,10 +654,15 @@
       "assetId": "mixed_tenement",
       "target": "evidence",
       "reason": "V.e remediation: genuine Kenney Commercial geometry; no runtime promotion before visual QA.",
-      "source": { "kind": "glb", "sourceId": "src_kenney_city_commercial", "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-l.glb" },
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-l.glb"
+      },
       "states": ["complete"],
       "footprint": { "width": 2, "height": 4 },
-      "camera": { "orthoScale": 8.5, "targetZ": 2.6 }, "render": { "width": 256, "height": 256 }
+      "camera": { "orthoScale": 8.5, "targetZ": 2.6 },
+      "render": { "width": 256, "height": 256 }
     },
     {
       "id": "bld_workshop_factory",
@@ -655,10 +670,15 @@
       "assetId": "workshop",
       "target": "evidence",
       "reason": "V.e remediation: genuine Kenney Industrial geometry; no runtime promotion before visual QA.",
-      "source": { "kind": "glb", "sourceId": "src_kenney_city_industrial", "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-m.glb" },
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_industrial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-m.glb"
+      },
       "states": ["complete"],
       "footprint": { "width": 2, "height": 4 },
-      "camera": { "orthoScale": 8.5, "targetZ": 2.6 }, "render": { "width": 256, "height": 256 }
+      "camera": { "orthoScale": 8.5, "targetZ": 2.6 },
+      "render": { "width": 256, "height": 256 }
     },
     {
       "id": "bld_warehouse_factory",
@@ -666,10 +686,15 @@
       "assetId": "warehouse",
       "target": "evidence",
       "reason": "V.e remediation: genuine Kenney Industrial geometry; no runtime promotion before visual QA.",
-      "source": { "kind": "glb", "sourceId": "src_kenney_city_industrial", "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-l.glb" },
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_industrial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-l.glb"
+      },
       "states": ["complete"],
       "footprint": { "width": 3, "height": 4 },
-      "camera": { "orthoScale": 9.0, "targetZ": 2.6 }, "render": { "width": 256, "height": 256 }
+      "camera": { "orthoScale": 9.0, "targetZ": 2.6 },
+      "render": { "width": 256, "height": 256 }
     },
     {
       "id": "bld_cement_plant_factory",
@@ -677,10 +702,15 @@
       "assetId": "cement_plant",
       "target": "evidence",
       "reason": "V.e remediation: genuine Kenney Industrial geometry; no runtime promotion before visual QA.",
-      "source": { "kind": "glb", "sourceId": "src_kenney_city_industrial", "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-c.glb" },
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_industrial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-c.glb"
+      },
       "states": ["complete"],
       "footprint": { "width": 2, "height": 5 },
-      "camera": { "orthoScale": 9.0, "targetZ": 2.8 }, "render": { "width": 256, "height": 256 }
+      "camera": { "orthoScale": 9.0, "targetZ": 2.8 },
+      "render": { "width": 256, "height": 256 }
     },
     {
       "id": "bld_brickworks_factory",
@@ -688,10 +718,15 @@
       "assetId": "brickworks",
       "target": "evidence",
       "reason": "V.e remediation: genuine Kenney Industrial geometry; no runtime promotion before visual QA.",
-      "source": { "kind": "glb", "sourceId": "src_kenney_city_industrial", "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-j.glb" },
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_industrial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-j.glb"
+      },
       "states": ["complete"],
       "footprint": { "width": 2, "height": 5 },
-      "camera": { "orthoScale": 9.0, "targetZ": 2.8 }, "render": { "width": 256, "height": 256 }
+      "camera": { "orthoScale": 9.0, "targetZ": 2.8 },
+      "render": { "width": 256, "height": 256 }
     },
     {
       "id": "bld_steelworks_factory",
@@ -699,10 +734,15 @@
       "assetId": "steelworks",
       "target": "evidence",
       "reason": "V.e remediation: genuine Kenney Industrial geometry; no runtime promotion before visual QA.",
-      "source": { "kind": "glb", "sourceId": "src_kenney_city_industrial", "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-h.glb" },
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_industrial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-h.glb"
+      },
       "states": ["complete"],
       "footprint": { "width": 3, "height": 4 },
-      "camera": { "orthoScale": 10.0, "targetZ": 3.0 }, "render": { "width": 256, "height": 256 }
+      "camera": { "orthoScale": 10.0, "targetZ": 3.0 },
+      "render": { "width": 256, "height": 256 }
     },
     {
       "id": "bld_town_hall_factory",
@@ -710,10 +750,15 @@
       "assetId": "town_hall",
       "target": "evidence",
       "reason": "V.e remediation: genuine Kenney Commercial geometry; no runtime promotion before visual QA.",
-      "source": { "kind": "glb", "sourceId": "src_kenney_city_commercial", "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-k.glb" },
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-k.glb"
+      },
       "states": ["complete"],
       "footprint": { "width": 3, "height": 4 },
-      "camera": { "orthoScale": 10.0, "targetZ": 3.0 }, "render": { "width": 256, "height": 256 }
+      "camera": { "orthoScale": 10.0, "targetZ": 3.0 },
+      "render": { "width": 256, "height": 256 }
     },
     {
       "id": "bld_school_block_factory",
@@ -721,10 +766,15 @@
       "assetId": "school_block",
       "target": "evidence",
       "reason": "V.e remediation: genuine Kenney Commercial geometry; no runtime promotion before visual QA.",
-      "source": { "kind": "glb", "sourceId": "src_kenney_city_commercial", "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-i.glb" },
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-i.glb"
+      },
       "states": ["complete"],
       "footprint": { "width": 2, "height": 7 },
-      "camera": { "orthoScale": 10.0, "targetZ": 3.0 }, "render": { "width": 256, "height": 256 }
+      "camera": { "orthoScale": 10.0, "targetZ": 3.0 },
+      "render": { "width": 256, "height": 256 }
     },
     {
       "id": "bld_clinic_factory",
@@ -732,10 +782,15 @@
       "assetId": "clinic",
       "target": "evidence",
       "reason": "V.e remediation: genuine Kenney Commercial geometry; no runtime promotion before visual QA.",
-      "source": { "kind": "glb", "sourceId": "src_kenney_city_commercial", "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-e.glb" },
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-e.glb"
+      },
       "states": ["complete"],
       "footprint": { "width": 2, "height": 3 },
-      "camera": { "orthoScale": 8.5, "targetZ": 2.6 }, "render": { "width": 256, "height": 256 }
+      "camera": { "orthoScale": 8.5, "targetZ": 2.6 },
+      "render": { "width": 256, "height": 256 }
     },
     {
       "id": "bld_police_station_factory",
@@ -743,10 +798,15 @@
       "assetId": "police_station",
       "target": "evidence",
       "reason": "V.e remediation: genuine Kenney Commercial geometry; no runtime promotion before visual QA.",
-      "source": { "kind": "glb", "sourceId": "src_kenney_city_commercial", "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-f.glb" },
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-f.glb"
+      },
       "states": ["complete"],
       "footprint": { "width": 2, "height": 3 },
-      "camera": { "orthoScale": 8.5, "targetZ": 2.6 }, "render": { "width": 256, "height": 256 }
+      "camera": { "orthoScale": 8.5, "targetZ": 2.6 },
+      "render": { "width": 256, "height": 256 }
     },
     {
       "id": "bld_fire_station_factory",
@@ -754,10 +814,15 @@
       "assetId": "fire_station",
       "target": "evidence",
       "reason": "V.e remediation: genuine Kenney Commercial geometry; no runtime promotion before visual QA.",
-      "source": { "kind": "glb", "sourceId": "src_kenney_city_commercial", "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-g.glb" },
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-g.glb"
+      },
       "states": ["complete"],
       "footprint": { "width": 2, "height": 4 },
-      "camera": { "orthoScale": 8.5, "targetZ": 2.6 }, "render": { "width": 256, "height": 256 }
+      "camera": { "orthoScale": 8.5, "targetZ": 2.6 },
+      "render": { "width": 256, "height": 256 }
     },
     {
       "id": "bld_market_hall_factory",
@@ -765,10 +830,15 @@
       "assetId": "market_hall",
       "target": "evidence",
       "reason": "V.e remediation: genuine Kenney Commercial geometry; no runtime promotion before visual QA.",
-      "source": { "kind": "glb", "sourceId": "src_kenney_city_commercial", "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-h.glb" },
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-h.glb"
+      },
       "states": ["complete"],
       "footprint": { "width": 2, "height": 5 },
-      "camera": { "orthoScale": 9.0, "targetZ": 2.8 }, "render": { "width": 256, "height": 256 }
+      "camera": { "orthoScale": 9.0, "targetZ": 2.8 },
+      "render": { "width": 256, "height": 256 }
     }
   ]
 }

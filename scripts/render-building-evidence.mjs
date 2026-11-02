@@ -47,9 +47,10 @@ const buildings = {};
 const completeSheets = [];
 const seenHashes = new Map();
 for (const entry of catalog.buildings) {
-  const states = entry.mode === "legacy-procedural"
-    ? ["complete", "construction", "damaged", "burning"]
-    : ["complete"];
+  const states =
+    entry.mode === "legacy-procedural"
+      ? ["complete", "construction", "damaged", "burning"]
+      : ["complete"];
   const statesOut = {};
   for (const state of states) {
     const png = join(WORK_DIR, `${entry.id}-${state}.png`);
@@ -60,14 +61,17 @@ for (const entry of catalog.buildings) {
     }
     const metadata = JSON.parse(readFileSync(meta, "utf8"));
     if (metadata.assetId !== entry.id) fail(`${entry.id}: metadata.assetId '${metadata.assetId}'`);
-    if (metadata.state !== state) fail(`${entry.id}: metadata.state '${metadata.state}' != ${state}`);
+    if (metadata.state !== state)
+      fail(`${entry.id}: metadata.state '${metadata.state}' != ${state}`);
     if (entry.mode === "imported") {
       // La regla que V.e.2 violó: la fuente declarada debe entrar físicamente al render.
       if (metadata.origin !== "licensed") {
         fail(`${entry.id}: origin '${metadata.origin}', la fuente externa NO entró al render`);
       }
       if (metadata.source?.path !== entry.sourcePath) {
-        fail(`${entry.id}: el render importa '${metadata.source?.path}', el catálogo declara '${entry.sourcePath}'`);
+        fail(
+          `${entry.id}: el render importa '${metadata.source?.path}', el catálogo declara '${entry.sourcePath}'`,
+        );
       }
       if (metadata.source?.id !== entry.sourceId) {
         fail(`${entry.id}: sourceId renderizado '${metadata.source?.id}' != '${entry.sourceId}'`);
@@ -118,19 +122,40 @@ if (errors.length > 0) {
 const sheets = [];
 if (existsSync("/usr/bin/montage") || spawnSync("which", ["montage"]).status === 0) {
   const complete = join(WORK_DIR, "complete-source-geometry.png");
-  spawnSync("montage", [
-    ...completeSheets,
-    "-background", "#182027", "-geometry", "260x240+12+12", "-tile", "5x3", "-label", "%f",
-    complete,
-  ], { stdio: "inherit" });
-  const courtyardStates = ["complete", "construction", "damaged", "burning"].map(
-    (state) => join(PUBLIC_DIR, `courtyard_home-${state}.png`),
+  spawnSync(
+    "montage",
+    [
+      ...completeSheets,
+      "-background",
+      "#182027",
+      "-geometry",
+      "260x240+12+12",
+      "-tile",
+      "5x3",
+      "-label",
+      "%f",
+      complete,
+    ],
+    { stdio: "inherit" },
+  );
+  const courtyardStates = ["complete", "construction", "damaged", "burning"].map((state) =>
+    join(PUBLIC_DIR, `courtyard_home-${state}.png`),
   );
   const statesSheet = join(WORK_DIR, "courtyard-states.png");
-  spawnSync("montage", [
-    ...courtyardStates,
-    "-background", "#182027", "-geometry", "170x150+8+8", "-tile", "4x1", statesSheet,
-  ], { stdio: "inherit" });
+  spawnSync(
+    "montage",
+    [
+      ...courtyardStates,
+      "-background",
+      "#182027",
+      "-geometry",
+      "170x150+8+8",
+      "-tile",
+      "4x1",
+      statesSheet,
+    ],
+    { stdio: "inherit" },
+  );
   sheets.push(complete, statesSheet);
 }
 

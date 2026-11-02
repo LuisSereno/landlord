@@ -22,7 +22,8 @@ const buildings = buildingCatalog.buildings.map((entry) => {
   const asset = runtime.buildings[entry.id];
   if (!asset) throw new Error(`${entry.id}: missing runtime representation`);
   const rendered = evidence.buildings[entry.id];
-  if (!rendered) throw new Error(`${entry.id}: missing evidence render; run pnpm art:building-evidence:render`);
+  if (!rendered)
+    throw new Error(`${entry.id}: missing evidence render; run pnpm art:building-evidence:render`);
   const hashes = Object.fromEntries(
     Object.entries(rendered.states).map(([state, image]) => [state, sha(image.src)]),
   );

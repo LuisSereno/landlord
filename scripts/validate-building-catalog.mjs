@@ -28,7 +28,8 @@ function fail(message) {
 }
 
 if (catalog.schemaVersion !== 2) fail("building-catalog.json: schemaVersion debe ser 2");
-if (catalog.buildings?.length !== 15) fail("el catálogo debe declarar exactamente 15 edificios de dominio");
+if (catalog.buildings?.length !== 15)
+  fail("el catálogo debe declarar exactamente 15 edificios de dominio");
 
 const seenIds = new Set();
 for (const entry of catalog.buildings ?? []) {
@@ -36,7 +37,8 @@ for (const entry of catalog.buildings ?? []) {
   if (seenIds.has(id)) fail(`${id}: entrada duplicada`);
   seenIds.add(id);
   if (!CATEGORIES.includes(entry.category)) fail(`${id}: category inválida '${entry.category}'`);
-  if (!Number.isInteger(entry.floorCount) || entry.floorCount < 1) fail(`${id}: floorCount inválido`);
+  if (!Number.isInteger(entry.floorCount) || entry.floorCount < 1)
+    fail(`${id}: floorCount inválido`);
   if (!Number.isInteger(entry.footprint?.width) || !Number.isInteger(entry.footprint?.height)) {
     fail(`${id}: footprint inválido`);
   }
@@ -47,12 +49,15 @@ for (const entry of catalog.buildings ?? []) {
     fail(`${id}: jobId '${entry.jobId}' no existe entre los building jobs de asset-jobs.json`);
     continue;
   }
-  if (job.assetId !== id) fail(`${id}: el job ${job.id} tiene assetId '${job.assetId}', no '${id}'`);
+  if (job.assetId !== id)
+    fail(`${id}: el job ${job.id} tiene assetId '${job.assetId}', no '${id}'`);
 
   if (entry.mode === "imported") {
     const source = job.source ?? {};
     if (!["glb", "gltf", "fbx"].includes(source.kind)) {
-      fail(`${id}: declara geometría importada pero su job ${job.id} tiene source.kind '${source.kind}'`);
+      fail(
+        `${id}: declara geometría importada pero su job ${job.id} tiene source.kind '${source.kind}'`,
+      );
       continue;
     }
     if (source.sourceId !== entry.sourceId) {
@@ -66,7 +71,9 @@ for (const entry of catalog.buildings ?? []) {
     }
   } else if (entry.mode === "legacy-procedural") {
     if (job.source?.kind !== "procedural") {
-      fail(`${id}: modo legacy-procedural pero su job ${job.id} declara source.kind '${job.source?.kind}'`);
+      fail(
+        `${id}: modo legacy-procedural pero su job ${job.id} declara source.kind '${job.source?.kind}'`,
+      );
     }
   } else {
     fail(`${id}: mode inválido '${entry.mode}'`);

@@ -121,7 +121,11 @@ export function VisualCatalog() {
         <div className="catalog-role-grid">
           {catalog.characters.map((character) => (
             <article className="catalog-card" data-character-card={character.id} key={character.id}>
-              <div className="role-silhouette">●</div>
+              <img
+                className="role-preview"
+                src={catalog.characterPreview}
+                alt={`${character.displayName} scale preview`}
+              />
               <h3>{character.displayName}</h3>
               <p>
                 {character.role} · {character.scope}

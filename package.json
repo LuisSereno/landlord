@@ -49,6 +49,7 @@
     "smoke:vd-core-loop": "node scripts/vd-core-loop-smoke.mjs",
     "smoke:vd-ux": "node scripts/vd-ux-smoke.mjs",
     "smoke:art-lab": "node scripts/art-lab-browser-smoke.mjs",
+    "smoke:visual-catalog": "node scripts/visual-catalog-browser-smoke.mjs",
     "district:inspect": "DISTRICT_INSPECT=1 vitest run --config vitest.config.ts packages/simulation/src/district-inspect.test.ts --reporter=verbose",
     "road:benchmark": "ROAD_BENCHMARK=1 vitest run --config vitest.config.ts packages/simulation/src/road-topology-benchmark.test.ts --reporter=verbose",
     "fabric:gate": "FABRIC_GATE=1 vitest run --config vitest.config.ts packages/simulation/src/urban-fabric-gate.test.ts --reporter=verbose",

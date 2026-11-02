@@ -1992,6 +1992,13 @@ button:disabled {
   color: #e5b85c;
   text-align: center;
 }
+.role-preview {
+  width: 96px !important;
+  height: 128px !important;
+  margin: auto;
+  display: block;
+  object-fit: contain;
+}
 .coverage-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

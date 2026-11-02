@@ -47,6 +47,7 @@ const payload = {
   schemaVersion: 1,
   buildings,
   characters: characters.characters,
+  characterPreview: runtime.characters.vecino_variante.animations.idle.frames[0].src,
   characterAnimations: {
     runtime: characters.runtimeAnimations,
     showcase: characters.showcaseAnimations,

@@ -907,7 +907,7 @@ function FacilityPanel({
         </div>
         <div>
           <dt>Capacidad de servicio</dt>
-          <dd>{facility.capacity} unidades</dd>
+          <dd>{facility.serviceMetrics?.effectiveCapacity ?? "Sin informe"}</dd>
         </div>
         <div>
           <dt>Operador</dt>
@@ -915,10 +915,23 @@ function FacilityPanel({
         </div>
         <div>
           <dt>Acceso vial</dt>
-          <dd>{facility.accessCells.length} puntos de acceso</dd>
+          <dd>{facility.accessCells.length > 0 ? "Conectado" : "Sin conexión"}</dd>
         </div>
       </dl>
-      <p className="muted">{facilityMetricsSummary(facility.serviceMetrics)}</p>
+      {facility.serviceMetrics ? (
+        <dl className="detail-grid">
+          <div>
+            <dt>Atendidas</dt>
+            <dd>{facility.serviceMetrics.served}</dd>
+          </div>
+          <div>
+            <dt>Utilización</dt>
+            <dd>{facility.serviceMetrics.utilizationPercent} %</dd>
+          </div>
+        </dl>
+      ) : (
+        <p className="muted">{facilityMetricsSummary(null)}</p>
+      )}
       <button
         className="secondary-action"
         onClick={() => context.onOpenHub("government")}

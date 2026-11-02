@@ -37,6 +37,7 @@ import {
   selectBuildingTextureKey,
   spriteKeyFor,
   spriteScaleFor,
+  spriteScaleForDomainFootprint,
 } from "./building-sprites";
 import {
   gridToScreen,
@@ -178,7 +179,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private selectedCell: GridCell | null = null;
   private selectionTarget: MapSelectionTarget | null = null;
   private projection: ViewProjectionV2 | null = null;
-  private overlay: MapOverlay = "ownership";
+  private overlay: MapOverlay = "none";
   private cellPickedListener?: (cell: GridCell) => void;
   private entityPickedListener?: (target: {
     kind: "building" | "construction";
@@ -774,12 +775,20 @@ export class IsometricSpikeScene extends Phaser.Scene {
     const graphics = this.mapGraphics;
     if (!graphics) return;
     this.drawParcelGeometry(parcel.cells, COLORS.selected, 0.08, 1, 3);
-    graphics.lineStyle(5, COLORS.selected, 1);
-    for (const frontage of parcel.roadFrontages)
-      for (const cell of frontage.cells) {
-        const center = gridToScreen(cell, this.layout);
-        graphics.strokeCircle(center.x, center.y, 6);
-      }
+    // El frente es un borde hacia la calle, no una colección de nodos GIS. Dibujar los segmentos
+    // exteriores comunica la relación parcelaria sin falsear la geometría de las celdas.
+    const frontageCells = parcel.roadFrontages.flatMap((frontage) => frontage.cells);
+    const frontageKeys = new Set(frontageCells.map((cell) => `${cell.x}:${cell.y}`));
+    graphics.lineStyle(6, COLORS.selected, 1);
+    for (const edge of parcelBoundaryEdges(parcel.cells)) {
+      const neighbour = {
+        x: edge.cell.x + (edge.side === "e" ? 1 : edge.side === "w" ? -1 : 0),
+        y: edge.cell.y + (edge.side === "s" ? 1 : edge.side === "n" ? -1 : 0),
+      };
+      if (!frontageKeys.has(`${neighbour.x}:${neighbour.y}`)) continue;
+      const line = gridEdgeToScreenLine(edge, this.layout);
+      graphics.lineBetween(line.from.x, line.from.y, line.to.x, line.to.y);
+    }
   }
 
   /** Contexto catastral secundario para obras/edificios que ocupan varios solares. */
@@ -1239,7 +1248,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
         { kind: placement.entityKind, id: placement.entityId },
       );
       sprite.setPosition(center.x, center.y);
-      sprite.setScale(spriteScaleFor(placement.asset, this.layout.tileWidth));
+      sprite.setScale(
+        spriteScaleForDomainFootprint(placement.asset, placement.cells, this.layout.tileWidth),
+      );
       sprite.setDepth(depthForFootprintCells(placement.cells) + placement.depthBias);
       sprite.setAlpha(placement.alpha);
       sprite.setVisible(this.isInViewport(center.x, center.y, view, 96));

@@ -63,7 +63,9 @@ export function App() {
   const { economy, projection, client } = session;
   const [selectionTarget, setSelectionTarget] = useState<SpatialSelection | null>(null);
   const [pendingSite, setPendingSite] = useState<PendingDevelopmentSite | null>(null);
-  const [overlay, setOverlay] = useState<MapOverlay>("ownership");
+  // La vista normal es el punto de partida: las capas semánticas son una decisión explícita
+  // del jugador y no deben convertir el mapa base en un plano catastral.
+  const [overlay, setOverlay] = useState<MapOverlay>("none");
   const [hub, setHub] = useState<HubKind | null>(null);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
@@ -177,11 +179,65 @@ export function App() {
             !parcel.ownerOrganizationId &&
             parcel.permittedBuildingTypes.includes(buildingType as never),
         )?.cell ?? null,
+      largestMarketableParcel: () => {
+        const parcel = [...(economy?.parcels ?? [])]
+          .filter((entry) => entry.disposition === "marketable" && !entry.ownerOrganizationId)
+          .sort((left, right) => right.cells.length - left.cells.length)[0];
+        return parcel ? { cell: parcel.cell, cellCount: parcel.cells.length } : null;
+      },
+      facilityCell: (kind: string) => {
+        const facility = projection?.facilities.find((entry) => entry.kind === kind);
+        return facility
+          ? (economy?.parcels.find((parcel) => parcel.id === facility.parcelIds[0])?.cell ?? null)
+          : null;
+      },
+      pendingSite: () =>
+        pendingSite && economy
+          ? (() => {
+              const selected = economy.parcels.filter((parcel) =>
+                pendingSite.parcelIds.includes(parcel.id),
+              );
+              const anchor = economy.parcels.find(
+                (parcel) => parcel.id === pendingSite.anchorParcelId,
+              );
+              const selectedCells = new Set(
+                selected.flatMap((parcel) => parcel.cells.map((cell) => `${cell.x}:${cell.y}`)),
+              );
+              const adjacentAvailableCells = anchor
+                ? economy.parcels
+                    .filter(
+                      (parcel) =>
+                        !pendingSite.parcelIds.includes(parcel.id) &&
+                        parcel.disposition === "marketable" &&
+                        !parcel.ownerOrganizationId &&
+                        parcel.developmentCodeId === anchor.developmentCodeId &&
+                        parcel.permittedBuildingTypes.includes(pendingSite.buildingType as never) &&
+                        parcel.cells.some((cell) =>
+                          [
+                            `${cell.x + 1}:${cell.y}`,
+                            `${cell.x - 1}:${cell.y}`,
+                            `${cell.x}:${cell.y + 1}`,
+                            `${cell.x}:${cell.y - 1}`,
+                          ].some((key) => selectedCells.has(key)),
+                        ),
+                    )
+                    .map((parcel) => parcel.cell)
+                : [];
+              return {
+                buildingType: pendingSite.buildingType,
+                parcelCount: pendingSite.parcelIds.length,
+                candidateCells: siteAssemblyCandidates(economy, pendingSite).map(
+                  (parcel) => parcel.cell,
+                ),
+                adjacentAvailableCells,
+              };
+            })()
+          : null,
     };
     return () => {
       delete window.__landlordUiTest;
     };
-  }, [economy]);
+  }, [economy, pendingSite, projection]);
 
   /** Escape cierra en jerarquía: ayuda → notificaciones → debug → hub/panel. */
   useEffect(() => {
@@ -527,6 +583,14 @@ declare global {
       ownedBuildingParcelCell: () => GridCell | null;
       ownedBuildingId: () => string | null;
       marketableParcelCellForType: (buildingType: string) => GridCell | null;
+      largestMarketableParcel: () => { cell: GridCell; cellCount: number } | null;
+      facilityCell: (kind: string) => GridCell | null;
+      pendingSite: () => {
+        buildingType: string;
+        parcelCount: number;
+        candidateCells: GridCell[];
+        adjacentAvailableCells: GridCell[];
+      } | null;
     };
   }
 }

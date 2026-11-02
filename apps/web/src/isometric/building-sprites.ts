@@ -251,6 +251,18 @@ export function spriteScaleFor(
   return gamePixelsPerMeter / asset.pixelsPerMeter;
 }
 
+/** Uniform presentation-only adjustment from the authored asset footprint to the real domain one. */
+export function spriteScaleForDomainFootprint(
+  asset: Pick<BuildingAssetV1, "footprint" | "pixelsPerMeter">,
+  cells: readonly GridCell[],
+  tileWidth: number,
+): number {
+  const bounds = footprintBounds(cells);
+  const assetArea = Math.max(1, asset.footprint.width * asset.footprint.height);
+  const domainArea = Math.max(1, bounds.width * bounds.height);
+  return spriteScaleFor(asset, tileWidth) * Math.sqrt(domainArea / assetArea);
+}
+
 /** Origen normalizado listo para `setOrigin`: el pivote es el punto de suelo del sprite. */
 export function originFromPivot(asset: BuildingAssetV1): { x: number; y: number } {
   return { x: asset.pivot.x, y: asset.pivot.y };

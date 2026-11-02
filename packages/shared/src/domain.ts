@@ -375,6 +375,12 @@ export type BuildingDefinition = {
   /** Preferred footprint area in 4 m cells; the engine fits it inside the parcel. */
   targetFootprintCells: number;
   /**
+   * Intended physical morphology in 4 m cells. This is domain data, deliberately independent of
+   * the runtime art manifest: it guides deterministic placement but never changes the area,
+   * envelope, coverage or FAR rules. Rotating this rectangle is always legal when it fits.
+   */
+  preferredFootprint: { width: number; height: number };
+  /**
    * V.d-7 · requisitos de solar. `requiredParcels` es cuántas parcelas contiguas necesita el
    * proyecto (≥ 1); `minCombinedAreaCells` el área mínima de la unión y `requireEdgeContiguous`
    * exige que la unión sea 4-conexa. No sustituye a `targetFootprintCells`: ése describe la

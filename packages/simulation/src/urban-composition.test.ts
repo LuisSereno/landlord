@@ -11,13 +11,15 @@ import {
   parseTick,
   type Building,
   type BuildingType,
+  type DevelopmentCode,
+  type GridCell,
   type ProductCommand,
   type Tenant,
 } from "@landlord/shared";
 import { DEFAULT_DEVELOPMENT_CODE_BY_ROLE, developmentCodeById } from "./development-codes";
 import { dispatchProductCommand } from "./commands";
 import { buildBuildingIndex, buildingsOnParcel } from "./building-index";
-import { chooseFootprint, parcelEnvelopeUsage } from "./footprints";
+import { chooseFootprint, parcelEnvelopeUsage, shapePenalty } from "./footprints";
 import { effectivePopulationByDistrict } from "./municipal-politics";
 import { askingRentFor } from "./housing-market";
 import { createInitialState, type GameState } from "./state";
@@ -80,6 +82,54 @@ function buildingAt(state: GameState, parcelId: ReturnType<typeof parseParcelId>
 }
 
 describe("V.d.2 composición urbana y códigos", () => {
+  it("prefers declared morphology over a trivial frontage advantage", () => {
+    const cells: GridCell[] = [];
+    for (let y = 0; y < 20; y += 1) for (let x = 0; x < 20; x += 1) cells.push({ x, y });
+    const code: DevelopmentCode = {
+      id: "test" as DevelopmentCode["id"],
+      allowedUses: ["residential", "industrial", "civic", "education", "health", "retail"],
+      maxFloors: 8,
+      maxCoveragePercent: 100,
+      maxFloorAreaRatioPercent: 800,
+      streetSetbackCells: 0,
+      sideSetbackCells: 0,
+    };
+    for (const type of [
+      "courtyard_home",
+      "row_house",
+      "workshop",
+      "school_block",
+      "clinic",
+      "town_hall",
+      "warehouse",
+      "steelworks",
+    ] as const) {
+      const definition = BUILDING_DEFINITIONS[type];
+      const choice = chooseFootprint({
+        parcel: { cells, roadFrontages: [] },
+        code,
+        definition,
+        buildings: [],
+      });
+      if ("error" in choice) throw new Error(`${type}: ${choice.error}`);
+      const width =
+        Math.max(...choice.footprintCells.map((cell) => cell.x)) -
+        Math.min(...choice.footprintCells.map((cell) => cell.x)) +
+        1;
+      const height =
+        Math.max(...choice.footprintCells.map((cell) => cell.y)) -
+        Math.min(...choice.footprintCells.map((cell) => cell.y)) +
+        1;
+      expect(choice.footprintCells).toHaveLength(definition.targetFootprintCells);
+      expect(shapePenalty({ width, height }, definition.preferredFootprint), type).toBe(0);
+    }
+  });
+
+  it("accepts either orientation of a preferred footprint", () => {
+    expect(shapePenalty({ width: 2, height: 7 }, { width: 7, height: 2 })).toBe(0);
+    expect(shapePenalty({ width: 1, height: 14 }, { width: 7, height: 2 })).toBeGreaterThan(0);
+  });
+
   it("assigns a development code to every block and parcel from its urban role", () => {
     const state = createInitialState(7);
     for (const [, district] of state.world.districts) {

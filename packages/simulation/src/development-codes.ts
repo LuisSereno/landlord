@@ -5,6 +5,7 @@ import {
   type DevelopmentCode,
   type DevelopmentCodeId,
   type Ordinance,
+  type Parcel,
   type UrbanRole,
 } from "@landlord/shared";
 
@@ -107,6 +108,21 @@ export function isBuildingAllowedByDevelopmentCode(
 ): boolean {
   if (definition.municipal) return false;
   return definition.allowedUses.some((use) => code.allowedUses.includes(use));
+}
+
+/**
+ * Compatibilidad de uso leída por la parcela: la norma que manda es la de cada solar, no la del
+ * bloque. El permiso, `StartConstruction` y la enumeración de colocaciones de V.d-7C comparten esta
+ * función en lugar de repetir la regla cada uno por su lado.
+ */
+export function isParcelUseAllowed(
+  parcel: Pick<Parcel, "developmentCodeId">,
+  definition: BuildingDefinition,
+): boolean {
+  return isBuildingAllowedByDevelopmentCode(
+    definition,
+    developmentCodeById(parcel.developmentCodeId),
+  );
 }
 
 /**

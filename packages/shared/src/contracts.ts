@@ -2,14 +2,21 @@ import { z } from "zod";
 
 import {
   districtIdSchema,
+  parcelIdSchema,
   protocolVersionSchema,
   requestIdSchema,
   type DistrictId,
+  type ParcelId,
   type ProtocolVersion,
   type RequestId,
 } from "./primitives";
 import { seedSchema, type Seed } from "./time-and-grid";
-import { productCommandSchema, type ProductCommand } from "./domain";
+import {
+  buildingTypeSchema,
+  productCommandSchema,
+  type BuildingType,
+  type ProductCommand,
+} from "./domain";
 
 export type RequestEnvelope<TType extends string, TPayload> = {
   protocolVersion: ProtocolVersion;
@@ -90,6 +97,27 @@ export const setObservedDistrictRequestSchema = requestEnvelopeSchema(
   z.object({ districtId: districtIdSchema }),
 );
 
+/**
+ * V.d-7C · petición técnica de sólo lectura. Como `SetObservedDistrict`, no es una acción del juego:
+ * no avanza ticks, no toca el PRNG, no consume caja, materiales ni permisos y no entra en el snapshot
+ * ni en la cadena canónica. Devuelve las colocaciones legales que el propio motor ya sabe calcular.
+ */
+export type GetDevelopmentPlacementCandidatesRequest = RequestEnvelope<
+  "GetDevelopmentPlacementCandidates",
+  { districtId: DistrictId; parcelIds: ParcelId[]; buildingType: BuildingType }
+>;
+export const getDevelopmentPlacementCandidatesRequestSchema = requestEnvelopeSchema(
+  "GetDevelopmentPlacementCandidates",
+  z
+    .object({
+      districtId: districtIdSchema,
+      /** Alpha no proyecta proyectos de más de tres parcelas (D-096); el límite es estructural. */
+      parcelIds: z.array(parcelIdSchema).min(1).max(3),
+      buildingType: buildingTypeSchema,
+    })
+    .strict(),
+);
+
 export const workerRequestSchemas = [
   initializeGameRequestSchema,
   submitCommandRequestSchema,
@@ -98,6 +126,7 @@ export const workerRequestSchemas = [
   loadSnapshotRequestSchema,
   getMetricsRequestSchema,
   setObservedDistrictRequestSchema,
+  getDevelopmentPlacementCandidatesRequestSchema,
 ] as const;
 
 export const workerRequestSchema = z.discriminatedUnion("type", [
@@ -108,6 +137,7 @@ export const workerRequestSchema = z.discriminatedUnion("type", [
   loadSnapshotRequestSchema,
   getMetricsRequestSchema,
   setObservedDistrictRequestSchema,
+  getDevelopmentPlacementCandidatesRequestSchema,
 ]);
 
 export type WorkerRequest = z.infer<typeof workerRequestSchema>;

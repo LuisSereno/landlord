@@ -12,7 +12,7 @@ corresponde al responsable. No cierra V.d-7B, no cierra V.d y no sustituye el pl
 | Documentación de la fase | `origin/docs/vd7c-interactive-development-placement@b6ff2cd` |
 | Baseline funcional elegido | `b6ff2cd` (árbol de `974cc42` + los cuatro commits documentales de V.d-7C) |
 | Rama de trabajo | `wip/vd7c-interactive-development-placement` |
-| HEAD final | ver §15 |
+| HEAD final | `79b71bc` (doce commits sobre `b6ff2cd`, ver §15) |
 | Push | solo a `wip/vd7c-interactive-development-placement`; **ningún merge a `develop`** |
 
 **Por qué este baseline y no el tip de V.d-7B.** El prompt exigía «el baseline funcional V.d-7B más
@@ -242,7 +242,7 @@ recinto en 10 y 13 (jardín, seto y camino a la calle).
 
 ## 15. Estado final de la rama
 
-Diez commits sobre `b6ff2cd`, en el orden del plan (§3 de la fase):
+Doce commits sobre `b6ff2cd`, en el orden del plan (§3 de la fase):
 
 ```
 cbfc6f1  refactor: expose deterministic development placement candidates
@@ -255,6 +255,10 @@ bca9663  feat: place buildings interactively in the game shell
 72132f3  feat: add deterministic property grounds
 49b2928  perf: pool placement labels and count redraws
 af3adfc  test: cover placement identity across save and load
+3889455  test: adapt the core-loop smoke to interactive placement
+29864b4  test: capture V.d-7C browser and performance evidence
+c044d0e  docs: close V.d-7C interactive development placement
+79b71bc  refactor: keep only the observational locators the evidence uses
 ```
 
 Superficie: 4 993 inserciones / 239 borrados en 53 archivos. **No se tocó `game-data.ts`,

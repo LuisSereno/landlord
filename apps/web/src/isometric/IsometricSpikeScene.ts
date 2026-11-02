@@ -17,6 +17,12 @@ import {
   type MapOverlay,
 } from "../ui/overlay-catalog";
 import {
+  planPropertyGrounds,
+  propertyGroundsCacheKey,
+  type GroundDescriptor,
+  type GroundFamily,
+} from "./property-grounds";
+import {
   constructionStageMassing,
   constructionVisualStage,
   crewVisualState,
@@ -61,6 +67,20 @@ import {
 } from "./gameplay-visual-adapter";
 
 const COLORS = MAP_COLORS;
+/** V.d-7C · vocabulario de entorno: cada tipo de recinto se dibuja distinto, no sólo distinto color. */
+const GROUND_COLORS: Record<string, number> = {
+  garden: 0x69a86b,
+  path: 0xb9c2cf,
+  hedge: 0x3f6b4a,
+  fence: 0x8a6f4e,
+  tree: 0x4f8f5a,
+  yard: 0x7f8fa6,
+  hardstanding: 0x9aa4b2,
+  "service-yard": 0x6b7280,
+  "loading-area": 0xc9a227,
+  pallets: 0xb07a3c,
+  containers: 0x4a7ba7,
+} as const;
 /**
  * V.d-7C · coreografía de obra. Paleta Graphic Civic propia: tierra para la cimentación, crema de
  * muro para la estructura a medio hacer, andamio en línea fina y cuadrillas con anillo por estado.
@@ -253,6 +273,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private placementTarget: MapPlacementTarget | null = null;
   private placementGraphics?: Phaser.GameObjects.Graphics;
   private constructionLabels?: Phaser.GameObjects.Container;
+  /** Caché de entornos: sólo se recalcula cuando cambia la geometría autoritativa de la propiedad. */
+  private groundsByProperty = new Map<string, GroundDescriptor[]>();
   private placementLabels?: Phaser.GameObjects.Container;
   private placementGhost?: Phaser.GameObjects.Image;
   private placementCandidateListener?: (candidateId: string) => void;
@@ -808,6 +830,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       );
       graphics.fillRect(center.x - 7, center.y - 12, 14, 12 + building.level * 3);
     }
+    this.drawPropertyGrounds(graphics);
     this.constructionLabels?.removeAll(true);
     for (const site of this.projection?.economy?.constructionSites ?? [])
       this.drawConstructionSite(graphics, site);
@@ -1024,6 +1047,101 @@ export class IsometricSpikeScene extends Phaser.Scene {
     graphics.fillRect(center.x - 11, center.y - height - 12, 22, 4);
     graphics.fillStyle(COLORS.construction, 1);
     graphics.fillRect(center.x - 11, center.y - height - 12, 22 * ratio, 4);
+  }
+
+  /**
+   * V.d-7C · la propiedad como recinto. El entorno se deriva de geometría autoritativa y tipo, se
+   * cachea por firma y se dibuja con formas distintas por descriptor. No es gameplay: no cambia
+   * propiedad, colisión, producción, valoración, cobertura ni FAR (D-097 · Site grounds).
+   */
+  private drawPropertyGrounds(graphics: Phaser.GameObjects.Graphics): void {
+    const economy = this.projection?.economy;
+    if (!economy) {
+      this.groundsByProperty.clear();
+      return;
+    }
+    const parcelsById = new Map(economy.parcels.map((parcel) => [parcel.id, parcel]));
+    const halfWidth = this.layout.tileWidth / 2;
+    const halfHeight = this.layout.tileHeight / 2;
+    const seen = new Set<string>();
+    for (const building of economy.buildings) {
+      const parcels = building.parcelIds
+        .map((id) => parcelsById.get(id))
+        .filter((parcel): parcel is NonNullable<typeof parcel> => Boolean(parcel));
+      if (parcels.length === 0) continue;
+      const siteCells = parcels.flatMap((parcel) => parcel.cells);
+      const frontageCells = parcels.flatMap((parcel) =>
+        parcel.roadFrontages.flatMap((frontage) => frontage.cells),
+      );
+      const cacheKey = propertyGroundsCacheKey({
+        buildingId: building.id,
+        siteCells,
+        footprintCells: building.footprintCells,
+        frontageCells,
+      });
+      seen.add(cacheKey);
+      let descriptors = this.groundsByProperty.get(cacheKey);
+      if (!descriptors) {
+        const family: GroundFamily = parcels.some((parcel) => parcel.disposition === "public")
+          ? "civic"
+          : parcels[0]!.zoning;
+        descriptors = planPropertyGrounds({
+          buildingType: building.type,
+          family,
+          siteCells,
+          footprintCells: building.footprintCells,
+          frontageCells,
+        });
+        this.groundsByProperty.set(cacheKey, descriptors);
+      }
+      for (const descriptor of descriptors) {
+        const center = gridToScreen(descriptor.cell, this.layout);
+        const color = GROUND_COLORS[descriptor.kind] ?? 0x69a86b;
+        if (descriptor.kind === "hedge" || descriptor.kind === "fence") {
+          graphics.lineStyle(3, color, 0.9);
+          graphics.lineBetween(
+            center.x - halfWidth * 0.7,
+            center.y,
+            center.x + halfWidth * 0.7,
+            center.y,
+          );
+          continue;
+        }
+        if (descriptor.kind === "tree") {
+          graphics.fillStyle(color, 0.9);
+          graphics.fillCircle(center.x, center.y - 4, 4);
+          continue;
+        }
+        if (descriptor.kind === "pallets" || descriptor.kind === "containers") {
+          graphics.fillStyle(color, 0.85);
+          graphics.fillRect(center.x - 5, center.y - 3, 10, 6);
+          continue;
+        }
+        if (descriptor.kind === "loading-area") {
+          graphics.lineStyle(2, color, 0.9);
+          graphics.strokeRect(
+            center.x - halfWidth * 0.5,
+            center.y - halfHeight * 0.5,
+            halfWidth,
+            halfHeight,
+          );
+          continue;
+        }
+        const alpha =
+          descriptor.kind === "path" || descriptor.kind === "hardstanding" ? 0.45 : 0.22;
+        graphics.fillStyle(color, alpha);
+        graphics.beginPath();
+        graphics.moveTo(center.x, center.y - halfHeight);
+        graphics.lineTo(center.x + halfWidth, center.y);
+        graphics.lineTo(center.x, center.y + halfHeight);
+        graphics.lineTo(center.x - halfWidth, center.y);
+        graphics.closePath();
+        graphics.fillPath();
+      }
+    }
+    /** La caché no puede crecer con propiedades que ya no están en la vista. */
+    for (const key of [...this.groundsByProperty.keys()])
+      if (!seen.has(key)) this.groundsByProperty.delete(key);
   }
 
   /**

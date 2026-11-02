@@ -12,6 +12,7 @@ const characters = JSON.parse(
   readFileSync("blender_artist/manifests/character-factory.json", "utf8"),
 );
 const world = JSON.parse(readFileSync("blender_artist/manifests/world-asset-catalog.json", "utf8"));
+const evidence = JSON.parse(readFileSync("apps/web/src/generated/building-evidence.json", "utf8"));
 const outputPath = "apps/web/src/generated/visual-catalog.json";
 const sha = (path) =>
   createHash("sha256")
@@ -20,8 +21,10 @@ const sha = (path) =>
 const buildings = buildingCatalog.buildings.map((entry) => {
   const asset = runtime.buildings[entry.id];
   if (!asset) throw new Error(`${entry.id}: missing runtime representation`);
+  const rendered = evidence.buildings[entry.id];
+  if (!rendered) throw new Error(`${entry.id}: missing evidence render; run pnpm art:building-evidence:render`);
   const hashes = Object.fromEntries(
-    Object.entries(asset.states).map(([state, image]) => [state, sha(image.src)]),
+    Object.entries(rendered.states).map(([state, image]) => [state, sha(image.src)]),
   );
   return {
     id: entry.id,
@@ -30,8 +33,8 @@ const buildings = buildingCatalog.buildings.map((entry) => {
     footprint: entry.footprint,
     floors: entry.floorCount,
     source: entry.sourceLabel,
-    status: "candidate",
-    states: asset.states,
+    status: entry.mode === "imported" ? "candidate-evidence" : "runtime-bundle",
+    states: rendered.states,
     duplicateStates: Object.keys(hashes).filter(
       (state, index, all) => all.findIndex((other) => hashes[other] === hashes[state]) !== index,
     ),
@@ -49,7 +52,8 @@ const payload = {
   world,
   coverage: {
     buildings: `${buildings.length}/15`,
-    buildingStates: `${buildings.length * 4}/60`,
+    buildingStates: `${buildings.reduce((total, b) => total + Object.keys(b.states).length, 0)}/60`,
+    stateConditioning: "pendiente: la geometría importada sólo renderiza complete",
     characterRoles: `${characters.characters.length}/13`,
     animations: `${characters.runtimeAnimations.length}/2`,
     vehicles: `${world.vehicles.length}/6`,

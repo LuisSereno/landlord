@@ -230,6 +230,18 @@ try {
   await shot("05-residencial.jpg");
   step("9b · edificio residencial seleccionado");
 
+  // 9c · el sprite se selecciona directamente (no debe resolver la celda de suelo posterior).
+  const buildingId = await page.evaluate(() => window.__landlordUiTest?.ownedBuildingId() ?? null);
+  const buildingPoint = buildingId
+    ? await page.evaluate((id) => window.__landlordCameraTest.getEntityScreenPoint(id), buildingId)
+    : null;
+  if (!buildingPoint) fail("picking directo", "no se encontró el sprite del edificio propio");
+  const canvasBox = await page.locator(".map-canvas canvas").first().boundingBox();
+  if (!canvasBox) fail("picking directo", "no se encontró el canvas del mapa");
+  await page.mouse.click(canvasBox.x + buildingPoint.x, canvasBox.y + buildingPoint.y);
+  await page.locator('nav[aria-label="Secciones del edificio"]').waitFor({ timeout: 10000 });
+  step("9c · click directo sobre edificio conserva su ficha, sin caída al suelo");
+
   // 10 · centro de notificaciones
   await page.getByRole("button", { name: /Notificaciones/ }).click();
   await page
@@ -350,14 +362,20 @@ try {
       const cementCard = page.locator(".build-card", { hasText: "Planta de cemento" }).first();
       if ((await cementCard.count()) > 0) {
         await cementCard.click();
-        await page.getByRole("button", { name: "Construir" }).waitFor({ timeout: 10000 });
+        await page.getByRole("button", { name: "Elegir solares" }).waitFor({ timeout: 10000 });
         await page.evaluate(() => {
           const body = document.querySelector('[aria-label="Inspección de parcela"] .context-body');
           if (body) body.scrollTop = body.scrollHeight;
         });
         await page.waitForTimeout(200);
         await shot("04-detalle-produccion.jpg");
-        step("16 · detalle de planta de cemento con materiales y producción");
+        await page.getByRole("button", { name: "Elegir solares" }).click();
+        await page.getByText("Proyecto en preparación").waitFor({ timeout: 10000 });
+        const assembly = await page.getByLabel("Ensamblado de solar").innerText();
+        if (!/1\/2 parcelas/.test(assembly))
+          fail("ensamblado", `la cementera no muestra 1/2 solares: ${assembly}`);
+        await shot("14-cement-assembly-1-of-2.jpg");
+        step("16 · cementera muestra requisito y ensamblado 1/2 sin mutar la simulación");
       } else {
         step("16 · el solar industrial no ofrece cementera en este estado");
       }

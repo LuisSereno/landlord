@@ -171,6 +171,8 @@ export type ViewProjectionV2 = {
       cell: GridCell;
       /** Every cell of the parcel; `cell` remains its stable anchor for picking and sprites. */
       cells: GridCell[];
+      /** Authoritative road contacts; the UI only presents them and never infers access. */
+      roadFrontages: Array<{ roadSegmentId: string; cells: GridCell[] }>;
       baseLandValue: number;
       marketValue: number;
       landValueBreakdown: LandValueBreakdown;
@@ -328,6 +330,12 @@ export type ViewProjectionV2 = {
         outputAmount: number;
         operatingCost: number;
       } | null;
+      /** Authoritative V.d-7A site contract, exposed for presentation only. */
+      siteRequirements: {
+        requiredParcels: number;
+        minCombinedAreaCells: number;
+        requireEdgeContiguous: boolean;
+      };
     }>;
     buildings: Array<{
       id: BuildingId;
@@ -819,6 +827,12 @@ export const viewProjectionV2Schema = z.object({
           id: parcelIdSchema,
           cell: gridCellSchema,
           cells: z.array(gridCellSchema).min(1),
+          roadFrontages: z.array(
+            z.object({
+              roadSegmentId: z.string().min(1),
+              cells: z.array(gridCellSchema).min(1),
+            }),
+          ),
           baseLandValue: moneySchema,
           marketValue: moneySchema,
           landValueBreakdown: landValueBreakdownSchema,
@@ -999,6 +1013,11 @@ export const viewProjectionV2Schema = z.object({
               operatingCost: moneySchema,
             })
             .nullable(),
+          siteRequirements: z.object({
+            requiredParcels: z.number().int().positive(),
+            minCombinedAreaCells: z.number().int().positive(),
+            requireEdgeContiguous: z.boolean(),
+          }),
         }),
       ),
       buildings: z.array(

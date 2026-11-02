@@ -37,6 +37,7 @@ import {
   selectBuildingTextureKey,
   spriteKeyFor,
   spriteScaleFor,
+  spriteScaleForDomainFootprint,
 } from "./building-sprites";
 import {
   gridToScreen,
@@ -46,6 +47,7 @@ import {
   type IsometricLayout,
   type ScreenPoint,
 } from "./coordinates";
+import { gridEdgeToScreenLine, parcelBoundaryEdges } from "./parcel-geometry";
 import {
   buildGameplayVisualModel,
   type GameplayParkedVehicle,
@@ -95,10 +97,24 @@ export type IsometricSceneOptions = {
   showGrid?: boolean | undefined;
 };
 
+/** Identidad semántica recibida desde la UI; las celdas se resuelven contra la proyección actual. */
+export type MapSelectionTarget =
+  | { kind: "parcel"; parcelId: string }
+  | { kind: "building"; buildingId: string }
+  | { kind: "construction"; siteId: string }
+  | { kind: "facility"; facilityId: string }
+  | { kind: "public-space"; publicSpaceId: string }
+  | {
+      kind: "site-assembly";
+      parcelIds: readonly string[];
+      candidateParcelIds: readonly string[];
+    };
+
 type CameraTestApi = {
   configure(camera: { zoom: number; scrollX: number; scrollY: number }): void;
   getCamera(): { zoom: number; scrollX: number; scrollY: number };
   getCellScreenPoint(cell: GridCell): ScreenPoint;
+  getEntityScreenPoint(id: string): ScreenPoint | null;
   getWorldPoint(point: ScreenPoint): ScreenPoint;
   getSelectedCell(): GridCell | null;
   centerOnCell(cell: GridCell): void;
@@ -161,9 +177,16 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private debugText?: Phaser.GameObjects.Text;
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   private selectedCell: GridCell | null = null;
+  private selectionTarget: MapSelectionTarget | null = null;
   private projection: ViewProjectionV2 | null = null;
-  private overlay: MapOverlay = "ownership";
+  private overlay: MapOverlay = "none";
   private cellPickedListener?: (cell: GridCell) => void;
+  private entityPickedListener?: (target: {
+    kind: "building" | "construction";
+    id: string;
+  }) => void;
+  /** Marca del handler de sprite para que el `pointerup` global no resuelva también el suelo. */
+  private suppressGroundPick = false;
   private indicatorListener?: (target: { parcelId: string; buildingId?: string }) => void;
   private indicatorLayer?: Phaser.GameObjects.Container;
   private indicatorEntries: Array<{
@@ -318,7 +341,21 @@ export class IsometricSpikeScene extends Phaser.Scene {
   /** Selección dirigida desde la UI (notificaciones, fichas): sólo presentación. */
   public setSelectedCell(cell: GridCell | null): void {
     this.selectedCell = cell ? { ...cell } : null;
+    this.selectionTarget = null;
     this.drawOverlay();
+  }
+
+  /** La selección UI es una entidad, no el anchor de una celda. */
+  public setSelectionTarget(target: MapSelectionTarget | null): void {
+    this.selectionTarget = target ? { ...target } : null;
+    this.drawOverlay();
+  }
+
+  /** Entity picking is semantic; React receives identity and Phaser keeps geometry local. */
+  public setEntityPickedListener(
+    listener: (target: { kind: "building" | "construction"; id: string }) => void,
+  ): void {
+    this.entityPickedListener = listener;
   }
 
   /** Centra la cámara en una celda; respeta `prefers-reduced-motion`. */
@@ -624,22 +661,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
     const graphics = this.mapGraphics;
     if (!graphics) return;
     graphics.clear();
-    /** Vista normal: sin contornos semánticos; la ciudad se lee por sus sprites. */
-    if (this.overlay === "none") return;
-    for (const parcel of this.projection?.economy?.parcels ?? []) {
-      const center = this.screenCenter(parcel.cell);
-      const halfWidth = this.layout.tileWidth / 2 - 4;
-      const halfHeight = this.layout.tileHeight / 2 - 3;
-      const color = this.parcelOverlayColor(parcel);
-      graphics.lineStyle(2, color, 0.9);
-      graphics.beginPath();
-      graphics.moveTo(center.x, center.y - halfHeight);
-      graphics.lineTo(center.x + halfWidth, center.y);
-      graphics.lineTo(center.x, center.y + halfHeight);
-      graphics.lineTo(center.x - halfWidth, center.y);
-      graphics.closePath();
-      graphics.strokePath();
-    }
+    /** Vista normal: no se dibujan todas las parcelas; sólo su contexto seleccionado. */
+    if (this.overlay !== "none")
+      for (const parcel of this.projection?.economy?.parcels ?? [])
+        this.drawParcelGeometry(parcel.cells, this.parcelOverlayColor(parcel), 0.17, 0.68, 2);
     /**
      * H2-01: el overlay es el fallback mientras los sprites no están listos, así que también debe
      * leerse por la huella física del edificio. Antes se resolvía la parcela vía
@@ -687,18 +712,125 @@ export class IsometricSpikeScene extends Phaser.Scene {
       graphics.fillStyle(COLORS.fire, 0.9);
       graphics.fillCircle(center.x + 8, center.y - 14, 4 + Math.min(6, incident.intensity / 20));
     }
-    if (this.selectedCell) {
-      const center = this.screenCenter(this.selectedCell);
-      const halfWidth = this.layout.tileWidth / 2;
-      const halfHeight = this.layout.tileHeight / 2;
-      graphics.lineStyle(3, COLORS.selected, 1);
+    const target = this.selectionTarget;
+    if (target?.kind === "parcel") {
+      const parcel = this.projection?.economy?.parcels.find(
+        (entry) => entry.id === target.parcelId,
+      );
+      if (parcel) this.drawSelectedParcel(parcel);
+    } else if (target?.kind === "building") {
+      const building = this.projection?.economy?.buildings.find(
+        (entry) => entry.id === target.buildingId,
+      );
+      if (building) {
+        this.drawParcelContext(building.parcelIds);
+        this.drawParcelGeometry(building.footprintCells, COLORS.selected, 0.16, 1, 4);
+      }
+    } else if (target?.kind === "construction") {
+      const site = this.projection?.economy?.constructionSites.find(
+        (entry) => entry.id === target.siteId,
+      );
+      if (site) {
+        this.drawParcelContext(site.parcelIds);
+        this.drawParcelGeometry(site.footprintCells, COLORS.selected, 0.16, 1, 4);
+      }
+    } else if (target?.kind === "facility") {
+      const facility = this.projection?.facilities.find((entry) => entry.id === target.facilityId);
+      const buildings = facility
+        ? (this.projection?.economy?.buildings.filter((entry) =>
+            facility.buildingIds.includes(entry.id),
+          ) ?? [])
+        : [];
+      if (buildings.length > 0)
+        for (const building of buildings)
+          this.drawParcelGeometry(building.footprintCells, COLORS.selected, 0.16, 1, 4);
+      else if (facility) this.drawParcelContext(facility.parcelIds, true);
+    } else if (target?.kind === "public-space") {
+      const space = this.projection?.publicSpaces.find(
+        (entry) => entry.id === target.publicSpaceId,
+      );
+      if (space) this.drawParcelGeometry(space.cells, COLORS.selected, 0.12, 1, 3);
+    } else if (target?.kind === "site-assembly") {
+      for (const parcel of this.projection?.economy?.parcels.filter((entry) =>
+        target.candidateParcelIds.includes(entry.id),
+      ) ?? [])
+        this.drawParcelGeometry(parcel.cells, COLORS.parcelPlayer, 0.05, 0.45, 2);
+      for (const parcel of this.projection?.economy?.parcels.filter((entry) =>
+        target.parcelIds.includes(entry.id),
+      ) ?? [])
+        this.drawSelectedParcel(parcel);
+    } else if (this.selectedCell) {
+      const parcel = this.projection?.economy?.parcels.find((entry) =>
+        entry.cells.some(
+          (cell) => cell.x === this.selectedCell?.x && cell.y === this.selectedCell?.y,
+        ),
+      );
+      if (parcel) this.drawSelectedParcel(parcel);
+    }
+  }
+
+  private drawSelectedParcel(
+    parcel: NonNullable<ViewProjectionV2["economy"]>["parcels"][number],
+  ): void {
+    const graphics = this.mapGraphics;
+    if (!graphics) return;
+    this.drawParcelGeometry(parcel.cells, COLORS.selected, 0.08, 1, 3);
+    // El frente es un borde hacia la calle, no una colección de nodos GIS. Dibujar los segmentos
+    // exteriores comunica la relación parcelaria sin falsear la geometría de las celdas.
+    const frontageCells = parcel.roadFrontages.flatMap((frontage) => frontage.cells);
+    const frontageKeys = new Set(frontageCells.map((cell) => `${cell.x}:${cell.y}`));
+    graphics.lineStyle(6, COLORS.selected, 1);
+    for (const edge of parcelBoundaryEdges(parcel.cells)) {
+      const neighbour = {
+        x: edge.cell.x + (edge.side === "e" ? 1 : edge.side === "w" ? -1 : 0),
+        y: edge.cell.y + (edge.side === "s" ? 1 : edge.side === "n" ? -1 : 0),
+      };
+      if (!frontageKeys.has(`${neighbour.x}:${neighbour.y}`)) continue;
+      const line = gridEdgeToScreenLine(edge, this.layout);
+      graphics.lineBetween(line.from.x, line.from.y, line.to.x, line.to.y);
+    }
+  }
+
+  /** Contexto catastral secundario para obras/edificios que ocupan varios solares. */
+  private drawParcelContext(parcelIds: readonly string[], selected = false): void {
+    for (const parcel of this.projection?.economy?.parcels.filter((entry) =>
+      parcelIds.includes(entry.id),
+    ) ?? [])
+      this.drawParcelGeometry(
+        parcel.cells,
+        COLORS.selected,
+        selected ? 0.06 : 0,
+        selected ? 0.8 : 0.55,
+        2,
+      );
+  }
+
+  private drawParcelGeometry(
+    cells: readonly GridCell[],
+    color: number,
+    fillAlpha: number,
+    lineAlpha: number,
+    lineWidth: number,
+  ): void {
+    const graphics = this.mapGraphics;
+    if (!graphics) return;
+    const halfWidth = this.layout.tileWidth / 2;
+    const halfHeight = this.layout.tileHeight / 2;
+    graphics.fillStyle(color, fillAlpha);
+    for (const cell of cells) {
+      const center = gridToScreen(cell, this.layout);
       graphics.beginPath();
       graphics.moveTo(center.x, center.y - halfHeight);
       graphics.lineTo(center.x + halfWidth, center.y);
       graphics.lineTo(center.x, center.y + halfHeight);
       graphics.lineTo(center.x - halfWidth, center.y);
       graphics.closePath();
-      graphics.strokePath();
+      graphics.fillPath();
+    }
+    graphics.lineStyle(lineWidth, color, lineAlpha);
+    for (const edge of parcelBoundaryEdges(cells)) {
+      const line = gridEdgeToScreenLine(edge, this.layout);
+      graphics.lineBetween(line.from.x, line.from.y, line.to.x, line.to.y);
     }
   }
 
@@ -1109,9 +1241,16 @@ export class IsometricSpikeScene extends Phaser.Scene {
     const seen = new Set<string>();
     for (const placement of plan) {
       const center = gridToScreen(footprintVisualCenter(placement.cells), this.layout);
-      const sprite = this.ensureBuildingSprite(placement.id, placement.textureKey, placement.asset);
+      const sprite = this.ensureBuildingSprite(
+        placement.id,
+        placement.textureKey,
+        placement.asset,
+        { kind: placement.entityKind, id: placement.entityId },
+      );
       sprite.setPosition(center.x, center.y);
-      sprite.setScale(spriteScaleFor(placement.asset, this.layout.tileWidth));
+      sprite.setScale(
+        spriteScaleForDomainFootprint(placement.asset, placement.cells, this.layout.tileWidth),
+      );
       sprite.setDepth(depthForFootprintCells(placement.cells) + placement.depthBias);
       sprite.setAlpha(placement.alpha);
       sprite.setVisible(this.isInViewport(center.x, center.y, view, 96));
@@ -1150,16 +1289,29 @@ export class IsometricSpikeScene extends Phaser.Scene {
     id: string,
     key: string,
     asset: BuildingAssetV1,
+    target: { kind: "building" | "construction"; id: string },
   ): Phaser.GameObjects.Image {
     let sprite = this.buildingSprites.get(id);
     if (!sprite) {
       sprite = this.add.image(0, 0, key);
+      sprite.setInteractive({ useHandCursor: true });
+      sprite.on("pointerup", (pointer: Phaser.Input.Pointer) => {
+        if (!pointer.leftButtonReleased()) return;
+        const picked = sprite?.getData("entityTarget") as
+          { kind: "building" | "construction"; id: string } | undefined;
+        if (picked) {
+          this.suppressGroundPick = true;
+          this.entityPickedListener?.(picked);
+        }
+        pointer.event.stopPropagation?.();
+      });
       this.buildingSprites.set(id, sprite);
     } else if (sprite.texture.key !== key) {
       sprite.setTexture(key);
     }
     const origin = originFromPivot(asset);
     sprite.setOrigin(origin.x, origin.y);
+    sprite.setData("entityTarget", target);
     return sprite;
   }
 
@@ -1262,6 +1414,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private handlePointerUp(pointer: Phaser.Input.Pointer): void {
     if (pointer.rightButtonReleased()) {
       this.dragStart = null;
+      return;
+    }
+    if (this.suppressGroundPick) {
+      this.suppressGroundPick = false;
       return;
     }
     const camera = this.cameras.main;
@@ -1422,6 +1578,16 @@ export class IsometricSpikeScene extends Phaser.Scene {
         camera.preRender();
         const world = gridToScreen(cell, this.layout);
         const screen = camera.matrixCombined.transformPoint(world.x, world.y);
+        return { x: screen.x, y: screen.y };
+      },
+      getEntityScreenPoint: (id) => {
+        const sprite =
+          this.buildingSprites.get(id) ??
+          this.buildingSprites.get(`building:${id}`) ??
+          this.buildingSprites.get(`site:${id}`);
+        if (!sprite) return null;
+        camera.preRender();
+        const screen = camera.matrixCombined.transformPoint(sprite.x, sprite.y);
         return { x: screen.x, y: screen.y };
       },
       getWorldPoint: (point) => {

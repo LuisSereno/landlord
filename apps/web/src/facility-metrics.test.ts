@@ -17,12 +17,12 @@ const spillReceiver: FacilityServiceMetrics = {
 };
 
 describe("H2.1-01 · texto de carga de facility", () => {
-  it("enuncia las cuatro magnitudes con su nombre y nunca las llama cobertura", () => {
+  it("enuncia las métricas útiles al jugador y nunca las llama cobertura", () => {
     const text = facilityMetricsSummary(spillReceiver);
     expect(text).toContain("atendidas: 36");
     expect(text).toContain("capacidad: 37");
     expect(text).toContain("utilización: 97 %");
-    expect(text).toContain("demanda primaria: 3");
+    expect(text).not.toContain("demanda primaria");
     expect(text.toLowerCase()).not.toContain("cobertura");
     expect(text.toLowerCase()).not.toContain("coverage");
     /** El único porcentaje del texto es la utilización; la división prohibida no aparece. */

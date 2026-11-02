@@ -128,6 +128,8 @@ export function depthForFootprintCells(cells: readonly GridCell[]): number {
  */
 export type BuildingSpritePlacement = {
   id: string;
+  entityKind: "building" | "construction";
+  entityId: string;
   domainType: string;
   assetState: BuildingAssetState;
   cells: readonly GridCell[];
@@ -169,6 +171,8 @@ export function buildingSpritePlan(
     if (!resolved) continue;
     plan.push({
       id,
+      entityKind: "building",
+      entityId: building.id,
       domainType: building.type,
       assetState: state,
       cells: building.footprintCells,
@@ -186,6 +190,8 @@ export function buildingSpritePlan(
     if (!resolved) continue;
     plan.push({
       id,
+      entityKind: "construction",
+      entityId: site.id,
       domainType: site.buildingType,
       assetState: state,
       cells: site.footprintCells,
@@ -243,6 +249,18 @@ export function spriteScaleFor(
   if (!asset.pixelsPerMeter) return 1;
   const gamePixelsPerMeter = tileWidth / (CELL_METERS * Math.SQRT2);
   return gamePixelsPerMeter / asset.pixelsPerMeter;
+}
+
+/** Uniform presentation-only adjustment from the authored asset footprint to the real domain one. */
+export function spriteScaleForDomainFootprint(
+  asset: Pick<BuildingAssetV1, "footprint" | "pixelsPerMeter">,
+  cells: readonly GridCell[],
+  tileWidth: number,
+): number {
+  const bounds = footprintBounds(cells);
+  const assetArea = Math.max(1, asset.footprint.width * asset.footprint.height);
+  const domainArea = Math.max(1, bounds.width * bounds.height);
+  return spriteScaleFor(asset, tileWidth) * Math.sqrt(domainArea / assetArea);
 }
 
 /** Origen normalizado listo para `setOrigin`: el pivote es el punto de suelo del sprite. */

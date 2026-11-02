@@ -29,6 +29,22 @@ const OFFSETS = [
   { x: -1, y: 0 },
 ] as const;
 
+/**
+ * Distance from the declared morphology, allowing a 90° rotation. Lower is better; zero means
+ * the candidate has the intended dimensions in either orientation. Kept pure so geometry can be
+ * tested without a generated district or visual asset.
+ */
+export function shapePenalty(
+  candidate: { width: number; height: number },
+  preferred: { width: number; height: number },
+): number {
+  const direct =
+    Math.abs(candidate.width - preferred.width) + Math.abs(candidate.height - preferred.height);
+  const rotated =
+    Math.abs(candidate.width - preferred.height) + Math.abs(candidate.height - preferred.width);
+  return Math.min(direct, rotated);
+}
+
 function distanceFrom(
   cells: ReadonlySet<string>,
   sources: readonly string[],
@@ -182,6 +198,9 @@ export function chooseFootprint(input: {
   type Candidate = {
     cells: GridCell[];
     area: number;
+    width: number;
+    height: number;
+    shapePenalty: number;
     floors: number;
     orientation: 0 | 90 | 180 | 270;
     frontageDistance: number;
@@ -196,6 +215,7 @@ export function chooseFootprint(input: {
     const leftDistance = Math.abs(left.area - target);
     const rightDistance = Math.abs(right.area - target);
     if (leftDistance !== rightDistance) return leftDistance < rightDistance;
+    if (left.shapePenalty !== right.shapePenalty) return left.shapePenalty < right.shapePenalty;
     if (left.frontageDistance !== right.frontageDistance)
       return left.frontageDistance < right.frontageDistance;
     if (left.continuity !== right.continuity) return left.continuity > right.continuity;
@@ -230,6 +250,9 @@ export function chooseFootprint(input: {
           const candidate: Candidate = {
             cells,
             area,
+            width,
+            height,
+            shapePenalty: shapePenalty({ width, height }, input.definition.preferredFootprint),
             floors,
             orientation,
             frontageDistance,

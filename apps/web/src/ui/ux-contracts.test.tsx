@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import type { ViewProjectionV2 } from "@landlord/shared";
 
-import { HelpPopover, HelpTooltip, helpCatalog, type HelpTopicKey } from "./help";
+import { HelpPopover, HelpTooltip, helpCatalog, tooltipPosition, type HelpTopicKey } from "./help";
 import {
   constructionBlockedReasons,
   missingResourceLines,
@@ -15,7 +15,7 @@ import {
   unreadCount,
 } from "./notifications";
 import { deriveOnboardingStep } from "./onboarding";
-import { resolveContextSelection } from "./selection";
+import { resolveContextSelection, selectionTargetForCell } from "./selection";
 import { deriveWorldIndicators } from "./world-indicators";
 import { groupConstructionOptions } from "./build-catalog";
 import type { Economy } from "./types";
@@ -125,6 +125,12 @@ describe("V.d-UX · contratos de la interfaz", () => {
     expect(markup).toContain('role="tooltip"');
     const popover = renderToStaticMarkup(<HelpPopover topic="services" />);
     expect(popover).toContain("Ayuda sobre Servicios municipales");
+    expect(
+      tooltipPosition({ left: 2, top: 10, width: 18, height: 18 }, { width: 320, height: 600 }),
+    ).toMatchObject({
+      left: "8px",
+      top: "36px",
+    });
   });
 
   it("las acciones bloqueadas explican la causa con números y sin enums", () => {
@@ -300,6 +306,77 @@ describe("V.d-UX · contratos de la interfaz", () => {
         selectedBuildingId: null,
       }),
     ).toBeNull();
+
+    expect(
+      selectionTargetForCell({ economy: economyFixture, projection, cell: { x: 10, y: 10 } }),
+    ).toEqual({ kind: "building", buildingId: "building_rival" });
+    expect(
+      resolveContextSelection({
+        economy: economyFixture,
+        projection,
+        target: { kind: "building", buildingId: "building_own" },
+      })?.kind,
+    ).toBe("building");
+
+    const publicParcelWithBuilding = parcel({
+      id: "parcel_public_b",
+      cell: { x: 40, y: 40 },
+      cells: [{ x: 40, y: 40 }],
+      disposition: "public",
+      ownerOrganizationId: "org_00000004",
+      buildingIds: ["building_on_public"],
+    });
+    const buildingOnPublic = building({
+      id: "building_on_public",
+      parcelIds: ["parcel_public_b"],
+      ownerOrganizationId: "org_00000002",
+    });
+    const economyPublicWithBuilding = economy({
+      parcels: [publicParcelWithBuilding],
+      buildings: [buildingOnPublic],
+    });
+    const projectionNoFacility = {
+      observedDistrictId: "district_00000001",
+      facilities: [],
+      publicSpaces: [],
+    } as unknown as ViewProjectionV2;
+    expect(
+      selectionTargetForCell({
+        economy: economyPublicWithBuilding,
+        projection: projectionNoFacility,
+        cell: { x: 40, y: 40 },
+      }),
+    ).toEqual({ kind: "parcel", parcelId: "parcel_public_b" });
+
+    const publicParcelWithFacility = parcel({
+      id: "parcel_public_c",
+      cell: { x: 50, y: 50 },
+      cells: [{ x: 50, y: 50 }],
+      disposition: "public",
+      ownerOrganizationId: "org_00000004",
+      buildingIds: ["building_on_public_c"],
+    });
+    const buildingOnPublicC = building({
+      id: "building_on_public_c",
+      parcelIds: ["parcel_public_c"],
+      ownerOrganizationId: "org_00000002",
+    });
+    const projectionWithFacilityC = {
+      observedDistrictId: "district_00000001",
+      facilities: [{ id: "facility_c", kind: "town_hall", parcelIds: ["parcel_public_c"] }],
+      publicSpaces: [],
+    } as unknown as ViewProjectionV2;
+    const economyPublicWithFacility = economy({
+      parcels: [publicParcelWithFacility],
+      buildings: [buildingOnPublicC],
+    });
+    expect(
+      resolveContextSelection({
+        economy: economyPublicWithFacility,
+        projection: projectionWithFacilityC,
+        target: { kind: "building", buildingId: "building_on_public_c" },
+      })?.kind,
+    ).toBe("facility");
   });
 
   it("los indicadores de mundo priorizan lo crítico, excluyen rivales y respetan el tope", () => {

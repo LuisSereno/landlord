@@ -830,11 +830,124 @@ cobertura insuficiente por familia · módulo contextual (§22) · catálogo e i
 Blender distinto.
 
 `pnpm art:building-modules:validate:test` muta el catálogo publicado caso a caso y exige que cada
-modo se detecte: **23 casos**, incluido el caso bueno —si el catálogo íntegro no pasa, los demás
+modo se detecte: **24 casos**, incluido el caso bueno —si el catálogo íntegro no pasa, los demás
 fallos serían falsos—.
 
 ### Resta
 
-V.f.2 (`building-style-profiles.json` + remap de materiales multpack, §9 y §10 de esta
-especificación) y V.f.3–V.f.6 (gramáticas §11, identidad de variante §13, regla de originalidad §22,
-12 candidatos, QA visual §27 y goldens §29).
+V.f.2 (perfil de estilo y remap de materiales multpack, §9 y §10 de esta especificación) y
+V.f.3–V.f.6 (gramáticas §11, identidad de variante §13, regla de originalidad §22, 12 candidatos,
+QA visual §27 y goldens §29).
+
+## 36. Estado de implementación — V.f.2 (2026-11-03)
+
+`blender_artist/manifests/building-style-profiles.json`, perfil `graphic_civic_buildings_v1`. Se
+genera con `pnpm art:building-style:build` y se verifica byte a byte con
+`pnpm art:building-style:build:check`.
+
+```text
+building-modules.json ─┐
+                       ├─ measure_building_modules.py (Blender) ─ measurements.json ─┐
+staging licenciado ────┘                                                            │
+                                                              preview_building_style.py (Blender)
+                                                                    ↓ style-preview.json
+style_layer_graphic_civic.json (sha256 registrado) ────────────────────┘
+                                                       ↓
+                                        scripts/build-building-style.mjs → perfil
+```
+
+### Ningún parámetro está inventado
+
+Los 14 parámetros que pide §10 llevan `status`, `evidence[]` (medida concreta · cómo se midió ·
+artefacto de origen) y `rationale`. Los números del perfil:
+
+| parámetro | valor | de dónde sale |
+| --- | --- | --- |
+| `floorHeightMeters` | 3,00 m | moda de `nominalBounds.heightMeters` de los paneles de fachada y ventanal (espesor ≤ 0,6 m, alto ≥ 2,5 m), excluyendo cornisas y losas |
+| `bays` | 2 m y 4 m | ancho medido de las crujías licenciadas = 0,5 y 1 celda de la retícula de 4 m |
+| `doorScale` | 1 × 2,2 m | `mod_megakit_door_1/2` medidos; **enmendado** contra los 2,1 m del style layer (+4,8 %) |
+| `windowScale` | sustituir módulo, nunca escalar | 9 de 9 crujías acristaladas miden exactamente la altura de piso |
+| `bevel` | pasos de 0,013–0,174 m | canto resuelto en la propia geometría; muro base 0,2 m. Sin modificador: §9 lo prohíbe porque cambia la malla |
+| `roofOverhangMeters` | 0,20–0,928 m | vuelo de cornisa medido sobre los módulos de remate |
+| `materialRoughness` | override 0,88 sólo en factores planos | ORM enlazados miden 0,741–0,901 y se respetan; factores planos por pack: MegaKit 0,5 · Kenney 1 · KayKit 0,4 |
+| `materialMetallic` | 0 salvo ORM enlazado | `T_MetalConcrete_ORM` B=0,203 y `T_Trim_ORM` B=0,042: donde el socket está enlazado el override no toca nada |
+| `saturationAndValue` | sat ×1, valor ×1,55 + bandas | destino calculado por `style_pixels()` —el mismo código del render— sobre los buckets de cada atlas |
+| `detailDensity` | p50 146 / p90 1 200 / max 2 960 triángulos por módulo | conteo real de triángulos importados; 25,2 / 71 triángulos por m² de fachada |
+| `propScale` | 0,33–4,28 × el personaje de 1,8 m | altura medida de marquesinas, tanques, chimeneas y utility |
+| `camera` | ORTHO 45°/30°, margen 0,799–1,682 (p50 1,321) | 20 encuadres de `asset-jobs.json` cruzados con la envolvente medida del inventario |
+| `lighting` | key 2,35 cálido [9,16,10] · sombra 240,6° (Phaser 330,6°) | style layer canónico (sha256 `19f384d2…`) + metadato embarcado nocturno |
+| `massingGrid` | 22 de 27 masas fuera de retícula de 3 m | altura medida de cada `mass` contra la moda de piso |
+
+Dos huecos de encuadre quedan declarados como `marginsNotMeasurable`, no como estimación:
+`bld_courtyard_home` es procedural y no tiene cámara en el job, y `bld_downtown_quaternius` apunta a
+la exportación `FBX (Unity)`, que V.f.0 no inspeccionó (el catálogo mide los glTF del pack).
+
+### La textura se identifica por archivo, no por nombre
+
+Cada archivo licenciado se importa en una escena limpia, así que los tres `colormap.png` de Kenney
+(comercial, industrial, suburbano) llegan todos con el nombre de datablock `colormap`. El muestreo
+agrupaba por nombre y atribuía a los tres packs el color del que cargó primero. Con la identidad por
+ruta el perfil registra 26 texturas y las tres colormaps dan destinos distintos: valor 0,321 · 0,412
+· 0,322. Es el mismo fallo que caza §7 en la geometría, aplicado al color.
+
+### §11: el remape no depende del pack, depende de la cadena de nodos
+
+`apply_external_treatment` mira un solo salto del socket Base Color (`runtime_asset.py:620-622`):
+sólo una `TEX_IMAGE` directa entra en la escalera de bandas nocturna. Medido sobre los 85 módulos:
+
+* Kenney (19 archivos) y KayKit (4) son siempre directos: el tratamiento los alcanza enteros.
+* MegaKit (62 módulos): **28 totalmente tratados y 34 con al menos un material en bruto**. Y no es
+  una propiedad del material — `MI_Trim` aparece 10 veces con el atlas directo y 15 mezclado con el
+  color de vértice; `MI_RedBrick` 4/27; `MI_Trim_MetalConcrete` 12/10. El mismo nombre de material
+  entra y sale de la escalera según el archivo del que venga.
+* Consecuencia medible: esas tres texturas quedan 0,271 / 0,203 / 0,192 de valor **por encima** de su
+  destino nocturno (techo de aceptación 0,62), y el umbral `acceptance` sólo se comprueba sobre el
+  albedo tratado. Un módulo en bruto puede pasarse de brillo sin que ningún chequeo actual lo vea.
+
+Por eso el perfil fija la regla de composición en vez de fingir que todo está tratado: los 12
+candidatos se listan por `packCoexistence.modulesRawList`, no por nombre de material, y un alzado
+visible sólo mezcla módulos del mismo lado de la escalera. Extender el traversal hasta la
+`TEX_IMAGE` que alimenta el MIX es trabajo declarado de V.f.4 (`requiredWork`).
+
+### Separación de familias: comprobable, no declarada
+
+`separacion` compara los 6 pares posibles entre las familias medibles y exige que al menos un canal
+difiera (tono ≥ 20°, saturación ≥ 0,1, valor ≥ 0,06, metallic ≥ 0,1 o rugosidad ≥ 0,05). Estado
+actual: **satisfecha**, y el generador `fail()` antes de publicar si algún par colapsa (§37).
+
+| par | se separa por | deltas |
+| --- | --- | --- |
+| brick–plaster | tono, valor, rugosidad | 24,6° · 0,108 · 0,099 |
+| brick–metal | saturación, metallic | 0,22 · 0,203 |
+| brick–stone | saturación | 0,295 |
+| plaster–metal | saturación, valor, rugosidad, metallic | 0,128 · 0,135 · 0,086 · 0,203 |
+| plaster–stone | saturación, valor, rugosidad | 0,203 · 0,162 · 0,121 |
+| metal–stone | **sólo metallic** | 0,203 (Δsaturación 0,075, Δvalor 0,027, Δrugosidad 0,035) |
+
+Esa última fila es la razón por la que §11 prohíbe aplanar materiales: si V.f.4 uniformizara
+rugosidad y metallic, metal y piedra serían indistinguibles. La prohibición queda como dato
+comprobable (`knownGaps[2]`), no como consigna.
+
+`wood` no tiene geometría licenciada en `vf-1` y `glass` existe (`MI_Glass`, 14 módulos) pero su color
+no vive en un atlas mapeable: 12 instancias pasan por MIX y 2 no tienen ni Principled. Ninguna de las
+dos entra en los 12 candidatos; quedan reservadas con su destino canónico y se deciden por emisión en
+V.f.4. El `windowGlow` canónico se calcula texel a texel sobre el atlas, así que sólo enciende donde
+la textura de color llega directa a Base Color: de los 12 atlas con buckets de color medidos, el
+único cuyo bucket cae en la banda de cristal es `citybits_texture` de KayKit; los renders embarcados
+registran 2–10 ventanas encendidas por edificio.
+
+### Gates de V.f.2
+
+`pnpm art:building-style:build:check` reproduce el perfil byte a byte ·
+`pnpm art:building-modules:build:check` y `art:modules:inventory:check` siguen verdes tras el cambio
+de identidad de textura (el catálogo ahora registra rutas de archivo relativas al repo, no nombres de
+datablock) · `art:building-modules:validate` 85 módulos · `validate:test` 24 casos ·
+`art:binaries:check` y `art:assets:check` sin cambios en manifiesto de runtime (§26: el perfil no
+promociona nada).
+
+### Resta
+
+V.f.3–V.f.6 (compositor determinista §12–§18, gramáticas §11, identidad de variante §13, regla de
+originalidad §22, 12 candidatos, QA visual §27 y goldens §29) y las dos decisiones de V.f.4 que este
+perfil deja abiertas: extender el traversal a las cadenas MIX y dar emisión a los materiales de
+vidrio sin atlas.

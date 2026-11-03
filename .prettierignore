@@ -11,3 +11,4 @@ blender_artist/manifests/cc0-inventory.json
 blender_artist/manifests/asset-metrics.json
 blender_artist/manifests/building-module-inventory.json
 blender_artist/manifests/building-modules.json
+blender_artist/manifests/building-style-profiles.json

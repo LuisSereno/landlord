@@ -1,0 +1,46 @@
+{
+ "candidateId": "vf_row_house_1000",
+ "first": {
+  "pass": "primera",
+  "signature": "9b1bcec79d0227039c21e10cea8b421329da81f7617287c91d27e3bdb106476c",
+  "pixelSha256": "2b10cee2bd45d841bd29f9fbc94d7f95b17e31c323982af07f079ffa9b98226c",
+  "fileSha256": "9bd059ea66c6474d1ff1d7006e10a2308ae29b2cbf47a85dbbd60f506b376372",
+  "stages": {
+   "render": "913e482fcf67ea628c125857966762f6631eb700f796188bdc39ef175b0543d1",
+   "shadow": "b87818590b506b97597e1c7ca089500747928a7e07c2da993578b8da80b6503b"
+  },
+  "pivot": {
+   "x": 0.5,
+   "y": 0.7141
+  },
+  "pixels": [
+   427,
+   373
+  ]
+ },
+ "second": {
+  "pass": "segunda",
+  "signature": "9b1bcec79d0227039c21e10cea8b421329da81f7617287c91d27e3bdb106476c",
+  "pixelSha256": "2b10cee2bd45d841bd29f9fbc94d7f95b17e31c323982af07f079ffa9b98226c",
+  "fileSha256": "9bd059ea66c6474d1ff1d7006e10a2308ae29b2cbf47a85dbbd60f506b376372",
+  "stages": {
+   "render": "913e482fcf67ea628c125857966762f6631eb700f796188bdc39ef175b0543d1",
+   "shadow": "cb3803e369b9374f232bd42d8012534f013444a0ec88462f8c05a686aa91436a"
+  },
+  "pivot": {
+   "x": 0.5,
+   "y": 0.7141
+  },
+  "pixels": [
+   427,
+   373
+  ]
+ },
+ "differences": [],
+ "stageDifferences": [
+  "shadow"
+ ],
+ "pixelDifferences": false,
+ "containerNoise": false,
+ "status": "determinista"
+}

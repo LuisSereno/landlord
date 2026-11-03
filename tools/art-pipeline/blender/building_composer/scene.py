@@ -26,6 +26,7 @@ módulos sin escalar (los metros los fija el `unitScale` medido de la fuente).
 import hashlib
 import json
 import math
+import re
 import resource
 import sys
 import time
@@ -122,6 +123,50 @@ def base_color_images(material):
         for input_socket in node.inputs:
             pending.extend(input_socket.links)
     return found
+
+
+def authored_material_name(name):
+    """El nombre con el que la fuente authorió el material, sin el sufijo de colisión de Blender.
+
+    Un segundo GLB que traiga `MI_Trim` ya registrado lo importa como `MI_Trim.001`. La familia
+    medida del perfil está indexada por el nombre original, así que sin este paso §11 publicaría
+    `family: null` para un material que sí está clasificado y el revisor no podría juzgar si
+    brick/plaster/metal/glass/stone/wood siguen distinguiéndose.
+    """
+    return re.sub(r"\.\d+$", "", name)
+
+
+def pixels_digest(path):
+    """sha256 del búfer de píxeles decodificado, no de los bytes del PNG.
+
+    Medido en este spike: el escritor PNG de Blender produce cuatro ficheros con sha256 distinto para
+    un raster idéntico (la misma escena, dos procesos, dos pasadas cada uno: el sha del píxel no se
+    mueve, el del fichero cambia siempre y la longitud es la misma). Un `sha256(read_bytes())` como
+    firma de §13 juzgaría pues el contenedor —orden de chunks y metadatos— y declararía
+    NO_DETERMINISTA un sprite que pixel a pixel es igual, que es exactamente el ruido que hizo fallar
+    la primera corrida del test de regeneración. §13 pide que el *resultado* sea reproducible, así que
+    cada pase se firma sobre los mismos floats que lee la propia pipeline (`runtime_asset.py:769`).
+
+    Las dos firmas conviven: el sprite publicado sí resultó byte-estable entre procesos (cuatro
+    renders, `9bd059ea…`) porque lo escribe `images.new().save()`, no `write_still`, y §24 pide ese sha
+    como integridad del artefacto. Aquí se firman en píxeles los pases intermedios, que sí cambian.
+
+    Se usa `foreach_get` sobre un búfer preasignado en vez de `pixels[:]`: el pase de sombra va a 3×
+    (11,6 Mpx, 46,5 M de componentes) y la forma lista de Python costaría ~1,5 GB transitorios encima
+    de los 3,1 GB de RSS que ya mide la corrida.
+    """
+    image = bpy.data.images.load(str(path))
+    try:
+        width, height = int(image.size[0]), int(image.size[1])
+        buffer = np.empty(width * height * 4, dtype=np.float32)
+        image.pixels.foreach_get(buffer)
+        return {
+            "width": width,
+            "height": height,
+            "sha256": hashlib.sha256(buffer.tobytes()).hexdigest(),
+        }
+    finally:
+        bpy.data.images.remove(image)
 
 
 def flat_rule_matches(name, treatment):
@@ -715,7 +760,7 @@ def material_variants(groups, profile, treatment, deep):
                 {
                     "moduleId": module.id,
                     "material": name,
-                    "family": profile.material_family.get(name),
+                    "family": profile.material_family.get(authored_material_name(name)),
                     "elevationReach": profile.elevation_reach(module),
                     "measuredChain": sorted(
                         chain.split("=", 1)[1]
@@ -778,6 +823,15 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
         )
 
     scene.render.engine = "BLENDER_EEVEE"
+    # §13 también muerde al rasterizador. El test de regeneración encontró dos procesos con la misma
+    # firma, el mismo encuadre y los mismos materiales produciendo PNGs distintos: el pase de sombra
+    # había tardado 55 s en vez de 131 s. Con la reproyección TAA activa, cuántas muestras caben en el
+    # tiempo que tarda el render depende de la máquina, así que la acumulación no es reproducible entre
+    # procesos. Se fija el muestreo y se congela el historial; el número de muestras se escribe aquí
+    # aunque hoy sea el default de fábrica, para que un cambio de default no cuele aleatoriedad.
+    scene.eevee.use_taa_reprojection = False
+    scene.eevee.taa_render_samples = 64
+    scene.render.use_persistent_data = True
     scene.render.resolution_x = frame["canvasPixels"][0] * runtime.SUPERSAMPLE
     scene.render.resolution_y = frame["canvasPixels"][1] * runtime.SUPERSAMPLE
     scene.render.resolution_percentage = 100
@@ -803,9 +857,16 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
     render_started = time.perf_counter()
     bpy.ops.render.render(write_still=True)
     render_ms = round((time.perf_counter() - render_started) * 1000, 2)
+    render_pass = pixels_digest(render_path)
     shadow_style = style_layer.get("shadow", {})
     shadow_path = output.with_suffix(".shadow.png")
     shadow = runtime.render_shadow_pass(scene, style_layer, ground["lowestZMeters"], shadow_path)
+    # Los dos pases se firman por separado y en píxeles: si §13 vuelve a fallar, la metadata tiene que
+    # decir si se movió el albedo, la sombra o sólo la composición de ambos. Con el sha del fichero no
+    # se puede distinguir un defecto del compositor de uno del rasterizador, porque el contenedor PNG
+    # ya difiere de por sí.
+    shadow["renderPixels"] = render_pass
+    shadow["pixels"] = pixels_digest(shadow_path)
     trim = runtime.trim_and_scale(render_path, output, shadow_path, shadow_style)
     render_path.unlink(missing_ok=True)
     shadow_path.unlink(missing_ok=True)
@@ -813,6 +874,7 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
     pivot, pivot_check = pivot_and_validator(scene, camera, trim, composition)
     orientation = orientation_status(composition, catalog, camera, target)
     digest = hashlib.sha256(output.read_bytes()).hexdigest()
+    final_pixels = pixels_digest(output)
     scene_materials = sorted(
         {
             slot.material.name
@@ -871,6 +933,9 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
         "renderTime": render_ms,
         "pngBytes": output.stat().st_size,
         "sha256": digest,
+        # `sha256` es integridad del artefacto publicado (§24); `pixelSha256` es la firma con la que
+        # §13 compara dos procesos. Los dos números son necesarios y no significan lo mismo.
+        "pixelSha256": final_pixels["sha256"],
         "orientationStatus": orientation,
         "image": {
             "path": str(output),

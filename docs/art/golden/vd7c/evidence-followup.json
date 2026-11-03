@@ -1,0 +1,155 @@
+{
+  "measuredAt": "2026-11-02T16:39:13.464Z",
+  "facts": {
+    "homeDistrictName": "Barrio del Umbral",
+    "cashAtStart": 12000,
+    "noPlacement": {
+      "cell": "17,17",
+      "eyebrow": "EQUIPAMIENTO",
+      "title": "Escuela",
+      "panelExcerpt": "EQUIPAMIENTO Escuela Barrio del Umbral Escuela Suelo municipal · gestionado por el Ayuntamiento; no es transferible. SERVICIO Servicio municipal CAPACIDAD DE SERVICIO 6 unidades OPERADOR Ayuntamiento ACCESO VIAL 29 punto",
+      "buyButton": 0,
+      "placeButton": 0,
+      "catalog": 0,
+      "placementIssueRendered": 0,
+      "visualStats": {
+        "buildings": 2,
+        "decorations": 51,
+        "roadCells": 384,
+        "junctions": 7,
+        "crossings": 7,
+        "streetLights": 8,
+        "trafficLights": 0,
+        "benches": 2,
+        "trashCans": 1,
+        "parkedVehicles": 6,
+        "trees": 51,
+        "placementObjects": 0,
+        "placementLabelPool": 0,
+        "placementDraws": 1,
+        "sceneChildren": 85,
+        "totalSprites": 93,
+        "groundRebakes": 1,
+        "groundBakeLastMs": 320.4000000022352,
+        "groundBakeMaxMs": 320.4000000022352
+      }
+    },
+    "industrialParcel": {
+      "cell": "9,1"
+    },
+    "industrialPlacement": {
+      "candidates": 24,
+      "selectedId": "placement_01c6e42cc2011df2",
+      "orientation": 90,
+      "footprint": "10,1 10,2 10,3 10,4 10,5 10,6 10,7 10,8"
+    },
+    "industrialSite": {
+      "buildingType": "workshop",
+      "parcelIds": [
+        "parcel_00000002"
+      ],
+      "orientation": 90,
+      "signature": "10,1|10,2|10,3|10,4|10,5|10,6|10,7|10,8"
+    },
+    "industrialCrews": 2,
+    "industrialBuild": {
+      "workRequired": 288,
+      "lastProgress": 283,
+      "samples": 36
+    },
+    "industrialFinished": {
+      "buildingId": "building_00000001",
+      "cell": "9,1"
+    },
+    "industrialPanel": {
+      "eyebrow": "EDIFICIO",
+      "title": "Taller",
+      "excerpt": "EDIFICIO Taller Barrio del Umbral Taller En servicio · nivel 1 · Tu empresa Condición 100 % · integridad 100 % Resumen Inquilinos Mantenimiento Seguro Finanzas OCUPACIÓN 0/3 plazas INGRESOS 260 u./pla"
+    },
+    "zoomForComplete": {
+      "zoom": 1,
+      "scrollX": 62,
+      "scrollY": -153
+    },
+    "visualStatsComplete": {
+      "buildings": 3,
+      "decorations": 51,
+      "roadCells": 384,
+      "junctions": 7,
+      "crossings": 7,
+      "streetLights": 8,
+      "trafficLights": 0,
+      "benches": 2,
+      "trashCans": 1,
+      "parkedVehicles": 6,
+      "trees": 51,
+      "placementObjects": 0,
+      "placementLabelPool": 24,
+      "placementDraws": 4,
+      "sceneChildren": 87,
+      "totalSprites": 94,
+      "groundRebakes": 4,
+      "groundBakeLastMs": 429.5999999977648,
+      "groundBakeMaxMs": 429.5999999977648
+    },
+    "zoomForGrounds": {
+      "zoom": 1.7999999999999998,
+      "scrollX": 61.999999999999886,
+      "scrollY": -153.00000000000003
+    },
+    "visualStatsGrounds": {
+      "buildings": 3,
+      "decorations": 51,
+      "roadCells": 384,
+      "junctions": 7,
+      "crossings": 7,
+      "streetLights": 8,
+      "trafficLights": 0,
+      "benches": 2,
+      "trashCans": 1,
+      "parkedVehicles": 6,
+      "trees": 51,
+      "placementObjects": 0,
+      "placementLabelPool": 24,
+      "placementDraws": 4,
+      "sceneChildren": 87,
+      "totalSprites": 94,
+      "groundRebakes": 4,
+      "groundBakeLastMs": 429.5999999977648,
+      "groundBakeMaxMs": 429.5999999977648
+    },
+    "captures": {
+      "before": {
+        "06-no-placement.png": "623e16bd57f6788c54f8815fbc248c23",
+        "11-complete-industrial.png": "29f14ea1ea08dcababeb041a2e5c35c7",
+        "14-industrial-grounds.png": "34e0b7372b533d1f4f8084089f87d0e0"
+      },
+      "after": {
+        "06-no-placement.png": "7c621a773a73f312753061efef0b6aac",
+        "11-complete-industrial.png": "3be035e93e14a31293ee6003fd53a7eb",
+        "14-industrial-grounds.png": "12aed09271d4a89037f0a1597219b461"
+      }
+    },
+    "untouchedControl": {
+      "before": {
+        "01-single-recommended.png": "d72ec8437ab18b61da40e4bbd0dd1108",
+        "10-complete-residential.png": "0bafc87fa511e629062c2204b0957441",
+        "16-1920x1080.png": "774528a645e65799ca010611ae700f94"
+      },
+      "after": {
+        "01-single-recommended.png": "d72ec8437ab18b61da40e4bbd0dd1108",
+        "10-complete-residential.png": "0bafc87fa511e629062c2204b0957441",
+        "16-1920x1080.png": "774528a645e65799ca010611ae700f94"
+      }
+    }
+  },
+  "notes": [
+    "distrito natal: Barrio del Umbral · caja inicial 12000 u.",
+    "06 · EQUIPAMIENTO «Escuela» en 17,17: sin compra, sin catálogo y sin colocación posible",
+    "11 · 24 candidatas para el Taller en 10,1 10,2 10,3 10,4 10,5 10,6 10,7 10,8",
+    "11 · 2 cuadrilla(s) asignada(s) a la obra del Taller",
+    "11/14 · Taller terminado (building_00000001) en 9,1 tras 36 sondeos",
+    "14 · recinto industrial acercado a zoom 1.80"
+  ],
+  "pageErrors": []
+}

@@ -22,7 +22,6 @@ import {
   buildingsOnParcel,
   reconcileParcelUses,
 } from "./building-index";
-import { chooseFootprint } from "./footprints";
 import { credit, debit } from "./ledger";
 import { startAgentTravel } from "./transfers";
 import { submitPublicBid } from "./public-contracts";
@@ -56,8 +55,9 @@ import {
   developmentCodeById,
   effectiveDensityBonus,
   effectiveDevelopmentCode,
-  isBuildingAllowedByDevelopmentCode,
+  isParcelUseAllowed,
 } from "./development-codes";
+import { choosePlacementFrom, resolveDevelopmentPlacementSite } from "./development-placement";
 import { activePermitFor, permitsFor } from "./permitting";
 import { buildingCollateralContribution, collateralBuildingValue } from "./collateral";
 import {
@@ -253,16 +253,6 @@ function issuePermit(
 }
 
 /** La parcela manda a su código; la regla de compatibilidad vive en `development-codes`. */
-function isParcelUseAllowed(
-  parcel: import("@landlord/shared").Parcel,
-  definition: import("@landlord/shared").BuildingDefinition,
-): boolean {
-  return isBuildingAllowedByDevelopmentCode(
-    definition,
-    developmentCodeById(parcel.developmentCodeId),
-  );
-}
-
 function reservedFundsForOrganization(
   state: GameState,
   organizationId: import("@landlord/shared").OrganizationId,
@@ -756,59 +746,20 @@ export function dispatchProductCommand(
   }
 
   if (command.type === "StartConstruction") {
-    const definition = BUILDING_DEFINITIONS[command.payload.buildingType];
-    const requirements = definition.siteRequirements;
     /**
-     * V.d-7 · el proyecto se apoya en un CONJUNTO de parcelas. El engine no confía en el orden ni
-     * en la ausencia de duplicados del cliente: canonicaliza y valida el conjunto completo antes de
-     * tocar caja, recursos o permisos.
+     * V.d-7 · el proyecto se apoya en un CONJUNTO canónico de parcelas. V.d-7C · la huella es una
+     * colocación legal revalidada. Las dos reglas viven en `development-placement`, que es también lo
+     * que consulta la petición de candidatos del navegador: el comando no reimplementa ninguna, y por
+     * eso el jugador no puede obtener una huella que la IA no pueda obtener ni viceversa.
      */
-    if (new Set(command.payload.parcelIds).size !== command.payload.parcelIds.length)
-      return { accepted: false, code: "DUPLICATE_PARCELS" };
-    const parcelIds = canonicalParcelIds(command.payload.parcelIds);
-    if (parcelIds.length !== requirements.requiredParcels)
-      return { accepted: false, code: "WRONG_PARCEL_COUNT" };
-    const resolved = parcelIds.map((id) => state.phase2.parcels.get(id));
-    if (resolved.some((entry) => entry === undefined))
-      return { accepted: false, code: "PARCEL_NOT_FOUND" };
-    const parcels = resolved as import("@landlord/shared").Parcel[];
-    const primary = parcels[0]!;
-    if (parcels.some((parcel) => parcel.disposition !== "marketable"))
-      return { accepted: false, code: "PUBLIC_LAND_NOT_BUILDABLE" };
-    if (parcels.some((parcel) => parcel.ownerOrganizationId !== command.actingAsOrganizationId))
-      return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
-    if (parcels.some((parcel) => parcel.districtId !== primary.districtId))
-      return { accepted: false, code: "PARCELS_DIFFERENT_DISTRICT" };
-    /** Alpha no mezcla normas: un proyecto multi-parcela exige el mismo código urbanístico. */
-    if (parcels.some((parcel) => parcel.developmentCodeId !== primary.developmentCodeId))
-      return { accepted: false, code: "MIXED_DEVELOPMENT_CODES" };
-    if (parcels.some((parcel) => !isParcelUseAllowed(parcel, definition)))
-      return { accepted: false, code: "USE_NOT_ALLOWED" };
-    if (parcels.some((parcel) => activeSiteOnParcel(state, parcel.id)))
-      return { accepted: false, code: "ACTIVE_SITE_ON_PARCEL" };
-    const buildingIndex = buildBuildingIndex(state);
-    /**
-     * Un complejo reserva TODAS sus parcelas (§10): mientras exista obra, edificio o ruina, no se
-     * inicia otro proyecto en ninguna de ellas —tampoco una vivienda de una parcela—. Los edificios
-     * de una sola parcela conservan el comportamiento actual de convivir dentro del solar.
-     */
-    const occupiedByComplex = parcels.some((parcel) =>
-      buildingsOnParcel(buildingIndex, parcel.id).some((building) => building.parcelIds.length > 1),
-    );
-    if (
-      occupiedByComplex ||
-      (requirements.requiredParcels > 1 &&
-        parcels.some((parcel) => buildingsOnParcel(buildingIndex, parcel.id).length > 0))
-    )
-      return { accepted: false, code: "PARCEL_OCCUPIED" };
-    if (
-      requirements.requireEdgeContiguous &&
-      !areCellGroupsEdgeConnected(parcels.map((parcel) => parcel.cells))
-    )
-      return { accepted: false, code: "PARCELS_NOT_EDGE_CONTIGUOUS" };
-    const combinedArea = parcels.reduce((total, parcel) => total + parcel.cells.length, 0);
-    if (combinedArea < requirements.minCombinedAreaCells)
-      return { accepted: false, code: "SITE_AREA_TOO_SMALL" };
+    const resolvedSite = resolveDevelopmentPlacementSite(state, {
+      parcelIds: command.payload.parcelIds,
+      buildingType: command.payload.buildingType,
+      organizationId: command.actingAsOrganizationId,
+    });
+    if (!resolvedSite.ok) return { accepted: false, code: resolvedSite.rejection };
+    const site = resolvedSite.site;
+    const { definition, parcelIds } = site;
     /**
      * Solo vale un permiso aprobado, sin consumir, del tipo exacto y para ESTE conjunto de parcelas.
      * Si no lo hay se emite uno nuevo; un rechazo aquí tampoco quema el permiso de una obra que no
@@ -816,38 +767,21 @@ export function dispatchProductCommand(
      */
     const permit =
       activePermitFor(state, parcelIds, command.payload.buildingType, state.clock.tick) ??
-      issuePermit(state, parcels, command.payload.buildingType);
+      issuePermit(state, site.parcels, command.payload.buildingType);
     if (permit.status !== "approved") return { accepted: false, code: "PERMIT_DENIED" };
     const code = effectiveDevelopmentCode(
       permit.developmentCodeIdAtDecision,
       permit.densityBonusFloors,
       permit.densityBonusFarPercent,
     );
-    const avenueSegmentIds = new Set(
-      state.world.districts
-        .get(primary.districtId)!
-        .map.roads.segments.filter((segment) => segment.class === "avenue")
-        .map((segment) => segment.id as string),
-    );
-    const frontages = parcels.flatMap((parcel) => parcel.roadFrontages);
-    const principalFrontageCells = frontages
-      .filter((frontage) => avenueSegmentIds.has(frontage.roadSegmentId))
-      .flatMap((frontage) => frontage.cells);
-    const footprint = chooseFootprint({
-      /** La unión es el solar normativo: la frontera catastral interna no bloquea la huella. */
-      parcel: {
-        cells: parcels.flatMap((parcel) => parcel.cells),
-        roadFrontages: frontages,
-      },
-      code,
-      definition,
-      principalFrontageCells:
-        principalFrontageCells.length > 0
-          ? principalFrontageCells
-          : frontages.flatMap((frontage) => frontage.cells),
-      buildings: parcels.flatMap((parcel) => buildingsOnParcel(buildingIndex, parcel.id)),
-    });
-    if ("error" in footprint) return { accepted: false, code: footprint.error };
+    /**
+     * Revalidación D-097: se vuelve a enumerar y se busca la identidad pedida. Un candidato obsoleto
+     * se RECHAZA —el motor no elige otra huella en el lugar del jugador— y el rechazo ocurre antes de
+     * mirar cuadrillas, materiales y caja, así que no consume nada.
+     */
+    const chosen = choosePlacementFrom(site, code, command.payload.placementId);
+    if (!chosen.ok) return { accepted: false, code: chosen.rejection };
+    const placement = chosen.placement;
     const activeSites = [...state.phase2.constructionSites.values()].filter(
       (site) =>
         site.ownerOrganizationId === command.actingAsOrganizationId &&
@@ -882,13 +816,14 @@ export function dispatchProductCommand(
     state.phase2.constructionSites.set(siteId, {
       id: siteId,
       parcelIds,
-      districtId: primary.districtId,
+      districtId: site.districtId,
       ownerOrganizationId: command.actingAsOrganizationId,
       buildingType: definition.type,
-      footprintCells: footprint.footprintCells.map((cell) => ({ ...cell })),
-      orientation: footprint.orientation,
-      floors: footprint.floors,
-      form: footprint.form,
+      /** La huella del candidato confirmado por el jugador, no una recomposición del motor. */
+      footprintCells: placement.footprintCells.map((cell) => ({ ...cell })),
+      orientation: placement.orientation,
+      floors: placement.floors,
+      form: definition.form,
       progress: 0,
       workRequired: effectiveConstructionWorkRequired(state, definition),
       resourcesReserved: { ...definition.resources },

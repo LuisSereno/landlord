@@ -20,8 +20,15 @@ export type SurfaceKind =
  */
 export type GameActions = {
   buyParcel: (parcelId: string) => void;
-  /** La UI envía el conjunto de parcelas elegido; el motor conserva la autoridad de validación. */
-  startConstruction: (parcelIds: readonly string[], buildingType: BuildingType) => void;
+  /**
+   * La UI envía el conjunto de parcelas elegido; el motor conserva la autoridad de validación.
+   * V.d-7C · `placementId` sólo va cuando el jugador confirmó una colocación en el mapa.
+   */
+  startConstruction: (
+    parcelIds: readonly string[],
+    buildingType: BuildingType,
+    placementId?: string,
+  ) => void;
   cancelConstruction: (siteId: string) => void;
   assignCrew: (crewId: string, siteId: string) => void;
   assignTenant: (buildingId: string, tenantId: string) => void;

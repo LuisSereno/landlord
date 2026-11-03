@@ -1,0 +1,86 @@
+{
+  "measuredAt": "2026-11-02T16:52:03.272Z",
+  "note": "Recuento autoritativo de candidatas sobre TODOS los proyectos que una jugadora puede abrir en una partida nueva (comprar → catálogo → elegir ubicación).",
+  "appSeed": 1,
+  "runs": [
+    {
+      "seed": 1,
+      "projects": 2297,
+      "minimumCandidates": 15,
+      "zeroCandidateProjects": 0,
+      "zeroExamples": [],
+      "minimumByBuildingType": {
+        "courtyard_home": 44,
+        "row_house": 44,
+        "apartment_block": 44,
+        "mixed_tenement": 44,
+        "workshop": 15,
+        "cement_plant": 70,
+        "brickworks": 70,
+        "warehouse": 70,
+        "steelworks": 432
+      },
+      "smallestOpenableParcelCells": 10,
+      "largestSingleParcelMinimumArea": 10,
+      "openableParcels": 709,
+      "buildableFamilies": {
+        "residential": 217,
+        "mixed": 202,
+        "industrial": 290
+      }
+    },
+    {
+      "seed": 7,
+      "projects": 2334,
+      "minimumCandidates": 15,
+      "zeroCandidateProjects": 0,
+      "zeroExamples": [],
+      "minimumByBuildingType": {
+        "courtyard_home": 31,
+        "row_house": 31,
+        "apartment_block": 31,
+        "mixed_tenement": 31,
+        "workshop": 15,
+        "cement_plant": 70,
+        "brickworks": 70,
+        "warehouse": 70,
+        "steelworks": 432
+      },
+      "smallestOpenableParcelCells": 10,
+      "largestSingleParcelMinimumArea": 10,
+      "openableParcels": 712,
+      "buildableFamilies": {
+        "residential": 225,
+        "mixed": 194,
+        "industrial": 293
+      }
+    },
+    {
+      "seed": 42,
+      "projects": 2341,
+      "minimumCandidates": 15,
+      "zeroCandidateProjects": 0,
+      "zeroExamples": [],
+      "minimumByBuildingType": {
+        "courtyard_home": 32,
+        "row_house": 32,
+        "apartment_block": 32,
+        "mixed_tenement": 32,
+        "workshop": 15,
+        "cement_plant": 135,
+        "brickworks": 135,
+        "warehouse": 135,
+        "steelworks": 432
+      },
+      "smallestOpenableParcelCells": 10,
+      "largestSingleParcelMinimumArea": 10,
+      "openableParcels": 716,
+      "buildableFamilies": {
+        "residential": 216,
+        "mixed": 211,
+        "industrial": 289
+      }
+    }
+  ],
+  "reachableZeroCandidate": false
+}

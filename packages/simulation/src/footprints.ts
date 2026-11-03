@@ -12,6 +12,25 @@ import { cellKey } from "./building-index";
 
 export type FootprintRejection = "NO_BUILDABLE_ENVELOPE" | "COVERAGE_LIMIT" | "FAR_LIMIT";
 
+/**
+ * V.d-7C · una huella legal dentro del solar. `signature` is the canonical geometry key of the
+ * rectangle and the last tie-break of the ranking, so two candidates can never compare equal.
+ */
+export type FootprintCandidate = {
+  footprintCells: GridCell[];
+  orientation: 0 | 90 | 180 | 270;
+  floors: number;
+  signature: string;
+  frontageDistance: number;
+  continuity: number;
+};
+
+export type FootprintEnumeration = {
+  /** Highest-ranked first. The ranking is a total order, so this is invariant to discovery order. */
+  candidates: readonly FootprintCandidate[];
+  rejection: FootprintRejection | null;
+};
+
 export type FootprintChoice =
   | {
       footprintCells: GridCell[];
@@ -133,21 +152,30 @@ function cellsInRectangle(
   return cells;
 }
 
-/**
- * Deterministic footprint auto-placement (D-090 §4). The engine enumerates axis-aligned
- * rectangles inside the buildable envelope, scores them against the definition's target area and
- * picks one; the player never places cells. Ties break by orientation, y, x and signature.
- */
-export function chooseFootprint(input: {
+/** Everything the authoritative placement rules read. One shape for the enumerator and its callers. */
+export type FootprintPlacementInput = {
   parcel: Pick<Parcel, "cells" | "roadFrontages">;
   code: DevelopmentCode;
   definition: BuildingDefinition;
   /** Street cells of the main frontage; placement prefers them over secondary edges. */
   principalFrontageCells?: readonly GridCell[];
   buildings: readonly Pick<Building, "footprintCells" | "floors">[];
-}): FootprintChoice {
+};
+
+/**
+ * V.d-7C · única fuente autoritativa de huellas legales (D-097). Es el autoplacement de D-090 §4
+ * convertido en lista: los mismos rectángulos axis-aligned dentro del envelope construible, la misma
+ * puntuación contra `targetFootprintCells`, frente vial y continuidad, y el MISMO orden de desempate
+ * aplicado ahora como orden total canónico sobre el conjunto completo en vez de como «me quedo con
+ * el mejor». `chooseFootprint` devuelve el primero, así que la autocolocación del motor y la
+ * colocación que elige el jugador salen del mismo cálculo: no existe un segundo algoritmo.
+ *
+ * La orientación la decide la geometría (eje largo del rectángulo), nunca el render: un giro que no
+ * produzca otra huella legal no es una opción que el jugador pueda seleccionar.
+ */
+export function enumerateFootprintCandidates(input: FootprintPlacementInput): FootprintEnumeration {
   const buildable = buildableEnvelope(input);
-  if (buildable.size === 0) return { error: "NO_BUILDABLE_ENVELOPE" };
+  if (buildable.size === 0) return { candidates: [], rejection: "NO_BUILDABLE_ENVELOPE" };
   const parcelArea = input.parcel.cells.length;
   const coverageLimit = Math.floor((parcelArea * input.code.maxCoveragePercent) / 100);
   const farLimit = Math.floor((parcelArea * input.code.maxFloorAreaRatioPercent) / 100);
@@ -159,8 +187,8 @@ export function chooseFootprint(input: {
     (total, building) => total + building.footprintCells.length * building.floors,
     0,
   );
-  if (existingArea >= coverageLimit) return { error: "COVERAGE_LIMIT" };
-  if (existingFar >= farLimit) return { error: "FAR_LIMIT" };
+  if (existingArea >= coverageLimit) return { candidates: [], rejection: "COVERAGE_LIMIT" };
+  if (existingFar >= farLimit) return { candidates: [], rejection: "FAR_LIMIT" };
 
   const xs = input.parcel.cells.map((cell) => cell.x);
   const ys = input.parcel.cells.map((cell) => cell.y);
@@ -207,8 +235,8 @@ export function chooseFootprint(input: {
     continuity: number;
     signature: string;
   };
-  let best: Candidate | null = null;
-  const better = (left: Candidate, right: Candidate): boolean => {
+  /** The former single-`better()` ranking, kept field by field and now used as a total order. */
+  const rankedBefore = (left: Candidate, right: Candidate): boolean => {
     const leftTarget = Math.min(left.area, target);
     const rightTarget = Math.min(right.area, target);
     if (leftTarget !== rightTarget) return leftTarget > rightTarget;
@@ -224,6 +252,7 @@ export function chooseFootprint(input: {
     if (left.orientation !== right.orientation) return left.orientation === 0;
     return left.signature < right.signature;
   };
+  const found: Candidate[] = [];
 
   const maximumWidth = Math.min(maxX - minX + 1, Math.max(1, target * 2));
   const maximumHeight = Math.min(maxY - minY + 1, Math.max(1, target * 2));
@@ -259,17 +288,44 @@ export function chooseFootprint(input: {
             continuity,
             signature,
           };
-          if (!best || better(candidate, best)) best = candidate;
+          found.push(candidate);
         }
       }
     }
   }
-  if (!best) {
-    if (coverageLimit - existingArea < 1) return { error: "COVERAGE_LIMIT" };
-    return { error: "FAR_LIMIT" };
+  if (found.length === 0) {
+    if (coverageLimit - existingArea < 1) return { candidates: [], rejection: "COVERAGE_LIMIT" };
+    return { candidates: [], rejection: "FAR_LIMIT" };
   }
+  /**
+   * `sort` with a total order instead of a running minimum: two candidates only compare equal when
+   * they share a signature, which is unique per rectangle. The result therefore cannot depend on
+   * discovery order, Map insertion order or the order of the input `parcelIds`.
+   */
+  found.sort((left, right) => (rankedBefore(left, right) ? -1 : rankedBefore(right, left) ? 1 : 0));
   return {
-    footprintCells: best.cells,
+    candidates: found.map((candidate) => ({
+      footprintCells: candidate.cells,
+      orientation: candidate.orientation,
+      floors: candidate.floors,
+      signature: candidate.signature,
+      frontageDistance: candidate.frontageDistance,
+      continuity: candidate.continuity,
+    })),
+    rejection: null,
+  };
+}
+
+/**
+ * Deterministic footprint auto-placement (D-090 §4): the best candidate of the single authoritative
+ * enumeration. Callers that want to show the player their options read the enumeration itself.
+ */
+export function chooseFootprint(input: FootprintPlacementInput): FootprintChoice {
+  const { candidates, rejection } = enumerateFootprintCandidates(input);
+  const best = candidates[0];
+  if (!best) return { error: rejection ?? "NO_BUILDABLE_ENVELOPE" };
+  return {
+    footprintCells: best.footprintCells,
     orientation: best.orientation,
     floors: best.floors,
     form: input.definition.form,

@@ -11,6 +11,7 @@ import {
 import {
   blockIdSchema,
   developmentCodeIdSchema,
+  developmentPlacementIdSchema,
   commandIdSchema,
   buildingIdSchema,
   agentIdSchema,
@@ -38,6 +39,7 @@ import {
   type IncidentId,
   type ConstructionSiteId,
   type CommandId,
+  type DevelopmentPlacementId,
   type DistrictId,
   type EventId,
   type FacilityId,
@@ -1484,7 +1486,16 @@ export type SellParcel = DomainCommandBase & {
 export type StartConstruction = DomainCommandBase & {
   type: "StartConstruction";
   /** V.d-7 · conjunto canónico de parcelas del proyecto; el engine lo valida entero. */
-  payload: { parcelIds: ParcelId[]; buildingType: BuildingType };
+  payload: {
+    parcelIds: ParcelId[];
+    buildingType: BuildingType;
+    /**
+     * V.d-7C · colocación elegida por el jugador. Es opcional porque omite quien deja decidir al
+     * motor a la mejor candidata determinista (IA, automatización, generador municipal): ambos
+     * caminos pasan por el MISMO enumerador autoritativo, así que no hay reglas distintas por actor.
+     */
+    placementId?: DevelopmentPlacementId;
+  };
 };
 export type CancelConstruction = DomainCommandBase & {
   type: "CancelConstruction";
@@ -1653,7 +1664,11 @@ export const buyParcelSchema = commandSchema("BuyParcel", z.object({ parcelId: p
 export const sellParcelSchema = commandSchema("SellParcel", z.object({ parcelId: parcelIdSchema }));
 export const startConstructionSchema = commandSchema(
   "StartConstruction",
-  z.object({ parcelIds: z.array(parcelIdSchema).min(1), buildingType: buildingTypeSchema }),
+  z.object({
+    parcelIds: z.array(parcelIdSchema).min(1),
+    buildingType: buildingTypeSchema,
+    placementId: developmentPlacementIdSchema.optional(),
+  }),
 );
 export const cancelConstructionSchema = commandSchema(
   "CancelConstruction",

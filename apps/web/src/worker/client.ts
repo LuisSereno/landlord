@@ -1,5 +1,7 @@
 import type { BuildingType, DistrictId } from "@landlord/shared";
 import {
+  developmentPlacementCandidatesSchema,
+  getDevelopmentPlacementCandidatesRequestSchema,
   initializeGameRequestSchema,
   loadSnapshotRequestSchema,
   parseCommandId,
@@ -7,6 +9,8 @@ import {
   parseCrewId,
   parseAgentId,
   parseConstructionSiteId,
+  parseDevelopmentPlacementId,
+  parseDistrictId,
   parseOrganizationId,
   parseParcelId,
   parsePersonId,
@@ -21,6 +25,7 @@ import {
   submitCommandRequestSchema,
   viewProjectionV2Schema,
   workerResponseSchema,
+  type DevelopmentPlacementCandidates,
   type SnapshotV2,
   type IntelKind,
   type ProductCommand,
@@ -142,15 +147,57 @@ export class SimulationWorkerClient {
     });
   }
 
-  /** V.d-7 · el comando lleva el conjunto; la UI single-parcel envía `[parcelId]`. */
-  public startConstruction(parcelIds: readonly string[], buildingType: BuildingType) {
+  /**
+   * V.d-7 · el comando lleva el conjunto; la UI single-parcel envía `[parcelId]`.
+   * V.d-7C · `placementId` sólo se añade cuando el jugador confirmó una colocación en el mapa: sin
+   * ella el payload viaja idéntico que antes, así que la omisión no reescribe partidas guardadas.
+   */
+  public startConstruction(
+    parcelIds: readonly string[],
+    buildingType: BuildingType,
+    placementId?: string,
+  ) {
     return this.submitProductCommand({
       commandId: this.nextCommandId(),
       issuedByPersonId: parsePersonId("person_00000001"),
       actingAsOrganizationId: parseOrganizationId("org_00000001"),
       type: "StartConstruction",
-      payload: { parcelIds: parcelIds.map(parseParcelId), buildingType },
+      payload: {
+        parcelIds: parcelIds.map(parseParcelId),
+        buildingType,
+        ...(placementId === undefined
+          ? {}
+          : { placementId: parseDevelopmentPlacementId(placementId) }),
+      },
     });
+  }
+
+  /**
+   * V.d-7C · petición técnica de sólo lectura. Pide al motor las colocaciones legales de un proyecto
+   * concreto; no avanza ticks, no consume permisos y no sustituye nunca la validación del comando.
+   * `null` es «el Worker rechazó o devolvió algo que no es este contrato», y la UI lo trata como
+   * error de petición, no como «no hay candidatos».
+   */
+  public async getDevelopmentPlacementCandidates(input: {
+    districtId: string;
+    parcelIds: readonly string[];
+    buildingType: BuildingType;
+  }): Promise<DevelopmentPlacementCandidates | null> {
+    const response = await this.send(
+      getDevelopmentPlacementCandidatesRequestSchema.parse({
+        protocolVersion: 2,
+        requestId: this.nextRequestId(),
+        type: "GetDevelopmentPlacementCandidates",
+        payload: {
+          districtId: parseDistrictId(input.districtId),
+          parcelIds: input.parcelIds.map(parseParcelId),
+          buildingType: input.buildingType,
+        },
+      }) as WorkerRequest,
+    );
+    if (response.type !== "RequestSucceeded") return null;
+    const parsed = developmentPlacementCandidatesSchema.safeParse(response.payload.result);
+    return parsed.success ? (parsed.data as DevelopmentPlacementCandidates) : null;
   }
 
   public assignTenant(buildingId: string, tenantId: string) {

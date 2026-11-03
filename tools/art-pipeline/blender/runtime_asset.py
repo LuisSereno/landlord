@@ -99,7 +99,6 @@ BUILDING_STATES = ("complete", "construction", "damaged", "burning")
 ANIMATIONS = ("idle", "walk")
 
 STYLE_LAYER_PATH = HERE / "style_layer_graphic_civic.json"
-BUILDING_FACTORY_PATH = REPO_ROOT / "blender_artist/manifests/building-factory.json"
 CAMERA_AZIMUTH_DEGREES = 45
 CAMERA_ELEVATION_DEGREES = 30
 
@@ -118,22 +117,6 @@ PALETTE = {
     "lighting": (0.72, 0.82, 0.89, 1),
     "fill": (0.21, 0.34, 0.44, 1),
 }
-
-FACTORY_PRESETS = {
-    item["id"]: item
-    for item in json.loads(BUILDING_FACTORY_PATH.read_text(encoding="utf-8"))["buildings"]
-    if item["mode"] == "factory"
-}
-for factory_id, factory_spec in FACTORY_PRESETS.items():
-    floors = factory_spec["floorCount"]
-    BUILDINGS[factory_id] = {
-        "label": factory_id.replace("_", " ").title(),
-        "footprint": factory_spec["footprint"],
-        "renderSize": (320, 288),
-        "orthoScale": max(7.8, 6.3 + floors * 0.72),
-        "targetZ": 1.0 + floors * 0.38,
-        "factory": factory_spec,
-    }
 
 ALPHA_THRESHOLD = 0.02
 CAMERA_DISTANCE = 18.0
@@ -374,12 +357,7 @@ def create_scene(args):
 
     spec = BUILDINGS.get(args.asset) or CHARACTERS.get(args.asset) or TERRAIN.get(args.asset)
     if args.asset in BUILDINGS:
-        if "factory" in spec:
-            from building_factory import build_factory_building
-
-            build_factory_building(spec["factory"], args.state, mats, cube, cylinder, sphere)
-        else:
-            build_courtyard_home(args.state, mats)
+        build_courtyard_home(args.state, mats)
     elif args.asset in TERRAIN:
         build_dirt_lot(TERRAIN[args.asset], mats)
     else:
@@ -831,8 +809,12 @@ def trim_and_scale(render_path, output_path, shadow_path=None, shadow_style=None
     col_min, col_hi = int(opaque_cols[0]), int(opaque_cols[-1]) + 1
     if (row_hi - row_min) % 2 == 1 and row_hi < height:
         row_hi += 1
+    elif (row_hi - row_min) % 2 == 1:
+        row_min += 1
     if (col_hi - col_min) % 2 == 1 and col_hi < width:
         col_hi += 1
+    elif (col_hi - col_min) % 2 == 1:
+        col_min += 1
     crop = pixels[row_min:row_hi, col_min:col_hi, :]
     crop_h, crop_w = crop.shape[0], crop.shape[1]
     # Reducción 2× por filtro de caja: conserva el supersampling sin depender de operadores de recorte.

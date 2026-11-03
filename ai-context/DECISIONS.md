@@ -1417,3 +1417,24 @@ Fase V.d-7C (2026-11-02). El jugador recupera la decisión espacial sin crear un
   posición y estado ya proyectados. Los entornos de propiedad (`property-grounds`) son descriptores
   deterministas derivados de geometría y tipo, sin efecto en propiedad, colisión, producción,
   valoración, cobertura ni FAR.
+## D-098 — Geometría de fuente real obligatoria: retirada de la Building Factory
+
+Remediación V.e (2026-11-02, rama `wip/ve-source-geometry-remediation`). Un asset visual no puede
+declarar una fuente que no importe físicamente al render. Reglas permanentes:
+
+- **Procedencia verificable**: cada edificio de dominio vive en `building-catalog.json` con
+  `sourceId` y `sourcePath` cruzados contra su job en `asset-jobs.json` y contra el archivo físico
+  en staging. El render de evidencia rechaza metadatos Blender cuyo `origin`, `source.path` o
+  `source.id` no coincidan con lo declarado.
+- **Sin fuentes en el texto sin fuente en el job**: un job procedural no puede citar familias de
+  terceros (Kenney, Quaternius, KayKit, Poly Haven, Rocketbox) en su razón.
+- **Estados reales o ausentes**: sobre geometría importada sólo se publica el estado que existe
+  (`complete` hoy). El condicionamiento construction/damaged/burning de terceros es un WP propio;
+  nunca se fabrican estados para completar matrices de cobertura.
+- **Evidencia ≠ runtime**: los renders candidatos se publican como evidencia
+  (`/assets/evidence/buildings/`) y no tocan el bundle runtime sin QA visual del responsable.
+- La Building Factory de V.e.2/V.e.3 queda retirada y sus docs marcados SUPERSEDED; la numeración
+  salta D-097, reservada por la rama no mergeada `wip/vd7c-interactive-development-placement`.
+
+Detalle: `docs/execution/phase-4/ve-source-geometry-remediation-2026-11-02.md` y
+`docs/art/BUILDING-CATALOG.md`.

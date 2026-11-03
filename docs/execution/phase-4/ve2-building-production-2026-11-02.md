@@ -1,5 +1,11 @@
 # V.e.2 — producción de edificios (2026-11-02)
 
+> **SUPERSEDED (2026-11-02, remediación de geometría de fuente, D-098).** Los "compositores
+> data-driven" de este WP eran primitivas propias: los presets declaraban fuentes
+> Kenney/Quaternius/KayKit/Poly Haven que no entraban al render. La producción real vive ahora en
+> `docs/art/BUILDING-CATALOG.md` y `docs/execution/phase-4/ve-source-geometry-remediation-2026-11-02.md`.
+> Este documento se conserva como historial del error, no como referencia.
+
 Estado: **V.e.2 CANDIDATE PRODUCTION PASS**. No equivale a promoción al runtime.
 
 ## Resultado

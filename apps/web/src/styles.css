@@ -2100,6 +2100,18 @@ button:disabled {
   height: 150px;
   object-fit: contain;
 }
+.state-row figure.state-pending {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 166px;
+  background: transparent;
+  border: 1px dashed #3d5560;
+}
+.state-row figure.state-pending figcaption {
+  color: #7d93a0;
+  font-size: 12px;
+}
 .catalog-chip-grid {
   display: flex;
   flex-wrap: wrap;

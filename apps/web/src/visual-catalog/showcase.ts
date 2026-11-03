@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import runtimeAssets from "../generated/runtime-assets.json";
+import catalog from "../generated/visual-catalog.json";
 import blenderAssets from "../generated/runtime-assets-blender.json";
 
 export type ShowcaseSelection = {
@@ -9,24 +9,6 @@ export type ShowcaseSelection = {
   footprint: string;
   source: string;
 };
-const states = [
-  "complete",
-  "complete",
-  "complete",
-  "construction",
-  "complete",
-  "damaged",
-  "complete",
-  "burning",
-  "complete",
-  "complete",
-  "complete",
-  "complete",
-  "complete",
-  "complete",
-  "complete",
-] as const;
-
 class ShowcaseScene extends Phaser.Scene {
   constructor(private readonly onSelect: (value: ShowcaseSelection) => void) {
     super("visual-showcase");
@@ -64,25 +46,24 @@ class ShowcaseScene extends Phaser.Scene {
     for (const [x, y, w, h, color] of zones)
       this.add.rectangle(x!, y!, w!, h!, color!).setStrokeStyle(2, 0x647985);
     for (let x = 0; x < 960; x += 80) this.add.rectangle(x, 270, 64, 540, 0x26323a);
-    for (const [index, [id, asset]] of Object.entries(runtimeAssets.buildings).entries()) {
-      const state = states[index]!;
-      const image = asset.states[state];
-      const key = `showcase-${id}-${state}`;
+    for (const [index, building] of catalog.buildings.entries()) {
+      const image = building.states.complete;
+      const key = `showcase-${building.id}-complete`;
       if (!(await this.texture(key, image))) continue;
       const column = index % 5,
         row = Math.floor(index / 5);
       this.add
         .image(115 + column * 185, 105 + row * 165, key)
-        .setScale(0.72)
+        .setScale(0.55)
         .setDepth(10 + row)
         .setInteractive({ useHandCursor: true })
         .on("pointerdown", () =>
           this.onSelect({
-            name: asset.name,
-            category: "building",
-            state,
-            footprint: `${asset.footprint.width}×${asset.footprint.height}`,
-            source: "runtime procedural manifest",
+            name: building.displayName,
+            category: building.category,
+            state: "complete",
+            footprint: `${building.footprint.width}×${building.footprint.height}`,
+            source: building.source,
           }),
         );
     }

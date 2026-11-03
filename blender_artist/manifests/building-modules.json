@@ -211,6 +211,10 @@
         ],
         "selectedObjects": [
           "Brick_Plain_3"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -350,6 +354,11 @@
         ],
         "selectedObjects": [
           "Brick_Inset"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick_Pale=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -485,6 +494,10 @@
         ],
         "selectedObjects": [
           "Brick_Plain_4"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -626,6 +639,13 @@
         ],
         "selectedObjects": [
           "Brick_Window_Square_Single"
+        ],
+        "baseColorChains": [
+          "MI_FakeInterior=enlazado:MIX",
+          "MI_Glass=enlazado:MIX",
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick_Pale=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -767,6 +787,13 @@
         ],
         "selectedObjects": [
           "Brick_Window_Trim_Single"
+        ],
+        "baseColorChains": [
+          "MI_FakeInterior=enlazado:MIX",
+          "MI_Glass=enlazado:MIX",
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -908,6 +935,13 @@
         ],
         "selectedObjects": [
           "Brick_Inset_Window"
+        ],
+        "baseColorChains": [
+          "MI_FakeInterior=enlazado:MIX",
+          "MI_Glass=enlazado:MIX",
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick_Pale=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -1048,6 +1082,13 @@
         ],
         "selectedObjects": [
           "Brick_Window_CurvedDouble"
+        ],
+        "baseColorChains": [
+          "MI_FakeInterior=enlazado:MIX",
+          "MI_Glass=enlazado:MIX",
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick_Pale=enlazado:MIX",
+          "MI_Trim_MetalConcrete=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -1192,6 +1233,14 @@
         ],
         "selectedObjects": [
           "Brick_RedWhite_DoubleWindow"
+        ],
+        "baseColorChains": [
+          "MI_FakeInterior=enlazado:MIX",
+          "MI_Glass=enlazado:MIX",
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick_Pale=enlazado:MIX",
+          "MI_Trim=enlazado:MIX",
+          "MI_Trim_MetalConcrete=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -1327,6 +1376,10 @@
         ],
         "selectedObjects": [
           "Brick_90Angle_L"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -1462,6 +1515,10 @@
         ],
         "selectedObjects": [
           "Brick_90Angle_R"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -1597,6 +1654,10 @@
         ],
         "selectedObjects": [
           "Brick_Corner_Plain"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -1736,6 +1797,11 @@
         ],
         "selectedObjects": [
           "Brick_BottomTrim"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -1875,6 +1941,11 @@
         ],
         "selectedObjects": [
           "Brick_TopTrim"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick_Pale=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -2014,6 +2085,11 @@
         ],
         "selectedObjects": [
           "Brick_TopTrim_Corner"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -2148,6 +2224,9 @@
         ],
         "selectedObjects": [
           "Cornice_Brick_Center"
+        ],
+        "baseColorChains": [
+          "MI_RedBrick=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -2282,6 +2361,9 @@
         ],
         "selectedObjects": [
           "Cornice_Brick_90Angle_L"
+        ],
+        "baseColorChains": [
+          "MI_RedBrick=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -2416,6 +2498,9 @@
         ],
         "selectedObjects": [
           "Cornice_Brick_90Angle_R"
+        ],
+        "baseColorChains": [
+          "MI_RedBrick=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -2551,6 +2636,9 @@
         ],
         "selectedObjects": [
           "Door_1"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -2686,6 +2774,10 @@
         ],
         "selectedObjects": [
           "Door_2"
+        ],
+        "baseColorChains": [
+          "MI_Glass=enlazado:MIX",
+          "MI_Trim_MetalConcrete=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -2821,6 +2913,10 @@
         ],
         "selectedObjects": [
           "DoorFrame_Wooden"
+        ],
+        "baseColorChains": [
+          "MI_Glass=plano",
+          "MI_Trim=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png"
         ]
       },
       "provenance": {
@@ -2959,6 +3055,10 @@
         ],
         "selectedObjects": [
           "Roof_Slate_Center"
+        ],
+        "baseColorChains": [
+          "MI_Roof_Slate=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png",
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -3093,6 +3193,9 @@
         ],
         "selectedObjects": [
           "Roof_Slate_Corner"
+        ],
+        "baseColorChains": [
+          "MI_Roof_Slate=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png"
         ]
       },
       "provenance": {
@@ -3231,6 +3334,10 @@
         ],
         "selectedObjects": [
           "Roof_Slate_InnerCorner"
+        ],
+        "baseColorChains": [
+          "MI_Roof_Slate=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png",
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -3375,6 +3482,13 @@
         ],
         "selectedObjects": [
           "Roof_Slate_Window_1"
+        ],
+        "baseColorChains": [
+          "MI_FakeInterior=plano",
+          "MI_Glass=plano",
+          "MI_Roof_Slate=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png",
+          "MI_Trim=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -3509,6 +3623,9 @@
         ],
         "selectedObjects": [
           "Roof_4x4"
+        ],
+        "baseColorChains": [
+          "MI_Asphalt=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png"
         ]
       },
       "provenance": {
@@ -3643,6 +3760,9 @@
         ],
         "selectedObjects": [
           "Roof_2x2"
+        ],
+        "baseColorChains": [
+          "MI_Asphalt=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png"
         ]
       },
       "provenance": {
@@ -3777,6 +3897,9 @@
         ],
         "selectedObjects": [
           "Roof_2x2_90Angle_L"
+        ],
+        "baseColorChains": [
+          "MI_Asphalt=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png"
         ]
       },
       "provenance": {
@@ -3914,6 +4037,10 @@
         ],
         "selectedObjects": [
           "Stairs_Entrance_Concrete"
+        ],
+        "baseColorChains": [
+          "MI_Concrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png",
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -4048,6 +4175,9 @@
         ],
         "selectedObjects": [
           "Entrance_Concrete_2x1"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -4181,6 +4311,9 @@
         ],
         "selectedObjects": [
           "Entrance_Concrete_2x2"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -4315,6 +4448,9 @@
         ],
         "selectedObjects": [
           "Brick_Column_RedBricks"
+        ],
+        "baseColorChains": [
+          "MI_RedBrick=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png"
         ]
       },
       "provenance": {
@@ -4448,6 +4584,9 @@
         ],
         "selectedObjects": [
           "Brick_CornerColumn_Center"
+        ],
+        "baseColorChains": [
+          "MI_RedBrick_Pale=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -4585,6 +4724,10 @@
         ],
         "selectedObjects": [
           "Brick_CornerColumn_Cap"
+        ],
+        "baseColorChains": [
+          "MI_RedBrick_Pale=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -4719,6 +4862,9 @@
         ],
         "selectedObjects": [
           "Prop_ACUnit"
+        ],
+        "baseColorChains": [
+          "MI_Ornaments=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_BaseColor.png"
         ]
       },
       "provenance": {
@@ -4858,6 +5004,10 @@
         ],
         "selectedObjects": [
           "Floor_2x2"
+        ],
+        "baseColorChains": [
+          "MI_InteriorFloor=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_BaseColor.png",
+          "MI_InteriorRoof=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -4996,6 +5146,10 @@
         ],
         "selectedObjects": [
           "Floor_4x4"
+        ],
+        "baseColorChains": [
+          "MI_InteriorFloor=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_BaseColor.png",
+          "MI_InteriorRoof=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -5134,6 +5288,10 @@
         ],
         "selectedObjects": [
           "Trim_Plain_3"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -5272,6 +5430,10 @@
         ],
         "selectedObjects": [
           "Trim_FirstFloor_Wall"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -5413,6 +5575,13 @@
         ],
         "selectedObjects": [
           "Trim_Window"
+        ],
+        "baseColorChains": [
+          "MI_FakeInterior=enlazado:MIX",
+          "MI_Glass=enlazado:MIX",
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_Trim=enlazado:MIX",
+          "MI_Trim_Dark=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -5551,6 +5720,10 @@
         ],
         "selectedObjects": [
           "Trim_Corner"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -5685,6 +5858,9 @@
         ],
         "selectedObjects": [
           "Cornice_Trim_Center"
+        ],
+        "baseColorChains": [
+          "MI_Trim=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png"
         ]
       },
       "provenance": {
@@ -5819,6 +5995,9 @@
         ],
         "selectedObjects": [
           "Cornice_Trim_90Angle_L"
+        ],
+        "baseColorChains": [
+          "MI_Trim=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png"
         ]
       },
       "provenance": {
@@ -5953,6 +6132,9 @@
         ],
         "selectedObjects": [
           "Cornice_Trim_90Angle_R"
+        ],
+        "baseColorChains": [
+          "MI_Trim=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png"
         ]
       },
       "provenance": {
@@ -6086,6 +6268,9 @@
         ],
         "selectedObjects": [
           "Trim_Column_Bottom"
+        ],
+        "baseColorChains": [
+          "MI_Trim=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png"
         ]
       },
       "provenance": {
@@ -6219,6 +6404,9 @@
         ],
         "selectedObjects": [
           "Trim_Column_Center"
+        ],
+        "baseColorChains": [
+          "MI_Trim=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png"
         ]
       },
       "provenance": {
@@ -6352,6 +6540,9 @@
         ],
         "selectedObjects": [
           "Trim_Column_Top"
+        ],
+        "baseColorChains": [
+          "MI_Trim=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png"
         ]
       },
       "provenance": {
@@ -6489,6 +6680,10 @@
         ],
         "selectedObjects": [
           "Brick_HalfColumn_Bottom"
+        ],
+        "baseColorChains": [
+          "MI_RedBrick=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "MI_Trim=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png"
         ]
       },
       "provenance": {
@@ -6622,6 +6817,9 @@
         ],
         "selectedObjects": [
           "Brick_HalfColumn_Center"
+        ],
+        "baseColorChains": [
+          "MI_RedBrick=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png"
         ]
       },
       "provenance": {
@@ -6759,6 +6957,10 @@
         ],
         "selectedObjects": [
           "Brick_HalfColumn_Top"
+        ],
+        "baseColorChains": [
+          "MI_RedBrick=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "MI_Trim=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png"
         ]
       },
       "provenance": {
@@ -6899,6 +7101,12 @@
         ],
         "selectedObjects": [
           "DoorFrame_Trim"
+        ],
+        "baseColorChains": [
+          "MI_Glass=enlazado:MIX",
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_Trim=enlazado:MIX",
+          "MI_Trim_Green=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -7032,6 +7240,9 @@
         ],
         "selectedObjects": [
           "Stairs_Rails_Metal_Straight_1"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -7165,6 +7376,9 @@
         ],
         "selectedObjects": [
           "Stairs_Rails_Metal_Straight_2"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -7303,6 +7517,10 @@
         ],
         "selectedObjects": [
           "Metal_Plain_3"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_Trim_MetalConcrete=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -7444,6 +7662,11 @@
         ],
         "selectedObjects": [
           "Metal_FirstFloor_Wall"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_Trim_Dark=enlazado:MIX",
+          "MI_Trim_MetalConcrete=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -7579,6 +7802,11 @@
         ],
         "selectedObjects": [
           "Metal_Window_Half"
+        ],
+        "baseColorChains": [
+          "MI_FakeInterior=enlazado:MIX",
+          "MI_Glass=enlazado:MIX",
+          "MI_Trim_MetalConcrete=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -7720,6 +7948,13 @@
         ],
         "selectedObjects": [
           "Metal_Window"
+        ],
+        "baseColorChains": [
+          "MI_FakeInterior=enlazado:MIX",
+          "MI_Glass=enlazado:MIX",
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick=enlazado:MIX",
+          "MI_Trim_MetalConcrete=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -7856,6 +8091,11 @@
         ],
         "selectedObjects": [
           "Metal_FullWindow"
+        ],
+        "baseColorChains": [
+          "MI_FakeInterior=enlazado:MIX",
+          "MI_Glass=enlazado:MIX",
+          "MI_Trim_MetalConcrete=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -7990,6 +8230,9 @@
         ],
         "selectedObjects": [
           "Cornice_Metal_Center"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -8124,6 +8367,10 @@
         ],
         "selectedObjects": [
           "DoorFrame_Metal_Single"
+        ],
+        "baseColorChains": [
+          "MI_Glass=enlazado:MIX",
+          "MI_Trim_MetalConcrete=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -8258,6 +8505,9 @@
         ],
         "selectedObjects": [
           "Metal_Column_Bottom"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -8392,6 +8642,9 @@
         ],
         "selectedObjects": [
           "Metal_Column_Center"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -8526,6 +8779,9 @@
         ],
         "selectedObjects": [
           "Metal_Column_Top"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -8658,6 +8914,10 @@
         ],
         "selectedObjects": [
           "building-a"
+        ],
+        "baseColorChains": [
+          "colormap-specular=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png",
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -8790,6 +9050,10 @@
         ],
         "selectedObjects": [
           "building-b"
+        ],
+        "baseColorChains": [
+          "colormap-specular=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png",
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -8922,6 +9186,10 @@
         ],
         "selectedObjects": [
           "building-c"
+        ],
+        "baseColorChains": [
+          "colormap-specular=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png",
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -9054,6 +9322,10 @@
         ],
         "selectedObjects": [
           "building-g"
+        ],
+        "baseColorChains": [
+          "colormap-specular=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png",
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -9186,6 +9458,10 @@
         ],
         "selectedObjects": [
           "building-q"
+        ],
+        "baseColorChains": [
+          "colormap-specular=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png",
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -9318,6 +9594,10 @@
         ],
         "selectedObjects": [
           "building-r"
+        ],
+        "baseColorChains": [
+          "colormap-specular=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png",
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -9449,6 +9729,9 @@
         ],
         "selectedObjects": [
           "chimney-large"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -9580,6 +9863,9 @@
         ],
         "selectedObjects": [
           "chimney-medium"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -9711,6 +9997,9 @@
         ],
         "selectedObjects": [
           "chimney-small"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -9842,6 +10131,9 @@
         ],
         "selectedObjects": [
           "detail-tank-large"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -9973,6 +10265,9 @@
         ],
         "selectedObjects": [
           "detail-tank"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -10104,6 +10399,9 @@
         ],
         "selectedObjects": [
           "water-tower"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -10237,6 +10535,9 @@
         "selectedObjects": [
           "blades",
           "windmill"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -10369,6 +10670,9 @@
         ],
         "selectedObjects": [
           "building-type-f"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -10500,6 +10804,9 @@
         ],
         "selectedObjects": [
           "building-type-b"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -10631,6 +10938,9 @@
         ],
         "selectedObjects": [
           "building-type-k"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -10762,6 +11072,9 @@
         ],
         "selectedObjects": [
           "building-type-m"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -10894,6 +11207,9 @@
         ],
         "selectedObjects": [
           "building-k"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -11026,6 +11342,9 @@
         ],
         "selectedObjects": [
           "detail-awning-wide"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -11157,6 +11476,9 @@
         ],
         "selectedObjects": [
           "building_C_withoutBase"
+        ],
+        "baseColorChains": [
+          "citybits_texture=atlas:blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png"
         ]
       },
       "provenance": {
@@ -11288,6 +11610,9 @@
         ],
         "selectedObjects": [
           "building_D_withoutBase"
+        ],
+        "baseColorChains": [
+          "citybits_texture=atlas:blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png"
         ]
       },
       "provenance": {
@@ -11419,6 +11744,9 @@
         ],
         "selectedObjects": [
           "building_B_withoutBase"
+        ],
+        "baseColorChains": [
+          "citybits_texture=atlas:blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png"
         ]
       },
       "provenance": {
@@ -11551,6 +11879,9 @@
         ],
         "selectedObjects": [
           "watertower"
+        ],
+        "baseColorChains": [
+          "citybits_texture=atlas:blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png"
         ]
       },
       "provenance": {
@@ -11693,6 +12024,11 @@
         ],
         "selectedObjects": [
           "Roof_SlateCornice_Center"
+        ],
+        "baseColorChains": [
+          "MI_Roof_Slate=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png",
+          "MI_Trim=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -11831,6 +12167,10 @@
         ],
         "selectedObjects": [
           "Roof_SlateCornice_Corner"
+        ],
+        "baseColorChains": [
+          "MI_Roof_Slate=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png",
+          "MI_Trim=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png"
         ]
       },
       "provenance": {
@@ -11973,6 +12313,11 @@
         ],
         "selectedObjects": [
           "Roof_SlateCornice_InnerCorner"
+        ],
+        "baseColorChains": [
+          "MI_Roof_Slate=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png",
+          "MI_Trim=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -12117,6 +12462,13 @@
         ],
         "selectedObjects": [
           "Roof_SlateCornice_Window_1"
+        ],
+        "baseColorChains": [
+          "MI_FakeInterior=plano",
+          "MI_Glass=plano",
+          "MI_Roof_Slate=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png",
+          "MI_Trim=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -12256,6 +12608,11 @@
         ],
         "selectedObjects": [
           "Brick_TopTrim_90Angle_L"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick_Pale=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -12395,6 +12752,11 @@
         ],
         "selectedObjects": [
           "Brick_TopTrim_90Angle_R"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick_Pale=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -12532,6 +12894,10 @@
         ],
         "selectedObjects": [
           "Brick_CornerColumn_Bottom"
+        ],
+        "baseColorChains": [
+          "MI_RedBrick_Pale=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -12669,6 +13035,10 @@
         ],
         "selectedObjects": [
           "Brick_CornerColumn_Top"
+        ],
+        "baseColorChains": [
+          "MI_RedBrick_Pale=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -12802,6 +13172,9 @@
         ],
         "selectedObjects": [
           "Brick_CornerColumn_CapShort"
+        ],
+        "baseColorChains": [
+          "MI_Trim=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -12935,6 +13308,9 @@
         ],
         "selectedObjects": [
           "Brick_CornerColumn_Center_Half"
+        ],
+        "baseColorChains": [
+          "MI_RedBrick_Pale=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -13069,6 +13445,9 @@
         ],
         "selectedObjects": [
           "Brick_Column_Small"
+        ],
+        "baseColorChains": [
+          "MI_RedBrick=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png"
         ]
       },
       "provenance": {
@@ -13205,6 +13584,10 @@
         ],
         "selectedObjects": [
           "Door_3"
+        ],
+        "baseColorChains": [
+          "MI_Glass=enlazado:MIX",
+          "MI_Trim_MetalConcrete=enlazado:MIX"
         ]
       },
       "provenance": {
@@ -13339,6 +13722,9 @@
         ],
         "selectedObjects": [
           "Roof_2x2_90Angle_Center"
+        ],
+        "baseColorChains": [
+          "MI_Asphalt=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png"
         ]
       },
       "provenance": {
@@ -13473,6 +13859,9 @@
         ],
         "selectedObjects": [
           "Roof_2x2_90Angle_R"
+        ],
+        "baseColorChains": [
+          "MI_Asphalt=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png"
         ]
       },
       "provenance": {
@@ -13607,6 +13996,9 @@
         ],
         "selectedObjects": [
           "Metal_Column_Small_Top"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
         ]
       },
       "provenance": {
@@ -13740,6 +14132,9 @@
         ],
         "selectedObjects": [
           "chimney-basic"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -13872,6 +14267,10 @@
         ],
         "selectedObjects": [
           "building-e"
+        ],
+        "baseColorChains": [
+          "colormap-specular=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png",
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -14004,6 +14403,10 @@
         ],
         "selectedObjects": [
           "building-f"
+        ],
+        "baseColorChains": [
+          "colormap-specular=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png",
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -14136,6 +14539,10 @@
         ],
         "selectedObjects": [
           "building-l"
+        ],
+        "baseColorChains": [
+          "colormap-specular=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png",
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -14268,6 +14675,10 @@
         ],
         "selectedObjects": [
           "building-m"
+        ],
+        "baseColorChains": [
+          "colormap-specular=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png",
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -14400,6 +14811,10 @@
         ],
         "selectedObjects": [
           "building-n"
+        ],
+        "baseColorChains": [
+          "colormap-specular=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png",
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -14532,6 +14947,10 @@
         ],
         "selectedObjects": [
           "building-t"
+        ],
+        "baseColorChains": [
+          "colormap-specular=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png",
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -14665,6 +15084,10 @@
         ],
         "selectedObjects": [
           "solar-panel-flat"
+        ],
+        "baseColorChains": [
+          "colormap-specular=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png",
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -14797,6 +15220,9 @@
         ],
         "selectedObjects": [
           "detail-awning"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -14930,6 +15356,9 @@
         ],
         "selectedObjects": [
           "detail-overhang"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png"
         ]
       },
       "provenance": {
@@ -15061,6 +15490,9 @@
         ],
         "selectedObjects": [
           "building_H_withoutBase"
+        ],
+        "baseColorChains": [
+          "citybits_texture=atlas:blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png"
         ]
       },
       "provenance": {
@@ -15192,6 +15624,9 @@
         ],
         "selectedObjects": [
           "building_G_withoutBase"
+        ],
+        "baseColorChains": [
+          "citybits_texture=atlas:blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png"
         ]
       },
       "provenance": {
@@ -15323,6 +15758,9 @@
         ],
         "selectedObjects": [
           "base"
+        ],
+        "baseColorChains": [
+          "citybits_texture=atlas:blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png"
         ]
       },
       "provenance": {

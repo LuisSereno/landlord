@@ -23,7 +23,7 @@
       "id": "graphic_civic_buildings_v1",
       "label": "Edificios cívicos gráficos nocturnos, compuestos con geometría licenciada",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "9f419a54d8d54fff24c1f93b873c8945043589482227b0e163521763f5156e4c",
+      "moduleCatalogSha256": "99e63758052cdc2e564a9c52124eb5ff13dfe54346f4e68e644c8d136f0176e8",
       "selectionSha256": "e8ed3b484904a131feb312c6d573adfc44db74c77c3cd9792d54c845470a4afa",
       "appliesToFamilies": [
         "residential_low",

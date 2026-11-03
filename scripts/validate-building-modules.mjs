@@ -73,8 +73,18 @@ const CONTEXTUAL_DENYLIST = [
   /car|vehicle|\bvan\b|truck_?park|parking/i,
 ];
 
-/** Cobertura mínima por familia para que el compositor pueda variante-ary 4 edificios (§"12"). */
+/** Cobertura mínima por familia para que el compositor pueda variar 4 edificios (§12). */
 const MINIMUM_COVERAGE = { mass: 2, facade: 3, window: 2, door: 1, roof: 2 };
+
+/**
+ * Las cuatro cadenas de Base Color que Blender puede medir en un material licenciado.
+ *
+ * `atlas:` es la única que el tratamiento nocturno alcanza por textura; `plano` se alcanza sólo si
+ * una regla `flatMaterials` casa con el nombre; `enlazado:` (MIX, Attribute) y `sin_superficie` no
+ * se alcanzan nunca. El compositor elige alzados sobre esta evidencia (§11), así que un valor fuera
+ * del vocabulario sería una etiqueta inventada, no una medición.
+ */
+const CHAIN_PREFIXES = ["atlas:", "enlazado:", "plano", "sin_superficie"];
 
 const errors = [];
 const fail = (moduleId, message) => errors.push(`${moduleId}: ${message}`);
@@ -237,6 +247,29 @@ for (const module of catalog.modules ?? []) {
     if (!module.measured?.materials?.length) fail(id, "módulo sin materiales resueltos");
     if (!module.measured?.images?.length)
       fail(id, "módulo sin texturas resueltas (quedaría magenta)");
+
+    // 11) Cadena de Base Color medida, no etiquetada. El tratamiento alcanza el albedo de un
+    // módulo o no según UN salto de socket (runtime_asset.py:620-622), así que la alcanzabilidad es
+    // por instancia (módulo, material): el compositor necesita la cadena para no mezclar escaleras
+    // en un mismo alzado (§11) y eso sólo es verificable si cada material medido tiene la suya.
+    const chains = module.measured?.baseColorChains ?? [];
+    const measuredImages = new Set(module.measured?.images ?? []);
+    if (!chains.length) fail(id, "sin cadenas de Base Color medidas");
+    const chainMaterials = chains.map((chain) => chain.slice(0, chain.indexOf("="))).sort();
+    if (
+      JSON.stringify(chainMaterials) !==
+      JSON.stringify([...(module.measured?.materials ?? [])].sort())
+    ) {
+      fail(id, "las cadenas de Base Color no cubren exactamente los materiales medidos");
+    }
+    for (const chain of chains) {
+      const kind = chain.slice(chain.indexOf("=") + 1);
+      const known = CHAIN_PREFIXES.some((prefix) => kind.startsWith(prefix));
+      if (!known) fail(id, `cadena de Base Color fuera del vocabulario: ${chain}`);
+      if (kind.startsWith("atlas:") && !measuredImages.has(kind.slice(6))) {
+        fail(id, `la cadena cita una textura que el módulo no importa: ${kind}`);
+      }
+    }
   }
 
   // 6) bounds inválidos.

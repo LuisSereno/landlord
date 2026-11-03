@@ -85,6 +85,29 @@ function round(value, digits = 3) {
   return Number(value.toFixed(digits));
 }
 
+/**
+ * Cadena de Base Color medida por material del módulo (`report` sale de Blender al importar).
+ *
+ * `apply_external_treatment` mira UN solo salto del socket (runtime_asset.py:620-622): si Base Color
+ * viene de un MIX el atlas nunca se remapea, aunque el material se llame igual que otro que sí se
+ * trata. La alcanzabilidad es por instancia (módulo, material), no por pack, así que el compositor
+ * no puede deducirla del nombre: necesita la cadena. Sin esto §11 ("un alzado visible no mezcla
+ * escaleras de tratamiento") sería una promesa ilegible.
+ */
+function baseColorChainsOf(reports) {
+  return (reports ?? [])
+    .map((report) => {
+      const surface = report.surface?.["Base Color"];
+      if (!surface) return `${report.name}=sin_superficie`;
+      if (surface.linked === "TEX_IMAGE" && surface.imageFile) {
+        return `${report.name}=atlas:${surface.imageFile}`;
+      }
+      if (surface.linked) return `${report.name}=enlazado:${surface.linked}`;
+      return `${report.name}=plano`;
+    })
+    .sort();
+}
+
 function anchorOf(module, entry) {
   const measure = measurementByModule.get(module.id);
   if (!measure) fail(`módulo ${module.id} sin medición`);
@@ -156,7 +179,11 @@ const modules = selection.modules.map((module) => {
       allowedRotationsDegrees: ROTATIONS,
       symmetricAboutFront: block.symmetricAboutFront,
     },
-    measured: { ...measure.measured, selectedObjects: measure.selectedObjects },
+    measured: {
+      ...measure.measured,
+      selectedObjects: measure.selectedObjects,
+      baseColorChains: baseColorChainsOf(measure.materialReport),
+    },
     provenance: {
       sourceBounds: file.normalized.sourceBounds,
       importScale: file.normalized.importScale,

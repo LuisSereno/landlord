@@ -81,8 +81,8 @@ try {
   await shot("11-overlays.png", page.locator("#overlays"));
   await shot("12-construction-sequence.png", page.locator("#construction-sequence"));
   await shot("13-showcase-city.png", page.locator("#showcase"));
-  await shot("14-showcase-industrial.png", page.locator("#showcase canvas"));
-  await shot("15-showcase-civic.png", page.locator("#coverage"));
+  await shot("14-showcase-canvas.png", page.locator("#showcase canvas"));
+  await shot("15-coverage.png", page.locator("#coverage"));
   await shot("16-scale-reference.png", page.locator("#scale-reference"));
   console.log(
     JSON.stringify({

@@ -1,0 +1,886 @@
+{
+  "schemaVersion": 1,
+  "purpose": "V.f.1: decisiones humanas de curaduría de módulos (qué archivos licenciados entran al catálogo y con qué familia). Contiene sólo lo autorable; todo lo medible lo añade scripts/build-building-modules.mjs importando la geometría real en Blender, para que ningún módulo exista sin geometría detrás (§7).",
+  "inventory": "blender_artist/manifests/building-module-inventory.json",
+  "families": {
+    "residential_low": {
+      "label": "Vivienda en hilera",
+      "buildingIds": ["row_house"]
+    },
+    "industrial_heavy": {
+      "label": "Planta industrial",
+      "buildingIds": ["cement_plant"]
+    },
+    "civic_landmark": {
+      "label": "Edificio cívico singular",
+      "buildingIds": ["town_hall"]
+    }
+  },
+  "categories": [
+    "mass",
+    "facade",
+    "window",
+    "door",
+    "roof",
+    "chimney",
+    "canopy",
+    "balcony",
+    "industrial",
+    "civic",
+    "utility",
+    "intrinsic_prop"
+  ],
+  "extractionStrategies": ["source_object", "submesh", "whole_asset", "geometric_clip"],
+  "modules": [
+    {
+      "id": "mod_megakit_brick_wall_2m",
+      "category": "facade",
+      "role": "wall_panel",
+      "note": "panel ciego de 1 crujía",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Plain_3.gltf",
+      "meshes": ["Brick_Plain_3"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_brick_wall_4m",
+      "category": "facade",
+      "role": "wall_panel",
+      "note": "panel ciego de 2 crujías",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Inset.gltf",
+      "meshes": ["Brick_Inset"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_brick_parapet_2m",
+      "category": "facade",
+      "role": "parapet",
+      "note": "pretil de coronación en azotea plana",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Plain_4.gltf",
+      "meshes": ["Brick_Plain_4"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_brick_window_single_2m",
+      "category": "window",
+      "role": "window_bay",
+      "note": "crujía con hueco de ventana sencillo",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Window_Square_Single.gltf",
+      "meshes": ["Brick_Window_Square_Single"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_brick_window_trim_2m",
+      "category": "window",
+      "role": "window_bay",
+      "note": "crujía con ventana y moldura",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Window_Trim_Single.gltf",
+      "meshes": ["Brick_Window_Trim_Single"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_brick_window_inset_4m",
+      "category": "window",
+      "role": "window_bay",
+      "note": "doble crujía rehundida con ventana",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Inset_Window.gltf",
+      "meshes": ["Brick_Inset_Window"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_brick_window_curved_4m",
+      "category": "window",
+      "role": "window_bay",
+      "note": "ventana gemela con arco",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Window_CurvedDouble.gltf",
+      "meshes": ["Brick_Window_CurvedDouble"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_brick_window_redwhite_4m",
+      "category": "window",
+      "role": "window_bay",
+      "note": "doble ventana en ladrillo bicolor",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_RedWhite_DoubleWindow.gltf",
+      "meshes": ["Brick_RedWhite_DoubleWindow"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_brick_corner_left",
+      "category": "facade",
+      "role": "corner",
+      "note": "esquina entrante L",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_90Angle_L.gltf",
+      "meshes": ["Brick_90Angle_L"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_brick_corner_right",
+      "category": "facade",
+      "role": "corner",
+      "note": "esquina saliente R",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_90Angle_R.gltf",
+      "meshes": ["Brick_90Angle_R"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_brick_corner_plain_2m",
+      "category": "facade",
+      "role": "corner",
+      "note": "esquinazo liso de canto",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Corner_Plain.gltf",
+      "meshes": ["Brick_Corner_Plain"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_brick_bottom_trim_2m",
+      "category": "facade",
+      "role": "wainscot",
+      "note": "zócalo/arranque de fachada",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_BottomTrim.gltf",
+      "meshes": ["Brick_BottomTrim"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_brick_top_trim_2m",
+      "category": "facade",
+      "role": "cornice_band",
+      "note": "banda de cornisa recta",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_TopTrim.gltf",
+      "meshes": ["Brick_TopTrim"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_brick_top_trim_corner",
+      "category": "facade",
+      "role": "cornice_band",
+      "note": "banda de cornisa en ángulo",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_TopTrim_Corner.gltf",
+      "meshes": ["Brick_TopTrim_Corner"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_cornice_brick_center_2m",
+      "category": "facade",
+      "role": "cornice",
+      "note": "cornisa volada tramo recto",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
+      "meshes": ["Cornice_Brick_Center"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_cornice_brick_corner_left",
+      "category": "facade",
+      "role": "cornice",
+      "note": "cornisa volada en ángulo L",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_90Angle_L.gltf",
+      "meshes": ["Cornice_Brick_90Angle_L"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_cornice_brick_corner_right",
+      "category": "facade",
+      "role": "cornice",
+      "note": "cornisa volada en ángulo R",
+      "meshes": ["Cornice_Brick_90Angle_R"],
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_90Angle_R.gltf",
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_door_1",
+      "category": "door",
+      "role": "door",
+      "note": "hoja de puerta estándar",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Door_1.gltf",
+      "meshes": ["Door_1"],
+      "allowedFamilies": ["residential_low", "industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_door_2",
+      "category": "door",
+      "role": "door",
+      "note": "hoja de puerta con tramo de luz",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Door_2.gltf",
+      "meshes": ["Door_2"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_doorframe_wooden",
+      "category": "door",
+      "role": "doorframe",
+      "note": "premarco de madera",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Wooden.gltf",
+      "meshes": ["DoorFrame_Wooden"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_roof_slate_center_2m",
+      "category": "roof",
+      "role": "slope",
+      "note": "faldón de pizarra tramo recto",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_Slate_Center.gltf",
+      "meshes": ["Roof_Slate_Center"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_roof_slate_corner",
+      "category": "roof",
+      "role": "hip",
+      "note": "faldón de pizarra en esquina (hip)",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_Slate_Corner.gltf",
+      "meshes": ["Roof_Slate_Corner"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_roof_slate_inner_corner",
+      "category": "roof",
+      "role": "valley",
+      "note": "faldón de pizarra en ángulo entrante (valle)",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_Slate_InnerCorner.gltf",
+      "meshes": ["Roof_Slate_InnerCorner"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_roof_slate_dormer",
+      "category": "roof",
+      "role": "dormer",
+      "note": "lucernario con ventana sobre cubierta",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_Slate_Window_1.gltf",
+      "meshes": ["Roof_Slate_Window_1"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_roof_flat_4m",
+      "category": "roof",
+      "role": "flat",
+      "note": "losa de cubierta plana de 4×4 m",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+      "meshes": ["Roof_4x4"],
+      "allowedFamilies": ["industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_roof_flat_2m",
+      "category": "roof",
+      "role": "flat",
+      "note": "losa de cubierta plana de 2×2 m",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_2x2.gltf",
+      "meshes": ["Roof_2x2"],
+      "allowedFamilies": ["industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_roof_flat_corner_left",
+      "category": "roof",
+      "role": "flat",
+      "note": "cubierta plana en esquina L",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_2x2_90Angle_L.gltf",
+      "meshes": ["Roof_2x2_90Angle_L"],
+      "allowedFamilies": ["industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_stairs_entrance_2m",
+      "category": "civic",
+      "role": "access",
+      "note": "escalinata de acceso a cota alta",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Stairs_Entrance_Concrete.gltf",
+      "meshes": ["Stairs_Entrance_Concrete"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_entrance_canopy_2x1",
+      "category": "canopy",
+      "role": "canopy",
+      "note": "marquesina de entrada 2×1 apoyada en fachada",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Entrance_Concrete_2x1.gltf",
+      "meshes": ["Entrance_Concrete_2x1"],
+      "allowedFamilies": ["industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_entrance_canopy_2x2",
+      "category": "canopy",
+      "role": "canopy",
+      "note": "marquesina de entrada 2×2 apoyada en fachada",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Entrance_Concrete_2x2.gltf",
+      "meshes": ["Entrance_Concrete_2x2"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_brick_column_1m",
+      "category": "facade",
+      "role": "pilaster",
+      "note": "columna exenta de ladrillo apilable",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Column_RedBricks.gltf",
+      "meshes": ["Brick_Column_RedBricks"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_column_pilaster_center",
+      "category": "facade",
+      "role": "pilaster",
+      "note": "medio fuste adosado al canto",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_CornerColumn_Center.gltf",
+      "meshes": ["Brick_CornerColumn_Center"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_column_pilaster_cap",
+      "category": "facade",
+      "role": "pilaster_cap",
+      "note": "capitel del canto-columna",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_CornerColumn_Cap.gltf",
+      "meshes": ["Brick_CornerColumn_Cap"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_prop_ac_unit",
+      "category": "intrinsic_prop",
+      "role": "rooftop_unit",
+      "note": "unidad de climatización apoyada en cubierta (§22: máquina fija integrada)",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+      "meshes": ["Prop_ACUnit"],
+      "allowedFamilies": ["industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_floor_slab_2m",
+      "category": "mass",
+      "role": "slab",
+      "note": "losa estructural 2×2 para plataformas y zócalos",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_2x2.gltf",
+      "meshes": ["Floor_2x2"],
+      "allowedFamilies": ["residential_low", "industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_floor_slab_4m",
+      "category": "mass",
+      "role": "slab",
+      "note": "losa estructural 4×4 = 1 celda del dominio",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+      "meshes": ["Floor_4x4"],
+      "allowedFamilies": ["industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_trim_wall_2m",
+      "category": "facade",
+      "role": "wall_panel",
+      "note": "panel ciego liso acabado yeso/placa",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Plain_3.gltf",
+      "meshes": ["Trim_Plain_3"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_trim_firstfloor_wall_2m",
+      "category": "facade",
+      "role": "ground_panel",
+      "note": "panel de planta baja con banda baja",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_FirstFloor_Wall.gltf",
+      "meshes": ["Trim_FirstFloor_Wall"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_trim_window_2m",
+      "category": "window",
+      "role": "window_bay",
+      "note": "crujía con ventana de moldura",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Window.gltf",
+      "meshes": ["Trim_Window"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_trim_corner_2m",
+      "category": "facade",
+      "role": "corner",
+      "note": "esquina lisa de acabado yeso",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Corner.gltf",
+      "meshes": ["Trim_Corner"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_cornice_trim_center_2m",
+      "category": "facade",
+      "role": "cornice",
+      "note": "cornisa de moldura tramo recto",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Trim_Center.gltf",
+      "meshes": ["Cornice_Trim_Center"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_cornice_trim_corner_left",
+      "category": "facade",
+      "role": "cornice",
+      "note": "cornisa de moldura en ángulo L",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Trim_90Angle_L.gltf",
+      "meshes": ["Cornice_Trim_90Angle_L"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_cornice_trim_corner_right",
+      "category": "facade",
+      "role": "cornice",
+      "note": "cornisa de moldura en ángulo R",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Trim_90Angle_R.gltf",
+      "meshes": ["Cornice_Trim_90Angle_R"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_column_trim_bottom",
+      "category": "civic",
+      "role": "column",
+      "note": "base de columna apilable",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Column_Bottom.gltf",
+      "meshes": ["Trim_Column_Bottom"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_column_trim_center",
+      "category": "civic",
+      "role": "column",
+      "note": "fuste de columna apilable",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Column_Center.gltf",
+      "meshes": ["Trim_Column_Center"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_column_trim_top",
+      "category": "civic",
+      "role": "column",
+      "note": "capitel de columna apilable",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Column_Top.gltf",
+      "meshes": ["Trim_Column_Top"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_column_half_bottom",
+      "category": "facade",
+      "role": "pilaster",
+      "note": "media columna adosada: base",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_HalfColumn_Bottom.gltf",
+      "meshes": ["Brick_HalfColumn_Bottom"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_column_half_center",
+      "category": "facade",
+      "role": "pilaster",
+      "note": "media columna adosada: fuste",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_HalfColumn_Center.gltf",
+      "meshes": ["Brick_HalfColumn_Center"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_column_half_top",
+      "category": "facade",
+      "role": "pilaster",
+      "note": "media columna adosada: remate",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_HalfColumn_Top.gltf",
+      "meshes": ["Brick_HalfColumn_Top"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_doorframe_trim",
+      "category": "door",
+      "role": "doorframe",
+      "note": "marco de puerta moldurado",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Trim.gltf",
+      "meshes": ["DoorFrame_Trim"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_stairs_rails_straight_1",
+      "category": "civic",
+      "role": "handrail",
+      "note": "barandilla recta de escalinata (tramo 1)",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Stairs_Rails_Metal_Straight_1.gltf",
+      "meshes": ["Stairs_Rails_Metal_Straight_1"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_stairs_rails_straight_2",
+      "category": "civic",
+      "role": "handrail",
+      "note": "barandilla recta de escalinata (tramo 2)",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Stairs_Rails_Metal_Straight_2.gltf",
+      "meshes": ["Stairs_Rails_Metal_Straight_2"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_metal_wall_2m",
+      "category": "facade",
+      "role": "wall_panel",
+      "note": "panel ciego metálico para cuerpo industrial",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Plain_3.gltf",
+      "meshes": ["Metal_Plain_3"],
+      "allowedFamilies": ["industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_metal_firstfloor_wall_2m",
+      "category": "facade",
+      "role": "ground_panel",
+      "note": "panel metálico de planta baja",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_FirstFloor_Wall.gltf",
+      "meshes": ["Metal_FirstFloor_Wall"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_metal_window_2m",
+      "category": "window",
+      "role": "window_bay",
+      "note": "crujía metálica con ventana a media altura",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Window_Half.gltf",
+      "meshes": ["Metal_Window_Half"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_metal_window_4m",
+      "category": "window",
+      "role": "window_bay",
+      "note": "doble crujía metálica con ventana",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Window.gltf",
+      "meshes": ["Metal_Window"],
+      "allowedFamilies": ["industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_metal_fullwindow_2m",
+      "category": "window",
+      "role": "curtain_wall",
+      "note": "muro cortina acristalado de planta baja",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_FullWindow.gltf",
+      "meshes": ["Metal_FullWindow"],
+      "allowedFamilies": ["industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_cornice_metal_center_2m",
+      "category": "facade",
+      "role": "cornice",
+      "note": "cornisa metálica tramo recto",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+      "meshes": ["Cornice_Metal_Center"],
+      "allowedFamilies": ["industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_doorframe_metal_2m",
+      "category": "door",
+      "role": "doorframe",
+      "note": "marco metálico de acceso industrial",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+      "meshes": ["DoorFrame_Metal_Single"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_column_metal_bottom",
+      "category": "utility",
+      "role": "column",
+      "note": "pie metálico apilable: base",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+      "meshes": ["Metal_Column_Bottom"],
+      "allowedFamilies": ["industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_column_metal_center",
+      "category": "utility",
+      "role": "column",
+      "note": "pie metálico apilable: fuste",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Center.gltf",
+      "meshes": ["Metal_Column_Center"],
+      "allowedFamilies": ["industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_megakit_column_metal_top",
+      "category": "utility",
+      "role": "column",
+      "note": "pie metálico apilable: cabezal",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Top.gltf",
+      "meshes": ["Metal_Column_Top"],
+      "allowedFamilies": ["industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_ind_hall_wide_a",
+      "category": "mass",
+      "role": "hall",
+      "note": "nave industrial ancha con cubierta a dos aguas",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-a.glb",
+      "meshes": ["building-a"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_ind_hall_wide_b",
+      "category": "mass",
+      "role": "hall",
+      "note": "nave industrial con hueco de carga",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-b.glb",
+      "meshes": ["building-b"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_ind_hall_block_c",
+      "category": "mass",
+      "role": "block",
+      "note": "bloque industrial de dos plantas con azotea",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-c.glb",
+      "meshes": ["building-c"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_ind_hall_gable_g",
+      "category": "mass",
+      "role": "hall",
+      "note": "nave con frontón triangular visible",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-g.glb",
+      "meshes": ["building-g"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_ind_hall_flat_q",
+      "category": "mass",
+      "role": "block",
+      "note": "bloque bajo de cubierta plana y ventanales",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-q.glb",
+      "meshes": ["building-q"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_ind_hall_long_r",
+      "category": "mass",
+      "role": "hall",
+      "note": "nave larga con cubierta longitudinal",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-r.glb",
+      "meshes": ["building-r"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_ind_chimney_large",
+      "category": "chimney",
+      "role": "chimney",
+      "note": "chimenea alta de fábrica",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/chimney-large.glb",
+      "meshes": ["chimney-large"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_ind_chimney_medium",
+      "category": "chimney",
+      "role": "chimney",
+      "note": "chimenea media de fábrica",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/chimney-medium.glb",
+      "meshes": ["chimney-medium"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_ind_chimney_small",
+      "category": "chimney",
+      "role": "chimney",
+      "note": "chimenea corta de fábrica",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/chimney-small.glb",
+      "meshes": ["chimney-small"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_ind_tank_large",
+      "category": "industrial",
+      "role": "tank",
+      "note": "silos/tanque grande apoyado en parcela (§22: tanque del proceso)",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/detail-tank-large.glb",
+      "meshes": ["detail-tank-large"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_ind_tank_small",
+      "category": "industrial",
+      "role": "tank",
+      "note": "tanque pequeño apoyado en parcela",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/detail-tank.glb",
+      "meshes": ["detail-tank"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_ind_water_tower",
+      "category": "industrial",
+      "role": "water_tower",
+      "note": "castillete de agua de planta",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/water-tower.glb",
+      "meshes": ["water-tower"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_ind_windmill",
+      "category": "industrial",
+      "role": "extractor",
+      "note": "aerogenerador de extracción: torre + palas como un solo módulo",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/windmill.glb",
+      "meshes": ["blades", "windmill"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_sub_house_type_f",
+      "category": "mass",
+      "role": "dwelling",
+      "note": "vivienda unifamiliar con porche",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-f.glb",
+      "meshes": ["building-type-f"],
+      "allowedFamilies": ["residential_low"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_sub_house_type_b",
+      "category": "mass",
+      "role": "dwelling",
+      "note": "vivienda unifamiliar con cubierta a cuatro aguas",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-b.glb",
+      "meshes": ["building-type-b"],
+      "allowedFamilies": ["residential_low"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_sub_house_type_k",
+      "category": "mass",
+      "role": "dwelling",
+      "note": "vivienda unifamiliar estrecha de dos alturas",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-k.glb",
+      "meshes": ["building-type-k"],
+      "allowedFamilies": ["residential_low"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_sub_house_type_m",
+      "category": "mass",
+      "role": "dwelling",
+      "note": "vivienda unifamiliar con ala lateral",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-m.glb",
+      "meshes": ["building-type-m"],
+      "allowedFamilies": ["residential_low"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_com_block_k",
+      "category": "mass",
+      "role": "block",
+      "note": "bloque comercial esquinero de planta baja diáfana",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-k.glb",
+      "meshes": ["building-k"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kenney_com_parasol_a",
+      "category": "canopy",
+      "role": "awning",
+      "note": "toldo ancho adosable a fachada de planta baja",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/detail-awning-wide.glb",
+      "meshes": ["detail-awning-wide"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kaykit_civic_block_c",
+      "category": "mass",
+      "role": "civic_block",
+      "note": "bloque cívico sin base: el zócalo lo pone la losa del compositor",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/building_C_withoutBase.gltf",
+      "meshes": ["building_C_withoutBase"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kaykit_civic_block_d",
+      "category": "mass",
+      "role": "civic_block",
+      "note": "bloque cívico sin base con hueco de acceso",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/building_D_withoutBase.gltf",
+      "meshes": ["building_D_withoutBase"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kaykit_civic_block_b",
+      "category": "mass",
+      "role": "civic_block",
+      "note": "bloque cívico bajo sin base",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/building_B_withoutBase.gltf",
+      "meshes": ["building_B_withoutBase"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_kaykit_util_watertower",
+      "category": "industrial",
+      "role": "water_tower",
+      "note": "castillete de agua KayKit, comparte atlas con los bloques cívicos",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/watertower.gltf",
+      "meshes": ["watertower"],
+      "allowedFamilies": ["industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    }
+  ]
+}

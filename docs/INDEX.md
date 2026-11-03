@@ -153,7 +153,9 @@ obra en proceso visible con cuadrillas y recinto derivados.
 - execution/phase-4/vf-luna-high-building-composer-prompt.md — prompt operativo del nivel Luna High para ejecutar V.f.
 - execution/phase-4/vf0-module-inventory-2026-11-03.md — acta V.f.0: 517 archivos GLB/GLTF inspeccionados con Blender headless; clasificaciones derivadas de la geometría medida, gramática de crujías de MegaKit (crujía 2.00 m, planta 3.00 m) y decisión de no-parada §37.
 - `blender_artist/manifests/building-module-inventory.json` — manifiesto medido del inventario (objetos, jerarquía, triángulos, materiales, dimensiones normalizadas, componentes separables, pivot y resolución de texturas por archivo). Regenerable con `pnpm art:modules:inventory`, reproducible con `pnpm art:modules:inventory:check`.
-- `docs/art/BUILDING-COMPOSER.md` — especificación del Building Composer modular (pipeline, esquema de módulos, gramáticas por familia, regla de originalidad).
+- `blender_artist/manifests/building-modules-selection.json` — curaduría humana de módulos V.f.1: qué archivos licenciados entran al catálogo, con rol, selector y familias. Es lo único editado a mano.
+- `blender_artist/manifests/building-modules.json` — catálogo de 85 módulos medidos (bounds reales, anchor en marco de colocación, procedencia por archivo, triángulos y texturas verificadas). Regenerable con `pnpm art:building-modules:build`, reproducible con `pnpm art:building-modules:build:check`; gate de §7 con `pnpm art:building-modules:validate` y `pnpm art:building-modules:validate:test`.
+- `docs/art/BUILDING-COMPOSER.md` — especificación de producción del Building Composer modular (§1–§34) y su estado de implementación V.f.1 (§35): pipeline selection→catálogo→validador, esquema real de módulo, los dos marcos de referencia del anchor, cobertura medida por familia, límite con `property-grounds` y prueba del gate.
 - `docs/engineering/adr/D-099-building-composer-geometria-modular.md` — propuesta D-099: composición modular determinista sobre geometría licenciada.
 
 ## Benchmark morfológico

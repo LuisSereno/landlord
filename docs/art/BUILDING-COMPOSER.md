@@ -734,3 +734,107 @@ V.f BUILDING COMPOSER SPIKE — READY FOR HUMAN VISUAL REVIEW
 ```
 
 No declarar `APPROVED`, `PRODUCTION COMPLETE` ni promover al runtime sin revisión humana.
+
+---
+
+## 35. Estado de implementación — V.f.1 (2026-11-03)
+
+Rama `wip/vf-building-composer-spike`. Acta de la medición de fuentes:
+[V.f.0](../execution/phase-4/vf0-module-inventory-2026-11-03.md).
+
+### Pipeline construido
+
+```text
+staging licenciado (D-083/D-098)
+  → building-module-inventory.json          Blender mide 517 archivos  · pnpm art:modules:inventory[:check]
+  → building-modules-selection.json         curaduría humana (85 módulos, 85 archivos)
+  → building-modules.json                   Blender mide la selección   · pnpm art:building-modules:build[:check]
+  → validate-building-modules.mjs           gate §7 + §22               · pnpm art:building-modules:validate[:test]
+```
+
+La separación es la garantía de reproducibilidad: **las decisiones son humanas y viven en la
+selección; la geometría es medida y la escribe Blender** (`measure_building_modules.py`). Un módulo
+cuyo selector no aporte triángulos reales hace fallar la construcción, no se publica "declarado".
+
+### Diferencias respecto a la propuesta (§6, §7)
+
+* `objectSelector` es una **lista de meshes**, no una ruta de nodo: los glTF de estos packs no traen
+  jerarquías nombradas por pieza (Kenney exporta un mesh por archivo con la geometría sin soldar).
+* La unidad del módulo es el **archivo**, no el objeto dentro del archivo. MegaKit y KayKit ya son
+  modulares a nivel de fichero (1 pieza = 1 gltf); sólo `mod_kenney_ind_windmill` selecciona 2 meshes
+  (torre + palas) porque el archivo los separa. Esto corrige el supuesto de D-099 y quedó registrado
+  como deuda en el acta de V.f.0.
+* `anchor` no es un nombre (`"wall_center"`) sino lo que mide Blender: datum autoral, convención por
+  eje, bounds respecto al origen, offsets de apoyo y el `anchorTransform` derivable de ellos.
+* `nominalWidth`/`nominalHeight` pasan a `nominalBounds` en **metros de Landlord**, redondeados de la
+  medición; el validador exige que coincidan con los bounds medidos a ±2 cm.
+* Categorías realmente disponibles: `facade, mass, window, door, roof, chimney, canopy, industrial,
+  civic, utility, intrinsic_prop`. No hay `shopfront` ni `balcony`: los packs en staging no aportan
+  esa geometría separable, así que declaringlas sería inventario ficticio.
+
+### Dos marcos de referencia (el error que cazó el gate)
+
+`IMPORT_ROOT` lleva `scale = unitScale`, así que sus coordenadas **locales** siguen siendo las
+unidades crudas del glTF. La primera versión de `moduleBounds` midió en marco local y produjo un
+bloque cívico KayKit de **1,21 m** de ancho en vez de **4,83 m**. Ahora se mide en mundo (metros
+normalizados, suelo Z=0) y se contrasta con el inventario de V.f.0, que es una pasada de Blender
+distinta: las 85 huellas coinciden a ±2 cm. Un dato mal enmarcado habría dado edificios a un tercio
+de escala sin que ningún número pareciera raro.
+
+Segundo matiz: `originToGroundMeters` es ~0 para un módulo que ocupa todo el archivo porque
+`normalize_import_root()` ya lo apoya en Z=0. Donde importa es en recortes parciales (§7.2) y en el
+datum autoral: `Floor_4x4` cuelga 0,1 m bajo su origen y los bloques KayKit `*_withoutBase` dejan su
+origen 0,4 m **bajo** la rasante (`datumOffsetFromGroundCenterMeters`). Apoyar por origen autoral sin
+leer ese número hundiría o levantara edificios enteros.
+
+### Ejes degenerados
+
+`Roof_4x4`/`Roof_2x2` son planos de cubierta sin canto: su eje Z mide 0,00 m. El gate lo acepta
+porque la medición declara `convention.z = "degenerate"`, y rechaza dos ejes degenerados (sería una
+línea) o un eje fino no declarado como tal. Es el punto de equilibrio entre "no descartes geometría
+licenciada válida" y "no aceptes imports rotos".
+
+### Cobertura medida del catálogo `vf-1`
+
+| familia | módulos | mass | facade | window | door | roof | resto |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `residential_low` (`row_house`) | 38 | 6 | 19 | 4 | 4 | 4 | 1 canopy |
+| `industrial_heavy` (`cement_plant`) | 32 | 8 | 3 | 3 | 2 | 3 | 5 industrial, 3 chimney, 3 utility, 1 canopy, 1 intrinsic_prop |
+| `civic_landmark` (`town_hall`) | 65 | 6 | 26 | 8 | 4 | 7 | 6 civic, 3 canopy, 3 utility, 1 industrial, 1 intrinsic_prop |
+
+Totales por categoría: facade 27 · mass 16 · window 9 · roof 7 · civic 6 · door 5 · industrial 5 ·
+canopy 3 · utility 3 · chimney 3 · intrinsic_prop 1. El gate exige un mínimo por familia y categoría
+(`mass` 2, `facade` 3, `window` 2, `door` 1, `roof` 2): sin esas piezas no hay 4 variantes
+**diferentes** (§23), y se comprueba sobre el catálogo real.
+
+### Límite con Property Grounds (§15, §22 de la especificación del spike)
+
+Se descartaron 6 módulos candidatos que el inventario clasificaba como perfectamente utilizables:
+valla de parcela, dos contenedores de envío, contenedor de residuos, jardinera y paneles solares en
+suelo. No es que no sirvan: su sitio es `property-grounds` de V.d-7C y duplicarlo estaba prohibido.
+El bloqueo es mecánico (lista contextual aplicada a `id`, `role` y `sourcePath` normalizando `_`/`-`
+a espacio, en los dos idiomas que aparecen en los packs), no un recuerdo del autor. Lo intrínseco
+permitido sí está: marquesinas, tanques y silos de proceso, chimeneas, extracción, castilletes de
+agua, escalinatas, barandillas y máquina fija de cubierta.
+
+### Reglas del gate y su prueba
+
+Fallan: `sourceId` inexistente · `sourcePath` fuera de staging o del disco · licencia no permitida o
+distinta de la registrada · selector inexistente en la fuente realmente importada · familia no
+declarada · bounds inválidos (nominal ≠ medido, eje fino no declarado, fuera de escala) · anchor
+inválido (datum, convención, eje frontal, levantamiento, `anchorTransform` incoherente con los
+offsets) · ID duplicado · fuente declarada ≠ importada (sourceId, unitScale, licencia, jerarquía y
+triángulos del archivo) · módulo puramente declarativo (0 triángulos, 0 objetos, sin materiales o
+sin texturas resueltas) · categoría/estrategia fuera de vocabulario · rotaciones fuera de 90° ·
+cobertura insuficiente por familia · módulo contextual (§22) · catálogo e inventario medidos con
+Blender distinto.
+
+`pnpm art:building-modules:validate:test` muta el catálogo publicado caso a caso y exige que cada
+modo se detecte: **23 casos**, incluido el caso bueno —si el catálogo íntegro no pasa, los demás
+fallos serían falsos—.
+
+### Resta
+
+V.f.2 (`building-style-profiles.json` + remap de materiales multpack, §9 y §10 de esta
+especificación) y V.f.3–V.f.6 (gramáticas §11, identidad de variante §13, regla de originalidad §22,
+12 candidatos, QA visual §27 y goldens §29).

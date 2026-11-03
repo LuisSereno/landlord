@@ -466,7 +466,6 @@
       "roleProp": "folder"
     }
   ],
-  "characterPreview": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA2NCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjY0IiByb2xlPSJpbWciPjxlbGxpcHNlIGN4PSIyNCIgY3k9IjU5IiByeD0iMTEiIHJ5PSI0IiBmaWxsPSIjMmYzYTJjIiBvcGFjaXR5PSIwLjQ1Ii8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAwKSI+PHJlY3QgeD0iMTgiIHk9IjQ0IiB3aWR0aD0iNSIgaGVpZ2h0PSIxNSIgcng9IjIiIGZpbGw9IiMzYzNjNDYiLz48cmVjdCB4PSIyNSIgeT0iNDQiIHdpZHRoPSI1IiBoZWlnaHQ9IjE1IiByeD0iMiIgZmlsbD0iIzNjM2M0NiIvPjxyZWN0IHg9IjE1IiB5PSIyNCIgd2lkdGg9IjE4IiBoZWlnaHQ9IjIzIiByeD0iNSIgZmlsbD0iIzdhNWY5ZSIgc3Ryb2tlPSIjMmYzNTQwIiBzdHJva2Utd2lkdGg9IjIiLz48cmVjdCB4PSIxMyIgeT0iMjciIHdpZHRoPSI0IiBoZWlnaHQ9IjE0IiByeD0iMiIgZmlsbD0iIzdhNWY5ZSIvPjxyZWN0IHg9IjMxIiB5PSIyNyIgd2lkdGg9IjQiIGhlaWdodD0iMTQiIHJ4PSIyIiBmaWxsPSIjN2E1ZjllIi8+PGNpcmNsZSBjeD0iMjkiIGN5PSIxNiIgcj0iOCIgZmlsbD0iI2U4YzQ5YSIgc3Ryb2tlPSIjM2EyZjJhIiBzdHJva2Utd2lkdGg9IjIiLz48Y2lyY2xlIGN4PSIyNiIgY3k9IjE1IiByPSIxLjMiIGZpbGw9IiMyZjJhMjYiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjE1IiByPSIxLjMiIGZpbGw9IiMyZjJhMjYiLz48cmVjdCB4PSIyMCIgeT0iMzIiIHdpZHRoPSI4IiBoZWlnaHQ9IjMiIHJ4PSIxLjUiIGZpbGw9IiNkOThmNmEiLz48Y2lyY2xlIGN4PSIyNCIgY3k9IjI1IiByPSIyLjUiIGZpbGw9IiNkOThmNmEiIG9wYWNpdHk9IjAuOSIvPjwvZz48L3N2Zz4=",
   "characterAnimations": {
     "runtime": ["idle", "walk"],
     "showcase": ["work", "repair", "carry", "inspect", "sit", "panic", "sabotage_action"]
@@ -516,8 +515,10 @@
     "buildings": "15/15",
     "buildingStates": "18/60",
     "stateConditioning": "pendiente: la geometría importada sólo renderiza complete",
-    "characterRoles": "13/13",
-    "animations": "2/2",
+    "characterDefinitions": "13/13",
+    "characterRenderedRoles": "0/13",
+    "animationDefinitions": "9",
+    "animationRenderedPreviews": "0/9",
     "vehicles": "6/6",
     "props": 15,
     "terrain": 11,

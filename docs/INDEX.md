@@ -131,7 +131,7 @@ obra en proceso visible con cuadrillas y recinto derivados.
 - execution/phase-4/vd-final-fabric-gate.json — re-ejecución del gate de tejido sobre el HEAD de hardening (100 seeds, 900 distritos), archivada aparte para no pisar `vd1-fabric-gate.json`.
 - execution/phase-4/vd7a-multiparcel-domain-2026-10-30.md — acta V.d-7A: cierre del dominio multi-parcela (contrato `parcelIds`, `siteRequirements`, contigüidad 4-conexa, permisos por conjunto exacto, completion/upgrade/repair/ruina, venta bloqueada, colateral prorrateado, snapshot, proyección, IA rival y automatización) con tests A–T, índices, colateral y selección de solar; **V.d-7B visual sigue pendiente y V.d no se cierra**.
 - execution/phase-4/ve0-asset-inventory-2026-11-02.md — V.e.0: inventario reproducible de las 18 fuentes visuales locales, ocho contact sheets Blender y decisión de compra `DEFER` antes de construir la matriz de cobertura.
-- execution/phase-4/ve1-visual-coverage-matrix-2026-11-02.md — V.e.1: matriz 15/15, baseline procedural 60/60, cobertura Blender real 1/15 y seis arquetipos Blender marcados como `VISUAL STATE GAP` por hashes duplicados.
+- execution/phase-4/ve1-visual-coverage-matrix-2026-11-02.md — V.e.1 histórica; la matriz vigente se regenera desde D-098 y declara evidencia candidata 15/15, estados renderizados 18/60, 14/14 `complete` importados y promoción al runtime pendiente de QA.
 - execution/phase-4/ve2-building-production-2026-11-02.md — V.e.2: SUPERSEDED por D-098; historial de la Building Factory que declaraba fuentes que no importaba.
 - execution/phase-4/ve3-building-states-2026-11-02.md — V.e.3: SUPERSEDED por D-098; los 60/60 estados se generaron sobre geometría inventada.
 - execution/phase-4/ve4-character-production-2026-11-02.md — V.e.4: catálogo offline de 13 roles sin ampliar el contrato jugable.
@@ -139,7 +139,8 @@ obra en proceso visible con cuadrillas y recinto derivados.
 - execution/phase-4/ve6-visual-catalog-2026-11-02.md — V.e.6: enciclopedia `/visual-catalog`, cobertura automática y modo estático.
 - execution/phase-4/ve7-showcase-scene-2026-11-02.md — V.e.7: escena Phaser determinista con 15 edificios y vocabulario urbano completo.
 - execution/phase-4/ve8-visual-production-closure-2026-11-02.md — V.e.8: gates, 16 capturas y cierre de producción visual candidata.
-- execution/phase-4/ve-source-geometry-remediation-2026-11-02.md — Remediación V.e (D-098): retirada de la fábrica falsa, 14 edificios desde GLB Kenney reales, evidencia publicada y validador de procedencia.
+- execution/phase-4/ve-source-geometry-remediation-2026-11-02.md — Remediación V.e (D-098): retirada de la fábrica falsa, 14 edificios desde GLB Kenney reales, evidencia publicada y validador de procedencia. ADR: `engineering/adr/D-098-geometria-fuente-real.md`.
+- execution/phase-4/ve-integrated-correction-verification-2026-11-03.md — comparación A/B reproducible de las cuatro deudas históricas de simulación frente a `develop`.
 - execution/phase-4/vd7a-fabric-gate.json — gate de tejido re-ejecutado sobre V.d-7A (100 seeds, 900 distritos), archivado aparte para no pisar `vd1-fabric-gate.json`.
 - execution/phase-4/vd7a-service-final.json — corrida de `services:balance` sobre V.d-7A (12 seeds × cuatro escenarios), archivada aparte para no pisar `vd-h21-service-final.json`.
 - execution/phase-4/vd7c-interactive-development-placement-plan.md — plan de V.d-7C por subfases (C.0…C.9), gates y condiciones de parada.

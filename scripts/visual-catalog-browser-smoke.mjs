@@ -62,7 +62,7 @@ try {
   await page.waitForTimeout(1000);
   if (errors.length) throw new Error(`Page errors: ${errors.join("; ")}`);
   const text = await page.locator("#coverage").innerText();
-  for (const expected of ["15/15", "18/60", "13/13", "6/6", "purchaseGaps", "0"])
+  for (const expected of ["15/15", "18/60", "0/13", "9", "6/6", "purchaseGaps", "0"])
     if (!text.includes(expected)) throw new Error(`Missing coverage ${expected}`);
   mkdirSync("docs/art/golden/visual-catalog", { recursive: true });
   await shot("01-overview.png", page.locator(".catalog-hero"));
@@ -89,7 +89,8 @@ try {
       status: "passed",
       buildings: 15,
       states: 18,
-      characters: 13,
+      characterDefinitions: 13,
+      characterRenderedRoles: 0,
       screenshots: 16,
       pageErrors: 0,
     }),

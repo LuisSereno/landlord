@@ -25,7 +25,8 @@ Fecha de consolidación: 2026-10-29.
   licencia/origen pendiente y toolchain; manifests con hashes/provenance y
   validador local disponibles. Los binarios siguen ignorados hasta decidir LFS.
 - Estrategia artística self-contained / coste ~0 para Gate 2: decidida (D-054).
-- Building Factory / Character Factory: concepto documentado; no implementado.
+- Building Factory: retirada y sustituida por el catálogo de geometría de fuente real de D-098.
+  Character Factory: especificación declarativa; producción visual de roles pendiente.
 - Wiki para IA: sí.
 - Capa funcional fiscal/urbana: documentada conceptualmente.
 - Visión multiperspectiva y trayectoria vital: documentada conceptualmente.

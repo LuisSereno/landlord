@@ -28,8 +28,8 @@
  */
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { join, resolve } from "node:path";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { basename, join, resolve } from "node:path";
 
 const REPO_ROOT = resolve(import.meta.dirname, "..");
 const BLENDER =
@@ -203,6 +203,107 @@ function runBlender(requestsPath, manifestPath, count) {
 }
 
 /**
+ * Ejecuta cada candidato en un proceso separado de Blender para evitar acumulación de estado.
+ * 
+ * Se detectó que renderizar múltiples candidatos en el mismo proceso causa que el segundo y
+ * subsiguientes fallen con "El render no tiene ningún píxel opaco", incluso reseteando la escena
+ * completamente entre renders. Ejecutar cada candidato en su propio proceso garantiza aislamiento
+ * total y renders deterministas.
+ */
+function runBlenderSeparate(requests, options, grammars) {
+  const workDir = join(options.outDir, "work");
+  const allCandidates = [];
+  const allFailures = [];
+  let totalMs = 0;
+  
+  for (let i = 0; i < requests.length; i++) {
+    const request = requests[i];
+    console.log(`\n[${i + 1}/${requests.length}] Rendering ${request.candidateId}...`);
+    
+    const singleWorkDir = join(workDir, `candidate-${i}`);
+    rmSync(singleWorkDir, { recursive: true, force: true });
+    mkdirSync(singleWorkDir, { recursive: true });
+    
+    const requestsPath = join(singleWorkDir, "requests.json");
+    const manifestPath = join(singleWorkDir, "manifest.json");
+    
+    writeFileSync(
+      requestsPath,
+      `${JSON.stringify(
+        {
+          composerVersion: grammars.composerVersion,
+          styleProfileId: request.styleProfileId,
+          candidates: [request],
+        },
+        null,
+        1,
+      )}\n`,
+    );
+    
+    const started = Date.now();
+    const run = spawnSync(
+      BLENDER,
+      [
+        "-b",
+        "--factory-startup",
+        "-P",
+        BLENDER_SCRIPT,
+        "--",
+        "--requests",
+        requestsPath,
+        "--manifest",
+        manifestPath,
+      ],
+      { stdio: "inherit", cwd: REPO_ROOT },
+    );
+    const elapsed = Date.now() - started;
+    totalMs += elapsed;
+    
+    if (!existsSync(manifestPath)) {
+      throw new Error(`no hay manifiesto para ${request.candidateId} (Blender salió con ${run.status})`);
+    }
+    
+    const manifest = read(manifestPath);
+    allCandidates.push(...manifest.candidates);
+    allFailures.push(...manifest.failures);
+    
+    // Copy the output files to the main work directory
+    if (manifest.candidates.length > 0) {
+      const output = request.output;
+      const metadata = request.metadata;
+      if (existsSync(output)) {
+        copyFileSync(output, join(workDir, basename(output)));
+      }
+      if (existsSync(metadata)) {
+        copyFileSync(metadata, join(workDir, basename(metadata)));
+      }
+    }
+  }
+  
+  // Create a combined manifest
+  const combinedManifest = {
+    schemaVersion: 1,
+    composerVersion: grammars.composerVersion,
+    styleProfileId: requests[0].styleProfileId,
+    requested: requests.length,
+    rendered: allCandidates.length,
+    signatures: allCandidates.map(c => c.compositionSignature).sort(),
+    peakRssMb: allCandidates.reduce((max, c) => Math.max(max, c.render?.peakRssMb || 0), 0),
+    toolchain: {
+      blender: "multiple processes",
+      renderer: "BLENDER_EEVEE",
+    },
+    candidates: allCandidates,
+    failures: allFailures,
+  };
+  
+  const manifestPath = join(workDir, "manifest.json");
+  writeFileSync(manifestPath, JSON.stringify(combinedManifest, null, 1) + "\n");
+  
+  return { manifest: combinedManifest, status: allFailures.length > 0 ? 1 : 0, totalMs };
+}
+
+/**
  * §13, el test que el enunciado pide literal: generar, anotar la firma, borrar lo generado, volver a
  * generar y comparar. La comparación es doble y por algo: la firma dice que la gramática volvió a
  * decidir lo mismo, y el sha de píxeles dice que Blender volvió a dibujar exactamente el mismo dibujo.
@@ -351,7 +452,9 @@ function main() {
 
   if (!existsSync(BLENDER))
     throw new Error(`no existe el binario de Blender: ${BLENDER} (define BLENDER_BIN)`);
-  const { manifest, status, totalMs } = runBlender(requestsPath, manifestPath, requests.length);
+  
+  // Ejecutar cada candidato en un proceso separado para evitar acumulación de estado
+  const { manifest, status, totalMs } = runBlenderSeparate(requests, options, grammars);
 
   const errors = [];
   for (const failure of manifest.failures) {

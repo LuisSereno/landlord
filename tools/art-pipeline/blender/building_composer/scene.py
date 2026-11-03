@@ -78,19 +78,29 @@ class SceneError(RuntimeError):
 
 
 def reset_scene():
-    """Vacía la escena entre candidatos sin descartar las imágenes ya tratadas.
+    """Vacía la escena entre candidatos reseteando Blender a estado de fábrica.
 
-    Remapear un atlas de 2048² cuesta ~4,3 s y ~250 MB de temporales (medido en esta herramienta);
-    los candidatos de una familia comparten atlas, así que se conservan las imágenes y sólo se tiran
-    objetos, mallas y materiales. Reimportar un archivo cuyo datablock sigue vivo lo reutiliza, y la
-    copia `styled_*` se recupera por nombre: ningún atlas se remapea dos veces.
+    Remapear un atlas de 2048² cuesta ~4,3 s y ~250 MB de temporales (medido en esta herramienta).
+    El comentario original decía conservar las imágenes porque candidatos de una familia comparten
+    atlas, pero diferentes familias usan texturas con los mismos nombres (T_Concrete_BaseColor) que
+    son ficheros distintos: Blender crea copias .001/.002 y los materiales referencian la versión
+    equivocada, produciendo renders transparentes.
+    
+    Se ha probado limpiar objetos, materiales, imágenes, luces, cámaras, colecciones, nodos y crear
+    escenas nuevas, pero el estado interno acumulado de Blender causa que el segundo candidato falle.
+    La solución es resetear Blender completamente a estado de fábrica, que limpia TODO el estado
+    interno incluyendo datos no accesibles desde Python.
     """
-    for obj in list(bpy.data.objects):
-        bpy.data.objects.remove(obj, do_unlink=True)
-    for block in (bpy.data.meshes, bpy.data.materials):
-        for item in list(block):
-            if item.users == 0:
-                block.remove(item)
+    # Reset Blender to factory settings - this clears EVERYTHING
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    
+    # After factory reset, we have a bare scene. Set up render settings.
+    scene = bpy.context.scene
+    scene.render.engine = 'BLENDER_EEVEE'
+    scene.render.film_transparent = False
+    scene.render.resolution_x = 1920
+    scene.render.resolution_y = 1080
+    scene.render.resolution_percentage = 100
 
 
 def base_color_images(material):

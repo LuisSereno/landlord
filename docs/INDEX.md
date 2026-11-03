@@ -149,6 +149,12 @@ obra en proceso visible con cuadrillas y recinto derivados.
 - execution/phase-4/vd7c-placement-reachability.json — sonda de alcanzabilidad del caso «cero candidatas»: 2 297 proyectos abiertos en la semilla de la app, mínimo 15 candidatas, cero proyectos sin colocación (§14.1 del acta).
 - execution/phase-4/vd7a2-focused-performance-2026-10-31.md — gate enfocado de cierres mensuales V.d-7A.2: tres pares BASE/WIP, 144 muestras por versión y decisión de no regresión.
 - execution/phase-4/vd7a2-system-cost-comparison.json — resumen estructurado de las seis corridas del gate enfocado.
+- execution/phase-4/vf-building-composer-spike-plan.md — plan del spike V.f: extracción de módulos de fuente real, catálogo, style profile, compositor determinista y evidencia.
+- execution/phase-4/vf-luna-high-building-composer-prompt.md — prompt operativo del nivel Luna High para ejecutar V.f.
+- execution/phase-4/vf0-module-inventory-2026-11-03.md — acta V.f.0: 517 archivos GLB/GLTF inspeccionados con Blender headless; clasificaciones derivadas de la geometría medida, gramática de crujías de MegaKit (crujía 2.00 m, planta 3.00 m) y decisión de no-parada §37.
+- `blender_artist/manifests/building-module-inventory.json` — manifiesto medido del inventario (objetos, jerarquía, triángulos, materiales, dimensiones normalizadas, componentes separables, pivot y resolución de texturas por archivo). Regenerable con `pnpm art:modules:inventory`, reproducible con `pnpm art:modules:inventory:check`.
+- `docs/art/BUILDING-COMPOSER.md` — especificación del Building Composer modular (pipeline, esquema de módulos, gramáticas por familia, regla de originalidad).
+- `docs/engineering/adr/D-099-building-composer-geometria-modular.md` — propuesta D-099: composición modular determinista sobre geometría licenciada.
 
 ## Benchmark morfológico
 - `tools/urban-benchmark/README.md` — herramienta offline (OSMnx fijado por versión), las 28 ventanas de

@@ -55,7 +55,7 @@
   ],
   "anchorGlossary": {
     "datum": "authored_object_origin = el módulo declara su plano de apoyo en el origen que el artista del pack autoró; normalized_import_root = sólo hay el marco normalizado del archivo.",
-    "frontAxis": "lado del módulo que da a la calle, deducido de dónde queda la geometría respecto al origen autoral en Y. 'symmetric-Y' = el módulo es pasable sin cambiar su lectura.",
+    "frontAxis": "lado del módulo que da a la calle, medido sobre boundsRelativeToOriginMeters.y: flush con el origen → ese lado; centrado o degenerado → 'symmetric-Y' (pasable sin cambiar su lectura); offset → la cara exterior es el extremo más lejano al origen.",
     "originToGroundMeters": "-Zmin del módulo medido en metros tras normalizar el archivo. Un módulo que ocupa todo el asset vale ~0 porque normalize_import_root ya apoya el asset entero en Z=0; deja de ser 0 cuando el selector recorta parte de un archivo (una losa que cuelga bajo su origen, un recorte geométrico) y entonces es el levantamiento que el compositor debe aplicar. La posición del datum autoral respecto al suelo sí es llamativa: anchor.datumOffsetFromGroundCenterMeters.",
     "anchorTransform": "traslación [x,y,z] que aplica el compositor al nodo del módulo para que su huella quede centrada en XY y apoyada en Z=0 en el marco normalizado (metros de Landlord).",
     "conventionValues": [
@@ -205,9 +205,9 @@
           "MI_RedBrick"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png"
         ],
         "selectedObjects": [
           "Brick_Plain_3"
@@ -341,12 +341,12 @@
           "MI_Trim"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Brick_Inset"
@@ -372,10 +372,10 @@
       }
     },
     {
-      "id": "mod_megakit_brick_parapet_2m",
+      "id": "mod_megakit_brick_tall_wall_2m",
       "category": "facade",
-      "role": "parapet",
-      "note": "pretil de coronación en azotea plana",
+      "role": "wall_panel_tall",
+      "note": "panel ciego de 2 m de ancho por 4 m de alto; el 4 del nombre del asset es la altura (Brick_Plain_4), no es pretil",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Plain_4.gltf",
       "license": "CC0-1.0",
@@ -479,9 +479,9 @@
           "MI_RedBrick"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png"
         ],
         "selectedObjects": [
           "Brick_Plain_4"
@@ -546,7 +546,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -617,12 +617,12 @@
           "MI_Trim"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Brick_Window_Square_Single"
@@ -687,7 +687,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -758,12 +758,12 @@
           "MI_Trim"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Brick_Window_Trim_Single"
@@ -828,7 +828,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -899,12 +899,12 @@
           "MI_Trim"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Brick_Inset_Window"
@@ -1039,12 +1039,12 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM",
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png"
         ],
         "selectedObjects": [
           "Brick_Window_CurvedDouble"
@@ -1108,7 +1108,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -1180,15 +1180,15 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM",
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Brick_RedWhite_DoubleWindow"
@@ -1321,9 +1321,9 @@
           "MI_RedBrick"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png"
         ],
         "selectedObjects": [
           "Brick_90Angle_L"
@@ -1456,9 +1456,9 @@
           "MI_RedBrick"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png"
         ],
         "selectedObjects": [
           "Brick_90Angle_R"
@@ -1591,9 +1591,9 @@
           "MI_RedBrick"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png"
         ],
         "selectedObjects": [
           "Brick_Corner_Plain"
@@ -1658,7 +1658,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -1727,12 +1727,12 @@
           "MI_Trim"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Brick_BottomTrim"
@@ -1760,8 +1760,8 @@
     {
       "id": "mod_megakit_brick_top_trim_2m",
       "category": "facade",
-      "role": "cornice_band",
-      "note": "banda de cornisa recta",
+      "role": "crown_panel",
+      "note": "panel de fachada de un piso (3 m) con remate de cornisa integrado; la cornisa exenta es mod_megakit_cornice_brick_center_2m",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_TopTrim.gltf",
       "license": "CC0-1.0",
@@ -1866,12 +1866,12 @@
           "MI_Trim"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Brick_TopTrim"
@@ -1899,8 +1899,8 @@
     {
       "id": "mod_megakit_brick_top_trim_corner",
       "category": "facade",
-      "role": "cornice_band",
-      "note": "banda de cornisa en ángulo",
+      "role": "crown_corner",
+      "note": "esquina de fachada de un piso (2×2×3 m) con remate de cornisa en ambos frentes",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_TopTrim_Corner.gltf",
       "license": "CC0-1.0",
@@ -2005,12 +2005,12 @@
           "MI_Trim"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Brick_TopTrim_Corner"
@@ -2142,9 +2142,9 @@
           "MI_RedBrick"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png"
         ],
         "selectedObjects": [
           "Cornice_Brick_Center"
@@ -2276,9 +2276,9 @@
           "MI_RedBrick"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png"
         ],
         "selectedObjects": [
           "Cornice_Brick_90Angle_L"
@@ -2410,9 +2410,9 @@
           "MI_RedBrick"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png"
         ],
         "selectedObjects": [
           "Cornice_Brick_90Angle_R"
@@ -2545,9 +2545,9 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
         ],
         "selectedObjects": [
           "Door_1"
@@ -2680,9 +2680,9 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
         ],
         "selectedObjects": [
           "Door_2"
@@ -2747,7 +2747,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -2815,9 +2815,9 @@
           "MI_Trim"
         ],
         "images": [
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "DoorFrame_Wooden"
@@ -2950,12 +2950,12 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM",
-          "T_RoofSlate_BaseColor",
-          "T_RoofSlate_Normal",
-          "T_RoofSlate_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_ORM.png"
         ],
         "selectedObjects": [
           "Roof_Slate_Center"
@@ -3020,7 +3020,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -3087,9 +3087,9 @@
           "MI_Roof_Slate"
         ],
         "images": [
-          "T_RoofSlate_BaseColor",
-          "T_RoofSlate_Normal",
-          "T_RoofSlate_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_ORM.png"
         ],
         "selectedObjects": [
           "Roof_Slate_Corner"
@@ -3222,12 +3222,12 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM",
-          "T_RoofSlate_BaseColor",
-          "T_RoofSlate_Normal",
-          "T_RoofSlate_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_ORM.png"
         ],
         "selectedObjects": [
           "Roof_Slate_InnerCorner"
@@ -3292,7 +3292,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -3363,15 +3363,15 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM",
-          "T_RoofSlate_BaseColor",
-          "T_RoofSlate_Normal",
-          "T_RoofSlate_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Roof_Slate_Window_1"
@@ -3503,9 +3503,9 @@
           "MI_Asphalt"
         ],
         "images": [
-          "T_Concrete_Asphalt_BaseColor",
-          "T_Concrete_Normal",
-          "T_Concrete_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_ORM.png"
         ],
         "selectedObjects": [
           "Roof_4x4"
@@ -3637,9 +3637,9 @@
           "MI_Asphalt"
         ],
         "images": [
-          "T_Concrete_Asphalt_BaseColor",
-          "T_Concrete_Normal",
-          "T_Concrete_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_ORM.png"
         ],
         "selectedObjects": [
           "Roof_2x2"
@@ -3771,9 +3771,9 @@
           "MI_Asphalt"
         ],
         "images": [
-          "T_Concrete_Asphalt_BaseColor",
-          "T_Concrete_Normal",
-          "T_Concrete_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_ORM.png"
         ],
         "selectedObjects": [
           "Roof_2x2_90Angle_L"
@@ -3905,12 +3905,12 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_Concrete_BaseColor",
-          "T_Concrete_Normal",
-          "T_Concrete_ORM",
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
         ],
         "selectedObjects": [
           "Stairs_Entrance_Concrete"
@@ -4042,9 +4042,9 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
         ],
         "selectedObjects": [
           "Entrance_Concrete_2x1"
@@ -4175,9 +4175,9 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
         ],
         "selectedObjects": [
           "Entrance_Concrete_2x2"
@@ -4203,10 +4203,10 @@
       }
     },
     {
-      "id": "mod_megakit_brick_column_1m",
+      "id": "mod_megakit_brick_column",
       "category": "facade",
       "role": "pilaster",
-      "note": "columna exenta de ladrillo apilable",
+      "note": "columna exenta de ladrillo de 3 m de alto y 0,53×0,72 m de sección",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Column_RedBricks.gltf",
       "license": "CC0-1.0",
@@ -4242,7 +4242,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -4309,9 +4309,9 @@
           "MI_RedBrick"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png"
         ],
         "selectedObjects": [
           "Brick_Column_RedBricks"
@@ -4375,7 +4375,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -4442,9 +4442,9 @@
           "MI_RedBrick_Pale"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png"
         ],
         "selectedObjects": [
           "Brick_CornerColumn_Center"
@@ -4508,7 +4508,7 @@
           "y": "offset",
           "z": "offset"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -4576,12 +4576,12 @@
           "MI_Trim"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Brick_CornerColumn_Cap"
@@ -4713,9 +4713,9 @@
           "MI_Ornaments"
         ],
         "images": [
-          "T_Ornaments_BaseColor",
-          "T_Ornaments_Normal",
-          "T_Ornaments_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_ORM.png"
         ],
         "selectedObjects": [
           "Prop_ACUnit"
@@ -4849,12 +4849,12 @@
           "MI_InteriorRoof"
         ],
         "images": [
-          "T_Concrete_BaseColor",
-          "T_Concrete_Normal",
-          "T_Concrete_ORM",
-          "T_MarbleFloor_BaseColor",
-          "T_MarbleFloor_Normal",
-          "T_MarbleFloor_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_ORM.png"
         ],
         "selectedObjects": [
           "Floor_2x2"
@@ -4987,12 +4987,12 @@
           "MI_InteriorRoof"
         ],
         "images": [
-          "T_Concrete_BaseColor",
-          "T_Concrete_Normal",
-          "T_Concrete_ORM",
-          "T_MarbleFloor_BaseColor",
-          "T_MarbleFloor_Normal",
-          "T_MarbleFloor_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_ORM.png"
         ],
         "selectedObjects": [
           "Floor_4x4"
@@ -5125,12 +5125,12 @@
           "MI_Trim"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Trim_Plain_3"
@@ -5195,7 +5195,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -5263,12 +5263,12 @@
           "MI_Trim"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Trim_FirstFloor_Wall"
@@ -5404,12 +5404,12 @@
           "MI_Trim_Dark"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Trim_Window"
@@ -5474,7 +5474,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -5542,12 +5542,12 @@
           "MI_Trim"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Trim_Corner"
@@ -5612,7 +5612,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "-Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -5679,9 +5679,9 @@
           "MI_Trim"
         ],
         "images": [
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Cornice_Trim_Center"
@@ -5746,7 +5746,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -5813,9 +5813,9 @@
           "MI_Trim"
         ],
         "images": [
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Cornice_Trim_90Angle_L"
@@ -5880,7 +5880,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -5947,9 +5947,9 @@
           "MI_Trim"
         ],
         "images": [
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Cornice_Trim_90Angle_R"
@@ -6080,9 +6080,9 @@
           "MI_Trim"
         ],
         "images": [
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Trim_Column_Bottom"
@@ -6213,9 +6213,9 @@
           "MI_Trim"
         ],
         "images": [
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Trim_Column_Center"
@@ -6346,9 +6346,9 @@
           "MI_Trim"
         ],
         "images": [
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Trim_Column_Top"
@@ -6412,7 +6412,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "-Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -6480,12 +6480,12 @@
           "MI_Trim"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Brick_HalfColumn_Bottom"
@@ -6549,7 +6549,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "-Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -6616,9 +6616,9 @@
           "MI_RedBrick"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png"
         ],
         "selectedObjects": [
           "Brick_HalfColumn_Center"
@@ -6682,7 +6682,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "-Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -6750,12 +6750,12 @@
           "MI_Trim"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Brick_HalfColumn_Top"
@@ -6890,12 +6890,12 @@
           "MI_Trim_Green"
         ],
         "images": [
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "DoorFrame_Trim"
@@ -7026,9 +7026,9 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
         ],
         "selectedObjects": [
           "Stairs_Rails_Metal_Straight_1"
@@ -7159,9 +7159,9 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
         ],
         "selectedObjects": [
           "Stairs_Rails_Metal_Straight_2"
@@ -7294,12 +7294,12 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM",
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png"
         ],
         "selectedObjects": [
           "Metal_Plain_3"
@@ -7363,7 +7363,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -7432,15 +7432,15 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM",
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM",
-          "T_Trim_BaseColor",
-          "T_Trim_Normal",
-          "T_Trim_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
         ],
         "selectedObjects": [
           "Metal_FirstFloor_Wall"
@@ -7573,9 +7573,9 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
         ],
         "selectedObjects": [
           "Metal_Window_Half"
@@ -7711,12 +7711,12 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM",
-          "T_RedBrick_BaseColor",
-          "T_RedBrick_Normal",
-          "T_RedBrick_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png"
         ],
         "selectedObjects": [
           "Metal_Window"
@@ -7850,9 +7850,9 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
         ],
         "selectedObjects": [
           "Metal_FullWindow"
@@ -7984,9 +7984,9 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
         ],
         "selectedObjects": [
           "Cornice_Metal_Center"
@@ -8118,9 +8118,9 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
         ],
         "selectedObjects": [
           "DoorFrame_Metal_Single"
@@ -8252,9 +8252,9 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
         ],
         "selectedObjects": [
           "Metal_Column_Bottom"
@@ -8386,9 +8386,9 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
         ],
         "selectedObjects": [
           "Metal_Column_Center"
@@ -8520,9 +8520,9 @@
           "MI_Trim_MetalConcrete"
         ],
         "images": [
-          "T_MetalConcrete_BaseColor",
-          "T_MetalConcrete_Normal",
-          "T_MetalConcrete_ORM"
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
         ],
         "selectedObjects": [
           "Metal_Column_Top"
@@ -8654,7 +8654,7 @@
           "colormap-specular"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "building-a"
@@ -8718,7 +8718,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -8786,7 +8786,7 @@
           "colormap-specular"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "building-b"
@@ -8850,7 +8850,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "-Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -8918,7 +8918,7 @@
           "colormap-specular"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "building-c"
@@ -9050,7 +9050,7 @@
           "colormap-specular"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "building-g"
@@ -9114,7 +9114,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "-Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -9182,7 +9182,7 @@
           "colormap-specular"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "building-q"
@@ -9314,7 +9314,7 @@
           "colormap-specular"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "building-r"
@@ -9445,7 +9445,7 @@
           "colormap"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "chimney-large"
@@ -9576,7 +9576,7 @@
           "colormap"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "chimney-medium"
@@ -9707,7 +9707,7 @@
           "colormap"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "chimney-small"
@@ -9771,7 +9771,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "+Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -9838,7 +9838,7 @@
           "colormap"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "detail-tank-large"
@@ -9969,7 +9969,7 @@
           "colormap"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "detail-tank"
@@ -10100,7 +10100,7 @@
           "colormap"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "water-tower"
@@ -10232,7 +10232,7 @@
           "colormap"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "blades",
@@ -10365,7 +10365,7 @@
           "colormap"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "building-type-f"
@@ -10496,7 +10496,7 @@
           "colormap"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "building-type-b"
@@ -10627,7 +10627,7 @@
           "colormap"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "building-type-k"
@@ -10758,7 +10758,7 @@
           "colormap"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "building-type-m"
@@ -10890,7 +10890,7 @@
           "colormap"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "building-k"
@@ -10919,7 +10919,7 @@
       "id": "mod_kenney_com_parasol_a",
       "category": "canopy",
       "role": "awning",
-      "note": "toldo ancho adosable a fachada de planta baja",
+      "note": "toldo de 3,2 m de ancho, 0,6 m de vuelo y 1,6 m de alto, adosable a fachada de planta baja",
       "sourceId": "src_kenney_city_commercial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/detail-awning-wide.glb",
       "license": "CC0-1.0",
@@ -10955,7 +10955,7 @@
           "y": "offset",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
+        "frontAxis": "-Y",
         "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
@@ -11022,7 +11022,7 @@
           "colormap"
         ],
         "images": [
-          "colormap"
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png"
         ],
         "selectedObjects": [
           "detail-awning-wide"
@@ -11153,7 +11153,7 @@
           "citybits_texture"
         ],
         "images": [
-          "citybits_texture"
+          "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png"
         ],
         "selectedObjects": [
           "building_C_withoutBase"
@@ -11284,7 +11284,7 @@
           "citybits_texture"
         ],
         "images": [
-          "citybits_texture"
+          "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png"
         ],
         "selectedObjects": [
           "building_D_withoutBase"
@@ -11415,7 +11415,7 @@
           "citybits_texture"
         ],
         "images": [
-          "citybits_texture"
+          "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png"
         ],
         "selectedObjects": [
           "building_B_withoutBase"
@@ -11547,7 +11547,7 @@
           "citybits_texture"
         ],
         "images": [
-          "citybits_texture"
+          "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png"
         ],
         "selectedObjects": [
           "watertower"

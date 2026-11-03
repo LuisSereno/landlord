@@ -12,26 +12,44 @@
  *   node scripts/build-building-modules.mjs          # regenera el catálogo
  *   node scripts/build-building-modules.mjs --check  # falla si el catálogo publicado difiere
  */
-import { spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
+import {
+  MEASURE_SCRIPT,
+  groupSelectionModules,
+  measureModules,
+} from "./lib/building-measurement.mjs";
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const SELECTION_PATH = "blender_artist/manifests/building-modules-selection.json";
 const INVENTORY_PATH = "blender_artist/manifests/building-module-inventory.json";
 const SOURCES_PATH = "blender_artist/manifests/staging-sources.json";
 const OUTPUT_PATH = "blender_artist/manifests/building-modules.json";
-const BLENDER_SCRIPT = "tools/art-pipeline/blender/measure_building_modules.py";
-const BLENDER =
-  process.env.BLENDER_BIN ??
-  join(REPO_ROOT, "blender_artist", "toolchain", "blender-5.2.2-linux-x64", "blender");
 
 const FRONT_AXIS_BY_Y_CONVENTION = {
   "positive-from-origin": "+Y",
   "negative-from-origin": "-Y",
 };
+
+/**
+ * Lado de la calle, deducido de la geometría medida respecto al origen autoral.
+ *
+ * La tabla anterior sólo conocía los casos flush (origen pegado a una cara). Un panel cuyo origen
+ * queda a 0,4 m de cualquier cara (`offset`) no es simétrico: simplemente no nace en una cara. Si
+ * se tratara como symmetric-Y el compositor podría girarlo 180° y montar el toldo hacia dentro o
+ * la marquesina atravesada, así que en `offset` la cara exterior es el extremo más lejano al
+ * origen y el plano de apoyo es el más cercano.
+ */
+function frontAxisOf(convention, boundsRelativeToOrigin) {
+  if (convention.y === "centered" || convention.y === "degenerate") return "symmetric-Y";
+  const mapped = FRONT_AXIS_BY_Y_CONVENTION[convention.y];
+  if (mapped) return mapped;
+  if (!boundsRelativeToOrigin) return "symmetric-Y";
+  const { min, max } = boundsRelativeToOrigin.y;
+  return Math.abs(max) >= Math.abs(min) ? "+Y" : "-Y";
+}
 const ROTATIONS = [0, 90, 180, 270];
 
 function fail(message) {
@@ -42,74 +60,20 @@ const selection = JSON.parse(readFileSync(join(REPO_ROOT, SELECTION_PATH), "utf8
 const inventory = JSON.parse(readFileSync(join(REPO_ROOT, INVENTORY_PATH), "utf8"));
 const registry = JSON.parse(readFileSync(join(REPO_ROOT, SOURCES_PATH), "utf8"));
 
-const inventoryByPath = new Map(inventory.sources.map((entry) => [entry.path, entry]));
-const sourcesById = new Map(registry.sources.map((source) => [source.id, source]));
-const stagingPrefix = "blender_artist/staging/";
-
-// Un archivo puede alimentar varios módulos (aerogenerador: torre + palas juntos o separados).
-const files = [];
-const fileByPath = new Map();
-for (const module of selection.modules) {
-  const entry = inventoryByPath.get(module.sourcePath);
-  if (!entry) fail(`módulo ${module.id} apunta a un archivo sin medir en el inventario`);
-  if (!module.sourcePath.startsWith(stagingPrefix)) {
-    fail(`módulo ${module.id}: sourcePath fuera de staging`);
-  }
-  if (entry.classification === "unsuitable") {
-    fail(`módulo ${module.id}: fuente inhábil (${entry.classificationReason})`);
-  }
-  const source = sourcesById.get(entry.sourceId);
-  if (!source) fail(`fuente no registrada en staging-sources.json: ${entry.sourceId}`);
-  if (source.license !== entry.license) {
-    fail(
-      `licencia declarada (${entry.license}) distinta de la registrada (${source.license}) en ${entry.path}`,
-    );
-  }
-  let file = fileByPath.get(module.sourcePath);
-  if (!file) {
-    file = {
-      sourcePath: module.sourcePath,
-      sourceId: entry.sourceId,
-      license: entry.license,
-      unitScale: entry.unitScale,
-      modules: [],
-    };
-    files.push(file);
-    fileByPath.set(module.sourcePath, file);
-  }
-  file.modules.push({ id: module.id, meshes: module.meshes });
-}
+// La agrupación por archivo y sus comprobaciones de procedencia las comparte el generador del
+// perfil de estilo: un archivo puede alimentar varios módulos (aerogenerador: torre y palas).
+const { files, inventoryByPath } = groupSelectionModules({ selection, inventory, registry, fail });
 
 const workDir = join(tmpdir(), "landlord-vf-module-measure");
-mkdirSync(workDir, { recursive: true });
-writeFileSync(join(workDir, "selection.json"), `${JSON.stringify(files, null, 2)}\n`);
-
-const measurementsPath = join(workDir, "measurements.json");
-rmSync(measurementsPath, { force: true });
-if (!existsSync(BLENDER)) fail(`no existe el binario de Blender: ${BLENDER}`);
 console.log(`Midiendo ${selection.modules.length} módulos sobre ${files.length} archivos…`);
-const result = spawnSync(
-  BLENDER,
-  [
-    "--background",
-    "--python",
-    resolve(REPO_ROOT, BLENDER_SCRIPT),
-    "--",
-    "--selection",
-    join(workDir, "selection.json"),
-    "--output",
-    measurementsPath,
-  ],
-  // Heredamos el tty: la trazada de Blender debe verse mientras ocurre, no sólo en el error del padre.
-  { stdio: "inherit" },
-);
 // Blender 5.x sale con status 0 aunque el script python reviente, así que el status no basta:
-// sin fichero de mediciones no hay catálogo.
-if (!existsSync(measurementsPath)) {
-  fail(`Blender no escribió mediciones (status ${result.status}): revisa la trazada arriba`);
-}
-
-const measured = JSON.parse(readFileSync(measurementsPath, "utf8"));
+// sin fichero de mediciones no hay catálogo (lo comprueba la lib compartida).
+const { measurements: measured } = measureModules({
+  repoRoot: REPO_ROOT,
+  files,
+  workDir,
+  label: "building-modules",
+});
 const measurementByModule = new Map();
 const fileMeasurementByPath = new Map();
 for (const file of measured.files) {
@@ -131,7 +95,8 @@ function anchorOf(module, entry) {
   const convention = usesFilePivot
     ? pivot.convention
     : { x: "centered", y: "centered", z: "centered" };
-  const frontAxis = FRONT_AXIS_BY_Y_CONVENTION[convention.y] ?? "symmetric-Y";
+  const boundsRelativeToOrigin = usesFilePivot ? pivot.boundsRelativeToOrigin : null;
+  const frontAxis = frontAxisOf(convention, boundsRelativeToOrigin);
   return {
     measure,
     block: {
@@ -140,7 +105,7 @@ function anchorOf(module, entry) {
       convention,
       frontAxis,
       symmetricAboutFront: convention.y === "centered",
-      boundsRelativeToOriginMeters: usesFilePivot ? pivot.boundsRelativeToOrigin : null,
+      boundsRelativeToOriginMeters: boundsRelativeToOrigin,
       datumOffsetFromGroundCenterMeters: usesFilePivot ? pivot.offsetFromGroundCenter : null,
       moduleBoundsInPlacementFrameMeters: bounds,
       originToGroundMeters: round(-measure.moduleBounds.minZ),
@@ -209,7 +174,7 @@ const catalog = {
     "V.f.1: catálogo de módulos del Building Composer. La selección la escribe un humano; la geometría la mide Blender al importar el archivo licenciado, así que cada módulo declara procedencia verificable y bounds reales (§6, §7, §9).",
   generator: {
     script: "scripts/build-building-modules.mjs",
-    blenderScript: BLENDER_SCRIPT,
+    blenderScript: MEASURE_SCRIPT,
     selection: SELECTION_PATH,
     inventory: INVENTORY_PATH,
     toolchain: measured.toolchain,
@@ -223,7 +188,9 @@ const catalog = {
     datum:
       "authored_object_origin = el módulo declara su plano de apoyo en el origen que el artista del pack autoró; normalized_import_root = sólo hay el marco normalizado del archivo.",
     frontAxis:
-      "lado del módulo que da a la calle, deducido de dónde queda la geometría respecto al origen autoral en Y. 'symmetric-Y' = el módulo es pasable sin cambiar su lectura.",
+      "lado del módulo que da a la calle, medido sobre boundsRelativeToOriginMeters.y: flush con el " +
+      "origen → ese lado; centrado o degenerado → 'symmetric-Y' (pasable sin cambiar su lectura); " +
+      "offset → la cara exterior es el extremo más lejano al origen.",
     originToGroundMeters:
       "-Zmin del módulo medido en metros tras normalizar el archivo. Un módulo que ocupa todo el " +
       "asset vale ~0 porque normalize_import_root ya apoya el asset entero en Z=0; deja de ser 0 " +

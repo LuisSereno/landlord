@@ -103,6 +103,19 @@ const CASES = [
     },
   },
   {
+    name: "anchor inválido (eje frontal del revés sobre geometría offset)",
+    expect: "eje frontal contradice la geometría",
+    mutate: (catalog) => {
+      // Valor del vocabulario, pero imposible para esta geometría: el toldo nace en -0,99 m y su
+      // plano de apoyo en -0,4 m, así que la calle está en -Y. Puesto a +Y el compositor lo
+      // montaría mirando hacia dentro del edificio.
+      const module = pick(catalog, (m) => m.id === "mod_kenney_com_parasol_a");
+      if (module.anchor.convention.y !== "offset")
+        throw new Error("el caso exige una convención offset");
+      module.anchor.frontAxis = "+Y";
+    },
+  },
+  {
     name: "anchor inválido (levantamiento absurdo)",
     expect: "levantamiento de apoyo absurdo",
     mutate: (catalog) => {

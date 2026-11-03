@@ -43,6 +43,22 @@ const MAX_MODULE_M = 60;
 const MAX_GROUND_LIFT_M = 5;
 
 /**
+ * Re-deducción del eje frontal, deliberadamente independiente de `build-building-modules.mjs`: si
+ * alguien edita `frontAxis` a mano, el compositor montaría ese módulo del revés y el gate debe
+ * cazarlo. Regla: flush con el origen → ese lado; centrado o degenerado → simétrico; `offset` →
+ * la cara exterior es el extremo en Y más lejano al origen autoral.
+ */
+function expectedFrontAxis(anchor) {
+  const convention = anchor.convention?.y;
+  if (convention === "centered" || convention === "degenerate") return "symmetric-Y";
+  if (convention === "positive-from-origin") return "+Y";
+  if (convention === "negative-from-origin") return "-Y";
+  const bounds = anchor.boundsRelativeToOriginMeters;
+  if (!bounds?.y) return "symmetric-Y";
+  return Math.abs(bounds.y.max) >= Math.abs(bounds.y.min) ? "+Y" : "-Y";
+}
+
+/**
  * §22: el Building Composer compone EDIFICIOS. Todo lo que pertenezca al entorno de la parcela
  * (cercas, jardín, accesos rodados, contenedores, vegetación) lo sigue sirviendo `property-grounds`
  * de V.d-7C y no puede colarse como módulo intrínseco: duplicaría el sistema y rompería la
@@ -275,6 +291,13 @@ for (const module of catalog.modules ?? []) {
   }
   if (!ALLOWED_FRONT_AXES.has(anchor.frontAxis))
     fail(id, `eje frontal inválido: ${anchor.frontAxis}`);
+  const expectedFront = expectedFrontAxis(anchor);
+  if (anchor.frontAxis !== expectedFront) {
+    fail(
+      id,
+      `eje frontal contradice la geometría: declarado ${anchor.frontAxis}, medido ${expectedFront}`,
+    );
+  }
   if (
     !Number.isFinite(anchor.originToGroundMeters) ||
     Math.abs(anchor.originToGroundMeters) > MAX_GROUND_LIFT_M

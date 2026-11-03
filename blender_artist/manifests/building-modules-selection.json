@@ -53,10 +53,10 @@
       "extractionStrategy": "whole_asset"
     },
     {
-      "id": "mod_megakit_brick_parapet_2m",
+      "id": "mod_megakit_brick_tall_wall_2m",
       "category": "facade",
-      "role": "parapet",
-      "note": "pretil de coronación en azotea plana",
+      "role": "wall_panel_tall",
+      "note": "panel ciego de 2 m de ancho por 4 m de alto; el 4 del nombre del asset es la altura (Brick_Plain_4), no es pretil",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Plain_4.gltf",
       "meshes": ["Brick_Plain_4"],
       "allowedFamilies": ["residential_low", "civic_landmark"],
@@ -155,8 +155,8 @@
     {
       "id": "mod_megakit_brick_top_trim_2m",
       "category": "facade",
-      "role": "cornice_band",
-      "note": "banda de cornisa recta",
+      "role": "crown_panel",
+      "note": "panel de fachada de un piso (3 m) con remate de cornisa integrado; la cornisa exenta es mod_megakit_cornice_brick_center_2m",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_TopTrim.gltf",
       "meshes": ["Brick_TopTrim"],
       "allowedFamilies": ["residential_low", "civic_landmark"],
@@ -165,8 +165,8 @@
     {
       "id": "mod_megakit_brick_top_trim_corner",
       "category": "facade",
-      "role": "cornice_band",
-      "note": "banda de cornisa en ángulo",
+      "role": "crown_corner",
+      "note": "esquina de fachada de un piso (2×2×3 m) con remate de cornisa en ambos frentes",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_TopTrim_Corner.gltf",
       "meshes": ["Brick_TopTrim_Corner"],
       "allowedFamilies": ["residential_low", "civic_landmark"],
@@ -333,10 +333,10 @@
       "extractionStrategy": "whole_asset"
     },
     {
-      "id": "mod_megakit_brick_column_1m",
+      "id": "mod_megakit_brick_column",
       "category": "facade",
       "role": "pilaster",
-      "note": "columna exenta de ladrillo apilable",
+      "note": "columna exenta de ladrillo de 3 m de alto y 0,53×0,72 m de sección",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Column_RedBricks.gltf",
       "meshes": ["Brick_Column_RedBricks"],
       "allowedFamilies": ["residential_low", "civic_landmark"],
@@ -836,7 +836,7 @@
       "id": "mod_kenney_com_parasol_a",
       "category": "canopy",
       "role": "awning",
-      "note": "toldo ancho adosable a fachada de planta baja",
+      "note": "toldo de 3,2 m de ancho, 0,6 m de vuelo y 1,6 m de alto, adosable a fachada de planta baja",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/detail-awning-wide.glb",
       "meshes": ["detail-awning-wide"],
       "allowedFamilies": ["residential_low", "civic_landmark"],

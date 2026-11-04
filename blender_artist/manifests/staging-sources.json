@@ -11,7 +11,12 @@
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://quaternius.itch.io/downtown-city-megakit",
       "unitScale": 1.0,
-      "extractDir": "quaternius/downtown-city-megakit"
+      "extractDir": "quaternius/downtown-city-megakit",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_quaternius_base_characters",
@@ -22,7 +27,12 @@
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://quaternius.itch.io/universal-base-characters",
       "unitScale": 1.0,
-      "extractDir": "quaternius/base-characters"
+      "extractDir": "quaternius/base-characters",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_quaternius_animation_library",
@@ -32,7 +42,12 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://quaternius.itch.io/universal-animation-library",
-      "extractDir": "quaternius/animation-library"
+      "extractDir": "quaternius/animation-library",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_quaternius_animation_library_2",
@@ -42,7 +57,12 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://quaternius.itch.io/universal-animation-library-2",
-      "extractDir": "quaternius/animation-library-2"
+      "extractDir": "quaternius/animation-library-2",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_kenney_city_commercial",
@@ -53,7 +73,12 @@
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/city-kit-commercial",
       "unitScale": 4.0,
-      "extractDir": "kenney/city-kit-commercial"
+      "extractDir": "kenney/city-kit-commercial",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_kenney_city_industrial",
@@ -64,7 +89,12 @@
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/city-kit-industrial",
       "unitScale": 4.0,
-      "extractDir": "kenney/city-kit-industrial"
+      "extractDir": "kenney/city-kit-industrial",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_kenney_city_roads",
@@ -75,7 +105,12 @@
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/city-kit-roads",
       "unitScale": 4.0,
-      "extractDir": "kenney/city-kit-roads"
+      "extractDir": "kenney/city-kit-roads",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_kenney_city_suburban",
@@ -86,7 +121,12 @@
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/city-kit-suburban",
       "unitScale": 4.0,
-      "extractDir": "kenney/city-kit-suburban"
+      "extractDir": "kenney/city-kit-suburban",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_kenney_car_kit",
@@ -97,7 +137,12 @@
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/car-kit",
       "unitScale": 1.3,
-      "extractDir": "kenney/car-kit"
+      "extractDir": "kenney/car-kit",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_kenney_nature_kit",
@@ -108,7 +153,12 @@
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/nature-kit",
       "unitScale": 4.0,
-      "extractDir": "kenney/nature-kit"
+      "extractDir": "kenney/nature-kit",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_kaykit_city_builder_bits",
@@ -119,7 +169,12 @@
       "verification": "CC0 asserted by the author at the sourceUrl and shipped inside the archive as Assets/LICENSE.txt",
       "sourceUrl": "https://kaylousberg.itch.io/city-builder-bits",
       "unitScale": 4.0,
-      "extractDir": "kaykit/city-builder-bits"
+      "extractDir": "kaykit/city-builder-bits",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_polyhaven_asphalt_07",
@@ -129,7 +184,12 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://polyhaven.com/a/asphalt_07",
-      "extractDir": "polyhaven/asphalt_07"
+      "extractDir": "polyhaven/asphalt_07",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_polyhaven_concrete_wall_003",
@@ -139,7 +199,12 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://polyhaven.com/a/concrete_wall_003",
-      "extractDir": "polyhaven/concrete_wall_003"
+      "extractDir": "polyhaven/concrete_wall_003",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_polyhaven_red_brick_03",
@@ -149,7 +214,12 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://polyhaven.com/a/red_brick_03",
-      "extractDir": "polyhaven/red_brick_03"
+      "extractDir": "polyhaven/red_brick_03",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_polyhaven_red_bricks_02",
@@ -159,7 +229,12 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://polyhaven.com/a/red_bricks_02",
-      "extractDir": "polyhaven/red_bricks_02"
+      "extractDir": "polyhaven/red_bricks_02",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_polyhaven_rusty_metal_02",
@@ -169,7 +244,12 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://polyhaven.com/a/rusty_metal_02",
-      "extractDir": "polyhaven/rusty_metal_02"
+      "extractDir": "polyhaven/rusty_metal_02",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_polyhaven_wood_planks_grey",
@@ -179,7 +259,12 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://polyhaven.com/a/wood_planks_grey",
-      "extractDir": "polyhaven/wood_planks_grey"
+      "extractDir": "polyhaven/wood_planks_grey",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_microsoft_rocketbox",

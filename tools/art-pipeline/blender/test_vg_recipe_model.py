@@ -166,13 +166,36 @@ def load_fails(build, expected_substring):
 
 # ---- tests ----
 
-def test_01_all_grammars_load_and_compose():
+def test_01a_grammar_load_all_types():
+    """Las 15 gramáticas cargan y validan sin composición (schema + recipes + capacity estática).
+
+    Aquí NO se construye geometría: se corre el path completo de GrammarDocument.grammar()
+    que invoca _check_roles, _check_recipes, validación de facade features y validación
+    de cornerModeIds/massingIds/rhythmIds. Una gramática mal formada debe fallar aquí,
+    no al componer una seed.
+    """
+    profile = StyleProfile(PROFILE_ID)
+    doc = GrammarDocument(GRAMMARS_PATH)
+    loaded = []
+    for name in ALL_BUILDING_TYPES:
+        try:
+            record = doc.grammar(name, catalog(), profile)
+        except Exception as error:
+            return False, f"{name}: {type(error).__name__}: {error}"
+        if record["buildingType"] != name:
+            return False, f"{name}: gramática se autodenomina {record['buildingType']}"
+        loaded.append(name)
+    return True, f"15/15 GRAMMAR LOAD PASS · {loaded[0]}…{loaded[-1]}"
+
+
+def test_01b_composition_smoke_all_types():
+    """Las 15 gramáticas componen con seed 1000 sin excepción (smoke legacy)."""
     for name in ALL_BUILDING_TYPES:
         try:
             compose_candidate(build_request(name, 1000), catalog=catalog())
         except Exception as error:
             return False, f"{name}: {error}"
-    return True, "15/15 grammars compose seed 1000"
+    return True, "15/15 COMPOSITION SMOKE PASS (seed 1000)"
 
 
 def test_02_unknown_recipe_key_rejected():
@@ -215,13 +238,28 @@ def test_07_target_volume_out_of_range_rejected():
 
 
 def test_08_wrong_module_role_rejected():
+    """V.g P1: module/role mismatch se detecta en load, no al colocar geometría."""
     def swap_role(raw):
         # mod_megakit_column_trim_center es role=column; pedir role=pilaster debe fallar.
         feature = raw["grammars"]["town_hall"]["recipes"][0]["requiredFeatures"][0]
         feature["role"] = "pilaster"
-    # load_fails usa profile "modern_90s_usa" → la composition llega hasta _build_facade_feature
-    # donde valida role. El error debe mencionar el mismatch.
-    return load_fails(swap_role, "role=")
+
+    raw = copy.deepcopy(grammars_raw())
+    swap_role(raw)
+    temp = Path("/tmp/vg_recipe_mutated.json")
+    temp.write_text(json.dumps(raw, ensure_ascii=False), encoding="utf-8")
+    doc = GrammarDocument(temp)
+    profile = StyleProfile(PROFILE_ID)
+    try:
+        doc.grammar("town_hall", catalog(), profile)
+        return False, "carga terminó sin error"
+    except GrammarError as error:
+        message = str(error)
+        if "role=pilaster" not in message or "role=column" not in message:
+            return False, f"esperado rol declarativo y real en {message!r}"
+        return True, f"GrammarError en load: {message}"
+    except Exception as error:
+        return False, f"excepción inesperada {type(error).__name__}: {error}"
 
 
 def test_09_required_count_over_static_capacity_rejected():
@@ -360,9 +398,55 @@ def test_17_town_hall_ten_seed_true_pass():
     )
 
 
+def test_18_required_facade_is_mirror_symmetric_around_access():
+    """V.g P1: para cada recipe, los required facade features deben ser especulares
+    respecto al eje X del acceso. No basta con 'no solapan': la distribución tiene
+    que ser un pórtico simétrico de verdad, no un sesgo silencioso.
+
+    Para cada seed de town_hall:
+      1. leer la X del access:frame en level1.
+      2. agrupar las X de los placements del feature required en level1.
+      3. separar en left (x < access_x) y right (x > access_x).
+      4. exigir |left| == |right| y distancias especulares (tolerancia mm).
+    """
+    for seed in SEEDS_TEN:
+        result = town_hall_result(seed)
+        recipe = result["axisChoices"]["recipe"]
+        feature_id = feature_id_for(recipe)
+        frames = [p for p in access_placements(result) if p["purpose"] == "access:frame"]
+        if not frames:
+            return False, f"seed {seed}: sin access:frame (¿acceso en otro volumen?)"
+        access_x = round(frames[0]["position"][0], 3)
+        level1 = [
+            p for p in facade_placements(result, feature_id)
+            if ":level1:" in p["purpose"]
+        ]
+        left = sorted(
+            round(p["position"][0], 3) for p in level1 if p["position"][0] < access_x - 1e-3
+        )
+        right = sorted(
+            round(p["position"][0], 3) for p in level1 if p["position"][0] > access_x + 1e-3
+        )
+        if len(left) != len(right):
+            return False, (
+                f"seed {seed} {recipe}: {len(left)} a la izquierda vs {len(right)} a la "
+                f"derecha del acceso (access_x={access_x})"
+            )
+        mirrored_right = sorted(-round(x - access_x, 3) for x in left)
+        distances_right = sorted(round(x - access_x, 3) for x in right)
+        for left_offset, right_offset in zip(mirrored_right, distances_right):
+            if abs(left_offset - right_offset) > 1e-3:
+                return False, (
+                    f"seed {seed} {recipe}: distancias no especulares "
+                    f"left offsets={mirrored_right}, right offsets={distances_right}"
+                )
+    return True, "10/10 seeds con facade feature especular respecto al acceso"
+
+
 def main():
     tests = [
-        ("test_01_all_grammars_load_and_compose", test_01_all_grammars_load_and_compose),
+        ("test_01a_grammar_load_all_types", test_01a_grammar_load_all_types),
+        ("test_01b_composition_smoke_all_types", test_01b_composition_smoke_all_types),
         ("test_02_unknown_recipe_key_rejected", test_02_unknown_recipe_key_rejected),
         ("test_03_duplicate_recipe_id_rejected", test_03_duplicate_recipe_id_rejected),
         ("test_04_empty_recipe_axis_rejected", test_04_empty_recipe_axis_rejected),
@@ -379,6 +463,7 @@ def main():
         ("test_15_grammar_document_immutable", test_15_grammar_document_immutable),
         ("test_16_determinism_same_seed_same_recipe_and_signature", test_16_determinism_same_seed_same_recipe_and_signature),
         ("test_17_town_hall_ten_seed_true_pass", test_17_town_hall_ten_seed_true_pass),
+        ("test_18_required_facade_is_mirror_symmetric_around_access", test_18_required_facade_is_mirror_symmetric_around_access),
     ]
     failures = []
     for name, fn in tests:

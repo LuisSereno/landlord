@@ -2,7 +2,7 @@
 
 Estado: **implementación completa y gates en verde, NO declarable `READY FOR HUMAN PLAYTEST` según
 §60 del prompt** porque `P1 ≠ 0` (ver §16: P1-3 cerrado el 2026-11-02 con la corrida dedicada de
-§14.2; quedan P1-1 y P1-2). La decisión de aceptar los P1 y abrir el playtest
+§14.2; queda P1-1). La decisión de aceptar el P1 y abrir el playtest
 corresponde al responsable. No cierra V.d-7B, no cierra V.d y no sustituye el playtest humano de
 `docs/execution/phase-4/vd-final-playtest-checklist.md`.
 
@@ -351,9 +351,13 @@ V.d-7C baja a 12-13 en modo colocación y a 5-6 sobre una unión de tres parcela
 introducida, pero la fase la hace visible. Requiere decisión del responsable: abrir un trabajo de
 presentación (rebake de suelo/overlay) o aceptar el estado actual.
 
-**P1-2 — V.d-7B sigue sin certificar y su línea no está integrada.** El baseline excluye
-`0f323a4`/`a44ad67`/`f70f3bf`; `shapePenalty` cambiará el orden de candidatas cuando se integre, y
-con él la paridad de §7 habrá que re-medirla.
+**P1-2 — CERRADO tras la integración de convergencia.** `wip/ve-integrated-correction` integra
+V.d-7B como ancestro de `develop` y conserva `preferredFootprint`/`shapePenalty` en
+`enumerateFootprintCandidates()` junto con el enumerador completo de V.d-7C. El orden autoritativo
+queda `target area → distance → shapePenalty → frontage → continuity → floors → area → orientation
+→ signature`; el typecheck, los tests web/placement y los smokes de colocación pasan en la rama
+integradora. La captura visual `12-multiparcel-building.png` sigue pendiente y no se declara V.d-7B
+cerrada por este cambio.
 
 **P1-3 — CERRADO el 2026-11-02 por la corrida dedicada (§14.2).** Las tres capturas que no enseñaban
 su caso (06, 11 y 14) se re-tomaron sobre una partida limpia con la interfaz real y sin inyectar
@@ -364,8 +368,8 @@ municipal intransferible, que es el único «aquí no cabe nada» alcanzable. El
 modo colocación queda **documentado como no alcanzable** con la sonda reproducible
 `pnpm placement:reachability` (2 297 proyectos barridos en la semilla de la app, mínimo 15 candidatas,
 cero proyectos sin candidatas; §14.1) y con los casos de rechazo de las pruebas de motor y de la
-ficha (`development-placement.test.ts`, `vd7a-multiparcel.test.ts`, `ui/placement.test.ts`). Quedan
-dos P1 abiertos (P1-1 FPS, P1-2 V.d-7B sin integrar).
+ficha (`development-placement.test.ts`, `vd7a-multiparcel.test.ts`, `ui/placement.test.ts`). Queda
+P1-1 abierto por el FPS.
 
 **P2:** seto/valla poco legible a zoom normal; la lista de candidatas repite «4 celdas · 0° · 1
 planta» sin más descriptor que el número (el mapa lo resuelve); `confirmar → obra visible` tarda
@@ -375,8 +379,8 @@ representación visual de la orientación física sigue siendo deuda declarada d
 
 ## 17. Deuda
 
-Integrar la línea V.d-7B y re-medir la paridad diferencial con `shapePenalty`; reabrir la
-certificación visual de V.d-7B (captura 12 multi-parcela); trabajo de presentación para el FPS;
+Reabrir la certificación visual de V.d-7B (captura 12 multi-parcela); trabajo de presentación para
+el FPS;
 decidir si `preferredFootprint` entra en la identidad del candidato (hoy no entra: dos huellas con la
 misma geometría comparten identidad, que es lo correcto); página de candidatas fija en 24 —si un
 solar enorme la agota, el jugador no ve las colas—; y `automation` sin consumidor de colocación.
@@ -388,12 +392,12 @@ la captura 06 podrá enseñar por fin el panel de cero candidatas.
 ## 18. Decisión
 
 **No se declara `V.d-7C READY FOR HUMAN PLAYTEST`**: el criterio §60 exige `P1 = 0` y esta acta
-sigue registrando dos P1 (P1-1 FPS, P1-2 V.d-7B sin integrar). Todo lo demás del criterio está medido
+sigue registrando un P1 (P1-1 FPS). Todo lo demás del criterio está medido
 y en verde —un único enumerador
 autoritativo, determinismo, paridad de IA, una parcela, dos parcelas, preview de tres, cancelar,
 candidato obsoleto, save/load, etapas de obra, 16/16 capturas revisadas y gates completos—.
 **P1-3 quedó cerrado el 2026-11-02** con la corrida dedicada de §14.2 y la sonda de alcanzabilidad de
-§14.1. Corresponde al responsable aceptar P1-1/P1-2 y autorizar el playtest. No se declara V.d
+§14.1. Corresponde al responsable aceptar P1-1 y autorizar el playtest. No se declara V.d
 cerrada ni playtest humano superado. D-097 pasa a ACEPTADA porque existe un único
 enumerador autoritativo, IA y jugador comparten legalidad, la enumeración es determinista, la
 evidencia de navegador muestra elección real de colocación y no se cruzó la frontera

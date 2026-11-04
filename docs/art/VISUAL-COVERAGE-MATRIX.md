@@ -2,38 +2,46 @@
 
 > Generada por `pnpm art:coverage:audit`. No promueve assets automáticamente.
 
-Estado de baseline: procedural 15/15 y 60/60 estados diferenciados; bundle Blender parcial.
-`preferred footprint` lee `domainFootprint` del manifest V2 vigente; el contrato equivalente de `BuildingDefinition` permanece pendiente de integrar desde V.d-7B.
+Estado actual: evidencia candidata 15/15; 18/60 estados renderizados; 14 edificios importados (14/14 complete); legacy congelado courtyard_home 4/4; promoción al runtime: pending QA.
+`preferred footprint` y `shapePenalty` están integrados en V.d-7B y alimentan la enumeración autoritativa de V.d-7C.
 
 | Domain type | Gameplay footprint | Preferred footprint | Candidate source | Final source | Complete | Construction | Damaged | Burning/VFX | Orientation | Status | Notes |
 |---|---:|---:|---|---|---|---|---|---|---|---|---|
-| `courtyard_home` | 4 cells / 1 parcel(s) | 2×2 | Kenney Suburban / Blender E2E | pending QA | PASS | PASS | PASS | PASS | 45 | BLENDER CANDIDATE | 1 floor baseline; manifest baseline; domain contract pending V.d-7B integration |
-| `workshop` | 8 cells / 1 parcel(s) | 2×4 | Kenney Industrial + KayKit props | pending QA | PASS | PASS | PASS | PASS | 45 | PROCEDURAL BASELINE | 1 floor baseline; manifest baseline; domain contract pending V.d-7B integration |
-| `cement_plant` | 10 cells / 2 parcel(s) | 2×5 | Kenney Industrial + KayKit props | pending QA | PASS | PASS | PASS | PASS | 45 | PROCEDURAL BASELINE | 2 floor baseline; manifest baseline; domain contract pending V.d-7B integration |
-| `brickworks` | 10 cells / 2 parcel(s) | 2×5 | Kenney Industrial + Poly Haven brick | pending QA | PASS | PASS | PASS | PASS | 45 | PROCEDURAL BASELINE | 2 floor baseline; manifest baseline; domain contract pending V.d-7B integration |
-| `steelworks` | 12 cells / 3 parcel(s) | 3×4 | Kenney Industrial + rusty metal | pending QA | PASS | PASS | PASS | PASS | 45 | PROCEDURAL BASELINE | 2 floor baseline; manifest baseline; domain contract pending V.d-7B integration |
-| `row_house` | 4 cells / 1 parcel(s) | 4×1 | Kenney Suburban + Quaternius Downtown | pending QA | PASS | PASS | PASS | PASS | 45 | PROCEDURAL BASELINE | 2 floor baseline; manifest baseline; domain contract pending V.d-7B integration |
-| `apartment_block` | 10 cells / 1 parcel(s) | 2×5 | Kenney Commercial + Quaternius Downtown | pending QA | PASS | PASS | PASS | PASS | 45 | PROCEDURAL BASELINE | 5 floor baseline; manifest baseline; domain contract pending V.d-7B integration |
-| `mixed_tenement` | 8 cells / 1 parcel(s) | 2×4 | Kenney Commercial + Quaternius Downtown | pending QA | PASS | PASS | PASS | PASS | 45 | PROCEDURAL BASELINE | 3 floor baseline; manifest baseline; domain contract pending V.d-7B integration |
-| `warehouse` | 12 cells / 2 parcel(s) | 3×4 | Kenney Industrial | pending QA | PASS | PASS | PASS | PASS | 45 | PROCEDURAL BASELINE | 1 floor baseline; manifest baseline; domain contract pending V.d-7B integration |
-| `town_hall` | 12 cells / 1 parcel(s) | 3×4 | Quaternius Downtown composition | pending QA | PASS | PASS | PASS | PASS | 45 | PROCEDURAL BASELINE | 4 floor baseline; manifest baseline; domain contract pending V.d-7B integration |
-| `school_block` | 14 cells / 1 parcel(s) | 2×7 | Quaternius Downtown composition | pending QA | PASS | PASS | PASS | PASS | 45 | PROCEDURAL BASELINE | 3 floor baseline; manifest baseline; domain contract pending V.d-7B integration |
-| `clinic` | 6 cells / 1 parcel(s) | 2×3 | Quaternius Downtown composition | pending QA | PASS | PASS | PASS | PASS | 45 | PROCEDURAL BASELINE | 2 floor baseline; manifest baseline; domain contract pending V.d-7B integration |
-| `police_station` | 6 cells / 1 parcel(s) | 2×3 | Quaternius Downtown + KayKit props | pending QA | PASS | PASS | PASS | PASS | 45 | PROCEDURAL BASELINE | 2 floor baseline; manifest baseline; domain contract pending V.d-7B integration |
-| `fire_station` | 8 cells / 1 parcel(s) | 2×4 | Quaternius Downtown + Kenney vehicle language | pending QA | PASS | PASS | PASS | PASS | 45 | PROCEDURAL BASELINE | 2 floor baseline; manifest baseline; domain contract pending V.d-7B integration |
-| `market_hall` | 10 cells / 1 parcel(s) | 2×5 | Kenney Commercial + Quaternius Downtown | pending QA | PASS | PASS | PASS | PASS | 45 | PROCEDURAL BASELINE | 2 floor baseline; manifest baseline; domain contract pending V.d-7B integration |
+| `courtyard_home` | 4 cells / 1 parcel(s) | 2×2 | Original procedural courtyard (legacy congelado, ruta interna) | legacy frozen | PASS | PASS | PASS | PASS | 45 | LEGACY FROZEN | 1 floor baseline; integrated V.d-7B preferredFootprint + shapePenalty |
+| `row_house` | 4 cells / 1 parcel(s) | 4×1 | Kenney City Kit Suburban · building-type-f.glb · CC0-1.0 | candidate evidence | PASS | PENDING | PENDING | PENDING | 45 | CANDIDATE EVIDENCE | 2 floor baseline; integrated V.d-7B preferredFootprint + shapePenalty |
+| `apartment_block` | 10 cells / 1 parcel(s) | 2×5 | Kenney City Kit Commercial · building-skyscraper-a.glb · CC0-1.0 | candidate evidence | PASS | PENDING | PENDING | PENDING | 45 | CANDIDATE EVIDENCE | 5 floor baseline; integrated V.d-7B preferredFootprint + shapePenalty |
+| `mixed_tenement` | 8 cells / 1 parcel(s) | 2×4 | Kenney City Kit Commercial · building-l.glb · CC0-1.0 | candidate evidence | PASS | PENDING | PENDING | PENDING | 45 | CANDIDATE EVIDENCE | 3 floor baseline; integrated V.d-7B preferredFootprint + shapePenalty |
+| `workshop` | 8 cells / 1 parcel(s) | 2×4 | Kenney City Kit Industrial · building-m.glb · CC0-1.0 | candidate evidence | PASS | PENDING | PENDING | PENDING | 45 | CANDIDATE EVIDENCE | 1 floor baseline; integrated V.d-7B preferredFootprint + shapePenalty |
+| `warehouse` | 12 cells / 2 parcel(s) | 3×4 | Kenney City Kit Industrial · building-l.glb · CC0-1.0 | candidate evidence | PASS | PENDING | PENDING | PENDING | 45 | CANDIDATE EVIDENCE | 1 floor baseline; integrated V.d-7B preferredFootprint + shapePenalty |
+| `cement_plant` | 10 cells / 2 parcel(s) | 2×5 | Kenney City Kit Industrial · building-c.glb · CC0-1.0 | candidate evidence | PASS | PENDING | PENDING | PENDING | 45 | CANDIDATE EVIDENCE | 2 floor baseline; integrated V.d-7B preferredFootprint + shapePenalty |
+| `brickworks` | 10 cells / 2 parcel(s) | 2×5 | Kenney City Kit Industrial · building-j.glb · CC0-1.0 | candidate evidence | PASS | PENDING | PENDING | PENDING | 45 | CANDIDATE EVIDENCE | 2 floor baseline; integrated V.d-7B preferredFootprint + shapePenalty |
+| `steelworks` | 12 cells / 3 parcel(s) | 3×4 | Kenney City Kit Industrial · building-h.glb · CC0-1.0 | candidate evidence | PASS | PENDING | PENDING | PENDING | 45 | CANDIDATE EVIDENCE | 2 floor baseline; integrated V.d-7B preferredFootprint + shapePenalty |
+| `town_hall` | 12 cells / 1 parcel(s) | 3×4 | Kenney City Kit Commercial · building-k.glb · CC0-1.0 | candidate evidence | PASS | PENDING | PENDING | PENDING | 45 | CANDIDATE EVIDENCE | 4 floor baseline; integrated V.d-7B preferredFootprint + shapePenalty |
+| `school_block` | 14 cells / 1 parcel(s) | 2×7 | Kenney City Kit Commercial · building-i.glb · CC0-1.0 | candidate evidence | PASS | PENDING | PENDING | PENDING | 45 | CANDIDATE EVIDENCE | 3 floor baseline; integrated V.d-7B preferredFootprint + shapePenalty |
+| `clinic` | 6 cells / 1 parcel(s) | 2×3 | Kenney City Kit Commercial · building-e.glb · CC0-1.0 | candidate evidence | PASS | PENDING | PENDING | PENDING | 45 | CANDIDATE EVIDENCE | 2 floor baseline; integrated V.d-7B preferredFootprint + shapePenalty |
+| `police_station` | 6 cells / 1 parcel(s) | 2×3 | Kenney City Kit Commercial · building-f.glb · CC0-1.0 | candidate evidence | PASS | PENDING | PENDING | PENDING | 45 | CANDIDATE EVIDENCE | 2 floor baseline; integrated V.d-7B preferredFootprint + shapePenalty |
+| `fire_station` | 8 cells / 1 parcel(s) | 2×4 | Kenney City Kit Commercial · building-g.glb · CC0-1.0 | candidate evidence | PASS | PENDING | PENDING | PENDING | 45 | CANDIDATE EVIDENCE | 2 floor baseline; integrated V.d-7B preferredFootprint + shapePenalty |
+| `market_hall` | 10 cells / 1 parcel(s) | 2×5 | Kenney City Kit Commercial · building-h.glb · CC0-1.0 | candidate evidence | PASS | PENDING | PENDING | PENDING | 45 | CANDIDATE EVIDENCE | 2 floor baseline; integrated V.d-7B preferredFootprint + shapePenalty |
 
-## Blender state gaps
+## Missing imported states
 
-- `bld_shopfront`: construction, damaged, burning duplicate an earlier state — **VISUAL STATE GAP**.
-- `bld_commercial_b`: construction, damaged, burning duplicate an earlier state — **VISUAL STATE GAP**.
-- `bld_residential_a`: construction, damaged, burning duplicate an earlier state — **VISUAL STATE GAP**.
-- `bld_commercial_c`: construction, damaged, burning duplicate an earlier state — **VISUAL STATE GAP**.
-- `bld_residential_b`: construction, damaged, burning duplicate an earlier state — **VISUAL STATE GAP**.
-- `bld_residential_c`: construction, damaged, burning duplicate an earlier state — **VISUAL STATE GAP**.
+- `row_house`: faltan construction, damaged, burning sobre la fuente importada — **PENDING**.
+- `apartment_block`: faltan construction, damaged, burning sobre la fuente importada — **PENDING**.
+- `mixed_tenement`: faltan construction, damaged, burning sobre la fuente importada — **PENDING**.
+- `workshop`: faltan construction, damaged, burning sobre la fuente importada — **PENDING**.
+- `warehouse`: faltan construction, damaged, burning sobre la fuente importada — **PENDING**.
+- `cement_plant`: faltan construction, damaged, burning sobre la fuente importada — **PENDING**.
+- `brickworks`: faltan construction, damaged, burning sobre la fuente importada — **PENDING**.
+- `steelworks`: faltan construction, damaged, burning sobre la fuente importada — **PENDING**.
+- `town_hall`: faltan construction, damaged, burning sobre la fuente importada — **PENDING**.
+- `school_block`: faltan construction, damaged, burning sobre la fuente importada — **PENDING**.
+- `clinic`: faltan construction, damaged, burning sobre la fuente importada — **PENDING**.
+- `police_station`: faltan construction, damaged, burning sobre la fuente importada — **PENDING**.
+- `fire_station`: faltan construction, damaged, burning sobre la fuente importada — **PENDING**.
+- `market_hall`: faltan construction, damaged, burning sobre la fuente importada — **PENDING**.
 
-Only `courtyard_home` currently maps a domain type to a Blender candidate with four distinct state hashes. The six additional Blender archetypes are candidates, not domain coverage, and reuse one image across states.
+La evidencia de edificios es candidata: los 14 importados tienen sólo `complete`; `courtyard_home` conserva su conjunto legacy congelado de cuatro estados. Nada se promociona al runtime sin QA visual.
 
 ## Gate
 
-V.e.1 may proceed to candidate assignment, but production is not complete: `final source` remains pending for all 15 types and six Blender archetypes require differentiated states.
+V.e puede pasar a revisión de candidatos, pero la producción no está completa: la evidencia importada es 14/14 en `complete`, el total es 18/60 estados y la promoción al runtime sigue pendiente de QA.

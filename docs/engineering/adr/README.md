@@ -90,3 +90,10 @@ misma enumeración autoritativa de huellas se expone como candidatas ordenadas c
 jugador elige una identidad y el comando la revalida antes de gastar nada. La IA y la automatización
 omiten la identidad y reciben la primera candidata de esa misma lista, así que no existen reglas de
 colocación por actor.
+
+## V.e — Producción visual y procedencia (2026-11-02)
+
+- [D-098 — Geometría de fuente real obligatoria](D-098-geometria-fuente-real.md) — ACEPTADA
+
+Retira la Building Factory falsa, exige procedencia física verificable para las fuentes importadas
+y separa la evidencia candidata de la promoción al runtime. Supersede las iteraciones V.e.2/V.e.3.

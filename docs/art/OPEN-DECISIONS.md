@@ -24,7 +24,7 @@
 | Tipografías | familias abiertas/licenciadas | abierta | UI design + legal |
 | Golden scenes | Art Lab + Playwright | **cerrada y revisada — D-081/D-082**: golden + pixel-diff local-only; CI usa smoke estructural por inestabilidad cross-environment | `pnpm art:visual` local; `pnpm smoke:art-lab` CI |
 | Repo de arte separado | no inicialmente | diferida | revisar al crecer binarios |
-| Building Factory | generación modular/procedural offline | **parcial — D-080/D-081**: factoría procedural para los 5 edificios + ruta Blender E2E demostrada para `courtyard_home` | línea por-asset completa en Beta |
+| Building Factory | generación modular/procedural offline | **retirada — D-098**: la factoría procedural de V.e.2/V.e.3 fue supersedida por catálogo de fuente real; `courtyard_home` queda sólo como legacy congelado | producción por fuente importada y estados condicionados |
 | Character Factory | base rig + variantes offline + batch directions | **parcial — D-080/D-081**: variantes procedurales 8/4 direcciones + E2E Blender para `vecino_variante` | rig y batch en Beta |
 | Assets third-party en Git | staging local por ahora | abierta | aprobar LFS + provenance + estructura |
 

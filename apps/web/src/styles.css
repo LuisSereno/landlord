@@ -2129,6 +2129,22 @@ button:disabled {
   display: block;
   object-fit: contain;
 }
+.role-preview-pending {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: auto;
+  border: 1px dashed #607985;
+  color: #a9bdc5;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+}
+.role-preview-pending small {
+  color: #7d93a0;
+  letter-spacing: 0.04em;
+}
 .coverage-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

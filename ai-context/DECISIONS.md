@@ -1437,4 +1437,4 @@ declarar una fuente que no importe físicamente al render. Reglas permanentes:
   salta D-097, reservada por la rama no mergeada `wip/vd7c-interactive-development-placement`.
 
 Detalle: `docs/execution/phase-4/ve-source-geometry-remediation-2026-11-02.md` y
-`docs/art/BUILDING-CATALOG.md`.
+`docs/art/BUILDING-CATALOG.md`. ADR: `docs/engineering/adr/D-098-geometria-fuente-real.md`.

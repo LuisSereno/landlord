@@ -129,14 +129,20 @@ export function VisualCatalog() {
       </section>
       <section id="characters">
         <h2>Characters</h2>
+        <p>
+          Role specification — visual production pending. No role-specific character render is
+          published yet.
+        </p>
         <div className="catalog-role-grid">
           {catalog.characters.map((character) => (
             <article className="catalog-card" data-character-card={character.id} key={character.id}>
-              <img
-                className="role-preview"
-                src={catalog.characterPreview}
-                alt={`${character.displayName} scale preview`}
-              />
+              <div
+                className="role-preview role-preview-pending"
+                aria-label="Visual production pending"
+              >
+                <span>ROLE</span>
+                <small>pending</small>
+              </div>
               <h3>{character.displayName}</h3>
               <p>
                 {character.role} · {character.scope}
@@ -144,12 +150,16 @@ export function VisualCatalog() {
               <small>
                 {character.baseSource} · {character.clothing} · {character.roleProp}
               </small>
+              <small>Role specification — visual production pending</small>
             </article>
           ))}
         </div>
       </section>
       <section id="animations">
         <h2>Animations</h2>
+        <p>
+          Animation definitions are catalogued; rendered previews are pending visual production.
+        </p>
         <p>
           Runtime: {catalog.characterAnimations.runtime.join(", ")}. Showcase-only:{" "}
           {catalog.characterAnimations.showcase.join(", ")}.

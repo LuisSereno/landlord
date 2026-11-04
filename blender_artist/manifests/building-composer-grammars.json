@@ -1518,7 +1518,7 @@
         {
           "id": "loggia_entrance",
           "label": "lonja acristalada con volado sobre la escalera",
-          "bayRule": "drawn",
+          "bayRule": "center",
           "frameRole": "curtain_wall",
           "leafRole": null,
           "aboveRole": "overhang",

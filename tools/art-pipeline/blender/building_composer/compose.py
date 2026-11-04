@@ -1091,7 +1091,8 @@ class Composition:
             )
 
         if distribution == "symmetric":
-            bay_indices = self._symmetric_indices(available_indices, len(bays), count)
+            mirror_axis = self._facade_feature_mirror_axis(side, volume, len(bays))
+            bay_indices = self._symmetric_indices(available_indices, mirror_axis, count)
         else:
             raise CompositionError(
                 f"§12: distribución {distribution} no soportada (sólo symmetric)"
@@ -1136,11 +1137,25 @@ class Composition:
             return set()
         return {access_bay}
 
-    def _symmetric_indices(self, available_indices, total_bays, count):
-        """Selecciona `count` índices simétricos respecto al centro de la banda.
+    def _facade_feature_mirror_axis(self, side, volume, total_bays):
+        """El eje de simetría de un facade feature es el bay del acceso si comparten
+        volumen+front; si no, es el centro geométrico de la banda.
+
+        Esto es lo que exige una recipe simétrica: las columnas quedan especulares
+        respecto al eje del pórtico, no respecto a un centro de fachada que puede
+        estar desplazado cuando el número de bays es par.
+        """
+        access_bay = getattr(self, "access_bay", None)
+        access_volume = getattr(self, "access_volume", None)
+        if side == "front" and access_bay is not None and volume is access_volume:
+            return float(access_bay)
+        return (total_bays - 1) / 2.0
+
+    def _symmetric_indices(self, available_indices, mirror_axis, count):
+        """Selecciona `count` índices simétricos respecto a mirror_axis.
 
         available_indices: lista ordenada de índices utilizables (sin el bay reservado).
-        total_bays: total de bays en la banda, para centrar la distribución.
+        mirror_axis: índice (posiblemente fraccional) alrededor del cual se espeja.
         count: número exacto requerido.
         """
         if count == 0:
@@ -1149,8 +1164,7 @@ class Composition:
             raise CompositionError(
                 f"§12: distribución simétrica requiere {count} bays pero solo hay {len(available_indices)} disponibles"
             )
-        center = (total_bays - 1) / 2.0
-        ordered = sorted(available_indices, key=lambda i: (abs(i - center), i))
+        ordered = sorted(available_indices, key=lambda i: (abs(i - mirror_axis), i))
         return sorted(ordered[:count])
 
     def _build_required_features(self, required_features, variant_features, prop_slots):

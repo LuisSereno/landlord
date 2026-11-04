@@ -186,7 +186,7 @@ class GrammarDocument:
         if record["buildingType"] != building_type:
             raise GrammarError(f"{building_type}: la gramática se autodenomina {record['buildingType']}")
         self._check_roles(record, catalog, profile)
-        self._check_recipes(record)  # V.g: validar recetas arquitectónicas
+        self._check_recipes(record, catalog, record["family"])  # V.g: validar recetas arquitectónicas
         return record
 
     def _check_roles(self, record, catalog, profile):
@@ -382,7 +382,7 @@ class GrammarDocument:
                         f"y la crujía es de {bay} m"
                     )
 
-    def _check_recipes(self, record):
+    def _check_recipes(self, record, catalog, family):
         """V.g: validar recetas arquitectónicas con contrato estricto.
 
         Cada receta debe declarar combinaciones compatibles de ejes y features obligatorios.
@@ -464,7 +464,7 @@ class GrammarDocument:
                     )
                 
                 for feature in required_features:
-                    self._validate_feature(feature, recipe_id, "required", secondary_ids, prop_ids, record)
+                    self._validate_feature(feature, recipe_id, "required", secondary_ids, prop_ids, record, catalog, family)
             
             # Validar variantFeatures
             if "variantFeatures" in recipe:
@@ -475,10 +475,15 @@ class GrammarDocument:
                     )
                 
                 for feature in variant_features:
-                    self._validate_feature(feature, recipe_id, "variant", secondary_ids, prop_ids, record)
+                    self._validate_feature(feature, recipe_id, "variant", secondary_ids, prop_ids, record, catalog, family)
     
-    def _validate_feature(self, feature, recipe_id, context, secondary_ids, prop_ids, record):
-        """Valida un feature (required o variant) con contrato estricto."""
+    def _validate_feature(self, feature, recipe_id, context, secondary_ids, prop_ids, record, catalog=None, family=None):
+        """Valida un feature (required o variant) con contrato estricto.
+
+        Cuando se dispone de `catalog`+`family` se comprueban aquí, en carga del manifiesto,
+        las invariantes estáticas del facade feature (módulo existe, familia permitida, rol
+        coincide). Una gramática incorrecta debe fallar antes de dibujar cualquier placement.
+        """
         if "kind" not in feature or "id" not in feature:
             raise GrammarError(
                 f"receta {recipe_id} {context}Feature: falta kind o id"
@@ -533,6 +538,20 @@ class GrammarDocument:
                 raise GrammarError(
                     f"receta {recipe_id} {context}Feature: targetVolume debe ser entero >= 0"
                 )
+
+            # V.g P1: validar módulo/familia/rol en load, no al componer.
+            if catalog is not None and family is not None:
+                module = catalog.get(feature["module"])
+                if family not in module.families:
+                    raise GrammarError(
+                        f"receta {recipe_id} {context}Feature: módulo {module.id} "
+                        f"no está permitido para la familia {family}"
+                    )
+                if module.role != feature["role"]:
+                    raise GrammarError(
+                        f"receta {recipe_id} {context}Feature: módulo {module.id} "
+                        f"tiene role={module.role} pero el feature pide role={feature['role']}"
+                    )
 
     def _check_supports(self, supports, catalog, label):
         for support in supports:

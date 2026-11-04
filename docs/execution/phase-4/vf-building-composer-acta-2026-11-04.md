@@ -1,10 +1,15 @@
-# V.f Building Composer Spike — Acta Final (REWORK cerrado)
+# V.f Building Composer Spike — Acta Final (REWORK cerrado + revisión humana)
 
 Fecha: 2026-11-04
 Rama: `wip/vf-building-composer-spike`
-HEAD final: `29588db`
+HEAD al momento de la revisión humana: `b288069d` ("se sube todo"; el commit de cierre documental de
+esta acta lo sucede). El HEAD documentado en la primera versión del acta era `29588db`; se corrige aquí.
 Baseline de la rama: `wip/ve-integrated-correction@39640cf` (incorporado `8d1da1c` vía R8)
-Estado: **V.f BUILDING COMPOSER SPIKE — DONE**
+Estado: **V.f BUILDING COMPOSER SPIKE — DONE** (aprobado por el responsable en §15 tras revisión humana)
+
+> Distinción explícita del responsable: **Building Composer: aprobado.** **Integración visual real
+> dentro del juego (Phaser): todavía por demostrar.** §28 generó un montaje Blender, no el edificio
+> ejecutándose en el tejido urbano V.d. Ese test in-game es el siguiente paso, fuera del alcance de V.f.
 
 ## 1. Alcance de esta acta
 
@@ -164,9 +169,53 @@ Nada se promovió al bundle durante el spike.
 ## 14. Recomendación
 
 El Building Composer cumple su gate: 12/12 reproducibles, procedencia íntegra, identidad visual por
-familia, determinismo estructural byte-idéntico, publicación atómica. Se puede considerar escalar a los
-15 edificios de dominio, con dos condiciones: (a) validar la legibilidad y escala in-game mediante el
-playtest humano del responsable sobre §27/§28/§29, y (b) aceptar que el bundle runtime se regenerará
-con el recorte determinista (dims/pivot estables) cuando se promueva fuera del spike.
+familia, determinismo estructural byte-idéntico, publicación atómica. El responsable ha realizado la
+revisión visual humana (§15) y **escalaría el sistema a los 15 edificios de dominio**. La siguiente
+etapa no es otra ronda de este spike, sino **integrar una selección de candidatos en el juego real**
+(Phaser, dentro del tejido urbano V.d) para el test in-game que §28 todavía no ejecuta.
 
-No se aprueba ninguna variante como APPROVED: eso lo decide el responsable en revisión visual humana.
+## 15. Revisión humana (responsable, 2026-11-04)
+
+El responsable revisó las 12 variantes sobre §27/§28/§29 y las clasificó. Esto sustituye la nota de
+"No se aprueba ninguna variante" de la primera versión del acta: **la aprobación la otorga el humano,
+no el agente.** Criterio de aceptación §31: ≥2/4 variantes visualmente aceptables por familia → CUMPLIDO.
+
+| Familia | Variante | Valoración humana |
+|---|---|---|
+| row_house | 1000 | PASS |
+| row_house | 1001 | PASS |
+| row_house | 1002 | PASS |
+| row_house | 1003 | REWORK futuro (muro demasiado ciego; parece almacén residencializado) |
+| cement_plant | 1000 | ACEPTABLE |
+| cement_plant | 1001 | PASS |
+| cement_plant | 1002 | ACEPTABLE (chimenea exenta demasiado aislada, composición fragmentada) |
+| cement_plant | 1003 | PASS |
+| town_hall | 1000 | PASS |
+| town_hall | 1001 | REWORK futuro |
+| town_hall | 1002 | PASS con reservas |
+| town_hall | 1003 | REWORK futuro |
+
+**Variantes seleccionables para producción:** `row_house 1000/1001/1002`, `cement_plant 1001/1003`,
+`town_hall 1000/1002`.
+
+Observación semántica del responsable para el escalado (no reabre V.f): el `water_tower` admitido como
+lenguaje cívico en town_hall produce la asociación contraria (utility industrial sobre edificio
+institucional). Retirar `water_tower` del vocabulario de identidad de `civic_landmark` al escalar.
+
+## 16. Salvedades formales registradas en el cierre
+
+- **§27**: la especificación pide `procedural | source evidence | v1 | v2 | v3 | v4`. Las contact sheets
+  actuales son `procedural | v1 | v2 | v3 | v4`: falta la columna independiente de *source evidence*.
+  No se repite V.f (la mejora ya se verificó comparando con los renders directos D-098), pero §27 no
+  coincide al 100 % con la especificación. Queda como deuda menor.
+- **§28**: se titula "QA in-game". Lo generado es un montaje Blender (`build_building_composer_context.py`),
+  útil pero NO el edificio ejecutándose en Phaser. La integración visual real queda por demostrar.
+- **Integridad de fuentes `archived`**: `validate-art-staging.mjs` para fuentes archivadas comprueba que
+  `extractDir` existe y no está vacío, pero no demuestra que el contenido extraído siga siendo
+  byte-equivalente al archive original. Es una relajación real del control de integridad; se trata por
+  separado, fuera de V.f.
+- **CI**: no hay checks de GitHub asociados al HEAD actual; los verdes documentados son ejecuciones
+  locales del agente, no una corrida CI remota independiente.
+- **Scope de commits**: `b288069d` ("se sube todo") agrupa los cambios de `staging-sources`/
+  `license-allowlist`/`validate-art-staging` (repo cleanup de otra sesión) en un commit separado de los
+  de V.f; se dejan conceptualmente fuera del cierre del compositor.

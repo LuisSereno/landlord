@@ -1,0 +1,104 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-03T22:29:17.713Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/tmp/vf4-separate-test",
+ "requested": 2,
+ "rendered": 2,
+ "totalGenerationMs": 159762,
+ "blenderPeakRssMb": 5858.5,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "a0095574bf9f22ff2f57936aadb458447e39912d9df1992b6cb17400efb6ee01",
+   "after": "a0095574bf9f22ff2f57936aadb458447e39912d9df1992b6cb17400efb6ee01"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "5dbfe22a4a25247b67fa7092088412fbdeb3a7cfc87096bcd150b5d85c943841",
+   "after": "5dbfe22a4a25247b67fa7092088412fbdeb3a7cfc87096bcd150b5d85c943841"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vf_town_hall_1000",
+   "buildingType": "town_hall",
+   "family": "civic_landmark",
+   "variantSeed": 1000,
+   "compositionSignature": "c2188bbd3ef0ed0457ccb0c7369bbfcce8da3c5d05706ded6cb1127a19ca9ac6",
+   "triangleCount": 11102,
+   "objectCount": 71,
+   "moduleCount": 11,
+   "materials": 29,
+   "textures": 20,
+   "bounds": {
+    "x": {
+     "min": -8,
+     "max": 7.2135
+    },
+    "y": {
+     "min": -3.9908,
+     "max": 6
+    },
+    "z": {
+     "min": 0,
+     "max": 18
+    }
+   },
+   "renderMs": 17188.35,
+   "pngBytes": 313269,
+   "pngPixels": [
+    465,
+    668
+   ],
+   "pixelSha256": "bf2daf2c433b9f5204e1d20cf4578d7c2f385ca062202e3f129ef794e585bfb7",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.4591,
+    "y": 0.8782
+   }
+  },
+  {
+   "candidateId": "vf_town_hall_1001",
+   "buildingType": "town_hall",
+   "family": "civic_landmark",
+   "variantSeed": 1001,
+   "compositionSignature": "fcbbb060871543bc90a3be674f08454b8516ced04473a140b435cfa94493681c",
+   "triangleCount": 5592,
+   "objectCount": 79,
+   "moduleCount": 12,
+   "materials": 26,
+   "textures": 22,
+   "bounds": {
+    "x": {
+     "min": -8.428,
+     "max": 7.2135
+    },
+    "y": {
+     "min": -3.9908,
+     "max": 6
+    },
+    "z": {
+     "min": 0,
+     "max": 18
+    }
+   },
+   "renderMs": 18279.22,
+   "pngBytes": 309302,
+   "pngPixels": [
+    465,
+    668
+   ],
+   "pixelSha256": "80cf514e52875623c9bcc3d0e61c26d398daf36541b857faa1f08ac2ed72cb14",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.4591,
+    "y": 0.8782
+   }
+  }
+ ],
+ "failures": []
+}

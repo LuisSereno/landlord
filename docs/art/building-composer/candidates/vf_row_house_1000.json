@@ -2512,7 +2512,7 @@
  "triangleCount": 3646,
  "materialCount": 19,
  "textureCount": 17,
- "renderTime": 10097.59,
+ "renderTime": 10318.25,
  "pngBytes": 178670,
  "sha256": "9bd059ea66c6474d1ff1d7006e10a2308ae29b2cbf47a85dbbd60f506b376372",
  "pixelSha256": "2b10cee2bd45d841bd29f9fbc94d7f95b17e31c323982af07f079ffa9b98226c",
@@ -2692,14 +2692,14 @@
   "pixels": {
    "width": 3372,
    "height": 3444,
-   "sha256": "6c126770c914f15623d064e857258f9b754387deed8580c470f20548e6b90b9e"
+   "sha256": "b87818590b506b97597e1c7ca089500747928a7e07c2da993578b8da80b6503b"
   }
  },
  "render": {
-  "renderMs": 10097.59,
-  "prepMs": 18614.68,
-  "totalMs": 160679.86,
-  "peakRssMb": 3140.9
+  "renderMs": 10318.25,
+  "prepMs": 19401.22,
+  "totalMs": 158098.56,
+  "peakRssMb": 3128.0
  },
  "request": {
   "candidateId": "vf_row_house_1000",

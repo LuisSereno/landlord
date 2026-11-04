@@ -225,7 +225,72 @@ class Composition:
             "silhouette": f"{silhouette['id']}/{corner['id']}",
             "intrinsic_props": "+".join(sorted(choices["intrinsic_props"])) or "none",
         }
+        self._check_semantic_identity(access, roof, secondary, secondary_placed)
         return self.finalize()
+
+    def _check_semantic_identity(self, access, roof, secondary, secondary_placed):
+        """R3: la gramática no sólo produce geometría válida, produce un edificio RECONOCIBLE.
+
+        El validador técnico (§15/§17/§18) comprueba bounds, triángulos y apoyo en suelo. Eso no
+        sabe qué hace que una casa sea una casa o que una cementera sea una cementera. El
+        responsable documentó en `c1a635b` dos fallos de identidad que pasaban todos los checks:
+        una hilera residencial con chimenea industrial plantada en el suelo a 6 m del edificio,
+        y una cementera que perdía sus silos y salía como nave comercial acristalada.
+
+        Las reglas viven en la gramática, no aquí, para que un cambio de identidad sea un diff de
+        datos y no una edición del compositor. Este método sólo sabe leerlas y aplicarlas.
+        """
+        rules = self.record.get("semanticIdentity")
+        if not rules:
+            return
+        placed_roles = {record["role"] for record in self.placements}
+        placed_modules = {record["moduleId"] for record in self.placements}
+        problems = []
+
+        for role in rules.get("requireRoles", []):
+            if role not in placed_roles:
+                problems.append(f"falta el rol obligatorio `{role}`")
+
+        for any_roles in rules.get("requireAnyRoles", []):
+            if not placed_roles & set(any_roles):
+                problems.append(
+                    "no hay ningún rol de la familia identitaria "
+                    + "/".join(f"`{r}`" for r in any_roles)
+                )
+
+        for kind in rules.get("requireRoofKinds", []):
+            if roof["kind"] not in kind:
+                problems.append(
+                    f"la cubierta `{roof['id']}` (kind `{roof['kind']}`) no es residencial: "
+                    + "exigida en "
+                    + "/".join(f"`{k}`" for k in kind)
+                )
+                break
+
+        if not access.get("domestic", True) and rules.get("requireDomesticAccess"):
+            problems.append(f"el acceso `{access['id']}` no es doméstico")
+
+        prohibited_modules = set(rules.get("prohibitSecondaryModules", []))
+        if secondary_placed and secondary.get("module") in prohibited_modules:
+            problems.append(
+                f"el secundario `{secondary['id']}` usa el módulo industrial "
+                f"`{secondary['module']}`, prohibido en esta familia"
+            )
+
+        prohibited_access = set(rules.get("prohibitAccessIds", []))
+        if access["id"] in prohibited_access:
+            problems.append(f"el acceso `{access['id']}` está prohibido en esta familia")
+
+        if rules.get("requireSecondaryPlaced") and not secondary_placed:
+            problems.append(
+                f"el secundario `{secondary['id']}` es obligatorio pero no cupo en la parcela "
+                "(quedaría `sin_hueco` y el edificio perdería su identidad)"
+            )
+
+        if problems:
+            raise CompositionError(
+                "SEMANTIC_IDENTITY_INCOMPLETE [" + self.family + "]: " + "; ".join(problems)
+            )
 
     def _resolve_volume(self, spec):
         x0, y0, wide, deep = spec["cells"]

@@ -388,7 +388,18 @@
           "atCell": [3, 0],
           "supports": []
         }
-      ]
+      ],
+      "semanticIdentity": {
+        "description": "R3: una casa adosada se reconoce por puerta doméstica, cubierta inclinada y ausencia de maquinaria industrial en el solar. El responsable documentó en c1a635b una hilera con chimenea Kenney Industrial plantada a 6 m del edificio: geométricamente válida, semánticamente absurda.",
+        "requireRoles": ["door", "doorframe"],
+        "requireRoofKinds": [["gable", "hip", "valley", "dormer", "mansard"]],
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_chimney_basic",
+          "mod_kenney_ind_chimney_medium",
+          "mod_kenney_ind_chimney_large"
+        ],
+        "prohibitAccessIds": ["shopfront_canopy"]
+      }
     },
     "cement_plant": {
       "buildingType": "cement_plant",
@@ -793,7 +804,12 @@
           "atCell": null,
           "supports": []
         }
-      ]
+      ],
+      "semanticIdentity": {
+        "description": "R3: una cementera se reconoce por su maquinaria. Sin silo, tanque, chimenea, torre de agua o extractor visible, el jugador lee 'nave comercial acristalada' y el edificio pierde identidad — el fallo que el responsable documentó en vf_cement_plant_1000, donde `storage_tank/sin_hueco` dejó la variante sin proceso industrial.",
+        "requireAnyRoles": [["tank", "chimney", "water_tower", "extractor"]],
+        "requireSecondaryPlaced": true
+      }
     },
     "town_hall": {
       "buildingType": "town_hall",
@@ -1168,7 +1184,14 @@
           "atCell": null,
           "supports": []
         }
-      ]
+      ],
+      "semanticIdentity": {
+        "description": "R3: un edificio cívico singular se reconoce por acceso monumental más un lenguaje arquitectónico (columnas, pilastras, torre cívica, bloque cívico o zócalo). Sin esos roles es una nave de oficinas con tejado a dos aguas.",
+        "requireRoles": ["door", "doorframe"],
+        "requireAnyRoles": [
+          ["column", "pilaster", "civic_tower", "civic_block", "plinth", "corner_column"]
+        ]
+      }
     }
   }
 }

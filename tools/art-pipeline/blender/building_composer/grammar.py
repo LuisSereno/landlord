@@ -36,6 +36,7 @@ GRAMMAR_KEYS = {
     "buildingType",
     "family",
     "label",
+    "notes",
     "yard",
     "levelsFromDomain",
     "cornerModes",
@@ -47,7 +48,7 @@ GRAMMAR_KEYS = {
     "accessOptions",
     "propOptions",
     "secondaryOptions",
-    "notes",
+    "semanticIdentity",
 }
 # Cada eje debe poder cambiar la geometría por sí solo: sin opción lista, el eje no puede variar.
 AXIS_OPTIONS = {

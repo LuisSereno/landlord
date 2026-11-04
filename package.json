@@ -28,6 +28,7 @@
     "art:building-composer:determinism": "node scripts/build-building-composer.mjs --regenerate",
     "art:building-composer:validate": "node scripts/validate-building-composer.mjs",
     "art:building-composer:validate:test": "node scripts/validate-building-composer.test.mjs",
+    "art:building-composer:geometry:test": "python3 tools/art-pipeline/blender/test_building_composer_geometry.py",
     "art:character-factory:validate": "node scripts/validate-character-factory.mjs",
     "art:world-catalog:validate": "node scripts/validate-world-asset-catalog.mjs",
     "art:catalog:generate": "node scripts/generate-visual-catalog.mjs",

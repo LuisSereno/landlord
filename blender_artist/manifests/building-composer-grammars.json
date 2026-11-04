@@ -1129,6 +1129,3706 @@
           ["column", "pilaster", "civic_tower", "civic_block", "plinth", "corner_column", "water_tower"]
         ]
       }
+    },
+    "courtyard_home": {
+      "buildingType": "courtyard_home",
+      "family": "residential_low",
+      "label": "Casa compacta con patio (2×2 celdas, 1 planta)",
+      "notes": "V.g: arquetipo de vivienda urbana compacta con patio o recinto doméstico. El solar real del dominio mide 8×8 m; la gramática reserva 0 celdas de yard para maximizar la construcción en la parcela, pero el massing puede dejar hueco interior para el patio. La identidad doméstica se impone por cubierta inclinada, entrada clara y ausencia total de lenguaje industrial o comercial.",
+      "yard": { "leftCells": 0, "rightCells": 0, "frontCells": 0 },
+      "levelsFromDomain": true,
+      "cornerModes": [
+        { "id": "flush", "label": "esquina de paneles", "module": null, "widthMeters": null }
+      ],
+      "massingOptions": [
+        {
+          "id": "compact_block",
+          "label": "bloque compacto cuadrado sin patio",
+          "volumes": [
+            {
+              "cells": [0, 0, 2, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "l_shaped",
+          "label": "forma de L con patio en esquina",
+          "volumes": [
+            {
+              "cells": [0, 0, 2, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [0, 1, 1, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "u_shaped",
+          "label": "forma de U con patio central",
+          "volumes": [
+            {
+              "cells": [0, 0, 1, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [1, 0, 1, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "courtyard_walls",
+          "label": "cuerpo principal con muro de patio",
+          "volumes": [
+            {
+              "cells": [0, 0, 2, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        }
+      ],
+      "facadePalettes": [
+        {
+          "id": "brick_domestic",
+          "label": "ladrillo visto doméstico",
+          "roleModule": {
+            "wall_panel": "mod_megakit_brick_wall_2m",
+            "window_bay": "mod_megakit_brick_window_single_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        },
+        {
+          "id": "stucco_domestic",
+          "label": "revoco con molduras domésticas",
+          "roleModule": {
+            "wall_panel": "mod_megakit_trim_wall_2m",
+            "window_bay": "mod_megakit_trim_window_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        }
+      ],
+      "rhythms": [
+        {
+          "id": "simple_window",
+          "label": "ventanas simples alternadas",
+          "bayMeters": 2,
+          "groundRole": null,
+          "tokens": {
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["wall_panel", "window_bay"]
+          }
+        },
+        {
+          "id": "paired_window",
+          "label": "ventanas pareadas",
+          "bayMeters": 2,
+          "groundRole": null,
+          "tokens": {
+            "front": ["window_bay", "wall_panel", "window_bay"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["window_bay"]
+          }
+        },
+        {
+          "id": "wainscoted",
+          "label": "zócalo continuo y huecos",
+          "bayMeters": 2,
+          "groundRole": "wainscot",
+          "tokens": {
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        }
+      ],
+      "silhouetteOptions": [
+        {
+          "id": "plain",
+          "label": "remate directo",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": null,
+          "projectionMeters": 0
+        },
+        {
+          "id": "brick_cornice",
+          "label": " cornisa de ladrillo",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_brick_center_2m",
+          "crownRole": null,
+          "projectionMeters": 0.2
+        },
+        {
+          "id": "trim_cornice",
+          "label": "cornisa de moldura",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_trim_center_2m",
+          "crownRole": null,
+          "projectionMeters": 0.428
+        }
+      ],
+      "roofOptions": [
+        {
+          "id": "gable_simple",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        },
+        {
+          "id": "gable_dormers",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 2,
+          "ridgeAlong": "x"
+        },
+        {
+          "id": "hip_roof",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        },
+        {
+          "id": "gable_corniced",
+          "kind": "gable",
+          "cornice": true,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        }
+      ],
+      "accessOptions": [
+        {
+          "id": "front_door",
+          "label": "puerta frontal centrada",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        },
+        {
+          "id": "door_with_canopy",
+          "label": "puerta con voladizo de alero",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": "overhang",
+          "projectionMeters": 0.4,
+          "steps": false
+        },
+        {
+          "id": "recessed_door",
+          "label": "puerta empotrada",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        }
+      ],
+      "propOptions": [],
+      "secondaryOptions": [
+        {
+          "id": "none",
+          "label": "sin volumen secundario",
+          "role": null,
+          "module": null,
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        }
+      ],
+      "semanticIdentity": {
+        "description": "V.g: casa doméstica compacta. Se reconoce por escala reducida, cubierta inclinada, entrada doméstica clara y ausencia total de lenguaje industrial o comercial. El patio o muro bajo puede aparecer como massing pero no como volumen secundario industrial.",
+        "requireRoles": ["door", "doorframe"],
+        "requireRoofKinds": [["gable", "hip", "valley", "dormer", "mansard"]],
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_chimney_basic",
+          "mod_kenney_ind_chimney_medium",
+          "mod_kenney_ind_chimney_large",
+          "mod_kenney_ind_tank_small",
+          "mod_kenney_ind_tank_large",
+          "mod_kenney_ind_water_tower"
+        ],
+        "prohibitAccessIds": ["shopfront_canopy", "glazed_lobby", "canopied_dock"]
+      }
+    },
+    "apartment_block": {
+      "buildingType": "apartment_block",
+      "family": "residential_low",
+      "label": "Bloque de viviendas (5×2 celdas, 5 plantas)",
+      "notes": "V.g: edificio residencial privado más alto. La verticalidad se impone por las 5 plantas del dominio y massing que enfatiza la altura. La repetición de ventanas y la entrada comunitaria lo diferencian radicalmente de row_house. El solar real mide 20×8 m.",
+      "yard": { "leftCells": 0, "rightCells": 0, "frontCells": 0 },
+      "levelsFromDomain": true,
+      "cornerModes": [
+        { "id": "flush", "label": "esquina de paneles", "module": null, "widthMeters": null },
+        {
+          "id": "brick_post",
+          "label": "poste de esquina de ladrillo",
+          "module": "mod_megakit_brick_corner_plain_2m",
+          "widthMeters": 2
+        },
+        {
+          "id": "trim_corner",
+          "label": "posteode de moldura",
+          "module": "mod_megakit_trim_corner_2m",
+          "widthMeters": 2
+        }
+      ],
+      "massingOptions": [
+        {
+          "id": "simple_tower",
+          "label": "torre rectangular simple",
+          "volumes": [
+            {
+              "cells": [0, 0, 5, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "stepped_tower",
+          "label": "torre con retranqueo superior",
+          "volumes": [
+            {
+              "cells": [0, 0, 5, 2],
+              "levels": 4,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [1, 0, 3, 2],
+              "levels": 1,
+              "stackOn": 0,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "dual_wing",
+          "label": "dos alas simétricas",
+          "volumes": [
+            {
+              "cells": [0, 0, 2, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [3, 0, 2, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "base_and_tower",
+          "label": "base comercial con torre residencial",
+          "volumes": [
+            {
+              "cells": [0, 0, 5, 1],
+              "levels": 2,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [0, 1, 5, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        }
+      ],
+      "facadePalettes": [
+        {
+          "id": "brick_repeat",
+          "label": "ladrillo con repetición de ventanas",
+          "roleModule": {
+            "wall_panel": "mod_megakit_brick_wall_2m",
+            "window_bay": "mod_megakit_brick_window_single_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        },
+        {
+          "id": "stucco_modern",
+          "label": "revoco moderno con bandas",
+          "roleModule": {
+            "wall_panel": "mod_megakit_trim_wall_2m",
+            "window_bay": "mod_megakit_trim_window_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        },
+        {
+          "id": "mixed_facade",
+          "label": "fachada mixta ladrillo-revoco",
+          "roleModule": {
+            "wall_panel": "mod_megakit_brick_wall_2m",
+            "window_bay": "mod_megakit_brick_window_trim_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        }
+      ],
+      "rhythms": [
+        {
+          "id": "regular_grid",
+          "label": "retícula regular de ventanas",
+          "bayMeters": 2,
+          "groundRole": "ground_panel",
+          "tokens": {
+            "front": ["window_bay", "wall_panel"],
+            "rear": ["window_bay", "wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        },
+        {
+          "id": "dense_windows",
+          "label": "ventanas densas cada crujía",
+          "bayMeters": 2,
+          "groundRole": "ground_panel",
+          "tokens": {
+            "front": ["window_bay", "window_bay"],
+            "rear": ["window_bay", "wall_panel"],
+            "sides": ["window_bay"]
+          }
+        },
+        {
+          "id": "banded_horizontal",
+          "label": "bandas horizontales continuas",
+          "bayMeters": 2,
+          "groundRole": "wainscot",
+          "tokens": {
+            "front": ["window_bay", "wall_panel", "window_bay"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        },
+        {
+          "id": "vertical_emphasis",
+          "label": "énfasis vertical con pilasteras",
+          "bayMeters": 2,
+          "groundRole": "ground_panel",
+          "tokens": {
+            "front": ["wall_panel", "window_bay", "wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        }
+      ],
+      "silhouetteOptions": [
+        {
+          "id": "flat_parapet",
+          "label": "pretil plano",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": "crown_panel",
+          "projectionMeters": 0
+        },
+        {
+          "id": "corniced_parapet",
+          "label": "cornisa conpretil",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_brick_center_2m",
+          "crownRole": "crown_panel",
+          "projectionMeters": 0.2
+        },
+        {
+          "id": "trim_cornice",
+          "label": "cornisa de moldura",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_trim_center_2m",
+          "crownRole": null,
+          "projectionMeters": 0.428
+        }
+      ],
+      "roofOptions": [
+        {
+          "id": "gable_roof",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        },
+        {
+          "id": "gable_with_equipment",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        },
+        {
+          "id": "gable_dormers",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 2,
+          "ridgeAlong": "x"
+        }
+      ],
+      "accessOptions": [
+        {
+          "id": "communal_entrance",
+          "label": "entrada comunitaria centrada",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        },
+        {
+          "id": "canopied_entrance",
+          "label": "entrada con voladizo",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": "overhang",
+          "projectionMeters": 0.4,
+          "steps": false
+        },
+        {
+          "id": "recessed_lobby",
+          "label": "vestíbulo empotrado",
+          "bayRule": "drawn",
+          "frameRole": "doorframe",
+          "leafRole": null,
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        }
+      ],
+      "propOptions": [],
+      "secondaryOptions": [
+        {
+          "id": "none",
+          "label": "sin volumen secundario",
+          "role": null,
+          "module": null,
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        }
+      ],
+      "semanticIdentity": {
+        "description": "V.g: bloque de viviendas alto. Se reconoce por su verticalidad (5 plantas), repetición de ventanas, entrada comunitaria y ausencia de lenguaje industrial o comercial dominante. Debe diferenciarse radicalmente de row_house por altura y masa.",
+        "requireRoles": ["door", "doorframe"],
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_chimney_basic",
+          "mod_kenney_ind_chimney_medium",
+          "mod_kenney_ind_chimney_large",
+          "mod_kenney_ind_tank_small",
+          "mod_kenney_ind_tank_large"
+        ],
+        "prohibitAccessIds": ["shopfront_canopy", "canopied_dock"]
+      }
+    },
+    "mixed_tenement": {
+      "buildingType": "mixed_tenement",
+      "family": "residential_low",
+      "label": "Inmueble mixto (4×2 celdas, 3 plantas)",
+      "notes": "V.g: comercio en planta baja + vivienda en plantas superiores. La planta baja se resuelve con shopfronts, toldos y accesos comerciales; las plantas superiores con ventanas residenciales. Una cornisa marca la transición entre ambos. Debe ser imposible confundirlo con apartment_block desde 1×.",
+      "yard": { "leftCells": 0, "rightCells": 0, "frontCells": 0 },
+      "levelsFromDomain": true,
+      "cornerModes": [
+        { "id": "flush", "label": "esquina de paneles", "module": null, "widthMeters": null }
+      ],
+      "massingOptions": [
+        {
+          "id": "uniform_block",
+          "label": "bloque uniforme de tres plantas",
+          "volumes": [
+            {
+              "cells": [0, 0, 4, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "ground_commercial",
+          "label": "planta baja comercial con pisos arriba",
+          "volumes": [
+            {
+              "cells": [0, 0, 4, 2],
+              "levels": 1,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [0, 0, 4, 2],
+              "levels": 2,
+              "stackOn": 0,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "corner_shop",
+          "label": "esquina comercial con volumen destacado",
+          "volumes": [
+            {
+              "cells": [0, 0, 2, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [2, 0, 2, 1],
+              "levels": 2,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "stepped_front",
+          "label": "fachada escalonada con comercio",
+          "volumes": [
+            {
+              "cells": [0, 0, 3, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [3, 0, 1, 1],
+              "levels": 2,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        }
+      ],
+      "facadePalettes": [
+        {
+          "id": "brick_commercial",
+          "label": "ladrillo con escaparates comerciales",
+          "roleModule": {
+            "wall_panel": "mod_megakit_brick_wall_2m",
+            "window_bay": "mod_megakit_brick_window_single_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        },
+        {
+          "id": "stucco_commercial",
+          "label": "revoco con comercio en planta baja",
+          "roleModule": {
+            "wall_panel": "mod_megakit_trim_wall_2m",
+            "window_bay": "mod_megakit_trim_window_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        }
+      ],
+      "rhythms": [
+        {
+          "id": "shopfront_residential",
+          "label": "escaparates abajo, ventanas residenciales arriba",
+          "bayMeters": 2,
+          "groundRole": "window_bay",
+          "tokens": {
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["wall_panel"]
+          }
+        },
+        {
+          "id": "commercial_strip",
+          "label": "franja comercial continua en planta baja",
+          "bayMeters": 2,
+          "groundRole": "window_bay",
+          "tokens": {
+            "front": ["window_bay", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel", "window_bay"]
+          }
+        },
+        {
+          "id": "mixed_bays",
+          "label": "crujías mixtas comercio/vivienda",
+          "bayMeters": 2,
+          "groundRole": "ground_panel",
+          "tokens": {
+            "front": ["window_bay", "wall_panel", "window_bay"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["wall_panel"]
+          }
+        }
+      ],
+      "silhouetteOptions": [
+        {
+          "id": "corniced_transition",
+          "label": "cornisa marcando transición planta baja/pisos",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_brick_center_2m",
+          "crownRole": null,
+          "projectionMeters": 0.2
+        },
+        {
+          "id": "trim_cornice_parapet",
+          "label": "cornisa de moldura con pretil",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_trim_center_2m",
+          "crownRole": "crown_panel",
+          "projectionMeters": 0.428
+        },
+        {
+          "id": "awning_line",
+          "label": "línea de toldos en planta baja",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": null,
+          "projectionMeters": 0
+        }
+      ],
+      "roofOptions": [
+        {
+          "id": "gable_roof",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        },
+        {
+          "id": "gable_with_dormers",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 2,
+          "ridgeAlong": "x"
+        },
+        {
+          "id": "hip_roof",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        }
+      ],
+      "accessOptions": [
+        {
+          "id": "shopfront_entrance",
+          "label": "acceso directo a comercio",
+          "bayRule": "drawn",
+          "frameRole": "doorframe",
+          "leafRole": null,
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        },
+        {
+          "id": "residential_door",
+          "label": "puerta residencial lateral",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        },
+        {
+          "id": "canopied_shop",
+          "label": "escaparate con voladizo",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": null,
+          "aboveRole": "overhang",
+          "projectionMeters": 0.4,
+          "steps": false
+        }
+      ],
+      "propOptions": [
+        {
+          "id": "awning_front",
+          "label": "toldo frontal de comercio",
+          "role": "awning",
+          "module": "mod_kenney_com_awning_1_6m",
+          "at": "roof",
+          "offset": 0
+        },
+        {
+          "id": "signage_abstract",
+          "label": "rótulo abstracto comercial",
+          "role": "awning",
+          "module": "mod_kenney_com_parasol_a",
+          "at": "roof",
+          "offset": 0
+        }
+      ],
+      "secondaryOptions": [
+        {
+          "id": "none",
+          "label": "sin volumen secundario",
+          "role": null,
+          "module": null,
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "corner_shop_volume",
+          "label": "volumen de esquina comercial",
+          "role": "block",
+          "module": "mod_kenney_com_block_k",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        }
+      ],
+      "semanticIdentity": {
+        "description": "V.g: inmueble mixto comercio+vivienda. Se reconoce inmediatamente por planta baja comercial (escaparates, toldos, accesos comerciales) y plantas superiores residenciales (ventanas). La cornisa de transición es obligatoria. Debe ser imposible confundirlo con apartment_block.",
+        "requireRoles": ["door", "doorframe"],
+        "requireGroundCommercial": true,
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_chimney_basic",
+          "mod_kenney_ind_chimney_medium",
+          "mod_kenney_ind_chimney_large",
+          "mod_kenney_ind_tank_small",
+          "mod_kenney_ind_tank_large"
+        ]
+      }
+    },
+    "workshop": {
+      "buildingType": "workshop",
+      "family": "industrial_heavy",
+      "label": "Taller urbano ligero (4×2 celdas, 1 planta)",
+      "notes": "V.g: pequeño taller urbano de escala doméstica-industrial. La gran puerta de taller domina la fachada frontal; una entrada/oficina secundaria más pequeña aporta la lectura de acceso peatonal. Cubierta simple. Debe distinguirse de warehouse por escala menor (1 planta, 4×2 vs 4×3), presencia de puerta de taller única y ausencia de repetición de muelles de carga.",
+      "yard": { "leftCells": 0, "rightCells": 0, "frontCells": 0 },
+      "levelsFromDomain": true,
+      "cornerModes": [
+        { "id": "flush", "label": "esquina de paneles", "module": null, "widthMeters": null }
+      ],
+      "massingOptions": [
+        {
+          "id": "single_hall",
+          "label": "nave única de una planta con puerta de taller frontal",
+          "volumes": [
+            {
+              "cells": [0, 0, 4, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_e"
+            }
+          ]
+        },
+        {
+          "id": "hall_and_office",
+          "label": "nave de taller con bloque de oficina adosado al frente",
+          "volumes": [
+            {
+              "cells": [0, 0, 3, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_n"
+            },
+            {
+              "cells": [3, 0, 1, 1],
+              "levels": 1,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "l_shaped_workshop",
+          "label": "nave en L con patio de servicio lateral",
+          "volumes": [
+            {
+              "cells": [0, 0, 4, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_f"
+            },
+            {
+              "cells": [0, 1, 2, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "compact_yard",
+          "label": "nave compacta con service yard trasero",
+          "volumes": [
+            {
+              "cells": [0, 0, 3, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_m"
+            }
+          ]
+        }
+      ],
+      "facadePalettes": [
+        {
+          "id": "steel_cladding",
+          "label": "chapa metálica perfilada industrial ligera",
+          "roleModule": {
+            "wall_panel": "mod_megakit_metal_wall_2m",
+            "window_bay": "mod_megakit_metal_window_2m",
+            "curtain_wall": "mod_megakit_metal_fullwindow_2m",
+            "ground_panel": "mod_megakit_metal_firstfloor_wall_2m",
+            "doorframe": "mod_megakit_doorframe_metal_2m"
+          }
+        },
+        {
+          "id": "brick_industrial",
+          "label": "ladrillo con carpintería industrial",
+          "roleModule": {
+            "wall_panel": "mod_megakit_metal_wall_2m",
+            "window_bay": "mod_megakit_metal_window_2m",
+            "ground_panel": "mod_megakit_metal_firstfloor_wall_2m",
+            "doorframe": "mod_megakit_doorframe_metal_2m"
+          }
+        }
+      ],
+      "rhythms": [
+        {
+          "id": "workshop_door",
+          "label": "gran puerta de taller y ventana de oficina",
+          "bayMeters": 2,
+          "groundRole": null,
+          "tokens": {
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel", "window_bay"]
+          }
+        },
+        {
+          "id": "blind_with_door",
+          "label": "fachada casi ciega con puerta de taller",
+          "bayMeters": 2,
+          "groundRole": null,
+          "tokens": {
+            "front": ["wall_panel", "wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
+          }
+        },
+        {
+          "id": "strip_windows",
+          "label": "franja de huecos cada dos crujías",
+          "bayMeters": 2,
+          "groundRole": null,
+          "tokens": {
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        }
+      ],
+      "silhouetteOptions": [
+        {
+          "id": "plain",
+          "label": "remate directo de chapa",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": null,
+          "projectionMeters": 0
+        },
+        {
+          "id": "metal_cornice",
+          "label": "banda de chapa volada sobre el frente",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_metal_center_2m",
+          "crownRole": null,
+          "projectionMeters": 0.2
+        },
+        {
+          "id": "metal_trim_cornice",
+          "label": "doble banda de chapa en cornisa",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_metal_center_2m",
+          "crownRole": null,
+          "projectionMeters": 0.2
+        }
+      ],
+      "roofOptions": [
+        {
+          "id": "flat_plates",
+          "kind": "flat",
+          "cornice": false,
+          "plateRole": "flat",
+          "dormerBays": 0,
+          "ridgeAlong": null
+        },
+        {
+          "id": "flat_slabs",
+          "kind": "flat",
+          "cornice": false,
+          "plateRole": "slab",
+          "dormerBays": 0,
+          "ridgeAlong": null
+        },
+        {
+          "id": "gable_simple",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        }
+      ],
+      "accessOptions": [
+        {
+          "id": "workshop_bay_door",
+          "label": "gran puerta de taller batiente",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        },
+        {
+          "id": "person_door",
+          "label": "puerta de personal en metálica",
+          "bayRule": "drawn",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        },
+        {
+          "id": "canopied_entry",
+          "label": "acceso con pequeño voladizo",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": "canopy",
+          "projectionMeters": 0.4,
+          "steps": false
+        }
+      ],
+      "propOptions": [
+        {
+          "id": "roof_hvac",
+          "label": "unidad de ventilación de cubierta",
+          "role": "rooftop_unit",
+          "module": "mod_megakit_prop_ac_unit",
+          "at": "roof",
+          "offset": 0
+        }
+      ],
+      "secondaryOptions": [
+        {
+          "id": "none",
+          "label": "sin volumen secundario",
+          "role": null,
+          "module": null,
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "small_tank",
+          "label": "depósito pequeño de servicio",
+          "role": "tank",
+          "module": "mod_kenney_ind_tank_small",
+          "optional": true,
+          "atCell": [4, 1],
+          "supports": []
+        }
+      ],
+      "semanticIdentity": {
+        "description": "R3: un taller urbano se reconoce por su escala menor (1 planta), gran puerta de taller y ausencia de muelles de carga repetidos. Debe distinguirse de warehouse por no tener repetición de puertas de muelle ni escala longitudinal. No debe parecer gran fábrica: sin silos, sin chimeneas altas, sin torres de proceso.",
+        "requireAnyRoles": [["hall", "door"]],
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_chimney_large",
+          "mod_kenney_ind_tank_large",
+          "mod_kenney_ind_water_tower"
+        ],
+        "prohibitAccessIds": ["canopied_dock", "glazed_lobby", "monumental_stairs"]
+      }
+    },
+    "warehouse": {
+      "buildingType": "warehouse",
+      "family": "industrial_heavy",
+      "label": "Nave logística (4×3 celdas, 1 planta)",
+      "notes": "V.g: nave logística longitudinal con repetición de muelles de carga. Debe distinguirse de workshop por escala mayor (4×3, 1 planta larga), múltiples puertas de muelle y ausencia de fachada comercial. Debe distinguirse de cement_plant por ausencia de silos, chimeneas de proceso o torre de agua. Debe distinguirse de market_hall por opacidad, muelles de carga y falta de actividad comercial visible.",
+      "yard": { "leftCells": 0, "rightCells": 0, "frontCells": 0 },
+      "levelsFromDomain": true,
+      "cornerModes": [
+        { "id": "flush", "label": "nave sin poste de esquina", "module": null, "widthMeters": null }
+      ],
+      "massingOptions": [
+        {
+          "id": "long_nave",
+          "label": "nave longitudinal grande con muelles frontales",
+          "volumes": [
+            {
+              "cells": [0, 0, 4, 3],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_long_r"
+            }
+          ]
+        },
+        {
+          "id": "nave_and_dock",
+          "label": "nave con bloque de muelles adosado al frente",
+          "volumes": [
+            {
+              "cells": [0, 0, 4, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_wide_a"
+            },
+            {
+              "cells": [0, 2, 4, 1],
+              "levels": 1,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "twin_bays",
+          "label": "dos naves hermanas con patio de maniobra",
+          "volumes": [
+            {
+              "cells": [0, 0, 2, 3],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_n"
+            },
+            {
+              "cells": [2, 0, 2, 3],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_t"
+            }
+          ]
+        },
+        {
+          "id": "nave_yard",
+          "label": "nave gran formato con patio de carga al fondo",
+          "volumes": [
+            {
+              "cells": [0, 0, 4, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_gable_g"
+            },
+            {
+              "cells": [0, 2, 3, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        }
+      ],
+      "facadePalettes": [
+        {
+          "id": "steel_cladding",
+          "label": "chapa metálica perfilada",
+          "roleModule": {
+            "wall_panel": "mod_megakit_metal_wall_2m",
+            "window_bay": "mod_megakit_metal_window_2m",
+            "curtain_wall": "mod_megakit_metal_fullwindow_2m",
+            "ground_panel": "mod_megakit_metal_firstfloor_wall_2m",
+            "doorframe": "mod_megakit_doorframe_metal_2m"
+          }
+        },
+        {
+          "id": "metal_brick_mix",
+          "label": "chapa metálica con zócalo industrial",
+          "roleModule": {
+            "wall_panel": "mod_megakit_metal_wall_2m",
+            "window_bay": "mod_megakit_metal_window_2m",
+            "ground_panel": "mod_megakit_metal_firstfloor_wall_2m",
+            "doorframe": "mod_megakit_doorframe_metal_2m"
+          }
+        }
+      ],
+      "rhythms": [
+        {
+          "id": "blind_siding",
+          "label": "chapa ciega, sin huecos",
+          "bayMeters": 2,
+          "groundRole": null,
+          "tokens": { "front": ["wall_panel"], "rear": ["wall_panel"], "sides": ["wall_panel"] }
+        },
+        {
+          "id": "dock_windows",
+          "label": "muelles de de carga y chapa con ventanas altas",
+          "bayMeters": 2,
+          "groundRole": null,
+          "tokens": {
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        },
+        {
+          "id": "strip_windows",
+          "label": "franja de huecos cada dos crujías",
+          "bayMeters": 2,
+          "groundRole": null,
+          "tokens": {
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        }
+      ],
+      "silhouetteOptions": [
+        {
+          "id": "plain",
+          "label": "remate directo de chapa",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": null,
+          "projectionMeters": 0
+        },
+        {
+          "id": "metal_cornice",
+          "label": "banda de chapa volada sobre el frente",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_metal_center_2m",
+          "crownRole": null,
+          "projectionMeters": 0.2
+        },
+        {
+          "id": "parapet",
+          "label": "pretil ciego de chapa",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": null,
+          "projectionMeters": 0
+        }
+      ],
+      "roofOptions": [
+        {
+          "id": "flat_plates",
+          "kind": "flat",
+          "cornice": false,
+          "plateRole": "flat",
+          "dormerBays": 0,
+          "ridgeAlong": null
+        },
+        {
+          "id": "flat_slabs",
+          "kind": "flat",
+          "cornice": false,
+          "plateRole": "slab",
+          "dormerBays": 0,
+          "ridgeAlong": null
+        },
+        {
+          "id": "gable_simple",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        }
+      ],
+      "accessOptions": [
+        {
+          "id": "canopied_dock",
+          "label": "puerta de muelle con cubierta de carga",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": "canopy",
+          "projectionMeters": 0.4,
+          "steps": false
+        },
+        {
+          "id": "person_door",
+          "label": "puerta de personal en marco metálico",
+          "bayRule": "drawn",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        },
+        {
+          "id": "dock_and_person",
+          "label": "muelle de carga y puerta de personal adyacentes",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        }
+      ],
+      "propOptions": [
+        {
+          "id": "roof_hvac",
+          "label": "unidad de tratamiento de aire sobre cubierta",
+          "role": "rooftop_unit",
+          "module": "mod_megakit_prop_ac_unit",
+          "at": "roof",
+          "offset": 0
+        },
+        {
+          "id": "solar_array",
+          "label": "pantalla solar sobre la cubierta plana",
+          "role": "rooftop_array",
+          "module": "mod_kenney_ind_solar_panel_flat",
+          "at": "roof",
+          "offset": 0
+        }
+      ],
+      "secondaryOptions": [
+        {
+          "id": "none",
+          "label": "sin volumen secundario",
+          "role": null,
+          "module": null,
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "storage_tank",
+          "label": "tanque de almacenamiento en el patio",
+          "role": "tank",
+          "module": "mod_kenney_ind_tank_small",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "loading_canopy",
+          "label": "marquesina de carga lateral",
+          "role": "canopy",
+          "module": "mod_megakit_entrance_canopy_2x1",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        }
+      ],
+      "semanticIdentity": {
+        "description": "R3: un almacén logístico se reconoce por su escala longitudinal (4×3), repetición de muelles de carga y ausencia de fachada comercial o proceso industrial visible. Debe distinguirse de workshop por escala mayor y múltiples puertas de muelle. Debe distinguirse de cement_plant por ausencia de silos, chimeneas de proceso o torre de agua. Debe distinguirse de market_hall por opacidad, muelles de carga y falta de actividad comercial.",
+        "requireAnyRoles": [["hall", "door"]],
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_chimney_large",
+          "mod_kenney_ind_chimney_medium",
+          "mod_kenney_ind_water_tower"
+        ],
+        "prohibitAccessIds": ["monumental_stairs", "loggia_entrance", "shopfront_entrance"]
+      }
+    },
+    "brickworks": {
+      "buildingType": "brickworks",
+      "family": "industrial_heavy",
+      "label": "Ladrillera (5×2 celdas, 2 plantas)",
+      "notes": "V.g: ladrillera con identidad de ladrillo/terracota, nave de hornos longitudinal y chimenea icónica. Debe distinguirse de cement_plant por menos silos y más ladrillo. Debe distinguirse de steelworks por más ladrillo y menos acero. Perfil más horizontal que cement_plant. Solar real: 20×8 m.",
+      "yard": { "leftCells": 0, "rightCells": 0, "frontCells": 0 },
+      "levelsFromDomain": true,
+      "cornerModes": [
+        { "id": "flush", "label": "nave sin poste de esquina", "module": null, "widthMeters": null }
+      ],
+      "massingOptions": [
+        {
+          "id": "kiln_nave",
+          "label": "nave de hornos longitudinal con chimenea de ladrillo",
+          "volumes": [
+            {
+              "cells": [0, 0, 5, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_long_r"
+            }
+          ]
+        },
+        {
+          "id": "kiln_and_office",
+          "label": "nave de hornos con bloque de oficinas adosado",
+          "volumes": [
+            {
+              "cells": [0, 0, 4, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_wide_a"
+            },
+            {
+              "cells": [4, 0, 1, 1],
+              "levels": 2,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "twin_kilns",
+          "label": "dos naves de hornos paralelas con patio",
+          "volumes": [
+            {
+              "cells": [0, 0, 2, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_n"
+            },
+            {
+              "cells": [2, 0, 3, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_gable_g"
+            }
+          ]
+        },
+        {
+          "id": "kiln_yard",
+          "label": "nave de hornos con patio de secado lateral",
+          "volumes": [
+            {
+              "cells": [0, 0, 4, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_e"
+            },
+            {
+              "cells": [4, 0, 1, 1],
+              "levels": 1,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        }
+      ],
+      "facadePalettes": [
+        {
+          "id": "metal_terra",
+          "label": "chapa metálica terracota",
+          "roleModule": {
+            "wall_panel": "mod_megakit_metal_wall_2m",
+            "window_bay": "mod_megakit_metal_window_2m",
+            "ground_panel": "mod_megakit_metal_firstfloor_wall_2m",
+            "doorframe": "mod_megakit_doorframe_metal_2m"
+          }
+        },
+        {
+          "id": "brick_metal",
+          "label": "ladrillo con refuerzo metálico industrial",
+          "roleModule": {
+            "wall_panel": "mod_megakit_metal_wall_2m",
+            "window_bay": "mod_megakit_metal_window_2m",
+            "ground_panel": "mod_megakit_metal_firstfloor_wall_2m",
+            "doorframe": "mod_megakit_doorframe_metal_2m"
+          }
+        }
+      ],
+      "rhythms": [
+        {
+          "id": "brick_regular",
+          "label": "ladrillo con huecos regulares",
+          "bayMeters": 2,
+          "groundRole": "ground_panel",
+          "tokens": {
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel", "window_bay"]
+          }
+        },
+        {
+          "id": "blind_kiln",
+          "label": "fachada de ladrillo casi ciega con huecos altos",
+          "bayMeters": 2,
+          "groundRole": null,
+          "tokens": {
+            "front": ["wall_panel", "wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel", "window_bay"]
+          }
+        },
+        {
+          "id": "strip_brick",
+          "label": "franja de huecos sobre zócalo industrial",
+          "bayMeters": 2,
+          "groundRole": "ground_panel",
+          "tokens": {
+            "front": ["window_bay", "wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
+          }
+        }
+      ],
+      "silhouetteOptions": [
+        {
+          "id": "metal_cornice",
+          "label": "cornisa de chapa metálica",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_metal_center_2m",
+          "crownRole": null,
+          "projectionMeters": 0.2
+        },
+        {
+          "id": "plain",
+          "label": "remate directo",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": null,
+          "projectionMeters": 0
+        },
+        {
+          "id": "metal_parapet",
+          "label": "pretil de chapa ciego",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": null,
+          "projectionMeters": 0
+        }
+      ],
+      "roofOptions": [
+        {
+          "id": "flat_plates",
+          "kind": "flat",
+          "cornice": false,
+          "plateRole": "flat",
+          "dormerBays": 0,
+          "ridgeAlong": null
+        },
+        {
+          "id": "gable_simple",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        }
+      ],
+      "accessOptions": [
+        {
+          "id": "person_door",
+          "label": "puerta de personal en marco de ladrillo",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        },
+        {
+          "id": "canopied_dock",
+          "label": "puerta de muelle con cubierta de carga",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": "canopy",
+          "projectionMeters": 0.4,
+          "steps": false
+        },
+        {
+          "id": "industrial_entry",
+          "label": "acceso industrial con marco metálico",
+          "bayRule": "drawn",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        }
+      ],
+      "propOptions": [
+        {
+          "id": "kiln_chimney",
+          "label": "chimenea de ladrillo de horno",
+          "role": "chimney",
+          "module": "mod_kenney_ind_chimney_medium",
+          "at": "roof",
+          "offset": -1
+        },
+        {
+          "id": "roof_hvac",
+          "label": "unidad de ventilación de cubierta",
+          "role": "rooftop_unit",
+          "module": "mod_megakit_prop_ac_unit",
+          "at": "roof",
+          "offset": 0
+        },
+        {
+          "id": "extractor_fan",
+          "label": "extractor de humos industrial",
+          "role": "extractor",
+          "module": "mod_kenney_ind_windmill",
+          "at": "roof",
+          "offset": 0
+        }
+      ],
+      "secondaryOptions": [
+        {
+          "id": "none",
+          "label": "sin volumen secundario",
+          "role": null,
+          "module": null,
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "brick_chimney_tower",
+          "label": "chimenea de ladrillo independiente",
+          "role": "chimney",
+          "module": "mod_kenney_ind_chimney_large",
+          "optional": false,
+          "atCell": [5, 1],
+          "supports": [
+            {
+              "kind": "plinth",
+              "shape": "box",
+              "label": "dado de cimentación de ladrillo",
+              "cell": [5, 1],
+              "z": 0,
+              "sizeCells": [0.5, 0.5, 0.08],
+              "offset": [0.5, 0.5, 0],
+              "rotationDegrees": 0,
+              "purpose": "foundation"
+            }
+          ]
+        },
+        {
+          "id": "small_tank",
+          "label": "tanque de almacenamiento de arcilla",
+          "role": "tank",
+          "module": "mod_kenney_ind_tank_small",
+          "optional": true,
+          "atCell": [5, 0],
+          "supports": []
+        }
+      ],
+      "semanticIdentity": {
+        "description": "R3: una ladrillera se reconoce por su material dominante (ladrillo/terracota), nave de hornos longitudinal y chimenea de ladrillo. Debe distinguirse de cement_plant por menos silos y más ladrillo. Debe distinguirse de steelworks por más ladrillo y menos acero. La chimenea de ladrillo es el elemento icónico que comunica identidad desde 0.5×.",
+        "requireAnyRoles": [["hall", "chimney"]],
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_water_tower",
+          "mod_kenney_ind_tank_large"
+        ],
+        "prohibitAccessIds": ["monumental_stairs", "loggia_entrance", "shopfront_entrance"]
+      }
+    },
+    "steelworks": {
+      "buildingType": "steelworks",
+      "family": "industrial_heavy",
+      "label": "Acería (4×3 celdas, 2 plantas)",
+      "notes": "V.g: acería de industria pesada con estructura metálica dominante, torre de proceso, chimenea pesada y grúa/gantry. Debe distinguirse de cement_plant por menos silos y más estructura metálica. Debe distinguirse de brickworks por más acero y menos ladrillo. Debe distinguirse de warehouse por presencia clara de proceso industrial (torre, chimenea, tuberías). Solar real: 16×12 m.",
+      "yard": { "leftCells": 0, "rightCells": 0, "frontCells": 0 },
+      "levelsFromDomain": true,
+      "cornerModes": [
+        { "id": "flush", "label": "nave sin poste de esquina", "module": null, "widthMeters": null }
+      ],
+      "massingOptions": [
+        {
+          "id": "main_hall_tower",
+          "label": "nave principal con torre de proceso lateral",
+          "volumes": [
+            {
+              "cells": [0, 0, 3, 3],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_wide_b"
+            },
+            {
+              "cells": [3, 0, 1, 2],
+              "levels": 2,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "twin_halls",
+          "label": "dos naves de proceso con pasillo central",
+          "volumes": [
+            {
+              "cells": [0, 0, 2, 3],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_n"
+            },
+            {
+              "cells": [2, 0, 2, 3],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_t"
+            }
+          ]
+        },
+        {
+          "id": "hall_and_yard",
+          "label": "nave de fundición con patio de servicio",
+          "volumes": [
+            {
+              "cells": [0, 0, 4, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_long_r"
+            },
+            {
+              "cells": [0, 2, 3, 1],
+              "levels": 1,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "compact_steel",
+          "label": "nave compacta con torre de proceso trasera",
+          "volumes": [
+            {
+              "cells": [0, 0, 4, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "whole",
+              "role": "hall",
+              "module": "mod_kenney_ind_hall_gable_g"
+            },
+            {
+              "cells": [3, 2, 1, 1],
+              "levels": 2,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        }
+      ],
+      "facadePalettes": [
+        {
+          "id": "steel_dark",
+          "label": "chapa metálica oscura industrial",
+          "roleModule": {
+            "wall_panel": "mod_megakit_metal_wall_2m",
+            "window_bay": "mod_megakit_metal_window_2m",
+            "curtain_wall": "mod_megakit_metal_fullwindow_2m",
+            "ground_panel": "mod_megakit_metal_firstfloor_wall_2m",
+            "doorframe": "mod_megakit_doorframe_metal_2m"
+          }
+        },
+        {
+          "id": "steel_brick",
+          "label": "chapa metálica con zócalo industrial",
+          "roleModule": {
+            "wall_panel": "mod_megakit_metal_wall_2m",
+            "window_bay": "mod_megakit_metal_window_2m",
+            "ground_panel": "mod_megakit_metal_firstfloor_wall_2m",
+            "doorframe": "mod_megakit_doorframe_metal_2m"
+          }
+        },
+        {
+          "id": "metal_plate",
+          "label": "placa metálica con refuerzos estructurales",
+          "roleModule": {
+            "wall_panel": "mod_megakit_metal_wall_2m",
+            "window_bay": "mod_megakit_metal_window_2m",
+            "ground_panel": "mod_megakit_metal_firstfloor_wall_2m",
+            "doorframe": "mod_megakit_doorframe_metal_2m"
+          }
+        }
+      ],
+      "rhythms": [
+        {
+          "id": "blind_steel",
+          "label": "chapa ciega con huecos mínimos de ventilación",
+          "bayMeters": 2,
+          "groundRole": null,
+          "tokens": { "front": ["wall_panel"], "rear": ["wall_panel"], "sides": ["wall_panel"] }
+        },
+        {
+          "id": "strip_windows",
+          "label": "franja de huecos altos sobre chapa",
+          "bayMeters": 2,
+          "groundRole": null,
+          "tokens": {
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        },
+        {
+          "id": "glazed_ground",
+          "label": "planta baja acristalada sobre chapa",
+          "bayMeters": 2,
+          "groundRole": "curtain_wall",
+          "tokens": {
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
+          }
+        },
+        {
+          "id": "industrial_bands",
+          "label": "bandas horizontales de chapa y huecos",
+          "bayMeters": 2,
+          "groundRole": "ground_panel",
+          "tokens": {
+            "front": ["window_bay", "wall_panel", "wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel", "window_bay"]
+          }
+        }
+      ],
+      "silhouetteOptions": [
+        {
+          "id": "plain",
+          "label": "remate directo de chapa",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": null,
+          "projectionMeters": 0
+        },
+        {
+          "id": "metal_cornice",
+          "label": "banda metálica de remate",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_metal_center_2m",
+          "crownRole": null,
+          "projectionMeters": 0.2
+        },
+        {
+          "id": "parapet",
+          "label": "pretil ciego de chapa",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": null,
+          "projectionMeters": 0
+        }
+      ],
+      "roofOptions": [
+        {
+          "id": "flat_plates",
+          "kind": "flat",
+          "cornice": false,
+          "plateRole": "flat",
+          "dormerBays": 0,
+          "ridgeAlong": null
+        },
+        {
+          "id": "flat_slabs",
+          "kind": "flat",
+          "cornice": false,
+          "plateRole": "slab",
+          "dormerBays": 0,
+          "ridgeAlong": null
+        },
+        {
+          "id": "gable_simple",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        }
+      ],
+      "accessOptions": [
+        {
+          "id": "person_door",
+          "label": "puerta de personal en marco metálico",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        },
+        {
+          "id": "canopied_dock",
+          "label": "puerta de muelle con cubierta de carga",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": "canopy",
+          "projectionMeters": 0.4,
+          "steps": false
+        },
+        {
+          "id": "glazed_lobby",
+          "label": "acceso de visita en muro cortina",
+          "bayRule": "drawn",
+          "frameRole": "curtain_wall",
+          "leafRole": null,
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        }
+      ],
+      "propOptions": [
+        {
+          "id": "process_stack",
+          "label": "chimenea de proceso industrial",
+          "role": "chimney",
+          "module": "mod_kenney_ind_chimney_medium",
+          "at": "roof",
+          "offset": -1
+        },
+        {
+          "id": "roof_hvac",
+          "label": "unidad de ventilación de cubierta",
+          "role": "rooftop_unit",
+          "module": "mod_megakit_prop_ac_unit",
+          "at": "roof",
+          "offset": 0
+        },
+        {
+          "id": "extractor_fan",
+          "label": "extractor de humos industrial",
+          "role": "extractor",
+          "module": "mod_kenney_ind_windmill",
+          "at": "roof",
+          "offset": 0
+        }
+      ],
+      "secondaryOptions": [
+        {
+          "id": "none",
+          "label": "sin volumen secundario",
+          "role": null,
+          "module": null,
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "steel_chimney",
+          "label": "chimenea de acero independiente",
+          "role": "chimney",
+          "module": "mod_kenney_ind_chimney_large",
+          "optional": false,
+          "atCell": [4, 2],
+          "supports": [
+            {
+              "kind": "plinth",
+              "shape": "box",
+              "label": "dado de cimentación de acero",
+              "cell": [4, 2],
+              "z": 0,
+              "sizeCells": [0.5, 0.5, 0.08],
+              "offset": [0.5, 0.5, 0],
+              "rotationDegrees": 0,
+              "purpose": "foundation"
+            }
+          ]
+        },
+        {
+          "id": "gantry_structure",
+          "label": "estructura de grúa/gantry lateral",
+          "role": "extractor",
+          "module": "mod_kenney_ind_windmill",
+          "optional": true,
+          "atCell": [4, 0],
+          "supports": [
+            {
+              "kind": "support",
+              "shape": "pipe",
+              "label": "pórtico de grúa",
+              "cell": [4, 0],
+              "z": 0,
+              "from": [0.1, 0.1, 0.0],
+              "to": [0.9, 0.9, 3.0],
+              "radiusMeters": 0.15,
+              "segments": 8,
+              "purpose": "structure"
+            }
+          ]
+        },
+        {
+          "id": "storage_tank",
+          "label": "tanque de almacenamiento de acero",
+          "role": "tank",
+          "module": "mod_kenney_ind_tank_small",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        }
+      ],
+      "semanticIdentity": {
+        "description": "R3: una acería se reconoce por su estructura metálica dominante, torre/proceso vertical, chimenea pesada y presencia de grúa/gantry. Debe distinguirse de cement_plant por menos silos y más estructura metálica. Debe distinguirse de brickworks por más acero y menos ladrillo. Debe distinguirse de warehouse por presencia clara de proceso industrial visible.",
+        "requireAnyRoles": [["hall", "chimney", "extractor", "tank"]],
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_water_tower"
+        ],
+        "prohibitAccessIds": ["monumental_stairs", "loggia_entrance", "shopfront_entrance"]
+      }
+    },
+    "school_block": {
+      "buildingType": "school_block",
+      "family": "civic_landmark",
+      "label": "Colegio urbano/institucional (7×2 celdas, 3 plantas)",
+      "notes": "V.g: colegio urbano tradicional con cuerpo longitudinal, repetición clara de ventanas de aulas, entrada central y lenguaje institucional (ladrillo/piedra). Debe distinguirse de town_hall por mayor longitud, más plantas de aulas repetitivas y menos monumentalidad. Debe distinguirse de apartment_block por lenguaje institucional (reloj, campanario, frontón), acceso público marcado y ritmo de ventanas de aula uniforme. Solar real: 28×8 m.",
+      "yard": { "leftCells": 0, "rightCells": 0, "frontCells": 1 },
+      "levelsFromDomain": true,
+      "cornerModes": [
+        { "id": "flush", "label": "esquina de paneles", "module": null, "widthMeters": null }
+      ],
+      "massingOptions": [
+        {
+          "id": "longitudinal_block",
+          "label": "cuerpo longitudinal de tres plantas con entrada centrada",
+          "volumes": [
+            {
+              "cells": [0, 1, 7, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "central_pavilion",
+          "label": "pabellón central destacado con alas laterales",
+          "volumes": [
+            {
+              "cells": [0, 1, 3, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [3, 1, 1, 1],
+              "levels": 3,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [4, 1, 3, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "stepped_school",
+          "label": "cuerpo escalonado con retranqueo superior",
+          "volumes": [
+            {
+              "cells": [0, 1, 7, 1],
+              "levels": 2,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [2, 1, 3, 1],
+              "levels": 1,
+              "stackOn": 0,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "l_shaped_school",
+          "label": "forma de L con patio escolar frontal",
+          "volumes": [
+            {
+              "cells": [0, 1, 5, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [5, 1, 2, 1],
+              "levels": 2,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        }
+      ],
+      "facadePalettes": [
+        {
+          "id": "brick_institutional",
+          "label": "ladrillo visto institucional con molduras",
+          "roleModule": {
+            "wall_panel": "mod_megakit_brick_wall_2m",
+            "window_bay": "mod_megakit_brick_window_trim_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        },
+        {
+          "id": "stucco_institutional",
+          "label": "revoco con molduras institucionales",
+          "roleModule": {
+            "wall_panel": "mod_megakit_trim_wall_2m",
+            "window_bay": "mod_megakit_trim_window_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        },
+        {
+          "id": "mixed_institutional",
+          "label": "ladrillo y revoco con lenguaje cívico",
+          "roleModule": {
+            "wall_panel": "mod_megakit_brick_wall_2m",
+            "window_bay": "mod_megakit_brick_window_trim_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        }
+      ],
+      "rhythms": [
+        {
+          "id": "classroom_repeat",
+          "label": "repetición uniforme de ventanas de aula",
+          "bayMeters": 2,
+          "groundRole": "ground_panel",
+          "tokens": {
+            "front": ["window_bay", "wall_panel"],
+            "rear": ["window_bay", "wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        },
+        {
+          "id": "dense_classroom",
+          "label": "ventanas de aula densas cada crujía",
+          "bayMeters": 2,
+          "groundRole": "ground_panel",
+          "tokens": {
+            "front": ["window_bay", "window_bay"],
+            "rear": ["window_bay", "wall_panel"],
+            "sides": ["window_bay"]
+          }
+        },
+        {
+          "id": "banded_school",
+          "label": "bandas horizontales de ventanas y muro",
+          "bayMeters": 2,
+          "groundRole": "wainscot",
+          "tokens": {
+            "front": ["window_bay", "wall_panel", "window_bay"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        },
+        {
+          "id": "pilaster_rhythm",
+          "label": "ritmo de pilasteras con huecos de aula",
+          "bayMeters": 2,
+          "groundRole": "ground_panel",
+          "tokens": {
+            "front": ["wall_panel", "window_bay", "wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        }
+      ],
+      "silhouetteOptions": [
+        {
+          "id": "brick_cornice",
+          "label": "cornisa de ladrillo institucional",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_brick_center_2m",
+          "crownRole": null,
+          "projectionMeters": 0.2
+        },
+        {
+          "id": "trim_cornice_parapet",
+          "label": "cornisa de moldura con pretil",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_trim_center_2m",
+          "crownRole": "crown_panel",
+          "projectionMeters": 0.428
+        },
+        {
+          "id": "plain_parapet",
+          "label": "pretil plano sin cornisa",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": "crown_panel",
+          "projectionMeters": 0
+        }
+      ],
+      "roofOptions": [
+        {
+          "id": "flat_roof",
+          "kind": "flat",
+          "cornice": false,
+          "plateRole": "flat",
+          "dormerBays": 0,
+          "ridgeAlong": null
+        },
+        {
+          "id": "gable_roof",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        },
+        {
+          "id": "gable_dormers",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 3,
+          "ridgeAlong": "x"
+        }
+      ],
+      "accessOptions": [
+        {
+          "id": "central_entrance",
+          "label": "entrada central con escalinata",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": true
+        },
+        {
+          "id": "canopied_entrance",
+          "label": "acceso bajo marquesina institucional",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": "canopy",
+          "projectionMeters": 0.4,
+          "steps": true
+        },
+        {
+          "id": "recessed_lobby",
+          "label": "vestíbulo acristalado con volado",
+          "bayRule": "drawn",
+          "frameRole": "curtain_wall",
+          "leafRole": null,
+          "aboveRole": "overhang",
+          "projectionMeters": 0.4,
+          "steps": true
+        }
+      ],
+      "propOptions": [
+        {
+          "id": "roof_unit",
+          "label": "unidad técnica de cubierta",
+          "role": "rooftop_unit",
+          "module": "mod_megakit_prop_ac_unit",
+          "at": "roof",
+          "offset": 0
+        },
+        {
+          "id": "flag_pole",
+          "label": "asta de bandera institucional",
+          "role": "rooftop_unit",
+          "module": "mod_megakit_prop_ac_unit",
+          "at": "roof",
+          "offset": 0
+        }
+      ],
+      "secondaryOptions": [
+        {
+          "id": "none",
+          "label": "sin volumen secundario",
+          "role": null,
+          "module": null,
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "bell_tower",
+          "label": "pequeño campanario sobre la entrada",
+          "role": "civic_tower",
+          "module": "mod_kaykit_civic_block_h",
+          "optional": true,
+          "atCell": [3, 1],
+          "supports": []
+        },
+        {
+          "id": "school_annex",
+          "label": "ala aneja del gimnasio en el patio",
+          "role": "civic_block",
+          "module": "mod_kaykit_civic_block_b",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        }
+      ],
+      "semanticIdentity": {
+        "description": "R3: un colegio se reconoce por su cuerpo longitudinal (7×2), repetición uniforme de ventanas de aula, entrada central marcada y lenguaje institucional (ladrillo/piedra, reloj, campanario). Debe distinguirse de town_hall por mayor longitud y menos monumentalidad. Debe distinguirse de apartment_block por ritmo de ventanas uniforme, acceso público marcado y elementos institucionales.",
+        "requireAnyRoles": [
+          ["door", "curtain_wall", "access"],
+          ["column", "pilaster", "civic_tower", "civic_block", "plinth"]
+        ],
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_chimney_basic",
+          "mod_kenney_ind_chimney_medium",
+          "mod_kenney_ind_chimney_large",
+          "mod_kenney_ind_tank_small",
+          "mod_kenney_ind_tank_large",
+          "mod_kenney_ind_water_tower"
+        ],
+        "prohibitAccessIds": ["shopfront_entrance", "canopied_dock"]
+      }
+    },
+    "clinic": {
+      "buildingType": "clinic",
+      "family": "civic_landmark",
+      "label": "Clínica (3×2 celdas, 2 plantas)",
+      "notes": "V.g: clínica con arquitectura limpia y volúmenes simples. Ventanas amplias, acceso cubierto con marquesina, símbolo sanitario abstracto. Paleta blanco/piedra clara. Debe distinguirse de police_station por lenguaje sanitario (limpio, amplios ventanales, marquesina) en vez de institucional-seguridad. Debe distinguirse de town_hall por escala menor y menos monumentalidad. La masa también debe comunicar healthcare sin depender exclusivamente de la cruz sanitaria.",
+      "yard": { "leftCells": 0, "rightCells": 0, "frontCells": 1 },
+      "levelsFromDomain": true,
+      "cornerModes": [
+        { "id": "flush", "label": "esquina de paneles", "module": null, "widthMeters": null }
+      ],
+      "massingOptions": [
+        {
+          "id": "compact_block",
+          "label": "bloque compacto de dos plantas con acceso centrado",
+          "volumes": [
+            {
+              "cells": [0, 1, 3, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "entrance_wing",
+          "label": "cuerpo principal con ala de acceso destacada",
+          "volumes": [
+            {
+              "cells": [0, 1, 3, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [1, 0, 1, 1],
+              "levels": 1,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "stepped_clinic",
+          "label": "volumen escalonado con retranqueo en cubierta",
+          "volumes": [
+            {
+              "cells": [0, 1, 3, 1],
+              "levels": 1,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [0, 1, 2, 1],
+              "levels": 1,
+              "stackOn": 0,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "l_shaped_clinic",
+          "label": "forma de L con zona de ambulancias lateral",
+          "volumes": [
+            {
+              "cells": [0, 1, 2, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [2, 1, 1, 1],
+              "levels": 1,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        }
+      ],
+      "facadePalettes": [
+        {
+          "id": "white_stucco",
+          "label": "revoco blanco sanitario con molduras",
+          "roleModule": {
+            "wall_panel": "mod_megakit_trim_wall_2m",
+            "window_bay": "mod_megakit_trim_window_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "curtain_wall": "mod_megakit_metal_fullwindow_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        },
+        {
+          "id": "light_stone",
+          "label": "piedra clara con ventanales amplios",
+          "roleModule": {
+            "wall_panel": "mod_megakit_brick_wall_2m",
+            "window_bay": "mod_megakit_brick_window_trim_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "curtain_wall": "mod_megakit_metal_fullwindow_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        }
+      ],
+      "rhythms": [
+        {
+          "id": "clean_windows",
+          "label": "ventanas amplias y limrias",
+          "bayMeters": 2,
+          "groundRole": "curtain_wall",
+          "tokens": {
+            "front": ["window_bay", "wall_panel"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["window_bay"]
+          }
+        },
+        {
+          "id": "glazed_ground",
+          "label": "planta baja acristalada con ventanas arriba",
+          "bayMeters": 2,
+          "groundRole": "curtain_wall",
+          "tokens": {
+            "front": ["curtain_wall", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        },
+        {
+          "id": "regular_medical",
+          "label": "ritmo regular de ventanas sanitarias",
+          "bayMeters": 2,
+          "groundRole": "ground_panel",
+          "tokens": {
+            "front": ["window_bay", "window_bay"],
+            "rear": ["window_bay", "wall_panel"],
+            "sides": ["window_bay"]
+          }
+        }
+      ],
+      "silhouetteOptions": [
+        {
+          "id": "trim_cornice",
+          "label": "cornisa de moldura sanitaria",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_trim_center_2m",
+          "crownRole": null,
+          "projectionMeters": 0.428
+        },
+        {
+          "id": "plain",
+          "label": "remate directo sin cornisa",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": null,
+          "projectionMeters": 0
+        },
+        {
+          "id": "parapet",
+          "label": "pretil plano con cornisa ligera",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_brick_center_2m",
+          "crownRole": "crown_panel",
+          "projectionMeters": 0.2
+        }
+      ],
+      "roofOptions": [
+        {
+          "id": "flat_roof",
+          "kind": "flat",
+          "cornice": false,
+          "plateRole": "flat",
+          "dormerBays": 0,
+          "ridgeAlong": null
+        },
+        {
+          "id": "flat_slabs",
+          "kind": "flat",
+          "cornice": false,
+          "plateRole": "slab",
+          "dormerBays": 0,
+          "ridgeAlong": null
+        },
+        {
+          "id": "gable_simple",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        }
+      ],
+      "accessOptions": [
+        {
+          "id": "canopied_entrance",
+          "label": "acceso bajo marquesina sanitaria",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": "canopy",
+          "projectionMeters": 0.4,
+          "steps": true
+        },
+        {
+          "id": "glazed_lobby",
+          "label": "vestíbulo acristalado de acceso",
+          "bayRule": "drawn",
+          "frameRole": "curtain_wall",
+          "leafRole": null,
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": true
+        },
+        {
+          "id": "recessed_entry",
+          "label": "entrada empotrada con voladizo",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": "overhang",
+          "projectionMeters": 0.4,
+          "steps": true
+        }
+      ],
+      "propOptions": [
+        {
+          "id": "roof_unit",
+          "label": "unidad técnica de cubierta",
+          "role": "rooftop_unit",
+          "module": "mod_megakit_prop_ac_unit",
+          "at": "roof",
+          "offset": 0
+        }
+      ],
+      "secondaryOptions": [
+        {
+          "id": "none",
+          "label": "sin volumen secundario",
+          "role": null,
+          "module": null,
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "ambulance_canopy",
+          "label": "marquesina de zona de ambulancias",
+          "role": "canopy",
+          "module": "mod_megakit_entrance_canopy_2x1",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "clinic_annex",
+          "label": "ala aneja de consultas externas",
+          "role": "civic_block",
+          "module": "mod_kaykit_civic_block_b",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        }
+      ],
+      "semanticIdentity": {
+        "description": "R3: una clínica se reconoce por arquitectura limpia, volúmenes simples, ventanales amplios, marquesina de acceso y paleta blanca/piedra clara. La masa debe comunicar healthcare sin depender exclusivamente de símbolos sanitarios. Debe distinguirse de police_station por lenguaje sanitario en vez de institucional-seguridad. Debe distinguirse de town_hall por escala menor y menos monumentalidad.",
+        "requireAnyRoles": [
+          ["door", "curtain_wall", "access"],
+          ["column", "pilaster", "civic_block", "plinth"]
+        ],
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_chimney_basic",
+          "mod_kenney_ind_chimney_medium",
+          "mod_kenney_ind_chimney_large",
+          "mod_kenney_ind_tank_small",
+          "mod_kenney_ind_tank_large",
+          "mod_kenney_ind_water_tower"
+        ],
+        "prohibitAccessIds": ["shopfront_entrance", "canopied_dock", "monumental_stairs"]
+      }
+    },
+    "police_station": {
+      "buildingType": "police_station",
+      "family": "civic_landmark",
+      "label": "Comisaría (3×2 celdas, 2 plantas)",
+      "notes": "V.g: comisaría con arquitectura institucional robusta. Piedra/ladrillo, entrada pública claramente marcada, pequeño volumen central o torre, bandera, zona de acceso de vehículos. Debe sentirse INSTITUCIONAL + SEGURIDAD. Debe distinguirse de town_hall por escala menor y lenguaje más robusto/seguridad. Debe distinguirse de clinic por lenguaje institucional-seguridad en vez de sanitario. No debe parecer cárcel ni fortaleza.",
+      "yard": { "leftCells": 0, "rightCells": 0, "frontCells": 1 },
+      "levelsFromDomain": true,
+      "cornerModes": [
+        { "id": "flush", "label": "esquina de paneles", "module": null, "widthMeters": null }
+      ],
+      "massingOptions": [
+        {
+          "id": "robust_block",
+          "label": "bloque robusto de dos plantas con entrada marcada",
+          "volumes": [
+            {
+              "cells": [0, 1, 3, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "central_tower",
+          "label": "cuerpo principal con torre central de vigilancia",
+          "volumes": [
+            {
+              "cells": [0, 1, 3, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [1, 1, 1, 1],
+              "levels": 1,
+              "stackOn": 0,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "vehicle_wing",
+          "label": "ala de acceso de vehículos lateral",
+          "volumes": [
+            {
+              "cells": [0, 1, 2, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [2, 1, 1, 1],
+              "levels": 1,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "stepped_entry",
+          "label": "volumen escalonado con acceso destacado",
+          "volumes": [
+            {
+              "cells": [0, 1, 3, 1],
+              "levels": 1,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [0, 1, 2, 1],
+              "levels": 1,
+              "stackOn": 0,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        }
+      ],
+      "facadePalettes": [
+        {
+          "id": "brick_institutional",
+          "label": "ladrillo visto institucional robusto",
+          "roleModule": {
+            "wall_panel": "mod_megakit_brick_wall_2m",
+            "window_bay": "mod_megakit_brick_window_trim_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        },
+        {
+          "id": "stone_security",
+          "label": "piedra con lenguaje de seguridad institucional",
+          "roleModule": {
+            "wall_panel": "mod_megakit_trim_wall_2m",
+            "window_bay": "mod_megakit_trim_window_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        }
+      ],
+      "rhythms": [
+        {
+          "id": "institutional_regular",
+          "label": "ritmo institucional regular de ventanas",
+          "bayMeters": 2,
+          "groundRole": "ground_panel",
+          "tokens": {
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel", "window_bay"]
+          }
+        },
+        {
+          "id": "robust_bands",
+          "label": "bandas robustas de muro y huecos",
+          "bayMeters": 2,
+          "groundRole": "wainscot",
+          "tokens": {
+            "front": ["wall_panel", "wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        },
+        {
+          "id": "masonry_heavy",
+          "label": "machón de muro con huecos reducidos",
+          "bayMeters": 2,
+          "groundRole": "wainscot",
+          "tokens": {
+            "front": ["wall_panel", "window_bay", "wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
+          }
+        }
+      ],
+      "silhouetteOptions": [
+        {
+          "id": "brick_cornice",
+          "label": "cornisa de ladrillo institucional",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_brick_center_2m",
+          "crownRole": null,
+          "projectionMeters": 0.2
+        },
+        {
+          "id": "trim_cornice_parapet",
+          "label": "cornisa de moldura con pretil",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_trim_center_2m",
+          "crownRole": "crown_panel",
+          "projectionMeters": 0.428
+        },
+        {
+          "id": "plain_parapet",
+          "label": "pretil plano sin cornisa",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": "crown_panel",
+          "projectionMeters": 0
+        }
+      ],
+      "roofOptions": [
+        {
+          "id": "flat_roof",
+          "kind": "flat",
+          "cornice": false,
+          "plateRole": "flat",
+          "dormerBays": 0,
+          "ridgeAlong": null
+        },
+        {
+          "id": "gable_roof",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        },
+        {
+          "id": "gable_dormers",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 2,
+          "ridgeAlong": "x"
+        }
+      ],
+      "accessOptions": [
+        {
+          "id": "monumental_stairs",
+          "label": "escalera monumental de entrada",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": true
+        },
+        {
+          "id": "canopied_entrance",
+          "label": "acceso bajo marquesina institucional",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": "canopy",
+          "projectionMeters": 0.4,
+          "steps": true
+        },
+        {
+          "id": "recessed_entry",
+          "label": "entrada empotrada con voladizo",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": "overhang",
+          "projectionMeters": 0.4,
+          "steps": true
+        }
+      ],
+      "propOptions": [
+        {
+          "id": "roof_unit",
+          "label": "unidad técnica de cubierta",
+          "role": "rooftop_unit",
+          "module": "mod_megakit_prop_ac_unit",
+          "at": "roof",
+          "offset": 0
+        }
+      ],
+      "secondaryOptions": [
+        {
+          "id": "none",
+          "label": "sin volumen secundario",
+          "role": null,
+          "module": null,
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "flag_plinth",
+          "label": "zócalo con asta de bandera",
+          "role": "plinth",
+          "module": "mod_kaykit_plinth_8m",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "vehicle_canopy",
+          "label": "marquesina de acceso de vehículos",
+          "role": "canopy",
+          "module": "mod_megakit_entrance_canopy_2x1",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        }
+      ],
+      "semanticIdentity": {
+        "description": "R3: una comisaría se reconoce por arquitectura institucional robusta, entrada pública marcada, lenguaje de seguridad. Debe sentirse INSTITUCIONAL + SEGURIDAD sin parecer cárcel ni fortaleza. Debe distinguirse de town_hall por escala menor y lenguaje más robusto. Debe distinguirse de clinic por lenguaje de seguridad en vez de sanitario.",
+        "requireAnyRoles": [
+          ["door", "access"],
+          ["column", "pilaster", "civic_block", "plinth", "civic_tower"]
+        ],
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_chimney_basic",
+          "mod_kenney_ind_chimney_medium",
+          "mod_kenney_ind_chimney_large",
+          "mod_kenney_ind_tank_small",
+          "mod_kenney_ind_tank_large",
+          "mod_kenney_ind_water_tower"
+        ],
+        "prohibitAccessIds": ["shopfront_entrance", "canopied_dock", "glazed_lobby"]
+      }
+    },
+    "fire_station": {
+      "buildingType": "fire_station",
+      "family": "civic_landmark",
+      "label": "Parque de bomberos (4×2 celdas, 2 plantas)",
+      "notes": "V.g: parque de bomberos con identidad obligatoria de 2-3 grandes puertas de apparatus bay. Incluso a 0.5× las grandes puertas deben hacer evidente su función. Fachada de ladrillo, torre lateral o hose tower, zona frontal para vehículos de bomberos. Uno de los tipos más fáciles de reconocer por sus grandes puertas de garaje.",
+      "yard": { "leftCells": 0, "rightCells": 0, "frontCells": 1 },
+      "levelsFromDomain": true,
+      "cornerModes": [
+        { "id": "flush", "label": "esquina de paneles", "module": null, "widthMeters": null }
+      ],
+      "massingOptions": [
+        {
+          "id": "apparatus_front",
+          "label": "nave de aparatos frontal con torre lateral",
+          "volumes": [
+            {
+              "cells": [0, 1, 4, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "double_bay",
+          "label": "doble bahía de aparatos con cuerpo superior",
+          "volumes": [
+            {
+              "cells": [0, 1, 4, 1],
+              "levels": 1,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [0, 1, 4, 1],
+              "levels": 1,
+              "stackOn": 0,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "tower_and_hall",
+          "label": "torre de mangueras adosada a nave de aparatos",
+          "volumes": [
+            {
+              "cells": [0, 1, 3, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [3, 1, 1, 2],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "l_shaped_station",
+          "label": "forma de L con patio de vehículos",
+          "volumes": [
+            {
+              "cells": [0, 1, 4, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [0, 0, 2, 1],
+              "levels": 1,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        }
+      ],
+      "facadePalettes": [
+        {
+          "id": "brick_fire",
+          "label": "ladrillo visto rojo institucional",
+          "roleModule": {
+            "wall_panel": "mod_megakit_brick_wall_2m",
+            "window_bay": "mod_megakit_brick_window_trim_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        },
+        {
+          "id": "brick_metal",
+          "label": "ladrillo con ventanales metálicos cívicos",
+          "roleModule": {
+            "wall_panel": "mod_megakit_brick_wall_2m",
+            "window_bay": "mod_megakit_trim_window_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        }
+      ],
+      "rhythms": [
+        {
+          "id": "apparatus_bays",
+          "label": "grandes puertas de bahía de aparatos",
+          "bayMeters": 2,
+          "groundRole": null,
+          "tokens": {
+            "front": ["wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
+          }
+        },
+        {
+          "id": "bay_and_windows",
+          "label": "bahías de aparatos con ventanas superiores",
+          "bayMeters": 2,
+          "groundRole": null,
+          "tokens": {
+            "front": ["window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        },
+        {
+          "id": "triple_bay",
+          "label": "tres bahías de aparatos en hilera",
+          "bayMeters": 2,
+          "groundRole": null,
+          "tokens": {
+            "front": ["wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
+          }
+        }
+      ],
+      "silhouetteOptions": [
+        {
+          "id": "brick_cornice",
+          "label": "cornisa de ladrillo",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_brick_center_2m",
+          "crownRole": null,
+          "projectionMeters": 0.2
+        },
+        {
+          "id": "plain",
+          "label": "remate directo",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": null,
+          "projectionMeters": 0
+        },
+        {
+          "id": "trim_cornice_parapet",
+          "label": "cornisa de moldura con pretil",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_trim_center_2m",
+          "crownRole": "crown_panel",
+          "projectionMeters": 0.428
+        }
+      ],
+      "roofOptions": [
+        {
+          "id": "flat_roof",
+          "kind": "flat",
+          "cornice": false,
+          "plateRole": "flat",
+          "dormerBays": 0,
+          "ridgeAlong": null
+        },
+        {
+          "id": "gable_roof",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        },
+        {
+          "id": "gable_dormers",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 2,
+          "ridgeAlong": "x"
+        }
+      ],
+      "accessOptions": [
+        {
+          "id": "apparatus_door",
+          "label": "gran puerta de bahía de aparato batiente",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        },
+        {
+          "id": "rollup_door",
+          "label": "puerta enrollable de bahía de aparato",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        },
+        {
+          "id": "person_door",
+          "label": "puerta de personal lateral",
+          "bayRule": "drawn",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        }
+      ],
+      "propOptions": [
+        {
+          "id": "roof_unit",
+          "label": "unidad técnica de cubierta",
+          "role": "rooftop_unit",
+          "module": "mod_megakit_prop_ac_unit",
+          "at": "roof",
+          "offset": 0
+        }
+      ],
+      "secondaryOptions": [
+        {
+          "id": "none",
+          "label": "sin volumen secundario",
+          "role": null,
+          "module": null,
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "hose_tower",
+          "label": "torre de mangueras lateral",
+          "role": "civic_tower",
+          "module": "mod_kaykit_civic_block_h",
+          "optional": true,
+          "atCell": [4, 1],
+          "supports": []
+        },
+        {
+          "id": "training_plinth",
+          "label": "plataforma de entrenamiento",
+          "role": "plinth",
+          "module": "mod_kaykit_plinth_8m",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        }
+      ],
+      "semanticIdentity": {
+        "description": "R3: un parque de bomberos se reconoce obligatoriamente por 2-3 grandes puertas de apparatus bay. Incluso a 0.5× las grandes puertas deben hacer evidente su función. La torre de mangueras o hose tower es un elemento icónico recomendado. Debe distinguirse de warehouse por las grandes puertas de garaje y la torre lateral.",
+        "requireAnyRoles": [
+          ["door"],
+          ["civic_tower", "plinth", "civic_block"]
+        ],
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_chimney_basic",
+          "mod_kenney_ind_chimney_medium",
+          "mod_kenney_ind_chimney_large",
+          "mod_kenney_ind_tank_small",
+          "mod_kenney_ind_tank_large",
+          "mod_kenney_ind_water_tower"
+        ],
+        "prohibitAccessIds": ["shopfront_entrance", "canopied_dock", "glazed_lobby", "loggia_entrance"]
+      }
+    },
+    "market_hall": {
+      "buildingType": "market_hall",
+      "family": "civic_landmark",
+      "label": "Mercado (5×2 celdas, 2 plantas)",
+      "notes": "V.g: mercado cubierto con gran nave urbana, cubierta alta, estructura central reconocible, múltiples accesos, grandes ventanales, puestos/toldos y actividad exterior. Debe diferenciarse de warehouse mediante transparencia, accesos públicos, toldos, actividad y detalle comercial. Debe distinguirse de town_hall por mayor longitud, cubierta de mercado y actividad comercial visible. Debe distinguirse de mixed_tenement por escala mayor, gran nave y lenguaje de mercado.",
+      "yard": { "leftCells": 0, "rightCells": 0, "frontCells": 1 },
+      "levelsFromDomain": true,
+      "cornerModes": [
+        { "id": "flush", "label": "esquina de paneles", "module": null, "widthMeters": null }
+      ],
+      "massingOptions": [
+        {
+          "id": "great_nave",
+          "label": "gran nave de mercado con cubierta alta",
+          "volumes": [
+            {
+              "cells": [0, 1, 5, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "nave_and_stalls",
+          "label": "nave central con puestos laterales",
+          "volumes": [
+            {
+              "cells": [0, 1, 5, 1],
+              "levels": 1,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [0, 0, 5, 1],
+              "levels": 1,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "clock_pavilion",
+          "label": "pabellón de mercado con reloj central",
+          "volumes": [
+            {
+              "cells": [0, 1, 5, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [2, 1, 1, 1],
+              "levels": 1,
+              "stackOn": 0,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "l_shaped_market",
+          "label": "mercado en L con plaza exterior",
+          "volumes": [
+            {
+              "cells": [0, 1, 5, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [0, 0, 2, 1],
+              "levels": 1,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        }
+      ],
+      "facadePalettes": [
+        {
+          "id": "brick_market",
+          "label": "ladrillo visto con grandes ventanales",
+          "roleModule": {
+            "wall_panel": "mod_megakit_brick_wall_2m",
+            "window_bay": "mod_megakit_brick_window_trim_2m",
+            "curtain_wall": "mod_megakit_metal_fullwindow_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        },
+        {
+          "id": "stucco_market",
+          "label": "revoco con estructura de mercado",
+          "roleModule": {
+            "wall_panel": "mod_megakit_trim_wall_2m",
+            "window_bay": "mod_megakit_trim_window_2m",
+            "curtain_wall": "mod_megakit_metal_fullwindow_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        },
+        {
+          "id": "iron_glass",
+          "label": "estructura de hierro y vidrio de mercado",
+          "roleModule": {
+            "wall_panel": "mod_megakit_metal_wall_2m",
+            "window_bay": "mod_megakit_trim_window_2m",
+            "curtain_wall": "mod_megakit_metal_fullwindow_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        }
+      ],
+      "rhythms": [
+        {
+          "id": "transparent_market",
+          "label": "gran transparencia con ventanales y accesos",
+          "bayMeters": 2,
+          "groundRole": "curtain_wall",
+          "tokens": {
+            "front": ["window_bay", "curtain_wall"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        },
+        {
+          "id": "arcade_rhythm",
+          "label": "ritmo de arcadas con puestos",
+          "bayMeters": 2,
+          "groundRole": "curtain_wall",
+          "tokens": {
+            "front": ["curtain_wall", "curtain_wall"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        },
+        {
+          "id": "mixed_stalls",
+          "label": "crujías mixtas de puesto y muro",
+          "bayMeters": 2,
+          "groundRole": "ground_panel",
+          "tokens": {
+            "front": ["curtain_wall", "wall_panel", "window_bay"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["wall_panel"]
+          }
+        },
+        {
+          "id": "glazed_ground",
+          "label": "planta baja acristalada con huecos arriba",
+          "bayMeters": 2,
+          "groundRole": "curtain_wall",
+          "tokens": {
+            "front": ["curtain_wall", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        }
+      ],
+      "silhouetteOptions": [
+        {
+          "id": "brick_cornice",
+          "label": "cornisa de ladrillo de mercado",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_brick_center_2m",
+          "crownRole": null,
+          "projectionMeters": 0.2
+        },
+        {
+          "id": "trim_cornice_parapet",
+          "label": "cornisa de moldura con pretil",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_trim_center_2m",
+          "crownRole": "crown_panel",
+          "projectionMeters": 0.428
+        },
+        {
+          "id": "awning_line",
+          "label": "línea de toldos de puesto",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": null,
+          "projectionMeters": 0
+        }
+      ],
+      "roofOptions": [
+        {
+          "id": "gable_roof",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        },
+        {
+          "id": "gable_dormers",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 3,
+          "ridgeAlong": "x"
+        },
+        {
+          "id": "flat_roof",
+          "kind": "flat",
+          "cornice": false,
+          "plateRole": "flat",
+          "dormerBays": 0,
+          "ridgeAlong": null
+        },
+        {
+          "id": "gable_corniced",
+          "kind": "gable",
+          "cornice": true,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        }
+      ],
+      "accessOptions": [
+        {
+          "id": "multiple_entries",
+          "label": "múltiples accesos públicos",
+          "bayRule": "drawn",
+          "frameRole": "curtain_wall",
+          "leafRole": null,
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": true
+        },
+        {
+          "id": "canopied_entrance",
+          "label": "acceso bajo marquesina de mercado",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": "canopy",
+          "projectionMeters": 0.4,
+          "steps": true
+        },
+        {
+          "id": "arcade_entry",
+          "label": "entrada por arcada acristalada",
+          "bayRule": "drawn",
+          "frameRole": "curtain_wall",
+          "leafRole": null,
+          "aboveRole": "overhang",
+          "projectionMeters": 0.4,
+          "steps": true
+        }
+      ],
+      "propOptions": [
+        {
+          "id": "awning_front",
+          "label": "toldo frontal de puesto",
+          "role": "awning",
+          "module": "mod_kenney_com_awning_1_6m",
+          "at": "roof",
+          "offset": 0
+        },
+        {
+          "id": "roof_unit",
+          "label": "unidad técnica de cubierta",
+          "role": "rooftop_unit",
+          "module": "mod_megakit_prop_ac_unit",
+          "at": "roof",
+          "offset": 0
+        },
+        {
+          "id": "parasol_stall",
+          "label": "toldo de puesto exterior",
+          "role": "awning",
+          "module": "mod_kenney_com_parasol_a",
+          "at": "roof",
+          "offset": 0
+        }
+      ],
+      "secondaryOptions": [
+        {
+          "id": "none",
+          "label": "sin volumen secundario",
+          "role": null,
+          "module": null,
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "market_annex",
+          "label": "ala aneja de mercado al por menor",
+          "role": "civic_block",
+          "module": "mod_kaykit_civic_block_b",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "stall_canopy",
+          "label": "marquesina de puestos exteriores",
+          "role": "canopy",
+          "module": "mod_megakit_entrance_canopy_2x1",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        }
+      ],
+      "semanticIdentity": {
+        "description": "R3: un mercado se reconoce por gran nave urbana con transparencia, múltiples accesos públicos, grandes ventanales, toldos de puestos y actividad exterior. Debe diferenciarse de warehouse por transparencia, accesos públicos, toldos y detalle comercial. Debe distinguirse de town_hall por mayor longitud y actividad comercial visible. Debe distinguirse de mixed_tenement por escala mayor y gran nave de mercado.",
+        "requireAnyRoles": [
+          ["door", "curtain_wall", "access"],
+          ["column", "pilaster", "civic_block", "plinth"]
+        ],
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_chimney_basic",
+          "mod_kenney_ind_chimney_medium",
+          "mod_kenney_ind_chimney_large",
+          "mod_kenney_ind_tank_small",
+          "mod_kenney_ind_tank_large",
+          "mod_kenney_ind_water_tower"
+        ],
+        "prohibitAccessIds": ["canopied_dock", "monumental_stairs"]
+      }
     }
   }
 }

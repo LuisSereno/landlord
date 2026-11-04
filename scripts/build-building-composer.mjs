@@ -60,6 +60,7 @@ function parseArgs(argv) {
     metrics: DEFAULT_METRICS,
     regenerate: false,
     keepAttempts: false,
+    prefix: "vf",
   };
   for (const argument of argv.slice(2)) {
     const [flag, value] = argument.split("=");
@@ -69,9 +70,10 @@ function parseArgs(argv) {
     else if (flag === "--metrics") options.metrics = resolve(value);
     else if (flag === "--regenerate") options.regenerate = true;
     else if (flag === "--keepAttempts") options.keepAttempts = true;
+    else if (flag === "--prefix") options.prefix = value;
     else if (flag === "--help") {
       console.log(
-        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--outDir=dir] [--metrics=path] [--regenerate] [--keepAttempts]",
+        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--outDir=dir] [--metrics=path] [--regenerate] [--keepAttempts] [--prefix=vf|vg]",
       );
       process.exit(0);
     } else throw new Error(`argumento desconocido ${argument}`);
@@ -124,7 +126,7 @@ function buildRequests(grammars, options) {
     if (!grammar) throw new Error(`la gramática no declara ${buildingType}`);
     const domain = domainGeometry(buildingType);
     for (const variantSeed of options.seeds) {
-      const candidateId = `vf_${buildingType}_${variantSeed}`;
+      const candidateId = `${options.prefix}_${buildingType}_${variantSeed}`;
       requests.push({
         candidateId,
         buildingType,

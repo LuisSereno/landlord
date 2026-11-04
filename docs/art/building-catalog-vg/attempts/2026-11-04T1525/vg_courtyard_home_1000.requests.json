@@ -1,0 +1,22 @@
+{
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "candidates": [
+  {
+   "candidateId": "vg_courtyard_home_1000",
+   "buildingType": "courtyard_home",
+   "family": "residential_low",
+   "styleProfileId": "graphic_civic_buildings_v1",
+   "variantSeed": 1000,
+   "composerVersion": "vf-3",
+   "footprint": {
+    "width": 2,
+    "height": 2
+   },
+   "floors": 1,
+   "state": "complete",
+   "output": "/home/luis/RepositorioGitHub/landlord/docs/art/building-catalog-vg/attempts/2026-11-04T1525/vg_courtyard_home_1000.png",
+   "metadata": "/home/luis/RepositorioGitHub/landlord/docs/art/building-catalog-vg/attempts/2026-11-04T1525/vg_courtyard_home_1000.json"
+  }
+ ]
+}

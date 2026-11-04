@@ -681,7 +681,7 @@
           "label": "silo pequeño con transportador que lo cruza por encima",
           "role": "tank",
           "module": "mod_kenney_ind_tank_small",
-          "optional": true,
+          "optional": false,
           "atCell": [4, 1],
           "supports": [
             {
@@ -703,7 +703,7 @@
           "label": "depósito elevado con bajante hasta rasgo de suelo",
           "role": "water_tower",
           "module": "mod_kenney_ind_water_tower",
-          "optional": true,
+          "optional": false,
           "atCell": [4, 1],
           "supports": [
             {
@@ -725,7 +725,7 @@
           "label": "chimenea media sobre dado de cimentación",
           "role": "chimney",
           "module": "mod_kenney_ind_chimney_medium",
-          "optional": true,
+          "optional": false,
           "atCell": [4, 1],
           "supports": [
             {
@@ -746,7 +746,7 @@
           "label": "tanque de gran formato en el patio",
           "role": "tank",
           "module": "mod_kenney_ind_tank_large",
-          "optional": true,
+          "optional": false,
           "atCell": null,
           "supports": []
         }

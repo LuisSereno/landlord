@@ -870,7 +870,7 @@ class Composition:
                     # laterales + 2·(segments-2) de las tapas = 4·segments - 4. Declarar 4·segments
                     # contaba cada tapa como segments triángulos (abanico con vértice central), que
                     # Blender no genera: sobrecontaba 4 triángulos por conducto.
-                    "triangles": 4 * segments,
+                    "triangles": 4 * segments - 4,
                     "purpose": support["purpose"],
                 }
             )

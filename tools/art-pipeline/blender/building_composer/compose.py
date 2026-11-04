@@ -176,8 +176,100 @@ class Composition:
         self.rng = document.random_for(
             self.variant_seed, f"{self.building_type}|{self.family}|{self.composer_version}"
         )
+        # V.g: validar capacidad estática de facade features antes de cualquier sorteo.
+        # Una recipe con required facade features incompatible con sus massings permitidos
+        # debe fallar aquí, no cuando una seed concreta la seleccione.
+        self._check_recipe_facade_capacity()
 
     # -- construcción ------------------------------------------------------------------------------
+
+    def _check_recipe_facade_capacity(self):
+        """V.g: valida que cada required facade feature cabe en TODAS las combinaciones
+        estructurales permitidas por su recipe (massing × rhythm × cornerMode × access).
+
+        El cálculo implementa la regla:
+            facade span - corner inset → raw bays - 1 reserved access → available
+        available >= required count
+
+        Side != front, múltiples access bays y distribuciones != symmetric se consideran
+        incompatibles en este spike (no hay masa de casos suficiente para generalizar).
+        """
+        recipes = self.record.get("recipes", [])
+        if not recipes:
+            return
+
+        massings_by_id = {m["id"]: m for m in self.record["massingOptions"]}
+        rhythms_by_id = {r["id"]: r for r in self.record["rhythms"]}
+        corners_by_id = {c["id"]: c for c in self.record["cornerModes"]}
+
+        all_massing_ids = set(massings_by_id)
+        all_rhythm_ids = set(rhythms_by_id)
+        all_corner_ids = set(corners_by_id)
+
+        for recipe in recipes:
+            required = recipe.get("requiredFeatures", [])
+            for feature in required:
+                if feature["kind"] != "facade":
+                    continue
+                self._check_facade_capacity_one(
+                    recipe, feature,
+                    recipe.get("massingIds", all_massing_ids),
+                    recipe.get("rhythmIds", all_rhythm_ids),
+                    recipe.get("cornerModeIds", all_corner_ids),
+                    massings_by_id, rhythms_by_id, corners_by_id,
+                )
+
+    def _check_facade_capacity_one(
+        self, recipe, feature, massing_ids, rhythm_ids, corner_ids,
+        massings_by_id, rhythms_by_id, corners_by_id,
+    ):
+        if feature["side"] != "front":
+            raise CompositionError(
+                f"receta {recipe['id']} feature {feature['id']}: side {feature['side']} "
+                "fuera del contrato del spike (sólo front)"
+            )
+        if feature["distribution"] != "symmetric":
+            raise CompositionError(
+                f"receta {recipe['id']} feature {feature['id']}: distribution "
+                f"{feature['distribution']} fuera del contrato del spike (sólo symmetric)"
+            )
+
+        target = feature["targetVolume"]
+        count = feature["count"]
+
+        for massing_id in massing_ids:
+            massing = massings_by_id.get(massing_id)
+            if massing is None:
+                raise CompositionError(
+                    f"receta {recipe['id']}: massing inexistente {massing_id}"
+                )
+            volumes = massing["volumes"]
+            if target >= len(volumes):
+                raise CompositionError(
+                    f"receta {recipe['id']} feature {feature['id']}: targetVolume={target} "
+                    f"fuera de rango para massing {massing_id} (tiene {len(volumes)} volúmenes)"
+                )
+            cells = volumes[target]["cells"]
+            wide_cells = cells[2]
+            span_meters = wide_cells * self.cell
+
+            for rhythm_id in rhythm_ids:
+                bay = float(rhythms_by_id[rhythm_id]["bayMeters"])
+                for corner_id in corner_ids:
+                    inset = float(corners_by_id[corner_id]["widthMeters"] or 0.0)
+                    usable = span_meters - 2 * inset
+                    if usable <= 0:
+                        raw_bays = 0
+                    else:
+                        raw_bays = int(round(usable / bay))
+                    available = max(0, raw_bays - 1)  # 1 reserved for centered access
+                    if available < count:
+                        raise CompositionError(
+                            f"receta {recipe['id']} feature {feature['id']}: required count={count} "
+                            f"no cabe en massing={massing_id} rhythm={rhythm_id} corner={corner_id} "
+                            f"(span={span_meters}m, inset={inset}m, bay={bay}m, raw_bays={raw_bays}, "
+                            f"available={available} tras reservar acceso)"
+                        )
 
     def build(self):
         choices = draw_choices(self.rng, self.record, self.document.variant_axes)
@@ -773,6 +865,7 @@ class Composition:
         la altura de puerta del perfil y la hoja queda detrás, nunca coplanar con el marco.
         """
         volume = self._access_volume(corner)
+        self.access_volume = volume
         rect = volume["rect"]
         bays = self.band_bays(rect, "front", corner)
         index = len(bays) // 2 if access["bayRule"] == "center" else self.rng.below(len(bays))
@@ -942,12 +1035,14 @@ class Composition:
     def _build_facade_feature(self, feature):
         """V.g: coloca un facade feature integrado en la fachada.
 
-        Un facade feature NO usa Occupancy ni _build_secondary(). Se ancla a un volumen objetivo
-        (targetVolume) y se distribuye simétricamente a lo largo de la fachada, excluyendo el
-        bay del acceso principal.
+        Un facade feature NO usa Occupancy ni _build_secondary(). Se ancla al volumen
+        indicado por targetVolume y se distribuye simétricamente sobre las bays de la cara
+        `side`, excluyendo exactamente el bay donde vive el acceso principal.
 
-        REQUIRED SIGNIFICA REQUIRED: si count=6, deben colocarse exactamente 6 elementos por nivel.
-        Si no caben, la composición falla explícitamente (no hay adaptación silenciosa).
+        REQUIRED SIGNIFICA REQUIRED: si count=6, se colocan exactamente 6 elementos por nivel.
+        Si no caben, la composición falla (no hay adaptación silenciosa).
+        La compatibilidad entre recipe × massing × rhythm × cornerMode se validó ya en
+        _check_recipe_facade_capacity durante __init__.
         """
         module_id = feature["module"]
         role = feature["role"]
@@ -955,7 +1050,7 @@ class Composition:
         count = feature["count"]
         levels = feature["levels"]
         distribution = feature["distribution"]
-        target_volume_index = feature.get("targetVolume", 0)
+        target_volume_index = feature["targetVolume"]
 
         module = self.catalog.get(module_id)
         if module.role != role:
@@ -972,23 +1067,13 @@ class Composition:
         rect = volume["rect"]
         corner = self.choices.get("corner", {"widthMeters": 0.0})
 
-        if side in ("front", "rear"):
-            face_line = rect[1] if side == "front" else rect[3]
-            bays = self.band_bays(rect, side, corner)
-        else:
-            face_line = rect[0] if side == "left" else rect[2]
-            bays = self.band_bays(rect, side, corner)
-
+        face_line = (rect[1] if side == "front" else rect[3]) if side in ("front", "rear") else (
+            rect[0] if side == "left" else rect[2]
+        )
+        bays = self.band_bays(rect, side, corner)
         if not bays:
             raise CompositionError(
                 f"§12: facade feature en lado {side} no tiene crujías disponibles"
-            )
-
-        available_bays = [b for b in bays if not self._is_access_bay(b, side, rect)]
-        if len(available_bays) < count:
-            raise CompositionError(
-                f"§12: facade feature requiere {count} módulos en lado {side} pero solo hay "
-                f"{len(available_bays)} bays disponibles (excluyendo acceso)"
             )
 
         volume_levels = volume.get("levels", 1)
@@ -997,15 +1082,25 @@ class Composition:
                 f"§12: facade feature pide {levels} niveles pero el volumen objetivo solo tiene {volume_levels}"
             )
 
+        excluded = self._facade_feature_exclusions(side, volume, len(bays))
+        available_indices = [i for i in range(len(bays)) if i not in excluded]
+        if len(available_indices) < count:
+            raise CompositionError(
+                f"§12: facade feature requiere {count} módulos en lado {side} pero solo hay "
+                f"{len(available_indices)} bays disponibles (raw={len(bays)}, excluidos={sorted(excluded)})"
+            )
+
         if distribution == "symmetric":
-            indices = self._symmetric_indices(available_bays, bays, count)
+            bay_indices = self._symmetric_indices(available_indices, len(bays), count)
         else:
-            raise CompositionError(f"§12: distribución {distribution} no soportada (solo symmetric)")
+            raise CompositionError(
+                f"§12: distribución {distribution} no soportada (sólo symmetric)"
+            )
 
         placed_count = 0
         for level_index in range(levels):
             z = volume["base"] + level_index * self.level
-            for bay_index in indices:
+            for bay_index in bay_indices:
                 along = bays[bay_index]
                 self.add_on_face(
                     module,
@@ -1023,55 +1118,40 @@ class Composition:
                 f"§12: facade feature {feature['id']} colocó {placed_count} módulos pero debía colocar {expected_count}"
             )
 
-    def _is_access_bay(self, bay_position, side, rect):
-        """Determina si un bay coincide con el acceso principal."""
-        if not hasattr(self, 'access_bay') or self.access_bay is None:
-            return False
+    def _facade_feature_exclusions(self, side, volume, total_bays):
+        """V.g: indices de bay que un facade feature NO puede ocupar.
+
+        Sólo el bay del acceso principal se reserva, y únicamente si el feature ancla al mismo
+        volumen cuyo frente coincida con buildable[1] (la línea de acceso) y a la cara `front`.
+        """
         if side != "front":
-            return False
-        if abs(rect[1] - self.buildable[1]) > 1e-6:
-            return False
-        corner = self.choices.get("corner", {"widthMeters": 0.0})
-        bays = self.band_bays(rect, "front", corner)
-        if self.access_bay >= len(bays):
-            return False
-        access_position = bays[self.access_bay]
-        return abs(bay_position - access_position) < 1e-6
+            return set()
+        access_bay = getattr(self, "access_bay", None)
+        access_volume = getattr(self, "access_volume", None)
+        if access_bay is None or access_volume is None:
+            return set()
+        if volume is not access_volume:
+            return set()
+        if access_bay >= total_bays:
+            return set()
+        return {access_bay}
 
-    def _symmetric_indices(self, available_bays, all_bays, count):
-        """Selecciona count posiciones simétricas respecto al centro, excluyendo el acceso.
+    def _symmetric_indices(self, available_indices, total_bays, count):
+        """Selecciona `count` índices simétricos respecto al centro de la banda.
 
-        Devuelve índices en all_bays (no en available_bays) para que el placement use las
-        posiciones correctas.
+        available_indices: lista ordenada de índices utilizables (sin el bay reservado).
+        total_bays: total de bays en la banda, para centrar la distribución.
+        count: número exacto requerido.
         """
         if count == 0:
             return []
-        
-        if len(available_bays) < count:
+        if len(available_indices) < count:
             raise CompositionError(
-                f"§12: distribución simétrica requiere {count} bays pero solo hay {len(available_bays)} disponibles"
+                f"§12: distribución simétrica requiere {count} bays pero solo hay {len(available_indices)} disponibles"
             )
-        
-        # Convertir available_bays a índices en all_bays
-        available_indices = []
-        for avail_pos in available_bays:
-            for idx, all_pos in enumerate(all_bays):
-                if abs(avail_pos - all_pos) < 1e-6:
-                    available_indices.append(idx)
-                    break
-        
-        available_indices.sort()
-        
-        # Seleccionar count índices simétricamente
-        center_idx = len(all_bays) / 2.0
-        sorted_by_distance = sorted(
-            available_indices,
-            key=lambda idx: abs(idx - center_idx)
-        )
-        
-        # Tomar los count más cercanos al centro
-        selected = sorted(sorted_by_distance[:count])
-        return selected
+        center = (total_bays - 1) / 2.0
+        ordered = sorted(available_indices, key=lambda i: (abs(i - center), i))
+        return sorted(ordered[:count])
 
     def _build_required_features(self, required_features, variant_features, prop_slots):
         """V.g: coloca features obligatorios de la receta.
@@ -1326,6 +1406,13 @@ class Composition:
         blob = json.dumps(payload, sort_keys=True, separators=(",", ":"))
         return hashlib.sha256(blob.encode("utf-8")).hexdigest()
 
+    def _build_axis_choices(self):
+        """Construye axisChoices incluyendo recipe si existe."""
+        choices = {axis: self.axis_fingerprint[axis] for axis in self.document.variant_axes}
+        if "recipe" in self.axis_fingerprint:
+            choices["recipe"] = self.axis_fingerprint["recipe"]
+        return choices
+
     def finalize(self):
         boxes = [record["bounds"] for record in self.placements + self.supports]
         bounds = anchors.union(boxes)
@@ -1384,7 +1471,7 @@ class Composition:
                 }
                 for volume in self.volumes
             ],
-            "axisChoices": {axis: self.axis_fingerprint[axis] for axis in self.document.variant_axes},
+            "axisChoices": self._build_axis_choices(),
             "placements": self.placements,
             "originalSupport": self.supports,
             "bounds": bounds,

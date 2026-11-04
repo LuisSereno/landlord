@@ -762,8 +762,17 @@ def render_shadow_pass(scene, style_layer, ground_z, shadow_path):
     }
 
 
-def trim_and_scale(render_path, output_path, shadow_path=None, shadow_style=None):
-    """Recorta el margen transparente, compone la sombra y reduce a la mitad."""
+def trim_and_scale(render_path, output_path, shadow_path=None, shadow_style=None, crop_rect=None):
+    """Recorta el margen transparente, compone la sombra y reduce a la mitad.
+
+    `crop_rect` (col_min, row_min, col_hi, row_hi) en píxeles del lienzo renderizado: si se pasa, el
+    recorte usa ESA caja determinista en vez del bounding box del alpha. El bounding box del alpha
+    jittera ±1 píxel entre procesos porque la cobertura AA de EEVEE Next no es bit-determinista
+    (medido: varía incluso a 1 muestra y dentro del mismo proceso), y la corrección de paridad de
+    abajo amplifica ese ±1 a ±2 en el recorte, cambiando dimensiones y pivot del sprite publicado.
+    Quien necesite reproducibilidad byte-a-byte del sprite (el Building Composer, §8) pasa la caja
+    proyectada desde los bounds de composición; la ruta runtime Kenney sigue recortando por alpha.
+    """
     image = bpy.data.images.load(str(render_path))
     width, height = image.size
     pixels = np.array(image.pixels[:], dtype=np.float32).reshape(height, width, 4)
@@ -800,13 +809,22 @@ def trim_and_scale(render_path, output_path, shadow_path=None, shadow_style=None
                 np.concatenate([out_rgb, out_alpha], axis=-1), 0.0, 1.0
             ).astype(np.float32)
     alpha = pixels[:, :, 3]
-    opaque_rows = np.where(np.any(alpha > ALPHA_THRESHOLD, axis=1))[0]
-    opaque_cols = np.where(np.any(alpha > ALPHA_THRESHOLD, axis=0))[0]
-    if opaque_rows.size == 0 or opaque_cols.size == 0:
-        raise ValueError("El render no tiene ningún píxel opaco: nada que recortar")
-    # `pixels` está en orden Blender (fila 0 = abajo); los offsets publicados se expresan arriba-abajo.
-    row_min, row_hi = int(opaque_rows[0]), int(opaque_rows[-1]) + 1
-    col_min, col_hi = int(opaque_cols[0]), int(opaque_cols[-1]) + 1
+    if crop_rect is not None:
+        col_min, row_min, col_hi, row_hi = (int(value) for value in crop_rect)
+        col_min = max(0, col_min)
+        row_min = max(0, row_min)
+        col_hi = min(width, col_hi)
+        row_hi = min(height, row_hi)
+        if col_hi <= col_min or row_hi <= row_min:
+            raise ValueError("crop_rect fuera del lienzo: nada que recortar")
+    else:
+        opaque_rows = np.where(np.any(alpha > ALPHA_THRESHOLD, axis=1))[0]
+        opaque_cols = np.where(np.any(alpha > ALPHA_THRESHOLD, axis=0))[0]
+        if opaque_rows.size == 0 or opaque_cols.size == 0:
+            raise ValueError("El render no tiene ningún píxel opaco: nada que recortar")
+        # `pixels` está en orden Blender (fila 0 = abajo); los offsets publicados se expresan arriba-abajo.
+        row_min, row_hi = int(opaque_rows[0]), int(opaque_rows[-1]) + 1
+        col_min, col_hi = int(opaque_cols[0]), int(opaque_cols[-1]) + 1
     if (row_hi - row_min) % 2 == 1 and row_hi < height:
         row_hi += 1
     elif (row_hi - row_min) % 2 == 1:

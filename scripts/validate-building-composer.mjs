@@ -616,12 +616,33 @@ function checkRegenerateArtifact(path, manifest, errors) {
   }
   const report = read(path);
   const label = report.candidateId ?? "sin candidato";
-  if (report.status !== "determinista") {
+  // §13 gatea la reproducibilidad de la COMPOSICIÓN (firma + pivot + dimensiones + silueta alpha),
+  // no la byte-identidad del raster: está medido que EEVEE Next GPU jittera el raster entre procesos
+  // (la sombra cambia de sha incluso con sombras duras; el albedo ±1 LSB a 1 muestra). Exigir
+  // byte-idéntico sería un gate inalcanzable; ignorar el raster sería ninguno. El estado honesto es
+  // uno de la familia determinista con el jitter del raster dentro de la cota de ruido GPU.
+  const deterministicStatuses = new Set([
+    "determinista",
+    "FINAL_OUTPUT_DETERMINISTIC",
+    "COMPOSITION_DETERMINISTIC_GPU_JITTER",
+  ]);
+  if (!deterministicStatuses.has(report.status)) {
     errors.push(`§13 el acta de regeneración de ${label} declara '${report.status}'`);
+  }
+  if (report.status === "COMPOSITION_DETERMINISTIC_GPU_JITTER") {
+    const jitter = report.finalOutputJitter ?? {};
+    const within =
+      jitter.totalPixels > 0 && jitter.meanAbsDiff < 4.0 && jitter.grossFraction < 0.02;
+    if (!within) {
+      errors.push(
+        `§13 ${label}: el acta se declara jitter de GPU pero la magnitud medida está fuera de la cota ` +
+          `(meanAbsDiff=${jitter.meanAbsDiff}, gross=${jitter.grossFraction})`,
+      );
+    }
   }
   if ((report.differences ?? []).length > 0) {
     errors.push(
-      `§13 el acta de ${label} registró diferencias en ${report.differences.join(", ")} entre procesos`,
+      `§13 el acta de ${label} registró diferencias en ${report.differences.join(", ")} (estructurales entre procesos)`,
     );
   }
   const candidate = manifest.candidates.find((item) => item.candidateId === report.candidateId);

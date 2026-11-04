@@ -589,6 +589,44 @@ def framing(composition, camera, profile):
     }
 
 
+def deterministic_crop_rect(composition, scene, camera, style_layer, width, height):
+    """Rect de recorte determinista en píxeles del lienzo: bounding box proyectado del edificio ∪ su sombra.
+
+    §8 exige que dimensiones y pivot del sprite publicado sean reproducibles entre procesos. El recorte
+    por bounding box de alpha no lo es: la cobertura AA de EEVEE Next jittera ±1 LSB en el borde, la
+    columna extrema entra y sale del umbral, y la corrección de paridad de `trim_and_scale` amplifica el
+    ±1 a ±2 píxeles. Aquí la caja se deriva SOLO de cantidades deterministas —los bounds de composición,
+    la matriz de la cámara y la posición de la key light—, nunca del raster.
+
+    Se proyectan las 8 esquinas del volumen y las 8 sombras de esas esquinas sobre el plano z=0 (rayo
+    desde la key light), se toman los extremos en píxeles y se ajustan a par para el downscale 2×.
+    """
+    light = Vector(style_layer["lighting"]["keyPosition"])
+    points = list(box_corners(composition["bounds"]))
+    for corner in box_corners(composition["bounds"]):
+        direction = corner - light
+        if abs(direction.z) < 1e-6:
+            continue
+        t = -corner.z / direction.z
+        if t > 0:
+            points.append(corner + direction * t)
+    columns = []
+    rows = []
+    for point in points:
+        view = world_to_camera_view(scene, camera, point)
+        columns.append(view.x * width)
+        rows.append(view.y * height)  # v desde el borde inferior, igual que el array de `pixels`.
+    col_min = max(0, math.floor(min(columns)))
+    col_hi = min(width, math.ceil(max(columns)))
+    row_min = max(0, math.floor(min(rows)))
+    row_hi = min(height, math.ceil(max(rows)))
+    if (col_hi - col_min) % 2 == 1:
+        col_hi = min(width, col_hi + 1) if col_hi + 1 <= width else col_min + 1
+    if (row_hi - row_min) % 2 == 1:
+        row_hi = min(height, row_hi + 1) if row_hi + 1 <= height else row_min + 1
+    return col_min, row_min, col_hi, row_hi
+
+
 def to_final_pixels(point, trim):
     """Lleva una proyección normalizada del render completo al espacio [0,1] del sprite final.
 
@@ -877,7 +915,11 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
     # ya difiere de por sí.
     shadow["renderPixels"] = render_pass
     shadow["pixels"] = pixels_digest(shadow_path)
-    trim = runtime.trim_and_scale(render_path, output, shadow_path, shadow_style)
+    crop_rect = deterministic_crop_rect(
+        composition, scene, camera, style_layer,
+        scene.render.resolution_x, scene.render.resolution_y,
+    )
+    trim = runtime.trim_and_scale(render_path, output, shadow_path, shadow_style, crop_rect)
     render_path.unlink(missing_ok=True)
     shadow_path.unlink(missing_ok=True)
 

@@ -904,10 +904,6 @@ class Composition:
         module = self.catalog.pick(self.family, option["role"], option.get("module"))
         x0, y0, x1, y1 = self.buildable
         
-        # DEBUG
-        import sys
-        print(f"DEBUG _build_secondary: option={option['id']}, module={module.id}", file=sys.stderr)
-        print(f"DEBUG _build_secondary: buildable=({x0}, {y0}, {x1}, {y1})", file=sys.stderr)
         
         centers = (
             [self._cell_center(option["atCell"])]
@@ -920,7 +916,6 @@ class Composition:
             if x0 <= cx <= x1 and y0 <= cy <= y1
         ]
         
-        print(f"DEBUG _build_secondary: {len(centers)} centers after filtering", file=sys.stderr)
         
         for center_x, center_y in self.rng.sampled(centers, len(centers)):
             for angle in (0, 90, 180, 270):
@@ -936,9 +931,7 @@ class Composition:
                     self.add(module, angle, (center_x, center_y, 0.0), f"secondary:{option['id']}")
                     for support in option.get("supports", []):
                         self._add_support(support)
-                    print(f"DEBUG _build_secondary: ✓ PLACED at ({center_x}, {center_y})", file=sys.stderr)
                     return True
-        print(f"DEBUG _build_secondary: ✗ COULD NOT PLACE", file=sys.stderr)
         if option.get("optional") is False:
             raise CompositionError(
                 f"§17: no cabe el volumen secundario {option['id']} dentro del solar"
@@ -951,21 +944,13 @@ class Composition:
         Los requiredFeatures DEBEN colocarse (si no caben, fallo determinista).
         Los variantFeatures se colocan según su probabilidad.
         """
-        # DEBUG
-        import sys
-        print(f"DEBUG: _build_required_features called", file=sys.stderr)
-        print(f"DEBUG: required_features = {required_features}", file=sys.stderr)
-        print(f"DEBUG: occupancy claimed = {len(self.occupancy.claimed)} cells", file=sys.stderr)
-        print(f"DEBUG: occupancy free = {len(self.occupancy.free_cells())} cells", file=sys.stderr)
         x0, y0, x1, y1 = self.buildable
-        print(f"DEBUG: buildable = ({x0}, {y0}, {x1}, {y1})", file=sys.stderr)
         
         # Colocar required features
         for feature in required_features:
             kind = feature["kind"]
             feature_id = feature["id"]
             
-            print(f"DEBUG: Placing required feature {feature_id} (kind={kind})", file=sys.stderr)
             
             if kind == "secondary":
                 option = option_by_id(
@@ -976,7 +961,6 @@ class Composition:
                 option["optional"] = False
                 try:
                     result = self._build_secondary(option)
-                    print(f"DEBUG: _build_secondary returned {result}", file=sys.stderr)
                 finally:
                     option["optional"] = original_optional
             

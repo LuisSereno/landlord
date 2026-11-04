@@ -32,7 +32,8 @@ TOP_LEVEL_KEYS = {
     "minimumChangedAxes",
     "grammars",
 }
-GRAMMAR_KEYS = {
+# V.g: separar claves obligatorias y opcionales para permitir migración gradual a recipes
+REQUIRED_GRAMMAR_KEYS = {
     "buildingType",
     "family",
     "label",
@@ -40,7 +41,6 @@ GRAMMAR_KEYS = {
     "yard",
     "levelsFromDomain",
     "cornerModes",
-    "recipes",  # V.g: recetas arquitectónicas (composiciones válidas)
     "massingOptions",
     "facadePalettes",
     "rhythms",
@@ -51,6 +51,10 @@ GRAMMAR_KEYS = {
     "secondaryOptions",
     "semanticIdentity",
 }
+OPTIONAL_GRAMMAR_KEYS = {
+    "recipes",  # V.g: recetas arquitectónicas (opcional durante migración)
+}
+GRAMMAR_KEYS = REQUIRED_GRAMMAR_KEYS | OPTIONAL_GRAMMAR_KEYS
 # Cada eje debe poder cambiar la geometría por sí solo: sin opción lista, el eje no puede variar.
 AXIS_OPTIONS = {
     "massing": "massingOptions",
@@ -134,6 +138,22 @@ def _require_keys(record, allowed, label, where):
         raise GrammarError(f"{where} ({label}): faltan las claves {sorted(missing)}")
 
 
+def _require_mandatory_keys(record, required, allowed, label, where):
+    """V.g: validar claves obligatorias permitiendo adicionales opcionales.
+    
+    - required: claves que DEBEN estar presentes
+    - allowed: todas las claves permitidas (required + optional)
+    """
+    # Verificar que no haya claves fuera del esquema permitido
+    unknown = set(record) - allowed
+    if unknown:
+        raise GrammarError(f"{where} ({label}): claves fuera del esquema {sorted(unknown)}")
+    # Verificar que todas las claves obligatorias estén presentes
+    missing = required - set(record)
+    if missing:
+        raise GrammarError(f"{where} ({label}): faltan las claves obligatorias {sorted(missing)}")
+
+
 class GrammarDocument:
     def __init__(self, path=GRAMMAR_PATH):
         self.raw = json.loads(Path(path).read_text(encoding="utf-8"))
@@ -161,7 +181,11 @@ class GrammarDocument:
         record = self.raw["grammars"].get(building_type)
         if record is None:
             raise GrammarError(f"no hay gramática para {building_type}")
-        _require_keys(record, GRAMMAR_KEYS, record["label"], f"grammars.{building_type}")
+        # V.g: validar claves obligatorias y permitir opcionales
+        _require_mandatory_keys(
+            record, REQUIRED_GRAMMAR_KEYS, GRAMMAR_KEYS, 
+            record["label"], f"grammars.{building_type}"
+        )
         if record["buildingType"] != building_type:
             raise GrammarError(f"{building_type}: la gramática se autodenomina {record['buildingType']}")
         self._check_roles(record, catalog, profile)
@@ -513,11 +537,7 @@ def draw_choices(rng, record, axes):
                     f["id"] for f in recipe["requiredFeatures"]
                     if f["kind"] == "secondary"
                 }
-                import sys
-                print(f"DEBUG draw_choices: filtering secondary_volume, required={required_secondary_ids}", file=sys.stderr)
-                print(f"DEBUG draw_choices: options before filter = {[o['id'] for o in options]}", file=sys.stderr)
                 options = [o for o in options if o["id"] not in required_secondary_ids]
-                print(f"DEBUG draw_choices: options after filter = {[o['id'] for o in options]}", file=sys.stderr)
         
         if axis == "intrinsic_props":
             count = rng.below(len(options) + 1)

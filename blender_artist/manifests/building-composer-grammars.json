@@ -1034,7 +1034,7 @@
       "buildingType": "town_hall",
       "family": "civic_landmark",
       "label": "Ayuntamiento (hitazo cívico, 4×3 celdas)",
-      "notes": "§21: la jerarquía del frente se resuelve con escalinata, pretil, cornisa y acceso centrado, no con un rótulo. El dominio da 16×12 m y cuatro plantas; la gramática reserva una celda frontal (4 m) para la escalinata, que es un elemento intrínseco de §22 y no puede apoyarse en la acera de property-grounds. Gap §35 medido: `mod_kaykit_civic_block_h` (torre de 11,8 m) mide 8,027 m de lado y no cabe en un volumen de dos celdas (8 m), así que el elemento vertical de §21 lo aportan `yard_tower` y el depósito de azotea, no un rascacielos de cubos.",
+      "notes": "§21: identidad cívica neoclásica con simetría axial, cuerpo central monumental, acceso centrado con escalinata, columnata o pilastras integradas en fachada, y lenguaje clásico de pretil y cornisa. El dominio da 16×12 m; la gramática reserva una celda frontal (4 m) para la escalinata. V.g: las recetas arquitectónicas definen features obligatorios integrados en fachada (columnas/pilastras) que se anclan al volumen principal mediante distribución simétrica, excluyendo el bay del acceso.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -1060,8 +1060,7 @@
           "id": "neoclassical_portico",
           "label": "composición neoclásica con pórtico de columnas",
           "massingIds": [
-            "civic_block",
-            "block_and_wing"
+            "civic_block"
           ],
           "accessIds": [
             "monumental_stairs",
@@ -1086,20 +1085,8 @@
               "side": "front",
               "count": 6,
               "levels": 2,
-              "distribution": "symmetric"
-            }
-          ],
-          "variantFeatures": [
-            {
-              "kind": "facade",
-              "id": "facade_pilasters",
-              "role": "pilaster",
-              "module": "mod_megakit_column_pilaster_center",
-              "side": "front",
-              "count": 4,
-              "levels": 2,
-              "distribution": "even",
-              "probability": 0.5
+              "distribution": "symmetric",
+              "targetVolume": 0
             }
           ]
         },
@@ -1107,7 +1094,6 @@
           "id": "municipal_block",
           "label": "bloque municipal funcional con pilastras",
           "massingIds": [
-            "split_pavilions",
             "stepped_civic"
           ],
           "accessIds": [
@@ -1132,20 +1118,8 @@
               "side": "front",
               "count": 4,
               "levels": 2,
-              "distribution": "symmetric"
-            }
-          ],
-          "variantFeatures": [
-            {
-              "kind": "facade",
-              "id": "corner_columns",
-              "role": "column",
-              "module": "mod_megakit_column_trim_center",
-              "side": "front",
-              "count": 2,
-              "levels": 2,
-              "distribution": "even",
-              "probability": 0.5
+              "distribution": "symmetric",
+              "targetVolume": 0
             }
           ]
         },
@@ -1153,8 +1127,7 @@
           "id": "civic_wing",
           "label": "ala cívica con columnas decorativas",
           "massingIds": [
-            "single_wing_plaza",
-            "civic_block"
+            "single_wing_plaza"
           ],
           "accessIds": [
             "monumental_stairs",
@@ -1177,22 +1150,10 @@
               "role": "column",
               "module": "mod_megakit_column_trim_center",
               "side": "front",
-              "count": 5,
+              "count": 4,
               "levels": 2,
-              "distribution": "symmetric"
-            }
-          ],
-          "variantFeatures": [
-            {
-              "kind": "facade",
-              "id": "facade_pilasters",
-              "role": "pilaster",
-              "module": "mod_megakit_column_pilaster_center",
-              "side": "front",
-              "count": 3,
-              "levels": 2,
-              "distribution": "even",
-              "probability": 0.4
+              "distribution": "symmetric",
+              "targetVolume": 0
             }
           ]
         }

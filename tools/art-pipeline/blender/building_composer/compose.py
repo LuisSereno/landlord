@@ -221,6 +221,7 @@ class Composition:
         self._build_props(choices["intrinsic_props"], choices["propSlots"])
 
         self.axis_fingerprint = {
+            "recipe": choices.get("recipe", "none"),
             "massing": massing["id"],
             "bay_sequence": f"{rhythm['id']}@{choices['rhythmOffset']}",
             "roof": roof["id"],
@@ -941,9 +942,12 @@ class Composition:
     def _build_facade_feature(self, feature):
         """V.g: coloca un facade feature integrado en la fachada.
 
-        Un facade feature NO usa Occupancy ni _build_secondary(). Se ancla a la cara frontal
-        del primer volumen de bandas y se distribuye simétricamente a lo largo de la fachada.
-        Si no hay suficientes crujías, adapta el count al máximo disponible.
+        Un facade feature NO usa Occupancy ni _build_secondary(). Se ancla a un volumen objetivo
+        (targetVolume) y se distribuye simétricamente a lo largo de la fachada, excluyendo el
+        bay del acceso principal.
+
+        REQUIRED SIGNIFICA REQUIRED: si count=6, deben colocarse exactamente 6 elementos por nivel.
+        Si no caben, la composición falla explícitamente (no hay adaptación silenciosa).
         """
         module_id = feature["module"]
         role = feature["role"]
@@ -951,6 +955,7 @@ class Composition:
         count = feature["count"]
         levels = feature["levels"]
         distribution = feature["distribution"]
+        target_volume_index = feature.get("targetVolume", 0)
 
         module = self.catalog.get(module_id)
         if module.role != role:
@@ -958,11 +963,12 @@ class Composition:
                 f"§12: {module_id} tiene role={module.role} pero el feature pide role={role}"
             )
 
-        bands = [v for v in self.volumes if v["build"] == "bands"]
-        if not bands:
-            raise CompositionError("§12: facade feature requiere al menos un volumen de bandas")
+        if target_volume_index >= len(self.volumes):
+            raise CompositionError(
+                f"§12: targetVolume={target_volume_index} fuera de rango (hay {len(self.volumes)} volúmenes)"
+            )
 
-        volume = bands[0]
+        volume = self.volumes[target_volume_index]
         rect = volume["rect"]
         corner = self.choices.get("corner", {"widthMeters": 0.0})
 
@@ -973,49 +979,106 @@ class Composition:
             face_line = rect[0] if side == "left" else rect[2]
             bays = self.band_bays(rect, side, corner)
 
-        # Adaptar count al máximo disponible si no caben todos
-        actual_count = min(count, len(bays))
-        if actual_count == 0:
-            return  # No hay crujías disponibles, skip silencioso
+        if not bays:
+            raise CompositionError(
+                f"§12: facade feature en lado {side} no tiene crujías disponibles"
+            )
+
+        available_bays = [b for b in bays if not self._is_access_bay(b, side, rect)]
+        if len(available_bays) < count:
+            raise CompositionError(
+                f"§12: facade feature requiere {count} módulos en lado {side} pero solo hay "
+                f"{len(available_bays)} bays disponibles (excluyendo acceso)"
+            )
+
+        volume_levels = volume.get("levels", 1)
+        if levels > volume_levels:
+            raise CompositionError(
+                f"§12: facade feature pide {levels} niveles pero el volumen objetivo solo tiene {volume_levels}"
+            )
 
         if distribution == "symmetric":
-            center = len(bays) // 2
-            if actual_count % 2 == 0:
-                indices = [center - actual_count // 2 + i for i in range(actual_count)]
-            else:
-                indices = [center - actual_count // 2 + i for i in range(actual_count)]
-        elif distribution == "centered":
-            start = (len(bays) - actual_count) // 2
-            indices = list(range(start, start + actual_count))
-        elif distribution == "even":
-            if actual_count == 1:
-                indices = [len(bays) // 2]
-            else:
-                step = max(1, len(bays) // actual_count)
-                indices = [i * step for i in range(actual_count)]
+            indices = self._symmetric_indices(available_bays, bays, count)
         else:
-            raise CompositionError(f"§12: distribución {distribution} no soportada")
+            raise CompositionError(f"§12: distribución {distribution} no soportada (solo symmetric)")
 
+        placed_count = 0
         for level_index in range(levels):
             z = volume["base"] + level_index * self.level
-            for idx in indices:
-                if idx < len(bays):
-                    along = bays[idx]
-                    self.add_on_face(
-                        module,
-                        side,
-                        along,
-                        face_line,
-                        z,
-                        f"facade_feature:{feature['id']}:{side}:level{level_index + 1}:bay{idx + 1}",
-                    )
+            for bay_index in indices:
+                along = bays[bay_index]
+                self.add_on_face(
+                    module,
+                    side,
+                    along,
+                    face_line,
+                    z,
+                    f"facade_feature:{feature['id']}:{side}:level{level_index + 1}:bay{bay_index + 1}",
+                )
+                placed_count += 1
+
+        expected_count = count * levels
+        if placed_count != expected_count:
+            raise CompositionError(
+                f"§12: facade feature {feature['id']} colocó {placed_count} módulos pero debía colocar {expected_count}"
+            )
+
+    def _is_access_bay(self, bay_position, side, rect):
+        """Determina si un bay coincide con el acceso principal."""
+        if not hasattr(self, 'access_bay') or self.access_bay is None:
+            return False
+        if side != "front":
+            return False
+        if abs(rect[1] - self.buildable[1]) > 1e-6:
+            return False
+        corner = self.choices.get("corner", {"widthMeters": 0.0})
+        bays = self.band_bays(rect, "front", corner)
+        if self.access_bay >= len(bays):
+            return False
+        access_position = bays[self.access_bay]
+        return abs(bay_position - access_position) < 1e-6
+
+    def _symmetric_indices(self, available_bays, all_bays, count):
+        """Selecciona count posiciones simétricas respecto al centro, excluyendo el acceso.
+
+        Devuelve índices en all_bays (no en available_bays) para que el placement use las
+        posiciones correctas.
+        """
+        if count == 0:
+            return []
+        
+        if len(available_bays) < count:
+            raise CompositionError(
+                f"§12: distribución simétrica requiere {count} bays pero solo hay {len(available_bays)} disponibles"
+            )
+        
+        # Convertir available_bays a índices en all_bays
+        available_indices = []
+        for avail_pos in available_bays:
+            for idx, all_pos in enumerate(all_bays):
+                if abs(avail_pos - all_pos) < 1e-6:
+                    available_indices.append(idx)
+                    break
+        
+        available_indices.sort()
+        
+        # Seleccionar count índices simétricamente
+        center_idx = len(all_bays) / 2.0
+        sorted_by_distance = sorted(
+            available_indices,
+            key=lambda idx: abs(idx - center_idx)
+        )
+        
+        # Tomar los count más cercanos al centro
+        selected = sorted(sorted_by_distance[:count])
+        return selected
 
     def _build_required_features(self, required_features, variant_features, prop_slots):
-        """V.g: coloca features obligatorios y variantes de la receta.
+        """V.g: coloca features obligatorios de la receta.
 
-        Los requiredFeatures DEBEN colocarse (si no caben, fallo determinista).
-        Los variantFeatures se colocan según su probabilidad.
+        Los requiredFeatures DEBEN colocarse exactamente (si no caben, fallo determinista).
         NO muta el manifiesto: trabaja con copias.
+        V.g spike: variantFeatures se ignoran temporalmente para simplificar el contrato.
         """
         for feature in required_features:
             kind = feature["kind"]
@@ -1032,22 +1095,6 @@ class Composition:
                 prop_slots_copy = dict(prop_slots)
                 prop_slots_copy[feature["id"]] = 0
                 self._build_props([feature["id"]], prop_slots_copy)
-
-        for feature in variant_features:
-            probability = feature.get("probability", 1.0)
-            if self.rng.below(100) < probability * 100:
-                kind = feature["kind"]
-                if kind == "facade":
-                    self._build_facade_feature(feature)
-                elif kind == "secondary":
-                    option = option_by_id(
-                        self.record["secondaryOptions"], feature["id"], "secondaryOptions (variant)"
-                    )
-                    option_copy = dict(option)
-                    option_copy["optional"] = True
-                    self._build_secondary(option_copy)
-                elif kind == "prop":
-                    pass
 
     def _add_support(self, support):
         """Primitivas §15: solo conector, conducto, zócalo o base; nunca masa visible.

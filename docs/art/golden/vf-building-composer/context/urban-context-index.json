@@ -1,0 +1,83 @@
+[
+ {
+  "candidateId": "vf_row_house_1003",
+  "buildingType": "row_house",
+  "family": "residential_low",
+  "variantSeed": 1003,
+  "zoom": "0.5x",
+  "orthoScale": 36.324,
+  "image": "docs/art/golden/vf-building-composer/context/row_house-city-context-0.5x.png"
+ },
+ {
+  "candidateId": "vf_row_house_1003",
+  "buildingType": "row_house",
+  "family": "residential_low",
+  "variantSeed": 1003,
+  "zoom": "1x",
+  "orthoScale": 18.162,
+  "image": "docs/art/golden/vf-building-composer/context/row_house-city-context-1x.png"
+ },
+ {
+  "candidateId": "vf_row_house_1003",
+  "buildingType": "row_house",
+  "family": "residential_low",
+  "variantSeed": 1003,
+  "zoom": "2x",
+  "orthoScale": 9.081,
+  "image": "docs/art/golden/vf-building-composer/context/row_house-city-context-2x.png"
+ },
+ {
+  "candidateId": "vf_cement_plant_1002",
+  "buildingType": "cement_plant",
+  "family": "industrial_heavy",
+  "variantSeed": 1002,
+  "zoom": "0.5x",
+  "orthoScale": 52.724,
+  "image": "docs/art/golden/vf-building-composer/context/cement_plant-city-context-0.5x.png"
+ },
+ {
+  "candidateId": "vf_cement_plant_1002",
+  "buildingType": "cement_plant",
+  "family": "industrial_heavy",
+  "variantSeed": 1002,
+  "zoom": "1x",
+  "orthoScale": 26.362,
+  "image": "docs/art/golden/vf-building-composer/context/cement_plant-city-context-1x.png"
+ },
+ {
+  "candidateId": "vf_cement_plant_1002",
+  "buildingType": "cement_plant",
+  "family": "industrial_heavy",
+  "variantSeed": 1002,
+  "zoom": "2x",
+  "orthoScale": 13.181,
+  "image": "docs/art/golden/vf-building-composer/context/cement_plant-city-context-2x.png"
+ },
+ {
+  "candidateId": "vf_town_hall_1000",
+  "buildingType": "town_hall",
+  "family": "civic_landmark",
+  "variantSeed": 1000,
+  "zoom": "0.5x",
+  "orthoScale": 64.704,
+  "image": "docs/art/golden/vf-building-composer/context/town_hall-city-context-0.5x.png"
+ },
+ {
+  "candidateId": "vf_town_hall_1000",
+  "buildingType": "town_hall",
+  "family": "civic_landmark",
+  "variantSeed": 1000,
+  "zoom": "1x",
+  "orthoScale": 32.352,
+  "image": "docs/art/golden/vf-building-composer/context/town_hall-city-context-1x.png"
+ },
+ {
+  "candidateId": "vf_town_hall_1000",
+  "buildingType": "town_hall",
+  "family": "civic_landmark",
+  "variantSeed": 1000,
+  "zoom": "2x",
+  "orthoScale": 16.176,
+  "image": "docs/art/golden/vf-building-composer/context/town_hall-city-context-2x.png"
+ }
+]

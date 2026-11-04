@@ -7,7 +7,7 @@
  "variantSeed": 1000,
  "composerVersion": "vf-3",
  "styleProfileId": "graphic_civic_buildings_v1",
- "compositionSignature": "aa39f09d1a6772afbac85385dfb5e5ee2c43b4a8c7286338cb78457c7cfb4009",
+ "compositionSignature": "0dcc929f21d1ca4f605edab2ba7f00f3c1c6c8709ce855fcd17840cd76655f9d",
  "axisChoices": {
   "massing": "long_nave",
   "facade": "steel_cladding",
@@ -16,7 +16,7 @@
   "roof": "flat_plates",
   "access": "person_door@2",
   "intrinsic_props": "roof_hvac",
-  "secondary_volume": "storage_tank/sin_hueco"
+  "secondary_volume": "storage_tank"
  },
  "footprintCells": {
   "width": 5,
@@ -34,7 +34,7 @@
   },
   "y": {
    "min": -4.0,
-   "max": 2.484
+   "max": 3.0305999999999997
   },
   "z": {
    "min": 0.0,
@@ -43,7 +43,7 @@
  },
  "envelopeMeters": {
   "x": 18.167,
-  "y": 6.484,
+  "y": 7.031,
   "z": 6.6
  },
  "volumes": [
@@ -1006,6 +1006,37 @@
    "purpose": "access:leaf"
   },
   {
+   "moduleId": "mod_kenney_ind_tank_small",
+   "role": "tank",
+   "sourceId": "src_kenney_city_industrial",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/detail-tank.glb",
+   "license": "CC0-1.0",
+   "rotationDegrees": 0,
+   "position": [
+    7.0,
+    2.0,
+    0.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 5.304,
+     "max": 8.696
+    },
+    "y": {
+     "min": 0.9694,
+     "max": 3.0305999999999997
+    },
+    "z": {
+     "min": 0.0,
+     "max": 1.6612
+    }
+   },
+   "triangles": 310,
+   "meshObjects": 1,
+   "elevationReach": "tratado",
+   "purpose": "secondary:storage_tank"
+  },
+  {
    "moduleId": "mod_megakit_prop_ac_unit",
    "role": "rooftop_unit",
    "sourceId": "src_quaternius_downtown_city_megakit",
@@ -1040,6 +1071,7 @@
  "originalSupport": [],
  "modules": [
   "mod_kenney_ind_hall_wide_a",
+  "mod_kenney_ind_tank_small",
   "mod_megakit_door_1",
   "mod_megakit_doorframe_metal_2m",
   "mod_megakit_floor_slab_4m",
@@ -1055,6 +1087,7 @@
  ],
  "sourcePaths": [
   "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-a.glb",
+  "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/detail-tank.glb",
   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Door_1.gltf",
   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
@@ -1105,7 +1138,7 @@
    "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
-    "styled_T_MetalConcrete_BaseColor.004"
+    "styled_T_MetalConcrete_BaseColor"
    ],
    "untreatedColorSources": 0
   },
@@ -1240,6 +1273,21 @@
    "untreatedColorSources": 0
   },
   {
+   "moduleId": "mod_kenney_ind_tank_small",
+   "material": "colormap",
+   "family": "atlas",
+   "elevationReach": "tratado",
+   "measuredChain": [
+    "atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
+   ],
+   "treatmentPath": "atlas-directo",
+   "colorSourceFound": true,
+   "styledAtlasesInScene": [
+    "styled_colormap"
+   ],
+   "untreatedColorSources": 0
+  },
+  {
    "moduleId": "mod_megakit_floor_slab_4m",
    "material": "MI_InteriorFloor",
    "family": "interior",
@@ -1250,7 +1298,7 @@
    "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
-    "styled_T_MarbleFloor_BaseColor.004"
+    "styled_T_MarbleFloor_BaseColor"
    ],
    "untreatedColorSources": 0
   },
@@ -1265,22 +1313,7 @@
    "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
-    "styled_T_Concrete_BaseColor.004"
-   ],
-   "untreatedColorSources": 0
-  },
-  {
-   "moduleId": "mod_kenney_ind_hall_wide_a",
-   "material": "colormap",
-   "family": "atlas",
-   "elevationReach": "tratado",
-   "measuredChain": [
-    "atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
-   ],
-   "treatmentPath": "atlas-directo",
-   "colorSourceFound": true,
-   "styledAtlasesInScene": [
-    "styled_colormap.005"
+    "styled_T_Concrete_BaseColor"
    ],
    "untreatedColorSources": 0
   },
@@ -1295,7 +1328,20 @@
    "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
-    "styled_colormap.005"
+    "styled_colormap"
+   ],
+   "untreatedColorSources": 0
+  },
+  {
+   "moduleId": "mod_kenney_ind_hall_wide_a",
+   "material": "colormap.001",
+   "family": "atlas",
+   "elevationReach": "tratado",
+   "measuredChain": [],
+   "treatmentPath": "atlas-directo",
+   "colorSourceFound": true,
+   "styledAtlasesInScene": [
+    "styled_colormap"
    ],
    "untreatedColorSources": 0
   }
@@ -1303,7 +1349,7 @@
  "checks": {
   "groundContactInsideFootprint": true,
   "groundToleranceMeters": 0.05,
-  "distinctModuleIds": 9,
+  "distinctModuleIds": 10,
   "distinctSources": 2,
   "supportTriangleShare": 0.0,
   "elevationTreatmentLadders": [
@@ -1315,40 +1361,40 @@
  "sceneChecks": {
   "placementToleranceMeters": 0.02,
   "groundContact": {
-   "restingModules": 16,
-   "lowestZMeters": 0.0
+   "restingModules": 17,
+   "lowestZMeters": -0.0
   },
   "scene": {
-   "triangles": 6259,
-   "meshObjects": 31,
+   "triangles": 6569,
+   "meshObjects": 32,
    "worldSizeMeters": {
     "x": 18.1672,
-    "y": 6.4845,
+    "y": 7.0311,
     "z": 6.6
    }
   },
-  "sourcesImported": 9,
+  "sourcesImported": 10,
   "pivotValidator": {
    "rawNormalized": {
-    "x": 0.5092,
-    "y": 0.6207
+    "x": 0.5601,
+    "y": 0.5877
    },
    "footprintProjected": [
     [
-     -0.1744,
-     0.4586
+     0.0888,
+     0.459
     ],
     [
-     0.8021,
-     0.9989
+     0.7621,
+     0.888
     ],
     [
-     1.1928,
-     0.7828
+     1.0315,
+     0.7164
     ],
     [
-     0.2162,
-     0.2424
+     0.3581,
+     0.2874
     ]
    ],
    "insideFootprint": true,
@@ -1387,20 +1433,20 @@
   }
  },
  "pivot": {
-  "x": 0.5092,
-  "y": 0.6207
+  "x": 0.5601,
+  "y": 0.5877
  },
  "footprint": {
   "width": 5,
   "height": 2
  },
- "triangleCount": 6259,
- "materialCount": 17,
- "textureCount": 19,
- "renderTime": 8788.98,
- "pngBytes": 171195,
- "sha256": "04ad2a8025f099b042ac0f990dd59cd3f2fddb1d4c9c57a63f87de064e0c87c4",
- "pixelSha256": "3e8eda3f382c6dbe9069034d9ad8496257c81ce1437216ad3fdc90de09dd1dd1",
+ "triangleCount": 6569,
+ "materialCount": 18,
+ "textureCount": 18,
+ "renderTime": 11389.51,
+ "pngBytes": 186320,
+ "sha256": "b9346f048681bd97193a0ad365fdf4e81a05b7721f34d00e6fac2d14448d506b",
+ "pixelSha256": "7141a1a2cee6fbdbc31ed372d1e6b1bb9be86b1e789716e906524fca9ca4c95c",
  "orientationStatus": {
   "cameraAzimuthDegrees": 45.0,
   "cameraElevationDegrees": 30.0,
@@ -1433,38 +1479,38 @@
   "evidence": "frente -Y, azimut 45°: la normal de cada acceso se mide desde frontAxis+giro"
  },
  "image": {
-  "path": "/home/luis/RepositorioGitHub/landlord/docs/art/building-composer/candidates/vf_cement_plant_1000.png",
-  "width": 436,
-  "height": 394,
-  "sha256": "04ad2a8025f099b042ac0f990dd59cd3f2fddb1d4c9c57a63f87de064e0c87c4",
-  "bytes": 171195
+  "path": "/home/luis/RepositorioGitHub/landlord/docs/art/building-composer/attempts/2026-11-04T1257/vf_cement_plant_1000.png",
+  "width": 632,
+  "height": 496,
+  "sha256": "b9346f048681bd97193a0ad365fdf4e81a05b7721f34d00e6fac2d14448d506b",
+  "bytes": 186320
  },
  "trim": {
   "rendered": {
-   "width": 1386,
-   "height": 1148
+   "width": 1416,
+   "height": 1162
   },
   "cropped": {
-   "width": 872,
-   "height": 788,
-   "offsetX": 249,
-   "offsetY": 257
+   "width": 1264,
+   "height": 992,
+   "offsetX": 0,
+   "offsetY": 170
   },
   "final": {
-   "width": 436,
-   "height": 394
+   "width": 632,
+   "height": 496
   }
  },
  "metrics": {
-  "placements": 31,
-  "meshObjects": 31,
-  "distinctModuleIds": 9,
+  "placements": 32,
+  "meshObjects": 32,
+  "distinctModuleIds": 10,
   "sources": [
    "src_kenney_city_industrial",
    "src_quaternius_downtown_city_megakit"
   ],
-  "triangles": 6259,
-  "licensedTriangles": 6259,
+  "triangles": 6569,
+  "licensedTriangles": 6569,
   "supportTriangles": 0,
   "licensedGeometryRatio": 1.0,
   "materials": [
@@ -1500,20 +1546,20 @@
   ]
  },
  "framing": {
-  "projectedWidthMeters": 17.431,
-  "projectedHeightMeters": 14.431,
+  "projectedWidthMeters": 17.818,
+  "projectedHeightMeters": 14.625,
   "marginUsed": 1.3205,
   "pixelsPerMeter": 30.1,
-  "orthoScale": 23.018,
+  "orthoScale": 23.528,
   "canvasPixels": [
-   693,
-   574
+   708,
+   581
   ]
  },
  "style": {
-  "layerVersion": 6,
+  "layerVersion": 7,
   "directReach": {
-   "version": 6,
+   "version": 7,
    "atlases": [
     "T_Concrete_Asphalt_BaseColor",
     "T_Concrete_BaseColor",
@@ -1558,7 +1604,7 @@
   "projection": "ORTHO",
   "azimuthDegrees": 45,
   "elevationDegrees": 30,
-  "orthoScale": 23.01799964904785,
+  "orthoScale": 23.527999877929688,
   "targetZ": 3.3
  },
  "shadow": {
@@ -1567,21 +1613,21 @@
   "strength": 1.5,
   "frameScale": 3,
   "renderPixels": {
-   "width": 1386,
-   "height": 1148,
-   "sha256": "b8c35350aa8514eb2a4e6e34d7c971fc44784e51d41db7546986c4a8a2b74699"
+   "width": 1416,
+   "height": 1162,
+   "sha256": "411e7e1d31c85af053384c5c2aaf00777962101543f720ccafdb9f5d10f130ab"
   },
   "pixels": {
-   "width": 4158,
-   "height": 3444,
-   "sha256": "3f0c6e7f697500eccb72a99263500ea21150155d07cc351204cbea28f26ea9e5"
+   "width": 4248,
+   "height": 3486,
+   "sha256": "9bf74fd01816452c51b16a79b7a7cf0b2d533002cf294395284ab66e3e91d7df"
   }
  },
  "render": {
-  "renderMs": 8788.98,
-  "prepMs": 14922.46,
-  "totalMs": 83422.36,
-  "peakRssMb": 4279.4
+  "renderMs": 11389.51,
+  "prepMs": 23256.14,
+  "totalMs": 66398.77,
+  "peakRssMb": 3795.4
  },
  "request": {
   "candidateId": "vf_cement_plant_1000",
@@ -1596,8 +1642,8 @@
   },
   "floors": 2,
   "state": "complete",
-  "output": "/home/luis/RepositorioGitHub/landlord/docs/art/building-composer/candidates/vf_cement_plant_1000.png",
-  "metadata": "/home/luis/RepositorioGitHub/landlord/docs/art/building-composer/candidates/vf_cement_plant_1000.json"
+  "output": "/home/luis/RepositorioGitHub/landlord/docs/art/building-composer/attempts/2026-11-04T1257/vf_cement_plant_1000.png",
+  "metadata": "/home/luis/RepositorioGitHub/landlord/docs/art/building-composer/attempts/2026-11-04T1257/vf_cement_plant_1000.json"
  },
  "composition": {
   "buildingType": "cement_plant",
@@ -1650,7 +1696,7 @@
    "roof": "flat_plates",
    "access": "person_door@2",
    "intrinsic_props": "roof_hvac",
-   "secondary_volume": "storage_tank/sin_hueco"
+   "secondary_volume": "storage_tank"
   },
   "placements": [
    {
@@ -2584,6 +2630,37 @@
     "purpose": "access:leaf"
    },
    {
+    "moduleId": "mod_kenney_ind_tank_small",
+    "role": "tank",
+    "sourceId": "src_kenney_city_industrial",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/detail-tank.glb",
+    "license": "CC0-1.0",
+    "rotationDegrees": 0,
+    "position": [
+     7.0,
+     2.0,
+     0.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 5.304,
+      "max": 8.696
+     },
+     "y": {
+      "min": 0.9694,
+      "max": 3.0305999999999997
+     },
+     "z": {
+      "min": 0.0,
+      "max": 1.6612
+     }
+    },
+    "triangles": 310,
+    "meshObjects": 1,
+    "elevationReach": "tratado",
+    "purpose": "secondary:storage_tank"
+   },
+   {
     "moduleId": "mod_megakit_prop_ac_unit",
     "role": "rooftop_unit",
     "sourceId": "src_quaternius_downtown_city_megakit",
@@ -2623,7 +2700,7 @@
    },
    "y": {
     "min": -4.0,
-    "max": 2.484
+    "max": 3.0305999999999997
    },
    "z": {
     "min": 0.0,
@@ -2632,18 +2709,18 @@
   },
   "envelopeMeters": {
    "x": 18.167,
-   "y": 6.484,
+   "y": 7.031,
    "z": 6.6
   },
   "groundContactMeters": {
    "x": 18.167,
-   "y": 6.484,
+   "y": 7.031,
    "z": 5.88
   },
   "checks": {
    "groundContactInsideFootprint": true,
    "groundToleranceMeters": 0.05,
-   "distinctModuleIds": 9,
+   "distinctModuleIds": 10,
    "distinctSources": 2,
    "supportTriangleShare": 0.0,
    "elevationTreatmentLadders": [
@@ -2653,15 +2730,15 @@
    ]
   },
   "metrics": {
-   "placements": 31,
-   "meshObjects": 31,
-   "distinctModuleIds": 9,
+   "placements": 32,
+   "meshObjects": 32,
+   "distinctModuleIds": 10,
    "sources": [
     "src_kenney_city_industrial",
     "src_quaternius_downtown_city_megakit"
    ],
-   "triangles": 6259,
-   "licensedTriangles": 6259,
+   "triangles": 6569,
+   "licensedTriangles": 6569,
    "supportTriangles": 0,
    "licensedGeometryRatio": 1.0,
    "materials": [
@@ -2696,6 +2773,6 @@
     "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png"
    ]
   },
-  "compositionSignature": "aa39f09d1a6772afbac85385dfb5e5ee2c43b4a8c7286338cb78457c7cfb4009"
+  "compositionSignature": "0dcc929f21d1ca4f605edab2ba7f00f3c1c6c8709ce855fcd17840cd76655f9d"
  }
 }

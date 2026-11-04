@@ -2,45 +2,58 @@
  "candidateId": "vf_row_house_1000",
  "first": {
   "pass": "primera",
-  "signature": "9b1bcec79d0227039c21e10cea8b421329da81f7617287c91d27e3bdb106476c",
-  "pixelSha256": "2b10cee2bd45d841bd29f9fbc94d7f95b17e31c323982af07f079ffa9b98226c",
-  "fileSha256": "9bd059ea66c6474d1ff1d7006e10a2308ae29b2cbf47a85dbbd60f506b376372",
+  "signature": "342700bc89297a9a6a8eb456103cc9b0414e67b7f1797a661db850cd7b1fd07c",
+  "pixelSha256": "608d63061695c077d37c5820fc091c6f19c454d7cccc862ff52fef44cbc035cb",
+  "fileSha256": "01fd9cfba60f87c6921b4aae5aa3f96d2d73a39e256ea08cce40d4f8dc8efe01",
   "stages": {
-   "render": "913e482fcf67ea628c125857966762f6631eb700f796188bdc39ef175b0543d1",
-   "shadow": "b87818590b506b97597e1c7ca089500747928a7e07c2da993578b8da80b6503b"
+   "render": "4547e9870f722f1a175828e4cd7d4ef1741387069130da6bbadf73fe98630be3",
+   "shadow": "e1d7c4596439135cbda0978fbfefc75fa7d6c3304461af36b31928247751ec35"
   },
   "pivot": {
-   "x": 0.5,
-   "y": 0.7141
+   "x": 0.5688,
+   "y": 0.7006
   },
   "pixels": [
-   427,
-   373
+   494,
+   598
   ]
  },
  "second": {
   "pass": "segunda",
-  "signature": "9b1bcec79d0227039c21e10cea8b421329da81f7617287c91d27e3bdb106476c",
-  "pixelSha256": "2b10cee2bd45d841bd29f9fbc94d7f95b17e31c323982af07f079ffa9b98226c",
-  "fileSha256": "9bd059ea66c6474d1ff1d7006e10a2308ae29b2cbf47a85dbbd60f506b376372",
+  "signature": "342700bc89297a9a6a8eb456103cc9b0414e67b7f1797a661db850cd7b1fd07c",
+  "pixelSha256": "141c2c24bc2a759d970f98193ef888ee0dfc2427be377fc6529a12c23aadf2b1",
+  "fileSha256": "c71643de0c9c94a506fd979e5321d6fa76d9349c60886ce0a4ac60aa58557c29",
   "stages": {
-   "render": "913e482fcf67ea628c125857966762f6631eb700f796188bdc39ef175b0543d1",
-   "shadow": "cb3803e369b9374f232bd42d8012534f013444a0ec88462f8c05a686aa91436a"
+   "render": "da35d30eb01b9c23ae80ae554e5fd25207e9641f904d3d650388002223b21f59",
+   "shadow": "37b0a1de7d808e87f0f145e0404e4715571b37ba5ac3388708359b5192a78bed"
   },
   "pivot": {
-   "x": 0.5,
-   "y": 0.7141
+   "x": 0.5688,
+   "y": 0.7006
   },
   "pixels": [
-   427,
-   373
+   494,
+   598
   ]
  },
  "differences": [],
  "stageDifferences": [
+  "render",
   "shadow"
  ],
- "pixelDifferences": false,
+ "pixelDifferences": true,
+ "compositionDeterministic": true,
+ "finalOutputByteIdentical": false,
+ "rasterWithinGpuNoiseBound": true,
+ "finalOutputJitter": {
+  "changedPixels": 3,
+  "totalPixels": 295412,
+  "maxChannelDelta": 1,
+  "meanAbsDiff": 0,
+  "grossFraction": 0
+ },
+ "intermediateShadowBitStable": false,
  "containerNoise": false,
- "status": "determinista"
+ "status": "COMPOSITION_DETERMINISTIC_GPU_JITTER",
+ "intermediateStatus": "INTERMEDIATE_SHADOW_NON_BIT_STABLE"
 }

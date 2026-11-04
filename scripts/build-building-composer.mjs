@@ -59,6 +59,7 @@ function parseArgs(argv) {
     seeds: DEFAULT_SEEDS,
     metrics: DEFAULT_METRICS,
     regenerate: false,
+    keepAttempts: false,
   };
   for (const argument of argv.slice(2)) {
     const [flag, value] = argument.split("=");
@@ -67,9 +68,10 @@ function parseArgs(argv) {
     else if (flag === "--seeds") options.seeds = value.split(",").map(Number);
     else if (flag === "--metrics") options.metrics = resolve(value);
     else if (flag === "--regenerate") options.regenerate = true;
+    else if (flag === "--keepAttempts") options.keepAttempts = true;
     else if (flag === "--help") {
       console.log(
-        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--outDir=dir] [--metrics=path] [--regenerate]",
+        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--outDir=dir] [--metrics=path] [--regenerate] [--keepAttempts]",
       );
       process.exit(0);
     } else throw new Error(`argumento desconocido ${argument}`);
@@ -203,30 +205,25 @@ function runBlender(requestsPath, manifestPath, count) {
 }
 
 /**
- * Ejecuta cada candidato en un proceso separado de Blender para evitar acumulación de estado.
- * 
- * Se detectó que renderizar múltiples candidatos en el mismo proceso causa que el segundo y
- * subsiguientes fallen con "El render no tiene ningún píxel opaco", incluso reseteando la escena
- * completamente entre renders. Ejecutar cada candidato en su propio proceso garantiza aislamiento
- * total y renders deterministas.
+ * Ejecuta cada candidato en un proceso separado de Blender, escribiendo TODO en `stagingDir`.
+ *
+ * El aislamiento de proceso responde a un state leak de Blender que hace que el segundo candidato en
+ * el mismo proceso renderice transparente (ver b8ab354). La escritura en `stagingDir` responde a R1:
+ * la evidencia canónica (`options.outDir`) sólo se toca si la corrida valida completa. Un fallo
+ * queda aquí, en `attempts/<runId>/`, para diagnóstico, sin contaminar `candidates/`.
  */
-function runBlenderSeparate(requests, options, grammars) {
-  const workDir = join(options.outDir, "work");
+function runBlenderSeparate(requests, options, grammars, stagingDir) {
   const allCandidates = [];
   const allFailures = [];
   let totalMs = 0;
-  
+
   for (let i = 0; i < requests.length; i++) {
     const request = requests[i];
     console.log(`\n[${i + 1}/${requests.length}] Rendering ${request.candidateId}...`);
-    
-    const singleWorkDir = join(workDir, `candidate-${i}`);
-    rmSync(singleWorkDir, { recursive: true, force: true });
-    mkdirSync(singleWorkDir, { recursive: true });
-    
-    const requestsPath = join(singleWorkDir, "requests.json");
-    const manifestPath = join(singleWorkDir, "manifest.json");
-    
+
+    const requestsPath = join(stagingDir, `${request.candidateId}.requests.json`);
+    const manifestPath = join(stagingDir, `${request.candidateId}.manifest.json`);
+
     writeFileSync(
       requestsPath,
       `${JSON.stringify(
@@ -239,7 +236,7 @@ function runBlenderSeparate(requests, options, grammars) {
         1,
       )}\n`,
     );
-    
+
     const started = Date.now();
     const run = spawnSync(
       BLENDER,
@@ -258,36 +255,25 @@ function runBlenderSeparate(requests, options, grammars) {
     );
     const elapsed = Date.now() - started;
     totalMs += elapsed;
-    
+
     if (!existsSync(manifestPath)) {
-      throw new Error(`no hay manifiesto para ${request.candidateId} (Blender salió con ${run.status})`);
+      throw new Error(
+        `no hay manifiesto para ${request.candidateId} (Blender salió con ${run.status})`,
+      );
     }
-    
+
     const manifest = read(manifestPath);
     allCandidates.push(...manifest.candidates);
     allFailures.push(...manifest.failures);
-    
-    // Copy the output files to the main work directory
-    if (manifest.candidates.length > 0) {
-      const output = request.output;
-      const metadata = request.metadata;
-      if (existsSync(output)) {
-        copyFileSync(output, join(workDir, basename(output)));
-      }
-      if (existsSync(metadata)) {
-        copyFileSync(metadata, join(workDir, basename(metadata)));
-      }
-    }
   }
-  
-  // Create a combined manifest
+
   const combinedManifest = {
     schemaVersion: 1,
     composerVersion: grammars.composerVersion,
     styleProfileId: requests[0].styleProfileId,
     requested: requests.length,
     rendered: allCandidates.length,
-    signatures: allCandidates.map(c => c.compositionSignature).sort(),
+    signatures: allCandidates.map((c) => c.compositionSignature).sort(),
     peakRssMb: allCandidates.reduce((max, c) => Math.max(max, c.render?.peakRssMb || 0), 0),
     toolchain: {
       blender: "multiple processes",
@@ -296,11 +282,32 @@ function runBlenderSeparate(requests, options, grammars) {
     candidates: allCandidates,
     failures: allFailures,
   };
-  
-  const manifestPath = join(workDir, "manifest.json");
-  writeFileSync(manifestPath, JSON.stringify(combinedManifest, null, 1) + "\n");
-  
-  return { manifest: combinedManifest, status: allFailures.length > 0 ? 1 : 0, totalMs };
+
+  writeFileSync(
+    join(stagingDir, "manifest.json"),
+    `${JSON.stringify(combinedManifest, null, 1)}\n`,
+  );
+
+  return {
+    manifest: combinedManifest,
+    status: allFailures.length > 0 ? 1 : 0,
+    totalMs,
+  };
+}
+
+/**
+ * R1 — Atomic promotion. Copia los artefactos de `stagingDir` a `targetDir` sólo si todos los
+ * candidatos validaron. `targetDir` se limpia primero: nunca se mezcla una corrida nueva con PNGs
+ * huérfanos de una corrida anterior, que era el estado inconsistente que el responsable detectó en
+ * `c1a635b` (manifest.json de 1 candidato + 5 PNGs de corridas distintas).
+ */
+function promoteStagingToEvidence(stagingDir, targetDir, requests) {
+  rmSync(targetDir, { recursive: true, force: true });
+  mkdirSync(targetDir, { recursive: true });
+  for (const request of requests) {
+    copyFileSync(request.output, join(targetDir, basename(request.output)));
+    copyFileSync(request.metadata, join(targetDir, basename(request.metadata)));
+  }
 }
 
 /**
@@ -432,29 +439,26 @@ function main() {
     process.exit(code);
   }
 
-  const workDir = join(options.outDir, "work");
-  rmSync(workDir, { recursive: true, force: true });
-  mkdirSync(workDir, { recursive: true });
-  const requestsPath = join(workDir, "requests.json");
-  const manifestPath = join(workDir, "manifest.json");
-  writeFileSync(
-    requestsPath,
-    `${JSON.stringify(
-      {
-        composerVersion: grammars.composerVersion,
-        styleProfileId: [...profiles][0],
-        candidates: requests,
-      },
-      null,
-      1,
-    )}\n`,
-  );
+  // R1: la corrida escribe primero en `attempts/<runId>/` y sólo se promociona a `options.outDir`
+  // cuando todos los candidatos validan. Así una corrida parcial no deja nunca un `manifest.json`
+  // antiguo mezclado con PNGs nuevos, que fue el bug que el responsable detectó en `c1a635b`.
+  const runId = new Date().toISOString().replace(/[:.]/gu, "").slice(0, 15);
+  const stagingDir = join(options.outDir, "..", "attempts", runId);
+  rmSync(stagingDir, { recursive: true, force: true });
+  mkdirSync(stagingDir, { recursive: true });
+  console.log(`staging: ${stagingDir}`);
+
+  // Redirigir cada request.output / request.metadata al staging antes de lanzar Blender.
+  for (const request of requests) {
+    request.output = join(stagingDir, basename(request.output));
+    request.metadata = join(stagingDir, basename(request.metadata));
+  }
 
   if (!existsSync(BLENDER))
     throw new Error(`no existe el binario de Blender: ${BLENDER} (define BLENDER_BIN)`);
-  
-  // Ejecutar cada candidato en un proceso separado para evitar acumulación de estado
-  const { manifest, status, totalMs } = runBlenderSeparate(requests, options, grammars);
+
+  // Cada candidato va en su propio proceso de Blender; todos los artefactos quedan en stagingDir.
+  const { manifest, status, totalMs } = runBlenderSeparate(requests, options, grammars, stagingDir);
 
   const errors = [];
   for (const failure of manifest.failures) {
@@ -463,19 +467,20 @@ function main() {
   if (status !== 0 && manifest.failures.length === 0) {
     errors.push(`Blender salió con ${status} sin registrar fallos por candidato`);
   }
+  if (manifest.rendered !== manifest.requested) {
+    errors.push(
+      `R1: renderizados ${manifest.rendered}/${manifest.requested}; la promoción atómica exige todos`,
+    );
+  }
   const after = RUNTIME_ASSETS.map(digestFile);
   if (before.some((digest, index) => digest !== after[index])) {
     errors.push(
       "§26 los assets de runtime cambiaron durante el spike: aquí no se promueve nada al bundle",
     );
   }
-  if (errors.length > 0) {
-    console.error(errors.map((message) => `- ${message}`).join("\n"));
-    process.exit(1);
-  }
 
-  // El render intermedio y la pasada de sombra son pasos del pipeline, no candidatos: si se quedan en
-  // el directorio de evidencia, §27 acabaría con dos hojas de contacto y tres PNG por variante.
+  // El render intermedio y la pasada de sombra son pasos del pipeline, no candidatos: se descartan
+  // antes de promover para que §27 no acabe con dos hojas de contacto y tres PNG por variante.
   for (const request of requests) {
     for (const suffix of [".render.png", ".shadow.png"]) {
       rmSync(request.output.replace(/\.png$/u, suffix), { force: true });
@@ -485,18 +490,33 @@ function main() {
   const runtimeAssets = Object.fromEntries(
     RUNTIME_ASSETS.map((path, index) => [path, { before: before[index], after: after[index] }]),
   );
+
+  if (errors.length > 0) {
+    // R1 — la evidencia canónica no se toca; el staging queda para diagnóstico.
+    writeFileSync(
+      join(stagingDir, "errors.txt"),
+      `${errors.join("\n")}\n`,
+    );
+    console.error(errors.map((message) => `- ${message}`).join("\n"));
+    console.error(`\nR1 promoción abortada. ${options.outDir} NO cambió.`);
+    console.error(`Artefactos de diagnóstico en ${stagingDir}`);
+    process.exit(1);
+  }
+
+  // Promoción atómica: limpia `options.outDir` y copia en bloque desde staging.
+  promoteStagingToEvidence(stagingDir, options.outDir, requests);
   writeFileSync(
     join(options.outDir, "manifest.json"),
-    `${JSON.stringify({ ...manifest, outDir: options.outDir, totalMs, runtimeAssets }, null, 1)}\n`,
+    `${JSON.stringify({ ...manifest, outDir: options.outDir, totalMs, runtimeAssets, runId }, null, 1)}\n`,
   );
   mkdirSync(resolve(options.metrics, ".."), { recursive: true });
   writeFileSync(
     options.metrics,
     `${JSON.stringify(metricsOf(manifest, options, totalMs, runtimeAssets), null, 1)}\n`,
   );
-  // `work/` era el paso intermedio: los requests ya viven dentro de cada candidato publicado
-  // (`request`) y la firma está en el manifiesto, así que no deja nada que no pueda reconstruirse.
-  rmSync(workDir, { recursive: true, force: true });
+  if (!options.keepAttempts) {
+    rmSync(stagingDir, { recursive: true, force: true });
+  }
 
   console.log(
     `\n${manifest.candidates.length}/${requests.length} candidatos en ${(totalMs / 1000).toFixed(1)} s ` +

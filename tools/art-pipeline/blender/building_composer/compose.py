@@ -210,6 +210,13 @@ class Composition:
         for volume in self.volumes:
             self._build_roof(volume, roof)
         self._build_access(access, corner)
+        
+        # V.g: garantizar requiredFeatures de la receta ANTES del secondary normal
+        # para que tengan prioridad en el espacio disponible
+        required_features = choices.get("requiredFeatures", [])
+        variant_features = choices.get("variantFeatures", [])
+        self._build_required_features(required_features, variant_features, choices["propSlots"])
+        
         secondary_placed = self._build_secondary(secondary)
         self._build_props(choices["intrinsic_props"], choices["propSlots"])
 
@@ -854,8 +861,15 @@ class Composition:
         Una nave de 8 m no cabe centrada en una celda de 2 m aunque sí entre cuatro celdas libres
         contiguas; sin los puntos medios módulos enteros válidos quedarían inhabilitados como volumen
         secundario y la variante se reduciría a ruido de fachada.
+        
+        V.g: solo se consideran celdas dentro de la zona construible (buildable), no del solar completo.
         """
-        free = self.occupancy.free_cells()
+        x0, y0, x1, y1 = self.buildable
+        free = [
+            cell for cell in self.occupancy.free_cells()
+            if x0 <= self.occupancy.center_of(cell)[0] <= x1
+            and y0 <= self.occupancy.center_of(cell)[1] <= y1
+        ]
         centers = []
         for index, cell in enumerate(free):
             first = self.occupancy.center_of(cell)
@@ -889,11 +903,25 @@ class Composition:
             return True
         module = self.catalog.pick(self.family, option["role"], option.get("module"))
         x0, y0, x1, y1 = self.buildable
+        
+        # DEBUG
+        import sys
+        print(f"DEBUG _build_secondary: option={option['id']}, module={module.id}", file=sys.stderr)
+        print(f"DEBUG _build_secondary: buildable=({x0}, {y0}, {x1}, {y1})", file=sys.stderr)
+        
         centers = (
             [self._cell_center(option["atCell"])]
             if option.get("atCell")
             else self._secondary_centers()
         )
+        # V.g: filtrar centros para que estén dentro de la zona construible
+        centers = [
+            (cx, cy) for cx, cy in centers
+            if x0 <= cx <= x1 and y0 <= cy <= y1
+        ]
+        
+        print(f"DEBUG _build_secondary: {len(centers)} centers after filtering", file=sys.stderr)
+        
         for center_x, center_y in self.rng.sampled(centers, len(centers)):
             for angle in (0, 90, 180, 270):
                 if angle not in module.rotations:
@@ -908,12 +936,75 @@ class Composition:
                     self.add(module, angle, (center_x, center_y, 0.0), f"secondary:{option['id']}")
                     for support in option.get("supports", []):
                         self._add_support(support)
+                    print(f"DEBUG _build_secondary: ✓ PLACED at ({center_x}, {center_y})", file=sys.stderr)
                     return True
+        print(f"DEBUG _build_secondary: ✗ COULD NOT PLACE", file=sys.stderr)
         if option.get("optional") is False:
             raise CompositionError(
                 f"§17: no cabe el volumen secundario {option['id']} dentro del solar"
             )
         return False
+
+    def _build_required_features(self, required_features, variant_features, prop_slots):
+        """V.g: coloca features obligatorios y variantes de la receta.
+
+        Los requiredFeatures DEBEN colocarse (si no caben, fallo determinista).
+        Los variantFeatures se colocan según su probabilidad.
+        """
+        # DEBUG
+        import sys
+        print(f"DEBUG: _build_required_features called", file=sys.stderr)
+        print(f"DEBUG: required_features = {required_features}", file=sys.stderr)
+        print(f"DEBUG: occupancy claimed = {len(self.occupancy.claimed)} cells", file=sys.stderr)
+        print(f"DEBUG: occupancy free = {len(self.occupancy.free_cells())} cells", file=sys.stderr)
+        x0, y0, x1, y1 = self.buildable
+        print(f"DEBUG: buildable = ({x0}, {y0}, {x1}, {y1})", file=sys.stderr)
+        
+        # Colocar required features
+        for feature in required_features:
+            kind = feature["kind"]
+            feature_id = feature["id"]
+            
+            print(f"DEBUG: Placing required feature {feature_id} (kind={kind})", file=sys.stderr)
+            
+            if kind == "secondary":
+                option = option_by_id(
+                    self.record["secondaryOptions"], feature_id, "secondaryOptions (required)"
+                )
+                # Forzar colocación: hacer optional=false temporalmente
+                original_optional = option.get("optional", True)
+                option["optional"] = False
+                try:
+                    result = self._build_secondary(option)
+                    print(f"DEBUG: _build_secondary returned {result}", file=sys.stderr)
+                finally:
+                    option["optional"] = original_optional
+            
+            elif kind == "prop":
+                # Los props required se colocan con probabilidad 1.0
+                prop_slots_copy = dict(prop_slots)
+                prop_slots_copy[feature_id] = 0  # slot 0 garantiza colocación
+                self._build_props([feature_id], prop_slots_copy)
+        
+        # Colocar variant features según probabilidad
+        for feature in variant_features:
+            probability = feature.get("probability", 1.0)
+            if self.rng.below(100) < probability * 100:
+                kind = feature["kind"]
+                feature_id = feature["id"]
+                
+                if kind == "secondary":
+                    option = option_by_id(
+                        self.record["secondaryOptions"], feature_id, "secondaryOptions (variant)"
+                    )
+                    # Variantes son siempre opcionales
+                    option_copy = dict(option)
+                    option_copy["optional"] = True
+                    self._build_secondary(option_copy)
+                
+                elif kind == "prop":
+                    # Props variantes se colocan normalmente
+                    pass  # ya se manejan en _build_props
 
     def _add_support(self, support):
         """Primitivas §15: solo conector, conducto, zócalo o base; nunca masa visible.

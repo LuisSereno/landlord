@@ -1055,6 +1055,74 @@
           "widthMeters": 2
         }
       ],
+      "recipes": [
+        {
+          "id": "neoclassical_portico",
+          "label": "composición neoclásica con pórtico de columnas",
+          "massingIds": ["civic_block", "block_and_wing"],
+          "accessIds": ["monumental_stairs", "loggia_entrance"],
+          "roofIds": ["gable_cross", "gable_dormers", "gable_corniced"],
+          "rhythmIds": ["civic_regular", "tall_aisles", "glazed_ground"],
+          "requiredFeatures": [
+            {
+              "kind": "secondary",
+              "id": "corner_columns",
+              "role": "column"
+            }
+          ],
+          "variantFeatures": [
+            {
+              "kind": "secondary",
+              "id": "facade_pilasters",
+              "probability": 0.5
+            }
+          ]
+        },
+        {
+          "id": "municipal_block",
+          "label": "bloque municipal funcional con pilastras",
+          "massingIds": ["split_pavilions", "stepped_civic"],
+          "accessIds": ["canopied_entrance", "monumental_stairs"],
+          "roofIds": ["flat_plates", "flat_slabs", "gable_corniced"],
+          "rhythmIds": ["civic_regular", "masonry_mass"],
+          "requiredFeatures": [
+            {
+              "kind": "secondary",
+              "id": "facade_pilasters",
+              "role": "pilaster"
+            }
+          ],
+          "variantFeatures": [
+            {
+              "kind": "secondary",
+              "id": "corner_columns",
+              "probability": 0.5
+            }
+          ]
+        },
+        {
+          "id": "civic_wing",
+          "label": "ala cívica con columnas decorativas",
+          "massingIds": ["single_wing_plaza", "civic_block"],
+          "accessIds": ["monumental_stairs", "canopied_entrance"],
+          "roofIds": ["gable_cross", "gable_dormers", "flat_plates"],
+          "rhythmIds": ["glazed_ground", "tall_aisles", "civic_regular"],
+          "requiredFeatures": [
+            {
+              "kind": "secondary",
+              "id": "corner_columns",
+              "role": "column"
+            }
+          ],
+          "variantFeatures": [
+            {
+              "kind": "secondary",
+              "id": "facade_pilasters",
+              "probability": 0.4
+            }
+          ]
+        }
+      ],
       "massingOptions": [
         {
           "id": "civic_block",

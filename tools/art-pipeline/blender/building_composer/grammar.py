@@ -40,6 +40,7 @@ GRAMMAR_KEYS = {
     "yard",
     "levelsFromDomain",
     "cornerModes",
+    "recipes",  # V.g: recetas arquitectónicas (composiciones válidas)
     "massingOptions",
     "facadePalettes",
     "rhythms",
@@ -81,6 +82,21 @@ ACCESS_KEYS = {
 PROP_KEYS = {"id", "label", "role", "module", "at", "offset"}
 SECONDARY_KEYS = {"id", "label", "role", "module", "optional", "atCell", "supports"}
 CORNER_KEYS = {"id", "label", "module", "widthMeters"}
+RECIPE_KEYS = {
+    "id",
+    "label",
+    "massingIds",
+    "accessIds",
+    "roofIds",
+    "rhythmIds",
+    "facadeIds",
+    "silhouetteIds",
+    "requiredFeatures",
+    "variantFeatures",
+}
+REQUIRED_FEATURE_KEYS = {"kind", "id", "role"}
+VARIANT_FEATURE_KEYS = {"kind", "id", "probability"}
+FEATURE_KINDS = {"secondary", "prop"}
 SUPPORT_BASE_KEYS = {"kind", "shape", "label", "cell", "z", "purpose"}
 SUPPORT_SHAPE_KEYS = {"pipe": {"from", "to", "radiusMeters", "segments"}, "box": {"sizeCells", "offset", "rotationDegrees"}}
 SUPPORT_KINDS = {"base", "connector", "plinth", "pipe", "support"}
@@ -90,6 +106,23 @@ SUPPORT_KINDS = {"base", "connector", "plinth", "pipe", "support"}
 # un destino de prop: aceptarlo aquí duplicaría el sistema que §22 prohíbe duplicar.
 PROP_AT = {"ridge", "roof"}
 BAY_RULES = {"center", "drawn"}
+SEMANTIC_IDENTITY_KEYS = {
+    "description",
+    "requireRoles",
+    "requireAnyRoles",
+    "requireAll",
+    "prohibitSecondaryModules",
+    "prohibitAccessIds",
+    "prohibitRhythmIds",
+    "requireRoofKinds",
+    "requireDomesticAccess",
+    "requireGroundCommercial",
+    "requireRoleCount",
+    "requireAccessIds",
+    "requireRhythmIds",
+    "requireMassingIds",
+    "requireSecondaryPlaced",
+}
 
 
 def _require_keys(record, allowed, label, where):
@@ -132,6 +165,7 @@ class GrammarDocument:
         if record["buildingType"] != building_type:
             raise GrammarError(f"{building_type}: la gramática se autodenomina {record['buildingType']}")
         self._check_roles(record, catalog, profile)
+        self._check_recipes(record)  # V.g: validar recetas arquitectónicas
         return record
 
     def _check_roles(self, record, catalog, profile):
@@ -240,6 +274,17 @@ class GrammarDocument:
                 post = catalog.get(mode["module"])
                 if post.role != "corner":
                     raise GrammarError(f"{mode['id']}: {post.id} no tiene rol corner")
+        
+        # V.g: validar semanticIdentity contra whitelist
+        semantic_identity = record.get("semanticIdentity")
+        if semantic_identity:
+            unknown_keys = set(semantic_identity.keys()) - SEMANTIC_IDENTITY_KEYS
+            if unknown_keys:
+                raise GrammarError(
+                    f"{record['buildingType']}.semanticIdentity: claves fuera del esquema "
+                    f"{sorted(unknown_keys)}"
+                )
+        
         self._check_front_reach(record, profile)
 
     def _check_front_reach(self, record, profile):
@@ -316,6 +361,102 @@ class GrammarDocument:
                         f"y la crujía es de {bay} m"
                     )
 
+    def _check_recipes(self, record):
+        """V.g: validar recetas arquitectónicas.
+
+        Cada receta debe declarar combinaciones compatibles de ejes y features obligatorios.
+        Se valida que:
+        - Las listas de IDs referencian opciones existentes
+        - Los requiredFeatures referencian secondaryOptions o propOptions existentes
+        - Al menos una combinación de ejes es estructuralmente válida
+        """
+        recipes = record.get("recipes", [])
+        if not recipes:
+            return  # recetas opcionales por ahora
+        
+        massing_ids = {m["id"] for m in record["massingOptions"]}
+        access_ids = {a["id"] for a in record["accessOptions"]}
+        roof_ids = {r["id"] for r in record["roofOptions"]}
+        rhythm_ids = {r["id"] for r in record["rhythms"]}
+        facade_ids = {f["id"] for f in record["facadePalettes"]}
+        silhouette_ids = {s["id"] for s in record["silhouetteOptions"]}
+        secondary_ids = {s["id"] for s in record["secondaryOptions"]}
+        prop_ids = {p["id"] for p in record["propOptions"]}
+        
+        for recipe in recipes:
+            # Solo id y label son obligatorios; el resto de campos son opcionales
+            if "id" not in recipe or "label" not in recipe:
+                raise GrammarError(f"receta: faltan id o label")
+            
+            recipe_id = recipe["id"]
+            
+            # Validar que los IDs referencian opciones existentes (todos opcionales)
+            for massing_id in recipe.get("massingIds", []):
+                if massing_id not in massing_ids:
+                    raise GrammarError(
+                        f"receta {recipe_id}: massingId inexistente {massing_id}"
+                    )
+            for access_id in recipe.get("accessIds", []):
+                if access_id not in access_ids:
+                    raise GrammarError(
+                        f"receta {recipe_id}: accessId inexistente {access_id}"
+                    )
+            for roof_id in recipe.get("roofIds", []):
+                if roof_id not in roof_ids:
+                    raise GrammarError(
+                        f"receta {recipe_id}: roofId inexistente {roof_id}"
+                    )
+            for rhythm_id in recipe.get("rhythmIds", []):
+                if rhythm_id not in rhythm_ids:
+                    raise GrammarError(
+                        f"receta {recipe_id}: rhythmId inexistente {rhythm_id}"
+                    )
+            for facade_id in recipe.get("facadeIds", []):
+                if facade_id not in facade_ids:
+                    raise GrammarError(
+                        f"receta {recipe_id}: facadeId inexistente {facade_id}"
+                    )
+            for silhouette_id in recipe.get("silhouetteIds", []):
+                if silhouette_id not in silhouette_ids:
+                    raise GrammarError(
+                        f"receta {recipe_id}: silhouetteId inexistente {silhouette_id}"
+                    )
+            
+            # Validar requiredFeatures
+            for feature in recipe.get("requiredFeatures", []):
+                if "kind" not in feature or "id" not in feature or "role" not in feature:
+                    raise GrammarError(
+                        f"receta {recipe_id}: requiredFeature incompleto (falta kind, id o role)"
+                    )
+                if feature["kind"] not in FEATURE_KINDS:
+                    raise GrammarError(
+                        f"receta {recipe_id}: kind de feature inexistente {feature['kind']}"
+                    )
+                if feature["kind"] == "secondary" and feature["id"] not in secondary_ids:
+                    raise GrammarError(
+                        f"receta {recipe_id}: requiredFeature secondary inexistente {feature['id']}"
+                    )
+                if feature["kind"] == "prop" and feature["id"] not in prop_ids:
+                    raise GrammarError(
+                        f"receta {recipe_id}: requiredFeature prop inexistente {feature['id']}"
+                    )
+            
+            # Validar variantFeatures
+            for feature in recipe.get("variantFeatures", []):
+                if "kind" not in feature or "id" not in feature:
+                    raise GrammarError(
+                        f"receta {recipe_id}: variantFeature incompleto (falta kind o id)"
+                    )
+                if feature["kind"] not in FEATURE_KINDS:
+                    raise GrammarError(
+                        f"receta {recipe_id}: kind de feature inexistente {feature['kind']}"
+                    )
+                prob = feature.get("probability", 1.0)
+                if not (0.0 <= prob <= 1.0):
+                    raise GrammarError(
+                        f"receta {recipe_id}: probability fuera de rango {prob}"
+                    )
+
     def _check_supports(self, supports, catalog, label):
         for support in supports:
             shape = support.get("shape")
@@ -334,12 +475,50 @@ class GrammarDocument:
 def draw_choices(rng, record, axes):
     """Sorteo de variantes en un orden fijo de ejes (§13: el orden de sorteo es parte del contrato).
 
-    Cada eje saca opción de SU lista; `intrinsic_props` sortea además un subconjunto y un hueco por
-    prop, porque un prop repetido en otro sitio del alzado es otro edificio a efectos de silueta.
+    V.g: si la gramática declara recetas, primero se sortea una receta y luego se restringen los ejes
+    a las opciones compatibles con esa receta. Cada eje saca opción de SU lista filtrada; 
+    `intrinsic_props` sortea además un subconjunto y un hueco por prop, porque un prop repetido en 
+    otro sitio del alzado es otro edificio a efectos de silueta.
     """
     choices = {}
+    
+    # V.g: seleccionar receta primero si existe
+    recipes = record.get("recipes", [])
+    recipe = None
+    if recipes:
+        recipe = rng.choice(recipes)
+        choices["recipe"] = recipe["id"]
+    
     for axis in axes:
         options = record[AXIS_OPTIONS[axis]]
+        
+        # V.g: filtrar opciones por receta si aplica
+        if recipe:
+            axis_key = {
+                "massing": "massingIds",
+                "access": "accessIds",
+                "roof": "roofIds",
+                "bay_sequence": "rhythmIds",
+                "facade": "facadeIds",
+                "silhouette": "silhouetteIds",
+            }.get(axis)
+            if axis_key and axis_key in recipe:
+                allowed_ids = set(recipe[axis_key])
+                options = [o for o in options if o["id"] in allowed_ids]
+            
+            # V.g: para secondary_volume, excluir los required features de la receta
+            # para evitar colocación duplicada
+            if axis == "secondary_volume" and recipe.get("requiredFeatures"):
+                required_secondary_ids = {
+                    f["id"] for f in recipe["requiredFeatures"]
+                    if f["kind"] == "secondary"
+                }
+                import sys
+                print(f"DEBUG draw_choices: filtering secondary_volume, required={required_secondary_ids}", file=sys.stderr)
+                print(f"DEBUG draw_choices: options before filter = {[o['id'] for o in options]}", file=sys.stderr)
+                options = [o for o in options if o["id"] not in required_secondary_ids]
+                print(f"DEBUG draw_choices: options after filter = {[o['id'] for o in options]}", file=sys.stderr)
+        
         if axis == "intrinsic_props":
             count = rng.below(len(options) + 1)
             choices[axis] = [option["id"] for option in rng.sampled(options, count)]
@@ -352,6 +531,12 @@ def draw_choices(rng, record, axes):
     # sin cambiar el patrón, y es la diferencia entre dos alzados que comparten ritmo.
     choices["rhythmOffset"] = rng.below(8)
     choices["propSlots"] = {option["id"]: rng.below(64) for option in record["propOptions"]}
+    
+    # V.g: guardar requiredFeatures de la receta para que compose.py los garantice
+    if recipe:
+        choices["requiredFeatures"] = recipe.get("requiredFeatures", [])
+        choices["variantFeatures"] = recipe.get("variantFeatures", [])
+    
     return choices
 
 

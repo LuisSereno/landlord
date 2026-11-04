@@ -133,7 +133,13 @@ function moduleReferences(node, found) {
   }
   if (Array.isArray(node)) for (const item of node) moduleReferences(item, found);
   else if (node && typeof node === "object") {
-    for (const value of Object.values(node)) moduleReferences(value, found);
+    for (const [key, value] of Object.entries(node)) {
+      // Las listas de prohibición de `semanticIdentity` nombran módulos que NO deben usarse
+      // (prohibitSecondaryModules). No son referencias de geometría colocada: tratarlas como tales
+      // haría que §7 rechace la propia gramática por prohibir un módulo industrial en residencial.
+      if (key.startsWith("prohibit")) continue;
+      moduleReferences(value, found);
+    }
   }
   return found;
 }
@@ -488,10 +494,12 @@ function checkSceneEvidence(candidate, modulesById, errors) {
   }
 
   // hierarchy preservation: la jerarquía instanció un objeto por mesh declarada, sin colapsar nada.
-  const declaredMeshObjects = transforms.reduce(
-    (total, placement) => total + placement.meshObjects,
-    0,
-  );
+  // `scene.meshObjects` cuenta TODOS los meshes de la escena, incluidos los soportes originales de
+  // §15 (cada conector/zócalo/conducto es un cube o cylinder). El conteo declarado debe sumarles, si
+  // no un candidato con un solo soporte fallaría §32 por la diferencia exacta de ese soporte.
+  const declaredMeshObjects =
+    transforms.reduce((total, placement) => total + placement.meshObjects, 0) +
+    (candidate.originalSupport?.length ?? 0);
   if (scene.scene?.meshObjects !== declaredMeshObjects) {
     errors.push(
       `§32 ${label}: la escena tiene ${scene.scene?.meshObjects} objetos mesh y las transformadas declaran ${declaredMeshObjects}`,

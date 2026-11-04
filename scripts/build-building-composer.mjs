@@ -385,6 +385,14 @@ function regenerateCheck(grammars, options, request) {
     (stage) => first.stages[stage] !== second.stages[stage],
   );
   const pixelDifferences = first.pixelSha256 !== second.pixelSha256;
+  // R7: el estado "determinista" ocultaba que el pase de sombra a 3× NO es bit-estable entre
+  // procesos (medido en V.f.3c: el shadow pass movía su raster sin arrastrar al sprite final).
+  // Se reportan ahora dos afirmaciones separadas y verificables: el output FINAL es determinista
+  // (firma + pivot + píxeles del sprite coinciden) y el INTERMEDIADO de sombra es o no bit-estable.
+  // Un `determinista` a secas no le sirve al acta §38 para saber dónde buscar el jitter.
+  const finalOutputDeterministic =
+    differences.length === 0 && !pixelDifferences;
+  const intermediateShadowBitStable = !stageDifferences.includes("shadow");
   const result = {
     candidateId: request.candidateId,
     first,
@@ -392,11 +400,16 @@ function regenerateCheck(grammars, options, request) {
     differences,
     stageDifferences,
     pixelDifferences,
+    finalOutputDeterministic,
+    intermediateShadowBitStable,
     // Un contenedor PNG que cambia con los píxeles iguales es ruido del escritor, no del compositor; se
     // anota porque §24 publica el sha del fichero y el acta tiene que poder decir cuál de los dos movió.
     containerNoise:
       first.fileSha256 !== second.fileSha256 && first.pixelSha256 === second.pixelSha256,
-    status: differences.length ? "NO_DETERMINISTA" : "determinista",
+    status: finalOutputDeterministic ? "FINAL_OUTPUT_DETERMINISTIC" : "NO_DETERMINISTA",
+    intermediateStatus: intermediateShadowBitStable
+      ? "INTERMEDIATE_SHADOW_BIT_STABLE"
+      : "INTERMEDIATE_SHADOW_NON_BIT_STABLE",
   };
   writeFileSync(join(workDir, "regenerate.json"), `${JSON.stringify(result, null, 1)}\n`);
   console.log(JSON.stringify(result, null, 1));

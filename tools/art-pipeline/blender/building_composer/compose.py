@@ -938,57 +938,116 @@ class Composition:
             )
         return False
 
+    def _build_facade_feature(self, feature):
+        """V.g: coloca un facade feature integrado en la fachada.
+
+        Un facade feature NO usa Occupancy ni _build_secondary(). Se ancla a la cara frontal
+        del primer volumen de bandas y se distribuye simétricamente a lo largo de la fachada.
+        Si no hay suficientes crujías, adapta el count al máximo disponible.
+        """
+        module_id = feature["module"]
+        role = feature["role"]
+        side = feature["side"]
+        count = feature["count"]
+        levels = feature["levels"]
+        distribution = feature["distribution"]
+
+        module = self.catalog.get(module_id)
+        if module.role != role:
+            raise CompositionError(
+                f"§12: {module_id} tiene role={module.role} pero el feature pide role={role}"
+            )
+
+        bands = [v for v in self.volumes if v["build"] == "bands"]
+        if not bands:
+            raise CompositionError("§12: facade feature requiere al menos un volumen de bandas")
+
+        volume = bands[0]
+        rect = volume["rect"]
+        corner = self.choices.get("corner", {"widthMeters": 0.0})
+
+        if side in ("front", "rear"):
+            face_line = rect[1] if side == "front" else rect[3]
+            bays = self.band_bays(rect, side, corner)
+        else:
+            face_line = rect[0] if side == "left" else rect[2]
+            bays = self.band_bays(rect, side, corner)
+
+        # Adaptar count al máximo disponible si no caben todos
+        actual_count = min(count, len(bays))
+        if actual_count == 0:
+            return  # No hay crujías disponibles, skip silencioso
+
+        if distribution == "symmetric":
+            center = len(bays) // 2
+            if actual_count % 2 == 0:
+                indices = [center - actual_count // 2 + i for i in range(actual_count)]
+            else:
+                indices = [center - actual_count // 2 + i for i in range(actual_count)]
+        elif distribution == "centered":
+            start = (len(bays) - actual_count) // 2
+            indices = list(range(start, start + actual_count))
+        elif distribution == "even":
+            if actual_count == 1:
+                indices = [len(bays) // 2]
+            else:
+                step = max(1, len(bays) // actual_count)
+                indices = [i * step for i in range(actual_count)]
+        else:
+            raise CompositionError(f"§12: distribución {distribution} no soportada")
+
+        for level_index in range(levels):
+            z = volume["base"] + level_index * self.level
+            for idx in indices:
+                if idx < len(bays):
+                    along = bays[idx]
+                    self.add_on_face(
+                        module,
+                        side,
+                        along,
+                        face_line,
+                        z,
+                        f"facade_feature:{feature['id']}:{side}:level{level_index + 1}:bay{idx + 1}",
+                    )
+
     def _build_required_features(self, required_features, variant_features, prop_slots):
         """V.g: coloca features obligatorios y variantes de la receta.
 
         Los requiredFeatures DEBEN colocarse (si no caben, fallo determinista).
         Los variantFeatures se colocan según su probabilidad.
+        NO muta el manifiesto: trabaja con copias.
         """
-        x0, y0, x1, y1 = self.buildable
-        
-        # Colocar required features
         for feature in required_features:
             kind = feature["kind"]
-            feature_id = feature["id"]
-            
-            
-            if kind == "secondary":
+            if kind == "facade":
+                self._build_facade_feature(feature)
+            elif kind == "secondary":
                 option = option_by_id(
-                    self.record["secondaryOptions"], feature_id, "secondaryOptions (required)"
+                    self.record["secondaryOptions"], feature["id"], "secondaryOptions (required)"
                 )
-                # Forzar colocación: hacer optional=false temporalmente
-                original_optional = option.get("optional", True)
-                option["optional"] = False
-                try:
-                    result = self._build_secondary(option)
-                finally:
-                    option["optional"] = original_optional
-            
+                option_copy = dict(option)
+                option_copy["optional"] = False
+                self._build_secondary(option_copy)
             elif kind == "prop":
-                # Los props required se colocan con probabilidad 1.0
                 prop_slots_copy = dict(prop_slots)
-                prop_slots_copy[feature_id] = 0  # slot 0 garantiza colocación
-                self._build_props([feature_id], prop_slots_copy)
-        
-        # Colocar variant features según probabilidad
+                prop_slots_copy[feature["id"]] = 0
+                self._build_props([feature["id"]], prop_slots_copy)
+
         for feature in variant_features:
             probability = feature.get("probability", 1.0)
             if self.rng.below(100) < probability * 100:
                 kind = feature["kind"]
-                feature_id = feature["id"]
-                
-                if kind == "secondary":
+                if kind == "facade":
+                    self._build_facade_feature(feature)
+                elif kind == "secondary":
                     option = option_by_id(
-                        self.record["secondaryOptions"], feature_id, "secondaryOptions (variant)"
+                        self.record["secondaryOptions"], feature["id"], "secondaryOptions (variant)"
                     )
-                    # Variantes son siempre opcionales
                     option_copy = dict(option)
                     option_copy["optional"] = True
                     self._build_secondary(option_copy)
-                
                 elif kind == "prop":
-                    # Props variantes se colocan normalmente
-                    pass  # ya se manejan en _build_props
+                    pass
 
     def _add_support(self, support):
         """Primitivas §15: solo conector, conducto, zócalo o base; nunca masa visible.

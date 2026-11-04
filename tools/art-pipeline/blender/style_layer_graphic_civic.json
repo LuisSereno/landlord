@@ -96,13 +96,27 @@
     "description": "Render settings for runtime asset pipeline"
   },
   "externalTreatment": {
-    "version": 6,
+    "version": 7,
     "note": "WP4.15-V.b1. Tratamiento de color de los assets externos, evaluado sobre el HSV del atlas de ORIGEN y sobre una copia en memoria: las fuentes nunca se reescriben. Se aplica a cualquier pack sin reglas por archivo.",
     "global": {
       "saturationScale": 1.0,
       "valueScale": 1.55,
       "multiplySrgb": [1.0, 1.0, 1.0],
       "description": "El nivel de noche es una decision de VALOR, no de croma. Con saturationScale 0.62 aqui, las bandas que subian su croma (fachadas 1.43) se cancelaban y la ciudad salia gris azulada; ahora cada familia declara su croma final. valueScale 1.55 levanta el albedo antes de que las bandas lo recorten, para que la escalera siga teniendo pelda\u00f1os despues de la luz. El tinte azul se quita del albedo y pasa a ser solo del rig: restar azul en las dos capas convertia todo en azul oscuro, que es justo lo que la paleta prohibe."
+    },
+    "architecturalReadability": {
+      "kind": "building",
+      "floors": {
+        "facade_blue_grey_to_warm_stone": 0.61,
+        "near_white_trim": 0.61,
+        "pale_neutral": 0.58,
+        "pale_cyan_wash": 0.55,
+        "warm_accents_muted": 0.55,
+        "neutral_dark_asphalt": 0.40,
+        "headlamp_yellow": 0.42,
+        "unclassified_night_fallback": 0.42
+      },
+      "description": "R2: separa 'world/night mood' de 'architectural readability'. El global y las bandas calibradas para Kenney convierten una fachada MegaKit continua de 16 m en una mancha negra cuando el texel original es oscuro. Se impone un suelo de valor por banda SOLO cuando kind=='building', preservando intactas las bandas atmosféricas (tejados, vidrio, teal cívico, violetas) que mantienen el mood nocturno. El ladrillo del MegaKit cae en warm_accents_muted y el hormigón en neutral_dark_asphalt: sin floor, esas dos bandas eran la causa de la fachada negra que el responsable documentó en c1a635b."
     },
     "kindOverrides": {
       "terrain": {

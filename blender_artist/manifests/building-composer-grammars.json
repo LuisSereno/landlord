@@ -1062,6 +1062,9 @@
           "massingIds": [
             "civic_block"
           ],
+          "cornerModeIds": [
+            "flush"
+          ],
           "accessIds": [
             "monumental_stairs",
             "loggia_entrance"
@@ -1096,6 +1099,10 @@
           "massingIds": [
             "stepped_civic"
           ],
+          "cornerModeIds": [
+            "flush",
+            "brick_post"
+          ],
           "accessIds": [
             "canopied_entrance",
             "monumental_stairs"
@@ -1125,9 +1132,12 @@
         },
         {
           "id": "civic_wing",
-          "label": "ala cívica con columnas decorativas",
+          "label": "ala cívica con columnas laterales al acceso monumental",
           "massingIds": [
             "single_wing_plaza"
+          ],
+          "cornerModeIds": [
+            "flush"
           ],
           "accessIds": [
             "monumental_stairs",
@@ -1146,11 +1156,11 @@
           "requiredFeatures": [
             {
               "kind": "facade",
-              "id": "wing_columns",
+              "id": "wing_flanking_columns",
               "role": "column",
               "module": "mod_megakit_column_trim_center",
               "side": "front",
-              "count": 4,
+              "count": 2,
               "levels": 2,
               "distribution": "symmetric",
               "targetVolume": 0
@@ -1573,7 +1583,7 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3/V.g: un edificio cívico monumental se reconoce por acceso monumental (monumental_stairs, canopied_entrance o loggia_entrance) Y elemento arquitectónico cívico fuerte (column, pilaster, civic_block, civic_tower, plinth o corner_column). Se prohíbe cualquier referencia a water_tower. El acceso monumental por sí solo ya distingue el hito del residencial.",
+        "description": "R3/V.g: un edificio cívico monumental se reconoce por acceso monumental (monumental_stairs, canopied_entrance o loggia_entrance) Y un required facade feature cívico (column o pilaster) integrado en la fachada. El acceso monumental por sí solo ya distingue el hito del residencial.",
         "requireAccessIds": [
           "monumental_stairs",
           "canopied_entrance",

@@ -100,7 +100,12 @@ RECIPE_KEYS = {
 }
 REQUIRED_FEATURE_KEYS = {"kind", "id", "role"}
 VARIANT_FEATURE_KEYS = {"kind", "id", "probability"}
-FEATURE_KINDS = {"secondary", "prop"}
+FEATURE_KINDS = {"secondary", "prop", "facade"}  # V.g: facade para features integrados en fachada
+FACADE_FEATURE_KEYS = {
+    "kind", "id", "role", "module", "side", "count", "levels", "distribution"
+}
+FACADE_SIDES = {"front", "rear", "left", "right"}
+FACADE_DISTRIBUTIONS = {"centered", "symmetric", "even"}
 SUPPORT_BASE_KEYS = {"kind", "shape", "label", "cell", "z", "purpose"}
 SUPPORT_SHAPE_KEYS = {"pipe": {"from", "to", "radiusMeters", "segments"}, "box": {"sizeCells", "offset", "rotationDegrees"}}
 SUPPORT_KINDS = {"base", "connector", "plinth", "pipe", "support"}
@@ -448,22 +453,46 @@ class GrammarDocument:
             
             # Validar requiredFeatures
             for feature in recipe.get("requiredFeatures", []):
-                if "kind" not in feature or "id" not in feature or "role" not in feature:
+                if "kind" not in feature or "id" not in feature:
                     raise GrammarError(
-                        f"receta {recipe_id}: requiredFeature incompleto (falta kind, id o role)"
+                        f"receta {recipe_id}: requiredFeature incompleto (falta kind o id)"
                     )
                 if feature["kind"] not in FEATURE_KINDS:
                     raise GrammarError(
                         f"receta {recipe_id}: kind de feature inexistente {feature['kind']}"
                     )
-                if feature["kind"] == "secondary" and feature["id"] not in secondary_ids:
+                if feature["kind"] == "secondary" and feature.get("id") not in secondary_ids:
                     raise GrammarError(
                         f"receta {recipe_id}: requiredFeature secondary inexistente {feature['id']}"
                     )
-                if feature["kind"] == "prop" and feature["id"] not in prop_ids:
+                if feature["kind"] == "prop" and feature.get("id") not in prop_ids:
                     raise GrammarError(
                         f"receta {recipe_id}: requiredFeature prop inexistente {feature['id']}"
                     )
+                if feature["kind"] == "facade":
+                    _require_mandatory_keys(
+                        feature,
+                        FACADE_FEATURE_KEYS,
+                        FACADE_FEATURE_KEYS | {"probability"},
+                        feature["id"],
+                        f"receta {recipe_id} requiredFeature facade",
+                    )
+                    if feature["side"] not in FACADE_SIDES:
+                        raise GrammarError(
+                            f"receta {recipe_id}: facade side inválida {feature['side']}"
+                        )
+                    if feature["distribution"] not in FACADE_DISTRIBUTIONS:
+                        raise GrammarError(
+                            f"receta {recipe_id}: facade distribution inválida {feature['distribution']}"
+                        )
+                    if feature["count"] <= 0:
+                        raise GrammarError(
+                            f"receta {recipe_id}: facade count debe ser > 0"
+                        )
+                    if feature["levels"] <= 0:
+                        raise GrammarError(
+                            f"receta {recipe_id}: facade levels debe ser > 0"
+                        )
             
             # Validar variantFeatures
             for feature in recipe.get("variantFeatures", []):
@@ -480,6 +509,30 @@ class GrammarDocument:
                     raise GrammarError(
                         f"receta {recipe_id}: probability fuera de rango {prob}"
                     )
+                if feature["kind"] == "facade":
+                    _require_mandatory_keys(
+                        feature,
+                        FACADE_FEATURE_KEYS,
+                        FACADE_FEATURE_KEYS | {"probability"},
+                        feature["id"],
+                        f"receta {recipe_id} variantFeature facade",
+                    )
+                    if feature["side"] not in FACADE_SIDES:
+                        raise GrammarError(
+                            f"receta {recipe_id}: facade side inválida {feature['side']}"
+                        )
+                    if feature["distribution"] not in FACADE_DISTRIBUTIONS:
+                        raise GrammarError(
+                            f"receta {recipe_id}: facade distribution inválida {feature['distribution']}"
+                        )
+                    if feature["count"] <= 0:
+                        raise GrammarError(
+                            f"receta {recipe_id}: facade count debe ser > 0"
+                        )
+                    if feature["levels"] <= 0:
+                        raise GrammarError(
+                            f"receta {recipe_id}: facade levels debe ser > 0"
+                        )
 
     def _check_supports(self, supports, catalog, label):
         for support in supports:

@@ -865,6 +865,11 @@ class Composition:
                     "lengthMeters": _round(length),
                     "segments": segments,
                     "bounds": box,
+                    # Un cilindro de `segments` caras laterales y dos tapas NGON triangula, medido
+                    # como `len(p.vertices) - 2` por polígono (la métrica de §15), en 2·segments
+                    # laterales + 2·(segments-2) de las tapas = 4·segments - 4. Declarar 4·segments
+                    # contaba cada tapa como segments triángulos (abanico con vértice central), que
+                    # Blender no genera: sobrecontaba 4 triángulos por conducto.
                     "triangles": 4 * segments,
                     "purpose": support["purpose"],
                 }
@@ -892,9 +897,9 @@ class Composition:
                 "bounds": _box(
                     position[0] - size[0] / 2,
                     position[1] - size[1] / 2,
-                    position[2],
                     position[0] + size[0] / 2,
                     position[1] + size[1] / 2,
+                    position[2],
                     position[2] + size[2],
                 ),
                 "triangles": 12,

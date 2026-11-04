@@ -107,8 +107,8 @@ FACADE_FEATURE_KEYS = {
 FACADE_SIDES = {"front", "rear", "left", "right"}
 FACADE_DISTRIBUTIONS = {"symmetric"}  # V.g spike: solo symmetric por ahora
 RECIPE_KEYS = {
-    "id", "label", "massingIds", "accessIds", "roofIds", "rhythmIds", 
-    "facadeIds", "silhouetteIds", "requiredFeatures", "variantFeatures"
+    "id", "label", "massingIds", "accessIds", "roofIds", "rhythmIds",
+    "facadeIds", "silhouetteIds", "cornerModeIds", "requiredFeatures", "variantFeatures"
 }
 SUPPORT_BASE_KEYS = {"kind", "shape", "label", "cell", "z", "purpose"}
 SUPPORT_SHAPE_KEYS = {"pipe": {"from", "to", "radiusMeters", "segments"}, "box": {"sizeCells", "offset", "rotationDegrees"}}
@@ -419,6 +419,7 @@ class GrammarDocument:
         silhouette_ids = {s["id"] for s in record["silhouetteOptions"]}
         secondary_ids = {s["id"] for s in record["secondaryOptions"]}
         prop_ids = {p["id"] for p in record["propOptions"]}
+        corner_mode_ids = {c["id"] for c in record["cornerModes"]}
         
         for recipe in recipes:
             # Rechazar claves desconocidas
@@ -449,6 +450,7 @@ class GrammarDocument:
                 "rhythmIds": (rhythm_ids, "rhythm"),
                 "facadeIds": (facade_ids, "facade"),
                 "silhouetteIds": (silhouette_ids, "silhouette"),
+                "cornerModeIds": (corner_mode_ids, "cornerMode"),
             }
             
             for axis_key, (valid_ids, axis_name) in axis_map.items():
@@ -609,7 +611,16 @@ def draw_choices(rng, record, axes):
             choices[axis] = rng.choice(options)["id"]
     # El tratamiento de esquina es parte del eje de silueta (dos aguas iguales con poste de esquina
     # distinto se leen como edificios distintos), pero se sortea aparte para que §16 lo cuente junto.
-    choices["cornerTreatment"] = rng.choice(record["cornerModes"])["id"]
+    # V.g: si la receta declara cornerModeIds, sólo se sortea entre ellos.
+    corner_options = record["cornerModes"]
+    if recipe and "cornerModeIds" in recipe:
+        allowed_corner_ids = set(recipe["cornerModeIds"])
+        corner_options = [c for c in corner_options if c["id"] in allowed_corner_ids]
+        if not corner_options:
+            raise GrammarError(
+                f"receta {recipe['id']}: cornerModeIds no coincide con ningún cornerMode disponible"
+            )
+    choices["cornerTreatment"] = rng.choice(corner_options)["id"]
     # El desfase de la retícula de crujías es geométrico, no una opción: cambia el orden del ritmo
     # sin cambiar el patrón, y es la diferencia entre dos alzados que comparten ritmo.
     choices["rhythmOffset"] = rng.below(8)

@@ -895,15 +895,6 @@
       ],
       "secondaryOptions": [
         {
-          "id": "none",
-          "label": "sin volumen secundario",
-          "role": null,
-          "module": null,
-          "optional": true,
-          "atCell": null,
-          "supports": []
-        },
-        {
           "id": "silo_and_conveyor",
           "label": "silo peque\u00f1o con transportador que lo cruza por encima",
           "role": "tank",
@@ -1442,15 +1433,6 @@
       ],
       "secondaryOptions": [
         {
-          "id": "none",
-          "label": "sin volumen secundario",
-          "role": null,
-          "module": null,
-          "optional": true,
-          "atCell": null,
-          "supports": []
-        },
-        {
           "id": "honour_plinth",
           "label": "z\u00f3calo de honor en el patio central",
           "role": "plinth",
@@ -1463,7 +1445,25 @@
           "id": "civic_annex",
           "label": "ala aneja del registro civil en el patio",
           "role": "civic_block",
-          "module": "mod_kaykit_civic_block_b",
+          "module": "mod_kaykit_civic_block_c",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "corner_columns",
+          "label": "columnas esquineras decorativas",
+          "role": "column",
+          "module": "mod_megakit_column_metal_center",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "facade_pilasters",
+          "label": "pilastras decorativas en fachada",
+          "role": "pilaster",
+          "module": "mod_megakit_brick_column",
           "optional": true,
           "atCell": null,
           "supports": []
@@ -2649,7 +2649,7 @@
               "slab": false,
               "build": "whole",
               "role": "hall",
-              "module": "mod_kenney_ind_hall_e"
+              "module": "mod_kenney_ind_hall_n"
             },
             {
               "cells": [
@@ -2751,7 +2751,7 @@
               "slab": false,
               "build": "whole",
               "role": "hall",
-              "module": "mod_kenney_ind_hall_m"
+              "module": "mod_kenney_ind_hall_n"
             },
             {
               "cells": [
@@ -3276,14 +3276,6 @@
           "plateRole": "slab",
           "dormerBays": 0,
           "ridgeAlong": null
-        },
-        {
-          "id": "gable_simple",
-          "kind": "gable",
-          "cornice": false,
-          "plateRole": null,
-          "dormerBays": 0,
-          "ridgeAlong": "x"
         }
       ],
       "accessOptions": [
@@ -3418,16 +3410,30 @@
             {
               "cells": [
                 0,
-                0,
+                1,
                 5,
-                2
+                1
               ],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
               "build": "whole",
               "role": "hall",
-              "module": "mod_kenney_ind_hall_long_r"
+              "module": "mod_kenney_ind_hall_n"
+            },
+            {
+              "cells": [
+                0,
+                0,
+                5,
+                1
+              ],
+              "levels": 1,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
             }
           ]
         },
@@ -3472,9 +3478,9 @@
             {
               "cells": [
                 0,
-                0,
+                1,
                 2,
-                2
+                1
               ],
               "levels": "domain",
               "stackOn": null,
@@ -3486,16 +3492,30 @@
             {
               "cells": [
                 2,
-                0,
+                1,
                 3,
-                2
+                1
               ],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
               "build": "whole",
               "role": "hall",
-              "module": "mod_kenney_ind_hall_gable_g"
+              "module": "mod_kenney_ind_hall_n"
+            },
+            {
+              "cells": [
+                0,
+                0,
+                5,
+                1
+              ],
+              "levels": 1,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
             }
           ]
         },
@@ -3699,14 +3719,6 @@
           "module": "mod_megakit_prop_ac_unit",
           "at": "roof",
           "offset": 0
-        },
-        {
-          "id": "extractor_fan",
-          "label": "extractor de humos industrial",
-          "role": "extractor",
-          "module": "mod_kenney_ind_windmill",
-          "at": "roof",
-          "offset": 0
         }
       ],
       "secondaryOptions": [
@@ -3715,7 +3727,7 @@
           "label": "chimenea de ladrillo independiente",
           "role": "chimney",
           "module": "mod_kenney_ind_chimney_small",
-          "optional": false,
+          "optional": true,
           "atCell": [
             4,
             1
@@ -3847,7 +3859,7 @@
               "slab": false,
               "build": "whole",
               "role": "hall",
-              "module": "mod_kenney_ind_hall_e"
+              "module": "mod_kenney_ind_hall_n"
             },
             {
               "cells": [
@@ -3861,7 +3873,7 @@
               "slab": false,
               "build": "whole",
               "role": "hall",
-              "module": "mod_kenney_ind_hall_f"
+              "module": "mod_kenney_ind_hall_n"
             },
             {
               "cells": [
@@ -3895,7 +3907,7 @@
               "slab": false,
               "build": "whole",
               "role": "hall",
-              "module": "mod_kenney_ind_hall_l"
+              "module": "mod_kenney_ind_hall_n"
             },
             {
               "cells": [
@@ -4721,7 +4733,7 @@
               "cells": [
                 0,
                 1,
-                3,
+                2,
                 1
               ],
               "levels": "domain",
@@ -4733,7 +4745,7 @@
             },
             {
               "cells": [
-                1,
+                2,
                 1,
                 1,
                 1
@@ -5369,15 +5381,6 @@
       ],
       "secondaryOptions": [
         {
-          "id": "none",
-          "label": "sin volumen secundario",
-          "role": null,
-          "module": null,
-          "optional": true,
-          "atCell": null,
-          "supports": []
-        },
-        {
           "id": "flag_plinth",
           "label": "z\u00f3calo con asta de bandera",
           "role": "plinth",
@@ -5391,6 +5394,24 @@
           "label": "marquesina de acceso de veh\u00edculos",
           "role": "canopy",
           "module": "mod_megakit_entrance_canopy_2x1",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "entry_columns",
+          "label": "columnas de acceso institucional",
+          "role": "column",
+          "module": "mod_megakit_column_trim_center",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "facade_pilasters",
+          "label": "pilastras de fachada",
+          "role": "pilaster",
+          "module": "mod_megakit_column_half_center",
           "optional": true,
           "atCell": null,
           "supports": []
@@ -5472,7 +5493,7 @@
         },
         {
           "id": "double_bay",
-          "label": "doble bah\u00eda de aparatos con cuerpo superior",
+          "label": "doble bay\u00eda de aparatos con cuerpo superior",
           "volumes": [
             {
               "cells": [
@@ -5483,7 +5504,7 @@
               ],
               "levels": 1,
               "stackOn": null,
-              "slab": true,
+              "slab": false,
               "build": "bands",
               "role": null,
               "module": null
@@ -5491,13 +5512,13 @@
             {
               "cells": [
                 0,
-                2,
+                1,
                 4,
-                0
+                1
               ],
               "levels": 1,
               "stackOn": 0,
-              "slab": true,
+              "slab": false,
               "build": "bands",
               "role": null,
               "module": null
@@ -5850,7 +5871,7 @@
               "cells": [
                 0,
                 1,
-                5,
+                3,
                 1
               ],
               "levels": 1,
@@ -5862,9 +5883,9 @@
             },
             {
               "cells": [
-                0,
+                3,
                 1,
-                5,
+                2,
                 1
               ],
               "levels": 1,
@@ -6184,19 +6205,10 @@
       ],
       "secondaryOptions": [
         {
-          "id": "none",
-          "label": "sin volumen secundario",
-          "role": null,
-          "module": null,
-          "optional": true,
-          "atCell": null,
-          "supports": []
-        },
-        {
           "id": "market_annex",
           "label": "ala aneja de mercado al por menor",
           "role": "civic_block",
-          "module": "mod_kaykit_civic_block_b",
+          "module": "mod_kaykit_civic_block_c",
           "optional": true,
           "atCell": null,
           "supports": []
@@ -6205,7 +6217,25 @@
           "id": "stall_canopy",
           "label": "marquesina de puestos exteriores",
           "role": "canopy",
+          "module": "mod_megakit_entrance_canopy_2x2",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "entry_canopy_small",
+          "label": "marquesina de acceso peque\u00f1a",
+          "role": "canopy",
           "module": "mod_megakit_entrance_canopy_2x1",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "side_canopy",
+          "label": "marquesina lateral peque\u00f1a",
+          "role": "canopy",
+          "module": "mod_megakit_entrance_canopy_2x2",
           "optional": true,
           "atCell": null,
           "supports": []

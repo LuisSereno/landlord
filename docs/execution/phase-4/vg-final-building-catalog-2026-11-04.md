@@ -1,6 +1,6 @@
 # V.g FINAL BUILDING CATALOG — ACTA PARCIAL
 
-**Estado:** READY FOR HUMAN SELECTION (parcial)
+**Estado:** `V.g FINAL BUILDING CATALOG — IN PROGRESS`
 **Fecha:** 2026-11-04
 **HEAD inicial:** 22a9dcae5072b883eb717fc553b58248f8b486a8 (cierre V.f)
 **HEAD final:** _por determinar al completar la fase_
@@ -14,10 +14,140 @@ V.g tiene como objetivo convertir el Building Composer en el generador del catá
 
 **Estado actual:**
 - ✅ 15/15 gramáticas diseñadas y validadas
+- ✅ 15/15 gramáticas endurecidas con semantic identity estricta
+- ✅ Validador semántico extendido con 7 nuevas reglas
 - ✅ Pipeline de generación funcional
-- ✅ 5/60 candidatos generados como prueba de concepto
-- ⏳ 55 candidatos restantes por generar (~2.5 horas de render)
+- ❌ 0/15 candidatos generados (errores de composición tras hardening)
 - ⏳ Evidence generation (contact sheets, silhouettes, Phaser QA) pendiente
+
+---
+
+## 18. Architectural Identity Hardening
+
+### 18.1 Problemas encontrados
+
+Tras el hardening de las 15 gramáticas, los candidatos están fallando con errores de composición:
+
+1. **"el acceso no encontró su crujía de planta baja (0)"** — afecta a courtyard_home, row_house, apartment_block, mixed_tenement
+2. **Módulo no cabe en el volumen** — afecta a workshop (mod_kenney_ind_hall_f demasiado grande)
+3. **Masa no deja frente accesible** — afecta a warehouse
+
+### 18.2 Cambios del validator
+
+El validador `_check_semantic_identity()` en compose.py se extendió con 7 nuevas reglas:
+
+1. **requireAll** — todos los roles en la lista deben estar presentes
+2. **requireGroundCommercial** — verifica lenguaje comercial real en planta baja
+3. **prohibitRhythmIds** — bloquea rhythms específicos (ej. row_house no puede usar shopfront)
+4. **requireRoleCount** — cuenta instancias de roles (ej. fire_station necesita >= 2 doorframe)
+5. **requireAccessIds** — restringe accesos a whitelist
+6. **requireRhythmIds** — restringe rhythms a whitelist
+7. **requireMassingIds** — restringe massings a whitelist
+
+### 18.3 Nuevas reglas aplicadas
+
+| Tipo | Regla añadida | Efecto |
+|------|---------------|--------|
+| row_house | prohibitRhythmIds: ["shopfront", "commercial_strip", "glazed_ground"] | Elimina lenguaje comercial |
+| town_hall | requireAccessIds: ["monumental_stairs", "canopied_entrance", "loggia_entrance"] | Exige acceso monumental |
+| mixed_tenement | requireGroundCommercial: true | Exige comercio real en planta baja |
+| brickworks | requireAll: [["hall", "chimney"]] | Exige nave Y chimenea |
+| steelworks | requireRoles: ["hall"] + requireAnyRoles: [["chimney", "extractor", "civic_tower"]] | Exige nave Y proceso pesado |
+| cement_plant | requireRoles: ["hall"] + requireAnyRoles: [["tank", "chimney", "extractor"]] | Exige nave Y proceso |
+| fire_station | requireRoleCount: {"doorframe": ">= 2"} | Exige múltiples apparatus bays |
+| school_block | Eliminados props mal etiquetados (flag_pole → AC unit) | Honestidad semántica |
+| market_hall | requireAnyRoles: [["curtain_wall", "awning"]] + prohibitRhythmIds: ["blind_siding"] | Exige transparencia |
+
+### 18.4 Regressions
+
+Tests de regresión definidos (pendientes de implementar):
+
+1. row_house + shopfront → FAIL
+2. mixed_tenement sin commercial ground floor → FAIL
+3. cement_plant sólo hall → FAIL
+4. brickworks sin chimney → FAIL
+5. steelworks sólo hall → FAIL
+6. town_hall + water_tower → IMPOSIBLE/FAIL
+7. town_hall sin identidad monumental → FAIL
+8. fire_station con 1 apparatus bay → FAIL
+9. fire_station con 2+ apparatus bays → PASS
+10. market_hall opaco tipo warehouse → FAIL
+
+---
+
+## 19. Estado de generación
+
+### 19.1 Candidatos intentados
+
+**Total generados:** 0/15 (todos fallan con errores de composición)
+
+| Tipo | Seed | Error | Estado |
+|------|------|-------|--------|
+| courtyard_home | 1000 | el acceso no encontró su crujía de planta baja | ❌ FAIL |
+| row_house | 1000 | el acceso no encontró su crujía de planta baja | ❌ FAIL |
+| apartment_block | 1000 | el acceso no encontró su crujía de planta baja | ❌ FAIL |
+| mixed_tenement | 1000 | el acceso no encontró su crujía de planta baja | ❌ FAIL |
+| workshop | 1000 | módulo no cabe en volumen | ❌ FAIL |
+| warehouse | 1000 | masa no deja frente accesible | ❌ FAIL |
+| cement_plant | 1000 | _no intentado_ | ⏳ |
+| brickworks | 1000 | _no intentado_ | ⏳ |
+| steelworks | 1000 | _no intentado_ | ⏳ |
+| town_hall | 1000 | _no intentado_ | ⏳ |
+| school_block | 1000 | _no intentado_ | ⏳ |
+| clinic | 1000 | _no intentado_ | ⏳ |
+| police_station | 1000 | _no intentado_ | ⏳ |
+| fire_station | 1000 | _no intentado_ | ⏳ |
+| market_hall | 1000 | _no intentado_ | ⏳ |
+
+### 19.2 Análisis de fallos
+
+Los errores de composición sugieren que las gramáticas endurecidas tienen combinaciones incompatibles:
+
+1. **Acceso no encuentra crujía** — Las reglas de acceso (requireAccessIds) son demasiado estrictas para los massings/rhythms disponibles. El validador de acceso en compose.py no encuentra una crujía de planta baja donde colocar la puerta.
+
+2. **Módulo no cabe** — workshop referencia módulos de Kenney Industrial que son demasiado grandes para el footprint de 4×2 celdas.
+
+3. **Masa no deja frente accesible** — warehouse tiene massings que, combinados con cornerModes, no dejan espacio para el acceso.
+
+### 19.3 Próximos pasos para desbloquear
+
+1. **Investigar errores de acceso** — Revisar la lógica de placement de acceso en compose.py y ajustar las gramáticas para que dejen espacio real para el acceso.
+
+2. **Corregir workshop** — Sustituir módulos demasiado grandes por alternativas que quepan en 4×2 celdas, o ajustar el footprint.
+
+3. **Corregir warehouse** — Eliminar o ajustar massings que no dejan frente accesible.
+
+4. **Probar otras seeds** — Si seed 1000 no funciona legítimamente, probar 1001, 1002, 1003.
+
+5. **Relajar reglas si es necesario** — Si una regla es demasiado estricta y no hay combinaciones válidas, ajustar la regla (no eludir el gate).
+
+---
+
+## 20. Pipeline corrections
+
+### 20.1 Promoción incremental
+
+**Problema:** `promoteStagingToEvidence()` elimina completamente `targetDir` antes de copiar, lo que borraría candidatos anteriores en corridas incrementales.
+
+**Estado:** ⏳ Pendiente de implementación.
+
+**Solución propuesta:** Opción B — promoción incremental atómica por candidateId/tipo, conservando candidatos que no participan en la corrida.
+
+### 20.2 Attempts .gitignore
+
+**Problema:** `docs/art/building-catalog-vg/attempts/` se está versionando en Git.
+
+**Estado:** ⏳ Pendiente de implementación.
+
+**Solución:** Añadir `.gitignore` en attempts/ y eliminar del índice Git los attempts ya versionados.
+
+---
+
+**Fin del acta parcial.**
+
+**Última actualización:** 2026-11-04
+**Estado:** `V.g FINAL BUILDING CATALOG — IN PROGRESS`
+**Bloqueante:** Errores de composición tras hardening de gramáticas
 
 ---
 

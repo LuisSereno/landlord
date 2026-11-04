@@ -1,13 +1,13 @@
 {
  "schemaVersion": 1,
- "generatedAt": "2026-11-04T13:15:25.050Z",
+ "generatedAt": "2026-11-04T20:24:06.170Z",
  "composerVersion": "vf-3",
  "styleProfileId": "graphic_civic_buildings_v1",
- "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/building-composer/candidates",
- "requested": 12,
- "rendered": 12,
- "totalGenerationMs": 1102158,
- "blenderPeakRssMb": 6561.5,
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/building-catalog-vg/town-hall-spike",
+ "requested": 3,
+ "rendered": 3,
+ "totalGenerationMs": 245083,
+ "blenderPeakRssMb": 6123.2,
  "toolchain": {
   "blender": "multiple processes",
   "renderer": "BLENDER_EEVEE"
@@ -24,324 +24,20 @@
  },
  "candidates": [
   {
-   "candidateId": "vf_row_house_1000",
-   "buildingType": "row_house",
-   "family": "residential_low",
-   "variantSeed": 1000,
-   "compositionSignature": "342700bc89297a9a6a8eb456103cc9b0414e67b7f1797a661db850cd7b1fd07c",
-   "triangleCount": 3910,
-   "objectCount": 65,
-   "moduleCount": 8,
-   "materials": 21,
-   "textures": 18,
-   "bounds": {
-    "x": {
-     "min": -8,
-     "max": 8
-    },
-    "y": {
-     "min": -2,
-     "max": 2
-    },
-    "z": {
-     "min": 0,
-     "max": 9.2
-    }
-   },
-   "renderMs": 11708.01,
-   "pngBytes": 301721,
-   "pngPixels": [
-    494,
-    598
-   ],
-   "pixelSha256": "67e1b218fb145dd11d8ac166f3971e390ea938d8ee8c753649e5fc2ee5d7bd75",
-   "licensedGeometryRatio": 1,
-   "pivot": {
-    "x": 0.5688,
-    "y": 0.7006
-   }
-  },
-  {
-   "candidateId": "vf_row_house_1001",
-   "buildingType": "row_house",
-   "family": "residential_low",
-   "variantSeed": 1001,
-   "compositionSignature": "1249437b120e81934419429b606914b8716ad19b9182e88021435d4576659282",
-   "triangleCount": 2506,
-   "objectCount": 65,
-   "moduleCount": 8,
-   "materials": 19,
-   "textures": 18,
-   "bounds": {
-    "x": {
-     "min": -8,
-     "max": 8
-    },
-    "y": {
-     "min": -2.2,
-     "max": 2
-    },
-    "z": {
-     "min": 0,
-     "max": 9
-    }
-   },
-   "renderMs": 9933.04,
-   "pngBytes": 281400,
-   "pngPixels": [
-    497,
-    574
-   ],
-   "pixelSha256": "da997fca3f3cef3af3828cf7b590493f0bb5e0f3f53ec310762ab53e0c13e183",
-   "licensedGeometryRatio": 1,
-   "pivot": {
-    "x": 0.5714,
-    "y": 0.6871
-   }
-  },
-  {
-   "candidateId": "vf_row_house_1002",
-   "buildingType": "row_house",
-   "family": "residential_low",
-   "variantSeed": 1002,
-   "compositionSignature": "58b584267bf0a2ab7c287a97f899693075220c723623308975f44a37f6b416cb",
-   "triangleCount": 4196,
-   "objectCount": 49,
-   "moduleCount": 9,
-   "materials": 26,
-   "textures": 18,
-   "bounds": {
-    "x": {
-     "min": -8,
-     "max": 4
-    },
-    "y": {
-     "min": -2.0593,
-     "max": 2
-    },
-    "z": {
-     "min": 0,
-     "max": 9
-    }
-   },
-   "renderMs": 8805.26,
-   "pngBytes": 205965,
-   "pngPixels": [
-    354,
-    535
-   ],
-   "pixelSha256": "3887cb774b1c613193e0a7e4407f0de245ad146382259e4bff35a766c4efdd8a",
-   "licensedGeometryRatio": 1,
-   "pivot": {
-    "x": 0.637,
-    "y": 0.7191
-   }
-  },
-  {
-   "candidateId": "vf_row_house_1003",
-   "buildingType": "row_house",
-   "family": "residential_low",
-   "variantSeed": 1003,
-   "compositionSignature": "2bce93262aadf103bb70ba1cb9c2512b6b728cded1f9686911eba5583363f989",
-   "triangleCount": 4484,
-   "objectCount": 73,
-   "moduleCount": 7,
-   "materials": 16,
-   "textures": 18,
-   "bounds": {
-    "x": {
-     "min": -8.428,
-     "max": 4
-    },
-    "y": {
-     "min": -2.428,
-     "max": 2
-    },
-    "z": {
-     "min": 0,
-     "max": 9
-    }
-   },
-   "renderMs": 10312.25,
-   "pngBytes": 214915,
-   "pngPixels": [
-    365,
-    547
-   ],
-   "pixelSha256": "24f95708b7441979d9be165e311d6b7c27496de59dbf01a2e916b2d35a84fe57",
-   "licensedGeometryRatio": 1,
-   "pivot": {
-    "x": 0.6493,
-    "y": 0.7146
-   }
-  },
-  {
-   "candidateId": "vf_cement_plant_1000",
-   "buildingType": "cement_plant",
-   "family": "industrial_heavy",
-   "variantSeed": 1000,
-   "compositionSignature": "0dcc929f21d1ca4f605edab2ba7f00f3c1c6c8709ce855fcd17840cd76655f9d",
-   "triangleCount": 6569,
-   "objectCount": 32,
-   "moduleCount": 10,
-   "materials": 18,
-   "textures": 18,
-   "bounds": {
-    "x": {
-     "min": -8.167200000000001,
-     "max": 10
-    },
-    "y": {
-     "min": -4,
-     "max": 3.0305999999999997
-    },
-    "z": {
-     "min": 0,
-     "max": 6.6
-    }
-   },
-   "renderMs": 11389.51,
-   "pngBytes": 186320,
-   "pngPixels": [
-    632,
-    496
-   ],
-   "pixelSha256": "7141a1a2cee6fbdbc31ed372d1e6b1bb9be86b1e789716e906524fca9ca4c95c",
-   "licensedGeometryRatio": 1,
-   "pivot": {
-    "x": 0.5601,
-    "y": 0.5877
-   }
-  },
-  {
-   "candidateId": "vf_cement_plant_1001",
-   "buildingType": "cement_plant",
-   "family": "industrial_heavy",
-   "variantSeed": 1001,
-   "compositionSignature": "05fa2c2e25a79fbfb52fbdf6037ebe37b1ad065f948345a75ca7b08a85f0bf09",
-   "triangleCount": 6493,
-   "objectCount": 43,
-   "moduleCount": 10,
-   "materials": 18,
-   "textures": 15,
-   "bounds": {
-    "x": {
-     "min": -10.2,
-     "max": 8.167200000000001
-    },
-    "y": {
-     "min": -4.199999999999999,
-     "max": 3.74
-    },
-    "z": {
-     "min": 0,
-     "max": 12.7
-    }
-   },
-   "renderMs": 11982.73,
-   "pngBytes": 229093,
-   "pngPixels": [
-    561,
-    612
-   ],
-   "pixelSha256": "c3e6e3a962f414af49987c6f76efa3fd26e912ec81a87113af613aa27578a0f8",
-   "licensedGeometryRatio": 1,
-   "pivot": {
-    "x": 0.5472,
-    "y": 0.7844
-   }
-  },
-  {
-   "candidateId": "vf_cement_plant_1002",
-   "buildingType": "cement_plant",
-   "family": "industrial_heavy",
-   "variantSeed": 1002,
-   "compositionSignature": "1e015e5ff01bf520f00cabb7c1a0b5cae766eb2e3779f6967fa807a1c4a060df",
-   "triangleCount": 4547,
-   "objectCount": 23,
-   "moduleCount": 8,
-   "materials": 15,
-   "textures": 15,
-   "bounds": {
-    "x": {
-     "min": -9.356300000000001,
-     "max": 9
-    },
-    "y": {
-     "min": -4,
-     "max": 3
-    },
-    "z": {
-     "min": 0,
-     "max": 12.7
-    }
-   },
-   "renderMs": 10449.9,
-   "pngBytes": 173902,
-   "pngPixels": [
-    540,
-    601
-   ],
-   "pixelSha256": "97dbbbe9cbd4dad4fef9f507bc90d09f226251b161de006a61422c7ce134834a",
-   "licensedGeometryRatio": 0.9974,
-   "pivot": {
-    "x": 0.5269,
-    "y": 0.7694
-   }
-  },
-  {
-   "candidateId": "vf_cement_plant_1003",
-   "buildingType": "cement_plant",
-   "family": "industrial_heavy",
-   "variantSeed": 1003,
-   "compositionSignature": "23e2dc3d1ad8d9538a3290ce612127f9c7591510669ff7c5a457354ad37124bf",
-   "triangleCount": 7143,
-   "objectCount": 45,
-   "moduleCount": 10,
-   "materials": 17,
-   "textures": 15,
-   "bounds": {
-    "x": {
-     "min": -8.167200000000001,
-     "max": 10
-    },
-    "y": {
-     "min": -4.4,
-     "max": 8.22
-    },
-    "z": {
-     "min": 0,
-     "max": 8.5667
-    }
-   },
-   "renderMs": 13963.21,
-   "pngBytes": 275199,
-   "pngPixels": [
-    821,
-    728
-   ],
-   "pixelSha256": "d1c6db04144374aa4911d25412a7e2b2cc4cce40f006cd8a619c30bffee7c5f6",
-   "licensedGeometryRatio": 0.9961,
-   "pivot": {
-    "x": 0.5268,
-    "y": 0.6533
-   }
-  },
-  {
    "candidateId": "vf_town_hall_1000",
    "buildingType": "town_hall",
    "family": "civic_landmark",
    "variantSeed": 1000,
-   "compositionSignature": "5db2aea1e8a38f2f444b15234e06666acd242cf7839c87d2580ad3c3c563a02a",
-   "triangleCount": 18402,
-   "objectCount": 88,
+   "compositionSignature": "90deccee17e9a524855022b768d04147fda76594693ef50720ee25eea9adad22",
+   "triangleCount": 23290,
+   "objectCount": 152,
    "moduleCount": 11,
-   "materials": 28,
+   "materials": 25,
    "textures": 23,
    "bounds": {
     "x": {
      "min": -8,
-     "max": 7.2135
+     "max": 8
     },
     "y": {
      "min": -3.9908,
@@ -349,58 +45,58 @@
     },
     "z": {
      "min": 0,
-     "max": 18
+     "max": 18.6
     }
    },
-   "renderMs": 20114.21,
-   "pngBytes": 376140,
+   "renderMs": 23102.56,
+   "pngBytes": 483222,
    "pngPixels": [
-    537,
-    738
+    554,
+    762
    ],
-   "pixelSha256": "8e03e6fdcc5002c1c261aff148a76bdfed6714a7759e5b01169fe9c8377346c2",
+   "pixelSha256": "80a4df789f38ca13b22a351516c214600ad6254c87a739fa2ec1124cea2d552d",
    "licensedGeometryRatio": 1,
    "pivot": {
-    "x": 0.4758,
-    "y": 0.8383
+    "x": 0.4612,
+    "y": 0.8324
    }
   },
   {
-   "candidateId": "vf_town_hall_1001",
+   "candidateId": "vf_town_hall_42",
    "buildingType": "town_hall",
    "family": "civic_landmark",
-   "variantSeed": 1001,
-   "compositionSignature": "ecf5f6689fa0e551042dbeab591d334e00598254eeda57b195ca644034a00b8b",
-   "triangleCount": 9886,
-   "objectCount": 106,
-   "moduleCount": 14,
-   "materials": 28,
-   "textures": 27,
+   "variantSeed": 42,
+   "compositionSignature": "c5c364c8f11cbc7364d5f3e8eed5dccde0d815f5f4ad716050d5c67cb5f150b1",
+   "triangleCount": 7224,
+   "objectCount": 93,
+   "moduleCount": 9,
+   "materials": 21,
+   "textures": 15,
    "bounds": {
     "x": {
-     "min": -8.428,
-     "max": 7.2135
+     "min": -8,
+     "max": 8
     },
     "y": {
      "min": -3.9908,
-     "max": 6
+     "max": 2
     },
     "z": {
      "min": 0,
-     "max": 20.68
+     "max": 12.1
     }
    },
-   "renderMs": 20919.58,
-   "pngBytes": 389456,
+   "renderMs": 14073.09,
+   "pngBytes": 273909,
    "pngPixels": [
-    546,
-    813
+    469,
+    550
    ],
-   "pixelSha256": "9b9de374b7d55f768f4b7c8d481f12bb140fde7ecac65ba475fe39c5a1f69068",
+   "pixelSha256": "2e4af4c0aa5931c23337995b5b8001bffecbf4935e5c881c20d158cc647aee3c",
    "licensedGeometryRatio": 1,
    "pivot": {
-    "x": 0.4844,
-    "y": 0.853
+    "x": 0.5448,
+    "y": 0.7678
    }
   },
   {
@@ -408,50 +104,12 @@
    "buildingType": "town_hall",
    "family": "civic_landmark",
    "variantSeed": 1002,
-   "compositionSignature": "363529f557e7c4c66d3ee622b3332ba1d1a1389da060231983a03137ef0809f3",
-   "triangleCount": 18848,
-   "objectCount": 145,
-   "moduleCount": 13,
-   "materials": 31,
-   "textures": 25,
-   "bounds": {
-    "x": {
-     "min": -8.2,
-     "max": 8
-    },
-    "y": {
-     "min": -3.9908,
-     "max": 2
-    },
-    "z": {
-     "min": 0,
-     "max": 17.68
-    }
-   },
-   "renderMs": 16216.33,
-   "pngBytes": 360043,
-   "pngPixels": [
-    473,
-    697
-   ],
-   "pixelSha256": "badde22e7f55b94dc2b2b306221cff62afa261e0cbc3b7e303b3cb817fb9a729",
-   "licensedGeometryRatio": 1,
-   "pivot": {
-    "x": 0.5486,
-    "y": 0.8168
-   }
-  },
-  {
-   "candidateId": "vf_town_hall_1003",
-   "buildingType": "town_hall",
-   "family": "civic_landmark",
-   "variantSeed": 1003,
-   "compositionSignature": "8ddc1a7d137f6591659989d64cef02b5b73d9c3fa3ff3af587f11ba78e9f31d1",
-   "triangleCount": 9210,
-   "objectCount": 140,
+   "compositionSignature": "528a3f450a3e97c587e495db823ff5ba5dd65dde8c04936b69c7ea3f93c35696",
+   "triangleCount": 4406,
+   "objectCount": 97,
    "moduleCount": 12,
-   "materials": 27,
-   "textures": 25,
+   "materials": 23,
+   "textures": 20,
    "bounds": {
     "x": {
      "min": -8.2,
@@ -463,20 +121,20 @@
     },
     "z": {
      "min": 0,
-     "max": 20.68
+     "max": 13
     }
    },
-   "renderMs": 23059.71,
-   "pngBytes": 474977,
+   "renderMs": 17502.05,
+   "pngBytes": 321375,
    "pngPixels": [
-    558,
-    819
+    559,
+    619
    ],
-   "pixelSha256": "9353a34e3cdfe493deafe62e915ccd92641843896961a99fdbe14f98b38edfa7",
+   "pixelSha256": "db8792cdc417cd714fc4e4382178de76e0bd16dfa55e975ffb29d1e2304e5d55",
    "licensedGeometryRatio": 1,
    "pivot": {
     "x": 0.4651,
-    "y": 0.8438
+    "y": 0.7933
    }
   }
  ],

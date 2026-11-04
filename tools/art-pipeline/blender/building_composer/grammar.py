@@ -86,18 +86,6 @@ ACCESS_KEYS = {
 PROP_KEYS = {"id", "label", "role", "module", "at", "offset"}
 SECONDARY_KEYS = {"id", "label", "role", "module", "optional", "atCell", "supports"}
 CORNER_KEYS = {"id", "label", "module", "widthMeters"}
-RECIPE_KEYS = {
-    "id",
-    "label",
-    "massingIds",
-    "accessIds",
-    "roofIds",
-    "rhythmIds",
-    "facadeIds",
-    "silhouetteIds",
-    "requiredFeatures",
-    "variantFeatures",
-}
 REQUIRED_FEATURE_KEYS = {"kind", "id", "role"}
 VARIANT_FEATURE_KEYS = {"kind", "id", "probability"}
 FEATURE_KINDS = {"secondary", "prop", "facade"}  # V.g: facade para features integrados en fachada

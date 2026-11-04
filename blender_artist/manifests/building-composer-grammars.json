@@ -1,24 +1,24 @@
 {
   "schemaVersion": 1,
   "composerVersion": "vf-3",
-  "purpose": "V.f.3: gram\u00e1ticas del Building Composer. Un humano declara qu\u00e9 vol\u00famenes, roles, ritmos, cubiertas, accesos, props intr\u00ednsecos y vol\u00famenes secundarios existen para cada tipo; el compositor sortea entre ellas con el seed (\u00a712\u2013\u00a718). Ninguna cifra geom\u00e9trica vive aqu\u00ed: paso de piso, cruj\u00eda, vuelo de cornisa, escala de puerta y holgura de contacto salen del perfil de estilo medido.",
-  "provenance": "Cada `module` es un id de blender_artist/manifests/building-modules.json, y ese cat\u00e1logo se mide importando el archivo licenciado en Blender (\u00a76, \u00a77, D-098). La gram\u00e1tica no puede inventar geometr\u00eda: un id inexistente, un rol que no publica la familia o un panel que no mide la cruj\u00eda declarada fallan al cargar el manifiesto, no a mitad de render.",
+  "purpose": "V.f.3: gramáticas del Building Composer. Un humano declara qué volúmenes, roles, ritmos, cubiertas, accesos, props intrínsecos y volúmenes secundarios existen para cada tipo; el compositor sortea entre ellas con el seed (§12–§18). Ninguna cifra geométrica vive aquí: paso de piso, crujía, vuelo de cornisa, escala de puerta y holgura de contacto salen del perfil de estilo medido.",
+  "provenance": "Cada `module` es un id de blender_artist/manifests/building-modules.json, y ese catálogo se mide importando el archivo licenciado en Blender (§6, §7, D-098). La gramática no puede inventar geometría: un id inexistente, un rol que no publica la familia o un panel que no mide la crujía declarada fallan al cargar el manifiesto, no a mitad de render.",
   "authority": {
-    "geometry": "blender_artist/manifests/building-modules.json (vf-1, 113 m\u00f3dulos medidos en Blender)",
+    "geometry": "blender_artist/manifests/building-modules.json (vf-1, 113 módulos medidos en Blender)",
     "parameters": "blender_artist/manifests/building-style-profiles.json (graphic_civic_buildings_v1)",
-    "footprintAndFloors": "packages/simulation/src/game-data.ts (\u00a717: la huella y las plantas las manda el dominio; el compositor las recibe en el request y no las toca)",
-    "groundContact": "scripts/lib/building-placement.mjs y pivot_from_origin (V.d-7C): el marco del compositor es el que esa proyecci\u00f3n espera (\u00a718)"
+    "footprintAndFloors": "packages/simulation/src/game-data.ts (§17: la huella y las plantas las manda el dominio; el compositor las recibe en el request y no las toca)",
+    "groundContact": "scripts/lib/building-placement.mjs y pivot_from_origin (V.d-7C): el marco del compositor es el que esa proyección espera (§18)"
   },
   "geometryEvidence": {
-    "placementFrame": "El marco de colocaci\u00f3n de cada m\u00f3dulo est\u00e1 centrado en XY y apoyado en Z=0, medido m\u00f3dulo a m\u00f3dulo en V.f.1 y reiterado como aserci\u00f3n al cargar el cat\u00e1logo.",
-    "bandWidths": "Todo token de banda, todo panel de pretil y toda cornisa miden su cruj\u00eda exacta de ancho autorado (\u00a717). Los paneles de 4 m del cat\u00e1logo (brick_wall_4m, metal_window_4m, brick_window_inset_4m, curved/redwhite) no caben en una ret\u00edcula de 2 m y quedan como deuda documental registrada en el perfil, no como m\u00f3dulos usables.",
-    "slopeEaves": "Sonda de v\u00e9rtices de V.f.3 (tools/art-pipeline/blender/probe_module_geometry.py) sobre Roof_Slate_Center: pie de agua en -Y con z=0, meseta de cumbrera en +Y con z=3 \u2192 el alero es el extremo opuesto al frontAxis declarado, que es lo que usa compose._slope_angle.",
-    "corniceProjection": "`projectionMeters` es lo que la cara exterior asoma por delante del plano de fachada; el borde interior queda a baseWallThicknessMeters (0,2 m) del perfil, igual que las cadenas medidas del propio perfil (brick 0,4/0,2 \u00b7 trim 0,628/0,428 \u00b7 corner 0,9/0,7)."
+    "placementFrame": "El marco de colocación de cada módulo está centrado en XY y apoyado en Z=0, medido módulo a módulo en V.f.1 y reiterado como aserción al cargar el catálogo.",
+    "bandWidths": "Todo token de banda, todo panel de pretil y toda cornisa miden su crujía exacta de ancho autorado (§17). Los paneles de 4 m del catálogo (brick_wall_4m, metal_window_4m, brick_window_inset_4m, curved/redwhite) no caben en una retícula de 2 m y quedan como deuda documental registrada en el perfil, no como módulos usables.",
+    "slopeEaves": "Sonda de vértices de V.f.3 (tools/art-pipeline/blender/probe_module_geometry.py) sobre Roof_Slate_Center: pie de agua en -Y con z=0, meseta de cumbrera en +Y con z=3 → el alero es el extremo opuesto al frontAxis declarado, que es lo que usa compose._slope_angle.",
+    "corniceProjection": "`projectionMeters` es lo que la cara exterior asoma por delante del plano de fachada; el borde interior queda a baseWallThicknessMeters (0,2 m) del perfil, igual que las cadenas medidas del propio perfil (brick 0,4/0,2 · trim 0,628/0,428 · corner 0,9/0,7)."
   },
   "frame": {
     "origin": "centro de la huella a nivel de suelo",
     "frontSide": "-Y",
-    "frontEvidence": "El rig can\u00f3nico del perfil sit\u00faa la c\u00e1mara en azimut 45\u00b0, es decir (+X, -Y, +Z): las dos caras visibles son el frente y el costado derecho.",
+    "frontEvidence": "El rig canónico del perfil sitúa la cámara en azimut 45°, es decir (+X, -Y, +Z): las dos caras visibles son el frente y el costado derecho.",
     "rotationsDegrees": [
       0,
       90,
@@ -26,17 +26,17 @@
       270
     ],
     "groundToleranceMeters": 0.05,
-    "groundToleranceEvidence": "Los alzados del cat\u00e1logo terminan en Z=0 exacto; la holgura s\u00f3lo cubre el redondeo a mil\u00edmetros de las transformadas, no un z\u00f3calo enterrado (\u00a717)."
+    "groundToleranceEvidence": "Los alzados del catálogo terminan en Z=0 exacto; la holgura sólo cubre el redondeo a milímetros de las transformadas, no un zócalo enterrado (§17)."
   },
   "prng": {
     "algorithm": "SplitMix64 (prng.py), entero puro de 64 bits",
-    "why": "random.del sistema depende de la build de CPython y del estado global; con \u00e9l dos corridas del mismo seed podr\u00edan dar edificios distintos y \u00a713/\u00a714 ser\u00edan inverificables.",
+    "why": "random.del sistema depende de la build de CPython y del estado global; con él dos corridas del mismo seed podrían dar edificios distintos y §13/§14 serían inverificables.",
     "stateDerivation": "seed ^ FNV-1a(etiqueta), con etiqueta = buildingType|family|composerVersion",
     "drawOrder": "los 8 ejes de variantAxes en el orden declarado, luego cornerTreatment, luego rhythmOffset, luego un slot por prop declarado en orden de propOptions",
-    "rejectionSampling": "below() rechaza sobre el rango completo: % a secas sesgar\u00eda las listas cortas de opciones"
+    "rejectionSampling": "below() rechaza sobre el rango completo: % a secas sesgaría las listas cortas de opciones"
   },
   "treatment": {
-    "policy": "\u00a711: los tres packs conviven en un mismo alzado, as\u00ed que el remapeo de estilo se aplica al atlas de Base Color compartido, no por pack. El compositor decide el escal\u00f3n de tratamiento por (m\u00f3dulo, material) sobre las cadenas medidas del cat\u00e1logo.",
+    "policy": "§11: los tres packs conviven en un mismo alzado, así que el remapeo de estilo se aplica al atlas de Base Color compartido, no por pack. El compositor decide el escalón de tratamiento por (módulo, material) sobre las cadenas medidas del catálogo.",
     "elevationLadder": [
       "tratado",
       "en_bruto",
@@ -47,7 +47,7 @@
       "interior",
       "glass"
     ],
-    "note": "interior y glass no definen la temperatura crom\u00e1tica de un alzado (el cristal se resuelve por emisi\u00f3n y el interior queda tras el marco), as\u00ed que mezclarlos con material tratado no rompe \u00a711. La correcci\u00f3n del alcance mixto vive en scene.py, re-enlazando copias estiladas de los nodos TEX_IMAGE; ning\u00fan archivo de render embarcado se toca (\u00a726)."
+    "note": "interior y glass no definen la temperatura cromática de un alzado (el cristal se resuelve por emisión y el interior queda tras el marco), así que mezclarlos con material tratado no rompe §11. La corrección del alcance mixto vive en scene.py, re-enlazando copias estiladas de los nodos TEX_IMAGE; ningún archivo de render embarcado se toca (§26)."
   },
   "support": {
     "allowedKinds": [
@@ -58,11 +58,11 @@
       "support"
     ],
     "maxTrianglesShare": 0.08,
-    "why": "\u00a715: las primitivas originales s\u00f3lo valen como conector, conducto, z\u00f3calo o apoyo. El techo se fija sobre los tri\u00e1ngulos medidos del cat\u00e1logo: un candidato industrial ronda los 20.000 tri\u00e1ngulos licenciados, as\u00ed que ocho conductos de 8 segmentos (32 tri\u00e1ngulos cada uno) no llegan al 1%. Pasar del techo significa que la masa volver\u00eda a ser cubos, y \u00a72 lo proh\u00edbe.",
+    "why": "§15: las primitivas originales sólo valen como conector, conducto, zócalo o apoyo. El techo se fija sobre los triángulos medidos del catálogo: un candidato industrial ronda los 20.000 triángulos licenciados, así que ocho conductos de 8 segmentos (32 triángulos cada uno) no llegan al 1%. Pasar del techo significa que la masa volvería a ser cubos, y §2 lo prohíbe.",
     "forbidden": [
       "masa principal",
       "volumen visible",
-      "sustituto de un m\u00f3dulo del cat\u00e1logo"
+      "sustituto de un módulo del catálogo"
     ]
   },
   "variantAxes": [
@@ -80,8 +80,8 @@
     "row_house": {
       "buildingType": "row_house",
       "family": "residential_low",
-      "label": "Casa adosada de alquiler (vivienda en hilera, 4\u00d71 celdas)",
-      "notes": "\u00a719 pide repetici\u00f3n modular legible, entrada propia, ritmo de ventanas, cubierta coherente y escala dom\u00e9stica. El solar real del dominio mide 16\u00d74 m: ninguna de las cuatro viviendas enteras de Kenney (4,6\u20135,7 m de fondo) cabe en 4 m, as\u00ed que la hilera se compone con paneles de 2 m y la variedad sale de la masa, no de copiar un edificio fuente (\u00a719: 'evita 4 copias del mismo edificio').",
+      "label": "Casa adosada de alquiler (vivienda en hilera, 4×1 celdas)",
+      "notes": "§19 pide repetición modular legible, entrada propia, ritmo de ventanas, cubierta coherente y escala doméstica. El solar real del dominio mide 16×4 m: ninguna de las cuatro viviendas enteras de Kenney (4,6–5,7 m de fondo) cabe en 4 m, así que la hilera se compone con paneles de 2 m y la variedad sale de la masa, no de copiar un edificio fuente (§19: 'evita 4 copias del mismo edificio').",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -97,7 +97,7 @@
         },
         {
           "id": "brick_post",
-          "label": "poste de esquina de ladrillo a la cruj\u00eda",
+          "label": "poste de esquina de ladrillo a la crujía",
           "module": "mod_megakit_brick_corner_plain_2m",
           "widthMeters": 2
         }
@@ -105,7 +105,7 @@
       "massingOptions": [
         {
           "id": "terrace",
-          "label": "hilera continua de cuatro cruj\u00edas",
+          "label": "hilera continua de cuatro crujías",
           "volumes": [
             {
               "cells": [
@@ -227,7 +227,7 @@
         },
         {
           "id": "courtyard_end",
-          "label": "hilera de tres cruj\u00edas con hueco de patio al fondo derecho",
+          "label": "hilera de tres crujías con hueco de patio al fondo derecho",
           "volumes": [
             {
               "cells": [
@@ -249,7 +249,7 @@
       "facadePalettes": [
         {
           "id": "brick_terrace",
-          "label": "ladrillo visto con carpinter\u00eda de obra",
+          "label": "ladrillo visto con carpintería de obra",
           "roleModule": {
             "wall_panel": "mod_megakit_brick_wall_2m",
             "window_bay": "mod_megakit_brick_window_single_2m",
@@ -333,7 +333,7 @@
         },
         {
           "id": "wainscoted",
-          "label": "z\u00f3calo continuo y huecos impares",
+          "label": "zócalo continuo y huecos impares",
           "bayMeters": 2,
           "groundRole": "wainscot",
           "tokens": {
@@ -413,7 +413,7 @@
       "accessOptions": [
         {
           "id": "centre_door",
-          "label": "puerta en la cruj\u00eda central",
+          "label": "puerta en la crujía central",
           "bayRule": "center",
           "frameRole": "doorframe",
           "leafRole": "door",
@@ -435,7 +435,7 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3/V.g: una casa adosada se reconoce por puerta dom\u00e9stica, cubierta inclinada, ritmo residencial y ausencia total de lenguaje comercial o industrial. Se proh\u00edbe el rhythm shopfront (escaparate comercial) y los accesos comerciales. El responsable document\u00f3 en c1a635b una hilera con chimenea Kenney Industrial plantada a 6 m del edificio: geom\u00e9tricamente v\u00e1lida, sem\u00e1nticamente absurda.",
+        "description": "R3/V.g: una casa adosada se reconoce por puerta doméstica, cubierta inclinada, ritmo residencial y ausencia total de lenguaje comercial o industrial. Se prohíbe el rhythm shopfront (escaparate comercial) y los accesos comerciales. El responsable documentó en c1a635b una hilera con chimenea Kenney Industrial plantada a 6 m del edificio: geométricamente válida, semánticamente absurda.",
         "requireRoles": [
           "door",
           "doorframe"
@@ -475,7 +475,7 @@
       "buildingType": "cement_plant",
       "family": "industrial_heavy",
       "label": "Planta de cemento ( nave, silo, chimenea, transporte )",
-      "notes": "\u00a720: la nave, el silo y la chimenea vienen de archivos licenciados de Kenney Industrial; los cilindros y cajas originales (\u00a715) s\u00f3lo se usan como conductos y apoyos entre piezas medidas, con el techo de tri\u00e1ngulos del manifiesto. La familia no publica rol de esquina ni de pendiente, as\u00ed que el poste de esquina queda en la \u00fanica opci\u00f3n posible y la cubierta es plana o la propia de la masa entera.",
+      "notes": "§20: la nave, el silo y la chimenea vienen de archivos licenciados de Kenney Industrial; los cilindros y cajas originales (§15) sólo se usan como conductos y apoyos entre piezas medidas, con el techo de triángulos del manifiesto. La familia no publica rol de esquina ni de pendiente, así que el poste de esquina queda en la única opción posible y la cubierta es plana o la propia de la masa entera.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -485,7 +485,7 @@
       "cornerModes": [
         {
           "id": "flush",
-          "label": "nave sin poste de esquina (el cat\u00e1logo industrial no lo publica)",
+          "label": "nave sin poste de esquina (el catálogo industrial no lo publica)",
           "module": null,
           "widthMeters": null
         }
@@ -493,7 +493,7 @@
       "massingOptions": [
         {
           "id": "hall_and_office",
-          "label": "nave cuadrada de tres cruj\u00edas con oficina alineada con la calle",
+          "label": "nave cuadrada de tres crujías con oficina alineada con la calle",
           "volumes": [
             {
               "cells": [
@@ -677,7 +677,7 @@
         },
         {
           "id": "silo_line",
-          "label": "nave larga transversal con cruj\u00eda de control en el extremo",
+          "label": "nave larga transversal con crujía de control en el extremo",
           "volumes": [
             {
               "cells": [
@@ -713,7 +713,7 @@
       "facadePalettes": [
         {
           "id": "steel_cladding",
-          "label": "chapa met\u00e1lica perfilada",
+          "label": "chapa metálica perfilada",
           "roleModule": {
             "wall_panel": "mod_megakit_metal_wall_2m",
             "window_bay": "mod_megakit_metal_window_2m",
@@ -743,7 +743,7 @@
         },
         {
           "id": "strip_windows",
-          "label": "franja de huecos cada dos cruj\u00edas",
+          "label": "franja de huecos cada dos crujías",
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
@@ -838,7 +838,7 @@
       "accessOptions": [
         {
           "id": "person_door",
-          "label": "puerta de personal en marco met\u00e1lico",
+          "label": "puerta de personal en marco metálico",
           "bayRule": "center",
           "frameRole": "doorframe",
           "leafRole": "door",
@@ -896,7 +896,7 @@
       "secondaryOptions": [
         {
           "id": "silo_and_conveyor",
-          "label": "silo peque\u00f1o con transportador que lo cruza por encima",
+          "label": "silo pequeño con transportador que lo cruza por encima",
           "role": "tank",
           "module": "mod_kenney_ind_tank_small",
           "optional": false,
@@ -908,7 +908,7 @@
             {
               "kind": "connector",
               "shape": "pipe",
-              "label": "transportador de cl\u00ednker",
+              "label": "transportador de clínker",
               "cell": [
                 4,
                 1
@@ -932,7 +932,7 @@
         },
         {
           "id": "water_tower_and_main",
-          "label": "dep\u00f3sito elevado con bajante hasta rasgo de suelo",
+          "label": "depósito elevado con bajante hasta rasgo de suelo",
           "role": "water_tower",
           "module": "mod_kenney_ind_water_tower",
           "optional": false,
@@ -944,7 +944,7 @@
             {
               "kind": "pipe",
               "shape": "pipe",
-              "label": "bajante del dep\u00f3sito",
+              "label": "bajante del depósito",
               "cell": [
                 4,
                 1
@@ -968,7 +968,7 @@
         },
         {
           "id": "stack_on_plinth",
-          "label": "chimenea media sobre dado de cimentaci\u00f3n",
+          "label": "chimenea media sobre dado de cimentación",
           "role": "chimney",
           "module": "mod_kenney_ind_chimney_medium",
           "optional": true,
@@ -980,7 +980,7 @@
             {
               "kind": "plinth",
               "shape": "box",
-              "label": "dado de cimentaci\u00f3n",
+              "label": "dado de cimentación",
               "cell": [
                 4,
                 1
@@ -1012,7 +1012,7 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3/V.g: una cementera se reconoce por su maquinaria de proceso. Exige nave industrial (hall) Y al menos un elemento de proceso (tank, chimney o extractor). Sin silo, chimenea o extractor visible, el jugador lee 'nave comercial acristalada' y el edificio pierde identidad. Test de regresi\u00f3n: cement_plant s\u00f3lo hall \u2192 FAIL.",
+        "description": "R3/V.g: una cementera se reconoce por su maquinaria de proceso. Exige nave industrial (hall) Y al menos un elemento de proceso (tank, chimney o extractor). Sin silo, chimenea o extractor visible, el jugador lee 'nave comercial acristalada' y el edificio pierde identidad. Test de regresión: cement_plant sólo hall → FAIL.",
         "requireRoles": [
           "hall"
         ],
@@ -1033,8 +1033,8 @@
     "town_hall": {
       "buildingType": "town_hall",
       "family": "civic_landmark",
-      "label": "Ayuntamiento (hitazo c\u00edvico, 4\u00d73 celdas)",
-      "notes": "\u00a721: la jerarqu\u00eda del frente se resuelve con escalinata, pretil, cornisa y acceso centrado, no con un r\u00f3tulo. El dominio da 16\u00d712 m y cuatro plantas; la gram\u00e1tica reserva una celda frontal (4 m) para la escalinata, que es un elemento intr\u00ednseco de \u00a722 y no puede apoyarse en la acera de property-grounds. Gap \u00a735 medido: `mod_kaykit_civic_block_h` (torre de 11,8 m) mide 8,027 m de lado y no cabe en un volumen de dos celdas (8 m), as\u00ed que el elemento vertical de \u00a721 lo aportan `yard_tower` y el dep\u00f3sito de azotea, no un rascacielos de cubos.",
+      "label": "Ayuntamiento (hitazo cívico, 4×3 celdas)",
+      "notes": "§21: la jerarquía del frente se resuelve con escalinata, pretil, cornisa y acceso centrado, no con un rótulo. El dominio da 16×12 m y cuatro plantas; la gramática reserva una celda frontal (4 m) para la escalinata, que es un elemento intrínseco de §22 y no puede apoyarse en la acera de property-grounds. Gap §35 medido: `mod_kaykit_civic_block_h` (torre de 11,8 m) mide 8,027 m de lado y no cabe en un volumen de dos celdas (8 m), así que el elemento vertical de §21 lo aportan `yard_tower` y el depósito de azotea, no un rascacielos de cubos.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -1059,21 +1059,46 @@
         {
           "id": "neoclassical_portico",
           "label": "composición neoclásica con pórtico de columnas",
-          "massingIds": ["civic_block", "block_and_wing"],
-          "accessIds": ["monumental_stairs", "loggia_entrance"],
-          "roofIds": ["gable_cross", "gable_dormers", "gable_corniced"],
-          "rhythmIds": ["civic_regular", "tall_aisles", "glazed_ground"],
+          "massingIds": [
+            "civic_block",
+            "block_and_wing"
+          ],
+          "accessIds": [
+            "monumental_stairs",
+            "loggia_entrance"
+          ],
+          "roofIds": [
+            "gable_cross",
+            "gable_dormers",
+            "gable_corniced"
+          ],
+          "rhythmIds": [
+            "civic_regular",
+            "tall_aisles",
+            "glazed_ground"
+          ],
           "requiredFeatures": [
             {
-              "kind": "secondary",
-              "id": "corner_columns",
-              "role": "column"
+              "kind": "facade",
+              "id": "portico_columns",
+              "role": "column",
+              "module": "mod_megakit_column_trim_center",
+              "side": "front",
+              "count": 6,
+              "levels": 2,
+              "distribution": "symmetric"
             }
           ],
           "variantFeatures": [
             {
-              "kind": "secondary",
+              "kind": "facade",
               "id": "facade_pilasters",
+              "role": "pilaster",
+              "module": "mod_megakit_column_pilaster_center",
+              "side": "front",
+              "count": 4,
+              "levels": 2,
+              "distribution": "even",
               "probability": 0.5
             }
           ]
@@ -1081,21 +1106,45 @@
         {
           "id": "municipal_block",
           "label": "bloque municipal funcional con pilastras",
-          "massingIds": ["split_pavilions", "stepped_civic"],
-          "accessIds": ["canopied_entrance", "monumental_stairs"],
-          "roofIds": ["flat_plates", "flat_slabs", "gable_corniced"],
-          "rhythmIds": ["civic_regular", "masonry_mass"],
+          "massingIds": [
+            "split_pavilions",
+            "stepped_civic"
+          ],
+          "accessIds": [
+            "canopied_entrance",
+            "monumental_stairs"
+          ],
+          "roofIds": [
+            "flat_plates",
+            "flat_slabs",
+            "gable_corniced"
+          ],
+          "rhythmIds": [
+            "civic_regular",
+            "masonry_mass"
+          ],
           "requiredFeatures": [
             {
-              "kind": "secondary",
+              "kind": "facade",
               "id": "facade_pilasters",
-              "role": "pilaster"
+              "role": "pilaster",
+              "module": "mod_megakit_column_pilaster_center",
+              "side": "front",
+              "count": 4,
+              "levels": 2,
+              "distribution": "symmetric"
             }
           ],
           "variantFeatures": [
             {
-              "kind": "secondary",
+              "kind": "facade",
               "id": "corner_columns",
+              "role": "column",
+              "module": "mod_megakit_column_trim_center",
+              "side": "front",
+              "count": 2,
+              "levels": 2,
+              "distribution": "even",
               "probability": 0.5
             }
           ]
@@ -1103,21 +1152,46 @@
         {
           "id": "civic_wing",
           "label": "ala cívica con columnas decorativas",
-          "massingIds": ["single_wing_plaza", "civic_block"],
-          "accessIds": ["monumental_stairs", "canopied_entrance"],
-          "roofIds": ["gable_cross", "gable_dormers", "flat_plates"],
-          "rhythmIds": ["glazed_ground", "tall_aisles", "civic_regular"],
+          "massingIds": [
+            "single_wing_plaza",
+            "civic_block"
+          ],
+          "accessIds": [
+            "monumental_stairs",
+            "canopied_entrance"
+          ],
+          "roofIds": [
+            "gable_cross",
+            "gable_dormers",
+            "flat_plates"
+          ],
+          "rhythmIds": [
+            "glazed_ground",
+            "tall_aisles",
+            "civic_regular"
+          ],
           "requiredFeatures": [
             {
-              "kind": "secondary",
-              "id": "corner_columns",
-              "role": "column"
+              "kind": "facade",
+              "id": "wing_columns",
+              "role": "column",
+              "module": "mod_megakit_column_trim_center",
+              "side": "front",
+              "count": 5,
+              "levels": 2,
+              "distribution": "symmetric"
             }
           ],
           "variantFeatures": [
             {
-              "kind": "secondary",
+              "kind": "facade",
               "id": "facade_pilasters",
+              "role": "pilaster",
+              "module": "mod_megakit_column_pilaster_center",
+              "side": "front",
+              "count": 3,
+              "levels": 2,
+              "distribution": "even",
               "probability": 0.4
             }
           ]
@@ -1126,7 +1200,7 @@
       "massingOptions": [
         {
           "id": "civic_block",
-          "label": "bloque c\u00edvico de frente continuo",
+          "label": "bloque cívico de frente continuo",
           "volumes": [
             {
               "cells": [
@@ -1180,7 +1254,7 @@
         },
         {
           "id": "single_wing_plaza",
-          "label": "ala c\u00edvica de ocho metros con plaza de honor al costado",
+          "label": "ala cívica de ocho metros con plaza de honor al costado",
           "volumes": [
             {
               "cells": [
@@ -1336,7 +1410,7 @@
         },
         {
           "id": "glazed_ground",
-          "label": "portic\u00f3n acristalado en la planta baja",
+          "label": "porticón acristalado en la planta baja",
           "bayMeters": 2,
           "groundRole": "curtain_wall",
           "tokens": {
@@ -1355,7 +1429,7 @@
         },
         {
           "id": "masonry_mass",
-          "label": "mach\u00f3n de dos cruj\u00edas por hueco",
+          "label": "machón de dos crujías por hueco",
           "bayMeters": 2,
           "groundRole": "wainscot",
           "tokens": {
@@ -1400,7 +1474,7 @@
         },
         {
           "id": "metal_cornice",
-          "label": "banda met\u00e1lica de remate",
+          "label": "banda metálica de remate",
           "corniceRole": "cornice",
           "corniceModule": "mod_megakit_cornice_metal_center_2m",
           "crownRole": null,
@@ -1484,7 +1558,7 @@
       "propOptions": [
         {
           "id": "roof_plant",
-          "label": "unidad t\u00e9cnica de cubierta",
+          "label": "unidad técnica de cubierta",
           "role": "rooftop_unit",
           "module": "mod_megakit_prop_ac_unit",
           "at": "roof",
@@ -1502,7 +1576,7 @@
       "secondaryOptions": [
         {
           "id": "honour_plinth",
-          "label": "z\u00f3calo de honor en el patio central",
+          "label": "zócalo de honor en el patio central",
           "role": "plinth",
           "module": "mod_kaykit_plinth_8m",
           "optional": true,
@@ -1538,7 +1612,7 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3/V.g: un edificio c\u00edvico monumental se reconoce por acceso monumental (monumental_stairs, canopied_entrance o loggia_entrance) Y elemento arquitect\u00f3nico c\u00edvico fuerte (column, pilaster, civic_block, civic_tower, plinth o corner_column). Se proh\u00edbe cualquier referencia a water_tower. El acceso monumental por s\u00ed solo ya distingue el hito del residencial.",
+        "description": "R3/V.g: un edificio cívico monumental se reconoce por acceso monumental (monumental_stairs, canopied_entrance o loggia_entrance) Y elemento arquitectónico cívico fuerte (column, pilaster, civic_block, civic_tower, plinth o corner_column). Se prohíbe cualquier referencia a water_tower. El acceso monumental por sí solo ya distingue el hito del residencial.",
         "requireAccessIds": [
           "monumental_stairs",
           "canopied_entrance",
@@ -1573,8 +1647,8 @@
     "courtyard_home": {
       "buildingType": "courtyard_home",
       "family": "residential_low",
-      "label": "Casa compacta con patio (2\u00d72 celdas, 1 planta)",
-      "notes": "V.g: arquetipo de vivienda urbana compacta con patio o recinto dom\u00e9stico. El solar real del dominio mide 8\u00d78 m; la gram\u00e1tica reserva 0 celdas de yard para maximizar la construcci\u00f3n en la parcela, pero el massing puede dejar hueco interior para el patio. La identidad dom\u00e9stica se impone por cubierta inclinada, entrada clara y ausencia total de lenguaje industrial o comercial.",
+      "label": "Casa compacta con patio (2×2 celdas, 1 planta)",
+      "notes": "V.g: arquetipo de vivienda urbana compacta con patio o recinto doméstico. El solar real del dominio mide 8×8 m; la gramática reserva 0 celdas de yard para maximizar la construcción en la parcela, pero el massing puede dejar hueco interior para el patio. La identidad doméstica se impone por cubierta inclinada, entrada clara y ausencia total de lenguaje industrial o comercial.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -1702,7 +1776,7 @@
       "facadePalettes": [
         {
           "id": "brick_domestic",
-          "label": "ladrillo visto dom\u00e9stico",
+          "label": "ladrillo visto doméstico",
           "roleModule": {
             "wall_panel": "mod_megakit_brick_wall_2m",
             "window_bay": "mod_megakit_brick_window_single_2m",
@@ -1714,7 +1788,7 @@
         },
         {
           "id": "stucco_domestic",
-          "label": "revoco con molduras dom\u00e9sticas",
+          "label": "revoco con molduras domésticas",
           "roleModule": {
             "wall_panel": "mod_megakit_trim_wall_2m",
             "window_bay": "mod_megakit_trim_window_2m",
@@ -1768,7 +1842,7 @@
         },
         {
           "id": "wainscoted",
-          "label": "z\u00f3calo continuo y huecos",
+          "label": "zócalo continuo y huecos",
           "bayMeters": 2,
           "groundRole": "wainscot",
           "tokens": {
@@ -1891,7 +1965,7 @@
         }
       ],
       "semanticIdentity": {
-        "description": "V.g: casa dom\u00e9stica compacta. Se reconoce por escala reducida, cubierta inclinada, entrada dom\u00e9stica clara y ausencia total de lenguaje industrial o comercial. El patio o muro bajo puede aparecer como massing pero no como volumen secundario industrial.",
+        "description": "V.g: casa doméstica compacta. Se reconoce por escala reducida, cubierta inclinada, entrada doméstica clara y ausencia total de lenguaje industrial o comercial. El patio o muro bajo puede aparecer como massing pero no como volumen secundario industrial.",
         "requireRoles": [
           "door",
           "doorframe"
@@ -1923,8 +1997,8 @@
     "apartment_block": {
       "buildingType": "apartment_block",
       "family": "residential_low",
-      "label": "Bloque de viviendas (5\u00d72 celdas, 5 plantas)",
-      "notes": "V.g: edificio residencial privado m\u00e1s alto. La verticalidad se impone por las 5 plantas del dominio y massing que enfatiza la altura. La repetici\u00f3n de ventanas y la entrada comunitaria lo diferencian radicalmente de row_house. El solar real mide 20\u00d78 m.",
+      "label": "Bloque de viviendas (5×2 celdas, 5 plantas)",
+      "notes": "V.g: edificio residencial privado más alto. La verticalidad se impone por las 5 plantas del dominio y massing que enfatiza la altura. La repetición de ventanas y la entrada comunitaria lo diferencian radicalmente de row_house. El solar real mide 20×8 m.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -2002,7 +2076,7 @@
         },
         {
           "id": "dual_wing",
-          "label": "dos alas sim\u00e9tricas",
+          "label": "dos alas simétricas",
           "volumes": [
             {
               "cells": [
@@ -2072,7 +2146,7 @@
       "facadePalettes": [
         {
           "id": "brick_repeat",
-          "label": "ladrillo con repetici\u00f3n de ventanas",
+          "label": "ladrillo con repetición de ventanas",
           "roleModule": {
             "wall_panel": "mod_megakit_brick_wall_2m",
             "window_bay": "mod_megakit_brick_window_single_2m",
@@ -2110,7 +2184,7 @@
       "rhythms": [
         {
           "id": "regular_grid",
-          "label": "ret\u00edcula regular de ventanas",
+          "label": "retícula regular de ventanas",
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
@@ -2130,7 +2204,7 @@
         },
         {
           "id": "dense_windows",
-          "label": "ventanas densas cada cruj\u00eda",
+          "label": "ventanas densas cada crujía",
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
@@ -2170,7 +2244,7 @@
         },
         {
           "id": "vertical_emphasis",
-          "label": "\u00e9nfasis vertical con pilasteras",
+          "label": "énfasis vertical con pilasteras",
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
@@ -2264,7 +2338,7 @@
         },
         {
           "id": "recessed_lobby",
-          "label": "vest\u00edbulo empotrado",
+          "label": "vestíbulo empotrado",
           "bayRule": "drawn",
           "frameRole": "doorframe",
           "leafRole": "door",
@@ -2286,7 +2360,7 @@
         }
       ],
       "semanticIdentity": {
-        "description": "V.g: bloque de viviendas alto. Se reconoce por su verticalidad (5 plantas), repetici\u00f3n de ventanas, entrada comunitaria y ausencia de lenguaje industrial o comercial dominante. Debe diferenciarse radicalmente de row_house por altura y masa. Se proh\u00edben rhythms comerciales (shopfront), m\u00f3dulos industriales y accesos de muelle/monumentales.",
+        "description": "V.g: bloque de viviendas alto. Se reconoce por su verticalidad (5 plantas), repetición de ventanas, entrada comunitaria y ausencia de lenguaje industrial o comercial dominante. Debe diferenciarse radicalmente de row_house por altura y masa. Se prohíben rhythms comerciales (shopfront), módulos industriales y accesos de muelle/monumentales.",
         "requireRoles": [
           "door",
           "doorframe"
@@ -2315,8 +2389,8 @@
     "mixed_tenement": {
       "buildingType": "mixed_tenement",
       "family": "residential_low",
-      "label": "Inmueble mixto (4\u00d72 celdas, 3 plantas)",
-      "notes": "V.g: comercio en planta baja + vivienda en plantas superiores. La planta baja se resuelve con shopfronts, toldos y accesos comerciales; las plantas superiores con ventanas residenciales. Una cornisa marca la transici\u00f3n entre ambos. Debe ser imposible confundirlo con apartment_block desde 1\u00d7.",
+      "label": "Inmueble mixto (4×2 celdas, 3 plantas)",
+      "notes": "V.g: comercio en planta baja + vivienda en plantas superiores. La planta baja se resuelve con shopfronts, toldos y accesos comerciales; las plantas superiores con ventanas residenciales. Una cornisa marca la transición entre ambos. Debe ser imposible confundirlo con apartment_block desde 1×.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -2524,7 +2598,7 @@
         },
         {
           "id": "mixed_bays",
-          "label": "cruj\u00edas mixtas comercio/vivienda",
+          "label": "crujías mixtas comercio/vivienda",
           "bayMeters": 2,
           "groundRole": "curtain_wall",
           "tokens": {
@@ -2546,7 +2620,7 @@
       "silhouetteOptions": [
         {
           "id": "corniced_transition",
-          "label": "cornisa marcando transici\u00f3n planta baja/pisos",
+          "label": "cornisa marcando transición planta baja/pisos",
           "corniceRole": "cornice",
           "corniceModule": "mod_megakit_cornice_brick_center_2m",
           "crownRole": null,
@@ -2562,7 +2636,7 @@
         },
         {
           "id": "awning_line",
-          "label": "l\u00ednea de toldos en planta baja",
+          "label": "línea de toldos en planta baja",
           "corniceRole": null,
           "corniceModule": null,
           "crownRole": null,
@@ -2638,7 +2712,7 @@
         },
         {
           "id": "signage_abstract",
-          "label": "r\u00f3tulo abstracto comercial",
+          "label": "rótulo abstracto comercial",
           "role": "awning",
           "module": "mod_kenney_com_parasol_a",
           "at": "roof",
@@ -2666,7 +2740,7 @@
         }
       ],
       "semanticIdentity": {
-        "description": "V.g: inmueble mixto comercio+vivienda. Se reconoce inmediatamente por planta baja comercial (escaparates, toldos, accesos comerciales) y plantas superiores residenciales (ventanas). La cornisa de transici\u00f3n es obligatoria. Debe ser imposible confundirlo con apartment_block.",
+        "description": "V.g: inmueble mixto comercio+vivienda. Se reconoce inmediatamente por planta baja comercial (escaparates, toldos, accesos comerciales) y plantas superiores residenciales (ventanas). La cornisa de transición es obligatoria. Debe ser imposible confundirlo con apartment_block.",
         "requireRoles": [
           "door",
           "doorframe"
@@ -2684,8 +2758,8 @@
     "workshop": {
       "buildingType": "workshop",
       "family": "industrial_heavy",
-      "label": "Taller urbano ligero (4\u00d72 celdas, 1 planta)",
-      "notes": "V.g: peque\u00f1o taller urbano de escala dom\u00e9stica-industrial. La gran puerta de taller domina la fachada frontal; una entrada/oficina secundaria m\u00e1s peque\u00f1a aporta la lectura de acceso peatonal. Cubierta simple. Debe distinguirse de warehouse por escala menor (1 planta, 4\u00d72 vs 4\u00d73), presencia de puerta de taller \u00fanica y ausencia de repetici\u00f3n de muelles de carga.",
+      "label": "Taller urbano ligero (4×2 celdas, 1 planta)",
+      "notes": "V.g: pequeño taller urbano de escala doméstica-industrial. La gran puerta de taller domina la fachada frontal; una entrada/oficina secundaria más pequeña aporta la lectura de acceso peatonal. Cubierta simple. Debe distinguirse de warehouse por escala menor (1 planta, 4×2 vs 4×3), presencia de puerta de taller única y ausencia de repetición de muelles de carga.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -2703,7 +2777,7 @@
       "massingOptions": [
         {
           "id": "single_hall",
-          "label": "nave \u00fanica de una planta con puerta de taller frontal",
+          "label": "nave única de una planta con puerta de taller frontal",
           "volumes": [
             {
               "cells": [
@@ -2841,7 +2915,7 @@
       "facadePalettes": [
         {
           "id": "steel_cladding",
-          "label": "chapa met\u00e1lica perfilada industrial ligera",
+          "label": "chapa metálica perfilada industrial ligera",
           "roleModule": {
             "wall_panel": "mod_megakit_metal_wall_2m",
             "window_bay": "mod_megakit_metal_window_2m",
@@ -2852,7 +2926,7 @@
         },
         {
           "id": "brick_industrial",
-          "label": "ladrillo con carpinter\u00eda industrial",
+          "label": "ladrillo con carpintería industrial",
           "roleModule": {
             "wall_panel": "mod_megakit_metal_wall_2m",
             "window_bay": "mod_megakit_metal_window_2m",
@@ -2901,7 +2975,7 @@
         },
         {
           "id": "strip_windows",
-          "label": "franja de huecos cada dos cruj\u00edas",
+          "label": "franja de huecos cada dos crujías",
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
@@ -2976,7 +3050,7 @@
         },
         {
           "id": "person_door",
-          "label": "puerta de personal en met\u00e1lica",
+          "label": "puerta de personal en metálica",
           "bayRule": "drawn",
           "frameRole": "doorframe",
           "leafRole": "door",
@@ -2986,7 +3060,7 @@
         },
         {
           "id": "canopied_entry",
-          "label": "acceso con peque\u00f1o voladizo",
+          "label": "acceso con pequeño voladizo",
           "bayRule": "center",
           "frameRole": "doorframe",
           "leafRole": "door",
@@ -2998,7 +3072,7 @@
       "propOptions": [
         {
           "id": "roof_hvac",
-          "label": "unidad de ventilaci\u00f3n de cubierta",
+          "label": "unidad de ventilación de cubierta",
           "role": "rooftop_unit",
           "module": "mod_megakit_prop_ac_unit",
           "at": "roof",
@@ -3017,7 +3091,7 @@
         },
         {
           "id": "small_tank",
-          "label": "dep\u00f3sito peque\u00f1o de servicio",
+          "label": "depósito pequeño de servicio",
           "role": "tank",
           "module": "mod_kenney_ind_tank_small",
           "optional": true,
@@ -3029,7 +3103,7 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3/V.g: un taller urbano se reconoce por su escala menor (1 planta), gran puerta de taller y ausencia de muelles de carga repetidos. Debe distinguirse de warehouse por no tener repetici\u00f3n de puertas de muelle ni escala longitudinal. No debe parecer gran f\u00e1brica: sin silos, sin chimeneas altas, sin torres de proceso. Se proh\u00edben accesos monumentales y comerciales.",
+        "description": "R3/V.g: un taller urbano se reconoce por su escala menor (1 planta), gran puerta de taller y ausencia de muelles de carga repetidos. Debe distinguirse de warehouse por no tener repetición de puertas de muelle ni escala longitudinal. No debe parecer gran fábrica: sin silos, sin chimeneas altas, sin torres de proceso. Se prohíben accesos monumentales y comerciales.",
         "requireAnyRoles": [
           [
             "hall",
@@ -3054,8 +3128,8 @@
     "warehouse": {
       "buildingType": "warehouse",
       "family": "industrial_heavy",
-      "label": "Nave log\u00edstica (4\u00d73 celdas, 1 planta)",
-      "notes": "V.g: nave log\u00edstica longitudinal con repetici\u00f3n de muelles de carga. Debe distinguirse de workshop por escala mayor (4\u00d73, 1 planta larga), m\u00faltiples puertas de muelle y ausencia de fachada comercial. Debe distinguirse de cement_plant por ausencia de silos, chimeneas de proceso o torre de agua. Debe distinguirse de market_hall por opacidad, muelles de carga y falta de actividad comercial visible.",
+      "label": "Nave logística (4×3 celdas, 1 planta)",
+      "notes": "V.g: nave logística longitudinal con repetición de muelles de carga. Debe distinguirse de workshop por escala mayor (4×3, 1 planta larga), múltiples puertas de muelle y ausencia de fachada comercial. Debe distinguirse de cement_plant por ausencia de silos, chimeneas de proceso o torre de agua. Debe distinguirse de market_hall por opacidad, muelles de carga y falta de actividad comercial visible.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -3225,7 +3299,7 @@
       "facadePalettes": [
         {
           "id": "steel_cladding",
-          "label": "chapa met\u00e1lica perfilada",
+          "label": "chapa metálica perfilada",
           "roleModule": {
             "wall_panel": "mod_megakit_metal_wall_2m",
             "window_bay": "mod_megakit_metal_window_2m",
@@ -3236,7 +3310,7 @@
         },
         {
           "id": "metal_brick_mix",
-          "label": "chapa met\u00e1lica con z\u00f3calo industrial",
+          "label": "chapa metálica con zócalo industrial",
           "roleModule": {
             "wall_panel": "mod_megakit_metal_wall_2m",
             "window_bay": "mod_megakit_metal_window_2m",
@@ -3284,7 +3358,7 @@
         },
         {
           "id": "strip_windows",
-          "label": "franja de huecos cada dos cruj\u00edas",
+          "label": "franja de huecos cada dos crujías",
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
@@ -3359,7 +3433,7 @@
         },
         {
           "id": "person_door",
-          "label": "puerta de personal en marco met\u00e1lico",
+          "label": "puerta de personal en marco metálico",
           "bayRule": "drawn",
           "frameRole": "doorframe",
           "leafRole": "door",
@@ -3426,7 +3500,7 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3/V.g: un almac\u00e9n log\u00edstico se reconoce por su escala longitudinal (4\u00d73), repetici\u00f3n de muelles de carga y ausencia de fachada comercial o proceso industrial visible. Debe distinguirse de workshop por escala mayor y m\u00faltiples puertas de muelle. Debe distinguirse de cement_plant por ausencia de silos, chimeneas de proceso o torre de agua. Debe distinguirse de market_hall por opacidad, muelles de carga y falta de actividad comercial.",
+        "description": "R3/V.g: un almacén logístico se reconoce por su escala longitudinal (4×3), repetición de muelles de carga y ausencia de fachada comercial o proceso industrial visible. Debe distinguirse de workshop por escala mayor y múltiples puertas de muelle. Debe distinguirse de cement_plant por ausencia de silos, chimeneas de proceso o torre de agua. Debe distinguirse de market_hall por opacidad, muelles de carga y falta de actividad comercial.",
         "requireAnyRoles": [
           [
             "hall",
@@ -3454,8 +3528,8 @@
     "brickworks": {
       "buildingType": "brickworks",
       "family": "industrial_heavy",
-      "label": "Ladrillera (5\u00d72 celdas, 2 plantas)",
-      "notes": "V.g: ladrillera con identidad de ladrillo/terracota, nave de hornos longitudinal y chimenea ic\u00f3nica. Debe distinguirse de cement_plant por menos silos y m\u00e1s ladrillo. Debe distinguirse de steelworks por m\u00e1s ladrillo y menos acero. Perfil m\u00e1s horizontal que cement_plant. Solar real: 20\u00d78 m.",
+      "label": "Ladrillera (5×2 celdas, 2 plantas)",
+      "notes": "V.g: ladrillera con identidad de ladrillo/terracota, nave de hornos longitudinal y chimenea icónica. Debe distinguirse de cement_plant por menos silos y más ladrillo. Debe distinguirse de steelworks por más ladrillo y menos acero. Perfil más horizontal que cement_plant. Solar real: 20×8 m.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -3625,7 +3699,7 @@
       "facadePalettes": [
         {
           "id": "metal_terra",
-          "label": "chapa met\u00e1lica terracota",
+          "label": "chapa metálica terracota",
           "roleModule": {
             "wall_panel": "mod_megakit_metal_wall_2m",
             "window_bay": "mod_megakit_metal_window_2m",
@@ -3635,7 +3709,7 @@
         },
         {
           "id": "brick_metal",
-          "label": "ladrillo con refuerzo met\u00e1lico industrial",
+          "label": "ladrillo con refuerzo metálico industrial",
           "roleModule": {
             "wall_panel": "mod_megakit_metal_wall_2m",
             "window_bay": "mod_megakit_metal_window_2m",
@@ -3685,7 +3759,7 @@
         },
         {
           "id": "strip_brick",
-          "label": "franja de huecos sobre z\u00f3calo industrial",
+          "label": "franja de huecos sobre zócalo industrial",
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
@@ -3706,7 +3780,7 @@
       "silhouetteOptions": [
         {
           "id": "metal_cornice",
-          "label": "cornisa de chapa met\u00e1lica",
+          "label": "cornisa de chapa metálica",
           "corniceRole": "cornice",
           "corniceModule": "mod_megakit_cornice_metal_center_2m",
           "crownRole": null,
@@ -3762,7 +3836,7 @@
         },
         {
           "id": "industrial_entry",
-          "label": "acceso industrial con marco met\u00e1lico",
+          "label": "acceso industrial con marco metálico",
           "bayRule": "drawn",
           "frameRole": "doorframe",
           "leafRole": "door",
@@ -3782,7 +3856,7 @@
         },
         {
           "id": "roof_hvac",
-          "label": "unidad de ventilaci\u00f3n de cubierta",
+          "label": "unidad de ventilación de cubierta",
           "role": "rooftop_unit",
           "module": "mod_megakit_prop_ac_unit",
           "at": "roof",
@@ -3804,7 +3878,7 @@
             {
               "kind": "plinth",
               "shape": "box",
-              "label": "dado de cimentaci\u00f3n de ladrillo",
+              "label": "dado de cimentación de ladrillo",
               "cell": [
                 4,
                 1
@@ -3839,7 +3913,7 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3/V.g: una ladrillera se reconoce por nave de hornos (hall) Y chimenea de ladrillo (chimney). Ambos son obligatorios. Test de regresi\u00f3n: brickworks sin chimney \u2192 FAIL. Debe distinguirse de cement_plant por menos silos y m\u00e1s ladrillo. Debe distinguirse de steelworks por m\u00e1s ladrillo y menos acero.",
+        "description": "R3/V.g: una ladrillera se reconoce por nave de hornos (hall) Y chimenea de ladrillo (chimney). Ambos son obligatorios. Test de regresión: brickworks sin chimney → FAIL. Debe distinguirse de cement_plant por menos silos y más ladrillo. Debe distinguirse de steelworks por más ladrillo y menos acero.",
         "requireAll": [
           [
             "hall",
@@ -3860,8 +3934,8 @@
     "steelworks": {
       "buildingType": "steelworks",
       "family": "industrial_heavy",
-      "label": "Acer\u00eda (4\u00d73 celdas, 2 plantas)",
-      "notes": "V.g: acer\u00eda de industria pesada con estructura met\u00e1lica dominante, torre de proceso, chimenea pesada y gr\u00faa/gantry. Debe distinguirse de cement_plant por menos silos y m\u00e1s estructura met\u00e1lica. Debe distinguirse de brickworks por m\u00e1s acero y menos ladrillo. Debe distinguirse de warehouse por presencia clara de proceso industrial (torre, chimenea, tuber\u00edas). Solar real: 16\u00d712 m.",
+      "label": "Acería (4×3 celdas, 2 plantas)",
+      "notes": "V.g: acería de industria pesada con estructura metálica dominante, torre de proceso, chimenea pesada y grúa/gantry. Debe distinguirse de cement_plant por menos silos y más estructura metálica. Debe distinguirse de brickworks por más acero y menos ladrillo. Debe distinguirse de warehouse por presencia clara de proceso industrial (torre, chimenea, tuberías). Solar real: 16×12 m.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -3961,7 +4035,7 @@
         },
         {
           "id": "hall_and_yard",
-          "label": "nave de fundici\u00f3n con patio de servicio",
+          "label": "nave de fundición con patio de servicio",
           "volumes": [
             {
               "cells": [
@@ -4031,7 +4105,7 @@
       "facadePalettes": [
         {
           "id": "steel_dark",
-          "label": "chapa met\u00e1lica oscura industrial",
+          "label": "chapa metálica oscura industrial",
           "roleModule": {
             "wall_panel": "mod_megakit_metal_wall_2m",
             "window_bay": "mod_megakit_metal_window_2m",
@@ -4042,7 +4116,7 @@
         },
         {
           "id": "steel_brick",
-          "label": "chapa met\u00e1lica con z\u00f3calo industrial",
+          "label": "chapa metálica con zócalo industrial",
           "roleModule": {
             "wall_panel": "mod_megakit_metal_wall_2m",
             "window_bay": "mod_megakit_metal_window_2m",
@@ -4052,7 +4126,7 @@
         },
         {
           "id": "metal_plate",
-          "label": "placa met\u00e1lica con refuerzos estructurales",
+          "label": "placa metálica con refuerzos estructurales",
           "roleModule": {
             "wall_panel": "mod_megakit_metal_wall_2m",
             "window_bay": "mod_megakit_metal_window_2m",
@@ -4064,7 +4138,7 @@
       "rhythms": [
         {
           "id": "blind_steel",
-          "label": "chapa ciega con huecos m\u00ednimos de ventilaci\u00f3n",
+          "label": "chapa ciega con huecos mínimos de ventilación",
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
@@ -4148,7 +4222,7 @@
         },
         {
           "id": "metal_cornice",
-          "label": "banda met\u00e1lica de remate",
+          "label": "banda metálica de remate",
           "corniceRole": "cornice",
           "corniceModule": "mod_megakit_cornice_metal_center_2m",
           "crownRole": null,
@@ -4184,7 +4258,7 @@
       "accessOptions": [
         {
           "id": "person_door",
-          "label": "puerta de personal en marco met\u00e1lico",
+          "label": "puerta de personal en marco metálico",
           "bayRule": "center",
           "frameRole": "doorframe",
           "leafRole": "door",
@@ -4224,7 +4298,7 @@
         },
         {
           "id": "roof_hvac",
-          "label": "unidad de ventilaci\u00f3n de cubierta",
+          "label": "unidad de ventilación de cubierta",
           "role": "rooftop_unit",
           "module": "mod_megakit_prop_ac_unit",
           "at": "roof",
@@ -4246,7 +4320,7 @@
             {
               "kind": "plinth",
               "shape": "box",
-              "label": "dado de cimentaci\u00f3n de acero",
+              "label": "dado de cimentación de acero",
               "cell": [
                 3,
                 2
@@ -4269,7 +4343,7 @@
         },
         {
           "id": "gantry_structure",
-          "label": "estructura de gr\u00faa/gantry lateral",
+          "label": "estructura de grúa/gantry lateral",
           "role": "extractor",
           "module": "mod_kenney_ind_windmill",
           "optional": true,
@@ -4281,7 +4355,7 @@
             {
               "kind": "support",
               "shape": "pipe",
-              "label": "p\u00f3rtico de gr\u00faa",
+              "label": "pórtico de grúa",
               "cell": [
                 4,
                 0
@@ -4314,7 +4388,7 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3/V.g: una acer\u00eda se reconoce por nave industrial (hall) Y al menos un elemento de proceso pesado (chimney, extractor o civic_tower como torre de proceso). Test de regresi\u00f3n: steelworks s\u00f3lo hall \u2192 FAIL. Debe distinguirse de cement_plant por m\u00e1s estructura met\u00e1lica. Debe distinguirse de brickworks por m\u00e1s acero y menos ladrillo. Debe distinguirse de warehouse por proceso industrial visible.",
+        "description": "R3/V.g: una acería se reconoce por nave industrial (hall) Y al menos un elemento de proceso pesado (chimney, extractor o civic_tower como torre de proceso). Test de regresión: steelworks sólo hall → FAIL. Debe distinguirse de cement_plant por más estructura metálica. Debe distinguirse de brickworks por más acero y menos ladrillo. Debe distinguirse de warehouse por proceso industrial visible.",
         "requireRoles": [
           "hall"
         ],
@@ -4338,8 +4412,8 @@
     "school_block": {
       "buildingType": "school_block",
       "family": "civic_landmark",
-      "label": "Colegio urbano/institucional (7\u00d72 celdas, 3 plantas)",
-      "notes": "V.g: colegio urbano tradicional con cuerpo longitudinal, repetici\u00f3n clara de ventanas de aulas, entrada central y lenguaje institucional (ladrillo/piedra). Debe distinguirse de town_hall por mayor longitud, m\u00e1s plantas de aulas repetitivas y menos monumentalidad. Debe distinguirse de apartment_block por lenguaje institucional (reloj, campanario, front\u00f3n), acceso p\u00fablico marcado y ritmo de ventanas de aula uniforme. Solar real: 28\u00d78 m.",
+      "label": "Colegio urbano/institucional (7×2 celdas, 3 plantas)",
+      "notes": "V.g: colegio urbano tradicional con cuerpo longitudinal, repetición clara de ventanas de aulas, entrada central y lenguaje institucional (ladrillo/piedra). Debe distinguirse de town_hall por mayor longitud, más plantas de aulas repetitivas y menos monumentalidad. Debe distinguirse de apartment_block por lenguaje institucional (reloj, campanario, frontón), acceso público marcado y ritmo de ventanas de aula uniforme. Solar real: 28×8 m.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -4377,7 +4451,7 @@
         },
         {
           "id": "central_pavilion",
-          "label": "pabell\u00f3n central destacado con alas laterales",
+          "label": "pabellón central destacado con alas laterales",
           "volumes": [
             {
               "cells": [
@@ -4519,7 +4593,7 @@
         },
         {
           "id": "mixed_institutional",
-          "label": "ladrillo y revoco con lenguaje c\u00edvico",
+          "label": "ladrillo y revoco con lenguaje cívico",
           "roleModule": {
             "wall_panel": "mod_megakit_brick_wall_2m",
             "window_bay": "mod_megakit_brick_window_trim_2m",
@@ -4533,7 +4607,7 @@
       "rhythms": [
         {
           "id": "classroom_repeat",
-          "label": "repetici\u00f3n uniforme de ventanas de aula",
+          "label": "repetición uniforme de ventanas de aula",
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
@@ -4553,7 +4627,7 @@
         },
         {
           "id": "dense_classroom",
-          "label": "ventanas de aula densas cada cruj\u00eda",
+          "label": "ventanas de aula densas cada crujía",
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
@@ -4687,7 +4761,7 @@
         },
         {
           "id": "recessed_lobby",
-          "label": "vest\u00edbulo acristalado con volado",
+          "label": "vestíbulo acristalado con volado",
           "bayRule": "drawn",
           "frameRole": "curtain_wall",
           "leafRole": null,
@@ -4699,7 +4773,7 @@
       "propOptions": [
         {
           "id": "roof_unit",
-          "label": "unidad t\u00e9cnica de cubierta",
+          "label": "unidad técnica de cubierta",
           "role": "rooftop_unit",
           "module": "mod_megakit_prop_ac_unit",
           "at": "roof",
@@ -4709,7 +4783,7 @@
       "secondaryOptions": [
         {
           "id": "bell_tower",
-          "label": "peque\u00f1o campanario sobre la entrada",
+          "label": "pequeño campanario sobre la entrada",
           "role": "civic_tower",
           "module": "mod_kaykit_civic_block_h",
           "optional": true,
@@ -4730,7 +4804,7 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3/V.g: un colegio se reconoce por su cuerpo longitudinal, repetici\u00f3n uniforme de ventanas de aula, entrada institucional y lenguaje c\u00edvico (ladrillo/piedra). Debe distinguirse de town_hall por mayor longitud y menos monumentalidad. Debe distinguirse de apartment_block por ritmo de ventanas uniforme, acceso p\u00fablico marcado y elementos institucionales. No se aceptan m\u00f3dulos mal etiquetados (flag_pole \u2192 AC unit).",
+        "description": "R3/V.g: un colegio se reconoce por su cuerpo longitudinal, repetición uniforme de ventanas de aula, entrada institucional y lenguaje cívico (ladrillo/piedra). Debe distinguirse de town_hall por mayor longitud y menos monumentalidad. Debe distinguirse de apartment_block por ritmo de ventanas uniforme, acceso público marcado y elementos institucionales. No se aceptan módulos mal etiquetados (flag_pole → AC unit).",
         "requireAnyRoles": [
           [
             "door",
@@ -4756,8 +4830,8 @@
     "clinic": {
       "buildingType": "clinic",
       "family": "civic_landmark",
-      "label": "Cl\u00ednica (3\u00d72 celdas, 2 plantas)",
-      "notes": "V.g: cl\u00ednica con arquitectura limpia y vol\u00famenes simples. Ventanas amplias, acceso cubierto con marquesina, s\u00edmbolo sanitario abstracto. Paleta blanco/piedra clara. Debe distinguirse de police_station por lenguaje sanitario (limpio, amplios ventanales, marquesina) en vez de institucional-seguridad. Debe distinguirse de town_hall por escala menor y menos monumentalidad. La masa tambi\u00e9n debe comunicar healthcare sin depender exclusivamente de la cruz sanitaria.",
+      "label": "Clínica (3×2 celdas, 2 plantas)",
+      "notes": "V.g: clínica con arquitectura limpia y volúmenes simples. Ventanas amplias, acceso cubierto con marquesina, símbolo sanitario abstracto. Paleta blanco/piedra clara. Debe distinguirse de police_station por lenguaje sanitario (limpio, amplios ventanales, marquesina) en vez de institucional-seguridad. Debe distinguirse de town_hall por escala menor y menos monumentalidad. La masa también debe comunicar healthcare sin depender exclusivamente de la cruz sanitaria.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -5048,7 +5122,7 @@
         },
         {
           "id": "glazed_lobby",
-          "label": "vest\u00edbulo acristalado de acceso",
+          "label": "vestíbulo acristalado de acceso",
           "bayRule": "drawn",
           "frameRole": "curtain_wall",
           "leafRole": null,
@@ -5070,7 +5144,7 @@
       "propOptions": [
         {
           "id": "roof_unit",
-          "label": "unidad t\u00e9cnica de cubierta",
+          "label": "unidad técnica de cubierta",
           "role": "rooftop_unit",
           "module": "mod_megakit_prop_ac_unit",
           "at": "roof",
@@ -5098,7 +5172,7 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3/V.g: una cl\u00ednica se reconoce por arquitectura limpia, ventanales amplios (curtain_wall), marquesina de acceso y paleta blanca/piedra clara. Debe distinguirse de police_station por lenguaje sanitario (limpio, amplios ventanales, marquesina) en vez de institucional-seguridad. Se exige al menos uno de: acceso cubierto (canopied_entrance, recessed_entry) o muro cortina (curtain_wall). Debe distinguirse de town_hall por escala menor y menos monumentalidad.",
+        "description": "R3/V.g: una clínica se reconoce por arquitectura limpia, ventanales amplios (curtain_wall), marquesina de acceso y paleta blanca/piedra clara. Debe distinguirse de police_station por lenguaje sanitario (limpio, amplios ventanales, marquesina) en vez de institucional-seguridad. Se exige al menos uno de: acceso cubierto (canopied_entrance, recessed_entry) o muro cortina (curtain_wall). Debe distinguirse de town_hall por escala menor y menos monumentalidad.",
         "requireAnyRoles": [
           [
             "door",
@@ -5127,8 +5201,8 @@
     "police_station": {
       "buildingType": "police_station",
       "family": "civic_landmark",
-      "label": "Comisar\u00eda (3\u00d72 celdas, 2 plantas)",
-      "notes": "V.g: comisar\u00eda con arquitectura institucional robusta. Piedra/ladrillo, entrada p\u00fablica claramente marcada, peque\u00f1o volumen central o torre, bandera, zona de acceso de veh\u00edculos. Debe sentirse INSTITUCIONAL + SEGURIDAD. Debe distinguirse de town_hall por escala menor y lenguaje m\u00e1s robusto/seguridad. Debe distinguirse de clinic por lenguaje institucional-seguridad en vez de sanitario. No debe parecer c\u00e1rcel ni fortaleza.",
+      "label": "Comisaría (3×2 celdas, 2 plantas)",
+      "notes": "V.g: comisaría con arquitectura institucional robusta. Piedra/ladrillo, entrada pública claramente marcada, pequeño volumen central o torre, bandera, zona de acceso de vehículos. Debe sentirse INSTITUCIONAL + SEGURIDAD. Debe distinguirse de town_hall por escala menor y lenguaje más robusto/seguridad. Debe distinguirse de clinic por lenguaje institucional-seguridad en vez de sanitario. No debe parecer cárcel ni fortaleza.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -5200,7 +5274,7 @@
         },
         {
           "id": "vehicle_wing",
-          "label": "ala de acceso de veh\u00edculos lateral",
+          "label": "ala de acceso de vehículos lateral",
           "volumes": [
             {
               "cells": [
@@ -5335,7 +5409,7 @@
         },
         {
           "id": "masonry_heavy",
-          "label": "mach\u00f3n de muro con huecos reducidos",
+          "label": "machón de muro con huecos reducidos",
           "bayMeters": 2,
           "groundRole": "wainscot",
           "tokens": {
@@ -5440,7 +5514,7 @@
       "propOptions": [
         {
           "id": "roof_unit",
-          "label": "unidad t\u00e9cnica de cubierta",
+          "label": "unidad técnica de cubierta",
           "role": "rooftop_unit",
           "module": "mod_megakit_prop_ac_unit",
           "at": "roof",
@@ -5450,7 +5524,7 @@
       "secondaryOptions": [
         {
           "id": "flag_plinth",
-          "label": "z\u00f3calo con asta de bandera",
+          "label": "zócalo con asta de bandera",
           "role": "plinth",
           "module": "mod_kaykit_plinth_8m",
           "optional": true,
@@ -5459,7 +5533,7 @@
         },
         {
           "id": "vehicle_canopy",
-          "label": "marquesina de acceso de veh\u00edculos",
+          "label": "marquesina de acceso de vehículos",
           "role": "canopy",
           "module": "mod_megakit_entrance_canopy_2x1",
           "optional": true,
@@ -5486,7 +5560,7 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3/V.g: una comisar\u00eda se reconoce por arquitectura institucional robusta, entrada p\u00fablica marcada (con escalinata o marquesina), lenguaje de seguridad. Debe sentirse INSTITUCIONAL + SEGURIDAD sin parecer c\u00e1rcel ni fortaleza. Se exige acceso institucional (monumental_stairs, canopied_entrance o recessed_entry) Y elemento c\u00edvico robusto (plinth, civic_block, civic_tower). Debe distinguirse de town_hall por escala menor y lenguaje m\u00e1s robusto. Debe distinguirse de clinic por lenguaje de seguridad en vez de sanitario.",
+        "description": "R3/V.g: una comisaría se reconoce por arquitectura institucional robusta, entrada pública marcada (con escalinata o marquesina), lenguaje de seguridad. Debe sentirse INSTITUCIONAL + SEGURIDAD sin parecer cárcel ni fortaleza. Se exige acceso institucional (monumental_stairs, canopied_entrance o recessed_entry) Y elemento cívico robusto (plinth, civic_block, civic_tower). Debe distinguirse de town_hall por escala menor y lenguaje más robusto. Debe distinguirse de clinic por lenguaje de seguridad en vez de sanitario.",
         "requireAccessIds": [
           "monumental_stairs",
           "canopied_entrance",
@@ -5522,8 +5596,8 @@
     "fire_station": {
       "buildingType": "fire_station",
       "family": "civic_landmark",
-      "label": "Parque de bomberos (4\u00d72 celdas, 2 plantas)",
-      "notes": "V.g: parque de bomberos con identidad obligatoria de 2-3 grandes puertas de apparatus bay. Incluso a 0.5\u00d7 las grandes puertas deben hacer evidente su funci\u00f3n. Fachada de ladrillo, torre lateral o hose tower, zona frontal para veh\u00edculos de bomberos. Uno de los tipos m\u00e1s f\u00e1ciles de reconocer por sus grandes puertas de garaje.",
+      "label": "Parque de bomberos (4×2 celdas, 2 plantas)",
+      "notes": "V.g: parque de bomberos con identidad obligatoria de 2-3 grandes puertas de apparatus bay. Incluso a 0.5× las grandes puertas deben hacer evidente su función. Fachada de ladrillo, torre lateral o hose tower, zona frontal para vehículos de bomberos. Uno de los tipos más fáciles de reconocer por sus grandes puertas de garaje.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -5561,7 +5635,7 @@
         },
         {
           "id": "double_bay",
-          "label": "doble bay\u00eda de aparatos con cuerpo superior",
+          "label": "doble bayía de aparatos con cuerpo superior",
           "volumes": [
             {
               "cells": [
@@ -5629,7 +5703,7 @@
         },
         {
           "id": "l_shaped_station",
-          "label": "forma de L con patio de veh\u00edculos",
+          "label": "forma de L con patio de vehículos",
           "volumes": [
             {
               "cells": [
@@ -5677,7 +5751,7 @@
         },
         {
           "id": "brick_metal",
-          "label": "ladrillo con ventanales met\u00e1licos c\u00edvicos",
+          "label": "ladrillo con ventanales metálicos cívicos",
           "roleModule": {
             "wall_panel": "mod_megakit_brick_wall_2m",
             "window_bay": "mod_megakit_trim_window_2m",
@@ -5690,7 +5764,7 @@
       "rhythms": [
         {
           "id": "apparatus_bays",
-          "label": "grandes puertas de bah\u00eda de aparatos",
+          "label": "grandes puertas de bahía de aparatos",
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
@@ -5708,7 +5782,7 @@
         },
         {
           "id": "bay_and_windows",
-          "label": "bah\u00edas de aparatos con ventanas superiores",
+          "label": "bahías de aparatos con ventanas superiores",
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
@@ -5727,7 +5801,7 @@
         },
         {
           "id": "triple_bay",
-          "label": "tres bah\u00edas de aparatos en hilera",
+          "label": "tres bahías de aparatos en hilera",
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
@@ -5800,7 +5874,7 @@
       "accessOptions": [
         {
           "id": "apparatus_door",
-          "label": "gran puerta de bah\u00eda de aparato batiente",
+          "label": "gran puerta de bahía de aparato batiente",
           "bayRule": "center",
           "frameRole": "doorframe",
           "leafRole": "door",
@@ -5810,7 +5884,7 @@
         },
         {
           "id": "rollup_door",
-          "label": "puerta enrollable de bah\u00eda de aparato",
+          "label": "puerta enrollable de bahía de aparato",
           "bayRule": "center",
           "frameRole": "doorframe",
           "leafRole": "door",
@@ -5832,7 +5906,7 @@
       "propOptions": [
         {
           "id": "roof_unit",
-          "label": "unidad t\u00e9cnica de cubierta",
+          "label": "unidad técnica de cubierta",
           "role": "rooftop_unit",
           "module": "mod_megakit_prop_ac_unit",
           "at": "roof",
@@ -5863,7 +5937,7 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3/V.g: un parque de bomberos se reconoce obligatoriamente por 2+ grandes puertas de apparatus bay (doorframe role en la banda frontal). Incluso a 0.5\u00d7 las grandes puertas deben hacer evidente su funci\u00f3n. Test de regresi\u00f3n: una \u00fanica puerta \u2192 FAIL. La torre de mangueras o hose tower es un elemento ic\u00f3nico recomendado. Debe distinguirse de warehouse por las grandes puertas de garaje y la torre lateral.",
+        "description": "R3/V.g: un parque de bomberos se reconoce obligatoriamente por 2+ grandes puertas de apparatus bay (doorframe role en la banda frontal). Incluso a 0.5× las grandes puertas deben hacer evidente su función. Test de regresión: una única puerta → FAIL. La torre de mangueras o hose tower es un elemento icónico recomendado. Debe distinguirse de warehouse por las grandes puertas de garaje y la torre lateral.",
         "requireRoleCount": {
           "doorframe": ">= 2"
         },
@@ -5894,8 +5968,8 @@
     "market_hall": {
       "buildingType": "market_hall",
       "family": "civic_landmark",
-      "label": "Mercado (5\u00d72 celdas, 2 plantas)",
-      "notes": "V.g: mercado cubierto con gran nave urbana, cubierta alta, estructura central reconocible, m\u00faltiples accesos, grandes ventanales, puestos/toldos y actividad exterior. Debe diferenciarse de warehouse mediante transparencia, accesos p\u00fablicos, toldos, actividad y detalle comercial. Debe distinguirse de town_hall por mayor longitud, cubierta de mercado y actividad comercial visible. Debe distinguirse de mixed_tenement por escala mayor, gran nave y lenguaje de mercado.",
+      "label": "Mercado (5×2 celdas, 2 plantas)",
+      "notes": "V.g: mercado cubierto con gran nave urbana, cubierta alta, estructura central reconocible, múltiples accesos, grandes ventanales, puestos/toldos y actividad exterior. Debe diferenciarse de warehouse mediante transparencia, accesos públicos, toldos, actividad y detalle comercial. Debe distinguirse de town_hall por mayor longitud, cubierta de mercado y actividad comercial visible. Debe distinguirse de mixed_tenement por escala mayor, gran nave y lenguaje de mercado.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -5967,7 +6041,7 @@
         },
         {
           "id": "clock_pavilion",
-          "label": "pabell\u00f3n de mercado con reloj central",
+          "label": "pabellón de mercado con reloj central",
           "volumes": [
             {
               "cells": [
@@ -6115,7 +6189,7 @@
         },
         {
           "id": "mixed_stalls",
-          "label": "cruj\u00edas mixtas de puesto y muro",
+          "label": "crujías mixtas de puesto y muro",
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
@@ -6172,7 +6246,7 @@
         },
         {
           "id": "awning_line",
-          "label": "l\u00ednea de toldos de puesto",
+          "label": "línea de toldos de puesto",
           "corniceRole": null,
           "corniceModule": null,
           "crownRole": null,
@@ -6216,7 +6290,7 @@
       "accessOptions": [
         {
           "id": "multiple_entries",
-          "label": "m\u00faltiples accesos p\u00fablicos",
+          "label": "múltiples accesos públicos",
           "bayRule": "drawn",
           "frameRole": "curtain_wall",
           "leafRole": null,
@@ -6256,7 +6330,7 @@
         },
         {
           "id": "roof_unit",
-          "label": "unidad t\u00e9cnica de cubierta",
+          "label": "unidad técnica de cubierta",
           "role": "rooftop_unit",
           "module": "mod_megakit_prop_ac_unit",
           "at": "roof",
@@ -6292,7 +6366,7 @@
         },
         {
           "id": "entry_canopy_small",
-          "label": "marquesina de acceso peque\u00f1a",
+          "label": "marquesina de acceso pequeña",
           "role": "canopy",
           "module": "mod_megakit_entrance_canopy_2x1",
           "optional": true,
@@ -6301,7 +6375,7 @@
         },
         {
           "id": "side_canopy",
-          "label": "marquesina lateral peque\u00f1a",
+          "label": "marquesina lateral pequeña",
           "role": "canopy",
           "module": "mod_megakit_entrance_canopy_2x2",
           "optional": true,
@@ -6310,7 +6384,7 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3/V.g: un mercado se reconoce por gran nave urbana con transparencia (curtain_wall), m\u00faltiples accesos p\u00fablicos, grandes ventanales, toldos de puestos y actividad exterior. Test de regresi\u00f3n: market hall opaco + una puerta \u2192 FAIL. Debe diferenciarse de warehouse por transparencia, accesos p\u00fablicos, toldos y detalle comercial. Debe distinguirse de town_hall por mayor longitud y actividad comercial visible. Debe distinguirse de mixed_tenement por escala mayor y gran nave de mercado.",
+        "description": "R3/V.g: un mercado se reconoce por gran nave urbana con transparencia (curtain_wall), múltiples accesos públicos, grandes ventanales, toldos de puestos y actividad exterior. Test de regresión: market hall opaco + una puerta → FAIL. Debe diferenciarse de warehouse por transparencia, accesos públicos, toldos y detalle comercial. Debe distinguirse de town_hall por mayor longitud y actividad comercial visible. Debe distinguirse de mixed_tenement por escala mayor y gran nave de mercado.",
         "requireAnyRoles": [
           [
             "curtain_wall",

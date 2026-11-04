@@ -309,14 +309,6 @@
           "plateRole": null,
           "dormerBays": 0,
           "ridgeAlong": "x"
-        },
-        {
-          "id": "flat_slab",
-          "kind": "flat",
-          "cornice": false,
-          "plateRole": "slab",
-          "dormerBays": 0,
-          "ridgeAlong": null
         }
       ],
       "accessOptions": [
@@ -329,46 +321,9 @@
           "aboveRole": null,
           "projectionMeters": 0,
           "steps": false
-        },
-        {
-          "id": "drawn_awning",
-          "label": "puerta sorteada con toldo de escaparate",
-          "bayRule": "drawn",
-          "frameRole": "doorframe",
-          "leafRole": "door",
-          "aboveRole": "awning",
-          "projectionMeters": 0.4,
-          "steps": false
-        },
-        {
-          "id": "shopfront_canopy",
-          "label": "acceso bajo volado comercial",
-          "bayRule": "center",
-          "frameRole": "doorframe",
-          "leafRole": "door",
-          "aboveRole": "overhang",
-          "projectionMeters": 0.8,
-          "steps": false
         }
       ],
-      "propOptions": [
-        {
-          "id": "ridge_chimney",
-          "label": "chimenea sobre la cumbrera",
-          "role": "chimney",
-          "module": "mod_kenney_ind_chimney_basic",
-          "at": "ridge",
-          "offset": 1.6
-        },
-        {
-          "id": "slope_chimney",
-          "label": "chimenea que atraviesa la vertiente",
-          "role": "chimney",
-          "module": "mod_kenney_ind_chimney_basic",
-          "at": "roof",
-          "offset": -1.5
-        }
-      ],
+      "propOptions": [],
       "secondaryOptions": [
         {
           "id": "none",
@@ -377,15 +332,6 @@
           "module": null,
           "optional": true,
           "atCell": null,
-          "supports": []
-        },
-        {
-          "id": "party_stack",
-          "label": "chimenea de partición apoyada en el hueco del fondo",
-          "role": "chimney",
-          "module": "mod_kenney_ind_chimney_basic",
-          "optional": true,
-          "atCell": [3, 0],
           "supports": []
         }
       ],
@@ -1114,14 +1060,6 @@
         }
       ],
       "propOptions": [
-        {
-          "id": "ridge_chimney",
-          "label": "chimenea de cumbrera",
-          "role": "chimney",
-          "module": "mod_kenney_ind_chimney_basic",
-          "at": "ridge",
-          "offset": 1.6
-        },
         {
           "id": "roof_plant",
           "label": "unidad técnica de cubierta",

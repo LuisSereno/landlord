@@ -144,11 +144,14 @@ class GrammarDocument:
             ("silhouetteOptions", record["silhouetteOptions"]),
             ("roofOptions", record["roofOptions"]),
             ("accessOptions", record["accessOptions"]),
+            # R5: `propOptions` admite lista vacía. Una familia residencial sin módulos de azotea
+            # legítimos (AC, paneles, chimeneas industriales) prefiere no sortear el eje antes que
+            # plantar un equipo comercial sobre una hilera doméstica.
             ("propOptions", record["propOptions"]),
             ("secondaryOptions", record["secondaryOptions"]),
             ("cornerModes", record["cornerModes"]),
         ):
-            if not options:
+            if not options and key != "propOptions":
                 raise GrammarError(f"{record['buildingType']}.{key}: lista vacía, el eje no puede variar")
         for option in record["massingOptions"]:
             _require_keys(option, MASSING_KEYS, option["id"], "massingOptions")

@@ -7995,6 +7995,7 @@
         "reparentTo": "COMPOSITION_ROOT"
       },
       "allowedFamilies": [
+        "residential_low",
         "industrial_heavy",
         "civic_landmark"
       ],

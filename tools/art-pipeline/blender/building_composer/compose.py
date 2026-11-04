@@ -239,6 +239,9 @@ class Composition:
 
         Las reglas viven en la gramática, no aquí, para que un cambio de identidad sea un diff de
         datos y no una edición del compositor. Este método sólo sabe leerlas y aplicarlas.
+
+        V.g endurecido: se añaden requireAll, requireGroundCommercial, prohibitRhythmIds,
+        requireRoleCount, requireAccessIds, requireRhythmIds, requireMassingIds.
         """
         rules = self.record.get("semanticIdentity")
         if not rules:
@@ -247,10 +250,12 @@ class Composition:
         placed_modules = {record["moduleId"] for record in self.placements}
         problems = []
 
+        # --- requireRoles: cada rol de la lista debe estar presente ---
         for role in rules.get("requireRoles", []):
             if role not in placed_roles:
                 problems.append(f"falta el rol obligatorio `{role}`")
 
+        # --- requireAnyRoles: al menos un rol de cada sublista ---
         for any_roles in rules.get("requireAnyRoles", []):
             if not placed_roles & set(any_roles):
                 problems.append(
@@ -258,6 +263,16 @@ class Composition:
                     + "/".join(f"`{r}`" for r in any_roles)
                 )
 
+        # --- requireAll (V.g): TODOS los roles de cada sublista deben estar presentes ---
+        for all_group in rules.get("requireAll", []):
+            missing = [r for r in all_group if r not in placed_roles]
+            if missing:
+                problems.append(
+                    "faltan roles obligatorios (requireAll): "
+                    + ", ".join(f"`{r}`" for r in missing)
+                )
+
+        # --- requireRoofKinds ---
         for kind in rules.get("requireRoofKinds", []):
             if roof["kind"] not in kind:
                 problems.append(
@@ -267,9 +282,11 @@ class Composition:
                 )
                 break
 
+        # --- requireDomesticAccess ---
         if not access.get("domestic", True) and rules.get("requireDomesticAccess"):
             problems.append(f"el acceso `{access['id']}` no es doméstico")
 
+        # --- prohibitSecondaryModules ---
         prohibited_modules = set(rules.get("prohibitSecondaryModules", []))
         if secondary_placed and secondary.get("module") in prohibited_modules:
             problems.append(
@@ -277,15 +294,80 @@ class Composition:
                 f"`{secondary['module']}`, prohibido en esta familia"
             )
 
+        # --- prohibitAccessIds ---
         prohibited_access = set(rules.get("prohibitAccessIds", []))
         if access["id"] in prohibited_access:
             problems.append(f"el acceso `{access['id']}` está prohibido en esta familia")
 
+        # --- requireSecondaryPlaced ---
         if rules.get("requireSecondaryPlaced") and not secondary_placed:
             problems.append(
                 f"el secundario `{secondary['id']}` es obligatorio pero no cupo en la parcela "
                 "(quedaría `sin_hueco` y el edificio perdería su identidad)"
             )
+
+        # --- requireGroundCommercial (V.g): planta baja con lenguaje comercial real ---
+        if rules.get("requireGroundCommercial"):
+            commercial_roles = {"curtain_wall", "awning", "shopfront"}
+            ground_commercial = any(
+                record["role"] in commercial_roles
+                and record.get("purpose", "").startswith("band:front:level1:")
+                for record in self.placements
+            )
+            if not ground_commercial:
+                problems.append(
+                    "planta baja sin lenguaje comercial real "
+                    "(se exige curtain_wall, shopfront o awning en band:front:level1)"
+                )
+
+        # --- prohibitRhythmIds (V.g): el rhythm sorteados no debe estar en la lista negra ---
+        rhythm_id = self.choices.get("bay_sequence")
+        prohibited_rhythms = set(rules.get("prohibitRhythmIds", []))
+        if rhythm_id in prohibited_rhythms:
+            problems.append(
+                f"el rhythm `{rhythm_id}` está prohibido en esta familia"
+            )
+
+        # --- requireAccessIds (V.g): el acceso debe estar en la lista permitida ---
+        required_access_ids = rules.get("requireAccessIds")
+        if required_access_ids and access["id"] not in required_access_ids:
+            problems.append(
+                f"el acceso `{access['id']}` no es monumental; "
+                "se exige uno de: " + ", ".join(f"`{a}`" for a in required_access_ids)
+            )
+
+        # --- requireRhythmIds (V.g): el rhythm debe estar en la lista permitida ---
+        required_rhythm_ids = rules.get("requireRhythmIds")
+        if required_rhythm_ids and rhythm_id not in required_rhythm_ids:
+            problems.append(
+                f"el rhythm `{rhythm_id}` no está en la lista permitida: "
+                + ", ".join(f"`{r}`" for r in required_rhythm_ids)
+            )
+
+        # --- requireMassingIds (V.g): el massing debe estar en la lista permitida ---
+        massing_id = self.choices.get("massing")
+        required_massing_ids = rules.get("requireMassingIds")
+        if required_massing_ids and massing_id not in required_massing_ids:
+            problems.append(
+                f"el massing `{massing_id}` no está en la lista permitida: "
+                + ", ".join(f"`{m}`" for m in required_massing_ids)
+            )
+
+        # --- requireRoleCount (V.g): contar instancias de un rol y comparar ---
+        for role, count_spec in rules.get("requireRoleCount", {}).items():
+            actual_count = sum(1 for r in self.placements if r["role"] == role)
+            if ">=" in str(count_spec):
+                required = int(str(count_spec).replace(">=", "").strip())
+                if actual_count < required:
+                    problems.append(
+                        f"rol `{role}` requiere >= {required} instancias, tiene {actual_count}"
+                    )
+            elif "==" in str(count_spec):
+                required = int(str(count_spec).replace("==", "").strip())
+                if actual_count != required:
+                    problems.append(
+                        f"rol `{role}` requiere == {required} instancias, tiene {actual_count}"
+                    )
 
         if problems:
             raise CompositionError(
@@ -733,13 +815,30 @@ class Composition:
 
         Dos paneles coplanares en la misma fachada se ven como un parpadeo a 256 px; quitar el
         panel y poner el marco deja el hueco legible desde el primer render.
+
+        El filtro de rol acepta cualquier módulo de fachada que pueda ocupar la planta baja:
+        wall_panel y doorframe (caso estándar), pero también wainscot, ground_panel, curtain_wall
+        y window_bay cuando el rhythm declara un groundRole distinto o el token cíclico cae en
+        hueco en vez de muro. La comprobación de posición (front, level1, z=base, x=bay) ya
+        garantiza que sólo se toca el panel exacto bajo el acceso.
         """
         rect = volume["rect"]
+        facade_roles = {
+            "wall_panel", "doorframe", "wainscot", "ground_panel", "curtain_wall", "window_bay",
+        }
         removed = 0
         for record in list(self.placements):
             if not record["purpose"].startswith("band:front:level1:"):
                 continue
             if record["bounds"]["z"]["min"] != _round(volume["base"]):
+                continue
+            if record["role"] not in facade_roles:
+                continue
+            # Comprobar que el panel está en la cara frontal del volumen de acceso, no en la de
+            # otro volumen que comparta la misma línea de fachada (p.ej. base_and_tower: la base
+            # tiene front en y=-4 y la torre en y=0; ambas generan paneles "band:front:level1"
+            # con las mismas X y Z, pero el Y de los bounds distingue la cara de colocación).
+            if abs(record["bounds"]["y"]["min"] - rect[1]) > 1e-6:
                 continue
             center = (record["bounds"]["x"]["min"] + record["bounds"]["x"]["max"]) / 2
             if abs(center - along) < self.bay / 2 - 1e-6:

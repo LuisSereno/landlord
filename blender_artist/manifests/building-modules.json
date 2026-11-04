@@ -14024,7 +14024,7 @@
       "id": "mod_kenney_ind_chimney_basic",
       "category": "chimney",
       "role": "chimney",
-      "note": "chimenea delgada 0,8×0,8×4 m: única chimenea del inventario en escala doméstica, MegaKit no trae ninguna",
+      "note": "chimenea delgada 0,8×0,8×4 m: proporción y textura industrial, reservada a la familia industrial_heavy. El responsable documentó en c1a635b que admitirla en residential_low producía hileras con chimenea de fábrica plantada en el solar; la alternativa doméstica es un `original_support` geométricamente simple, no reutilizar este módulo para inflar `licensedGeometryRatio`.",
       "sourceId": "src_kenney_city_industrial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/chimney-basic.glb",
       "license": "CC0-1.0",
@@ -14039,9 +14039,7 @@
         "reparentTo": "COMPOSITION_ROOT"
       },
       "allowedFamilies": [
-        "residential_low",
-        "industrial_heavy",
-        "civic_landmark"
+        "industrial_heavy"
       ],
       "extraction": {
         "strategy": "whole_asset",

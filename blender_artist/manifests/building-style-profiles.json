@@ -8,7 +8,7 @@
     "catalog": "blender_artist/manifests/building-modules.json",
     "styleLayer": {
       "path": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
-      "sha256": "19f384d260ff3d30bd37cf034d94cbd2606bdc6b6c334954d095e5dde468bfd1"
+      "sha256": "3014f3a1f95db72cd3e899786db1161234b94e22ae8bd7802e8b5ec2c1d5f8ed"
     },
     "toolchain": {
       "blender": "5.2.2 LTS",
@@ -23,7 +23,7 @@
       "id": "graphic_civic_buildings_v1",
       "label": "Edificios cívicos gráficos nocturnos, compuestos con geometría licenciada",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "99e63758052cdc2e564a9c52124eb5ff13dfe54346f4e68e644c8d136f0176e8",
+      "moduleCatalogSha256": "b4ee01af93ce510d280bc696ba90021e5a228ca5e9f6014382f00568e5ea5417",
       "selectionSha256": "e8ed3b484904a131feb312c6d573adfc44db74c77c3cd9792d54c845470a4afa",
       "appliesToFamilies": [
         "residential_low",
@@ -485,7 +485,7 @@
         },
         "saturationAndValue": {
           "value": {
-            "mechanism": "externalTreatment v6 aplicado por style_pixels() sobre el atlas de Base Color",
+            "mechanism": "externalTreatment v7 aplicado por style_pixels() sobre el atlas de Base Color",
             "global": {
               "saturationScale": 1,
               "valueScale": 1.55,
@@ -506,7 +506,7 @@
                   "family": "brick",
                   "hueDegrees": 21.2,
                   "saturation": 0.319,
-                  "value": 0.227,
+                  "value": 0.541,
                   "inputSaturation": 0.398,
                   "inputValue": 0.43,
                   "roughness": 0.84,
@@ -515,7 +515,7 @@
                 },
                 "hueDegrees": 21.2,
                 "saturation": 0.319,
-                "value": 0.227,
+                "value": 0.541,
                 "inputSaturation": 0.398,
                 "inputValue": 0.43,
                 "fullyTreatedToday": false
@@ -525,7 +525,7 @@
                   "family": "plaster",
                   "hueDegrees": 45.8,
                   "saturation": 0.227,
-                  "value": 0.335,
+                  "value": 0.454,
                   "inputSaturation": 0.271,
                   "inputValue": 0.574,
                   "roughness": 0.741,
@@ -534,7 +534,7 @@
                 },
                 "hueDegrees": 45.8,
                 "saturation": 0.227,
-                "value": 0.335,
+                "value": 0.454,
                 "inputSaturation": 0.271,
                 "inputValue": 0.574,
                 "fullyTreatedToday": false
@@ -544,7 +544,7 @@
                   "family": "metal",
                   "hueDegrees": 31.6,
                   "saturation": 0.099,
-                  "value": 0.2,
+                  "value": 0.4,
                   "inputSaturation": 0.116,
                   "inputValue": 0.392,
                   "roughness": 0.827,
@@ -553,7 +553,7 @@
                 },
                 "hueDegrees": 31.6,
                 "saturation": 0.099,
-                "value": 0.2,
+                "value": 0.4,
                 "inputSaturation": 0.116,
                 "inputValue": 0.392,
                 "fullyTreatedToday": false
@@ -563,7 +563,7 @@
                   "family": "stone",
                   "hueDegrees": null,
                   "saturation": 0.024,
-                  "value": 0.173,
+                  "value": 0.4,
                   "inputSaturation": 0.028,
                   "inputValue": 0.339,
                   "roughness": 0.862,
@@ -572,7 +572,7 @@
                 },
                 "hueDegrees": null,
                 "saturation": 0.024,
-                "value": 0.173,
+                "value": 0.4,
                 "inputSaturation": 0.028,
                 "inputValue": 0.339,
                 "fullyTreatedToday": true
@@ -585,7 +585,7 @@
                 "dominantPredicted": {
                   "hueDegrees": 38.8,
                   "saturation": 0.249,
-                  "value": 0.319
+                  "value": 0.463
                 },
                 "dominantInput": {
                   "hueDegrees": 41.3,
@@ -608,7 +608,7 @@
                 "dominantPredicted": {
                   "hueDegrees": 26.3,
                   "saturation": 0.259,
-                  "value": 0.321
+                  "value": 0.472
                 },
                 "dominantInput": {
                   "hueDegrees": 253.6,
@@ -630,7 +630,7 @@
                 "dominantPredicted": {
                   "hueDegrees": 24.9,
                   "saturation": 0.303,
-                  "value": 0.412
+                  "value": 0.544
                 },
                 "dominantInput": {
                   "hueDegrees": 246.4,
@@ -651,7 +651,7 @@
                 "dominantPredicted": {
                   "hueDegrees": 26.1,
                   "saturation": 0.26,
-                  "value": 0.322
+                  "value": 0.472
                 },
                 "dominantInput": {
                   "hueDegrees": 254.1,
@@ -673,7 +673,7 @@
                 "dominantPredicted": {
                   "hueDegrees": null,
                   "saturation": 0.035,
-                  "value": 0.118
+                  "value": 0.4
                 },
                 "dominantInput": {
                   "hueDegrees": null,
@@ -691,7 +691,7 @@
                 "dominantPredicted": {
                   "hueDegrees": null,
                   "saturation": 0.036,
-                  "value": 0.255
+                  "value": 0.4
                 },
                 "dominantInput": {
                   "hueDegrees": null,
@@ -709,7 +709,7 @@
                 "dominantPredicted": {
                   "hueDegrees": 36.8,
                   "saturation": 0.217,
-                  "value": 0.374
+                  "value": 0.55
                 },
                 "dominantInput": {
                   "hueDegrees": 36.8,
@@ -727,7 +727,7 @@
                 "dominantPredicted": {
                   "hueDegrees": 31.6,
                   "saturation": 0.099,
-                  "value": 0.2
+                  "value": 0.4
                 },
                 "dominantInput": {
                   "hueDegrees": 31.6,
@@ -745,7 +745,7 @@
                 "dominantPredicted": {
                   "hueDegrees": 46.5,
                   "saturation": 0.147,
-                  "value": 0.367
+                  "value": 0.466
                 },
                 "dominantInput": {
                   "hueDegrees": 46.5,
@@ -765,7 +765,7 @@
                 "dominantPredicted": {
                   "hueDegrees": 21.2,
                   "saturation": 0.319,
-                  "value": 0.227
+                  "value": 0.541
                 },
                 "dominantInput": {
                   "hueDegrees": 21.2,
@@ -784,7 +784,7 @@
                 "dominantPredicted": {
                   "hueDegrees": null,
                   "saturation": 0.001,
-                  "value": 0.147
+                  "value": 0.4
                 },
                 "dominantInput": {
                   "hueDegrees": null,
@@ -802,7 +802,7 @@
                 "dominantPredicted": {
                   "hueDegrees": 45,
                   "saturation": 0.308,
-                  "value": 0.302
+                  "value": 0.442
                 },
                 "dominantInput": {
                   "hueDegrees": 45.7,
@@ -839,18 +839,18 @@
             },
             {
               "measured": [
-                "citybits_texture ← blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png: grey pale_neutral→V0.355, orange warm_accents_muted→V0.374, cyan roof_and_verge_green_to_slate→V0.149, blue window_blue_to_dark_glass→V0.222, red warm_accents_muted→V0.43, yellow neutral_dark_asphalt→V0.254, green headlamp_yellow→V0.365",
-                "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png: grey neutral_dark_asphalt→V0.187, blue facade_blue_grey_to_warm_stone→V0.474, orange warm_accents_muted→V0.435, magenta violet_accents_muted→V0.453, green roof_and_verge_green_to_slate→V0.271, cyan roof_and_verge_green_to_slate→V0.222, red warm_accents_muted→V0.44",
-                "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png: blue facade_blue_grey_to_warm_stone→V0.517, grey warm_accents_muted→V0.315, orange warm_accents_muted→V0.418, magenta violet_accents_muted→V0.456, green roof_and_verge_green_to_slate→V0.271, cyan roof_and_verge_green_to_slate→V0.222, red warm_accents_muted→V0.44",
-                "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/Textures/colormap.png: grey neutral_dark_asphalt→V0.187, blue facade_blue_grey_to_warm_stone→V0.476, orange warm_accents_muted→V0.441, magenta violet_accents_muted→V0.454, red warm_accents_muted→V0.432, green roof_and_verge_green_to_slate→V0.271, cyan roof_and_verge_green_to_slate→V0.222",
-                "T_Concrete_Asphalt_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png: grey neutral_dark_asphalt→V0.118",
-                "T_Concrete_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png: grey neutral_dark_asphalt→V0.255",
-                "T_MarbleFloor_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_BaseColor.png: yellow warm_accents_muted→V0.373, orange warm_accents_muted→V0.388",
-                "T_MetalConcrete_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png: grey neutral_dark_asphalt→V0.249, orange neutral_dark_asphalt→V0.128",
-                "T_Ornaments_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_BaseColor.png: yellow unclassified_night_fallback→V0.374, grey pale_neutral→V0.374, orange neutral_dark_asphalt→V0.179",
-                "T_RedBrick_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png: orange warm_accents_muted→V0.227, grey neutral_dark_asphalt→V0.22",
-                "T_RoofSlate_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png: grey neutral_dark_asphalt→V0.147",
-                "T_Trim_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png: yellow headlamp_yellow→V0.335, orange warm_accents_muted→V0.138"
+                "citybits_texture ← blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png: grey pale_neutral→V0.58, orange warm_accents_muted→V0.55, cyan roof_and_verge_green_to_slate→V0.149, blue window_blue_to_dark_glass→V0.222, red warm_accents_muted→V0.55, yellow neutral_dark_asphalt→V0.4, green headlamp_yellow→V0.42",
+                "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png: grey neutral_dark_asphalt→V0.4, blue facade_blue_grey_to_warm_stone→V0.61, orange warm_accents_muted→V0.55, magenta violet_accents_muted→V0.453, green roof_and_verge_green_to_slate→V0.271, cyan roof_and_verge_green_to_slate→V0.222, red warm_accents_muted→V0.55",
+                "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png: blue facade_blue_grey_to_warm_stone→V0.61, grey warm_accents_muted→V0.55, orange warm_accents_muted→V0.55, magenta violet_accents_muted→V0.456, green roof_and_verge_green_to_slate→V0.271, cyan roof_and_verge_green_to_slate→V0.222, red warm_accents_muted→V0.55",
+                "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/Textures/colormap.png: grey neutral_dark_asphalt→V0.4, blue facade_blue_grey_to_warm_stone→V0.61, orange warm_accents_muted→V0.55, magenta violet_accents_muted→V0.454, red warm_accents_muted→V0.55, green roof_and_verge_green_to_slate→V0.271, cyan roof_and_verge_green_to_slate→V0.222",
+                "T_Concrete_Asphalt_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png: grey neutral_dark_asphalt→V0.4",
+                "T_Concrete_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png: grey neutral_dark_asphalt→V0.4",
+                "T_MarbleFloor_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_BaseColor.png: yellow warm_accents_muted→V0.55, orange warm_accents_muted→V0.55",
+                "T_MetalConcrete_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png: grey neutral_dark_asphalt→V0.4, orange neutral_dark_asphalt→V0.4",
+                "T_Ornaments_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_BaseColor.png: yellow unclassified_night_fallback→V0.42, grey pale_neutral→V0.58, orange neutral_dark_asphalt→V0.4",
+                "T_RedBrick_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png: orange warm_accents_muted→V0.55, grey neutral_dark_asphalt→V0.4",
+                "T_RoofSlate_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png: grey neutral_dark_asphalt→V0.4",
+                "T_Trim_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png: yellow headlamp_yellow→V0.42, orange warm_accents_muted→V0.55"
               ],
               "how": "destino después de pasar por `style_pixels(…, kind=building)`, es decir el mismo código del render",
               "source": "tools/art-pipeline/blender/preview_building_style.py → claimedByBand / predicted"
@@ -1688,9 +1688,9 @@
           "evidence": [
             {
               "measured": {
-                "sha256": "19f384d260ff3d30bd37cf034d94cbd2606bdc6b6c334954d095e5dde468bfd1",
+                "sha256": "3014f3a1f95db72cd3e899786db1161234b94e22ae8bd7802e8b5ec2c1d5f8ed",
                 "palette": "graphic_civic",
-                "treatmentVersion": 6
+                "treatmentVersion": 7
               },
               "how": "hash del archivo de dirección de estilo canónico del que se copian luz, sombra y rendering",
               "source": "tools/art-pipeline/blender/style_layer_graphic_civic.json"
@@ -2248,7 +2248,7 @@
               "predicted": {
                 "hueDegrees": 21.2,
                 "saturation": 0.319,
-                "value": 0.227
+                "value": 0.541
               },
               "claimedByBands": [
                 "neutral_dark_asphalt",
@@ -2352,7 +2352,7 @@
               "predicted": {
                 "hueDegrees": 45,
                 "saturation": 0.308,
-                "value": 0.302
+                "value": 0.442
               },
               "claimedByBands": [
                 "headlamp_yellow",
@@ -2391,7 +2391,7 @@
               "predicted": {
                 "hueDegrees": 46.5,
                 "saturation": 0.147,
-                "value": 0.367
+                "value": 0.466
               },
               "claimedByBands": [
                 "neutral_dark_asphalt",
@@ -2482,7 +2482,7 @@
               "predicted": {
                 "hueDegrees": 31.6,
                 "saturation": 0.099,
-                "value": 0.2
+                "value": 0.4
               },
               "claimedByBands": [
                 "neutral_dark_asphalt"
@@ -2634,7 +2634,7 @@
               "predicted": {
                 "hueDegrees": null,
                 "saturation": 0.001,
-                "value": 0.147
+                "value": 0.4
               },
               "claimedByBands": [
                 "neutral_dark_asphalt"
@@ -2662,7 +2662,7 @@
               "predicted": {
                 "hueDegrees": null,
                 "saturation": 0.035,
-                "value": 0.118
+                "value": 0.4
               },
               "claimedByBands": [
                 "neutral_dark_asphalt"
@@ -2690,7 +2690,7 @@
               "predicted": {
                 "hueDegrees": null,
                 "saturation": 0.036,
-                "value": 0.255
+                "value": 0.4
               },
               "claimedByBands": [
                 "neutral_dark_asphalt"
@@ -2760,7 +2760,7 @@
             "deltas": {
               "hueDegrees": 24.6,
               "saturation": 0.092,
-              "value": 0.108,
+              "value": 0.087,
               "roughness": 0.099,
               "metallic": 0
             },
@@ -2776,12 +2776,13 @@
             "deltas": {
               "hueDegrees": 10.4,
               "saturation": 0.22,
-              "value": 0.027,
+              "value": 0.141,
               "roughness": 0.013,
               "metallic": 0.203
             },
             "separatingChannels": [
               "saturación",
+              "valor",
               "metallic"
             ],
             "distinguishable": true
@@ -2791,12 +2792,13 @@
             "deltas": {
               "hueDegrees": null,
               "saturation": 0.295,
-              "value": 0.054,
+              "value": 0.141,
               "roughness": 0.022,
               "metallic": 0
             },
             "separatingChannels": [
-              "saturación"
+              "saturación",
+              "valor"
             ],
             "distinguishable": true
           },
@@ -2805,13 +2807,12 @@
             "deltas": {
               "hueDegrees": 14.2,
               "saturation": 0.128,
-              "value": 0.135,
+              "value": 0.054,
               "roughness": 0.086,
               "metallic": 0.203
             },
             "separatingChannels": [
               "saturación",
-              "valor",
               "rugosidad",
               "metallic"
             ],
@@ -2822,13 +2823,12 @@
             "deltas": {
               "hueDegrees": null,
               "saturation": 0.203,
-              "value": 0.162,
+              "value": 0.054,
               "roughness": 0.121,
               "metallic": 0
             },
             "separatingChannels": [
               "saturación",
-              "valor",
               "rugosidad"
             ],
             "distinguishable": true
@@ -2838,7 +2838,7 @@
             "deltas": {
               "hueDegrees": null,
               "saturation": 0.075,
-              "value": 0.027,
+              "value": 0,
               "roughness": 0.035,
               "metallic": 0.203
             },
@@ -3661,7 +3661,7 @@
               "hueBucket": "blue",
               "share": 0.25,
               "inputValue": 0.599,
-              "predictedValue": 0.474,
+              "predictedValue": 0.61,
               "predictedSaturation": 0.395
             },
             {
@@ -3671,7 +3671,7 @@
               "hueBucket": "blue",
               "share": 0.356,
               "inputValue": 0.654,
-              "predictedValue": 0.517,
+              "predictedValue": 0.61,
               "predictedSaturation": 0.432
             },
             {
@@ -3681,7 +3681,7 @@
               "hueBucket": "blue",
               "share": 0.249,
               "inputValue": 0.602,
-              "predictedValue": 0.476,
+              "predictedValue": 0.61,
               "predictedSaturation": 0.4
             }
           ],
@@ -3726,8 +3726,8 @@
               "modulesReached": 16,
               "modulesRaw": 11,
               "inputValue": 0.392,
-              "treatedValue": 0.2,
-              "rawIsBrighterBy": 0.192
+              "treatedValue": 0.4,
+              "rawIsBrighterBy": -0.008
             },
             {
               "image": "T_RedBrick_BaseColor",
@@ -3779,8 +3779,8 @@
               "modulesReached": 5,
               "modulesRaw": 32,
               "inputValue": 0.43,
-              "treatedValue": 0.227,
-              "rawIsBrighterBy": 0.203
+              "treatedValue": 0.541,
+              "rawIsBrighterBy": -0.111
             },
             {
               "image": "T_Trim_BaseColor",
@@ -3829,8 +3829,8 @@
               "modulesReached": 14,
               "modulesRaw": 20,
               "inputValue": 0.573,
-              "treatedValue": 0.302,
-              "rawIsBrighterBy": 0.271
+              "treatedValue": 0.442,
+              "rawIsBrighterBy": 0.131
             },
             {
               "image": "citybits_texture",
@@ -3851,8 +3851,8 @@
               "modulesReached": 7,
               "modulesRaw": 0,
               "inputValue": 0.608,
-              "treatedValue": 0.319,
-              "rawIsBrighterBy": 0.289
+              "treatedValue": 0.463,
+              "rawIsBrighterBy": 0.145
             },
             {
               "image": "colormap",
@@ -3887,8 +3887,8 @@
               "modulesReached": 21,
               "modulesRaw": 0,
               "inputValue": 0.687,
-              "treatedValue": 0.412,
-              "rawIsBrighterBy": 0.275
+              "treatedValue": 0.544,
+              "rawIsBrighterBy": 0.143
             },
             {
               "image": "colormap",
@@ -3906,8 +3906,8 @@
               "modulesReached": 4,
               "modulesRaw": 0,
               "inputValue": 0.56,
-              "treatedValue": 0.322,
-              "rawIsBrighterBy": 0.238
+              "treatedValue": 0.472,
+              "rawIsBrighterBy": 0.088
             },
             {
               "image": "colormap",
@@ -3925,8 +3925,8 @@
               "modulesReached": 4,
               "modulesRaw": 0,
               "inputValue": 0.559,
-              "treatedValue": 0.321,
-              "rawIsBrighterBy": 0.238
+              "treatedValue": 0.472,
+              "rawIsBrighterBy": 0.087
             },
             {
               "image": "T_Concrete_Asphalt_BaseColor",
@@ -3945,8 +3945,8 @@
               "modulesReached": 5,
               "modulesRaw": 0,
               "inputValue": 0.231,
-              "treatedValue": 0.118,
-              "rawIsBrighterBy": 0.113
+              "treatedValue": 0.4,
+              "rawIsBrighterBy": -0.169
             },
             {
               "image": "T_Concrete_BaseColor",
@@ -3963,8 +3963,8 @@
               "modulesReached": 3,
               "modulesRaw": 0,
               "inputValue": 0.499,
-              "treatedValue": 0.255,
-              "rawIsBrighterBy": 0.244
+              "treatedValue": 0.4,
+              "rawIsBrighterBy": 0.099
             },
             {
               "image": "T_MarbleFloor_BaseColor",
@@ -3980,8 +3980,8 @@
               "modulesReached": 2,
               "modulesRaw": 0,
               "inputValue": 0.71,
-              "treatedValue": 0.374,
-              "rawIsBrighterBy": 0.336
+              "treatedValue": 0.55,
+              "rawIsBrighterBy": 0.16
             },
             {
               "image": "T_Ornaments_BaseColor",
@@ -3996,8 +3996,8 @@
               "modulesReached": 1,
               "modulesRaw": 0,
               "inputValue": 0.575,
-              "treatedValue": 0.367,
-              "rawIsBrighterBy": 0.208
+              "treatedValue": 0.466,
+              "rawIsBrighterBy": 0.109
             },
             {
               "image": "T_RoofSlate_BaseColor",
@@ -4019,8 +4019,8 @@
               "modulesReached": 8,
               "modulesRaw": 0,
               "inputValue": 0.287,
-              "treatedValue": 0.147,
-              "rawIsBrighterBy": 0.14
+              "treatedValue": 0.4,
+              "rawIsBrighterBy": -0.113
             }
           ],
           "texturesNeverReachedByTreatment": [],

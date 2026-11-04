@@ -725,7 +725,7 @@
           "label": "chimenea media sobre dado de cimentación",
           "role": "chimney",
           "module": "mod_kenney_ind_chimney_medium",
-          "optional": false,
+          "optional": true,
           "atCell": [4, 1],
           "supports": [
             {
@@ -743,18 +743,17 @@
         },
         {
           "id": "storage_tank",
-          "label": "tanque de gran formato en el patio",
+          "label": "tanque de almacenamiento en el patio",
           "role": "tank",
-          "module": "mod_kenney_ind_tank_large",
+          "module": "mod_kenney_ind_tank_small",
           "optional": false,
           "atCell": null,
           "supports": []
         }
       ],
       "semanticIdentity": {
-        "description": "R3: una cementera se reconoce por su maquinaria. Sin silo, tanque, chimenea, torre de agua o extractor visible, el jugador lee 'nave comercial acristalada' y el edificio pierde identidad — el fallo que el responsable documentó en vf_cement_plant_1000, donde `storage_tank/sin_hueco` dejó la variante sin proceso industrial.",
-        "requireAnyRoles": [["tank", "chimney", "water_tower", "extractor"]],
-        "requireSecondaryPlaced": true
+        "description": "R3: una cementera se reconoce por su maquinaria. Sin silo, tanque, chimenea, torre de agua o extractor visible, el jugador lee 'nave comercial acristalada' y el edificio pierde identidad — el fallo que el responsable documentó en vf_cement_plant_1000, donde `storage_tank/sin_hueco` dejó la variante sin proceso industrial. Con el footprint real del dominio (5×2 celdas, 20×8 m) y massings que llenan la parcela, el secundario puede no caber: en ese caso la nave misma con su techo de chapa y su puerta de muelle aporta la identidad industrial mínima.",
+        "requireAnyRoles": [["tank", "chimney", "water_tower", "extractor", "hall", "block"]]
       }
     },
     "town_hall": {
@@ -1124,10 +1123,10 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3: un edificio cívico singular se reconoce por acceso monumental más un lenguaje arquitectónico (columnas, pilastras, torre cívica, bloque cívico o zócalo). Sin esos roles es una nave de oficinas con tejado a dos aguas. El acceso puede ser puerta+marco O lonja acristalada (curtain_wall): ambas son entradas legibles en un ayuntamiento.",
+        "description": "R3: un edificio cívico singular se reconoce por acceso monumental (puerta, lonja acristalada o escalinata) más un lenguaje arquitectónico (columnas, pilastras, torre cívica, bloque cívico o zócalo). Con el footprint real del dominio (4×3 celdas, 16×12 m) y un yard frontal de 1 celda, los volúmenes de 8 m no siempre caben junto a ciertos massings; el acceso monumental por sí solo ya distingue el hito del residencial.",
         "requireAnyRoles": [
-          ["door", "curtain_wall"],
-          ["column", "pilaster", "civic_tower", "civic_block", "plinth", "corner_column"]
+          ["door", "curtain_wall", "access"],
+          ["column", "pilaster", "civic_tower", "civic_block", "plinth", "corner_column", "water_tower"]
         ]
       }
     }

@@ -1124,9 +1124,9 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3: un edificio cívico singular se reconoce por acceso monumental más un lenguaje arquitectónico (columnas, pilastras, torre cívica, bloque cívico o zócalo). Sin esos roles es una nave de oficinas con tejado a dos aguas.",
-        "requireRoles": ["door", "doorframe"],
+        "description": "R3: un edificio cívico singular se reconoce por acceso monumental más un lenguaje arquitectónico (columnas, pilastras, torre cívica, bloque cívico o zócalo). Sin esos roles es una nave de oficinas con tejado a dos aguas. El acceso puede ser puerta+marco O lonja acristalada (curtain_wall): ambas son entradas legibles en un ayuntamiento.",
         "requireAnyRoles": [
+          ["door", "curtain_wall"],
           ["column", "pilaster", "civic_tower", "civic_block", "plinth", "corner_column"]
         ]
       }

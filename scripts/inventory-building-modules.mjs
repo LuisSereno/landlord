@@ -60,19 +60,17 @@ const SCOPE = [
   {
     sourceId: "src_kenney_nature_kit",
     directory: `${EXTRACTED}/kenney/nature-kit/Models/GLTF format`,
-    pattern: "^(tree|bush|plant|rock|log|stump|statue|bridge|pot|sign)_.*\\.glb$|^sign\\.glb$",
+    pattern: "\\.glb$",
   },
   {
     sourceId: "src_kenney_car_kit",
     directory: `${EXTRACTED}/kenney/car-kit/Models/GLB format`,
-    pattern:
-      "^(sedan|suv|van|truck|taxi|police|firetruck|ambulance|delivery|garbage|hatchback).*\\.glb$",
+    pattern: "\\.glb$",
   },
   {
     sourceId: "src_kaykit_city_builder_bits",
     directory: `${EXTRACTED}/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf`,
-    pattern:
-      "^(building_\\w+|watertower|dumpster|box_[AB]|bench|firehydrant|streetlight|trafficlight_A|bush|trash_A|base)\\.gltf$",
+    pattern: "\\.gltf$",
   },
   {
     sourceId: "src_quaternius_downtown_city_megakit",

@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "composerVersion": "vg-dressing-1",
+  "purpose": "V.g public-space dressing: vocabulario determinista de mobiliario cívico para espacios públicos REALES (plazas y parques). El planificador Blender lee las celdas del fixture (volcadas desde generateDistrict) y coloca módulos por rol y estrategia. Ninguna cifra geométrica vive aquí: el tamaño de celda sale del fixture, el anclaje y los bounds de cada módulo salen del catálogo medido (§6/§7). §22 del compositor prohíbe props de apoyo en el suelo DENTRO del solar; este manifest es la casa autorizada de esos mismos props, pero en el espacio público.",
+  "authority": {
+    "cells": "blender_artist/manifests/public-space-dressing-fixture.json (celdas reales de generateDistrict)",
+    "geometry": "blender_artist/manifests/building-modules.json (módulos medidos en Blender)",
+    "provenance": "cada module es un id del catálogo; un id inexistente o con role distinto al declarado falla al cargar, no a mitad de render"
+  },
+  "prng": {
+    "algorithm": "SplitMix64 (prng.py), entero puro de 64 bits — mismo motor que el Building Composer",
+    "stateDerivation": "seed ^ FNV-1a(publicSpaceId|kind), con seed = fixture.seed",
+    "why": "§13/§14: dos corridas del mismo seed y el mismo fixture dan el mismo dressing; random.del sistema no vale"
+  },
+  "cellMetersDefault": 4,
+  "strategies": {
+    "center": "una sola celda en el centroide del conjunto de celdas",
+    "perimeter": "celdas de borde (con al menos un vecino fuera del conjunto), muestreadas con stride everyCells",
+    "corners": "las 4 esquinas del bounding box de las celdas",
+    "inner_ring": "celdas a insetCells del borde, repartidas simétricamente",
+    "scatter": "celdas interiores elegidas por densidad con separación mínima minSpacingCells, sorteadas con el PRNG"
+  },
+  "kinds": {
+    "plaza": {
+      "label": "plaza cívica: monumento central, farolas de perímetro, bancos y jardineras",
+      "slots": [
+        {
+          "id": "plaza_monument",
+          "role": "monument",
+          "strategy": "center",
+          "pool": [
+            "mod_nature_civic_obelisk",
+            "mod_nature_civic_statue_column",
+            "mod_nature_civic_statue_block",
+            "mod_nature_civic_statue_ring",
+            "mod_nature_civic_statue_head"
+          ]
+        },
+        {
+          "id": "plaza_lamps",
+          "role": "street_lamp",
+          "strategy": "perimeter",
+          "params": { "everyCells": 3 },
+          "pool": [
+            "mod_roads_civic_lamp_curved",
+            "mod_roads_civic_lamp_square",
+            "mod_kaykit_civic_streetlight"
+          ]
+        },
+        {
+          "id": "plaza_benches",
+          "role": "bench",
+          "strategy": "inner_ring",
+          "params": { "insetCells": 1, "count": 4 },
+          "pool": ["mod_kaykit_civic_bench"]
+        },
+        {
+          "id": "plaza_planters",
+          "role": "planter",
+          "strategy": "corners",
+          "pool": [
+            "mod_nature_civic_urn_large",
+            "mod_nature_civic_urn_small",
+            "mod_megakit_civic_planter"
+          ]
+        },
+        {
+          "id": "plaza_bollards",
+          "role": "bollard",
+          "strategy": "perimeter",
+          "params": { "everyCells": 5 },
+          "pool": ["mod_megakit_civic_bollard"]
+        }
+      ]
+    },
+    "park": {
+      "label": "parque: arbolado disperso, arbustos, bancos y alguna farola",
+      "slots": [
+        {
+          "id": "park_trees",
+          "role": "tree",
+          "strategy": "scatter",
+          "params": { "density": 0.18, "minSpacingCells": 2 },
+          "pool": [
+            "mod_nature_tree_pine_tall",
+            "mod_nature_tree_oak",
+            "mod_nature_tree_cone",
+            "mod_nature_tree_detailed",
+            "mod_nature_tree_small"
+          ]
+        },
+        {
+          "id": "park_bushes",
+          "role": "foliage",
+          "strategy": "scatter",
+          "params": { "density": 0.06, "minSpacingCells": 2 },
+          "pool": ["mod_nature_bush", "mod_nature_bush_large"]
+        },
+        {
+          "id": "park_benches",
+          "role": "bench",
+          "strategy": "perimeter",
+          "params": { "everyCells": 6 },
+          "pool": ["mod_kaykit_civic_bench"]
+        },
+        {
+          "id": "park_lamps",
+          "role": "street_lamp",
+          "strategy": "perimeter",
+          "params": { "everyCells": 9 },
+          "pool": ["mod_roads_civic_lamp_curved", "mod_kaykit_civic_streetlight"]
+        }
+      ]
+    },
+    "pocket_park": {
+      "label": "bolsillo verde: pocos árboles, un banco",
+      "slots": [
+        {
+          "id": "pocket_trees",
+          "role": "tree",
+          "strategy": "scatter",
+          "params": { "density": 0.22, "minSpacingCells": 2 },
+          "pool": ["mod_nature_tree_small", "mod_nature_tree_cone"]
+        },
+        {
+          "id": "pocket_bushes",
+          "role": "foliage",
+          "strategy": "scatter",
+          "params": { "density": 0.1, "minSpacingCells": 1 },
+          "pool": ["mod_nature_bush"]
+        },
+        {
+          "id": "pocket_bench",
+          "role": "bench",
+          "strategy": "center",
+          "pool": ["mod_kaykit_civic_bench"]
+        }
+      ]
+    },
+    "civic_courtyard": {
+      "label": "patio cívico: jardineras y farolas, sin monumento",
+      "slots": [
+        {
+          "id": "courtyard_planters",
+          "role": "planter",
+          "strategy": "corners",
+          "pool": ["mod_nature_civic_urn_small", "mod_megakit_civic_planter"]
+        },
+        {
+          "id": "courtyard_lamps",
+          "role": "street_lamp",
+          "strategy": "perimeter",
+          "params": { "everyCells": 4 },
+          "pool": ["mod_roads_civic_lamp_square"]
+        }
+      ]
+    }
+  }
+}

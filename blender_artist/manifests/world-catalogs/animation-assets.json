@@ -1,0 +1,791 @@
+{
+  "schemaVersion": 1,
+  "generatedFrom": "blender_artist/manifests/world-asset-index.json",
+  "category": "animation",
+  "counts": {
+    "total": 26,
+    "runtimeReady": 0
+  },
+  "assets": [
+    {
+      "assetId": "wa_microsoft_rocketbox_m_idle_neutral_02_max",
+      "sourceId": "src_microsoft_rocketbox",
+      "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_neutral_02.max.fbx",
+      "license": "MIT",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_microsoft_rocketbox_m_idle_breathe_01_max",
+      "sourceId": "src_microsoft_rocketbox",
+      "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_breathe_01.max.fbx",
+      "license": "MIT",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_microsoft_rocketbox_m_idle_breathe_02_max",
+      "sourceId": "src_microsoft_rocketbox",
+      "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_breathe_02.max.fbx",
+      "license": "MIT",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_microsoft_rocketbox_m_idle_neutral_01_max",
+      "sourceId": "src_microsoft_rocketbox",
+      "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_neutral_01.max.fbx",
+      "license": "MIT",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_microsoft_rocketbox_f_idle_breathe_01_max",
+      "sourceId": "src_microsoft_rocketbox",
+      "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/f_idle_breathe_01.max.fbx",
+      "license": "MIT",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_microsoft_rocketbox_f_idle_breathe_02_max",
+      "sourceId": "src_microsoft_rocketbox",
+      "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/f_idle_breathe_02.max.fbx",
+      "license": "MIT",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_microsoft_rocketbox_f_walk_neutral_02_max",
+      "sourceId": "src_microsoft_rocketbox",
+      "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/f_walk_neutral_02.max.fbx",
+      "license": "MIT",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_microsoft_rocketbox_f_walk_neutral_03_max",
+      "sourceId": "src_microsoft_rocketbox",
+      "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/f_walk_neutral_03.max.fbx",
+      "license": "MIT",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_microsoft_rocketbox_f_walk_neutral_04_max",
+      "sourceId": "src_microsoft_rocketbox",
+      "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/f_walk_neutral_04.max.fbx",
+      "license": "MIT",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_microsoft_rocketbox_m_walk_neutral_02_max",
+      "sourceId": "src_microsoft_rocketbox",
+      "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_02.max.fbx",
+      "license": "MIT",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_microsoft_rocketbox_f_walk_neutral_01_max",
+      "sourceId": "src_microsoft_rocketbox",
+      "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/f_walk_neutral_01.max.fbx",
+      "license": "MIT",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_microsoft_rocketbox_f_walk_neutral_max",
+      "sourceId": "src_microsoft_rocketbox",
+      "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/f_walk_neutral.max.fbx",
+      "license": "MIT",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_microsoft_rocketbox_m_walk_neutral_03_max",
+      "sourceId": "src_microsoft_rocketbox",
+      "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_03.max.fbx",
+      "license": "MIT",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_microsoft_rocketbox_m_walk_neutral_01_max",
+      "sourceId": "src_microsoft_rocketbox",
+      "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_01.max.fbx",
+      "license": "MIT",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_microsoft_rocketbox_m_walk_neutral_max",
+      "sourceId": "src_microsoft_rocketbox",
+      "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral.max.fbx",
+      "license": "MIT",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_quaternius_animation_library_ual1_standard",
+      "sourceId": "src_quaternius_animation_library",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library/Universal Animation Library[Standard]/Unity/UAL1_Standard.fbx",
+      "license": "CC0-1.0",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_quaternius_animation_library_ual1_standard_rm",
+      "sourceId": "src_quaternius_animation_library",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library/Universal Animation Library[Standard]/Unity/UAL1_Standard_RM.fbx",
+      "license": "CC0-1.0",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_quaternius_animation_library_ual1_standard_1",
+      "sourceId": "src_quaternius_animation_library",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library/Universal Animation Library[Standard]/Unreal-Godot/UAL1_Standard.glb",
+      "license": "CC0-1.0",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_quaternius_animation_library_ual1_standard_rm_1",
+      "sourceId": "src_quaternius_animation_library",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library/Universal Animation Library[Standard]/Unreal-Godot/UAL1_Standard_RM.glb",
+      "license": "CC0-1.0",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_quaternius_animation_library_2_mannequin_f",
+      "sourceId": "src_quaternius_animation_library_2",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library-2/Universal Animation Library 2[Standard]/Female Mannequin/Mannequin_F.blend",
+      "license": "CC0-1.0",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_quaternius_animation_library_2_mannequin_f_1",
+      "sourceId": "src_quaternius_animation_library_2",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library-2/Universal Animation Library 2[Standard]/Female Mannequin/Unity/Mannequin_F.fbx",
+      "license": "CC0-1.0",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_quaternius_animation_library_2_mannequin_f_2",
+      "sourceId": "src_quaternius_animation_library_2",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library-2/Universal Animation Library 2[Standard]/Female Mannequin/Unreal-Godot/Mannequin_F.glb",
+      "license": "CC0-1.0",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_quaternius_animation_library_2_ual2_standard",
+      "sourceId": "src_quaternius_animation_library_2",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library-2/Universal Animation Library 2[Standard]/Unity/UAL2_Standard.fbx",
+      "license": "CC0-1.0",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_quaternius_animation_library_2_ual2_standard_rm",
+      "sourceId": "src_quaternius_animation_library_2",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library-2/Universal Animation Library 2[Standard]/Unity/UAL2_Standard_RM.fbx",
+      "license": "CC0-1.0",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_quaternius_animation_library_2_ual2_standard_1",
+      "sourceId": "src_quaternius_animation_library_2",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library-2/Universal Animation Library 2[Standard]/Unreal-Godot/UAL2_Standard.glb",
+      "license": "CC0-1.0",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_quaternius_animation_library_2_ual2_standard_rm_1",
+      "sourceId": "src_quaternius_animation_library_2",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library-2/Universal Animation Library 2[Standard]/Unreal-Godot/UAL2_Standard_RM.glb",
+      "license": "CC0-1.0",
+      "category": "animation",
+      "semanticRoles": [
+        "animation_clip"
+      ],
+      "contexts": [
+        "actor"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "actor"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0
+      ],
+      "animationSupport": true,
+      "runtimeReady": false,
+      "state": "classified"
+    }
+  ]
+}

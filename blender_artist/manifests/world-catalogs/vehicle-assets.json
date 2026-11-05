@@ -1,0 +1,5896 @@
+{
+  "schemaVersion": 1,
+  "generatedFrom": "blender_artist/manifests/world-asset-index.json",
+  "category": "vehicle",
+  "counts": {
+    "total": 150,
+    "runtimeReady": 0
+  },
+  "assets": [
+    {
+      "assetId": "wa_kenney_car_kit_suv_luxury_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/suv-luxury.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_delivery_flat_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/delivery-flat.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_ambulance_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/ambulance.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "emergency_vehicle",
+        "ambulance"
+      ],
+      "contexts": [
+        "clinic",
+        "road",
+        "service_parking"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "clinic",
+        "road",
+        "service_parking"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_bolt_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/debris-bolt.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_bumper_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/debris-bumper.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_kart_oobi_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/kart-oobi.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_tractor_back_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/wheel-tractor-back.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_sedan_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/sedan.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_kart_oodi_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/kart-oodi.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_drivetrain_axle_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/debris-drivetrain-axle.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_tractor_dark_back_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/wheel-tractor-dark-back.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_spoiler_a_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/debris-spoiler-a.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_hatchback_sports_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/hatchback-sports.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_cone_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/cone.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_truck_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/wheel-truck.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_kart_oopi_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/kart-oopi.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_door_window_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/debris-door-window.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_tractor_shovel_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/tractor-shovel.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_plate_small_a_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/debris-plate-small-a.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_tractor_dark_front_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/wheel-tractor-dark-front.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_plate_b_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/debris-plate-b.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_tractor_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/tractor.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_plate_small_b_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/debris-plate-small-b.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_suv_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/suv.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_default_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/wheel-default.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_nut_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/debris-nut.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_tractor_police_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/tractor-police.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "police_car"
+      ],
+      "contexts": [
+        "police_station",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "police_station",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_kart_oozi_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/kart-oozi.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_garbage_truck_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/garbage-truck.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_sedan_sports_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/sedan-sports.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_box_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/box.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_delivery_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/delivery.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_race_future_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/race-future.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_race_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/race.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_drivetrain_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/debris-drivetrain.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_tire_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/debris-tire.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_taxi_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/taxi.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "taxi"
+      ],
+      "contexts": [
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_plate_a_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/debris-plate-a.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_truck_flat_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/truck-flat.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_cone_flat_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/cone-flat.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_spoiler_b_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/debris-spoiler-b.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_kart_ooli_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/kart-ooli.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_truck_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/truck.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_van_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/van.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_door_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/debris-door.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_racing_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/wheel-racing.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_tractor_front_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/wheel-tractor-front.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_firetruck_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/firetruck.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "emergency_vehicle",
+        "fire_truck"
+      ],
+      "contexts": [
+        "fire_station",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "fire_station",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_police_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/police.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "police_car"
+      ],
+      "contexts": [
+        "police_station",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "police_station",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_dark_1",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/OBJ format/wheel-dark.obj",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_tractor_dark_back_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/wheel-tractor-dark-back.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": {
+        "width": 0.6989,
+        "depth": 1.1377,
+        "height": 1.1377
+      },
+      "triangleCount": 428,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_police_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/police.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "police_car"
+      ],
+      "contexts": [
+        "police_station",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.95,
+        "depth": 4.03,
+        "height": 1.69
+      },
+      "triangleCount": 2304,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "police_station",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_truck_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/truck.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.95,
+        "depth": 3.835,
+        "height": 1.69
+      },
+      "triangleCount": 2082,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_dark_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/wheel-dark.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 0.52,
+        "depth": 0.78,
+        "height": 0.78
+      },
+      "triangleCount": 332,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_door_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/debris-door.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 0.2444,
+        "depth": 1.04,
+        "height": 1.17
+      },
+      "triangleCount": 68,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_firetruck_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/firetruck.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "emergency_vehicle",
+        "fire_truck"
+      ],
+      "contexts": [
+        "fire_station",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.95,
+        "depth": 4.42,
+        "height": 2.21
+      },
+      "triangleCount": 2767,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "fire_station",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_racing_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/wheel-racing.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 0.52,
+        "depth": 0.78,
+        "height": 0.78
+      },
+      "triangleCount": 332,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_tractor_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/tractor.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": {
+        "width": 1.7447,
+        "depth": 2.862,
+        "height": 2.0827
+      },
+      "triangleCount": 2044,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_hatchback_sports_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/hatchback-sports.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.69,
+        "depth": 3.705,
+        "height": 1.43
+      },
+      "triangleCount": 2088,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_sedan_sports_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/sedan-sports.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.69,
+        "depth": 3.315,
+        "height": 1.43
+      },
+      "triangleCount": 2088,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_spoiler_b_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/debris-spoiler-b.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.3,
+        "depth": 0.4386,
+        "height": 0.455
+      },
+      "triangleCount": 88,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_delivery_flat_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/delivery-flat.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.95,
+        "depth": 4.225,
+        "height": 1.755
+      },
+      "triangleCount": 2574,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_tractor_dark_front_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/wheel-tractor-dark-front.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": {
+        "width": 0.4801,
+        "depth": 0.7001,
+        "height": 0.7001
+      },
+      "triangleCount": 332,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_tire_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/debris-tire.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 0.455,
+        "depth": 0.78,
+        "height": 0.78
+      },
+      "triangleCount": 288,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_van_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/van.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.95,
+        "depth": 3.575,
+        "height": 1.755
+      },
+      "triangleCount": 2082,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_tractor_police_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/tractor-police.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "police_car"
+      ],
+      "contexts": [
+        "police_station",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.7447,
+        "depth": 2.992,
+        "height": 2.2127
+      },
+      "triangleCount": 2278,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "police_station",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_default_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/wheel-default.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 0.52,
+        "depth": 0.78,
+        "height": 0.78
+      },
+      "triangleCount": 332,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_kart_oodi_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/kart-oodi.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.2666,
+        "depth": 1.8561,
+        "height": 1.7279
+      },
+      "triangleCount": 2726,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_kart_oopi_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/kart-oopi.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.2666,
+        "depth": 1.8561,
+        "height": 1.7279
+      },
+      "triangleCount": 2726,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_kart_oobi_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/kart-oobi.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.2666,
+        "depth": 1.8561,
+        "height": 1.7279
+      },
+      "triangleCount": 2884,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_suv_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/suv.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.95,
+        "depth": 3.51,
+        "height": 1.69
+      },
+      "triangleCount": 2474,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_sedan_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/sedan.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.95,
+        "depth": 3.315,
+        "height": 1.69
+      },
+      "triangleCount": 2032,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_plate_a_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/debris-plate-a.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.17,
+        "depth": 1.17,
+        "height": 0.13
+      },
+      "triangleCount": 40,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_spoiler_a_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/debris-spoiler-a.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.43,
+        "depth": 0.3086,
+        "height": 0.39
+      },
+      "triangleCount": 48,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_cone_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/cone.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 0.6191,
+        "depth": 0.6191,
+        "height": 0.7738
+      },
+      "triangleCount": 172,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_race_future_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/race-future.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.56,
+        "depth": 3.4577,
+        "height": 1.0823
+      },
+      "triangleCount": 2068,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_truck_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/wheel-truck.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 0.455,
+        "depth": 0.78,
+        "height": 0.78
+      },
+      "triangleCount": 428,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_race_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/race.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.69,
+        "depth": 3.3277,
+        "height": 0.9523
+      },
+      "triangleCount": 1952,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_drivetrain_axle_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/debris-drivetrain-axle.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.5654,
+        "depth": 0.4524,
+        "height": 0.3848
+      },
+      "triangleCount": 200,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_bumper_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/debris-bumper.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.69,
+        "depth": 0.585,
+        "height": 0.52
+      },
+      "triangleCount": 116,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_kart_oozi_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/kart-oozi.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.2666,
+        "depth": 1.8561,
+        "height": 1.7279
+      },
+      "triangleCount": 2726,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_cone_flat_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/cone-flat.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 0.6191,
+        "depth": 0.6191,
+        "height": 0.3652
+      },
+      "triangleCount": 172,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_drivetrain_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/debris-drivetrain.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.5654,
+        "depth": 2.496,
+        "height": 0.3848
+      },
+      "triangleCount": 412,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_bolt_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/debris-bolt.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 0.2252,
+        "depth": 0.26,
+        "height": 0.338
+      },
+      "triangleCount": 36,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_plate_small_a_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/debris-plate-small-a.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 0.585,
+        "depth": 0.585,
+        "height": 0.13
+      },
+      "triangleCount": 28,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_truck_flat_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/truck-flat.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.95,
+        "depth": 3.5686,
+        "height": 1.69
+      },
+      "triangleCount": 2488,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_nut_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/debris-nut.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 0.2252,
+        "depth": 0.26,
+        "height": 0.13
+      },
+      "triangleCount": 40,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_plate_b_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/debris-plate-b.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.17,
+        "depth": 1.17,
+        "height": 0.26
+      },
+      "triangleCount": 44,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_tractor_front_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/wheel-tractor-front.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": {
+        "width": 0.4801,
+        "depth": 0.7001,
+        "height": 0.7001
+      },
+      "triangleCount": 332,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_box_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/box.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 0.9295,
+        "depth": 0.9295,
+        "height": 0.9295
+      },
+      "triangleCount": 124,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_tractor_shovel_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/tractor-shovel.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": {
+        "width": 2.1587,
+        "depth": 3.2111,
+        "height": 1.9656
+      },
+      "triangleCount": 2646,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_tractor_back_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/wheel-tractor-back.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": {
+        "width": 0.6989,
+        "depth": 1.1377,
+        "height": 1.1377
+      },
+      "triangleCount": 428,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_garbage_truck_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/garbage-truck.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 2.08,
+        "depth": 4.485,
+        "height": 2.08
+      },
+      "triangleCount": 3124,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_ambulance_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/ambulance.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "emergency_vehicle",
+        "ambulance"
+      ],
+      "contexts": [
+        "clinic",
+        "road",
+        "service_parking"
+      ],
+      "dimensions": {
+        "width": 1.95,
+        "depth": 4.225,
+        "height": 2.34
+      },
+      "triangleCount": 2804,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "clinic",
+        "road",
+        "service_parking"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_suv_luxury_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/suv-luxury.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.95,
+        "depth": 3.705,
+        "height": 1.69
+      },
+      "triangleCount": 2086,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_delivery_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/delivery.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.95,
+        "depth": 4.225,
+        "height": 2.145
+      },
+      "triangleCount": 2476,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_kart_ooli_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/kart-ooli.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.2666,
+        "depth": 1.8561,
+        "height": 1.7279
+      },
+      "triangleCount": 2706,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_plate_small_b_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/debris-plate-small-b.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 0.585,
+        "depth": 0.585,
+        "height": 0.26
+      },
+      "triangleCount": 44,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_door_window_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/debris-door-window.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 0.2444,
+        "depth": 1.04,
+        "height": 1.17
+      },
+      "triangleCount": 74,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_taxi_2",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/taxi.glb",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "taxi"
+      ],
+      "contexts": [
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": {
+        "width": 1.95,
+        "depth": 3.575,
+        "height": 1.95
+      },
+      "triangleCount": 2072,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "measured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_garbage_truck_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/garbage-truck.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_tractor_dark_back_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/wheel-tractor-dark-back.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_kart_oozi_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/kart-oozi.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_plate_small_b_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/debris-plate-small-b.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_plate_b_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/debris-plate-b.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_hatchback_sports_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/hatchback-sports.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_tractor_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/tractor.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_delivery_flat_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/delivery-flat.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_tractor_back_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/wheel-tractor-back.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_kart_ooli_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/kart-ooli.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_box_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/box.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_spoiler_a_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/debris-spoiler-a.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_door_window_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/debris-door-window.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_van_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/van.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_drivetrain_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/debris-drivetrain.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_firetruck_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/firetruck.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "emergency_vehicle",
+        "fire_truck"
+      ],
+      "contexts": [
+        "fire_station",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "fire_station",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_race_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/race.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_nut_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/debris-nut.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_drivetrain_axle_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/debris-drivetrain-axle.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_tractor_front_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/wheel-tractor-front.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_bumper_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/debris-bumper.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_truck_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/wheel-truck.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_tractor_police_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/tractor-police.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "police_car"
+      ],
+      "contexts": [
+        "police_station",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "police_station",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_plate_small_a_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/debris-plate-small-a.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_plate_a_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/debris-plate-a.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_ambulance_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/ambulance.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "emergency_vehicle",
+        "ambulance"
+      ],
+      "contexts": [
+        "clinic",
+        "road",
+        "service_parking"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "clinic",
+        "road",
+        "service_parking"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_door_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/debris-door.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_race_future_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/race-future.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_suv_luxury_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/suv-luxury.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_cone_flat_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/cone-flat.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_sedan_sports_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/sedan-sports.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_tire_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/debris-tire.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_racing_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/wheel-racing.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_tractor_shovel_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/tractor-shovel.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_tractor_dark_front_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/wheel-tractor-dark-front.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "construction",
+        "industrial"
+      ],
+      "contexts": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "construction_site",
+        "industrial_logistics"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_truck_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/truck.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_default_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/wheel-default.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_bolt_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/debris-bolt.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_wheel_dark_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/wheel-dark.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_truck_flat_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/truck-flat.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_taxi_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/taxi.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "taxi"
+      ],
+      "contexts": [
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_kart_oopi_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/kart-oopi.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_police_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/police.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "police_car"
+      ],
+      "contexts": [
+        "police_station",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "police_station",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_sedan_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/sedan.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_kart_oobi_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/kart-oobi.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_suv_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/suv.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_cone_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/cone.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_debris_spoiler_b_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/debris-spoiler-b.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_delivery_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/delivery.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "freight",
+        "delivery"
+      ],
+      "contexts": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "industrial_logistics",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    },
+    {
+      "assetId": "wa_kenney_car_kit_kart_oodi_3",
+      "sourceId": "src_kenney_car_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/FBX format/kart-oodi.fbx",
+      "license": "CC0-1.0",
+      "category": "vehicle",
+      "semanticRoles": [
+        "vehicle",
+        "civilian"
+      ],
+      "contexts": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "dimensions": null,
+      "triangleCount": null,
+      "modularity": "whole_asset",
+      "styleCompatibility": [
+        "graphic_civic"
+      ],
+      "recommendedUses": [
+        "residential",
+        "commercial_corridor",
+        "road"
+      ],
+      "runtimeLayer": "none",
+      "qualityTier": "unmeasured",
+      "orientationSupport": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "animationSupport": false,
+      "runtimeReady": false,
+      "state": "classified"
+    }
+  ]
+}

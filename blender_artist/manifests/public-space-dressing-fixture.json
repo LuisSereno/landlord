@@ -1,11 +1,12 @@
 {
-  "schemaVersion": 1,
-  "purpose": "V.g public-space dressing: celdas REALES de plazas y parques volcadas desde generateDistrict. El planificador Blender lee este fixture; no inventa geometría de espacio público.",
+  "schemaVersion": 2,
+  "purpose": "V.g public-space dressing: celdas REALES de plazas y parques volcadas desde la ciudad multidistrito (createInitialState). Ids globalmente únicos por districtId. El planificador Blender lee este fixture; no inventa geometría de espacio público.",
   "cellMeters": 4,
   "seed": 2026,
   "districts": [
     {
       "profileId": "centro_civico",
+      "districtId": "district_00000005",
       "role": "civic",
       "townHallParcelCells": [
         {
@@ -673,6 +674,10 @@
           "y": 38
         },
         {
+          "x": 28,
+          "y": 38
+        },
+        {
           "x": 29,
           "y": 38
         },
@@ -706,6 +711,10 @@
         },
         {
           "x": 27,
+          "y": 39
+        },
+        {
+          "x": 28,
           "y": 39
         },
         {
@@ -801,9 +810,140 @@
           "y": 41
         }
       ],
+      "townHallFootprintCells": [
+        {
+          "x": 23,
+          "y": 23
+        },
+        {
+          "x": 24,
+          "y": 23
+        },
+        {
+          "x": 25,
+          "y": 23
+        },
+        {
+          "x": 26,
+          "y": 23
+        },
+        {
+          "x": 27,
+          "y": 23
+        },
+        {
+          "x": 28,
+          "y": 23
+        },
+        {
+          "x": 29,
+          "y": 23
+        },
+        {
+          "x": 30,
+          "y": 23
+        },
+        {
+          "x": 23,
+          "y": 24
+        },
+        {
+          "x": 24,
+          "y": 24
+        },
+        {
+          "x": 25,
+          "y": 24
+        },
+        {
+          "x": 26,
+          "y": 24
+        },
+        {
+          "x": 27,
+          "y": 24
+        },
+        {
+          "x": 28,
+          "y": 24
+        },
+        {
+          "x": 29,
+          "y": 24
+        },
+        {
+          "x": 30,
+          "y": 24
+        },
+        {
+          "x": 23,
+          "y": 25
+        },
+        {
+          "x": 24,
+          "y": 25
+        },
+        {
+          "x": 25,
+          "y": 25
+        },
+        {
+          "x": 26,
+          "y": 25
+        },
+        {
+          "x": 27,
+          "y": 25
+        },
+        {
+          "x": 28,
+          "y": 25
+        },
+        {
+          "x": 29,
+          "y": 25
+        },
+        {
+          "x": 30,
+          "y": 25
+        },
+        {
+          "x": 23,
+          "y": 26
+        },
+        {
+          "x": 24,
+          "y": 26
+        },
+        {
+          "x": 25,
+          "y": 26
+        },
+        {
+          "x": 26,
+          "y": 26
+        },
+        {
+          "x": 27,
+          "y": 26
+        },
+        {
+          "x": 28,
+          "y": 26
+        },
+        {
+          "x": 29,
+          "y": 26
+        },
+        {
+          "x": 30,
+          "y": 26
+        }
+      ],
+      "townHallPlazaId": "publicspace_00000501",
       "publicSpaces": [
         {
-          "id": "publicspace_00000101",
+          "id": "publicspace_00000501",
           "kind": "plaza",
           "blockId": null,
           "cells": [
@@ -1024,6 +1164,14 @@
               "y": 38
             },
             {
+              "x": 33,
+              "y": 39
+            },
+            {
+              "x": 34,
+              "y": 39
+            },
+            {
               "x": 35,
               "y": 39
             },
@@ -1053,6 +1201,10 @@
             },
             {
               "x": 33,
+              "y": 40
+            },
+            {
+              "x": 34,
               "y": 40
             },
             {
@@ -1125,11 +1277,14 @@
     },
     {
       "profileId": "barrio_del_umbral",
+      "districtId": "district_00000004",
       "role": "residential",
       "townHallParcelCells": [],
+      "townHallFootprintCells": [],
+      "townHallPlazaId": null,
       "publicSpaces": [
         {
-          "id": "publicspace_00000101",
+          "id": "publicspace_00000401",
           "kind": "park",
           "blockId": null,
           "cells": [

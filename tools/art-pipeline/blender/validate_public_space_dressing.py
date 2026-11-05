@@ -36,13 +36,14 @@ def validate(manifest_path):
 
     errors = []
 
-    # Celdas reales por espacio público y parcela del town_hall por distrito. La id de espacio
-    # público se reinicia por distrito, así que la clave es (profileId, publicSpaceId).
+    # Celdas reales por espacio público y huella del town_hall por distrito. La id de espacio
+    # público es globalmente única (deriva del districtId), pero se mantiene la clave compuesta por
+    # claridad. Se usa la huella REAL del edificio (townHallFootprintCells), no el solar completo.
     cells_by_space = {}
     town_hall_cells = set()
     for district in fixture["districts"]:
-        for parcel_cell in district.get("townHallParcelCells", []):
-            town_hall_cells.add((parcel_cell["x"], parcel_cell["y"]))
+        for footprint_cell in district.get("townHallFootprintCells", []):
+            town_hall_cells.add((footprint_cell["x"], footprint_cell["y"]))
         for space in district["publicSpaces"]:
             cells_by_space[(district["profileId"], space["id"])] = {
                 (c["x"], c["y"]) for c in space["cells"]

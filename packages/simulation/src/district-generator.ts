@@ -1058,6 +1058,29 @@ function attemptComposition(input: {
     municipalBuildings.push(building);
     facilities.push(facility);
   }
+  // V.g civic-core: enlazar el ayuntamiento con la plaza principal reservada por el programa
+  // municipal. El contrato es `UrbanFacility.publicSpaceIds` (no se crea entidad nueva). Se elige
+  // la plaza más cercana en celdas al huella del edificio; el desempate por id mantiene el orden
+  // determinista (§13), así que dos corridas con el mismo seed enlazan la misma plaza.
+  const plazas = publicSpaces.filter((space) => space.kind === "plaza");
+  if (plazas.length > 0) {
+    const buildingById = new Map(municipalBuildings.map((building) => [building.id, building]));
+    for (const facility of facilities) {
+      if (facility.kind !== "town_hall") continue;
+      const building = buildingById.get(facility.buildingIds[0]);
+      if (!building) continue;
+      let best: PublicSpace | null = null;
+      let bestDistance = Number.POSITIVE_INFINITY;
+      for (const plaza of plazas) {
+        const distance = minManhattanDistance(building.footprintCells, plaza.cells);
+        if (distance < bestDistance || (distance === bestDistance && best && plaza.id < best.id)) {
+          best = plaza;
+          bestDistance = distance;
+        }
+      }
+      if (best) facility.publicSpaceIds = [best.id];
+    }
+  }
   if (facilities.length !== program.filter((entry) => entry.kind === "facility").length) {
     issues.push({
       code: "FACILITY_SITE_INVALID",
@@ -1219,4 +1242,19 @@ export function hasRoadAccess(
       roadCells.has(cellKey({ x: cell.x + offset.x, y: cell.y + offset.y })),
     ),
   );
+}
+
+/** Distancia Manhattan mínima entre dos conjuntos de celdas. Determinista: no depende del orden. */
+function minManhattanDistance(
+  left: readonly { x: number; y: number }[],
+  right: readonly { x: number; y: number }[],
+): number {
+  let best = Number.POSITIVE_INFINITY;
+  for (const a of left) {
+    for (const b of right) {
+      const distance = Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+      if (distance < best) best = distance;
+    }
+  }
+  return best;
 }

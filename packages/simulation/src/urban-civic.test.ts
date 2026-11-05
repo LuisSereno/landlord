@@ -150,6 +150,39 @@ describe("V.d.3 programa municipal", () => {
     }
   });
 
+  it("V.g civic-core: enlaza el town_hall con la plaza y conserva la relación en save/load y projection", () => {
+    for (const seed of [1, 7, 42, 1337, 2024]) {
+      const state = createInitialState(seed);
+      const centro = [...state.world.districts.values()].find(
+        (district) => district.district.name === "Centro Cívico",
+      )!;
+      const townHall = [...centro.facilities.values()].find((f) => f.kind === "town_hall")!;
+      expect(townHall.publicSpaceIds.length, `seed ${seed}: town_hall sin plaza`).toBeGreaterThan(0);
+
+      const plazaId = townHall.publicSpaceIds[0]!;
+      const plaza = centro.publicSpaces.get(plazaId)!;
+      expect(plaza, `seed ${seed}: plaza enlazada inexistente`).toBeTruthy();
+      expect(plaza.kind).toBe("plaza");
+      expect(plaza.districtId).toBe(townHall.districtId);
+
+      // save/load conserva la asociación.
+      const restored = restoreStateFromSnapshot(serializeSnapshot(state));
+      const centroRestored = [...restored.world.districts.values()].find(
+        (district) => district.district.name === "Centro Cívico",
+      )!;
+      const townHallRestored = [...centroRestored.facilities.values()].find(
+        (f) => f.kind === "town_hall",
+      )!;
+      expect(townHallRestored.publicSpaceIds).toContain(plazaId);
+
+      // projection conserva la asociación.
+      const projection = createViewProjection(state, false, centro.district.id);
+      const projectedFacility = projection.facilities.find((f) => f.kind === "town_hall")!;
+      expect(projectedFacility.publicSpaceIds).toContain(plazaId);
+      expect(projection.publicSpaces.map((space) => space.id)).toContain(plazaId);
+    }
+  });
+
   it("blocks transfer, collateral, permits and company construction on public land", () => {
     const state = createInitialState(7);
     state.phase2.balances.set(organization, 1_000_000 as never);

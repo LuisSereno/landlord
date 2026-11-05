@@ -452,6 +452,23 @@ def test_18_required_facade_is_mirror_symmetric_around_access():
     return True, "10/10 seeds con TODOS los facade features especulares respecto al acceso"
 
 
+def test_19_hero_recipe_has_no_isolated_secondary():
+    """V.g P2: la recipe hero `grand_neoclassical_hall` declara secondaryIds=["none"].
+
+    El seed 1008 solía sacar `facade_pilasters` como volumen decorativo suelto delante del ala
+    derecha. La receta autoritativa del landmark no admite ese secundario aleatorio: todos sus
+    seeds deben resolver secondary_volume == "none". No se toca ninguna otra recipe.
+    """
+    for seed in SEEDS_TEN:
+        result = town_hall_result(seed)
+        if result["axisChoices"]["recipe"] != "grand_neoclassical_hall":
+            continue
+        secondary = result["axisChoices"]["secondary_volume"]
+        if secondary != "none":
+            return False, f"seed {seed}: hero con secondary={secondary!r}, esperaba 'none'"
+    return True, "todas las hero seeds con secondary_volume == none"
+
+
 def main():
     tests = [
         ("test_01a_grammar_load_all_types", test_01a_grammar_load_all_types),
@@ -473,6 +490,7 @@ def main():
         ("test_16_determinism_same_seed_same_recipe_and_signature", test_16_determinism_same_seed_same_recipe_and_signature),
         ("test_17_town_hall_ten_seed_true_pass", test_17_town_hall_ten_seed_true_pass),
         ("test_18_required_facade_is_mirror_symmetric_around_access", test_18_required_facade_is_mirror_symmetric_around_access),
+        ("test_19_hero_recipe_has_no_isolated_secondary", test_19_hero_recipe_has_no_isolated_secondary),
     ]
     failures = []
     for name, fn in tests:

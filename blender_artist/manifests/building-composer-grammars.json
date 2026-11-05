@@ -1079,6 +1079,7 @@
             "warm_limestone"
           ],
           "propIds": [],
+          "secondaryIds": ["none"],
           "requiredFeatures": [
             {
               "kind": "facade",
@@ -1721,6 +1722,15 @@
         }
       ],
       "secondaryOptions": [
+        {
+          "id": "none",
+          "label": "sin volumen secundario",
+          "role": null,
+          "module": null,
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
         {
           "id": "honour_plinth",
           "label": "zócalo de honor en el patio central",

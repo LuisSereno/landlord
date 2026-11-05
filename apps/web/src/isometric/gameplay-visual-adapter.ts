@@ -1,5 +1,10 @@
 import type { GridCell, ViewProjectionV2 } from "@landlord/shared";
 import type { GroundPlan, GroundRoadMarking, GroundSurface } from "../visual-slice/ground";
+import {
+  buildingContextProps,
+  districtVisualProfileFor,
+  type DistrictVisualProfile,
+} from "./district-visual-profiles";
 
 /**
  * Frontera de presentación del gameplay (WP4.15-V.c.1). Convierte `ViewProjectionV2` en el modelo
@@ -746,12 +751,18 @@ export function planGameplayAmbientActors(
   roadCellKeys: ReadonlySet<string>,
   mapWidth: number,
   mapHeight: number,
+  profile?: DistrictVisualProfile,
 ): GameplayAmbientActor[] {
   const out: GameplayAmbientActor[] = [];
   for (const space of publicSpaces) {
     if (space.cells.length === 0) continue;
     const anchor = space.cells[0]!;
-    const budget = Math.min(4, Math.max(1, Math.floor(space.cells.length / 12)));
+    // Budget de peatones modulado por el perfil del distrito (§11): cívico/comercial con más
+    // actividad, industrial/logístico con menos. Acotado para no saturar (§18/§20).
+    const baseBudget = Math.min(4, Math.max(1, Math.floor(space.cells.length / 12)));
+    const budget = profile
+      ? Math.min(6, Math.max(0, Math.round(baseBudget * profile.density.pedestrians)))
+      : baseBudget;
     const used = new Set<string>();
     for (let i = 0; i < budget; i += 1) {
       const candidates = space.cells.filter(
@@ -1206,6 +1217,7 @@ export function planGameplayParcelDressing(
   roadCellKeys: ReadonlySet<string>,
   mapWidth: number,
   mapHeight: number,
+  profile?: DistrictVisualProfile,
 ): GameplayParcelDressing[] {
   const buildingById = new Map(buildings.map((b) => [b.id, b]));
   const out: GameplayParcelDressing[] = [];
@@ -1221,9 +1233,22 @@ export function planGameplayParcelDressing(
       (cell) => !footprint.has(cellKey(cell)) && !roadCellKeys.has(cellKey(cell)),
     );
     if (free.length === 0) continue;
-    // Budget de props por parcela: escala con el tamaño pero acotado (no saturar).
-    const budget = Math.min(3, Math.max(1, Math.floor(free.length / 6)));
-    const props = LOT_PROPS[lotType];
+    // Budget de props por parcela: escala con el tamaño, modulado por el perfil visual del
+    // distrito (§11) y acotado para no saturar (§18/§20).
+    const baseBudget = Math.min(3, Math.max(1, Math.floor(free.length / 6)));
+    const budget = profile
+      ? Math.min(4, Math.max(1, Math.round(baseBudget * profile.density.props)))
+      : baseBudget;
+    // Pool efectivo: pesos del tipo de solar sesgados por el perfil del distrito (favored/avoided)
+    // y por el contexto del edificio (§12). Pesos enteros para un roll determinista.
+    const context = buildingContextProps(building?.type);
+    const pool = LOT_PROPS[lotType].map((entry) => {
+      let weight = entry.weight;
+      if (profile?.favored.includes(entry.asset)) weight *= 2;
+      if (profile?.avoided.includes(entry.asset)) weight *= 0.25;
+      if (context.includes(entry.asset)) weight *= 2;
+      return { ...entry, weight: Math.max(1, Math.round(weight)) };
+    });
     const used = new Set<string>();
     for (let i = 0; i < budget; i += 1) {
       const salt = 0x5001 + i * 0x97;
@@ -1235,10 +1260,10 @@ export function planGameplayParcelDressing(
       // Refina con hash espacial para que la celda varíe por coordenada, no sólo por índice.
       const cell = candidates[spatialHash(pick.x, pick.y, salt) % candidates.length] ?? pick;
       used.add(cellKey(cell));
-      const totalWeight = props.reduce((sum, p) => sum + p.weight, 0);
+      const totalWeight = pool.reduce((sum, p) => sum + p.weight, 0);
       let roll = spatialHash(cell.x, cell.y, salt + 0x11) % totalWeight;
-      let chosen = props[0]!;
-      for (const prop of props) {
+      let chosen = pool[0]!;
+      for (const prop of pool) {
         if (roll < prop.weight) {
           chosen = prop;
           break;
@@ -1596,11 +1621,18 @@ export function buildGameplayVisualModel(
     mapHeight,
   );
   const reservedVehicleRoads = new Set(contextVehicles.map((vehicle) => cellKey(vehicle.roadCell)));
+  // V.h.8: perfil visual del distrito observado (§11) modula densidad y vocabulario del dressing.
+  const districtProfile = districtVisualProfileFor(
+    (projection.city?.districts ?? []).find(
+      (district) => district.id === projection.observedDistrictId,
+    )?.role,
+  );
   const ambientActors = planGameplayAmbientActors(
     projection.publicSpaces ?? [],
     roadCellKeys,
     mapWidth,
     mapHeight,
+    districtProfile,
   );
   const parkedVehicles = planGameplayParkedVehicles(
     roadVisuals,
@@ -1632,6 +1664,7 @@ export function buildGameplayVisualModel(
     roadCellKeys,
     mapWidth,
     mapHeight,
+    districtProfile,
   );
 
   return {

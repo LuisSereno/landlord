@@ -6,6 +6,11 @@ import {
   planGameplayParkedVehicles,
   planGameplayAmbientActors,
 } from "./gameplay-visual-adapter";
+import {
+  DISTRICT_VISUAL_PROFILES,
+  districtVisualProfileFor,
+  buildingContextProps,
+} from "./district-visual-profiles";
 
 /**
  * V.g civic-core P8: invariantes del dressing de espacios públicos. Se prueba la función pura
@@ -291,5 +296,79 @@ describe("V.h.7 ambient actors: invariantes", () => {
       expect(actor.slot).toBeGreaterThanOrEqual(0);
       expect(actor.slot).toBeLessThanOrEqual(1);
     }
+  });
+});
+
+describe("V.h.8 district/building visual profiles: invariantes", () => {
+  const LOT_CELLS = rectCells(10, 10, 6, 6);
+  const HOME = {
+    id: "b1",
+    type: "courtyard_home",
+    state: "operational",
+    footprintCells: rectCells(11, 11, 3, 3),
+  };
+  const PARCELS = [
+    { id: "p1", cell: { x: 10, y: 10 }, cells: LOT_CELLS, zoning: "residential", buildingId: "b1" },
+  ];
+  const runProfiled = (role: string) =>
+    planGameplayParcelDressing(
+      PARCELS,
+      [HOME],
+      new Set(),
+      new Set(),
+      64,
+      64,
+      districtVisualProfileFor(role),
+    );
+
+  it("define un perfil para cada rol urbano de §11", () => {
+    for (const role of [
+      "civic_core",
+      "mixed_core",
+      "urban_residential",
+      "low_density_residential",
+      "commercial_corridor",
+      "industrial_logistics",
+      "green_open_space",
+    ]) {
+      expect(DISTRICT_VISUAL_PROFILES[role as keyof typeof DISTRICT_VISUAL_PROFILES]).toBeTruthy();
+    }
+  });
+
+  it("rol desconocido cae al perfil fallback sin romper el dressing", () => {
+    expect(districtVisualProfileFor("bogus_role")).toBe(districtVisualProfileFor(undefined));
+  });
+
+  it("el perfil del distrito modula el vocabulario del parcel dressing (cívico ≠ industrial)", () => {
+    const civic = runProfiled("civic_core");
+    const industrial = runProfiled("industrial_logistics");
+    expect(civic.length).toBeGreaterThan(0);
+    expect(civic).not.toEqual(industrial);
+  });
+
+  it("el perfil modula la actividad peatonal: cívico > industrial en el mismo espacio", () => {
+    const space = { id: "ps1", cells: rectCells(33, 33, 9, 9) };
+    const civic = planGameplayAmbientActors(
+      [space],
+      new Set(),
+      64,
+      64,
+      districtVisualProfileFor("civic_core"),
+    );
+    const industrial = planGameplayAmbientActors(
+      [space],
+      new Set(),
+      64,
+      64,
+      districtVisualProfileFor("industrial_logistics"),
+    );
+    expect(civic.length).toBeGreaterThan(industrial.length);
+  });
+
+  it("el contexto de edificio (§12) aporta vocabulario propio por BuildingType", () => {
+    expect(buildingContextProps("clinic")).toContain("prp_bollard");
+    expect(buildingContextProps("courtyard_home")).toContain("prp_tree_oak");
+    expect(buildingContextProps("cement_plant")).toContain("prp_construction_barrier");
+    expect(buildingContextProps("no_existe")).toEqual([]);
   });
 });

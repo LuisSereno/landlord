@@ -1,13 +1,13 @@
 {
  "schemaVersion": 1,
- "generatedAt": "2026-11-05T12:47:22.266Z",
+ "generatedAt": "2026-11-05T13:11:06.143Z",
  "composerVersion": "vf-3",
  "styleProfileId": "graphic_civic_buildings_v1",
- "outDir": "/home/luis/RepositorioGitHub/landlord/blender_artist/showcase/vg-town-hall-spike-v6",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/blender_artist/showcase/vg-town-hall-spike-v7",
  "requested": 4,
  "rendered": 4,
- "totalGenerationMs": 410246,
- "blenderPeakRssMb": 9784.3,
+ "totalGenerationMs": 376067,
+ "blenderPeakRssMb": 9825.8,
  "toolchain": {
   "blender": "multiple processes",
   "renderer": "BLENDER_EEVEE"
@@ -28,9 +28,9 @@
    "buildingType": "town_hall",
    "family": "civic_landmark",
    "variantSeed": 1002,
-   "compositionSignature": "6a566d7aec4c71735723aaedff8908224d6599b5a1d626c2687dbf753f2b03a3",
-   "triangleCount": 21166,
-   "objectCount": 209,
+   "compositionSignature": "285c15f19cd9364ee530b58dedb314fc52f75ace871c5df67bc385b4bb0b79e9",
+   "triangleCount": 19958,
+   "objectCount": 206,
    "moduleCount": 9,
    "materials": 18,
    "textures": 15,
@@ -48,13 +48,13 @@
      "max": 9.1
     }
    },
-   "renderMs": 30058.18,
-   "pngBytes": 650976,
+   "renderMs": 28850.11,
+   "pngBytes": 647199,
    "pngPixels": [
     1158,
     960
    ],
-   "pixelSha256": "a2e4bffac7ebda620ea1bd4af09d2d8555a9f9a9ae4444fad5cf5c59d423d900",
+   "pixelSha256": "171f32858d20023ccb850b54124b0894c03f2fffbf9924fda567f0a3b7f6e4e2",
    "licensedGeometryRatio": 1,
    "pivot": {
     "x": 0.5583,
@@ -66,9 +66,9 @@
    "buildingType": "town_hall",
    "family": "civic_landmark",
    "variantSeed": 1003,
-   "compositionSignature": "4b27bd73fde2a05b693b8a4863bebdb28640a9432238d975a56dd2e4dfbfe10a",
-   "triangleCount": 21730,
-   "objectCount": 269,
+   "compositionSignature": "18d7e045abe877286e790f4d58321be6d4083b99ba1a9e43a4aed7af221cc01f",
+   "triangleCount": 20522,
+   "objectCount": 266,
    "moduleCount": 10,
    "materials": 19,
    "textures": 15,
@@ -86,13 +86,13 @@
      "max": 10
     }
    },
-   "renderMs": 29576.71,
-   "pngBytes": 644358,
+   "renderMs": 30386.77,
+   "pngBytes": 634690,
    "pngPixels": [
     984,
     753
    ],
-   "pixelSha256": "ed6fbe7988693de01887af487fd2eb936a3dee0f4be5722b635bb406ad5d268c",
+   "pixelSha256": "efc7d0363b1d8e2c5c88abe8d57f1e99d8178743e26f015e7d0195c15a8903e3",
    "licensedGeometryRatio": 1,
    "pivot": {
     "x": 0.4802,
@@ -104,9 +104,9 @@
    "buildingType": "town_hall",
    "family": "civic_landmark",
    "variantSeed": 1006,
-   "compositionSignature": "9c6111299883fb13236a81d7702f4c6934e5df7da1192e609a79699d7409338c",
-   "triangleCount": 21542,
-   "objectCount": 270,
+   "compositionSignature": "d440472588e657f4bd94ce4993532095782b7b6524efe39496a9eb076db11fbb",
+   "triangleCount": 20334,
+   "objectCount": 267,
    "moduleCount": 11,
    "materials": 20,
    "textures": 15,
@@ -124,13 +124,13 @@
      "max": 10
     }
    },
-   "renderMs": 30177.22,
-   "pngBytes": 663901,
+   "renderMs": 28391.56,
+   "pngBytes": 660909,
    "pngPixels": [
     984,
     753
    ],
-   "pixelSha256": "692e4078a19b226304984d9d98fc88376300da8343f0d96f4894f048cdbda4d5",
+   "pixelSha256": "bb80fc168146774ee1ba2d7ea69943733f6ddcb38e39b7d959e382443daebeff",
    "licensedGeometryRatio": 1,
    "pivot": {
     "x": 0.4802,
@@ -142,9 +142,9 @@
    "buildingType": "town_hall",
    "family": "civic_landmark",
    "variantSeed": 1008,
-   "compositionSignature": "91f12783e75426267da7c0e3f082ca5b87d240acdc1f499fda4639ad1707dbe9",
-   "triangleCount": 24288,
-   "objectCount": 210,
+   "compositionSignature": "43285eae6cbea794ed9398f899dc69ae2df47796c48a6ed6e1d12aa96d99286b",
+   "triangleCount": 23080,
+   "objectCount": 207,
    "moduleCount": 10,
    "materials": 19,
    "textures": 15,
@@ -162,13 +162,13 @@
      "max": 9.1
     }
    },
-   "renderMs": 29721.24,
-   "pngBytes": 666436,
+   "renderMs": 28013.12,
+   "pngBytes": 662275,
    "pngPixels": [
     1158,
     960
    ],
-   "pixelSha256": "2c7426033267bc2dbf589911f1172a36b88502a1b2564743c4b2f0295dc230e3",
+   "pixelSha256": "93f3c1df32078815d13c415e3542dc358b85eaf419271ef74a365916379fceee",
    "licensedGeometryRatio": 1,
    "pivot": {
     "x": 0.5583,

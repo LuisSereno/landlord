@@ -325,12 +325,17 @@ def test_12_required_feature_cannot_disappear():
 
 
 def test_13_no_facade_overlap_with_access():
-    """Para cada seed: ningún facade placement cae en la posición X de access:frame/leaf/above/steps."""
+    """Para cada seed: ningún facade placement a nivel del acceso (level 1) cae en la X de la puerta.
+
+    Features en niveles superiores (level 2+) no chocan físicamente con la puerta: un frontón
+    va SOBRE el acceso, no en lugar de él.
+    """
     for seed in SEEDS_TEN:
         result = town_hall_result(seed)
         access_x = {round(p["position"][0], 3)
                     for p in access_placements(result)}
-        facade = [p for p in result["placements"] if "facade_feature:" in p["purpose"]]
+        facade = [p for p in result["placements"]
+                  if "facade_feature:" in p["purpose"] and ":level1:" in p["purpose"]]
         for p in facade:
             if round(p["position"][0], 3) in access_x:
                 return False, f"seed {seed}: facade placement en X={p['position'][0]} solapa acceso"

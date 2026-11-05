@@ -1110,7 +1110,7 @@ class Composition:
                 f"pero el volumen objetivo solo tiene {volume_levels} niveles"
             )
 
-        excluded = self._facade_feature_exclusions(side, volume, len(bays))
+        excluded = self._facade_feature_exclusions(side, volume, len(bays), start_level, role)
         available_indices = [i for i in range(len(bays)) if i not in excluded]
         if len(available_indices) < count:
             raise CompositionError(
@@ -1148,13 +1148,18 @@ class Composition:
                 f"§12: facade feature {feature['id']} colocó {placed_count} módulos pero debía colocar {expected_count}"
             )
 
-    def _facade_feature_exclusions(self, side, volume, total_bays):
+    def _facade_feature_exclusions(self, side, volume, total_bays, start_level=0, role=None):
         """V.g: indices de bay que un facade feature NO puede ocupar.
 
         Sólo el bay del acceso principal se reserva, y únicamente si el feature ancla al mismo
         volumen cuyo frente coincida con buildable[1] (la línea de acceso) y a la cara `front`.
+        Excepción: el frontón (role=pediment) va SOBRE la puerta, así que ocupa el bay del acceso.
         """
         if side != "front":
+            return set()
+        if role == "pediment":
+            return set()
+        if start_level > 0:
             return set()
         access_bay = getattr(self, "access_bay", None)
         access_volume = getattr(self, "access_volume", None)

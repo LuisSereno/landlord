@@ -135,8 +135,49 @@ def _rotation_for_slot(slot, cell, centroid):
     return 0
 
 
-def dress_space(space, kind, manifest, catalog, seed):
-    """Coloca el mobiliario de un espacio público. Devuelve placements en metros (origen = esquina min)."""
+def _centroid(cells):
+    return (sum(c[0] for c in cells) / len(cells), sum(c[1] for c in cells) / len(cells))
+
+
+def civic_axis(cellset, townhall_cells):
+    """Eje cívico de una plaza enlazada a un ayuntamiento.
+
+    El eje va de la huella del town_hall al centroide de la plaza. El monumento se coloca SOBRE ese
+    eje, sesgado hacia el edificio (es lo primero que ve quien sale por la puerta). El corredor son
+    las celdas de la plaza a distancia perpendicular ≤ 1.5 del eje: se mantienen libres de mobiliario
+    para que la travesía peatonal entrada↔monumento no se bloquee. No simula peatones: es geometría.
+    """
+    tx, ty = _centroid(townhall_cells)
+    px, py = _centroid(cellset)
+    axis = (px - tx, py - ty)
+    length = math.hypot(*axis) or 1.0
+    ux, uy = axis[0] / length, axis[1] / length
+    # Perpendicular al eje para medir la distancia lateral de cada celda.
+    def perpendicular_distance(cell):
+        vx, vy = cell[0] - px, cell[1] - py
+        cross = abs(vx * uy - vy * ux)
+        return cross
+
+    def along_distance(cell):
+        vx, vy = cell[0] - px, cell[1] - py
+        return vx * ux + vy * uy
+
+    corridor = {cell for cell in cellset if perpendicular_distance(cell) <= 1.5}
+    # Monumento: celda del corredor más cercana al town_hall (menor distancia a lo largo del eje,
+    # hacia el edificio), desempate por distancia euclídea al edificio.
+    monument = min(
+        corridor or cellset,
+        key=lambda c: (along_distance(c), (c[0] - tx) ** 2 + (c[1] - ty) ** 2, c),
+    )
+    return monument, corridor
+
+
+def dress_space(space, kind, manifest, catalog, seed, townhall_cells=None):
+    """Coloca el mobiliario de un espacio público. Devuelve placements en metros (origen = esquina min).
+
+    Si `townhall_cells` se pasa (plaza enlazada a un ayuntamiento), la plaza se orienta al eje cívico:
+    monumento sobre el eje, corredor peatonal libre de mobiliario y bancos mirando al monumento.
+    """
     profile = manifest["kinds"].get(kind)
     if profile is None:
         return []
@@ -152,12 +193,17 @@ def dress_space(space, kind, manifest, catalog, seed):
     interior = sorted(interior_cells(cellset))
     centroid = centroid_cell(sorted(cellset))
 
+    monument_cell = centroid
+    corridor = set()
+    if townhall_cells:
+        monument_cell, corridor = civic_axis(cellset, townhall_cells)
+
     placements = []
     for slot in profile["slots"]:
         strategy = slot["strategy"]
         params = slot.get("params", {})
         if strategy == "center":
-            targets = [centroid]
+            targets = [monument_cell]
         elif strategy == "perimeter":
             targets = stride_cells(perim, params.get("everyCells", 3))
         elif strategy == "corners":
@@ -171,10 +217,16 @@ def dress_space(space, kind, manifest, catalog, seed):
         else:
             raise GrammarError(f"dressing {kind}/{slot['id']}: estrategia desconocida {strategy}")
 
+        # El corredor peatonal queda libre salvo para el propio monumento (center) y las farolas,
+        # que jalonan el eje sin cortarlo.
+        if strategy != "center" and slot["role"] not in ("street_lamp",):
+            targets = [cell for cell in targets if cell not in corridor]
+
         for cell in targets:
             module_id = rng.choice(slot["pool"])
             module = catalog.get(module_id)
-            rotation = _rotation_for_slot(slot, cell, centroid)
+            aim = monument_cell if townhall_cells else centroid
+            rotation = _rotation_for_slot(slot, cell, aim)
             width, depth, height = module.size(rotation)
             position = ((cell[0] - min_x + 0.5) * cell_meters, (cell[1] - min_y + 0.5) * cell_meters, 0.0)
             placements.append(
@@ -205,14 +257,21 @@ def dress_all(manifest=None, fixture=None, catalog=None):
 
     results = []
     for district in fixture["districts"]:
+        townhall_cells = [
+            (c["x"], c["y"]) for c in district.get("townHallFootprintCells", [])
+        ]
+        civic_plaza_id = district.get("townHallPlazaId")
         for space in district["publicSpaces"]:
-            placements = dress_space(space, space["kind"], manifest, catalog, seed)
+            # Sólo la plaza enlazada al ayuntamiento recibe el eje cívico; el resto se viste igual.
+            space_townhall = townhall_cells if space["id"] == civic_plaza_id else None
+            placements = dress_space(space, space["kind"], manifest, catalog, seed, space_townhall)
             results.append(
                 {
                     "publicSpaceId": space["id"],
                     "kind": space["kind"],
                     "profileId": district["profileId"],
                     "districtRole": district.get("role", ""),
+                    "civic": bool(space_townhall),
                     "cellMeters": cell_meters,
                     "boundsCells": list(cellset_to_bounds(space["cells"])),
                     "cellCount": len(space["cells"]),

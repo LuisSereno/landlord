@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "dressingVersion": "vg-dressing-1",
   "seed": 2026,
-  "signature": "7c5f6da9124dd9d5d9ee6fd2683e698a0205de951610dd5b9323690cc0550d7c",
+  "signature": "664819d842b90ededf11a02277b9e54cacc5c07da448c64efe4eae256ee97427",
   "rendered": [
     {
       "publicSpaceId": "publicspace_00000501",
       "kind": "plaza",
-      "placementCount": 27,
+      "placementCount": 21,
       "output": "/home/luis/RepositorioGitHub/landlord/blender_artist/showcase/vg-public-space-dressing/dress_plaza_publicspace_00000501.png"
     },
     {
@@ -23,6 +23,7 @@
       "kind": "plaza",
       "profileId": "centro_civico",
       "districtRole": "civic",
+      "civic": true,
       "cellMeters": 4,
       "boundsCells": [
         33,
@@ -38,12 +39,12 @@
           "slot": "plaza_monument",
           "purpose": "dressing:plaza:plaza_monument",
           "cell": {
-            "x": 37,
-            "y": 37
+            "x": 33,
+            "y": 33
           },
           "position": [
-            18.0,
-            18.0,
+            2.0,
+            2.0,
             0.0
           ],
           "rotationDegrees": 0,
@@ -327,30 +328,6 @@
           "purpose": "dressing:plaza:plaza_benches",
           "cell": {
             "x": 34,
-            "y": 34
-          },
-          "position": [
-            6.0,
-            6.0,
-            0.0
-          ],
-          "rotationDegrees": 0,
-          "footprintMeters": {
-            "width": 1.6,
-            "depth": 0.6,
-            "height": 0.4
-          },
-          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
-          "sourceId": "src_kaykit_city_builder_bits",
-          "license": "CC0-1.0"
-        },
-        {
-          "moduleId": "mod_kaykit_civic_bench",
-          "role": "bench",
-          "slot": "plaza_benches",
-          "purpose": "dressing:plaza:plaza_benches",
-          "cell": {
-            "x": 34,
             "y": 40
           },
           "position": [
@@ -422,11 +399,11 @@
           "slot": "plaza_planters",
           "purpose": "dressing:plaza:plaza_planters",
           "cell": {
-            "x": 33,
+            "x": 41,
             "y": 33
           },
           "position": [
-            2.0,
+            34.0,
             2.0,
             0.0
           ],
@@ -446,12 +423,12 @@
           "slot": "plaza_planters",
           "purpose": "dressing:plaza:plaza_planters",
           "cell": {
-            "x": 41,
-            "y": 33
+            "x": 33,
+            "y": 41
           },
           "position": [
-            34.0,
             2.0,
+            34.0,
             0.0
           ],
           "rotationDegrees": 0,
@@ -461,78 +438,6 @@
             "height": 0.6
           },
           "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_Planter_Single.gltf",
-          "sourceId": "src_quaternius_downtown_city_megakit",
-          "license": "CC0-1.0"
-        },
-        {
-          "moduleId": "mod_nature_civic_urn_large",
-          "role": "planter",
-          "slot": "plaza_planters",
-          "purpose": "dressing:plaza:plaza_planters",
-          "cell": {
-            "x": 33,
-            "y": 41
-          },
-          "position": [
-            2.0,
-            34.0,
-            0.0
-          ],
-          "rotationDegrees": 0,
-          "footprintMeters": {
-            "width": 2.2544,
-            "depth": 1.9524,
-            "height": 0.8
-          },
-          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/pot_large.glb",
-          "sourceId": "src_kenney_nature_kit",
-          "license": "CC0-1.0"
-        },
-        {
-          "moduleId": "mod_nature_civic_urn_small",
-          "role": "planter",
-          "slot": "plaza_planters",
-          "purpose": "dressing:plaza:plaza_planters",
-          "cell": {
-            "x": 41,
-            "y": 41
-          },
-          "position": [
-            34.0,
-            34.0,
-            0.0
-          ],
-          "rotationDegrees": 0,
-          "footprintMeters": {
-            "width": 1.2938,
-            "depth": 1.1204,
-            "height": 1.072
-          },
-          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/pot_small.glb",
-          "sourceId": "src_kenney_nature_kit",
-          "license": "CC0-1.0"
-        },
-        {
-          "moduleId": "mod_megakit_civic_bollard",
-          "role": "bollard",
-          "slot": "plaza_bollards",
-          "purpose": "dressing:plaza:plaza_bollards",
-          "cell": {
-            "x": 33,
-            "y": 33
-          },
-          "position": [
-            2.0,
-            2.0,
-            0.0
-          ],
-          "rotationDegrees": 0,
-          "footprintMeters": {
-            "width": 0.2162,
-            "depth": 0.2274,
-            "height": 0.8918
-          },
-          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_Bollard.gltf",
           "sourceId": "src_quaternius_downtown_city_megakit",
           "license": "CC0-1.0"
         },
@@ -614,60 +519,12 @@
           "slot": "plaza_bollards",
           "purpose": "dressing:plaza:plaza_bollards",
           "cell": {
-            "x": 39,
-            "y": 41
-          },
-          "position": [
-            26.0,
-            34.0,
-            0.0
-          ],
-          "rotationDegrees": 0,
-          "footprintMeters": {
-            "width": 0.2162,
-            "depth": 0.2274,
-            "height": 0.8918
-          },
-          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_Bollard.gltf",
-          "sourceId": "src_quaternius_downtown_city_megakit",
-          "license": "CC0-1.0"
-        },
-        {
-          "moduleId": "mod_megakit_civic_bollard",
-          "role": "bollard",
-          "slot": "plaza_bollards",
-          "purpose": "dressing:plaza:plaza_bollards",
-          "cell": {
             "x": 41,
             "y": 35
           },
           "position": [
             34.0,
             10.0,
-            0.0
-          ],
-          "rotationDegrees": 0,
-          "footprintMeters": {
-            "width": 0.2162,
-            "depth": 0.2274,
-            "height": 0.8918
-          },
-          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_Bollard.gltf",
-          "sourceId": "src_quaternius_downtown_city_megakit",
-          "license": "CC0-1.0"
-        },
-        {
-          "moduleId": "mod_megakit_civic_bollard",
-          "role": "bollard",
-          "slot": "plaza_bollards",
-          "purpose": "dressing:plaza:plaza_bollards",
-          "cell": {
-            "x": 41,
-            "y": 40
-          },
-          "position": [
-            34.0,
-            30.0,
             0.0
           ],
           "rotationDegrees": 0,
@@ -687,6 +544,7 @@
       "kind": "park",
       "profileId": "barrio_del_umbral",
       "districtRole": "residential",
+      "civic": false,
       "cellMeters": 4,
       "boundsCells": [
         17,

@@ -19,6 +19,29 @@
     "ui",
     "audio"
   ],
+  "vehicleClasses": [
+    "civilian",
+    "taxi",
+    "delivery",
+    "freight",
+    "garbage",
+    "police",
+    "fire",
+    "ambulance",
+    "construction",
+    "industrial",
+    "service"
+  ],
+  "actorClasses": [
+    "civilian",
+    "worker",
+    "maintenance",
+    "enforcer",
+    "service_worker",
+    "police",
+    "medical",
+    "firefighter"
+  ],
   "counts": {
     "assets": 4554,
     "runtimeReady": 193,
@@ -54,7 +77,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "idle"
     },
     {
       "assetId": "wa_microsoft_rocketbox_m_idle_breathe_01_max",
@@ -84,7 +108,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "idle"
     },
     {
       "assetId": "wa_microsoft_rocketbox_m_idle_breathe_02_max",
@@ -114,7 +139,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "idle"
     },
     {
       "assetId": "wa_microsoft_rocketbox_m_idle_neutral_01_max",
@@ -144,7 +170,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "idle"
     },
     {
       "assetId": "wa_microsoft_rocketbox_f_idle_breathe_01_max",
@@ -174,7 +201,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "idle"
     },
     {
       "assetId": "wa_microsoft_rocketbox_f_idle_breathe_02_max",
@@ -204,7 +232,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "idle"
     },
     {
       "assetId": "wa_microsoft_rocketbox_f_walk_neutral_02_max",
@@ -234,7 +263,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_microsoft_rocketbox_f_walk_neutral_03_max",
@@ -264,7 +294,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_microsoft_rocketbox_f_walk_neutral_04_max",
@@ -294,7 +325,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_microsoft_rocketbox_m_walk_neutral_02_max",
@@ -324,7 +356,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_microsoft_rocketbox_f_walk_neutral_01_max",
@@ -354,7 +387,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_microsoft_rocketbox_f_walk_neutral_max",
@@ -384,7 +418,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_microsoft_rocketbox_m_walk_neutral_03_max",
@@ -414,7 +449,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_microsoft_rocketbox_m_walk_neutral_01_max",
@@ -444,7 +480,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_microsoft_rocketbox_m_walk_neutral_max",
@@ -474,7 +511,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_microsoft_rocketbox_bird_sparrow_01",
@@ -1168,7 +1206,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_microsoft_rocketbox_male_adult_02_1",
@@ -1202,7 +1242,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_microsoft_rocketbox_male_adult_10",
@@ -1266,7 +1308,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_microsoft_rocketbox_male_adult_10_1",
@@ -1300,7 +1344,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_microsoft_rocketbox_male_adult_05",
@@ -1364,7 +1410,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_microsoft_rocketbox_male_adult_05_facial",
@@ -1398,7 +1446,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_microsoft_rocketbox_male_adult_09",
@@ -1462,7 +1512,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_microsoft_rocketbox_male_adult_09_facial",
@@ -1496,7 +1548,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_microsoft_rocketbox_female_adult_04",
@@ -1560,7 +1614,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_microsoft_rocketbox_female_adult_04_1",
@@ -1594,7 +1650,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_microsoft_rocketbox_male_adult_03",
@@ -1658,7 +1716,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_microsoft_rocketbox_male_adult_03_1",
@@ -1692,7 +1752,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_microsoft_rocketbox_female_adult_09",
@@ -1756,7 +1818,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_microsoft_rocketbox_female_adult_09_1",
@@ -1790,7 +1854,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_microsoft_rocketbox_female_adult_13",
@@ -1854,7 +1920,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_microsoft_rocketbox_female_adult_13_1",
@@ -1888,7 +1956,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_microsoft_rocketbox_male_adult_12",
@@ -1952,7 +2022,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_microsoft_rocketbox_male_adult_12_facial",
@@ -1986,7 +2058,9 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "actorClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_city_commercial_preview",
@@ -125180,7 +125254,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_ual1_standard_rm",
@@ -125210,7 +125285,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_ual1_standard_1",
@@ -125240,7 +125316,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_ual1_standard_rm_1",
@@ -125270,7 +125347,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_downtown_city_megakit_preview_3",
@@ -142275,7 +142353,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_eyebrows_female",
@@ -142309,7 +142388,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_long",
@@ -142343,7 +142423,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_beard",
@@ -142377,7 +142458,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_buzzedfemale",
@@ -142411,7 +142493,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_buzzed",
@@ -142445,7 +142528,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_simpleparted",
@@ -142479,7 +142563,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_buns",
@@ -142513,7 +142598,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_t_hair_2_normal_2",
@@ -142607,7 +142693,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_t_hair_2_basecolor_1",
@@ -142671,7 +142758,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_eyebrows_female_1",
@@ -142705,7 +142793,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_long_1",
@@ -142739,7 +142828,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_buns_1",
@@ -142773,7 +142863,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_eyebrows_regular_1",
@@ -142807,7 +142898,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_t_hair_1_normal_2",
@@ -142871,7 +142963,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_buzzed_1",
@@ -142905,7 +142998,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_eyebrows_regular_2",
@@ -142939,7 +143033,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_eyebrows_female_2",
@@ -142973,7 +143068,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_long_2",
@@ -143007,7 +143103,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_beard_2",
@@ -143041,7 +143138,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_buzzedfemale_2",
@@ -143075,7 +143173,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_buzzed_2",
@@ -143109,7 +143208,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_simpleparted_2",
@@ -143143,7 +143243,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_buns_2",
@@ -143177,7 +143278,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_t_hair_2_normal_3",
@@ -143271,7 +143373,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_t_hair_2_basecolor_2",
@@ -143335,7 +143438,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_eyebrows_female_3",
@@ -143369,7 +143473,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_long_3",
@@ -143403,7 +143508,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_buns_3",
@@ -143437,7 +143543,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_eyebrows_regular_3",
@@ -143471,7 +143578,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_t_hair_1_normal_3",
@@ -143535,7 +143643,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_buzzed_3",
@@ -143569,7 +143678,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_eyebrows_regular_4",
@@ -143603,7 +143713,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_eyebrows_female_4",
@@ -143637,7 +143748,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_long_4",
@@ -143671,7 +143783,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_beard_4",
@@ -143705,7 +143818,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_buzzedfemale_4",
@@ -143739,7 +143853,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_buzzed_4",
@@ -143773,7 +143888,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_simpleparted_4",
@@ -143807,7 +143923,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_hair_buns_4",
@@ -143841,7 +143958,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_t_hair_2_normal_4",
@@ -144745,7 +144863,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_t_hair_1_normal_6",
@@ -144839,7 +144958,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_t_eye_normal_2",
@@ -144933,7 +145053,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_base_characters_superhero_male_fullbody_1",
@@ -144967,7 +145088,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_quaternius_animation_library_2_unity_setup",
@@ -145087,7 +145209,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_2_mannequin_f_1",
@@ -145117,7 +145240,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_2_mannequin_f_2",
@@ -145147,7 +145271,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_2_ual2_standard",
@@ -145177,7 +145302,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_2_ual2_standard_rm",
@@ -145207,7 +145333,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_2_ual2_standard_1",
@@ -145237,7 +145364,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_2_ual2_standard_rm_1",
@@ -145267,7 +145395,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_kaykit_city_builder_bits_citybits_texture",

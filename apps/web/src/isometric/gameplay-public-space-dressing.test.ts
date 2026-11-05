@@ -4,6 +4,7 @@ import {
   planGameplayParcelDressing,
   planGameplayContextVehicles,
   planGameplayParkedVehicles,
+  planGameplayAmbientActors,
 } from "./gameplay-visual-adapter";
 
 /**
@@ -245,5 +246,50 @@ describe("V.h.6 context vehicles: invariantes", () => {
     const reserved = new Set(runContext().map((v) => `${v.roadCell.x}:${v.roadCell.y}`));
     const parked = planGameplayParkedVehicles(ROAD_EW, [], new Set(), [], [], 64, 64, reserved);
     for (const p of parked) expect(reserved.has(`${p.roadCell.x}:${p.roadCell.y}`)).toBe(false);
+  });
+});
+
+describe("V.h.7 ambient actors: invariantes", () => {
+  const SPACES = [PLAZA, PARK];
+  const runActors = (roadCells: readonly string[] = []) =>
+    planGameplayAmbientActors(SPACES, new Set(roadCells), 64, 64);
+
+  it("es determinista (misma geometría → mismos actores)", () => {
+    expect(runActors()).toEqual(runActors());
+  });
+
+  it("los actores quedan dentro de las celdas del espacio público y fuera de carreteras", () => {
+    const roadCells = rectCells(33, 33, 9, 1).map((c) => `${c.x}:${c.y}`);
+    const all = [...PLAZA.cells, ...PARK.cells];
+    for (const actor of runActors(roadCells)) {
+      expect(inCells(actor.cell, all)).toBe(true);
+      expect(roadCells).not.toContain(`${actor.cell.x}:${actor.cell.y}`);
+    }
+  });
+
+  it("IDs únicos y sin dos actores en la misma celda", () => {
+    const actors = runActors();
+    expect(new Set(actors.map((a) => a.id)).size).toBe(actors.length);
+    expect(new Set(actors.map((a) => `${a.cell.x}:${a.cell.y}`)).size).toBe(actors.length);
+  });
+
+  it("el budget de peatones por espacio queda acotado (no saturar, §18/§20)", () => {
+    const bySpace = new Map<string, number>();
+    for (const actor of runActors()) {
+      const spaceId = actor.id.split(":")[1]!;
+      bySpace.set(spaceId, (bySpace.get(spaceId) ?? 0) + 1);
+    }
+    for (const count of bySpace.values()) expect(count).toBeLessThanOrEqual(4);
+    expect(bySpace.size).toBeGreaterThan(0);
+  });
+
+  it("dirección/animación/slot dentro del rango horneado (4 dirs, idle/walk, 2 slots)", () => {
+    for (const actor of runActors()) {
+      expect(actor.direction).toBeGreaterThanOrEqual(0);
+      expect(actor.direction).toBeLessThanOrEqual(3);
+      expect(["idle", "walk"]).toContain(actor.animation);
+      expect(actor.slot).toBeGreaterThanOrEqual(0);
+      expect(actor.slot).toBeLessThanOrEqual(1);
+    }
   });
 });

@@ -173,6 +173,40 @@ def _vehicle_class(n):
     return "vehicle", roles, contexts
 
 
+# V.h.7: taxonomía de clases de actor (§16). En v1 sólo `civilian` tiene fuente horneada
+# (vecino_variante) y avatares vestidos Rocketbox; las clases profesionales se declaran aquí y se
+# poblarán con overrides curados / bakes futuros cuando exista fuente que las codifique.
+ACTOR_CLASSES = (
+    "civilian", "worker", "maintenance", "enforcer", "service_worker",
+    "police", "medical", "firefighter",
+)
+
+ACTOR_PART_KEYWORDS = (
+    "hair", "eyebrow", "beard", "body", "base", "head", "eye", "mouth", "nose", "ear",
+    "hand", "foot", "shoe", "shirt", "pants", "hat", "cap", "glass", "accessory", "mesh",
+)
+
+
+def is_actor_part(n):
+    """Piezas de customización (pelo/cejas/cuerpo base) no son actores colocables (§8)."""
+    return any(k in n for k in ACTOR_PART_KEYWORDS)
+
+
+def actor_class_of(n, source_id):
+    """actorClass del contrato §16; None para piezas de customización no colocables."""
+    if source_id == "src_quaternius_base_characters" or is_actor_part(n):
+        return None
+    return "civilian"
+
+
+def animation_clip_of(n):
+    """Familia de clip de animación (idle/walk/run/…) por filename; v1 coarse."""
+    for family in ("idle", "walk", "run", "sit", "stand", "point", "wave", "talk", "cheer", "crouch", "jump", "dance", "carry", "push", "pull", "climb", "death", "injured"):
+        if family in n:
+            return family
+    return "other"
+
+
 def _nature_class(n):
     if any(k in n for k in ["tree", "pine", "oak", "palm", "cone", "plateau"]):
         return "environment", ["tree", "vegetation"], ["park", "street", "residential"]
@@ -327,6 +361,9 @@ def main():
                 tris = None
                 runtime_ready = False
                 vclass = None
+                aclass = None
+                clip = None
+                placeable = None
             else:
                 override = CURATED_OVERRIDES.get(fn)
                 if override:
@@ -340,6 +377,14 @@ def main():
                 # runtime_ready: promovido al catálogo de edificios O horneado en el atlas vía job.
                 runtime_ready = rel in catalog_roles or rel in job_runtime
                 vclass = vehicle_class_of(fn) if category == "vehicle" else None
+                aclass = actor_class_of(fn, source_id) if category == "actor" else None
+                clip = animation_clip_of(fn) if category == "animation" else None
+                if category == "vehicle":
+                    placeable = vclass is not None
+                elif category == "actor":
+                    placeable = aclass is not None
+                else:
+                    placeable = None
 
             asset_id = f"wa_{source_id.replace('src_', '')}_{re.sub(r'[^a-z0-9]+', '_', os.path.splitext(fn)[0].lower()).strip('_')}"
             base_id = asset_id
@@ -369,7 +414,9 @@ def main():
                 "runtimeReady": runtime_ready,
                 "state": "runtime_ready" if runtime_ready else "classified",
                 **({"vehicleClass": vclass} if vclass else {}),
-                **({"placeable": vclass is not None} if category == "vehicle" else {}),
+                **({"actorClass": aclass} if aclass else {}),
+                **({"animationClip": clip} if clip else {}),
+                **({"placeable": placeable} if placeable is not None else {}),
                 **({"runtimeAssetId": job_runtime[rel]} if rel in job_runtime else {}),
                 **({"catalogRole": catalog_roles[rel]} if rel in catalog_roles else {}),
                 **(extra if is_geom and CURATED_OVERRIDES.get(fn) else {}),
@@ -398,6 +445,13 @@ def main():
             "architecture", "building_mass", "urban_prop", "environment", "infrastructure",
             "vehicle", "actor", "animation", "material", "ui", "audio",
         ],
+        # Taxonomías semánticas (§15 vehículos, §16 actores). Una clase puede quedar declarada sin
+        # miembros runtime-ready en v1 (p.ej. police/medical): se poblará con bakes/overrides futuros.
+        "vehicleClasses": [
+            "civilian", "taxi", "delivery", "freight", "garbage", "police", "fire",
+            "ambulance", "construction", "industrial", "service",
+        ],
+        "actorClasses": list(ACTOR_CLASSES),
         "counts": {
             "assets": len(assets),
             "runtimeReady": sum(1 for a in assets if a["runtimeReady"]),

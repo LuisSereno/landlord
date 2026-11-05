@@ -35,7 +35,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "idle"
     },
     {
       "assetId": "wa_microsoft_rocketbox_m_idle_breathe_01_max",
@@ -65,7 +66,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "idle"
     },
     {
       "assetId": "wa_microsoft_rocketbox_m_idle_breathe_02_max",
@@ -95,7 +97,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "idle"
     },
     {
       "assetId": "wa_microsoft_rocketbox_m_idle_neutral_01_max",
@@ -125,7 +128,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "idle"
     },
     {
       "assetId": "wa_microsoft_rocketbox_f_idle_breathe_01_max",
@@ -155,7 +159,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "idle"
     },
     {
       "assetId": "wa_microsoft_rocketbox_f_idle_breathe_02_max",
@@ -185,7 +190,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "idle"
     },
     {
       "assetId": "wa_microsoft_rocketbox_f_walk_neutral_02_max",
@@ -215,7 +221,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_microsoft_rocketbox_f_walk_neutral_03_max",
@@ -245,7 +252,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_microsoft_rocketbox_f_walk_neutral_04_max",
@@ -275,7 +283,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_microsoft_rocketbox_m_walk_neutral_02_max",
@@ -305,7 +314,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_microsoft_rocketbox_f_walk_neutral_01_max",
@@ -335,7 +345,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_microsoft_rocketbox_f_walk_neutral_max",
@@ -365,7 +376,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_microsoft_rocketbox_m_walk_neutral_03_max",
@@ -395,7 +407,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_microsoft_rocketbox_m_walk_neutral_01_max",
@@ -425,7 +438,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_microsoft_rocketbox_m_walk_neutral_max",
@@ -455,7 +469,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "walk"
     },
     {
       "assetId": "wa_quaternius_animation_library_ual1_standard",
@@ -485,7 +500,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_ual1_standard_rm",
@@ -515,7 +531,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_ual1_standard_1",
@@ -545,7 +562,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_ual1_standard_rm_1",
@@ -575,7 +593,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_2_mannequin_f",
@@ -605,7 +624,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_2_mannequin_f_1",
@@ -635,7 +655,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_2_mannequin_f_2",
@@ -665,7 +686,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_2_ual2_standard",
@@ -695,7 +717,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_2_ual2_standard_rm",
@@ -725,7 +748,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_2_ual2_standard_1",
@@ -755,7 +779,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     },
     {
       "assetId": "wa_quaternius_animation_library_2_ual2_standard_rm_1",
@@ -785,7 +810,8 @@
       ],
       "animationSupport": true,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "animationClip": "other"
     }
   ]
 }

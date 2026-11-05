@@ -318,6 +318,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private roadMarkingSprites: Phaser.GameObjects.Image[] = [];
   private streetFurnitureSprites = new Map<string, Phaser.GameObjects.Image>();
   private parkedVehicleSprites = new Map<string, Phaser.GameObjects.Image>();
+  private ambientActorSprites = new Map<string, Phaser.GameObjects.Image>();
   private publicSpaceFurnitureSprites = new Map<string, Phaser.GameObjects.Image>();
   private parcelDressingSprites = new Map<string, Phaser.GameObjects.Image>();
 
@@ -748,6 +749,29 @@ export class IsometricSpikeScene extends Phaser.Scene {
       sprite.destroy();
       this.parkedVehicleSprites.delete(id);
     }
+    // V.h.7: peatones ambientales presentacionales (personaje horneado vecino_variante).
+    const seenActors = new Set<string>();
+    for (const actor of model.ambientActors ?? []) {
+      const key = `blender-character-vecino_variante-${actor.animation}-d${actor.direction}-${actor.slot}`;
+      if (!this.textures.exists(key)) continue;
+      const center = gridToScreen(actor.cell, this.layout);
+      const image =
+        this.ambientActorSprites.get(actor.id) ?? this.add.image(center.x, center.y, key);
+      this.ambientActorSprites.set(actor.id, image);
+      image
+        .setTexture(key)
+        .setPosition(center.x, center.y)
+        .setOrigin(0.5, 0.94)
+        .setScale(0.75)
+        .setDepth(depthForAsset(actor.cell, { width: 1, height: 1 }));
+      image.setVisible(this.isInViewport(image.x, image.y, this.cameras.main.worldView, 96));
+      seenActors.add(actor.id);
+    }
+    for (const [id, sprite] of this.ambientActorSprites) {
+      if (seenActors.has(id)) continue;
+      sprite.destroy();
+      this.ambientActorSprites.delete(id);
+    }
   }
 
   private screenOffsetTowardRoad(edge: "n" | "e" | "s" | "w", cells: number): ScreenPoint {
@@ -793,6 +817,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       ...this.streetFurnitureSprites.values(),
       ...this.publicSpaceFurnitureSprites.values(),
       ...this.parcelDressingSprites.values(),
+      ...this.ambientActorSprites.values(),
     ]) {
       sprite.setVisible(this.isInViewport(sprite.x, sprite.y, view, 96));
     }
@@ -1571,6 +1596,27 @@ export class IsometricSpikeScene extends Phaser.Scene {
             frame.image.src,
             frame.image.width,
             frame.image.height,
+          );
+        }
+      }
+    }
+    // Personajes horneados (V.h.7): el array de frames viene como direction*framesPerDir+slot.
+    for (const [id, character] of Object.entries(manifest.characters ?? {})) {
+      for (const [animation, anim] of Object.entries(character.animations)) {
+        const framesPerDirection = Math.max(
+          1,
+          Math.round(anim.frames.length / character.directions),
+        );
+        for (let i = 0; i < anim.frames.length; i += 1) {
+          const direction = Math.floor(i / framesPerDirection);
+          const slot = i % framesPerDirection;
+          const image = anim.frames[i];
+          if (!image) continue;
+          await this.registerImageTexture(
+            `${keyPrefix}character-${id}-${animation}-d${direction}-${slot}`,
+            image.src,
+            image.width,
+            image.height,
           );
         }
       }

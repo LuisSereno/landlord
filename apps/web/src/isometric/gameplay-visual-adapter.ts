@@ -108,6 +108,21 @@ export type GameplayContextVehicle = GameplayParkedVehicle & {
   vehicleClass: string;
 };
 
+/**
+ * Actor ambiental presentacional (V.h.7 §16): peatón determinista en un espacio público, separado
+ * de GameState y de los agents simulados (que se renderizan como markers autoritativos). Usa el
+ * personaje horneado `vecino_variante` (idle/walk, 4 direcciones); sin IA peatonal: pose estática
+ * derivada de coordenada + seed, nunca de tick.
+ */
+export type GameplayAmbientActor = {
+  id: string;
+  cell: GridCell;
+  direction: 0 | 1 | 2 | 3;
+  animation: "idle" | "walk";
+  /** Slot de frame dentro de la dirección (0..framesPerDirection-1). */
+  slot: number;
+};
+
 /** Roles de mobiliario de espacio público (V.g civic-core). Espejo de public_space_dresser.py. */
 export type GameplayPublicSpaceFurnitureKind =
   "monument" | "street_lamp" | "bench" | "planter" | "bollard" | "tree" | "foliage";
@@ -133,6 +148,8 @@ export type GameplayVisualModel = {
   parkedVehicles: GameplayParkedVehicle[];
   /** Vehículos contextuales por tipo de edificio (V.h.6 §15). Presentacional, determinista. */
   contextVehicles: GameplayContextVehicle[];
+  /** Peatones ambientales presentacionales en espacios públicos (V.h.7 §16). Separados de GameState. */
+  ambientActors: GameplayAmbientActor[];
   /**
    * Mobiliario cívico/verde derivado de los espacios públicos (V.g). Es presentacional: no vive en
    * GameState, no lo tocan tick ni economía, sólo la geometría espacial (publicSpaces + facilities).
@@ -713,6 +730,43 @@ export function planGameplayContextVehicles(
           spec.asset === "veh_garbage"
             ? 0.92
             : 0.88,
+      });
+    }
+  }
+  return out;
+}
+
+/**
+ * V.h.7 §16: peatones ambientales presentacionales en espacios públicos. Deterministas por
+ * coordenada del espacio + índice (nunca tick/cámara); budget acotado por tamaño del espacio para
+ * no saturar (§18/§20). No son agents simulados: no viven en GameState ni afectan economía.
+ */
+export function planGameplayAmbientActors(
+  publicSpaces: readonly { id: string; cells: readonly GridCell[] }[],
+  roadCellKeys: ReadonlySet<string>,
+  mapWidth: number,
+  mapHeight: number,
+): GameplayAmbientActor[] {
+  const out: GameplayAmbientActor[] = [];
+  for (const space of publicSpaces) {
+    if (space.cells.length === 0) continue;
+    const anchor = space.cells[0]!;
+    const budget = Math.min(4, Math.max(1, Math.floor(space.cells.length / 12)));
+    const used = new Set<string>();
+    for (let i = 0; i < budget; i += 1) {
+      const candidates = space.cells.filter(
+        (cell) => !used.has(cellKey(cell)) && !roadCellKeys.has(cellKey(cell)),
+      );
+      if (candidates.length === 0) break;
+      const seed = spatialHash(anchor.x, anchor.y, 0x61a1 + i * 0x37);
+      const cell = candidates[seed % candidates.length]!;
+      used.add(cellKey(cell));
+      out.push({
+        id: `amb:${space.id}:${cellKey(cell)}:${i}`,
+        cell: { ...cell },
+        direction: (seed % 4) as 0 | 1 | 2 | 3,
+        animation: seed % 3 === 0 ? "idle" : "walk",
+        slot: seed % 2,
       });
     }
   }
@@ -1542,6 +1596,12 @@ export function buildGameplayVisualModel(
     mapHeight,
   );
   const reservedVehicleRoads = new Set(contextVehicles.map((vehicle) => cellKey(vehicle.roadCell)));
+  const ambientActors = planGameplayAmbientActors(
+    projection.publicSpaces ?? [],
+    roadCellKeys,
+    mapWidth,
+    mapHeight,
+  );
   const parkedVehicles = planGameplayParkedVehicles(
     roadVisuals,
     parcels,
@@ -1582,6 +1642,7 @@ export function buildGameplayVisualModel(
     streetFurniture,
     parkedVehicles,
     contextVehicles,
+    ambientActors,
     publicSpaceFurniture,
     parcelDressing,
     roadVisuals,

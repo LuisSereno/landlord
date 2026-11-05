@@ -99,7 +99,7 @@ FACADE_DISTRIBUTIONS = {"symmetric"}  # V.g spike: solo symmetric por ahora
 RECIPE_KEYS = {
     "id", "label", "massingIds", "accessIds", "roofIds", "rhythmIds",
     "facadeIds", "silhouetteIds", "cornerModeIds", "requiredFeatures", "variantFeatures",
-    "accessTargetVolume"
+    "accessTargetVolume", "propIds"
 }
 SUPPORT_BASE_KEYS = {"kind", "shape", "label", "cell", "z", "purpose"}
 SUPPORT_SHAPE_KEYS = {"pipe": {"from", "to", "radiusMeters", "segments"}, "box": {"sizeCells", "offset", "rotationDegrees"}}
@@ -600,6 +600,7 @@ def draw_choices(rng, record, axes):
                 "bay_sequence": "rhythmIds",
                 "facade": "facadeIds",
                 "silhouette": "silhouetteIds",
+                "intrinsic_props": "propIds",
             }.get(axis)
             if axis_key and axis_key in recipe:
                 allowed_ids = set(recipe[axis_key])

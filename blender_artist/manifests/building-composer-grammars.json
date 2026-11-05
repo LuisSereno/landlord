@@ -1058,7 +1058,7 @@
       "recipes": [
         {
           "id": "grand_neoclassical_hall",
-          "label": "palacio neoclásico monumental tipo Casa Blanca",
+          "label": "palacio neoclásico monumental hero",
           "accessTargetVolume": 1,
           "massingIds": [
             "neoclassical_palace"
@@ -1070,13 +1070,15 @@
             "monumental_stairs"
           ],
           "roofIds": [
-            "flat_plates",
-            "flat_slabs"
+            "flat_corniced"
           ],
           "rhythmIds": [
-            "civic_regular",
             "tall_aisles"
           ],
+          "facadeIds": [
+            "warm_limestone"
+          ],
+          "propIds": [],
           "requiredFeatures": [
             {
               "kind": "facade",
@@ -1418,14 +1420,14 @@
         },
         {
           "id": "neoclassical_palace",
-          "label": "palacio neoclásico simétrico con alas laterales",
+          "label": "palacio neoclásico simétrico con alas retranqueadas",
           "volumes": [
             {
               "cells": [
                 0,
-                1,
                 2,
-                3
+                2,
+                2
               ],
               "levels": 2,
               "stackOn": null,
@@ -1451,9 +1453,9 @@
             {
               "cells": [
                 6,
-                1,
                 2,
-                3
+                2,
+                2
               ],
               "levels": 2,
               "stackOn": null,
@@ -1485,6 +1487,19 @@
           "roleModule": {
             "wall_panel": "mod_megakit_trim_wall_2m",
             "window_bay": "mod_megakit_trim_window_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "curtain_wall": "mod_megakit_metal_fullwindow_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        },
+        {
+          "id": "warm_limestone",
+          "label": "piedra caliza cálida cívica hero",
+          "roleModule": {
+            "wall_panel": "mod_megakit_trim_wall_2m",
+            "window_bay": "mod_megakit_civic_window_trim",
             "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
             "wainscot": "mod_megakit_brick_bottom_trim_2m",
             "crown_panel": "mod_megakit_brick_top_trim_2m",
@@ -1642,6 +1657,14 @@
           "id": "flat_slabs",
           "kind": "flat",
           "cornice": false,
+          "plateRole": "slab",
+          "dormerBays": 0,
+          "ridgeAlong": null
+        },
+        {
+          "id": "flat_corniced",
+          "kind": "flat",
+          "cornice": true,
           "plateRole": "slab",
           "dormerBays": 0,
           "ridgeAlong": null

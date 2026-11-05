@@ -34,7 +34,7 @@
     {
       "sourceId": "src_kenney_nature_kit",
       "directory": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format",
-      "pattern": "^(tree|bush|plant|rock|log|stump)_.*\\.glb$"
+      "pattern": "^(tree|bush|plant|rock|log|stump|statue|bridge|pot|sign)_.*\\.glb$"
     },
     {
       "sourceId": "src_kenney_car_kit",
@@ -67,14 +67,14 @@
     "note": "La modularidad de un pack puede estar a nivel de ARCHIVO (MegaKit, KayKit: un módulo por gltf) y no a nivel de objeto dentro del archivo; por eso el catálogo de módulos referencia rutas de archivo, no sólo selecciones de nodo."
   },
   "counts": {
-    "sources": 517,
+    "sources": 541,
     "withUnresolvedTextures": 0,
     "bySource": {
       "src_kenney_city_suburban": 40,
       "src_kenney_city_industrial": 37,
       "src_kenney_city_commercial": 41,
       "src_kenney_city_roads": 95,
-      "src_kenney_nature_kit": 109,
+      "src_kenney_nature_kit": 133,
       "src_kenney_car_kit": 15,
       "src_kaykit_city_builder_bits": 27,
       "src_quaternius_downtown_city_megakit": 153
@@ -82,7 +82,7 @@
     "byClassification": {
       "modular": 18,
       "partially_modular": 2,
-      "whole_asset_only": 497,
+      "whole_asset_only": 521,
       "unsuitable": 0
     }
   },
@@ -23064,6 +23064,1838 @@
     },
     {
       "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_center_stone.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 84,
+      "triangles": 52,
+      "materials": [
+        "stone",
+        "stoneDark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "bridge_center_stone",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "stoneDark",
+            "stone"
+          ],
+          "vertices": 84,
+          "triangles": 52,
+          "looseParts": 16
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4,
+          "depth": 4,
+          "height": 1.2
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1,
+          "depth": 1,
+          "height": 0.3,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "bridge_center_stone"
+        ],
+        "dominantShare": 1,
+        "shells": 16,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 16 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "bridge_center_stone",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4,
+          "depth": 4,
+          "height": 1.2
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -2,
+            "max": 2
+          },
+          "z": {
+            "min": 0,
+            "max": 1.2
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_center_stoneRound.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 84,
+      "triangles": 52,
+      "materials": [
+        "stone",
+        "stoneDark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "bridge_center_stoneRound",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "stoneDark",
+            "stone"
+          ],
+          "vertices": 84,
+          "triangles": 52,
+          "looseParts": 16
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4,
+          "depth": 4,
+          "height": 0.8
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1,
+          "depth": 1,
+          "height": 0.2,
+          "minZ": 0.1
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          -0.4
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "bridge_center_stoneRound"
+        ],
+        "dominantShare": 1,
+        "shells": 16,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 16 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "bridge_center_stoneRound",
+        "origin": [
+          0,
+          0,
+          -0.6
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          -0.6
+        ],
+        "localSizeMeters": {
+          "width": 4,
+          "depth": 4,
+          "height": 0.8
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -2,
+            "max": 2
+          },
+          "z": {
+            "min": 0.6,
+            "max": 1.4
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "offset"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_center_wood.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 84,
+      "triangles": 52,
+      "materials": [
+        "stone",
+        "wood",
+        "woodBark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "bridge_center_wood",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "woodBark",
+            "wood",
+            "stone"
+          ],
+          "vertices": 84,
+          "triangles": 52,
+          "looseParts": 16
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4,
+          "depth": 4,
+          "height": 1.2
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1,
+          "depth": 1,
+          "height": 0.3,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "bridge_center_wood"
+        ],
+        "dominantShare": 1,
+        "shells": 16,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 16 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "bridge_center_wood",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4,
+          "depth": 4,
+          "height": 1.2
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -2,
+            "max": 2
+          },
+          "z": {
+            "min": 0,
+            "max": 1.2
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_center_woodRound.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 96,
+      "triangles": 60,
+      "materials": [
+        "stone",
+        "stoneDark",
+        "wood",
+        "woodBark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "bridge_center_woodRound",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "woodBark",
+            "wood",
+            "stone",
+            "stoneDark"
+          ],
+          "vertices": 96,
+          "triangles": 60,
+          "looseParts": 18
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4,
+          "depth": 4,
+          "height": 0.8
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1,
+          "depth": 1,
+          "height": 0.2,
+          "minZ": 0.1
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          -0.4
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "bridge_center_woodRound"
+        ],
+        "dominantShare": 1,
+        "shells": 18,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 18 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "bridge_center_woodRound",
+        "origin": [
+          0,
+          0,
+          -0.6
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          -0.6
+        ],
+        "localSizeMeters": {
+          "width": 4,
+          "depth": 4,
+          "height": 0.8
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -2,
+            "max": 2
+          },
+          "z": {
+            "min": 0.6,
+            "max": 1.4
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "offset"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_side_stone.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 244,
+      "triangles": 152,
+      "materials": [
+        "stone",
+        "stoneDark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "bridge_side_stone",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "stoneDark",
+            "stone"
+          ],
+          "vertices": 244,
+          "triangles": 152,
+          "looseParts": 48
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4.08,
+          "depth": 4.16,
+          "height": 1.6
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1.02,
+          "depth": 1.04,
+          "height": 0.4,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0.04,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "bridge_side_stone"
+        ],
+        "dominantShare": 1,
+        "shells": 48,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 48 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "bridge_side_stone",
+        "origin": [
+          0.04,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0.04,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4.08,
+          "depth": 4.16,
+          "height": 1.6
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2.08,
+            "max": 2
+          },
+          "y": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "z": {
+            "min": 0,
+            "max": 1.6
+          }
+        },
+        "convention": {
+          "x": "offset",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_side_stoneRound.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 306,
+      "triangles": 198,
+      "materials": [
+        "stone",
+        "stoneDark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "bridge_side_stoneRound",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "stoneDark",
+            "stone"
+          ],
+          "vertices": 306,
+          "triangles": 198,
+          "looseParts": 56
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4.08,
+          "depth": 4.16,
+          "height": 1.8
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1.02,
+          "depth": 1.04,
+          "height": 0.45,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0.04,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "bridge_side_stoneRound"
+        ],
+        "dominantShare": 1,
+        "shells": 56,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 56 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "bridge_side_stoneRound",
+        "origin": [
+          0.04,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0.04,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4.08,
+          "depth": 4.16,
+          "height": 1.8
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2.08,
+            "max": 2
+          },
+          "y": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "z": {
+            "min": 0,
+            "max": 1.8
+          }
+        },
+        "convention": {
+          "x": "offset",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_side_wood.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 212,
+      "triangles": 136,
+      "materials": [
+        "stone",
+        "wood",
+        "woodBark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "bridge_side_wood",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "woodBark",
+            "stone",
+            "wood"
+          ],
+          "vertices": 212,
+          "triangles": 136,
+          "looseParts": 40
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4.08,
+          "depth": 4.16,
+          "height": 1.6
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1.02,
+          "depth": 1.04,
+          "height": 0.4,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0.04,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "bridge_side_wood"
+        ],
+        "dominantShare": 1,
+        "shells": 40,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 40 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "bridge_side_wood",
+        "origin": [
+          0.04,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0.04,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4.08,
+          "depth": 4.16,
+          "height": 1.6
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2.08,
+            "max": 2
+          },
+          "y": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "z": {
+            "min": 0,
+            "max": 1.6
+          }
+        },
+        "convention": {
+          "x": "offset",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_side_woodRound.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 284,
+      "triangles": 190,
+      "materials": [
+        "stone",
+        "stoneDark",
+        "wood",
+        "woodBark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "bridge_side_woodRound",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "woodBark",
+            "wood",
+            "stone",
+            "stoneDark"
+          ],
+          "vertices": 284,
+          "triangles": 190,
+          "looseParts": 49
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4.08,
+          "depth": 4.16,
+          "height": 1.8
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1.02,
+          "depth": 1.04,
+          "height": 0.45,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0.04,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "bridge_side_woodRound"
+        ],
+        "dominantShare": 1,
+        "shells": 49,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 49 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "bridge_side_woodRound",
+        "origin": [
+          0.04,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0.04,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4.08,
+          "depth": 4.16,
+          "height": 1.8
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2.08,
+            "max": 2
+          },
+          "y": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "z": {
+            "min": 0,
+            "max": 1.8
+          }
+        },
+        "convention": {
+          "x": "offset",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_stone.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 404,
+      "triangles": 252,
+      "materials": [
+        "stone",
+        "stoneDark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "bridge_stone",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "stone",
+            "stoneDark"
+          ],
+          "vertices": 404,
+          "triangles": 252,
+          "looseParts": 80
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4.16,
+          "depth": 4.16,
+          "height": 1.6
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1.04,
+          "depth": 1.04,
+          "height": 0.4,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "bridge_stone"
+        ],
+        "dominantShare": 1,
+        "shells": 80,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 80 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "bridge_stone",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4.16,
+          "depth": 4.16,
+          "height": 1.6
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "y": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "z": {
+            "min": 0,
+            "max": 1.6
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_stoneNarrow.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 404,
+      "triangles": 252,
+      "materials": [
+        "stone",
+        "stoneDark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "bridge_stoneNarrow",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "stone",
+            "stoneDark"
+          ],
+          "vertices": 404,
+          "triangles": 252,
+          "looseParts": 80
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4.16,
+          "depth": 3.36,
+          "height": 1.4
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1.04,
+          "depth": 0.84,
+          "height": 0.35,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "bridge_stoneNarrow"
+        ],
+        "dominantShare": 1,
+        "shells": 80,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 80 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "bridge_stoneNarrow",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4.16,
+          "depth": 3.36,
+          "height": 1.4
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "y": {
+            "min": -1.68,
+            "max": 1.68
+          },
+          "z": {
+            "min": 0,
+            "max": 1.4
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_stoneRound.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 540,
+      "triangles": 360,
+      "materials": [
+        "stone",
+        "stoneDark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "bridge_stoneRound",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "stone",
+            "stoneDark"
+          ],
+          "vertices": 540,
+          "triangles": 360,
+          "looseParts": 93
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4.16,
+          "depth": 4.16,
+          "height": 1.8
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1.04,
+          "depth": 1.04,
+          "height": 0.45,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "bridge_stoneRound"
+        ],
+        "dominantShare": 1,
+        "shells": 93,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 93 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "bridge_stoneRound",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4.16,
+          "depth": 4.16,
+          "height": 1.8
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "y": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "z": {
+            "min": 0,
+            "max": 1.8
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_stoneRoundNarrow.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 540,
+      "triangles": 360,
+      "materials": [
+        "stone",
+        "stoneDark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "bridge_stoneRoundNarrow",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "stone",
+            "stoneDark"
+          ],
+          "vertices": 540,
+          "triangles": 360,
+          "looseParts": 93
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4.16,
+          "depth": 3.36,
+          "height": 1.6
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1.04,
+          "depth": 0.84,
+          "height": 0.4,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "bridge_stoneRoundNarrow"
+        ],
+        "dominantShare": 1,
+        "shells": 93,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 93 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "bridge_stoneRoundNarrow",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4.16,
+          "depth": 3.36,
+          "height": 1.6
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "y": {
+            "min": -1.68,
+            "max": 1.68
+          },
+          "z": {
+            "min": 0,
+            "max": 1.6
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_wood.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 340,
+      "triangles": 220,
+      "materials": [
+        "stone",
+        "wood",
+        "woodBark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "bridge_wood",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "woodBark",
+            "wood",
+            "stone"
+          ],
+          "vertices": 340,
+          "triangles": 220,
+          "looseParts": 64
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4.16,
+          "depth": 4.16,
+          "height": 1.6
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1.04,
+          "depth": 1.04,
+          "height": 0.4,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "bridge_wood"
+        ],
+        "dominantShare": 1,
+        "shells": 64,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 64 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "bridge_wood",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4.16,
+          "depth": 4.16,
+          "height": 1.6
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "y": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "z": {
+            "min": 0,
+            "max": 1.6
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_woodNarrow.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 340,
+      "triangles": 220,
+      "materials": [
+        "stone",
+        "wood",
+        "woodBark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "bridge_woodNarrow",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "woodBark",
+            "wood",
+            "stone"
+          ],
+          "vertices": 340,
+          "triangles": 220,
+          "looseParts": 64
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4.16,
+          "depth": 3.36,
+          "height": 1.4
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1.04,
+          "depth": 0.84,
+          "height": 0.35,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "bridge_woodNarrow"
+        ],
+        "dominantShare": 1,
+        "shells": 64,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 64 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "bridge_woodNarrow",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4.16,
+          "depth": 3.36,
+          "height": 1.4
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "y": {
+            "min": -1.68,
+            "max": 1.68
+          },
+          "z": {
+            "min": 0,
+            "max": 1.4
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_woodRound.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 484,
+      "triangles": 336,
+      "materials": [
+        "stone",
+        "stoneDark",
+        "wood",
+        "woodBark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "bridge_woodRound",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "woodBark",
+            "stone",
+            "wood",
+            "stoneDark"
+          ],
+          "vertices": 484,
+          "triangles": 336,
+          "looseParts": 78
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4.16,
+          "depth": 4.16,
+          "height": 1.8
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1.04,
+          "depth": 1.04,
+          "height": 0.45,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "bridge_woodRound"
+        ],
+        "dominantShare": 1,
+        "shells": 78,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 78 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "bridge_woodRound",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4.16,
+          "depth": 4.16,
+          "height": 1.8
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "y": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "z": {
+            "min": 0,
+            "max": 1.8
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_woodRoundNarrow.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 484,
+      "triangles": 336,
+      "materials": [
+        "stone",
+        "stoneDark",
+        "wood",
+        "woodBark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "bridge_woodRoundNarrow",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "woodBark",
+            "stone",
+            "wood",
+            "stoneDark"
+          ],
+          "vertices": 484,
+          "triangles": 336,
+          "looseParts": 78
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4.16,
+          "depth": 3.36,
+          "height": 1.6
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1.04,
+          "depth": 0.84,
+          "height": 0.4,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "bridge_woodRoundNarrow"
+        ],
+        "dominantShare": 1,
+        "shells": 78,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 78 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "bridge_woodRoundNarrow",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4.16,
+          "depth": 3.36,
+          "height": 1.6
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "y": {
+            "min": -1.68,
+            "max": 1.68
+          },
+          "z": {
+            "min": 0,
+            "max": 1.6
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
       "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/log_large.glb",
       "license": "CC0-1.0",
       "unitScale": 4,
@@ -24282,6 +26114,234 @@
           "z": {
             "min": 0,
             "max": 1.137
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/pot_large.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 108,
+      "triangles": 68,
+      "materials": [
+        "wood",
+        "woodBarkDark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "pot_large",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "wood",
+            "woodBarkDark"
+          ],
+          "vertices": 108,
+          "triangles": 68,
+          "looseParts": 22
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 2.2544,
+          "depth": 1.9524,
+          "height": 0.8
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 0.5636,
+          "depth": 0.4881,
+          "height": 0.2,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "pot_large"
+        ],
+        "dominantShare": 1,
+        "shells": 22,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 22 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "pot_large",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 2.254,
+          "depth": 1.952,
+          "height": 0.8
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -1.127,
+            "max": 1.127
+          },
+          "y": {
+            "min": -0.976,
+            "max": 0.976
+          },
+          "z": {
+            "min": 0,
+            "max": 0.8
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/pot_small.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 120,
+      "triangles": 72,
+      "materials": [
+        "_defaultMat",
+        "wood",
+        "woodBarkDark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "pot_small",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "wood",
+            "woodBarkDark",
+            "_defaultMat"
+          ],
+          "vertices": 120,
+          "triangles": 72,
+          "looseParts": 26
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 1.2938,
+          "depth": 1.1205,
+          "height": 1.072
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 0.3234,
+          "depth": 0.2801,
+          "height": 0.268,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "pot_small"
+        ],
+        "dominantShare": 1,
+        "shells": 26,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 26 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "pot_small",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 1.294,
+          "depth": 1.12,
+          "height": 1.072
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -0.647,
+            "max": 0.647
+          },
+          "y": {
+            "min": -0.56,
+            "max": 0.56
+          },
+          "z": {
+            "min": 0,
+            "max": 1.072
           }
         },
         "convention": {
@@ -27698,6 +29758,688 @@
           "z": {
             "min": 0,
             "max": 2.48
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_block.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 240,
+      "triangles": 140,
+      "materials": [
+        "stone",
+        "stoneDark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "statue_block",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "stone",
+            "stoneDark"
+          ],
+          "vertices": 240,
+          "triangles": 140,
+          "looseParts": 56
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 1.6,
+          "depth": 1.6,
+          "height": 1.6
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 0.4,
+          "depth": 0.4,
+          "height": 0.4,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "statue_block"
+        ],
+        "dominantShare": 1,
+        "shells": 56,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 56 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "statue_block",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 1.6,
+          "depth": 1.6,
+          "height": 1.6
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -0.8,
+            "max": 0.8
+          },
+          "y": {
+            "min": -0.8,
+            "max": 0.8
+          },
+          "z": {
+            "min": 0,
+            "max": 1.6
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_column.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 210,
+      "triangles": 122,
+      "materials": [
+        "_defaultMat",
+        "stone",
+        "stoneDark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "statue_column",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "stoneDark",
+            "stone",
+            "_defaultMat"
+          ],
+          "vertices": 210,
+          "triangles": 122,
+          "looseParts": 48
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 1.2,
+          "depth": 1.2,
+          "height": 4
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 0.3,
+          "depth": 0.3,
+          "height": 1,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "statue_column"
+        ],
+        "dominantShare": 1,
+        "shells": 48,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 48 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "statue_column",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 1.2,
+          "depth": 1.2,
+          "height": 4
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -0.6,
+            "max": 0.6
+          },
+          "y": {
+            "min": -0.6,
+            "max": 0.6
+          },
+          "z": {
+            "min": 0,
+            "max": 4
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_columnDamaged.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 176,
+      "triangles": 108,
+      "materials": [
+        "stone",
+        "stoneDark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "statue_columnDamaged",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "stoneDark",
+            "stone"
+          ],
+          "vertices": 176,
+          "triangles": 108,
+          "looseParts": 34
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 1.2,
+          "depth": 1.2,
+          "height": 2.8
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 0.3,
+          "depth": 0.3,
+          "height": 0.7,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "statue_columnDamaged"
+        ],
+        "dominantShare": 1,
+        "shells": 34,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 34 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "statue_columnDamaged",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 1.2,
+          "depth": 1.2,
+          "height": 2.8
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -0.6,
+            "max": 0.6
+          },
+          "y": {
+            "min": -0.6,
+            "max": 0.6
+          },
+          "z": {
+            "min": 0,
+            "max": 2.8
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_head.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 318,
+      "triangles": 196,
+      "materials": [
+        "_defaultMat",
+        "stone",
+        "stoneDark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "statue_head",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "stone",
+            "stoneDark",
+            "_defaultMat"
+          ],
+          "vertices": 318,
+          "triangles": 196,
+          "looseParts": 63
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 2.904,
+          "depth": 2.2177,
+          "height": 4
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 0.726,
+          "depth": 0.5544,
+          "height": 1,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          -0.1488,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "statue_head"
+        ],
+        "dominantShare": 1,
+        "shells": 63,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 63 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "statue_head",
+        "origin": [
+          0,
+          -0.149,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          -0.149,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 2.904,
+          "depth": 2.218,
+          "height": 4
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -1.452,
+            "max": 1.452
+          },
+          "y": {
+            "min": -0.96,
+            "max": 1.258
+          },
+          "z": {
+            "min": 0,
+            "max": 4
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_obelisk.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 72,
+      "triangles": 38,
+      "materials": [
+        "stone",
+        "stoneDark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "statue_obelisk",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "stoneDark",
+            "stone"
+          ],
+          "vertices": 72,
+          "triangles": 38,
+          "looseParts": 18
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 1.2281,
+          "depth": 1.2281,
+          "height": 3.5016
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 0.307,
+          "depth": 0.307,
+          "height": 0.8754,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "statue_obelisk"
+        ],
+        "dominantShare": 1,
+        "shells": 18,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 18 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "statue_obelisk",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 1.228,
+          "depth": 1.228,
+          "height": 3.502
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -0.614,
+            "max": 0.614
+          },
+          "y": {
+            "min": -0.614,
+            "max": 0.614
+          },
+          "z": {
+            "min": 0,
+            "max": 3.502
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_ring.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 118,
+      "triangles": 76,
+      "materials": [
+        "stone",
+        "stoneDark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "statue_ring",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "stone",
+            "stoneDark"
+          ],
+          "vertices": 118,
+          "triangles": 76,
+          "looseParts": 24
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 2.4,
+          "depth": 1.6,
+          "height": 3.1856
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 0.6,
+          "depth": 0.4,
+          "height": 0.7964,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "statue_ring"
+        ],
+        "dominantShare": 1,
+        "shells": 24,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 24 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "statue_ring",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 2.4,
+          "depth": 1.6,
+          "height": 3.186
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -1.2,
+            "max": 1.2
+          },
+          "y": {
+            "min": -0.8,
+            "max": 0.8
+          },
+          "z": {
+            "min": 0,
+            "max": 3.186
           }
         },
         "convention": {

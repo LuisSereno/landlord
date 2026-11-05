@@ -60,7 +60,7 @@ const SCOPE = [
   {
     sourceId: "src_kenney_nature_kit",
     directory: `${EXTRACTED}/kenney/nature-kit/Models/GLTF format`,
-    pattern: "^(tree|bush|plant|rock|log|stump)_.*\\.glb$",
+    pattern: "^(tree|bush|plant|rock|log|stump|statue|bridge|pot|sign)_.*\\.glb$",
   },
   {
     sourceId: "src_kenney_car_kit",

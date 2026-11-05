@@ -47,8 +47,8 @@ from building_composer.style_profile import StyleProfile
 GRAMMARS_PATH = REPO_ROOT / "blender_artist/manifests/building-composer-grammars.json"
 PROFILE_ID = "graphic_civic_buildings_v1"
 
-TOWN_HALL_FOOTPRINT = {"width": 4, "height": 3}
-TOWN_HALL_FLOORS = 4
+TOWN_HALL_FOOTPRINT = {"width": 8, "height": 4}
+TOWN_HALL_FLOORS = 3
 TOWN_HALL_FAMILY = "civic_landmark"
 SEEDS_TEN = (42, 1000, 1001, 1002, 1003, 1004, 1005, 1337, 2000, 2026)
 
@@ -69,7 +69,7 @@ DOMAIN_FOOTPRINTS = {
     "cement_plant": {"width": 5, "height": 2, "floors": 2},
     "brickworks": {"width": 5, "height": 2, "floors": 2},
     "steelworks": {"width": 4, "height": 3, "floors": 2},
-    "town_hall": {"width": 4, "height": 3, "floors": 4},
+    "town_hall": {"width": 8, "height": 4, "floors": 3},
     "school_block": {"width": 7, "height": 2, "floors": 3},
     "clinic": {"width": 3, "height": 2, "floors": 2},
     "police_station": {"width": 3, "height": 2, "floors": 2},
@@ -267,9 +267,9 @@ def test_08_wrong_module_role_rejected():
 
 def test_09_required_count_over_static_capacity_rejected():
     def huge_count(raw):
-        # civic_block + flush: 8 raw bays, 7 disponibles. Pedir 9 debe fallar estático.
+        # grand_neoclassical_hall + flush: 8 raw bays, 7 disponibles. Pedir 9 debe fallar estático.
         raw["grammars"]["town_hall"]["recipes"][0]["requiredFeatures"][0]["count"] = 9
-    return load_fails(huge_count, "no cabe en massing=civic_block")
+    return load_fails(huge_count, "no cabe en massing=neoclassical_palace")
 
 
 def test_10_access_excludes_exactly_one_bay():

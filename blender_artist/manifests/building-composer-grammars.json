@@ -1057,6 +1057,68 @@
       ],
       "recipes": [
         {
+          "id": "grand_neoclassical_hall",
+          "label": "palacio neoclásico monumental tipo Casa Blanca",
+          "massingIds": [
+            "neoclassical_palace"
+          ],
+          "cornerModeIds": [
+            "flush"
+          ],
+          "accessIds": [
+            "monumental_stairs"
+          ],
+          "roofIds": [
+            "flat_plates",
+            "flat_slabs"
+          ],
+          "rhythmIds": [
+            "civic_regular",
+            "tall_aisles"
+          ],
+          "requiredFeatures": [
+            {
+              "kind": "facade",
+              "id": "grand_portico_columns",
+              "role": "column",
+              "module": "mod_megakit_brick_column",
+              "side": "front",
+              "count": 6,
+              "levels": 2,
+              "distribution": "symmetric",
+              "targetVolume": 1,
+              "projectionMeters": 1.0,
+              "startLevel": 0
+            },
+            {
+              "kind": "facade",
+              "id": "grand_entablature",
+              "role": "frieze",
+              "module": "mod_megakit_civic_frieze_ornament",
+              "side": "front",
+              "count": 6,
+              "levels": 1,
+              "startLevel": 2,
+              "distribution": "symmetric",
+              "targetVolume": 1,
+              "projectionMeters": 0.30
+            },
+            {
+              "kind": "facade",
+              "id": "grand_pediment",
+              "role": "frieze",
+              "module": "mod_megakit_civic_frieze_ornament",
+              "side": "front",
+              "count": 1,
+              "levels": 1,
+              "startLevel": 2,
+              "distribution": "symmetric",
+              "targetVolume": 1,
+              "projectionMeters": 0.40
+            }
+          ]
+        },
+        {
           "id": "neoclassical_portico",
           "label": "composición neoclásica con pórtico de columnas",
           "massingIds": [
@@ -1347,6 +1409,54 @@
               "levels": 1,
               "stackOn": 0,
               "slab": false,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "neoclassical_palace",
+          "label": "palacio neoclásico simétrico con alas laterales",
+          "volumes": [
+            {
+              "cells": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "levels": 2,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [
+                2,
+                1,
+                4,
+                3
+              ],
+              "levels": 3,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [
+                6,
+                1,
+                2,
+                3
+              ],
+              "levels": 2,
+              "stackOn": null,
+              "slab": true,
               "build": "bands",
               "role": null,
               "module": null

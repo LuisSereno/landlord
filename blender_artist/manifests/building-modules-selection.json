@@ -2435,6 +2435,104 @@
         "civic_landmark"
       ],
       "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_nature_tree_pine_tall",
+      "category": "civic",
+      "role": "tree",
+      "note": "pino alto para parques",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_pineTallA.glb",
+      "meshes": [
+        "tree_pineTallA"
+      ],
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_nature_tree_oak",
+      "category": "civic",
+      "role": "tree",
+      "note": "roble frondoso para parques",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_oak.glb",
+      "meshes": [
+        "tree_oak"
+      ],
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_nature_tree_cone",
+      "category": "civic",
+      "role": "tree",
+      "note": "\u00e1rbol c\u00f3nico para parques",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_cone.glb",
+      "meshes": [
+        "tree_cone"
+      ],
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_nature_tree_detailed",
+      "category": "civic",
+      "role": "tree",
+      "note": "\u00e1rbol detallado para parques",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_detailed.glb",
+      "meshes": [
+        "tree_detailed"
+      ],
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_nature_tree_small",
+      "category": "civic",
+      "role": "tree",
+      "note": "\u00e1rbol peque\u00f1o para bolsillos",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_small.glb",
+      "meshes": [
+        "tree_small"
+      ],
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_nature_bush",
+      "category": "civic",
+      "role": "foliage",
+      "note": "arbusto bajo para jardiner\u00eda",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bush.glb",
+      "meshes": [
+        "plant_bush"
+      ],
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_nature_bush_large",
+      "category": "civic",
+      "role": "foliage",
+      "note": "arbusto grande para jardiner\u00eda",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bushLarge.glb",
+      "meshes": [
+        "plant_bushLarge"
+      ],
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extractionStrategy": "whole_asset"
     }
   ]
 }

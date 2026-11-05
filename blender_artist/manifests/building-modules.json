@@ -68,14 +68,14 @@
   },
   "orientationPolicy": "Los módulos sólo rotan en múltiplos de 90°: la retícula del dominio y el rig isométrico (azimut 45°) no admiten giros arbitrarios sin romper el encaje de fachadas.",
   "counts": {
-    "modules": 166,
-    "sources": 165,
+    "modules": 173,
+    "sources": 172,
     "byCategory": {
       "facade": 31,
       "window": 9,
       "door": 6,
       "roof": 13,
-      "civic": 62,
+      "civic": 69,
       "canopy": 5,
       "intrinsic_prop": 2,
       "mass": 25,
@@ -86,7 +86,7 @@
     "byFamily": {
       "residential_low": 49,
       "industrial_heavy": 45,
-      "civic_landmark": 140
+      "civic_landmark": 147
     },
     "bySource": {
       "src_quaternius_downtown_city_megakit": 102,
@@ -94,7 +94,7 @@
       "src_kenney_city_suburban": 4,
       "src_kenney_city_commercial": 4,
       "src_kaykit_city_builder_bits": 10,
-      "src_kenney_nature_kit": 11,
+      "src_kenney_nature_kit": 18,
       "src_kenney_city_roads": 13,
       "src_original_civic_pediment": 1
     }
@@ -23035,6 +23035,949 @@
         "fileTriangles": 16,
         "fileHierarchy": [
           "CivicPediment:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_nature_tree_pine_tall",
+      "category": "civic",
+      "role": "tree",
+      "note": "pino alto para parques",
+      "sourceId": "src_kenney_nature_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_pineTallA.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "tree_pineTallA"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 32 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.545,
+        "depthMeters": 1.568,
+        "heightMeters": 6.118
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "tree_pineTallA",
+        "convention": {
+          "x": "offset",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.717,
+            "max": 0.828
+          },
+          "y": {
+            "min": -0.792,
+            "max": 0.776
+          },
+          "z": {
+            "min": 0,
+            "max": 6.118
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          -0.056,
+          0.008,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.7725,
+            "max": 0.7725
+          },
+          "y": {
+            "min": -0.7839,
+            "max": 0.7839
+          },
+          "z": {
+            "min": 0,
+            "max": 6.1184
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 136,
+        "triangles": 78,
+        "shells": 32,
+        "materials": [
+          "leafsDark",
+          "woodBarkDark"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "tree_pineTallA"
+        ],
+        "baseColorChains": [
+          "leafsDark=plano",
+          "woodBarkDark=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.3863,
+          "depth": 0.392,
+          "height": 1.5296,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          -0.0558,
+          0.0082,
+          0.2
+        ],
+        "fileTriangles": 78,
+        "fileHierarchy": [
+          "tmpParent:EMPTY",
+          "tree_pineTallA:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_nature_tree_oak",
+      "category": "civic",
+      "role": "tree",
+      "note": "roble frondoso para parques",
+      "sourceId": "src_kenney_nature_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_oak.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "tree_oak"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 67 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2.562,
+        "depthMeters": 2.959,
+        "heightMeters": 4.905
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "tree_oak",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1.281,
+            "max": 1.281
+          },
+          "y": {
+            "min": -1.479,
+            "max": 1.479
+          },
+          "z": {
+            "min": 0,
+            "max": 4.905
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1.2811,
+            "max": 1.2811
+          },
+          "y": {
+            "min": -1.4793,
+            "max": 1.4793
+          },
+          "z": {
+            "min": 0,
+            "max": 4.905
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 324,
+        "triangles": 196,
+        "shells": 67,
+        "materials": [
+          "leafsGreen",
+          "woodBark"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "tree_oak"
+        ],
+        "baseColorChains": [
+          "leafsGreen=plano",
+          "woodBark=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.6406,
+          "depth": 0.7396,
+          "height": 1.2262,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ],
+        "fileTriangles": 196,
+        "fileHierarchy": [
+          "tmpParent:EMPTY",
+          "tree_oak:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_nature_tree_cone",
+      "category": "civic",
+      "role": "tree",
+      "note": "árbol cónico para parques",
+      "sourceId": "src_kenney_nature_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_cone.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "tree_cone"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 53 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2.119,
+        "depthMeters": 2.119,
+        "heightMeters": 5.721
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "tree_cone",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1.059,
+            "max": 1.059
+          },
+          "y": {
+            "min": -1.059,
+            "max": 1.059
+          },
+          "z": {
+            "min": 0,
+            "max": 5.721
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1.0593,
+            "max": 1.0593
+          },
+          "y": {
+            "min": -1.0593,
+            "max": 1.0593
+          },
+          "z": {
+            "min": 0,
+            "max": 5.7213
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 232,
+        "triangles": 132,
+        "shells": 53,
+        "materials": [
+          "leafsGreen",
+          "woodBark"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "tree_cone"
+        ],
+        "baseColorChains": [
+          "leafsGreen=plano",
+          "woodBark=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.5297,
+          "depth": 0.5297,
+          "height": 1.4303,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ],
+        "fileTriangles": 132,
+        "fileHierarchy": [
+          "tmpParent:EMPTY",
+          "tree_cone:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_nature_tree_detailed",
+      "category": "civic",
+      "role": "tree",
+      "note": "árbol detallado para parques",
+      "sourceId": "src_kenney_nature_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_detailed.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "tree_detailed"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 182 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 3.389,
+        "depthMeters": 3.046,
+        "heightMeters": 5.33
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "tree_detailed",
+        "convention": {
+          "x": "offset",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "-Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1.73,
+            "max": 1.659
+          },
+          "y": {
+            "min": -1.558,
+            "max": 1.489
+          },
+          "z": {
+            "min": 0,
+            "max": 5.33
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0.036,
+          0.035,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1.6942,
+            "max": 1.6942
+          },
+          "y": {
+            "min": -1.5232,
+            "max": 1.5232
+          },
+          "z": {
+            "min": 0,
+            "max": 5.3297
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 758,
+        "triangles": 402,
+        "shells": 182,
+        "materials": [
+          "_defaultMat",
+          "leafsGreen",
+          "woodBark"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "tree_detailed"
+        ],
+        "baseColorChains": [
+          "_defaultMat=plano",
+          "leafsGreen=plano",
+          "woodBark=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.8471,
+          "depth": 0.7616,
+          "height": 1.3324,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0.0357,
+          0.0347,
+          0.2
+        ],
+        "fileTriangles": 402,
+        "fileHierarchy": [
+          "tmpParent:EMPTY",
+          "tree_detailed:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_nature_tree_small",
+      "category": "civic",
+      "role": "tree",
+      "note": "árbol pequeño para bolsillos",
+      "sourceId": "src_kenney_nature_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_small.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "tree_small"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 30 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.419,
+        "depthMeters": 1.638,
+        "heightMeters": 4.44
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "tree_small",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.709,
+            "max": 0.709
+          },
+          "y": {
+            "min": -0.819,
+            "max": 0.819
+          },
+          "z": {
+            "min": 0,
+            "max": 4.44
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.7093,
+            "max": 0.7093
+          },
+          "y": {
+            "min": -0.819,
+            "max": 0.819
+          },
+          "z": {
+            "min": 0,
+            "max": 4.4401
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 120,
+        "triangles": 62,
+        "shells": 30,
+        "materials": [
+          "leafsGreen",
+          "woodBark"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "tree_small"
+        ],
+        "baseColorChains": [
+          "leafsGreen=plano",
+          "woodBark=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.3546,
+          "depth": 0.4095,
+          "height": 1.11,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ],
+        "fileTriangles": 62,
+        "fileHierarchy": [
+          "tmpParent:EMPTY",
+          "tree_small:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_nature_bush",
+      "category": "civic",
+      "role": "foliage",
+      "note": "arbusto bajo para jardinería",
+      "sourceId": "src_kenney_nature_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bush.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "plant_bush"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 24 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.584,
+        "depthMeters": 1.584,
+        "heightMeters": 0.978
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "plant_bush",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.792,
+            "max": 0.792
+          },
+          "y": {
+            "min": -0.792,
+            "max": 0.792
+          },
+          "z": {
+            "min": 0,
+            "max": 0.978
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.792,
+            "max": 0.792
+          },
+          "y": {
+            "min": -0.792,
+            "max": 0.792
+          },
+          "z": {
+            "min": 0,
+            "max": 0.9778
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 80,
+        "triangles": 32,
+        "shells": 24,
+        "materials": [
+          "grass"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "plant_bush"
+        ],
+        "baseColorChains": [
+          "grass=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.396,
+          "depth": 0.396,
+          "height": 0.2444,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ],
+        "fileTriangles": 32,
+        "fileHierarchy": [
+          "plant_bush:MESH",
+          "tmpParent:EMPTY"
+        ]
+      }
+    },
+    {
+      "id": "mod_nature_bush_large",
+      "category": "civic",
+      "role": "foliage",
+      "note": "arbusto grande para jardinería",
+      "sourceId": "src_kenney_nature_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bushLarge.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "plant_bushLarge"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 36 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.497,
+        "depthMeters": 1.343,
+        "heightMeters": 0.972
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "plant_bushLarge",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.749,
+            "max": 0.749
+          },
+          "y": {
+            "min": -0.671,
+            "max": 0.671
+          },
+          "z": {
+            "min": 0,
+            "max": 0.972
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.7486,
+            "max": 0.7486
+          },
+          "y": {
+            "min": -0.6714,
+            "max": 0.6714
+          },
+          "z": {
+            "min": 0,
+            "max": 0.9717
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 132,
+        "triangles": 60,
+        "shells": 36,
+        "materials": [
+          "grass"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "plant_bushLarge"
+        ],
+        "baseColorChains": [
+          "grass=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.3743,
+          "depth": 0.3357,
+          "height": 0.2429,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ],
+        "fileTriangles": 60,
+        "fileHierarchy": [
+          "plant_bushLarge:MESH",
+          "tmpParent:EMPTY"
         ]
       }
     }

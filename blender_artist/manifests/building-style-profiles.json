@@ -23,8 +23,8 @@
       "id": "graphic_civic_buildings_v1",
       "label": "Edificios cívicos gráficos nocturnos, compuestos con geometría licenciada",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "5f1fee735ee3644566a1d8ae898a69d20391df912795831ce120b4163dbf4475",
-      "selectionSha256": "3c20285f175e77d34981f44f747020c64e07792ccbc9ebed4dae3665f9fe84d5",
+      "moduleCatalogSha256": "60ba08adfd2331246e35c50a19c4d04ee8869b7163e9eaba99d0718a020168bb",
+      "selectionSha256": "cd467b01062171f6bc422077820ff7823a7d7c3fe81f03b05b87aa8eed55fb73",
       "appliesToFamilies": [
         "residential_low",
         "industrial_heavy",
@@ -966,7 +966,7 @@
           "value": {
             "trianglesPerModule": {
               "p50": 112,
-              "p90": 1124.5,
+              "p90": 1100.2,
               "max": 2960
             },
             "facadeTrianglesPerSquareMeter": {
@@ -2284,6 +2284,48 @@
                 "heightMeters": 0.898,
                 "nearestFloorCount": 1,
                 "deviationPercent": -70.1
+              },
+              {
+                "id": "mod_nature_tree_pine_tall",
+                "heightMeters": 6.118,
+                "nearestFloorCount": 2,
+                "deviationPercent": 2
+              },
+              {
+                "id": "mod_nature_tree_oak",
+                "heightMeters": 4.905,
+                "nearestFloorCount": 2,
+                "deviationPercent": -18.2
+              },
+              {
+                "id": "mod_nature_tree_cone",
+                "heightMeters": 5.721,
+                "nearestFloorCount": 2,
+                "deviationPercent": -4.6
+              },
+              {
+                "id": "mod_nature_tree_detailed",
+                "heightMeters": 5.33,
+                "nearestFloorCount": 2,
+                "deviationPercent": -11.2
+              },
+              {
+                "id": "mod_nature_tree_small",
+                "heightMeters": 4.44,
+                "nearestFloorCount": 1,
+                "deviationPercent": 48
+              },
+              {
+                "id": "mod_nature_bush",
+                "heightMeters": 0.978,
+                "nearestFloorCount": 1,
+                "deviationPercent": -67.4
+              },
+              {
+                "id": "mod_nature_bush_large",
+                "heightMeters": 0.972,
+                "nearestFloorCount": 1,
+                "deviationPercent": -67.6
               }
             ],
             "rule": "no estirar masas: elegir el módulo cuyo alto cae en la retícula de pisos"
@@ -2843,13 +2885,55 @@
                   "heightMeters": 0.898,
                   "nearestFloorCount": 1,
                   "deviationPercent": -70.1
+                },
+                {
+                  "id": "mod_nature_tree_pine_tall",
+                  "heightMeters": 6.118,
+                  "nearestFloorCount": 2,
+                  "deviationPercent": 2
+                },
+                {
+                  "id": "mod_nature_tree_oak",
+                  "heightMeters": 4.905,
+                  "nearestFloorCount": 2,
+                  "deviationPercent": -18.2
+                },
+                {
+                  "id": "mod_nature_tree_cone",
+                  "heightMeters": 5.721,
+                  "nearestFloorCount": 2,
+                  "deviationPercent": -4.6
+                },
+                {
+                  "id": "mod_nature_tree_detailed",
+                  "heightMeters": 5.33,
+                  "nearestFloorCount": 2,
+                  "deviationPercent": -11.2
+                },
+                {
+                  "id": "mod_nature_tree_small",
+                  "heightMeters": 4.44,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": 48
+                },
+                {
+                  "id": "mod_nature_bush",
+                  "heightMeters": 0.978,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -67.4
+                },
+                {
+                  "id": "mod_nature_bush_large",
+                  "heightMeters": 0.972,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -67.6
                 }
               ],
               "how": "altura medida de cada masa completa frente a múltiplos de la altura de piso",
               "source": "blender_artist/manifests/building-modules.json → nominalBounds.heightMeters"
             }
           ],
-          "rationale": "75 de 92 masas licenciadas no caen en la retícula de 3 m. El compositor decide con los datos: o usa la masa tal cual (y la azotea no alineará con el paso de piso) o compone la masa con paneles. Escalar una masa para forzar la retícula deformaría sus marcos, así que está prohibido."
+          "rationale": "82 de 99 masas licenciadas no caen en la retícula de 3 m. El compositor decide con los datos: o usa la masa tal cual (y la azotea no alineará con el paso de piso) o compone la masa con paneles. Escalar una masa para forzar la retícula deformaría sus marcos, así que está prohibido."
         }
       },
       "materialFamilies": [
@@ -3399,14 +3483,16 @@
           "present": true,
           "measuredMaterials": [
             "wood",
+            "woodBark",
             "woodBarkDark",
             "woodDark"
           ],
-          "moduleCount": 3,
+          "moduleCount": 8,
           "moduleExamples": [
             "mod_nature_civic_sign",
             "mod_nature_civic_urn_large",
-            "mod_nature_civic_urn_small"
+            "mod_nature_civic_urn_small",
+            "mod_nature_tree_cone"
           ],
           "sourceIds": [
             "src_kenney_nature_kit"
@@ -3980,20 +4066,24 @@
           {
             "pack": "src_kenney_nature_kit",
             "license": "CC0-1.0",
-            "moduleCount": 11,
-            "materials": 6,
+            "moduleCount": 18,
+            "materials": 10,
             "materialsReachedByTreatment": [],
             "materialsRawAlways": [
               "_defaultMat",
+              "grass",
+              "leafsDark",
+              "leafsGreen",
               "stone",
               "stoneDark",
               "wood",
+              "woodBark",
               "woodBarkDark",
               "woodDark"
             ],
             "materialsSplitWithinPack": [],
             "modulesFullyTreated": 0,
-            "modulesWithRawMaterial": 11,
+            "modulesWithRawMaterial": 18,
             "rawModuleExamples": [
               "statue_obelisk.glb: 2 de 2 materiales en bruto",
               "statue_column.glb: 3 de 3 materiales en bruto",
@@ -4009,6 +4099,54 @@
             "materialReach": [
               {
                 "material": "_defaultMat",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×5"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  1
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 5,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "grass",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×2"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  1
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 2,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "leafsDark",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  1
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "leafsGreen",
                 "family": "atlas",
                 "baseColorChains": [
                   "factor plano ×4"
@@ -4072,10 +4210,10 @@
                 "reachedByTreatment": false
               },
               {
-                "material": "woodBarkDark",
+                "material": "woodBark",
                 "family": "wood",
                 "baseColorChains": [
-                  "factor plano ×2"
+                  "factor plano ×4"
                 ],
                 "colorTextures": [],
                 "colorTextureFiles": [],
@@ -4083,7 +4221,23 @@
                   1
                 ],
                 "modulesWithAtlasDirect": 0,
-                "modulesRaw": 2,
+                "modulesRaw": 4,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "woodBarkDark",
+                "family": "wood",
+                "baseColorChains": [
+                  "factor plano ×3"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  1
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 3,
                 "splitWithinPack": false,
                 "reachedByTreatment": false
               },
@@ -4518,6 +4672,8 @@
         "modulesRawList": [
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_stone.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_stoneRound.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bush.glb (src_kenney_nature_kit): 1 de 1 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bushLarge.glb (src_kenney_nature_kit): 1 de 1 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/pot_large.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/pot_small.glb (src_kenney_nature_kit): 3 de 3 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/sign.glb (src_kenney_nature_kit): 3 de 3 materiales con Base Color fuera de la banda",
@@ -4527,6 +4683,11 @@
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_head.glb (src_kenney_nature_kit): 3 de 3 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_obelisk.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_ring.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_cone.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_detailed.glb (src_kenney_nature_kit): 3 de 3 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_oak.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_pineTallA.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_small.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_90Angle_L.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_90Angle_R.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_BottomTrim.gltf (src_quaternius_downtown_city_megakit): 3 de 3 materiales con Base Color fuera de la banda",
@@ -5259,11 +5420,15 @@
             "bld_residential_c/burning: 6 ventanas encendidas"
           ],
           "materialsWithRawInstances": [
-            "src_kenney_nature_kit/_defaultMat: Base Color factor plano ×4; atlas de color ninguno; módulos alcanzados 0, en bruto 4",
+            "src_kenney_nature_kit/_defaultMat: Base Color factor plano ×5; atlas de color ninguno; módulos alcanzados 0, en bruto 5",
+            "src_kenney_nature_kit/grass: Base Color factor plano ×2; atlas de color ninguno; módulos alcanzados 0, en bruto 2",
+            "src_kenney_nature_kit/leafsDark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_kenney_nature_kit/leafsGreen: Base Color factor plano ×4; atlas de color ninguno; módulos alcanzados 0, en bruto 4",
             "src_kenney_nature_kit/stone: Base Color factor plano ×8; atlas de color ninguno; módulos alcanzados 0, en bruto 8",
             "src_kenney_nature_kit/stoneDark: Base Color factor plano ×8; atlas de color ninguno; módulos alcanzados 0, en bruto 8",
             "src_kenney_nature_kit/wood: Base Color factor plano ×3; atlas de color ninguno; módulos alcanzados 0, en bruto 3",
-            "src_kenney_nature_kit/woodBarkDark: Base Color factor plano ×2; atlas de color ninguno; módulos alcanzados 0, en bruto 2",
+            "src_kenney_nature_kit/woodBark: Base Color factor plano ×4; atlas de color ninguno; módulos alcanzados 0, en bruto 4",
+            "src_kenney_nature_kit/woodBarkDark: Base Color factor plano ×3; atlas de color ninguno; módulos alcanzados 0, en bruto 3",
             "src_kenney_nature_kit/woodDark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_quaternius_downtown_city_megakit/MI_FakeInterior: Base Color MIX:sin imagen ×14, factor plano ×2; atlas de color ninguno; módulos alcanzados 0, en bruto 16",
             "src_quaternius_downtown_city_megakit/MI_Glass: Base Color MIX:sin imagen ×18, factor plano ×3; atlas de color ninguno; módulos alcanzados 0, en bruto 21",
@@ -5282,7 +5447,7 @@
         }
       },
       "knownGaps": [
-        "glass (materiales MI_Glass sin textura de color mapeable); wood (materiales wood, woodBarkDark, woodDark sin textura de color mapeable): la familia existe en la geometría, pero su color no vive en un atlas mapeable, así que §11 no puede separarla por albedo. Se decide por emisión y roughness en V.f.4.",
+        "glass (materiales MI_Glass sin textura de color mapeable); wood (materiales wood, woodBark, woodBarkDark, woodDark sin textura de color mapeable): la familia existe en la geometría, pero su color no vive en un atlas mapeable, así que §11 no puede separarla por albedo. Se decide por emisión y roughness en V.f.4.",
         "nombres de textura que no identifican un archivo (colormap ×4): son PNG distintos con el mismo nombre de datablock, porque cada archivo se importa en una escena limpia. El muestreo y el remape van por ruta (`textureFile`); cualquier consumidor que agrupe por nombre atribuiría el color de un pack a los demás.",
         "metal vs stone: sólo los separa el shading (rugosidad o metallic), no el albedo. Si V.f.4 aplanara esos canales, esas familias colapsarían.",
         "atlas alcanzados sólo en parte (T_Concrete_BaseColor: 3 módulos directos / 1 con Base Color mezclado; T_MarbleFloor_BaseColor: 2 módulos directos / 1 con Base Color mezclado; T_MetalConcrete_BaseColor: 21 módulos directos / 17 con Base Color mezclado; T_RedBrick_BaseColor: 7 módulos directos / 41 con Base Color mezclado; T_Trim_BaseColor: 17 módulos directos / 29 con Base Color mezclado): el valor medido en `materialFamilies` es el del lado tratado. El compositor listador debe elegir módulos por `packCoexistence.modulesRawList`, no por nombre de material, o un mismo alzado mostrará dos temperaturas de brillo.",
@@ -5297,14 +5462,14 @@
     }
   ],
   "counts": {
-    "modules": 166,
+    "modules": 173,
     "texturesSampled": 30,
     "familiesPresentInGeometry": 6,
     "familiesMeasuredByAlbedo": 4,
     "familyPairsChecked": 6,
     "collapsedPairs": 0,
     "modulesFullyTreatedToday": 97,
-    "modulesWithRawMaterial": 69,
+    "modulesWithRawMaterial": 76,
     "texturesSplitAcrossModules": 5
   }
 }

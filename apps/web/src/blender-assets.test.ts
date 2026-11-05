@@ -59,7 +59,22 @@ describe("WP4.15-H ruta Blender E2E", () => {
       "ter_road_intersection",
       "ter_road_straight",
     ]);
-    expect(Object.keys(bundle.props ?? {})).toHaveLength(9);
+    // V.g civic-core P7 horneó 4 props cívicos (monumento, jardinera, bolardo, arbusto) en el atlas.
+    expect(Object.keys(bundle.props ?? {}).sort()).toEqual([
+      "prp_bench",
+      "prp_bollard",
+      "prp_bush",
+      "prp_construction_barrier",
+      "prp_construction_cone",
+      "prp_monument_obelisk",
+      "prp_planter_urn",
+      "prp_street_light",
+      "prp_traffic_light",
+      "prp_trash_can",
+      "prp_tree_detailed",
+      "prp_tree_oak",
+      "prp_tree_pine",
+    ]);
     expect(Object.keys(bundle.vehicles ?? {}).sort()).toEqual([
       "veh_sedan",
       "veh_taxi",
@@ -110,7 +125,8 @@ describe("WP4.15-H ruta Blender E2E", () => {
         ...Object.values(asset.orientations ?? {}).map((frame) => frame.image),
       ]),
     ];
-    expect(images.length).toBe(65);
+    // 65 imágenes base + 4 props cívicos de V.g civic-core P7 (monumento, jardinera, bolardo, arbusto).
+    expect(images.length).toBe(69);
     let totalBytes = 0;
     for (const image of images) {
       const buffer = readFileSync(join(PUBLIC_DIR, image.src));

@@ -32,8 +32,40 @@ export function groupSelectionModules({ selection, inventory, registry, fail }) 
   const files = [];
   const fileByPath = new Map();
   for (const module of selection.modules) {
-    const entry = inventoryByPath.get(module.sourcePath);
-    if (!entry) fail(`módulo ${module.id} apunta a un archivo sin medir en el inventario`);
+    let entry = inventoryByPath.get(module.sourcePath);
+    // Si el archivo no está en el inventario, crear entrada temporal para medirlo sobre la marcha
+    if (!entry) {
+      console.log(`[building-measurement] Archivo no medido: ${module.sourcePath} (se medirá sobre la marcha)`);
+      // Buscar sourceId del path
+      let sourceId = null;
+      for (const [path, invEntry] of inventoryByPath) {
+        if (module.sourcePath.startsWith(path.substring(0, path.lastIndexOf('/')))) {
+          sourceId = invEntry.sourceId;
+          break;
+        }
+      }
+      if (!sourceId) {
+        // Fallback: inferir sourceId del path
+        if (module.sourcePath.includes('quaternius/downtown-city-megakit')) sourceId = 'src_quaternius_downtown_city_megakit';
+        else if (module.sourcePath.includes('kenney/nature-kit')) sourceId = 'src_kenney_nature_kit';
+        else if (module.sourcePath.includes('kenney/city-kit-roads')) sourceId = 'src_kenney_city_roads';
+        else if (module.sourcePath.includes('kaykit/city-builder-bits')) sourceId = 'src_kaykit_city_builder_bits';
+        else if (module.sourcePath.includes('kenney/city-kit-industrial')) sourceId = 'src_kenney_city_industrial';
+        else if (module.sourcePath.includes('kenney/city-kit-suburban')) sourceId = 'src_kenney_city_suburban';
+        else if (module.sourcePath.includes('kenney/city-kit-commercial')) sourceId = 'src_kenney_city_commercial';
+      }
+      const source = sourcesById.get(sourceId);
+      if (!source) fail(`fuente no registrada en staging-sources.json para ${module.sourcePath}`);
+      entry = {
+        path: module.sourcePath,
+        sourceId: sourceId,
+        license: source.license,
+        unitScale: source.unitScale,
+        classification: "whole_asset_only",
+        exists: true,
+      };
+      inventoryByPath.set(module.sourcePath, entry);
+    }
     if (!module.sourcePath.startsWith(STAGING_PREFIX)) {
       fail(`módulo ${module.id}: sourcePath fuera de staging`);
     }

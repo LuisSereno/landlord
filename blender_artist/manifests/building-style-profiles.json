@@ -23,8 +23,8 @@
       "id": "graphic_civic_buildings_v1",
       "label": "Edificios cívicos gráficos nocturnos, compuestos con geometría licenciada",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "e8a56b4c3a6b0211fe3bf7d7299f655d1048de26e7fa37710e127ae7d68467ff",
-      "selectionSha256": "3620e293858a1c23e51352eb8fc8d0ba753f42cb048496f6640dc58d65c7957f",
+      "moduleCatalogSha256": "4145afd513845259105d3fd93913639885e8b6d7bf8575a3ba7d4983290020b8",
+      "selectionSha256": "60b0f69a94073f51f101329ef13a60e3bae033c36333be5569bc217cf56a61f7",
       "appliesToFamilies": [
         "residential_low",
         "industrial_heavy",
@@ -151,8 +151,8 @@
         "windowScale": {
           "value": {
             "rule": "sustituir módulo, nunca escalar",
-            "windowBaysMeasured": 9,
-            "windowBaysAtFloorHeight": 9,
+            "windowBaysMeasured": 12,
+            "windowBaysAtFloorHeight": 12,
             "widthsMeters": [
               2,
               4
@@ -178,16 +178,18 @@
                 0.229,
                 0.231,
                 0.24,
+                0.259,
                 0.261,
                 0.271,
                 0.277,
+                0.304,
                 0.374
               ],
               "how": "profundidades medidas de las crujías acristaladas (el relieve del hueco, no un cristal aparte)",
               "source": "blender_artist/manifests/building-modules.json → nominalBounds.depthMeters"
             }
           ],
-          "rationale": "9 de 9 crujías acristaladas miden exactamente la altura de piso. La variedad se consigue cambiando de módulo (9 crujías licenciadas distintas en el catálogo), así que el compositor no escala ventanas en Z: escalarlas rompería el dintel contra el marco de 3 m."
+          "rationale": "12 de 12 crujías acristaladas miden exactamente la altura de piso. La variedad se consigue cambiando de módulo (12 crujías licenciadas distintas en el catálogo), así que el compositor no escala ventanas en Z: escalarlas rompería el dintel contra el marco de 3 m."
         },
         "bevel": {
           "value": {
@@ -318,6 +320,31 @@
                   "projectionMeters": 0.428
                 },
                 {
+                  "id": "mod_megakit_civic_cornice_trim_l",
+                  "depthMeters": 0.628,
+                  "projectionMeters": 0.428
+                },
+                {
+                  "id": "mod_megakit_civic_cornice_trim_r",
+                  "depthMeters": 0.628,
+                  "projectionMeters": 0.428
+                },
+                {
+                  "id": "mod_megakit_civic_cornice_metal_90l",
+                  "depthMeters": 0.7,
+                  "projectionMeters": 0.5
+                },
+                {
+                  "id": "mod_megakit_civic_cornice_metal_90r",
+                  "depthMeters": 0.7,
+                  "projectionMeters": 0.5
+                },
+                {
+                  "id": "mod_megakit_civic_trim_90_top",
+                  "depthMeters": 0.7,
+                  "projectionMeters": 0.5
+                },
+                {
                   "id": "mod_megakit_cornice_brick_corner_left",
                   "depthMeters": 0.9,
                   "projectionMeters": 0.7
@@ -360,7 +387,7 @@
             "canonicalOverride": 0.88,
             "measuredOrmBand": [
               0.741,
-              0.901
+              0.948
             ],
             "scalarFactorsByPack": [
               "src_quaternius_downtown_city_megakit: 0.5",
@@ -425,6 +452,7 @@
             {
               "measured": [
                 "T_Concrete_ORM ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_ORM.png: G=0.879",
+                "T_Dirt_ORM ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_ORM.png: G=0.948",
                 "T_MarbleFloor_ORM ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_ORM.png: G=0.901",
                 "T_MetalConcrete_ORM ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png: G=0.827",
                 "T_Ornaments_ORM ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_ORM.png: G=0.741",
@@ -449,7 +477,7 @@
               "source": "/tmp/landlord-vf-style/measurements.json → materialReport[].surface.Roughness.value"
             }
           ],
-          "rationale": "El override canónico (0.88) sólo se aplica a sockets NO enlazados (runtime_asset.py:669-672): unifica los factores planos (src_quaternius_downtown_city_megakit: 0.5; src_kenney_city_industrial: 1; src_kenney_city_suburban: 1; src_kenney_city_commercial: 1; src_kaykit_city_builder_bits: 0.4; src_kenney_nature_kit: 1; src_kenney_city_roads: 1) y respeta los ORM enlazados, cuyas medias reales (0.741–0.901) ya caen dentro de la banda que la dirección acepta. Por eso el perfil no fija una rugosidad única: §11 prohíbe aplanar todos los materiales y la pipeline ya preserva el relieve cuando existe."
+          "rationale": "El override canónico (0.88) sólo se aplica a sockets NO enlazados (runtime_asset.py:669-672): unifica los factores planos (src_quaternius_downtown_city_megakit: 0.5; src_kenney_city_industrial: 1; src_kenney_city_suburban: 1; src_kenney_city_commercial: 1; src_kaykit_city_builder_bits: 0.4; src_kenney_nature_kit: 1; src_kenney_city_roads: 1) y respeta los ORM enlazados, cuyas medias reales (0.741–0.948) ya caen dentro de la banda que la dirección acepta. Por eso el perfil no fija una rugosidad única: §11 prohíbe aplanar todos los materiales y la pipeline ya preserva el relieve cuando existe."
         },
         "materialMetallic": {
           "value": {
@@ -501,6 +529,7 @@
             {
               "measured": [
                 "T_Concrete_ORM ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_ORM.png: B=0",
+                "T_Dirt_ORM ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_ORM.png: B=0",
                 "T_MarbleFloor_ORM ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_ORM.png: B=0",
                 "T_MetalConcrete_ORM ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png: B=0.203",
                 "T_Ornaments_ORM ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_ORM.png: B=0.042",
@@ -599,14 +628,14 @@
                   "inputValue": 0.339,
                   "roughness": 0.862,
                   "metallic": 0,
-                  "reachedByTreatment": true
+                  "reachedByTreatment": false
                 },
                 "hueDegrees": null,
                 "saturation": 0.024,
                 "value": 0.4,
                 "inputSaturation": 0.028,
                 "inputValue": 0.339,
-                "fullyTreatedToday": true
+                "fullyTreatedToday": false
               }
             ],
             "atlases": [
@@ -757,6 +786,24 @@
                 "windowGlow": false
               },
               {
+                "image": "T_Dirt_BaseColor",
+                "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_BaseColor.png",
+                "dominantPredicted": {
+                  "hueDegrees": 25.7,
+                  "saturation": 0.188,
+                  "value": 0.4
+                },
+                "dominantInput": {
+                  "hueDegrees": 25.7,
+                  "saturation": 0.221,
+                  "value": 0.353
+                },
+                "bandsClaimingIt": [
+                  "neutral_dark_asphalt"
+                ],
+                "windowGlow": false
+              },
+              {
                 "image": "T_MarbleFloor_BaseColor",
                 "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_BaseColor.png",
                 "dominantPredicted": {
@@ -881,6 +928,7 @@
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/Textures/colormap.png: grey 0.457→Hn/a S0.151 V0.365, blue 0.249→H227.5 S0.258 V0.602, orange 0.137→H19.2 S0.526 V0.836, magenta 0.057→H279.8 S0.502 V0.915, red 0.038→H5.7 S0.617 V0.819, green 0.032→H143.8 S0.522 V0.796, cyan 0.031→H154.5 S0.648 V0.651",
                 "T_Concrete_Asphalt_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png: grey 1→Hn/a S0.041 V0.231",
                 "T_Concrete_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png: grey 1→Hn/a S0.042 V0.499",
+                "T_Dirt_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_BaseColor.png: orange 0.988→H25.7 S0.221 V0.353",
                 "T_MarbleFloor_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_BaseColor.png: yellow 0.941→H36.9 S0.273 V0.708, orange 0.059→H35.6 S0.245 V0.736",
                 "T_MetalConcrete_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png: grey 0.594→Hn/a S0.045 V0.487, orange 0.402→H31.6 S0.222 V0.251",
                 "T_Ornaments_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_BaseColor.png: yellow 0.67→H47.6 S0.223 V0.574, grey 0.294→Hn/a S0.101 V0.603, orange 0.035→H25.2 S0.176 V0.35",
@@ -900,6 +948,7 @@
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/Textures/colormap.png: grey neutral_dark_asphalt→V0.4, blue facade_blue_grey_to_warm_stone→V0.61, orange warm_accents_muted→V0.55, magenta violet_accents_muted→V0.454, red warm_accents_muted→V0.55, green roof_and_verge_green_to_slate→V0.271, cyan roof_and_verge_green_to_slate→V0.222",
                 "T_Concrete_Asphalt_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png: grey neutral_dark_asphalt→V0.4",
                 "T_Concrete_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png: grey neutral_dark_asphalt→V0.4",
+                "T_Dirt_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_BaseColor.png: orange neutral_dark_asphalt→V0.4",
                 "T_MarbleFloor_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_BaseColor.png: yellow warm_accents_muted→V0.55, orange warm_accents_muted→V0.55",
                 "T_MetalConcrete_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png: grey neutral_dark_asphalt→V0.4, orange neutral_dark_asphalt→V0.4",
                 "T_Ornaments_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_BaseColor.png: yellow unclassified_night_fallback→V0.42, grey pale_neutral→V0.58, orange neutral_dark_asphalt→V0.4",
@@ -916,8 +965,8 @@
         "detailDensity": {
           "value": {
             "trianglesPerModule": {
-              "p50": 120,
-              "p90": 1408.5,
+              "p50": 112,
+              "p90": 1127,
               "max": 2960
             },
             "facadeTrianglesPerSquareMeter": {
@@ -2043,6 +2092,198 @@
                 "heightMeters": 1.072,
                 "nearestFloorCount": 1,
                 "deviationPercent": -64.3
+              },
+              {
+                "id": "mod_megakit_civic_cornice_metal_l",
+                "heightMeters": 1,
+                "nearestFloorCount": 1,
+                "deviationPercent": -66.7
+              },
+              {
+                "id": "mod_megakit_civic_cornice_metal_r",
+                "heightMeters": 1,
+                "nearestFloorCount": 1,
+                "deviationPercent": -66.7
+              },
+              {
+                "id": "mod_megakit_civic_cornice_metal_90l",
+                "heightMeters": 1,
+                "nearestFloorCount": 1,
+                "deviationPercent": -66.7
+              },
+              {
+                "id": "mod_megakit_civic_cornice_metal_90r",
+                "heightMeters": 1,
+                "nearestFloorCount": 1,
+                "deviationPercent": -66.7
+              },
+              {
+                "id": "mod_megakit_civic_cornice_trim_l",
+                "heightMeters": 0.998,
+                "nearestFloorCount": 1,
+                "deviationPercent": -66.7
+              },
+              {
+                "id": "mod_megakit_civic_cornice_trim_r",
+                "heightMeters": 0.998,
+                "nearestFloorCount": 1,
+                "deviationPercent": -66.7
+              },
+              {
+                "id": "mod_megakit_civic_bollard",
+                "heightMeters": 0.892,
+                "nearestFloorCount": 1,
+                "deviationPercent": -70.3
+              },
+              {
+                "id": "mod_megakit_civic_planter",
+                "heightMeters": 0.6,
+                "nearestFloorCount": 1,
+                "deviationPercent": -80
+              },
+              {
+                "id": "mod_megakit_civic_stair_rail_full",
+                "heightMeters": 1.981,
+                "nearestFloorCount": 1,
+                "deviationPercent": -34
+              },
+              {
+                "id": "mod_megakit_civic_trim_90_top",
+                "heightMeters": 0.02,
+                "nearestFloorCount": 1,
+                "deviationPercent": -99.3
+              },
+              {
+                "id": "mod_megakit_civic_floor_inset",
+                "heightMeters": 0.1,
+                "nearestFloorCount": 1,
+                "deviationPercent": -96.7
+              },
+              {
+                "id": "mod_nature_civic_statue_head",
+                "heightMeters": 4,
+                "nearestFloorCount": 1,
+                "deviationPercent": 33.3
+              },
+              {
+                "id": "mod_nature_civic_statue_block",
+                "heightMeters": 1.6,
+                "nearestFloorCount": 1,
+                "deviationPercent": -46.7
+              },
+              {
+                "id": "mod_nature_civic_statue_ring",
+                "heightMeters": 3.186,
+                "nearestFloorCount": 1,
+                "deviationPercent": 6.2
+              },
+              {
+                "id": "mod_nature_civic_statue_column_damaged",
+                "heightMeters": 2.8,
+                "nearestFloorCount": 1,
+                "deviationPercent": -6.7
+              },
+              {
+                "id": "mod_nature_civic_bridge_stone",
+                "heightMeters": 1.6,
+                "nearestFloorCount": 1,
+                "deviationPercent": -46.7
+              },
+              {
+                "id": "mod_nature_civic_bridge_stone_round",
+                "heightMeters": 1.8,
+                "nearestFloorCount": 1,
+                "deviationPercent": -40
+              },
+              {
+                "id": "mod_nature_civic_sign",
+                "heightMeters": 1.635,
+                "nearestFloorCount": 1,
+                "deviationPercent": -45.5
+              },
+              {
+                "id": "mod_roads_civic_lamp_square",
+                "heightMeters": 2.4,
+                "nearestFloorCount": 1,
+                "deviationPercent": -20
+              },
+              {
+                "id": "mod_roads_civic_lamp_square_double",
+                "heightMeters": 2.4,
+                "nearestFloorCount": 1,
+                "deviationPercent": -20
+              },
+              {
+                "id": "mod_roads_civic_lamp_square_cross",
+                "heightMeters": 2.4,
+                "nearestFloorCount": 1,
+                "deviationPercent": -20
+              },
+              {
+                "id": "mod_roads_civic_lamp_curved_cross",
+                "heightMeters": 2.7,
+                "nearestFloorCount": 1,
+                "deviationPercent": -10
+              },
+              {
+                "id": "mod_roads_civic_tile_high",
+                "heightMeters": 1,
+                "nearestFloorCount": 1,
+                "deviationPercent": -66.7
+              },
+              {
+                "id": "mod_roads_civic_tile_low",
+                "heightMeters": 0.08,
+                "nearestFloorCount": 1,
+                "deviationPercent": -97.3
+              },
+              {
+                "id": "mod_roads_civic_tile_slant",
+                "heightMeters": 1.08,
+                "nearestFloorCount": 1,
+                "deviationPercent": -64
+              },
+              {
+                "id": "mod_roads_civic_tile_slant_high",
+                "heightMeters": 2.08,
+                "nearestFloorCount": 1,
+                "deviationPercent": -30.7
+              },
+              {
+                "id": "mod_roads_civic_bridge",
+                "heightMeters": 2.08,
+                "nearestFloorCount": 1,
+                "deviationPercent": -30.7
+              },
+              {
+                "id": "mod_roads_civic_bridge_pillar",
+                "heightMeters": 2,
+                "nearestFloorCount": 1,
+                "deviationPercent": -33.3
+              },
+              {
+                "id": "mod_roads_civic_bridge_pillar_wide",
+                "heightMeters": 2,
+                "nearestFloorCount": 1,
+                "deviationPercent": -33.3
+              },
+              {
+                "id": "mod_kaykit_civic_bench",
+                "heightMeters": 0.4,
+                "nearestFloorCount": 1,
+                "deviationPercent": -86.7
+              },
+              {
+                "id": "mod_kaykit_civic_streetlight",
+                "heightMeters": 3.84,
+                "nearestFloorCount": 1,
+                "deviationPercent": 28
+              },
+              {
+                "id": "mod_kaykit_civic_firehydrant",
+                "heightMeters": 0.898,
+                "nearestFloorCount": 1,
+                "deviationPercent": -70.1
               }
             ],
             "rule": "no estirar masas: elegir el módulo cuyo alto cae en la retícula de pisos"
@@ -2368,13 +2609,247 @@
                   "heightMeters": 1.072,
                   "nearestFloorCount": 1,
                   "deviationPercent": -64.3
+                },
+                {
+                  "id": "mod_megakit_civic_cornice_metal_l",
+                  "heightMeters": 1,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -66.7
+                },
+                {
+                  "id": "mod_megakit_civic_cornice_metal_r",
+                  "heightMeters": 1,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -66.7
+                },
+                {
+                  "id": "mod_megakit_civic_cornice_metal_90l",
+                  "heightMeters": 1,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -66.7
+                },
+                {
+                  "id": "mod_megakit_civic_cornice_metal_90r",
+                  "heightMeters": 1,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -66.7
+                },
+                {
+                  "id": "mod_megakit_civic_cornice_trim_l",
+                  "heightMeters": 0.998,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -66.7
+                },
+                {
+                  "id": "mod_megakit_civic_cornice_trim_r",
+                  "heightMeters": 0.998,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -66.7
+                },
+                {
+                  "id": "mod_megakit_civic_arched_window_small",
+                  "heightMeters": 3,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": 0
+                },
+                {
+                  "id": "mod_megakit_civic_window_trim",
+                  "heightMeters": 3,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": 0
+                },
+                {
+                  "id": "mod_megakit_civic_piano_nobile_window",
+                  "heightMeters": 3,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": 0
+                },
+                {
+                  "id": "mod_megakit_civic_metal_window",
+                  "heightMeters": 3,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": 0
+                },
+                {
+                  "id": "mod_megakit_civic_metal_column_small_bottom",
+                  "heightMeters": 3,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": 0
+                },
+                {
+                  "id": "mod_megakit_civic_metal_column_small_center",
+                  "heightMeters": 3,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": 0
+                },
+                {
+                  "id": "mod_megakit_civic_bollard",
+                  "heightMeters": 0.892,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -70.3
+                },
+                {
+                  "id": "mod_megakit_civic_planter",
+                  "heightMeters": 0.6,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -80
+                },
+                {
+                  "id": "mod_megakit_civic_stair_rail_full",
+                  "heightMeters": 1.981,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -34
+                },
+                {
+                  "id": "mod_megakit_civic_trim_90_top",
+                  "heightMeters": 0.02,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -99.3
+                },
+                {
+                  "id": "mod_megakit_civic_brick_half_trim",
+                  "heightMeters": 3,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": 0
+                },
+                {
+                  "id": "mod_megakit_civic_floor_inset",
+                  "heightMeters": 0.1,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -96.7
+                },
+                {
+                  "id": "mod_nature_civic_statue_head",
+                  "heightMeters": 4,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": 33.3
+                },
+                {
+                  "id": "mod_nature_civic_statue_block",
+                  "heightMeters": 1.6,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -46.7
+                },
+                {
+                  "id": "mod_nature_civic_statue_ring",
+                  "heightMeters": 3.186,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": 6.2
+                },
+                {
+                  "id": "mod_nature_civic_statue_column_damaged",
+                  "heightMeters": 2.8,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -6.7
+                },
+                {
+                  "id": "mod_nature_civic_bridge_stone",
+                  "heightMeters": 1.6,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -46.7
+                },
+                {
+                  "id": "mod_nature_civic_bridge_stone_round",
+                  "heightMeters": 1.8,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -40
+                },
+                {
+                  "id": "mod_nature_civic_sign",
+                  "heightMeters": 1.635,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -45.5
+                },
+                {
+                  "id": "mod_roads_civic_lamp_square",
+                  "heightMeters": 2.4,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -20
+                },
+                {
+                  "id": "mod_roads_civic_lamp_square_double",
+                  "heightMeters": 2.4,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -20
+                },
+                {
+                  "id": "mod_roads_civic_lamp_square_cross",
+                  "heightMeters": 2.4,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -20
+                },
+                {
+                  "id": "mod_roads_civic_lamp_curved_cross",
+                  "heightMeters": 2.7,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -10
+                },
+                {
+                  "id": "mod_roads_civic_tile_high",
+                  "heightMeters": 1,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -66.7
+                },
+                {
+                  "id": "mod_roads_civic_tile_low",
+                  "heightMeters": 0.08,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -97.3
+                },
+                {
+                  "id": "mod_roads_civic_tile_slant",
+                  "heightMeters": 1.08,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -64
+                },
+                {
+                  "id": "mod_roads_civic_tile_slant_high",
+                  "heightMeters": 2.08,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -30.7
+                },
+                {
+                  "id": "mod_roads_civic_bridge",
+                  "heightMeters": 2.08,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -30.7
+                },
+                {
+                  "id": "mod_roads_civic_bridge_pillar",
+                  "heightMeters": 2,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -33.3
+                },
+                {
+                  "id": "mod_roads_civic_bridge_pillar_wide",
+                  "heightMeters": 2,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -33.3
+                },
+                {
+                  "id": "mod_kaykit_civic_bench",
+                  "heightMeters": 0.4,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -86.7
+                },
+                {
+                  "id": "mod_kaykit_civic_streetlight",
+                  "heightMeters": 3.84,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": 28
+                },
+                {
+                  "id": "mod_kaykit_civic_firehydrant",
+                  "heightMeters": 0.898,
+                  "nearestFloorCount": 1,
+                  "deviationPercent": -70.1
                 }
               ],
               "how": "altura medida de cada masa completa frente a múltiplos de la altura de piso",
               "source": "blender_artist/manifests/building-modules.json → nominalBounds.heightMeters"
             }
           ],
-          "rationale": "43 de 53 masas licenciadas no caen en la retícula de 3 m. El compositor decide con los datos: o usa la masa tal cual (y la azotea no alineará con el paso de piso) o compone la masa con paneles. Escalar una masa para forzar la retícula deformaría sus marcos, así que está prohibido."
+          "rationale": "75 de 92 masas licenciadas no caen en la retícula de 3 m. El compositor decide con los datos: o usa la masa tal cual (y la azotea no alineará con el paso de piso) o compone la masa con paneles. Escalar una masa para forzar la retícula deformaría sus marcos, así que está prohibido."
         }
       },
       "materialFamilies": [
@@ -2385,7 +2860,7 @@
             "MI_RedBrick",
             "MI_RedBrick_Pale"
           ],
-          "moduleCount": 35,
+          "moduleCount": 38,
           "moduleExamples": [
             "mod_megakit_brick_bottom_trim_2m",
             "mod_megakit_brick_column",
@@ -2420,7 +2895,7 @@
               "image": "T_RedBrick_BaseColor",
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
               "modulesWithAtlasDirect": 7,
-              "modulesWithAtlasMixed": 35
+              "modulesWithAtlasMixed": 41
             }
           ],
           "colorMeasured": [
@@ -2456,7 +2931,7 @@
               "windowGlow": false,
               "reachedByTreatment": true,
               "modulesWithAtlasDirect": 7,
-              "modulesWithAtlasMixed": 35
+              "modulesWithAtlasMixed": 41
             }
           ],
           "canonicalTarget": {
@@ -2480,7 +2955,7 @@
             "MI_Trim_Dark",
             "MI_Trim_Green"
           ],
-          "moduleCount": 39,
+          "moduleCount": 47,
           "moduleExamples": [
             "mod_megakit_brick_bottom_trim_2m",
             "mod_megakit_brick_crown_corner_left",
@@ -2517,8 +2992,8 @@
             {
               "image": "T_Trim_BaseColor",
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
-              "modulesWithAtlasDirect": 15,
-              "modulesWithAtlasMixed": 23
+              "modulesWithAtlasDirect": 17,
+              "modulesWithAtlasMixed": 29
             },
             {
               "image": "T_Ornaments_BaseColor",
@@ -2559,8 +3034,8 @@
               ],
               "windowGlow": false,
               "reachedByTreatment": true,
-              "modulesWithAtlasDirect": 15,
-              "modulesWithAtlasMixed": 23
+              "modulesWithAtlasDirect": 17,
+              "modulesWithAtlasMixed": 29
             },
             {
               "image": "T_Ornaments_BaseColor",
@@ -2619,12 +3094,12 @@
           "measuredMaterials": [
             "MI_Trim_MetalConcrete"
           ],
-          "moduleCount": 27,
+          "moduleCount": 38,
           "moduleExamples": [
             "mod_megakit_brick_window_curved_4m",
             "mod_megakit_brick_window_redwhite_4m",
-            "mod_megakit_column_metal_bottom",
-            "mod_megakit_column_metal_center"
+            "mod_megakit_civic_bollard",
+            "mod_megakit_civic_cornice_metal_90l"
           ],
           "sourceIds": [
             "src_quaternius_downtown_city_megakit"
@@ -2653,8 +3128,8 @@
             {
               "image": "T_MetalConcrete_BaseColor",
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
-              "modulesWithAtlasDirect": 16,
-              "modulesWithAtlasMixed": 11
+              "modulesWithAtlasDirect": 21,
+              "modulesWithAtlasMixed": 17
             }
           ],
           "colorMeasured": [
@@ -2688,8 +3163,8 @@
               ],
               "windowGlow": false,
               "reachedByTreatment": true,
-              "modulesWithAtlasDirect": 16,
-              "modulesWithAtlasMixed": 11
+              "modulesWithAtlasDirect": 21,
+              "modulesWithAtlasMixed": 17
             }
           ],
           "canonicalTarget": {
@@ -2706,7 +3181,7 @@
           "measuredMaterials": [
             "MI_Glass"
           ],
-          "moduleCount": 17,
+          "moduleCount": 21,
           "moduleExamples": [
             "mod_megakit_brick_window_curved_4m",
             "mod_megakit_brick_window_inset_4m",
@@ -2764,7 +3239,7 @@
             "stone",
             "stoneDark"
           ],
-          "moduleCount": 16,
+          "moduleCount": 22,
           "moduleExamples": [
             "mod_megakit_roof_flat_2m",
             "mod_megakit_roof_flat_4m",
@@ -2801,7 +3276,7 @@
               1
             ]
           },
-          "reachedByTreatment": true,
+          "reachedByTreatment": false,
           "treatmentReach": [
             {
               "image": "T_RoofSlate_BaseColor",
@@ -2819,7 +3294,7 @@
               "image": "T_Concrete_BaseColor",
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png",
               "modulesWithAtlasDirect": 3,
-              "modulesWithAtlasMixed": 0
+              "modulesWithAtlasMixed": 1
             }
           ],
           "colorMeasured": [
@@ -2905,7 +3380,7 @@
               "windowGlow": false,
               "reachedByTreatment": true,
               "modulesWithAtlasDirect": 3,
-              "modulesWithAtlasMixed": 0
+              "modulesWithAtlasMixed": 1
             }
           ],
           "canonicalTarget": {
@@ -2924,10 +3399,12 @@
           "present": true,
           "measuredMaterials": [
             "wood",
-            "woodBarkDark"
+            "woodBarkDark",
+            "woodDark"
           ],
-          "moduleCount": 2,
+          "moduleCount": 3,
           "moduleExamples": [
+            "mod_nature_civic_sign",
             "mod_nature_civic_urn_large",
             "mod_nature_civic_urn_small"
           ],
@@ -3132,7 +3609,7 @@
                   "image": "T_RedBrick_BaseColor",
                   "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
                   "modulesWithAtlasDirect": 7,
-                  "modulesWithAtlasMixed": 35
+                  "modulesWithAtlasMixed": 41
                 }
               ]
             },
@@ -3142,8 +3619,8 @@
                 {
                   "image": "T_Trim_BaseColor",
                   "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
-                  "modulesWithAtlasDirect": 15,
-                  "modulesWithAtlasMixed": 23
+                  "modulesWithAtlasDirect": 17,
+                  "modulesWithAtlasMixed": 29
                 },
                 {
                   "image": "T_Ornaments_BaseColor",
@@ -3159,13 +3636,36 @@
                 {
                   "image": "T_MetalConcrete_BaseColor",
                   "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
-                  "modulesWithAtlasDirect": 16,
-                  "modulesWithAtlasMixed": 11
+                  "modulesWithAtlasDirect": 21,
+                  "modulesWithAtlasMixed": 17
+                }
+              ]
+            },
+            {
+              "family": "stone",
+              "treatmentReach": [
+                {
+                  "image": "T_RoofSlate_BaseColor",
+                  "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png",
+                  "modulesWithAtlasDirect": 8,
+                  "modulesWithAtlasMixed": 0
+                },
+                {
+                  "image": "T_Concrete_Asphalt_BaseColor",
+                  "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png",
+                  "modulesWithAtlasDirect": 5,
+                  "modulesWithAtlasMixed": 0
+                },
+                {
+                  "image": "T_Concrete_BaseColor",
+                  "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png",
+                  "modulesWithAtlasDirect": 3,
+                  "modulesWithAtlasMixed": 1
                 }
               ]
             }
           ],
-          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
+          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal, stone tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
         },
         "state": "satisfecha"
       },
@@ -3176,14 +3676,14 @@
           {
             "pack": "src_kaykit_city_builder_bits",
             "license": "CC0-1.0",
-            "moduleCount": 7,
+            "moduleCount": 10,
             "materials": 1,
             "materialsReachedByTreatment": [
               "citybits_texture"
             ],
             "materialsRawAlways": [],
             "materialsSplitWithinPack": [],
-            "modulesFullyTreated": 7,
+            "modulesFullyTreated": 10,
             "modulesWithRawMaterial": 0,
             "rawModuleExamples": [],
             "mixesTreatmentLadders": false,
@@ -3195,7 +3695,7 @@
                 "material": "citybits_texture",
                 "family": "atlas",
                 "baseColorChains": [
-                  "TEX_IMAGE:citybits_texture ×7"
+                  "TEX_IMAGE:citybits_texture ×10"
                 ],
                 "colorTextures": [
                   "citybits_texture"
@@ -3206,7 +3706,7 @@
                 "roughness": [
                   0.4
                 ],
-                "modulesWithAtlasDirect": 7,
+                "modulesWithAtlasDirect": 10,
                 "modulesRaw": 0,
                 "splitWithinPack": false,
                 "reachedByTreatment": true
@@ -3371,14 +3871,14 @@
           {
             "pack": "src_kenney_city_roads",
             "license": "CC0-1.0",
-            "moduleCount": 2,
+            "moduleCount": 13,
             "materials": 1,
             "materialsReachedByTreatment": [
               "colormap"
             ],
             "materialsRawAlways": [],
             "materialsSplitWithinPack": [],
-            "modulesFullyTreated": 2,
+            "modulesFullyTreated": 13,
             "modulesWithRawMaterial": 0,
             "rawModuleExamples": [],
             "mixesTreatmentLadders": false,
@@ -3390,7 +3890,7 @@
                 "material": "colormap",
                 "family": "atlas",
                 "baseColorChains": [
-                  "TEX_IMAGE:colormap ×2"
+                  "TEX_IMAGE:colormap ×13"
                 ],
                 "colorTextures": [
                   "colormap"
@@ -3401,7 +3901,7 @@
                 "roughness": [
                   1
                 ],
-                "modulesWithAtlasDirect": 2,
+                "modulesWithAtlasDirect": 13,
                 "modulesRaw": 0,
                 "splitWithinPack": false,
                 "reachedByTreatment": true
@@ -3480,24 +3980,27 @@
           {
             "pack": "src_kenney_nature_kit",
             "license": "CC0-1.0",
-            "moduleCount": 4,
-            "materials": 5,
+            "moduleCount": 11,
+            "materials": 6,
             "materialsReachedByTreatment": [],
             "materialsRawAlways": [
               "_defaultMat",
               "stone",
               "stoneDark",
               "wood",
-              "woodBarkDark"
+              "woodBarkDark",
+              "woodDark"
             ],
             "materialsSplitWithinPack": [],
             "modulesFullyTreated": 0,
-            "modulesWithRawMaterial": 4,
+            "modulesWithRawMaterial": 11,
             "rawModuleExamples": [
               "statue_obelisk.glb: 2 de 2 materiales en bruto",
               "statue_column.glb: 3 de 3 materiales en bruto",
               "pot_large.glb: 2 de 2 materiales en bruto",
-              "pot_small.glb: 3 de 3 materiales en bruto"
+              "pot_small.glb: 3 de 3 materiales en bruto",
+              "statue_head.glb: 3 de 3 materiales en bruto",
+              "statue_block.glb: 2 de 2 materiales en bruto"
             ],
             "mixesTreatmentLadders": false,
             "baseColorChains": [
@@ -3508,7 +4011,7 @@
                 "material": "_defaultMat",
                 "family": "atlas",
                 "baseColorChains": [
-                  "factor plano ×2"
+                  "factor plano ×4"
                 ],
                 "colorTextures": [],
                 "colorTextureFiles": [],
@@ -3516,7 +4019,7 @@
                   1
                 ],
                 "modulesWithAtlasDirect": 0,
-                "modulesRaw": 2,
+                "modulesRaw": 4,
                 "splitWithinPack": false,
                 "reachedByTreatment": false
               },
@@ -3524,7 +4027,7 @@
                 "material": "stone",
                 "family": "stone",
                 "baseColorChains": [
-                  "factor plano ×2"
+                  "factor plano ×8"
                 ],
                 "colorTextures": [],
                 "colorTextureFiles": [],
@@ -3532,7 +4035,7 @@
                   1
                 ],
                 "modulesWithAtlasDirect": 0,
-                "modulesRaw": 2,
+                "modulesRaw": 8,
                 "splitWithinPack": false,
                 "reachedByTreatment": false
               },
@@ -3540,7 +4043,7 @@
                 "material": "stoneDark",
                 "family": "stone",
                 "baseColorChains": [
-                  "factor plano ×2"
+                  "factor plano ×8"
                 ],
                 "colorTextures": [],
                 "colorTextureFiles": [],
@@ -3548,7 +4051,7 @@
                   1
                 ],
                 "modulesWithAtlasDirect": 0,
-                "modulesRaw": 2,
+                "modulesRaw": 8,
                 "splitWithinPack": false,
                 "reachedByTreatment": false
               },
@@ -3556,7 +4059,7 @@
                 "material": "wood",
                 "family": "wood",
                 "baseColorChains": [
-                  "factor plano ×2"
+                  "factor plano ×3"
                 ],
                 "colorTextures": [],
                 "colorTextureFiles": [],
@@ -3564,7 +4067,7 @@
                   1
                 ],
                 "modulesWithAtlasDirect": 0,
-                "modulesRaw": 2,
+                "modulesRaw": 3,
                 "splitWithinPack": false,
                 "reachedByTreatment": false
               },
@@ -3583,6 +4086,22 @@
                 "modulesRaw": 2,
                 "splitWithinPack": false,
                 "reachedByTreatment": false
+              },
+              {
+                "material": "woodDark",
+                "family": "wood",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  1
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
               }
             ],
             "colorTextures": [],
@@ -3597,19 +4116,20 @@
           {
             "pack": "src_quaternius_downtown_city_megakit",
             "license": "CC0-1.0",
-            "moduleCount": 84,
-            "materials": 15,
+            "moduleCount": 102,
+            "materials": 16,
             "materialsReachedByTreatment": [
               "MI_Asphalt",
               "MI_Concrete",
-              "MI_InteriorFloor",
-              "MI_InteriorRoof",
+              "MI_Dirt",
               "MI_Ornaments",
               "MI_Roof_Slate"
             ],
             "materialsRawAlways": [
               "MI_FakeInterior",
               "MI_Glass",
+              "MI_InteriorFloor",
+              "MI_InteriorRoof",
               "MI_InteriorWall",
               "MI_RedBrick",
               "MI_RedBrick_Pale",
@@ -3619,12 +4139,14 @@
               "MI_Trim_MetalConcrete"
             ],
             "materialsSplitWithinPack": [
+              "MI_InteriorFloor",
+              "MI_InteriorRoof",
               "MI_RedBrick",
               "MI_Trim",
               "MI_Trim_MetalConcrete"
             ],
-            "modulesFullyTreated": 37,
-            "modulesWithRawMaterial": 47,
+            "modulesFullyTreated": 44,
+            "modulesWithRawMaterial": 58,
             "rawModuleExamples": [
               "Brick_Plain_3.gltf: 2 de 2 materiales en bruto",
               "Brick_Inset.gltf: 3 de 3 materiales en bruto",
@@ -3638,6 +4160,7 @@
               "MIX:sin imagen",
               "TEX_IMAGE:T_Concrete_Asphalt_BaseColor",
               "TEX_IMAGE:T_Concrete_BaseColor",
+              "TEX_IMAGE:T_Dirt_BaseColor",
               "TEX_IMAGE:T_MarbleFloor_BaseColor",
               "TEX_IMAGE:T_MetalConcrete_BaseColor",
               "TEX_IMAGE:T_Ornaments_BaseColor",
@@ -3684,10 +4207,28 @@
                 "reachedByTreatment": true
               },
               {
+                "material": "MI_Dirt",
+                "family": "atlas",
+                "baseColorChains": [
+                  "TEX_IMAGE:T_Dirt_BaseColor ×1"
+                ],
+                "colorTextures": [
+                  "T_Dirt_BaseColor"
+                ],
+                "colorTextureFiles": [
+                  "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_BaseColor.png"
+                ],
+                "roughness": [],
+                "modulesWithAtlasDirect": 1,
+                "modulesRaw": 0,
+                "splitWithinPack": false,
+                "reachedByTreatment": true
+              },
+              {
                 "material": "MI_FakeInterior",
                 "family": "interior",
                 "baseColorChains": [
-                  "MIX:sin imagen ×10",
+                  "MIX:sin imagen ×14",
                   "factor plano ×2"
                 ],
                 "colorTextures": [],
@@ -3696,7 +4237,7 @@
                   0.5
                 ],
                 "modulesWithAtlasDirect": 0,
-                "modulesRaw": 12,
+                "modulesRaw": 16,
                 "splitWithinPack": false,
                 "reachedByTreatment": false
               },
@@ -3704,7 +4245,7 @@
                 "material": "MI_Glass",
                 "family": "glass",
                 "baseColorChains": [
-                  "MIX:sin imagen ×14",
+                  "MIX:sin imagen ×18",
                   "factor plano ×3"
                 ],
                 "colorTextures": [],
@@ -3713,7 +4254,7 @@
                   0.5
                 ],
                 "modulesWithAtlasDirect": 0,
-                "modulesRaw": 17,
+                "modulesRaw": 21,
                 "splitWithinPack": false,
                 "reachedByTreatment": false
               },
@@ -3721,6 +4262,7 @@
                 "material": "MI_InteriorFloor",
                 "family": "interior",
                 "baseColorChains": [
+                  "MIX:sin imagen ×1",
                   "TEX_IMAGE:T_MarbleFloor_BaseColor ×2"
                 ],
                 "colorTextures": [
@@ -3731,14 +4273,15 @@
                 ],
                 "roughness": [],
                 "modulesWithAtlasDirect": 2,
-                "modulesRaw": 0,
-                "splitWithinPack": false,
-                "reachedByTreatment": true
+                "modulesRaw": 1,
+                "splitWithinPack": true,
+                "reachedByTreatment": false
               },
               {
                 "material": "MI_InteriorRoof",
                 "family": "interior",
                 "baseColorChains": [
+                  "MIX:sin imagen ×1",
                   "TEX_IMAGE:T_Concrete_BaseColor ×2"
                 ],
                 "colorTextures": [
@@ -3749,15 +4292,15 @@
                 ],
                 "roughness": [],
                 "modulesWithAtlasDirect": 2,
-                "modulesRaw": 0,
-                "splitWithinPack": false,
-                "reachedByTreatment": true
+                "modulesRaw": 1,
+                "splitWithinPack": true,
+                "reachedByTreatment": false
               },
               {
                 "material": "MI_InteriorWall",
                 "family": "interior",
                 "baseColorChains": [
-                  "MIX:sin imagen ×25"
+                  "MIX:sin imagen ×31"
                 ],
                 "colorTextures": [
                   "T_RedBrick_BaseColor"
@@ -3767,7 +4310,7 @@
                 ],
                 "roughness": [],
                 "modulesWithAtlasDirect": 0,
-                "modulesRaw": 25,
+                "modulesRaw": 31,
                 "splitWithinPack": false,
                 "reachedByTreatment": false
               },
@@ -3793,7 +4336,7 @@
                 "material": "MI_RedBrick",
                 "family": "brick",
                 "baseColorChains": [
-                  "MIX:sin imagen ×14",
+                  "MIX:sin imagen ×16",
                   "TEX_IMAGE:T_RedBrick_BaseColor ×7"
                 ],
                 "colorTextures": [
@@ -3804,7 +4347,7 @@
                 ],
                 "roughness": [],
                 "modulesWithAtlasDirect": 7,
-                "modulesRaw": 14,
+                "modulesRaw": 16,
                 "splitWithinPack": true,
                 "reachedByTreatment": false
               },
@@ -3812,7 +4355,7 @@
                 "material": "MI_RedBrick_Pale",
                 "family": "brick",
                 "baseColorChains": [
-                  "MIX:sin imagen ×14"
+                  "MIX:sin imagen ×15"
                 ],
                 "colorTextures": [
                   "T_RedBrick_BaseColor"
@@ -3822,7 +4365,7 @@
                 ],
                 "roughness": [],
                 "modulesWithAtlasDirect": 0,
-                "modulesRaw": 14,
+                "modulesRaw": 15,
                 "splitWithinPack": false,
                 "reachedByTreatment": false
               },
@@ -3848,8 +4391,8 @@
                 "material": "MI_Trim",
                 "family": "plaster",
                 "baseColorChains": [
-                  "MIX:sin imagen ×20",
-                  "TEX_IMAGE:T_Trim_BaseColor ×15"
+                  "MIX:sin imagen ×24",
+                  "TEX_IMAGE:T_Trim_BaseColor ×17"
                 ],
                 "colorTextures": [
                   "T_Trim_BaseColor"
@@ -3858,8 +4401,8 @@
                   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png"
                 ],
                 "roughness": [],
-                "modulesWithAtlasDirect": 15,
-                "modulesRaw": 20,
+                "modulesWithAtlasDirect": 17,
+                "modulesRaw": 24,
                 "splitWithinPack": true,
                 "reachedByTreatment": false
               },
@@ -3867,7 +4410,7 @@
                 "material": "MI_Trim_Dark",
                 "family": "plaster",
                 "baseColorChains": [
-                  "MIX:sin imagen ×2"
+                  "MIX:sin imagen ×4"
                 ],
                 "colorTextures": [
                   "T_Trim_BaseColor"
@@ -3877,7 +4420,7 @@
                 ],
                 "roughness": [],
                 "modulesWithAtlasDirect": 0,
-                "modulesRaw": 2,
+                "modulesRaw": 4,
                 "splitWithinPack": false,
                 "reachedByTreatment": false
               },
@@ -3903,8 +4446,8 @@
                 "material": "MI_Trim_MetalConcrete",
                 "family": "metal",
                 "baseColorChains": [
-                  "MIX:sin imagen ×11",
-                  "TEX_IMAGE:T_MetalConcrete_BaseColor ×16"
+                  "MIX:sin imagen ×17",
+                  "TEX_IMAGE:T_MetalConcrete_BaseColor ×21"
                 ],
                 "colorTextures": [
                   "T_MetalConcrete_BaseColor"
@@ -3913,8 +4456,8 @@
                   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
                 ],
                 "roughness": [],
-                "modulesWithAtlasDirect": 16,
-                "modulesRaw": 11,
+                "modulesWithAtlasDirect": 21,
+                "modulesRaw": 17,
                 "splitWithinPack": true,
                 "reachedByTreatment": false
               }
@@ -3922,6 +4465,7 @@
             "colorTextures": [
               "T_Concrete_Asphalt_BaseColor",
               "T_Concrete_BaseColor",
+              "T_Dirt_BaseColor",
               "T_MarbleFloor_BaseColor",
               "T_MetalConcrete_BaseColor",
               "T_Ornaments_BaseColor",
@@ -3932,6 +4476,7 @@
             "colorTextureFiles": [
               "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png",
               "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png",
+              "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_BaseColor.png",
               "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_BaseColor.png",
               "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
               "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_BaseColor.png",
@@ -3941,6 +4486,7 @@
             ],
             "ormImages": [
               "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_ORM.png",
+              "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_ORM.png",
               "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_ORM.png",
               "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png",
               "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_ORM.png",
@@ -3950,6 +4496,7 @@
             ],
             "otherImages": [
               "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Normal.png",
+              "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_Normal.png",
               "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_Normal.png",
               "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
               "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_Normal.png",
@@ -3969,10 +4516,17 @@
           "src_quaternius_downtown_city_megakit"
         ],
         "modulesRawList": [
+          "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_stone.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_stoneRound.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/pot_large.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/pot_small.glb (src_kenney_nature_kit): 3 de 3 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/sign.glb (src_kenney_nature_kit): 3 de 3 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_block.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_column.glb (src_kenney_nature_kit): 3 de 3 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_columnDamaged.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_head.glb (src_kenney_nature_kit): 3 de 3 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_obelisk.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_ring.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_90Angle_L.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_90Angle_R.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_BottomTrim.gltf (src_quaternius_downtown_city_megakit): 3 de 3 materiales con Base Color fuera de la banda",
@@ -3983,6 +4537,8 @@
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_CornerColumn_Center_Half.gltf (src_quaternius_downtown_city_megakit): 1 de 1 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_CornerColumn_Center.gltf (src_quaternius_downtown_city_megakit): 1 de 1 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_CornerColumn_Top.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_HalfTrim.gltf (src_quaternius_downtown_city_megakit): 3 de 3 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Inset_Window_Curved_Small.gltf (src_quaternius_downtown_city_megakit): 5 de 5 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Inset_Window_Curved.gltf (src_quaternius_downtown_city_megakit): 5 de 5 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Inset_Window.gltf (src_quaternius_downtown_city_megakit): 5 de 5 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Inset.gltf (src_quaternius_downtown_city_megakit): 3 de 3 materiales con Base Color fuera de la banda",
@@ -3996,24 +4552,33 @@
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Window_CurvedDouble.gltf (src_quaternius_downtown_city_megakit): 5 de 5 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Window_Square_Single.gltf (src_quaternius_downtown_city_megakit): 5 de 5 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Window_Trim_Single.gltf (src_quaternius_downtown_city_megakit): 5 de 5 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Window_Trim.gltf (src_quaternius_downtown_city_megakit): 5 de 5 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_90Angle_L.gltf (src_quaternius_downtown_city_megakit): 1 de 1 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_90Angle_R.gltf (src_quaternius_downtown_city_megakit): 1 de 1 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf (src_quaternius_downtown_city_megakit): 1 de 1 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_L.gltf (src_quaternius_downtown_city_megakit): 1 de 1 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_R.gltf (src_quaternius_downtown_city_megakit): 1 de 1 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_90Angle_L.gltf (src_quaternius_downtown_city_megakit): 1 de 1 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_90Angle_R.gltf (src_quaternius_downtown_city_megakit): 1 de 1 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf (src_quaternius_downtown_city_megakit): 1 de 1 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_L.gltf (src_quaternius_downtown_city_megakit): 1 de 1 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_R.gltf (src_quaternius_downtown_city_megakit): 1 de 1 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Door_2.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Door_3.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Trim.gltf (src_quaternius_downtown_city_megakit): 4 de 4 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Wooden.gltf (src_quaternius_downtown_city_megakit): 1 de 2 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_Inset.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_FirstFloor_Wall.gltf (src_quaternius_downtown_city_megakit): 3 de 3 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_FirstFloor_Window.gltf (src_quaternius_downtown_city_megakit): 5 de 5 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_FirstFloor_Window.gltf (src_quaternius_downtown_city_megakit): 5 de 5 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_FullWindow.gltf (src_quaternius_downtown_city_megakit): 3 de 3 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Plain_3.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Window_Half.gltf (src_quaternius_downtown_city_megakit): 3 de 3 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Window.gltf (src_quaternius_downtown_city_megakit): 5 de 5 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_Slate_Window_1.gltf (src_quaternius_downtown_city_megakit): 2 de 5 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_SlateCornice_Window_1.gltf (src_quaternius_downtown_city_megakit): 2 de 5 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_90Angle_TopCover.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Corner.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_FirstFloor_Wall.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_FirstFloor_Window_Columns.gltf (src_quaternius_downtown_city_megakit): 1 de 1 materiales con Base Color fuera de la banda",
@@ -4118,9 +4683,53 @@
           ],
           "textureReach": [
             {
+              "image": "T_Concrete_BaseColor",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png",
+              "modulesWithAtlasDirect": [
+                "mod_megakit_floor_slab_2m",
+                "mod_megakit_floor_slab_4m",
+                "mod_megakit_stairs_entrance_2m"
+              ],
+              "modulesWithAtlasMixed": [
+                "mod_megakit_civic_floor_inset"
+              ],
+              "reachedByTreatment": true,
+              "rawForEveryModule": false,
+              "splitAcrossModules": true,
+              "modulesReached": 3,
+              "modulesRaw": 1,
+              "inputValue": 0.499,
+              "treatedValue": 0.4,
+              "rawIsBrighterBy": 0.099
+            },
+            {
+              "image": "T_MarbleFloor_BaseColor",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_BaseColor.png",
+              "modulesWithAtlasDirect": [
+                "mod_megakit_floor_slab_2m",
+                "mod_megakit_floor_slab_4m"
+              ],
+              "modulesWithAtlasMixed": [
+                "mod_megakit_civic_floor_inset"
+              ],
+              "reachedByTreatment": true,
+              "rawForEveryModule": false,
+              "splitAcrossModules": true,
+              "modulesReached": 2,
+              "modulesRaw": 1,
+              "inputValue": 0.71,
+              "treatedValue": 0.55,
+              "rawIsBrighterBy": 0.16
+            },
+            {
               "image": "T_MetalConcrete_BaseColor",
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
               "modulesWithAtlasDirect": [
+                "mod_megakit_civic_bollard",
+                "mod_megakit_civic_metal_column_small_bottom",
+                "mod_megakit_civic_metal_column_small_center",
+                "mod_megakit_civic_planter",
+                "mod_megakit_civic_stair_rail_full",
                 "mod_megakit_column_metal_bottom",
                 "mod_megakit_column_metal_center",
                 "mod_megakit_column_metal_top",
@@ -4141,6 +4750,12 @@
               "modulesWithAtlasMixed": [
                 "mod_megakit_brick_window_curved_4m",
                 "mod_megakit_brick_window_redwhite_4m",
+                "mod_megakit_civic_cornice_metal_90l",
+                "mod_megakit_civic_cornice_metal_90r",
+                "mod_megakit_civic_cornice_metal_l",
+                "mod_megakit_civic_cornice_metal_r",
+                "mod_megakit_civic_metal_window",
+                "mod_megakit_civic_piano_nobile_window",
                 "mod_megakit_cornice_metal_center_2m",
                 "mod_megakit_door_2",
                 "mod_megakit_door_3",
@@ -4154,8 +4769,8 @@
               "reachedByTreatment": true,
               "rawForEveryModule": false,
               "splitAcrossModules": true,
-              "modulesReached": 16,
-              "modulesRaw": 11,
+              "modulesReached": 21,
+              "modulesRaw": 17,
               "inputValue": 0.392,
               "treatedValue": 0.4,
               "rawIsBrighterBy": -0.008
@@ -4190,8 +4805,14 @@
                 "mod_megakit_brick_window_single_2m",
                 "mod_megakit_brick_window_trim_2m",
                 "mod_megakit_civic_arched_window_4m",
+                "mod_megakit_civic_arched_window_small",
+                "mod_megakit_civic_brick_half_trim",
                 "mod_megakit_civic_cornice_brick_l",
                 "mod_megakit_civic_cornice_brick_r",
+                "mod_megakit_civic_metal_window",
+                "mod_megakit_civic_piano_nobile_window",
+                "mod_megakit_civic_trim_90_top",
+                "mod_megakit_civic_window_trim",
                 "mod_megakit_column_pilaster_cap",
                 "mod_megakit_column_pilaster_center",
                 "mod_megakit_corner_column_bottom",
@@ -4213,7 +4834,7 @@
               "rawForEveryModule": false,
               "splitAcrossModules": true,
               "modulesReached": 7,
-              "modulesRaw": 35,
+              "modulesRaw": 41,
               "inputValue": 0.43,
               "treatedValue": 0.541,
               "rawIsBrighterBy": -0.111
@@ -4223,6 +4844,8 @@
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
               "modulesWithAtlasDirect": [
                 "mod_megakit_civic_brick_column_trim",
+                "mod_megakit_civic_cornice_trim_l",
+                "mod_megakit_civic_cornice_trim_r",
                 "mod_megakit_column_half_bottom",
                 "mod_megakit_column_half_top",
                 "mod_megakit_column_trim_bottom",
@@ -4251,7 +4874,13 @@
                 "mod_megakit_brick_window_trim_2m",
                 "mod_megakit_civic_aedicule_window",
                 "mod_megakit_civic_arched_window_4m",
+                "mod_megakit_civic_arched_window_small",
                 "mod_megakit_civic_balustrade",
+                "mod_megakit_civic_brick_half_trim",
+                "mod_megakit_civic_metal_window",
+                "mod_megakit_civic_piano_nobile_window",
+                "mod_megakit_civic_trim_90_top",
+                "mod_megakit_civic_window_trim",
                 "mod_megakit_column_pilaster_cap",
                 "mod_megakit_corner_column_bottom",
                 "mod_megakit_corner_column_cap_short",
@@ -4266,8 +4895,8 @@
               "reachedByTreatment": true,
               "rawForEveryModule": false,
               "splitAcrossModules": true,
-              "modulesReached": 15,
-              "modulesRaw": 23,
+              "modulesReached": 17,
+              "modulesRaw": 29,
               "inputValue": 0.573,
               "treatedValue": 0.442,
               "rawIsBrighterBy": 0.131
@@ -4276,11 +4905,14 @@
               "image": "citybits_texture",
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png",
               "modulesWithAtlasDirect": [
+                "mod_kaykit_civic_bench",
                 "mod_kaykit_civic_block_b",
                 "mod_kaykit_civic_block_c",
                 "mod_kaykit_civic_block_d",
                 "mod_kaykit_civic_block_g",
                 "mod_kaykit_civic_block_h",
+                "mod_kaykit_civic_firehydrant",
+                "mod_kaykit_civic_streetlight",
                 "mod_kaykit_plinth_8m",
                 "mod_kaykit_util_watertower"
               ],
@@ -4288,7 +4920,7 @@
               "reachedByTreatment": true,
               "rawForEveryModule": false,
               "splitAcrossModules": false,
-              "modulesReached": 7,
+              "modulesReached": 10,
               "modulesRaw": 0,
               "inputValue": 0.608,
               "treatedValue": 0.463,
@@ -4372,14 +5004,25 @@
               "image": "colormap",
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png",
               "modulesWithAtlasDirect": [
+                "mod_roads_civic_bridge",
+                "mod_roads_civic_bridge_pillar",
+                "mod_roads_civic_bridge_pillar_wide",
                 "mod_roads_civic_lamp_curved",
-                "mod_roads_civic_lamp_curved_double"
+                "mod_roads_civic_lamp_curved_cross",
+                "mod_roads_civic_lamp_curved_double",
+                "mod_roads_civic_lamp_square",
+                "mod_roads_civic_lamp_square_cross",
+                "mod_roads_civic_lamp_square_double",
+                "mod_roads_civic_tile_high",
+                "mod_roads_civic_tile_low",
+                "mod_roads_civic_tile_slant",
+                "mod_roads_civic_tile_slant_high"
               ],
               "modulesWithAtlasMixed": [],
               "reachedByTreatment": true,
               "rawForEveryModule": false,
               "splitAcrossModules": false,
-              "modulesReached": 2,
+              "modulesReached": 13,
               "modulesRaw": 0,
               "inputValue": 0.624,
               "treatedValue": 0.476,
@@ -4406,39 +5049,20 @@
               "rawIsBrighterBy": -0.169
             },
             {
-              "image": "T_Concrete_BaseColor",
-              "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png",
+              "image": "T_Dirt_BaseColor",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_BaseColor.png",
               "modulesWithAtlasDirect": [
-                "mod_megakit_floor_slab_2m",
-                "mod_megakit_floor_slab_4m",
-                "mod_megakit_stairs_entrance_2m"
+                "mod_megakit_civic_planter"
               ],
               "modulesWithAtlasMixed": [],
               "reachedByTreatment": true,
               "rawForEveryModule": false,
               "splitAcrossModules": false,
-              "modulesReached": 3,
+              "modulesReached": 1,
               "modulesRaw": 0,
-              "inputValue": 0.499,
+              "inputValue": 0.353,
               "treatedValue": 0.4,
-              "rawIsBrighterBy": 0.099
-            },
-            {
-              "image": "T_MarbleFloor_BaseColor",
-              "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_BaseColor.png",
-              "modulesWithAtlasDirect": [
-                "mod_megakit_floor_slab_2m",
-                "mod_megakit_floor_slab_4m"
-              ],
-              "modulesWithAtlasMixed": [],
-              "reachedByTreatment": true,
-              "rawForEveryModule": false,
-              "splitAcrossModules": false,
-              "modulesReached": 2,
-              "modulesRaw": 0,
-              "inputValue": 0.71,
-              "treatedValue": 0.55,
-              "rawIsBrighterBy": 0.16
+              "rawIsBrighterBy": -0.047
             },
             {
               "image": "T_Ornaments_BaseColor",
@@ -4482,6 +5106,8 @@
           ],
           "texturesNeverReachedByTreatment": [],
           "texturesSplitAcrossModules": [
+            "T_Concrete_BaseColor",
+            "T_MarbleFloor_BaseColor",
             "T_MetalConcrete_BaseColor",
             "T_RedBrick_BaseColor",
             "T_Trim_BaseColor"
@@ -4507,6 +5133,14 @@
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png",
               "windowGlow": false,
               "modulesWithAtlasDirect": 3,
+              "modulesWithAtlasMixed": 1
+            },
+            {
+              "pack": "src_quaternius_downtown_city_megakit",
+              "image": "T_Dirt_BaseColor",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_BaseColor.png",
+              "windowGlow": false,
+              "modulesWithAtlasDirect": 1,
               "modulesWithAtlasMixed": 0
             },
             {
@@ -4515,15 +5149,15 @@
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_BaseColor.png",
               "windowGlow": false,
               "modulesWithAtlasDirect": 2,
-              "modulesWithAtlasMixed": 0
+              "modulesWithAtlasMixed": 1
             },
             {
               "pack": "src_quaternius_downtown_city_megakit",
               "image": "T_MetalConcrete_BaseColor",
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
               "windowGlow": false,
-              "modulesWithAtlasDirect": 16,
-              "modulesWithAtlasMixed": 11
+              "modulesWithAtlasDirect": 21,
+              "modulesWithAtlasMixed": 17
             },
             {
               "pack": "src_quaternius_downtown_city_megakit",
@@ -4539,7 +5173,7 @@
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
               "windowGlow": false,
               "modulesWithAtlasDirect": 7,
-              "modulesWithAtlasMixed": 35
+              "modulesWithAtlasMixed": 41
             },
             {
               "pack": "src_quaternius_downtown_city_megakit",
@@ -4554,8 +5188,8 @@
               "image": "T_Trim_BaseColor",
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
               "windowGlow": false,
-              "modulesWithAtlasDirect": 15,
-              "modulesWithAtlasMixed": 23
+              "modulesWithAtlasDirect": 17,
+              "modulesWithAtlasMixed": 29
             },
             {
               "pack": "src_kenney_city_industrial",
@@ -4586,7 +5220,7 @@
               "image": "citybits_texture",
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png",
               "windowGlow": true,
-              "modulesWithAtlasDirect": 7,
+              "modulesWithAtlasDirect": 10,
               "modulesWithAtlasMixed": 0
             },
             {
@@ -4594,7 +5228,7 @@
               "image": "colormap",
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png",
               "windowGlow": false,
-              "modulesWithAtlasDirect": 2,
+              "modulesWithAtlasDirect": 13,
               "modulesWithAtlasMixed": 0
             }
           ],
@@ -4625,30 +5259,33 @@
             "bld_residential_c/burning: 6 ventanas encendidas"
           ],
           "materialsWithRawInstances": [
-            "src_kenney_nature_kit/_defaultMat: Base Color factor plano ×2; atlas de color ninguno; módulos alcanzados 0, en bruto 2",
-            "src_kenney_nature_kit/stone: Base Color factor plano ×2; atlas de color ninguno; módulos alcanzados 0, en bruto 2",
-            "src_kenney_nature_kit/stoneDark: Base Color factor plano ×2; atlas de color ninguno; módulos alcanzados 0, en bruto 2",
-            "src_kenney_nature_kit/wood: Base Color factor plano ×2; atlas de color ninguno; módulos alcanzados 0, en bruto 2",
+            "src_kenney_nature_kit/_defaultMat: Base Color factor plano ×4; atlas de color ninguno; módulos alcanzados 0, en bruto 4",
+            "src_kenney_nature_kit/stone: Base Color factor plano ×8; atlas de color ninguno; módulos alcanzados 0, en bruto 8",
+            "src_kenney_nature_kit/stoneDark: Base Color factor plano ×8; atlas de color ninguno; módulos alcanzados 0, en bruto 8",
+            "src_kenney_nature_kit/wood: Base Color factor plano ×3; atlas de color ninguno; módulos alcanzados 0, en bruto 3",
             "src_kenney_nature_kit/woodBarkDark: Base Color factor plano ×2; atlas de color ninguno; módulos alcanzados 0, en bruto 2",
-            "src_quaternius_downtown_city_megakit/MI_FakeInterior: Base Color MIX:sin imagen ×10, factor plano ×2; atlas de color ninguno; módulos alcanzados 0, en bruto 12",
-            "src_quaternius_downtown_city_megakit/MI_Glass: Base Color MIX:sin imagen ×14, factor plano ×3; atlas de color ninguno; módulos alcanzados 0, en bruto 17",
-            "src_quaternius_downtown_city_megakit/MI_InteriorWall: Base Color MIX:sin imagen ×25; atlas de color T_RedBrick_BaseColor; módulos alcanzados 0, en bruto 25",
-            "src_quaternius_downtown_city_megakit/MI_RedBrick: Base Color MIX:sin imagen ×14, TEX_IMAGE:T_RedBrick_BaseColor ×7; atlas de color T_RedBrick_BaseColor; módulos alcanzados 7, en bruto 14",
-            "src_quaternius_downtown_city_megakit/MI_RedBrick_Pale: Base Color MIX:sin imagen ×14; atlas de color T_RedBrick_BaseColor; módulos alcanzados 0, en bruto 14",
-            "src_quaternius_downtown_city_megakit/MI_Trim: Base Color MIX:sin imagen ×20, TEX_IMAGE:T_Trim_BaseColor ×15; atlas de color T_Trim_BaseColor; módulos alcanzados 15, en bruto 20",
-            "src_quaternius_downtown_city_megakit/MI_Trim_Dark: Base Color MIX:sin imagen ×2; atlas de color T_Trim_BaseColor; módulos alcanzados 0, en bruto 2",
+            "src_kenney_nature_kit/woodDark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_quaternius_downtown_city_megakit/MI_FakeInterior: Base Color MIX:sin imagen ×14, factor plano ×2; atlas de color ninguno; módulos alcanzados 0, en bruto 16",
+            "src_quaternius_downtown_city_megakit/MI_Glass: Base Color MIX:sin imagen ×18, factor plano ×3; atlas de color ninguno; módulos alcanzados 0, en bruto 21",
+            "src_quaternius_downtown_city_megakit/MI_InteriorFloor: Base Color MIX:sin imagen ×1, TEX_IMAGE:T_MarbleFloor_BaseColor ×2; atlas de color T_MarbleFloor_BaseColor; módulos alcanzados 2, en bruto 1",
+            "src_quaternius_downtown_city_megakit/MI_InteriorRoof: Base Color MIX:sin imagen ×1, TEX_IMAGE:T_Concrete_BaseColor ×2; atlas de color T_Concrete_BaseColor; módulos alcanzados 2, en bruto 1",
+            "src_quaternius_downtown_city_megakit/MI_InteriorWall: Base Color MIX:sin imagen ×31; atlas de color T_RedBrick_BaseColor; módulos alcanzados 0, en bruto 31",
+            "src_quaternius_downtown_city_megakit/MI_RedBrick: Base Color MIX:sin imagen ×16, TEX_IMAGE:T_RedBrick_BaseColor ×7; atlas de color T_RedBrick_BaseColor; módulos alcanzados 7, en bruto 16",
+            "src_quaternius_downtown_city_megakit/MI_RedBrick_Pale: Base Color MIX:sin imagen ×15; atlas de color T_RedBrick_BaseColor; módulos alcanzados 0, en bruto 15",
+            "src_quaternius_downtown_city_megakit/MI_Trim: Base Color MIX:sin imagen ×24, TEX_IMAGE:T_Trim_BaseColor ×17; atlas de color T_Trim_BaseColor; módulos alcanzados 17, en bruto 24",
+            "src_quaternius_downtown_city_megakit/MI_Trim_Dark: Base Color MIX:sin imagen ×4; atlas de color T_Trim_BaseColor; módulos alcanzados 0, en bruto 4",
             "src_quaternius_downtown_city_megakit/MI_Trim_Green: Base Color MIX:sin imagen ×3; atlas de color T_Trim_BaseColor; módulos alcanzados 0, en bruto 3",
-            "src_quaternius_downtown_city_megakit/MI_Trim_MetalConcrete: Base Color MIX:sin imagen ×11, TEX_IMAGE:T_MetalConcrete_BaseColor ×16; atlas de color T_MetalConcrete_BaseColor; módulos alcanzados 16, en bruto 11"
+            "src_quaternius_downtown_city_megakit/MI_Trim_MetalConcrete: Base Color MIX:sin imagen ×17, TEX_IMAGE:T_MetalConcrete_BaseColor ×21; atlas de color T_MetalConcrete_BaseColor; módulos alcanzados 21, en bruto 17"
           ],
           "gap": "El `windowGlow` canónico se calcula por texeles del atlas que el tratamiento alcanza, así que sólo enciende en las instancias con Base Color directo. Los materiales de `materialsWithRawInstances` sacan ventana encendida en unos módulos y en otros no, y donde el factor Roughness es plano el override canónico lo unifica, apagando el brillo del vidrio.",
           "decisionNeeded": "El compositor debe dar emisión a las caras de los materiales de vidrio sin atlas (familia glass en materialFamilies) con el color canónico `paletteOverrides.window` y la misma fracción encendida (litFraction) por hash de baricentro, o renunciar a la firma de ventana encendida en ese pack. Se decide en V.f.4 y lo juzga el humano en V.f.5."
         }
       },
       "knownGaps": [
-        "glass (materiales MI_Glass sin textura de color mapeable); wood (materiales wood, woodBarkDark sin textura de color mapeable): la familia existe en la geometría, pero su color no vive en un atlas mapeable, así que §11 no puede separarla por albedo. Se decide por emisión y roughness en V.f.4.",
+        "glass (materiales MI_Glass sin textura de color mapeable); wood (materiales wood, woodBarkDark, woodDark sin textura de color mapeable): la familia existe en la geometría, pero su color no vive en un atlas mapeable, así que §11 no puede separarla por albedo. Se decide por emisión y roughness en V.f.4.",
         "nombres de textura que no identifican un archivo (colormap ×4): son PNG distintos con el mismo nombre de datablock, porque cada archivo se importa en una escena limpia. El muestreo y el remape van por ruta (`textureFile`); cualquier consumidor que agrupe por nombre atribuiría el color de un pack a los demás.",
         "metal vs stone: sólo los separa el shading (rugosidad o metallic), no el albedo. Si V.f.4 aplanara esos canales, esas familias colapsarían.",
-        "atlas alcanzados sólo en parte (T_MetalConcrete_BaseColor: 16 módulos directos / 11 con Base Color mezclado; T_RedBrick_BaseColor: 7 módulos directos / 35 con Base Color mezclado; T_Trim_BaseColor: 15 módulos directos / 23 con Base Color mezclado): el valor medido en `materialFamilies` es el del lado tratado. El compositor listador debe elegir módulos por `packCoexistence.modulesRawList`, no por nombre de material, o un mismo alzado mostrará dos temperaturas de brillo.",
+        "atlas alcanzados sólo en parte (T_Concrete_BaseColor: 3 módulos directos / 1 con Base Color mezclado; T_MarbleFloor_BaseColor: 2 módulos directos / 1 con Base Color mezclado; T_MetalConcrete_BaseColor: 21 módulos directos / 17 con Base Color mezclado; T_RedBrick_BaseColor: 7 módulos directos / 41 con Base Color mezclado; T_Trim_BaseColor: 17 módulos directos / 29 con Base Color mezclado): el valor medido en `materialFamilies` es el del lado tratado. El compositor listador debe elegir módulos por `packCoexistence.modulesRawList`, no por nombre de material, o un mismo alzado mostrará dos temperaturas de brillo.",
         "El bucket medio de un atlas no decide el windowGlow texel a texel: la media de una familia de tono puede caer bajo el umbral de la banda de cristal y aun así dejar texeles encendidos (ventanas observadas en los renders embarcados: 2–10 por edificio).",
         "proportions.doorHeight del style layer (2.1 m) queda desactualizado contra la hoja medida (2.2 m); se corrige en la documentación tras la revisión humana, no a mano en el JSON canónico."
       ],
@@ -4660,14 +5297,14 @@
     }
   ],
   "counts": {
-    "modules": 126,
-    "texturesSampled": 27,
+    "modules": 165,
+    "texturesSampled": 30,
     "familiesPresentInGeometry": 6,
     "familiesMeasuredByAlbedo": 4,
     "familyPairsChecked": 6,
     "collapsedPairs": 0,
-    "modulesFullyTreatedToday": 75,
-    "modulesWithRawMaterial": 51,
-    "texturesSplitAcrossModules": 3
+    "modulesFullyTreatedToday": 96,
+    "modulesWithRawMaterial": 69,
+    "texturesSplitAcrossModules": 5
   }
 }

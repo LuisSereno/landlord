@@ -34,7 +34,7 @@
     {
       "sourceId": "src_kenney_nature_kit",
       "directory": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format",
-      "pattern": "^(tree|bush|plant|rock|log|stump|statue|bridge|pot|sign)_.*\\.glb$"
+      "pattern": "^(tree|bush|plant|rock|log|stump|statue|bridge|pot|sign)_.*\\.glb$|^sign\\.glb$"
     },
     {
       "sourceId": "src_kenney_car_kit",
@@ -67,14 +67,14 @@
     "note": "La modularidad de un pack puede estar a nivel de ARCHIVO (MegaKit, KayKit: un módulo por gltf) y no a nivel de objeto dentro del archivo; por eso el catálogo de módulos referencia rutas de archivo, no sólo selecciones de nodo."
   },
   "counts": {
-    "sources": 541,
+    "sources": 542,
     "withUnresolvedTextures": 0,
     "bySource": {
       "src_kenney_city_suburban": 40,
       "src_kenney_city_industrial": 37,
       "src_kenney_city_commercial": 41,
       "src_kenney_city_roads": 95,
-      "src_kenney_nature_kit": 133,
+      "src_kenney_nature_kit": 134,
       "src_kenney_car_kit": 15,
       "src_kaykit_city_builder_bits": 27,
       "src_quaternius_downtown_city_megakit": 153
@@ -82,7 +82,7 @@
     "byClassification": {
       "modular": 18,
       "partially_modular": 2,
-      "whole_asset_only": 521,
+      "whole_asset_only": 522,
       "unsuitable": 0
     }
   },
@@ -29763,6 +29763,121 @@
         "convention": {
           "x": "centered",
           "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_kenney_nature_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/sign.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "exists": true,
+      "objectCount": 2,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 74,
+      "triangles": 44,
+      "materials": [
+        "_defaultMat",
+        "wood",
+        "woodDark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "sign",
+          "type": "MESH",
+          "parent": "tmpParent",
+          "materials": [
+            "wood",
+            "woodDark",
+            "_defaultMat"
+          ],
+          "vertices": 74,
+          "triangles": 44,
+          "looseParts": 16
+        },
+        {
+          "name": "tmpParent",
+          "type": "EMPTY",
+          "parent": "IMPORT_ROOT",
+          "materials": []
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 1.2,
+          "depth": 0.28,
+          "height": 1.6351
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 0.3,
+          "depth": 0.07,
+          "height": 0.4088,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          -0.07,
+          0.2
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "sign"
+        ],
+        "dominantShare": 1,
+        "shells": 16,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 16 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "sign",
+        "origin": [
+          0,
+          -0.07,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          -0.07,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 1.2,
+          "depth": 0.28,
+          "height": 1.635
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -0.6,
+            "max": 0.6
+          },
+          "y": {
+            "min": -0.07,
+            "max": 0.21
+          },
+          "z": {
+            "min": 0,
+            "max": 1.635
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "offset",
           "z": "positive-from-origin"
         }
       }

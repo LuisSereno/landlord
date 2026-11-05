@@ -1,13 +1,13 @@
 {
  "schemaVersion": 1,
- "generatedAt": "2026-11-05T07:47:46.883Z",
+ "generatedAt": "2026-11-05T09:44:49.149Z",
  "composerVersion": "vf-3",
  "styleProfileId": "graphic_civic_buildings_v1",
- "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/building-catalog-vg/town-hall-spike-v2",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/blender_artist/showcase/vg-town-hall-spike-v3",
  "requested": 3,
  "rendered": 3,
- "totalGenerationMs": 214908,
- "blenderPeakRssMb": 6113.8,
+ "totalGenerationMs": 224428,
+ "blenderPeakRssMb": 6276.6,
  "toolchain": {
   "blender": "multiple processes",
   "renderer": "BLENDER_EEVEE"
@@ -24,15 +24,15 @@
  },
  "candidates": [
   {
-   "candidateId": "vf_town_hall_1000",
+   "candidateId": "vg_town_hall_1000",
    "buildingType": "town_hall",
    "family": "civic_landmark",
    "variantSeed": 1000,
-   "compositionSignature": "3d5c31ed1ea5a0565fe0ac45c69e10a7de870df96f21535661a6221387f87dda",
-   "triangleCount": 27082,
+   "compositionSignature": "67f7f08feb7aaa3b18ad9d9b276afcc8b494ce4c917f41b1f3079653d65ae2e4",
+   "triangleCount": 35454,
    "objectCount": 152,
-   "moduleCount": 11,
-   "materials": 25,
+   "moduleCount": 10,
+   "materials": 22,
    "textures": 23,
    "bounds": {
     "x": {
@@ -48,13 +48,13 @@
      "max": 18.6
     }
    },
-   "renderMs": 21773.06,
-   "pngBytes": 483747,
+   "renderMs": 22943.37,
+   "pngBytes": 497922,
    "pngPixels": [
     554,
     762
    ],
-   "pixelSha256": "0a83c25bdbec9b8e6c9cb767be861178acf6eef8d28f7476165838afd9495d92",
+   "pixelSha256": "bc93dc6c7f323801c087342274b644232f51b10cf7628901af9b7fc97f5295ef",
    "licensedGeometryRatio": 1,
    "pivot": {
     "x": 0.4612,
@@ -62,45 +62,45 @@
    }
   },
   {
-   "candidateId": "vf_town_hall_42",
+   "candidateId": "vg_town_hall_1001",
    "buildingType": "town_hall",
    "family": "civic_landmark",
-   "variantSeed": 42,
-   "compositionSignature": "c5c364c8f11cbc7364d5f3e8eed5dccde0d815f5f4ad716050d5c67cb5f150b1",
-   "triangleCount": 7224,
-   "objectCount": 93,
-   "moduleCount": 9,
-   "materials": 21,
-   "textures": 15,
+   "variantSeed": 1001,
+   "compositionSignature": "683e575c98d2f1c78e20e32f334d77423a72cef988407b82bf6ec52a69204d97",
+   "triangleCount": 25460,
+   "objectCount": 176,
+   "moduleCount": 12,
+   "materials": 25,
+   "textures": 25,
    "bounds": {
     "x": {
-     "min": -8,
+     "min": -8.428,
      "max": 8
     },
     "y": {
      "min": -3.9908,
-     "max": 2
+     "max": 6
     },
     "z": {
      "min": 0,
-     "max": 12.1
+     "max": 18.6
     }
    },
-   "renderMs": 13488.58,
-   "pngBytes": 273909,
+   "renderMs": 21925.33,
+   "pngBytes": 486712,
    "pngPixels": [
-    469,
-    550
+    563,
+    767
    ],
-   "pixelSha256": "2e4af4c0aa5931c23337995b5b8001bffecbf4935e5c881c20d158cc647aee3c",
+   "pixelSha256": "6fe90974eceb279fb5211cdf764513def0f7f6babf031e8821e147edce182e79",
    "licensedGeometryRatio": 1,
    "pivot": {
-    "x": 0.5448,
-    "y": 0.7678
+    "x": 0.4698,
+    "y": 0.8332
    }
   },
   {
-   "candidateId": "vf_town_hall_1002",
+   "candidateId": "vg_town_hall_1002",
    "buildingType": "town_hall",
    "family": "civic_landmark",
    "variantSeed": 1002,
@@ -124,13 +124,13 @@
      "max": 13
     }
    },
-   "renderMs": 16683.03,
-   "pngBytes": 321424,
+   "renderMs": 17006.08,
+   "pngBytes": 321453,
    "pngPixels": [
     559,
     619
    ],
-   "pixelSha256": "006820c3c266eaf4982771f3ddedaba8316a43cb1460e54fe9f843de8b5b9e8b",
+   "pixelSha256": "a24060823ec454c7ec7c0a39671f518e56791d71ddf498f560969a67f9bc2cbc",
    "licensedGeometryRatio": 1,
    "pivot": {
     "x": 0.4651,

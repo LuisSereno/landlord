@@ -68,14 +68,14 @@
   },
   "orientationPolicy": "Los módulos sólo rotan en múltiplos de 90°: la retícula del dominio y el rig isométrico (azimut 45°) no admiten giros arbitrarios sin romper el encaje de fachadas.",
   "counts": {
-    "modules": 126,
-    "sources": 126,
+    "modules": 165,
+    "sources": 164,
     "byCategory": {
       "facade": 30,
       "window": 9,
       "door": 6,
       "roof": 13,
-      "civic": 23,
+      "civic": 62,
       "canopy": 5,
       "intrinsic_prop": 2,
       "mass": 25,
@@ -86,16 +86,16 @@
     "byFamily": {
       "residential_low": 49,
       "industrial_heavy": 45,
-      "civic_landmark": 100
+      "civic_landmark": 139
     },
     "bySource": {
-      "src_quaternius_downtown_city_megakit": 84,
+      "src_quaternius_downtown_city_megakit": 102,
       "src_kenney_city_industrial": 21,
       "src_kenney_city_suburban": 4,
       "src_kenney_city_commercial": 4,
-      "src_kaykit_city_builder_bits": 7,
-      "src_kenney_nature_kit": 4,
-      "src_kenney_city_roads": 2
+      "src_kaykit_city_builder_bits": 10,
+      "src_kenney_nature_kit": 11,
+      "src_kenney_city_roads": 13
     }
   },
   "modules": [
@@ -17561,6 +17561,5351 @@
         "fileHierarchy": [
           "pot_small:MESH",
           "tmpParent:EMPTY"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_cornice_metal_l",
+      "category": "civic",
+      "role": "cornice",
+      "note": "cornisa metálica izquierda",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_L.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Cornice_Metal_L"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 24 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2.1,
+        "depthMeters": 0.2,
+        "heightMeters": 1
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Cornice_Metal_L",
+        "convention": {
+          "x": "offset",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1.1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.1,
+            "max": 0.1
+          },
+          "z": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0.05,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1.05,
+            "max": 1.05
+          },
+          "y": {
+            "min": -0.1,
+            "max": 0.1
+          },
+          "z": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 120,
+        "triangles": 72,
+        "shells": 24,
+        "materials": [
+          "MI_Trim_MetalConcrete"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
+        ],
+        "selectedObjects": [
+          "Cornice_Metal_L"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=enlazado:MIX"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2.1,
+          "depth": 0.2,
+          "height": 1,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0.05,
+          0,
+          0
+        ],
+        "fileTriangles": 72,
+        "fileHierarchy": [
+          "Cornice_Metal_L:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_cornice_metal_r",
+      "category": "civic",
+      "role": "cornice",
+      "note": "cornisa metálica derecha",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_R.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Cornice_Metal_R"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 24 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2.1,
+        "depthMeters": 0.2,
+        "heightMeters": 1
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Cornice_Metal_R",
+        "convention": {
+          "x": "offset",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1,
+            "max": 1.1
+          },
+          "y": {
+            "min": -0.1,
+            "max": 0.1
+          },
+          "z": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          -0.05,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1.05,
+            "max": 1.05
+          },
+          "y": {
+            "min": -0.1,
+            "max": 0.1
+          },
+          "z": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 120,
+        "triangles": 72,
+        "shells": 24,
+        "materials": [
+          "MI_Trim_MetalConcrete"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
+        ],
+        "selectedObjects": [
+          "Cornice_Metal_R"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=enlazado:MIX"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2.1,
+          "depth": 0.2,
+          "height": 1,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          -0.05,
+          0,
+          0
+        ],
+        "fileTriangles": 72,
+        "fileHierarchy": [
+          "Cornice_Metal_R:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_cornice_metal_90l",
+      "category": "civic",
+      "role": "cornice",
+      "note": "cornisa metálica esquina 90° izquierda",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_90Angle_L.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Cornice_Metal_90Angle_L"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 37 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2,
+        "depthMeters": 0.7,
+        "heightMeters": 1
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Cornice_Metal_90Angle_L",
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.1,
+            "max": 0.6
+          },
+          "z": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.25,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.35,
+            "max": 0.35
+          },
+          "z": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 164,
+        "triangles": 90,
+        "shells": 37,
+        "materials": [
+          "MI_Trim_MetalConcrete"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
+        ],
+        "selectedObjects": [
+          "Cornice_Metal_90Angle_L"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=enlazado:MIX"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2,
+          "depth": 0.7,
+          "height": 1,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.25,
+          0
+        ],
+        "fileTriangles": 90,
+        "fileHierarchy": [
+          "Cornice_Metal_90Angle_L:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_cornice_metal_90r",
+      "category": "civic",
+      "role": "cornice",
+      "note": "cornisa metálica esquina 90° derecha",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_90Angle_R.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Cornice_Metal_90Angle_R"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 37 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2,
+        "depthMeters": 0.7,
+        "heightMeters": 1
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Cornice_Metal_90Angle_R",
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.1,
+            "max": 0.6
+          },
+          "z": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.25,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.35,
+            "max": 0.35
+          },
+          "z": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 164,
+        "triangles": 90,
+        "shells": 37,
+        "materials": [
+          "MI_Trim_MetalConcrete"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
+        ],
+        "selectedObjects": [
+          "Cornice_Metal_90Angle_R"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=enlazado:MIX"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2,
+          "depth": 0.7,
+          "height": 1,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.25,
+          0
+        ],
+        "fileTriangles": 90,
+        "fileHierarchy": [
+          "Cornice_Metal_90Angle_R:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_cornice_trim_l",
+      "category": "civic",
+      "role": "cornice",
+      "note": "cornisa trim izquierda",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Trim_L.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Cornice_Trim_L"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 41 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2.528,
+        "depthMeters": 0.628,
+        "heightMeters": 0.998
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Cornice_Trim_L",
+        "convention": {
+          "x": "offset",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "-Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1.528,
+            "max": 1
+          },
+          "y": {
+            "min": -0.528,
+            "max": 0.1
+          },
+          "z": {
+            "min": 0,
+            "max": 0.998
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0.264,
+          0.214,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1.2639,
+            "max": 1.2639
+          },
+          "y": {
+            "min": -0.3139,
+            "max": 0.3139
+          },
+          "z": {
+            "min": 0,
+            "max": 0.9984
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 198,
+        "triangles": 116,
+        "shells": 41,
+        "materials": [
+          "MI_Trim"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
+        ],
+        "selectedObjects": [
+          "Cornice_Trim_L"
+        ],
+        "baseColorChains": [
+          "MI_Trim=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2.5278,
+          "depth": 0.6278,
+          "height": 0.9984,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0.2639,
+          0.2139,
+          0
+        ],
+        "fileTriangles": 116,
+        "fileHierarchy": [
+          "Cornice_Trim_L:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_cornice_trim_r",
+      "category": "civic",
+      "role": "cornice",
+      "note": "cornisa trim derecha",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Trim_R.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Cornice_Trim_R"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 41 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2.528,
+        "depthMeters": 0.628,
+        "heightMeters": 0.998
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Cornice_Trim_R",
+        "convention": {
+          "x": "offset",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "-Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1,
+            "max": 1.528
+          },
+          "y": {
+            "min": -0.528,
+            "max": 0.1
+          },
+          "z": {
+            "min": 0,
+            "max": 0.998
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          -0.264,
+          0.214,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1.2639,
+            "max": 1.2639
+          },
+          "y": {
+            "min": -0.3139,
+            "max": 0.3139
+          },
+          "z": {
+            "min": 0,
+            "max": 0.9984
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 198,
+        "triangles": 116,
+        "shells": 41,
+        "materials": [
+          "MI_Trim"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
+        ],
+        "selectedObjects": [
+          "Cornice_Trim_R"
+        ],
+        "baseColorChains": [
+          "MI_Trim=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2.5278,
+          "depth": 0.6278,
+          "height": 0.9984,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          -0.2639,
+          0.2139,
+          0
+        ],
+        "fileTriangles": 116,
+        "fileHierarchy": [
+          "Cornice_Trim_R:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_arched_window_small",
+      "category": "civic",
+      "role": "window_bay_arched",
+      "note": "ventana arqueada pequeña",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Inset_Window_Curved_Small.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Brick_Inset_Window_Curved_Small"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 103 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 4,
+        "depthMeters": 0.343,
+        "heightMeters": 3
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Brick_Inset_Window_Curved_Small",
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -0.099,
+            "max": 0.244
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.073,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -0.1713,
+            "max": 0.1713
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 779,
+        "triangles": 568,
+        "shells": 103,
+        "materials": [
+          "MI_FakeInterior",
+          "MI_Glass",
+          "MI_InteriorWall",
+          "MI_RedBrick_Pale",
+          "MI_Trim"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
+        ],
+        "selectedObjects": [
+          "Brick_Inset_Window_Curved_Small"
+        ],
+        "baseColorChains": [
+          "MI_FakeInterior=enlazado:MIX",
+          "MI_Glass=enlazado:MIX",
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick_Pale=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 4,
+          "depth": 0.3426,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.0728,
+          0
+        ],
+        "fileTriangles": 568,
+        "fileHierarchy": [
+          "Brick_Inset_Window_Curved_Small:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_window_trim",
+      "category": "civic",
+      "role": "window_bay",
+      "note": "ventana con marco decorativo",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Window_Trim.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Brick_Window_Trim"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 189 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2,
+        "depthMeters": 0.304,
+        "heightMeters": 3
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Brick_Window_Trim",
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.047,
+            "max": 0.257
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.105,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.152,
+            "max": 0.152
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 1022,
+        "triangles": 652,
+        "shells": 189,
+        "materials": [
+          "MI_FakeInterior",
+          "MI_Glass",
+          "MI_InteriorWall",
+          "MI_RedBrick",
+          "MI_Trim"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
+        ],
+        "selectedObjects": [
+          "Brick_Window_Trim"
+        ],
+        "baseColorChains": [
+          "MI_FakeInterior=enlazado:MIX",
+          "MI_Glass=enlazado:MIX",
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2,
+          "depth": 0.304,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.1048,
+          0
+        ],
+        "fileTriangles": 652,
+        "fileHierarchy": [
+          "Brick_Window_Trim:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_piano_nobile_window",
+      "category": "civic",
+      "role": "window_bay",
+      "note": "ventana planta baja trim variante",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_FirstFloor_Window.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Metal_FirstFloor_Window"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 46 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2,
+        "depthMeters": 0.259,
+        "heightMeters": 3
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Metal_FirstFloor_Window",
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.042,
+            "max": 0.217
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.087,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.1294,
+            "max": 0.1294
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 248,
+        "triangles": 156,
+        "shells": 46,
+        "materials": [
+          "MI_FakeInterior",
+          "MI_Glass",
+          "MI_InteriorWall",
+          "MI_Trim_Dark",
+          "MI_Trim_MetalConcrete"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
+        ],
+        "selectedObjects": [
+          "Metal_FirstFloor_Window"
+        ],
+        "baseColorChains": [
+          "MI_FakeInterior=enlazado:MIX",
+          "MI_Glass=enlazado:MIX",
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_Trim_Dark=enlazado:MIX",
+          "MI_Trim_MetalConcrete=enlazado:MIX"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2,
+          "depth": 0.2588,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.0874,
+          0
+        ],
+        "fileTriangles": 156,
+        "fileHierarchy": [
+          "Metal_FirstFloor_Window:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_metal_window",
+      "category": "civic",
+      "role": "window_bay",
+      "note": "ventana metálica planta baja",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_FirstFloor_Window.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Metal_FirstFloor_Window"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 46 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2,
+        "depthMeters": 0.259,
+        "heightMeters": 3
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Metal_FirstFloor_Window",
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.042,
+            "max": 0.217
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.087,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.1294,
+            "max": 0.1294
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 248,
+        "triangles": 156,
+        "shells": 46,
+        "materials": [
+          "MI_FakeInterior",
+          "MI_Glass",
+          "MI_InteriorWall",
+          "MI_Trim_Dark",
+          "MI_Trim_MetalConcrete"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
+        ],
+        "selectedObjects": [
+          "Metal_FirstFloor_Window"
+        ],
+        "baseColorChains": [
+          "MI_FakeInterior=enlazado:MIX",
+          "MI_Glass=enlazado:MIX",
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_Trim_Dark=enlazado:MIX",
+          "MI_Trim_MetalConcrete=enlazado:MIX"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2,
+          "depth": 0.2588,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.0874,
+          0
+        ],
+        "fileTriangles": 156,
+        "fileHierarchy": [
+          "Metal_FirstFloor_Window:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_metal_column_small_bottom",
+      "category": "civic",
+      "role": "column",
+      "note": "columna metálica pequeña base",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Small_Bottom.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Metal_Column_Small_Bottom"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 36 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 0.284,
+        "depthMeters": 0.285,
+        "heightMeters": 3
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Metal_Column_Small_Bottom",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.142,
+            "max": 0.142
+          },
+          "y": {
+            "min": -0.142,
+            "max": 0.142
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.1423,
+            "max": 0.1423
+          },
+          "y": {
+            "min": -0.1424,
+            "max": 0.1424
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 184,
+        "triangles": 112,
+        "shells": 36,
+        "materials": [
+          "MI_Trim_MetalConcrete"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
+        ],
+        "selectedObjects": [
+          "Metal_Column_Small_Bottom"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.2845,
+          "depth": 0.2847,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 112,
+        "fileHierarchy": [
+          "Metal_Column_Small_Bottom:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_metal_column_small_center",
+      "category": "civic",
+      "role": "column",
+      "note": "columna metálica pequeña fuste",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Small_Center.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Metal_Column_Small_Center"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 8 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 0.249,
+        "depthMeters": 0.249,
+        "heightMeters": 3
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Metal_Column_Small_Center",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.124,
+            "max": 0.124
+          },
+          "y": {
+            "min": -0.125,
+            "max": 0.125
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.1244,
+            "max": 0.1244
+          },
+          "y": {
+            "min": -0.1246,
+            "max": 0.1246
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 32,
+        "triangles": 16,
+        "shells": 8,
+        "materials": [
+          "MI_Trim_MetalConcrete"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
+        ],
+        "selectedObjects": [
+          "Metal_Column_Small_Center"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.2489,
+          "depth": 0.2491,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 16,
+        "fileHierarchy": [
+          "Metal_Column_Small_Center:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_bollard",
+      "category": "civic",
+      "role": "bollard",
+      "note": "bolardo para perímetro cívico",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_Bollard.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Prop_Bollard"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 27 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 0.216,
+        "depthMeters": 0.227,
+        "heightMeters": 0.892
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Prop_Bollard",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.108,
+            "max": 0.108
+          },
+          "y": {
+            "min": -0.114,
+            "max": 0.114
+          },
+          "z": {
+            "min": 0,
+            "max": 0.892
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.1081,
+            "max": 0.1081
+          },
+          "y": {
+            "min": -0.1137,
+            "max": 0.1137
+          },
+          "z": {
+            "min": 0,
+            "max": 0.8918
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 225,
+        "triangles": 190,
+        "shells": 27,
+        "materials": [
+          "MI_Trim_MetalConcrete"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
+        ],
+        "selectedObjects": [
+          "Prop_Bollard"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.2163,
+          "depth": 0.2274,
+          "height": 0.8918,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 190,
+        "fileHierarchy": [
+          "Prop_Bollard:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_planter",
+      "category": "civic",
+      "role": "planter",
+      "note": "jardinera para entrada cívica",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_Planter_Single.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Prop_Planter_Single"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 50 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2,
+        "depthMeters": 2,
+        "heightMeters": 0.6
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Prop_Planter_Single",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -1,
+            "max": 1
+          },
+          "z": {
+            "min": 0,
+            "max": 0.6
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -1,
+            "max": 1
+          },
+          "z": {
+            "min": 0,
+            "max": 0.6
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 218,
+        "triangles": 118,
+        "shells": 50,
+        "materials": [
+          "MI_Dirt",
+          "MI_Trim_MetalConcrete"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
+        ],
+        "selectedObjects": [
+          "Prop_Planter_Single"
+        ],
+        "baseColorChains": [
+          "MI_Dirt=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_BaseColor.png",
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2,
+          "depth": 2,
+          "height": 0.6,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 118,
+        "fileHierarchy": [
+          "Prop_Planter_Single:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_stair_rail_full",
+      "category": "civic",
+      "role": "handrail",
+      "note": "barandilla metálica completa",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Stairs_Rails_Metal.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Stairs_Rails_Metal"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 162 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.964,
+        "depthMeters": 2.306,
+        "heightMeters": 1.981
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Stairs_Rails_Metal",
+        "convention": {
+          "x": "centered",
+          "y": "negative-from-origin",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "-Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.982,
+            "max": 0.982
+          },
+          "y": {
+            "min": -2.306,
+            "max": 0
+          },
+          "z": {
+            "min": -0.012,
+            "max": 1.969
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          1.153,
+          0.012
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.982,
+            "max": 0.982
+          },
+          "y": {
+            "min": -1.153,
+            "max": 1.153
+          },
+          "z": {
+            "min": 0,
+            "max": 1.9814
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 888,
+        "triangles": 564,
+        "shells": 162,
+        "materials": [
+          "MI_Trim_MetalConcrete"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png"
+        ],
+        "selectedObjects": [
+          "Stairs_Rails_Metal"
+        ],
+        "baseColorChains": [
+          "MI_Trim_MetalConcrete=atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 1.964,
+          "depth": 2.306,
+          "height": 1.9814,
+          "minZ": -0.0119
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          1.153,
+          0.0119
+        ],
+        "fileTriangles": 564,
+        "fileHierarchy": [
+          "Stairs_Rails_Metal:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_trim_90_top",
+      "category": "civic",
+      "role": "cornice",
+      "note": "trim esquina 90° superior",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_90Angle_TopCover.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Trim_90Angle_TopCover"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 5 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2,
+        "depthMeters": 0.7,
+        "heightMeters": 0.02
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Trim_90Angle_TopCover",
+        "convention": {
+          "x": "centered",
+          "y": "positive-from-origin",
+          "z": "negative-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": 0,
+            "max": 0.7
+          },
+          "z": {
+            "min": -0.02,
+            "max": 0
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.35,
+          0.02
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.35,
+            "max": 0.35
+          },
+          "z": {
+            "min": 0,
+            "max": 0.02
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 20,
+        "triangles": 10,
+        "shells": 5,
+        "materials": [
+          "MI_InteriorWall",
+          "MI_Trim"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
+        ],
+        "selectedObjects": [
+          "Trim_90Angle_TopCover"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2,
+          "depth": 0.7,
+          "height": 0.02,
+          "minZ": -0.02
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.35,
+          0.02
+        ],
+        "fileTriangles": 10,
+        "fileHierarchy": [
+          "Trim_90Angle_TopCover:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_brick_half_trim",
+      "category": "civic",
+      "role": "frieze",
+      "note": "trim medio ladrillo (banda horizontal)",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_HalfTrim.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Brick_HalfTrim"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 11 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2,
+        "depthMeters": 0.225,
+        "heightMeters": 3
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Brick_HalfTrim",
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.025,
+            "max": 0.2
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.088,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.1123,
+            "max": 0.1123
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 46,
+        "triangles": 24,
+        "shells": 11,
+        "materials": [
+          "MI_InteriorWall",
+          "MI_RedBrick",
+          "MI_Trim"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
+        ],
+        "selectedObjects": [
+          "Brick_HalfTrim"
+        ],
+        "baseColorChains": [
+          "MI_InteriorWall=enlazado:MIX",
+          "MI_RedBrick=enlazado:MIX",
+          "MI_Trim=enlazado:MIX"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2,
+          "depth": 0.2247,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.0877,
+          0
+        ],
+        "fileTriangles": 24,
+        "fileHierarchy": [
+          "Brick_HalfTrim:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_megakit_civic_floor_inset",
+      "category": "civic",
+      "role": "slab",
+      "note": "losa rehundida para terraza/balcón",
+      "sourceId": "src_quaternius_downtown_city_megakit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_Inset.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "Floor_Inset"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 2 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2,
+        "depthMeters": 1.333,
+        "heightMeters": 0.1
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Floor_Inset",
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "negative-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.333,
+            "max": 1
+          },
+          "z": {
+            "min": -0.1,
+            "max": 0
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.333,
+          0.1
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.6667,
+            "max": 0.6667
+          },
+          "z": {
+            "min": 0,
+            "max": 0.1
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 12,
+        "triangles": 8,
+        "shells": 2,
+        "materials": [
+          "MI_InteriorFloor",
+          "MI_InteriorRoof"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_ORM.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_BaseColor.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_Normal.png",
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_ORM.png"
+        ],
+        "selectedObjects": [
+          "Floor_Inset"
+        ],
+        "baseColorChains": [
+          "MI_InteriorFloor=enlazado:MIX",
+          "MI_InteriorRoof=enlazado:MIX"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2,
+          "depth": 1.3333,
+          "height": 0.1,
+          "minZ": -0.1
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.3333,
+          0.1
+        ],
+        "fileTriangles": 8,
+        "fileHierarchy": [
+          "Floor_Inset:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_nature_civic_statue_head",
+      "category": "civic",
+      "role": "monument",
+      "note": "busto/estatua cabeza",
+      "sourceId": "src_kenney_nature_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_head.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "statue_head"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 63 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2.904,
+        "depthMeters": 2.218,
+        "heightMeters": 4
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "statue_head",
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1.452,
+            "max": 1.452
+          },
+          "y": {
+            "min": -0.96,
+            "max": 1.258
+          },
+          "z": {
+            "min": 0,
+            "max": 4
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.149,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1.452,
+            "max": 1.452
+          },
+          "y": {
+            "min": -1.1088,
+            "max": 1.1088
+          },
+          "z": {
+            "min": 0,
+            "max": 4
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 318,
+        "triangles": 196,
+        "shells": 63,
+        "materials": [
+          "_defaultMat",
+          "stone",
+          "stoneDark"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "statue_head"
+        ],
+        "baseColorChains": [
+          "_defaultMat=plano",
+          "stone=plano",
+          "stoneDark=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.726,
+          "depth": 0.5544,
+          "height": 1,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          -0.1488,
+          0.2
+        ],
+        "fileTriangles": 196,
+        "fileHierarchy": [
+          "statue_head:MESH",
+          "tmpParent:EMPTY"
+        ]
+      }
+    },
+    {
+      "id": "mod_nature_civic_statue_block",
+      "category": "civic",
+      "role": "monument",
+      "note": "bloque pedestal monumento",
+      "sourceId": "src_kenney_nature_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_block.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "statue_block"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 56 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.6,
+        "depthMeters": 1.6,
+        "heightMeters": 1.6
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "statue_block",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.8,
+            "max": 0.8
+          },
+          "y": {
+            "min": -0.8,
+            "max": 0.8
+          },
+          "z": {
+            "min": 0,
+            "max": 1.6
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.8,
+            "max": 0.8
+          },
+          "y": {
+            "min": -0.8,
+            "max": 0.8
+          },
+          "z": {
+            "min": 0,
+            "max": 1.6
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 240,
+        "triangles": 140,
+        "shells": 56,
+        "materials": [
+          "stone",
+          "stoneDark"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "statue_block"
+        ],
+        "baseColorChains": [
+          "stone=plano",
+          "stoneDark=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.4,
+          "depth": 0.4,
+          "height": 0.4,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ],
+        "fileTriangles": 140,
+        "fileHierarchy": [
+          "statue_block:MESH",
+          "tmpParent:EMPTY"
+        ]
+      }
+    },
+    {
+      "id": "mod_nature_civic_statue_ring",
+      "category": "civic",
+      "role": "monument",
+      "note": "anillo monumento/fuente",
+      "sourceId": "src_kenney_nature_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_ring.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "statue_ring"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 24 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2.4,
+        "depthMeters": 1.6,
+        "heightMeters": 3.186
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "statue_ring",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1.2,
+            "max": 1.2
+          },
+          "y": {
+            "min": -0.8,
+            "max": 0.8
+          },
+          "z": {
+            "min": 0,
+            "max": 3.186
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1.2,
+            "max": 1.2
+          },
+          "y": {
+            "min": -0.8,
+            "max": 0.8
+          },
+          "z": {
+            "min": 0,
+            "max": 3.1856
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 118,
+        "triangles": 76,
+        "shells": 24,
+        "materials": [
+          "stone",
+          "stoneDark"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "statue_ring"
+        ],
+        "baseColorChains": [
+          "stone=plano",
+          "stoneDark=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.6,
+          "depth": 0.4,
+          "height": 0.7964,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ],
+        "fileTriangles": 76,
+        "fileHierarchy": [
+          "statue_ring:MESH",
+          "tmpParent:EMPTY"
+        ]
+      }
+    },
+    {
+      "id": "mod_nature_civic_statue_column_damaged",
+      "category": "civic",
+      "role": "monument",
+      "note": "columna monumental en ruinas",
+      "sourceId": "src_kenney_nature_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_columnDamaged.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "statue_columnDamaged"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 34 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.2,
+        "depthMeters": 1.2,
+        "heightMeters": 2.8
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "statue_columnDamaged",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.6,
+            "max": 0.6
+          },
+          "y": {
+            "min": -0.6,
+            "max": 0.6
+          },
+          "z": {
+            "min": 0,
+            "max": 2.8
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.6,
+            "max": 0.6
+          },
+          "y": {
+            "min": -0.6,
+            "max": 0.6
+          },
+          "z": {
+            "min": 0,
+            "max": 2.8
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 176,
+        "triangles": 108,
+        "shells": 34,
+        "materials": [
+          "stone",
+          "stoneDark"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "statue_columnDamaged"
+        ],
+        "baseColorChains": [
+          "stone=plano",
+          "stoneDark=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.3,
+          "depth": 0.3,
+          "height": 0.7,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ],
+        "fileTriangles": 108,
+        "fileHierarchy": [
+          "statue_columnDamaged:MESH",
+          "tmpParent:EMPTY"
+        ]
+      }
+    },
+    {
+      "id": "mod_nature_civic_bridge_stone",
+      "category": "civic",
+      "role": "bridge",
+      "note": "puente de piedra",
+      "sourceId": "src_kenney_nature_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_stone.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "bridge_stone"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 80 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 4.16,
+        "depthMeters": 4.16,
+        "heightMeters": 1.6
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "bridge_stone",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "y": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "z": {
+            "min": 0,
+            "max": 1.6
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "y": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "z": {
+            "min": 0,
+            "max": 1.6
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 404,
+        "triangles": 252,
+        "shells": 80,
+        "materials": [
+          "stone",
+          "stoneDark"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "bridge_stone"
+        ],
+        "baseColorChains": [
+          "stone=plano",
+          "stoneDark=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 1.04,
+          "depth": 1.04,
+          "height": 0.4,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ],
+        "fileTriangles": 252,
+        "fileHierarchy": [
+          "bridge_stone:MESH",
+          "tmpParent:EMPTY"
+        ]
+      }
+    },
+    {
+      "id": "mod_nature_civic_bridge_stone_round",
+      "category": "civic",
+      "role": "bridge",
+      "note": "puente de piedra redondo",
+      "sourceId": "src_kenney_nature_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/bridge_stoneRound.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "bridge_stoneRound"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 93 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 4.16,
+        "depthMeters": 4.16,
+        "heightMeters": 1.8
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "bridge_stoneRound",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "y": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "z": {
+            "min": 0,
+            "max": 1.8
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "y": {
+            "min": -2.08,
+            "max": 2.08
+          },
+          "z": {
+            "min": 0,
+            "max": 1.8
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 540,
+        "triangles": 360,
+        "shells": 93,
+        "materials": [
+          "stone",
+          "stoneDark"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "bridge_stoneRound"
+        ],
+        "baseColorChains": [
+          "stone=plano",
+          "stoneDark=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 1.04,
+          "depth": 1.04,
+          "height": 0.45,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0.2
+        ],
+        "fileTriangles": 360,
+        "fileHierarchy": [
+          "bridge_stoneRound:MESH",
+          "tmpParent:EMPTY"
+        ]
+      }
+    },
+    {
+      "id": "mod_nature_civic_sign",
+      "category": "civic",
+      "role": "sign",
+      "note": "letrero/placa informativa",
+      "sourceId": "src_kenney_nature_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/sign.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "sign"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 16 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.2,
+        "depthMeters": 0.28,
+        "heightMeters": 1.635
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "sign",
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.6,
+            "max": 0.6
+          },
+          "y": {
+            "min": -0.07,
+            "max": 0.21
+          },
+          "z": {
+            "min": 0,
+            "max": 1.635
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.07,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.6,
+            "max": 0.6
+          },
+          "y": {
+            "min": -0.14,
+            "max": 0.14
+          },
+          "z": {
+            "min": 0,
+            "max": 1.6351
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 74,
+        "triangles": 44,
+        "shells": 16,
+        "materials": [
+          "_defaultMat",
+          "wood",
+          "woodDark"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "sign"
+        ],
+        "baseColorChains": [
+          "_defaultMat=plano",
+          "wood=plano",
+          "woodDark=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.3,
+          "depth": 0.07,
+          "height": 0.4088,
+          "minZ": -0.05
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          -0.07,
+          0.2
+        ],
+        "fileTriangles": 44,
+        "fileHierarchy": [
+          "sign:MESH",
+          "tmpParent:EMPTY"
+        ]
+      }
+    },
+    {
+      "id": "mod_roads_civic_lamp_square",
+      "category": "civic",
+      "role": "street_lamp",
+      "note": "farola cuadrada",
+      "sourceId": "src_kenney_city_roads",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-square.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "light-square"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 23 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 0.2,
+        "depthMeters": 0.95,
+        "heightMeters": 2.4
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "light-square",
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.1,
+            "max": 0.1
+          },
+          "y": {
+            "min": -0.1,
+            "max": 0.85
+          },
+          "z": {
+            "min": 0,
+            "max": 2.4
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.375,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.1,
+            "max": 0.1
+          },
+          "y": {
+            "min": -0.475,
+            "max": 0.475
+          },
+          "z": {
+            "min": 0,
+            "max": 2.4
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 106,
+        "triangles": 60,
+        "shells": 23,
+        "materials": [
+          "colormap"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ],
+        "selectedObjects": [
+          "light-square"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.05,
+          "depth": 0.2375,
+          "height": 0.6,
+          "minZ": 0
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          -0.375,
+          0
+        ],
+        "fileTriangles": 60,
+        "fileHierarchy": [
+          "light-square:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_roads_civic_lamp_square_double",
+      "category": "civic",
+      "role": "street_lamp",
+      "note": "farola cuadrada doble",
+      "sourceId": "src_kenney_city_roads",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-square-double.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "light-square-double"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 31 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 0.2,
+        "depthMeters": 1.7,
+        "heightMeters": 2.4
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "light-square-double",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.1,
+            "max": 0.1
+          },
+          "y": {
+            "min": -0.85,
+            "max": 0.85
+          },
+          "z": {
+            "min": 0,
+            "max": 2.4
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.1,
+            "max": 0.1
+          },
+          "y": {
+            "min": -0.85,
+            "max": 0.85
+          },
+          "z": {
+            "min": 0,
+            "max": 2.4
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 150,
+        "triangles": 88,
+        "shells": 31,
+        "materials": [
+          "colormap"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ],
+        "selectedObjects": [
+          "light-square-double"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.05,
+          "depth": 0.425,
+          "height": 0.6,
+          "minZ": 0
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 88,
+        "fileHierarchy": [
+          "light-square-double:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_roads_civic_lamp_square_cross",
+      "category": "civic",
+      "role": "street_lamp",
+      "note": "farola cuadrada cruz",
+      "sourceId": "src_kenney_city_roads",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-square-cross.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "light-square-cross"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 46 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.7,
+        "depthMeters": 1.7,
+        "heightMeters": 2.4
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "light-square-cross",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.85,
+            "max": 0.85
+          },
+          "y": {
+            "min": -0.85,
+            "max": 0.85
+          },
+          "z": {
+            "min": 0,
+            "max": 2.4
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.85,
+            "max": 0.85
+          },
+          "y": {
+            "min": -0.85,
+            "max": 0.85
+          },
+          "z": {
+            "min": 0,
+            "max": 2.4
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 236,
+        "triangles": 134,
+        "shells": 46,
+        "materials": [
+          "colormap"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ],
+        "selectedObjects": [
+          "light-square-cross"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.425,
+          "depth": 0.425,
+          "height": 0.6,
+          "minZ": 0
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 134,
+        "fileHierarchy": [
+          "light-square-cross:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_roads_civic_lamp_curved_cross",
+      "category": "civic",
+      "role": "street_lamp",
+      "note": "farola curva cruz",
+      "sourceId": "src_kenney_city_roads",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved-cross.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "light-curved-cross"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 85 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.6,
+        "depthMeters": 1.6,
+        "heightMeters": 2.7
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "light-curved-cross",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.8,
+            "max": 0.8
+          },
+          "y": {
+            "min": -0.8,
+            "max": 0.8
+          },
+          "z": {
+            "min": 0,
+            "max": 2.7
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.8,
+            "max": 0.8
+          },
+          "y": {
+            "min": -0.8,
+            "max": 0.8
+          },
+          "z": {
+            "min": 0,
+            "max": 2.7
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 448,
+        "triangles": 270,
+        "shells": 85,
+        "materials": [
+          "colormap"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ],
+        "selectedObjects": [
+          "light-curved-cross"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.4,
+          "depth": 0.4,
+          "height": 0.675,
+          "minZ": 0
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 270,
+        "fileHierarchy": [
+          "light-curved-cross:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_roads_civic_tile_high",
+      "category": "civic",
+      "role": "plaza",
+      "note": "plaza elevada",
+      "sourceId": "src_kenney_city_roads",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/tile-high.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "tile-high"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 6 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 4,
+        "depthMeters": 4,
+        "heightMeters": 1
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "tile-high",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -2,
+            "max": 2
+          },
+          "z": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -2,
+            "max": 2
+          },
+          "z": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 24,
+        "triangles": 12,
+        "shells": 6,
+        "materials": [
+          "colormap"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ],
+        "selectedObjects": [
+          "tile-high"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 1,
+          "depth": 1,
+          "height": 0.25,
+          "minZ": 0
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 12,
+        "fileHierarchy": [
+          "tile-high:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_roads_civic_tile_low",
+      "category": "civic",
+      "role": "plaza",
+      "note": "plaza a nivel",
+      "sourceId": "src_kenney_city_roads",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/tile-low.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "tile-low"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 6 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 4,
+        "depthMeters": 4,
+        "heightMeters": 0.08
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "tile-low",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -2,
+            "max": 2
+          },
+          "z": {
+            "min": 0,
+            "max": 0.08
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -2,
+            "max": 2
+          },
+          "z": {
+            "min": 0,
+            "max": 0.08
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 24,
+        "triangles": 12,
+        "shells": 6,
+        "materials": [
+          "colormap"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ],
+        "selectedObjects": [
+          "tile-low"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 1,
+          "depth": 1,
+          "height": 0.02,
+          "minZ": 0
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 12,
+        "fileHierarchy": [
+          "tile-low:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_roads_civic_tile_slant",
+      "category": "civic",
+      "role": "ramp",
+      "note": "rampa accesibilidad",
+      "sourceId": "src_kenney_city_roads",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/tile-slant.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "tile-slant"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 6 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 4,
+        "depthMeters": 4,
+        "heightMeters": 1.08
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "tile-slant",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -2,
+            "max": 2
+          },
+          "z": {
+            "min": 0,
+            "max": 1.08
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -2,
+            "max": 2
+          },
+          "z": {
+            "min": 0,
+            "max": 1.08
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 24,
+        "triangles": 12,
+        "shells": 6,
+        "materials": [
+          "colormap"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ],
+        "selectedObjects": [
+          "tile-slant"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 1,
+          "depth": 1,
+          "height": 0.27,
+          "minZ": 0
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 12,
+        "fileHierarchy": [
+          "tile-slant:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_roads_civic_tile_slant_high",
+      "category": "civic",
+      "role": "ramp",
+      "note": "rampa alta",
+      "sourceId": "src_kenney_city_roads",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/tile-slantHigh.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "tile-slantHigh"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 6 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 4,
+        "depthMeters": 4,
+        "heightMeters": 2.08
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "tile-slantHigh",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -2,
+            "max": 2
+          },
+          "z": {
+            "min": 0,
+            "max": 2.08
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -2,
+            "max": 2
+          },
+          "z": {
+            "min": 0,
+            "max": 2.08
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 24,
+        "triangles": 12,
+        "shells": 6,
+        "materials": [
+          "colormap"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ],
+        "selectedObjects": [
+          "tile-slantHigh"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 1,
+          "depth": 1,
+          "height": 0.52,
+          "minZ": 0
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 12,
+        "fileHierarchy": [
+          "tile-slantHigh:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_roads_civic_bridge",
+      "category": "civic",
+      "role": "bridge",
+      "note": "puente de carretera",
+      "sourceId": "src_kenney_city_roads",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/road-bridge.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "road-bridge"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 104 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 4,
+        "depthMeters": 4,
+        "heightMeters": 2.08
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "road-bridge",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -2,
+            "max": 2
+          },
+          "z": {
+            "min": 0,
+            "max": 2.08
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -2,
+            "max": 2
+          },
+          "z": {
+            "min": 0,
+            "max": 2.08
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 448,
+        "triangles": 240,
+        "shells": 104,
+        "materials": [
+          "colormap"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ],
+        "selectedObjects": [
+          "road-bridge"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 1,
+          "depth": 1,
+          "height": 0.52,
+          "minZ": 0
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 240,
+        "fileHierarchy": [
+          "road-bridge:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_roads_civic_bridge_pillar",
+      "category": "civic",
+      "role": "pier",
+      "note": "pilar de puente",
+      "sourceId": "src_kenney_city_roads",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/bridge-pillar.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "bridge-pillar"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 19 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 0.4,
+        "depthMeters": 0.4,
+        "heightMeters": 2
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "bridge-pillar",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.2,
+            "max": 0.2
+          },
+          "y": {
+            "min": -0.2,
+            "max": 0.2
+          },
+          "z": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.2,
+            "max": 0.2
+          },
+          "y": {
+            "min": -0.2,
+            "max": 0.2
+          },
+          "z": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 76,
+        "triangles": 38,
+        "shells": 19,
+        "materials": [
+          "colormap"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ],
+        "selectedObjects": [
+          "bridge-pillar"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.1,
+          "depth": 0.1,
+          "height": 0.5,
+          "minZ": 0
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 38,
+        "fileHierarchy": [
+          "bridge-pillar:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_roads_civic_bridge_pillar_wide",
+      "category": "civic",
+      "role": "pier",
+      "note": "pilar de puente ancho",
+      "sourceId": "src_kenney_city_roads",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/bridge-pillar-wide.glb",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "bridge-pillar-wide"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 19 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 0.56,
+        "depthMeters": 0.56,
+        "heightMeters": 2
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "bridge-pillar-wide",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.28,
+            "max": 0.28
+          },
+          "y": {
+            "min": -0.28,
+            "max": 0.28
+          },
+          "z": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.28,
+            "max": 0.28
+          },
+          "y": {
+            "min": -0.28,
+            "max": 0.28
+          },
+          "z": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 76,
+        "triangles": 38,
+        "shells": 19,
+        "materials": [
+          "colormap"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ],
+        "selectedObjects": [
+          "bridge-pillar-wide"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.14,
+          "depth": 0.14,
+          "height": 0.5,
+          "minZ": 0
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 38,
+        "fileHierarchy": [
+          "bridge-pillar-wide:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_kaykit_civic_bench",
+      "category": "civic",
+      "role": "bench",
+      "note": "banco de plaza",
+      "sourceId": "src_kaykit_city_builder_bits",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "bench"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 18 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.6,
+        "depthMeters": 0.6,
+        "heightMeters": 0.4
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "bench",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.8,
+            "max": 0.8
+          },
+          "y": {
+            "min": -0.3,
+            "max": 0.3
+          },
+          "z": {
+            "min": 0,
+            "max": 0.4
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.8,
+            "max": 0.8
+          },
+          "y": {
+            "min": -0.3,
+            "max": 0.3
+          },
+          "z": {
+            "min": 0,
+            "max": 0.4
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 80,
+        "triangles": 44,
+        "shells": 18,
+        "materials": [
+          "citybits_texture"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png"
+        ],
+        "selectedObjects": [
+          "bench"
+        ],
+        "baseColorChains": [
+          "citybits_texture=atlas:blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.4,
+          "depth": 0.15,
+          "height": 0.1,
+          "minZ": 0
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 44,
+        "fileHierarchy": [
+          "bench:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_kaykit_civic_streetlight",
+      "category": "civic",
+      "role": "street_lamp",
+      "note": "farola kaykit",
+      "sourceId": "src_kaykit_city_builder_bits",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/streetlight.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "streetlight"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 18 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.077,
+        "depthMeters": 0.276,
+        "heightMeters": 3.84
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "streetlight",
+        "convention": {
+          "x": "offset",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.957,
+            "max": 0.12
+          },
+          "y": {
+            "min": -0.138,
+            "max": 0.138
+          },
+          "z": {
+            "min": 0,
+            "max": 3.84
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0.418,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.5386,
+            "max": 0.5386
+          },
+          "y": {
+            "min": -0.138,
+            "max": 0.138
+          },
+          "z": {
+            "min": 0,
+            "max": 3.8397
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 190,
+        "triangles": 176,
+        "shells": 18,
+        "materials": [
+          "citybits_texture"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png"
+        ],
+        "selectedObjects": [
+          "streetlight"
+        ],
+        "baseColorChains": [
+          "citybits_texture=atlas:blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.2693,
+          "depth": 0.069,
+          "height": 0.9599,
+          "minZ": 0
+        },
+        "importScale": 4,
+        "importOffset": [
+          0.4182,
+          0,
+          0
+        ],
+        "fileTriangles": 176,
+        "fileHierarchy": [
+          "streetlight:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_kaykit_civic_firehydrant",
+      "category": "civic",
+      "role": "prop",
+      "note": "boca de incendio",
+      "sourceId": "src_kaykit_city_builder_bits",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/firehydrant.gltf",
+      "license": "CC0-1.0",
+      "unitScale": 4,
+      "objectSelector": {
+        "meshes": [
+          "firehydrant"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 21 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 0.542,
+        "depthMeters": 0.525,
+        "heightMeters": 0.898
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "firehydrant",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.271,
+            "max": 0.271
+          },
+          "y": {
+            "min": -0.265,
+            "max": 0.26
+          },
+          "z": {
+            "min": 0,
+            "max": 0.898
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0.002,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.271,
+            "max": 0.271
+          },
+          "y": {
+            "min": -0.2626,
+            "max": 0.2626
+          },
+          "z": {
+            "min": 0,
+            "max": 0.8984
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 218,
+        "triangles": 180,
+        "shells": 21,
+        "materials": [
+          "citybits_texture"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png"
+        ],
+        "selectedObjects": [
+          "firehydrant"
+        ],
+        "baseColorChains": [
+          "citybits_texture=atlas:blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.1355,
+          "depth": 0.1313,
+          "height": 0.2246,
+          "minZ": 0
+        },
+        "importScale": 4,
+        "importOffset": [
+          0,
+          0.0022,
+          0
+        ],
+        "fileTriangles": 180,
+        "fileHierarchy": [
+          "firehydrant:MESH"
         ]
       }
     }

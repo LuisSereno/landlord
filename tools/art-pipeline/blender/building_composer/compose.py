@@ -408,7 +408,7 @@ class Composition:
 
         # --- requireGroundCommercial (V.g): planta baja con lenguaje comercial real ---
         if rules.get("requireGroundCommercial"):
-            commercial_roles = {"curtain_wall", "awning", "shopfront"}
+            commercial_roles = {"curtain_wall", "awning", "shopfront", "window_bay"}
             ground_commercial = any(
                 record["role"] in commercial_roles
                 and record.get("purpose", "").startswith("band:front:level1:")
@@ -417,7 +417,7 @@ class Composition:
             if not ground_commercial:
                 problems.append(
                     "planta baja sin lenguaje comercial real "
-                    "(se exige curtain_wall, shopfront o awning en band:front:level1)"
+                    "(se exige curtain_wall, shopfront, awning o window_bay en band:front:level1)"
                 )
 
         # --- prohibitRhythmIds (V.g): el rhythm sorteados no debe estar en la lista negra ---

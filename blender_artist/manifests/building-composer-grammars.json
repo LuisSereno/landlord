@@ -764,7 +764,7 @@
           "id": "glazed_ground",
           "label": "planta baja acristalada sobre chapa",
           "bayMeters": 2,
-          "groundRole": "curtain_wall",
+          "groundRole": "window_bay",
           "tokens": {
             "front": [
               "wall_panel",
@@ -1383,7 +1383,7 @@
           "id": "glazed_ground",
           "label": "porticón acristalado en la planta baja",
           "bayMeters": 2,
-          "groundRole": "curtain_wall",
+          "groundRole": "window_bay",
           "tokens": {
             "front": [
               "wall_panel",
@@ -2507,7 +2507,6 @@
           "roleModule": {
             "wall_panel": "mod_megakit_brick_wall_2m",
             "window_bay": "mod_megakit_brick_window_single_2m",
-            "curtain_wall": "mod_megakit_metal_fullwindow_2m",
             "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
             "wainscot": "mod_megakit_brick_bottom_trim_2m",
             "crown_panel": "mod_megakit_brick_top_trim_2m",
@@ -2520,7 +2519,6 @@
           "roleModule": {
             "wall_panel": "mod_megakit_trim_wall_2m",
             "window_bay": "mod_megakit_trim_window_2m",
-            "curtain_wall": "mod_megakit_metal_fullwindow_2m",
             "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
             "wainscot": "mod_megakit_brick_bottom_trim_2m",
             "crown_panel": "mod_megakit_brick_top_trim_2m",
@@ -2533,7 +2531,7 @@
           "id": "shopfront_residential",
           "label": "escaparates acristalados abajo, ventanas residenciales arriba",
           "bayMeters": 2,
-          "groundRole": "curtain_wall",
+          "groundRole": "window_bay",
           "tokens": {
             "front": [
               "wall_panel",
@@ -2552,7 +2550,7 @@
           "id": "commercial_strip",
           "label": "franja comercial continua en planta baja",
           "bayMeters": 2,
-          "groundRole": "curtain_wall",
+          "groundRole": "window_bay",
           "tokens": {
             "front": [
               "window_bay",
@@ -2571,7 +2569,7 @@
           "id": "mixed_bays",
           "label": "crujías mixtas comercio/vivienda",
           "bayMeters": 2,
-          "groundRole": "curtain_wall",
+          "groundRole": "window_bay",
           "tokens": {
             "front": [
               "window_bay",
@@ -4147,7 +4145,7 @@
           "id": "glazed_ground",
           "label": "planta baja acristalada sobre chapa",
           "bayMeters": 2,
-          "groundRole": "curtain_wall",
+          "groundRole": "window_bay",
           "tokens": {
             "front": [
               "wall_panel",
@@ -4974,7 +4972,7 @@
           "id": "clean_windows",
           "label": "ventanas amplias y limrias",
           "bayMeters": 2,
-          "groundRole": "curtain_wall",
+          "groundRole": "window_bay",
           "tokens": {
             "front": [
               "window_bay",
@@ -4993,7 +4991,7 @@
           "id": "glazed_ground",
           "label": "planta baja acristalada con ventanas arriba",
           "bayMeters": 2,
-          "groundRole": "curtain_wall",
+          "groundRole": "window_bay",
           "tokens": {
             "front": [
               "curtain_wall",
@@ -6123,7 +6121,7 @@
           "id": "transparent_market",
           "label": "gran transparencia con ventanales y accesos",
           "bayMeters": 2,
-          "groundRole": "curtain_wall",
+          "groundRole": "window_bay",
           "tokens": {
             "front": [
               "window_bay",
@@ -6143,7 +6141,7 @@
           "id": "arcade_rhythm",
           "label": "ritmo de arcadas con puestos",
           "bayMeters": 2,
-          "groundRole": "curtain_wall",
+          "groundRole": "window_bay",
           "tokens": {
             "front": [
               "curtain_wall",
@@ -6182,7 +6180,7 @@
           "id": "glazed_ground",
           "label": "planta baja acristalada con huecos arriba",
           "bayMeters": 2,
-          "groundRole": "curtain_wall",
+          "groundRole": "window_bay",
           "tokens": {
             "front": [
               "curtain_wall",

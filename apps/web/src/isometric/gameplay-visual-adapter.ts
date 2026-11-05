@@ -85,6 +85,27 @@ export type GameplayParkedVehicle = {
   scale: number;
 };
 
+/** Roles de mobiliario de espacio público (V.g civic-core). Espejo de public_space_dresser.py. */
+export type GameplayPublicSpaceFurnitureKind =
+  | "monument"
+  | "street_lamp"
+  | "bench"
+  | "planter"
+  | "bollard"
+  | "tree"
+  | "foliage";
+
+export type GameplayPublicSpaceFurniture = {
+  id: string;
+  kind: GameplayPublicSpaceFurnitureKind;
+  asset: string;
+  publicSpaceId: string;
+  cell: GridCell;
+  /** Azimut del sprite (bancos miran al eje cívico/monumento; el resto, 45 por defecto). */
+  azimuth: 45 | 135 | 225 | 315;
+  scale: number;
+};
+
 export type GameplayVisualModel = {
   groundPlan: GroundPlan;
   /** Clave de geometría: cambia sólo con datos que afectan al terreno, no con economía no espacial. */
@@ -93,6 +114,11 @@ export type GameplayVisualModel = {
   decorations: GameplayDecoration[];
   streetFurniture: GameplayStreetFurniture[];
   parkedVehicles: GameplayParkedVehicle[];
+  /**
+   * Mobiliario cívico/verde derivado de los espacios públicos (V.g). Es presentacional: no vive en
+   * GameState, no lo tocan tick ni economía, sólo la geometría espacial (publicSpaces + facilities).
+   */
+  publicSpaceFurniture: GameplayPublicSpaceFurniture[];
   /** Metadatos presentacionales derivados de `projection.map.roads.cells`; no son datos de dominio. */
   roadVisuals: readonly GameplayRoadVisual[];
 };
@@ -584,6 +610,245 @@ export function planGameplayParkedVehicles(
 }
 
 /**
+ * Vocabulario de dressing por tipo de espacio público. Espejo de `public-space-dressing.json` y de
+ * `public_space_dresser.py`: mismas estrategias (center/perimeter/corners/inner_ring/scatter), misma
+ * separación plaza↔parque. Un asset por rol; si el sprite no está en el atlas, el renderer lo salta.
+ */
+type PublicSpaceSlot = {
+  role: GameplayPublicSpaceFurnitureKind;
+  strategy: "center" | "perimeter" | "corners" | "inner_ring" | "scatter";
+  assets: readonly string[];
+  everyCells?: number;
+  insetCells?: number;
+  count?: number;
+  density?: number;
+  minSpacingCells?: number;
+  scale: number;
+  salt: number;
+};
+
+const PUBLIC_SPACE_VOCAB: Record<string, readonly PublicSpaceSlot[]> = {
+  plaza: [
+    { role: "monument", strategy: "center", assets: ["prp_monument_obelisk"], scale: 1.0, salt: 0x1a01 },
+    { role: "street_lamp", strategy: "perimeter", assets: ["prp_street_light"], everyCells: 3, scale: 1.0, salt: 0x1a02 },
+    { role: "bench", strategy: "inner_ring", assets: ["prp_bench"], insetCells: 1, count: 4, scale: 0.9, salt: 0x1a03 },
+    { role: "planter", strategy: "corners", assets: ["prp_planter_urn"], scale: 0.9, salt: 0x1a04 },
+    { role: "bollard", strategy: "perimeter", assets: ["prp_bollard"], everyCells: 5, scale: 0.8, salt: 0x1a05 },
+  ],
+  civic_courtyard: [
+    { role: "planter", strategy: "corners", assets: ["prp_planter_urn"], scale: 0.9, salt: 0x1c01 },
+    { role: "street_lamp", strategy: "perimeter", assets: ["prp_street_light"], everyCells: 4, scale: 1.0, salt: 0x1c02 },
+  ],
+  park: [
+    { role: "tree", strategy: "scatter", assets: ["prp_tree_oak", "prp_tree_pine", "prp_tree_detailed"], density: 0.18, minSpacingCells: 2, scale: 1.0, salt: 0x1b01 },
+    { role: "foliage", strategy: "scatter", assets: ["prp_bush"], density: 0.06, minSpacingCells: 2, scale: 0.9, salt: 0x1b02 },
+    { role: "bench", strategy: "perimeter", assets: ["prp_bench"], everyCells: 6, scale: 0.9, salt: 0x1b03 },
+    { role: "street_lamp", strategy: "perimeter", assets: ["prp_street_light"], everyCells: 9, scale: 1.0, salt: 0x1b04 },
+  ],
+  pocket_park: [
+    { role: "tree", strategy: "scatter", assets: ["prp_tree_pine", "prp_tree_detailed"], density: 0.22, minSpacingCells: 2, scale: 1.0, salt: 0x1d01 },
+    { role: "foliage", strategy: "scatter", assets: ["prp_bush"], density: 0.1, minSpacingCells: 1, scale: 0.9, salt: 0x1d02 },
+    { role: "bench", strategy: "center", assets: ["prp_bench"], scale: 0.9, salt: 0x1d03 },
+  ],
+};
+
+function spaceCentroid(cells: readonly GridCell[]): GridCell {
+  let sx = 0;
+  let sy = 0;
+  for (const cell of cells) {
+    sx += cell.x;
+    sy += cell.y;
+  }
+  return { x: Math.round(sx / cells.length), y: Math.round(sy / cells.length) };
+}
+
+function spaceBounds(cells: readonly GridCell[]) {
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  for (const cell of cells) {
+    minX = Math.min(minX, cell.x);
+    minY = Math.min(minY, cell.y);
+    maxX = Math.max(maxX, cell.x);
+    maxY = Math.max(maxY, cell.y);
+  }
+  return { minX, minY, maxX, maxY };
+}
+
+function isPerimeter(cell: GridCell, set: ReadonlySet<string>): boolean {
+  return (
+    !set.has(`${cell.x + 1}:${cell.y}`) ||
+    !set.has(`${cell.x - 1}:${cell.y}`) ||
+    !set.has(`${cell.x}:${cell.y + 1}`) ||
+    !set.has(`${cell.x}:${cell.y - 1}`)
+  );
+}
+
+/** Eje cívico de una plaza enlazada a un ayuntamiento: monumento sobre el eje, corredor libre. */
+function civicAxis(
+  cellset: ReadonlySet<string>,
+  cells: readonly GridCell[],
+  townHallCells: readonly GridCell[],
+): { monument: GridCell; corridor: Set<string> } {
+  const hall = spaceCentroid(townHallCells);
+  const plaza = spaceCentroid(cells);
+  let ux = plaza.x - hall.x;
+  let uy = plaza.y - hall.y;
+  const length = Math.hypot(ux, uy) || 1;
+  ux /= length;
+  uy /= length;
+  const corridor = new Set<string>();
+  let monument: GridCell | null = null;
+  let monumentAlong = Infinity;
+  for (const cell of cells) {
+    const vx = cell.x - plaza.x;
+    const vy = cell.y - plaza.y;
+    const perpendicular = Math.abs(vx * uy - vy * ux);
+    const along = vx * ux + vy * uy;
+    if (perpendicular <= 1.5) corridor.add(`${cell.x}:${cell.y}`);
+    if (perpendicular <= 1.5 && along < monumentAlong) {
+      monumentAlong = along;
+      monument = cell;
+    }
+  }
+  return { monument: monument ?? plaza, corridor };
+}
+
+/**
+ * Mobiliario de espacios públicos derivado de la geometría (V.g civic-core). Espejo runtime de
+ * `public_space_dresser.py`: entrada = publicSpaces + facilities (para el eje town_hall↔plaza) +
+ * huellas de edificios + celdas de road; salida = props presentacionales. Determinista por
+ * `spatialHash(celda, salt)`: ni tick ni economía entran, así que el dressing no cambia al avanzar
+ * el reloj. Un prop nunca pisa una carretera ni la huella de un edificio.
+ */
+export function planGameplayPublicSpaceFurniture(
+  publicSpaces: readonly { id: string; kind: string; cells: readonly GridCell[] }[],
+  facilities: readonly { kind: string; buildingIds: readonly string[]; publicSpaceIds: readonly string[] }[],
+  buildings: readonly { id: string; footprintCells: readonly GridCell[] }[],
+  roadCellKeys: ReadonlySet<string>,
+  mapWidth: number,
+  mapHeight: number,
+): GameplayPublicSpaceFurniture[] {
+  const townHallPlaza = new Map<string, readonly GridCell[]>();
+  const buildingById = new Map(buildings.map((building) => [building.id, building]));
+  for (const facility of facilities) {
+    if (facility.kind !== "town_hall") continue;
+    const plazaId = facility.publicSpaceIds[0];
+    const building = buildingById.get(facility.buildingIds[0] ?? "");
+    if (plazaId && building) townHallPlaza.set(plazaId, building.footprintCells);
+  }
+
+  const furniture: GameplayPublicSpaceFurniture[] = [];
+  for (const space of publicSpaces) {
+    const slots = PUBLIC_SPACE_VOCAB[space.kind];
+    if (!slots || space.cells.length === 0) continue;
+    const set = new Set(space.cells.map(cellKey));
+    const bounds = spaceBounds(space.cells);
+    const centroid = spaceCentroid(space.cells);
+    const townHallCells = townHallPlaza.get(space.id);
+    const axis = townHallCells ? civicAxis(set, space.cells, townHallCells) : null;
+    const monumentCell = axis ? axis.monument : centroid;
+    const corridor = axis ? axis.corridor : new Set<string>();
+
+    const occupied = new Set<string>();
+    const inMap = (cell: GridCell) =>
+      cell.x >= 0 && cell.y >= 0 && cell.x < mapWidth && cell.y < mapHeight;
+    const free = (cell: GridCell) => {
+      const key = cellKey(cell);
+      if (!set.has(key)) return false; // sólo dentro del espacio público real
+      if (roadCellKeys.has(key)) return false; // nunca sobre una carretera
+      if (occupied.has(key)) return false;
+      return true;
+    };
+
+    for (const slot of slots) {
+      let targets: GridCell[] = [];
+      if (slot.strategy === "center") {
+        targets = [monumentCell];
+      } else if (slot.strategy === "perimeter") {
+        const perim = space.cells.filter((cell) => isPerimeter(cell, set)).sort((a, b) => a.y - b.y || a.x - b.x);
+        targets = perim.filter((_c, index) => index % (slot.everyCells ?? 3) === 0);
+      } else if (slot.strategy === "corners") {
+        const corners = [
+          { x: bounds.minX, y: bounds.minY },
+          { x: bounds.maxX, y: bounds.minY },
+          { x: bounds.minX, y: bounds.maxY },
+          { x: bounds.maxX, y: bounds.maxY },
+        ];
+        targets = corners
+          .map((corner) => nearestSpaceCell(space.cells, corner))
+          .filter((cell): cell is GridCell => cell !== null);
+      } else if (slot.strategy === "inner_ring") {
+        const inset = slot.insetCells ?? 1;
+        const ring = space.cells
+          .filter(
+            (cell) =>
+              Math.min(cell.x - bounds.minX, cell.y - bounds.minY, bounds.maxX - cell.x, bounds.maxY - cell.y) <= inset,
+          )
+          .sort((a, b) => a.y - b.y || a.x - b.x);
+        targets = ring.slice(0, slot.count ?? 4);
+      } else if (slot.strategy === "scatter") {
+        const interior = space.cells
+          .filter((cell) => !isPerimeter(cell, set))
+          .sort((a, b) => spatialHash(a.x, a.y, slot.salt) - spatialHash(b.x, b.y, slot.salt));
+        const target = Math.max(1, Math.round((slot.density ?? 0.15) * interior.length));
+        const chosen: GridCell[] = [];
+        for (const cell of interior) {
+          if (chosen.length >= target) break;
+          if (chosen.every((c) => Math.abs(c.x - cell.x) + Math.abs(c.y - cell.y) >= (slot.minSpacingCells ?? 2))) {
+            chosen.push(cell);
+          }
+        }
+        targets = chosen;
+      }
+
+      // El corredor peatonal queda libre salvo para el monumento y las farolas que lo jalonan.
+      if (axis && slot.role !== "monument" && slot.role !== "street_lamp") {
+        targets = targets.filter((cell) => !corridor.has(cellKey(cell)));
+      }
+
+      for (const cell of targets) {
+        if (!inMap(cell) || !free(cell)) continue;
+        occupied.add(cellKey(cell));
+        const assetIndex = spatialHash(cell.x, cell.y, slot.salt) % slot.assets.length;
+        const asset = slot.assets[assetIndex] ?? slot.assets[0]!;
+        furniture.push({
+          id: `psf:${space.id}:${slot.role}:${cellKey(cell)}`,
+          kind: slot.role,
+          asset,
+          publicSpaceId: space.id,
+          cell: { ...cell },
+          azimuth: slot.role === "bench" ? azimuthToward(cell, monumentCell) : 45,
+          scale: slot.scale,
+        });
+      }
+    }
+  }
+  return furniture;
+}
+
+function nearestSpaceCell(cells: readonly GridCell[], target: GridCell): GridCell | null {
+  let best: GridCell | null = null;
+  let bestDistance = Infinity;
+  for (const cell of cells) {
+    const distance = Math.abs(cell.x - target.x) + Math.abs(cell.y - target.y);
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      best = cell;
+    }
+  }
+  return best;
+}
+
+function azimuthToward(from: GridCell, to: GridCell): 45 | 135 | 225 | 315 {
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  if (Math.abs(dy) >= Math.abs(dx)) return dy >= 0 ? 135 : 315;
+  return dx >= 0 ? 45 : 225;
+}
+
+/**
  * Arquetipo visual de un edificio. Depende del tipo de dominio y de una identidad inmutable
  * (`building.id`), no del estado ni de la condición. Los tipos industriales conservan su asset
  * procedural: una cementera nunca se dibuja como una vivienda sólo por variedad.
@@ -898,6 +1163,14 @@ export function buildGameplayVisualModel(
     mapWidth,
     mapHeight,
   );
+  const publicSpaceFurniture = planGameplayPublicSpaceFurniture(
+    projection.publicSpaces ?? [],
+    projection.facilities ?? [],
+    economy?.buildings ?? [],
+    roadCellKeys,
+    mapWidth,
+    mapHeight,
+  );
 
   return {
     groundPlan,
@@ -906,6 +1179,7 @@ export function buildGameplayVisualModel(
     decorations,
     streetFurniture,
     parkedVehicles,
+    publicSpaceFurniture,
     roadVisuals,
   };
 }

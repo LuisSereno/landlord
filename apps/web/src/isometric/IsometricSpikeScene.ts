@@ -318,6 +318,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private roadMarkingSprites: Phaser.GameObjects.Image[] = [];
   private streetFurnitureSprites = new Map<string, Phaser.GameObjects.Image>();
   private parkedVehicleSprites = new Map<string, Phaser.GameObjects.Image>();
+  private publicSpaceFurnitureSprites = new Map<string, Phaser.GameObjects.Image>();
 
   public constructor(options: IsometricSceneOptions = {}) {
     super({ key: "IsometricSpikeScene" });
@@ -667,6 +668,32 @@ export class IsometricSpikeScene extends Phaser.Scene {
       sprite.destroy();
       this.streetFurnitureSprites.delete(id);
     }
+    const seenPublicSpaceFurniture = new Set<string>();
+    for (const furniture of model.publicSpaceFurniture ?? []) {
+      const asset = props[furniture.asset];
+      if (!asset) continue;
+      const frame = this.sceneryFrame(asset, furniture.azimuth);
+      const center = gridToScreen(furniture.cell, this.layout);
+      const key = `blender-sprite-${furniture.asset}${frame.keySuffix}`;
+      if (!this.textures.exists(key)) continue;
+      const image =
+        this.publicSpaceFurnitureSprites.get(furniture.id) ??
+        this.add.image(center.x, center.y, key);
+      this.publicSpaceFurnitureSprites.set(furniture.id, image);
+      image
+        .setTexture(key)
+        .setPosition(center.x, center.y)
+        .setOrigin(frame.pivot.x, frame.pivot.y)
+        .setScale(spriteScaleFor(frame, this.layout.tileWidth) * furniture.scale)
+        .setDepth(depthForAsset(furniture.cell, asset.footprint));
+      image.setVisible(this.isInViewport(image.x, image.y, this.cameras.main.worldView, 96));
+      seenPublicSpaceFurniture.add(furniture.id);
+    }
+    for (const [id, sprite] of this.publicSpaceFurnitureSprites) {
+      if (seenPublicSpaceFurniture.has(id)) continue;
+      sprite.destroy();
+      this.publicSpaceFurnitureSprites.delete(id);
+    }
     const vehicles = ASSETS_BLENDER.vehicles ?? {};
     const seenVehicles = new Set<string>();
     for (const vehicle of model.parkedVehicles) {
@@ -735,7 +762,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private updateGameplayStreetLifeVisibility(): void {
     if (this.sliceLayout) return;
     const view = this.cameras.main.worldView;
-    for (const sprite of [...this.decorSprites, ...this.streetFurnitureSprites.values()]) {
+    for (const sprite of [
+      ...this.decorSprites,
+      ...this.streetFurnitureSprites.values(),
+      ...this.publicSpaceFurnitureSprites.values(),
+    ]) {
       sprite.setVisible(this.isInViewport(sprite.x, sprite.y, view, 96));
     }
     for (const sprite of this.parkedVehicleSprites.values()) {

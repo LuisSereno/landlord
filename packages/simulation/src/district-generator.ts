@@ -1067,7 +1067,9 @@ function attemptComposition(input: {
     const buildingById = new Map(municipalBuildings.map((building) => [building.id, building]));
     for (const facility of facilities) {
       if (facility.kind !== "town_hall") continue;
-      const building = buildingById.get(facility.buildingIds[0]);
+      const buildingId = facility.buildingIds[0];
+      if (buildingId === undefined) continue;
+      const building = buildingById.get(buildingId);
       if (!building) continue;
       let best: PublicSpace | null = null;
       let bestDistance = Number.POSITIVE_INFINITY;

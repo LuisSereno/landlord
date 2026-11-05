@@ -28,6 +28,7 @@ STAGING = REPO_ROOT / "blender_artist" / "staging" / "third_party"
 INVENTORY = REPO_ROOT / "blender_artist" / "manifests" / "building-module-inventory.json"
 CATALOG = REPO_ROOT / "blender_artist" / "manifests" / "building-modules.json"
 SOURCES = REPO_ROOT / "blender_artist" / "manifests" / "staging-sources.json"
+JOBS = REPO_ROOT / "blender_artist" / "manifests" / "asset-jobs.json"
 OUT_INDEX = REPO_ROOT / "blender_artist" / "manifests" / "world-asset-index.json"
 OUT_AUDIT = REPO_ROOT / "docs" / "asset-library" / "world-asset-audit.md"
 
@@ -104,10 +105,48 @@ def classify(relpath, filename):
     return "environment", ["generic"], ["any"]
 
 
+VEHICLE_PART_KEYWORDS = (
+    "debris", "wheel", "kart", "cone", "box", "plate", "bolt", "bumper", "spoiler", "axle",
+    "nut", "door", "engine", "tire", "exhaust", "mirror", "seat", "steering", "dashboard",
+    "drivetrain", "hood", "trunk", "antenna",
+)
+
+
+def is_vehicle_part(n):
+    """Ruedas, escombros, karts y conos del Car Kit no son vehículos colocables (§8)."""
+    return any(k in n for k in VEHICLE_PART_KEYWORDS)
+
+
+def vehicle_class_of(n):
+    """vehicleClass del contrato §4 para vehículos reales; None para piezas/no-colocables."""
+    if is_vehicle_part(n):
+        return None
+    if any(k in n for k in ("ambulance", "medical")):
+        return "ambulance"
+    if any(k in n for k in ("fire", "ladder")):
+        return "fire"
+    if any(k in n for k in ("police",)):
+        return "police"
+    if any(k in n for k in ("garbage", "trash", "waste")):
+        return "garbage"
+    if any(k in n for k in ("taxi",)):
+        return "taxi"
+    if any(k in n for k in ("delivery", "van")):
+        return "delivery"
+    if any(k in n for k in ("truck", "freight", "cargo")):
+        return "freight"
+    if any(k in n for k in ("tractor", "excavator", "crane", "construction", "forklift")):
+        return "construction"
+    return "civilian"
+
+
 def _vehicle_class(n):
     roles = ["vehicle"]
     contexts = ["road", "parking"]
-    if any(k in n for k in ["ambulance", "medical"]):
+    if is_vehicle_part(n):
+        roles = ["vehicle_part"]
+        contexts = ["none"]
+    elif any(k in n for k in ["ambulance", "medical"]):
         roles = ["vehicle", "emergency_vehicle", "ambulance"]
         contexts = ["clinic", "road", "service_parking"]
     elif any(k in n for k in ["fire", "ladder"]):
@@ -233,9 +272,28 @@ def load_catalog_roles():
     return roles
 
 
+def load_job_runtime():
+    """sourcePath → runtimeAssetId de los jobs horneados en el atlas (vehículos/props/terrain).
+
+    Un asset con job `target: bundle` tiene pipeline y runtime ID reales (§5 runtime_ready), aunque
+    no pertenezca al catálogo de módulos de edificios. Sin esto el índice subdeclaraba runtime-ready.
+    """
+    jobs = json.loads(JOBS.read_text(encoding="utf-8"))
+    runtime = {}
+    for job in jobs.get("jobs", []):
+        if job.get("target") != "bundle":
+            continue
+        src = job.get("source") or {}
+        path = src.get("path")
+        if path:
+            runtime[path] = job.get("assetId")
+    return runtime
+
+
 def main():
     measured = load_measured()
     catalog_roles = load_catalog_roles()
+    job_runtime = load_job_runtime()
     sources_doc = json.loads(SOURCES.read_text(encoding="utf-8"))
     quarantined = sources_doc.get("quarantined", [])
 
@@ -268,6 +326,7 @@ def main():
                 dims = None
                 tris = None
                 runtime_ready = False
+                vclass = None
             else:
                 override = CURATED_OVERRIDES.get(fn)
                 if override:
@@ -278,7 +337,9 @@ def main():
                 m = measured.get(rel)
                 dims = m["dimensions"] if m else None
                 tris = m["triangleCount"] if m else None
-                runtime_ready = rel in catalog_roles  # ya promovido al catálogo de edificios
+                # runtime_ready: promovido al catálogo de edificios O horneado en el atlas vía job.
+                runtime_ready = rel in catalog_roles or rel in job_runtime
+                vclass = vehicle_class_of(fn) if category == "vehicle" else None
 
             asset_id = f"wa_{source_id.replace('src_', '')}_{re.sub(r'[^a-z0-9]+', '_', os.path.splitext(fn)[0].lower()).strip('_')}"
             base_id = asset_id
@@ -307,6 +368,9 @@ def main():
                 "animationSupport": category in ("actor", "animation"),
                 "runtimeReady": runtime_ready,
                 "state": "runtime_ready" if runtime_ready else "classified",
+                **({"vehicleClass": vclass} if vclass else {}),
+                **({"placeable": vclass is not None} if category == "vehicle" else {}),
+                **({"runtimeAssetId": job_runtime[rel]} if rel in job_runtime else {}),
                 **({"catalogRole": catalog_roles[rel]} if rel in catalog_roles else {}),
                 **(extra if is_geom and CURATED_OVERRIDES.get(fn) else {}),
             })

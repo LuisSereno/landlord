@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import {
   planGameplayPublicSpaceFurniture,
   planGameplayParcelDressing,
+  planGameplayContextVehicles,
+  planGameplayParkedVehicles,
 } from "./gameplay-visual-adapter";
 
 /**
@@ -182,5 +184,66 @@ describe("V.h.5 parcel/lot dressing: invariantes", () => {
     );
     expect(construction.every((p) => p.lotType === "construction")).toBe(true);
     expect(construction.some((p) => p.asset.startsWith("prp_construction"))).toBe(true);
+  });
+});
+
+describe("V.h.6 context vehicles: invariantes", () => {
+  // Carretera recta este-oeste en y=5, sin cruces; los edificios apoyan su huella en y=6.
+  const ROAD_EW = Array.from({ length: 13 }, (_v, i) => ({
+    cell: { x: i, y: 5 },
+    mask: 10 as const,
+    shape: "straight" as const,
+    orientation: "straight_ew" as const,
+  }));
+  const FIRE = { id: "bld_fire", type: "fire_station", footprintCells: rectCells(5, 6, 2, 2) };
+  const CLINIC = { id: "bld_clinic", type: "clinic", footprintCells: rectCells(9, 6, 2, 1) };
+  const POLICE = {
+    id: "bld_police",
+    type: "police_station",
+    footprintCells: rectCells(2, 6, 2, 1),
+  };
+  const CONTEXT_BUILDINGS = [FIRE, CLINIC, POLICE];
+  const SIDE_DELTA = {
+    n: { x: 0, y: -1 },
+    e: { x: 1, y: 0 },
+    s: { x: 0, y: 1 },
+    w: { x: -1, y: 0 },
+  } as const;
+
+  const runContext = () => planGameplayContextVehicles(CONTEXT_BUILDINGS, ROAD_EW, 64, 64);
+
+  it("es determinista (misma geometría → mismos vehículos)", () => {
+    expect(runContext()).toEqual(runContext());
+  });
+
+  it("mapea edificio → clase y vehículo contextual (fire/ambulance/police)", () => {
+    const by = new Map(runContext().map((v) => [v.buildingId, v]));
+    expect(by.get("bld_fire")?.asset).toBe("veh_firetruck");
+    expect(by.get("bld_fire")?.vehicleClass).toBe("fire");
+    expect(by.get("bld_clinic")?.asset).toBe("veh_ambulance");
+    expect(by.get("bld_clinic")?.vehicleClass).toBe("ambulance");
+    expect(by.get("bld_police")?.asset).toBe("veh_police");
+    expect(by.get("bld_police")?.vehicleClass).toBe("police");
+  });
+
+  it("cada vehículo aparca en el bordillo: celda de carretera adyacente a su huella, lado hacia el edificio", () => {
+    for (const v of runContext()) {
+      const building = CONTEXT_BUILDINGS.find((b) => b.id === v.buildingId)!;
+      const delta = SIDE_DELTA[v.side];
+      const host = { x: v.roadCell.x + delta.x, y: v.roadCell.y + delta.y };
+      expect(inCells(host, building.footprintCells)).toBe(true);
+    }
+  });
+
+  it("IDs únicos y sin dos vehículos contextuales en la misma celda de carretera", () => {
+    const vs = runContext();
+    expect(new Set(vs.map((v) => v.id)).size).toBe(vs.length);
+    expect(new Set(vs.map((v) => `${v.roadCell.x}:${v.roadCell.y}`)).size).toBe(vs.length);
+  });
+
+  it("las celdas reservadas por vehículos contextuales quedan libres para el aparcamiento ambiental", () => {
+    const reserved = new Set(runContext().map((v) => `${v.roadCell.x}:${v.roadCell.y}`));
+    const parked = planGameplayParkedVehicles(ROAD_EW, [], new Set(), [], [], 64, 64, reserved);
+    for (const p of parked) expect(reserved.has(`${p.roadCell.x}:${p.roadCell.y}`)).toBe(false);
   });
 });

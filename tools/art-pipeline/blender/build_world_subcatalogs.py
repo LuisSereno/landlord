@@ -20,7 +20,9 @@ CATEGORY_TO_FILE = {
     "vehicle": "vehicle-assets.json",
     "actor": "actor-assets.json",
     "animation": "animation-assets.json",
-    "material": "material-assets.json",
+    # `material` NO es una vista plana: material-assets.json lo genera build_world_material_library.py
+    # como biblioteca semántica (categorías + lenguajes visuales + gaps, §10). Si este script lo
+    # escribiera, pisaría la biblioteca con el filtro plano del índice.
     "ui": "ui-assets.json",
     "audio": "audio-assets.json",
 }

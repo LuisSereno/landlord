@@ -74,15 +74,38 @@ export type GameplayStreetFurniture = {
   scale: number;
 };
 
+/** IDs runtime de vehículos horneados en el atlas (V.h.6 vocabulary). */
+export type GameplayVehicleAsset =
+  | "veh_sedan"
+  | "veh_taxi"
+  | "veh_truck"
+  | "veh_firetruck"
+  | "veh_ambulance"
+  | "veh_police"
+  | "veh_garbage"
+  | "veh_delivery"
+  | "veh_tractor";
+
 export type GameplayParkedVehicle = {
   id: string;
-  asset: "veh_sedan" | "veh_taxi" | "veh_truck";
+  asset: GameplayVehicleAsset;
   roadCell: GridCell;
   side: "n" | "e" | "s" | "w";
   azimuth: 45 | 225;
   lateralOffset: number;
   longitudinalOffset: number;
   scale: number;
+};
+
+/**
+ * Vehículo contextual anclado a un edificio (V.h.6 §15): fire_station→firetruck, clinic→ambulance,
+ * police→police car, industrial→freight/construction. Misma forma de render que un parked vehicle
+ * (roadCell + side + offsets) pero derivado del tipo de edificio, no del tráfico ambiental.
+ * Presentacional y determinista; no vive en GameState.
+ */
+export type GameplayContextVehicle = GameplayParkedVehicle & {
+  buildingId: string;
+  vehicleClass: string;
 };
 
 /** Roles de mobiliario de espacio público (V.g civic-core). Espejo de public_space_dresser.py. */
@@ -108,6 +131,8 @@ export type GameplayVisualModel = {
   decorations: GameplayDecoration[];
   streetFurniture: GameplayStreetFurniture[];
   parkedVehicles: GameplayParkedVehicle[];
+  /** Vehículos contextuales por tipo de edificio (V.h.6 §15). Presentacional, determinista. */
+  contextVehicles: GameplayContextVehicle[];
   /**
    * Mobiliario cívico/verde derivado de los espacios públicos (V.g). Es presentacional: no vive en
    * GameState, no lo tocan tick ni economía, sólo la geometría espacial (publicSpaces + facilities).
@@ -521,6 +546,7 @@ export function planGameplayParkedVehicles(
   furniture: readonly GameplayStreetFurniture[],
   mapWidth: number,
   mapHeight: number,
+  reservedRoadCells: ReadonlySet<string> = new Set(),
 ): GameplayParkedVehicle[] {
   const roadCells = new Set(roadVisuals.map((road) => cellKey(road.cell)));
   const parcelCells = new Set(parcels.flatMap((parcel) => geometryCells(parcel).map(cellKey)));
@@ -553,6 +579,7 @@ export function planGameplayParkedVehicles(
     );
   for (const road of candidates) {
     if (isNearJunction(road.cell, junctions)) continue;
+    if (reservedRoadCells.has(cellKey(road.cell))) continue;
     const line = roadLineKey(road);
     const progress = roadProgress(road);
     if ((lastByLine.get(line) ?? Number.NEGATIVE_INFINITY) + 6 > progress) continue;
@@ -603,6 +630,93 @@ export function planGameplayParkedVehicles(
     lastByLine.set(line, progress);
   }
   return vehicles;
+}
+
+/**
+ * V.h.6 §15: edificio → vehículo contextual estático. El asset es el runtime ID horneado en el atlas
+ * (veh_firetruck, veh_ambulance, ...). No hay tráfico simulado: son dressing determinista anclado al
+ * tipo de edificio (fire_station→firetruck, clinic→ambulance, police→police car, industrial→freight).
+ */
+const BUILDING_CONTEXT_VEHICLES: Record<
+  string,
+  { vehicleClass: string; asset: GameplayVehicleAsset; count: number }
+> = {
+  fire_station: { vehicleClass: "fire", asset: "veh_firetruck", count: 1 },
+  clinic: { vehicleClass: "ambulance", asset: "veh_ambulance", count: 1 },
+  police_station: { vehicleClass: "police", asset: "veh_police", count: 1 },
+  market_hall: { vehicleClass: "delivery", asset: "veh_delivery", count: 1 },
+  cement_plant: { vehicleClass: "freight", asset: "veh_truck", count: 2 },
+  steelworks: { vehicleClass: "freight", asset: "veh_truck", count: 2 },
+  brickworks: { vehicleClass: "freight", asset: "veh_truck", count: 1 },
+  warehouse: { vehicleClass: "delivery", asset: "veh_delivery", count: 1 },
+  workshop: { vehicleClass: "construction", asset: "veh_tractor", count: 1 },
+};
+
+const SIDE_DELTAS: readonly (readonly ["n" | "e" | "s" | "w", GridCell])[] = [
+  ["n", { x: 0, y: -1 }],
+  ["e", { x: 1, y: 0 }],
+  ["s", { x: 0, y: 1 }],
+  ["w", { x: -1, y: 0 }],
+];
+
+/**
+ * Coloca los vehículos contextuales en el bordillo frente a cada edificio: una celda de carretera
+ * recta adyacente a la huella, con el sprite desplazado hacia el lado del edificio. Determinista por
+ * coordenada de la huella + índice; nunca en cruces ni sobre una celda ya ocupada por otro vehículo.
+ */
+export function planGameplayContextVehicles(
+  buildings: readonly { id: string; type: string; footprintCells: readonly GridCell[] }[],
+  roadVisuals: readonly GameplayRoadVisual[],
+  mapWidth: number,
+  mapHeight: number,
+): GameplayContextVehicle[] {
+  const junctions = roadVisuals.filter(isJunction).map((road) => road.cell);
+  const straights = roadVisuals.filter((road) => road.shape === "straight");
+  const out: GameplayContextVehicle[] = [];
+  const usedRoadCells = new Set<string>();
+  for (const building of buildings) {
+    const spec = BUILDING_CONTEXT_VEHICLES[building.type];
+    if (!spec || building.footprintCells.length === 0) continue;
+    const footprint = building.footprintCells;
+    const anchor = footprint[0]!;
+    const curbs: { road: GameplayRoadVisual; side: "n" | "e" | "s" | "w" }[] = [];
+    for (const road of straights) {
+      if (isNearJunction(road.cell, junctions)) continue;
+      for (const [side, delta] of SIDE_DELTAS) {
+        const host = { x: road.cell.x + delta.x, y: road.cell.y + delta.y };
+        if (footprint.some((cell) => cell.x === host.x && cell.y === host.y)) {
+          curbs.push({ road, side });
+          break;
+        }
+      }
+    }
+    if (curbs.length === 0) continue;
+    for (let i = 0; i < spec.count; i += 1) {
+      const free = curbs.filter((curb) => !usedRoadCells.has(cellKey(curb.road.cell)));
+      if (free.length === 0) break;
+      const curb = free[spatialHash(anchor.x, anchor.y, 0x7c1 + i * 0x2f) % free.length]!;
+      usedRoadCells.add(cellKey(curb.road.cell));
+      const azimuth: 45 | 225 = curb.road.orientation === "straight_ns" ? 45 : 225;
+      out.push({
+        id: `ctx-${building.id}:${spec.asset}:${cellKey(curb.road.cell)}:${i}`,
+        buildingId: building.id,
+        vehicleClass: spec.vehicleClass,
+        asset: spec.asset,
+        roadCell: { ...curb.road.cell },
+        side: curb.side,
+        azimuth,
+        lateralOffset: 0.28,
+        longitudinalOffset: ((spatialHash(anchor.x, anchor.y, 0x9a3 + i) % 3) - 1) * 0.08,
+        scale:
+          spec.asset === "veh_truck" ||
+          spec.asset === "veh_firetruck" ||
+          spec.asset === "veh_garbage"
+            ? 0.92
+            : 0.88,
+      });
+    }
+  }
+  return out;
 }
 
 /**
@@ -1416,6 +1530,18 @@ export function buildGameplayVisualModel(
     mapWidth,
     mapHeight,
   );
+  const contextBuildings = (economy?.buildings ?? []).map((building) => ({
+    id: building.id,
+    type: building.type,
+    footprintCells: building.footprintCells ?? [],
+  }));
+  const contextVehicles = planGameplayContextVehicles(
+    contextBuildings,
+    roadVisuals,
+    mapWidth,
+    mapHeight,
+  );
+  const reservedVehicleRoads = new Set(contextVehicles.map((vehicle) => cellKey(vehicle.roadCell)));
   const parkedVehicles = planGameplayParkedVehicles(
     roadVisuals,
     parcels,
@@ -1424,6 +1550,7 @@ export function buildGameplayVisualModel(
     streetFurniture,
     mapWidth,
     mapHeight,
+    reservedVehicleRoads,
   );
   const publicSpaceFurniture = planGameplayPublicSpaceFurniture(
     projection.publicSpaces ?? [],
@@ -1454,6 +1581,7 @@ export function buildGameplayVisualModel(
     decorations,
     streetFurniture,
     parkedVehicles,
+    contextVehicles,
     publicSpaceFurniture,
     parcelDressing,
     roadVisuals,

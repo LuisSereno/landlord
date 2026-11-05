@@ -4,7 +4,7 @@
   "category": "vehicle",
   "counts": {
     "total": 150,
-    "runtimeReady": 0
+    "runtimeReady": 9
   },
   "assets": [
     {
@@ -43,7 +43,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_delivery_flat_1",
@@ -82,7 +84,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "delivery",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_ambulance_1",
@@ -121,7 +125,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "ambulance",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_debris_bolt_1",
@@ -130,13 +136,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -145,9 +148,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -159,7 +160,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_bumper_1",
@@ -168,13 +170,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -183,9 +182,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -197,7 +194,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_kart_oobi_1",
@@ -206,13 +204,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -221,9 +216,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -235,7 +228,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_tractor_back_1",
@@ -244,13 +238,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "construction",
-        "industrial"
+        "vehicle_part"
       ],
       "contexts": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -259,8 +250,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -272,7 +262,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_sedan_1",
@@ -310,7 +301,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_kart_oodi_1",
@@ -319,13 +312,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -334,9 +324,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -348,7 +336,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_drivetrain_axle_1",
@@ -357,13 +346,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -372,9 +358,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -386,7 +370,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_tractor_dark_back_1",
@@ -395,13 +380,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "construction",
-        "industrial"
+        "vehicle_part"
       ],
       "contexts": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -410,8 +392,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -423,7 +404,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_spoiler_a_1",
@@ -432,13 +414,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -447,9 +426,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -461,7 +438,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_hatchback_sports_1",
@@ -499,7 +477,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_cone_1",
@@ -508,13 +488,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -523,9 +500,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -537,7 +512,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_truck_1",
@@ -546,14 +522,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "freight",
-        "delivery"
+        "vehicle_part"
       ],
       "contexts": [
-        "industrial_logistics",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -562,9 +534,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "industrial_logistics",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -576,7 +546,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_kart_oopi_1",
@@ -585,13 +556,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -600,9 +568,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -614,7 +580,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_door_window_1",
@@ -623,13 +590,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -638,9 +602,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -652,7 +614,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_tractor_shovel_1",
@@ -689,7 +652,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "construction",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_debris_plate_small_a_1",
@@ -698,13 +663,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -713,9 +675,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -727,7 +687,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_tractor_dark_front_1",
@@ -736,13 +697,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "construction",
-        "industrial"
+        "vehicle_part"
       ],
       "contexts": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -751,8 +709,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -764,7 +721,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_plate_b_1",
@@ -773,13 +731,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -788,9 +743,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -802,7 +755,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_tractor_1",
@@ -839,7 +793,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "construction",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_debris_plate_small_b_1",
@@ -848,13 +804,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -863,9 +816,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -877,7 +828,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_suv_1",
@@ -915,7 +867,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_default_1",
@@ -924,13 +878,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -939,9 +890,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -953,7 +902,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_nut_1",
@@ -962,13 +912,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -977,9 +924,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -991,7 +936,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_tractor_police_1",
@@ -1027,7 +973,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "police",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_kart_oozi_1",
@@ -1036,13 +984,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -1051,9 +996,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -1065,7 +1008,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_garbage_truck_1",
@@ -1104,7 +1048,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "garbage",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_sedan_sports_1",
@@ -1142,7 +1088,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_box_1",
@@ -1151,13 +1099,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -1166,9 +1111,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -1180,7 +1123,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_delivery_1",
@@ -1219,7 +1163,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "delivery",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_race_future_1",
@@ -1257,7 +1203,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_race_1",
@@ -1295,7 +1243,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_debris_drivetrain_1",
@@ -1304,13 +1254,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -1319,9 +1266,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -1333,7 +1278,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_tire_1",
@@ -1342,13 +1288,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -1357,9 +1300,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -1371,7 +1312,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_taxi_1",
@@ -1407,7 +1349,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "taxi",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_debris_plate_a_1",
@@ -1416,13 +1360,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -1431,9 +1372,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -1445,7 +1384,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_truck_flat_1",
@@ -1484,7 +1424,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "freight",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_cone_flat_1",
@@ -1493,13 +1435,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -1508,9 +1447,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -1522,7 +1459,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_spoiler_b_1",
@@ -1531,13 +1469,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -1546,9 +1481,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -1560,7 +1493,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_kart_ooli_1",
@@ -1569,13 +1503,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -1584,9 +1515,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -1598,7 +1527,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_truck_1",
@@ -1637,7 +1567,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "freight",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_van_1",
@@ -1676,7 +1608,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "delivery",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_debris_door_1",
@@ -1685,13 +1619,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -1700,9 +1631,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -1714,7 +1643,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_racing_1",
@@ -1723,13 +1653,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -1738,9 +1665,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -1752,7 +1677,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_tractor_front_1",
@@ -1761,13 +1687,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "construction",
-        "industrial"
+        "vehicle_part"
       ],
       "contexts": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -1776,8 +1699,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -1789,7 +1711,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_firetruck_1",
@@ -1826,7 +1749,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "fire",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_police_1",
@@ -1862,7 +1787,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "police",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_dark_1",
@@ -1871,13 +1798,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -1886,9 +1810,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -1900,7 +1822,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_tractor_dark_back_2",
@@ -1909,13 +1832,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "construction",
-        "industrial"
+        "vehicle_part"
       ],
       "contexts": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "dimensions": {
         "width": 0.6989,
@@ -1928,8 +1848,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -1941,7 +1860,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_police_2",
@@ -1971,7 +1891,7 @@
         "police_station",
         "road"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0,
@@ -1980,8 +1900,11 @@
         270
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "vehicleClass": "police",
+      "placeable": true,
+      "runtimeAssetId": "veh_police"
     },
     {
       "assetId": "wa_kenney_car_kit_truck_2",
@@ -2014,7 +1937,7 @@
         "commercial_corridor",
         "road"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0,
@@ -2023,8 +1946,11 @@
         270
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "vehicleClass": "freight",
+      "placeable": true,
+      "runtimeAssetId": "veh_truck"
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_dark_2",
@@ -2033,13 +1959,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 0.52,
@@ -2052,9 +1975,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -2066,7 +1987,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_door_2",
@@ -2075,13 +1997,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 0.2444,
@@ -2094,9 +2013,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -2108,7 +2025,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_firetruck_2",
@@ -2139,7 +2057,7 @@
         "fire_station",
         "road"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0,
@@ -2148,8 +2066,11 @@
         270
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "vehicleClass": "fire",
+      "placeable": true,
+      "runtimeAssetId": "veh_firetruck"
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_racing_2",
@@ -2158,13 +2079,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 0.52,
@@ -2177,9 +2095,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -2191,7 +2107,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_tractor_2",
@@ -2222,7 +2139,7 @@
         "construction_site",
         "industrial_logistics"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0,
@@ -2231,8 +2148,11 @@
         270
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "vehicleClass": "construction",
+      "placeable": true,
+      "runtimeAssetId": "veh_tractor"
     },
     {
       "assetId": "wa_kenney_car_kit_hatchback_sports_2",
@@ -2274,7 +2194,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_sedan_sports_2",
@@ -2316,7 +2238,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_debris_spoiler_b_2",
@@ -2325,13 +2249,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 1.3,
@@ -2344,9 +2265,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -2358,7 +2277,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_delivery_flat_2",
@@ -2401,7 +2321,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "delivery",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_tractor_dark_front_2",
@@ -2410,13 +2332,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "construction",
-        "industrial"
+        "vehicle_part"
       ],
       "contexts": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "dimensions": {
         "width": 0.4801,
@@ -2429,8 +2348,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -2442,7 +2360,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_tire_2",
@@ -2451,13 +2370,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 0.455,
@@ -2470,9 +2386,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -2484,7 +2398,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_van_2",
@@ -2527,7 +2442,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "delivery",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_tractor_police_2",
@@ -2567,7 +2484,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "police",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_default_2",
@@ -2576,13 +2495,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 0.52,
@@ -2595,9 +2511,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -2609,7 +2523,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_kart_oodi_2",
@@ -2618,13 +2533,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 1.2666,
@@ -2637,9 +2549,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -2651,7 +2561,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_kart_oopi_2",
@@ -2660,13 +2571,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 1.2666,
@@ -2679,9 +2587,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -2693,7 +2599,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_kart_oobi_2",
@@ -2702,13 +2609,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 1.2666,
@@ -2721,9 +2625,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -2735,7 +2637,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_suv_2",
@@ -2777,7 +2680,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_sedan_2",
@@ -2809,7 +2714,7 @@
         "commercial_corridor",
         "road"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0,
@@ -2818,8 +2723,11 @@
         270
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "vehicleClass": "civilian",
+      "placeable": true,
+      "runtimeAssetId": "veh_sedan"
     },
     {
       "assetId": "wa_kenney_car_kit_debris_plate_a_2",
@@ -2828,13 +2736,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 1.17,
@@ -2847,9 +2752,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -2861,7 +2764,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_spoiler_a_2",
@@ -2870,13 +2774,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 1.43,
@@ -2889,9 +2790,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -2903,7 +2802,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_cone_2",
@@ -2912,13 +2812,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 0.6191,
@@ -2931,9 +2828,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -2945,7 +2840,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_race_future_2",
@@ -2987,7 +2883,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_truck_2",
@@ -2996,14 +2894,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "freight",
-        "delivery"
+        "vehicle_part"
       ],
       "contexts": [
-        "industrial_logistics",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 0.455,
@@ -3016,9 +2910,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "industrial_logistics",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -3030,7 +2922,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_race_2",
@@ -3072,7 +2965,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_debris_drivetrain_axle_2",
@@ -3081,13 +2976,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 1.5654,
@@ -3100,9 +2992,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -3114,7 +3004,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_bumper_2",
@@ -3123,13 +3014,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 1.69,
@@ -3142,9 +3030,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -3156,7 +3042,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_kart_oozi_2",
@@ -3165,13 +3052,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 1.2666,
@@ -3184,9 +3068,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -3198,7 +3080,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_cone_flat_2",
@@ -3207,13 +3090,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 0.6191,
@@ -3226,9 +3106,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -3240,7 +3118,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_drivetrain_2",
@@ -3249,13 +3128,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 1.5654,
@@ -3268,9 +3144,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -3282,7 +3156,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_bolt_2",
@@ -3291,13 +3166,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 0.2252,
@@ -3310,9 +3182,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -3324,7 +3194,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_plate_small_a_2",
@@ -3333,13 +3204,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 0.585,
@@ -3352,9 +3220,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -3366,7 +3232,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_truck_flat_2",
@@ -3409,7 +3276,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "freight",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_debris_nut_2",
@@ -3418,13 +3287,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 0.2252,
@@ -3437,9 +3303,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -3451,7 +3315,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_plate_b_2",
@@ -3460,13 +3325,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 1.17,
@@ -3479,9 +3341,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -3493,7 +3353,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_tractor_front_2",
@@ -3502,13 +3363,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "construction",
-        "industrial"
+        "vehicle_part"
       ],
       "contexts": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "dimensions": {
         "width": 0.4801,
@@ -3521,8 +3379,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -3534,7 +3391,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_box_2",
@@ -3543,13 +3401,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 0.9295,
@@ -3562,9 +3417,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -3576,7 +3429,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_tractor_shovel_2",
@@ -3617,7 +3471,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "construction",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_tractor_back_2",
@@ -3626,13 +3482,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "construction",
-        "industrial"
+        "vehicle_part"
       ],
       "contexts": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "dimensions": {
         "width": 0.6989,
@@ -3645,8 +3498,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -3658,7 +3510,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_garbage_truck_2",
@@ -3691,7 +3544,7 @@
         "commercial_corridor",
         "road"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0,
@@ -3700,8 +3553,11 @@
         270
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "vehicleClass": "garbage",
+      "placeable": true,
+      "runtimeAssetId": "veh_garbage"
     },
     {
       "assetId": "wa_kenney_car_kit_ambulance_2",
@@ -3734,7 +3590,7 @@
         "road",
         "service_parking"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0,
@@ -3743,8 +3599,11 @@
         270
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "vehicleClass": "ambulance",
+      "placeable": true,
+      "runtimeAssetId": "veh_ambulance"
     },
     {
       "assetId": "wa_kenney_car_kit_suv_luxury_2",
@@ -3786,7 +3645,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_delivery_2",
@@ -3819,7 +3680,7 @@
         "commercial_corridor",
         "road"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0,
@@ -3828,8 +3689,11 @@
         270
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "vehicleClass": "delivery",
+      "placeable": true,
+      "runtimeAssetId": "veh_delivery"
     },
     {
       "assetId": "wa_kenney_car_kit_kart_ooli_2",
@@ -3838,13 +3702,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 1.2666,
@@ -3857,9 +3718,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -3871,7 +3730,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_plate_small_b_2",
@@ -3880,13 +3740,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 0.585,
@@ -3899,9 +3756,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -3913,7 +3768,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_door_window_2",
@@ -3922,13 +3778,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": {
         "width": 0.2444,
@@ -3941,9 +3794,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "measured",
@@ -3955,7 +3806,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_taxi_2",
@@ -3985,7 +3837,7 @@
         "commercial_corridor",
         "road"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0,
@@ -3994,8 +3846,11 @@
         270
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "vehicleClass": "taxi",
+      "placeable": true,
+      "runtimeAssetId": "veh_taxi"
     },
     {
       "assetId": "wa_kenney_car_kit_garbage_truck_3",
@@ -4034,7 +3889,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "garbage",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_tractor_dark_back_3",
@@ -4043,13 +3900,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "construction",
-        "industrial"
+        "vehicle_part"
       ],
       "contexts": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -4058,8 +3912,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -4071,7 +3924,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_kart_oozi_3",
@@ -4080,13 +3934,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -4095,9 +3946,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -4109,7 +3958,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_plate_small_b_3",
@@ -4118,13 +3968,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -4133,9 +3980,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -4147,7 +3992,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_plate_b_3",
@@ -4156,13 +4002,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -4171,9 +4014,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -4185,7 +4026,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_hatchback_sports_3",
@@ -4223,7 +4065,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_tractor_3",
@@ -4260,7 +4104,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "construction",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_delivery_flat_3",
@@ -4299,7 +4145,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "delivery",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_tractor_back_3",
@@ -4308,13 +4156,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "construction",
-        "industrial"
+        "vehicle_part"
       ],
       "contexts": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -4323,8 +4168,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -4336,7 +4180,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_kart_ooli_3",
@@ -4345,13 +4190,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -4360,9 +4202,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -4374,7 +4214,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_box_3",
@@ -4383,13 +4224,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -4398,9 +4236,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -4412,7 +4248,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_spoiler_a_3",
@@ -4421,13 +4258,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -4436,9 +4270,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -4450,7 +4282,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_door_window_3",
@@ -4459,13 +4292,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -4474,9 +4304,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -4488,7 +4316,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_van_3",
@@ -4527,7 +4356,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "delivery",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_debris_drivetrain_3",
@@ -4536,13 +4367,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -4551,9 +4379,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -4565,7 +4391,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_firetruck_3",
@@ -4602,7 +4429,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "fire",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_race_3",
@@ -4640,7 +4469,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_debris_nut_3",
@@ -4649,13 +4480,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -4664,9 +4492,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -4678,7 +4504,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_drivetrain_axle_3",
@@ -4687,13 +4514,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -4702,9 +4526,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -4716,7 +4538,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_tractor_front_3",
@@ -4725,13 +4548,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "construction",
-        "industrial"
+        "vehicle_part"
       ],
       "contexts": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -4740,8 +4560,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -4753,7 +4572,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_bumper_3",
@@ -4762,13 +4582,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -4777,9 +4594,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -4791,7 +4606,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_truck_3",
@@ -4800,14 +4616,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "freight",
-        "delivery"
+        "vehicle_part"
       ],
       "contexts": [
-        "industrial_logistics",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -4816,9 +4628,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "industrial_logistics",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -4830,7 +4640,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_tractor_police_3",
@@ -4866,7 +4677,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "police",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_debris_plate_small_a_3",
@@ -4875,13 +4688,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -4890,9 +4700,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -4904,7 +4712,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_plate_a_3",
@@ -4913,13 +4722,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -4928,9 +4734,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -4942,7 +4746,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_ambulance_3",
@@ -4981,7 +4786,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "ambulance",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_debris_door_3",
@@ -4990,13 +4797,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -5005,9 +4809,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -5019,7 +4821,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_race_future_3",
@@ -5057,7 +4860,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_suv_luxury_3",
@@ -5095,7 +4900,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_cone_flat_3",
@@ -5104,13 +4911,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -5119,9 +4923,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -5133,7 +4935,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_sedan_sports_3",
@@ -5171,7 +4974,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_debris_tire_3",
@@ -5180,13 +4985,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -5195,9 +4997,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -5209,7 +5009,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_racing_3",
@@ -5218,13 +5019,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -5233,9 +5031,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -5247,7 +5043,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_tractor_shovel_3",
@@ -5284,7 +5081,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "construction",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_tractor_dark_front_3",
@@ -5293,13 +5092,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "construction",
-        "industrial"
+        "vehicle_part"
       ],
       "contexts": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -5308,8 +5104,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "construction_site",
-        "industrial_logistics"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -5321,7 +5116,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_truck_3",
@@ -5360,7 +5156,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "freight",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_default_3",
@@ -5369,13 +5167,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -5384,9 +5179,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -5398,7 +5191,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_bolt_3",
@@ -5407,13 +5201,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -5422,9 +5213,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -5436,7 +5225,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_wheel_dark_3",
@@ -5445,13 +5235,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -5460,9 +5247,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -5474,7 +5259,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_truck_flat_3",
@@ -5513,7 +5299,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "freight",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_taxi_3",
@@ -5549,7 +5337,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "taxi",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_kart_oopi_3",
@@ -5558,13 +5348,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -5573,9 +5360,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -5587,7 +5372,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_police_3",
@@ -5623,7 +5409,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "police",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_sedan_3",
@@ -5661,7 +5449,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_kart_oobi_3",
@@ -5670,13 +5460,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -5685,9 +5472,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -5699,7 +5484,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_suv_3",
@@ -5737,7 +5523,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "civilian",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_cone_3",
@@ -5746,13 +5534,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -5761,9 +5546,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -5775,7 +5558,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_debris_spoiler_b_3",
@@ -5784,13 +5568,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -5799,9 +5580,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -5813,7 +5592,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     },
     {
       "assetId": "wa_kenney_car_kit_delivery_3",
@@ -5852,7 +5632,9 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "vehicleClass": "delivery",
+      "placeable": true
     },
     {
       "assetId": "wa_kenney_car_kit_kart_oodi_3",
@@ -5861,13 +5643,10 @@
       "license": "CC0-1.0",
       "category": "vehicle",
       "semanticRoles": [
-        "vehicle",
-        "civilian"
+        "vehicle_part"
       ],
       "contexts": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "dimensions": null,
       "triangleCount": null,
@@ -5876,9 +5655,7 @@
         "graphic_civic"
       ],
       "recommendedUses": [
-        "residential",
-        "commercial_corridor",
-        "road"
+        "none"
       ],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
@@ -5890,7 +5667,8 @@
       ],
       "animationSupport": false,
       "runtimeReady": false,
-      "state": "classified"
+      "state": "classified",
+      "placeable": false
     }
   ]
 }

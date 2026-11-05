@@ -4,7 +4,7 @@
   "category": "infrastructure",
   "counts": {
     "total": 285,
-    "runtimeReady": 7
+    "runtimeReady": 13
   },
   "assets": [
     {
@@ -2978,14 +2978,15 @@
       "recommendedUses": [
         "road"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "runtimeAssetId": "ter_road_straight"
     },
     {
       "assetId": "wa_kenney_city_roads_road_bend_square_barrier_2",
@@ -3466,14 +3467,15 @@
       "recommendedUses": [
         "road"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "runtimeAssetId": "ter_road_intersection"
     },
     {
       "assetId": "wa_kenney_city_roads_electricity_side_2",
@@ -4335,14 +4337,15 @@
       "recommendedUses": [
         "road"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "runtimeAssetId": "ter_road_corner"
     },
     {
       "assetId": "wa_kenney_city_roads_electricity_pole_single_2",
@@ -4576,14 +4579,15 @@
         "construction_site",
         "road"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "runtimeAssetId": "prp_construction_cone"
     },
     {
       "assetId": "wa_kenney_city_roads_road_driveway_single_barrier_2",
@@ -5098,14 +5102,15 @@
         "construction_site",
         "road"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "runtimeAssetId": "prp_construction_barrier"
     },
     {
       "assetId": "wa_kenney_city_roads_road_slant_high_2",
@@ -5166,14 +5171,15 @@
       "recommendedUses": [
         "road"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "runtimeAssetId": "prp_trash_can"
     },
     {
       "assetId": "wa_kenney_city_roads_road_slant_high_barrier_2",

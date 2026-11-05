@@ -4,7 +4,7 @@
   "category": "urban_prop",
   "counts": {
     "total": 134,
-    "runtimeReady": 20
+    "runtimeReady": 21
   },
   "assets": [
     {
@@ -558,6 +558,7 @@
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
+      "runtimeAssetId": "prp_street_light",
       "catalogRole": "street_lamp"
     },
     {
@@ -628,7 +629,7 @@
         "street",
         "plaza"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0,
@@ -637,8 +638,9 @@
         270
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "runtimeAssetId": "prp_traffic_light"
     },
     {
       "assetId": "wa_kenney_city_roads_light_curved_double_2",
@@ -1855,6 +1857,7 @@
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
+      "runtimeAssetId": "prp_planter_urn",
       "catalogRole": "planter"
     },
     {
@@ -2026,6 +2029,7 @@
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
+      "runtimeAssetId": "prp_monument_obelisk",
       "catalogRole": "monument",
       "placement": [
         "open_space",
@@ -4160,6 +4164,7 @@
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
+      "runtimeAssetId": "prp_bench",
       "catalogRole": "bench"
     },
     {

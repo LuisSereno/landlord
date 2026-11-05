@@ -75,9 +75,16 @@ describe("WP4.15-H ruta Blender E2E", () => {
       "prp_tree_oak",
       "prp_tree_pine",
     ]);
+    // V.h.6: 9 vehículos (3 originales + 6 contextuales horneados para dressing por edificio).
     expect(Object.keys(bundle.vehicles ?? {}).sort()).toEqual([
+      "veh_ambulance",
+      "veh_delivery",
+      "veh_firetruck",
+      "veh_garbage",
+      "veh_police",
       "veh_sedan",
       "veh_taxi",
+      "veh_tractor",
       "veh_truck",
     ]);
     for (const group of [bundle.terrain, bundle.props, bundle.vehicles]) {
@@ -125,8 +132,8 @@ describe("WP4.15-H ruta Blender E2E", () => {
         ...Object.values(asset.orientations ?? {}).map((frame) => frame.image),
       ]),
     ];
-    // 65 imágenes base + 4 props cívicos de V.g civic-core P7 (monumento, jardinera, bolardo, arbusto).
-    expect(images.length).toBe(69);
+    // 69 imágenes (V.g P7) + 12 de los 6 vehículos contextuales de V.h.6 (2 orientaciones cada uno).
+    expect(images.length).toBe(81);
     let totalBytes = 0;
     for (const image of images) {
       const buffer = readFileSync(join(PUBLIC_DIR, image.src));

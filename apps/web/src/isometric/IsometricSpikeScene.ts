@@ -722,7 +722,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     }
     const vehicles = ASSETS_BLENDER.vehicles ?? {};
     const seenVehicles = new Set<string>();
-    for (const vehicle of model.parkedVehicles) {
+    for (const vehicle of [...model.parkedVehicles, ...(model.contextVehicles ?? [])]) {
       const asset = vehicles[vehicle.asset];
       if (!asset) continue;
       const frame = this.sceneryFrame(asset, vehicle.azimuth);

@@ -4,7 +4,7 @@
   "category": "building_mass",
   "counts": {
     "total": 386,
-    "runtimeReady": 34
+    "runtimeReady": 39
   },
   "assets": [
     {
@@ -1832,14 +1832,15 @@
         "commercial_corridor",
         "mixed_core"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "runtimeAssetId": "bld_commercial_c"
     },
     {
       "assetId": "wa_kenney_city_commercial_building_i_2",
@@ -2128,14 +2129,15 @@
         "commercial_corridor",
         "mixed_core"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "runtimeAssetId": "bld_shopfront"
     },
     {
       "assetId": "wa_kenney_city_commercial_building_g_2",
@@ -2352,14 +2354,15 @@
         "commercial_corridor",
         "mixed_core"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "runtimeAssetId": "bld_commercial_b"
     },
     {
       "assetId": "wa_kenney_city_commercial_low_detail_building_a_2",
@@ -10165,6 +10168,7 @@
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
+      "runtimeAssetId": "bld_residential_b",
       "catalogRole": "dwelling"
     },
     {
@@ -10232,14 +10236,15 @@
         "urban_residential",
         "low_density_residential"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "runtimeAssetId": "bld_residential_a"
     },
     {
       "assetId": "wa_kenney_city_suburban_building_type_c_2",
@@ -10269,14 +10274,15 @@
         "urban_residential",
         "low_density_residential"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "runtimeAssetId": "bld_residential_c"
     },
     {
       "assetId": "wa_kenney_city_suburban_building_type_p_2",

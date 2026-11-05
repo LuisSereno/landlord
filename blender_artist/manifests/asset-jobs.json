@@ -560,6 +560,168 @@
       ]
     },
     {
+      "id": "veh_firetruck",
+      "kind": "vehicle",
+      "assetId": "veh_firetruck",
+      "target": "bundle",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_car_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/firetruck.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "camera": {
+        "orthoScale": 5.0,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
+      "orientations": [
+        45,
+        225
+      ]
+    },
+    {
+      "id": "veh_ambulance",
+      "kind": "vehicle",
+      "assetId": "veh_ambulance",
+      "target": "bundle",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_car_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/ambulance.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "camera": {
+        "orthoScale": 5.0,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
+      "orientations": [
+        45,
+        225
+      ]
+    },
+    {
+      "id": "veh_police",
+      "kind": "vehicle",
+      "assetId": "veh_police",
+      "target": "bundle",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_car_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/police.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "camera": {
+        "orthoScale": 4.0,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
+      "orientations": [
+        45,
+        225
+      ]
+    },
+    {
+      "id": "veh_garbage",
+      "kind": "vehicle",
+      "assetId": "veh_garbage",
+      "target": "bundle",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_car_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/garbage-truck.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "camera": {
+        "orthoScale": 5.0,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
+      "orientations": [
+        45,
+        225
+      ]
+    },
+    {
+      "id": "veh_delivery",
+      "kind": "vehicle",
+      "assetId": "veh_delivery",
+      "target": "bundle",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_car_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/delivery.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "camera": {
+        "orthoScale": 5.0,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
+      "orientations": [
+        45,
+        225
+      ]
+    },
+    {
+      "id": "veh_tractor",
+      "kind": "vehicle",
+      "assetId": "veh_tractor",
+      "target": "bundle",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_car_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/tractor.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "camera": {
+        "orthoScale": 4.0,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
+      "orientations": [
+        45,
+        225
+      ]
+    },
+    {
       "id": "prp_tree_oak",
       "kind": "prop",
       "assetId": "prp_tree_oak",

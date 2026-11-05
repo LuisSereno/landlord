@@ -657,6 +657,240 @@
           "pixelsPerMeter": 64
         }
       }
+    },
+    "veh_firetruck": {
+      "id": "veh_firetruck",
+      "name": "veh_firetruck",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.4885,
+        "y": 0.7798
+      },
+      "image": {
+        "src": "/assets/runtime/blender/veh_firetruck.png",
+        "width": 217,
+        "height": 190,
+        "sha256": "bfa16edd6ee55f94c00d9ec8c7f6adff6658e0b8a1ad0dbcaaf23dff8fa32743"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 51.2,
+      "orientations": {
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_firetruck-az225.png",
+            "width": 217,
+            "height": 171,
+            "sha256": "e70367003dcc4d36567d086552f24a91828eed49dd76ccdf7f958af49a4bfaba"
+          },
+          "pivot": {
+            "x": 0.5115,
+            "y": 0.7758
+          },
+          "pixelsPerMeter": 51.2
+        }
+      }
+    },
+    "veh_ambulance": {
+      "id": "veh_ambulance",
+      "name": "veh_ambulance",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.4928,
+        "y": 0.7933
+      },
+      "image": {
+        "src": "/assets/runtime/blender/veh_ambulance.png",
+        "width": 208,
+        "height": 183,
+        "sha256": "7a7cc801ee336ce4892f22bca79efe3026fc920fb68748673a074be0be19ed1c"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 51.2,
+      "orientations": {
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_ambulance-az225.png",
+            "width": 208,
+            "height": 152,
+            "sha256": "f4309a0fd26aac2a5b365d6a52d2b859b8b5c26cad0a8d78132ae707ecb66ff1"
+          },
+          "pivot": {
+            "x": 0.5048,
+            "y": 0.7741
+          },
+          "pixelsPerMeter": 51.2
+        }
+      }
+    },
+    "veh_police": {
+      "id": "veh_police",
+      "name": "veh_police",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.4811,
+        "y": 0.7344
+      },
+      "image": {
+        "src": "/assets/runtime/blender/veh_police.png",
+        "width": 238,
+        "height": 163,
+        "sha256": "e033995f09afd4617ed3ad4d1d921bd25fa0fcff3cd1112ee314724850c17828"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 64,
+      "orientations": {
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_police-az225.png",
+            "width": 238,
+            "height": 149,
+            "sha256": "030810d2a682ac7ce58692a5fae83225eeb40b1a037a8b3550fd8f9f5b0b112a"
+          },
+          "pivot": {
+            "x": 0.5189,
+            "y": 0.7296
+          },
+          "pixelsPerMeter": 64
+        }
+      }
+    },
+    "veh_garbage": {
+      "id": "veh_garbage",
+      "name": "veh_garbage",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5114,
+        "y": 0.748
+      },
+      "image": {
+        "src": "/assets/runtime/blender/veh_garbage.png",
+        "width": 220,
+        "height": 168,
+        "sha256": "8fd12035b9e86293fb150c629467802afb0aa46520d25ca68a60de2767c24a33"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 51.2,
+      "orientations": {
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_garbage-az225.png",
+            "width": 220,
+            "height": 159,
+            "sha256": "632e292f12e41b501d9fb9b0bb4704ee6bf0e1b731bef99d0be2d015628d9af4"
+          },
+          "pivot": {
+            "x": 0.4886,
+            "y": 0.7526
+          },
+          "pixelsPerMeter": 51.2
+        }
+      }
+    },
+    "veh_delivery": {
+      "id": "veh_delivery",
+      "name": "veh_delivery",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.4928,
+        "y": 0.7835
+      },
+      "image": {
+        "src": "/assets/runtime/blender/veh_delivery.png",
+        "width": 208,
+        "height": 184,
+        "sha256": "5d614c2135a8e36ab178ff1de8e2897c2c324a7c09d0c3c064ee5ab17be0196d"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 51.2,
+      "orientations": {
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_delivery-az225.png",
+            "width": 208,
+            "height": 152,
+            "sha256": "76e2588afbc0c17d8793e9bff4b9f29543ad7fdff78e74c5caec0ba43f487773"
+          },
+          "pivot": {
+            "x": 0.5048,
+            "y": 0.7741
+          },
+          "pixelsPerMeter": 51.2
+        }
+      }
+    },
+    "veh_tractor": {
+      "id": "veh_tractor",
+      "name": "veh_tractor",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.4819,
+        "y": 0.8022
+      },
+      "image": {
+        "src": "/assets/runtime/blender/veh_tractor.png",
+        "width": 193,
+        "height": 186,
+        "sha256": "bb270450ac9413dcb1ecebc3776b15a5415ad0494013baf7bf24f55aa83572a6"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 64,
+      "orientations": {
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_tractor-az225.png",
+            "width": 193,
+            "height": 165,
+            "sha256": "9cf7aee5d982ebd7154dad718e91fa065aacdafc6bf9899dc5e7bcb123568ef2"
+          },
+          "pivot": {
+            "x": 0.5181,
+            "y": 0.7892
+          },
+          "pixelsPerMeter": 64
+        }
+      }
     }
   },
   "props": {

@@ -4,7 +4,7 @@
   "category": "environment",
   "counts": {
     "total": 933,
-    "runtimeReady": 9
+    "runtimeReady": 10
   },
   "assets": [
     {
@@ -11894,6 +11894,7 @@
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
+      "runtimeAssetId": "prp_tree_detailed",
       "catalogRole": "tree"
     },
     {
@@ -13541,7 +13542,7 @@
         "street",
         "residential"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
       "orientationSupport": [
         0,
@@ -13550,8 +13551,9 @@
         270
       ],
       "animationSupport": false,
-      "runtimeReady": false,
-      "state": "classified"
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "runtimeAssetId": "prp_tree_pine"
     },
     {
       "assetId": "wa_kenney_nature_kit_ground_pathside_1",
@@ -14841,6 +14843,7 @@
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
+      "runtimeAssetId": "prp_bush",
       "catalogRole": "foliage"
     },
     {
@@ -16344,6 +16347,7 @@
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
+      "runtimeAssetId": "prp_tree_oak",
       "catalogRole": "tree"
     },
     {

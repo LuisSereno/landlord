@@ -1043,6 +1043,9 @@ class Composition:
         Si no caben, la composición falla (no hay adaptación silenciosa).
         La compatibilidad entre recipe × massing × rhythm × cornerMode se validó ya en
         _check_recipe_facade_capacity durante __init__.
+
+        V.g: soporta startLevel (nivel de inicio, default 0) y projectionMeters (proyección
+        hacia la calle, default 0) para frisos, cornisas y elementos con relieve.
         """
         module_id = feature["module"]
         role = feature["role"]
@@ -1051,6 +1054,8 @@ class Composition:
         levels = feature["levels"]
         distribution = feature["distribution"]
         target_volume_index = feature["targetVolume"]
+        start_level = feature.get("startLevel", 0)
+        projection_meters = feature.get("projectionMeters", 0.0)
 
         module = self.catalog.get(module_id)
         if module.role != role:
@@ -1077,9 +1082,10 @@ class Composition:
             )
 
         volume_levels = volume.get("levels", 1)
-        if levels > volume_levels:
+        if start_level + levels > volume_levels:
             raise CompositionError(
-                f"§12: facade feature pide {levels} niveles pero el volumen objetivo solo tiene {volume_levels}"
+                f"§12: facade feature pide startLevel={start_level} + levels={levels} = {start_level + levels} "
+                f"pero el volumen objetivo solo tiene {volume_levels} niveles"
             )
 
         excluded = self._facade_feature_exclusions(side, volume, len(bays))
@@ -1100,7 +1106,7 @@ class Composition:
 
         placed_count = 0
         for level_index in range(levels):
-            z = volume["base"] + level_index * self.level
+            z = volume["base"] + (start_level + level_index) * self.level
             for bay_index in bay_indices:
                 along = bays[bay_index]
                 self.add_on_face(
@@ -1109,7 +1115,8 @@ class Composition:
                     along,
                     face_line,
                     z,
-                    f"facade_feature:{feature['id']}:{side}:level{level_index + 1}:bay{bay_index + 1}",
+                    f"facade_feature:{feature['id']}:{side}:level{start_level + level_index + 1}:bay{bay_index + 1}",
+                    projection=projection_meters,
                 )
                 placed_count += 1
 

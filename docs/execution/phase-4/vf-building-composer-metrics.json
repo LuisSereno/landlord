@@ -1,13 +1,13 @@
 {
  "schemaVersion": 1,
- "generatedAt": "2026-11-05T09:44:49.149Z",
+ "generatedAt": "2026-11-05T11:34:17.268Z",
  "composerVersion": "vf-3",
  "styleProfileId": "graphic_civic_buildings_v1",
- "outDir": "/home/luis/RepositorioGitHub/landlord/blender_artist/showcase/vg-town-hall-spike-v3",
- "requested": 3,
- "rendered": 3,
- "totalGenerationMs": 224428,
- "blenderPeakRssMb": 6276.6,
+ "outDir": "/home/luis/RepositorioGitHub/landlord/blender_artist/showcase/vg-town-hall-spike-v4",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 89743,
+ "blenderPeakRssMb": 6117.9,
  "toolchain": {
   "blender": "multiple processes",
   "renderer": "BLENDER_EEVEE"
@@ -28,11 +28,11 @@
    "buildingType": "town_hall",
    "family": "civic_landmark",
    "variantSeed": 1000,
-   "compositionSignature": "67f7f08feb7aaa3b18ad9d9b276afcc8b494ce4c917f41b1f3079653d65ae2e4",
-   "triangleCount": 35454,
-   "objectCount": 152,
-   "moduleCount": 10,
-   "materials": 22,
+   "compositionSignature": "359e622e50e5ad12dedf63a84b0dd6b4797178fa62de5202efce08b386ffe28c",
+   "triangleCount": 37326,
+   "objectCount": 158,
+   "moduleCount": 11,
+   "materials": 23,
    "textures": 23,
    "bounds": {
     "x": {
@@ -48,93 +48,17 @@
      "max": 18.6
     }
    },
-   "renderMs": 22943.37,
-   "pngBytes": 497922,
+   "renderMs": 26310.68,
+   "pngBytes": 498051,
    "pngPixels": [
     554,
     762
    ],
-   "pixelSha256": "bc93dc6c7f323801c087342274b644232f51b10cf7628901af9b7fc97f5295ef",
+   "pixelSha256": "2d65e575eab9dc91603f2f01d1a6e8cd64f932ad7c2efb288a963dd142aeaf8d",
    "licensedGeometryRatio": 1,
    "pivot": {
     "x": 0.4612,
     "y": 0.8324
-   }
-  },
-  {
-   "candidateId": "vg_town_hall_1001",
-   "buildingType": "town_hall",
-   "family": "civic_landmark",
-   "variantSeed": 1001,
-   "compositionSignature": "683e575c98d2f1c78e20e32f334d77423a72cef988407b82bf6ec52a69204d97",
-   "triangleCount": 25460,
-   "objectCount": 176,
-   "moduleCount": 12,
-   "materials": 25,
-   "textures": 25,
-   "bounds": {
-    "x": {
-     "min": -8.428,
-     "max": 8
-    },
-    "y": {
-     "min": -3.9908,
-     "max": 6
-    },
-    "z": {
-     "min": 0,
-     "max": 18.6
-    }
-   },
-   "renderMs": 21925.33,
-   "pngBytes": 486712,
-   "pngPixels": [
-    563,
-    767
-   ],
-   "pixelSha256": "6fe90974eceb279fb5211cdf764513def0f7f6babf031e8821e147edce182e79",
-   "licensedGeometryRatio": 1,
-   "pivot": {
-    "x": 0.4698,
-    "y": 0.8332
-   }
-  },
-  {
-   "candidateId": "vg_town_hall_1002",
-   "buildingType": "town_hall",
-   "family": "civic_landmark",
-   "variantSeed": 1002,
-   "compositionSignature": "3eafdf70225646349609fb31fb8bf0f526c36054aa342ebb12579e634bc8a86c",
-   "triangleCount": 5670,
-   "objectCount": 97,
-   "moduleCount": 12,
-   "materials": 23,
-   "textures": 20,
-   "bounds": {
-    "x": {
-     "min": -8.2,
-     "max": 8
-    },
-    "y": {
-     "min": -3.9908,
-     "max": 6
-    },
-    "z": {
-     "min": 0,
-     "max": 13
-    }
-   },
-   "renderMs": 17006.08,
-   "pngBytes": 321453,
-   "pngPixels": [
-    559,
-    619
-   ],
-   "pixelSha256": "a24060823ec454c7ec7c0a39671f518e56791d71ddf498f560969a67f9bc2cbc",
-   "licensedGeometryRatio": 1,
-   "pivot": {
-    "x": 0.4651,
-    "y": 0.7933
    }
   }
  ],

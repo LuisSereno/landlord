@@ -115,15 +115,16 @@ def town_hall_result(seed):
     return compose_candidate(build_request("town_hall", seed), catalog=catalog())
 
 
-def town_hall_required_per_level():
-    """Diccionario recipe_id → (count, levels) del primer facade requiredFeature del manifiesto."""
+def town_hall_required_facade_features():
+    """Diccionario recipe_id → lista de (feature_id, count, levels) de TODOS los facade requiredFeatures."""
     recipes = grammars_raw()["grammars"]["town_hall"]["recipes"]
     table = {}
     for recipe in recipes:
+        features = []
         for feature in recipe["requiredFeatures"]:
             if feature["kind"] == "facade":
-                table[recipe["id"]] = (feature["count"], feature["levels"])
-                break
+                features.append((feature["id"], feature["count"], feature["levels"]))
+        table[recipe["id"]] = features
     return table
 
 
@@ -136,10 +137,11 @@ def access_placements(result):
     return [p for p in result["placements"] if p["purpose"].startswith("access:")]
 
 
-def feature_id_for(recipe_id):
+def facade_feature_ids_for(recipe_id):
+    """Lista de IDs de TODOS los facade requiredFeatures de una recipe."""
     for recipe in grammars_raw()["grammars"]["town_hall"]["recipes"]:
         if recipe["id"] == recipe_id:
-            return recipe["requiredFeatures"][0]["id"]
+            return [f["id"] for f in recipe["requiredFeatures"] if f["kind"] == "facade"]
     raise AssertionError(f"recipe {recipe_id} inexistente")
 
 
@@ -295,21 +297,21 @@ def test_10_access_excludes_exactly_one_bay():
 
 
 def test_11_required_count_cannot_adapt():
-    """Una recipe con count=6 debe colocar EXACTAMENTE 6×levels=12. Ni 4, ni 8, ni 10."""
-    expected = town_hall_required_per_level()
+    """Cada recipe con count=N debe colocar EXACTAMENTE N×levels de CADA required facade feature."""
+    expected = town_hall_required_facade_features()
     rows = []
     for seed in SEEDS_TEN:
         result = town_hall_result(seed)
         recipe = result["axisChoices"]["recipe"]
-        count, levels = expected[recipe]
-        feature_id = feature_id_for(recipe)
-        placed = len(facade_placements(result, feature_id))
-        if placed != count * levels:
-            return False, (
-                f"seed {seed} recipe {recipe}: placed={placed} expected={count*levels}"
-            )
-        rows.append((seed, recipe, placed, count * levels))
-    return True, "placed exacto en las 10 seeds: " + "; ".join(f"{s}:{p}" for s, _, p, _ in rows)
+        for feature_id, count, levels in expected[recipe]:
+            placed = len(facade_placements(result, feature_id))
+            if placed != count * levels:
+                return False, (
+                    f"seed {seed} recipe {recipe} feature {feature_id}: "
+                    f"placed={placed} expected={count*levels}"
+                )
+            rows.append((seed, feature_id, placed, count * levels))
+    return True, "placed exacto en las 10 seeds: " + "; ".join(f"{s}:{f}={p}" for s, f, p, _ in rows)
 
 
 def test_12_required_feature_cannot_disappear():
@@ -380,68 +382,69 @@ def test_16_determinism_same_seed_same_recipe_and_signature():
 
 
 def test_17_town_hall_ten_seed_true_pass():
-    """Para cada seed: placed == required × levels Y recipe != none Y sin solape con acceso."""
-    expected = town_hall_required_per_level()
+    """Para cada seed: TODOS los required facade features colocados == required × levels."""
+    expected = town_hall_required_facade_features()
     rows = []
     for seed in SEEDS_TEN:
         result = town_hall_result(seed)
         recipe = result["axisChoices"]["recipe"]
-        count, levels = expected[recipe]
-        placed = len(facade_placements(result, feature_id_for(recipe)))
-        if placed != count * levels:
-            return False, f"seed {seed} {recipe}: placed={placed} != expected={count * levels}"
         if recipe == "none":
             return False, f"seed {seed}: recipe no propagada"
-        rows.append((seed, recipe, count, levels, placed))
+        for feature_id, count, levels in expected[recipe]:
+            placed = len(facade_placements(result, feature_id))
+            if placed != count * levels:
+                return False, f"seed {seed} {recipe} {feature_id}: placed={placed} != expected={count * levels}"
+            rows.append((seed, recipe, feature_id, placed))
     return True, (
         "10/10 TRUE PASS · " +
-        " · ".join(f"{seed}:{recipe}={placed}" for seed, recipe, _, _, placed in rows)
+        " · ".join(f"{s}:{r}:{f}={p}" for s, r, f, p in rows)
     )
 
 
 def test_18_required_facade_is_mirror_symmetric_around_access():
-    """V.g P1: para cada recipe, los required facade features deben ser especulares
+    """V.g P1: para cada recipe, TODOS los required facade features deben ser especulares
     respecto al eje X del acceso. No basta con 'no solapan': la distribución tiene
     que ser un pórtico simétrico de verdad, no un sesgo silencioso.
 
-    Para cada seed de town_hall:
+    Para cada seed de town_hall y cada facade feature:
       1. leer la X del access:frame en level1.
-      2. agrupar las X de los placements del feature required en level1.
+      2. agrupar las X de los placements del feature en level1.
       3. separar en left (x < access_x) y right (x > access_x).
       4. exigir |left| == |right| y distancias especulares (tolerancia mm).
     """
+    expected = town_hall_required_facade_features()
     for seed in SEEDS_TEN:
         result = town_hall_result(seed)
         recipe = result["axisChoices"]["recipe"]
-        feature_id = feature_id_for(recipe)
         frames = [p for p in access_placements(result) if p["purpose"] == "access:frame"]
         if not frames:
             return False, f"seed {seed}: sin access:frame (¿acceso en otro volumen?)"
         access_x = round(frames[0]["position"][0], 3)
-        level1 = [
-            p for p in facade_placements(result, feature_id)
-            if ":level1:" in p["purpose"]
-        ]
-        left = sorted(
-            round(p["position"][0], 3) for p in level1 if p["position"][0] < access_x - 1e-3
-        )
-        right = sorted(
-            round(p["position"][0], 3) for p in level1 if p["position"][0] > access_x + 1e-3
-        )
-        if len(left) != len(right):
-            return False, (
-                f"seed {seed} {recipe}: {len(left)} a la izquierda vs {len(right)} a la "
-                f"derecha del acceso (access_x={access_x})"
+        for feature_id, count, levels in expected[recipe]:
+            level1 = [
+                p for p in facade_placements(result, feature_id)
+                if ":level1:" in p["purpose"]
+            ]
+            left = sorted(
+                round(p["position"][0], 3) for p in level1 if p["position"][0] < access_x - 1e-3
             )
-        mirrored_right = sorted(-round(x - access_x, 3) for x in left)
-        distances_right = sorted(round(x - access_x, 3) for x in right)
-        for left_offset, right_offset in zip(mirrored_right, distances_right):
-            if abs(left_offset - right_offset) > 1e-3:
+            right = sorted(
+                round(p["position"][0], 3) for p in level1 if p["position"][0] > access_x + 1e-3
+            )
+            if len(left) != len(right):
                 return False, (
-                    f"seed {seed} {recipe}: distancias no especulares "
-                    f"left offsets={mirrored_right}, right offsets={distances_right}"
+                    f"seed {seed} {recipe} {feature_id}: {len(left)} a la izquierda vs {len(right)} a la "
+                    f"derecha del acceso (access_x={access_x})"
                 )
-    return True, "10/10 seeds con facade feature especular respecto al acceso"
+            mirrored_right = sorted(-round(x - access_x, 3) for x in left)
+            distances_right = sorted(round(x - access_x, 3) for x in right)
+            for left_offset, right_offset in zip(mirrored_right, distances_right):
+                if abs(left_offset - right_offset) > 1e-3:
+                    return False, (
+                        f"seed {seed} {recipe} {feature_id}: distancias no especulares "
+                        f"left offsets={mirrored_right}, right offsets={distances_right}"
+                    )
+    return True, "10/10 seeds con TODOS los facade features especulares respecto al acceso"
 
 
 def main():

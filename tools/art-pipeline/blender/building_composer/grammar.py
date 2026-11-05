@@ -89,8 +89,10 @@ CORNER_KEYS = {"id", "label", "module", "widthMeters"}
 REQUIRED_FEATURE_KEYS = {"kind", "id", "role"}
 VARIANT_FEATURE_KEYS = {"kind", "id", "probability"}
 FEATURE_KINDS = {"secondary", "prop", "facade"}  # V.g: facade para features integrados en fachada
+FACADE_FEATURE_REQUIRED_KEYS = {"kind", "id", "role", "module", "side", "count", "levels", "distribution", "targetVolume"}
 FACADE_FEATURE_KEYS = {
-    "kind", "id", "role", "module", "side", "count", "levels", "distribution", "targetVolume"
+    "kind", "id", "role", "module", "side", "count", "levels", "distribution", "targetVolume",
+    "startLevel", "projectionMeters"
 }
 FACADE_SIDES = {"front", "rear", "left", "right"}
 FACADE_DISTRIBUTIONS = {"symmetric"}  # V.g spike: solo symmetric por ahora
@@ -507,7 +509,7 @@ class GrammarDocument:
         if feature["kind"] == "facade":
             _require_mandatory_keys(
                 feature,
-                FACADE_FEATURE_KEYS,
+                FACADE_FEATURE_REQUIRED_KEYS,
                 FACADE_FEATURE_KEYS | {"probability"},
                 feature["id"],
                 f"receta {recipe_id} {context}Feature facade",

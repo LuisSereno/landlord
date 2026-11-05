@@ -98,7 +98,8 @@ FACADE_SIDES = {"front", "rear", "left", "right"}
 FACADE_DISTRIBUTIONS = {"symmetric"}  # V.g spike: solo symmetric por ahora
 RECIPE_KEYS = {
     "id", "label", "massingIds", "accessIds", "roofIds", "rhythmIds",
-    "facadeIds", "silhouetteIds", "cornerModeIds", "requiredFeatures", "variantFeatures"
+    "facadeIds", "silhouetteIds", "cornerModeIds", "requiredFeatures", "variantFeatures",
+    "accessTargetVolume"
 }
 SUPPORT_BASE_KEYS = {"kind", "shape", "label", "cell", "z", "purpose"}
 SUPPORT_SHAPE_KEYS = {"pipe": {"from", "to", "radiusMeters", "segments"}, "box": {"sizeCells", "offset", "rotationDegrees"}}
@@ -639,6 +640,8 @@ def draw_choices(rng, record, axes):
     if recipe:
         choices["requiredFeatures"] = recipe.get("requiredFeatures", [])
         choices["variantFeatures"] = recipe.get("variantFeatures", [])
+        if "accessTargetVolume" in recipe:
+            choices["accessTargetVolume"] = recipe["accessTargetVolume"]
     
     return choices
 

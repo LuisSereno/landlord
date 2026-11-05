@@ -168,7 +168,7 @@ distintas según familia, ambas con geometría licenciada real.
   **enteros sueltos** con Kenney industrial: naves `building-a/b/c/g/q/r`, `chimney-*`,
   `detail-tank*`, `water-tower`, `shipping-container-*`, `solar-panel-*`, detallada con MegaKit
   `Metal_*` y `Prop_ACUnit`.
-- **`civic_landmark` (`town_hall`, huella 4×3 = 16 × 12 m, 4 plantas)** — gramática monumental con
+- **`civic_landmark` (`town_hall`, huella 8×4 = 32 × 16 m, 3 plantas)** — gramática monumental con
   MegaKit: zócalo `Trim_FirstFloor_Wall` / `Metal_FirstFloor_Wall`, columnata `Trim_Column_*` y
   `Brick_Column_*`, acceso `Stairs_Entrance_Concrete` + `Entrance_Concrete_2x2`, fachada
   `Brick_RedWhite_DoubleWindow` / `Brick_Window_CurvedDouble`, cornisas `Cornice_Trim_*` y remate

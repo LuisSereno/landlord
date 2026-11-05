@@ -1059,6 +1059,7 @@
         {
           "id": "grand_neoclassical_hall",
           "label": "palacio neoclásico monumental tipo Casa Blanca",
+          "accessTargetVolume": 1,
           "massingIds": [
             "neoclassical_palace"
           ],
@@ -1106,8 +1107,8 @@
             {
               "kind": "facade",
               "id": "grand_pediment",
-              "role": "frieze",
-              "module": "mod_megakit_civic_frieze_ornament",
+              "role": "pediment",
+              "module": "mod_original_civic_pediment",
               "side": "front",
               "count": 1,
               "levels": 1,

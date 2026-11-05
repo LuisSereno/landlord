@@ -2421,6 +2421,20 @@
         "civic_landmark"
       ],
       "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_original_civic_pediment",
+      "category": "facade",
+      "role": "pediment",
+      "note": "front\u00f3n triangular c\u00edvico original (geometr\u00eda propia)",
+      "sourcePath": "blender_artist/sources/original/civic_pediment.glb",
+      "meshes": [
+        "CivicPediment"
+      ],
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extractionStrategy": "whole_asset"
     }
   ]
 }

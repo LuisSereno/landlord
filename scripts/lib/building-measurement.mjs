@@ -12,6 +12,7 @@ import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node
 import { join } from "node:path";
 
 export const STAGING_PREFIX = "blender_artist/staging/";
+export const ORIGINAL_PREFIX = "blender_artist/sources/original/";
 export const MEASURE_SCRIPT = "tools/art-pipeline/blender/measure_building_modules.py";
 
 export function blenderBinary(repoRoot) {
@@ -36,15 +37,16 @@ export function groupSelectionModules({ selection, inventory, registry, fail }) 
     if (!entry) {
       fail(`módulo ${module.id}: sourcePath ${module.sourcePath} no está en el inventario de módulos`);
     }
-    if (!module.sourcePath.startsWith(STAGING_PREFIX)) {
-      fail(`módulo ${module.id}: sourcePath fuera de staging`);
+    if (!module.sourcePath.startsWith(STAGING_PREFIX) && !module.sourcePath.startsWith(ORIGINAL_PREFIX)) {
+      fail(`módulo ${module.id}: sourcePath fuera de staging u original`);
     }
     if (entry.classification === "unsuitable") {
       fail(`módulo ${module.id}: fuente inhábil (${entry.classificationReason})`);
     }
+    const isOriginal = module.sourcePath.startsWith(ORIGINAL_PREFIX);
     const source = sourcesById.get(entry.sourceId);
-    if (!source) fail(`fuente no registrada en staging-sources.json: ${entry.sourceId}`);
-    if (source.license !== entry.license) {
+    if (!isOriginal && !source) fail(`fuente no registrada en staging-sources.json: ${entry.sourceId}`);
+    if (!isOriginal && source && source.license !== entry.license) {
       fail(
         `licencia declarada (${entry.license}) distinta de la registrada (${source.license}) en ${entry.path}`,
       );

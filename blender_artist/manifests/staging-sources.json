@@ -286,6 +286,17 @@
         "licenseFile": "blender_artist/staging/third_party/mit/rocketbox/LICENSE-MIT.txt",
         "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
       }
+    },
+    {
+      "id": "src_original_civic_pediment",
+      "path": "blender_artist/sources/original/civic_pediment.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometr\u00eda propia generada por create_original_civic_pediment.py",
+      "sourceUrl": null,
+      "unitScale": 1.0,
+      "extractDir": null
     }
   ],
   "quarantined": [

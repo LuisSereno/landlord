@@ -836,18 +836,40 @@ class Composition:
             x += width
 
     def _access_volume(self, corner):
-        """Primer volumen de bandas que asoma a la línea de edificación con hueco para la puerta.
+        """Volumen designado para el acceso monumental.
 
-        El acceso es la decisión jerárquica del alzado (§19/§21), así que tiene que caer en la banda
-        que ve la calle: si el primer volumen de la lista estuviera retranqueado, la puerta quedaría
-        oculta tras el volumen delantero y la variante sería ilegible a 256 px. Se exige además que
-        ese frente tenga crujías, porque un volumen estrecho entre dos postes de esquina no las deja.
+        Si la receta declara `accessTargetVolume`, ese volumen específico recibe la puerta.
+        Sin esa declaración, se usa el primer volumen de bandas que asoma a la línea de edificación.
         """
         bands = [volume for volume in self.volumes if volume["build"] == "bands"]
         if not bands:
             raise CompositionError(
                 "§19: sin volumen de bandas no hay acceso legible; la gramática debe dejar una banda"
             )
+
+        target = self.choices.get("accessTargetVolume")
+        if target is not None:
+            if target >= len(self.volumes):
+                raise CompositionError(
+                    f"§19: accessTargetVolume={target} fuera de rango "
+                    f"(massing {self.choices['massing']} tiene {len(self.volumes)} volúmenes)"
+                )
+            volume = self.volumes[target]
+            if volume["build"] != "bands":
+                raise CompositionError(
+                    f"§19: accessTargetVolume={target} referencia un volumen no-bands "
+                    f"(build={volume['build']})"
+                )
+            if abs(volume["rect"][1] - self.buildable[1]) > 1e-6:
+                raise CompositionError(
+                    f"§19: accessTargetVolume={target} no toca la línea frontal"
+                )
+            if not self.band_bays(volume["rect"], "front", corner):
+                raise CompositionError(
+                    f"§19: accessTargetVolume={target} no deja crujías con el modo {corner['id']}"
+                )
+            return volume
+
         for volume in bands:
             if abs(volume["rect"][1] - self.buildable[1]) > 1e-6:
                 continue

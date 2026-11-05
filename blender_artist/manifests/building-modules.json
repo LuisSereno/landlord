@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "moduleCatalogVersion": "vf-1",
-  "purpose": "V.f.1: cat\u00e1logo de m\u00f3dulos del Building Composer. La selecci\u00f3n la escribe un humano; la geometr\u00eda la mide Blender al importar el archivo licenciado, as\u00ed que cada m\u00f3dulo declara procedencia verificable y bounds reales (\u00a76, \u00a77, \u00a79).",
+  "purpose": "V.f.1: catálogo de módulos del Building Composer. La selección la escribe un humano; la geometría la mide Blender al importar el archivo licenciado, así que cada módulo declara procedencia verificable y bounds reales (§6, §7, §9).",
   "generator": {
     "script": "scripts/build-building-modules.mjs",
     "blenderScript": "tools/art-pipeline/blender/measure_building_modules.py",
@@ -12,7 +12,7 @@
       "buildHash": "d13f752e3b9c"
     }
   },
-  "provenance": "sourceId, licencia y unitScale se resuelven contra blender_artist/manifests/staging-sources.json (D-083, D-098); nominalBounds, anchor y measured salen de importar el archivo en Blender. Ning\u00fan campo geom\u00e9trico se escribe a mano.",
+  "provenance": "sourceId, licencia y unitScale se resuelven contra blender_artist/manifests/staging-sources.json (D-083, D-098); nominalBounds, anchor y measured salen de importar el archivo en Blender. Ningún campo geométrico se escribe a mano.",
   "families": {
     "residential_low": {
       "label": "Vivienda en hilera",
@@ -27,7 +27,7 @@
       ]
     },
     "civic_landmark": {
-      "label": "Edificio c\u00edvico singular",
+      "label": "Edificio cívico singular",
       "buildingIds": [
         "town_hall"
       ]
@@ -54,10 +54,10 @@
     "geometric_clip"
   ],
   "anchorGlossary": {
-    "datum": "authored_object_origin = el m\u00f3dulo declara su plano de apoyo en el origen que el artista del pack autor\u00f3; normalized_import_root = s\u00f3lo hay el marco normalizado del archivo.",
-    "frontAxis": "lado del m\u00f3dulo que da a la calle, medido sobre boundsRelativeToOriginMeters.y: flush con el origen \u2192 ese lado; centrado o degenerado \u2192 'symmetric-Y' (pasable sin cambiar su lectura); offset \u2192 la cara exterior es el extremo m\u00e1s lejano al origen.",
-    "originToGroundMeters": "-Zmin del m\u00f3dulo medido en metros tras normalizar el archivo. Un m\u00f3dulo que ocupa todo el asset vale ~0 porque normalize_import_root ya apoya el asset entero en Z=0; deja de ser 0 cuando el selector recorta parte de un archivo (una losa que cuelga bajo su origen, un recorte geom\u00e9trico) y entonces es el levantamiento que el compositor debe aplicar. La posici\u00f3n del datum autoral respecto al suelo s\u00ed es llamativa: anchor.datumOffsetFromGroundCenterMeters.",
-    "anchorTransform": "traslaci\u00f3n [x,y,z] que aplica el compositor al nodo del m\u00f3dulo para que su huella quede centrada en XY y apoyada en Z=0 en el marco normalizado (metros de Landlord).",
+    "datum": "authored_object_origin = el módulo declara su plano de apoyo en el origen que el artista del pack autoró; normalized_import_root = sólo hay el marco normalizado del archivo.",
+    "frontAxis": "lado del módulo que da a la calle, medido sobre boundsRelativeToOriginMeters.y: flush con el origen → ese lado; centrado o degenerado → 'symmetric-Y' (pasable sin cambiar su lectura); offset → la cara exterior es el extremo más lejano al origen.",
+    "originToGroundMeters": "-Zmin del módulo medido en metros tras normalizar el archivo. Un módulo que ocupa todo el asset vale ~0 porque normalize_import_root ya apoya el asset entero en Z=0; deja de ser 0 cuando el selector recorta parte de un archivo (una losa que cuelga bajo su origen, un recorte geométrico) y entonces es el levantamiento que el compositor debe aplicar. La posición del datum autoral respecto al suelo sí es llamativa: anchor.datumOffsetFromGroundCenterMeters.",
+    "anchorTransform": "traslación [x,y,z] que aplica el compositor al nodo del módulo para que su huella quede centrada en XY y apoyada en Z=0 en el marco normalizado (metros de Landlord).",
     "conventionValues": [
       "centered",
       "positive-from-origin",
@@ -66,12 +66,12 @@
       "degenerate"
     ]
   },
-  "orientationPolicy": "Los m\u00f3dulos s\u00f3lo rotan en m\u00faltiplos de 90\u00b0: la ret\u00edcula del dominio y el rig isom\u00e9trico (azimut 45\u00b0) no admiten giros arbitrarios sin romper el encaje de fachadas.",
+  "orientationPolicy": "Los módulos sólo rotan en múltiplos de 90°: la retícula del dominio y el rig isométrico (azimut 45°) no admiten giros arbitrarios sin romper el encaje de fachadas.",
   "counts": {
-    "modules": 165,
-    "sources": 164,
+    "modules": 166,
+    "sources": 165,
     "byCategory": {
-      "facade": 30,
+      "facade": 31,
       "window": 9,
       "door": 6,
       "roof": 13,
@@ -86,7 +86,7 @@
     "byFamily": {
       "residential_low": 49,
       "industrial_heavy": 45,
-      "civic_landmark": 139
+      "civic_landmark": 140
     },
     "bySource": {
       "src_quaternius_downtown_city_megakit": 102,
@@ -95,7 +95,8 @@
       "src_kenney_city_commercial": 4,
       "src_kaykit_city_builder_bits": 10,
       "src_kenney_nature_kit": 11,
-      "src_kenney_city_roads": 13
+      "src_kenney_city_roads": 13,
+      "src_original_civic_pediment": 1
     }
   },
   "modules": [
@@ -103,7 +104,7 @@
       "id": "mod_megakit_brick_wall_2m",
       "category": "facade",
       "role": "wall_panel",
-      "note": "panel ciego de 1 cruj\u00eda",
+      "note": "panel ciego de 1 crujía",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Plain_3.gltf",
       "license": "CC0-1.0",
@@ -124,7 +125,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 3 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 3 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -242,7 +243,7 @@
       "id": "mod_megakit_brick_wall_4m",
       "category": "facade",
       "role": "wall_panel",
-      "note": "panel ciego de 2 cruj\u00edas",
+      "note": "panel ciego de 2 crujías",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Inset.gltf",
       "license": "CC0-1.0",
@@ -263,7 +264,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 20 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 20 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4,
@@ -407,7 +408,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 4 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 4 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -525,7 +526,7 @@
       "id": "mod_megakit_brick_window_single_2m",
       "category": "window",
       "role": "window_bay",
-      "note": "cruj\u00eda con hueco de ventana sencillo",
+      "note": "crujía con hueco de ventana sencillo",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Window_Square_Single.gltf",
       "license": "CC0-1.0",
@@ -546,7 +547,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 62 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 62 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -673,7 +674,7 @@
       "id": "mod_megakit_brick_window_trim_2m",
       "category": "window",
       "role": "window_bay",
-      "note": "cruj\u00eda con ventana y moldura",
+      "note": "crujía con ventana y moldura",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Window_Trim_Single.gltf",
       "license": "CC0-1.0",
@@ -694,7 +695,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 107 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 107 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -821,7 +822,7 @@
       "id": "mod_megakit_brick_window_inset_4m",
       "category": "window",
       "role": "window_bay",
-      "note": "doble cruj\u00eda rehundida con ventana",
+      "note": "doble crujía rehundida con ventana",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Inset_Window.gltf",
       "license": "CC0-1.0",
@@ -842,7 +843,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 149 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 149 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4,
@@ -989,7 +990,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 241 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 241 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4,
@@ -1136,7 +1137,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 317 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 317 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4,
@@ -1289,7 +1290,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 8 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 8 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.706,
@@ -1428,7 +1429,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 8 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 8 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.706,
@@ -1567,7 +1568,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 6 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 6 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -1685,7 +1686,7 @@
       "id": "mod_megakit_brick_bottom_trim_2m",
       "category": "facade",
       "role": "wainscot",
-      "note": "z\u00f3calo/arranque de fachada",
+      "note": "zócalo/arranque de fachada",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_BottomTrim.gltf",
       "license": "CC0-1.0",
@@ -1706,7 +1707,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 24 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 24 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -1850,7 +1851,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 5 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 5 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -1973,7 +1974,7 @@
       "id": "mod_megakit_brick_top_trim_corner",
       "category": "facade",
       "role": "crown_corner",
-      "note": "esquina de fachada de un piso (2\u00d72\u00d73 m) con remate de cornisa en ambos frentes",
+      "note": "esquina de fachada de un piso (2×2×3 m) con remate de cornisa en ambos frentes",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_TopTrim_Corner.gltf",
       "license": "CC0-1.0",
@@ -1994,7 +1995,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 8 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 8 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -2138,7 +2139,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 3 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 3 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -2254,7 +2255,7 @@
       "id": "mod_megakit_cornice_brick_corner_left",
       "category": "facade",
       "role": "cornice",
-      "note": "cornisa volada en \u00e1ngulo L",
+      "note": "cornisa volada en ángulo L",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_90Angle_L.gltf",
       "license": "CC0-1.0",
@@ -2275,7 +2276,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 12 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 12 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -2391,7 +2392,7 @@
       "id": "mod_megakit_cornice_brick_corner_right",
       "category": "facade",
       "role": "cornice",
-      "note": "cornisa volada en \u00e1ngulo R",
+      "note": "cornisa volada en ángulo R",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_90Angle_R.gltf",
       "license": "CC0-1.0",
@@ -2412,7 +2413,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 12 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 12 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -2528,7 +2529,7 @@
       "id": "mod_megakit_door_1",
       "category": "door",
       "role": "door",
-      "note": "hoja de puerta est\u00e1ndar",
+      "note": "hoja de puerta estándar",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Door_1.gltf",
       "license": "CC0-1.0",
@@ -2550,7 +2551,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 171 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 171 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1,
@@ -2687,7 +2688,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 43 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 43 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1,
@@ -2826,7 +2827,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 170 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 170 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2.304,
@@ -2944,7 +2945,7 @@
       "id": "mod_megakit_roof_slate_center_2m",
       "category": "roof",
       "role": "slope",
-      "note": "fald\u00f3n de pizarra tramo recto",
+      "note": "faldón de pizarra tramo recto",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_Slate_Center.gltf",
       "license": "CC0-1.0",
@@ -2965,7 +2966,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 3 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 3 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -3086,7 +3087,7 @@
       "id": "mod_megakit_roof_slate_corner",
       "category": "roof",
       "role": "hip",
-      "note": "fald\u00f3n de pizarra en esquina (hip)",
+      "note": "faldón de pizarra en esquina (hip)",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_Slate_Corner.gltf",
       "license": "CC0-1.0",
@@ -3107,7 +3108,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 14 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 14 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2.023,
@@ -3223,7 +3224,7 @@
       "id": "mod_megakit_roof_slate_inner_corner",
       "category": "roof",
       "role": "valley",
-      "note": "fald\u00f3n de pizarra en \u00e1ngulo entrante (valle)",
+      "note": "faldón de pizarra en ángulo entrante (valle)",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_Slate_InnerCorner.gltf",
       "license": "CC0-1.0",
@@ -3244,7 +3245,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 5 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 5 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -3386,7 +3387,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 86 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 86 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -3516,7 +3517,7 @@
       "id": "mod_megakit_roof_flat_4m",
       "category": "roof",
       "role": "flat",
-      "note": "losa de cubierta plana de 4\u00d74 m",
+      "note": "losa de cubierta plana de 4×4 m",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
       "license": "CC0-1.0",
@@ -3537,7 +3538,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 4 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 4 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4,
@@ -3653,7 +3654,7 @@
       "id": "mod_megakit_roof_flat_2m",
       "category": "roof",
       "role": "flat",
-      "note": "losa de cubierta plana de 2\u00d72 m",
+      "note": "losa de cubierta plana de 2×2 m",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_2x2.gltf",
       "license": "CC0-1.0",
@@ -3674,7 +3675,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 1 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 1 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -3811,7 +3812,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 1 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 1 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -3947,7 +3948,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 18 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 18 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -4068,7 +4069,7 @@
       "id": "mod_megakit_entrance_canopy_2x1",
       "category": "canopy",
       "role": "canopy",
-      "note": "marquesina de entrada 2\u00d71 apoyada en fachada",
+      "note": "marquesina de entrada 2×1 apoyada en fachada",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Entrance_Concrete_2x1.gltf",
       "license": "CC0-1.0",
@@ -4089,7 +4090,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 6 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 6 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -4205,7 +4206,7 @@
       "id": "mod_megakit_entrance_canopy_2x2",
       "category": "canopy",
       "role": "canopy",
-      "note": "marquesina de entrada 2\u00d72 apoyada en fachada",
+      "note": "marquesina de entrada 2×2 apoyada en fachada",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Entrance_Concrete_2x2.gltf",
       "license": "CC0-1.0",
@@ -4225,7 +4226,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 6 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 6 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -4341,7 +4342,7 @@
       "id": "mod_megakit_brick_column",
       "category": "facade",
       "role": "column",
-      "note": "columna exenta de ladrillo de 3 m de alto y 0,53\u00d70,72 m de secci\u00f3n",
+      "note": "columna exenta de ladrillo de 3 m de alto y 0,53×0,72 m de sección",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Column_RedBricks.gltf",
       "license": "CC0-1.0",
@@ -4362,7 +4363,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 190 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 190 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.526,
@@ -4498,7 +4499,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 16 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 16 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.14,
@@ -4634,7 +4635,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 19 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 19 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.26,
@@ -4755,7 +4756,7 @@
       "id": "mod_megakit_prop_ac_unit",
       "category": "intrinsic_prop",
       "role": "rooftop_unit",
-      "note": "unidad de climatizaci\u00f3n apoyada en cubierta (\u00a722: m\u00e1quina fija integrada)",
+      "note": "unidad de climatización apoyada en cubierta (§22: máquina fija integrada)",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
       "license": "CC0-1.0",
@@ -4776,7 +4777,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 5 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 5 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.893,
@@ -4892,7 +4893,7 @@
       "id": "mod_megakit_floor_slab_2m",
       "category": "mass",
       "role": "slab",
-      "note": "losa estructural 2\u00d72 para plataformas y z\u00f3calos",
+      "note": "losa estructural 2×2 para plataformas y zócalos",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_2x2.gltf",
       "license": "CC0-1.0",
@@ -4914,7 +4915,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 2 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 2 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -5035,7 +5036,7 @@
       "id": "mod_megakit_floor_slab_4m",
       "category": "mass",
       "role": "slab",
-      "note": "losa estructural 4\u00d74 = 1 celda del dominio",
+      "note": "losa estructural 4×4 = 1 celda del dominio",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
       "license": "CC0-1.0",
@@ -5056,7 +5057,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 8 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 8 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4,
@@ -5198,7 +5199,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 9 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 9 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -5340,7 +5341,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 14 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 14 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -5461,7 +5462,7 @@
       "id": "mod_megakit_trim_window_2m",
       "category": "window",
       "role": "window_bay",
-      "note": "cruj\u00eda con ventana de moldura",
+      "note": "crujía con ventana de moldura",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Window.gltf",
       "license": "CC0-1.0",
@@ -5482,7 +5483,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 147 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 147 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -5630,7 +5631,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 20 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 20 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2.048,
@@ -5772,7 +5773,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 27 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 27 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -5888,7 +5889,7 @@
       "id": "mod_megakit_cornice_trim_corner_left",
       "category": "facade",
       "role": "cornice",
-      "note": "cornisa de moldura en \u00e1ngulo L",
+      "note": "cornisa de moldura en ángulo L",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Trim_90Angle_L.gltf",
       "license": "CC0-1.0",
@@ -5909,7 +5910,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 54 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 54 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -6025,7 +6026,7 @@
       "id": "mod_megakit_cornice_trim_corner_right",
       "category": "facade",
       "role": "cornice",
-      "note": "cornisa de moldura en \u00e1ngulo R",
+      "note": "cornisa de moldura en ángulo R",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Trim_90Angle_R.gltf",
       "license": "CC0-1.0",
@@ -6046,7 +6047,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 54 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 54 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -6182,7 +6183,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 57 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 57 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.724,
@@ -6318,7 +6319,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 26 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 26 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.672,
@@ -6454,7 +6455,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 57 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 57 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.724,
@@ -6590,7 +6591,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 29 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 29 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.109,
@@ -6731,7 +6732,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 9 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 9 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.932,
@@ -6867,7 +6868,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 29 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 29 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.109,
@@ -7009,7 +7010,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 90 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 90 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -7154,7 +7155,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 84 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 84 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.939,
@@ -7290,7 +7291,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 152 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 152 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.939,
@@ -7406,7 +7407,7 @@
       "id": "mod_megakit_metal_wall_2m",
       "category": "facade",
       "role": "wall_panel",
-      "note": "panel ciego met\u00e1lico para cuerpo industrial",
+      "note": "panel ciego metálico para cuerpo industrial",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Plain_3.gltf",
       "license": "CC0-1.0",
@@ -7427,7 +7428,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 8 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 8 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -7548,7 +7549,7 @@
       "id": "mod_megakit_metal_firstfloor_wall_2m",
       "category": "facade",
       "role": "ground_panel",
-      "note": "panel met\u00e1lico de planta baja",
+      "note": "panel metálico de planta baja",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_FirstFloor_Wall.gltf",
       "license": "CC0-1.0",
@@ -7568,7 +7569,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 13 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 13 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -7694,7 +7695,7 @@
       "id": "mod_megakit_metal_window_2m",
       "category": "window",
       "role": "window_bay",
-      "note": "cruj\u00eda met\u00e1lica con ventana a media altura",
+      "note": "crujía metálica con ventana a media altura",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Window_Half.gltf",
       "license": "CC0-1.0",
@@ -7714,7 +7715,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 83 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 83 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -7834,7 +7835,7 @@
       "id": "mod_megakit_metal_window_4m",
       "category": "window",
       "role": "window_bay",
-      "note": "doble cruj\u00eda met\u00e1lica con ventana",
+      "note": "doble crujía metálica con ventana",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Window.gltf",
       "license": "CC0-1.0",
@@ -7855,7 +7856,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 92 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 92 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4,
@@ -8003,7 +8004,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 41 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 41 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -8123,7 +8124,7 @@
       "id": "mod_megakit_cornice_metal_center_2m",
       "category": "facade",
       "role": "cornice",
-      "note": "cornisa met\u00e1lica tramo recto",
+      "note": "cornisa metálica tramo recto",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
       "license": "CC0-1.0",
@@ -8144,7 +8145,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 15 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 15 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -8260,7 +8261,7 @@
       "id": "mod_megakit_doorframe_metal_2m",
       "category": "door",
       "role": "doorframe",
-      "note": "marco met\u00e1lico de acceso industrial",
+      "note": "marco metálico de acceso industrial",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
       "license": "CC0-1.0",
@@ -8280,7 +8281,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 67 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 67 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -8398,7 +8399,7 @@
       "id": "mod_megakit_column_metal_bottom",
       "category": "utility",
       "role": "column",
-      "note": "pie met\u00e1lico apilable: base",
+      "note": "pie metálico apilable: base",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
       "license": "CC0-1.0",
@@ -8419,7 +8420,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 44 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 44 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.569,
@@ -8535,7 +8536,7 @@
       "id": "mod_megakit_column_metal_center",
       "category": "utility",
       "role": "column",
-      "note": "pie met\u00e1lico apilable: fuste",
+      "note": "pie metálico apilable: fuste",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Center.gltf",
       "license": "CC0-1.0",
@@ -8556,7 +8557,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 8 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 8 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.498,
@@ -8672,7 +8673,7 @@
       "id": "mod_megakit_column_metal_top",
       "category": "utility",
       "role": "column",
-      "note": "pie met\u00e1lico apilable: cabezal",
+      "note": "pie metálico apilable: cabezal",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Top.gltf",
       "license": "CC0-1.0",
@@ -8693,7 +8694,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 57 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 57 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.644,
@@ -8829,7 +8830,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 714 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 714 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 8.334,
@@ -8965,7 +8966,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 859 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 859 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 8.334,
@@ -9101,7 +9102,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 737 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 737 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 7.504,
@@ -9217,7 +9218,7 @@
       "id": "mod_kenney_ind_hall_gable_g",
       "category": "mass",
       "role": "hall",
-      "note": "nave con front\u00f3n triangular visible",
+      "note": "nave con frontón triangular visible",
       "sourceId": "src_kenney_city_industrial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-g.glb",
       "license": "CC0-1.0",
@@ -9237,7 +9238,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 412 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 412 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 6.713,
@@ -9373,7 +9374,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 740 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 740 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 8.56,
@@ -9509,7 +9510,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 720 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 720 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 9.934,
@@ -9625,7 +9626,7 @@
       "id": "mod_kenney_ind_chimney_large",
       "category": "chimney",
       "role": "chimney",
-      "note": "chimenea alta de f\u00e1brica",
+      "note": "chimenea alta de fábrica",
       "sourceId": "src_kenney_city_industrial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/chimney-large.glb",
       "license": "CC0-1.0",
@@ -9645,7 +9646,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 78 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 78 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4.32,
@@ -9759,7 +9760,7 @@
       "id": "mod_kenney_ind_chimney_medium",
       "category": "chimney",
       "role": "chimney",
-      "note": "chimenea media de f\u00e1brica",
+      "note": "chimenea media de fábrica",
       "sourceId": "src_kenney_city_industrial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/chimney-medium.glb",
       "license": "CC0-1.0",
@@ -9779,7 +9780,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 50 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 50 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.8,
@@ -9893,7 +9894,7 @@
       "id": "mod_kenney_ind_chimney_small",
       "category": "chimney",
       "role": "chimney",
-      "note": "chimenea corta de f\u00e1brica",
+      "note": "chimenea corta de fábrica",
       "sourceId": "src_kenney_city_industrial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/chimney-small.glb",
       "license": "CC0-1.0",
@@ -9913,7 +9914,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 30 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 30 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.2,
@@ -10027,7 +10028,7 @@
       "id": "mod_kenney_ind_tank_large",
       "category": "industrial",
       "role": "tank",
-      "note": "silos/tanque grande apoyado en parcela (\u00a722: tanque del proceso)",
+      "note": "silos/tanque grande apoyado en parcela (§22: tanque del proceso)",
       "sourceId": "src_kenney_city_industrial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/detail-tank-large.glb",
       "license": "CC0-1.0",
@@ -10047,7 +10048,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 181 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 181 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 6.034,
@@ -10161,7 +10162,7 @@
       "id": "mod_kenney_ind_tank_small",
       "category": "industrial",
       "role": "tank",
-      "note": "tanque peque\u00f1o apoyado en parcela",
+      "note": "tanque pequeño apoyado en parcela",
       "sourceId": "src_kenney_city_industrial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/detail-tank.glb",
       "license": "CC0-1.0",
@@ -10181,7 +10182,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 133 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 133 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 3.392,
@@ -10315,7 +10316,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 415 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 415 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 3.409,
@@ -10429,7 +10430,7 @@
       "id": "mod_kenney_ind_windmill",
       "category": "industrial",
       "role": "extractor",
-      "note": "aerogenerador de extracci\u00f3n: torre + palas como un solo m\u00f3dulo",
+      "note": "aerogenerador de extracción: torre + palas como un solo módulo",
       "sourceId": "src_kenney_city_industrial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/windmill.glb",
       "license": "CC0-1.0",
@@ -10586,7 +10587,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 554 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 554 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 5.712,
@@ -10720,7 +10721,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 572 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 572 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 7.312,
@@ -10854,7 +10855,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 353 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 353 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 3.684,
@@ -10988,7 +10989,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 392 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 392 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 5.712,
@@ -11102,7 +11103,7 @@
       "id": "mod_kenney_com_block_k",
       "category": "mass",
       "role": "block",
-      "note": "bloque comercial esquinero de planta baja di\u00e1fana",
+      "note": "bloque comercial esquinero de planta baja diáfana",
       "sourceId": "src_kenney_city_commercial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-k.glb",
       "license": "CC0-1.0",
@@ -11123,7 +11124,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 961 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 961 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 8.334,
@@ -11258,7 +11259,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 18 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 18 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 3.2,
@@ -11372,7 +11373,7 @@
       "id": "mod_kaykit_civic_block_c",
       "category": "mass",
       "role": "civic_block",
-      "note": "bloque c\u00edvico sin base: el z\u00f3calo lo pone la losa del compositor",
+      "note": "bloque cívico sin base: el zócalo lo pone la losa del compositor",
       "sourceId": "src_kaykit_city_builder_bits",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/building_C_withoutBase.gltf",
       "license": "CC0-1.0",
@@ -11392,7 +11393,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 296 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 296 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4.827,
@@ -11506,7 +11507,7 @@
       "id": "mod_kaykit_civic_block_d",
       "category": "mass",
       "role": "civic_block",
-      "note": "bloque c\u00edvico sin base con hueco de acceso",
+      "note": "bloque cívico sin base con hueco de acceso",
       "sourceId": "src_kaykit_city_builder_bits",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/building_D_withoutBase.gltf",
       "license": "CC0-1.0",
@@ -11526,7 +11527,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 380 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 380 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 6.427,
@@ -11640,7 +11641,7 @@
       "id": "mod_kaykit_civic_block_b",
       "category": "mass",
       "role": "civic_block",
-      "note": "bloque c\u00edvico bajo sin base",
+      "note": "bloque cívico bajo sin base",
       "sourceId": "src_kaykit_city_builder_bits",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/building_B_withoutBase.gltf",
       "license": "CC0-1.0",
@@ -11660,7 +11661,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 267 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 267 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 6.427,
@@ -11774,7 +11775,7 @@
       "id": "mod_kaykit_util_watertower",
       "category": "industrial",
       "role": "water_tower",
-      "note": "castillete de agua KayKit, comparte atlas con los bloques c\u00edvicos",
+      "note": "castillete de agua KayKit, comparte atlas con los bloques cívicos",
       "sourceId": "src_kaykit_city_builder_bits",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/watertower.gltf",
       "license": "CC0-1.0",
@@ -11795,7 +11796,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 33 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 33 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.996,
@@ -11909,7 +11910,7 @@
       "id": "mod_megakit_roof_slate_cornice_center",
       "category": "roof",
       "role": "slope_cornice",
-      "note": "fald\u00f3n de pizarra con cornisa: alero en y=-1 y cumbrera en y=0, 3,2 m de alto medidos",
+      "note": "faldón de pizarra con cornisa: alero en y=-1 y cumbrera en y=0, 3,2 m de alto medidos",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_SlateCornice_Center.gltf",
       "license": "CC0-1.0",
@@ -11930,7 +11931,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 11 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 11 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -12056,7 +12057,7 @@
       "id": "mod_megakit_roof_slate_cornice_corner",
       "category": "roof",
       "role": "hip_cornice",
-      "note": "fald\u00f3n de pizarra con cornisa en esquina (hip)",
+      "note": "faldón de pizarra con cornisa en esquina (hip)",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_SlateCornice_Corner.gltf",
       "license": "CC0-1.0",
@@ -12077,7 +12078,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 25 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 25 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2.023,
@@ -12198,7 +12199,7 @@
       "id": "mod_megakit_roof_slate_cornice_inner_corner",
       "category": "roof",
       "role": "valley_cornice",
-      "note": "fald\u00f3n de pizarra con cornisa en \u00e1ngulo entrante (valle)",
+      "note": "faldón de pizarra con cornisa en ángulo entrante (valle)",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_SlateCornice_InnerCorner.gltf",
       "license": "CC0-1.0",
@@ -12219,7 +12220,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 16 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 16 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -12366,7 +12367,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 94 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 94 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -12496,7 +12497,7 @@
       "id": "mod_megakit_brick_crown_corner_left",
       "category": "facade",
       "role": "crown_corner",
-      "note": "remate de fachada con cornisa en \u00e1ngulo L (0,71\u00d70,7\u00d73 m)",
+      "note": "remate de fachada con cornisa en ángulo L (0,71×0,7×3 m)",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_TopTrim_90Angle_L.gltf",
       "license": "CC0-1.0",
@@ -12517,7 +12518,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 8 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 8 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.706,
@@ -12640,7 +12641,7 @@
       "id": "mod_megakit_brick_crown_corner_right",
       "category": "facade",
       "role": "crown_corner",
-      "note": "remate de fachada con cornisa en \u00e1ngulo R (0,71\u00d70,7\u00d73 m)",
+      "note": "remate de fachada con cornisa en ángulo R (0,71×0,7×3 m)",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_TopTrim_90Angle_R.gltf",
       "license": "CC0-1.0",
@@ -12661,7 +12662,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 8 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 8 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.706,
@@ -12784,7 +12785,7 @@
       "id": "mod_megakit_corner_column_bottom",
       "category": "civic",
       "role": "corner_column",
-      "note": "esquina apilable de columna: base (1,26\u00d71,26\u00d73 m)",
+      "note": "esquina apilable de columna: base (1,26×1,26×3 m)",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_CornerColumn_Bottom.gltf",
       "license": "CC0-1.0",
@@ -12804,7 +12805,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 18 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 18 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.26,
@@ -12945,7 +12946,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 18 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 18 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.26,
@@ -13086,7 +13087,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 9 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 9 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.26,
@@ -13202,7 +13203,7 @@
       "id": "mod_megakit_corner_column_half",
       "category": "civic",
       "role": "corner_column",
-      "note": "tramo medio de esquina apilable de 2 m: permite columnata de planta baja m\u00e1s alta que el piso tipo",
+      "note": "tramo medio de esquina apilable de 2 m: permite columnata de planta baja más alta que el piso tipo",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_CornerColumn_Center_Half.gltf",
       "license": "CC0-1.0",
@@ -13222,7 +13223,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 16 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 16 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.14,
@@ -13338,7 +13339,7 @@
       "id": "mod_megakit_brick_column_small_3m",
       "category": "facade",
       "role": "pilaster_small",
-      "note": "pilarcito de ladrillo de 0,25\u00d70,35\u00d73 m: apoyo de porche o quiebro de fachada",
+      "note": "pilarcito de ladrillo de 0,25×0,35×3 m: apoyo de porche o quiebro de fachada",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Column_Small.gltf",
       "license": "CC0-1.0",
@@ -13359,7 +13360,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 16 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 16 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.25,
@@ -13475,7 +13476,7 @@
       "id": "mod_megakit_door_3",
       "category": "door",
       "role": "door",
-      "note": "tercera hoja de puerta del kit (1\u00d70,19\u00d72,2 m)",
+      "note": "tercera hoja de puerta del kit (1×0,19×2,2 m)",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Door_3.gltf",
       "license": "CC0-1.0",
@@ -13497,7 +13498,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 65 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 65 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1,
@@ -13615,7 +13616,7 @@
       "id": "mod_megakit_roof_flat_strip_2x1_6m",
       "category": "roof",
       "role": "flat",
-      "note": "franja de cubierta plana de 2\u00d71,6 m: relleno de hueco entre losas",
+      "note": "franja de cubierta plana de 2×1,6 m: relleno de hueco entre losas",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_2x2_90Angle_Center.gltf",
       "license": "CC0-1.0",
@@ -13636,7 +13637,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 1 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 1 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -13773,7 +13774,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 1 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 1 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -13889,7 +13890,7 @@
       "id": "mod_megakit_metal_column_small_top",
       "category": "utility",
       "role": "column_small",
-      "note": "cabezal met\u00e1lico delgado de 0,32 m y 3 m: support de marquesina o estructura de planta",
+      "note": "cabezal metálico delgado de 0,32 m y 3 m: support de marquesina o estructura de planta",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Small_Top.gltf",
       "license": "CC0-1.0",
@@ -13910,7 +13911,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 57 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 57 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.322,
@@ -14026,7 +14027,7 @@
       "id": "mod_kenney_ind_chimney_basic",
       "category": "chimney",
       "role": "chimney",
-      "note": "chimenea delgada 0,8\u00d70,8\u00d74 m: \u00fanica chimenea del inventario en escala dom\u00e9stica, MegaKit no trae ninguna",
+      "note": "chimenea delgada 0,8×0,8×4 m: única chimenea del inventario en escala doméstica, MegaKit no trae ninguna",
       "sourceId": "src_kenney_city_industrial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/chimney-basic.glb",
       "license": "CC0-1.0",
@@ -14048,7 +14049,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 29 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 29 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.8,
@@ -14162,7 +14163,7 @@
       "id": "mod_kenney_ind_hall_e",
       "category": "mass",
       "role": "hall",
-      "note": "nave industrial de 6,7\u00d75,2\u00d76,6 m",
+      "note": "nave industrial de 6,7×5,2×6,6 m",
       "sourceId": "src_kenney_city_industrial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-e.glb",
       "license": "CC0-1.0",
@@ -14182,7 +14183,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 512 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 512 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 6.734,
@@ -14298,7 +14299,7 @@
       "id": "mod_kenney_ind_hall_f",
       "category": "mass",
       "role": "hall",
-      "note": "nave alta de 7,2\u00d75,1\u00d77,7 m",
+      "note": "nave alta de 7,2×5,1×7,7 m",
       "sourceId": "src_kenney_city_industrial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-f.glb",
       "license": "CC0-1.0",
@@ -14318,7 +14319,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 536 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 536 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 7.16,
@@ -14434,7 +14435,7 @@
       "id": "mod_kenney_ind_hall_l",
       "category": "mass",
       "role": "hall",
-      "note": "nave profunda de 8,3\u00d77,5\u00d77,7 m: la masa m\u00e1s grande del kit industrial",
+      "note": "nave profunda de 8,3×7,5×7,7 m: la masa más grande del kit industrial",
       "sourceId": "src_kenney_city_industrial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-l.glb",
       "license": "CC0-1.0",
@@ -14454,7 +14455,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 633 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 633 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 8.334,
@@ -14570,7 +14571,7 @@
       "id": "mod_kenney_ind_hall_m",
       "category": "mass",
       "role": "hall",
-      "note": "nave de 5,3\u00d76,8\u00d76,1 m con cubierta a un agua",
+      "note": "nave de 5,3×6,8×6,1 m con cubierta a un agua",
       "sourceId": "src_kenney_city_industrial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-m.glb",
       "license": "CC0-1.0",
@@ -14590,7 +14591,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 518 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 518 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 5.265,
@@ -14706,7 +14707,7 @@
       "id": "mod_kenney_ind_hall_n",
       "category": "mass",
       "role": "hall",
-      "note": "cuerpo estrecho y alto de 3,9\u00d75,7\u00d77,6 m: torre de proceso",
+      "note": "cuerpo estrecho y alto de 3,9×5,7×7,6 m: torre de proceso",
       "sourceId": "src_kenney_city_industrial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-n.glb",
       "license": "CC0-1.0",
@@ -14726,7 +14727,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 420 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 420 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 3.906,
@@ -14842,7 +14843,7 @@
       "id": "mod_kenney_ind_hall_t",
       "category": "mass",
       "role": "hall",
-      "note": "nave baja de 6,9\u00d75,6\u00d74,1 m: ala de talleres",
+      "note": "nave baja de 6,9×5,6×4,1 m: ala de talleres",
       "sourceId": "src_kenney_city_industrial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-t.glb",
       "license": "CC0-1.0",
@@ -14862,7 +14863,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 565 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 565 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 6.887,
@@ -14978,7 +14979,7 @@
       "id": "mod_kenney_ind_solar_panel_flat",
       "category": "intrinsic_prop",
       "role": "rooftop_array",
-      "note": "panel solar de cubierta 1,67\u00d72,85\u00d70,25 m: equipo fijo sobre azotea (\u00a722 intrinsic)",
+      "note": "panel solar de cubierta 1,67×2,85×0,25 m: equipo fijo sobre azotea (§22 intrinsic)",
       "sourceId": "src_kenney_city_industrial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/solar-panel-flat.glb",
       "license": "CC0-1.0",
@@ -14999,7 +15000,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 35 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 35 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.673,
@@ -15136,7 +15137,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 18 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 18 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.6,
@@ -15250,7 +15251,7 @@
       "id": "mod_kenney_com_overhang_2m",
       "category": "canopy",
       "role": "overhang",
-      "note": "soportal de 2\u00d70,8 m de vuelo y 1,6 m de alto",
+      "note": "soportal de 2×0,8 m de vuelo y 1,6 m de alto",
       "sourceId": "src_kenney_city_commercial",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/detail-overhang.glb",
       "license": "CC0-1.0",
@@ -15272,7 +15273,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 18 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 18 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -15386,7 +15387,7 @@
       "id": "mod_kaykit_civic_block_h",
       "category": "mass",
       "role": "civic_tower",
-      "note": "bloque c\u00edvico de 8\u00d75,2\u00d711,8 m sin base: cuatro plantas, sirve de torre en el skyline",
+      "note": "bloque cívico de 8×5,2×11,8 m sin base: cuatro plantas, sirve de torre en el skyline",
       "sourceId": "src_kaykit_city_builder_bits",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/building_H_withoutBase.gltf",
       "license": "CC0-1.0",
@@ -15406,7 +15407,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 589 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 589 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 8.027,
@@ -15520,7 +15521,7 @@
       "id": "mod_kaykit_civic_block_g",
       "category": "mass",
       "role": "civic_block",
-      "note": "bloque c\u00edvico de 8\u00d75,8\u00d79 m sin base",
+      "note": "bloque cívico de 8×5,8×9 m sin base",
       "sourceId": "src_kaykit_city_builder_bits",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/building_G_withoutBase.gltf",
       "license": "CC0-1.0",
@@ -15540,7 +15541,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 469 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 469 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 8.027,
@@ -15654,7 +15655,7 @@
       "id": "mod_kaykit_plinth_8m",
       "category": "mass",
       "role": "plinth",
-      "note": "z\u00f3calo licenciado de 8\u00d78\u00d70,4 m: podium c\u00edvico real en vez de primitiva original",
+      "note": "zócalo licenciado de 8×8×0,4 m: podium cívico real en vez de primitiva original",
       "sourceId": "src_kaykit_city_builder_bits",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/base.gltf",
       "license": "CC0-1.0",
@@ -15674,7 +15675,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 19 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 19 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 8,
@@ -15808,7 +15809,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 8 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 8 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2.147,
@@ -15944,7 +15945,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 144 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 144 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4,
@@ -16091,7 +16092,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 132 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 132 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -16207,7 +16208,7 @@
       "id": "mod_megakit_civic_balustrade",
       "category": "civic",
       "role": "parapet",
-      "note": "balaustrada/parapeto para coronaci\u00f3n de techo",
+      "note": "balaustrada/parapeto para coronación de techo",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Wall_Guard.gltf",
       "license": "CC0-1.0",
@@ -16227,7 +16228,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 11 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 11 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -16363,7 +16364,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 149 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 149 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.651,
@@ -16484,7 +16485,7 @@
       "id": "mod_megakit_civic_cornice_brick_l",
       "category": "civic",
       "role": "cornice",
-      "note": "cornisa de ladrillo terminaci\u00f3n izquierda",
+      "note": "cornisa de ladrillo terminación izquierda",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_L.gltf",
       "license": "CC0-1.0",
@@ -16504,7 +16505,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 3 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 3 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -16620,7 +16621,7 @@
       "id": "mod_megakit_civic_cornice_brick_r",
       "category": "civic",
       "role": "cornice",
-      "note": "cornisa de ladrillo terminaci\u00f3n derecha",
+      "note": "cornisa de ladrillo terminación derecha",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_R.gltf",
       "license": "CC0-1.0",
@@ -16640,7 +16641,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 3 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 3 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -16756,7 +16757,7 @@
       "id": "mod_nature_civic_obelisk",
       "category": "civic",
       "role": "monument",
-      "note": "obelisco monumental para plaza c\u00edvica",
+      "note": "obelisco monumental para plaza cívica",
       "sourceId": "src_kenney_nature_kit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_obelisk.glb",
       "license": "CC0-1.0",
@@ -16776,7 +16777,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 18 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 18 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.228,
@@ -16911,7 +16912,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 48 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 48 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.2,
@@ -17028,7 +17029,7 @@
       "id": "mod_roads_civic_lamp_curved",
       "category": "civic",
       "role": "street_lamp",
-      "note": "farola curva cl\u00e1sica para plaza c\u00edvica",
+      "note": "farola curva clásica para plaza cívica",
       "sourceId": "src_kenney_city_roads",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved.glb",
       "license": "CC0-1.0",
@@ -17048,7 +17049,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 32 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 32 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.2,
@@ -17162,7 +17163,7 @@
       "id": "mod_roads_civic_lamp_curved_double",
       "category": "civic",
       "role": "street_lamp",
-      "note": "farola curva doble para avenida c\u00edvica",
+      "note": "farola curva doble para avenida cívica",
       "sourceId": "src_kenney_city_roads",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved-double.glb",
       "license": "CC0-1.0",
@@ -17182,7 +17183,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 49 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 49 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.2,
@@ -17296,7 +17297,7 @@
       "id": "mod_nature_civic_urn_large",
       "category": "civic",
       "role": "planter",
-      "note": "urna/jardinera grande para entrada c\u00edvica",
+      "note": "urna/jardinera grande para entrada cívica",
       "sourceId": "src_kenney_nature_kit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/pot_large.glb",
       "license": "CC0-1.0",
@@ -17316,7 +17317,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 22 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 22 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2.254,
@@ -17431,7 +17432,7 @@
       "id": "mod_nature_civic_urn_small",
       "category": "civic",
       "role": "planter",
-      "note": "urna/jardinera peque\u00f1a para flaquear entrada",
+      "note": "urna/jardinera pequeña para flaquear entrada",
       "sourceId": "src_kenney_nature_kit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/pot_small.glb",
       "license": "CC0-1.0",
@@ -17451,7 +17452,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 26 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 26 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.294,
@@ -17568,7 +17569,7 @@
       "id": "mod_megakit_civic_cornice_metal_l",
       "category": "civic",
       "role": "cornice",
-      "note": "cornisa met\u00e1lica izquierda",
+      "note": "cornisa metálica izquierda",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_L.gltf",
       "license": "CC0-1.0",
@@ -17588,7 +17589,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 24 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 24 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2.1,
@@ -17704,7 +17705,7 @@
       "id": "mod_megakit_civic_cornice_metal_r",
       "category": "civic",
       "role": "cornice",
-      "note": "cornisa met\u00e1lica derecha",
+      "note": "cornisa metálica derecha",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_R.gltf",
       "license": "CC0-1.0",
@@ -17724,7 +17725,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 24 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 24 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2.1,
@@ -17840,7 +17841,7 @@
       "id": "mod_megakit_civic_cornice_metal_90l",
       "category": "civic",
       "role": "cornice",
-      "note": "cornisa met\u00e1lica esquina 90\u00b0 izquierda",
+      "note": "cornisa metálica esquina 90° izquierda",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_90Angle_L.gltf",
       "license": "CC0-1.0",
@@ -17860,7 +17861,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 37 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 37 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -17976,7 +17977,7 @@
       "id": "mod_megakit_civic_cornice_metal_90r",
       "category": "civic",
       "role": "cornice",
-      "note": "cornisa met\u00e1lica esquina 90\u00b0 derecha",
+      "note": "cornisa metálica esquina 90° derecha",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_90Angle_R.gltf",
       "license": "CC0-1.0",
@@ -17996,7 +17997,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 37 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 37 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -18132,7 +18133,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 41 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 41 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2.528,
@@ -18268,7 +18269,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 41 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 41 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2.528,
@@ -18384,7 +18385,7 @@
       "id": "mod_megakit_civic_arched_window_small",
       "category": "civic",
       "role": "window_bay_arched",
-      "note": "ventana arqueada peque\u00f1a",
+      "note": "ventana arqueada pequeña",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Inset_Window_Curved_Small.gltf",
       "license": "CC0-1.0",
@@ -18404,7 +18405,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 103 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 103 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4,
@@ -18551,7 +18552,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 189 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 189 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -18698,7 +18699,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 46 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 46 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -18828,7 +18829,7 @@
       "id": "mod_megakit_civic_metal_window",
       "category": "civic",
       "role": "window_bay",
-      "note": "ventana met\u00e1lica planta baja",
+      "note": "ventana metálica planta baja",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_FirstFloor_Window.gltf",
       "license": "CC0-1.0",
@@ -18848,7 +18849,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 46 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 46 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -18978,7 +18979,7 @@
       "id": "mod_megakit_civic_metal_column_small_bottom",
       "category": "civic",
       "role": "column",
-      "note": "columna met\u00e1lica peque\u00f1a base",
+      "note": "columna metálica pequeña base",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Small_Bottom.gltf",
       "license": "CC0-1.0",
@@ -18998,7 +18999,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 36 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 36 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.284,
@@ -19114,7 +19115,7 @@
       "id": "mod_megakit_civic_metal_column_small_center",
       "category": "civic",
       "role": "column",
-      "note": "columna met\u00e1lica peque\u00f1a fuste",
+      "note": "columna metálica pequeña fuste",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Small_Center.gltf",
       "license": "CC0-1.0",
@@ -19134,7 +19135,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 8 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 8 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.249,
@@ -19250,7 +19251,7 @@
       "id": "mod_megakit_civic_bollard",
       "category": "civic",
       "role": "bollard",
-      "note": "bolardo para per\u00edmetro c\u00edvico",
+      "note": "bolardo para perímetro cívico",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_Bollard.gltf",
       "license": "CC0-1.0",
@@ -19270,7 +19271,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 27 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 27 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.216,
@@ -19386,7 +19387,7 @@
       "id": "mod_megakit_civic_planter",
       "category": "civic",
       "role": "planter",
-      "note": "jardinera para entrada c\u00edvica",
+      "note": "jardinera para entrada cívica",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_Planter_Single.gltf",
       "license": "CC0-1.0",
@@ -19406,7 +19407,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 50 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 50 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -19527,7 +19528,7 @@
       "id": "mod_megakit_civic_stair_rail_full",
       "category": "civic",
       "role": "handrail",
-      "note": "barandilla met\u00e1lica completa",
+      "note": "barandilla metálica completa",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Stairs_Rails_Metal.gltf",
       "license": "CC0-1.0",
@@ -19547,7 +19548,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 162 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 162 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.964,
@@ -19663,7 +19664,7 @@
       "id": "mod_megakit_civic_trim_90_top",
       "category": "civic",
       "role": "cornice",
-      "note": "trim esquina 90\u00b0 superior",
+      "note": "trim esquina 90° superior",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_90Angle_TopCover.gltf",
       "license": "CC0-1.0",
@@ -19683,7 +19684,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 5 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 5 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -19824,7 +19825,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 11 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 11 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -19947,7 +19948,7 @@
       "id": "mod_megakit_civic_floor_inset",
       "category": "civic",
       "role": "slab",
-      "note": "losa rehundida para terraza/balc\u00f3n",
+      "note": "losa rehundida para terraza/balcón",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_Inset.gltf",
       "license": "CC0-1.0",
@@ -19967,7 +19968,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 2 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 2 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -20108,7 +20109,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 63 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 63 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2.904,
@@ -20245,7 +20246,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 56 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 56 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.6,
@@ -20380,7 +20381,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 24 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 24 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2.4,
@@ -20515,7 +20516,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 34 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 34 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.2,
@@ -20650,7 +20651,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 80 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 80 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4.16,
@@ -20785,7 +20786,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 93 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 93 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4.16,
@@ -20920,7 +20921,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 16 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 16 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.2,
@@ -21057,7 +21058,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 23 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 23 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.2,
@@ -21191,7 +21192,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 31 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 31 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.2,
@@ -21325,7 +21326,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 46 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 46 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.7,
@@ -21459,7 +21460,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 85 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 85 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.6,
@@ -21593,7 +21594,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 6 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 6 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4,
@@ -21727,7 +21728,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 6 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 6 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4,
@@ -21861,7 +21862,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 6 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 6 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4,
@@ -21995,7 +21996,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 6 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 6 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4,
@@ -22129,7 +22130,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 104 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 104 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 4,
@@ -22263,7 +22264,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 19 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 19 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.4,
@@ -22397,7 +22398,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 19 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 19 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.56,
@@ -22531,7 +22532,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 18 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 18 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.6,
@@ -22665,7 +22666,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 18 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 18 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 1.077,
@@ -22799,7 +22800,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los tri\u00e1ngulos, 21 c\u00e1scaras): usable como m\u00f3dulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 21 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 0.542,
@@ -22906,6 +22907,134 @@
         "fileTriangles": 180,
         "fileHierarchy": [
           "firehydrant:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_original_civic_pediment",
+      "category": "facade",
+      "role": "pediment",
+      "note": "frontón triangular cívico original (geometría propia)",
+      "sourceId": "src_original_civic_pediment",
+      "sourcePath": "blender_artist/sources/original/civic_pediment.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "CivicPediment"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "geometría original: frontón triangular cívico, una sola unidad"
+      },
+      "nominalBounds": {
+        "widthMeters": 8,
+        "depthMeters": 0.4,
+        "heightMeters": 2
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "CivicPediment",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -4,
+            "max": 4
+          },
+          "y": {
+            "min": -0.2,
+            "max": 0.2
+          },
+          "z": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -4,
+            "max": 4
+          },
+          "y": {
+            "min": -0.2,
+            "max": 0.2
+          },
+          "z": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 30,
+        "triangles": 16,
+        "shells": 7,
+        "materials": [],
+        "images": [],
+        "selectedObjects": [
+          "CivicPediment"
+        ],
+        "baseColorChains": []
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 8,
+          "depth": 0.4,
+          "height": 2,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 16,
+        "fileHierarchy": [
+          "CivicPediment:MESH"
         ]
       }
     }

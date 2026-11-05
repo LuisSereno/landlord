@@ -89264,7 +89264,7 @@
     },
     {
       "sourceId": "src_original_civic_pediment",
-      "path": "blender_artist/sources/original/civic_pediment.blend",
+      "path": "blender_artist/sources/original/civic_pediment.glb",
       "license": "original",
       "unitScale": 1,
       "exists": true,
@@ -89295,8 +89295,8 @@
         },
         "worldMinZ": 0,
         "worldCenterXY": [
-          0,
-          0
+          4.0,
+          -0.2
         ],
         "sourceBounds": {
           "width": 8.0,
@@ -89313,18 +89313,18 @@
       },
       "separation": {
         "unitKind": "objects",
-        "count": 1,
+        "unitCount": 1,
         "unitNames": [
           "CivicPediment"
         ],
         "dominantShare": 1.0,
         "shells": 1,
         "pieceCandidates": 0,
-        "largestPieceTriangleShare": 0,
+        "largestPieceTriangleShare": 1.0,
         "topPieces": []
       },
       "classification": "whole_asset_only",
-      "classificationReason": "geometr\u00eda original creada para el proyecto: front\u00f3n triangular c\u00edvico",
+      "classificationReason": "geometr\u00eda original: front\u00f3n triangular c\u00edvico, una sola unidad",
       "pivot": {
         "object": "CivicPediment",
         "origin": [

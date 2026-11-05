@@ -66,25 +66,25 @@
           "src": "/assets/runtime/blender/bld_shopfront-complete.png",
           "width": 185,
           "height": 205,
-          "sha256": "88d817a00b318cd41a8540c16912992f8c678ed88db5f42fd7385bf553ddcd87"
+          "sha256": "a9183c33db5f76bef4f3926c0aee299ac451cae6f1781845d6144abd1d9d6a54"
         },
         "construction": {
           "src": "/assets/runtime/blender/bld_shopfront-construction.png",
           "width": 185,
           "height": 205,
-          "sha256": "88d817a00b318cd41a8540c16912992f8c678ed88db5f42fd7385bf553ddcd87"
+          "sha256": "a9183c33db5f76bef4f3926c0aee299ac451cae6f1781845d6144abd1d9d6a54"
         },
         "damaged": {
           "src": "/assets/runtime/blender/bld_shopfront-damaged.png",
           "width": 185,
           "height": 205,
-          "sha256": "88d817a00b318cd41a8540c16912992f8c678ed88db5f42fd7385bf553ddcd87"
+          "sha256": "a9183c33db5f76bef4f3926c0aee299ac451cae6f1781845d6144abd1d9d6a54"
         },
         "burning": {
           "src": "/assets/runtime/blender/bld_shopfront-burning.png",
           "width": 185,
           "height": 205,
-          "sha256": "88d817a00b318cd41a8540c16912992f8c678ed88db5f42fd7385bf553ddcd87"
+          "sha256": "a9183c33db5f76bef4f3926c0aee299ac451cae6f1781845d6144abd1d9d6a54"
         }
       },
       "pixelsPerMeter": 30.11764705882353,
@@ -110,25 +110,25 @@
           "src": "/assets/runtime/blender/bld_commercial_b-complete.png",
           "width": 188,
           "height": 204,
-          "sha256": "59402a62da2c1284e582e14de1c51b167b93d1a3a894e1f3c428e6e533fa2815"
+          "sha256": "423c0b265461ed51876ae7cc22da7a054074e3667bc91228da0b2919beae5751"
         },
         "construction": {
           "src": "/assets/runtime/blender/bld_commercial_b-construction.png",
           "width": 188,
           "height": 204,
-          "sha256": "59402a62da2c1284e582e14de1c51b167b93d1a3a894e1f3c428e6e533fa2815"
+          "sha256": "423c0b265461ed51876ae7cc22da7a054074e3667bc91228da0b2919beae5751"
         },
         "damaged": {
           "src": "/assets/runtime/blender/bld_commercial_b-damaged.png",
           "width": 188,
           "height": 204,
-          "sha256": "59402a62da2c1284e582e14de1c51b167b93d1a3a894e1f3c428e6e533fa2815"
+          "sha256": "423c0b265461ed51876ae7cc22da7a054074e3667bc91228da0b2919beae5751"
         },
         "burning": {
           "src": "/assets/runtime/blender/bld_commercial_b-burning.png",
           "width": 188,
           "height": 204,
-          "sha256": "59402a62da2c1284e582e14de1c51b167b93d1a3a894e1f3c428e6e533fa2815"
+          "sha256": "423c0b265461ed51876ae7cc22da7a054074e3667bc91228da0b2919beae5751"
         }
       },
       "pixelsPerMeter": 30.11764705882353,
@@ -154,25 +154,25 @@
           "src": "/assets/runtime/blender/bld_residential_a-complete.png",
           "width": 190,
           "height": 142,
-          "sha256": "ce5ec7e1618d2a16a862e7c2301d46f9483af0186ce546cdd8e41b0cd6118b58"
+          "sha256": "84a20e0d813509b8a7682fd67ebad9f1ab356b7f5407f6d508c4ea2f83a0e07d"
         },
         "construction": {
           "src": "/assets/runtime/blender/bld_residential_a-construction.png",
           "width": 190,
           "height": 142,
-          "sha256": "ce5ec7e1618d2a16a862e7c2301d46f9483af0186ce546cdd8e41b0cd6118b58"
+          "sha256": "84a20e0d813509b8a7682fd67ebad9f1ab356b7f5407f6d508c4ea2f83a0e07d"
         },
         "damaged": {
           "src": "/assets/runtime/blender/bld_residential_a-damaged.png",
           "width": 190,
           "height": 142,
-          "sha256": "ce5ec7e1618d2a16a862e7c2301d46f9483af0186ce546cdd8e41b0cd6118b58"
+          "sha256": "84a20e0d813509b8a7682fd67ebad9f1ab356b7f5407f6d508c4ea2f83a0e07d"
         },
         "burning": {
           "src": "/assets/runtime/blender/bld_residential_a-burning.png",
           "width": 190,
           "height": 142,
-          "sha256": "ce5ec7e1618d2a16a862e7c2301d46f9483af0186ce546cdd8e41b0cd6118b58"
+          "sha256": "84a20e0d813509b8a7682fd67ebad9f1ab356b7f5407f6d508c4ea2f83a0e07d"
         }
       },
       "pixelsPerMeter": 30.11764705882353,
@@ -198,25 +198,25 @@
           "src": "/assets/runtime/blender/bld_commercial_c-complete.png",
           "width": 162,
           "height": 163,
-          "sha256": "be328aa5e9dcb617b022d62b4ab1f35705686d025d859256e342626320f0c368"
+          "sha256": "3a66b1274af9e26921019230d4a68ec658fe33c11201f57450d3b11592d9f46a"
         },
         "construction": {
           "src": "/assets/runtime/blender/bld_commercial_c-construction.png",
           "width": 162,
           "height": 163,
-          "sha256": "be328aa5e9dcb617b022d62b4ab1f35705686d025d859256e342626320f0c368"
+          "sha256": "3a66b1274af9e26921019230d4a68ec658fe33c11201f57450d3b11592d9f46a"
         },
         "damaged": {
           "src": "/assets/runtime/blender/bld_commercial_c-damaged.png",
           "width": 162,
           "height": 163,
-          "sha256": "be328aa5e9dcb617b022d62b4ab1f35705686d025d859256e342626320f0c368"
+          "sha256": "3a66b1274af9e26921019230d4a68ec658fe33c11201f57450d3b11592d9f46a"
         },
         "burning": {
           "src": "/assets/runtime/blender/bld_commercial_c-burning.png",
           "width": 162,
           "height": 163,
-          "sha256": "be328aa5e9dcb617b022d62b4ab1f35705686d025d859256e342626320f0c368"
+          "sha256": "3a66b1274af9e26921019230d4a68ec658fe33c11201f57450d3b11592d9f46a"
         }
       },
       "pixelsPerMeter": 30.11764705882353,
@@ -242,25 +242,25 @@
           "src": "/assets/runtime/blender/bld_residential_b-complete.png",
           "width": 230,
           "height": 174,
-          "sha256": "845b02a3a93834888c78ff399cf47c59ea26728d09b16f4c294f318e9bc3a113"
+          "sha256": "dffd334321dc8cdbf2d04f62aaeffa37ee8948a72dc9ba66ef94b676c6ec82a2"
         },
         "construction": {
           "src": "/assets/runtime/blender/bld_residential_b-construction.png",
           "width": 230,
           "height": 174,
-          "sha256": "845b02a3a93834888c78ff399cf47c59ea26728d09b16f4c294f318e9bc3a113"
+          "sha256": "dffd334321dc8cdbf2d04f62aaeffa37ee8948a72dc9ba66ef94b676c6ec82a2"
         },
         "damaged": {
           "src": "/assets/runtime/blender/bld_residential_b-damaged.png",
           "width": 230,
           "height": 174,
-          "sha256": "845b02a3a93834888c78ff399cf47c59ea26728d09b16f4c294f318e9bc3a113"
+          "sha256": "dffd334321dc8cdbf2d04f62aaeffa37ee8948a72dc9ba66ef94b676c6ec82a2"
         },
         "burning": {
           "src": "/assets/runtime/blender/bld_residential_b-burning.png",
           "width": 230,
           "height": 174,
-          "sha256": "845b02a3a93834888c78ff399cf47c59ea26728d09b16f4c294f318e9bc3a113"
+          "sha256": "dffd334321dc8cdbf2d04f62aaeffa37ee8948a72dc9ba66ef94b676c6ec82a2"
         }
       },
       "pixelsPerMeter": 30.11764705882353,
@@ -286,25 +286,25 @@
           "src": "/assets/runtime/blender/bld_residential_c-complete.png",
           "width": 187,
           "height": 163,
-          "sha256": "31f9a6076dd1ab3310d7bfeeaa8b23a2c84513f7e86700e9c303cc6bd1b6cfb2"
+          "sha256": "597a21baf3b09a18e477d22751088c2172f5ef926b10fdfc466164b59c3fe66f"
         },
         "construction": {
           "src": "/assets/runtime/blender/bld_residential_c-construction.png",
           "width": 187,
           "height": 163,
-          "sha256": "31f9a6076dd1ab3310d7bfeeaa8b23a2c84513f7e86700e9c303cc6bd1b6cfb2"
+          "sha256": "597a21baf3b09a18e477d22751088c2172f5ef926b10fdfc466164b59c3fe66f"
         },
         "damaged": {
           "src": "/assets/runtime/blender/bld_residential_c-damaged.png",
           "width": 187,
           "height": 163,
-          "sha256": "31f9a6076dd1ab3310d7bfeeaa8b23a2c84513f7e86700e9c303cc6bd1b6cfb2"
+          "sha256": "597a21baf3b09a18e477d22751088c2172f5ef926b10fdfc466164b59c3fe66f"
         },
         "burning": {
           "src": "/assets/runtime/blender/bld_residential_c-burning.png",
           "width": 187,
           "height": 163,
-          "sha256": "31f9a6076dd1ab3310d7bfeeaa8b23a2c84513f7e86700e9c303cc6bd1b6cfb2"
+          "sha256": "597a21baf3b09a18e477d22751088c2172f5ef926b10fdfc466164b59c3fe66f"
         }
       },
       "pixelsPerMeter": 30.11764705882353,
@@ -890,6 +890,102 @@
         "sourceId": "src_kenney_city_roads"
       },
       "pixelsPerMeter": 85.33333333333333
+    },
+    "prp_monument_obelisk": {
+      "id": "prp_monument_obelisk",
+      "name": "prp_monument_obelisk",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.6968,
+        "y": 0.8831
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_monument_obelisk.png",
+        "width": 94,
+        "height": 121,
+        "sha256": "d6177c43dd0773f35b39f14cfc19f988abe1a9d513ef7756a59b1d5f3598cf81"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 32
+    },
+    "prp_planter_urn": {
+      "id": "prp_planter_urn",
+      "name": "prp_planter_urn",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.7614
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_planter_urn.png",
+        "width": 187,
+        "height": 139,
+        "sha256": "a6eca9f334c26bcd1d6965684eca99994ca12af658749107fded6df99910d1e1"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 85.33333333333333
+    },
+    "prp_bollard": {
+      "id": "prp_bollard",
+      "name": "prp_bollard",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.8056,
+        "y": 0.9368
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_bollard.png",
+        "width": 54,
+        "height": 72,
+        "sha256": "3ec0517b173ed9dededfc23b5274d1c6c07302ea9cbf3c22dde0eb0d70fc584a"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_quaternius_downtown_city_megakit",
+        "sourceId": "src_quaternius_downtown_city_megakit"
+      },
+      "pixelsPerMeter": 85.33333333333333
+    },
+    "prp_bush": {
+      "id": "prp_bush",
+      "name": "prp_bush",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5517,
+        "y": 0.9967
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_bush.png",
+        "width": 87,
+        "height": 74,
+        "sha256": "c89fa74c2f90f4c8b7904d5beeec336d2ac18a347ca845674e164ec4d7611c1c"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 64
     }
   }
 }

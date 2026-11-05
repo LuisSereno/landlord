@@ -87,13 +87,7 @@ export type GameplayParkedVehicle = {
 
 /** Roles de mobiliario de espacio público (V.g civic-core). Espejo de public_space_dresser.py. */
 export type GameplayPublicSpaceFurnitureKind =
-  | "monument"
-  | "street_lamp"
-  | "bench"
-  | "planter"
-  | "bollard"
-  | "tree"
-  | "foliage";
+  "monument" | "street_lamp" | "bench" | "planter" | "bollard" | "tree" | "foliage";
 
 export type GameplayPublicSpaceFurniture = {
   id: string;
@@ -119,6 +113,8 @@ export type GameplayVisualModel = {
    * GameState, no lo tocan tick ni economía, sólo la geometría espacial (publicSpaces + facilities).
    */
   publicSpaceFurniture: GameplayPublicSpaceFurniture[];
+  /** Dressing del espacio libre de cada parcela por tipo de solar (V.h.5). Presentacional. */
+  parcelDressing: GameplayParcelDressing[];
   /** Metadatos presentacionales derivados de `projection.map.roads.cells`; no son datos de dominio. */
   roadVisuals: readonly GameplayRoadVisual[];
 };
@@ -629,25 +625,106 @@ type PublicSpaceSlot = {
 
 const PUBLIC_SPACE_VOCAB: Record<string, readonly PublicSpaceSlot[]> = {
   plaza: [
-    { role: "monument", strategy: "center", assets: ["prp_monument_obelisk"], scale: 1.0, salt: 0x1a01 },
-    { role: "street_lamp", strategy: "perimeter", assets: ["prp_street_light"], everyCells: 3, scale: 1.0, salt: 0x1a02 },
-    { role: "bench", strategy: "inner_ring", assets: ["prp_bench"], insetCells: 1, count: 4, scale: 0.9, salt: 0x1a03 },
+    {
+      role: "monument",
+      strategy: "center",
+      assets: ["prp_monument_obelisk"],
+      scale: 1.0,
+      salt: 0x1a01,
+    },
+    {
+      role: "street_lamp",
+      strategy: "perimeter",
+      assets: ["prp_street_light"],
+      everyCells: 3,
+      scale: 1.0,
+      salt: 0x1a02,
+    },
+    {
+      role: "bench",
+      strategy: "inner_ring",
+      assets: ["prp_bench"],
+      insetCells: 1,
+      count: 4,
+      scale: 0.9,
+      salt: 0x1a03,
+    },
     { role: "planter", strategy: "corners", assets: ["prp_planter_urn"], scale: 0.9, salt: 0x1a04 },
-    { role: "bollard", strategy: "perimeter", assets: ["prp_bollard"], everyCells: 5, scale: 0.8, salt: 0x1a05 },
+    {
+      role: "bollard",
+      strategy: "perimeter",
+      assets: ["prp_bollard"],
+      everyCells: 5,
+      scale: 0.8,
+      salt: 0x1a05,
+    },
   ],
   civic_courtyard: [
     { role: "planter", strategy: "corners", assets: ["prp_planter_urn"], scale: 0.9, salt: 0x1c01 },
-    { role: "street_lamp", strategy: "perimeter", assets: ["prp_street_light"], everyCells: 4, scale: 1.0, salt: 0x1c02 },
+    {
+      role: "street_lamp",
+      strategy: "perimeter",
+      assets: ["prp_street_light"],
+      everyCells: 4,
+      scale: 1.0,
+      salt: 0x1c02,
+    },
   ],
   park: [
-    { role: "tree", strategy: "scatter", assets: ["prp_tree_oak", "prp_tree_pine", "prp_tree_detailed"], density: 0.18, minSpacingCells: 2, scale: 1.0, salt: 0x1b01 },
-    { role: "foliage", strategy: "scatter", assets: ["prp_bush"], density: 0.06, minSpacingCells: 2, scale: 0.9, salt: 0x1b02 },
-    { role: "bench", strategy: "perimeter", assets: ["prp_bench"], everyCells: 6, scale: 0.9, salt: 0x1b03 },
-    { role: "street_lamp", strategy: "perimeter", assets: ["prp_street_light"], everyCells: 9, scale: 1.0, salt: 0x1b04 },
+    {
+      role: "tree",
+      strategy: "scatter",
+      assets: ["prp_tree_oak", "prp_tree_pine", "prp_tree_detailed"],
+      density: 0.18,
+      minSpacingCells: 2,
+      scale: 1.0,
+      salt: 0x1b01,
+    },
+    {
+      role: "foliage",
+      strategy: "scatter",
+      assets: ["prp_bush"],
+      density: 0.06,
+      minSpacingCells: 2,
+      scale: 0.9,
+      salt: 0x1b02,
+    },
+    {
+      role: "bench",
+      strategy: "perimeter",
+      assets: ["prp_bench"],
+      everyCells: 6,
+      scale: 0.9,
+      salt: 0x1b03,
+    },
+    {
+      role: "street_lamp",
+      strategy: "perimeter",
+      assets: ["prp_street_light"],
+      everyCells: 9,
+      scale: 1.0,
+      salt: 0x1b04,
+    },
   ],
   pocket_park: [
-    { role: "tree", strategy: "scatter", assets: ["prp_tree_pine", "prp_tree_detailed"], density: 0.22, minSpacingCells: 2, scale: 1.0, salt: 0x1d01 },
-    { role: "foliage", strategy: "scatter", assets: ["prp_bush"], density: 0.1, minSpacingCells: 1, scale: 0.9, salt: 0x1d02 },
+    {
+      role: "tree",
+      strategy: "scatter",
+      assets: ["prp_tree_pine", "prp_tree_detailed"],
+      density: 0.22,
+      minSpacingCells: 2,
+      scale: 1.0,
+      salt: 0x1d01,
+    },
+    {
+      role: "foliage",
+      strategy: "scatter",
+      assets: ["prp_bush"],
+      density: 0.1,
+      minSpacingCells: 1,
+      scale: 0.9,
+      salt: 0x1d02,
+    },
     { role: "bench", strategy: "center", assets: ["prp_bench"], scale: 0.9, salt: 0x1d03 },
   ],
 };
@@ -724,7 +801,11 @@ function civicAxis(
  */
 export function planGameplayPublicSpaceFurniture(
   publicSpaces: readonly { id: string; kind: string; cells: readonly GridCell[] }[],
-  facilities: readonly { kind: string; buildingIds: readonly string[]; publicSpaceIds: readonly string[] }[],
+  facilities: readonly {
+    kind: string;
+    buildingIds: readonly string[];
+    publicSpaceIds: readonly string[];
+  }[],
   buildings: readonly { id: string; footprintCells: readonly GridCell[] }[],
   roadCellKeys: ReadonlySet<string>,
   mapWidth: number,
@@ -767,7 +848,9 @@ export function planGameplayPublicSpaceFurniture(
       if (slot.strategy === "center") {
         targets = [monumentCell];
       } else if (slot.strategy === "perimeter") {
-        const perim = space.cells.filter((cell) => isPerimeter(cell, set)).sort((a, b) => a.y - b.y || a.x - b.x);
+        const perim = space.cells
+          .filter((cell) => isPerimeter(cell, set))
+          .sort((a, b) => a.y - b.y || a.x - b.x);
         targets = perim.filter((_c, index) => index % (slot.everyCells ?? 3) === 0);
       } else if (slot.strategy === "corners") {
         const corners = [
@@ -784,7 +867,12 @@ export function planGameplayPublicSpaceFurniture(
         const ring = space.cells
           .filter(
             (cell) =>
-              Math.min(cell.x - bounds.minX, cell.y - bounds.minY, bounds.maxX - cell.x, bounds.maxY - cell.y) <= inset,
+              Math.min(
+                cell.x - bounds.minX,
+                cell.y - bounds.minY,
+                bounds.maxX - cell.x,
+                bounds.maxY - cell.y,
+              ) <= inset,
           )
           .sort((a, b) => a.y - b.y || a.x - b.x);
         targets = ring.slice(0, slot.count ?? 4);
@@ -796,7 +884,11 @@ export function planGameplayPublicSpaceFurniture(
         const chosen: GridCell[] = [];
         for (const cell of interior) {
           if (chosen.length >= target) break;
-          if (chosen.every((c) => Math.abs(c.x - cell.x) + Math.abs(c.y - cell.y) >= (slot.minSpacingCells ?? 2))) {
+          if (
+            chosen.every(
+              (c) => Math.abs(c.x - cell.x) + Math.abs(c.y - cell.y) >= (slot.minSpacingCells ?? 2),
+            )
+          ) {
             chosen.push(cell);
           }
         }
@@ -826,6 +918,176 @@ export function planGameplayPublicSpaceFurniture(
     }
   }
   return furniture;
+}
+
+/** Tipo de solar para el dressing de parcela (V.h.5): deriva de zoning/disposición/estado del edificio. */
+export type GameplayLotType =
+  "residential" | "commercial" | "industrial" | "municipal" | "construction" | "vacant" | "ruin";
+
+export type GameplayParcelDressing = {
+  id: string;
+  lotType: GameplayLotType;
+  asset: string;
+  parcelId: string;
+  cell: GridCell;
+  scale: number;
+};
+
+const RESIDENTIAL_TYPES = new Set([
+  "courtyard_home",
+  "row_house",
+  "apartment_block",
+  "mixed_tenement",
+]);
+const INDUSTRIAL_TYPES_SET = new Set([
+  "workshop",
+  "warehouse",
+  "cement_plant",
+  "brickworks",
+  "steelworks",
+]);
+const MUNICIPAL_TYPES = new Set([
+  "town_hall",
+  "school_block",
+  "clinic",
+  "police_station",
+  "fire_station",
+  "market_hall",
+]);
+
+function lotTypeFor(
+  parcel: { zoning: string; disposition?: string; buildingId: string | null },
+  building: { type: string; state: string } | undefined,
+  isConstruction: boolean,
+): GameplayLotType {
+  if (isConstruction) return "construction";
+  if (building) {
+    if (building.state === "ruin" || building.state === "collapse_pending") return "ruin";
+    if (RESIDENTIAL_TYPES.has(building.type)) return "residential";
+    if (INDUSTRIAL_TYPES_SET.has(building.type)) return "industrial";
+    if (MUNICIPAL_TYPES.has(building.type)) return "municipal";
+    return "commercial";
+  }
+  if (parcel.disposition === "public" || parcel.disposition === "infrastructure")
+    return "municipal";
+  return "vacant";
+}
+
+/** Props por tipo de solar: qué se coloca en el espacio libre de la parcela. Sprites existentes. */
+const LOT_PROPS: Record<
+  GameplayLotType,
+  readonly { asset: string; weight: number; scale: number }[]
+> = {
+  residential: [
+    { asset: "prp_tree_oak", weight: 40, scale: 0.9 },
+    { asset: "prp_bush", weight: 30, scale: 0.8 },
+    { asset: "prp_trash_can", weight: 20, scale: 0.8 },
+    { asset: "prp_bench", weight: 10, scale: 0.8 },
+  ],
+  commercial: [
+    { asset: "prp_trash_can", weight: 40, scale: 0.8 },
+    { asset: "prp_bench", weight: 30, scale: 0.8 },
+    { asset: "prp_street_light", weight: 30, scale: 0.9 },
+  ],
+  industrial: [
+    { asset: "prp_construction_barrier", weight: 45, scale: 0.9 },
+    { asset: "prp_trash_can", weight: 30, scale: 0.85 },
+    { asset: "prp_construction_cone", weight: 25, scale: 0.8 },
+  ],
+  municipal: [
+    { asset: "prp_planter_urn", weight: 40, scale: 0.85 },
+    { asset: "prp_bollard", weight: 30, scale: 0.8 },
+    { asset: "prp_street_light", weight: 30, scale: 0.9 },
+  ],
+  construction: [
+    { asset: "prp_construction_barrier", weight: 50, scale: 1.0 },
+    { asset: "prp_construction_cone", weight: 50, scale: 0.9 },
+  ],
+  vacant: [
+    { asset: "prp_bush", weight: 60, scale: 0.8 },
+    { asset: "prp_construction_cone", weight: 40, scale: 0.7 },
+  ],
+  ruin: [
+    { asset: "prp_construction_cone", weight: 50, scale: 0.8 },
+    { asset: "prp_bush", weight: 50, scale: 0.85 },
+  ],
+};
+
+/**
+ * V.h.5 parcel/lot dressing: viste el espacio NO ocupado dentro de cada parcela según su tipo de
+ * solar. Determinista por spatialHash(celda, salt+lotType); no toca GameState ni economía. Los props
+ * nunca pisan la huella del edificio ni una carretera ni el acceso (se dejan libres las celdas de
+ * fachada frontal). Capa presentacional pura.
+ */
+export function planGameplayParcelDressing(
+  parcels: readonly {
+    id: string;
+    cell?: GridCell;
+    cells?: readonly GridCell[];
+    zoning: string;
+    disposition?: string;
+    buildingId: string | null;
+  }[],
+  buildings: readonly {
+    id: string;
+    type: string;
+    state: string;
+    footprintCells: readonly GridCell[];
+  }[],
+  constructionParcelIds: ReadonlySet<string>,
+  roadCellKeys: ReadonlySet<string>,
+  mapWidth: number,
+  mapHeight: number,
+): GameplayParcelDressing[] {
+  const buildingById = new Map(buildings.map((b) => [b.id, b]));
+  const out: GameplayParcelDressing[] = [];
+  for (const parcel of parcels) {
+    const anchor = parcel.cell;
+    const cells = parcel.cells?.length ? parcel.cells : anchor ? [anchor] : [];
+    if (cells.length === 0) continue;
+    const building = parcel.buildingId ? buildingById.get(parcel.buildingId) : undefined;
+    const lotType = lotTypeFor(parcel, building, constructionParcelIds.has(parcel.id));
+    const footprint = new Set((building?.footprintCells ?? []).map(cellKey));
+    // Celdas libres: dentro de la parcela, sin edificio, sin carretera.
+    const free = cells.filter(
+      (cell) => !footprint.has(cellKey(cell)) && !roadCellKeys.has(cellKey(cell)),
+    );
+    if (free.length === 0) continue;
+    // Budget de props por parcela: escala con el tamaño pero acotado (no saturar).
+    const budget = Math.min(3, Math.max(1, Math.floor(free.length / 6)));
+    const props = LOT_PROPS[lotType];
+    const used = new Set<string>();
+    for (let i = 0; i < budget; i += 1) {
+      const salt = 0x5001 + i * 0x97;
+      // Elige una celda libre determinista y un prop por peso.
+      const candidates = free.filter((c) => !used.has(cellKey(c)));
+      if (candidates.length === 0) break;
+      const pick =
+        candidates[spatialHash(parcel.id.length, i, salt) % candidates.length] ?? candidates[0]!;
+      // Refina con hash espacial para que la celda varíe por coordenada, no sólo por índice.
+      const cell = candidates[spatialHash(pick.x, pick.y, salt) % candidates.length] ?? pick;
+      used.add(cellKey(cell));
+      const totalWeight = props.reduce((sum, p) => sum + p.weight, 0);
+      let roll = spatialHash(cell.x, cell.y, salt + 0x11) % totalWeight;
+      let chosen = props[0]!;
+      for (const prop of props) {
+        if (roll < prop.weight) {
+          chosen = prop;
+          break;
+        }
+        roll -= prop.weight;
+      }
+      out.push({
+        id: `lotd:${parcel.id}:${lotType}:${cellKey(cell)}:${i}`,
+        lotType,
+        asset: chosen.asset,
+        parcelId: parcel.id,
+        cell: { ...cell },
+        scale: chosen.scale,
+      });
+    }
+  }
+  return out;
 }
 
 function nearestSpaceCell(cells: readonly GridCell[], target: GridCell): GridCell | null {
@@ -1171,6 +1433,19 @@ export function buildGameplayVisualModel(
     mapWidth,
     mapHeight,
   );
+  const parcelDressing = planGameplayParcelDressing(
+    parcels,
+    (economy?.buildings ?? []).map((building) => ({
+      id: building.id,
+      type: building.type,
+      state: building.state,
+      footprintCells: building.footprintCells,
+    })),
+    constructionParcelIds,
+    roadCellKeys,
+    mapWidth,
+    mapHeight,
+  );
 
   return {
     groundPlan,
@@ -1180,6 +1455,7 @@ export function buildGameplayVisualModel(
     streetFurniture,
     parkedVehicles,
     publicSpaceFurniture,
+    parcelDressing,
     roadVisuals,
   };
 }

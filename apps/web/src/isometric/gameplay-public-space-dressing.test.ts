@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { planGameplayPublicSpaceFurniture } from "./gameplay-visual-adapter";
+import {
+  planGameplayPublicSpaceFurniture,
+  planGameplayParcelDressing,
+} from "./gameplay-visual-adapter";
 
 /**
  * V.g civic-core P8: invariantes del dressing de espacios públicos. Se prueba la función pura
@@ -111,5 +114,73 @@ describe("V.g civic-core P8: invariantes de public-space dressing", () => {
       const space = prop.publicSpaceId === PLAZA.id ? PLAZA : PARK;
       expect(inCells(prop.cell, space.cells)).toBe(true);
     }
+  });
+});
+
+describe("V.h.5 parcel/lot dressing: invariantes", () => {
+  const PARCEL_CELLS = rectCells(10, 10, 6, 6);
+  const BUILDING = {
+    id: "b1",
+    type: "courtyard_home",
+    state: "operational",
+    footprintCells: rectCells(11, 11, 3, 3),
+  };
+  const PARCELS = [
+    {
+      id: "p1",
+      cell: { x: 10, y: 10 },
+      cells: PARCEL_CELLS,
+      zoning: "residential",
+      buildingId: "b1",
+    },
+  ];
+
+  function runLots(roadCells: readonly string[] = []) {
+    return planGameplayParcelDressing(PARCELS, [BUILDING], new Set(), new Set(roadCells), 64, 64);
+  }
+
+  it("parcel dressing es determinista (mismo estado → mismo dressing)", () => {
+    expect(runLots()).toEqual(runLots());
+  });
+
+  it("ningún prop pisa la huella del edificio", () => {
+    for (const prop of runLots()) {
+      expect(inCells(prop.cell, BUILDING.footprintCells)).toBe(false);
+    }
+  });
+
+  it("ningún prop pisa una carretera", () => {
+    const roadCells = rectCells(10, 12, 6, 1).map((c) => `${c.x}:${c.y}`);
+    for (const prop of runLots(roadCells)) {
+      expect(roadCells).not.toContain(`${prop.cell.x}:${prop.cell.y}`);
+    }
+  });
+
+  it("los props quedan dentro de la parcela y con IDs únicos", () => {
+    const props = runLots();
+    const ids = props.map((p) => p.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const prop of props) expect(inCells(prop.cell, PARCEL_CELLS)).toBe(true);
+  });
+
+  it("un solar en obra recibe vocabulary de construcción, no residencial", () => {
+    const construction = planGameplayParcelDressing(
+      [
+        {
+          id: "p1",
+          cell: { x: 10, y: 10 },
+          cells: PARCEL_CELLS,
+          zoning: "residential",
+          buildingId: null,
+        },
+      ],
+      [],
+      new Set(["p1"]),
+      new Set(),
+      64,
+      64,
+    );
+    expect(construction.every((p) => p.lotType === "construction")).toBe(true);
+    expect(construction.some((p) => p.asset.startsWith("prp_construction"))).toBe(true);
   });
 });

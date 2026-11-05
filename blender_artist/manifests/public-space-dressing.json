@@ -154,6 +154,31 @@
           "pool": ["mod_roads_civic_lamp_square"]
         }
       ]
+    },
+    "schoolyard": {
+      "label": "patio escolar: arbolado perimetral, bancos y algo de juego, sin monumento",
+      "slots": [
+        {
+          "id": "schoolyard_trees",
+          "role": "tree",
+          "strategy": "perimeter",
+          "params": { "everyCells": 3 },
+          "pool": ["mod_nature_tree_small", "mod_nature_tree_cone"]
+        },
+        {
+          "id": "schoolyard_benches",
+          "role": "bench",
+          "strategy": "inner_ring",
+          "params": { "insetCells": 1, "count": 3 },
+          "pool": ["mod_kaykit_civic_bench"]
+        },
+        {
+          "id": "schoolyard_bushes",
+          "role": "foliage",
+          "strategy": "corners",
+          "pool": ["mod_nature_bush"]
+        }
+      ]
     }
   }
 }

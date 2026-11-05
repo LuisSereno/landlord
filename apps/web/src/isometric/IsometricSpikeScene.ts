@@ -319,6 +319,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private streetFurnitureSprites = new Map<string, Phaser.GameObjects.Image>();
   private parkedVehicleSprites = new Map<string, Phaser.GameObjects.Image>();
   private publicSpaceFurnitureSprites = new Map<string, Phaser.GameObjects.Image>();
+  private parcelDressingSprites = new Map<string, Phaser.GameObjects.Image>();
 
   public constructor(options: IsometricSceneOptions = {}) {
     super({ key: "IsometricSpikeScene" });
@@ -694,6 +695,31 @@ export class IsometricSpikeScene extends Phaser.Scene {
       sprite.destroy();
       this.publicSpaceFurnitureSprites.delete(id);
     }
+    const seenParcelDressing = new Set<string>();
+    for (const dressing of model.parcelDressing ?? []) {
+      const asset = props[dressing.asset];
+      if (!asset) continue;
+      const frame = this.sceneryFrame(asset, 45);
+      const center = gridToScreen(dressing.cell, this.layout);
+      const key = `blender-sprite-${dressing.asset}${frame.keySuffix}`;
+      if (!this.textures.exists(key)) continue;
+      const image =
+        this.parcelDressingSprites.get(dressing.id) ?? this.add.image(center.x, center.y, key);
+      this.parcelDressingSprites.set(dressing.id, image);
+      image
+        .setTexture(key)
+        .setPosition(center.x, center.y)
+        .setOrigin(frame.pivot.x, frame.pivot.y)
+        .setScale(spriteScaleFor(frame, this.layout.tileWidth) * dressing.scale)
+        .setDepth(depthForAsset(dressing.cell, asset.footprint));
+      image.setVisible(this.isInViewport(image.x, image.y, this.cameras.main.worldView, 96));
+      seenParcelDressing.add(dressing.id);
+    }
+    for (const [id, sprite] of this.parcelDressingSprites) {
+      if (seenParcelDressing.has(id)) continue;
+      sprite.destroy();
+      this.parcelDressingSprites.delete(id);
+    }
     const vehicles = ASSETS_BLENDER.vehicles ?? {};
     const seenVehicles = new Set<string>();
     for (const vehicle of model.parkedVehicles) {
@@ -766,6 +792,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       ...this.decorSprites,
       ...this.streetFurnitureSprites.values(),
       ...this.publicSpaceFurnitureSprites.values(),
+      ...this.parcelDressingSprites.values(),
     ]) {
       sprite.setVisible(this.isInViewport(sprite.x, sprite.y, view, 96));
     }

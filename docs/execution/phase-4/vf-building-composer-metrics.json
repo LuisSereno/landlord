@@ -1,13 +1,13 @@
 {
  "schemaVersion": 1,
- "generatedAt": "2026-11-04T20:24:06.170Z",
+ "generatedAt": "2026-11-05T07:47:46.883Z",
  "composerVersion": "vf-3",
  "styleProfileId": "graphic_civic_buildings_v1",
- "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/building-catalog-vg/town-hall-spike",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/building-catalog-vg/town-hall-spike-v2",
  "requested": 3,
  "rendered": 3,
- "totalGenerationMs": 245083,
- "blenderPeakRssMb": 6123.2,
+ "totalGenerationMs": 214908,
+ "blenderPeakRssMb": 6113.8,
  "toolchain": {
   "blender": "multiple processes",
   "renderer": "BLENDER_EEVEE"
@@ -28,8 +28,8 @@
    "buildingType": "town_hall",
    "family": "civic_landmark",
    "variantSeed": 1000,
-   "compositionSignature": "90deccee17e9a524855022b768d04147fda76594693ef50720ee25eea9adad22",
-   "triangleCount": 23290,
+   "compositionSignature": "3d5c31ed1ea5a0565fe0ac45c69e10a7de870df96f21535661a6221387f87dda",
+   "triangleCount": 27082,
    "objectCount": 152,
    "moduleCount": 11,
    "materials": 25,
@@ -48,13 +48,13 @@
      "max": 18.6
     }
    },
-   "renderMs": 23102.56,
-   "pngBytes": 483222,
+   "renderMs": 21773.06,
+   "pngBytes": 483747,
    "pngPixels": [
     554,
     762
    ],
-   "pixelSha256": "80a4df789f38ca13b22a351516c214600ad6254c87a739fa2ec1124cea2d552d",
+   "pixelSha256": "0a83c25bdbec9b8e6c9cb767be861178acf6eef8d28f7476165838afd9495d92",
    "licensedGeometryRatio": 1,
    "pivot": {
     "x": 0.4612,
@@ -86,7 +86,7 @@
      "max": 12.1
     }
    },
-   "renderMs": 14073.09,
+   "renderMs": 13488.58,
    "pngBytes": 273909,
    "pngPixels": [
     469,
@@ -104,8 +104,8 @@
    "buildingType": "town_hall",
    "family": "civic_landmark",
    "variantSeed": 1002,
-   "compositionSignature": "528a3f450a3e97c587e495db823ff5ba5dd65dde8c04936b69c7ea3f93c35696",
-   "triangleCount": 4406,
+   "compositionSignature": "3eafdf70225646349609fb31fb8bf0f526c36054aa342ebb12579e634bc8a86c",
+   "triangleCount": 5670,
    "objectCount": 97,
    "moduleCount": 12,
    "materials": 23,
@@ -124,13 +124,13 @@
      "max": 13
     }
    },
-   "renderMs": 17502.05,
-   "pngBytes": 321375,
+   "renderMs": 16683.03,
+   "pngBytes": 321424,
    "pngPixels": [
     559,
     619
    ],
-   "pixelSha256": "db8792cdc417cd714fc4e4382178de76e0bd16dfa55e975ffb29d1e2304e5d55",
+   "pixelSha256": "006820c3c266eaf4982771f3ddedaba8316a43cb1460e54fe9f843de8b5b9e8b",
    "licensedGeometryRatio": 1,
    "pivot": {
     "x": 0.4651,

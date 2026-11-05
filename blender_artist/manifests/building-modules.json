@@ -4338,7 +4338,7 @@
     {
       "id": "mod_megakit_brick_column",
       "category": "facade",
-      "role": "pilaster",
+      "role": "column",
       "note": "columna exenta de ladrillo de 3 m de alto y 0,53×0,72 m de sección",
       "sourceId": "src_quaternius_downtown_city_megakit",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Column_RedBricks.gltf",

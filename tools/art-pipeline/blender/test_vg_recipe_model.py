@@ -116,13 +116,14 @@ def town_hall_result(seed):
 
 
 def town_hall_required_per_level():
-    """Diccionario recipe_id → (count, levels) declarado en las recipes del manifiesto."""
+    """Diccionario recipe_id → (count, levels) del primer facade requiredFeature del manifiesto."""
     recipes = grammars_raw()["grammars"]["town_hall"]["recipes"]
     table = {}
     for recipe in recipes:
         for feature in recipe["requiredFeatures"]:
             if feature["kind"] == "facade":
                 table[recipe["id"]] = (feature["count"], feature["levels"])
+                break
     return table
 
 

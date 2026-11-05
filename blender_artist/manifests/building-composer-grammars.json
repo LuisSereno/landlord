@@ -1090,6 +1090,17 @@
               "levels": 2,
               "distribution": "symmetric",
               "targetVolume": 0
+            },
+            {
+              "kind": "facade",
+              "id": "portico_frieze",
+              "role": "frieze",
+              "module": "mod_megakit_civic_frieze_ornament",
+              "side": "front",
+              "count": 6,
+              "levels": 1,
+              "distribution": "symmetric",
+              "targetVolume": 0
             }
           ]
         },
@@ -1117,6 +1128,17 @@
             "masonry_mass"
           ],
           "requiredFeatures": [
+            {
+              "kind": "facade",
+              "id": "municipal_frieze",
+              "role": "frieze",
+              "module": "mod_megakit_civic_brick_half_trim",
+              "side": "front",
+              "count": 4,
+              "levels": 1,
+              "distribution": "symmetric",
+              "targetVolume": 0
+            },
             {
               "kind": "facade",
               "id": "facade_pilasters",
@@ -1162,6 +1184,17 @@
               "side": "front",
               "count": 2,
               "levels": 2,
+              "distribution": "symmetric",
+              "targetVolume": 0
+            },
+            {
+              "kind": "facade",
+              "id": "wing_frieze",
+              "role": "frieze",
+              "module": "mod_megakit_civic_frieze_ornament",
+              "side": "front",
+              "count": 2,
+              "levels": 1,
               "distribution": "symmetric",
               "targetVolume": 0
             }
@@ -1580,6 +1613,51 @@
           "optional": true,
           "atCell": null,
           "supports": []
+        },
+        {
+          "id": "civic_monument_obelisk",
+          "label": "obelisco monumental en plaza",
+          "role": "monument",
+          "module": "mod_nature_civic_obelisk",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "civic_monument_statue",
+          "label": "estatua sobre pedestal en plaza",
+          "role": "monument",
+          "module": "mod_nature_civic_statue_column",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "civic_parapet",
+          "label": "balaustrada de coronación",
+          "role": "parapet",
+          "module": "mod_megakit_civic_balustrade",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "civic_lamps_curved",
+          "label": "farolas curvas clásicas para plaza cívica",
+          "role": "street_lamp",
+          "module": "mod_roads_civic_lamp_curved",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        },
+        {
+          "id": "civic_lamps_double",
+          "label": "farolas curvas dobles para avenida cívica",
+          "role": "street_lamp",
+          "module": "mod_roads_civic_lamp_curved_double",
+          "optional": true,
+          "atCell": null,
+          "supports": []
         }
       ],
       "semanticIdentity": {
@@ -1596,7 +1674,10 @@
             "civic_tower",
             "civic_block",
             "plinth",
-            "corner_column"
+            "corner_column",
+            "monument",
+            "parapet",
+            "street_lamp"
           ]
         ],
         "prohibitSecondaryModules": [

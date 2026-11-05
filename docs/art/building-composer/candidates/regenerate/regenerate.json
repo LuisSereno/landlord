@@ -1,59 +1,58 @@
 {
- "candidateId": "vf_row_house_1000",
+ "candidateId": "vg_town_hall_1000",
  "first": {
   "pass": "primera",
-  "signature": "342700bc89297a9a6a8eb456103cc9b0414e67b7f1797a661db850cd7b1fd07c",
-  "pixelSha256": "608d63061695c077d37c5820fc091c6f19c454d7cccc862ff52fef44cbc035cb",
-  "fileSha256": "01fd9cfba60f87c6921b4aae5aa3f96d2d73a39e256ea08cce40d4f8dc8efe01",
+  "signature": "e9d759cba27c32e35ded3353a067b93b0be969410fb714d089d0c8761837d9c8",
+  "pixelSha256": "a99dadc8fdd3719eacb63f6889ecfe13f6058b94aae0bddcda8dcf5bfcd793ac",
+  "fileSha256": "cd08b5ea3599b3f605c37ac496a359d3f96c3f3b033f0c8922c24b6c884b6c68",
   "stages": {
-   "render": "4547e9870f722f1a175828e4cd7d4ef1741387069130da6bbadf73fe98630be3",
-   "shadow": "e1d7c4596439135cbda0978fbfefc75fa7d6c3304461af36b31928247751ec35"
+   "render": "2684848372da100b3a9598a5cb24a409529fc6c53293aa32a6dc7ff213e28395",
+   "shadow": "54d28747e0c1e8ada375898fa77355af6c1590acec3bb3a290519826d724e43b"
   },
   "pivot": {
-   "x": 0.5688,
-   "y": 0.7006
+   "x": 0.4612,
+   "y": 0.8324
   },
   "pixels": [
-   494,
-   598
+   554,
+   762
   ]
  },
  "second": {
   "pass": "segunda",
-  "signature": "342700bc89297a9a6a8eb456103cc9b0414e67b7f1797a661db850cd7b1fd07c",
-  "pixelSha256": "141c2c24bc2a759d970f98193ef888ee0dfc2427be377fc6529a12c23aadf2b1",
-  "fileSha256": "c71643de0c9c94a506fd979e5321d6fa76d9349c60886ce0a4ac60aa58557c29",
+  "signature": "e9d759cba27c32e35ded3353a067b93b0be969410fb714d089d0c8761837d9c8",
+  "pixelSha256": "6c4be9ea942b9b66b7ac4105321ee912c7ba1745fb9c356cf175c5ddb254a10c",
+  "fileSha256": "f94ec955fd516f85374ce30d0ee2050c98d282a69e4f5510b4879457f03e6243",
   "stages": {
-   "render": "da35d30eb01b9c23ae80ae554e5fd25207e9641f904d3d650388002223b21f59",
-   "shadow": "37b0a1de7d808e87f0f145e0404e4715571b37ba5ac3388708359b5192a78bed"
+   "render": "8707559357f30f1722d592f9e7ab6f468890385f187c9b86634658066cb80d82",
+   "shadow": "54d28747e0c1e8ada375898fa77355af6c1590acec3bb3a290519826d724e43b"
   },
   "pivot": {
-   "x": 0.5688,
-   "y": 0.7006
+   "x": 0.4612,
+   "y": 0.8324
   },
   "pixels": [
-   494,
-   598
+   554,
+   762
   ]
  },
  "differences": [],
  "stageDifferences": [
-  "render",
-  "shadow"
+  "render"
  ],
  "pixelDifferences": true,
  "compositionDeterministic": true,
  "finalOutputByteIdentical": false,
  "rasterWithinGpuNoiseBound": true,
  "finalOutputJitter": {
-  "changedPixels": 3,
-  "totalPixels": 295412,
-  "maxChannelDelta": 1,
-  "meanAbsDiff": 0,
-  "grossFraction": 0
+  "changedPixels": 1052,
+  "totalPixels": 422148,
+  "maxChannelDelta": 183,
+  "meanAbsDiff": 0.1772,
+  "grossFraction": 0.001883
  },
- "intermediateShadowBitStable": false,
+ "intermediateShadowBitStable": true,
  "containerNoise": false,
  "status": "COMPOSITION_DETERMINISTIC_GPU_JITTER",
- "intermediateStatus": "INTERMEDIATE_SHADOW_NON_BIT_STABLE"
+ "intermediateStatus": "INTERMEDIATE_SHADOW_BIT_STABLE"
 }

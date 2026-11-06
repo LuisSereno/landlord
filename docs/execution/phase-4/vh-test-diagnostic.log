@@ -1,0 +1,109 @@
+# V.h test diagnostic
+## Remediation
+
+{"status":"visual-remediation-v2-applied","promoted":["courtyard_home","town_hall"],"exactProceduralFallbacks":13,"legacyExcluded":6,"actorHeightPx":28,"vehicleAxes":4}
+{"status":"vh-remediation-type-contracts-fixed"}
+{"status":"vh-remediation-tests-updated"}
+{"status":"vh-remediation-map-bounds-guards-added"}
+
+remediation_status=0
+
+## Vitest
+
+$ vitest run --config ../../vitest.config.ts apps/web/src
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.10 [39m[90m/home/runner/work/landlord/landlord[39m
+
+ [32m✓[39m apps/web/src/isometric/gameplay-public-space-dressing.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 60[2mms[22m[39m
+ [32m✓[39m apps/web/src/ui/ux-contracts.test.tsx [2m([22m[2m7 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m apps/web/src/worker/client.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [2m[90m↓[39m[22m apps/web/src/isometric/full-world-integration.test.ts [2m([22m[2m4 tests[22m[2m | [22m[33m4 skipped[39m[2m)[22m
+ [32m✓[39m apps/web/src/isometric/building-sprites.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [31m❯[39m apps/web/src/isometric/gameplay-visual-adapter.test.ts [2m([22m[2m32 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 97[2mms[22m[39m
+     [32m✓[39m ningún prop cae sobre una celda lejana de la parcela, aunque el ancla esté en otro sitio[32m 5[2mms[22m[39m
+     [32m✓[39m una obra multi-celda reserva todas sus celdas y su franja[32m 2[2mms[22m[39m
+     [32m✓[39m un solar vacío con ancla apartada planta su jardín en una celda real y nada más[32m 1[2mms[22m[39m
+     [32m✓[39m el resultado no depende del orden en que llegan las celdas de la parcela[32m 2[2mms[22m[39m
+     [32m✓[39m es determinista: la misma proyección produce el mismo modelo visual[32m 14[2mms[22m[39m
+     [32m✓[39m asigna el Composer aprobado a courtyard_home sin mezclar casas heredadas[32m 0[2mms[22m[39m
+     [32m✓[39m mantiene workshop en su fallback procedural semántico exacto[32m 0[2mms[22m[39m
+     [32m✓[39m mantiene los tipos industriales en su tipo de dominio (fallback procedural honesto)[32m 0[2mms[22m[39m
+     [32m✓[39m declara una política semántica estructural para los 15 BuildingType[32m 0[2mms[22m[39m
+     [32m✓[39m no clasifica huecos entre parcelas como carretera: sin asfalto en el plan de gameplay[32m 1[2mms[22m[39m
+     [32m✓[39m pinta roads.cells como asphalt con precedencia sobre parcela y apron[32m 2[2mms[22m[39m
+     [32m✓[39m mantiene visible la road cell que da frontage a una parcela[32m 1[2mms[22m[39m
+     [32m✓[39m usa datos reales para superficies de parcela[32m 1[2mms[22m[39m
+     [32m✓[39m pinta plazas y parques desde la proyección, no como terreno base[32m 1[2mms[22m[39m
+     [32m✓[39m no coloca decoración sobre una parcela construida ni sobre su entorno inmediato[32m 2[2mms[22m[39m
+     [32m✓[39m no coloca decoración sobre ninguna road cell[32m 22[2mms[22m[39m
+     [32m✓[39m deriva los 16 masks de road de forma determinista[32m 1[2mms[22m[39m
+     [32m✓[39m sólo asigna lenguaje peatonal a T e intersecciones y conserva sus bocas reales[32m 0[2mms[22m[39m
+     [32m✓[39m incluye las marcas viales derivadas en el GroundPlan sin crear una topología nueva[32m 2[2mms[22m[39m
+     [32m✓[39m planifica street furniture determinista, sin hosts ilegales ni semáforos en T[32m 3[2mms[22m[39m
+[31m     [31m×[31m planifica vehículos aparcados sólo en rectas, con clearance y orientación de manifest[39m[32m 12[2mms[22m[39m
+     [32m✓[39m aplica perfiles sobre la misma geometría a mobiliario, vehículos y vegetación[32m 6[2mms[22m[39m
+     [32m✓[39m usa sólo assets y azimuts existentes en el bundle Blender aprobado[32m 0[2mms[22m[39m
+     [32m✓[39m mantiene street dressing y vehículos aunque cambien caja, tick o condición[32m 7[2mms[22m[39m
+     [32m✓[39m reutiliza la representación vial cuando digest y cells canónicas no cambian[32m 0[2mms[22m[39m
+     [32m✓[39m la clave de geometría ignora cambios económicos no espaciales[32m 0[2mms[22m[39m
+     [32m✓[39m la clave de geometría cambia cuando cambia la colocación de parcelas[32m 0[2mms[22m[39m
+     [32m✓[39m incluye el digest vial en la geometría sin depender del orden de cells[32m 5[2mms[22m[39m
+     [32m✓[39m no añade cruces ni campos de composición del Visual Slice al plan de gameplay[32m 1[2mms[22m[39m
+     [32m✓[39m pinta todas las celdas de la parcela, no sólo el ancla[32m 1[2mms[22m[39m
+     [32m✓[39m la clave de geometría incluye todas las celdas y no cambia con el tick[32m 0[2mms[22m[39m
+     [32m✓[39m asigna los seis tipos municipales a su asset cívico[32m 0[2mms[22m[39m
+ [32m✓[39m apps/web/src/ui/placement.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m apps/web/src/blender-assets.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 58[2mms[22m[39m
+ [32m✓[39m apps/web/src/visual-slice/ground.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 186[2mms[22m[39m
+ [32m✓[39m apps/web/src/assets.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 76[2mms[22m[39m
+ [32m✓[39m apps/web/src/ui/labels.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m apps/web/src/isometric/property-grounds.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+ [32m✓[39m apps/web/src/visual-slice/layout.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 49[2mms[22m[39m
+ [32m✓[39m apps/web/src/ui/icons.test.tsx [2m([22m[2m6 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m apps/web/src/isometric/construction-stages.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m apps/web/src/isometric/visual-remediation.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m apps/web/src/ui/site-assembly.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m apps/web/src/building-selection.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m apps/web/src/facility-metrics.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m apps/web/src/visual-slice/terrain-paint.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m apps/web/src/isometric/parcel-geometry.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m apps/web/src/isometric/building-sprites-v3.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m apps/web/src/isometric/coordinates.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m apps/web/src/diagnostics.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m apps/web/src/visual-catalog.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m✓[39m apps/web/src/persistence/indexed-db.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 4309[2mms[22m[39m
+     [33m[2m✓[22m[39m saves, lists and loads a validated snapshot with metadata [33m 1791[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects invalid writes and preserves the last valid save [33m 947[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a corrupted payload already stored in IndexedDB [33m 766[2mms[22m[39m
+     [33m[2m✓[22m[39m lists a v1 slot as incompatible, refuses to load it and deletes it only on request [33m 799[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m apps/web/src/isometric/gameplay-visual-adapter.test.ts[2m > [22mgameplay visual adapter (WP4.15-V.c.1)[2m > [22mplanifica vehículos aparcados sólo en rectas, con clearance y orientación de manifest
+[31m[1mAssertionError[22m: expected [ 45, 225 ] to include 135[39m
+[36m [2m❯[22m apps/web/src/isometric/gameplay-visual-adapter.test.ts:[2m542:25[22m[39m
+    [90m540|[39m       )[33m![39m[33m;[39m
+    [90m541|[39m       [34mexpect[39m(road[33m.[39mshape)[33m.[39m[34mtoBe[39m([32m"straight"[39m)[33m;[39m
+    [90m542|[39m       [34mexpect[39m([[34m45[39m[33m,[39m [34m225[39m])[33m.[39m[34mtoContain[39m(vehicle[33m.[39mazimuth)[33m;[39m
+    [90m   |[39m                         [31m^[39m
+    [90m543|[39m       [34mexpect[39m(
+    [90m544|[39m         roads
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m24 passed[39m[22m[2m | [22m[33m1 skipped[39m[90m (26)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m224 passed[39m[22m[2m | [22m[33m4 skipped[39m[90m (229)[39m
+[2m   Start at [22m 13:18:21
+[2m   Duration [22m 6.33s[2m (transform 2.42s, setup 0ms, import 6.60s, tests 5.02s, environment 2ms)[22m
+
+
+::error file=/home/runner/work/landlord/landlord/apps/web/src/isometric/gameplay-visual-adapter.test.ts,title=apps/web/src/isometric/gameplay-visual-adapter.test.ts > gameplay visual adapter (WP4.15-V.c.1) > planifica vehículos aparcados sólo en rectas%2C con clearance y orientación de manifest,line=542,column=25::AssertionError: expected [ 45, 225 ] to include 135%0A ❯ apps/web/src/isometric/gameplay-visual-adapter.test.ts:542:25%0A%0A
+[ELIFECYCLE] Test failed. See above for more details.
+Error: ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL
+
+  × "pnpm recursive run" failed in /home/runner/work/landlord/landlord/apps/
+  │ web
+
+
+test_status=1

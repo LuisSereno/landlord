@@ -9,7 +9,7 @@
  */
 import { spawn, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { chromium } from "@playwright/test";
 
 const port = 4182;
@@ -269,6 +269,16 @@ try {
   if (districts.length !== 9) throw new Error(`Se esperaban 9 distritos y hay ${districts.length}`);
   log(`9 distritos leídos: ${districts.map((d) => d.name).join(", ")}`);
 
+  // Los closeups de contexto NO cívico comparten ancla (largestMarketableParcel) y zoom 2 con el
+  // disparo de distrito, así que se producen en línea durante el bucle: re-seleccionar el distrito
+  // hacia atrás desde un zoom 2x profundo entra en carrera con la reproyección y es poco fiable.
+  const inlineDetailByDistrict = {
+    "Barrio del Umbral": "residential",
+    "Mercado del Norte": "commercial",
+    "Corredor Ferroviario": "industrial",
+    "Vega del Cauce": "green",
+  };
+
   for (const district of districts) {
     log(`distrito · ${district.name} (${district.role})`);
     await selectDistrict(district.name);
@@ -277,21 +287,30 @@ try {
     for (const zoom of ZOOMS) {
       await setCamera(anchor, zoom.value);
       const path = `${outputDir}/district-${slug(district.name)}-${zoom.token}.png`;
-      shots.push({ zoom: zoom.value, ...(await capture(path)) });
+      const shot = { zoom: zoom.value, ...(await capture(path)) };
+      shots.push(shot);
       log(`  ✓ ${slug(district.name)} @ ${zoom.value}x`);
+      const detailId = zoom.value === 2 ? inlineDetailByDistrict[district.name] : undefined;
+      if (detailId) {
+        const detailPath = `${outputDir}/detail-${detailId}-20x.png`;
+        copyFileSync(path, detailPath);
+        manifest.details.push({
+          id: detailId,
+          district: district.name,
+          anchor,
+          path: detailPath,
+          sha256: sha256(detailPath),
+          source: "inline district 20x (misma ancla y zoom)",
+        });
+        log(`  ✓ detalle ${detailId} (en línea)`);
+      }
     }
     manifest.districts.push({ ...district, anchor, shots });
   }
 
-  const detailSpecs = [
-    { id: "civic", districtName: "Centro Cívico", facility: "town_hall" },
-    { id: "residential", districtName: "Barrio del Umbral", facility: null },
-    { id: "commercial", districtName: "Mercado del Norte", facility: null },
-    { id: "industrial", districtName: "Corredor Ferroviario", facility: null },
-    { id: "green", districtName: "Vega del Cauce", facility: null },
-  ];
-  // Los detalles son best-effort: si la HUD intermitente bloquea uno, el resto del run y las
-  // contact sheets de los 27 distritos no se pierden. Cada fallo queda registrado en el manifiesto.
+  const detailSpecs = [{ id: "civic", districtName: "Centro Cívico", facility: "town_hall" }];
+  // Sólo el closeup cívico tiene su propia ancla (facilityCell town_hall), así que se re-selecciona
+  // hacia adelante desde el último distrito del bucle.
   for (const detail of detailSpecs) {
     const district = districts.find((entry) => entry.name === detail.districtName);
     if (!district) {
@@ -342,18 +361,16 @@ try {
 
 if (runError) {
   console.error(
-    JSON.stringify(
-      {
-        status: "incomplete",
-        districts: manifest.districts.length,
-        contactSheets: manifest.contactSheets.length,
-        details: manifest.details.length,
-        detailErrors: manifest.detailErrors.length,
-        pageErrors: pageErrors.length,
-        error: runError,
-        outputDir,
-      },
-    ),
+    JSON.stringify({
+      status: "incomplete",
+      districts: manifest.districts.length,
+      contactSheets: manifest.contactSheets.length,
+      details: manifest.details.length,
+      detailErrors: manifest.detailErrors.length,
+      pageErrors: pageErrors.length,
+      error: runError,
+      outputDir,
+    }),
   );
   process.exitCode = 1;
 } else {

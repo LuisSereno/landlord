@@ -121,11 +121,24 @@ export type GameplayContextVehicle = GameplayParkedVehicle & {
  */
 export type GameplayAmbientActor = {
   id: string;
+  /** Runtime ID del personaje Rocketbox horneado (p.ej. chr_citizen). Nunca el procedural. */
+  character: string;
   cell: GridCell;
   direction: 0 | 1 | 2 | 3;
   animation: "idle" | "walk";
   /** Slot de frame dentro de la dirección (0..framesPerDirection-1). */
   slot: number;
+};
+
+/**
+ * Actor profesional contextual (V.h.11 §12/§16): un avatar Rocketbox anclado a un edificio del
+ * rol correspondiente (comisaría→policía, clínica→sanitario, bomberos→bombero, industria→obrero).
+ * Es presencia presentacional por colocación, NO uniforme literal (Rocketbox no trae uniformes).
+ * Separado de GameState; determinista por coordenada de la huella.
+ */
+export type GameplayContextActor = GameplayAmbientActor & {
+  buildingId: string;
+  actorClass: string;
 };
 
 /** Roles de mobiliario de espacio público (V.g civic-core). Espejo de public_space_dresser.py. */
@@ -155,6 +168,8 @@ export type GameplayVisualModel = {
   contextVehicles: GameplayContextVehicle[];
   /** Peatones ambientales presentacionales en espacios públicos (V.h.7 §16). Separados de GameState. */
   ambientActors: GameplayAmbientActor[];
+  /** Actores profesionales contextuales por edificio (V.h.11 §12/§16), avatares Rocketbox. */
+  contextActors: GameplayContextActor[];
   /**
    * Mobiliario cívico/verde derivado de los espacios públicos (V.g). Es presentacional: no vive en
    * GameState, no lo tocan tick ni economía, sólo la geometría espacial (publicSpaces + facilities).
@@ -774,12 +789,79 @@ export function planGameplayAmbientActors(
       used.add(cellKey(cell));
       out.push({
         id: `amb:${space.id}:${cellKey(cell)}:${i}`,
+        character: "chr_citizen",
         cell: { ...cell },
         direction: (seed % 4) as 0 | 1 | 2 | 3,
         animation: seed % 3 === 0 ? "idle" : "walk",
         slot: seed % 2,
       });
     }
+  }
+  return out;
+}
+
+/**
+ * V.h.11 §12/§16: edificio → actor profesional (avatar Rocketbox). Rol por colocación, no uniforme.
+ */
+const BUILDING_CONTEXT_ACTORS: Record<string, { actorClass: string; character: string }> = {
+  police_station: { actorClass: "police", character: "chr_police" },
+  clinic: { actorClass: "medical", character: "chr_medical" },
+  fire_station: { actorClass: "firefighter", character: "chr_firefighter" },
+  workshop: { actorClass: "worker", character: "chr_worker" },
+  warehouse: { actorClass: "worker", character: "chr_worker" },
+  cement_plant: { actorClass: "worker", character: "chr_worker" },
+  steelworks: { actorClass: "worker", character: "chr_worker" },
+  brickworks: { actorClass: "worker", character: "chr_worker" },
+};
+
+/**
+ * Coloca un actor profesional por edificio con rol, en el bordillo frente al acceso (misma idea que
+ * los vehículos contextuales), evitando las celdas de carretera ya reservadas por un vehículo y los
+ * cruces. Determinista por coordenada de la huella. Presentacional, fuera de GameState.
+ */
+export function planGameplayContextActors(
+  buildings: readonly { id: string; type: string; footprintCells: readonly GridCell[] }[],
+  roadVisuals: readonly GameplayRoadVisual[],
+  reservedRoadCells: ReadonlySet<string>,
+  mapWidth: number,
+  mapHeight: number,
+): GameplayContextActor[] {
+  const junctions = roadVisuals.filter(isJunction).map((road) => road.cell);
+  const straights = roadVisuals.filter((road) => road.shape === "straight");
+  const out: GameplayContextActor[] = [];
+  const used = new Set<string>();
+  for (const building of buildings) {
+    const spec = BUILDING_CONTEXT_ACTORS[building.type];
+    if (!spec || building.footprintCells.length === 0) continue;
+    const footprint = building.footprintCells;
+    const anchor = footprint[0]!;
+    const curbs: { road: GameplayRoadVisual; side: "n" | "e" | "s" | "w" }[] = [];
+    for (const road of straights) {
+      if (isNearJunction(road.cell, junctions)) continue;
+      if (reservedRoadCells.has(cellKey(road.cell))) continue;
+      for (const [side, delta] of SIDE_DELTAS) {
+        const host = { x: road.cell.x + delta.x, y: road.cell.y + delta.y };
+        if (footprint.some((cell) => cell.x === host.x && cell.y === host.y)) {
+          curbs.push({ road, side });
+          break;
+        }
+      }
+    }
+    if (curbs.length === 0) continue;
+    const free = curbs.filter((curb) => !used.has(cellKey(curb.road.cell)));
+    if (free.length === 0) continue;
+    const curb = free[spatialHash(anchor.x, anchor.y, 0x4b7c) % free.length]!;
+    used.add(cellKey(curb.road.cell));
+    out.push({
+      id: `ctxa-${building.id}:${spec.character}:${cellKey(curb.road.cell)}`,
+      buildingId: building.id,
+      actorClass: spec.actorClass,
+      character: spec.character,
+      cell: { ...curb.road.cell },
+      direction: (spatialHash(anchor.x, anchor.y, 0x2f1) % 4) as 0 | 1 | 2 | 3,
+      animation: "idle",
+      slot: 0,
+    });
   }
   return out;
 }
@@ -1634,6 +1716,13 @@ export function buildGameplayVisualModel(
     mapHeight,
     districtProfile,
   );
+  const contextActors = planGameplayContextActors(
+    contextBuildings,
+    roadVisuals,
+    reservedVehicleRoads,
+    mapWidth,
+    mapHeight,
+  );
   const parkedVehicles = planGameplayParkedVehicles(
     roadVisuals,
     parcels,
@@ -1676,6 +1765,7 @@ export function buildGameplayVisualModel(
     parkedVehicles,
     contextVehicles,
     ambientActors,
+    contextActors,
     publicSpaceFurniture,
     parcelDressing,
     roadVisuals,

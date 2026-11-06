@@ -37,7 +37,8 @@ decoración entra en `GameState`** (§1): todo el dressing deriva de la proyecci
 | contextVehicles | vehículo por tipo de edificio (fire→firetruck, clinic→ambulance…) §15 | buildings |
 | publicSpaceFurniture | monumento/bancos/farolas/jardineras por kind de espacio §13 | `projection.publicSpaces` + facilities |
 | parcelDressing | espacio libre de la parcela por tipo de solar §14 | parcels + buildings |
-| ambientActors | peatones presentacionales idle/walk §16 | publicSpaces |
+| ambientActors | peatones deterministas (avatar Rocketbox `chr_citizen`) §16 | publicSpaces |
+| contextActors | actor profesional por edificio (chr_police/medical/firefighter/worker) §12/§16 | buildings |
 
 Cada capa es una función pura determinista; el renderer (`IsometricSpikeScene`) sólo coloca sprites
 del atlas y salta graciosamente los assets ausentes.

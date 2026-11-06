@@ -208,6 +208,10 @@ function argsFor(job, task, sourcesById, noShadow = false) {
     args.push("--direction", String(task.direction));
     args.push("--animation", task.animation);
     args.push("--frame", String(task.frame));
+    // Personajes de terceros (Rocketbox): el clip de animación por nombre (idle/walk) se aplica
+    // retargeteando la action al rig compartido del avatar. Sin esto, las poses serían reposo.
+    const clip = job.animationSources?.[task.animation];
+    if (clip) args.push("--animation-source", `fbx:${clip}`);
   }
   return args;
 }
@@ -298,6 +302,11 @@ function renderTask(job, task, sourcesById, workDir, noShadow = false) {
   );
   if (result.status !== 0) {
     throw new Error(`Blender falló para ${task.file}:\n${result.stderr ?? result.stdout}`);
+  }
+  // Blender puede salir con código 0 pese a un traceback de Python (--python); si no escribió la
+  // metadata, el job falló. Se propaga el stderr para no enmascarar el error real con un ENOENT.
+  if (!existsSync(workJson)) {
+    throw new Error(`Blender no produjo metadata para ${task.file}:\n${result.stderr ?? result.stdout}`);
   }
   return { workPng, workJson, entry: JSON.parse(readFileSync(workJson, "utf8")) };
 }

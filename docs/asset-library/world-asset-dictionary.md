@@ -43,9 +43,11 @@ de referencia Kenney/KayKit/megakit) · `urban_prop` (mobiliario y props urbanos
 - `vehicleClasses` (11 declaradas): 9 pobladas runtime-ready en v1
   (civilian, taxi, delivery, freight, garbage, police, fire, ambulance, construction).
   `industrial`/`service` declaradas sin miembro (gap P1, ver coverage).
-- `actorClasses` (8 declaradas): 1 poblada runtime-ready en v1 (`civilian`, vía el personaje horneado
-  `vecino_variante`). Las profesionales declaradas sin miembro (gap P1): Rocketbox no codifica
-  profesión por nombre; se poblarán con overrides curados + bake.
+- `actorClasses` (8 declaradas): 5 pobladas runtime-ready (V.h.11, avatares Rocketbox horneados con
+  retarget de clips idle/walk): `civilian` (chr_citizen), `police` (chr_police), `medical`
+  (chr_medical), `firefighter` (chr_firefighter), `worker` (chr_worker). Faltan `maintenance`,
+  `enforcer`, `service_worker`. El rol profesional es por colocación (avatar stationed en su
+  edificio), no uniforme literal: Rocketbox no codifica profesión por nombre.
 
 ## Overrides curados (§7)
 

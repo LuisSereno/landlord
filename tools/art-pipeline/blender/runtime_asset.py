@@ -135,6 +135,10 @@ def parse_args():
         help="categoría del job; la ruta legacy la deduce de sus dicts",
     )
     parser.add_argument("--source", help="glb:|gltf:|fbx:<ruta> para geometría de terceros")
+    parser.add_argument(
+        "--animation-source",
+        help="fbx:<ruta> de un clip de animación de terceros (Rocketbox) para retargetear al rig",
+    )
     parser.add_argument("--source-id", help="id lógico en staging-sources.json")
     parser.add_argument("--license", dest="license", help="licencia SPDX declarada por la fuente")
     parser.add_argument("--unit-scale", type=float, help="〔R7〕 escala física de la fuente")
@@ -679,6 +683,37 @@ def apply_external_treatment(objects, style_layer, kind):
     }
 
 
+def apply_animation_clip(avatar_objects, clip_path, frame):
+    """Retargetea un clip de animación Rocketbox sobre el rig del avatar (esqueleto compartido).
+
+    Importa el FBX del clip, toma la action de su armadura y la asigna a la armadura del avatar;
+    los F-Curves apuntan a los huesos por nombre, así que posean al avatar. El clip se descarta
+    tras copiar su action. Se muestrea un frame dentro del rango de la action (frame 0 → inicio,
+    1 → punto medio) para dar poses idle/walk distintas sin finger frames duplicados.
+    """
+    armature = next((obj for obj in avatar_objects if obj.type == "ARMATURE"), None)
+    if armature is None:
+        raise SystemExit("el avatar no trae armadura; no se puede retargetear la animación")
+    before = set(bpy.data.objects)
+    bpy.ops.import_scene.fbx(filepath=str(clip_path))
+    clip_objects = [obj for obj in bpy.data.objects if obj not in before]
+    clip_armature = next((obj for obj in clip_objects if obj.type == "ARMATURE"), None)
+    if clip_armature is None or not clip_armature.animation_data:
+        raise SystemExit(f"el clip {clip_path.name} no trajo una armadura con animación")
+    action = clip_armature.animation_data.action
+    if action is None:
+        raise SystemExit(f"el clip {clip_path.name} no tiene action")
+    armature.animation_data_create()
+    armature.animation_data.action = action
+    for obj in clip_objects:
+        bpy.data.objects.remove(obj, do_unlink=True)
+    start, end = int(round(action.frame_range[0])), int(round(action.frame_range[1]))
+    scene = bpy.context.scene
+    scene.frame_start, scene.frame_end = start, max(start, end)
+    span = max(0, scene.frame_end - start)
+    scene.frame_set(start + (span // 2 if frame else 0))
+
+
 def create_external_scene(args, source_path, style_layer):
     """Rama CC0/MIT: importa geometría externa y la normaliza sin tocar su jerarquía interna."""
     objects = import_source(source_path)
@@ -691,9 +726,18 @@ def create_external_scene(args, source_path, style_layer):
     meshes = [obj for obj in objects if obj.type == "MESH"]
     body = max(meshes, key=lambda obj: len(obj.data.vertices))
 
-    camera, _ = place_camera(
-        args.target_z, args.ortho_scale, azimuth_degrees=args.azimuth
-    )
+    # Personaje Rocketbox con clip: retargetear la animación antes de encuadrar la cámara.
+    if args.kind == "character" and getattr(args, "animation_source", None):
+        apply_animation_clip(objects, parse_source(args.animation_source), args.frame)
+
+    # Personajes externos (Rocketbox): las 4 direcciones se consiguen orbitando la cámara 90° por
+    # paso sobre el rig ya normalizado en el origen. No se rota el armature (evita romper el skin)
+    # y no se finge animación: sólo se publica la pose idle, una imagen por dirección.
+    azimuth = args.azimuth
+    if args.kind == "character":
+        azimuth = CAMERA_AZIMUTH_DEGREES + args.direction * (360.0 / 4.0)
+
+    camera, _ = place_camera(args.target_z, args.ortho_scale, azimuth_degrees=azimuth)
     apply_style_layer_lighting(bpy.context.scene, style_layer)
     style_summary = apply_external_treatment(objects, style_layer, args.kind)
 

@@ -196,7 +196,21 @@ def actor_class_of(n, source_id):
     """actorClass del contrato §16; None para piezas de customización no colocables."""
     if source_id == "src_quaternius_base_characters" or is_actor_part(n):
         return None
+    # Override curado: los avatares Rocketbox concretos horneados como profesionales (V.h.11).
+    # El filename de Rocketbox es demográfico, no de profesión; la clase se asigna por avatar.
+    override = ROCKETBOX_ACTOR_CLASS.get(n.lower().split(".")[0])
+    if override:
+        return override
     return "civilian"
+
+
+# Avatar Rocketbox (filename del .fbx sin extensión) → actorClass colocada en el runtime.
+ROCKETBOX_ACTOR_CLASS = {
+    "male_adult_02": "police",
+    "female_adult_09": "medical",
+    "male_adult_09": "firefighter",
+    "male_adult_12": "worker",
+}
 
 
 def animation_clip_of(n):

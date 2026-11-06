@@ -749,10 +749,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
       sprite.destroy();
       this.parkedVehicleSprites.delete(id);
     }
-    // V.h.7: peatones ambientales presentacionales (personaje horneado vecino_variante).
+    // V.h.7/V.h.11: actores ambientales + profesionales contextuales (avatares Rocketbox horneados).
     const seenActors = new Set<string>();
-    for (const actor of model.ambientActors ?? []) {
-      const key = `blender-character-vecino_variante-${actor.animation}-d${actor.direction}-${actor.slot}`;
+    for (const actor of [...(model.ambientActors ?? []), ...(model.contextActors ?? [])]) {
+      const key = `blender-character-${actor.character}-${actor.animation}-d${actor.direction}-${actor.slot}`;
       if (!this.textures.exists(key)) continue;
       const center = gridToScreen(actor.cell, this.layout);
       const image =

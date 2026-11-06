@@ -123,6 +123,10 @@ pendiente de la revisión visual del responsable (§35).
 - Performance (§26): `docs/art/world-visual-foundation/performance.json` (69→81 imágenes de atlas,
   3→9 vehículos, 2720 objetos presentacionales, 551 ms generar 9 distritos).
 - town_hall V7 + plaza cívica = APPROVED BASELINE (no rediseñar; D-099).
+- **V.h.11 (segunda pasada, 2026-11-06):** actores del juego = avatares **Microsoft Rocketbox**
+  horneados con retarget de clips idle/walk (chr_citizen/police/medical/firefighter/worker, 5/8
+  clases); contextActors profesionales por colocación; materiales 10/10 usables (5 con fuente Poly
+  Haven + 5 con tono derivado). Atlas 81→161 imágenes, 6 personajes.
 - Gap P1 abierto: contact sheet de píxeles 9 distritos × 3 escalas requiere la app interactiva
   (sin Chrome headless en este entorno); se captura en la review humana.
 

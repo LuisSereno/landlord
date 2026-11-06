@@ -46,6 +46,27 @@ STYLE_ADAPTATION = (
     "nunca se aplica fotorealista crudo sobre la escena."
 )
 
+# Cierre de gaps (§10): categorías sin fuente Poly Haven adquirida reciben un tono procedural
+# derivado del Graphic Civic (color lineal sRGB aprox + roughness), NO una textura falsa. Es la
+# base sobre la que el renderer pinta superficies de esa categoría hasta que se adquiera fuente real.
+DERIVED_TONE = {
+    "pavement": {"color": [0.62, 0.60, 0.57], "roughness": 0.85},
+    "stone": {"color": [0.55, 0.53, 0.50], "roughness": 0.9},
+    "metal": {"color": [0.42, 0.44, 0.47], "roughness": 0.4},
+    "soil": {"color": [0.32, 0.24, 0.16], "roughness": 0.95},
+    "grass": {"color": [0.30, 0.44, 0.24], "roughness": 0.9},
+}
+
+# Selección por lenguaje visual (§10): qué categorías favorece cada contexto de la ciudad.
+SELECTION_BY_LANGUAGE = {
+    "civic": ["pavement", "stone", "brick", "concrete"],
+    "residential": ["grass", "brick", "wood", "pavement"],
+    "commercial": ["pavement", "brick", "asphalt", "concrete"],
+    "industrial": ["concrete", "metal", "rusty_metal", "asphalt", "soil"],
+    "infrastructure": ["asphalt", "concrete", "metal"],
+    "park": ["grass", "soil", "stone", "wood"],
+}
+
 
 def main():
     index = json.loads(INDEX.read_text(encoding="utf-8"))
@@ -77,6 +98,11 @@ def main():
             "assets": entries,
             "gap": not entries,
             "fallback": None if entries else "color procedural del style profile (Graphic Civic)",
+            **(
+                {"proceduralTone": DERIVED_TONE[category]}
+                if not entries and category in DERIVED_TONE
+                else {}
+            ),
         }
 
     library = {
@@ -84,14 +110,17 @@ def main():
         "generatedFrom": "blender_artist/manifests/world-asset-index.json",
         "purpose": "Biblioteca semántica de materiales: categorías de lenguaje × lenguajes visuales. Los subsistemas eligen material por categoría+lenguaje, nunca por nombre de archivo.",
         "visualLanguages": ["civic", "residential", "commercial", "industrial", "infrastructure", "park"],
+        "selectionByLanguage": SELECTION_BY_LANGUAGE,
         "categories": categories,
     }
     OUT.write_text(json.dumps(library, indent=2) + "\n", encoding="utf-8")
     covered = sum(1 for c in categories.values() if not c["gap"])
-    print(f"[material-library] categorías con fuente: {covered}/{len(categories)} → {OUT.name}")
+    usable = sum(1 for c in categories.values() if not c["gap"] or "proceduralTone" in c)
+    print(f"[material-library] con fuente real: {covered}/{len(categories)} · usables (fuente o tono derivado): {usable}/{len(categories)} → {OUT.name}")
     for name, cat in categories.items():
         if cat["gap"]:
-            print(f"    gap: {name} (fallback procedural)")
+            tone = "tono derivado" if "proceduralTone" in cat else "sin fuente"
+            print(f"    gap: {name} ({tone})")
 
 
 if __name__ == "__main__":

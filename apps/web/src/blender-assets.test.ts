@@ -49,6 +49,29 @@ describe("WP4.15-H ruta Blender E2E", () => {
       expect(character.animations[animation].frames).toHaveLength(character.directions * 2);
       for (const frame of character.animations[animation].frames) expect(frame).toBeTruthy();
     }
+    // V.h.11: los actores del juego son avatares Rocketbox horneados (retarget de clips idle/walk).
+    expect(Object.keys(bundle.characters).sort()).toEqual([
+      "chr_citizen",
+      "chr_firefighter",
+      "chr_medical",
+      "chr_police",
+      "chr_worker",
+      "vecino_variante",
+    ]);
+    for (const id of [
+      "chr_citizen",
+      "chr_police",
+      "chr_medical",
+      "chr_firefighter",
+      "chr_worker",
+    ]) {
+      const avatar = bundle.characters[id]!;
+      expect(avatar.directions).toBe(4);
+      // idle y walk deben ser clips DISTINTOS (hashes distintos): no metadata falsa de animación.
+      const idle0 = avatar.animations.idle.frames[0]!;
+      const walk0 = avatar.animations.walk.frames[0]!;
+      expect(idle0.sha256).not.toBe(walk0.sha256);
+    }
   });
 
   it("publica terrain, props y vehicles y declara su densidad de render", () => {
@@ -132,8 +155,8 @@ describe("WP4.15-H ruta Blender E2E", () => {
         ...Object.values(asset.orientations ?? {}).map((frame) => frame.image),
       ]),
     ];
-    // 69 imágenes (V.g P7) + 12 de los 6 vehículos contextuales de V.h.6 (2 orientaciones cada uno).
-    expect(images.length).toBe(81);
+    // 81 (V.h.6) + 80 de los 5 avatares Rocketbox de V.h.11 (4 dirs × idle/walk × 2 frames = 16 c/u).
+    expect(images.length).toBe(161);
     let totalBytes = 0;
     for (const image of images) {
       const buffer = readFileSync(join(PUBLIC_DIR, image.src));
@@ -142,7 +165,9 @@ describe("WP4.15-H ruta Blender E2E", () => {
       expect(pngSize(buffer), image.src).toEqual({ width: image.width, height: image.height });
     }
     /** Los binarios Blender de Alpha caben en el repo sin LFS: se revisa en la decisión de atlas/LFS. */
-    expect(totalBytes).toBeLessThan(2_500_000);
+    // V.h.11: 96 frames de personaje Rocketbox (256×256 RGBA) suben el atlas de ~2.2 a ~4.6 MB;
+    // sigue muy por debajo del umbral que obligaría a LFS.
+    expect(totalBytes).toBeLessThan(6_000_000);
   });
 
   it("el pivote queda dentro de la imagen recortada y la huella es positiva", () => {

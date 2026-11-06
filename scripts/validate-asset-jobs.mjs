@@ -49,6 +49,8 @@ const KIND_KEYS = {
     "frameDurationMs",
     "camera",
     "render",
+    "actorClass",
+    "animationSources",
   ]),
   terrain: new Set([
     "id",
@@ -249,6 +251,15 @@ for (const job of jobs.jobs ?? []) {
         fail(`${job.id}: animation desconocida ${animation}`);
       if (!isPositiveInt(job.frameDurationMs?.[animation])) {
         fail(`${job.id}: frameDurationMs.${animation} falta o no es entero positivo`);
+      }
+    }
+    // Un personaje de fuente externa publicado al bundle DEBE traer un clip por animación: sin él
+    // el rig queda en reposo y publicar frames etiquetados idle/walk sería metadata falsa.
+    if (job.source?.kind !== "procedural" && job.target === "bundle") {
+      for (const animation of job.animations ?? []) {
+        if (!job.animationSources?.[animation]) {
+          fail(`${job.id}: falta animationSources.${animation} (personaje externo sin clip quedaría en reposo)`);
+        }
       }
     }
     const frames = job.frameIndices ?? [];

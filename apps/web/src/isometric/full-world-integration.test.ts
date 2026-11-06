@@ -161,18 +161,15 @@ describe("V.h.9 full-world runtime integration (9 distritos reales)", () => {
           (n, b) => n + Object.keys(b.states).length,
           0,
         ) +
-        Object.values((B.terrain ?? {}) as Record<string, { orientations?: Record<string, unknown> }>).reduce(
-          (n, t) => n + imgCount(t),
-          0,
-        ) +
-        Object.values((B.props ?? {}) as Record<string, { orientations?: Record<string, unknown> }>).reduce(
-          (n, p) => n + imgCount(p),
-          0,
-        ) +
-        Object.values((B.vehicles ?? {}) as Record<string, { orientations?: Record<string, unknown> }>).reduce(
-          (n, v) => n + imgCount(v),
-          0,
-        ) +
+        Object.values(
+          (B.terrain ?? {}) as Record<string, { orientations?: Record<string, unknown> }>,
+        ).reduce((n, t) => n + imgCount(t), 0) +
+        Object.values(
+          (B.props ?? {}) as Record<string, { orientations?: Record<string, unknown> }>,
+        ).reduce((n, p) => n + imgCount(p), 0) +
+        Object.values(
+          (B.vehicles ?? {}) as Record<string, { orientations?: Record<string, unknown> }>,
+        ).reduce((n, v) => n + imgCount(v), 0) +
         Object.values(
           (B.characters ?? {}) as Record<
             string,

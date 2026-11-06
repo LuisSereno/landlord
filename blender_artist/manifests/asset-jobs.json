@@ -52,15 +52,167 @@
       }
     },
     {
-      "id": "chr_worker",
+      "id": "chr_citizen",
       "kind": "character",
-      "assetId": "chr_worker",
-      "target": "evidence",
-      "reason": "La rama externa a\u00fan no rota la c\u00e1mara por direcci\u00f3n ni reproduce clips de animaci\u00f3n: publicar 16 frames id\u00e9nticos etiquetados idle/walk ser\u00eda metadata falsa. Se renderiza como evidencia de que el FBX con armadura importa normalizado; la animaci\u00f3n llega con la Fase 5 de azure-dale-dory.md.",
+      "assetId": "chr_citizen",
+      "actorClass": "civilian",
+      "target": "bundle",
       "source": {
         "kind": "fbx",
         "sourceId": "src_microsoft_rocketbox",
         "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_05/Export/Male_Adult_05.fbx"
+      },
+      "animationSources": {
+        "idle": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_breathe_01.max.fbx",
+        "walk": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_01.max.fbx"
+      },
+      "directions": 4,
+      "animations": [
+        "idle",
+        "walk"
+      ],
+      "frameIndices": [
+        0,
+        1
+      ],
+      "frameDurationMs": {
+        "idle": 400,
+        "walk": 180
+      },
+      "camera": {
+        "orthoScale": 1.7,
+        "targetZ": 0.9
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "chr_police",
+      "kind": "character",
+      "assetId": "chr_police",
+      "actorClass": "police",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_02/Export/Male_Adult_02.fbx"
+      },
+      "animationSources": {
+        "idle": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_neutral_01.max.fbx",
+        "walk": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_01.max.fbx"
+      },
+      "directions": 4,
+      "animations": [
+        "idle",
+        "walk"
+      ],
+      "frameIndices": [
+        0,
+        1
+      ],
+      "frameDurationMs": {
+        "idle": 400,
+        "walk": 180
+      },
+      "camera": {
+        "orthoScale": 1.7,
+        "targetZ": 0.9
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "chr_medical",
+      "kind": "character",
+      "assetId": "chr_medical",
+      "actorClass": "medical",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Female_Adult_09/Export/Female_Adult_09.fbx"
+      },
+      "animationSources": {
+        "idle": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/f_idle_breathe_01.max.fbx",
+        "walk": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/f_walk_neutral_01.max.fbx"
+      },
+      "directions": 4,
+      "animations": [
+        "idle",
+        "walk"
+      ],
+      "frameIndices": [
+        0,
+        1
+      ],
+      "frameDurationMs": {
+        "idle": 400,
+        "walk": 180
+      },
+      "camera": {
+        "orthoScale": 1.7,
+        "targetZ": 0.9
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "chr_firefighter",
+      "kind": "character",
+      "assetId": "chr_firefighter",
+      "actorClass": "firefighter",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_09/Export/Male_Adult_09.fbx"
+      },
+      "animationSources": {
+        "idle": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_breathe_02.max.fbx",
+        "walk": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_02.max.fbx"
+      },
+      "directions": 4,
+      "animations": [
+        "idle",
+        "walk"
+      ],
+      "frameIndices": [
+        0,
+        1
+      ],
+      "frameDurationMs": {
+        "idle": 400,
+        "walk": 180
+      },
+      "camera": {
+        "orthoScale": 1.7,
+        "targetZ": 0.9
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "chr_worker",
+      "kind": "character",
+      "assetId": "chr_worker",
+      "actorClass": "worker",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_12/Export/Male_Adult_12.fbx"
+      },
+      "animationSources": {
+        "idle": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_neutral_02.max.fbx",
+        "walk": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_02.max.fbx"
       },
       "directions": 4,
       "animations": [

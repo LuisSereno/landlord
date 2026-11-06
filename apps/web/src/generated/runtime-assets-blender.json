@@ -428,6 +428,631 @@
           ]
         }
       }
+    },
+    "chr_citizen": {
+      "id": "chr_citizen",
+      "name": "chr_citizen",
+      "directions": 4,
+      "animations": {
+        "idle": {
+          "frameDurationMs": 400,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender/chr_citizen-d0-idle-0.png",
+              "width": 151,
+              "height": 250,
+              "sha256": "149d7cdffe9114d098ccfa56807fed0c5a9c26d9890d4826f20cafc40718838b"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_citizen-d0-idle-1.png",
+              "width": 150,
+              "height": 250,
+              "sha256": "7a03d4e0480ecf2fac572d3c3944dfb4cbe1062fef312941d968a767751cf1d5"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_citizen-d1-idle-0.png",
+              "width": 151,
+              "height": 250,
+              "sha256": "c80c76a73e63dc9f1cb3528654d4a7d8b7024158541fd6e8aea7ab1c5e663d5a"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_citizen-d1-idle-1.png",
+              "width": 150,
+              "height": 250,
+              "sha256": "66cd22b43bbcb15e3e911cb97798dde5be21ee88ab2226955769b50047d2f830"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_citizen-d2-idle-0.png",
+              "width": 151,
+              "height": 250,
+              "sha256": "69805c8a7a424d3021217c9a84a614a4a6d371dfbbfbbd53f5ead06983ae3ed2"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_citizen-d2-idle-1.png",
+              "width": 150,
+              "height": 250,
+              "sha256": "165363c48cfc703dc0da5d24b0738542628112548f2addc0aa3f235e0718a85d"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_citizen-d3-idle-0.png",
+              "width": 151,
+              "height": 250,
+              "sha256": "d4f55719b3fa83270922b642021fdeae7c1914a5d9ae25b66a56994f79dfb251"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_citizen-d3-idle-1.png",
+              "width": 150,
+              "height": 250,
+              "sha256": "c25fb0aaa71d21ac6128262537a3f47044e285f318895c572a089e5b18c10219"
+            }
+          ]
+        },
+        "walk": {
+          "frameDurationMs": 180,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender/chr_citizen-d0-walk-0.png",
+              "width": 157,
+              "height": 255,
+              "sha256": "bb620d18189434fbad34993c19739107348ef01e12f48f559dfa52f1d9039f72"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_citizen-d0-walk-1.png",
+              "width": 147,
+              "height": 221,
+              "sha256": "6f15b24e49567f168e469bacde58f91f56046e5803797a0cf30ad2c51c9b12ac"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_citizen-d1-walk-0.png",
+              "width": 145,
+              "height": 254,
+              "sha256": "94f65da19ba17b354aa26e77c887b861e550ae4010f62c487b8c5d39cfecd5a1"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_citizen-d1-walk-1.png",
+              "width": 98,
+              "height": 218,
+              "sha256": "f1e093f5f71f8c61c67e1de0acb587801a5b4bc64f2fe3f06212290b2bdda1e6"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_citizen-d2-walk-0.png",
+              "width": 157,
+              "height": 242,
+              "sha256": "c57668d645245177bd39357795ea6ae30b1dcc281041aedf494514dfc41fba45"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_citizen-d2-walk-1.png",
+              "width": 146,
+              "height": 220,
+              "sha256": "71aefbed1447cf3b5ef07b857a6a9b120c5670311600b20d228c7b08cc9f1be6"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_citizen-d3-walk-0.png",
+              "width": 145,
+              "height": 244,
+              "sha256": "6bcbb05fe26d583a0e06657801aa2df98d3b25e92a5b4bb4fda6fa2606fd708d"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_citizen-d3-walk-1.png",
+              "width": 100,
+              "height": 205,
+              "sha256": "09ace6d1005b8cddaf244d1989e0afaac42d2ab5eb10f2241bcbcc3c0c2a6c25"
+            }
+          ]
+        }
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      }
+    },
+    "chr_police": {
+      "id": "chr_police",
+      "name": "chr_police",
+      "directions": 4,
+      "animations": {
+        "idle": {
+          "frameDurationMs": 400,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender/chr_police-d0-idle-0.png",
+              "width": 151,
+              "height": 252,
+              "sha256": "c046df1ce552f832d40c44d9b5c01b4188cf88a1db5f79340bf7e2b1533c25fe"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_police-d0-idle-1.png",
+              "width": 153,
+              "height": 252,
+              "sha256": "6db57058289a790d5da4c4bb6604fbffd160dcb79a597034f181ff4d1f131532"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_police-d1-idle-0.png",
+              "width": 151,
+              "height": 253,
+              "sha256": "16503e624a051fd7c5fe7ea7a5f7196f38fb455f6227d8b9ca17e1de1651e1b6"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_police-d1-idle-1.png",
+              "width": 151,
+              "height": 252,
+              "sha256": "62502a073a03ec3124158e969f7f27aa42f42c6f031cb3a839bf8abb3ffac7aa"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_police-d2-idle-0.png",
+              "width": 151,
+              "height": 252,
+              "sha256": "fc26117094d11cdc2bf2601c2abc3d565f725106f354f1a31a8a0ee693d154ee"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_police-d2-idle-1.png",
+              "width": 153,
+              "height": 252,
+              "sha256": "c00371082cddac15dc618334504d37d9ead5bd2bae7aba3de88e6af485b894d9"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_police-d3-idle-0.png",
+              "width": 151,
+              "height": 251,
+              "sha256": "0f4cd9191dd389eb7d0e23ae9eb5b444be66a614c9959688b41bce69cc502b4b"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_police-d3-idle-1.png",
+              "width": 151,
+              "height": 251,
+              "sha256": "0a9385c52c5e4e17b51b31d2fc6669b922ca859794198fd38d2da3208d27396e"
+            }
+          ]
+        },
+        "walk": {
+          "frameDurationMs": 180,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender/chr_police-d0-walk-0.png",
+              "width": 157,
+              "height": 256,
+              "sha256": "6f62c9218932ebccdaab487c340bf8a0aa66056de304d3d55bea38f8cd0bc384"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_police-d0-walk-1.png",
+              "width": 148,
+              "height": 224,
+              "sha256": "092a9ea3f59f613dd8e6f7c6cf66e660bd60973b87f21ac93ee76fee46f28566"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_police-d1-walk-0.png",
+              "width": 145,
+              "height": 256,
+              "sha256": "7b11a7231b9ec2059f351f246c9e68b5c8bdc9cce9abb4ce784a8efa8044b44d"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_police-d1-walk-1.png",
+              "width": 100,
+              "height": 221,
+              "sha256": "15aa9f8b9b5d078f860a1341f26bc7715f0a8e8c82b271a1aa49daf9dea79b3b"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_police-d2-walk-0.png",
+              "width": 157,
+              "height": 244,
+              "sha256": "5c7b9bced00468998ab557b7026bcea3c6687c78f53f3ff811c1464a195d08c5"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_police-d2-walk-1.png",
+              "width": 148,
+              "height": 221,
+              "sha256": "21ce7d3e784c7636c969b53fdeee203d5146787e6f5442f727cbd432722ccdf4"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_police-d3-walk-0.png",
+              "width": 145,
+              "height": 246,
+              "sha256": "e208ccd9dd37d27c2b2b1ea1bbaaa0f6b6ef41f90a2290c17d78c6e10a221844"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_police-d3-walk-1.png",
+              "width": 101,
+              "height": 206,
+              "sha256": "53106da8fbdad4b3eecea5a25560de1b5d344b5574f1a1b602806b2b57ad323f"
+            }
+          ]
+        }
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      }
+    },
+    "chr_medical": {
+      "id": "chr_medical",
+      "name": "chr_medical",
+      "directions": 4,
+      "animations": {
+        "idle": {
+          "frameDurationMs": 400,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender/chr_medical-d0-idle-0.png",
+              "width": 136,
+              "height": 239,
+              "sha256": "7823871b2ea972d2e9af6c54638793a304c464be670638e0c60a2f38c828f3de"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_medical-d0-idle-1.png",
+              "width": 137,
+              "height": 239,
+              "sha256": "a32bcb5a2b395d448bb0b6af9e7e24d33b1ad01cb9f1a2e5b9b0c687eb32b977"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_medical-d1-idle-0.png",
+              "width": 136,
+              "height": 240,
+              "sha256": "063ab91380f2ac0e8c9910c5d0681134a84e7dcaf08892dea3d22ebe19824a6e"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_medical-d1-idle-1.png",
+              "width": 136,
+              "height": 240,
+              "sha256": "c7e4bd17f70929f0f75297844831e6ac55de6be762c583f8def3db05b49df34b"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_medical-d2-idle-0.png",
+              "width": 136,
+              "height": 239,
+              "sha256": "0f1ca572a5c6aaa5f0a9e23b5e8b8d4fcf3e50e36a82b51f90b721434859d1a2"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_medical-d2-idle-1.png",
+              "width": 137,
+              "height": 239,
+              "sha256": "239f9aa50c0cb2dd0f5ccd108b41aa840e0efe85f704fab55b4078cf567043d0"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_medical-d3-idle-0.png",
+              "width": 136,
+              "height": 238,
+              "sha256": "afa679f374a08788e7e51c0a4b5c47707bf042d04e85d24df5b88d78be8f7b72"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_medical-d3-idle-1.png",
+              "width": 136,
+              "height": 238,
+              "sha256": "f878c575190cc4774d7ec771128b9c23e08a4b729926129d443680553e2689f3"
+            }
+          ]
+        },
+        "walk": {
+          "frameDurationMs": 180,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender/chr_medical-d0-walk-0.png",
+              "width": 131,
+              "height": 242,
+              "sha256": "60718c7ca364f24c9077d3739fa7fd87c90b6fab1b1c4ea3010d22a70c2d45d7"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_medical-d0-walk-1.png",
+              "width": 96,
+              "height": 207,
+              "sha256": "d7de62e0ff3870b0ec451d897e2a1ef7fa22c6fc43646bb79b213737ccb984c4"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_medical-d1-walk-0.png",
+              "width": 145,
+              "height": 246,
+              "sha256": "824a88c3d7b70c445a6aeef8e6ddc5ccd00963d65ba3bc53eecc8e9db58a978f"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_medical-d1-walk-1.png",
+              "width": 133,
+              "height": 209,
+              "sha256": "4af650b56bb53ca3f8fbb1bb8ee1eca171a056ee75e740b704195cc7bb61dddc"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_medical-d2-walk-0.png",
+              "width": 131,
+              "height": 217,
+              "sha256": "37693f4853fdc060eaf911baef0b1164d91b8d96c68d24406cff87726dd0d9d3"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_medical-d2-walk-1.png",
+              "width": 96,
+              "height": 212,
+              "sha256": "96946d8ff212d15a3f7cc1de32e30d8d6c35e0c28ba7537f29a090f44a20466d"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_medical-d3-walk-0.png",
+              "width": 145,
+              "height": 210,
+              "sha256": "4dfd4808a5a7d522a82f025499e20665b6e85e7020361f4cfb4a45af8cc33c7e"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_medical-d3-walk-1.png",
+              "width": 134,
+              "height": 199,
+              "sha256": "48f32e59b12d625151ebba5890a65122d9cb27166c5db4728e927724e34631ca"
+            }
+          ]
+        }
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      }
+    },
+    "chr_firefighter": {
+      "id": "chr_firefighter",
+      "name": "chr_firefighter",
+      "directions": 4,
+      "animations": {
+        "idle": {
+          "frameDurationMs": 400,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender/chr_firefighter-d0-idle-0.png",
+              "width": 151,
+              "height": 250,
+              "sha256": "7edebcb7021f90c25864a5906211a91da9e0aad5f490810fdde7998812835292"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_firefighter-d0-idle-1.png",
+              "width": 161,
+              "height": 248,
+              "sha256": "74a4eb547c4863a905223dcd1586e76eeb82d0cedc3ff61e9319eea1ddd5e040"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_firefighter-d1-idle-0.png",
+              "width": 151,
+              "height": 250,
+              "sha256": "c1e60f628f330a2d1cad43972d9a0555803fa5d3281fe3cbdff164768c4ed152"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_firefighter-d1-idle-1.png",
+              "width": 137,
+              "height": 252,
+              "sha256": "b217ccffbccb35b7746d23ae5f6a446ff168593a93653d07f19324f501f016a1"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_firefighter-d2-idle-0.png",
+              "width": 151,
+              "height": 252,
+              "sha256": "1a65ea2d07f44557cfe7260dd7ed1d0fce7197fc8f60d728687352ed0cd9c488"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_firefighter-d2-idle-1.png",
+              "width": 161,
+              "height": 254,
+              "sha256": "4155a5a5dc1d1dc935bbd69429e3f9dd90f9364f50a62b66fc13cb624468d6d0"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_firefighter-d3-idle-0.png",
+              "width": 151,
+              "height": 251,
+              "sha256": "5e575ff2b1002b8084edc371f6883b1cbfc33997fcc2f1dcd2a84fb5e95d58a6"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_firefighter-d3-idle-1.png",
+              "width": 137,
+              "height": 249,
+              "sha256": "5ee73e6e1efd519eb8f70201de957a4307bdc6f1d1e925db36d912e231004525"
+            }
+          ]
+        },
+        "walk": {
+          "frameDurationMs": 180,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender/chr_firefighter-d0-walk-0.png",
+              "width": 150,
+              "height": 254,
+              "sha256": "21f43012683a538c390ce08d5a3fa5d2a6a84d4119e12ceca4816f2620338195"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_firefighter-d0-walk-1.png",
+              "width": 112,
+              "height": 217,
+              "sha256": "40db58b74a98b2e54501e72e5ad18fefa462326a5d7c3b145b29db49afe0aeee"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_firefighter-d1-walk-0.png",
+              "width": 152,
+              "height": 255,
+              "sha256": "818c4846724b88b1d04b2a62839e632a320f391137c527245e7459392b7075c4"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_firefighter-d1-walk-1.png",
+              "width": 127,
+              "height": 217,
+              "sha256": "76b09a9399232169cd90a32e71abc853d3d071d668748999f906d01e4638cafa"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_firefighter-d2-walk-0.png",
+              "width": 150,
+              "height": 235,
+              "sha256": "2e31c0df8dcd31c8db199f29fe3824b930ec9f489e8c29d2d727f26ce53d5382"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_firefighter-d2-walk-1.png",
+              "width": 111,
+              "height": 216,
+              "sha256": "aa374e051d7b2934a6a7b92172cb8c3f62e1fe342473b1a140d7e521b0ec6b32"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_firefighter-d3-walk-0.png",
+              "width": 152,
+              "height": 233,
+              "sha256": "6c40d4199d4876a41799f61a44e8fbd65b1087c6fc4c382ca22b9ec9619f217e"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_firefighter-d3-walk-1.png",
+              "width": 127,
+              "height": 194,
+              "sha256": "35814a9ccc3f8ebd6e65532edf4a8cba60a993b74b692eeda846e8107ab8dce2"
+            }
+          ]
+        }
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      }
+    },
+    "chr_worker": {
+      "id": "chr_worker",
+      "name": "chr_worker",
+      "directions": 4,
+      "animations": {
+        "idle": {
+          "frameDurationMs": 400,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender/chr_worker-d0-idle-0.png",
+              "width": 150,
+              "height": 250,
+              "sha256": "65780d2fe6c55c151ff7cd49bde52ab5a9f5f53cf252229719434b5100624fb3"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_worker-d0-idle-1.png",
+              "width": 150,
+              "height": 251,
+              "sha256": "ce9f9e0c3761d6e6aa9cf81ad525a425322d341912d94f4727e7d99ad75026c5"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_worker-d1-idle-0.png",
+              "width": 150,
+              "height": 250,
+              "sha256": "c2c2ab76272d981239cc1930c6272feeb8b796a69c806812fdb2f332f95dd865"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_worker-d1-idle-1.png",
+              "width": 151,
+              "height": 250,
+              "sha256": "7cd5f83b9677dc25d711b5876bd876d8d0e78c90c42312a6c08b025318247381"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_worker-d2-idle-0.png",
+              "width": 150,
+              "height": 249,
+              "sha256": "aeb1dd01720b08b72001f5e0a760d2cb50e390eb02e17da93d5af9d6d863fa49"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_worker-d2-idle-1.png",
+              "width": 150,
+              "height": 247,
+              "sha256": "22b4e42895648e0c6d28ce653d364ece5cc1b115ddc9845dfd2d9326a39c8162"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_worker-d3-idle-0.png",
+              "width": 150,
+              "height": 249,
+              "sha256": "11a280f95740093701df75b78c45f2c565cba5c6ee922949b40b1fa4d303b682"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_worker-d3-idle-1.png",
+              "width": 151,
+              "height": 249,
+              "sha256": "6f7f0e1e0e47f3ab10659f7430c5aa4e4e8aae76976ade0951661a4b4e1bd3bb"
+            }
+          ]
+        },
+        "walk": {
+          "frameDurationMs": 180,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender/chr_worker-d0-walk-0.png",
+              "width": 151,
+              "height": 254,
+              "sha256": "54ec67ee6333e08fa96208bd1a8c9697c83ec73f8b865ca2c150400cc48b13cb"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_worker-d0-walk-1.png",
+              "width": 114,
+              "height": 217,
+              "sha256": "7a446497b53980e297774b14e83bb01a31a5d8b60b71cbc194eae999c64af262"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_worker-d1-walk-0.png",
+              "width": 152,
+              "height": 254,
+              "sha256": "aaa6513ef81bcefdf1acc508dbc90b1879f7a15e8bca5398a411ac31b4c3948c"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_worker-d1-walk-1.png",
+              "width": 128,
+              "height": 216,
+              "sha256": "b860033cb82179287f20fcacffc064a93a9ce8446a30eb759ff36027ac370369"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_worker-d2-walk-0.png",
+              "width": 151,
+              "height": 233,
+              "sha256": "b0b6f89cff649a92f5847b25478fe50a16c94da4b5b54637f409fa616c619527"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_worker-d2-walk-1.png",
+              "width": 113,
+              "height": 217,
+              "sha256": "fefb5cacfc00088ce395f33d150e044e4df03f6382fe373f17db3d0a3a62b2e4"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_worker-d3-walk-0.png",
+              "width": 152,
+              "height": 231,
+              "sha256": "ef2acc850ce218f64136d1e9f6b58a21dc0e32bcc6e0d0fad6e877de07ea7550"
+            },
+            {
+              "src": "/assets/runtime/blender/chr_worker-d3-walk-1.png",
+              "width": 129,
+              "height": 194,
+              "sha256": "3728c25fce286d76aa0ec7642baf090d9dd15e98604f8cacbae8f9e952619496"
+            }
+          ]
+        }
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      }
     }
   },
   "terrain": {

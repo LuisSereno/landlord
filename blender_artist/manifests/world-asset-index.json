@@ -44,7 +44,7 @@
   ],
   "counts": {
     "assets": 4554,
-    "runtimeReady": 193,
+    "runtimeReady": 198,
     "classified": 4554,
     "quarantinedUnacquired": 10
   },
@@ -1235,16 +1235,17 @@
         "plaza",
         "interior"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "unmeasured",
       "orientationSupport": [
         0
       ],
       "animationSupport": true,
-      "runtimeReady": false,
-      "state": "classified",
-      "actorClass": "civilian",
-      "placeable": true
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "actorClass": "police",
+      "placeable": true,
+      "runtimeAssetId": "chr_police"
     },
     {
       "assetId": "wa_microsoft_rocketbox_male_adult_10",
@@ -1403,16 +1404,17 @@
         "plaza",
         "interior"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "unmeasured",
       "orientationSupport": [
         0
       ],
       "animationSupport": true,
-      "runtimeReady": false,
-      "state": "classified",
+      "runtimeReady": true,
+      "state": "runtime_ready",
       "actorClass": "civilian",
-      "placeable": true
+      "placeable": true,
+      "runtimeAssetId": "chr_citizen"
     },
     {
       "assetId": "wa_microsoft_rocketbox_male_adult_05_facial",
@@ -1505,16 +1507,17 @@
         "plaza",
         "interior"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "unmeasured",
       "orientationSupport": [
         0
       ],
       "animationSupport": true,
-      "runtimeReady": false,
-      "state": "classified",
-      "actorClass": "civilian",
-      "placeable": true
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "actorClass": "firefighter",
+      "placeable": true,
+      "runtimeAssetId": "chr_firefighter"
     },
     {
       "assetId": "wa_microsoft_rocketbox_male_adult_09_facial",
@@ -1847,16 +1850,17 @@
         "plaza",
         "interior"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "unmeasured",
       "orientationSupport": [
         0
       ],
       "animationSupport": true,
-      "runtimeReady": false,
-      "state": "classified",
-      "actorClass": "civilian",
-      "placeable": true
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "actorClass": "medical",
+      "placeable": true,
+      "runtimeAssetId": "chr_medical"
     },
     {
       "assetId": "wa_microsoft_rocketbox_female_adult_13",
@@ -2015,16 +2019,17 @@
         "plaza",
         "interior"
       ],
-      "runtimeLayer": "none",
+      "runtimeLayer": "blender_sprite",
       "qualityTier": "unmeasured",
       "orientationSupport": [
         0
       ],
       "animationSupport": true,
-      "runtimeReady": false,
-      "state": "classified",
-      "actorClass": "civilian",
-      "placeable": true
+      "runtimeReady": true,
+      "state": "runtime_ready",
+      "actorClass": "worker",
+      "placeable": true,
+      "runtimeAssetId": "chr_worker"
     },
     {
       "assetId": "wa_microsoft_rocketbox_male_adult_12_facial",

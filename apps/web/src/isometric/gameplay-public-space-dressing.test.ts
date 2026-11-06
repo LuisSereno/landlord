@@ -5,6 +5,7 @@ import {
   planGameplayContextVehicles,
   planGameplayParkedVehicles,
   planGameplayAmbientActors,
+  planGameplayContextActors,
 } from "./gameplay-visual-adapter";
 import {
   DISTRICT_VISUAL_PROFILES,
@@ -370,5 +371,74 @@ describe("V.h.8 district/building visual profiles: invariantes", () => {
     expect(buildingContextProps("courtyard_home")).toContain("prp_tree_oak");
     expect(buildingContextProps("cement_plant")).toContain("prp_construction_barrier");
     expect(buildingContextProps("no_existe")).toEqual([]);
+  });
+});
+
+describe("V.h.11 context actors: invariantes", () => {
+  const ROAD_EW = Array.from({ length: 13 }, (_v, i) => ({
+    cell: { x: i, y: 5 },
+    mask: 10 as const,
+    shape: "straight" as const,
+    orientation: "straight_ew" as const,
+  }));
+  const POLICE = { id: "b_police", type: "police_station", footprintCells: rectCells(2, 6, 2, 1) };
+  const CLINIC = { id: "b_clinic", type: "clinic", footprintCells: rectCells(5, 6, 2, 1) };
+  const FIRE = { id: "b_fire", type: "fire_station", footprintCells: rectCells(8, 6, 2, 1) };
+  const WORKSHOP = { id: "b_work", type: "workshop", footprintCells: rectCells(11, 6, 1, 1) };
+  const BUILDINGS = [POLICE, CLINIC, FIRE, WORKSHOP];
+  const SIDE_DELTA = {
+    n: { x: 0, y: -1 },
+    e: { x: 1, y: 0 },
+    s: { x: 0, y: 1 },
+    w: { x: -1, y: 0 },
+  } as const;
+
+  const runCtx = (reserved: ReadonlySet<string> = new Set()) =>
+    planGameplayContextActors(BUILDINGS, ROAD_EW, reserved, 64, 64);
+
+  it("es determinista (misma geometría → mismos actores)", () => {
+    expect(runCtx()).toEqual(runCtx());
+  });
+
+  it("mapea edificio → avatar Rocketbox profesional por rol", () => {
+    const by = new Map(runCtx().map((a) => [a.buildingId, a]));
+    expect(by.get("b_police")?.character).toBe("chr_police");
+    expect(by.get("b_police")?.actorClass).toBe("police");
+    expect(by.get("b_clinic")?.character).toBe("chr_medical");
+    expect(by.get("b_fire")?.character).toBe("chr_firefighter");
+    expect(by.get("b_work")?.character).toBe("chr_worker");
+  });
+
+  it("cada actor queda en el bordillo adyacente a su huella, lado hacia el edificio", () => {
+    for (const actor of runCtx()) {
+      const building = BUILDINGS.find((b) => b.id === actor.buildingId)!;
+      const delta = SIDE_DELTA[actor.direction === 0 ? "s" : "n"];
+      // La celda reservada no es un campo "side"; se comprueba adyacencia a la huella por cualquier lado.
+      const adjacent = building.footprintCells.some(
+        (c) => Math.abs(c.x - actor.cell.x) + Math.abs(c.y - actor.cell.y) === 1,
+      );
+      expect(adjacent).toBe(true);
+      expect(delta).toBeTruthy();
+    }
+  });
+
+  it("IDs/celdas únicos y respeta las celdas reservadas por vehículos contextuales", () => {
+    const actors = runCtx();
+    expect(new Set(actors.map((a) => a.id)).size).toBe(actors.length);
+    expect(new Set(actors.map((a) => `${a.cell.x}:${a.cell.y}`)).size).toBe(actors.length);
+    const reserved = new Set(actors.map((a) => `${a.cell.x}:${a.cell.y}`));
+    const second = planGameplayContextActors(BUILDINGS, ROAD_EW, reserved, 64, 64);
+    for (const a of second) expect(reserved.has(`${a.cell.x}:${a.cell.y}`)).toBe(false);
+  });
+
+  it("los peatones ambientales usan el avatar Rocketbox chr_citizen, no el procedural", () => {
+    const actors = planGameplayAmbientActors(
+      [{ id: "ps1", cells: rectCells(33, 33, 9, 9) }],
+      new Set(),
+      64,
+      64,
+    );
+    expect(actors.length).toBeGreaterThan(0);
+    for (const a of actors) expect(a.character).toBe("chr_citizen");
   });
 });

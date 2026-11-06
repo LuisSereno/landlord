@@ -1,0 +1,29 @@
+# V.h lint diagnostic
+## Remediation
+
+{"status":"visual-remediation-v2-applied","promoted":["courtyard_home","town_hall"],"exactProceduralFallbacks":13,"legacyExcluded":6,"actorHeightPx":28,"vehicleAxes":4}
+{"status":"vh-remediation-type-contracts-fixed"}
+{"status":"vh-remediation-tests-updated"}
+
+remediation_status=0
+
+## Lint
+
+$ eslint src vite.config.ts
+
+/home/runner/work/landlord/landlord/apps/web/src/isometric/gameplay-visual-adapter.ts
+  755:3  error  'mapWidth' is defined but never used   @typescript-eslint/no-unused-vars
+  756:3  error  'mapHeight' is defined but never used  @typescript-eslint/no-unused-vars
+  875:3  error  'mapWidth' is defined but never used   @typescript-eslint/no-unused-vars
+  876:3  error  'mapHeight' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 4 problems (4 errors, 0 warnings)
+
+[ELIFECYCLE] Command failed with exit code 1.
+Error: ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL
+
+  × "pnpm recursive run" failed in /home/runner/work/landlord/landlord/apps/
+  │ web
+
+
+lint_status=1

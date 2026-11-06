@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T12:14:13.657Z",
+  "generatedAt": "2026-11-06T13:20:16.739Z",
   "seed": 2026,
   "before_V_h": {
     "atlasImages": 69,
@@ -59,7 +59,7 @@
       "district_00000008": 280,
       "district_00000009": 157
     },
-    "generationMs": 492
+    "generationMs": 292
   },
   "note": "generationMs = proyectar + construir el modelo visual de los 9 distritos en node (sin GPU). El FPS interactivo requiere la app Phaser y se valida en la review humana; el render usa reuse de texturas, culling por viewport y sprites compartidos del atlas (sin duplicar mallas ni PNGs)."
 }

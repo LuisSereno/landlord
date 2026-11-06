@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { CHARACTER_RENDER_SCALE, vehicleScreenRotation } from "./visual-scale";
 import {
   type BuildingAssetState,
   type BuildingAssetV2,
@@ -742,6 +743,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
         .setPosition(center.x + offset.x, center.y + offset.y)
         .setOrigin(frame.pivot.x, frame.pivot.y)
         .setScale(spriteScaleFor(frame, this.layout.tileWidth) * vehicle.scale)
+        .setRotation(vehicleScreenRotation(vehicle.azimuth))
         .setDepth(depthForAsset(vehicle.roadCell, asset.footprint));
       image.setVisible(this.isInViewport(image.x, image.y, this.cameras.main.worldView, 128));
       seenVehicles.add(vehicle.id);
@@ -768,7 +770,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
         .setTexture(key)
         .setPosition(center.x, center.y)
         .setOrigin(0.5, 0.94)
-        .setScale(0.75)
+        .setScale(CHARACTER_RENDER_SCALE)
         .setDepth(depthForAsset(renderCell, { width: 1, height: 1 }));
       image.setVisible(this.isInViewport(image.x, image.y, this.cameras.main.worldView, 96));
       seenActors.add(actor.id);

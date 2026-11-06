@@ -1,1 +1,0 @@
-Capture exact lint failure after remediation v4.

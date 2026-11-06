@@ -288,21 +288,15 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
     expect(second.geometryKey).toBe(first.geometryKey);
   });
 
-  it("asigna un archetype estable por identidad de edificio", () => {
+  it("asigna el Composer aprobado a courtyard_home sin mezclar casas heredadas", () => {
     const a = visualArchetypeForBuilding("courtyard_home", "bld_00000007");
     const b = visualArchetypeForBuilding("courtyard_home", "bld_00000007");
-    expect(a).toBe(b);
-    expect([
-      "bld_residential_a",
-      "bld_residential_b",
-      "bld_residential_c",
-      "courtyard_home",
-    ]).toContain(a);
+    expect(a).toBe("courtyard_home");
+    expect(b).toBe(a);
   });
 
-  it("resuelve workshop a un archetype comercial compatible", () => {
-    const archetype = visualArchetypeForBuilding("workshop", "bld_00000042");
-    expect(["bld_shopfront", "bld_commercial_b", "bld_commercial_c"]).toContain(archetype);
+  it("mantiene workshop en su fallback procedural semántico exacto", () => {
+    expect(visualArchetypeForBuilding("workshop", "bld_00000042")).toBe("workshop");
   });
 
   it("mantiene los tipos industriales en su tipo de dominio (fallback procedural honesto)", () => {
@@ -545,7 +539,7 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
           `${entry.cell.x}:${entry.cell.y}` === `${vehicle.roadCell.x}:${vehicle.roadCell.y}`,
       )!;
       expect(road.shape).toBe("straight");
-      expect([45, 225]).toContain(vehicle.azimuth);
+      expect([45, 135, 225, 315]).toContain(vehicle.azimuth);
       expect(
         roads
           .filter((entry) => entry.shape === "t_junction" || entry.shape === "intersection")

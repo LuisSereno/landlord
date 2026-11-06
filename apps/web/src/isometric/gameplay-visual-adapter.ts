@@ -19,38 +19,20 @@ import {
  */
 
 /**
- * Archetypes residenciales compatibles (huella 1×1 en el bundle Blender). Se listan ordenados para
- * que la selección por hash no dependa del orden de un mapa.
+ * Explicit temporary policy for all fifteen domain types. A missing reviewed Blender asset falls
+ * back to the exact procedural type; it is never disguised as an unrelated old house or shop.
  */
-const RESIDENTIAL_ARCHETYPES: readonly string[] = [
-  "bld_residential_a",
-  "bld_residential_b",
-  "bld_residential_c",
-  "courtyard_home",
-];
-
-/** Archetypes comerciales/taller compatibles (huella 1×1 en el bundle Blender). */
-const COMMERCIAL_ARCHETYPES: readonly string[] = [
-  "bld_shopfront",
-  "bld_commercial_b",
-  "bld_commercial_c",
-];
-
 export type BuildingVisualPolicy =
   | { mode: "runtime_exact"; assetId: string }
   | { mode: "runtime_compatible"; archetypes: readonly string[] }
   | { mode: "procedural_semantic_fallback"; assetId: BuildingType };
 
-/**
- * Política temporal explícita para los 15 BuildingType. La variedad nunca puede convertir un tipo
- * en otra familia semántica: si no existe Blender compatible, el asset procedural exacto manda.
- */
 export const BUILDING_VISUAL_POLICIES: Record<BuildingType, BuildingVisualPolicy> = {
-  courtyard_home: { mode: "runtime_compatible", archetypes: RESIDENTIAL_ARCHETYPES },
-  row_house: { mode: "runtime_compatible", archetypes: RESIDENTIAL_ARCHETYPES },
-  apartment_block: { mode: "runtime_compatible", archetypes: RESIDENTIAL_ARCHETYPES },
-  mixed_tenement: { mode: "runtime_compatible", archetypes: RESIDENTIAL_ARCHETYPES },
-  workshop: { mode: "runtime_compatible", archetypes: COMMERCIAL_ARCHETYPES },
+  courtyard_home: { mode: "runtime_exact", assetId: "courtyard_home" },
+  row_house: { mode: "procedural_semantic_fallback", assetId: "row_house" },
+  apartment_block: { mode: "procedural_semantic_fallback", assetId: "apartment_block" },
+  mixed_tenement: { mode: "procedural_semantic_fallback", assetId: "mixed_tenement" },
+  workshop: { mode: "procedural_semantic_fallback", assetId: "workshop" },
   warehouse: { mode: "procedural_semantic_fallback", assetId: "warehouse" },
   cement_plant: { mode: "procedural_semantic_fallback", assetId: "cement_plant" },
   brickworks: { mode: "procedural_semantic_fallback", assetId: "brickworks" },
@@ -112,7 +94,7 @@ export type GameplayParkedVehicle = {
   asset: GameplayVehicleAsset;
   roadCell: GridCell;
   side: "n" | "e" | "s" | "w";
-  azimuth: 45 | 225;
+  azimuth: 45 | 135 | 225 | 315;
   lateralOffset: number;
   longitudinalOffset: number;
   scale: number;
@@ -620,6 +602,16 @@ export function planGameplayStreetFurniture(
   return furniture;
 }
 
+/** Eje visual de vehículo paralelo a la carretera, en ambos sentidos. */
+export function vehicleAzimuthForRoad(
+  orientation: RoadOrientation,
+  reverse: boolean,
+): 45 | 135 | 225 | 315 {
+  if (orientation === "straight_ns") return reverse ? 315 : 135;
+  if (orientation === "straight_ew") return reverse ? 225 : 45;
+  throw new Error(`vehicleAzimuthForRoad requiere una vía recta, recibió: ${orientation}`);
+}
+
 /** Vehículos aparcados estáticos: sólo rectas, con distancia a toda T/intersección y sin economía. */
 export function planGameplayParkedVehicles(
   roadVisuals: readonly GameplayRoadVisual[],
@@ -703,7 +695,8 @@ export function planGameplayParkedVehicles(
     const variant = spatialHash(road.cell.x, road.cell.y, 0xf809) % 100;
     const asset: GameplayParkedVehicle["asset"] =
       variant < 55 ? "veh_sedan" : variant < 80 ? "veh_taxi" : "veh_truck";
-    const azimuth: 45 | 225 = road.orientation === "straight_ns" ? 45 : 225;
+    const reverseDirection = spatialHash(road.cell.x, road.cell.y, 0x17b3) % 2 === 1;
+    const azimuth = vehicleAzimuthForRoad(road.orientation, reverseDirection);
     vehicles.push({
       id: `parked-${asset}:${cellKey(road.cell)}:${side}`,
       asset,
@@ -762,6 +755,7 @@ export function planGameplayContextVehicles(
   mapWidth: number,
   mapHeight: number,
 ): GameplayContextVehicle[] {
+  if (mapWidth <= 0 || mapHeight <= 0) return [];
   const junctions = roadVisuals.filter(isJunction).map((road) => road.cell);
   const straights = roadVisuals.filter((road) => road.shape === "straight");
   const out: GameplayContextVehicle[] = [];
@@ -788,7 +782,8 @@ export function planGameplayContextVehicles(
       if (free.length === 0) break;
       const curb = free[spatialHash(anchor.x, anchor.y, 0x7c1 + i * 0x2f) % free.length]!;
       usedRoadCells.add(cellKey(curb.road.cell));
-      const azimuth: 45 | 225 = curb.road.orientation === "straight_ns" ? 45 : 225;
+      const reverseDirection = spatialHash(anchor.x, anchor.y, 0x31d5 + i * 0x53) % 2 === 1;
+      const azimuth = vehicleAzimuthForRoad(curb.road.orientation, reverseDirection);
       out.push({
         id: `ctx-${building.id}:${spec.asset}:${cellKey(curb.road.cell)}:${i}`,
         buildingId: building.id,
@@ -881,6 +876,7 @@ export function planGameplayContextActors(
   mapWidth: number,
   mapHeight: number,
 ): GameplayContextActor[] {
+  if (mapWidth <= 0 || mapHeight <= 0) return [];
   const junctions = roadVisuals.filter(isJunction).map((road) => road.cell);
   const straights = roadVisuals.filter((road) => road.shape === "straight");
   const out: GameplayContextActor[] = [];

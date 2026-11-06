@@ -1,14 +1,31 @@
-import { parseRuntimeAssetManifest, type RuntimeAssetManifestV2 } from "@landlord/shared";
-
+import { parseRuntimeAssetManifest, validateRuntimeAssetManifestV2 } from "@landlord/shared";
 import runtimeAssets from "../generated/runtime-assets.json";
 import runtimeAssetsBlender from "../generated/runtime-assets-blender.json";
+import runtimeVisualOverrides from "../generated/runtime-visual-overrides.json";
+
+export const PROCEDURAL_ASSETS = parseRuntimeAssetManifest(runtimeAssets);
+const RAW_BLENDER_ASSETS = parseRuntimeAssetManifest(runtimeAssetsBlender);
+const LEGACY_GAMEPLAY_EXCLUSIONS = new Set(runtimeVisualOverrides.legacyGameplayExclusions);
 
 /**
- * Bundles de assets parseados una sola vez. El renderer y las miniaturas de la UI comparten la
- * misma instancia: la miniatura no mantiene una colección paralela, sólo lee el frame `complete`
- * del mismo contrato (`RuntimeAssetManifestV2`). Si mañana Blender sustituye un tipo, la escena y
- * la miniatura cambian juntas (spec §7.2).
+ * The raw bundle remains available as generated evidence, but gameplay never consumes the early
+ * residential/commercial placeholders. Only reviewed Composer overrides are merged back.
  */
-export const PROCEDURAL_ASSETS: RuntimeAssetManifestV2 = parseRuntimeAssetManifest(runtimeAssets);
-export const BLENDER_ASSETS: RuntimeAssetManifestV2 =
-  parseRuntimeAssetManifest(runtimeAssetsBlender);
+export const BLENDER_ASSETS = {
+  ...RAW_BLENDER_ASSETS,
+  buildings: {
+    ...Object.fromEntries(
+      Object.entries(RAW_BLENDER_ASSETS.buildings).filter(
+        ([assetId]) => !LEGACY_GAMEPLAY_EXCLUSIONS.has(assetId),
+      ),
+    ),
+    ...runtimeVisualOverrides.buildings,
+  },
+} as unknown as typeof RAW_BLENDER_ASSETS;
+
+const blenderIssues = validateRuntimeAssetManifestV2(BLENDER_ASSETS);
+if (blenderIssues.length > 0) {
+  throw new Error(
+    `El bundle Blender curado no cumple RuntimeAssetManifestV2: ${blenderIssues.join(" | ")}`,
+  );
+}

@@ -275,7 +275,7 @@ try {
   const inlineDetailByDistrict = {
     "Barrio del Umbral": "residential",
     "Mercado del Norte": "commercial",
-    "Corredor Ferroviario": "industrial",
+    "Ensanche Ferroviario Oeste": "industrial",
     "Vega del Cauce": "green",
   };
 

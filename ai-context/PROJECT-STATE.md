@@ -107,6 +107,25 @@ Gate 1 aprobado `GO` el 2026-10-21; la evidencia técnica de G1-RW-01..04 quedó
 Gate 2 en `GO` para producción representativa desde el 2026-10-23: el responsable confirmó la
 prueba manual OK, WP2.15 está cerrado, el benchmark/smoke pasan y WP2.14 aprobó `graphic_civic`.
 
+## WP4.15-V.h — World Visual Foundation (2026-11-05)
+
+Rama `wip/vh-world-visual-foundation`. V.h.1-V.h.9 ejecutados y commiteados; V.h.10 (QA visual +
+docs + gates) en curso. Estado: `WP4.15-V.h — WORLD VISUAL FOUNDATION: READY FOR HUMAN REVIEW`
+pendiente de la revisión visual del responsable (§35).
+
+- Asset Knowledge Base: `world-asset-index.json` (4554 assets, 17 fuentes, 100 % clasificados,
+  193 runtime-ready) + subcatálogos generados + biblioteca semántica de materiales.
+- Dressing determinista sobre `ViewProjectionV2`: public-space (5 kinds), parcel/lot (7 tipos de
+  solar), street, vehículos contextuales (9 clases runtime) y actores ambientales; nada en GameState.
+- Perfiles de distrito (§11, 7 roles) y de edificio (§12) modulan densidad y vocabulario.
+- Integración 9/9 distritos medida: `VC9_FULLWORLD=1` → `full-world-integration.test.ts`
+  (capas pobladas, sin referencias rotas, cobertura de edificios/espacios, determinismo).
+- Performance (§26): `docs/art/world-visual-foundation/performance.json` (69→81 imágenes de atlas,
+  3→9 vehículos, 2720 objetos presentacionales, 551 ms generar 9 distritos).
+- town_hall V7 + plaza cívica = APPROVED BASELINE (no rediseñar; D-099).
+- Gap P1 abierto: contact sheet de píxeles 9 distritos × 3 escalas requiere la app interactiva
+  (sin Chrome headless en este entorno); se captura en la review humana.
+
 ## Próximo objetivo
 
 Fase 0 de V.d ejecutada el 2026-10-28

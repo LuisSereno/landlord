@@ -27,6 +27,10 @@ obra en proceso visible con cuadrillas y recinto derivados.
 ## Arte
 
 - [Building Catalog](art/BUILDING-CATALOG.md) — los 15 edificios de dominio con su fuente geométrica real y evidencia candidata.
+- [World Visual Foundation](art/WORLD-VISUAL-FOUNDATION.md) — WP4.15-V.h: Asset Knowledge Base, catálogos semánticos y dressing contextual determinista para la ciudad completa.
+- [World Asset Audit](asset-library/world-asset-audit.md) — auditoría total de fuentes (discovered/indexed/classified/runtime-ready/excluded).
+- [World Asset Dictionary](asset-library/world-asset-dictionary.md) — vocabulario del índice: estados, categorías, taxonomías de vehículo/actor/clip, procedencia.
+- [World Asset Coverage](asset-library/world-asset-coverage.md) — cobertura por categoría y por vocabulario de Building/District/PublicSpace + gaps reales.
 - [Character Factory](art/CHARACTER-FACTORY.md) — catálogo offline de roles, variantes y animaciones.
 - art/README.md — entrada a la documentación artística y estado de gobernanza.
 - art/ART-BIBLE.md — dirección visual v0.1, lenguaje de formas, escala, cámara, UI, VFX y legibilidad.

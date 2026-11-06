@@ -1,8 +1,18 @@
+import { mkdirSync, writeFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { createInitialState, createViewProjection } from "@landlord/simulation";
 import { buildGameplayVisualModel } from "./gameplay-visual-adapter";
 import BLENDER from "../generated/runtime-assets-blender.json";
 import PROCEDURAL from "../generated/runtime-assets.json";
+
+/**
+ * Snapshot de performance (§26): se escribe con VH10_PERF=1.
+ */
+const PERF_PATH = resolve(
+  import.meta.dirname,
+  "../../../../docs/art/world-visual-foundation/performance.json",
+);
 
 /**
  * V.h.9 §21/§25-world/§33: integración runtime del MUNDO COMPLETO sobre el estado canónico real
@@ -135,6 +145,96 @@ describe("V.h.9 full-world runtime integration (9 distritos reales)", () => {
       expect(actorsByRole.size).toBeGreaterThanOrEqual(2);
       // El perfil cívico concentra más actividad peatonal que el industrial (§11).
       expect(civic).toBeGreaterThan(industrial);
+    },
+  );
+
+  it(
+    "snapshot de performance (§26): textures/sprites y tiempo de generación de los 9 distritos",
+    { skip: !process.env.VH10_PERF, timeout: 120_000 },
+    () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const B = BLENDER as any;
+      const imgCount = (asset: { orientations?: Record<string, unknown> }) =>
+        1 + Object.keys(asset.orientations ?? {}).length;
+      const textures =
+        Object.values(B.buildings as Record<string, { states: Record<string, unknown> }>).reduce(
+          (n, b) => n + Object.keys(b.states).length,
+          0,
+        ) +
+        Object.values((B.terrain ?? {}) as Record<string, { orientations?: Record<string, unknown> }>).reduce(
+          (n, t) => n + imgCount(t),
+          0,
+        ) +
+        Object.values((B.props ?? {}) as Record<string, { orientations?: Record<string, unknown> }>).reduce(
+          (n, p) => n + imgCount(p),
+          0,
+        ) +
+        Object.values((B.vehicles ?? {}) as Record<string, { orientations?: Record<string, unknown> }>).reduce(
+          (n, v) => n + imgCount(v),
+          0,
+        ) +
+        Object.values(
+          (B.characters ?? {}) as Record<
+            string,
+            { animations: Record<string, { frames: unknown[] }> }
+          >,
+        ).reduce(
+          (n, c) => n + Object.values(c.animations).reduce((m, a) => m + a.frames.length, 0),
+          0,
+        );
+
+      const state = createInitialState(SEED);
+      const started = performance.now();
+      let objects = 0;
+      const perDistrict: Record<string, number> = {};
+      for (const districtId of state.world.city.districtIds) {
+        const model = buildGameplayVisualModel(createViewProjection(state, true, districtId));
+        const count =
+          model.buildings.length +
+          model.streetFurniture.length +
+          model.publicSpaceFurniture.length +
+          model.parcelDressing.length +
+          model.parkedVehicles.length +
+          model.contextVehicles.length +
+          model.ambientActors.length;
+        perDistrict[districtId] = count;
+        objects += count;
+      }
+      const generationMs = Math.round(performance.now() - started);
+
+      const snapshot = {
+        generatedAt: new Date().toISOString(),
+        seed: SEED,
+        before_V_h: {
+          atlasImages: 69,
+          vehicles: 3,
+          props: 13,
+          characters: 1,
+          note: "baseline al inicio de V.h (atlas de V.g civic-core P7)",
+        },
+        after_V_h: {
+          atlasImages: textures,
+          vehicles: Object.keys(B.vehicles ?? {}).length,
+          props: Object.keys(B.props ?? {}).length,
+          characters: Object.keys(B.characters ?? {}).length,
+          buildingTypes: Object.keys(B.buildings).length,
+        },
+        world: {
+          districts: state.world.city.districtIds.length,
+          presentationalObjects: objects,
+          perDistrict,
+          generationMs,
+        },
+        note:
+          "generationMs = proyectar + construir el modelo visual de los 9 distritos en node (sin GPU). " +
+          "El FPS interactivo requiere la app Phaser y se valida en la review humana; el render usa " +
+          "reuse de texturas, culling por viewport y sprites compartidos del atlas (sin duplicar mallas ni PNGs).",
+      };
+      mkdirSync(dirname(PERF_PATH), { recursive: true });
+      writeFileSync(PERF_PATH, `${JSON.stringify(snapshot, null, 2)}\n`);
+      expect(objects).toBeGreaterThan(0);
+      expect(generationMs).toBeGreaterThan(0);
+      expect(textures).toBeGreaterThan(69);
     },
   );
 });

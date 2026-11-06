@@ -1438,3 +1438,27 @@ declarar una fuente que no importe físicamente al render. Reglas permanentes:
 
 Detalle: `docs/execution/phase-4/ve-source-geometry-remediation-2026-11-02.md` y
 `docs/art/BUILDING-CATALOG.md`. ADR: `docs/engineering/adr/D-098-geometria-fuente-real.md`.
+
+## D-099 — Asset Knowledge Base → catálogos semánticos → dressing contextual (WP4.15-V.h)
+
+Decisión de arquitectura visual (2026-11-05, rama `wip/vh-world-visual-foundation`). Para pasar de
+"edificio aislado perfecto" a "ciudad completa convincente" se separa en tres niveles con una única
+fuente de verdad:
+
+- **Asset Knowledge Base**: `blender_artist/manifests/world-asset-index.json` indexa y clasifica
+  TODOS los recursos (4554 assets, 17 fuentes) con estados `indexed → classified → runtime_ready`.
+  Los `world-catalogs/*-assets.json` son vistas generadas, nunca verdad manual duplicada.
+  `material-assets.json` lo genera la biblioteca semántica (V.h.4), no el generador de vistas.
+- **Catálogos semánticos**: cada subsistema consume sólo su categoría (§8): el Building Composer
+  sólo architecture/facade/roof/masas/props intrínsecos; el dressing consume urban_prop/environment/
+  infrastructure; vehículos y actores tienen vocabulario propio con `vehicleClass`/`actorClass` y
+  `runtimeAssetId` estables. Las piezas (ruedas/debris/pelo) son `placeable:false`.
+- **Dressing contextual**: capas puras y deterministas sobre `ViewProjectionV2` (public-space,
+  parcel/lot, street, vehículos contextuales, actores ambientales) moduladas por perfiles de
+  distrito (§11) y de edificio (§12). **Nada de decoración entra en `GameState`**; todo deriva de
+  proyección + `spatialHash(coordenada, salt)`.
+
+Consecuencias: los recursos antes quarantined quedan promovidos a CC0 con trazabilidad (los no
+adquiridos siguen en cuarentena, provenance fail-closed); el town_hall V7 + plaza cívica son
+APPROVED BASELINE y no se rediseñan; los gates de V.h (§33) se miden con tests y bake, no a ojo.
+Docs: `docs/art/WORLD-VISUAL-FOUNDATION.md`, `docs/asset-library/world-asset-{audit,dictionary,coverage}.md`.

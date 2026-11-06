@@ -1,0 +1,22 @@
+{
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "candidates": [
+  {
+   "candidateId": "vg_market_hall_1000",
+   "buildingType": "market_hall",
+   "family": "civic_landmark",
+   "styleProfileId": "graphic_civic_buildings_v1",
+   "variantSeed": 1000,
+   "composerVersion": "vf-3",
+   "footprint": {
+    "width": 5,
+    "height": 2
+   },
+   "floors": 2,
+   "state": "complete",
+   "output": "/home/luis/RepositorioGitHub/landlord/docs/art/civic-catalog-vi/attempts/2026-11-06T2038/vg_market_hall_1000.png",
+   "metadata": "/home/luis/RepositorioGitHub/landlord/docs/art/civic-catalog-vi/attempts/2026-11-06T2038/vg_market_hall_1000.json"
+  }
+ ]
+}

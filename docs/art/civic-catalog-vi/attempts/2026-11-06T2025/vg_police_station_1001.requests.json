@@ -1,0 +1,22 @@
+{
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "candidates": [
+  {
+   "candidateId": "vg_police_station_1001",
+   "buildingType": "police_station",
+   "family": "civic_landmark",
+   "styleProfileId": "graphic_civic_buildings_v1",
+   "variantSeed": 1001,
+   "composerVersion": "vf-3",
+   "footprint": {
+    "width": 3,
+    "height": 2
+   },
+   "floors": 2,
+   "state": "complete",
+   "output": "/home/luis/RepositorioGitHub/landlord/docs/art/civic-catalog-vi/attempts/2026-11-06T2025/vg_police_station_1001.png",
+   "metadata": "/home/luis/RepositorioGitHub/landlord/docs/art/civic-catalog-vi/attempts/2026-11-06T2025/vg_police_station_1001.json"
+  }
+ ]
+}

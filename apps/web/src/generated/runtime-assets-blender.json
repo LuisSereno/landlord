@@ -614,6 +614,146 @@
         45
       ],
       "symmetry": "none"
+    },
+    "clinic": {
+      "type": "clinic",
+      "name": "clinic",
+      "footprint": {
+        "width": 3,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 3,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5487,
+        "y": 0.7123
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender/clinic-complete.png",
+          "width": 472,
+          "height": 589,
+          "sha256": "7f98d2dfd78bafc9f43052860466226624a70840653fea197c21517bca8c4b57"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 30.1,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i civic candidate vg_clinic_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none"
+    },
+    "police_station": {
+      "type": "police_station",
+      "name": "police_station",
+      "footprint": {
+        "width": 3,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 3,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5448,
+        "y": 0.6496
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender/police_station-complete.png",
+          "width": 469,
+          "height": 449,
+          "sha256": "4c5f475a20a548ff9432fcfb39d5bf7f1ad9cc763200e1e8820c77c40ef2a7a3"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 30.1,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i civic candidate vg_police_station_1002. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none"
+    },
+    "fire_station": {
+      "type": "fire_station",
+      "name": "fire_station",
+      "footprint": {
+        "width": 4,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5337,
+        "y": 0.6946
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender/fire_station-complete.png",
+          "width": 549,
+          "height": 603,
+          "sha256": "2c887d2c5f20b9ea26645fa511e8faa3c31a1b81d0fb8bf9862cba66b692af77"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 30.1,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i civic candidate vg_fire_station_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none"
+    },
+    "market_hall": {
+      "type": "market_hall",
+      "name": "market_hall",
+      "footprint": {
+        "width": 5,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 5,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5526,
+        "y": 0.673
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender/market_hall-complete.png",
+          "width": 666,
+          "height": 678,
+          "sha256": "cd9256dc408345bd8026001864507cd1393c1f32fb98b83ba0ba5791787a208a"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 30.1,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i civic candidate vg_market_hall_1000. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none"
     }
   },
   "characters": {

@@ -39,10 +39,10 @@ export const BUILDING_VISUAL_POLICIES: Record<BuildingType, BuildingVisualPolicy
   steelworks: { mode: "procedural_semantic_fallback", assetId: "steelworks" },
   town_hall: { mode: "runtime_exact", assetId: "town_hall" },
   school_block: { mode: "runtime_exact", assetId: "school_block" },
-  clinic: { mode: "procedural_semantic_fallback", assetId: "clinic" },
-  police_station: { mode: "procedural_semantic_fallback", assetId: "police_station" },
-  fire_station: { mode: "procedural_semantic_fallback", assetId: "fire_station" },
-  market_hall: { mode: "procedural_semantic_fallback", assetId: "market_hall" },
+  clinic: { mode: "runtime_exact", assetId: "clinic" },
+  police_station: { mode: "runtime_exact", assetId: "police_station" },
+  fire_station: { mode: "runtime_exact", assetId: "fire_station" },
+  market_hall: { mode: "runtime_exact", assetId: "market_hall" },
 };
 
 /** Especies de árbol que pueden decorar sin depender de una red vial. */

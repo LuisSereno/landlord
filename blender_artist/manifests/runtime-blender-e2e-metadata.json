@@ -21650,5 +21650,157 @@
       "author": "Landlord project; CC0 modules by Quaternius",
       "notes": "Owner-selected V.i industrial-light candidate vg_warehouse_1002 (long logistics shed, no chimney). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
     }
+  },
+  {
+    "promotion": true,
+    "assetId": "clinic",
+    "candidateId": "vg_clinic_1003",
+    "candidateMetadata": "docs/art/civic-catalog-vi/candidates/clinic/vg_clinic_1003.json",
+    "compositionSignature": "6c9531a4625c6d7836987fe1b13f8dfd845b3f75b99f589ccda94f8bb1d975c9",
+    "styleProfileId": "graphic_civic_buildings_v1",
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 19.577999114990234,
+      "targetZ": 4.8
+    },
+    "pivot": {
+      "x": 0.5487,
+      "y": 0.7123
+    },
+    "footprint": {
+      "width": 3,
+      "height": 2
+    },
+    "domainFootprint": {
+      "width": 3,
+      "height": 2
+    },
+    "image": {
+      "src": "/assets/runtime/blender/clinic-complete.png",
+      "width": 472,
+      "height": 589,
+      "sha256": "7f98d2dfd78bafc9f43052860466226624a70840653fea197c21517bca8c4b57"
+    },
+    "provenance": {
+      "license": "original",
+      "author": "Landlord project; CC0 modules by Quaternius",
+      "notes": "Owner-selected V.i civic candidate vg_clinic_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+    }
+  },
+  {
+    "promotion": true,
+    "assetId": "police_station",
+    "candidateId": "vg_police_station_1002",
+    "candidateMetadata": "docs/art/civic-catalog-vi/candidates/police_station/vg_police_station_1002.json",
+    "compositionSignature": "6a580c49d7ec2fe68ba8ed2cec4ff834bc32901ca935ea4e2aed74cedba55cc3",
+    "styleProfileId": "graphic_civic_buildings_v1",
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 16.985000610351562,
+      "targetZ": 3.5
+    },
+    "pivot": {
+      "x": 0.5448,
+      "y": 0.6496
+    },
+    "footprint": {
+      "width": 3,
+      "height": 2
+    },
+    "domainFootprint": {
+      "width": 3,
+      "height": 2
+    },
+    "image": {
+      "src": "/assets/runtime/blender/police_station-complete.png",
+      "width": 469,
+      "height": 449,
+      "sha256": "4c5f475a20a548ff9432fcfb39d5bf7f1ad9cc763200e1e8820c77c40ef2a7a3"
+    },
+    "provenance": {
+      "license": "original",
+      "author": "Landlord project; CC0 modules by Quaternius",
+      "notes": "Owner-selected V.i civic candidate vg_police_station_1002. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+    }
+  },
+  {
+    "promotion": true,
+    "assetId": "fire_station",
+    "candidateId": "vg_fire_station_1003",
+    "candidateMetadata": "docs/art/civic-catalog-vi/candidates/fire_station/vg_fire_station_1003.json",
+    "compositionSignature": "0496079097c01d496421f9b52ca31be29f8e581585b57937c23f0740d9aea8b3",
+    "styleProfileId": "graphic_civic_buildings_v1",
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 20.02899932861328,
+      "targetZ": 4.5
+    },
+    "pivot": {
+      "x": 0.5337,
+      "y": 0.6946
+    },
+    "footprint": {
+      "width": 4,
+      "height": 2
+    },
+    "domainFootprint": {
+      "width": 4,
+      "height": 2
+    },
+    "image": {
+      "src": "/assets/runtime/blender/fire_station-complete.png",
+      "width": 549,
+      "height": 603,
+      "sha256": "2c887d2c5f20b9ea26645fa511e8faa3c31a1b81d0fb8bf9862cba66b692af77"
+    },
+    "provenance": {
+      "license": "original",
+      "author": "Landlord project; CC0 modules by Quaternius",
+      "notes": "Owner-selected V.i civic candidate vg_fire_station_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+    }
+  },
+  {
+    "promotion": true,
+    "assetId": "market_hall",
+    "candidateId": "vg_market_hall_1000",
+    "candidateMetadata": "docs/art/civic-catalog-vi/candidates/market_hall/vg_market_hall_1000.json",
+    "compositionSignature": "1aa546d4b8de3d0654ee4ec5e9a696d39be6743198fde94611e57b5ebc4e3bea",
+    "styleProfileId": "graphic_civic_buildings_v1",
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 24.454999923706055,
+      "targetZ": 4.5
+    },
+    "pivot": {
+      "x": 0.5526,
+      "y": 0.673
+    },
+    "footprint": {
+      "width": 5,
+      "height": 2
+    },
+    "domainFootprint": {
+      "width": 5,
+      "height": 2
+    },
+    "image": {
+      "src": "/assets/runtime/blender/market_hall-complete.png",
+      "width": 666,
+      "height": 678,
+      "sha256": "cd9256dc408345bd8026001864507cd1393c1f32fb98b83ba0ba5791787a208a"
+    },
+    "provenance": {
+      "license": "original",
+      "author": "Landlord project; CC0 modules by Quaternius",
+      "notes": "Owner-selected V.i civic candidate vg_market_hall_1000. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+    }
   }
 ]

@@ -1,0 +1,180 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-06T21:05:29.529Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/civic-catalog-vi/candidates/clinic",
+ "requested": 4,
+ "rendered": 4,
+ "totalGenerationMs": 615675,
+ "blenderPeakRssMb": 3174.2,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "af6605f02492f6919d593ca70fbf4bd36b4e66e58b76eac7a182ef9b0d2a809a",
+   "after": "af6605f02492f6919d593ca70fbf4bd36b4e66e58b76eac7a182ef9b0d2a809a"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_clinic_1000",
+   "buildingType": "clinic",
+   "family": "civic_landmark",
+   "variantSeed": 1000,
+   "compositionSignature": "d8f3ef641207b7e12d5d5b2e3a97710208f60d388b3f78c1e9d7ac02305f354f",
+   "triangleCount": 3414,
+   "objectCount": 82,
+   "moduleCount": 8,
+   "materials": 15,
+   "textures": 20,
+   "bounds": {
+    "x": {
+     "min": -6.2,
+     "max": 6
+    },
+    "y": {
+     "min": -1.9908,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 9
+    }
+   },
+   "renderMs": 9416.62,
+   "pngBytes": 264310,
+   "pngPixels": [
+    469,
+    565
+   ],
+   "pixelSha256": "23e5443721e516bad73a15da3ada799c59b3d63aefff2cde3c605aba7d138f6a",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5448,
+    "y": 0.7075
+   }
+  },
+  {
+   "candidateId": "vg_clinic_1001",
+   "buildingType": "clinic",
+   "family": "civic_landmark",
+   "variantSeed": 1001,
+   "compositionSignature": "020a372625d7d8c0ec7248955ea5b87390d0ab99c0bf2455be734b424d8bcb4f",
+   "triangleCount": 12622,
+   "objectCount": 42,
+   "moduleCount": 9,
+   "materials": 19,
+   "textures": 21,
+   "bounds": {
+    "x": {
+     "min": -6,
+     "max": 6
+    },
+    "y": {
+     "min": -1.9908,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 6.6
+    }
+   },
+   "renderMs": 9199.34,
+   "pngBytes": 210098,
+   "pngPixels": [
+    466,
+    433
+   ],
+   "pixelSha256": "c6b35d0c44c0ddbd426f5dd282be5cc8e9f0ff818b343e82e86d94fee6b16eb3",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5429,
+    "y": 0.6445
+   }
+  },
+  {
+   "candidateId": "vg_clinic_1002",
+   "buildingType": "clinic",
+   "family": "civic_landmark",
+   "variantSeed": 1002,
+   "compositionSignature": "dca73ef668cbb19a26cf647959bc11baa664737580bd62ce400bf467895b2fbe",
+   "triangleCount": 15012,
+   "objectCount": 48,
+   "moduleCount": 6,
+   "materials": 16,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -6,
+     "max": 6
+    },
+    "y": {
+     "min": -1.9908,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 9
+    }
+   },
+   "renderMs": 10238.03,
+   "pngBytes": 271692,
+   "pngPixels": [
+    466,
+    559
+   ],
+   "pixelSha256": "681becd5e2fa8a8b65c790988cef8ba531fa971c17ece7ddf7b9b49479231823",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5429,
+    "y": 0.7064
+   }
+  },
+  {
+   "candidateId": "vg_clinic_1003",
+   "buildingType": "clinic",
+   "family": "civic_landmark",
+   "variantSeed": 1003,
+   "compositionSignature": "6c9531a4625c6d7836987fe1b13f8dfd845b3f75b99f589ccda94f8bb1d975c9",
+   "triangleCount": 17998,
+   "objectCount": 71,
+   "moduleCount": 11,
+   "materials": 24,
+   "textures": 21,
+   "bounds": {
+    "x": {
+     "min": -6.428,
+     "max": 6
+    },
+    "y": {
+     "min": -1.9908,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 9.6
+    }
+   },
+   "renderMs": 10546.99,
+   "pngBytes": 277855,
+   "pngPixels": [
+    472,
+    589
+   ],
+   "pixelSha256": "cd23312de98be7c0a2eeff6892853de585922fb4a60e2d960c41d38a7511998f",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5487,
+    "y": 0.7123
+   }
+  }
+ ],
+ "failures": []
+}

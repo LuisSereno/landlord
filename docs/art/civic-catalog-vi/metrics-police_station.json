@@ -1,0 +1,104 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-06T21:10:18.748Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/civic-catalog-vi/candidates/police_station",
+ "requested": 2,
+ "rendered": 2,
+ "totalGenerationMs": 289137,
+ "blenderPeakRssMb": 2804.7,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "af6605f02492f6919d593ca70fbf4bd36b4e66e58b76eac7a182ef9b0d2a809a",
+   "after": "af6605f02492f6919d593ca70fbf4bd36b4e66e58b76eac7a182ef9b0d2a809a"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_police_station_1000",
+   "buildingType": "police_station",
+   "family": "civic_landmark",
+   "variantSeed": 1000,
+   "compositionSignature": "e20c4b0334bfe999d1f023124118e09822a43fc4574deb4d00979812b57d1c08",
+   "triangleCount": 6386,
+   "objectCount": 68,
+   "moduleCount": 9,
+   "materials": 15,
+   "textures": 19,
+   "bounds": {
+    "x": {
+     "min": -6.428,
+     "max": 6
+    },
+    "y": {
+     "min": -1.9908,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 6.9984
+    }
+   },
+   "renderMs": 8826.05,
+   "pngBytes": 223501,
+   "pngPixels": [
+    472,
+    453
+   ],
+   "pixelSha256": "d92150e551fc04662afda79d9556e0825e3c01555c0edcfe899670e10caea1f7",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5487,
+    "y": 0.6496
+   }
+  },
+  {
+   "candidateId": "vg_police_station_1002",
+   "buildingType": "police_station",
+   "family": "civic_landmark",
+   "variantSeed": 1002,
+   "compositionSignature": "6a580c49d7ec2fe68ba8ed2cec4ff834bc32901ca935ea4e2aed74cedba55cc3",
+   "triangleCount": 5522,
+   "objectCount": 62,
+   "moduleCount": 11,
+   "materials": 22,
+   "textures": 19,
+   "bounds": {
+    "x": {
+     "min": -6.2,
+     "max": 6
+    },
+    "y": {
+     "min": -1.9908,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 7
+    }
+   },
+   "renderMs": 8514.67,
+   "pngBytes": 228008,
+   "pngPixels": [
+    469,
+    449
+   ],
+   "pixelSha256": "fe6abee01551a28eee5e086316f764064bee1e7efdb29ba61d16b35efd59de60",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5448,
+    "y": 0.6496
+   }
+  }
+ ],
+ "failures": []
+}

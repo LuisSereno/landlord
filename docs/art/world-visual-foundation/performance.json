@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T19:18:33.146Z",
+  "generatedAt": "2026-11-06T21:35:51.626Z",
   "seed": 2026,
   "before_V_h": {
     "atlasImages": 69,
@@ -25,11 +25,11 @@
     "note": "cinco Rocketbox nuevos × 16 frames = 80 imágenes nuevas"
   },
   "V_h_12": {
-    "atlasImages": 168,
+    "atlasImages": 172,
     "vehicles": 9,
     "props": 13,
     "characters": 6,
-    "buildingTypes": 14,
+    "buildingTypes": 18,
     "buildingVisualPolicyTypes": 15
   },
   "world": {
@@ -59,7 +59,7 @@
       "district_00000008": 280,
       "district_00000009": 157
     },
-    "generationMs": 559
+    "generationMs": 528
   },
   "note": "generationMs = proyectar + construir el modelo visual de los 9 distritos en node (sin GPU). El FPS interactivo requiere la app Phaser y se valida en la review humana; el render usa reuse de texturas, culling por viewport y sprites compartidos del atlas (sin duplicar mallas ni PNGs)."
 }

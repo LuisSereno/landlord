@@ -1,0 +1,180 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-06T21:17:44.886Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/civic-catalog-vi/candidates/fire_station",
+ "requested": 4,
+ "rendered": 4,
+ "totalGenerationMs": 446058,
+ "blenderPeakRssMb": 3337.3,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "af6605f02492f6919d593ca70fbf4bd36b4e66e58b76eac7a182ef9b0d2a809a",
+   "after": "af6605f02492f6919d593ca70fbf4bd36b4e66e58b76eac7a182ef9b0d2a809a"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_fire_station_1000",
+   "buildingType": "fire_station",
+   "family": "civic_landmark",
+   "variantSeed": 1000,
+   "compositionSignature": "f44dfb81713f02696b2219578309de51d9f42377612d6b57998b85a8d708e47b",
+   "triangleCount": 13176,
+   "objectCount": 85,
+   "moduleCount": 6,
+   "materials": 12,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -8.2,
+     "max": 8
+    },
+    "y": {
+     "min": -0.2,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 9
+    }
+   },
+   "renderMs": 11395.75,
+   "pngBytes": 239801,
+   "pngPixels": [
+    542,
+    596
+   ],
+   "pixelSha256": "2e5ba1036c6be75dda4255d9f5684d02b738254b7c78012c62fcbe2e956fc3f0",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5286,
+    "y": 0.6967
+   }
+  },
+  {
+   "candidateId": "vg_fire_station_1001",
+   "buildingType": "fire_station",
+   "family": "civic_landmark",
+   "variantSeed": 1001,
+   "compositionSignature": "8c65a27f27dbadd1e5b5743eac345a45de4c5c3fb3d3be48c4d6353ccfb6cf82",
+   "triangleCount": 14780,
+   "objectCount": 50,
+   "moduleCount": 5,
+   "materials": 9,
+   "textures": 15,
+   "bounds": {
+    "x": {
+     "min": -8,
+     "max": 8
+    },
+    "y": {
+     "min": 0,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 6
+    }
+   },
+   "renderMs": 10541.02,
+   "pngBytes": 243228,
+   "pngPixels": [
+    537,
+    450
+   ],
+   "pixelSha256": "12c0945aa434670deaed853acb5cdd3c0186944892603bdbf0bc877b5461c84c",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5233,
+    "y": 0.6315
+   }
+  },
+  {
+   "candidateId": "vg_fire_station_1002",
+   "buildingType": "fire_station",
+   "family": "civic_landmark",
+   "variantSeed": 1002,
+   "compositionSignature": "a58910180c65edaeac2373b5444dd4faa2d86f94b8c9c0d816cd0c26a28fdc0a",
+   "triangleCount": 10828,
+   "objectCount": 74,
+   "moduleCount": 8,
+   "materials": 15,
+   "textures": 19,
+   "bounds": {
+    "x": {
+     "min": -8.428,
+     "max": 8
+    },
+    "y": {
+     "min": -0.428,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 6.9984
+    }
+   },
+   "renderMs": 10611.02,
+   "pngBytes": 279515,
+   "pngPixels": [
+    549,
+    491
+   ],
+   "pixelSha256": "70bb1451f0505ebf73a7ea96eacf1e87a77e26c2ccecdba75f77a2e61ec8f114",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5337,
+    "y": 0.6419
+   }
+  },
+  {
+   "candidateId": "vg_fire_station_1003",
+   "buildingType": "fire_station",
+   "family": "civic_landmark",
+   "variantSeed": 1003,
+   "compositionSignature": "0496079097c01d496421f9b52ca31be29f8e581585b57937c23f0740d9aea8b3",
+   "triangleCount": 19252,
+   "objectCount": 113,
+   "moduleCount": 5,
+   "materials": 10,
+   "textures": 12,
+   "bounds": {
+    "x": {
+     "min": -8.428,
+     "max": 8
+    },
+    "y": {
+     "min": -0.428,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 9
+    }
+   },
+   "renderMs": 11375.68,
+   "pngBytes": 246455,
+   "pngPixels": [
+    549,
+    603
+   ],
+   "pixelSha256": "b12538db2f3007eb99a60e0cf3d367d0a4a2a67664cb7fecb46aacc8e88e3079",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5337,
+    "y": 0.6946
+   }
+  }
+ ],
+ "failures": []
+}

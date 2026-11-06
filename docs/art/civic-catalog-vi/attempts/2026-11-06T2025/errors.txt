@@ -1,0 +1,3 @@
+vg_police_station_1001: CompositionError: SEMANTIC_IDENTITY_INCOMPLETE [civic_landmark]: no hay ningún rol de la familia identitaria `plinth`/`civic_block`/`civic_tower`/`canopy`
+vg_police_station_1003: CompositionError: SEMANTIC_IDENTITY_INCOMPLETE [civic_landmark]: no hay ningún rol de la familia identitaria `plinth`/`civic_block`/`civic_tower`/`canopy`
+R1: renderizados 2/4; la promoción atómica exige todos

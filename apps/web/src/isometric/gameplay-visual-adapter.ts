@@ -29,9 +29,9 @@ export type BuildingVisualPolicy =
 
 export const BUILDING_VISUAL_POLICIES: Record<BuildingType, BuildingVisualPolicy> = {
   courtyard_home: { mode: "runtime_exact", assetId: "courtyard_home" },
-  row_house: { mode: "procedural_semantic_fallback", assetId: "row_house" },
-  apartment_block: { mode: "procedural_semantic_fallback", assetId: "apartment_block" },
-  mixed_tenement: { mode: "procedural_semantic_fallback", assetId: "mixed_tenement" },
+  row_house: { mode: "runtime_exact", assetId: "row_house" },
+  apartment_block: { mode: "runtime_exact", assetId: "apartment_block" },
+  mixed_tenement: { mode: "runtime_exact", assetId: "mixed_tenement" },
   workshop: { mode: "procedural_semantic_fallback", assetId: "workshop" },
   warehouse: { mode: "procedural_semantic_fallback", assetId: "warehouse" },
   cement_plant: { mode: "procedural_semantic_fallback", assetId: "cement_plant" },

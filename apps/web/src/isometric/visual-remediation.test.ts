@@ -39,6 +39,15 @@ const LEGACY = [
   "bld_residential_b",
   "bld_residential_c",
 ];
+// Edificios con candidato Composer revisado por el responsable y promovido a runtime_exact.
+const REVIEWED_COMPOSER: readonly BuildingType[] = [
+  "courtyard_home",
+  "town_hall",
+  "school_block",
+  "row_house",
+  "apartment_block",
+  "mixed_tenement",
+];
 
 describe("V.h visual remediation", () => {
   it("publishes a valid curated RuntimeAssetManifestV2", () => {
@@ -49,17 +58,35 @@ describe("V.h visual remediation", () => {
     for (const id of LEGACY) expect(BLENDER_ASSETS.buildings[id]).toBeUndefined();
   });
 
-  it("uses reviewed Composer assets for courtyard_home, town_hall and school_block", () => {
+  it("uses reviewed Composer assets only for the approved catalog and semantic fallback for the rest", () => {
     for (const type of TYPES) {
       const policy = BUILDING_VISUAL_POLICIES[type];
       const visual = visualArchetypeForBuilding(type, "building:" + type);
-      if (type === "courtyard_home" || type === "town_hall" || type === "school_block") {
-        expect(policy.mode).toBe("runtime_exact");
-        expect(BLENDER_ASSETS.buildings[visual]).toBeTruthy();
+      if (REVIEWED_COMPOSER.includes(type)) {
+        expect(policy.mode, type).toBe("runtime_exact");
+        expect(BLENDER_ASSETS.buildings[visual], type).toBeTruthy();
       } else {
-        expect(policy).toEqual({ mode: "procedural_semantic_fallback", assetId: type });
-        expect(visual).toBe(type);
+        expect(policy, type).toEqual({ mode: "procedural_semantic_fallback", assetId: type });
+        expect(visual, type).toBe(type);
       }
+    }
+  });
+
+  it("promotes the V.i residential catalog with provenance and no fabricated states", () => {
+    const approved: Record<string, string> = {
+      row_house: "vg_row_house_1001",
+      apartment_block: "vg_apartment_block_1002",
+      mixed_tenement: "vg_mixed_tenement_1001",
+    };
+    for (const [type, candidateId] of Object.entries(approved)) {
+      const asset = BLENDER_ASSETS.buildings[type]!;
+      expect(asset, type).toBeTruthy();
+      expect(asset.states.complete.src, type).toContain(`${type}-complete.png`);
+      expect(asset.provenance?.notes, type).toContain(candidateId);
+      expect(asset.stateFallback, type).toBe("procedural");
+      expect(asset.states.construction, type).toBeUndefined();
+      expect(asset.states.damaged, type).toBeUndefined();
+      expect(asset.states.burning, type).toBeUndefined();
     }
   });
 

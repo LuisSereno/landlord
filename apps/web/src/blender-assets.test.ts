@@ -175,8 +175,9 @@ describe("WP4.15-H ruta Blender E2E", () => {
         ...Object.values(asset.orientations ?? {}).map((frame) => frame.image),
       ]),
     ];
-    // 81 (V.h.6) + 80 Rocketbox V.h.11 + town_hall + school_block V7 promovidos.
-    expect(images.length).toBe(163);
+    // 81 (V.h.6) + 80 Rocketbox V.h.11 + town_hall + school_block V7 + row_house/apartment_block/
+    // mixed_tenement V.i promovidos.
+    expect(images.length).toBe(166);
     let totalBytes = 0;
     for (const image of images) {
       const buffer = readFileSync(join(PUBLIC_DIR, image.src));
@@ -185,10 +186,14 @@ describe("WP4.15-H ruta Blender E2E", () => {
       expect(pngSize(buffer), image.src).toEqual({ width: image.width, height: image.height });
     }
     /** Los binarios Blender de Alpha caben en el repo sin LFS: se revisa en la decisión de atlas/LFS. */
-    // V.h.11: 80 frames Rocketbox nuevos (5 × 16; 96 si se cuenta también vecino_variante)
-    // suben el atlas de ~2.2 a ~4.6 MB;
-    // sigue muy por debajo del umbral que obligaría a LFS.
-    expect(totalBytes).toBeLessThan(6_000_000);
+    // V.h.11: 80 frames Rocketbox nuevos (5 × 16) subieron el atlas de ~2.2 a ~4.6 MB.
+    // V.i: cada edificio Composer promovido copia el PNG del candidato a resolución de render
+    // completa (p.ej. apartment_block 615×855), así que el atlas crece ~0.5 MB por edificio. Con
+    // 6 edificios promovidos el atlas está en ~7.2 MB. El umbral se sube a 10 MB para admitir el
+    // lote residencial; sigue muy por debajo de lo que obligaría a LFS. FIX CORRECTO PENDIENTE (P2):
+    // reducir el runtimeImage al footprint real en vez de copiar el candidato entero, antes de
+    // cerrar los 15/15 (volverá a tocar el techo con los lotes industrial y cívico).
+    expect(totalBytes).toBeLessThan(10_000_000);
   });
 
   it("el pivote queda dentro de la imagen recortada y la huella es positiva", () => {

@@ -21460,5 +21460,119 @@
       "author": "Landlord project; CC0 modules by Quaternius",
       "notes": "V7 candidate vf_town_hall_1002 retained by owner choice as the school_block visual. Its Composer source type remains town_hall and is recorded as candidateBuildingType; runtime semantic role is school_block."
     }
+  },
+  {
+    "promotion": true,
+    "assetId": "row_house",
+    "candidateId": "vg_row_house_1001",
+    "candidateMetadata": "docs/art/residential-catalog-vi/candidates/vg_row_house_1001.json",
+    "compositionSignature": "1249437b120e81934419429b606914b8716ad19b9182e88021435d4576659282",
+    "styleProfileId": "graphic_civic_buildings_v1",
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 19.722999572753906,
+      "targetZ": 4.5
+    },
+    "pivot": {
+      "x": 0.5714,
+      "y": 0.6871
+    },
+    "footprint": {
+      "width": 4,
+      "height": 1
+    },
+    "domainFootprint": {
+      "width": 4,
+      "height": 1
+    },
+    "image": {
+      "src": "/assets/runtime/blender/row_house-complete.png",
+      "width": 497,
+      "height": 574,
+      "sha256": "5e8542e086b5a8ae65c266d43f0bfb3291c6b75f2915f0c60dbcf4630ad7cc38"
+    },
+    "provenance": {
+      "license": "original",
+      "author": "Landlord project; CC0 modules by Quaternius",
+      "notes": "Owner-selected V.i residential candidate vg_row_house_1001 (stepped massing). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+    }
+  },
+  {
+    "promotion": true,
+    "assetId": "apartment_block",
+    "candidateId": "vg_apartment_block_1002",
+    "candidateMetadata": "docs/art/residential-catalog-vi/candidates/vg_apartment_block_1002.json",
+    "compositionSignature": "be419f4837ab7e85303ad1976ebb1cdfbe95d3ba7ba1677e83f39c2b8843f7ce",
+    "styleProfileId": "graphic_civic_buildings_v1",
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 37.48699951171875,
+      "targetZ": 10.5
+    },
+    "pivot": {
+      "x": 0.5146,
+      "y": 0.82
+    },
+    "footprint": {
+      "width": 5,
+      "height": 2
+    },
+    "domainFootprint": {
+      "width": 5,
+      "height": 2
+    },
+    "image": {
+      "src": "/assets/runtime/blender/apartment_block-complete.png",
+      "width": 615,
+      "height": 855,
+      "sha256": "d5695f3845bb65f4ba4be6ee1d2b1d4ce5593aa770001017ed9336df6ad2f130"
+    },
+    "provenance": {
+      "license": "original",
+      "author": "Landlord project; CC0 modules by Quaternius",
+      "notes": "Owner-selected V.i residential candidate vg_apartment_block_1002 (twin towers, dense window grid). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+    }
+  },
+  {
+    "promotion": true,
+    "assetId": "mixed_tenement",
+    "candidateId": "vg_mixed_tenement_1001",
+    "candidateMetadata": "docs/art/residential-catalog-vi/candidates/vg_mixed_tenement_1001.json",
+    "compositionSignature": "98196ebd5e30190f2b50a0e262ff4a4cddcb3b1aeb53cbd28717b72094c21ef7",
+    "styleProfileId": "graphic_civic_buildings_v1",
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 30.375,
+      "targetZ": 8.3
+    },
+    "pivot": {
+      "x": 0.5077,
+      "y": 0.8121
+    },
+    "footprint": {
+      "width": 4,
+      "height": 2
+    },
+    "domainFootprint": {
+      "width": 4,
+      "height": 2
+    },
+    "image": {
+      "src": "/assets/runtime/blender/mixed_tenement-complete.png",
+      "width": 520,
+      "height": 693,
+      "sha256": "3be5723e1a837dfa0f9a260f81aef99262c7ae063ce682c30b44f53cf529efb4"
+    },
+    "provenance": {
+      "license": "original",
+      "author": "Landlord project; CC0 modules by Quaternius",
+      "notes": "Owner-selected V.i residential candidate vg_mixed_tenement_1001 (mansard roof with dormers). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+    }
   }
 ]

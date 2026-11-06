@@ -14,8 +14,14 @@
       "imageSha256": "426a25e6a83a5bacd03b7d0354dde238fa0d26f936b0f1c758fa8c11db46dde7",
       "styleProfileId": "graphic_civic_buildings_v1",
       "state": "complete",
-      "footprint": { "width": 8, "height": 4 },
-      "domainFootprint": { "width": 8, "height": 4 },
+      "footprint": {
+        "width": 8,
+        "height": 4
+      },
+      "domainFootprint": {
+        "width": 8,
+        "height": 4
+      },
       "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
@@ -37,8 +43,14 @@
       "imageSha256": "4d83edc33cb948eada9ac69ee48fdfbbe9d4af628e80209b5a140c32a05e0495",
       "styleProfileId": "graphic_civic_buildings_v1",
       "state": "complete",
-      "footprint": { "width": 8, "height": 4 },
-      "domainFootprint": { "width": 8, "height": 4 },
+      "footprint": {
+        "width": 8,
+        "height": 4
+      },
+      "domainFootprint": {
+        "width": 8,
+        "height": 4
+      },
       "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
@@ -46,6 +58,93 @@
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "V7 candidate vf_town_hall_1002 retained by owner choice as the school_block visual. Its Composer source type remains town_hall and is recorded as candidateBuildingType; runtime semantic role is school_block."
+      }
+    },
+    {
+      "assetId": "row_house",
+      "semanticType": "row_house",
+      "candidateBuildingType": "row_house",
+      "candidateId": "vg_row_house_1001",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "docs/art/residential-catalog-vi/candidates/vg_row_house_1001.json",
+      "candidateImage": "docs/art/residential-catalog-vi/candidates/vg_row_house_1001.png",
+      "compositionSignature": "1249437b120e81934419429b606914b8716ad19b9182e88021435d4576659282",
+      "imageSha256": "5e8542e086b5a8ae65c266d43f0bfb3291c6b75f2915f0c60dbcf4630ad7cc38",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "state": "complete",
+      "footprint": {
+        "width": 4,
+        "height": 1
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 1
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i residential candidate vg_row_house_1001 (stepped massing). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      }
+    },
+    {
+      "assetId": "apartment_block",
+      "semanticType": "apartment_block",
+      "candidateBuildingType": "apartment_block",
+      "candidateId": "vg_apartment_block_1002",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "docs/art/residential-catalog-vi/candidates/vg_apartment_block_1002.json",
+      "candidateImage": "docs/art/residential-catalog-vi/candidates/vg_apartment_block_1002.png",
+      "compositionSignature": "be419f4837ab7e85303ad1976ebb1cdfbe95d3ba7ba1677e83f39c2b8843f7ce",
+      "imageSha256": "d5695f3845bb65f4ba4be6ee1d2b1d4ce5593aa770001017ed9336df6ad2f130",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "state": "complete",
+      "footprint": {
+        "width": 5,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 5,
+        "height": 2
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i residential candidate vg_apartment_block_1002 (twin towers, dense window grid). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      }
+    },
+    {
+      "assetId": "mixed_tenement",
+      "semanticType": "mixed_tenement",
+      "candidateBuildingType": "mixed_tenement",
+      "candidateId": "vg_mixed_tenement_1001",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "docs/art/residential-catalog-vi/candidates/vg_mixed_tenement_1001.json",
+      "candidateImage": "docs/art/residential-catalog-vi/candidates/vg_mixed_tenement_1001.png",
+      "compositionSignature": "98196ebd5e30190f2b50a0e262ff4a4cddcb3b1aeb53cbd28717b72094c21ef7",
+      "imageSha256": "3be5723e1a837dfa0f9a260f81aef99262c7ae063ce682c30b44f53cf529efb4",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "state": "complete",
+      "footprint": {
+        "width": 4,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 2
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i residential candidate vg_mixed_tenement_1001 (mansard roof with dormers). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
       }
     }
   ]

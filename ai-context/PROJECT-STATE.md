@@ -126,13 +126,22 @@ revisión visual del responsable (§35).
   referencias rotas, cobertura edificios/espacios, determinismo, civic≠industrial en la MISMA
   geometría). Esto NO es un render de framebuffer: el gate se denomina 9/9 DISTRICTS VISUAL MODEL
   PASS para no confundir Integración de modelo con Render de píxeles.
-- Performance (§26): `docs/art/world-visual-foundation/performance.json` (atlas 69→81→161→163 imágenes,
-  3→9 vehículos, 2720 objetos presentacionales en 8 capas, 551 ms generar 9 distritos).
+- Performance (§26): `docs/art/world-visual-foundation/performance.json` (atlas 69→81→161→163→166 imágenes,
+  3→9 vehículos, 2726 objetos presentacionales en 8 capas, 551→292 ms generar 9 distritos).
 - town_hall V7 + plaza cívica = APPROVED BASELINE (no rediseñar; D-099). Por elección del responsable,
   `vf_town_hall_1006` es el `town_hall` runtime; `vf_town_hall_1002` se conserva como `school_block`.
   Ambas promociones pasan por `runtime-promotions.json` → `build-blender-assets.mjs --promote-approved`,
   con estado `complete` exacto, fallback procedural para los demás estados, footprint/dominio 8×4,
   orientación 45°, Graphic Civic, provenance y hash verificables.
+- **V.i lote residencial (2026-11-06):** 3 edificios Composer más promovidos por el mismo pipeline
+  (`runtime-promotions.json` → `--promote-approved`), seleccionados por el responsable sobre 4
+  candidatos por tipo generados en `docs/art/residential-catalog-vi/`: `row_house`←`vg_row_house_1001`
+  (4×1), `apartment_block`←`vg_apartment_block_1002` (5×2), `mixed_tenement`←`vg_mixed_tenement_1001`
+  (4×2). Con courtyard_home/town_hall/school_block el catálogo Composer pasa a **6/15 `runtime_exact`**;
+  los 9 restantes siguen en fallback procedural semántico. `visual-remediation.test.ts` fija el set
+  revisado y prohíbe estados fabricados. Nota: el budget anti-LFS del atlas subió a 10 MB porque el
+  promotor copia el PNG del candidato a resolución de render completa; el fix correcto pendiente (P2)
+  es recortar el runtimeImage al footprint real antes de cerrar los 15/15.
 - Política semántica 15/15 BuildingTypes: cada tipo declara runtime Blender exacto / archetype
   compatible / fallback procedural semántico; nunca fallback equivocado (almacén→almacén, no
   residencial). Estructural `blender-assets`/`building-sprites` lo verifica.

@@ -284,7 +284,16 @@ export type BuildingAssetV2 = {
   /** Celdas de 4 m que ocupa el tipo en la simulación. Es lo que el dibujo representa. */
   domainFootprint: { width: number; height: number };
   pivot: { x: number; y: number };
-  states: Record<BuildingAssetState, AssetImageV1>;
+  /**
+   * `complete` es la única imagen obligatoria para un asset Blender aprobado. Los estados que no
+   * existen no se fabrican: si falta alguno, `stateFallback` declara cómo continúa el runtime.
+   * Los manifiestos V1 conservan el contrato histórico de cuatro estados completos.
+   */
+  states: { complete: AssetImageV1 } & Partial<
+    Record<Exclude<BuildingAssetState, "complete">, AssetImageV1>
+  >;
+  /** Política explícita para estados ausentes; hoy sólo se admite el fallback semántico procedural. */
+  stateFallback?: "procedural";
   pixelsPerMeter?: number;
   provenance?: AssetProvenanceV1;
   /** Azimuts de cámara en los que este asset es legal. El runtime no puede inventar otros. */
@@ -305,7 +314,14 @@ export type RuntimeAssetManifestV2 = {
   vehicles?: Record<string, SceneryAssetV1>;
 };
 
-export const buildingAssetV2Schema = buildingAssetSchema.extend({
+export const buildingAssetV2Schema = buildingAssetSchema.omit({ states: true }).extend({
+  states: z.object({
+    complete: assetImageSchema,
+    construction: assetImageSchema.optional(),
+    damaged: assetImageSchema.optional(),
+    burning: assetImageSchema.optional(),
+  }),
+  stateFallback: z.literal("procedural").optional(),
   domainFootprint: z.object({
     width: z.number().int().positive().max(8),
     height: z.number().int().positive().max(8),
@@ -388,8 +404,13 @@ export function validateRuntimeAssetManifestV2(manifest: RuntimeAssetManifestV2)
     left.localeCompare(right),
   )) {
     if (asset.type !== key) issues.push(`${key}: type no coincide con la clave del catálogo`);
-    for (const state of BUILDING_ASSET_STATES)
-      if (!asset.states[state]) issues.push(`${key}: falta el estado ${state}`);
+    const missingStates = BUILDING_ASSET_STATES.filter((state) => !asset.states[state]);
+    if (missingStates.includes("complete")) issues.push(`${key}: falta el estado complete`);
+    if (missingStates.length > 0 && asset.stateFallback !== "procedural") {
+      issues.push(
+        `${key}: faltan estados (${missingStates.join(", ")}) sin fallback procedural explícito`,
+      );
+    }
     if (asset.footprint.width < 1 || asset.footprint.height < 1)
       issues.push(`${key}: huella de sprite inválida`);
     if (asset.domainFootprint.width < 1 || asset.domainFootprint.height < 1)

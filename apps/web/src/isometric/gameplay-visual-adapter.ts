@@ -1,4 +1,4 @@
-import type { GridCell, ViewProjectionV2 } from "@landlord/shared";
+import type { BuildingType, GridCell, ViewProjectionV2 } from "@landlord/shared";
 import type { GroundPlan, GroundRoadMarking, GroundSurface } from "../visual-slice/ground";
 import {
   buildingContextProps,
@@ -18,17 +18,6 @@ import {
  * Simulación → ViewProjectionV2 → este adapter → renderer Graphic Civic → Phaser.
  */
 
-/** Tipos económicos sin geometría Blender homologable: se mantienen en el fallback procedural. */
-const INDUSTRIAL_TYPES: readonly string[] = ["cement_plant", "brickworks", "steelworks"];
-const CIVIC_TYPES: readonly string[] = [
-  "town_hall",
-  "school_block",
-  "clinic",
-  "police_station",
-  "fire_station",
-  "market_hall",
-];
-
 /**
  * Archetypes residenciales compatibles (huella 1×1 en el bundle Blender). Se listan ordenados para
  * que la selección por hash no dependa del orden de un mapa.
@@ -46,6 +35,33 @@ const COMMERCIAL_ARCHETYPES: readonly string[] = [
   "bld_commercial_b",
   "bld_commercial_c",
 ];
+
+export type BuildingVisualPolicy =
+  | { mode: "runtime_exact"; assetId: string }
+  | { mode: "runtime_compatible"; archetypes: readonly string[] }
+  | { mode: "procedural_semantic_fallback"; assetId: BuildingType };
+
+/**
+ * Política temporal explícita para los 15 BuildingType. La variedad nunca puede convertir un tipo
+ * en otra familia semántica: si no existe Blender compatible, el asset procedural exacto manda.
+ */
+export const BUILDING_VISUAL_POLICIES: Record<BuildingType, BuildingVisualPolicy> = {
+  courtyard_home: { mode: "runtime_compatible", archetypes: RESIDENTIAL_ARCHETYPES },
+  row_house: { mode: "runtime_compatible", archetypes: RESIDENTIAL_ARCHETYPES },
+  apartment_block: { mode: "runtime_compatible", archetypes: RESIDENTIAL_ARCHETYPES },
+  mixed_tenement: { mode: "runtime_compatible", archetypes: RESIDENTIAL_ARCHETYPES },
+  workshop: { mode: "runtime_compatible", archetypes: COMMERCIAL_ARCHETYPES },
+  warehouse: { mode: "procedural_semantic_fallback", assetId: "warehouse" },
+  cement_plant: { mode: "procedural_semantic_fallback", assetId: "cement_plant" },
+  brickworks: { mode: "procedural_semantic_fallback", assetId: "brickworks" },
+  steelworks: { mode: "procedural_semantic_fallback", assetId: "steelworks" },
+  town_hall: { mode: "runtime_exact", assetId: "town_hall" },
+  school_block: { mode: "procedural_semantic_fallback", assetId: "school_block" },
+  clinic: { mode: "procedural_semantic_fallback", assetId: "clinic" },
+  police_station: { mode: "procedural_semantic_fallback", assetId: "police_station" },
+  fire_station: { mode: "procedural_semantic_fallback", assetId: "fire_station" },
+  market_hall: { mode: "procedural_semantic_fallback", assetId: "market_hall" },
+};
 
 /** Especies de árbol que pueden decorar sin depender de una red vial. */
 const TREE_ASSETS: readonly string[] = ["prp_tree_oak", "prp_tree_pine", "prp_tree_detailed"];
@@ -139,6 +155,9 @@ export type GameplayAmbientActor = {
 export type GameplayContextActor = GameplayAmbientActor & {
   buildingId: string;
   actorClass: string;
+  /** El anchor lógico sigue siendo `cell` (road cell); el render lo desplaza hacia este bordillo. */
+  curbEdge: "n" | "e" | "s" | "w";
+  lateralOffset: number;
 };
 
 /** Roles de mobiliario de espacio público (V.g civic-core). Espejo de public_space_dresser.py. */
@@ -448,6 +467,7 @@ export function planGameplayStreetFurniture(
   treeCells: readonly GridCell[],
   mapWidth: number,
   mapHeight: number,
+  profile?: DistrictVisualProfile,
 ): GameplayStreetFurniture[] {
   const roadCells = new Set(roadVisuals.map((road) => cellKey(road.cell)));
   /** Toda prueba de ocupación recorre `geometryCells`: el ancla ya no representa a la parcela. */
@@ -568,9 +588,35 @@ export function planGameplayStreetFurniture(
       lastPlaced.set(line, progress);
     }
   };
-  placeAlongStraight(0x44a1, 5, 38, "street_light", "prp_street_light", 1.0, false);
-  placeAlongStraight(0x89b2, 9, 24, "bench", "prp_bench", 0.78, true);
-  placeAlongStraight(0xb7c3, 11, 16, "trash_can", "prp_trash_can", 0.74, true);
+  const threshold = (base: number, multiplier: number) =>
+    Math.max(0, Math.min(100, Math.round(base * multiplier)));
+  placeAlongStraight(
+    0x44a1,
+    5,
+    threshold(38, profile?.density.lighting ?? 1),
+    "street_light",
+    "prp_street_light",
+    1.0,
+    false,
+  );
+  placeAlongStraight(
+    0x89b2,
+    9,
+    threshold(24, profile?.density.benches ?? 1),
+    "bench",
+    "prp_bench",
+    0.78,
+    true,
+  );
+  placeAlongStraight(
+    0xb7c3,
+    11,
+    threshold(16, profile?.density.bins ?? 1),
+    "trash_can",
+    "prp_trash_can",
+    0.74,
+    true,
+  );
   return furniture;
 }
 
@@ -584,6 +630,7 @@ export function planGameplayParkedVehicles(
   mapWidth: number,
   mapHeight: number,
   reservedRoadCells: ReadonlySet<string> = new Set(),
+  profile?: DistrictVisualProfile,
 ): GameplayParkedVehicle[] {
   const roadCells = new Set(roadVisuals.map((road) => cellKey(road.cell)));
   const parcelCells = new Set(parcels.flatMap((parcel) => geometryCells(parcel).map(cellKey)));
@@ -606,6 +653,8 @@ export function planGameplayParkedVehicles(
   const occupied = new Set<string>();
   const vehicles: GameplayParkedVehicle[] = [];
   const lastByLine = new Map<string, number>();
+  const vehicleDensity = profile?.density.vehicles ?? 1;
+  const minimumVehicleGap = Math.max(4, Math.ceil(6 / vehicleDensity));
   const candidates = roadVisuals
     .filter((road) => road.shape === "straight")
     .slice()
@@ -619,8 +668,9 @@ export function planGameplayParkedVehicles(
     if (reservedRoadCells.has(cellKey(road.cell))) continue;
     const line = roadLineKey(road);
     const progress = roadProgress(road);
-    if ((lastByLine.get(line) ?? Number.NEGATIVE_INFINITY) + 6 > progress) continue;
-    if (spatialHash(road.cell.x, road.cell.y, 0xc4d5) % 100 >= 45) continue;
+    if ((lastByLine.get(line) ?? Number.NEGATIVE_INFINITY) + minimumVehicleGap > progress) continue;
+    const vehicleThreshold = Math.max(0, Math.min(100, Math.round(45 * vehicleDensity)));
+    if (spatialHash(road.cell.x, road.cell.y, 0xc4d5) % 100 >= vehicleThreshold) continue;
     const preferred = spatialHash(road.cell.x, road.cell.y, 0xe6f7) % 2 === 0;
     const sides =
       road.orientation === "straight_ns"
@@ -666,7 +716,12 @@ export function planGameplayParkedVehicles(
     });
     lastByLine.set(line, progress);
   }
-  return vehicles;
+  if (!profile || vehicleDensity >= 1.2) return vehicles;
+  const densityBudget = Math.max(
+    vehicleDensity > 0 && vehicles.length > 0 ? 1 : 0,
+    Math.floor((vehicles.length * vehicleDensity) / 1.2),
+  );
+  return vehicles.slice(0, densityBudget);
 }
 
 /**
@@ -838,10 +893,14 @@ export function planGameplayContextActors(
     const curbs: { road: GameplayRoadVisual; side: "n" | "e" | "s" | "w" }[] = [];
     for (const road of straights) {
       if (isNearJunction(road.cell, junctions)) continue;
-      if (reservedRoadCells.has(cellKey(road.cell))) continue;
       for (const [side, delta] of SIDE_DELTAS) {
         const host = { x: road.cell.x + delta.x, y: road.cell.y + delta.y };
-        if (footprint.some((cell) => cell.x === host.x && cell.y === host.y)) {
+        const frontageDistance = Math.min(
+          ...footprint.map((cell) => Math.abs(cell.x - host.x) + Math.abs(cell.y - host.y)),
+        );
+        // Un vehículo puede ocupar la celda exacta del acceso. En ese caso el profesional usa el
+        // tramo contiguo del mismo bordillo (una celda longitudinal), sin saltar a calzada central.
+        if (frontageDistance <= 1 && !reservedRoadCells.has(cellKey(road.cell))) {
           curbs.push({ road, side });
           break;
         }
@@ -858,12 +917,29 @@ export function planGameplayContextActors(
       actorClass: spec.actorClass,
       character: spec.character,
       cell: { ...curb.road.cell },
+      curbEdge: curb.side,
+      lateralOffset: 0.46,
       direction: (spatialHash(anchor.x, anchor.y, 0x2f1) % 4) as 0 | 1 | 2 | 3,
       animation: "idle",
       slot: 0,
     });
   }
   return out;
+}
+
+/** Posición fraccionaria que usa Phaser: fuera del centro vial y hacia la fachada asociada. */
+export function contextActorRenderCell(
+  actor: Pick<GameplayContextActor, "cell" | "curbEdge" | "lateralOffset">,
+): GridCell {
+  const delta =
+    actor.curbEdge === "n"
+      ? { x: 0, y: -actor.lateralOffset }
+      : actor.curbEdge === "e"
+        ? { x: actor.lateralOffset, y: 0 }
+        : actor.curbEdge === "s"
+          ? { x: 0, y: actor.lateralOffset }
+          : { x: -actor.lateralOffset, y: 0 };
+  return { x: actor.cell.x + delta.x, y: actor.cell.y + delta.y };
 }
 
 /**
@@ -1391,10 +1467,11 @@ function azimuthToward(from: GridCell, to: GridCell): 45 | 135 | 225 | 315 {
  * procedural: una cementera nunca se dibuja como una vivienda sólo por variedad.
  */
 export function visualArchetypeForBuilding(domainType: string, stableId: string): string {
-  if (INDUSTRIAL_TYPES.includes(domainType) || CIVIC_TYPES.includes(domainType)) return domainType;
-  const candidates = domainType === "workshop" ? COMMERCIAL_ARCHETYPES : RESIDENTIAL_ARCHETYPES;
-  const index = fnv1a32(`${domainType}|${stableId}`) % candidates.length;
-  return candidates[index]!;
+  const policy = BUILDING_VISUAL_POLICIES[domainType as BuildingType];
+  if (!policy) return domainType;
+  if (policy.mode !== "runtime_compatible") return policy.assetId;
+  const index = fnv1a32(`${domainType}|${stableId}`) % policy.archetypes.length;
+  return policy.archetypes[index]!;
 }
 
 type ParcelStatus = "built" | "construction" | "vacant" | "public";
@@ -1540,6 +1617,7 @@ export function planGameplayDecorations(
   mapWidth: number,
   mapHeight: number,
   roadCells: ReadonlySet<string> | ReadonlyArray<string> = [],
+  profile?: DistrictVisualProfile,
 ): { decorations: GameplayDecoration[]; treeCells: GridCell[] } {
   const parcelCells = new Set(parcels.flatMap((parcel) => geometryCells(parcel).map(cellKey)));
   const roadCellKeys = roadSet(roadCells);
@@ -1555,9 +1633,15 @@ export function planGameplayDecorations(
   }
 
   const decorations: GameplayDecoration[] = [];
-  const pushTree = (cell: GridCell, salt: number): void => {
+  const pushVegetation = (cell: GridCell, salt: number): void => {
     if (roadCellKeys.has(cellKey(cell))) return;
-    const asset = TREE_ASSETS[spatialHash(cell.x, cell.y, salt) % TREE_ASSETS.length]!;
+    const treeDensity = profile?.density.trees ?? 1;
+    const bushDensity = profile?.density.bushes ?? 1;
+    const bushShare = Math.round((100 * bushDensity) / Math.max(0.01, treeDensity + bushDensity));
+    const asset =
+      spatialHash(cell.x, cell.y, salt ^ 0x51b7) % 100 < bushShare
+        ? "prp_bush"
+        : TREE_ASSETS[spatialHash(cell.x, cell.y, salt) % TREE_ASSETS.length]!;
     const jitter = 0.9 + (spatialHash(cell.x, cell.y, salt ^ 0x9e37) % 31) / 100;
     decorations.push({ cell: { ...cell }, asset, scale: jitter });
   };
@@ -1579,9 +1663,10 @@ export function planGameplayDecorations(
   for (const parcel of [...parcels].sort((a, b) => a.cell.y - b.cell.y || a.cell.x - b.cell.x)) {
     if (statusOf(parcel) !== "vacant") continue;
     const salt = spatialHash(parcel.cell.x, parcel.cell.y, 0x1a2b);
-    if (salt % 100 >= 45) continue;
+    const density = Math.max(profile?.density.trees ?? 1, profile?.density.bushes ?? 1);
+    if (salt % 100 >= Math.min(100, Math.round(45 * density))) continue;
     const cells = [...geometryCells(parcel)].sort((a, b) => a.y - b.y || a.x - b.x);
-    pushTree(cells[salt % cells.length]!, 0x1a2b);
+    pushVegetation(cells[salt % cells.length]!, 0x1a2b);
   }
 
   // Árboles dispersos en terreno libre, lejos de parcelas construidas.
@@ -1590,8 +1675,9 @@ export function planGameplayDecorations(
       const cell = { x, y };
       const key = cellKey(cell);
       if (parcelCells.has(key) || blocked.has(key) || roadCellKeys.has(key)) continue;
-      if (spatialHash(x, y, 0x3c5d) % 100 >= 10) continue;
-      pushTree(cell, 0x3c5d);
+      const density = Math.max(profile?.density.trees ?? 1, profile?.density.bushes ?? 1);
+      if (spatialHash(x, y, 0x3c5d) % 100 >= Math.min(100, Math.round(10 * density))) continue;
+      pushVegetation(cell, 0x3c5d);
     }
   }
 
@@ -1654,6 +1740,13 @@ export function buildGameplayVisualModel(
   const constructionParcelIds = new Set(
     (economy?.constructionSites ?? []).flatMap((site) => site.parcelIds),
   );
+  // V.h.12: el perfil se resuelve antes de planificar capas para que todos los consumidores activos
+  // lean exactamente la misma identidad visual del distrito observado.
+  const districtProfile = districtVisualProfileFor(
+    (projection.city?.districts ?? []).find(
+      (district) => district.id === projection.observedDistrictId,
+    )?.role,
+  );
 
   const buildingVisuals: GameplayBuildingVisual[] = (economy?.buildings ?? []).map((building) => ({
     id: `building:${building.id}`,
@@ -1672,6 +1765,7 @@ export function buildGameplayVisualModel(
     mapWidth,
     mapHeight,
     roadCellKeys,
+    districtProfile,
   );
   const groundPlan = planGameplayGround(
     parcels,
@@ -1690,6 +1784,7 @@ export function buildGameplayVisualModel(
     treeCells,
     mapWidth,
     mapHeight,
+    districtProfile,
   );
   const contextBuildings = (economy?.buildings ?? []).map((building) => ({
     id: building.id,
@@ -1703,12 +1798,6 @@ export function buildGameplayVisualModel(
     mapHeight,
   );
   const reservedVehicleRoads = new Set(contextVehicles.map((vehicle) => cellKey(vehicle.roadCell)));
-  // V.h.8: perfil visual del distrito observado (§11) modula densidad y vocabulario del dressing.
-  const districtProfile = districtVisualProfileFor(
-    (projection.city?.districts ?? []).find(
-      (district) => district.id === projection.observedDistrictId,
-    )?.role,
-  );
   const ambientActors = planGameplayAmbientActors(
     projection.publicSpaces ?? [],
     roadCellKeys,
@@ -1723,6 +1812,10 @@ export function buildGameplayVisualModel(
     mapWidth,
     mapHeight,
   );
+  const reservedStreetLifeRoads = new Set([
+    ...reservedVehicleRoads,
+    ...contextActors.map((actor) => cellKey(actor.cell)),
+  ]);
   const parkedVehicles = planGameplayParkedVehicles(
     roadVisuals,
     parcels,
@@ -1731,7 +1824,8 @@ export function buildGameplayVisualModel(
     streetFurniture,
     mapWidth,
     mapHeight,
-    reservedVehicleRoads,
+    reservedStreetLifeRoads,
+    districtProfile,
   );
   const publicSpaceFurniture = planGameplayPublicSpaceFurniture(
     projection.publicSpaces ?? [],

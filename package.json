@@ -42,6 +42,7 @@
     "art:slice:capture": "node scripts/visual-slice-capture.mjs",
     "art:profile": "node scripts/art-dense-profile.mjs",
     "art:blender": "node scripts/build-blender-assets.mjs",
+    "art:blender:promote": "node scripts/build-blender-assets.mjs --promote-approved",
     "art:blender:check": "node scripts/build-blender-assets.mjs --check",
     "art:style:check": "python3 tools/art-pipeline/blender/check_style_layer.py",
     "art:render:check": "python3 tools/art-pipeline/blender/check_rendered_night.py",

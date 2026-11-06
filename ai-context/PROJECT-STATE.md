@@ -109,26 +109,45 @@ prueba manual OK, WP2.15 está cerrado, el benchmark/smoke pasan y WP2.14 aprob�
 
 ## WP4.15-V.h — World Visual Foundation (2026-11-05)
 
-Rama `wip/vh-world-visual-foundation`. V.h.1-V.h.9 ejecutados y commiteados; V.h.10 (QA visual +
-docs + gates) en curso. Estado: `WP4.15-V.h — WORLD VISUAL FOUNDATION: READY FOR HUMAN REVIEW`
-pendiente de la revisión visual del responsable (§35).
+Rama `wip/vh-world-visual-foundation`. V.h.1-V.h.11 ejecutados y commiteados; V.h.12 (hardening de
+gaps) ejecutado sobre el HEAD `546f785`. Estado:
+`WP4.15-V.h — WORLD VISUAL FOUNDATION: FOUNDATION HARDENED / PIXEL REVIEW READY` pendiente de la
+revisión visual del responsable (§35).
 
 - Asset Knowledge Base: `world-asset-index.json` (4554 assets, 17 fuentes, 100 % clasificados,
-  193 runtime-ready) + subcatálogos generados + biblioteca semántica de materiales.
+  198 runtime-ready) + subcatálogos generados + biblioteca semántica de materiales.
 - Dressing determinista sobre `ViewProjectionV2`: public-space (5 kinds), parcel/lot (7 tipos de
-  solar), street, vehículos contextuales (9 clases runtime) y actores ambientales; nada en GameState.
-- Perfiles de distrito (§11, 7 roles) y de edificio (§12) modulan densidad y vocabulario.
-- Integración 9/9 distritos medida: `VC9_FULLWORLD=1` → `full-world-integration.test.ts`
-  (capas pobladas, sin referencias rotas, cobertura de edificios/espacios, determinismo).
-- Performance (§26): `docs/art/world-visual-foundation/performance.json` (69→81 imágenes de atlas,
-  3→9 vehículos, 2720 objetos presentacionales, 551 ms generar 9 distritos).
-- town_hall V7 + plaza cívica = APPROVED BASELINE (no rediseñar; D-099).
+  solar), street, vehículos contextuales (9 clases runtime), actores ambientales y contextActors
+  profesionales; nada en GameState.
+- Perfiles de distrito (§11, 7 roles) y de edificio (§12) modulan densidad y vocabulario;
+  favored/avoided se aplica conscientemente sólo a parcelDressing (los demás ejes van por densidad).
+- Integración 9/9 distritos medida a nivel de MODELO presentacional: `VC9_FULLWORLD=1` →
+  `full-world-integration.test.ts` (capas pobladas incluidas ambientActors+contextActors, sin
+  referencias rotas, cobertura edificios/espacios, determinismo, civic≠industrial en la MISMA
+  geometría). Esto NO es un render de framebuffer: el gate se denomina 9/9 DISTRICTS VISUAL MODEL
+  PASS para no confundir Integración de modelo con Render de píxeles.
+- Performance (§26): `docs/art/world-visual-foundation/performance.json` (atlas 69→81→161→162 imágenes,
+  3→9 vehículos, 2720 objetos presentacionales en 8 capas, 551 ms generar 9 distritos).
+- town_hall V7 + plaza cívica = APPROVED BASELINE (no rediseñar; D-099). En V.h.12 el V7 aprobado se
+  PROMOCIONA a `runtime-assets-blender` por pipeline limpio (`runtime-promotions.json` →
+  `build-blender-assets.mjs --promote-approved`), no por copia manual: assetId `town_hall`, estado
+  `complete` exacto, estados damaged/construction/burning con fallback procedural explícito (V2),
+  footprint/domainFootprint 8×4, orientación 45°, Graphic Civic, provenance + hash.
+- Política semántica 15/15 BuildingTypes: cada tipo declara runtime Blender exacto / archetype
+  compatible / fallback procedural semántico; nunca fallback equivocado (almacén→almacén, no
+  residencial). Estructural `blender-assets`/`building-sprites` lo verifica.
 - **V.h.11 (segunda pasada, 2026-11-06):** actores del juego = avatares **Microsoft Rocketbox**
   horneados con retarget de clips idle/walk (chr_citizen/police/medical/firefighter/worker, 5/8
-  clases); contextActors profesionales por colocación; materiales 10/10 usables (5 con fuente Poly
-  Haven + 5 con tono derivado). Atlas 81→161 imágenes, 6 personajes.
-- Gap P1 abierto: contact sheet de píxeles 9 distritos × 3 escalas requiere la app interactiva
-  (sin Chrome headless en este entorno); se captura en la review humana.
+  clases); contextActors profesionales por colocación con `curbEdge`/`lateralOffset` (fuera de la
+  calzada, V.h.12 §4); materiales 10/10 cobertura SEMÁNTICA pero 0/10 de uso en runtime (sin
+  consumidor: honestidad, no cobertura declarada). Atlas 81→161 imágenes, 6 personajes (80 frames
+  Rocketbox = 5×16).
+- Píxel QA 9 distritos × 3 escalas + 5 detalles: automatizado con Playwright headless sobre la app
+  servida (`scripts/vh-world-visual-capture.mjs` → `pixel-qa/`, `capture-manifest.json` con hashes y
+  pageErrors). Evidencia de píxeles separada del modelo; queda su interpretación humana en la review.
+- Gaps P1/P2 abiertos (no bloquean la fundación): actor classes profesionales sin uniforme literal y
+  vehicle classes industrial/service sin miembro horneado curado (Rocketbox no codifica profesión por
+  nombre); materiales stone/metal/soil/grass procedurales (sin fuente Poly Haven adquirida).
 
 ## Próximo objetivo
 

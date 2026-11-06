@@ -1,0 +1,285 @@
+{
+  "generatedAt": "2026-11-06T11:50:49.825Z",
+  "baseUrl": "http://127.0.0.1:4182/",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "districts": [
+    {
+      "name": "Lomas del Umbral",
+      "role": "RESIDENCIAL BAJA DENSIDAD",
+      "anchor": {
+        "x": 33,
+        "y": 1
+      },
+      "shots": [
+        {
+          "zoom": 0.5,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-lomas-del-umbral-05x.png",
+          "sha256": "cff3ed62020f0dffcb77f26f85e480a6cec26f41390513b19f7d8a29a11fd0b7"
+        },
+        {
+          "zoom": 1,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-lomas-del-umbral-10x.png",
+          "sha256": "92a164f7ee7f846abdf27603f77083f6b983833cfc66b2f0beb638a4a27b31fb"
+        },
+        {
+          "zoom": 2,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-lomas-del-umbral-20x.png",
+          "sha256": "96ba349e9b34b2596abc9315d6ba367f45ca22311e32ee0d1b6d93c26af65c71"
+        }
+      ]
+    },
+    {
+      "name": "Mercado del Norte",
+      "role": "CORREDOR COMERCIAL",
+      "anchor": {
+        "x": 33,
+        "y": 43
+      },
+      "shots": [
+        {
+          "zoom": 0.5,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-mercado-del-norte-05x.png",
+          "sha256": "8cb39bd19084c2ce37a009a2bbe87aa839c9b241e64994a2c1f0644101abe643"
+        },
+        {
+          "zoom": 1,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-mercado-del-norte-10x.png",
+          "sha256": "296107ba9249cef3366d06f5635419e6727a0c8c35689ba01bfd539730bb804d"
+        },
+        {
+          "zoom": 2,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-mercado-del-norte-20x.png",
+          "sha256": "045ce028d9c2f462da6619cb2e5f0bb626508b841f799155aee1b3ffc5cecd17"
+        }
+      ]
+    },
+    {
+      "name": "Vega del Cauce",
+      "role": "VERDE",
+      "anchor": {
+        "x": 1,
+        "y": 33
+      },
+      "shots": [
+        {
+          "zoom": 0.5,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-vega-del-cauce-05x.png",
+          "sha256": "c01790f31a13968523b2aafecd8260a26ec0839d3d71d644c8d92b362d0c4ba3"
+        },
+        {
+          "zoom": 1,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-vega-del-cauce-10x.png",
+          "sha256": "60982806b7708a16bd5c235f757a415b612bc3389ec775185ede5a7a1df44631"
+        },
+        {
+          "zoom": 2,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-vega-del-cauce-20x.png",
+          "sha256": "4dc2e762fac7a20a5e30b1c6daf8527793dfeb198d710d3c2598a19472d82878"
+        }
+      ]
+    },
+    {
+      "name": "Barrio del Umbral",
+      "role": "RESIDENCIAL URBANO",
+      "anchor": {
+        "x": 61,
+        "y": 1
+      },
+      "shots": [
+        {
+          "zoom": 0.5,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-barrio-del-umbral-05x.png",
+          "sha256": "4b7488aa5cb9fa25ddb86a86021bcc1966a2518547dabebf567f2ab56909177b"
+        },
+        {
+          "zoom": 1,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-barrio-del-umbral-10x.png",
+          "sha256": "914f55e25692468d93abaf860ca7661c3bdf459683041f8ff6dbf1338f3bcaf8"
+        },
+        {
+          "zoom": 2,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-barrio-del-umbral-20x.png",
+          "sha256": "58e74989c030969ccbde4f60bf1199dc91c29bcac01048a6b144f41eb988306a"
+        }
+      ]
+    },
+    {
+      "name": "Centro Cívico",
+      "role": "NÚCLEO CÍVICO",
+      "anchor": {
+        "x": 54,
+        "y": 1
+      },
+      "shots": [
+        {
+          "zoom": 0.5,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-centro-civico-05x.png",
+          "sha256": "25eb7b66c087a0100894f2d59044c0b6056df89c2f5de0766ff3c0e8a0159433"
+        },
+        {
+          "zoom": 1,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-centro-civico-10x.png",
+          "sha256": "77fb89505d067584e98d9f6dbd20b48bd66fbc36dfc2046b444911b31502cd27"
+        },
+        {
+          "zoom": 2,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-centro-civico-20x.png",
+          "sha256": "3a3e64f121b72f22ff03e872a2d803c2170d3641d4d1b7ac6753cd4d6eb63d2a"
+        }
+      ]
+    },
+    {
+      "name": "Barrio del Taller",
+      "role": "MIXTO",
+      "anchor": {
+        "x": 9,
+        "y": 1
+      },
+      "shots": [
+        {
+          "zoom": 0.5,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-barrio-del-taller-05x.png",
+          "sha256": "9724a3ce1aa79426636c8ecfce3a4fb39a042c0280806108a0b8ae756d6379bb"
+        },
+        {
+          "zoom": 1,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-barrio-del-taller-10x.png",
+          "sha256": "89d4fface3a0d5c8fcd4ff6e5acb78db0e8cef9f6737c4c35df908f79ba87e16"
+        },
+        {
+          "zoom": 2,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-barrio-del-taller-20x.png",
+          "sha256": "129e9f8cc982f79b679aed8822e7970d32790fcb864944d22cc294826784af21"
+        }
+      ]
+    },
+    {
+      "name": "Ensanche Ferroviario Oeste",
+      "role": "INDUSTRIA Y LOGÍSTICA",
+      "anchor": {
+        "x": 53,
+        "y": 1
+      },
+      "shots": [
+        {
+          "zoom": 0.5,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-ensanche-ferroviario-oeste-05x.png",
+          "sha256": "8886fb4800df4ce8122874c926f7aaf1222bae0489361de3667b86e3de5a0093"
+        },
+        {
+          "zoom": 1,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-ensanche-ferroviario-oeste-10x.png",
+          "sha256": "3100b6203a7353f9b0dc755114817d177c43768680c8a97afe463477efdcca59"
+        },
+        {
+          "zoom": 2,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-ensanche-ferroviario-oeste-20x.png",
+          "sha256": "5605c1fb451733cc9ba9e61d05aba9873e966b3e54001a6b4dc2663ebb863135"
+        }
+      ]
+    },
+    {
+      "name": "Corredor Ferroviario",
+      "role": "CORREDOR COMERCIAL",
+      "anchor": {
+        "x": 1,
+        "y": 1
+      },
+      "shots": [
+        {
+          "zoom": 0.5,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-corredor-ferroviario-05x.png",
+          "sha256": "93c288ada0585e74af7278dec09dc32e24334627859af7c3a9c9371c8e5e4b8f"
+        },
+        {
+          "zoom": 1,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-corredor-ferroviario-10x.png",
+          "sha256": "ee1833d1db2c4dc9eee9c9d728f746a5145957067a50b6d3550613ad752840d9"
+        },
+        {
+          "zoom": 2,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-corredor-ferroviario-20x.png",
+          "sha256": "633839c2ecb71a8014a01173ced0b9ddee89e845c159bb33fd011d5b683b7ea8"
+        }
+      ]
+    },
+    {
+      "name": "Patios del Este",
+      "role": "INDUSTRIA Y LOGÍSTICA",
+      "anchor": {
+        "x": 1,
+        "y": 1
+      },
+      "shots": [
+        {
+          "zoom": 0.5,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-patios-del-este-05x.png",
+          "sha256": "8ce20b5a3e9a113ee99bc8ea97c70ffe8aad7d3ef1f3fd8d21877e9112327242"
+        },
+        {
+          "zoom": 1,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-patios-del-este-10x.png",
+          "sha256": "a072b4604935a0965f72dc1c72171b9afa7c28c50ba27fb03996be0c3374bc24"
+        },
+        {
+          "zoom": 2,
+          "path": "docs/art/world-visual-foundation/pixel-qa/district-patios-del-este-20x.png",
+          "sha256": "101064b3e6c7c1c676b6b0fb1f76961f81dbcea18edd305cf0ed297d72a10ad3"
+        }
+      ]
+    }
+  ],
+  "contactSheets": [
+    {
+      "zoom": 0.5,
+      "path": "docs/art/world-visual-foundation/pixel-qa/district-contact-sheet-05x.png",
+      "sha256": "6d46cf016efca024a5753e42e6b4b664154682ab55e7da514860b75c34421059"
+    },
+    {
+      "zoom": 1,
+      "path": "docs/art/world-visual-foundation/pixel-qa/district-contact-sheet-10x.png",
+      "sha256": "d1c990d54ac41aaf17d3629adc09d4b8ef92516ad9d58076d4440a8bde69bf01"
+    },
+    {
+      "zoom": 2,
+      "path": "docs/art/world-visual-foundation/pixel-qa/district-contact-sheet-20x.png",
+      "sha256": "d6b12b76d35aa139901deebfe5769b25fd939687e767f5c7af508072ab0e211e"
+    }
+  ],
+  "details": [
+    {
+      "id": "civic",
+      "districtName": "Centro Cívico",
+      "facility": "town_hall",
+      "district": "Centro Cívico",
+      "anchor": {
+        "x": 22,
+        "y": 22
+      },
+      "path": "docs/art/world-visual-foundation/pixel-qa/detail-civic-20x.png",
+      "sha256": "50a9793cdef116df6f4d07306d77dcac476950f23b850e5bc56092ba65a95b70"
+    }
+  ],
+  "detailErrors": [
+    {
+      "id": "residential",
+      "error": "Error: No se pudo seleccionar el distrito Barrio del Umbral"
+    },
+    {
+      "id": "commercial",
+      "error": "Error: No se pudo seleccionar el distrito Mercado del Norte"
+    },
+    {
+      "id": "industrial",
+      "error": "Error: No se pudo seleccionar el distrito Corredor Ferroviario"
+    },
+    {
+      "id": "green",
+      "error": "Error: No se pudo seleccionar el distrito Vega del Cauce"
+    }
+  ],
+  "pageErrors": []
+}

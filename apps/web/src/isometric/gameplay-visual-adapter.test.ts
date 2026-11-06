@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
-import type { ViewProjectionV2 } from "@landlord/shared";
-import type { RuntimeAssetManifestV1 } from "@landlord/shared";
+import { parseRuntimeAssetManifest, type ViewProjectionV2 } from "@landlord/shared";
+import { BUILDING_DEFINITIONS } from "@landlord/simulation";
 import blenderBundle from "../generated/runtime-assets-blender.json";
+import { DISTRICT_VISUAL_PROFILES } from "./district-visual-profiles";
 import {
   buildGameplayVisualModel,
   gameplayGeometryKey,
@@ -11,10 +12,11 @@ import {
   planGameplayParkedVehicles,
   planGameplayStreetFurniture,
   deriveRoadVisuals,
+  BUILDING_VISUAL_POLICIES,
   visualArchetypeForBuilding,
 } from "./gameplay-visual-adapter";
 
-const BLENDER_BUNDLE = blenderBundle as unknown as RuntimeAssetManifestV1;
+const BLENDER_BUNDLE = parseRuntimeAssetManifest(blenderBundle);
 
 type ParcelInput = {
   id: string;
@@ -304,9 +306,23 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
   });
 
   it("mantiene los tipos industriales en su tipo de dominio (fallback procedural honesto)", () => {
-    for (const type of ["cement_plant", "brickworks", "steelworks"]) {
+    for (const type of ["warehouse", "cement_plant", "brickworks", "steelworks"]) {
       expect(visualArchetypeForBuilding(type, "bld_x")).toBe(type);
     }
+  });
+
+  it("declara una política semántica estructural para los 15 BuildingType", () => {
+    expect(Object.keys(BUILDING_VISUAL_POLICIES).sort()).toEqual(
+      Object.keys(BUILDING_DEFINITIONS).sort(),
+    );
+    expect(BUILDING_VISUAL_POLICIES.town_hall).toEqual({
+      mode: "runtime_exact",
+      assetId: "town_hall",
+    });
+    expect(BUILDING_VISUAL_POLICIES.warehouse).toEqual({
+      mode: "procedural_semantic_fallback",
+      assetId: "warehouse",
+    });
   });
 
   it("no clasifica huecos entre parcelas como carretera: sin asfalto en el plan de gameplay", () => {
@@ -541,6 +557,97 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
           ),
       ).toBe(true);
     }
+  });
+
+  it("aplica perfiles sobre la misma geometría a mobiliario, vehículos y vegetación", () => {
+    const roads = streetDressingRoads();
+    const parcels = [
+      { id: "res", cell: { x: 12, y: 8 }, zoning: "residential", buildingId: "b" },
+      { id: "mixed", cell: { x: 16, y: 9 }, zoning: "mixed", buildingId: "c" },
+    ];
+    const civic = DISTRICT_VISUAL_PROFILES.civic_core;
+    const industrial = DISTRICT_VISUAL_PROFILES.industrial_logistics;
+    const commercial = DISTRICT_VISUAL_PROFILES.commercial_corridor;
+    const residential = DISTRICT_VISUAL_PROFILES.urban_residential;
+    const green = DISTRICT_VISUAL_PROFILES.green_open_space;
+
+    const civicFurniture = planGameplayStreetFurniture(
+      roads,
+      parcels,
+      new Set(),
+      [],
+      32,
+      32,
+      civic,
+    );
+    const industrialFurniture = planGameplayStreetFurniture(
+      roads,
+      parcels,
+      new Set(),
+      [],
+      32,
+      32,
+      industrial,
+    );
+    const activeFurniture = (entries: typeof civicFurniture) =>
+      entries.filter((entry) => entry.kind === "street_light" || entry.kind === "bench").length;
+    expect(activeFurniture(civicFurniture)).toBeGreaterThan(activeFurniture(industrialFurniture));
+
+    const furniture = planGameplayStreetFurniture(roads, parcels, new Set(), [], 32, 32);
+    const commercialVehicles = planGameplayParkedVehicles(
+      roads,
+      parcels,
+      new Set(),
+      [],
+      furniture,
+      32,
+      32,
+      new Set(),
+      commercial,
+    );
+    const residentialVehicles = planGameplayParkedVehicles(
+      roads,
+      parcels,
+      new Set(),
+      [],
+      furniture,
+      32,
+      32,
+      new Set(),
+      residential,
+    );
+    expect(commercialVehicles.length).toBeGreaterThan(residentialVehicles.length);
+
+    const sameVacantGeometry = [
+      {
+        id: "vacant",
+        cell: { x: 5, y: 5 },
+        cells: Array.from({ length: 36 }, (_value, index) => ({
+          x: 4 + (index % 6),
+          y: 4 + Math.floor(index / 6),
+        })),
+        zoning: "residential",
+        disposition: "marketable" as const,
+        buildingId: null,
+      },
+    ];
+    const greenVegetation = planGameplayDecorations(
+      sameVacantGeometry,
+      new Set(),
+      32,
+      32,
+      [],
+      green,
+    ).decorations;
+    const industrialVegetation = planGameplayDecorations(
+      sameVacantGeometry,
+      new Set(),
+      32,
+      32,
+      [],
+      industrial,
+    ).decorations;
+    expect(greenVegetation.length).toBeGreaterThan(industrialVegetation.length);
   });
 
   it("usa sólo assets y azimuts existentes en el bundle Blender aprobado", () => {

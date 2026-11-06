@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "promotions": [
+    {
+      "assetId": "town_hall",
+      "buildingType": "town_hall",
+      "candidateId": "vf_town_hall_1002",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "blender_artist/showcase/vg-town-hall-spike-v7/vf_town_hall_1002.json",
+      "candidateImage": "blender_artist/showcase/vg-town-hall-spike-v7/vf_town_hall_1002.png",
+      "compositionSignature": "285c15f19cd9364ee530b58dedb314fc52f75ace871c5df67bc385b4bb0b79e9",
+      "imageSha256": "4d83edc33cb948eada9ac69ee48fdfbbe9d4af628e80209b5a140c32a05e0495",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "state": "complete",
+      "footprint": { "width": 8, "height": 4 },
+      "domainFootprint": { "width": 8, "height": 4 },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Approved Building Composer V7 candidate. Composition vf_town_hall_1002 combines the original civic pediment with CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      }
+    }
+  ]
+}

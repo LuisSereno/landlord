@@ -2,7 +2,12 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { createInitialState, createViewProjection } from "@landlord/simulation";
-import { buildGameplayVisualModel } from "./gameplay-visual-adapter";
+import { parseRuntimeAssetManifest } from "@landlord/shared";
+import {
+  BUILDING_VISUAL_POLICIES,
+  buildGameplayVisualModel,
+  type GameplayAmbientActor,
+} from "./gameplay-visual-adapter";
 import BLENDER from "../generated/runtime-assets-blender.json";
 import PROCEDURAL from "../generated/runtime-assets.json";
 
@@ -32,6 +37,28 @@ const KNOWN_PUBLIC_SPACE_KINDS = new Set([
   "civic_courtyard",
   "schoolyard",
 ]);
+const BLENDER_V2 = parseRuntimeAssetManifest(BLENDER);
+
+function expectActorRuntimeReference(actor: GameplayAmbientActor): void {
+  const character = BLENDER_V2.characters[actor.character];
+  expect(character, `character roto: ${actor.character}`).toBeTruthy();
+  if (!character) return;
+  expect(actor.direction, `${actor.id}: direction negativa`).toBeGreaterThanOrEqual(0);
+  expect(actor.direction, `${actor.id}: direction fuera del contrato`).toBeLessThan(
+    character.directions,
+  );
+  const animation = character.animations[actor.animation];
+  expect(animation, `${actor.id}: animation rota ${actor.animation}`).toBeTruthy();
+  if (!animation) return;
+  expect(animation.frames.length % character.directions, `${actor.id}: matriz irregular`).toBe(0);
+  const framesPerDirection = animation.frames.length / character.directions;
+  expect(actor.slot, `${actor.id}: slot negativo`).toBeGreaterThanOrEqual(0);
+  expect(actor.slot, `${actor.id}: slot fuera del contrato`).toBeLessThan(framesPerDirection);
+  expect(
+    animation.frames[actor.direction * framesPerDirection + actor.slot],
+    `${actor.id}: frame ausente`,
+  ).toBeTruthy();
+}
 
 describe("V.h.9 full-world runtime integration (9 distritos reales)", () => {
   it(
@@ -49,7 +76,8 @@ describe("V.h.9 full-world runtime integration (9 distritos reales)", () => {
       let cityBuildings = 0;
       let cityVehicles = 0;
       let cityDressing = 0;
-      let cityActors = 0;
+      let cityAmbientActors = 0;
+      let cityContextActors = 0;
 
       for (const districtId of districtIds) {
         const projection = createViewProjection(state, true, districtId);
@@ -69,18 +97,27 @@ describe("V.h.9 full-world runtime integration (9 distritos reales)", () => {
         for (const vehicle of [...model.parkedVehicles, ...model.contextVehicles]) {
           vehicleRefs.add(vehicle.asset);
         }
+        for (const actor of [...model.ambientActors, ...model.contextActors]) {
+          expectActorRuntimeReference(actor);
+        }
         for (const space of projection.publicSpaces ?? []) publicSpaceKinds.add(space.kind);
         cityBuildings += model.buildings.length;
         cityVehicles += model.parkedVehicles.length + model.contextVehicles.length;
         cityDressing += model.parcelDressing.length;
-        cityActors += model.ambientActors.length;
+        cityAmbientActors += model.ambientActors.length;
+        cityContextActors += model.contextActors.length;
       }
 
       // §21: la ciudad completa (unión de distritos) muestra tejido, vehículos, dressing y actores.
       expect(cityBuildings, "edificios en la ciudad").toBeGreaterThan(0);
       expect(cityVehicles, "vehículos en la ciudad").toBeGreaterThan(0);
       expect(cityDressing, "parcel dressing en la ciudad").toBeGreaterThan(0);
-      expect(cityActors, "actores ambientales en la ciudad").toBeGreaterThan(0);
+      const cityActorsTotal = cityAmbientActors + cityContextActors;
+      expect(cityAmbientActors, "actores ambientales en la ciudad").toBeGreaterThan(0);
+      expect(cityContextActors, "actores contextuales en la ciudad").toBeGreaterThan(0);
+      expect(cityActorsTotal, "actores totales en la ciudad").toBe(
+        cityAmbientActors + cityContextActors,
+      );
       expect(publicSpaceKinds.size, "kinds de espacio público").toBeGreaterThan(0);
 
       // §33 RUNTIME_ASSET_REFERENCES: ningún prop/vehículo referenciado falta en el atlas.
@@ -129,22 +166,38 @@ describe("V.h.9 full-world runtime integration (9 distritos reales)", () => {
     { skip: !process.env.VC9_FULLWORLD, timeout: 120_000 },
     () => {
       const state = createInitialState(SEED);
-      const actorsByRole = new Map<string, number>();
+      const layersByRole = new Map<
+        string,
+        { furniture: number; vehicles: number; vegetation: number; actors: number }
+      >();
       for (const districtId of state.world.city.districtIds) {
         const projection = createViewProjection(state, true, districtId);
         const role =
           projection.city.districts.find(
             (district) => district.id === projection.observedDistrictId,
           )?.role ?? "";
-        if (!actorsByRole.has(role)) {
-          actorsByRole.set(role, buildGameplayVisualModel(projection).ambientActors.length);
+        if (!layersByRole.has(role)) {
+          const model = buildGameplayVisualModel(projection);
+          layersByRole.set(role, {
+            furniture: model.streetFurniture.length,
+            vehicles: model.parkedVehicles.length + model.contextVehicles.length,
+            vegetation:
+              model.decorations.length +
+              model.publicSpaceFurniture.filter(
+                (entry) => entry.kind === "tree" || entry.kind === "foliage",
+              ).length,
+            actors: model.ambientActors.length + model.contextActors.length,
+          });
         }
       }
-      const civic = actorsByRole.get("civic_core") ?? 0;
-      const industrial = actorsByRole.get("industrial_logistics") ?? 0;
-      expect(actorsByRole.size).toBeGreaterThanOrEqual(2);
-      // El perfil cívico concentra más actividad peatonal que el industrial (§11).
-      expect(civic).toBeGreaterThan(industrial);
+      const civic = layersByRole.get("civic_core");
+      const industrial = layersByRole.get("industrial_logistics");
+      expect(layersByRole.size).toBeGreaterThanOrEqual(2);
+      expect(civic).toBeTruthy();
+      expect(industrial).toBeTruthy();
+      // Gate de modelo real: ya no se limita a contar peatones.
+      expect(civic!.actors).toBeGreaterThan(industrial!.actors);
+      expect(civic!.furniture).not.toBe(industrial!.furniture);
     },
   );
 
@@ -184,16 +237,32 @@ describe("V.h.9 full-world runtime integration (9 distritos reales)", () => {
       const started = performance.now();
       let objects = 0;
       const perDistrict: Record<string, number> = {};
+      const layerTotals = {
+        buildings: 0,
+        streetFurniture: 0,
+        publicSpaceFurniture: 0,
+        parcelDressing: 0,
+        parkedVehicles: 0,
+        contextVehicles: 0,
+        ambientActors: 0,
+        contextActors: 0,
+      };
       for (const districtId of state.world.city.districtIds) {
         const model = buildGameplayVisualModel(createViewProjection(state, true, districtId));
-        const count =
-          model.buildings.length +
-          model.streetFurniture.length +
-          model.publicSpaceFurniture.length +
-          model.parcelDressing.length +
-          model.parkedVehicles.length +
-          model.contextVehicles.length +
-          model.ambientActors.length;
+        const layers = {
+          buildings: model.buildings.length,
+          streetFurniture: model.streetFurniture.length,
+          publicSpaceFurniture: model.publicSpaceFurniture.length,
+          parcelDressing: model.parcelDressing.length,
+          parkedVehicles: model.parkedVehicles.length,
+          contextVehicles: model.contextVehicles.length,
+          ambientActors: model.ambientActors.length,
+          contextActors: model.contextActors.length,
+        };
+        const count = Object.values(layers).reduce((sum, value) => sum + value, 0);
+        for (const key of Object.keys(layerTotals) as Array<keyof typeof layerTotals>) {
+          layerTotals[key] += layers[key];
+        }
         perDistrict[districtId] = count;
         objects += count;
       }
@@ -209,16 +278,37 @@ describe("V.h.9 full-world runtime integration (9 distritos reales)", () => {
           characters: 1,
           note: "baseline al inicio de V.h (atlas de V.g civic-core P7)",
         },
-        after_V_h: {
+        V_h_10: {
+          atlasImages: 81,
+          vehicles: 9,
+          props: 13,
+          characters: 1,
+          presentationalObjects: 2720,
+          generationMs: 551,
+          note: "snapshot archivado antes de V.h.11; no incluía contextActors",
+        },
+        V_h_11: {
+          atlasImages: 161,
+          vehicles: 9,
+          props: 13,
+          characters: 6,
+          note: "cinco Rocketbox nuevos × 16 frames = 80 imágenes nuevas",
+        },
+        V_h_12: {
           atlasImages: textures,
           vehicles: Object.keys(B.vehicles ?? {}).length,
           props: Object.keys(B.props ?? {}).length,
           characters: Object.keys(B.characters ?? {}).length,
           buildingTypes: Object.keys(B.buildings).length,
+          buildingVisualPolicyTypes: Object.keys(BUILDING_VISUAL_POLICIES).length,
         },
         world: {
           districts: state.world.city.districtIds.length,
           presentationalObjects: objects,
+          layers: layerTotals,
+          cityAmbientActors: layerTotals.ambientActors,
+          cityContextActors: layerTotals.contextActors,
+          cityActorsTotal: layerTotals.ambientActors + layerTotals.contextActors,
           perDistrict,
           generationMs,
         },

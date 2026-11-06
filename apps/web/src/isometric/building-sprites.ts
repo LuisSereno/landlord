@@ -2,7 +2,6 @@ import {
   buildingFrameForOrientation,
   type AssetImageV1,
   type BuildingAssetState,
-  type BuildingAssetV1,
   type BuildingAssetV2,
   type CharacterAnimation,
   type CharacterAssetV1,
@@ -159,10 +158,10 @@ export function buildingSpritePlan(
       archetype: string,
       domainType: string,
       state: BuildingAssetState,
-    ) => { key: string; asset: BuildingAssetV1 } | null;
+    ) => { key: string; asset: BuildingAssetV2 } | null;
   },
-): Array<BuildingSpritePlacement & { textureKey: string; asset: BuildingAssetV1 }> {
-  const plan: Array<BuildingSpritePlacement & { textureKey: string; asset: BuildingAssetV1 }> = [];
+): Array<BuildingSpritePlacement & { textureKey: string; asset: BuildingAssetV2 }> {
+  const plan: Array<BuildingSpritePlacement & { textureKey: string; asset: BuildingAssetV2 }> = [];
   for (const building of economy.buildings) {
     const id = `building:${building.id}`;
     const state = buildingAssetStateFor(building.state, building.condition);
@@ -253,7 +252,7 @@ export function spriteScaleFor(
 
 /** Uniform presentation-only adjustment from the authored asset footprint to the real domain one. */
 export function spriteScaleForDomainFootprint(
-  asset: Pick<BuildingAssetV1, "footprint" | "pixelsPerMeter">,
+  asset: Pick<BuildingAssetV2, "footprint" | "pixelsPerMeter">,
   cells: readonly GridCell[],
   tileWidth: number,
 ): number {
@@ -264,7 +263,7 @@ export function spriteScaleForDomainFootprint(
 }
 
 /** Origen normalizado listo para `setOrigin`: el pivote es el punto de suelo del sprite. */
-export function originFromPivot(asset: BuildingAssetV1): { x: number; y: number } {
+export function originFromPivot(asset: Pick<BuildingAssetV2, "pivot">): { x: number; y: number } {
   return { x: asset.pivot.x, y: asset.pivot.y };
 }
 
@@ -319,11 +318,12 @@ export function resolveBuildingVisual(
     /** Azimut de cámara declarado por la escena; un asset que no lo autorice se rechaza. */
     azimuth: number;
   },
-): { key: string; asset: BuildingAssetV1 } | null {
+): { key: string; asset: BuildingAssetV2 } | null {
   const blenderKey = `blender-building-${archetype}-${state}`;
   const blenderAsset = options.blenderBundle?.buildings[archetype];
   if (
     blenderAsset &&
+    blenderAsset.states[state] &&
     options.textureExists(blenderKey) &&
     buildingFrameForOrientation(blenderAsset, options.azimuth)
   ) {

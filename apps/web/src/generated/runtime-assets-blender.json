@@ -1,8 +1,8 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "generator": {
     "id": "blender-runtime-asset-e2e",
-    "version": 1,
+    "version": 2,
     "method": "blender_render",
     "source": "tools/art-pipeline/blender/runtime_asset.py"
   },
@@ -48,7 +48,15 @@
           "height": 73,
           "sha256": "d1dcc062a89c09880612b0e053510aee14eef4eec1445322013fb17919bddc54"
         }
-      }
+      },
+      "domainFootprint": {
+        "width": 1,
+        "height": 1
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none"
     },
     "bld_shopfront": {
       "type": "bld_shopfront",
@@ -92,7 +100,15 @@
         "license": "CC0-1.0",
         "author": "src_kenney_city_commercial",
         "sourceId": "src_kenney_city_commercial"
-      }
+      },
+      "domainFootprint": {
+        "width": 1,
+        "height": 1
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none"
     },
     "bld_commercial_b": {
       "type": "bld_commercial_b",
@@ -136,7 +152,15 @@
         "license": "CC0-1.0",
         "author": "src_kenney_city_commercial",
         "sourceId": "src_kenney_city_commercial"
-      }
+      },
+      "domainFootprint": {
+        "width": 1,
+        "height": 1
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none"
     },
     "bld_residential_a": {
       "type": "bld_residential_a",
@@ -180,7 +204,15 @@
         "license": "CC0-1.0",
         "author": "src_kenney_city_suburban",
         "sourceId": "src_kenney_city_suburban"
-      }
+      },
+      "domainFootprint": {
+        "width": 1,
+        "height": 1
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none"
     },
     "bld_commercial_c": {
       "type": "bld_commercial_c",
@@ -224,7 +256,15 @@
         "license": "CC0-1.0",
         "author": "src_kenney_city_commercial",
         "sourceId": "src_kenney_city_commercial"
-      }
+      },
+      "domainFootprint": {
+        "width": 1,
+        "height": 1
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none"
     },
     "bld_residential_b": {
       "type": "bld_residential_b",
@@ -268,7 +308,15 @@
         "license": "CC0-1.0",
         "author": "src_kenney_city_suburban",
         "sourceId": "src_kenney_city_suburban"
-      }
+      },
+      "domainFootprint": {
+        "width": 1,
+        "height": 1
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none"
     },
     "bld_residential_c": {
       "type": "bld_residential_c",
@@ -312,7 +360,50 @@
         "license": "CC0-1.0",
         "author": "src_kenney_city_suburban",
         "sourceId": "src_kenney_city_suburban"
-      }
+      },
+      "domainFootprint": {
+        "width": 1,
+        "height": 1
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none"
+    },
+    "town_hall": {
+      "type": "town_hall",
+      "name": "town_hall",
+      "footprint": {
+        "width": 8,
+        "height": 4
+      },
+      "domainFootprint": {
+        "width": 8,
+        "height": 4
+      },
+      "pivot": {
+        "x": 0.5583,
+        "y": 0.6236
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender/town_hall-complete.png",
+          "width": 1158,
+          "height": 960,
+          "sha256": "4d83edc33cb948eada9ac69ee48fdfbbe9d4af628e80209b5a140c32a05e0495"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 30.1,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Approved Building Composer V7 candidate. Composition vf_town_hall_1002 combines the original civic pediment with CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none"
     }
   },
   "characters": {

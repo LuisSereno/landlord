@@ -3,7 +3,8 @@
  *
  * Reglas de contexto por rol urbano (§11): cada perfil define multiplicadores de densidad por
  * categoría de dressing y un sesgo de vocabulario (props favorecidos/evitados). No es gameplay:
- * sólo modula la presentación determinista ya existente (parcel dressing, actores ambientales).
+ * sólo modula la presentación determinista. `density` contiene exclusivamente multiplicadores con
+ * consumidor runtime; los campos aún no conectados viven en `deferredDensity` para no fingir gate.
  *
  * Perfiles de contexto de edificio (§12): qué vocabulario acompaña a cada BuildingType además de su
  * vehículo contextual (V.h.6). No se bakea dentro del sprite; se aplica como dressing de solar.
@@ -29,9 +30,12 @@ export type DistrictVisualProfile = {
     bins: number;
     vehicles: number;
     pedestrians: number;
+    props: number;
+  };
+  /** Declarados para una capa futura; hoy no afectan al modelo visual ni cuentan como cobertura. */
+  deferredDensity: {
     fencing: number;
     gardens: number;
-    props: number;
     debris: number;
     signage: number;
   };
@@ -49,9 +53,12 @@ const BASE_DENSITY = {
   bins: 1,
   vehicles: 1,
   pedestrians: 1,
+  props: 1,
+} as const;
+
+const BASE_DEFERRED_DENSITY = {
   fencing: 1,
   gardens: 1,
-  props: 1,
   debris: 1,
   signage: 1,
 } as const;
@@ -66,9 +73,9 @@ export const DISTRICT_VISUAL_PROFILES: Record<DistrictVisualRole, DistrictVisual
       trees: 1.1,
       pedestrians: 1.4,
       bins: 0.7,
-      debris: 0.3,
       vehicles: 0.7,
     },
+    deferredDensity: { ...BASE_DEFERRED_DENSITY, debris: 0.3 },
     favored: ["prp_planter_urn", "prp_bench", "prp_street_light", "prp_bollard"],
     avoided: ["prp_construction_cone", "prp_construction_barrier", "prp_trash_can"],
     vacantLot: "lawn",
@@ -83,6 +90,7 @@ export const DISTRICT_VISUAL_PROFILES: Record<DistrictVisualRole, DistrictVisual
       pedestrians: 1.2,
       vehicles: 1.1,
     },
+    deferredDensity: { ...BASE_DEFERRED_DENSITY },
     favored: ["prp_bench", "prp_trash_can", "prp_street_light", "prp_tree_oak"],
     avoided: ["prp_construction_barrier"],
     vacantLot: "lawn",
@@ -93,11 +101,11 @@ export const DISTRICT_VISUAL_PROFILES: Record<DistrictVisualRole, DistrictVisual
       ...BASE_DENSITY,
       trees: 1.3,
       bushes: 1.3,
-      gardens: 1.3,
       bins: 1,
       vehicles: 1.1,
       pedestrians: 0.9,
     },
+    deferredDensity: { ...BASE_DEFERRED_DENSITY, gardens: 1.3 },
     favored: ["prp_tree_oak", "prp_bush", "prp_trash_can", "prp_bench"],
     avoided: ["prp_construction_barrier"],
     vacantLot: "lawn",
@@ -108,11 +116,11 @@ export const DISTRICT_VISUAL_PROFILES: Record<DistrictVisualRole, DistrictVisual
       ...BASE_DENSITY,
       trees: 1.5,
       bushes: 1.4,
-      gardens: 1.4,
       vehicles: 0.9,
       pedestrians: 0.8,
       lighting: 0.9,
     },
+    deferredDensity: { ...BASE_DEFERRED_DENSITY, gardens: 1.4 },
     favored: ["prp_tree_oak", "prp_tree_pine", "prp_bush"],
     avoided: ["prp_construction_barrier", "prp_trash_can"],
     vacantLot: "lawn",
@@ -124,11 +132,11 @@ export const DISTRICT_VISUAL_PROFILES: Record<DistrictVisualRole, DistrictVisual
       lighting: 1.3,
       benches: 1.2,
       bins: 1.3,
-      signage: 1.5,
       vehicles: 1.3,
       pedestrians: 1.2,
       trees: 0.8,
     },
+    deferredDensity: { ...BASE_DEFERRED_DENSITY, signage: 1.5 },
     favored: ["prp_bench", "prp_trash_can", "prp_street_light"],
     avoided: ["prp_construction_barrier"],
     vacantLot: "gravel",
@@ -138,8 +146,6 @@ export const DISTRICT_VISUAL_PROFILES: Record<DistrictVisualRole, DistrictVisual
     density: {
       ...BASE_DENSITY,
       vehicles: 1.5,
-      debris: 1.5,
-      fencing: 1.5,
       bins: 1.2,
       benches: 0.3,
       trees: 0.4,
@@ -147,6 +153,7 @@ export const DISTRICT_VISUAL_PROFILES: Record<DistrictVisualRole, DistrictVisual
       pedestrians: 0.5,
       lighting: 0.9,
     },
+    deferredDensity: { ...BASE_DEFERRED_DENSITY, debris: 1.5, fencing: 1.5 },
     favored: ["prp_construction_barrier", "prp_construction_cone", "prp_trash_can"],
     avoided: ["prp_planter_urn", "prp_bench", "prp_tree_oak"],
     vacantLot: "gravel",
@@ -160,10 +167,10 @@ export const DISTRICT_VISUAL_PROFILES: Record<DistrictVisualRole, DistrictVisual
       benches: 1.2,
       pedestrians: 1.1,
       vehicles: 0.3,
-      debris: 0.4,
       lighting: 0.8,
       bins: 0.8,
     },
+    deferredDensity: { ...BASE_DEFERRED_DENSITY, debris: 0.4 },
     favored: ["prp_tree_oak", "prp_tree_pine", "prp_bush", "prp_bench"],
     avoided: ["prp_construction_barrier", "prp_construction_cone", "prp_trash_can"],
     vacantLot: "weeds",

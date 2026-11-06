@@ -5,9 +5,9 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   parseRuntimeAssetManifest,
-  runtimeAssetManifestV1Schema,
+  runtimeAssetManifestV2Schema,
   validateRuntimeAssetManifestV2,
-  type RuntimeAssetManifestV1,
+  type RuntimeAssetManifestV2,
 } from "@landlord/shared";
 import blenderBundle from "./generated/runtime-assets-blender.json";
 
@@ -19,10 +19,10 @@ function pngSize(buffer: Buffer): { width: number; height: number } {
 }
 
 describe("WP4.15-H ruta Blender E2E", () => {
-  const bundle = blenderBundle as unknown as RuntimeAssetManifestV1;
+  const bundle = blenderBundle as unknown as RuntimeAssetManifestV2;
 
-  it("el bundle generado por Blender cumple el contrato runtime v1", () => {
-    const parsed = runtimeAssetManifestV1Schema.safeParse(bundle);
+  it("el bundle generado por Blender cumple el contrato runtime V2", () => {
+    const parsed = runtimeAssetManifestV2Schema.safeParse(bundle);
     expect(parsed.success, JSON.stringify(parsed.error?.issues ?? [])).toBe(true);
     expect(bundle.generator.method).toBe("blender_render");
     expect(bundle.buildings["courtyard_home"]!.states).toHaveProperty("complete");
@@ -30,15 +30,28 @@ describe("WP4.15-H ruta Blender E2E", () => {
     expect(bundle.characters["vecino_variante"]!.directions).toBe(4);
   });
 
-  it("el bundle V1 de la herramienta entra por el parser y valida como V2", () => {
-    /** La cadena de Blender sigue publicando V1: la conversión es explícita, no una rama silenciosa. */
-    const converted = parseRuntimeAssetManifest(blenderBundle);
-    expect(converted.schemaVersion).toBe(2);
-    expect(validateRuntimeAssetManifestV2(converted)).toEqual([]);
-    for (const asset of Object.values(converted.buildings)) {
+  it("el bundle entra por el parser único y valida como V2", () => {
+    const parsedBundle = parseRuntimeAssetManifest(blenderBundle);
+    expect(parsedBundle.schemaVersion).toBe(2);
+    expect(validateRuntimeAssetManifestV2(parsedBundle)).toEqual([]);
+    for (const [id, asset] of Object.entries(parsedBundle.buildings)) {
       expect(asset.allowedOrientations).toEqual([45]);
-      expect(asset.domainFootprint).toEqual(asset.footprint);
+      if (id !== "town_hall") expect(asset.domainFootprint).toEqual(asset.footprint);
     }
+  });
+
+  it("promueve el town_hall V7 aprobado sin inventar estados", () => {
+    const townHall = bundle.buildings.town_hall!;
+    expect(townHall.type).toBe("town_hall");
+    expect(townHall.footprint).toEqual({ width: 8, height: 4 });
+    expect(townHall.domainFootprint).toEqual({ width: 8, height: 4 });
+    expect(townHall.allowedOrientations).toEqual([45]);
+    expect(townHall.states.complete.sha256).toBe(
+      "4d83edc33cb948eada9ac69ee48fdfbbe9d4af628e80209b5a140c32a05e0495",
+    );
+    expect(Object.keys(townHall.states)).toEqual(["complete"]);
+    expect(townHall.stateFallback).toBe("procedural");
+    expect(townHall.provenance?.notes).toContain("vf_town_hall_1002");
   });
 
   it("cubre los cuatro estados del edificio y las cuatro direcciones del personaje", () => {
@@ -155,8 +168,8 @@ describe("WP4.15-H ruta Blender E2E", () => {
         ...Object.values(asset.orientations ?? {}).map((frame) => frame.image),
       ]),
     ];
-    // 81 (V.h.6) + 80 de los 5 avatares Rocketbox de V.h.11 (4 dirs × idle/walk × 2 frames = 16 c/u).
-    expect(images.length).toBe(161);
+    // 81 (V.h.6) + 80 Rocketbox V.h.11 + 1 town_hall V7 promovido en V.h.12.
+    expect(images.length).toBe(162);
     let totalBytes = 0;
     for (const image of images) {
       const buffer = readFileSync(join(PUBLIC_DIR, image.src));
@@ -165,7 +178,8 @@ describe("WP4.15-H ruta Blender E2E", () => {
       expect(pngSize(buffer), image.src).toEqual({ width: image.width, height: image.height });
     }
     /** Los binarios Blender de Alpha caben en el repo sin LFS: se revisa en la decisión de atlas/LFS. */
-    // V.h.11: 96 frames de personaje Rocketbox (256×256 RGBA) suben el atlas de ~2.2 a ~4.6 MB;
+    // V.h.11: 80 frames Rocketbox nuevos (5 × 16; 96 si se cuenta también vecino_variante)
+    // suben el atlas de ~2.2 a ~4.6 MB;
     // sigue muy por debajo del umbral que obligaría a LFS.
     expect(totalBytes).toBeLessThan(6_000_000);
   });

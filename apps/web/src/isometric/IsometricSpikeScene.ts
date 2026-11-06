@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import {
   type BuildingAssetState,
-  type BuildingAssetV1,
+  type BuildingAssetV2,
   type RuntimeAssetManifestV2,
   type SceneryAssetV1,
   type ViewProjectionV2,
@@ -63,6 +63,8 @@ import { gridEdgeToScreenLine, parcelBoundaryEdges } from "./parcel-geometry";
 import { nearestCandidateToCell } from "../ui/placement";
 import {
   buildGameplayVisualModel,
+  contextActorRenderCell,
+  type GameplayContextActor,
   type GameplayParkedVehicle,
   type GameplayVisualModel,
 } from "./gameplay-visual-adapter";
@@ -754,7 +756,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
     for (const actor of [...(model.ambientActors ?? []), ...(model.contextActors ?? [])]) {
       const key = `blender-character-${actor.character}-${actor.animation}-d${actor.direction}-${actor.slot}`;
       if (!this.textures.exists(key)) continue;
-      const center = gridToScreen(actor.cell, this.layout);
+      const renderCell =
+        "curbEdge" in actor && "lateralOffset" in actor
+          ? contextActorRenderCell(actor as GameplayContextActor)
+          : actor.cell;
+      const center = gridToScreen(renderCell, this.layout);
       const image =
         this.ambientActorSprites.get(actor.id) ?? this.add.image(center.x, center.y, key);
       this.ambientActorSprites.set(actor.id, image);
@@ -763,7 +769,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
         .setPosition(center.x, center.y)
         .setOrigin(0.5, 0.94)
         .setScale(0.75)
-        .setDepth(depthForAsset(actor.cell, { width: 1, height: 1 }));
+        .setDepth(depthForAsset(renderCell, { width: 1, height: 1 }));
       image.setVisible(this.isInViewport(image.x, image.y, this.cameras.main.worldView, 96));
       seenActors.add(actor.id);
     }
@@ -1915,7 +1921,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     archetype: string,
     domainType: string,
     state: BuildingAssetState,
-  ): { key: string; asset: BuildingAssetV1 } | null {
+  ): { key: string; asset: BuildingAssetV2 } | null {
     return resolveBuildingVisual(archetype, domainType, state, {
       blenderBundle: ASSETS_BLENDER,
       proceduralBundle: ASSETS,
@@ -1927,7 +1933,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private ensureBuildingSprite(
     id: string,
     key: string,
-    asset: BuildingAssetV1,
+    asset: BuildingAssetV2,
     target: { kind: "building" | "construction"; id: string },
   ): Phaser.GameObjects.Image {
     let sprite = this.buildingSprites.get(id);

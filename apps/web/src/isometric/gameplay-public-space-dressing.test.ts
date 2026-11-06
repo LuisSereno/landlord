@@ -6,6 +6,7 @@ import {
   planGameplayParkedVehicles,
   planGameplayAmbientActors,
   planGameplayContextActors,
+  contextActorRenderCell,
 } from "./gameplay-visual-adapter";
 import {
   DISTRICT_VISUAL_PROFILES,
@@ -409,16 +410,23 @@ describe("V.h.11 context actors: invariantes", () => {
     expect(by.get("b_work")?.character).toBe("chr_worker");
   });
 
-  it("cada actor queda en el bordillo adyacente a su huella, lado hacia el edificio", () => {
+  it("cada actor queda en el bordillo de fachada, nunca centrado en la calzada", () => {
     for (const actor of runCtx()) {
       const building = BUILDINGS.find((b) => b.id === actor.buildingId)!;
-      const delta = SIDE_DELTA[actor.direction === 0 ? "s" : "n"];
-      // La celda reservada no es un campo "side"; se comprueba adyacencia a la huella por cualquier lado.
-      const adjacent = building.footprintCells.some(
-        (c) => Math.abs(c.x - actor.cell.x) + Math.abs(c.y - actor.cell.y) === 1,
+      const delta = SIDE_DELTA[actor.curbEdge];
+      const curbHost = { x: actor.cell.x + delta.x, y: actor.cell.y + delta.y };
+      const frontageDistance = Math.min(
+        ...building.footprintCells.map(
+          (c) => Math.abs(c.x - curbHost.x) + Math.abs(c.y - curbHost.y),
+        ),
       );
-      expect(adjacent).toBe(true);
-      expect(delta).toBeTruthy();
+      expect(frontageDistance).toBeLessThanOrEqual(1);
+      const renderCell = contextActorRenderCell(actor);
+      expect(renderCell).not.toEqual(actor.cell);
+      expect(renderCell.x).toBeCloseTo(actor.cell.x + delta.x * actor.lateralOffset);
+      expect(renderCell.y).toBeCloseTo(actor.cell.y + delta.y * actor.lateralOffset);
+      expect(actor.lateralOffset).toBeGreaterThan(0);
+      expect(actor.lateralOffset).toBeLessThan(1);
     }
   });
 

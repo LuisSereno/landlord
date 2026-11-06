@@ -93959,7 +93959,9 @@
             "buildingIds": [
               "building_90004001"
             ],
-            "publicSpaceIds": [],
+            "publicSpaceIds": [
+              "publicspace_00000501"
+            ],
             "operatorOrganizationId": "org_00000004",
             "capacity": 1,
             "serviceProfileId": "town_hall_service_v1"

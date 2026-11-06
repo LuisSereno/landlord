@@ -2,17 +2,18 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   BUILDING_ASSET_STATES,
   type BuildingAssetState,
-  type BuildingAssetV1,
+  type BuildingAssetV2,
   type CharacterAssetV1,
-  type RuntimeAssetManifestV1,
+  parseRuntimeAssetManifest,
+  type RuntimeAssetManifestV2,
 } from "@landlord/shared";
 import runtimeAssets from "./generated/runtime-assets.json";
 import blenderBundle from "./generated/runtime-assets-blender.json";
 import { animationFrameFor, framesPerDirection } from "./isometric/building-sprites";
 import { mountDenseAssetScene } from "./isometric/DenseAssetScene";
 
-const ASSETS = runtimeAssets as RuntimeAssetManifestV1;
-const BLENDER = blenderBundle as unknown as RuntimeAssetManifestV1;
+const ASSETS = parseRuntimeAssetManifest(runtimeAssets);
+const BLENDER = parseRuntimeAssetManifest(blenderBundle);
 
 const directions = [
   {
@@ -45,7 +46,7 @@ const STATE_LABELS: Record<BuildingAssetState, string> = {
   burning: "Burning",
 };
 
-function manifestProvenance(manifest: RuntimeAssetManifestV1): string {
+function manifestProvenance(manifest: RuntimeAssetManifestV2): string {
   return `${manifest.generator.id} v${manifest.generator.version} · ${manifest.generator.method} · ${manifest.provenance.author} · ${manifest.provenance.license}`;
 }
 
@@ -53,20 +54,26 @@ function BuildingStates({
   building,
   source,
 }: {
-  building: BuildingAssetV1;
+  building: BuildingAssetV2;
   source: "Procedural" | "Blender";
 }) {
   return (
     <div className="asset-state-grid" data-asset-source={source.toLowerCase()}>
-      {BUILDING_ASSET_STATES.map((state) => (
-        <figure key={state}>
-          <img
-            src={building.states[state].src}
-            alt={`${building.name} ${STATE_LABELS[state]} (${source})`}
-          />
-          <figcaption>{STATE_LABELS[state]}</figcaption>
-        </figure>
-      ))}
+      {BUILDING_ASSET_STATES.map((state) => {
+        const image = building.states[state];
+        return (
+          <figure key={state}>
+            {image ? (
+              <img src={image.src} alt={`${building.name} ${STATE_LABELS[state]} (${source})`} />
+            ) : (
+              <div className="asset-state-fallback" role="img" aria-label="Fallback procedural">
+                Fallback procedural
+              </div>
+            )}
+            <figcaption>{STATE_LABELS[state]}</figcaption>
+          </figure>
+        );
+      })}
     </div>
   );
 }
@@ -78,7 +85,7 @@ function CharacterStrip({
   staticMode,
 }: {
   character: CharacterAssetV1;
-  manifest: RuntimeAssetManifestV1;
+  manifest: RuntimeAssetManifestV2;
   source: "Procedural" | "Blender";
   staticMode: boolean;
 }) {
@@ -174,7 +181,7 @@ function RuntimeAssetQa() {
             <h2 id="asset-qa-title">Asset QA</h2>
           </div>
           <span className="art-lab-status">
-            {ASSETS.schemaVersion === 1 ? "schema v1" : "invalid"}
+            {ASSETS.schemaVersion === 2 ? "schema v2" : "invalid"}
           </span>
         </header>
         <div className="asset-card-grid">

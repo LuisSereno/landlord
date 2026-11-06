@@ -1,0 +1,90 @@
+name: V.h visual remediation
+
+on:
+  push:
+    branches:
+      - wip/vh-world-visual-foundation
+    paths:
+      - scripts/vh-visual-remediation.mjs
+      - scripts/vh-visual-remediation-contract-fix.mjs
+      - scripts/vh-visual-remediation-trigger.txt
+      - .github/workflows/vh-visual-remediation.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vh-visual-remediation
+  cancel-in-progress: false
+
+jobs:
+  remediate-and-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout remediation branch
+        uses: actions/checkout@v4
+        with:
+          ref: wip/vh-world-visual-foundation
+          fetch-depth: 0
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.11.2
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install workspace
+        run: pnpm install --frozen-lockfile
+
+      - name: Apply visual remediation
+        run: |
+          node scripts/vh-visual-remediation.mjs
+          node scripts/vh-visual-remediation-contract-fix.mjs
+
+      - name: Format modified text files
+        run: |
+          pnpm exec prettier --write \
+            apps/web/src/assets/runtime-assets.ts \
+            apps/web/src/generated/runtime-visual-overrides.json \
+            apps/web/src/isometric/gameplay-visual-adapter.ts \
+            apps/web/src/isometric/IsometricSpikeScene.ts \
+            apps/web/src/isometric/visual-scale.ts \
+            apps/web/src/isometric/visual-remediation.test.ts \
+            blender_artist/manifests/runtime-promotions.json \
+            scripts/vh-world-visual-capture.mjs
+
+      - name: Typecheck
+        run: pnpm --filter @landlord/web typecheck
+
+      - name: Lint web
+        run: pnpm --filter @landlord/web lint
+
+      - name: Test web
+        run: pnpm --filter @landlord/web test
+
+      - name: Full-world and performance gates
+        env:
+          VC9_FULLWORLD: "1"
+          VH10_PERF: "1"
+        run: pnpm --filter @landlord/web test
+
+      - name: Build web
+        run: pnpm --filter @landlord/web build
+
+      - name: Commit verified remediation
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No remediation changes to commit"
+            exit 0
+          fi
+          git commit -m "fix: remediate V.h visual integration"
+          git push origin HEAD:wip/vh-world-visual-foundation

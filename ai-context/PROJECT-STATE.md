@@ -133,15 +133,20 @@ revisión visual del responsable (§35).
   Ambas promociones pasan por `runtime-promotions.json` → `build-blender-assets.mjs --promote-approved`,
   con estado `complete` exacto, fallback procedural para los demás estados, footprint/dominio 8×4,
   orientación 45°, Graphic Civic, provenance y hash verificables.
-- **V.i lote residencial (2026-11-06):** 3 edificios Composer más promovidos por el mismo pipeline
-  (`runtime-promotions.json` → `--promote-approved`), seleccionados por el responsable sobre 4
-  candidatos por tipo generados en `docs/art/residential-catalog-vi/`: `row_house`←`vg_row_house_1001`
-  (4×1), `apartment_block`←`vg_apartment_block_1002` (5×2), `mixed_tenement`←`vg_mixed_tenement_1001`
-  (4×2). Con courtyard_home/town_hall/school_block el catálogo Composer pasa a **6/15 `runtime_exact`**;
-  los 9 restantes siguen en fallback procedural semántico. `visual-remediation.test.ts` fija el set
-  revisado y prohíbe estados fabricados. Nota: el budget anti-LFS del atlas subió a 10 MB porque el
-  promotor copia el PNG del candidato a resolución de render completa; el fix correcto pendiente (P2)
-  es recortar el runtimeImage al footprint real antes de cerrar los 15/15.
+- **V.i lote residencial + industrial ligero (2026-11-06):** 5 edificios Composer más promovidos por el
+  mismo pipeline (`runtime-promotions.json` → `--promote-approved`), seleccionados por el responsable
+  sobre 4 candidatos/tipo (`docs/art/residential-catalog-vi/`, `docs/art/industrial-light-catalog-vi/`):
+  `row_house`←`vg_row_house_1001` (4×1), `apartment_block`←`vg_apartment_block_1002` (5×2),
+  `mixed_tenement`←`vg_mixed_tenement_1001` (4×2), `workshop`←`vg_workshop_1003` (4×2),
+  `warehouse`←`vg_warehouse_1002` (4×3). Con courtyard_home/town_hall/school_block el catálogo Composer
+  pasa a **8/15 `runtime_exact`**; los 7 restantes (cement_plant, brickworks, steelworks, clinic,
+  police_station, fire_station, market_hall) siguen en fallback procedural semántico.
+  `visual-remediation.test.ts` fija el set revisado (8) y prohíbe estados fabricados. Nota de bytes: el
+  runtimeImage es copia verbatim del candidato (determinista; sha runtime == sha candidato, lo fuerza el
+  test de town_hall). Se descartó optimizar/recortar el PNG porque haría el sha dependiente de la
+  versión de la herramienta y rompería la promoción reproducible. El budget anti-LFS es 10 MB (atlas
+  ~7.7 MB con 8 edificios); la palanca correcta si aprieta es bajar la resolución de RENDER en el
+  compositor (origen determinista), no post-procesar.
 - Política semántica 15/15 BuildingTypes: cada tipo declara runtime Blender exacto / archetype
   compatible / fallback procedural semántico; nunca fallback equivocado (almacén→almacén, no
   residencial). Estructural `blender-assets`/`building-sprites` lo verifica.

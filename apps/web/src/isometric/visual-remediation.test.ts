@@ -47,6 +47,8 @@ const REVIEWED_COMPOSER: readonly BuildingType[] = [
   "row_house",
   "apartment_block",
   "mixed_tenement",
+  "workshop",
+  "warehouse",
 ];
 
 describe("V.h visual remediation", () => {
@@ -72,11 +74,13 @@ describe("V.h visual remediation", () => {
     }
   });
 
-  it("promotes the V.i residential catalog with provenance and no fabricated states", () => {
+  it("promotes the V.i catalog with provenance and no fabricated states", () => {
     const approved: Record<string, string> = {
       row_house: "vg_row_house_1001",
       apartment_block: "vg_apartment_block_1002",
       mixed_tenement: "vg_mixed_tenement_1001",
+      workshop: "vg_workshop_1003",
+      warehouse: "vg_warehouse_1002",
     };
     for (const [type, candidateId] of Object.entries(approved)) {
       const asset = BLENDER_ASSETS.buildings[type]!;

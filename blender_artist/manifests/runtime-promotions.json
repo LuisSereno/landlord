@@ -146,6 +146,64 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i residential candidate vg_mixed_tenement_1001 (mansard roof with dormers). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
       }
+    },
+    {
+      "assetId": "workshop",
+      "semanticType": "workshop",
+      "candidateBuildingType": "workshop",
+      "candidateId": "vg_workshop_1003",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "docs/art/industrial-light-catalog-vi/candidates/vg_workshop_1003.json",
+      "candidateImage": "docs/art/industrial-light-catalog-vi/candidates/vg_workshop_1003.png",
+      "compositionSignature": "6a6ef70001a8ea630365c43800fc6e364c8b3a2dfd1eb04ce30b57c105239ca7",
+      "imageSha256": "e742cd53585792f1f7dc01f0a12a451052cfc1f2ecca8456a1b3986cab78adbd",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "state": "complete",
+      "footprint": {
+        "width": 4,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 2
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i industrial-light candidate vg_workshop_1003 (long flat workshop block). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      }
+    },
+    {
+      "assetId": "warehouse",
+      "semanticType": "warehouse",
+      "candidateBuildingType": "warehouse",
+      "candidateId": "vg_warehouse_1002",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "docs/art/industrial-light-catalog-vi/candidates/vg_warehouse_1002.json",
+      "candidateImage": "docs/art/industrial-light-catalog-vi/candidates/vg_warehouse_1002.png",
+      "compositionSignature": "fdd2319d98fd477c73368b4728a6bac88da209cb3347703f83e02afc1ca81950",
+      "imageSha256": "d1a46f2b6844d62ec3bbc3de019cdb2c51fa0446a373347ad62a46c9ce364a49",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "state": "complete",
+      "footprint": {
+        "width": 4,
+        "height": 3
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 3
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i industrial-light candidate vg_warehouse_1002 (long logistics shed, no chimney). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      }
     }
   ]
 }

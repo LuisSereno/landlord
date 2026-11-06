@@ -1,0 +1,332 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-06T19:08:24.313Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/industrial-light-catalog-vi/candidates",
+ "requested": 8,
+ "rendered": 8,
+ "totalGenerationMs": 778437,
+ "blenderPeakRssMb": 4337.7,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "fdbc05662bfa41e98619527a5c16b03b901c9a134c33510ee71e4a6017785980",
+   "after": "fdbc05662bfa41e98619527a5c16b03b901c9a134c33510ee71e4a6017785980"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_workshop_1000",
+   "buildingType": "workshop",
+   "family": "industrial_heavy",
+   "variantSeed": 1000,
+   "compositionSignature": "2fb2e2abeb23f73acc745a8a768679aa0ed83e73dd7c498c521c50a29d48e731",
+   "triangleCount": 3163,
+   "objectCount": 20,
+   "moduleCount": 7,
+   "materials": 13,
+   "textures": 14,
+   "bounds": {
+    "x": {
+     "min": -3.9532,
+     "max": 8
+    },
+    "y": {
+     "min": -4.199999999999999,
+     "max": 2.84
+    },
+    "z": {
+     "min": 0,
+     "max": 7.6182
+    }
+   },
+   "renderMs": 7427.13,
+   "pngBytes": 190824,
+   "pngPixels": [
+    498,
+    437
+   ],
+   "pixelSha256": "133030e1715f24f5adbd2646b069a439fc162d829eb984776235a6cd60ba1cde",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5361,
+    "y": 0.622
+   }
+  },
+  {
+   "candidateId": "vg_workshop_1001",
+   "buildingType": "workshop",
+   "family": "industrial_heavy",
+   "variantSeed": 1001,
+   "compositionSignature": "34047f46174d133ca84f49aa2549e8720d6709759f476561c309459ba81cff65",
+   "triangleCount": 3597,
+   "objectCount": 22,
+   "moduleCount": 10,
+   "materials": 16,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -3.9532,
+     "max": 8
+    },
+    "y": {
+     "min": -4.4,
+     "max": 2.84
+    },
+    "z": {
+     "min": 0,
+     "max": 7.6182
+    }
+   },
+   "renderMs": 7363.98,
+   "pngBytes": 193022,
+   "pngPixels": [
+    501,
+    438
+   ],
+   "pixelSha256": "db43664a6e629abebdb8d125a215ae651204e04d95ea8f23d8af06fc6882d7ee",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5379,
+    "y": 0.6192
+   }
+  },
+  {
+   "candidateId": "vg_workshop_1002",
+   "buildingType": "workshop",
+   "family": "industrial_heavy",
+   "variantSeed": 1002,
+   "compositionSignature": "aa0eb86c4826a56b3e83a0c7a1a4e22923c7dc7ffa2e985efebe09e363b8717b",
+   "triangleCount": 3167,
+   "objectCount": 21,
+   "moduleCount": 9,
+   "materials": 15,
+   "textures": 15,
+   "bounds": {
+    "x": {
+     "min": -3.9532,
+     "max": 8
+    },
+    "y": {
+     "min": -4.4,
+     "max": 2.84
+    },
+    "z": {
+     "min": 0,
+     "max": 7.6182
+    }
+   },
+   "renderMs": 7070.61,
+   "pngBytes": 193709,
+   "pngPixels": [
+    501,
+    438
+   ],
+   "pixelSha256": "6626239c4abe73c974af6c8b28ddf9a1d50baf0d686a42587be2a80d538d8350",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5379,
+    "y": 0.6192
+   }
+  },
+  {
+   "candidateId": "vg_workshop_1003",
+   "buildingType": "workshop",
+   "family": "industrial_heavy",
+   "variantSeed": 1003,
+   "compositionSignature": "6a6ef70001a8ea630365c43800fc6e364c8b3a2dfd1eb04ce30b57c105239ca7",
+   "triangleCount": 4199,
+   "objectCount": 40,
+   "moduleCount": 7,
+   "materials": 13,
+   "textures": 14,
+   "bounds": {
+    "x": {
+     "min": -8.2,
+     "max": 4
+    },
+    "y": {
+     "min": -4.199999999999999,
+     "max": 3.9532
+    },
+    "z": {
+     "min": 0,
+     "max": 7.6182
+    }
+   },
+   "renderMs": 8637.56,
+   "pngBytes": 219278,
+   "pngPixels": [
+    456,
+    503
+   ],
+   "pixelSha256": "a509d659515c91f08a1031e3159477214c2326007de13565f777120beea746b7",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.6272,
+    "y": 0.6527
+   }
+  },
+  {
+   "candidateId": "vg_warehouse_1000",
+   "buildingType": "warehouse",
+   "family": "industrial_heavy",
+   "variantSeed": 1000,
+   "compositionSignature": "4c9de114d49d274acf698c9edc1bd5e8f7a6a5f8e436bbd58cf02f1e78128eb4",
+   "triangleCount": 2775,
+   "objectCount": 32,
+   "moduleCount": 7,
+   "materials": 11,
+   "textures": 17,
+   "bounds": {
+    "x": {
+     "min": -8,
+     "max": 8
+    },
+    "y": {
+     "min": -6.3999999999999995,
+     "max": 4.5672
+    },
+    "z": {
+     "min": 0,
+     "max": 5.12
+    }
+   },
+   "renderMs": 10820,
+   "pngBytes": 182732,
+   "pngPixels": [
+    647,
+    478
+   ],
+   "pixelSha256": "0081c0743551a0c3710c5ceb5eebaaedcc728355d9532e6493ee1a99086789cc",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5858,
+    "y": 0.5591
+   }
+  },
+  {
+   "candidateId": "vg_warehouse_1001",
+   "buildingType": "warehouse",
+   "family": "industrial_heavy",
+   "variantSeed": 1001,
+   "compositionSignature": "5a56a84cf43aef4ac6c49f5b1bfb22fd1b7655bfc162a8bab9eb65f102ac24ce",
+   "triangleCount": 6897,
+   "objectCount": 53,
+   "moduleCount": 10,
+   "materials": 18,
+   "textures": 17,
+   "bounds": {
+    "x": {
+     "min": -8.2,
+     "max": 8
+    },
+    "y": {
+     "min": -6.199999999999999,
+     "max": 4.84
+    },
+    "z": {
+     "min": 0,
+     "max": 7.6182
+    }
+   },
+   "renderMs": 12884.91,
+   "pngBytes": 240755,
+   "pngPixels": [
+    657,
+    568
+   ],
+   "pixelSha256": "fcbd9c5f99d1952152f543a56910538b484d5e9d6f79a4a24ebda1e0f286b362",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.583,
+    "y": 0.6071
+   }
+  },
+  {
+   "candidateId": "vg_warehouse_1002",
+   "buildingType": "warehouse",
+   "family": "industrial_heavy",
+   "variantSeed": 1002,
+   "compositionSignature": "fdd2319d98fd477c73368b4728a6bac88da209cb3347703f83e02afc1ca81950",
+   "triangleCount": 4371,
+   "objectCount": 31,
+   "moduleCount": 8,
+   "materials": 14,
+   "textures": 15,
+   "bounds": {
+    "x": {
+     "min": -8,
+     "max": 8
+    },
+    "y": {
+     "min": -6.3999999999999995,
+     "max": 4.5672
+    },
+    "z": {
+     "min": 0,
+     "max": 5.12
+    }
+   },
+   "renderMs": 11244.56,
+   "pngBytes": 180545,
+   "pngPixels": [
+    647,
+    478
+   ],
+   "pixelSha256": "62c6c902e62d0a8f4a75e6cc453cc32f7b3551763d46ebe455ff27cebdbc798b",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5858,
+    "y": 0.5591
+   }
+  },
+  {
+   "candidateId": "vg_warehouse_1003",
+   "buildingType": "warehouse",
+   "family": "industrial_heavy",
+   "variantSeed": 1003,
+   "compositionSignature": "ac56f11732873c8da33f1d28cf844e3fe9e9b44a02d80d7010b1dce4ba3daca3",
+   "triangleCount": 2759,
+   "objectCount": 31,
+   "moduleCount": 7,
+   "materials": 12,
+   "textures": 15,
+   "bounds": {
+    "x": {
+     "min": -8,
+     "max": 8
+    },
+    "y": {
+     "min": -6,
+     "max": 4.5672
+    },
+    "z": {
+     "min": 0,
+     "max": 5.12
+    }
+   },
+   "renderMs": 10028.9,
+   "pngBytes": 180608,
+   "pngPixels": [
+    642,
+    476
+   ],
+   "pixelSha256": "a8bb483408ba3e22c3c57cb4f54dd08b5f513a0c2d93d68f07fbb9788e44761c",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5818,
+    "y": 0.5625
+   }
+  }
+ ],
+ "failures": []
+}

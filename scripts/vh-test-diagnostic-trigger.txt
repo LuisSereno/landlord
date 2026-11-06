@@ -1,0 +1,1 @@
+Capture exact Vitest failure after remediation v5.

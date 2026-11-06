@@ -319,16 +319,22 @@ if (promotions.schemaVersion !== 1 || !Array.isArray(promotions.promotions)) {
 } else {
   const promotedTypes = new Set();
   for (const promotion of promotions.promotions) {
-    const label = `promotion:${promotion.buildingType ?? "(sin tipo)"}`;
+    const label = `promotion:${promotion.assetId ?? "(sin assetId)"}`;
+    if (!promotion.assetId || promotion.assetId !== promotion.semanticType) {
+      fail(`${label}: assetId y semanticType deben coincidir`);
+    }
+    if (typeof promotion.candidateBuildingType !== "string") {
+      fail(`${label}: falta candidateBuildingType para preservar la semántica de origen`);
+    }
     if (promotion.approvalStatus !== "qa_approved") fail(`${label}: no tiene aprobación QA`);
     if (promotion.state !== "complete") fail(`${label}: sólo se puede promover el estado complete`);
     if (promotion.stateFallback !== "procedural") {
       fail(`${label}: los estados ausentes deben declarar fallback procedural`);
     }
-    if (promotedTypes.has(promotion.buildingType)) {
+    if (promotedTypes.has(promotion.semanticType)) {
       fail(`${label}: BuildingType promovido más de una vez`);
     }
-    promotedTypes.add(promotion.buildingType);
+    promotedTypes.add(promotion.semanticType);
     for (const path of [promotion.candidateMetadata, promotion.candidateImage]) {
       if (typeof path !== "string" || path.startsWith("/") || path.includes("..")) {
         fail(`${label}: ruta de candidato inválida ${String(path)}`);
@@ -339,8 +345,8 @@ if (promotions.schemaVersion !== 1 || !Array.isArray(promotions.promotions)) {
     if (!existsSync(promotion.candidateMetadata) || !existsSync(promotion.candidateImage)) continue;
     const candidate = JSON.parse(readFileSync(promotion.candidateMetadata, "utf8"));
     if (candidate.candidateId !== promotion.candidateId) fail(`${label}: candidateId no coincide`);
-    if (candidate.buildingType !== promotion.buildingType) {
-      fail(`${label}: buildingType no coincide con el candidato`);
+    if (candidate.buildingType !== promotion.candidateBuildingType) {
+      fail(`${label}: candidateBuildingType no coincide con el candidato`);
     }
     if (candidate.state !== "complete") fail(`${label}: el candidato no es complete`);
     if (candidate.styleProfileId !== promotion.styleProfileId) {

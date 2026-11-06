@@ -21388,6 +21388,44 @@
   {
     "promotion": true,
     "assetId": "town_hall",
+    "candidateId": "vf_town_hall_1006",
+    "candidateMetadata": "blender_artist/showcase/vg-town-hall-spike-v7/vf_town_hall_1006.json",
+    "compositionSignature": "d440472588e657f4bd94ce4993532095782b7b6524efe39496a9eb076db11fbb",
+    "styleProfileId": "graphic_civic_buildings_v1",
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 43.130001068115234,
+      "targetZ": 5
+    },
+    "pivot": {
+      "x": 0.4802,
+      "y": 0.689
+    },
+    "footprint": {
+      "width": 8,
+      "height": 4
+    },
+    "domainFootprint": {
+      "width": 8,
+      "height": 4
+    },
+    "image": {
+      "src": "/assets/runtime/blender/town_hall-complete.png",
+      "width": 984,
+      "height": 753,
+      "sha256": "426a25e6a83a5bacd03b7d0354dde238fa0d26f936b0f1c758fa8c11db46dde7"
+    },
+    "provenance": {
+      "license": "original",
+      "author": "Landlord project; CC0 modules by Quaternius",
+      "notes": "Owner-selected V7 town hall candidate vf_town_hall_1006. Original civic pediment with CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+    }
+  },
+  {
+    "promotion": true,
+    "assetId": "school_block",
     "candidateId": "vf_town_hall_1002",
     "candidateMetadata": "blender_artist/showcase/vg-town-hall-spike-v7/vf_town_hall_1002.json",
     "compositionSignature": "285c15f19cd9364ee530b58dedb314fc52f75ace871c5df67bc385b4bb0b79e9",
@@ -21412,7 +21450,7 @@
       "height": 4
     },
     "image": {
-      "src": "/assets/runtime/blender/town_hall-complete.png",
+      "src": "/assets/runtime/blender/school_block-complete.png",
       "width": 1158,
       "height": 960,
       "sha256": "4d83edc33cb948eada9ac69ee48fdfbbe9d4af628e80209b5a140c32a05e0495"
@@ -21420,7 +21458,7 @@
     "provenance": {
       "license": "original",
       "author": "Landlord project; CC0 modules by Quaternius",
-      "notes": "Approved Building Composer V7 candidate. Composition vf_town_hall_1002 combines the original civic pediment with CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      "notes": "V7 candidate vf_town_hall_1002 retained by owner choice as the school_block visual. Its Composer source type remains town_hall and is recorded as candidateBuildingType; runtime semantic role is school_block."
     }
   }
 ]

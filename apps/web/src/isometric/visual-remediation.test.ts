@@ -49,11 +49,11 @@ describe("V.h visual remediation", () => {
     for (const id of LEGACY) expect(BLENDER_ASSETS.buildings[id]).toBeUndefined();
   });
 
-  it("uses reviewed Composer assets only for courtyard_home and town_hall", () => {
+  it("uses reviewed Composer assets for courtyard_home, town_hall and school_block", () => {
     for (const type of TYPES) {
       const policy = BUILDING_VISUAL_POLICIES[type];
       const visual = visualArchetypeForBuilding(type, "building:" + type);
-      if (type === "courtyard_home" || type === "town_hall") {
+      if (type === "courtyard_home" || type === "town_hall" || type === "school_block") {
         expect(policy.mode).toBe("runtime_exact");
         expect(BLENDER_ASSETS.buildings[visual]).toBeTruthy();
       } else {
@@ -83,9 +83,10 @@ describe("V.h visual remediation", () => {
     expect(CHARACTER_TARGET_HEIGHT_PIXELS).toBeLessThanOrEqual(32);
   });
 
-  it("restores the roofed town hall without manufacturing missing states", () => {
+  it("uses the owner-selected V7 town hall without manufacturing missing states", () => {
     const hall = BLENDER_ASSETS.buildings.town_hall!;
-    expect(hall.states.complete.src).toContain("town_hall-roofed-complete.png");
+    expect(hall.states.complete.src).toContain("town_hall-complete.png");
+    expect(hall.provenance?.notes).toContain("vf_town_hall_1006");
     expect(hall.stateFallback).toBe("procedural");
     expect(hall.states.construction).toBeUndefined();
     expect(hall.states.damaged).toBeUndefined();

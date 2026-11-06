@@ -38,7 +38,7 @@ export const BUILDING_VISUAL_POLICIES: Record<BuildingType, BuildingVisualPolicy
   brickworks: { mode: "procedural_semantic_fallback", assetId: "brickworks" },
   steelworks: { mode: "procedural_semantic_fallback", assetId: "steelworks" },
   town_hall: { mode: "runtime_exact", assetId: "town_hall" },
-  school_block: { mode: "procedural_semantic_fallback", assetId: "school_block" },
+  school_block: { mode: "runtime_exact", assetId: "school_block" },
   clinic: { mode: "procedural_semantic_fallback", assetId: "clinic" },
   police_station: { mode: "procedural_semantic_fallback", assetId: "police_station" },
   fire_station: { mode: "procedural_semantic_fallback", assetId: "fire_station" },

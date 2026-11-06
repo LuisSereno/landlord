@@ -40,18 +40,25 @@ describe("WP4.15-H ruta Blender E2E", () => {
     }
   });
 
-  it("promueve el town_hall V7 aprobado sin inventar estados", () => {
+  it("promueve el town_hall V7 elegido y conserva el candidato anterior como school_block", () => {
     const townHall = bundle.buildings.town_hall!;
     expect(townHall.type).toBe("town_hall");
     expect(townHall.footprint).toEqual({ width: 8, height: 4 });
     expect(townHall.domainFootprint).toEqual({ width: 8, height: 4 });
     expect(townHall.allowedOrientations).toEqual([45]);
     expect(townHall.states.complete.sha256).toBe(
-      "4d83edc33cb948eada9ac69ee48fdfbbe9d4af628e80209b5a140c32a05e0495",
+      "426a25e6a83a5bacd03b7d0354dde238fa0d26f936b0f1c758fa8c11db46dde7",
     );
     expect(Object.keys(townHall.states)).toEqual(["complete"]);
     expect(townHall.stateFallback).toBe("procedural");
-    expect(townHall.provenance?.notes).toContain("vf_town_hall_1002");
+    expect(townHall.provenance?.notes).toContain("vf_town_hall_1006");
+    const school = bundle.buildings.school_block!;
+    expect(school.type).toBe("school_block");
+    expect(school.domainFootprint).toEqual({ width: 8, height: 4 });
+    expect(school.states.complete.sha256).toBe(
+      "4d83edc33cb948eada9ac69ee48fdfbbe9d4af628e80209b5a140c32a05e0495",
+    );
+    expect(school.provenance?.notes).toContain("vf_town_hall_1002");
   });
 
   it("cubre los cuatro estados del edificio y las cuatro direcciones del personaje", () => {
@@ -168,8 +175,8 @@ describe("WP4.15-H ruta Blender E2E", () => {
         ...Object.values(asset.orientations ?? {}).map((frame) => frame.image),
       ]),
     ];
-    // 81 (V.h.6) + 80 Rocketbox V.h.11 + 1 town_hall V7 promovido en V.h.12.
-    expect(images.length).toBe(162);
+    // 81 (V.h.6) + 80 Rocketbox V.h.11 + town_hall + school_block V7 promovidos.
+    expect(images.length).toBe(163);
     let totalBytes = 0;
     for (const image of images) {
       const buffer = readFileSync(join(PUBLIC_DIR, image.src));

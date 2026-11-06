@@ -35,40 +35,6 @@
       },
       "allowedOrientations": [45],
       "symmetry": "none"
-    },
-    "town_hall": {
-      "type": "town_hall",
-      "name": "Ayuntamiento cívico con cubierta inclinada",
-      "footprint": {
-        "width": 4,
-        "height": 3
-      },
-      "domainFootprint": {
-        "width": 8,
-        "height": 4
-      },
-      "pivot": {
-        "x": 0.4612,
-        "y": 0.8324
-      },
-      "states": {
-        "complete": {
-          "src": "/assets/runtime/blender/town_hall-roofed-complete.png",
-          "width": 554,
-          "height": 762,
-          "sha256": "f3d000694d7fe86a7d4cc32bb03d9c415492628ffe1bce9efa9058a5052224de"
-        }
-      },
-      "stateFallback": "procedural",
-      "pixelsPerMeter": 30.1,
-      "provenance": {
-        "license": "CC0-1.0",
-        "author": "Landlord Building Composer",
-        "sourceId": "building_composer:vf_town_hall_1000_roofed",
-        "notes": "Variante con gable_dormers restaurada tras la regresión de cubierta plana V7."
-      },
-      "allowedOrientations": [45],
-      "symmetry": "none"
     }
   },
   "legacyGameplayExclusions": [

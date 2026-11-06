@@ -382,12 +382,47 @@
         "height": 4
       },
       "pivot": {
+        "x": 0.4802,
+        "y": 0.689
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender/town_hall-complete.png",
+          "width": 984,
+          "height": 753,
+          "sha256": "426a25e6a83a5bacd03b7d0354dde238fa0d26f936b0f1c758fa8c11db46dde7"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 30.1,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V7 town hall candidate vf_town_hall_1006. Original civic pediment with CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none"
+    },
+    "school_block": {
+      "type": "school_block",
+      "name": "school_block",
+      "footprint": {
+        "width": 8,
+        "height": 4
+      },
+      "domainFootprint": {
+        "width": 8,
+        "height": 4
+      },
+      "pivot": {
         "x": 0.5583,
         "y": 0.6236
       },
       "states": {
         "complete": {
-          "src": "/assets/runtime/blender/town_hall-complete.png",
+          "src": "/assets/runtime/blender/school_block-complete.png",
           "width": 1158,
           "height": 960,
           "sha256": "4d83edc33cb948eada9ac69ee48fdfbbe9d4af628e80209b5a140c32a05e0495"
@@ -398,7 +433,7 @@
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Approved Building Composer V7 candidate. Composition vf_town_hall_1002 combines the original civic pediment with CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+        "notes": "V7 candidate vf_town_hall_1002 retained by owner choice as the school_block visual. Its Composer source type remains town_hall and is recorded as candidateBuildingType; runtime semantic role is school_block."
       },
       "allowedOrientations": [
         45

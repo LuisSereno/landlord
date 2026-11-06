@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* global setTimeout, window, document, indexedDB */
+/* global setTimeout, window, document, HTMLElement, HTMLButtonElement */
 
 /**
  * V.h.12 · captura de píxeles de la app real: 9 distritos × 0.5/1/2 y cinco detalles.

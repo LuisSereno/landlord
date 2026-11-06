@@ -126,13 +126,13 @@ revisión visual del responsable (§35).
   referencias rotas, cobertura edificios/espacios, determinismo, civic≠industrial en la MISMA
   geometría). Esto NO es un render de framebuffer: el gate se denomina 9/9 DISTRICTS VISUAL MODEL
   PASS para no confundir Integración de modelo con Render de píxeles.
-- Performance (§26): `docs/art/world-visual-foundation/performance.json` (atlas 69→81→161→162 imágenes,
+- Performance (§26): `docs/art/world-visual-foundation/performance.json` (atlas 69→81→161→163 imágenes,
   3→9 vehículos, 2720 objetos presentacionales en 8 capas, 551 ms generar 9 distritos).
-- town_hall V7 + plaza cívica = APPROVED BASELINE (no rediseñar; D-099). En V.h.12 el V7 aprobado se
-  PROMOCIONA a `runtime-assets-blender` por pipeline limpio (`runtime-promotions.json` →
-  `build-blender-assets.mjs --promote-approved`), no por copia manual: assetId `town_hall`, estado
-  `complete` exacto, estados damaged/construction/burning con fallback procedural explícito (V2),
-  footprint/domainFootprint 8×4, orientación 45°, Graphic Civic, provenance + hash.
+- town_hall V7 + plaza cívica = APPROVED BASELINE (no rediseñar; D-099). Por elección del responsable,
+  `vf_town_hall_1006` es el `town_hall` runtime; `vf_town_hall_1002` se conserva como `school_block`.
+  Ambas promociones pasan por `runtime-promotions.json` → `build-blender-assets.mjs --promote-approved`,
+  con estado `complete` exacto, fallback procedural para los demás estados, footprint/dominio 8×4,
+  orientación 45°, Graphic Civic, provenance y hash verificables.
 - Política semántica 15/15 BuildingTypes: cada tipo declara runtime Blender exacto / archetype
   compatible / fallback procedural semántico; nunca fallback equivocado (almacén→almacén, no
   residencial). Estructural `blender-assets`/`building-sprites` lo verifica.

@@ -54,8 +54,8 @@ Se añadió `BUILDING_VISUAL_POLICIES`, con un contrato cerrado por `BuildingTyp
 | cement_plant | `procedural_semantic_fallback` | `cement_plant` |
 | brickworks | `procedural_semantic_fallback` | `brickworks` |
 | steelworks | `procedural_semantic_fallback` | `steelworks` |
-| town_hall | `runtime_exact` | `vf_town_hall_1000` con cubierta inclinada |
-| school_block | `procedural_semantic_fallback` | `school_block` |
+| town_hall | `runtime_exact` | `vf_town_hall_1006` (selección del responsable) |
+| school_block | `runtime_exact` | `vf_town_hall_1002` (reclasificado con procedencia explícita) |
 | clinic | `procedural_semantic_fallback` | `clinic` |
 | police_station | `procedural_semantic_fallback` | `police_station` |
 | fire_station | `procedural_semantic_fallback` | `fire_station` |
@@ -75,13 +75,13 @@ El fallback procedural no se considera arte final. Es un contrato semántico tem
 
 #### Town hall
 
-- candidato: `vf_town_hall_1000`;
-- cubierta: `gable_dormers`;
-- footprint artístico: `4×3`;
+- candidato: `vf_town_hall_1006` (selección posterior del responsable);
+- cubierta: `flat_corniced` con parapetos;
+- footprint artístico: `8×4`;
 - footprint de dominio: `8×4`;
 - estado publicado: `complete`;
 - estados ausentes: fallback procedural;
-- runtime image: `apps/web/public/assets/runtime/blender/town_hall-roofed-complete.png`.
+- runtime image: `apps/web/public/assets/runtime/blender/town_hall-complete.png`.
 
 La plaza cívica continúa siendo una capa de `PublicSpace` independiente. No se hornea dentro del sprite del ayuntamiento.
 
@@ -89,15 +89,12 @@ Las promociones están documentadas en:
 
 `blender_artist/manifests/runtime-promotions.json`
 
-### 2.4 Ayuntamiento con tejado restaurado
+### 2.4 Selección final de ayuntamiento
 
-La promoción V7 que se veía en gameplay correspondía a `vf_town_hall_1002` con `flat_corniced`. No se había perdido un archivo: se había promovido una variante de silueta plana.
-
-Se sustituyó por la variante revisada con `gable_dormers`. El override tiene un nombre y procedencia explícitos y el test fuerza:
-
-- ruta `town_hall-roofed-complete.png`;
-- `stateFallback: procedural`;
-- ausencia de estados falsos `construction`, `damaged` y `burning`.
+La selección posterior del responsable reemplaza el `town_hall` temporal por
+`vf_town_hall_1006`. El anterior candidato V7 `vf_town_hall_1002` no se descarta: se promueve como
+`school_block`, conservando `candidateBuildingType: town_hall` y su firma/hash de origen. Ambos
+declaran `stateFallback: procedural` y no fabrican estados `construction`, `damaged` ni `burning`.
 
 ### 2.5 Escala física de personajes
 

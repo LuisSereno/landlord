@@ -1,45 +1,52 @@
 {
   "schemaVersion": 1,
-  "purpose": "Composer candidates visually reviewed and promoted to gameplay; early archetypes stay historical only.",
-  "approvedAgainstHead": "5c305e1892d7669e52c8c61d155b2efa21876e45",
+  "purpose": "Approved V7 Composer candidates promoted to gameplay with explicit source and runtime semantics.",
   "promotions": [
     {
-      "assetId": "courtyard_home",
-      "candidateId": "vg_courtyard_home_1002",
-      "candidateMetadata": "docs/art/building-catalog-vg/candidates/vg_courtyard_home_1002.json",
-      "candidateImage": "docs/art/building-catalog-vg/candidates/vg_courtyard_home_1002.png",
-      "runtimeImage": "apps/web/public/assets/runtime/blender/courtyard_home-vg-complete.png",
-      "compositionSignature": "f28b15c80c4ce3cbbf0fa0180aa49d4e54d11fff5a36442910d7f24c22222f90",
-      "imageSha256": "31ff308d8a06da59cf5935c07737aaeab70d51536fb75ce62c91409461038de3",
-      "footprint": {
-        "width": 2,
-        "height": 2
-      },
-      "domainFootprint": {
-        "width": 2,
-        "height": 2
-      },
+      "assetId": "town_hall",
+      "semanticType": "town_hall",
+      "candidateBuildingType": "town_hall",
+      "candidateId": "vf_town_hall_1006",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "blender_artist/showcase/vg-town-hall-spike-v7/vf_town_hall_1006.json",
+      "candidateImage": "blender_artist/showcase/vg-town-hall-spike-v7/vf_town_hall_1006.png",
+      "compositionSignature": "d440472588e657f4bd94ce4993532095782b7b6524efe39496a9eb076db11fbb",
+      "imageSha256": "426a25e6a83a5bacd03b7d0354dde238fa0d26f936b0f1c758fa8c11db46dde7",
+      "styleProfileId": "graphic_civic_buildings_v1",
       "state": "complete",
-      "stateFallback": "procedural"
+      "footprint": { "width": 8, "height": 4 },
+      "domainFootprint": { "width": 8, "height": 4 },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V7 town hall candidate vf_town_hall_1006. Original civic pediment with CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      }
     },
     {
-      "assetId": "town_hall",
-      "candidateId": "vf_town_hall_1000",
-      "candidateMetadata": "docs/art/building-catalog-vg/town-hall-spike-v2/vf_town_hall_1000.json",
-      "candidateImage": "docs/art/building-catalog-vg/town-hall-spike-v2/vf_town_hall_1000.png",
-      "runtimeImage": "apps/web/public/assets/runtime/blender/town_hall-roofed-complete.png",
-      "compositionSignature": "3d5c31ed1ea5a0565fe0ac45c69e10a7de870df96f21535661a6221387f87dda",
-      "imageSha256": "f3d000694d7fe86a7d4cc32bb03d9c415492628ffe1bce9efa9058a5052224de",
-      "footprint": {
-        "width": 4,
-        "height": 3
-      },
-      "domainFootprint": {
-        "width": 8,
-        "height": 4
-      },
+      "assetId": "school_block",
+      "semanticType": "school_block",
+      "candidateBuildingType": "town_hall",
+      "candidateId": "vf_town_hall_1002",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "blender_artist/showcase/vg-town-hall-spike-v7/vf_town_hall_1002.json",
+      "candidateImage": "blender_artist/showcase/vg-town-hall-spike-v7/vf_town_hall_1002.png",
+      "compositionSignature": "285c15f19cd9364ee530b58dedb314fc52f75ace871c5df67bc385b4bb0b79e9",
+      "imageSha256": "4d83edc33cb948eada9ac69ee48fdfbbe9d4af628e80209b5a140c32a05e0495",
+      "styleProfileId": "graphic_civic_buildings_v1",
       "state": "complete",
-      "stateFallback": "procedural"
+      "footprint": { "width": 8, "height": 4 },
+      "domainFootprint": { "width": 8, "height": 4 },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "V7 candidate vf_town_hall_1002 retained by owner choice as the school_block visual. Its Composer source type remains town_hall and is recorded as candidateBuildingType; runtime semantic role is school_block."
+      }
     }
   ]
 }

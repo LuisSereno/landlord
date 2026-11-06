@@ -38,6 +38,14 @@ const BLENDER_SCRIPT = join(REPO_ROOT, "tools", "art-pipeline", "blender", "runt
 const JOBS_PATH = join(REPO_ROOT, "blender_artist", "manifests", "asset-jobs.json");
 const SOURCES_PATH = join(REPO_ROOT, "blender_artist", "manifests", "staging-sources.json");
 const PROMOTIONS_PATH = join(REPO_ROOT, "blender_artist", "manifests", "runtime-promotions.json");
+const VISUAL_OVERRIDES_PATH = join(
+  REPO_ROOT,
+  "apps",
+  "web",
+  "src",
+  "generated",
+  "runtime-visual-overrides.json",
+);
 const PUBLIC_DIR = join(REPO_ROOT, "apps", "web", "public", "assets", "runtime", "blender");
 const BUNDLE_PATH = join(
   REPO_ROOT,
@@ -229,7 +237,20 @@ function expectedFiles(manifest, promotions) {
   const jobs = manifest.jobs
     .filter((job) => job.target === "bundle")
     .flatMap((job) => tasksFor(job, manifest.defaults).map((task) => task.file));
-  return [...jobs, ...promotions.map((entry) => `${entry.assetId}-${entry.state}`)];
+  const overrideFiles = existsSync(VISUAL_OVERRIDES_PATH)
+    ? Object.values(
+        JSON.parse(readFileSync(VISUAL_OVERRIDES_PATH, "utf8")).buildings ?? {},
+      ).flatMap((asset) =>
+        Object.values(asset.states ?? {}).map((image) =>
+          image.src.split("/").pop().replace(".png", ""),
+        ),
+      )
+    : [];
+  return [
+    ...jobs,
+    ...promotions.map((entry) => `${entry.assetId}-${entry.state}`),
+    ...overrideFiles,
+  ];
 }
 
 function readBundle() {
@@ -249,6 +270,12 @@ function check() {
       }
       if (asset.image) images.push(asset.image);
       for (const frame of Object.values(asset.orientations ?? {})) images.push(frame.image);
+    }
+  }
+  if (existsSync(VISUAL_OVERRIDES_PATH)) {
+    const overrides = JSON.parse(readFileSync(VISUAL_OVERRIDES_PATH, "utf8"));
+    for (const asset of Object.values(overrides.buildings ?? {})) {
+      images.push(...Object.values(asset.states ?? {}));
     }
   }
 
@@ -414,7 +441,7 @@ function assembleApprovedPromotion(bundle, promotion, published, metadata) {
   const size = pngSize(buffer);
   const checks = [
     ["candidateId", candidate.candidateId, promotion.candidateId],
-    ["buildingType", candidate.buildingType, promotion.buildingType],
+    ["candidateBuildingType", candidate.buildingType, promotion.candidateBuildingType],
     ["state", candidate.state, promotion.state],
     ["compositionSignature", candidate.compositionSignature, promotion.compositionSignature],
     ["styleProfileId", candidate.styleProfileId, promotion.styleProfileId],
@@ -446,7 +473,7 @@ function assembleApprovedPromotion(bundle, promotion, published, metadata) {
     sha256: promotion.imageSha256,
   };
   bundle.buildings[promotion.assetId] = {
-    type: promotion.assetId,
+    type: promotion.semanticType,
     name: promotion.assetId,
     footprint: promotion.footprint,
     domainFootprint: promotion.domainFootprint,

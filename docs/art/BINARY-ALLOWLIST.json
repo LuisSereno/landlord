@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "maxBinaryBytes": 1048576,
-  "maxBundleBytes": 10485760,
+  "maxBundleBytes": 24117248,
   "bundleTargets": [
     "apps/web/public/assets/runtime/blender",
     "apps/web/public/assets/evidence/buildings"
   ],
-  "policy": "D-081, corregida por D-100 (2026-11-06): ningún binario nuevo por encima de maxBinaryBytes sin LFS (requisito de Beta) o excepción registrada aquí. maxBundleBytes limita además el acumulado de un directorio servido en runtime. D-100 eleva el bundle a 10 MiB con datos medidos: 9.372.434 B con el catálogo 15/15 runtime_exact (copia runtime verbatim del candidato, sha idéntico), alineado con el budget de 10 MB de blender-assets.test.ts; el valor anterior de 8 MiB salía de la proyección Fase 2 de asset-metrics.json y quedó insuficiente con el catálogo completo. Cambiar la resolución de render sigue obligando a decidirlo explícitamente. Las excepciones nombradas cubren el spike WP2.14 y la evidencia QA permanente (láminas de selección, golden de contexto, pixel-qa y showcase de dressing) registrada en D-100.",
+  "policy": "D-081, corregida por D-100 (2026-11-06) y D-101 (2026-11-07): ningún binario nuevo por encima de maxBinaryBytes sin LFS (requisito de Beta) o excepción registrada aquí. maxBundleBytes limita además el acumulado de un directorio servido en runtime. D-100 elevó el bundle a 10 MiB; D-101 lo sube a 23 MiB (24.117.248 B) con datos medidos: 22.753.635 B tras el quality pass V.i (15 edificios a renderScale 2, densidad x2 para zoom x4 nítido; copia runtime verbatim del candidato, sha idéntico). Cambiar la resolución de render sigue obligando a decidirlo explícitamente. Las excepciones nombradas cubren el spike WP2.14, la evidencia QA permanente (láminas de selección, golden de contexto, pixel-qa y showcase de dressing) y los 15 candidatos quality-vi >1 MiB.",
   "exceptions": [
     {
       "path": "blender_artist/generated/concepts/visual_direction_spike_direction_a_warm_editorial_2026-10-23.png",
@@ -143,6 +143,30 @@
     {
       "path": "docs/art/quality-vi/candidates/market_hall/vg_market_hall_1000.png",
       "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/apartment_block-complete.png",
+      "reason": "D-101: runtime PNG del apartamento quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/market_hall-complete.png",
+      "reason": "D-101: runtime PNG del mercado quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/mixed_tenement-complete.png",
+      "reason": "D-101: runtime PNG del bloque mixto quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/school_block-complete.png",
+      "reason": "D-101: runtime PNG del colegio quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/steelworks-complete.png",
+      "reason": "D-101: runtime PNG de la acería quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/town_hall-complete.png",
+      "reason": "D-101: runtime PNG del ayuntamiento quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
     }
   ]
 }

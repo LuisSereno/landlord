@@ -47,7 +47,7 @@ describe("WP4.15-H ruta Blender E2E", () => {
     expect(townHall.domainFootprint).toEqual({ width: 8, height: 4 });
     expect(townHall.allowedOrientations).toEqual([45]);
     expect(townHall.states.complete.sha256).toBe(
-      "426a25e6a83a5bacd03b7d0354dde238fa0d26f936b0f1c758fa8c11db46dde7",
+      "bd7cfb17ba8a16e066ee7467c1264f305d429760f1c8c084dc653cacc28b77e9",
     );
     expect(Object.keys(townHall.states)).toEqual(["complete"]);
     expect(townHall.stateFallback).toBe("procedural");
@@ -56,7 +56,7 @@ describe("WP4.15-H ruta Blender E2E", () => {
     expect(school.type).toBe("school_block");
     expect(school.domainFootprint).toEqual({ width: 7, height: 2 });
     expect(school.states.complete.sha256).toBe(
-      "c2b5ea797d86dfe57033d48a9c668bdb33d4133a428df8a42ed8cf16ae56c6ab",
+      "ac7fe5b8656a870fbc1e72f9ade2db7dd31c4110781387a3127cf8b923f98f29",
     );
     expect(school.provenance?.notes).toContain("vg_school_block_2000");
   });
@@ -192,11 +192,10 @@ describe("WP4.15-H ruta Blender E2E", () => {
     // V.h.11: 80 frames Rocketbox nuevos (5 × 16) subieron el atlas de ~2.2 a ~4.6 MB.
     // V.i: cada edificio Composer promovido copia el PNG del candidato a resolución de render
     // completa (p.ej. apartment_block 615×855), así que el atlas crece ~0.5 MB por edificio. Con
-    // 6 edificios promovidos el atlas está en ~7.2 MB. El umbral se sube a 10 MB para admitir el
-    // lote residencial; sigue muy por debajo de lo que obligaría a LFS. FIX CORRECTO PENDIENTE (P2):
-    // reducir el runtimeImage al footprint real en vez de copiar el candidato entero, antes de
-    // cerrar los 15/15 (volverá a tocar el techo con los lotes industrial y cívico).
-    expect(totalBytes).toBeLessThan(10_000_000);
+    // V.i quality pass: los 15 edificios se re-renderizan a renderScale 2 (densidad x2 para zoom x4
+    // nítido). El bundle runtime pasa de ~9.4 MB a ~22.7 MB medidos; el umbral se sube a 23 MB para
+    // admitirlo sin forzar LFS (requisito de Beta).
+    expect(totalBytes).toBeLessThan(23_000_000);
   });
 
   it("el pivote queda dentro de la imagen recortada y la huella es positiva", () => {

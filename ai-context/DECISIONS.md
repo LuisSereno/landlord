@@ -1479,3 +1479,19 @@ QA permanente >1 MiB queda registrada como excepciones nombradas en `docs/art/BI
 (acto visible en revisión); (4) Git LFS y el atlas siguen siendo requisitos de Beta con el gate de
 reapertura medido de D-081. No se poda el legacy `bld_*` (Art Lab lo referencia) ni se regenera arte
 aprobado. Ver `docs/engineering/adr/D-100-presupuesto-binarios-runtime-10mib.md`.
+
+## D-101 — Quality pass V.i: renderScale 2 global y presupuesto de binarios a 23 MiB
+
+Estado: aceptada el 2026-11-07 por el responsable (WP4.15-V.i, cierre del quality pass). Petición
+humana: a zoom ×4 casi todos los edificios se veían pixelados. Decisiones: (1) **renderScale=2** en
+las 15 gramáticas del Building Composer (densidad ×2 para zoom ×4 nítido; supersample efectivo 1 con
+64 muestras TAA y pase de sombra a presupuesto constante — evita el crash de EEVEE a 185M píxeles);
+(2) `maxBundleBytes` pasa a **24.117.248 B (23 MiB)** con datos medidos: 22.753.635 B tras el quality
+pass (edificios 18,0 MB + vehículos 0,84 MB + actores/otros 2,75 MB + legacy `bld_*` 1,03 MB);
+(3) las 12 excepciones >1 MiB (6 candidatos quality-vi + 6 runtime PNGs) quedan registradas en
+`docs/art/BINARY-ALLOWLIST.json`; (4) la composición V7 del town_hall (firma `d4404725…`, columnas
+esquineras, ritmo `tall_aisles@5`) se restaura tras revertir el pin P2 (`secondaryIds:["none"]`,
+commit `37592d4`) que desplazó los sorteos PRNG sin aprobación humana; (5) `deterministic_crop_rect`
+pierde la paridad duplicada (la aplica `trim_and_scale` según su supersample efectivo) — el fallback
+erróneo colapsó el recorte del clinic a 1 px cuando la caja saturada tenía lado impar (fallo §18 a
+renderScale 2). Ver `docs/engineering/adr/D-101-quality-pass-vi-renderscale-2.md`.

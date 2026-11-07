@@ -32,7 +32,7 @@
           "src": "/assets/runtime/blender/courtyard_home-complete.png",
           "width": 814,
           "height": 792,
-          "sha256": "a47116ad90494b8a8d6b406a4c22fc55334f041ad1d43b286206584676cf8d1c"
+          "sha256": "7750564167469f6028a59d02a0af3f1c7153d7757c1eeede492952c3ef8c7910"
         }
       },
       "stateFallback": "procedural",
@@ -40,7 +40,7 @@
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "V.i remediation: rechazo humano de vg_courtyard_home_1002 (pixelado). Casa con patio a renderScale 2 (decisión explícita, D-100). Sustituye al override manual; promoción canónica. Candidato aprobado: vg_courtyard_home_2003."
+        "notes": "V.i remediation: rechazo humano de vg_courtyard_home_1002 (pixelado). Casa con patio a renderScale 2 (decisión explícita, D-100). Sustituye al override manual; promoción canónica. Candidato aprobado: vg_courtyard_home_2003. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
       "allowedOrientations": [
         45
@@ -371,23 +371,23 @@
         "height": 4
       },
       "pivot": {
-        "x": 0.4802,
-        "y": 0.689
+        "x": 0.4804,
+        "y": 0.6887
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/town_hall-complete.png",
-          "width": 984,
-          "height": 753,
-          "sha256": "426a25e6a83a5bacd03b7d0354dde238fa0d26f936b0f1c758fa8c11db46dde7"
+          "width": 1967,
+          "height": 1506,
+          "sha256": "bd7cfb17ba8a16e066ee7467c1264f305d429760f1c8c084dc653cacc28b77e9"
         }
       },
       "stateFallback": "procedural",
-      "pixelsPerMeter": 30.1,
+      "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V7 town hall candidate vf_town_hall_1006. Original civic pediment with CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+        "notes": "Owner-selected V7 town hall candidate vf_town_hall_1006. Original civic pediment with CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
       "allowedOrientations": [
         45
@@ -406,23 +406,23 @@
         "height": 2
       },
       "pivot": {
-        "x": 0.4733,
+        "x": 0.4736,
         "y": 0.7415
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/school_block-complete.png",
-          "width": 729,
-          "height": 660,
-          "sha256": "c2b5ea797d86dfe57033d48a9c668bdb33d4133a428df8a42ed8cf16ae56c6ab"
+          "width": 1457,
+          "height": 1318,
+          "sha256": "ac7fe5b8656a870fbc1e72f9ade2db7dd31c4110781387a3127cf8b923f98f29"
         }
       },
       "stateFallback": "procedural",
-      "pixelsPerMeter": 30.1,
+      "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "V.i remediation: rechazo humano del clon de town_hall. Colegio americano con cupola original medida (mod_original_school_cupola), entrada bajo el pabellón central. Candidato aprobado: vg_school_block_2000."
+        "notes": "V.i remediation: rechazo humano del clon de town_hall. Colegio americano con cupola original medida (mod_original_school_cupola), entrada bajo el pabellón central. Candidato aprobado: vg_school_block_2000. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
       "allowedOrientations": [
         45
@@ -441,23 +441,23 @@
         "height": 1
       },
       "pivot": {
-        "x": 0.5714,
-        "y": 0.6871
+        "x": 0.5709,
+        "y": 0.687
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/row_house-complete.png",
-          "width": 497,
-          "height": 574,
-          "sha256": "5e8542e086b5a8ae65c266d43f0bfb3291c6b75f2915f0c60dbcf4630ad7cc38"
+          "width": 994,
+          "height": 1147,
+          "sha256": "b3f5bfd263d754c33717a89d7897348edda100e776625bb0d02c27687e2fc6c2"
         }
       },
       "stateFallback": "procedural",
-      "pixelsPerMeter": 30.1,
+      "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i residential candidate vg_row_house_1001 (stepped massing). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+        "notes": "Owner-selected V.i residential candidate vg_row_house_1001 (stepped massing). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
       "allowedOrientations": [
         45
@@ -482,17 +482,17 @@
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/apartment_block-complete.png",
-          "width": 615,
-          "height": 855,
-          "sha256": "d5695f3845bb65f4ba4be6ee1d2b1d4ce5593aa770001017ed9336df6ad2f130"
+          "width": 1230,
+          "height": 1711,
+          "sha256": "5dd8693aa9d8162c940d5134638626ec2709a527310ffbd0628f6b943a2634dc"
         }
       },
       "stateFallback": "procedural",
-      "pixelsPerMeter": 30.1,
+      "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i residential candidate vg_apartment_block_1002 (twin towers, dense window grid). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+        "notes": "Owner-selected V.i residential candidate vg_apartment_block_1002 (twin towers, dense window grid). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
       "allowedOrientations": [
         45
@@ -511,23 +511,23 @@
         "height": 2
       },
       "pivot": {
-        "x": 0.5077,
+        "x": 0.5082,
         "y": 0.8121
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/mixed_tenement-complete.png",
-          "width": 520,
-          "height": 693,
-          "sha256": "3be5723e1a837dfa0f9a260f81aef99262c7ae063ce682c30b44f53cf529efb4"
+          "width": 1039,
+          "height": 1387,
+          "sha256": "521c20e948a37f8f5dfee76d6fbf897801bf208e85ab88125a3bf40592650389"
         }
       },
       "stateFallback": "procedural",
-      "pixelsPerMeter": 30.1,
+      "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i residential candidate vg_mixed_tenement_1001 (mansard roof with dormers). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+        "notes": "Owner-selected V.i residential candidate vg_mixed_tenement_1001 (mansard roof with dormers). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
       "allowedOrientations": [
         45
@@ -546,23 +546,23 @@
         "height": 2
       },
       "pivot": {
-        "x": 0.6272,
+        "x": 0.6279,
         "y": 0.6527
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/workshop-complete.png",
-          "width": 456,
-          "height": 503,
-          "sha256": "e742cd53585792f1f7dc01f0a12a451052cfc1f2ecca8456a1b3986cab78adbd"
+          "width": 911,
+          "height": 1006,
+          "sha256": "24d78c2a80bf34cb636d319ab1d37f6cb9572c5d5bd16cf1e6b1c3989014c0ed"
         }
       },
       "stateFallback": "procedural",
-      "pixelsPerMeter": 30.1,
+      "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i industrial-light candidate vg_workshop_1003 (long flat workshop block). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+        "notes": "Owner-selected V.i industrial-light candidate vg_workshop_1003 (long flat workshop block). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
       "allowedOrientations": [
         45
@@ -587,17 +587,17 @@
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/warehouse-complete.png",
-          "width": 647,
-          "height": 478,
-          "sha256": "d1a46f2b6844d62ec3bbc3de019cdb2c51fa0446a373347ad62a46c9ce364a49"
+          "width": 1294,
+          "height": 956,
+          "sha256": "6c83f4bfa3c89660074f547f53489c9de276baf8dd27b833c318be8427910ff2"
         }
       },
       "stateFallback": "procedural",
-      "pixelsPerMeter": 30.1,
+      "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i industrial-light candidate vg_warehouse_1002 (long logistics shed, no chimney). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+        "notes": "Owner-selected V.i industrial-light candidate vg_warehouse_1002 (long logistics shed, no chimney). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
       "allowedOrientations": [
         45
@@ -616,23 +616,23 @@
         "height": 2
       },
       "pivot": {
-        "x": 0.5487,
+        "x": 0.5482,
         "y": 0.7123
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/clinic-complete.png",
-          "width": 472,
-          "height": 589,
-          "sha256": "7f98d2dfd78bafc9f43052860466226624a70840653fea197c21517bca8c4b57"
+          "width": 944,
+          "height": 1179,
+          "sha256": "d85da1b48a0e2dbc78ca1fa3befa248b686c294ebccffa861bf49bc1daa338b3"
         }
       },
       "stateFallback": "procedural",
-      "pixelsPerMeter": 30.1,
+      "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i civic candidate vg_clinic_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+        "notes": "Owner-selected V.i civic candidate vg_clinic_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
       "allowedOrientations": [
         45
@@ -651,23 +651,23 @@
         "height": 2
       },
       "pivot": {
-        "x": 0.5448,
-        "y": 0.6496
+        "x": 0.5454,
+        "y": 0.6494
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/police_station-complete.png",
-          "width": 469,
-          "height": 449,
-          "sha256": "4c5f475a20a548ff9432fcfb39d5bf7f1ad9cc763200e1e8820c77c40ef2a7a3"
+          "width": 937,
+          "height": 896,
+          "sha256": "f256d3d9010b74c4124a13c72679a56e493a55d3c5ed3d86ce18823c8e5f387e"
         }
       },
       "stateFallback": "procedural",
-      "pixelsPerMeter": 30.1,
+      "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i civic candidate vg_police_station_1002. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+        "notes": "Owner-selected V.i civic candidate vg_police_station_1002. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
       "allowedOrientations": [
         45
@@ -686,23 +686,23 @@
         "height": 2
       },
       "pivot": {
-        "x": 0.5337,
+        "x": 0.5342,
         "y": 0.6946
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/fire_station-complete.png",
-          "width": 549,
-          "height": 603,
-          "sha256": "2c887d2c5f20b9ea26645fa511e8faa3c31a1b81d0fb8bf9862cba66b692af77"
+          "width": 1097,
+          "height": 1206,
+          "sha256": "98f3784be175e6f57298487975308cf2561f9f54e57b1c4a7bd7a94caddeda5d"
         }
       },
       "stateFallback": "procedural",
-      "pixelsPerMeter": 30.1,
+      "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i civic candidate vg_fire_station_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+        "notes": "Owner-selected V.i civic candidate vg_fire_station_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
       "allowedOrientations": [
         45
@@ -727,17 +727,17 @@
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/market_hall-complete.png",
-          "width": 666,
-          "height": 678,
-          "sha256": "cd9256dc408345bd8026001864507cd1393c1f32fb98b83ba0ba5791787a208a"
+          "width": 1332,
+          "height": 1356,
+          "sha256": "2268f69acc1971d1066dc7163b380d77256f29b6f0a49d43f0a72c202fe60aa6"
         }
       },
       "stateFallback": "procedural",
-      "pixelsPerMeter": 30.1,
+      "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i civic candidate vg_market_hall_1000. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+        "notes": "Owner-selected V.i civic candidate vg_market_hall_1000. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
       "allowedOrientations": [
         45
@@ -762,17 +762,17 @@
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/cement_plant-complete.png",
-          "width": 665,
-          "height": 541,
-          "sha256": "a5b91b51434814e9636fca382d2d20f45c7729ae8fd19ae72e591955f22dec77"
+          "width": 1330,
+          "height": 1082,
+          "sha256": "ece82e01706081751b156246eedaab7c508d6873fb68216f57212a00c029798b"
         }
       },
       "stateFallback": "procedural",
-      "pixelsPerMeter": 30.1,
+      "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i heavy-industry candidate vg_cement_plant_1001 (v2). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+        "notes": "Owner-selected V.i heavy-industry candidate vg_cement_plant_1001 (v2). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
       "allowedOrientations": [
         45
@@ -791,23 +791,23 @@
         "height": 2
       },
       "pivot": {
-        "x": 0.5312,
+        "x": 0.5317,
         "y": 0.695
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/brickworks-complete.png",
-          "width": 592,
-          "height": 648,
-          "sha256": "13e564af127681384432ec1b80c3b2af41c1abfe7a20509b402154a492acf5b4"
+          "width": 1182,
+          "height": 1296,
+          "sha256": "a54d0676bfd38758a135da463c575347cec8af7399f5e987ebbd5baca518216a"
         }
       },
       "stateFallback": "procedural",
-      "pixelsPerMeter": 30.1,
+      "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i heavy-industry candidate vg_brickworks_1000 (v1). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+        "notes": "Owner-selected V.i heavy-industry candidate vg_brickworks_1000 (v1). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
       "allowedOrientations": [
         45
@@ -832,17 +832,17 @@
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/steelworks-complete.png",
-          "width": 662,
-          "height": 719,
-          "sha256": "c27a13250966120ca0e2a58f7ca4ab90a385d66abb83f1e3ca1d72226da00819"
+          "width": 1324,
+          "height": 1438,
+          "sha256": "22ae2d409717364abd466ad6943ed44cf3726f39b2aac530f53a35f2fd5636d3"
         }
       },
       "stateFallback": "procedural",
-      "pixelsPerMeter": 30.1,
+      "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i heavy-industry candidate vg_steelworks_1003 (v4). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+        "notes": "Owner-selected V.i heavy-industry candidate vg_steelworks_1003 (v4). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
       "allowedOrientations": [
         45

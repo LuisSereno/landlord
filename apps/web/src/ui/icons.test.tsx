@@ -88,10 +88,14 @@ describe("V.d-UX · miniatura de edificio", () => {
   });
 
   it("prefiere el asset de Blender cuando lo declara y cae al procedural cuando no", () => {
-    const blenderHome = BLENDER_ASSETS.buildings.courtyard_home?.states.complete?.src;
-    expect(blenderHome).toBeDefined();
-    expect(buildingThumbnailSource("courtyard_home")).toBe(blenderHome);
-    const proceduralOnly = buildingThumbnailSource("steelworks");
+    for (const type of buildingTypeSchema.options) {
+      const blender = BLENDER_ASSETS.buildings[type]?.states.complete?.src;
+      expect(blender, type).toBeDefined();
+      expect(buildingThumbnailSource(type), type).toBe(blender);
+    }
+    const proceduralOnly = buildingThumbnailSource("steelworks", "complete", {
+      procedural: PROCEDURAL_ASSETS,
+    });
     expect(proceduralOnly).toBe(PROCEDURAL_ASSETS.buildings.steelworks?.states.complete?.src);
   });
 

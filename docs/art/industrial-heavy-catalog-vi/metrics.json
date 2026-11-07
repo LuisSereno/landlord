@@ -1,0 +1,484 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-06T22:36:39.981Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/industrial-heavy-catalog-vi/candidates",
+ "requested": 12,
+ "rendered": 12,
+ "totalGenerationMs": 685175,
+ "blenderPeakRssMb": 4997.8,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "2b851ad99502ecb921f0ec0c505af0da57ab783d226de5944af96618d096e9f4",
+   "after": "2b851ad99502ecb921f0ec0c505af0da57ab783d226de5944af96618d096e9f4"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_cement_plant_1000",
+   "buildingType": "cement_plant",
+   "family": "industrial_heavy",
+   "variantSeed": 1000,
+   "compositionSignature": "e152cd54f70d354936fb5e9d2539cd9ea724e612e467914e56d0cad7436b5c47",
+   "triangleCount": 5610,
+   "objectCount": 15,
+   "moduleCount": 7,
+   "materials": 16,
+   "textures": 11,
+   "bounds": {
+    "x": {
+     "min": -7.9532,
+     "max": 10
+    },
+    "y": {
+     "min": -4,
+     "max": 3
+    },
+    "z": {
+     "min": 0,
+     "max": 7.7
+    }
+   },
+   "renderMs": 7668.67,
+   "pngBytes": 182833,
+   "pngPixels": [
+    628,
+    525
+   ],
+   "pixelSha256": "6c93bb78f929dc2c186fbf6cae3071a289ea43f2bb87d4b9e82b28ef5b4c93d5",
+   "licensedGeometryRatio": 0.9979,
+   "pivot": {
+    "x": 0.5581,
+    "y": 0.6044
+   }
+  },
+  {
+   "candidateId": "vg_cement_plant_1001",
+   "buildingType": "cement_plant",
+   "family": "industrial_heavy",
+   "variantSeed": 1001,
+   "compositionSignature": "6ec90ceaa150828ab6deb198d7ed0ad430bc953a0078c0c17fd3c73df08cdfe4",
+   "triangleCount": 4553,
+   "objectCount": 17,
+   "moduleCount": 10,
+   "materials": 18,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -7.9532,
+     "max": 10
+    },
+    "y": {
+     "min": -4.4,
+     "max": 3.9
+    },
+    "z": {
+     "min": 0,
+     "max": 7.6182
+    }
+   },
+   "renderMs": 8494.5,
+   "pngBytes": 178393,
+   "pngPixels": [
+    665,
+    541
+   ],
+   "pixelSha256": "dd0532fb95b0d7d4fca8106e585413ee10864aad52a340654093e815ac127179",
+   "licensedGeometryRatio": 0.9939,
+   "pivot": {
+    "x": 0.5549,
+    "y": 0.6004
+   }
+  },
+  {
+   "candidateId": "vg_cement_plant_1002",
+   "buildingType": "cement_plant",
+   "family": "industrial_heavy",
+   "variantSeed": 1002,
+   "compositionSignature": "a85b853548fbf809406dbb4383cc2c80cf4638c47424078d37c23a6b5a983e84",
+   "triangleCount": 5453,
+   "objectCount": 24,
+   "moduleCount": 8,
+   "materials": 15,
+   "textures": 14,
+   "bounds": {
+    "x": {
+     "min": -9.356300000000001,
+     "max": 9
+    },
+    "y": {
+     "min": -4,
+     "max": 3
+    },
+    "z": {
+     "min": 0,
+     "max": 12.7
+    }
+   },
+   "renderMs": 8416.11,
+   "pngBytes": 180992,
+   "pngPixels": [
+    540,
+    601
+   ],
+   "pixelSha256": "672ad45ba71f1dd59386b5f6589903b801d997d8b01008379947c9c01f9f724d",
+   "licensedGeometryRatio": 0.9978,
+   "pivot": {
+    "x": 0.5269,
+    "y": 0.7694
+   }
+  },
+  {
+   "candidateId": "vg_cement_plant_1003",
+   "buildingType": "cement_plant",
+   "family": "industrial_heavy",
+   "variantSeed": 1003,
+   "compositionSignature": "f0a2ff265c23d4d24dc28144d4fe813ec29de78b0e90f7327911ef9547ae615d",
+   "triangleCount": 3747,
+   "objectCount": 18,
+   "moduleCount": 10,
+   "materials": 17,
+   "textures": 21,
+   "bounds": {
+    "x": {
+     "min": -6.9672,
+     "max": 10
+    },
+    "y": {
+     "min": -4.4,
+     "max": 3
+    },
+    "z": {
+     "min": 0,
+     "max": 9.7
+    }
+   },
+   "renderMs": 7787.83,
+   "pngBytes": 183581,
+   "pngPixels": [
+    620,
+    676
+   ],
+   "pixelSha256": "05ee38a17cef80447e934636d526e9c70eae4e618317c69bc5f66e5a3300d0ca",
+   "licensedGeometryRatio": 0.9968,
+   "pivot": {
+    "x": 0.5524,
+    "y": 0.6871
+   }
+  },
+  {
+   "candidateId": "vg_brickworks_1000",
+   "buildingType": "brickworks",
+   "family": "industrial_heavy",
+   "variantSeed": 1000,
+   "compositionSignature": "d3c82a442135fc409c6551a42a77905091c3c001c35f6b7c25d6d8d3623d9eee",
+   "triangleCount": 3433,
+   "objectCount": 15,
+   "moduleCount": 9,
+   "materials": 16,
+   "textures": 15,
+   "bounds": {
+    "x": {
+     "min": -5.3672,
+     "max": 10
+    },
+    "y": {
+     "min": -4,
+     "max": 3
+    },
+    "z": {
+     "min": 0,
+     "max": 9.7
+    }
+   },
+   "renderMs": 7056.6,
+   "pngBytes": 160929,
+   "pngPixels": [
+    592,
+    648
+   ],
+   "pixelSha256": "6a90d8defacd8de0c8a594677a036aeeba184d2d13121a5d138bc65be596f402",
+   "licensedGeometryRatio": 0.9965,
+   "pivot": {
+    "x": 0.5312,
+    "y": 0.695
+   }
+  },
+  {
+   "candidateId": "vg_brickworks_1001",
+   "buildingType": "brickworks",
+   "family": "industrial_heavy",
+   "variantSeed": 1001,
+   "compositionSignature": "7f9d92f5da687a3aa95fa477a09a35abf1287ed6ef1ec3a70aa549b4e320a0dc",
+   "triangleCount": 5725,
+   "objectCount": 66,
+   "moduleCount": 12,
+   "materials": 19,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -10.2,
+     "max": 10
+    },
+    "y": {
+     "min": -4.4,
+     "max": 3.9532
+    },
+    "z": {
+     "min": 0,
+     "max": 9.7
+    }
+   },
+   "renderMs": 11995.85,
+   "pngBytes": 286006,
+   "pngPixels": [
+    698,
+    735
+   ],
+   "pixelSha256": "30594c319529d73c776dd1bae9329fe811e80a4e2aefa175ab009bb5df950646",
+   "licensedGeometryRatio": 0.9979,
+   "pivot": {
+    "x": 0.5745,
+    "y": 0.6719
+   }
+  },
+  {
+   "candidateId": "vg_brickworks_1002",
+   "buildingType": "brickworks",
+   "family": "industrial_heavy",
+   "variantSeed": 1002,
+   "compositionSignature": "4a0967d32ef64a74cb2c5068ed23a5318c6efa6206a79a66a9b8e38d4dcaf697",
+   "triangleCount": 4709,
+   "objectCount": 40,
+   "moduleCount": 9,
+   "materials": 16,
+   "textures": 15,
+   "bounds": {
+    "x": {
+     "min": -10,
+     "max": 10
+    },
+    "y": {
+     "min": -4.4,
+     "max": 3.9532
+    },
+    "z": {
+     "min": 0,
+     "max": 7.6182
+    }
+   },
+   "renderMs": 10674.86,
+   "pngBytes": 243367,
+   "pngPixels": [
+    696,
+    617
+   ],
+   "pixelSha256": "07315ff9f81ea1764343abe0069607da36599f9b9a8731a59891d2c64a130d28",
+   "licensedGeometryRatio": 0.9975,
+   "pivot": {
+    "x": 0.5726,
+    "y": 0.6253
+   }
+  },
+  {
+   "candidateId": "vg_brickworks_1003",
+   "buildingType": "brickworks",
+   "family": "industrial_heavy",
+   "variantSeed": 1003,
+   "compositionSignature": "9aa8438c9165307d4ef9527ef35c72f8528074e2bee4452c16fc7919f7dd3b8a",
+   "triangleCount": 3107,
+   "objectCount": 16,
+   "moduleCount": 9,
+   "materials": 15,
+   "textures": 21,
+   "bounds": {
+    "x": {
+     "min": -5.3672,
+     "max": 10
+    },
+    "y": {
+     "min": -4,
+     "max": 3
+    },
+    "z": {
+     "min": 0,
+     "max": 9.7
+    }
+   },
+   "renderMs": 6875.58,
+   "pngBytes": 162139,
+   "pngPixels": [
+    592,
+    648
+   ],
+   "pixelSha256": "d5fd70acf18f3252ea26e25e6fb804b120e4236cd86370d15ab47c756fdd0a24",
+   "licensedGeometryRatio": 0.9961,
+   "pivot": {
+    "x": 0.5312,
+    "y": 0.695
+   }
+  },
+  {
+   "candidateId": "vg_steelworks_1000",
+   "buildingType": "steelworks",
+   "family": "industrial_heavy",
+   "variantSeed": 1000,
+   "compositionSignature": "bd14592f4903455855acf4f5fd50cac0d4ee480ea20d73a25fa5fbfdbf36c216",
+   "triangleCount": 4893,
+   "objectCount": 33,
+   "moduleCount": 8,
+   "materials": 15,
+   "textures": 14,
+   "bounds": {
+    "x": {
+     "min": -8,
+     "max": 8
+    },
+    "y": {
+     "min": -6,
+     "max": 5.0306
+    },
+    "z": {
+     "min": 0,
+     "max": 7.7
+    }
+   },
+   "renderMs": 8697.45,
+   "pngBytes": 211152,
+   "pngPixels": [
+    658,
+    576
+   ],
+   "pixelSha256": "81a59523edac52345c14f48f6fb68e5d630c80ba2177b6a7df460aedf6d8f1c5",
+   "licensedGeometryRatio": 0.9975,
+   "pivot": {
+    "x": 0.5775,
+    "y": 0.6144
+   }
+  },
+  {
+   "candidateId": "vg_steelworks_1001",
+   "buildingType": "steelworks",
+   "family": "industrial_heavy",
+   "variantSeed": 1001,
+   "compositionSignature": "47b98007f6cdeae33991b1c9caafdf2d2b3b6c15fbc4d7043c0b09587a3c1a4a",
+   "triangleCount": 4293,
+   "objectCount": 34,
+   "moduleCount": 9,
+   "materials": 14,
+   "textures": 15,
+   "bounds": {
+    "x": {
+     "min": -7.696,
+     "max": 8
+    },
+    "y": {
+     "min": -6.3999999999999995,
+     "max": 5.0306
+    },
+    "z": {
+     "min": 0,
+     "max": 7.7
+    }
+   },
+   "renderMs": 9738.63,
+   "pngBytes": 209689,
+   "pngPixels": [
+    659,
+    562
+   ],
+   "pixelSha256": "2acc8a7e98339eab0a5196079955806515e275e28bc3c0038527b2b00e750eaf",
+   "licensedGeometryRatio": 0.9972,
+   "pivot": {
+    "x": 0.5781,
+    "y": 0.6037
+   }
+  },
+  {
+   "candidateId": "vg_steelworks_1002",
+   "buildingType": "steelworks",
+   "family": "industrial_heavy",
+   "variantSeed": 1002,
+   "compositionSignature": "593b8eadeeb9ff485800851d09c39b0f5f7b63426f267672783c9b54c485ccdc",
+   "triangleCount": 3735,
+   "objectCount": 35,
+   "moduleCount": 9,
+   "materials": 15,
+   "textures": 21,
+   "bounds": {
+    "x": {
+     "min": -8,
+     "max": 8
+    },
+    "y": {
+     "min": -6,
+     "max": 5.0306
+    },
+    "z": {
+     "min": 0,
+     "max": 9.7
+    }
+   },
+   "renderMs": 9386.18,
+   "pngBytes": 224947,
+   "pngPixels": [
+    658,
+    714
+   ],
+   "pixelSha256": "beebf1670c9e230a0169800fe3f31bca55fe5d69f38331bb026febea8bd88010",
+   "licensedGeometryRatio": 0.9968,
+   "pivot": {
+    "x": 0.5775,
+    "y": 0.6771
+   }
+  },
+  {
+   "candidateId": "vg_steelworks_1003",
+   "buildingType": "steelworks",
+   "family": "industrial_heavy",
+   "variantSeed": 1003,
+   "compositionSignature": "e0c067b6a9dda86411eb92404b57bcd401a7e97fa18342455d94a8226c079950",
+   "triangleCount": 5710,
+   "objectCount": 54,
+   "moduleCount": 9,
+   "materials": 17,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -8.2,
+     "max": 8
+    },
+    "y": {
+     "min": -6.199999999999999,
+     "max": 5
+    },
+    "z": {
+     "min": 0,
+     "max": 9.7
+    }
+   },
+   "renderMs": 10661.85,
+   "pngBytes": 264042,
+   "pngPixels": [
+    662,
+    719
+   ],
+   "pixelSha256": "16889dd7e3245cf49b7e9dfd55d95852f069c4b9ce824c5aeb2a74a17dffc402",
+   "licensedGeometryRatio": 0.9979,
+   "pivot": {
+    "x": 0.5816,
+    "y": 0.6758
+   }
+  }
+ ],
+ "failures": []
+}

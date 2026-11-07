@@ -442,13 +442,15 @@ class GrammarDocument:
                 "facadeIds": (facade_ids, "facade"),
                 "silhouetteIds": (silhouette_ids, "silhouette"),
                 "cornerModeIds": (corner_mode_ids, "cornerMode"),
+                "secondaryIds": (secondary_ids, "secondary"),
+                "propIds": (prop_ids, "prop"),
             }
             
             for axis_key, (valid_ids, axis_name) in axis_map.items():
                 if axis_key not in recipe:
                     continue  # eje opcional no declarado
                 ids_list = recipe[axis_key]
-                if ids_list is not None and len(ids_list) == 0:
+                if axis_key != "propIds" and ids_list is not None and len(ids_list) == 0:
                     raise GrammarError(
                         f"receta {recipe_id}: {axis_key} declarada pero vacía"
                     )

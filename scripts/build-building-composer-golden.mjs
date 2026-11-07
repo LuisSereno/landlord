@@ -60,13 +60,6 @@ function parseArgs(argv) {
 
 const read = (path) => JSON.parse(readFileSync(path, "utf8"));
 
-function requireCandidate(manifest, buildingType, seed) {
-  const id = `vf_${buildingType}_${seed}`;
-  const found = manifest.candidates.find((candidate) => candidate.candidateId === id);
-  if (!found) throw new Error(`§29: falta el candidato promocionado ${id}; no se compone golden parcial`);
-  return found;
-}
-
 function main() {
   const options = parseArgs(process.argv);
   const manifestPath = join(options.candidates, "manifest.json");

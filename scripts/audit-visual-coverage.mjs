@@ -108,7 +108,7 @@ const lines = [
   "",
   "> Generada por `pnpm art:coverage:audit`. No promueve assets automáticamente.",
   "",
-  `Estado actual: evidencia candidata ${audit.totals.candidateEvidenceBuildings}/15; ${audit.totals.renderedStates}/60 estados renderizados; ${audit.totals.importedBuildings} edificios importados (${audit.totals.importedCompleteStates}/${audit.totals.importedBuildings} complete); legacy congelado ${legacyRows.map((row) => row.type).join(", ")} ${audit.totals.legacyStates}/${legacyRows.reduce((total, row) => total + 4, 0)}; promoción al runtime: ${audit.totals.runtimePromotion}.`,
+  `Estado actual: evidencia candidata ${audit.totals.candidateEvidenceBuildings}/15; ${audit.totals.renderedStates}/60 estados renderizados; ${audit.totals.importedBuildings} edificios importados (${audit.totals.importedCompleteStates}/${audit.totals.importedBuildings} complete); legacy congelado ${legacyRows.map((row) => row.type).join(", ")} ${audit.totals.legacyStates}/${legacyRows.length * 4}; promoción al runtime: ${audit.totals.runtimePromotion}.`,
   "`preferred footprint` y `shapePenalty` están integrados en V.d-7B y alimentan la enumeración autoritativa de V.d-7C.",
   "",
   "| Domain type | Gameplay footprint | Preferred footprint | Candidate source | Final source | Complete | Construction | Damaged | Burning/VFX | Orientation | Status | Notes |",

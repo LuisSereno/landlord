@@ -142,7 +142,11 @@ revisión visual del responsable (§35).
   `police_station`←`vg_police_station_1002` (3×2), `fire_station`←`vg_fire_station_1003` (4×2),
   `market_hall`←`vg_market_hall_1000` (5×2). Con courtyard_home/town_hall/school_block el catálogo
   Composer pasa a **12/15 `runtime_exact`**; los 3 restantes (cement_plant, brickworks, steelworks)
-  siguen en fallback procedural semántico (industrial pesado diferido: geometría de secundarios).
+  siguen en fallback procedural semántico. La auditoría dedicada de industrial pesado está cerrada:
+  recetas identitarias obligatorias, celdas reservadas, gantry inválido corregido, supports reanclados
+  y barrido determinista 3×100 integrado; sus 12 candidatos y láminas viven en
+  `docs/art/industrial-heavy-catalog-vi/`. Falta exclusivamente la elección visual del responsable y
+  su promoción para pasar a 15/15.
   `visual-remediation.test.ts` fija el set revisado (12) y prohíbe estados fabricados. Nota de bytes: el
   runtimeImage es copia verbatim del candidato (determinista; sha runtime == sha candidato, lo fuerza el
   test de town_hall). Se descartó optimizar/recortar el PNG porque haría el sha dependiente de la

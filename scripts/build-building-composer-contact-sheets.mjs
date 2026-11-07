@@ -13,9 +13,11 @@
  * Uso:
  *   node scripts/build-building-composer-contact-sheets.mjs
  *   node scripts/build-building-composer-contact-sheets.mjs --candidates=<dir> --out=<dir>
+ *     --types=cement_plant,brickworks,steelworks --prefix=vg
  */
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -35,6 +37,16 @@ const FAMILIES = [
     procedural: "docs/art/golden/visual-catalog/05-industrial.png",
   },
   {
+    buildingType: "brickworks",
+    label: "Ladrillera",
+    procedural: "docs/art/golden/visual-catalog/05-industrial.png",
+  },
+  {
+    buildingType: "steelworks",
+    label: "Acería",
+    procedural: "docs/art/golden/visual-catalog/05-industrial.png",
+  },
+  {
     buildingType: "town_hall",
     label: "Ayuntamiento",
     procedural: "docs/art/golden/visual-catalog/06-civic.png",
@@ -43,17 +55,28 @@ const FAMILIES = [
 const SEEDS = [1000, 1001, 1002, 1003];
 
 function parseArgs(argv) {
-  const options = { candidates: DEFAULT_CANDIDATES, out: DEFAULT_OUT };
+  const options = { candidates: DEFAULT_CANDIDATES, out: DEFAULT_OUT, types: null, prefix: "vf" };
   for (const argument of argv.slice(2)) {
     const [flag, value] = argument.split("=");
     if (flag === "--candidates") options.candidates = resolve(value);
     else if (flag === "--out") options.out = resolve(value);
+    else if (flag === "--types") options.types = value.split(",");
+    else if (flag === "--prefix") options.prefix = value;
     else throw new Error(`argumento desconocido ${argument}`);
   }
   return options;
 }
 
 function composeSheets(options) {
+  const families = options.types
+    ? options.types.map((buildingType) => {
+        const family = FAMILIES.find((candidate) => candidate.buildingType === buildingType);
+        if (!family) throw new Error(`tipo sin configuración de lámina: ${buildingType}`);
+        return family;
+      })
+    : FAMILIES.filter(({ buildingType }) =>
+        ["row_house", "cement_plant", "town_hall"].includes(buildingType),
+      );
   const script = `
 from PIL import Image, ImageDraw, ImageFont
 import json, os
@@ -66,7 +89,8 @@ MARGIN = 24
 LABEL_H = 48
 SEEDS = ${JSON.stringify(SEEDS)}
 
-families = ${JSON.stringify(FAMILIES)}
+families = ${JSON.stringify(families)}
+prefix = ${JSON.stringify(options.prefix)}
 
 def load(path):
     if not os.path.exists(path):
@@ -96,7 +120,7 @@ for fam in families:
     if proc:
         columns.append(("procedural", proc))
     for seed in SEEDS:
-        cid = f"vf_{bt}_{seed}"
+        cid = f"{prefix}_{bt}_{seed}"
         path = os.path.join(CANDIDATES, f"{cid}.png")
         img = load(path)
         if img is None:
@@ -126,11 +150,16 @@ for fam in families:
 
 print(json.dumps(written))
 `;
-  const scriptPath = join(options.out, ".compose-sheets.py");
-  writeFileSync(scriptPath, script);
-  const run = spawnSync("python3", [scriptPath], { stdio: "inherit", cwd: REPO_ROOT });
-  if (run.status !== 0) {
-    throw new Error(`la composición de láminas §27 falló (exit ${run.status})`);
+  const tempDir = mkdtempSync(join(tmpdir(), "landlord-composer-sheets-"));
+  const scriptPath = join(tempDir, "compose-sheets.py");
+  try {
+    writeFileSync(scriptPath, script);
+    const run = spawnSync("python3", [scriptPath], { stdio: "inherit", cwd: REPO_ROOT });
+    if (run.status !== 0) {
+      throw new Error(`la composición de láminas §27 falló (exit ${run.status})`);
+    }
+  } finally {
+    rmSync(tempDir, { recursive: true, force: true });
   }
 }
 

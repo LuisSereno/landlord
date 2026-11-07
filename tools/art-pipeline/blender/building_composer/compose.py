@@ -25,6 +25,7 @@ from .style_profile import StyleProfile
 
 GROUND_Z_TOLERANCE_DEFAULT = 0.05
 DORMER_ROLLOUT_TOLERANCE_M = 0.02
+HEAVY_PROCESS_TYPES = {"cement_plant", "brickworks", "steelworks"}
 
 
 class CompositionError(Exception):
@@ -1019,11 +1020,26 @@ class Composition:
             return True
         module = self.catalog.pick(self.family, option["role"], option.get("module"))
         x0, y0, x1, y1 = self.buildable
-        
-        
+
+        at_cell = option.get("atCell")
+        if at_cell is not None and self.building_type in HEAVY_PROCESS_TYPES:
+            column, row = at_cell
+            if (
+                not isinstance(column, int)
+                or not isinstance(row, int)
+                or column < 0
+                or row < 0
+                or column >= self.footprint_cells["width"]
+                or row >= self.footprint_cells["height"]
+            ):
+                raise CompositionError(
+                    f"§17: el secundario {option['id']} declara atCell={at_cell} fuera del solar "
+                    f"{self.footprint_cells['width']}×{self.footprint_cells['height']}"
+                )
+
         centers = (
-            [self._cell_center(option["atCell"])]
-            if option.get("atCell")
+            [self._cell_center(at_cell)]
+            if at_cell is not None
             else self._secondary_centers()
         )
         # V.g: filtrar centros para que estén dentro de la zona construible
@@ -1031,8 +1047,6 @@ class Composition:
             (cx, cy) for cx, cy in centers
             if x0 <= cx <= x1 and y0 <= cy <= y1
         ]
-        
-        
         for center_x, center_y in self.rng.sampled(centers, len(centers)):
             for angle in (0, 90, 180, 270):
                 if angle not in module.rotations:
@@ -1046,7 +1060,11 @@ class Composition:
                 if self.occupancy.claim(option["id"], box):
                     self.add(module, angle, (center_x, center_y, 0.0), f"secondary:{option['id']}")
                     for support in option.get("supports", []):
-                        self._add_support(support)
+                        self._add_support(
+                            support,
+                            placed_center=(center_x, center_y),
+                            reference_cell=option.get("atCell") or support["cell"],
+                        )
                     return True
         if option.get("optional") is False:
             raise CompositionError(
@@ -1224,26 +1242,45 @@ class Composition:
                 prop_slots_copy[feature["id"]] = 0
                 self._build_props([feature["id"]], prop_slots_copy)
 
-    def _add_support(self, support):
+    def _add_support(self, support, placed_center=None, reference_cell=None):
         """Primitivas §15: solo conector, conducto, zócalo o base; nunca masa visible.
 
         Las coordenadas se dan en celdas del solar (relativas a la esquina frontal) para que la
-        gramática no fije metros: el mismo soporte vale si el dominio cambia la huella.
+        gramática no fije metros: el mismo soporte vale si el dominio cambia la huella. Cuando el
+        soporte pertenece a un secundario, su celda se traslada con respecto a la celda de referencia
+        del módulo y al centro que realmente obtuvo el placement. Así una recolocación válida no deja
+        el plinth o el conducto anclado en la posición absoluta anterior.
         """
         kind = support["kind"]
         if kind not in self.document.support["allowedKinds"]:
             raise CompositionError(f"§15: soporte {kind} fuera del vocabulario de §15")
         origin_x, origin_y = self.rect[0], self.rect[1]
+        support_cell = support["cell"]
+        if placed_center is not None:
+            if reference_cell is None:
+                raise CompositionError(
+                    f"§15: el soporte {support['label']} pertenece a un secundario sin atCell de referencia"
+                )
+            origin_x = (
+                float(placed_center[0])
+                - 0.5 * self.cell
+                + (float(support_cell[0]) - float(reference_cell[0])) * self.cell
+            )
+            origin_y = (
+                float(placed_center[1])
+                - 0.5 * self.cell
+                + (float(support_cell[1]) - float(reference_cell[1])) * self.cell
+            )
         anchor = [
-            origin_x + float(support["cell"][0]) * self.cell,
-            origin_y + float(support["cell"][1]) * self.cell,
+            origin_x if placed_center is not None else origin_x + float(support_cell[0]) * self.cell,
+            origin_y if placed_center is not None else origin_y + float(support_cell[1]) * self.cell,
             float(support["z"]) * self.level,
         ]
         if support["shape"] == "pipe":
             start = [
-                anchor[0] + float(value) * self.cell for value in support["from"][0:2]
+                anchor[axis] + float(support["from"][axis]) * self.cell for axis in range(2)
             ] + [anchor[2] + float(support["from"][2]) * self.level]
-            end = [anchor[0] + float(value) * self.cell for value in support["to"][0:2]] + [
+            end = [anchor[axis] + float(support["to"][axis]) * self.cell for axis in range(2)] + [
                 anchor[2] + float(support["to"][2]) * self.level
             ]
             radius = float(support["radiusMeters"])

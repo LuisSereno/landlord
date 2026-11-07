@@ -1,7 +1,7 @@
 """Regression tests §15/§17 del Building Composer (cierre V.f).
 
-Reproduce los dos defectos que bloquearon R9 a nivel de GEOMETRÍA DECLARADA, sin depender del
-render final ni de Blender:
+Reproduce los defectos que bloquearon R9 y blinda la auditoría de industria pesada a nivel de
+GEOMETRÍA DECLARADA, sin depender del render final ni de Blender:
 
   §17 (cement_plant_1002): `_box(x0,y0,x1,y1,z0,z1)` recibía los argumentos del box support en
   orden `(xmin,ymin,zmin,xmax,ymax,zmax)`, cruzando el mínimo Z con el máximo X. La caja declarada
@@ -11,6 +11,10 @@ render final ni de Blender:
   §15 (cement_plant_1003): un conducto se declaraba con `4 * segments` triángulos, pero un cilindro
   de Blender con tapas NGON triangula en `4 * segments - 4` (2·segments laterales + 2·(segments-2)
   de las tapas). Cada pipe sobrestimaba 4 triángulos.
+
+  V.i heavy: cada variante debe conservar su secundario identitario dentro de la huella real. El
+  barrido cubre cement_plant, brickworks y steelworks sobre 100 seeds consecutivas; una celda fija
+  inválida, un massing que ocupe la reserva o un support desanclado hacen fallar la composición.
 
 El test fija la semántica canónica: los bounds declarados de un soporte caja son exactamente
 `position ± size/2` por eje con min<max, y los triángulos declarados de un conducto son
@@ -35,10 +39,14 @@ from building_composer.style_profile import StyleProfile
 # Footprints reales del dominio (los que usaba R9 vía domainGeometry).
 CASES = [
     ("cement_plant", "industrial_heavy", {"width": 5, "height": 2}, 2),
-    ("town_hall", "civic_landmark", {"width": 4, "height": 3}, 4),
+    ("brickworks", "industrial_heavy", {"width": 5, "height": 2}, 2),
+    ("steelworks", "industrial_heavy", {"width": 4, "height": 3}, 2),
+    ("town_hall", "civic_landmark", {"width": 8, "height": 4}, 3),
     ("row_house", "residential_low", {"width": 4, "height": 1}, 2),
 ]
+HEAVY_CASES = CASES[:3]
 SEEDS = (1000, 1001, 1002, 1003)
+HEAVY_SWEEP_SEEDS = range(1000, 1100)
 
 
 def failures_for_box_support(support, where):
@@ -72,6 +80,27 @@ def failures_for_pipe_support(support, where):
     if support["triangles"] != expected:
         return [f"{where}: triangles={support['triangles']} ≠ 4*{segments}-4={expected}"]
     return []
+
+
+def failures_for_support_anchor(composition, where):
+    """V.i: cada support queda centrado sobre algún secundario realmente colocado."""
+    centers = [
+        placement["position"][:2]
+        for placement in composition["placements"]
+        if placement["purpose"].startswith("secondary:")
+    ]
+    problems = []
+    for index, support in enumerate(composition["originalSupport"]):
+        support_center = support["position"][:2] if support["shape"] == "box" else support["origin"][:2]
+        if not any(
+            abs(support_center[0] - center[0]) <= 1e-3
+            and abs(support_center[1] - center[1]) <= 1e-3
+            for center in centers
+        ):
+            problems.append(
+                f"{where} support:{index}: centro {support_center} no sigue ningún secundario {centers}"
+            )
+    return problems
 
 
 def main():
@@ -109,9 +138,36 @@ def main():
             for axis in ("x", "y", "z"):
                 if composition["bounds"][axis]["min"] >= composition["bounds"][axis]["max"]:
                     problems.append(f"{building_type}_{seed}: unión {axis} degenerada")
+            problems += failures_for_support_anchor(composition, f"{building_type}_{seed}")
+
+    heavy_compositions = 0
+    heavy_supports = 0
+    for building_type, family, footprint, floors in HEAVY_CASES:
+        for seed in HEAVY_SWEEP_SEEDS:
+            request = {
+                "candidateId": f"vg_{building_type}_{seed}",
+                "buildingType": building_type,
+                "family": family,
+                "styleProfileId": profile.id,
+                "variantSeed": seed,
+                "composerVersion": document.composer_version,
+                "footprint": footprint,
+                "floors": floors,
+                "state": "complete",
+                "output": "/tmp/vg-heavy-geometry-test.png",
+            }
+            try:
+                composition = compose_candidate(request, catalog, profile, document)
+                heavy_compositions += 1
+                heavy_supports += len(composition["originalSupport"])
+                problems += failures_for_support_anchor(composition, f"{building_type}_{seed}")
+            except Exception as error:
+                problems.append(f"{building_type}_{seed}: {type(error).__name__}: {error}")
 
     print(f"soportes caja inspeccionados: {box_seen}")
     print(f"soportes conducto inspeccionados: {pipe_seen}")
+    print(f"variantes heavy inspeccionadas: {heavy_compositions}/300")
+    print(f"anclajes heavy inspeccionados: {heavy_supports}")
     if problems:
         print("\nFALLOS:")
         for problem in problems:

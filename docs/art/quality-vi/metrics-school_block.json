@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-07T11:25:02.721Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/quality-vi/candidates/school_block",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 67983,
+ "blenderPeakRssMb": 6726.7,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6",
+   "after": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_school_block_2000",
+   "buildingType": "school_block",
+   "family": "civic_landmark",
+   "variantSeed": 2000,
+   "compositionSignature": "1a31d01afc23f9ec8909eea9e7952aca762210813c519095f4246ed47762f409",
+   "triangleCount": 27648,
+   "objectCount": 162,
+   "moduleCount": 10,
+   "materials": 21,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -14.2,
+     "max": 14
+    },
+    "y": {
+     "min": -1.9908,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 11.307500000000001
+    }
+   },
+   "renderMs": 19410.45,
+   "pngBytes": 1650701,
+   "pngPixels": [
+    1457,
+    1318
+   ],
+   "pixelSha256": "70c4ab4418d3d0aafdcb8ac58483d33b94d2c945a385b9987597c20a4cd83b37",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.4736,
+    "y": 0.7415
+   }
+  }
+ ],
+ "failures": []
+}

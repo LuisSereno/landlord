@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-07T11:15:44.113Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/quality-vi/candidates",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 167834,
+ "blenderPeakRssMb": 3145.1,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6",
+   "after": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_clinic_1003",
+   "buildingType": "clinic",
+   "family": "civic_landmark",
+   "variantSeed": 1003,
+   "compositionSignature": "6c9531a4625c6d7836987fe1b13f8dfd845b3f75b99f589ccda94f8bb1d975c9",
+   "triangleCount": 17998,
+   "objectCount": 71,
+   "moduleCount": 11,
+   "materials": 24,
+   "textures": 21,
+   "bounds": {
+    "x": {
+     "min": -6.428,
+     "max": 6
+    },
+    "y": {
+     "min": -1.9908,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 9.6
+    }
+   },
+   "renderMs": 10647.62,
+   "pngBytes": 951692,
+   "pngPixels": [
+    944,
+    1179
+   ],
+   "pixelSha256": "646f4c89fb0a663aae4d7ffa64a33e37b5392101eba67bfb8fdd7ca1c0fc689b",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5482,
+    "y": 0.7123
+   }
+  }
+ ],
+ "failures": []
+}

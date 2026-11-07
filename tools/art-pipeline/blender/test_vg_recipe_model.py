@@ -452,21 +452,23 @@ def test_18_required_facade_is_mirror_symmetric_around_access():
     return True, "10/10 seeds con TODOS los facade features especulares respecto al acceso"
 
 
-def test_19_hero_recipe_has_no_isolated_secondary():
-    """V.g P2: la recipe hero `grand_neoclassical_hall` declara secondaryIds=["none"].
+def test_19_hero_recipe_pins_approved_v7_composition():
+    """V.i: la composición aprobada del town_hall (V7) es el contrato de la receta hero.
 
-    El seed 1008 solía sacar `facade_pilasters` como volumen decorativo suelto delante del ala
-    derecha. La receta autoritativa del landmark no admite ese secundario aleatorio: todos sus
-    seeds deben resolver secondary_volume == "none". No se toca ninguna otra recipe.
+    El seed aprobado 1006 resuelve `grand_neoclassical_hall` con secondary_volume ==
+    "corner_columns" y ritmo tall_aisles@5 (firma de composición d4404725…, promovida).
+    El pin P2 (secondaryIds=["none"], commit 37592d4) desplazó los sorteos PRNG y cambió
+    la composición sin aprobación humana: revertido para restaurar la V7 exacta.
     """
-    for seed in SEEDS_TEN:
-        result = town_hall_result(seed)
-        if result["axisChoices"]["recipe"] != "grand_neoclassical_hall":
-            continue
-        secondary = result["axisChoices"]["secondary_volume"]
-        if secondary != "none":
-            return False, f"seed {seed}: hero con secondary={secondary!r}, esperaba 'none'"
-    return True, "todas las hero seeds con secondary_volume == none"
+    result = town_hall_result(1006)
+    choices = result["axisChoices"]
+    if choices["recipe"] != "grand_neoclassical_hall":
+        return False, f"seed 1006: recipe={choices['recipe']!r}, esperaba la hero"
+    if choices["secondary_volume"] != "corner_columns":
+        return False, f"seed 1006: secondary={choices['secondary_volume']!r}, esperaba 'corner_columns'"
+    if choices["bay_sequence"] != "tall_aisles@5":
+        return False, f"seed 1006: bay={choices['bay_sequence']!r}, esperaba 'tall_aisles@5'"
+    return True, "seed 1006 reproduce la composición V7 aprobada (corner_columns, tall_aisles@5)"
 
 
 def main():
@@ -490,7 +492,7 @@ def main():
         ("test_16_determinism_same_seed_same_recipe_and_signature", test_16_determinism_same_seed_same_recipe_and_signature),
         ("test_17_town_hall_ten_seed_true_pass", test_17_town_hall_ten_seed_true_pass),
         ("test_18_required_facade_is_mirror_symmetric_around_access", test_18_required_facade_is_mirror_symmetric_around_access),
-        ("test_19_hero_recipe_has_no_isolated_secondary", test_19_hero_recipe_has_no_isolated_secondary),
+        ("test_19_hero_recipe_pins_approved_v7_composition", test_19_hero_recipe_pins_approved_v7_composition),
     ]
     failures = []
     for name, fn in tests:

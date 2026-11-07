@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-07T11:28:19.219Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/quality-vi/candidates/warehouse",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 42077,
+ "blenderPeakRssMb": 3741.4,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6",
+   "after": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_warehouse_1002",
+   "buildingType": "warehouse",
+   "family": "industrial_heavy",
+   "variantSeed": 1002,
+   "compositionSignature": "fdd2319d98fd477c73368b4728a6bac88da209cb3347703f83e02afc1ca81950",
+   "triangleCount": 4371,
+   "objectCount": 31,
+   "moduleCount": 8,
+   "materials": 14,
+   "textures": 15,
+   "bounds": {
+    "x": {
+     "min": -8,
+     "max": 8
+    },
+    "y": {
+     "min": -6.3999999999999995,
+     "max": 4.5672
+    },
+    "z": {
+     "min": 0,
+     "max": 5.12
+    }
+   },
+   "renderMs": 10437.21,
+   "pngBytes": 762741,
+   "pngPixels": [
+    1294,
+    956
+   ],
+   "pixelSha256": "7554123ddeb4db39d5fd9ea50bd652fca1f1ae3a3f2796a28c8e6b345556dc75",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5858,
+    "y": 0.5591
+   }
+  }
+ ],
+ "failures": []
+}

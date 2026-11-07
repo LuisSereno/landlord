@@ -119,6 +119,30 @@
     {
       "path": "docs/art/world-visual-foundation/pixel-qa/district-contact-sheet-20x.png",
       "reason": "D-100: lámina pixel-qa V.h de distritos a 2x; evidencia de revisión de píxeles."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/apartment_block/vg_apartment_block_1002.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/mixed_tenement/vg_mixed_tenement_1001.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/steelworks/vg_steelworks_1003.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/town_hall/vf_town_hall_1006.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/school_block/vg_school_block_2000.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/market_hall/vg_market_hall_1000.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
     }
   ]
 }

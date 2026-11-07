@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-07T11:29:07.170Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/quality-vi/candidates/cement_plant",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 47880,
+ "blenderPeakRssMb": 4134.1,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6",
+   "after": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_cement_plant_1001",
+   "buildingType": "cement_plant",
+   "family": "industrial_heavy",
+   "variantSeed": 1001,
+   "compositionSignature": "6ec90ceaa150828ab6deb198d7ed0ad430bc953a0078c0c17fd3c73df08cdfe4",
+   "triangleCount": 4553,
+   "objectCount": 17,
+   "moduleCount": 10,
+   "materials": 18,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -7.9532,
+     "max": 10
+    },
+    "y": {
+     "min": -4.4,
+     "max": 3.9
+    },
+    "z": {
+     "min": 0,
+     "max": 7.6182
+    }
+   },
+   "renderMs": 10075.96,
+   "pngBytes": 776658,
+   "pngPixels": [
+    1330,
+    1082
+   ],
+   "pixelSha256": "34ab0c5ce2f12031088539c1b13e5018f78a49384b885a4ba6c35ae62c2d7fe5",
+   "licensedGeometryRatio": 0.9939,
+   "pivot": {
+    "x": 0.5549,
+    "y": 0.6004
+   }
+  }
+ ],
+ "failures": []
+}

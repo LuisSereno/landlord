@@ -599,7 +599,12 @@ def deterministic_crop_rect(composition, scene, camera, style_layer, width, heig
     la matriz de la cámara y la posición de la key light—, nunca del raster.
 
     Se proyectan las 8 esquinas del volumen y las 8 sombras de esas esquinas sobre el plano z=0 (rayo
-    desde la key light), se toman los extremos en píxeles y se ajustan a par para el downscale 2×.
+    desde la key light) y se toman los extremos en píxeles, sin ajuste de paridad en este nivel.
+
+    La paridad la aplica `trim_and_scale` según su supersample efectivo y no aquí: este rect se recorta
+    de nuevo contra el lienzo, y un ajuste de paridad previo con fallback erróneo colapsó el recorte a
+    1 px cuando la caja saturada (una sombra cuyo punto de fuga sale del lienzo) tenía lado impar —
+    fue el fallo §18 del clinic a renderScale 2.
     """
     light = Vector(style_layer["lighting"]["keyPosition"])
     points = list(box_corners(composition["bounds"]))
@@ -620,10 +625,6 @@ def deterministic_crop_rect(composition, scene, camera, style_layer, width, heig
     col_hi = min(width, math.ceil(max(columns)))
     row_min = max(0, math.floor(min(rows)))
     row_hi = min(height, math.ceil(max(rows)))
-    if (col_hi - col_min) % 2 == 1:
-        col_hi = min(width, col_hi + 1) if col_hi + 1 <= width else col_min + 1
-    if (row_hi - row_min) % 2 == 1:
-        row_hi = min(height, row_hi + 1) if row_hi + 1 <= height else row_min + 1
     return col_min, row_min, col_hi, row_hi
 
 
@@ -880,8 +881,12 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
     scene.eevee.use_taa_reprojection = False
     scene.eevee.taa_render_samples = 64
     scene.render.use_persistent_data = True
-    scene.render.resolution_x = frame["canvasPixels"][0] * runtime.SUPERSAMPLE
-    scene.render.resolution_y = frame["canvasPixels"][1] * runtime.SUPERSAMPLE
+    # V.i quality pass: con renderScale 2 el supersample efectivo baja a 1 para que el presupuesto
+    # absoluto de píxeles (pase principal + sombra 3×) no crezca con la densidad final; el AA lo
+    # aportan las 64 muestras TAA a resolución final. La sombra mantiene 3× el pase principal.
+    supersample = max(1, round(runtime.SUPERSAMPLE / composition.get("renderScale", 1)))
+    scene.render.resolution_x = frame["canvasPixels"][0] * supersample
+    scene.render.resolution_y = frame["canvasPixels"][1] * supersample
     scene.render.resolution_percentage = 100
     scene.render.image_settings.file_format = "PNG"
     scene.render.image_settings.color_mode = "RGBA"
@@ -919,7 +924,7 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
         composition, scene, camera, style_layer,
         scene.render.resolution_x, scene.render.resolution_y,
     )
-    trim = runtime.trim_and_scale(render_path, output, shadow_path, shadow_style, crop_rect)
+    trim = runtime.trim_and_scale(render_path, output, shadow_path, shadow_style, crop_rect, supersample=supersample)
     render_path.unlink(missing_ok=True)
     shadow_path.unlink(missing_ok=True)
 

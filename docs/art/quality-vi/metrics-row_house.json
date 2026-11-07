@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-07T11:20:59.337Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/quality-vi/candidates/row_house",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 106245,
+ "blenderPeakRssMb": 3275,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6",
+   "after": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_row_house_1001",
+   "buildingType": "row_house",
+   "family": "residential_low",
+   "variantSeed": 1001,
+   "compositionSignature": "1249437b120e81934419429b606914b8716ad19b9182e88021435d4576659282",
+   "triangleCount": 2506,
+   "objectCount": 65,
+   "moduleCount": 8,
+   "materials": 19,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -8,
+     "max": 8
+    },
+    "y": {
+     "min": -2.2,
+     "max": 2
+    },
+    "z": {
+     "min": 0,
+     "max": 9
+    }
+   },
+   "renderMs": 10239.08,
+   "pngBytes": 961969,
+   "pngPixels": [
+    994,
+    1147
+   ],
+   "pixelSha256": "db7f3da7945dc2a8893f0e376e99e36d19f129128c2e00b61a39615a707c7e9f",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5709,
+    "y": 0.687
+   }
+  }
+ ],
+ "failures": []
+}

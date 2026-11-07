@@ -359,7 +359,8 @@
           "glazed_lobby",
           "monumental_stairs"
         ]
-      }
+      },
+      "renderScale": 2
     },
     "cement_plant": {
       "buildingType": "cement_plant",
@@ -795,7 +796,8 @@
         "requireRoles": ["hall"],
         "requireAnyRoles": [["tank", "chimney", "extractor"]],
         "prohibitAccessIds": ["monumental_stairs", "loggia_entrance", "shopfront_entrance"]
-      }
+      },
+      "renderScale": 2
     },
     "town_hall": {
       "buildingType": "town_hall",
@@ -834,7 +836,6 @@
           "rhythmIds": ["tall_aisles"],
           "facadeIds": ["warm_limestone"],
           "propIds": [],
-          "secondaryIds": ["none"],
           "requiredFeatures": [
             {
               "kind": "facade",
@@ -1346,15 +1347,6 @@
       ],
       "secondaryOptions": [
         {
-          "id": "none",
-          "label": "sin volumen secundario",
-          "role": null,
-          "module": null,
-          "optional": true,
-          "atCell": null,
-          "supports": []
-        },
-        {
           "id": "honour_plinth",
           "label": "zócalo de honor en el patio central",
           "role": "plinth",
@@ -1420,7 +1412,8 @@
           "apparatus_door",
           "rollup_door"
         ]
-      }
+      },
+      "renderScale": 2
     },
     "courtyard_home": {
       "buildingType": "courtyard_home",
@@ -1984,7 +1977,8 @@
           "monumental_stairs",
           "glazed_lobby"
         ]
-      }
+      },
+      "renderScale": 2
     },
     "mixed_tenement": {
       "buildingType": "mixed_tenement",
@@ -2288,7 +2282,8 @@
           "mod_kenney_ind_tank_small",
           "mod_kenney_ind_tank_large"
         ]
-      }
+      },
+      "renderScale": 2
     },
     "workshop": {
       "buildingType": "workshop",
@@ -2587,7 +2582,8 @@
           "multiple_entries",
           "arcade_entry"
         ]
-      }
+      },
+      "renderScale": 2
     },
     "warehouse": {
       "buildingType": "warehouse",
@@ -2912,7 +2908,8 @@
           "multiple_entries",
           "arcade_entry"
         ]
-      }
+      },
+      "renderScale": 2
     },
     "brickworks": {
       "buildingType": "brickworks",
@@ -3243,7 +3240,8 @@
         "requireAll": [["hall", "chimney"]],
         "prohibitSecondaryModules": ["mod_kenney_ind_water_tower", "mod_kenney_ind_tank_large"],
         "prohibitAccessIds": ["monumental_stairs", "loggia_entrance", "shopfront_entrance"]
-      }
+      },
+      "renderScale": 2
     },
     "steelworks": {
       "buildingType": "steelworks",
@@ -3618,7 +3616,8 @@
         "requireAnyRoles": [["chimney", "extractor", "civic_tower"]],
         "prohibitSecondaryModules": ["mod_kenney_ind_water_tower"],
         "prohibitAccessIds": ["monumental_stairs", "loggia_entrance", "shopfront_entrance"]
-      }
+      },
+      "renderScale": 2
     },
     "school_block": {
       "buildingType": "school_block",
@@ -3905,7 +3904,8 @@
           "propIds": [],
           "secondaryIds": ["school_annex"]
         }
-      ]
+      ],
+      "renderScale": 2
     },
     "clinic": {
       "buildingType": "clinic",
@@ -4210,7 +4210,8 @@
           "apparatus_door",
           "rollup_door"
         ]
-      }
+      },
+      "renderScale": 2
     },
     "police_station": {
       "buildingType": "police_station",
@@ -4534,7 +4535,8 @@
           "multiple_entries",
           "arcade_entry"
         ]
-      }
+      },
+      "renderScale": 2
     },
     "fire_station": {
       "buildingType": "fire_station",
@@ -4840,7 +4842,8 @@
           "multiple_entries",
           "arcade_entry"
         ]
-      }
+      },
+      "renderScale": 2
     },
     "market_hall": {
       "buildingType": "market_hall",
@@ -5207,7 +5210,8 @@
           "mod_kenney_ind_water_tower"
         ],
         "prohibitAccessIds": ["canopied_dock", "monumental_stairs", "apparatus_door", "rollup_door"]
-      }
+      },
+      "renderScale": 2
     }
   }
 }

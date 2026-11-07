@@ -77,6 +77,23 @@ const SCOPE = [
     directory: `${EXTRACTED}/quaternius/downtown-city-megakit/Exports/glTF (Godot)`,
     pattern: "\\.gltf$",
   },
+  // V.j: las fuentes originales (geometría propia) también se inventarian, para que la regeneración
+  // del inventario no borde sus entradas medidas y el catálogo pueda medirlas sin workaround manual.
+  {
+    sourceId: "src_original_civic_pediment",
+    directory: "blender_artist/sources/original",
+    pattern: "civic_pediment\\.glb$",
+  },
+  {
+    sourceId: "src_original_school_cupola",
+    directory: "blender_artist/sources/original",
+    pattern: "school_cupola\\.glb$",
+  },
+  {
+    sourceId: "src_original_construction_scaffold",
+    directory: "blender_artist/sources/original",
+    pattern: "construction_scaffold\\.glb$",
+  },
 ];
 
 const CLASSIFICATION_RULE = {

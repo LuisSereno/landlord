@@ -1771,6 +1771,16 @@
       "meshes": ["SchoolCupola"],
       "allowedFamilies": ["civic_landmark"],
       "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_original_construction_scaffold",
+      "category": "utility",
+      "role": "scaffold",
+      "note": "andamio de fachada original para estados de obra (crujía 2x3 m); geometría propia",
+      "sourcePath": "blender_artist/sources/original/construction_scaffold.glb",
+      "meshes": ["ConstructionScaffold"],
+      "allowedFamilies": ["residential_low", "industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
     }
   ]
 }

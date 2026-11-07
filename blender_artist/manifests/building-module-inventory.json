@@ -50,6 +50,21 @@
       "sourceId": "src_quaternius_downtown_city_megakit",
       "directory": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)",
       "pattern": "\\.gltf$"
+    },
+    {
+      "sourceId": "src_original_civic_pediment",
+      "directory": "blender_artist/sources/original",
+      "pattern": "civic_pediment\\.glb$"
+    },
+    {
+      "sourceId": "src_original_school_cupola",
+      "directory": "blender_artist/sources/original",
+      "pattern": "school_cupola\\.glb$"
+    },
+    {
+      "sourceId": "src_original_construction_scaffold",
+      "directory": "blender_artist/sources/original",
+      "pattern": "construction_scaffold\\.glb$"
     }
   ],
   "missingDirectories": [],
@@ -67,7 +82,7 @@
     "note": "La modularidad de un pack puede estar a nivel de ARCHIVO (MegaKit, KayKit: un módulo por gltf) y no a nivel de objeto dentro del archivo; por eso el catálogo de módulos referencia rutas de archivo, no sólo selecciones de nodo."
   },
   "counts": {
-    "sources": 786,
+    "sources": 789,
     "withUnresolvedTextures": 0,
     "bySource": {
       "src_kenney_city_suburban": 40,
@@ -77,12 +92,15 @@
       "src_kenney_nature_kit": 329,
       "src_kenney_car_kit": 50,
       "src_kaykit_city_builder_bits": 41,
-      "src_quaternius_downtown_city_megakit": 153
+      "src_quaternius_downtown_city_megakit": 153,
+      "src_original_civic_pediment": 1,
+      "src_original_school_cupola": 1,
+      "src_original_construction_scaffold": 1
     },
     "byClassification": {
       "modular": 36,
       "partially_modular": 3,
-      "whole_asset_only": 747,
+      "whole_asset_only": 750,
       "unsuitable": 0
     }
   },
@@ -89271,7 +89289,7 @@
       "objectCount": 1,
       "meshCount": 1,
       "armatureCount": 0,
-      "vertices": 10,
+      "vertices": 30,
       "triangles": 16,
       "materials": [],
       "images": [],
@@ -89282,9 +89300,9 @@
           "type": "MESH",
           "parent": "IMPORT_ROOT",
           "materials": [],
-          "vertices": 10,
+          "vertices": 30,
           "triangles": 16,
-          "looseParts": 1
+          "looseParts": 7
         }
       ],
       "normalized": {
@@ -89295,8 +89313,8 @@
         },
         "worldMinZ": 0,
         "worldCenterXY": [
-          4,
-          -0.2
+          0,
+          0
         ],
         "sourceBounds": {
           "width": 8,
@@ -89318,23 +89336,23 @@
           "CivicPediment"
         ],
         "dominantShare": 1,
-        "shells": 1,
+        "shells": 7,
         "pieceCandidates": 0,
-        "largestPieceTriangleShare": 1,
+        "largestPieceTriangleShare": 0,
         "topPieces": []
       },
       "classification": "whole_asset_only",
-      "classificationReason": "geometría original: frontón triangular cívico, una sola unidad",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 7 cáscaras): usable como módulo de masa completo",
       "pivot": {
         "object": "CivicPediment",
         "origin": [
-          0,
-          0,
+          -4,
+          0.2,
           0
         ],
         "offsetFromGroundCenter": [
-          0,
-          0,
+          -4,
+          0.2,
           0
         ],
         "localSizeMeters": {
@@ -89344,12 +89362,12 @@
         },
         "boundsRelativeToOrigin": {
           "x": {
-            "min": -4,
-            "max": 4
+            "min": 0,
+            "max": 8
           },
           "y": {
-            "min": -0.2,
-            "max": 0.2
+            "min": -0.4,
+            "max": 0
           },
           "z": {
             "min": 0,
@@ -89357,8 +89375,8 @@
           }
         },
         "convention": {
-          "x": "centered",
-          "y": "centered",
+          "x": "positive-from-origin",
+          "y": "negative-from-origin",
           "z": "positive-from-origin"
         }
       }
@@ -89461,6 +89479,113 @@
           "x": "centered",
           "y": "centered",
           "z": "offset"
+        }
+      }
+    },
+    {
+      "sourceId": "src_original_construction_scaffold",
+      "path": "blender_artist/sources/original/construction_scaffold.glb",
+      "license": "original",
+      "unitScale": 1,
+      "exists": true,
+      "objectCount": 1,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 648,
+      "triangles": 324,
+      "materials": [
+        "scaffold_plank",
+        "scaffold_steel"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "ConstructionScaffold",
+          "type": "MESH",
+          "parent": "IMPORT_ROOT",
+          "materials": [
+            "scaffold_steel",
+            "scaffold_plank"
+          ],
+          "vertices": 648,
+          "triangles": 324,
+          "looseParts": 162
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 1.9,
+          "depth": 0.465,
+          "height": 2.92
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1.9,
+          "depth": 0.465,
+          "height": 2.92,
+          "minZ": 0.01
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.1825,
+          -0.01
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "ConstructionScaffold"
+        ],
+        "dominantShare": 1,
+        "shells": 162,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 162 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "ConstructionScaffold",
+        "origin": [
+          0,
+          -0.182,
+          -0.01
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          -0.182,
+          -0.01
+        ],
+        "localSizeMeters": {
+          "width": 1.9,
+          "depth": 0.465,
+          "height": 2.92
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -0.95,
+            "max": 0.95
+          },
+          "y": {
+            "min": -0.05,
+            "max": 0.415
+          },
+          "z": {
+            "min": 0.01,
+            "max": 2.93
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
         }
       }
     }

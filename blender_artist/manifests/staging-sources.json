@@ -308,6 +308,17 @@
       "sourceUrl": null,
       "unitScale": 1,
       "extractDir": null
+    },
+    {
+      "id": "src_original_construction_scaffold",
+      "path": "blender_artist/sources/original/construction_scaffold.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por create_original_scaffold.py",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
     }
   ],
   "quarantined": [

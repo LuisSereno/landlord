@@ -8,7 +8,7 @@
     "catalog": "blender_artist/manifests/building-modules.json",
     "styleLayer": {
       "path": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
-      "sha256": "3014f3a1f95db72cd3e899786db1161234b94e22ae8bd7802e8b5ec2c1d5f8ed"
+      "sha256": "82921ffadf6c739ac7b9065e2fcace859e423244ef8d0ae1299a0fa688e72311"
     },
     "toolchain": {
       "blender": "5.2.2 LTS",
@@ -23,8 +23,8 @@
       "id": "graphic_civic_buildings_v1",
       "label": "Edificios cívicos gráficos nocturnos, compuestos con geometría licenciada",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "e69a6f0449417a3153981210ea6c49f4002fc1eee55545f4bf8ea97e17953ca3",
-      "selectionSha256": "9b3dca59a9b85d147333c6da1be2846c73b48190422034feafe1c27c9f831709",
+      "moduleCatalogSha256": "93bbef421d94aac98e1a356a11bdc099275db27ea1cc9f53dd047fddb4fa4f60",
+      "selectionSha256": "ac6a099619098c520b3f311510a595f281c2c0bf81cb52aee9bce0d264e4d5d5",
       "appliesToFamilies": [
         "residential_low",
         "industrial_heavy",
@@ -396,7 +396,8 @@
               "src_kenney_city_commercial: 1",
               "src_kaykit_city_builder_bits: 0.4",
               "src_kenney_nature_kit: 1",
-              "src_kenney_city_roads: 1"
+              "src_kenney_city_roads: 1",
+              "src_original_construction_scaffold: 0.7"
             ],
             "perFamily": {
               "brick": {
@@ -441,6 +442,7 @@
               "wood": {
                 "ormChannelG": [],
                 "scalarFactor": [
+                  0.7,
                   1
                 ],
                 "preservedWhenLinked": true
@@ -471,13 +473,14 @@
                 "src_kenney_city_commercial: 1",
                 "src_kaykit_city_builder_bits: 0.4",
                 "src_kenney_nature_kit: 1",
-                "src_kenney_city_roads: 1"
+                "src_kenney_city_roads: 1",
+                "src_original_construction_scaffold: 0.7"
               ],
               "how": "factores de Roughness por pack donde el socket NO está enlazado: son los únicos que el override toca",
               "source": "/tmp/landlord-vf-style/measurements.json → materialReport[].surface.Roughness.value"
             }
           ],
-          "rationale": "El override canónico (0.88) sólo se aplica a sockets NO enlazados (runtime_asset.py:669-672): unifica los factores planos (src_quaternius_downtown_city_megakit: 0.5; src_kenney_city_industrial: 1; src_kenney_city_suburban: 1; src_kenney_city_commercial: 1; src_kaykit_city_builder_bits: 0.4; src_kenney_nature_kit: 1; src_kenney_city_roads: 1) y respeta los ORM enlazados, cuyas medias reales (0.741–0.948) ya caen dentro de la banda que la dirección acepta. Por eso el perfil no fija una rugosidad única: §11 prohíbe aplanar todos los materiales y la pipeline ya preserva el relieve cuando existe."
+          "rationale": "El override canónico (0.88) sólo se aplica a sockets NO enlazados (runtime_asset.py:669-672): unifica los factores planos (src_quaternius_downtown_city_megakit: 0.5; src_kenney_city_industrial: 1; src_kenney_city_suburban: 1; src_kenney_city_commercial: 1; src_kaykit_city_builder_bits: 0.4; src_kenney_nature_kit: 1; src_kenney_city_roads: 1; src_original_construction_scaffold: 0.7) y respeta los ORM enlazados, cuyas medias reales (0.741–0.948) ya caen dentro de la banda que la dirección acepta. Por eso el perfil no fija una rugosidad única: §11 prohíbe aplanar todos los materiales y la pipeline ya preserva el relieve cuando existe."
         },
         "materialMetallic": {
           "value": {
@@ -519,6 +522,7 @@
               "wood": {
                 "ormChannelB": [],
                 "scalarFactor": [
+                  0,
                   1
                 ]
               }
@@ -966,7 +970,7 @@
           "value": {
             "trianglesPerModule": {
               "p50": 112,
-              "p90": 1094.3,
+              "p90": 1088.4,
               "max": 2960
             },
             "facadeTrianglesPerSquareMeter": {
@@ -1000,7 +1004,7 @@
             "characterHeightMeters": 1.8,
             "ratioBand": {
               "min": 0.14,
-              "p50": 1.66,
+              "p50": 1.64,
               "max": 4.28
             },
             "measured": [
@@ -1078,6 +1082,11 @@
                 "id": "mod_kenney_com_overhang_2m",
                 "heightMeters": 1.6,
                 "ratioToCharacter": 0.89
+              },
+              {
+                "id": "mod_original_construction_scaffold",
+                "heightMeters": 2.92,
+                "ratioToCharacter": 1.62
               }
             ]
           },
@@ -1792,7 +1801,7 @@
           "evidence": [
             {
               "measured": {
-                "sha256": "3014f3a1f95db72cd3e899786db1161234b94e22ae8bd7802e8b5ec2c1d5f8ed",
+                "sha256": "82921ffadf6c739ac7b9065e2fcace859e423244ef8d0ae1299a0fa688e72311",
                 "palette": "graphic_civic",
                 "treatmentVersion": 7
               },
@@ -3482,12 +3491,13 @@
           "family": "wood",
           "present": true,
           "measuredMaterials": [
+            "scaffold_plank",
             "wood",
             "woodBark",
             "woodBarkDark",
             "woodDark"
           ],
-          "moduleCount": 8,
+          "moduleCount": 9,
           "moduleExamples": [
             "mod_nature_civic_sign",
             "mod_nature_civic_urn_large",
@@ -3495,7 +3505,8 @@
             "mod_nature_tree_cone"
           ],
           "sourceIds": [
-            "src_kenney_nature_kit"
+            "src_kenney_nature_kit",
+            "src_original_construction_scaffold"
           ],
           "baseColorChain": [
             "factor plano"
@@ -3506,12 +3517,14 @@
           "roughnessMeasured": {
             "ormChannelG": [],
             "scalarFactor": [
+              0.7,
               1
             ]
           },
           "metallicMeasured": {
             "ormChannelB": [],
             "scalarFactor": [
+              0,
               1
             ]
           },
@@ -3685,7 +3698,8 @@
           ],
           "pbrPacks": [
             "src_quaternius_downtown_city_megakit",
-            "src_kenney_nature_kit"
+            "src_kenney_nature_kit",
+            "src_original_construction_scaffold"
           ],
           "familiesPartlyTreated": [
             {
@@ -3751,7 +3765,7 @@
               ]
             }
           ],
-          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal, stone tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
+          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit, src_original_construction_scaffold) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal, stone tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
         },
         "state": "satisfecha"
       },
@@ -4268,6 +4282,69 @@
             "shippedJobs": []
           },
           {
+            "pack": "src_original_construction_scaffold",
+            "license": "original",
+            "moduleCount": 1,
+            "materials": 2,
+            "materialsReachedByTreatment": [],
+            "materialsRawAlways": [
+              "scaffold_plank",
+              "scaffold_steel"
+            ],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 0,
+            "modulesWithRawMaterial": 1,
+            "rawModuleExamples": [
+              "construction_scaffold.glb: 2 de 2 materiales en bruto"
+            ],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "factor plano"
+            ],
+            "materialReach": [
+              {
+                "material": "scaffold_plank",
+                "family": "wood",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.7
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "scaffold_steel",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.7
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              }
+            ],
+            "colorTextures": [],
+            "colorTextureFiles": [],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [
+              0.7
+            ],
+            "shippedJobs": []
+          },
+          {
             "pack": "src_quaternius_downtown_city_megakit",
             "license": "CC0-1.0",
             "moduleCount": 102,
@@ -4688,6 +4765,7 @@
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_oak.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_pineTallA.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_small.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
+          "blender_artist/sources/original/construction_scaffold.glb (src_original_construction_scaffold): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_90Angle_L.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_90Angle_R.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_BottomTrim.gltf (src_quaternius_downtown_city_megakit): 3 de 3 materiales con Base Color fuera de la banda",
@@ -4796,7 +4874,8 @@
         ],
         "pbrPacks": [
           "src_quaternius_downtown_city_megakit",
-          "src_kenney_nature_kit"
+          "src_kenney_nature_kit",
+          "src_original_construction_scaffold"
         ],
         "requiredWork": "V.f.4 debe extender el traversal hasta la TEX_IMAGE real que alimenta el MIX (o aplicar las bandas sobre la imagen de entrada del mezclador) para que las instancias en bruto entren en la misma escalera de valor. Sin eso hay que listar módulos: los de `modulesRawList` quedan fuera de los alzados que se juzguen tratados.",
         "measuredBrightnessGap": {
@@ -5430,6 +5509,8 @@
             "src_kenney_nature_kit/woodBark: Base Color factor plano ×4; atlas de color ninguno; módulos alcanzados 0, en bruto 4",
             "src_kenney_nature_kit/woodBarkDark: Base Color factor plano ×3; atlas de color ninguno; módulos alcanzados 0, en bruto 3",
             "src_kenney_nature_kit/woodDark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_construction_scaffold/scaffold_plank: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_construction_scaffold/scaffold_steel: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_quaternius_downtown_city_megakit/MI_FakeInterior: Base Color MIX:sin imagen ×14, factor plano ×2; atlas de color ninguno; módulos alcanzados 0, en bruto 16",
             "src_quaternius_downtown_city_megakit/MI_Glass: Base Color MIX:sin imagen ×18, factor plano ×3; atlas de color ninguno; módulos alcanzados 0, en bruto 21",
             "src_quaternius_downtown_city_megakit/MI_InteriorFloor: Base Color MIX:sin imagen ×1, TEX_IMAGE:T_MarbleFloor_BaseColor ×2; atlas de color T_MarbleFloor_BaseColor; módulos alcanzados 2, en bruto 1",
@@ -5447,7 +5528,7 @@
         }
       },
       "knownGaps": [
-        "glass (materiales MI_Glass sin textura de color mapeable); wood (materiales wood, woodBark, woodBarkDark, woodDark sin textura de color mapeable): la familia existe en la geometría, pero su color no vive en un atlas mapeable, así que §11 no puede separarla por albedo. Se decide por emisión y roughness en V.f.4.",
+        "glass (materiales MI_Glass sin textura de color mapeable); wood (materiales scaffold_plank, wood, woodBark, woodBarkDark, woodDark sin textura de color mapeable): la familia existe en la geometría, pero su color no vive en un atlas mapeable, así que §11 no puede separarla por albedo. Se decide por emisión y roughness en V.f.4.",
         "nombres de textura que no identifican un archivo (colormap ×4): son PNG distintos con el mismo nombre de datablock, porque cada archivo se importa en una escena limpia. El muestreo y el remape van por ruta (`textureFile`); cualquier consumidor que agrupe por nombre atribuiría el color de un pack a los demás.",
         "metal vs stone: sólo los separa el shading (rugosidad o metallic), no el albedo. Si V.f.4 aplanara esos canales, esas familias colapsarían.",
         "atlas alcanzados sólo en parte (T_Concrete_BaseColor: 3 módulos directos / 1 con Base Color mezclado; T_MarbleFloor_BaseColor: 2 módulos directos / 1 con Base Color mezclado; T_MetalConcrete_BaseColor: 21 módulos directos / 17 con Base Color mezclado; T_RedBrick_BaseColor: 7 módulos directos / 41 con Base Color mezclado; T_Trim_BaseColor: 17 módulos directos / 29 con Base Color mezclado): el valor medido en `materialFamilies` es el del lado tratado. El compositor listador debe elegir módulos por `packCoexistence.modulesRawList`, no por nombre de material, o un mismo alzado mostrará dos temperaturas de brillo.",
@@ -5462,14 +5543,14 @@
     }
   ],
   "counts": {
-    "modules": 174,
+    "modules": 175,
     "texturesSampled": 30,
     "familiesPresentInGeometry": 6,
     "familiesMeasuredByAlbedo": 4,
     "familyPairsChecked": 6,
     "collapsedPairs": 0,
     "modulesFullyTreatedToday": 98,
-    "modulesWithRawMaterial": 76,
+    "modulesWithRawMaterial": 77,
     "texturesSplitAcrossModules": 5
   }
 }

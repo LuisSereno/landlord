@@ -68,25 +68,25 @@
   },
   "orientationPolicy": "Los módulos sólo rotan en múltiplos de 90°: la retícula del dominio y el rig isométrico (azimut 45°) no admiten giros arbitrarios sin romper el encaje de fachadas.",
   "counts": {
-    "modules": 173,
-    "sources": 172,
+    "modules": 175,
+    "sources": 174,
     "byCategory": {
       "facade": 31,
       "window": 9,
       "door": 6,
-      "roof": 13,
+      "roof": 14,
       "civic": 69,
       "canopy": 5,
       "intrinsic_prop": 2,
       "mass": 25,
-      "utility": 4,
+      "utility": 5,
       "chimney": 4,
       "industrial": 5
     },
     "byFamily": {
-      "residential_low": 49,
-      "industrial_heavy": 45,
-      "civic_landmark": 147
+      "residential_low": 50,
+      "industrial_heavy": 46,
+      "civic_landmark": 149
     },
     "bySource": {
       "src_quaternius_downtown_city_megakit": 102,
@@ -96,7 +96,9 @@
       "src_kaykit_city_builder_bits": 10,
       "src_kenney_nature_kit": 18,
       "src_kenney_city_roads": 13,
-      "src_original_civic_pediment": 1
+      "src_original_civic_pediment": 1,
+      "src_original_school_cupola": 1,
+      "src_original_construction_scaffold": 1
     }
   },
   "modules": [
@@ -22934,7 +22936,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "geometría original: frontón triangular cívico, una sola unidad"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 7 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 8,
@@ -22945,20 +22947,20 @@
         "datum": "authored_object_origin",
         "datumObject": "CivicPediment",
         "convention": {
-          "x": "centered",
-          "y": "centered",
+          "x": "positive-from-origin",
+          "y": "negative-from-origin",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
-        "symmetricAboutFront": true,
+        "frontAxis": "-Y",
+        "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
-            "min": -4,
-            "max": 4
+            "min": 0,
+            "max": 8
           },
           "y": {
-            "min": -0.2,
-            "max": 0.2
+            "min": -0.4,
+            "max": 0
           },
           "z": {
             "min": 0,
@@ -22966,8 +22968,8 @@
           }
         },
         "datumOffsetFromGroundCenterMeters": [
-          0,
-          0,
+          -4,
+          0.2,
           0
         ],
         "moduleBoundsInPlacementFrameMeters": {
@@ -23005,7 +23007,7 @@
           180,
           270
         ],
-        "symmetricAboutFront": true
+        "symmetricAboutFront": false
       },
       "measured": {
         "meshObjects": 1,
@@ -24005,12 +24007,12 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "geometría original: linterna de campanario, una sola unidad"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 155 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
-        "widthMeters": 1.6971,
-        "depthMeters": 1.6971,
-        "heightMeters": 2.3075
+        "widthMeters": 1.697,
+        "depthMeters": 1.697,
+        "heightMeters": 2.308
       },
       "anchor": {
         "datum": "authored_object_origin",
@@ -24018,28 +24020,28 @@
         "convention": {
           "x": "centered",
           "y": "centered",
-          "z": "positive-from-origin"
+          "z": "offset"
         },
         "frontAxis": "symmetric-Y",
         "symmetricAboutFront": true,
         "boundsRelativeToOriginMeters": {
           "x": {
-            "min": -0.8485,
-            "max": 0.8485
+            "min": -0.849,
+            "max": 0.849
           },
           "y": {
-            "min": -0.8485,
-            "max": 0.8485
+            "min": -0.849,
+            "max": 0.849
           },
           "z": {
-            "min": 0,
-            "max": 2.3075
+            "min": 0.062,
+            "max": 2.37
           }
         },
         "datumOffsetFromGroundCenterMeters": [
           0,
           0,
-          0
+          -0.062
         ],
         "moduleBoundsInPlacementFrameMeters": {
           "x": {
@@ -24106,6 +24108,142 @@
         "fileTriangles": 306,
         "fileHierarchy": [
           "SchoolCupola:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_original_construction_scaffold",
+      "category": "utility",
+      "role": "scaffold",
+      "note": "andamio de fachada original para estados de obra (crujía 2x3 m); geometría propia",
+      "sourceId": "src_original_construction_scaffold",
+      "sourcePath": "blender_artist/sources/original/construction_scaffold.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "ConstructionScaffold"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "residential_low",
+        "industrial_heavy",
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 162 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.9,
+        "depthMeters": 0.465,
+        "heightMeters": 2.92
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "ConstructionScaffold",
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.95,
+            "max": 0.95
+          },
+          "y": {
+            "min": -0.05,
+            "max": 0.415
+          },
+          "z": {
+            "min": 0.01,
+            "max": 2.93
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.182,
+          -0.01
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.95,
+            "max": 0.95
+          },
+          "y": {
+            "min": -0.2325,
+            "max": 0.2325
+          },
+          "z": {
+            "min": 0,
+            "max": 2.92
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 648,
+        "triangles": 324,
+        "shells": 162,
+        "materials": [
+          "scaffold_plank",
+          "scaffold_steel"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "ConstructionScaffold"
+        ],
+        "baseColorChains": [
+          "scaffold_plank=plano",
+          "scaffold_steel=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 1.9,
+          "depth": 0.465,
+          "height": 2.92,
+          "minZ": 0.01
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.1825,
+          -0.01
+        ],
+        "fileTriangles": 324,
+        "fileHierarchy": [
+          "ConstructionScaffold:MESH"
         ]
       }
     }

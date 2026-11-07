@@ -1,7 +1,6 @@
 # V.i — Catálogo de industria pesada
 
-Estado: auditoría geométrica cerrada; candidatos listos para revisión del responsable; sin promoción
-al runtime todavía.
+Estado: auditoría geométrica cerrada; selección del responsable promovida al runtime.
 
 ## Alcance
 
@@ -27,14 +26,14 @@ El barrido headless cubre 100 seeds por tipo en el test canónico; durante la au
 - `metrics.json`: tiempos, bounds, triángulos, provenance y ratios de geometría licenciada;
 - `contact-sheets/`: comparación del fallback procedural con cuatro variantes por tipo.
 
-Los doce renders tienen entre 99,4 % y 99,8 % de geometría licenciada/original medida. Ningún
-candidato se ha marcado como `qa_approved`.
+Los doce renders tienen entre 99,4 % y 99,8 % de geometría licenciada/original medida. La selección
+del responsable se ha marcado como `qa_approved` y publicado sin fabricar estados adicionales.
 
-## Recomendación visual para la revisión humana
+## Selección aprobada
 
-- `cement_plant`: `vg_cement_plant_1003` (v4), por silueta de proceso y lectura clara de silos;
+- `cement_plant`: `vg_cement_plant_1001` (v2), elección expresa del responsable;
 - `brickworks`: `vg_brickworks_1000` (v1), por equilibrio entre nave, ladrillo y chimenea;
 - `steelworks`: `vg_steelworks_1003` (v4), por masa metálica y skyline industrial más reconocible.
 
-La elección final debe registrarse en `runtime-promotions.json`; sólo después corresponde regenerar
-el bundle, cambiar las tres políticas a `runtime_exact` y declarar el catálogo 15/15.
+Las tres promociones quedan registradas en `runtime-promotions.json`; sus políticas son
+`runtime_exact` y el catálogo Composer queda en 15/15.

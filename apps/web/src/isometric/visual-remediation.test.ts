@@ -53,6 +53,9 @@ const REVIEWED_COMPOSER: readonly BuildingType[] = [
   "police_station",
   "fire_station",
   "market_hall",
+  "cement_plant",
+  "brickworks",
+  "steelworks",
 ];
 
 describe("V.h visual remediation", () => {
@@ -89,6 +92,9 @@ describe("V.h visual remediation", () => {
       police_station: "vg_police_station_1002",
       fire_station: "vg_fire_station_1003",
       market_hall: "vg_market_hall_1000",
+      cement_plant: "vg_cement_plant_1001",
+      brickworks: "vg_brickworks_1000",
+      steelworks: "vg_steelworks_1003",
     };
     for (const [type, candidateId] of Object.entries(approved)) {
       const asset = BLENDER_ASSETS.buildings[type]!;

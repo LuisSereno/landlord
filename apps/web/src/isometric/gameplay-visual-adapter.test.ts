@@ -313,15 +313,22 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
       mode: "runtime_exact",
       assetId: "town_hall",
     });
-    // V.i: warehouse ya tiene Composer propio; cement_plant sigue en fallback procedural y debe
-    // resolver su propia silueta (nunca otra familia), que es el invariante §6.
+    // V.i: el catálogo industrial tiene Composer propio revisado y publicado en runtime.
     expect(BUILDING_VISUAL_POLICIES.warehouse).toEqual({
       mode: "runtime_exact",
       assetId: "warehouse",
     });
     expect(BUILDING_VISUAL_POLICIES.cement_plant).toEqual({
-      mode: "procedural_semantic_fallback",
+      mode: "runtime_exact",
       assetId: "cement_plant",
+    });
+    expect(BUILDING_VISUAL_POLICIES.brickworks).toEqual({
+      mode: "runtime_exact",
+      assetId: "brickworks",
+    });
+    expect(BUILDING_VISUAL_POLICIES.steelworks).toEqual({
+      mode: "runtime_exact",
+      assetId: "steelworks",
     });
   });
 

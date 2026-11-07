@@ -320,6 +320,93 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i civic candidate vg_market_hall_1000. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
       }
+    },
+    {
+      "assetId": "cement_plant",
+      "semanticType": "cement_plant",
+      "candidateBuildingType": "cement_plant",
+      "candidateId": "vg_cement_plant_1001",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "docs/art/industrial-heavy-catalog-vi/candidates/vg_cement_plant_1001.json",
+      "candidateImage": "docs/art/industrial-heavy-catalog-vi/candidates/vg_cement_plant_1001.png",
+      "compositionSignature": "6ec90ceaa150828ab6deb198d7ed0ad430bc953a0078c0c17fd3c73df08cdfe4",
+      "imageSha256": "a5b91b51434814e9636fca382d2d20f45c7729ae8fd19ae72e591955f22dec77",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "state": "complete",
+      "footprint": {
+        "width": 5,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 5,
+        "height": 2
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i heavy-industry candidate vg_cement_plant_1001 (v2). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      }
+    },
+    {
+      "assetId": "brickworks",
+      "semanticType": "brickworks",
+      "candidateBuildingType": "brickworks",
+      "candidateId": "vg_brickworks_1000",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "docs/art/industrial-heavy-catalog-vi/candidates/vg_brickworks_1000.json",
+      "candidateImage": "docs/art/industrial-heavy-catalog-vi/candidates/vg_brickworks_1000.png",
+      "compositionSignature": "d3c82a442135fc409c6551a42a77905091c3c001c35f6b7c25d6d8d3623d9eee",
+      "imageSha256": "13e564af127681384432ec1b80c3b2af41c1abfe7a20509b402154a492acf5b4",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "state": "complete",
+      "footprint": {
+        "width": 5,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 5,
+        "height": 2
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i heavy-industry candidate vg_brickworks_1000 (v1). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      }
+    },
+    {
+      "assetId": "steelworks",
+      "semanticType": "steelworks",
+      "candidateBuildingType": "steelworks",
+      "candidateId": "vg_steelworks_1003",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "docs/art/industrial-heavy-catalog-vi/candidates/vg_steelworks_1003.json",
+      "candidateImage": "docs/art/industrial-heavy-catalog-vi/candidates/vg_steelworks_1003.png",
+      "compositionSignature": "e0c067b6a9dda86411eb92404b57bcd401a7e97fa18342455d94a8226c079950",
+      "imageSha256": "c27a13250966120ca0e2a58f7ca4ab90a385d66abb83f1e3ca1d72226da00819",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "state": "complete",
+      "footprint": {
+        "width": 4,
+        "height": 3
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 3
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i heavy-industry candidate vg_steelworks_1003 (v4). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      }
     }
   ]
 }

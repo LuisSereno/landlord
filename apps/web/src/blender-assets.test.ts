@@ -176,8 +176,9 @@ describe("WP4.15-H ruta Blender E2E", () => {
       ]),
     ];
     // 81 (V.h.6) + 80 Rocketbox V.h.11 + town_hall + school_block V7 + row_house/apartment_block/
-    // mixed_tenement + workshop/warehouse + clinic/police_station/fire_station/market_hall V.i.
-    expect(images.length).toBe(172);
+    // mixed_tenement + workshop/warehouse + clinic/police_station/fire_station/market_hall +
+    // cement_plant/brickworks/steelworks V.i.
+    expect(images.length).toBe(175);
     let totalBytes = 0;
     for (const image of images) {
       const buffer = readFileSync(join(PUBLIC_DIR, image.src));

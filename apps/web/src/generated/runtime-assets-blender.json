@@ -754,6 +754,111 @@
         45
       ],
       "symmetry": "none"
+    },
+    "cement_plant": {
+      "type": "cement_plant",
+      "name": "cement_plant",
+      "footprint": {
+        "width": 5,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 5,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5549,
+        "y": 0.6004
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender/cement_plant-complete.png",
+          "width": 665,
+          "height": 541,
+          "sha256": "a5b91b51434814e9636fca382d2d20f45c7729ae8fd19ae72e591955f22dec77"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 30.1,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i heavy-industry candidate vg_cement_plant_1001 (v2). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none"
+    },
+    "brickworks": {
+      "type": "brickworks",
+      "name": "brickworks",
+      "footprint": {
+        "width": 5,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 5,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5312,
+        "y": 0.695
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender/brickworks-complete.png",
+          "width": 592,
+          "height": 648,
+          "sha256": "13e564af127681384432ec1b80c3b2af41c1abfe7a20509b402154a492acf5b4"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 30.1,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i heavy-industry candidate vg_brickworks_1000 (v1). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none"
+    },
+    "steelworks": {
+      "type": "steelworks",
+      "name": "steelworks",
+      "footprint": {
+        "width": 4,
+        "height": 3
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.5816,
+        "y": 0.6758
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender/steelworks-complete.png",
+          "width": 662,
+          "height": 719,
+          "sha256": "c27a13250966120ca0e2a58f7ca4ab90a385d66abb83f1e3ca1d72226da00819"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 30.1,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i heavy-industry candidate vg_steelworks_1003 (v4). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none"
     }
   },
   "characters": {

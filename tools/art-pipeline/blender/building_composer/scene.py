@@ -578,7 +578,7 @@ def framing(composition, camera, profile):
     width_meters = round(horizontal * margin, 3)
     height_meters = round(vertical * margin, 3)
     ortho_scale = round(max(width_meters, height_meters), 3)
-    density = profile.pixels_per_meter
+    density = profile.pixels_per_meter * composition.get("renderScale", 1)
     return {
         "projectedWidthMeters": round(horizontal, 3),
         "projectedHeightMeters": round(vertical, 3),

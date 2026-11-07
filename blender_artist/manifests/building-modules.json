@@ -23980,6 +23980,134 @@
           "tmpParent:EMPTY"
         ]
       }
+    },
+    {
+      "id": "mod_original_school_cupola",
+      "category": "roof",
+      "role": "civic_tower",
+      "note": "cupula/linterna de campanario original para colegio americano (geometría propia)",
+      "sourceId": "src_original_school_cupola",
+      "sourcePath": "blender_artist/sources/original/school_cupola.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "SchoolCupola"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "geometría original: linterna de campanario, una sola unidad"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.6971,
+        "depthMeters": 1.6971,
+        "heightMeters": 2.3075
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "SchoolCupola",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.8485,
+            "max": 0.8485
+          },
+          "y": {
+            "min": -0.8485,
+            "max": 0.8485
+          },
+          "z": {
+            "min": 0,
+            "max": 2.3075
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.8485,
+            "max": 0.8485
+          },
+          "y": {
+            "min": -0.8485,
+            "max": 0.8485
+          },
+          "z": {
+            "min": 0,
+            "max": 2.3075
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 616,
+        "triangles": 306,
+        "shells": 155,
+        "materials": [],
+        "images": [],
+        "selectedObjects": [
+          "SchoolCupola"
+        ],
+        "baseColorChains": []
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 1.6971,
+          "depth": 1.6971,
+          "height": 2.3075,
+          "minZ": 0.0625
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          0,
+          -0.0625
+        ],
+        "fileTriangles": 306,
+        "fileHierarchy": [
+          "SchoolCupola:MESH"
+        ]
+      }
     }
   ]
 }

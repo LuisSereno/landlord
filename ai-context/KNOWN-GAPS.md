@@ -443,6 +443,18 @@ Pendiente:
 - probar importación/normalización de Quaternius/Kenney en Blender 5.2.2;
 - validar que el Landlord Style Layer unifica assets de proveedores distintos.
 
+Hallazgo V.i remediation (2026-11-07, medido): **no-determinismo raster byte-level preexistente**.
+La composición y la `compositionSignature` son deterministas (mismo seed ⇒ mismos módulos/transformadas),
+pero el PNG final varía entre procesos: mismo seed repetido en HEAD da sha `c241ab5d…` vs `c5e3a001…`,
+y en el árbol de remediation `e025c8bc…` vs `c6f16457…`, con framing y style idénticos. Los edits
+aditivos de la remediation (renderScale, stackOn de volúmenes enteros contenidos, skip de cubierta del
+volumen que sostiene linterna) son composition-neutral: firma HEAD == firma remediation en row_house y
+town_hall. Consecuencia: los PNG promovidos son evidencia congelada; la promoción copia verbatim y
+cross-checkea el sha almacenado, pero re-renderizar no reproduce el sha de candidatos antiguos.
+Reapertura: si la regresión visual por pixel-diff o la promoción reproducible exigen estabilidad byte,
+fijar el muestreo/jitter del pase de sombra y luces de EEVEE Next (hoy `use_taa_reprojection=False` y
+muestras fijas no bastan).
+
 ## Legal
 - clearance de marca;
 - revisión final de similitud.

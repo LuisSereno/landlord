@@ -23,8 +23,8 @@
       "id": "graphic_civic_buildings_v1",
       "label": "Edificios cívicos gráficos nocturnos, compuestos con geometría licenciada",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "60ba08adfd2331246e35c50a19c4d04ee8869b7163e9eaba99d0718a020168bb",
-      "selectionSha256": "cd467b01062171f6bc422077820ff7823a7d7c3fe81f03b05b87aa8eed55fb73",
+      "moduleCatalogSha256": "e69a6f0449417a3153981210ea6c49f4002fc1eee55545f4bf8ea97e17953ca3",
+      "selectionSha256": "9b3dca59a9b85d147333c6da1be2846c73b48190422034feafe1c27c9f831709",
       "appliesToFamilies": [
         "residential_low",
         "industrial_heavy",
@@ -966,7 +966,7 @@
           "value": {
             "trianglesPerModule": {
               "p50": 112,
-              "p90": 1100.2,
+              "p90": 1094.3,
               "max": 2960
             },
             "facadeTrianglesPerSquareMeter": {
@@ -1801,30 +1801,30 @@
             },
             {
               "measured": [
-                "bld_shopfront/complete: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":10,\"exposure\":-0.25}",
-                "bld_shopfront/construction: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":10,\"exposure\":-0.25}",
-                "bld_shopfront/damaged: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":10,\"exposure\":-0.25}",
-                "bld_shopfront/burning: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":10,\"exposure\":-0.25}",
-                "bld_commercial_b/complete: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":2,\"exposure\":-0.25}",
-                "bld_commercial_b/construction: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":2,\"exposure\":-0.25}",
-                "bld_commercial_b/damaged: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":2,\"exposure\":-0.25}",
-                "bld_commercial_b/burning: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":2,\"exposure\":-0.25}",
-                "bld_residential_a/complete: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":4,\"exposure\":-0.25}",
-                "bld_residential_a/construction: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":4,\"exposure\":-0.25}",
-                "bld_residential_a/damaged: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":4,\"exposure\":-0.25}",
-                "bld_residential_a/burning: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":4,\"exposure\":-0.25}",
-                "bld_commercial_c/complete: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":7,\"exposure\":-0.25}",
-                "bld_commercial_c/construction: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":7,\"exposure\":-0.25}",
-                "bld_commercial_c/damaged: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":7,\"exposure\":-0.25}",
-                "bld_commercial_c/burning: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":7,\"exposure\":-0.25}",
-                "bld_residential_b/complete: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":7,\"exposure\":-0.25}",
-                "bld_residential_b/construction: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":7,\"exposure\":-0.25}",
-                "bld_residential_b/damaged: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":7,\"exposure\":-0.25}",
-                "bld_residential_b/burning: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":7,\"exposure\":-0.25}",
-                "bld_residential_c/complete: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":6,\"exposure\":-0.25}",
-                "bld_residential_c/construction: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":6,\"exposure\":-0.25}",
-                "bld_residential_c/damaged: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":6,\"exposure\":-0.25}",
-                "bld_residential_c/burning: {\"version\":6,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":6,\"exposure\":-0.25}"
+                "bld_shopfront/complete: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":10,\"exposure\":-0.25}",
+                "bld_shopfront/construction: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":10,\"exposure\":-0.25}",
+                "bld_shopfront/damaged: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":10,\"exposure\":-0.25}",
+                "bld_shopfront/burning: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":10,\"exposure\":-0.25}",
+                "bld_commercial_b/complete: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":2,\"exposure\":-0.25}",
+                "bld_commercial_b/construction: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":2,\"exposure\":-0.25}",
+                "bld_commercial_b/damaged: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":2,\"exposure\":-0.25}",
+                "bld_commercial_b/burning: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":2,\"exposure\":-0.25}",
+                "bld_residential_a/complete: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":4,\"exposure\":-0.25}",
+                "bld_residential_a/construction: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":4,\"exposure\":-0.25}",
+                "bld_residential_a/damaged: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":4,\"exposure\":-0.25}",
+                "bld_residential_a/burning: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":4,\"exposure\":-0.25}",
+                "bld_commercial_c/complete: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":7,\"exposure\":-0.25}",
+                "bld_commercial_c/construction: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":7,\"exposure\":-0.25}",
+                "bld_commercial_c/damaged: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":7,\"exposure\":-0.25}",
+                "bld_commercial_c/burning: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10144,\"litWindows\":7,\"exposure\":-0.25}",
+                "bld_residential_b/complete: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":7,\"exposure\":-0.25}",
+                "bld_residential_b/construction: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":7,\"exposure\":-0.25}",
+                "bld_residential_b/damaged: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":7,\"exposure\":-0.25}",
+                "bld_residential_b/burning: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":7,\"exposure\":-0.25}",
+                "bld_residential_c/complete: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":6,\"exposure\":-0.25}",
+                "bld_residential_c/construction: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":6,\"exposure\":-0.25}",
+                "bld_residential_c/damaged: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":6,\"exposure\":-0.25}",
+                "bld_residential_c/burning: {\"version\":7,\"atlases\":[\"colormap\"],\"flatMaterials\":0,\"emissiveTexels\":10190,\"litWindows\":6,\"exposure\":-0.25}"
               ],
               "how": "el metadato de cada edificio embarcado registra el tratamiento v6 que produjo este mismo rig, incluidas las ventanas encendidas por atlas",
               "source": "blender_artist/manifests/runtime-blender-e2e-metadata.json → styleLayer"
@@ -5462,13 +5462,13 @@
     }
   ],
   "counts": {
-    "modules": 173,
+    "modules": 174,
     "texturesSampled": 30,
     "familiesPresentInGeometry": 6,
     "familiesMeasuredByAlbedo": 4,
     "familyPairsChecked": 6,
     "collapsedPairs": 0,
-    "modulesFullyTreatedToday": 97,
+    "modulesFullyTreatedToday": 98,
     "modulesWithRawMaterial": 76,
     "texturesSplitAcrossModules": 5
   }

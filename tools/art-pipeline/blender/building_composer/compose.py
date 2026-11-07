@@ -300,7 +300,16 @@ class Composition:
             self.volumes.append(self._resolve_volume(spec))
         for volume in self.volumes:
             self._build_volume(volume, palette, rhythm, silhouette, corner)
-        for volume in self.volumes:
+        for index, volume in enumerate(self.volumes):
+            if any(
+                other["stackOn"] == index and other["build"] == "whole"
+                for other in self.volumes
+            ):
+                # V.i: el volumen que sostiene una linterna entera no repeina su cubierta;
+                # la corona la aporta la fuente apilada (la cubierta procedural la sepultaría).
+                volume.setdefault("deck", volume["top"])
+                volume["rise"] = 0.0
+                continue
             self._build_roof(volume, roof)
         self._build_access(access, corner)
         
@@ -489,8 +498,8 @@ class Composition:
         if build not in ("bands", "whole"):
             raise CompositionError(f"§19: modo de volumen inexistente {build}")
         if build == "whole":
-            if spec["stackOn"] is not None:
-                raise CompositionError("§15: un volumen entero no se apila: su masa la define la fuente")
+            # V.i: una linterna original puede apoyarse en la cubierta del padre (stackOn) sin
+            # escalar ni cortar la fuente; §17 exige que el rect del hijo quede contenido en el padre.
             if spec["slab"]:
                 raise CompositionError("un volumen entero ya trae su suelo: la losa quedaría empotrada")
         elif spec["slab"] and spec["stackOn"] is not None:
@@ -1540,6 +1549,7 @@ class Composition:
             "buildingType": self.building_type,
             "family": self.family,
             "styleProfileId": self.style_profile_id,
+            "renderScale": self.record.get("renderScale", 1),
             "composerVersion": self.composer_version,
             "variantSeed": self.variant_seed,
             "footprintCells": self.footprint_cells,

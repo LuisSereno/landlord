@@ -1,0 +1,180 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-07T09:06:40.864Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/remediation-vi/candidates/courtyard_home",
+ "requested": 4,
+ "rendered": 4,
+ "totalGenerationMs": 411244,
+ "blenderPeakRssMb": 8002.3,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "804a7ed90e19e59c69b03fcdaa0fd1b2476d00dca9fe26ad91918924f36e84ef",
+   "after": "804a7ed90e19e59c69b03fcdaa0fd1b2476d00dca9fe26ad91918924f36e84ef"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_courtyard_home_2000",
+   "buildingType": "courtyard_home",
+   "family": "residential_low",
+   "variantSeed": 2000,
+   "compositionSignature": "14cae4c4a57783e421089888b7b8da8099d340164b760cdf46d5b63bfdc49d3f",
+   "triangleCount": 5074,
+   "objectCount": 65,
+   "moduleCount": 7,
+   "materials": 18,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -4.2,
+     "max": 4
+    },
+    "y": {
+     "min": -4.2,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 9.4
+    }
+   },
+   "renderMs": 26427.45,
+   "pngBytes": 582499,
+   "pngPixels": [
+    802,
+    974
+   ],
+   "pixelSha256": "e91743450c92210c8cfd02a7ac47735191680eb7b1aadcdf5920839badfa7849",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5748,
+    "y": 0.6828
+   }
+  },
+  {
+   "candidateId": "vg_courtyard_home_2001",
+   "buildingType": "courtyard_home",
+   "family": "residential_low",
+   "variantSeed": 2001,
+   "compositionSignature": "30fc677a012ae2a7722a8060853e3a1eb3b40b568f2300a2a9917a4306a71b92",
+   "triangleCount": 2764,
+   "objectCount": 65,
+   "moduleCount": 6,
+   "materials": 13,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -4.2,
+     "max": 4
+    },
+    "y": {
+     "min": -4.2,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 6
+    }
+   },
+   "renderMs": 25257.02,
+   "pngBytes": 473182,
+   "pngPixels": [
+    802,
+    768
+   ],
+   "pixelSha256": "1fb13a5d3fc28ec9e913ccc34c398ad8f4ed50fe2bd21245bc508ebbde006d87",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5748,
+    "y": 0.6347
+   }
+  },
+  {
+   "candidateId": "vg_courtyard_home_2002",
+   "buildingType": "courtyard_home",
+   "family": "residential_low",
+   "variantSeed": 2002,
+   "compositionSignature": "15f0c87415b444e3d22fa9c68e1e0ad3ced940047815c7ce8a840359729667a3",
+   "triangleCount": 5906,
+   "objectCount": 65,
+   "moduleCount": 7,
+   "materials": 18,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -4.428,
+     "max": 4
+    },
+    "y": {
+     "min": -4.428,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 9.4
+    }
+   },
+   "renderMs": 33244.21,
+   "pngBytes": 572634,
+   "pngPixels": [
+    815,
+    985
+   ],
+   "pixelSha256": "d72f137952859ef5cfec06bdbe559757d9ba9d630285f3ac42643e01a4d5a007",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.581,
+    "y": 0.6798
+   }
+  },
+  {
+   "candidateId": "vg_courtyard_home_2003",
+   "buildingType": "courtyard_home",
+   "family": "residential_low",
+   "variantSeed": 2003,
+   "compositionSignature": "cf5ba307bc4db3a7fbdd4158555ec7b7f8b0598752282c5eb0375b5fd132f062",
+   "triangleCount": 6826,
+   "objectCount": 65,
+   "moduleCount": 7,
+   "materials": 18,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -4.428,
+     "max": 4
+    },
+    "y": {
+     "min": -4.428,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 6.2
+    }
+   },
+   "renderMs": 28053.47,
+   "pngBytes": 499605,
+   "pngPixels": [
+    814,
+    792
+   ],
+   "pixelSha256": "477c5d0507536e72ec6afbf3472f2438e4cee24293f3b3462ed56347112281c9",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5817,
+    "y": 0.6351
+   }
+  }
+ ],
+ "failures": []
+}

@@ -53,6 +53,7 @@ REQUIRED_GRAMMAR_KEYS = {
 }
 OPTIONAL_GRAMMAR_KEYS = {
     "recipes",  # V.g: recetas arquitectónicas (opcional durante migración)
+    "renderScale",  # V.i: densidad de render explícita por tipo (D-100 exige decisión explícita)
 }
 GRAMMAR_KEYS = REQUIRED_GRAMMAR_KEYS | OPTIONAL_GRAMMAR_KEYS
 # Cada eje debe poder cambiar la geometría por sí solo: sin opción lista, el eje no puede variar.
@@ -188,6 +189,10 @@ class GrammarDocument:
         )
         if record["buildingType"] != building_type:
             raise GrammarError(f"{building_type}: la gramática se autodenomina {record['buildingType']}")
+        if "renderScale" in record:
+            scale = record["renderScale"]
+            if not isinstance(scale, (int, float)) or isinstance(scale, bool) or scale < 1:
+                raise GrammarError(f"{building_type}: renderScale debe ser un número >= 1, no {scale!r}")
         self._check_roles(record, catalog, profile)
         self._check_recipes(record, catalog, record["family"])  # V.g: validar recetas arquitectónicas
         return record

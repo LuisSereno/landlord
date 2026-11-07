@@ -10,7 +10,7 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://quaternius.itch.io/downtown-city-megakit",
-      "unitScale": 1.0,
+      "unitScale": 1,
       "extractDir": "quaternius/downtown-city-megakit",
       "integrity": {
         "type": "archived",
@@ -26,7 +26,7 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://quaternius.itch.io/universal-base-characters",
-      "unitScale": 1.0,
+      "unitScale": 1,
       "extractDir": "quaternius/base-characters",
       "integrity": {
         "type": "archived",
@@ -72,7 +72,7 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/city-kit-commercial",
-      "unitScale": 4.0,
+      "unitScale": 4,
       "extractDir": "kenney/city-kit-commercial",
       "integrity": {
         "type": "archived",
@@ -88,7 +88,7 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/city-kit-industrial",
-      "unitScale": 4.0,
+      "unitScale": 4,
       "extractDir": "kenney/city-kit-industrial",
       "integrity": {
         "type": "archived",
@@ -104,7 +104,7 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/city-kit-roads",
-      "unitScale": 4.0,
+      "unitScale": 4,
       "extractDir": "kenney/city-kit-roads",
       "integrity": {
         "type": "archived",
@@ -120,7 +120,7 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/city-kit-suburban",
-      "unitScale": 4.0,
+      "unitScale": 4,
       "extractDir": "kenney/city-kit-suburban",
       "integrity": {
         "type": "archived",
@@ -152,7 +152,7 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/nature-kit",
-      "unitScale": 4.0,
+      "unitScale": 4,
       "extractDir": "kenney/nature-kit",
       "integrity": {
         "type": "archived",
@@ -168,7 +168,7 @@
       "license": "CC0-1.0",
       "verification": "CC0 asserted by the author at the sourceUrl and shipped inside the archive as Assets/LICENSE.txt",
       "sourceUrl": "https://kaylousberg.itch.io/city-builder-bits",
-      "unitScale": 4.0,
+      "unitScale": 4,
       "extractDir": "kaykit/city-builder-bits",
       "integrity": {
         "type": "archived",
@@ -293,9 +293,20 @@
       "sha256": null,
       "origin": "original",
       "license": "original",
-      "verification": "geometr\u00eda propia generada por create_original_civic_pediment.py",
+      "verification": "geometría propia generada por create_original_civic_pediment.py",
       "sourceUrl": null,
-      "unitScale": 1.0,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_school_cupola",
+      "path": "blender_artist/sources/original/school_cupola.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por create_original_school_cupola.py",
+      "sourceUrl": null,
+      "unitScale": 1,
       "extractDir": null
     }
   ],

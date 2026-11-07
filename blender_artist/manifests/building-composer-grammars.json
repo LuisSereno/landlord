@@ -1108,7 +1108,9 @@
             "warm_limestone"
           ],
           "propIds": [],
-          "secondaryIds": ["none"],
+          "secondaryIds": [
+            "none"
+          ],
           "requiredFeatures": [
             {
               "kind": "facade",
@@ -1120,7 +1122,7 @@
               "levels": 2,
               "distribution": "symmetric",
               "targetVolume": 1,
-              "projectionMeters": 1.0,
+              "projectionMeters": 1,
               "startLevel": 0
             },
             {
@@ -1134,7 +1136,7 @@
               "startLevel": 2,
               "distribution": "symmetric",
               "targetVolume": 1,
-              "projectionMeters": 0.30
+              "projectionMeters": 0.3
             },
             {
               "kind": "facade",
@@ -1147,7 +1149,7 @@
               "startLevel": 2,
               "distribution": "symmetric",
               "targetVolume": 1,
-              "projectionMeters": 0.40
+              "projectionMeters": 0.4
             }
           ]
         },
@@ -1198,7 +1200,7 @@
               "startLevel": 2,
               "distribution": "symmetric",
               "targetVolume": 0,
-              "projectionMeters": 0.20
+              "projectionMeters": 0.2
             }
           ]
         },
@@ -1237,7 +1239,7 @@
               "startLevel": 2,
               "distribution": "symmetric",
               "targetVolume": 0,
-              "projectionMeters": 0.10
+              "projectionMeters": 0.1
             },
             {
               "kind": "facade",
@@ -1300,7 +1302,7 @@
               "startLevel": 2,
               "distribution": "symmetric",
               "targetVolume": 0,
-              "projectionMeters": 0.20
+              "projectionMeters": 0.2
             }
           ]
         }
@@ -1843,7 +1845,7 @@
       "buildingType": "courtyard_home",
       "family": "residential_low",
       "label": "Casa compacta con patio (2×2 celdas, 1 planta)",
-      "notes": "V.g: arquetipo de vivienda urbana compacta con patio o recinto doméstico. El solar real del dominio mide 8×8 m; la gramática reserva 0 celdas de yard para maximizar la construcción en la parcela, pero el massing puede dejar hueco interior para el patio. La identidad doméstica se impone por cubierta inclinada, entrada clara y ausencia total de lenguaje industrial o comercial.",
+      "notes": "V.g: arquetipo de vivienda urbana compacta con patio o recinto doméstico. El solar real del dominio mide 8×8 m; la gramática reserva 0 celdas de yard para maximizar la construcción en la parcela, pero el massing puede dejar hueco interior para el patio. La identidad doméstica se impone por cubierta inclinada, entrada clara y ausencia total de lenguaje industrial o comercial. V.i remediation (rechazo humano de vg_courtyard_home_1002): fuera el bloque compacto sin patio; sólo masas con patio visible. renderScale=2 decidido explícitamente por el responsable para que no pixelice a zoom (D-100: cambiar resolución exige decisión explícita).",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -1859,26 +1861,6 @@
         }
       ],
       "massingOptions": [
-        {
-          "id": "compact_block",
-          "label": "bloque compacto cuadrado sin patio",
-          "volumes": [
-            {
-              "cells": [
-                0,
-                0,
-                2,
-                2
-              ],
-              "levels": "domain",
-              "stackOn": null,
-              "slab": true,
-              "build": "bands",
-              "role": null,
-              "module": null
-            }
-          ]
-        },
         {
           "id": "l_shaped",
           "label": "forma de L con patio en esquina",
@@ -1936,26 +1918,6 @@
                 1,
                 0,
                 1,
-                1
-              ],
-              "levels": "domain",
-              "stackOn": null,
-              "slab": true,
-              "build": "bands",
-              "role": null,
-              "module": null
-            }
-          ]
-        },
-        {
-          "id": "courtyard_walls",
-          "label": "cuerpo principal con muro de patio",
-          "volumes": [
-            {
-              "cells": [
-                0,
-                0,
-                2,
                 1
               ],
               "levels": "domain",
@@ -2187,7 +2149,8 @@
           "glazed_lobby",
           "canopied_dock"
         ]
-      }
+      },
+      "renderScale": 2
     },
     "apartment_block": {
       "buildingType": "apartment_block",
@@ -4598,12 +4561,12 @@
               "from": [
                 0.1,
                 0.1,
-                0.0
+                0
               ],
               "to": [
                 0.9,
                 0.9,
-                3.0
+                3
               ],
               "radiusMeters": 0.15,
               "segments": 8,
@@ -4646,7 +4609,7 @@
     "school_block": {
       "buildingType": "school_block",
       "family": "civic_landmark",
-      "label": "Colegio urbano/institucional (7×2 celdas, 3 plantas)",
+      "label": "Colegio americano con cupola (7×2 celdas, alas 2 plantas + pabellón 3)",
       "notes": "V.g: colegio urbano tradicional con cuerpo longitudinal, repetición clara de ventanas de aulas, entrada central y lenguaje institucional (ladrillo/piedra). Debe distinguirse de town_hall por mayor longitud, más plantas de aulas repetitivas y menos monumentalidad. Debe distinguirse de apartment_block por lenguaje institucional (reloj, campanario, frontón), acceso público marcado y ritmo de ventanas de aula uniforme. Solar real: 28×8 m.",
       "yard": {
         "leftCells": 0,
@@ -4664,28 +4627,8 @@
       ],
       "massingOptions": [
         {
-          "id": "longitudinal_block",
-          "label": "cuerpo longitudinal de tres plantas con entrada centrada",
-          "volumes": [
-            {
-              "cells": [
-                0,
-                1,
-                7,
-                1
-              ],
-              "levels": "domain",
-              "stackOn": null,
-              "slab": true,
-              "build": "bands",
-              "role": null,
-              "module": null
-            }
-          ]
-        },
-        {
-          "id": "central_pavilion",
-          "label": "pabellón central destacado con alas laterales",
+          "id": "american_school",
+          "label": "colegio americano: alas simétricas de 2 plantas, pabellón central de 3 y cupola de campanario",
           "volumes": [
             {
               "cells": [
@@ -4694,7 +4637,21 @@
                 3,
                 1
               ],
-              "levels": "domain",
+              "levels": 2,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [
+                4,
+                1,
+                3,
+                1
+              ],
+              "levels": 2,
               "stackOn": null,
               "slab": true,
               "build": "bands",
@@ -4717,85 +4674,17 @@
             },
             {
               "cells": [
-                4,
-                1,
                 3,
-                1
-              ],
-              "levels": "domain",
-              "stackOn": null,
-              "slab": true,
-              "build": "bands",
-              "role": null,
-              "module": null
-            }
-          ]
-        },
-        {
-          "id": "stepped_school",
-          "label": "cuerpo escalonado con retranqueo superior",
-          "volumes": [
-            {
-              "cells": [
-                0,
                 1,
-                7,
-                1
-              ],
-              "levels": 2,
-              "stackOn": null,
-              "slab": true,
-              "build": "bands",
-              "role": null,
-              "module": null
-            },
-            {
-              "cells": [
-                2,
                 1,
-                3,
                 1
               ],
               "levels": 1,
-              "stackOn": 0,
+              "stackOn": 2,
               "slab": false,
-              "build": "bands",
-              "role": null,
-              "module": null
-            }
-          ]
-        },
-        {
-          "id": "l_shaped_school",
-          "label": "forma de L con patio escolar frontal",
-          "volumes": [
-            {
-              "cells": [
-                0,
-                1,
-                5,
-                1
-              ],
-              "levels": "domain",
-              "stackOn": null,
-              "slab": true,
-              "build": "bands",
-              "role": null,
-              "module": null
-            },
-            {
-              "cells": [
-                5,
-                1,
-                2,
-                1
-              ],
-              "levels": 2,
-              "stackOn": null,
-              "slab": true,
-              "build": "bands",
-              "role": null,
-              "module": null
+              "build": "whole",
+              "role": "civic_tower",
+              "module": "mod_original_school_cupola"
             }
           ]
         }
@@ -5016,18 +4905,6 @@
       ],
       "secondaryOptions": [
         {
-          "id": "bell_tower",
-          "label": "pequeño campanario sobre la entrada",
-          "role": "civic_tower",
-          "module": "mod_kaykit_civic_block_h",
-          "optional": true,
-          "atCell": [
-            3,
-            1
-          ],
-          "supports": []
-        },
-        {
           "id": "school_annex",
           "label": "ala aneja del gimnasio en el patio",
           "role": "civic_block",
@@ -5038,7 +4915,7 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3/V.g: un colegio se reconoce por su cuerpo longitudinal, repetición uniforme de ventanas de aula, entrada institucional y lenguaje cívico (ladrillo/piedra). Debe distinguirse de town_hall por mayor longitud y menos monumentalidad. Debe distinguirse de apartment_block por ritmo de ventanas uniforme, acceso público marcado y elementos institucionales. No se aceptan módulos mal etiquetados (flag_pole → AC unit).",
+        "description": "R3/V.g: un colegio se reconoce por su cuerpo longitudinal, repetición uniforme de ventanas de aula, entrada institucional y lenguaje cívico (ladrillo/piedra). Debe distinguirse de town_hall por mayor longitud y menos monumentalidad. Debe distinguirse de apartment_block por ritmo de ventanas uniforme, acceso público marcado y elementos institucionales. No se aceptan módulos mal etiquetados (flag_pole → AC unit). V.i remediation: cupula/linterna original sobre el pabellón central (REQUIRED), alas de aulas repetitivas y entrada institucional; el clon de town_hall queda retirado.",
         "requireAnyRoles": [
           [
             "door",
@@ -5058,8 +4935,46 @@
           "canopied_dock",
           "apparatus_door",
           "rollup_door"
+        ],
+        "requireRoles": [
+          "civic_tower"
         ]
-      }
+      },
+      "recipes": [
+        {
+          "id": "american_school",
+          "label": "colegio americano: entrada bajo la cupula, cubierta a dos aguas en las alas",
+          "accessTargetVolume": 2,
+          "massingIds": [
+            "american_school"
+          ],
+          "cornerModeIds": [
+            "flush"
+          ],
+          "accessIds": [
+            "central_entrance"
+          ],
+          "roofIds": [
+            "gable_roof",
+            "gable_dormers"
+          ],
+          "rhythmIds": [
+            "classroom_repeat",
+            "dense_classroom",
+            "banded_school",
+            "pilaster_rhythm"
+          ],
+          "facadeIds": [
+            "brick_institutional",
+            "stucco_institutional",
+            "mixed_institutional"
+          ],
+          "propIds": [],
+          "secondaryIds": [
+            "school_annex"
+          ]
+        }
+      ]
     },
     "clinic": {
       "buildingType": "clinic",

@@ -24,7 +24,7 @@ import { fileURLToPath } from "node:url";
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const VALIDATOR = join(REPO_ROOT, "scripts/validate-building-composer.mjs");
 const MANIFEST_DIR = join(REPO_ROOT, "blender_artist/manifests");
-const CANDIDATES_DIR = join(REPO_ROOT, "docs/art/building-composer/candidates");
+const CANDIDATES_DIR = join(REPO_ROOT, "docs/art/quality-vi/candidates/row_house");
 const SOURCES = {
   grammars: join(MANIFEST_DIR, "building-composer-grammars.json"),
   modules: join(MANIFEST_DIR, "building-modules.json"),
@@ -304,7 +304,7 @@ const CASES = [
   },
   {
     name: "una fuente fuera de staging (§5: sólo lo licenciado y registrado)",
-    expect: "está fuera de blender_artist/staging/",
+    expect: "está fuera de las fuentes permitidas",
     file: "manifest",
     mutate: (manifest) => {
       first(manifest).transforms[0].sourcePath = "/home/alguien/Downloads/pack.gltf";
@@ -531,8 +531,13 @@ let ran = 0;
 // El acta de `--regenerate` es parte de la evidencia: el validador la busca junto al manifiesto, así
 // que cada caso monta el mismo layout (manifest.json + regenerate/ + PNG real) en un directorio
 // temporal y lo muta desde ahí. Un caso que no la encuentre sería un falso verde sobre §13.
-const REGENERATE_PATH = join(CANDIDATES_DIR, "regenerate", "regenerate.json");
-const REGENERATE_BASE = JSON.parse(readFileSync(REGENERATE_PATH, "utf8"));
+const regenerationReport = (candidate) => ({
+  candidateId: candidate.candidateId,
+  status: "determinista",
+  differences: [],
+  first: { pass: "primera", signature: candidate.compositionSignature },
+  second: { pass: "segunda", signature: candidate.compositionSignature },
+});
 for (const testCase of CASES) {
   const material = clone(testCase.file === "manifest" ? candidateManifest() : read(testCase.file));
   testCase.mutate(material);
@@ -540,7 +545,7 @@ for (const testCase of CASES) {
   mkdirSync(join(dir, "regenerate"), { recursive: true });
   const path = join(dir, `${testCase.file}.json`);
   writeFileSync(path, `${JSON.stringify(material, null, 1)}\n`);
-  const report = JSON.parse(JSON.stringify(REGENERATE_BASE));
+  const report = regenerationReport(first(candidateManifest()));
   if (testCase.mutateReport) testCase.mutateReport(report, material);
   writeFileSync(join(dir, "regenerate", "regenerate.json"), `${JSON.stringify(report, null, 1)}\n`);
   const argumentsList = [VALIDATOR, `--${testCase.file}=${path}`];

@@ -35,9 +35,14 @@ export function groupSelectionModules({ selection, inventory, registry, fail }) 
   for (const module of selection.modules) {
     const entry = inventoryByPath.get(module.sourcePath);
     if (!entry) {
-      fail(`módulo ${module.id}: sourcePath ${module.sourcePath} no está en el inventario de módulos`);
+      fail(
+        `módulo ${module.id}: sourcePath ${module.sourcePath} no está en el inventario de módulos`,
+      );
     }
-    if (!module.sourcePath.startsWith(STAGING_PREFIX) && !module.sourcePath.startsWith(ORIGINAL_PREFIX)) {
+    if (
+      !module.sourcePath.startsWith(STAGING_PREFIX) &&
+      !module.sourcePath.startsWith(ORIGINAL_PREFIX)
+    ) {
       fail(`módulo ${module.id}: sourcePath fuera de staging u original`);
     }
     if (entry.classification === "unsuitable") {
@@ -45,7 +50,8 @@ export function groupSelectionModules({ selection, inventory, registry, fail }) 
     }
     const isOriginal = module.sourcePath.startsWith(ORIGINAL_PREFIX);
     const source = sourcesById.get(entry.sourceId);
-    if (!isOriginal && !source) fail(`fuente no registrada en staging-sources.json: ${entry.sourceId}`);
+    if (!isOriginal && !source)
+      fail(`fuente no registrada en staging-sources.json: ${entry.sourceId}`);
     if (!isOriginal && source && source.license !== entry.license) {
       fail(
         `licencia declarada (${entry.license}) distinta de la registrada (${source.license}) en ${entry.path}`,

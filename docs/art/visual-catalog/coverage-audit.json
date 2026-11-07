@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "inventoryDate": "2026-11-03",
+  "inventoryDate": "2026-11-07",
   "totals": {
     "domainBuildings": 15,
     "candidateEvidenceBuildings": 15,
@@ -247,13 +247,13 @@
     },
     {
       "type": "town_hall",
-      "targetFootprintCells": 12,
+      "targetFootprintCells": 32,
       "preferredFootprint": {
-        "width": 3,
+        "width": 8,
         "height": 4
       },
       "preferredFootprintStatus": "integrated V.d-7B preferredFootprint + shapePenalty",
-      "floors": 4,
+      "floors": 3,
       "requiredParcels": 1,
       "candidateSource": "Kenney City Kit Commercial · building-k.glb · CC0-1.0",
       "finalSource": "candidate evidence",

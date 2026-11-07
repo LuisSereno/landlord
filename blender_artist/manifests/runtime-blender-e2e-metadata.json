@@ -1300,11 +1300,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #21",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #21", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -1366,11 +1362,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0198,
-        0.0009
-      ],
+      "importOffset": [0, 0.0198, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -1445,11 +1437,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #21",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #21", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -1511,11 +1499,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0198,
-        0.0009
-      ],
+      "importOffset": [0, 0.0198, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -1590,11 +1574,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #21",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #21", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -1656,11 +1636,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0198,
-        0.0009
-      ],
+      "importOffset": [0, 0.0198, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -1735,11 +1711,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #21",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #21", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -1801,11 +1773,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0198,
-        0.0009
-      ],
+      "importOffset": [0, 0.0198, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -1880,11 +1848,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #21",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #21", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -1946,11 +1910,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0198,
-        0.0009
-      ],
+      "importOffset": [0, 0.0198, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -2025,11 +1985,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #21",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #21", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -2091,11 +2047,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0198,
-        0.0009
-      ],
+      "importOffset": [0, 0.0198, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -2170,11 +2122,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #21",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #21", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -2236,11 +2184,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0198,
-        0.0009
-      ],
+      "importOffset": [0, 0.0198, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -2315,11 +2259,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #21",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #21", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -2381,11 +2321,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0198,
-        0.0009
-      ],
+      "importOffset": [0, 0.0198, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -2460,11 +2396,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #21",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #21", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -2526,11 +2458,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0198,
-        0.0009
-      ],
+      "importOffset": [0, 0.0198, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -2605,11 +2533,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #21",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #21", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -2671,11 +2595,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0198,
-        0.0009
-      ],
+      "importOffset": [0, 0.0198, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -2750,11 +2670,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #21",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #21", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -2816,11 +2732,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0198,
-        0.0009
-      ],
+      "importOffset": [0, 0.0198, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -2895,11 +2807,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #21",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #21", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -2961,11 +2869,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0198,
-        0.0009
-      ],
+      "importOffset": [0, 0.0198, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -3040,11 +2944,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #21",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #21", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -3106,11 +3006,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0198,
-        0.0009
-      ],
+      "importOffset": [0, 0.0198, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -3185,11 +3081,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #21",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #21", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -3251,11 +3143,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0198,
-        0.0009
-      ],
+      "importOffset": [0, 0.0198, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -3330,11 +3218,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #21",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #21", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -3396,11 +3280,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0198,
-        0.0009
-      ],
+      "importOffset": [0, 0.0198, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -3475,11 +3355,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #21",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #21", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -3541,11 +3417,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0198,
-        0.0009
-      ],
+      "importOffset": [0, 0.0198, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -3620,11 +3492,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -3686,11 +3554,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0327,
-        0.0009
-      ],
+      "importOffset": [0, 0.0327, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -3765,11 +3629,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -3831,11 +3691,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0327,
-        0.0009
-      ],
+      "importOffset": [0, 0.0327, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -3910,11 +3766,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -3976,11 +3828,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0327,
-        0.0009
-      ],
+      "importOffset": [0, 0.0327, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -4055,11 +3903,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -4121,11 +3965,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0327,
-        0.0009
-      ],
+      "importOffset": [0, 0.0327, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -4200,11 +4040,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -4266,11 +4102,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0327,
-        0.0009
-      ],
+      "importOffset": [0, 0.0327, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -4345,11 +4177,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -4411,11 +4239,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0327,
-        0.0009
-      ],
+      "importOffset": [0, 0.0327, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -4490,11 +4314,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -4556,11 +4376,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0327,
-        0.0009
-      ],
+      "importOffset": [0, 0.0327, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -4635,11 +4451,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -4701,11 +4513,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0327,
-        0.0009
-      ],
+      "importOffset": [0, 0.0327, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -4780,11 +4588,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -4846,11 +4650,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0327,
-        0.0009
-      ],
+      "importOffset": [0, 0.0327, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -4925,11 +4725,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -4991,11 +4787,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0327,
-        0.0009
-      ],
+      "importOffset": [0, 0.0327, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -5070,11 +4862,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -5136,11 +4924,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0327,
-        0.0009
-      ],
+      "importOffset": [0, 0.0327, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -5215,11 +4999,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -5281,11 +5061,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0327,
-        0.0009
-      ],
+      "importOffset": [0, 0.0327, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -5360,11 +5136,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -5426,11 +5198,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0327,
-        0.0009
-      ],
+      "importOffset": [0, 0.0327, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -5505,11 +5273,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -5571,11 +5335,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0327,
-        0.0009
-      ],
+      "importOffset": [0, 0.0327, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -5650,11 +5410,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -5716,11 +5472,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0327,
-        0.0009
-      ],
+      "importOffset": [0, 0.0327, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -5795,11 +5547,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -5861,11 +5609,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0327,
-        0.0009
-      ],
+      "importOffset": [0, 0.0327, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -5940,11 +5684,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #86",
-        "Map #90",
-        "Map #94"
-      ],
+      "atlases": ["Map #86", "Map #90", "Map #94"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -6006,11 +5746,7 @@
         "minZ": -0.0004
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        -0.0349,
-        0.0004
-      ],
+      "importOffset": [0, -0.0349, 0.0004],
       "hierarchy": {
         "armatures": [
           {
@@ -6085,11 +5821,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #86",
-        "Map #90",
-        "Map #94"
-      ],
+      "atlases": ["Map #86", "Map #90", "Map #94"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -6151,11 +5883,7 @@
         "minZ": -0.0004
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        -0.0349,
-        0.0004
-      ],
+      "importOffset": [0, -0.0349, 0.0004],
       "hierarchy": {
         "armatures": [
           {
@@ -6230,11 +5958,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #86",
-        "Map #90",
-        "Map #94"
-      ],
+      "atlases": ["Map #86", "Map #90", "Map #94"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -6296,11 +6020,7 @@
         "minZ": -0.0004
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        -0.0349,
-        0.0004
-      ],
+      "importOffset": [0, -0.0349, 0.0004],
       "hierarchy": {
         "armatures": [
           {
@@ -6375,11 +6095,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #86",
-        "Map #90",
-        "Map #94"
-      ],
+      "atlases": ["Map #86", "Map #90", "Map #94"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -6441,11 +6157,7 @@
         "minZ": -0.0004
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        -0.0349,
-        0.0004
-      ],
+      "importOffset": [0, -0.0349, 0.0004],
       "hierarchy": {
         "armatures": [
           {
@@ -6520,11 +6232,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #86",
-        "Map #90",
-        "Map #94"
-      ],
+      "atlases": ["Map #86", "Map #90", "Map #94"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -6586,11 +6294,7 @@
         "minZ": -0.0004
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        -0.0349,
-        0.0004
-      ],
+      "importOffset": [0, -0.0349, 0.0004],
       "hierarchy": {
         "armatures": [
           {
@@ -6665,11 +6369,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #86",
-        "Map #90",
-        "Map #94"
-      ],
+      "atlases": ["Map #86", "Map #90", "Map #94"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -6731,11 +6431,7 @@
         "minZ": -0.0004
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        -0.0349,
-        0.0004
-      ],
+      "importOffset": [0, -0.0349, 0.0004],
       "hierarchy": {
         "armatures": [
           {
@@ -6810,11 +6506,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #86",
-        "Map #90",
-        "Map #94"
-      ],
+      "atlases": ["Map #86", "Map #90", "Map #94"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -6876,11 +6568,7 @@
         "minZ": -0.0004
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        -0.0349,
-        0.0004
-      ],
+      "importOffset": [0, -0.0349, 0.0004],
       "hierarchy": {
         "armatures": [
           {
@@ -6955,11 +6643,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #86",
-        "Map #90",
-        "Map #94"
-      ],
+      "atlases": ["Map #86", "Map #90", "Map #94"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -7021,11 +6705,7 @@
         "minZ": -0.0004
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        -0.0349,
-        0.0004
-      ],
+      "importOffset": [0, -0.0349, 0.0004],
       "hierarchy": {
         "armatures": [
           {
@@ -7100,11 +6780,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #86",
-        "Map #90",
-        "Map #94"
-      ],
+      "atlases": ["Map #86", "Map #90", "Map #94"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -7166,11 +6842,7 @@
         "minZ": -0.0004
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        -0.0349,
-        0.0004
-      ],
+      "importOffset": [0, -0.0349, 0.0004],
       "hierarchy": {
         "armatures": [
           {
@@ -7245,11 +6917,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #86",
-        "Map #90",
-        "Map #94"
-      ],
+      "atlases": ["Map #86", "Map #90", "Map #94"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -7311,11 +6979,7 @@
         "minZ": -0.0004
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        -0.0349,
-        0.0004
-      ],
+      "importOffset": [0, -0.0349, 0.0004],
       "hierarchy": {
         "armatures": [
           {
@@ -7390,11 +7054,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #86",
-        "Map #90",
-        "Map #94"
-      ],
+      "atlases": ["Map #86", "Map #90", "Map #94"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -7456,11 +7116,7 @@
         "minZ": -0.0004
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        -0.0349,
-        0.0004
-      ],
+      "importOffset": [0, -0.0349, 0.0004],
       "hierarchy": {
         "armatures": [
           {
@@ -7535,11 +7191,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #86",
-        "Map #90",
-        "Map #94"
-      ],
+      "atlases": ["Map #86", "Map #90", "Map #94"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -7601,11 +7253,7 @@
         "minZ": -0.0004
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        -0.0349,
-        0.0004
-      ],
+      "importOffset": [0, -0.0349, 0.0004],
       "hierarchy": {
         "armatures": [
           {
@@ -7680,11 +7328,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #86",
-        "Map #90",
-        "Map #94"
-      ],
+      "atlases": ["Map #86", "Map #90", "Map #94"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -7746,11 +7390,7 @@
         "minZ": -0.0004
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        -0.0349,
-        0.0004
-      ],
+      "importOffset": [0, -0.0349, 0.0004],
       "hierarchy": {
         "armatures": [
           {
@@ -7825,11 +7465,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #86",
-        "Map #90",
-        "Map #94"
-      ],
+      "atlases": ["Map #86", "Map #90", "Map #94"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -7891,11 +7527,7 @@
         "minZ": -0.0004
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        -0.0349,
-        0.0004
-      ],
+      "importOffset": [0, -0.0349, 0.0004],
       "hierarchy": {
         "armatures": [
           {
@@ -7970,11 +7602,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #86",
-        "Map #90",
-        "Map #94"
-      ],
+      "atlases": ["Map #86", "Map #90", "Map #94"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -8036,11 +7664,7 @@
         "minZ": -0.0004
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        -0.0349,
-        0.0004
-      ],
+      "importOffset": [0, -0.0349, 0.0004],
       "hierarchy": {
         "armatures": [
           {
@@ -8115,11 +7739,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #86",
-        "Map #90",
-        "Map #94"
-      ],
+      "atlases": ["Map #86", "Map #90", "Map #94"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -8181,11 +7801,7 @@
         "minZ": -0.0004
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        -0.0349,
-        0.0004
-      ],
+      "importOffset": [0, -0.0349, 0.0004],
       "hierarchy": {
         "armatures": [
           {
@@ -8260,11 +7876,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -8326,11 +7938,7 @@
         "minZ": -0.0008
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0103,
-        0.0008
-      ],
+      "importOffset": [0, 0.0103, 0.0008],
       "hierarchy": {
         "armatures": [
           {
@@ -8405,11 +8013,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -8471,11 +8075,7 @@
         "minZ": -0.0008
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0103,
-        0.0008
-      ],
+      "importOffset": [0, 0.0103, 0.0008],
       "hierarchy": {
         "armatures": [
           {
@@ -8550,11 +8150,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -8616,11 +8212,7 @@
         "minZ": -0.0008
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0103,
-        0.0008
-      ],
+      "importOffset": [0, 0.0103, 0.0008],
       "hierarchy": {
         "armatures": [
           {
@@ -8695,11 +8287,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -8761,11 +8349,7 @@
         "minZ": -0.0008
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0103,
-        0.0008
-      ],
+      "importOffset": [0, 0.0103, 0.0008],
       "hierarchy": {
         "armatures": [
           {
@@ -8840,11 +8424,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -8906,11 +8486,7 @@
         "minZ": -0.0008
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0103,
-        0.0008
-      ],
+      "importOffset": [0, 0.0103, 0.0008],
       "hierarchy": {
         "armatures": [
           {
@@ -8985,11 +8561,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -9051,11 +8623,7 @@
         "minZ": -0.0008
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0103,
-        0.0008
-      ],
+      "importOffset": [0, 0.0103, 0.0008],
       "hierarchy": {
         "armatures": [
           {
@@ -9130,11 +8698,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -9196,11 +8760,7 @@
         "minZ": -0.0008
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0103,
-        0.0008
-      ],
+      "importOffset": [0, 0.0103, 0.0008],
       "hierarchy": {
         "armatures": [
           {
@@ -9275,11 +8835,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -9341,11 +8897,7 @@
         "minZ": -0.0008
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0103,
-        0.0008
-      ],
+      "importOffset": [0, 0.0103, 0.0008],
       "hierarchy": {
         "armatures": [
           {
@@ -9420,11 +8972,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -9486,11 +9034,7 @@
         "minZ": -0.0008
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0103,
-        0.0008
-      ],
+      "importOffset": [0, 0.0103, 0.0008],
       "hierarchy": {
         "armatures": [
           {
@@ -9565,11 +9109,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -9631,11 +9171,7 @@
         "minZ": -0.0008
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0103,
-        0.0008
-      ],
+      "importOffset": [0, 0.0103, 0.0008],
       "hierarchy": {
         "armatures": [
           {
@@ -9710,11 +9246,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -9776,11 +9308,7 @@
         "minZ": -0.0008
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0103,
-        0.0008
-      ],
+      "importOffset": [0, 0.0103, 0.0008],
       "hierarchy": {
         "armatures": [
           {
@@ -9855,11 +9383,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -9921,11 +9445,7 @@
         "minZ": -0.0008
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0103,
-        0.0008
-      ],
+      "importOffset": [0, 0.0103, 0.0008],
       "hierarchy": {
         "armatures": [
           {
@@ -10000,11 +9520,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -10066,11 +9582,7 @@
         "minZ": -0.0008
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0103,
-        0.0008
-      ],
+      "importOffset": [0, 0.0103, 0.0008],
       "hierarchy": {
         "armatures": [
           {
@@ -10145,11 +9657,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -10211,11 +9719,7 @@
         "minZ": -0.0008
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0103,
-        0.0008
-      ],
+      "importOffset": [0, 0.0103, 0.0008],
       "hierarchy": {
         "armatures": [
           {
@@ -10290,11 +9794,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -10356,11 +9856,7 @@
         "minZ": -0.0008
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0103,
-        0.0008
-      ],
+      "importOffset": [0, 0.0103, 0.0008],
       "hierarchy": {
         "armatures": [
           {
@@ -10435,11 +9931,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #11",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #11", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -10501,11 +9993,7 @@
         "minZ": -0.0008
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0103,
-        0.0008
-      ],
+      "importOffset": [0, 0.0103, 0.0008],
       "hierarchy": {
         "armatures": [
           {
@@ -10580,10 +10068,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -10645,11 +10130,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0222,
-        0.0009
-      ],
+      "importOffset": [0, 0.0222, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -10724,10 +10205,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -10789,11 +10267,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0222,
-        0.0009
-      ],
+      "importOffset": [0, 0.0222, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -10868,10 +10342,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -10933,11 +10404,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0222,
-        0.0009
-      ],
+      "importOffset": [0, 0.0222, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -11012,10 +10479,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -11077,11 +10541,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0222,
-        0.0009
-      ],
+      "importOffset": [0, 0.0222, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -11156,10 +10616,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -11221,11 +10678,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0222,
-        0.0009
-      ],
+      "importOffset": [0, 0.0222, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -11300,10 +10753,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -11365,11 +10815,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0222,
-        0.0009
-      ],
+      "importOffset": [0, 0.0222, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -11444,10 +10890,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -11509,11 +10952,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0222,
-        0.0009
-      ],
+      "importOffset": [0, 0.0222, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -11588,10 +11027,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -11653,11 +11089,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0222,
-        0.0009
-      ],
+      "importOffset": [0, 0.0222, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -11732,10 +11164,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -11797,11 +11226,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0222,
-        0.0009
-      ],
+      "importOffset": [0, 0.0222, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -11876,10 +11301,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -11941,11 +11363,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0222,
-        0.0009
-      ],
+      "importOffset": [0, 0.0222, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -12020,10 +11438,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -12085,11 +11500,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0222,
-        0.0009
-      ],
+      "importOffset": [0, 0.0222, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -12164,10 +11575,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -12229,11 +11637,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0222,
-        0.0009
-      ],
+      "importOffset": [0, 0.0222, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -12308,10 +11712,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -12373,11 +11774,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0222,
-        0.0009
-      ],
+      "importOffset": [0, 0.0222, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -12452,10 +11849,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -12517,11 +11911,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0222,
-        0.0009
-      ],
+      "importOffset": [0, 0.0222, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -12596,10 +11986,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -12661,11 +12048,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0222,
-        0.0009
-      ],
+      "importOffset": [0, 0.0222, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -12740,10 +12123,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "Map #1",
-        "Map #5"
-      ],
+      "atlases": ["Map #1", "Map #5"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -12805,11 +12185,7 @@
         "minZ": -0.0009
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0.0222,
-        0.0009
-      ],
+      "importOffset": [0, 0.0222, 0.0009],
       "hierarchy": {
         "armatures": [
           {
@@ -12884,9 +12260,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
       "litWindows": 10,
@@ -12948,11 +12322,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -13022,9 +12392,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
       "litWindows": 10,
@@ -13086,11 +12454,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -13160,9 +12524,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
       "litWindows": 10,
@@ -13224,11 +12586,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -13298,9 +12656,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
       "litWindows": 10,
@@ -13362,11 +12718,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -13436,9 +12788,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -13492,11 +12842,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -13566,9 +12912,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
       "litWindows": 2,
@@ -13630,11 +12974,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -13704,9 +13044,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
       "litWindows": 2,
@@ -13768,11 +13106,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -13842,9 +13176,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
       "litWindows": 2,
@@ -13906,11 +13238,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -13980,9 +13308,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
       "litWindows": 2,
@@ -14044,11 +13370,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -14118,9 +13440,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
       "litWindows": 4,
@@ -14182,11 +13502,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -14256,9 +13572,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
       "litWindows": 4,
@@ -14320,11 +13634,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -14394,9 +13704,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
       "litWindows": 4,
@@ -14458,11 +13766,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -14532,9 +13836,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
       "litWindows": 4,
@@ -14596,11 +13898,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -14670,9 +13968,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -14734,11 +14030,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        -0.0325,
-        0
-      ],
+      "importOffset": [0, -0.0325, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -14808,9 +14100,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -14872,11 +14162,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        -0.0325,
-        0
-      ],
+      "importOffset": [0, -0.0325, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -15006,11 +14292,7 @@
         "minZ": -0.05
       },
       "importScale": 4,
-      "importOffset": [
-        0.0357,
-        0.0347,
-        0.2
-      ],
+      "importOffset": [0.0357, 0.0347, 0.2],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -15080,9 +14362,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -15144,11 +14424,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0.0552,
-        0,
-        0
-      ],
+      "importOffset": [0.0552, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -15218,9 +14494,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -15282,11 +14556,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0.0552,
-        0,
-        0
-      ],
+      "importOffset": [0.0552, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -15356,9 +14626,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
       "litWindows": 7,
@@ -15420,11 +14688,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -15494,9 +14758,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
       "litWindows": 7,
@@ -15558,11 +14820,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -15632,9 +14890,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
       "litWindows": 7,
@@ -15696,11 +14952,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -15770,9 +15022,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10144,
       "litWindows": 7,
@@ -15834,11 +15084,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -15908,9 +15154,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
       "litWindows": 7,
@@ -15972,11 +15216,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -16046,9 +15286,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
       "litWindows": 7,
@@ -16110,11 +15348,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -16184,9 +15418,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
       "litWindows": 7,
@@ -16248,11 +15480,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -16322,9 +15550,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
       "litWindows": 7,
@@ -16386,11 +15612,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -16460,9 +15682,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
       "litWindows": 6,
@@ -16524,11 +15744,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -16598,9 +15814,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
       "litWindows": 6,
@@ -16662,11 +15876,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -16736,9 +15946,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
       "litWindows": 6,
@@ -16800,11 +16008,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -16874,9 +16078,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 10190,
       "litWindows": 6,
@@ -16938,11 +16140,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -17012,9 +16210,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -17068,11 +16264,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -17142,9 +16334,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -17198,11 +16388,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -17272,9 +16458,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -17334,11 +16518,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        -0.35,
-        0
-      ],
+      "importOffset": [0, -0.35, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -17408,9 +16588,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "citybits_texture"
-      ],
+      "atlases": ["citybits_texture"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -17470,11 +16648,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -17544,9 +16718,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -17606,11 +16778,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        -0.03,
-        0,
-        0
-      ],
+      "importOffset": [-0.03, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -17680,9 +16848,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -17744,11 +16910,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        -0.0325,
-        0
-      ],
+      "importOffset": [0, -0.0325, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -17818,9 +16980,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -17882,11 +17042,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        -0.0325,
-        0
-      ],
+      "importOffset": [0, -0.0325, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -17956,9 +17112,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -18020,11 +17174,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        -0.0325,
-        0
-      ],
+      "importOffset": [0, -0.0325, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -18094,9 +17244,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -18158,11 +17306,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        -0.0325,
-        0
-      ],
+      "importOffset": [0, -0.0325, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -18232,9 +17376,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -18296,11 +17438,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -18370,9 +17508,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -18434,11 +17570,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -18508,9 +17640,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -18572,11 +17702,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        -0.0325,
-        0
-      ],
+      "importOffset": [0, -0.0325, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -18646,9 +17772,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -18710,11 +17834,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        -0.0325,
-        0
-      ],
+      "importOffset": [0, -0.0325, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -18784,9 +17904,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -18848,11 +17966,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -18922,9 +18036,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -18986,11 +18098,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -19060,9 +18168,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -19124,11 +18230,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        0.0325,
-        0
-      ],
+      "importOffset": [0, 0.0325, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -19198,9 +18300,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -19262,11 +18362,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        0.0325,
-        0
-      ],
+      "importOffset": [0, 0.0325, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -19336,9 +18432,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -19400,11 +18494,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        -0.0325,
-        0
-      ],
+      "importOffset": [0, -0.0325, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -19474,9 +18564,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -19538,11 +18626,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        -0.0325,
-        0
-      ],
+      "importOffset": [0, -0.0325, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -19612,9 +18696,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -19676,11 +18758,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -19750,9 +18828,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -19814,11 +18890,7 @@
         "minZ": 0
       },
       "importScale": 1.3,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -19948,11 +19020,7 @@
         "minZ": -0.05
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0.2
-      ],
+      "importOffset": [0, 0, 0.2],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -20082,11 +19150,7 @@
         "minZ": -0.05
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0.2
-      ],
+      "importOffset": [0, 0, 0.2],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -20156,9 +19220,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -20218,11 +19280,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -20292,9 +19350,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "colormap"
-      ],
+      "atlases": ["colormap"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -20354,11 +19410,7 @@
         "minZ": 0
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -20652,11 +19704,7 @@
         "minZ": -0.05
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0.2
-      ],
+      "importOffset": [0, 0, 0.2],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -20786,11 +19834,7 @@
         "minZ": -0.05
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0.2
-      ],
+      "importOffset": [0, 0, 0.2],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -20860,9 +19904,7 @@
     "palette": "graphic_civic",
     "styleLayer": {
       "version": 7,
-      "atlases": [
-        "T_MetalConcrete_BaseColor"
-      ],
+      "atlases": ["T_MetalConcrete_BaseColor"],
       "flatMaterials": 0,
       "emissiveTexels": 0,
       "litWindows": 0,
@@ -20922,11 +19964,7 @@
         "minZ": 0
       },
       "importScale": 1,
-      "importOffset": [
-        0,
-        0,
-        0
-      ],
+      "importOffset": [0, 0, 0],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0
@@ -21056,11 +20094,7 @@
         "minZ": -0.05
       },
       "importScale": 4,
-      "importOffset": [
-        0,
-        0,
-        0.2
-      ],
+      "importOffset": [0, 0, 0.2],
       "hierarchy": {
         "armatures": [],
         "skinnedMeshes": 0

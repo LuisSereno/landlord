@@ -157,7 +157,9 @@ describe("V.d.3 programa municipal", () => {
         (district) => district.district.name === "Centro Cívico",
       )!;
       const townHall = [...centro.facilities.values()].find((f) => f.kind === "town_hall")!;
-      expect(townHall.publicSpaceIds.length, `seed ${seed}: town_hall sin plaza`).toBeGreaterThan(0);
+      expect(townHall.publicSpaceIds.length, `seed ${seed}: town_hall sin plaza`).toBeGreaterThan(
+        0,
+      );
 
       const plazaId = townHall.publicSpaceIds[0]!;
       const plaza = centro.publicSpaces.get(plazaId)!;

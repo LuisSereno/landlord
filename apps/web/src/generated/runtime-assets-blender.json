@@ -42,9 +42,7 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "V.i remediation: rechazo humano de vg_courtyard_home_1002 (pixelado). Casa con patio a renderScale 2 (decisión explícita, D-100). Sustituye al override manual; promoción canónica. Candidato aprobado: vg_courtyard_home_2003. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "bld_shopfront": {
@@ -94,9 +92,7 @@
         "width": 1,
         "height": 1
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "bld_commercial_b": {
@@ -146,9 +142,7 @@
         "width": 1,
         "height": 1
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "bld_residential_a": {
@@ -198,9 +192,7 @@
         "width": 1,
         "height": 1
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "bld_commercial_c": {
@@ -250,9 +242,7 @@
         "width": 1,
         "height": 1
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "bld_residential_b": {
@@ -302,9 +292,7 @@
         "width": 1,
         "height": 1
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "bld_residential_c": {
@@ -354,9 +342,7 @@
         "width": 1,
         "height": 1
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "town_hall": {
@@ -389,9 +375,7 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V7 town hall candidate vf_town_hall_1006. Original civic pediment with CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "school_block": {
@@ -424,9 +408,7 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "V.i remediation: rechazo humano del clon de town_hall. Colegio americano con cupola original medida (mod_original_school_cupola), entrada bajo el pabellón central. Candidato aprobado: vg_school_block_2000. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "row_house": {
@@ -459,9 +441,7 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i residential candidate vg_row_house_1001 (stepped massing). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "apartment_block": {
@@ -494,9 +474,7 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i residential candidate vg_apartment_block_1002 (twin towers, dense window grid). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "mixed_tenement": {
@@ -529,9 +507,7 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i residential candidate vg_mixed_tenement_1001 (mansard roof with dormers). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "workshop": {
@@ -564,9 +540,7 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i industrial-light candidate vg_workshop_1003 (long flat workshop block). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "warehouse": {
@@ -599,9 +573,7 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i industrial-light candidate vg_warehouse_1002 (long logistics shed, no chimney). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "clinic": {
@@ -634,9 +606,7 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i civic candidate vg_clinic_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "police_station": {
@@ -669,9 +639,7 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i civic candidate vg_police_station_1002. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "fire_station": {
@@ -704,9 +672,7 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i civic candidate vg_fire_station_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "market_hall": {
@@ -739,9 +705,7 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i civic candidate vg_market_hall_1000. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "cement_plant": {
@@ -774,9 +738,7 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i heavy-industry candidate vg_cement_plant_1001 (v2). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "brickworks": {
@@ -809,9 +771,7 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i heavy-industry candidate vg_brickworks_1000 (v1). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     },
     "steelworks": {
@@ -844,9 +804,7 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i heavy-industry candidate vg_steelworks_1003 (v4). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none"
     }
   },

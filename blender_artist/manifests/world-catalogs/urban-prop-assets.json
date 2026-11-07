@@ -13,32 +13,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/OBJ format/light-curved.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -49,32 +33,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/OBJ format/construction-light.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -85,32 +53,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/OBJ format/light-curved-double.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -121,32 +73,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/OBJ format/traffic-light-object-hanging.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -157,32 +93,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/OBJ format/light-square.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -193,32 +113,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/OBJ format/traffic-light-object-vertical.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -229,32 +133,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/OBJ format/light-square-double.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -265,32 +153,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/OBJ format/traffic-light.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -301,32 +173,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/OBJ format/traffic-light-object-horizontal.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -337,32 +193,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/OBJ format/traffic-light-hanging.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -373,32 +213,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/OBJ format/light-curved-cross.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -409,32 +233,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/OBJ format/light-square-cross.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -445,14 +253,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/traffic-light-hanging.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 0.4704,
         "depth": 1.18,
@@ -460,21 +262,11 @@
       },
       "triangleCount": 230,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -485,14 +277,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/construction-light.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 0.3,
         "depth": 0.3,
@@ -500,21 +286,11 @@
       },
       "triangleCount": 144,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -525,14 +301,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 0.2,
         "depth": 0.9,
@@ -540,21 +310,11 @@
       },
       "triangleCount": 92,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -567,14 +327,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/traffic-light-object-hanging.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 0.3904,
         "depth": 0.2443,
@@ -582,21 +336,11 @@
       },
       "triangleCount": 114,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -607,14 +351,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/traffic-light.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 0.4704,
         "depth": 0.36,
@@ -622,21 +360,11 @@
       },
       "triangleCount": 212,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -648,14 +376,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved-double.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 0.2,
         "depth": 1.6,
@@ -663,21 +385,11 @@
       },
       "triangleCount": 152,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -689,14 +401,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/traffic-light-object-vertical.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 0.3904,
         "depth": 0.2443,
@@ -704,21 +410,11 @@
       },
       "triangleCount": 132,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -729,14 +425,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved-cross.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 1.6,
         "depth": 1.6,
@@ -744,21 +434,11 @@
       },
       "triangleCount": 270,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -770,14 +450,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-square-cross.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 1.7,
         "depth": 1.7,
@@ -785,21 +459,11 @@
       },
       "triangleCount": 134,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -811,14 +475,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/traffic-light-object-horizontal.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 0.3904,
         "depth": 0.5728,
@@ -826,21 +484,11 @@
       },
       "triangleCount": 118,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -851,14 +499,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-square-double.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 0.2,
         "depth": 1.7,
@@ -866,21 +508,11 @@
       },
       "triangleCount": 88,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -892,14 +524,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-square.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 0.2,
         "depth": 0.95,
@@ -907,21 +533,11 @@
       },
       "triangleCount": 60,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -933,32 +549,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/FBX format/light-curved.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -969,32 +569,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/FBX format/light-square.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1005,32 +589,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/FBX format/light-curved-double.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1041,32 +609,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/FBX format/traffic-light-hanging.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1077,32 +629,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/FBX format/traffic-light-object-hanging.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1113,32 +649,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/FBX format/traffic-light.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1149,32 +669,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/FBX format/traffic-light-object-horizontal.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1185,32 +689,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/FBX format/traffic-light-object-vertical.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1221,32 +709,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/FBX format/construction-light.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1257,32 +729,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/FBX format/light-curved-cross.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1293,32 +749,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/FBX format/light-square-cross.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1329,32 +769,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/FBX format/light-square-double.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1365,31 +789,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/OBJ format/sign.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "signage"
-      ],
-      "contexts": [
-        "street",
-        "commercial_corridor"
-      ],
+      "semanticRoles": ["signage"],
+      "contexts": ["street", "commercial_corridor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "commercial_corridor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "commercial_corridor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1400,33 +809,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/OBJ format/crop_turnip.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "planter"
-      ],
-      "contexts": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "semanticRoles": ["planter"],
+      "contexts": ["plaza", "park", "street"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "park", "street"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1437,34 +829,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/OBJ format/statue_columnDamaged.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "civic_courtyard", "park"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "civic_courtyard", "park"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1475,34 +849,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/OBJ format/statue_ring.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "civic_courtyard", "park"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "civic_courtyard", "park"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1513,33 +869,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/OBJ format/pot_small.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "planter"
-      ],
-      "contexts": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "semanticRoles": ["planter"],
+      "contexts": ["plaza", "park", "street"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "park", "street"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1550,34 +889,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/OBJ format/statue_block.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "civic_courtyard", "park"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "civic_courtyard", "park"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1588,34 +909,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/OBJ format/statue_column.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "civic_courtyard", "park"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "civic_courtyard", "park"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1626,33 +929,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/OBJ format/pot_large.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "planter"
-      ],
-      "contexts": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "semanticRoles": ["planter"],
+      "contexts": ["plaza", "park", "street"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "park", "street"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1663,34 +949,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/OBJ format/statue_head.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "civic_courtyard", "park"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "civic_courtyard", "park"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1701,34 +969,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/OBJ format/statue_obelisk.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "civic_courtyard", "park"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "civic_courtyard", "park"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1739,14 +989,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/crop_turnip.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "planter"
-      ],
-      "contexts": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "semanticRoles": ["planter"],
+      "contexts": ["plaza", "park", "street"],
       "dimensions": {
         "width": 1.3726,
         "depth": 1.3726,
@@ -1754,22 +998,11 @@
       },
       "triangleCount": 168,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "park", "street"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -1780,15 +1013,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_columnDamaged.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "civic_courtyard", "park"],
       "dimensions": {
         "width": 1.2,
         "depth": 1.2,
@@ -1796,22 +1022,11 @@
       },
       "triangleCount": 108,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "civic_courtyard", "park"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -1823,14 +1038,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/pot_large.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "planter"
-      ],
-      "contexts": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "semanticRoles": ["planter"],
+      "contexts": ["plaza", "park", "street"],
       "dimensions": {
         "width": 2.2544,
         "depth": 1.9524,
@@ -1838,22 +1047,11 @@
       },
       "triangleCount": 68,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "park", "street"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -1866,14 +1064,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/pot_small.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "planter"
-      ],
-      "contexts": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "semanticRoles": ["planter"],
+      "contexts": ["plaza", "park", "street"],
       "dimensions": {
         "width": 1.2938,
         "depth": 1.1205,
@@ -1881,22 +1073,11 @@
       },
       "triangleCount": 72,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "park", "street"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -1908,15 +1089,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_block.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "civic_courtyard", "park"],
       "dimensions": {
         "width": 1.6,
         "depth": 1.6,
@@ -1924,22 +1098,11 @@
       },
       "triangleCount": 140,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "civic_courtyard", "park"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -1951,15 +1114,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_ring.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "civic_courtyard", "park"],
       "dimensions": {
         "width": 2.4,
         "depth": 1.6,
@@ -1967,22 +1123,11 @@
       },
       "triangleCount": 76,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "civic_courtyard", "park"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -1994,15 +1139,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_obelisk.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "civic_courtyard", "park"],
       "dimensions": {
         "width": 1.2281,
         "depth": 1.2281,
@@ -2010,31 +1148,17 @@
       },
       "triangleCount": 38,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "civic_courtyard", "park"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
       "runtimeAssetId": "prp_monument_obelisk",
       "catalogRole": "monument",
-      "placement": [
-        "open_space",
-        "center_preferred"
-      ]
+      "placement": ["open_space", "center_preferred"]
     },
     {
       "assetId": "wa_kenney_nature_kit_sign_2",
@@ -2042,13 +1166,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/sign.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "signage"
-      ],
-      "contexts": [
-        "street",
-        "commercial_corridor"
-      ],
+      "semanticRoles": ["signage"],
+      "contexts": ["street", "commercial_corridor"],
       "dimensions": {
         "width": 1.2,
         "depth": 0.28,
@@ -2056,21 +1175,11 @@
       },
       "triangleCount": 44,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "commercial_corridor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "commercial_corridor"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -2082,14 +1191,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_column.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "park"],
       "dimensions": {
         "width": 1.2,
         "depth": 1.2,
@@ -2097,28 +1200,16 @@
       },
       "triangleCount": 122,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "park"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
       "catalogRole": "monument",
-      "placement": [
-        "open_space"
-      ]
+      "placement": ["open_space"]
     },
     {
       "assetId": "wa_kenney_nature_kit_statue_head_2",
@@ -2126,15 +1217,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_head.glb",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "civic_courtyard", "park"],
       "dimensions": {
         "width": 2.904,
         "depth": 2.2177,
@@ -2142,22 +1226,11 @@
       },
       "triangleCount": 196,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "civic_courtyard", "park"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -2169,34 +1242,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/FBX format/statue_block.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "civic_courtyard", "park"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "civic_courtyard", "park"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2207,33 +1262,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/FBX format/pot_large.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "planter"
-      ],
-      "contexts": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "semanticRoles": ["planter"],
+      "contexts": ["plaza", "park", "street"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "park", "street"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2244,33 +1282,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/FBX format/crop_turnip.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "planter"
-      ],
-      "contexts": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "semanticRoles": ["planter"],
+      "contexts": ["plaza", "park", "street"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "park", "street"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2281,34 +1302,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/FBX format/statue_columnDamaged.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "civic_courtyard", "park"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "civic_courtyard", "park"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2319,31 +1322,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/FBX format/sign.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "signage"
-      ],
-      "contexts": [
-        "street",
-        "commercial_corridor"
-      ],
+      "semanticRoles": ["signage"],
+      "contexts": ["street", "commercial_corridor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "commercial_corridor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "commercial_corridor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2354,33 +1342,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/FBX format/pot_small.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "planter"
-      ],
-      "contexts": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "semanticRoles": ["planter"],
+      "contexts": ["plaza", "park", "street"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "park", "street"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2391,34 +1362,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/FBX format/statue_column.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "civic_courtyard", "park"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "civic_courtyard", "park"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2429,34 +1382,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/FBX format/statue_obelisk.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "civic_courtyard", "park"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "civic_courtyard", "park"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2467,34 +1402,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/FBX format/statue_ring.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "civic_courtyard", "park"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "civic_courtyard", "park"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2505,34 +1422,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/FBX format/statue_head.fbx",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "monument",
-        "civic_landmark"
-      ],
-      "contexts": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "semanticRoles": ["monument", "civic_landmark"],
+      "contexts": ["plaza", "civic_courtyard", "park"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "civic_courtyard",
-        "park"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "civic_courtyard", "park"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2543,31 +1442,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_hatchback.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2578,31 +1462,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/road_corner_curved.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2613,31 +1482,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_sedan_wheel_rear_left.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2648,34 +1502,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/bench.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "bench",
-        "seating"
-      ],
-      "contexts": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "semanticRoles": ["bench", "seating"],
+      "contexts": ["plaza", "park", "street"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "park", "street"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2686,32 +1522,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/trafficlight_A.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2722,31 +1542,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_sedan_wheel_front_right.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2757,31 +1562,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/firehydrant.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "hydrant"
-      ],
-      "contexts": [
-        "street",
-        "fire_station"
-      ],
+      "semanticRoles": ["hydrant"],
+      "contexts": ["street", "fire_station"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "fire_station"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "fire_station"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2792,31 +1582,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_stationwagon_wheel_rear_left.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2827,31 +1602,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_taxi.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2862,31 +1622,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_taxi_wheel_rear_right.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2897,31 +1642,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_hatchback_wheel_front_left.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2932,31 +1662,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_hatchback_wheel_rear_left.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -2967,31 +1682,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_police_wheel_rear_right.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3002,32 +1702,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/trafficlight_B.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3038,31 +1722,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_hatchback_wheel_front_right.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3073,31 +1742,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/trash_A.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3108,31 +1762,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/road_tsplit.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3143,31 +1782,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_taxi_wheel_front_left.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3178,31 +1802,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/road_straight.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3213,31 +1822,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_stationwagon_wheel_rear_right.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3248,31 +1842,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_police_wheel_rear_left.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3283,31 +1862,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/watertower.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3318,31 +1882,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/base.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3353,32 +1902,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/streetlight.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3389,31 +1922,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_police_wheel_front_left.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3424,31 +1942,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_sedan.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3459,31 +1962,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/road_straight_crossing.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3494,31 +1982,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_stationwagon.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3529,31 +2002,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/road_junction.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3564,31 +2022,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_stationwagon_wheel_front_left.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3599,31 +2042,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_stationwagon_wheel_front_right.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3634,31 +2062,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_hatchback_wheel_rear_right.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3669,31 +2082,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/dumpster.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3704,31 +2102,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_taxi_wheel_rear_left.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3739,31 +2122,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/road_corner.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3774,32 +2142,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/trafficlight_C.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3810,31 +2162,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/trash_B.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3845,31 +2182,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/box_B.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3880,31 +2202,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_sedan_wheel_rear_right.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3915,31 +2222,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_sedan_wheel_front_left.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3950,31 +2242,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_police.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -3985,31 +2262,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_police_wheel_front_right.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4020,31 +2282,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/car_taxi_wheel_front_right.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4055,31 +2302,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/obj/box_A.obj",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4090,13 +2322,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/road_straight_crossing.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 8,
         "depth": 8,
@@ -4104,21 +2331,11 @@
       },
       "triangleCount": 64,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4129,15 +2346,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "bench",
-        "seating"
-      ],
-      "contexts": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "semanticRoles": ["bench", "seating"],
+      "contexts": ["plaza", "park", "street"],
       "dimensions": {
         "width": 1.6,
         "depth": 0.6,
@@ -4145,22 +2355,11 @@
       },
       "triangleCount": 44,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "plaza",
-        "park",
-        "street"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["plaza", "park", "street"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -4173,13 +2372,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/road_straight.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 8,
         "depth": 8,
@@ -4187,21 +2381,11 @@
       },
       "triangleCount": 58,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4212,13 +2396,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/road_corner.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 8,
         "depth": 8,
@@ -4226,21 +2405,11 @@
       },
       "triangleCount": 152,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4251,14 +2420,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/trafficlight_A.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 0.6977,
         "depth": 0.6023,
@@ -4266,21 +2429,11 @@
       },
       "triangleCount": 508,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4291,13 +2444,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/car_sedan.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 1.6758,
         "depth": 3.7523,
@@ -4305,21 +2453,11 @@
       },
       "triangleCount": 1222,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4330,13 +2468,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/trash_B.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 0.2722,
         "depth": 0.2834,
@@ -4344,21 +2477,11 @@
       },
       "triangleCount": 18,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4369,14 +2492,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/streetlight.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 1.0772,
         "depth": 0.2761,
@@ -4384,21 +2501,11 @@
       },
       "triangleCount": 176,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -4410,13 +2517,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/car_hatchback.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 1.6758,
         "depth": 3.2243,
@@ -4424,21 +2526,11 @@
       },
       "triangleCount": 1194,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4449,13 +2541,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/road_corner_curved.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 8,
         "depth": 8,
@@ -4463,21 +2550,11 @@
       },
       "triangleCount": 172,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4488,14 +2565,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/trafficlight_C.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 3.1909,
         "depth": 1.0863,
@@ -4503,21 +2574,11 @@
       },
       "triangleCount": 444,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4528,13 +2589,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/road_junction.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 8,
         "depth": 8,
@@ -4542,21 +2598,11 @@
       },
       "triangleCount": 170,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4567,13 +2613,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/car_taxi.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 1.6758,
         "depth": 3.7523,
@@ -4581,21 +2622,11 @@
       },
       "triangleCount": 1256,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4606,13 +2637,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/car_stationwagon.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 1.6758,
         "depth": 3.7523,
@@ -4620,21 +2646,11 @@
       },
       "triangleCount": 1234,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4645,13 +2661,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/box_B.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 0.6082,
         "depth": 0.6176,
@@ -4659,21 +2670,11 @@
       },
       "triangleCount": 20,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4684,13 +2685,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/base.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 8,
         "depth": 8,
@@ -4698,21 +2694,11 @@
       },
       "triangleCount": 60,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -4724,13 +2710,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/road_tsplit.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 8,
         "depth": 8,
@@ -4738,21 +2719,11 @@
       },
       "triangleCount": 138,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4763,13 +2734,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/dumpster.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 2.2638,
         "depth": 1.4112,
@@ -4777,21 +2743,11 @@
       },
       "triangleCount": 126,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4802,13 +2758,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/watertower.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 1.9955,
         "depth": 1.9955,
@@ -4816,21 +2767,11 @@
       },
       "triangleCount": 146,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -4842,13 +2783,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/box_A.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 0.8,
         "depth": 0.8123,
@@ -4856,21 +2792,11 @@
       },
       "triangleCount": 32,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4881,13 +2807,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/car_police.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 1.6758,
         "depth": 3.7523,
@@ -4895,21 +2816,11 @@
       },
       "triangleCount": 1316,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4920,13 +2831,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/trash_A.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_furniture"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_furniture"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 0.5071,
         "depth": 0.5332,
@@ -4934,21 +2840,11 @@
       },
       "triangleCount": 18,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"
@@ -4959,13 +2855,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/firehydrant.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "hydrant"
-      ],
-      "contexts": [
-        "street",
-        "fire_station"
-      ],
+      "semanticRoles": ["hydrant"],
+      "contexts": ["street", "fire_station"],
       "dimensions": {
         "width": 0.542,
         "depth": 0.5253,
@@ -4973,21 +2864,11 @@
       },
       "triangleCount": 180,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "fire_station"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "fire_station"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -4999,14 +2880,8 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/trafficlight_B.gltf",
       "license": "CC0-1.0",
       "category": "urban_prop",
-      "semanticRoles": [
-        "street_lamp",
-        "lighting"
-      ],
-      "contexts": [
-        "street",
-        "plaza"
-      ],
+      "semanticRoles": ["street_lamp", "lighting"],
+      "contexts": ["street", "plaza"],
       "dimensions": {
         "width": 1.1163,
         "depth": 0.6023,
@@ -5014,21 +2889,11 @@
       },
       "triangleCount": 636,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza"],
       "runtimeLayer": "none",
       "qualityTier": "measured",
-      "orientationSupport": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "orientationSupport": [0, 90, 180, 270],
       "animationSupport": false,
       "runtimeReady": false,
       "state": "classified"

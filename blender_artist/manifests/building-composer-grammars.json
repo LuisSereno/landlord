@@ -4515,9 +4515,9 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3/V.g: una comisaría se reconoce por arquitectura institucional robusta, entrada pública marcada (con escalinata o marquesina), lenguaje de seguridad. Debe sentirse INSTITUCIONAL + SEGURIDAD sin parecer cárcel ni fortaleza. Se exige acceso institucional (monumental_stairs, canopied_entrance o recessed_entry) Y elemento cívico robusto (plinth, civic_block, civic_tower). Debe distinguirse de town_hall por escala menor y lenguaje más robusto. Debe distinguirse de clinic por lenguaje de seguridad en vez de sanitario.",
+        "description": "R3/V.g: una comisaría se reconoce por arquitectura institucional robusta, entrada pública marcada (con escalinata o marquesina), lenguaje de seguridad. Debe sentirse INSTITUCIONAL + SEGURIDAD sin parecer cárcel ni fortaleza. Se exige acceso institucional (monumental_stairs, canopied_entrance o recessed_entry) y una entrada construida o elemento cívico robusto (doorframe, plinth, civic_block, civic_tower o canopy). Debe distinguirse de town_hall por escala menor y lenguaje más robusto. Debe distinguirse de clinic por lenguaje de seguridad en vez de sanitario.",
         "requireAccessIds": ["monumental_stairs", "canopied_entrance", "recessed_entry"],
-        "requireAnyRoles": [["plinth", "civic_block", "civic_tower", "canopy"]],
+        "requireAnyRoles": [["doorframe", "plinth", "civic_block", "civic_tower", "canopy"]],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
           "mod_kenney_ind_chimney_medium",
@@ -5195,11 +5195,8 @@
         }
       ],
       "semanticIdentity": {
-        "description": "R3/V.g: un mercado se reconoce por gran nave urbana con transparencia (curtain_wall), múltiples accesos públicos, grandes ventanales, toldos de puestos y actividad exterior. Test de regresión: market hall opaco + una puerta → FAIL. Debe diferenciarse de warehouse por transparencia, accesos públicos, toldos y detalle comercial. Debe distinguirse de town_hall por mayor longitud y actividad comercial visible. Debe distinguirse de mixed_tenement por escala mayor y gran nave de mercado.",
-        "requireAnyRoles": [
-          ["curtain_wall", "awning"],
-          ["civic_block", "plinth", "canopy"]
-        ],
+        "description": "R3/V.g: un mercado se reconoce por gran nave urbana con transparencia (curtain_wall), múltiples accesos públicos, grandes ventanales, toldos de puestos y actividad exterior. Test de regresión: market hall opaco + una puerta → FAIL. Debe diferenciarse de warehouse por transparencia, accesos públicos, toldos y detalle comercial. Debe distinguirse de town_hall por mayor longitud y actividad comercial visible. Debe distinguirse de mixed_tenement por escala mayor y gran nave de mercado. La transparencia o el toldo de mercado son la identidad mínima; el volumen cívico auxiliar es variación opcional, no requisito.",
+        "requireAnyRoles": [["curtain_wall", "awning"]],
         "prohibitRhythmIds": ["blind_siding", "blind_steel"],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",

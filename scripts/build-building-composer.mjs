@@ -417,10 +417,7 @@ function regenerateCheck(grammars, options, request) {
   // Magnitud real del jitter del sprite final: se difunden los dos PNG con PIL. Esto es lo que
   // permite distinguir "idéntico", "jitter sub-perceptual de GPU" y "inestabilidad de render" en
   // vez de colapsar los tres en un booleano de sha.
-  const jitter = measurePixelJitter(
-    join(workDir, "primera.png"),
-    join(workDir, "segunda.png"),
-  );
+  const jitter = measurePixelJitter(join(workDir, "primera.png"), join(workDir, "segunda.png"));
   // §13 compara la firma de la composición, el pivot y las dimensiones: eso es lo que define una
   // variante (§14). Los píxeles son el raster; su byte-identidad no es alcanzable en EEVEE Next GPU.
   const differences = ["signature", "pivot", "pixels"].filter(
@@ -577,10 +574,7 @@ function main() {
 
   if (errors.length > 0) {
     // R1 — la evidencia canónica no se toca; el staging queda para diagnóstico.
-    writeFileSync(
-      join(stagingDir, "errors.txt"),
-      `${errors.join("\n")}\n`,
-    );
+    writeFileSync(join(stagingDir, "errors.txt"), `${errors.join("\n")}\n`);
     console.error(errors.map((message) => `- ${message}`).join("\n"));
     console.error(`\nR1 promoción abortada. ${options.outDir} NO cambió.`);
     console.error(`Artefactos de diagnóstico en ${stagingDir}`);

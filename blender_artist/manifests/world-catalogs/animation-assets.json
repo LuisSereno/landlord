@@ -13,26 +13,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_neutral_02.max.fbx",
       "license": "MIT",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -44,26 +34,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_breathe_01.max.fbx",
       "license": "MIT",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -75,26 +55,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_breathe_02.max.fbx",
       "license": "MIT",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -106,26 +76,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_neutral_01.max.fbx",
       "license": "MIT",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -137,26 +97,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/f_idle_breathe_01.max.fbx",
       "license": "MIT",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -168,26 +118,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/f_idle_breathe_02.max.fbx",
       "license": "MIT",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -199,26 +139,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/f_walk_neutral_02.max.fbx",
       "license": "MIT",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -230,26 +160,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/f_walk_neutral_03.max.fbx",
       "license": "MIT",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -261,26 +181,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/f_walk_neutral_04.max.fbx",
       "license": "MIT",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -292,26 +202,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_02.max.fbx",
       "license": "MIT",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -323,26 +223,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/f_walk_neutral_01.max.fbx",
       "license": "MIT",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -354,26 +244,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/f_walk_neutral.max.fbx",
       "license": "MIT",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -385,26 +265,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_03.max.fbx",
       "license": "MIT",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -416,26 +286,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_01.max.fbx",
       "license": "MIT",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -447,26 +307,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral.max.fbx",
       "license": "MIT",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -478,26 +328,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library/Universal Animation Library[Standard]/Unity/UAL1_Standard.fbx",
       "license": "CC0-1.0",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -509,26 +349,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library/Universal Animation Library[Standard]/Unity/UAL1_Standard_RM.fbx",
       "license": "CC0-1.0",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -540,26 +370,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library/Universal Animation Library[Standard]/Unreal-Godot/UAL1_Standard.glb",
       "license": "CC0-1.0",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -571,26 +391,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library/Universal Animation Library[Standard]/Unreal-Godot/UAL1_Standard_RM.glb",
       "license": "CC0-1.0",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -602,26 +412,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library-2/Universal Animation Library 2[Standard]/Female Mannequin/Mannequin_F.blend",
       "license": "CC0-1.0",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -633,26 +433,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library-2/Universal Animation Library 2[Standard]/Female Mannequin/Unity/Mannequin_F.fbx",
       "license": "CC0-1.0",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -664,26 +454,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library-2/Universal Animation Library 2[Standard]/Female Mannequin/Unreal-Godot/Mannequin_F.glb",
       "license": "CC0-1.0",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -695,26 +475,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library-2/Universal Animation Library 2[Standard]/Unity/UAL2_Standard.fbx",
       "license": "CC0-1.0",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -726,26 +496,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library-2/Universal Animation Library 2[Standard]/Unity/UAL2_Standard_RM.fbx",
       "license": "CC0-1.0",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -757,26 +517,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library-2/Universal Animation Library 2[Standard]/Unreal-Godot/UAL2_Standard.glb",
       "license": "CC0-1.0",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -788,26 +538,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library-2/Universal Animation Library 2[Standard]/Unreal-Godot/UAL2_Standard_RM.glb",
       "license": "CC0-1.0",
       "category": "animation",
-      "semanticRoles": [
-        "animation_clip"
-      ],
-      "contexts": [
-        "actor"
-      ],
+      "semanticRoles": ["animation_clip"],
+      "contexts": ["actor"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "actor"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["actor"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",

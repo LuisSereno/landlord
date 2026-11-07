@@ -2,59 +2,18 @@
   "schemaVersion": 1,
   "generatedFrom": "blender_artist/manifests/world-asset-index.json",
   "purpose": "Biblioteca sem\u00e1ntica de materiales: categor\u00edas de lenguaje \u00d7 lenguajes visuales. Los subsistemas eligen material por categor\u00eda+lenguaje, nunca por nombre de archivo.",
-  "visualLanguages": [
-    "civic",
-    "residential",
-    "commercial",
-    "industrial",
-    "infrastructure",
-    "park"
-  ],
+  "visualLanguages": ["civic", "residential", "commercial", "industrial", "infrastructure", "park"],
   "selectionByLanguage": {
-    "civic": [
-      "pavement",
-      "stone",
-      "brick",
-      "concrete"
-    ],
-    "residential": [
-      "grass",
-      "brick",
-      "wood",
-      "pavement"
-    ],
-    "commercial": [
-      "pavement",
-      "brick",
-      "asphalt",
-      "concrete"
-    ],
-    "industrial": [
-      "concrete",
-      "metal",
-      "rusty_metal",
-      "asphalt",
-      "soil"
-    ],
-    "infrastructure": [
-      "asphalt",
-      "concrete",
-      "metal"
-    ],
-    "park": [
-      "grass",
-      "soil",
-      "stone",
-      "wood"
-    ]
+    "civic": ["pavement", "stone", "brick", "concrete"],
+    "residential": ["grass", "brick", "wood", "pavement"],
+    "commercial": ["pavement", "brick", "asphalt", "concrete"],
+    "industrial": ["concrete", "metal", "rusty_metal", "asphalt", "soil"],
+    "infrastructure": ["asphalt", "concrete", "metal"],
+    "park": ["grass", "soil", "stone", "wood"]
   },
   "categories": {
     "asphalt": {
-      "visualLanguages": [
-        "infrastructure",
-        "industrial",
-        "commercial"
-      ],
+      "visualLanguages": ["infrastructure", "industrial", "commercial"],
       "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
       "assets": [
         {
@@ -68,31 +27,18 @@
       "fallback": null
     },
     "pavement": {
-      "visualLanguages": [
-        "civic",
-        "infrastructure",
-        "commercial"
-      ],
+      "visualLanguages": ["civic", "infrastructure", "commercial"],
       "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
       "assets": [],
       "gap": true,
       "fallback": "color procedural del style profile (Graphic Civic)",
       "proceduralTone": {
-        "color": [
-          0.62,
-          0.6,
-          0.57
-        ],
+        "color": [0.62, 0.6, 0.57],
         "roughness": 0.85
       }
     },
     "brick": {
-      "visualLanguages": [
-        "civic",
-        "residential",
-        "commercial",
-        "industrial"
-      ],
+      "visualLanguages": ["civic", "residential", "commercial", "industrial"],
       "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
       "assets": [
         {
@@ -112,11 +58,7 @@
       "fallback": null
     },
     "concrete": {
-      "visualLanguages": [
-        "infrastructure",
-        "industrial",
-        "civic"
-      ],
+      "visualLanguages": ["infrastructure", "industrial", "civic"],
       "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
       "assets": [
         {
@@ -130,45 +72,29 @@
       "fallback": null
     },
     "stone": {
-      "visualLanguages": [
-        "civic",
-        "park"
-      ],
+      "visualLanguages": ["civic", "park"],
       "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
       "assets": [],
       "gap": true,
       "fallback": "color procedural del style profile (Graphic Civic)",
       "proceduralTone": {
-        "color": [
-          0.55,
-          0.53,
-          0.5
-        ],
+        "color": [0.55, 0.53, 0.5],
         "roughness": 0.9
       }
     },
     "metal": {
-      "visualLanguages": [
-        "industrial",
-        "infrastructure"
-      ],
+      "visualLanguages": ["industrial", "infrastructure"],
       "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
       "assets": [],
       "gap": true,
       "fallback": "color procedural del style profile (Graphic Civic)",
       "proceduralTone": {
-        "color": [
-          0.42,
-          0.44,
-          0.47
-        ],
+        "color": [0.42, 0.44, 0.47],
         "roughness": 0.4
       }
     },
     "rusty_metal": {
-      "visualLanguages": [
-        "industrial"
-      ],
+      "visualLanguages": ["industrial"],
       "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
       "assets": [
         {
@@ -182,10 +108,7 @@
       "fallback": null
     },
     "wood": {
-      "visualLanguages": [
-        "residential",
-        "park"
-      ],
+      "visualLanguages": ["residential", "park"],
       "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
       "assets": [
         {
@@ -199,38 +122,24 @@
       "fallback": null
     },
     "soil": {
-      "visualLanguages": [
-        "park",
-        "industrial"
-      ],
+      "visualLanguages": ["park", "industrial"],
       "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
       "assets": [],
       "gap": true,
       "fallback": "color procedural del style profile (Graphic Civic)",
       "proceduralTone": {
-        "color": [
-          0.32,
-          0.24,
-          0.16
-        ],
+        "color": [0.32, 0.24, 0.16],
         "roughness": 0.95
       }
     },
     "grass": {
-      "visualLanguages": [
-        "park",
-        "residential"
-      ],
+      "visualLanguages": ["park", "residential"],
       "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
       "assets": [],
       "gap": true,
       "fallback": "color procedural del style profile (Graphic Civic)",
       "proceduralTone": {
-        "color": [
-          0.3,
-          0.44,
-          0.24
-        ],
+        "color": [0.3, 0.44, 0.24],
         "roughness": 0.9
       }
     }

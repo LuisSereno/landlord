@@ -44,12 +44,10 @@ const PATHS = {
   gameData: join(REPO_ROOT, "packages/simulation/src/game-data.ts"),
   pipeline: join(REPO_ROOT, "tools/art-pipeline/blender"),
 };
-const DEFAULT_CANDIDATE_MANIFEST = join(
-  REPO_ROOT,
-  "docs/art/building-composer/candidates/manifest.json",
-);
 const STAGING_PREFIX = "blender_artist/staging/";
-const ALLOWED_LICENSES = ["CC0-1.0"];
+const PROMOTIONS_PATH = join(REPO_ROOT, "blender_artist/manifests/runtime-promotions.json");
+const ALLOWED_LICENSES = ["CC0-1.0", "original"];
+const ALLOWED_SOURCE_PREFIXES = [STAGING_PREFIX, "blender_artist/sources/original/"];
 const SUPPORT_KINDS = ["base", "connector", "plinth", "pipe", "support"];
 /** §11: las cuatro ramas por las que un color puede subir a la escalera de tratamiento. */
 const TREATMENT_PATHS = ["atlas-directo", "atlas-profundo", "plano", "sin-albedo-enlazado"];
@@ -82,7 +80,7 @@ const REQUIRED_METADATA_FIELDS = [
 
 function parseArgs(argv) {
   const options = {
-    manifest: DEFAULT_CANDIDATE_MANIFEST,
+    manifest: null,
     requireManifest: false,
     regenerate: null,
   };
@@ -309,7 +307,9 @@ print(json.dumps(out))
     if (!value.sameTwice) {
       errors.push(`§13 ${key}: el mismo seed produjo dos firmas distintas en la misma corrida`);
     }
-    const published = new Set(Object.keys(value.axes));
+    // `recipe` decide restricciones sobre los ejes declarados; no es un eje de
+    // variante independiente del contrato §16.
+    const published = new Set(Object.keys(value.axes).filter((axis) => axis !== "recipe"));
     if (
       published.size !== declaredAxes.size ||
       [...published].some((axis) => !declaredAxes.has(axis))
@@ -406,8 +406,8 @@ function checkCandidate(candidate, modulesById, sourcesById, grammars, manifestD
     } else if (source.license !== placement.license) {
       errors.push(`§5 ${label}: staging declara '${source.license}' para ${placement.sourceId}`);
     }
-    if (!placement.sourcePath?.startsWith(STAGING_PREFIX)) {
-      errors.push(`§5 ${label}: '${placement.sourcePath}' está fuera de ${STAGING_PREFIX}`);
+    if (!ALLOWED_SOURCE_PREFIXES.some((prefix) => placement.sourcePath?.startsWith(prefix))) {
+      errors.push(`§5 ${label}: '${placement.sourcePath}' está fuera de las fuentes permitidas`);
     }
   }
   for (const license of candidate.licenses ?? []) {
@@ -681,7 +681,7 @@ function main() {
   checkDeterminism(grammars, errors);
 
   let candidates = 0;
-  if (existsSync(options.manifest)) {
+  if (options.manifest && existsSync(options.manifest)) {
     const manifest = read(options.manifest);
     const manifestDir = dirname(options.manifest);
     const signatures = new Map();
@@ -708,6 +708,35 @@ function main() {
     );
   } else if (options.requireManifest) {
     errors.push(`no hay manifiesto de candidatos en ${options.manifest}`);
+  } else {
+    // La evidencia canónica es la que llegó a runtime mediante una promoción aprobada,
+    // no el spike V.f histórico. Cada promoción apunta a su metadata exacta y permite
+    // validar los 15 edificios actuales sin copiar otro manifiesto mantenido a mano.
+    const promotions = read(PROMOTIONS_PATH).promotions ?? [];
+    const signatures = new Map();
+    for (const promotion of promotions) {
+      const metadataPath = join(REPO_ROOT, promotion.candidateMetadata);
+      if (!existsSync(metadataPath)) {
+        errors.push(
+          `§24 ${promotion.assetId}: falta la metadata promovida '${promotion.candidateMetadata}'`,
+        );
+        continue;
+      }
+      const candidate = read(metadataPath);
+      const manifestDir = dirname(metadataPath);
+      checkCandidate(candidate, modulesById, sourcesById, grammars, manifestDir, errors);
+      checkSceneEvidence(candidate, modulesById, errors);
+      if (candidate.candidateId !== promotion.candidateId) {
+        errors.push(`§24 ${promotion.assetId}: candidateId promovido no coincide con su metadata`);
+      }
+      const seen = signatures.get(candidate.compositionSignature);
+      if (seen)
+        errors.push(
+          `§14 firmas idénticas entre ${seen} y ${candidate.candidateId}: no son dos variantes`,
+        );
+      else signatures.set(candidate.compositionSignature, candidate.candidateId);
+      candidates += 1;
+    }
   }
 
   if (errors.length > 0) {
@@ -719,7 +748,10 @@ function main() {
       status: "valid",
       composerVersion: grammars.composerVersion,
       grammars: Object.keys(grammars.grammars).length,
-      candidateManifest: existsSync(options.manifest) ? options.manifest : null,
+      candidateManifest:
+        options.manifest && existsSync(options.manifest)
+          ? options.manifest
+          : "runtime-promotions.json",
       candidates,
       note: "gramáticas contra catálogo y dominio, determinismo §13/§14/§16 medido sin Blender",
     }),

@@ -13,30 +13,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_02/Export/Male_Adult_02_facial.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -49,30 +35,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_02/Export/Male_Adult_02.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -86,30 +58,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_10/Export/Male_Adult_10_facial.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -122,30 +80,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_10/Export/Male_Adult_10.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -158,30 +102,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_05/Export/Male_Adult_05.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -195,30 +125,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_05/Export/Male_Adult_05_facial.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -231,30 +147,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_09/Export/Male_Adult_09.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -268,30 +170,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_09/Export/Male_Adult_09_facial.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -304,30 +192,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Female_Adult_04/Export/Female_Adult_04_facial.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -340,30 +214,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Female_Adult_04/Export/Female_Adult_04.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -376,30 +236,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_03/Export/Male_Adult_03_facial.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -412,30 +258,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_03/Export/Male_Adult_03.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -448,30 +280,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Female_Adult_09/Export/Female_Adult_09_facial.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -484,30 +302,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Female_Adult_09/Export/Female_Adult_09.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -521,30 +325,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Female_Adult_13/Export/Female_Adult_13_facial.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -557,30 +347,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Female_Adult_13/Export/Female_Adult_13.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -593,30 +369,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_12/Export/Male_Adult_12.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "blender_sprite",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": true,
       "state": "runtime_ready",
@@ -630,30 +392,16 @@
       "sourcePath": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_12/Export/Male_Adult_12_facial.fbx",
       "license": "MIT",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -666,30 +414,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unity)/Eyebrows_Regular.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -701,30 +435,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unity)/Eyebrows_Female.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -736,30 +456,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unity)/Hair_Long.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -771,30 +477,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unity)/Hair_Beard.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -806,30 +498,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unity)/Hair_BuzzedFemale.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -841,30 +519,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unity)/Hair_Buzzed.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -876,30 +540,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unity)/Hair_SimpleParted.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -911,30 +561,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unity)/Hair_Buns.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -946,30 +582,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_Beard.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -981,30 +603,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_BuzzedFemale.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1016,30 +624,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Eyebrows_Female.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1051,30 +645,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_Long.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1086,30 +666,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buns.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1121,30 +687,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Eyebrows_Regular.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1156,30 +708,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_SimpleParted.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1191,30 +729,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/glTF (Godot)/Hair_Buzzed.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1226,30 +750,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unreal Engine)/Eyebrows_Regular.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1261,30 +771,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unreal Engine)/Eyebrows_Female.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1296,30 +792,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unreal Engine)/Hair_Long.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1331,30 +813,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unreal Engine)/Hair_Beard.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1366,30 +834,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unreal Engine)/Hair_BuzzedFemale.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1401,30 +855,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unreal Engine)/Hair_Buzzed.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1436,30 +876,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unreal Engine)/Hair_SimpleParted.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1471,30 +897,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Origin at 0/FBX (Unreal Engine)/Hair_Buns.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1506,30 +918,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Beard.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1541,30 +939,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_BuzzedFemale.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1576,30 +960,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Eyebrows_Female.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1611,30 +981,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Long.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1646,30 +1002,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Buns.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1681,30 +1023,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Eyebrows_Regular.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1716,30 +1044,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_SimpleParted.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1751,30 +1065,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Buzzed.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1786,30 +1086,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/FBX (Unity)/Eyebrows_Regular.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1821,30 +1107,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/FBX (Unity)/Eyebrows_Female.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1856,30 +1128,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/FBX (Unity)/Hair_Long.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1891,30 +1149,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/FBX (Unity)/Hair_Beard.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1926,30 +1170,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/FBX (Unity)/Hair_BuzzedFemale.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1961,30 +1191,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/FBX (Unity)/Hair_Buzzed.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -1996,30 +1212,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/FBX (Unity)/Hair_SimpleParted.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -2031,30 +1233,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Hairstyles/Rigged to Head Bone/FBX (Unity)/Hair_Buns.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -2066,30 +1254,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Base Characters/Godot - UE/Superhero_Female_FullBody.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -2101,30 +1275,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -2136,30 +1296,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Base Characters/Unity/Superhero_Female_FullBody.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",
@@ -2171,30 +1317,16 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Base Characters/Unity/Superhero_Male_FullBody.fbx",
       "license": "CC0-1.0",
       "category": "actor",
-      "semanticRoles": [
-        "humanoid"
-      ],
-      "contexts": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "semanticRoles": ["humanoid"],
+      "contexts": ["street", "plaza", "interior"],
       "dimensions": null,
       "triangleCount": null,
       "modularity": "whole_asset",
-      "styleCompatibility": [
-        "graphic_civic"
-      ],
-      "recommendedUses": [
-        "street",
-        "plaza",
-        "interior"
-      ],
+      "styleCompatibility": ["graphic_civic"],
+      "recommendedUses": ["street", "plaza", "interior"],
       "runtimeLayer": "none",
       "qualityTier": "unmeasured",
-      "orientationSupport": [
-        0
-      ],
+      "orientationSupport": [0],
       "animationSupport": true,
       "runtimeReady": false,
       "state": "classified",

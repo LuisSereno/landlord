@@ -35,7 +35,9 @@ function parseArgs(argv) {
     if (flag === "--outDir") options.outDir = resolve(value);
     else if (flag === "--no-fixture") options.regenerateFixture = false;
     else if (flag === "--help") {
-      console.log("uso: node scripts/build-public-space-dressing.mjs [--outDir=dir] [--no-fixture]");
+      console.log(
+        "uso: node scripts/build-public-space-dressing.mjs [--outDir=dir] [--no-fixture]",
+      );
       process.exit(0);
     } else throw new Error(`argumento desconocido ${argument}`);
   }

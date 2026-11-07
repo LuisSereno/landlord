@@ -10,12 +10,7 @@
       "profileId": "centro_civico",
       "districtRole": "civic",
       "cellMeters": 4,
-      "boundsCells": [
-        33,
-        33,
-        41,
-        41
-      ],
+      "boundsCells": [33, 33, 41, 41],
       "cellCount": 78,
       "placements": [
         {
@@ -27,11 +22,7 @@
             "x": 37,
             "y": 37
           },
-          "position": [
-            18.0,
-            18.0,
-            0.0
-          ],
+          "position": [18.0, 18.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.2,
@@ -51,11 +42,7 @@
             "x": 33,
             "y": 33
           },
-          "position": [
-            2.0,
-            2.0,
-            0.0
-          ],
+          "position": [2.0, 2.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2,
@@ -75,11 +62,7 @@
             "x": 33,
             "y": 36
           },
-          "position": [
-            2.0,
-            14.0,
-            0.0
-          ],
+          "position": [2.0, 14.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2,
@@ -99,11 +82,7 @@
             "x": 33,
             "y": 40
           },
-          "position": [
-            2.0,
-            30.0,
-            0.0
-          ],
+          "position": [2.0, 30.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2,
@@ -123,11 +102,7 @@
             "x": 34,
             "y": 38
           },
-          "position": [
-            6.0,
-            22.0,
-            0.0
-          ],
+          "position": [6.0, 22.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2,
@@ -147,11 +122,7 @@
             "x": 35,
             "y": 39
           },
-          "position": [
-            10.0,
-            26.0,
-            0.0
-          ],
+          "position": [10.0, 26.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2,
@@ -171,11 +142,7 @@
             "x": 36,
             "y": 33
           },
-          "position": [
-            14.0,
-            2.0,
-            0.0
-          ],
+          "position": [14.0, 2.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.0772,
@@ -195,11 +162,7 @@
             "x": 37,
             "y": 41
           },
-          "position": [
-            18.0,
-            34.0,
-            0.0
-          ],
+          "position": [18.0, 34.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2,
@@ -219,11 +182,7 @@
             "x": 39,
             "y": 33
           },
-          "position": [
-            26.0,
-            2.0,
-            0.0
-          ],
+          "position": [26.0, 2.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2,
@@ -243,11 +202,7 @@
             "x": 40,
             "y": 41
           },
-          "position": [
-            30.0,
-            34.0,
-            0.0
-          ],
+          "position": [30.0, 34.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2,
@@ -267,11 +222,7 @@
             "x": 41,
             "y": 35
           },
-          "position": [
-            34.0,
-            10.0,
-            0.0
-          ],
+          "position": [34.0, 10.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2,
@@ -291,11 +242,7 @@
             "x": 41,
             "y": 38
           },
-          "position": [
-            34.0,
-            22.0,
-            0.0
-          ],
+          "position": [34.0, 22.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2,
@@ -315,11 +262,7 @@
             "x": 41,
             "y": 41
           },
-          "position": [
-            34.0,
-            34.0,
-            0.0
-          ],
+          "position": [34.0, 34.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2,
@@ -339,11 +282,7 @@
             "x": 34,
             "y": 34
           },
-          "position": [
-            6.0,
-            6.0,
-            0.0
-          ],
+          "position": [6.0, 6.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.6,
@@ -363,11 +302,7 @@
             "x": 36,
             "y": 34
           },
-          "position": [
-            14.0,
-            6.0,
-            0.0
-          ],
+          "position": [14.0, 6.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.6,
@@ -387,11 +322,7 @@
             "x": 38,
             "y": 40
           },
-          "position": [
-            22.0,
-            30.0,
-            0.0
-          ],
+          "position": [22.0, 30.0, 0.0],
           "rotationDegrees": 180,
           "footprintMeters": {
             "width": 1.6,
@@ -411,11 +342,7 @@
             "x": 40,
             "y": 36
           },
-          "position": [
-            30.0,
-            14.0,
-            0.0
-          ],
+          "position": [30.0, 14.0, 0.0],
           "rotationDegrees": 90,
           "footprintMeters": {
             "width": 0.6,
@@ -435,11 +362,7 @@
             "x": 33,
             "y": 33
           },
-          "position": [
-            2.0,
-            2.0,
-            0.0
-          ],
+          "position": [2.0, 2.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 2.2544,
@@ -459,11 +382,7 @@
             "x": 41,
             "y": 33
           },
-          "position": [
-            34.0,
-            2.0,
-            0.0
-          ],
+          "position": [34.0, 2.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 2,
@@ -483,11 +402,7 @@
             "x": 33,
             "y": 41
           },
-          "position": [
-            2.0,
-            34.0,
-            0.0
-          ],
+          "position": [2.0, 34.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.2938,
@@ -507,11 +422,7 @@
             "x": 41,
             "y": 41
           },
-          "position": [
-            34.0,
-            34.0,
-            0.0
-          ],
+          "position": [34.0, 34.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.2938,
@@ -531,11 +442,7 @@
             "x": 33,
             "y": 33
           },
-          "position": [
-            2.0,
-            2.0,
-            0.0
-          ],
+          "position": [2.0, 2.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2162,
@@ -555,11 +462,7 @@
             "x": 33,
             "y": 38
           },
-          "position": [
-            2.0,
-            22.0,
-            0.0
-          ],
+          "position": [2.0, 22.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2162,
@@ -579,11 +482,7 @@
             "x": 34,
             "y": 41
           },
-          "position": [
-            6.0,
-            34.0,
-            0.0
-          ],
+          "position": [6.0, 34.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2162,
@@ -603,11 +502,7 @@
             "x": 36,
             "y": 33
           },
-          "position": [
-            14.0,
-            2.0,
-            0.0
-          ],
+          "position": [14.0, 2.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2162,
@@ -627,11 +522,7 @@
             "x": 38,
             "y": 41
           },
-          "position": [
-            22.0,
-            34.0,
-            0.0
-          ],
+          "position": [22.0, 34.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2162,
@@ -651,11 +542,7 @@
             "x": 41,
             "y": 33
           },
-          "position": [
-            34.0,
-            2.0,
-            0.0
-          ],
+          "position": [34.0, 2.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2162,
@@ -675,11 +562,7 @@
             "x": 41,
             "y": 38
           },
-          "position": [
-            34.0,
-            22.0,
-            0.0
-          ],
+          "position": [34.0, 22.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2162,
@@ -698,12 +581,7 @@
       "profileId": "barrio_del_umbral",
       "districtRole": "residential",
       "cellMeters": 4,
-      "boundsCells": [
-        17,
-        33,
-        31,
-        47
-      ],
+      "boundsCells": [17, 33, 31, 47],
       "cellCount": 225,
       "placements": [
         {
@@ -715,11 +593,7 @@
             "x": 21,
             "y": 46
           },
-          "position": [
-            18.0,
-            54.0,
-            0.0
-          ],
+          "position": [18.0, 54.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 3.3884,
@@ -739,11 +613,7 @@
             "x": 22,
             "y": 35
           },
-          "position": [
-            22.0,
-            10.0,
-            0.0
-          ],
+          "position": [22.0, 10.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 2.5622,
@@ -763,11 +633,7 @@
             "x": 20,
             "y": 43
           },
-          "position": [
-            14.0,
-            42.0,
-            0.0
-          ],
+          "position": [14.0, 42.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.545,
@@ -787,11 +653,7 @@
             "x": 23,
             "y": 39
           },
-          "position": [
-            26.0,
-            26.0,
-            0.0
-          ],
+          "position": [26.0, 26.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.545,
@@ -811,11 +673,7 @@
             "x": 28,
             "y": 36
           },
-          "position": [
-            46.0,
-            14.0,
-            0.0
-          ],
+          "position": [46.0, 14.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 2.1186,
@@ -835,11 +693,7 @@
             "x": 20,
             "y": 37
           },
-          "position": [
-            14.0,
-            18.0,
-            0.0
-          ],
+          "position": [14.0, 18.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 2.5622,
@@ -859,11 +713,7 @@
             "x": 18,
             "y": 43
           },
-          "position": [
-            6.0,
-            42.0,
-            0.0
-          ],
+          "position": [6.0, 42.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 2.1186,
@@ -883,11 +733,7 @@
             "x": 26,
             "y": 41
           },
-          "position": [
-            38.0,
-            34.0,
-            0.0
-          ],
+          "position": [38.0, 34.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 2.5622,
@@ -907,11 +753,7 @@
             "x": 30,
             "y": 44
           },
-          "position": [
-            54.0,
-            46.0,
-            0.0
-          ],
+          "position": [54.0, 46.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.4186,
@@ -931,11 +773,7 @@
             "x": 24,
             "y": 34
           },
-          "position": [
-            30.0,
-            6.0,
-            0.0
-          ],
+          "position": [30.0, 6.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 3.3884,
@@ -955,11 +793,7 @@
             "x": 19,
             "y": 42
           },
-          "position": [
-            10.0,
-            38.0,
-            0.0
-          ],
+          "position": [10.0, 38.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.4186,
@@ -979,11 +813,7 @@
             "x": 29,
             "y": 34
           },
-          "position": [
-            50.0,
-            6.0,
-            0.0
-          ],
+          "position": [50.0, 6.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 3.3884,
@@ -1003,11 +833,7 @@
             "x": 21,
             "y": 34
           },
-          "position": [
-            18.0,
-            6.0,
-            0.0
-          ],
+          "position": [18.0, 6.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.4186,
@@ -1027,11 +853,7 @@
             "x": 22,
             "y": 37
           },
-          "position": [
-            22.0,
-            18.0,
-            0.0
-          ],
+          "position": [22.0, 18.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 2.1186,
@@ -1051,11 +873,7 @@
             "x": 30,
             "y": 36
           },
-          "position": [
-            54.0,
-            14.0,
-            0.0
-          ],
+          "position": [54.0, 14.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 3.3884,
@@ -1075,11 +893,7 @@
             "x": 25,
             "y": 43
           },
-          "position": [
-            34.0,
-            42.0,
-            0.0
-          ],
+          "position": [34.0, 42.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 2.5622,
@@ -1099,11 +913,7 @@
             "x": 21,
             "y": 44
           },
-          "position": [
-            18.0,
-            46.0,
-            0.0
-          ],
+          "position": [18.0, 46.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 2.1186,
@@ -1123,11 +933,7 @@
             "x": 26,
             "y": 46
           },
-          "position": [
-            38.0,
-            54.0,
-            0.0
-          ],
+          "position": [38.0, 54.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 3.3884,
@@ -1147,11 +953,7 @@
             "x": 23,
             "y": 42
           },
-          "position": [
-            26.0,
-            38.0,
-            0.0
-          ],
+          "position": [26.0, 38.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.4186,
@@ -1171,11 +973,7 @@
             "x": 26,
             "y": 34
           },
-          "position": [
-            38.0,
-            6.0,
-            0.0
-          ],
+          "position": [38.0, 6.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 2.5622,
@@ -1195,11 +993,7 @@
             "x": 26,
             "y": 44
           },
-          "position": [
-            38.0,
-            46.0,
-            0.0
-          ],
+          "position": [38.0, 46.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 2.5622,
@@ -1219,11 +1013,7 @@
             "x": 18,
             "y": 41
           },
-          "position": [
-            6.0,
-            34.0,
-            0.0
-          ],
+          "position": [6.0, 34.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.545,
@@ -1243,11 +1033,7 @@
             "x": 21,
             "y": 39
           },
-          "position": [
-            18.0,
-            26.0,
-            0.0
-          ],
+          "position": [18.0, 26.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 2.1186,
@@ -1267,11 +1053,7 @@
             "x": 18,
             "y": 34
           },
-          "position": [
-            6.0,
-            6.0,
-            0.0
-          ],
+          "position": [6.0, 6.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 2.1186,
@@ -1291,11 +1073,7 @@
             "x": 27,
             "y": 37
           },
-          "position": [
-            42.0,
-            18.0,
-            0.0
-          ],
+          "position": [42.0, 18.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.545,
@@ -1315,11 +1093,7 @@
             "x": 27,
             "y": 39
           },
-          "position": [
-            42.0,
-            26.0,
-            0.0
-          ],
+          "position": [42.0, 26.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.545,
@@ -1339,11 +1113,7 @@
             "x": 19,
             "y": 36
           },
-          "position": [
-            10.0,
-            14.0,
-            0.0
-          ],
+          "position": [10.0, 14.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.545,
@@ -1363,11 +1133,7 @@
             "x": 20,
             "y": 35
           },
-          "position": [
-            14.0,
-            10.0,
-            0.0
-          ],
+          "position": [14.0, 10.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 3.3884,
@@ -1387,11 +1153,7 @@
             "x": 23,
             "y": 44
           },
-          "position": [
-            26.0,
-            46.0,
-            0.0
-          ],
+          "position": [26.0, 46.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 2.1186,
@@ -1411,11 +1173,7 @@
             "x": 21,
             "y": 41
           },
-          "position": [
-            18.0,
-            34.0,
-            0.0
-          ],
+          "position": [18.0, 34.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 2.1186,
@@ -1435,11 +1193,7 @@
             "x": 28,
             "y": 41
           },
-          "position": [
-            46.0,
-            34.0,
-            0.0
-          ],
+          "position": [46.0, 34.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.4972,
@@ -1459,11 +1213,7 @@
             "x": 22,
             "y": 46
           },
-          "position": [
-            22.0,
-            54.0,
-            0.0
-          ],
+          "position": [22.0, 54.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.584,
@@ -1483,11 +1233,7 @@
             "x": 20,
             "y": 40
           },
-          "position": [
-            14.0,
-            30.0,
-            0.0
-          ],
+          "position": [14.0, 30.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.4972,
@@ -1507,11 +1253,7 @@
             "x": 29,
             "y": 34
           },
-          "position": [
-            50.0,
-            6.0,
-            0.0
-          ],
+          "position": [50.0, 6.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.4972,
@@ -1531,11 +1273,7 @@
             "x": 21,
             "y": 44
           },
-          "position": [
-            18.0,
-            46.0,
-            0.0
-          ],
+          "position": [18.0, 46.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.4972,
@@ -1555,11 +1293,7 @@
             "x": 28,
             "y": 36
           },
-          "position": [
-            46.0,
-            14.0,
-            0.0
-          ],
+          "position": [46.0, 14.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.4972,
@@ -1579,11 +1313,7 @@
             "x": 23,
             "y": 43
           },
-          "position": [
-            26.0,
-            42.0,
-            0.0
-          ],
+          "position": [26.0, 42.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.4972,
@@ -1603,11 +1333,7 @@
             "x": 22,
             "y": 36
           },
-          "position": [
-            22.0,
-            14.0,
-            0.0
-          ],
+          "position": [22.0, 14.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.584,
@@ -1627,11 +1353,7 @@
             "x": 30,
             "y": 46
           },
-          "position": [
-            54.0,
-            54.0,
-            0.0
-          ],
+          "position": [54.0, 54.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.4972,
@@ -1651,11 +1373,7 @@
             "x": 20,
             "y": 43
           },
-          "position": [
-            14.0,
-            42.0,
-            0.0
-          ],
+          "position": [14.0, 42.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.4972,
@@ -1675,11 +1393,7 @@
             "x": 17,
             "y": 33
           },
-          "position": [
-            2.0,
-            2.0,
-            0.0
-          ],
+          "position": [2.0, 2.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.6,
@@ -1699,11 +1413,7 @@
             "x": 17,
             "y": 39
           },
-          "position": [
-            2.0,
-            26.0,
-            0.0
-          ],
+          "position": [2.0, 26.0, 0.0],
           "rotationDegrees": 270,
           "footprintMeters": {
             "width": 0.6,
@@ -1723,11 +1433,7 @@
             "x": 17,
             "y": 45
           },
-          "position": [
-            2.0,
-            50.0,
-            0.0
-          ],
+          "position": [2.0, 50.0, 0.0],
           "rotationDegrees": 270,
           "footprintMeters": {
             "width": 0.6,
@@ -1747,11 +1453,7 @@
             "x": 19,
             "y": 47
           },
-          "position": [
-            10.0,
-            58.0,
-            0.0
-          ],
+          "position": [10.0, 58.0, 0.0],
           "rotationDegrees": 180,
           "footprintMeters": {
             "width": 1.6,
@@ -1771,11 +1473,7 @@
             "x": 22,
             "y": 47
           },
-          "position": [
-            22.0,
-            58.0,
-            0.0
-          ],
+          "position": [22.0, 58.0, 0.0],
           "rotationDegrees": 180,
           "footprintMeters": {
             "width": 1.6,
@@ -1795,11 +1493,7 @@
             "x": 25,
             "y": 47
           },
-          "position": [
-            34.0,
-            58.0,
-            0.0
-          ],
+          "position": [34.0, 58.0, 0.0],
           "rotationDegrees": 180,
           "footprintMeters": {
             "width": 1.6,
@@ -1819,11 +1513,7 @@
             "x": 28,
             "y": 47
           },
-          "position": [
-            46.0,
-            58.0,
-            0.0
-          ],
+          "position": [46.0, 58.0, 0.0],
           "rotationDegrees": 180,
           "footprintMeters": {
             "width": 1.6,
@@ -1843,11 +1533,7 @@
             "x": 31,
             "y": 34
           },
-          "position": [
-            58.0,
-            6.0,
-            0.0
-          ],
+          "position": [58.0, 6.0, 0.0],
           "rotationDegrees": 90,
           "footprintMeters": {
             "width": 0.6,
@@ -1867,11 +1553,7 @@
             "x": 31,
             "y": 40
           },
-          "position": [
-            58.0,
-            30.0,
-            0.0
-          ],
+          "position": [58.0, 30.0, 0.0],
           "rotationDegrees": 90,
           "footprintMeters": {
             "width": 0.6,
@@ -1891,11 +1573,7 @@
             "x": 31,
             "y": 46
           },
-          "position": [
-            58.0,
-            54.0,
-            0.0
-          ],
+          "position": [58.0, 54.0, 0.0],
           "rotationDegrees": 90,
           "footprintMeters": {
             "width": 0.6,
@@ -1915,11 +1593,7 @@
             "x": 17,
             "y": 33
           },
-          "position": [
-            2.0,
-            2.0,
-            0.0
-          ],
+          "position": [2.0, 2.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2,
@@ -1939,11 +1613,7 @@
             "x": 17,
             "y": 42
           },
-          "position": [
-            2.0,
-            38.0,
-            0.0
-          ],
+          "position": [2.0, 38.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.0772,
@@ -1963,11 +1633,7 @@
             "x": 19,
             "y": 47
           },
-          "position": [
-            10.0,
-            58.0,
-            0.0
-          ],
+          "position": [10.0, 58.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.0772,
@@ -1987,11 +1653,7 @@
             "x": 24,
             "y": 33
           },
-          "position": [
-            30.0,
-            2.0,
-            0.0
-          ],
+          "position": [30.0, 2.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.0772,
@@ -2011,11 +1673,7 @@
             "x": 28,
             "y": 47
           },
-          "position": [
-            46.0,
-            58.0,
-            0.0
-          ],
+          "position": [46.0, 58.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 1.0772,
@@ -2035,11 +1693,7 @@
             "x": 31,
             "y": 37
           },
-          "position": [
-            58.0,
-            18.0,
-            0.0
-          ],
+          "position": [58.0, 18.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2,
@@ -2059,11 +1713,7 @@
             "x": 31,
             "y": 46
           },
-          "position": [
-            58.0,
-            54.0,
-            0.0
-          ],
+          "position": [58.0, 54.0, 0.0],
           "rotationDegrees": 0,
           "footprintMeters": {
             "width": 0.2,

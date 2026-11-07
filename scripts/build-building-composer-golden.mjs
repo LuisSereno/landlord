@@ -66,7 +66,9 @@ function main() {
   if (!existsSync(manifestPath)) throw new Error(`§29: no hay manifest en ${options.candidates}`);
   const manifest = read(manifestPath);
   if (manifest.rendered !== manifest.requested) {
-    throw new Error(`§29: el manifest promocionado no es 12/12 (${manifest.rendered}/${manifest.requested})`);
+    throw new Error(
+      `§29: el manifest promocionado no es 12/12 (${manifest.rendered}/${manifest.requested})`,
+    );
   }
   mkdirSync(options.out, { recursive: true });
 
@@ -219,14 +221,19 @@ print("material-comparison OK")
 `;
   const scriptPath = join(options.out, ".golden.py");
   writeFileSync(scriptPath, script);
-  const blender = process.env.BLENDER_BIN ?? join(REPO_ROOT, "blender_artist/toolchain/blender-5.2.2-linux-x64/blender");
+  const blender =
+    process.env.BLENDER_BIN ??
+    join(REPO_ROOT, "blender_artist/toolchain/blender-5.2.2-linux-x64/blender");
   const run = spawnSync(blender, ["-b", "--factory-startup", "-P", scriptPath], {
     cwd: REPO_ROOT,
     stdio: "inherit",
   });
-  if (run.status !== 0) throw new Error(`§29: la composición Blender de golden falló (exit ${run.status})`);
+  if (run.status !== 0)
+    throw new Error(`§29: la composición Blender de golden falló (exit ${run.status})`);
 
-  console.log(`golden §29 escrita en ${options.out}: 6 copiadas de §27/§28 + scale/material/1280/1920`);
+  console.log(
+    `golden §29 escrita en ${options.out}: 6 copiadas de §27/§28 + scale/material/1280/1920`,
+  );
 }
 
 main();

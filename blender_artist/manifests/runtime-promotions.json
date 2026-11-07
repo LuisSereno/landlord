@@ -22,9 +22,7 @@
         "width": 8,
         "height": 4
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -53,9 +51,7 @@
         "width": 4,
         "height": 1
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -84,9 +80,7 @@
         "width": 5,
         "height": 2
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -115,9 +109,7 @@
         "width": 4,
         "height": 2
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -146,9 +138,7 @@
         "width": 4,
         "height": 2
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -177,9 +167,7 @@
         "width": 4,
         "height": 3
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -208,9 +196,7 @@
         "width": 3,
         "height": 2
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -239,9 +225,7 @@
         "width": 3,
         "height": 2
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -270,9 +254,7 @@
         "width": 4,
         "height": 2
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -301,9 +283,7 @@
         "width": 5,
         "height": 2
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -332,9 +312,7 @@
         "width": 5,
         "height": 2
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -363,9 +341,7 @@
         "width": 5,
         "height": 2
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -394,9 +370,7 @@
         "width": 4,
         "height": 3
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -425,9 +399,7 @@
         "width": 2,
         "height": 2
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -456,9 +428,7 @@
         "width": 7,
         "height": 2
       },
-      "allowedOrientations": [
-        45
-      ],
+      "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {

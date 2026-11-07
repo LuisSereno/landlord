@@ -234,8 +234,12 @@ function argsFor(job, task, sourcesById, noShadow = false) {
 }
 
 function expectedFiles(manifest, promotions) {
+  // Una promoción sustituye el asset entero: D-098 sólo publica el estado que existe
+  // sobre la fuente importada y deja los demás estados al fallback procedural. No se
+  // puede exigir aquí los estados heredados del job que la promoción reemplazó.
+  const promotedAssetIds = new Set(promotions.map((entry) => entry.assetId));
   const jobs = manifest.jobs
-    .filter((job) => job.target === "bundle")
+    .filter((job) => job.target === "bundle" && !promotedAssetIds.has(job.assetId))
     .flatMap((job) => tasksFor(job, manifest.defaults).map((task) => task.file));
   const overrideFiles = existsSync(VISUAL_OVERRIDES_PATH)
     ? Object.values(
@@ -251,6 +255,15 @@ function expectedFiles(manifest, promotions) {
     ...promotions.map((entry) => `${entry.assetId}-${entry.state}`),
     ...overrideFiles,
   ];
+}
+
+function retiredFiles(manifest, promotions) {
+  const promotedAssetIds = new Set(promotions.map((entry) => entry.assetId));
+  return new Set(
+    manifest.jobs
+      .filter((job) => job.target === "bundle" && promotedAssetIds.has(job.assetId))
+      .flatMap((job) => tasksFor(job, manifest.defaults).map((task) => task.file)),
+  );
 }
 
 function readBundle() {
@@ -294,6 +307,7 @@ function check() {
 
   // Manifiesto ↔ bundle en las dos direcciones: ni job sin imagen, ni imagen huérfana.
   const declared = new Set(expectedFiles(manifest, promotions));
+  const retired = retiredFiles(manifest, promotions);
   const published = new Set(images.map((image) => image.src.split("/").pop().replace(".png", "")));
   for (const file of declared) {
     if (!published.has(file)) throw new Error(`Job declarado sin imagen publicada: ${file}`);
@@ -303,7 +317,7 @@ function check() {
   }
   for (const file of readdirSync(PUBLIC_DIR)) {
     const stem = file.replace(/\.png$/, "");
-    if (file.endsWith(".png") && !declared.has(stem)) {
+    if (file.endsWith(".png") && !declared.has(stem) && !retired.has(stem)) {
       throw new Error(`PNG huérfano en public/: ${file}`);
     }
   }

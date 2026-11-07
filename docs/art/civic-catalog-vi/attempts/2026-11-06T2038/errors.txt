@@ -1,4 +1,0 @@
-vg_market_hall_1001: CompositionError: SEMANTIC_IDENTITY_INCOMPLETE [civic_landmark]: no hay ningún rol de la familia identitaria `civic_block`/`plinth`/`canopy`
-vg_market_hall_1002: CompositionError: SEMANTIC_IDENTITY_INCOMPLETE [civic_landmark]: no hay ningún rol de la familia identitaria `civic_block`/`plinth`/`canopy`
-vg_market_hall_1003: CompositionError: SEMANTIC_IDENTITY_INCOMPLETE [civic_landmark]: no hay ningún rol de la familia identitaria `civic_block`/`plinth`/`canopy`
-R1: renderizados 1/4; la promoción atómica exige todos

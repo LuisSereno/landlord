@@ -1462,3 +1462,20 @@ Consecuencias: los recursos antes quarantined quedan promovidos a CC0 con trazab
 adquiridos siguen en cuarentena, provenance fail-closed); el town_hall V7 + plaza cívica son
 APPROVED BASELINE y no se rediseñan; los gates de V.h (§33) se miden con tests y bake, no a ojo.
 Docs: `docs/art/WORLD-VISUAL-FOUNDATION.md`, `docs/asset-library/world-asset-{audit,dictionary,coverage}.md`.
+
+## D-100 — Presupuesto de binarios: bundle runtime a 10 MiB y evidencia QA con excepciones nombradas
+
+Estado: aceptada el 2026-11-06 por el responsable (WP4.15-V.i, cierre de la deuda D-081). Corrige
+D-081 en dos puntos con datos medidos: el bundle `apps/web/public/assets/runtime/blender` acumula
+**9.372.434 B** con el catálogo 15/15 `runtime_exact` (edificios 4,75 MB + vehículos 0,84 MB +
+actores/otros 2,75 MB + legacy `bld_*` 1,03 MB aún referenciado por Art Lab), por encima de los 8 MiB
+proyectados en Fase 2; y la evidencia QA permanente (láminas de selección, golden de contexto urbano,
+pixel-qa de distritos y showcase de dressing) supera `maxBinaryBytes` individual sin excepción.
+Decisiones: (1) `maxBundleBytes` pasa a **10.485.760 (10 MiB)**, alineado con el budget de 10 MB ya
+versionado en `blender-assets.test.ts`; la copia runtime sigue siendo verbatim (sha runtime == sha
+candidato) y bajar la resolución de render continúa exigiendo decisión explícita; (2) los `attempts/`
+de los catálogos son staging (su `.gitignore` ya lo declara) y salen del índice Git; (3) la evidencia
+QA permanente >1 MiB queda registrada como excepciones nombradas en `docs/art/BINARY-ALLOWLIST.json`
+(acto visible en revisión); (4) Git LFS y el atlas siguen siendo requisitos de Beta con el gate de
+reapertura medido de D-081. No se poda el legacy `bld_*` (Art Lab lo referencia) ni se regenera arte
+aprobado. Ver `docs/engineering/adr/D-100-presupuesto-binarios-runtime-10mib.md`.

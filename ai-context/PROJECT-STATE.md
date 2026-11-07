@@ -150,9 +150,11 @@ revisión visual del responsable (§35).
   `visual-remediation.test.ts` fija el set revisado (15) y prohíbe estados fabricados. Nota de bytes: el
   runtimeImage es copia verbatim del candidato (determinista; sha runtime == sha candidato, lo fuerza el
   test de town_hall). Se descartó optimizar/recortar el PNG porque haría el sha dependiente de la
-  versión de la herramienta y rompería la promoción reproducible. El budget anti-LFS es 10 MB (atlas
-  ~8.8 MB con 12 edificios); la palanca correcta si aprieta es bajar la resolución de RENDER en el
-  compositor (origen determinista), no post-procesar.
+  versión de la herramienta y rompería la promoción reproducible. El budget anti-LFS del test es 10 MB
+  y el guard D-081 queda cerrado por **D-100** (2026-11-06): `maxBundleBytes` 10 MiB con bundle medido
+  9.372.434 B, `attempts/` fuera del índice Git y excepciones nombradas para la evidencia QA >1 MiB
+  (`pnpm art:binaries:check` verde). La palanca si aprieta sigue siendo bajar la resolución de RENDER
+  en el compositor (origen determinista), no post-procesar.
 - Política semántica 15/15 BuildingTypes: cada tipo declara runtime Blender exacto / archetype
   compatible / fallback procedural semántico; nunca fallback equivocado (almacén→almacén, no
   residencial). Estructural `blender-assets`/`building-sprites` lo verifica.

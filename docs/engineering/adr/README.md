@@ -97,3 +97,10 @@ colocación por actor.
 
 Retira la Building Factory falsa, exige procedencia física verificable para las fuentes importadas
 y separa la evidencia candidata de la promoción al runtime. Supersede las iteraciones V.e.2/V.e.3.
+
+## V.i — Catálogo Composer 15/15 y presupuesto de binarios (2026-11-06)
+
+- [D-100 — Presupuesto de binarios: bundle runtime a 10 MiB](D-100-presupuesto-binarios-runtime-10mib.md) — ACEPTADA
+
+Eleva `maxBundleBytes` con el catálogo completo medido (9.372.434 B), registra excepciones nombradas
+para la evidencia QA permanente y saca los `attempts/` del índice. Corrige D-081.

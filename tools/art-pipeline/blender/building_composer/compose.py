@@ -1619,7 +1619,7 @@ class Composition:
                             faces[side],
                             z,
                             f"scaffold:{side}:level{level_index + 1}",
-                            projection=0.0,
+                            projection=0.35,
                         )
 
     def _site_barriers(self):
@@ -1653,10 +1653,14 @@ class Composition:
     def _scatter_debris(self):
         debris = self.catalog.pick(self.family, "debris")
         rect = self.rect
+        # V.j: escombros derramados FRENTE a la sección dañada (lado derecho, sin cubierta), fuera del
+        # muro para que se vean (el equipo de daño no cuenta para §17). Montículos a pie de fachada.
+        front = rect[1] - 0.55
         spots = [
-            (rect[2] - 0.8, rect[1] + 0.8, 0),
-            (rect[2] - 1.6, rect[3] - 0.8, 90),
-            (rect[0] + 0.9, rect[1] + 0.7, 180),
+            (rect[2] - 1.0, front, 0),
+            (rect[2] - 2.2, front - 0.15, 90),
+            (rect[2] - 3.2, front + 0.05, 180),
+            ((rect[0] + rect[2]) / 2 + 0.5, front - 0.1, 270),
         ]
         for x, y, angle in spots:
             self.add(debris, angle, (x, y, 0.0), "damage:debris")
@@ -1664,17 +1668,21 @@ class Composition:
     def _compose_fire(self):
         flame = self.catalog.pick(self.family, "flame")
         smoke = self.catalog.pick(self.family, "smoke")
-        top = max(
-            (float(v.get("top", self.levels * self.level)) for v in self.volumes),
-            default=self.levels * self.level,
-        )
         rect = self.rect
-        cx = (rect[0] + rect[2]) / 2
         cy = (rect[1] + rect[3]) / 2
-        for dx in (-0.6, 0.4, 1.2):
-            self.add(flame, 0, (cx + dx + 0.5, cy, top - 0.6), "fire:flame")
-        self.add(smoke, 0, (cx + 0.8, cy, top + 0.4), "fire:smoke")
-        self.add(smoke, 0, (cx + 0.2, cy - 0.3, top + 1.6), "fire:smoke")
+        # V.j: el fuego arde en la sección dañada (lado derecho sin cubierta), a la altura del forjado
+        # bajo, NO en la cumbrera del lado intacto. Llamas repartidas en el hueco + humo en columna.
+        x0 = (rect[0] + rect[2]) / 2
+        x1 = rect[2] - 0.6
+        base_z = self.level * 0.55
+        n = 5
+        for i in range(n):
+            x = x0 + (x1 - x0) * (i + 0.5) / n
+            z = base_z + (0.3 if i % 2 else 0.0)
+            self.add(flame, 0, (x, cy + (0.2 if i % 2 else -0.15), z), "fire:flame")
+        fx = (x0 + x1) / 2
+        self.add(smoke, 0, (fx, cy, base_z + 0.9), "fire:smoke")
+        self.add(smoke, 0, (fx + 0.25, cy - 0.1, base_z + 2.6), "fire:smoke")
 
     def _apply_orientation(self):
         """V.j: rotación rígida de la composición alrededor de Z por `self.orientation`.
@@ -1722,10 +1730,15 @@ class Composition:
     def finalize(self):
         boxes = [record["bounds"] for record in self.placements + self.supports]
         bounds = anchors.union(boxes)
+        # V.j: §17 valida el contacto con el suelo del EDIFICIO permanente. El equipo transitorio de
+        # obra/daño (andamio, valla, escombros, fuego) puede sobresalir del solar —andamio sobre la
+        # acera, escombros derramados, llama/humo— y no cuenta para este check de huella.
+        site_prefixes = ("scaffold:", "site:", "damage:", "fire:")
         ground = [
             record["bounds"]
             for record in self.placements + self.supports
             if record["bounds"]["z"]["min"] < GROUND_Z_TOLERANCE_DEFAULT
+            and not record.get("purpose", "").startswith(site_prefixes)
         ]
         ground_box = anchors.union(ground) if ground else _box(0, 0, 0, 0, 0, 0)
         x0, y0, x1, y1 = self.rect

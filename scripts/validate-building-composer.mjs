@@ -49,8 +49,15 @@ const PROMOTIONS_PATH = join(REPO_ROOT, "blender_artist/manifests/runtime-promot
 const ALLOWED_LICENSES = ["CC0-1.0", "original"];
 const ALLOWED_SOURCE_PREFIXES = [STAGING_PREFIX, "blender_artist/sources/original/"];
 const SUPPORT_KINDS = ["base", "connector", "plinth", "pipe", "support"];
-/** §11: las cuatro ramas por las que un color puede subir a la escalera de tratamiento. */
-const TREATMENT_PATHS = ["atlas-directo", "atlas-profundo", "plano", "sin-albedo-enlazado"];
+/** §11: ramas de la escalera de tratamiento. V.j añade `vfx-emisivo` para llama/humo de los estados
+ * damaged/burning: color propio intencional que no pasa por la paleta civic (no es albedo del edificio). */
+const TREATMENT_PATHS = [
+  "atlas-directo",
+  "atlas-profundo",
+  "plano",
+  "sin-albedo-enlazado",
+  "vfx-emisivo",
+];
 const REQUIRED_METADATA_FIELDS = [
   "candidateId",
   "buildingType",

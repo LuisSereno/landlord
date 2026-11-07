@@ -230,6 +230,10 @@ def complete_style_reach(objects, treatment, kind):
         }
     )
     for name in names:
+        # V.j: llama/humo son VFX emisivos con color propio (naranja fuego, gris humo); no son albedo
+        # del edificio y no deben pasarse por la paleta civic (los dejaría pálidos). Se conservan.
+        if name.startswith(("flame_", "fire_")):
+            continue
         material = bpy.data.materials[name]
         nodes = base_color_images(material)
         if not nodes:
@@ -277,6 +281,86 @@ def complete_style_reach(objects, treatment, kind):
         "linkedWithoutColorSource": sorted(no_albedo),
         "detail": sorted(set(deep)),
     }
+
+
+def apply_soot(objects, strength):
+    """V.j: hollín para damaged/burning. Oscurece y tiñe de marrón-negro el albedo del edificio.
+
+    `strength` 0..1 controla cuánto quema (damaged moderado, burning intenso). Se aplica como un
+    multiply sobre el Base Color ya tratado: para atlas se inserta un MixRGB entre la textura y el
+    BSDF (no modifica la imagen compartida); para colores planos se multiplica el default. Los
+    materiales de equipo (andamio/valla/escombros) y VFX (llama/humo) se conservan sin quemar.
+    """
+    skip_prefixes = ("flame_", "fire_", "scaffold_", "debris_", "barrier_")
+    scorch = np.array([0.30, 0.26, 0.24], dtype=np.float32)
+    tint = np.clip(scorch * strength + np.ones(3, dtype=np.float32) * (1.0 - strength), 0.0, 1.0)
+    seen = set()
+    for obj in objects:
+        if obj.type != "MESH":
+            continue
+        for slot in obj.material_slots:
+            material = slot.material
+            if material is None or material.name in seen:
+                continue
+            seen.add(material.name)
+            if material.name.startswith(skip_prefixes):
+                continue
+            tree = material.node_tree
+            bsdf = next((n for n in tree.nodes if n.type == "BSDF_PRINCIPLED"), None)
+            if bsdf is None:
+                continue
+            base = bsdf.inputs["Base Color"]
+            if base.is_linked:
+                source = base.links[0].from_socket
+                mix = tree.nodes.new("ShaderNodeMixRGB")
+                mix.blend_type = "MULTIPLY"
+                mix.inputs["Fac"].default_value = 1.0
+                mix.inputs["Color2"].default_value = (*tint, 1.0)
+                tree.links.new(source, mix.inputs["Color1"])
+                tree.links.new(mix.outputs["Color"], base)
+            else:
+                linear = np.array(base.default_value[:3], dtype=np.float32)
+                base.default_value = (*np.clip(linear * tint, 0.0, 1.0), 1.0)
+    return {"sootStrength": round(strength, 3), "materialsScorched": len(seen)}
+
+
+def boost_flame_emission(objects, strength):
+    """V.j: convierte la llama en emisión pura naranja para que lea como fuego bajo AgX.
+
+    El Base Color iluminado daba un cuerpo pálido y la emisión alta se lavaba a blanco (AgX desatura
+    highlights). Con Base Color negro (sin contribución iluminada) y emisión naranja rojo-dominante a
+    strength moderado, el cono brilla naranja saturado. Sólo afecta a materiales `flame_` (VFX).
+    """
+    seen = set()
+    for obj in objects:
+        if obj.type != "MESH":
+            continue
+        for slot in obj.material_slots:
+            material = slot.material
+            if material is None or material.name in seen or not material.name.startswith("flame_"):
+                continue
+            seen.add(material.name)
+            bsdf = next((n for n in material.node_tree.nodes if n.type == "BSDF_PRINCIPLED"), None)
+            if bsdf is None:
+                continue
+            # El import glTF puede cablear Base Color/Emission a un nodo; hay que desenlazar para que
+            # los default_value manden (si no, el color original sigue dominando y la llama queda pálida).
+            tree = material.node_tree
+            for inp in ("Base Color", "Emission Color", "Emission Strength"):
+                if inp in bsdf.inputs:
+                    for link in list(bsdf.inputs[inp].links):
+                        tree.links.remove(link)
+            bsdf.inputs["Base Color"].default_value = (
+                (0.95, 0.55, 0.10, 1.0) if material.name.endswith("inner") else (0.9, 0.30, 0.05, 1.0)
+            )
+            if "Emission Color" in bsdf.inputs:
+                hot = material.name.endswith("inner")
+                bsdf.inputs["Emission Color"].default_value = (
+                    (1.0, 0.62, 0.12, 1.0) if hot else (1.0, 0.34, 0.05, 1.0)
+                )
+            if "Emission Strength" in bsdf.inputs:
+                bsdf.inputs["Emission Strength"].default_value = strength
+    return {"flameEmissionStrength": strength, "flameMaterials": len(seen)}
 
 
 def bake_import_root(objects):
@@ -828,7 +912,12 @@ def material_variants(groups, profile, treatment, deep):
             if path == "atlas-profundo" and not nodes:
                 path = "sin-albedo-enlazado"
             untreated = len([node for node in nodes if not node.image.name.startswith(STYLED_PREFIX)])
-            if path == "plano":
+            if name.startswith(("flame_", "fire_")):
+                # V.j: VFX emisivo con color propio intencional (llama naranja, humo gris); no es albedo
+                # del edificio y no pasa por la paleta civic. Se documenta como rama propia, no untreated.
+                path = "vfx-emisivo"
+                untreated = 0
+            elif path == "plano":
                 untreated = 0 if (flat_rule_matches(name, treatment) or name in flat_done) else 1
             variants.append(
                 {
@@ -894,6 +983,12 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
             "§11: materiales con color de origen sin tratar tras el remapeo profundo: "
             + ", ".join(f"{item['moduleId']}/{item['material']}" for item in unstyled[:6])
         )
+    # V.j: hollín sobre el albedo ya tratado para los estados de daño/fuego (no afecta al complete).
+    state = composition.get("state", "complete")
+    if state in ("damaged", "burning"):
+        apply_soot(objects, 0.7 if state == "burning" else 0.45)
+    if state == "burning":
+        boost_flame_emission(objects, 2.0)
 
     scene.render.engine = "BLENDER_EEVEE"
     # §13 también muerde al rasterizador. El test de regeneración encontró dos procesos con la misma

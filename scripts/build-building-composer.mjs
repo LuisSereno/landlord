@@ -61,25 +61,33 @@ function parseArgs(argv) {
     regenerate: false,
     keepAttempts: false,
     prefix: "vf",
+    orientations: [0],
   };
   for (const argument of argv.slice(2)) {
     const [flag, value] = argument.split("=");
     if (flag === "--outDir") options.outDir = resolve(value);
     else if (flag === "--types") options.types = value.split(",");
     else if (flag === "--seeds") options.seeds = value.split(",").map(Number);
+    else if (flag === "--orientations") options.orientations = value.split(",").map(Number);
     else if (flag === "--metrics") options.metrics = resolve(value);
     else if (flag === "--regenerate") options.regenerate = true;
     else if (flag === "--keepAttempts") options.keepAttempts = true;
     else if (flag === "--prefix") options.prefix = value;
     else if (flag === "--help") {
       console.log(
-        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--outDir=dir] [--metrics=path] [--regenerate] [--keepAttempts] [--prefix=vf|vg]",
+        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--orientations=0,90,180,270] [--outDir=dir] [--metrics=path] [--regenerate] [--keepAttempts] [--prefix=vf|vg]",
       );
       process.exit(0);
     } else throw new Error(`argumento desconocido ${argument}`);
   }
   if (options.seeds.length === 0 || options.seeds.some((seed) => !Number.isInteger(seed))) {
     throw new Error("--seeds espera enteros separados por comas");
+  }
+  if (
+    options.orientations.length === 0 ||
+    options.orientations.some((orientation) => ![0, 90, 180, 270].includes(orientation))
+  ) {
+    throw new Error("--orientations espera una subconjunto de 0,90,180,270");
   }
   return options;
 }
@@ -126,20 +134,26 @@ function buildRequests(grammars, options) {
     if (!grammar) throw new Error(`la gramática no declara ${buildingType}`);
     const domain = domainGeometry(buildingType);
     for (const variantSeed of options.seeds) {
-      const candidateId = `${options.prefix}_${buildingType}_${variantSeed}`;
-      requests.push({
-        candidateId,
-        buildingType,
-        family: grammar.family,
-        styleProfileId: profileFor(grammar.family),
-        variantSeed,
-        composerVersion: grammars.composerVersion,
-        footprint: domain.footprint,
-        floors: domain.floors,
-        state: "complete",
-        output: join(options.outDir, `${candidateId}.png`),
-        metadata: join(options.outDir, `${candidateId}.json`),
-      });
+      for (const orientation of options.orientations) {
+        // V.j: orientación 0 conserva el candidateId histórico (baseline intacto); las demás
+        // orientaciones físicas añaden sufijo `_o<grados>` para no colisionar ficheros.
+        const suffix = orientation === 0 ? "" : `_o${orientation}`;
+        const candidateId = `${options.prefix}_${buildingType}_${variantSeed}${suffix}`;
+        requests.push({
+          candidateId,
+          buildingType,
+          family: grammar.family,
+          styleProfileId: profileFor(grammar.family),
+          variantSeed,
+          orientation,
+          composerVersion: grammars.composerVersion,
+          footprint: domain.footprint,
+          floors: domain.floors,
+          state: "complete",
+          output: join(options.outDir, `${candidateId}.png`),
+          metadata: join(options.outDir, `${candidateId}.json`),
+        });
+      }
     }
   }
   return requests;

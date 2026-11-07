@@ -95,7 +95,7 @@ def grammars_raw():
     return GRAMMARS_RAW
 
 
-def build_request(building_type, seed):
+def build_request(building_type, seed, orientation=0):
     domain = DOMAIN_FOOTPRINTS[building_type]
     family = grammars_raw()["grammars"][building_type]["family"]
     return {
@@ -104,6 +104,7 @@ def build_request(building_type, seed):
         "family": family,
         "styleProfileId": PROFILE_ID,
         "variantSeed": seed,
+        "orientation": orientation,
         "composerVersion": grammars_raw().get("composerVersion", "1.0"),
         "footprint": {"width": domain["width"], "height": domain["height"]},
         "floors": domain["floors"],
@@ -471,6 +472,40 @@ def test_19_hero_recipe_pins_approved_v7_composition():
     return True, "seed 1006 reproduce la composición V7 aprobada (corner_columns, tall_aisles@5)"
 
 
+def test_20_physical_orientation_rotates_geometry_not_sprite():
+    """V.j: la orientación física 0/90/180/270 rota la geometría (vista real), no el sprite.
+
+    Orientación 0 no muta la composición (firma == baseline aprobado). 90/270 intercambian el
+    footprint y la envolvente x/y; las cuatro orientaciones dan firmas distintas y deterministas.
+    """
+    base = compose_candidate(build_request("town_hall", 1006, 0), catalog=catalog())
+    if base["compositionSignature"] != "d440472588e657f4bd94ce4993532095782b7b6524efe39496a9eb076db11fbb":
+        return False, "orientación 0 cambió la firma del baseline V7 aprobado"
+    if base["orientation"] != 0 or base["footprintCells"] != {"width": 8, "height": 4}:
+        return False, f"orientación 0 con footprint inesperado: {base['footprintCells']}"
+    signatures = {0: base["compositionSignature"]}
+    for orientation in (90, 180, 270):
+        first = compose_candidate(build_request("town_hall", 1006, orientation), catalog=catalog())
+        second = compose_candidate(build_request("town_hall", 1006, orientation), catalog=catalog())
+        if first["compositionSignature"] != second["compositionSignature"]:
+            return False, f"orientación {orientation} no determinista"
+        if first["orientation"] != orientation:
+            return False, f"orientación {orientation} no publicada en la metadata"
+        signatures[orientation] = first["compositionSignature"]
+        if orientation in (90, 270):
+            if first["footprintCells"] != {"width": 4, "height": 8}:
+                return False, f"orientación {orientation} no intercambió el footprint: {first['footprintCells']}"
+            bx = base["bounds"]["x"]["max"] - base["bounds"]["x"]["min"]
+            by = base["bounds"]["y"]["max"] - base["bounds"]["y"]["min"]
+            rx = first["bounds"]["x"]["max"] - first["bounds"]["x"]["min"]
+            ry = first["bounds"]["y"]["max"] - first["bounds"]["y"]["min"]
+            if abs(rx - by) > 0.01 or abs(ry - bx) > 0.01:
+                return False, f"orientación {orientation} no rotó la envolvente x/y"
+    if len(set(signatures.values())) != 4:
+        return False, "las cuatro orientaciones no producen cuatro variantes distintas"
+    return True, "0/90/180/270 rotan geometría: baseline intacto, footprint/envolvente girados, 4 firmas deterministas"
+
+
 def main():
     tests = [
         ("test_01a_grammar_load_all_types", test_01a_grammar_load_all_types),
@@ -493,6 +528,7 @@ def main():
         ("test_17_town_hall_ten_seed_true_pass", test_17_town_hall_ten_seed_true_pass),
         ("test_18_required_facade_is_mirror_symmetric_around_access", test_18_required_facade_is_mirror_symmetric_around_access),
         ("test_19_hero_recipe_pins_approved_v7_composition", test_19_hero_recipe_pins_approved_v7_composition),
+        ("test_20_physical_orientation_rotates_geometry_not_sprite", test_20_physical_orientation_rotates_geometry_not_sprite),
     ]
     failures = []
     for name, fn in tests:

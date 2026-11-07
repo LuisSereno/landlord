@@ -368,6 +368,17 @@ const CASES = [
       first(manifest).orientationStatus.allAccessVisible = false;
     },
   },
+  {
+    name: "V.j: acceso oculto es válido con orientación física nonzero (vista real girada)",
+    good: true,
+    file: "manifest",
+    mutate: (manifest) => {
+      const candidate = first(manifest);
+      candidate.orientation = 180;
+      candidate.orientationStatus.allAccessVisible = false;
+      candidate.orientationStatus.physicalOrientationDegrees = 180;
+    },
+  },
 
   // -- §32 columna Blender: evidencia de escena ----------------------------------------------
   {

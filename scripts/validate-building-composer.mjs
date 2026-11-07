@@ -433,7 +433,12 @@ function checkCandidate(candidate, modulesById, sourcesById, grammars, manifestD
   if (!candidate.sceneChecks?.pivotValidator?.insideFootprint) {
     errors.push(`§18 ${label}: el pivot no se validó dentro de la huella proyectada`);
   }
-  if (!candidate.orientationStatus?.allAccessVisible) {
+  // V.j: la puerta debe mirar a la cámara sólo en orientación física 0 (baseline de una vista).
+  // En orientación nonzero el edificio está girado sobre su solar y puede mostrar su trasera/costado
+  // ciego: es una vista real pedida por Building.orientation, no un fault de rig.
+  const physicalOrientation =
+    candidate.orientation ?? candidate.orientationStatus?.physicalOrientationDegrees ?? 0;
+  if (!candidate.orientationStatus?.allAccessVisible && physicalOrientation === 0) {
     errors.push(`§25 ${label}: hay accesos mirando a un lado no visible desde la cámara canónica`);
   }
   const path = candidate.image?.path;

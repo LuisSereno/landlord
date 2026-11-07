@@ -113,6 +113,12 @@ class Composition:
         self.style_profile_id = request["styleProfileId"]
         self.footprint_cells = dict(request["footprint"])
         self.levels = int(request["floors"])
+        # V.j: orientación física del edificio sobre su solar (0/90/180/270), separada del azimut de
+        # cámara. Se aplica como rotación rígida de la geometría ya compuesta en finalize(), de modo
+        # que la escena renderiza una vista REAL (no un sprite rotado) y el azimut sigue siendo 45°.
+        self.orientation = int(request.get("orientation", 0))
+        if self.orientation not in (0, 90, 180, 270):
+            raise CompositionError(f"orientación física no ortogonal: {self.orientation}")
         if self.style_profile_id != profile.id:
             raise CompositionError(f"perfil de estilo inesperado: {self.style_profile_id}")
         if self.composer_version != document.composer_version:
@@ -1507,6 +1513,49 @@ class Composition:
             choices["recipe"] = self.axis_fingerprint["recipe"]
         return choices
 
+    def _apply_orientation(self):
+        """V.j: rotación rígida de la composición alrededor de Z por `self.orientation`.
+
+        Orientación 0 no muta nada: la firma del baseline aprobado queda intacta. En 90/270 la
+        huella intercambia ancho↔fondo. Cada placement rota posición+giro+bounds; cada soporte rota
+        sus campos geométricos (pipe: start/end/origin; box: position+rotationZDegrees) y sus bounds.
+        La firma §14 recoge la geometría rotada, así que cada orientación física es una variante
+        distinta. La convención de giro es la de `anchors.rotate_box` (90° antihorario: (x,y)→(-y,x)).
+        """
+        orientation = self.orientation
+        if orientation == 0:
+            return
+
+        def rotate_point(point):
+            x, y = point[0], point[1]
+            if orientation == 90:
+                x, y = -y, x
+            elif orientation == 180:
+                x, y = -x, -y
+            else:  # 270
+                x, y = y, -x
+            return [_round(x), _round(y), _round(point[2])]
+
+        for record in self.placements:
+            record["position"] = rotate_point(record["position"])
+            record["rotationDegrees"] = (record["rotationDegrees"] + orientation) % 360
+            record["bounds"] = anchors.rotate_box(record["bounds"], orientation)
+        for support in self.supports:
+            if support["shape"] == "pipe":
+                support["start"] = rotate_point(support["start"])
+                support["end"] = rotate_point(support["end"])
+                support["origin"] = rotate_point(support["origin"])
+            else:
+                support["position"] = rotate_point(support["position"])
+                support["rotationZDegrees"] = (support["rotationZDegrees"] + orientation) % 360
+            support["bounds"] = anchors.rotate_box(support["bounds"], orientation)
+        if orientation in (90, 270):
+            self.footprint_cells = {
+                "width": self.footprint_cells["height"],
+                "height": self.footprint_cells["width"],
+            }
+            self.width, self.depth = self.depth, self.width
+
     def finalize(self):
         boxes = [record["bounds"] for record in self.placements + self.supports]
         bounds = anchors.union(boxes)
@@ -1545,6 +1594,18 @@ class Composition:
         distinct = {record["moduleId"] for record in self.placements}
         sources = {record["sourceId"] for record in self.placements}
         ladders = sorted({record["elevationReach"] for record in self.placements})
+        # V.j: la rotación física se aplica DESPUÉS de validar §17/§15 sobre el edificio canónico
+        # (una rotación rígida alrededor de Z conserva el contacto con el suelo y la cuota de
+        # triángulos). Bounds y firma se recalculan sobre la geometría ya rotada.
+        self._apply_orientation()
+        boxes = [record["bounds"] for record in self.placements + self.supports]
+        bounds = anchors.union(boxes)
+        ground = [
+            record["bounds"]
+            for record in self.placements + self.supports
+            if record["bounds"]["z"]["min"] < GROUND_Z_TOLERANCE_DEFAULT
+        ]
+        ground_box = anchors.union(ground) if ground else _box(0, 0, 0, 0, 0, 0)
         return {
             "buildingType": self.building_type,
             "family": self.family,
@@ -1552,6 +1613,7 @@ class Composition:
             "renderScale": self.record.get("renderScale", 1),
             "composerVersion": self.composer_version,
             "variantSeed": self.variant_seed,
+            "orientation": self.orientation,
             "footprintCells": self.footprint_cells,
             "footprintMeters": {"width": self.width, "depth": self.depth},
             "levels": self.levels,

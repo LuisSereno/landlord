@@ -746,7 +746,13 @@ def orientation_status(composition, catalog, camera, target):
     if not access:
         raise SceneError("§19: la composición no coloca ningún acceso: no hay forma de probar el frente")
     hidden = [item["purpose"] for item in access if not item["visible"]]
-    if hidden:
+    # V.j: con orientación física 0 la puerta debe mirar a la cámara (baseline aprobado, convención
+    # de una sola vista). Con orientación nonzero el edificio está girado sobre su solar y puede
+    # mostrar legítimamente su trasera o costado ciego a la cámara isométrica: es una vista REAL
+    # pedida por el dominio (Building.orientation), no un fault de rig. Se reporta la visibilidad
+    # medida sin abortar; la cámara sigue validada en su azimut/elevación canónicos arriba.
+    orientation = int(composition.get("orientation", 0))
+    if hidden and orientation == 0:
         raise SceneError(
             "§18: la puerta mira a un lado no visible desde la cámara canónica: " + ", ".join(hidden)
         )
@@ -755,9 +761,14 @@ def orientation_status(composition, catalog, camera, target):
         "cameraElevationDegrees": round(elevation, 2),
         "visibleSides": sorted(visible_sides),
         "frontSideOfFrame": "-Y",
+        "physicalOrientationDegrees": orientation,
         "access": access,
-        "allAccessVisible": True,
-        "evidence": "frente -Y, azimut 45°: la normal de cada acceso se mide desde frontAxis+giro",
+        "allAccessVisible": not hidden,
+        "evidence": (
+            "frente -Y, azimut 45°: la normal de cada acceso se mide desde frontAxis+giro"
+            if orientation == 0
+            else f"orientación física {orientation}°: vista real girada; el acceso puede no ser visible"
+        ),
     }
 
 
@@ -955,6 +966,7 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
         "buildingType": composition["buildingType"],
         "family": composition["family"],
         "state": "complete",
+        "orientation": composition.get("orientation", 0),
         "variantSeed": composition["variantSeed"],
         "composerVersion": composition["composerVersion"],
         "styleProfileId": composition["styleProfileId"],

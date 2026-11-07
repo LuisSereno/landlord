@@ -506,6 +506,55 @@ def test_20_physical_orientation_rotates_geometry_not_sprite():
     return True, "0/90/180/270 rotan geometría: baseline intacto, footprint/envolvente girados, 4 firmas deterministas"
 
 
+def test_21_state_composition_derives_real_geometry():
+    """V.j: los estados derivan geometría real de la composición completa (misma seed/diseño).
+
+    complete es el baseline; construction reconstruye por etapa (foundation losa+valla, structure
+    losas+columnas+andamio, finishing masa+andamio); damaged secciona cubierta+fachada y añade
+    escombros; burning añade llama/humo. Cada estado da una firma distinta y determinista.
+    """
+    cat = catalog()
+
+    def state_request(state, stage=None):
+        req = build_request("row_house", 1001)
+        req["state"] = state
+        if stage is not None:
+            req["constructionStage"] = stage
+        return req
+
+    variants = [
+        ("complete", None),
+        ("construction", "foundation"),
+        ("construction", "structure"),
+        ("construction", "finishing"),
+        ("damaged", None),
+        ("burning", None),
+    ]
+    signatures = {}
+    roles_by_state = {}
+    for state, stage in variants:
+        first = compose_candidate(state_request(state, stage), catalog=cat)
+        second = compose_candidate(state_request(state, stage), catalog=cat)
+        if first["compositionSignature"] != second["compositionSignature"]:
+            return False, f"{state}/{stage}: estado no determinista"
+        key = state if stage is None else f"{state}/{stage}"
+        signatures[key] = first["compositionSignature"]
+        roles_by_state[key] = {cat.get(r["moduleId"]).role for r in first["placements"]}
+    if len(set(signatures.values())) != 6:
+        return False, "los 6 estados no producen 6 firmas distintas"
+    if "barrier" not in roles_by_state["construction/foundation"]:
+        return False, "foundation sin valla de obra"
+    if "scaffold" not in roles_by_state["construction/structure"]:
+        return False, "structure sin andamio"
+    if "scaffold" not in roles_by_state["construction/finishing"]:
+        return False, "finishing sin andamio"
+    if "debris" not in roles_by_state["damaged"]:
+        return False, "damaged sin escombros"
+    if not {"flame", "smoke"} <= roles_by_state["burning"]:
+        return False, "burning sin llama/humo"
+    return True, "6 estados con geometría real distinta y determinista (valla/andamio/escombros/llama/humo)"
+
+
 def main():
     tests = [
         ("test_01a_grammar_load_all_types", test_01a_grammar_load_all_types),
@@ -529,6 +578,7 @@ def main():
         ("test_18_required_facade_is_mirror_symmetric_around_access", test_18_required_facade_is_mirror_symmetric_around_access),
         ("test_19_hero_recipe_pins_approved_v7_composition", test_19_hero_recipe_pins_approved_v7_composition),
         ("test_20_physical_orientation_rotates_geometry_not_sprite", test_20_physical_orientation_rotates_geometry_not_sprite),
+        ("test_21_state_composition_derives_real_geometry", test_21_state_composition_derives_real_geometry),
     ]
     failures = []
     for name, fn in tests:

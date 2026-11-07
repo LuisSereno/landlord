@@ -62,6 +62,7 @@ function parseArgs(argv) {
     keepAttempts: false,
     prefix: "vf",
     orientations: [0],
+    states: ["complete"],
   };
   for (const argument of argv.slice(2)) {
     const [flag, value] = argument.split("=");
@@ -69,13 +70,14 @@ function parseArgs(argv) {
     else if (flag === "--types") options.types = value.split(",");
     else if (flag === "--seeds") options.seeds = value.split(",").map(Number);
     else if (flag === "--orientations") options.orientations = value.split(",").map(Number);
+    else if (flag === "--states") options.states = value.split(",");
     else if (flag === "--metrics") options.metrics = resolve(value);
     else if (flag === "--regenerate") options.regenerate = true;
     else if (flag === "--keepAttempts") options.keepAttempts = true;
     else if (flag === "--prefix") options.prefix = value;
     else if (flag === "--help") {
       console.log(
-        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--orientations=0,90,180,270] [--outDir=dir] [--metrics=path] [--regenerate] [--keepAttempts] [--prefix=vf|vg]",
+        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--orientations=0,90,180,270] [--states=complete,foundation,structure,finishing,damaged,burning] [--outDir=dir] [--metrics=path] [--regenerate] [--keepAttempts] [--prefix=vf|vg]",
       );
       process.exit(0);
     } else throw new Error(`argumento desconocido ${argument}`);
@@ -88,6 +90,13 @@ function parseArgs(argv) {
     options.orientations.some((orientation) => ![0, 90, 180, 270].includes(orientation))
   ) {
     throw new Error("--orientations espera una subconjunto de 0,90,180,270");
+  }
+  const STATE_TOKENS = ["complete", "foundation", "structure", "finishing", "damaged", "burning"];
+  if (
+    options.states.length === 0 ||
+    options.states.some((state) => !STATE_TOKENS.includes(state))
+  ) {
+    throw new Error(`--states espera un subconjunto de ${STATE_TOKENS.join(",")}`);
   }
   return options;
 }
@@ -134,25 +143,32 @@ function buildRequests(grammars, options) {
     if (!grammar) throw new Error(`la gramática no declara ${buildingType}`);
     const domain = domainGeometry(buildingType);
     for (const variantSeed of options.seeds) {
-      for (const orientation of options.orientations) {
-        // V.j: orientación 0 conserva el candidateId histórico (baseline intacto); las demás
-        // orientaciones físicas añaden sufijo `_o<grados>` para no colisionar ficheros.
-        const suffix = orientation === 0 ? "" : `_o${orientation}`;
-        const candidateId = `${options.prefix}_${buildingType}_${variantSeed}${suffix}`;
-        requests.push({
-          candidateId,
-          buildingType,
-          family: grammar.family,
-          styleProfileId: profileFor(grammar.family),
-          variantSeed,
-          orientation,
-          composerVersion: grammars.composerVersion,
-          footprint: domain.footprint,
-          floors: domain.floors,
-          state: "complete",
-          output: join(options.outDir, `${candidateId}.png`),
-          metadata: join(options.outDir, `${candidateId}.json`),
-        });
+      for (const stateToken of options.states) {
+        const isConstruction = ["foundation", "structure", "finishing"].includes(stateToken);
+        const state = isConstruction ? "construction" : stateToken;
+        const constructionStage = isConstruction ? stateToken : null;
+        const stateSuffix = stateToken === "complete" ? "" : `_${stateToken}`;
+        for (const orientation of options.orientations) {
+          // V.j: complete@0 conserva el candidateId histórico (baseline intacto); estado y orientación
+          // nonzero añaden sufijos para no colisionar ficheros.
+          const orientSuffix = orientation === 0 ? "" : `_o${orientation}`;
+          const candidateId = `${options.prefix}_${buildingType}_${variantSeed}${stateSuffix}${orientSuffix}`;
+          requests.push({
+            candidateId,
+            buildingType,
+            family: grammar.family,
+            styleProfileId: profileFor(grammar.family),
+            variantSeed,
+            orientation,
+            composerVersion: grammars.composerVersion,
+            footprint: domain.footprint,
+            floors: domain.floors,
+            state,
+            constructionStage,
+            output: join(options.outDir, `${candidateId}.png`),
+            metadata: join(options.outDir, `${candidateId}.json`),
+          });
+        }
       }
     }
   }

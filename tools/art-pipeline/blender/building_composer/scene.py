@@ -743,7 +743,22 @@ def orientation_status(composition, catalog, camera, target):
                 "visible": side in visible_sides,
             }
         )
+    orientation = int(composition.get("orientation", 0))
+    state = composition.get("state", "complete")
+    stage = composition.get("constructionStage")
     if not access:
+        # V.j: la obra en foundation/structure aún no coloca acceso; no hay puerta que probar.
+        if state == "construction" and stage in ("foundation", "structure"):
+            return {
+                "cameraAzimuthDegrees": round(azimuth, 2),
+                "cameraElevationDegrees": round(elevation, 2),
+                "visibleSides": sorted(visible_sides),
+                "frontSideOfFrame": "-Y",
+                "physicalOrientationDegrees": orientation,
+                "access": [],
+                "allAccessVisible": True,
+                "evidence": f"obra en etapa {stage}: aún no hay acceso; cámara canónica validada",
+            }
         raise SceneError("§19: la composición no coloca ningún acceso: no hay forma de probar el frente")
     hidden = [item["purpose"] for item in access if not item["visible"]]
     # V.j: con orientación física 0 la puerta debe mirar a la cámara (baseline aprobado, convención
@@ -751,7 +766,6 @@ def orientation_status(composition, catalog, camera, target):
     # mostrar legítimamente su trasera o costado ciego a la cámara isométrica: es una vista REAL
     # pedida por el dominio (Building.orientation), no un fault de rig. Se reporta la visibilidad
     # medida sin abortar; la cámara sigue validada en su azimut/elevación canónicos arriba.
-    orientation = int(composition.get("orientation", 0))
     if hidden and orientation == 0:
         raise SceneError(
             "§18: la puerta mira a un lado no visible desde la cámara canónica: " + ", ".join(hidden)
@@ -837,10 +851,9 @@ def material_variants(groups, profile, treatment, deep):
 
 
 def render_candidate(request, catalog=None, profile=None, document=None, style_layer=None):
-    """Un candidato `complete`: request → composición → escena tratada → PNG + metadata (§24/§31)."""
+    """Un candidato: request → composición (complete/construction/damaged/burning) → escena tratada
+    → PNG + metadata (§24/§31). V.j: los estados no-complete derivan geometría real del compositor."""
     started = time.perf_counter()
-    if str(request.get("state", "complete")) != "complete":
-        raise SceneError("§25: en este spike sólo se renderiza el estado `complete`")
     catalog = catalog or Catalog()
     profile = profile or StyleProfile(request["styleProfileId"])
     document = document or GrammarDocument()
@@ -965,7 +978,8 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
         "candidateId": request["candidateId"],
         "buildingType": composition["buildingType"],
         "family": composition["family"],
-        "state": "complete",
+        "state": composition.get("state", "complete"),
+        "constructionStage": composition.get("constructionStage"),
         "orientation": composition.get("orientation", 0),
         "variantSeed": composition["variantSeed"],
         "composerVersion": composition["composerVersion"],

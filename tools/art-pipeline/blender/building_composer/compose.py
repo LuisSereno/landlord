@@ -119,6 +119,20 @@ class Composition:
         self.orientation = int(request.get("orientation", 0))
         if self.orientation not in (0, 90, 180, 270):
             raise CompositionError(f"orientación física no ortogonal: {self.orientation}")
+        # V.j: estado del edificio. `complete` es el baseline aprobado; construction (por etapa),
+        # damaged y burning derivan de la misma composición completa con geometría real de estado.
+        self.state = str(request.get("state", "complete"))
+        if self.state not in ("complete", "construction", "damaged", "burning"):
+            raise CompositionError(f"estado no reconocido: {self.state}")
+        self.construction_stage = request.get("constructionStage")
+        if self.state == "construction":
+            if self.construction_stage not in ("foundation", "structure", "finishing"):
+                raise CompositionError(
+                    f"construction requiere constructionStage foundation/structure/finishing: "
+                    f"{self.construction_stage}"
+                )
+        elif self.construction_stage is not None:
+            raise CompositionError("constructionStage sólo aplica al estado construction")
         if self.style_profile_id != profile.id:
             raise CompositionError(f"perfil de estilo inesperado: {self.style_profile_id}")
         if self.composer_version != document.composer_version:
@@ -341,7 +355,9 @@ class Composition:
             "silhouette": f"{silhouette['id']}/{corner['id']}",
             "intrinsic_props": "+".join(sorted(choices["intrinsic_props"])) or "none",
         }
-        self._check_semantic_identity(access, roof, secondary, secondary_placed)
+        if self.state == "complete":
+            self._check_semantic_identity(access, roof, secondary, secondary_placed)
+        self._apply_state()
         return self.finalize()
 
     def _check_semantic_identity(self, access, roof, secondary, secondary_placed):
@@ -1513,6 +1529,153 @@ class Composition:
             choices["recipe"] = self.axis_fingerprint["recipe"]
         return choices
 
+    # -- estados V.j -------------------------------------------------------------------------------
+
+    def _apply_state(self):
+        """V.j: deriva la geometría del estado desde la composición completa (misma seed/diseño).
+
+        complete no muta nada (baseline aprobado). construction reconstruye la geometría por etapa
+        (losas/estructura/andamio/valla); damaged secciona cubierta y fachada + escombros; burning
+        añade llama/humo al daño. Cada estado produce una firma distinta (variante real).
+        """
+        if self.state == "complete":
+            return
+        if self.state == "construction":
+            self._compose_construction(self.construction_stage)
+        elif self.state == "damaged":
+            self._compose_damage()
+        elif self.state == "burning":
+            self._compose_damage()
+            self._compose_fire()
+
+    def _volume_rects(self):
+        rects = []
+        for volume in self.volumes:
+            base = float(volume.get("base", 0.0))
+            levels = int(volume.get("levels", self.levels))
+            rects.append((volume["rect"], base, levels))
+        return rects
+
+    def _compose_construction(self, stage):
+        if stage == "finishing":
+            # Edificio casi terminado: masa completa aprobada + andamio en el frente.
+            self._wrap_scaffold(("front",))
+            return
+        complete_placements = self.placements
+        complete_supports = self.supports
+        self.placements = []
+        self.supports = []
+        for rect, base, levels in self._volume_rects():
+            if stage == "foundation":
+                self._tile_flat(rect, base, "slab", "slab")
+            else:  # structure
+                for level_index in range(levels):
+                    self._tile_flat(rect, base + level_index * self.level, "slab", "slab")
+                self._structure_columns(rect, base, levels)
+        if stage == "foundation":
+            self._site_barriers()
+        else:
+            self._wrap_scaffold(("front", "rear", "left", "right"))
+        # Los soportes del secundario completo no aplican a la obra en curso.
+        _ = (complete_placements, complete_supports)
+
+    def _structure_columns(self, rect, base, levels):
+        if not self.catalog.pools.get((self.family, "column")):
+            return
+        column = self.catalog.pick(self.family, "column")
+        inset = 0.45
+        corners = [
+            (rect[0] + inset, rect[1] + inset),
+            (rect[2] - inset, rect[1] + inset),
+            (rect[0] + inset, rect[3] - inset),
+            (rect[2] - inset, rect[3] - inset),
+        ]
+        for level_index in range(levels):
+            z = base + level_index * self.level
+            for x, y in corners:
+                self.add(column, 0, (x, y, z), "structure:column")
+
+    def _face_bays(self, rect, side):
+        if side in ("front", "rear"):
+            span = rect[2] - rect[0]
+            count = max(1, int(round(span / self.bay)))
+            return [rect[0] + span * (i + 0.5) / count for i in range(count)]
+        span = rect[3] - rect[1]
+        count = max(1, int(round(span / self.bay)))
+        return [rect[1] + span * (i + 0.5) / count for i in range(count)]
+
+    def _wrap_scaffold(self, sides):
+        scaffold = self.catalog.pick(self.family, "scaffold")
+        for rect, base, levels in self._volume_rects():
+            faces = {"front": rect[1], "rear": rect[3], "left": rect[0], "right": rect[2]}
+            for side in sides:
+                for level_index in range(levels):
+                    z = base + level_index * self.level
+                    for along in self._face_bays(rect, side):
+                        self.add_on_face(
+                            scaffold,
+                            side,
+                            along,
+                            faces[side],
+                            z,
+                            f"scaffold:{side}:level{level_index + 1}",
+                            projection=0.0,
+                        )
+
+    def _site_barriers(self):
+        barrier = self.catalog.pick(self.family, "barrier")
+        rect = self.rect
+        face = rect[1] + 0.4
+        span = rect[2] - rect[0]
+        count = max(1, int(span // 2))
+        for i in range(count):
+            along = rect[0] + span * (i + 0.5) / count
+            self.add(barrier, 0, (along, face, 0.0), "site:barrier")
+
+    def _compose_damage(self):
+        # Daño geométrico real: secciona la cubierta (hueco que deja ver el interior) y abre paneles
+        # altos del frente; el resto de la masa (que apoya en suelo) permanece.
+        kept = []
+        for record in self.placements:
+            purpose = record["purpose"]
+            if purpose.startswith("roof") or purpose in ("dormer", "cornice"):
+                if record["position"][0] >= 0.0:
+                    continue
+            if purpose.startswith("band:front:") and ":level" in purpose:
+                level_tag = purpose.split(":level")[1].split(":")[0]
+                if level_tag.isdigit() and int(level_tag) >= 2 and record["position"][0] >= 0.0:
+                    continue
+            kept.append(record)
+        self.placements = kept
+        self.supports = []
+        self._scatter_debris()
+
+    def _scatter_debris(self):
+        debris = self.catalog.pick(self.family, "debris")
+        rect = self.rect
+        spots = [
+            (rect[2] - 0.8, rect[1] + 0.8, 0),
+            (rect[2] - 1.6, rect[3] - 0.8, 90),
+            (rect[0] + 0.9, rect[1] + 0.7, 180),
+        ]
+        for x, y, angle in spots:
+            self.add(debris, angle, (x, y, 0.0), "damage:debris")
+
+    def _compose_fire(self):
+        flame = self.catalog.pick(self.family, "flame")
+        smoke = self.catalog.pick(self.family, "smoke")
+        top = max(
+            (float(v.get("top", self.levels * self.level)) for v in self.volumes),
+            default=self.levels * self.level,
+        )
+        rect = self.rect
+        cx = (rect[0] + rect[2]) / 2
+        cy = (rect[1] + rect[3]) / 2
+        for dx in (-0.6, 0.4, 1.2):
+            self.add(flame, 0, (cx + dx + 0.5, cy, top - 0.6), "fire:flame")
+        self.add(smoke, 0, (cx + 0.8, cy, top + 0.4), "fire:smoke")
+        self.add(smoke, 0, (cx + 0.2, cy - 0.3, top + 1.6), "fire:smoke")
+
     def _apply_orientation(self):
         """V.j: rotación rígida de la composición alrededor de Z por `self.orientation`.
 
@@ -1614,6 +1777,8 @@ class Composition:
             "composerVersion": self.composer_version,
             "variantSeed": self.variant_seed,
             "orientation": self.orientation,
+            "state": self.state,
+            "constructionStage": self.construction_stage,
             "footprintCells": self.footprint_cells,
             "footprintMeters": {"width": self.width, "depth": self.depth},
             "levels": self.levels,

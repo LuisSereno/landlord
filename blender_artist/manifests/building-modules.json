@@ -68,8 +68,8 @@
   },
   "orientationPolicy": "Los módulos sólo rotan en múltiplos de 90°: la retícula del dominio y el rig isométrico (azimut 45°) no admiten giros arbitrarios sin romper el encaje de fachadas.",
   "counts": {
-    "modules": 175,
-    "sources": 174,
+    "modules": 179,
+    "sources": 178,
     "byCategory": {
       "facade": 31,
       "window": 9,
@@ -77,16 +77,16 @@
       "roof": 14,
       "civic": 69,
       "canopy": 5,
-      "intrinsic_prop": 2,
+      "intrinsic_prop": 5,
       "mass": 25,
-      "utility": 5,
+      "utility": 6,
       "chimney": 4,
       "industrial": 5
     },
     "byFamily": {
-      "residential_low": 50,
-      "industrial_heavy": 46,
-      "civic_landmark": 149
+      "residential_low": 54,
+      "industrial_heavy": 50,
+      "civic_landmark": 153
     },
     "bySource": {
       "src_quaternius_downtown_city_megakit": 102,
@@ -98,7 +98,11 @@
       "src_kenney_city_roads": 13,
       "src_original_civic_pediment": 1,
       "src_original_school_cupola": 1,
-      "src_original_construction_scaffold": 1
+      "src_original_construction_scaffold": 1,
+      "src_original_construction_barrier": 1,
+      "src_original_damage_debris": 1,
+      "src_original_fire_flame": 1,
+      "src_original_fire_smoke": 1
     }
   },
   "modules": [
@@ -24244,6 +24248,552 @@
         "fileTriangles": 324,
         "fileHierarchy": [
           "ConstructionScaffold:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_original_construction_barrier",
+      "category": "utility",
+      "role": "barrier",
+      "note": "valla de obra original para etapa foundation; geometría propia",
+      "sourceId": "src_original_construction_barrier",
+      "sourcePath": "blender_artist/sources/original/construction_barrier.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "ConstructionBarrier"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "residential_low",
+        "industrial_heavy",
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 24 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.73,
+        "depthMeters": 0.25,
+        "heightMeters": 0.797
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "ConstructionBarrier",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "offset"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.865,
+            "max": 0.865
+          },
+          "y": {
+            "min": -0.125,
+            "max": 0.125
+          },
+          "z": {
+            "min": 0.25,
+            "max": 1.048
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          -0.25
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.865,
+            "max": 0.865
+          },
+          "y": {
+            "min": -0.125,
+            "max": 0.125
+          },
+          "z": {
+            "min": 0,
+            "max": 0.7975
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 96,
+        "triangles": 48,
+        "shells": 24,
+        "materials": [
+          "barrier_leg",
+          "barrier_orange",
+          "barrier_white"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "ConstructionBarrier"
+        ],
+        "baseColorChains": [
+          "barrier_leg=plano",
+          "barrier_orange=plano",
+          "barrier_white=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 1.73,
+          "depth": 0.25,
+          "height": 0.7975,
+          "minZ": 0.25
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          0,
+          -0.25
+        ],
+        "fileTriangles": 48,
+        "fileHierarchy": [
+          "ConstructionBarrier:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_original_damage_debris",
+      "category": "intrinsic_prop",
+      "role": "debris",
+      "note": "montón de escombros original para estados damaged/burning; geometría propia",
+      "sourceId": "src_original_damage_debris",
+      "sourcePath": "blender_artist/sources/original/damage_debris.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "DamageDebris"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "residential_low",
+        "industrial_heavy",
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 48 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 0.991,
+        "depthMeters": 0.714,
+        "heightMeters": 0.296
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "DamageDebris",
+        "convention": {
+          "x": "offset",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "-Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.516,
+            "max": 0.475
+          },
+          "y": {
+            "min": -0.373,
+            "max": 0.342
+          },
+          "z": {
+            "min": -0.001,
+            "max": 0.294
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0.021,
+          0.016,
+          0.001
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.4954,
+            "max": 0.4954
+          },
+          "y": {
+            "min": -0.3572,
+            "max": 0.3572
+          },
+          "z": {
+            "min": 0,
+            "max": 0.2957
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 192,
+        "triangles": 96,
+        "shells": 48,
+        "materials": [
+          "debris_brick",
+          "debris_char",
+          "debris_rubble"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "DamageDebris"
+        ],
+        "baseColorChains": [
+          "debris_brick=plano",
+          "debris_char=plano",
+          "debris_rubble=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.9907,
+          "depth": 0.7144,
+          "height": 0.2957,
+          "minZ": -0.0012
+        },
+        "importScale": 1,
+        "importOffset": [
+          0.0205,
+          0.0156,
+          0.0012
+        ],
+        "fileTriangles": 96,
+        "fileHierarchy": [
+          "DamageDebris:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_original_fire_flame",
+      "category": "intrinsic_prop",
+      "role": "flame",
+      "note": "lengua de llama emisiva original para estado burning; geometría propia",
+      "sourceId": "src_original_fire_flame",
+      "sourcePath": "blender_artist/sources/original/fire_flame.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "FireFlame"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "residential_low",
+        "industrial_heavy",
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 36 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 0.663,
+        "depthMeters": 0.56,
+        "heightMeters": 1
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "FireFlame",
+        "convention": {
+          "x": "offset",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.351,
+            "max": 0.312
+          },
+          "y": {
+            "min": -0.28,
+            "max": 0.28
+          },
+          "z": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0.02,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.3317,
+            "max": 0.3317
+          },
+          "y": {
+            "min": -0.28,
+            "max": 0.28
+          },
+          "z": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 180,
+        "triangles": 108,
+        "shells": 36,
+        "materials": [
+          "flame_inner",
+          "flame_outer"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "FireFlame"
+        ],
+        "baseColorChains": [
+          "flame_inner=plano",
+          "flame_outer=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.6634,
+          "depth": 0.56,
+          "height": 1,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0.0195,
+          0,
+          0
+        ],
+        "fileTriangles": 108,
+        "fileHierarchy": [
+          "FireFlame:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_original_fire_smoke",
+      "category": "intrinsic_prop",
+      "role": "smoke",
+      "note": "columna de humo original para estado burning; geometría propia",
+      "sourceId": "src_original_fire_smoke",
+      "sourcePath": "blender_artist/sources/original/fire_smoke.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "FireSmoke"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "residential_low",
+        "industrial_heavy",
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 320 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.083,
+        "depthMeters": 1.09,
+        "heightMeters": 2.17
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "FireSmoke",
+        "convention": {
+          "x": "offset",
+          "y": "offset",
+          "z": "offset"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.557,
+            "max": 0.526
+          },
+          "y": {
+            "min": -0.51,
+            "max": 0.58
+          },
+          "z": {
+            "min": 0.08,
+            "max": 2.25
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0.016,
+          -0.035,
+          -0.08
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.5415,
+            "max": 0.5415
+          },
+          "y": {
+            "min": -0.545,
+            "max": 0.545
+          },
+          "z": {
+            "min": 0,
+            "max": 2.17
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 1200,
+        "triangles": 560,
+        "shells": 320,
+        "materials": [
+          "fire_smoke"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "FireSmoke"
+        ],
+        "baseColorChains": [
+          "fire_smoke=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 1.083,
+          "depth": 1.09,
+          "height": 2.17,
+          "minZ": 0.08
+        },
+        "importScale": 1,
+        "importOffset": [
+          0.016,
+          -0.035,
+          -0.08
+        ],
+        "fileTriangles": 560,
+        "fileHierarchy": [
+          "FireSmoke:MESH"
         ]
       }
     }

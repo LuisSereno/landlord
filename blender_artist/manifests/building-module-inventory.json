@@ -65,6 +65,26 @@
       "sourceId": "src_original_construction_scaffold",
       "directory": "blender_artist/sources/original",
       "pattern": "construction_scaffold\\.glb$"
+    },
+    {
+      "sourceId": "src_original_construction_barrier",
+      "directory": "blender_artist/sources/original",
+      "pattern": "construction_barrier\\.glb$"
+    },
+    {
+      "sourceId": "src_original_damage_debris",
+      "directory": "blender_artist/sources/original",
+      "pattern": "damage_debris\\.glb$"
+    },
+    {
+      "sourceId": "src_original_fire_flame",
+      "directory": "blender_artist/sources/original",
+      "pattern": "fire_flame\\.glb$"
+    },
+    {
+      "sourceId": "src_original_fire_smoke",
+      "directory": "blender_artist/sources/original",
+      "pattern": "fire_smoke\\.glb$"
     }
   ],
   "missingDirectories": [],
@@ -82,7 +102,7 @@
     "note": "La modularidad de un pack puede estar a nivel de ARCHIVO (MegaKit, KayKit: un módulo por gltf) y no a nivel de objeto dentro del archivo; por eso el catálogo de módulos referencia rutas de archivo, no sólo selecciones de nodo."
   },
   "counts": {
-    "sources": 789,
+    "sources": 793,
     "withUnresolvedTextures": 0,
     "bySource": {
       "src_kenney_city_suburban": 40,
@@ -95,12 +115,16 @@
       "src_quaternius_downtown_city_megakit": 153,
       "src_original_civic_pediment": 1,
       "src_original_school_cupola": 1,
-      "src_original_construction_scaffold": 1
+      "src_original_construction_scaffold": 1,
+      "src_original_construction_barrier": 1,
+      "src_original_damage_debris": 1,
+      "src_original_fire_flame": 1,
+      "src_original_fire_smoke": 1
     },
     "byClassification": {
       "modular": 36,
       "partially_modular": 3,
-      "whole_asset_only": 750,
+      "whole_asset_only": 754,
       "unsuitable": 0
     }
   },
@@ -89586,6 +89610,436 @@
           "x": "centered",
           "y": "offset",
           "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_original_construction_barrier",
+      "path": "blender_artist/sources/original/construction_barrier.glb",
+      "license": "original",
+      "unitScale": 1,
+      "exists": true,
+      "objectCount": 1,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 96,
+      "triangles": 48,
+      "materials": [
+        "barrier_leg",
+        "barrier_orange",
+        "barrier_white"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "ConstructionBarrier",
+          "type": "MESH",
+          "parent": "IMPORT_ROOT",
+          "materials": [
+            "barrier_leg",
+            "barrier_orange",
+            "barrier_white"
+          ],
+          "vertices": 96,
+          "triangles": 48,
+          "looseParts": 24
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 1.73,
+          "depth": 0.25,
+          "height": 0.7975
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1.73,
+          "depth": 0.25,
+          "height": 0.7975,
+          "minZ": 0.25
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          0,
+          -0.25
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "ConstructionBarrier"
+        ],
+        "dominantShare": 1,
+        "shells": 24,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 24 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "ConstructionBarrier",
+        "origin": [
+          0,
+          0,
+          -0.25
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          0,
+          -0.25
+        ],
+        "localSizeMeters": {
+          "width": 1.73,
+          "depth": 0.25,
+          "height": 0.798
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -0.865,
+            "max": 0.865
+          },
+          "y": {
+            "min": -0.125,
+            "max": 0.125
+          },
+          "z": {
+            "min": 0.25,
+            "max": 1.048
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "offset"
+        }
+      }
+    },
+    {
+      "sourceId": "src_original_damage_debris",
+      "path": "blender_artist/sources/original/damage_debris.glb",
+      "license": "original",
+      "unitScale": 1,
+      "exists": true,
+      "objectCount": 1,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 192,
+      "triangles": 96,
+      "materials": [
+        "debris_brick",
+        "debris_char",
+        "debris_rubble"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "DamageDebris",
+          "type": "MESH",
+          "parent": "IMPORT_ROOT",
+          "materials": [
+            "debris_rubble",
+            "debris_brick",
+            "debris_char"
+          ],
+          "vertices": 192,
+          "triangles": 96,
+          "looseParts": 48
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 0.9907,
+          "depth": 0.7144,
+          "height": 0.2957
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 0.9907,
+          "depth": 0.7144,
+          "height": 0.2957,
+          "minZ": -0.0012
+        },
+        "importScale": 1,
+        "importOffset": [
+          0.0205,
+          0.0156,
+          0.0012
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "DamageDebris"
+        ],
+        "dominantShare": 1,
+        "shells": 48,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 48 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "DamageDebris",
+        "origin": [
+          0.021,
+          0.016,
+          0.001
+        ],
+        "offsetFromGroundCenter": [
+          0.021,
+          0.016,
+          0.001
+        ],
+        "localSizeMeters": {
+          "width": 0.991,
+          "depth": 0.714,
+          "height": 0.296
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -0.516,
+            "max": 0.475
+          },
+          "y": {
+            "min": -0.373,
+            "max": 0.342
+          },
+          "z": {
+            "min": -0.001,
+            "max": 0.294
+          }
+        },
+        "convention": {
+          "x": "offset",
+          "y": "offset",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_original_fire_flame",
+      "path": "blender_artist/sources/original/fire_flame.glb",
+      "license": "original",
+      "unitScale": 1,
+      "exists": true,
+      "objectCount": 1,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 180,
+      "triangles": 108,
+      "materials": [
+        "flame_inner",
+        "flame_outer"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "FireFlame",
+          "type": "MESH",
+          "parent": "IMPORT_ROOT",
+          "materials": [
+            "flame_inner",
+            "flame_outer"
+          ],
+          "vertices": 180,
+          "triangles": 108,
+          "looseParts": 36
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 0.6634,
+          "depth": 0.56,
+          "height": 1
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 0.6634,
+          "depth": 0.56,
+          "height": 1,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0.0195,
+          0,
+          0
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "FireFlame"
+        ],
+        "dominantShare": 1,
+        "shells": 36,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 36 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "FireFlame",
+        "origin": [
+          0.02,
+          0,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0.02,
+          0,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 0.663,
+          "depth": 0.56,
+          "height": 1
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -0.351,
+            "max": 0.312
+          },
+          "y": {
+            "min": -0.28,
+            "max": 0.28
+          },
+          "z": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "convention": {
+          "x": "offset",
+          "y": "centered",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_original_fire_smoke",
+      "path": "blender_artist/sources/original/fire_smoke.glb",
+      "license": "original",
+      "unitScale": 1,
+      "exists": true,
+      "objectCount": 1,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 1200,
+      "triangles": 560,
+      "materials": [
+        "fire_smoke"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "FireSmoke",
+          "type": "MESH",
+          "parent": "IMPORT_ROOT",
+          "materials": [
+            "fire_smoke"
+          ],
+          "vertices": 1200,
+          "triangles": 560,
+          "looseParts": 320
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 1.083,
+          "depth": 1.09,
+          "height": 2.17
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 1.083,
+          "depth": 1.09,
+          "height": 2.17,
+          "minZ": 0.08
+        },
+        "importScale": 1,
+        "importOffset": [
+          0.016,
+          -0.035,
+          -0.08
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "FireSmoke"
+        ],
+        "dominantShare": 1,
+        "shells": 320,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 320 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "FireSmoke",
+        "origin": [
+          0.016,
+          -0.035,
+          -0.08
+        ],
+        "offsetFromGroundCenter": [
+          0.016,
+          -0.035,
+          -0.08
+        ],
+        "localSizeMeters": {
+          "width": 1.083,
+          "depth": 1.09,
+          "height": 2.17
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -0.557,
+            "max": 0.526
+          },
+          "y": {
+            "min": -0.51,
+            "max": 0.58
+          },
+          "z": {
+            "min": 0.08,
+            "max": 2.25
+          }
+        },
+        "convention": {
+          "x": "offset",
+          "y": "offset",
+          "z": "offset"
         }
       }
     }

@@ -319,6 +319,50 @@
       "sourceUrl": null,
       "unitScale": 1,
       "extractDir": null
+    },
+    {
+      "id": "src_original_construction_barrier",
+      "path": "blender_artist/sources/original/construction_barrier.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por create_original_state_modules.py",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_damage_debris",
+      "path": "blender_artist/sources/original/damage_debris.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por create_original_state_modules.py",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_fire_flame",
+      "path": "blender_artist/sources/original/fire_flame.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por create_original_state_modules.py",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_fire_smoke",
+      "path": "blender_artist/sources/original/fire_smoke.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por create_original_state_modules.py",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
     }
   ],
   "quarantined": [

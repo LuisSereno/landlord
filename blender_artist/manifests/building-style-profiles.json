@@ -23,8 +23,8 @@
       "id": "graphic_civic_buildings_v1",
       "label": "Edificios cívicos gráficos nocturnos, compuestos con geometría licenciada",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "93bbef421d94aac98e1a356a11bdc099275db27ea1cc9f53dd047fddb4fa4f60",
-      "selectionSha256": "ac6a099619098c520b3f311510a595f281c2c0bf81cb52aee9bce0d264e4d5d5",
+      "moduleCatalogSha256": "304e19f8a7d6738120227cbe63dfc7e1ea5cb00a43e632f5b4aee8a7a1dbe3c3",
+      "selectionSha256": "9e1a295364c8f2f58c012b58b4c62b47bc2a4ec42658fad98a090ffb6c250ecd",
       "appliesToFamilies": [
         "residential_low",
         "industrial_heavy",
@@ -397,14 +397,20 @@
               "src_kaykit_city_builder_bits: 0.4",
               "src_kenney_nature_kit: 1",
               "src_kenney_city_roads: 1",
-              "src_original_construction_scaffold: 0.7"
+              "src_original_construction_scaffold: 0.7",
+              "src_original_construction_barrier: 0.8",
+              "src_original_damage_debris: 0.8",
+              "src_original_fire_flame: 0.8",
+              "src_original_fire_smoke: 1"
             ],
             "perFamily": {
               "brick": {
                 "ormChannelG": [
                   0.84
                 ],
-                "scalarFactor": [],
+                "scalarFactor": [
+                  0.8
+                ],
                 "preservedWhenLinked": true
               },
               "plaster": {
@@ -474,13 +480,17 @@
                 "src_kaykit_city_builder_bits: 0.4",
                 "src_kenney_nature_kit: 1",
                 "src_kenney_city_roads: 1",
-                "src_original_construction_scaffold: 0.7"
+                "src_original_construction_scaffold: 0.7",
+                "src_original_construction_barrier: 0.8",
+                "src_original_damage_debris: 0.8",
+                "src_original_fire_flame: 0.8",
+                "src_original_fire_smoke: 1"
               ],
               "how": "factores de Roughness por pack donde el socket NO está enlazado: son los únicos que el override toca",
               "source": "/tmp/landlord-vf-style/measurements.json → materialReport[].surface.Roughness.value"
             }
           ],
-          "rationale": "El override canónico (0.88) sólo se aplica a sockets NO enlazados (runtime_asset.py:669-672): unifica los factores planos (src_quaternius_downtown_city_megakit: 0.5; src_kenney_city_industrial: 1; src_kenney_city_suburban: 1; src_kenney_city_commercial: 1; src_kaykit_city_builder_bits: 0.4; src_kenney_nature_kit: 1; src_kenney_city_roads: 1; src_original_construction_scaffold: 0.7) y respeta los ORM enlazados, cuyas medias reales (0.741–0.948) ya caen dentro de la banda que la dirección acepta. Por eso el perfil no fija una rugosidad única: §11 prohíbe aplanar todos los materiales y la pipeline ya preserva el relieve cuando existe."
+          "rationale": "El override canónico (0.88) sólo se aplica a sockets NO enlazados (runtime_asset.py:669-672): unifica los factores planos (src_quaternius_downtown_city_megakit: 0.5; src_kenney_city_industrial: 1; src_kenney_city_suburban: 1; src_kenney_city_commercial: 1; src_kaykit_city_builder_bits: 0.4; src_kenney_nature_kit: 1; src_kenney_city_roads: 1; src_original_construction_scaffold: 0.7; src_original_construction_barrier: 0.8; src_original_damage_debris: 0.8; src_original_fire_flame: 0.8; src_original_fire_smoke: 1) y respeta los ORM enlazados, cuyas medias reales (0.741–0.948) ya caen dentro de la banda que la dirección acepta. Por eso el perfil no fija una rugosidad única: §11 prohíbe aplanar todos los materiales y la pipeline ya preserva el relieve cuando existe."
         },
         "materialMetallic": {
           "value": {
@@ -490,7 +500,9 @@
                 "ormChannelB": [
                   0
                 ],
-                "scalarFactor": []
+                "scalarFactor": [
+                  0
+                ]
               },
               "plaster": {
                 "ormChannelB": [
@@ -970,7 +982,7 @@
           "value": {
             "trianglesPerModule": {
               "p50": 112,
-              "p90": 1088.4,
+              "p90": 1064.8,
               "max": 2960
             },
             "facadeTrianglesPerSquareMeter": {
@@ -1004,7 +1016,7 @@
             "characterHeightMeters": 1.8,
             "ratioBand": {
               "min": 0.14,
-              "p50": 1.64,
+              "p50": 1.05,
               "max": 4.28
             },
             "measured": [
@@ -1087,6 +1099,26 @@
                 "id": "mod_original_construction_scaffold",
                 "heightMeters": 2.92,
                 "ratioToCharacter": 1.62
+              },
+              {
+                "id": "mod_original_construction_barrier",
+                "heightMeters": 0.797,
+                "ratioToCharacter": 0.44
+              },
+              {
+                "id": "mod_original_damage_debris",
+                "heightMeters": 0.296,
+                "ratioToCharacter": 0.16
+              },
+              {
+                "id": "mod_original_fire_flame",
+                "heightMeters": 1,
+                "ratioToCharacter": 0.56
+              },
+              {
+                "id": "mod_original_fire_smoke",
+                "heightMeters": 2.17,
+                "ratioToCharacter": 1.21
               }
             ]
           },
@@ -1162,7 +1194,7 @@
             {
               "measured": [
                 "mod_kenney_ind_solar_panel_flat: 0.246 m = 0.14× personaje",
-                "mod_megakit_prop_ac_unit: 0.6 m = 0.33× personaje"
+                "mod_original_damage_debris: 0.296 m = 0.16× personaje"
               ],
               "how": "los dos extremos inferiores de la banda, que son los que un humano leería como fuera de escala",
               "source": "blender_artist/manifests/building-modules.json → nominalBounds.heightMeters"
@@ -2951,9 +2983,10 @@
           "present": true,
           "measuredMaterials": [
             "MI_RedBrick",
-            "MI_RedBrick_Pale"
+            "MI_RedBrick_Pale",
+            "debris_brick"
           ],
-          "moduleCount": 38,
+          "moduleCount": 39,
           "moduleExamples": [
             "mod_megakit_brick_bottom_trim_2m",
             "mod_megakit_brick_column",
@@ -2961,11 +2994,13 @@
             "mod_megakit_brick_corner_left"
           ],
           "sourceIds": [
+            "src_original_damage_debris",
             "src_quaternius_downtown_city_megakit"
           ],
           "baseColorChain": [
             "MIX:sin imagen",
-            "TEX_IMAGE:T_RedBrick_BaseColor"
+            "TEX_IMAGE:T_RedBrick_BaseColor",
+            "factor plano"
           ],
           "blendMethods": [
             "HASHED"
@@ -2974,13 +3009,17 @@
             "ormChannelG": [
               0.84
             ],
-            "scalarFactor": []
+            "scalarFactor": [
+              0.8
+            ]
           },
           "metallicMeasured": {
             "ormChannelB": [
               0
             ],
-            "scalarFactor": []
+            "scalarFactor": [
+              0
+            ]
           },
           "reachedByTreatment": false,
           "treatmentReach": [
@@ -3694,12 +3733,28 @@
               "colorTextureFiles": [
                 "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
               ]
+            },
+            {
+              "pack": "src_original_construction_barrier",
+              "colorTextures": [],
+              "colorTextureFiles": []
+            },
+            {
+              "pack": "src_original_fire_flame",
+              "colorTextures": [],
+              "colorTextureFiles": []
+            },
+            {
+              "pack": "src_original_fire_smoke",
+              "colorTextures": [],
+              "colorTextureFiles": []
             }
           ],
           "pbrPacks": [
             "src_quaternius_downtown_city_megakit",
             "src_kenney_nature_kit",
-            "src_original_construction_scaffold"
+            "src_original_construction_scaffold",
+            "src_original_damage_debris"
           ],
           "familiesPartlyTreated": [
             {
@@ -3765,7 +3820,7 @@
               ]
             }
           ],
-          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit, src_original_construction_scaffold) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal, stone tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
+          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads, src_original_construction_barrier, src_original_fire_flame, src_original_fire_smoke) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit, src_original_construction_scaffold, src_original_damage_debris) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal, stone tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
         },
         "state": "satisfecha"
       },
@@ -4282,6 +4337,86 @@
             "shippedJobs": []
           },
           {
+            "pack": "src_original_construction_barrier",
+            "license": "original",
+            "moduleCount": 1,
+            "materials": 3,
+            "materialsReachedByTreatment": [],
+            "materialsRawAlways": [
+              "barrier_leg",
+              "barrier_orange",
+              "barrier_white"
+            ],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 0,
+            "modulesWithRawMaterial": 1,
+            "rawModuleExamples": [
+              "construction_barrier.glb: 3 de 3 materiales en bruto"
+            ],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "factor plano"
+            ],
+            "materialReach": [
+              {
+                "material": "barrier_leg",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.8
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "barrier_orange",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.8
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "barrier_white",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.8
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              }
+            ],
+            "colorTextures": [],
+            "colorTextureFiles": [],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [
+              0.8
+            ],
+            "shippedJobs": []
+          },
+          {
             "pack": "src_original_construction_scaffold",
             "license": "original",
             "moduleCount": 1,
@@ -4341,6 +4476,195 @@
             "otherImages": [],
             "scalarRoughness": [
               0.7
+            ],
+            "shippedJobs": []
+          },
+          {
+            "pack": "src_original_damage_debris",
+            "license": "original",
+            "moduleCount": 1,
+            "materials": 3,
+            "materialsReachedByTreatment": [],
+            "materialsRawAlways": [
+              "debris_brick",
+              "debris_char",
+              "debris_rubble"
+            ],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 0,
+            "modulesWithRawMaterial": 1,
+            "rawModuleExamples": [
+              "damage_debris.glb: 3 de 3 materiales en bruto"
+            ],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "factor plano"
+            ],
+            "materialReach": [
+              {
+                "material": "debris_brick",
+                "family": "brick",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.8
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "debris_char",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.8
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "debris_rubble",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.8
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              }
+            ],
+            "colorTextures": [],
+            "colorTextureFiles": [],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [
+              0.8
+            ],
+            "shippedJobs": []
+          },
+          {
+            "pack": "src_original_fire_flame",
+            "license": "original",
+            "moduleCount": 1,
+            "materials": 2,
+            "materialsReachedByTreatment": [],
+            "materialsRawAlways": [
+              "flame_inner",
+              "flame_outer"
+            ],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 0,
+            "modulesWithRawMaterial": 1,
+            "rawModuleExamples": [
+              "fire_flame.glb: 2 de 2 materiales en bruto"
+            ],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "factor plano"
+            ],
+            "materialReach": [
+              {
+                "material": "flame_inner",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.8
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "flame_outer",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.8
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              }
+            ],
+            "colorTextures": [],
+            "colorTextureFiles": [],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [
+              0.8
+            ],
+            "shippedJobs": []
+          },
+          {
+            "pack": "src_original_fire_smoke",
+            "license": "original",
+            "moduleCount": 1,
+            "materials": 1,
+            "materialsReachedByTreatment": [],
+            "materialsRawAlways": [
+              "fire_smoke"
+            ],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 0,
+            "modulesWithRawMaterial": 1,
+            "rawModuleExamples": [
+              "fire_smoke.glb: 1 de 1 materiales en bruto"
+            ],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "factor plano"
+            ],
+            "materialReach": [
+              {
+                "material": "fire_smoke",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  1
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              }
+            ],
+            "colorTextures": [],
+            "colorTextureFiles": [],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [
+              1
             ],
             "shippedJobs": []
           },
@@ -4765,7 +5089,11 @@
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_oak.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_pineTallA.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_small.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
+          "blender_artist/sources/original/construction_barrier.glb (src_original_construction_barrier): 3 de 3 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/construction_scaffold.glb (src_original_construction_scaffold): 2 de 2 materiales con Base Color fuera de la banda",
+          "blender_artist/sources/original/damage_debris.glb (src_original_damage_debris): 3 de 3 materiales con Base Color fuera de la banda",
+          "blender_artist/sources/original/fire_flame.glb (src_original_fire_flame): 2 de 2 materiales con Base Color fuera de la banda",
+          "blender_artist/sources/original/fire_smoke.glb (src_original_fire_smoke): 1 de 1 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_90Angle_L.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_90Angle_R.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_BottomTrim.gltf (src_quaternius_downtown_city_megakit): 3 de 3 materiales con Base Color fuera de la banda",
@@ -4870,12 +5198,28 @@
             "colorTextureFiles": [
               "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png"
             ]
+          },
+          {
+            "pack": "src_original_construction_barrier",
+            "colorTextures": [],
+            "colorTextureFiles": []
+          },
+          {
+            "pack": "src_original_fire_flame",
+            "colorTextures": [],
+            "colorTextureFiles": []
+          },
+          {
+            "pack": "src_original_fire_smoke",
+            "colorTextures": [],
+            "colorTextureFiles": []
           }
         ],
         "pbrPacks": [
           "src_quaternius_downtown_city_megakit",
           "src_kenney_nature_kit",
-          "src_original_construction_scaffold"
+          "src_original_construction_scaffold",
+          "src_original_damage_debris"
         ],
         "requiredWork": "V.f.4 debe extender el traversal hasta la TEX_IMAGE real que alimenta el MIX (o aplicar las bandas sobre la imagen de entrada del mezclador) para que las instancias en bruto entren en la misma escalera de valor. Sin eso hay que listar módulos: los de `modulesRawList` quedan fuera de los alzados que se juzguen tratados.",
         "measuredBrightnessGap": {
@@ -5509,8 +5853,17 @@
             "src_kenney_nature_kit/woodBark: Base Color factor plano ×4; atlas de color ninguno; módulos alcanzados 0, en bruto 4",
             "src_kenney_nature_kit/woodBarkDark: Base Color factor plano ×3; atlas de color ninguno; módulos alcanzados 0, en bruto 3",
             "src_kenney_nature_kit/woodDark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_construction_barrier/barrier_leg: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_construction_barrier/barrier_orange: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_construction_barrier/barrier_white: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_construction_scaffold/scaffold_plank: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_construction_scaffold/scaffold_steel: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_damage_debris/debris_brick: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_damage_debris/debris_char: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_damage_debris/debris_rubble: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_fire_flame/flame_inner: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_fire_flame/flame_outer: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_fire_smoke/fire_smoke: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_quaternius_downtown_city_megakit/MI_FakeInterior: Base Color MIX:sin imagen ×14, factor plano ×2; atlas de color ninguno; módulos alcanzados 0, en bruto 16",
             "src_quaternius_downtown_city_megakit/MI_Glass: Base Color MIX:sin imagen ×18, factor plano ×3; atlas de color ninguno; módulos alcanzados 0, en bruto 21",
             "src_quaternius_downtown_city_megakit/MI_InteriorFloor: Base Color MIX:sin imagen ×1, TEX_IMAGE:T_MarbleFloor_BaseColor ×2; atlas de color T_MarbleFloor_BaseColor; módulos alcanzados 2, en bruto 1",
@@ -5543,14 +5896,14 @@
     }
   ],
   "counts": {
-    "modules": 175,
+    "modules": 179,
     "texturesSampled": 30,
     "familiesPresentInGeometry": 6,
     "familiesMeasuredByAlbedo": 4,
     "familyPairsChecked": 6,
     "collapsedPairs": 0,
     "modulesFullyTreatedToday": 98,
-    "modulesWithRawMaterial": 77,
+    "modulesWithRawMaterial": 81,
     "texturesSplitAcrossModules": 5
   }
 }

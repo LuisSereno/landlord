@@ -94,6 +94,26 @@ const SCOPE = [
     directory: "blender_artist/sources/original",
     pattern: "construction_scaffold\\.glb$",
   },
+  {
+    sourceId: "src_original_construction_barrier",
+    directory: "blender_artist/sources/original",
+    pattern: "construction_barrier\\.glb$",
+  },
+  {
+    sourceId: "src_original_damage_debris",
+    directory: "blender_artist/sources/original",
+    pattern: "damage_debris\\.glb$",
+  },
+  {
+    sourceId: "src_original_fire_flame",
+    directory: "blender_artist/sources/original",
+    pattern: "fire_flame\\.glb$",
+  },
+  {
+    sourceId: "src_original_fire_smoke",
+    directory: "blender_artist/sources/original",
+    pattern: "fire_smoke\\.glb$",
+  },
 ];
 
 const CLASSIFICATION_RULE = {

@@ -1781,6 +1781,46 @@
       "meshes": ["ConstructionScaffold"],
       "allowedFamilies": ["residential_low", "industrial_heavy", "civic_landmark"],
       "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_original_construction_barrier",
+      "category": "utility",
+      "role": "barrier",
+      "note": "valla de obra original para etapa foundation; geometría propia",
+      "sourcePath": "blender_artist/sources/original/construction_barrier.glb",
+      "meshes": ["ConstructionBarrier"],
+      "allowedFamilies": ["residential_low", "industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_original_damage_debris",
+      "category": "intrinsic_prop",
+      "role": "debris",
+      "note": "montón de escombros original para estados damaged/burning; geometría propia",
+      "sourcePath": "blender_artist/sources/original/damage_debris.glb",
+      "meshes": ["DamageDebris"],
+      "allowedFamilies": ["residential_low", "industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_original_fire_flame",
+      "category": "intrinsic_prop",
+      "role": "flame",
+      "note": "lengua de llama emisiva original para estado burning; geometría propia",
+      "sourcePath": "blender_artist/sources/original/fire_flame.glb",
+      "meshes": ["FireFlame"],
+      "allowedFamilies": ["residential_low", "industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_original_fire_smoke",
+      "category": "intrinsic_prop",
+      "role": "smoke",
+      "note": "columna de humo original para estado burning; geometría propia",
+      "sourcePath": "blender_artist/sources/original/fire_smoke.glb",
+      "meshes": ["FireSmoke"],
+      "allowedFamilies": ["residential_low", "industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
     }
   ]
 }

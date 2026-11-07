@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T15:54:30.601Z",
+  "generatedAt": "2026-11-07T08:10:14.810Z",
   "baseUrl": "http://127.0.0.1:4182/",
   "viewport": {
     "width": 1440,
@@ -17,12 +17,12 @@
         {
           "zoom": 0.5,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-lomas-del-umbral-05x.png",
-          "sha256": "70e57e78d407ad82de5961e0adb2f4fcf705791e1b346f73c4d22ee4824753ca"
+          "sha256": "92db280458a20d6afe99bfeae9fec241bca12ff73c7bb5db24c4cc0449ebefd2"
         },
         {
           "zoom": 1,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-lomas-del-umbral-10x.png",
-          "sha256": "2074147f335eb71e95460847de09d998f9892b0952c2f299346ae967920facf1"
+          "sha256": "b21197c5372fc38a0faef81957ef0ee6e081852e9a1ec5be0f2eb327d9fda9b5"
         },
         {
           "zoom": 2,
@@ -42,17 +42,17 @@
         {
           "zoom": 0.5,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-mercado-del-norte-05x.png",
-          "sha256": "50d4bc4286050fa695551207286d54311c8482b4a31ebf2b3b647a2cf4a97a43"
+          "sha256": "e6c5081e45528fa9b99d182f8d9fa7b80a1d6dfd937cfa270d0fa623ff72edb0"
         },
         {
           "zoom": 1,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-mercado-del-norte-10x.png",
-          "sha256": "e84d48711bc175eb63da84358ef8fbd0ac0141a8ee7d6e00ffc7fc3f9e3a789d"
+          "sha256": "595d4f4576b490cbfa61824c592b4ffa83b5bdd755120c1fb002e321bc90b23e"
         },
         {
           "zoom": 2,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-mercado-del-norte-20x.png",
-          "sha256": "20bfa388a7059e4108716dafbcefe49fc3c132eef4ca0c39dda062b0e578bea5"
+          "sha256": "5e060c92124603d0f493b8abb0d030c8dab5ac8864ee254777ecbb946034e5a9"
         }
       ]
     },
@@ -67,17 +67,17 @@
         {
           "zoom": 0.5,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-vega-del-cauce-05x.png",
-          "sha256": "0f56dd4668956f5f55f5b81cc5dddb28f8e8d05dfa254c304a65fb171e91e801"
+          "sha256": "2b7fca966322b99539a12c61e5ced455ff4bcccd0440576ed310e758042fd782"
         },
         {
           "zoom": 1,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-vega-del-cauce-10x.png",
-          "sha256": "312bb377a1ba2a6879199acc243613b10239ffbcd87f27595449601f25f755f8"
+          "sha256": "257bd94421ec2506d101f3942a0aa1e3177350001b65aa50c420b0dff18e1c52"
         },
         {
           "zoom": 2,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-vega-del-cauce-20x.png",
-          "sha256": "ce576d44e2ba8c8e7548e26647b173abb48595051fea78554bb6c0cf6a83bc43"
+          "sha256": "c007ab64a3ef8056f7414e50e865f9bec19de50add478588416e74926facc91d"
         }
       ]
     },
@@ -92,17 +92,17 @@
         {
           "zoom": 0.5,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-barrio-del-umbral-05x.png",
-          "sha256": "3129a205f91959ab6fae4dd5d099c41e856c7ab05ff4d2dd4e00ca9d7c9c03a9"
+          "sha256": "20a1abc91a23198d116c382c0bcd6f096e7e3145653991de1d080db9ba253b8e"
         },
         {
           "zoom": 1,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-barrio-del-umbral-10x.png",
-          "sha256": "585de503a79c3d67bd6ad36414e4db10a71ba4aa1bf2b3ee0f42da0fac537701"
+          "sha256": "b2155e05547c4f75f8d31cb63e004bcd59c2ad244f4f33d4e5ac20e6841fa3d2"
         },
         {
           "zoom": 2,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-barrio-del-umbral-20x.png",
-          "sha256": "d85640224f83df2fbedef59f45e33d001dfca61aa438523450bc3527c8b0a9ba"
+          "sha256": "246b84fa1aa333e13066fbe9ad26d1f80a7fd3d123f706662601279dcbde3a1c"
         }
       ]
     },
@@ -117,17 +117,17 @@
         {
           "zoom": 0.5,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-centro-civico-05x.png",
-          "sha256": "807b5314b7884871d1885678c5ab49b66c2a81d1cc773051ed1b1e8a472a42fa"
+          "sha256": "aeab1322fa866524ab60dfc4e25ea1f9fef9bc49e15f2c399079cd14d89f2846"
         },
         {
           "zoom": 1,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-centro-civico-10x.png",
-          "sha256": "84b3290f2ae298f4c6fea2a907260b40339ab81ca2c65a8cfcf81866cdf70b0f"
+          "sha256": "738107bae700bd5d390a830d9eff5ac5c98fa205edaebab11e4a3f0be8a21ece"
         },
         {
           "zoom": 2,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-centro-civico-20x.png",
-          "sha256": "8d80009368ea8c11ac61bfa1784b4a7a8a71451f8ed2fb4fa96f229192e3a320"
+          "sha256": "5fecbc3c01500511a4eb13477f9f81c48dac2f1672b0cac3f92da0683dc24655"
         }
       ]
     },
@@ -142,17 +142,17 @@
         {
           "zoom": 0.5,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-barrio-del-taller-05x.png",
-          "sha256": "0358d581186433e5ab4af1fba427699902800862c654e9accc8ee0eded0edfe0"
+          "sha256": "a3f2c1fdb70627b529761c657a8018d802c15baec243a80bf737f5b3f284e60d"
         },
         {
           "zoom": 1,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-barrio-del-taller-10x.png",
-          "sha256": "d05385f52bddd3f232b90215541c0faf684f2c69763075d4cb9a5000ccd71b01"
+          "sha256": "396e4778cc3f43bcf6ca25156dabdc208b5e2da8b2bf3b5817a0ad1723eef27b"
         },
         {
           "zoom": 2,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-barrio-del-taller-20x.png",
-          "sha256": "98fb78b0e55142099935f0e3a59633797fecc8f299a7a6be4b6638c9cc123184"
+          "sha256": "cba6d0d1753edabf7b2adaddcad450050d8299bbe9d2b2681b365888392cbbaa"
         }
       ]
     },
@@ -167,17 +167,17 @@
         {
           "zoom": 0.5,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-ensanche-ferroviario-oeste-05x.png",
-          "sha256": "9f4a21e055a44974671a9459dd15f30813d5a0a491c264c2d64a8ba6c3b0ebe5"
+          "sha256": "551c159acb08773656b3cb949db3f3e5b6beb6d9d3c8ba64606d9331ff262e27"
         },
         {
           "zoom": 1,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-ensanche-ferroviario-oeste-10x.png",
-          "sha256": "a3a6f44aee9a9b96ad2566d849d4f4368bf6898a5bb6c709f2f8d0694e81ad61"
+          "sha256": "34746f65be11e090d9d6553e7eee8b2e978c8754e4d9379ebb4708d2e46ca943"
         },
         {
           "zoom": 2,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-ensanche-ferroviario-oeste-20x.png",
-          "sha256": "3dbe1772d6085c1d176ef57abf1bd099eef7abf6e333b11f1697c9f18087093e"
+          "sha256": "530b05041a86200d51c365f8a3aa4e41c49a4391e2292d873cb2e9d9449ff79d"
         }
       ]
     },
@@ -192,17 +192,17 @@
         {
           "zoom": 0.5,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-corredor-ferroviario-05x.png",
-          "sha256": "201961a01405a94b31bbad19d19fb7d36439bf13254ea45f6bda4bfa091b4084"
+          "sha256": "f548eb3a04531be3e1b6a5776e19e3db4f2e0c6910d1179bb16866bfeaeb5a17"
         },
         {
           "zoom": 1,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-corredor-ferroviario-10x.png",
-          "sha256": "976ef2a1bfe2a2661104c7b10821556674175da39ec60a4a9f75f2e822ff57a8"
+          "sha256": "b1f119b649d8a4efab25f40e7b25e41259e27ac9a399941afb374be5cf97e025"
         },
         {
           "zoom": 2,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-corredor-ferroviario-20x.png",
-          "sha256": "9b3a390f33ff1a2d870b40254b4778bada588f7d45eb25f04f91292725190427"
+          "sha256": "b25b7f48e9d7b570d33cbbe0fbad0955011dc758d4d094a619d6da38a15f4088"
         }
       ]
     },
@@ -217,17 +217,17 @@
         {
           "zoom": 0.5,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-patios-del-este-05x.png",
-          "sha256": "e08e62dea0caf6ee7af2d6a77bfa2961ff1577c63719feaa0c8dff70b58a625a"
+          "sha256": "cd29418fe36ba082e2789a6cc9b143523623bceadb28b6b6b3ca3c4fc944bd73"
         },
         {
           "zoom": 1,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-patios-del-este-10x.png",
-          "sha256": "881fc863a45110b2683b0cf597e8123cdb68036397673c9fe2eeb9ceb5b8b37a"
+          "sha256": "dde1645bb1bc4775c79e4ceb5519ac01e8ed6a5171c610ee19640c42eebaad06"
         },
         {
           "zoom": 2,
           "path": "docs/art/world-visual-foundation/pixel-qa/district-patios-del-este-20x.png",
-          "sha256": "ed1f70785a48d372a899cb109ff79c02906b889eeaa0c0001e5788dadc03ed80"
+          "sha256": "8bb72c2cb26a5423d7a916c44d679d7d795050925c5e1b129e4f4db456b1e28d"
         }
       ]
     }
@@ -236,17 +236,17 @@
     {
       "zoom": 0.5,
       "path": "docs/art/world-visual-foundation/pixel-qa/district-contact-sheet-05x.png",
-      "sha256": "abc414b85b26518eb2feb444d43dbc598db060ccfddd713c4f4f9e96b0bbbd16"
+      "sha256": "a783c0a20425dd60b4fae3fb025af3bf5b24bc1ae3d502e81dd779e72491e83b"
     },
     {
       "zoom": 1,
       "path": "docs/art/world-visual-foundation/pixel-qa/district-contact-sheet-10x.png",
-      "sha256": "42b3826b691a1790629c14aa7d61162823a75f30a0ea65747375e2451586ac4a"
+      "sha256": "79ab8cf2245b1d2b7a9e64e44e7c0f234d5322bbb12ff06a9a80dd61099c2073"
     },
     {
       "zoom": 2,
       "path": "docs/art/world-visual-foundation/pixel-qa/district-contact-sheet-20x.png",
-      "sha256": "ede6e611ce68c3ef84fb6810b4aae77325320ba1f2f71040aff086085274f6d1"
+      "sha256": "da7fa82fe83d6db3c081a3036b8eb91a29b8ce008fe97a929ac5d39ff48ac072"
     }
   ],
   "details": [
@@ -258,7 +258,7 @@
         "y": 43
       },
       "path": "docs/art/world-visual-foundation/pixel-qa/detail-commercial-20x.png",
-      "sha256": "20bfa388a7059e4108716dafbcefe49fc3c132eef4ca0c39dda062b0e578bea5",
+      "sha256": "5e060c92124603d0f493b8abb0d030c8dab5ac8864ee254777ecbb946034e5a9",
       "source": "inline district 20x (misma ancla y zoom)"
     },
     {
@@ -269,7 +269,7 @@
         "y": 33
       },
       "path": "docs/art/world-visual-foundation/pixel-qa/detail-green-20x.png",
-      "sha256": "ce576d44e2ba8c8e7548e26647b173abb48595051fea78554bb6c0cf6a83bc43",
+      "sha256": "c007ab64a3ef8056f7414e50e865f9bec19de50add478588416e74926facc91d",
       "source": "inline district 20x (misma ancla y zoom)"
     },
     {
@@ -280,7 +280,7 @@
         "y": 1
       },
       "path": "docs/art/world-visual-foundation/pixel-qa/detail-residential-20x.png",
-      "sha256": "d85640224f83df2fbedef59f45e33d001dfca61aa438523450bc3527c8b0a9ba",
+      "sha256": "246b84fa1aa333e13066fbe9ad26d1f80a7fd3d123f706662601279dcbde3a1c",
       "source": "inline district 20x (misma ancla y zoom)"
     },
     {
@@ -291,7 +291,7 @@
         "y": 1
       },
       "path": "docs/art/world-visual-foundation/pixel-qa/detail-industrial-20x.png",
-      "sha256": "3dbe1772d6085c1d176ef57abf1bd099eef7abf6e333b11f1697c9f18087093e",
+      "sha256": "530b05041a86200d51c365f8a3aa4e41c49a4391e2292d873cb2e9d9449ff79d",
       "source": "inline district 20x (misma ancla y zoom)"
     },
     {
@@ -304,7 +304,7 @@
         "y": 22
       },
       "path": "docs/art/world-visual-foundation/pixel-qa/detail-civic-20x.png",
-      "sha256": "2bc58f5bc72e0509f22d7a56b02235bbbea7e5794d96b3a78b9d86e9e4bcac7a"
+      "sha256": "08c22f35c8d294e5747c6978f08ce610acdb2b2907b80e64d93c9b9c272342e5"
     }
   ],
   "detailErrors": [],

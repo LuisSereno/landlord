@@ -1,42 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "Curated Composer assets promoted over the raw Blender bundle; legacy early-phase buildings are excluded from gameplay.",
-  "buildings": {
-    "courtyard_home": {
-      "type": "courtyard_home",
-      "name": "Casa con patio V.g",
-      "footprint": {
-        "width": 2,
-        "height": 2
-      },
-      "domainFootprint": {
-        "width": 2,
-        "height": 2
-      },
-      "pivot": {
-        "x": 0.6692,
-        "y": 0.6465
-      },
-      "states": {
-        "complete": {
-          "src": "/assets/runtime/blender/courtyard_home-vg-complete.png",
-          "width": 260,
-          "height": 320,
-          "sha256": "31ff308d8a06da59cf5935c07737aaeab70d51536fb75ce62c91409461038de3"
-        }
-      },
-      "stateFallback": "procedural",
-      "pixelsPerMeter": 30.1,
-      "provenance": {
-        "license": "CC0-1.0",
-        "author": "Landlord Building Composer",
-        "sourceId": "building_composer:vg_courtyard_home_1002",
-        "notes": "Candidato doméstico curado; estados ausentes vuelven al procedural semántico."
-      },
-      "allowedOrientations": [45],
-      "symmetry": "none"
-    }
-  },
+  "buildings": {},
   "legacyGameplayExclusions": [
     "bld_shopfront",
     "bld_commercial_b",

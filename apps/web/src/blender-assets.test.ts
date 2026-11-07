@@ -40,7 +40,7 @@ describe("WP4.15-H ruta Blender E2E", () => {
     }
   });
 
-  it("promueve el town_hall V7 elegido y conserva el candidato anterior como school_block", () => {
+  it("promueve el town_hall V7 elegido y el colegio americano propio (V.i remediation)", () => {
     const townHall = bundle.buildings.town_hall!;
     expect(townHall.type).toBe("town_hall");
     expect(townHall.footprint).toEqual({ width: 8, height: 4 });
@@ -54,16 +54,19 @@ describe("WP4.15-H ruta Blender E2E", () => {
     expect(townHall.provenance?.notes).toContain("vf_town_hall_1006");
     const school = bundle.buildings.school_block!;
     expect(school.type).toBe("school_block");
-    expect(school.domainFootprint).toEqual({ width: 8, height: 4 });
+    expect(school.domainFootprint).toEqual({ width: 7, height: 2 });
     expect(school.states.complete.sha256).toBe(
-      "4d83edc33cb948eada9ac69ee48fdfbbe9d4af628e80209b5a140c32a05e0495",
+      "c2b5ea797d86dfe57033d48a9c668bdb33d4133a428df8a42ed8cf16ae56c6ab",
     );
-    expect(school.provenance?.notes).toContain("vf_town_hall_1002");
+    expect(school.provenance?.notes).toContain("vg_school_block_2000");
   });
 
-  it("cubre los cuatro estados del edificio y las cuatro direcciones del personaje", () => {
+  it("cubre el estado complete con fallback procedural y las cuatro direcciones del personaje", () => {
+    // V.i: los estados construction/damaged/burning quedan para la siguiente fase; el catálogo
+    // promovido publica sólo complete y el motor cae al procedural semántico del mismo tipo.
     const states = Object.keys(bundle.buildings["courtyard_home"]!.states).sort();
-    expect(states).toEqual(["burning", "complete", "construction", "damaged"]);
+    expect(states).toEqual(["complete"]);
+    expect(bundle.buildings["courtyard_home"]!.stateFallback).toBe("procedural");
     const character = bundle.characters["vecino_variante"]!;
     for (const animation of ["idle", "walk"] as const) {
       expect(character.animations[animation].frames).toHaveLength(character.directions * 2);
@@ -141,8 +144,8 @@ describe("WP4.15-H ruta Blender E2E", () => {
     // El terreno procedural se dibuja a escala de juego: la loseta mide exactamente una celda.
     expect(bundle.terrain!["ter_lot_dirt_a"]!.image).toMatchObject({ width: 64, height: 32 });
     expect(bundle.terrain!["ter_lot_dirt_a"]!.pixelsPerMeter).toBeUndefined();
-    // El asset procedural ya está dibujado a escala de juego: no debe declarar densidad.
-    expect(bundle.buildings["courtyard_home"]!.pixelsPerMeter).toBeUndefined();
+    // V.i remediation: courtyard_home se renderiza a renderScale 2 (decisión explícita D-100).
+    expect(bundle.buildings["courtyard_home"]!.pixelsPerMeter).toBe(60.2);
     expect(bundle.buildings["bld_shopfront"]!.pixelsPerMeter).toBeGreaterThan(0);
   });
 
@@ -175,10 +178,9 @@ describe("WP4.15-H ruta Blender E2E", () => {
         ...Object.values(asset.orientations ?? {}).map((frame) => frame.image),
       ]),
     ];
-    // 81 (V.h.6) + 80 Rocketbox V.h.11 + town_hall + school_block V7 + row_house/apartment_block/
-    // mixed_tenement + workshop/warehouse + clinic/police_station/fire_station/market_hall +
-    // cement_plant/brickworks/steelworks V.i.
-    expect(images.length).toBe(175);
+    // 81 (V.h.6) + 80 Rocketbox V.h.11 + 15 edificios Composer V.i (courtyard_home y school_block
+    // incluidos vía runtime-promotions; el override manual de courtyard quedó retirado).
+    expect(images.length).toBe(172);
     let totalBytes = 0;
     for (const image of images) {
       const buffer = readFileSync(join(PUBLIC_DIR, image.src));

@@ -1,314 +1,6 @@
 [
   {
     "schemaVersion": 1,
-    "assetId": "courtyard_home",
-    "kind": "building",
-    "label": "Patio compacto",
-    "state": "complete",
-    "direction": null,
-    "animation": null,
-    "frame": null,
-    "footprint": {
-      "width": 1,
-      "height": 1
-    },
-    "pivot": {
-      "x": 0.4375,
-      "y": 0.7941
-    },
-    "image": {
-      "path": "/tmp/landlord-blender-assets-8buF0O/courtyard_home-complete.png",
-      "width": 72,
-      "height": 73,
-      "sha256": "b197476f2efd46b78289d51c20c08f2d177494757527d3805e72d298809269b8"
-    },
-    "trim": {
-      "rendered": {
-        "width": 256,
-        "height": 224
-      },
-      "cropped": {
-        "width": 144,
-        "height": 146,
-        "offsetX": 65,
-        "offsetY": 41
-      },
-      "final": {
-        "width": 72,
-        "height": 73
-      }
-    },
-    "origin": "original",
-    "license": "PROJECT-ASSET-LICENSE",
-    "author": "Landlord project / blender runtime asset pipeline",
-    "toolchain": {
-      "blender": "5.2.2 LTS",
-      "buildHash": "d13f752e3b9c",
-      "renderer": "BLENDER_EEVEE"
-    },
-    "camera": {
-      "projection": "ORTHO",
-      "azimuthDegrees": 45,
-      "elevationDegrees": 30,
-      "orthoScale": 7.400000095367432
-    },
-    "palette": "graphic_civic",
-    "styleLayer": null,
-    "shadow": null,
-    "render": {
-      "colorMode": "RGBA",
-      "colorDepth": 8,
-      "transparentFilm": true,
-      "renderMs": 1366.8,
-      "totalMs": 1392.66
-    },
-    "reproducibility": {
-      "script": "tools/art-pipeline/blender/runtime_asset.py",
-      "argv": [
-        "--asset",
-        "courtyard_home",
-        "--state",
-        "complete",
-        "--output",
-        "/tmp/landlord-blender-assets-8buF0O/courtyard_home-complete.png",
-        "--metadata",
-        "/tmp/landlord-blender-assets-8buF0O/courtyard_home-complete.json"
-      ]
-    }
-  },
-  {
-    "schemaVersion": 1,
-    "assetId": "courtyard_home",
-    "kind": "building",
-    "label": "Patio compacto",
-    "state": "construction",
-    "direction": null,
-    "animation": null,
-    "frame": null,
-    "footprint": {
-      "width": 1,
-      "height": 1
-    },
-    "pivot": {
-      "x": 0.5,
-      "y": 0.6962
-    },
-    "image": {
-      "path": "/tmp/landlord-blender-assets-8buF0O/courtyard_home-construction.png",
-      "width": 74,
-      "height": 61,
-      "sha256": "e322fcfb17660885fb2761afb9cb894bbafd7aeace888661200fc1fe445b70a7"
-    },
-    "trim": {
-      "rendered": {
-        "width": 256,
-        "height": 224
-      },
-      "cropped": {
-        "width": 148,
-        "height": 122,
-        "offsetX": 54,
-        "offsetY": 72
-      },
-      "final": {
-        "width": 74,
-        "height": 61
-      }
-    },
-    "origin": "original",
-    "license": "PROJECT-ASSET-LICENSE",
-    "author": "Landlord project / blender runtime asset pipeline",
-    "toolchain": {
-      "blender": "5.2.2 LTS",
-      "buildHash": "d13f752e3b9c",
-      "renderer": "BLENDER_EEVEE"
-    },
-    "camera": {
-      "projection": "ORTHO",
-      "azimuthDegrees": 45,
-      "elevationDegrees": 30,
-      "orthoScale": 7.400000095367432
-    },
-    "palette": "graphic_civic",
-    "styleLayer": null,
-    "shadow": null,
-    "render": {
-      "colorMode": "RGBA",
-      "colorDepth": 8,
-      "transparentFilm": true,
-      "renderMs": 1393.69,
-      "totalMs": 1420.53
-    },
-    "reproducibility": {
-      "script": "tools/art-pipeline/blender/runtime_asset.py",
-      "argv": [
-        "--asset",
-        "courtyard_home",
-        "--state",
-        "construction",
-        "--output",
-        "/tmp/landlord-blender-assets-8buF0O/courtyard_home-construction.png",
-        "--metadata",
-        "/tmp/landlord-blender-assets-8buF0O/courtyard_home-construction.json"
-      ]
-    }
-  },
-  {
-    "schemaVersion": 1,
-    "assetId": "courtyard_home",
-    "kind": "building",
-    "label": "Patio compacto",
-    "state": "damaged",
-    "direction": null,
-    "animation": null,
-    "frame": null,
-    "footprint": {
-      "width": 1,
-      "height": 1
-    },
-    "pivot": {
-      "x": 0.4375,
-      "y": 0.7941
-    },
-    "image": {
-      "path": "/tmp/landlord-blender-assets-8buF0O/courtyard_home-damaged.png",
-      "width": 72,
-      "height": 73,
-      "sha256": "6e8739ee65491c30ad59a3b534ea1b9eb32e2744d49d7be02a167a82f946ea60"
-    },
-    "trim": {
-      "rendered": {
-        "width": 256,
-        "height": 224
-      },
-      "cropped": {
-        "width": 144,
-        "height": 146,
-        "offsetX": 65,
-        "offsetY": 41
-      },
-      "final": {
-        "width": 72,
-        "height": 73
-      }
-    },
-    "origin": "original",
-    "license": "PROJECT-ASSET-LICENSE",
-    "author": "Landlord project / blender runtime asset pipeline",
-    "toolchain": {
-      "blender": "5.2.2 LTS",
-      "buildHash": "d13f752e3b9c",
-      "renderer": "BLENDER_EEVEE"
-    },
-    "camera": {
-      "projection": "ORTHO",
-      "azimuthDegrees": 45,
-      "elevationDegrees": 30,
-      "orthoScale": 7.400000095367432
-    },
-    "palette": "graphic_civic",
-    "styleLayer": null,
-    "shadow": null,
-    "render": {
-      "colorMode": "RGBA",
-      "colorDepth": 8,
-      "transparentFilm": true,
-      "renderMs": 1475.89,
-      "totalMs": 1502.06
-    },
-    "reproducibility": {
-      "script": "tools/art-pipeline/blender/runtime_asset.py",
-      "argv": [
-        "--asset",
-        "courtyard_home",
-        "--state",
-        "damaged",
-        "--output",
-        "/tmp/landlord-blender-assets-8buF0O/courtyard_home-damaged.png",
-        "--metadata",
-        "/tmp/landlord-blender-assets-8buF0O/courtyard_home-damaged.json"
-      ]
-    }
-  },
-  {
-    "schemaVersion": 1,
-    "assetId": "courtyard_home",
-    "kind": "building",
-    "label": "Patio compacto",
-    "state": "burning",
-    "direction": null,
-    "animation": null,
-    "frame": null,
-    "footprint": {
-      "width": 1,
-      "height": 1
-    },
-    "pivot": {
-      "x": 0.4375,
-      "y": 0.7941
-    },
-    "image": {
-      "path": "/tmp/landlord-blender-assets-8buF0O/courtyard_home-burning.png",
-      "width": 72,
-      "height": 73,
-      "sha256": "d1dcc062a89c09880612b0e053510aee14eef4eec1445322013fb17919bddc54"
-    },
-    "trim": {
-      "rendered": {
-        "width": 256,
-        "height": 224
-      },
-      "cropped": {
-        "width": 144,
-        "height": 146,
-        "offsetX": 65,
-        "offsetY": 41
-      },
-      "final": {
-        "width": 72,
-        "height": 73
-      }
-    },
-    "origin": "original",
-    "license": "PROJECT-ASSET-LICENSE",
-    "author": "Landlord project / blender runtime asset pipeline",
-    "toolchain": {
-      "blender": "5.2.2 LTS",
-      "buildHash": "d13f752e3b9c",
-      "renderer": "BLENDER_EEVEE"
-    },
-    "camera": {
-      "projection": "ORTHO",
-      "azimuthDegrees": 45,
-      "elevationDegrees": 30,
-      "orthoScale": 7.400000095367432
-    },
-    "palette": "graphic_civic",
-    "styleLayer": null,
-    "shadow": null,
-    "render": {
-      "colorMode": "RGBA",
-      "colorDepth": 8,
-      "transparentFilm": true,
-      "renderMs": 1511.96,
-      "totalMs": 1535.65
-    },
-    "reproducibility": {
-      "script": "tools/art-pipeline/blender/runtime_asset.py",
-      "argv": [
-        "--asset",
-        "courtyard_home",
-        "--state",
-        "burning",
-        "--output",
-        "/tmp/landlord-blender-assets-8buF0O/courtyard_home-burning.png",
-        "--metadata",
-        "/tmp/landlord-blender-assets-8buF0O/courtyard_home-burning.json"
-      ]
-    }
-  },
-  {
-    "schemaVersion": 1,
     "assetId": "vecino_variante",
     "kind": "character",
     "label": "Vecino con abrigo",
@@ -21425,44 +21117,6 @@
   },
   {
     "promotion": true,
-    "assetId": "school_block",
-    "candidateId": "vf_town_hall_1002",
-    "candidateMetadata": "blender_artist/showcase/vg-town-hall-spike-v7/vf_town_hall_1002.json",
-    "compositionSignature": "285c15f19cd9364ee530b58dedb314fc52f75ace871c5df67bc385b4bb0b79e9",
-    "styleProfileId": "graphic_civic_buildings_v1",
-    "camera": {
-      "projection": "ORTHO",
-      "azimuthDegrees": 45,
-      "elevationDegrees": 30,
-      "orthoScale": 42.94300079345703,
-      "targetZ": 4.55
-    },
-    "pivot": {
-      "x": 0.5583,
-      "y": 0.6236
-    },
-    "footprint": {
-      "width": 8,
-      "height": 4
-    },
-    "domainFootprint": {
-      "width": 8,
-      "height": 4
-    },
-    "image": {
-      "src": "/assets/runtime/blender/school_block-complete.png",
-      "width": 1158,
-      "height": 960,
-      "sha256": "4d83edc33cb948eada9ac69ee48fdfbbe9d4af628e80209b5a140c32a05e0495"
-    },
-    "provenance": {
-      "license": "original",
-      "author": "Landlord project; CC0 modules by Quaternius",
-      "notes": "V7 candidate vf_town_hall_1002 retained by owner choice as the school_block visual. Its Composer source type remains town_hall and is recorded as candidateBuildingType; runtime semantic role is school_block."
-    }
-  },
-  {
-    "promotion": true,
     "assetId": "row_house",
     "candidateId": "vg_row_house_1001",
     "candidateMetadata": "docs/art/residential-catalog-vi/candidates/vg_row_house_1001.json",
@@ -21915,6 +21569,82 @@
       "license": "original",
       "author": "Landlord project; CC0 modules by Quaternius",
       "notes": "Owner-selected V.i heavy-industry candidate vg_steelworks_1003 (v4). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+    }
+  },
+  {
+    "promotion": true,
+    "assetId": "courtyard_home",
+    "candidateId": "vg_courtyard_home_2003",
+    "candidateMetadata": "docs/art/remediation-vi/candidates/courtyard_home/vg_courtyard_home_2003.json",
+    "compositionSignature": "cf5ba307bc4db3a7fbdd4158555ec7b7f8b0598752282c5eb0375b5fd132f062",
+    "styleProfileId": "graphic_civic_buildings_v1",
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 15.73900032043457,
+      "targetZ": 3.1
+    },
+    "pivot": {
+      "x": 0.5817,
+      "y": 0.6351
+    },
+    "footprint": {
+      "width": 2,
+      "height": 2
+    },
+    "domainFootprint": {
+      "width": 2,
+      "height": 2
+    },
+    "image": {
+      "src": "/assets/runtime/blender/courtyard_home-complete.png",
+      "width": 814,
+      "height": 792,
+      "sha256": "a47116ad90494b8a8d6b406a4c22fc55334f041ad1d43b286206584676cf8d1c"
+    },
+    "provenance": {
+      "license": "original",
+      "author": "Landlord project; CC0 modules by Quaternius",
+      "notes": "V.i remediation: rechazo humano de vg_courtyard_home_1002 (pixelado). Casa con patio a renderScale 2 (decisión explícita, D-100). Sustituye al override manual; promoción canónica. Candidato aprobado: vg_courtyard_home_2003."
+    }
+  },
+  {
+    "promotion": true,
+    "assetId": "school_block",
+    "candidateId": "vg_school_block_2000",
+    "candidateMetadata": "docs/art/remediation-vi/candidates/school_block/vg_school_block_2000.json",
+    "compositionSignature": "1a31d01afc23f9ec8909eea9e7952aca762210813c519095f4246ed47762f409",
+    "styleProfileId": "graphic_civic_buildings_v1",
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 31.924999237060547,
+      "targetZ": 5.654
+    },
+    "pivot": {
+      "x": 0.4733,
+      "y": 0.7415
+    },
+    "footprint": {
+      "width": 7,
+      "height": 2
+    },
+    "domainFootprint": {
+      "width": 7,
+      "height": 2
+    },
+    "image": {
+      "src": "/assets/runtime/blender/school_block-complete.png",
+      "width": 729,
+      "height": 660,
+      "sha256": "c2b5ea797d86dfe57033d48a9c668bdb33d4133a428df8a42ed8cf16ae56c6ab"
+    },
+    "provenance": {
+      "license": "original",
+      "author": "Landlord project; CC0 modules by Quaternius",
+      "notes": "V.i remediation: rechazo humano del clon de town_hall. Colegio americano con cupola original medida (mod_original_school_cupola), entrada bajo el pabellón central. Candidato aprobado: vg_school_block_2000."
     }
   }
 ]

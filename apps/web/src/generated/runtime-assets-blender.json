@@ -14,44 +14,33 @@
   "buildings": {
     "courtyard_home": {
       "type": "courtyard_home",
-      "name": "Patio compacto",
+      "name": "courtyard_home",
       "footprint": {
-        "width": 1,
-        "height": 1
+        "width": 2,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 2,
+        "height": 2
       },
       "pivot": {
-        "x": 0.4375,
-        "y": 0.7941
+        "x": 0.5817,
+        "y": 0.6351
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/courtyard_home-complete.png",
-          "width": 72,
-          "height": 73,
-          "sha256": "b197476f2efd46b78289d51c20c08f2d177494757527d3805e72d298809269b8"
-        },
-        "construction": {
-          "src": "/assets/runtime/blender/courtyard_home-construction.png",
-          "width": 74,
-          "height": 61,
-          "sha256": "e322fcfb17660885fb2761afb9cb894bbafd7aeace888661200fc1fe445b70a7"
-        },
-        "damaged": {
-          "src": "/assets/runtime/blender/courtyard_home-damaged.png",
-          "width": 72,
-          "height": 73,
-          "sha256": "6e8739ee65491c30ad59a3b534ea1b9eb32e2744d49d7be02a167a82f946ea60"
-        },
-        "burning": {
-          "src": "/assets/runtime/blender/courtyard_home-burning.png",
-          "width": 72,
-          "height": 73,
-          "sha256": "d1dcc062a89c09880612b0e053510aee14eef4eec1445322013fb17919bddc54"
+          "width": 814,
+          "height": 792,
+          "sha256": "a47116ad90494b8a8d6b406a4c22fc55334f041ad1d43b286206584676cf8d1c"
         }
       },
-      "domainFootprint": {
-        "width": 1,
-        "height": 1
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 60.2,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "V.i remediation: rechazo humano de vg_courtyard_home_1002 (pixelado). Casa con patio a renderScale 2 (decisión explícita, D-100). Sustituye al override manual; promoción canónica. Candidato aprobado: vg_courtyard_home_2003."
       },
       "allowedOrientations": [
         45
@@ -409,23 +398,23 @@
       "type": "school_block",
       "name": "school_block",
       "footprint": {
-        "width": 8,
-        "height": 4
+        "width": 7,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 7,
+        "height": 2
       },
       "pivot": {
-        "x": 0.5583,
-        "y": 0.6236
+        "x": 0.4733,
+        "y": 0.7415
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/school_block-complete.png",
-          "width": 1158,
-          "height": 960,
-          "sha256": "4d83edc33cb948eada9ac69ee48fdfbbe9d4af628e80209b5a140c32a05e0495"
+          "width": 729,
+          "height": 660,
+          "sha256": "c2b5ea797d86dfe57033d48a9c668bdb33d4133a428df8a42ed8cf16ae56c6ab"
         }
       },
       "stateFallback": "procedural",
@@ -433,7 +422,7 @@
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "V7 candidate vf_town_hall_1002 retained by owner choice as the school_block visual. Its Composer source type remains town_hall and is recorded as candidateBuildingType; runtime semantic role is school_block."
+        "notes": "V.i remediation: rechazo humano del clon de town_hall. Colegio americano con cupola original medida (mod_original_school_cupola), entrada bajo el pabellón central. Candidato aprobado: vg_school_block_2000."
       },
       "allowedOrientations": [
         45

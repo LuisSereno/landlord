@@ -22,42 +22,15 @@
         "width": 8,
         "height": 4
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V7 town hall candidate vf_town_hall_1006. Original civic pediment with CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
-      }
-    },
-    {
-      "assetId": "school_block",
-      "semanticType": "school_block",
-      "candidateBuildingType": "town_hall",
-      "candidateId": "vf_town_hall_1002",
-      "approvalStatus": "qa_approved",
-      "candidateMetadata": "blender_artist/showcase/vg-town-hall-spike-v7/vf_town_hall_1002.json",
-      "candidateImage": "blender_artist/showcase/vg-town-hall-spike-v7/vf_town_hall_1002.png",
-      "compositionSignature": "285c15f19cd9364ee530b58dedb314fc52f75ace871c5df67bc385b4bb0b79e9",
-      "imageSha256": "4d83edc33cb948eada9ac69ee48fdfbbe9d4af628e80209b5a140c32a05e0495",
-      "styleProfileId": "graphic_civic_buildings_v1",
-      "state": "complete",
-      "footprint": {
-        "width": 8,
-        "height": 4
-      },
-      "domainFootprint": {
-        "width": 8,
-        "height": 4
-      },
-      "allowedOrientations": [45],
-      "symmetry": "none",
-      "stateFallback": "procedural",
-      "provenance": {
-        "license": "original",
-        "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "V7 candidate vf_town_hall_1002 retained by owner choice as the school_block visual. Its Composer source type remains town_hall and is recorded as candidateBuildingType; runtime semantic role is school_block."
       }
     },
     {
@@ -80,7 +53,9 @@
         "width": 4,
         "height": 1
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -109,7 +84,9 @@
         "width": 5,
         "height": 2
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -138,7 +115,9 @@
         "width": 4,
         "height": 2
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -167,7 +146,9 @@
         "width": 4,
         "height": 2
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -196,7 +177,9 @@
         "width": 4,
         "height": 3
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -225,7 +208,9 @@
         "width": 3,
         "height": 2
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -254,7 +239,9 @@
         "width": 3,
         "height": 2
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -283,7 +270,9 @@
         "width": 4,
         "height": 2
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -312,7 +301,9 @@
         "width": 5,
         "height": 2
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -341,7 +332,9 @@
         "width": 5,
         "height": 2
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -370,7 +363,9 @@
         "width": 5,
         "height": 2
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
@@ -399,13 +394,77 @@
         "width": 4,
         "height": 3
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
         "license": "original",
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i heavy-industry candidate vg_steelworks_1003 (v4). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata."
+      }
+    },
+    {
+      "assetId": "courtyard_home",
+      "semanticType": "courtyard_home",
+      "candidateBuildingType": "courtyard_home",
+      "candidateId": "vg_courtyard_home_2003",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "docs/art/remediation-vi/candidates/courtyard_home/vg_courtyard_home_2003.json",
+      "candidateImage": "docs/art/remediation-vi/candidates/courtyard_home/vg_courtyard_home_2003.png",
+      "compositionSignature": "cf5ba307bc4db3a7fbdd4158555ec7b7f8b0598752282c5eb0375b5fd132f062",
+      "imageSha256": "a47116ad90494b8a8d6b406a4c22fc55334f041ad1d43b286206584676cf8d1c",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "state": "complete",
+      "footprint": {
+        "width": 2,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 2,
+        "height": 2
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "V.i remediation: rechazo humano de vg_courtyard_home_1002 (pixelado). Casa con patio a renderScale 2 (decisión explícita, D-100). Sustituye al override manual; promoción canónica. Candidato aprobado: vg_courtyard_home_2003."
+      }
+    },
+    {
+      "assetId": "school_block",
+      "semanticType": "school_block",
+      "candidateBuildingType": "school_block",
+      "candidateId": "vg_school_block_2000",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "docs/art/remediation-vi/candidates/school_block/vg_school_block_2000.json",
+      "candidateImage": "docs/art/remediation-vi/candidates/school_block/vg_school_block_2000.png",
+      "compositionSignature": "1a31d01afc23f9ec8909eea9e7952aca762210813c519095f4246ed47762f409",
+      "imageSha256": "c2b5ea797d86dfe57033d48a9c668bdb33d4133a428df8a42ed8cf16ae56c6ab",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "state": "complete",
+      "footprint": {
+        "width": 7,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 7,
+        "height": 2
+      },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "V.i remediation: rechazo humano del clon de town_hall. Colegio americano con cupola original medida (mod_original_school_cupola), entrada bajo el pabellón central. Candidato aprobado: vg_school_block_2000."
       }
     }
   ]

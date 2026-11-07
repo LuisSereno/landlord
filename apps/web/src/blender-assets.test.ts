@@ -12,6 +12,7 @@ import {
 import blenderBundle from "./generated/runtime-assets-blender.json";
 
 const PUBLIC_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..", "public");
+const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
 
 /** Medidas declaradas en el IHDR del PNG: no hace falta decodificar la imagen. */
 function pngSize(buffer: Buffer): { width: number; height: number } {
@@ -210,6 +211,20 @@ describe("WP4.15-H ruta Blender E2E", () => {
       expect(asset.pivot.y).toBeGreaterThanOrEqual(0.5);
       expect(asset.footprint.width).toBeGreaterThan(0);
       expect(asset.footprint.height).toBeGreaterThan(0);
+    }
+  });
+
+  it("los 15 complete aprobados coinciden con el baseline congelado V.j (D-099/D-101)", () => {
+    const baseline = JSON.parse(
+      readFileSync(resolve(REPO_ROOT, "docs/art/world-visual-foundation/baseline-vj.json"), "utf8"),
+    ) as { buildings: { type: string; sha256: string; width: number; height: number }[] };
+    expect(baseline.buildings).toHaveLength(15);
+    for (const frozen of baseline.buildings) {
+      const asset = bundle.buildings[frozen.type];
+      expect(asset, frozen.type).toBeDefined();
+      expect(asset!.states.complete!.sha256, frozen.type).toBe(frozen.sha256);
+      expect(asset!.states.complete!.width, frozen.type).toBe(frozen.width);
+      expect(asset!.states.complete!.height, frozen.type).toBe(frozen.height);
     }
   });
 });

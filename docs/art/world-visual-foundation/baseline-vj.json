@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Baseline artístico aprobado congelado como referencia de regresión para V.j (cierre de visualización completa del mundo). Los sprites complete 15/15 a renderScale 2 son APPROVED BASELINE: cualquier cambio exige nueva evidencia y aprobación humana (D-099/D-101).",
+  "frozenAt": "2026-11-07T19:53:57.104Z",
+  "baselineCommit": "4d6abb5733ac04364cb846d3b16f0bcad790c751",
+  "policy": "No rediseñar town_hall ni civic plaza (APPROVED). complete 15/15 frozen. construction/damaged/burning y orientación física 0/90/180/270 se añaden como arte real nuevo sin alterar los complete aprobados.",
+  "runtimeManifest": {
+    "path": "apps/web/src/generated/runtime-assets-blender.json",
+    "sha256": "dc86d04c336340c17c2773ea79928119087dd3446cf2edeea0efbd6e24ca85be"
+  },
+  "pixelQa": {
+    "captureManifest": "docs/art/world-visual-foundation/pixel-qa/capture-manifest.json",
+    "sha256": "c98552f237f2316d89a904a69c8e2724d029c8e982ca7a948f0b35dc5ddb050a",
+    "generatedAt": "2026-11-07T08:10:14.810Z",
+    "districts": 9,
+    "scales": [
+      0.5,
+      1,
+      2
+    ]
+  },
+  "buildings": [
+    {
+      "type": "apartment_block",
+      "state": "complete",
+      "src": "/assets/runtime/blender/apartment_block-complete.png",
+      "width": 1230,
+      "height": 1711,
+      "sha256": "5dd8693aa9d8162c940d5134638626ec2709a527310ffbd0628f6b943a2634dc",
+      "pixelsPerMeter": 60.2,
+      "footprint": {
+        "width": 5,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 5,
+        "height": 2
+      },
+      "compositionSignature": "be419f4837ab7e85303ad1976ebb1cdfbe95d3ba7ba1677e83f39c2b8843f7ce"
+    },
+    {
+      "type": "brickworks",
+      "state": "complete",
+      "src": "/assets/runtime/blender/brickworks-complete.png",
+      "width": 1182,
+      "height": 1296,
+      "sha256": "a54d0676bfd38758a135da463c575347cec8af7399f5e987ebbd5baca518216a",
+      "pixelsPerMeter": 60.2,
+      "footprint": {
+        "width": 5,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 5,
+        "height": 2
+      },
+      "compositionSignature": "d3c82a442135fc409c6551a42a77905091c3c001c35f6b7c25d6d8d3623d9eee"
+    },
+    {
+      "type": "cement_plant",
+      "state": "complete",
+      "src": "/assets/runtime/blender/cement_plant-complete.png",
+      "width": 1330,
+      "height": 1082,
+      "sha256": "ece82e01706081751b156246eedaab7c508d6873fb68216f57212a00c029798b",
+      "pixelsPerMeter": 60.2,
+      "footprint": {
+        "width": 5,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 5,
+        "height": 2
+      },
+      "compositionSignature": "6ec90ceaa150828ab6deb198d7ed0ad430bc953a0078c0c17fd3c73df08cdfe4"
+    },
+    {
+      "type": "clinic",
+      "state": "complete",
+      "src": "/assets/runtime/blender/clinic-complete.png",
+      "width": 944,
+      "height": 1179,
+      "sha256": "d85da1b48a0e2dbc78ca1fa3befa248b686c294ebccffa861bf49bc1daa338b3",
+      "pixelsPerMeter": 60.2,
+      "footprint": {
+        "width": 3,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 3,
+        "height": 2
+      },
+      "compositionSignature": "6c9531a4625c6d7836987fe1b13f8dfd845b3f75b99f589ccda94f8bb1d975c9"
+    },
+    {
+      "type": "courtyard_home",
+      "state": "complete",
+      "src": "/assets/runtime/blender/courtyard_home-complete.png",
+      "width": 814,
+      "height": 792,
+      "sha256": "7750564167469f6028a59d02a0af3f1c7153d7757c1eeede492952c3ef8c7910",
+      "pixelsPerMeter": 60.2,
+      "footprint": {
+        "width": 2,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 2,
+        "height": 2
+      },
+      "compositionSignature": "cf5ba307bc4db3a7fbdd4158555ec7b7f8b0598752282c5eb0375b5fd132f062"
+    },
+    {
+      "type": "fire_station",
+      "state": "complete",
+      "src": "/assets/runtime/blender/fire_station-complete.png",
+      "width": 1097,
+      "height": 1206,
+      "sha256": "98f3784be175e6f57298487975308cf2561f9f54e57b1c4a7bd7a94caddeda5d",
+      "pixelsPerMeter": 60.2,
+      "footprint": {
+        "width": 4,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 2
+      },
+      "compositionSignature": "0496079097c01d496421f9b52ca31be29f8e581585b57937c23f0740d9aea8b3"
+    },
+    {
+      "type": "market_hall",
+      "state": "complete",
+      "src": "/assets/runtime/blender/market_hall-complete.png",
+      "width": 1332,
+      "height": 1356,
+      "sha256": "2268f69acc1971d1066dc7163b380d77256f29b6f0a49d43f0a72c202fe60aa6",
+      "pixelsPerMeter": 60.2,
+      "footprint": {
+        "width": 5,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 5,
+        "height": 2
+      },
+      "compositionSignature": "1aa546d4b8de3d0654ee4ec5e9a696d39be6743198fde94611e57b5ebc4e3bea"
+    },
+    {
+      "type": "mixed_tenement",
+      "state": "complete",
+      "src": "/assets/runtime/blender/mixed_tenement-complete.png",
+      "width": 1039,
+      "height": 1387,
+      "sha256": "521c20e948a37f8f5dfee76d6fbf897801bf208e85ab88125a3bf40592650389",
+      "pixelsPerMeter": 60.2,
+      "footprint": {
+        "width": 4,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 2
+      },
+      "compositionSignature": "98196ebd5e30190f2b50a0e262ff4a4cddcb3b1aeb53cbd28717b72094c21ef7"
+    },
+    {
+      "type": "police_station",
+      "state": "complete",
+      "src": "/assets/runtime/blender/police_station-complete.png",
+      "width": 937,
+      "height": 896,
+      "sha256": "f256d3d9010b74c4124a13c72679a56e493a55d3c5ed3d86ce18823c8e5f387e",
+      "pixelsPerMeter": 60.2,
+      "footprint": {
+        "width": 3,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 3,
+        "height": 2
+      },
+      "compositionSignature": "6a580c49d7ec2fe68ba8ed2cec4ff834bc32901ca935ea4e2aed74cedba55cc3"
+    },
+    {
+      "type": "row_house",
+      "state": "complete",
+      "src": "/assets/runtime/blender/row_house-complete.png",
+      "width": 994,
+      "height": 1147,
+      "sha256": "b3f5bfd263d754c33717a89d7897348edda100e776625bb0d02c27687e2fc6c2",
+      "pixelsPerMeter": 60.2,
+      "footprint": {
+        "width": 4,
+        "height": 1
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 1
+      },
+      "compositionSignature": "1249437b120e81934419429b606914b8716ad19b9182e88021435d4576659282"
+    },
+    {
+      "type": "school_block",
+      "state": "complete",
+      "src": "/assets/runtime/blender/school_block-complete.png",
+      "width": 1457,
+      "height": 1318,
+      "sha256": "ac7fe5b8656a870fbc1e72f9ade2db7dd31c4110781387a3127cf8b923f98f29",
+      "pixelsPerMeter": 60.2,
+      "footprint": {
+        "width": 7,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 7,
+        "height": 2
+      },
+      "compositionSignature": "1a31d01afc23f9ec8909eea9e7952aca762210813c519095f4246ed47762f409"
+    },
+    {
+      "type": "steelworks",
+      "state": "complete",
+      "src": "/assets/runtime/blender/steelworks-complete.png",
+      "width": 1324,
+      "height": 1438,
+      "sha256": "22ae2d409717364abd466ad6943ed44cf3726f39b2aac530f53a35f2fd5636d3",
+      "pixelsPerMeter": 60.2,
+      "footprint": {
+        "width": 4,
+        "height": 3
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 3
+      },
+      "compositionSignature": "e0c067b6a9dda86411eb92404b57bcd401a7e97fa18342455d94a8226c079950"
+    },
+    {
+      "type": "town_hall",
+      "state": "complete",
+      "src": "/assets/runtime/blender/town_hall-complete.png",
+      "width": 1967,
+      "height": 1506,
+      "sha256": "bd7cfb17ba8a16e066ee7467c1264f305d429760f1c8c084dc653cacc28b77e9",
+      "pixelsPerMeter": 60.2,
+      "footprint": {
+        "width": 8,
+        "height": 4
+      },
+      "domainFootprint": {
+        "width": 8,
+        "height": 4
+      },
+      "compositionSignature": "d440472588e657f4bd94ce4993532095782b7b6524efe39496a9eb076db11fbb"
+    },
+    {
+      "type": "warehouse",
+      "state": "complete",
+      "src": "/assets/runtime/blender/warehouse-complete.png",
+      "width": 1294,
+      "height": 956,
+      "sha256": "6c83f4bfa3c89660074f547f53489c9de276baf8dd27b833c318be8427910ff2",
+      "pixelsPerMeter": 60.2,
+      "footprint": {
+        "width": 4,
+        "height": 3
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 3
+      },
+      "compositionSignature": "fdd2319d98fd477c73368b4728a6bac88da209cb3347703f83e02afc1ca81950"
+    },
+    {
+      "type": "workshop",
+      "state": "complete",
+      "src": "/assets/runtime/blender/workshop-complete.png",
+      "width": 911,
+      "height": 1006,
+      "sha256": "24d78c2a80bf34cb636d319ab1d37f6cb9572c5d5bd16cf1e6b1c3989014c0ed",
+      "pixelsPerMeter": 60.2,
+      "footprint": {
+        "width": 4,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 2
+      },
+      "compositionSignature": "6a6ef70001a8ea630365c43800fc6e364c8b3a2dfd1eb04ce30b57c105239ca7"
+    }
+  ]
+}

@@ -19,12 +19,7 @@
     "origin": "centro de la huella a nivel de suelo",
     "frontSide": "-Y",
     "frontEvidence": "El rig canónico del perfil sitúa la cámara en azimut 45°, es decir (+X, -Y, +Z): las dos caras visibles son el frente y el costado derecho.",
-    "rotationsDegrees": [
-      0,
-      90,
-      180,
-      270
-    ],
+    "rotationsDegrees": [0, 90, 180, 270],
     "groundToleranceMeters": 0.05,
     "groundToleranceEvidence": "Los alzados del catálogo terminan en Z=0 exacto; la holgura sólo cubre el redondeo a milímetros de las transformadas, no un zócalo enterrado (§17)."
   },
@@ -37,33 +32,15 @@
   },
   "treatment": {
     "policy": "§11: los tres packs conviven en un mismo alzado, así que el remapeo de estilo se aplica al atlas de Base Color compartido, no por pack. El compositor decide el escalón de tratamiento por (módulo, material) sobre las cadenas medidas del catálogo.",
-    "elevationLadder": [
-      "tratado",
-      "en_bruto",
-      "mixto",
-      "sin_albedo_exterior"
-    ],
-    "nonElevationFamilies": [
-      "interior",
-      "glass"
-    ],
+    "elevationLadder": ["tratado", "en_bruto", "mixto", "sin_albedo_exterior"],
+    "nonElevationFamilies": ["interior", "glass"],
     "note": "interior y glass no definen la temperatura cromática de un alzado (el cristal se resuelve por emisión y el interior queda tras el marco), así que mezclarlos con material tratado no rompe §11. La corrección del alcance mixto vive en scene.py, re-enlazando copias estiladas de los nodos TEX_IMAGE; ningún archivo de render embarcado se toca (§26)."
   },
   "support": {
-    "allowedKinds": [
-      "base",
-      "connector",
-      "plinth",
-      "pipe",
-      "support"
-    ],
+    "allowedKinds": ["base", "connector", "plinth", "pipe", "support"],
     "maxTrianglesShare": 0.08,
     "why": "§15: las primitivas originales sólo valen como conector, conducto, zócalo o apoyo. El techo se fija sobre los triángulos medidos del catálogo: un candidato industrial ronda los 20.000 triángulos licenciados, así que ocho conductos de 8 segmentos (32 triángulos cada uno) no llegan al 1%. Pasar del techo significa que la masa volvería a ser cubos, y §2 lo prohíbe.",
-    "forbidden": [
-      "masa principal",
-      "volumen visible",
-      "sustituto de un módulo del catálogo"
-    ]
+    "forbidden": ["masa principal", "volumen visible", "sustituto de un módulo del catálogo"]
   },
   "variantAxes": [
     "massing",
@@ -108,12 +85,7 @@
           "label": "hilera continua de cuatro crujías",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                4,
-                1
-              ],
+              "cells": [0, 0, 4, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -128,12 +100,7 @@
           "label": "cuerpo de dos plantas con aleta de una",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                2,
-                1
-              ],
+              "cells": [0, 0, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -142,12 +109,7 @@
               "module": null
             },
             {
-              "cells": [
-                2,
-                0,
-                2,
-                1
-              ],
+              "cells": [2, 0, 2, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -162,12 +124,7 @@
           "label": "hilera con tercer piso retranqueado",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                3,
-                1
-              ],
+              "cells": [0, 0, 3, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -176,12 +133,7 @@
               "module": null
             },
             {
-              "cells": [
-                0,
-                0,
-                2,
-                1
-              ],
+              "cells": [0, 0, 2, 1],
               "levels": 1,
               "stackOn": 0,
               "slab": false,
@@ -196,12 +148,7 @@
           "label": "dos semiventas con cumbrera propia",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                2,
-                1
-              ],
+              "cells": [0, 0, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -210,12 +157,7 @@
               "module": null
             },
             {
-              "cells": [
-                2,
-                0,
-                2,
-                1
-              ],
+              "cells": [2, 0, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -230,12 +172,7 @@
           "label": "hilera de tres crujías con hueco de patio al fondo derecho",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                3,
-                1
-              ],
+              "cells": [0, 0, 3, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -279,17 +216,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel",
-              "window_bay"
-            ]
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel", "window_bay"]
           }
         },
         {
@@ -298,17 +227,9 @@
           "bayMeters": 2,
           "groundRole": "wainscot",
           "tokens": {
-            "front": [
-              "window_bay",
-              "wall_panel"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel",
-              "window_bay"
-            ]
+            "front": ["window_bay", "wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel", "window_bay"]
           }
         },
         {
@@ -317,18 +238,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "window_bay",
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["window_bay", "wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
           }
         },
         {
@@ -337,16 +249,9 @@
           "bayMeters": 2,
           "groundRole": "wainscot",
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay"
-            ]
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay"]
           }
         }
       ],
@@ -436,24 +341,9 @@
       ],
       "semanticIdentity": {
         "description": "R3/V.g: una casa adosada se reconoce por puerta doméstica, cubierta inclinada, ritmo residencial y ausencia total de lenguaje comercial o industrial. Se prohíbe el rhythm shopfront (escaparate comercial) y los accesos comerciales. El responsable documentó en c1a635b una hilera con chimenea Kenney Industrial plantada a 6 m del edificio: geométricamente válida, semánticamente absurda.",
-        "requireRoles": [
-          "door",
-          "doorframe"
-        ],
-        "requireRoofKinds": [
-          [
-            "gable",
-            "hip",
-            "valley",
-            "dormer",
-            "mansard"
-          ]
-        ],
-        "prohibitRhythmIds": [
-          "shopfront",
-          "commercial_strip",
-          "glazed_ground"
-        ],
+        "requireRoles": ["door", "doorframe"],
+        "requireRoofKinds": [["gable", "hip", "valley", "dormer", "mansard"]],
+        "prohibitRhythmIds": ["shopfront", "commercial_strip", "glazed_ground"],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
           "mod_kenney_ind_chimney_medium",
@@ -494,10 +384,7 @@
         {
           "id": "cement_silo_process",
           "label": "nave cementera con silo de proceso obligatorio",
-          "secondaryIds": [
-            "water_tower_and_main",
-            "storage_tank"
-          ],
+          "secondaryIds": ["water_tower_and_main", "storage_tank"],
           "requiredFeatures": [
             {
               "kind": "secondary",
@@ -509,10 +396,7 @@
         {
           "id": "cement_stack_process",
           "label": "nave cementera con chimenea de proceso obligatoria",
-          "secondaryIds": [
-            "water_tower_and_main",
-            "storage_tank"
-          ],
+          "secondaryIds": ["water_tower_and_main", "storage_tank"],
           "requiredFeatures": [
             {
               "kind": "secondary",
@@ -528,12 +412,7 @@
           "label": "nave cuadrada de tres crujías con oficina alineada con la calle",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                2,
-                2
-              ],
+              "cells": [0, 0, 2, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -542,12 +421,7 @@
               "module": "mod_kenney_ind_hall_e"
             },
             {
-              "cells": [
-                2,
-                0,
-                3,
-                1
-              ],
+              "cells": [2, 0, 3, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -562,12 +436,7 @@
           "label": "nave larga con muelle de carga en el frente",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                3,
-                2
-              ],
+              "cells": [0, 0, 3, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -576,12 +445,7 @@
               "module": "mod_kenney_ind_hall_wide_a"
             },
             {
-              "cells": [
-                3,
-                0,
-                2,
-                1
-              ],
+              "cells": [3, 0, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -596,12 +460,7 @@
           "label": "dos naves hermanas y caseta de control",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                2,
-                2
-              ],
+              "cells": [0, 0, 2, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -610,12 +469,7 @@
               "module": "mod_kenney_ind_hall_n"
             },
             {
-              "cells": [
-                2,
-                0,
-                2,
-                2
-              ],
+              "cells": [2, 0, 2, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -624,12 +478,7 @@
               "module": "mod_kenney_ind_hall_t"
             },
             {
-              "cells": [
-                4,
-                0,
-                1,
-                1
-              ],
+              "cells": [4, 0, 1, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -644,12 +493,7 @@
           "label": "nave de gran formato con patio de pilas al fondo derecho",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                2,
-                2
-              ],
+              "cells": [0, 0, 2, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -658,12 +502,7 @@
               "module": "mod_kenney_ind_hall_gable_g"
             },
             {
-              "cells": [
-                2,
-                0,
-                1,
-                1
-              ],
+              "cells": [2, 0, 1, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -678,12 +517,7 @@
           "label": "frente de oficinas de dos plantas y nave al fondo",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                1,
-                1
-              ],
+              "cells": [0, 0, 1, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -692,12 +526,7 @@
               "module": null
             },
             {
-              "cells": [
-                1,
-                0,
-                3,
-                2
-              ],
+              "cells": [1, 0, 3, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -712,12 +541,7 @@
           "label": "nave larga transversal con crujía de control en el extremo",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                4,
-                2
-              ],
+              "cells": [0, 0, 4, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -726,12 +550,7 @@
               "module": "mod_kenney_ind_hall_long_r"
             },
             {
-              "cells": [
-                4,
-                0,
-                1,
-                1
-              ],
+              "cells": [4, 0, 1, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -762,15 +581,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "wall_panel"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel"
-            ]
+            "front": ["wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
           }
         },
         {
@@ -779,17 +592,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
           }
         },
         {
@@ -798,16 +603,9 @@
           "bayMeters": 2,
           "groundRole": "window_bay",
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel"
-            ]
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
           }
         },
         {
@@ -816,18 +614,9 @@
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
-            "front": [
-              "window_bay",
-              "wall_panel",
-              "wall_panel"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel",
-              "window_bay"
-            ]
+            "front": ["window_bay", "wall_panel", "wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel", "window_bay"]
           }
         }
       ],
@@ -932,30 +721,16 @@
           "role": "tank",
           "module": "mod_kenney_ind_tank_small",
           "optional": true,
-          "atCell": [
-            4,
-            1
-          ],
+          "atCell": [4, 1],
           "supports": [
             {
               "kind": "connector",
               "shape": "pipe",
               "label": "transportador de clínker",
-              "cell": [
-                4,
-                1
-              ],
+              "cell": [4, 1],
               "z": 0,
-              "from": [
-                0.1,
-                0.1,
-                0.35
-              ],
-              "to": [
-                0.9,
-                0.9,
-                0.9
-              ],
+              "from": [0.1, 0.1, 0.35],
+              "to": [0.9, 0.9, 0.9],
               "radiusMeters": 0.3,
               "segments": 8,
               "purpose": "conveyance"
@@ -974,21 +749,10 @@
               "kind": "pipe",
               "shape": "pipe",
               "label": "bajante del depósito",
-              "cell": [
-                4,
-                1
-              ],
+              "cell": [4, 1],
               "z": 0,
-              "from": [
-                0.5,
-                0.5,
-                0.05
-              ],
-              "to": [
-                0.5,
-                0.5,
-                2.6
-              ],
+              "from": [0.5, 0.5, 0.05],
+              "to": [0.5, 0.5, 2.6],
               "radiusMeters": 0.22,
               "segments": 8,
               "purpose": "service"
@@ -1001,30 +765,16 @@
           "role": "chimney",
           "module": "mod_kenney_ind_chimney_medium",
           "optional": true,
-          "atCell": [
-            4,
-            1
-          ],
+          "atCell": [4, 1],
           "supports": [
             {
               "kind": "plinth",
               "shape": "box",
               "label": "dado de cimentación",
-              "cell": [
-                4,
-                1
-              ],
+              "cell": [4, 1],
               "z": 0,
-              "sizeCells": [
-                0.5,
-                0.5,
-                0.08
-              ],
-              "offset": [
-                0.5,
-                0.5,
-                0
-              ],
+              "sizeCells": [0.5, 0.5, 0.08],
+              "offset": [0.5, 0.5, 0],
               "rotationDegrees": 0,
               "purpose": "foundation"
             }
@@ -1042,21 +792,9 @@
       ],
       "semanticIdentity": {
         "description": "R3/V.g: una cementera se reconoce por su maquinaria de proceso. Exige nave industrial (hall) Y al menos un elemento de proceso (tank, chimney o extractor). Sin silo, chimenea o extractor visible, el jugador lee 'nave comercial acristalada' y el edificio pierde identidad. Test de regresión: cement_plant sólo hall → FAIL.",
-        "requireRoles": [
-          "hall"
-        ],
-        "requireAnyRoles": [
-          [
-            "tank",
-            "chimney",
-            "extractor"
-          ]
-        ],
-        "prohibitAccessIds": [
-          "monumental_stairs",
-          "loggia_entrance",
-          "shopfront_entrance"
-        ]
+        "requireRoles": ["hall"],
+        "requireAnyRoles": [["tank", "chimney", "extractor"]],
+        "prohibitAccessIds": ["monumental_stairs", "loggia_entrance", "shopfront_entrance"]
       }
     },
     "town_hall": {
@@ -1089,28 +827,14 @@
           "id": "grand_neoclassical_hall",
           "label": "palacio neoclásico monumental hero",
           "accessTargetVolume": 1,
-          "massingIds": [
-            "neoclassical_palace"
-          ],
-          "cornerModeIds": [
-            "flush"
-          ],
-          "accessIds": [
-            "monumental_stairs"
-          ],
-          "roofIds": [
-            "flat_corniced"
-          ],
-          "rhythmIds": [
-            "tall_aisles"
-          ],
-          "facadeIds": [
-            "warm_limestone"
-          ],
+          "massingIds": ["neoclassical_palace"],
+          "cornerModeIds": ["flush"],
+          "accessIds": ["monumental_stairs"],
+          "roofIds": ["flat_corniced"],
+          "rhythmIds": ["tall_aisles"],
+          "facadeIds": ["warm_limestone"],
           "propIds": [],
-          "secondaryIds": [
-            "none"
-          ],
+          "secondaryIds": ["none"],
           "requiredFeatures": [
             {
               "kind": "facade",
@@ -1156,26 +880,11 @@
         {
           "id": "neoclassical_portico",
           "label": "composición neoclásica con pórtico de columnas",
-          "massingIds": [
-            "civic_block"
-          ],
-          "cornerModeIds": [
-            "flush"
-          ],
-          "accessIds": [
-            "monumental_stairs",
-            "loggia_entrance"
-          ],
-          "roofIds": [
-            "gable_cross",
-            "gable_dormers",
-            "gable_corniced"
-          ],
-          "rhythmIds": [
-            "civic_regular",
-            "tall_aisles",
-            "glazed_ground"
-          ],
+          "massingIds": ["civic_block"],
+          "cornerModeIds": ["flush"],
+          "accessIds": ["monumental_stairs", "loggia_entrance"],
+          "roofIds": ["gable_cross", "gable_dormers", "gable_corniced"],
+          "rhythmIds": ["civic_regular", "tall_aisles", "glazed_ground"],
           "requiredFeatures": [
             {
               "kind": "facade",
@@ -1207,26 +916,11 @@
         {
           "id": "municipal_block",
           "label": "bloque municipal funcional con pilastras",
-          "massingIds": [
-            "stepped_civic"
-          ],
-          "cornerModeIds": [
-            "flush",
-            "brick_post"
-          ],
-          "accessIds": [
-            "canopied_entrance",
-            "monumental_stairs"
-          ],
-          "roofIds": [
-            "flat_plates",
-            "flat_slabs",
-            "gable_corniced"
-          ],
-          "rhythmIds": [
-            "civic_regular",
-            "masonry_mass"
-          ],
+          "massingIds": ["stepped_civic"],
+          "cornerModeIds": ["flush", "brick_post"],
+          "accessIds": ["canopied_entrance", "monumental_stairs"],
+          "roofIds": ["flat_plates", "flat_slabs", "gable_corniced"],
+          "rhythmIds": ["civic_regular", "masonry_mass"],
           "requiredFeatures": [
             {
               "kind": "facade",
@@ -1258,26 +952,11 @@
         {
           "id": "civic_wing",
           "label": "ala cívica con columnas laterales al acceso monumental",
-          "massingIds": [
-            "single_wing_plaza"
-          ],
-          "cornerModeIds": [
-            "flush"
-          ],
-          "accessIds": [
-            "monumental_stairs",
-            "canopied_entrance"
-          ],
-          "roofIds": [
-            "gable_cross",
-            "gable_dormers",
-            "flat_plates"
-          ],
-          "rhythmIds": [
-            "glazed_ground",
-            "tall_aisles",
-            "civic_regular"
-          ],
+          "massingIds": ["single_wing_plaza"],
+          "cornerModeIds": ["flush"],
+          "accessIds": ["monumental_stairs", "canopied_entrance"],
+          "roofIds": ["gable_cross", "gable_dormers", "flat_plates"],
+          "rhythmIds": ["glazed_ground", "tall_aisles", "civic_regular"],
           "requiredFeatures": [
             {
               "kind": "facade",
@@ -1313,12 +992,7 @@
           "label": "bloque cívico de frente continuo",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                4,
-                2
-              ],
+              "cells": [0, 1, 4, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -1333,12 +1007,7 @@
           "label": "dos pabellones de frente con patio trasero",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                2,
-                1
-              ],
+              "cells": [0, 1, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -1347,12 +1016,7 @@
               "module": null
             },
             {
-              "cells": [
-                2,
-                1,
-                2,
-                1
-              ],
+              "cells": [2, 1, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -1367,12 +1031,7 @@
           "label": "ala cívica de ocho metros con plaza de honor al costado",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                2,
-                2
-              ],
+              "cells": [0, 1, 2, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -1387,12 +1046,7 @@
           "label": "cuerpo KayKit de tres forjas junto a ala de bandas",
           "volumes": [
             {
-              "cells": [
-                2,
-                1,
-                2,
-                2
-              ],
+              "cells": [2, 1, 2, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -1401,12 +1055,7 @@
               "module": "mod_kaykit_civic_block_d"
             },
             {
-              "cells": [
-                0,
-                1,
-                2,
-                2
-              ],
+              "cells": [0, 1, 2, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -1421,12 +1070,7 @@
           "label": "cuerpo escalonado con retranqueo en la cubierta",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                4,
-                1
-              ],
+              "cells": [0, 1, 4, 1],
               "levels": 3,
               "stackOn": null,
               "slab": true,
@@ -1435,12 +1079,7 @@
               "module": null
             },
             {
-              "cells": [
-                1,
-                1,
-                2,
-                1
-              ],
+              "cells": [1, 1, 2, 1],
               "levels": 1,
               "stackOn": 0,
               "slab": false,
@@ -1455,12 +1094,7 @@
           "label": "palacio neoclásico simétrico con alas retranqueadas",
           "volumes": [
             {
-              "cells": [
-                0,
-                2,
-                2,
-                2
-              ],
+              "cells": [0, 2, 2, 2],
               "levels": 2,
               "stackOn": null,
               "slab": true,
@@ -1469,12 +1103,7 @@
               "module": null
             },
             {
-              "cells": [
-                2,
-                1,
-                4,
-                3
-              ],
+              "cells": [2, 1, 4, 3],
               "levels": 3,
               "stackOn": null,
               "slab": true,
@@ -1483,12 +1112,7 @@
               "module": null
             },
             {
-              "cells": [
-                6,
-                2,
-                2,
-                2
-              ],
+              "cells": [6, 2, 2, 2],
               "levels": 2,
               "stackOn": null,
               "slab": true,
@@ -1547,17 +1171,9 @@
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel",
-              "window_bay"
-            ]
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel", "window_bay"]
           }
         },
         {
@@ -1566,17 +1182,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "window_bay",
-              "wall_panel",
-              "wall_panel"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel"
-            ]
+            "front": ["window_bay", "wall_panel", "wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
           }
         },
         {
@@ -1585,17 +1193,9 @@
           "bayMeters": 2,
           "groundRole": "window_bay",
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
           }
         },
         {
@@ -1604,17 +1204,9 @@
           "bayMeters": 2,
           "groundRole": "wainscot",
           "tokens": {
-            "front": [
-              "wall_panel",
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel"
-            ]
+            "front": ["wall_panel", "wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
           }
         }
       ],
@@ -1810,20 +1402,9 @@
       ],
       "semanticIdentity": {
         "description": "R3/V.g: un edificio cívico monumental se reconoce por acceso monumental (monumental_stairs, canopied_entrance o loggia_entrance) Y un required facade feature cívico (column o pilaster) integrado en la fachada. El acceso monumental por sí solo ya distingue el hito del residencial.",
-        "requireAccessIds": [
-          "monumental_stairs",
-          "canopied_entrance",
-          "loggia_entrance"
-        ],
+        "requireAccessIds": ["monumental_stairs", "canopied_entrance", "loggia_entrance"],
         "requireAnyRoles": [
-          [
-            "column",
-            "pilaster",
-            "civic_tower",
-            "civic_block",
-            "plinth",
-            "corner_column"
-          ]
+          ["column", "pilaster", "civic_tower", "civic_block", "plinth", "corner_column"]
         ],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
@@ -1866,12 +1447,7 @@
           "label": "forma de L con patio en esquina",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                2,
-                1
-              ],
+              "cells": [0, 0, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -1880,12 +1456,7 @@
               "module": null
             },
             {
-              "cells": [
-                0,
-                1,
-                1,
-                1
-              ],
+              "cells": [0, 1, 1, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -1900,12 +1471,7 @@
           "label": "forma de U con patio central",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                1,
-                2
-              ],
+              "cells": [0, 0, 1, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -1914,12 +1480,7 @@
               "module": null
             },
             {
-              "cells": [
-                1,
-                0,
-                1,
-                1
-              ],
+              "cells": [1, 0, 1, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -1963,18 +1524,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "sides": [
-              "wall_panel",
-              "window_bay"
-            ]
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["wall_panel", "window_bay"]
           }
         },
         {
@@ -1983,18 +1535,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "window_bay",
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "sides": [
-              "window_bay"
-            ]
+            "front": ["window_bay", "wall_panel", "window_bay"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["window_bay"]
           }
         },
         {
@@ -2003,17 +1546,9 @@
           "bayMeters": 2,
           "groundRole": "wainscot",
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
           }
         }
       ],
@@ -2123,19 +1658,8 @@
       ],
       "semanticIdentity": {
         "description": "V.g: casa doméstica compacta. Se reconoce por escala reducida, cubierta inclinada, entrada doméstica clara y ausencia total de lenguaje industrial o comercial. El patio o muro bajo puede aparecer como massing pero no como volumen secundario industrial.",
-        "requireRoles": [
-          "door",
-          "doorframe"
-        ],
-        "requireRoofKinds": [
-          [
-            "gable",
-            "hip",
-            "valley",
-            "dormer",
-            "mansard"
-          ]
-        ],
+        "requireRoles": ["door", "doorframe"],
+        "requireRoofKinds": [["gable", "hip", "valley", "dormer", "mansard"]],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
           "mod_kenney_ind_chimney_medium",
@@ -2144,11 +1668,7 @@
           "mod_kenney_ind_tank_large",
           "mod_kenney_ind_water_tower"
         ],
-        "prohibitAccessIds": [
-          "shopfront_canopy",
-          "glazed_lobby",
-          "canopied_dock"
-        ]
+        "prohibitAccessIds": ["shopfront_canopy", "glazed_lobby", "canopied_dock"]
       },
       "renderScale": 2
     },
@@ -2183,12 +1703,7 @@
           "label": "torre rectangular simple",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                5,
-                2
-              ],
+              "cells": [0, 0, 5, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -2203,12 +1718,7 @@
           "label": "torre con retranqueo superior",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                5,
-                2
-              ],
+              "cells": [0, 0, 5, 2],
               "levels": 4,
               "stackOn": null,
               "slab": true,
@@ -2217,12 +1727,7 @@
               "module": null
             },
             {
-              "cells": [
-                1,
-                0,
-                3,
-                2
-              ],
+              "cells": [1, 0, 3, 2],
               "levels": 1,
               "stackOn": 0,
               "slab": false,
@@ -2237,12 +1742,7 @@
           "label": "dos alas simétricas",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                2,
-                2
-              ],
+              "cells": [0, 0, 2, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -2251,12 +1751,7 @@
               "module": null
             },
             {
-              "cells": [
-                3,
-                0,
-                2,
-                2
-              ],
+              "cells": [3, 0, 2, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -2271,12 +1766,7 @@
           "label": "base comercial con torre residencial",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                5,
-                1
-              ],
+              "cells": [0, 0, 5, 1],
               "levels": 2,
               "stackOn": null,
               "slab": true,
@@ -2285,12 +1775,7 @@
               "module": null
             },
             {
-              "cells": [
-                0,
-                1,
-                5,
-                1
-              ],
+              "cells": [0, 1, 5, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -2346,18 +1831,9 @@
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
-            "front": [
-              "window_bay",
-              "wall_panel"
-            ],
-            "rear": [
-              "window_bay",
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["window_bay", "wall_panel"],
+            "rear": ["window_bay", "wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
           }
         },
         {
@@ -2366,17 +1842,9 @@
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
-            "front": [
-              "window_bay",
-              "window_bay"
-            ],
-            "rear": [
-              "window_bay",
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay"
-            ]
+            "front": ["window_bay", "window_bay"],
+            "rear": ["window_bay", "wall_panel"],
+            "sides": ["window_bay"]
           }
         },
         {
@@ -2385,19 +1853,9 @@
           "bayMeters": 2,
           "groundRole": "wainscot",
           "tokens": {
-            "front": [
-              "window_bay",
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["window_bay", "wall_panel", "window_bay"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["window_bay", "wall_panel"]
           }
         },
         {
@@ -2406,18 +1864,9 @@
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay",
-              "wall_panel"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["wall_panel", "window_bay", "wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
           }
         }
       ],
@@ -2519,15 +1968,8 @@
       ],
       "semanticIdentity": {
         "description": "V.g: bloque de viviendas alto. Se reconoce por su verticalidad (5 plantas), repetición de ventanas, entrada comunitaria y ausencia de lenguaje industrial o comercial dominante. Debe diferenciarse radicalmente de row_house por altura y masa. Se prohíben rhythms comerciales (shopfront), módulos industriales y accesos de muelle/monumentales.",
-        "requireRoles": [
-          "door",
-          "doorframe"
-        ],
-        "prohibitRhythmIds": [
-          "shopfront",
-          "commercial_strip",
-          "blind_siding"
-        ],
+        "requireRoles": ["door", "doorframe"],
+        "prohibitRhythmIds": ["shopfront", "commercial_strip", "blind_siding"],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
           "mod_kenney_ind_chimney_medium",
@@ -2569,12 +2011,7 @@
           "label": "bloque uniforme de tres plantas",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                4,
-                2
-              ],
+              "cells": [0, 0, 4, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -2589,12 +2026,7 @@
           "label": "planta baja comercial con pisos arriba",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                4,
-                2
-              ],
+              "cells": [0, 0, 4, 2],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -2603,12 +2035,7 @@
               "module": null
             },
             {
-              "cells": [
-                0,
-                0,
-                4,
-                2
-              ],
+              "cells": [0, 0, 4, 2],
               "levels": 2,
               "stackOn": 0,
               "slab": false,
@@ -2623,12 +2050,7 @@
           "label": "esquina comercial con volumen destacado",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                2,
-                2
-              ],
+              "cells": [0, 0, 2, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -2637,12 +2059,7 @@
               "module": null
             },
             {
-              "cells": [
-                2,
-                0,
-                2,
-                1
-              ],
+              "cells": [2, 0, 2, 1],
               "levels": 2,
               "stackOn": null,
               "slab": true,
@@ -2657,12 +2074,7 @@
           "label": "fachada escalonada con comercio",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                3,
-                1
-              ],
+              "cells": [0, 0, 3, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -2671,12 +2083,7 @@
               "module": null
             },
             {
-              "cells": [
-                3,
-                0,
-                1,
-                1
-              ],
+              "cells": [3, 0, 1, 1],
               "levels": 2,
               "stackOn": null,
               "slab": true,
@@ -2720,17 +2127,9 @@
           "bayMeters": 2,
           "groundRole": "window_bay",
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "sides": [
-              "wall_panel"
-            ]
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["wall_panel"]
           }
         },
         {
@@ -2739,17 +2138,9 @@
           "bayMeters": 2,
           "groundRole": "window_bay",
           "tokens": {
-            "front": [
-              "window_bay",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel",
-              "window_bay"
-            ]
+            "front": ["window_bay", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel", "window_bay"]
           }
         },
         {
@@ -2758,18 +2149,9 @@
           "bayMeters": 2,
           "groundRole": "window_bay",
           "tokens": {
-            "front": [
-              "window_bay",
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "sides": [
-              "wall_panel"
-            ]
+            "front": ["window_bay", "wall_panel", "window_bay"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["wall_panel"]
           }
         }
       ],
@@ -2897,10 +2279,7 @@
       ],
       "semanticIdentity": {
         "description": "V.g: inmueble mixto comercio+vivienda. Se reconoce inmediatamente por planta baja comercial (escaparates, toldos, accesos comerciales) y plantas superiores residenciales (ventanas). La cornisa de transición es obligatoria. Debe ser imposible confundirlo con apartment_block.",
-        "requireRoles": [
-          "door",
-          "doorframe"
-        ],
+        "requireRoles": ["door", "doorframe"],
         "requireGroundCommercial": true,
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
@@ -2936,12 +2315,7 @@
           "label": "nave única de una planta con puerta de taller frontal",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                4,
-                1
-              ],
+              "cells": [0, 1, 4, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -2950,12 +2324,7 @@
               "module": "mod_kenney_ind_hall_n"
             },
             {
-              "cells": [
-                0,
-                0,
-                4,
-                1
-              ],
+              "cells": [0, 0, 4, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -2970,12 +2339,7 @@
           "label": "nave de taller con bloque de oficina adosado al frente",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                3,
-                2
-              ],
+              "cells": [0, 0, 3, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -2984,12 +2348,7 @@
               "module": "mod_kenney_ind_hall_n"
             },
             {
-              "cells": [
-                3,
-                0,
-                1,
-                1
-              ],
+              "cells": [3, 0, 1, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -3004,12 +2363,7 @@
           "label": "nave en L con patio de servicio lateral",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                3,
-                2
-              ],
+              "cells": [0, 0, 3, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -3018,12 +2372,7 @@
               "module": "mod_kenney_ind_hall_n"
             },
             {
-              "cells": [
-                3,
-                0,
-                1,
-                1
-              ],
+              "cells": [3, 0, 1, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -3038,12 +2387,7 @@
           "label": "nave compacta con service yard trasero",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                3,
-                1
-              ],
+              "cells": [0, 1, 3, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -3052,12 +2396,7 @@
               "module": "mod_kenney_ind_hall_n"
             },
             {
-              "cells": [
-                0,
-                0,
-                3,
-                1
-              ],
+              "cells": [0, 0, 3, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -3098,17 +2437,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel",
-              "window_bay"
-            ]
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel", "window_bay"]
           }
         },
         {
@@ -3117,16 +2448,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "wall_panel",
-              "wall_panel"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel"
-            ]
+            "front": ["wall_panel", "wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
           }
         },
         {
@@ -3135,17 +2459,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
           }
         }
       ],
@@ -3251,21 +2567,13 @@
           "role": "tank",
           "module": "mod_kenney_ind_tank_small",
           "optional": true,
-          "atCell": [
-            4,
-            1
-          ],
+          "atCell": [4, 1],
           "supports": []
         }
       ],
       "semanticIdentity": {
         "description": "R3/V.g: un taller urbano se reconoce por su escala menor (1 planta), gran puerta de taller y ausencia de muelles de carga repetidos. Debe distinguirse de warehouse por no tener repetición de puertas de muelle ni escala longitudinal. No debe parecer gran fábrica: sin silos, sin chimeneas altas, sin torres de proceso. Se prohíben accesos monumentales y comerciales.",
-        "requireAnyRoles": [
-          [
-            "hall",
-            "door"
-          ]
-        ],
+        "requireAnyRoles": [["hall", "door"]],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_large",
           "mod_kenney_ind_tank_large",
@@ -3306,12 +2614,7 @@
           "label": "nave longitudinal grande con muelles frontales",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                4,
-                2
-              ],
+              "cells": [0, 1, 4, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -3320,12 +2623,7 @@
               "module": "mod_kenney_ind_hall_long_r"
             },
             {
-              "cells": [
-                0,
-                0,
-                4,
-                1
-              ],
+              "cells": [0, 0, 4, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -3340,12 +2638,7 @@
           "label": "nave con bloque de muelles adosado al frente",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                4,
-                2
-              ],
+              "cells": [0, 1, 4, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -3354,12 +2647,7 @@
               "module": "mod_kenney_ind_hall_wide_a"
             },
             {
-              "cells": [
-                0,
-                0,
-                4,
-                1
-              ],
+              "cells": [0, 0, 4, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -3374,12 +2662,7 @@
           "label": "dos naves hermanas con patio de maniobra",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                2,
-                2
-              ],
+              "cells": [0, 1, 2, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -3388,12 +2671,7 @@
               "module": "mod_kenney_ind_hall_n"
             },
             {
-              "cells": [
-                2,
-                1,
-                2,
-                2
-              ],
+              "cells": [2, 1, 2, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -3402,12 +2680,7 @@
               "module": "mod_kenney_ind_hall_t"
             },
             {
-              "cells": [
-                0,
-                0,
-                4,
-                1
-              ],
+              "cells": [0, 0, 4, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -3422,12 +2695,7 @@
           "label": "nave gran formato con patio de carga al fondo",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                4,
-                2
-              ],
+              "cells": [0, 1, 4, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -3436,12 +2704,7 @@
               "module": "mod_kenney_ind_hall_gable_g"
             },
             {
-              "cells": [
-                0,
-                0,
-                4,
-                1
-              ],
+              "cells": [0, 0, 4, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -3482,15 +2745,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "wall_panel"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel"
-            ]
+            "front": ["wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
           }
         },
         {
@@ -3499,17 +2756,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
           }
         },
         {
@@ -3518,17 +2767,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
           }
         }
       ],
@@ -3657,16 +2898,8 @@
       ],
       "semanticIdentity": {
         "description": "R3/V.g: un almacén logístico se reconoce por su escala longitudinal (4×3), repetición de muelles de carga y ausencia de fachada comercial o proceso industrial visible. Debe distinguirse de workshop por escala mayor y múltiples puertas de muelle. Debe distinguirse de cement_plant por ausencia de silos, chimeneas de proceso o torre de agua. Debe distinguirse de market_hall por opacidad, muelles de carga y falta de actividad comercial.",
-        "requireAnyRoles": [
-          [
-            "hall",
-            "door"
-          ]
-        ],
-        "prohibitRhythmIds": [
-          "transparent_market",
-          "arcade_rhythm"
-        ],
+        "requireAnyRoles": [["hall", "door"]],
+        "prohibitRhythmIds": ["transparent_market", "arcade_rhythm"],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_large",
           "mod_kenney_ind_chimney_medium",
@@ -3704,10 +2937,7 @@
         {
           "id": "brick_kiln_process",
           "label": "ladrillera con chimenea de horno obligatoria",
-          "secondaryIds": [
-            "brick_chimney_tower",
-            "none"
-          ],
+          "secondaryIds": ["brick_chimney_tower", "none"],
           "requiredFeatures": [
             {
               "kind": "secondary",
@@ -3723,12 +2953,7 @@
           "label": "nave de hornos longitudinal con chimenea de ladrillo",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                4,
-                1
-              ],
+              "cells": [0, 1, 4, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -3737,12 +2962,7 @@
               "module": "mod_kenney_ind_hall_n"
             },
             {
-              "cells": [
-                0,
-                0,
-                5,
-                1
-              ],
+              "cells": [0, 0, 5, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -3757,12 +2977,7 @@
           "label": "nave de hornos con bloque de oficinas adosado",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                4,
-                2
-              ],
+              "cells": [0, 0, 4, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -3771,12 +2986,7 @@
               "module": "mod_kenney_ind_hall_wide_a"
             },
             {
-              "cells": [
-                4,
-                0,
-                1,
-                1
-              ],
+              "cells": [4, 0, 1, 1],
               "levels": 2,
               "stackOn": null,
               "slab": true,
@@ -3791,12 +3001,7 @@
           "label": "dos naves de hornos paralelas con patio",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                2,
-                1
-              ],
+              "cells": [0, 1, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -3805,12 +3010,7 @@
               "module": "mod_kenney_ind_hall_n"
             },
             {
-              "cells": [
-                2,
-                1,
-                2,
-                1
-              ],
+              "cells": [2, 1, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -3819,12 +3019,7 @@
               "module": "mod_kenney_ind_hall_n"
             },
             {
-              "cells": [
-                0,
-                0,
-                5,
-                1
-              ],
+              "cells": [0, 0, 5, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -3839,12 +3034,7 @@
           "label": "nave de hornos con patio de secado lateral",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                4,
-                2
-              ],
+              "cells": [0, 0, 4, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -3853,12 +3043,7 @@
               "module": "mod_kenney_ind_hall_e"
             },
             {
-              "cells": [
-                4,
-                0,
-                1,
-                1
-              ],
+              "cells": [4, 0, 1, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -3898,17 +3083,9 @@
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel",
-              "window_bay"
-            ]
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel", "window_bay"]
           }
         },
         {
@@ -3917,17 +3094,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "wall_panel",
-              "wall_panel"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel",
-              "window_bay"
-            ]
+            "front": ["wall_panel", "wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel", "window_bay"]
           }
         },
         {
@@ -3936,17 +3105,9 @@
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
-            "front": [
-              "window_bay",
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel"
-            ]
+            "front": ["window_bay", "wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
           }
         }
       ],
@@ -4052,30 +3213,16 @@
           "role": "chimney",
           "module": "mod_kenney_ind_chimney_small",
           "optional": true,
-          "atCell": [
-            4,
-            1
-          ],
+          "atCell": [4, 1],
           "supports": [
             {
               "kind": "plinth",
               "shape": "box",
               "label": "dado de cimentación de ladrillo",
-              "cell": [
-                4,
-                1
-              ],
+              "cell": [4, 1],
               "z": 0,
-              "sizeCells": [
-                0.5,
-                0.5,
-                0.08
-              ],
-              "offset": [
-                0.5,
-                0.5,
-                0
-              ],
+              "sizeCells": [0.5, 0.5, 0.08],
+              "offset": [0.5, 0.5, 0],
               "rotationDegrees": 0,
               "purpose": "foundation"
             }
@@ -4093,21 +3240,9 @@
       ],
       "semanticIdentity": {
         "description": "R3/V.g: una ladrillera se reconoce por nave de hornos (hall) Y chimenea de ladrillo (chimney). Ambos son obligatorios. Test de regresión: brickworks sin chimney → FAIL. Debe distinguirse de cement_plant por menos silos y más ladrillo. Debe distinguirse de steelworks por más ladrillo y menos acero.",
-        "requireAll": [
-          [
-            "hall",
-            "chimney"
-          ]
-        ],
-        "prohibitSecondaryModules": [
-          "mod_kenney_ind_water_tower",
-          "mod_kenney_ind_tank_large"
-        ],
-        "prohibitAccessIds": [
-          "monumental_stairs",
-          "loggia_entrance",
-          "shopfront_entrance"
-        ]
+        "requireAll": [["hall", "chimney"]],
+        "prohibitSecondaryModules": ["mod_kenney_ind_water_tower", "mod_kenney_ind_tank_large"],
+        "prohibitAccessIds": ["monumental_stairs", "loggia_entrance", "shopfront_entrance"]
       }
     },
     "steelworks": {
@@ -4133,11 +3268,7 @@
         {
           "id": "steel_process_hall",
           "label": "acería con chimenea de proceso obligatoria",
-          "secondaryIds": [
-            "steel_chimney",
-            "gantry_structure",
-            "storage_tank"
-          ],
+          "secondaryIds": ["steel_chimney", "gantry_structure", "storage_tank"],
           "requiredFeatures": [
             {
               "kind": "secondary",
@@ -4153,12 +3284,7 @@
           "label": "nave principal con torre de proceso lateral",
           "volumes": [
             {
-              "cells": [
-                0,
-                0,
-                3,
-                2
-              ],
+              "cells": [0, 0, 3, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -4167,12 +3293,7 @@
               "module": "mod_kenney_ind_hall_wide_b"
             },
             {
-              "cells": [
-                3,
-                0,
-                1,
-                2
-              ],
+              "cells": [3, 0, 1, 2],
               "levels": 2,
               "stackOn": null,
               "slab": true,
@@ -4187,12 +3308,7 @@
           "label": "dos naves de proceso con pasillo central",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                2,
-                2
-              ],
+              "cells": [0, 1, 2, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -4201,12 +3317,7 @@
               "module": "mod_kenney_ind_hall_n"
             },
             {
-              "cells": [
-                2,
-                1,
-                2,
-                1
-              ],
+              "cells": [2, 1, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -4215,12 +3326,7 @@
               "module": "mod_kenney_ind_hall_n"
             },
             {
-              "cells": [
-                0,
-                0,
-                4,
-                1
-              ],
+              "cells": [0, 0, 4, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -4235,12 +3341,7 @@
           "label": "nave de fundición con patio de servicio",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                4,
-                1
-              ],
+              "cells": [0, 1, 4, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -4249,12 +3350,7 @@
               "module": "mod_kenney_ind_hall_n"
             },
             {
-              "cells": [
-                0,
-                0,
-                4,
-                1
-              ],
+              "cells": [0, 0, 4, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -4269,12 +3365,7 @@
           "label": "nave compacta con torre de proceso trasera",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                4,
-                1
-              ],
+              "cells": [0, 1, 4, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": false,
@@ -4283,12 +3374,7 @@
               "module": "mod_kenney_ind_hall_n"
             },
             {
-              "cells": [
-                0,
-                0,
-                4,
-                1
-              ],
+              "cells": [0, 0, 4, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -4339,15 +3425,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "wall_panel"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel"
-            ]
+            "front": ["wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
           }
         },
         {
@@ -4356,17 +3436,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
           }
         },
         {
@@ -4375,16 +3447,9 @@
           "bayMeters": 2,
           "groundRole": "window_bay",
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel"
-            ]
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
           }
         },
         {
@@ -4393,18 +3458,9 @@
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
-            "front": [
-              "window_bay",
-              "wall_panel",
-              "wall_panel"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel",
-              "window_bay"
-            ]
+            "front": ["window_bay", "wall_panel", "wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel", "window_bay"]
           }
         }
       ],
@@ -4509,30 +3565,16 @@
           "role": "chimney",
           "module": "mod_kenney_ind_chimney_medium",
           "optional": false,
-          "atCell": [
-            3,
-            2
-          ],
+          "atCell": [3, 2],
           "supports": [
             {
               "kind": "plinth",
               "shape": "box",
               "label": "dado de cimentación de acero",
-              "cell": [
-                3,
-                2
-              ],
+              "cell": [3, 2],
               "z": 0,
-              "sizeCells": [
-                0.5,
-                0.5,
-                0.08
-              ],
-              "offset": [
-                0.5,
-                0.5,
-                0
-              ],
+              "sizeCells": [0.5, 0.5, 0.08],
+              "offset": [0.5, 0.5, 0],
               "rotationDegrees": 0,
               "purpose": "foundation"
             }
@@ -4544,30 +3586,16 @@
           "role": "extractor",
           "module": "mod_kenney_ind_windmill",
           "optional": true,
-          "atCell": [
-            1,
-            2
-          ],
+          "atCell": [1, 2],
           "supports": [
             {
               "kind": "support",
               "shape": "pipe",
               "label": "pórtico de grúa",
-              "cell": [
-                1,
-                2
-              ],
+              "cell": [1, 2],
               "z": 0,
-              "from": [
-                0.1,
-                0.1,
-                0
-              ],
-              "to": [
-                0.9,
-                0.9,
-                3
-              ],
+              "from": [0.1, 0.1, 0],
+              "to": [0.9, 0.9, 3],
               "radiusMeters": 0.15,
               "segments": 8,
               "purpose": "structure"
@@ -4586,24 +3614,10 @@
       ],
       "semanticIdentity": {
         "description": "R3/V.g: una acería se reconoce por nave industrial (hall) Y al menos un elemento de proceso pesado (chimney, extractor o civic_tower como torre de proceso). Test de regresión: steelworks sólo hall → FAIL. Debe distinguirse de cement_plant por más estructura metálica. Debe distinguirse de brickworks por más acero y menos ladrillo. Debe distinguirse de warehouse por proceso industrial visible.",
-        "requireRoles": [
-          "hall"
-        ],
-        "requireAnyRoles": [
-          [
-            "chimney",
-            "extractor",
-            "civic_tower"
-          ]
-        ],
-        "prohibitSecondaryModules": [
-          "mod_kenney_ind_water_tower"
-        ],
-        "prohibitAccessIds": [
-          "monumental_stairs",
-          "loggia_entrance",
-          "shopfront_entrance"
-        ]
+        "requireRoles": ["hall"],
+        "requireAnyRoles": [["chimney", "extractor", "civic_tower"]],
+        "prohibitSecondaryModules": ["mod_kenney_ind_water_tower"],
+        "prohibitAccessIds": ["monumental_stairs", "loggia_entrance", "shopfront_entrance"]
       }
     },
     "school_block": {
@@ -4631,12 +3645,7 @@
           "label": "colegio americano: alas simétricas de 2 plantas, pabellón central de 3 y cupola de campanario",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                3,
-                1
-              ],
+              "cells": [0, 1, 3, 1],
               "levels": 2,
               "stackOn": null,
               "slab": true,
@@ -4645,12 +3654,7 @@
               "module": null
             },
             {
-              "cells": [
-                4,
-                1,
-                3,
-                1
-              ],
+              "cells": [4, 1, 3, 1],
               "levels": 2,
               "stackOn": null,
               "slab": true,
@@ -4659,12 +3663,7 @@
               "module": null
             },
             {
-              "cells": [
-                3,
-                1,
-                1,
-                1
-              ],
+              "cells": [3, 1, 1, 1],
               "levels": 3,
               "stackOn": null,
               "slab": true,
@@ -4673,12 +3672,7 @@
               "module": null
             },
             {
-              "cells": [
-                3,
-                1,
-                1,
-                1
-              ],
+              "cells": [3, 1, 1, 1],
               "levels": 1,
               "stackOn": 2,
               "slab": false,
@@ -4734,18 +3728,9 @@
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
-            "front": [
-              "window_bay",
-              "wall_panel"
-            ],
-            "rear": [
-              "window_bay",
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["window_bay", "wall_panel"],
+            "rear": ["window_bay", "wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
           }
         },
         {
@@ -4754,17 +3739,9 @@
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
-            "front": [
-              "window_bay",
-              "window_bay"
-            ],
-            "rear": [
-              "window_bay",
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay"
-            ]
+            "front": ["window_bay", "window_bay"],
+            "rear": ["window_bay", "wall_panel"],
+            "sides": ["window_bay"]
           }
         },
         {
@@ -4773,19 +3750,9 @@
           "bayMeters": 2,
           "groundRole": "wainscot",
           "tokens": {
-            "front": [
-              "window_bay",
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["window_bay", "wall_panel", "window_bay"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["window_bay", "wall_panel"]
           }
         },
         {
@@ -4794,18 +3761,9 @@
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay",
-              "wall_panel"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["wall_panel", "window_bay", "wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
           }
         }
       ],
@@ -4916,12 +3874,7 @@
       ],
       "semanticIdentity": {
         "description": "R3/V.g: un colegio se reconoce por su cuerpo longitudinal, repetición uniforme de ventanas de aula, entrada institucional y lenguaje cívico (ladrillo/piedra). Debe distinguirse de town_hall por mayor longitud y menos monumentalidad. Debe distinguirse de apartment_block por ritmo de ventanas uniforme, acceso público marcado y elementos institucionales. No se aceptan módulos mal etiquetados (flag_pole → AC unit). V.i remediation: cupula/linterna original sobre el pabellón central (REQUIRED), alas de aulas repetitivas y entrada institucional; el clon de town_hall queda retirado.",
-        "requireAnyRoles": [
-          [
-            "door",
-            "curtain_wall"
-          ]
-        ],
+        "requireAnyRoles": [["door", "curtain_wall"]],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
           "mod_kenney_ind_chimney_medium",
@@ -4936,43 +3889,21 @@
           "apparatus_door",
           "rollup_door"
         ],
-        "requireRoles": [
-          "civic_tower"
-        ]
+        "requireRoles": ["civic_tower"]
       },
       "recipes": [
         {
           "id": "american_school",
           "label": "colegio americano: entrada bajo la cupula, cubierta a dos aguas en las alas",
           "accessTargetVolume": 2,
-          "massingIds": [
-            "american_school"
-          ],
-          "cornerModeIds": [
-            "flush"
-          ],
-          "accessIds": [
-            "central_entrance"
-          ],
-          "roofIds": [
-            "gable_roof",
-            "gable_dormers"
-          ],
-          "rhythmIds": [
-            "classroom_repeat",
-            "dense_classroom",
-            "banded_school",
-            "pilaster_rhythm"
-          ],
-          "facadeIds": [
-            "brick_institutional",
-            "stucco_institutional",
-            "mixed_institutional"
-          ],
+          "massingIds": ["american_school"],
+          "cornerModeIds": ["flush"],
+          "accessIds": ["central_entrance"],
+          "roofIds": ["gable_roof", "gable_dormers"],
+          "rhythmIds": ["classroom_repeat", "dense_classroom", "banded_school", "pilaster_rhythm"],
+          "facadeIds": ["brick_institutional", "stucco_institutional", "mixed_institutional"],
           "propIds": [],
-          "secondaryIds": [
-            "school_annex"
-          ]
+          "secondaryIds": ["school_annex"]
         }
       ]
     },
@@ -5001,12 +3932,7 @@
           "label": "bloque compacto de dos plantas con acceso centrado",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                3,
-                1
-              ],
+              "cells": [0, 1, 3, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -5021,12 +3947,7 @@
           "label": "cuerpo principal con ala de acceso destacada",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                2,
-                1
-              ],
+              "cells": [0, 1, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -5035,12 +3956,7 @@
               "module": null
             },
             {
-              "cells": [
-                2,
-                1,
-                1,
-                1
-              ],
+              "cells": [2, 1, 1, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -5055,12 +3971,7 @@
           "label": "volumen escalonado con retranqueo en cubierta",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                3,
-                1
-              ],
+              "cells": [0, 1, 3, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -5069,12 +3980,7 @@
               "module": null
             },
             {
-              "cells": [
-                0,
-                1,
-                2,
-                1
-              ],
+              "cells": [0, 1, 2, 1],
               "levels": 1,
               "stackOn": 0,
               "slab": false,
@@ -5089,12 +3995,7 @@
           "label": "forma de L con zona de ambulancias lateral",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                2,
-                1
-              ],
+              "cells": [0, 1, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -5103,12 +4004,7 @@
               "module": null
             },
             {
-              "cells": [
-                2,
-                1,
-                1,
-                1
-              ],
+              "cells": [2, 1, 1, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -5154,17 +4050,9 @@
           "bayMeters": 2,
           "groundRole": "window_bay",
           "tokens": {
-            "front": [
-              "window_bay",
-              "wall_panel"
-            ],
-            "rear": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "sides": [
-              "window_bay"
-            ]
+            "front": ["window_bay", "wall_panel"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["window_bay"]
           }
         },
         {
@@ -5173,17 +4061,9 @@
           "bayMeters": 2,
           "groundRole": "window_bay",
           "tokens": {
-            "front": [
-              "curtain_wall",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["curtain_wall", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
           }
         },
         {
@@ -5192,17 +4072,9 @@
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
-            "front": [
-              "window_bay",
-              "window_bay"
-            ],
-            "rear": [
-              "window_bay",
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay"
-            ]
+            "front": ["window_bay", "window_bay"],
+            "rear": ["window_bay", "wall_panel"],
+            "sides": ["window_bay"]
           }
         }
       ],
@@ -5322,14 +4194,7 @@
       ],
       "semanticIdentity": {
         "description": "R3/V.g: una clínica se reconoce por arquitectura limpia, ventanales amplios (curtain_wall), marquesina de acceso y paleta blanca/piedra clara. Debe distinguirse de police_station por lenguaje sanitario (limpio, amplios ventanales, marquesina) en vez de institucional-seguridad. Se exige al menos uno de: acceso cubierto (canopied_entrance, recessed_entry) o muro cortina (curtain_wall). Debe distinguirse de town_hall por escala menor y menos monumentalidad.",
-        "requireAnyRoles": [
-          [
-            "door",
-            "curtain_wall",
-            "canopy",
-            "overhang"
-          ]
-        ],
+        "requireAnyRoles": [["door", "curtain_wall", "canopy", "overhang"]],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
           "mod_kenney_ind_chimney_medium",
@@ -5372,12 +4237,7 @@
           "label": "bloque robusto de dos plantas con entrada marcada",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                3,
-                1
-              ],
+              "cells": [0, 1, 3, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -5392,12 +4252,7 @@
           "label": "cuerpo principal con torre central de vigilancia",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                3,
-                1
-              ],
+              "cells": [0, 1, 3, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -5406,12 +4261,7 @@
               "module": null
             },
             {
-              "cells": [
-                1,
-                1,
-                1,
-                1
-              ],
+              "cells": [1, 1, 1, 1],
               "levels": 1,
               "stackOn": 0,
               "slab": false,
@@ -5426,12 +4276,7 @@
           "label": "ala de acceso de vehículos lateral",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                2,
-                1
-              ],
+              "cells": [0, 1, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -5440,12 +4285,7 @@
               "module": null
             },
             {
-              "cells": [
-                2,
-                1,
-                1,
-                1
-              ],
+              "cells": [2, 1, 1, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -5460,12 +4300,7 @@
           "label": "volumen escalonado con acceso destacado",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                3,
-                1
-              ],
+              "cells": [0, 1, 3, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -5474,12 +4309,7 @@
               "module": null
             },
             {
-              "cells": [
-                0,
-                1,
-                2,
-                1
-              ],
+              "cells": [0, 1, 2, 1],
               "levels": 1,
               "stackOn": 0,
               "slab": false,
@@ -5523,17 +4353,9 @@
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel",
-              "window_bay"
-            ]
+            "front": ["wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel", "window_bay"]
           }
         },
         {
@@ -5542,18 +4364,9 @@
           "bayMeters": 2,
           "groundRole": "wainscot",
           "tokens": {
-            "front": [
-              "wall_panel",
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["wall_panel", "wall_panel", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
           }
         },
         {
@@ -5562,17 +4375,9 @@
           "bayMeters": 2,
           "groundRole": "wainscot",
           "tokens": {
-            "front": [
-              "wall_panel",
-              "window_bay",
-              "wall_panel"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel"
-            ]
+            "front": ["wall_panel", "window_bay", "wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
           }
         }
       ],
@@ -5710,19 +4515,8 @@
       ],
       "semanticIdentity": {
         "description": "R3/V.g: una comisaría se reconoce por arquitectura institucional robusta, entrada pública marcada (con escalinata o marquesina), lenguaje de seguridad. Debe sentirse INSTITUCIONAL + SEGURIDAD sin parecer cárcel ni fortaleza. Se exige acceso institucional (monumental_stairs, canopied_entrance o recessed_entry) Y elemento cívico robusto (plinth, civic_block, civic_tower). Debe distinguirse de town_hall por escala menor y lenguaje más robusto. Debe distinguirse de clinic por lenguaje de seguridad en vez de sanitario.",
-        "requireAccessIds": [
-          "monumental_stairs",
-          "canopied_entrance",
-          "recessed_entry"
-        ],
-        "requireAnyRoles": [
-          [
-            "plinth",
-            "civic_block",
-            "civic_tower",
-            "canopy"
-          ]
-        ],
+        "requireAccessIds": ["monumental_stairs", "canopied_entrance", "recessed_entry"],
+        "requireAnyRoles": [["plinth", "civic_block", "civic_tower", "canopy"]],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
           "mod_kenney_ind_chimney_medium",
@@ -5767,12 +4561,7 @@
           "label": "nave de aparatos frontal con torre lateral",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                4,
-                1
-              ],
+              "cells": [0, 1, 4, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -5787,12 +4576,7 @@
           "label": "doble bayía de aparatos con cuerpo superior",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                4,
-                1
-              ],
+              "cells": [0, 1, 4, 1],
               "levels": 1,
               "stackOn": null,
               "slab": false,
@@ -5801,12 +4585,7 @@
               "module": null
             },
             {
-              "cells": [
-                0,
-                1,
-                4,
-                1
-              ],
+              "cells": [0, 1, 4, 1],
               "levels": 1,
               "stackOn": 0,
               "slab": false,
@@ -5821,12 +4600,7 @@
           "label": "torre de mangueras adosada a nave de aparatos",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                3,
-                1
-              ],
+              "cells": [0, 1, 3, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -5835,12 +4609,7 @@
               "module": null
             },
             {
-              "cells": [
-                3,
-                1,
-                1,
-                1
-              ],
+              "cells": [3, 1, 1, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -5855,12 +4624,7 @@
           "label": "forma de L con patio de vehículos",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                3,
-                1
-              ],
+              "cells": [0, 1, 3, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -5869,12 +4633,7 @@
               "module": null
             },
             {
-              "cells": [
-                3,
-                1,
-                1,
-                1
-              ],
+              "cells": [3, 1, 1, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -5917,16 +4676,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "doorframe",
-              "doorframe"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel"
-            ]
+            "front": ["doorframe", "doorframe"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
           }
         },
         {
@@ -5935,17 +4687,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "doorframe",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["doorframe", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
           }
         },
         {
@@ -5954,17 +4698,9 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": [
-              "doorframe",
-              "doorframe",
-              "doorframe"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "wall_panel"
-            ]
+            "front": ["doorframe", "doorframe", "doorframe"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel"]
           }
         }
       ],
@@ -6069,10 +4805,7 @@
           "role": "civic_tower",
           "module": "mod_kaykit_civic_block_h",
           "optional": true,
-          "atCell": [
-            4,
-            1
-          ],
+          "atCell": [4, 1],
           "supports": []
         },
         {
@@ -6090,12 +4823,7 @@
         "requireRoleCount": {
           "doorframe": ">= 2"
         },
-        "requireAnyRoles": [
-          [
-            "door",
-            "doorframe"
-          ]
-        ],
+        "requireAnyRoles": [["door", "doorframe"]],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
           "mod_kenney_ind_chimney_medium",
@@ -6139,12 +4867,7 @@
           "label": "gran nave de mercado con cubierta alta",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                5,
-                1
-              ],
+              "cells": [0, 1, 5, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -6159,12 +4882,7 @@
           "label": "nave central con puestos laterales",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                3,
-                1
-              ],
+              "cells": [0, 1, 3, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -6173,12 +4891,7 @@
               "module": null
             },
             {
-              "cells": [
-                3,
-                1,
-                2,
-                1
-              ],
+              "cells": [3, 1, 2, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -6193,12 +4906,7 @@
           "label": "pabellón de mercado con reloj central",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                5,
-                1
-              ],
+              "cells": [0, 1, 5, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -6207,12 +4915,7 @@
               "module": null
             },
             {
-              "cells": [
-                2,
-                1,
-                1,
-                1
-              ],
+              "cells": [2, 1, 1, 1],
               "levels": 1,
               "stackOn": 0,
               "slab": false,
@@ -6227,12 +4930,7 @@
           "label": "mercado en L con plaza exterior",
           "volumes": [
             {
-              "cells": [
-                0,
-                1,
-                3,
-                1
-              ],
+              "cells": [0, 1, 3, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -6241,12 +4939,7 @@
               "module": null
             },
             {
-              "cells": [
-                3,
-                1,
-                2,
-                1
-              ],
+              "cells": [3, 1, 2, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -6303,18 +4996,9 @@
           "bayMeters": 2,
           "groundRole": "window_bay",
           "tokens": {
-            "front": [
-              "window_bay",
-              "curtain_wall"
-            ],
-            "rear": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["window_bay", "curtain_wall"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["window_bay", "wall_panel"]
           }
         },
         {
@@ -6323,17 +5007,9 @@
           "bayMeters": 2,
           "groundRole": "window_bay",
           "tokens": {
-            "front": [
-              "curtain_wall",
-              "curtain_wall"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["curtain_wall", "curtain_wall"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
           }
         },
         {
@@ -6342,18 +5018,9 @@
           "bayMeters": 2,
           "groundRole": "ground_panel",
           "tokens": {
-            "front": [
-              "curtain_wall",
-              "wall_panel",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel",
-              "window_bay"
-            ],
-            "sides": [
-              "wall_panel"
-            ]
+            "front": ["curtain_wall", "wall_panel", "window_bay"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["wall_panel"]
           }
         },
         {
@@ -6362,17 +5029,9 @@
           "bayMeters": 2,
           "groundRole": "window_bay",
           "tokens": {
-            "front": [
-              "curtain_wall",
-              "window_bay"
-            ],
-            "rear": [
-              "wall_panel"
-            ],
-            "sides": [
-              "window_bay",
-              "wall_panel"
-            ]
+            "front": ["curtain_wall", "window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
           }
         }
       ],
@@ -6535,20 +5194,10 @@
       "semanticIdentity": {
         "description": "R3/V.g: un mercado se reconoce por gran nave urbana con transparencia (curtain_wall), múltiples accesos públicos, grandes ventanales, toldos de puestos y actividad exterior. Test de regresión: market hall opaco + una puerta → FAIL. Debe diferenciarse de warehouse por transparencia, accesos públicos, toldos y detalle comercial. Debe distinguirse de town_hall por mayor longitud y actividad comercial visible. Debe distinguirse de mixed_tenement por escala mayor y gran nave de mercado.",
         "requireAnyRoles": [
-          [
-            "curtain_wall",
-            "awning"
-          ],
-          [
-            "civic_block",
-            "plinth",
-            "canopy"
-          ]
+          ["curtain_wall", "awning"],
+          ["civic_block", "plinth", "canopy"]
         ],
-        "prohibitRhythmIds": [
-          "blind_siding",
-          "blind_steel"
-        ],
+        "prohibitRhythmIds": ["blind_siding", "blind_steel"],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
           "mod_kenney_ind_chimney_medium",
@@ -6557,12 +5206,7 @@
           "mod_kenney_ind_tank_large",
           "mod_kenney_ind_water_tower"
         ],
-        "prohibitAccessIds": [
-          "canopied_dock",
-          "monumental_stairs",
-          "apparatus_door",
-          "rollup_door"
-        ]
+        "prohibitAccessIds": ["canopied_dock", "monumental_stairs", "apparatus_door", "rollup_door"]
       }
     }
   }

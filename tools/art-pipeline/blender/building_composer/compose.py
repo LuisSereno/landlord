@@ -1619,7 +1619,7 @@ class Composition:
                             faces[side],
                             z,
                             f"scaffold:{side}:level{level_index + 1}",
-                            projection=0.35,
+                            projection=0.6,
                         )
 
     def _site_barriers(self):

@@ -54,6 +54,7 @@ import {
 import type { SliceLot, VisualSliceLayout } from "../visual-slice/layout";
 import {
   assetFor,
+  applyQaStateOverride,
   buildingSpritePlan,
   depthForAsset,
   depthForFootprintCells,
@@ -231,6 +232,9 @@ declare global {
     };
     /** V.j.6 · métricas de carga/memoria de variantes por distrito (D-102). */
     __districtAssetStats?: () => DistrictAssetMetrics;
+    /** V.j.8 · sólo evidencia QA: estado visual forzado para captura 9×3×4 (no gameplay). */
+    __landlordQaState?: "complete" | "construction" | "damaged" | "burning";
+    __landlordQaRefresh?: () => void;
     /**
      * V.d-7C · sonda observacional del modo de colocación (sólo con `?cameraTest=1`). Lee qué se
      * está mostrando; no selecciona candidatas, no muta el estado y no sustituye ningún click.
@@ -415,6 +419,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       groundBakeMaxMs: this.groundBakeMaxMs,
     });
     window.__districtAssetStats = () => this.variantCache.metrics();
+    window.__landlordQaRefresh = () => this.syncBuildingSprites();
     this.cursors = this.input.keyboard?.createCursorKeys();
     this.input.on("pointerdown", this.handlePointerDown, this);
     this.input.on("pointermove", this.handlePointerMove, this);
@@ -1893,7 +1898,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
   /** Mantiene un sprite por edificio y sitio de obra, con pivote y depth derivados del manifiesto. */
   private syncBuildingSprites(): void {
     if (!this.assetsReady || !this.projection?.economy) return;
-    const economy = this.projection.economy;
+    const qa = window.__landlordQaState;
+    const economy = qa
+      ? applyQaStateOverride(this.projection.economy, qa)
+      : this.projection.economy;
     const view = this.cameras.main.worldView;
     /**
      * H2-01: el plan de sprites es puro y se construye recorriendo `economy.buildings` y

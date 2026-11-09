@@ -28,6 +28,43 @@ export function buildingAssetStateFor(
   return condition < 60 ? "damaged" : "complete";
 }
 
+/**
+ * V.j.8 · override SÓLO de presentación para la evidencia QA 9×3×4 (?qaStates / hook de captura).
+ * No toca GameState ni la proyección del worker: devuelve una copia del economy con el estado
+ * visual pedido para poder fotografiar cada distrito en complete/construction/damaged/burning.
+ * Nunca se usa en gameplay (el hook sólo lo activa el arnés de captura).
+ */
+export type QaVisualState = "complete" | "construction" | "damaged" | "burning";
+export function applyQaStateOverride<
+  E extends {
+    buildings: Array<Record<string, unknown>>;
+    constructionSites: Array<Record<string, unknown>>;
+  },
+>(economy: E, qa: QaVisualState): E {
+  if (qa === "complete") return economy;
+  if (qa === "construction") {
+    return {
+      ...economy,
+      buildings: [],
+      constructionSites: economy.buildings.map((b, i) => ({
+        id: `qa_site_${i}`,
+        buildingType: b.type,
+        orientation: b.orientation,
+        footprintCells: b.footprintCells,
+        progress: 0.5,
+        workRequired: 1,
+      })),
+    } as E;
+  }
+  return {
+    ...economy,
+    constructionSites: [],
+    buildings: economy.buildings.map((b) =>
+      qa === "burning" ? { ...b, state: "burning" } : { ...b, state: "operational", condition: 40 },
+    ),
+  } as E;
+}
+
 export function spriteKeyFor(type: string, state: BuildingAssetState): string {
   return `building-${type}-${state}`;
 }

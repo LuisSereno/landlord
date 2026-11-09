@@ -283,6 +283,13 @@ export function App() {
     window.__landlordUiTest = {
       publicParcelCell: () =>
         economy?.parcels.find((parcel) => parcel.disposition === "public")?.cell ?? null,
+      firstBuildingCell: () => {
+        const building = economy?.buildings[0];
+        if (!building) return null;
+        return (
+          economy?.parcels.find((parcel) => parcel.id === building.parcelIds[0]!)?.cell ?? null
+        );
+      },
       marketableParcelCell: () =>
         economy?.parcels.find(
           (parcel) => parcel.disposition === "marketable" && !parcel.ownerOrganizationId,
@@ -924,6 +931,7 @@ declare global {
   interface Window {
     __landlordUiTest?: {
       publicParcelCell: () => GridCell | null;
+      firstBuildingCell: () => GridCell | null;
       marketableParcelCell: () => GridCell | null;
       ownedBuildingParcelCell: () => GridCell | null;
       ownedBuildingId: () => string | null;

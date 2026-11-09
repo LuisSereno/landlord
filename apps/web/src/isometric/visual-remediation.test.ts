@@ -11,7 +11,6 @@ import {
   CHARACTER_RENDER_SCALE,
   CHARACTER_SOURCE_FRAME_PIXELS,
   CHARACTER_TARGET_HEIGHT_PIXELS,
-  vehicleScreenRotation,
 } from "./visual-scale";
 
 const TYPES: readonly BuildingType[] = [
@@ -108,15 +107,11 @@ describe("V.h visual remediation", () => {
     }
   });
 
-  it("maps both road axes and directions", () => {
-    expect(vehicleAzimuthForRoad("straight_ew", false)).toBe(45);
-    expect(vehicleAzimuthForRoad("straight_ew", true)).toBe(225);
-    expect(vehicleAzimuthForRoad("straight_ns", false)).toBe(135);
-    expect(vehicleAzimuthForRoad("straight_ns", true)).toBe(315);
-    expect(vehicleScreenRotation(45)).toBe(0);
-    expect(vehicleScreenRotation(225)).toBe(0);
-    expect(Math.abs(vehicleScreenRotation(135))).toBeCloseTo(Math.PI / 2);
-    expect(Math.abs(vehicleScreenRotation(315))).toBeCloseTo(Math.PI / 2);
+  it("maps both road axes and directions onto the baked facings", () => {
+    expect(vehicleAzimuthForRoad("straight_ew", false)).toBe(135);
+    expect(vehicleAzimuthForRoad("straight_ew", true)).toBe(315);
+    expect(vehicleAzimuthForRoad("straight_ns", false)).toBe(225);
+    expect(vehicleAzimuthForRoad("straight_ns", true)).toBe(45);
   });
 
   it("keeps a 256px Rocketbox frame in a 22-32px urban-height envelope", () => {

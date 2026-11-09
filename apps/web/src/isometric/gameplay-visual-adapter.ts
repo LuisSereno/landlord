@@ -616,13 +616,17 @@ export function planGameplayStreetFurniture(
   return furniture;
 }
 
-/** Eje visual de vehículo paralelo a la carretera, en ambos sentidos. */
+/**
+ * Eje visual de vehículo paralelo a la carretera, en ambos sentidos. Los azimuts son las vistas
+ * físicas horneadas de V.j.4: la base mira al SO (vía N-S), 135 al SE (vía E-O), 225 al NE y 315
+ * al NO. La orientación correcta vive aquí; no se rota la sprite en pantalla.
+ */
 export function vehicleAzimuthForRoad(
   orientation: RoadOrientation,
   reverse: boolean,
 ): 45 | 135 | 225 | 315 {
-  if (orientation === "straight_ns") return reverse ? 315 : 135;
-  if (orientation === "straight_ew") return reverse ? 225 : 45;
+  if (orientation === "straight_ew") return reverse ? 315 : 135;
+  if (orientation === "straight_ns") return reverse ? 45 : 225;
   throw new Error(`vehicleAzimuthForRoad requiere una vía recta, recibió: ${orientation}`);
 }
 

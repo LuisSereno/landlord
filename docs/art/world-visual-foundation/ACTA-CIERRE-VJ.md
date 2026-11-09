@@ -1,9 +1,9 @@
 # Acta de cierre — WP4.15-V.j (visualización completa del mundo)
 
-- **Fecha:** 2026-11-09. **Rama:** `wip/vh-world-visual-foundation`. **Push:** RETENIDO hasta autorización del responsable.
+- **Fecha:** 2026-11-09. **Rama:** `wip/vh-world-visual-foundation`. **Push:** AUTORIZADO Y EJECUTADO por el responsable (`4d6abb5..28635c0`, 2026-11-09). Cierre V.j publicado.
 - **Veredicto humano:** batch 15×6×4 + vehículos 9×4 aprobado ("Todo correcto"); detalle burning revisado y aprobado; evidencia 9×3×4 aprobada ("Aprueba la evidencia y pasa a los docs + gates de cierre").
 
-## Commits (sin push)
+## Commits (publicados 2026-11-09)
 | Commit | Contenido |
 |---|---|
 | `5803c29` | V.j.1 baseline congelado (15 complete sha/dims + pixel-qa 9×3) + guard |

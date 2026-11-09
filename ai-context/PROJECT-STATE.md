@@ -173,8 +173,8 @@ revisión visual del responsable (§35).
 
 ## WP4.15-V.j — Cierre de visualización completa del mundo (2026-11-09)
 
-Rama `wip/vh-world-visual-foundation`. V.j.1–V.j.8 ejecutados y commiteados **sin push** (push retenido
-hasta autorización del responsable): `5803c29` baseline congelado; `3bedb9c` orientación física;
+Rama `wip/vh-world-visual-foundation`. V.j.1–V.j.8 ejecutados, commiteados y **publicados** (push
+autorizado por el responsable y ejecutado `4d6abb5..28635c0`, 2026-11-09): `5803c29` baseline congelado; `3bedb9c` orientación física;
 `2a91d39`/`5178b68`/`94268c1` estados+visibilidad; `e0044cd` batch 15×6×4 + vehículos 9×4 + fix de
 anclaje de daño; `31ff12f` resolución de variante + adapter; `e0d6ea5` carga por distrito + caché LRU;
 `8e076df` materiales CC0 (librería 10/10); `03e7085`/`44206d3` evidencia 9×3×4 QA + ancla.

@@ -17,7 +17,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 INDEX = REPO_ROOT / "blender_artist" / "manifests" / "world-asset-index.json"
 OUT = REPO_ROOT / "blender_artist" / "manifests" / "world-catalogs" / "material-assets.json"
 
-# assetId → categoría semántica (los 6 Poly Haven adquiridos).
+# assetId → categoría semántica (Poly Haven adquiridos; V.j.7 cierra los gaps a 2k).
 POLYHAVEN_CATEGORY = {
     "wa_polyhaven_materials_asphalt_07_4k": "asphalt",
     "wa_polyhaven_materials_concrete_wall_003_4k": "concrete",
@@ -25,6 +25,11 @@ POLYHAVEN_CATEGORY = {
     "wa_polyhaven_materials_red_bricks_02_4k": "brick",
     "wa_polyhaven_materials_rusty_metal_02_4k": "rusty_metal",
     "wa_polyhaven_materials_wood_planks_grey_4k": "wood",
+    "wa_polyhaven_materials_cobblestone_pavement_2k": "pavement",
+    "wa_polyhaven_materials_stone_wall_02_2k": "stone",
+    "wa_polyhaven_materials_corrugated_iron_03_2k": "metal",
+    "wa_polyhaven_materials_brown_mud_03_2k": "soil",
+    "wa_polyhaven_materials_grass_ground_2k": "grass",
 }
 
 # Lenguajes visuales que pueden seleccionar cada categoría.

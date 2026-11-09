@@ -16,7 +16,7 @@ hay trazabilidad válida, así que permanecen en cuarentena como *autorizados pe
 | src_kenney_city_suburban | 216 | 171 | 171 | 6 | 45 |  |
 | src_kenney_nature_kit | 3618 | 2627 | 2627 | 19 | 991 |  |
 | src_microsoft_rocketbox | 156 | 62 | 62 | 5 | 94 |  |
-| src_polyhaven_materials | 30 | 23 | 23 | 0 | 7 |  |
+| src_polyhaven_materials | 55 | 39 | 39 | 0 | 16 |  |
 | src_quaternius_animation_library | 9 | 7 | 7 | 0 | 2 |  |
 | src_quaternius_animation_library_2 | 13 | 10 | 10 | 0 | 3 |  |
 | src_quaternius_base_characters | 112 | 92 | 92 | 0 | 20 |  |
@@ -35,4 +35,4 @@ hay trazabilidad válida, así que permanecen en cuarentena como *autorizados pe
 - `kenney_ui-audio.zip` — autorizado CC0 por el responsable pero el archivo no está en staging; sin path/hash no hay registro válido (provenance fail-closed). Permanece en cuarentena hasta adquirirse.
 - `kenney_ui-pack.zip` — autorizado CC0 por el responsable pero el archivo no está en staging; sin path/hash no hay registro válido (provenance fail-closed). Permanece en cuarentena hasta adquirirse.
 
-**Totales:** 4554 assets indexados · 198 runtime-ready · 10 quarantined sin adquirir.
+**Totales:** 4570 assets indexados · 198 runtime-ready · 10 quarantined sin adquirir.

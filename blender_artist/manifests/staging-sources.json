@@ -267,6 +267,61 @@
       }
     },
     {
+      "id": "src_polyhaven_cobblestone_pavement",
+      "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/cobblestone_pavement/cobblestone_pavement_2k.blend",
+      "sha256": "95ef2d8af89844a0c62c25d1159d208e75289467ee4414627f1cbeec6cfafa1f",
+      "origin": "public_domain",
+      "license": "CC0-1.0",
+      "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
+      "sourceUrl": "https://polyhaven.com/a/cobblestone_pavement",
+      "unitScale": 1,
+      "extractDir": "polyhaven/cobblestone_pavement"
+    },
+    {
+      "id": "src_polyhaven_stone_wall_02",
+      "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/stone_wall_02/stone_wall_02_2k.blend",
+      "sha256": "010453981b1beab2b53ccc6e89c553a5db00da91baa91f10e95865897b81b486",
+      "origin": "public_domain",
+      "license": "CC0-1.0",
+      "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
+      "sourceUrl": "https://polyhaven.com/a/stone_wall_02",
+      "unitScale": 1,
+      "extractDir": "polyhaven/stone_wall_02"
+    },
+    {
+      "id": "src_polyhaven_corrugated_iron_03",
+      "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03/corrugated_iron_03_2k.blend",
+      "sha256": "cc3eb289e2f65f6f14657cfe2a03ed4b67b5f2e52ed46c43469015fa46bf9790",
+      "origin": "public_domain",
+      "license": "CC0-1.0",
+      "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
+      "sourceUrl": "https://polyhaven.com/a/corrugated_iron_03",
+      "unitScale": 1,
+      "extractDir": "polyhaven/corrugated_iron_03"
+    },
+    {
+      "id": "src_polyhaven_brown_mud_03",
+      "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/brown_mud_03/brown_mud_03_2k.blend",
+      "sha256": "56c01405a339db261390e4f32aed0c9844cf4b218d9a99a489e360d127d0f37a",
+      "origin": "public_domain",
+      "license": "CC0-1.0",
+      "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
+      "sourceUrl": "https://polyhaven.com/a/brown_mud_03",
+      "unitScale": 1,
+      "extractDir": "polyhaven/brown_mud_03"
+    },
+    {
+      "id": "src_polyhaven_grass_ground",
+      "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/grass_ground/grass_ground_2k.blend",
+      "sha256": "d1a6c062b7b4d55dfbd857ed67c6e97a0225eefd89bd338b9c0fbe125ac841b4",
+      "origin": "public_domain",
+      "license": "CC0-1.0",
+      "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
+      "sourceUrl": "https://polyhaven.com/a/grass_ground",
+      "unitScale": 1,
+      "extractDir": "polyhaven/grass_ground"
+    },
+    {
       "id": "src_microsoft_rocketbox",
       "path": "blender_artist/staging/third_party/mit/rocketbox",
       "origin": "licensed",

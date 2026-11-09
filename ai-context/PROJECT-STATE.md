@@ -220,11 +220,13 @@ ratificación del responsable).
 - **Evidencia medida** (`artifacts/visual-slice/vk3-projection.json`, distrito `district_00000004`,
   tick 24, `ticksPerCell` 10): 8 agentes, 2 obras × cuadrilla de 3 → 6 sprites; 5 walk / 1 idle; rumbos
   d2×4 y d1×1; salud 100 en todos (la excepción herido/muerto no es observable aún en este corpus).
-- **Gates de la sesión**: `pnpm typecheck` limpio, `check:architecture` OK, ESLint 0 y Prettier limpios
-  en los ficheros tocados, `crew-presence` 19/19, `ux-contracts` 8/8 (incluye el SSR de la ficha de
-  obra), suite web 266 passed | 4 skipped. Baseline V.j (108 capturas pixel-qa) y
-  `runtime-assets-blender.json` **sin tocar**; los smokes `vd-ux`/`vd-core-loop` no se corrieron porque
-  sobrescriben goldens versionados.
+- **Gates de la sesión**: `pnpm typecheck` limpio; `pnpm lint` en verde (0 errores, 2 avisos
+  `no-console` en tests, y `check:architecture` OK) tras cerrar en `1a1de7e` los 8 errores que el repo
+  arrastraba desde V.j.7/V.j.8 en dos scripts de evidencia; Prettier limpio en los ficheros tocados;
+  `crew-presence` 19/19; `ux-contracts` 8/8 (incluye el SSR de la ficha de obra); suite web
+  266 passed | 4 skipped. Baseline V.j (108 capturas pixel-qa) y `runtime-assets-blender.json`
+  **sin tocar**; los smokes `vd-ux`/`vd-core-loop` no se corrieron porque sobrescriben goldens
+  versionados.
 - **No cierra la simulación**: el workspace completo (config raíz) queda en **894 passed | 23 skipped |
   4 failed**, los cuatro en `packages/simulation`
   (`tick-conservation.test.ts:345` digesto de carreras largas, `vd7a-multiparcel.test.ts:377` huella

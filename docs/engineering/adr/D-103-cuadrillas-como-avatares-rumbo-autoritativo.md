@@ -102,9 +102,11 @@ contrato de proyección para saber **hacia dónde** va cada agente.
   3 miembros cada una → **6 sprites de cuadrilla**; 5 con `nextCell` (walk) y 1 sin paso (idle);
   rumbos medidos d2×4 y d1×1; salud 100 en todos — por eso **la excepción de marcador por
   `injured`/`dead` no es observable todavía** en este corpus y queda cubierta sólo por test.
-- **Gates:** `pnpm typecheck` limpio y `pnpm check:architecture` OK; ESLint 0 y Prettier limpios en
-  los ficheros tocados (el repo arrastra 8 errores preexistentes en `scripts/vj-state-capture.mjs` y
-  `scripts/provision-polyhaven-materials.mjs`, ajenos a V.k). Suite web 266 passed | 4 skipped;
+- **Gates:** `pnpm typecheck` limpio, `pnpm lint` en verde (0 errores; 2 avisos `no-console` en tests de
+  balance y del gate de tejido urbano, y `check:architecture` OK) y Prettier limpio en los ficheros
+  tocados. Los 8 errores que arrastraba el repo desde V.j.7/V.j.8 en `scripts/vj-state-capture.mjs` y
+  `scripts/provision-polyhaven-materials.mjs` se cerraron en `1a1de7e` (pragmas de globales y catches
+  documentados, sin relajar `no-empty` ni tocar la config). Suite web 266 passed | 4 skipped;
   `crew-presence` 19/19; `ux-contracts` 8/8. Las capturas pixel-qa de V.j (108 imágenes) y el baseline
   de `blender-assets` no se regeneraron ni se tocaron.
 - **Lo que V.k no cierra:** el workspace completo (config raíz, 120 ficheros) cierra esta sesión con

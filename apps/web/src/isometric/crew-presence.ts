@@ -85,14 +85,13 @@ export function crewRosterCounts(input: {
     (entry) => entry.site.id === input.siteId && entry.crew.id === input.crewId,
   );
   if (!row) return [];
-  const working = siteWorkingCells(row.site.footprintCells);
   const counts = new Map<CrewVisualState, number>();
   for (const agentId of row.agentIds) {
     const agent = input.agents.find((entry) => entry.id === agentId);
     const state = crewVisualState({
       assignedToSite: true,
       agentState: agent?.state,
-      atSite: agent ? working.has(cellKey(agent.cell)) : false,
+      atSite: agent ? agentWorksAtSiteFootprint(agent.cell, row.site.footprintCells) : false,
     });
     counts.set(state, (counts.get(state) ?? 0) + 1);
   }

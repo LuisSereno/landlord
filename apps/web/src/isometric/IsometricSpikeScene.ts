@@ -2518,7 +2518,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
       };
     };
     window.__landlordPlacementTest = placementApi;
-    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+    /** Igual que el registro de texturas: `game.destroy()` avisa con DESTROY, no con SHUTDOWN. */
+    this.events.once(Phaser.Scenes.Events.DESTROY, () => {
       if (window.__landlordCameraTest === api) delete window.__landlordCameraTest;
       if (window.__landlordPlacementTest === placementApi) delete window.__landlordPlacementTest;
     });

@@ -171,6 +171,31 @@ revisión visual del responsable (§35).
   vehicle classes industrial/service sin miembro horneado curado (Rocketbox no codifica profesión por
   nombre); materiales stone/metal/soil/grass procedurales (sin fuente Poly Haven adquirida).
 
+## WP4.15-V.j — Cierre de visualización completa del mundo (2026-11-09)
+
+Rama `wip/vh-world-visual-foundation`. V.j.1–V.j.8 ejecutados y commiteados **sin push** (push retenido
+hasta autorización del responsable): `5803c29` baseline congelado; `3bedb9c` orientación física;
+`2a91d39`/`5178b68`/`94268c1` estados+visibilidad; `e0044cd` batch 15×6×4 + vehículos 9×4 + fix de
+anclaje de daño; `31ff12f` resolución de variante + adapter; `e0d6ea5` carga por distrito + caché LRU;
+`8e076df` materiales CC0 (librería 10/10); `03e7085`/`44206d3` evidencia 9×3×4 QA + ancla.
+
+- **Estados reales** (complete/construction×3/damaged/burning) y **orientación física 0/90/180/270**
+  como renders Blender reales (no sprite rotado). 360 variantes + 36 vehículos. Daño/fuego/humo
+  anclados a la sección abierta real; andamio de finishing ceñido a fachada plana. Baseline `complete`
+  de los 15 bit-a-bit intacto (guard `blender-assets.test.ts`).
+- **Runtime**: clave de variante (tipo×estado×etapa×orientación); adapter consume orientación/estado;
+  fuera fallbacks procedurales de construction/damaged/burning para los 15. Carga bajo demanda por
+  distrito con caché LRU (96 MiB) + métricas `__districtAssetStats` (**D-102**: presupuesto = bytes en
+  arranque/por distrito, no total servido; PNG de variante gitignored, manifiesto versionado).
+- **Ambientación**: materiales CC0 Poly Haven para los 5 gaps (pavement/stone/metal/soil/grass) →
+  librería semántica 10/10 con fuente real; actores profesionales Rocketbox distinguibles y vehículos
+  de servicio (ya de V.h, verificados).
+- **Evidencia 9×3×4** (108 capturas + 12 contact sheets, 0 errores de página) con captura QA por estado
+  (override sólo de presentación, no gameplay). **Aprobada por el responsable** (2026-11-09), incluido
+  el detalle del burning. Gates de cierre: typecheck, tests shared+web, composer 22/22, validadores,
+  binarios y licencias (ver acta). `validate-art-staging` mantiene fallos preexistentes sólo en
+  `src_original_*` (V.j.2), no regresión.
+
 ## Próximo objetivo
 
 Fase 0 de V.d ejecutada el 2026-10-28

@@ -47,6 +47,13 @@ for (const { id, category } of MATERIALS) {
     texCount++;
   }
   console.log(
-    JSON.stringify({ id, category, blend: `${id}_2k.blend`, sha256: sha256(blendDest), textures: texCount, sourceUrl: `https://polyhaven.com/a/${id}` }),
+    JSON.stringify({
+      id,
+      category,
+      blend: `${id}_2k.blend`,
+      sha256: sha256(blendDest),
+      textures: texCount,
+      sourceUrl: `https://polyhaven.com/a/${id}`,
+    }),
   );
 }

@@ -1495,3 +1495,16 @@ commit `37592d4`) que desplazó los sorteos PRNG sin aprobación humana; (5) `de
 pierde la paridad duplicada (la aplica `trim_and_scale` según su supersample efectivo) — el fallback
 erróneo colapsó el recorte del clinic a 1 px cuando la caja saturada tenía lado impar (fallo §18 a
 renderScale 2). Ver `docs/engineering/adr/D-101-quality-pass-vi-renderscale-2.md`.
+
+## D-102 — Carga bajo demanda por distrito: presupuesto = bytes en arranque / por distrito, no total servido
+
+Estado: aceptada en el spec WP4.15-V.j (2026-11-07), implementada en V.j.5/V.j.6 (2026-11-09);
+evidencia 9×3×4 aprobada por el responsable (2026-11-09). Decisiones: (1) las 360 variantes reales
+(tipo×estado×etapa×orientación, ~350 MB) se publican como manifiesto JSON versionado
+(`runtime-building-variants.json`) + PNG en dir servido **gitignored** (`public/assets/runtime/variants/`,
+`scripts/promote-building-variants.mjs`); el repo no versiona los binarios; (2) el arranque **no carga**
+imágenes de variantes (sólo el manifiesto); entran bajo demanda por distrito; (3) caché LRU acotada
+(`DistrictTextureCache`, 96 MiB) protege distrito observado + texturas en uso y expulsa el resto, con
+métricas `window.__districtAssetStats`; (4) el presupuesto de arranque sigue D-101 (≤23 MiB, medido
+22,6 MB); el de variantes es memoria de sesión, no tamaño de repo. Ver
+`docs/engineering/adr/D-102-carga-por-distrito-presupuesto.md`.

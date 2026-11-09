@@ -12,3 +12,7 @@ blender_artist/manifests/asset-metrics.json
 blender_artist/manifests/building-module-inventory.json
 blender_artist/manifests/building-modules.json
 blender_artist/manifests/building-style-profiles.json
+blender_artist/manifests/runtime-blender-e2e-metadata.json
+blender_artist/manifests/world-asset-index.json
+blender_artist/manifests/world-catalogs/material-assets.json
+apps/web/src/generated/runtime-assets-blender.json

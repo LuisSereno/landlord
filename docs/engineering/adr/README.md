@@ -113,4 +113,5 @@ Amplía D-095 (vocabulario visual) y D-097 §«Crew choreography» sin sustituir
 se pinta con el avatar Rocketbox que deriva `crew-presence.ts`, el rumbo lo manda el paso autoritativo
 (`nextCell`), y el marcador del blitter queda sólo para el roster sin sprite y para herido/muerto.
 Escena y panel comparten una única puerta de lectura; la divergencia plantilla-asignada vs
-distrito-observado es deliberada. Commits locales `f0e590e..82582ba`, sin push.
+distrito-observado es deliberada. V.k.1–V.k.4 commiteados en local sobre `wip/vh-world-visual-foundation`
+(ya sobre el push de V.j `4d6abb5..9bd4e94`), **sin empujar**.

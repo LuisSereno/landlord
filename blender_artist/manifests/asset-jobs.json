@@ -338,7 +338,7 @@
         "width": 256,
         "height": 256
       },
-      "orientations": [45, 225]
+      "orientations": [45, 135, 225, 315]
     },
     {
       "id": "prp_tree_detailed",
@@ -600,7 +600,7 @@
         "width": 256,
         "height": 256
       },
-      "orientations": [45, 225]
+      "orientations": [45, 135, 225, 315]
     },
     {
       "id": "veh_truck",
@@ -624,7 +624,7 @@
         "width": 256,
         "height": 256
       },
-      "orientations": [45, 225]
+      "orientations": [45, 135, 225, 315]
     },
     {
       "id": "veh_firetruck",
@@ -648,7 +648,7 @@
         "width": 256,
         "height": 256
       },
-      "orientations": [45, 225]
+      "orientations": [45, 135, 225, 315]
     },
     {
       "id": "veh_ambulance",
@@ -672,7 +672,7 @@
         "width": 256,
         "height": 256
       },
-      "orientations": [45, 225]
+      "orientations": [45, 135, 225, 315]
     },
     {
       "id": "veh_police",
@@ -696,7 +696,7 @@
         "width": 256,
         "height": 256
       },
-      "orientations": [45, 225]
+      "orientations": [45, 135, 225, 315]
     },
     {
       "id": "veh_garbage",
@@ -720,7 +720,7 @@
         "width": 256,
         "height": 256
       },
-      "orientations": [45, 225]
+      "orientations": [45, 135, 225, 315]
     },
     {
       "id": "veh_delivery",
@@ -744,7 +744,7 @@
         "width": 256,
         "height": 256
       },
-      "orientations": [45, 225]
+      "orientations": [45, 135, 225, 315]
     },
     {
       "id": "veh_tractor",
@@ -768,7 +768,7 @@
         "width": 256,
         "height": 256
       },
-      "orientations": [45, 225]
+      "orientations": [45, 135, 225, 315]
     },
     {
       "id": "prp_tree_oak",

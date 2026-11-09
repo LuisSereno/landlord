@@ -1558,8 +1558,8 @@ class Composition:
 
     def _compose_construction(self, stage):
         if stage == "finishing":
-            # Edificio casi terminado: masa completa aprobada + andamio en el frente.
-            self._wrap_scaffold(("front",))
+            # Edificio casi terminado: masa completa aprobada + andamio ceñido a fachada plana real.
+            self._wrap_scaffold(("front",), volumes=self._finishing_scaffold_volumes())
             return
         complete_placements = self.placements
         complete_supports = self.supports
@@ -1604,9 +1604,20 @@ class Composition:
         count = max(1, int(round(span / self.bay)))
         return [rect[1] + span * (i + 0.5) / count for i in range(count)]
 
-    def _wrap_scaffold(self, sides):
+    def _finishing_scaffold_volumes(self):
+        rects = self._volume_rects()
+        if len(rects) <= 1:
+            return rects
+        # Multi-volumen: ceñir el andamio a fachadas planas reales ("bands", con puerta). Los kitbash
+        # "whole" tienen frente curvo/retranqueado y un muro continuo sobre ellos se lee despegado.
+        bands = [r for v, r in zip(self.volumes, rects) if v.get("build") == "bands"]
+        if bands:
+            return bands
+        return [max(rects, key=lambda r: r[1] + r[2] * self.level)]
+
+    def _wrap_scaffold(self, sides, volumes=None):
         scaffold = self.catalog.pick(self.family, "scaffold")
-        for rect, base, levels in self._volume_rects():
+        for rect, base, levels in self._volume_rects() if volumes is None else volumes:
             faces = {"front": rect[1], "rear": rect[3], "left": rect[0], "right": rect[2]}
             for side in sides:
                 for level_index in range(levels):
@@ -1636,10 +1647,12 @@ class Composition:
         # Daño geométrico real: secciona la cubierta (hueco que deja ver el interior) y abre paneles
         # altos del frente; el resto de la masa (que apoya en suelo) permanece.
         kept = []
+        removed_bounds = []
         for record in self.placements:
             purpose = record["purpose"]
             if purpose.startswith("roof") or purpose in ("dormer", "cornice"):
                 if record["position"][0] >= 0.0:
+                    removed_bounds.append(record["bounds"])
                     continue
             if purpose.startswith("band:front:") and ":level" in purpose:
                 level_tag = purpose.split(":level")[1].split(":")[0]
@@ -1648,19 +1661,31 @@ class Composition:
             kept.append(record)
         self.placements = kept
         self.supports = []
+        # Zona de daño real = unión de las cubiertas retiradas. Escombros/fuego/humo se anclan aquí,
+        # no al solar completo (en multi-volumen el solar tiene huecos y masas intactas).
+        if removed_bounds:
+            self._damage_rect = [
+                min(b["x"]["min"] for b in removed_bounds),
+                min(b["y"]["min"] for b in removed_bounds),
+                max(b["x"]["max"] for b in removed_bounds),
+                max(b["y"]["max"] for b in removed_bounds),
+            ]
+        else:
+            self._damage_rect = None
         self._scatter_debris()
 
     def _scatter_debris(self):
         debris = self.catalog.pick(self.family, "debris")
-        rect = self.rect
-        # V.j: escombros derramados FRENTE a la sección dañada (lado derecho, sin cubierta), fuera del
+        rect = getattr(self, "_damage_rect", None) or self.rect
+        # V.j: escombros derramados FRENTE a la sección dañada real (no al solar completo), fuera del
         # muro para que se vean (el equipo de daño no cuenta para §17). Montículos a pie de fachada.
         front = rect[1] - 0.55
+        span = rect[2] - rect[0]
         spots = [
-            (rect[2] - 1.0, front, 0),
-            (rect[2] - 2.2, front - 0.15, 90),
-            (rect[2] - 3.2, front + 0.05, 180),
-            ((rect[0] + rect[2]) / 2 + 0.5, front - 0.1, 270),
+            (rect[2] - min(1.0, span * 0.2), front, 0),
+            (rect[2] - min(2.2, span * 0.45), front - 0.15, 90),
+            (rect[0] + span * 0.35, front + 0.05, 180),
+            (rect[0] + span * 0.6, front - 0.1, 270),
         ]
         for x, y, angle in spots:
             self.add(debris, angle, (x, y, 0.0), "damage:debris")
@@ -1668,12 +1693,12 @@ class Composition:
     def _compose_fire(self):
         flame = self.catalog.pick(self.family, "flame")
         smoke = self.catalog.pick(self.family, "smoke")
-        rect = self.rect
+        rect = getattr(self, "_damage_rect", None) or self.rect
         cy = (rect[1] + rect[3]) / 2
-        # V.j: el fuego arde en la sección dañada (lado derecho sin cubierta), a la altura del forjado
-        # bajo, NO en la cumbrera del lado intacto. Llamas repartidas en el hueco + humo en columna.
-        x0 = (rect[0] + rect[2]) / 2
-        x1 = rect[2] - 0.6
+        # V.j: el fuego arde DENTRO de la sección dañada real (cubierta retirada), a la altura del
+        # forjado bajo, NO en la cumbrera de un volumen intacto. Llamas en el hueco + humo en columna.
+        x0 = rect[0] + (rect[2] - rect[0]) * 0.15
+        x1 = rect[2] - 0.4
         base_z = self.level * 0.55
         n = 5
         for i in range(n):

@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "generator": {
     "id": "blender-runtime-asset-e2e",
-    "version": 2,
+    "version": 1,
     "method": "blender_render",
     "source": "tools/art-pipeline/blender/runtime_asset.py"
   },
@@ -42,13 +42,19 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "V.i remediation: rechazo humano de vg_courtyard_home_1002 (pixelado). Casa con patio a renderScale 2 (decisión explícita, D-100). Sustituye al override manual; promoción canónica. Candidato aprobado: vg_courtyard_home_2003. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "bld_shopfront": {
       "type": "bld_shopfront",
       "name": "bld_shopfront",
       "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "domainFootprint": {
         "width": 1,
         "height": 1
       },
@@ -82,23 +88,25 @@
           "sha256": "a9183c33db5f76bef4f3926c0aee299ac451cae6f1781845d6144abd1d9d6a54"
         }
       },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none",
       "pixelsPerMeter": 30.11764705882353,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_commercial",
         "sourceId": "src_kenney_city_commercial"
-      },
-      "domainFootprint": {
-        "width": 1,
-        "height": 1
-      },
-      "allowedOrientations": [45],
-      "symmetry": "none"
+      }
     },
     "bld_commercial_b": {
       "type": "bld_commercial_b",
       "name": "bld_commercial_b",
       "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "domainFootprint": {
         "width": 1,
         "height": 1
       },
@@ -132,23 +140,25 @@
           "sha256": "423c0b265461ed51876ae7cc22da7a054074e3667bc91228da0b2919beae5751"
         }
       },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none",
       "pixelsPerMeter": 30.11764705882353,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_commercial",
         "sourceId": "src_kenney_city_commercial"
-      },
-      "domainFootprint": {
-        "width": 1,
-        "height": 1
-      },
-      "allowedOrientations": [45],
-      "symmetry": "none"
+      }
     },
     "bld_residential_a": {
       "type": "bld_residential_a",
       "name": "bld_residential_a",
       "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "domainFootprint": {
         "width": 1,
         "height": 1
       },
@@ -182,23 +192,25 @@
           "sha256": "84a20e0d813509b8a7682fd67ebad9f1ab356b7f5407f6d508c4ea2f83a0e07d"
         }
       },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none",
       "pixelsPerMeter": 30.11764705882353,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_suburban",
         "sourceId": "src_kenney_city_suburban"
-      },
-      "domainFootprint": {
-        "width": 1,
-        "height": 1
-      },
-      "allowedOrientations": [45],
-      "symmetry": "none"
+      }
     },
     "bld_commercial_c": {
       "type": "bld_commercial_c",
       "name": "bld_commercial_c",
       "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "domainFootprint": {
         "width": 1,
         "height": 1
       },
@@ -232,23 +244,25 @@
           "sha256": "3a66b1274af9e26921019230d4a68ec658fe33c11201f57450d3b11592d9f46a"
         }
       },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none",
       "pixelsPerMeter": 30.11764705882353,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_commercial",
         "sourceId": "src_kenney_city_commercial"
-      },
-      "domainFootprint": {
-        "width": 1,
-        "height": 1
-      },
-      "allowedOrientations": [45],
-      "symmetry": "none"
+      }
     },
     "bld_residential_b": {
       "type": "bld_residential_b",
       "name": "bld_residential_b",
       "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "domainFootprint": {
         "width": 1,
         "height": 1
       },
@@ -282,23 +296,25 @@
           "sha256": "dffd334321dc8cdbf2d04f62aaeffa37ee8948a72dc9ba66ef94b676c6ec82a2"
         }
       },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none",
       "pixelsPerMeter": 30.11764705882353,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_suburban",
         "sourceId": "src_kenney_city_suburban"
-      },
-      "domainFootprint": {
-        "width": 1,
-        "height": 1
-      },
-      "allowedOrientations": [45],
-      "symmetry": "none"
+      }
     },
     "bld_residential_c": {
       "type": "bld_residential_c",
       "name": "bld_residential_c",
       "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "domainFootprint": {
         "width": 1,
         "height": 1
       },
@@ -332,18 +348,16 @@
           "sha256": "597a21baf3b09a18e477d22751088c2172f5ef926b10fdfc466164b59c3fe66f"
         }
       },
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none",
       "pixelsPerMeter": 30.11764705882353,
       "provenance": {
         "license": "CC0-1.0",
         "author": "src_kenney_city_suburban",
         "sourceId": "src_kenney_city_suburban"
-      },
-      "domainFootprint": {
-        "width": 1,
-        "height": 1
-      },
-      "allowedOrientations": [45],
-      "symmetry": "none"
+      }
     },
     "town_hall": {
       "type": "town_hall",
@@ -375,40 +389,9 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V7 town hall candidate vf_town_hall_1006. Original civic pediment with CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [45],
-      "symmetry": "none"
-    },
-    "school_block": {
-      "type": "school_block",
-      "name": "school_block",
-      "footprint": {
-        "width": 7,
-        "height": 2
-      },
-      "domainFootprint": {
-        "width": 7,
-        "height": 2
-      },
-      "pivot": {
-        "x": 0.4736,
-        "y": 0.7415
-      },
-      "states": {
-        "complete": {
-          "src": "/assets/runtime/blender/school_block-complete.png",
-          "width": 1457,
-          "height": 1318,
-          "sha256": "ac7fe5b8656a870fbc1e72f9ade2db7dd31c4110781387a3127cf8b923f98f29"
-        }
-      },
-      "stateFallback": "procedural",
-      "pixelsPerMeter": 60.2,
-      "provenance": {
-        "license": "original",
-        "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "V.i remediation: rechazo humano del clon de town_hall. Colegio americano con cupola original medida (mod_original_school_cupola), entrada bajo el pabellón central. Candidato aprobado: vg_school_block_2000. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
-      },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "row_house": {
@@ -441,7 +424,9 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i residential candidate vg_row_house_1001 (stepped massing). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "apartment_block": {
@@ -474,7 +459,9 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i residential candidate vg_apartment_block_1002 (twin towers, dense window grid). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "mixed_tenement": {
@@ -507,7 +494,9 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i residential candidate vg_mixed_tenement_1001 (mansard roof with dormers). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "workshop": {
@@ -540,7 +529,9 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i industrial-light candidate vg_workshop_1003 (long flat workshop block). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "warehouse": {
@@ -573,7 +564,9 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i industrial-light candidate vg_warehouse_1002 (long logistics shed, no chimney). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "clinic": {
@@ -606,7 +599,9 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i civic candidate vg_clinic_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "police_station": {
@@ -639,7 +634,9 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i civic candidate vg_police_station_1002. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "fire_station": {
@@ -672,7 +669,9 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i civic candidate vg_fire_station_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "market_hall": {
@@ -705,7 +704,9 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i civic candidate vg_market_hall_1000. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "cement_plant": {
@@ -738,7 +739,9 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i heavy-industry candidate vg_cement_plant_1001 (v2). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "brickworks": {
@@ -771,7 +774,9 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i heavy-industry candidate vg_brickworks_1000 (v1). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "steelworks": {
@@ -804,7 +809,44 @@
         "author": "Landlord project; CC0 modules by Quaternius",
         "notes": "Owner-selected V.i heavy-industry candidate vg_steelworks_1003 (v4). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
+      "symmetry": "none"
+    },
+    "school_block": {
+      "type": "school_block",
+      "name": "school_block",
+      "footprint": {
+        "width": 7,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 7,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.4736,
+        "y": 0.7415
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender/school_block-complete.png",
+          "width": 1457,
+          "height": 1318,
+          "sha256": "ac7fe5b8656a870fbc1e72f9ade2db7dd31c4110781387a3127cf8b923f98f29"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 60.2,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "V.i remediation: rechazo humano del clon de town_hall. Colegio americano con cupola original medida (mod_original_school_cupola), entrada bajo el pabellón central. Candidato aprobado: vg_school_block_2000. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+      },
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     }
   },
@@ -1101,7 +1143,7 @@
               "src": "/assets/runtime/blender/chr_police-d3-idle-1.png",
               "width": 151,
               "height": 251,
-              "sha256": "0a9385c52c5e4e17b51b31d2fc6669b922ca859794198fd38d2da3208d27396e"
+              "sha256": "79dab02fe356bf1539c3783bb75b02405d3c63d6c7d21ba3fa96d9eedc2bc45d"
             }
           ]
         },
@@ -1683,12 +1725,38 @@
       },
       "pixelsPerMeter": 64,
       "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_sedan-az135.png",
+            "width": 215,
+            "height": 161,
+            "sha256": "a604c8f7c1410cb87f30f29d0a5c4a2b4c4d63ba4291c1b1268796b947db7293"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.756
+          },
+          "pixelsPerMeter": 64
+        },
         "225": {
           "image": {
             "src": "/assets/runtime/blender/veh_sedan-az225.png",
             "width": 215,
             "height": 152,
             "sha256": "5f331b91ded3d5127479c3e4652d4963cee3065ffa7a998591da073a48509066"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7415
+          },
+          "pixelsPerMeter": 64
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_sedan-az315.png",
+            "width": 215,
+            "height": 152,
+            "sha256": "9901622c1fb0f7e8815fad27a113b3eb29a367652912ddbb96e8f0e134c6c601"
           },
           "pivot": {
             "x": 0.5,
@@ -1722,12 +1790,38 @@
       },
       "pixelsPerMeter": 64,
       "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_taxi-az135.png",
+            "width": 226,
+            "height": 167,
+            "sha256": "c5057f183ed3c0e37b8a7e424525ac63ec2676f675900fc961c9bacb0a995850"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7468
+          },
+          "pixelsPerMeter": 64
+        },
         "225": {
           "image": {
             "src": "/assets/runtime/blender/veh_taxi-az225.png",
             "width": 226,
             "height": 156,
             "sha256": "dc6bebf805e41db037ca59098eabc201742041e49e3d6f8484bb23a8bcccb84f"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7289
+          },
+          "pixelsPerMeter": 64
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_taxi-az315.png",
+            "width": 226,
+            "height": 156,
+            "sha256": "913cd643346709a6316be4eacdec2e91777bff116d149f8dcfe8aaf8faa77a4a"
           },
           "pivot": {
             "x": 0.5,
@@ -1761,12 +1855,38 @@
       },
       "pixelsPerMeter": 64,
       "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_truck-az135.png",
+            "width": 238,
+            "height": 160,
+            "sha256": "62dd998c25e0c08f8d5f1913af63d3c69e2c38992a3ab3b6cae61cd9e1239865"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.717
+          },
+          "pixelsPerMeter": 64
+        },
         "225": {
           "image": {
             "src": "/assets/runtime/blender/veh_truck-az225.png",
             "width": 238,
             "height": 164,
             "sha256": "32b45c7eb83fd5fc4bd72cc7cb6c24f362b9306f5c0b302e66d33244e0883586"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7239
+          },
+          "pixelsPerMeter": 64
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_truck-az315.png",
+            "width": 238,
+            "height": 164,
+            "sha256": "b98e9cd154df41efa6445ace59f47bdb922a0ac882cb8f68ed4f428a27f37891"
           },
           "pivot": {
             "x": 0.5,
@@ -1800,6 +1920,19 @@
       },
       "pixelsPerMeter": 51.2,
       "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_firetruck-az135.png",
+            "width": 217,
+            "height": 190,
+            "sha256": "0272587c27071875efc55dc4fe750a3be9f4bc04f01b02fafa51189660957fbd"
+          },
+          "pivot": {
+            "x": 0.5115,
+            "y": 0.7798
+          },
+          "pixelsPerMeter": 51.2
+        },
         "225": {
           "image": {
             "src": "/assets/runtime/blender/veh_firetruck-az225.png",
@@ -1809,6 +1942,19 @@
           },
           "pivot": {
             "x": 0.5115,
+            "y": 0.7758
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_firetruck-az315.png",
+            "width": 217,
+            "height": 171,
+            "sha256": "518a45e4d23197b38c78965ca2b07cc7154561b05e0b526d232966c671e2c889"
+          },
+          "pivot": {
+            "x": 0.4885,
             "y": 0.7758
           },
           "pixelsPerMeter": 51.2
@@ -1839,6 +1985,19 @@
       },
       "pixelsPerMeter": 51.2,
       "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_ambulance-az135.png",
+            "width": 208,
+            "height": 183,
+            "sha256": "7d0acb3561ce7ec361ba91ca7721e559f0be160f94b93a61cbad9f052854ff8e"
+          },
+          "pivot": {
+            "x": 0.5048,
+            "y": 0.7933
+          },
+          "pixelsPerMeter": 51.2
+        },
         "225": {
           "image": {
             "src": "/assets/runtime/blender/veh_ambulance-az225.png",
@@ -1848,6 +2007,19 @@
           },
           "pivot": {
             "x": 0.5048,
+            "y": 0.7741
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_ambulance-az315.png",
+            "width": 208,
+            "height": 152,
+            "sha256": "1c8a970da1b8e007ac820caee1d0669e3bee66e4de8fa07e2d4ab990ae3e4f52"
+          },
+          "pivot": {
+            "x": 0.4928,
             "y": 0.7741
           },
           "pixelsPerMeter": 51.2
@@ -1878,6 +2050,19 @@
       },
       "pixelsPerMeter": 64,
       "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_police-az135.png",
+            "width": 238,
+            "height": 163,
+            "sha256": "781cd53a074708eb42352a11454a28d22b5cc96e138803c3824a0b9e1a12c254"
+          },
+          "pivot": {
+            "x": 0.5189,
+            "y": 0.7344
+          },
+          "pixelsPerMeter": 64
+        },
         "225": {
           "image": {
             "src": "/assets/runtime/blender/veh_police-az225.png",
@@ -1887,6 +2072,19 @@
           },
           "pivot": {
             "x": 0.5189,
+            "y": 0.7296
+          },
+          "pixelsPerMeter": 64
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_police-az315.png",
+            "width": 238,
+            "height": 149,
+            "sha256": "319e9a8a7025e4a61270c05c2487aff76df373d3625299a65fa595e2ed3bee38"
+          },
+          "pivot": {
+            "x": 0.4811,
             "y": 0.7296
           },
           "pixelsPerMeter": 64
@@ -1917,6 +2115,19 @@
       },
       "pixelsPerMeter": 51.2,
       "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_garbage-az135.png",
+            "width": 220,
+            "height": 168,
+            "sha256": "752f2112bab1b97052a621101a5a5bbd1b334f42e7a3fe0e1478ccb7a81f112b"
+          },
+          "pivot": {
+            "x": 0.4886,
+            "y": 0.748
+          },
+          "pixelsPerMeter": 51.2
+        },
         "225": {
           "image": {
             "src": "/assets/runtime/blender/veh_garbage-az225.png",
@@ -1926,6 +2137,19 @@
           },
           "pivot": {
             "x": 0.4886,
+            "y": 0.7526
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_garbage-az315.png",
+            "width": 220,
+            "height": 159,
+            "sha256": "38a6eea87ccca13fcac18ef7cd5b86003da6fd73264493ad7fb9fe3ccbd493ab"
+          },
+          "pivot": {
+            "x": 0.5114,
             "y": 0.7526
           },
           "pixelsPerMeter": 51.2
@@ -1956,6 +2180,19 @@
       },
       "pixelsPerMeter": 51.2,
       "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_delivery-az135.png",
+            "width": 208,
+            "height": 184,
+            "sha256": "69b3e333bd9de9d2087f9dfd90f9edd7f37c7c824a103e4ce378009ba79554a0"
+          },
+          "pivot": {
+            "x": 0.5048,
+            "y": 0.7835
+          },
+          "pixelsPerMeter": 51.2
+        },
         "225": {
           "image": {
             "src": "/assets/runtime/blender/veh_delivery-az225.png",
@@ -1965,6 +2202,19 @@
           },
           "pivot": {
             "x": 0.5048,
+            "y": 0.7741
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_delivery-az315.png",
+            "width": 208,
+            "height": 152,
+            "sha256": "220273e4f56b64d1a187234d258f9da5d34a705507057b6ac0f11f51f5274383"
+          },
+          "pivot": {
+            "x": 0.4928,
             "y": 0.7741
           },
           "pixelsPerMeter": 51.2
@@ -1986,7 +2236,7 @@
         "src": "/assets/runtime/blender/veh_tractor.png",
         "width": 193,
         "height": 186,
-        "sha256": "bb270450ac9413dcb1ecebc3776b15a5415ad0494013baf7bf24f55aa83572a6"
+        "sha256": "cea89e3f6769c9ae3aa4bb32c6d40020a319be4d6566abf15a7662f1a4cd5fa5"
       },
       "provenance": {
         "license": "CC0-1.0",
@@ -1995,6 +2245,19 @@
       },
       "pixelsPerMeter": 64,
       "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_tractor-az135.png",
+            "width": 193,
+            "height": 186,
+            "sha256": "66d12d2117a8dd5c358d0196b6abe15d3baa4c6c7dcb316963bd44cfced99936"
+          },
+          "pivot": {
+            "x": 0.5181,
+            "y": 0.8022
+          },
+          "pixelsPerMeter": 64
+        },
         "225": {
           "image": {
             "src": "/assets/runtime/blender/veh_tractor-az225.png",
@@ -2004,6 +2267,19 @@
           },
           "pivot": {
             "x": 0.5181,
+            "y": 0.7892
+          },
+          "pixelsPerMeter": 64
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/veh_tractor-az315.png",
+            "width": 193,
+            "height": 165,
+            "sha256": "63fa85bf3a9cfa77653ab3e83bb02445d012e11089b141d625babbef9bcba374"
+          },
+          "pivot": {
+            "x": 0.4819,
             "y": 0.7892
           },
           "pixelsPerMeter": 64

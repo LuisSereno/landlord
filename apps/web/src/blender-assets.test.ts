@@ -181,7 +181,8 @@ describe("WP4.15-H ruta Blender E2E", () => {
     ];
     // 81 (V.h.6) + 80 Rocketbox V.h.11 + 15 edificios Composer V.i (courtyard_home y school_block
     // incluidos vía runtime-promotions; el override manual de courtyard quedó retirado).
-    expect(images.length).toBe(172);
+    // V.j.4: +18 vistas de orientación de vehículo (9 clases × az135/az315; az45/az225 ya existían).
+    expect(images.length).toBe(190);
     let totalBytes = 0;
     for (const image of images) {
       const buffer = readFileSync(join(PUBLIC_DIR, image.src));
@@ -191,12 +192,11 @@ describe("WP4.15-H ruta Blender E2E", () => {
     }
     /** Los binarios Blender de Alpha caben en el repo sin LFS: se revisa en la decisión de atlas/LFS. */
     // V.h.11: 80 frames Rocketbox nuevos (5 × 16) subieron el atlas de ~2.2 a ~4.6 MB.
-    // V.i: cada edificio Composer promovido copia el PNG del candidato a resolución de render
-    // completa (p.ej. apartment_block 615×855), así que el atlas crece ~0.5 MB por edificio. Con
     // V.i quality pass: los 15 edificios se re-renderizan a renderScale 2 (densidad x2 para zoom x4
-    // nítido). El bundle runtime pasa de ~9.4 MB a ~22.7 MB medidos; el umbral se sube a 23 MB para
-    // admitirlo sin forzar LFS (requisito de Beta).
-    expect(totalBytes).toBeLessThan(23_000_000);
+    // nítido). El bundle runtime pasa de ~9.4 MB a ~22.7 MB medidos.
+    // V.j.4: las 18 vistas nuevas de vehículo llevan el atlas a ~23.5 MB, dentro del presupuesto
+    // D-101 de 23 MiB (24.117.248 B). El umbral usa el valor exacto de la decisión, no 23 MB.
+    expect(totalBytes).toBeLessThan(24_117_248);
   });
 
   it("el pivote queda dentro de la imagen recortada y la huella es positiva", () => {

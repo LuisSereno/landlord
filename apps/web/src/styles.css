@@ -1916,6 +1916,12 @@ button:disabled {
   margin-bottom: 4px;
 }
 
+.help-popover-floating {
+  position: fixed;
+  right: auto;
+  z-index: calc(var(--ux-z-hud) + 10);
+}
+
 .explained-label {
   display: inline-flex;
   align-items: center;

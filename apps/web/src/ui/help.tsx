@@ -357,7 +357,11 @@ export function HelpPopover({ topic }: { topic: HelpTopicKey }) {
       >
         <UiIcon name="help" size={16} />
       </button>
-      {typeof document === "undefined" ? popover : open ? createPortal(popover, document.body) : null}
+      {typeof document === "undefined"
+        ? popover
+        : open
+          ? createPortal(popover, document.body)
+          : null}
     </span>
   );
 }

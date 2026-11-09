@@ -110,6 +110,11 @@ export type ViewProjectionV2 = {
     districts: PublicDistrictSummary[];
   };
   tick: Tick;
+  /**
+   * V.k.1 · cadencia de paso del motor, publicada para que el render interpole el paseo de un
+   * agente sin depender del paquete de simulación (frontera de D-085 / architecture guard).
+   */
+  movement: { ticksPerCell: number };
   map: {
     width: 64;
     height: 64;
@@ -145,7 +150,21 @@ export type ViewProjectionV2 = {
   }>;
   agents: Array<{
     id: AgentId;
+    /**
+     * V.k.1 · distrito en el que el agente está físicamente. `cell` es una coordenada LOCAL a ese
+     * distrito, así que el render sólo pinta los cuyo `districtId` coincide con `observedDistrictId`:
+     * una celda de otro distrito dibujada aquí sería un punto falso sobre el mapa. La lista publicada
+     * no está limitada al distrito observado porque el jugador siempre conoce la posición de su
+     * propia organización.
+     */
+    districtId: DistrictId;
     cell: GridCell;
+    /**
+     * Celda a la que el agente entrará en el próximo paso (`path[0]`), o `null` si no está andando.
+     * Se publica un solo punto, nunca la ruta: el rumbo y la interpolación necesitan el siguiente
+     * paso, y la ruta completa es estado del motor que el render no debe conocer.
+     */
+    nextCell: GridCell | null;
     organizationId?: OrganizationId;
     specialty?: "supervisor" | "construction_worker" | "maintenance_technician" | "enforcer";
     health?: number;
@@ -759,6 +778,7 @@ export const viewProjectionV2Schema = z.object({
     districts: z.array(publicDistrictSummarySchema).length(9),
   }),
   tick: tickSchema,
+  movement: z.object({ ticksPerCell: z.number().int().positive() }).strict(),
   map: mapSchema,
   publicSpaces: z.array(
     z.object({
@@ -800,16 +820,20 @@ export const viewProjectionV2Schema = z.object({
     }),
   ),
   agents: z.array(
-    z.object({
-      id: agentIdSchema,
-      cell: gridCellSchema,
-      organizationId: organizationIdSchema.optional(),
-      specialty: z
-        .enum(["supervisor", "construction_worker", "maintenance_technician", "enforcer"])
-        .optional(),
-      health: z.number().int().min(0).max(100).optional(),
-      state: z.enum(["idle", "moving", "working", "injured", "dead"]).optional(),
-    }),
+    z
+      .object({
+        id: agentIdSchema,
+        districtId: districtIdSchema,
+        cell: gridCellSchema,
+        nextCell: gridCellSchema.nullable(),
+        organizationId: organizationIdSchema.optional(),
+        specialty: z
+          .enum(["supervisor", "construction_worker", "maintenance_technician", "enforcer"])
+          .optional(),
+        health: z.number().int().min(0).max(100).optional(),
+        state: z.enum(["idle", "moving", "working", "injured", "dead"]).optional(),
+      })
+      .strict(),
   ),
   economy: z
     .object({

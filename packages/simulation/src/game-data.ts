@@ -551,6 +551,11 @@ export const GAME_DAY_TICKS = GAME_HOUR_TICKS * 24;
 export const GAME_MONTH_DAYS = 30;
 export const GAME_MONTH_TICKS = GAME_DAY_TICKS * GAME_MONTH_DAYS;
 /**
+ * Un agente avanza una celda cada este número de ticks (`tacticalTick`). Viaja en la proyección como
+ * dato para que el render interpole el paso sin copiar una constante del motor.
+ */
+export const MOVEMENT_TICKS_PER_CELL = 10;
+/**
  * Una sola duración para cualquier ordenanza, la impulse el lobby del jugador o el concejo: la
  * norma es la misma ley y no debe caducar antes por el camino que la aprobó.
  */

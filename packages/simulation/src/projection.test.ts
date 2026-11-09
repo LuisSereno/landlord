@@ -1,4 +1,4 @@
-import { PLAYER_HOME_DISTRICT_ID } from "./city";
+import { PLAYER_HOME_DISTRICT_ID, RIVAL_HOME_DISTRICT_ID } from "./city";
 import { describe, expect, it } from "vitest";
 
 import {
@@ -16,7 +16,22 @@ import { dispatchPlaceTestStructure, dispatchProductCommand } from "./commands";
 import { activateMacroEvent } from "./macro-events";
 import { createViewProjection } from "./projection";
 import { createInitialState } from "./state";
-import { BUILDING_DEFINITIONS } from "./game-data";
+import { BUILDING_DEFINITIONS, MOVEMENT_TICKS_PER_CELL, PLAYER_ORGANIZATION_ID } from "./game-data";
+
+/**
+ * Rutas (`$..a.b[0]`) de un valor plano. Compara lo que el motor produce contra lo que el esquema
+ * devuelve: `z.object` recorta en silencio lo que no está declarado, y un recorte en el viaje
+ * worker→UI no da un error, da una cuadrilla que no se mueve.
+ */
+function keyPaths(value: unknown, prefix = "$"): string[] {
+  if (Array.isArray(value)) {
+    return value.flatMap((item, index) => keyPaths(item, `${prefix}[${index}]`));
+  }
+  if (value !== null && typeof value === "object") {
+    return Object.entries(value).flatMap(([key, item]) => keyPaths(item, `${prefix}.${key}`));
+  }
+  return [prefix];
+}
 
 describe("simulation view projection", () => {
   it("projects confirmed state in stable entity order", () => {
@@ -42,7 +57,13 @@ describe("simulation view projection", () => {
     expect(projection.city.districts.map((district) => district.name)).toContain(
       "Barrio del Umbral",
     );
-    expect(projection.agents).toHaveLength(16);
+    /**
+     * V.k.1 · el roster inicial son 8 agentes propios en el distrito del jugador y 8 rivales en el
+     * suyo; `cell` es una coordenada LOCAL a `Agent.districtId`, así que la lista publicada es sólo
+     * la mitad local. Antes se publicaban los 16 y el blitter los pintaba todos encima de la ciudad
+     * jugada.
+     */
+    expect(projection.agents).toHaveLength(8);
   });
 
   it("projects a signed period result and a conservative financial position", () => {
@@ -209,5 +230,64 @@ describe("V.d.0 resúmenes de ciudad", () => {
       )!;
       expect(parent.districtId).toBe(observed);
     }
+  });
+});
+
+describe("V.k.1 · contrato de agentes de la proyección", () => {
+  it("publica el roster local, con su distrito y el paso que va a dar", () => {
+    const state = createInitialState(1);
+    const local = [...state.agents.values()].filter(
+      (agent) => agent.districtId === PLAYER_HOME_DISTRICT_ID,
+    );
+    /** Condición de STOP del plan: si una cuadrilla propia dejara de proyectarse, esto es rojo. */
+    expect(local).toHaveLength(8);
+    expect(local).toHaveLength(state.agents.size / 2);
+
+    const supervisor = local.find((agent) => agent.specialty === "supervisor")!;
+    const step = { x: supervisor.cell.x + 1, y: supervisor.cell.y };
+    supervisor.path = [step];
+    const projection = createViewProjection(state);
+
+    expect(projection.agents.map((agent) => agent.id)).toEqual(
+      [...local.map((agent) => agent.id)].sort((left, right) => left.localeCompare(right)),
+    );
+    for (const agent of projection.agents) {
+      expect(agent.districtId).toBe(PLAYER_HOME_DISTRICT_ID);
+      expect(agent.nextCell, `agente ${agent.id}`).toEqual(
+        agent.id === supervisor.id ? step : null,
+      );
+    }
+    expect(projection.movement).toEqual({ ticksPerCell: MOVEMENT_TICKS_PER_CELL });
+  });
+
+  /**
+   * El filtro por distrito observado arregla el punto falso sobre el mapa, pero no puede romper la
+   * UI: `RivalPanel` busca su propio enforcer por id para habilitar el sabotaje, así que los agentes
+   * de la organización del jugador se publicen estén en el distrito que estén.
+   */
+  it("publica los agentes del distrito observado más los propios, y nunca rivales de viaje", () => {
+    const state = createInitialState(1);
+    const own = [...state.agents.values()].filter(
+      (agent) => agent.organizationId === PLAYER_ORGANIZATION_ID,
+    );
+    const projection = createViewProjection(state, true, RIVAL_HOME_DISTRICT_ID);
+    const published = new Map(projection.agents.map((agent) => [agent.id, agent]));
+
+    for (const agent of own) {
+      expect(published.get(agent.id)?.districtId, `propio ${agent.id}`).toBe(agent.districtId);
+    }
+    for (const agent of [...state.agents.values()]) {
+      if (agent.organizationId === PLAYER_ORGANIZATION_ID) continue;
+      expect(published.has(agent.id), `rival ${agent.id} en ${agent.districtId}`).toBe(
+        agent.districtId === RIVAL_HOME_DISTRICT_ID,
+      );
+    }
+  });
+
+  it("no recorta ninguna ruta del objeto producido al pasar por el esquema", () => {
+    const produced = createViewProjection(createInitialState(2), true);
+    expect(keyPaths(viewProjectionV2Schema.parse(produced)).sort()).toEqual(
+      keyPaths(produced).sort(),
+    );
   });
 });

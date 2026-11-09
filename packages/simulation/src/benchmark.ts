@@ -10,6 +10,7 @@ import {
   type Tick,
   type ViewProjectionV2,
 } from "@landlord/shared";
+import { MOVEMENT_TICKS_PER_CELL } from "./game-data";
 import { createPrng, type PrngState } from "./prng";
 
 export const BENCHMARK_MAP_SIZE = 64;
@@ -390,6 +391,7 @@ export function createBenchmarkProjection(scenario: BenchmarkScenario): ViewProj
       districts,
     },
     tick: scenario.tick,
+    movement: { ticksPerCell: MOVEMENT_TICKS_PER_CELL },
     map: { width: 64, height: 64, roads: { revision: 0, digest: "811c9dc5", cells: [] } },
     publicSpaces: [],
     facilities: [],
@@ -398,7 +400,12 @@ export function createBenchmarkProjection(scenario: BenchmarkScenario): ViewProj
       ownerOrganizationId: parseOrganizationId("org_00000001"),
       cell: building.cell,
     })),
-    agents: [...scenario.agents.values()].map((agent) => ({ id: agent.id, cell: agent.cell })),
+    agents: [...scenario.agents.values()].map((agent) => ({
+      id: agent.id,
+      districtId: parseDistrictId("district_00000004"),
+      cell: agent.cell,
+      nextCell: agent.pathIndex < agent.path.length ? agent.path[agent.pathIndex]! : null,
+    })),
   };
 }
 

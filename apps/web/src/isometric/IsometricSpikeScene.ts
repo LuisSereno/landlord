@@ -1325,7 +1325,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
     if (!economy) return labelIndex;
     const sites = economy.constructionSites.filter((site) => site.assignedCrewIds.length > 0);
     if (sites.length === 0) return labelIndex;
-    const agentsById = new Map((this.projection?.agents ?? []).map((agent) => [agent.id, agent]));
+    const agentsById = new Map(
+      (this.projection?.agents ?? [])
+        .filter((agent) => agent.districtId === this.projection?.observedDistrictId)
+        .map((agent) => [agent.id, agent]),
+    );
     const crewsById = new Map(economy.crews.map((crew) => [crew.id, crew]));
     for (const site of sites) {
       const footprint = new Set(site.footprintCells.map((cell) => `${cell.x},${cell.y}`));
@@ -2055,7 +2059,14 @@ export class IsometricSpikeScene extends Phaser.Scene {
 
   private updateBlitterPositions(): void {
     const structures = this.projection?.structures ?? [];
-    const agents = this.projection?.agents ?? [];
+    /**
+     * V.k.1 · la proyección también publica a los agentes propios de otros distritos (el jugador
+     * conoce su propio roster); `cell` es local a su distrito, así que sólo se pinta lo que está
+     * físicamente en el distrito observado.
+     */
+    const agents = (this.projection?.agents ?? []).filter(
+      (agent) => agent.districtId === this.projection?.observedDistrictId,
+    );
     const view = this.cameras.main.worldView;
     if (this.structureBlitter) {
       while (this.structureBobs.length < structures.length) {

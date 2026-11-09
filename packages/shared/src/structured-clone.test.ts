@@ -122,6 +122,7 @@ describe("shared wire data", () => {
         projectionVersion: 2,
         ...cityFixture("district_00000001"),
         tick: 1,
+        movement: { ticksPerCell: 10 },
         publicSpaces: [],
         facilities: [],
         map: { width: 64, height: 64, roads: { revision: 0, digest: "811c9dc5", cells: [] } },

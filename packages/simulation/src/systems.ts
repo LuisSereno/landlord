@@ -34,6 +34,7 @@ import {
   INSOLVENCY_POLICY,
   calculateInsuranceOffer,
   REPAIR_COST,
+  MOVEMENT_TICKS_PER_CELL,
 } from "./game-data";
 import { type GameState } from "./state";
 import { findDevelopmentSite } from "./development-site";
@@ -73,7 +74,6 @@ import { buildDistrictObstacleIndex, isAdjacentToCells } from "./district-obstac
 import { isWithinDistrictRadius } from "./district-place";
 import { findDeterministicPath } from "./navigation";
 
-const MOVEMENT_TICKS_PER_CELL = 10;
 const INCIDENT_LIMIT = 50;
 const PRODUCTION_SCALE = 1_000_000;
 /** Radio de la onda de choque de un derrumbe, en celdas del propio distrito. */

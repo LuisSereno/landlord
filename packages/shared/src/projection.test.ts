@@ -39,13 +39,21 @@ describe("view projection v1", () => {
     projectionVersion: 2,
     ...cityFixture("district_00000001"),
     tick: 2,
+    movement: { ticksPerCell: 10 },
     map: { width: 64, height: 64, roads: { revision: 0, digest: "811c9dc5", cells } },
     publicSpaces: [],
     facilities: [],
     structures: [
       { id: "structure_00000001", ownerOrganizationId: "org_00000001", cell: { x: 1, y: 2 } },
     ],
-    agents: [{ id: "agent_00000001", cell: { x: 2, y: 2 } }],
+    agents: [
+      {
+        id: "agent_00000001",
+        districtId: "district_00000001",
+        cell: { x: 2, y: 2 },
+        nextCell: { x: 3, y: 2 },
+      },
+    ],
   });
 
   it("accepts a serializable projection", () => {
@@ -55,6 +63,36 @@ describe("view projection v1", () => {
   it("rejects non-canonical and out-of-bounds projected road cells", () => {
     for (const cell of ["64:0", "0:64", "01:2", "2:01", "-1:2", "2.0:3"]) {
       expect(() => viewProjectionV2Schema.parse(projection([cell])), cell).toThrow();
+    }
+  });
+
+  /**
+   * V.k.1 · el rumbo y la fase del paseo de una cuadrilla son contrato: si el worker publica un
+   * campo que el esquema no conoce, `parse` lo recortaría en silencio y la UI pintaría un agente
+   * quieto. `.strict()` en el agente convierte ese recorte en error.
+   */
+  it("requires the agent movement contract and rejects undeclared agent fields", () => {
+    const base = projection(["0:0"]);
+    for (const agent of [
+      { ...base.agents[0], districtId: undefined },
+      { ...base.agents[0], nextCell: undefined },
+      { ...base.agents[0], path: [{ x: 4, y: 2 }] },
+    ]) {
+      expect(() => viewProjectionV2Schema.parse({ ...base, agents: [agent] })).toThrow();
+    }
+    expect(
+      viewProjectionV2Schema.parse({
+        ...base,
+        agents: [{ ...base.agents[0], nextCell: null }],
+      }).agents[0]?.nextCell,
+    ).toBeNull();
+  });
+
+  it("publishes a positive movement cadence", () => {
+    for (const ticksPerCell of [0, -1, 2.5]) {
+      expect(() =>
+        viewProjectionV2Schema.parse({ ...projection(["0:0"]), movement: { ticksPerCell } }),
+      ).toThrow();
     }
   });
 });

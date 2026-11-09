@@ -200,7 +200,8 @@ anclaje de daño; `31ff12f` resolución de variante + adapter; `e0d6ea5` carga p
 
 Rama `wip/vh-world-visual-foundation`, continuación directa de V.j. Pide el playtest de V.d: la gente
 en obra se leía como puntos de color. Ejecutado V.k.1–V.k.4 y commiteado (`f0e590e`, `2f9501f`,
-`11de230`, `e6b93b3`, `f672a5e`, `40b1974`, `4032257`). **Nada empujado.** Doctrina en
+`11de230`, `e6b93b3`, `f672a5e`, `40b1974`, `4032257`, `c17f870` test SSR del panel, `da79057` D-103).
+**Nada empujado.** Doctrina en
 `docs/engineering/adr/D-103-cuadrillas-como-avatares-rumbo-autoritativo.md` (PROPUESTA, pendiente de
 ratificación del responsable).
 
@@ -219,10 +220,18 @@ ratificación del responsable).
 - **Evidencia medida** (`artifacts/visual-slice/vk3-projection.json`, distrito `district_00000004`,
   tick 24, `ticksPerCell` 10): 8 agentes, 2 obras × cuadrilla de 3 → 6 sprites; 5 walk / 1 idle; rumbos
   d2×4 y d1×1; salud 100 en todos (la excepción herido/muerto no es observable aún en este corpus).
-- **Gates de la sesión**: `pnpm typecheck` limpio, ESLint 0 en los ficheros tocados, `crew-presence`
-  19/19, `ux-contracts` 8/8 (incluye el SSR de la ficha de obra), suite web 266 passed | 4 skipped.
-  Baseline V.j (108 capturas pixel-qa) y `runtime-assets-blender.json` **sin tocar**; los smokes
-  `vd-ux`/`vd-core-loop` no se corrieron porque sobrescriben goldens versionados.
+- **Gates de la sesión**: `pnpm typecheck` limpio, `check:architecture` OK, ESLint 0 y Prettier limpios
+  en los ficheros tocados, `crew-presence` 19/19, `ux-contracts` 8/8 (incluye el SSR de la ficha de
+  obra), suite web 266 passed | 4 skipped. Baseline V.j (108 capturas pixel-qa) y
+  `runtime-assets-blender.json` **sin tocar**; los smokes `vd-ux`/`vd-core-loop` no se corrieron porque
+  sobrescriben goldens versionados.
+- **No cierra la simulación**: el workspace completo (config raíz) queda en **894 passed | 23 skipped |
+  4 failed**, los cuatro en `packages/simulation`
+  (`tick-conservation.test.ts:345` digesto de carreras largas, `vd7a-multiparcel.test.ts:377` huella
+  que cruza la frontera catastral, `city-seeds.test.ts:115` medida por seed,
+  `district-generation.test.ts:181` hashes de fixtures publicadas). Ninguno es de
+  V.k: el rango `9bd4e94..HEAD` no toca la generación de distritos ni sus fixtures. Quedan para la fase
+  urbana, como ya registró el audit nocturno.
 - **Deuda abierta (registrada, no arreglada)**: puntos rojo/morado del blitter = roster sin avatar;
   los sprites de una cuadrilla comparten fase de animación;
   `__gameplayVisualStats`/`__districtAssetStats`/`__landlordQaRefresh` no se limpian en `destroy()`;

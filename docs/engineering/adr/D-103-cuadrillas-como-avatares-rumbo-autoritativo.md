@@ -102,9 +102,18 @@ contrato de proyección para saber **hacia dónde** va cada agente.
   3 miembros cada una → **6 sprites de cuadrilla**; 5 con `nextCell` (walk) y 1 sin paso (idle);
   rumbos medidos d2×4 y d1×1; salud 100 en todos — por eso **la excepción de marcador por
   `injured`/`dead` no es observable todavía** en este corpus y queda cubierta sólo por test.
-- **Gates:** `pnpm typecheck` limpio; ESLint 0 en los ficheros tocados; suite web completa en verde
-  (ver acta de la fase). Las capturas pixel-qa de V.j (108 imágenes) y el baseline de `blender-assets`
-  no se regeneraron ni se tocaron.
+- **Gates:** `pnpm typecheck` limpio y `pnpm check:architecture` OK; ESLint 0 y Prettier limpios en
+  los ficheros tocados (el repo arrastra 8 errores preexistentes en `scripts/vj-state-capture.mjs` y
+  `scripts/provision-polyhaven-materials.mjs`, ajenos a V.k). Suite web 266 passed | 4 skipped;
+  `crew-presence` 19/19; `ux-contracts` 8/8. Las capturas pixel-qa de V.j (108 imágenes) y el baseline
+  de `blender-assets` no se regeneraron ni se tocaron.
+- **Lo que V.k no cierra:** el workspace completo (config raíz, 120 ficheros) cierra esta sesión con
+  **894 passed | 23 skipped | 4 failed**, y los cuatro son de simulación:
+  `tick-conservation.test.ts:345` (digesto de carreras largas), `vd7a-multiparcel.test.ts:377` (huella
+  que cruza la frontera catastral interna), `city-seeds.test.ts:115` (medida por seed) y
+  `district-generation.test.ts:181` (hashes de las fixtures publicadas). No son regresión de V.k: el
+  rango `9bd4e94..HEAD` no toca la generación de distritos ni sus fixtures, y el gate de tejido urbano
+  ya quedó documentado en `3bd56e3` como deuda preexistente. Pertenecen a la fase urbana, no a D-103.
 - **Límite honesto:** el comportamiento se verificó por SSR + helpers + una proyección volcada del
   runtime, **no** con clics humanos en el navegador (los smokes `vd-ux`/`vd-core-loop` sobrescriben
   goldens versionados y no se ejecutaron). Esa verificación corresponde al playtest de cierre.

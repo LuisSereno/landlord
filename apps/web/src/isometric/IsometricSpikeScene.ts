@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { CHARACTER_RENDER_SCALE } from "./visual-scale";
+import { CHARACTER_LIFT_LUT, CHARACTER_RENDER_SCALE } from "./visual-scale";
 import {
   type AgentId,
   type BuildingAssetState,
@@ -118,6 +118,11 @@ const CONSTRUCTION_COLORS = {
 
 const STRUCTURE_TEXTURE_KEY = "benchmark-structure-marker";
 const AGENT_TEXTURE_KEY = "benchmark-agent-marker";
+/**
+ * Avisos de salud que viven en el marcador de agente (muerto gris, herido ámbar). Son también los
+ * estados que conservan el marcador aunque el agente tenga sprite: ningún clip los representa.
+ */
+const AGENT_STATE_TINTS: Record<string, number> = { dead: 0x555555, injured: 0xe0a23b };
 const TILE_TEXTURE_KEY = "district-ground-tiles";
 const CROSSING_TEXTURE_KEY = "district-crossings";
 const SLICE_SHADOW_TEXTURE_KEY = "slice-contact-shadow";
@@ -516,10 +521,13 @@ export class IsometricSpikeScene extends Phaser.Scene {
       this.projection.observedDistrictId !== projection.observedDistrictId;
     this.projection = projection;
     if (!this.sliceLayout) this.syncGameplayVisual();
-    this.updateBlitterPositions();
     this.syncBuildingSprites();
-    /** V.k.3 · las observaciones van antes del repintado: la etiqueta de obra cuenta desde ellas. */
+    /**
+     * V.k.3 · las cuadrillas van antes que el blitter, que retira el marcador de quien ya tiene
+     * sprite, y antes del repintado, porque la etiqueta de obra cuenta desde sus observaciones.
+     */
     this.syncCrewSprites();
+    this.updateBlitterPositions();
     this.drawOverlay();
     this.syncWorldIndicators();
     if (districtChanged && this.placementTarget) this.setPlacement(null);
@@ -1739,6 +1747,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       }
     }
     // Personajes horneados (V.h.7): el array de frames viene como direction*framesPerDir+slot.
+    // Se aclaran al rasterizar (V.k.3): el bake es más oscuro que el suelo que pisa.
     for (const [id, character] of Object.entries(manifest.characters ?? {})) {
       for (const [animation, anim] of Object.entries(character.animations)) {
         const framesPerDirection = Math.max(
@@ -1755,6 +1764,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
             image.src,
             image.width,
             image.height,
+            CHARACTER_LIFT_LUT,
           );
         }
       }
@@ -1767,6 +1777,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     src: string,
     width: number,
     height: number,
+    lift?: Uint8Array,
   ): Promise<void> {
     if (this.textures.exists(key)) return;
     const element = new Image();
@@ -1780,6 +1791,16 @@ export class IsometricSpikeScene extends Phaser.Scene {
     const texture = this.textures.createCanvas(key, width, height);
     if (!texture) return;
     texture.context.drawImage(element, 0, 0, width, height);
+    if (lift) {
+      const frame = texture.context.getImageData(0, 0, width, height);
+      const pixels = frame.data;
+      for (let i = 0; i < pixels.length; i += 4) {
+        pixels[i] = lift[pixels[i]!]!;
+        pixels[i + 1] = lift[pixels[i + 1]!]!;
+        pixels[i + 2] = lift[pixels[i + 2]!]!;
+      }
+      texture.context.putImageData(frame, 0, 0);
+    }
     texture.refresh();
   }
 
@@ -2195,6 +2216,15 @@ export class IsometricSpikeScene extends Phaser.Scene {
           if (bob.visible) bob.setVisible(false);
           return;
         }
+        /**
+         * V.k.3 · el cuadrado de 4 px era la única señal de un agente del roster; con la cuadrilla
+         * ya horneada se clavaba sobre la persona. Cae cuando el agente tiene sprite propio, salvo
+         * si está herido o muerto: el clip no puede decir eso y el jugador sí necesita saberlo.
+         */
+        if (this.crewSprites.has(agent.id) && !AGENT_STATE_TINTS[agent.state ?? ""]) {
+          if (bob.visible) bob.setVisible(false);
+          return;
+        }
         const center = this.screenCenter(agent.cell);
         if (!this.isInViewport(center.x, center.y, view, 4)) {
           if (bob.visible) bob.setVisible(false);
@@ -2202,17 +2232,14 @@ export class IsometricSpikeScene extends Phaser.Scene {
         }
         bob.setPosition(center.x - 2, center.y - 8);
         const tint =
-          agent.state === "dead"
-            ? 0x555555
-            : agent.state === "injured"
-              ? 0xe0a23b
-              : agent.specialty === "enforcer"
-                ? 0xd95757
-                : agent.specialty === "maintenance_technician"
-                  ? 0xb48ead
-                  : agent.organizationId === "org_00000002"
-                    ? 0xd97757
-                    : 0x8fcae7;
+          AGENT_STATE_TINTS[agent.state ?? ""] ??
+          (agent.specialty === "enforcer"
+            ? 0xd95757
+            : agent.specialty === "maintenance_technician"
+              ? 0xb48ead
+              : agent.organizationId === "org_00000002"
+                ? 0xd97757
+                : 0x8fcae7);
         bob.setTint(tint);
         if (!bob.visible) bob.setVisible(true);
       });

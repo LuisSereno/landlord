@@ -8,6 +8,7 @@ import {
   visualArchetypeForBuilding,
 } from "./gameplay-visual-adapter";
 import {
+  CHARACTER_LIFT_LUT,
   CHARACTER_RENDER_SCALE,
   CHARACTER_SOURCE_FRAME_PIXELS,
   CHARACTER_TARGET_HEIGHT_PIXELS,
@@ -121,6 +122,20 @@ describe("V.h visual remediation", () => {
     );
     expect(CHARACTER_TARGET_HEIGHT_PIXELS).toBeGreaterThanOrEqual(22);
     expect(CHARACTER_TARGET_HEIGHT_PIXELS).toBeLessThanOrEqual(32);
+  });
+
+  it("lifts baked characters above the ground they walk on without clipping the bake", () => {
+    expect(CHARACTER_LIFT_LUT.length).toBe(256);
+    expect(CHARACTER_LIFT_LUT[0]).toBe(0);
+    expect(CHARACTER_LIFT_LUT[255]).toBe(255);
+    for (let value = 1; value < 256; value += 1) {
+      expect(CHARACTER_LIFT_LUT[value]!).toBeGreaterThanOrEqual(CHARACTER_LIFT_LUT[value - 1]!);
+    }
+    /** Medido sobre `chr_worker-d0-walk-0.png`: mediana 10/255 y media 16/255, bajo el suelo. */
+    expect(CHARACTER_LIFT_LUT[10]!).toBeGreaterThanOrEqual(40);
+    expect(CHARACTER_LIFT_LUT[16]!).toBeGreaterThanOrEqual(45);
+    /** La ropa de trabajo sigue siendo ropa de trabajo: 2.2 la decoloraba a gris. */
+    expect(CHARACTER_LIFT_LUT[64]!).toBeLessThan(128);
   });
 
   it("uses the owner-selected V7 town hall without manufacturing missing states", () => {

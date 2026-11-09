@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* global fetch, Buffer */
 /**
  * V.j.7 — adquiere materiales CC0 de Poly Haven (categorías gap de la librería semántica) a 2k.
  * Descarga el .blend + sus texturas `include` a staging/cc0/extracted/polyhaven/<id>/ (gitignored).

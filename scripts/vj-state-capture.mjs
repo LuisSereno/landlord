@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* global window, document, HTMLElement, HTMLButtonElement */
+/* global window, document, HTMLButtonElement, setTimeout */
 /**
  * V.j.8 · evidencia 9×3×4: 9 distritos × 3 escalas × 4 estados (complete/construction/damaged/burning).
  * El estado se fuerza SÓLO en la capa de presentación vía window.__landlordQaState (hook QA que no
@@ -100,12 +100,16 @@ async function clickSelector() {
   try {
     await b.click({ timeout: 4000 });
     return;
-  } catch {}
+  } catch {
+    // el onboarding puede tapar el selector: se descarta y se reintenta
+  }
   await dismissOnboarding();
   try {
     await b.click({ timeout: 4000, force: true });
     return;
-  } catch {}
+  } catch {
+    // ni el click forzado pasó: se termina pinchando el botón desde el DOM
+  }
   await page.evaluate(() => {
     const x = document.querySelector(".hud-district");
     if (x instanceof HTMLButtonElement) x.click();
@@ -208,7 +212,9 @@ try {
   if (server?.pid) {
     try {
       process.kill(-server.pid, "SIGTERM");
-    } catch {}
+    } catch {
+      // el grupo ya se apagó solo al cerrar el navegador: no es un fallo de la corrida
+    }
   }
   for (const state of STATES)
     for (const z of ZOOMS) {

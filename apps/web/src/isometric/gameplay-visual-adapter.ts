@@ -1,5 +1,13 @@
-import type { BuildingType, GridCell, ViewProjectionV2 } from "@landlord/shared";
+import type {
+  BuildingPhysicalOrientation,
+  BuildingType,
+  ConstructionStage,
+  GridCell,
+  ViewProjectionV2,
+} from "@landlord/shared";
 import type { GroundPlan, GroundRoadMarking, GroundSurface } from "../visual-slice/ground";
+import { buildingAssetStateFor, type ProjectedBuildingState } from "./building-sprites";
+import { constructionVisualStage } from "./construction-stages";
 import {
   buildingContextProps,
   districtVisualProfileFor,
@@ -55,6 +63,12 @@ export type GameplayBuildingVisual = {
   domainType: string;
   /** Archetype visual preferido (asset Blender cuando existe). */
   archetype: string;
+  /** V.j.5: orientación física autoritativa (0/90/180/270); el render de variante ya viene rotado. */
+  orientation: BuildingPhysicalOrientation;
+  /** V.j.5: estado de asset proyectado (complete/construction/damaged/burning). */
+  assetState: "complete" | "construction" | "damaged" | "burning";
+  /** V.j.5: etapa de obra si es construction; null en otro caso. */
+  stage: ConstructionStage | null;
 };
 
 export type GameplayDecoration = {
@@ -1748,12 +1762,21 @@ export function buildGameplayVisualModel(
     id: `building:${building.id}`,
     domainType: building.type,
     archetype: visualArchetypeForBuilding(building.type, building.id),
+    orientation: building.orientation,
+    assetState: buildingAssetStateFor(building.state as ProjectedBuildingState, building.condition),
+    stage: null,
   }));
-  const siteVisuals: GameplayBuildingVisual[] = (economy?.constructionSites ?? []).map((site) => ({
-    id: `site:${site.id}`,
-    domainType: site.buildingType,
-    archetype: visualArchetypeForBuilding(site.buildingType, site.id),
-  }));
+  const siteVisuals: GameplayBuildingVisual[] = (economy?.constructionSites ?? []).map((site) => {
+    const visualStage = constructionVisualStage(site.progress, site.workRequired);
+    return {
+      id: `site:${site.id}`,
+      domainType: site.buildingType,
+      archetype: visualArchetypeForBuilding(site.buildingType, site.id),
+      orientation: site.orientation,
+      assetState: "construction",
+      stage: visualStage === "complete" ? null : visualStage,
+    };
+  });
 
   const { decorations, treeCells } = planGameplayDecorations(
     parcels,

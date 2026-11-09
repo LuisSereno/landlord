@@ -3,12 +3,15 @@ import {
   type AssetImageV1,
   type BuildingAssetState,
   type BuildingAssetV2,
+  type BuildingPhysicalOrientation,
   type CharacterAnimation,
   type CharacterAssetV1,
+  type ConstructionStage,
   type GridCell,
   type RuntimeAssetManifestV2,
   type ViewProjectionV2,
 } from "@landlord/shared";
+import { constructionVisualStage } from "./construction-stages";
 
 /**
  * Helpers puros de la capa de sprites (WP4.15). Separan el contrato de assets del render para que
@@ -131,6 +134,9 @@ export type BuildingSpritePlacement = {
   entityId: string;
   domainType: string;
   assetState: BuildingAssetState;
+  /** V.j.5: orientación física autoritativa y etapa de obra, para resolver la variante real. */
+  orientation: BuildingPhysicalOrientation;
+  stage: ConstructionStage | null;
   cells: readonly GridCell[];
   alpha: number;
   depthBias: number;
@@ -158,6 +164,8 @@ export function buildingSpritePlan(
       archetype: string,
       domainType: string,
       state: BuildingAssetState,
+      orientation: BuildingPhysicalOrientation,
+      stage: ConstructionStage | null,
     ) => { key: string; asset: BuildingAssetV2 } | null;
   },
 ): Array<BuildingSpritePlacement & { textureKey: string; asset: BuildingAssetV2 }> {
@@ -165,8 +173,9 @@ export function buildingSpritePlan(
   for (const building of economy.buildings) {
     const id = `building:${building.id}`;
     const state = buildingAssetStateFor(building.state, building.condition);
+    const orientation = building.orientation;
     const archetype = opts.archetypeFor(id, building.type);
-    const resolved = opts.resolveVisual(archetype, building.type, state);
+    const resolved = opts.resolveVisual(archetype, building.type, state, orientation, null);
     if (!resolved) continue;
     plan.push({
       id,
@@ -174,6 +183,8 @@ export function buildingSpritePlan(
       entityId: building.id,
       domainType: building.type,
       assetState: state,
+      orientation,
+      stage: null,
       cells: building.footprintCells,
       alpha: building.state === "ruin" ? 0.4 : 1,
       depthBias: 0,
@@ -184,8 +195,11 @@ export function buildingSpritePlan(
   for (const site of economy.constructionSites) {
     const id = `site:${site.id}`;
     const state: BuildingAssetState = "construction";
+    const orientation = site.orientation;
+    const visualStage = constructionVisualStage(site.progress, site.workRequired);
+    const stage = visualStage === "complete" ? null : visualStage;
     const archetype = opts.archetypeFor(id, site.buildingType);
-    const resolved = opts.resolveVisual(archetype, site.buildingType, state);
+    const resolved = opts.resolveVisual(archetype, site.buildingType, state, orientation, stage);
     if (!resolved) continue;
     plan.push({
       id,
@@ -193,6 +207,8 @@ export function buildingSpritePlan(
       entityId: site.id,
       domainType: site.buildingType,
       assetState: state,
+      orientation,
+      stage,
       cells: site.footprintCells,
       alpha: 1,
       depthBias: 1,
@@ -317,8 +333,26 @@ export function resolveBuildingVisual(
     textureExists: (key: string) => boolean;
     /** Azimut de cámara declarado por la escena; un asset que no lo autorice se rechaza. */
     azimuth: number;
+    /** V.j.5: orientación física del modelo; el render de variante ya viene rotado. */
+    orientation?: BuildingPhysicalOrientation;
+    /** V.j.5: etapa de obra (sólo construction). */
+    stage?: ConstructionStage | null;
+    /**
+     * V.j.5: resolver una variante REAL (tipo×estado×etapa×orientación) antes que la cadena
+     * Blender-stores→procedural. Se inyecta para mantener el helper puro y testeable.
+     */
+    resolveVariant?: (
+      archetype: string,
+      state: BuildingAssetState,
+      orientation: BuildingPhysicalOrientation,
+      stage: ConstructionStage | null,
+    ) => { key: string; asset: BuildingAssetV2 } | null;
   },
 ): { key: string; asset: BuildingAssetV2 } | null {
+  const orientation = options.orientation ?? 0;
+  const stage = options.stage ?? null;
+  const variant = options.resolveVariant?.(archetype, state, orientation, stage);
+  if (variant) return variant;
   const blenderKey = `blender-building-${archetype}-${state}`;
   const blenderAsset = options.blenderBundle?.buildings[archetype];
   if (

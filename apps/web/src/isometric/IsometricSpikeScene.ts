@@ -3,11 +3,19 @@ import { CHARACTER_RENDER_SCALE, vehicleScreenRotation } from "./visual-scale";
 import {
   type BuildingAssetState,
   type BuildingAssetV2,
+  type BuildingPhysicalOrientation,
+  type ConstructionStage,
   type RuntimeAssetManifestV2,
   type SceneryAssetV1,
   type ViewProjectionV2,
 } from "@landlord/shared";
 import { BLENDER_ASSETS, PROCEDURAL_ASSETS } from "../assets/runtime-assets";
+import {
+  hasRealVariants,
+  resolveBuildingVariant,
+  variantAsAsset,
+  variantTextureKey,
+} from "../assets/building-variants";
 import { deriveWorldIndicators } from "../ui/world-indicators";
 import {
   CODE_PALETTE,
@@ -272,6 +280,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private structureBobs: Phaser.GameObjects.Bob[] = [];
   private agentBobs: Phaser.GameObjects.Bob[] = [];
   private buildingSprites = new Map<string, Phaser.GameObjects.Image>();
+  private pendingVariantTextures = new Set<string>();
   private sliceObjects: Phaser.GameObjects.GameObject[] = [];
   private assetsReady = false;
   private debugText?: Phaser.GameObjects.Text;
@@ -938,8 +947,12 @@ export class IsometricSpikeScene extends Phaser.Scene {
     }
     this.drawPropertyGrounds(graphics);
     let constructionLabelCount = 0;
-    for (const site of this.projection?.economy?.constructionSites ?? [])
+    for (const site of this.projection?.economy?.constructionSites ?? []) {
+      // V.j.5: con arte real de variantes, la obra la pinta el sprite (syncBuildingSprites); el
+      // massing procedural sólo sostiene los tipos sin variantes o el arranque sin texturas.
+      if (this.assetsReady && hasRealVariants(site.buildingType)) continue;
       this.drawConstructionSite(graphics, site);
+    }
     constructionLabelCount = this.drawCrewPresence(graphics, constructionLabelCount);
     this.trimLabels(this.constructionLabels, constructionLabelCount);
     for (const incident of this.projection?.economy?.incidents.filter(
@@ -1882,8 +1895,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
      */
     const plan = buildingSpritePlan(economy, {
       archetypeFor: (id, domainType) => this.buildingArchetypes.get(id) ?? domainType,
-      resolveVisual: (archetype, domainType, state) =>
-        this.resolveBuildingVisual(archetype, domainType, state),
+      resolveVisual: (archetype, domainType, state, orientation, stage) =>
+        this.resolveBuildingVisual(archetype, domainType, state, orientation, stage),
     });
     const seen = new Set<string>();
     for (const placement of plan) {
@@ -1923,13 +1936,40 @@ export class IsometricSpikeScene extends Phaser.Scene {
     archetype: string,
     domainType: string,
     state: BuildingAssetState,
+    orientation: BuildingPhysicalOrientation = 0,
+    stage: ConstructionStage | null = null,
   ): { key: string; asset: BuildingAssetV2 } | null {
     return resolveBuildingVisual(archetype, domainType, state, {
       blenderBundle: ASSETS_BLENDER,
       proceduralBundle: ASSETS,
       textureExists: (key) => this.textures.exists(key),
       azimuth: SCENE_AZIMUTH,
+      orientation,
+      stage,
+      resolveVariant: (type, vState, vOrientation, vStage) => {
+        const variant = resolveBuildingVariant(type, vState, vOrientation, vStage);
+        if (!variant) return null;
+        const key = variantTextureKey(type, vState, vOrientation, vStage);
+        this.ensureVariantTexture(key, variant.image.src);
+        return { key, asset: variantAsAsset(type, variant) };
+      },
     });
+  }
+
+  /** V.j.5/V.j.6: carga perezosa de la textura de variante (el arranque no carga el catálogo). */
+  private ensureVariantTexture(key: string, src: string): void {
+    if (this.textures.exists(key) || this.pendingVariantTextures.has(key)) return;
+    this.pendingVariantTextures.add(key);
+    this.load.image(key, src);
+    if (!this.load.isLoading()) {
+      this.load.once("complete", () => {
+        for (const pending of [...this.pendingVariantTextures]) {
+          if (this.textures.exists(pending)) this.pendingVariantTextures.delete(pending);
+        }
+        this.syncBuildingSprites();
+      });
+      this.load.start();
+    }
   }
 
   private ensureBuildingSprite(

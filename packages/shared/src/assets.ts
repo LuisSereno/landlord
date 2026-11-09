@@ -448,3 +448,63 @@ export function buildingFrameForOrientation(
     return { image: asset.states.complete, pivot: asset.pivot };
   return null;
 }
+
+/**
+ * V.j.5 — orientación FÍSICA del modelo (0/90/180/270), distinta del azimut de cámara (45/135/…).
+ * El compositor rota la geometría real; el runtime elige el render de esa orientación, nunca rota
+ * el sprite en pantalla.
+ */
+export const BUILDING_PHYSICAL_ORIENTATIONS = [0, 90, 180, 270] as const;
+export type BuildingPhysicalOrientation = (typeof BUILDING_PHYSICAL_ORIENTATIONS)[number];
+
+export const CONSTRUCTION_STAGES = ["foundation", "structure", "finishing"] as const;
+export type ConstructionStage = (typeof CONSTRUCTION_STAGES)[number];
+
+/** Clave canónica de variante: tipo × estado × etapa (sólo construction) × orientación física. */
+export function buildingVariantKey(
+  type: string,
+  state: BuildingAssetState,
+  orientation: BuildingPhysicalOrientation,
+  stage?: ConstructionStage | null,
+): string {
+  const stageTag = state === "construction" ? (stage ?? "finishing") : "-";
+  return `${type}:${state}:${stageTag}:${orientation}`;
+}
+
+/** Render real de una variante, con lo necesario para colocar y escalar el sprite. */
+export type BuildingVariantV1 = {
+  image: AssetImageV1;
+  pivot: { x: number; y: number };
+  footprint: { width: number; height: number };
+  domainFootprint: { width: number; height: number };
+  pixelsPerMeter?: number;
+};
+
+export type BuildingVariantManifestV1 = {
+  schemaVersion: 1;
+  generator: { id: string; method: "blender_render" };
+  variants: Record<string, BuildingVariantV1>;
+};
+
+export function validateBuildingVariantManifest(manifest: BuildingVariantManifestV1): string[] {
+  const issues: string[] = [];
+  if (manifest.schemaVersion !== 1) issues.push("schemaVersion debe ser 1");
+  for (const [key, variant] of Object.entries(manifest.variants ?? {})) {
+    const [type, state, stage, orientation] = key.split(":");
+    if (!type || !BUILDING_ASSET_STATES.includes(state as BuildingAssetState))
+      issues.push(`${key}: estado inválido`);
+    if (state === "construction" && !CONSTRUCTION_STAGES.includes(stage as ConstructionStage))
+      issues.push(`${key}: etapa de construction inválida`);
+    if (state !== "construction" && stage !== "-")
+      issues.push(`${key}: etapa sólo aplica a construction`);
+    if (
+      !BUILDING_PHYSICAL_ORIENTATIONS.includes(Number(orientation) as BuildingPhysicalOrientation)
+    )
+      issues.push(`${key}: orientación física inválida ${orientation}`);
+    if (variant.image.width < 1 || variant.image.height < 1)
+      issues.push(`${key}: medidas de imagen inválidas`);
+    if (variant.pivot.x < 0 || variant.pivot.x > 1 || variant.pivot.y < 0 || variant.pivot.y > 1)
+      issues.push(`${key}: pivote fuera de 0..1`);
+  }
+  return issues;
+}

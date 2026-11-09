@@ -1,6 +1,7 @@
 import type {
   AgentId,
   CharacterAnimation,
+  ConstructionSiteId,
   CrewId,
   GridCell,
   RuntimeAssetManifestV2,
@@ -25,7 +26,7 @@ export type SiteCrewRoster = {
   agentIds: AgentId[];
 };
 
-const cellKey = (cell: GridCell): string => `${cell.x},${cell.y}`;
+export const cellKey = (cell: GridCell): string => `${cell.x},${cell.y}`;
 
 /** Huella de la obra más sus cuatro vecinas: donde un agente se lee como "en obra". */
 export function siteWorkingCells(footprintCells: readonly GridCell[]): Set<string> {
@@ -68,10 +69,13 @@ export function crewMembersBySite(economy: Economy): SiteCrewRoster[] {
  * Rumbo del paso en la retícula, como índice de las cuatro vistas horneadas del personaje
  * (`azimuth = CAMERA_AZIMUTH_DEGREES + direction * 90`, runtime_asset.py:738).
  *
- * Tabla derivada de la convención de cámara, NO verificada todavía contra píxel: V.k.3 la calibra
- * con una captura de las cuatro direcciones antes de dar el sprite por bueno. Es exactamente la
- * clase de bug que corrigió `8890ff2` en los vehículos; si la captura sale espejada se corrige esta
- * tabla y nada más. `null` = el delta no es un paso 4-adyacente (el render conserva el rumbo previo).
+ * Calibrada en V.k.3 sobre `chr_worker-d{0..3}-walk-0.png`: la cámara orbita y el rig nunca gira, así
+ * que el frente del personaje (−Y de Blender) cae a la derecha de pantalla en `−cos(azimuth)` y hacia
+ * arriba en `−0.5·sin(azimuth)`. Con +x al abajo-derecha y +y al abajo-izquierda de la retícula
+ * isométrica, d0 mira al abajo-izquierda (+y), d1 al abajo-derecha (+x), d2 al arriba-derecha (−y) y
+ * d3 al arriba-izquierda (−x) — y eso es lo que se ve en las sprites: d0/d1 enseñan el frente (el paso
+ * baja por pantalla) y d2/d3 la espalda (se aleja). Es la misma convención que corrigió `8890ff2` en
+ * los vehículos. `null` = el delta no es un paso 4-adyacente (el render conserva el rumbo previo).
  */
 export const GRID_DELTA_TO_DIRECTION: Readonly<Record<string, 0 | 1 | 2 | 3>> = {
   "1,0": 1,
@@ -158,4 +162,120 @@ export function crewSpriteKey(
     throw new Error(`slot fuera del contrato para ${character}/${animation}: ${slot}`);
   }
   return `blender-character-${character}-${animation}-d${direction}-${slot}`;
+}
+
+/**
+ * V.k.3 · el avatar de obra. Los oficios que el roster pone en una cuadrilla (`supervisor`,
+ * `construction_worker`, `maintenance_technician`) comparten el profesional horneado desde
+ * Rocketbox: no hay un sprite distinto que el dominio autorize, y distinguirse por tinte sería
+ * inventar una lectura que el motor no publica.
+ */
+export const CREW_CHARACTER = "chr_worker";
+
+/**
+ * Fase del tramo en curso, 0 en `cell` y 1 al entrar en `nextCell`.
+ *
+ * El paso se ejecuta cuando el clock aún vale `ticksPerCell · k` y se publica en el tick siguiente,
+ * así que la resta es la del tick *anterior* al paso. Con `tick % ticksPerCell` el agente rebobina
+ * una décima de celda en cada llegada: el off-by-one lo fijó la medición de
+ * `movement-tick-counter.test.ts`, no la intuición.
+ */
+export function crewStepProgress(tick: number, ticksPerCell: number): number {
+  if (!Number.isFinite(tick) || !Number.isInteger(ticksPerCell) || ticksPerCell <= 0) return 0;
+  return ((((tick - 1) % ticksPerCell) + ticksPerCell) % ticksPerCell) / ticksPerCell;
+}
+
+/** Posición de la retícula que pinta el sprite: el tramo autoritativo, interpolado por la fase. */
+export function crewRenderCell(from: GridCell, to: GridCell, progress: number): GridCell {
+  const t = Math.min(1, Math.max(0, progress));
+  return { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t };
+}
+
+/**
+ * Frame en curso del clip: la cadencia la marca `frameDurationMs` del manifiesto, no el tick. El
+ * reloj de animación es tiempo de render y por eso nunca entra en el estado autoritativo.
+ */
+export function crewAnimationFrameKey(
+  manifest: RuntimeAssetManifestV2,
+  character: string,
+  animation: CharacterAnimation,
+  direction: 0 | 1 | 2 | 3,
+  elapsedMs: number,
+): string {
+  const clip = manifest.characters[character]?.animations[animation];
+  if (!clip) throw new Error(`animation fuera del contrato para ${character}: ${animation}`);
+  const framesPerDirection = clip.frames.length / manifest.characters[character]!.directions;
+  return crewSpriteKey(
+    manifest,
+    character,
+    animation,
+    direction,
+    crewAnimationSlot(elapsedMs, clip.frameDurationMs, framesPerDirection),
+  );
+}
+
+/**
+ * Lo que la escena necesita para pintar a un miembro de cuadrilla en la proyección actual. `cell`
+ * es autoritativo (y es la memoria que la siguiente proyección usa como origen del rumbo llegado);
+ * `renderCell` es presentación y puede ser fraccionaria.
+ */
+export type CrewSpriteObservation = {
+  agentId: AgentId;
+  siteId: ConstructionSiteId;
+  character: string;
+  animation: CharacterAnimation;
+  direction: 0 | 1 | 2 | 3;
+  visualState: CrewVisualState;
+  cell: GridCell;
+  renderCell: GridCell;
+};
+
+/**
+ * V.k.3 · pool de sprites de cuadrilla derivado de la proyección. La memoria entre proyecciones
+ * (`previous`) sólo sirve para saber de dónde venía cada agente: sin ella un agente que llega a su
+ * celda giraría hacia la cámara, porque `nextCell` ya apunta al siguiente tramo.
+ *
+ * Las claves del mapa son exactamente los agentes pintables: la escena destruye lo que aquí no
+ * esté, así que una obra terminada o una cuadrilla despedida no deja sprites huérfanos.
+ */
+export function crewSpriteObservations(
+  projection: ViewProjectionV2,
+  previous: ReadonlyMap<AgentId, CrewSpriteObservation>,
+): Map<AgentId, CrewSpriteObservation> {
+  const observations = new Map<AgentId, CrewSpriteObservation>();
+  const economy = projection.economy;
+  if (!economy) return observations;
+  const agentsById = new Map(
+    projection.agents
+      .filter((agent) => agent.districtId === projection.observedDistrictId)
+      .map((agent) => [agent.id, agent]),
+  );
+  const progress = crewStepProgress(projection.tick, projection.movement.ticksPerCell);
+  for (const row of crewMembersBySite(economy)) {
+    const working = siteWorkingCells(row.site.footprintCells);
+    for (const agentId of row.agentIds) {
+      const agent = agentsById.get(agentId);
+      if (!agent) continue;
+      const plan = crewWalkPlan({
+        previousCell: previous.get(agentId)?.cell ?? null,
+        cell: agent.cell,
+        nextCell: agent.nextCell,
+        agentState: agent.state,
+        atSite: working.has(cellKey(agent.cell)),
+      });
+      observations.set(agentId, {
+        agentId,
+        siteId: row.site.id,
+        character: CREW_CHARACTER,
+        animation: plan.animation,
+        direction: plan.direction,
+        visualState: plan.visualState,
+        cell: { x: agent.cell.x, y: agent.cell.y },
+        renderCell: agent.nextCell
+          ? crewRenderCell(agent.cell, agent.nextCell, progress)
+          : { x: agent.cell.x, y: agent.cell.y },
+      });
+    }
+  }
+  return observations;
 }

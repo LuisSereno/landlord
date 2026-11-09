@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import { CHARACTER_RENDER_SCALE } from "./visual-scale";
 import {
+  type AgentId,
   type BuildingAssetState,
   type BuildingAssetV2,
   type BuildingPhysicalOrientation,
@@ -37,12 +38,12 @@ import {
   type GroundDescriptor,
   type GroundFamily,
 } from "./property-grounds";
+import { constructionStageMassing, constructionVisualStage } from "./construction-stages";
 import {
-  constructionStageMassing,
-  constructionVisualStage,
-  crewVisualState,
-  type CrewVisualState,
-} from "./construction-stages";
+  crewAnimationFrameKey,
+  crewSpriteObservations,
+  type CrewSpriteObservation,
+} from "./crew-presence";
 import { planGround, type GroundPlan } from "../visual-slice/ground";
 import {
   CROSSING_TEXTURE,
@@ -102,18 +103,17 @@ const GROUND_COLORS: Record<string, number> = {
 } as const;
 /**
  * V.d-7C · coreografía de obra. Paleta Graphic Civic propia: tierra para la cimentación, crema de
- * muro para la estructura a medio hacer, andamio en línea fina y cuadrillas con anillo por estado.
- * Nada de esto cambia el progreso autoritativo: es lectura del progreso que ya existe.
+ * muro para la estructura a medio hacer y andamio en línea fina. Nada de esto cambia el progreso
+ * autoritativo: es lectura del progreso que ya existe.
+ *
+ * V.k.3 · las cuadrillas ya no están aquí: se leen como personas con el avatar horneado de obra,
+ * así que los cuatro colores de anillo quedaron sin superficie que pintar.
  */
 const CONSTRUCTION_COLORS = {
   excavation: 0x2f2621,
   pad: 0x8a6f4e,
   massing: 0xead7a1,
   scaffold: 0xc9b98a,
-  crewAssigned: 0x7f8fa6,
-  crewTravelling: 0xf2c14e,
-  crewOnSite: 0x4db6ac,
-  crewWorking: 0x7fc8a9,
 } as const;
 
 const STRUCTURE_TEXTURE_KEY = "benchmark-structure-marker";
@@ -138,6 +138,17 @@ const CONSTRUCTION_SITE_DEPTH = TERRAIN_DEPTH + 300;
 const PLACEMENT_GHOST_DEPTH = 20_450;
 const PLACEMENT_DEPTH = 20_500;
 const PLACEMENT_LABEL_DEPTH = 20_550;
+/**
+ * V.k.3 · la etiqueta de obra cuelga sobre los sprites: `depthForCell` llega a 126 693 en la retícula
+ * de 64×64, así que el contenedor compartido con la colocación (20 550) quedaba enterrado por los
+ * edificios del distrito.
+ */
+const CONSTRUCTION_LABEL_DEPTH = 1_000_000;
+/**
+ * Constante de deslizamiento de las cuadrillas. La proyección llega cada 2 ticks y el destino salta
+ * de golpe; este tiempo de relajación es presentación pura y no añade simulación.
+ */
+const CREW_INTERPOLATION_MS = 120;
 /** El fantasma es una promesa, no un edificio: semi-transparente y distinguible del terminado. */
 const PLACEMENT_GHOST_ALPHA = 0.55;
 /**
@@ -176,6 +187,19 @@ export type IsometricSceneOptions = {
   terrainStage?: TerrainStage | undefined;
   /** Cuadrícula de edición por celda. La captura de referencia del gate no debe parecer un editor. */
   showGrid?: boolean | undefined;
+};
+
+/**
+ * Sprite de un miembro de cuadrilla. `target` es el destino publicado por la última proyección: el
+ * sprite se desliza hacia él en `update()`, porque la proyección llega cada 2 ticks y el tramo
+ * autoritativo dura 10.
+ */
+type CrewSpriteEntry = {
+  image: Phaser.GameObjects.Image;
+  /** Clave horneada ya aplicada: `setTexture` sólo cuando cambia, como en los demás pools. */
+  key: string;
+  target: ScreenPoint;
+  cell: GridCell;
 };
 
 /** Identidad semántica recibida desde la UI; las celdas se resuelven contra la proyección actual. */
@@ -266,6 +290,8 @@ declare global {
       trashCans: number;
       parkedVehicles: number;
       trees: number;
+      /** V.k.3 · sprites de cuadrilla vivos en el pool (agentes asignados a una obra). */
+      crewSprites: number;
       totalSprites: number;
       groundRebakes: number;
       groundBakeLastMs: number;
@@ -346,6 +372,14 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private ambientActorSprites = new Map<string, Phaser.GameObjects.Image>();
   private publicSpaceFurnitureSprites = new Map<string, Phaser.GameObjects.Image>();
   private parcelDressingSprites = new Map<string, Phaser.GameObjects.Image>();
+  /**
+   * V.k.3 · pool propio de cuadrillas. Va aparte de `ambientActorSprites` porque esos son población
+   * ambiental derivada del modelo visual (estable, keyed por id de scena) y éstos son agentes del
+   * roster que se crean, mueven y despiden con la obra.
+   */
+  private crewSprites = new Map<AgentId, CrewSpriteEntry>();
+  /** Lectura pura de la última proyección: también es la memoria de rumbo entre proyecciones. */
+  private crewObservations = new Map<AgentId, CrewSpriteObservation>();
 
   public constructor(options: IsometricSceneOptions = {}) {
     super({ key: "IsometricSpikeScene" });
@@ -365,7 +399,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.mapGraphics = this.add.graphics().setDepth(20_000);
     this.placementGraphics = this.add.graphics().setDepth(PLACEMENT_DEPTH);
     this.placementLabels = this.add.container(0, 0).setDepth(PLACEMENT_LABEL_DEPTH);
-    this.constructionLabels = this.add.container(0, 0).setDepth(PLACEMENT_LABEL_DEPTH);
+    this.constructionLabels = this.add.container(0, 0).setDepth(CONSTRUCTION_LABEL_DEPTH);
     this.createMarkerTexture(STRUCTURE_TEXTURE_KEY, 16, 16, "#d97757");
     this.createMarkerTexture(AGENT_TEXTURE_KEY, 4, 4, "#8fcae7");
     this.structureBlitter = this.add.blitter(0, 0, STRUCTURE_TEXTURE_KEY).setDepth(15_000);
@@ -406,12 +440,14 @@ export class IsometricSpikeScene extends Phaser.Scene {
       placementLabelPool: this.placementLabels?.list.length ?? 0,
       placementDraws: this.placementDrawCount,
       sceneChildren: this.children.list.length,
+      crewSprites: this.crewSprites.size,
       totalSprites:
         this.buildingSprites.size +
         this.decorSprites.length +
         this.streetFurnitureSprites.size +
         this.parkedVehicleSprites.size +
         this.roadMarkingSprites.length +
+        this.crewSprites.size +
         this.structureBobs.length +
         this.agentBobs.length,
       groundRebakes: this.groundRebakeCount,
@@ -453,6 +489,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       this.fpsAccumulator = 0;
     }
     this.updateGameplayStreetLifeVisibility();
+    this.animateCrewSprites(time, delta);
     /**
      * V.d-UX · en zoom lejano se ocultan los avisos no críticos para no llenar la ciudad de
      * badges. Los críticos (incendio/colapso) siguen visibles siempre.
@@ -481,6 +518,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
     if (!this.sliceLayout) this.syncGameplayVisual();
     this.updateBlitterPositions();
     this.syncBuildingSprites();
+    /** V.k.3 · las observaciones van antes del repintado: la etiqueta de obra cuenta desde ellas. */
+    this.syncCrewSprites();
     this.drawOverlay();
     this.syncWorldIndicators();
     if (districtChanged && this.placementTarget) this.setPlacement(null);
@@ -855,6 +894,96 @@ export class IsometricSpikeScene extends Phaser.Scene {
     for (const sprite of this.parkedVehicleSprites.values()) {
       sprite.setVisible(this.isInViewport(sprite.x, sprite.y, view, 128));
     }
+    for (const entry of this.crewSprites.values()) {
+      entry.image.setVisible(this.isInViewport(entry.image.x, entry.image.y, view, 96));
+    }
+  }
+
+  /**
+   * V.k.3 · reconcile del pool de cuadrillas. La lectura la hace `crewSpriteObservations`, la misma
+   * fuente de la que sale la etiqueta de obra; aquí sólo se crean, reubican y destruyen imágenes.
+   * Un sprite por agente: una cuadrilla de tres es gente distinta andando a la vez, no un círculo.
+   */
+  private syncCrewSprites(): void {
+    const projection = this.projection;
+    if (!projection?.economy || this.sliceLayout) {
+      this.clearCrewSprites();
+      return;
+    }
+    this.crewObservations = crewSpriteObservations(projection, this.crewObservations);
+    if (!this.assetsReady) return;
+    for (const [agentId, entry] of this.crewSprites) {
+      if (this.crewObservations.has(agentId)) continue;
+      entry.image.destroy();
+      this.crewSprites.delete(agentId);
+    }
+    for (const observation of this.crewObservations.values()) {
+      const target = gridToScreen(observation.renderCell, this.layout);
+      const existing = this.crewSprites.get(observation.agentId);
+      if (existing) {
+        existing.target = target;
+        existing.cell = observation.renderCell;
+        continue;
+      }
+      const key = crewAnimationFrameKey(
+        ASSETS_BLENDER,
+        observation.character,
+        observation.animation,
+        observation.direction,
+        this.time.now,
+      );
+      if (!this.textures.exists(key)) continue;
+      const image = this.add
+        .image(target.x, target.y, key)
+        .setOrigin(0.5, 0.94)
+        .setScale(CHARACTER_RENDER_SCALE)
+        .setDepth(depthForAsset(observation.renderCell, { width: 1, height: 1 }));
+      image.setVisible(this.isInViewport(target.x, target.y, this.cameras.main.worldView, 96));
+      this.crewSprites.set(observation.agentId, {
+        image,
+        key,
+        target,
+        cell: observation.renderCell,
+      });
+    }
+  }
+
+  /** Cambiar de distrito, apagar la economía o salir del modo gameplay deja el pool vacío. */
+  private clearCrewSprites(): void {
+    for (const entry of this.crewSprites.values()) entry.image.destroy();
+    this.crewSprites.clear();
+    this.crewObservations.clear();
+  }
+
+  /**
+   * Reloj de animación e interpolación entre proyecciones. La proyección llega cada 2 ticks y el
+   * paso autoritativo dura `ticksPerCell`, así que el destino publicado salta: el sprite desliza
+   * hacia él en lugar de teletransportarse. Ninguna de las dos cosas es estado del mundo.
+   */
+  private animateCrewSprites(time: number, delta: number): void {
+    if (this.crewSprites.size === 0) return;
+    const ease = 1 - Math.exp(-Math.max(0, delta) / CREW_INTERPOLATION_MS);
+    for (const [agentId, entry] of this.crewSprites) {
+      const observation = this.crewObservations.get(agentId);
+      if (!observation) continue;
+      const key = crewAnimationFrameKey(
+        ASSETS_BLENDER,
+        observation.character,
+        observation.animation,
+        observation.direction,
+        time,
+      );
+      if (key !== entry.key) {
+        entry.image.setTexture(key);
+        entry.key = key;
+      }
+      entry.image.setDepth(depthForAsset(entry.cell, { width: 1, height: 1 }));
+      if (entry.image.x === entry.target.x && entry.image.y === entry.target.y) continue;
+      entry.image.setPosition(
+        entry.image.x + (entry.target.x - entry.image.x) * ease,
+        entry.image.y + (entry.target.y - entry.image.y) * ease,
+      );
+    }
   }
 
   /**
@@ -967,7 +1096,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       if (this.assetsReady && hasRealVariants(site.buildingType)) continue;
       this.drawConstructionSite(graphics, site);
     }
-    constructionLabelCount = this.drawCrewPresence(graphics, constructionLabelCount);
+    constructionLabelCount = this.drawCrewPresence(constructionLabelCount);
     this.trimLabels(this.constructionLabels, constructionLabelCount);
     for (const incident of this.projection?.economy?.incidents.filter(
       (entry) => entry.status === "active",
@@ -1316,52 +1445,25 @@ export class IsometricSpikeScene extends Phaser.Scene {
   }
 
   /**
-   * V.d-7C · cuadrillas ligadas al solar. Se dibuja únicamente información ya autoritativa y
+   * V.d-7C · cuadrillas ligadas al solar. Se lee únicamente información ya autoritativa y
    * proyectada: a qué obra está asignada cada cuadrilla, en qué celda está cada agente y en qué
    * estado está. No hay un segundo sistema de movimiento.
+   *
+   * V.k.3 · los anillos se fueron: la gente ya se ve como sprites andando, así que sobre la obra
+   * sólo cuelga la cuenta de quién está dentro, contada sobre las mismas observaciones que pintó la
+   * escena. Escena y etiqueta no pueden discrepar.
    */
-  private drawCrewPresence(graphics: Phaser.GameObjects.Graphics, labelIndex: number): number {
+  private drawCrewPresence(labelIndex: number): number {
     const economy = this.projection?.economy;
     if (!economy) return labelIndex;
     const sites = economy.constructionSites.filter((site) => site.assignedCrewIds.length > 0);
     if (sites.length === 0) return labelIndex;
-    const agentsById = new Map(
-      (this.projection?.agents ?? [])
-        .filter((agent) => agent.districtId === this.projection?.observedDistrictId)
-        .map((agent) => [agent.id, agent]),
-    );
-    const crewsById = new Map(economy.crews.map((crew) => [crew.id, crew]));
     for (const site of sites) {
-      const footprint = new Set(site.footprintCells.map((cell) => `${cell.x},${cell.y}`));
-      const working = new Set(
-        [...site.footprintCells]
-          .flatMap((cell) => [
-            `${cell.x + 1},${cell.y}`,
-            `${cell.x - 1},${cell.y}`,
-            `${cell.x},${cell.y + 1}`,
-            `${cell.x},${cell.y - 1}`,
-          ])
-          .concat([...footprint]),
-      );
       let present = 0;
-      for (const crewId of site.assignedCrewIds) {
-        const crew = crewsById.get(crewId);
-        if (!crew) continue;
-        for (const agentId of [crew.supervisorAgentId, ...crew.workerAgentIds]) {
-          const agent = agentsById.get(agentId);
-          if (!agent) continue;
-          const state = crewVisualState({
-            assignedToSite: true,
-            agentState: agent.state,
-            atSite: working.has(`${agent.cell.x},${agent.cell.y}`),
-          });
-          if (state === "on-site" || state === "working") present += 1;
-          const point = gridToScreen(agent.cell, this.layout);
-          graphics.lineStyle(2, this.crewColor(state), 1);
-          graphics.strokeCircle(point.x, point.y, 7);
-          graphics.fillStyle(this.crewColor(state), 0.9);
-          graphics.fillCircle(point.x, point.y, 3);
-        }
+      for (const observation of this.crewObservations.values()) {
+        if (observation.siteId !== site.id) continue;
+        if (observation.visualState === "on-site" || observation.visualState === "working")
+          present += 1;
       }
       const center = gridToScreen(footprintVisualCenter(site.footprintCells), this.layout);
       const label = this.pooledLabel(this.constructionLabels, labelIndex, {
@@ -1378,13 +1480,6 @@ export class IsometricSpikeScene extends Phaser.Scene {
       labelIndex += 1;
     }
     return labelIndex;
-  }
-
-  private crewColor(state: CrewVisualState): number {
-    if (state === "working") return CONSTRUCTION_COLORS.crewWorking;
-    if (state === "on-site") return CONSTRUCTION_COLORS.crewOnSite;
-    if (state === "travelling") return CONSTRUCTION_COLORS.crewTravelling;
-    return CONSTRUCTION_COLORS.crewAssigned;
   }
 
   /**
@@ -1607,7 +1702,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
     /** El fantasma necesita texturas: sin `assetsReady` sólo se ve la huella proxy. */
     if (this.placementTarget) this.drawPlacement();
     if (this.sliceLayout) this.renderVisualSlice();
-    else this.renderGameplayStreetLife();
+    else {
+      this.renderGameplayStreetLife();
+      /** Hasta aquí las cuadrillas sólo tenían observaciones: los sprites piden texturas ya de alta. */
+      this.syncCrewSprites();
+    }
   }
 
   private async registerTexturesFromBundle(

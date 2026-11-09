@@ -196,6 +196,38 @@ anclaje de daño; `31ff12f` resolución de variante + adapter; `e0d6ea5` carga p
   binarios y licencias (ver acta). `validate-art-staging` mantiene fallos preexistentes sólo en
   `src_original_*` (V.j.2), no regresión.
 
+## WP4.15-V.k — Cuadrillas como personas (2026-11-09, commits locales SIN push)
+
+Rama `wip/vh-world-visual-foundation`, continuación directa de V.j. Pide el playtest de V.d: la gente
+en obra se leía como puntos de color. Ejecutado V.k.1–V.k.4 y commiteado (`f0e590e`, `2f9501f`,
+`11de230`, `e6b93b3`, `f672a5e`, `40b1974`, `4032257`). **Nada empujado.** Doctrina en
+`docs/engineering/adr/D-103-cuadrillas-como-avatares-rumbo-autoritativo.md` (PROPUESTA, pendiente de
+ratificación del responsable).
+
+- **Contrato** (V.k.1): la proyección publica `agents[].districtId`, `agents[].nextCell` y
+  `movement.ticksPerCell`. Datos que el motor ya tenía; **ninguna** regla ni simulación nueva.
+- **Lectura pura** (V.k.2/V.k.4): `apps/web/src/isometric/crew-presence.ts` es la única puerta (huella
+  + 4 vecinas, estados visuales, plan de paso con rumbo calibrado contra las 4 vistas horneadas,
+  progreso del tramo sin off-by-one). `crewRosterCounts` añade V.k.4 y es lo que ahora formatea el
+  panel de obra: escena y panel no pueden discrepar sobre la misma proyección.
+- **Escena** (V.k.3): pool `crewSprites` con un avatar Rocketbox `chr_worker` por miembro, animación e
+  interpolación en tiempo de render; el cuadrado del blitter cae donde hay sprite y se conserva para
+  `injured`/`dead` y para el roster sin avatar. Fix del `pageerror` de `registerImageTexture` sobre
+  escena destruida y de los hooks de QA (escuchan `DESTROY`, que es lo que emite `game.destroy()`).
+- **Legibilidad**: `CHARACTER_RENDER_SCALE = 28/256` + LUT de luminancia γ 1.8 aplicada al raster en
+  runtime (PNG, hashes y manifiesto intactos).
+- **Evidencia medida** (`artifacts/visual-slice/vk3-projection.json`, distrito `district_00000004`,
+  tick 24, `ticksPerCell` 10): 8 agentes, 2 obras × cuadrilla de 3 → 6 sprites; 5 walk / 1 idle; rumbos
+  d2×4 y d1×1; salud 100 en todos (la excepción herido/muerto no es observable aún en este corpus).
+- **Gates de la sesión**: `pnpm typecheck` limpio, ESLint 0 en los ficheros tocados, `crew-presence`
+  19/19, `ux-contracts` 8/8 (incluye el SSR de la ficha de obra), suite web 266 passed | 4 skipped.
+  Baseline V.j (108 capturas pixel-qa) y `runtime-assets-blender.json` **sin tocar**; los smokes
+  `vd-ux`/`vd-core-loop` no se corrieron porque sobrescriben goldens versionados.
+- **Deuda abierta (registrada, no arreglada)**: puntos rojo/morado del blitter = roster sin avatar;
+  los sprites de una cuadrilla comparten fase de animación;
+  `__gameplayVisualStats`/`__districtAssetStats`/`__landlordQaRefresh` no se limpian en `destroy()`;
+  falta el playtest humano (#145) y la ratificación de D-103.
+
 ## Próximo objetivo
 
 Fase 0 de V.d ejecutada el 2026-10-28

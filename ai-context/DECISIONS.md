@@ -1508,3 +1508,22 @@ imágenes de variantes (sólo el manifiesto); entran bajo demanda por distrito; 
 métricas `window.__districtAssetStats`; (4) el presupuesto de arranque sigue D-101 (≤23 MiB, medido
 22,6 MB); el de variantes es memoria de sesión, no tamaño de repo. Ver
 `docs/engineering/adr/D-102-carga-por-distrito-presupuesto.md`.
+
+## D-103 — Cuadrillas como avatares y rumbo autoritativo: el marcador sólo dice lo que el clip no puede
+
+Estado: propuesta el 2026-11-09 en la rama `wip/vh-world-visual-foundation` (WP4.15-V.k.1–V.k.4
+ejecutados y commiteados en local, sin push); pendiente de ratificación del responsable. Decisiones:
+(1) un miembro de una cuadrilla asignada a una obra se pinta con el avatar Rocketbox horneado
+`chr_worker` (`CREW_CHARACTER`), no con el cuadrado de 4 px del blitter — el marcador queda para el
+roster sin sprite y para los estados que el clip no expresa (`injured`/`dead`, `AGENT_STATE_TINTS`);
+(2) el rumbo lo manda el **paso autoritativo** (`agent.nextCell` → `GRID_DELTA_TO_DIRECTION`), nunca la
+cámara ni el tick; sin paso publicado se conserva el rumbo del último tramo recorrido (memoria
+`previous` entre proyecciones), para que quien llega no gire hacia el observador; (3) para poder decir
+eso la proyección amplió contrato (V.k.1: `agents[].districtId`, `agents[].nextCell`,
+`movement.ticksPerCell`) y el render filtra por `observedDistrictId` — no se añadió ninguna simulación;
+(4) escena y panel leen la **misma puerta pura** (`crew-presence.ts`: `crewMembersBySite`,
+`siteWorkingCells`, `crewVisualState` y desde V.k.4 `crewRosterCounts`), así no pueden discrepar sobre
+quién está en obra; es deliberado que el panel hable de la plantilla asignada y el mapa pinte sólo el
+distrito observado; (5) animación e interpolación son tiempo de render (`frameDurationMs`, easing por
+`delta`), jamás estado del mundo. Ver
+`docs/engineering/adr/D-103-cuadrillas-como-avatares-rumbo-autoritativo.md`.

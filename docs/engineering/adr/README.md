@@ -104,3 +104,13 @@ y separa la evidencia candidata de la promoción al runtime. Supersede las itera
 
 Eleva `maxBundleBytes` con el catálogo completo medido (9.372.434 B), registra excepciones nombradas
 para la evidencia QA permanente y saca los `attempts/` del índice. Corrige D-081.
+
+## WP4.15-V.k — Cuadrillas como avatares (2026-11-09, pendiente de ratificación)
+
+- [D-103 — Cuadrillas como avatares y rumbo autoritativo](D-103-cuadrillas-como-avatares-rumbo-autoritativo.md) — PROPUESTA
+
+Amplía D-095 (vocabulario visual) y D-097 §«Crew choreography» sin sustituirlos: la cuadrilla asignada
+se pinta con el avatar Rocketbox que deriva `crew-presence.ts`, el rumbo lo manda el paso autoritativo
+(`nextCell`), y el marcador del blitter queda sólo para el roster sin sprite y para herido/muerto.
+Escena y panel comparten una única puerta de lectura; la divergencia plantilla-asignada vs
+distrito-observado es deliberada. Commits locales `f0e590e..4032257`, sin push.

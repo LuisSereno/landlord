@@ -285,10 +285,12 @@ export function App() {
         economy?.parcels.find((parcel) => parcel.disposition === "public")?.cell ?? null,
       firstBuildingCell: () => {
         const building = economy?.buildings[0];
-        if (!building) return null;
-        return (
-          economy?.parcels.find((parcel) => parcel.id === building.parcelIds[0]!)?.cell ?? null
-        );
+        const cells = building?.footprintCells;
+        if (!cells?.length) return null;
+        return {
+          x: Math.round(cells.reduce((s, c) => s + c.x, 0) / cells.length),
+          y: Math.round(cells.reduce((s, c) => s + c.y, 0) / cells.length),
+        };
       },
       marketableParcelCell: () =>
         economy?.parcels.find(

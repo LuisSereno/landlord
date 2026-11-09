@@ -220,7 +220,7 @@ describe.skipIf(!enabled)("V.d.1 gate de tejido urbano", () => {
       ),
       morphology: summary,
     };
-    console.log(JSON.stringify(evidence, null, 2));
+    process.stdout.write(`${JSON.stringify(evidence, null, 2)}\n`);
     /**
      * El destino es configurable para que una corrida de hardening no pise la evidencia de V.d.1,
      * que es histórica. Sin variable, sigue escribiendo el fichero original de la fase.

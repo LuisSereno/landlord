@@ -16,6 +16,12 @@ import {
   variantAsAsset,
   variantTextureKey,
 } from "../assets/building-variants";
+import {
+  DistrictTextureCache,
+  VARIANT_CACHE_BUDGET_BYTES,
+  decodedTextureBytes,
+  type DistrictAssetMetrics,
+} from "../assets/district-texture-cache";
 import { deriveWorldIndicators } from "../ui/world-indicators";
 import {
   CODE_PALETTE,
@@ -223,6 +229,8 @@ declare global {
       samples: number[];
       objectCount: number;
     };
+    /** V.j.6 · métricas de carga/memoria de variantes por distrito (D-102). */
+    __districtAssetStats?: () => DistrictAssetMetrics;
     /**
      * V.d-7C · sonda observacional del modo de colocación (sólo con `?cameraTest=1`). Lee qué se
      * está mostrando; no selecciona candidatas, no muta el estado y no sustituye ningún click.
@@ -280,7 +288,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private structureBobs: Phaser.GameObjects.Bob[] = [];
   private agentBobs: Phaser.GameObjects.Bob[] = [];
   private buildingSprites = new Map<string, Phaser.GameObjects.Image>();
-  private pendingVariantTextures = new Set<string>();
+  private pendingVariantTextures = new Map<string, { bytes: number; districtId: string }>();
+  private variantCache = new DistrictTextureCache(VARIANT_CACHE_BUDGET_BYTES);
   private sliceObjects: Phaser.GameObjects.GameObject[] = [];
   private assetsReady = false;
   private debugText?: Phaser.GameObjects.Text;
@@ -405,6 +414,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       groundBakeLastMs: this.groundBakeLastMs,
       groundBakeMaxMs: this.groundBakeMaxMs,
     });
+    window.__districtAssetStats = () => this.variantCache.metrics();
     this.cursors = this.input.keyboard?.createCursorKeys();
     this.input.on("pointerdown", this.handlePointerDown, this);
     this.input.on("pointermove", this.handlePointerMove, this);
@@ -1921,6 +1931,16 @@ export class IsometricSpikeScene extends Phaser.Scene {
       sprite.destroy();
       this.buildingSprites.delete(id);
     }
+    // V.j.6: acota la memoria de variantes; expulsa LRU lo que no está en uso ni en el distrito
+    // observado y elimina esas texturas de Phaser (se recargarán bajo demanda si vuelven a hacer falta).
+    const inUseVariantKeys = plan
+      .filter((placement) => placement.textureKey.startsWith("blender-variant-"))
+      .map((placement) => placement.textureKey);
+    const evicted = this.variantCache.settle(
+      this.projection?.observedDistrictId ?? "unknown",
+      inUseVariantKeys,
+    );
+    for (const key of evicted) this.textures.remove(key);
   }
 
   /**
@@ -1950,21 +1970,33 @@ export class IsometricSpikeScene extends Phaser.Scene {
         const variant = resolveBuildingVariant(type, vState, vOrientation, vStage);
         if (!variant) return null;
         const key = variantTextureKey(type, vState, vOrientation, vStage);
-        this.ensureVariantTexture(key, variant.image.src);
+        this.ensureVariantTexture(
+          key,
+          variant.image.src,
+          decodedTextureBytes(variant.image.width, variant.image.height),
+          this.projection?.observedDistrictId ?? "unknown",
+        );
         return { key, asset: variantAsAsset(type, variant) };
       },
     });
   }
 
-  /** V.j.5/V.j.6: carga perezosa de la textura de variante (el arranque no carga el catálogo). */
-  private ensureVariantTexture(key: string, src: string): void {
-    if (this.textures.exists(key) || this.pendingVariantTextures.has(key)) return;
-    this.pendingVariantTextures.add(key);
+  /** V.j.6: carga perezosa por distrito; el arranque no carga el catálogo (D-102). */
+  private ensureVariantTexture(key: string, src: string, bytes: number, districtId: string): void {
+    if (this.textures.exists(key)) {
+      this.variantCache.recordLoad(key, bytes, districtId);
+      return;
+    }
+    if (this.pendingVariantTextures.has(key)) return;
+    this.pendingVariantTextures.set(key, { bytes, districtId });
     this.load.image(key, src);
     if (!this.load.isLoading()) {
       this.load.once("complete", () => {
-        for (const pending of [...this.pendingVariantTextures]) {
-          if (this.textures.exists(pending)) this.pendingVariantTextures.delete(pending);
+        for (const [pendingKey, meta] of [...this.pendingVariantTextures]) {
+          if (this.textures.exists(pendingKey)) {
+            this.variantCache.recordLoad(pendingKey, meta.bytes, meta.districtId);
+            this.pendingVariantTextures.delete(pendingKey);
+          }
         }
         this.syncBuildingSprites();
       });

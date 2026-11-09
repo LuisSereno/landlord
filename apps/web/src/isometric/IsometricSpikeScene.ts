@@ -327,6 +327,12 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private variantCache = new DistrictTextureCache(VARIANT_CACHE_BUDGET_BYTES);
   private sliceObjects: Phaser.GameObjects.GameObject[] = [];
   private assetsReady = false;
+  /**
+   * El registro de texturas es asíncrono y React puede destruir el motor con decodificaciones en
+   * vuelo. Sin esta bandera, la continuación llama a `createCanvas` sobre un gestor que ya no tiene
+   * `game` y Phaser lanza `Cannot read properties of null (reading 'renderer')`.
+   */
+  private sceneDestroyed = false;
   private debugText?: Phaser.GameObjects.Text;
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   private selectedCell: GridCell | null = null;
@@ -466,6 +472,13 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.input.on("pointermove", this.handlePointerMove, this);
     this.input.on("pointerup", this.handlePointerUp, this);
     this.input.on("wheel", this.handleWheel, this);
+    /**
+     * `game.destroy()` no emite SHUTDOWN: los `Systems` avisan con DESTROY y luego quitan los
+     * listeners. Es la señal de que las continuaciones asíncronas ya no tienen dónde escribir.
+     */
+    this.events.once(Phaser.Scenes.Events.DESTROY, () => {
+      this.sceneDestroyed = true;
+    });
     void this.registerBuildingTextures();
   }
 
@@ -1704,6 +1717,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
     await this.registerTexturesFromBundle(ASSETS, "");
     await this.registerTexturesFromBundle(ASSETS_BLENDER, "blender-");
     if (this.sliceCharacters) await this.registerSliceCharacterTextures();
+    /** En una escena apagada no hay display list que repintar: sería el siguiente error. */
+    if (this.sceneDestroyed) return;
     this.assetsReady = true;
     this.syncBuildingSprites();
     this.drawOverlay();
@@ -1779,7 +1794,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     height: number,
     lift?: Uint8Array,
   ): Promise<void> {
-    if (this.textures.exists(key)) return;
+    if (this.sceneDestroyed || this.textures.exists(key)) return;
     const element = new Image();
     element.src = src;
     try {
@@ -1788,6 +1803,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
       return;
     }
     if (!element.complete || element.naturalWidth === 0) return;
+    /** El `await` de arriba es justo la ventana en la que React puede haber apagado la escena. */
+    if (this.sceneDestroyed) return;
     const texture = this.textures.createCanvas(key, width, height);
     if (!texture) return;
     texture.context.drawImage(element, 0, 0, width, height);

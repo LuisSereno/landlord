@@ -66,6 +66,42 @@ export function crewMembersBySite(economy: Economy): SiteCrewRoster[] {
 }
 
 /**
+ * V.k.4 · recuento por estado visible de la plantilla de una cuadrilla en una obra. Vive aquí, junto
+ * al resto de la lectura de cuadrillas, porque el panel y el mapa no pueden discrepar sobre quién
+ * está en obra: las dos superficies pasan por `crewMembersBySite`, `siteWorkingCells` y
+ * `crewVisualState` por esta misma puerta. Orden: mayor recuento primero y, empatado, el estado por
+ * nombre.
+ *
+ * Un miembro que la proyección no publica cuenta como no presente: el panel habla de la plantilla
+ * asignada, mientras el mapa sólo pinta a quien está en el distrito observado (D-103).
+ */
+export function crewRosterCounts(input: {
+  economy: Economy;
+  agents: readonly { id: AgentId; cell: GridCell; state?: string }[];
+  siteId: ConstructionSiteId;
+  crewId: CrewId;
+}): { state: CrewVisualState; members: number }[] {
+  const row = crewMembersBySite(input.economy).find(
+    (entry) => entry.site.id === input.siteId && entry.crew.id === input.crewId,
+  );
+  if (!row) return [];
+  const working = siteWorkingCells(row.site.footprintCells);
+  const counts = new Map<CrewVisualState, number>();
+  for (const agentId of row.agentIds) {
+    const agent = input.agents.find((entry) => entry.id === agentId);
+    const state = crewVisualState({
+      assignedToSite: true,
+      agentState: agent?.state,
+      atSite: agent ? working.has(cellKey(agent.cell)) : false,
+    });
+    counts.set(state, (counts.get(state) ?? 0) + 1);
+  }
+  return [...counts.entries()]
+    .map(([state, members]) => ({ state, members }))
+    .sort((left, right) => right.members - left.members || left.state.localeCompare(right.state));
+}
+
+/**
  * Rumbo del paso en la retícula, como índice de las cuatro vistas horneadas del personaje
  * (`azimuth = CAMERA_AZIMUTH_DEGREES + direction * 90`, runtime_asset.py:738).
  *

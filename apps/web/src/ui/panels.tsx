@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import type { BuildingType, ViewProjectionV2 } from "@landlord/shared";
+import type { BuildingType, CrewId, ViewProjectionV2 } from "@landlord/shared";
 
 import { BuildCatalog } from "./build-catalog";
 import { BuildingThumbnail } from "./building-thumbnail";
@@ -16,9 +16,8 @@ import {
   constructionStageLabel,
   constructionVisualStage,
   crewStateLabel,
-  crewVisualState,
-  type CrewVisualState,
 } from "../isometric/construction-stages";
+import { crewRosterCounts } from "../isometric/crew-presence";
 import type { PendingPlacement, PlacementHandlers } from "./placement";
 import {
   buildingDisplayName,
@@ -420,35 +419,21 @@ function SiteAssemblyPanel({
 }
 
 /**
- * V.d-7C · resumen de la plantilla de una cuadrilla. No mueve ni un agente: lee la posición y el
- * estado que la proyección ya publica y los agrupa por etapa visible.
+ * V.k.4 (el resumen nació en V.d-7C) · la plantilla de una cuadrilla. No mueve ni un agente y no
+ * decide nada: el recuento por estado lo hace `crewRosterCounts`, la misma puerta por la que la
+ * escena sabe quién está en obra. Mientras el panel formatee y la escena pinte a través de ese
+ * helper, las dos superficies no pueden discrepar sobre la misma proyección.
  */
-function crewRosterSummary(context: PanelContext, site: ProjectedSite, crewId: string): string {
-  const crew = context.economy.crews.find((entry) => entry.id === crewId);
-  if (!crew) return "sin datos";
-  const near = new Set(
-    [...site.footprintCells].flatMap((cell) => [
-      `${cell.x + 1},${cell.y}`,
-      `${cell.x - 1},${cell.y}`,
-      `${cell.x},${cell.y + 1}`,
-      `${cell.x},${cell.y - 1}`,
-      `${cell.x},${cell.y}`,
-    ]),
-  );
-  const counts = new Map<CrewVisualState, number>();
-  for (const agentId of [crew.supervisorAgentId, ...crew.workerAgentIds]) {
-    const agent = context.projection.agents.find((entry) => entry.id === agentId);
-    const state = crewVisualState({
-      assignedToSite: true,
-      agentState: agent?.state,
-      atSite: agent ? near.has(`${agent.cell.x},${agent.cell.y}`) : false,
-    });
-    counts.set(state, (counts.get(state) ?? 0) + 1);
-  }
-  if (counts.size === 0) return "sin agentes";
-  return [...counts.entries()]
-    .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
-    .map(([state, count]) => `${count} ${crewStateLabel(state).toLowerCase()}`)
+function crewRosterSummary(context: PanelContext, site: ProjectedSite, crewId: CrewId): string {
+  const counts = crewRosterCounts({
+    economy: context.economy,
+    agents: context.projection.agents,
+    siteId: site.id,
+    crewId,
+  });
+  if (counts.length === 0) return "sin datos";
+  return counts
+    .map(({ state, members }) => `${members} ${crewStateLabel(state).toLowerCase()}`)
     .join(" · ");
 }
 

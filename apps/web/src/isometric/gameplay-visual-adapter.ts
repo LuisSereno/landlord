@@ -127,9 +127,11 @@ export type GameplayContextVehicle = GameplayParkedVehicle & {
 
 /**
  * Actor ambiental presentacional (V.h.7 §16): peatón determinista en un espacio público, separado
- * de GameState y de los agents simulados (que se renderizan como markers autoritativos). Usa el
- * personaje horneado `vecino_variante` (idle/walk, 4 direcciones); sin IA peatonal: pose estática
- * derivada de coordenada + seed, nunca de tick.
+ * de GameState y de los agents simulados. Esos agentes ya no son sólo marcadores: desde V.k (D-103)
+ * la cuadrilla asignada a una obra se pinta con el avatar Rocketbox que deriva `crew-presence.ts`, y
+ * el marcador del blitter queda para el roster sin sprite y para los estados que el clip no expresa
+ * (herido/muerto). Aquí no cambia nada: `vecino_variante` (idle/walk, 4 direcciones), sin IA
+ * peatonal, pose estática derivada de coordenada + seed, nunca de tick.
  */
 export type GameplayAmbientActor = {
   id: string;

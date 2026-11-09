@@ -5,10 +5,10 @@ export const CHARACTER_RENDER_SCALE =
   CHARACTER_TARGET_HEIGHT_PIXELS / CHARACTER_SOURCE_FRAME_PIXELS;
 
 /**
- * Gamma del aclaramiento de personajes horneados. Medido sobre `chr_worker-d0-walk-0.png`: el bake
- * sale con mediana 10/255 y media 16/255, por debajo del suelo sobre el que pisa, así que a 1× la
- * cuadrilla se leía como una silueta. Con 1.8 la mediana sube a ~41 y la ropa de trabajo sigue
- * siendo oscura; 2.2 ya la decolora a gris.
+ * Gamma del aclaramiento de personajes horneados. Medido sobre `chr_worker-d0-walk-0.png` (14.604 px
+ * opacos): el bake sale con mediana 10/255 y media 16/255, por debajo del suelo sobre el que pisa,
+ * así que a 1× la cuadrilla se leía como una silueta. Con 1.8 la mediana sube a 42 y la media a 49,
+ * y la ropa de trabajo sigue siendo oscura; 2.2 ya la decolora a gris.
  */
 export const CHARACTER_LIFT_GAMMA = 1.8;
 

@@ -15,7 +15,7 @@ import {
 import { describe, expect, it } from "vitest";
 
 import BLENDER from "../generated/runtime-assets-blender.json";
-import type { AgentId, ViewProjectionV2 } from "@landlord/shared";
+import type { AgentId, ConstructionSiteId, CrewId, ViewProjectionV2 } from "@landlord/shared";
 import {
   agentWorksAtSiteFootprint,
   CREW_CHARACTER,
@@ -23,6 +23,7 @@ import {
   crewAnimationFrameKey,
   crewMembersBySite,
   crewRenderCell,
+  crewRosterCounts,
   crewSpriteKey,
   crewSpriteObservations,
   crewStepDirection,
@@ -388,5 +389,109 @@ describe("V.k.3 · observaciones para el pool de sprites", () => {
     const projection = createViewProjection(state, true);
     delete projection.economy;
     expect(crewSpriteObservations(projection, new Map()).size).toBe(0);
+  });
+});
+
+describe("V.k.4 · el panel y el mapa consultan la misma puerta", () => {
+  const roster = (projection: ViewProjectionV2, siteId: ConstructionSiteId, crewId: CrewId) =>
+    crewRosterCounts({
+      economy: projection.economy!,
+      agents: projection.agents,
+      siteId,
+      crewId,
+    });
+
+  /** Clave = estado visible; así la comparación no depende del orden del array. */
+  const comoMapa = (entries: readonly { state: string; members: number }[]) =>
+    Object.fromEntries(entries.map((entry) => [entry.state, entry.members]));
+
+  const huella = (projection: ViewProjectionV2, siteId: ConstructionSiteId) =>
+    projection.economy!.constructionSites.find((entry) => entry.id === siteId)!.footprintCells;
+
+  it("el recuento del panel es exactamente el estado que la escena pinta", () => {
+    const { state, crew, site } = assignedCrewRuntime();
+    const projection = createViewProjection(state, true);
+    const observadas = crewSpriteObservations(projection, new Map());
+    const porEstado = new Map<string, number>();
+    for (const observation of observadas.values()) {
+      expect(observation.siteId).toBe(site.id);
+      porEstado.set(observation.visualState, (porEstado.get(observation.visualState) ?? 0) + 1);
+    }
+    /**
+     * Las dos superficies coinciden sobre la MISMA proyección: si alguien copia la huella o la
+     * plantilla al panel, este `toEqual` se rompe antes de que el jugador vea un cuadre falso.
+     */
+    expect(comoMapa(roster(projection, site.id, crew.id))).toEqual(Object.fromEntries(porEstado));
+    expect(
+      roster(projection, site.id, crew.id).reduce((sum, entry) => sum + entry.members, 0),
+    ).toBe(observadas.size);
+  });
+
+  it("una vecina de la huella cuenta como «en obra» en la escena y en el panel", () => {
+    const { state, crew, site } = assignedCrewRuntime();
+    const projection = createViewProjection(state, true);
+    const [primeraCelda] = huella(projection, site.id)!;
+    const celdaLateral = { x: primeraCelda!.x + 1, y: primeraCelda!.y };
+    const enObra = withAgents(projection, (agent) =>
+      agent.id === crew.supervisorAgentId
+        ? { ...agent, cell: celdaLateral, nextCell: null, state: "idle" as const }
+        : agent,
+    );
+    expect(crewSpriteObservations(enObra, new Map()).get(crew.supervisorAgentId)!.visualState).toBe(
+      "on-site",
+    );
+    expect(comoMapa(roster(enObra, site.id, crew.id))["on-site"]).toBe(1);
+  });
+
+  it("el recuento baja primero por tamaño de grupo", () => {
+    const { state, crew, site } = assignedCrewRuntime();
+    const projection = createViewProjection(state, true);
+    const [primeraCelda] = huella(projection, site.id)!;
+    const workers = new Set<string>(crew.workerAgentIds);
+    const lejos = { x: primeraCelda!.x + 5, y: primeraCelda!.y + 5 };
+    const dividido = withAgents(projection, (agent) => {
+      if (agent.id === crew.supervisorAgentId) {
+        return {
+          ...agent,
+          cell: primeraCelda!,
+          nextCell: null,
+          state: "working" as const,
+        };
+      }
+      return workers.has(agent.id)
+        ? { ...agent, cell: lejos, nextCell: null, state: "moving" as const }
+        : agent;
+    });
+    const counts = roster(dividido, site.id, crew.id);
+    const esperado: Record<string, number> = { working: 1 };
+    if (crew.workerAgentIds.length > 0) esperado.travelling = crew.workerAgentIds.length;
+    expect(comoMapa(counts)).toEqual(esperado);
+    expect(counts.map((entry) => entry.members)).toEqual(
+      [...counts.map((entry) => entry.members)].sort((left, right) => right - left),
+    );
+  });
+
+  it("la cuadrilla sin fila en la obra no aporta miembros y el agente no publicado no se da por presente", () => {
+    const { state, crew, site } = assignedCrewRuntime();
+    const projection = createViewProjection(state, true);
+    expect(roster(projection, site.id, parseCrewId("crew_00009999"))).toEqual([]);
+
+    const [primeraCelda] = huella(projection, site.id)!;
+    const trabajadores = withAgents(projection, (agent) =>
+      agent.id === crew.supervisorAgentId
+        ? agent
+        : { ...agent, cell: primeraCelda!, nextCell: null, state: "working" as const },
+    );
+    const sinSupervisor: ViewProjectionV2 = {
+      ...trabajadores,
+      agents: trabajadores.agents.filter((agent) => agent.id !== crew.supervisorAgentId),
+    };
+    const esperado: Record<string, number> = { assigned: 1 };
+    if (crew.workerAgentIds.length > 0) esperado.working = crew.workerAgentIds.length;
+    /**
+     * El supervisor sigue en la plantilla asignada, pero la proyección no lo publica: el panel lo
+     * nombra como asignado y jamás lo suma como presencia en la obra.
+     */
+    expect(comoMapa(roster(sinSupervisor, site.id, crew.id))).toEqual(esperado);
   });
 });

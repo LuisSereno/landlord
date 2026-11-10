@@ -43,6 +43,14 @@ import {
   type IntelSource,
 } from "./domain";
 import { landUseSchema, type LandUse } from "./urban";
+import {
+  laneSenseSchema,
+  roadCellRoleSchema,
+  roadProfileIdSchema,
+  type LaneSense,
+  type RoadCellRole,
+  type RoadProfileId,
+} from "./road-cross-section";
 
 /** Resumen público de un distrito: lo que la vista de ciudad puede enseñar sin filtrar estado privado. */
 export type PublicDistrictSummary = {
@@ -99,6 +107,25 @@ export type FacilityServiceMetrics = {
   saturated: boolean;
 };
 
+/**
+ * V.l.3 (D-104) · perfil de sección transversal tal y como lo consume el render. Se publica el
+ * descriptor completo, no sólo el id, para que la superficie de presentación sea dato y no código.
+ */
+export type ProjectedRoadProfile = {
+  id: RoadProfileId;
+  width: number;
+  roles: RoadCellRole[];
+  laneSenses: (LaneSense | null)[];
+};
+
+/** Segmento del eje con el perfil que lleva. La geometría es la del eje, no la del corredor. */
+export type ProjectedRoadSectionSegment = {
+  id: string;
+  from: GridCell;
+  to: GridCell;
+  profile: RoadProfileId;
+};
+
 export type ViewProjectionV2 = {
   projectionVersion: 2;
   /** Distrito que el renderer dibuja; cambiarlo no toca `GameState` (D-089). */
@@ -119,6 +146,18 @@ export type ViewProjectionV2 = {
     width: 64;
     height: 64;
     roads: { revision: number; digest: string; cells: string[] };
+    /**
+     * V.l.3 (D-104) · sección transversal del distrito observado. `roads` sigue siendo el eje y no
+     * cambia de forma: este canal añade qué perfil lleva cada segmento y los perfiles en uso, para
+     * que el render derive aceras, carriles y sentidos con `road-cross-section.ts` sin importar
+     * simulación. **No publica el corredor expandido**: las celdas se derivan, igual que el eje.
+     */
+    roadSection: {
+      revision: number;
+      digest: string;
+      profiles: ProjectedRoadProfile[];
+      segments: ProjectedRoadSectionSegment[];
+    };
   };
   /** Reserved public land of the observed district (D-092). */
   publicSpaces: Array<{
@@ -720,6 +759,37 @@ const projectedRoadCellSchema = z
   .string()
   .regex(/^(?:0|[1-9]|[1-5]\d|6[0-3]):(?:0|[1-9]|[1-5]\d|6[0-3])$/);
 
+const projectedRoadProfileSchema = z
+  .object({
+    id: roadProfileIdSchema,
+    width: z.number().int().positive(),
+    roles: z.array(roadCellRoleSchema),
+    laneSenses: z.array(laneSenseSchema.nullable()),
+  })
+  .strict();
+
+const projectedRoadSectionSegmentSchema = z
+  .object({
+    id: z.string().min(1),
+    from: gridCellSchema,
+    to: gridCellSchema,
+    profile: roadProfileIdSchema,
+  })
+  .strict();
+
+/**
+ * V.l.3 (D-104) · canal nuevo y estricto: un campo de más es un bug de contrato, no un adorno que el
+ * worker deja pasar. `map.roads` no se toca, así que sus digestos siguen siendo comparables byte a byte.
+ */
+const roadSectionSchema = z
+  .object({
+    revision: z.number().int().nonnegative(),
+    digest: z.string().regex(/^[0-9a-f]{8}$/),
+    profiles: z.array(projectedRoadProfileSchema),
+    segments: z.array(projectedRoadSectionSegmentSchema),
+  })
+  .strict();
+
 const mapSchema = z.object({
   width: z.literal(64),
   height: z.literal(64),
@@ -728,6 +798,7 @@ const mapSchema = z.object({
     digest: z.string().regex(/^[0-9a-f]{8}$/),
     cells: z.array(projectedRoadCellSchema),
   }),
+  roadSection: roadSectionSchema,
 });
 
 export const publicDistrictSummarySchema = z.object({

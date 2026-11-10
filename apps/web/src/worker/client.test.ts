@@ -74,7 +74,12 @@ describe("SimulationWorkerClient", () => {
         tick: 0,
         // V.k.1 · la cadencia de paso viaja en la proyección: sin ella el worker no puede animar cuadrillas.
         movement: { ticksPerCell: 10 },
-        map: { width: 64, height: 64, roads: { revision: 0, digest: "811c9dc5", cells: [] } },
+        map: {
+          width: 64,
+          height: 64,
+          roads: { revision: 0, digest: "811c9dc5", cells: [] },
+          roadSection: { revision: 0, digest: "811c9dc5", profiles: [], segments: [] },
+        },
         publicSpaces: [],
         facilities: [],
         structures: [],

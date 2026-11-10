@@ -104,6 +104,8 @@ describe.skipIf(!enabled)("WP4.15-V.c.2B.2 road performance harness", () => {
             return now() - start;
           });
           const projection = createViewProjection(state, true);
+          // V.l.3: `withoutRoads` vacía el mapa entero, así que deltaBytes cubre los DOS canales
+          // viales (eje + sección transversal). Las cifras nuevas separan la parte de sección.
           const withoutRoads = { ...projection, map: { width: 64, height: 64 } };
           const clones = Array.from({ length: 100 }, () => {
             const start = now();
@@ -116,6 +118,9 @@ describe.skipIf(!enabled)("WP4.15-V.c.2B.2 road performance harness", () => {
             payload: {
               roadCells: projection.map.roads.cells.length,
               roadsBytes: JSON.stringify(projection.map.roads).length,
+              roadSectionBytes: JSON.stringify(projection.map.roadSection).length,
+              roadSectionSegments: projection.map.roadSection.segments.length,
+              roadSectionProfiles: projection.map.roadSection.profiles.length,
               totalBytes: JSON.stringify(projection).length,
               withoutRoadsBytes: JSON.stringify(withoutRoads).length,
               deltaBytes: JSON.stringify(projection).length - JSON.stringify(withoutRoads).length,

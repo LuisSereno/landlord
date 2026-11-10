@@ -392,7 +392,12 @@ export function createBenchmarkProjection(scenario: BenchmarkScenario): ViewProj
     },
     tick: scenario.tick,
     movement: { ticksPerCell: MOVEMENT_TICKS_PER_CELL },
-    map: { width: 64, height: 64, roads: { revision: 0, digest: "811c9dc5", cells: [] } },
+    map: {
+      width: 64,
+      height: 64,
+      roads: { revision: 0, digest: "811c9dc5", cells: [] },
+      roadSection: { revision: 0, digest: "811c9dc5", profiles: [], segments: [] },
+    },
     publicSpaces: [],
     facilities: [],
     structures: scenario.buildings.map((building) => ({

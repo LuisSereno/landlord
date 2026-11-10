@@ -40,7 +40,12 @@ describe("view projection v1", () => {
     ...cityFixture("district_00000001"),
     tick: 2,
     movement: { ticksPerCell: 10 },
-    map: { width: 64, height: 64, roads: { revision: 0, digest: "811c9dc5", cells } },
+    map: {
+      width: 64,
+      height: 64,
+      roads: { revision: 0, digest: "811c9dc5", cells },
+      roadSection: { revision: 0, digest: "811c9dc5", profiles: [], segments: [] },
+    },
     publicSpaces: [],
     facilities: [],
     structures: [
@@ -64,6 +69,44 @@ describe("view projection v1", () => {
     for (const cell of ["64:0", "0:64", "01:2", "2:01", "-1:2", "2.0:3"]) {
       expect(() => viewProjectionV2Schema.parse(projection([cell])), cell).toThrow();
     }
+  });
+
+  /**
+   * V.l.3 (D-104) · el canal de sección transversal es contrato estricto: sin él el render no puede
+   * pintar por rol, y con un campo de más el worker estaría publicando algo que la UI ignora en
+   * silencio. `.strict()` convierte las dos cosas en error.
+   */
+  it("requires the road section channel and rejects undeclared fields inside it", () => {
+    const base = projection(["0:0"]);
+    const { roadSection, ...mapWithoutSection } = base.map;
+    expect(() => viewProjectionV2Schema.parse({ ...base, map: mapWithoutSection })).toThrow();
+    expect(() =>
+      viewProjectionV2Schema.parse({
+        ...base,
+        map: { ...base.map, roadSection: { ...roadSection, lanes: 2 } },
+      }),
+    ).toThrow();
+    expect(() =>
+      viewProjectionV2Schema.parse({
+        ...base,
+        map: {
+          ...base.map,
+          roadSection: {
+            ...roadSection,
+            segments: [
+              {
+                id: "road_00000001",
+                from: { x: 0, y: 0 },
+                to: { x: 1, y: 0 },
+                profile: "street",
+                width: 3,
+              },
+            ],
+          },
+        },
+      }),
+    ).toThrow();
+    expect(viewProjectionV2Schema.parse(base).map.roadSection).toEqual(roadSection);
   });
 
   /**

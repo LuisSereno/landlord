@@ -125,7 +125,12 @@ describe("shared wire data", () => {
         movement: { ticksPerCell: 10 },
         publicSpaces: [],
         facilities: [],
-        map: { width: 64, height: 64, roads: { revision: 0, digest: "811c9dc5", cells: [] } },
+        map: {
+          width: 64,
+          height: 64,
+          roads: { revision: 0, digest: "811c9dc5", cells: [] },
+          roadSection: { revision: 0, digest: "811c9dc5", profiles: [], segments: [] },
+        },
         structures: [],
         agents: [],
       }),

@@ -284,6 +284,35 @@ describe("V.k.1 · contrato de agentes de la proyección", () => {
     }
   });
 
+  /**
+   * V.l.3 (D-104) · la sección transversal es un canal aditivo: el eje y su digesto no se tocan, y
+   * cada segmento publica el perfil que le corresponde para que el render derive aceras y carriles.
+   */
+  it("publica la sección transversal del distrito observado sin tocar el eje ni su digesto", () => {
+    const state = createInitialState(1337);
+    const projection = createViewProjection(state, true);
+    const district = state.world.districts.get(projection.observedDistrictId)!;
+    const section = projection.map.roadSection;
+
+    expect(section.segments).toHaveLength(district.map.roads.segments.length);
+    expect(section.profiles.map((profile) => profile.id)).toEqual(["street", "avenue"]);
+    for (const [index, segment] of district.map.roads.segments.entries()) {
+      expect(section.segments[index]!.id).toBe(segment.id);
+      expect(section.segments[index]!.from).toEqual(segment.from);
+      expect(section.segments[index]!.to).toEqual(segment.to);
+      expect(section.segments[index]!.profile).toBe(segment.class);
+    }
+    for (const profile of section.profiles) {
+      expect(profile.roles).toHaveLength(profile.width);
+      expect(profile.laneSenses).toHaveLength(profile.width);
+    }
+    expect(section.digest).toMatch(/^[0-9a-f]{8}$/);
+
+    const again = createViewProjection(state, true);
+    expect(again.map.roads).toEqual(projection.map.roads);
+    expect(again.map.roadSection).toEqual(section);
+  });
+
   it("no recorta ninguna ruta del objeto producido al pasar por el esquema", () => {
     const produced = createViewProjection(createInitialState(2), true);
     expect(keyPaths(viewProjectionV2Schema.parse(produced)).sort()).toEqual(

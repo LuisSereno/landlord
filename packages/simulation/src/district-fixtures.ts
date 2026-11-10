@@ -5,23 +5,12 @@ import type { UrbanRole } from "@landlord/shared";
  * (las variables `DISTRICT_PROFILE` y `DISTRICT_SEED` acotan el barrido) después de cambiar
  * `DISTRICT_GENERATOR_VERSION`, los perfiles o el algoritmo.
  *
- * Regeneración V.l.5 (2026-11-10) · **causa**: D-104 con el corredor recortado a un perfil.
- * Comparado contra V.d.4 (`401ae93`, la referencia que pide el gate), las doce filas caen en tres
- * grupos medidos, no en uno:
- * - `ensanche_ferroviario` (4 filas) vuelve a ser byte a byte la fila de V.d.4 — `ca0d645f/73/226`,
- *   `5090e181/73/227`, `e45dae7e/73/229`, `d2540270/71/225` — así que el control del gate
- *   ("perfiles a ancho 1 recuperan los valores V.d.4") se cumple exacto en este perfil.
- * - `barrio_del_umbral` (4 filas) conserva corredor y por eso se mueve respecto a V.d.4: parcelas
- *   90→88, 100→89, 88→84, 93→85 y celdas bloqueadas 240→216 en las cuatro seeds. Aquí está el coste
- *   que compra la envolvente de ciudad: el corredor se lleva suelo que antes era edificable.
- * - `vega_del_cauce` (4 filas) recupera los tres recuentos de V.d.4 (parcelas y celdas bloqueadas
- *   50/135, 57/144, 54/140, 52/145, y anclas 4 en las cuatro) pero no el hash: `793bfa88`→`ca952382`, `5a223308`→`149aca6c`, `027d3b7b`→`b84749fd`,
- *   `e7a20c47`→`b9f82309`. Residual de forma, y acotado por medida: con el corredor fuera, las
- *   375/375 celdas de eje de vega y sus segmentos dueños coinciden con la fórmula de V.d.4
- *   (`roadCorridorSegmentsByCell` ≡ bucle viejo, 0 celdas distintas), así que no lo escribe el
- *   camino nuevo de V.l. La firma —recuentos sí, digesto no— es la misma deuda de baseline que el
- *   acta de V.e (`docs/execution/phase-4/ve-integrated-correction-verification-2026-11-03.md`)
- *   ya registraba fallando en `develop` antes de V.l. Su causa exacta queda abierta para V.l.6.
+ * Regeneración V.l.5c (2026-11-10): cartera visual opción 3. `barrio_del_umbral` vuelve al eje,
+ * `vega_del_cauce` adopta la sección `ave3` y `ensanche_ferroviario` permanece en eje.
+ *
+ * La tabla conserva sólo las doce filas que el gate usa; el resto de perfiles se inspecciona con
+ * `pnpm district:inspect` cuando cambia su receta.
+ *
  */
 export type DistrictFixture = {
   profileId: string;
@@ -39,17 +28,17 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "barrio_del_umbral",
     seed: 1,
-    hash: "4dfd8ade",
-    parcelCount: 88,
+    hash: "3b2da309",
+    parcelCount: 90,
     anchorParcelCount: 8,
-    blockedCellCount: 216,
+    blockedCellCount: 240,
     roleCounts: {
       civic_core: 0,
       mixed_core: 0,
-      commercial_corridor: 34,
+      commercial_corridor: 37,
       urban_residential: 27,
       low_density_residential: 0,
-      industrial_logistics: 25,
+      industrial_logistics: 24,
       institutional: 2,
       green_open_space: 0,
     },
@@ -57,17 +46,17 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "barrio_del_umbral",
     seed: 7,
-    hash: "b8ed6c4c",
-    parcelCount: 89,
+    hash: "824ba450",
+    parcelCount: 100,
     anchorParcelCount: 8,
-    blockedCellCount: 216,
+    blockedCellCount: 240,
     roleCounts: {
       civic_core: 0,
       mixed_core: 0,
-      commercial_corridor: 35,
-      urban_residential: 25,
+      commercial_corridor: 40,
+      urban_residential: 30,
       low_density_residential: 0,
-      industrial_logistics: 27,
+      industrial_logistics: 28,
       institutional: 2,
       green_open_space: 0,
     },
@@ -75,15 +64,15 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "barrio_del_umbral",
     seed: 42,
-    hash: "1f799795",
-    parcelCount: 84,
+    hash: "ecdb4836",
+    parcelCount: 88,
     anchorParcelCount: 8,
-    blockedCellCount: 216,
+    blockedCellCount: 240,
     roleCounts: {
       civic_core: 0,
       mixed_core: 0,
-      commercial_corridor: 31,
-      urban_residential: 26,
+      commercial_corridor: 33,
+      urban_residential: 28,
       low_density_residential: 0,
       industrial_logistics: 25,
       institutional: 2,
@@ -93,17 +82,17 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "barrio_del_umbral",
     seed: 1337,
-    hash: "2ec04323",
-    parcelCount: 85,
+    hash: "8119b92f",
+    parcelCount: 93,
     anchorParcelCount: 8,
-    blockedCellCount: 216,
+    blockedCellCount: 240,
     roleCounts: {
       civic_core: 0,
       mixed_core: 0,
-      commercial_corridor: 34,
-      urban_residential: 26,
+      commercial_corridor: 36,
+      urban_residential: 29,
       low_density_residential: 0,
-      industrial_logistics: 23,
+      industrial_logistics: 26,
       institutional: 2,
       green_open_space: 0,
     },
@@ -183,17 +172,17 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "vega_del_cauce",
     seed: 1,
-    hash: "ca952382",
-    parcelCount: 50,
+    hash: "c1043de0",
+    parcelCount: 46,
     anchorParcelCount: 4,
-    blockedCellCount: 135,
+    blockedCellCount: 131,
     roleCounts: {
       civic_core: 0,
       mixed_core: 0,
       commercial_corridor: 0,
       urban_residential: 0,
-      low_density_residential: 30,
-      industrial_logistics: 18,
+      low_density_residential: 29,
+      industrial_logistics: 15,
       institutional: 2,
       green_open_space: 0,
     },
@@ -201,16 +190,16 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "vega_del_cauce",
     seed: 7,
-    hash: "149aca6c",
-    parcelCount: 57,
+    hash: "64ca9dc8",
+    parcelCount: 52,
     anchorParcelCount: 4,
-    blockedCellCount: 144,
+    blockedCellCount: 138,
     roleCounts: {
       civic_core: 0,
       mixed_core: 0,
       commercial_corridor: 0,
       urban_residential: 0,
-      low_density_residential: 36,
+      low_density_residential: 31,
       industrial_logistics: 19,
       institutional: 2,
       green_open_space: 0,
@@ -219,17 +208,17 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "vega_del_cauce",
     seed: 42,
-    hash: "b84749fd",
-    parcelCount: 54,
+    hash: "8e910dc9",
+    parcelCount: 49,
     anchorParcelCount: 4,
-    blockedCellCount: 140,
+    blockedCellCount: 133,
     roleCounts: {
       civic_core: 0,
-      mixed_core: 11,
+      mixed_core: 0,
       commercial_corridor: 0,
       urban_residential: 0,
-      low_density_residential: 21,
-      industrial_logistics: 20,
+      low_density_residential: 24,
+      industrial_logistics: 23,
       institutional: 2,
       green_open_space: 0,
     },
@@ -237,17 +226,17 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "vega_del_cauce",
     seed: 1337,
-    hash: "b9f82309",
-    parcelCount: 52,
+    hash: "f0c227d9",
+    parcelCount: 47,
     anchorParcelCount: 4,
-    blockedCellCount: 145,
+    blockedCellCount: 140,
     roleCounts: {
       civic_core: 0,
-      mixed_core: 10,
+      mixed_core: 0,
       commercial_corridor: 0,
       urban_residential: 0,
-      low_density_residential: 21,
-      industrial_logistics: 19,
+      low_density_residential: 27,
+      industrial_logistics: 18,
       institutional: 2,
       green_open_space: 0,
     },

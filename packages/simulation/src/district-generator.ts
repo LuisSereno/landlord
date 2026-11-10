@@ -761,6 +761,7 @@ function attemptComposition(input: {
     connectSpawns: config.connectSpawns,
     motorwayAxis: profile.motorwayAxis,
     roadCorridor: profile.roadCorridor,
+    roadSectionVariant: profile.roadSectionVariant,
     width: profile.width,
     height: profile.height,
   });
@@ -1099,6 +1100,7 @@ function attemptComposition(input: {
       height: profile.height,
       config,
       roads: network.topology,
+      roadCells: network.roadCells,
       blockedCells: blocked,
       blocks,
       parcels: allParcels,

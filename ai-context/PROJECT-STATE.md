@@ -923,3 +923,11 @@ Excluido:
 
 ## Pregunta de éxito
 ¿Puede una simulación determinista, desacoplada del render y no acoplada a una única organización del jugador, ejecutarse en navegador con rendimiento suficiente para escalar al prototipo?
+
+## Última ratificación técnica (2026-11-10)
+
+La cartera visual adoptada es la opción 3 de V.l.5c: `full` en `ensanche_ferroviario_oeste`, `ave3`
+en `vega_del_cauce`, `mercado_del_norte` y `patios_del_este`, y eje v2 en `barrio_del_umbral`.
+La variante vive en `DistrictProfile.roadSectionVariant`; generación, proyección, cobertura de
+facilities y valor del suelo usan el mismo resolver. Fixtures de distrito/ciudad y pruebas de seams
+quedan regeneradas. La mediana queda fuera de esta entrega.

@@ -24,6 +24,10 @@ export type LaneSense = z.infer<typeof laneSenseSchema>;
 export const roadProfileIdSchema = z.enum(["street", "avenue", "motorway"]);
 export type RoadProfileId = z.infer<typeof roadProfileIdSchema>;
 
+/** Variantes de sección que puede adoptar un distrito sin cambiar la clase de su red. */
+export const roadSectionVariantSchema = z.enum(["full", "ave3"]);
+export type RoadSectionVariant = z.infer<typeof roadSectionVariantSchema>;
+
 export type RoadProfile = {
   id: RoadProfileId;
   /** Ancho total en celdas, aceras incluidas. Impar: la mediana cae en el centro. */
@@ -97,6 +101,28 @@ export function roadAxisProfileForClass(roadClass: RoadCellClass): RoadProfile {
     roles: ["carriageway"],
     laneSenses: ["both"],
   };
+}
+
+/**
+ * Sección transversal autoritativa de un distrito. `ave3` conserva la avenida con sus dos aceras
+ * pero reduce la calle a su eje; es la cartera visual V.l.5c que cabe en la envolvente de ciudad.
+ * Las clases no previstas por esa cartera (autovía) mantienen su perfil completo.
+ */
+export function roadProfileForSection(
+  roadClass: RoadCellClass,
+  variant: RoadSectionVariant = "full",
+): RoadProfile {
+  if (variant === "full") return roadProfileForClass(roadClass);
+  if (roadClass === "street") return roadAxisProfileForClass(roadClass);
+  if (roadClass === "avenue") {
+    return {
+      id: "avenue",
+      width: 3,
+      roles: ["sidewalk", "carriageway", "sidewalk"],
+      laneSenses: [null, "both", null],
+    };
+  }
+  return roadProfileForClass(roadClass);
 }
 
 /** Mismo tamaño que los literales `width`/`height` de `ViewProjectionV2.map`. */

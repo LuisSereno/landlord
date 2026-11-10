@@ -1,19 +1,24 @@
 import {
   roadCellsFromSegments,
   roadCorridorCellsFromSegments,
+  roadAxisProfileForClass,
+  roadProfileForSection,
   type DistrictId,
   type GridCell,
   type Parcel,
   type ParcelId,
   type RoadSegment,
+  type RoadCellClass,
+  type RoadProfile,
   type RoadTopology,
   type UrbanFacility,
   type UrbanFacilityId,
   type UrbanFacilityKind,
 } from "@landlord/shared";
-import type { GameState } from "./state";
+import type { DistrictState, GameState } from "./state";
 import { MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
 import { cellKey } from "./urban-fabric";
+import { resolveDistrictProfile } from "./district-profiles";
 
 /**
  * V.d.5 service graph. Facilities are sources on the road network; demand is assigned to the
@@ -152,19 +157,30 @@ function nodeKey(districtId: DistrictId, cell: GridCell): string {
 function roadCellsForSegments(
   roads: Pick<RoadTopology, "derivationVersion">,
   segments: readonly RoadSegment[],
+  profileForClass: (roadClass: RoadCellClass) => RoadProfile = roadAxisProfileForClass,
 ): ReadonlySet<string> {
   return roads.derivationVersion === 3
-    ? roadCorridorCellsFromSegments(segments)
+    ? roadCorridorCellsFromSegments(segments, profileForClass)
     : roadCellsFromSegments(segments);
+}
+
+function sectionProfileForDistrict(district: DistrictState) {
+  if (district.map.roads.derivationVersion !== 3) return roadAxisProfileForClass;
+  const profileId = district.district.generation?.profileId;
+  const variant = profileId
+    ? (resolveDistrictProfile(profileId).roadSectionVariant ?? "full")
+    : "full";
+  return (roadClass: RoadCellClass) => roadProfileForSection(roadClass, variant);
 }
 
 function roadCostsByDistrict(state: GameState): Map<DistrictId, Map<string, number>> {
   const result = new Map<DistrictId, Map<string, number>>();
   for (const [districtId, district] of state.world.districts) {
     const costs = new Map<string, number>();
+    const profileForClass = sectionProfileForDistrict(district);
     for (const segment of district.map.roads.segments) {
       const cost = segment.class === "avenue" ? 1 : 2;
-      for (const key of roadCellsForSegments(district.map.roads, [segment])) {
+      for (const key of roadCellsForSegments(district.map.roads, [segment], profileForClass)) {
         const previous = costs.get(key);
         if (previous === undefined || cost < previous) costs.set(key, cost);
       }
@@ -280,7 +296,14 @@ function shortestDistances(graph: Graph, sources: readonly string[]): Map<string
 function roadCellsByDistrict(state: GameState): Map<DistrictId, ReadonlySet<string>> {
   const result = new Map<DistrictId, ReadonlySet<string>>();
   for (const [districtId, district] of state.world.districts) {
-    result.set(districtId, roadCellsForSegments(district.map.roads, district.map.roads.segments));
+    result.set(
+      districtId,
+      roadCellsForSegments(
+        district.map.roads,
+        district.map.roads.segments,
+        sectionProfileForDistrict(district),
+      ),
+    );
   }
   return result;
 }

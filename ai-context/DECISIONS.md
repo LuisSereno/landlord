@@ -905,6 +905,15 @@ estructural: el eje como verdad de red, `RoadSegment`/`roadSegmentId`, `roadCell
 entra en `blockedCells`. Tráfico simulado, nombres y reglas de producto siguen fuera. Ver
 `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`.
 
+**Ratificación V.l.5c (2026-11-10):** se adopta la opción 3 medida: `full` en
+`ensanche_ferroviario_oeste` y `ave3` en `vega_del_cauce`, `mercado_del_norte` y `patios_del_este`;
+`barrio_del_umbral` (slot del jugador) permanece v2/eje. `roadSectionVariant` queda en el perfil,
+`roadProfileForSection` deriva la sección y la proyección mantiene el contrato estricto por distrito.
+La cobertura de facilities y el valor del suelo consumen la misma geometría, se regeneran las tablas de
+fixtures y los tests de seam/topología usan el perfil efectivo. La mediana no se reabre en esta entrega:
+el fix colineal ya está aislado en `5814b25`; cualquier cambio visual adicional requiere otra decisión.
+
+
 Motivo: la única diferencia visible grande entre la partida real y `/visual-slice` son las calles, y hoy
 no existen como dato — `ViewProjectionV1.map` es literalmente `{ width: 64; height: 64 }`. Una calzada
 deja de ser presentación en cuanto es dato de mundo, así que el diseño se apoyó en mediciones sobre el

@@ -3,6 +3,7 @@ import type {
   GridCell,
   LandUse,
   ProductionSuitability,
+  RoadSectionVariant,
   UrbanRole,
   Zoning,
 } from "@landlord/shared";
@@ -44,24 +45,14 @@ export type DistrictProfile = {
    * vez del eje de 1 celda. Ausente o `false` = geometría de siempre, `derivationVersion: 2`.
    * Se activa por perfil y sólo donde está medido que la receta aguanta el suelo que consume.
    *
-   * V.l.5 · el límite no lo pone la receta del distrito, lo pone la **envolvente de parcelas de
-   * ciudad** (`CITY_PARCEL_COUNT_ENVELOPE`, 700–760, declarada como alarma de derrames y no como
-   * umbral que se reescribe). Medido sobre las doce seeds canónicas con los seis perfiles de V.l.4:
-   * 638–677 parcelas, las doce fuera. El coste por perfil, en parcelas de media sobre cuatro seeds
-   * de distrito, es `mercado_del_norte` 20, `ensanche_ferroviario` 20, `patios_del_este` 11,75,
-   * `vega_del_cauce` 11,5, `ensanche_ferroviario_oeste` 8, `barrio_del_umbral` 6,25: 77,5 parcelas
-   * por ciudad, 10,6 %. La envolvente sólo admite ~12, así que el corredor queda en un perfil.
-   * Alternativas medidas, todas fuera: dos perfiles (barrio + oeste) 695–728 con tres seeds fuera;
-   * los dos comerciales 682–709 con ocho fuera; ninguno 712–740.
-   *
-   * El precio que la envolvente no mide: el perfil que queda es el slot del jugador
-   * (`CITY_ROSTER_SLOTS.player`), y con él la suite de simulación pierde diez tests de comportamiento
-   * que están verdes con cero corredores (142/143 en el control del mismo día). No se pierde ningún
-   * frente vial —en `barrio_del_umbral` seed 1 las 88 parcelas conservan el suyo, a distancia 1 del
-   * corredor y 2 del eje—; lo que pasa es que esa media suite comprueba el acceso contra el eje.
-   * ADR D-104, "El coste del recorte no lo paga la envolvente".
+   * V.l.5c · la envolvente de ciudad (`CITY_PARCEL_COUNT_ENVELOPE`, 700–760) fija la cartera visual:
+   * `full` en `ensanche_ferroviario_oeste` y `ave3` en `vega_del_cauce`, `mercado_del_norte` y
+   * `patios_del_este`. `barrio_del_umbral` permanece en el eje v2 para no cargar el slot del jugador;
+   * la sección se selecciona con `roadSectionVariant` y no cambia la identidad de los segmentos.
    */
   roadCorridor?: boolean;
+  /** V.l.5c: sección mixta medida para esta receta; ausente = `full` cuando hay corredor. */
+  roadSectionVariant?: RoadSectionVariant;
   /**
    * V.l.4 (D-104) · la línea central de la retícula es autovía de 7 en vez de avenida de 5. Vive en
    * el perfil y no en el fabric porque está medido que no todos los distritos industriales la
@@ -237,7 +228,7 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     name: "Barrio del Umbral",
     dominantRole: "urban_residential",
     fabric: FABRIC_URBAN,
-    roadCorridor: true,
+    roadCorridor: false,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 4, y: 4 }, rival: { x: 56, y: 4 } },
@@ -280,7 +271,8 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     name: "Vega del Cauce",
     dominantRole: "green_open_space",
     fabric: FABRIC_LOW_DENSITY,
-    roadCorridor: false,
+    roadCorridor: true,
+    roadSectionVariant: "ave3",
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 6, y: 6 }, rival: { x: 52, y: 8 } },
@@ -409,7 +401,8 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     name: "Mercado del Norte",
     dominantRole: "commercial_corridor",
     fabric: FABRIC_MIXED,
-    roadCorridor: false,
+    roadCorridor: true,
+    roadSectionVariant: "ave3",
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 6, y: 4 }, rival: { x: 52, y: 4 } },
@@ -541,7 +534,8 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     name: "Ensanche Ferroviario Oeste",
     dominantRole: "industrial_logistics",
     fabric: FABRIC_INDUSTRIAL,
-    roadCorridor: false,
+    roadCorridor: true,
+    roadSectionVariant: "full",
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 6, y: 5 }, rival: { x: 52, y: 5 } },
@@ -591,7 +585,8 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
      * segmentos `motorway` dentro de una red marcada `derivationVersion: 2`. Sale del alcance
      * medido, no del contrato: `ROAD_PROFILES.motorway` y su derivación siguen vivas en shared.
      */
-    roadCorridor: false,
+    roadCorridor: true,
+    roadSectionVariant: "ave3",
     motorwayAxis: false,
     width: 64,
     height: 64,

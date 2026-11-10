@@ -7,6 +7,7 @@ import {
   roadCellRolesFromSegments,
   roadCorridorCellsFromSegments,
   roadProfileForClass,
+  roadProfileForSection,
   type RoadProfile,
 } from "./road-cross-section";
 import type { GridCell } from "./time-and-grid";
@@ -82,6 +83,17 @@ describe("V.l.2 · perfiles de sección transversal (D-104)", () => {
     expect([...roadCorridorCellsFromSegments(segments, roadAxisProfileForClass)].sort()).toEqual(
       [...roadCellsFromSegments(segments)].sort(),
     );
+  });
+
+  it("la variante ave3 deja las calles en el eje y la avenida con dos aceras", () => {
+    expect(roadProfileForSection("street", "ave3")).toEqual(roadAxisProfileForClass("street"));
+    expect(roadProfileForSection("avenue", "ave3")).toEqual({
+      id: "avenue",
+      width: 3,
+      roles: ["sidewalk", "carriageway", "sidewalk"],
+      laneSenses: [null, "both", null],
+    });
+    expect(roadProfileForSection("avenue", "full")).toBe(ROAD_PROFILES.avenue);
   });
 });
 

@@ -3,7 +3,7 @@ import {
   roadCellsFromSegments,
   roadCorridorCellsFromSegments,
   roadCorridorSegmentsByCell,
-  roadProfileForClass,
+  roadProfileForSection,
   roadSegmentId,
   type Block,
   type GridCell,
@@ -11,6 +11,7 @@ import {
   type PublicSpace,
   type RoadAnchor,
   type RoadCellClass,
+  type RoadSectionVariant,
   type RoadSegment,
   type RoadTopology,
   type UrbanFacility,
@@ -272,6 +273,7 @@ export function deriveRoadNetwork(input: {
    * geometría —y por tanto sus digestos— no cambia.
    */
   roadCorridor?: boolean | undefined;
+  roadSectionVariant?: RoadSectionVariant | undefined;
   width: number;
   height: number;
 }): RoadNetwork {
@@ -356,7 +358,10 @@ export function deriveRoadNetwork(input: {
    * contra la acera de una avenida, que es su frente real. El eje sigue siendo la verdad de red:
    * `topology.segments` no cambia de forma ni de identidad, sólo de versión de derivación.
    */
-  const profileForClass = input.roadCorridor ? roadProfileForClass : roadAxisProfileForClass;
+  const profileForClass = input.roadCorridor
+    ? (roadClass: RoadCellClass) =>
+        roadProfileForSection(roadClass, input.roadSectionVariant ?? "full")
+    : roadAxisProfileForClass;
   const roadCells = roadCorridorCellsFromSegments(segments, profileForClass);
   const segmentsByCell = roadCorridorSegmentsByCell(segments, profileForClass);
   return {
@@ -864,6 +869,8 @@ export function validateUrbanFabric(input: {
   facilities?: readonly UrbanFacility[];
   gatewayCells?: readonly GridCell[];
   spawnCells?: readonly GridCell[];
+  /** Celdas de corredor derivadas con la variante autoritativa del perfil. */
+  roadCells?: ReadonlySet<string>;
 }): DistrictGenerationIssue[] {
   const issues: DistrictGenerationIssue[] = [];
   /**
@@ -871,9 +878,10 @@ export function validateUrbanFabric(input: {
    * se generó contra el eje de 1 celda: expandirla al validar declararía que sus parcelas pisan vía.
    */
   const roadCells =
-    input.roads.derivationVersion === 3
+    input.roadCells ??
+    (input.roads.derivationVersion === 3
       ? roadCorridorCellsFromSegments(input.roads.segments)
-      : roadCellsFromSegments(input.roads.segments);
+      : roadCellsFromSegments(input.roads.segments));
   const blockById = new Map(input.blocks.map((block) => [block.id, block]));
   const parcelCellOwner = new Map<string, string>();
   const blockCellOwner = new Map<string, string>();

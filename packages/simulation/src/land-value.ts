@@ -1,5 +1,7 @@
 import {
   roadCellsFromSegments,
+  roadCorridorCellsFromSegments,
+  roadProfileForSection,
   type DevelopmentCodeId,
   type GridCell,
   type LandValueBreakdown,
@@ -15,6 +17,7 @@ import {
 import { GAME_MONTH_TICKS } from "./game-data";
 import { buildCoverageIndex, type CoverageIndex } from "./urban-services";
 import { cellKey } from "./urban-fabric";
+import { resolveDistrictProfile } from "./district-profiles";
 
 const GRID_SIZE = 64;
 const MONTHLY_STEP_PERCENT = 5;
@@ -122,10 +125,20 @@ export function buildLandValueContext(
   const roadClassBySegmentId = new Map(
     district.map.roads.segments.map((segment) => [segment.id as string, segment.class]),
   );
-  const avenueCells = roadCellsFromSegments(
+  const profileId = district.district.generation?.profileId;
+  const variant = profileId
+    ? (resolveDistrictProfile(profileId).roadSectionVariant ?? "full")
+    : "full";
+  const cellsForSegments = (segments: typeof district.map.roads.segments) =>
+    district.map.roads.derivationVersion === 3
+      ? roadCorridorCellsFromSegments(segments, (roadClass) =>
+          roadProfileForSection(roadClass, variant),
+        )
+      : roadCellsFromSegments(segments);
+  const avenueCells = cellsForSegments(
     district.map.roads.segments.filter((segment) => segment.class === "avenue"),
   );
-  const roadCells = roadCellsFromSegments(district.map.roads.segments);
+  const roadCells = cellsForSegments(district.map.roads.segments);
   const blocks = [...district.blocks.values()];
   const commercialSources = roleCells(new Set(["commercial_corridor"]), blocks);
   const industrialSources = roleCells(new Set(["industrial_logistics"]), blocks);

@@ -158,6 +158,7 @@ prometieron no tocar— o ceñir la regla 1 a ejes de distinta orientación.
 ## Apéndice · líneas crudas de la barrida
 
 ```
+
 RESUMEN {"label":"av3_barrio_del_taller","mode":"ave3","scope":"barrio_del_taller","ciudades":12,"min":704,"max":736,"fueraDeSuelo":0,"frontagesPerdidos":0,"errores":[]}
 RESUMEN {"label":"av3_barrio_del_umbral","mode":"ave3","scope":"barrio_del_umbral","ciudades":12,"min":707,"max":740,"fueraDeSuelo":0,"frontagesPerdidos":0,"errores":[]}
 RESUMEN {"label":"av3_centro_civico","mode":"ave3","scope":"centro_civico","ciudades":0,"min":null,"max":null,"fueraDeSuelo":0,"frontagesPerdidos":0,"errores":[1,2,3,5,7,11,13,17,23,42,1337,2026]}
@@ -199,3 +200,10 @@ ROLES {"label":"ave3_barrio_m","mode":"ave3","ciudades":4,"districts":36,"v3dist
 ROLES {"label":"ave_barrio_m","mode":"ave","ciudades":4,"districts":36,"v3districts":4,"sidewalk":928,"median":0,"carriageway":2496}
 ROLES {"label":"full_barrio","mode":"full","ciudades":4,"districts":36,"v3districts":4,"sidewalk":1880,"median":0,"carriageway":2496}
 ```
+
+## Addendum de adopción (2026-11-10)
+
+La decisión posterior del responsable adopta la opción 3 medida: `full` en
+`ensanche_ferroviario_oeste`, `ave3` en `vega_del_cauce`, `mercado_del_norte` y `patios_del_este`,
+y eje v2 en `barrio_del_umbral`. La implementación se registra en D-104; esta acta conserva la
+medición original y la conclusión de que la mediana requiere una decisión visual separada.

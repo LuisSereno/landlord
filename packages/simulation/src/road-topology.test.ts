@@ -4,13 +4,15 @@ import { describe, expect, it } from "vitest";
 import {
   roadCellClassesFromSegments,
   roadCellsFromSegments,
+  roadCorridorCellsFromSegments,
+  roadProfileForSection,
   roadSegmentId,
   viewProjectionV2Schema,
   type RoadSegment,
 } from "@landlord/shared";
 import { findDeterministicPath } from "./navigation";
 import { cellKey, generateDistrict, hasRoadAccess } from "./district-generator";
-import { DISTRICT_PROFILE_IDS } from "./district-profiles";
+import { DISTRICT_PROFILE_IDS, resolveDistrictProfile } from "./district-profiles";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { districtMapOf } from "./state";
 import { createInitialState } from "./state";
@@ -41,7 +43,13 @@ describe("WP4.15-V.c.2B authoritative road topology", () => {
     for (const profileId of DISTRICT_PROFILE_IDS) {
       for (const seed of SEEDS) {
         const generated = generateDistrict({ profileId, seed });
-        const roads = roadCellsFromSegments(generated.roads.segments);
+        const profile = resolveDistrictProfile(profileId);
+        const roads =
+          generated.roads.derivationVersion === 3
+            ? roadCorridorCellsFromSegments(generated.roads.segments, (roadClass) =>
+                roadProfileForSection(roadClass, profile.roadSectionVariant ?? "full"),
+              )
+            : roadCellsFromSegments(generated.roads.segments);
         const parcelCells = new Set(
           generated.parcels.flatMap((parcel) => parcel.cells.map((cell) => cellKey(cell))),
         );
@@ -68,7 +76,12 @@ describe("WP4.15-V.c.2B authoritative road topology", () => {
 
   it("resuelve el bolsillo de vega_del_cauce seed 7 como una única red publicada", () => {
     const generated = generateDistrict({ profileId: "vega_del_cauce", seed: 7 });
-    const roads = roadCellsFromSegments(generated.roads.segments);
+    const roads = roadCorridorCellsFromSegments(generated.roads.segments, (roadClass) =>
+      roadProfileForSection(
+        roadClass,
+        resolveDistrictProfile("vega_del_cauce").roadSectionVariant ?? "full",
+      ),
+    );
     expect(componentCount(roads)).toBe(1);
     expect(generated.parcels.every((parcel) => hasRoadAccess(parcel, roads))).toBe(true);
   });

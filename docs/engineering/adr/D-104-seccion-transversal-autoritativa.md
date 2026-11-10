@@ -541,6 +541,16 @@ El responsable decidió **ceñir V.l.4 a lo especificado y aceptar ese payload**
 minimización de tramos colineales como deuda de otra fase. Fusionarlos cambiaría `roadSegmentId` y
 los frentes de parcela que lo referencian, justo lo que V.l.2/V.l.3 prometieron no tocar.
 
+## V.l.5c adoptada · opción 3 (2026-11-10)
+
+La decisión del responsable queda ratificada y ya está implementada. `DistrictProfile` publica
+`roadSectionVariant`: `full` para `ensanche_ferroviario_oeste`, `ave3` para `vega_del_cauce`,
+`mercado_del_norte` y `patios_del_este`; `barrio_del_umbral` conserva la red v2 de eje. El resolver
+`roadProfileForSection` mantiene las clases del eje y sólo cambia la sección transversal, por lo que
+`map.roadSection` sigue siendo estricto y autoritativo por distrito. Cobertura de facilities y valor del
+suelo derivan las mismas celdas de corredor; fixtures de ciudad/distrito y seams se regeneraron. La
+mediana colineal no se amplía en esta entrega y queda como decisión visual separada.
+
 ## Verificación
 
 **Medido ya:** V.l.2 tiene 16 tests puros (perfiles, recorte en borde, precedencia en cruce,

@@ -123,54 +123,54 @@ function cityDigest(input: {
 const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => string }> = [
   {
     id: "scenario:seed-1:1200",
-    expected: "21ffa64aff9f82b7",
+    expected: "14efa572322df2b1",
     run: () => digest(canonicalizeState(runScenario(1, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-7:1200",
-    expected: "e7a744decfac3ccd",
+    expected: "9cd5d92133933a09",
     run: () => digest(canonicalizeState(runScenario(7, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-42:1200",
-    expected: "c46f4747205495ac",
+    expected: "89c19e5e2027bf99",
     run: () => digest(canonicalizeState(runScenario(42, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "3a96a6bd8ef4f8d6",
+    expected: "8e03eec195c23efc",
     run: () => digest(canonicalizeState(runScenario(1, [], 36_000, { checkpointEvery: 0 }).state)),
   },
   {
     id: "city:50-parcels:1300-ticks",
-    expected: "d73478bcc925b90f",
+    expected: "c68fad0480fcdbcd",
     run: () => cityDigest({ parcelCount: 50, ticks: 1_300 }),
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "30b352f47bf119c3",
+    expected: "225b293eeea56e26",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "c8b1cee4db43012c",
+    expected: "9d6ee8907febebec",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "5087d91394f0e713",
+    expected: "7fcd21bc53db62a5",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "8eaa7a098b10851e",
+    expected: "6b273dcff3d35c65",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "11868a3119e25ff7",
+    expected: "6a8d7027c0e22a03",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];
@@ -342,16 +342,12 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
  */
 
 /**
- * Regeneración V.l.5 (2026-11-10): cambian los diez digestos y es la primera regeneración desde
- * V.d-7A, así que este commit registra además una desviación que no es de V.l y queda abierta.
+ * Regeneración V.l.5c (2026-11-10): cambian los diez digestos al adoptar la cartera mixta de D-104.
  *
  * Causa (D-104): V.l.4 escribe el corredor —avenida de 5 con mediana, autovía de 7— como suelo no
- * edificable en seis perfiles y V.l.5 lo recorta a `barrio_del_umbral`, porque la envolvente
- * `CITY_PARCEL_COUNT_ENVELOPE` (700..760) no admite seis: medido sobre las doce ciudades, con seis
- * corredores dan 638..677 (12/12 fuera) y con uno 700..731 (0 fuera). La envolvente se recupera por
- * geometría, no relajando el umbral. Aquí el delta sí es de mundo: el corredor quita celdas
- * edificables, así que las carreras arrancan con otras parcelas, otros frentes y otros precios. La
- * neutralidad económica NO se afirma en este acta; lo que se fija es el resultado de ese mundo.
+ * edificable en los cuatro perfiles adoptados y V.l.5c conserva el resto en el eje para que la
+ * cartera quede dentro de `CITY_PARCEL_COUNT_ENVELOPE` (700..760). El corredor quita celdas
+ * edificables, así que las carreras arrancan con otras parcelas, otros frentes y otros precios.
  *
  * Control medido en la misma build, cambiando sólo las banderas de `district-profiles.ts`:
  * - seis corredores (V.l.4, los valores que esa fase dejó sin regenerar): `ee2838561bd8cc0b`,
@@ -366,8 +362,8 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
  *   (`docs/execution/phase-4/ve-integrated-correction-verification-2026-11-03.md`: `city-seeds`,
  *   `district-generation` y `tick-conservation` fallando en `develop` el 2026-11-03, antes de V.l).
  *   Su causa queda abierta para V.l.6; no se da por explicada aquí.
- * - un corredor (V.l.5): los diez valores comprometidos arriba, medidos con `roadCorridor: true`
- *   sólo en `barrio_del_umbral` y `motorwayAxis: false` en los nueve perfiles.
+ * - cartera opción 3 (V.l.5c): `full` en `ensanche_ferroviario_oeste`, `ave3` en `vega_del_cauce`,
+ *   `mercado_del_norte` y `patios_del_este`, y eje v2 en `barrio_del_umbral`.
  *
  * El intervalo seis→uno se mueve en los diez casos: el corredor es un canal activo sobre el estado
  * canónico y por eso la regeneración se hace una sola vez, con el alcance ya recortado.

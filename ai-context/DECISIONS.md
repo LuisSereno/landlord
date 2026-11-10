@@ -1563,5 +1563,16 @@ corredor de 7 sobre una línea consume 448 celdas (10,9 % del mapa) y sobre las 
 (32,8 %), así que la autovía no puede aplicarse a toda la retícula. STOPs registrados: V.l.4 vuelve al
 responsable con avenida-3 de respaldo si se pierde un frente vial, revienta `maxBlockDepth`/`maxBlockArea`
 o p95 > ~20 ms; V.l.6 se detiene si un save v2 no reproduce bit a bit; V.l.5 regenera digestos en commit
-sólo de hashes con `parcelCount`/`blockedCellCount` como control. Ver
-`docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`.
+sólo de hashes con `parcelCount`/`blockedCellCount` como control. **V.l.5 (2026-11-10) fija el alcance
+con dato**: la envolvente de ciudad (700..760) no admite los seis corredores de V.l.4 —las doce ciudades
+caen a 638..677, doce fuera—, así que el responsable decide **recortar la geometría y no el umbral**:
+`roadCorridor` queda sólo en `barrio_del_umbral` (700..731, cero fuera; −6,25 parcelas de media por seed
+de distrito en la barrida de perfiles, el más barato de los seis, y entre −8 y −22 por ciudad) y
+`motorwayAxis` se apaga porque la autovía de 7 sólo se publica por el camino del
+corredor y activarla sin él escribiría `motorway` en una red `derivationVersion: 2`. El mundo canónico
+pasa a tener **un distrito con corredor y cero autovías**; la peor ciudad (seed 11) queda clavada en el
+suelo 700. **Y deja una decisión abierta**: con ese único corredor la suite de simulación pierde diez
+tests de comportamiento que están verdes con cero corredores (control medido el mismo día: 142/143); no
+se pierde ningún frente vial, pero el corredor cae en el distrito del jugador y media suite comprueba
+el acceso contra el eje. Las tres salidas (cero perfiles / realinear los diez / otro perfil) son del
+responsable: V.l.5 no se declara cerrada. Ver `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`.

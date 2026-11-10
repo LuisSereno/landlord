@@ -270,19 +270,59 @@ como pintura. Doctrina en `docs/engineering/adr/D-104-seccion-transversal-autori
   eje; deuda de segmentos no mínimos aceptada por el responsable.
 - **V.l.4 ejecutado tras dos STOPs**: el corredor en los 9 perfiles rompía 24/72 distritos
   (`ZONING_SHORTAGE`/`CONCENTRATION`). Salida elegida por el responsable: **corredor por perfil**
-  (`DistrictProfile.roadCorridor`, activo en 6, eje de 1 celda en 3) y **autovía por perfil**
+  (`DistrictProfile.roadCorridor`, entonces en 6, eje de 1 celda en 3) y **autovía por perfil**
   (`motorwayAxis` sólo en `patios_del_este`; en `ensanche_ferroviario_oeste` la autovía rompe el seed
   80 y la avenida de 5 genera 42/42 frentes). Con corredor se escribe `derivationVersion: 3`; sin él,
-  `2` y geometría/digestos idénticos a los de antes.
+  `2` y geometría/digestos idénticos a los de antes. V.l.5 recortó después esa lista de 6 a 1.
 - **Gate V.l.4 en verde** (`docs/execution/phase-4/vl4-fabric-gate-2026-11-10.json`): 900 distritos,
   65.607 parcelas, 0 fallos; derivación vial p95 **5,19 ms** (STOP ~20), generación p95 323,98 ms
   (presupuesto 500), 784 al primer intento, todas las familias dentro de envelope. Costura
   inter-distrito cubierta por `road-corridor-seam.test.ts` (12 pares × 2 seeds).
-- **Pendiente inmediato (V.l.5)**: regenerar los goldens que el cambio de geometría mueve —
-  `district-generation.test.ts` (12 hashes de fixture), `city-seeds.test.ts` (12 seeds) y
-  `tick-conservation.test.ts` (10 digestos) — en commit **sólo de hashes** y con
-  `parcelCount`/`blockedCellCount` como control. Son los tres únicos fallos tras V.l.4 y los tres son
-  comparación de valores, no estructura. Después V.l.6–V.l.8 (#157–#159).
+- **V.l.5 ejecutado (2026-11-10), con el alcance del corredor recortado por decisión del
+  responsable**: regeneradas las tres mesas canónicas en commits separados sólo de valores —
+  `district-fixtures.ts` (12 hashes), `city-fixtures.ts` (12 filas), `tick-conservation.test.ts`
+  (10 digestos)— cada una con causa y control medidos en su propia cabecera. El motivo del recorte:
+  con los seis corredores de V.l.4 las doce ciudades caen a **638–677 parcelas** y las doce fuera de
+  `CITY_PARCEL_COUNT_ENVELOPE` (700..760); con `roadCorridor` sólo en `barrio_del_umbral` quedan
+  **700–731** y cero fuera. La envolvente **no se tocó**: se recortó la geometría. Precio medido por
+  perfil (4 seeds): −20, −20, −11,75, −11,5, −8, −6,25 parcelas; las tres recetas sin corredor, 0.
+- **Consecuencia abierta a ratificación del responsable**: el mundo canónico tiene ahora **un
+  distrito con corredor y cero autovías**. `motorwayAxis` se apaga en `patios_del_este` porque la
+  autovía de 7 sólo se publica por el camino del corredor, y dejarla activa escribiría segmentos
+  `motorway` en una red `derivationVersion: 2` — el estado inválido que D-104 promete no producir. La
+  autovía en sí costaba ~1 parcela de media (dentro del ruido); lo caro es el corredor.
+- **Gate V.l.5 en verde** (`docs/execution/phase-4/vl5-fabric-gate-2026-11-10.json`, 100 seeds × 9
+  perfiles): 900 distritos, **72.124 parcelas**, 0 fallos; generación p50 202,12 / **p95 339,23** ms
+  sobre el presupuesto de 500 que el gate afirma en p95 (el max 673,72 no está presupuestado),
+  derivación vial p50 2,38 / **p95 5,04** / max 12,61 ms (< 25), intentos
+  879/20/1, las nueve familias dentro de envelope.
+- **La suite de simulación NO cierra con el recorte** (medido el 2026-11-10, en el árbol con las tres
+  mesas regeneradas): **11 archivos rojos, 566 passed | 19 skipped sobre 596 tests**. Uno es el
+  preexistente de la lista de V.k (`vd7a-multiparcel.test.ts:388`) y tres de los cuatro preexistentes
+  —`tick-conservation`, `city-seeds`, `district-generation`— quedaron verdes al regenerar sus mesas;
+  **los otros diez los escribe el corredor**, no el resto de V.l: el control con la mesa de perfiles
+  anterior a V.l (cero corredores) y el mismo árbol por todo lo demás da **142 passed / 1 failed
+  (143)** en esos doce archivos, y ese único fallo es otra vez `vd7a-multiparcel.test.ts:388`. El
+  motivo de que un solo perfil cueste diez tests es la posición: `CITY_ROSTER_SLOTS.player` es el slot
+  `(0,1)` (`city.ts:371-381`), o sea que el corredor cae en el distrito del jugador. Medido sobre
+  `barrio_del_umbral` seed 1: 88 parcelas, **0 sin frente** y 88 sin adyacencia al eje (distancia 2 al
+  eje, 1 al corredor) — no salta el STOP de V.l.4, lo que pasa es que media suite sigue midiendo el
+  acceso contra el eje. Clasificación y las tres salidas posibles, en
+  `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`, sección "El coste del recorte no lo
+  paga la envolvente". **V.l.5 no se declara cerrada hasta que el responsable elija.**
+- **Control del gate cumplido y una sorpresa medida**: `ensanche_ferroviario` recupera **byte a byte**
+  sus cuatro filas de V.d.4 (`401ae93`), pero `vega_del_cauce` recupera los recuentos y no el hash, y
+  lo mismo ocurre con los doce `digest` de ciudad y con los diez dorados puestos a cero corredor. Las
+  tres firmas señalan una **componente de forma anterior a V.l**, ya registrada como BASELINE DEBT en
+  el acta de V.e (2026-11-03: `city-seeds`, `district-generation` y `tick-conservation` fallaban en
+  `develop` antes de D-104). Acotado por medida que no la escribe el camino nuevo: con el corredor
+  fuera, las 375/375 celdas de eje de vega y sus segmentos dueños coinciden con la fórmula de V.d.4.
+- **Pendiente inmediato**: primero, la decisión del responsable sobre los diez tests de comportamiento
+  del corredor (arriba) —ninguna de las tres salidas es un extra de V.l.5—. Después **V.l.6**:
+  compatibilidad de save v2 bit a bit **y** atribución de esa
+  componente de forma, que es justo lo que puede romper la promesa de reproducir la vía. Ítem primero
+  de V.l.6. También alineada allí la guarda del gate, que comprueba "parcela no pisa vía" contra el
+  eje aunque la red sea v3. Después V.l.7–V.l.8 (#158–#159).
 
 ## Próximo objetivo
 

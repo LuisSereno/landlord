@@ -1597,5 +1597,24 @@ en la geometría vieja. El resto del paquete (corredor en Oeste + alinear esos d
 mesas + gate) **sigue siendo decisión del responsable, no un extra de V.l.5**, y aquí va la corrección de
 esta línea, escrita antes de medir: **los diez digestos dorados no se regeneran por culpa del fix** —
 `tick-conservation.test.ts` pasó en verde con él —, lo que cambia son `city-fixtures.ts` y
-`district-fixtures.ts`, y eso arrastra del corredor en Oeste, no del grafo. Ver
+`district-fixtures.ts`, y eso arrastra del corredor en Oeste, no del grafo.
+
+**V.l.5c (2026-11-10) barre el corredor mixto y deja dos hallazgos, ninguno adoptado.** Acta en
+`docs/execution/phase-4/vl5c-corredor-mixto-2026-11-10.md`. La premisa «5+3» era falsa: la retícula ya
+pone `avenue` en una sola línea por sentido (`urban-fabric.ts:280-281`), así que la avenida de 5 **ya**
+era el eje signature y lo que consume parcelas es la acera en todas las calles. Medido con las calles al
+eje (`ave` = av 5 con mediana, `ave3` = av 3 sin mediana) sobre las doce ciudades: el techo de variabilidad
+**no es la envolvente sino la cuota de usos** -`lomas_del_umbral` y `centro_civico` dan
+`ZONING_SHORTAGE (mixed: 0 < 2)` con cualquier ancho y los nueve perfiles a la vez no componen-; y dentro
+de 700..760 el `full` en el slot del jugador **no admite ningún acompañante** (698 con Oeste `ave3`),
+mientras que `ave` en el jugador da 3 distritos v3 (702), `ave3` da 5 (701) y la cartera más variada con
+look completo es `full` en Oeste + tres `ave3` (702). Cero frentes perdidos en todas las variantes que
+componen. **Y la mediana no existe en el mundo generado**: `median` = 0 celdas en los tres modos, porque
+la línea de avenida se publica dos veces (`street.add(key)` antes de añadir al `trunk`, `urban-fabric.ts:287-302`)
+y `resolveRole` (`road-cross-section.ts:219-223`) trata «dos ejes encima» como cruce, sin distinguir
+colineal de perpendicular. Es presentación muerta para V.l.7 §6 y su arreglo tiene precio (minimizar
+tramos cambia `roadSegmentId` y los frentes; ceñir la regla 1 cambia el rol publicado y el digesto del
+canal). **Ambas cosas son decisión del responsable, no extras de V.l.5**: decidir sección/cartera y qué
+hacer con la mediana; y si la respuesta es mixta, el canal `map.roadSection` -un `width` por clase,
+esquema `.strict()`- cambia de contrato antes de que ninguna variante sea adoptable. Ver
 `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`.

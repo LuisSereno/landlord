@@ -346,6 +346,38 @@ como pintura. Doctrina en `docs/engineering/adr/D-104-seccion-transversal-autori
   rompe. Y la predicción del ítem 4 **no se cumple con este fix**: `tick-conservation.test.ts` pasó
   aislado en verde, los diez digestos dorados no se mueven; lo que queda por regenerar es
   `city-fixtures.ts` y `district-fixtures.ts`, y eso es consecuencia del ítem 2.
+- **V.l.5c · la barrida del corredor mixto está medida (2026-11-10) y no adopta nada.** Acta completa en
+  `docs/execution/phase-4/vl5c-corredor-mixto-2026-11-10.md` (árbol `5482bcd`, dos costuras temporales
+  por variable de entorno, controles publicados reproducidos exactos -cero 712–740, canónico 700–731-,
+  restauración verificada por sha256 en las 52 corridas). Dos cosas: **(a) la premisa «5+3» era falsa** -
+  `deriveRoadNetwork` (`packages/simulation/src/urban-fabric.ts:280-281`) ya pone `avenue` en una sola
+  línea por sentido, así que la avenida de 5 ya era el eje signature; lo que come parcelas es la acera en
+  todas las calles-. Se barrió el eje real: `ave` = calles al eje de 1 + avenida 5 con mediana;
+  `ave3` = calles al eje + avenida 3 sin mediana. **(b) el techo de variabilidad es estructural, no de
+  envolvente**: `lomas_del_umbral` y `centro_civico` dan `ZONING_SHORTAGE (mixed: 0 < 2)` con **cualquier**
+  ancho y en las doce seeds, y los nueve perfiles a la vez no componen. Con el peor case sobre el suelo
+  700: `full` en el slot del jugador admite **cero** acompañantes (`barrio full + oeste ave3` = 698),
+  `ave` en el jugador permite 3 distritos v3 (min 702) y `ave3` permite **5** (min 701); la cartera más
+  variada sin perder el look completo es `full` en `ensanche_ferroviario_oeste` + tres `ave3` = 702.
+  Aditividad comprobada con diferencia 0 frente a las combinaciones medidas; **cero frentes perdidos** en
+  todas las variantes que componen, así que el STOP de V.l.4 por frentes no se activa.
+- **Hallazgo de producción con consecuencia directa para V.l.7: la mediana no existe.** `median` =
+  **0 celdas** en los tres modos y en las 127 celdas de eje de avenida del distrito medido. La mediana de
+  `ROAD_PROFILES.avenue` cae en el offset 0 -el eje-, pero esa celda lleva encima dos tramos de `avenue`
+  (el largo y el de una celda) y dos de `street`: la retícula hace `street.add(key)` **antes** de añadir
+  la avenida a `trunk` (`urban-fabric.ts:287-302`), o sea publica la línea de avenida dos veces.
+  `resolveRole` (`packages/shared/src/road-cross-section.ts:219-223`) aplica «dos ejes que se cruzan son
+  calzada» por recuento de ejes sin distinguir colineal de perpendicular, y con `axisHits >= 2` en
+  127/127 la mediana nunca sobrevive. Es el elemento firma de D-104 §1 hecho presentación muerta. Las dos
+  salidas tienen precio y **ninguna está ejecutada**: minimizar tramos colineales cambia `roadSegmentId`
+  y los frentes (lo que V.l.2/V.l.3 prometieron no tocar) o ceñir la regla 1 a ejes de distinta
+  orientación, que cambia el rol publicado y el digesto de `map.roadSection`.
+- **No está medido de la barrida** (declarado en el acta): costuras inter-distrito entre vecinos de
+  sección distinta -`road-corridor-seam.test.ts` sólo cubre pares homogéneos—; el canal
+  `map.roadSection`, que publica **un** perfil por clase con un único `width`
+  (`packages/simulation/src/projection.ts:501-521`, esquema `.strict()`), por lo que una sección mixta
+  **no es expresable hoy** sin cambiar el contrato de D-104 §4 o añadir ids de perfil; la economía
+  derivada (cobertura, valor del suelo, programa municipal); y ningún digesto canónico regenerado.
 - **Deuda adyacente listada y NO tocada** (sitios que siguen llamando al eje donde una red v3 publicaría
   el corredor): `land-value.ts:125-128` es **producción** -bonus de avenida y distancia a vía desde el
   eje, sesgo en el suelo de un distrito v3 sin medir-, `district-generator.ts:702` (`roadCellCount`),
@@ -362,11 +394,15 @@ como pintura. Doctrina en `docs/engineering/adr/D-104-seccion-transversal-autori
   `develop` antes de D-104). Acotado por medida que no la escribe el camino nuevo: con el corredor
   fuera, las 375/375 celdas de eje de vega y sus segmentos dueños coinciden con la fórmula de V.d.4.
 - **Pendiente inmediato**: el ítem 1 del paquete V.l.5b -el `fix` de isla- **ya está ejecutado y
-  conmutado en el árbol** (arriba). Lo que sigue son los ítems (2) a (5), todos decisión del responsable:
-  mover `roadCorridor` a `ensanche_ferroviario_oeste`, alinear `road-topology.test.ts:61` y
+  conmutado en el árbol** (arriba) y la barrida del corredor mixto (V.l.5c) está medida para que la
+  elección de los ítems (2) a (5) se haga con dato: mover `roadCorridor` de perfil, decidir si se adopta
+  una sección mixta (`ave` / `ave3`) y con qué cartera, alinear `road-topology.test.ts:61` y
   `urban-civic.test.ts:128` al conjunto de celdas autoritativo, regenerar `city-fixtures.ts` y
-  `district-fixtures.ts` con el perfil elegido y volver a pasar gate + suite + lint/typecheck. Ninguna de
-  las cuatro es un extra de V.l.5 y **V.l.5 no se declara cerrada**. Después **V.l.6**:
+  `district-fixtures.ts` con el perfil elegido y volver a pasar gate + suite + lint/typecheck. Añadido
+  por la barrida: **decidir qué se hace con la mediana que no sale** (V.l.7 no tiene celda que pintar) y,
+  si la respuesta es sección mixta, **el canal `map.roadSection` cambia de contrato** antes de que
+  ninguna variante sea adoptable. Ninguna de esas cuatro es un extra de V.l.5 y **V.l.5 no se declara
+  cerrada**. Después **V.l.6**:
   compatibilidad de save v2 bit a bit **y** atribución de esa
   componente de forma, que es justo lo que puede romper la promesa de reproducir la vía. Ítem primero
   de V.l.6. También alineada allí la guarda del gate, que comprueba "parcela no pisa vía" contra el

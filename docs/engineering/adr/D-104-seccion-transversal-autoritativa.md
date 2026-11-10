@@ -466,6 +466,69 @@ con las envolventes declaradas en Fase 0: cambiarlas sería relajar un umbral), 
 `urban-fabric.test.ts:42-43` con `road-corridor-seam.test.ts:65-66`, que ya bifurcan por
 `derivationVersion`.
 
+## V.l.5c · el corredor mixto, medido (2026-11-10)
+
+El responsable pidió la barrida de coste del variante «5+3» antes de elegir entre los ítems (2)–(5).
+Evidencia completa y procedencia en
+`docs/execution/phase-4/vl5c-corredor-mixto-2026-11-10.md` (árbol `5482bcd`, arnés validado reproduciendo
+los dos controles publicados, todo restaurado y verificado por sha256; **nada adoptado**).
+
+**La premisa del «5+3» era falsa y el hallazgo es que no era esa la palanca.** `deriveRoadNetwork`
+(`packages/simulation/src/urban-fabric.ts:280-281`) marca `avenue` en **una sola línea por sentido** -la
+central-; el resto de la retícula ya es `street`. La avenida de 5 ya estaba reservada a un eje signature,
+así que lo que consume las parcelas es la **acera en todas las calles**. Se barrió el eje real, con tres
+modos: `full` (calle 3 / av 5), `ave` (calle **1** / av 5 con mediana), `ave3` (calle **1** / av 3 sin
+mediana).
+
+Precios por perfil (peor case sobre las doce ciudades, suelo declarado 700, media en paréntesis):
+
+| perfil | `full` | `ave` | `ave3` |
+|---|---|---|---|
+| `barrio_del_umbral` (slot del jugador) | 22 (13,25) | 15 (9,17) | 7 (2,83) |
+| `vega_del_cauce` | 11 (7,67) | 11 (4,75) | 6 (1,67) |
+| `ensanche_ferroviario` | 26 (18,08) | 21 (14,83) | 20 (8,67) |
+| `mercado_del_norte` | 23 (17,5) | 16 (9,0) | 12 (5,5) |
+| `ensanche_ferroviario_oeste` | 15 (7,42) | 9 (6,5) | 7 (2,92) |
+| `patios_del_este` | 12 (8,58) | 8 (5,92) | 5 (2,08) |
+| `barrio_del_taller` | no compone | no compone 11/12 | 14 (7,08) |
+| `lomas_del_umbral`, `centro_civico` | **no componen** | **no componen** | **no componen** |
+
+`ZONING_SHORTAGE (mixed: 0 < 2)` en el primer intento y en las doce seeds: a `lomas_del_umbral` y
+`centro_civico` el corredor **no les entra con ningún ancho**. El techo de la variabilidad es estructural
+(cuota de usos), no de envolvente, y nueve perfiles con corredor directamente no componen. Aditividad
+comprobada con diferencia 0 contra las combinaciones medidas, así que la búsqueda de carteras predice.
+
+Lo que da la envolvente, en distritos v3 dentro de 700..760: **con `full` en el slot del jugador, 1** -ni
+un acompañante: `barrio full + oeste ave3` cae a 698-. **Con `ave` en el jugador, 3** (barrio `ave` +
+vega y oeste `ave3`, min 702). **Con `ave3` en el jugador, 5** (barrio, vega, mercado, oeste, patios,
+min 701). Y la cartera que más variedad da sin renunciar al look completo es **`full` en `oeste` + tres
+`ave3`** = 702: el perfil barato es el único que puede pagar la sección de 3/5 y dejar aceras en otros
+tres distritos. Ninguna variante que compone pierde un solo frente vial (0 sobre las 8.773 parcelas del
+control), así
+que el STOP de V.l.4 por frentes no se activa en ninguna. Contra-intuitivo medido: en `vega_del_cauce`,
+`ave3` **sube** el peor case de 712 a 713 -al quitar aceras alguna manzana partida vuelve a ser una y
+empaqueta mejor; el coste no es monótono con el ancho.
+
+**Hallazgo de producción, de clase STOP para V.l.7: la mediana no existe en el mundo generado.**
+`median` = **0 celdas** en los tres modos y en las 127 celdas de eje de avenida del distrito medido. La
+mediana de `ROAD_PROFILES.avenue` cae en el offset 0 -el eje-, pero esa celda tiene encima dos tramos de
+`avenue` (el largo `32,0 → 32,63` y el de una celda `32,0 → 32,0`) y dos de `street`: la retícula añade
+`street.add(key)` **antes** de añadir la avenida a `trunk` (`urban-fabric.ts:287-302`), así que la línea
+de avenida se publica dos veces. `resolveRole` (`packages/shared/src/road-cross-section.ts:219-223`)
+aplica la regla 1 -«dos ejes que se cruzan son calzada»- por recuento de ejes, sin distinguir
+**colineal de perpendicular**, y con `axisHits >= 2` en el 127/127 la mediana nunca sobrevive. Cuesta el
+elemento firma de D-104 §1, no bytes. Las dos salidas tienen precio: minimizar tramos colineales cambia
+`roadSegmentId` y los frentes (lo que V.l.2/V.l.3 prometieron no tocar) o ceñir la regla 1 a ejes de
+distinta orientación, que cambia el rol publicado y por tanto el digesto de `map.roadSection`. **No se
+tocó nada**: no está pedido y es decisión del responsable.
+
+**Lo que esta barrida NO mide**, declarado en el acta: costuras inter-distrito con vecinos de sección
+distinta (`road-corridor-seam.test.ts` sólo cubre pares homogéneos); el canal `map.roadSection`, que
+hoy publica **un** perfil por clase con un único `width` (`packages/simulation/src/projection.ts:501-521`
+bajo esquema `.strict()`) y por tanto **no es expresable en sección mixta** sin cambiar el contrato de
+D-104 §4 o añadir ids de perfil; la economía derivada (cobertura, valor del suelo, programa municipal);
+y ningún digesto canónico -las variantes no están regeneradas en ninguna mesa.
+
 ## Deuda aceptada (decisión del responsable, 2026-11-09)
 
 V.l.3 se midió con `ROAD_BENCHMARK=1` (`artifacts/road-topology/vc2b-performance.json`, PASS):

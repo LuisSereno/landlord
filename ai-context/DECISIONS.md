@@ -1526,7 +1526,7 @@ métricas `window.__districtAssetStats`; (4) el presupuesto de arranque sigue D-
 ## D-103 — Cuadrillas como avatares y rumbo autoritativo: el marcador sólo dice lo que el clip no puede
 
 Estado: propuesta el 2026-11-09 en la rama `wip/vh-world-visual-foundation` (WP4.15-V.k.1–V.k.4
-ejecutados y commiteados en local, sin push); pendiente de ratificación del responsable. Decisiones:
+ejecutados y **empujados**, rango `9bd4e94..3a32240`); pendiente de ratificación del responsable. Decisiones:
 (1) un miembro de una cuadrilla asignada a una obra se pinta con el avatar Rocketbox horneado
 `chr_worker` (`CREW_CHARACTER`), no con el cuadrado de 4 px del blitter — el marcador queda para el
 roster sin sprite y para los estados que el clip no expresa (`injured`/`dead`, `AGENT_STATE_TINTS`);

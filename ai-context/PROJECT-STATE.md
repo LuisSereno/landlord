@@ -196,12 +196,13 @@ anclaje de daño; `31ff12f` resolución de variante + adapter; `e0d6ea5` carga p
   binarios y licencias (ver acta). `validate-art-staging` mantiene fallos preexistentes sólo en
   `src_original_*` (V.j.2), no regresión.
 
-## WP4.15-V.k — Cuadrillas como personas (2026-11-09, commits locales SIN push)
+## WP4.15-V.k — Cuadrillas como personas (2026-11-09, empujado `9bd4e94..3a32240`)
 
 Rama `wip/vh-world-visual-foundation`, continuación directa de V.j. Pide el playtest de V.d: la gente
 en obra se leía como puntos de color. Ejecutado V.k.1–V.k.4 y commiteado (`f0e590e`, `2f9501f`,
 `11de230`, `e6b93b3`, `f672a5e`, `40b1974`, `4032257`, `c17f870` test SSR del panel, `da79057` D-103).
-**Nada empujado.** Doctrina en
+**Empujado** a `origin/wip/vh-world-visual-foundation` (punta remota `3a32240`, medido 2026-11-10 con
+`git branch -r --contains da79057`). Doctrina en
 `docs/engineering/adr/D-103-cuadrillas-como-avatares-rumbo-autoritativo.md` (PROPUESTA, pendiente de
 ratificación del responsable).
 

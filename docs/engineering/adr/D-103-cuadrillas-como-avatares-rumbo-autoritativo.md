@@ -1,8 +1,11 @@
 # D-103 — Cuadrillas como avatares y rumbo autoritativo: el marcador sólo dice lo que el clip no puede
 
 - **Estado:** propuesta el 2026-11-09 por el trabajo de V.k sobre `wip/vh-world-visual-foundation`
-  (V.k.1 `f0e590e`, V.k.2 `2f9501f`, V.k.3 `11de230`+`e6b93b3`+`f672a5e`+`40b1974`, V.k.4 `4032257`).
-  Commits locales, **sin push**. Pendiente de ratificación del responsable y de playtest humano.
+  (V.k.1 `f0e590e`, V.k.2 `2f9501f`, V.k.3 `11de230`+`e6b93b3`+`f672a5e`+`40b1974`, V.k.4 `4032257`
+  +`c17f870`+`da79057`+`82582ba`+`8cc3b05`+`62a0308`+`156cc84`, más los cierres de gates `1a1de7e`,
+  `cc5516b`, `126b65e`, `3a32240`). **Empujado** a `origin/wip/vh-world-visual-foundation`: el rango
+  `9bd4e94..3a32240` está en el remoto (medido con `git branch -r --contains da79057`, 2026-11-10).
+  Pendiente de ratificación del responsable y de playtest humano.
 - **Workstream:** WP4.15-V.k (fundación visual del mundo, continuación de V.j).
 - **Petición humana que origina esta decisión:** el playtest de V.d registró que las cuadrillas se
   leían como «puntos de color», no como gente trabajando; el responsable pidió «cuadrillas como

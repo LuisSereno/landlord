@@ -1583,8 +1583,19 @@ perfiles y falla con cualquier corredor, y el resto no era evidencia desfasada:
 `roadCellsByDistrict`/`roadCostsByDistrict` en `packages/simulation/src/facility-coverage.ts` siguen
 derivando el suelo vial con el eje, de modo que **el distrito con corredor queda incomunicado del grafo
 de servicios** (0/83 parcelas con nodo en `barrio_del_umbral` seed 7; cobertura de parques 0 frente a
-9–14 sin corredor). Un `fix` bifurcando por `derivationVersion`, medido como experimento y no conmutado,
-deja la barrida en 2 failed/9 passed y confirma que el cero corredores es no-op. El paquete resultante
-(V.l.5b: fix + corredor en Oeste + alinear `road-topology.test.ts:61` + tercera regeneración de las tres
-mesas + gate) toca código de dominio y un test de V.c.2B, así que **es decisión del responsable, no un
-extra de V.l.5**. Ver `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`.
+9–14 sin corredor). Un `fix` bifurcando por `derivationVersion` deja la barrida en 2 failed/9 passed y
+confirma que el cero corredores es no-op, y el responsable **lo autoriza y se ejecuta el 2026-11-10**
+(ítem 1 de V.l.5b): en `facility-coverage.ts` el helper `roadCellsForSegments` (`:146-159`) resuelve el
+suelo vial por `derivationVersion` y lo consumen `roadCostsByDistrict` y `roadCellsByDistrict`, con el
+mismo precedente que `validateUrbanFabric` (`urban-fabric.ts:869-876`). Medido en la suite completa sin
+tocar banderas: **11 failed/566 passed → 5 failed/572 passed**, seis ficheros recuperan el verde, y el
+coste es **+38,0 ms p95** por reconstrucción del índice de cobertura a cambio de **+3.346 parcelas con
+transporte y +2.454 con parques**; ninguna gate temporiza ese índice, así que no hay presupuesto que
+relajar. Quedan cuatro rojos D-104: `road-topology.test.ts:61` y `urban-civic.test.ts:128`, que comprueban
+el acceso contra el eje, y `phase2.test.ts:543` con `urban-services.test.ts`, que es evidencia muestreada
+en la geometría vieja. El resto del paquete (corredor en Oeste + alinear esos dos tests + regenerar las
+mesas + gate) **sigue siendo decisión del responsable, no un extra de V.l.5**, y aquí va la corrección de
+esta línea, escrita antes de medir: **los diez digestos dorados no se regeneran por culpa del fix** —
+`tick-conservation.test.ts` pasó en verde con él —, lo que cambia son `city-fixtures.ts` y
+`district-fixtures.ts`, y eso arrastra del corredor en Oeste, no del grafo. Ver
+`docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`.

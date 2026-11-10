@@ -1,9 +1,12 @@
 import {
   roadCellsFromSegments,
+  roadCorridorCellsFromSegments,
   type DistrictId,
   type GridCell,
   type Parcel,
   type ParcelId,
+  type RoadSegment,
+  type RoadTopology,
   type UrbanFacility,
   type UrbanFacilityId,
   type UrbanFacilityKind,
@@ -140,13 +143,28 @@ function nodeKey(districtId: DistrictId, cell: GridCell): string {
   return `${districtId}:${cell.x}:${cell.y}`;
 }
 
+/**
+ * D-104 · el suelo vial que el grafo pisa es el que la red declara autoritativo: una
+ * `derivationVersion: 3` se derivó con la sección transversal completa (aceras, carriles y mediana),
+ * así que su eje de 1 celda no es por donde las parcelas tienen acceso a la red. Las v2 se quedan
+ * con el eje, que es el suelo con el que se generaron y el que persiste un save v2.
+ */
+function roadCellsForSegments(
+  roads: Pick<RoadTopology, "derivationVersion">,
+  segments: readonly RoadSegment[],
+): ReadonlySet<string> {
+  return roads.derivationVersion === 3
+    ? roadCorridorCellsFromSegments(segments)
+    : roadCellsFromSegments(segments);
+}
+
 function roadCostsByDistrict(state: GameState): Map<DistrictId, Map<string, number>> {
   const result = new Map<DistrictId, Map<string, number>>();
   for (const [districtId, district] of state.world.districts) {
     const costs = new Map<string, number>();
     for (const segment of district.map.roads.segments) {
       const cost = segment.class === "avenue" ? 1 : 2;
-      for (const key of roadCellsFromSegments([segment])) {
+      for (const key of roadCellsForSegments(district.map.roads, [segment])) {
         const previous = costs.get(key);
         if (previous === undefined || cost < previous) costs.set(key, cost);
       }
@@ -262,7 +280,7 @@ function shortestDistances(graph: Graph, sources: readonly string[]): Map<string
 function roadCellsByDistrict(state: GameState): Map<DistrictId, ReadonlySet<string>> {
   const result = new Map<DistrictId, ReadonlySet<string>>();
   for (const [districtId, district] of state.world.districts) {
-    result.set(districtId, roadCellsFromSegments(district.map.roads.segments));
+    result.set(districtId, roadCellsForSegments(district.map.roads, district.map.roads.segments));
   }
   return result;
 }

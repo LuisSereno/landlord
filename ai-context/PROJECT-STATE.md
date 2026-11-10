@@ -328,6 +328,32 @@ como pintura. Doctrina en `docs/engineering/adr/D-104-seccion-transversal-autori
   passed), corredor en Oeste **2 failed/9 passed** -sólo `road-topology` y el preexistente `vd7a`-,
   corredor en Barrio **5 failed/6 passed**. Tabla completa, las doce filas de ciudad con la salida 3 y el
   paquete V.l.5b en el ADR; nada de esto está conmutado ni en las mesas canónicas.
+- **El fix de isla está EJECUTADO (2026-11-10, ítem 1 de V.l.5b) y V.l.5 sigue sin cerrarse.** En
+  `packages/simulation/src/facility-coverage.ts` el helper `roadCellsForSegments` (`:146-159`) elige el
+  suelo vial por `derivationVersion` -v3 corredor, v2 eje, el mismo precedente de
+  `urban-fabric.ts:869-876`- y lo consumen `roadCostsByDistrict` (`:167`) y `roadCellsByDistrict`
+  (`:283`). Suite de simulación completa, sin tocar ninguna bandera: **11 failed / 566 passed → 5 failed
+  / 572 passed** (19 skipped en las dos; el `Duration` 807,50→715,13 s no es una mejora de rendimiento,
+  son ficheros que abortan antes). Seis vuelven a verde: `facility-coverage`, `h1-acceptance-isolation`,
+  `h1-land-value`, `h2-potential-service`, `housing-market`, `municipal-budget`. Los cuatro rojos D-104
+  restantes son `road-topology.test.ts:61` y `urban-civic.test.ts:128` -los dos miden el acceso contra el
+  eje, ítem 3, y el primero falla con **cualquier** corredor- y `phase2.test.ts:543` con
+  `urban-services.test.ts` -evidencia canónica muestreada en la geometría vieja, se van con el ítem 2-;
+  `vd7a-multiparcel.test.ts:388` sigue siendo BASELINE DEBT. **Coste medido A/B** (40 reconstrucciones
+  frías del índice, misma muestra): p50 63,43→**94,99 ms**, p95 75,87→**113,86 ms**, max 89,14→166,15 ms
+  por ciudad, a cambio de **+3.346 parcelas con transporte y +2.454 con parques** sobre 28.311 que antes
+  no tenían ninguna; **ninguna gate temporiza la cobertura**, así que ningún presupuesto declarado se
+  rompe. Y la predicción del ítem 4 **no se cumple con este fix**: `tick-conservation.test.ts` pasó
+  aislado en verde, los diez digestos dorados no se mueven; lo que queda por regenerar es
+  `city-fixtures.ts` y `district-fixtures.ts`, y eso es consecuencia del ítem 2.
+- **Deuda adyacente listada y NO tocada** (sitios que siguen llamando al eje donde una red v3 publicaría
+  el corredor): `land-value.ts:125-128` es **producción** -bonus de avenida y distancia a vía desde el
+  eje, sesgo en el suelo de un distrito v3 sin medir-, `district-generator.ts:702` (`roadCellCount`),
+  `urban-morphology.ts:13`/`:33` (métricas casadas con envolventes de Fase 0: cambiarlas sería relajar un
+  umbral), `system-cost.ts:276` (harness sintético), y en tests `road-topology.test.ts:44`/`:71`/`:127` y
+  `urban-fabric-gate.test.ts:104`. Dos que no son deuda: `projection.ts:484` (el canal `map.roads.cells`
+  **es** el eje por D-104 §2) y `urban-fabric.test.ts:42-43` / `road-corridor-seam.test.ts:65-66`, que ya
+  bifurcan.
 - **Control del gate cumplido y una sorpresa medida**: `ensanche_ferroviario` recupera **byte a byte**
   sus cuatro filas de V.d.4 (`401ae93`), pero `vega_del_cauce` recupera los recuentos y no el hash, y
   lo mismo ocurre con los doce `digest` de ciudad y con los diez dorados puestos a cero corredor. Las
@@ -335,9 +361,16 @@ como pintura. Doctrina en `docs/engineering/adr/D-104-seccion-transversal-autori
   el acta de V.e (2026-11-03: `city-seeds`, `district-generation` y `tick-conservation` fallaban en
   `develop` antes de D-104). Acotado por medida que no la escribe el camino nuevo: con el corredor
   fuera, las 375/375 celdas de eje de vega y sus segmentos dueños coinciden con la fórmula de V.d.4.
-- **Pendiente inmediato**: primero, la decisión del responsable sobre los diez tests de comportamiento
-  del corredor (arriba) —ninguna de las tres salidas es un extra de V.l.5—. Después **V.l.6**:
+- **Pendiente inmediato**: el ítem 1 del paquete V.l.5b -el `fix` de isla- **ya está ejecutado y
+  conmutado en el árbol** (arriba). Lo que sigue son los ítems (2) a (5), todos decisión del responsable:
+  mover `roadCorridor` a `ensanche_ferroviario_oeste`, alinear `road-topology.test.ts:61` y
+  `urban-civic.test.ts:128` al conjunto de celdas autoritativo, regenerar `city-fixtures.ts` y
+  `district-fixtures.ts` con el perfil elegido y volver a pasar gate + suite + lint/typecheck. Ninguna de
+  las cuatro es un extra de V.l.5 y **V.l.5 no se declara cerrada**. Después **V.l.6**:
   compatibilidad de save v2 bit a bit **y** atribución de esa
+  componente de forma, que es justo lo que puede romper la promesa de reproducir la vía. Ítem primero
+  de V.l.6. También alineada allí la guarda del gate, que comprueba "parcela no pisa vía" contra el
+  eje aunque la red sea v3. Después V.l.7–V.l.8 (#158–#159).
   componente de forma, que es justo lo que puede romper la promesa de reproducir la vía. Ítem primero
   de V.l.6. También alineada allí la guarda del gate, que comprueba "parcela no pisa vía" contra el
   eje aunque la red sea v3. Después V.l.7–V.l.8 (#158–#159).

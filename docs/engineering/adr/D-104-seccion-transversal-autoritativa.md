@@ -385,16 +385,86 @@ comprobación del propio test midiendo contra el eje en una red v3- más el pree
 `vd7a-multiparcel.test.ts:388`. El fix solo, con el corredor en el slot del jugador, no basta: quedan
 cuatro.
 
-**Paquete que la medida hace posible (V.l.5b), pendiente de autorización del responsable porque toca
-código de dominio y un test de V.c.2B:** (1) el fix de `facility-coverage` bifurcando por
-`derivationVersion`, (2) `roadCorridor` en `ensanche_ferroviario_oeste` y fuera de `barrio_del_umbral`,
-(3) alinear `road-topology.test.ts:61` al mismo conjunto de celdas -es la deuda que el gate de V.l.5 ya
-declaraba sin cubrir-, (4) regenerar por tercera vez las tres mesas canónicas (las doce filas de ciudad
-con la salida 3 ya están medidas y transcritas arriba, pero no en `city-fixtures.ts`; los diez digestos
-dorados no: el fix cambia la economía derivada de la cobertura y hay que volver a correr las carreras
-largas), (5) gate + suite completa + lint/typecheck.
-Nota de coste: (1) y (3) cambian distancias sobre el grafo en los distritos v3 -más nodos, no menos-,
-así que su temporización debe volver a medirse con `FABRIC_GATE=1` antes de afirmar ningún presupuesto.
+**El fix está ejecutado (2026-11-10, ítem 1 autorizado por el responsable).** En
+`packages/simulation/src/facility-coverage.ts` un helper -`roadCellsForSegments(roads, segments)`, `:146-159`-
+elige el suelo vial por `derivationVersion` (v3 → `roadCorridorCellsFromSegments`, v2 → el eje) y lo
+consumen los dos sitios de la tabla de arriba: `roadCostsByDistrict` (`:167`) y `roadCellsByDistrict`
+(`:283`). El precedente de la bifurcación es el mismo que `validateUrbanFabric`
+(`packages/simulation/src/urban-fabric.ts:869-876`, anotado en V.l.4); el commentario de `:147-150` dice
+por qué: el eje de una red v3 no es por donde las parcelas acceden a la red.
+
+Suite de simulación completa, mismo árbol (corredor en `barrio_del_umbral`, sin el resto del paquete):
+**11 failed / 566 passed / 19 skipped en 807,50 s → 5 failed / 572 passed / 19 skipped en 715,13 s**.
+Seis ficheros pasan a verde sin encender ni apagar ninguna bandera: `facility-coverage`,
+`h1-acceptance-isolation`, `h1-land-value`, `h2-potential-service`, `housing-market`,
+`municipal-budget`. Los cinco que quedan no son deuda de este fix:
+
+| rojo | causa | ítem |
+|---|---|---|
+| `road-topology.test.ts:61` | el test comprueba el frente contra `roadCellsFromSegments` (`:44`, `:71`, `:127`) y recorre los nueve perfiles: falla con **cualquier** corredor | (3) |
+| `urban-civic.test.ts:128` | la misma clase: `publicspace_00000401 sin acceso desde la red`, comprobado contra el eje | (3) |
+| `phase2.test.ts:543` | `expected 200000 to be 800000`: producción derivada de la cobertura, evidencia muestreada en la geometría vieja | (2)/(4) |
+| `urban-services.test.ts` | `expected 100 to be greater than 100`: misma causa | (2)/(4) |
+| `vd7a-multiparcel.test.ts:388` | BASELINE DEBT desde 2026-11-03, ajena a D-104 | — |
+
+Con el corredor en Oeste el experimento ya dejaba **2 rojos** de los once, que son `road-topology` (ítem 3)
+y el preexistente: los dos de evidencia canónica de la tabla se van con el ítem (2). El verde de
+`urban-civic` con Oeste no desmiente que sea clase 1 -el distrito del jugador vuelve a v2 y su
+comprobación por eje vuelve a valer-; lo que demuestra es que sólo muerde en el distrito con corredor.
+
+**Timings del fix, medidos A/B** (`/tmp/vl5b-ab.log`; 40 reconstrucciones frías de
+`facilityCoverageIndex` sobre `createInitialState`, misma muestra en las dos piernas, árbol restaurado y
+verificado por sha256):
+
+| pierna | p50 | p95 | max | parcelas | con transporte | con parques |
+|---|---|---|---|---|---|---|
+| HEAD (eje) | 63,43 ms | 75,87 ms | 89,14 ms | 28.311 | 23.864 | 12.645 |
+| con fix | 94,99 ms | 113,86 ms | 166,15 ms | 28.311 | 27.210 | 15.099 |
+
+**+31,6 ms p50 y +38,0 ms p95 por ciudad**, y a cambio **+3.346 parcelas con transporte y +2.454 con
+parques** que antes no tenía ninguna por estar el distrito-isla fuera del grafo. Dos acotaciones: **no
+hay ninguna gate que temporice la cobertura**, así que ningún presupuesto declarado se rompe con estos
+números -el presupuesto de 500 ms es de generación/derivación del `FABRIC_GATE`, no de este índice-; y
+la caída de 807,50 s a 715,13 s en la suite **no es una mejora de rendimiento**, son seis ficheros que
+fallan antes de terminar sus casos y no se afirma como tal.
+
+**Y la predicción del ítem (4) sobre los dorados no se cumple.** `tick-conservation.test.ts` pasó
+aislado con el fix en verde (**1 passed / 27,68 s**, `/tmp/vl5b-tickconservation.log`): los diez digestos
+de carreras largas no se mueven, así que la tercera regeneración no incluye los dorados por culpa de este
+fix. Lo que sí queda por regenerar son las dos mesas que mueve el perfil elegido -`city-fixtures.ts`,
+con `digest` y `parcelCount`, y `district-fixtures.ts`-, y eso es consecuencia del ítem (2), no de este
+fix.
+
+**Paquete que la medida hace posible (V.l.5b), pendientes de autorización del responsable porque tocan
+mesas canónicas y un test de V.c.2B:**
+
+1. ~~el fix de `facility-coverage` bifurcando por `derivationVersion`~~ **EJECUTADO 2026-11-10.**
+2. `roadCorridor` en `ensanche_ferroviario_oeste` y fuera de `barrio_del_umbral`.
+3. alinear `road-topology.test.ts:61` y `urban-civic.test.ts:128` al mismo conjunto de celdas -es la
+   deuda que el gate de V.l.5 ya declaraba sin cubrir, y con el fix ejecutado es lo único que separa el
+   árbol de un solo rojo D-104-.
+4. regenerar las **dos mesas de ciudad y distrito** que mueve el ítem (2). Aquí va la corrección de esta
+   línea, escrita antes de medir: **el fix no toca los diez digestos dorados**, así que no hay tercera
+   regeneración de `tick-conservation` por su causa; lo que sí cambia es `city-fixtures.ts`
+   (`digest` y `parcelCount`) y `district-fixtures.ts`, y eso es consecuencia del ítem (2).
+5. gate + suite completa + lint/typecheck.
+
+Nota de coste, resuelta: (1) y (3) cambian distancias sobre el grafo en los distritos v3 -más nodos, no
+menos-. La de (1) está medida arriba (+38,0 ms p95 por reconstrucción del índice, sin presupuesto
+declarado que cubrir porque ninguna gate temporiza la cobertura). La de (3) no se aplica: alinear un test
+no mueve producción.
+
+**Deuda adyacente que este fix no toca y deja registrado** -mismos cuatro sitios que llaman al eje donde
+una red v3 publicaría el corredor, ninguno pedido y por tanto ninguno cambiado-:
+`land-value.ts:125-128` (el bonus de avenida y la distancia a vía se miden desde el eje; **producción**,
+afecta al valor del suelo de un distrito v3 y no está medido su sesgo), `district-generator.ts:702`
+(`roadCellCount` como métrica de forma), `urban-morphology.ts:13`/`:33` (métricas sobre el eje, casadas
+con las envolventes declaradas en Fase 0: cambiarlas sería relajar un umbral), `system-cost.ts:276`
+(harness sintético, no toca geometría real) y, en los tests de la misma clase que el ítem (3),
+`road-topology.test.ts:44`/`:71`/`:127` y `urban-fabric-gate.test.ts:104`. Dos que **no** son deuda:
+`projection.ts:484`, porque el canal `map.roads.cells` es el eje por decisión D-104 §2, y
+`urban-fabric.test.ts:42-43` con `road-corridor-seam.test.ts:65-66`, que ya bifurcan por
+`derivationVersion`.
 
 ## Deuda aceptada (decisión del responsable, 2026-11-09)
 
@@ -422,9 +492,12 @@ digestos dorados— con los controles de la sección de arriba, y vuelve a pasar
 (`vl5-fabric-gate-2026-11-10.json`: 900 distritos, 72.124 parcelas, p95 de generación 339,23 ms y de
 derivación vial 5,04 ms).
 
-**Pendiente de medir:** la decisión del responsable sobre el paquete de la sección "La salida 3, medida"
--`fix` de isla en `facility-coverage` + corredor en `ensanche_ferroviario_oeste` + alinear
-`road-topology.test.ts:61` + tercera regeneración de las tres mesas-, carga de save v2 bit a bit y
+**El fix (V.l.5b ítem 1) está ejecutado y medido el 2026-11-10** -ver la sección "La salida 3, medida"-:
+la isla del grafo en redes v3 no existe, seis ficheros de simulación pasan a verde sin tocar banderas y
+el coste medido es +38,0 ms p95 por reconstrucción del índice de cobertura. **Sigue sin cerrar V.l.5**:
+quedan los ítems (2) a (5), que son decisión del responsable.
+
+**Pendiente de medir:** carga de save v2 bit a bit y
 atribución de la componente de forma previa a V.l.5 (V.l.6), invariante sentido ⇄ bordillo (V.l.7) y
 capturas + FPS (V.l.8). La aprobación visual es humana.
 

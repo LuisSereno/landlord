@@ -310,6 +310,24 @@ como pintura. Doctrina en `docs/engineering/adr/D-104-seccion-transversal-autori
   acceso contra el eje. Clasificación y las tres salidas posibles, en
   `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`, sección "El coste del recorte no lo
   paga la envolvente". **V.l.5 no se declara cerrada hasta que el responsable elija.**
+- **La salida 3 está medida (2026-11-10) y abre un defecto de producción, no de tests.** Con el
+  corredor sólo en `ensanche_ferroviario_oeste` (slot `(0,2)`) las doce ciudades dan **707–737 con 7 de
+  margen sobre el suelo** (hoy: peor exactamente 700) y precio medio 7,42 parcelas por ciudad frente a
+  13,25; ocho de los diez tests vuelven a verde. Quedan dos: `road-topology.test.ts:61`, que recorre los
+  nueve perfiles y por tanto falla con **cualquier** corredor -la salida 3 sola no existe-, y
+  `facility-coverage.test.ts:155`. Este último destapa que `roadCellsByDistrict`
+  (`packages/simulation/src/facility-coverage.ts:262-268`) y `roadCostsByDistrict` (`:143-157`) siguen
+  construyendo el suelo vial con el **eje**, así que en un distrito v3 casi ninguna parcela tiene nodo de
+  acceso al grafo: medido **0/83** en `barrio_del_umbral` (seed 7) y **1/42** en
+  `ensanche_ferroviario_oeste`, con cobertura de parques **0** en el distrito con corredor frente a 9–14
+  sin él. Es decir: **en el mundo canónico de hoy el distrito del jugador no tiene ni parques ni
+  transporte alcanzables por el grafo** -los cinco servicios de capacidad leen 0 en las tres variantes
+  porque la sonda mide un estado sin parcelas desarrolladas, así que ahí no hay nada atribuido y nada
+  negado-, y la clasificación "2 de celdas + 8 de evidencia" del acta era incorrecta. El fix
+  (bifurcar por `derivationVersion`) medido como experimento: cero corredores **no-op** (1 failed/10
+  passed), corredor en Oeste **2 failed/9 passed** -sólo `road-topology` y el preexistente `vd7a`-,
+  corredor en Barrio **5 failed/6 passed**. Tabla completa, las doce filas de ciudad con la salida 3 y el
+  paquete V.l.5b en el ADR; nada de esto está conmutado ni en las mesas canónicas.
 - **Control del gate cumplido y una sorpresa medida**: `ensanche_ferroviario` recupera **byte a byte**
   sus cuatro filas de V.d.4 (`401ae93`), pero `vega_del_cauce` recupera los recuentos y no el hash, y
   lo mismo ocurre con los doce `digest` de ciudad y con los diez dorados puestos a cero corredor. Las

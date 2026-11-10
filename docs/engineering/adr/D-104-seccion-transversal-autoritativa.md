@@ -299,6 +299,103 @@ tests de comportamiento y las tres salidas son decisión del responsable:
    `ensanche_ferroviario_oeste` (−8 frente a los −6,25 de `barrio_del_umbral`); está **sin medir** ni
    en envolvente ni en estos diez tests, y cambiar de perfil vuelve a exigir regenerar las tres mesas.
 
+### La salida 3, medida (2026-11-10): no existe sola, y la causa de los diez no era la que se anotó
+
+El responsable ordenó empezar por la 3. Se midió con una barrida temporal de las banderas de
+`district-profiles.ts` (respaldo + restauración verificados por sha256; nada de esto se conmutó).
+
+**Envolvente: la salida 3 es mejor que la que está en el árbol.** Con `roadCorridor` sólo en
+`ensanche_ferroviario_oeste` (slot `(0,2)` de `CITY_SLOTS`: ni jugador ni rival) las doce ciudades dan
+**707–737, cero fuera de 700..760**, con **7 de margen sobre el suelo** (seed 11 = 707). En el árbol de
+hoy -corredor en `barrio_del_umbral`, slot del jugador- el peor es **exactamente 700**. Precio medido
+por ciudad: −3..−15, media **7,42** frente a los −8..−22 y media 13,25 del perfil actual. Las doce filas
+transcritas de la corrida de esta sesión (`digest` = FNV-1a sobre `canonicalizeState`; "sin corredor" es
+la mesa de control `C5` ya citada arriba; Oeste aporta 40–46 parcelas):
+
+| seed | sin corredor | con corredor en Oeste | Δ | `digest` con corredor en Oeste |
+|---|---|---|---|---|
+| 1 | 723 | 717 | −6 | `cc5b33b7d4adf373` |
+| 2 | 738 | 733 | −5 | `207436845741c62a` |
+| 3 | 722 | 714 | −8 | `991c596d87c2c2ca` |
+| 5 | 739 | 724 | −15 | `cc008f2570051820` |
+| 7 | 726 | 721 | −5 | `bcda9cfb4a45fcc9` |
+| 11 | 712 | 707 | −5 | `f12a49664d880c12` |
+| 13 | 736 | 729 | −7 | `4d1cfa6e979c752e` |
+| 17 | 730 | 719 | −11 | `4905ae0180f645a9` |
+| 23 | 738 | 729 | −9 | `d23903d5f215322a` |
+| 42 | 730 | 722 | −8 | `42dcd9f75b66f37a` |
+| 1337 | 739 | 732 | −7 | `754da4a8a712a515` |
+| 2026 | 740 | 737 | −3 | `0310c2b99707c900` |
+
+Estas doce filas son **medida de barrida temporal, no mesa canónica**: no están en
+`packages/simulation/src/city-fixtures.ts` y sólo se convertirían en evidencia comprometida si el
+responsable autoriza el paquete de abajo.
+
+**Tests: ocho de los diez vuelven a verde** (11 ficheros, 142 tests: **139 passed / 3 failed** frente a
+los 141/1 del control de cero corredores, cuyo único rojo es el preexistente
+`vd7a-multiparcel.test.ts:388`). Quedan `road-topology.test.ts:61` y `facility-coverage.test.ts:155`.
+
+`road-topology.test.ts:61` recorre los **nueve** perfiles con `generateDistrict`, así que falla con
+cualquier perfil que lleve el corredor: **no hay elección de perfil que lo evite**. La salida 3 tal
+como estaba escrita en el menú (cambiar de perfil, sin tocar nada más) no existe.
+
+**Y el fallo de `facility-coverage.test.ts:155` no es evidencia desfasada: es un defecto de
+producción.** `roadCellsByDistrict` (`packages/simulation/src/facility-coverage.ts:262-268`, con
+`roadCellsFromSegments` en `:265`) y `roadCostsByDistrict` (`:143-157`, en `:149`) construyen el suelo
+vial sólo con el **eje**, y `roadAccessNodes` (`:270-285`) exige una celda de ese conjunto junto al
+frente de la parcela. Medido con una réplica exacta de esa función sobre las tres variantes (seeds 7 y
+1):
+
+| variante | distritos v3 | parcelas con nodo de acceso | parcelas adyacentes al corredor |
+|---|---|---|---|
+| cero corredores | ninguno | Barrio 93/93 · Oeste 47/47 | - |
+| corredor en Barrio (árbol de hoy) | Barrio | **Barrio 0/83 · 0/76** | 83/83 · 76/76 |
+| corredor en Oeste | Oeste | **Oeste 1/42 · 1/44** | 42/42 · 44/44 |
+
+El grafo tampoco conoce las celdas del corredor, así que **el distrito que lleva el corredor queda
+incomunicado del grafo de servicios**. Consecuencia medida sobre las semillas 7, 1 y 11: parcelas de
+Oeste con cobertura de parques **9, 14 y 14** con cero corredores, **2, 7 y 7** con el corredor en el
+vecino -misma geometría de Oeste, el efecto es de asignación citywide- y **0, 0 y 0** cuando Oeste es el
+distrito con corredor; `barrio_del_umbral` en el árbol de hoy está en **0, 0 y 0** desde que V.l.4 lo
+puso en versión 3, antes 63, 61 y 62. La afirmación llega hasta donde llega la medida: lo que se cae por
+`accessByParcel` es `parkDistance` (`:525`) y `transportDistance` (`:534`), y en el mundo canónico de
+hoy el distrito del jugador no tiene ni una parcela con nodo, o sea **ni parques ni transporte
+alcanzables**. Los cinco servicios de capacidad (`:509`) leen 0 en **las tres** variantes, incluida la
+de cero corredores, y eso no lo explica D-104: la sonda mide `byParcelId` sobre un estado recién
+generado y H2-05 sólo cuenta parcelas desarrolladas (`:564-565`), así que en esas semillas no hay
+demanda que cubrir. No significa que el grafo no les afecte -la misma guarda `access.length === 0`, en
+`:625` y también en la cobertura potencial de `:708`, las incomunica igual en cuanto haya edificios-,
+pero eso no está medido aquí y no se afirma. Esto sí
+corrige la clasificación de la sección anterior: los diez no eran "dos con el conjunto de celdas
+equivocado y ocho con evidencia canónica"; al menos en buena parte eran una sola causa, y esa causa está
+en código de dominio, no en los tests.
+
+**El fix, medido como experimento** (bifurcar `facility-coverage` por `derivationVersion`: v3 usa
+`roadCorridorCellsFromSegments`, v2 sigue con el eje; dos sitios + un helper compartido). Mismos once
+ficheros:
+
+| variante | sin el fix | con el fix |
+|---|---|---|
+| cero corredores | 1 failed / 10 passed | **1 failed / 10 passed** (no-op verificado) |
+| corredor en Barrio | 11 rojos en la suite completa (10 de ellos aquí) | **5 failed / 6 passed** (`phase2`, `road-topology`, `urban-civic`, `urban-services`, `vd7a`) |
+| corredor en Oeste | 3 failed / 139 passed | **2 failed / 9 passed** (`road-topology`, `vd7a`) |
+
+Es decir: **fix + salida 3 deja un solo rojo imputable a D-104** -`road-topology.test.ts:61`, que es la
+comprobación del propio test midiendo contra el eje en una red v3- más el preexistente
+`vd7a-multiparcel.test.ts:388`. El fix solo, con el corredor en el slot del jugador, no basta: quedan
+cuatro.
+
+**Paquete que la medida hace posible (V.l.5b), pendiente de autorización del responsable porque toca
+código de dominio y un test de V.c.2B:** (1) el fix de `facility-coverage` bifurcando por
+`derivationVersion`, (2) `roadCorridor` en `ensanche_ferroviario_oeste` y fuera de `barrio_del_umbral`,
+(3) alinear `road-topology.test.ts:61` al mismo conjunto de celdas -es la deuda que el gate de V.l.5 ya
+declaraba sin cubrir-, (4) regenerar por tercera vez las tres mesas canónicas (las doce filas de ciudad
+con la salida 3 ya están medidas y transcritas arriba, pero no en `city-fixtures.ts`; los diez digestos
+dorados no: el fix cambia la economía derivada de la cobertura y hay que volver a correr las carreras
+largas), (5) gate + suite completa + lint/typecheck.
+Nota de coste: (1) y (3) cambian distancias sobre el grafo en los distritos v3 -más nodos, no menos-,
+así que su temporización debe volver a medirse con `FABRIC_GATE=1` antes de afirmar ningún presupuesto.
+
 ## Deuda aceptada (decisión del responsable, 2026-11-09)
 
 V.l.3 se midió con `ROAD_BENCHMARK=1` (`artifacts/road-topology/vc2b-performance.json`, PASS):
@@ -325,8 +422,9 @@ digestos dorados— con los controles de la sección de arriba, y vuelve a pasar
 (`vl5-fabric-gate-2026-11-10.json`: 900 distritos, 72.124 parcelas, p95 de generación 339,23 ms y de
 derivación vial 5,04 ms).
 
-**Pendiente de medir:** la decisión del responsable sobre los diez tests de comportamiento que deja el
-recorte (sección "El coste del recorte no lo paga la envolvente"), carga de save v2 bit a bit y
+**Pendiente de medir:** la decisión del responsable sobre el paquete de la sección "La salida 3, medida"
+-`fix` de isla en `facility-coverage` + corredor en `ensanche_ferroviario_oeste` + alinear
+`road-topology.test.ts:61` + tercera regeneración de las tres mesas-, carga de save v2 bit a bit y
 atribución de la componente de forma previa a V.l.5 (V.l.6), invariante sentido ⇄ bordillo (V.l.7) y
 capturas + FPS (V.l.8). La aprobación visual es humana.
 

@@ -1575,4 +1575,16 @@ suelo 700. **Y deja una decisión abierta**: con ese único corredor la suite de
 tests de comportamiento que están verdes con cero corredores (control medido el mismo día: 142/143); no
 se pierde ningún frente vial, pero el corredor cae en el distrito del jugador y media suite comprueba
 el acceso contra el eje. Las tres salidas (cero perfiles / realinear los diez / otro perfil) son del
-responsable: V.l.5 no se declara cerrada. Ver `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`.
+responsable: V.l.5 no se declara cerrada. **La salida 3, medida el 2026-11-10, corrige esa atribución y
+no cierra nada por sí sola**: con el corredor en `ensanche_ferroviario_oeste` (slot `(0,2)`, fuera del
+jugador y del rival) las doce ciudades dan 707–737 —7 de margen sobre el suelo, mejor que el árbol de
+hoy— y ocho de los diez tests vuelven a verde, pero `road-topology.test.ts:61` recorre los nueve
+perfiles y falla con cualquier corredor, y el resto no era evidencia desfasada:
+`roadCellsByDistrict`/`roadCostsByDistrict` en `packages/simulation/src/facility-coverage.ts` siguen
+derivando el suelo vial con el eje, de modo que **el distrito con corredor queda incomunicado del grafo
+de servicios** (0/83 parcelas con nodo en `barrio_del_umbral` seed 7; cobertura de parques 0 frente a
+9–14 sin corredor). Un `fix` bifurcando por `derivationVersion`, medido como experimento y no conmutado,
+deja la barrida en 2 failed/9 passed y confirma que el cero corredores es no-op. El paquete resultante
+(V.l.5b: fix + corredor en Oeste + alinear `road-topology.test.ts:61` + tercera regeneración de las tres
+mesas + gate) toca código de dominio y un test de V.c.2B, así que **es decisión del responsable, no un
+extra de V.l.5**. Ver `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`.

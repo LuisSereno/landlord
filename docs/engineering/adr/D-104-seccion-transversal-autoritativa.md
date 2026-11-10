@@ -112,12 +112,30 @@ acera) y sentido de carril pasan a dato autoritativo derivado, publicado y persi
 - El baseline visual de V.j queda congelado: V.l.8 captura en directorio nuevo y la aprobación es del
   responsable.
 
-## Verificación prevista (aún no medida)
+## Deuda aceptada (decisión del responsable, 2026-11-09)
 
-Tests puros de perfiles y derivación (V.l.2), contrato `.strict()` y payload medido (V.l.3), sweep de
-distritos con frente vial al 100 % y envelopes morfológicas (V.l.4), digestos regenerados con control
-(V.l.5), carga de save v2 bit a bit (V.l.6), invariante sentido ⇄ bordillo (V.l.7) y capturas + FPS
-(V.l.8). **Ninguno de estos números existe todavía**: esta ADR fija el contrato, no un resultado.
+V.l.3 se midió con `ROAD_BENCHMARK=1` (`artifacts/road-topology/vc2b-performance.json`, PASS):
+`roadSection` = **22.860 B** con 265 segmentos y 2 perfiles, frente a **2.921 B** del eje; delta vial
+total 25.805 B sobre una proyección que se publica cada 2 ticks. El coste lo domina la
+**representación no mínima de segmentos** que D-085 ya dejó como deuda: `segmentsFromGrid` emite un
+tramo horizontal de una celda por cada línea vertical de la retícula.
+
+El responsable decidió **ceñir V.l.4 a lo especificado y aceptar ese payload**, dejando la
+minimización de tramos colineales como deuda de otra fase. Fusionarlos cambiaría `roadSegmentId` y
+los frentes de parcela que lo referencian, justo lo que V.l.2/V.l.3 prometieron no tocar.
+
+## Verificación
+
+**Medido ya:** V.l.2 tiene 16 tests puros (perfiles, recorte en borde, precedencia en cruce,
+determinismo ante orden de entrada, eje preservado y el control de ancho 1 que recupera exactamente
+`roadCellsFromSegments`); shared 73/73. V.l.3 tiene el contrato `.strict()` probado (canal ausente y
+campos de más rechazados) y la igualdad del eje entre dos proyecciones de la misma partida; shared +
+proyección de simulación 86/86, web 266 passed | 4 skipped, typecheck y ESLint limpios. Payload y
+timings de proyección en la sección de deuda aceptada.
+
+**Pendiente de medir:** sweep de distritos con frente vial al 100 % y envelopes morfológicas (V.l.4),
+digestos regenerados con control (V.l.5), carga de save v2 bit a bit (V.l.6), invariante
+sentido ⇄ bordillo (V.l.7) y capturas + FPS (V.l.8). La aprobación visual es humana.
 
 ## Relacionadas
 

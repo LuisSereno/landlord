@@ -113,5 +113,15 @@ Amplía D-095 (vocabulario visual) y D-097 §«Crew choreography» sin sustituir
 se pinta con el avatar Rocketbox que deriva `crew-presence.ts`, el rumbo lo manda el paso autoritativo
 (`nextCell`), y el marcador del blitter queda sólo para el roster sin sprite y para herido/muerto.
 Escena y panel comparten una única puerta de lectura; la divergencia plantilla-asignada vs
-distrito-observado es deliberada. V.k.1–V.k.4 commiteados en local sobre `wip/vh-world-visual-foundation`
-(ya sobre el push de V.j `4d6abb5..9bd4e94`), **sin empujar**.
+distrito-observado es deliberada. V.k.1–V.k.4 publicados en `origin/wip/vh-world-visual-foundation`
+(`9bd4e94..3a32240`, 2026-11-09); D-103 sigue como PROPUESTA a la espera de ratificación y playtest.
+
+## WP4.15-V.l — Sección transversal autoritativa (2026-11-09, en curso)
+
+- [D-104 — Sección transversal autoritativa](D-104-seccion-transversal-autoritativa.md) — alcance decidido por el responsable, implementación V.l.1–V.l.8 en curso
+
+Enmienda **parcial** de D-085 §2 (se levanta la prohibición de carriles/sentidos/anchos variables sólo
+para la sección transversal) y de D-090 §2 (`derivationVersion` 2 → 3). Mantiene el eje como verdad de
+red, `roadSegmentId` intacto, las cuatro semánticas de D-085 §1 y la regla de que el corredor nunca
+entra en `blockedCells`. D-085 no tiene ADR propio (deuda documental anotada arriba), así que la
+enmienda se marca también en su entrada condensada de `ai-context/DECISIONS.md`.

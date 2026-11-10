@@ -239,6 +239,33 @@ ratificación del responsable).
   `__gameplayVisualStats`/`__districtAssetStats`/`__landlordQaRefresh` no se limpian en `destroy()`;
   falta el playtest humano (#145) y la ratificación de D-103.
 
+## WP4.15-V.l — Sección transversal autoritativa (2026-11-09, EN CURSO)
+
+Rama `wip/vh-world-visual-foundation`, encima de V.k ya publicado (`9bd4e94..3a32240`). Pide el
+responsable tras el playtest de V.d: aceras, dos carriles con sentido y autovía de 7 como **dato**, no
+como pintura. Doctrina en `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`: enmienda
+**parcial** de D-085 §2 y D-090 §2 (marcada también en sus entradas condensadas).
+
+- **V.l.1 ejecutado** (sólo docs): D-104 + entrada en `DECISIONS.md` + enmiendas en D-085/D-090 + índice
+  de ADR. No existía spec de V.l en el repo; las descripciones de las tareas #152–#159 eran el único
+  contrato, y esta ADR lo fija por escrito.
+- **Qué se mantiene**: el eje como verdad de red (`RoadSegment`, `roadSegmentId`,
+  `roadCellsFromSegments`), las cuatro semánticas de D-085 §1 y la regla de que el corredor **nunca**
+  entra en `blockedCells` (es el muro del A\*). Sin tráfico simulado ni nombres de calle.
+- **Qué cambia**: `ROAD_PROFILES` street 3 / avenue 5 con mediana / motorway 7, roles
+  carriageway/median/sidewalk, canal nuevo `map.roadSection` `.strict()`, `derivationVersion` 3 con
+  lectura `2|3` y save v2 bit a bit, y presentación por rol con `laneSense` en vez de `spatialHash`.
+- **Medido para dimensionar el riesgo** (`axisPositions`, mapa 64×64): retícula de 3 líneas → 0/32/63
+  (avenida 32); de 4 → 0/21/42/63 (avenida **42**, no el centro). Eje actual de 3 líneas en ambos ejes:
+  375 celdas (9,2 %). Corredor de 7 sobre una línea: 448 celdas (10,9 %); sobre las tres de un eje:
+  1.344 (32,8 %) → la autovía no puede aplicarse a toda la retícula.
+- **STOPs registrados**: V.l.4 vuelve al responsable con **avenida-3 de respaldo** si se pierde un
+  frente vial, revienta `maxBlockDepth`/`maxBlockArea` o p95 > ~20 ms; V.l.6 se detiene si un save v2 no
+  reproduce su vía bit a bit; V.l.5 regenera los 10 digestos + 12 hashes en commit **sólo de hashes**
+  con `parcelCount`/`blockedCellCount` como control; V.l.8 no toca `baseline-vj.json` ni pixel-qa de V.j.
+- **Pendiente**: V.l.2–V.l.8 (#153–#159). Ningún número de esta fase está medido todavía salvo los de
+  retícula y coste de suelo de arriba; la aprobación visual es humana.
+
 ## Próximo objetivo
 
 Fase 0 de V.d ejecutada el 2026-10-28

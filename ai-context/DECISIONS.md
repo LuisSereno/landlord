@@ -897,6 +897,14 @@ Estado: diseñada en WP4.15-V.c.2A e implementada y aprobada el 2026-10-27 en V.
 la generación, `GameState`, snapshot/backfill, proyección y render Graphic Civic están cerrados;
 V.c.2D (acceso y edificabilidad como reglas de producto) sigue diferida.
 
+**Enmienda V.l (D-104, 2026-11-09):** la prohibición de §2 —«sin carriles, sentidos, nombres, anchos
+variables ni tráfico»— se levanta **sólo para la sección transversal**: ancho, roles de celda
+(calzada/mediana/acera) y sentido pasan a dato autoritativo derivado. Se mantiene intacto lo
+estructural: el eje como verdad de red, `RoadSegment`/`roadSegmentId`, `roadCellsFromSegments()` como
+única derivación de celdas del eje, las cuatro semánticas de §1 y la regla de que el corredor **nunca**
+entra en `blockedCells`. Tráfico simulado, nombres y reglas de producto siguen fuera. Ver
+`docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`.
+
 Motivo: la única diferencia visible grande entre la partida real y `/visual-slice` son las calles, y hoy
 no existen como dato — `ViewProjectionV1.map` es literalmente `{ width: 64; height: 64 }`. Una calzada
 deja de ser presentación en cuanto es dato de mundo, así que el diseño se apoyó en mediciones sobre el
@@ -1034,6 +1042,12 @@ commit propio y atribuido. Ver `docs/engineering/adr/D-089-snapshot-v2-protocolo
 
 Estado: ratificada el 2026-10-28 en lo que refleja `PLAN_improvements.md`. Amplía
 D-085 y elimina `Parcel.cell`, `Parcel.zoning` y `Parcel.buildingId`.
+
+**Enmienda V.l (D-104, 2026-11-09):** §2 sube `derivationVersion` de 2 a **3** porque el corredor
+transversal pasa a suelo no edificable y la autovía de 7 entra en la retícula; `topologyVersion: 1` no
+cambia y la cadena `red → manzana → parcela → huella` tampoco. Lectura `2|3`, escritura 3, y un save v2
+debe reproducir su vía de 1 celda bit a bit (restore lee del save, no re-deriva). Ver
+`docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`.
 
 Hoy la parcela es un punto con etiqueta, la norma es un enum de tres valores y `buildingId` duplica la
 inversa de `Building.parcelId`. Decisiones: (1) cadena `red → manzana → parcela → huella`, cada eslabón
@@ -1527,3 +1541,27 @@ quién está en obra; es deliberado que el panel hable de la plantilla asignada 
 distrito observado; (5) animación e interpolación son tiempo de render (`frameDurationMs`, easing por
 `delta`), jamás estado del mundo. Ver
 `docs/engineering/adr/D-103-cuadrillas-como-avatares-rumbo-autoritativo.md`.
+
+## D-104 — Sección transversal autoritativa: aceras, carriles y sentidos dejan de ser presentación
+
+Estado: alcance decidido por el responsable el 2026-11-09 (topología autoritativa ahora, ampliación de
+la proyección y autovía de 7), registrado en las tareas V.l.1–V.l.8; implementación en curso y sin
+cierre. **Enmienda parcial** de D-085 §2 y D-090 §2, no sustitución. Decisiones: (1) se levanta la
+prohibición de D-085 §2 sobre carriles/sentidos/anchos variables **sólo para la sección transversal**:
+`ROAD_PROFILES` con `street` 3, `avenue` 5 con mediana y `motorway` 7, roles de celda
+carriageway/median/sidewalk y sentido de carril como dato derivado en `packages/shared/src/road-cross-section.ts`;
+(2) **el eje sigue siendo la verdad de red**: `RoadSegment`, `roadSegmentId` y `roadCellsFromSegments()`
+no cambian, y `map.roads.cells` sigue publicando el eje; (3) el corredor es suelo no edificable de tipo
+road y **nunca entra en `blockedCells`** (es el muro del A\*, D-085 §1); (4) canal nuevo
+`map.roadSection` con esquema `.strict()` `{revision,digest,profiles[],segments[]}` en vez de expandir
+el viejo; (5) `derivationVersion: 3` con lectura `2|3`, escritura 3 y save v2 reproduciendo su vía de
+1 celda bit a bit; (6) presentación por rol con `lateralOffsetForProfile` + `laneSense` en lugar de la
+moneda `spatialHash`, peatón anclado a la celda `sidewalk`, sección procedural sin tiles nuevos, e
+invariante dura sentido⇄bordillo en 3 perfiles × 8 seeds. Medido para dimensionar el riesgo: la
+retícula de 3 líneas cae en 0/32/63 y la de 4 en 0/21/42/63 (avenida en 42, no en el centro); un
+corredor de 7 sobre una línea consume 448 celdas (10,9 % del mapa) y sobre las tres de un eje 1.344
+(32,8 %), así que la autovía no puede aplicarse a toda la retícula. STOPs registrados: V.l.4 vuelve al
+responsable con avenida-3 de respaldo si se pierde un frente vial, revienta `maxBlockDepth`/`maxBlockArea`
+o p95 > ~20 ms; V.l.6 se detiene si un save v2 no reproduce bit a bit; V.l.5 regenera digestos en commit
+sólo de hashes con `parcelCount`/`blockedCellCount` como control. Ver
+`docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`.

@@ -143,6 +143,18 @@ describe("V.l.2 · derivación del corredor", () => {
     expect(roles.get(key(8, 12))).toBe("sidewalk");
   });
 
+  it("conserva la mediana cuando dos segmentos colineales publican el mismo eje", () => {
+    const segments = [
+      segment({ x: 10, y: 0 }, { x: 10, y: 20 }, "avenue"),
+      // La retícula real añade tramos de una celda sobre la línea de avenida.
+      segment({ x: 10, y: 10 }, { x: 10, y: 10 }, "street"),
+    ];
+    const roles = roadCellRolesFromSegments(segments);
+    expect(roles.get(key(10, 10))).toBe("median");
+    expect(roles.get(key(9, 10))).toBe("carriageway");
+    expect(roles.get(key(11, 10))).toBe("carriageway");
+  });
+
   it("el eje de una calle no lo convierte en acera el perfil mayor de otra vía que lo cruza", () => {
     const segments = [
       segment({ x: 0, y: 10 }, { x: 20, y: 10 }, "street"),

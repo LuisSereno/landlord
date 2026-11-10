@@ -125,8 +125,8 @@ function compareSegments(left: RoadSegment, right: RoadSegment): number {
 }
 
 type CellAccumulator = {
-  /** Cuántos segmentos tienen esta celda como eje propio (offset 0). */
-  axisHits: number;
+  /** Orientaciones de los segmentos cuyo eje propio pasa por esta celda (offset 0). */
+  axisOrientations: Set<"horizontal" | "vertical">;
   /** Rol central del primer segmento, en orden canónico, cuyo eje pasa por aquí. */
   axisRole: RoadCellRole | null;
   bestRole: RoadCellRole;
@@ -180,7 +180,8 @@ function crossSectionByCell(
         const current = cells.get(key);
         if (!current) {
           cells.set(key, {
-            axisHits: offset === 0 ? 1 : 0,
+            axisOrientations:
+              offset === 0 ? new Set([dx === 0 ? "vertical" : "horizontal"]) : new Set(),
             axisRole: offset === 0 ? role : null,
             bestRole: role,
             bestRank: rank,
@@ -191,7 +192,7 @@ function crossSectionByCell(
         }
         current.owners.push(segment.id);
         if (offset === 0) {
-          current.axisHits += 1;
+          current.axisOrientations.add(dx === 0 ? "vertical" : "horizontal");
           current.axisRole ??= role;
         }
         if (rank > current.bestRank || (rank === current.bestRank && offset < current.bestOffset)) {
@@ -217,8 +218,13 @@ function crossSectionByCell(
  *    propio eje. El orden canónico del recorrido desempata lo que quede.
  */
 function resolveRole(cell: CellAccumulator): RoadCellRole {
-  if (cell.axisHits >= 2) return "carriageway";
-  if (cell.axisHits === 1) return cell.axisRole!;
+  // Los segmentos colineales pueden solaparse en una celda (la retícula generada publica la
+  // línea de avenida como `street` y como `avenue`). Es un único eje, no un cruce: se conserva
+  // la mediana de la avenida. Sólo los ejes perpendiculares la interrumpen.
+  if (cell.axisOrientations.has("horizontal") && cell.axisOrientations.has("vertical")) {
+    return "carriageway";
+  }
+  if (cell.axisOrientations.size === 1) return cell.axisRole!;
   return cell.bestRole;
 }
 

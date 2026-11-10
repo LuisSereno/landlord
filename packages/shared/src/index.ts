@@ -7,6 +7,7 @@ export * from "./contracts";
 export * from "./responses";
 export * from "./domain";
 export * from "./urban";
+export * from "./road-cross-section";
 export * from "./placement";
 export * from "./assets";
 export * from "./parcels";

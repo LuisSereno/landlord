@@ -39,6 +39,19 @@ export type DistrictProfile = {
   dominantRole: UrbanRole;
   /** Road lattice and parcel envelope of the recipe (D-090). */
   fabric: UrbanFabricConfig;
+  /**
+   * V.l.4 (D-104) · el suelo no edificable es el corredor transversal (aceras/carriles/mediana) en
+   * vez del eje de 1 celda. Ausente o `false` = geometría de siempre, `derivationVersion: 2`.
+   * Se activa por perfil y sólo donde está medido que la receta aguanta el suelo que consume.
+   */
+  roadCorridor?: boolean;
+  /**
+   * V.l.4 (D-104) · la línea central de la retícula es autovía de 7 en vez de avenida de 5. Vive en
+   * el perfil y no en el fabric porque está medido que no todos los distritos industriales la
+   * aguantan: `ensanche_ferroviario_oeste` pierde su cuota de usos en el seed 80 con autovía y la
+   * cumple con avenida de 5 (42/42 frentes, un intento).
+   */
+  motorwayAxis?: boolean;
   spawnAnchors: DistrictSpawnAnchors;
   /**
    * Composición fija del perfil. Garantiza que el bucle de juego siempre dispone de suelo
@@ -202,6 +215,7 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     name: "Barrio del Umbral",
     dominantRole: "urban_residential",
     fabric: FABRIC_URBAN,
+    roadCorridor: true,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 4, y: 4 }, rival: { x: 56, y: 4 } },
@@ -244,6 +258,7 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     name: "Vega del Cauce",
     dominantRole: "green_open_space",
     fabric: FABRIC_LOW_DENSITY,
+    roadCorridor: true,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 6, y: 6 }, rival: { x: 52, y: 8 } },
@@ -287,6 +302,7 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     name: "Ensanche Ferroviario",
     dominantRole: "commercial_corridor",
     fabric: FABRIC_RAIL,
+    roadCorridor: true,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 8, y: 4 }, rival: { x: 48, y: 4 } },
@@ -371,6 +387,7 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     name: "Mercado del Norte",
     dominantRole: "commercial_corridor",
     fabric: FABRIC_MIXED,
+    roadCorridor: true,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 6, y: 4 }, rival: { x: 52, y: 4 } },
@@ -502,6 +519,7 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     name: "Ensanche Ferroviario Oeste",
     dominantRole: "industrial_logistics",
     fabric: FABRIC_INDUSTRIAL,
+    roadCorridor: true,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 6, y: 5 }, rival: { x: 52, y: 5 } },
@@ -545,6 +563,8 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     name: "Patios del Este",
     dominantRole: "industrial_logistics",
     fabric: FABRIC_INDUSTRIAL,
+    roadCorridor: true,
+    motorwayAxis: true,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 8, y: 5 }, rival: { x: 50, y: 7 } },

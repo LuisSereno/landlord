@@ -128,6 +128,8 @@ describe.skipIf(!enabled)("V.d.1 gate de tejido urbano", () => {
           anchors,
           latticeLines: profile.fabric.latticeLines,
           connectSpawns: profile.fabric.connectSpawns,
+          motorwayAxis: profile.motorwayAxis,
+          roadCorridor: profile.roadCorridor,
           width: profile.width,
           height: profile.height,
         });

@@ -207,7 +207,7 @@ export type District = {
   generation?: DistrictGeneration;
 };
 
-export const roadCellClassSchema = z.enum(["street", "avenue"]);
+export const roadCellClassSchema = z.enum(["street", "avenue", "motorway"]);
 export type RoadCellClass = z.infer<typeof roadCellClassSchema>;
 
 /** Segmento vial ortogonal, cerrado e identificado por su geometría canónica. */
@@ -219,12 +219,15 @@ export type RoadSegment = {
 };
 
 /**
- * Road topology of one district (D-085, D-090). The shape is unchanged; `derivationVersion: 2`
- * records that segments now come from `RoadAnchor[]` instead of from already placed parcels.
+ * Road topology of one district (D-085, D-090, D-104). The shape is unchanged. `derivationVersion: 2`
+ * records that segments come from `RoadAnchor[]` instead of from already placed parcels;
+ * `derivationVersion: 3` (V.l.4) adds the transverse corridor: the non-buildable ground is the
+ * profile width, not the single axis cell. Saves written with 2 are still read — their geometry was
+ * produced against a 1-cell axis and must not be reinterpreted (V.l.6 gates the corridor by version).
  */
 export type RoadTopology = {
   topologyVersion: 1;
-  derivationVersion: 2;
+  derivationVersion: 2 | 3;
   segments: RoadSegment[];
 };
 
@@ -237,7 +240,7 @@ export const roadSegmentSchema = z.object({
 
 export const roadTopologySchema = z.object({
   topologyVersion: z.literal(1),
-  derivationVersion: z.literal(2),
+  derivationVersion: z.union([z.literal(2), z.literal(3)]),
   segments: z.array(roadSegmentSchema),
 });
 

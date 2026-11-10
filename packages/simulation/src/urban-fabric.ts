@@ -1,5 +1,9 @@
 import {
+  roadAxisProfileForClass,
   roadCellsFromSegments,
+  roadCorridorCellsFromSegments,
+  roadCorridorSegmentsByCell,
+  roadProfileForClass,
   roadSegmentId,
   type Block,
   type GridCell,
@@ -254,6 +258,20 @@ export function deriveRoadNetwork(input: {
   anchors: readonly RoadAnchor[];
   latticeLines: number;
   connectSpawns?: boolean;
+  /**
+   * V.l.4 (D-104) · la línea central de la retícula es autovía de 7 en vez de avenida de 5. Sólo lo
+   * activan las recetas industriales/logísticas: una autovía consume 448 celdas por línea, así que
+   * no es un adorno que se pueda poner en todos los distritos.
+   */
+  motorwayAxis?: boolean | undefined;
+  /**
+   * V.l.4 (D-104) · si el suelo no edificable es el corredor transversal completo (3/5/7) o el eje
+   * de 1 celda de toda la vida. Lo decide el perfil, no la clase vial: medido en 9 perfiles × 8
+   * seeds, el corredor completo consume ~2,7× el eje y deja sin cuota de usos a `lomas_del_umbral`,
+   * `centro_civico` y `barrio_del_taller`. Con `false` la red se deriva como en versión 2 y su
+   * geometría —y por tanto sus digestos— no cambia.
+   */
+  roadCorridor?: boolean | undefined;
   width: number;
   height: number;
 }): RoadNetwork {
@@ -263,13 +281,15 @@ export function deriveRoadNetwork(input: {
   const avenueYs = new Set([ys[Math.floor(ys.length / 2)]!]);
   const street = new Set<string>();
   const avenue = new Set<string>();
+  const motorway = new Set<string>();
+  const trunk = input.motorwayAxis ? motorway : avenue;
 
   for (const x of xs) {
     const isAvenue = avenueXs.has(x);
     for (let y = 0; y < input.height; y += 1) {
       const key = `${x}:${y}`;
       street.add(key);
-      if (isAvenue) avenue.add(key);
+      if (isAvenue) trunk.add(key);
     }
   }
   for (const y of ys) {
@@ -277,7 +297,7 @@ export function deriveRoadNetwork(input: {
     for (let x = 0; x < input.width; x += 1) {
       const key = `${x}:${y}`;
       street.add(key);
-      if (isAvenue) avenue.add(key);
+      if (isAvenue) trunk.add(key);
     }
   }
 
@@ -328,26 +348,23 @@ export function deriveRoadNetwork(input: {
   const segments = normalizeRoadSegments([
     ...segmentsFromGrid(street, "street"),
     ...segmentsFromGrid(avenue, "avenue"),
+    ...segmentsFromGrid(motorway, "motorway"),
   ]);
-  const segmentsByCell = new Map<string, string[]>();
-  for (const segment of segments) {
-    const dx = Math.sign(segment.to.x - segment.from.x);
-    const dy = Math.sign(segment.to.y - segment.from.y);
-    const length = Math.max(
-      Math.abs(segment.to.x - segment.from.x),
-      Math.abs(segment.to.y - segment.from.y),
-    );
-    for (let step = 0; step <= length; step += 1) {
-      const key = `${segment.from.x + dx * step}:${segment.from.y + dy * step}`;
-      const ids = segmentsByCell.get(key) ?? [];
-      ids.push(segment.id);
-      segmentsByCell.set(key, ids);
-    }
-  }
-  for (const ids of segmentsByCell.values()) ids.sort();
-  const roadCells = roadCellsFromSegments(segments);
+  /**
+   * V.l.4 (D-104) · el suelo no edificable es el corredor completo (aceras, carriles y mediana), no
+   * la celda del eje, y los frentes de parcela se calculan contra él: una parcela puede tener frente
+   * contra la acera de una avenida, que es su frente real. El eje sigue siendo la verdad de red:
+   * `topology.segments` no cambia de forma ni de identidad, sólo de versión de derivación.
+   */
+  const profileForClass = input.roadCorridor ? roadProfileForClass : roadAxisProfileForClass;
+  const roadCells = roadCorridorCellsFromSegments(segments, profileForClass);
+  const segmentsByCell = roadCorridorSegmentsByCell(segments, profileForClass);
   return {
-    topology: { topologyVersion: 1, derivationVersion: 2, segments },
+    topology: {
+      topologyVersion: 1,
+      derivationVersion: input.roadCorridor ? 3 : 2,
+      segments,
+    },
     roadCells,
     segmentsByCell,
   };
@@ -849,7 +866,14 @@ export function validateUrbanFabric(input: {
   spawnCells?: readonly GridCell[];
 }): DistrictGenerationIssue[] {
   const issues: DistrictGenerationIssue[] = [];
-  const roadCells = roadCellsFromSegments(input.roads.segments);
+  /**
+   * V.l.4/V.l.6 (D-104) · el corredor sólo se expande en redes derivadas con versión 3. Una red v2
+   * se generó contra el eje de 1 celda: expandirla al validar declararía que sus parcelas pisan vía.
+   */
+  const roadCells =
+    input.roads.derivationVersion === 3
+      ? roadCorridorCellsFromSegments(input.roads.segments)
+      : roadCellsFromSegments(input.roads.segments);
   const blockById = new Map(input.blocks.map((block) => [block.id, block]));
   const parcelCellOwner = new Map<string, string>();
   const blockCellOwner = new Map<string, string>();

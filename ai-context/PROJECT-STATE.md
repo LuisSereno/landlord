@@ -263,8 +263,25 @@ como pintura. Doctrina en `docs/engineering/adr/D-104-seccion-transversal-autori
   frente vial, revienta `maxBlockDepth`/`maxBlockArea` o p95 > ~20 ms; V.l.6 se detiene si un save v2 no
   reproduce su vía bit a bit; V.l.5 regenera los 10 digestos + 12 hashes en commit **sólo de hashes**
   con `parcelCount`/`blockedCellCount` como control; V.l.8 no toca `baseline-vj.json` ni pixel-qa de V.j.
-- **Pendiente**: V.l.2–V.l.8 (#153–#159). Ningún número de esta fase está medido todavía salvo los de
-  retícula y coste de suelo de arriba; la aprobación visual es humana.
+- **V.l.2/V.l.3 ejecutados**: `road-cross-section.ts` (perfiles 3/5/7, roles, sentido por la derecha,
+  precedencia en cruce, recorte a `[0,64)`) con 17 tests; canal `map.roadSection` `.strict()` con el
+  eje y su digesto intactos. Payload medido: 22.860 B de sección / 265 segmentos frente a 2.921 B del
+  eje; deuda de segmentos no mínimos aceptada por el responsable.
+- **V.l.4 ejecutado tras dos STOPs**: el corredor en los 9 perfiles rompía 24/72 distritos
+  (`ZONING_SHORTAGE`/`CONCENTRATION`). Salida elegida por el responsable: **corredor por perfil**
+  (`DistrictProfile.roadCorridor`, activo en 6, eje de 1 celda en 3) y **autovía por perfil**
+  (`motorwayAxis` sólo en `patios_del_este`; en `ensanche_ferroviario_oeste` la autovía rompe el seed
+  80 y la avenida de 5 genera 42/42 frentes). Con corredor se escribe `derivationVersion: 3`; sin él,
+  `2` y geometría/digestos idénticos a los de antes.
+- **Gate V.l.4 en verde** (`docs/execution/phase-4/vl4-fabric-gate-2026-11-10.json`): 900 distritos,
+  65.607 parcelas, 0 fallos; derivación vial p95 **5,19 ms** (STOP ~20), generación p95 323,98 ms
+  (presupuesto 500), 784 al primer intento, todas las familias dentro de envelope. Costura
+  inter-distrito cubierta por `road-corridor-seam.test.ts` (12 pares × 2 seeds).
+- **Pendiente inmediato (V.l.5)**: regenerar los goldens que el cambio de geometría mueve —
+  `district-generation.test.ts` (12 hashes de fixture), `city-seeds.test.ts` (12 seeds) y
+  `tick-conservation.test.ts` (10 digestos) — en commit **sólo de hashes** y con
+  `parcelCount`/`blockedCellCount` como control. Son los tres únicos fallos tras V.l.4 y los tres son
+  comparación de valores, no estructura. Después V.l.6–V.l.8 (#157–#159).
 
 ## Próximo objetivo
 

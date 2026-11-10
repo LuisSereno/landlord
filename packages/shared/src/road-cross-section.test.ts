@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { roadCellsFromSegments, roadSegmentId, type RoadSegment } from "./domain";
 import {
   ROAD_PROFILES,
+  roadAxisProfileForClass,
   roadCellRolesFromSegments,
   roadCorridorCellsFromSegments,
   roadProfileForClass,
@@ -63,6 +64,24 @@ describe("V.l.2 · perfiles de sección transversal (D-104)", () => {
   it("la clase vial existente resuelve a su perfil sin fallback silencioso", () => {
     expect(roadProfileForClass("street")).toBe(ROAD_PROFILES.street);
     expect(roadProfileForClass("avenue")).toBe(ROAD_PROFILES.avenue);
+    expect(roadProfileForClass("motorway")).toBe(ROAD_PROFILES.motorway);
+  });
+
+  it("la sección de eje (ancho 1) conserva el id de la clase y reproduce la geometría v2", () => {
+    for (const roadClass of ["street", "avenue", "motorway"] as const) {
+      const profile = roadAxisProfileForClass(roadClass);
+      expect(profile.id).toBe(roadClass);
+      expect(profile.width).toBe(1);
+      expect(profile.roles).toEqual(["carriageway"]);
+      expect(profile.laneSenses).toEqual(["both"]);
+    }
+    const segments = [
+      segment({ x: 0, y: 10 }, { x: 20, y: 10 }, "street"),
+      segment({ x: 10, y: 0 }, { x: 10, y: 20 }, "avenue"),
+    ];
+    expect([...roadCorridorCellsFromSegments(segments, roadAxisProfileForClass)].sort()).toEqual(
+      [...roadCellsFromSegments(segments)].sort(),
+    );
   });
 });
 

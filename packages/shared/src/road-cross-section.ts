@@ -76,10 +76,27 @@ export const ROAD_PROFILES: Readonly<Record<RoadProfileId, RoadProfile>> = {
 const PROFILE_BY_CLASS: Readonly<Record<RoadCellClass, RoadProfileId>> = {
   street: "street",
   avenue: "avenue",
+  motorway: "motorway",
 };
 
 export function roadProfileForClass(roadClass: RoadCellClass): RoadProfile {
   return ROAD_PROFILES[PROFILE_BY_CLASS[roadClass]];
+}
+
+/**
+ * V.l.4 · sección de ancho 1: el corredor coincide exactamente con el eje. Es la geometría con la
+ * que se generaron las redes `derivationVersion: 2` y la que siguen usando los perfiles cuya receta
+ * no puede permitirse perder suelo (medido: el corredor completo consume ~2,7× el eje y rompe las
+ * cuotas de usos en 3 de los 9 perfiles). El id sigue siendo el de la clase, así que una avenida de
+ * ancho 1 se sigue llamando avenida.
+ */
+export function roadAxisProfileForClass(roadClass: RoadCellClass): RoadProfile {
+  return {
+    id: PROFILE_BY_CLASS[roadClass],
+    width: 1,
+    roles: ["carriageway"],
+    laneSenses: ["both"],
+  };
 }
 
 /** Mismo tamaño que los literales `width`/`height` de `ViewProjectionV2.map`. */
@@ -115,6 +132,8 @@ type CellAccumulator = {
   bestRole: RoadCellRole;
   bestRank: number;
   bestOffset: number;
+  /** Segmentos cuyo corredor cubre la celda, aunque no la tengan como eje (frentes de parcela). */
+  owners: string[];
 };
 
 /**
@@ -166,9 +185,11 @@ function crossSectionByCell(
             bestRole: role,
             bestRank: rank,
             bestOffset: offset,
+            owners: [segment.id],
           });
           continue;
         }
+        current.owners.push(segment.id);
         if (offset === 0) {
           current.axisHits += 1;
           current.axisRole ??= role;
@@ -219,4 +240,20 @@ export function roadCellRolesFromSegments(
     roles.set(key, resolveRole(cell));
   }
   return roles;
+}
+
+/**
+ * V.l.4 · qué segmentos sirven cada celda del corredor, no sólo las del eje. Es lo que permite que
+ * una parcela tenga frente vial contra la **acera** de una avenida, que es su frente real. Orden
+ * canónico y sin duplicados, para que `parcelRoadFrontages` siga siendo determinista.
+ */
+export function roadCorridorSegmentsByCell(
+  segments: readonly RoadSegment[],
+  profileForClass: (roadClass: RoadCellClass) => RoadProfile = roadProfileForClass,
+): ReadonlyMap<string, readonly string[]> {
+  const owners = new Map<string, readonly string[]>();
+  for (const [key, cell] of crossSectionByCell(segments, profileForClass)) {
+    owners.set(key, [...new Set(cell.owners)].sort());
+  }
+  return owners;
 }

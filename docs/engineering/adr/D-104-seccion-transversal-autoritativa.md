@@ -112,6 +112,40 @@ acera) y sentido de carril pasan a dato autoritativo derivado, publicado y persi
 - El baseline visual de V.j queda congelado: V.l.8 captura en directorio nuevo y la aprobación es del
   responsable.
 
+## V.l.4 · Corredor y autovía por perfil (decisión del responsable, 2026-11-10)
+
+El primer intento aplicó el corredor a los nueve perfiles y **rompió la generación en 24 de 72
+distritos** (3 perfiles × 8 seeds: `barrio_del_taller`, `centro_civico`, `lomas_del_umbral`, con
+`ZONING_SHORTAGE`, `ZONING_CONCENTRATION` y `PARCEL_TOO_NARROW`). El suelo no edificable pasaba de
+~384 celdas por distrito (9,4 %) a ~1.094 (26,7 %), y a ~1.388 (33,9 %) con autovía. STOP declarado y
+resuelto por el responsable con **corredor por perfil**, no con una reducción global de anchos.
+
+- `DistrictProfile.roadCorridor` decide si el suelo no edificable es el corredor completo o el eje de
+  1 celda. Está activo en los seis perfiles medidos sanos (`barrio_del_umbral`, `vega_del_cauce`,
+  `ensanche_ferroviario`, `mercado_del_norte`, `ensanche_ferroviario_oeste`, `patios_del_este`) y
+  ausente en los tres que no aguantan. Es por perfil y no por fabric porque `FABRIC_LOW_DENSITY` lo
+  comparten `vega_del_cauce` (sano) y `lomas_del_umbral` (roto).
+- **La versión registra la geometría**: con corredor se escribe `derivationVersion: 3`; sin corredor
+  se escribe `2` y la geometría —y por tanto los digestos— es exactamente la de antes. No hay un
+  tercer estado ni un flag de ancho que haya que persistir aparte.
+- `DistrictProfile.motorwayAxis` decide si la línea central es autovía de 7. Vive en el perfil, no en
+  el fabric: con autovía en los dos industriales, `ensanche_ferroviario_oeste` falla en el city seed
+  80 (`ZONING_SHORTAGE mixed 3 < 4`); el mismo distrito con avenida de 5 y corredor genera **42
+  parcelas con 42 frentes en un intento**. La autovía de 7 queda entonces en `patios_del_este`,
+  medido 100/100, y el responsable lo ratificó así.
+- La proyección publica descriptores de ancho 1 para las redes v2 (`roadAxisProfileForClass`), de modo
+  que el render nunca deriva un corredor más ancho que el suelo real del distrito.
+
+**Gate de cierre de V.l.4** (`FABRIC_GATE=1`, 100 seeds × 9 perfiles, evidencia en
+`docs/execution/phase-4/vl4-fabric-gate-2026-11-10.json`): **900 distritos, 65.607 parcelas, 0
+fallos**. Derivación vial p50 2,71 ms / **p95 5,19 ms** / max 14,38 ms, holgado frente al STOP de
+~20 ms. Generación p50 158,5 ms / p95 323,98 ms (presupuesto 500). 784 distritos al primer intento y
+máximo 8 (tope 12). Todas las familias dentro de su envelope morfológico; ejemplo
+`barrio_del_taller`: densidad 32,9 km/km² en [16,174 … 36,777], intersecciones 320,4 en
+[61,04 … 411,99] y área mediana de manzana 193 en [54,76 … 811,06]. La costura inter-distrito queda
+cubierta por `packages/simulation/src/road-corridor-seam.test.ts`: 12 pares × 2 city seeds, gateway
+vial en los dos lados y aberturas espejo en el borde.
+
 ## Deuda aceptada (decisión del responsable, 2026-11-09)
 
 V.l.3 se midió con `ROAD_BENCHMARK=1` (`artifacts/road-topology/vc2b-performance.json`, PASS):

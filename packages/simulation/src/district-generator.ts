@@ -759,6 +759,8 @@ function attemptComposition(input: {
     anchors: roadAnchors,
     latticeLines: config.latticeLines,
     connectSpawns: config.connectSpawns,
+    motorwayAxis: profile.motorwayAxis,
+    roadCorridor: profile.roadCorridor,
     width: profile.width,
     height: profile.height,
   });

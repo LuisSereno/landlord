@@ -2,9 +2,9 @@ import {
   parseMoney,
   parseTick,
   roadCellsFromSegments,
+  roadAxisProfileForClass,
   roadProfileForClass,
   roadProfileIdSchema,
-  ROAD_PROFILES,
   viewProjectionV2Schema,
   type DistrictId,
   type GridCell,
@@ -498,17 +498,21 @@ export function createViewProjection(
    * `road-cross-section.ts`. El orden de los segmentos es el canónico del dominio (el que valida
    * `snapshot.ts`), y el de los perfiles el del esquema, así que el digesto no depende de inserción.
    */
+  const sectionProfileForClass =
+    observedDistrict.map.roads.derivationVersion === 3
+      ? roadProfileForClass
+      : roadAxisProfileForClass;
   const sectionSegments = observedDistrict.map.roads.segments.map((segment) => ({
     id: segment.id,
     from: { ...segment.from },
     to: { ...segment.to },
-    profile: roadProfileForClass(segment.class).id,
+    profile: sectionProfileForClass(segment.class).id,
   }));
   const usedProfiles = new Set(sectionSegments.map((segment) => segment.profile));
   const sectionProfiles = roadProfileIdSchema.options
     .filter((id) => usedProfiles.has(id))
     .map((id) => {
-      const profile = ROAD_PROFILES[id];
+      const profile = sectionProfileForClass(id);
       return {
         id,
         width: profile.width,

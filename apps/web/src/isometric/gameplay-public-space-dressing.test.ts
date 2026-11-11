@@ -211,13 +211,6 @@ describe("V.h.6 context vehicles: invariantes", () => {
     footprintCells: rectCells(2, 6, 2, 1),
   };
   const CONTEXT_BUILDINGS = [FIRE, CLINIC, POLICE];
-  const SIDE_DELTA = {
-    n: { x: 0, y: -1 },
-    e: { x: 1, y: 0 },
-    s: { x: 0, y: 1 },
-    w: { x: -1, y: 0 },
-  } as const;
-
   const runContext = () => planGameplayContextVehicles(CONTEXT_BUILDINGS, ROAD_EW, 64, 64);
 
   it("es determinista (misma geometría → mismos vehículos)", () => {
@@ -234,12 +227,15 @@ describe("V.h.6 context vehicles: invariantes", () => {
     expect(by.get("bld_police")?.vehicleClass).toBe("police");
   });
 
-  it("cada vehículo aparca en el bordillo: celda de carretera adyacente a su huella, lado hacia el edificio", () => {
+  it("cada vehículo contextual permanece dentro de una calzada y no se desplaza al solar", () => {
     for (const v of runContext()) {
-      const building = CONTEXT_BUILDINGS.find((b) => b.id === v.buildingId)!;
-      const delta = SIDE_DELTA[v.side];
-      const host = { x: v.roadCell.x + delta.x, y: v.roadCell.y + delta.y };
-      expect(inCells(host, building.footprintCells)).toBe(true);
+      expect(
+        inCells(
+          v.roadCell,
+          ROAD_EW.map((road) => road.cell),
+        ),
+      ).toBe(true);
+      expect(v.lateralOffset).toBe(0);
     }
   });
 
@@ -387,13 +383,6 @@ describe("V.h.11 context actors: invariantes", () => {
   const FIRE = { id: "b_fire", type: "fire_station", footprintCells: rectCells(8, 6, 2, 1) };
   const WORKSHOP = { id: "b_work", type: "workshop", footprintCells: rectCells(11, 6, 1, 1) };
   const BUILDINGS = [POLICE, CLINIC, FIRE, WORKSHOP];
-  const SIDE_DELTA = {
-    n: { x: 0, y: -1 },
-    e: { x: 1, y: 0 },
-    s: { x: 0, y: 1 },
-    w: { x: -1, y: 0 },
-  } as const;
-
   const runCtx = (reserved: ReadonlySet<string> = new Set()) =>
     planGameplayContextActors(BUILDINGS, ROAD_EW, reserved, 64, 64);
 
@@ -410,23 +399,17 @@ describe("V.h.11 context actors: invariantes", () => {
     expect(by.get("b_work")?.character).toBe("chr_worker");
   });
 
-  it("cada actor queda en el bordillo de fachada, nunca centrado en la calzada", () => {
+  it("en la compatibilidad v2 el actor conserva el eje y no se desplaza fuera de la vía", () => {
     for (const actor of runCtx()) {
-      const building = BUILDINGS.find((b) => b.id === actor.buildingId)!;
-      const delta = SIDE_DELTA[actor.curbEdge];
-      const curbHost = { x: actor.cell.x + delta.x, y: actor.cell.y + delta.y };
-      const frontageDistance = Math.min(
-        ...building.footprintCells.map(
-          (c) => Math.abs(c.x - curbHost.x) + Math.abs(c.y - curbHost.y),
+      expect(
+        inCells(
+          actor.cell,
+          ROAD_EW.map((road) => road.cell),
         ),
-      );
-      expect(frontageDistance).toBeLessThanOrEqual(1);
+      ).toBe(true);
       const renderCell = contextActorRenderCell(actor);
-      expect(renderCell).not.toEqual(actor.cell);
-      expect(renderCell.x).toBeCloseTo(actor.cell.x + delta.x * actor.lateralOffset);
-      expect(renderCell.y).toBeCloseTo(actor.cell.y + delta.y * actor.lateralOffset);
-      expect(actor.lateralOffset).toBeGreaterThan(0);
-      expect(actor.lateralOffset).toBeLessThan(1);
+      expect(renderCell).toEqual(actor.cell);
+      expect(actor.lateralOffset).toBe(0);
     }
   });
 

@@ -1045,6 +1045,16 @@ export class UnsupportedUrbanFabricError extends Error {
   }
 }
 
+/** Version 3 was an intermediate corridor contract and was never released as a supported save. */
+export class UnsupportedRoadTopologyError extends Error {
+  public constructor() {
+    super(
+      "UNSUPPORTED_ROAD_TOPOLOGY: este guardado contiene derivationVersion 3, un contrato vial intermedio no compatible; la partida no se migra y el archivo no se ha modificado. Crea una partida nueva o borra explícitamente el slot.",
+    );
+    this.name = "UnsupportedRoadTopologyError";
+  }
+}
+
 function isPreVd1Snapshot(value: unknown): boolean {
   if (typeof value !== "object" || value === null) return false;
   const snapshot = value as {
@@ -1069,6 +1079,16 @@ function isPreVd1Snapshot(value: unknown): boolean {
     return true;
   const permit = Object.values(snapshot.phase2?.permitting?.permitsById ?? {})[0];
   return permit !== undefined && "zoningAtDecision" in permit;
+}
+
+function hasUnsupportedRoadTopology(value: unknown): boolean {
+  if (typeof value !== "object" || value === null) return false;
+  const districts = (
+    value as {
+      world?: { districts?: Array<{ map?: { roads?: { derivationVersion?: unknown } } }> };
+    }
+  ).world?.districts;
+  return districts?.some((district) => district.map?.roads?.derivationVersion === 3) ?? false;
 }
 
 /**
@@ -1103,6 +1123,9 @@ export function parseSnapshotV2(value: unknown): SnapshotV2 {
   }
   if (isPreVd1Snapshot(value)) {
     throw new UnsupportedUrbanFabricError();
+  }
+  if (hasUnsupportedRoadTopology(value)) {
+    throw new UnsupportedRoadTopologyError();
   }
   if (hasLegacyPermitShape(value)) {
     throw new UnsupportedPermitContractError();

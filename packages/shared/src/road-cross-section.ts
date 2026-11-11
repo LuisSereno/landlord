@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import type { RoadCellClass, RoadSegment } from "./domain";
+import type { RoadCellClass, RoadSegment, RoadTopology } from "./domain";
 import type { GridCell } from "./time-and-grid";
 
 /**
@@ -123,6 +123,20 @@ export function roadProfileForSection(
     };
   }
   return roadProfileForClass(roadClass);
+}
+
+/** Resolves the persisted section; profile configuration is deliberately not consulted here. */
+export function roadProfileForTopology(
+  topology: Pick<RoadTopology, "derivationVersion"> & {
+    roadSectionVariant?: RoadSectionVariant;
+  },
+  roadClass: RoadCellClass,
+): RoadProfile {
+  if (topology.derivationVersion === 2) return roadAxisProfileForClass(roadClass);
+  if (topology.roadSectionVariant === undefined) {
+    throw new Error("derivationVersion 4 requires roadSectionVariant");
+  }
+  return roadProfileForSection(roadClass, topology.roadSectionVariant);
 }
 
 /** Mismo tamaño que los literales `width`/`height` de `ViewProjectionV2.map`. */

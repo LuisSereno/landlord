@@ -1,9 +1,8 @@
 import {
-  roadAxisProfileForClass,
   roadCellsFromSegments,
   roadCorridorCellsFromSegments,
   roadCorridorSegmentsByCell,
-  roadProfileForSection,
+  roadProfileForTopology,
   roadSegmentId,
   type Block,
   type GridCell,
@@ -358,18 +357,22 @@ export function deriveRoadNetwork(input: {
    * contra la acera de una avenida, que es su frente real. El eje sigue siendo la verdad de red:
    * `topology.segments` no cambia de forma ni de identidad, sólo de versión de derivación.
    */
-  const profileForClass = input.roadCorridor
-    ? (roadClass: RoadCellClass) =>
-        roadProfileForSection(roadClass, input.roadSectionVariant ?? "full")
-    : roadAxisProfileForClass;
+  if (input.roadCorridor && input.roadSectionVariant === undefined) {
+    throw new Error("A road corridor requires an explicit roadSectionVariant");
+  }
+  const topology: RoadTopology = input.roadCorridor
+    ? {
+        topologyVersion: 1,
+        derivationVersion: 4,
+        roadSectionVariant: input.roadSectionVariant!,
+        segments,
+      }
+    : { topologyVersion: 1, derivationVersion: 2, segments };
+  const profileForClass = (roadClass: RoadCellClass) => roadProfileForTopology(topology, roadClass);
   const roadCells = roadCorridorCellsFromSegments(segments, profileForClass);
   const segmentsByCell = roadCorridorSegmentsByCell(segments, profileForClass);
   return {
-    topology: {
-      topologyVersion: 1,
-      derivationVersion: input.roadCorridor ? 3 : 2,
-      segments,
-    },
+    topology,
     roadCells,
     segmentsByCell,
   };
@@ -869,18 +872,20 @@ export function validateUrbanFabric(input: {
   facilities?: readonly UrbanFacility[];
   gatewayCells?: readonly GridCell[];
   spawnCells?: readonly GridCell[];
-  /** Celdas de corredor derivadas con la variante autoritativa del perfil. */
+  /** Celdas viales derivadas con la variante persistida de la topología. */
   roadCells?: ReadonlySet<string>;
 }): DistrictGenerationIssue[] {
   const issues: DistrictGenerationIssue[] = [];
   /**
-   * V.l.4/V.l.6 (D-104) · el corredor sólo se expande en redes derivadas con versión 3. Una red v2
+   * D-104 · el corredor sólo se expande en redes derivadas con versión 4. Una red v2
    * se generó contra el eje de 1 celda: expandirla al validar declararía que sus parcelas pisan vía.
    */
   const roadCells =
     input.roadCells ??
-    (input.roads.derivationVersion === 3
-      ? roadCorridorCellsFromSegments(input.roads.segments)
+    (input.roads.derivationVersion === 4
+      ? roadCorridorCellsFromSegments(input.roads.segments, (roadClass) =>
+          roadProfileForTopology(input.roads, roadClass),
+        )
       : roadCellsFromSegments(input.roads.segments));
   const blockById = new Map(input.blocks.map((block) => [block.id, block]));
   const parcelCellOwner = new Map<string, string>();

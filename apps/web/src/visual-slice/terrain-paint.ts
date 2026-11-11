@@ -42,6 +42,7 @@ export const SURFACE_STYLE: Record<GroundSurface, SurfaceStyle> = {
   gravel: { base: "#24282e", shade: "#1d2025", light: "#2e333a", grain: 230 },
   pavement: { base: "#272c35", shade: "#20252c", light: "#2e343e", grain: 55 },
   asphalt: { base: "#1d2127", shade: "#171a20", light: "#23272e", grain: 40 },
+  median: { base: "#263126", shade: "#1d261e", light: "#314035", grain: 110, stroke: "#405043" },
   construction: { base: "#292318", shade: "#1e1a11", light: "#322b1f", grain: 190 },
 };
 

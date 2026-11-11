@@ -240,12 +240,19 @@ ratificación del responsable).
   `__gameplayVisualStats`/`__districtAssetStats`/`__landlordQaRefresh` no se limpian en `destroy()`;
   falta el playtest humano (#145) y la ratificación de D-103.
 
-## WP4.15-V.l — Sección transversal autoritativa (2026-11-09, EN CURSO)
+## WP4.15-V.l — Sección transversal autoritativa (2026-11-10, contrato estabilizado)
 
 Rama `wip/vh-world-visual-foundation`, encima de V.k ya publicado (`9bd4e94..3a32240`). Pide el
 responsable tras el playtest de V.d: aceras, dos carriles con sentido y autovía de 7 como **dato**, no
 como pintura. Doctrina en `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`: enmienda
 **parcial** de D-085 §2 y D-090 §2 (marcada también en sus entradas condensadas).
+
+**Estado autoritativo vigente (2026-11-10):** el contrato implementado es v2 para redes de eje y v4
+para redes con corredor; v4 exige `roadSectionVariant: "full" | "ave3"` persistido en `RoadTopology`.
+La versión 3 fue un contrato intermedio y cualquier snapshot que la contenga se rechaza con
+`UnsupportedRoadTopologyError` antes de mutar el slot. Proyección, cobertura, valor del suelo y
+validación urbanística resuelven la sección desde la topología persistida. Los apartados V.l.4/V.l.5
+que siguen conservan el acta histórica de mediciones previas y no describen el contrato actual.
 
 - **V.l.1 ejecutado** (sólo docs): D-104 + entrada en `DECISIONS.md` + enmiendas en D-085/D-090 + índice
   de ADR. No existía spec de V.l en el repo; las descripciones de las tareas #152–#159 eran el único
@@ -254,8 +261,9 @@ como pintura. Doctrina en `docs/engineering/adr/D-104-seccion-transversal-autori
   `roadCellsFromSegments`), las cuatro semánticas de D-085 §1 y la regla de que el corredor **nunca**
   entra en `blockedCells` (es el muro del A\*). Sin tráfico simulado ni nombres de calle.
 - **Qué cambia**: `ROAD_PROFILES` street 3 / avenue 5 con mediana / motorway 7, roles
-  carriageway/median/sidewalk, canal nuevo `map.roadSection` `.strict()`, `derivationVersion` 3 con
-  lectura `2|3` y save v2 bit a bit, y presentación por rol con `laneSense` en vez de `spatialHash`.
+  carriageway/median/sidewalk, canal nuevo `map.roadSection` `.strict()`, `derivationVersion` 4 con
+  lectura `2|4`, variante transversal persistida y save v2 bit a bit. La versión 3 intermedia se
+  rechaza por nombre al cargar snapshots.
 - **Medido para dimensionar el riesgo** (`axisPositions`, mapa 64×64): retícula de 3 líneas → 0/32/63
   (avenida 32); de 4 → 0/21/42/63 (avenida **42**, no el centro). Eje actual de 3 líneas en ambos ejes:
   375 celdas (9,2 %). Corredor de 7 sobre una línea: 448 celdas (10,9 %); sobre las tres de un eje:
@@ -272,13 +280,14 @@ como pintura. Doctrina en `docs/engineering/adr/D-104-seccion-transversal-autori
   (`ZONING_SHORTAGE`/`CONCENTRATION`). Salida elegida por el responsable: **corredor por perfil**
   (`DistrictProfile.roadCorridor`, entonces en 6, eje de 1 celda en 3) y **autovía por perfil**
   (`motorwayAxis` sólo en `patios_del_este`; en `ensanche_ferroviario_oeste` la autovía rompe el seed
-  80 y la avenida de 5 genera 42/42 frentes). Con corredor se escribe `derivationVersion: 3`; sin él,
+  80 y la avenida de 5 genera 42/42 frentes). Con corredor se escribe `derivationVersion: 4` y se
+  persiste `roadSectionVariant`; sin él,
   `2` y geometría/digestos idénticos a los de antes. V.l.5 recortó después esa lista de 6 a 1.
 - **Gate V.l.4 en verde** (`docs/execution/phase-4/vl4-fabric-gate-2026-11-10.json`): 900 distritos,
   65.607 parcelas, 0 fallos; derivación vial p95 **5,19 ms** (STOP ~20), generación p95 323,98 ms
   (presupuesto 500), 784 al primer intento, todas las familias dentro de envelope. Costura
   inter-distrito cubierta por `road-corridor-seam.test.ts` (12 pares × 2 seeds).
-- **V.l.5 ejecutado (2026-11-10), con el alcance del corredor recortado por decisión del
+- **Registro histórico V.l.5 (2026-11-10), supersedido por la estabilización v4:** con el alcance del corredor recortado por decisión del
   responsable**: regeneradas las tres mesas canónicas en commits separados sólo de valores —
   `district-fixtures.ts` (12 hashes), `city-fixtures.ts` (12 filas), `tick-conservation.test.ts`
   (10 digestos)— cada una con causa y control medidos en su propia cabecera. El motivo del recorte:
@@ -286,7 +295,7 @@ como pintura. Doctrina en `docs/engineering/adr/D-104-seccion-transversal-autori
   `CITY_PARCEL_COUNT_ENVELOPE` (700..760); con `roadCorridor` sólo en `barrio_del_umbral` quedan
   **700–731** y cero fuera. La envolvente **no se tocó**: se recortó la geometría. Precio medido por
   perfil (4 seeds): −20, −20, −11,75, −11,5, −8, −6,25 parcelas; las tres recetas sin corredor, 0.
-- **Consecuencia abierta a ratificación del responsable**: el mundo canónico tiene ahora **un
+- **Registro histórico supersedido**: el mundo canónico tenía entonces **un
   distrito con corredor y cero autovías**. `motorwayAxis` se apaga en `patios_del_este` porque la
   autovía de 7 sólo se publica por el camino del corredor, y dejarla activa escribiría segmentos
   `motorway` en una red `derivationVersion: 2` — el estado inválido que D-104 promete no producir. La
@@ -296,7 +305,7 @@ como pintura. Doctrina en `docs/engineering/adr/D-104-seccion-transversal-autori
   sobre el presupuesto de 500 que el gate afirma en p95 (el max 673,72 no está presupuestado),
   derivación vial p50 2,38 / **p95 5,04** / max 12,61 ms (< 25), intentos
   879/20/1, las nueve familias dentro de envelope.
-- **La suite de simulación NO cierra con el recorte** (medido el 2026-11-10, en el árbol con las tres
+- **Registro histórico de la suite antes del cierre v4** (medido el 2026-11-10, en el árbol con las tres
   mesas regeneradas): **11 archivos rojos, 566 passed | 19 skipped sobre 596 tests**. Uno es el
   preexistente de la lista de V.k (`vd7a-multiparcel.test.ts:388`) y tres de los cuatro preexistentes
   —`tick-conservation`, `city-seeds`, `district-generation`— quedaron verdes al regenerar sus mesas;
@@ -309,7 +318,7 @@ como pintura. Doctrina en `docs/engineering/adr/D-104-seccion-transversal-autori
   eje, 1 al corredor) — no salta el STOP de V.l.4, lo que pasa es que media suite sigue midiendo el
   acceso contra el eje. Clasificación y las tres salidas posibles, en
   `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`, sección "El coste del recorte no lo
-  paga la envolvente". **V.l.5 no se declara cerrada hasta que el responsable elija.**
+  paga la envolvente". **El acta histórica no declaraba V.l.5 cerrada hasta que el responsable eligiera.**
 - **La salida 3 está medida (2026-11-10) y abre un defecto de producción, no de tests.** Con el
   corredor sólo en `ensanche_ferroviario_oeste` (slot `(0,2)`) las doce ciudades dan **707–737 con 7 de
   margen sobre el suelo** (hoy: peor exactamente 700) y precio medio 7,42 parcelas por ciudad frente a
@@ -328,7 +337,7 @@ como pintura. Doctrina en `docs/engineering/adr/D-104-seccion-transversal-autori
   passed), corredor en Oeste **2 failed/9 passed** -sólo `road-topology` y el preexistente `vd7a`-,
   corredor en Barrio **5 failed/6 passed**. Tabla completa, las doce filas de ciudad con la salida 3 y el
   paquete V.l.5b en el ADR; nada de esto está conmutado ni en las mesas canónicas.
-- **El fix de isla está EJECUTADO (2026-11-10, ítem 1 de V.l.5b) y V.l.5 sigue sin cerrarse.** En
+- **Acta histórica del fix de isla (2026-11-10, ítem 1 de V.l.5b):** V.l.5 seguía sin cerrarse. En
   `packages/simulation/src/facility-coverage.ts` el helper `roadCellsForSegments` (`:146-159`) elige el
   suelo vial por `derivationVersion` -v3 corredor, v2 eje, el mismo precedente de
   `urban-fabric.ts:869-876`- y lo consumen `roadCostsByDistrict` (`:167`) y `roadCellsByDistrict`
@@ -393,23 +402,12 @@ como pintura. Doctrina en `docs/engineering/adr/D-104-seccion-transversal-autori
   el acta de V.e (2026-11-03: `city-seeds`, `district-generation` y `tick-conservation` fallaban en
   `develop` antes de D-104). Acotado por medida que no la escribe el camino nuevo: con el corredor
   fuera, las 375/375 celdas de eje de vega y sus segmentos dueños coinciden con la fórmula de V.d.4.
-- **Pendiente inmediato**: el ítem 1 del paquete V.l.5b -el `fix` de isla- **ya está ejecutado y
-  conmutado en el árbol** (arriba) y la barrida del corredor mixto (V.l.5c) está medida para que la
-  elección de los ítems (2) a (5) se haga con dato: mover `roadCorridor` de perfil, decidir si se adopta
-  una sección mixta (`ave` / `ave3`) y con qué cartera, alinear `road-topology.test.ts:61` y
-  `urban-civic.test.ts:128` al conjunto de celdas autoritativo, regenerar `city-fixtures.ts` y
-  `district-fixtures.ts` con el perfil elegido y volver a pasar gate + suite + lint/typecheck. Añadido
-  por la barrida: **decidir qué se hace con la mediana que no sale** (V.l.7 no tiene celda que pintar) y,
-  si la respuesta es sección mixta, **el canal `map.roadSection` cambia de contrato** antes de que
-  ninguna variante sea adoptable. Ninguna de esas cuatro es un extra de V.l.5 y **V.l.5 no se declara
-  cerrada**. Después **V.l.6**:
-  compatibilidad de save v2 bit a bit **y** atribución de esa
-  componente de forma, que es justo lo que puede romper la promesa de reproducir la vía. Ítem primero
-  de V.l.6. También alineada allí la guarda del gate, que comprueba "parcela no pisa vía" contra el
-  eje aunque la red sea v3. Después V.l.7–V.l.8 (#158–#159).
-  componente de forma, que es justo lo que puede romper la promesa de reproducir la vía. Ítem primero
-  de V.l.6. También alineada allí la guarda del gate, que comprueba "parcela no pisa vía" contra el
-  eje aunque la red sea v3. Después V.l.7–V.l.8 (#158–#159).
+- **Estado estabilizado (2026-11-10)**: la cartera mixta queda adoptada y los consumidores leen la
+  sección desde `RoadTopology`, no desde la configuración mutable del perfil. Los corredores nuevos
+  escriben `derivationVersion: 4` con `roadSectionVariant` obligatorio; v2 conserva el eje. La versión
+  3 intermedia se rechaza por nombre durante la carga de snapshots y el slot queda intacto. Se
+  mantienen los gates de generación y derivación vial existentes sin cambiar sus umbrales; la deuda
+  de segmentos colineales no mínimos y la aprobación visual humana siguen fuera de este cierre.
 
 ## Próximo objetivo
 

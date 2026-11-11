@@ -1,19 +1,24 @@
 {
-  "head": "0418a5de51af86d0610745c6bbb129c9b1401e64",
-  "generatedAt": "2026-10-28T21:05:41.346Z",
+  "head": "c494ec136d06583e6543f7dda02b45d20bfc504d",
+  "generatedAt": "2026-11-10T19:32:21.359Z",
   "tool": "pnpm fabric:gate",
   "seeds": 100,
   "districts": 900,
-  "parcels": 81266,
+  "parcels": 71479,
   "generationMs": {
-    "p50": 134.89,
-    "p95": 169.86,
-    "max": 560.69
+    "p50": 127.22,
+    "p95": 175.55,
+    "max": 290.52
   },
   "roadDerivationMs": {
-    "p50": 1.57,
-    "p95": 2.72,
-    "max": 5.06
+    "p50": 1.72,
+    "p95": 3.17,
+    "max": 5.69
+  },
+  "compositionAttempts": {
+    "1": 880,
+    "2": 19,
+    "3": 1
   },
   "morphology": [
     {
@@ -21,7 +26,7 @@
       "family": "mixed_dense",
       "density": 32.9,
       "intersections": 320.4,
-      "blockAreaCells": 180,
+      "blockAreaCells": 193,
       "envelope": {
         "density": [
           16.174,
@@ -63,7 +68,7 @@
       "family": "civic_centre",
       "density": 32.59,
       "intersections": 320.4,
-      "blockAreaCells": 180,
+      "blockAreaCells": 196,
       "envelope": {
         "density": [
           22.795,
@@ -105,7 +110,7 @@
       "family": "industrial_edge",
       "density": 24.72,
       "intersections": 183.1,
-      "blockAreaCells": 217,
+      "blockAreaCells": 169,
       "envelope": {
         "density": [
           16.865,
@@ -147,7 +152,7 @@
       "family": "mixed_dense",
       "density": 32.65,
       "intersections": 320.4,
-      "blockAreaCells": 398,
+      "blockAreaCells": 375,
       "envelope": {
         "density": [
           16.174,
@@ -168,7 +173,7 @@
       "family": "industrial_edge",
       "density": 24.84,
       "intersections": 183.1,
-      "blockAreaCells": 216,
+      "blockAreaCells": 196,
       "envelope": {
         "density": [
           16.865,
@@ -189,7 +194,7 @@
       "family": "low_density_residential",
       "density": 23.07,
       "intersections": 137.3,
-      "blockAreaCells": 450,
+      "blockAreaCells": 420,
       "envelope": {
         "density": [
           8.355,

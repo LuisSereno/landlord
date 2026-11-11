@@ -54,6 +54,7 @@ import {
   type TransactionId,
   type LoanId,
 } from "./primitives";
+import { roadSectionVariantSchema, type RoadSectionVariant } from "./road-cross-section";
 import {
   gridCellSchema,
   seedSchema,
@@ -219,17 +220,23 @@ export type RoadSegment = {
 };
 
 /**
- * Road topology of one district (D-085, D-090, D-104). The shape is unchanged. `derivationVersion: 2`
- * records that segments come from `RoadAnchor[]` instead of from already placed parcels;
- * `derivationVersion: 3` (V.l.4) adds the transverse corridor: the non-buildable ground is the
- * profile width, not the single axis cell. Saves written with 2 are still read — their geometry was
- * produced against a 1-cell axis and must not be reinterpreted (V.l.6 gates the corridor by version).
+ * Road topology of one district (D-085, D-090, D-104). Version 2 is the historical one-cell axis.
+ * Version 4 carries the transverse corridor variant in the save itself, so consumers never have to
+ * reinterpret a persisted road from mutable district-profile configuration. Version 3 was an
+ * unreleased intermediate contract and is intentionally rejected by snapshot parsing.
  */
-export type RoadTopology = {
-  topologyVersion: 1;
-  derivationVersion: 2 | 3;
-  segments: RoadSegment[];
-};
+export type RoadTopology =
+  | {
+      topologyVersion: 1;
+      derivationVersion: 2;
+      segments: RoadSegment[];
+    }
+  | {
+      topologyVersion: 1;
+      derivationVersion: 4;
+      roadSectionVariant: RoadSectionVariant;
+      segments: RoadSegment[];
+    };
 
 export const roadSegmentSchema = z.object({
   id: z.string().min(1),
@@ -238,11 +245,29 @@ export const roadSegmentSchema = z.object({
   class: roadCellClassSchema,
 });
 
-export const roadTopologySchema = z.object({
-  topologyVersion: z.literal(1),
-  derivationVersion: z.union([z.literal(2), z.literal(3)]),
-  segments: z.array(roadSegmentSchema),
-});
+export const roadTopologySchema = z
+  .object({
+    topologyVersion: z.literal(1),
+    derivationVersion: z.union([z.literal(2), z.literal(4)]),
+    roadSectionVariant: roadSectionVariantSchema.optional(),
+    segments: z.array(roadSegmentSchema),
+  })
+  .superRefine((value, context) => {
+    if (value.derivationVersion === 2 && value.roadSectionVariant !== undefined) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["roadSectionVariant"],
+        message: "derivationVersion 2 no admite roadSectionVariant",
+      });
+    }
+    if (value.derivationVersion === 4 && value.roadSectionVariant === undefined) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["roadSectionVariant"],
+        message: "derivationVersion 4 exige roadSectionVariant",
+      });
+    }
+  });
 
 function roadCellKey(cell: GridCell): string {
   return `${cell.x}:${cell.y}`;

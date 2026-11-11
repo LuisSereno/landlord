@@ -905,10 +905,24 @@ estructural: el eje como verdad de red, `RoadSegment`/`roadSegmentId`, `roadCell
 entra en `blockedCells`. Tráfico simulado, nombres y reglas de producto siguen fuera. Ver
 `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`.
 
+**Cierre de estabilización (2026-11-10):** las mediciones V.l.4/V.l.5 anteriores a este cierre son
+históricas. El contrato vigente escribe v4 para todo distrito con corredor y persiste
+`roadSectionVariant` (`full` o `ave3`) en `RoadTopology`; las redes de eje siguen en v2. Los
+consumidores resuelven la sección desde esa topología persistida. Un snapshot v3 se rechaza con
+`UnsupportedRoadTopologyError` antes de restaurar estado y no se migra. Las pruebas cubren
+compatibilidad v2, variante obligatoria v4, rechazo atómico v3 y round-trip de la variante.
+
+**Estabilización del contrato (2026-11-10):** las redes con corredor escriben
+`derivationVersion: 4` y `roadSectionVariant` obligatorio en `RoadTopology`; las redes de eje siguen
+en v2. La versión 3 fue intermedia y no publicada: `parseSnapshotV2` la rechaza mediante
+`UnsupportedRoadTopologyError`, antes de sustituir el estado activo. Los consumidores resuelven la
+sección desde la topología persistida, no desde `DistrictProfile`.
+
 **Ratificación V.l.5c (2026-11-10):** se adopta la opción 3 medida: `full` en
 `ensanche_ferroviario_oeste` y `ave3` en `vega_del_cauce`, `mercado_del_norte` y `patios_del_este`;
-`barrio_del_umbral` (slot del jugador) permanece v2/eje. `roadSectionVariant` queda en el perfil,
-`roadProfileForSection` deriva la sección y la proyección mantiene el contrato estricto por distrito.
+`barrio_del_umbral` (slot del jugador) permanece v2/eje. Los distritos con corredor escriben v4 y
+persisten `roadSectionVariant` en `RoadTopology`; `roadProfileForTopology` deriva la sección y la
+proyección mantiene el contrato estricto por distrito.
 La cobertura de facilities y el valor del suelo consumen la misma geometría, se regeneran las tablas de
 fixtures y los tests de seam/topología usan el perfil efectivo. La mediana no se reabre en esta entrega:
 el fix colineal ya está aislado en `5814b25`; cualquier cambio visual adicional requiere otra decisión.
@@ -1052,10 +1066,12 @@ commit propio y atribuido. Ver `docs/engineering/adr/D-089-snapshot-v2-protocolo
 Estado: ratificada el 2026-10-28 en lo que refleja `PLAN_improvements.md`. Amplía
 D-085 y elimina `Parcel.cell`, `Parcel.zoning` y `Parcel.buildingId`.
 
-**Enmienda V.l (D-104, 2026-11-09):** §2 sube `derivationVersion` de 2 a **3** porque el corredor
-transversal pasa a suelo no edificable y la autovía de 7 entra en la retícula; `topologyVersion: 1` no
-cambia y la cadena `red → manzana → parcela → huella` tampoco. Lectura `2|3`, escritura 3, y un save v2
-debe reproducir su vía de 1 celda bit a bit (restore lee del save, no re-deriva). Ver
+**Enmienda V.l (D-104, 2026-11-10):** el corredor transversal persistido usa
+`derivationVersion: 4` y lleva `roadSectionVariant: "full" | "ave3"` dentro de `RoadTopology`;
+`derivationVersion: 2` conserva el eje de una celda. La versión 3 fue un contrato intermedio no
+publicado y se rechaza por nombre al cargar un snapshot. `topologyVersion: 1` no cambia y un save v2
+reproduce su vía de 1 celda bit a bit. Proyección, cobertura y valor del suelo leen la variante del
+estado guardado, no del catálogo mutable de perfiles. Ver
 `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`.
 
 Hoy la parcela es un punto con etiqueta, la norma es un enum de tres valores y `buildingId` duplica la
@@ -1553,9 +1569,9 @@ distrito observado; (5) animación e interpolación son tiempo de render (`frame
 
 ## D-104 — Sección transversal autoritativa: aceras, carriles y sentidos dejan de ser presentación
 
-Estado: alcance decidido por el responsable el 2026-11-09 (topología autoritativa ahora, ampliación de
-la proyección y autovía de 7), registrado en las tareas V.l.1–V.l.8; implementación en curso y sin
-cierre. **Enmienda parcial** de D-085 §2 y D-090 §2, no sustitución. Decisiones: (1) se levanta la
+Estado: contrato estabilizado el 2026-11-10. La topología autoritativa, la proyección y las variantes
+de sección están implementadas; v2 conserva compatibilidad y v3 se rechaza explícitamente. **Enmienda
+parcial** de D-085 §2 y D-090 §2, no sustitución. Decisiones: (1) se levanta la
 prohibición de D-085 §2 sobre carriles/sentidos/anchos variables **sólo para la sección transversal**:
 `ROAD_PROFILES` con `street` 3, `avenue` 5 con mediana y `motorway` 7, roles de celda
 carriageway/median/sidewalk y sentido de carril como dato derivado en `packages/shared/src/road-cross-section.ts`;
@@ -1563,8 +1579,9 @@ carriageway/median/sidewalk y sentido de carril como dato derivado en `packages/
 no cambian, y `map.roads.cells` sigue publicando el eje; (3) el corredor es suelo no edificable de tipo
 road y **nunca entra en `blockedCells`** (es el muro del A\*, D-085 §1); (4) canal nuevo
 `map.roadSection` con esquema `.strict()` `{revision,digest,profiles[],segments[]}` en vez de expandir
-el viejo; (5) `derivationVersion: 3` con lectura `2|3`, escritura 3 y save v2 reproduciendo su vía de
-1 celda bit a bit; (6) presentación por rol con `lateralOffsetForProfile` + `laneSense` en lugar de la
+el viejo; (5) `derivationVersion: 4` con `roadSectionVariant` persistida, lectura `2|4`, escritura 4 y
+rechazo explícito de saves v3; un save v2 reproduce su vía de 1 celda bit a bit; (6) presentación por
+rol con `lateralOffsetForProfile` + `laneSense` en lugar de la
 moneda `spatialHash`, peatón anclado a la celda `sidewalk`, sección procedural sin tiles nuevos, e
 invariante dura sentido⇄bordillo en 3 perfiles × 8 seeds. Medido para dimensionar el riesgo: la
 retícula de 3 líneas cae en 0/32/63 y la de 4 en 0/21/42/63 (avenida en 42, no en el centro); un
@@ -1584,7 +1601,7 @@ suelo 700. **Y deja una decisión abierta**: con ese único corredor la suite de
 tests de comportamiento que están verdes con cero corredores (control medido el mismo día: 142/143); no
 se pierde ningún frente vial, pero el corredor cae en el distrito del jugador y media suite comprueba
 el acceso contra el eje. Las tres salidas (cero perfiles / realinear los diez / otro perfil) son del
-responsable: V.l.5 no se declara cerrada. **La salida 3, medida el 2026-11-10, corrige esa atribución y
+responsable: el acta histórica no declaraba V.l.5 cerrada. **La salida 3, medida el 2026-11-10, corrige esa atribución y
 no cierra nada por sí sola**: con el corredor en `ensanche_ferroviario_oeste` (slot `(0,2)`, fuera del
 jugador y del rival) las doce ciudades dan 707–737 —7 de margen sobre el suelo, mejor que el árbol de
 hoy— y ocho de los diez tests vuelven a verde, pero `road-topology.test.ts:61` recorre los nueve

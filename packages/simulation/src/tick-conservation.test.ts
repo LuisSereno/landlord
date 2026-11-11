@@ -123,54 +123,54 @@ function cityDigest(input: {
 const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => string }> = [
   {
     id: "scenario:seed-1:1200",
-    expected: "14efa572322df2b1",
+    expected: "ba2ea3986be9af8d",
     run: () => digest(canonicalizeState(runScenario(1, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-7:1200",
-    expected: "9cd5d92133933a09",
+    expected: "eee52c0f35e8e25d",
     run: () => digest(canonicalizeState(runScenario(7, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-42:1200",
-    expected: "89c19e5e2027bf99",
+    expected: "7334ce74ea612c45",
     run: () => digest(canonicalizeState(runScenario(42, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "8e03eec195c23efc",
+    expected: "298f143b56750198",
     run: () => digest(canonicalizeState(runScenario(1, [], 36_000, { checkpointEvery: 0 }).state)),
   },
   {
     id: "city:50-parcels:1300-ticks",
-    expected: "c68fad0480fcdbcd",
+    expected: "39dc973add260341",
     run: () => cityDigest({ parcelCount: 50, ticks: 1_300 }),
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "225b293eeea56e26",
+    expected: "81822db0cca4c6ba",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "9d6ee8907febebec",
+    expected: "130d5ba62e602f80",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "7fcd21bc53db62a5",
+    expected: "9ced7a327c763939",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "6b273dcff3d35c65",
+    expected: "dec973a982a23219",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "6a8d7027c0e22a03",
+    expected: "1a98ac413a42b3d7",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];

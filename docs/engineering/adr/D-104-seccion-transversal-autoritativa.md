@@ -1,9 +1,9 @@
 # D-104 — Sección transversal autoritativa: aceras, carriles y sentidos dejan de ser presentación
 
-- **Estado:** alcance decidido por el responsable el 2026-11-09 (topología autoritativa **ahora**,
-  ampliación de la proyección y **autovía de 7**), registrado en las tareas V.l.1–V.l.8. Esta ADR es el
-  documento que faltaba: no existía spec de V.l en el repo. Implementación en curso, **sin cierre**;
-  la aprobación visual final es humana (V.l.8).
+- **Estado:** contrato estabilizado el 2026-11-10. La topología autoritativa, la proyección y las
+  variantes de sección están implementadas; v2 conserva compatibilidad y v3 se rechaza explícitamente.
+  La aprobación visual humana de V.l.8 y la deuda de segmentos colineales no mínimos permanecen fuera
+  de este cierre.
 - **Workstream:** WP4.15-V.l, sobre `wip/vh-world-visual-foundation` (encima de V.k, ya publicado).
 - **Enmienda:** D-085 §2 y D-090 §2. No sustituye ninguna de las dos: mantiene su arquitectura y levanta
   una prohibición concreta.
@@ -71,11 +71,10 @@ acera) y sentido de carril pasan a dato autoritativo derivado, publicado y persi
    `{ revision, digest, profiles[], segments[] }`, mientras `map.roads` sigue siendo el eje. Así el
    contrato existente no cambia de forma y los digestos de `map.roads` siguen siendo comparables
    byte a byte hasta que V.l.4 toque la geometría.
-4. **`derivationVersion: 3`** para la geometría con corredor y autovía en retícula
-   (`roadCellClassSchema` gana la clase nueva). Lectura `z.union([literal(2), literal(3)])`, escritura
-   3, y el corredor se gatea por versión: un save v2 debe reproducir su vía de 1 celda **bit a bit**,
-   porque `restoreStateFromSnapshot` lee del save y no re-deriva (precedente de D-085 §7, ya
-   implementado en `packages/simulation/src/snapshot.ts:439`).
+4. **`derivationVersion: 4`** para la geometría con corredor y autovía en retícula. La topología
+   persiste `roadSectionVariant: "full" | "ave3"`; lectura `2|4`, escritura 4. La versión 3 fue un
+   contrato intermedio no publicado y `restoreStateFromSnapshot` la rechaza por nombre. Un save v2
+   reproduce su vía de 1 celda **bit a bit** porque la restauración lee del save y no re-deriva.
 5. **Presentación por rol**: `planGameplayGround` pinta carriageway / median / sidewalk y suprime el
    apron duplicado; la línea central discontinua va en `terrain-paint` antes de
    `strokeSidewalks`/`strokeCurbs`; el lateral de vehículos y actores sale de
@@ -94,7 +93,7 @@ acera) y sentido de carril pasan a dato autoritativo derivado, publicado y persi
 | V.l.3 | `map.roadSection` `.strict()` + relleno + re-medición de payload en `road-topology-benchmark` | digestos de `map.roads` byte-idénticos |
 | V.l.4 | Corredor como suelo no edificable, `axisPositions`/`latticeLines` para la autovía, costura inter-distrito | **si se pierde un frente vial, revienta `maxBlockDepth`/`maxBlockArea` o p95 > ~20 ms → volver al responsable con avenida-3 de respaldo** |
 | V.l.5 | Regeneración de 10 digestos + 12 hashes de fixture en commit **sólo de hashes**, con changelog de causa y control | `parcelCount`/`blockedCellCount` sin cambios; perfiles a ancho 1 recuperan los valores V.d.4 |
-| V.l.6 | Lectura 2\|3, escritura 3, tests de save viejo | **si un save v2 no reproduce su vía bit a bit → STOP** |
+| V.l.6 | Lectura 2\|4, escritura 4 para corredores, rechazo explícito de v3 y tests de save viejo | **si un save v2 no reproduce su vía bit a bit → STOP** |
 | V.l.7 | Pintado por rol, sentido ⇄ bordillo, peatón en acera | invariante en 3 perfiles × 8 seeds |
 | V.l.8 | Capturas en directorio nuevo + FPS + aprobación humana | `baseline-vj.json` y pixel-qa de V.j **intocables**; `groundRebakes = 1` |
 
@@ -112,7 +111,14 @@ acera) y sentido de carril pasan a dato autoritativo derivado, publicado y persi
 - El baseline visual de V.j queda congelado: V.l.8 captura en directorio nuevo y la aprobación es del
   responsable.
 
-## V.l.4 · Corredor y autovía por perfil (decisión del responsable, 2026-11-10)
+## Registro histórico · V.l.4/V.l.5 antes de la estabilización v4
+
+Las secciones V.l.4 y V.l.5 que siguen son el acta de mediciones y decisiones intermedias del
+10-11-2026. Quedan conservadas como trazabilidad, pero no son el contrato vigente: la implementación
+final usa v2/v4, persiste `roadSectionVariant` y rechaza snapshots v3. El addendum de estabilización
+al final de este documento prevalece sobre cualquier referencia histórica a v3.
+
+## V.l.4 · Corredor y autovía por perfil (acta histórica, 2026-11-10)
 
 El primer intento aplicó el corredor a los nueve perfiles y **rompió la generación en 24 de 72
 distritos** (3 perfiles × 8 seeds: `barrio_del_taller`, `centro_civico`, `lomas_del_umbral`, con
@@ -126,7 +132,8 @@ resuelto por el responsable con **corredor por perfil**, no con una reducción g
   ausente en los tres que no aguantan. Es por perfil y no por fabric porque `FABRIC_LOW_DENSITY` lo
   comparten `vega_del_cauce` (sano) y `lomas_del_umbral` (roto).
   **V.l.5 recorta esta lista a un solo perfil** por la envolvente de ciudad; ver la sección siguiente.
-- **La versión registra la geometría**: con corredor se escribe `derivationVersion: 3`; sin corredor
+- **Acta histórica (supersedida):** la versión registraba la geometría; con corredor se escribía
+  `derivationVersion: 3`; sin corredor
   se escribe `2` y la geometría —y por tanto los digestos— es exactamente la de antes. No hay un
   tercer estado ni un flag de ancho que haya que persistir aparte. *(V.l.5 matiza la segunda mitad de
   la frase: la geometría sí vuelve exacto, la mesa de fixtures publicada no, por una deuda previa a
@@ -286,7 +293,7 @@ reparten en dos clases distintas, y la distinción importa porque el arreglo no 
   semántica "cerca baja, lejos no toca" y falla el valor absoluto `toBe(100)` del comentario—, pero
   re-muestrear diez tests ajenos a V.l no es un extra de esta fase, es una fase.
 
-**Consecuencia de gobierno**: V.l.5 **no se declara cerrada**. La envolvente está restaurada por
+**Consecuencia de gobierno del acta histórica (supersedida)**: V.l.5 **no se declaraba cerrada**. La envolvente está restaurada por
 geometría y las tres mesas canónicas están regeneradas y atribuidas, pero el árbol queda rojo en diez
 tests de comportamiento y las tres salidas son decisión del responsable:
 
@@ -546,7 +553,7 @@ los frentes de parcela que lo referencian, justo lo que V.l.2/V.l.3 prometieron 
 La decisión del responsable queda ratificada y ya está implementada. `DistrictProfile` publica
 `roadSectionVariant`: `full` para `ensanche_ferroviario_oeste`, `ave3` para `vega_del_cauce`,
 `mercado_del_norte` y `patios_del_este`; `barrio_del_umbral` conserva la red v2 de eje. El resolver
-`roadProfileForSection` mantiene las clases del eje y sólo cambia la sección transversal, por lo que
+`roadProfileForTopology` mantiene las clases del eje y sólo cambia la sección transversal, por lo que
 `map.roadSection` sigue siendo estricto y autoritativo por distrito. Cobertura de facilities y valor del
 suelo derivan las mismas celdas de corredor; fixtures de ciudad/distrito y seams se regeneraron. La
 mediana colineal no se amplía en esta entrega y queda como decisión visual separada.
@@ -565,14 +572,41 @@ digestos dorados— con los controles de la sección de arriba, y vuelve a pasar
 (`vl5-fabric-gate-2026-11-10.json`: 900 distritos, 72.124 parcelas, p95 de generación 339,23 ms y de
 derivación vial 5,04 ms).
 
-**El fix (V.l.5b ítem 1) está ejecutado y medido el 2026-11-10** -ver la sección "La salida 3, medida"-:
+**Acta histórica del fix V.l.5b (ejecutado y medido el 2026-11-10)** -ver la sección "La salida 3, medida"-:
 la isla del grafo en redes v3 no existe, seis ficheros de simulación pasan a verde sin tocar banderas y
-el coste medido es +38,0 ms p95 por reconstrucción del índice de cobertura. **Sigue sin cerrar V.l.5**:
-quedan los ítems (2) a (5), que son decisión del responsable.
+el coste medido es +38,0 ms p95 por reconstrucción del índice de cobertura. El cierre actual se
+realiza mediante el contrato v4 y la resolución desde `RoadTopology`; los ítems visuales y de
+segmentos colineales siguen siendo deuda separada.
 
-**Pendiente de medir:** carga de save v2 bit a bit y
-atribución de la componente de forma previa a V.l.5 (V.l.6), invariante sentido ⇄ bordillo (V.l.7) y
-capturas + FPS (V.l.8). La aprobación visual es humana.
+**Fuera de este cierre:** la aprobación visual humana (V.l.8), el invariante sentido ⇄ bordillo
+(V.l.7) y la minimización de segmentos colineales. La carga v2 y la persistencia v4 sí están cubiertas
+por las pruebas de snapshot y round-trip descritas en el addendum.
+
+## Addendum · puente de render de la sección (2026-11-11)
+
+El cliente web ya consume `ViewProjectionV2.map.roadSection`: reconstruye el corredor con los perfiles
+y segmentos **proyectados**, sin importar simulación ni volver a consultar `DistrictProfile`. Las celdas
+de rol `carriageway`, `sidewalk` y `median` se pintan respectivamente como asfalto, acera y mediana;
+`map.roads.cells` conserva exclusivamente su función de eje, conectividad visual y marcas de cruce.
+Las proyecciones históricas sin sección conservan el fallback v2 de una única celda de calzada.
+
+Los vehículos presentacionales, incluidos los contextuales, se anclan a una celda física
+`carriageway` y ya no aplican un offset lateral hacia terreno o edificios. El mobiliario de tramo y los
+actores contextuales v4 se anclan a celdas `sidewalk`; v2 preserva su lectura de eje de una celda. Esto
+no añade tráfico simulado ni cierra aún el invariante sentido ⇄ bordillo. La regresión web construye una
+avenida v4 desde el contrato publicado y comprueba roles, superficies, mobiliario y vehículos.
+
+## Addendum de estabilización (2026-11-10)
+
+La implementación final sustituye el contrato intermedio v3 por una versión persistible: las redes con
+corredor escriben `derivationVersion: 4` y `roadSectionVariant` obligatorio; las redes de eje conservan
+`derivationVersion: 2`. Proyección, cobertura de facilities, valor del suelo y validación urbanística
+resuelven la sección desde `RoadTopology`, nunca desde la configuración actual de `DistrictProfile`.
+
+Los snapshots que contienen v3 lanzan `UnsupportedRoadTopologyError` antes de construir o sustituir el
+estado activo. No se migran ni se reinterpretan. Los snapshots v2 siguen siendo válidos y los v4
+conservan la variante durante serialización y restauración. La suite añade cobertura para v2, rechazo
+atómico de v3, variante obligatoria de v4 y round-trip de la sección.
 
 ## Relacionadas
 

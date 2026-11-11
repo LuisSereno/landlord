@@ -11,6 +11,7 @@ import {
   deriveRoadMarkings,
   planGameplayParkedVehicles,
   planGameplayStreetFurniture,
+  deriveRoadSectionRoles,
   deriveRoadVisuals,
   BUILDING_VISUAL_POLICIES,
   visualArchetypeForBuilding,
@@ -351,6 +352,51 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
     expect(model.groundPlan.surfaces.get("11:10")).toBe("asphalt"); // apron grass
     expect(model.groundPlan.surfaces.get("14:10")).toBe("asphalt"); // parcela pavement
     expect(model.roadVisuals.map((road) => `${road.cell.x}:${road.cell.y}`)).toEqual(roadCells);
+  });
+
+  it("deriva y pinta una avenida v4 por sus roles proyectados, no por el eje ni por el perfil mutable", () => {
+    const roads = Array.from({ length: 13 }, (_unused, x) => `${x + 8}:20`);
+    const view = projection([], [], [], roads, "avenue-section") as ViewProjectionV2;
+    view.map.roadSection = {
+      revision: 0,
+      digest: "0123abcd",
+      profiles: [
+        {
+          id: "avenue",
+          width: 5,
+          roles: ["sidewalk", "carriageway", "median", "carriageway", "sidewalk"],
+          laneSenses: [null, "backward", null, "forward", null],
+        },
+      ],
+      segments: [
+        { id: "road:avenue", from: { x: 8, y: 20 }, to: { x: 20, y: 20 }, profile: "avenue" },
+      ],
+    };
+
+    const roles = deriveRoadSectionRoles(view);
+    const model = buildGameplayVisualModel(view);
+    expect(roles.get("12:18")).toBe("sidewalk");
+    expect(roles.get("12:19")).toBe("carriageway");
+    expect(roles.get("12:20")).toBe("median");
+    expect(roles.get("12:21")).toBe("carriageway");
+    expect(roles.get("12:22")).toBe("sidewalk");
+    expect(model.groundPlan.surfaces.get("12:18")).toBe("pavement");
+    expect(model.groundPlan.surfaces.get("12:19")).toBe("asphalt");
+    expect(model.groundPlan.surfaces.get("12:20")).toBe("median");
+    expect(model.groundPlan.surfaces.get("12:21")).toBe("asphalt");
+    expect(model.groundPlan.surfaces.get("12:22")).toBe("pavement");
+    expect(model.parkedVehicles.length).toBeGreaterThan(0);
+    for (const vehicle of model.parkedVehicles) {
+      expect(model.roadSectionRoles.get(`${vehicle.roadCell.x}:${vehicle.roadCell.y}`)).toBe(
+        "carriageway",
+      );
+      expect(vehicle.lateralOffset).toBe(0);
+    }
+    for (const furniture of model.streetFurniture) {
+      expect(model.roadSectionRoles.get(`${furniture.cell.x}:${furniture.cell.y}`)).toBe(
+        "sidewalk",
+      );
+    }
   });
 
   it("mantiene visible la road cell que da frontage a una parcela", () => {

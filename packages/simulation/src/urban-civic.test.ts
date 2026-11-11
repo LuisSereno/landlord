@@ -6,6 +6,8 @@ import {
   parsePersonId,
   parseSnapshotV2,
   roadCellsFromSegments,
+  roadCorridorCellsFromSegments,
+  roadProfileForTopology,
   viewProjectionV2Schema,
   type GridCell,
   type ProductCommand,
@@ -125,7 +127,12 @@ describe("V.d.3 programa municipal", () => {
       // Todo el programa es alcanzable desde la red: las parcelas municipales tienen frente y
       // cada plaza/parque ocupa una manzana que toca una celda vial.
       for (const district of state.world.districts.values()) {
-        const roadCells = roadCellsFromSegments(district.map.roads.segments);
+        const roadCells =
+          district.map.roads.derivationVersion === 4
+            ? roadCorridorCellsFromSegments(district.map.roads.segments, (roadClass) =>
+                roadProfileForTopology(district.map.roads, roadClass),
+              )
+            : roadCellsFromSegments(district.map.roads.segments);
         for (const facility of district.facilities.values()) {
           for (const parcelId of facility.parcelIds) {
             expect(state.phase2.parcels.get(parcelId)!.roadFrontages.length).toBeGreaterThan(0);

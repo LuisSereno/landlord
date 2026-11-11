@@ -3,7 +3,7 @@ import {
   parseTick,
   roadCellsFromSegments,
   roadAxisProfileForClass,
-  roadProfileForSection,
+  roadProfileForTopology,
   roadProfileIdSchema,
   viewProjectionV2Schema,
   type DistrictId,
@@ -21,7 +21,6 @@ import {
 } from "./development-codes";
 import { publishedPermitForParcel } from "./permitting";
 import { canonicalSlots, PLAYER_HOME_DISTRICT_ID, resolveCityProfile } from "./city";
-import { resolveDistrictProfile } from "./district-profiles";
 import {
   BUILDING_DEFINITIONS,
   ILLEGAL_ROUTE,
@@ -499,15 +498,10 @@ export function createViewProjection(
    * `road-cross-section.ts`. El orden de los segmentos es el canónico del dominio (el que valida
    * `snapshot.ts`), y el de los perfiles el del esquema, así que el digesto no depende de inserción.
    */
-  const sectionVariant =
-    observedDistrict.map.roads.derivationVersion === 3
-      ? (resolveDistrictProfile(observedDistrict.district.generation?.profileId)
-          .roadSectionVariant ?? "full")
-      : undefined;
   const sectionProfileForClass =
-    observedDistrict.map.roads.derivationVersion === 3
-      ? (roadClass: Parameters<typeof roadProfileForSection>[0]) =>
-          roadProfileForSection(roadClass, sectionVariant)
+    observedDistrict.map.roads.derivationVersion === 4
+      ? (roadClass: Parameters<typeof roadProfileForTopology>[1]) =>
+          roadProfileForTopology(observedDistrict.map.roads, roadClass)
       : roadAxisProfileForClass;
   const sectionSegments = observedDistrict.map.roads.segments.map((segment) => ({
     id: segment.id,

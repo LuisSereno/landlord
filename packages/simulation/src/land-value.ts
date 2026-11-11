@@ -1,7 +1,7 @@
 import {
   roadCellsFromSegments,
   roadCorridorCellsFromSegments,
-  roadProfileForSection,
+  roadProfileForTopology,
   type DevelopmentCodeId,
   type GridCell,
   type LandValueBreakdown,
@@ -17,7 +17,6 @@ import {
 import { GAME_MONTH_TICKS } from "./game-data";
 import { buildCoverageIndex, type CoverageIndex } from "./urban-services";
 import { cellKey } from "./urban-fabric";
-import { resolveDistrictProfile } from "./district-profiles";
 
 const GRID_SIZE = 64;
 const MONTHLY_STEP_PERCENT = 5;
@@ -125,14 +124,10 @@ export function buildLandValueContext(
   const roadClassBySegmentId = new Map(
     district.map.roads.segments.map((segment) => [segment.id as string, segment.class]),
   );
-  const profileId = district.district.generation?.profileId;
-  const variant = profileId
-    ? (resolveDistrictProfile(profileId).roadSectionVariant ?? "full")
-    : "full";
   const cellsForSegments = (segments: typeof district.map.roads.segments) =>
-    district.map.roads.derivationVersion === 3
+    district.map.roads.derivationVersion === 4
       ? roadCorridorCellsFromSegments(segments, (roadClass) =>
-          roadProfileForSection(roadClass, variant),
+          roadProfileForTopology(district.map.roads, roadClass),
         )
       : roadCellsFromSegments(segments);
   const avenueCells = cellsForSegments(

@@ -1,7 +1,11 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
 import { describe, it } from "vitest";
-import { roadCellsFromSegments } from "@landlord/shared";
+import {
+  roadCellsFromSegments,
+  roadCorridorCellsFromSegments,
+  roadProfileForTopology,
+} from "@landlord/shared";
 import { defaultRoadAnchors, generateDistrict, hasRoadAccess } from "./district-generator";
 import { DISTRICT_PROFILE_IDS, resolveDistrictProfile } from "./district-profiles";
 import { deriveRoadNetwork } from "./urban-fabric";
@@ -44,11 +48,18 @@ describe.skipIf(!enabled)("WP4.15-V.c.2B.2 road performance harness", () => {
             anchors: defaultRoadAnchors(districtProfile),
             latticeLines: districtProfile.fabric.latticeLines,
             connectSpawns: districtProfile.fabric.connectSpawns,
+            roadCorridor: districtProfile.roadCorridor,
+            roadSectionVariant: districtProfile.roadSectionVariant,
             width: 64,
             height: 64,
           }).topology;
           const elapsed = now() - start;
-          const cells = roadCellsFromSegments(roads.segments);
+          const cells =
+            roads.derivationVersion === 4
+              ? roadCorridorCellsFromSegments(roads.segments, (roadClass) =>
+                  roadProfileForTopology(roads, roadClass),
+                )
+              : roadCellsFromSegments(roads.segments);
           const parcelCells = new Set(
             generated.parcels.flatMap((parcel) =>
               parcel.cells.map((cell) => `${cell.x}:${cell.y}`),
@@ -88,11 +99,20 @@ describe.skipIf(!enabled)("WP4.15-V.c.2B.2 road performance harness", () => {
             anchors: defaultRoadAnchors(districtProfile),
             latticeLines: districtProfile.fabric.latticeLines,
             connectSpawns: districtProfile.fabric.connectSpawns,
+            roadCorridor: districtProfile.roadCorridor,
+            roadSectionVariant: districtProfile.roadSectionVariant,
             width: 64,
             height: 64,
           }).topology;
           sweepTimes.push(now() - start);
-          maxCells = Math.max(maxCells, roadCellsFromSegments(roads.segments).size);
+          maxCells = Math.max(
+            maxCells,
+            roads.derivationVersion === 4
+              ? roadCorridorCellsFromSegments(roads.segments, (roadClass) =>
+                  roadProfileForTopology(roads, roadClass),
+                ).size
+              : roadCellsFromSegments(roads.segments).size,
+          );
           maxSegments = Math.max(maxSegments, roads.segments.length);
         }
       const projectionRows = [createInitialState(7), createScaledCity(7, { parcelCount: 800 })].map(

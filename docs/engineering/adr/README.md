@@ -118,10 +118,10 @@ distrito-observado es deliberada. V.k.1–V.k.4 publicados en `origin/wip/vh-wor
 
 ## WP4.15-V.l — Sección transversal autoritativa (2026-11-09, en curso)
 
-- [D-104 — Sección transversal autoritativa](D-104-seccion-transversal-autoritativa.md) — alcance decidido por el responsable, implementación V.l.1–V.l.8 en curso
+- [D-104 — Sección transversal autoritativa](D-104-seccion-transversal-autoritativa.md) — contrato estabilizado; v4 persistido, v3 rechazado explícitamente
 
 Enmienda **parcial** de D-085 §2 (se levanta la prohibición de carriles/sentidos/anchos variables sólo
-para la sección transversal) y de D-090 §2 (`derivationVersion` 2 → 3). Mantiene el eje como verdad de
+para la sección transversal) y de D-090 §2 (`derivationVersion` 2 → 4). Mantiene el eje como verdad de
 red, `roadSegmentId` intacto, las cuatro semánticas de D-085 §1 y la regla de que el corredor nunca
 entra en `blockedCells`. D-085 no tiene ADR propio (deuda documental anotada arriba), así que la
 enmienda se marca también en su entrada condensada de `ai-context/DECISIONS.md`.

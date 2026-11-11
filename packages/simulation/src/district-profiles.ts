@@ -581,7 +581,7 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     fabric: FABRIC_INDUSTRIAL,
     /**
      * V.l.5 · la autovía de 7 exige el corredor (`roadCorridor` es la que escribe la clase en una
-     * red v3); con el corredor fuera del alcance canónico, dejar `motorwayAxis: true` publicaría
+     * red v4); con el corredor fuera del alcance canónico, dejar `motorwayAxis: true` publicaría
      * segmentos `motorway` dentro de una red marcada `derivationVersion: 2`. Sale del alcance
      * medido, no del contrato: `ROAD_PROFILES.motorway` y su derivación siguen vivas en shared.
      */

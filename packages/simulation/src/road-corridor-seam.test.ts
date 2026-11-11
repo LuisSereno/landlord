@@ -7,7 +7,7 @@ import {
   parseSeed,
   roadCellsFromSegments,
   roadCorridorCellsFromSegments,
-  roadProfileForSection,
+  roadProfileForTopology,
 } from "@landlord/shared";
 
 import {
@@ -58,13 +58,13 @@ describe("V.l.4 · costura inter-distrito con corredor transversal", () => {
             cityId,
           },
         );
-        if (district.roads.derivationVersion === 3) corridorDistricts += 1;
+        if (district.roads.derivationVersion === 4) corridorDistricts += 1;
         else axisDistricts += 1;
         ground.set(
           districtId,
-          district.roads.derivationVersion === 3
+          district.roads.derivationVersion === 4
             ? roadCorridorCellsFromSegments(district.roads.segments, (roadClass) =>
-                roadProfileForSection(roadClass, profile.roadSectionVariant ?? "full"),
+                roadProfileForTopology(district.roads, roadClass),
               )
             : roadCellsFromSegments(district.roads.segments),
         );

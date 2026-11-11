@@ -7,6 +7,7 @@ import {
   parseUrbanFacilityId,
   roadCellsFromSegments,
   roadCorridorCellsFromSegments,
+  roadProfileForTopology,
   roadSegmentId,
   type GridCell,
   type UrbanFacility,
@@ -33,13 +34,15 @@ function generated() {
 }
 
 /**
- * V.l.4 (D-104) · el suelo vial con el que se generó el distrito: corredor completo en versión 3,
+ * D-104 · el suelo vial con el que se generó el distrito: corredor completo en versión 4,
  * eje de 1 celda en versión 2. Los invariantes de reparto y de conectividad se comprueban contra
  * ese suelo, no contra el eje a secas: una acera es suelo no edificable aunque no sea eje.
  */
 function roadGroundOf(district: ReturnType<typeof generated>): ReadonlySet<string> {
-  return district.roads.derivationVersion === 3
-    ? roadCorridorCellsFromSegments(district.roads.segments)
+  return district.roads.derivationVersion === 4
+    ? roadCorridorCellsFromSegments(district.roads.segments, (roadClass) =>
+        roadProfileForTopology(district.roads, roadClass),
+      )
     : roadCellsFromSegments(district.roads.segments);
 }
 
@@ -189,7 +192,7 @@ describe("V.d.1 flood-fill blocks", () => {
 describe("V.d.1 front-first multi-cell parcels", () => {
   it("covers each block with connected, front-facing parcels and canonical ids", () => {
     const district = generated();
-    const roads = roadCellsFromSegments(district.roads.segments);
+    const roads = roadGroundOf(district);
     const roadSegments = new Set(district.roads.segments.map((segment) => segment.id));
     const ids = new Set<string>();
     for (const parcel of district.parcels) {

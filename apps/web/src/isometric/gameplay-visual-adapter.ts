@@ -3,8 +3,12 @@ import type {
   BuildingType,
   ConstructionStage,
   GridCell,
+  RoadCellClass,
+  RoadCellRole,
+  RoadProfile,
   ViewProjectionV2,
 } from "@landlord/shared";
+import { roadCellRolesFromSegments } from "@landlord/shared";
 import type { GroundPlan, GroundRoadMarking, GroundSurface } from "../visual-slice/ground";
 import { buildingAssetStateFor, type ProjectedBuildingState } from "./building-sprites";
 import { constructionVisualStage } from "./construction-stages";
@@ -194,8 +198,10 @@ export type GameplayVisualModel = {
   publicSpaceFurniture: GameplayPublicSpaceFurniture[];
   /** Dressing del espacio libre de cada parcela por tipo de solar (V.h.5). Presentacional. */
   parcelDressing: GameplayParcelDressing[];
-  /** Metadatos presentacionales derivados de `projection.map.roads.cells`; no son datos de dominio. */
+  /** El eje autoritativo, usado para conectividad visual, cruces y orientación. */
   roadVisuals: readonly GameplayRoadVisual[];
+  /** Corredor proyectado: acera, calzada y mediana, sin consultar configuración mutable. */
+  roadSectionRoles: ReadonlyMap<string, RoadCellRole>;
 };
 
 export const ROAD_NEIGHBOUR_BITS = {
@@ -234,6 +240,42 @@ export type GameplayRoadVisual = {
   shape: RoadShape;
   orientation: RoadOrientation;
 };
+
+/**
+ * Reconstruye la sección transversal que ya publicó la simulación. `map.roads.cells` conserva el
+ * eje para v2 y para la conectividad; la anchura y los roles proceden del contrato de proyección.
+ * El fallback de eje único sólo sirve para proyecciones V1 históricas usadas por fixtures del web.
+ */
+export function deriveRoadSectionRoles(
+  projection: ViewProjectionV2,
+): ReadonlyMap<string, RoadCellRole> {
+  const section = projection.map.roadSection;
+  if (section?.segments.length && section.profiles.length) {
+    const profiles = new Map<RoadCellClass, RoadProfile>(
+      section.profiles.map((profile) => [
+        profile.id as RoadCellClass,
+        {
+          id: profile.id,
+          width: profile.width,
+          roles: profile.roles,
+          laneSenses: profile.laneSenses,
+        },
+      ]),
+    );
+    const segments = section.segments.map((segment) => ({
+      id: segment.id,
+      from: segment.from,
+      to: segment.to,
+      class: segment.profile as RoadCellClass,
+    }));
+    return roadCellRolesFromSegments(segments, (roadClass) => {
+      const profile = profiles.get(roadClass);
+      if (!profile) throw new Error(`Perfil vial proyectado ausente: ${roadClass}`);
+      return profile;
+    });
+  }
+  return new Map(projection.map.roads.cells.map((key) => [key, "carriageway"]));
+}
 
 export type RoadShapeInfo = { shape: RoadShape; orientation: RoadOrientation };
 
@@ -396,9 +438,59 @@ function roadProgress(road: GameplayRoadVisual): number {
   return road.orientation === "straight_ns" ? road.cell.y : road.cell.x;
 }
 
+function perpendicularCells(
+  road: GameplayRoadVisual,
+  distance: number,
+): readonly {
+  cell: GridCell;
+  side: "n" | "e" | "s" | "w";
+}[] {
+  if (road.orientation === "straight_ns") {
+    return [
+      { cell: { x: road.cell.x - distance, y: road.cell.y }, side: "w" },
+      { cell: { x: road.cell.x + distance, y: road.cell.y }, side: "e" },
+    ];
+  }
+  return [
+    { cell: { x: road.cell.x, y: road.cell.y - distance }, side: "n" },
+    { cell: { x: road.cell.x, y: road.cell.y + distance }, side: "s" },
+  ];
+}
+
+/** Carriles físicos para un tramo de eje; un eje de avenida puede ser la mediana, no una calzada. */
+function carriagewayCandidates(
+  road: GameplayRoadVisual,
+  roadSectionRoles: ReadonlyMap<string, RoadCellRole>,
+): readonly { cell: GridCell; side: "n" | "e" | "s" | "w" }[] {
+  const candidates: { cell: GridCell; side: "n" | "e" | "s" | "w" }[] = [];
+  if (roadSectionRoles.get(cellKey(road.cell)) === "carriageway") {
+    candidates.push({ cell: road.cell, side: "n" });
+  }
+  for (let distance = 1; distance <= 3; distance += 1) {
+    for (const candidate of perpendicularCells(road, distance)) {
+      if (roadSectionRoles.get(cellKey(candidate.cell)) === "carriageway")
+        candidates.push(candidate);
+    }
+  }
+  return candidates;
+}
+
+function sidewalkCandidates(
+  road: GameplayRoadVisual,
+  roadSectionRoles: ReadonlyMap<string, RoadCellRole>,
+): readonly { cell: GridCell; side: "n" | "e" | "s" | "w" }[] {
+  const candidates: { cell: GridCell; side: "n" | "e" | "s" | "w" }[] = [];
+  for (let distance = 1; distance <= 3; distance += 1) {
+    for (const candidate of perpendicularCells(road, distance)) {
+      if (roadSectionRoles.get(cellKey(candidate.cell)) === "sidewalk") candidates.push(candidate);
+    }
+  }
+  return candidates;
+}
+
 function hostCandidates(road: GameplayRoadVisual): readonly {
   cell: GridCell;
-  edge: "n" | "e" | "s" | "w";
+  side: "n" | "e" | "s" | "w";
 }[] {
   const sides =
     road.orientation === "straight_ns"
@@ -406,9 +498,9 @@ function hostCandidates(road: GameplayRoadVisual): readonly {
       : [CARDINAL_HOSTS[0], CARDINAL_HOSTS[2]];
   const ordered =
     spatialHash(road.cell.x, road.cell.y, 0x71f3) % 2 === 0 ? sides : sides.slice().reverse();
-  return ordered.map(({ dx, dy, edge }) => ({
+  return ordered.map(({ dx, dy, edge: side }) => ({
     cell: { x: road.cell.x + dx, y: road.cell.y + dy },
-    edge,
+    side,
   }));
 }
 
@@ -454,6 +546,25 @@ function hostIsFree(
   );
 }
 
+function sidewalkHostIsFree(
+  cell: GridCell,
+  mapWidth: number,
+  mapHeight: number,
+  parcelCells: ReadonlySet<string>,
+  treeCells: ReadonlySet<string>,
+  occupiedFurniture: ReadonlySet<string>,
+  constructionCells: ReadonlySet<string>,
+): boolean {
+  const key = cellKey(cell);
+  return (
+    inMap(cell, mapWidth, mapHeight) &&
+    !parcelCells.has(key) &&
+    !treeCells.has(key) &&
+    !occupiedFurniture.has(key) &&
+    !constructionCells.has(key)
+  );
+}
+
 /**
  * Genera mobiliario urbano sin Phaser. Los hosts viven junto al bordillo, nunca en carretera ni en
  * parcela; las uniones reservan el espacio de V.c.3A y las reglas son sólo visuales.
@@ -466,8 +577,12 @@ export function planGameplayStreetFurniture(
   mapWidth: number,
   mapHeight: number,
   profile?: DistrictVisualProfile,
+  roadSectionRoles?: ReadonlyMap<string, RoadCellRole>,
 ): GameplayStreetFurniture[] {
-  const roadCells = new Set(roadVisuals.map((road) => cellKey(road.cell)));
+  const roles =
+    roadSectionRoles ??
+    new Map<string, RoadCellRole>(roadVisuals.map((road) => [cellKey(road.cell), "carriageway"]));
+  const roadCells = new Set(roles.keys());
   /** Toda prueba de ocupación recorre `geometryCells`: el ancla ya no representa a la parcela. */
   const parcelCells = new Set(parcels.flatMap((parcel) => geometryCells(parcel).map(cellKey)));
   const treeSet = new Set(treeCells.map(cellKey));
@@ -493,20 +608,48 @@ export function planGameplayStreetFurniture(
 
   // Un cruce pleno recibe dos semáforos opuestos; las T no se convierten en cruces regulados.
   for (const junction of roadVisuals.filter((road) => road.shape === "intersection")) {
-    const candidates = [
-      { cell: { x: junction.cell.x - 1, y: junction.cell.y - 1 }, azimuth: 225 as const },
-      { cell: { x: junction.cell.x + 1, y: junction.cell.y + 1 }, azimuth: 45 as const },
-      { cell: { x: junction.cell.x + 1, y: junction.cell.y - 1 }, azimuth: 225 as const },
-      { cell: { x: junction.cell.x - 1, y: junction.cell.y + 1 }, azimuth: 45 as const },
-    ];
-    const pairs = [
-      [candidates[0]!, candidates[1]!],
-      [candidates[2]!, candidates[3]!],
-    ];
+    const pairs = (roadSectionRoles ? [1, 2, 3] : [1]).flatMap((distance) => {
+      const candidates = [
+        {
+          cell: { x: junction.cell.x - distance, y: junction.cell.y - distance },
+          azimuth: 225 as const,
+        },
+        {
+          cell: { x: junction.cell.x + distance, y: junction.cell.y + distance },
+          azimuth: 45 as const,
+        },
+        {
+          cell: { x: junction.cell.x + distance, y: junction.cell.y - distance },
+          azimuth: 225 as const,
+        },
+        {
+          cell: { x: junction.cell.x - distance, y: junction.cell.y + distance },
+          azimuth: 45 as const,
+        },
+      ];
+      return [
+        [candidates[0]!, candidates[1]!],
+        [candidates[2]!, candidates[3]!],
+      ];
+    });
     const pair = pairs.find(([first, second]) => {
       if (!first || !second) return false;
-      return [first, second].every((candidate) =>
-        hostIsFree(
+      return [first, second].every((candidate) => {
+        if (roadSectionRoles) {
+          return (
+            roles.get(cellKey(candidate.cell)) === "sidewalk" &&
+            sidewalkHostIsFree(
+              candidate.cell,
+              mapWidth,
+              mapHeight,
+              parcelCells,
+              treeSet,
+              occupied,
+              constructionCells,
+            )
+          );
+        }
+        return hostIsFree(
           candidate.cell,
           mapWidth,
           mapHeight,
@@ -515,8 +658,8 @@ export function planGameplayStreetFurniture(
           treeSet,
           occupied,
           constructionCells,
-        ),
-      );
+        );
+      });
     });
     if (!pair) continue;
     for (const { cell, azimuth } of pair) {
@@ -556,17 +699,29 @@ export function planGameplayStreetFurniture(
       const progress = roadProgress(road);
       if ((lastPlaced.get(line) ?? Number.NEGATIVE_INFINITY) + spacing > progress) continue;
       if (spatialHash(road.cell.x, road.cell.y, salt) % 100 >= threshold) continue;
-      const host = hostCandidates(road).find(({ cell }) =>
-        hostIsFree(
-          cell,
-          mapWidth,
-          mapHeight,
-          roadCells,
-          parcelCells,
-          treeSet,
-          occupied,
-          constructionCells,
-        ),
+      const sidewalks = sidewalkCandidates(road, roles);
+      const candidates = sidewalks.length > 0 ? sidewalks : hostCandidates(road);
+      const host = candidates.find(({ cell }) =>
+        sidewalks.length > 0
+          ? sidewalkHostIsFree(
+              cell,
+              mapWidth,
+              mapHeight,
+              parcelCells,
+              treeSet,
+              occupied,
+              constructionCells,
+            )
+          : hostIsFree(
+              cell,
+              mapWidth,
+              mapHeight,
+              roadCells,
+              parcelCells,
+              treeSet,
+              occupied,
+              constructionCells,
+            ),
       );
       if (!host) continue;
       if (
@@ -580,7 +735,7 @@ export function planGameplayStreetFurniture(
         asset,
         cell: host.cell,
         roadCell: { ...road.cell },
-        curbEdge: host.edge,
+        curbEdge: host.side,
         scale,
       });
       lastPlaced.set(line, progress);
@@ -643,24 +798,15 @@ export function planGameplayParkedVehicles(
   mapHeight: number,
   reservedRoadCells: ReadonlySet<string> = new Set(),
   profile?: DistrictVisualProfile,
+  roadSectionRoles?: ReadonlyMap<string, RoadCellRole>,
 ): GameplayParkedVehicle[] {
-  const roadCells = new Set(roadVisuals.map((road) => cellKey(road.cell)));
-  const parcelCells = new Set(parcels.flatMap((parcel) => geometryCells(parcel).map(cellKey)));
-  const treeSet = new Set(treeCells.map(cellKey));
-  const furnitureCells = new Set(furniture.map((entry) => cellKey(entry.cell)));
-  const constructionCells = new Set(
-    parcels
-      .filter((parcel) => constructionParcelIds.has(parcel.id))
-      .flatMap((parcel) => {
-        const cells = geometryCells(parcel).map(cellKey);
-        for (const cell of geometryCells(parcel)) {
-          for (const neighbour of CARDINAL_HOSTS) {
-            cells.push(`${String(cell.x + neighbour.dx)}:${String(cell.y + neighbour.dy)}`);
-          }
-        }
-        return cells;
-      }),
-  );
+  void parcels;
+  void constructionParcelIds;
+  void treeCells;
+  void furniture;
+  const roles =
+    roadSectionRoles ??
+    new Map<string, RoadCellRole>(roadVisuals.map((road) => [cellKey(road.cell), "carriageway"]));
   const junctions = roadVisuals.filter(isJunction).map((road) => road.cell);
   const occupied = new Set<string>();
   const vehicles: GameplayParkedVehicle[] = [];
@@ -683,47 +829,26 @@ export function planGameplayParkedVehicles(
     if ((lastByLine.get(line) ?? Number.NEGATIVE_INFINITY) + minimumVehicleGap > progress) continue;
     const vehicleThreshold = Math.max(0, Math.min(100, Math.round(45 * vehicleDensity)));
     if (spatialHash(road.cell.x, road.cell.y, 0xc4d5) % 100 >= vehicleThreshold) continue;
-    const preferred = spatialHash(road.cell.x, road.cell.y, 0xe6f7) % 2 === 0;
-    const sides =
-      road.orientation === "straight_ns"
-        ? preferred
-          ? (["e", "w"] as const)
-          : (["w", "e"] as const)
-        : preferred
-          ? (["n", "s"] as const)
-          : (["s", "n"] as const);
-    const side = sides.find((value) => {
-      const host =
-        value === "n"
-          ? { x: road.cell.x, y: road.cell.y - 1 }
-          : value === "e"
-            ? { x: road.cell.x + 1, y: road.cell.y }
-            : value === "s"
-              ? { x: road.cell.x, y: road.cell.y + 1 }
-              : { x: road.cell.x - 1, y: road.cell.y };
-      return (
-        inMap(host, mapWidth, mapHeight) &&
-        !roadCells.has(cellKey(host)) &&
-        !parcelCells.has(cellKey(host)) &&
-        !treeSet.has(cellKey(host)) &&
-        !furnitureCells.has(cellKey(host)) &&
-        !constructionCells.has(cellKey(host))
-      );
-    });
-    if (!side || occupied.has(cellKey(road.cell))) continue;
-    occupied.add(cellKey(road.cell));
+    const lanes = carriagewayCandidates(road, roles).filter((candidate) =>
+      inMap(candidate.cell, mapWidth, mapHeight),
+    );
+    if (lanes.length === 0) continue;
+    const lane = lanes[spatialHash(road.cell.x, road.cell.y, 0xe6f7) % lanes.length]!;
+    if (occupied.has(cellKey(lane.cell)) || reservedRoadCells.has(cellKey(lane.cell))) continue;
+    occupied.add(cellKey(lane.cell));
     const variant = spatialHash(road.cell.x, road.cell.y, 0xf809) % 100;
     const asset: GameplayParkedVehicle["asset"] =
       variant < 55 ? "veh_sedan" : variant < 80 ? "veh_taxi" : "veh_truck";
     const reverseDirection = spatialHash(road.cell.x, road.cell.y, 0x17b3) % 2 === 1;
     const azimuth = vehicleAzimuthForRoad(road.orientation, reverseDirection);
     vehicles.push({
-      id: `parked-${asset}:${cellKey(road.cell)}:${side}`,
+      id: `parked-${asset}:${cellKey(lane.cell)}`,
       asset,
-      roadCell: { ...road.cell },
-      side,
+      roadCell: { ...lane.cell },
+      side: lane.side,
       azimuth,
-      lateralOffset: 0.28,
+      // El carril es ya una celda física del corredor: nunca se desplaza el sprite hacia terreno.
+      lateralOffset: 0,
       longitudinalOffset: ((spatialHash(road.cell.x, road.cell.y, 0xa10b) % 3) - 1) * 0.08,
       scale: asset === "veh_truck" ? 0.92 : 0.88,
     });
@@ -774,8 +899,12 @@ export function planGameplayContextVehicles(
   roadVisuals: readonly GameplayRoadVisual[],
   mapWidth: number,
   mapHeight: number,
+  roadSectionRoles?: ReadonlyMap<string, RoadCellRole>,
 ): GameplayContextVehicle[] {
   if (mapWidth <= 0 || mapHeight <= 0) return [];
+  const roles =
+    roadSectionRoles ??
+    new Map<string, RoadCellRole>(roadVisuals.map((road) => [cellKey(road.cell), "carriageway"]));
   const junctions = roadVisuals.filter(isJunction).map((road) => road.cell);
   const straights = roadVisuals.filter((road) => road.shape === "straight");
   const out: GameplayContextVehicle[] = [];
@@ -789,30 +918,39 @@ export function planGameplayContextVehicles(
     for (const road of straights) {
       if (isNearJunction(road.cell, junctions)) continue;
       for (const [side, delta] of SIDE_DELTAS) {
-        const host = { x: road.cell.x + delta.x, y: road.cell.y + delta.y };
-        if (footprint.some((cell) => cell.x === host.x && cell.y === host.y)) {
-          curbs.push({ road, side });
-          break;
+        for (let distance = 1; distance <= 3; distance += 1) {
+          const host = {
+            x: road.cell.x + delta.x * distance,
+            y: road.cell.y + delta.y * distance,
+          };
+          if (footprint.some((cell) => cell.x === host.x && cell.y === host.y)) {
+            curbs.push({ road, side });
+            break;
+          }
         }
       }
     }
     if (curbs.length === 0) continue;
     for (let i = 0; i < spec.count; i += 1) {
-      const free = curbs.filter((curb) => !usedRoadCells.has(cellKey(curb.road.cell)));
+      const free = curbs
+        .flatMap((curb) =>
+          carriagewayCandidates(curb.road, roles).map((lane) => ({ ...curb, lane })),
+        )
+        .filter((candidate) => !usedRoadCells.has(cellKey(candidate.lane.cell)));
       if (free.length === 0) break;
       const curb = free[spatialHash(anchor.x, anchor.y, 0x7c1 + i * 0x2f) % free.length]!;
-      usedRoadCells.add(cellKey(curb.road.cell));
+      usedRoadCells.add(cellKey(curb.lane.cell));
       const reverseDirection = spatialHash(anchor.x, anchor.y, 0x31d5 + i * 0x53) % 2 === 1;
       const azimuth = vehicleAzimuthForRoad(curb.road.orientation, reverseDirection);
       out.push({
-        id: `ctx-${building.id}:${spec.asset}:${cellKey(curb.road.cell)}:${i}`,
+        id: `ctx-${building.id}:${spec.asset}:${cellKey(curb.lane.cell)}:${i}`,
         buildingId: building.id,
         vehicleClass: spec.vehicleClass,
         asset: spec.asset,
-        roadCell: { ...curb.road.cell },
-        side: curb.side,
+        roadCell: { ...curb.lane.cell },
+        side: curb.lane.side,
         azimuth,
-        lateralOffset: 0.28,
+        lateralOffset: 0,
         longitudinalOffset: ((spatialHash(anchor.x, anchor.y, 0x9a3 + i) % 3) - 1) * 0.08,
         scale:
           spec.asset === "veh_truck" ||
@@ -895,8 +1033,12 @@ export function planGameplayContextActors(
   reservedRoadCells: ReadonlySet<string>,
   mapWidth: number,
   mapHeight: number,
+  roadSectionRoles?: ReadonlyMap<string, RoadCellRole>,
 ): GameplayContextActor[] {
   if (mapWidth <= 0 || mapHeight <= 0) return [];
+  const roles =
+    roadSectionRoles ??
+    new Map<string, RoadCellRole>(roadVisuals.map((road) => [cellKey(road.cell), "carriageway"]));
   const junctions = roadVisuals.filter(isJunction).map((road) => road.cell);
   const straights = roadVisuals.filter((road) => road.shape === "straight");
   const out: GameplayContextActor[] = [];
@@ -906,9 +1048,22 @@ export function planGameplayContextActors(
     if (!spec || building.footprintCells.length === 0) continue;
     const footprint = building.footprintCells;
     const anchor = footprint[0]!;
-    const curbs: { road: GameplayRoadVisual; side: "n" | "e" | "s" | "w" }[] = [];
+    const curbs: { road: GameplayRoadVisual; sidewalk: GridCell; side: "n" | "e" | "s" | "w" }[] =
+      [];
     for (const road of straights) {
       if (isNearJunction(road.cell, junctions)) continue;
+      const sidewalks = sidewalkCandidates(road, roles);
+      if (sidewalks.length > 0) {
+        for (const sidewalk of sidewalks) {
+          const frontageDistance = Math.min(
+            ...footprint.map((cell) => manhattanDistance(cell, sidewalk.cell)),
+          );
+          if (frontageDistance <= 1 && !reservedRoadCells.has(cellKey(sidewalk.cell))) {
+            curbs.push({ road, sidewalk: sidewalk.cell, side: sidewalk.side });
+          }
+        }
+        continue;
+      }
       for (const [side, delta] of SIDE_DELTAS) {
         const host = { x: road.cell.x + delta.x, y: road.cell.y + delta.y };
         const frontageDistance = Math.min(
@@ -917,24 +1072,24 @@ export function planGameplayContextActors(
         // Un vehículo puede ocupar la celda exacta del acceso. En ese caso el profesional usa el
         // tramo contiguo del mismo bordillo (una celda longitudinal), sin saltar a calzada central.
         if (frontageDistance <= 1 && !reservedRoadCells.has(cellKey(road.cell))) {
-          curbs.push({ road, side });
+          curbs.push({ road, sidewalk: road.cell, side });
           break;
         }
       }
     }
     if (curbs.length === 0) continue;
-    const free = curbs.filter((curb) => !used.has(cellKey(curb.road.cell)));
+    const free = curbs.filter((curb) => !used.has(cellKey(curb.sidewalk)));
     if (free.length === 0) continue;
     const curb = free[spatialHash(anchor.x, anchor.y, 0x4b7c) % free.length]!;
-    used.add(cellKey(curb.road.cell));
+    used.add(cellKey(curb.sidewalk));
     out.push({
-      id: `ctxa-${building.id}:${spec.character}:${cellKey(curb.road.cell)}`,
+      id: `ctxa-${building.id}:${spec.character}:${cellKey(curb.sidewalk)}`,
       buildingId: building.id,
       actorClass: spec.actorClass,
       character: spec.character,
-      cell: { ...curb.road.cell },
+      cell: { ...curb.sidewalk },
       curbEdge: curb.side,
-      lateralOffset: 0.46,
+      lateralOffset: 0,
       direction: (spatialHash(anchor.x, anchor.y, 0x2f1) % 4) as 0 | 1 | 2 | 3,
       animation: "idle",
       slot: 0,
@@ -1543,6 +1698,7 @@ export function planGameplayGround(
   roadCells: ReadonlySet<string> | ReadonlyArray<string> = [],
   roadMarkings: readonly GroundRoadMarking[] = [],
   publicSpaces: ReadonlyArray<{ kind: string; cells: readonly GridCell[] }> = [],
+  roadSectionRoles?: ReadonlyMap<string, RoadCellRole>,
 ): GroundPlan {
   const surfaces = new Map<string, GroundSurface>();
   for (let y = 0; y < mapHeight; y += 1) {
@@ -1597,10 +1753,17 @@ export function planGameplayGround(
     for (const cell of space.cells) surfaces.set(cellKey(cell), surface);
   }
 
-  // La calzada se aplica al final para que ROAD > apron > parcela > base sea una regla explícita.
-  // Las strings proceden únicamente de ViewProjectionV2.map.roads.cells; no se infiere geometría.
-  for (const key of roadSet(roadCells)) {
-    if (surfaces.has(key)) surfaces.set(key, "asphalt");
+  // La sección vial se aplica al final: corredor > apron > parcela > base. Los roles vienen de
+  // `map.roadSection`; el fallback conserva el eje de una celda para fixtures V1 y saves v2.
+  const roles =
+    roadSectionRoles ??
+    new Map<string, RoadCellRole>([...roadSet(roadCells)].map((key) => [key, "carriageway"]));
+  for (const [key, role] of roles) {
+    if (!surfaces.has(key)) continue;
+    surfaces.set(
+      key,
+      role === "carriageway" ? "asphalt" : role === "sidewalk" ? "pavement" : "median",
+    );
   }
 
   return {
@@ -1720,7 +1883,8 @@ const NEIGHBOURS = [
  */
 export function gameplayGeometryKey(projection: ViewProjectionV2): string {
   const economy = projection.economy;
-  if (!economy) return `roads:${projection.map.roads.digest}`;
+  const sectionDigest = projection.map.roadSection?.digest ?? projection.map.roads.digest;
+  if (!economy) return `roads:${projection.map.roads.digest}|section:${sectionDigest}`;
   const constructionParcelIds = new Set(
     economy.constructionSites.flatMap((site) => site.parcelIds),
   );
@@ -1741,7 +1905,7 @@ export function gameplayGeometryKey(projection: ViewProjectionV2): string {
       return `${cells},${parcel.zoning},${parcel.disposition ?? "marketable"},${status}`;
     })
     .sort();
-  return fnv1a32(`${projection.map.roads.digest}|${parts.join("|")}`).toString(16);
+  return fnv1a32(`${projection.map.roads.digest}|${sectionDigest}|${parts.join("|")}`).toString(16);
 }
 
 export function buildGameplayVisualModel(
@@ -1752,7 +1916,8 @@ export function buildGameplayVisualModel(
   const economy = projection.economy;
   const parcels = economy?.parcels ?? [];
   const roadVisuals = deriveRoadVisuals(projection.map.roads);
-  const roadCellKeys = new Set(projection.map.roads.cells);
+  const roadSectionRoles = deriveRoadSectionRoles(projection);
+  const roadCellKeys = new Set(roadSectionRoles.keys());
   const constructionParcelIds = new Set(
     (economy?.constructionSites ?? []).flatMap((site) => site.parcelIds),
   );
@@ -1800,6 +1965,7 @@ export function buildGameplayVisualModel(
     roadCellKeys,
     deriveRoadMarkings(projection.map.roads),
     projection.publicSpaces,
+    roadSectionRoles,
   );
   groundPlan.treeCells = treeCells;
   const streetFurniture = planGameplayStreetFurniture(
@@ -1810,6 +1976,7 @@ export function buildGameplayVisualModel(
     mapWidth,
     mapHeight,
     districtProfile,
+    roadSectionRoles,
   );
   const contextBuildings = (economy?.buildings ?? []).map((building) => ({
     id: building.id,
@@ -1821,6 +1988,7 @@ export function buildGameplayVisualModel(
     roadVisuals,
     mapWidth,
     mapHeight,
+    roadSectionRoles,
   );
   const reservedVehicleRoads = new Set(contextVehicles.map((vehicle) => cellKey(vehicle.roadCell)));
   const ambientActors = planGameplayAmbientActors(
@@ -1836,6 +2004,7 @@ export function buildGameplayVisualModel(
     reservedVehicleRoads,
     mapWidth,
     mapHeight,
+    roadSectionRoles,
   );
   const reservedStreetLifeRoads = new Set([
     ...reservedVehicleRoads,
@@ -1851,6 +2020,7 @@ export function buildGameplayVisualModel(
     mapHeight,
     reservedStreetLifeRoads,
     districtProfile,
+    roadSectionRoles,
   );
   const publicSpaceFurniture = planGameplayPublicSpaceFurniture(
     projection.publicSpaces ?? [],
@@ -1888,5 +2058,6 @@ export function buildGameplayVisualModel(
     publicSpaceFurniture,
     parcelDressing,
     roadVisuals,
+    roadSectionRoles,
   };
 }

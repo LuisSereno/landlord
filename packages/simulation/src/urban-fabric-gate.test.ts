@@ -9,6 +9,8 @@ import {
   parseSeed,
   parseCityProfileId,
   roadCellsFromSegments,
+  roadCorridorCellsFromSegments,
+  roadProfileForTopology,
   type GridCell,
   type RoadAnchor,
 } from "@landlord/shared";
@@ -101,7 +103,12 @@ describe.skipIf(!enabled)("V.d.1 gate de tejido urbano", () => {
           (attemptsHistogram.get(district.report.attempts) ?? 0) + 1,
         );
 
-        const roads = roadCellsFromSegments(district.roads.segments);
+        const roads =
+          district.roads.derivationVersion === 4
+            ? roadCorridorCellsFromSegments(district.roads.segments, (roadClass) =>
+                roadProfileForTopology(district.roads, roadClass),
+              )
+            : roadCellsFromSegments(district.roads.segments);
         for (const gateway of gatewayCells) {
           expect(roads.has(cellKey(gateway)), `${profile.id}/${seed} gateway`).toBe(true);
         }
@@ -130,6 +137,7 @@ describe.skipIf(!enabled)("V.d.1 gate de tejido urbano", () => {
           connectSpawns: profile.fabric.connectSpawns,
           motorwayAxis: profile.motorwayAxis,
           roadCorridor: profile.roadCorridor,
+          roadSectionVariant: profile.roadSectionVariant,
           width: profile.width,
           height: profile.height,
         });

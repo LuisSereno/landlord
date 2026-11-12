@@ -12,7 +12,12 @@ import {
 
 import { dispatchProductCommand } from "./commands";
 import { enumeratePurchasableDevelopmentSites } from "./development-site";
-import { BUILDING_DEFINITIONS, GAME_DAY_TICKS, GAME_HOUR_TICKS, PLAYER_ORGANIZATION_ID } from "./game-data";
+import {
+  BUILDING_DEFINITIONS,
+  GAME_DAY_TICKS,
+  GAME_HOUR_TICKS,
+  PLAYER_ORGANIZATION_ID,
+} from "./game-data";
 import { reconcileParcelUses } from "./building-index";
 import { describeAutomation } from "./automation";
 import { canonicalizeState } from "./runner";
@@ -139,14 +144,17 @@ describe.skipIf(!ENABLED)("Gate E · gameplay automático con comandos reales", 
     // Alquiler: colocar inquilinos donde haya disponibles y cobrar un mes. El mercado de vivienda
     // también coloca hogares por su cuenta; lo que se exige es ocupación y renta reales.
     const rentable = [...state.phase2.buildings.values()].filter(
-      (b) => b.ownerOrganizationId === PLAYER_ORGANIZATION_ID && BUILDING_DEFINITIONS[b.type].capacity > 0,
+      (b) =>
+        b.ownerOrganizationId === PLAYER_ORGANIZATION_ID &&
+        BUILDING_DEFINITIONS[b.type].capacity > 0,
     );
     expect(rentable.length).toBeGreaterThan(0);
     let assigned = 0;
     for (const building of rentable) {
       const tenant = [...state.phase2.tenants.values()].find((t) => t.status === "available");
       if (!tenant) break;
-      if (emit("AssignTenant", { buildingId: building.id, tenantId: tenant.id }).accepted) assigned += 1;
+      if (emit("AssignTenant", { buildingId: building.id, tenantId: tenant.id }).accepted)
+        assigned += 1;
     }
     const cashBefore = state.phase2.balances.get(PLAYER_ORGANIZATION_ID)!;
     advance(state, GAME_DAY_TICKS * 31);
@@ -174,7 +182,9 @@ describe.skipIf(!ENABLED)("Gate E · gameplay automático con comandos reales", 
     // para no dejar contratos colgando. El fuego es un sistema; se siembra el incidente como fixture
     // (igual que H1-10) y la progresión y la limpieza corren por el motor.
     const burn = [...state.phase2.buildings.values()].find(
-      (b) => b.ownerOrganizationId === PLAYER_ORGANIZATION_ID && BUILDING_DEFINITIONS[b.type].capacity === 0,
+      (b) =>
+        b.ownerOrganizationId === PLAYER_ORGANIZATION_ID &&
+        BUILDING_DEFINITIONS[b.type].capacity === 0,
     )!;
     expect(burn, "edificio industrial sin inquilinos para quemar").toBeDefined();
     const incidentId = parseIncidentId("incident_00000091");
@@ -197,7 +207,9 @@ describe.skipIf(!ENABLED)("Gate E · gameplay automático con comandos reales", 
     state.phase2.buildings.get(burn.id)!.state = "ruin";
     for (const parcelId of burn.parcelIds) reconcileParcelUses(state, parcelId);
     expect(emit("ClearRuin", { buildingId: burn.id }).accepted).toBe(true);
-    const clearSite = [...state.phase2.constructionSites.values()].find((s) => s.kind === "clear_ruin")!;
+    const clearSite = [...state.phase2.constructionSites.values()].find(
+      (s) => s.kind === "clear_ruin",
+    )!;
     expect(clearSite).toBeDefined();
     clearSite.progress = clearSite.workRequired;
     advance(state, GAME_HOUR_TICKS);

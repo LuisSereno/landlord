@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* global setTimeout, window, document, HTMLElement, HTMLButtonElement */
+/* global setTimeout, window, document */
 
 /**
  * Gate D · QA de píxeles del sistema vial sobre la app real (Phaser). Captura avenida horizontal y

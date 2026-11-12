@@ -184,6 +184,8 @@ type CellAccumulator = {
   axisOrientations: Set<"horizontal" | "vertical">;
   /** Rol central del primer segmento, en orden canónico, cuyo eje pasa por aquí. */
   axisRole: RoadCellRole | null;
+  /** Sentido central del eje propio: el que manda cuando la regla 2 conserva el rol del eje. */
+  axisLaneSense: LaneSense | null;
   bestRole: RoadCellRole;
   bestLaneSense: LaneSense | null;
   bestAxisOrientation: "horizontal" | "vertical";
@@ -247,6 +249,7 @@ function crossSectionByCell(
             axisOrientations:
               offset === 0 ? new Set([dx === 0 ? "vertical" : "horizontal"]) : new Set(),
             axisRole: offset === 0 ? role : null,
+            axisLaneSense: offset === 0 ? profile.laneSenses[index]! : null,
             bestRole: role,
             bestLaneSense: profile.laneSenses[index]!,
             bestAxisOrientation: axisOrientation,
@@ -262,6 +265,7 @@ function crossSectionByCell(
         if (offset === 0) {
           current.axisOrientations.add(axisOrientation);
           current.axisRole ??= role;
+          current.axisLaneSense ??= profile.laneSenses[index]!;
         }
         if (rank > current.bestRank || (rank === current.bestRank && offset < current.bestOffset)) {
           current.bestRole = role;
@@ -323,7 +327,9 @@ export function roadCellRolesFromSegments(
 /**
  * Rich, deterministic road-section contract for render consumers. In a junction the cell is a
  * bidirectional carriageway: it must never inherit a one-way lane from an arbitrary incoming
- * segment. Outside junctions its sense and direction belong to the winning physical lane.
+ * segment. Outside junctions the sense belongs to the published role: an axis cell keeps its own
+ * center sense (rule 2 of `resolveRole`), never the sense of a higher-profile lateral that merely
+ * covers it; a pure lateral cell uses the winning physical lane.
  */
 export function roadSectionCellsFromSegments(
   segments: readonly RoadSegment[],
@@ -335,7 +341,11 @@ export function roadSectionCellsFromSegments(
       cell.axisOrientations.has("horizontal") && cell.axisOrientations.has("vertical");
     section.set(key, {
       role: resolveRole(cell),
-      laneSense: crossing ? "both" : cell.bestLaneSense,
+      laneSense: crossing
+        ? "both"
+        : cell.axisOrientations.size === 1
+          ? cell.axisLaneSense
+          : cell.bestLaneSense,
       axisOrientation: cell.bestAxisOrientation,
       axisDirection: cell.bestAxisDirection,
       profile: cell.bestProfile,

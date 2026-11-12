@@ -1,0 +1,63 @@
+{
+  "measuredAt": "2026-11-12T19:37:07.812Z",
+  "seed": 7,
+  "privateTypesBuilt": [
+    "apartment_block",
+    "brickworks",
+    "cement_plant",
+    "courtyard_home",
+    "mixed_tenement",
+    "row_house",
+    "steelworks",
+    "warehouse",
+    "workshop"
+  ],
+  "cityTypeCount": 15,
+  "tenantsAssigned": 0,
+  "rentCollected": true,
+  "automationContractedDelta": 0,
+  "automationRoutineTasks": 6,
+  "commandAudit": {
+    "BuyParcel": {
+      "accepted": 14,
+      "rejected": 0
+    },
+    "RequestPermit": {
+      "accepted": 9,
+      "rejected": 0
+    },
+    "StartConstruction": {
+      "accepted": 9,
+      "rejected": 0
+    },
+    "AllocateCrew": {
+      "accepted": 9,
+      "rejected": 0
+    },
+    "TransferCrew": {
+      "accepted": 4,
+      "rejected": 0
+    },
+    "AssignCrewToWorkOrder": {
+      "accepted": 9,
+      "rejected": 0
+    },
+    "AssignTenant": {
+      "accepted": 0,
+      "rejected": 5
+    },
+    "RepairBuilding": {
+      "accepted": 1,
+      "rejected": 0
+    },
+    "ClearRuin": {
+      "accepted": 1,
+      "rejected": 0
+    },
+    "SetAutomationPolicy": {
+      "accepted": 1,
+      "rejected": 0
+    }
+  },
+  "saveLoadDeterministic": true
+}

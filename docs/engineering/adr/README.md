@@ -126,3 +126,10 @@ para la sección transversal) y de D-090 §2 (`derivationVersion` 2 → 4). Mant
 red, `roadSegmentId` intacto, las cuatro semánticas de D-085 §1 y la regla de que el corredor nunca
 entra en `blockedCells`. D-085 no tiene ADR propio (deuda documental anotada arriba), así que la
 enmienda se marca también en su entrada condensada de `ai-context/DECISIONS.md`.
+
+## Integridad de oferta de suelo (2026-11-12)
+
+- [D-106 — Solares de mercado accionables](D-106-solares-de-mercado-accionables.md) — ACEPTADA
+
+Toda parcela de mercado debe admitir una colocación privada por sí misma o dentro de un sitio
+multi-parcela legal; las geometrías residuales no se comercializan como suelo edificable.

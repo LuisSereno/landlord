@@ -905,6 +905,16 @@ estructural: el eje como verdad de red, `RoadSegment`/`roadSegmentId`, `roadCell
 entra en `blockedCells`. Tráfico simulado, nombres y reglas de producto siguen fuera. Ver
 `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`.
 
+## D-106 — Solares de mercado accionables
+
+Estado: aceptada el 2026-11-12 por el responsable. Una parcela vacante `marketable` debe permitir
+una jugada privada legal: una construcción de una parcela o formar parte de un sitio exacto
+multi-parcela con una colocación autoritativa válida. No se fuerza que toda parcela pequeña admita
+un edificio aislado ni que sea asequible de inicio. Si no participa en ninguna opción legal, la
+geometría residual se fusiona o deja de ser comercializable; no se expone como oportunidad de compra.
+El gate V.d-7C verifica esta propiedad con la enumeración y las candidatas autoritativas compartidas.
+Ver `docs/engineering/adr/D-106-solares-de-mercado-accionables.md`.
+
 ## D-105 — Grado diurno neutro-cálido y selector de presentación
 
 Estado: aceptada el 2026-11-11 tras revisión visual del render ancla `row_house` con la misma

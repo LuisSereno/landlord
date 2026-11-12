@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-11-12T19:04:12.460Z",
+  "baseUrl": "http://127.0.0.1:4183/",
+  "shots": [
+    {
+      "id": "avenue-horizontal-20x",
+      "path": "docs/art/world-visual-foundation/pixel-qa/road-avenue-horizontal-20x.png",
+      "sha256": "0f908f8e51297971f11e5276b168d87c62424a3ae7c3cc1083431f71d57a6ddc"
+    },
+    {
+      "id": "avenue-vertical-20x",
+      "path": "docs/art/world-visual-foundation/pixel-qa/road-avenue-vertical-20x.png",
+      "sha256": "e2e2f6ff490494de5ea3e5ec0133943ece39c51f01aba40c07141bdd3e9932b3"
+    },
+    {
+      "id": "intersection-20x",
+      "path": "docs/art/world-visual-foundation/pixel-qa/road-intersection-20x.png",
+      "sha256": "f2f463e79bf1a639bbc3057fcad65c0affa44ace5889187a78e5cf41a299d139"
+    },
+    {
+      "id": "buildings-carriageway-20x",
+      "path": "docs/art/world-visual-foundation/pixel-qa/road-buildings-carriageway-20x.png",
+      "sha256": "2d2334a0904e32e5330955bcced80aefca7f8df8e7df7c856de976b485f0bb85"
+    },
+    {
+      "id": "seam-v2-east-20x",
+      "path": "docs/art/world-visual-foundation/pixel-qa/road-seam-v2-east-20x.png",
+      "sha256": "06ae5faae52a58e5bdea21702ea3cd9e06d9560e4dbc7e8b06970794f98748e5"
+    },
+    {
+      "id": "seam-v4-west-20x",
+      "path": "docs/art/world-visual-foundation/pixel-qa/road-seam-v4-west-20x.png",
+      "sha256": "0a3d50d221b4ee9671289bdcac31bcae08f8e539f523acf20b8ed482aeb75718"
+    },
+    {
+      "id": "motorway-qa-20x",
+      "path": "docs/art/world-visual-foundation/pixel-qa/road-motorway-qa-20x.png",
+      "sha256": "993197e8b54e93c5a07a89d186b2689a2259529001a010bd76c40c67855bec03"
+    },
+    {
+      "id": "motorway-qa-10x",
+      "path": "docs/art/world-visual-foundation/pixel-qa/road-motorway-qa-10x.png",
+      "sha256": "80a79a51f6955b35e169a962d52e0cc921c3e972eefea28be70d193197454bdd"
+    }
+  ],
+  "pageErrors": []
+}

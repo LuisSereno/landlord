@@ -121,6 +121,10 @@
       "reason": "D-100: lámina pixel-qa V.h de distritos a 2x; evidencia de revisión de píxeles."
     },
     {
+      "path": "docs/art/world-visual-foundation/pixel-qa/district-vega-del-cauce-10x.png",
+      "reason": "Gate D (2026-11-12): captura pixel-qa de distrito regenerada >1 MiB; evidencia de revisión de píxeles."
+    },
+    {
       "path": "docs/art/quality-vi/candidates/apartment_block/vg_apartment_block_1002.png",
       "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
     },

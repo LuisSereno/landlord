@@ -39,6 +39,12 @@ export const CITY_PARCEL_COUNT_ENVELOPE = { min: 700, max: 760 } as const;
  * `vega_del_cauce`, `mercado_del_norte` y `patios_del_este` usan `ave3`, y
  * `ensanche_ferroviario_oeste` conserva la sección completa. La envolvente medida permanece en
  * 700–760 parcelas; estos valores son la baseline autoritativa de la cartera adoptada.
+ *
+ * Regeneración D-106 (2026-11-12), sólo seed 2026: la oferta de suelo accionable fusiona o
+ * reclasifica residuos de mercado; en esta seed la validación de mínimos recompone la geometría
+ * (+1 manzana industrial) y la ciudad queda en 718 parcelas (703 marketables / 15 públicas),
+ * dentro de la envolvente 700–760 sin tocarla. Las otras once seeds no cambian: su suelo ya era
+ * accionable. Control: programme municipal 14/7/14 intacto en las doce.
  */
 export const CITY_SEED_FIXTURES: readonly CitySeedFixture[] = [
   {
@@ -307,12 +313,12 @@ export const CITY_SEED_FIXTURES: readonly CitySeedFixture[] = [
   },
   {
     seed: 2026,
-    digest: "4c25bf428e54df8a",
+    digest: "b3d2d4782066e5a2",
     districtCount: 9,
-    blockCount: 119,
-    parcelCount: 724,
-    marketableParcelCount: 710,
-    publicParcelCount: 14,
+    blockCount: 120,
+    parcelCount: 718,
+    marketableParcelCount: 703,
+    publicParcelCount: 15,
     facilityCount: 14,
     publicSpaceCount: 7,
     municipalBuildingCount: 14,
@@ -324,7 +330,7 @@ export const CITY_SEED_FIXTURES: readonly CitySeedFixture[] = [
       commercial_corridor: 25,
       urban_residential: 29,
       low_density_residential: 6,
-      industrial_logistics: 40,
+      industrial_logistics: 41,
       institutional: 11,
       green_open_space: 0,
     },

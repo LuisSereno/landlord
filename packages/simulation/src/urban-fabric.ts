@@ -860,6 +860,23 @@ function parcelFrontageDepth(parcel: Pick<Parcel, "roadFrontages" | "cells">): {
   return { depth, frontageWidth };
 }
 
+/**
+ * D-106: el mismo envelope morfológico que `validateUrbanFabric` exige a una parcela marketable,
+ * como predicado puro. Lo consume el validador y la fusión de residuos de mercado, para que una
+ * fusión nunca produzca una parcela que el validador rechazaría después.
+ */
+export function parcelDepthFits(
+  parcel: Pick<Parcel, "cells" | "roadFrontages">,
+  config: UrbanFabricConfig,
+): boolean {
+  const measured = parcelFrontageDepth(parcel);
+  return (
+    measured.depth <= config.parcelDepthCells[1] &&
+    measured.depth <= Math.max(1, measured.frontageWidth) * config.maxParcelAspectRatio &&
+    parcel.cells.length <= config.parcelAreaCells[1]
+  );
+}
+
 export function validateUrbanFabric(input: {
   width: number;
   height: number;
@@ -985,11 +1002,7 @@ export function validateUrbanFabric(input: {
     }
     const bbox = bboxOf(parcel.cells);
     const measured = parcelFrontageDepth(parcel);
-    if (
-      measured.depth > input.config.parcelDepthCells[1] ||
-      measured.depth > Math.max(1, measured.frontageWidth) * input.config.maxParcelAspectRatio ||
-      parcel.cells.length > input.config.parcelAreaCells[1]
-    ) {
+    if (!parcelDepthFits(parcel, input.config)) {
       issues.push({
         code: "PARCEL_TOO_DEEP",
         detail: `${parcel.id} ${bbox.width}x${bbox.height} profundidad ${measured.depth} área ${parcel.cells.length}`,

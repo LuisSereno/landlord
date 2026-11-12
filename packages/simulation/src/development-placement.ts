@@ -1,6 +1,7 @@
 import {
   areCellGroupsEdgeConnected,
   canonicalParcelIds,
+  type Building,
   type BuildingDefinition,
   type BuildingType,
   type DevelopmentCode,
@@ -64,6 +65,65 @@ export type PlacementSiteResult =
   { ok: true; site: DevelopmentPlacementSite } | { ok: false; rejection: PlacementRejection };
 
 /**
+ * Contrato de solar puro (D-106): la misma secuencia de reglas que `StartConstruction`, sin
+ * propiedad, obras ni edificios. Los consumidores con estado inyectan sus comprobaciones en los
+ * puntos exactos donde el comando las hace; el generador y la sonda de accionabilidad las omiten
+ * porque evalúan suelo recién parcelado. Nadie reimplementa contigüidad, norma, usos o área.
+ */
+export function siteContractRejection(input: {
+  parcelIds: readonly ParcelId[];
+  parcels: readonly Parcel[];
+  definition: BuildingDefinition;
+  authorize?: (parcels: readonly Parcel[]) => PlacementRejection | null;
+  occupancy?: (parcels: readonly Parcel[]) => PlacementRejection | null;
+}): PlacementRejection | null {
+  const { parcels, definition } = input;
+  const requirements = definition.siteRequirements;
+  if (new Set(input.parcelIds).size !== input.parcelIds.length) return "DUPLICATE_PARCELS";
+  if (canonicalParcelIds(input.parcelIds).length !== requirements.requiredParcels)
+    return "WRONG_PARCEL_COUNT";
+  if (parcels.some((parcel) => parcel.disposition !== "marketable"))
+    return "PUBLIC_LAND_NOT_BUILDABLE";
+  const unauthorized = input.authorize?.(parcels);
+  if (unauthorized) return unauthorized;
+  const primary = parcels[0]!;
+  if (parcels.some((parcel) => parcel.districtId !== primary.districtId))
+    return "PARCELS_DIFFERENT_DISTRICT";
+  /** Alpha no mezcla normas: un proyecto multi-parcela exige el mismo código urbanístico. */
+  if (parcels.some((parcel) => parcel.developmentCodeId !== primary.developmentCodeId))
+    return "MIXED_DEVELOPMENT_CODES";
+  if (parcels.some((parcel) => !isParcelUseAllowed(parcel, definition))) return "USE_NOT_ALLOWED";
+  const occupied = input.occupancy?.(parcels);
+  if (occupied) return occupied;
+  if (
+    requirements.requireEdgeContiguous &&
+    !areCellGroupsEdgeConnected(parcels.map((parcel) => parcel.cells))
+  )
+    return "PARCELS_NOT_EDGE_CONTIGUOUS";
+  const combinedArea = parcels.reduce((total, parcel) => total + parcel.cells.length, 0);
+  if (combinedArea < requirements.minCombinedAreaCells) return "SITE_AREA_TOO_SMALL";
+  return null;
+}
+
+/** Frentes del solar y frente principal (avenida), con el mismo fallback que el comando. */
+export function siteFrontagesFor(
+  parcels: readonly Parcel[],
+  avenueSegmentIds: ReadonlySet<string>,
+): { frontages: RoadFrontage[]; principalFrontageCells: GridCell[] } {
+  const frontages = parcels.flatMap((parcel) => parcel.roadFrontages);
+  const principalFrontageCells = frontages
+    .filter((frontage) => avenueSegmentIds.has(frontage.roadSegmentId))
+    .flatMap((frontage) => frontage.cells);
+  return {
+    frontages,
+    principalFrontageCells:
+      principalFrontageCells.length > 0
+        ? principalFrontageCells
+        : frontages.flatMap((frontage) => frontage.cells),
+  };
+}
+
+/**
  * Validación de proyecto sobre el conjunto exacto de parcelas. Es el cuerpo que `StartConstruction`
  * ejecutaba en línea: mismos checks, mismo orden y mismo código de rechazo, sólo que ahora lo llama
  * también quien quiere enseñar opciones antes de despachar nada. Es de sólo lectura.
@@ -77,63 +137,54 @@ export function resolveDevelopmentPlacementSite(
   },
 ): PlacementSiteResult {
   const definition = BUILDING_DEFINITIONS[input.buildingType];
-  const requirements = definition.siteRequirements;
   if (new Set(input.parcelIds).size !== input.parcelIds.length)
     return { ok: false, rejection: "DUPLICATE_PARCELS" };
   const parcelIds = canonicalParcelIds(input.parcelIds);
-  if (parcelIds.length !== requirements.requiredParcels)
+  if (parcelIds.length !== definition.siteRequirements.requiredParcels)
     return { ok: false, rejection: "WRONG_PARCEL_COUNT" };
   const resolved = parcelIds.map((id) => state.phase2.parcels.get(id));
   if (resolved.some((entry) => entry === undefined))
     return { ok: false, rejection: "PARCEL_NOT_FOUND" };
   const parcels = resolved as Parcel[];
-  const primary = parcels[0]!;
-  if (parcels.some((parcel) => parcel.disposition !== "marketable"))
-    return { ok: false, rejection: "PUBLIC_LAND_NOT_BUILDABLE" };
-  if (parcels.some((parcel) => parcel.ownerOrganizationId !== input.organizationId))
-    return { ok: false, rejection: "ACTOR_NOT_AUTHORIZED" };
-  if (parcels.some((parcel) => parcel.districtId !== primary.districtId))
-    return { ok: false, rejection: "PARCELS_DIFFERENT_DISTRICT" };
-  /** Alpha no mezcla normas: un proyecto multi-parcela exige el mismo código urbanístico. */
-  if (parcels.some((parcel) => parcel.developmentCodeId !== primary.developmentCodeId))
-    return { ok: false, rejection: "MIXED_DEVELOPMENT_CODES" };
-  if (parcels.some((parcel) => !isParcelUseAllowed(parcel, definition)))
-    return { ok: false, rejection: "USE_NOT_ALLOWED" };
-  if (parcels.some((parcel) => activeSiteOnParcel(state, parcel.id)))
-    return { ok: false, rejection: "ACTIVE_SITE_ON_PARCEL" };
   const buildingIndex = buildBuildingIndex(state);
-  /**
-   * Un complejo reserva TODAS sus parcelas (D-096 §10): mientras exista obra, edificio o ruina, no
-   * se inicia otro proyecto en ninguna de ellas.
-   */
-  const occupiedByComplex = parcels.some((parcel) =>
-    buildingsOnParcel(buildingIndex, parcel.id).some((building) => building.parcelIds.length > 1),
-  );
-  if (
-    occupiedByComplex ||
-    (requirements.requiredParcels > 1 &&
-      parcels.some((parcel) => buildingsOnParcel(buildingIndex, parcel.id).length > 0))
-  )
-    return { ok: false, rejection: "PARCEL_OCCUPIED" };
-  if (
-    requirements.requireEdgeContiguous &&
-    !areCellGroupsEdgeConnected(parcels.map((parcel) => parcel.cells))
-  )
-    return { ok: false, rejection: "PARCELS_NOT_EDGE_CONTIGUOUS" };
-  const combinedArea = parcels.reduce((total, parcel) => total + parcel.cells.length, 0);
-  if (combinedArea < requirements.minCombinedAreaCells)
-    return { ok: false, rejection: "SITE_AREA_TOO_SMALL" };
-
-  const frontages = parcels.flatMap((parcel) => parcel.roadFrontages);
+  const rejection = siteContractRejection({
+    parcelIds,
+    parcels,
+    definition,
+    authorize: (sites) =>
+      sites.some((parcel) => parcel.ownerOrganizationId !== input.organizationId)
+        ? "ACTOR_NOT_AUTHORIZED"
+        : null,
+    occupancy: (sites) => {
+      if (sites.some((parcel) => activeSiteOnParcel(state, parcel.id)))
+        return "ACTIVE_SITE_ON_PARCEL";
+      /**
+       * Un complejo reserva TODAS sus parcelas (D-096 §10): mientras exista obra, edificio o ruina,
+       * no se inicia otro proyecto en ninguna de ellas.
+       */
+      const occupiedByComplex = sites.some((parcel) =>
+        buildingsOnParcel(buildingIndex, parcel.id).some(
+          (building) => building.parcelIds.length > 1,
+        ),
+      );
+      if (
+        occupiedByComplex ||
+        (definition.siteRequirements.requiredParcels > 1 &&
+          sites.some((parcel) => buildingsOnParcel(buildingIndex, parcel.id).length > 0))
+      )
+        return "PARCEL_OCCUPIED";
+      return null;
+    },
+  });
+  if (rejection) return { ok: false, rejection };
+  const primary = parcels[0]!;
   const avenueSegmentIds = new Set(
     state.world.districts
       .get(primary.districtId)!
       .map.roads.segments.filter((segment) => segment.class === "avenue")
       .map((segment) => segment.id as string),
   );
-  const principalFrontageCells = frontages
-    .filter((frontage) => avenueSegmentIds.has(frontage.roadSegmentId))
-    .flatMap((frontage) => frontage.cells);
+  const { frontages, principalFrontageCells } = siteFrontagesFor(parcels, avenueSegmentIds);
   return {
     ok: true,
     site: {
@@ -143,13 +194,51 @@ export function resolveDevelopmentPlacementSite(
       buildingType: input.buildingType,
       definition,
       frontages,
-      principalFrontageCells:
-        principalFrontageCells.length > 0
-          ? principalFrontageCells
-          : frontages.flatMap((frontage) => frontage.cells),
+      principalFrontageCells,
       occupiedBy: parcels.flatMap((parcel) => buildingsOnParcel(buildingIndex, parcel.id)),
     },
   };
+}
+
+/**
+ * D-106 · evaluación pura y única de «sitio accionable»: el contrato de solar del comando más la
+ * enumeración autoritativa de huellas (retranqueos, cobertura, FAR, frente y toque físico de cada
+ * parcela requerida). La consumen el generador tras parcelar y cualquier sonda de oferta; UI,
+ * comandos, IA y automatización siguen leyendo `enumerateDevelopmentPlacementCandidates`, que
+ * comparte exactamente estas reglas. Sin estado: ni propiedad, ni permisos, ni ordenanzas.
+ */
+export function evaluateActionableSite(input: {
+  parcels: readonly Parcel[];
+  definition: BuildingDefinition;
+  code: DevelopmentCode;
+  avenueSegmentIds?: ReadonlySet<string>;
+  occupiedBy?: readonly Pick<Building, "footprintCells" | "floors">[];
+}): { ok: true } | { ok: false; rejection: PlacementRejection } {
+  const { parcels, definition } = input;
+  const rejection = siteContractRejection({
+    parcelIds: parcels.map((parcel) => parcel.id),
+    parcels,
+    definition,
+  });
+  if (rejection) return { ok: false, rejection };
+  const { frontages, principalFrontageCells } = siteFrontagesFor(
+    parcels,
+    input.avenueSegmentIds ?? new Set(),
+  );
+  const site: DevelopmentPlacementSite = {
+    districtId: parcels[0]!.districtId,
+    parcelIds: canonicalParcelIds(parcels.map((parcel) => parcel.id)),
+    parcels: [...parcels],
+    buildingType: definition.type,
+    definition,
+    frontages,
+    principalFrontageCells,
+    occupiedBy: [...(input.occupiedBy ?? [])],
+  };
+  const enumeration = enumerateFootprintCandidates(footprintInputFor(site, input.code));
+  if (enumeration.candidates.length === 0)
+    return { ok: false, rejection: enumeration.rejection ?? "NO_BUILDABLE_ENVELOPE" };
+  return { ok: true };
 }
 
 /**

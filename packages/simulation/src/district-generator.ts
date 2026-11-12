@@ -43,6 +43,7 @@ import {
   PRIMARY_USE_BY_BUILDING_TYPE,
 } from "./game-data";
 import { chooseFootprint } from "./footprints";
+import { enforceMarketableActionability } from "./market-actionability";
 import {
   MUNICIPAL_FACILITY_CAPACITY,
   MUNICIPAL_FACILITY_SERVICE_PROFILE,
@@ -971,6 +972,24 @@ function attemptComposition(input: {
     productionSuitability: { ...entry.suitability },
   }));
 
+  // D-106: un solar de mercado debe ser accionable con la misma regla autoritativa de colocación
+  // que usan comando, UI, IA y automatización. El residuo sin jugada legal se fusiona con su
+  // vecino compatible de mayor borde compartido y se reevalúa; sin salida, deja de comercializarse.
+  // Los solares pequeños que sí participan en un complejo multi-parcela válido se conservan.
+  const avenueSegmentIds = new Set(
+    network.topology.segments
+      .filter((segment) => segment.class === "avenue")
+      .map((segment) => segment.id as string),
+  );
+  const anchorParcelIds = new Set(parcels.slice(0, anchorParcelCount).map((parcel) => parcel.id));
+  enforceMarketableActionability({
+    parcels,
+    fabricConfig: config,
+    avenueSegmentIds,
+    anchorParcelIds,
+  });
+  const survivingAnchorCount = parcels.filter((parcel) => anchorParcelIds.has(parcel.id)).length;
+
   const publicParcels: Parcel[] = [];
   const municipalBuildings: Building[] = [];
   const facilities: UrbanFacility[] = [];
@@ -1124,7 +1143,7 @@ function attemptComposition(input: {
     facilities,
     blockedCells: blocked,
     roads: network.topology,
-    anchorParcelCount,
+    anchorParcelCount: survivingAnchorCount,
     issues,
   };
 }

@@ -2,14 +2,14 @@
 
 Corre con python3 normal, sin Blender, y usa la MISMA matemática que el render
 (`style_layer_math.style_pixels`). Su razón de ser es un fallo que sólo se veía en el pixel final:
-una celda de atlas que ninguna banda reclama conserva su color de día a plena luz, así que aparece
-un panel blancuzco o un acento saturado perdido en mitad de una ciudad nocturna. Con packs que
+una celda de atlas que ninguna banda reclama conserva su color de origen, así que aparece
+un panel blancuzco o un acento saturado perdido en mitad de una ciudad con el grado activo. Con packs que
 comparten un único atlas llamado `colormap`, eso es invisible hasta que se renderiza.
 
 Chequea, sobre las texturas de los jobs publicados en el bundle:
   * cobertura  → toda celda de swatch la reclama una banda;
   * vigas       → ninguna banda declarada es inalcanzable (config muerta);
-  * escalera    → todo albedo cae en la franja nocturna y la separación entre familias no colapsa.
+  * escalera    → todo albedo cae en la franja del perfil activo y la separación entre familias no colapsa.
 
 Uso (desde la raíz del repo):
   python3 tools/art-pipeline/blender/check_style_layer.py
@@ -28,6 +28,7 @@ REPO_ROOT = HERE.parents[2]
 sys.path.insert(0, str(HERE))
 
 from style_layer_math import rgb_to_hsv, style_pixels  # noqa: E402
+from render_settings import active_mood  # noqa: E402
 
 STYLE_LAYER_PATH = HERE / "style_layer_graphic_civic.json"
 JOBS_PATH = REPO_ROOT / "blender_artist" / "manifests" / "asset-jobs.json"
@@ -169,7 +170,7 @@ def swatch_colors(rgb, min_pixels=16):
 
 
 def main():
-    treatment = json.loads(STYLE_LAYER_PATH.read_text())["externalTreatment"]
+    treatment = active_mood(json.loads(STYLE_LAYER_PATH.read_text()))["externalTreatment"]
     jobs = json.loads(JOBS_PATH.read_text())["jobs"]
     bands = treatment.get("hueBands", [])
     night_ceiling = float(treatment.get("acceptance", {}).get("nightValueCeiling", 0.62))
@@ -267,7 +268,7 @@ def main():
         for message in failures:
             print("  - " + message)
         return 1
-    print("\nOK: cobertura total, todas las bandas alcanzables, escalera nocturna separada.")
+    print("\nOK: cobertura total, todas las bandas alcanzables, escalera activa separada.")
     return 0
 
 

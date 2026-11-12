@@ -392,9 +392,15 @@ Propuesta:
 - evitar negros empastados;
 - fondo transparente.
 
-### 10.2 Día/noche — OPEN
+### 10.2 Día/noche — DECIDED (D-105)
 
-No se asume un sol físico móvil en v0.1.
+No se asume un sol físico móvil en v0.1. La presentación ofrece dos perfiles precomputados:
+
+- `day_civic`: baseline neutro-cálido, con suelo y fachadas elevados para lectura diurna;
+- `night_civic`: variante nocturna reversible, con ventanas residuales y contraste atmosférico.
+
+El jugador selecciona el perfil desde el HUD. La preferencia es de presentación y no forma parte del
+estado autoritativo de la partida.
 
 Si se necesita noche:
 

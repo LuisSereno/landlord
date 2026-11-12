@@ -397,7 +397,8 @@ def create_scene(args):
     scene.render.image_settings.color_depth = "8"
     scene.render.image_settings.compression = 15
     scene.render.film_transparent = True
-    scene.view_settings.look = "AgX - Medium High Contrast"
+    style_layer = json.loads(STYLE_LAYER_PATH.read_text(encoding="utf-8"))
+    apply_render_settings(scene, style_layer)
     return scene, camera, spec
 
 
@@ -409,6 +410,7 @@ from style_layer_math import (  # noqa: E402
     style_pixels,
     srgb_to_linear,
 )
+from render_settings import active_mood, apply_render_settings  # noqa: E402
 
 
 def apply_style_layer_lighting(scene, style_layer):
@@ -418,8 +420,9 @@ def apply_style_layer_lighting(scene, style_layer):
     quemaba con ellas, así que la rama externa ilumina con lo que declara el JSON de estilo.
     Sólo la key proyecta sombra: tres soles proyectando sombras superpuestas ensuciaban el suelo.
     """
-    lighting = style_layer["lighting"]
-    shadow_config = style_layer.get("shadow", {})
+    profile = active_mood(style_layer)
+    lighting = profile["lighting"]
+    shadow_config = profile.get("shadow", {})
     world = scene.world or bpy.data.worlds.new("World")
     scene.world = world
     world.use_nodes = True
@@ -595,7 +598,7 @@ def apply_external_treatment(objects, style_layer, kind):
     el tratamiento es un remapeo determinista del atlas (bandas de tono/saturación/valor), no un
     cambio por material. Los colores planos (vegetación) se tratan por nombre de material.
     """
-    treatment = style_layer.get("externalTreatment")
+    treatment = active_mood(style_layer).get("externalTreatment")
     if not treatment:
         return None
     materials = set()
@@ -751,10 +754,7 @@ def create_external_scene(args, source_path, style_layer):
     scene.render.image_settings.color_depth = "8"
     scene.render.image_settings.compression = 15
     scene.render.film_transparent = True
-    post = style_layer["rendering"]["postProcessing"]
-    scene.view_settings.view_transform = post.split(" - ")[0]
-    scene.view_settings.look = post
-    scene.view_settings.exposure = style_layer["rendering"].get("exposure", 0.0)
+    apply_render_settings(scene, style_layer)
 
     mins, maxs = world_bounds(objects)
     normalization["worldSizeMeters"] = {
@@ -771,7 +771,7 @@ def render_shadow_pass(scene, style_layer, ground_z, shadow_path):
     La cámara se abre 3× para que la sombra quepa entera; luego se reduce a la resolución del
     pase principal y se compone.
     """
-    shadow_config = style_layer.get("shadow", {})
+    shadow_config = active_mood(style_layer).get("shadow", {})
     camera = scene.camera
     original_ortho = camera.data.ortho_scale
     original_width = scene.render.resolution_x
@@ -959,14 +959,9 @@ def main():
         if kind == "terrain":
             style_layer = json.loads(STYLE_LAYER_PATH.read_text(encoding="utf-8"))
             apply_style_layer_lighting(scene, style_layer)
-            style_summary = style_procedural_materials(
-                style_layer["externalTreatment"], kind
-            )
-            post = style_layer["rendering"]["postProcessing"]
-            scene.view_settings.view_transform = post.split(" - ")[0]
-            scene.view_settings.look = post
-            style_exposure = style_layer["rendering"].get("exposure", 0.0)
-            scene.view_settings.exposure = style_exposure
+            profile = active_mood(style_layer)
+            style_summary = style_procedural_materials(profile["externalTreatment"], kind)
+            style_exposure = apply_render_settings(scene, style_layer).get("exposure", 0.0)
     else:
         required = (
             ("--unit-scale", args.unit_scale),
@@ -982,13 +977,13 @@ def main():
         scene, camera, _body, normalization, style_summary, ground_z = create_external_scene(
             args, source_path, style_layer
         )
-        style_exposure = style_layer["rendering"].get("exposure", 0.0)
+        style_exposure = active_mood(style_layer)["rendering"].get("exposure", 0.0)
         kind = args.kind
         label = args.asset
         # La huella la conoce el manifiesto de jobs; el render sólo publica geometría.
         footprint = None
         if args.shadow and not args.no_shadow:
-            shadow_style = style_layer.get("shadow", {})
+            shadow_style = active_mood(style_layer).get("shadow", {})
 
     render_path = output.with_suffix(".render.png")
     scene.render.filepath = str(render_path)

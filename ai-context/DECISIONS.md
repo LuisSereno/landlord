@@ -905,6 +905,25 @@ estructural: el eje como verdad de red, `RoadSegment`/`roadSegmentId`, `roadCell
 entra en `blockedCells`. Tráfico simulado, nombres y reglas de producto siguen fuera. Ver
 `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`.
 
+## D-105 — Grado diurno neutro-cálido y selector de presentación
+
+Estado: aceptada el 2026-11-11 tras revisión visual del render ancla `row_house` con la misma
+geometría y cámara en día y noche.
+
+Landlord adopta `day_civic` como grado de presentación preferido: luz neutro-cálida, Standard con
+Medium Contrast, suelo elevado sin perder la escalera de valores y `windowGlow` residual. El perfil
+`night_civic` se conserva como variante explícita y reversible; ambos viven en
+`tools/art-pipeline/blender/style_layer_graphic_civic.json` y el mood activo del pipeline no altera
+el estado de simulación.
+
+La UI ofrece `Día`/`Noche` en el HUD superior derecho. La preferencia se guarda sólo en `localStorage`,
+se aplica al canvas, terreno y fondo y nunca entra en snapshots, digestos de dominio ni comandos.
+Los PNG Blender existentes no se consideran diurnos por este selector: se rehornean y promueven por
+familia con sus hashes nuevos antes de declarar cerrado el catálogo completo.
+
+Evidencia: render ancla día `medV=0.475`, `P90V=0.573`; noche `medV=0.251`, `P90V=0.286`.
+Ver `docs/engineering/adr/D-105-grado-diurno-y-selector-presentacion.md`.
+
 **Cierre de estabilización (2026-11-10):** las mediciones V.l.4/V.l.5 anteriores a este cierre son
 históricas. El contrato vigente escribe v4 para todo distrito con corredor y persiste
 `roadSectionVariant` (`full` o `ave3`) en `RoadTopology`; las redes de eje siguen en v2. Los

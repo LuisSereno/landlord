@@ -27,6 +27,7 @@ if str(HERE) not in sys.path:
 import bpy
 
 import runtime_asset as runtime
+from render_settings import active_mood, apply_render_settings
 from building_composer.compose import compose_candidate
 from building_composer.grammar import GrammarDocument
 from building_composer.module_catalog import Catalog
@@ -145,10 +146,7 @@ def render_family(building_type, family, footprint, floors, seed, style_layer, t
     scene.render.image_settings.color_mode = "RGBA"
     scene.render.image_settings.color_depth = "8"
     scene.render.film_transparent = False
-    post = style_layer["rendering"]["postProcessing"]
-    scene.view_settings.view_transform = post.split(" - ")[0]
-    scene.view_settings.look = post
-    scene.view_settings.exposure = style_layer["rendering"].get("exposure", 0.0)
+    apply_render_settings(scene, style_layer)
 
     for zoom_label, factor in ZOOMS.items():
         camera.data.ortho_scale = base_scale * factor
@@ -174,7 +172,7 @@ def main():
     out_dir = Path(args.outDir)
     out_dir.mkdir(parents=True, exist_ok=True)
     style_layer = json.loads(STYLE_LAYER_PATH.read_text(encoding="utf-8"))
-    treatment = style_layer["externalTreatment"]
+    treatment = active_mood(style_layer)["externalTreatment"]
     catalog = Catalog()
     document = GrammarDocument()
     profile = StyleProfile("graphic_civic_buildings_v1")

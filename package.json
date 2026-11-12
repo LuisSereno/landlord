@@ -45,7 +45,7 @@
     "art:blender:promote": "node scripts/build-blender-assets.mjs --promote-approved",
     "art:blender:check": "node scripts/build-blender-assets.mjs --check",
     "art:style:check": "python3 tools/art-pipeline/blender/check_style_layer.py",
-    "art:render:check": "python3 tools/art-pipeline/blender/check_rendered_night.py",
+    "art:render:check": "python3 tools/art-pipeline/blender/check_rendered_value_ladder.py",
     "art:external:golden": "python3 scripts/external_visual_golden.py --update",
     "art:external:check": "python3 scripts/external_visual_golden.py --compare",
     "art:binaries:check": "node scripts/check-binary-budget.mjs",

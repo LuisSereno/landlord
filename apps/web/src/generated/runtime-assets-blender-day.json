@@ -1,0 +1,2577 @@
+{
+  "schemaVersion": 2,
+  "generator": {
+    "id": "blender-runtime-asset-e2e",
+    "version": 1,
+    "method": "blender_render",
+    "source": "tools/art-pipeline/blender/runtime_asset.py"
+  },
+  "provenance": {
+    "license": "original",
+    "author": "Landlord project",
+    "notes": "Resumen del bundle: la procedencia real es por asset (D-083). Los renders son obra del proyecto; la geometría de cada asset declara su fuente y su licencia."
+  },
+  "buildings": {
+    "courtyard_home": {
+      "type": "courtyard_home",
+      "name": "courtyard_home",
+      "footprint": {
+        "width": 2,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 2,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5817,
+        "y": 0.6351
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/courtyard_home-complete.png",
+          "width": 814,
+          "height": 792,
+          "sha256": "023e5086999588b7548d6260f0172962fb9a320661c019c8e72c5b6d49f3087f"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 60.2,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "V.i remediation: rechazo humano de vg_courtyard_home_1002 (pixelado). Casa con patio a renderScale 2 (decisión explícita, D-100). Sustituye al override manual; promoción canónica. Candidato aprobado: vg_courtyard_home_2003. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
+    },
+    "bld_shopfront": {
+      "type": "bld_shopfront",
+      "name": "bld_shopfront",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "domainFootprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.6188,
+        "y": 0.8137
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/bld_shopfront-complete.png",
+          "width": 181,
+          "height": 205,
+          "sha256": "5e063e663ef6132f019d1014d436ab9aaff17851d45e051f62661550c191e129"
+        },
+        "construction": {
+          "src": "/assets/runtime/blender-day/bld_shopfront-construction.png",
+          "width": 181,
+          "height": 205,
+          "sha256": "5e063e663ef6132f019d1014d436ab9aaff17851d45e051f62661550c191e129"
+        },
+        "damaged": {
+          "src": "/assets/runtime/blender-day/bld_shopfront-damaged.png",
+          "width": 181,
+          "height": 205,
+          "sha256": "5e063e663ef6132f019d1014d436ab9aaff17851d45e051f62661550c191e129"
+        },
+        "burning": {
+          "src": "/assets/runtime/blender-day/bld_shopfront-burning.png",
+          "width": 181,
+          "height": 205,
+          "sha256": "5e063e663ef6132f019d1014d436ab9aaff17851d45e051f62661550c191e129"
+        }
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "pixelsPerMeter": 30.11764705882353,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_commercial",
+        "sourceId": "src_kenney_city_commercial"
+      }
+    },
+    "bld_commercial_b": {
+      "type": "bld_commercial_b",
+      "name": "bld_commercial_b",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "domainFootprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.6033,
+        "y": 0.803
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/bld_commercial_b-complete.png",
+          "width": 184,
+          "height": 204,
+          "sha256": "cd9fae49ade8e7903cf9628990a532c2c3bd51d9a9b00247aa17c44154a8c223"
+        },
+        "construction": {
+          "src": "/assets/runtime/blender-day/bld_commercial_b-construction.png",
+          "width": 184,
+          "height": 204,
+          "sha256": "cd9fae49ade8e7903cf9628990a532c2c3bd51d9a9b00247aa17c44154a8c223"
+        },
+        "damaged": {
+          "src": "/assets/runtime/blender-day/bld_commercial_b-damaged.png",
+          "width": 184,
+          "height": 204,
+          "sha256": "cd9fae49ade8e7903cf9628990a532c2c3bd51d9a9b00247aa17c44154a8c223"
+        },
+        "burning": {
+          "src": "/assets/runtime/blender-day/bld_commercial_b-burning.png",
+          "width": 184,
+          "height": 204,
+          "sha256": "cd9fae49ade8e7903cf9628990a532c2c3bd51d9a9b00247aa17c44154a8c223"
+        }
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "pixelsPerMeter": 30.11764705882353,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_commercial",
+        "sourceId": "src_kenney_city_commercial"
+      }
+    },
+    "bld_residential_a": {
+      "type": "bld_residential_a",
+      "name": "bld_residential_a",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "domainFootprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5105,
+        "y": 0.6748
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/bld_residential_a-complete.png",
+          "width": 190,
+          "height": 142,
+          "sha256": "052db21072777dfd851b24fb816071441fc67731ec98e153646e81987245d5c0"
+        },
+        "construction": {
+          "src": "/assets/runtime/blender-day/bld_residential_a-construction.png",
+          "width": 190,
+          "height": 142,
+          "sha256": "052db21072777dfd851b24fb816071441fc67731ec98e153646e81987245d5c0"
+        },
+        "damaged": {
+          "src": "/assets/runtime/blender-day/bld_residential_a-damaged.png",
+          "width": 190,
+          "height": 142,
+          "sha256": "052db21072777dfd851b24fb816071441fc67731ec98e153646e81987245d5c0"
+        },
+        "burning": {
+          "src": "/assets/runtime/blender-day/bld_residential_a-burning.png",
+          "width": 190,
+          "height": 142,
+          "sha256": "052db21072777dfd851b24fb816071441fc67731ec98e153646e81987245d5c0"
+        }
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "pixelsPerMeter": 30.11764705882353,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_suburban",
+        "sourceId": "src_kenney_city_suburban"
+      }
+    },
+    "bld_commercial_c": {
+      "type": "bld_commercial_c",
+      "name": "bld_commercial_c",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "domainFootprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.544,
+        "y": 0.7443
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/bld_commercial_c-complete.png",
+          "width": 159,
+          "height": 163,
+          "sha256": "04c529f6159f8eb120fd3b160e9e8771ca30f4f8caed54690761ed347572cabb"
+        },
+        "construction": {
+          "src": "/assets/runtime/blender-day/bld_commercial_c-construction.png",
+          "width": 159,
+          "height": 163,
+          "sha256": "04c529f6159f8eb120fd3b160e9e8771ca30f4f8caed54690761ed347572cabb"
+        },
+        "damaged": {
+          "src": "/assets/runtime/blender-day/bld_commercial_c-damaged.png",
+          "width": 159,
+          "height": 163,
+          "sha256": "04c529f6159f8eb120fd3b160e9e8771ca30f4f8caed54690761ed347572cabb"
+        },
+        "burning": {
+          "src": "/assets/runtime/blender-day/bld_commercial_c-burning.png",
+          "width": 159,
+          "height": 163,
+          "sha256": "04c529f6159f8eb120fd3b160e9e8771ca30f4f8caed54690761ed347572cabb"
+        }
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "pixelsPerMeter": 30.11764705882353,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_commercial",
+        "sourceId": "src_kenney_city_commercial"
+      }
+    },
+    "bld_residential_b": {
+      "type": "bld_residential_b",
+      "name": "bld_residential_b",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "domainFootprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.4783,
+        "y": 0.6857
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/bld_residential_b-complete.png",
+          "width": 230,
+          "height": 174,
+          "sha256": "d7d241d73a0189aba661b08037384b6014ab90affd55ec7106eae7cb91760525"
+        },
+        "construction": {
+          "src": "/assets/runtime/blender-day/bld_residential_b-construction.png",
+          "width": 230,
+          "height": 174,
+          "sha256": "d7d241d73a0189aba661b08037384b6014ab90affd55ec7106eae7cb91760525"
+        },
+        "damaged": {
+          "src": "/assets/runtime/blender-day/bld_residential_b-damaged.png",
+          "width": 230,
+          "height": 174,
+          "sha256": "d7d241d73a0189aba661b08037384b6014ab90affd55ec7106eae7cb91760525"
+        },
+        "burning": {
+          "src": "/assets/runtime/blender-day/bld_residential_b-burning.png",
+          "width": 230,
+          "height": 174,
+          "sha256": "d7d241d73a0189aba661b08037384b6014ab90affd55ec7106eae7cb91760525"
+        }
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "pixelsPerMeter": 30.11764705882353,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_suburban",
+        "sourceId": "src_kenney_city_suburban"
+      }
+    },
+    "bld_residential_c": {
+      "type": "bld_residential_c",
+      "name": "bld_residential_c",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "domainFootprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5027,
+        "y": 0.7167
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/bld_residential_c-complete.png",
+          "width": 187,
+          "height": 163,
+          "sha256": "546e0c7beef0f9282e619624e68f7d51e83c5b849a62106746eb349f5e085fb3"
+        },
+        "construction": {
+          "src": "/assets/runtime/blender-day/bld_residential_c-construction.png",
+          "width": 187,
+          "height": 163,
+          "sha256": "546e0c7beef0f9282e619624e68f7d51e83c5b849a62106746eb349f5e085fb3"
+        },
+        "damaged": {
+          "src": "/assets/runtime/blender-day/bld_residential_c-damaged.png",
+          "width": 187,
+          "height": 163,
+          "sha256": "546e0c7beef0f9282e619624e68f7d51e83c5b849a62106746eb349f5e085fb3"
+        },
+        "burning": {
+          "src": "/assets/runtime/blender-day/bld_residential_c-burning.png",
+          "width": 187,
+          "height": 163,
+          "sha256": "546e0c7beef0f9282e619624e68f7d51e83c5b849a62106746eb349f5e085fb3"
+        }
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "pixelsPerMeter": 30.11764705882353,
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_suburban",
+        "sourceId": "src_kenney_city_suburban"
+      }
+    },
+    "town_hall": {
+      "type": "town_hall",
+      "name": "town_hall",
+      "footprint": {
+        "width": 8,
+        "height": 4
+      },
+      "domainFootprint": {
+        "width": 8,
+        "height": 4
+      },
+      "pivot": {
+        "x": 0.4804,
+        "y": 0.6887
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/town_hall-complete.png",
+          "width": 1967,
+          "height": 1506,
+          "sha256": "7c9710853113339546f0779a70fad585f8e9045aea4d1f2501454bd41cf135e6"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 60.2,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V7 town hall candidate vf_town_hall_1006. Original civic pediment with CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
+    },
+    "row_house": {
+      "type": "row_house",
+      "name": "row_house",
+      "footprint": {
+        "width": 4,
+        "height": 1
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5709,
+        "y": 0.687
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/row_house-complete.png",
+          "width": 994,
+          "height": 1147,
+          "sha256": "36d58f26f0083a0e555e6aac67a2586c8627d45f1787f2e25a500e7a59dcae7a"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 60.2,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i residential candidate vg_row_house_1001 (stepped massing). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
+    },
+    "apartment_block": {
+      "type": "apartment_block",
+      "name": "apartment_block",
+      "footprint": {
+        "width": 5,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 5,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5146,
+        "y": 0.82
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/apartment_block-complete.png",
+          "width": 1230,
+          "height": 1711,
+          "sha256": "ba459ecc8bc1c94855220735a0e47d96011a1800021b97a5d6a83a59aa92a268"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 60.2,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i residential candidate vg_apartment_block_1002 (twin towers, dense window grid). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
+    },
+    "mixed_tenement": {
+      "type": "mixed_tenement",
+      "name": "mixed_tenement",
+      "footprint": {
+        "width": 4,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5082,
+        "y": 0.8121
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/mixed_tenement-complete.png",
+          "width": 1039,
+          "height": 1387,
+          "sha256": "ebfa5d67b92501b1f7bbf076800b4bc7175cbf3a1add8711888869987664839c"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 60.2,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i residential candidate vg_mixed_tenement_1001 (mansard roof with dormers). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
+    },
+    "workshop": {
+      "type": "workshop",
+      "name": "workshop",
+      "footprint": {
+        "width": 4,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.6279,
+        "y": 0.6527
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/workshop-complete.png",
+          "width": 911,
+          "height": 1006,
+          "sha256": "a51cc46c7a477102909e3ade5b9ddd51454bef523054888bd757b8b017aba6be"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 60.2,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i industrial-light candidate vg_workshop_1003 (long flat workshop block). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
+    },
+    "warehouse": {
+      "type": "warehouse",
+      "name": "warehouse",
+      "footprint": {
+        "width": 4,
+        "height": 3
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.5858,
+        "y": 0.5591
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/warehouse-complete.png",
+          "width": 1294,
+          "height": 956,
+          "sha256": "bfc5af4cd1861bf932494d28a760f31f45f49b5df7e5df173b627c12d09576f2"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 60.2,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i industrial-light candidate vg_warehouse_1002 (long logistics shed, no chimney). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
+    },
+    "clinic": {
+      "type": "clinic",
+      "name": "clinic",
+      "footprint": {
+        "width": 3,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 3,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5482,
+        "y": 0.7123
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/clinic-complete.png",
+          "width": 944,
+          "height": 1179,
+          "sha256": "6964e667f3b9af85988b49d43339346c2c926f55e605a4c17af43259f798320c"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 60.2,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i civic candidate vg_clinic_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
+    },
+    "police_station": {
+      "type": "police_station",
+      "name": "police_station",
+      "footprint": {
+        "width": 3,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 3,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5454,
+        "y": 0.6494
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/police_station-complete.png",
+          "width": 937,
+          "height": 896,
+          "sha256": "bbbb4832e4f2598b3b848fcb74792102875332ca445e78b8de03d50ca1922c12"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 60.2,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i civic candidate vg_police_station_1002. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
+    },
+    "fire_station": {
+      "type": "fire_station",
+      "name": "fire_station",
+      "footprint": {
+        "width": 4,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5342,
+        "y": 0.6946
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/fire_station-complete.png",
+          "width": 1097,
+          "height": 1206,
+          "sha256": "864eb78791efa5dd01f77f9ef449a2d3f63b5e3c25960de1a60dd0f9776f0855"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 60.2,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i civic candidate vg_fire_station_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
+    },
+    "market_hall": {
+      "type": "market_hall",
+      "name": "market_hall",
+      "footprint": {
+        "width": 5,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 5,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5526,
+        "y": 0.673
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/market_hall-complete.png",
+          "width": 1332,
+          "height": 1356,
+          "sha256": "7d056215d8e5ccc90dcb8d292c578ab2965b90fc2233c2f03713dbc98b219f1c"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 60.2,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i civic candidate vg_market_hall_1000. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
+    },
+    "cement_plant": {
+      "type": "cement_plant",
+      "name": "cement_plant",
+      "footprint": {
+        "width": 5,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 5,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5549,
+        "y": 0.6004
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/cement_plant-complete.png",
+          "width": 1330,
+          "height": 1082,
+          "sha256": "fd4bfd33578a7159095044d9fa82238a42f81170f541535c63ecf2f17c15aa32"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 60.2,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i heavy-industry candidate vg_cement_plant_1001 (v2). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
+    },
+    "brickworks": {
+      "type": "brickworks",
+      "name": "brickworks",
+      "footprint": {
+        "width": 5,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 5,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5317,
+        "y": 0.695
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/brickworks-complete.png",
+          "width": 1182,
+          "height": 1296,
+          "sha256": "1b6aefa1111123ca1465040311b251074c529ade5903bbdc1b741c87d9cc2a1e"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 60.2,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i heavy-industry candidate vg_brickworks_1000 (v1). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
+    },
+    "steelworks": {
+      "type": "steelworks",
+      "name": "steelworks",
+      "footprint": {
+        "width": 4,
+        "height": 3
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.5816,
+        "y": 0.6758
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/steelworks-complete.png",
+          "width": 1324,
+          "height": 1438,
+          "sha256": "c1ed71f05a43cc829e8029e1e48d5b5baad18646e4eded4d068a8cc70a702979"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 60.2,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "Owner-selected V.i heavy-industry candidate vg_steelworks_1003 (v4). CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
+    },
+    "school_block": {
+      "type": "school_block",
+      "name": "school_block",
+      "footprint": {
+        "width": 7,
+        "height": 2
+      },
+      "domainFootprint": {
+        "width": 7,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.4736,
+        "y": 0.7415
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/runtime/blender-day/school_block-complete.png",
+          "width": 1457,
+          "height": 1318,
+          "sha256": "143e19464d7956c0500f69ff013e2724b931b1684082f8c927939563e1e95a11"
+        }
+      },
+      "stateFallback": "procedural",
+      "pixelsPerMeter": 60.2,
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius",
+        "notes": "V.i remediation: rechazo humano del clon de town_hall. Colegio americano con cupola original medida (mod_original_school_cupola), entrada bajo el pabellón central. Candidato aprobado: vg_school_block_2000. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none"
+    }
+  },
+  "characters": {
+    "vecino_variante": {
+      "id": "vecino_variante",
+      "name": "Vecino con abrigo",
+      "directions": 4,
+      "animations": {
+        "idle": {
+          "frameDurationMs": 400,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender-day/vecino_variante-d0-idle-0.png",
+              "width": 15,
+              "height": 38,
+              "sha256": "3707e7d8468d1b6b9109059ad85858c7beb40485a08fc07895183462f5fbec34"
+            },
+            {
+              "src": "/assets/runtime/blender-day/vecino_variante-d0-idle-1.png",
+              "width": 15,
+              "height": 38,
+              "sha256": "c8576968cc809990be9b37d59742968fb11a1ced813282287723c4c6a2a06e8a"
+            },
+            {
+              "src": "/assets/runtime/blender-day/vecino_variante-d1-idle-0.png",
+              "width": 15,
+              "height": 38,
+              "sha256": "5d3851020ec79ef294a262005ec9b6392de9f286f1e2af4a4935b24ba23800f5"
+            },
+            {
+              "src": "/assets/runtime/blender-day/vecino_variante-d1-idle-1.png",
+              "width": 15,
+              "height": 38,
+              "sha256": "ceac4c3c8b95c08b5fd65cd51094a4d3472be0101826e632de58b68e28f30c1d"
+            },
+            {
+              "src": "/assets/runtime/blender-day/vecino_variante-d2-idle-0.png",
+              "width": 15,
+              "height": 39,
+              "sha256": "e825105a320aaea9ba3a846cf18b4169c098ac25705290c4b5c831b20f09604e"
+            },
+            {
+              "src": "/assets/runtime/blender-day/vecino_variante-d2-idle-1.png",
+              "width": 15,
+              "height": 39,
+              "sha256": "938146bd3ba23d41c316a2004fe8c57babd0101d333f043700a20c1c5c5ec80c"
+            },
+            {
+              "src": "/assets/runtime/blender-day/vecino_variante-d3-idle-0.png",
+              "width": 15,
+              "height": 39,
+              "sha256": "3d13ce915587b7d51043d3306db798134dee5e0ffcd68ba67ec2bd5f3aa68c75"
+            },
+            {
+              "src": "/assets/runtime/blender-day/vecino_variante-d3-idle-1.png",
+              "width": 15,
+              "height": 39,
+              "sha256": "543a070c5fd6dc0ff07256053949f5d31259e9c9622175b1e51b521e5e8e2f19"
+            }
+          ]
+        },
+        "walk": {
+          "frameDurationMs": 180,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender-day/vecino_variante-d0-walk-0.png",
+              "width": 15,
+              "height": 40,
+              "sha256": "f4cfbdec18fc8bc36954cf68592d93e87fddbf34badb7f78e4c95fc5b7355989"
+            },
+            {
+              "src": "/assets/runtime/blender-day/vecino_variante-d0-walk-1.png",
+              "width": 16,
+              "height": 38,
+              "sha256": "3b74a2f968161b9005fd339241df1bdf5c8d6b52cb1e272bf3044d7995516434"
+            },
+            {
+              "src": "/assets/runtime/blender-day/vecino_variante-d1-walk-0.png",
+              "width": 16,
+              "height": 38,
+              "sha256": "c8fe25f0e05710ff18eb21c2702650ddec990f8ba8512f925b0023a02e47cf4e"
+            },
+            {
+              "src": "/assets/runtime/blender-day/vecino_variante-d1-walk-1.png",
+              "width": 15,
+              "height": 40,
+              "sha256": "749c904717f64d78785fb4d83c32f9186ce151e33c5007f36ff329c70bd24da8"
+            },
+            {
+              "src": "/assets/runtime/blender-day/vecino_variante-d2-walk-0.png",
+              "width": 15,
+              "height": 40,
+              "sha256": "51b0ba83be8a6a5862df88e56b9bfe865d6f1238e9dc92ec6ed426a81230b6d7"
+            },
+            {
+              "src": "/assets/runtime/blender-day/vecino_variante-d2-walk-1.png",
+              "width": 16,
+              "height": 38,
+              "sha256": "3c352c8f0e652bfb9080e78dfc85562609b80c774c4fa1053cafd01b77bab4d2"
+            },
+            {
+              "src": "/assets/runtime/blender-day/vecino_variante-d3-walk-0.png",
+              "width": 16,
+              "height": 38,
+              "sha256": "4b65198608ae72ccae2707511dbd62f5e0e8b07a7e1df3c46dbf139ef2723b3a"
+            },
+            {
+              "src": "/assets/runtime/blender-day/vecino_variante-d3-walk-1.png",
+              "width": 15,
+              "height": 40,
+              "sha256": "f95a79656d8ff92a1ea6f565eb708925e9da2d30eef84790f9fbfbac55692008"
+            }
+          ]
+        }
+      }
+    },
+    "chr_citizen": {
+      "id": "chr_citizen",
+      "name": "chr_citizen",
+      "directions": 4,
+      "animations": {
+        "idle": {
+          "frameDurationMs": 400,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender-day/chr_citizen-d0-idle-0.png",
+              "width": 151,
+              "height": 250,
+              "sha256": "051b3b178b704efb218002fa018ad0402d945b576e7450a320894ee023cb0b59"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_citizen-d0-idle-1.png",
+              "width": 150,
+              "height": 250,
+              "sha256": "dfeeed50d6da99599fe8dd87ea02966bec05a0fc64864db6c2f689373290127e"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_citizen-d1-idle-0.png",
+              "width": 151,
+              "height": 250,
+              "sha256": "a96af756c18bc4d70af9d47e8111a3c330964d647280d196d3760f526d02f428"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_citizen-d1-idle-1.png",
+              "width": 150,
+              "height": 250,
+              "sha256": "0fb8e23b386ef0d8052010240303d049486794138dfd9c88d2ed5d2b5ad6992e"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_citizen-d2-idle-0.png",
+              "width": 151,
+              "height": 250,
+              "sha256": "d12667891a5d6494a9c0beb420a09b276796d9717f2a481dbd422dff6cea12d0"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_citizen-d2-idle-1.png",
+              "width": 150,
+              "height": 250,
+              "sha256": "18546a2a7cf532d3dadd7b00bf07c66699f5c8bba1bb7ad81844bfe7c7781287"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_citizen-d3-idle-0.png",
+              "width": 151,
+              "height": 250,
+              "sha256": "9d79f3b3ebc6d38cda20bc58a93679b8a4706fbf932b36b7f8e1019612836ae1"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_citizen-d3-idle-1.png",
+              "width": 150,
+              "height": 250,
+              "sha256": "9276043d4bec6445770dc5f18b0e58552bfc80ed9e511bc92c8bcd8d4506abb4"
+            }
+          ]
+        },
+        "walk": {
+          "frameDurationMs": 180,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender-day/chr_citizen-d0-walk-0.png",
+              "width": 157,
+              "height": 255,
+              "sha256": "97c919e77966fdb8cec39367af92fca794d7b1748756f4b24b67b85aed5bb020"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_citizen-d0-walk-1.png",
+              "width": 147,
+              "height": 221,
+              "sha256": "45bfc23f2c711796c65d1956996d7f4034b08b15cd492ced649f5061c0e98dca"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_citizen-d1-walk-0.png",
+              "width": 145,
+              "height": 254,
+              "sha256": "7c18dae86746469cf6530d1064f1261dc980953fd3f0a772e0785653aeb68461"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_citizen-d1-walk-1.png",
+              "width": 98,
+              "height": 218,
+              "sha256": "dcb0448ce84fde12d187bdac53b5f836bfd2a05003cce111d04814c96d7941f4"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_citizen-d2-walk-0.png",
+              "width": 157,
+              "height": 242,
+              "sha256": "bdc733274b2486bd5a20de6dd29f2f1246aa9dc7243d4e794779c658a664cc9c"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_citizen-d2-walk-1.png",
+              "width": 146,
+              "height": 220,
+              "sha256": "63ea457ff308c4783e6def0936b25f5d337553e95136e4bf608d0ae5fff2ae07"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_citizen-d3-walk-0.png",
+              "width": 145,
+              "height": 244,
+              "sha256": "e48dcfa5e8e5fd3550acf6099d0d5cbc5bd94eb23aac4f926cb2c1906f45de62"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_citizen-d3-walk-1.png",
+              "width": 100,
+              "height": 205,
+              "sha256": "9d1c9e7692f1dd08fd061665381549124234c8fedc5ea6865ea0aed05b7f06cd"
+            }
+          ]
+        }
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      }
+    },
+    "chr_police": {
+      "id": "chr_police",
+      "name": "chr_police",
+      "directions": 4,
+      "animations": {
+        "idle": {
+          "frameDurationMs": 400,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender-day/chr_police-d0-idle-0.png",
+              "width": 151,
+              "height": 252,
+              "sha256": "54c51507103cd649db19c74b2b69391c788d5824aa38ab3619c390e270226e9b"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_police-d0-idle-1.png",
+              "width": 153,
+              "height": 252,
+              "sha256": "cf8d0900f12f5ff017ed8768a63a2fbc9655f12f43d651788cb082a65a503380"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_police-d1-idle-0.png",
+              "width": 151,
+              "height": 253,
+              "sha256": "e5017c8648d33cfa5bed0965520b820d13d6d3e0bd9eb6144c069645b99e6052"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_police-d1-idle-1.png",
+              "width": 151,
+              "height": 252,
+              "sha256": "5a3461314bcd56f6346306b5b67294977a40b78dd6f8d3859b88c9d4f10749cb"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_police-d2-idle-0.png",
+              "width": 151,
+              "height": 252,
+              "sha256": "4d1f9c5e714acf5728672280f5ec0d5b09aa6940f6d1351c29d5f390e6fbb7dd"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_police-d2-idle-1.png",
+              "width": 153,
+              "height": 252,
+              "sha256": "8298e39524b675f3bc9aae70983b2924ae16849410e105230405c4b9d2220a91"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_police-d3-idle-0.png",
+              "width": 151,
+              "height": 251,
+              "sha256": "5d0d2b4d25966223c47d5699112fe9ff5dd9785e772242db0faae83e92b59fb4"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_police-d3-idle-1.png",
+              "width": 151,
+              "height": 251,
+              "sha256": "25091f1b103304b797da9c1f7daf7a904a3dd3a7895abd609c4e36e6f0a53707"
+            }
+          ]
+        },
+        "walk": {
+          "frameDurationMs": 180,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender-day/chr_police-d0-walk-0.png",
+              "width": 157,
+              "height": 256,
+              "sha256": "7cd5fe1acf425945f85be142c79ea7f57557674d31fb0c168ddc8785e4b7cadf"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_police-d0-walk-1.png",
+              "width": 148,
+              "height": 224,
+              "sha256": "f317126058a50ab16517e140d3ec53a8dae34f649e74de1768de6977f89313f7"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_police-d1-walk-0.png",
+              "width": 145,
+              "height": 256,
+              "sha256": "4eb76277f2135e9a09280bda7934575238b03c35c20eb885f75caea63cfbea1e"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_police-d1-walk-1.png",
+              "width": 100,
+              "height": 221,
+              "sha256": "149ba59cd9c839726f6c635bccfc8e5c20f54f0b904bb903545cc806cd7850e0"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_police-d2-walk-0.png",
+              "width": 157,
+              "height": 244,
+              "sha256": "4ec58eb896838b4e2b818794346a7381413fcd3aefebd0ac2812f8ef41788fea"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_police-d2-walk-1.png",
+              "width": 148,
+              "height": 221,
+              "sha256": "6035b8ef78468cf3b92f9e6dc9df497909eb78c7378870c5f8b01b26248a930f"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_police-d3-walk-0.png",
+              "width": 145,
+              "height": 246,
+              "sha256": "39636f21899b713f0f59427f6a94abda6fac9c05269673991f07a0a12b5d0269"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_police-d3-walk-1.png",
+              "width": 101,
+              "height": 206,
+              "sha256": "6410961499902c018622849855aeff4f45bf057364ce235d918dbf1b0d96a972"
+            }
+          ]
+        }
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      }
+    },
+    "chr_medical": {
+      "id": "chr_medical",
+      "name": "chr_medical",
+      "directions": 4,
+      "animations": {
+        "idle": {
+          "frameDurationMs": 400,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender-day/chr_medical-d0-idle-0.png",
+              "width": 136,
+              "height": 239,
+              "sha256": "5f4e021a8f090a55626ee4a22cb5235743819817f4a505d3af94c1a612cc3dcd"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_medical-d0-idle-1.png",
+              "width": 137,
+              "height": 239,
+              "sha256": "0c79ae72c023c99f1ee2f83201ba50bcbf5f1959e8c3a89aef0763b346e7b4ff"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_medical-d1-idle-0.png",
+              "width": 136,
+              "height": 240,
+              "sha256": "2b5aa5941bac4ede653ceb1fed5a7a76ed95095fc2d41bfd78903d9aeba1f46b"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_medical-d1-idle-1.png",
+              "width": 136,
+              "height": 240,
+              "sha256": "a90f000c5a7bac83fc91fc32c505f5ba6163bd5a487ff2020050aa5bcbaebd72"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_medical-d2-idle-0.png",
+              "width": 136,
+              "height": 239,
+              "sha256": "bb045661b6fcff5363738be367879ee3b26c5a898f40cf4c865599f2947737ab"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_medical-d2-idle-1.png",
+              "width": 137,
+              "height": 239,
+              "sha256": "039f6c9d92cf856855d4cf0e8c45fe02430f0a97661eab32a21a2ba50c4b8dd7"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_medical-d3-idle-0.png",
+              "width": 136,
+              "height": 238,
+              "sha256": "ebf9e208fbafbe8d403b6ae2eb31979af0d01bb8aaf2f58ab74f18bb5309090d"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_medical-d3-idle-1.png",
+              "width": 136,
+              "height": 238,
+              "sha256": "957356d873ff1955eb20d94a52857ec9e0eea2012fb352929a10e8e5d7c3b6d8"
+            }
+          ]
+        },
+        "walk": {
+          "frameDurationMs": 180,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender-day/chr_medical-d0-walk-0.png",
+              "width": 131,
+              "height": 242,
+              "sha256": "b270b39746a5c56d7a7d341ffc26d09d2fdf2a807c37a5d3c2ae792dd1f2e675"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_medical-d0-walk-1.png",
+              "width": 96,
+              "height": 207,
+              "sha256": "e2adee0d777c8dc3a07429b97fdea1dea57b3c49f20fc770373764f65c7c88bc"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_medical-d1-walk-0.png",
+              "width": 145,
+              "height": 246,
+              "sha256": "052e4007c96d73398b4c1d608ec235aa56b8ab6b775b7d148411c7d47a12141c"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_medical-d1-walk-1.png",
+              "width": 133,
+              "height": 209,
+              "sha256": "5160a7b17bd11d3d555c189b902a28eb7052534dbc6964f6e235e8ec708b7d34"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_medical-d2-walk-0.png",
+              "width": 131,
+              "height": 217,
+              "sha256": "6017bb262eed0aa8fda02a23d5acd412d9d846dd686ca60650e1c41a76261b35"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_medical-d2-walk-1.png",
+              "width": 96,
+              "height": 212,
+              "sha256": "ca8d1504b4455a632c6e3571daec7155bf2f4a2ada11846f5c040d76fdc52264"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_medical-d3-walk-0.png",
+              "width": 145,
+              "height": 210,
+              "sha256": "ba0e44324d83d92b292b71215f1884114cfeca93058d7e41d5c7cb4717451548"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_medical-d3-walk-1.png",
+              "width": 134,
+              "height": 199,
+              "sha256": "2e6a3d56f5f007c6530f4136f4325dd18664ef09c712dbfbe0cf3c582238476a"
+            }
+          ]
+        }
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      }
+    },
+    "chr_firefighter": {
+      "id": "chr_firefighter",
+      "name": "chr_firefighter",
+      "directions": 4,
+      "animations": {
+        "idle": {
+          "frameDurationMs": 400,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender-day/chr_firefighter-d0-idle-0.png",
+              "width": 151,
+              "height": 250,
+              "sha256": "1696b185e0358707cfa98cadb1c6180686154bedd7875fdd0e706408c9fa5bb6"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_firefighter-d0-idle-1.png",
+              "width": 161,
+              "height": 248,
+              "sha256": "f0c2a20f2ca1ec320add071b8183ecac36e211389e43cd0d83f9f8af974c2536"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_firefighter-d1-idle-0.png",
+              "width": 151,
+              "height": 250,
+              "sha256": "e3ace821d4def4e48fb9db62171ad01894538898227aff233afe37c39674275a"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_firefighter-d1-idle-1.png",
+              "width": 137,
+              "height": 252,
+              "sha256": "4de5c350111b6a6f12c8c708ee926600114771c76f39189f304b10d29e90e4ed"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_firefighter-d2-idle-0.png",
+              "width": 151,
+              "height": 252,
+              "sha256": "41ed0aca9b2740018221b51553a49e79e9beaf43dfbe519b8122185ba240130b"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_firefighter-d2-idle-1.png",
+              "width": 161,
+              "height": 254,
+              "sha256": "027e92d12000a962fdfdc075971fd732f0f0cd236ad012e4674cd482fad17f39"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_firefighter-d3-idle-0.png",
+              "width": 151,
+              "height": 251,
+              "sha256": "c65c560b3cb8ae9f9844dc9c6d29b55112ad872c0a82e78f361ad5ae05f487d4"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_firefighter-d3-idle-1.png",
+              "width": 137,
+              "height": 249,
+              "sha256": "326fa173818f478382176ec46bd32d0721e1f896ec18b44c30d86b3c2de5c3b6"
+            }
+          ]
+        },
+        "walk": {
+          "frameDurationMs": 180,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender-day/chr_firefighter-d0-walk-0.png",
+              "width": 150,
+              "height": 254,
+              "sha256": "704e7db81db108c7a5d52eda232cbc0318d4345d0e9f765fc529b7308e5e63b8"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_firefighter-d0-walk-1.png",
+              "width": 112,
+              "height": 217,
+              "sha256": "e2a79150d0c2f710f79ebeda193fb712ac2362f06a5de592c4fc2f5485cb58f7"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_firefighter-d1-walk-0.png",
+              "width": 152,
+              "height": 255,
+              "sha256": "2a3c3f88d86a1f67d8ab837c77c07cd2e11e5196955f406833aa4071c0840840"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_firefighter-d1-walk-1.png",
+              "width": 127,
+              "height": 217,
+              "sha256": "ca5ef61231265b4fedee5f814584a3ac029c021e8715e2621050e6e172888cda"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_firefighter-d2-walk-0.png",
+              "width": 150,
+              "height": 235,
+              "sha256": "9c05960f025bc77db9216e9f676a0b97b7fa0b3591d632d0978e37eade722390"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_firefighter-d2-walk-1.png",
+              "width": 111,
+              "height": 216,
+              "sha256": "fe1b5759e41df887c6f07310734d171615432ce016916e9fdc50dd04147e0cdb"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_firefighter-d3-walk-0.png",
+              "width": 152,
+              "height": 233,
+              "sha256": "5148631f44a6fc40f86e0ba23441a3e6215fa1d038406c3a93265a82b652ba83"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_firefighter-d3-walk-1.png",
+              "width": 127,
+              "height": 194,
+              "sha256": "c04d4f1a568a4e92814a8e458d1e01ad287a7a18dadc30b9415ce0b7b6dcc0b2"
+            }
+          ]
+        }
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      }
+    },
+    "chr_worker": {
+      "id": "chr_worker",
+      "name": "chr_worker",
+      "directions": 4,
+      "animations": {
+        "idle": {
+          "frameDurationMs": 400,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender-day/chr_worker-d0-idle-0.png",
+              "width": 150,
+              "height": 250,
+              "sha256": "640e8e0f4af604e291043a5c95e098d578ad6aa60695f72ea2895a688e72f98c"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_worker-d0-idle-1.png",
+              "width": 150,
+              "height": 251,
+              "sha256": "4e8aed7c1addd2f0f5db86ee39671f010ffc2d4d2cf88d4029fd41bc426bbb12"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_worker-d1-idle-0.png",
+              "width": 150,
+              "height": 250,
+              "sha256": "8363e6605e1955836108b15acb1a8c81f04fa64c6991978738930c93a61f5f5b"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_worker-d1-idle-1.png",
+              "width": 151,
+              "height": 250,
+              "sha256": "8ac2ffb86d0de61b40098426399c3dafb973838fe9874b60ba9e679b7a1ebc43"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_worker-d2-idle-0.png",
+              "width": 150,
+              "height": 249,
+              "sha256": "c9a61e622dc9c8f985d99c878054117baacceabb2b0d5f69731ca00ef93b7cc2"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_worker-d2-idle-1.png",
+              "width": 150,
+              "height": 247,
+              "sha256": "b723e65be96bcde13d578311f597d531d76b607fa9df7ed73980986730d6ba15"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_worker-d3-idle-0.png",
+              "width": 150,
+              "height": 249,
+              "sha256": "eb1e9276cc86ae6384edc5a18a786d0725aeaae07c862b630f07abf967a844be"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_worker-d3-idle-1.png",
+              "width": 151,
+              "height": 249,
+              "sha256": "76a3c3e805eb3ebf21e9834e28524f323f9da2d8db41732fa732fa1253060073"
+            }
+          ]
+        },
+        "walk": {
+          "frameDurationMs": 180,
+          "frames": [
+            {
+              "src": "/assets/runtime/blender-day/chr_worker-d0-walk-0.png",
+              "width": 151,
+              "height": 254,
+              "sha256": "af40c8b47b52bcdcace63f3b5dcb0cb58950f582fb38bfe9513227cbd13837d3"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_worker-d0-walk-1.png",
+              "width": 114,
+              "height": 217,
+              "sha256": "bb74f554ae53fd11340bcd622279ebabf2ee64b68eaaabde233b1cfd854ab042"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_worker-d1-walk-0.png",
+              "width": 152,
+              "height": 254,
+              "sha256": "e2a57bc6f5ab56eca30caa7a38150c626b3c690b9cc853643a4b54f0c6960266"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_worker-d1-walk-1.png",
+              "width": 128,
+              "height": 216,
+              "sha256": "fa08b6335aa4256edc8d153e1aa6fc037587708a17c46e1e1accc29579a2a934"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_worker-d2-walk-0.png",
+              "width": 151,
+              "height": 233,
+              "sha256": "08a45aa8fab819716f0dcaeef366c575856660e8ebafaa74b043641d6ece5d4e"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_worker-d2-walk-1.png",
+              "width": 113,
+              "height": 217,
+              "sha256": "18afda61298f948dab7aa6622499752653f929cad9829d2dafc7dd5b40de042d"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_worker-d3-walk-0.png",
+              "width": 152,
+              "height": 231,
+              "sha256": "daadd0ea946dd0f77f482633f366e3952d19a8bcb6006e09018006cdd2cb2b80"
+            },
+            {
+              "src": "/assets/runtime/blender-day/chr_worker-d3-walk-1.png",
+              "width": 129,
+              "height": 194,
+              "sha256": "da0dd05f596f76bd6b51a17ec16c242c672b3142e5f3b1aeca9b8676e64af794"
+            }
+          ]
+        }
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      }
+    }
+  },
+  "terrain": {
+    "ter_road_straight": {
+      "id": "ter_road_straight",
+      "name": "ter_road_straight",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5148
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/ter_road_straight.png",
+        "width": 242,
+        "height": 125,
+        "sha256": "80fca8c0571492611f6ff39d38d3db8445c1357c1e39b6d2faed338934885468"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_roads",
+        "sourceId": "src_kenney_city_roads"
+      },
+      "pixelsPerMeter": 42.666666666666664
+    },
+    "ter_road_corner": {
+      "id": "ter_road_corner",
+      "name": "ter_road_corner",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.7035,
+        "y": 0.5148
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/ter_road_corner.png",
+        "width": 172,
+        "height": 125,
+        "sha256": "875fdb5d1473ecfe01f6eecb9153e9491b3d8f47da88d0284eaf14ef4c225352"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_roads",
+        "sourceId": "src_kenney_city_roads"
+      },
+      "pixelsPerMeter": 42.666666666666664
+    },
+    "ter_road_intersection": {
+      "id": "ter_road_intersection",
+      "name": "ter_road_intersection",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5148
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/ter_road_intersection.png",
+        "width": 242,
+        "height": 125,
+        "sha256": "4b86a15ffb73dec085f1ccae6dc2171d80134db915a425321070b04f90be3eba"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_roads",
+        "sourceId": "src_kenney_city_roads"
+      },
+      "pixelsPerMeter": 42.666666666666664
+    },
+    "ter_lot_dirt_a": {
+      "id": "ter_lot_dirt_a",
+      "name": "Solar de obra A",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/ter_lot_dirt_a.png",
+        "width": 64,
+        "height": 32,
+        "sha256": "db7c6ce6a2bd1e9a54762eafa9142498acc6b0efb6f1af564c7f84f457202845"
+      }
+    },
+    "ter_lot_dirt_b": {
+      "id": "ter_lot_dirt_b",
+      "name": "Solar de obra B",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/ter_lot_dirt_b.png",
+        "width": 64,
+        "height": 32,
+        "sha256": "7338cbbacae4eb238481c28f130f6e20c96cddff9dd91f4acc2913cfee0c88ac"
+      }
+    }
+  },
+  "vehicles": {
+    "veh_sedan": {
+      "id": "veh_sedan",
+      "name": "veh_sedan",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.756
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/veh_sedan.png",
+        "width": 215,
+        "height": 161,
+        "sha256": "aca820a5e3b2f470e6e2c6f3cf75148f395dd33bcbf1462937138dfc9d85c250"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 64,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_sedan-az135.png",
+            "width": 215,
+            "height": 161,
+            "sha256": "4c38d79de8be4a67da88fb77cd716d2c46b9b9ceabdb583985268b0be49c4cef"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.756
+          },
+          "pixelsPerMeter": 64
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_sedan-az225.png",
+            "width": 215,
+            "height": 152,
+            "sha256": "7b7cc41f3bbbef8d666dc1f0a67f276e2c66dbe4fbdbf16acc9fba86230ed293"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7415
+          },
+          "pixelsPerMeter": 64
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_sedan-az315.png",
+            "width": 215,
+            "height": 152,
+            "sha256": "6b3719362c38c34ce96675eb167fc0f2eb1ce43af152c4557c99582e5ffd8686"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7415
+          },
+          "pixelsPerMeter": 64
+        }
+      }
+    },
+    "veh_taxi": {
+      "id": "veh_taxi",
+      "name": "veh_taxi",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.7468
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/veh_taxi.png",
+        "width": 226,
+        "height": 167,
+        "sha256": "bea672649de5d982f08abf1152f7bd6fe9de3b338b2116486bf897b58b5383dc"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 64,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_taxi-az135.png",
+            "width": 226,
+            "height": 167,
+            "sha256": "63b2f6e1f0daa2bb4f5eea243b6c1daa52df38129e04876399bdd1aa48561a02"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7468
+          },
+          "pixelsPerMeter": 64
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_taxi-az225.png",
+            "width": 226,
+            "height": 156,
+            "sha256": "de086ac44d70d5e4afd022d973e6c43e5b6dcf92bfe47f09a6c7f0f0f8aa933c"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7289
+          },
+          "pixelsPerMeter": 64
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_taxi-az315.png",
+            "width": 226,
+            "height": 156,
+            "sha256": "42a900c602db1689ab50db0406def787b62152e53d42aa8fbf13778c26a08382"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7289
+          },
+          "pixelsPerMeter": 64
+        }
+      }
+    },
+    "veh_truck": {
+      "id": "veh_truck",
+      "name": "veh_truck",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.717
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/veh_truck.png",
+        "width": 238,
+        "height": 160,
+        "sha256": "11b0be39d832a4773fc6256ce582a9561efd02510397b890bdad2052fe50f1b2"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 64,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_truck-az135.png",
+            "width": 238,
+            "height": 160,
+            "sha256": "ec3da89fb541395a468dee00c407b70ff5dc2df107afda249348a71af10528a4"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.717
+          },
+          "pixelsPerMeter": 64
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_truck-az225.png",
+            "width": 238,
+            "height": 164,
+            "sha256": "23031882f4a61d6856dd93c4564b0b948c5a44f5735b716993bad8b98c70c697"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7239
+          },
+          "pixelsPerMeter": 64
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_truck-az315.png",
+            "width": 238,
+            "height": 164,
+            "sha256": "dc4dc8ac117042b5a2defb9fcb7f69e4f6d3fe2df3e71257ead0416975c63d47"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7239
+          },
+          "pixelsPerMeter": 64
+        }
+      }
+    },
+    "veh_firetruck": {
+      "id": "veh_firetruck",
+      "name": "veh_firetruck",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.4885,
+        "y": 0.7798
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/veh_firetruck.png",
+        "width": 217,
+        "height": 190,
+        "sha256": "488e4cc3a9562c3341c4657ce75919e29418b93d24b1fec001c519aa5aed4519"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 51.2,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_firetruck-az135.png",
+            "width": 217,
+            "height": 190,
+            "sha256": "bdbe63b9f08d2fac32746fae312a479a05a7d6ed4da0613ef700593e71341bdc"
+          },
+          "pivot": {
+            "x": 0.5115,
+            "y": 0.7798
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_firetruck-az225.png",
+            "width": 217,
+            "height": 171,
+            "sha256": "5896738e55875b213d22372b29c44fb7fff67cc755f8bfaead906e3035157899"
+          },
+          "pivot": {
+            "x": 0.5115,
+            "y": 0.7758
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_firetruck-az315.png",
+            "width": 217,
+            "height": 171,
+            "sha256": "7eef0aa46636fb7b4770b0f9d57f344cfacb2f2e078e7e179a8b4e1f5ded9d03"
+          },
+          "pivot": {
+            "x": 0.4885,
+            "y": 0.7758
+          },
+          "pixelsPerMeter": 51.2
+        }
+      }
+    },
+    "veh_ambulance": {
+      "id": "veh_ambulance",
+      "name": "veh_ambulance",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.4928,
+        "y": 0.7933
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/veh_ambulance.png",
+        "width": 208,
+        "height": 183,
+        "sha256": "d13fab5c817f6f68a9f9aee2133b9f4f4a102918184750027232d8b24204d1b8"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 51.2,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_ambulance-az135.png",
+            "width": 208,
+            "height": 183,
+            "sha256": "1cc5924e858b8a1f53d0b079ca059cc02f510defa6b47af0511ece2f03db795e"
+          },
+          "pivot": {
+            "x": 0.5048,
+            "y": 0.7933
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_ambulance-az225.png",
+            "width": 208,
+            "height": 152,
+            "sha256": "f7523fab009f19b20241b7e19ab8ca1f62df467324c6f934790fbeb7c623f7f1"
+          },
+          "pivot": {
+            "x": 0.5048,
+            "y": 0.7741
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_ambulance-az315.png",
+            "width": 208,
+            "height": 152,
+            "sha256": "580eec656bbd13dcd708883b7d958d92000602a3c251b9b26d243110263ae130"
+          },
+          "pivot": {
+            "x": 0.4928,
+            "y": 0.7741
+          },
+          "pixelsPerMeter": 51.2
+        }
+      }
+    },
+    "veh_police": {
+      "id": "veh_police",
+      "name": "veh_police",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.4811,
+        "y": 0.7344
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/veh_police.png",
+        "width": 238,
+        "height": 163,
+        "sha256": "411fbce3352b4a9637e2a060fc71d936471421768711910a7b1ebae004fc1d90"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 64,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_police-az135.png",
+            "width": 238,
+            "height": 163,
+            "sha256": "d93f7971d27f3896384a217fbab598fd99692bd25daa337fdb1d22ef30dc1fa4"
+          },
+          "pivot": {
+            "x": 0.5189,
+            "y": 0.7344
+          },
+          "pixelsPerMeter": 64
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_police-az225.png",
+            "width": 238,
+            "height": 149,
+            "sha256": "42bb0aab8eb520a6ad820497dbf9f29e2d9c33e40f3686f623eaf57d1f3a2bc9"
+          },
+          "pivot": {
+            "x": 0.5189,
+            "y": 0.7296
+          },
+          "pixelsPerMeter": 64
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_police-az315.png",
+            "width": 238,
+            "height": 149,
+            "sha256": "c3215e103edeefb9a8b036e0237bf1b28737b2ba8a85c11aefa26b4824e56bb0"
+          },
+          "pivot": {
+            "x": 0.4811,
+            "y": 0.7296
+          },
+          "pixelsPerMeter": 64
+        }
+      }
+    },
+    "veh_garbage": {
+      "id": "veh_garbage",
+      "name": "veh_garbage",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.5114,
+        "y": 0.748
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/veh_garbage.png",
+        "width": 220,
+        "height": 168,
+        "sha256": "74be5c6ebc71e2383cbd3fe4237314f6720f3949024dba000953289d9ea47b34"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 51.2,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_garbage-az135.png",
+            "width": 220,
+            "height": 168,
+            "sha256": "d43e7c90eaaabb690e2f99908da2a8d1c3e6c65b3a1d4cf50476aae2f97012d0"
+          },
+          "pivot": {
+            "x": 0.4886,
+            "y": 0.748
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_garbage-az225.png",
+            "width": 220,
+            "height": 159,
+            "sha256": "55e25e16236f11990f9d4deb66280ced5385c5aa1bddb6c7ba54754b04c007c0"
+          },
+          "pivot": {
+            "x": 0.4886,
+            "y": 0.7526
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_garbage-az315.png",
+            "width": 220,
+            "height": 159,
+            "sha256": "bb090bf2bc1fe4867619e39a55dd8f0a27ab99ddac07434b587f119ccc6ccdd1"
+          },
+          "pivot": {
+            "x": 0.5114,
+            "y": 0.7526
+          },
+          "pixelsPerMeter": 51.2
+        }
+      }
+    },
+    "veh_delivery": {
+      "id": "veh_delivery",
+      "name": "veh_delivery",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.4928,
+        "y": 0.7835
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/veh_delivery.png",
+        "width": 208,
+        "height": 184,
+        "sha256": "e1b9b489a064fc8b745bb3ebf9e3b6489f4a4372cd0ad82c152705c3706b023d"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 51.2,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_delivery-az135.png",
+            "width": 208,
+            "height": 184,
+            "sha256": "92dfcf105808ae3e8033dad969c0e68cd24ba5369718988ab76f40930665efe4"
+          },
+          "pivot": {
+            "x": 0.5048,
+            "y": 0.7835
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_delivery-az225.png",
+            "width": 208,
+            "height": 152,
+            "sha256": "59a0b10b17fdea9624d90ef6d76584f944ffa90b601962a8a3dfc687a10464f7"
+          },
+          "pivot": {
+            "x": 0.5048,
+            "y": 0.7774
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_delivery-az315.png",
+            "width": 208,
+            "height": 152,
+            "sha256": "a47818c718dba3f0c9a49a2a57fb33a69231f4687cc94977dcf7b5ac012b62b5"
+          },
+          "pivot": {
+            "x": 0.4928,
+            "y": 0.7774
+          },
+          "pixelsPerMeter": 51.2
+        }
+      }
+    },
+    "veh_tractor": {
+      "id": "veh_tractor",
+      "name": "veh_tractor",
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "pivot": {
+        "x": 0.4819,
+        "y": 0.8022
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/veh_tractor.png",
+        "width": 193,
+        "height": 186,
+        "sha256": "1a176e9b57ad9303fcf2854955650f5ad18a0093a538a8a5fd968dfe625eabe3"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_car_kit",
+        "sourceId": "src_kenney_car_kit"
+      },
+      "pixelsPerMeter": 64,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_tractor-az135.png",
+            "width": 193,
+            "height": 186,
+            "sha256": "700150695a24a12f553996986b29702804e82120f924e91a237e9f655d1ef93d"
+          },
+          "pivot": {
+            "x": 0.5181,
+            "y": 0.8022
+          },
+          "pixelsPerMeter": 64
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_tractor-az225.png",
+            "width": 193,
+            "height": 165,
+            "sha256": "f0aed3edbd6bb75026877b28d49df9183fe7e596c6a4669b954e804a71331dd0"
+          },
+          "pivot": {
+            "x": 0.5181,
+            "y": 0.7892
+          },
+          "pixelsPerMeter": 64
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender-day/veh_tractor-az315.png",
+            "width": 193,
+            "height": 165,
+            "sha256": "ddbe1ab17f1e42fbcf2981ad06386bd3a5f692d1518c0e229384c04936c0de5c"
+          },
+          "pivot": {
+            "x": 0.4819,
+            "y": 0.7892
+          },
+          "pixelsPerMeter": 64
+        }
+      }
+    }
+  },
+  "props": {
+    "prp_tree_detailed": {
+      "id": "prp_tree_detailed",
+      "name": "prp_tree_detailed",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.6584,
+        "y": 0.9678
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/prp_tree_detailed.png",
+        "width": 161,
+        "height": 168,
+        "sha256": "45bdc83ac952f4b9a60cbe374c498f65abd27ad24b2d764c4b0dca8e98ff4db6"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 32
+    },
+    "prp_traffic_light": {
+      "id": "prp_traffic_light",
+      "name": "prp_traffic_light",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.8085,
+        "y": 0.9285
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/prp_traffic_light.png",
+        "width": 94,
+        "height": 127,
+        "sha256": "72cebfbece5842c934c9b4169ef32557f6c0f45d8556a36129ced09f8a04ed6f"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_roads",
+        "sourceId": "src_kenney_city_roads"
+      },
+      "pixelsPerMeter": 64,
+      "orientations": {
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender-day/prp_traffic_light-az225.png",
+            "width": 94,
+            "height": 125,
+            "sha256": "8edc3c5bcf1bc47655471849766a6a041931b42dd35ecf61fa7f51485b48cefd"
+          },
+          "pivot": {
+            "x": 0.1862,
+            "y": 0.9474
+          },
+          "pixelsPerMeter": 64
+        }
+      }
+    },
+    "prp_street_light": {
+      "id": "prp_street_light",
+      "name": "prp_street_light",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.79,
+        "y": 0.9265
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/prp_street_light.png",
+        "width": 100,
+        "height": 141,
+        "sha256": "e33955dc307ea09e9eba072ddf355b17b5ee5f1fdd143b06d5d20b17ac5659d5"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_roads",
+        "sourceId": "src_kenney_city_roads"
+      },
+      "pixelsPerMeter": 51.2
+    },
+    "prp_bench": {
+      "id": "prp_bench",
+      "name": "prp_bench",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.7143
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/prp_bench.png",
+        "width": 121,
+        "height": 84,
+        "sha256": "e1af9b971faab69375dffd2583d45cb87fcb5d3b86662fafd762080e8f9cfd3d"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kaykit_city_builder_bits",
+        "sourceId": "src_kaykit_city_builder_bits"
+      },
+      "pixelsPerMeter": 85.33333333333333
+    },
+    "prp_trash_can": {
+      "id": "prp_trash_can",
+      "name": "prp_trash_can",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5079,
+        "y": 0.7387
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/prp_trash_can.png",
+        "width": 127,
+        "height": 111,
+        "sha256": "0300f7829dbc67552c59a494d809eaf79d2e15010746acc36b832fbb7da92c3a"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_roads",
+        "sourceId": "src_kenney_city_roads"
+      },
+      "pixelsPerMeter": 85.33333333333333
+    },
+    "prp_tree_oak": {
+      "id": "prp_tree_oak",
+      "name": "prp_tree_oak",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.6743,
+        "y": 0.9171
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/prp_tree_oak.png",
+        "width": 152,
+        "height": 170,
+        "sha256": "8af56a9befcc26c9047a76597c5331a858650c4ce461d734dc3035a6e48dafee"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 34.13333333333333
+    },
+    "prp_tree_pine": {
+      "id": "prp_tree_pine",
+      "name": "prp_tree_pine",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.7518,
+        "y": 0.9589
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/prp_tree_pine.png",
+        "width": 141,
+        "height": 179,
+        "sha256": "d5f38a03ac033f8b1ec321dd7b6c7acf27f7517e8b1559660abdce991b3f372c"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 32
+    },
+    "prp_construction_barrier": {
+      "id": "prp_construction_barrier",
+      "name": "prp_construction_barrier",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.7237
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/prp_construction_barrier.png",
+        "width": 83,
+        "height": 76,
+        "sha256": "ac735b4cdfb880915e32f0726b78deab8ac76471281b139f3e4e9a4c35f8054d"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_roads",
+        "sourceId": "src_kenney_city_roads"
+      },
+      "pixelsPerMeter": 85.33333333333333
+    },
+    "prp_construction_cone": {
+      "id": "prp_construction_cone",
+      "name": "prp_construction_cone",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.7821
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/prp_construction_cone.png",
+        "width": 32,
+        "height": 39,
+        "sha256": "001f10754a7f694c88280853360a09b937bafe5f09c8a10d4a47d8175b3f3876"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_city_roads",
+        "sourceId": "src_kenney_city_roads"
+      },
+      "pixelsPerMeter": 85.33333333333333
+    },
+    "prp_monument_obelisk": {
+      "id": "prp_monument_obelisk",
+      "name": "prp_monument_obelisk",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.6868,
+        "y": 0.8821
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/prp_monument_obelisk.png",
+        "width": 91,
+        "height": 120,
+        "sha256": "802f25cd246e3f40969678d7373febb575114189e74ca90ec6d6be2f1ad98717"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 32
+    },
+    "prp_planter_urn": {
+      "id": "prp_planter_urn",
+      "name": "prp_planter_urn",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.7614
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/prp_planter_urn.png",
+        "width": 187,
+        "height": 139,
+        "sha256": "6e3ab918eaf90912b37d6a102abf791d17b80412bc58422027e980899588d9bc"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 85.33333333333333
+    },
+    "prp_bollard": {
+      "id": "prp_bollard",
+      "name": "prp_bollard",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.7941,
+        "y": 0.9368
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/prp_bollard.png",
+        "width": 51,
+        "height": 72,
+        "sha256": "8f6363b21205b7b1d507cddf7b97a5ff31033c817c893ed1d101603c47f3c4ee"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_quaternius_downtown_city_megakit",
+        "sourceId": "src_quaternius_downtown_city_megakit"
+      },
+      "pixelsPerMeter": 85.33333333333333
+    },
+    "prp_bush": {
+      "id": "prp_bush",
+      "name": "prp_bush",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5353,
+        "y": 0.9967
+      },
+      "image": {
+        "src": "/assets/runtime/blender-day/prp_bush.png",
+        "width": 85,
+        "height": 74,
+        "sha256": "d29a4a5935b295df3a05e5a63a04dbc9b078fe69461cb7483491a2e5d513d7cc"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 64
+    }
+  }
+}

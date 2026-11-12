@@ -13,8 +13,8 @@
 | Escala física | 1 cell ≈ 4×4 m | abierta — pendiente de escena densa en Phaser | prueba de densidad |
 | Blender | 5.2.2 LTS | **cerrada — D-053** | versión pinneada para preproducción |
 | Renderer | EEVEE producción | **cerrada — acta WP2.14: EEVEE headless** | benchmark de batch render |
-| Luz | canónica fija NW visual | abierta | comparación visual |
-| Día/noche | estilizado, sin sol físico móvil en v1 | abierta | Product/Tech Art review |
+| Luz | canónica fija NW visual, neutro-cálida | **cerrada — D-105** | render ancla A/B aprobado |
+| Día/noche | perfiles `day_civic`/`night_civic`, sin sol físico móvil | **cerrada — D-105** | selector runtime + revisión A/B |
 | Personajes | 8 direcciones | abierta — decisión 4 vs 8 medida en WP4.15 | animation budget |
 | Atlas | 2048² multipack | **cerrada como diferida a Beta — D-081**: 400 sprites y 24 texturas sostienen 60 FPS en Phaser | reapertura medida: <55 FPS o >64 texturas |
 | Runtime textures | PNG RGBA inicial | **cerrada como master — acta WP2.14: PNG RGBA 16-bit transparente**; formato runtime derivado sigue en WP4.15 | profiling/compatibilidad |

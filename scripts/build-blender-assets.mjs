@@ -31,6 +31,13 @@ import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const VARIANT =
+  process.argv.find((argument) => argument.startsWith("--variant="))?.slice("--variant=".length) ??
+  "night";
+if (!["night", "day"].includes(VARIANT)) {
+  throw new Error("--variant debe ser 'night' o 'day'");
+}
+const VARIANT_SUFFIX = VARIANT === "night" ? "" : `-${VARIANT}`;
 const BLENDER =
   process.env.BLENDER_BIN ??
   join(REPO_ROOT, "blender_artist", "toolchain", "blender-5.2.2-linux-x64", "blender");
@@ -46,22 +53,35 @@ const VISUAL_OVERRIDES_PATH = join(
   "generated",
   "runtime-visual-overrides.json",
 );
-const PUBLIC_DIR = join(REPO_ROOT, "apps", "web", "public", "assets", "runtime", "blender");
+const PUBLIC_DIR = join(
+  REPO_ROOT,
+  "apps",
+  "web",
+  "public",
+  "assets",
+  "runtime",
+  `blender${VARIANT_SUFFIX}`,
+);
 const BUNDLE_PATH = join(
   REPO_ROOT,
   "apps",
   "web",
   "src",
   "generated",
-  "runtime-assets-blender.json",
+  `runtime-assets-blender${VARIANT_SUFFIX}.json`,
 );
 const METADATA_PATH = join(
   REPO_ROOT,
   "blender_artist",
   "manifests",
-  "runtime-blender-e2e-metadata.json",
+  `runtime-blender-e2e-metadata${VARIANT_SUFFIX}.json`,
 );
-const EVIDENCE_DIR = join(REPO_ROOT, "blender_artist", "generated", "runtime-evidence");
+const EVIDENCE_DIR = join(
+  REPO_ROOT,
+  "blender_artist",
+  "generated",
+  `runtime-evidence${VARIANT_SUFFIX}`,
+);
 const ASSET_GROUPS = ["buildings", "characters", "terrain", "props", "vehicles"];
 
 /**
@@ -89,7 +109,7 @@ function pngSize(buffer) {
 }
 
 function publicSrc(file) {
-  return `/assets/runtime/blender/${file}.png`;
+  return `/assets/runtime/blender${VARIANT_SUFFIX}/${file}.png`;
 }
 
 function readJobs() {
@@ -448,8 +468,14 @@ function assembleApprovedPromotion(bundle, promotion, published, metadata) {
   if (promotion.approvalStatus !== "qa_approved") {
     throw new Error(`${promotion.assetId}: la promoción no está qa_approved`);
   }
-  const metadataPath = join(REPO_ROOT, promotion.candidateMetadata);
-  const imagePath = join(REPO_ROOT, promotion.candidateImage);
+  const isDayVariant = VARIANT === "day";
+  const dayCandidateDir = join(REPO_ROOT, "docs", "art", "day-candidates", promotion.assetId);
+  const metadataPath = isDayVariant
+    ? join(dayCandidateDir, `${promotion.candidateId}.json`)
+    : join(REPO_ROOT, promotion.candidateMetadata);
+  const imagePath = isDayVariant
+    ? join(dayCandidateDir, `${promotion.candidateId}.png`)
+    : join(REPO_ROOT, promotion.candidateImage);
   const candidate = JSON.parse(readFileSync(metadataPath, "utf8"));
   const buffer = readFileSync(imagePath);
   const size = pngSize(buffer);
@@ -459,9 +485,9 @@ function assembleApprovedPromotion(bundle, promotion, published, metadata) {
     ["state", candidate.state, promotion.state],
     ["compositionSignature", candidate.compositionSignature, promotion.compositionSignature],
     ["styleProfileId", candidate.styleProfileId, promotion.styleProfileId],
-    ["imageSha256", sha256(buffer), promotion.imageSha256],
     ["cameraAzimuth", candidate.camera?.azimuthDegrees, promotion.allowedOrientations[0]],
   ];
+  if (!isDayVariant) checks.push(["imageSha256", sha256(buffer), promotion.imageSha256]);
   for (const [label, actual, expected] of checks) {
     if (actual !== expected) {
       throw new Error(
@@ -484,7 +510,7 @@ function assembleApprovedPromotion(bundle, promotion, published, metadata) {
     src: publicSrc(file),
     width: size.width,
     height: size.height,
-    sha256: promotion.imageSha256,
+    sha256: sha256(buffer),
   };
   bundle.buildings[promotion.assetId] = {
     type: promotion.semanticType,
@@ -504,7 +530,9 @@ function assembleApprovedPromotion(bundle, promotion, published, metadata) {
     promotion: true,
     assetId: promotion.assetId,
     candidateId: promotion.candidateId,
-    candidateMetadata: promotion.candidateMetadata,
+    candidateMetadata: isDayVariant
+      ? `docs/art/day-candidates/${promotion.assetId}/${promotion.candidateId}.json`
+      : promotion.candidateMetadata,
     compositionSignature: promotion.compositionSignature,
     styleProfileId: promotion.styleProfileId,
     camera: candidate.camera,

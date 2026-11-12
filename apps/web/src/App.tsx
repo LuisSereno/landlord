@@ -12,12 +12,14 @@ import type { BuildingType, ViewProjectionV2 } from "@landlord/shared";
 
 import {
   mountIsometricSpike,
+  unmountIsometricSpike,
   focusIsometricCell,
   setIsometricEntityPickedListener,
   setIsometricIndicatorListener,
   setIsometricPlacement,
   setIsometricPlacementCandidateListener,
   setIsometricSelectionTarget,
+  setIsometricVisualMood,
   updateIsometricOverlay,
   updateIsometricProjection,
   type MapSelectionTarget,
@@ -49,6 +51,7 @@ import {
 import type { GameActions, HubKind, ProjectedParcel } from "./ui/types";
 import { siteAssemblyCandidates, type PendingDevelopmentSite } from "./ui/site-assembly";
 import { constructionBlockedReasons } from "./ui/disabled-reasons";
+import { applyVisualMood, readVisualMood, type VisualMood } from "./visual-mood";
 import {
   beginPlacementRequest,
   nextPlacementCandidate,
@@ -95,10 +98,15 @@ export function App() {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const [debugOpen, setDebugOpen] = useState(false);
+  const [visualMood, setVisualMood] = useState<VisualMood>(() => readVisualMood());
   const [readNotifications, setReadNotifications] = useState<ReadonlySet<string>>(new Set());
   const [dismissedOnboarding, setDismissedOnboarding] = useState<ReadonlySet<string>>(new Set());
   const mapRef = useRef<MapViewportHandle>(null);
   const debug = useMemo(() => new URLSearchParams(window.location.search).get("debug") === "1", []);
+
+  useEffect(() => {
+    applyVisualMood(visualMood);
+  }, [visualMood]);
 
   const selectParcel = useCallback((parcel: ProjectedParcel) => {
     setSelectionTarget({ kind: "parcel", parcelId: parcel.id });
@@ -839,9 +847,16 @@ export function App() {
         }}
         session={session}
         unread={unread}
+        visualMood={visualMood}
+        onVisualMoodChange={(mood) => {
+          if (mood === visualMood) return;
+          applyVisualMood(mood);
+          setVisualMood(mood);
+        }}
       />
       <div className="game-body">
         <MapViewport
+          key={visualMood}
           onCellPicked={onCellPicked}
           onEntityPicked={(target) => {
             setSelectionTarget(
@@ -863,6 +878,7 @@ export function App() {
               current ? selectPlacementCandidate(current, candidateId) : current,
             )
           }
+          visualMood={visualMood}
           overlay={overlay}
           projection={projection}
           ref={mapRef}
@@ -986,9 +1002,10 @@ const MapViewport = forwardRef<
     onEntityPicked: (target: { kind: "building" | "construction"; id: string }) => void;
     onIndicator: (target: { parcelId: string; buildingId?: string }) => void;
     onPlacementPick: (candidateId: string) => void;
+    visualMood: VisualMood;
   }
 >(function MapViewport(
-  { projection, overlay, onCellPicked, onEntityPicked, onIndicator, onPlacementPick },
+  { projection, overlay, onCellPicked, onEntityPicked, onIndicator, onPlacementPick, visualMood },
   ref,
 ) {
   const container = useRef<HTMLDivElement>(null);
@@ -1014,6 +1031,9 @@ const MapViewport = forwardRef<
       handlers.current.onPlacementPick(candidateId),
     );
     return () => {
+      // Retirar primero la asociación evita que un efecto React ya en cola
+      // intente actualizar la escena mientras Phaser libera sus texturas.
+      unmountIsometricSpike(mounted);
       mounted.destroy(true);
       game.current = null;
     };
@@ -1022,6 +1042,10 @@ const MapViewport = forwardRef<
   useEffect(() => {
     if (game.current && projection) updateIsometricProjection(game.current, projection);
   }, [projection]);
+
+  useEffect(() => {
+    if (game.current) setIsometricVisualMood(game.current, visualMood);
+  }, [visualMood]);
 
   useEffect(() => {
     if (game.current) updateIsometricOverlay(game.current, overlay);

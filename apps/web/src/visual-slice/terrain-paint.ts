@@ -1,6 +1,7 @@
 import type { GridCell } from "@landlord/shared";
 import { gridToScreen, type IsometricLayout } from "../isometric/coordinates";
 import { cellKey, hashCell, type GroundPlan, type GroundSurface } from "./ground";
+import { readVisualMood } from "../visual-mood";
 
 /**
  * Horneado del lenguaje visual del suelo (WP4.15-V.b0). Todo se pinta una sola vez en una
@@ -40,11 +41,34 @@ export const SURFACE_STYLE: Record<GroundSurface, SurfaceStyle> = {
   grass: { base: "#19241e", shade: "#141c17", light: "#1f2c24", grain: 150, stroke: "#223428" },
   dirt: { base: "#2a241c", shade: "#1e1914", light: "#322b21", grain: 120 },
   gravel: { base: "#24282e", shade: "#1d2025", light: "#2e333a", grain: 230 },
-  pavement: { base: "#272c35", shade: "#20252c", light: "#2e343e", grain: 55 },
-  asphalt: { base: "#1d2127", shade: "#171a20", light: "#23272e", grain: 40 },
+  // Pavimento peatonal/de solar: hormigón claro y cálido, con juntas visibles. Nunca debe leerse
+  // como una segunda calzada que no tiene tráfico.
+  pavement: { base: "#414851", shade: "#303740", light: "#59616b", grain: 34, stroke: "#6f7882" },
+  // Calzada: negro azulado, deliberadamente más oscuro que cualquier solar o acera. Su grano es
+  // fino y escaso: el asfalto es una superficie fabricada y extendida, no un terreno suelto. Con el
+  // grano de un terreno orgánico la calzada se leía manchada de tierra.
+  asphalt: { base: "#141a22", shade: "#111720", light: "#1b222c", grain: 14 },
   median: { base: "#263126", shade: "#1d261e", light: "#314035", grain: 110, stroke: "#405043" },
   construction: { base: "#292318", shade: "#1e1a11", light: "#322b1f", grain: 190 },
 };
+
+export const DAY_SURFACE_STYLE: Record<GroundSurface, SurfaceStyle> = {
+  urban: { base: "#49525f", shade: "#3b434e", light: "#57616f", grain: 90 },
+  grass: { base: "#3e5944", shade: "#334a39", light: "#4b684f", grain: 150, stroke: "#5e765f" },
+  dirt: { base: "#5d513f", shade: "#4c4234", light: "#6b5e49", grain: 120 },
+  gravel: { base: "#555c67", shade: "#444b54", light: "#646c78", grain: 230 },
+  // Mantener el mismo lenguaje en día: losa clara para espacio no transitable,
+  // asfalto frío y sensiblemente más oscuro para la calzada, con el grano fino de una superficie
+  // fabricada.
+  pavement: { base: "#747b85", shade: "#5d6570", light: "#8c949e", grain: 34, stroke: "#a1a8b0" },
+  asphalt: { base: "#2b3440", shade: "#262e39", light: "#333e4a", grain: 14 },
+  median: { base: "#4c6049", shade: "#3d4e3b", light: "#5b7257", grain: 110, stroke: "#71866c" },
+  construction: { base: "#5b4f39", shade: "#4a402f", light: "#6a5c44", grain: 190 },
+};
+
+function surfaceStyle(surface: GroundSurface): SurfaceStyle {
+  return readVisualMood() === "day" ? DAY_SURFACE_STYLE[surface] : SURFACE_STYLE[surface];
+}
 
 /** Bordillos y juntas: casi imperceptibles a zoom 0.5, firmes a zoom 2.5. */
 const EDGE_LIGHT = "rgba(77, 85, 98, 0.32)";
@@ -105,7 +129,7 @@ function blob(context: Context, x: number, y: number, rx: number, ry: number, co
 
 /** Patrón 64×64 reutilizable por superficie: grano procedural sin añadir texturas al bundle. */
 function createPattern(document: Document, surface: GroundSurface): HTMLCanvasElement {
-  const style = SURFACE_STYLE[surface];
+  const style = surfaceStyle(surface);
   const canvas = document.createElement("canvas");
   canvas.width = 64;
   canvas.height = 64;
@@ -198,7 +222,7 @@ export function paintGround(input: GroundPaintInput): void {
   /** 1 · Terreno base: sólo el rombo del mapa, con manchas grandes de valor. */
   context.save();
   clipGround(input);
-  context.fillStyle = SURFACE_STYLE.urban.base;
+  context.fillStyle = surfaceStyle("urban").base;
   context.fillRect(0, 0, bounds.width, bounds.height);
   const ambient = random(GROUND_DRESSING_SEED);
   for (let index = 0; index < 120; index += 1) {
@@ -209,7 +233,7 @@ export function paintGround(input: GroundPaintInput): void {
       ambient() * bounds.height,
       (40 + ambient() * 130) * 1.7,
       40 + ambient() * 130,
-      light ? "rgba(120, 138, 160, 0.05)" : "rgba(8, 12, 18, 0.09)",
+      light ? "rgba(180, 194, 210, 0.05)" : "rgba(30, 36, 46, 0.05)",
     );
   }
   const urbanPattern = patternFor("urban");
@@ -259,6 +283,7 @@ export function paintGround(input: GroundPaintInput): void {
   /** 3 · Bordes: mezcla de transición, juntas de losa y bordillo. */
   blendEdges(input, surfaceAt, local);
   strokeSidewalks(input, surfaceAt, local);
+  strokeRoadGuides(input, surfaceAt, local);
   strokeCurbs(input, surfaceAt, local, input.curbMode ?? "pavement");
   const border = local(plan.zoneCenter);
   /** `parcels` se detiene aquí: la evidencia muestra el suelo sin dressing por encima. */
@@ -412,20 +437,19 @@ function blendEdges(
   for (let y = 0; y < layout.mapHeight; y += 1) {
     for (let x = 0; x < layout.mapWidth; x += 1) {
       const own = surfaceAt({ x, y });
-      if (own === "urban") continue;
       for (const [dx, dy] of [
         [1, 0],
         [0, 1],
       ] as const) {
         const other = surfaceAt({ x: x + dx, y: y + dy });
-        if (other === own) continue;
+        if (!allowsOrganicGroundBlend(own, other)) continue;
         const center = local({ x, y });
         const from =
           dx === 1 ? { x: center.x + hw, y: center.y } : { x: center.x, y: center.y + hh };
         const to = dx === 1 ? { x: center.x, y: center.y + hh } : { x: center.x - hw, y: center.y };
         for (let index = 0; index < 7; index += 1) {
           const t = 0.1 + next() * 0.8;
-          context.fillStyle = SURFACE_STYLE[next() > 0.5 ? other : own].base;
+          context.fillStyle = surfaceStyle(next() > 0.5 ? other : own).base;
           context.globalAlpha = 0.32 + next() * 0.3;
           context.beginPath();
           context.ellipse(
@@ -443,6 +467,24 @@ function blendEdges(
       }
     }
   }
+}
+
+/**
+ * Las transiciones orgánicas pertenecen a terreno natural, no a superficies construidas. En
+ * especial, una v2 sólo tiene una celda de asfalto: las salpicaduras de ambos márgenes se
+ * solaparían sobre la calzada y la harían parecer embarrada. Lo mismo aplica a la acera: sus
+ * juntas de losa dibujan el borde construido; manchas de tierra o hierba encima la corroen.
+ */
+export function allowsOrganicGroundBlend(own: GroundSurface, other: GroundSurface): boolean {
+  return (
+    own !== "urban" &&
+    other !== "urban" &&
+    own !== other &&
+    own !== "asphalt" &&
+    other !== "asphalt" &&
+    own !== "pavement" &&
+    other !== "pavement"
+  );
 }
 
 /** Juntas de losa perpendiculares al sentido de la acera: hormigón cada cuatro metros. */
@@ -478,6 +520,54 @@ function strokeSidewalks(
         context.moveTo(center.x, center.y - hh);
         context.lineTo(center.x + hw, center.y);
       }
+      context.stroke();
+    }
+  }
+}
+
+/**
+ * El asfalto recto recibe una guía central discontinua muy tenue. Es una señal puramente visual:
+ * usa la geometría de suelo ya publicada, no introduce carriles ni pathfinding. Su objetivo es que
+ * una calzada v2 siga leyéndose como vial frente a una explanada de pavimento sin tránsito.
+ */
+export function roadGuideOrientationForCell(
+  cell: GridCell,
+  surfaceAt: (cell: GridCell) => GroundSurface,
+): "ew" | "ns" | null {
+  if (surfaceAt(cell) !== "asphalt") return null;
+  const eastWest =
+    surfaceAt({ x: cell.x - 1, y: cell.y }) === "asphalt" &&
+    surfaceAt({ x: cell.x + 1, y: cell.y }) === "asphalt";
+  const northSouth =
+    surfaceAt({ x: cell.x, y: cell.y - 1 }) === "asphalt" &&
+    surfaceAt({ x: cell.x, y: cell.y + 1 }) === "asphalt";
+  if (eastWest === northSouth) return null;
+  return eastWest ? "ew" : "ns";
+}
+
+function strokeRoadGuides(
+  input: GroundPaintInput,
+  surfaceAt: (cell: GridCell) => GroundSurface,
+  local: (cell: GridCell) => Point,
+): void {
+  const { context, layout } = input;
+  const hw = layout.tileWidth / 2;
+  const hh = layout.tileHeight / 2;
+  context.lineCap = "round";
+  context.lineWidth = 1.25;
+  context.strokeStyle = "rgba(154, 168, 181, 0.56)";
+  for (let y = 1; y < layout.mapHeight - 1; y += 1) {
+    for (let x = 1; x < layout.mapWidth - 1; x += 1) {
+      const orientation = roadGuideOrientationForCell({ x, y }, surfaceAt);
+      if (!orientation) continue;
+      const progress = orientation === "ew" ? x : y;
+      // Dos celdas de hueco y una de trazo: se lee a distancia sin competir con los cruces.
+      if (progress % 3 !== 1) continue;
+      const center = local({ x, y });
+      const vector = orientation === "ew" ? { x: hw, y: hh } : { x: -hw, y: hh };
+      context.beginPath();
+      context.moveTo(center.x - vector.x * 0.28, center.y - vector.y * 0.28);
+      context.lineTo(center.x + vector.x * 0.28, center.y + vector.y * 0.28);
       context.stroke();
     }
   }
@@ -621,7 +711,14 @@ function dress(
       }
       if (surface === "gravel" || surface === "pavement") {
         for (let index = 0; index < salt % 4; index += 1) {
-          context.fillStyle = next() > 0.6 ? "#525a66" : "#262c35";
+          context.fillStyle =
+            surface === "pavement"
+              ? next() > 0.6
+                ? "#79838d"
+                : "#3a4149"
+              : next() > 0.6
+                ? "#525a66"
+                : "#262c35";
           context.globalAlpha = 0.25 + next() * 0.3;
           context.beginPath();
           context.ellipse(

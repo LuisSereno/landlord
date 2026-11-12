@@ -31,6 +31,11 @@ export function mountIsometricSpike(
   return game;
 }
 
+/** Desasocia una escena antes de destruir Phaser para ignorar efectos React tardíos. */
+export function unmountIsometricSpike(game: Phaser.Game): void {
+  mountedScenes.delete(game);
+}
+
 /**
  * Monta la escena de gameplay con la capa de presentación del Visual Slice. La simulación no
  * participa: se evalúa la composición con la misma cámara, grid y depth que el juego real.
@@ -56,6 +61,10 @@ export function mountVisualSlice(
 
 export function updateIsometricProjection(game: Phaser.Game, projection: ViewProjectionV2): void {
   mountedScenes.get(game)?.setProjection(projection);
+}
+
+export function setIsometricVisualMood(game: Phaser.Game, mood: "day" | "night"): void {
+  mountedScenes.get(game)?.setVisualMood(mood);
 }
 
 export function updateIsometricOverlay(game: Phaser.Game, overlay: MapOverlay): void {

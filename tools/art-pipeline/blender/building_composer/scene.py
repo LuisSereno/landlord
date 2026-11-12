@@ -43,6 +43,7 @@ if str(BLENDER_DIR) not in sys.path:
     sys.path.insert(0, str(BLENDER_DIR))
 
 import runtime_asset as runtime  # noqa: E402
+from render_settings import active_mood, apply_render_settings  # noqa: E402
 from source_import import (  # noqa: E402
     assert_textures_resolved,
     fix_texture_paths,
@@ -690,7 +691,7 @@ def deterministic_crop_rect(composition, scene, camera, style_layer, width, heig
     1 px cuando la caja saturada (una sombra cuyo punto de fuga sale del lienzo) tenía lado impar —
     fue el fallo §18 del clinic a renderScale 2.
     """
-    light = Vector(style_layer["lighting"]["keyPosition"])
+    light = Vector(active_mood(style_layer)["lighting"]["keyPosition"])
     points = list(box_corners(composition["bounds"]))
     for corner in box_corners(composition["bounds"]):
         direction = corner - light
@@ -949,7 +950,7 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
     style_layer = style_layer or json.loads(
         (BLENDER_DIR / "style_layer_graphic_civic.json").read_text(encoding="utf-8")
     )
-    treatment = style_layer["externalTreatment"]
+    treatment = active_mood(style_layer)["externalTreatment"]
     composition = compose_candidate(request, catalog, profile, document)
     reset_scene()
 
@@ -1012,10 +1013,7 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
     scene.render.image_settings.color_depth = "8"
     scene.render.image_settings.compression = 15
     scene.render.film_transparent = True
-    post = style_layer["rendering"]["postProcessing"]
-    scene.view_settings.view_transform = post.split(" - ")[0]
-    scene.view_settings.look = post
-    scene.view_settings.exposure = style_layer["rendering"].get("exposure", 0.0)
+    apply_render_settings(scene, style_layer)
 
     after = mesh_fingerprint(module_objects)
     if after != before:
@@ -1030,7 +1028,7 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
     bpy.ops.render.render(write_still=True)
     render_ms = round((time.perf_counter() - render_started) * 1000, 2)
     render_pass = pixels_digest(render_path)
-    shadow_style = style_layer.get("shadow", {})
+    shadow_style = active_mood(style_layer).get("shadow", {})
     shadow_path = output.with_suffix(".shadow.png")
     shadow = runtime.render_shadow_pass(scene, style_layer, ground["lowestZMeters"], shadow_path)
     # Los dos pases se firman por separado y en píxeles: si §13 vuelve a fallar, la metadata tiene que

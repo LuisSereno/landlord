@@ -19,6 +19,7 @@ import {
   type GameNotification,
 } from "./notifications";
 import type { HubKind } from "./types";
+import type { VisualMood } from "../visual-mood";
 
 /**
  * V.d-UX · HUD superior compacto (spec §5.2). Sólo estado de consulta frecuente y accesos
@@ -36,6 +37,8 @@ export function GameHud({
   onToggleDebug,
   notificationsOpen,
   helpOpen,
+  visualMood,
+  onVisualMoodChange,
 }: {
   session: GameSession;
   districtName: string;
@@ -48,6 +51,8 @@ export function GameHud({
   onToggleDebug: () => void;
   notificationsOpen: boolean;
   helpOpen: boolean;
+  visualMood: VisualMood;
+  onVisualMoodChange: (mood: VisualMood) => void;
 }) {
   const { economy, projection, runState, speed, message } = session;
   const calendar = economy?.gameTime;
@@ -99,6 +104,24 @@ export function GameHud({
           </span>
         </div>
         <div className="hud-controls">
+          <div aria-label="Visualización" className="visual-mood-switch" role="group">
+            <button
+              aria-pressed={visualMood === "day"}
+              className="visual-mood-button"
+              onClick={() => onVisualMoodChange("day")}
+              type="button"
+            >
+              Día
+            </button>
+            <button
+              aria-pressed={visualMood === "night"}
+              className="visual-mood-button"
+              onClick={() => onVisualMoodChange("night")}
+              type="button"
+            >
+              Noche
+            </button>
+          </div>
           <button className="hud-text-button" onClick={() => onOpenHub("government")} type="button">
             <UiIcon name="government" size={15} /> Gobierno
           </button>

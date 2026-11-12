@@ -1,5 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { crossingArms, curbEdgesForCell, type CurbMode } from "./terrain-paint";
+import {
+  DAY_SURFACE_STYLE,
+  SURFACE_STYLE,
+  allowsOrganicGroundBlend,
+  crossingArms,
+  curbEdgesForCell,
+  roadGuideOrientationForCell,
+  type CurbMode,
+} from "./terrain-paint";
 import type { GroundSurface } from "./ground";
 
 function surfaces(entries: Record<string, GroundSurface>) {
@@ -41,5 +49,60 @@ describe("Graphic Civic pedestrian markings", () => {
 
   it("pinta los cuatro brazos sólo para una intersección plena", () => {
     expect(crossingArms(15).map((arm) => arm.bit)).toEqual([1, 2, 4, 8]);
+  });
+});
+
+describe("Graphic Civic legibilidad vial", () => {
+  it("no mezcla terreno orgánico dentro de una calzada v2", () => {
+    expect(allowsOrganicGroundBlend("grass", "asphalt")).toBe(false);
+    expect(allowsOrganicGroundBlend("asphalt", "grass")).toBe(false);
+  });
+
+  it("no mezcla terreno orgánico sobre una acera", () => {
+    expect(allowsOrganicGroundBlend("dirt", "pavement")).toBe(false);
+    expect(allowsOrganicGroundBlend("pavement", "dirt")).toBe(false);
+    expect(allowsOrganicGroundBlend("grass", "pavement")).toBe(false);
+    expect(allowsOrganicGroundBlend("pavement", "grass")).toBe(false);
+  });
+
+  it("reserva la guía discontinua para una calzada asfaltada recta", () => {
+    const horizontal = surfaces({
+      "1:2": "asphalt",
+      "2:2": "asphalt",
+      "3:2": "asphalt",
+    });
+    expect(roadGuideOrientationForCell({ x: 2, y: 2 }, horizontal)).toBe("ew");
+
+    const pavement = surfaces({
+      "1:2": "pavement",
+      "2:2": "pavement",
+      "3:2": "pavement",
+    });
+    expect(roadGuideOrientationForCell({ x: 2, y: 2 }, pavement)).toBeNull();
+  });
+
+  it("no convierte una intersección en una guía de carril ficticia", () => {
+    const intersection = surfaces({
+      "2:2": "asphalt",
+      "1:2": "asphalt",
+      "3:2": "asphalt",
+      "2:1": "asphalt",
+      "2:3": "asphalt",
+    });
+    expect(roadGuideOrientationForCell({ x: 2, y: 2 }, intersection)).toBeNull();
+  });
+
+  it("da a la calzada el grano más fino del lenguaje de suelo, en los dos grados", () => {
+    // El asfalto es una superficie fabricada y continua. Con el grano de un terreno suelto, cada
+    // loseta de la calzada se leía como tierra derramada sobre ella.
+    for (const palette of [SURFACE_STYLE, DAY_SURFACE_STYLE]) {
+      const road = palette.asphalt.grain;
+      for (const surface of Object.keys(palette) as GroundSurface[]) {
+        if (surface === "asphalt") continue;
+        expect(road, `${surface} deja de ser más liso que la calzada`).toBeLessThan(
+          palette[surface].grain,
+        );
+      }
+    }
   });
 });

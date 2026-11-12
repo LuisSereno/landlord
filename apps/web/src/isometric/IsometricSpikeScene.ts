@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { CHARACTER_LIFT_LUT, CHARACTER_RENDER_SCALE } from "./visual-scale";
+import { readVisualMood } from "../visual-mood";
 import {
   type AgentId,
   type BuildingAssetState,
@@ -529,6 +530,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
   }
 
   public setProjection(projection: ViewProjectionV2): void {
+    // React puede entregar el último efecto de proyección durante el desmontaje
+    // del canvas (por ejemplo, al cambiar Día/Noche). Phaser ya ha liberado el
+    // TextureManager en ese instante y la escena no debe volver a pintar.
+    if (!this.sys?.isActive() || !this.textures) return;
     const districtChanged =
       this.projection !== null &&
       this.projection.observedDistrictId !== projection.observedDistrictId;
@@ -549,6 +554,13 @@ export class IsometricSpikeScene extends Phaser.Scene {
       const known = new Set<string>((projection.economy?.parcels ?? []).map((parcel) => parcel.id));
       if (this.placementTarget.parcelIds.some((id) => !known.has(id))) this.setPlacement(null);
     }
+  }
+
+  /** Cambia sólo la presentación; la proyección y el estado de simulación permanecen intactos. */
+  public setVisualMood(mood: "day" | "night"): void {
+    if (!this.sys.isActive()) return;
+    this.cameras.main.setBackgroundColor(mood === "day" ? "#2b3542" : "#101827");
+    this.repaintGround();
   }
 
   public setOverlay(overlay: MapOverlay): void {
@@ -669,6 +681,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
 
   /** Repinta la textura de suelo ya creada sin volver a instanciar la imagen del mapa. */
   private repaintGround(): void {
+    // `Game.destroy()` invalida las texturas antes de que React haya terminado
+    // de limpiar sus efectos. El repintado es sólo presentación, así que ese
+    // último ciclo se descarta con seguridad.
+    if (!this.sys?.isActive() || !this.textures) return;
     const existing = this.textures.exists(TILE_TEXTURE_KEY)
       ? (this.textures.get(TILE_TEXTURE_KEY) as Phaser.Textures.CanvasTexture)
       : undefined;
@@ -2533,7 +2549,7 @@ export const isometricSpikeGameConfig: Phaser.Types.Core.GameConfig = {
     width: 640,
     height: 480,
   },
-  backgroundColor: "#101827",
+  backgroundColor: readVisualMood() === "day" ? "#2b3542" : "#101827",
   render: {
     antialias: true,
     roundPixels: false,

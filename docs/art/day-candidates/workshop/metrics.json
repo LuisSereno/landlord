@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-11T12:48:38.590Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/day-candidates/workshop",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 144520,
+ "blenderPeakRssMb": 3005.8,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "165f29a802a3e0c839309f916f8d685c266ecee58fb4c02c65070d710c3b4390",
+   "after": "165f29a802a3e0c839309f916f8d685c266ecee58fb4c02c65070d710c3b4390"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_workshop_1003",
+   "buildingType": "workshop",
+   "family": "industrial_heavy",
+   "variantSeed": 1003,
+   "compositionSignature": "6a6ef70001a8ea630365c43800fc6e364c8b3a2dfd1eb04ce30b57c105239ca7",
+   "triangleCount": 4199,
+   "objectCount": 40,
+   "moduleCount": 7,
+   "materials": 13,
+   "textures": 14,
+   "bounds": {
+    "x": {
+     "min": -8.2,
+     "max": 4
+    },
+    "y": {
+     "min": -4.199999999999999,
+     "max": 3.9532
+    },
+    "z": {
+     "min": 0,
+     "max": 7.6182
+    }
+   },
+   "renderMs": 7306.54,
+   "pngBytes": 498572,
+   "pngPixels": [
+    911,
+    1006
+   ],
+   "pixelSha256": "15dbd098d165ad95fed0ad96c8b918f7b86784a6677f97603491929cd7816d4c",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.6279,
+    "y": 0.6527
+   }
+  }
+ ],
+ "failures": []
+}

@@ -29,6 +29,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 from style_layer_math import hsv_to_rgb, rgb_to_hsv, style_pixels  # noqa: E402
+from render_settings import active_mood  # noqa: E402
 
 
 def parse_args():
@@ -105,7 +106,7 @@ def main():
     args = parse_args()
     measurements = json.loads(Path(args.measurements).read_text(encoding="utf-8"))
     style_layer = json.loads(Path(args.style_layer).read_text(encoding="utf-8"))
-    treatment = style_layer["externalTreatment"]
+    treatment = active_mood(style_layer)["externalTreatment"]
 
     images = []
     for sample in measurements.get("imageSamples", []):

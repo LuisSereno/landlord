@@ -1,4 +1,4 @@
-"""Comprobación de que los PNGs renderizados mantienen el grade nocturno.
+"""Comprobación de que los PNGs renderizados respetan la escalera del mood activo.
 
 V.b2.0: el `check_style_layer.py` valida los atlas de ENTRADA, pero no garantiza que la
 cadena de render (style_layer → runtime_asset.py → PNG publicado) preserve el grade. Si
@@ -6,10 +6,10 @@ alguien cambia el JSON a valores de día, los atlas pasan el check pero los rend
 quemados. Este script cierra ese hueco midiendo los píxeles de SALIDA.
 
 Uso (desde la raíz del repo):
-  python3 tools/art-pipeline/blender/check_rendered_night.py
+  python3 tools/art-pipeline/blender/check_rendered_value_ladder.py
 
-Selecciona un representative de cada kind (building, tree, vehicle) y verifica que la
-mediana de valor HSV esté por debajo del techo nocturno declarado en el style layer.
+Selecciona un representativo de cada kind (building, tree, vehicle) y verifica el techo
+de valor declarado por el mood activo.
 """
 
 import json
@@ -24,6 +24,7 @@ REPO_ROOT = HERE.parents[2]
 sys.path.insert(0, str(HERE))
 
 from style_layer_math import rgb_to_hsv  # noqa: E402
+from render_settings import active_mood  # noqa: E402
 
 STYLE_LAYER_PATH = HERE / "style_layer_graphic_civic.json"
 BUNDLE_PATH = REPO_ROOT / "apps" / "web" / "src" / "generated" / "runtime-assets-blender.json"
@@ -48,7 +49,7 @@ def read_png_rgba(path):
 
 def main():
     style_layer = json.loads(STYLE_LAYER_PATH.read_text())
-    night_ceiling = float(style_layer["externalTreatment"]["acceptance"]["nightValueCeiling"])
+    night_ceiling = float(active_mood(style_layer)["externalTreatment"]["acceptance"]["nightValueCeiling"])
     bundle = json.loads(BUNDLE_PATH.read_text())
 
     failures = []
@@ -90,11 +91,11 @@ def main():
         print(f"{r['asset']:32} {r['kind']:10} {r['medianV']:>8.3f} {r['p90V']:>8.3f} {r['ceiling']:>8.2f}")
 
     if failures:
-        print("\nFALLA el check de render nocturno:")
+        print("\nFALLA el check de escalera de render:")
         for msg in failures:
             print("  - " + msg)
         return 1
-    print("\nOK: todos los renders están en rango nocturno.")
+    print("\nOK: todos los renders están dentro de la escalera activa.")
     return 0
 
 

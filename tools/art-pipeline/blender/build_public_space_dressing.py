@@ -24,6 +24,7 @@ import public_space_dresser as dresser  # noqa: E402
 from building_composer import scene  # noqa: E402
 from building_composer.module_catalog import Catalog  # noqa: E402
 import runtime_asset as runtime  # noqa: E402
+from render_settings import apply_render_settings  # noqa: E402
 
 COMPOSITION_ROOT = "DRESSING_ROOT"
 GROUND_COLORS = {
@@ -116,9 +117,7 @@ def render_space(space, catalog, style_layer, output_path):
     scene_obj.render.image_settings.file_format = "PNG"
     scene_obj.render.image_settings.color_mode = "RGBA"
     scene_obj.render.film_transparent = True
-    post = style_layer["rendering"]["postProcessing"]
-    scene_obj.view_settings.view_transform = post.split(" - ")[0]
-    scene_obj.view_settings.look = post
+    apply_render_settings(scene_obj, style_layer)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     scene_obj.render.filepath = str(output_path)

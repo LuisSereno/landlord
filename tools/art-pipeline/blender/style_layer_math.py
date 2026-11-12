@@ -126,10 +126,13 @@ def style_pixels(source_rgb, treatment, kind):
     # `architecturalReadability.floors`, preservando intactas las bandas atmosféricas (tejados,
     # vidrio, asfalto) que mantienen el mood nocturno.
     readability = treatment.get("architecturalReadability", {})
-    if readability.get("kind") == kind:
+    floors_by_kind = readability.get("floorsByKind", {})
+    floors = floors_by_kind.get(kind)
+    if floors is None and readability.get("kind") == kind:
         floors = readability.get("floors", {})
+    if floors is not None:
         for index, band in enumerate(bands):
-            floor = floors.get(band.get("id"))
+            floor = floors if isinstance(floors, (int, float)) else floors.get(band.get("id"))
             if floor is None:
                 continue
             mask = claimed_by == index

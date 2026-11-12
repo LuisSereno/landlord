@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-11T12:46:13.920Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/day-candidates/mixed_tenement",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 56240,
+ "blenderPeakRssMb": 5321.5,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "165f29a802a3e0c839309f916f8d685c266ecee58fb4c02c65070d710c3b4390",
+   "after": "165f29a802a3e0c839309f916f8d685c266ecee58fb4c02c65070d710c3b4390"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_mixed_tenement_1001",
+   "buildingType": "mixed_tenement",
+   "family": "residential_low",
+   "variantSeed": 1001,
+   "compositionSignature": "98196ebd5e30190f2b50a0e262ff4a4cddcb3b1aeb53cbd28717b72094c21ef7",
+   "triangleCount": 26242,
+   "objectCount": 162,
+   "moduleCount": 9,
+   "materials": 23,
+   "textures": 20,
+   "bounds": {
+    "x": {
+     "min": -8.2,
+     "max": 8
+    },
+    "y": {
+     "min": -4.2,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 16.6
+    }
+   },
+   "renderMs": 18156.44,
+   "pngBytes": 1781177,
+   "pngPixels": [
+    1039,
+    1387
+   ],
+   "pixelSha256": "74b0dd38c55181ff2c1648dbc684492820da3fd2b463cf62b93fb13ab558e7e4",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5082,
+    "y": 0.8121
+   }
+  }
+ ],
+ "failures": []
+}

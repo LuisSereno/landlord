@@ -119,6 +119,7 @@ distrito-observado es deliberada. V.k.1–V.k.4 publicados en `origin/wip/vh-wor
 ## WP4.15-V.l — Sección transversal autoritativa (2026-11-09, en curso)
 
 - [D-104 — Sección transversal autoritativa](D-104-seccion-transversal-autoritativa.md) — contrato estabilizado; v4 persistido, v3 rechazado explícitamente
+- [D-105 — Grado diurno y selector de presentación](D-105-grado-diurno-y-selector-presentacion.md) — ACEPTADA
 
 Enmienda **parcial** de D-085 §2 (se levanta la prohibición de carriles/sentidos/anchos variables sólo
 para la sección transversal) y de D-090 §2 (`derivationVersion` 2 → 4). Mantiene el eje como verdad de

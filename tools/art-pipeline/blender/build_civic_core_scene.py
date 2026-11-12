@@ -27,6 +27,7 @@ from building_composer.compose import compose_candidate  # noqa: E402
 from building_composer.module_catalog import Catalog  # noqa: E402
 from building_composer.style_profile import StyleProfile  # noqa: E402
 import runtime_asset as runtime  # noqa: E402
+from render_settings import apply_render_settings  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 FIXTURE_PATH = REPO_ROOT / "blender_artist/manifests/public-space-dressing-fixture.json"
@@ -188,9 +189,7 @@ def render_civic_core(out_dir, seed):
     scene_obj.render.image_settings.file_format = "PNG"
     scene_obj.render.image_settings.color_mode = "RGBA"
     scene_obj.render.film_transparent = True
-    post = style_layer["rendering"]["postProcessing"]
-    scene_obj.view_settings.view_transform = post.split(" - ")[0]
-    scene_obj.view_settings.look = post
+    apply_render_settings(scene_obj, style_layer)
 
     out_dir.mkdir(parents=True, exist_ok=True)
     output = out_dir / f"civic_core_town_hall_{seed}.png"

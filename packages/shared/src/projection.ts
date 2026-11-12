@@ -41,12 +41,16 @@ import {
   type BuildingType,
   type IntelKind,
   type IntelSource,
+  type RoadTopology,
+  type RoadCellClass,
 } from "./domain";
 import { landUseSchema, type LandUse } from "./urban";
 import {
   laneSenseSchema,
   roadCellRoleSchema,
   roadProfileIdSchema,
+  roadAxisProfileForClass,
+  roadProfileForTopology,
   type LaneSense,
   type RoadCellRole,
   type RoadProfileId,
@@ -125,6 +129,64 @@ export type ProjectedRoadSectionSegment = {
   to: GridCell;
   profile: RoadProfileId;
 };
+
+/**
+ * V.l.3 (D-104) · construcción pura del canal de sección transversal desde la topología
+ * persistida. Única fuente: la proyección del worker y los fixtures QA de presentación derivan
+ * exactamente los mismos perfiles y segmentos. El corredor expandido NO viaja; lo deriva el render.
+ */
+export function buildRoadSectionChannel(topology: RoadTopology): {
+  profiles: ProjectedRoadProfile[];
+  segments: ProjectedRoadSectionSegment[];
+} {
+  const profileForClass =
+    topology.derivationVersion === 4
+      ? (roadClass: RoadCellClass) => roadProfileForTopology(topology, roadClass)
+      : roadAxisProfileForClass;
+  const segments = topology.segments.map((segment) => ({
+    id: segment.id,
+    from: { ...segment.from },
+    to: { ...segment.to },
+    profile: profileForClass(segment.class).id,
+  }));
+  const usedProfiles = new Set(segments.map((segment) => segment.profile));
+  const profiles = roadProfileIdSchema.options
+    .filter((id) => usedProfiles.has(id))
+    .map((id) => {
+      const profile = profileForClass(id);
+      return {
+        id,
+        width: profile.width,
+        roles: [...profile.roles],
+        laneSenses: [...profile.laneSenses],
+      };
+    });
+  return { profiles, segments };
+}
+
+/** Digesto FNV-1a del canal de sección, idéntico al que publica la proyección. */
+export function roadSectionDigest(channel: {
+  profiles: ProjectedRoadProfile[];
+  segments: ProjectedRoadSectionSegment[];
+}): string {
+  let digest = 0x811c9dc5;
+  for (const character of JSON.stringify({
+    profiles: channel.profiles,
+    segments: channel.segments,
+  })) {
+    digest = Math.imul((digest ^ character.charCodeAt(0)) >>> 0, 0x01000193) >>> 0;
+  }
+  return digest.toString(16).padStart(8, "0");
+}
+
+/** Digesto FNV-1a del eje publicado en `map.roads.cells`, idéntico al de la proyección. */
+export function roadCellsDigest(cells: readonly string[]): string {
+  let digest = 0x811c9dc5;
+  for (const character of cells.join(",")) {
+    digest = Math.imul((digest ^ character.charCodeAt(0)) >>> 0, 0x01000193) >>> 0;
+  }
+  return digest.toString(16).padStart(8, "0");
+}
 
 export type ViewProjectionV2 = {
   projectionVersion: 2;

@@ -1,23 +1,16 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  districtGenerationSeed,
-  parseCityId,
   parseCityProfileId,
-  parseSeed,
   roadCellsFromSegments,
   roadCorridorCellsFromSegments,
   roadCorridorSegmentsByCell,
   roadProfileForTopology,
   roadSectionCellsFromSegments,
+  type RoadTopology,
 } from "@landlord/shared";
 
-import {
-  adjacentPairs,
-  canonicalSlots,
-  districtIdForSlot,
-  resolveCityProfile,
-} from "./city";
+import { adjacentPairs, canonicalSlots, districtIdForSlot, resolveCityProfile } from "./city";
 import { defaultRoadAnchors, generateDistrictFromProfile } from "./district-generator";
 import { resolveDistrictProfile } from "./district-profiles";
 import { buildLandValueContext } from "./land-value";
@@ -31,10 +24,14 @@ import { buildCoverageIndex } from "./urban-services";
  * los consumidores de cobertura y valor leen el corredor donde la topología es v4 (D-104).
  */
 
-function sectionOf(roads: Parameters<typeof roadProfileForTopology>[0]) {
+function sectionOf(roads: RoadTopology) {
   return roadSectionCellsFromSegments(roads.segments, (roadClass) =>
     roadProfileForTopology(roads, roadClass),
   );
+}
+
+function variantOf(roads: RoadTopology): string | undefined {
+  return roads.derivationVersion === 4 ? roads.roadSectionVariant : undefined;
 }
 
 function generated(profileId: string, seed: number) {
@@ -48,7 +45,9 @@ describe("Gate C · road-system acceptance v2 / ave3 / full", () => {
     const corridor = roadCorridorCellsFromSegments(district.roads.segments, (roadClass) =>
       roadProfileForTopology(district.roads, roadClass),
     );
-    expect([...corridor].sort()).toEqual([...roadCellsFromSegments(district.roads.segments)].sort());
+    expect([...corridor].sort()).toEqual(
+      [...roadCellsFromSegments(district.roads.segments)].sort(),
+    );
     for (const roadClass of ["street", "avenue"] as const) {
       expect(roadProfileForTopology(district.roads, roadClass).width).toBe(1);
     }
@@ -57,13 +56,15 @@ describe("Gate C · road-system acceptance v2 / ave3 / full", () => {
   it("ave3: avenida con aceras y doble sentido, calle al eje, sin mediana", () => {
     const district = generated("vega_del_cauce", 7);
     expect(district.roads.derivationVersion).toBe(4);
-    expect(district.roads.roadSectionVariant).toBe("ave3");
+    expect(variantOf(district.roads)).toBe("ave3");
     const section = sectionOf(district.roads);
     expect([...section.values()].some((cell) => cell.role === "median")).toBe(false);
     const avenue = [...section.values()].filter((cell) => cell.profile === "avenue");
     expect(avenue.some((cell) => cell.role === "sidewalk")).toBe(true);
     expect(
-      avenue.filter((cell) => cell.role === "carriageway").every((cell) => cell.laneSense === "both"),
+      avenue
+        .filter((cell) => cell.role === "carriageway")
+        .every((cell) => cell.laneSense === "both"),
     ).toBe(true);
     const streetAxis = roadCellsFromSegments(
       district.roads.segments.filter((segment) => segment.class === "street"),
@@ -83,17 +84,19 @@ describe("Gate C · road-system acceptance v2 / ave3 / full", () => {
   it("full: la mediana sobrevive a los ejes colineales y el cruce perpendicular es calzada de doble sentido", () => {
     const district = generated("ensanche_ferroviario_oeste", 7);
     expect(district.roads.derivationVersion).toBe(4);
-    expect(district.roads.roadSectionVariant).toBe("full");
+    expect(variantOf(district.roads)).toBe("full");
     const section = sectionOf(district.roads);
     const median = [...section.entries()].filter(([, cell]) => cell.role === "median");
     expect(median.length).toBeGreaterThan(0);
     expect(median.every(([, cell]) => cell.profile === "avenue")).toBe(true);
     const crossing = [...section.values()].filter(
-      (cell) => cell.role === "carriageway" && cell.laneSense === "both" && cell.profile === "avenue",
+      (cell) =>
+        cell.role === "carriageway" && cell.laneSense === "both" && cell.profile === "avenue",
     );
     expect(crossing.length).toBeGreaterThan(0);
     const avenueLanes = [...section.values()].filter(
-      (cell) => cell.profile === "avenue" && cell.role === "carriageway" && cell.laneSense !== "both",
+      (cell) =>
+        cell.profile === "avenue" && cell.role === "carriageway" && cell.laneSense !== "both",
     );
     expect(avenueLanes.some((cell) => cell.laneSense === "forward")).toBe(true);
     expect(avenueLanes.some((cell) => cell.laneSense === "backward")).toBe(true);

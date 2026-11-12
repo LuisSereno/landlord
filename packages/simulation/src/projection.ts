@@ -2,9 +2,9 @@ import {
   parseMoney,
   parseTick,
   roadCellsFromSegments,
-  roadAxisProfileForClass,
-  roadProfileForTopology,
-  roadProfileIdSchema,
+  buildRoadSectionChannel,
+  roadCellsDigest,
+  roadSectionDigest,
   viewProjectionV2Schema,
   type DistrictId,
   type GridCell,
@@ -488,46 +488,14 @@ export function createViewProjection(
       return leftY - rightY || leftX - rightX;
     },
   );
-  let roadDigest = 0x811c9dc5;
-  for (const character of roadCells.join(",")) {
-    roadDigest = Math.imul((roadDigest ^ character.charCodeAt(0)) >>> 0, 0x01000193) >>> 0;
-  }
+  const roadDigest = roadCellsDigest(roadCells);
   /**
-   * V.l.3 (D-104) · sección transversal. Se publica el perfil de cada segmento del eje y los
-   * descriptores en uso; el corredor expandido NO viaja, lo deriva el render con
-   * `road-cross-section.ts`. El orden de los segmentos es el canónico del dominio (el que valida
-   * `snapshot.ts`), y el de los perfiles el del esquema, así que el digesto no depende de inserción.
+   * V.l.3 (D-104) · sección transversal. El canal lo construye el helper puro de shared desde la
+   * topología persistida (misma fuente que los fixtures QA); el corredor expandido NO viaja, lo
+   * deriva el render con `road-cross-section.ts`.
    */
-  const sectionProfileForClass =
-    observedDistrict.map.roads.derivationVersion === 4
-      ? (roadClass: Parameters<typeof roadProfileForTopology>[1]) =>
-          roadProfileForTopology(observedDistrict.map.roads, roadClass)
-      : roadAxisProfileForClass;
-  const sectionSegments = observedDistrict.map.roads.segments.map((segment) => ({
-    id: segment.id,
-    from: { ...segment.from },
-    to: { ...segment.to },
-    profile: sectionProfileForClass(segment.class).id,
-  }));
-  const usedProfiles = new Set(sectionSegments.map((segment) => segment.profile));
-  const sectionProfiles = roadProfileIdSchema.options
-    .filter((id) => usedProfiles.has(id))
-    .map((id) => {
-      const profile = sectionProfileForClass(id);
-      return {
-        id,
-        width: profile.width,
-        roles: [...profile.roles],
-        laneSenses: [...profile.laneSenses],
-      };
-    });
-  let sectionDigest = 0x811c9dc5;
-  for (const character of JSON.stringify({
-    profiles: sectionProfiles,
-    segments: sectionSegments,
-  })) {
-    sectionDigest = Math.imul((sectionDigest ^ character.charCodeAt(0)) >>> 0, 0x01000193) >>> 0;
-  }
+  const sectionChannel = buildRoadSectionChannel(observedDistrict.map.roads);
+  const sectionDigest = roadSectionDigest(sectionChannel);
   const projection: ViewProjectionV2 = {
     projectionVersion: 2,
     observedDistrictId,
@@ -542,12 +510,12 @@ export function createViewProjection(
     map: {
       width: 64,
       height: 64,
-      roads: { revision: 0, digest: roadDigest.toString(16).padStart(8, "0"), cells: roadCells },
+      roads: { revision: 0, digest: roadDigest, cells: roadCells },
       roadSection: {
         revision: 0,
-        digest: sectionDigest.toString(16).padStart(8, "0"),
-        profiles: sectionProfiles,
-        segments: sectionSegments,
+        digest: sectionDigest,
+        profiles: sectionChannel.profiles,
+        segments: sectionChannel.segments,
       },
     },
     publicSpaces: [...observedDistrict.publicSpaces.values()]

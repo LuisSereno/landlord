@@ -26,6 +26,7 @@ import {
   type MapOverlay,
 } from "./isometric/mount";
 import type { GridCell } from "./isometric/coordinates";
+import { applyQaRoadOverride, isQaRoadFixture } from "./isometric/road-qa-override";
 import { BenchmarkApp } from "./BenchmarkApp";
 import { ArtLab } from "./ArtLab";
 import { VisualSlice } from "./VisualSlice";
@@ -103,6 +104,18 @@ export function App() {
   const [dismissedOnboarding, setDismissedOnboarding] = useState<ReadonlySet<string>>(new Set());
   const mapRef = useRef<MapViewportHandle>(null);
   const debug = useMemo(() => new URLSearchParams(window.location.search).get("debug") === "1", []);
+  // Gate D · fixture QA de presentación: sólo con cameraTest=1, sustituye el canal vial de la
+  // proyección renderizada (nunca el estado) para poder capturar la autovía de 7.
+  const qaRoads = useMemo(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("cameraTest") !== "1") return null;
+    const value = params.get("qaRoads");
+    return isQaRoadFixture(value) ? value : null;
+  }, []);
+  const renderedProjection = useMemo(
+    () => (projection && qaRoads ? applyQaRoadOverride(projection, qaRoads) : projection),
+    [projection, qaRoads],
+  );
 
   useEffect(() => {
     applyVisualMood(visualMood);
@@ -335,6 +348,7 @@ export function App() {
           ? (economy?.parcels.find((parcel) => parcel.id === facility.parcelIds[0])?.cell ?? null)
           : null;
       },
+      roadSectionSummary: () => projection?.map.roadSection ?? null,
       pendingSite: () =>
         pendingSite && economy
           ? (() => {
@@ -880,9 +894,28 @@ export function App() {
           }
           visualMood={visualMood}
           overlay={overlay}
-          projection={projection}
+          projection={renderedProjection}
           ref={mapRef}
         />
+        {qaRoads ? (
+          <div
+            data-testid="qa-road-banner"
+            style={{
+              position: "fixed",
+              top: 8,
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: 60,
+              background: "#7c2d12",
+              color: "#fff",
+              padding: "4px 10px",
+              borderRadius: 6,
+              fontSize: 12,
+            }}
+          >
+            QA fixture · {qaRoads} (sólo presentación, no es el mundo canónico)
+          </div>
+        ) : null}
         <OverlayToolbar onChange={setOverlay} overlay={overlay} />
         {showOnboarding && onboarding && !pendingPlacement ? (
           /** El banner de "elige qué construir" contradice un mapa que ya está colocando. */
@@ -956,6 +989,7 @@ declare global {
       marketableParcelCellForType: (buildingType: string) => GridCell | null;
       largestMarketableParcel: () => { cell: GridCell; cellCount: number } | null;
       facilityCell: (kind: string) => GridCell | null;
+      roadSectionSummary: () => ViewProjectionV2["map"]["roadSection"] | null;
       pendingSite: () => {
         buildingType: string;
         parcelCount: number;

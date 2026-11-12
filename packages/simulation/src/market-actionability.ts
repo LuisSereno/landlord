@@ -1,4 +1,10 @@
-import { parseMoney, type Parcel, type ParcelId, type RoadFrontage } from "@landlord/shared";
+import {
+  parseMoney,
+  type BuildingDefinition,
+  type Parcel,
+  type ParcelId,
+  type RoadFrontage,
+} from "@landlord/shared";
 
 import { developmentCodeById } from "./development-codes";
 import { evaluateActionableSite } from "./development-placement";
@@ -177,4 +183,37 @@ export function enforceMarketableActionability(input: {
     merged += 1;
   }
   return { merged, reclassified };
+}
+
+/**
+ * Gate B · ¿el suelo de mercado hospeda al menos un sitio autoritativo para la definición?
+ * Misma regla que D-106 (contrato + huellas), sobre todos los conjuntos compatibles del pool.
+ * La consume la ciudad para garantizar disponibilidad ciudad-global de la industria pesada.
+ */
+export function hasActionableSiteForDefinition(input: {
+  parcels: readonly Parcel[];
+  definition: BuildingDefinition;
+  avenueSegmentIds: ReadonlySet<string>;
+}): boolean {
+  const marketable = input.parcels.filter((parcel) => parcel.disposition === "marketable");
+  const byId = new Map(marketable.map((parcel) => [parcel.id, parcel]));
+  const sites = enumerateCompatibleDevelopmentSites({
+    parcels: marketable,
+    definition: input.definition,
+    maxExplored: 512,
+  });
+  for (const ids of sites) {
+    const group = ids.map((id) => byId.get(id)!).filter(Boolean);
+    if (group.length !== input.definition.siteRequirements.requiredParcels) continue;
+    if (
+      evaluateActionableSite({
+        parcels: group,
+        definition: input.definition,
+        code: developmentCodeById(group[0]!.developmentCodeId),
+        avenueSegmentIds: input.avenueSegmentIds,
+      }).ok
+    )
+      return true;
+  }
+  return false;
 }

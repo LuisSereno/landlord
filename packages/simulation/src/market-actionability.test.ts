@@ -14,7 +14,10 @@ import { DEVELOPMENT_CODES, developmentCodeById } from "./development-codes";
 import { developmentPlacementCandidatesFor, evaluateActionableSite } from "./development-placement";
 import { enumerateCompatibleDevelopmentSites } from "./development-site";
 import { BUILDING_DEFINITIONS, MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
-import { enforceMarketableActionability } from "./market-actionability";
+import {
+  enforceMarketableActionability,
+  hasActionableSiteForDefinition,
+} from "./market-actionability";
 import { createInitialState } from "./state";
 import type { UrbanFabricConfig } from "./urban-fabric";
 
@@ -234,7 +237,7 @@ describe("D-106 · regresión de ciudad", () => {
     );
     const avenueByDistrict = new Map(
       [...state.world.districts.values()].map((district) => [
-        district.id,
+        district.district.id,
         new Set(
           district.map.roads.segments
             .filter((segment) => segment.class === "avenue")
@@ -281,6 +284,26 @@ describe("D-106 · regresión de ciudad", () => {
       // Público residual: sólo es legítimo si tampoco serviría dentro de un complejo.
       const copy = { ...residual!, disposition: "marketable" } as Parcel;
       expect(multiActionable(copy, [...marketable, copy])).toBe(false);
+    }
+  }, 300_000);
+
+  it("Gate B: la acería tiene sitio legal ciudad-global incluso en seeds con triples marginales", () => {
+    for (const seed of [20, 33]) {
+      const state = createInitialState(seed);
+      const hosted = [...state.world.districts.values()].some((district) =>
+        hasActionableSiteForDefinition({
+          parcels: [...state.phase2.parcels.values()].filter(
+            (parcel) => parcel.districtId === district.district.id,
+          ),
+          definition: BUILDING_DEFINITIONS.steelworks,
+          avenueSegmentIds: new Set(
+            district.map.roads.segments
+              .filter((segment) => segment.class === "avenue")
+              .map((segment) => segment.id as string),
+          ),
+        }),
+      );
+      expect(hosted, `seed ${seed}`).toBe(true);
     }
   }, 300_000);
 

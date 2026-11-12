@@ -29,7 +29,8 @@ import {
   type DistrictProfile,
 } from "./district-profiles";
 import { generateDistrictFromProfile, type GeneratedDistrict } from "./district-generator";
-import { MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
+import { MUNICIPALITY_ORGANIZATION_ID, BUILDING_DEFINITIONS } from "./game-data";
+import { hasActionableSiteForDefinition } from "./market-actionability";
 
 /**
  * City layer of V.d (D-088).
@@ -386,6 +387,24 @@ function connectionIdFromGateway(gatewayId: string): string {
   return `connection_${gatewayId.slice("gateway_".length)}`;
 }
 
+function toDistrictState(
+  slot: CitySlotDefinition,
+  generated: GeneratedDistrict,
+): GeneratedDistrictState {
+  return {
+    district: { ...generated.district, name: slot.districtName },
+    parcels: generated.parcels,
+    blocks: generated.blocks,
+    publicSpaces: generated.publicSpaces,
+    buildings: generated.buildings,
+    facilities: generated.facilities,
+    blockedCells: generated.blockedCells,
+    roads: generated.roads,
+    spawnAnchors: generated.spawnAnchors,
+    report: generated.report,
+  };
+}
+
 export function createCity(options: {
   seed: number;
   profileId?: CityProfileId | undefined;
@@ -413,18 +432,47 @@ export function createCity(options: {
       gatewayCells: gatewaysByDistrict.get(districtId) ?? [],
       cityId,
     });
-    districts.set(districtId, {
-      district: { ...generated.district, name: slot.districtName },
-      parcels: generated.parcels,
-      blocks: generated.blocks,
-      publicSpaces: generated.publicSpaces,
-      buildings: generated.buildings,
-      facilities: generated.facilities,
-      blockedCells: generated.blockedCells,
-      roads: generated.roads,
-      spawnAnchors: generated.spawnAnchors,
-      report: generated.report,
+    districts.set(districtId, toDistrictState(slot, generated));
+  }
+
+  // Gate B · disponibilidad ciudad-global de la acería: si ninguna parcela de la ciudad hospeda
+  // un sitio triple legal, se recompone el primer distrito industrial que pueda hospedarlo (el
+  // generador reintenta con el issue STEELWORKS_SITE_MISSING). Las ciudades que ya lo tienen no
+  // cambian ni un digesto.
+  const steelworksSiteIn = (state: GeneratedDistrictState): boolean =>
+    hasActionableSiteForDefinition({
+      parcels: state.parcels,
+      definition: BUILDING_DEFINITIONS.steelworks,
+      avenueSegmentIds: new Set(
+        state.roads.segments
+          .filter((segment) => segment.class === "avenue")
+          .map((segment) => segment.id as string),
+      ),
     });
+  if (![...districts.values()].some(steelworksSiteIn)) {
+    for (const slot of canonicalSlots(profile)) {
+      const districtProfile = resolveDistrictProfile(slot.districtProfileId);
+      if (districtProfile.dominantRole !== "industrial_logistics") continue;
+      const districtId = districtIdForSlot(slot.slotX, slot.slotY);
+      const districtSeed = districtGenerationSeed({
+        citySeed: parseSeed(options.seed),
+        cityProfileId: profile.id,
+        slotX: slot.slotX,
+        slotY: slot.slotY,
+        districtProfileId: districtProfile.id,
+      });
+      const regenerated = generateDistrictFromProfile(districtProfile, districtSeed, {
+        districtId,
+        parcelIdOrdinal: parcelIdOrdinalForSlot(slot.slotX, slot.slotY),
+        buildingIdOrdinal: 90_000_000 + slotOrdinal(slot.slotX, slot.slotY) * 1_000,
+        facilityIdOrdinal: slotOrdinal(slot.slotX, slot.slotY) * 1_000,
+        gatewayCells: gatewaysByDistrict.get(districtId) ?? [],
+        cityId,
+        requireSteelworksSite: true,
+      });
+      districts.set(districtId, toDistrictState(slot, regenerated));
+      if (steelworksSiteIn(districts.get(districtId)!)) break;
+    }
   }
 
   const candidates = deriveGateways(districts);

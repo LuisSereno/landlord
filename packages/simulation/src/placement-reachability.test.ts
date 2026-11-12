@@ -13,6 +13,7 @@ import {
   zoningFamilyForCode,
 } from "./development-codes";
 import { developmentPlacementCandidatesFor } from "./development-placement";
+import { enumerateCompatibleDevelopmentSites } from "./development-site";
 import { BUILDING_DEFINITIONS } from "./game-data";
 import { createInitialState } from "./state";
 
@@ -27,14 +28,13 @@ import { createInitialState } from "./state";
  * que produzca cero colocaciones, o el caso sólo puede probarse con fixtures unitarios.
  */
 const ENABLED = process.env.PLACEMENT_REACHABILITY === "1";
+/** Comma-separated deterministic sweep; CI/default evidence remains the three representative seeds. */
+const SWEEP_SEEDS = (process.env.PLACEMENT_REACHABILITY_SEEDS ?? "1,7,42")
+  .split(",")
+  .map((value) => Number(value.trim()))
+  .filter((value) => Number.isSafeInteger(value) && value >= 0);
 const organization = parseOrganizationId("org_00000001");
 const cellKey = (cell: { x: number; y: number }) => `${cell.x},${cell.y}`;
-const OFFSETS = [
-  { x: 1, y: 0 },
-  { x: -1, y: 0 },
-  { x: 0, y: 1 },
-  { x: 0, y: -1 },
-] as const;
 
 function measure(seed: number) {
   const state = createInitialState(seed);
@@ -49,19 +49,6 @@ function measure(seed: number) {
       !occupied.has(parcel.id),
   );
   const byId = new Map(openable.map((parcel) => [parcel.id, parcel]));
-  const ownerOfCell = new Map<string, ParcelId>();
-  for (const parcel of openable)
-    for (const cell of parcel.cells) ownerOfCell.set(cellKey(cell), parcel.id);
-  const adjacent = new Map<ParcelId, ParcelId[]>();
-  for (const parcel of openable) {
-    const set = new Set<ParcelId>();
-    for (const cell of parcel.cells)
-      for (const offset of OFFSETS) {
-        const other = ownerOfCell.get(`${cell.x + offset.x},${cell.y + offset.y}`);
-        if (other && other !== parcel.id) set.add(other);
-      }
-    adjacent.set(parcel.id, [...set].sort());
-  }
 
   const own = (ids: readonly ParcelId[]) => {
     for (const id of ids)
@@ -80,7 +67,15 @@ function measure(seed: number) {
   let minimum = Number.POSITIVE_INFINITY;
   let zeroCases = 0;
   const zeroExamples: string[] = [];
+  const multiTouchFailures: string[] = [];
   const minimumByBuildingType: Record<string, number> = {};
+  const availableBuildingTypes = new Set<BuildingType>();
+  /**
+   * D-106: an open market parcel is a real opportunity only if at least one legal project can
+   * be placed. A project may make that opportunity actionable through its complete two/three
+   * parcel site; it must not be artificially restricted to a one-parcel building.
+   */
+  const actionableParcelIds = new Set<ParcelId>();
 
   const observe = (
     label: string,
@@ -106,39 +101,48 @@ function measure(seed: number) {
       zeroCases += 1;
       if (zeroExamples.length < 10)
         zeroExamples.push(`${label} ${ids.join("+")} · ${buildingType} · ${answer.rejection}`);
+    } else {
+      for (const id of ids) actionableParcelIds.add(id);
+      availableBuildingTypes.add(buildingType);
+      if (ids.length > 1) {
+        // D-096/D-106: un complejo multi-parcela debe tocar físicamente TODAS sus parcelas.
+        const footprint = new Set(answer.candidates[0]!.footprintCells.map(cellKey));
+        for (const id of ids) {
+          const touches = byId.get(id)!.cells.some((cell) => footprint.has(cellKey(cell)));
+          if (!touches)
+            multiTouchFailures.push(`${label} ${ids.join("+")} · ${buildingType} · ${id}`);
+        }
+      }
     }
     return answer.totalCandidates;
   };
 
-  for (const parcel of openable)
-    for (const definition of Object.values(BUILDING_DEFINITIONS)) {
-      if (definition.cost === 0 || definition.siteRequirements.requiredParcels !== 1) continue;
-      if (!permitted(parcel, definition.type)) continue;
-      observe("single", [parcel.id], definition.type, parcel.districtId);
-    }
-
-  for (const a of openable)
-    for (const bId of adjacent.get(a.id) ?? []) {
-      if (bId <= a.id) continue;
-      const b = byId.get(bId)!;
-      if (a.developmentCodeId !== b.developmentCodeId || a.districtId !== b.districtId) continue;
-      for (const definition of Object.values(BUILDING_DEFINITIONS)) {
-        if (definition.cost === 0 || definition.siteRequirements.requiredParcels !== 2) continue;
-        if (!permitted(a, definition.type) || !permitted(b, definition.type)) continue;
-        observe("pair", [a.id, bId], definition.type, a.districtId);
+  for (const definition of Object.values(BUILDING_DEFINITIONS)) {
+    if (definition.cost === 0) continue;
+    const required = definition.siteRequirements.requiredParcels;
+    if (required === 1) {
+      for (const parcel of openable) {
+        if (!permitted(parcel, definition.type)) continue;
+        observe("single", [parcel.id], definition.type, parcel.districtId);
       }
-      for (const cId of adjacent.get(a.id) ?? []) {
-        if (cId <= bId) continue;
-        if (!(adjacent.get(bId) ?? []).includes(cId)) continue;
-        const c = byId.get(cId)!;
-        if (c.developmentCodeId !== a.developmentCodeId || c.districtId !== a.districtId) continue;
-        for (const definition of Object.values(BUILDING_DEFINITIONS)) {
-          if (definition.cost === 0 || definition.siteRequirements.requiredParcels !== 3) continue;
-          if (!permitted(c, definition.type)) continue;
-          observe("triple", [a.id, bId, cId], definition.type, a.districtId);
-        }
-      }
+      continue;
     }
+    // Pares y tríos con el mismo contrato autoritativo que UI/IA (admite cadenas a-b-c, no sólo
+    // triángulos): un sitio legal de acería no puede quedar fuera del barrido por geometría.
+    const sites = enumerateCompatibleDevelopmentSites({
+      parcels: openable,
+      definition,
+      maxExplored: 20_000,
+    });
+    for (const ids of sites) {
+      observe(
+        required === 2 ? "pair" : "triple",
+        ids,
+        definition.type,
+        byId.get(ids[0]!)!.districtId,
+      );
+    }
+  }
 
   const sizes = openable.map((parcel) => parcel.cells.length).sort((left, right) => left - right);
   const singleMinArea = Math.max(
@@ -153,6 +157,10 @@ function measure(seed: number) {
     const family = zoningFamilyForCode(developmentCodeById(parcel.developmentCodeId));
     families.set(family, (families.get(family) ?? 0) + 1);
   }
+  const unactionableParcels = openable
+    .filter((parcel) => !actionableParcelIds.has(parcel.id))
+    .map((parcel) => parcel.id)
+    .sort();
   return {
     seed,
     projects,
@@ -160,25 +168,31 @@ function measure(seed: number) {
     zeroCandidateProjects: zeroCases,
     zeroExamples,
     minimumByBuildingType,
+    availableBuildingTypes: [...availableBuildingTypes].sort(),
     smallestOpenableParcelCells: sizes[0] ?? null,
     largestSingleParcelMinimumArea: singleMinArea,
     openableParcels: openable.length,
+    actionableParcels: actionableParcelIds.size,
+    unactionableParcels,
+    multiTouchFailures,
     buildableFamilies: Object.fromEntries(families),
   };
 }
 
-describe.skipIf(!ENABLED)("V.d-7C · alcanzabilidad del caso sin colocación", () => {
-  it("barre los proyectos que la interfaz puede armar en la ciudad entregada", () => {
-    /** Semilla 1 = la que inicializa la app (`use-game-session.ts`); las otras dos amplían la muestra. */
-    const runs = [1, 7, 42].map(measure);
-    const again = measure(1);
+describe.skipIf(!ENABLED)("V.d-7C · alcanzabilidad y accionabilidad de solares", () => {
+  it("barre los proyectos y no publica solares de mercado sin una jugada legal", () => {
+    /** Semilla 1 = la que inicializa la app (`use-game-session.ts`); el gate puede ampliar la muestra. */
+    expect(SWEEP_SEEDS.length).toBeGreaterThan(0);
+    const runs = SWEEP_SEEDS.map(measure);
+    const again = measure(SWEEP_SEEDS[0]!);
     expect(again.projects).toBe(runs[0]!.projects);
     expect(again.minimumCandidates).toBe(runs[0]!.minimumCandidates);
 
     const evidence = {
       measuredAt: new Date().toISOString(),
       note: "Recuento autoritativo de candidatas sobre TODOS los proyectos que una jugadora puede abrir en una partida nueva (comprar → catálogo → elegir ubicación).",
-      appSeed: 1,
+      appSeed: SWEEP_SEEDS[0],
+      requestedSeeds: SWEEP_SEEDS,
       runs,
       reachableZeroCandidate: runs.some((run) => run.zeroCandidateProjects > 0),
     };
@@ -189,6 +203,20 @@ describe.skipIf(!ENABLED)("V.d-7C · alcanzabilidad del caso sin colocación", (
       "utf8",
     );
     expect(runs[0]!.projects).toBeGreaterThan(1000);
+    const privateTypes = Object.values(BUILDING_DEFINITIONS)
+      .filter((definition) => definition.cost > 0)
+      .map((definition) => definition.type);
+    for (const run of runs) {
+      expect(run.actionableParcels).toBe(run.openableParcels);
+      expect(run.unactionableParcels).toEqual([]);
+      expect(run.multiTouchFailures).toEqual([]);
+      // Disponibilidad ciudad-global: los nueve tipos privados, incluida la industria pesada
+      // (cementera/ladrillera/acería), tienen al menos una colocación legal en la ciudad.
+      // (El mínimo por tipo es informativo: no todo trío contiguo es un sitio legal.)
+      for (const type of privateTypes) {
+        expect(run.availableBuildingTypes, `seed ${run.seed} · ${type}`).toContain(type);
+      }
+    }
     // eslint-disable-next-line no-console
     console.log(
       `V.d-7C reachability · ${runs
@@ -198,5 +226,5 @@ describe.skipIf(!ENABLED)("V.d-7C · alcanzabilidad del caso sin colocación", (
         )
         .join(" · ")}`,
     );
-  }, 300_000);
+  }, 2_700_000);
 });

@@ -43,7 +43,10 @@ import {
   PRIMARY_USE_BY_BUILDING_TYPE,
 } from "./game-data";
 import { chooseFootprint } from "./footprints";
-import { enforceMarketableActionability } from "./market-actionability";
+import {
+  enforceMarketableActionability,
+  hasActionableSiteForDefinition,
+} from "./market-actionability";
 import {
   MUNICIPAL_FACILITY_CAPACITY,
   MUNICIPAL_FACILITY_SERVICE_PROFILE,
@@ -717,6 +720,8 @@ export type DistrictGenerationOptions = {
   /** Gateways of the city, already on this district's border (D-088, D-090). */
   gatewayCells?: readonly GridCell[];
   cityId?: CityId;
+  /** Gate B: el distrito debe hospedar un sitio triple legal de acería (reintenta si no). */
+  requireSteelworksSite?: boolean;
 };
 
 function attemptComposition(input: {
@@ -727,6 +732,7 @@ function attemptComposition(input: {
   buildingIdOrdinal: number;
   facilityIdOrdinal: number;
   gatewayCells: readonly GridCell[];
+  requireSteelworksSite?: boolean;
 }): {
   parcels: Parcel[];
   blocks: Block[];
@@ -989,6 +995,21 @@ function attemptComposition(input: {
     anchorParcelIds,
   });
   const survivingAnchorCount = parcels.filter((parcel) => anchorParcelIds.has(parcel.id)).length;
+  // Gate B: disponibilidad ciudad-global de la acería. La ciudad lo exige sólo al distrito que
+  // la hospeda; aquí el issue reintenta la composición hasta que el sitio triple es legal.
+  if (
+    input.requireSteelworksSite &&
+    !hasActionableSiteForDefinition({
+      parcels,
+      definition: BUILDING_DEFINITIONS.steelworks,
+      avenueSegmentIds,
+    })
+  ) {
+    issues.push({
+      code: "STEELWORKS_SITE_MISSING",
+      detail: "sin sitio triple legal para steelworks",
+    });
+  }
 
   const publicParcels: Parcel[] = [];
   const municipalBuildings: Building[] = [];
@@ -1171,6 +1192,9 @@ export function generateDistrictFromProfile(
       buildingIdOrdinal,
       facilityIdOrdinal,
       gatewayCells,
+      ...(options.requireSteelworksSite === undefined
+        ? {}
+        : { requireSteelworksSite: options.requireSteelworksSite }),
     });
     if (composition.issues.length > 0) {
       issues = composition.issues;

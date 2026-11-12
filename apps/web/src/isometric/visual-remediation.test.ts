@@ -4,6 +4,7 @@ import { validateRuntimeAssetManifestV2 } from "@landlord/shared";
 import { BLENDER_ASSETS } from "../assets/runtime-assets";
 import {
   BUILDING_VISUAL_POLICIES,
+  vehicleAzimuthForLane,
   vehicleAzimuthForRoad,
   visualArchetypeForBuilding,
 } from "./gameplay-visual-adapter";
@@ -113,6 +114,17 @@ describe("V.h visual remediation", () => {
     expect(vehicleAzimuthForRoad("straight_ew", true)).toBe(315);
     expect(vehicleAzimuthForRoad("straight_ns", false)).toBe(225);
     expect(vehicleAzimuthForRoad("straight_ns", true)).toBe(45);
+  });
+
+  it("honours authoritative lane senses for horizontal and vertical carriageways", () => {
+    const forwardEast = { laneSense: "forward" as const, axisDirection: "east" as const };
+    const backwardEast = { laneSense: "backward" as const, axisDirection: "east" as const };
+    const forwardSouth = { laneSense: "forward" as const, axisDirection: "south" as const };
+    const backwardSouth = { laneSense: "backward" as const, axisDirection: "south" as const };
+    expect(vehicleAzimuthForLane("straight_ew", forwardEast, true)).toBe(135);
+    expect(vehicleAzimuthForLane("straight_ew", backwardEast, false)).toBe(315);
+    expect(vehicleAzimuthForLane("straight_ns", forwardSouth, true)).toBe(225);
+    expect(vehicleAzimuthForLane("straight_ns", backwardSouth, false)).toBe(45);
   });
 
   it("keeps a 256px Rocketbox frame in a 22-32px urban-height envelope", () => {

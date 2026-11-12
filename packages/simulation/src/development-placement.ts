@@ -189,6 +189,9 @@ export function footprintInputFor(
       cells: site.parcels.flatMap((parcel) => parcel.cells),
       roadFrontages: site.frontages,
     },
+    ...(site.definition.siteRequirements.requiredParcels > 1
+      ? { requiredParcelCellGroups: site.parcels.map((parcel) => parcel.cells) }
+      : {}),
     code,
     definition: site.definition,
     principalFrontageCells: site.principalFrontageCells,

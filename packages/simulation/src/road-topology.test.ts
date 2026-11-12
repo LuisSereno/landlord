@@ -82,7 +82,7 @@ describe("WP4.15-V.c.2B authoritative road topology", () => {
     expect(generated.parcels.every((parcel) => hasRoadAccess(parcel, roads))).toBe(true);
   });
 
-  it("normaliza IDs por contenido y avenue domina la semántica de una celda solapada", () => {
+  it("normaliza IDs por contenido y aplica street < avenue < motorway sin depender del orden", () => {
     const street: RoadSegment = {
       id: roadSegmentId("street", { x: 2, y: 3 }, { x: 5, y: 3 }),
       from: { x: 2, y: 3 },
@@ -95,8 +95,20 @@ describe("WP4.15-V.c.2B authoritative road topology", () => {
       to: { x: 4, y: 5 },
       class: "avenue",
     };
+    const motorway: RoadSegment = {
+      id: roadSegmentId("motorway", { x: 4, y: 0 }, { x: 4, y: 6 }),
+      from: { x: 4, y: 0 },
+      to: { x: 4, y: 6 },
+      class: "motorway",
+    };
     expect(roadSegmentId("street", street.from, street.to)).toBe(street.id);
     expect(roadCellClassesFromSegments([street, avenue]).get("4:3")).toBe("avenue");
+    expect(roadCellClassesFromSegments([street, motorway]).get("4:3")).toBe("motorway");
+    expect(roadCellClassesFromSegments([avenue, motorway]).get("4:3")).toBe("motorway");
+    const forward = roadCellClassesFromSegments([street, avenue, motorway]);
+    const reverse = roadCellClassesFromSegments([motorway, avenue, street]);
+    expect(forward.get("4:3")).toBe("motorway");
+    expect([...reverse.entries()].sort()).toEqual([...forward.entries()].sort());
   });
 
   it("conserva la topología vial v2/v4 de los nueve distritos en el round-trip", () => {

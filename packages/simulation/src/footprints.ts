@@ -155,6 +155,12 @@ function cellsInRectangle(
 /** Everything the authoritative placement rules read. One shape for the enumerator and its callers. */
 export type FootprintPlacementInput = {
   parcel: Pick<Parcel, "cells" | "roadFrontages">;
+  /**
+   * Cadastral cell groups that a complex must physically occupy. Omitted for legacy/single-parcel
+   * callers. D-096 complexes are not merely financed over several parcels: every required parcel
+   * participates in the authoritative footprint.
+   */
+  requiredParcelCellGroups?: readonly (readonly GridCell[])[];
   code: DevelopmentCode;
   definition: BuildingDefinition;
   /** Street cells of the main frontage; placement prefers them over secondary edges. */
@@ -253,6 +259,9 @@ export function enumerateFootprintCandidates(input: FootprintPlacementInput): Fo
     return left.signature < right.signature;
   };
   const found: Candidate[] = [];
+  const requiredParcelCellGroups = (input.requiredParcelCellGroups ?? [])
+    .map((cells) => new Set(cells.map(cellKey)))
+    .filter((cells) => cells.size > 0);
 
   const maximumWidth = Math.min(maxX - minX + 1, Math.max(1, target * 2));
   const maximumHeight = Math.min(maxY - minY + 1, Math.max(1, target * 2));
@@ -267,6 +276,16 @@ export function enumerateFootprintCandidates(input: FootprintPlacementInput): Fo
         for (let x = minX; x + width - 1 <= maxX; x += 1) {
           const cells = cellsInRectangle(buildable, x, y, width, height);
           if (!cells) continue;
+          // A required multi-parcel site must be visible in the physical result. This sits before
+          // ranking, so automatic placement, an explicit player candidate and AI all consume the
+          // exact same legal set.
+          if (
+            requiredParcelCellGroups.length > 1 &&
+            !requiredParcelCellGroups.every((parcelCells) =>
+              cells.some((cell) => parcelCells.has(cellKey(cell))),
+            )
+          )
+            continue;
           const orientation: 0 | 90 | 180 | 270 = width >= height ? 0 : 90;
           const signature = `${x},${y},${width},${height}`;
           let frontageDistance = principalFrontage.length === 0 ? 0 : Number.POSITIVE_INFINITY;

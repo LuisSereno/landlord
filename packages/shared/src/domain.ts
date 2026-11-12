@@ -301,7 +301,17 @@ export function roadCellsFromSegments(segments: readonly RoadSegment[]): Readonl
   return cells;
 }
 
-/** Si dos trazados coinciden, avenue domina la semántica derivada de la celda. */
+/**
+ * Precedencia semántica única de clases de vía. No depende del orden de los segmentos: un tramo
+ * mayor conserva su identidad tanto si llega antes como si llega después en la topología.
+ */
+export const ROAD_CLASS_RANK: Readonly<Record<RoadCellClass, number>> = {
+  street: 0,
+  avenue: 1,
+  motorway: 2,
+};
+
+/** Si dos trazados coinciden, gana la clase de mayor jerarquía vial. */
 export function roadCellClassesFromSegments(
   segments: readonly RoadSegment[],
 ): ReadonlyMap<string, RoadCellClass> {
@@ -315,7 +325,9 @@ export function roadCellClassesFromSegments(
     );
     for (let step = 0; step <= length; step += 1) {
       const key = roadCellKey({ x: segment.from.x + dx * step, y: segment.from.y + dy * step });
-      if (segment.class === "avenue" || !classes.has(key)) classes.set(key, segment.class);
+      const current = classes.get(key);
+      if (current === undefined || ROAD_CLASS_RANK[segment.class] > ROAD_CLASS_RANK[current])
+        classes.set(key, segment.class);
     }
   }
   return classes;

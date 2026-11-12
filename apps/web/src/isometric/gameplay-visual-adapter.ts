@@ -6,9 +6,10 @@ import type {
   RoadCellClass,
   RoadCellRole,
   RoadProfile,
+  RoadSectionCell,
   ViewProjectionV2,
 } from "@landlord/shared";
-import { roadCellRolesFromSegments } from "@landlord/shared";
+import { roadSectionCellsFromSegments } from "@landlord/shared";
 import type { GroundPlan, GroundRoadMarking, GroundSurface } from "../visual-slice/ground";
 import { buildingAssetStateFor, type ProjectedBuildingState } from "./building-sprites";
 import { constructionVisualStage } from "./construction-stages";
@@ -202,6 +203,8 @@ export type GameplayVisualModel = {
   roadVisuals: readonly GameplayRoadVisual[];
   /** Corredor proyectado: acera, calzada y mediana, sin consultar configuración mutable. */
   roadSectionRoles: ReadonlyMap<string, RoadCellRole>;
+  /** Sentido y eje del carril físico; los vehículos no pueden inventarlos con un hash. */
+  roadSectionCells: ReadonlyMap<string, RoadSectionCell>;
 };
 
 export const ROAD_NEIGHBOUR_BITS = {
@@ -249,6 +252,15 @@ export type GameplayRoadVisual = {
 export function deriveRoadSectionRoles(
   projection: ViewProjectionV2,
 ): ReadonlyMap<string, RoadCellRole> {
+  return new Map(
+    [...deriveRoadSectionCells(projection)].map(([key, section]) => [key, section.role]),
+  );
+}
+
+/** Conserva roles, carriles y sentido desde la proyección hasta el renderer. */
+export function deriveRoadSectionCells(
+  projection: ViewProjectionV2,
+): ReadonlyMap<string, RoadSectionCell> {
   const section = projection.map.roadSection;
   if (section?.segments.length && section.profiles.length) {
     const profiles = new Map<RoadCellClass, RoadProfile>(
@@ -268,13 +280,24 @@ export function deriveRoadSectionRoles(
       to: segment.to,
       class: segment.profile as RoadCellClass,
     }));
-    return roadCellRolesFromSegments(segments, (roadClass) => {
+    return roadSectionCellsFromSegments(segments, (roadClass) => {
       const profile = profiles.get(roadClass);
       if (!profile) throw new Error(`Perfil vial proyectado ausente: ${roadClass}`);
       return profile;
     });
   }
-  return new Map(projection.map.roads.cells.map((key) => [key, "carriageway"]));
+  return new Map(
+    projection.map.roads.cells.map((key) => [
+      key,
+      {
+        role: "carriageway" as const,
+        laneSense: "both" as const,
+        axisOrientation: "horizontal" as const,
+        axisDirection: "east" as const,
+        profile: "street" as const,
+      },
+    ]),
+  );
 }
 
 export type RoadShapeInfo = { shape: RoadShape; orientation: RoadOrientation };
@@ -787,6 +810,25 @@ export function vehicleAzimuthForRoad(
   throw new Error(`vehicleAzimuthForRoad requiere una vía recta, recibió: ${orientation}`);
 }
 
+/**
+ * `forward`/`backward` are immutable lane facts. Only the explicitly bidirectional lane may pick
+ * either azimuth deterministically for visual variety.
+ */
+export function vehicleAzimuthForLane(
+  orientation: RoadOrientation,
+  lane: Pick<RoadSectionCell, "laneSense" | "axisDirection">,
+  bothDirectionReverse: boolean,
+): 45 | 135 | 225 | 315 {
+  const forwardReverse = lane.axisDirection === "west" || lane.axisDirection === "north";
+  const reverse =
+    lane.laneSense === "forward"
+      ? forwardReverse
+      : lane.laneSense === "backward"
+        ? !forwardReverse
+        : bothDirectionReverse;
+  return vehicleAzimuthForRoad(orientation, reverse);
+}
+
 /** Vehículos aparcados estáticos: sólo rectas, con distancia a toda T/intersección y sin economía. */
 export function planGameplayParkedVehicles(
   roadVisuals: readonly GameplayRoadVisual[],
@@ -799,6 +841,7 @@ export function planGameplayParkedVehicles(
   reservedRoadCells: ReadonlySet<string> = new Set(),
   profile?: DistrictVisualProfile,
   roadSectionRoles?: ReadonlyMap<string, RoadCellRole>,
+  roadSectionCells?: ReadonlyMap<string, RoadSectionCell>,
 ): GameplayParkedVehicle[] {
   void parcels;
   void constructionParcelIds;
@@ -839,8 +882,11 @@ export function planGameplayParkedVehicles(
     const variant = spatialHash(road.cell.x, road.cell.y, 0xf809) % 100;
     const asset: GameplayParkedVehicle["asset"] =
       variant < 55 ? "veh_sedan" : variant < 80 ? "veh_taxi" : "veh_truck";
-    const reverseDirection = spatialHash(road.cell.x, road.cell.y, 0x17b3) % 2 === 1;
-    const azimuth = vehicleAzimuthForRoad(road.orientation, reverseDirection);
+    const bothDirectionReverse = spatialHash(road.cell.x, road.cell.y, 0x17b3) % 2 === 1;
+    const sectionCell = roadSectionCells?.get(cellKey(lane.cell));
+    const azimuth = sectionCell
+      ? vehicleAzimuthForLane(road.orientation, sectionCell, bothDirectionReverse)
+      : vehicleAzimuthForRoad(road.orientation, bothDirectionReverse);
     vehicles.push({
       id: `parked-${asset}:${cellKey(lane.cell)}`,
       asset,
@@ -900,6 +946,7 @@ export function planGameplayContextVehicles(
   mapWidth: number,
   mapHeight: number,
   roadSectionRoles?: ReadonlyMap<string, RoadCellRole>,
+  roadSectionCells?: ReadonlyMap<string, RoadSectionCell>,
 ): GameplayContextVehicle[] {
   if (mapWidth <= 0 || mapHeight <= 0) return [];
   const roles =
@@ -940,8 +987,11 @@ export function planGameplayContextVehicles(
       if (free.length === 0) break;
       const curb = free[spatialHash(anchor.x, anchor.y, 0x7c1 + i * 0x2f) % free.length]!;
       usedRoadCells.add(cellKey(curb.lane.cell));
-      const reverseDirection = spatialHash(anchor.x, anchor.y, 0x31d5 + i * 0x53) % 2 === 1;
-      const azimuth = vehicleAzimuthForRoad(curb.road.orientation, reverseDirection);
+      const bothDirectionReverse = spatialHash(anchor.x, anchor.y, 0x31d5 + i * 0x53) % 2 === 1;
+      const sectionCell = roadSectionCells?.get(cellKey(curb.lane.cell));
+      const azimuth = sectionCell
+        ? vehicleAzimuthForLane(curb.road.orientation, sectionCell, bothDirectionReverse)
+        : vehicleAzimuthForRoad(curb.road.orientation, bothDirectionReverse);
       out.push({
         id: `ctx-${building.id}:${spec.asset}:${cellKey(curb.lane.cell)}:${i}`,
         buildingId: building.id,
@@ -1916,7 +1966,10 @@ export function buildGameplayVisualModel(
   const economy = projection.economy;
   const parcels = economy?.parcels ?? [];
   const roadVisuals = deriveRoadVisuals(projection.map.roads);
-  const roadSectionRoles = deriveRoadSectionRoles(projection);
+  const roadSectionCells = deriveRoadSectionCells(projection);
+  const roadSectionRoles = new Map(
+    [...roadSectionCells].map(([key, section]) => [key, section.role]),
+  );
   const roadCellKeys = new Set(roadSectionRoles.keys());
   const constructionParcelIds = new Set(
     (economy?.constructionSites ?? []).flatMap((site) => site.parcelIds),
@@ -1989,6 +2042,7 @@ export function buildGameplayVisualModel(
     mapWidth,
     mapHeight,
     roadSectionRoles,
+    roadSectionCells,
   );
   const reservedVehicleRoads = new Set(contextVehicles.map((vehicle) => cellKey(vehicle.roadCell)));
   const ambientActors = planGameplayAmbientActors(
@@ -2021,6 +2075,7 @@ export function buildGameplayVisualModel(
     reservedStreetLifeRoads,
     districtProfile,
     roadSectionRoles,
+    roadSectionCells,
   );
   const publicSpaceFurniture = planGameplayPublicSpaceFurniture(
     projection.publicSpaces ?? [],
@@ -2059,5 +2114,6 @@ export function buildGameplayVisualModel(
     parcelDressing,
     roadVisuals,
     roadSectionRoles,
+    roadSectionCells,
   };
 }

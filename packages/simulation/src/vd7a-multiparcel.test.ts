@@ -42,6 +42,7 @@ import {
   enumeratePurchasableDevelopmentSites,
   findDevelopmentSite,
 } from "./development-site";
+import { enumerateDevelopmentPlacementCandidates } from "./development-placement";
 
 /**
  * V.d-7A · invariantes del dominio multi-parcela. Los fixtures sintéticos fijan geometrías límite
@@ -380,10 +381,32 @@ describe("V.d-7A · solar multi-parcela (A-L)", () => {
     buy(state, [first!, second!]);
     reshape(first!, rectangle(0, 0, 5, 4), [{ x: 0, y: 0 }]);
     reshape(second!, rectangle(5, 0, 5, 4));
+    const parcelIds = [first!.id, second!.id];
+    const forward = enumerateDevelopmentPlacementCandidates(state, {
+      parcelIds,
+      buildingType: "cement_plant",
+      organizationId: PLAYER_ORGANIZATION_ID,
+    });
+    const reverse = enumerateDevelopmentPlacementCandidates(state, {
+      parcelIds: [...parcelIds].reverse(),
+      buildingType: "cement_plant",
+      organizationId: PLAYER_ORGANIZATION_ID,
+    });
+    expect(reverse.candidates.map((candidate) => candidate.id)).toEqual(
+      forward.candidates.map((candidate) => candidate.id),
+    );
+    const inFirst = new Set(first!.cells.map((cell) => `${cell.x}:${cell.y}`));
+    for (const candidate of forward.candidates) {
+      expect(candidate.footprintCells.some((cell) => inFirst.has(`${cell.x}:${cell.y}`))).toBe(
+        true,
+      );
+      expect(candidate.footprintCells.some((cell) => !inFirst.has(`${cell.x}:${cell.y}`))).toBe(
+        true,
+      );
+    }
     const result = build(state, [first!.id, second!.id], "cement_plant");
     expect(result).toMatchObject({ accepted: true });
     const site = [...state.phase2.constructionSites.values()][0]!;
-    const inFirst = new Set(first!.cells.map((cell) => `${cell.x}:${cell.y}`));
     expect(site.footprintCells.some((cell) => inFirst.has(`${cell.x}:${cell.y}`))).toBe(true);
     expect(site.footprintCells.some((cell) => !inFirst.has(`${cell.x}:${cell.y}`))).toBe(true);
     const union = new Set([...first!.cells, ...second!.cells].map((cell) => `${cell.x}:${cell.y}`));
@@ -405,9 +428,14 @@ describe("V.d-7A · solar multi-parcela (A-L)", () => {
     expect(build(state, [first.id, second.id, third.id], "steelworks")).toMatchObject({
       accepted: true,
     });
-    expect([...state.phase2.constructionSites.values()][0]!.parcelIds).toEqual(
-      canonicalParcelIds([first.id, second.id, third.id]),
-    );
+    const site = [...state.phase2.constructionSites.values()][0]!;
+    expect(site.parcelIds).toEqual(canonicalParcelIds([first.id, second.id, third.id]));
+    for (const parcel of parcels)
+      expect(
+        site.footprintCells.some((cell) =>
+          parcel.cells.some((parcelCell) => parcelCell.x === cell.x && parcelCell.y === cell.y),
+        ),
+      ).toBe(true);
   });
 });
 
@@ -580,6 +608,12 @@ describe("V.d-7A · permisos, ciclo de vida e índices (M-T)", () => {
     const ids = canonicalParcelIds(pair.map((parcel) => parcel.id));
     const building = playerBuilding(restored, "cement_plant");
     expect(building.parcelIds).toEqual(ids);
+    for (const parcel of pair)
+      expect(
+        building.footprintCells.some((cell) =>
+          parcel.cells.some((parcelCell) => parcelCell.x === cell.x && parcelCell.y === cell.y),
+        ),
+      ).toBe(true);
     const permits = Object.values(restored.phase2.permitting.permitsById);
     expect(
       permits.some((permit) => canonicalParcelIds(permit.parcelIds).join() === ids.join()),

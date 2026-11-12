@@ -38,6 +38,21 @@ export type RoadProfile = {
   laneSenses: readonly (LaneSense | null)[];
 };
 
+/** Presentation-safe direction of the owning segment's `from → to` axis. */
+export type RoadAxisDirection = "east" | "west" | "north" | "south";
+
+/**
+ * Fully-derived physical-road cell. This is deliberately derived from the persisted topology and
+ * projected profile, rather than reconstructed from a renderer hash.
+ */
+export type RoadSectionCell = {
+  role: RoadCellRole;
+  laneSense: LaneSense | null;
+  axisOrientation: "horizontal" | "vertical";
+  axisDirection: RoadAxisDirection;
+  profile: RoadProfileId;
+};
+
 /**
  * Circulación por la derecha: avanzando `from → to`, el lado **derecho** lleva sentido `forward`.
  * El perpendicular es la dirección rotada +90° en retícula con +y hacia abajo, `(dx,dy) → (−dy,dx)`:
@@ -170,6 +185,10 @@ type CellAccumulator = {
   /** Rol central del primer segmento, en orden canónico, cuyo eje pasa por aquí. */
   axisRole: RoadCellRole | null;
   bestRole: RoadCellRole;
+  bestLaneSense: LaneSense | null;
+  bestAxisOrientation: "horizontal" | "vertical";
+  bestAxisDirection: RoadAxisDirection;
+  bestProfile: RoadProfileId;
   bestRank: number;
   bestOffset: number;
   /** Segmentos cuyo corredor cubre la celda, aunque no la tengan como eje (frentes de parcela). */
@@ -200,6 +219,11 @@ function crossSectionByCell(
     // Un tramo de una sola celda no tiene avance: se lee como si avanzara en +x.
     const forward = { x: dx === 0 && dy === 0 ? 1 : dx, y: dy };
     const perpendicular = { x: -forward.y, y: forward.x };
+    // Keep the historical degenerate-segment convention: a one-cell connector is collinear with
+    // the vertical lattice line, so it cannot falsely cut an avenue median as a perpendicular arm.
+    const axisOrientation = dx === 0 ? "vertical" : "horizontal";
+    const axisDirection: RoadAxisDirection =
+      forward.x > 0 ? "east" : forward.x < 0 ? "west" : forward.y > 0 ? "south" : "north";
     const length = Math.max(
       Math.abs(segment.to.x - segment.from.x),
       Math.abs(segment.to.y - segment.from.y),
@@ -224,6 +248,10 @@ function crossSectionByCell(
               offset === 0 ? new Set([dx === 0 ? "vertical" : "horizontal"]) : new Set(),
             axisRole: offset === 0 ? role : null,
             bestRole: role,
+            bestLaneSense: profile.laneSenses[index]!,
+            bestAxisOrientation: axisOrientation,
+            bestAxisDirection: axisDirection,
+            bestProfile: profile.id,
             bestRank: rank,
             bestOffset: offset,
             owners: [segment.id],
@@ -232,11 +260,15 @@ function crossSectionByCell(
         }
         current.owners.push(segment.id);
         if (offset === 0) {
-          current.axisOrientations.add(dx === 0 ? "vertical" : "horizontal");
+          current.axisOrientations.add(axisOrientation);
           current.axisRole ??= role;
         }
         if (rank > current.bestRank || (rank === current.bestRank && offset < current.bestOffset)) {
           current.bestRole = role;
+          current.bestLaneSense = profile.laneSenses[index]!;
+          current.bestAxisOrientation = axisOrientation;
+          current.bestAxisDirection = axisDirection;
+          current.bestProfile = profile.id;
           current.bestRank = rank;
           current.bestOffset = offset;
         }
@@ -286,6 +318,30 @@ export function roadCellRolesFromSegments(
     roles.set(key, resolveRole(cell));
   }
   return roles;
+}
+
+/**
+ * Rich, deterministic road-section contract for render consumers. In a junction the cell is a
+ * bidirectional carriageway: it must never inherit a one-way lane from an arbitrary incoming
+ * segment. Outside junctions its sense and direction belong to the winning physical lane.
+ */
+export function roadSectionCellsFromSegments(
+  segments: readonly RoadSegment[],
+  profileForClass: (roadClass: RoadCellClass) => RoadProfile = roadProfileForClass,
+): ReadonlyMap<string, RoadSectionCell> {
+  const section = new Map<string, RoadSectionCell>();
+  for (const [key, cell] of crossSectionByCell(segments, profileForClass)) {
+    const crossing =
+      cell.axisOrientations.has("horizontal") && cell.axisOrientations.has("vertical");
+    section.set(key, {
+      role: resolveRole(cell),
+      laneSense: crossing ? "both" : cell.bestLaneSense,
+      axisOrientation: cell.bestAxisOrientation,
+      axisDirection: cell.bestAxisDirection,
+      profile: cell.bestProfile,
+    });
+  }
+  return section;
 }
 
 /**

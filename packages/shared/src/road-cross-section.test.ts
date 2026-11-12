@@ -8,6 +8,7 @@ import {
   roadCorridorCellsFromSegments,
   roadProfileForClass,
   roadProfileForSection,
+  roadSectionCellsFromSegments,
   type RoadProfile,
 } from "./road-cross-section";
 import type { GridCell } from "./time-and-grid";
@@ -122,6 +123,59 @@ describe("V.l.2 · derivación del corredor", () => {
     expect(roles.get(key(8, 4))).toBe("sidewalk");
     // El carril de x=9 es el del lado derecho de quien avanza en +y, es decir el forward.
     expect(ROAD_PROFILES.avenue.laneSenses[3]).toBe("forward");
+  });
+
+  it("publica rol, eje y sentido de carril para las dos orientaciones de avenue y motorway", () => {
+    const cases = [
+      {
+        roadClass: "avenue" as const,
+        from: { x: 2, y: 10 },
+        to: { x: 12, y: 10 },
+        lane: key(6, 11),
+        axis: "horizontal" as const,
+        direction: "east" as const,
+        sense: "forward" as const,
+      },
+      {
+        roadClass: "avenue" as const,
+        from: { x: 10, y: 2 },
+        to: { x: 10, y: 12 },
+        lane: key(9, 6),
+        axis: "vertical" as const,
+        direction: "south" as const,
+        sense: "forward" as const,
+      },
+      {
+        roadClass: "motorway" as const,
+        from: { x: 2, y: 20 },
+        to: { x: 12, y: 20 },
+        lane: key(6, 22),
+        axis: "horizontal" as const,
+        direction: "east" as const,
+        sense: "forward" as const,
+      },
+      {
+        roadClass: "motorway" as const,
+        from: { x: 20, y: 2 },
+        to: { x: 20, y: 12 },
+        lane: key(18, 6),
+        axis: "vertical" as const,
+        direction: "south" as const,
+        sense: "forward" as const,
+      },
+    ];
+    for (const entry of cases) {
+      const section = roadSectionCellsFromSegments([
+        segment(entry.from, entry.to, entry.roadClass),
+      ]);
+      expect(section.get(entry.lane)).toMatchObject({
+        role: "carriageway",
+        axisOrientation: entry.axis,
+        axisDirection: entry.direction,
+        laneSense: entry.sense,
+        profile: entry.roadClass,
+      });
+    }
   });
 
   it("recorta en el borde del distrito en vez de desplazar la sección", () => {

@@ -32,8 +32,11 @@ binarios)** y de superficie (243 commits: World Visual Foundation V.h/V.j/V.k/V.
 
 ## Pasos
 
-Ejecutados en esta sesión (autorizados): push fast-forward de la rama y apertura del PR `wip→develop`
-(cuerpo en `integration-pr-body.md`). **No ejecutado:** merge a `develop` (gateado por STOP 2/3/4).
+Ejecutados en esta sesión (autorizados): push fast-forward de la rama (`c9a592b..2e47dab`) y apertura
+del **PR #4** `wip/vh-world-visual-foundation → develop` (`https://github.com/LuisSereno/landlord/pull/4`,
+cuerpo en `integration-pr-body.md`). Estado del PR: `OPEN`, `MERGEABLE`; CI en curso. **No ejecutado:**
+merge a `develop` (gateado por STOP 2/3/4; el paso `art:binaries:check` del CI romperá por las 16
+violaciones D-105 hasta que se decida).
 
 Pendientes (comandos exactos, no ejecutados):
 

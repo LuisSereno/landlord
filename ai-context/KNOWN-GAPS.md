@@ -337,12 +337,14 @@ Sigue abierto:
   propio de sprites de edificio y obra, portal de tooltips fuera del clipping, lenguaje
   player-facing de facilities y smoke/capturas visuales. El playtest humano sigue
   `PENDING HUMAN PLAYTEST`; V.d no se cierra.
-- **Acería inalcanzable con la ciudad generada.** La acería exige 3 parcelas industriales
-  contiguas del mismo `developmentCodeId`; los bloques industriales se generan por pares, así que
-  ningún seed canónico contiene un triplete natural (medido: 281-305 parcelas industriales y 784-850
-  pares por seed, 0 tripletes en los ocho seeds comprobados). La regla no se relaja: es deuda de
-  contenido/generación (agrupar tres parcelas industriales o permitir subdivisión) que debe
-  decidirse antes de prometer la acería como edificio jugable.
+- **Acería: disponibilidad ciudad-global garantizada (D-106 / Gate B, 2026-11-12).** La acería exige 3
+  parcelas industriales contiguas del mismo `developmentCodeId`. Los bloques industriales se generan
+  por pares, así que un seed puede no tener un triplete natural; `createCity` ahora recompone el
+  primer distrito industrial que pueda hospedar un sitio triple legal (issue
+  `STEELWORKS_SITE_MISSING` + reintentos del generador) si la ciudad no lo tiene. El barrido de 60
+  seeds (`pnpm placement:reachability`) confirma ≥1 colocación legal de acería (y de los 9 tipos
+  privados) en cada ciudad, sin relajar la regla de contigüidad ni la norma. La idoneidad de
+  producción del complejo sigue leyéndose de la parcela primaria (simplificación Alpha declarada).
 - **La idoneidad de producción de un complejo se lee de la parcela primaria.** Al completar, la
   facility toma `productionSuitability` de `parcelIds[0]` (ancla canónica). Para Alpha es una
   simplificación declarada: un complejo no promedia la idoneidad de todas sus parcelas. Cambiarlo

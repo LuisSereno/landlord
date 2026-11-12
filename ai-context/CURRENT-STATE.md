@@ -38,9 +38,38 @@ Actualizado: 2026-11-12. Leer este archivo antes de la historia extensa de `PROJ
 - Facilities recorren el grafo vial; la cobertura se deriva de edificio operacional y capacidad.
 - Snapshots V2, canonicalización y digests protegen determinismo.
 
+## Hardening de integración (2026-11-12, rama wip/vh-world-visual-foundation)
+
+- **D-106 cerrada.** Un solar `marketable` es accionable por la misma regla autoritativa de
+  colocación que usan comando/UI/IA/automatización (`evaluateActionableSite` = contrato de solar +
+  enumeración de huellas, incluida participación multi-parcela). El residuo sin jugada legal se
+  fusiona con el vecino compatible de mayor borde compartido (veto morfológico del tejido, anclas
+  preservadas) y se reevalúa; sin salida, queda público. La corrección provisional que reclasificaba
+  todo solar sin proyecto individual quedó sustituida.
+- **Gate B:** barrido de 60 seeds (`pnpm placement:reachability`): 0 solares marketable sin jugada
+  legal, 0 complejos multi-parcela que no tocan todas sus parcelas, y los 9 tipos privados (incluida
+  la acería) con ≥1 colocación legal ciudad-global en cada seed. `createCity` garantiza la acería
+  recompone el primer distrito industrial que pueda hospedarla (`STEELWORKS_SITE_MISSING`).
+- **Gate C:** aceptación vial v2/ave3/full/motorway (roles, laneSense, medianas, intersecciones,
+  costuras mixtas) y auditoría de consumidores: cobertura y valor leen el corredor en v4. Corregido
+  el sentido publicado de una celda de eje cubierta por un perfil mayor (conserva su sentido central).
+- **Gate D:** pixel QA sobre la app real (Phaser): 27 capturas de distrito + 5 detalles + 3 contact
+  sheets regeneradas y 8 capturas viales dirigidas (avenida h/v con mediana, intersección, costura
+  v2↔v4, autovía de 7 vía fixture QA de presentación `?qaRoads=motorway`, etiquetado). Revisadas una a
+  una; 0 pageerrors.
+- **Gate E:** `pnpm gameplay:acceptance`: campaña headless con comandos reales (compra, 9 tipos
+  privados + acería multi-parcela, cuadrillas con traslado, materiales, alquiler con renta, reparación,
+  incendio→ruina→ClearRuin, save/load idempotente, automatización). 15 tipos en la ciudad; determinismo
+  verificado. Evidencia: `docs/execution/phase-4/gameplay-acceptance.json`.
+- **Gate F:** `balance:playable`, `services:balance` y `system:cost:monthly` en verde. La dominancia de
+  `delegated_deferred` (16/16 por caja) y el cierre mensual fuera del presupuesto p95 de D-065 siguen
+  siendo señales/deuda preexistentes, no regresiones de este hardening.
+- **Deuda declarada no cerrada:** playtest humano de V.d (`PENDING HUMAN PLAYTEST`), escala del
+  programa municipal bajo desarrollo extremo, orientación física no representada (P2), y el
+  no-determinismo raster byte-level de Blender (V.i). Ver KNOWN-GAPS.md.
+
 ## Bloqueos y gates pendientes
 
-- Hardening actual: completar pruebas especializadas, balance jugable, rendimiento, costuras viales,
-  QA visual Phaser y reconciliación documental antes de la integración.
-- Playtest humano V.d sigue pendiente; los smokes no lo sustituyen.
+- Playtest humano V.d sigue pendiente; los smokes y el gameplay automático no lo sustituyen.
+- No integrar ni empujar a `develop`/`main` sin revisión humana; esta rama no se ha empujado.
 - No introducir nuevas features, tráfico simulado, backend o nuevas perspectivas durante este gate.

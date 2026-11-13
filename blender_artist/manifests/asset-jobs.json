@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "purpose": "Lista de trabajos del pipeline de render (WP4.15-V.a 〔R4〕). Data-driven: build-blender-assets.mjs itera esto en vez de bucles hardcodeados. Validado por scripts/validate-asset-jobs.mjs (pnpm art:jobs:validate).",
+  "purpose": "Lista de trabajos del pipeline de render (WP4.15-V.a \u3014R4\u3015). Data-driven: build-blender-assets.mjs itera esto en vez de bucles hardcodeados. Validado por scripts/validate-asset-jobs.mjs (pnpm art:jobs:validate).",
   "conventions": {
-    "target": "bundle = se ensambla en runtime-assets-blender.json; evidence = se renderiza a blender_artist/generated/runtime-evidence/ para validar ingesta sin publicar. Un job evidence usa sólo la primera pasada de su matriz (una dirección, una animación, un frame, un estado): valida la fuente, no el catálogo.",
-    "render": "render.width/height es el tamaño PUBLICADO. runtime_asset.py renderiza al doble y recorta con filtro de caja, así que el manifiesto no repite el supersampling.",
-    "procedural": "Los jobs legacy no declaran camera ni render: sus parámetros están congelados en runtime_asset.py y cambiarlos rompería la regresión byte-idéntica.",
-    "unitScale": "Por defecto se hereda de staging-sources.json vía sourceId. Un job sólo lo sobrescribe con unitScaleOverride + unitScaleReason documentados."
+    "target": "bundle = se ensambla en runtime-assets-blender.json; evidence = se renderiza a blender_artist/generated/runtime-evidence/ para validar ingesta sin publicar. Un job evidence usa s\u00f3lo la primera pasada de su matriz (una direcci\u00f3n, una animaci\u00f3n, un frame, un estado): valida la fuente, no el cat\u00e1logo.",
+    "render": "render.width/height es el tama\u00f1o PUBLICADO. runtime_asset.py renderiza al doble y recorta con filtro de caja, as\u00ed que el manifiesto no repite el supersampling.",
+    "procedural": "Los jobs legacy no declaran camera ni render: sus par\u00e1metros est\u00e1n congelados en runtime_asset.py y cambiarlos romper\u00eda la regresi\u00f3n byte-id\u00e9ntica.",
+    "unitScale": "Por defecto se hereda de staging-sources.json v\u00eda sourceId. Un job s\u00f3lo lo sobrescribe con unitScaleOverride + unitScaleReason documentados."
   },
   "defaults": {
     "render": {
@@ -41,15 +41,143 @@
       }
     },
     {
-      "id": "chr_worker",
+      "id": "chr_citizen",
       "kind": "character",
-      "assetId": "chr_worker",
-      "target": "evidence",
-      "reason": "La rama externa aún no rota la cámara por dirección ni reproduce clips de animación: publicar 16 frames idénticos etiquetados idle/walk sería metadata falsa. Se renderiza como evidencia de que el FBX con armadura importa normalizado; la animación llega con la Fase 5 de azure-dale-dory.md.",
+      "assetId": "chr_citizen",
+      "actorClass": "civilian",
+      "target": "bundle",
       "source": {
         "kind": "fbx",
         "sourceId": "src_microsoft_rocketbox",
         "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_05/Export/Male_Adult_05.fbx"
+      },
+      "animationSources": {
+        "idle": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_breathe_01.max.fbx",
+        "walk": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_01.max.fbx"
+      },
+      "directions": 4,
+      "animations": ["idle", "walk"],
+      "frameIndices": [0, 1],
+      "frameDurationMs": {
+        "idle": 400,
+        "walk": 180
+      },
+      "camera": {
+        "orthoScale": 1.7,
+        "targetZ": 0.9
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "chr_police",
+      "kind": "character",
+      "assetId": "chr_police",
+      "actorClass": "police",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_02/Export/Male_Adult_02.fbx"
+      },
+      "animationSources": {
+        "idle": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_neutral_01.max.fbx",
+        "walk": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_01.max.fbx"
+      },
+      "directions": 4,
+      "animations": ["idle", "walk"],
+      "frameIndices": [0, 1],
+      "frameDurationMs": {
+        "idle": 400,
+        "walk": 180
+      },
+      "camera": {
+        "orthoScale": 1.7,
+        "targetZ": 0.9
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "chr_medical",
+      "kind": "character",
+      "assetId": "chr_medical",
+      "actorClass": "medical",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Female_Adult_09/Export/Female_Adult_09.fbx"
+      },
+      "animationSources": {
+        "idle": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/f_idle_breathe_01.max.fbx",
+        "walk": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/f_walk_neutral_01.max.fbx"
+      },
+      "directions": 4,
+      "animations": ["idle", "walk"],
+      "frameIndices": [0, 1],
+      "frameDurationMs": {
+        "idle": 400,
+        "walk": 180
+      },
+      "camera": {
+        "orthoScale": 1.7,
+        "targetZ": 0.9
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "chr_firefighter",
+      "kind": "character",
+      "assetId": "chr_firefighter",
+      "actorClass": "firefighter",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_09/Export/Male_Adult_09.fbx"
+      },
+      "animationSources": {
+        "idle": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_breathe_02.max.fbx",
+        "walk": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_02.max.fbx"
+      },
+      "directions": 4,
+      "animations": ["idle", "walk"],
+      "frameIndices": [0, 1],
+      "frameDurationMs": {
+        "idle": 400,
+        "walk": 180
+      },
+      "camera": {
+        "orthoScale": 1.7,
+        "targetZ": 0.9
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "chr_worker",
+      "kind": "character",
+      "assetId": "chr_worker",
+      "actorClass": "worker",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_12/Export/Male_Adult_12.fbx"
+      },
+      "animationSources": {
+        "idle": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_neutral_02.max.fbx",
+        "walk": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_02.max.fbx"
       },
       "directions": 4,
       "animations": ["idle", "walk"],
@@ -115,7 +243,7 @@
         "width": 256,
         "height": 256
       },
-      "reason": "Rechazado en A/B de V.b3: a escala real domina la escena y su lenguaje (ladrillo oscuro, ventanas detalladas) no encaja con Kenney; a 0,55 sigue leyéndose como un monolito ajeno. Se conserva como evidencia."
+      "reason": "Rechazado en A/B de V.b3: a escala real domina la escena y su lenguaje (ladrillo oscuro, ventanas detalladas) no encaja con Kenney; a 0,55 sigue ley\u00e9ndose como un monolito ajeno. Se conserva como evidencia."
     },
     {
       "id": "ter_road_straight",
@@ -210,7 +338,7 @@
         "width": 256,
         "height": 256
       },
-      "orientations": [45, 225]
+      "orientations": [45, 135, 225, 315]
     },
     {
       "id": "prp_tree_detailed",
@@ -258,7 +386,7 @@
         "height": 256
       },
       "orientations": [45, 225],
-      "reason": "Semáforo con dos azimuts: la cara de señal debe mirar a cada calle del cruce."
+      "reason": "Sem\u00e1foro con dos azimuts: la cara de se\u00f1al debe mirar a cada calle del cruce."
     },
     {
       "id": "bld_commercial_c",
@@ -472,7 +600,7 @@
         "width": 256,
         "height": 256
       },
-      "orientations": [45, 225]
+      "orientations": [45, 135, 225, 315]
     },
     {
       "id": "veh_truck",
@@ -496,7 +624,151 @@
         "width": 256,
         "height": 256
       },
-      "orientations": [45, 225]
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "veh_firetruck",
+      "kind": "vehicle",
+      "assetId": "veh_firetruck",
+      "target": "bundle",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_car_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/firetruck.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "camera": {
+        "orthoScale": 5.0,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "veh_ambulance",
+      "kind": "vehicle",
+      "assetId": "veh_ambulance",
+      "target": "bundle",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_car_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/ambulance.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "camera": {
+        "orthoScale": 5.0,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "veh_police",
+      "kind": "vehicle",
+      "assetId": "veh_police",
+      "target": "bundle",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_car_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/police.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "camera": {
+        "orthoScale": 4.0,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "veh_garbage",
+      "kind": "vehicle",
+      "assetId": "veh_garbage",
+      "target": "bundle",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_car_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/garbage-truck.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "camera": {
+        "orthoScale": 5.0,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "veh_delivery",
+      "kind": "vehicle",
+      "assetId": "veh_delivery",
+      "target": "bundle",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_car_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/delivery.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "camera": {
+        "orthoScale": 5.0,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "veh_tractor",
+      "kind": "vehicle",
+      "assetId": "veh_tractor",
+      "target": "bundle",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_car_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/tractor.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 2
+      },
+      "camera": {
+        "orthoScale": 4.0,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
+      "orientations": [45, 135, 225, 315]
     },
     {
       "id": "prp_tree_oak",
@@ -621,140 +893,442 @@
       "kind": "building",
       "assetId": "row_house",
       "target": "evidence",
-      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
-      "source": { "kind": "procedural" },
-      "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 4, "height": 1 }
+      "reason": "V.e remediation: genuine Kenney Suburban geometry; no runtime promotion before visual QA.",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_suburban",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-f.glb"
+      },
+      "states": ["complete"],
+      "footprint": {
+        "width": 4,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 8.5,
+        "targetZ": 2.6
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_apartment_block_factory",
       "kind": "building",
       "assetId": "apartment_block",
       "target": "evidence",
-      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
-      "source": { "kind": "procedural" },
-      "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 2, "height": 5 }
+      "reason": "V.e remediation: genuine Kenney Commercial geometry; no runtime promotion before visual QA.",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-skyscraper-a.glb"
+      },
+      "states": ["complete"],
+      "footprint": {
+        "width": 2,
+        "height": 5
+      },
+      "camera": {
+        "orthoScale": 10.5,
+        "targetZ": 3.6
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_mixed_tenement_factory",
       "kind": "building",
       "assetId": "mixed_tenement",
       "target": "evidence",
-      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
-      "source": { "kind": "procedural" },
-      "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 2, "height": 4 }
+      "reason": "V.e remediation: genuine Kenney Commercial geometry; no runtime promotion before visual QA.",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-l.glb"
+      },
+      "states": ["complete"],
+      "footprint": {
+        "width": 2,
+        "height": 4
+      },
+      "camera": {
+        "orthoScale": 8.5,
+        "targetZ": 2.6
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_workshop_factory",
       "kind": "building",
       "assetId": "workshop",
       "target": "evidence",
-      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
-      "source": { "kind": "procedural" },
-      "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 2, "height": 4 }
+      "reason": "V.e remediation: genuine Kenney Industrial geometry; no runtime promotion before visual QA.",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_industrial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-m.glb"
+      },
+      "states": ["complete"],
+      "footprint": {
+        "width": 2,
+        "height": 4
+      },
+      "camera": {
+        "orthoScale": 8.5,
+        "targetZ": 2.6
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_warehouse_factory",
       "kind": "building",
       "assetId": "warehouse",
       "target": "evidence",
-      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
-      "source": { "kind": "procedural" },
-      "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 3, "height": 4 }
+      "reason": "V.e remediation: genuine Kenney Industrial geometry; no runtime promotion before visual QA.",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_industrial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-l.glb"
+      },
+      "states": ["complete"],
+      "footprint": {
+        "width": 3,
+        "height": 4
+      },
+      "camera": {
+        "orthoScale": 9.0,
+        "targetZ": 2.6
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_cement_plant_factory",
       "kind": "building",
       "assetId": "cement_plant",
       "target": "evidence",
-      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
-      "source": { "kind": "procedural" },
-      "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 2, "height": 5 }
+      "reason": "V.e remediation: genuine Kenney Industrial geometry; no runtime promotion before visual QA.",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_industrial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-c.glb"
+      },
+      "states": ["complete"],
+      "footprint": {
+        "width": 2,
+        "height": 5
+      },
+      "camera": {
+        "orthoScale": 9.0,
+        "targetZ": 2.8
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_brickworks_factory",
       "kind": "building",
       "assetId": "brickworks",
       "target": "evidence",
-      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
-      "source": { "kind": "procedural" },
-      "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 2, "height": 5 }
+      "reason": "V.e remediation: genuine Kenney Industrial geometry; no runtime promotion before visual QA.",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_industrial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-j.glb"
+      },
+      "states": ["complete"],
+      "footprint": {
+        "width": 2,
+        "height": 5
+      },
+      "camera": {
+        "orthoScale": 9.0,
+        "targetZ": 2.8
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_steelworks_factory",
       "kind": "building",
       "assetId": "steelworks",
       "target": "evidence",
-      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
-      "source": { "kind": "procedural" },
-      "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 3, "height": 4 }
+      "reason": "V.e remediation: genuine Kenney Industrial geometry; no runtime promotion before visual QA.",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_industrial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-h.glb"
+      },
+      "states": ["complete"],
+      "footprint": {
+        "width": 3,
+        "height": 4
+      },
+      "camera": {
+        "orthoScale": 10.0,
+        "targetZ": 3.0
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_town_hall_factory",
       "kind": "building",
       "assetId": "town_hall",
       "target": "evidence",
-      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
-      "source": { "kind": "procedural" },
-      "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 3, "height": 4 }
+      "reason": "V.e remediation: genuine Kenney Commercial geometry; no runtime promotion before visual QA.",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-k.glb"
+      },
+      "states": ["complete"],
+      "footprint": {
+        "width": 3,
+        "height": 4
+      },
+      "camera": {
+        "orthoScale": 10.0,
+        "targetZ": 3.0
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_school_block_factory",
       "kind": "building",
       "assetId": "school_block",
       "target": "evidence",
-      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
-      "source": { "kind": "procedural" },
-      "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 2, "height": 7 }
+      "reason": "V.e remediation: genuine Kenney Commercial geometry; no runtime promotion before visual QA.",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-i.glb"
+      },
+      "states": ["complete"],
+      "footprint": {
+        "width": 2,
+        "height": 7
+      },
+      "camera": {
+        "orthoScale": 10.0,
+        "targetZ": 3.0
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_clinic_factory",
       "kind": "building",
       "assetId": "clinic",
       "target": "evidence",
-      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
-      "source": { "kind": "procedural" },
-      "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 2, "height": 3 }
+      "reason": "V.e remediation: genuine Kenney Commercial geometry; no runtime promotion before visual QA.",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-e.glb"
+      },
+      "states": ["complete"],
+      "footprint": {
+        "width": 2,
+        "height": 3
+      },
+      "camera": {
+        "orthoScale": 8.5,
+        "targetZ": 2.6
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_police_station_factory",
       "kind": "building",
       "assetId": "police_station",
       "target": "evidence",
-      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
-      "source": { "kind": "procedural" },
-      "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 2, "height": 3 }
+      "reason": "V.e remediation: genuine Kenney Commercial geometry; no runtime promotion before visual QA.",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-f.glb"
+      },
+      "states": ["complete"],
+      "footprint": {
+        "width": 2,
+        "height": 3
+      },
+      "camera": {
+        "orthoScale": 8.5,
+        "targetZ": 2.6
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_fire_station_factory",
       "kind": "building",
       "assetId": "fire_station",
       "target": "evidence",
-      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
-      "source": { "kind": "procedural" },
-      "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 2, "height": 4 }
+      "reason": "V.e remediation: genuine Kenney Commercial geometry; no runtime promotion before visual QA.",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-g.glb"
+      },
+      "states": ["complete"],
+      "footprint": {
+        "width": 2,
+        "height": 4
+      },
+      "camera": {
+        "orthoScale": 8.5,
+        "targetZ": 2.6
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "bld_market_hall_factory",
       "kind": "building",
       "assetId": "market_hall",
       "target": "evidence",
-      "reason": "V.e.2 candidate; no runtime promotion before visual QA.",
-      "source": { "kind": "procedural" },
-      "states": ["complete", "construction", "damaged", "burning"],
-      "footprint": { "width": 2, "height": 5 }
+      "reason": "V.e remediation: genuine Kenney Commercial geometry; no runtime promotion before visual QA.",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-h.glb"
+      },
+      "states": ["complete"],
+      "footprint": {
+        "width": 2,
+        "height": 5
+      },
+      "camera": {
+        "orthoScale": 9.0,
+        "targetZ": 2.8
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "prp_monument_obelisk",
+      "kind": "prop",
+      "assetId": "prp_monument_obelisk",
+      "target": "bundle",
+      "source": {
+        "kind": "gltf",
+        "sourceId": "src_kenney_nature_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_obelisk.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 8.0,
+        "targetZ": 4.0
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "prp_planter_urn",
+      "kind": "prop",
+      "assetId": "prp_planter_urn",
+      "target": "bundle",
+      "source": {
+        "kind": "gltf",
+        "sourceId": "src_kenney_nature_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/pot_large.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 3.0,
+        "targetZ": 0.6
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "prp_bollard",
+      "kind": "prop",
+      "assetId": "prp_bollard",
+      "target": "bundle",
+      "source": {
+        "kind": "gltf",
+        "sourceId": "src_quaternius_downtown_city_megakit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_Bollard.gltf"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 3.0,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "id": "prp_bush",
+      "kind": "prop",
+      "assetId": "prp_bush",
+      "target": "bundle",
+      "source": {
+        "kind": "gltf",
+        "sourceId": "src_kenney_nature_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bush.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 4.0,
+        "targetZ": 0.6
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     }
   ]
 }

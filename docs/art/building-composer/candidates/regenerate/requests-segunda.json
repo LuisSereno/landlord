@@ -1,0 +1,22 @@
+{
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "candidates": [
+  {
+   "candidateId": "vg_town_hall_1000",
+   "buildingType": "town_hall",
+   "family": "civic_landmark",
+   "styleProfileId": "graphic_civic_buildings_v1",
+   "variantSeed": 1000,
+   "composerVersion": "vf-3",
+   "footprint": {
+    "width": 4,
+    "height": 3
+   },
+   "floors": 4,
+   "state": "complete",
+   "output": "/home/luis/RepositorioGitHub/landlord/docs/art/building-composer/candidates/regenerate/segunda.png",
+   "metadata": "/home/luis/RepositorioGitHub/landlord/docs/art/building-composer/candidates/regenerate/segunda.json"
+  }
+ ]
+}

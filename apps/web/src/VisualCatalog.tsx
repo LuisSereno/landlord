@@ -97,20 +97,31 @@ export function VisualCatalog() {
       </section>
       <section id="building-states">
         <h2>Building states</h2>
+        <p>
+          La geometría importada renderiza hoy sólo el estado complete: el condicionamiento
+          construction/damaged/burning sobre fuentes de terceros es un WP pendiente, y fabricarlo
+          aquí repetiría el atajo que esta remediación elimina.
+        </p>
         {catalog.buildings.map((building) => (
           <article className="state-row" data-state-row={building.id} key={building.id}>
             <h3>{building.displayName}</h3>
             <div>
-              {states.map((state) => (
-                <figure key={state}>
-                  <img
-                    loading="lazy"
-                    src={building.states[state].src}
-                    alt={`${building.displayName} ${state}`}
-                  />
-                  <figcaption>{state}</figcaption>
-                </figure>
-              ))}
+              {states.map((state) =>
+                building.states[state] ? (
+                  <figure key={state}>
+                    <img
+                      loading="lazy"
+                      src={building.states[state].src}
+                      alt={`${building.displayName} ${state}`}
+                    />
+                    <figcaption>{state}</figcaption>
+                  </figure>
+                ) : (
+                  <figure key={state} className="state-pending">
+                    <figcaption>{state} · pendiente</figcaption>
+                  </figure>
+                ),
+              )}
             </div>
             {building.duplicateStates.length > 0 && <strong>STATE NOT DIFFERENTIATED</strong>}
           </article>
@@ -118,14 +129,20 @@ export function VisualCatalog() {
       </section>
       <section id="characters">
         <h2>Characters</h2>
+        <p>
+          Role specification — visual production pending. No role-specific character render is
+          published yet.
+        </p>
         <div className="catalog-role-grid">
           {catalog.characters.map((character) => (
             <article className="catalog-card" data-character-card={character.id} key={character.id}>
-              <img
-                className="role-preview"
-                src={catalog.characterPreview}
-                alt={`${character.displayName} scale preview`}
-              />
+              <div
+                className="role-preview role-preview-pending"
+                aria-label="Visual production pending"
+              >
+                <span>ROLE</span>
+                <small>pending</small>
+              </div>
               <h3>{character.displayName}</h3>
               <p>
                 {character.role} · {character.scope}
@@ -133,12 +150,16 @@ export function VisualCatalog() {
               <small>
                 {character.baseSource} · {character.clothing} · {character.roleProp}
               </small>
+              <small>Role specification — visual production pending</small>
             </article>
           ))}
         </div>
       </section>
       <section id="animations">
         <h2>Animations</h2>
+        <p>
+          Animation definitions are catalogued; rendered previews are pending visual production.
+        </p>
         <p>
           Runtime: {catalog.characterAnimations.runtime.join(", ")}. Showcase-only:{" "}
           {catalog.characterAnimations.showcase.join(", ")}.
@@ -209,12 +230,16 @@ export function VisualCatalog() {
       <section id="construction-sequence">
         <h2>Construction demo</h2>
         <div className="construction-sequence">
-          {states.map((state) => (
-            <figure key={state}>
-              <img src={catalog.buildings[0]!.states[state].src} alt={state} />
-              <figcaption>{state}</figcaption>
-            </figure>
-          ))}
+          {states.map((state) => {
+            const image = catalog.buildings[0]?.states[state];
+            if (!image) return null;
+            return (
+              <figure key={state}>
+                <img src={image.src} alt={state} />
+                <figcaption>{state}</figcaption>
+              </figure>
+            );
+          })}
         </div>
       </section>
       <section id="scale-reference">

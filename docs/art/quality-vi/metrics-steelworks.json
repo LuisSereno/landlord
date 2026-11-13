@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-07T11:30:59.736Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/quality-vi/candidates/steelworks",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 71638,
+ "blenderPeakRssMb": 4740.6,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6",
+   "after": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_steelworks_1003",
+   "buildingType": "steelworks",
+   "family": "industrial_heavy",
+   "variantSeed": 1003,
+   "compositionSignature": "e0c067b6a9dda86411eb92404b57bcd401a7e97fa18342455d94a8226c079950",
+   "triangleCount": 5710,
+   "objectCount": 54,
+   "moduleCount": 9,
+   "materials": 17,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -8.2,
+     "max": 8
+    },
+    "y": {
+     "min": -6.199999999999999,
+     "max": 5
+    },
+    "z": {
+     "min": 0,
+     "max": 9.7
+    }
+   },
+   "renderMs": 12801.68,
+   "pngBytes": 1100196,
+   "pngPixels": [
+    1324,
+    1438
+   ],
+   "pixelSha256": "1d9ac9bd96fd505560d5ec0b3e46da32cf42795a013a07685042acc562e74c7d",
+   "licensedGeometryRatio": 0.9979,
+   "pivot": {
+    "x": 0.5816,
+    "y": 0.6758
+   }
+  }
+ ],
+ "failures": []
+}

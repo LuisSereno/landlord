@@ -3,6 +3,7 @@ import type {
   GridCell,
   LandUse,
   ProductionSuitability,
+  RoadSectionVariant,
   UrbanRole,
   Zoning,
 } from "@landlord/shared";
@@ -39,6 +40,31 @@ export type DistrictProfile = {
   dominantRole: UrbanRole;
   /** Road lattice and parcel envelope of the recipe (D-090). */
   fabric: UrbanFabricConfig;
+  /**
+   * V.l.4 (D-104) · el suelo no edificable es el corredor transversal (aceras/carriles/mediana) en
+   * vez del eje de 1 celda. Ausente o `false` = geometría de siempre, `derivationVersion: 2`.
+   * Se activa por perfil y sólo donde está medido que la receta aguanta el suelo que consume.
+   *
+   * V.l.5c · la envolvente de ciudad (`CITY_PARCEL_COUNT_ENVELOPE`, 700–760) fija la cartera visual:
+   * `full` en `ensanche_ferroviario_oeste` y `ave3` en `vega_del_cauce`, `mercado_del_norte` y
+   * `patios_del_este`. `barrio_del_umbral` permanece en el eje v2 para no cargar el slot del jugador;
+   * la sección se selecciona con `roadSectionVariant` y no cambia la identidad de los segmentos.
+   */
+  roadCorridor?: boolean;
+  /** V.l.5c: sección mixta medida para esta receta; ausente = `full` cuando hay corredor. */
+  roadSectionVariant?: RoadSectionVariant;
+  /**
+   * V.l.4 (D-104) · la línea central de la retícula es autovía de 7 en vez de avenida de 5. Vive en
+   * el perfil y no en el fabric porque está medido que no todos los distritos industriales la
+   * aguantan: `ensanche_ferroviario_oeste` pierde su cuota de usos en el seed 80 con autovía y la
+   * cumple con avenida de 5 (42/42 frentes, un intento).
+   *
+   * V.l.5 · sólo es alcanzable con `roadCorridor`: sin corredor la red se deriva en versión 2 y no
+   * puede publicar la clase `motorway`. Medido además como palanca de ahorro: pasar `patios_del_este`
+   * de autovía de 7 a avenida de 5 recupera −6, −1, +3 y 0 parcelas en las cuatro seeds de distrito
+   * (media −1), es ruido, no un ahorro.
+   */
+  motorwayAxis?: boolean;
   spawnAnchors: DistrictSpawnAnchors;
   /**
    * Composición fija del perfil. Garantiza que el bucle de juego siempre dispone de suelo
@@ -202,6 +228,7 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     name: "Barrio del Umbral",
     dominantRole: "urban_residential",
     fabric: FABRIC_URBAN,
+    roadCorridor: false,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 4, y: 4 }, rival: { x: 56, y: 4 } },
@@ -244,6 +271,8 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     name: "Vega del Cauce",
     dominantRole: "green_open_space",
     fabric: FABRIC_LOW_DENSITY,
+    roadCorridor: true,
+    roadSectionVariant: "ave3",
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 6, y: 6 }, rival: { x: 52, y: 8 } },
@@ -287,6 +316,7 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     name: "Ensanche Ferroviario",
     dominantRole: "commercial_corridor",
     fabric: FABRIC_RAIL,
+    roadCorridor: false,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 8, y: 4 }, rival: { x: 48, y: 4 } },
@@ -371,6 +401,8 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     name: "Mercado del Norte",
     dominantRole: "commercial_corridor",
     fabric: FABRIC_MIXED,
+    roadCorridor: true,
+    roadSectionVariant: "ave3",
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 6, y: 4 }, rival: { x: 52, y: 4 } },
@@ -502,6 +534,8 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     name: "Ensanche Ferroviario Oeste",
     dominantRole: "industrial_logistics",
     fabric: FABRIC_INDUSTRIAL,
+    roadCorridor: true,
+    roadSectionVariant: "full",
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 6, y: 5 }, rival: { x: 52, y: 5 } },
@@ -545,6 +579,15 @@ export const DISTRICT_PROFILES: Record<string, DistrictProfile> = {
     name: "Patios del Este",
     dominantRole: "industrial_logistics",
     fabric: FABRIC_INDUSTRIAL,
+    /**
+     * V.l.5 · la autovía de 7 exige el corredor (`roadCorridor` es la que escribe la clase en una
+     * red v4); con el corredor fuera del alcance canónico, dejar `motorwayAxis: true` publicaría
+     * segmentos `motorway` dentro de una red marcada `derivationVersion: 2`. Sale del alcance
+     * medido, no del contrato: `ROAD_PROFILES.motorway` y su derivación siguen vivas en shared.
+     */
+    roadCorridor: true,
+    roadSectionVariant: "ave3",
+    motorwayAxis: false,
     width: 64,
     height: 64,
     spawnAnchors: { player: { x: 8, y: 5 }, rival: { x: 50, y: 7 } },

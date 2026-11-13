@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-07T11:22:46.539Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/quality-vi/candidates/apartment_block",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 107124,
+ "blenderPeakRssMb": 7275.4,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6",
+   "after": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_apartment_block_1002",
+   "buildingType": "apartment_block",
+   "family": "residential_low",
+   "variantSeed": 1002,
+   "compositionSignature": "be419f4837ab7e85303ad1976ebb1cdfbe95d3ba7ba1677e83f39c2b8843f7ce",
+   "triangleCount": 29094,
+   "objectCount": 257,
+   "moduleCount": 9,
+   "materials": 24,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -10.428,
+     "max": 10
+    },
+    "y": {
+     "min": -4.428,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 21
+    }
+   },
+   "renderMs": 30935.06,
+   "pngBytes": 2547323,
+   "pngPixels": [
+    1230,
+    1711
+   ],
+   "pixelSha256": "fe6f558c20c2c3fe3be973579539fd8f472ca2d1f53f85362ae88f57f634cf9c",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5146,
+    "y": 0.82
+   }
+  }
+ ],
+ "failures": []
+}

@@ -6,6 +6,8 @@ import {
   parsePublicSpaceId,
   parseUrbanFacilityId,
   roadCellsFromSegments,
+  roadCorridorCellsFromSegments,
+  roadProfileForTopology,
   roadSegmentId,
   type GridCell,
   type UrbanFacility,
@@ -29,6 +31,19 @@ const DISTRICT_ID = parseDistrictId("district_00000004");
 
 function generated() {
   return generateDistrict({ seed: 1, profileId: PROFILE.id });
+}
+
+/**
+ * D-104 · el suelo vial con el que se generó el distrito: corredor completo en versión 4,
+ * eje de 1 celda en versión 2. Los invariantes de reparto y de conectividad se comprueban contra
+ * ese suelo, no contra el eje a secas: una acera es suelo no edificable aunque no sea eje.
+ */
+function roadGroundOf(district: ReturnType<typeof generated>): ReadonlySet<string> {
+  return district.roads.derivationVersion === 4
+    ? roadCorridorCellsFromSegments(district.roads.segments, (roadClass) =>
+        roadProfileForTopology(district.roads, roadClass),
+      )
+    : roadCellsFromSegments(district.roads.segments);
 }
 
 function validationInput(district = generated()) {
@@ -125,7 +140,7 @@ describe("V.d.1 road network from RoadAnchor[]", () => {
 describe("V.d.1 flood-fill blocks", () => {
   it("partitions every developable cell into connected blocks separated by roads or obstacles", () => {
     const district = generated();
-    const roads = roadCellsFromSegments(district.roads.segments);
+    const roads = roadGroundOf(district);
     const blocked = new Set(district.blockedCells);
     const publicCells = new Set(
       district.publicSpaces.flatMap((space) => space.cells.map((cell) => cellKey(cell))),
@@ -177,7 +192,7 @@ describe("V.d.1 flood-fill blocks", () => {
 describe("V.d.1 front-first multi-cell parcels", () => {
   it("covers each block with connected, front-facing parcels and canonical ids", () => {
     const district = generated();
-    const roads = roadCellsFromSegments(district.roads.segments);
+    const roads = roadGroundOf(district);
     const roadSegments = new Set(district.roads.segments.map((segment) => segment.id));
     const ids = new Set<string>();
     for (const parcel of district.parcels) {
@@ -224,7 +239,7 @@ describe("V.d.1 structural issues", () => {
 
   it("emits the nine structural issue codes", () => {
     const base = generated();
-    const roadCells = roadCellsFromSegments(base.roads.segments);
+    const roadCells = roadGroundOf(base);
     const nonRoad = (() => {
       for (let y = 0; y < 64; y += 1) {
         for (let x = 0; x < 64; x += 1) {

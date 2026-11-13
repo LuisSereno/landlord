@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 2,
+  "purpose": "V.e remediation: los 15 edificios de dominio con su geometría de fuente REAL. Sustituye a building-factory.json (presets de composición propia que declaraban fuentes que no importaban). Cada entrada imported se valida contra asset-jobs.json.",
+  "buildings": [
+    {
+      "id": "courtyard_home",
+      "category": "residential",
+      "floorCount": 1,
+      "footprint": {
+        "width": 2,
+        "height": 2
+      },
+      "jobId": "bld_courtyard_home",
+      "mode": "legacy-procedural",
+      "sourceLabel": "Original procedural courtyard (legacy congelado, ruta interna)"
+    },
+    {
+      "id": "row_house",
+      "category": "residential",
+      "floorCount": 2,
+      "footprint": {
+        "width": 4,
+        "height": 1
+      },
+      "jobId": "bld_row_house_factory",
+      "mode": "imported",
+      "sourceId": "src_kenney_city_suburban",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-f.glb",
+      "sourceLabel": "Kenney City Kit Suburban · building-type-f.glb · CC0-1.0"
+    },
+    {
+      "id": "apartment_block",
+      "category": "residential",
+      "floorCount": 5,
+      "footprint": {
+        "width": 2,
+        "height": 5
+      },
+      "jobId": "bld_apartment_block_factory",
+      "mode": "imported",
+      "sourceId": "src_kenney_city_commercial",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-skyscraper-a.glb",
+      "sourceLabel": "Kenney City Kit Commercial · building-skyscraper-a.glb · CC0-1.0"
+    },
+    {
+      "id": "mixed_tenement",
+      "category": "mixed",
+      "floorCount": 3,
+      "footprint": {
+        "width": 2,
+        "height": 4
+      },
+      "jobId": "bld_mixed_tenement_factory",
+      "mode": "imported",
+      "sourceId": "src_kenney_city_commercial",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-l.glb",
+      "sourceLabel": "Kenney City Kit Commercial · building-l.glb · CC0-1.0"
+    },
+    {
+      "id": "workshop",
+      "category": "industrial",
+      "floorCount": 1,
+      "footprint": {
+        "width": 2,
+        "height": 4
+      },
+      "jobId": "bld_workshop_factory",
+      "mode": "imported",
+      "sourceId": "src_kenney_city_industrial",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-m.glb",
+      "sourceLabel": "Kenney City Kit Industrial · building-m.glb · CC0-1.0"
+    },
+    {
+      "id": "warehouse",
+      "category": "industrial",
+      "floorCount": 1,
+      "footprint": {
+        "width": 3,
+        "height": 4
+      },
+      "jobId": "bld_warehouse_factory",
+      "mode": "imported",
+      "sourceId": "src_kenney_city_industrial",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-l.glb",
+      "sourceLabel": "Kenney City Kit Industrial · building-l.glb · CC0-1.0"
+    },
+    {
+      "id": "cement_plant",
+      "category": "industrial",
+      "floorCount": 2,
+      "footprint": {
+        "width": 2,
+        "height": 5
+      },
+      "jobId": "bld_cement_plant_factory",
+      "mode": "imported",
+      "sourceId": "src_kenney_city_industrial",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-c.glb",
+      "sourceLabel": "Kenney City Kit Industrial · building-c.glb · CC0-1.0"
+    },
+    {
+      "id": "brickworks",
+      "category": "industrial",
+      "floorCount": 2,
+      "footprint": {
+        "width": 2,
+        "height": 5
+      },
+      "jobId": "bld_brickworks_factory",
+      "mode": "imported",
+      "sourceId": "src_kenney_city_industrial",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-j.glb",
+      "sourceLabel": "Kenney City Kit Industrial · building-j.glb · CC0-1.0"
+    },
+    {
+      "id": "steelworks",
+      "category": "industrial",
+      "floorCount": 2,
+      "footprint": {
+        "width": 3,
+        "height": 4
+      },
+      "jobId": "bld_steelworks_factory",
+      "mode": "imported",
+      "sourceId": "src_kenney_city_industrial",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-h.glb",
+      "sourceLabel": "Kenney City Kit Industrial · building-h.glb · CC0-1.0"
+    },
+    {
+      "id": "town_hall",
+      "category": "civic",
+      "floorCount": 4,
+      "footprint": {
+        "width": 3,
+        "height": 4
+      },
+      "jobId": "bld_town_hall_factory",
+      "mode": "imported",
+      "sourceId": "src_kenney_city_commercial",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-k.glb",
+      "sourceLabel": "Kenney City Kit Commercial · building-k.glb · CC0-1.0"
+    },
+    {
+      "id": "school_block",
+      "category": "civic",
+      "floorCount": 3,
+      "footprint": {
+        "width": 2,
+        "height": 7
+      },
+      "jobId": "bld_school_block_factory",
+      "mode": "imported",
+      "sourceId": "src_kenney_city_commercial",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-i.glb",
+      "sourceLabel": "Kenney City Kit Commercial · building-i.glb · CC0-1.0"
+    },
+    {
+      "id": "clinic",
+      "category": "civic",
+      "floorCount": 2,
+      "footprint": {
+        "width": 2,
+        "height": 3
+      },
+      "jobId": "bld_clinic_factory",
+      "mode": "imported",
+      "sourceId": "src_kenney_city_commercial",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-e.glb",
+      "sourceLabel": "Kenney City Kit Commercial · building-e.glb · CC0-1.0"
+    },
+    {
+      "id": "police_station",
+      "category": "civic",
+      "floorCount": 2,
+      "footprint": {
+        "width": 2,
+        "height": 3
+      },
+      "jobId": "bld_police_station_factory",
+      "mode": "imported",
+      "sourceId": "src_kenney_city_commercial",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-f.glb",
+      "sourceLabel": "Kenney City Kit Commercial · building-f.glb · CC0-1.0"
+    },
+    {
+      "id": "fire_station",
+      "category": "civic",
+      "floorCount": 2,
+      "footprint": {
+        "width": 2,
+        "height": 4
+      },
+      "jobId": "bld_fire_station_factory",
+      "mode": "imported",
+      "sourceId": "src_kenney_city_commercial",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-g.glb",
+      "sourceLabel": "Kenney City Kit Commercial · building-g.glb · CC0-1.0"
+    },
+    {
+      "id": "market_hall",
+      "category": "mixed",
+      "floorCount": 2,
+      "footprint": {
+        "width": 2,
+        "height": 5
+      },
+      "jobId": "bld_market_hall_factory",
+      "mode": "imported",
+      "sourceId": "src_kenney_city_commercial",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-h.glb",
+      "sourceLabel": "Kenney City Kit Commercial · building-h.glb · CC0-1.0"
+    }
+  ]
+}

@@ -58,6 +58,42 @@ function cellFromKey(value: string): { x: number; y: number } {
   return { x, y };
 }
 
+function cloneRoadTopology(roads: DistrictState["map"]["roads"]): DistrictState["map"]["roads"] {
+  const segments = roads.segments.map((segment) => ({
+    ...segment,
+    from: { ...segment.from },
+    to: { ...segment.to },
+  }));
+  if (roads.derivationVersion === 4) {
+    return {
+      topologyVersion: roads.topologyVersion,
+      derivationVersion: 4,
+      roadSectionVariant: roads.roadSectionVariant,
+      segments,
+    };
+  }
+  return { topologyVersion: roads.topologyVersion, derivationVersion: 2, segments };
+}
+
+function restoreRoadTopology(
+  roads: SnapshotV2["world"]["districts"][number]["map"]["roads"],
+): DistrictState["map"]["roads"] {
+  const segments = roads.segments.map((segment) => ({
+    ...segment,
+    from: { ...segment.from },
+    to: { ...segment.to },
+  }));
+  if (roads.derivationVersion === 4) {
+    return {
+      topologyVersion: roads.topologyVersion,
+      derivationVersion: 4,
+      roadSectionVariant: roads.roadSectionVariant,
+      segments,
+    };
+  }
+  return { topologyVersion: roads.topologyVersion, derivationVersion: 2, segments };
+}
+
 function cloneCommand(command: ProductCommand): ProductCommand {
   return {
     ...command,
@@ -102,15 +138,7 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
             width: entry.map.width,
             height: entry.map.height,
             blockedCells: [...entry.map.blockedCells].map(cellFromKey).sort(compareCell),
-            roads: {
-              topologyVersion: entry.map.roads.topologyVersion,
-              derivationVersion: entry.map.roads.derivationVersion,
-              segments: entry.map.roads.segments.map((segment) => ({
-                ...segment,
-                from: { ...segment.from },
-                to: { ...segment.to },
-              })),
-            },
+            roads: cloneRoadTopology(entry.map.roads),
           },
           blocks: [...entry.blocks.values()].sort(compareId),
           publicSpaces: [...entry.publicSpaces.values()].sort(compareId),
@@ -440,15 +468,7 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
               width: entry.map.width,
               height: entry.map.height,
               blockedCells: new Set(entry.map.blockedCells.map((cell) => `${cell.x}:${cell.y}`)),
-              roads: {
-                topologyVersion: entry.map.roads.topologyVersion,
-                derivationVersion: entry.map.roads.derivationVersion,
-                segments: entry.map.roads.segments.map((segment) => ({
-                  ...segment,
-                  from: { ...segment.from },
-                  to: { ...segment.to },
-                })),
-              },
+              roads: restoreRoadTopology(entry.map.roads),
             },
             blocks: new Map(entry.blocks.map((block) => [parseBlockId(block.id), block])),
             publicSpaces: new Map(

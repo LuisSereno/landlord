@@ -18,7 +18,8 @@ Permite que un agente entienda rápidamente:
 
 ## Orden de lectura
 
-1. PROJECT-STATE.md
+1. CURRENT-STATE.md
+2. PROJECT-STATE.md
 2. DECISIONS.md
 3. ARCHITECTURE.md
 4. PLAYER-MODEL.md

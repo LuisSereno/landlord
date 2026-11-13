@@ -1,0 +1,6 @@
+# attempts/<runId>/ es un área de staging: Blender escribe aquí ANTES de saber si la corrida va a
+# validar. Sólo se promueve a `../candidates/` si todos los candidatos pasan. Estos ficheros no son
+# evidencia; son diagnóstico de corridas parciales o abortadas. Nunca se versionan.
+*
+*/
+!.gitignore

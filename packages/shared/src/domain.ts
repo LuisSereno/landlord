@@ -11,6 +11,7 @@ import {
 import {
   blockIdSchema,
   developmentCodeIdSchema,
+  developmentPlacementIdSchema,
   commandIdSchema,
   buildingIdSchema,
   agentIdSchema,
@@ -38,6 +39,7 @@ import {
   type IncidentId,
   type ConstructionSiteId,
   type CommandId,
+  type DevelopmentPlacementId,
   type DistrictId,
   type EventId,
   type FacilityId,
@@ -52,6 +54,7 @@ import {
   type TransactionId,
   type LoanId,
 } from "./primitives";
+import { roadSectionVariantSchema, type RoadSectionVariant } from "./road-cross-section";
 import {
   gridCellSchema,
   seedSchema,
@@ -205,7 +208,7 @@ export type District = {
   generation?: DistrictGeneration;
 };
 
-export const roadCellClassSchema = z.enum(["street", "avenue"]);
+export const roadCellClassSchema = z.enum(["street", "avenue", "motorway"]);
 export type RoadCellClass = z.infer<typeof roadCellClassSchema>;
 
 /** Segmento vial ortogonal, cerrado e identificado por su geometría canónica. */
@@ -217,14 +220,23 @@ export type RoadSegment = {
 };
 
 /**
- * Road topology of one district (D-085, D-090). The shape is unchanged; `derivationVersion: 2`
- * records that segments now come from `RoadAnchor[]` instead of from already placed parcels.
+ * Road topology of one district (D-085, D-090, D-104). Version 2 is the historical one-cell axis.
+ * Version 4 carries the transverse corridor variant in the save itself, so consumers never have to
+ * reinterpret a persisted road from mutable district-profile configuration. Version 3 was an
+ * unreleased intermediate contract and is intentionally rejected by snapshot parsing.
  */
-export type RoadTopology = {
-  topologyVersion: 1;
-  derivationVersion: 2;
-  segments: RoadSegment[];
-};
+export type RoadTopology =
+  | {
+      topologyVersion: 1;
+      derivationVersion: 2;
+      segments: RoadSegment[];
+    }
+  | {
+      topologyVersion: 1;
+      derivationVersion: 4;
+      roadSectionVariant: RoadSectionVariant;
+      segments: RoadSegment[];
+    };
 
 export const roadSegmentSchema = z.object({
   id: z.string().min(1),
@@ -233,11 +245,29 @@ export const roadSegmentSchema = z.object({
   class: roadCellClassSchema,
 });
 
-export const roadTopologySchema = z.object({
-  topologyVersion: z.literal(1),
-  derivationVersion: z.literal(2),
-  segments: z.array(roadSegmentSchema),
-});
+export const roadTopologySchema = z
+  .object({
+    topologyVersion: z.literal(1),
+    derivationVersion: z.union([z.literal(2), z.literal(4)]),
+    roadSectionVariant: roadSectionVariantSchema.optional(),
+    segments: z.array(roadSegmentSchema),
+  })
+  .superRefine((value, context) => {
+    if (value.derivationVersion === 2 && value.roadSectionVariant !== undefined) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["roadSectionVariant"],
+        message: "derivationVersion 2 no admite roadSectionVariant",
+      });
+    }
+    if (value.derivationVersion === 4 && value.roadSectionVariant === undefined) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["roadSectionVariant"],
+        message: "derivationVersion 4 exige roadSectionVariant",
+      });
+    }
+  });
 
 function roadCellKey(cell: GridCell): string {
   return `${cell.x}:${cell.y}`;
@@ -271,7 +301,17 @@ export function roadCellsFromSegments(segments: readonly RoadSegment[]): Readonl
   return cells;
 }
 
-/** Si dos trazados coinciden, avenue domina la semántica derivada de la celda. */
+/**
+ * Precedencia semántica única de clases de vía. No depende del orden de los segmentos: un tramo
+ * mayor conserva su identidad tanto si llega antes como si llega después en la topología.
+ */
+export const ROAD_CLASS_RANK: Readonly<Record<RoadCellClass, number>> = {
+  street: 0,
+  avenue: 1,
+  motorway: 2,
+};
+
+/** Si dos trazados coinciden, gana la clase de mayor jerarquía vial. */
 export function roadCellClassesFromSegments(
   segments: readonly RoadSegment[],
 ): ReadonlyMap<string, RoadCellClass> {
@@ -285,7 +325,9 @@ export function roadCellClassesFromSegments(
     );
     for (let step = 0; step <= length; step += 1) {
       const key = roadCellKey({ x: segment.from.x + dx * step, y: segment.from.y + dy * step });
-      if (segment.class === "avenue" || !classes.has(key)) classes.set(key, segment.class);
+      const current = classes.get(key);
+      if (current === undefined || ROAD_CLASS_RANK[segment.class] > ROAD_CLASS_RANK[current])
+        classes.set(key, segment.class);
     }
   }
   return classes;
@@ -1484,7 +1526,16 @@ export type SellParcel = DomainCommandBase & {
 export type StartConstruction = DomainCommandBase & {
   type: "StartConstruction";
   /** V.d-7 · conjunto canónico de parcelas del proyecto; el engine lo valida entero. */
-  payload: { parcelIds: ParcelId[]; buildingType: BuildingType };
+  payload: {
+    parcelIds: ParcelId[];
+    buildingType: BuildingType;
+    /**
+     * V.d-7C · colocación elegida por el jugador. Es opcional porque omite quien deja decidir al
+     * motor a la mejor candidata determinista (IA, automatización, generador municipal): ambos
+     * caminos pasan por el MISMO enumerador autoritativo, así que no hay reglas distintas por actor.
+     */
+    placementId?: DevelopmentPlacementId;
+  };
 };
 export type CancelConstruction = DomainCommandBase & {
   type: "CancelConstruction";
@@ -1653,7 +1704,11 @@ export const buyParcelSchema = commandSchema("BuyParcel", z.object({ parcelId: p
 export const sellParcelSchema = commandSchema("SellParcel", z.object({ parcelId: parcelIdSchema }));
 export const startConstructionSchema = commandSchema(
   "StartConstruction",
-  z.object({ parcelIds: z.array(parcelIdSchema).min(1), buildingType: buildingTypeSchema }),
+  z.object({
+    parcelIds: z.array(parcelIdSchema).min(1),
+    buildingType: buildingTypeSchema,
+    placementId: developmentPlacementIdSchema.optional(),
+  }),
 );
 export const cancelConstructionSchema = commandSchema(
   "CancelConstruction",

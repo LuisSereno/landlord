@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 1,
+  "generatedFrom": "blender_artist/manifests/world-asset-index.json",
+  "purpose": "Biblioteca sem\u00e1ntica de materiales: categor\u00edas de lenguaje \u00d7 lenguajes visuales. Los subsistemas eligen material por categor\u00eda+lenguaje, nunca por nombre de archivo.",
+  "visualLanguages": [
+    "civic",
+    "residential",
+    "commercial",
+    "industrial",
+    "infrastructure",
+    "park"
+  ],
+  "selectionByLanguage": {
+    "civic": [
+      "pavement",
+      "stone",
+      "brick",
+      "concrete"
+    ],
+    "residential": [
+      "grass",
+      "brick",
+      "wood",
+      "pavement"
+    ],
+    "commercial": [
+      "pavement",
+      "brick",
+      "asphalt",
+      "concrete"
+    ],
+    "industrial": [
+      "concrete",
+      "metal",
+      "rusty_metal",
+      "asphalt",
+      "soil"
+    ],
+    "infrastructure": [
+      "asphalt",
+      "concrete",
+      "metal"
+    ],
+    "park": [
+      "grass",
+      "soil",
+      "stone",
+      "wood"
+    ]
+  },
+  "categories": {
+    "asphalt": {
+      "visualLanguages": [
+        "infrastructure",
+        "industrial",
+        "commercial"
+      ],
+      "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
+      "assets": [
+        {
+          "assetId": "wa_polyhaven_materials_asphalt_07_4k",
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/polyhaven/asphalt_07/asphalt_07_4k.blend",
+          "license": "CC0-1.0",
+          "runtimeReady": false
+        }
+      ],
+      "gap": false,
+      "fallback": null
+    },
+    "pavement": {
+      "visualLanguages": [
+        "civic",
+        "infrastructure",
+        "commercial"
+      ],
+      "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
+      "assets": [
+        {
+          "assetId": "wa_polyhaven_materials_cobblestone_pavement_2k",
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/polyhaven/cobblestone_pavement/cobblestone_pavement_2k.blend",
+          "license": "CC0-1.0",
+          "runtimeReady": false
+        }
+      ],
+      "gap": false,
+      "fallback": null
+    },
+    "brick": {
+      "visualLanguages": [
+        "civic",
+        "residential",
+        "commercial",
+        "industrial"
+      ],
+      "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
+      "assets": [
+        {
+          "assetId": "wa_polyhaven_materials_red_brick_03_4k",
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/red_brick_03_4k.blend",
+          "license": "CC0-1.0",
+          "runtimeReady": false
+        },
+        {
+          "assetId": "wa_polyhaven_materials_red_bricks_02_4k",
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_bricks_02/red_bricks_02_4k.blend",
+          "license": "CC0-1.0",
+          "runtimeReady": false
+        }
+      ],
+      "gap": false,
+      "fallback": null
+    },
+    "concrete": {
+      "visualLanguages": [
+        "infrastructure",
+        "industrial",
+        "civic"
+      ],
+      "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
+      "assets": [
+        {
+          "assetId": "wa_polyhaven_materials_concrete_wall_003_4k",
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/polyhaven/concrete_wall_003/concrete_wall_003_4k.blend",
+          "license": "CC0-1.0",
+          "runtimeReady": false
+        }
+      ],
+      "gap": false,
+      "fallback": null
+    },
+    "stone": {
+      "visualLanguages": [
+        "civic",
+        "park"
+      ],
+      "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
+      "assets": [
+        {
+          "assetId": "wa_polyhaven_materials_stone_wall_02_2k",
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/polyhaven/stone_wall_02/stone_wall_02_2k.blend",
+          "license": "CC0-1.0",
+          "runtimeReady": false
+        }
+      ],
+      "gap": false,
+      "fallback": null
+    },
+    "metal": {
+      "visualLanguages": [
+        "industrial",
+        "infrastructure"
+      ],
+      "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
+      "assets": [
+        {
+          "assetId": "wa_polyhaven_materials_corrugated_iron_03_2k",
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03/corrugated_iron_03_2k.blend",
+          "license": "CC0-1.0",
+          "runtimeReady": false
+        }
+      ],
+      "gap": false,
+      "fallback": null
+    },
+    "rusty_metal": {
+      "visualLanguages": [
+        "industrial"
+      ],
+      "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
+      "assets": [
+        {
+          "assetId": "wa_polyhaven_materials_rusty_metal_02_4k",
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/polyhaven/rusty_metal_02/rusty_metal_02_4k.blend",
+          "license": "CC0-1.0",
+          "runtimeReady": false
+        }
+      ],
+      "gap": false,
+      "fallback": null
+    },
+    "wood": {
+      "visualLanguages": [
+        "residential",
+        "park"
+      ],
+      "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
+      "assets": [
+        {
+          "assetId": "wa_polyhaven_materials_wood_planks_grey_4k",
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/polyhaven/wood_planks_grey/wood_planks_grey_4k.blend",
+          "license": "CC0-1.0",
+          "runtimeReady": false
+        }
+      ],
+      "gap": false,
+      "fallback": null
+    },
+    "soil": {
+      "visualLanguages": [
+        "park",
+        "industrial"
+      ],
+      "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
+      "assets": [
+        {
+          "assetId": "wa_polyhaven_materials_brown_mud_03_2k",
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/polyhaven/brown_mud_03/brown_mud_03_2k.blend",
+          "license": "CC0-1.0",
+          "runtimeReady": false
+        }
+      ],
+      "gap": false,
+      "fallback": null
+    },
+    "grass": {
+      "visualLanguages": [
+        "park",
+        "residential"
+      ],
+      "styleAdaptation": "El material se remapea al style profile Graphic Civic (palette, saturaci\u00f3n/valor, sombra); nunca se aplica fotorealista crudo sobre la escena.",
+      "assets": [
+        {
+          "assetId": "wa_polyhaven_materials_grass_ground_2k",
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/polyhaven/grass_ground/grass_ground_2k.blend",
+          "license": "CC0-1.0",
+          "runtimeReady": false
+        }
+      ],
+      "gap": false,
+      "fallback": null
+    }
+  }
+}

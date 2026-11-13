@@ -1,0 +1,443 @@
+{
+  "schemaVersion": 1,
+  "generator": {
+    "id": "building-evidence-render",
+    "version": 1,
+    "method": "blender_render",
+    "source": "scripts/render-building-evidence.mjs"
+  },
+  "note": "Evidencia candidata V.e: geometría de fuente real (Kenney CC0) + legacy procedural. No promovida al runtime; la promoción exige los 4 estados condicionados y QA visual.",
+  "buildings": {
+    "courtyard_home": {
+      "jobId": "bld_courtyard_home",
+      "mode": "legacy-procedural",
+      "category": "residential",
+      "floorCount": 1,
+      "footprint": {
+        "width": 2,
+        "height": 2
+      },
+      "provenance": null,
+      "states": {
+        "complete": {
+          "src": "/assets/evidence/buildings/courtyard_home-complete.png",
+          "width": 72,
+          "height": 73,
+          "sha256": "b197476f2efd46b78289d51c20c08f2d177494757527d3805e72d298809269b8",
+          "pivot": {
+            "x": 0.4375,
+            "y": 0.7941
+          }
+        },
+        "construction": {
+          "src": "/assets/evidence/buildings/courtyard_home-construction.png",
+          "width": 74,
+          "height": 61,
+          "sha256": "e322fcfb17660885fb2761afb9cb894bbafd7aeace888661200fc1fe445b70a7",
+          "pivot": {
+            "x": 0.5,
+            "y": 0.6962
+          }
+        },
+        "damaged": {
+          "src": "/assets/evidence/buildings/courtyard_home-damaged.png",
+          "width": 72,
+          "height": 73,
+          "sha256": "6e8739ee65491c30ad59a3b534ea1b9eb32e2744d49d7be02a167a82f946ea60",
+          "pivot": {
+            "x": 0.4375,
+            "y": 0.7941
+          }
+        },
+        "burning": {
+          "src": "/assets/evidence/buildings/courtyard_home-burning.png",
+          "width": 72,
+          "height": 73,
+          "sha256": "d1dcc062a89c09880612b0e053510aee14eef4eec1445322013fb17919bddc54",
+          "pivot": {
+            "x": 0.4375,
+            "y": 0.7941
+          }
+        }
+      }
+    },
+    "row_house": {
+      "jobId": "bld_row_house_factory",
+      "mode": "imported",
+      "category": "residential",
+      "floorCount": 2,
+      "footprint": {
+        "width": 4,
+        "height": 1
+      },
+      "provenance": {
+        "sourceId": "src_kenney_city_suburban",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/building-type-f.glb",
+        "license": "CC0-1.0"
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/evidence/buildings/row_house-complete.png",
+          "width": 228,
+          "height": 192,
+          "sha256": "1588fe1ef2defa6e8ec4af26519c8007843db8e189370480cd8fd683e362b0f1",
+          "pivot": {
+            "x": 0.4978,
+            "y": 0.7048
+          }
+        }
+      }
+    },
+    "apartment_block": {
+      "jobId": "bld_apartment_block_factory",
+      "mode": "imported",
+      "category": "residential",
+      "floorCount": 5,
+      "footprint": {
+        "width": 2,
+        "height": 5
+      },
+      "provenance": {
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-skyscraper-a.glb",
+        "license": "CC0-1.0"
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/evidence/buildings/apartment_block-complete.png",
+          "width": 213,
+          "height": 246,
+          "sha256": "037ee3bf4843a533d18a953f677ac97501572eccc2133afeafbe846759cae4f9",
+          "pivot": {
+            "x": 0.6009,
+            "y": 0.8293
+          }
+        }
+      }
+    },
+    "mixed_tenement": {
+      "jobId": "bld_mixed_tenement_factory",
+      "mode": "imported",
+      "category": "mixed",
+      "floorCount": 3,
+      "footprint": {
+        "width": 2,
+        "height": 4
+      },
+      "provenance": {
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-l.glb",
+        "license": "CC0-1.0"
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/evidence/buildings/mixed_tenement-complete.png",
+          "width": 237,
+          "height": 253,
+          "sha256": "e68ad1bcfb5ba0ca80ac479d9fa76f2a75f46aa78927fa373cb8120ac640a894",
+          "pivot": {
+            "x": 0.5401,
+            "y": 0.774
+          }
+        }
+      }
+    },
+    "workshop": {
+      "jobId": "bld_workshop_factory",
+      "mode": "imported",
+      "category": "industrial",
+      "floorCount": 1,
+      "footprint": {
+        "width": 2,
+        "height": 4
+      },
+      "provenance": {
+        "sourceId": "src_kenney_city_industrial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-m.glb",
+        "license": "CC0-1.0"
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/evidence/buildings/workshop-complete.png",
+          "width": 253,
+          "height": 227,
+          "sha256": "718e0e2e7c46b14e160feddb949af5de2cfe6559eddf82a8467c5856559dcd29",
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7349
+          }
+        }
+      }
+    },
+    "warehouse": {
+      "jobId": "bld_warehouse_factory",
+      "mode": "imported",
+      "category": "industrial",
+      "floorCount": 1,
+      "footprint": {
+        "width": 3,
+        "height": 4
+      },
+      "provenance": {
+        "sourceId": "src_kenney_city_industrial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-l.glb",
+        "license": "CC0-1.0"
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/evidence/buildings/warehouse-complete.png",
+          "width": 256,
+          "height": 228,
+          "sha256": "b63823d39d1395b610f58aa2b7fc1718ae22f8fd203d989a86e962d16dcbd118",
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7327
+          }
+        }
+      }
+    },
+    "cement_plant": {
+      "jobId": "bld_cement_plant_factory",
+      "mode": "imported",
+      "category": "industrial",
+      "floorCount": 2,
+      "footprint": {
+        "width": 2,
+        "height": 5
+      },
+      "provenance": {
+        "sourceId": "src_kenney_city_industrial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-c.glb",
+        "license": "CC0-1.0"
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/evidence/buildings/cement_plant-complete.png",
+          "width": 256,
+          "height": 193,
+          "sha256": "cd47d59688e82a1069184ffa8279688d9c7bd7468cb57e8b53c34f0bb72956d6",
+          "pivot": {
+            "x": 0.5,
+            "y": 0.6942
+          }
+        }
+      }
+    },
+    "brickworks": {
+      "jobId": "bld_brickworks_factory",
+      "mode": "imported",
+      "category": "industrial",
+      "floorCount": 2,
+      "footprint": {
+        "width": 2,
+        "height": 5
+      },
+      "provenance": {
+        "sourceId": "src_kenney_city_industrial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-j.glb",
+        "license": "CC0-1.0"
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/evidence/buildings/brickworks-complete.png",
+          "width": 175,
+          "height": 147,
+          "sha256": "6588215f5b3011a4f864aa968ea43a10750c6f12ed83b66d9bda251688445942",
+          "pivot": {
+            "x": 0.4743,
+            "y": 0.7039
+          }
+        }
+      }
+    },
+    "steelworks": {
+      "jobId": "bld_steelworks_factory",
+      "mode": "imported",
+      "category": "industrial",
+      "floorCount": 2,
+      "footprint": {
+        "width": 3,
+        "height": 4
+      },
+      "provenance": {
+        "sourceId": "src_kenney_city_industrial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-h.glb",
+        "license": "CC0-1.0"
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/evidence/buildings/steelworks-complete.png",
+          "width": 182,
+          "height": 127,
+          "sha256": "b9127b5f444eb333195fe6a4846549c292538dfc4d2c9c423f4a401559010015",
+          "pivot": {
+            "x": 0.4835,
+            "y": 0.6497
+          }
+        }
+      }
+    },
+    "town_hall": {
+      "jobId": "bld_town_hall_factory",
+      "mode": "imported",
+      "category": "civic",
+      "floorCount": 4,
+      "footprint": {
+        "width": 3,
+        "height": 4
+      },
+      "provenance": {
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-k.glb",
+        "license": "CC0-1.0"
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/evidence/buildings/town_hall-complete.png",
+          "width": 219,
+          "height": 217,
+          "sha256": "48822eff16c0638d11a54ffcf33c322003a72a42ce720669f83802caf7fcd265",
+          "pivot": {
+            "x": 0.5114,
+            "y": 0.7558
+          }
+        }
+      }
+    },
+    "school_block": {
+      "jobId": "bld_school_block_factory",
+      "mode": "imported",
+      "category": "civic",
+      "floorCount": 3,
+      "footprint": {
+        "width": 2,
+        "height": 7
+      },
+      "provenance": {
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-i.glb",
+        "license": "CC0-1.0"
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/evidence/buildings/school_block-complete.png",
+          "width": 219,
+          "height": 238,
+          "sha256": "af86e3c3fa8e37e11c04a3fdb50f2dfa07d98cc20241deae1affefeb1355baf5",
+          "pivot": {
+            "x": 0.5845,
+            "y": 0.811
+          }
+        }
+      }
+    },
+    "clinic": {
+      "jobId": "bld_clinic_factory",
+      "mode": "imported",
+      "category": "civic",
+      "floorCount": 2,
+      "footprint": {
+        "width": 2,
+        "height": 3
+      },
+      "provenance": {
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-e.glb",
+        "license": "CC0-1.0"
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/evidence/buildings/clinic-complete.png",
+          "width": 210,
+          "height": 163,
+          "sha256": "086be7703d403f92f4b188f95d06960a10b46ad49fb1c3490d5d946093524ae6",
+          "pivot": {
+            "x": 0.5143,
+            "y": 0.6676
+          }
+        }
+      }
+    },
+    "police_station": {
+      "jobId": "bld_police_station_factory",
+      "mode": "imported",
+      "category": "civic",
+      "floorCount": 2,
+      "footprint": {
+        "width": 2,
+        "height": 3
+      },
+      "provenance": {
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-f.glb",
+        "license": "CC0-1.0"
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/evidence/buildings/police_station-complete.png",
+          "width": 204,
+          "height": 233,
+          "sha256": "a6f372aed6e32d93209d5e2e9b0b99e8366be4ad284967772f0d0d81055ef184",
+          "pivot": {
+            "x": 0.6275,
+            "y": 0.8404
+          }
+        }
+      }
+    },
+    "fire_station": {
+      "jobId": "bld_fire_station_factory",
+      "mode": "imported",
+      "category": "civic",
+      "floorCount": 2,
+      "footprint": {
+        "width": 2,
+        "height": 4
+      },
+      "provenance": {
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-g.glb",
+        "license": "CC0-1.0"
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/evidence/buildings/fire_station-complete.png",
+          "width": 208,
+          "height": 234,
+          "sha256": "87f34b51e1b98ebfd97875a17a2d74a31a8d28f843dd47ef8ad95150f54f8e2a",
+          "pivot": {
+            "x": 0.6154,
+            "y": 0.8368
+          }
+        }
+      }
+    },
+    "market_hall": {
+      "jobId": "bld_market_hall_factory",
+      "mode": "imported",
+      "category": "mixed",
+      "floorCount": 2,
+      "footprint": {
+        "width": 2,
+        "height": 5
+      },
+      "provenance": {
+        "sourceId": "src_kenney_city_commercial",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-h.glb",
+        "license": "CC0-1.0"
+      },
+      "states": {
+        "complete": {
+          "src": "/assets/evidence/buildings/market_hall-complete.png",
+          "width": 183,
+          "height": 193,
+          "sha256": "29f6f67749d4375ffd6be1bdf0ec5f2d498a080045b37b80ba1d51e9afa1c40a",
+          "pivot": {
+            "x": 0.5984,
+            "y": 0.8133
+          }
+        }
+      }
+    }
+  }
+}

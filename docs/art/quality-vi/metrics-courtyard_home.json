@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-07T11:19:13.020Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/quality-vi/candidates/courtyard_home",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 124084,
+ "blenderPeakRssMb": 2455.1,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6",
+   "after": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_courtyard_home_2003",
+   "buildingType": "courtyard_home",
+   "family": "residential_low",
+   "variantSeed": 2003,
+   "compositionSignature": "cf5ba307bc4db3a7fbdd4158555ec7b7f8b0598752282c5eb0375b5fd132f062",
+   "triangleCount": 6826,
+   "objectCount": 65,
+   "moduleCount": 7,
+   "materials": 18,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -4.428,
+     "max": 4
+    },
+    "y": {
+     "min": -4.428,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 6.2
+    }
+   },
+   "renderMs": 7461.77,
+   "pngBytes": 604067,
+   "pngPixels": [
+    814,
+    792
+   ],
+   "pixelSha256": "1fbed4ca692d7fa453967e66b49c9e95204c25fb8d96f463de8394ac72fcf063",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5817,
+    "y": 0.6351
+   }
+  }
+ ],
+ "failures": []
+}

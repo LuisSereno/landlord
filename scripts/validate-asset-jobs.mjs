@@ -9,9 +9,11 @@
  * Uso: node scripts/validate-asset-jobs.mjs
  */
 import { existsSync, readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 
 const JOBS_PATH = "blender_artist/manifests/asset-jobs.json";
 const SOURCES_PATH = "blender_artist/manifests/staging-sources.json";
+const PROMOTIONS_PATH = "blender_artist/manifests/runtime-promotions.json";
 const STAGING_PREFIX = "blender_artist/staging/third_party/";
 const EXTRACTED_PREFIX = `${STAGING_PREFIX}cc0/extracted/`;
 const LICENSE_FAMILIES = JSON.parse(
@@ -49,6 +51,8 @@ const KIND_KEYS = {
     "frameDurationMs",
     "camera",
     "render",
+    "actorClass",
+    "animationSources",
   ]),
   terrain: new Set([
     "id",
@@ -92,6 +96,7 @@ const SOURCE_KINDS = ["procedural", "glb", "gltf", "fbx"];
 
 const jobs = JSON.parse(readFileSync(JOBS_PATH, "utf8"));
 const registry = JSON.parse(readFileSync(SOURCES_PATH, "utf8"));
+const promotions = JSON.parse(readFileSync(PROMOTIONS_PATH, "utf8"));
 const sourcesById = new Map(registry.sources.map((source) => [source.id, source]));
 const stagingAvailable = existsSync(STAGING_PREFIX);
 const errors = [];
@@ -102,6 +107,10 @@ function fail(message) {
 
 function isPositiveInt(value) {
   return Number.isInteger(value) && value > 0;
+}
+
+function sha256(path) {
+  return createHash("sha256").update(readFileSync(path)).digest("hex");
 }
 
 /**
@@ -251,6 +260,17 @@ for (const job of jobs.jobs ?? []) {
         fail(`${job.id}: frameDurationMs.${animation} falta o no es entero positivo`);
       }
     }
+    // Un personaje de fuente externa publicado al bundle DEBE traer un clip por animación: sin él
+    // el rig queda en reposo y publicar frames etiquetados idle/walk sería metadata falsa.
+    if (job.source?.kind !== "procedural" && job.target === "bundle") {
+      for (const animation of job.animations ?? []) {
+        if (!job.animationSources?.[animation]) {
+          fail(
+            `${job.id}: falta animationSources.${animation} (personaje externo sin clip quedaría en reposo)`,
+          );
+        }
+      }
+    }
     const frames = job.frameIndices ?? [];
     if (frames.length === 0) fail(`${job.id}: frameIndices no puede estar vacío`);
     if (new Set(frames).size !== frames.length) fail(`${job.id}: frameIndices duplicado`);
@@ -294,6 +314,53 @@ for (const job of jobs.jobs ?? []) {
   }
 }
 
+if (promotions.schemaVersion !== 1 || !Array.isArray(promotions.promotions)) {
+  fail("runtime-promotions.json: contrato inválido");
+} else {
+  const promotedTypes = new Set();
+  for (const promotion of promotions.promotions) {
+    const label = `promotion:${promotion.assetId ?? "(sin assetId)"}`;
+    if (!promotion.assetId || promotion.assetId !== promotion.semanticType) {
+      fail(`${label}: assetId y semanticType deben coincidir`);
+    }
+    if (typeof promotion.candidateBuildingType !== "string") {
+      fail(`${label}: falta candidateBuildingType para preservar la semántica de origen`);
+    }
+    if (promotion.approvalStatus !== "qa_approved") fail(`${label}: no tiene aprobación QA`);
+    if (promotion.state !== "complete") fail(`${label}: sólo se puede promover el estado complete`);
+    if (promotion.stateFallback !== "procedural") {
+      fail(`${label}: los estados ausentes deben declarar fallback procedural`);
+    }
+    if (promotedTypes.has(promotion.semanticType)) {
+      fail(`${label}: BuildingType promovido más de una vez`);
+    }
+    promotedTypes.add(promotion.semanticType);
+    for (const path of [promotion.candidateMetadata, promotion.candidateImage]) {
+      if (typeof path !== "string" || path.startsWith("/") || path.includes("..")) {
+        fail(`${label}: ruta de candidato inválida ${String(path)}`);
+      } else if (!existsSync(path)) {
+        fail(`${label}: no existe ${path}`);
+      }
+    }
+    if (!existsSync(promotion.candidateMetadata) || !existsSync(promotion.candidateImage)) continue;
+    const candidate = JSON.parse(readFileSync(promotion.candidateMetadata, "utf8"));
+    if (candidate.candidateId !== promotion.candidateId) fail(`${label}: candidateId no coincide`);
+    if (candidate.buildingType !== promotion.candidateBuildingType) {
+      fail(`${label}: candidateBuildingType no coincide con el candidato`);
+    }
+    if (candidate.state !== "complete") fail(`${label}: el candidato no es complete`);
+    if (candidate.styleProfileId !== promotion.styleProfileId) {
+      fail(`${label}: styleProfileId no coincide`);
+    }
+    if (candidate.compositionSignature !== promotion.compositionSignature) {
+      fail(`${label}: compositionSignature no coincide`);
+    }
+    if (sha256(promotion.candidateImage) !== promotion.imageSha256) {
+      fail(`${label}: hash PNG no coincide`);
+    }
+  }
+}
+
 if (errors.length > 0) {
   console.error(
     JSON.stringify(
@@ -301,7 +368,7 @@ if (errors.length > 0) {
         status: "failed",
         jobs: (jobs.jobs ?? []).length,
         errors,
-        hint: "Revisa asset-jobs.json; la unión es discriminada por kind y sourceId es FK contra staging-sources.json.",
+        hint: "Revisa asset-jobs.json/runtime-promotions.json; jobs y promociones se validan antes de publicar.",
       },
       null,
       2,
@@ -316,6 +383,7 @@ console.log(
     jobs: jobs.jobs.length,
     bundle: jobs.jobs.filter((job) => job.target === "bundle").length,
     evidence: jobs.jobs.filter((job) => job.target === "evidence").length,
+    promotions: promotions.promotions.length,
     sourcesChecked: stagingAvailable ? "con archivos" : "sin staging (CI)",
   }),
 );

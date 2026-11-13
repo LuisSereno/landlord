@@ -119,6 +119,24 @@ def style_pixels(source_rgb, treatment, kind):
             out_hue[mask] = (out_hue[mask] + band["hueOffset"]) % 360
         out_saturation[mask] *= band.get("saturationScale", 1.0)
         out_value[mask] *= band.get("valueScale", 1.0)
+    # R2: architectural readability floor. El global y las bandas están calibradas para Kenney,
+    # que fragmenta la fachada en texelitos de colores contrastados. Aplicado a fachadas MegaKit
+    # continuas de 16 m, el mismo escalón de noche apaga el edificio y se pierden pared/marco/
+    # zócalo/cornisa/puerta. Se fuerza un suelo de valor SOLO sobre las bandas declaradas en
+    # `architecturalReadability.floors`, preservando intactas las bandas atmosféricas (tejados,
+    # vidrio, asfalto) que mantienen el mood nocturno.
+    readability = treatment.get("architecturalReadability", {})
+    floors_by_kind = readability.get("floorsByKind", {})
+    floors = floors_by_kind.get(kind)
+    if floors is None and readability.get("kind") == kind:
+        floors = readability.get("floors", {})
+    if floors is not None:
+        for index, band in enumerate(bands):
+            floor = floors if isinstance(floors, (int, float)) else floors.get(band.get("id"))
+            if floor is None:
+                continue
+            mask = claimed_by == index
+            out_value[mask] = np.maximum(out_value[mask], float(floor))
     for band in treatment.get("valueBands", []):
         mask = band_mask(hue, saturation, value, band, kind)
         if mask is None:

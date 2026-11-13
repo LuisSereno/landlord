@@ -1,0 +1,180 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-05T13:11:06.143Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/blender_artist/showcase/vg-town-hall-spike-v7",
+ "requested": 4,
+ "rendered": 4,
+ "totalGenerationMs": 376067,
+ "blenderPeakRssMb": 9825.8,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "a0095574bf9f22ff2f57936aadb458447e39912d9df1992b6cb17400efb6ee01",
+   "after": "a0095574bf9f22ff2f57936aadb458447e39912d9df1992b6cb17400efb6ee01"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "5dbfe22a4a25247b67fa7092088412fbdeb3a7cfc87096bcd150b5d85c943841",
+   "after": "5dbfe22a4a25247b67fa7092088412fbdeb3a7cfc87096bcd150b5d85c943841"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vf_town_hall_1002",
+   "buildingType": "town_hall",
+   "family": "civic_landmark",
+   "variantSeed": 1002,
+   "compositionSignature": "285c15f19cd9364ee530b58dedb314fc52f75ace871c5df67bc385b4bb0b79e9",
+   "triangleCount": 19958,
+   "objectCount": 206,
+   "moduleCount": 9,
+   "materials": 18,
+   "textures": 15,
+   "bounds": {
+    "x": {
+     "min": -16,
+     "max": 16
+    },
+    "y": {
+     "min": -5.9908,
+     "max": 8
+    },
+    "z": {
+     "min": 0,
+     "max": 9.1
+    }
+   },
+   "renderMs": 28850.11,
+   "pngBytes": 647199,
+   "pngPixels": [
+    1158,
+    960
+   ],
+   "pixelSha256": "171f32858d20023ccb850b54124b0894c03f2fffbf9924fda567f0a3b7f6e4e2",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5583,
+    "y": 0.6236
+   }
+  },
+  {
+   "candidateId": "vf_town_hall_1003",
+   "buildingType": "town_hall",
+   "family": "civic_landmark",
+   "variantSeed": 1003,
+   "compositionSignature": "18d7e045abe877286e790f4d58321be6d4083b99ba1a9e43a4aed7af221cc01f",
+   "triangleCount": 20522,
+   "objectCount": 266,
+   "moduleCount": 10,
+   "materials": 19,
+   "textures": 15,
+   "bounds": {
+    "x": {
+     "min": -16.200000000000003,
+     "max": 16
+    },
+    "y": {
+     "min": -5.9908,
+     "max": 8
+    },
+    "z": {
+     "min": 0,
+     "max": 10
+    }
+   },
+   "renderMs": 30386.77,
+   "pngBytes": 634690,
+   "pngPixels": [
+    984,
+    753
+   ],
+   "pixelSha256": "efc7d0363b1d8e2c5c88abe8d57f1e99d8178743e26f015e7d0195c15a8903e3",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.4802,
+    "y": 0.689
+   }
+  },
+  {
+   "candidateId": "vf_town_hall_1006",
+   "buildingType": "town_hall",
+   "family": "civic_landmark",
+   "variantSeed": 1006,
+   "compositionSignature": "d440472588e657f4bd94ce4993532095782b7b6524efe39496a9eb076db11fbb",
+   "triangleCount": 20334,
+   "objectCount": 267,
+   "moduleCount": 11,
+   "materials": 20,
+   "textures": 15,
+   "bounds": {
+    "x": {
+     "min": -16.2,
+     "max": 16
+    },
+    "y": {
+     "min": -5.9908,
+     "max": 8
+    },
+    "z": {
+     "min": 0,
+     "max": 10
+    }
+   },
+   "renderMs": 28391.56,
+   "pngBytes": 660909,
+   "pngPixels": [
+    984,
+    753
+   ],
+   "pixelSha256": "bb80fc168146774ee1ba2d7ea69943733f6ddcb38e39b7d959e382443daebeff",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.4802,
+    "y": 0.689
+   }
+  },
+  {
+   "candidateId": "vf_town_hall_1008",
+   "buildingType": "town_hall",
+   "family": "civic_landmark",
+   "variantSeed": 1008,
+   "compositionSignature": "43285eae6cbea794ed9398f899dc69ae2df47796c48a6ed6e1d12aa96d99286b",
+   "triangleCount": 23080,
+   "objectCount": 207,
+   "moduleCount": 10,
+   "materials": 19,
+   "textures": 15,
+   "bounds": {
+    "x": {
+     "min": -16,
+     "max": 16
+    },
+    "y": {
+     "min": -5.9908,
+     "max": 8
+    },
+    "z": {
+     "min": 0,
+     "max": 9.1
+    }
+   },
+   "renderMs": 28013.12,
+   "pngBytes": 662275,
+   "pngPixels": [
+    1158,
+    960
+   ],
+   "pixelSha256": "93f3c1df32078815d13c415e3542dc358b85eaf419271ef74a365916379fceee",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5583,
+    "y": 0.6236
+   }
+  }
+ ],
+ "failures": []
+}

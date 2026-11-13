@@ -44,6 +44,10 @@ import {
 } from "./game-data";
 import { chooseFootprint } from "./footprints";
 import {
+  enforceMarketableActionability,
+  hasActionableSiteForDefinition,
+} from "./market-actionability";
+import {
   MUNICIPAL_FACILITY_CAPACITY,
   MUNICIPAL_FACILITY_SERVICE_PROFILE,
   municipalProgramForProfile,
@@ -716,6 +720,8 @@ export type DistrictGenerationOptions = {
   /** Gateways of the city, already on this district's border (D-088, D-090). */
   gatewayCells?: readonly GridCell[];
   cityId?: CityId;
+  /** Gate B: el distrito debe hospedar un sitio triple legal de acería (reintenta si no). */
+  requireSteelworksSite?: boolean;
 };
 
 function attemptComposition(input: {
@@ -726,6 +732,7 @@ function attemptComposition(input: {
   buildingIdOrdinal: number;
   facilityIdOrdinal: number;
   gatewayCells: readonly GridCell[];
+  requireSteelworksSite?: boolean;
 }): {
   parcels: Parcel[];
   blocks: Block[];
@@ -759,6 +766,9 @@ function attemptComposition(input: {
     anchors: roadAnchors,
     latticeLines: config.latticeLines,
     connectSpawns: config.connectSpawns,
+    motorwayAxis: profile.motorwayAxis,
+    roadCorridor: profile.roadCorridor,
+    roadSectionVariant: profile.roadSectionVariant,
     width: profile.width,
     height: profile.height,
   });
@@ -968,6 +978,39 @@ function attemptComposition(input: {
     productionSuitability: { ...entry.suitability },
   }));
 
+  // D-106: un solar de mercado debe ser accionable con la misma regla autoritativa de colocación
+  // que usan comando, UI, IA y automatización. El residuo sin jugada legal se fusiona con su
+  // vecino compatible de mayor borde compartido y se reevalúa; sin salida, deja de comercializarse.
+  // Los solares pequeños que sí participan en un complejo multi-parcela válido se conservan.
+  const avenueSegmentIds = new Set(
+    network.topology.segments
+      .filter((segment) => segment.class === "avenue")
+      .map((segment) => segment.id as string),
+  );
+  const anchorParcelIds = new Set(parcels.slice(0, anchorParcelCount).map((parcel) => parcel.id));
+  enforceMarketableActionability({
+    parcels,
+    fabricConfig: config,
+    avenueSegmentIds,
+    anchorParcelIds,
+  });
+  const survivingAnchorCount = parcels.filter((parcel) => anchorParcelIds.has(parcel.id)).length;
+  // Gate B: disponibilidad ciudad-global de la acería. La ciudad lo exige sólo al distrito que
+  // la hospeda; aquí el issue reintenta la composición hasta que el sitio triple es legal.
+  if (
+    input.requireSteelworksSite &&
+    !hasActionableSiteForDefinition({
+      parcels,
+      definition: BUILDING_DEFINITIONS.steelworks,
+      avenueSegmentIds,
+    })
+  ) {
+    issues.push({
+      code: "STEELWORKS_SITE_MISSING",
+      detail: "sin sitio triple legal para steelworks",
+    });
+  }
+
   const publicParcels: Parcel[] = [];
   const municipalBuildings: Building[] = [];
   const facilities: UrbanFacility[] = [];
@@ -1058,6 +1101,31 @@ function attemptComposition(input: {
     municipalBuildings.push(building);
     facilities.push(facility);
   }
+  // V.g civic-core: enlazar el ayuntamiento con la plaza principal reservada por el programa
+  // municipal. El contrato es `UrbanFacility.publicSpaceIds` (no se crea entidad nueva). Se elige
+  // la plaza más cercana en celdas al huella del edificio; el desempate por id mantiene el orden
+  // determinista (§13), así que dos corridas con el mismo seed enlazan la misma plaza.
+  const plazas = publicSpaces.filter((space) => space.kind === "plaza");
+  if (plazas.length > 0) {
+    const buildingById = new Map(municipalBuildings.map((building) => [building.id, building]));
+    for (const facility of facilities) {
+      if (facility.kind !== "town_hall") continue;
+      const buildingId = facility.buildingIds[0];
+      if (buildingId === undefined) continue;
+      const building = buildingById.get(buildingId);
+      if (!building) continue;
+      let best: PublicSpace | null = null;
+      let bestDistance = Number.POSITIVE_INFINITY;
+      for (const plaza of plazas) {
+        const distance = minManhattanDistance(building.footprintCells, plaza.cells);
+        if (distance < bestDistance || (distance === bestDistance && best && plaza.id < best.id)) {
+          best = plaza;
+          bestDistance = distance;
+        }
+      }
+      if (best) facility.publicSpaceIds = [best.id];
+    }
+  }
   if (facilities.length !== program.filter((entry) => entry.kind === "facility").length) {
     issues.push({
       code: "FACILITY_SITE_INVALID",
@@ -1072,6 +1140,7 @@ function attemptComposition(input: {
       height: profile.height,
       config,
       roads: network.topology,
+      roadCells: network.roadCells,
       blockedCells: blocked,
       blocks,
       parcels: allParcels,
@@ -1095,7 +1164,7 @@ function attemptComposition(input: {
     facilities,
     blockedCells: blocked,
     roads: network.topology,
-    anchorParcelCount,
+    anchorParcelCount: survivingAnchorCount,
     issues,
   };
 }
@@ -1123,6 +1192,9 @@ export function generateDistrictFromProfile(
       buildingIdOrdinal,
       facilityIdOrdinal,
       gatewayCells,
+      ...(options.requireSteelworksSite === undefined
+        ? {}
+        : { requireSteelworksSite: options.requireSteelworksSite }),
     });
     if (composition.issues.length > 0) {
       issues = composition.issues;
@@ -1219,4 +1291,19 @@ export function hasRoadAccess(
       roadCells.has(cellKey({ x: cell.x + offset.x, y: cell.y + offset.y })),
     ),
   );
+}
+
+/** Distancia Manhattan mínima entre dos conjuntos de celdas. Determinista: no depende del orden. */
+function minManhattanDistance(
+  left: readonly { x: number; y: number }[],
+  right: readonly { x: number; y: number }[],
+): number {
+  let best = Number.POSITIVE_INFINITY;
+  for (const a of left) {
+    for (const b of right) {
+      const distance = Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+      if (distance < best) best = distance;
+    }
+  }
+  return best;
 }

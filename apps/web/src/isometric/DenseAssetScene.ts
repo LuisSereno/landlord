@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { readVisualMood } from "../visual-mood";
 import {
   parseRuntimeAssetManifest,
   type BuildingAssetState,
@@ -169,7 +170,7 @@ export function mountDenseAssetScene(
     parent: container,
     width: 960,
     height: 540,
-    backgroundColor: "#1c2533",
+    backgroundColor: readVisualMood() === "day" ? "#2b3542" : "#1c2533",
     scene: [new DenseAssetScene(count, staticMode)],
     banner: false,
     audio: { noAudio: true },

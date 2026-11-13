@@ -409,7 +409,9 @@ describe.skipIf(!enabled)("V.d-H2 · baseline de balance de servicios municipale
         Object.entries(scenarioResults).map(([name, value]) => [name, value.perSeed]),
       ),
     };
-    console.log(JSON.stringify({ head: evidence.head, aggregate: evidence.aggregate }, null, 2));
+    process.stdout.write(
+      `${JSON.stringify({ head: evidence.head, aggregate: evidence.aggregate }, null, 2)}\n`,
+    );
     /**
      * H2-04 escribió la primera corrida en `vd-h2-service-baseline.json` (modelo pre-H2, sin
      * filtros de desarrollo). Con H2-05/H2-06/H2-07/H2-08 el mismo comando refleja el modelo

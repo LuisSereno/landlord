@@ -32,6 +32,8 @@ export type UrbanFacilityId = Brand<string, "UrbanFacilityId">;
 export type DistrictGatewayId = Brand<string, "DistrictGatewayId">;
 export type DistrictConnectionId = Brand<string, "DistrictConnectionId">;
 export type PermitId = Brand<string, "PermitId">;
+/** V.d-7C · identity of one legal placement, derived from canonical geometry (D-097). */
+export type DevelopmentPlacementId = Brand<string, "DevelopmentPlacementId">;
 
 export type RequestId = Brand<string, "RequestId">;
 export type CommandId = Brand<string, "CommandId">;
@@ -105,6 +107,9 @@ export const districtGatewayIdSchema = geometryEntityIdSchema("gateway").transfo
 );
 export const districtConnectionIdSchema = geometryEntityIdSchema("connection").transform(
   (value) => value as DistrictConnectionId,
+);
+export const developmentPlacementIdSchema = geometryEntityIdSchema("placement").transform(
+  (value) => value as DevelopmentPlacementId,
 );
 
 /** Profile identifiers are authored slugs: renaming one breaks every save that references it (D-064). */
@@ -197,6 +202,10 @@ export function parseCityProfileId(value: string): CityProfileId {
 
 export function parseBlockId(value: string): BlockId {
   return blockIdSchema.parse(value);
+}
+
+export function parseDevelopmentPlacementId(value: string): DevelopmentPlacementId {
+  return developmentPlacementIdSchema.parse(value);
 }
 
 export function parseDevelopmentCodeId(value: string): DevelopmentCodeId {

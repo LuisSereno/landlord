@@ -18,6 +18,8 @@ import json
 import math
 import os
 from pathlib import Path
+
+from render_settings import active_mood
 import mathutils
 
 # Paths
@@ -58,7 +60,7 @@ def load_style_layer():
 
 def setup_world(style_layer):
     """Setup world with neutral background and ambient light."""
-    lighting = style_layer['lighting']
+    lighting = active_mood(style_layer)['lighting']
     world = bpy.data.worlds.get('World')
     if world is None:
         world = bpy.data.worlds.new('World')
@@ -132,7 +134,7 @@ def setup_camera(target_obj=None, margin=1.4, min_scale=3.0):
 
 def setup_lighting(style_layer):
     """Create balanced lighting: ambient + key + fill + rim."""
-    lighting = style_layer['lighting']
+    lighting = active_mood(style_layer)['lighting']
 
     # Ambient via world
     setup_world(style_layer)

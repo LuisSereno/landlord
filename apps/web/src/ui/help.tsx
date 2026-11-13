@@ -216,8 +216,8 @@ export const helpCatalog: Record<HelpTopicKey, HelpTopic> = {
 export function tooltipPosition(
   rect: Pick<DOMRect, "left" | "top" | "width" | "height">,
   viewport: { width: number; height: number },
+  width = 240,
 ): CSSProperties {
-  const width = 240;
   const gap = 8;
   const left = Math.min(
     Math.max(8, rect.left + rect.width / 2 - width / 2),
@@ -292,6 +292,8 @@ export function HelpTooltip({ topic, label }: { topic: HelpTopicKey; label?: str
 export function HelpPopover({ topic }: { topic: HelpTopicKey }) {
   const [open, setOpen] = useState(false);
   const entry = helpCatalog[topic];
+  const anchor = useRef<HTMLSpanElement>(null);
+  const [position, setPosition] = useState<CSSProperties>({});
   useEffect(() => {
     if (!open) return undefined;
     const onKey = (event: KeyboardEvent) => {
@@ -300,8 +302,51 @@ export function HelpPopover({ topic }: { topic: HelpTopicKey }) {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
+  useEffect(() => {
+    if (!open || !anchor.current) return undefined;
+    const place = () =>
+      setPosition(
+        tooltipPosition(
+          anchor.current!.getBoundingClientRect(),
+          {
+            width: window.innerWidth,
+            height: window.innerHeight,
+          },
+          260,
+        ),
+      );
+    place();
+    window.addEventListener("resize", place);
+    window.addEventListener("scroll", place, true);
+    return () => {
+      window.removeEventListener("resize", place);
+      window.removeEventListener("scroll", place, true);
+    };
+  }, [open]);
+  const popover = (
+    <div
+      aria-label={`Ayuda: ${entry.title}`}
+      className="help-popover help-popover-floating"
+      role="dialog"
+      style={position}
+    >
+      <header>
+        <strong>{entry.title}</strong>
+        <button
+          aria-label="Cerrar ayuda"
+          className="icon-button"
+          onClick={() => setOpen(false)}
+          type="button"
+        >
+          <UiIcon name="close" size={14} />
+        </button>
+      </header>
+      <p>{entry.summary}</p>
+      {entry.details ? <p className="muted">{entry.details}</p> : null}
+    </div>
+  );
   return (
-    <span className="help-popover-wrap">
+    <span className="help-popover-wrap" ref={anchor}>
       <button
         aria-expanded={open}
         aria-haspopup="dialog"
@@ -312,23 +357,11 @@ export function HelpPopover({ topic }: { topic: HelpTopicKey }) {
       >
         <UiIcon name="help" size={16} />
       </button>
-      {open ? (
-        <div aria-label={`Ayuda: ${entry.title}`} className="help-popover" role="dialog">
-          <header>
-            <strong>{entry.title}</strong>
-            <button
-              aria-label="Cerrar ayuda"
-              className="icon-button"
-              onClick={() => setOpen(false)}
-              type="button"
-            >
-              <UiIcon name="close" size={14} />
-            </button>
-          </header>
-          <p>{entry.summary}</p>
-          {entry.details ? <p className="muted">{entry.details}</p> : null}
-        </div>
-      ) : null}
+      {typeof document === "undefined"
+        ? popover
+        : open
+          ? createPortal(popover, document.body)
+          : null}
     </span>
   );
 }

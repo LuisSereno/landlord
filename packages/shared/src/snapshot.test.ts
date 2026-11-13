@@ -6,6 +6,7 @@ import {
   snapshotV2Schema,
   UnsupportedSnapshotVersionError,
   UnsupportedPermitContractError,
+  UnsupportedRoadTopologyError,
   UnsupportedUrbanFabricError,
   validateSnapshotReferences,
 } from "./snapshot";
@@ -218,6 +219,45 @@ describe("snapshot v2", () => {
         },
       }),
     ).toThrow(UnsupportedUrbanFabricError);
+  });
+
+  it("rejects the unreleased derivationVersion 3 without mutating the candidate snapshot", () => {
+    const legacyRoads = validSnapshot();
+    const roads = legacyRoads.world.districts[0]!.map.roads as unknown as {
+      derivationVersion: number;
+    };
+    roads.derivationVersion = 3;
+    expect(() => parseSnapshotV2(legacyRoads)).toThrow(UnsupportedRoadTopologyError);
+    expect(roads.derivationVersion).toBe(3);
+  });
+
+  it("requires and preserves the section variant for derivationVersion 4", () => {
+    const v4 = validSnapshot();
+    v4.world.districts[0]!.map.roads = {
+      topologyVersion: 1,
+      derivationVersion: 4,
+      roadSectionVariant: "ave3",
+      segments: [],
+    } as never;
+    expect(parseSnapshotV2(v4).world.districts[0]!.map.roads).toMatchObject({
+      derivationVersion: 4,
+      roadSectionVariant: "ave3",
+    });
+    const missingVariant = validSnapshot();
+    missingVariant.world.districts[0]!.map.roads = {
+      topologyVersion: 1,
+      derivationVersion: 4,
+      segments: [],
+    } as never;
+    expect(() => parseSnapshotV2(missingVariant)).toThrow();
+    const invalidVariant = validSnapshot();
+    invalidVariant.world.districts[0]!.map.roads = {
+      topologyVersion: 1,
+      derivationVersion: 4,
+      roadSectionVariant: "wide",
+      segments: [],
+    } as never;
+    expect(() => parseSnapshotV2(invalidVariant)).toThrow();
   });
 
   it("rejects a permit ledger without PermitId instead of inventing one", () => {

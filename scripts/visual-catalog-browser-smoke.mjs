@@ -46,7 +46,8 @@ try {
   if ((await cards.count()) !== 15) throw new Error("Expected 15 building cards");
   const rows = page.locator("[data-state-row]");
   if ((await rows.count()) !== 15) throw new Error("Expected 15 state rows");
-  if ((await rows.locator("img").count()) !== 60) throw new Error("Expected 60 state images");
+  if ((await rows.locator("img").count()) !== 18)
+    throw new Error("Expected 18 state images (complete + legacy courtyard states)");
   if ((await page.locator("[data-character-card]").count()) !== 13)
     throw new Error("Expected 13 character cards");
   for (const image of await page.locator("#buildings img,#building-states img").all()) {
@@ -61,7 +62,7 @@ try {
   await page.waitForTimeout(1000);
   if (errors.length) throw new Error(`Page errors: ${errors.join("; ")}`);
   const text = await page.locator("#coverage").innerText();
-  for (const expected of ["15/15", "60/60", "13/13", "6/6", "purchaseGaps", "0"])
+  for (const expected of ["15/15", "18/60", "0/13", "9", "6/6", "purchaseGaps", "0"])
     if (!text.includes(expected)) throw new Error(`Missing coverage ${expected}`);
   mkdirSync("docs/art/golden/visual-catalog", { recursive: true });
   await shot("01-overview.png", page.locator(".catalog-hero"));
@@ -80,15 +81,16 @@ try {
   await shot("11-overlays.png", page.locator("#overlays"));
   await shot("12-construction-sequence.png", page.locator("#construction-sequence"));
   await shot("13-showcase-city.png", page.locator("#showcase"));
-  await shot("14-showcase-industrial.png", page.locator("#showcase canvas"));
-  await shot("15-showcase-civic.png", page.locator("#coverage"));
+  await shot("14-showcase-canvas.png", page.locator("#showcase canvas"));
+  await shot("15-coverage.png", page.locator("#coverage"));
   await shot("16-scale-reference.png", page.locator("#scale-reference"));
   console.log(
     JSON.stringify({
       status: "passed",
       buildings: 15,
-      states: 60,
-      characters: 13,
+      states: 18,
+      characterDefinitions: 13,
+      characterRenderedRoles: 0,
       screenshots: 16,
       pageErrors: 0,
     }),

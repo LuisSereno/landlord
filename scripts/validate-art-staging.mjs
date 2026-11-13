@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { access, readFile } from "node:fs/promises";
+import { access, readdir, readFile } from "node:fs/promises";
 
 const manifestUrl = new URL("../blender_artist/manifests/staging-sources.json", import.meta.url);
 const allowlistUrl = new URL("../blender_artist/manifests/license-allowlist.json", import.meta.url);
@@ -16,6 +16,9 @@ const errors = [];
 const allowedLicenses = new Set(allowlist.allowed);
 const deniedLicenses = new Set(allowlist.denied);
 const STAGING_PREFIX = "blender_artist/staging/third_party/";
+// Misma raíz de extracción que usan extract-cc0-packs.mjs y audit-visual-sources.mjs: el
+// `extractDir` del registro resuelve aquí, no en una tabla duplicada por cada script.
+const CC0_EXTRACTED_PREFIX = `${STAGING_PREFIX}cc0/extracted/`;
 
 async function sha256Of(url) {
   return createHash("sha256")
@@ -49,8 +52,8 @@ for (const source of manifest.sources) {
     );
   }
 
-  // Dos anclas de integridad: el ZIP físico (D-054) o, para fuentes clonadas sin archivo,
-  // el commit de origen más el hash del aviso de licencia que viaja con el material.
+  // Tres anclas de integridad: el ZIP físico (D-054), el commit de origen más el hash del aviso de
+  // licencia para fuentes clonadas sin archivo, y `archived` cuando el archivo ya no se retiene.
   const integrity = source.integrity ?? { type: "zip-sha256" };
   if (integrity.type === "git-commit") {
     if (!/^[0-9a-f]{40}$/.test(integrity.commit ?? "")) {
@@ -63,6 +66,32 @@ for (const source of manifest.sources) {
       }
     } catch {
       errors.push(`Falta el aviso de licencia: ${integrity.licenseFile}`);
+    }
+  } else if (integrity.type === "archived") {
+    // 〔R2〕 La trazabilidad no depende del archivo: `sha256` + `sourceUrl` son el contrato de
+    // reprovisión y `extractDir` es la copia de trabajo. Si el archivo vuelve a estar en disco,
+    // manda su hash otra vez, así que re-descargar un pack no deja el registro obsoleto.
+    const archiveUrl = new URL(`../${source.path}`, import.meta.url);
+    let archivePresent = true;
+    try {
+      await access(archiveUrl);
+    } catch {
+      archivePresent = false;
+    }
+    if (archivePresent) {
+      const hash = await sha256Of(archiveUrl);
+      if (hash !== source.sha256) errors.push(`Checksum mismatch: ${source.id}`);
+    } else if (!source.extractDir) {
+      errors.push(`Fuente archivada sin extractDir: ${source.id}`);
+    } else {
+      const packUrl = new URL(`../${CC0_EXTRACTED_PREFIX}${source.extractDir}`, import.meta.url);
+      try {
+        if ((await readdir(packUrl)).length === 0) {
+          errors.push(`Extracción vacía de fuente archivada: ${source.id}`);
+        }
+      } catch {
+        errors.push(`Falta la extracción de la fuente archivada: ${source.extractDir}`);
+      }
     }
   } else {
     try {

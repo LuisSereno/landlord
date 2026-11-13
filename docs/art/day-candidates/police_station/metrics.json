@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-11T12:54:08.178Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/day-candidates/police_station",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 134295,
+ "blenderPeakRssMb": 2802.6,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "165f29a802a3e0c839309f916f8d685c266ecee58fb4c02c65070d710c3b4390",
+   "after": "165f29a802a3e0c839309f916f8d685c266ecee58fb4c02c65070d710c3b4390"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_police_station_1002",
+   "buildingType": "police_station",
+   "family": "civic_landmark",
+   "variantSeed": 1002,
+   "compositionSignature": "6a580c49d7ec2fe68ba8ed2cec4ff834bc32901ca935ea4e2aed74cedba55cc3",
+   "triangleCount": 5522,
+   "objectCount": 62,
+   "moduleCount": 11,
+   "materials": 22,
+   "textures": 19,
+   "bounds": {
+    "x": {
+     "min": -6.2,
+     "max": 6
+    },
+    "y": {
+     "min": -1.9908,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 7
+    }
+   },
+   "renderMs": 7113.18,
+   "pngBytes": 582767,
+   "pngPixels": [
+    937,
+    896
+   ],
+   "pixelSha256": "258d560182426099203d3fda09c5369607cc4f0341a2bb6a12bf1fd353ccf16d",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5454,
+    "y": 0.6494
+   }
+  }
+ ],
+ "failures": []
+}

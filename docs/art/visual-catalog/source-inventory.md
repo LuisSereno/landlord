@@ -2,7 +2,7 @@
 
 > Generado por `pnpm art:sources:audit`. No edites las tablas manualmente.
 
-Fecha: 2026-11-02. Decisión de compra: **DEFER**.
+Fecha: 2026-11-03. Decisión de compra: **DEFER**.
 
 ## Ejecutar la auditoría
 

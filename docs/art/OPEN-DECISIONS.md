@@ -13,8 +13,8 @@
 | Escala física | 1 cell ≈ 4×4 m | abierta — pendiente de escena densa en Phaser | prueba de densidad |
 | Blender | 5.2.2 LTS | **cerrada — D-053** | versión pinneada para preproducción |
 | Renderer | EEVEE producción | **cerrada — acta WP2.14: EEVEE headless** | benchmark de batch render |
-| Luz | canónica fija NW visual | abierta | comparación visual |
-| Día/noche | estilizado, sin sol físico móvil en v1 | abierta | Product/Tech Art review |
+| Luz | canónica fija NW visual, neutro-cálida | **cerrada — D-105** | render ancla A/B aprobado |
+| Día/noche | perfiles `day_civic`/`night_civic`, sin sol físico móvil | **cerrada — D-105** | selector runtime + revisión A/B |
 | Personajes | 8 direcciones | abierta — decisión 4 vs 8 medida en WP4.15 | animation budget |
 | Atlas | 2048² multipack | **cerrada como diferida a Beta — D-081**: 400 sprites y 24 texturas sostienen 60 FPS en Phaser | reapertura medida: <55 FPS o >64 texturas |
 | Runtime textures | PNG RGBA inicial | **cerrada como master — acta WP2.14: PNG RGBA 16-bit transparente**; formato runtime derivado sigue en WP4.15 | profiling/compatibilidad |
@@ -24,7 +24,7 @@
 | Tipografías | familias abiertas/licenciadas | abierta | UI design + legal |
 | Golden scenes | Art Lab + Playwright | **cerrada y revisada — D-081/D-082**: golden + pixel-diff local-only; CI usa smoke estructural por inestabilidad cross-environment | `pnpm art:visual` local; `pnpm smoke:art-lab` CI |
 | Repo de arte separado | no inicialmente | diferida | revisar al crecer binarios |
-| Building Factory | generación modular/procedural offline | **parcial — D-080/D-081**: factoría procedural para los 5 edificios + ruta Blender E2E demostrada para `courtyard_home` | línea por-asset completa en Beta |
+| Building Factory | generación modular/procedural offline | **retirada — D-098**: la factoría procedural de V.e.2/V.e.3 fue supersedida por catálogo de fuente real; `courtyard_home` queda sólo como legacy congelado | producción por fuente importada y estados condicionados |
 | Character Factory | base rig + variantes offline + batch directions | **parcial — D-080/D-081**: variantes procedurales 8/4 direcciones + E2E Blender para `vecino_variante` | rig y batch en Beta |
 | Assets third-party en Git | staging local por ahora | abierta | aprobar LFS + provenance + estructura |
 

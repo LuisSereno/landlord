@@ -1,0 +1,2154 @@
+{
+ "schemaVersion": 1,
+ "candidateId": "vg_workshop_1001",
+ "buildingType": "workshop",
+ "family": "industrial_heavy",
+ "state": "complete",
+ "variantSeed": 1001,
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "compositionSignature": "34047f46174d133ca84f49aa2549e8720d6709759f476561c309459ba81cff65",
+ "axisChoices": {
+  "massing": "l_shaped_workshop",
+  "facade": "brick_industrial",
+  "bay_sequence": "workshop_door@5",
+  "silhouette": "metal_trim_cornice/flush",
+  "roof": "flat_plates",
+  "access": "canopied_entry@1",
+  "intrinsic_props": "roof_hvac",
+  "secondary_volume": "small_tank/sin_hueco",
+  "recipe": "none"
+ },
+ "footprintCells": {
+  "width": 4,
+  "height": 2
+ },
+ "footprintMeters": {
+  "width": 16.0,
+  "depth": 8.0
+ },
+ "floors": 1,
+ "bounds": {
+  "x": {
+   "min": -3.9532,
+   "max": 8.0
+  },
+  "y": {
+   "min": -4.4,
+   "max": 2.84
+  },
+  "z": {
+   "min": 0.0,
+   "max": 7.6182
+  }
+ },
+ "envelopeMeters": {
+  "x": 11.953,
+  "y": 7.24,
+  "z": 7.618
+ },
+ "volumes": [
+  {
+   "cells": [
+    0,
+    0,
+    3,
+    2
+   ],
+   "build": "whole",
+   "levels": 3,
+   "base": 0.0,
+   "top": 7.618,
+   "deck": 7.618
+  },
+  {
+   "cells": [
+    3,
+    0,
+    1,
+    1
+   ],
+   "build": "bands",
+   "levels": 1,
+   "base": 0.0,
+   "top": 3.0,
+   "deck": 3.0
+  }
+ ],
+ "transforms": [
+  {
+   "moduleId": "mod_kenney_ind_hall_n",
+   "role": "hall",
+   "sourceId": "src_kenney_city_industrial",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-n.glb",
+   "license": "CC0-1.0",
+   "rotationDegrees": 0,
+   "position": [
+    -2.0,
+    0.0,
+    0.0
+   ],
+   "bounds": {
+    "x": {
+     "min": -3.9532,
+     "max": -0.04679999999999995
+    },
+    "y": {
+     "min": -2.84,
+     "max": 2.84
+    },
+    "z": {
+     "min": 0.0,
+     "max": 7.6182
+    }
+   },
+   "triangles": 1262,
+   "meshObjects": 1,
+   "elevationReach": "tratado",
+   "purpose": "whole:mod_kenney_ind_hall_n"
+  },
+  {
+   "moduleId": "mod_megakit_floor_slab_4m",
+   "role": "slab",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 0,
+   "position": [
+    6.0,
+    -2.0,
+    0.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 4.0,
+     "max": 8.0
+    },
+    "y": {
+     "min": -4.0,
+     "max": 0.0
+    },
+    "z": {
+     "min": 0.0,
+     "max": 0.1
+    }
+   },
+   "triangles": 16,
+   "meshObjects": 1,
+   "elevationReach": "sin_albedo_exterior",
+   "purpose": "slab:4.0:-4.0"
+  },
+  {
+   "moduleId": "mod_megakit_metal_window_2m",
+   "role": "window_bay",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Window_Half.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 180,
+   "position": [
+    5.0,
+    -3.886,
+    0.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 4.0,
+     "max": 6.0
+    },
+    "y": {
+     "min": -4.0,
+     "max": -3.7714
+    },
+    "z": {
+     "min": 0.0,
+     "max": 3.0
+    }
+   },
+   "triangles": 312,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "band:front:level1:bay1"
+  },
+  {
+   "moduleId": "mod_megakit_metal_wall_2m",
+   "role": "wall_panel",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Plain_3.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 0,
+   "position": [
+    5.0,
+    -0.1,
+    0.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 4.0,
+     "max": 6.0
+    },
+    "y": {
+     "min": -0.2,
+     "max": 0.0
+    },
+    "z": {
+     "min": 0.0,
+     "max": 3.0
+    }
+   },
+   "triangles": 18,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "band:rear:level1:bay1"
+  },
+  {
+   "moduleId": "mod_megakit_metal_wall_2m",
+   "role": "wall_panel",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Plain_3.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 0,
+   "position": [
+    7.0,
+    -0.1,
+    0.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 6.0,
+     "max": 8.0
+    },
+    "y": {
+     "min": -0.2,
+     "max": 0.0
+    },
+    "z": {
+     "min": 0.0,
+     "max": 3.0
+    }
+   },
+   "triangles": 18,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "band:rear:level1:bay2"
+  },
+  {
+   "moduleId": "mod_megakit_metal_window_2m",
+   "role": "window_bay",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Window_Half.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 90,
+   "position": [
+    4.114,
+    -3.0,
+    0.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 4.0,
+     "max": 4.2286
+    },
+    "y": {
+     "min": -4.0,
+     "max": -2.0
+    },
+    "z": {
+     "min": 0.0,
+     "max": 3.0
+    }
+   },
+   "triangles": 312,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "band:left:level1:bay1"
+  },
+  {
+   "moduleId": "mod_megakit_metal_wall_2m",
+   "role": "wall_panel",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Plain_3.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 90,
+   "position": [
+    4.1,
+    -1.0,
+    0.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 3.9999999999999996,
+     "max": 4.199999999999999
+    },
+    "y": {
+     "min": -2.0,
+     "max": 0.0
+    },
+    "z": {
+     "min": 0.0,
+     "max": 3.0
+    }
+   },
+   "triangles": 18,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "band:left:level1:bay2"
+  },
+  {
+   "moduleId": "mod_megakit_metal_window_2m",
+   "role": "window_bay",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Window_Half.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 270,
+   "position": [
+    7.886,
+    -3.0,
+    0.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 7.7714,
+     "max": 8.0
+    },
+    "y": {
+     "min": -4.0,
+     "max": -2.0
+    },
+    "z": {
+     "min": 0.0,
+     "max": 3.0
+    }
+   },
+   "triangles": 312,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "band:right:level1:bay1"
+  },
+  {
+   "moduleId": "mod_megakit_metal_wall_2m",
+   "role": "wall_panel",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Plain_3.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 270,
+   "position": [
+    7.9,
+    -1.0,
+    0.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 7.800000000000001,
+     "max": 8.0
+    },
+    "y": {
+     "min": -2.0,
+     "max": 0.0
+    },
+    "z": {
+     "min": 0.0,
+     "max": 3.0
+    }
+   },
+   "triangles": 18,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "band:right:level1:bay2"
+  },
+  {
+   "moduleId": "mod_megakit_cornice_metal_center_2m",
+   "role": "cornice",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 0,
+   "position": [
+    5.0,
+    -4.1,
+    3.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 4.0,
+     "max": 6.0
+    },
+    "y": {
+     "min": -4.199999999999999,
+     "max": -3.9999999999999996
+    },
+    "z": {
+     "min": 3.0,
+     "max": 4.0
+    }
+   },
+   "triangles": 30,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "cornice:front:1"
+  },
+  {
+   "moduleId": "mod_megakit_cornice_metal_center_2m",
+   "role": "cornice",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 0,
+   "position": [
+    7.0,
+    -4.1,
+    3.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 6.0,
+     "max": 8.0
+    },
+    "y": {
+     "min": -4.199999999999999,
+     "max": -3.9999999999999996
+    },
+    "z": {
+     "min": 3.0,
+     "max": 4.0
+    }
+   },
+   "triangles": 30,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "cornice:front:2"
+  },
+  {
+   "moduleId": "mod_megakit_cornice_metal_center_2m",
+   "role": "cornice",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 180,
+   "position": [
+    5.0,
+    -0.3,
+    3.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 4.0,
+     "max": 6.0
+    },
+    "y": {
+     "min": -0.4,
+     "max": -0.20000000000000004
+    },
+    "z": {
+     "min": 3.0,
+     "max": 4.0
+    }
+   },
+   "triangles": 30,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "cornice:rear:1"
+  },
+  {
+   "moduleId": "mod_megakit_cornice_metal_center_2m",
+   "role": "cornice",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 180,
+   "position": [
+    7.0,
+    -0.3,
+    3.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 6.0,
+     "max": 8.0
+    },
+    "y": {
+     "min": -0.4,
+     "max": -0.20000000000000004
+    },
+    "z": {
+     "min": 3.0,
+     "max": 4.0
+    }
+   },
+   "triangles": 30,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "cornice:rear:2"
+  },
+  {
+   "moduleId": "mod_megakit_cornice_metal_center_2m",
+   "role": "cornice",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 270,
+   "position": [
+    3.9,
+    -3.0,
+    3.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 3.8,
+     "max": 4.0
+    },
+    "y": {
+     "min": -4.0,
+     "max": -2.0
+    },
+    "z": {
+     "min": 3.0,
+     "max": 4.0
+    }
+   },
+   "triangles": 30,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "cornice:left:1"
+  },
+  {
+   "moduleId": "mod_megakit_cornice_metal_center_2m",
+   "role": "cornice",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 270,
+   "position": [
+    3.9,
+    -1.0,
+    3.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 3.8,
+     "max": 4.0
+    },
+    "y": {
+     "min": -2.0,
+     "max": 0.0
+    },
+    "z": {
+     "min": 3.0,
+     "max": 4.0
+    }
+   },
+   "triangles": 30,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "cornice:left:2"
+  },
+  {
+   "moduleId": "mod_megakit_cornice_metal_center_2m",
+   "role": "cornice",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 90,
+   "position": [
+    7.7,
+    -3.0,
+    3.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 7.6000000000000005,
+     "max": 7.8
+    },
+    "y": {
+     "min": -4.0,
+     "max": -2.0
+    },
+    "z": {
+     "min": 3.0,
+     "max": 4.0
+    }
+   },
+   "triangles": 30,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "cornice:right:1"
+  },
+  {
+   "moduleId": "mod_megakit_cornice_metal_center_2m",
+   "role": "cornice",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 90,
+   "position": [
+    7.7,
+    -1.0,
+    3.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 7.6000000000000005,
+     "max": 7.8
+    },
+    "y": {
+     "min": -2.0,
+     "max": 0.0
+    },
+    "z": {
+     "min": 3.0,
+     "max": 4.0
+    }
+   },
+   "triangles": 30,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "cornice:right:2"
+  },
+  {
+   "moduleId": "mod_megakit_roof_flat_4m",
+   "role": "flat",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 0,
+   "position": [
+    6.0,
+    -2.0,
+    3.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 4.0,
+     "max": 8.0
+    },
+    "y": {
+     "min": -4.0,
+     "max": 0.0
+    },
+    "z": {
+     "min": 3.0,
+     "max": 3.0
+    }
+   },
+   "triangles": 8,
+   "meshObjects": 1,
+   "elevationReach": "tratado",
+   "purpose": "roof:flat:4.0:-4.0"
+  },
+  {
+   "moduleId": "mod_megakit_doorframe_metal_2m",
+   "role": "doorframe",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 180,
+   "position": [
+    7.0,
+    -3.9,
+    0.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 6.0,
+     "max": 8.0
+    },
+    "y": {
+     "min": -4.0,
+     "max": -3.8
+    },
+    "z": {
+     "min": 0.0,
+     "max": 3.0
+    }
+   },
+   "triangles": 239,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "access:frame"
+  },
+  {
+   "moduleId": "mod_megakit_door_1",
+   "role": "door",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Door_1.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 0,
+   "position": [
+    7.0,
+    -3.85,
+    0.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 6.5,
+     "max": 7.5
+    },
+    "y": {
+     "min": -3.98,
+     "max": -3.7201999999999997
+    },
+    "z": {
+     "min": 0.0,
+     "max": 2.2
+    }
+   },
+   "triangles": 676,
+   "meshObjects": 1,
+   "elevationReach": "tratado",
+   "purpose": "access:leaf"
+  },
+  {
+   "moduleId": "mod_megakit_entrance_canopy_2x1",
+   "role": "canopy",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Entrance_Concrete_2x1.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 0,
+   "position": [
+    7.0,
+    -3.898,
+    2.2
+   ],
+   "bounds": {
+    "x": {
+     "min": 6.0,
+     "max": 8.0
+    },
+    "y": {
+     "min": -4.4,
+     "max": -3.3968
+    },
+    "z": {
+     "min": 2.2,
+     "max": 3.2067
+    }
+   },
+   "triangles": 12,
+   "meshObjects": 1,
+   "elevationReach": "tratado",
+   "purpose": "access:above"
+  },
+  {
+   "moduleId": "mod_megakit_prop_ac_unit",
+   "role": "rooftop_unit",
+   "sourceId": "src_quaternius_downtown_city_megakit",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+   "license": "CC0-1.0",
+   "rotationDegrees": 0,
+   "position": [
+    7.0,
+    -1.0,
+    3.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 6.5534,
+     "max": 7.4466
+    },
+    "y": {
+     "min": -1.1735,
+     "max": -0.8265
+    },
+    "z": {
+     "min": 3.0,
+     "max": 3.6
+    }
+   },
+   "triangles": 136,
+   "meshObjects": 1,
+   "elevationReach": "tratado",
+   "purpose": "prop:roof_hvac"
+  }
+ ],
+ "originalSupport": [],
+ "modules": [
+  "mod_kenney_ind_hall_n",
+  "mod_megakit_cornice_metal_center_2m",
+  "mod_megakit_door_1",
+  "mod_megakit_doorframe_metal_2m",
+  "mod_megakit_entrance_canopy_2x1",
+  "mod_megakit_floor_slab_4m",
+  "mod_megakit_metal_wall_2m",
+  "mod_megakit_metal_window_2m",
+  "mod_megakit_prop_ac_unit",
+  "mod_megakit_roof_flat_4m"
+ ],
+ "sourceIds": [
+  "src_kenney_city_industrial",
+  "src_quaternius_downtown_city_megakit"
+ ],
+ "sourcePaths": [
+  "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-n.glb",
+  "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+  "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+  "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Door_1.gltf",
+  "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Entrance_Concrete_2x1.gltf",
+  "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+  "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Plain_3.gltf",
+  "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Window_Half.gltf",
+  "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+  "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf"
+ ],
+ "licenses": [
+  "CC0-1.0"
+ ],
+ "materialVariants": [
+  {
+   "moduleId": "mod_megakit_entrance_canopy_2x1",
+   "material": "MI_Trim_MetalConcrete",
+   "family": "metal",
+   "elevationReach": "tratado",
+   "measuredChain": [
+    "atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png"
+   ],
+   "treatmentPath": "atlas-directo",
+   "colorSourceFound": true,
+   "styledAtlasesInScene": [
+    "styled_T_MetalConcrete_BaseColor"
+   ],
+   "untreatedColorSources": 0
+  },
+  {
+   "moduleId": "mod_megakit_doorframe_metal_2m",
+   "material": "MI_Glass",
+   "family": "glass",
+   "elevationReach": "en_bruto",
+   "measuredChain": [
+    "enlazado:MIX"
+   ],
+   "treatmentPath": "sin-albedo-enlazado",
+   "colorSourceFound": false,
+   "styledAtlasesInScene": [],
+   "untreatedColorSources": 0
+  },
+  {
+   "moduleId": "mod_megakit_doorframe_metal_2m",
+   "material": "MI_Trim_MetalConcrete.001",
+   "family": "metal",
+   "elevationReach": "en_bruto",
+   "measuredChain": [],
+   "treatmentPath": "atlas-profundo",
+   "colorSourceFound": true,
+   "styledAtlasesInScene": [
+    "styled_T_MetalConcrete_BaseColor"
+   ],
+   "untreatedColorSources": 0
+  },
+  {
+   "moduleId": "mod_megakit_door_1",
+   "material": "MI_Trim_MetalConcrete.002",
+   "family": "metal",
+   "elevationReach": "tratado",
+   "measuredChain": [],
+   "treatmentPath": "atlas-directo",
+   "colorSourceFound": true,
+   "styledAtlasesInScene": [
+    "styled_T_MetalConcrete_BaseColor"
+   ],
+   "untreatedColorSources": 0
+  },
+  {
+   "moduleId": "mod_megakit_metal_window_2m",
+   "material": "MI_FakeInterior",
+   "family": "interior",
+   "elevationReach": "en_bruto",
+   "measuredChain": [
+    "enlazado:MIX"
+   ],
+   "treatmentPath": "sin-albedo-enlazado",
+   "colorSourceFound": false,
+   "styledAtlasesInScene": [],
+   "untreatedColorSources": 0
+  },
+  {
+   "moduleId": "mod_megakit_metal_window_2m",
+   "material": "MI_Glass.001",
+   "family": "glass",
+   "elevationReach": "en_bruto",
+   "measuredChain": [],
+   "treatmentPath": "sin-albedo-enlazado",
+   "colorSourceFound": false,
+   "styledAtlasesInScene": [],
+   "untreatedColorSources": 0
+  },
+  {
+   "moduleId": "mod_megakit_metal_window_2m",
+   "material": "MI_Trim_MetalConcrete.003",
+   "family": "metal",
+   "elevationReach": "en_bruto",
+   "measuredChain": [],
+   "treatmentPath": "atlas-profundo",
+   "colorSourceFound": true,
+   "styledAtlasesInScene": [
+    "styled_T_MetalConcrete_BaseColor"
+   ],
+   "untreatedColorSources": 0
+  },
+  {
+   "moduleId": "mod_megakit_metal_wall_2m",
+   "material": "MI_InteriorWall",
+   "family": "interior",
+   "elevationReach": "en_bruto",
+   "measuredChain": [
+    "enlazado:MIX"
+   ],
+   "treatmentPath": "atlas-profundo",
+   "colorSourceFound": true,
+   "styledAtlasesInScene": [
+    "styled_T_RedBrick_BaseColor"
+   ],
+   "untreatedColorSources": 0
+  },
+  {
+   "moduleId": "mod_megakit_metal_wall_2m",
+   "material": "MI_Trim_MetalConcrete.004",
+   "family": "metal",
+   "elevationReach": "en_bruto",
+   "measuredChain": [],
+   "treatmentPath": "atlas-profundo",
+   "colorSourceFound": true,
+   "styledAtlasesInScene": [
+    "styled_T_MetalConcrete_BaseColor"
+   ],
+   "untreatedColorSources": 0
+  },
+  {
+   "moduleId": "mod_megakit_cornice_metal_center_2m",
+   "material": "MI_Trim_MetalConcrete.005",
+   "family": "metal",
+   "elevationReach": "en_bruto",
+   "measuredChain": [],
+   "treatmentPath": "atlas-profundo",
+   "colorSourceFound": true,
+   "styledAtlasesInScene": [
+    "styled_T_MetalConcrete_BaseColor"
+   ],
+   "untreatedColorSources": 0
+  },
+  {
+   "moduleId": "mod_megakit_prop_ac_unit",
+   "material": "MI_Ornaments",
+   "family": "plaster",
+   "elevationReach": "tratado",
+   "measuredChain": [
+    "atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_BaseColor.png"
+   ],
+   "treatmentPath": "atlas-directo",
+   "colorSourceFound": true,
+   "styledAtlasesInScene": [
+    "styled_T_Ornaments_BaseColor"
+   ],
+   "untreatedColorSources": 0
+  },
+  {
+   "moduleId": "mod_megakit_roof_flat_4m",
+   "material": "MI_Asphalt",
+   "family": "stone",
+   "elevationReach": "tratado",
+   "measuredChain": [
+    "atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png"
+   ],
+   "treatmentPath": "atlas-directo",
+   "colorSourceFound": true,
+   "styledAtlasesInScene": [
+    "styled_T_Concrete_Asphalt_BaseColor"
+   ],
+   "untreatedColorSources": 0
+  },
+  {
+   "moduleId": "mod_megakit_floor_slab_4m",
+   "material": "MI_InteriorFloor",
+   "family": "interior",
+   "elevationReach": "sin_albedo_exterior",
+   "measuredChain": [
+    "atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_BaseColor.png"
+   ],
+   "treatmentPath": "atlas-directo",
+   "colorSourceFound": true,
+   "styledAtlasesInScene": [
+    "styled_T_MarbleFloor_BaseColor"
+   ],
+   "untreatedColorSources": 0
+  },
+  {
+   "moduleId": "mod_megakit_floor_slab_4m",
+   "material": "MI_InteriorRoof",
+   "family": "interior",
+   "elevationReach": "sin_albedo_exterior",
+   "measuredChain": [
+    "atlas:blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png"
+   ],
+   "treatmentPath": "atlas-directo",
+   "colorSourceFound": true,
+   "styledAtlasesInScene": [
+    "styled_T_Concrete_BaseColor"
+   ],
+   "untreatedColorSources": 0
+  },
+  {
+   "moduleId": "mod_kenney_ind_hall_n",
+   "material": "colormap",
+   "family": "atlas",
+   "elevationReach": "tratado",
+   "measuredChain": [
+    "atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
+   ],
+   "treatmentPath": "atlas-directo",
+   "colorSourceFound": true,
+   "styledAtlasesInScene": [
+    "styled_colormap"
+   ],
+   "untreatedColorSources": 0
+  },
+  {
+   "moduleId": "mod_kenney_ind_hall_n",
+   "material": "colormap-specular",
+   "family": "atlas",
+   "elevationReach": "tratado",
+   "measuredChain": [
+    "atlas:blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png"
+   ],
+   "treatmentPath": "atlas-directo",
+   "colorSourceFound": true,
+   "styledAtlasesInScene": [
+    "styled_colormap"
+   ],
+   "untreatedColorSources": 0
+  }
+ ],
+ "checks": {
+  "groundContactInsideFootprint": true,
+  "groundToleranceMeters": 0.05,
+  "distinctModuleIds": 10,
+  "distinctSources": 2,
+  "supportTriangleShare": 0.0,
+  "elevationTreatmentLadders": [
+   "en_bruto",
+   "sin_albedo_exterior",
+   "tratado"
+  ]
+ },
+ "sceneChecks": {
+  "placementToleranceMeters": 0.02,
+  "groundContact": {
+   "restingModules": 11,
+   "lowestZMeters": 0.0
+  },
+  "scene": {
+   "triangles": 3597,
+   "meshObjects": 22,
+   "worldSizeMeters": {
+    "x": 11.9536,
+    "y": 7.2396,
+    "z": 7.6182
+   }
+  },
+  "sourcesImported": 10,
+  "pivotValidator": {
+   "rawNormalized": {
+    "x": 0.5379,
+    "y": 0.6192
+   },
+   "footprintProjected": [
+    [
+     0.0285,
+     0.5221
+    ],
+    [
+     0.7077,
+     0.9105
+    ],
+    [
+     1.0473,
+     0.7163
+    ],
+    [
+     0.3681,
+     0.3279
+    ]
+   ],
+   "insideFootprint": true,
+   "groundZMeters": 0.0
+  },
+  "orientation": {
+   "cameraAzimuthDegrees": 45.0,
+   "cameraElevationDegrees": 30.0,
+   "visibleSides": [
+    "front",
+    "right"
+   ],
+   "frontSideOfFrame": "-Y",
+   "access": [
+    {
+     "purpose": "access:above",
+     "moduleId": "mod_megakit_entrance_canopy_2x1",
+     "frontAxis": "-Y",
+     "rotationDegrees": 0,
+     "outwardDegrees": 270,
+     "side": "front",
+     "visible": true
+    },
+    {
+     "purpose": "access:frame",
+     "moduleId": "mod_megakit_doorframe_metal_2m",
+     "frontAxis": "+Y",
+     "rotationDegrees": 180,
+     "outwardDegrees": 270,
+     "side": "front",
+     "visible": true
+    },
+    {
+     "purpose": "access:leaf",
+     "moduleId": "mod_megakit_door_1",
+     "frontAxis": "symmetric-Y",
+     "rotationDegrees": 0,
+     "outwardDegrees": 270,
+     "side": "front",
+     "visible": true
+    }
+   ],
+   "allAccessVisible": true,
+   "evidence": "frente -Y, azimut 45°: la normal de cada acceso se mide desde frontAxis+giro"
+  }
+ },
+ "pivot": {
+  "x": 0.5379,
+  "y": 0.6192
+ },
+ "footprint": {
+  "width": 4,
+  "height": 2
+ },
+ "triangleCount": 3597,
+ "materialCount": 16,
+ "textureCount": 18,
+ "renderTime": 7363.98,
+ "pngBytes": 193022,
+ "sha256": "97f71a4cccc4108914b33aeaadd8ac40e923b78e17e30db44d0e1cc0497d30c7",
+ "pixelSha256": "db43664a6e629abebdb8d125a215ae651204e04d95ea8f23d8af06fc6882d7ee",
+ "orientationStatus": {
+  "cameraAzimuthDegrees": 45.0,
+  "cameraElevationDegrees": 30.0,
+  "visibleSides": [
+   "front",
+   "right"
+  ],
+  "frontSideOfFrame": "-Y",
+  "access": [
+   {
+    "purpose": "access:above",
+    "moduleId": "mod_megakit_entrance_canopy_2x1",
+    "frontAxis": "-Y",
+    "rotationDegrees": 0,
+    "outwardDegrees": 270,
+    "side": "front",
+    "visible": true
+   },
+   {
+    "purpose": "access:frame",
+    "moduleId": "mod_megakit_doorframe_metal_2m",
+    "frontAxis": "+Y",
+    "rotationDegrees": 180,
+    "outwardDegrees": 270,
+    "side": "front",
+    "visible": true
+   },
+   {
+    "purpose": "access:leaf",
+    "moduleId": "mod_megakit_door_1",
+    "frontAxis": "symmetric-Y",
+    "rotationDegrees": 0,
+    "outwardDegrees": 270,
+    "side": "front",
+    "visible": true
+   }
+  ],
+  "allAccessVisible": true,
+  "evidence": "frente -Y, azimut 45°: la normal de cada acceso se mide desde frontAxis+giro"
+ },
+ "image": {
+  "path": "/home/luis/RepositorioGitHub/landlord/docs/art/industrial-light-catalog-vi/attempts/2026-11-06T1855/vg_workshop_1001.png",
+  "width": 501,
+  "height": 438,
+  "sha256": "97f71a4cccc4108914b33aeaadd8ac40e923b78e17e30db44d0e1cc0497d30c7",
+  "bytes": 193022
+ },
+ "trim": {
+  "rendered": {
+   "width": 1078,
+   "height": 1064
+  },
+  "cropped": {
+   "width": 1002,
+   "height": 876,
+   "offsetX": 0,
+   "offsetY": 188
+  },
+  "final": {
+   "width": 501,
+   "height": 438
+  }
+ },
+ "metrics": {
+  "placements": 22,
+  "meshObjects": 22,
+  "distinctModuleIds": 10,
+  "sources": [
+   "src_kenney_city_industrial",
+   "src_quaternius_downtown_city_megakit"
+  ],
+  "triangles": 3597,
+  "licensedTriangles": 3597,
+  "supportTriangles": 0,
+  "licensedGeometryRatio": 1.0,
+  "materials": [
+   "MI_Asphalt",
+   "MI_FakeInterior",
+   "MI_Glass",
+   "MI_InteriorFloor",
+   "MI_InteriorRoof",
+   "MI_InteriorWall",
+   "MI_Ornaments",
+   "MI_Trim_MetalConcrete",
+   "colormap",
+   "colormap-specular"
+  ],
+  "textures": [
+   "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png",
+   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png",
+   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png",
+   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Normal.png",
+   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_ORM.png",
+   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_BaseColor.png",
+   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_Normal.png",
+   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_ORM.png",
+   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png",
+   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_BaseColor.png",
+   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_Normal.png",
+   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_ORM.png",
+   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png"
+  ]
+ },
+ "framing": {
+  "projectedWidthMeters": 13.572,
+  "projectedHeightMeters": 13.383,
+  "marginUsed": 1.3205,
+  "pixelsPerMeter": 30.1,
+  "orthoScale": 17.921,
+  "canvasPixels": [
+   539,
+   532
+  ]
+ },
+ "style": {
+  "layerVersion": 7,
+  "directReach": {
+   "version": 7,
+   "atlases": [
+    "T_Concrete_Asphalt_BaseColor",
+    "T_Concrete_BaseColor",
+    "T_MarbleFloor_BaseColor",
+    "T_MetalConcrete_BaseColor",
+    "T_Ornaments_BaseColor",
+    "colormap"
+   ],
+   "flatMaterials": 0,
+   "emissiveTexels": 20288,
+   "litWindows": 2
+  },
+  "deepReach": {
+   "deepStyledNodes": 5,
+   "deepStyledAtlases": [
+    "T_MetalConcrete_BaseColor",
+    "T_RedBrick_BaseColor"
+   ],
+   "flatStyledMaterials": [],
+   "linkedWithoutColorSource": [
+    "MI_FakeInterior",
+    "MI_Glass",
+    "MI_Glass.001"
+   ]
+  },
+  "deepReachDetail": [
+   "MI_InteriorWall←T_RedBrick_BaseColor",
+   "MI_Trim_MetalConcrete.001←T_MetalConcrete_BaseColor",
+   "MI_Trim_MetalConcrete.003←T_MetalConcrete_BaseColor",
+   "MI_Trim_MetalConcrete.004←T_MetalConcrete_BaseColor",
+   "MI_Trim_MetalConcrete.005←T_MetalConcrete_BaseColor"
+  ]
+ },
+ "toolchain": {
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "camera": {
+  "projection": "ORTHO",
+  "azimuthDegrees": 45,
+  "elevationDegrees": 30,
+  "orthoScale": 17.92099952697754,
+  "targetZ": 3.809
+ },
+ "shadow": {
+  "pass": true,
+  "keySunAngleDegrees": 3.0,
+  "strength": 1.5,
+  "frameScale": 3,
+  "renderPixels": {
+   "width": 1078,
+   "height": 1064,
+   "sha256": "3c5db3301bcdbc0176e82a4a86b5b454569788552289b44b014bb3ecfdbbcbda"
+  },
+  "pixels": {
+   "width": 3234,
+   "height": 3192,
+   "sha256": "1d127984ff877146e190e41f512a6705e22423c78711ca576d15be0ebc352807"
+  }
+ },
+ "render": {
+  "renderMs": 7363.98,
+  "prepMs": 24201.17,
+  "totalMs": 151428.85,
+  "peakRssMb": 2919.5
+ },
+ "request": {
+  "candidateId": "vg_workshop_1001",
+  "buildingType": "workshop",
+  "family": "industrial_heavy",
+  "styleProfileId": "graphic_civic_buildings_v1",
+  "variantSeed": 1001,
+  "composerVersion": "vf-3",
+  "footprint": {
+   "width": 4,
+   "height": 2
+  },
+  "floors": 1,
+  "state": "complete",
+  "output": "/home/luis/RepositorioGitHub/landlord/docs/art/industrial-light-catalog-vi/attempts/2026-11-06T1855/vg_workshop_1001.png",
+  "metadata": "/home/luis/RepositorioGitHub/landlord/docs/art/industrial-light-catalog-vi/attempts/2026-11-06T1855/vg_workshop_1001.json"
+ },
+ "composition": {
+  "buildingType": "workshop",
+  "family": "industrial_heavy",
+  "styleProfileId": "graphic_civic_buildings_v1",
+  "composerVersion": "vf-3",
+  "variantSeed": 1001,
+  "footprintCells": {
+   "width": 4,
+   "height": 2
+  },
+  "footprintMeters": {
+   "width": 16.0,
+   "depth": 8.0
+  },
+  "levels": 1,
+  "volumes": [
+   {
+    "cells": [
+     0,
+     0,
+     3,
+     2
+    ],
+    "build": "whole",
+    "levels": 3,
+    "base": 0.0,
+    "top": 7.618,
+    "deck": 7.618
+   },
+   {
+    "cells": [
+     3,
+     0,
+     1,
+     1
+    ],
+    "build": "bands",
+    "levels": 1,
+    "base": 0.0,
+    "top": 3.0,
+    "deck": 3.0
+   }
+  ],
+  "axisChoices": {
+   "massing": "l_shaped_workshop",
+   "facade": "brick_industrial",
+   "bay_sequence": "workshop_door@5",
+   "silhouette": "metal_trim_cornice/flush",
+   "roof": "flat_plates",
+   "access": "canopied_entry@1",
+   "intrinsic_props": "roof_hvac",
+   "secondary_volume": "small_tank/sin_hueco",
+   "recipe": "none"
+  },
+  "placements": [
+   {
+    "moduleId": "mod_kenney_ind_hall_n",
+    "role": "hall",
+    "sourceId": "src_kenney_city_industrial",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-n.glb",
+    "license": "CC0-1.0",
+    "rotationDegrees": 0,
+    "position": [
+     -2.0,
+     0.0,
+     0.0
+    ],
+    "bounds": {
+     "x": {
+      "min": -3.9532,
+      "max": -0.04679999999999995
+     },
+     "y": {
+      "min": -2.84,
+      "max": 2.84
+     },
+     "z": {
+      "min": 0.0,
+      "max": 7.6182
+     }
+    },
+    "triangles": 1262,
+    "meshObjects": 1,
+    "elevationReach": "tratado",
+    "purpose": "whole:mod_kenney_ind_hall_n"
+   },
+   {
+    "moduleId": "mod_megakit_floor_slab_4m",
+    "role": "slab",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 0,
+    "position": [
+     6.0,
+     -2.0,
+     0.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 4.0,
+      "max": 8.0
+     },
+     "y": {
+      "min": -4.0,
+      "max": 0.0
+     },
+     "z": {
+      "min": 0.0,
+      "max": 0.1
+     }
+    },
+    "triangles": 16,
+    "meshObjects": 1,
+    "elevationReach": "sin_albedo_exterior",
+    "purpose": "slab:4.0:-4.0"
+   },
+   {
+    "moduleId": "mod_megakit_metal_window_2m",
+    "role": "window_bay",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Window_Half.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 180,
+    "position": [
+     5.0,
+     -3.886,
+     0.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 4.0,
+      "max": 6.0
+     },
+     "y": {
+      "min": -4.0,
+      "max": -3.7714
+     },
+     "z": {
+      "min": 0.0,
+      "max": 3.0
+     }
+    },
+    "triangles": 312,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "band:front:level1:bay1"
+   },
+   {
+    "moduleId": "mod_megakit_metal_wall_2m",
+    "role": "wall_panel",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Plain_3.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 0,
+    "position": [
+     5.0,
+     -0.1,
+     0.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 4.0,
+      "max": 6.0
+     },
+     "y": {
+      "min": -0.2,
+      "max": 0.0
+     },
+     "z": {
+      "min": 0.0,
+      "max": 3.0
+     }
+    },
+    "triangles": 18,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "band:rear:level1:bay1"
+   },
+   {
+    "moduleId": "mod_megakit_metal_wall_2m",
+    "role": "wall_panel",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Plain_3.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 0,
+    "position": [
+     7.0,
+     -0.1,
+     0.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 6.0,
+      "max": 8.0
+     },
+     "y": {
+      "min": -0.2,
+      "max": 0.0
+     },
+     "z": {
+      "min": 0.0,
+      "max": 3.0
+     }
+    },
+    "triangles": 18,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "band:rear:level1:bay2"
+   },
+   {
+    "moduleId": "mod_megakit_metal_window_2m",
+    "role": "window_bay",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Window_Half.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 90,
+    "position": [
+     4.114,
+     -3.0,
+     0.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 4.0,
+      "max": 4.2286
+     },
+     "y": {
+      "min": -4.0,
+      "max": -2.0
+     },
+     "z": {
+      "min": 0.0,
+      "max": 3.0
+     }
+    },
+    "triangles": 312,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "band:left:level1:bay1"
+   },
+   {
+    "moduleId": "mod_megakit_metal_wall_2m",
+    "role": "wall_panel",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Plain_3.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 90,
+    "position": [
+     4.1,
+     -1.0,
+     0.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 3.9999999999999996,
+      "max": 4.199999999999999
+     },
+     "y": {
+      "min": -2.0,
+      "max": 0.0
+     },
+     "z": {
+      "min": 0.0,
+      "max": 3.0
+     }
+    },
+    "triangles": 18,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "band:left:level1:bay2"
+   },
+   {
+    "moduleId": "mod_megakit_metal_window_2m",
+    "role": "window_bay",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Window_Half.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 270,
+    "position": [
+     7.886,
+     -3.0,
+     0.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 7.7714,
+      "max": 8.0
+     },
+     "y": {
+      "min": -4.0,
+      "max": -2.0
+     },
+     "z": {
+      "min": 0.0,
+      "max": 3.0
+     }
+    },
+    "triangles": 312,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "band:right:level1:bay1"
+   },
+   {
+    "moduleId": "mod_megakit_metal_wall_2m",
+    "role": "wall_panel",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Plain_3.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 270,
+    "position": [
+     7.9,
+     -1.0,
+     0.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 7.800000000000001,
+      "max": 8.0
+     },
+     "y": {
+      "min": -2.0,
+      "max": 0.0
+     },
+     "z": {
+      "min": 0.0,
+      "max": 3.0
+     }
+    },
+    "triangles": 18,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "band:right:level1:bay2"
+   },
+   {
+    "moduleId": "mod_megakit_cornice_metal_center_2m",
+    "role": "cornice",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 0,
+    "position": [
+     5.0,
+     -4.1,
+     3.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 4.0,
+      "max": 6.0
+     },
+     "y": {
+      "min": -4.199999999999999,
+      "max": -3.9999999999999996
+     },
+     "z": {
+      "min": 3.0,
+      "max": 4.0
+     }
+    },
+    "triangles": 30,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "cornice:front:1"
+   },
+   {
+    "moduleId": "mod_megakit_cornice_metal_center_2m",
+    "role": "cornice",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 0,
+    "position": [
+     7.0,
+     -4.1,
+     3.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 6.0,
+      "max": 8.0
+     },
+     "y": {
+      "min": -4.199999999999999,
+      "max": -3.9999999999999996
+     },
+     "z": {
+      "min": 3.0,
+      "max": 4.0
+     }
+    },
+    "triangles": 30,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "cornice:front:2"
+   },
+   {
+    "moduleId": "mod_megakit_cornice_metal_center_2m",
+    "role": "cornice",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 180,
+    "position": [
+     5.0,
+     -0.3,
+     3.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 4.0,
+      "max": 6.0
+     },
+     "y": {
+      "min": -0.4,
+      "max": -0.20000000000000004
+     },
+     "z": {
+      "min": 3.0,
+      "max": 4.0
+     }
+    },
+    "triangles": 30,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "cornice:rear:1"
+   },
+   {
+    "moduleId": "mod_megakit_cornice_metal_center_2m",
+    "role": "cornice",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 180,
+    "position": [
+     7.0,
+     -0.3,
+     3.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 6.0,
+      "max": 8.0
+     },
+     "y": {
+      "min": -0.4,
+      "max": -0.20000000000000004
+     },
+     "z": {
+      "min": 3.0,
+      "max": 4.0
+     }
+    },
+    "triangles": 30,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "cornice:rear:2"
+   },
+   {
+    "moduleId": "mod_megakit_cornice_metal_center_2m",
+    "role": "cornice",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 270,
+    "position": [
+     3.9,
+     -3.0,
+     3.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 3.8,
+      "max": 4.0
+     },
+     "y": {
+      "min": -4.0,
+      "max": -2.0
+     },
+     "z": {
+      "min": 3.0,
+      "max": 4.0
+     }
+    },
+    "triangles": 30,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "cornice:left:1"
+   },
+   {
+    "moduleId": "mod_megakit_cornice_metal_center_2m",
+    "role": "cornice",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 270,
+    "position": [
+     3.9,
+     -1.0,
+     3.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 3.8,
+      "max": 4.0
+     },
+     "y": {
+      "min": -2.0,
+      "max": 0.0
+     },
+     "z": {
+      "min": 3.0,
+      "max": 4.0
+     }
+    },
+    "triangles": 30,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "cornice:left:2"
+   },
+   {
+    "moduleId": "mod_megakit_cornice_metal_center_2m",
+    "role": "cornice",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 90,
+    "position": [
+     7.7,
+     -3.0,
+     3.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 7.6000000000000005,
+      "max": 7.8
+     },
+     "y": {
+      "min": -4.0,
+      "max": -2.0
+     },
+     "z": {
+      "min": 3.0,
+      "max": 4.0
+     }
+    },
+    "triangles": 30,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "cornice:right:1"
+   },
+   {
+    "moduleId": "mod_megakit_cornice_metal_center_2m",
+    "role": "cornice",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Metal_Center.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 90,
+    "position": [
+     7.7,
+     -1.0,
+     3.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 7.6000000000000005,
+      "max": 7.8
+     },
+     "y": {
+      "min": -2.0,
+      "max": 0.0
+     },
+     "z": {
+      "min": 3.0,
+      "max": 4.0
+     }
+    },
+    "triangles": 30,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "cornice:right:2"
+   },
+   {
+    "moduleId": "mod_megakit_roof_flat_4m",
+    "role": "flat",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 0,
+    "position": [
+     6.0,
+     -2.0,
+     3.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 4.0,
+      "max": 8.0
+     },
+     "y": {
+      "min": -4.0,
+      "max": 0.0
+     },
+     "z": {
+      "min": 3.0,
+      "max": 3.0
+     }
+    },
+    "triangles": 8,
+    "meshObjects": 1,
+    "elevationReach": "tratado",
+    "purpose": "roof:flat:4.0:-4.0"
+   },
+   {
+    "moduleId": "mod_megakit_doorframe_metal_2m",
+    "role": "doorframe",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 180,
+    "position": [
+     7.0,
+     -3.9,
+     0.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 6.0,
+      "max": 8.0
+     },
+     "y": {
+      "min": -4.0,
+      "max": -3.8
+     },
+     "z": {
+      "min": 0.0,
+      "max": 3.0
+     }
+    },
+    "triangles": 239,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "access:frame"
+   },
+   {
+    "moduleId": "mod_megakit_door_1",
+    "role": "door",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Door_1.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 0,
+    "position": [
+     7.0,
+     -3.85,
+     0.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 6.5,
+      "max": 7.5
+     },
+     "y": {
+      "min": -3.98,
+      "max": -3.7201999999999997
+     },
+     "z": {
+      "min": 0.0,
+      "max": 2.2
+     }
+    },
+    "triangles": 676,
+    "meshObjects": 1,
+    "elevationReach": "tratado",
+    "purpose": "access:leaf"
+   },
+   {
+    "moduleId": "mod_megakit_entrance_canopy_2x1",
+    "role": "canopy",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Entrance_Concrete_2x1.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 0,
+    "position": [
+     7.0,
+     -3.898,
+     2.2
+    ],
+    "bounds": {
+     "x": {
+      "min": 6.0,
+      "max": 8.0
+     },
+     "y": {
+      "min": -4.4,
+      "max": -3.3968
+     },
+     "z": {
+      "min": 2.2,
+      "max": 3.2067
+     }
+    },
+    "triangles": 12,
+    "meshObjects": 1,
+    "elevationReach": "tratado",
+    "purpose": "access:above"
+   },
+   {
+    "moduleId": "mod_megakit_prop_ac_unit",
+    "role": "rooftop_unit",
+    "sourceId": "src_quaternius_downtown_city_megakit",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+    "license": "CC0-1.0",
+    "rotationDegrees": 0,
+    "position": [
+     7.0,
+     -1.0,
+     3.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 6.5534,
+      "max": 7.4466
+     },
+     "y": {
+      "min": -1.1735,
+      "max": -0.8265
+     },
+     "z": {
+      "min": 3.0,
+      "max": 3.6
+     }
+    },
+    "triangles": 136,
+    "meshObjects": 1,
+    "elevationReach": "tratado",
+    "purpose": "prop:roof_hvac"
+   }
+  ],
+  "originalSupport": [],
+  "bounds": {
+   "x": {
+    "min": -3.9532,
+    "max": 8.0
+   },
+   "y": {
+    "min": -4.4,
+    "max": 2.84
+   },
+   "z": {
+    "min": 0.0,
+    "max": 7.6182
+   }
+  },
+  "envelopeMeters": {
+   "x": 11.953,
+   "y": 7.24,
+   "z": 7.618
+  },
+  "groundContactMeters": {
+   "x": 11.953,
+   "y": 6.84,
+   "z": 7.618
+  },
+  "checks": {
+   "groundContactInsideFootprint": true,
+   "groundToleranceMeters": 0.05,
+   "distinctModuleIds": 10,
+   "distinctSources": 2,
+   "supportTriangleShare": 0.0,
+   "elevationTreatmentLadders": [
+    "en_bruto",
+    "sin_albedo_exterior",
+    "tratado"
+   ]
+  },
+  "metrics": {
+   "placements": 22,
+   "meshObjects": 22,
+   "distinctModuleIds": 10,
+   "sources": [
+    "src_kenney_city_industrial",
+    "src_quaternius_downtown_city_megakit"
+   ],
+   "triangles": 3597,
+   "licensedTriangles": 3597,
+   "supportTriangles": 0,
+   "licensedGeometryRatio": 1.0,
+   "materials": [
+    "MI_Asphalt",
+    "MI_FakeInterior",
+    "MI_Glass",
+    "MI_InteriorFloor",
+    "MI_InteriorRoof",
+    "MI_InteriorWall",
+    "MI_Ornaments",
+    "MI_Trim_MetalConcrete",
+    "colormap",
+    "colormap-specular"
+   ],
+   "textures": [
+    "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png",
+    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png",
+    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png",
+    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Normal.png",
+    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_ORM.png",
+    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_BaseColor.png",
+    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_Normal.png",
+    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MarbleFloor_ORM.png",
+    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_BaseColor.png",
+    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_Normal.png",
+    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_MetalConcrete_ORM.png",
+    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_BaseColor.png",
+    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_Normal.png",
+    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_ORM.png",
+    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png",
+    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_Normal.png",
+    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_ORM.png"
+   ]
+  },
+  "compositionSignature": "34047f46174d133ca84f49aa2549e8720d6709759f476561c309459ba81cff65"
+ }
+}

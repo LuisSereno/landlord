@@ -1,0 +1,58 @@
+{
+ "candidateId": "vg_town_hall_1000",
+ "first": {
+  "pass": "primera",
+  "signature": "e9d759cba27c32e35ded3353a067b93b0be969410fb714d089d0c8761837d9c8",
+  "pixelSha256": "a99dadc8fdd3719eacb63f6889ecfe13f6058b94aae0bddcda8dcf5bfcd793ac",
+  "fileSha256": "cd08b5ea3599b3f605c37ac496a359d3f96c3f3b033f0c8922c24b6c884b6c68",
+  "stages": {
+   "render": "2684848372da100b3a9598a5cb24a409529fc6c53293aa32a6dc7ff213e28395",
+   "shadow": "54d28747e0c1e8ada375898fa77355af6c1590acec3bb3a290519826d724e43b"
+  },
+  "pivot": {
+   "x": 0.4612,
+   "y": 0.8324
+  },
+  "pixels": [
+   554,
+   762
+  ]
+ },
+ "second": {
+  "pass": "segunda",
+  "signature": "e9d759cba27c32e35ded3353a067b93b0be969410fb714d089d0c8761837d9c8",
+  "pixelSha256": "6c4be9ea942b9b66b7ac4105321ee912c7ba1745fb9c356cf175c5ddb254a10c",
+  "fileSha256": "f94ec955fd516f85374ce30d0ee2050c98d282a69e4f5510b4879457f03e6243",
+  "stages": {
+   "render": "8707559357f30f1722d592f9e7ab6f468890385f187c9b86634658066cb80d82",
+   "shadow": "54d28747e0c1e8ada375898fa77355af6c1590acec3bb3a290519826d724e43b"
+  },
+  "pivot": {
+   "x": 0.4612,
+   "y": 0.8324
+  },
+  "pixels": [
+   554,
+   762
+  ]
+ },
+ "differences": [],
+ "stageDifferences": [
+  "render"
+ ],
+ "pixelDifferences": true,
+ "compositionDeterministic": true,
+ "finalOutputByteIdentical": false,
+ "rasterWithinGpuNoiseBound": true,
+ "finalOutputJitter": {
+  "changedPixels": 1052,
+  "totalPixels": 422148,
+  "maxChannelDelta": 183,
+  "meanAbsDiff": 0.1772,
+  "grossFraction": 0.001883
+ },
+ "intermediateShadowBitStable": true,
+ "containerNoise": false,
+ "status": "COMPOSITION_DETERMINISTIC_GPU_JITTER",
+ "intermediateStatus": "INTERMEDIATE_SHADOW_BIT_STABLE"
+}

@@ -4,6 +4,13 @@ import type { UrbanRole } from "@landlord/shared";
  * Instantáneas reproducibles del generador de distritos. Regenerar con `pnpm district:inspect`
  * (las variables `DISTRICT_PROFILE` y `DISTRICT_SEED` acotan el barrido) después de cambiar
  * `DISTRICT_GENERATOR_VERSION`, los perfiles o el algoritmo.
+ *
+ * Regeneración V.l.5c (2026-11-10): cartera visual opción 3. `barrio_del_umbral` vuelve al eje,
+ * `vega_del_cauce` adopta la sección `ave3` y `ensanche_ferroviario` permanece en eje.
+ *
+ * La tabla conserva sólo las doce filas que el gate usa; el resto de perfiles se inspecciona con
+ * `pnpm district:inspect` cuando cambia su receta.
+ *
  */
 export type DistrictFixture = {
   profileId: string;
@@ -21,7 +28,7 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "barrio_del_umbral",
     seed: 1,
-    hash: "a1c7606a",
+    hash: "3b2da309",
     parcelCount: 90,
     anchorParcelCount: 8,
     blockedCellCount: 240,
@@ -39,7 +46,7 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "barrio_del_umbral",
     seed: 7,
-    hash: "fa87420f",
+    hash: "824ba450",
     parcelCount: 100,
     anchorParcelCount: 8,
     blockedCellCount: 240,
@@ -57,7 +64,7 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "barrio_del_umbral",
     seed: 42,
-    hash: "fdca371f",
+    hash: "ecdb4836",
     parcelCount: 88,
     anchorParcelCount: 8,
     blockedCellCount: 240,
@@ -75,7 +82,7 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "barrio_del_umbral",
     seed: 1337,
-    hash: "d9180ed6",
+    hash: "8119b92f",
     parcelCount: 93,
     anchorParcelCount: 8,
     blockedCellCount: 240,
@@ -165,17 +172,17 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "vega_del_cauce",
     seed: 1,
-    hash: "793bfa88",
-    parcelCount: 50,
+    hash: "c1043de0",
+    parcelCount: 46,
     anchorParcelCount: 4,
-    blockedCellCount: 135,
+    blockedCellCount: 131,
     roleCounts: {
       civic_core: 0,
       mixed_core: 0,
       commercial_corridor: 0,
       urban_residential: 0,
-      low_density_residential: 30,
-      industrial_logistics: 18,
+      low_density_residential: 29,
+      industrial_logistics: 15,
       institutional: 2,
       green_open_space: 0,
     },
@@ -183,16 +190,16 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "vega_del_cauce",
     seed: 7,
-    hash: "5a223308",
-    parcelCount: 57,
+    hash: "64ca9dc8",
+    parcelCount: 52,
     anchorParcelCount: 4,
-    blockedCellCount: 144,
+    blockedCellCount: 138,
     roleCounts: {
       civic_core: 0,
       mixed_core: 0,
       commercial_corridor: 0,
       urban_residential: 0,
-      low_density_residential: 36,
+      low_density_residential: 31,
       industrial_logistics: 19,
       institutional: 2,
       green_open_space: 0,
@@ -201,17 +208,17 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "vega_del_cauce",
     seed: 42,
-    hash: "027d3b7b",
-    parcelCount: 54,
+    hash: "8e910dc9",
+    parcelCount: 49,
     anchorParcelCount: 4,
-    blockedCellCount: 140,
+    blockedCellCount: 133,
     roleCounts: {
       civic_core: 0,
-      mixed_core: 11,
+      mixed_core: 0,
       commercial_corridor: 0,
       urban_residential: 0,
-      low_density_residential: 21,
-      industrial_logistics: 20,
+      low_density_residential: 24,
+      industrial_logistics: 23,
       institutional: 2,
       green_open_space: 0,
     },
@@ -219,17 +226,17 @@ export const DISTRICT_FIXTURES: readonly DistrictFixture[] = [
   {
     profileId: "vega_del_cauce",
     seed: 1337,
-    hash: "e7a20c47",
-    parcelCount: 52,
+    hash: "f0c227d9",
+    parcelCount: 47,
     anchorParcelCount: 4,
-    blockedCellCount: 145,
+    blockedCellCount: 140,
     roleCounts: {
       civic_core: 0,
-      mixed_core: 10,
+      mixed_core: 0,
       commercial_corridor: 0,
       urban_residential: 0,
-      low_density_residential: 21,
-      industrial_logistics: 19,
+      low_density_residential: 27,
+      industrial_logistics: 18,
       institutional: 2,
       green_open_space: 0,
     },

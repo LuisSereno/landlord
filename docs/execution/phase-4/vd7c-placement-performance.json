@@ -1,0 +1,253 @@
+{
+  "measuredAt": "2026-11-02T12:25:18.414Z",
+  "repeats": 60,
+  "note": "Enumeración completa de candidatas legales por proyecto, sin caché y sobre el estado generado.",
+  "overall": {
+    "p50ms": 2.5609,
+    "p95ms": 18.8788,
+    "maxMs": 58.3522,
+    "cases": 24
+  },
+  "byCase": [
+    {
+      "seed": 7,
+      "buildingType": "courtyard_home",
+      "parcels": 1,
+      "candidates": 373,
+      "p50ms": 1.9538,
+      "p95ms": 2.8782,
+      "requestP50ms": 1.5601,
+      "requestP95ms": 2.6589
+    },
+    {
+      "seed": 7,
+      "buildingType": "row_house",
+      "parcels": 1,
+      "candidates": 399,
+      "p50ms": 1.4697,
+      "p95ms": 2.6099,
+      "requestP50ms": 1.4503,
+      "requestP95ms": 2.3761
+    },
+    {
+      "seed": 7,
+      "buildingType": "apartment_block",
+      "parcels": 1,
+      "candidates": 1148,
+      "p50ms": 4.6465,
+      "p95ms": 6.6124,
+      "requestP50ms": 4.4656,
+      "requestP95ms": 4.9966
+    },
+    {
+      "seed": 7,
+      "buildingType": "workshop",
+      "parcels": 1,
+      "candidates": 237,
+      "p50ms": 1.0626,
+      "p95ms": 1.8701,
+      "requestP50ms": 1.0342,
+      "requestP95ms": 1.2726
+    },
+    {
+      "seed": 7,
+      "buildingType": "warehouse",
+      "parcels": 2,
+      "candidates": 1358,
+      "p50ms": 6.0993,
+      "p95ms": 10.1429,
+      "requestP50ms": 6.0659,
+      "requestP95ms": 7.6416
+    },
+    {
+      "seed": 7,
+      "buildingType": "brickworks",
+      "parcels": 2,
+      "candidates": 483,
+      "p50ms": 2.6129,
+      "p95ms": 3.7707,
+      "requestP50ms": 2.5343,
+      "requestP95ms": 3.9273
+    },
+    {
+      "seed": 7,
+      "buildingType": "cement_plant",
+      "parcels": 2,
+      "candidates": 309,
+      "p50ms": 1.5973,
+      "p95ms": 2.7326,
+      "requestP50ms": 1.5695,
+      "requestP95ms": 2.4938
+    },
+    {
+      "seed": 7,
+      "buildingType": "steelworks",
+      "parcels": 3,
+      "candidates": 2352,
+      "p50ms": 12.7603,
+      "p95ms": 19.1902,
+      "requestP50ms": 12.9785,
+      "requestP95ms": 19.4512
+    },
+    {
+      "seed": 11,
+      "buildingType": "courtyard_home",
+      "parcels": 1,
+      "candidates": 529,
+      "p50ms": 1.807,
+      "p95ms": 2.5471,
+      "requestP50ms": 1.783,
+      "requestP95ms": 2.5842
+    },
+    {
+      "seed": 11,
+      "buildingType": "row_house",
+      "parcels": 1,
+      "candidates": 479,
+      "p50ms": 1.6307,
+      "p95ms": 2.662,
+      "requestP50ms": 1.7181,
+      "requestP95ms": 2.2813
+    },
+    {
+      "seed": 11,
+      "buildingType": "apartment_block",
+      "parcels": 1,
+      "candidates": 570,
+      "p50ms": 2.2297,
+      "p95ms": 2.9388,
+      "requestP50ms": 2.1743,
+      "requestP95ms": 3.2845
+    },
+    {
+      "seed": 11,
+      "buildingType": "workshop",
+      "parcels": 1,
+      "candidates": 294,
+      "p50ms": 1.1685,
+      "p95ms": 1.7363,
+      "requestP50ms": 1.1048,
+      "requestP95ms": 1.5193
+    },
+    {
+      "seed": 11,
+      "buildingType": "warehouse",
+      "parcels": 2,
+      "candidates": 1550,
+      "p50ms": 7.4511,
+      "p95ms": 13.5792,
+      "requestP50ms": 7.3217,
+      "requestP95ms": 9.3859
+    },
+    {
+      "seed": 11,
+      "buildingType": "brickworks",
+      "parcels": 2,
+      "candidates": 483,
+      "p50ms": 2.3933,
+      "p95ms": 3.4767,
+      "requestP50ms": 2.342,
+      "requestP95ms": 2.7996
+    },
+    {
+      "seed": 11,
+      "buildingType": "cement_plant",
+      "parcels": 2,
+      "candidates": 614,
+      "p50ms": 3.216,
+      "p95ms": 4.4019,
+      "requestP50ms": 3.109,
+      "requestP95ms": 3.8689
+    },
+    {
+      "seed": 11,
+      "buildingType": "steelworks",
+      "parcels": 3,
+      "candidates": 5582,
+      "p50ms": 27.4545,
+      "p95ms": 34.8798,
+      "requestP50ms": 28.6634,
+      "requestP95ms": 38.2738
+    },
+    {
+      "seed": 42,
+      "buildingType": "courtyard_home",
+      "parcels": 1,
+      "candidates": 613,
+      "p50ms": 2.1188,
+      "p95ms": 2.5708,
+      "requestP50ms": 2.0348,
+      "requestP95ms": 2.7505
+    },
+    {
+      "seed": 42,
+      "buildingType": "row_house",
+      "parcels": 1,
+      "candidates": 529,
+      "p50ms": 1.8406,
+      "p95ms": 2.6529,
+      "requestP50ms": 1.7658,
+      "requestP95ms": 2.5035
+    },
+    {
+      "seed": 42,
+      "buildingType": "apartment_block",
+      "parcels": 1,
+      "candidates": 305,
+      "p50ms": 1.2715,
+      "p95ms": 1.9707,
+      "requestP50ms": 1.2685,
+      "requestP95ms": 1.8391
+    },
+    {
+      "seed": 42,
+      "buildingType": "workshop",
+      "parcels": 1,
+      "candidates": 754,
+      "p50ms": 2.8697,
+      "p95ms": 4.4601,
+      "requestP50ms": 3.0491,
+      "requestP95ms": 4.5624
+    },
+    {
+      "seed": 42,
+      "buildingType": "warehouse",
+      "parcels": 2,
+      "candidates": 1734,
+      "p50ms": 8.7445,
+      "p95ms": 14.8699,
+      "requestP50ms": 9.2515,
+      "requestP95ms": 14.9939
+    },
+    {
+      "seed": 42,
+      "buildingType": "brickworks",
+      "parcels": 2,
+      "candidates": 385,
+      "p50ms": 2.0193,
+      "p95ms": 2.7082,
+      "requestP50ms": 1.8394,
+      "requestP95ms": 2.7129
+    },
+    {
+      "seed": 42,
+      "buildingType": "cement_plant",
+      "parcels": 2,
+      "candidates": 1075,
+      "p50ms": 5.2669,
+      "p95ms": 8.5212,
+      "requestP50ms": 5.3972,
+      "requestP95ms": 6.5901
+    },
+    {
+      "seed": 42,
+      "buildingType": "steelworks",
+      "parcels": 3,
+      "candidates": 2352,
+      "p50ms": 12.5872,
+      "p95ms": 19.2348,
+      "requestP50ms": 13.2414,
+      "requestP95ms": 20.0748
+    }
+  ]
+}

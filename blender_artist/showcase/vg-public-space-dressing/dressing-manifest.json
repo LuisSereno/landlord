@@ -1,0 +1,1606 @@
+{
+  "schemaVersion": 1,
+  "dressingVersion": "vg-dressing-1",
+  "seed": 2026,
+  "signature": "664819d842b90ededf11a02277b9e54cacc5c07da448c64efe4eae256ee97427",
+  "rendered": [
+    {
+      "publicSpaceId": "publicspace_00000501",
+      "kind": "plaza",
+      "placementCount": 21,
+      "output": "/home/luis/RepositorioGitHub/landlord/blender_artist/showcase/vg-public-space-dressing/dress_plaza_publicspace_00000501.png"
+    },
+    {
+      "publicSpaceId": "publicspace_00000401",
+      "kind": "park",
+      "placementCount": 57,
+      "output": "/home/luis/RepositorioGitHub/landlord/blender_artist/showcase/vg-public-space-dressing/dress_park_publicspace_00000401.png"
+    }
+  ],
+  "spaces": [
+    {
+      "publicSpaceId": "publicspace_00000501",
+      "kind": "plaza",
+      "profileId": "centro_civico",
+      "districtRole": "civic",
+      "civic": true,
+      "cellMeters": 4,
+      "boundsCells": [33, 33, 41, 41],
+      "cellCount": 81,
+      "placements": [
+        {
+          "moduleId": "mod_nature_civic_statue_block",
+          "role": "monument",
+          "slot": "plaza_monument",
+          "purpose": "dressing:plaza:plaza_monument",
+          "cell": {
+            "x": 33,
+            "y": 33
+          },
+          "position": [2.0, 2.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.6,
+            "depth": 1.6,
+            "height": 1.6
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/statue_block.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_streetlight",
+          "role": "street_lamp",
+          "slot": "plaza_lamps",
+          "purpose": "dressing:plaza:plaza_lamps",
+          "cell": {
+            "x": 33,
+            "y": 33
+          },
+          "position": [2.0, 2.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.0772,
+            "depth": 0.276,
+            "height": 3.8397
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/streetlight.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_streetlight",
+          "role": "street_lamp",
+          "slot": "plaza_lamps",
+          "purpose": "dressing:plaza:plaza_lamps",
+          "cell": {
+            "x": 33,
+            "y": 36
+          },
+          "position": [2.0, 14.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.0772,
+            "depth": 0.276,
+            "height": 3.8397
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/streetlight.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_roads_civic_lamp_curved",
+          "role": "street_lamp",
+          "slot": "plaza_lamps",
+          "purpose": "dressing:plaza:plaza_lamps",
+          "cell": {
+            "x": 33,
+            "y": 39
+          },
+          "position": [2.0, 26.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 0.2,
+            "depth": 0.9,
+            "height": 2.7
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved.glb",
+          "sourceId": "src_kenney_city_roads",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_streetlight",
+          "role": "street_lamp",
+          "slot": "plaza_lamps",
+          "purpose": "dressing:plaza:plaza_lamps",
+          "cell": {
+            "x": 34,
+            "y": 33
+          },
+          "position": [6.0, 2.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.0772,
+            "depth": 0.276,
+            "height": 3.8397
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/streetlight.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_streetlight",
+          "role": "street_lamp",
+          "slot": "plaza_lamps",
+          "purpose": "dressing:plaza:plaza_lamps",
+          "cell": {
+            "x": 35,
+            "y": 41
+          },
+          "position": [10.0, 34.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.0772,
+            "depth": 0.276,
+            "height": 3.8397
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/streetlight.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_roads_civic_lamp_square",
+          "role": "street_lamp",
+          "slot": "plaza_lamps",
+          "purpose": "dressing:plaza:plaza_lamps",
+          "cell": {
+            "x": 37,
+            "y": 33
+          },
+          "position": [18.0, 2.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 0.2,
+            "depth": 0.95,
+            "height": 2.4
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-square.glb",
+          "sourceId": "src_kenney_city_roads",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_roads_civic_lamp_curved",
+          "role": "street_lamp",
+          "slot": "plaza_lamps",
+          "purpose": "dressing:plaza:plaza_lamps",
+          "cell": {
+            "x": 38,
+            "y": 41
+          },
+          "position": [22.0, 34.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 0.2,
+            "depth": 0.9,
+            "height": 2.7
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved.glb",
+          "sourceId": "src_kenney_city_roads",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_roads_civic_lamp_curved",
+          "role": "street_lamp",
+          "slot": "plaza_lamps",
+          "purpose": "dressing:plaza:plaza_lamps",
+          "cell": {
+            "x": 40,
+            "y": 33
+          },
+          "position": [30.0, 2.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 0.2,
+            "depth": 0.9,
+            "height": 2.7
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved.glb",
+          "sourceId": "src_kenney_city_roads",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_streetlight",
+          "role": "street_lamp",
+          "slot": "plaza_lamps",
+          "purpose": "dressing:plaza:plaza_lamps",
+          "cell": {
+            "x": 41,
+            "y": 34
+          },
+          "position": [34.0, 6.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.0772,
+            "depth": 0.276,
+            "height": 3.8397
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/streetlight.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_roads_civic_lamp_curved",
+          "role": "street_lamp",
+          "slot": "plaza_lamps",
+          "purpose": "dressing:plaza:plaza_lamps",
+          "cell": {
+            "x": 41,
+            "y": 37
+          },
+          "position": [34.0, 18.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 0.2,
+            "depth": 0.9,
+            "height": 2.7
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved.glb",
+          "sourceId": "src_kenney_city_roads",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_roads_civic_lamp_curved",
+          "role": "street_lamp",
+          "slot": "plaza_lamps",
+          "purpose": "dressing:plaza:plaza_lamps",
+          "cell": {
+            "x": 41,
+            "y": 40
+          },
+          "position": [34.0, 30.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 0.2,
+            "depth": 0.9,
+            "height": 2.7
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved.glb",
+          "sourceId": "src_kenney_city_roads",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_bench",
+          "role": "bench",
+          "slot": "plaza_benches",
+          "purpose": "dressing:plaza:plaza_benches",
+          "cell": {
+            "x": 34,
+            "y": 40
+          },
+          "position": [6.0, 30.0, 0.0],
+          "rotationDegrees": 180,
+          "footprintMeters": {
+            "width": 1.6,
+            "depth": 0.6,
+            "height": 0.4
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_bench",
+          "role": "bench",
+          "slot": "plaza_benches",
+          "purpose": "dressing:plaza:plaza_benches",
+          "cell": {
+            "x": 37,
+            "y": 40
+          },
+          "position": [18.0, 30.0, 0.0],
+          "rotationDegrees": 180,
+          "footprintMeters": {
+            "width": 1.6,
+            "depth": 0.6,
+            "height": 0.4
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_bench",
+          "role": "bench",
+          "slot": "plaza_benches",
+          "purpose": "dressing:plaza:plaza_benches",
+          "cell": {
+            "x": 40,
+            "y": 35
+          },
+          "position": [30.0, 10.0, 0.0],
+          "rotationDegrees": 90,
+          "footprintMeters": {
+            "width": 0.6,
+            "depth": 1.6,
+            "height": 0.4
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_civic_urn_small",
+          "role": "planter",
+          "slot": "plaza_planters",
+          "purpose": "dressing:plaza:plaza_planters",
+          "cell": {
+            "x": 41,
+            "y": 33
+          },
+          "position": [34.0, 2.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.2938,
+            "depth": 1.1204,
+            "height": 1.072
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/pot_small.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_megakit_civic_planter",
+          "role": "planter",
+          "slot": "plaza_planters",
+          "purpose": "dressing:plaza:plaza_planters",
+          "cell": {
+            "x": 33,
+            "y": 41
+          },
+          "position": [2.0, 34.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 2,
+            "depth": 2,
+            "height": 0.6
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_Planter_Single.gltf",
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_megakit_civic_bollard",
+          "role": "bollard",
+          "slot": "plaza_bollards",
+          "purpose": "dressing:plaza:plaza_bollards",
+          "cell": {
+            "x": 33,
+            "y": 38
+          },
+          "position": [2.0, 22.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 0.2162,
+            "depth": 0.2274,
+            "height": 0.8918
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_Bollard.gltf",
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_megakit_civic_bollard",
+          "role": "bollard",
+          "slot": "plaza_bollards",
+          "purpose": "dressing:plaza:plaza_bollards",
+          "cell": {
+            "x": 34,
+            "y": 41
+          },
+          "position": [6.0, 34.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 0.2162,
+            "depth": 0.2274,
+            "height": 0.8918
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_Bollard.gltf",
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_megakit_civic_bollard",
+          "role": "bollard",
+          "slot": "plaza_bollards",
+          "purpose": "dressing:plaza:plaza_bollards",
+          "cell": {
+            "x": 37,
+            "y": 33
+          },
+          "position": [18.0, 2.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 0.2162,
+            "depth": 0.2274,
+            "height": 0.8918
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_Bollard.gltf",
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_megakit_civic_bollard",
+          "role": "bollard",
+          "slot": "plaza_bollards",
+          "purpose": "dressing:plaza:plaza_bollards",
+          "cell": {
+            "x": 41,
+            "y": 35
+          },
+          "position": [34.0, 10.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 0.2162,
+            "depth": 0.2274,
+            "height": 0.8918
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_Bollard.gltf",
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "license": "CC0-1.0"
+        }
+      ]
+    },
+    {
+      "publicSpaceId": "publicspace_00000401",
+      "kind": "park",
+      "profileId": "barrio_del_umbral",
+      "districtRole": "residential",
+      "civic": false,
+      "cellMeters": 4,
+      "boundsCells": [17, 33, 31, 47],
+      "cellCount": 225,
+      "placements": [
+        {
+          "moduleId": "mod_nature_tree_oak",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 24,
+            "y": 37
+          },
+          "position": [30.0, 18.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 2.5622,
+            "depth": 2.9586,
+            "height": 4.905
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_oak.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_detailed",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 30,
+            "y": 45
+          },
+          "position": [54.0, 50.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 3.3884,
+            "depth": 3.0464,
+            "height": 5.3297
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_detailed.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_small",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 29,
+            "y": 34
+          },
+          "position": [50.0, 6.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.4186,
+            "depth": 1.638,
+            "height": 4.4401
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_small.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_cone",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 27,
+            "y": 40
+          },
+          "position": [42.0, 30.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 2.1186,
+            "depth": 2.1186,
+            "height": 5.7213
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_cone.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_small",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 23,
+            "y": 43
+          },
+          "position": [26.0, 42.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.4186,
+            "depth": 1.638,
+            "height": 4.4401
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_small.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_small",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 20,
+            "y": 41
+          },
+          "position": [14.0, 34.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.4186,
+            "depth": 1.638,
+            "height": 4.4401
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_small.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_detailed",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 22,
+            "y": 36
+          },
+          "position": [22.0, 14.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 3.3884,
+            "depth": 3.0464,
+            "height": 5.3297
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_detailed.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_cone",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 22,
+            "y": 46
+          },
+          "position": [22.0, 54.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 2.1186,
+            "depth": 2.1186,
+            "height": 5.7213
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_cone.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_small",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 23,
+            "y": 38
+          },
+          "position": [26.0, 22.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.4186,
+            "depth": 1.638,
+            "height": 4.4401
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_small.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_small",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 28,
+            "y": 36
+          },
+          "position": [46.0, 14.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.4186,
+            "depth": 1.638,
+            "height": 4.4401
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_small.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_small",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 29,
+            "y": 38
+          },
+          "position": [50.0, 22.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.4186,
+            "depth": 1.638,
+            "height": 4.4401
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_small.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_cone",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 24,
+            "y": 45
+          },
+          "position": [30.0, 50.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 2.1186,
+            "depth": 2.1186,
+            "height": 5.7213
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_cone.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_small",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 22,
+            "y": 42
+          },
+          "position": [22.0, 38.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.4186,
+            "depth": 1.638,
+            "height": 4.4401
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_small.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_cone",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 20,
+            "y": 37
+          },
+          "position": [14.0, 18.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 2.1186,
+            "depth": 2.1186,
+            "height": 5.7213
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_cone.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_oak",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 29,
+            "y": 42
+          },
+          "position": [50.0, 38.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 2.5622,
+            "depth": 2.9586,
+            "height": 4.905
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_oak.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_small",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 26,
+            "y": 36
+          },
+          "position": [38.0, 14.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.4186,
+            "depth": 1.638,
+            "height": 4.4401
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_small.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_pine_tall",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 30,
+            "y": 35
+          },
+          "position": [54.0, 10.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.545,
+            "depth": 1.5678,
+            "height": 6.1184
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_pineTallA.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_detailed",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 28,
+            "y": 45
+          },
+          "position": [46.0, 50.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 3.3884,
+            "depth": 3.0464,
+            "height": 5.3297
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_detailed.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_oak",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 29,
+            "y": 44
+          },
+          "position": [50.0, 46.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 2.5622,
+            "depth": 2.9586,
+            "height": 4.905
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_oak.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_pine_tall",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 30,
+            "y": 43
+          },
+          "position": [54.0, 42.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.545,
+            "depth": 1.5678,
+            "height": 6.1184
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_pineTallA.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_detailed",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 29,
+            "y": 46
+          },
+          "position": [50.0, 54.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 3.3884,
+            "depth": 3.0464,
+            "height": 5.3297
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_detailed.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_oak",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 24,
+            "y": 40
+          },
+          "position": [30.0, 30.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 2.5622,
+            "depth": 2.9586,
+            "height": 4.905
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_oak.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_cone",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 21,
+            "y": 45
+          },
+          "position": [18.0, 50.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 2.1186,
+            "depth": 2.1186,
+            "height": 5.7213
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_cone.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_cone",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 19,
+            "y": 40
+          },
+          "position": [10.0, 30.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 2.1186,
+            "depth": 2.1186,
+            "height": 5.7213
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_cone.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_pine_tall",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 23,
+            "y": 41
+          },
+          "position": [26.0, 34.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.545,
+            "depth": 1.5678,
+            "height": 6.1184
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_pineTallA.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_oak",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 22,
+            "y": 40
+          },
+          "position": [22.0, 30.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 2.5622,
+            "depth": 2.9586,
+            "height": 4.905
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_oak.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_oak",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 28,
+            "y": 41
+          },
+          "position": [46.0, 34.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 2.5622,
+            "depth": 2.9586,
+            "height": 4.905
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_oak.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_pine_tall",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 18,
+            "y": 36
+          },
+          "position": [6.0, 14.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.545,
+            "depth": 1.5678,
+            "height": 6.1184
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_pineTallA.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_pine_tall",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 20,
+            "y": 46
+          },
+          "position": [14.0, 54.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.545,
+            "depth": 1.5678,
+            "height": 6.1184
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_pineTallA.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_tree_cone",
+          "role": "tree",
+          "slot": "park_trees",
+          "purpose": "dressing:park:park_trees",
+          "cell": {
+            "x": 20,
+            "y": 44
+          },
+          "position": [14.0, 46.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 2.1186,
+            "depth": 2.1186,
+            "height": 5.7213
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_cone.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_bush",
+          "role": "foliage",
+          "slot": "park_bushes",
+          "purpose": "dressing:park:park_bushes",
+          "cell": {
+            "x": 29,
+            "y": 43
+          },
+          "position": [50.0, 42.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.584,
+            "depth": 1.584,
+            "height": 0.9778
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bush.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_bush_large",
+          "role": "foliage",
+          "slot": "park_bushes",
+          "purpose": "dressing:park:park_bushes",
+          "cell": {
+            "x": 28,
+            "y": 37
+          },
+          "position": [46.0, 18.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.4972,
+            "depth": 1.3428,
+            "height": 0.9717
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bushLarge.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_bush",
+          "role": "foliage",
+          "slot": "park_bushes",
+          "purpose": "dressing:park:park_bushes",
+          "cell": {
+            "x": 28,
+            "y": 35
+          },
+          "position": [46.0, 10.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.584,
+            "depth": 1.584,
+            "height": 0.9778
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bush.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_bush_large",
+          "role": "foliage",
+          "slot": "park_bushes",
+          "purpose": "dressing:park:park_bushes",
+          "cell": {
+            "x": 28,
+            "y": 46
+          },
+          "position": [46.0, 54.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.4972,
+            "depth": 1.3428,
+            "height": 0.9717
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bushLarge.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_bush_large",
+          "role": "foliage",
+          "slot": "park_bushes",
+          "purpose": "dressing:park:park_bushes",
+          "cell": {
+            "x": 23,
+            "y": 39
+          },
+          "position": [26.0, 26.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.4972,
+            "depth": 1.3428,
+            "height": 0.9717
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bushLarge.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_bush_large",
+          "role": "foliage",
+          "slot": "park_bushes",
+          "purpose": "dressing:park:park_bushes",
+          "cell": {
+            "x": 25,
+            "y": 39
+          },
+          "position": [34.0, 26.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.4972,
+            "depth": 1.3428,
+            "height": 0.9717
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bushLarge.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_bush_large",
+          "role": "foliage",
+          "slot": "park_bushes",
+          "purpose": "dressing:park:park_bushes",
+          "cell": {
+            "x": 26,
+            "y": 35
+          },
+          "position": [38.0, 10.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.4972,
+            "depth": 1.3428,
+            "height": 0.9717
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bushLarge.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_bush",
+          "role": "foliage",
+          "slot": "park_bushes",
+          "purpose": "dressing:park:park_bushes",
+          "cell": {
+            "x": 20,
+            "y": 44
+          },
+          "position": [14.0, 46.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.584,
+            "depth": 1.584,
+            "height": 0.9778
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bush.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_bush",
+          "role": "foliage",
+          "slot": "park_bushes",
+          "purpose": "dressing:park:park_bushes",
+          "cell": {
+            "x": 28,
+            "y": 42
+          },
+          "position": [46.0, 38.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.584,
+            "depth": 1.584,
+            "height": 0.9778
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bush.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_nature_bush",
+          "role": "foliage",
+          "slot": "park_bushes",
+          "purpose": "dressing:park:park_bushes",
+          "cell": {
+            "x": 29,
+            "y": 40
+          },
+          "position": [50.0, 30.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.584,
+            "depth": 1.584,
+            "height": 0.9778
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bush.glb",
+          "sourceId": "src_kenney_nature_kit",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_bench",
+          "role": "bench",
+          "slot": "park_benches",
+          "purpose": "dressing:park:park_benches",
+          "cell": {
+            "x": 17,
+            "y": 33
+          },
+          "position": [2.0, 2.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.6,
+            "depth": 0.6,
+            "height": 0.4
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_bench",
+          "role": "bench",
+          "slot": "park_benches",
+          "purpose": "dressing:park:park_benches",
+          "cell": {
+            "x": 17,
+            "y": 39
+          },
+          "position": [2.0, 26.0, 0.0],
+          "rotationDegrees": 270,
+          "footprintMeters": {
+            "width": 0.6,
+            "depth": 1.6,
+            "height": 0.4
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_bench",
+          "role": "bench",
+          "slot": "park_benches",
+          "purpose": "dressing:park:park_benches",
+          "cell": {
+            "x": 17,
+            "y": 45
+          },
+          "position": [2.0, 50.0, 0.0],
+          "rotationDegrees": 270,
+          "footprintMeters": {
+            "width": 0.6,
+            "depth": 1.6,
+            "height": 0.4
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_bench",
+          "role": "bench",
+          "slot": "park_benches",
+          "purpose": "dressing:park:park_benches",
+          "cell": {
+            "x": 19,
+            "y": 47
+          },
+          "position": [10.0, 58.0, 0.0],
+          "rotationDegrees": 180,
+          "footprintMeters": {
+            "width": 1.6,
+            "depth": 0.6,
+            "height": 0.4
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_bench",
+          "role": "bench",
+          "slot": "park_benches",
+          "purpose": "dressing:park:park_benches",
+          "cell": {
+            "x": 22,
+            "y": 47
+          },
+          "position": [22.0, 58.0, 0.0],
+          "rotationDegrees": 180,
+          "footprintMeters": {
+            "width": 1.6,
+            "depth": 0.6,
+            "height": 0.4
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_bench",
+          "role": "bench",
+          "slot": "park_benches",
+          "purpose": "dressing:park:park_benches",
+          "cell": {
+            "x": 25,
+            "y": 47
+          },
+          "position": [34.0, 58.0, 0.0],
+          "rotationDegrees": 180,
+          "footprintMeters": {
+            "width": 1.6,
+            "depth": 0.6,
+            "height": 0.4
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_bench",
+          "role": "bench",
+          "slot": "park_benches",
+          "purpose": "dressing:park:park_benches",
+          "cell": {
+            "x": 28,
+            "y": 47
+          },
+          "position": [46.0, 58.0, 0.0],
+          "rotationDegrees": 180,
+          "footprintMeters": {
+            "width": 1.6,
+            "depth": 0.6,
+            "height": 0.4
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_bench",
+          "role": "bench",
+          "slot": "park_benches",
+          "purpose": "dressing:park:park_benches",
+          "cell": {
+            "x": 31,
+            "y": 34
+          },
+          "position": [58.0, 6.0, 0.0],
+          "rotationDegrees": 90,
+          "footprintMeters": {
+            "width": 0.6,
+            "depth": 1.6,
+            "height": 0.4
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_bench",
+          "role": "bench",
+          "slot": "park_benches",
+          "purpose": "dressing:park:park_benches",
+          "cell": {
+            "x": 31,
+            "y": 40
+          },
+          "position": [58.0, 30.0, 0.0],
+          "rotationDegrees": 90,
+          "footprintMeters": {
+            "width": 0.6,
+            "depth": 1.6,
+            "height": 0.4
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_bench",
+          "role": "bench",
+          "slot": "park_benches",
+          "purpose": "dressing:park:park_benches",
+          "cell": {
+            "x": 31,
+            "y": 46
+          },
+          "position": [58.0, 54.0, 0.0],
+          "rotationDegrees": 90,
+          "footprintMeters": {
+            "width": 0.6,
+            "depth": 1.6,
+            "height": 0.4
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/bench.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_streetlight",
+          "role": "street_lamp",
+          "slot": "park_lamps",
+          "purpose": "dressing:park:park_lamps",
+          "cell": {
+            "x": 17,
+            "y": 33
+          },
+          "position": [2.0, 2.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.0772,
+            "depth": 0.276,
+            "height": 3.8397
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/streetlight.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_roads_civic_lamp_curved",
+          "role": "street_lamp",
+          "slot": "park_lamps",
+          "purpose": "dressing:park:park_lamps",
+          "cell": {
+            "x": 17,
+            "y": 42
+          },
+          "position": [2.0, 38.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 0.2,
+            "depth": 0.9,
+            "height": 2.7
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved.glb",
+          "sourceId": "src_kenney_city_roads",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_roads_civic_lamp_curved",
+          "role": "street_lamp",
+          "slot": "park_lamps",
+          "purpose": "dressing:park:park_lamps",
+          "cell": {
+            "x": 19,
+            "y": 47
+          },
+          "position": [10.0, 58.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 0.2,
+            "depth": 0.9,
+            "height": 2.7
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved.glb",
+          "sourceId": "src_kenney_city_roads",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_kaykit_civic_streetlight",
+          "role": "street_lamp",
+          "slot": "park_lamps",
+          "purpose": "dressing:park:park_lamps",
+          "cell": {
+            "x": 24,
+            "y": 33
+          },
+          "position": [30.0, 2.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 1.0772,
+            "depth": 0.276,
+            "height": 3.8397
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/streetlight.gltf",
+          "sourceId": "src_kaykit_city_builder_bits",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_roads_civic_lamp_curved",
+          "role": "street_lamp",
+          "slot": "park_lamps",
+          "purpose": "dressing:park:park_lamps",
+          "cell": {
+            "x": 28,
+            "y": 47
+          },
+          "position": [46.0, 58.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 0.2,
+            "depth": 0.9,
+            "height": 2.7
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved.glb",
+          "sourceId": "src_kenney_city_roads",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_roads_civic_lamp_curved",
+          "role": "street_lamp",
+          "slot": "park_lamps",
+          "purpose": "dressing:park:park_lamps",
+          "cell": {
+            "x": 31,
+            "y": 37
+          },
+          "position": [58.0, 18.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 0.2,
+            "depth": 0.9,
+            "height": 2.7
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved.glb",
+          "sourceId": "src_kenney_city_roads",
+          "license": "CC0-1.0"
+        },
+        {
+          "moduleId": "mod_roads_civic_lamp_curved",
+          "role": "street_lamp",
+          "slot": "park_lamps",
+          "purpose": "dressing:park:park_lamps",
+          "cell": {
+            "x": 31,
+            "y": 46
+          },
+          "position": [58.0, 54.0, 0.0],
+          "rotationDegrees": 0,
+          "footprintMeters": {
+            "width": 0.2,
+            "depth": 0.9,
+            "height": 2.7
+          },
+          "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/light-curved.glb",
+          "sourceId": "src_kenney_city_roads",
+          "license": "CC0-1.0"
+        }
+      ]
+    }
+  ]
+}

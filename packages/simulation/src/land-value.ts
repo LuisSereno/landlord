@@ -1,5 +1,7 @@
 import {
   roadCellsFromSegments,
+  roadCorridorCellsFromSegments,
+  roadProfileForTopology,
   type DevelopmentCodeId,
   type GridCell,
   type LandValueBreakdown,
@@ -122,10 +124,16 @@ export function buildLandValueContext(
   const roadClassBySegmentId = new Map(
     district.map.roads.segments.map((segment) => [segment.id as string, segment.class]),
   );
-  const avenueCells = roadCellsFromSegments(
+  const cellsForSegments = (segments: typeof district.map.roads.segments) =>
+    district.map.roads.derivationVersion === 4
+      ? roadCorridorCellsFromSegments(segments, (roadClass) =>
+          roadProfileForTopology(district.map.roads, roadClass),
+        )
+      : roadCellsFromSegments(segments);
+  const avenueCells = cellsForSegments(
     district.map.roads.segments.filter((segment) => segment.class === "avenue"),
   );
-  const roadCells = roadCellsFromSegments(district.map.roads.segments);
+  const roadCells = cellsForSegments(district.map.roads.segments);
   const blocks = [...district.blocks.values()];
   const commercialSources = roleCells(new Set(["commercial_corridor"]), blocks);
   const industrialSources = roleCells(new Set(["industrial_logistics"]), blocks);

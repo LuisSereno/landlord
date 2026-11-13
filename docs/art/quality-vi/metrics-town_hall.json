@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-07T18:00:50.032Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/quality-vi/candidates/town_hall",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 90665,
+ "blenderPeakRssMb": 9261,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6",
+   "after": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vf_town_hall_1006",
+   "buildingType": "town_hall",
+   "family": "civic_landmark",
+   "variantSeed": 1006,
+   "compositionSignature": "d440472588e657f4bd94ce4993532095782b7b6524efe39496a9eb076db11fbb",
+   "triangleCount": 20334,
+   "objectCount": 267,
+   "moduleCount": 11,
+   "materials": 20,
+   "textures": 15,
+   "bounds": {
+    "x": {
+     "min": -16.2,
+     "max": 16
+    },
+    "y": {
+     "min": -5.9908,
+     "max": 8
+    },
+    "z": {
+     "min": 0,
+     "max": 10
+    }
+   },
+   "renderMs": 28635.87,
+   "pngBytes": 2624003,
+   "pngPixels": [
+    1967,
+    1506
+   ],
+   "pixelSha256": "45b94618d29fa37edf549df6b6d5b264e4ffa6fea7dbb1aed8d13e6fdf5b3ecf",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.4804,
+    "y": 0.6887
+   }
+  }
+ ],
+ "failures": []
+}

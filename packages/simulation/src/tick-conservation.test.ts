@@ -123,54 +123,54 @@ function cityDigest(input: {
 const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => string }> = [
   {
     id: "scenario:seed-1:1200",
-    expected: "6a8fe8f431d4eced",
+    expected: "ba2ea3986be9af8d",
     run: () => digest(canonicalizeState(runScenario(1, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-7:1200",
-    expected: "81351e019d425f7a",
+    expected: "eee52c0f35e8e25d",
     run: () => digest(canonicalizeState(runScenario(7, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-42:1200",
-    expected: "89fc2fb31d8ae0bd",
+    expected: "7334ce74ea612c45",
     run: () => digest(canonicalizeState(runScenario(42, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "c0f6e213bd64d01a",
+    expected: "298f143b56750198",
     run: () => digest(canonicalizeState(runScenario(1, [], 36_000, { checkpointEvery: 0 }).state)),
   },
   {
     id: "city:50-parcels:1300-ticks",
-    expected: "39beb62c734d0751",
+    expected: "39dc973add260341",
     run: () => cityDigest({ parcelCount: 50, ticks: 1_300 }),
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "32f9c24430611fc5",
+    expected: "81822db0cca4c6ba",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "df66ce26f94175a5",
+    expected: "130d5ba62e602f80",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "23b579fc494211ce",
+    expected: "9ced7a327c763939",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "fa0ee2cfbab17485",
+    expected: "dec973a982a23219",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "e10c0f4332b2d424",
+    expected: "1a98ac413a42b3d7",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];
@@ -339,6 +339,34 @@ const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => str
  * todas las definiciones el digesto normalizado vuelve a `638911642611e350` —el mismo valor— y las
  * cajas, transacciones y edificios finales coinciden con la ejecución real (rival 2225, 20
  * transacciones, dos viviendas). El delta es de forma, no de economía.
+ */
+
+/**
+ * Regeneración V.l.5c (2026-11-10): cambian los diez digestos al adoptar la cartera mixta de D-104.
+ *
+ * Causa (D-104): V.l.4 escribe el corredor —avenida de 5 con mediana, autovía de 7— como suelo no
+ * edificable en los cuatro perfiles adoptados y V.l.5c conserva el resto en el eje para que la
+ * cartera quede dentro de `CITY_PARCEL_COUNT_ENVELOPE` (700..760). El corredor quita celdas
+ * edificables, así que las carreras arrancan con otras parcelas, otros frentes y otros precios.
+ *
+ * Control medido en la misma build, cambiando sólo las banderas de `district-profiles.ts`:
+ * - seis corredores (V.l.4, los valores que esa fase dejó sin regenerar): `ee2838561bd8cc0b`,
+ *   `1092f25569d82bf3`, `7aa6b9fca06c93b4`, `7cdba5f3752e231c`, `a2372d99e93a90af`,
+ *   `4f98358a08cd748b`, `b3a56cadf17981ca`, `c20d34ae1e189c4f`, `d93cd0889d344136`,
+ *   `1e405748fd0a316b`.
+ * - cero corredores: `3b6faef71ae04463`, `abc7618ebec3a3a4`, `2b6916749644194b`, `1f5112ba42390788`,
+ *   `f0d4faff43be672f`, `4fd0ba010cbd0049`, `623c6eff47c8f63d`, `812fb3fd020de542`,
+ *   `5e4f1a4cf4b36adb`, `9cd7ad30b2c07306`. NO recuperan los diez de V.d-7A: la desviación tiene una
+ *   componente previa al corredor. Es la misma que deja en `vega_del_cauce` un hash distinto con
+ *   recuentos idénticos, ya registrada como BASELINE DEBT en el acta de V.e
+ *   (`docs/execution/phase-4/ve-integrated-correction-verification-2026-11-03.md`: `city-seeds`,
+ *   `district-generation` y `tick-conservation` fallando en `develop` el 2026-11-03, antes de V.l).
+ *   Su causa queda abierta para V.l.6; no se da por explicada aquí.
+ * - cartera opción 3 (V.l.5c): `full` en `ensanche_ferroviario_oeste`, `ave3` en `vega_del_cauce`,
+ *   `mercado_del_norte` y `patios_del_este`, y eje v2 en `barrio_del_umbral`.
+ *
+ * El intervalo seis→uno se mueve en los diez casos: el corredor es un canal activo sobre el estado
+ * canónico y por eso la regeneración se hace una sola vez, con el alcance ya recortado.
  */
 
 describe("WP4.2 conservación del resultado económico", () => {

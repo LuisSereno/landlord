@@ -80,3 +80,56 @@ modula unidades, no cohortes enteras; la proyección publica la huella física r
 procedural cubre los 15 tipos de dominio; la orientación de dominio se separa explícitamente del
 azimut de cámara. D-093 §7 se aclara (H2-11): `civicAmenities` geométrica y `services` operativa
 son canales ortogonales, no una suma paralela.
+
+## V.d-7C — Colocación interactiva de proyectos (2026-11-02)
+
+- [D-097 — Interactive Development Placement](D-097-interactive-development-placement.md) — ACEPTADA
+
+Amplía D-090 §4 (autocolocación determinista) y D-096 (contrato multi-parcela) sin sustituirlos: la
+misma enumeración autoritativa de huellas se expone como candidatas ordenadas canónicamente, el
+jugador elige una identidad y el comando la revalida antes de gastar nada. La IA y la automatización
+omiten la identidad y reciben la primera candidata de esa misma lista, así que no existen reglas de
+colocación por actor.
+
+## V.e — Producción visual y procedencia (2026-11-02)
+
+- [D-098 — Geometría de fuente real obligatoria](D-098-geometria-fuente-real.md) — ACEPTADA
+
+Retira la Building Factory falsa, exige procedencia física verificable para las fuentes importadas
+y separa la evidencia candidata de la promoción al runtime. Supersede las iteraciones V.e.2/V.e.3.
+
+## V.i — Catálogo Composer 15/15 y presupuesto de binarios (2026-11-06)
+
+- [D-100 — Presupuesto de binarios: bundle runtime a 10 MiB](D-100-presupuesto-binarios-runtime-10mib.md) — ACEPTADA
+
+Eleva `maxBundleBytes` con el catálogo completo medido (9.372.434 B), registra excepciones nombradas
+para la evidencia QA permanente y saca los `attempts/` del índice. Corrige D-081.
+
+## WP4.15-V.k — Cuadrillas como avatares (2026-11-09, pendiente de ratificación)
+
+- [D-103 — Cuadrillas como avatares y rumbo autoritativo](D-103-cuadrillas-como-avatares-rumbo-autoritativo.md) — PROPUESTA
+
+Amplía D-095 (vocabulario visual) y D-097 §«Crew choreography» sin sustituirlos: la cuadrilla asignada
+se pinta con el avatar Rocketbox que deriva `crew-presence.ts`, el rumbo lo manda el paso autoritativo
+(`nextCell`), y el marcador del blitter queda sólo para el roster sin sprite y para herido/muerto.
+Escena y panel comparten una única puerta de lectura; la divergencia plantilla-asignada vs
+distrito-observado es deliberada. V.k.1–V.k.4 publicados en `origin/wip/vh-world-visual-foundation`
+(`9bd4e94..3a32240`, 2026-11-09); D-103 sigue como PROPUESTA a la espera de ratificación y playtest.
+
+## WP4.15-V.l — Sección transversal autoritativa (2026-11-09, en curso)
+
+- [D-104 — Sección transversal autoritativa](D-104-seccion-transversal-autoritativa.md) — contrato estabilizado; v4 persistido, v3 rechazado explícitamente
+- [D-105 — Grado diurno y selector de presentación](D-105-grado-diurno-y-selector-presentacion.md) — ACEPTADA
+
+Enmienda **parcial** de D-085 §2 (se levanta la prohibición de carriles/sentidos/anchos variables sólo
+para la sección transversal) y de D-090 §2 (`derivationVersion` 2 → 4). Mantiene el eje como verdad de
+red, `roadSegmentId` intacto, las cuatro semánticas de D-085 §1 y la regla de que el corredor nunca
+entra en `blockedCells`. D-085 no tiene ADR propio (deuda documental anotada arriba), así que la
+enmienda se marca también en su entrada condensada de `ai-context/DECISIONS.md`.
+
+## Integridad de oferta de suelo (2026-11-12)
+
+- [D-106 — Solares de mercado accionables](D-106-solares-de-mercado-accionables.md) — ACEPTADA
+
+Toda parcela de mercado debe admitir una colocación privada por sí misma o dentro de un sitio
+multi-parcela legal; las geometrías residuales no se comercializan como suelo edificable.

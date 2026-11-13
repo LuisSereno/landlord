@@ -25,7 +25,8 @@ export type DistrictGenerationIssueCode =
   | "PARCEL_TOO_DEEP"
   | "GATEWAY_NOT_CONNECTED"
   | "PUBLIC_RESERVATION_INVALID"
-  | "FACILITY_SITE_INVALID";
+  | "FACILITY_SITE_INVALID"
+  | "STEELWORKS_SITE_MISSING";
 
 export type DistrictGenerationIssue = {
   code: DistrictGenerationIssueCode;

@@ -99,7 +99,6 @@ BUILDING_STATES = ("complete", "construction", "damaged", "burning")
 ANIMATIONS = ("idle", "walk")
 
 STYLE_LAYER_PATH = HERE / "style_layer_graphic_civic.json"
-BUILDING_FACTORY_PATH = REPO_ROOT / "blender_artist/manifests/building-factory.json"
 CAMERA_AZIMUTH_DEGREES = 45
 CAMERA_ELEVATION_DEGREES = 30
 
@@ -119,22 +118,6 @@ PALETTE = {
     "fill": (0.21, 0.34, 0.44, 1),
 }
 
-FACTORY_PRESETS = {
-    item["id"]: item
-    for item in json.loads(BUILDING_FACTORY_PATH.read_text(encoding="utf-8"))["buildings"]
-    if item["mode"] == "factory"
-}
-for factory_id, factory_spec in FACTORY_PRESETS.items():
-    floors = factory_spec["floorCount"]
-    BUILDINGS[factory_id] = {
-        "label": factory_id.replace("_", " ").title(),
-        "footprint": factory_spec["footprint"],
-        "renderSize": (320, 288),
-        "orthoScale": max(7.8, 6.3 + floors * 0.72),
-        "targetZ": 1.0 + floors * 0.38,
-        "factory": factory_spec,
-    }
-
 ALPHA_THRESHOLD = 0.02
 CAMERA_DISTANCE = 18.0
 # El recorte final reduce 2× por filtro de caja (ver `trim_and_scale`), así que se renderiza al
@@ -152,6 +135,10 @@ def parse_args():
         help="categoría del job; la ruta legacy la deduce de sus dicts",
     )
     parser.add_argument("--source", help="glb:|gltf:|fbx:<ruta> para geometría de terceros")
+    parser.add_argument(
+        "--animation-source",
+        help="fbx:<ruta> de un clip de animación de terceros (Rocketbox) para retargetear al rig",
+    )
     parser.add_argument("--source-id", help="id lógico en staging-sources.json")
     parser.add_argument("--license", dest="license", help="licencia SPDX declarada por la fuente")
     parser.add_argument("--unit-scale", type=float, help="〔R7〕 escala física de la fuente")
@@ -374,12 +361,7 @@ def create_scene(args):
 
     spec = BUILDINGS.get(args.asset) or CHARACTERS.get(args.asset) or TERRAIN.get(args.asset)
     if args.asset in BUILDINGS:
-        if "factory" in spec:
-            from building_factory import build_factory_building
-
-            build_factory_building(spec["factory"], args.state, mats, cube, cylinder, sphere)
-        else:
-            build_courtyard_home(args.state, mats)
+        build_courtyard_home(args.state, mats)
     elif args.asset in TERRAIN:
         build_dirt_lot(TERRAIN[args.asset], mats)
     else:
@@ -415,7 +397,8 @@ def create_scene(args):
     scene.render.image_settings.color_depth = "8"
     scene.render.image_settings.compression = 15
     scene.render.film_transparent = True
-    scene.view_settings.look = "AgX - Medium High Contrast"
+    style_layer = json.loads(STYLE_LAYER_PATH.read_text(encoding="utf-8"))
+    apply_render_settings(scene, style_layer)
     return scene, camera, spec
 
 
@@ -427,6 +410,7 @@ from style_layer_math import (  # noqa: E402
     style_pixels,
     srgb_to_linear,
 )
+from render_settings import active_mood, apply_render_settings  # noqa: E402
 
 
 def apply_style_layer_lighting(scene, style_layer):
@@ -436,8 +420,9 @@ def apply_style_layer_lighting(scene, style_layer):
     quemaba con ellas, así que la rama externa ilumina con lo que declara el JSON de estilo.
     Sólo la key proyecta sombra: tres soles proyectando sombras superpuestas ensuciaban el suelo.
     """
-    lighting = style_layer["lighting"]
-    shadow_config = style_layer.get("shadow", {})
+    profile = active_mood(style_layer)
+    lighting = profile["lighting"]
+    shadow_config = profile.get("shadow", {})
     world = scene.world or bpy.data.worlds.new("World")
     scene.world = world
     world.use_nodes = True
@@ -613,7 +598,7 @@ def apply_external_treatment(objects, style_layer, kind):
     el tratamiento es un remapeo determinista del atlas (bandas de tono/saturación/valor), no un
     cambio por material. Los colores planos (vegetación) se tratan por nombre de material.
     """
-    treatment = style_layer.get("externalTreatment")
+    treatment = active_mood(style_layer).get("externalTreatment")
     if not treatment:
         return None
     materials = set()
@@ -701,6 +686,37 @@ def apply_external_treatment(objects, style_layer, kind):
     }
 
 
+def apply_animation_clip(avatar_objects, clip_path, frame):
+    """Retargetea un clip de animación Rocketbox sobre el rig del avatar (esqueleto compartido).
+
+    Importa el FBX del clip, toma la action de su armadura y la asigna a la armadura del avatar;
+    los F-Curves apuntan a los huesos por nombre, así que posean al avatar. El clip se descarta
+    tras copiar su action. Se muestrea un frame dentro del rango de la action (frame 0 → inicio,
+    1 → punto medio) para dar poses idle/walk distintas sin finger frames duplicados.
+    """
+    armature = next((obj for obj in avatar_objects if obj.type == "ARMATURE"), None)
+    if armature is None:
+        raise SystemExit("el avatar no trae armadura; no se puede retargetear la animación")
+    before = set(bpy.data.objects)
+    bpy.ops.import_scene.fbx(filepath=str(clip_path))
+    clip_objects = [obj for obj in bpy.data.objects if obj not in before]
+    clip_armature = next((obj for obj in clip_objects if obj.type == "ARMATURE"), None)
+    if clip_armature is None or not clip_armature.animation_data:
+        raise SystemExit(f"el clip {clip_path.name} no trajo una armadura con animación")
+    action = clip_armature.animation_data.action
+    if action is None:
+        raise SystemExit(f"el clip {clip_path.name} no tiene action")
+    armature.animation_data_create()
+    armature.animation_data.action = action
+    for obj in clip_objects:
+        bpy.data.objects.remove(obj, do_unlink=True)
+    start, end = int(round(action.frame_range[0])), int(round(action.frame_range[1]))
+    scene = bpy.context.scene
+    scene.frame_start, scene.frame_end = start, max(start, end)
+    span = max(0, scene.frame_end - start)
+    scene.frame_set(start + (span // 2 if frame else 0))
+
+
 def create_external_scene(args, source_path, style_layer):
     """Rama CC0/MIT: importa geometría externa y la normaliza sin tocar su jerarquía interna."""
     objects = import_source(source_path)
@@ -713,9 +729,18 @@ def create_external_scene(args, source_path, style_layer):
     meshes = [obj for obj in objects if obj.type == "MESH"]
     body = max(meshes, key=lambda obj: len(obj.data.vertices))
 
-    camera, _ = place_camera(
-        args.target_z, args.ortho_scale, azimuth_degrees=args.azimuth
-    )
+    # Personaje Rocketbox con clip: retargetear la animación antes de encuadrar la cámara.
+    if args.kind == "character" and getattr(args, "animation_source", None):
+        apply_animation_clip(objects, parse_source(args.animation_source), args.frame)
+
+    # Personajes externos (Rocketbox): las 4 direcciones se consiguen orbitando la cámara 90° por
+    # paso sobre el rig ya normalizado en el origen. No se rota el armature (evita romper el skin)
+    # y no se finge animación: sólo se publica la pose idle, una imagen por dirección.
+    azimuth = args.azimuth
+    if args.kind == "character":
+        azimuth = CAMERA_AZIMUTH_DEGREES + args.direction * (360.0 / 4.0)
+
+    camera, _ = place_camera(args.target_z, args.ortho_scale, azimuth_degrees=azimuth)
     apply_style_layer_lighting(bpy.context.scene, style_layer)
     style_summary = apply_external_treatment(objects, style_layer, args.kind)
 
@@ -729,10 +754,7 @@ def create_external_scene(args, source_path, style_layer):
     scene.render.image_settings.color_depth = "8"
     scene.render.image_settings.compression = 15
     scene.render.film_transparent = True
-    post = style_layer["rendering"]["postProcessing"]
-    scene.view_settings.view_transform = post.split(" - ")[0]
-    scene.view_settings.look = post
-    scene.view_settings.exposure = style_layer["rendering"].get("exposure", 0.0)
+    apply_render_settings(scene, style_layer)
 
     mins, maxs = world_bounds(objects)
     normalization["worldSizeMeters"] = {
@@ -749,7 +771,7 @@ def render_shadow_pass(scene, style_layer, ground_z, shadow_path):
     La cámara se abre 3× para que la sombra quepa entera; luego se reduce a la resolución del
     pase principal y se compone.
     """
-    shadow_config = style_layer.get("shadow", {})
+    shadow_config = active_mood(style_layer).get("shadow", {})
     camera = scene.camera
     original_ortho = camera.data.ortho_scale
     original_width = scene.render.resolution_x
@@ -784,8 +806,17 @@ def render_shadow_pass(scene, style_layer, ground_z, shadow_path):
     }
 
 
-def trim_and_scale(render_path, output_path, shadow_path=None, shadow_style=None):
-    """Recorta el margen transparente, compone la sombra y reduce a la mitad."""
+def trim_and_scale(render_path, output_path, shadow_path=None, shadow_style=None, crop_rect=None, supersample=2):
+    """Recorta el margen transparente, compone la sombra y reduce a la mitad.
+
+    `crop_rect` (col_min, row_min, col_hi, row_hi) en píxeles del lienzo renderizado: si se pasa, el
+    recorte usa ESA caja determinista en vez del bounding box del alpha. El bounding box del alpha
+    jittera ±1 píxel entre procesos porque la cobertura AA de EEVEE Next no es bit-determinista
+    (medido: varía incluso a 1 muestra y dentro del mismo proceso), y la corrección de paridad de
+    abajo amplifica ese ±1 a ±2 en el recorte, cambiando dimensiones y pivot del sprite publicado.
+    Quien necesite reproducibilidad byte-a-byte del sprite (el Building Composer, §8) pasa la caja
+    proyectada desde los bounds de composición; la ruta runtime Kenney sigue recortando por alpha.
+    """
     image = bpy.data.images.load(str(render_path))
     width, height = image.size
     pixels = np.array(image.pixels[:], dtype=np.float32).reshape(height, width, 4)
@@ -822,21 +853,40 @@ def trim_and_scale(render_path, output_path, shadow_path=None, shadow_style=None
                 np.concatenate([out_rgb, out_alpha], axis=-1), 0.0, 1.0
             ).astype(np.float32)
     alpha = pixels[:, :, 3]
-    opaque_rows = np.where(np.any(alpha > ALPHA_THRESHOLD, axis=1))[0]
-    opaque_cols = np.where(np.any(alpha > ALPHA_THRESHOLD, axis=0))[0]
-    if opaque_rows.size == 0 or opaque_cols.size == 0:
-        raise ValueError("El render no tiene ningún píxel opaco: nada que recortar")
-    # `pixels` está en orden Blender (fila 0 = abajo); los offsets publicados se expresan arriba-abajo.
-    row_min, row_hi = int(opaque_rows[0]), int(opaque_rows[-1]) + 1
-    col_min, col_hi = int(opaque_cols[0]), int(opaque_cols[-1]) + 1
-    if (row_hi - row_min) % 2 == 1 and row_hi < height:
+    if crop_rect is not None:
+        col_min, row_min, col_hi, row_hi = (int(value) for value in crop_rect)
+        col_min = max(0, col_min)
+        row_min = max(0, row_min)
+        col_hi = min(width, col_hi)
+        row_hi = min(height, row_hi)
+        if col_hi <= col_min or row_hi <= row_min:
+            raise ValueError("crop_rect fuera del lienzo: nada que recortar")
+    else:
+        opaque_rows = np.where(np.any(alpha > ALPHA_THRESHOLD, axis=1))[0]
+        opaque_cols = np.where(np.any(alpha > ALPHA_THRESHOLD, axis=0))[0]
+        if opaque_rows.size == 0 or opaque_cols.size == 0:
+            raise ValueError("El render no tiene ningún píxel opaco: nada que recortar")
+        # `pixels` está en orden Blender (fila 0 = abajo); los offsets publicados se expresan arriba-abajo.
+        row_min, row_hi = int(opaque_rows[0]), int(opaque_rows[-1]) + 1
+        col_min, col_hi = int(opaque_cols[0]), int(opaque_cols[-1]) + 1
+    if (row_hi - row_min) % supersample != 0 and row_hi < height:
         row_hi += 1
-    if (col_hi - col_min) % 2 == 1 and col_hi < width:
+    elif (row_hi - row_min) % supersample != 0:
+        row_min += 1
+    if (col_hi - col_min) % supersample != 0 and col_hi < width:
         col_hi += 1
+    elif (col_hi - col_min) % supersample != 0:
+        col_min += 1
     crop = pixels[row_min:row_hi, col_min:col_hi, :]
     crop_h, crop_w = crop.shape[0], crop.shape[1]
-    # Reducción 2× por filtro de caja: conserva el supersampling sin depender de operadores de recorte.
-    small = crop.reshape(crop_h // 2, 2, crop_w // 2, 2, 4).mean(axis=(1, 3))
+    # Reducción por filtro de caja según el supersample efectivo: conserva el AA sin depender de
+    # operadores de recorte. Con renderScale 2 el supersample efectivo es 1 (AA por muestras TAA).
+    if supersample == 1:
+        small = crop
+    else:
+        small = crop.reshape(
+            crop_h // supersample, supersample, crop_w // supersample, supersample, 4
+        ).mean(axis=(1, 3))
     final_h, final_w = small.shape[0], small.shape[1]
     trimmed = bpy.data.images.new(
         "runtime_asset_trimmed", width=final_w, height=final_h, alpha=True, float_buffer=False
@@ -851,6 +901,7 @@ def trim_and_scale(render_path, output_path, shadow_path=None, shadow_style=None
         "rendered": {"width": width, "height": height},
         "cropped": {"width": crop_w, "height": crop_h, "offsetX": col_min, "offsetY": height - row_hi},
         "final": {"width": final_w, "height": final_h},
+        "supersample": supersample,
     }
 
 
@@ -908,14 +959,9 @@ def main():
         if kind == "terrain":
             style_layer = json.loads(STYLE_LAYER_PATH.read_text(encoding="utf-8"))
             apply_style_layer_lighting(scene, style_layer)
-            style_summary = style_procedural_materials(
-                style_layer["externalTreatment"], kind
-            )
-            post = style_layer["rendering"]["postProcessing"]
-            scene.view_settings.view_transform = post.split(" - ")[0]
-            scene.view_settings.look = post
-            style_exposure = style_layer["rendering"].get("exposure", 0.0)
-            scene.view_settings.exposure = style_exposure
+            profile = active_mood(style_layer)
+            style_summary = style_procedural_materials(profile["externalTreatment"], kind)
+            style_exposure = apply_render_settings(scene, style_layer).get("exposure", 0.0)
     else:
         required = (
             ("--unit-scale", args.unit_scale),
@@ -931,13 +977,13 @@ def main():
         scene, camera, _body, normalization, style_summary, ground_z = create_external_scene(
             args, source_path, style_layer
         )
-        style_exposure = style_layer["rendering"].get("exposure", 0.0)
+        style_exposure = active_mood(style_layer)["rendering"].get("exposure", 0.0)
         kind = args.kind
         label = args.asset
         # La huella la conoce el manifiesto de jobs; el render sólo publica geometría.
         footprint = None
         if args.shadow and not args.no_shadow:
-            shadow_style = style_layer.get("shadow", {})
+            shadow_style = active_mood(style_layer).get("shadow", {})
 
     render_path = output.with_suffix(".render.png")
     scene.render.filepath = str(render_path)

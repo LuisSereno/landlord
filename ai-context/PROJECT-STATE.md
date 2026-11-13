@@ -25,7 +25,8 @@ Fecha de consolidación: 2026-10-29.
   licencia/origen pendiente y toolchain; manifests con hashes/provenance y
   validador local disponibles. Los binarios siguen ignorados hasta decidir LFS.
 - Estrategia artística self-contained / coste ~0 para Gate 2: decidida (D-054).
-- Building Factory / Character Factory: concepto documentado; no implementado.
+- Building Factory: retirada y sustituida por el catálogo de geometría de fuente real de D-098.
+  Character Factory: especificación declarativa; producción visual de roles pendiente.
 - Wiki para IA: sí.
 - Capa funcional fiscal/urbana: documentada conceptualmente.
 - Visión multiperspectiva y trayectoria vital: documentada conceptualmente.
@@ -63,6 +64,9 @@ Fecha de consolidación: 2026-10-29.
   Gameplay consume exclusivamente `ViewProjectionV1.map.roads.cells`; `/visual-slice` conserva su
   topología autoral como fixture independiente. V.c.2D (acceso/edificabilidad como regla de producto)
   sigue diferida; tampoco hay selección de distrito en la UI;
+  V.e quedó remediada el 2026-11-02 (D-098): los 15 edificios de dominio tienen evidencia Blender
+  desde geometría Kenney real publicada como candidata; el condicionamiento de estados sobre
+  fuentes importadas y la promoción al runtime siguen pendientes de WP y QA del responsable;
 - commuting: el empleo sigue siendo agregado, sin trayectos por agente;
 - planificador de la IA: no existe; sólo cadenas inmediatas tras un `dispatch`;
 - expediente de inteligencia de las facciones: diferido;
@@ -102,6 +106,308 @@ Fecha de consolidación: 2026-10-29.
 Gate 1 aprobado `GO` el 2026-10-21; la evidencia técnica de G1-RW-01..04 quedó reunida.
 Gate 2 en `GO` para producción representativa desde el 2026-10-23: el responsable confirmó la
 prueba manual OK, WP2.15 está cerrado, el benchmark/smoke pasan y WP2.14 aprobó `graphic_civic`.
+
+## WP4.15-V.h — World Visual Foundation (2026-11-05)
+
+Rama `wip/vh-world-visual-foundation`. V.h.1-V.h.11 ejecutados y commiteados; V.h.12 (hardening de
+gaps) ejecutado sobre el HEAD `546f785`. Estado:
+`WP4.15-V.h — WORLD VISUAL FOUNDATION: FOUNDATION HARDENED / PIXEL REVIEW READY` pendiente de la
+revisión visual del responsable (§35).
+
+- Asset Knowledge Base: `world-asset-index.json` (4554 assets, 17 fuentes, 100 % clasificados,
+  198 runtime-ready) + subcatálogos generados + biblioteca semántica de materiales.
+- Dressing determinista sobre `ViewProjectionV2`: public-space (5 kinds), parcel/lot (7 tipos de
+  solar), street, vehículos contextuales (9 clases runtime), actores ambientales y contextActors
+  profesionales; nada en GameState.
+- Perfiles de distrito (§11, 7 roles) y de edificio (§12) modulan densidad y vocabulario;
+  favored/avoided se aplica conscientemente sólo a parcelDressing (los demás ejes van por densidad).
+- Integración 9/9 distritos medida a nivel de MODELO presentacional: `VC9_FULLWORLD=1` →
+  `full-world-integration.test.ts` (capas pobladas incluidas ambientActors+contextActors, sin
+  referencias rotas, cobertura edificios/espacios, determinismo, civic≠industrial en la MISMA
+  geometría). Esto NO es un render de framebuffer: el gate se denomina 9/9 DISTRICTS VISUAL MODEL
+  PASS para no confundir Integración de modelo con Render de píxeles.
+- Performance (§26): `docs/art/world-visual-foundation/performance.json` (atlas 69→81→161→163→166 imágenes,
+  3→9 vehículos, 2726 objetos presentacionales en 8 capas, 551→292 ms generar 9 distritos).
+- town_hall V7 + plaza cívica = APPROVED BASELINE (no rediseñar; D-099). Por elección del responsable,
+  `vf_town_hall_1006` es el `town_hall` runtime; `vf_town_hall_1002` se conserva como `school_block`.
+  Ambas promociones pasan por `runtime-promotions.json` → `build-blender-assets.mjs --promote-approved`,
+  con estado `complete` exacto, fallback procedural para los demás estados, footprint/dominio 8×4,
+  orientación 45°, Graphic Civic, provenance y hash verificables.
+- **V.i lotes residencial + industrial ligero + cívico (2026-11-06):** 9 edificios Composer más promovidos
+  por el mismo pipeline (`runtime-promotions.json` → `--promote-approved`), seleccionados por el
+  responsable sobre candidatos/tipo (`docs/art/{residential,industrial-light,civic}-catalog-vi/`):
+  `row_house`←`vg_row_house_1001` (4×1), `apartment_block`←`vg_apartment_block_1002` (5×2),
+  `mixed_tenement`←`vg_mixed_tenement_1001` (4×2), `workshop`←`vg_workshop_1003` (4×2),
+  `warehouse`←`vg_warehouse_1002` (4×3), `clinic`←`vg_clinic_1003` (3×2),
+  `police_station`←`vg_police_station_1002` (3×2), `fire_station`←`vg_fire_station_1003` (4×2),
+  `market_hall`←`vg_market_hall_1000` (5×2). Con courtyard_home/town_hall/school_block el catálogo
+  Composer pasa a **15/15 `runtime_exact`**. La auditoría dedicada de industrial pesado está cerrada:
+  recetas identitarias obligatorias, celdas reservadas, gantry inválido corregido, supports reanclados
+  y barrido determinista 3×100 integrado; sus 12 candidatos y láminas viven en
+  `docs/art/industrial-heavy-catalog-vi/`. El responsable seleccionó `cement_plant`←`vg_cement_plant_1001`,
+  `brickworks`←`vg_brickworks_1000` y `steelworks`←`vg_steelworks_1003`; las tres promociones usan el
+  pipeline canónico y conservan únicamente el estado `complete`.
+  `visual-remediation.test.ts` fija el set revisado (15) y prohíbe estados fabricados. Nota de bytes: el
+  runtimeImage es copia verbatim del candidato (determinista; sha runtime == sha candidato, lo fuerza el
+  test de town_hall). Se descartó optimizar/recortar el PNG porque haría el sha dependiente de la
+  versión de la herramienta y rompería la promoción reproducible. El budget anti-LFS del test es 10 MB
+  y el guard D-081 queda cerrado por **D-100** (2026-11-06): `maxBundleBytes` 10 MiB con bundle medido
+  9.372.434 B, `attempts/` fuera del índice Git y excepciones nombradas para la evidencia QA >1 MiB
+  (`pnpm art:binaries:check` verde). La palanca si aprieta sigue siendo bajar la resolución de RENDER
+  en el compositor (origen determinista), no post-procesar.
+- Política semántica 15/15 BuildingTypes: cada tipo declara runtime Blender exacto / archetype
+  compatible / fallback procedural semántico; nunca fallback equivocado (almacén→almacén, no
+  residencial). Estructural `blender-assets`/`building-sprites` lo verifica.
+- **V.h.11 (segunda pasada, 2026-11-06):** actores del juego = avatares **Microsoft Rocketbox**
+  horneados con retarget de clips idle/walk (chr_citizen/police/medical/firefighter/worker, 5/8
+  clases); contextActors profesionales por colocación con `curbEdge`/`lateralOffset` (fuera de la
+  calzada, V.h.12 §4); materiales 10/10 cobertura SEMÁNTICA pero 0/10 de uso en runtime (sin
+  consumidor: honestidad, no cobertura declarada). Atlas 81→161 imágenes, 6 personajes (80 frames
+  Rocketbox = 5×16).
+- Píxel QA 9 distritos × 3 escalas + 5 detalles: automatizado con Playwright headless sobre la app
+  servida (`scripts/vh-world-visual-capture.mjs` → `pixel-qa/`, `capture-manifest.json` con hashes y
+  pageErrors). Evidencia de píxeles separada del modelo; queda su interpretación humana en la review.
+- Gaps P1/P2 abiertos (no bloquean la fundación): actor classes profesionales sin uniforme literal y
+  vehicle classes industrial/service sin miembro horneado curado (Rocketbox no codifica profesión por
+  nombre); materiales stone/metal/soil/grass procedurales (sin fuente Poly Haven adquirida).
+
+## WP4.15-V.j — Cierre de visualización completa del mundo (2026-11-09)
+
+Rama `wip/vh-world-visual-foundation`. V.j.1–V.j.8 ejecutados, commiteados y **publicados** (push
+autorizado por el responsable y ejecutado `4d6abb5..28635c0`, 2026-11-09): `5803c29` baseline congelado; `3bedb9c` orientación física;
+`2a91d39`/`5178b68`/`94268c1` estados+visibilidad; `e0044cd` batch 15×6×4 + vehículos 9×4 + fix de
+anclaje de daño; `31ff12f` resolución de variante + adapter; `e0d6ea5` carga por distrito + caché LRU;
+`8e076df` materiales CC0 (librería 10/10); `03e7085`/`44206d3` evidencia 9×3×4 QA + ancla.
+
+- **Estados reales** (complete/construction×3/damaged/burning) y **orientación física 0/90/180/270**
+  como renders Blender reales (no sprite rotado). 360 variantes + 36 vehículos. Daño/fuego/humo
+  anclados a la sección abierta real; andamio de finishing ceñido a fachada plana. Baseline `complete`
+  de los 15 bit-a-bit intacto (guard `blender-assets.test.ts`).
+- **Runtime**: clave de variante (tipo×estado×etapa×orientación); adapter consume orientación/estado;
+  fuera fallbacks procedurales de construction/damaged/burning para los 15. Carga bajo demanda por
+  distrito con caché LRU (96 MiB) + métricas `__districtAssetStats` (**D-102**: presupuesto = bytes en
+  arranque/por distrito, no total servido; PNG de variante gitignored, manifiesto versionado).
+- **Ambientación**: materiales CC0 Poly Haven para los 5 gaps (pavement/stone/metal/soil/grass) →
+  librería semántica 10/10 con fuente real; actores profesionales Rocketbox distinguibles y vehículos
+  de servicio (ya de V.h, verificados).
+- **Evidencia 9×3×4** (108 capturas + 12 contact sheets, 0 errores de página) con captura QA por estado
+  (override sólo de presentación, no gameplay). **Aprobada por el responsable** (2026-11-09), incluido
+  el detalle del burning. Gates de cierre: typecheck, tests shared+web, composer 22/22, validadores,
+  binarios y licencias (ver acta). `validate-art-staging` mantiene fallos preexistentes sólo en
+  `src_original_*` (V.j.2), no regresión.
+
+## WP4.15-V.k — Cuadrillas como personas (2026-11-09, empujado `9bd4e94..3a32240`)
+
+Rama `wip/vh-world-visual-foundation`, continuación directa de V.j. Pide el playtest de V.d: la gente
+en obra se leía como puntos de color. Ejecutado V.k.1–V.k.4 y commiteado (`f0e590e`, `2f9501f`,
+`11de230`, `e6b93b3`, `f672a5e`, `40b1974`, `4032257`, `c17f870` test SSR del panel, `da79057` D-103).
+**Empujado** a `origin/wip/vh-world-visual-foundation` (punta remota `3a32240`, medido 2026-11-10 con
+`git branch -r --contains da79057`). Doctrina en
+`docs/engineering/adr/D-103-cuadrillas-como-avatares-rumbo-autoritativo.md` (PROPUESTA, pendiente de
+ratificación del responsable).
+
+- **Contrato** (V.k.1): la proyección publica `agents[].districtId`, `agents[].nextCell` y
+  `movement.ticksPerCell`. Datos que el motor ya tenía; **ninguna** regla ni simulación nueva.
+- **Lectura pura** (V.k.2/V.k.4): `apps/web/src/isometric/crew-presence.ts` es la única puerta (huella
+  + 4 vecinas, estados visuales, plan de paso con rumbo calibrado contra las 4 vistas horneadas,
+  progreso del tramo sin off-by-one). `crewRosterCounts` añade V.k.4 y es lo que ahora formatea el
+  panel de obra: escena y panel no pueden discrepar sobre la misma proyección.
+- **Escena** (V.k.3): pool `crewSprites` con un avatar Rocketbox `chr_worker` por miembro, animación e
+  interpolación en tiempo de render; el cuadrado del blitter cae donde hay sprite y se conserva para
+  `injured`/`dead` y para el roster sin avatar. Fix del `pageerror` de `registerImageTexture` sobre
+  escena destruida y de los hooks de QA (escuchan `DESTROY`, que es lo que emite `game.destroy()`).
+- **Legibilidad**: `CHARACTER_RENDER_SCALE = 28/256` + LUT de luminancia γ 1.8 aplicada al raster en
+  runtime (PNG, hashes y manifiesto intactos).
+- **Evidencia medida** (`artifacts/visual-slice/vk3-projection.json`, distrito `district_00000004`,
+  tick 24, `ticksPerCell` 10): 8 agentes, 2 obras × cuadrilla de 3 → 6 sprites; 5 walk / 1 idle; rumbos
+  d2×4 y d1×1; salud 100 en todos (la excepción herido/muerto no es observable aún en este corpus).
+- **Gates de la sesión**: `pnpm typecheck` limpio; `pnpm lint` en verde (0 errores, 2 avisos
+  `no-console` en tests, y `check:architecture` OK) tras cerrar en `1a1de7e` los 8 errores que el repo
+  arrastraba desde V.j.7/V.j.8 en dos scripts de evidencia; Prettier limpio en los ficheros tocados;
+  `crew-presence` 19/19; `ux-contracts` 8/8 (incluye el SSR de la ficha de obra); suite web
+  266 passed | 4 skipped. Baseline V.j (108 capturas pixel-qa) y `runtime-assets-blender.json`
+  **sin tocar**; los smokes `vd-ux`/`vd-core-loop` no se corrieron porque sobrescriben goldens
+  versionados.
+- **No cierra la simulación**: el workspace completo (config raíz) queda en **894 passed | 23 skipped |
+  4 failed**, los cuatro en `packages/simulation`
+  (`tick-conservation.test.ts:345` digesto de carreras largas, `vd7a-multiparcel.test.ts:377` huella
+  que cruza la frontera catastral, `city-seeds.test.ts:115` medida por seed,
+  `district-generation.test.ts:181` hashes de fixtures publicadas). Ninguno es de
+  V.k: el rango `9bd4e94..HEAD` no toca la generación de distritos ni sus fixtures. Quedan para la fase
+  urbana, como ya registró el audit nocturno.
+- **Deuda abierta (registrada, no arreglada)**: puntos rojo/morado del blitter = roster sin avatar;
+  los sprites de una cuadrilla comparten fase de animación;
+  `__gameplayVisualStats`/`__districtAssetStats`/`__landlordQaRefresh` no se limpian en `destroy()`;
+  falta el playtest humano (#145) y la ratificación de D-103.
+
+## WP4.15-V.l — Sección transversal autoritativa (2026-11-10, contrato estabilizado)
+
+Rama `wip/vh-world-visual-foundation`, encima de V.k ya publicado (`9bd4e94..3a32240`). Pide el
+responsable tras el playtest de V.d: aceras, dos carriles con sentido y autovía de 7 como **dato**, no
+como pintura. Doctrina en `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`: enmienda
+**parcial** de D-085 §2 y D-090 §2 (marcada también en sus entradas condensadas).
+
+**Estado autoritativo vigente (2026-11-10):** el contrato implementado es v2 para redes de eje y v4
+para redes con corredor; v4 exige `roadSectionVariant: "full" | "ave3"` persistido en `RoadTopology`.
+La versión 3 fue un contrato intermedio y cualquier snapshot que la contenga se rechaza con
+`UnsupportedRoadTopologyError` antes de mutar el slot. Proyección, cobertura, valor del suelo y
+validación urbanística resuelven la sección desde la topología persistida. Los apartados V.l.4/V.l.5
+que siguen conservan el acta histórica de mediciones previas y no describen el contrato actual.
+
+- **V.l.1 ejecutado** (sólo docs): D-104 + entrada en `DECISIONS.md` + enmiendas en D-085/D-090 + índice
+  de ADR. No existía spec de V.l en el repo; las descripciones de las tareas #152–#159 eran el único
+  contrato, y esta ADR lo fija por escrito.
+- **Qué se mantiene**: el eje como verdad de red (`RoadSegment`, `roadSegmentId`,
+  `roadCellsFromSegments`), las cuatro semánticas de D-085 §1 y la regla de que el corredor **nunca**
+  entra en `blockedCells` (es el muro del A\*). Sin tráfico simulado ni nombres de calle.
+- **Qué cambia**: `ROAD_PROFILES` street 3 / avenue 5 con mediana / motorway 7, roles
+  carriageway/median/sidewalk, canal nuevo `map.roadSection` `.strict()`, `derivationVersion` 4 con
+  lectura `2|4`, variante transversal persistida y save v2 bit a bit. La versión 3 intermedia se
+  rechaza por nombre al cargar snapshots.
+- **Medido para dimensionar el riesgo** (`axisPositions`, mapa 64×64): retícula de 3 líneas → 0/32/63
+  (avenida 32); de 4 → 0/21/42/63 (avenida **42**, no el centro). Eje actual de 3 líneas en ambos ejes:
+  375 celdas (9,2 %). Corredor de 7 sobre una línea: 448 celdas (10,9 %); sobre las tres de un eje:
+  1.344 (32,8 %) → la autovía no puede aplicarse a toda la retícula.
+- **STOPs registrados**: V.l.4 vuelve al responsable con **avenida-3 de respaldo** si se pierde un
+  frente vial, revienta `maxBlockDepth`/`maxBlockArea` o p95 > ~20 ms; V.l.6 se detiene si un save v2 no
+  reproduce su vía bit a bit; V.l.5 regenera los 10 digestos + 12 hashes en commit **sólo de hashes**
+  con `parcelCount`/`blockedCellCount` como control; V.l.8 no toca `baseline-vj.json` ni pixel-qa de V.j.
+- **V.l.2/V.l.3 ejecutados**: `road-cross-section.ts` (perfiles 3/5/7, roles, sentido por la derecha,
+  precedencia en cruce, recorte a `[0,64)`) con 17 tests; canal `map.roadSection` `.strict()` con el
+  eje y su digesto intactos. Payload medido: 22.860 B de sección / 265 segmentos frente a 2.921 B del
+  eje; deuda de segmentos no mínimos aceptada por el responsable.
+- **V.l.4 ejecutado tras dos STOPs**: el corredor en los 9 perfiles rompía 24/72 distritos
+  (`ZONING_SHORTAGE`/`CONCENTRATION`). Salida elegida por el responsable: **corredor por perfil**
+  (`DistrictProfile.roadCorridor`, entonces en 6, eje de 1 celda en 3) y **autovía por perfil**
+  (`motorwayAxis` sólo en `patios_del_este`; en `ensanche_ferroviario_oeste` la autovía rompe el seed
+  80 y la avenida de 5 genera 42/42 frentes). Con corredor se escribe `derivationVersion: 4` y se
+  persiste `roadSectionVariant`; sin él,
+  `2` y geometría/digestos idénticos a los de antes. V.l.5 recortó después esa lista de 6 a 1.
+- **Gate V.l.4 en verde** (`docs/execution/phase-4/vl4-fabric-gate-2026-11-10.json`): 900 distritos,
+  65.607 parcelas, 0 fallos; derivación vial p95 **5,19 ms** (STOP ~20), generación p95 323,98 ms
+  (presupuesto 500), 784 al primer intento, todas las familias dentro de envelope. Costura
+  inter-distrito cubierta por `road-corridor-seam.test.ts` (12 pares × 2 seeds).
+- **Registro histórico V.l.5 (2026-11-10), supersedido por la estabilización v4:** con el alcance del corredor recortado por decisión del
+  responsable**: regeneradas las tres mesas canónicas en commits separados sólo de valores —
+  `district-fixtures.ts` (12 hashes), `city-fixtures.ts` (12 filas), `tick-conservation.test.ts`
+  (10 digestos)— cada una con causa y control medidos en su propia cabecera. El motivo del recorte:
+  con los seis corredores de V.l.4 las doce ciudades caen a **638–677 parcelas** y las doce fuera de
+  `CITY_PARCEL_COUNT_ENVELOPE` (700..760); con `roadCorridor` sólo en `barrio_del_umbral` quedan
+  **700–731** y cero fuera. La envolvente **no se tocó**: se recortó la geometría. Precio medido por
+  perfil (4 seeds): −20, −20, −11,75, −11,5, −8, −6,25 parcelas; las tres recetas sin corredor, 0.
+- **Registro histórico supersedido**: el mundo canónico tenía entonces **un
+  distrito con corredor y cero autovías**. `motorwayAxis` se apaga en `patios_del_este` porque la
+  autovía de 7 sólo se publica por el camino del corredor, y dejarla activa escribiría segmentos
+  `motorway` en una red `derivationVersion: 2` — el estado inválido que D-104 promete no producir. La
+  autovía en sí costaba ~1 parcela de media (dentro del ruido); lo caro es el corredor.
+- **Gate V.l.5 en verde** (`docs/execution/phase-4/vl5-fabric-gate-2026-11-10.json`, 100 seeds × 9
+  perfiles): 900 distritos, **72.124 parcelas**, 0 fallos; generación p50 202,12 / **p95 339,23** ms
+  sobre el presupuesto de 500 que el gate afirma en p95 (el max 673,72 no está presupuestado),
+  derivación vial p50 2,38 / **p95 5,04** / max 12,61 ms (< 25), intentos
+  879/20/1, las nueve familias dentro de envelope.
+- **Registro histórico de la suite antes del cierre v4** (medido el 2026-11-10, en el árbol con las tres
+  mesas regeneradas): **11 archivos rojos, 566 passed | 19 skipped sobre 596 tests**. Uno es el
+  preexistente de la lista de V.k (`vd7a-multiparcel.test.ts:388`) y tres de los cuatro preexistentes
+  —`tick-conservation`, `city-seeds`, `district-generation`— quedaron verdes al regenerar sus mesas;
+  **los otros diez los escribe el corredor**, no el resto de V.l: el control con la mesa de perfiles
+  anterior a V.l (cero corredores) y el mismo árbol por todo lo demás da **142 passed / 1 failed
+  (143)** en esos doce archivos, y ese único fallo es otra vez `vd7a-multiparcel.test.ts:388`. El
+  motivo de que un solo perfil cueste diez tests es la posición: `CITY_ROSTER_SLOTS.player` es el slot
+  `(0,1)` (`city.ts:371-381`), o sea que el corredor cae en el distrito del jugador. Medido sobre
+  `barrio_del_umbral` seed 1: 88 parcelas, **0 sin frente** y 88 sin adyacencia al eje (distancia 2 al
+  eje, 1 al corredor) — no salta el STOP de V.l.4, lo que pasa es que media suite sigue midiendo el
+  acceso contra el eje. Clasificación y las tres salidas posibles, en
+  `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`, sección "El coste del recorte no lo
+  paga la envolvente". **El acta histórica no declaraba V.l.5 cerrada hasta que el responsable eligiera.**
+- **La salida 3 está medida (2026-11-10) y abre un defecto de producción, no de tests.** Con el
+  corredor sólo en `ensanche_ferroviario_oeste` (slot `(0,2)`) las doce ciudades dan **707–737 con 7 de
+  margen sobre el suelo** (hoy: peor exactamente 700) y precio medio 7,42 parcelas por ciudad frente a
+  13,25; ocho de los diez tests vuelven a verde. Quedan dos: `road-topology.test.ts:61`, que recorre los
+  nueve perfiles y por tanto falla con **cualquier** corredor -la salida 3 sola no existe-, y
+  `facility-coverage.test.ts:155`. Este último destapa que `roadCellsByDistrict`
+  (`packages/simulation/src/facility-coverage.ts:262-268`) y `roadCostsByDistrict` (`:143-157`) siguen
+  construyendo el suelo vial con el **eje**, así que en un distrito v3 casi ninguna parcela tiene nodo de
+  acceso al grafo: medido **0/83** en `barrio_del_umbral` (seed 7) y **1/42** en
+  `ensanche_ferroviario_oeste`, con cobertura de parques **0** en el distrito con corredor frente a 9–14
+  sin él. Es decir: **en el mundo canónico de hoy el distrito del jugador no tiene ni parques ni
+  transporte alcanzables por el grafo** -los cinco servicios de capacidad leen 0 en las tres variantes
+  porque la sonda mide un estado sin parcelas desarrolladas, así que ahí no hay nada atribuido y nada
+  negado-, y la clasificación "2 de celdas + 8 de evidencia" del acta era incorrecta. El fix
+  (bifurcar por `derivationVersion`) medido como experimento: cero corredores **no-op** (1 failed/10
+  passed), corredor en Oeste **2 failed/9 passed** -sólo `road-topology` y el preexistente `vd7a`-,
+  corredor en Barrio **5 failed/6 passed**. Tabla completa, las doce filas de ciudad con la salida 3 y el
+  paquete V.l.5b en el ADR; nada de esto está conmutado ni en las mesas canónicas.
+- **Acta histórica del fix de isla (2026-11-10, ítem 1 de V.l.5b):** V.l.5 seguía sin cerrarse. En
+  `packages/simulation/src/facility-coverage.ts` el helper `roadCellsForSegments` (`:146-159`) elige el
+  suelo vial por `derivationVersion` -v3 corredor, v2 eje, el mismo precedente de
+  `urban-fabric.ts:869-876`- y lo consumen `roadCostsByDistrict` (`:167`) y `roadCellsByDistrict`
+  (`:283`). Suite de simulación completa, sin tocar ninguna bandera: **11 failed / 566 passed → 5 failed
+  / 572 passed** (19 skipped en las dos; el `Duration` 807,50→715,13 s no es una mejora de rendimiento,
+  son ficheros que abortan antes). Seis vuelven a verde: `facility-coverage`, `h1-acceptance-isolation`,
+  `h1-land-value`, `h2-potential-service`, `housing-market`, `municipal-budget`. Los cuatro rojos D-104
+  restantes son `road-topology.test.ts:61` y `urban-civic.test.ts:128` -los dos miden el acceso contra el
+  eje, ítem 3, y el primero falla con **cualquier** corredor- y `phase2.test.ts:543` con
+  `urban-services.test.ts` -evidencia canónica muestreada en la geometría vieja, se van con el ítem 2-;
+  `vd7a-multiparcel.test.ts:388` sigue siendo BASELINE DEBT. **Coste medido A/B** (40 reconstrucciones
+  frías del índice, misma muestra): p50 63,43→**94,99 ms**, p95 75,87→**113,86 ms**, max 89,14→166,15 ms
+  por ciudad, a cambio de **+3.346 parcelas con transporte y +2.454 con parques** sobre 28.311 que antes
+  no tenían ninguna; **ninguna gate temporiza la cobertura**, así que ningún presupuesto declarado se
+  rompe. Y la predicción del ítem 4 **no se cumple con este fix**: `tick-conservation.test.ts` pasó
+  aislado en verde, los diez digestos dorados no se mueven; lo que queda por regenerar es
+  `city-fixtures.ts` y `district-fixtures.ts`, y eso es consecuencia del ítem 2.
+- **V.l.5c · la barrida del corredor mixto está medida (2026-11-10) y no adopta nada.** Acta completa en
+  `docs/execution/phase-4/vl5c-corredor-mixto-2026-11-10.md` (árbol `5482bcd`, dos costuras temporales
+  por variable de entorno, controles publicados reproducidos exactos -cero 712–740, canónico 700–731-,
+  restauración verificada por sha256 en las 52 corridas). Dos cosas: **(a) la premisa «5+3» era falsa** -
+  `deriveRoadNetwork` (`packages/simulation/src/urban-fabric.ts:280-281`) ya pone `avenue` en una sola
+  línea por sentido, así que la avenida de 5 ya era el eje signature; lo que come parcelas es la acera en
+  todas las calles-. Se barrió el eje real: `ave` = calles al eje de 1 + avenida 5 con mediana;
+  `ave3` = calles al eje + avenida 3 sin mediana. **(b) el techo de variabilidad es estructural, no de
+  envolvente**: `lomas_del_umbral` y `centro_civico` dan `ZONING_SHORTAGE (mixed: 0 < 2)` con **cualquier**
+  ancho y en las doce seeds, y los nueve perfiles a la vez no componen. Con el peor case sobre el suelo
+  700: `full` en el slot del jugador admite **cero** acompañantes (`barrio full + oeste ave3` = 698),
+  `ave` en el jugador permite 3 distritos v3 (min 702) y `ave3` permite **5** (min 701); la cartera más
+  variada sin perder el look completo es `full` en `ensanche_ferroviario_oeste` + tres `ave3` = 702.
+  Aditividad comprobada con diferencia 0 frente a las combinaciones medidas; **cero frentes perdidos** en
+  todas las variantes que componen, así que el STOP de V.l.4 por frentes no se activa.
+- **Hallazgo de producción con consecuencia directa para V.l.7: la mediana no existe.** `median` =
+  **0 celdas** en los tres modos y en las 127 celdas de eje de avenida del distrito medido. La mediana de
+  `ROAD_PROFILES.avenue` cae en el offset 0 -el eje-, pero esa celda lleva encima dos tramos de `avenue`
+  (el largo y el de una celda) y dos de `street`: la retícula hace `street.add(key)` **antes** de añadir
+  la avenida a `trunk` (`urban-fabric.ts:287-302`), o sea publica la línea de avenida dos veces.
+  `resolveRole` (`packages/shared/src/road-cross-section.ts:219-223`) aplica «dos ejes que se cruzan son
+  calzada» por recuento de ejes sin distinguir colineal de perpendicular, y con `axisHits >= 2` en
+  127/127 la mediana nunca sobrevive. Es el elemento firma de D-104 §1 hecho presentación muerta. Las dos
+  salidas tienen precio y **ninguna está ejecutada**: minimizar tramos colineales cambia `roadSegmentId`
+  y los frentes (lo que V.l.2/V.l.3 prometieron no tocar) o ceñir la regla 1 a ejes de distinta
+  orientación, que cambia el rol publicado y el digesto de `map.roadSection`.
+- **No está medido de la barrida** (declarado en el acta): costuras inter-distrito entre vecinos de
+  sección distinta -`road-corridor-seam.test.ts` sólo cubre pares homogéneos—; el canal
+  `map.roadSection`, que publica **un** perfil por clase con un único `width`
+  (`packages/simulation/src/projection.ts:501-521`, esquema `.strict()`), por lo que una sección mixta
+  **no es expresable hoy** sin cambiar el contrato de D-104 §4 o añadir ids de perfil; la economía
+  derivada (cobertura, valor del suelo, programa municipal); y ningún digesto canónico regenerado.
+- **Deuda adyacente listada y NO tocada** (sitios que siguen llamando al eje donde una red v3 publicaría
+  el corredor): `land-value.ts:125-128` es **producción** -bonus de avenida y distancia a vía desde el
+  eje, sesgo en el suelo de un distrito v3 sin medir-, `district-generator.ts:702` (`roadCellCount`),
+  `urban-morphology.ts:13`/`:33` (métricas casadas con envolventes de Fase 0: cambiarlas sería relajar un
+  umbral), `system-cost.ts:276` (harness sintético), y en tests `road-topology.test.ts:44`/`:71`/`:127` y
+  `urban-fabric-gate.test.ts:104`. Dos que no son deuda: `projection.ts:484` (el canal `map.roads.cells`
+  **es** el eje por D-104 §2) y `urban-fabric.test.ts:42-43` / `road-corridor-seam.test.ts:65-66`, que ya
+  bifurcan.
+- **Control del gate cumplido y una sorpresa medida**: `ensanche_ferroviario` recupera **byte a byte**
+  sus cuatro filas de V.d.4 (`401ae93`), pero `vega_del_cauce` recupera los recuentos y no el hash, y
+  lo mismo ocurre con los doce `digest` de ciudad y con los diez dorados puestos a cero corredor. Las
+  tres firmas señalan una **componente de forma anterior a V.l**, ya registrada como BASELINE DEBT en
+  el acta de V.e (2026-11-03: `city-seeds`, `district-generation` y `tick-conservation` fallaban en
+  `develop` antes de D-104). Acotado por medida que no la escribe el camino nuevo: con el corredor
+  fuera, las 375/375 celdas de eje de vega y sus segmentos dueños coinciden con la fórmula de V.d.4.
+- **Estado estabilizado (2026-11-10)**: la cartera mixta queda adoptada y los consumidores leen la
+  sección desde `RoadTopology`, no desde la configuración mutable del perfil. Los corredores nuevos
+  escriben `derivationVersion: 4` con `roadSectionVariant` obligatorio; v2 conserva el eje. La versión
+  3 intermedia se rechaza por nombre durante la carga de snapshots y el slot queda intacto. Se
+  mantienen los gates de generación y derivación vial existentes sin cambiar sus umbrales; la deuda
+  de segmentos colineales no mínimos y la aprobación visual humana siguen fuera de este cierre.
 
 ## Próximo objetivo
 
@@ -324,6 +630,36 @@ números de capacidad física ni el generador.
 La auditoría V.d-7A.1 confirmó que las doce seeds canónicas producen múltiples tripletes industriales
 contiguos compatibles con la acería; no existe deuda de alcance de generación.
 de contenido/generación.
+
+**V.d-7C (colocación interactiva de proyectos) está ejecutada el 2026-11-02 sobre la rama local
+`wip/vd7c-interactive-development-placement`, partiendo de `b6ff2cd` (el árbol funcional de `974cc42`
+más la documentación de la fase); `develop` no se ha tocado.** El baseline lo eligió el responsable
+después de registrar que `wip/vd7b-spatial-visual-integrity@f70f3bf` se autorregistra como
+`BLOCKED — no apto para revisión visual humana` y de que ningún acta aprueba V.d-7B. D-097 queda
+ACEPTADA con la forma de comando `placementId` opcional (acta
+`docs/execution/phase-4/vd7c-interactive-development-placement-2026-11-02.md`):
+`enumerateFootprintCandidates` es la única fuente de huellas legales y `chooseFootprint` toma la
+primera, así que la autocolocación anterior y la elección del jugador son el mismo cálculo —verificado
+por diferencial contra el `footprints.ts` de `b6ff2cd` en más de 2 000 combinaciones y en unions de 2 y
+3 parcelas, con los diez digestos dorados y `canonical-state` intactos—. `StartConstruction` revalida
+la identidad antes de tocar cuadrillas, materiales o caja y rechaza un candidato obsoleto con
+`PLACEMENT_NO_LONGER_VALID` sin reasignar huella. `GetDevelopmentPlacementCandidates` es petición
+técnica de sólo lectura (no avanza tick, no toca el PRNG, no emite permisos, no deja estado canónico)
+y responde 24 candidatas por página con el total real. La UI añade `PendingPlacement` transitorio,
+capa Phaser propia con fantasma del asset real y numeración de candidatas, controles
+Anterior/Siguiente/Rotar/Confirmar/Cancelar con ratón y teclado, y explicación legible cuando no hay
+huella legal. La obra se dibuja por etapas derivadas del progreso y las cuadrillas con la posición y el
+estado que ya proyecta el dominio; el recinto de propiedad (`property-grounds`) es presentación
+determinista sin efecto en gameplay. Gates: lint, typecheck, format, suite completa, build,
+`smoke:alpha`, `smoke:vd-core-loop` y `smoke:vd-ux` (25 pasos, 0 errores de página) en verde, más
+`art:assets:check` y `art:binaries:check`. **V.d-7B sigue sin certificar y V.d no se cierra: el
+playtest humano sigue `PENDING HUMAN PLAYTEST`. V.d-7C **no se declara `READY FOR HUMAN PLAYTEST`**:
+el criterio de la fase exige P1 = 0 y su acta registra dos P1 (FPS preexistente agravado por la
+unión de tres parcelas y línea V.d-7B sin integrar). El tercero, las tres capturas de evidencia que no
+enseñaban su caso, se cerró el 2026-11-02 con la corrida dedicada `pnpm vd7c:evidence:followup` y la
+sonda `pnpm placement:reachability`, que además documenta que el panel «cero candidatas» no es
+alcanzable en la ciudad entregada. La aceptación de esa deuda y la apertura del playtest corresponden
+al responsable.**' 
 
 **Incidencia del entorno registrada:** a mitad de la batería de gates el ejecutor de `pnpm`
 12.11.2 comenzó a fallar todo spawn con `Input/output error (os error 5)`. Causa raíz encontrada
@@ -585,3 +921,11 @@ Excluido:
 
 ## Pregunta de éxito
 ¿Puede una simulación determinista, desacoplada del render y no acoplada a una única organización del jugador, ejecutarse en navegador con rendimiento suficiente para escalar al prototipo?
+
+## Última ratificación técnica (2026-11-10)
+
+La cartera visual adoptada es la opción 3 de V.l.5c: `full` en `ensanche_ferroviario_oeste`, `ave3`
+en `vega_del_cauce`, `mercado_del_norte` y `patios_del_este`, y eje v2 en `barrio_del_umbral`.
+La variante vive en `DistrictProfile.roadSectionVariant`; generación, proyección, cobertura de
+facilities y valor del suelo usan el mismo resolver. Fixtures de distrito/ciudad y pruebas de seams
+quedan regeneradas. La mediana queda fuera de esta entrega.

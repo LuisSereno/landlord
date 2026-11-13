@@ -9,6 +9,8 @@ import {
   parseSeed,
   parseCityProfileId,
   roadCellsFromSegments,
+  roadCorridorCellsFromSegments,
+  roadProfileForTopology,
   type GridCell,
   type RoadAnchor,
 } from "@landlord/shared";
@@ -67,6 +69,7 @@ describe.skipIf(!enabled)("V.d.1 gate de tejido urbano", () => {
     const gatewaysByDistrict = gatewayCellsByDistrict();
     const generationTimes: number[] = [];
     const roadTimes: number[] = [];
+    const attemptsHistogram = new Map<number, number>();
     const densityByProfile = new Map<string, number[]>();
     const intersectionsByProfile = new Map<string, number[]>();
     const blockAreaByProfile = new Map<string, number[]>();
@@ -95,8 +98,17 @@ describe.skipIf(!enabled)("V.d.1 gate de tejido urbano", () => {
         generationTimes.push(now() - start);
         districts += 1;
         parcels += district.parcels.length;
+        attemptsHistogram.set(
+          district.report.attempts,
+          (attemptsHistogram.get(district.report.attempts) ?? 0) + 1,
+        );
 
-        const roads = roadCellsFromSegments(district.roads.segments);
+        const roads =
+          district.roads.derivationVersion === 4
+            ? roadCorridorCellsFromSegments(district.roads.segments, (roadClass) =>
+                roadProfileForTopology(district.roads, roadClass),
+              )
+            : roadCellsFromSegments(district.roads.segments);
         for (const gateway of gatewayCells) {
           expect(roads.has(cellKey(gateway)), `${profile.id}/${seed} gateway`).toBe(true);
         }
@@ -123,6 +135,9 @@ describe.skipIf(!enabled)("V.d.1 gate de tejido urbano", () => {
           anchors,
           latticeLines: profile.fabric.latticeLines,
           connectSpawns: profile.fabric.connectSpawns,
+          motorwayAxis: profile.motorwayAxis,
+          roadCorridor: profile.roadCorridor,
+          roadSectionVariant: profile.roadSectionVariant,
           width: profile.width,
           height: profile.height,
         });
@@ -210,9 +225,12 @@ describe.skipIf(!enabled)("V.d.1 gate de tejido urbano", () => {
         p95: Number(roadP95.toFixed(2)),
         max: Number(Math.max(...roadTimes).toFixed(2)),
       },
+      compositionAttempts: Object.fromEntries(
+        [...attemptsHistogram.entries()].sort((left, right) => left[0] - right[0]),
+      ),
       morphology: summary,
     };
-    console.log(JSON.stringify(evidence, null, 2));
+    process.stdout.write(`${JSON.stringify(evidence, null, 2)}\n`);
     /**
      * El destino es configurable para que una corrida de hardening no pise la evidencia de V.d.1,
      * que es histórica. Sin variable, sigue escribiendo el fichero original de la fase.
@@ -223,7 +241,17 @@ describe.skipIf(!enabled)("V.d.1 gate de tejido urbano", () => {
     writeFileSync(evidencePath, `${JSON.stringify(evidence, null, 2)}\n`);
 
     expect(districts).toBe(100 * 9);
-    expect(generationP95).toBeLessThan(300);
+    /**
+     * Presupuesto re-baselizado el 2026-11-09 con medición, no con el número heredado. Los 300 ms
+     * entraron con `0418a5d` (V.d.1), cuando el barrido daba p95 169,86 ms; desde entonces el
+     * programa cívico (`9c8f041`), la autocolocación de huellas (`8a4d37f`), el score de suelo
+     * (`401ae93`) y la propagación de conjuntos de parcela (`fb88520`) subieron el coste de UNA
+     * composición de ~135 ms p50 a ~234 ms p50. Dos barridos completos e independientes de 900
+     * distritos dieron p95 412,95 y 395,25 ms; el histograma de intentos que ahora viaja en la
+     * evidencia descarta que sea churn de reintentos (220/225 distritos salen al primer intento).
+     * 500 ms deja ~21 % de margen sobre el peor p95 observado y sigue cazando una regresión real.
+     */
+    expect(generationP95).toBeLessThan(500);
     expect(roadP95).toBeLessThan(25);
   }, 900_000);
 });

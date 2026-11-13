@@ -6,6 +6,8 @@ import {
   parsePersonId,
   parseSnapshotV2,
   roadCellsFromSegments,
+  roadCorridorCellsFromSegments,
+  roadProfileForTopology,
   viewProjectionV2Schema,
   type GridCell,
   type ProductCommand,
@@ -125,7 +127,12 @@ describe("V.d.3 programa municipal", () => {
       // Todo el programa es alcanzable desde la red: las parcelas municipales tienen frente y
       // cada plaza/parque ocupa una manzana que toca una celda vial.
       for (const district of state.world.districts.values()) {
-        const roadCells = roadCellsFromSegments(district.map.roads.segments);
+        const roadCells =
+          district.map.roads.derivationVersion === 4
+            ? roadCorridorCellsFromSegments(district.map.roads.segments, (roadClass) =>
+                roadProfileForTopology(district.map.roads, roadClass),
+              )
+            : roadCellsFromSegments(district.map.roads.segments);
         for (const facility of district.facilities.values()) {
           for (const parcelId of facility.parcelIds) {
             expect(state.phase2.parcels.get(parcelId)!.roadFrontages.length).toBeGreaterThan(0);
@@ -147,6 +154,41 @@ describe("V.d.3 programa municipal", () => {
         const parcelCells = new Set(parcel.cells.map(cellKey));
         expect(building.footprintCells.every((cell) => parcelCells.has(cellKey(cell)))).toBe(true);
       }
+    }
+  });
+
+  it("V.g civic-core: enlaza el town_hall con la plaza y conserva la relación en save/load y projection", () => {
+    for (const seed of [1, 7, 42, 1337, 2024]) {
+      const state = createInitialState(seed);
+      const centro = [...state.world.districts.values()].find(
+        (district) => district.district.name === "Centro Cívico",
+      )!;
+      const townHall = [...centro.facilities.values()].find((f) => f.kind === "town_hall")!;
+      expect(townHall.publicSpaceIds.length, `seed ${seed}: town_hall sin plaza`).toBeGreaterThan(
+        0,
+      );
+
+      const plazaId = townHall.publicSpaceIds[0]!;
+      const plaza = centro.publicSpaces.get(plazaId)!;
+      expect(plaza, `seed ${seed}: plaza enlazada inexistente`).toBeTruthy();
+      expect(plaza.kind).toBe("plaza");
+      expect(plaza.districtId).toBe(townHall.districtId);
+
+      // save/load conserva la asociación.
+      const restored = restoreStateFromSnapshot(serializeSnapshot(state));
+      const centroRestored = [...restored.world.districts.values()].find(
+        (district) => district.district.name === "Centro Cívico",
+      )!;
+      const townHallRestored = [...centroRestored.facilities.values()].find(
+        (f) => f.kind === "town_hall",
+      )!;
+      expect(townHallRestored.publicSpaceIds).toContain(plazaId);
+
+      // projection conserva la asociación.
+      const projection = createViewProjection(state, false, centro.district.id);
+      const projectedFacility = projection.facilities.find((f) => f.kind === "town_hall")!;
+      expect(projectedFacility.publicSpaceIds).toContain(plazaId);
+      expect(projection.publicSpaces.map((space) => space.id)).toContain(plazaId);
     }
   });
 

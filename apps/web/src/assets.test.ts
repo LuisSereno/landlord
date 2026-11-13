@@ -133,6 +133,7 @@ describe("WP4.15 manifiesto de assets runtime", () => {
       for (const state of BUILDING_ASSET_STATES) {
         const image = asset.states[state];
         expect(image, `${type}:${state}`).toBeDefined();
+        if (!image) throw new Error(`${type}:${state} ausente`);
         expectHashed(image.src, image.sha256);
         expect(image.width).toBeGreaterThan(0);
         expect(image.height).toBeGreaterThan(0);
@@ -169,7 +170,9 @@ describe("WP4.15 manifiesto de assets runtime", () => {
     expect(Buffer.byteLength(raw)).toBeLessThan(200_000);
     for (const [type, asset] of Object.entries(manifest.buildings)) {
       for (const state of BUILDING_ASSET_STATES) {
-        const svg = decodedSvg(asset.states[state].src);
+        const image = asset.states[state];
+        if (!image) throw new Error(`${type}:${state} ausente`);
+        const svg = decodedSvg(image.src);
         expect(Buffer.byteLength(svg), `${type}:${state}`).toBeLessThan(8_192);
       }
     }

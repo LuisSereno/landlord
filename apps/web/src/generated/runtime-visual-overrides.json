@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Curated Composer assets promoted over the raw Blender bundle; legacy early-phase buildings are excluded from gameplay.",
+  "buildings": {},
+  "legacyGameplayExclusions": [
+    "bld_shopfront",
+    "bld_commercial_b",
+    "bld_commercial_c",
+    "bld_residential_a",
+    "bld_residential_b",
+    "bld_residential_c"
+  ]
+}

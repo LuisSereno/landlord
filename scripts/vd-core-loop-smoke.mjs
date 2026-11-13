@@ -194,13 +194,27 @@ try {
   const optionText = await housingOption.innerText();
   if (/Necesitas|No tienes una cuadrilla|La parcela no permite/.test(optionText))
     fail("opciones de construcción", `el jugador no puede pagar su primera obra: ${optionText}`);
-  /** La tarjeta abre el detalle; «Construir» es la acción que envía el comando. */
+  /**
+   * V.d-7C · la tarjeta abre el detalle y «Elegir ubicación» entra en el modo de colocación: el
+   * comando ya no sale al pulsar construir, sino al confirmar una candidata legal del motor.
+   */
   for (let attempt = 0; attempt < 5; attempt += 1) {
     if (/Obra nueva en curso|en curso/.test(await inspectorText())) break;
     await housingOption.click({ timeout: 5000 }).catch(() => {});
-    const build = page.getByRole("button", { name: "Construir" });
-    if ((await build.count()) > 0 && (await build.isEnabled()))
-      await build.click({ timeout: 5000 }).catch(() => {});
+    const begin = page.getByRole("button", { name: "Elegir ubicación" });
+    if ((await begin.count()) > 0 && (await begin.isEnabled())) {
+      await begin.click({ timeout: 5000 }).catch(() => {});
+      await page
+        .waitForFunction(
+          () => (window.__landlordPlacementTest?.() ?? { candidates: 0 }).candidates > 0,
+          null,
+          { timeout: 15000 },
+        )
+        .catch(() => {});
+      const confirm = page.getByRole("button", { name: "Confirmar proyecto" });
+      if ((await confirm.count()) > 0 && (await confirm.isEnabled()))
+        await confirm.click({ timeout: 5000 }).catch(() => {});
+    }
     await new Promise((resolve) => setTimeout(resolve, 1500));
   }
   panel = await inspectorText();
@@ -208,7 +222,11 @@ try {
     fail("iniciar construcción", `la obra no aparece en el inspector: ${panel.slice(0, 220)}`);
   if (/\b(approved|consumed)\b/.test(panel))
     fail("permiso", `el inspector filtra el enum del permiso: ${panel.slice(0, 220)}`);
-  step("5-6 · permiso obtenido y construcción iniciada");
+  /** La obra nació en la colocación confirmada, no en una reasignación del motor. */
+  const site = await page.evaluate(() => window.__landlordUiTest?.ownedSiteFootprint() ?? null);
+  if (!site || !site.signature)
+    fail("iniciar construcción", "la obra no publica huella autoritativa");
+  step("5-6 · permiso obtenido y construcción iniciada en la colocación confirmada");
 
   // 7 · asignar cuadrilla (nombre legible, sin `crew_…`)
   const crewButton = page.getByRole("button", { name: /Asignar Cuadrilla \d+/ }).first();

@@ -22,6 +22,7 @@ export const GROUND_SURFACES = [
   "gravel",
   "pavement",
   "asphalt",
+  "median",
   "construction",
 ] as const;
 

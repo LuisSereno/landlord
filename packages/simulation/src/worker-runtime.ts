@@ -12,6 +12,8 @@ import {
   type WorkerResponse,
 } from "@landlord/shared";
 import { dispatchPlaceTestStructure, dispatchProductCommand } from "./commands";
+import { developmentPlacementCandidatesFor } from "./development-placement";
+import { PLAYER_ORGANIZATION_ID } from "./game-data";
 import { createViewProjection } from "./projection";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { createInitialState, type GameState } from "./state";
@@ -107,6 +109,8 @@ const errorMessages: Record<ErrorCode, string> = {
   MIXED_DEVELOPMENT_CODES: "Las parcelas seleccionadas tienen normas urbanísticas incompatibles.",
   SITE_AREA_TOO_SMALL: "La superficie conjunta de las parcelas no alcanza el mínimo.",
   PARCEL_OCCUPIED: "Alguna parcela del proyecto ya está ocupada por otro edificio u obra.",
+  PLACEMENT_NO_LONGER_VALID:
+    "La colocación elegida ya no es legal en este solar: elige otra posición.",
 } as const;
 
 const PROTOCOL_VERSION = protocolVersionSchema.parse(2);
@@ -250,6 +254,28 @@ export class SimulationWorkerRuntime {
           succeeded(request.requestId, this.state.clock.tick, {
             ...this.metrics(),
           }),
+        ];
+      }
+      /**
+       * V.d-7C · petición técnica de sólo lectura (D-097 · Projection). Responde siempre para el
+       * observador humano, así que nunca publica planes de colocación del rival. No avanza ticks, no
+       * toca el PRNG, no emite permisos ni mueve caja: por eso tampoco entra en el snapshot.
+       */
+      case "GetDevelopmentPlacementCandidates": {
+        if (!this.state) return [failed(request.requestId, "INVALID_PAYLOAD")];
+        if (!this.state.world.districts.has(request.payload.districtId))
+          return [failed(request.requestId, "DISTRICT_NOT_FOUND")];
+        return [
+          succeeded(
+            request.requestId,
+            this.state.clock.tick,
+            developmentPlacementCandidatesFor(this.state, {
+              districtId: request.payload.districtId,
+              parcelIds: request.payload.parcelIds,
+              buildingType: request.payload.buildingType,
+              organizationId: PLAYER_ORGANIZATION_ID,
+            }),
+          ),
         ];
       }
       case "SaveSnapshot": {

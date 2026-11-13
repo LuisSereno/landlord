@@ -1,13 +1,15 @@
 {
   "schemaVersion": 1,
-  "inventoryDate": "2026-11-02",
+  "inventoryDate": "2026-11-07",
   "totals": {
     "domainBuildings": 15,
-    "proceduralRepresented": 15,
-    "proceduralStates": 60,
-    "domainBlenderCandidates": 1,
-    "blenderBundleAssets": 7,
-    "blenderAssetsWithDuplicateStates": 6
+    "candidateEvidenceBuildings": 15,
+    "renderedStates": 18,
+    "importedBuildings": 14,
+    "importedCompleteStates": 14,
+    "legacyBuildings": 1,
+    "legacyStates": 4,
+    "runtimePromotion": "pending QA"
   },
   "rows": [
     {
@@ -17,128 +19,23 @@
         "width": 2,
         "height": 2
       },
-      "preferredFootprintStatus": "manifest baseline; domain contract pending V.d-7B integration",
+      "preferredFootprintStatus": "integrated V.d-7B preferredFootprint + shapePenalty",
       "floors": 1,
       "requiredParcels": 1,
-      "candidateSource": "Kenney Suburban / Blender E2E",
-      "finalSource": null,
-      "proceduralStates": {
-        "complete": "6bb32da9a3d05c6806fc44e79dbb5175280240e1a780d09b7ad06a137e6699d7",
-        "construction": "6426593cd93ad364318bc8f89c57c2e929f91ab4cbf133b28a8887888e94a0a5",
-        "damaged": "a4cc021ee1ab71de75b17352bdd6a149c3bb409517a1060ff347e1c26259637e",
-        "burning": "72771307caf80906f792112e96e5b8e1c032df1e4d2148449ca6fec332caa6ff"
+      "candidateSource": "Original procedural courtyard (legacy congelado, ruta interna)",
+      "finalSource": "legacy frozen",
+      "renderedStates": {
+        "complete": "b197476f2efd46b78289d51c20c08f2d177494757527d3805e72d298809269b8",
+        "construction": "e322fcfb17660885fb2761afb9cb894bbafd7aeace888661200fc1fe445b70a7",
+        "damaged": "6e8739ee65491c30ad59a3b534ea1b9eb32e2744d49d7be02a167a82f946ea60",
+        "burning": "d1dcc062a89c09880612b0e053510aee14eef4eec1445322013fb17919bddc54"
       },
-      "proceduralDuplicates": [],
-      "blenderAsset": "courtyard_home",
-      "blenderDuplicates": [],
+      "missingStates": [],
+      "mode": "legacy-procedural",
       "orientation": [
         45
       ],
-      "status": "BLENDER CANDIDATE"
-    },
-    {
-      "type": "workshop",
-      "targetFootprintCells": 8,
-      "preferredFootprint": {
-        "width": 2,
-        "height": 4
-      },
-      "preferredFootprintStatus": "manifest baseline; domain contract pending V.d-7B integration",
-      "floors": 1,
-      "requiredParcels": 1,
-      "candidateSource": "Kenney Industrial + KayKit props",
-      "finalSource": null,
-      "proceduralStates": {
-        "complete": "c4622c9adc9deae0272ac72a80a697c39794fd11f2f49d3c923def607ae1d184",
-        "construction": "4de17b650dee4d4dbd0052f14aa51f7eddd581bca159500c929c1eb87ce86982",
-        "damaged": "96c0e5654a249dbb19629b0edafd6252b7b1792c1d9d2d00b508a55395d02b23",
-        "burning": "68e1725c2a71aee6e57665e1e9e9ed882ac0b4698ac9cc0641916256a04bfdab"
-      },
-      "proceduralDuplicates": [],
-      "blenderAsset": null,
-      "blenderDuplicates": [],
-      "orientation": [
-        45
-      ],
-      "status": "PROCEDURAL BASELINE"
-    },
-    {
-      "type": "cement_plant",
-      "targetFootprintCells": 10,
-      "preferredFootprint": {
-        "width": 2,
-        "height": 5
-      },
-      "preferredFootprintStatus": "manifest baseline; domain contract pending V.d-7B integration",
-      "floors": 2,
-      "requiredParcels": 2,
-      "candidateSource": "Kenney Industrial + KayKit props",
-      "finalSource": null,
-      "proceduralStates": {
-        "complete": "69a4a58e8b240303ffab32892aeb6c2b31cb3b13d1c4595ddc05fe0398385c7a",
-        "construction": "0a857e22d870542db73e037f25cf69cf752c764724ab92b46cb317d11010f7cc",
-        "damaged": "3282dd9d6d2c80ddb9c875e24d7c1077656579a75fec16e2ea611bf95da2cdef",
-        "burning": "f2c94198434b2da9a6c074f1668ef66f88cb386b7d7681e6244392c3808abd13"
-      },
-      "proceduralDuplicates": [],
-      "blenderAsset": null,
-      "blenderDuplicates": [],
-      "orientation": [
-        45
-      ],
-      "status": "PROCEDURAL BASELINE"
-    },
-    {
-      "type": "brickworks",
-      "targetFootprintCells": 10,
-      "preferredFootprint": {
-        "width": 2,
-        "height": 5
-      },
-      "preferredFootprintStatus": "manifest baseline; domain contract pending V.d-7B integration",
-      "floors": 2,
-      "requiredParcels": 2,
-      "candidateSource": "Kenney Industrial + Poly Haven brick",
-      "finalSource": null,
-      "proceduralStates": {
-        "complete": "a8c3f7a40162f310a7d478be216e60dd387b341c923218c53da3f362eef4f040",
-        "construction": "69767325b2dff1ca6820a5c48580ea52a596bbff130818160af924e456f4799c",
-        "damaged": "9d46f610b66f9f82a369b5584f2e65a7e2cfb8628550ded3747f94c513a3da5f",
-        "burning": "eb5c150a201da949fe764d1fea583e28b5965e5e03b89af9488718f181c069bd"
-      },
-      "proceduralDuplicates": [],
-      "blenderAsset": null,
-      "blenderDuplicates": [],
-      "orientation": [
-        45
-      ],
-      "status": "PROCEDURAL BASELINE"
-    },
-    {
-      "type": "steelworks",
-      "targetFootprintCells": 12,
-      "preferredFootprint": {
-        "width": 3,
-        "height": 4
-      },
-      "preferredFootprintStatus": "manifest baseline; domain contract pending V.d-7B integration",
-      "floors": 2,
-      "requiredParcels": 3,
-      "candidateSource": "Kenney Industrial + rusty metal",
-      "finalSource": null,
-      "proceduralStates": {
-        "complete": "a2aac4fa8a8c60b694f7afb80416eebc40137b13feb7109ff38713bce263002a",
-        "construction": "dd884994db2b2094319d252f62b8cfbb7fb20472d92f486574645cb6715e6797",
-        "damaged": "4d47d910d15552602828d8621d7ed36fdb38b983ee5e418513420910e1886bf4",
-        "burning": "38ac7c56104c0b1c9a29cd21986a26933995fd471d59b585685d46e57df40ecd"
-      },
-      "proceduralDuplicates": [],
-      "blenderAsset": null,
-      "blenderDuplicates": [],
-      "orientation": [
-        45
-      ],
-      "status": "PROCEDURAL BASELINE"
+      "status": "LEGACY FROZEN"
     },
     {
       "type": "row_house",
@@ -147,24 +44,24 @@
         "width": 4,
         "height": 1
       },
-      "preferredFootprintStatus": "manifest baseline; domain contract pending V.d-7B integration",
+      "preferredFootprintStatus": "integrated V.d-7B preferredFootprint + shapePenalty",
       "floors": 2,
       "requiredParcels": 1,
-      "candidateSource": "Kenney Suburban + Quaternius Downtown",
-      "finalSource": null,
-      "proceduralStates": {
-        "complete": "357ebecb2766268023d337b5e205b631ae1fc63cf1a8361b24e6926081a405af",
-        "construction": "ced0dfbb7a6c73912c25975e4bfc1de5d8bcc3971766bc91097fce63351918bd",
-        "damaged": "4f27b0ccd7611b64f5d90664e0e47739939a24e0c2c65de03c6d7c510f8fa50a",
-        "burning": "fcbb2a689de7c8bb11198fc3e1ae85b07885c3527ac12c76af335dcdc6be32bd"
+      "candidateSource": "Kenney City Kit Suburban · building-type-f.glb · CC0-1.0",
+      "finalSource": "candidate evidence",
+      "renderedStates": {
+        "complete": "1588fe1ef2defa6e8ec4af26519c8007843db8e189370480cd8fd683e362b0f1"
       },
-      "proceduralDuplicates": [],
-      "blenderAsset": null,
-      "blenderDuplicates": [],
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ],
+      "mode": "imported",
       "orientation": [
         45
       ],
-      "status": "PROCEDURAL BASELINE"
+      "status": "CANDIDATE EVIDENCE"
     },
     {
       "type": "apartment_block",
@@ -173,24 +70,24 @@
         "width": 2,
         "height": 5
       },
-      "preferredFootprintStatus": "manifest baseline; domain contract pending V.d-7B integration",
+      "preferredFootprintStatus": "integrated V.d-7B preferredFootprint + shapePenalty",
       "floors": 5,
       "requiredParcels": 1,
-      "candidateSource": "Kenney Commercial + Quaternius Downtown",
-      "finalSource": null,
-      "proceduralStates": {
-        "complete": "6361922a2b96f5b86f72f6598863ebca447972f30671c085dbbe2acc44697526",
-        "construction": "69c4e67b6f5630c565420e4e5ce89a94eb009daf5e9cbe4cdc5b78cef189200b",
-        "damaged": "2b29a7a1550e9a4d9884fb588180354fdfeefdadf4b03bd3d7b6e98c7a00376b",
-        "burning": "cb8f8651faddc4b79df675d05164b37b250ac4fda4941cee12e3cd055f847b82"
+      "candidateSource": "Kenney City Kit Commercial · building-skyscraper-a.glb · CC0-1.0",
+      "finalSource": "candidate evidence",
+      "renderedStates": {
+        "complete": "037ee3bf4843a533d18a953f677ac97501572eccc2133afeafbe846759cae4f9"
       },
-      "proceduralDuplicates": [],
-      "blenderAsset": null,
-      "blenderDuplicates": [],
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ],
+      "mode": "imported",
       "orientation": [
         45
       ],
-      "status": "PROCEDURAL BASELINE"
+      "status": "CANDIDATE EVIDENCE"
     },
     {
       "type": "mixed_tenement",
@@ -199,24 +96,50 @@
         "width": 2,
         "height": 4
       },
-      "preferredFootprintStatus": "manifest baseline; domain contract pending V.d-7B integration",
+      "preferredFootprintStatus": "integrated V.d-7B preferredFootprint + shapePenalty",
       "floors": 3,
       "requiredParcels": 1,
-      "candidateSource": "Kenney Commercial + Quaternius Downtown",
-      "finalSource": null,
-      "proceduralStates": {
-        "complete": "221cf68f7393226cd1cf0270f269cdc8e1679526d519e62c6a145a1eee3662ff",
-        "construction": "772ace0aeb5fb48c15bf73a89435dfec876b4701dc0e00512fec959101cebea5",
-        "damaged": "8e36d577ea744fad4a30c3132d929b97cad5ede78ddd264d62778f5c410e029a",
-        "burning": "a1b6685d585125f8dd9708cc417f807f40a278a472d9ed8f37ba4c604e7253b7"
+      "candidateSource": "Kenney City Kit Commercial · building-l.glb · CC0-1.0",
+      "finalSource": "candidate evidence",
+      "renderedStates": {
+        "complete": "e68ad1bcfb5ba0ca80ac479d9fa76f2a75f46aa78927fa373cb8120ac640a894"
       },
-      "proceduralDuplicates": [],
-      "blenderAsset": null,
-      "blenderDuplicates": [],
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ],
+      "mode": "imported",
       "orientation": [
         45
       ],
-      "status": "PROCEDURAL BASELINE"
+      "status": "CANDIDATE EVIDENCE"
+    },
+    {
+      "type": "workshop",
+      "targetFootprintCells": 8,
+      "preferredFootprint": {
+        "width": 2,
+        "height": 4
+      },
+      "preferredFootprintStatus": "integrated V.d-7B preferredFootprint + shapePenalty",
+      "floors": 1,
+      "requiredParcels": 1,
+      "candidateSource": "Kenney City Kit Industrial · building-m.glb · CC0-1.0",
+      "finalSource": "candidate evidence",
+      "renderedStates": {
+        "complete": "718e0e2e7c46b14e160feddb949af5de2cfe6559eddf82a8467c5856559dcd29"
+      },
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ],
+      "mode": "imported",
+      "orientation": [
+        45
+      ],
+      "status": "CANDIDATE EVIDENCE"
     },
     {
       "type": "warehouse",
@@ -225,50 +148,128 @@
         "width": 3,
         "height": 4
       },
-      "preferredFootprintStatus": "manifest baseline; domain contract pending V.d-7B integration",
+      "preferredFootprintStatus": "integrated V.d-7B preferredFootprint + shapePenalty",
       "floors": 1,
       "requiredParcels": 2,
-      "candidateSource": "Kenney Industrial",
-      "finalSource": null,
-      "proceduralStates": {
-        "complete": "5ab5e567a5473bc4aade7d541d085e993919357b9a5bfb6943f41926c0782a68",
-        "construction": "996968b87d63d0e589323b9adb6cda73e97a4ce56672ad29d7df15a867ea7149",
-        "damaged": "fbfc58077f42abbccb5042f04981368bb7a681c1b50a010623da71a5de258bad",
-        "burning": "4cd894d86948df11db2810775104fd34b012b427d8b342a367a8bf114f8f55f1"
+      "candidateSource": "Kenney City Kit Industrial · building-l.glb · CC0-1.0",
+      "finalSource": "candidate evidence",
+      "renderedStates": {
+        "complete": "b63823d39d1395b610f58aa2b7fc1718ae22f8fd203d989a86e962d16dcbd118"
       },
-      "proceduralDuplicates": [],
-      "blenderAsset": null,
-      "blenderDuplicates": [],
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ],
+      "mode": "imported",
       "orientation": [
         45
       ],
-      "status": "PROCEDURAL BASELINE"
+      "status": "CANDIDATE EVIDENCE"
     },
     {
-      "type": "town_hall",
+      "type": "cement_plant",
+      "targetFootprintCells": 10,
+      "preferredFootprint": {
+        "width": 2,
+        "height": 5
+      },
+      "preferredFootprintStatus": "integrated V.d-7B preferredFootprint + shapePenalty",
+      "floors": 2,
+      "requiredParcels": 2,
+      "candidateSource": "Kenney City Kit Industrial · building-c.glb · CC0-1.0",
+      "finalSource": "candidate evidence",
+      "renderedStates": {
+        "complete": "cd47d59688e82a1069184ffa8279688d9c7bd7468cb57e8b53c34f0bb72956d6"
+      },
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ],
+      "mode": "imported",
+      "orientation": [
+        45
+      ],
+      "status": "CANDIDATE EVIDENCE"
+    },
+    {
+      "type": "brickworks",
+      "targetFootprintCells": 10,
+      "preferredFootprint": {
+        "width": 2,
+        "height": 5
+      },
+      "preferredFootprintStatus": "integrated V.d-7B preferredFootprint + shapePenalty",
+      "floors": 2,
+      "requiredParcels": 2,
+      "candidateSource": "Kenney City Kit Industrial · building-j.glb · CC0-1.0",
+      "finalSource": "candidate evidence",
+      "renderedStates": {
+        "complete": "6588215f5b3011a4f864aa968ea43a10750c6f12ed83b66d9bda251688445942"
+      },
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ],
+      "mode": "imported",
+      "orientation": [
+        45
+      ],
+      "status": "CANDIDATE EVIDENCE"
+    },
+    {
+      "type": "steelworks",
       "targetFootprintCells": 12,
       "preferredFootprint": {
         "width": 3,
         "height": 4
       },
-      "preferredFootprintStatus": "manifest baseline; domain contract pending V.d-7B integration",
-      "floors": 4,
-      "requiredParcels": 1,
-      "candidateSource": "Quaternius Downtown composition",
-      "finalSource": null,
-      "proceduralStates": {
-        "complete": "b0c8f878f0f87ae4d47492793d12d8c08e899e694d5125565dfbab7525bf13ac",
-        "construction": "48a372c8339b5fd3b78c2f329be3867b842af183b5ba418a213a7d62d0647f16",
-        "damaged": "870a82edce2beb4f6e955067576a031a1b93a6309e598de4a5bc70a50ac07f39",
-        "burning": "d47144eb69e454c1d9e31362dcf9a881a3c0ea3bcee22d1193bedcfe4b6e125f"
+      "preferredFootprintStatus": "integrated V.d-7B preferredFootprint + shapePenalty",
+      "floors": 2,
+      "requiredParcels": 3,
+      "candidateSource": "Kenney City Kit Industrial · building-h.glb · CC0-1.0",
+      "finalSource": "candidate evidence",
+      "renderedStates": {
+        "complete": "b9127b5f444eb333195fe6a4846549c292538dfc4d2c9c423f4a401559010015"
       },
-      "proceduralDuplicates": [],
-      "blenderAsset": null,
-      "blenderDuplicates": [],
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ],
+      "mode": "imported",
       "orientation": [
         45
       ],
-      "status": "PROCEDURAL BASELINE"
+      "status": "CANDIDATE EVIDENCE"
+    },
+    {
+      "type": "town_hall",
+      "targetFootprintCells": 32,
+      "preferredFootprint": {
+        "width": 8,
+        "height": 4
+      },
+      "preferredFootprintStatus": "integrated V.d-7B preferredFootprint + shapePenalty",
+      "floors": 3,
+      "requiredParcels": 1,
+      "candidateSource": "Kenney City Kit Commercial · building-k.glb · CC0-1.0",
+      "finalSource": "candidate evidence",
+      "renderedStates": {
+        "complete": "48822eff16c0638d11a54ffcf33c322003a72a42ce720669f83802caf7fcd265"
+      },
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ],
+      "mode": "imported",
+      "orientation": [
+        45
+      ],
+      "status": "CANDIDATE EVIDENCE"
     },
     {
       "type": "school_block",
@@ -277,24 +278,24 @@
         "width": 2,
         "height": 7
       },
-      "preferredFootprintStatus": "manifest baseline; domain contract pending V.d-7B integration",
+      "preferredFootprintStatus": "integrated V.d-7B preferredFootprint + shapePenalty",
       "floors": 3,
       "requiredParcels": 1,
-      "candidateSource": "Quaternius Downtown composition",
-      "finalSource": null,
-      "proceduralStates": {
-        "complete": "c35689f9c47ee1e3efd8742a35aac2e52f7383ed71142b818e15a946095db140",
-        "construction": "e6eaa2f9fa0c1ccbe37db2feb12c6bc07d0123aede5658569ebec4e6172b7511",
-        "damaged": "f987f1051864fcf955293c3b4a3102109bb4f6408d6040ea04f1d5895cbe4613",
-        "burning": "bd93b8f3f28dc9082ed1fa91ee4507fac84f8aa4407d2c417ad445b9e5daba9c"
+      "candidateSource": "Kenney City Kit Commercial · building-i.glb · CC0-1.0",
+      "finalSource": "candidate evidence",
+      "renderedStates": {
+        "complete": "af86e3c3fa8e37e11c04a3fdb50f2dfa07d98cc20241deae1affefeb1355baf5"
       },
-      "proceduralDuplicates": [],
-      "blenderAsset": null,
-      "blenderDuplicates": [],
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ],
+      "mode": "imported",
       "orientation": [
         45
       ],
-      "status": "PROCEDURAL BASELINE"
+      "status": "CANDIDATE EVIDENCE"
     },
     {
       "type": "clinic",
@@ -303,24 +304,24 @@
         "width": 2,
         "height": 3
       },
-      "preferredFootprintStatus": "manifest baseline; domain contract pending V.d-7B integration",
+      "preferredFootprintStatus": "integrated V.d-7B preferredFootprint + shapePenalty",
       "floors": 2,
       "requiredParcels": 1,
-      "candidateSource": "Quaternius Downtown composition",
-      "finalSource": null,
-      "proceduralStates": {
-        "complete": "4dd4ecf1c0ba71a336204ab6b860abd7c9b3d717130bdca5a79e9a4b696cfb5b",
-        "construction": "e02ef1b87f1da7849fcdcfebac48cb9fa7f53045ead8d6c40a5e8a0ffc2bda6e",
-        "damaged": "71ead55122432f9861549fc86a51d99f89fe5a9ae564e641cf3e7168134ee0dd",
-        "burning": "9729975f94cc773c854de66704ec320febf93f657e91c3bc61fc61e2641342e2"
+      "candidateSource": "Kenney City Kit Commercial · building-e.glb · CC0-1.0",
+      "finalSource": "candidate evidence",
+      "renderedStates": {
+        "complete": "086be7703d403f92f4b188f95d06960a10b46ad49fb1c3490d5d946093524ae6"
       },
-      "proceduralDuplicates": [],
-      "blenderAsset": null,
-      "blenderDuplicates": [],
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ],
+      "mode": "imported",
       "orientation": [
         45
       ],
-      "status": "PROCEDURAL BASELINE"
+      "status": "CANDIDATE EVIDENCE"
     },
     {
       "type": "police_station",
@@ -329,24 +330,24 @@
         "width": 2,
         "height": 3
       },
-      "preferredFootprintStatus": "manifest baseline; domain contract pending V.d-7B integration",
+      "preferredFootprintStatus": "integrated V.d-7B preferredFootprint + shapePenalty",
       "floors": 2,
       "requiredParcels": 1,
-      "candidateSource": "Quaternius Downtown + KayKit props",
-      "finalSource": null,
-      "proceduralStates": {
-        "complete": "8bee4b6b00dd0e62376f18d6780c9dc2f2737e01b21de2d3d9ce65fc7e0a1046",
-        "construction": "09c5f19775f60c857ee2466ea10bc4e73171b13f8fc8ad26be6c76faadd90335",
-        "damaged": "92f212b4a8e28496ecccb550821a87775232a8116c95aed031cd08c522448efe",
-        "burning": "86cd1e9705f7e7ecd05b55ceac1a59bea97c8a9d30362ba5d6ad3093c1e17c21"
+      "candidateSource": "Kenney City Kit Commercial · building-f.glb · CC0-1.0",
+      "finalSource": "candidate evidence",
+      "renderedStates": {
+        "complete": "a6f372aed6e32d93209d5e2e9b0b99e8366be4ad284967772f0d0d81055ef184"
       },
-      "proceduralDuplicates": [],
-      "blenderAsset": null,
-      "blenderDuplicates": [],
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ],
+      "mode": "imported",
       "orientation": [
         45
       ],
-      "status": "PROCEDURAL BASELINE"
+      "status": "CANDIDATE EVIDENCE"
     },
     {
       "type": "fire_station",
@@ -355,24 +356,24 @@
         "width": 2,
         "height": 4
       },
-      "preferredFootprintStatus": "manifest baseline; domain contract pending V.d-7B integration",
+      "preferredFootprintStatus": "integrated V.d-7B preferredFootprint + shapePenalty",
       "floors": 2,
       "requiredParcels": 1,
-      "candidateSource": "Quaternius Downtown + Kenney vehicle language",
-      "finalSource": null,
-      "proceduralStates": {
-        "complete": "3ffb54ef6348374b9afd2b11490ed6d97b590038f60f3d46e2f61c16580a7dc0",
-        "construction": "3ffc4943d0c118c2950ed39d717abcf4de85bc77ccafe3ede2c116b5dc953761",
-        "damaged": "a52c68ada873fcd126b813729622162db076227e70062cac0eed3348782d725d",
-        "burning": "33c05f3e276950f69fef113a36be701f157968f3c38628dfaec905b148837669"
+      "candidateSource": "Kenney City Kit Commercial · building-g.glb · CC0-1.0",
+      "finalSource": "candidate evidence",
+      "renderedStates": {
+        "complete": "87f34b51e1b98ebfd97875a17a2d74a31a8d28f843dd47ef8ad95150f54f8e2a"
       },
-      "proceduralDuplicates": [],
-      "blenderAsset": null,
-      "blenderDuplicates": [],
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ],
+      "mode": "imported",
       "orientation": [
         45
       ],
-      "status": "PROCEDURAL BASELINE"
+      "status": "CANDIDATE EVIDENCE"
     },
     {
       "type": "market_hall",
@@ -381,70 +382,134 @@
         "width": 2,
         "height": 5
       },
-      "preferredFootprintStatus": "manifest baseline; domain contract pending V.d-7B integration",
+      "preferredFootprintStatus": "integrated V.d-7B preferredFootprint + shapePenalty",
       "floors": 2,
       "requiredParcels": 1,
-      "candidateSource": "Kenney Commercial + Quaternius Downtown",
-      "finalSource": null,
-      "proceduralStates": {
-        "complete": "98b57f0452d73131aa6059e00ddd2b959a646a7aefd3ca8fefeabece4f5ff71e",
-        "construction": "4c5c416f0fb5faabf72816d2009725cef63526664983897fc034a4a60f0a4d85",
-        "damaged": "3d280be99a9c72df643aabfa3d29201855165f560277c5b1e5df051d58d6d2ca",
-        "burning": "67c6e81deebe750edf0c732bb7c5cc75606d50f459dffe0d11c4d41b237b8217"
+      "candidateSource": "Kenney City Kit Commercial · building-h.glb · CC0-1.0",
+      "finalSource": "candidate evidence",
+      "renderedStates": {
+        "complete": "29f6f67749d4375ffd6be1bdf0ec5f2d498a080045b37b80ba1d51e9afa1c40a"
       },
-      "proceduralDuplicates": [],
-      "blenderAsset": null,
-      "blenderDuplicates": [],
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ],
+      "mode": "imported",
       "orientation": [
         45
       ],
-      "status": "PROCEDURAL BASELINE"
+      "status": "CANDIDATE EVIDENCE"
     }
   ],
-  "blenderStateGaps": [
+  "stateGaps": [
     {
-      "id": "bld_shopfront",
-      "duplicateStates": [
+      "id": "row_house",
+      "missingStates": [
         "construction",
         "damaged",
         "burning"
       ]
     },
     {
-      "id": "bld_commercial_b",
-      "duplicateStates": [
+      "id": "apartment_block",
+      "missingStates": [
         "construction",
         "damaged",
         "burning"
       ]
     },
     {
-      "id": "bld_residential_a",
-      "duplicateStates": [
+      "id": "mixed_tenement",
+      "missingStates": [
         "construction",
         "damaged",
         "burning"
       ]
     },
     {
-      "id": "bld_commercial_c",
-      "duplicateStates": [
+      "id": "workshop",
+      "missingStates": [
         "construction",
         "damaged",
         "burning"
       ]
     },
     {
-      "id": "bld_residential_b",
-      "duplicateStates": [
+      "id": "warehouse",
+      "missingStates": [
         "construction",
         "damaged",
         "burning"
       ]
     },
     {
-      "id": "bld_residential_c",
-      "duplicateStates": [
+      "id": "cement_plant",
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ]
+    },
+    {
+      "id": "brickworks",
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ]
+    },
+    {
+      "id": "steelworks",
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ]
+    },
+    {
+      "id": "town_hall",
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ]
+    },
+    {
+      "id": "school_block",
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ]
+    },
+    {
+      "id": "clinic",
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ]
+    },
+    {
+      "id": "police_station",
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ]
+    },
+    {
+      "id": "fire_station",
+      "missingStates": [
+        "construction",
+        "damaged",
+        "burning"
+      ]
+    },
+    {
+      "id": "market_hall",
+      "missingStates": [
         "construction",
         "damaged",
         "burning"

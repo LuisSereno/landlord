@@ -3,6 +3,7 @@ import type { ViewProjectionV2 } from "@landlord/shared";
 import {
   IsometricSpikeScene,
   isometricSpikeGameConfig,
+  type MapPlacementTarget,
   type MapSelectionTarget,
   type MapOverlay,
 } from "./IsometricSpikeScene";
@@ -11,6 +12,7 @@ import type { TerrainStage } from "../visual-slice/terrain-paint";
 
 export type { MapOverlay } from "./IsometricSpikeScene";
 export type { MapSelectionTarget } from "./IsometricSpikeScene";
+export type { MapPlacementTarget } from "./IsometricSpikeScene";
 
 const mountedScenes = new WeakMap<Phaser.Game, IsometricSpikeScene>();
 
@@ -27,6 +29,11 @@ export function mountIsometricSpike(
   });
   mountedScenes.set(game, scene);
   return game;
+}
+
+/** Desasocia una escena antes de destruir Phaser para ignorar efectos React tardíos. */
+export function unmountIsometricSpike(game: Phaser.Game): void {
+  mountedScenes.delete(game);
 }
 
 /**
@@ -56,6 +63,10 @@ export function updateIsometricProjection(game: Phaser.Game, projection: ViewPro
   mountedScenes.get(game)?.setProjection(projection);
 }
 
+export function setIsometricVisualMood(game: Phaser.Game, mood: "day" | "night"): void {
+  mountedScenes.get(game)?.setVisualMood(mood);
+}
+
 export function updateIsometricOverlay(game: Phaser.Game, overlay: MapOverlay): void {
   mountedScenes.get(game)?.setOverlay(overlay);
 }
@@ -77,6 +88,18 @@ export function setIsometricSelectionTarget(
   target: MapSelectionTarget | null,
 ): void {
   mountedScenes.get(game)?.setSelectionTarget(target);
+}
+
+/** V.d-7C · capa dedicada de colocación: entrar, actualizar y limpiar el modo. */
+export function setIsometricPlacement(game: Phaser.Game, target: MapPlacementTarget | null): void {
+  mountedScenes.get(game)?.setPlacement(target);
+}
+
+export function setIsometricPlacementCandidateListener(
+  game: Phaser.Game,
+  listener: (candidateId: string) => void,
+): void {
+  mountedScenes.get(game)?.setPlacementCandidateListener(listener);
 }
 
 export function setIsometricEntityPickedListener(

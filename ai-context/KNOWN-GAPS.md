@@ -337,12 +337,14 @@ Sigue abierto:
   propio de sprites de edificio y obra, portal de tooltips fuera del clipping, lenguaje
   player-facing de facilities y smoke/capturas visuales. El playtest humano sigue
   `PENDING HUMAN PLAYTEST`; V.d no se cierra.
-- **Acería inalcanzable con la ciudad generada.** La acería exige 3 parcelas industriales
-  contiguas del mismo `developmentCodeId`; los bloques industriales se generan por pares, así que
-  ningún seed canónico contiene un triplete natural (medido: 281-305 parcelas industriales y 784-850
-  pares por seed, 0 tripletes en los ocho seeds comprobados). La regla no se relaja: es deuda de
-  contenido/generación (agrupar tres parcelas industriales o permitir subdivisión) que debe
-  decidirse antes de prometer la acería como edificio jugable.
+- **Acería: disponibilidad ciudad-global garantizada (D-106 / Gate B, 2026-11-12).** La acería exige 3
+  parcelas industriales contiguas del mismo `developmentCodeId`. Los bloques industriales se generan
+  por pares, así que un seed puede no tener un triplete natural; `createCity` ahora recompone el
+  primer distrito industrial que pueda hospedar un sitio triple legal (issue
+  `STEELWORKS_SITE_MISSING` + reintentos del generador) si la ciudad no lo tiene. El barrido de 60
+  seeds (`pnpm placement:reachability`) confirma ≥1 colocación legal de acería (y de los 9 tipos
+  privados) en cada ciudad, sin relajar la regla de contigüidad ni la norma. La idoneidad de
+  producción del complejo sigue leyéndose de la parcela primaria (simplificación Alpha declarada).
 - **La idoneidad de producción de un complejo se lee de la parcela primaria.** Al completar, la
   facility toma `productionSuitability` de `parcelIds[0]` (ancla canónica). Para Alpha es una
   simplificación declarada: un complejo no promedia la idoneidad de todas sus parcelas. Cambiarlo
@@ -442,6 +444,18 @@ Pendiente:
 - decidir política Git LFS antes de versionar binarios externos;
 - probar importación/normalización de Quaternius/Kenney en Blender 5.2.2;
 - validar que el Landlord Style Layer unifica assets de proveedores distintos.
+
+Hallazgo V.i remediation (2026-11-07, medido): **no-determinismo raster byte-level preexistente**.
+La composición y la `compositionSignature` son deterministas (mismo seed ⇒ mismos módulos/transformadas),
+pero el PNG final varía entre procesos: mismo seed repetido en HEAD da sha `c241ab5d…` vs `c5e3a001…`,
+y en el árbol de remediation `e025c8bc…` vs `c6f16457…`, con framing y style idénticos. Los edits
+aditivos de la remediation (renderScale, stackOn de volúmenes enteros contenidos, skip de cubierta del
+volumen que sostiene linterna) son composition-neutral: firma HEAD == firma remediation en row_house y
+town_hall. Consecuencia: los PNG promovidos son evidencia congelada; la promoción copia verbatim y
+cross-checkea el sha almacenado, pero re-renderizar no reproduce el sha de candidatos antiguos.
+Reapertura: si la regresión visual por pixel-diff o la promoción reproducible exigen estabilidad byte,
+fijar el muestreo/jitter del pase de sombra y luces de EEVEE Next (hoy `use_taa_reprojection=False` y
+muestras fijas no bastan).
 
 ## Legal
 - clearance de marca;

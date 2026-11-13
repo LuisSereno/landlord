@@ -10,8 +10,13 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://quaternius.itch.io/downtown-city-megakit",
-      "unitScale": 1.0,
-      "extractDir": "quaternius/downtown-city-megakit"
+      "unitScale": 1,
+      "extractDir": "quaternius/downtown-city-megakit",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_quaternius_base_characters",
@@ -21,8 +26,13 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://quaternius.itch.io/universal-base-characters",
-      "unitScale": 1.0,
-      "extractDir": "quaternius/base-characters"
+      "unitScale": 1,
+      "extractDir": "quaternius/base-characters",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_quaternius_animation_library",
@@ -32,7 +42,12 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://quaternius.itch.io/universal-animation-library",
-      "extractDir": "quaternius/animation-library"
+      "extractDir": "quaternius/animation-library",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_quaternius_animation_library_2",
@@ -42,7 +57,12 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://quaternius.itch.io/universal-animation-library-2",
-      "extractDir": "quaternius/animation-library-2"
+      "extractDir": "quaternius/animation-library-2",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_kenney_city_commercial",
@@ -52,8 +72,13 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/city-kit-commercial",
-      "unitScale": 4.0,
-      "extractDir": "kenney/city-kit-commercial"
+      "unitScale": 4,
+      "extractDir": "kenney/city-kit-commercial",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_kenney_city_industrial",
@@ -63,8 +88,13 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/city-kit-industrial",
-      "unitScale": 4.0,
-      "extractDir": "kenney/city-kit-industrial"
+      "unitScale": 4,
+      "extractDir": "kenney/city-kit-industrial",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_kenney_city_roads",
@@ -74,8 +104,13 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/city-kit-roads",
-      "unitScale": 4.0,
-      "extractDir": "kenney/city-kit-roads"
+      "unitScale": 4,
+      "extractDir": "kenney/city-kit-roads",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_kenney_city_suburban",
@@ -85,8 +120,13 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/city-kit-suburban",
-      "unitScale": 4.0,
-      "extractDir": "kenney/city-kit-suburban"
+      "unitScale": 4,
+      "extractDir": "kenney/city-kit-suburban",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_kenney_car_kit",
@@ -97,7 +137,12 @@
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/car-kit",
       "unitScale": 1.3,
-      "extractDir": "kenney/car-kit"
+      "extractDir": "kenney/car-kit",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_kenney_nature_kit",
@@ -107,8 +152,13 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://kenney.nl/assets/nature-kit",
-      "unitScale": 4.0,
-      "extractDir": "kenney/nature-kit"
+      "unitScale": 4,
+      "extractDir": "kenney/nature-kit",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_kaykit_city_builder_bits",
@@ -118,8 +168,13 @@
       "license": "CC0-1.0",
       "verification": "CC0 asserted by the author at the sourceUrl and shipped inside the archive as Assets/LICENSE.txt",
       "sourceUrl": "https://kaylousberg.itch.io/city-builder-bits",
-      "unitScale": 4.0,
-      "extractDir": "kaykit/city-builder-bits"
+      "unitScale": 4,
+      "extractDir": "kaykit/city-builder-bits",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_polyhaven_asphalt_07",
@@ -129,7 +184,12 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://polyhaven.com/a/asphalt_07",
-      "extractDir": "polyhaven/asphalt_07"
+      "extractDir": "polyhaven/asphalt_07",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_polyhaven_concrete_wall_003",
@@ -139,7 +199,12 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://polyhaven.com/a/concrete_wall_003",
-      "extractDir": "polyhaven/concrete_wall_003"
+      "extractDir": "polyhaven/concrete_wall_003",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_polyhaven_red_brick_03",
@@ -149,7 +214,12 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://polyhaven.com/a/red_brick_03",
-      "extractDir": "polyhaven/red_brick_03"
+      "extractDir": "polyhaven/red_brick_03",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_polyhaven_red_bricks_02",
@@ -159,7 +229,12 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://polyhaven.com/a/red_bricks_02",
-      "extractDir": "polyhaven/red_bricks_02"
+      "extractDir": "polyhaven/red_bricks_02",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_polyhaven_rusty_metal_02",
@@ -169,7 +244,12 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://polyhaven.com/a/rusty_metal_02",
-      "extractDir": "polyhaven/rusty_metal_02"
+      "extractDir": "polyhaven/rusty_metal_02",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
     },
     {
       "id": "src_polyhaven_wood_planks_grey",
@@ -179,7 +259,67 @@
       "license": "CC0-1.0",
       "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
       "sourceUrl": "https://polyhaven.com/a/wood_planks_grey",
-      "extractDir": "polyhaven/wood_planks_grey"
+      "extractDir": "polyhaven/wood_planks_grey",
+      "integrity": {
+        "type": "archived",
+        "archivedOn": "2026-11-04",
+        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+      }
+    },
+    {
+      "id": "src_polyhaven_cobblestone_pavement",
+      "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/cobblestone_pavement/cobblestone_pavement_2k.blend",
+      "sha256": "95ef2d8af89844a0c62c25d1159d208e75289467ee4414627f1cbeec6cfafa1f",
+      "origin": "public_domain",
+      "license": "CC0-1.0",
+      "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
+      "sourceUrl": "https://polyhaven.com/a/cobblestone_pavement",
+      "unitScale": 1,
+      "extractDir": "polyhaven/cobblestone_pavement"
+    },
+    {
+      "id": "src_polyhaven_stone_wall_02",
+      "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/stone_wall_02/stone_wall_02_2k.blend",
+      "sha256": "010453981b1beab2b53ccc6e89c553a5db00da91baa91f10e95865897b81b486",
+      "origin": "public_domain",
+      "license": "CC0-1.0",
+      "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
+      "sourceUrl": "https://polyhaven.com/a/stone_wall_02",
+      "unitScale": 1,
+      "extractDir": "polyhaven/stone_wall_02"
+    },
+    {
+      "id": "src_polyhaven_corrugated_iron_03",
+      "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03/corrugated_iron_03_2k.blend",
+      "sha256": "cc3eb289e2f65f6f14657cfe2a03ed4b67b5f2e52ed46c43469015fa46bf9790",
+      "origin": "public_domain",
+      "license": "CC0-1.0",
+      "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
+      "sourceUrl": "https://polyhaven.com/a/corrugated_iron_03",
+      "unitScale": 1,
+      "extractDir": "polyhaven/corrugated_iron_03"
+    },
+    {
+      "id": "src_polyhaven_brown_mud_03",
+      "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/brown_mud_03/brown_mud_03_2k.blend",
+      "sha256": "56c01405a339db261390e4f32aed0c9844cf4b218d9a99a489e360d127d0f37a",
+      "origin": "public_domain",
+      "license": "CC0-1.0",
+      "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
+      "sourceUrl": "https://polyhaven.com/a/brown_mud_03",
+      "unitScale": 1,
+      "extractDir": "polyhaven/brown_mud_03"
+    },
+    {
+      "id": "src_polyhaven_grass_ground",
+      "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/grass_ground/grass_ground_2k.blend",
+      "sha256": "d1a6c062b7b4d55dfbd857ed67c6e97a0225eefd89bd338b9c0fbe125ac841b4",
+      "origin": "public_domain",
+      "license": "CC0-1.0",
+      "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
+      "sourceUrl": "https://polyhaven.com/a/grass_ground",
+      "unitScale": 1,
+      "extractDir": "polyhaven/grass_ground"
     },
     {
       "id": "src_microsoft_rocketbox",
@@ -201,6 +341,83 @@
         "licenseFile": "blender_artist/staging/third_party/mit/rocketbox/LICENSE-MIT.txt",
         "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
       }
+    },
+    {
+      "id": "src_original_civic_pediment",
+      "path": "blender_artist/sources/original/civic_pediment.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por create_original_civic_pediment.py",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_school_cupola",
+      "path": "blender_artist/sources/original/school_cupola.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por create_original_school_cupola.py",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_construction_scaffold",
+      "path": "blender_artist/sources/original/construction_scaffold.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por create_original_scaffold.py",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_construction_barrier",
+      "path": "blender_artist/sources/original/construction_barrier.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por create_original_state_modules.py",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_damage_debris",
+      "path": "blender_artist/sources/original/damage_debris.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por create_original_state_modules.py",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_fire_flame",
+      "path": "blender_artist/sources/original/fire_flame.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por create_original_state_modules.py",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_fire_smoke",
+      "path": "blender_artist/sources/original/fire_smoke.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por create_original_state_modules.py",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
     }
   ],
   "quarantined": [

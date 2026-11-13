@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import type { ViewProjectionV2 } from "@landlord/shared";
+import type { BuildingType, CrewId, ViewProjectionV2 } from "@landlord/shared";
 
 import { BuildCatalog } from "./build-catalog";
 import { BuildingThumbnail } from "./building-thumbnail";
@@ -11,6 +11,14 @@ import {
 } from "./disabled-reasons";
 import { HelpPopover, HelpTooltip } from "./help";
 import { ResourceIcon, UiIcon } from "./icons";
+import { PlacementPanel } from "./placement-panel";
+import {
+  constructionStageLabel,
+  constructionVisualStage,
+  crewStateLabel,
+} from "../isometric/construction-stages";
+import { crewRosterCounts } from "../isometric/crew-presence";
+import type { PendingPlacement, PlacementHandlers } from "./placement";
 import {
   buildingDisplayName,
   buildingStateLabel,
@@ -71,6 +79,14 @@ export type PanelContext = {
   onBeginSite: (site: PendingDevelopmentSite) => void;
   onUpdateSite: (site: PendingDevelopmentSite | null) => void;
   onCancelSite: () => void;
+  /**
+   * V.d-7C · la colocación es estado de React (transitorio, nunca persistido). El panel la enseña y
+   * pide acciones; quién decide qué es legal sigue siendo el motor.
+   */
+  pendingPlacement: PendingPlacement | null;
+  placementHandlers: PlacementHandlers | null;
+  placementBlockers: readonly string[];
+  onBeginPlacement: (buildingType: BuildingType, parcelIds: readonly string[]) => void;
 };
 
 /**
@@ -208,18 +224,33 @@ function ParcelPanel({ parcel, context }: { parcel: ProjectedParcel; context: Pa
         </dl>
       </section>
 
-      {context.pendingSite ? <SiteAssemblyPanel context={context} parcel={parcel} /> : null}
-
-      {/* Un solar propio y vacío prioriza construir: el catálogo va antes que el detalle. */}
-      {owned && vacant ? (
-        <BuildCatalog
-          actions={actions}
-          calendar={calendar}
-          economy={economy}
-          onBeginSite={context.onBeginSite}
-          parcel={parcel}
+      {context.pendingPlacement && context.placementHandlers ? (
+        /**
+         * V.d-7C · mientras hay una colocación abierta, el mapa es el protagonista: la ficha muestra
+         * las candidatas legales del motor y el ensamblado/catálogo quedan detrás hasta confirmar o
+         * cancelar. Cancelar aquí no deshace la propiedad de las parcelas.
+         */
+        <PlacementPanel
+          blockers={context.placementBlockers}
+          handlers={context.placementHandlers}
+          pending={context.pendingPlacement}
         />
-      ) : null}
+      ) : (
+        <>
+          {context.pendingSite ? <SiteAssemblyPanel context={context} parcel={parcel} /> : null}
+
+          {/* Un solar propio y vacío prioriza construir: el catálogo va antes que el detalle. */}
+          {owned && vacant ? (
+            <BuildCatalog
+              calendar={calendar}
+              economy={economy}
+              onBeginPlacement={context.onBeginPlacement}
+              onBeginSite={context.onBeginSite}
+              parcel={parcel}
+            />
+          ) : null}
+        </>
+      )}
 
       <section className="panel-section">
         <h3>
@@ -372,10 +403,10 @@ function SiteAssemblyPanel({
       {ready ? (
         <button
           className="primary-action"
-          onClick={() => context.actions.startConstruction(pending.parcelIds, pending.buildingType)}
+          onClick={() => context.onBeginPlacement(pending.buildingType, pending.parcelIds)}
           type="button"
         >
-          <UiIcon name="construction" /> Iniciar obra con {pending.parcelIds.length} solares
+          <UiIcon name="construction" /> Elegir ubicación para {pending.parcelIds.length} solares
         </button>
       ) : (
         <p className="muted">Selecciona los solares contiguos que faltan para iniciar la obra.</p>
@@ -385,6 +416,25 @@ function SiteAssemblyPanel({
       </button>
     </section>
   );
+}
+
+/**
+ * V.k.4 (el resumen nació en V.d-7C) · la plantilla de una cuadrilla. No mueve ni un agente y no
+ * decide nada: el recuento por estado lo hace `crewRosterCounts`, la misma puerta por la que la
+ * escena sabe quién está en obra. Mientras el panel formatee y la escena pinte a través de ese
+ * helper, las dos superficies no pueden discrepar sobre la misma proyección.
+ */
+function crewRosterSummary(context: PanelContext, site: ProjectedSite, crewId: CrewId): string {
+  const counts = crewRosterCounts({
+    economy: context.economy,
+    agents: context.projection.agents,
+    siteId: site.id,
+    crewId,
+  });
+  if (counts.length === 0) return "sin datos";
+  return counts
+    .map(({ state, members }) => `${members} ${crewStateLabel(state).toLowerCase()}`)
+    .join(" · ");
 }
 
 function serviceLabel(service: "security" | "fire" | "health" | "education" | "market"): string {
@@ -803,20 +853,30 @@ function ConstructionPanel({
         >
           <span style={{ width: `${progress}%` }} />
         </div>
-        <p className="muted">{progress} % completado</p>
+        <p className="muted">
+          {progress} % completado ·{" "}
+          {constructionStageLabel(constructionVisualStage(site.progress, site.workRequired))}
+        </p>
         <h3>
           <UiIcon name="crew" /> Cuadrillas <HelpTooltip topic="crew" />
         </h3>
         {site.assignedCrewIds.length === 0 ? (
           <p className="muted">Ninguna cuadrilla asignada todavía.</p>
         ) : (
-          <ul className="list-plain" role="list">
-            {site.assignedCrewIds.map((crewId) => (
-              <li key={crewId}>
-                <UiIcon name="crew" size={14} /> {crewDisplayName(crewId)}
-              </li>
-            ))}
-          </ul>
+          <>
+            <ul className="list-plain" role="list">
+              {site.assignedCrewIds.map((crewId) => (
+                <li key={crewId}>
+                  <UiIcon name="crew" size={14} /> {crewDisplayName(crewId)} ·{" "}
+                  {crewRosterSummary(context, site, crewId)}
+                </li>
+              ))}
+            </ul>
+            <p className="muted">
+              La obra sólo avanza con gente presente en el solar: los estados salen de la posición y
+              la tarea que ya decide la simulación.
+            </p>
+          </>
         )}
         {owned ? (
           <ul className="list-plain" role="list">

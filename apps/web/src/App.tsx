@@ -12,16 +12,21 @@ import type { BuildingType, ViewProjectionV2 } from "@landlord/shared";
 
 import {
   mountIsometricSpike,
+  unmountIsometricSpike,
   focusIsometricCell,
   setIsometricEntityPickedListener,
   setIsometricIndicatorListener,
+  setIsometricPlacement,
+  setIsometricPlacementCandidateListener,
   setIsometricSelectionTarget,
+  setIsometricVisualMood,
   updateIsometricOverlay,
   updateIsometricProjection,
   type MapSelectionTarget,
   type MapOverlay,
 } from "./isometric/mount";
 import type { GridCell } from "./isometric/coordinates";
+import { applyQaRoadOverride, isQaRoadFixture } from "./isometric/road-qa-override";
 import { BenchmarkApp } from "./BenchmarkApp";
 import { ArtLab } from "./ArtLab";
 import { VisualSlice } from "./VisualSlice";
@@ -46,6 +51,21 @@ import {
 } from "./ui/selection";
 import type { GameActions, HubKind, ProjectedParcel } from "./ui/types";
 import { siteAssemblyCandidates, type PendingDevelopmentSite } from "./ui/site-assembly";
+import { constructionBlockedReasons } from "./ui/disabled-reasons";
+import { applyVisualMood, readVisualMood, type VisualMood } from "./visual-mood";
+import {
+  beginPlacementRequest,
+  nextPlacementCandidate,
+  placementAnswerReceived,
+  placementConfirmIssues,
+  placementRequestFailed,
+  previousPlacementCandidate,
+  rotatePlacementCandidate,
+  selectPlacementCandidate,
+  selectedCandidate,
+  type PendingPlacement,
+  type PlacementHandlers,
+} from "./ui/placement";
 
 const PLAYER = "org_00000001";
 
@@ -68,20 +88,133 @@ export function App() {
   // La vista normal es el punto de partida: las capas semánticas son una decisión explícita
   // del jugador y no deben convertir el mapa base en un plano catastral.
   const [overlay, setOverlay] = useState<MapOverlay>("none");
+  /**
+   * V.d-7C · colocación interactiva. Estado de React y nada más: las candidatas las enumera el motor
+   * por petición de sólo lectura, y si el jugador cancela no se ha enviado ningún comando.
+   */
+  const [pendingPlacement, setPendingPlacement] = useState<PendingPlacement | null>(null);
+  const placementRequestKey = useRef<string | null>(null);
+  const placementConfirmedId = useRef<string | null>(null);
   const [hub, setHub] = useState<HubKind | null>(null);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const [debugOpen, setDebugOpen] = useState(false);
+  const [visualMood, setVisualMood] = useState<VisualMood>(() => readVisualMood());
   const [readNotifications, setReadNotifications] = useState<ReadonlySet<string>>(new Set());
   const [dismissedOnboarding, setDismissedOnboarding] = useState<ReadonlySet<string>>(new Set());
   const mapRef = useRef<MapViewportHandle>(null);
   const debug = useMemo(() => new URLSearchParams(window.location.search).get("debug") === "1", []);
+  // Gate D · fixture QA de presentación: sólo con cameraTest=1, sustituye el canal vial de la
+  // proyección renderizada (nunca el estado) para poder capturar la autovía de 7.
+  const qaRoads = useMemo(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("cameraTest") !== "1") return null;
+    const value = params.get("qaRoads");
+    return isQaRoadFixture(value) ? value : null;
+  }, []);
+  const renderedProjection = useMemo(
+    () => (projection && qaRoads ? applyQaRoadOverride(projection, qaRoads) : projection),
+    [projection, qaRoads],
+  );
+
+  useEffect(() => {
+    applyVisualMood(visualMood);
+  }, [visualMood]);
 
   const selectParcel = useCallback((parcel: ProjectedParcel) => {
     setSelectionTarget({ kind: "parcel", parcelId: parcel.id });
     setHub(null);
     mapRef.current?.focus(parcel.cell);
   }, []);
+
+  const cancelPlacement = useCallback(() => {
+    setPendingPlacement(null);
+    placementRequestKey.current = null;
+    placementConfirmedId.current = null;
+  }, []);
+
+  const beginPlacement = useCallback(
+    (buildingType: BuildingType, parcelIds: readonly string[]) => {
+      const districtId = economy?.district.id;
+      if (!districtId) return;
+      placementRequestKey.current = null;
+      placementConfirmedId.current = null;
+      setPendingPlacement(
+        beginPlacementRequest({
+          buildingType,
+          districtId,
+          parcelIds: [...parcelIds].sort((left, right) => left.localeCompare(right)),
+        }),
+      );
+    },
+    [economy],
+  );
+
+  /**
+   * Las candidatas se piden cuando cambian los insumos autoritativos (parcela, tipo, conjunto), no
+   * por frame ni por movimiento de puntero (§46). Una clave por solicitud evita reenumerar en cada
+   * render y de paso impide el doble disparo de `StrictMode` en desarrollo.
+   */
+  useEffect(() => {
+    if (!pendingPlacement || pendingPlacement.status !== "requesting" || !client) return;
+    const key = `${pendingPlacement.districtId}|${pendingPlacement.parcelIds.join(",")}|${pendingPlacement.buildingType}`;
+    if (placementRequestKey.current === key) return;
+    placementRequestKey.current = key;
+    const request = pendingPlacement;
+    let discarded = false;
+    void client
+      .getDevelopmentPlacementCandidates({
+        buildingType: request.buildingType,
+        districtId: request.districtId,
+        parcelIds: [...request.parcelIds],
+      })
+      .then((answer) => {
+        if (discarded) return;
+        setPendingPlacement((current) => {
+          if (!current || current.status !== "requesting") return current;
+          return answer
+            ? placementAnswerReceived(current, answer)
+            : placementRequestFailed(current);
+        });
+      });
+    return () => {
+      discarded = true;
+    };
+  }, [client, pendingPlacement]);
+
+  /** El motor confirma la obra por la proyección: ahí se cierra el modo, no antes. */
+  useEffect(() => {
+    if (!pendingPlacement || !economy) return;
+    const built = economy.constructionSites.some(
+      (site) =>
+        site.buildingType === pendingPlacement.buildingType &&
+        site.parcelIds.length === pendingPlacement.parcelIds.length &&
+        site.parcelIds.every((id) => pendingPlacement.parcelIds.includes(id)),
+    );
+    if (built) cancelPlacement();
+  }, [cancelPlacement, economy, pendingPlacement]);
+
+  /**
+   * Razones que impiden confirmar sin impedir ver el mapa (§33): se leen de la proyección con el
+   * mismo helper que ya usa el catálogo, así que no se reinventa ninguna regla económica.
+   */
+  const placementBlockers = useMemo<readonly string[]>(() => {
+    if (!pendingPlacement || !economy) return [];
+    const option = economy.constructionOptions.find(
+      (entry) => entry.type === pendingPlacement.buildingType,
+    );
+    const parcel = economy.parcels.find((entry) => entry.id === pendingPlacement.parcelIds[0]);
+    if (!option || !parcel) return [];
+    return placementConfirmIssues(
+      constructionBlockedReasons({
+        option,
+        economy,
+        parcelOwned: parcel.ownerOrganizationId === PLAYER,
+        hasBuilding: parcel.buildingIds.length > 0,
+        permitted: parcel.permittedBuildingTypes.includes(option.type),
+      }),
+    );
+  }, [economy, pendingPlacement]);
 
   const onCellPicked = useCallback(
     (cell: GridCell) => {
@@ -91,6 +224,19 @@ export function App() {
     },
     [economy, projection],
   );
+
+  useEffect(() => {
+    mapRef.current?.setPlacement(
+      pendingPlacement && pendingPlacement.status === "placing"
+        ? {
+            buildingType: pendingPlacement.buildingType,
+            parcelIds: pendingPlacement.parcelIds,
+            candidates: pendingPlacement.candidates,
+            selectedCandidateId: pendingPlacement.selectedCandidateId,
+          }
+        : null,
+    );
+  }, [pendingPlacement]);
 
   useEffect(() => {
     mapRef.current?.setSelection(
@@ -158,6 +304,15 @@ export function App() {
     window.__landlordUiTest = {
       publicParcelCell: () =>
         economy?.parcels.find((parcel) => parcel.disposition === "public")?.cell ?? null,
+      firstBuildingCell: () => {
+        const building = economy?.buildings[0];
+        const cells = building?.footprintCells;
+        if (!cells?.length) return null;
+        return {
+          x: Math.round(cells.reduce((s, c) => s + c.x, 0) / cells.length),
+          y: Math.round(cells.reduce((s, c) => s + c.y, 0) / cells.length),
+        };
+      },
       marketableParcelCell: () =>
         economy?.parcels.find(
           (parcel) => parcel.disposition === "marketable" && !parcel.ownerOrganizationId,
@@ -193,6 +348,7 @@ export function App() {
           ? (economy?.parcels.find((parcel) => parcel.id === facility.parcelIds[0])?.cell ?? null)
           : null;
       },
+      roadSectionSummary: () => projection?.map.roadSection ?? null,
       pendingSite: () =>
         pendingSite && economy
           ? (() => {
@@ -244,6 +400,122 @@ export function App() {
           assignedCrewCount: site.assignedCrewIds.length,
           crewCapacity: site.crewCapacity,
         })) ?? [],
+      /** Sondas observacionales de V.d-7C: leen la proyección, no deciden nada por el jugador. */
+      cash: () => economy?.cash ?? null,
+      constructionSiteCount: () =>
+        economy?.constructionSites.filter((site) => site.ownerOrganizationId === PLAYER).length ??
+        0,
+      /** Huella real de la obra en curso: es lo que debe coincidir con el fantasma confirmado. */
+      ownedSiteFootprint: () => {
+        const site = economy?.constructionSites.find(
+          (entry) => entry.ownerOrganizationId === PLAYER,
+        );
+        if (!site) return null;
+        return {
+          buildingType: site.buildingType,
+          parcelIds: [...site.parcelIds].sort(),
+          orientation: site.orientation,
+          signature: [...site.footprintCells]
+            .map((cell) => `${cell.x},${cell.y}`)
+            .sort()
+            .join("|"),
+        };
+      },
+      /** Progreso de la obra propia: permite capturar cada etapa visible sin acelerar trampas. */
+      ownedSiteProgress: () => {
+        const site = economy?.constructionSites.find(
+          (entry) => entry.ownerOrganizationId === PLAYER,
+        );
+        if (!site) return null;
+        return {
+          progress: site.progress,
+          workRequired: site.workRequired,
+          assignedCrewIds: [...site.assignedCrewIds],
+        };
+      },
+      /** Solar comprable más pequeño del distrito observado: caso natural de «no cabe». */
+      smallestMarketableParcelCell: () => {
+        const candidates = (economy?.parcels ?? []).filter(
+          (parcel) =>
+            parcel.disposition === "marketable" &&
+            !parcel.ownerOrganizationId &&
+            parcel.buildingIds.length === 0,
+        );
+        if (candidates.length === 0) return null;
+        const smallest = candidates.reduce((best, parcel) =>
+          parcel.cells.length < best.cells.length ? parcel : best,
+        );
+        return smallest.cell;
+      },
+      /** Celda de un edificio ya terminado del distrito, para fotografiar su recinto. */
+      finishedBuildingCell: (buildingType: string) => {
+        const building = economy?.buildings.find((entry) => entry.type === buildingType);
+        if (!building) return null;
+        return economy?.parcels.find((parcel) => parcel.id === building.parcelIds[0])?.cell ?? null;
+      },
+      /** Celda de la primera parcela ampliable del ensamblado en curso (observacional). */
+      assemblyCandidateCell: () => {
+        if (!pendingSite || !economy) return null;
+        return siteAssemblyCandidates(economy, pendingSite)[0]?.cell ?? null;
+      },
+      /**
+       * Localizador de prueba: conjunto de parcelas COMPRABLES que forman un solar válido para el
+       * tipo pedido en el distrito observado. No decide elegibilidad de juego —el comando vuelve a
+       * validar todo— sólo dice dónde está un triplete que un humano también podría encontrar.
+       */
+      purchasableSiteForType: (buildingType: string) => {
+        if (!economy) return null;
+        const required =
+          economy.constructionOptions.find((option) => option.type === buildingType)
+            ?.siteRequirements.requiredParcels ?? 1;
+        const marketable = economy.parcels.filter(
+          (parcel) =>
+            parcel.disposition === "marketable" &&
+            !parcel.ownerOrganizationId &&
+            parcel.buildingIds.length === 0 &&
+            parcel.permittedBuildingTypes.includes(buildingType as never),
+        );
+        const byId = new Map<string, (typeof marketable)[number]>(
+          marketable.map((parcel) => [parcel.id, parcel]),
+        );
+        const neighbours = (parcel: (typeof marketable)[number]) =>
+          marketable.filter(
+            (other) =>
+              other.id !== parcel.id &&
+              other.developmentCodeId === parcel.developmentCodeId &&
+              other.cells.some((cell) =>
+                parcel.cells.some(
+                  (entry) => Math.abs(entry.x - cell.x) + Math.abs(entry.y - cell.y) === 1,
+                ),
+              ),
+          );
+        for (const seed of marketable) {
+          const frontier: string[][] = [[seed.id]];
+          while (frontier.length > 0) {
+            const set = frontier.shift()!;
+            if (set.length === required) {
+              const parcels = set.map((id) => byId.get(id)!).filter(Boolean);
+              if (parcels.length === required) return parcels.map((parcel) => parcel.id);
+              continue;
+            }
+            const last = byId.get(set[set.length - 1]!)!;
+            for (const next of neighbours(last))
+              if (!set.includes(next.id)) frontier.push([...set, next.id].sort());
+          }
+        }
+        return null;
+      },
+      /** Celda de una parcela concreta, para poder pincharla desde el smoke. */
+      parcelCellById: (parcelId: string) =>
+        economy?.parcels.find((parcel) => parcel.id === parcelId)?.cell ?? null,
+      inventory: () =>
+        economy
+          ? {
+              cement: economy.inventory.cement,
+              brick: economy.inventory.brick,
+              steel: economy.inventory.steel,
+            }
+          : null,
     };
     return () => {
       delete window.__landlordUiTest;
@@ -258,12 +530,22 @@ export function App() {
       else if (notificationsOpen) setNotificationsOpen(false);
       else if (debugOpen) setDebugOpen(false);
       else if (hub) setHub(null);
+      else if (pendingPlacement) cancelPlacement();
       else if (pendingSite) setPendingSite(null);
       else if (selectionTarget) setSelectionTarget(null);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [debugOpen, helpOpen, hub, notificationsOpen, pendingSite, selectionTarget]);
+  }, [
+    cancelPlacement,
+    debugOpen,
+    helpOpen,
+    hub,
+    notificationsOpen,
+    pendingPlacement,
+    pendingSite,
+    selectionTarget,
+  ]);
 
   /** Rutina de cartera (WP3.12): ocupa vacantes y asigna cuadrillas libres con comandos normales. */
   const runPortfolioRoutine = useCallback(async () => {
@@ -323,9 +605,13 @@ export function App() {
           () => client!.buyParcel(parcelId),
           "Parcela comprada; el rival también busca oportunidades.",
         ),
-      startConstruction: (parcelIds, buildingType: BuildingType) =>
+      startConstruction: (
+        parcelIds: readonly string[],
+        buildingType: BuildingType,
+        placementId?: string,
+      ) =>
         run(
-          () => client!.startConstruction([...parcelIds], buildingType),
+          () => client!.startConstruction([...parcelIds], buildingType, placementId),
           "Obra iniciada; asigna una cuadrilla para que avance.",
         ),
       cancelConstruction: (siteId) =>
@@ -389,6 +675,72 @@ export function App() {
       placeStructure: (cell) => void session.placeStructure(cell),
     };
   }, [client, runPortfolioRoutine, session]);
+
+  const placementHandlers = useMemo<PlacementHandlers | null>(
+    () =>
+      pendingPlacement
+        ? {
+            cycle: (delta) =>
+              setPendingPlacement((current) =>
+                current
+                  ? delta < 0
+                    ? previousPlacementCandidate(current)
+                    : nextPlacementCandidate(current)
+                  : current,
+              ),
+            rotate: () =>
+              setPendingPlacement((current) =>
+                current ? rotatePlacementCandidate(current) : current,
+              ),
+            select: (candidateId) =>
+              setPendingPlacement((current) =>
+                current ? selectPlacementCandidate(current, candidateId) : current,
+              ),
+            confirm: (placementId) => {
+              if (placementConfirmedId.current === placementId) return;
+              placementConfirmedId.current = placementId;
+              actions.startConstruction(
+                pendingPlacement.parcelIds,
+                pendingPlacement.buildingType,
+                placementId,
+              );
+            },
+            cancel: cancelPlacement,
+          }
+        : null,
+    [cancelPlacement, pendingPlacement, actions],
+  );
+
+  /**
+   * V.d-7C · el modo de colocación también se recorre con teclado (§28, §53): ← → cambian de
+   * candidata legal, R rota a otra orientación y Enter confirma la seleccionada. Un botón enfocado
+   * conserva su propio Enter para no disparar dos veces el mismo comando.
+   */
+  useEffect(() => {
+    if (!pendingPlacement || pendingPlacement.status !== "placing") return undefined;
+    const active = document.activeElement;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "ArrowLeft")
+        setPendingPlacement((c) => (c ? previousPlacementCandidate(c) : c));
+      else if (event.key === "ArrowRight")
+        setPendingPlacement((c) => (c ? nextPlacementCandidate(c) : c));
+      else if (event.key === "r" || event.key === "R")
+        setPendingPlacement((c) => (c ? rotatePlacementCandidate(c) : c));
+      else if (
+        event.key === "Enter" &&
+        !(
+          active instanceof HTMLElement &&
+          ["BUTTON", "INPUT", "TEXTAREA", "SELECT"].includes(active.tagName)
+        )
+      ) {
+        const placementId = selectedCandidate(pendingPlacement)?.id;
+        if (placementId) placementHandlers?.confirm(placementId);
+      } else return;
+      event.preventDefault();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [pendingPlacement, placementHandlers]);
 
   const selection = useMemo(
     () =>
@@ -483,6 +835,8 @@ export function App() {
           onSelectDistrict: (districtId: string) => {
             void session.selectDistrict(districtId);
             setHub(null);
+            /** Cambiar de distrito abandona la colocación: las candidatas son del solar observado. */
+            cancelPlacement();
           },
         }
       : null;
@@ -507,9 +861,16 @@ export function App() {
         }}
         session={session}
         unread={unread}
+        visualMood={visualMood}
+        onVisualMoodChange={(mood) => {
+          if (mood === visualMood) return;
+          applyVisualMood(mood);
+          setVisualMood(mood);
+        }}
       />
       <div className="game-body">
         <MapViewport
+          key={visualMood}
           onCellPicked={onCellPicked}
           onEntityPicked={(target) => {
             setSelectionTarget(
@@ -526,12 +887,38 @@ export function App() {
                 : { kind: "parcel", parcelId: target.parcelId },
             );
           }}
+          onPlacementPick={(candidateId) =>
+            setPendingPlacement((current) =>
+              current ? selectPlacementCandidate(current, candidateId) : current,
+            )
+          }
+          visualMood={visualMood}
           overlay={overlay}
-          projection={projection}
+          projection={renderedProjection}
           ref={mapRef}
         />
+        {qaRoads ? (
+          <div
+            data-testid="qa-road-banner"
+            style={{
+              position: "fixed",
+              top: 8,
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: 60,
+              background: "#7c2d12",
+              color: "#fff",
+              padding: "4px 10px",
+              borderRadius: 6,
+              fontSize: 12,
+            }}
+          >
+            QA fixture · {qaRoads} (sólo presentación, no es el mundo canónico)
+          </div>
+        ) : null}
         <OverlayToolbar onChange={setOverlay} overlay={overlay} />
-        {showOnboarding && onboarding ? (
+        {showOnboarding && onboarding && !pendingPlacement ? (
+          /** El banner de "elige qué construir" contradice un mapa que ya está colocando. */
           <OnboardingBanner
             onAction={onOnboardingAction}
             onDismiss={() =>
@@ -554,6 +941,10 @@ export function App() {
               onSelectBuilding: (buildingId) =>
                 setSelectionTarget({ kind: "building", buildingId }),
               pendingSite,
+              pendingPlacement,
+              placementHandlers,
+              placementBlockers,
+              onBeginPlacement: beginPlacement,
               onBeginSite: setPendingSite,
               onUpdateSite: setPendingSite,
               onCancelSite: () => setPendingSite(null),
@@ -584,18 +975,21 @@ export function App() {
 export type MapViewportHandle = {
   focus: (cell: GridCell) => void;
   setSelection: (target: MapSelectionTarget | null) => void;
+  setPlacement: (target: import("./isometric/mount").MapPlacementTarget | null) => void;
 };
 
 declare global {
   interface Window {
     __landlordUiTest?: {
       publicParcelCell: () => GridCell | null;
+      firstBuildingCell: () => GridCell | null;
       marketableParcelCell: () => GridCell | null;
       ownedBuildingParcelCell: () => GridCell | null;
       ownedBuildingId: () => string | null;
       marketableParcelCellForType: (buildingType: string) => GridCell | null;
       largestMarketableParcel: () => { cell: GridCell; cellCount: number } | null;
       facilityCell: (kind: string) => GridCell | null;
+      roadSectionSummary: () => ViewProjectionV2["map"]["roadSection"] | null;
       pendingSite: () => {
         buildingType: string;
         parcelCount: number;
@@ -610,6 +1004,25 @@ declare global {
         assignedCrewCount: number;
         crewCapacity: number;
       }>;
+      cash: () => number | null;
+      constructionSiteCount: () => number;
+      assemblyCandidateCell: () => GridCell | null;
+      ownedSiteProgress: () => {
+        progress: number;
+        workRequired: number;
+        assignedCrewIds: string[];
+      } | null;
+      smallestMarketableParcelCell: () => GridCell | null;
+      finishedBuildingCell: (buildingType: string) => GridCell | null;
+      purchasableSiteForType: (buildingType: string) => string[] | null;
+      parcelCellById: (parcelId: string) => GridCell | null;
+      ownedSiteFootprint: () => {
+        buildingType: string;
+        parcelIds: string[];
+        orientation: number;
+        signature: string;
+      } | null;
+      inventory: () => { cement: number; brick: number; steel: number } | null;
     };
   }
 }
@@ -622,18 +1035,23 @@ const MapViewport = forwardRef<
     onCellPicked: (cell: GridCell) => void;
     onEntityPicked: (target: { kind: "building" | "construction"; id: string }) => void;
     onIndicator: (target: { parcelId: string; buildingId?: string }) => void;
+    onPlacementPick: (candidateId: string) => void;
+    visualMood: VisualMood;
   }
->(function MapViewport({ projection, overlay, onCellPicked, onEntityPicked, onIndicator }, ref) {
+>(function MapViewport(
+  { projection, overlay, onCellPicked, onEntityPicked, onIndicator, onPlacementPick, visualMood },
+  ref,
+) {
   const container = useRef<HTMLDivElement>(null);
   const game = useRef<ReturnType<typeof mountIsometricSpike> | null>(null);
   /**
    * El motor Phaser se monta UNA vez. Los callbacks viven en una ref: si el efecto dependiera de
    * ellos, cada render de React destruiría y recrearía el canvas (y con él el contexto WebGL).
    */
-  const handlers = useRef({ onCellPicked, onEntityPicked, onIndicator });
+  const handlers = useRef({ onCellPicked, onEntityPicked, onIndicator, onPlacementPick });
   useEffect(() => {
-    handlers.current = { onCellPicked, onEntityPicked, onIndicator };
-  }, [onCellPicked, onEntityPicked, onIndicator]);
+    handlers.current = { onCellPicked, onEntityPicked, onIndicator, onPlacementPick };
+  }, [onCellPicked, onEntityPicked, onIndicator, onPlacementPick]);
 
   useEffect(() => {
     if (!container.current) return undefined;
@@ -643,7 +1061,13 @@ const MapViewport = forwardRef<
     game.current = mounted;
     setIsometricEntityPickedListener(mounted, (target) => handlers.current.onEntityPicked(target));
     setIsometricIndicatorListener(mounted, (target) => handlers.current.onIndicator(target));
+    setIsometricPlacementCandidateListener(mounted, (candidateId) =>
+      handlers.current.onPlacementPick(candidateId),
+    );
     return () => {
+      // Retirar primero la asociación evita que un efecto React ya en cola
+      // intente actualizar la escena mientras Phaser libera sus texturas.
+      unmountIsometricSpike(mounted);
       mounted.destroy(true);
       game.current = null;
     };
@@ -652,6 +1076,10 @@ const MapViewport = forwardRef<
   useEffect(() => {
     if (game.current && projection) updateIsometricProjection(game.current, projection);
   }, [projection]);
+
+  useEffect(() => {
+    if (game.current) setIsometricVisualMood(game.current, visualMood);
+  }, [visualMood]);
 
   useEffect(() => {
     if (game.current) updateIsometricOverlay(game.current, overlay);
@@ -665,6 +1093,9 @@ const MapViewport = forwardRef<
       },
       setSelection: (target) => {
         if (game.current) setIsometricSelectionTarget(game.current, target);
+      },
+      setPlacement: (target) => {
+        if (game.current) setIsometricPlacement(game.current, target);
       },
     }),
     [],

@@ -2,14 +2,16 @@ import {
   buildingFrameForOrientation,
   type AssetImageV1,
   type BuildingAssetState,
-  type BuildingAssetV1,
   type BuildingAssetV2,
+  type BuildingPhysicalOrientation,
   type CharacterAnimation,
   type CharacterAssetV1,
+  type ConstructionStage,
   type GridCell,
   type RuntimeAssetManifestV2,
   type ViewProjectionV2,
 } from "@landlord/shared";
+import { constructionVisualStage } from "./construction-stages";
 
 /**
  * Helpers puros de la capa de sprites (WP4.15). Separan el contrato de assets del render para que
@@ -24,6 +26,43 @@ export function buildingAssetStateFor(
   if (state === "burning" || state === "collapse_pending") return "burning";
   if (state === "ruin") return "damaged";
   return condition < 60 ? "damaged" : "complete";
+}
+
+/**
+ * V.j.8 · override SÓLO de presentación para la evidencia QA 9×3×4 (?qaStates / hook de captura).
+ * No toca GameState ni la proyección del worker: devuelve una copia del economy con el estado
+ * visual pedido para poder fotografiar cada distrito en complete/construction/damaged/burning.
+ * Nunca se usa en gameplay (el hook sólo lo activa el arnés de captura).
+ */
+export type QaVisualState = "complete" | "construction" | "damaged" | "burning";
+export function applyQaStateOverride<
+  E extends {
+    buildings: Array<Record<string, unknown>>;
+    constructionSites: Array<Record<string, unknown>>;
+  },
+>(economy: E, qa: QaVisualState): E {
+  if (qa === "complete") return economy;
+  if (qa === "construction") {
+    return {
+      ...economy,
+      buildings: [],
+      constructionSites: economy.buildings.map((b, i) => ({
+        id: `qa_site_${i}`,
+        buildingType: b.type,
+        orientation: b.orientation,
+        footprintCells: b.footprintCells,
+        progress: 0.5,
+        workRequired: 1,
+      })),
+    } as E;
+  }
+  return {
+    ...economy,
+    constructionSites: [],
+    buildings: economy.buildings.map((b) =>
+      qa === "burning" ? { ...b, state: "burning" } : { ...b, state: "operational", condition: 40 },
+    ),
+  } as E;
 }
 
 export function spriteKeyFor(type: string, state: BuildingAssetState): string {
@@ -132,6 +171,9 @@ export type BuildingSpritePlacement = {
   entityId: string;
   domainType: string;
   assetState: BuildingAssetState;
+  /** V.j.5: orientación física autoritativa y etapa de obra, para resolver la variante real. */
+  orientation: BuildingPhysicalOrientation;
+  stage: ConstructionStage | null;
   cells: readonly GridCell[];
   alpha: number;
   depthBias: number;
@@ -159,15 +201,18 @@ export function buildingSpritePlan(
       archetype: string,
       domainType: string,
       state: BuildingAssetState,
-    ) => { key: string; asset: BuildingAssetV1 } | null;
+      orientation: BuildingPhysicalOrientation,
+      stage: ConstructionStage | null,
+    ) => { key: string; asset: BuildingAssetV2 } | null;
   },
-): Array<BuildingSpritePlacement & { textureKey: string; asset: BuildingAssetV1 }> {
-  const plan: Array<BuildingSpritePlacement & { textureKey: string; asset: BuildingAssetV1 }> = [];
+): Array<BuildingSpritePlacement & { textureKey: string; asset: BuildingAssetV2 }> {
+  const plan: Array<BuildingSpritePlacement & { textureKey: string; asset: BuildingAssetV2 }> = [];
   for (const building of economy.buildings) {
     const id = `building:${building.id}`;
     const state = buildingAssetStateFor(building.state, building.condition);
+    const orientation = building.orientation;
     const archetype = opts.archetypeFor(id, building.type);
-    const resolved = opts.resolveVisual(archetype, building.type, state);
+    const resolved = opts.resolveVisual(archetype, building.type, state, orientation, null);
     if (!resolved) continue;
     plan.push({
       id,
@@ -175,6 +220,8 @@ export function buildingSpritePlan(
       entityId: building.id,
       domainType: building.type,
       assetState: state,
+      orientation,
+      stage: null,
       cells: building.footprintCells,
       alpha: building.state === "ruin" ? 0.4 : 1,
       depthBias: 0,
@@ -185,8 +232,11 @@ export function buildingSpritePlan(
   for (const site of economy.constructionSites) {
     const id = `site:${site.id}`;
     const state: BuildingAssetState = "construction";
+    const orientation = site.orientation;
+    const visualStage = constructionVisualStage(site.progress, site.workRequired);
+    const stage = visualStage === "complete" ? null : visualStage;
     const archetype = opts.archetypeFor(id, site.buildingType);
-    const resolved = opts.resolveVisual(archetype, site.buildingType, state);
+    const resolved = opts.resolveVisual(archetype, site.buildingType, state, orientation, stage);
     if (!resolved) continue;
     plan.push({
       id,
@@ -194,6 +244,8 @@ export function buildingSpritePlan(
       entityId: site.id,
       domainType: site.buildingType,
       assetState: state,
+      orientation,
+      stage,
       cells: site.footprintCells,
       alpha: 1,
       depthBias: 1,
@@ -253,7 +305,7 @@ export function spriteScaleFor(
 
 /** Uniform presentation-only adjustment from the authored asset footprint to the real domain one. */
 export function spriteScaleForDomainFootprint(
-  asset: Pick<BuildingAssetV1, "footprint" | "pixelsPerMeter">,
+  asset: Pick<BuildingAssetV2, "footprint" | "pixelsPerMeter">,
   cells: readonly GridCell[],
   tileWidth: number,
 ): number {
@@ -264,7 +316,7 @@ export function spriteScaleForDomainFootprint(
 }
 
 /** Origen normalizado listo para `setOrigin`: el pivote es el punto de suelo del sprite. */
-export function originFromPivot(asset: BuildingAssetV1): { x: number; y: number } {
+export function originFromPivot(asset: Pick<BuildingAssetV2, "pivot">): { x: number; y: number } {
   return { x: asset.pivot.x, y: asset.pivot.y };
 }
 
@@ -318,12 +370,31 @@ export function resolveBuildingVisual(
     textureExists: (key: string) => boolean;
     /** Azimut de cámara declarado por la escena; un asset que no lo autorice se rechaza. */
     azimuth: number;
+    /** V.j.5: orientación física del modelo; el render de variante ya viene rotado. */
+    orientation?: BuildingPhysicalOrientation;
+    /** V.j.5: etapa de obra (sólo construction). */
+    stage?: ConstructionStage | null;
+    /**
+     * V.j.5: resolver una variante REAL (tipo×estado×etapa×orientación) antes que la cadena
+     * Blender-stores→procedural. Se inyecta para mantener el helper puro y testeable.
+     */
+    resolveVariant?: (
+      archetype: string,
+      state: BuildingAssetState,
+      orientation: BuildingPhysicalOrientation,
+      stage: ConstructionStage | null,
+    ) => { key: string; asset: BuildingAssetV2 } | null;
   },
-): { key: string; asset: BuildingAssetV1 } | null {
+): { key: string; asset: BuildingAssetV2 } | null {
+  const orientation = options.orientation ?? 0;
+  const stage = options.stage ?? null;
+  const variant = options.resolveVariant?.(archetype, state, orientation, stage);
+  if (variant) return variant;
   const blenderKey = `blender-building-${archetype}-${state}`;
   const blenderAsset = options.blenderBundle?.buildings[archetype];
   if (
     blenderAsset &&
+    blenderAsset.states[state] &&
     options.textureExists(blenderKey) &&
     buildingFrameForOrientation(blenderAsset, options.azimuth)
   ) {

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   parseRuntimeAssetManifest,
-  type BuildingAssetV1,
+  type BuildingAssetV2,
   type BuildingAssetState,
   type BuildingType,
   type RuntimeAssetManifestV2,
@@ -67,7 +67,7 @@ describe("WP4.15 sprites de edificios", () => {
   });
 
   it("convierte el pivote normalizado en origen de Phaser", () => {
-    const asset = { pivot: { x: 0.4, y: 0.9 } } as BuildingAssetV1;
+    const asset = { pivot: { x: 0.4, y: 0.9 } } as BuildingAssetV2;
     expect(originFromPivot(asset)).toEqual({ x: 0.4, y: 0.9 });
   });
 
@@ -158,7 +158,7 @@ const FAKE_ASSET = {
   footprint: { width: 1, height: 1 },
   pivot: { x: 0.5, y: 0.93 },
   states: {},
-} as unknown as BuildingAssetV1;
+} as unknown as BuildingAssetV2;
 
 function planFor(
   economy: Pick<NonNullable<ViewProjectionV2["economy"]>, "buildings" | "constructionSites">,

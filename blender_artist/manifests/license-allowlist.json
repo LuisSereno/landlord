@@ -25,6 +25,7 @@
   "policy": "Allowlist estricta: sólo se habilitan licencias que algún asset use hoy. CC-BY-3.0 está denegada aunque sea permisible, porque ningún asset la necesita; habilitarla es un cambio visible en revisión. Añadir una licencia exige registrar antes la fuente, su URL y la evidencia en docs/art/BOOTSTRAP-ASSET-LIBRARY.md.",
   "integrity": {
     "zip-sha256": "sha256 del archivo físico bajo staging (política D-054).",
-    "git-commit": "commit SHA del repositorio de origen + sha256 del archivo de licencia que viaja con el material, para fuentes obtenidas por clon y sin ZIP."
+    "git-commit": "commit SHA del repositorio de origen + sha256 del archivo de licencia que viaja con el material, para fuentes obtenidas por clon y sin ZIP.",
+    "archived": "el archivo físico no se retiene en staging: se valida que `extractDir` exista y sea no-vacío, conservando `sha256` + `sourceUrl` como contrato de reprovisión. Si el archivo vuelve a disco, el validador le exige otra vez su hash."
   }
 }

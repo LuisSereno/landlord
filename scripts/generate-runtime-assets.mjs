@@ -95,8 +95,8 @@ const BUILDINGS = [
     type: "town_hall",
     name: "Ayuntamiento",
     footprint: [2, 2],
-    // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS).
-    domain: [3, 4],
+    // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS): 8×4 = 32 (V.g, dominio aprovado).
+    domain: [8, 4],
     palette: ["#d8c9a8", "#b7a482", "#8f7d5f"],
   },
   {

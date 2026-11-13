@@ -2,6 +2,10 @@ import {
   parseMoney,
   parseTick,
   roadCellsFromSegments,
+  buildRoadSectionChannel,
+  roadCellsDigest,
+  roadSectionDigest,
+  viewProjectionV2Schema,
   type DistrictId,
   type GridCell,
   type PublicDistrictSummary,
@@ -31,6 +35,7 @@ import {
   GAME_MONTH_DAYS,
   GAME_MONTH_TICKS,
   MARKET_PRICES,
+  MOVEMENT_TICKS_PER_CELL,
   REPAIR_COST,
   REPAIR_WORK_REQUIRED,
   calculateLoanPayment,
@@ -483,11 +488,15 @@ export function createViewProjection(
       return leftY - rightY || leftX - rightX;
     },
   );
-  let roadDigest = 0x811c9dc5;
-  for (const character of roadCells.join(",")) {
-    roadDigest = Math.imul((roadDigest ^ character.charCodeAt(0)) >>> 0, 0x01000193) >>> 0;
-  }
-  return {
+  const roadDigest = roadCellsDigest(roadCells);
+  /**
+   * V.l.3 (D-104) · sección transversal. El canal lo construye el helper puro de shared desde la
+   * topología persistida (misma fuente que los fixtures QA); el corredor expandido NO viaja, lo
+   * deriva el render con `road-cross-section.ts`.
+   */
+  const sectionChannel = buildRoadSectionChannel(observedDistrict.map.roads);
+  const sectionDigest = roadSectionDigest(sectionChannel);
+  const projection: ViewProjectionV2 = {
     projectionVersion: 2,
     observedDistrictId,
     city: {
@@ -497,10 +506,17 @@ export function createViewProjection(
       districts: buildCitySummaries(state),
     },
     tick: parseTick(state.clock.tick),
+    movement: { ticksPerCell: MOVEMENT_TICKS_PER_CELL },
     map: {
       width: 64,
       height: 64,
-      roads: { revision: 0, digest: roadDigest.toString(16).padStart(8, "0"), cells: roadCells },
+      roads: { revision: 0, digest: roadDigest, cells: roadCells },
+      roadSection: {
+        revision: 0,
+        digest: sectionDigest,
+        profiles: sectionChannel.profiles,
+        segments: sectionChannel.segments,
+      },
     },
     publicSpaces: [...observedDistrict.publicSpaces.values()]
       .sort((left, right) => left.id.localeCompare(right.id))
@@ -544,11 +560,27 @@ export function createViewProjection(
         ownerOrganizationId: structure.ownerOrganizationId,
         cell: { ...structure.cell },
       })),
+    /**
+     * V.k.1 · dos criterios, no uno: los agentes físicamente en el distrito observado **más** los de
+     * la propia organización, estén donde estén. `cell` es una coordenada LOCAL a `Agent.districtId`
+     * (D-088), así que publicar el roster entero dibujaba rivales de viaje encima del mapa jugado; el
+     * arreglo de ese defecto no puede en cambio ocultar al jugador dónde está su propia cuadrilla,
+     * porque la UI de sabotaje y el resumen de cuadrillas (panels.tsx) buscan a los suyos por id. El
+     * render pinta solo los cuyo `districtId` coincide con `observedDistrictId`. `nextCell` es el
+     * siguiente paso, nunca la ruta.
+     */
     agents: [...state.agents.values()]
+      .filter(
+        (agent) =>
+          agent.districtId === observedDistrictId ||
+          agent.organizationId === PLAYER_ORGANIZATION_ID,
+      )
       .sort((left, right) => left.id.localeCompare(right.id))
       .map((agent) => ({
         id: agent.id,
+        districtId: agent.districtId,
         cell: { ...agent.cell },
+        nextCell: agent.path?.length ? { ...agent.path[0]! } : null,
         ...(agent.organizationId ? { organizationId: agent.organizationId } : {}),
         ...(agent.specialty ? { specialty: agent.specialty } : {}),
         health: agent.health ?? 100,
@@ -1123,4 +1155,17 @@ export function createViewProjection(
         }
       : {}),
   };
+  /**
+   * Autovalidación en el productor (V.k.1), limitada al slice contractual. Validar la proyección
+   * entera costaba en el worker 4,95 ms p50 / 7,57 ms p95 con el distrito inicial y 28,24 / 36,56 ms
+   * con la ciudad densa de 800 parcelas —y el payload se publica cada 2 ticks—, muy por encima del
+   * presupuesto < 2 ms que D-085 fijó para la red viarial. El slice cuesta 0,024 ms p50 /
+   * 0,041 ms p95 (200 muestras, seed 7) y es donde vive el riesgo que D-085 documentó: un campo de
+   * agente declarado sólo en el tipo desaparece en silencio en el viaje worker→UI. La cobertura del
+   * objeto completo no se pierde, vive en el test versionado `no recorta ninguna ruta del objeto
+   * producido al pasar por el esquema`, que compara el `keyPaths` producido contra el del esquema.
+   */
+  viewProjectionV2Schema.shape.agents.parse(projection.agents);
+  viewProjectionV2Schema.shape.movement.parse(projection.movement);
+  return projection;
 }

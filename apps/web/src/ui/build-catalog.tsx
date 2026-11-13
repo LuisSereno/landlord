@@ -7,8 +7,9 @@ import { constructionBlockedReasons, reasonSummary } from "./disabled-reasons";
 import { HelpPopover, HelpTooltip } from "./help";
 import { ResourceIcon, UiIcon } from "./icons";
 import { buildingTypeLabel, formatGameDuration, resourceLabel } from "./labels";
-import type { Economy, GameActions, GameCalendar, ProjectedParcel } from "./types";
+import type { Economy, GameCalendar, ProjectedParcel } from "./types";
 import type { PendingDevelopmentSite } from "./site-assembly";
+import { placementEntryIssues } from "./placement";
 
 /**
  * V.d-UX · catálogo de construcción visual (spec §7.3). Tarjetas con miniatura del asset real,
@@ -52,13 +53,14 @@ export function BuildCatalog({
   economy,
   parcel,
   calendar,
-  actions,
+  onBeginPlacement,
   onBeginSite,
 }: {
   economy: Economy;
   parcel: ProjectedParcel;
   calendar: GameCalendar;
-  actions: GameActions;
+  /** V.d-7C · una parcela entra directo en colocación; el catálogo ya no construye a ciegas. */
+  onBeginPlacement: (buildingType: BuildingType, parcelIds: readonly string[]) => void;
   onBeginSite: (site: PendingDevelopmentSite) => void;
 }) {
   const [selected, setSelected] = useState<BuildingType | null>(null);
@@ -136,10 +138,10 @@ export function BuildCatalog({
       })}
       {selectedOption ? (
         <BuildDetail
-          actions={actions}
           calendar={calendar}
           economy={economy}
           onClose={() => setSelected(null)}
+          onBeginPlacement={onBeginPlacement}
           option={selectedOption}
           onBeginSite={onBeginSite}
           parcel={parcel}
@@ -154,7 +156,7 @@ function BuildDetail({
   economy,
   parcel,
   calendar,
-  actions,
+  onBeginPlacement,
   onBeginSite,
   onClose,
 }: {
@@ -162,7 +164,7 @@ function BuildDetail({
   economy: Economy;
   parcel: ProjectedParcel;
   calendar: GameCalendar;
-  actions: GameActions;
+  onBeginPlacement: (buildingType: BuildingType, parcelIds: readonly string[]) => void;
   onBeginSite: (site: PendingDevelopmentSite) => void;
   onClose: () => void;
 }) {
@@ -174,6 +176,8 @@ function BuildDetail({
     permitted: parcel.permittedBuildingTypes.includes(option.type),
   });
   const isPlanningMultiParcel = option.siteRequirements.requiredParcels > 1;
+  /** Entrar a ver el mapa sólo lo impide lo que invalida el solar, no la tesorería (§33). */
+  const entryIssues = placementEntryIssues(reasons);
   return (
     <div
       aria-label={`Detalle de ${buildingTypeLabel(option.type)}`}
@@ -272,10 +276,10 @@ function BuildDetail({
       )}
       <button
         className="primary-action"
-        disabled={!isPlanningMultiParcel && reasons.length > 0}
+        disabled={!isPlanningMultiParcel && entryIssues.length > 0}
         onClick={() =>
           option.siteRequirements.requiredParcels === 1
-            ? actions.startConstruction([parcel.id], option.type)
+            ? onBeginPlacement(option.type, [parcel.id])
             : onBeginSite({
                 buildingType: option.type,
                 anchorParcelId: parcel.id,
@@ -285,7 +289,7 @@ function BuildDetail({
         type="button"
       >
         <UiIcon name="construction" />{" "}
-        {option.siteRequirements.requiredParcels === 1 ? "Construir" : "Elegir solares"}
+        {option.siteRequirements.requiredParcels === 1 ? "Elegir ubicación" : "Elegir solares"}
       </button>
       <p className="muted">
         <HelpTooltip topic="crew" /> Una cuadrilla libre debe quedar asignada para que la obra

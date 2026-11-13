@@ -284,7 +284,16 @@ export type BuildingAssetV2 = {
   /** Celdas de 4 m que ocupa el tipo en la simulación. Es lo que el dibujo representa. */
   domainFootprint: { width: number; height: number };
   pivot: { x: number; y: number };
-  states: Record<BuildingAssetState, AssetImageV1>;
+  /**
+   * `complete` es la única imagen obligatoria para un asset Blender aprobado. Los estados que no
+   * existen no se fabrican: si falta alguno, `stateFallback` declara cómo continúa el runtime.
+   * Los manifiestos V1 conservan el contrato histórico de cuatro estados completos.
+   */
+  states: { complete: AssetImageV1 } & Partial<
+    Record<Exclude<BuildingAssetState, "complete">, AssetImageV1>
+  >;
+  /** Política explícita para estados ausentes; hoy sólo se admite el fallback semántico procedural. */
+  stateFallback?: "procedural";
   pixelsPerMeter?: number;
   provenance?: AssetProvenanceV1;
   /** Azimuts de cámara en los que este asset es legal. El runtime no puede inventar otros. */
@@ -305,7 +314,14 @@ export type RuntimeAssetManifestV2 = {
   vehicles?: Record<string, SceneryAssetV1>;
 };
 
-export const buildingAssetV2Schema = buildingAssetSchema.extend({
+export const buildingAssetV2Schema = buildingAssetSchema.omit({ states: true }).extend({
+  states: z.object({
+    complete: assetImageSchema,
+    construction: assetImageSchema.optional(),
+    damaged: assetImageSchema.optional(),
+    burning: assetImageSchema.optional(),
+  }),
+  stateFallback: z.literal("procedural").optional(),
   domainFootprint: z.object({
     width: z.number().int().positive().max(8),
     height: z.number().int().positive().max(8),
@@ -388,8 +404,13 @@ export function validateRuntimeAssetManifestV2(manifest: RuntimeAssetManifestV2)
     left.localeCompare(right),
   )) {
     if (asset.type !== key) issues.push(`${key}: type no coincide con la clave del catálogo`);
-    for (const state of BUILDING_ASSET_STATES)
-      if (!asset.states[state]) issues.push(`${key}: falta el estado ${state}`);
+    const missingStates = BUILDING_ASSET_STATES.filter((state) => !asset.states[state]);
+    if (missingStates.includes("complete")) issues.push(`${key}: falta el estado complete`);
+    if (missingStates.length > 0 && asset.stateFallback !== "procedural") {
+      issues.push(
+        `${key}: faltan estados (${missingStates.join(", ")}) sin fallback procedural explícito`,
+      );
+    }
     if (asset.footprint.width < 1 || asset.footprint.height < 1)
       issues.push(`${key}: huella de sprite inválida`);
     if (asset.domainFootprint.width < 1 || asset.domainFootprint.height < 1)
@@ -426,4 +447,64 @@ export function buildingFrameForOrientation(
   if (azimuth === 45 || asset.symmetry === "omni" || asset.symmetry === "mirror")
     return { image: asset.states.complete, pivot: asset.pivot };
   return null;
+}
+
+/**
+ * V.j.5 — orientación FÍSICA del modelo (0/90/180/270), distinta del azimut de cámara (45/135/…).
+ * El compositor rota la geometría real; el runtime elige el render de esa orientación, nunca rota
+ * el sprite en pantalla.
+ */
+export const BUILDING_PHYSICAL_ORIENTATIONS = [0, 90, 180, 270] as const;
+export type BuildingPhysicalOrientation = (typeof BUILDING_PHYSICAL_ORIENTATIONS)[number];
+
+export const CONSTRUCTION_STAGES = ["foundation", "structure", "finishing"] as const;
+export type ConstructionStage = (typeof CONSTRUCTION_STAGES)[number];
+
+/** Clave canónica de variante: tipo × estado × etapa (sólo construction) × orientación física. */
+export function buildingVariantKey(
+  type: string,
+  state: BuildingAssetState,
+  orientation: BuildingPhysicalOrientation,
+  stage?: ConstructionStage | null,
+): string {
+  const stageTag = state === "construction" ? (stage ?? "finishing") : "-";
+  return `${type}:${state}:${stageTag}:${orientation}`;
+}
+
+/** Render real de una variante, con lo necesario para colocar y escalar el sprite. */
+export type BuildingVariantV1 = {
+  image: AssetImageV1;
+  pivot: { x: number; y: number };
+  footprint: { width: number; height: number };
+  domainFootprint: { width: number; height: number };
+  pixelsPerMeter?: number;
+};
+
+export type BuildingVariantManifestV1 = {
+  schemaVersion: 1;
+  generator: { id: string; method: "blender_render" };
+  variants: Record<string, BuildingVariantV1>;
+};
+
+export function validateBuildingVariantManifest(manifest: BuildingVariantManifestV1): string[] {
+  const issues: string[] = [];
+  if (manifest.schemaVersion !== 1) issues.push("schemaVersion debe ser 1");
+  for (const [key, variant] of Object.entries(manifest.variants ?? {})) {
+    const [type, state, stage, orientation] = key.split(":");
+    if (!type || !BUILDING_ASSET_STATES.includes(state as BuildingAssetState))
+      issues.push(`${key}: estado inválido`);
+    if (state === "construction" && !CONSTRUCTION_STAGES.includes(stage as ConstructionStage))
+      issues.push(`${key}: etapa de construction inválida`);
+    if (state !== "construction" && stage !== "-")
+      issues.push(`${key}: etapa sólo aplica a construction`);
+    if (
+      !BUILDING_PHYSICAL_ORIENTATIONS.includes(Number(orientation) as BuildingPhysicalOrientation)
+    )
+      issues.push(`${key}: orientación física inválida ${orientation}`);
+    if (variant.image.width < 1 || variant.image.height < 1)
+      issues.push(`${key}: medidas de imagen inválidas`);
+    if (variant.pivot.x < 0 || variant.pivot.x > 1 || variant.pivot.y < 0 || variant.pivot.y > 1)
+      issues.push(`${key}: pivote fuera de 0..1`);
+  }
+  return issues;
 }

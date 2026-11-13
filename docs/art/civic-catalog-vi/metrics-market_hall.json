@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-06T21:18:56.740Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/civic-catalog-vi/candidates/market_hall",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 71782,
+ "blenderPeakRssMb": 4419.5,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "af6605f02492f6919d593ca70fbf4bd36b4e66e58b76eac7a182ef9b0d2a809a",
+   "after": "af6605f02492f6919d593ca70fbf4bd36b4e66e58b76eac7a182ef9b0d2a809a"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_market_hall_1000",
+   "buildingType": "market_hall",
+   "family": "civic_landmark",
+   "variantSeed": 1000,
+   "compositionSignature": "1aa546d4b8de3d0654ee4ec5e9a696d39be6743198fde94611e57b5ebc4e3bea",
+   "triangleCount": 6990,
+   "objectCount": 100,
+   "moduleCount": 11,
+   "materials": 25,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -10.2,
+     "max": 10
+    },
+    "y": {
+     "min": -1.9908,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 9
+    }
+   },
+   "renderMs": 13559.96,
+   "pngBytes": 288251,
+   "pngPixels": [
+    666,
+    678
+   ],
+   "pixelSha256": "c3eebd1063b85af64bc0e3002052532e23559f837530bd53919587469bb88d78",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5526,
+    "y": 0.673
+   }
+  }
+ ],
+ "failures": []
+}

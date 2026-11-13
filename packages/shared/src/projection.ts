@@ -41,8 +41,20 @@ import {
   type BuildingType,
   type IntelKind,
   type IntelSource,
+  type RoadTopology,
+  type RoadCellClass,
 } from "./domain";
 import { landUseSchema, type LandUse } from "./urban";
+import {
+  laneSenseSchema,
+  roadCellRoleSchema,
+  roadProfileIdSchema,
+  roadAxisProfileForClass,
+  roadProfileForTopology,
+  type LaneSense,
+  type RoadCellRole,
+  type RoadProfileId,
+} from "./road-cross-section";
 
 /** Resumen público de un distrito: lo que la vista de ciudad puede enseñar sin filtrar estado privado. */
 export type PublicDistrictSummary = {
@@ -99,6 +111,83 @@ export type FacilityServiceMetrics = {
   saturated: boolean;
 };
 
+/**
+ * V.l.3 (D-104) · perfil de sección transversal tal y como lo consume el render. Se publica el
+ * descriptor completo, no sólo el id, para que la superficie de presentación sea dato y no código.
+ */
+export type ProjectedRoadProfile = {
+  id: RoadProfileId;
+  width: number;
+  roles: RoadCellRole[];
+  laneSenses: (LaneSense | null)[];
+};
+
+/** Segmento del eje con el perfil que lleva. La geometría es la del eje, no la del corredor. */
+export type ProjectedRoadSectionSegment = {
+  id: string;
+  from: GridCell;
+  to: GridCell;
+  profile: RoadProfileId;
+};
+
+/**
+ * V.l.3 (D-104) · construcción pura del canal de sección transversal desde la topología
+ * persistida. Única fuente: la proyección del worker y los fixtures QA de presentación derivan
+ * exactamente los mismos perfiles y segmentos. El corredor expandido NO viaja; lo deriva el render.
+ */
+export function buildRoadSectionChannel(topology: RoadTopology): {
+  profiles: ProjectedRoadProfile[];
+  segments: ProjectedRoadSectionSegment[];
+} {
+  const profileForClass =
+    topology.derivationVersion === 4
+      ? (roadClass: RoadCellClass) => roadProfileForTopology(topology, roadClass)
+      : roadAxisProfileForClass;
+  const segments = topology.segments.map((segment) => ({
+    id: segment.id,
+    from: { ...segment.from },
+    to: { ...segment.to },
+    profile: profileForClass(segment.class).id,
+  }));
+  const usedProfiles = new Set(segments.map((segment) => segment.profile));
+  const profiles = roadProfileIdSchema.options
+    .filter((id) => usedProfiles.has(id))
+    .map((id) => {
+      const profile = profileForClass(id);
+      return {
+        id,
+        width: profile.width,
+        roles: [...profile.roles],
+        laneSenses: [...profile.laneSenses],
+      };
+    });
+  return { profiles, segments };
+}
+
+/** Digesto FNV-1a del canal de sección, idéntico al que publica la proyección. */
+export function roadSectionDigest(channel: {
+  profiles: ProjectedRoadProfile[];
+  segments: ProjectedRoadSectionSegment[];
+}): string {
+  let digest = 0x811c9dc5;
+  for (const character of JSON.stringify({
+    profiles: channel.profiles,
+    segments: channel.segments,
+  })) {
+    digest = Math.imul((digest ^ character.charCodeAt(0)) >>> 0, 0x01000193) >>> 0;
+  }
+  return digest.toString(16).padStart(8, "0");
+}
+
+/** Digesto FNV-1a del eje publicado en `map.roads.cells`, idéntico al de la proyección. */
+export function roadCellsDigest(cells: readonly string[]): string {
+  let digest = 0x811c9dc5;
+  for (const character of cells.join(",")) {
+    digest = Math.imul((digest ^ character.charCodeAt(0)) >>> 0, 0x01000193) >>> 0;
+  }
+  return digest.toString(16).padStart(8, "0");
+}
+
 export type ViewProjectionV2 = {
   projectionVersion: 2;
   /** Distrito que el renderer dibuja; cambiarlo no toca `GameState` (D-089). */
@@ -110,10 +199,27 @@ export type ViewProjectionV2 = {
     districts: PublicDistrictSummary[];
   };
   tick: Tick;
+  /**
+   * V.k.1 · cadencia de paso del motor, publicada para que el render interpole el paseo de un
+   * agente sin depender del paquete de simulación (frontera de D-085 / architecture guard).
+   */
+  movement: { ticksPerCell: number };
   map: {
     width: 64;
     height: 64;
     roads: { revision: number; digest: string; cells: string[] };
+    /**
+     * V.l.3 (D-104) · sección transversal del distrito observado. `roads` sigue siendo el eje y no
+     * cambia de forma: este canal añade qué perfil lleva cada segmento y los perfiles en uso, para
+     * que el render derive aceras, carriles y sentidos con `road-cross-section.ts` sin importar
+     * simulación. **No publica el corredor expandido**: las celdas se derivan, igual que el eje.
+     */
+    roadSection: {
+      revision: number;
+      digest: string;
+      profiles: ProjectedRoadProfile[];
+      segments: ProjectedRoadSectionSegment[];
+    };
   };
   /** Reserved public land of the observed district (D-092). */
   publicSpaces: Array<{
@@ -145,7 +251,21 @@ export type ViewProjectionV2 = {
   }>;
   agents: Array<{
     id: AgentId;
+    /**
+     * V.k.1 · distrito en el que el agente está físicamente. `cell` es una coordenada LOCAL a ese
+     * distrito, así que el render sólo pinta los cuyo `districtId` coincide con `observedDistrictId`:
+     * una celda de otro distrito dibujada aquí sería un punto falso sobre el mapa. La lista publicada
+     * no está limitada al distrito observado porque el jugador siempre conoce la posición de su
+     * propia organización.
+     */
+    districtId: DistrictId;
     cell: GridCell;
+    /**
+     * Celda a la que el agente entrará en el próximo paso (`path[0]`), o `null` si no está andando.
+     * Se publica un solo punto, nunca la ruta: el rumbo y la interpolación necesitan el siguiente
+     * paso, y la ruta completa es estado del motor que el render no debe conocer.
+     */
+    nextCell: GridCell | null;
     organizationId?: OrganizationId;
     specialty?: "supervisor" | "construction_worker" | "maintenance_technician" | "enforcer";
     health?: number;
@@ -701,6 +821,37 @@ const projectedRoadCellSchema = z
   .string()
   .regex(/^(?:0|[1-9]|[1-5]\d|6[0-3]):(?:0|[1-9]|[1-5]\d|6[0-3])$/);
 
+const projectedRoadProfileSchema = z
+  .object({
+    id: roadProfileIdSchema,
+    width: z.number().int().positive(),
+    roles: z.array(roadCellRoleSchema),
+    laneSenses: z.array(laneSenseSchema.nullable()),
+  })
+  .strict();
+
+const projectedRoadSectionSegmentSchema = z
+  .object({
+    id: z.string().min(1),
+    from: gridCellSchema,
+    to: gridCellSchema,
+    profile: roadProfileIdSchema,
+  })
+  .strict();
+
+/**
+ * V.l.3 (D-104) · canal nuevo y estricto: un campo de más es un bug de contrato, no un adorno que el
+ * worker deja pasar. `map.roads` no se toca, así que sus digestos siguen siendo comparables byte a byte.
+ */
+const roadSectionSchema = z
+  .object({
+    revision: z.number().int().nonnegative(),
+    digest: z.string().regex(/^[0-9a-f]{8}$/),
+    profiles: z.array(projectedRoadProfileSchema),
+    segments: z.array(projectedRoadSectionSegmentSchema),
+  })
+  .strict();
+
 const mapSchema = z.object({
   width: z.literal(64),
   height: z.literal(64),
@@ -709,6 +860,7 @@ const mapSchema = z.object({
     digest: z.string().regex(/^[0-9a-f]{8}$/),
     cells: z.array(projectedRoadCellSchema),
   }),
+  roadSection: roadSectionSchema,
 });
 
 export const publicDistrictSummarySchema = z.object({
@@ -759,6 +911,7 @@ export const viewProjectionV2Schema = z.object({
     districts: z.array(publicDistrictSummarySchema).length(9),
   }),
   tick: tickSchema,
+  movement: z.object({ ticksPerCell: z.number().int().positive() }).strict(),
   map: mapSchema,
   publicSpaces: z.array(
     z.object({
@@ -800,16 +953,20 @@ export const viewProjectionV2Schema = z.object({
     }),
   ),
   agents: z.array(
-    z.object({
-      id: agentIdSchema,
-      cell: gridCellSchema,
-      organizationId: organizationIdSchema.optional(),
-      specialty: z
-        .enum(["supervisor", "construction_worker", "maintenance_technician", "enforcer"])
-        .optional(),
-      health: z.number().int().min(0).max(100).optional(),
-      state: z.enum(["idle", "moving", "working", "injured", "dead"]).optional(),
-    }),
+    z
+      .object({
+        id: agentIdSchema,
+        districtId: districtIdSchema,
+        cell: gridCellSchema,
+        nextCell: gridCellSchema.nullable(),
+        organizationId: organizationIdSchema.optional(),
+        specialty: z
+          .enum(["supervisor", "construction_worker", "maintenance_technician", "enforcer"])
+          .optional(),
+        health: z.number().int().min(0).max(100).optional(),
+        state: z.enum(["idle", "moving", "working", "injured", "dead"]).optional(),
+      })
+      .strict(),
   ),
   economy: z
     .object({

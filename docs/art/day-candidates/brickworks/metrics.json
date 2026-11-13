@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-11T12:57:48.672Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/day-candidates/brickworks",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 35272,
+ "blenderPeakRssMb": 3682.1,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "165f29a802a3e0c839309f916f8d685c266ecee58fb4c02c65070d710c3b4390",
+   "after": "165f29a802a3e0c839309f916f8d685c266ecee58fb4c02c65070d710c3b4390"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_brickworks_1000",
+   "buildingType": "brickworks",
+   "family": "industrial_heavy",
+   "variantSeed": 1000,
+   "compositionSignature": "d3c82a442135fc409c6551a42a77905091c3c001c35f6b7c25d6d8d3623d9eee",
+   "triangleCount": 3433,
+   "objectCount": 15,
+   "moduleCount": 9,
+   "materials": 16,
+   "textures": 15,
+   "bounds": {
+    "x": {
+     "min": -5.3672,
+     "max": 10
+    },
+    "y": {
+     "min": -4,
+     "max": 3
+    },
+    "z": {
+     "min": 0,
+     "max": 9.7
+    }
+   },
+   "renderMs": 6598.31,
+   "pngBytes": 1073192,
+   "pngPixels": [
+    1182,
+    1296
+   ],
+   "pixelSha256": "532b9010fd1fd205a4015d375fbef251cb22bc1da1b5a828c5a430f16ecd97c4",
+   "licensedGeometryRatio": 0.9965,
+   "pivot": {
+    "x": 0.5317,
+    "y": 0.695
+   }
+  }
+ ],
+ "failures": []
+}

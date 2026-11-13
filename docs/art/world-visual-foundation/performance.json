@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-11-06T21:35:51.626Z",
+  "seed": 2026,
+  "before_V_h": {
+    "atlasImages": 69,
+    "vehicles": 3,
+    "props": 13,
+    "characters": 1,
+    "note": "baseline al inicio de V.h (atlas de V.g civic-core P7)"
+  },
+  "V_h_10": {
+    "atlasImages": 81,
+    "vehicles": 9,
+    "props": 13,
+    "characters": 1,
+    "presentationalObjects": 2720,
+    "generationMs": 551,
+    "note": "snapshot archivado antes de V.h.11; no incluía contextActors"
+  },
+  "V_h_11": {
+    "atlasImages": 161,
+    "vehicles": 9,
+    "props": 13,
+    "characters": 6,
+    "note": "cinco Rocketbox nuevos × 16 frames = 80 imágenes nuevas"
+  },
+  "V_h_12": {
+    "atlasImages": 172,
+    "vehicles": 9,
+    "props": 13,
+    "characters": 6,
+    "buildingTypes": 18,
+    "buildingVisualPolicyTypes": 15
+  },
+  "world": {
+    "districts": 9,
+    "presentationalObjects": 2726,
+    "layers": {
+      "buildings": 14,
+      "streetFurniture": 106,
+      "publicSpaceFurniture": 439,
+      "parcelDressing": 2074,
+      "parkedVehicles": 51,
+      "contextVehicles": 3,
+      "ambientActors": 32,
+      "contextActors": 7
+    },
+    "cityAmbientActors": 32,
+    "cityContextActors": 7,
+    "cityActorsTotal": 39,
+    "perDistrict": {
+      "district_00000001": 329,
+      "district_00000002": 414,
+      "district_00000003": 289,
+      "district_00000004": 353,
+      "district_00000005": 320,
+      "district_00000006": 425,
+      "district_00000007": 159,
+      "district_00000008": 280,
+      "district_00000009": 157
+    },
+    "generationMs": 528
+  },
+  "note": "generationMs = proyectar + construir el modelo visual de los 9 distritos en node (sin GPU). El FPS interactivo requiere la app Phaser y se valida en la review humana; el render usa reuse de texturas, culling por viewport y sprites compartidos del atlas (sin duplicar mallas ni PNGs)."
+}

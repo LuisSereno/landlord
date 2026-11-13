@@ -31,28 +31,57 @@ import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const VARIANT =
+  process.argv.find((argument) => argument.startsWith("--variant="))?.slice("--variant=".length) ??
+  "night";
+if (!["night", "day"].includes(VARIANT)) {
+  throw new Error("--variant debe ser 'night' o 'day'");
+}
+const VARIANT_SUFFIX = VARIANT === "night" ? "" : `-${VARIANT}`;
 const BLENDER =
   process.env.BLENDER_BIN ??
   join(REPO_ROOT, "blender_artist", "toolchain", "blender-5.2.2-linux-x64", "blender");
 const BLENDER_SCRIPT = join(REPO_ROOT, "tools", "art-pipeline", "blender", "runtime_asset.py");
 const JOBS_PATH = join(REPO_ROOT, "blender_artist", "manifests", "asset-jobs.json");
 const SOURCES_PATH = join(REPO_ROOT, "blender_artist", "manifests", "staging-sources.json");
-const PUBLIC_DIR = join(REPO_ROOT, "apps", "web", "public", "assets", "runtime", "blender");
+const PROMOTIONS_PATH = join(REPO_ROOT, "blender_artist", "manifests", "runtime-promotions.json");
+const VISUAL_OVERRIDES_PATH = join(
+  REPO_ROOT,
+  "apps",
+  "web",
+  "src",
+  "generated",
+  "runtime-visual-overrides.json",
+);
+const PUBLIC_DIR = join(
+  REPO_ROOT,
+  "apps",
+  "web",
+  "public",
+  "assets",
+  "runtime",
+  `blender${VARIANT_SUFFIX}`,
+);
 const BUNDLE_PATH = join(
   REPO_ROOT,
   "apps",
   "web",
   "src",
   "generated",
-  "runtime-assets-blender.json",
+  `runtime-assets-blender${VARIANT_SUFFIX}.json`,
 );
 const METADATA_PATH = join(
   REPO_ROOT,
   "blender_artist",
   "manifests",
-  "runtime-blender-e2e-metadata.json",
+  `runtime-blender-e2e-metadata${VARIANT_SUFFIX}.json`,
 );
-const EVIDENCE_DIR = join(REPO_ROOT, "blender_artist", "generated", "runtime-evidence");
+const EVIDENCE_DIR = join(
+  REPO_ROOT,
+  "blender_artist",
+  "generated",
+  `runtime-evidence${VARIANT_SUFFIX}`,
+);
 const ASSET_GROUPS = ["buildings", "characters", "terrain", "props", "vehicles"];
 
 /**
@@ -80,13 +109,21 @@ function pngSize(buffer) {
 }
 
 function publicSrc(file) {
-  return `/assets/runtime/blender/${file}.png`;
+  return `/assets/runtime/blender${VARIANT_SUFFIX}/${file}.png`;
 }
 
 function readJobs() {
   const manifest = JSON.parse(readFileSync(JOBS_PATH, "utf8"));
   const registry = JSON.parse(readFileSync(SOURCES_PATH, "utf8"));
-  return { manifest, sourcesById: new Map(registry.sources.map((s) => [s.id, s])) };
+  const promotions = JSON.parse(readFileSync(PROMOTIONS_PATH, "utf8"));
+  if (promotions.schemaVersion !== 1 || !Array.isArray(promotions.promotions)) {
+    throw new Error("runtime-promotions.json: contrato inválido");
+  }
+  return {
+    manifest,
+    promotions: promotions.promotions,
+    sourcesById: new Map(registry.sources.map((s) => [s.id, s])),
+  };
 }
 
 function unitScaleFor(job, sourcesById) {
@@ -208,14 +245,45 @@ function argsFor(job, task, sourcesById, noShadow = false) {
     args.push("--direction", String(task.direction));
     args.push("--animation", task.animation);
     args.push("--frame", String(task.frame));
+    // Personajes de terceros (Rocketbox): el clip de animación por nombre (idle/walk) se aplica
+    // retargeteando la action al rig compartido del avatar. Sin esto, las poses serían reposo.
+    const clip = job.animationSources?.[task.animation];
+    if (clip) args.push("--animation-source", `fbx:${clip}`);
   }
   return args;
 }
 
-function expectedFiles(manifest) {
-  return manifest.jobs
-    .filter((job) => job.target === "bundle")
+function expectedFiles(manifest, promotions) {
+  // Una promoción sustituye el asset entero: D-098 sólo publica el estado que existe
+  // sobre la fuente importada y deja los demás estados al fallback procedural. No se
+  // puede exigir aquí los estados heredados del job que la promoción reemplazó.
+  const promotedAssetIds = new Set(promotions.map((entry) => entry.assetId));
+  const jobs = manifest.jobs
+    .filter((job) => job.target === "bundle" && !promotedAssetIds.has(job.assetId))
     .flatMap((job) => tasksFor(job, manifest.defaults).map((task) => task.file));
+  const overrideFiles = existsSync(VISUAL_OVERRIDES_PATH)
+    ? Object.values(
+        JSON.parse(readFileSync(VISUAL_OVERRIDES_PATH, "utf8")).buildings ?? {},
+      ).flatMap((asset) =>
+        Object.values(asset.states ?? {}).map((image) =>
+          image.src.split("/").pop().replace(".png", ""),
+        ),
+      )
+    : [];
+  return [
+    ...jobs,
+    ...promotions.map((entry) => `${entry.assetId}-${entry.state}`),
+    ...overrideFiles,
+  ];
+}
+
+function retiredFiles(manifest, promotions) {
+  const promotedAssetIds = new Set(promotions.map((entry) => entry.assetId));
+  return new Set(
+    manifest.jobs
+      .filter((job) => job.target === "bundle" && promotedAssetIds.has(job.assetId))
+      .flatMap((job) => tasksFor(job, manifest.defaults).map((task) => task.file)),
+  );
 }
 
 function readBundle() {
@@ -224,7 +292,7 @@ function readBundle() {
 
 function check() {
   if (!existsSync(BUNDLE_PATH)) throw new Error(`Falta el bundle: ${BUNDLE_PATH}`);
-  const { manifest } = readJobs();
+  const { manifest, promotions } = readJobs();
   const bundle = readBundle();
   const images = [];
   for (const group of ASSET_GROUPS) {
@@ -235,6 +303,12 @@ function check() {
       }
       if (asset.image) images.push(asset.image);
       for (const frame of Object.values(asset.orientations ?? {})) images.push(frame.image);
+    }
+  }
+  if (existsSync(VISUAL_OVERRIDES_PATH)) {
+    const overrides = JSON.parse(readFileSync(VISUAL_OVERRIDES_PATH, "utf8"));
+    for (const asset of Object.values(overrides.buildings ?? {})) {
+      images.push(...Object.values(asset.states ?? {}));
     }
   }
 
@@ -252,7 +326,8 @@ function check() {
   }
 
   // Manifiesto ↔ bundle en las dos direcciones: ni job sin imagen, ni imagen huérfana.
-  const declared = new Set(expectedFiles(manifest));
+  const declared = new Set(expectedFiles(manifest, promotions));
+  const retired = retiredFiles(manifest, promotions);
   const published = new Set(images.map((image) => image.src.split("/").pop().replace(".png", "")));
   for (const file of declared) {
     if (!published.has(file)) throw new Error(`Job declarado sin imagen publicada: ${file}`);
@@ -262,7 +337,7 @@ function check() {
   }
   for (const file of readdirSync(PUBLIC_DIR)) {
     const stem = file.replace(/\.png$/, "");
-    if (file.endsWith(".png") && !declared.has(stem)) {
+    if (file.endsWith(".png") && !declared.has(stem) && !retired.has(stem)) {
       throw new Error(`PNG huérfano en public/: ${file}`);
     }
   }
@@ -299,6 +374,13 @@ function renderTask(job, task, sourcesById, workDir, noShadow = false) {
   if (result.status !== 0) {
     throw new Error(`Blender falló para ${task.file}:\n${result.stderr ?? result.stdout}`);
   }
+  // Blender puede salir con código 0 pese a un traceback de Python (--python); si no escribió la
+  // metadata, el job falló. Se propaga el stderr para no enmascarar el error real con un ENOENT.
+  if (!existsSync(workJson)) {
+    throw new Error(
+      `Blender no produjo metadata para ${task.file}:\n${result.stderr ?? result.stdout}`,
+    );
+  }
   return { workPng, workJson, entry: JSON.parse(readFileSync(workJson, "utf8")) };
 }
 
@@ -315,8 +397,11 @@ function assembleInto(bundle, job, task, entry, image, provenance) {
       type: entry.assetId,
       name: entry.label,
       footprint: job.footprint ?? entry.footprint,
+      domainFootprint: job.footprint ?? entry.footprint,
       pivot: entry.pivot,
       states: {},
+      allowedOrientations: [45],
+      symmetry: "none",
     });
     const pixelsPerMeter = pixelsPerMeterFor(job, task);
     if (pixelsPerMeter !== undefined) asset.pixelsPerMeter = pixelsPerMeter;
@@ -374,14 +459,149 @@ function assembleInto(bundle, job, task, entry, image, provenance) {
   }
 }
 
+/**
+ * Promueve un candidato YA aprobado sin re-renderizarlo ni perder su identidad. El manifiesto de
+ * promoción fija firma, hash, estilo y contrato runtime; los metadatos del Composer siguen siendo
+ * la procedencia detallada y cualquier deriva aborta antes de publicar.
+ */
+function assembleApprovedPromotion(bundle, promotion, published, metadata) {
+  if (promotion.approvalStatus !== "qa_approved") {
+    throw new Error(`${promotion.assetId}: la promoción no está qa_approved`);
+  }
+  const isDayVariant = VARIANT === "day";
+  const dayCandidateDir = join(REPO_ROOT, "docs", "art", "day-candidates", promotion.assetId);
+  const metadataPath = isDayVariant
+    ? join(dayCandidateDir, `${promotion.candidateId}.json`)
+    : join(REPO_ROOT, promotion.candidateMetadata);
+  const imagePath = isDayVariant
+    ? join(dayCandidateDir, `${promotion.candidateId}.png`)
+    : join(REPO_ROOT, promotion.candidateImage);
+  const candidate = JSON.parse(readFileSync(metadataPath, "utf8"));
+  const buffer = readFileSync(imagePath);
+  const size = pngSize(buffer);
+  const checks = [
+    ["candidateId", candidate.candidateId, promotion.candidateId],
+    ["candidateBuildingType", candidate.buildingType, promotion.candidateBuildingType],
+    ["state", candidate.state, promotion.state],
+    ["compositionSignature", candidate.compositionSignature, promotion.compositionSignature],
+    ["styleProfileId", candidate.styleProfileId, promotion.styleProfileId],
+    ["cameraAzimuth", candidate.camera?.azimuthDegrees, promotion.allowedOrientations[0]],
+  ];
+  if (!isDayVariant) checks.push(["imageSha256", sha256(buffer), promotion.imageSha256]);
+  for (const [label, actual, expected] of checks) {
+    if (actual !== expected) {
+      throw new Error(
+        `${promotion.assetId}: ${label}=${String(actual)}; esperado ${String(expected)}`,
+      );
+    }
+  }
+  if (
+    candidate.footprintCells?.width !== promotion.footprint.width ||
+    candidate.footprintCells?.height !== promotion.footprint.height
+  ) {
+    throw new Error(`${promotion.assetId}: footprint del candidato no coincide con la promoción`);
+  }
+  if (candidate.image?.width !== size.width || candidate.image?.height !== size.height) {
+    throw new Error(`${promotion.assetId}: medidas PNG distintas de los metadatos del candidato`);
+  }
+  const file = `${promotion.assetId}-${promotion.state}`;
+  copyFileSync(imagePath, join(PUBLIC_DIR, `${file}.png`));
+  const image = {
+    src: publicSrc(file),
+    width: size.width,
+    height: size.height,
+    sha256: sha256(buffer),
+  };
+  bundle.buildings[promotion.assetId] = {
+    type: promotion.semanticType,
+    name: promotion.assetId,
+    footprint: promotion.footprint,
+    domainFootprint: promotion.domainFootprint,
+    pivot: candidate.pivot,
+    states: { [promotion.state]: image },
+    stateFallback: promotion.stateFallback,
+    pixelsPerMeter: candidate.framing?.pixelsPerMeter,
+    provenance: promotion.provenance,
+    allowedOrientations: promotion.allowedOrientations,
+    symmetry: promotion.symmetry,
+  };
+  published.push(file);
+  metadata.push({
+    promotion: true,
+    assetId: promotion.assetId,
+    candidateId: promotion.candidateId,
+    candidateMetadata: isDayVariant
+      ? `docs/art/day-candidates/${promotion.assetId}/${promotion.candidateId}.json`
+      : promotion.candidateMetadata,
+    compositionSignature: promotion.compositionSignature,
+    styleProfileId: promotion.styleProfileId,
+    camera: candidate.camera,
+    pivot: candidate.pivot,
+    footprint: promotion.footprint,
+    domainFootprint: promotion.domainFootprint,
+    image,
+    provenance: promotion.provenance,
+  });
+}
+
+function asManifestV2(bundle) {
+  if (bundle.schemaVersion === 2) return bundle;
+  if (bundle.schemaVersion !== 1) {
+    throw new Error(`schemaVersion Blender no soportada: ${String(bundle.schemaVersion)}`);
+  }
+  return {
+    ...bundle,
+    schemaVersion: 2,
+    generator: { ...bundle.generator, version: Math.max(2, bundle.generator.version) },
+    buildings: Object.fromEntries(
+      Object.entries(bundle.buildings).map(([key, asset]) => [
+        key,
+        {
+          ...asset,
+          domainFootprint: { ...asset.footprint },
+          allowedOrientations: [45],
+          symmetry: "none",
+        },
+      ]),
+    ),
+  };
+}
+
+/** Ensambla únicamente promociones aprobadas sobre los renders ya publicados, sin invocar Blender. */
+function promoteApproved() {
+  const { promotions } = readJobs();
+  const bundle = asManifestV2(readBundle());
+  const previousMetadata = existsSync(METADATA_PATH)
+    ? JSON.parse(readFileSync(METADATA_PATH, "utf8"))
+    : [];
+  const promotedIds = new Set(promotions.map((entry) => entry.assetId));
+  const metadata = previousMetadata.filter((entry) => !promotedIds.has(entry.assetId));
+  const published = [];
+  mkdirSync(PUBLIC_DIR, { recursive: true });
+  for (const promotion of promotions) {
+    assembleApprovedPromotion(bundle, promotion, published, metadata);
+  }
+  writeFileSync(BUNDLE_PATH, `${JSON.stringify(bundle, null, 2)}\n`);
+  writeFileSync(METADATA_PATH, `${JSON.stringify(metadata, null, 2)}\n`);
+  console.log(
+    JSON.stringify({
+      status: "promoted",
+      promotions: published.length,
+      assets: published,
+      bundle: BUNDLE_PATH,
+      metadata: METADATA_PATH,
+    }),
+  );
+}
+
 function render(noShadow = false) {
   if (!existsSync(BLENDER)) {
     throw new Error(`No existe el binario de Blender: ${BLENDER} (define BLENDER_BIN)`);
   }
   const lab = styleLabOptions();
-  const { manifest, sourcesById } = readJobs();
+  const { manifest, promotions, sourcesById } = readJobs();
   const bundle = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     generator: {
       id: "blender-runtime-asset-e2e",
       version: 1,
@@ -437,6 +657,11 @@ function render(noShadow = false) {
       assembleInto(bundle, job, task, entry, image, provenanceFor(job, sourcesById));
     }
   }
+  if (!lab) {
+    for (const promotion of promotions) {
+      assembleApprovedPromotion(bundle, promotion, published, metadata);
+    }
+  }
   rmSync(workDir, { recursive: true, force: true });
   if (lab) {
     console.log(
@@ -468,4 +693,5 @@ function render(noShadow = false) {
 }
 
 if (process.argv.includes("--check")) check();
+else if (process.argv.includes("--promote-approved")) promoteApproved();
 else render();

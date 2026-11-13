@@ -31,6 +31,7 @@ from spike_compatibility import (  # noqa: E402
     setup_camera,
     setup_lighting,
 )
+from render_settings import apply_render_settings  # noqa: E402
 
 STAGING = ROOT / "blender_artist/staging/third_party"
 STYLE_LAYER = HERE / "style_layer_graphic_civic.json"
@@ -135,12 +136,7 @@ def render_sprite(obj, size, out_file, style_layer):
     scene.render.image_settings.file_format = "PNG"
     scene.render.image_settings.color_mode = "RGBA"
     scene.render.image_settings.color_depth = "8"
-    post = style_layer["rendering"]["postProcessing"]
-    scene.view_settings.view_transform = post.split(" - ")[0]
-    try:
-        scene.view_settings.look = post
-    except TypeError:
-        pass
+    apply_render_settings(scene, style_layer)
 
     setup_camera(obj, margin=1.12, min_scale=1.2)
     setup_lighting(style_layer)

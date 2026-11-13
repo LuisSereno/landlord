@@ -15,10 +15,11 @@ import {
   unreadCount,
 } from "./notifications";
 import { deriveOnboardingStep } from "./onboarding";
+import { ContextPanel, type PanelContext } from "./panels";
 import { resolveContextSelection, selectionTargetForCell } from "./selection";
 import { deriveWorldIndicators } from "./world-indicators";
 import { groupConstructionOptions } from "./build-catalog";
-import type { Economy } from "./types";
+import type { Economy, GameActions } from "./types";
 
 const PLAYER = "org_00000001";
 
@@ -427,5 +428,112 @@ describe("V.d-UX · contratos de la interfaz", () => {
     const groups = groupConstructionOptions(options);
     expect(groups.map((group) => group.id)).toEqual(["housing", "mixed", "industry", "production"]);
     expect(groups.flatMap((group) => group.options)).toHaveLength(types.length);
+  });
+});
+
+describe("V.k.4 · la ficha de obra habla por el helper de cuadrillas", () => {
+  const obra = {
+    id: "site_00000001",
+    districtId: "district_00000001",
+    parcelIds: ["parcel_00000001"],
+    ownerOrganizationId: PLAYER,
+    buildingType: "courtyard_home",
+    footprintCells: [
+      { x: 10, y: 10 },
+      { x: 11, y: 10 },
+    ],
+    orientation: 0,
+    floors: 2,
+    progress: 40,
+    workRequired: 100,
+    upgradeBuildingId: null,
+    repairBuildingId: null,
+    crewCapacity: 3,
+    kind: "construction",
+    assignedCrewIds: ["crew_00000001"],
+    assignedTechnicianId: null,
+  } as never;
+
+  const cuadrilla = {
+    id: "crew_00000001",
+    organizationId: PLAYER,
+    supervisorAgentId: "agent_00000001",
+    workerAgentIds: ["agent_00000002", "agent_00000003"],
+    assignedWorkOrderId: "site_00000001",
+  } as never;
+
+  /** Dos dentro de la huella y uno plantado en una vecina: lo mismo que pinta el mapa. */
+  const agent = (
+    id: string,
+    cell: { x: number; y: number },
+    state: string,
+    nextCell: { x: number; y: number } | null,
+  ) =>
+    ({
+      id,
+      districtId: "district_00000001",
+      organizationId: PLAYER,
+      specialty: state === "working" ? "construction_worker" : "supervisor",
+      cell,
+      nextCell,
+      state,
+      health: 100,
+    }) as never;
+
+  const contextDeObra = () => {
+    const economyConObra = economy({
+      parcels: [parcel({ ownerOrganizationId: PLAYER })],
+      constructionSites: [obra],
+      crews: [cuadrilla],
+    });
+    const projection = {
+      observedDistrictId: "district_00000001",
+      tick: 20,
+      movement: { ticksPerCell: 10 },
+      facilities: [],
+      publicSpaces: [],
+      economy: economyConObra,
+      agents: [
+        agent("agent_00000001", { x: 10, y: 10 }, "working", null),
+        agent("agent_00000002", { x: 11, y: 10 }, "working", null),
+        agent("agent_00000003", { x: 10, y: 11 }, "moving", { x: 10, y: 10 }),
+      ],
+    } as unknown as ViewProjectionV2;
+    return { economyConObra, projection };
+  };
+
+  it("el panel resume la plantilla sin decidir nada y sin sacar ids técnicos", () => {
+    const { economyConObra, projection } = contextDeObra();
+    const selection = resolveContextSelection({
+      economy: economyConObra,
+      projection,
+      target: { kind: "construction", siteId: "site_00000001" },
+    });
+    expect(selection?.kind).toBe("construction");
+    const context: PanelContext = {
+      economy: economyConObra,
+      projection,
+      projectionDistrictName: "Barrio del Umbral",
+      calendar: economyConObra.gameTime,
+      actions: {} as GameActions,
+      onClose: () => {},
+      onOpenHub: () => {},
+      onSelectBuilding: () => {},
+      pendingSite: null,
+      onBeginSite: () => {},
+      onUpdateSite: () => {},
+      onCancelSite: () => {},
+      pendingPlacement: null,
+      placementHandlers: null,
+      placementBlockers: [],
+      onBeginPlacement: () => {},
+    };
+    const markup = renderToStaticMarkup(<ContextPanel selection={selection!} context={context} />);
+    expect(markup).toContain("Cuadrillas");
+    /** La cadena sale de `crewRosterCounts`: dos trabajando y uno ya en el solar. */
+    expect(markup).toContain("2 trabajando");
+    expect(markup).toContain("1 en el solar");
+    expect(markup).not.toContain("sin datos");
+    expect(markup).not.toMatch(/agent_\d{8}|crew_\d{8}|site_\d{8}/);
   });
 });

@@ -1,9 +1,12 @@
 {
   "schemaVersion": 1,
   "maxBinaryBytes": 1048576,
-  "maxBundleBytes": 8388608,
-  "bundleTargets": ["apps/web/public/assets/runtime/blender"],
-  "policy": "D-081: ningún binario nuevo por encima de maxBinaryBytes sin LFS (requisito de Beta) o excepción registrada aquí. maxBundleBytes limita además el acumulado de un directorio servido en runtime: 200 PNG de 600 KB cumplirían el límite individual y serían 120 MB. El valor de 8 MiB sale de blender_artist/manifests/asset-metrics.json (Fase 2 proyectada: 3.9 MB a 256px, 14 MB a 512px), de modo que cambiar de resolución obliga a decidirlo explícitamente.",
+  "maxBundleBytes": 24117248,
+  "bundleTargets": [
+    "apps/web/public/assets/runtime/blender",
+    "apps/web/public/assets/evidence/buildings"
+  ],
+  "policy": "D-081, corregida por D-100 (2026-11-06) y D-101 (2026-11-07): ningún binario nuevo por encima de maxBinaryBytes sin LFS (requisito de Beta) o excepción registrada aquí. maxBundleBytes limita además el acumulado de un directorio servido en runtime. D-100 elevó el bundle a 10 MiB; D-101 lo sube a 23 MiB (24.117.248 B) con datos medidos: 22.753.635 B tras el quality pass V.i (15 edificios a renderScale 2, densidad x2 para zoom x4 nítido; copia runtime verbatim del candidato, sha idéntico). Cambiar la resolución de render sigue obligando a decidirlo explícitamente. Las excepciones nombradas cubren el spike WP2.14, la evidencia QA permanente (láminas de selección, golden de contexto, pixel-qa y showcase de dressing) y los 15 candidatos quality-vi >1 MiB.",
   "exceptions": [
     {
       "path": "blender_artist/generated/concepts/visual_direction_spike_direction_a_warm_editorial_2026-10-23.png",
@@ -40,6 +43,134 @@
     {
       "path": "apps/web/public/assets/art-spike/visual_direction_spike_warm_editorial_2026-10-23.png",
       "reason": "Copia servida del master del spike para /art-lab; duplicación a resolver con LFS en Beta."
+    },
+    {
+      "path": "blender_artist/showcase/vg-public-space-dressing/dress_park_publicspace_00000101.png",
+      "reason": "D-100: showcase QA de dressing V.g (escena compuesta parque); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "blender_artist/showcase/vg-public-space-dressing/dress_park_publicspace_00000401.png",
+      "reason": "D-100: showcase QA de dressing V.g (escena compuesta parque); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "blender_artist/showcase/vg-public-space-dressing/dress_plaza_publicspace_00000101.png",
+      "reason": "D-100: showcase QA de dressing V.g (escena compuesta plaza); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "blender_artist/showcase/vg-public-space-dressing/dress_plaza_publicspace_00000501.png",
+      "reason": "D-100: showcase QA de dressing V.g (escena compuesta plaza); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/residential-catalog-vi/contact-sheets/residential-apartment_block.png",
+      "reason": "D-100: lámina de selección V.i (4 candidatos) revisada por el responsable; evidencia permanente."
+    },
+    {
+      "path": "docs/art/residential-catalog-vi/contact-sheets/residential-mixed_tenement.png",
+      "reason": "D-100: lámina de selección V.i (4 candidatos) revisada por el responsable; evidencia permanente."
+    },
+    {
+      "path": "docs/art/residential-catalog-vi/contact-sheets/residential-row_house.png",
+      "reason": "D-100: lámina de selección V.i (4 candidatos) revisada por el responsable; evidencia permanente."
+    },
+    {
+      "path": "docs/art/industrial-light-catalog-vi/contact-sheets/industrial-light-workshop.png",
+      "reason": "D-100: lámina de selección V.i (4 candidatos) revisada por el responsable; evidencia permanente."
+    },
+    {
+      "path": "docs/art/civic-catalog-vi/contact-sheets/civic-clinic.png",
+      "reason": "D-100: lámina de selección V.i (4 candidatos) revisada por el responsable; evidencia permanente."
+    },
+    {
+      "path": "docs/art/civic-catalog-vi/contact-sheets/civic-fire_station.png",
+      "reason": "D-100: lámina de selección V.i (4 candidatos) revisada por el responsable; evidencia permanente."
+    },
+    {
+      "path": "docs/art/civic-catalog-vi/contact-sheets/civic-police_station.png",
+      "reason": "D-100: lámina de selección V.i (4 candidatos) revisada por el responsable; evidencia permanente."
+    },
+    {
+      "path": "docs/art/golden/vf-building-composer/1920x1080.png",
+      "reason": "D-100: golden de evidencia del Building Composer; fijado para comparación, no optimizable."
+    },
+    {
+      "path": "docs/art/golden/vf-building-composer/row-house-city-context.png",
+      "reason": "D-100: golden de contexto urbano del Composer; evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/golden/vf-building-composer/context/row_house-city-context-1x.png",
+      "reason": "D-100: golden de contexto urbano del Composer (1x); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/golden/vf-building-composer/context/row_house-city-context-2x.png",
+      "reason": "D-100: golden de contexto urbano del Composer (2x); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/golden/vf-building-composer/context/town_hall-city-context-2x.png",
+      "reason": "D-100: golden de contexto urbano del Composer (2x); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/world-visual-foundation/pixel-qa/district-contact-sheet-05x.png",
+      "reason": "D-100: lámina pixel-qa V.h de distritos a 0.5x; evidencia de revisión de píxeles."
+    },
+    {
+      "path": "docs/art/world-visual-foundation/pixel-qa/district-contact-sheet-10x.png",
+      "reason": "D-100: lámina pixel-qa V.h de distritos a 1x; evidencia de revisión de píxeles."
+    },
+    {
+      "path": "docs/art/world-visual-foundation/pixel-qa/district-contact-sheet-20x.png",
+      "reason": "D-100: lámina pixel-qa V.h de distritos a 2x; evidencia de revisión de píxeles."
+    },
+    {
+      "path": "docs/art/world-visual-foundation/pixel-qa/district-vega-del-cauce-10x.png",
+      "reason": "Gate D (2026-11-12): captura pixel-qa de distrito regenerada >1 MiB; evidencia de revisión de píxeles."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/apartment_block/vg_apartment_block_1002.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/mixed_tenement/vg_mixed_tenement_1001.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/steelworks/vg_steelworks_1003.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/town_hall/vf_town_hall_1006.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/school_block/vg_school_block_2000.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/market_hall/vg_market_hall_1000.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/apartment_block-complete.png",
+      "reason": "D-101: runtime PNG del apartamento quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/market_hall-complete.png",
+      "reason": "D-101: runtime PNG del mercado quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/mixed_tenement-complete.png",
+      "reason": "D-101: runtime PNG del bloque mixto quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/school_block-complete.png",
+      "reason": "D-101: runtime PNG del colegio quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/steelworks-complete.png",
+      "reason": "D-101: runtime PNG de la acería quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/town_hall-complete.png",
+      "reason": "D-101: runtime PNG del ayuntamiento quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
     }
   ]
 }

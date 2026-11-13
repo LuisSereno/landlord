@@ -72,11 +72,27 @@ describe("SimulationWorkerClient", () => {
           })),
         },
         tick: 0,
-        map: { width: 64, height: 64, roads: { revision: 0, digest: "811c9dc5", cells: [] } },
+        // V.k.1 · la cadencia de paso viaja en la proyección: sin ella el worker no puede animar cuadrillas.
+        movement: { ticksPerCell: 10 },
+        map: {
+          width: 64,
+          height: 64,
+          roads: { revision: 0, digest: "811c9dc5", cells: [] },
+          roadSection: { revision: 0, digest: "811c9dc5", profiles: [], segments: [] },
+        },
         publicSpaces: [],
         facilities: [],
         structures: [],
-        agents: [],
+        agents: [
+          {
+            id: "agent_00000001",
+            districtId: "district_00000004",
+            cell: { x: 3, y: 4 },
+            nextCell: { x: 4, y: 4 },
+            specialty: "supervisor",
+            state: "moving",
+          },
+        ],
       },
     });
     expect(projections).toHaveLength(1);
@@ -181,5 +197,125 @@ describe("SimulationWorkerClient", () => {
     const secondId = (secondWorker.sent[0] as { payload: { command: { commandId: string } } })
       .payload.command.commandId;
     expect(firstId).not.toBe(secondId);
+  });
+});
+
+describe("V.d-7C · colocación interactiva en el cliente del Worker", () => {
+  const candidateResult = {
+    districtId: "district_00000001",
+    parcelIds: ["parcel_00000001"],
+    buildingType: "courtyard_home",
+    candidates: [
+      {
+        id: "placement_0000000000000001",
+        districtId: "district_00000001",
+        parcelIds: ["parcel_00000001"],
+        footprintCells: [{ x: 4, y: 4 }],
+        orientation: 0,
+        floors: 1,
+        recommended: true,
+      },
+    ],
+    totalCandidates: 1,
+    rejection: null,
+  };
+
+  it("envía la petición de sólo lectura y valida la respuesta", async () => {
+    const worker = new FakeWorker();
+    const client = new SimulationWorkerClient(
+      worker,
+      () => undefined,
+      () => undefined,
+    );
+    const pending = client.getDevelopmentPlacementCandidates({
+      buildingType: "courtyard_home",
+      districtId: "district_00000001",
+      parcelIds: ["parcel_00000001"],
+    });
+    expect(worker.sent[0]).toMatchObject({
+      protocolVersion: 2,
+      type: "GetDevelopmentPlacementCandidates",
+      payload: {
+        districtId: "district_00000001",
+        parcelIds: ["parcel_00000001"],
+        buildingType: "courtyard_home",
+      },
+    });
+    worker.emit({
+      protocolVersion: 2,
+      requestId: "request-1",
+      type: "RequestSucceeded",
+      payload: { acceptedAtTick: 0, result: candidateResult },
+    });
+    await expect(pending).resolves.toEqual(candidateResult);
+  });
+
+  it("devuelve null cuando el Worker rechaza o entrega algo que no es este contrato", async () => {
+    const worker = new FakeWorker();
+    const client = new SimulationWorkerClient(
+      worker,
+      () => undefined,
+      () => undefined,
+    );
+    const rejected = client.getDevelopmentPlacementCandidates({
+      buildingType: "courtyard_home",
+      districtId: "district_00000001",
+      parcelIds: ["parcel_00000001"],
+    });
+    worker.emit({
+      protocolVersion: 2,
+      requestId: "request-1",
+      type: "RequestFailed",
+      payload: { code: "DISTRICT_NOT_FOUND", message: "El distrito indicado no existe." },
+    });
+    await expect(rejected).resolves.toBeNull();
+
+    const garbage = client.getDevelopmentPlacementCandidates({
+      buildingType: "courtyard_home",
+      districtId: "district_00000001",
+      parcelIds: ["parcel_00000001"],
+    });
+    worker.emit({
+      protocolVersion: 2,
+      requestId: "request-2",
+      type: "RequestSucceeded",
+      payload: { acceptedAtTick: 0, result: { candidates: "muchas" } },
+    });
+    await expect(garbage).resolves.toBeNull();
+  });
+
+  it("sólo añade placementId al comando cuando el jugador confirmó una colocación", async () => {
+    const worker = new FakeWorker();
+    const client = new SimulationWorkerClient(
+      worker,
+      () => undefined,
+      () => undefined,
+    );
+    void client.startConstruction(["parcel_00000001"], "courtyard_home");
+    expect(
+      (worker.sent[0] as { payload: { command: { payload: Record<string, unknown> } } }).payload
+        .command.payload,
+    ).not.toHaveProperty("placementId");
+    void client.startConstruction(
+      ["parcel_00000001"],
+      "courtyard_home",
+      "placement_0000000000000001",
+    );
+    expect(
+      (worker.sent[1] as { payload: { command: { payload: Record<string, unknown> } } }).payload
+        .command.payload,
+    ).toMatchObject({ placementId: "placement_0000000000000001" });
+  });
+
+  it("rechaza por schema un placementId que no tiene forma canónica", async () => {
+    const worker = new FakeWorker();
+    const client = new SimulationWorkerClient(
+      worker,
+      () => undefined,
+      () => undefined,
+    );
+    expect(() =>
+      client.startConstruction(["parcel_00000001"], "courtyard_home", "placement-1"),
+    ).toThrow();
   });
 });

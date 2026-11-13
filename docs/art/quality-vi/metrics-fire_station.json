@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-07T11:36:07.735Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/quality-vi/candidates/fire_station",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 46052,
+ "blenderPeakRssMb": 3312.5,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6",
+   "after": "8b012d405c862d08fd685bafa0f460df841b39bd29effb93b4c9236abbe601d6"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_fire_station_1003",
+   "buildingType": "fire_station",
+   "family": "civic_landmark",
+   "variantSeed": 1003,
+   "compositionSignature": "0496079097c01d496421f9b52ca31be29f8e581585b57937c23f0740d9aea8b3",
+   "triangleCount": 19252,
+   "objectCount": 113,
+   "moduleCount": 5,
+   "materials": 10,
+   "textures": 12,
+   "bounds": {
+    "x": {
+     "min": -8.428,
+     "max": 8
+    },
+    "y": {
+     "min": -0.428,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 9
+    }
+   },
+   "renderMs": 11319.21,
+   "pngBytes": 997610,
+   "pngPixels": [
+    1097,
+    1206
+   ],
+   "pixelSha256": "c48d8e0f81dbd36b71967813fcd3aa19bffe82f9105dde43521575c7120646a0",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5342,
+    "y": 0.6946
+   }
+  }
+ ],
+ "failures": []
+}

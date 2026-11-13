@@ -1,0 +1,180 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-07T09:12:21.240Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/remediation-vi/candidates/school_block",
+ "requested": 4,
+ "rendered": 4,
+ "totalGenerationMs": 303146,
+ "blenderPeakRssMb": 6745.7,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0",
+   "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "804a7ed90e19e59c69b03fcdaa0fd1b2476d00dca9fe26ad91918924f36e84ef",
+   "after": "804a7ed90e19e59c69b03fcdaa0fd1b2476d00dca9fe26ad91918924f36e84ef"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vg_school_block_2000",
+   "buildingType": "school_block",
+   "family": "civic_landmark",
+   "variantSeed": 2000,
+   "compositionSignature": "1a31d01afc23f9ec8909eea9e7952aca762210813c519095f4246ed47762f409",
+   "triangleCount": 27648,
+   "objectCount": 162,
+   "moduleCount": 10,
+   "materials": 21,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -14.2,
+     "max": 14
+    },
+    "y": {
+     "min": -1.9908,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 11.307500000000001
+    }
+   },
+   "renderMs": 20711.87,
+   "pngBytes": 418926,
+   "pngPixels": [
+    729,
+    660
+   ],
+   "pixelSha256": "cb693024fd0d78c0081978d088473f9650db546a7bce6d29d8bbde02d5436c3c",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.4733,
+    "y": 0.7415
+   }
+  },
+  {
+   "candidateId": "vg_school_block_2001",
+   "buildingType": "school_block",
+   "family": "civic_landmark",
+   "variantSeed": 2001,
+   "compositionSignature": "926143b7291c6104033a2ef241c238291e4ba6f5d8f99990d3da347c072e9d00",
+   "triangleCount": 23324,
+   "objectCount": 162,
+   "moduleCount": 11,
+   "materials": 26,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -14.2,
+     "max": 14
+    },
+    "y": {
+     "min": -1.9908,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 11.307500000000001
+    }
+   },
+   "renderMs": 21086.74,
+   "pngBytes": 414589,
+   "pngPixels": [
+    729,
+    660
+   ],
+   "pixelSha256": "6598ea4599161b4b214134bf0e2ddde11d8f488a75b44d98a2031733ba1bd46a",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.4733,
+    "y": 0.7415
+   }
+  },
+  {
+   "candidateId": "vg_school_block_2002",
+   "buildingType": "school_block",
+   "family": "civic_landmark",
+   "variantSeed": 2002,
+   "compositionSignature": "4467f841e7ab6502935660b17c96c7db398ecafa93ec0b3838fff255a531831d",
+   "triangleCount": 23430,
+   "objectCount": 162,
+   "moduleCount": 11,
+   "materials": 27,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -14.2,
+     "max": 14
+    },
+    "y": {
+     "min": -1.9908,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 11.307500000000001
+    }
+   },
+   "renderMs": 21055.64,
+   "pngBytes": 417605,
+   "pngPixels": [
+    729,
+    660
+   ],
+   "pixelSha256": "8a3ef7d6ea7bdcca99ab7ff52f51df4d6a24095ddcb348f4dc002e91341d2549",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.4733,
+    "y": 0.7415
+   }
+  },
+  {
+   "candidateId": "vg_school_block_2003",
+   "buildingType": "school_block",
+   "family": "civic_landmark",
+   "variantSeed": 2003,
+   "compositionSignature": "3a3e15de406f5c297021014e7f7ef356289558720b0506fb08b007249826ad6e",
+   "triangleCount": 22596,
+   "objectCount": 162,
+   "moduleCount": 11,
+   "materials": 26,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -14.2,
+     "max": 14
+    },
+    "y": {
+     "min": -1.9908,
+     "max": 4
+    },
+    "z": {
+     "min": 0,
+     "max": 11.307500000000001
+    }
+   },
+   "renderMs": 19625.27,
+   "pngBytes": 412154,
+   "pngPixels": [
+    729,
+    660
+   ],
+   "pixelSha256": "e7b82a6d3024916059742f3e505f3877105d36cd05050748172ab6c7012f6a2c",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.4733,
+    "y": 0.7415
+   }
+  }
+ ],
+ "failures": []
+}

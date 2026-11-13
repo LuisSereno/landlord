@@ -56,7 +56,10 @@ del sólido dentro de la parcela —no el azimut de cámara—, y hasta que el a
 laterales no se representa visualmente (D-094 §7, deuda P2 declarada).
 
 ### ConstructionSite
-Obra en curso sobre el mismo conjunto exacto de parcelas (`parcelIds`) y el mismo distrito. Tipos:
+Obra en curso sobre el mismo conjunto exacto de parcelas (`parcelIds`) y el mismo distrito. Desde
+V.d-7C su `footprintCells` y su `orientation` son la colocación que el jugador eligió entre las
+candidatas legales del motor (D-097): el sitio nace exactamente donde se vio el fantasma, y las
+etapas visuales de la obra se derivan del progreso, no de un estado nuevo del dominio. Tipos:
 construcción, upgrade, repair y limpieza de ruina. Un complejo multi-parcela reserva TODAS sus
 parcelas: no se inicia otro proyecto en ninguna mientras exista la obra (D-096). Al completar una
 construcción, el edificio hereda `site.parcelIds`; upgrade, repair y `ClearRuin` heredan

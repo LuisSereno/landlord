@@ -319,14 +319,13 @@ class Composition:
         for spec in massing["volumes"]:
             self.volumes.append(self._resolve_volume(spec))
         for volume in self.volumes:
-            self._build_volume(volume, palette, rhythm, silhouette, corner)
+            self._build_volume(volume, palette, rhythm, silhouette, corner, roof)
         for index, volume in enumerate(self.volumes):
-            if any(
-                other["stackOn"] == index and other["build"] == "whole"
-                for other in self.volumes
-            ):
-                # V.i: el volumen que sostiene una linterna entera no repeina su cubierta;
-                # la corona la aporta la fuente apilada (la cubierta procedural la sepultaría).
+            if any(other["stackOn"] == index for other in self.volumes):
+                # Un volumen apilado continúa el alzado de su padre: entre ambos hay un forjado,
+                # no una cubierta. Generar una cubierta aquí abre un hueco y duplica el testero
+                # delante de la planta superior. Da igual que el hijo sea una masa importada o
+                # bandas procedurales: sólo el volumen superior recibe remate de cubierta.
                 volume.setdefault("deck", volume["top"])
                 volume["rise"] = 0.0
                 continue
@@ -545,7 +544,7 @@ class Composition:
             "module": spec["module"],
         }
 
-    def add(self, module, angle, position, purpose):
+    def add(self, module, angle, position, purpose, mirror_x=False):
         record = {
             "moduleId": module.id,
             "role": module.role,
@@ -560,6 +559,8 @@ class Composition:
             "elevationReach": self.profile.elevation_reach(module),
             "purpose": purpose,
         }
+        if mirror_x:
+            record["mirrorX"] = True
         self.placements.append(record)
         return record
 
@@ -598,7 +599,7 @@ class Composition:
             )
         return [start + self.bay * (index + 0.5) for index in range(count)]
 
-    def _build_volume(self, volume, palette, rhythm, silhouette, corner):
+    def _build_volume(self, volume, palette, rhythm, silhouette, corner, roof):
         rect = volume["rect"]
         base = 0.0
         if volume["stackOn"] is not None:
@@ -639,8 +640,17 @@ class Composition:
                 tokens = rhythm["tokens"]["sides"] if side in ("left", "right") else rhythm["tokens"][side]
                 for bay_index, along in enumerate(self.band_bays(rect, side, corner)):
                     token = tokens[(bay_index + self.choices["rhythmOffset"]) % len(tokens)]
-                    if level_index == 0 and rhythm["groundRole"]:
+                    is_ground_level = level_index == 0 and abs(base) <= self.ground_tolerance
+                    if is_ground_level and rhythm["groundRole"]:
                         token = rhythm["groundRole"]
+                    if is_ground_level and side == "front" and rhythm.get("groundFrontRole"):
+                        token = rhythm["groundFrontRole"]
+                    if (
+                        is_ground_level
+                        and side in ("left", "right")
+                        and rhythm.get("groundSideRole")
+                    ):
+                        token = rhythm["groundSideRole"]
                     # En un volumen de una sola planta el forjado bajo manda sobre la cornisa: un
                     # zócalo se lee, un pretil ciego taparía la única fila de ventanas.
                     if is_top and silhouette.get("crownRole") and volume["levels"] > 1:
@@ -662,10 +672,34 @@ class Composition:
                         z,
                         f"band:{side}:level{level_index + 1}:bay{bay_index + 1}",
                     )
+                    if (
+                        is_ground_level
+                        and side == "front"
+                        and token == "doorframe"
+                        and rhythm.get("groundFrontInfillRole")
+                    ):
+                        infill = self.catalog.pick(self.family, rhythm["groundFrontInfillRole"])
+                        infill_width = infill.size(anchors.rotation_for(infill, side))[0]
+                        copies = round(self.bay / infill_width)
+                        if copies < 1 or abs(copies * infill_width - self.bay) > 1e-6:
+                            raise CompositionError(
+                                f"§17: {infill.id} no puede rellenar una crujía de {self.bay} m"
+                            )
+                        start = along - self.bay / 2 + infill_width / 2
+                        for copy_index in range(copies):
+                            self.add_on_face(
+                                infill,
+                                side,
+                                start + copy_index * infill_width,
+                                faces[side],
+                                z,
+                                f"band-infill:{side}:level1:bay{bay_index + 1}",
+                                projection=-0.02,
+                            )
         if corner["module"]:
             self._build_corner_posts(rect, base, volume["levels"], corner)
         if silhouette.get("corniceRole"):
-            self._build_cornice(rect, volume["top"], silhouette, corner)
+            self._build_cornice(rect, volume["top"], silhouette, corner, roof)
 
     def _build_corner_posts(self, rect, base, levels, corner):
         post = self.catalog.get(corner["module"])
@@ -690,17 +724,37 @@ class Composition:
                     f"corner:{name}:level{level_index + 1}",
                 )
 
-    def _build_cornice(self, rect, top, silhouette, corner):
+    def _build_cornice(self, rect, top, silhouette, corner, roof):
         projection = float(silhouette.get("projectionMeters", 0.0))
         self._check_overhang(projection, f"cornisa {silhouette['id']}")
         module = self.catalog.pick(
             self.family, silhouette["corniceRole"], silhouette["corniceModule"]
         )
         faces = {"front": rect[1], "rear": rect[3], "left": rect[0], "right": rect[2]}
-        for side in ("front", "rear", "left", "right"):
-            for index, along in enumerate(self.band_bays(rect, side, corner)):
+        sides = ("front", "rear", "left", "right")
+        if roof["kind"] == "gable":
+            # La cornisa horizontal pertenece a los aleros. En los testeros atravesaría los
+            # faldones inclinados; su remate lo aportan allí las piezas hip de la cubierta.
+            sides = ("front", "rear") if roof["ridgeAlong"] == "x" else ("left", "right")
+        for side in sides:
+            bays = self.band_bays(rect, side, corner)
+            for index, along in enumerate(bays):
+                bay_module = module
+                if roof["kind"] == "gable" and len(bays) > 1:
+                    if side == "front":
+                        endpoint_key = "corniceLeftModule" if index == 0 else "corniceRightModule"
+                    else:
+                        endpoint_key = "corniceRightModule" if index == 0 else "corniceLeftModule"
+                    if index in (0, len(bays) - 1) and silhouette.get(endpoint_key):
+                        bay_module = self.catalog.get(silhouette[endpoint_key])
                 self.add_on_face(
-                    module, side, along, faces[side], top, f"cornice:{side}:{index + 1}", projection
+                    bay_module,
+                    side,
+                    along,
+                    faces[side],
+                    top,
+                    f"cornice:{side}:{index + 1}",
+                    projection,
                 )
 
     def _check_overhang(self, projection, label):
@@ -727,6 +781,7 @@ class Composition:
             return
         along = roof["ridgeAlong"]
         slope = self.catalog.pick(self.family, "slope_cornice" if roof["cornice"] else "slope")
+        hip = self.catalog.pick(self.family, "hip_cornice" if roof["cornice"] else "hip")
         bounds = slope.placement_bounds
         run = bounds["y"]["max"] - bounds["y"]["min"]
         rise = bounds["z"]["max"] - bounds["z"]["min"]
@@ -742,6 +797,10 @@ class Composition:
         columns = int(round(span / self.bay))
         if abs(columns * self.bay - span) > 1e-6:
             raise CompositionError("la cumbrera no se reparte en crujías enteras")
+        if columns < 2:
+            raise CompositionError(
+                "una cubierta a dos aguas necesita al menos dos crujías para cerrar sus extremos"
+            )
         dormers = []
         if roof["dormerBays"]:
             pool = self.catalog.pool(self.family, "dormer")
@@ -766,13 +825,29 @@ class Composition:
                         offset = (rect[0] + inward) if side == "near" else (rect[2] - inward)
                         position = (offset, cross, z)
                     module = slope
-                    if side_index == 0 and row == 0 and index < len(dormers):
+                    mirror_x = False
+                    angle = self._slope_angle(along, side, module)
+                    if index in (0, columns - 1):
+                        module = hip
+                        if along == "x":
+                            angle = 0 if side == "near" else 180
+                            mirror_x = (side == "near" and index == columns - 1) or (
+                                side == "far" and index == 0
+                            )
+                        else:
+                            angle = 270 if side == "near" else 90
+                            mirror_x = (side == "near" and index == 0) or (
+                                side == "far" and index == columns - 1
+                            )
+                    elif side_index == 0 and row == 0 and index < len(dormers):
                         module = dormers[index]
+                        angle = self._slope_angle(along, side, module)
                     self.add(
                         module,
-                        self._slope_angle(along, side, module),
+                        angle,
                         position,
                         f"roof:{along}:{side}:row{row}:bay{index}",
+                        mirror_x=mirror_x,
                     )
         volume["deck"] = top + rows * rise
         volume["rise"] = rows * rise
@@ -926,8 +1001,8 @@ class Composition:
         self.access_bay = index
         along = bays[index]
         frame = self.catalog.pick(self.family, access["frameRole"])
-        self._replace_front_bay(volume, along, frame, corner)
-        if access["leafRole"]:
+        has_infill = self._replace_front_bay(volume, along, frame, corner)
+        if access["leafRole"] and not has_infill:
             leaf = self.catalog.pick(self.family, access["leafRole"])
             self.add_on_face(
                 leaf, "front", along, rect[1], volume["base"], "access:leaf", projection=-0.02
@@ -982,7 +1057,15 @@ class Composition:
             "wall_panel", "doorframe", "wainscot", "ground_panel", "curtain_wall", "window_bay",
         }
         removed = 0
+        has_infill = False
         for record in list(self.placements):
+            if record["purpose"].startswith("band-infill:front:level1:"):
+                if record["bounds"]["z"]["min"] != _round(volume["base"]):
+                    continue
+                center = (record["bounds"]["x"]["min"] + record["bounds"]["x"]["max"]) / 2
+                if abs(center - along) < self.bay / 2 + 1e-6:
+                    has_infill = True
+                continue
             if not record["purpose"].startswith("band:front:level1:"):
                 continue
             if record["bounds"]["z"]["min"] != _round(volume["base"]):
@@ -1002,6 +1085,7 @@ class Composition:
         if removed != 1:
             raise CompositionError(f"el acceso no encontró su crujía de planta baja ({removed})")
         self.add_on_face(frame, "front", along, rect[1], volume["base"], "access:frame")
+        return has_infill
 
     def _secondary_centers(self):
         """Centros candidatos: cada celda libre y el punto medio entre dos celdas libres.

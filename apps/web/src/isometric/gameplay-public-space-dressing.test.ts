@@ -378,13 +378,20 @@ describe("V.h.11 context actors: invariantes", () => {
     shape: "straight" as const,
     orientation: "straight_ew" as const,
   }));
-  const POLICE = { id: "b_police", type: "police_station", footprintCells: rectCells(2, 6, 2, 1) };
-  const CLINIC = { id: "b_clinic", type: "clinic", footprintCells: rectCells(5, 6, 2, 1) };
-  const FIRE = { id: "b_fire", type: "fire_station", footprintCells: rectCells(8, 6, 2, 1) };
-  const WORKSHOP = { id: "b_work", type: "workshop", footprintCells: rectCells(11, 6, 1, 1) };
+  const POLICE = { id: "b_police", type: "police_station", footprintCells: rectCells(2, 7, 2, 1) };
+  const CLINIC = { id: "b_clinic", type: "clinic", footprintCells: rectCells(5, 7, 2, 1) };
+  const FIRE = { id: "b_fire", type: "fire_station", footprintCells: rectCells(8, 7, 2, 1) };
+  const WORKSHOP = { id: "b_work", type: "workshop", footprintCells: rectCells(11, 7, 1, 1) };
   const BUILDINGS = [POLICE, CLINIC, FIRE, WORKSHOP];
+  const SIDEWALKS = new Map(
+    ROAD_EW.flatMap((road) => [
+      [`${road.cell.x}:${road.cell.y - 1}`, "sidewalk" as const],
+      [`${road.cell.x}:${road.cell.y}`, "carriageway" as const],
+      [`${road.cell.x}:${road.cell.y + 1}`, "sidewalk" as const],
+    ]),
+  );
   const runCtx = (reserved: ReadonlySet<string> = new Set()) =>
-    planGameplayContextActors(BUILDINGS, ROAD_EW, reserved, 64, 64);
+    planGameplayContextActors(BUILDINGS, ROAD_EW, reserved, 64, 64, SIDEWALKS);
 
   it("es determinista (misma geometría → mismos actores)", () => {
     expect(runCtx()).toEqual(runCtx());
@@ -399,18 +406,17 @@ describe("V.h.11 context actors: invariantes", () => {
     expect(by.get("b_work")?.character).toBe("chr_worker");
   });
 
-  it("en la compatibilidad v2 el actor conserva el eje y no se desplaza fuera de la vía", () => {
+  it("los actores profesionales sólo pisan acera, nunca la calzada", () => {
     for (const actor of runCtx()) {
-      expect(
-        inCells(
-          actor.cell,
-          ROAD_EW.map((road) => road.cell),
-        ),
-      ).toBe(true);
+      expect(SIDEWALKS.get(`${actor.cell.x}:${actor.cell.y}`)).toBe("sidewalk");
       const renderCell = contextActorRenderCell(actor);
       expect(renderCell).toEqual(actor.cell);
       expect(actor.lateralOffset).toBe(0);
     }
+  });
+
+  it("una vía antigua sin acera no dibuja personas en la carretera", () => {
+    expect(planGameplayContextActors(BUILDINGS, ROAD_EW, new Set(), 64, 64)).toEqual([]);
   });
 
   it("IDs/celdas únicos y respeta las celdas reservadas por vehículos contextuales", () => {
@@ -418,7 +424,7 @@ describe("V.h.11 context actors: invariantes", () => {
     expect(new Set(actors.map((a) => a.id)).size).toBe(actors.length);
     expect(new Set(actors.map((a) => `${a.cell.x}:${a.cell.y}`)).size).toBe(actors.length);
     const reserved = new Set(actors.map((a) => `${a.cell.x}:${a.cell.y}`));
-    const second = planGameplayContextActors(BUILDINGS, ROAD_EW, reserved, 64, 64);
+    const second = planGameplayContextActors(BUILDINGS, ROAD_EW, reserved, 64, 64, SIDEWALKS);
     for (const a of second) expect(reserved.has(`${a.cell.x}:${a.cell.y}`)).toBe(false);
   });
 

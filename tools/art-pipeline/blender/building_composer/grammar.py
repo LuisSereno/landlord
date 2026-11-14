@@ -71,8 +71,20 @@ YARD_KEYS = {"leftCells", "rightCells", "frontCells"}
 MASSING_KEYS = {"id", "label", "volumes"}
 VOLUME_KEYS = {"cells", "levels", "stackOn", "slab", "build", "role", "module"}
 PALETTE_KEYS = {"id", "label", "roleModule"}
-RHYTHM_KEYS = {"id", "label", "tokens", "bayMeters", "groundRole"}
-SILHOUETTE_KEYS = {"id", "label", "corniceRole", "corniceModule", "crownRole", "projectionMeters"}
+REQUIRED_RHYTHM_KEYS = {"id", "label", "tokens", "bayMeters", "groundRole"}
+RHYTHM_KEYS = REQUIRED_RHYTHM_KEYS | {
+    # Overrides data-driven para edificios cuyo zócalo frontal no debe repetirse en altura.
+    "groundFrontRole",
+    "groundFrontInfillRole",
+    "groundSideRole",
+}
+REQUIRED_SILHOUETTE_KEYS = {
+    "id", "label", "corniceRole", "corniceModule", "crownRole", "projectionMeters"
+}
+SILHOUETTE_KEYS = REQUIRED_SILHOUETTE_KEYS | {
+    "corniceLeftModule",
+    "corniceRightModule",
+}
 ROOF_KEYS = {"id", "kind", "cornice", "plateRole", "dormerBays", "ridgeAlong"}
 ACCESS_KEYS = {
     "id",
@@ -235,7 +247,9 @@ class GrammarDocument:
             for role, module_id in palette["roleModule"].items():
                 catalog.pick(family, role, module_id)
         for rhythm in record["rhythms"]:
-            _require_keys(rhythm, RHYTHM_KEYS, rhythm["id"], "rhythms")
+            _require_mandatory_keys(
+                rhythm, REQUIRED_RHYTHM_KEYS, RHYTHM_KEYS, rhythm["id"], "rhythms"
+            )
             if float(rhythm["bayMeters"]) <= 0:
                 raise GrammarError(f"{rhythm['id']}: bayMeters sin sentido {rhythm['bayMeters']}")
             if set(rhythm["tokens"]) != {"front", "rear", "sides"}:
@@ -248,10 +262,25 @@ class GrammarDocument:
                     catalog.pool(family, token)
             if rhythm["groundRole"]:
                 catalog.pool(family, rhythm["groundRole"])
+            if rhythm.get("groundFrontRole"):
+                catalog.pool(family, rhythm["groundFrontRole"])
+            if rhythm.get("groundFrontInfillRole"):
+                catalog.pool(family, rhythm["groundFrontInfillRole"])
+            if rhythm.get("groundSideRole"):
+                catalog.pool(family, rhythm["groundSideRole"])
         for silhouette in record["silhouetteOptions"]:
-            _require_keys(silhouette, SILHOUETTE_KEYS, silhouette["id"], "silhouetteOptions")
+            _require_mandatory_keys(
+                silhouette,
+                REQUIRED_SILHOUETTE_KEYS,
+                SILHOUETTE_KEYS,
+                silhouette["id"],
+                "silhouetteOptions",
+            )
             if silhouette["corniceRole"]:
                 catalog.pick(family, silhouette["corniceRole"], silhouette["corniceModule"])
+                for key in ("corniceLeftModule", "corniceRightModule"):
+                    if silhouette.get(key):
+                        catalog.pick(family, silhouette["corniceRole"], silhouette[key])
             elif silhouette["corniceModule"]:
                 raise GrammarError(f"{silhouette['id']}: corniceModule sin corniceRole")
             if silhouette["crownRole"]:

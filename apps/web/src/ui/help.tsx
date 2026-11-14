@@ -38,7 +38,8 @@ export type HelpTopicKey =
   | "overlays"
   | "notifications"
   | "portfolio"
-  | "auction";
+  | "auction"
+  | "materials_market";
 
 export type HelpTopic = {
   title: string;
@@ -112,6 +113,12 @@ export const helpCatalog: Record<HelpTopicKey, HelpTopic> = {
     title: "Garantía",
     summary:
       "Parcela que respalda un préstamo. Si el préstamo entra en impago, puede salir a subasta.",
+  },
+  materials_market: {
+    title: "Mercado de materiales",
+    summary: "Compra cemento, ladrillo o acero al precio vigente y recíbelo al instante.",
+    details:
+      "Los precios pueden cambiar por ordenanzas y acontecimientos económicos. Producirlos en tus propias instalaciones reduce la dependencia del mercado.",
   },
   insurance: {
     title: "Seguro",
@@ -271,7 +278,7 @@ export function HelpTooltip({ topic, label }: { topic: HelpTopicKey; label?: str
       <button
         aria-describedby={id}
         aria-label={label ?? `Ayuda: ${entry.title}`}
-        className="help-dot"
+        className="icon-button help-tooltip-button"
         onBlur={() => setOpen(false)}
         onClick={() => setOpen((value) => !value)}
         onFocus={() => setOpen(true)}

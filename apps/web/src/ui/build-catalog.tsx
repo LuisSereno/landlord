@@ -38,6 +38,19 @@ export const CATEGORY_BY_TYPE: Record<string, CategoryId> = {
   steelworks: "production",
 };
 
+/** Texto que confirma que el solar abierto ya forma parte del proyecto. */
+export function constructionActionLabel(requiredParcels: number): string {
+  if (requiredParcels <= 1) return "Elegir ubicación";
+  const remaining = requiredParcels - 1;
+  return `Añadir ${remaining} solar${remaining === 1 ? "" : "es"}`;
+}
+
+/** Aviso visible antes de iniciar una colocación que requiere varios solares. */
+export function multiParcelSelectionNotice(requiredParcels: number): string {
+  const remaining = Math.max(0, requiredParcels - 1);
+  return `Solar seleccionado incluido. Añade ${remaining} solar${remaining === 1 ? "" : "es"} contiguo${remaining === 1 ? "" : "s"} para completar el proyecto.`;
+}
+
 /** Agrupa las opciones por categoría real del catálogo; ninguna tarjeta queda fuera. */
 export function groupConstructionOptions(
   options: Economy["constructionOptions"],
@@ -288,9 +301,13 @@ function BuildDetail({
         }
         type="button"
       >
-        <UiIcon name="construction" />{" "}
-        {option.siteRequirements.requiredParcels === 1 ? "Elegir ubicación" : "Elegir solares"}
+        <UiIcon name="construction" /> {constructionActionLabel(option.siteRequirements.requiredParcels)}
       </button>
+      {isPlanningMultiParcel ? (
+        <p aria-live="polite" className="multi-parcel-notice" role="status">
+          <UiIcon name="success" size={14} /> {multiParcelSelectionNotice(option.siteRequirements.requiredParcels)}
+        </p>
+      ) : null}
       <p className="muted">
         <HelpTooltip topic="crew" /> Una cuadrilla libre debe quedar asignada para que la obra
         avance.

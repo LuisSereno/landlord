@@ -18,7 +18,11 @@ import { deriveOnboardingStep } from "./onboarding";
 import { ContextPanel, type PanelContext } from "./panels";
 import { resolveContextSelection, selectionTargetForCell } from "./selection";
 import { deriveWorldIndicators } from "./world-indicators";
-import { groupConstructionOptions } from "./build-catalog";
+import {
+  constructionActionLabel,
+  groupConstructionOptions,
+  multiParcelSelectionNotice,
+} from "./build-catalog";
 import type { Economy, GameActions } from "./types";
 
 const PLAYER = "org_00000001";
@@ -98,6 +102,15 @@ const building = (overrides: Partial<Record<string, unknown>> = {}) =>
   }) as never;
 
 describe("V.d-UX · contratos de la interfaz", () => {
+  it("explica cuándo el solar seleccionado ya cuenta en un proyecto multiparcela", () => {
+    expect(constructionActionLabel(1)).toBe("Elegir ubicación");
+    expect(constructionActionLabel(2)).toBe("Añadir 1 solar");
+    expect(constructionActionLabel(3)).toBe("Añadir 2 solares");
+    expect(multiParcelSelectionNotice(3)).toBe(
+      "Solar seleccionado incluido. Añade 2 solares contiguos para completar el proyecto.",
+    );
+  });
+
   it("el catálogo de ayuda cubre los conceptos no triviales y todos tienen resumen", () => {
     const required: HelpTopicKey[] = [
       "profitability",

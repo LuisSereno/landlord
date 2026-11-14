@@ -170,11 +170,12 @@ export type FootprintPlacementInput = {
 
 /**
  * V.d-7C · única fuente autoritativa de huellas legales (D-097). Es el autoplacement de D-090 §4
- * convertido en lista: los mismos rectángulos axis-aligned dentro del envelope construible, la misma
- * puntuación contra `targetFootprintCells`, frente vial y continuidad, y el MISMO orden de desempate
- * aplicado ahora como orden total canónico sobre el conjunto completo en vez de como «me quedo con
- * el mejor». `chooseFootprint` devuelve el primero, así que la autocolocación del motor y la
- * colocación que elige el jugador salen del mismo cálculo: no existe un segundo algoritmo.
+ * convertido en lista: los rectángulos declarados por cada BuildingDefinition dentro del envelope
+ * construible, frente vial y continuidad, y el MISMO orden de desempate aplicado ahora como orden
+ * total canónico sobre el conjunto completo en vez de como «me quedo con el mejor». La morfología
+ * declarada no es una preferencia estética: un bloque 5×2 no puede terminar siendo una tira 1×10.
+ * `chooseFootprint` devuelve el primero, así que la autocolocación del motor y la colocación que
+ * elige el jugador salen del mismo cálculo: no existe un segundo algoritmo.
  *
  * La orientación la decide la geometría (eje largo del rectángulo), nunca el render: un giro que no
  * produzca otra huella legal no es una opción que el jugador pueda seleccionar.
@@ -204,6 +205,14 @@ export function enumerateFootprintCandidates(input: FootprintPlacementInput): Fo
   const maxY = Math.max(...ys);
   const target = input.definition.targetFootprintCells;
   const baseFloors = Math.max(1, Math.min(input.code.maxFloors, input.definition.defaultFloors));
+  /** La huella del tipo es parte del contrato de dominio, no una sugerencia para el ranking. */
+  const preferred = input.definition.preferredFootprint;
+  if (preferred.width * preferred.height !== target)
+    throw new Error(
+      `La huella declarada de ${input.definition.type} no coincide con su superficie.`,
+    );
+  if (coverageLimit - existingArea < target) return { candidates: [], rejection: "COVERAGE_LIMIT" };
+  if (farLimit - existingFar < target) return { candidates: [], rejection: "FAR_LIMIT" };
 
   const principalFrontage = input.principalFrontageCells ?? [];
   const existingCells = new Set(
@@ -263,58 +272,61 @@ export function enumerateFootprintCandidates(input: FootprintPlacementInput): Fo
     .map((cells) => new Set(cells.map(cellKey)))
     .filter((cells) => cells.size > 0);
 
-  const maximumWidth = Math.min(maxX - minX + 1, Math.max(1, target * 2));
-  const maximumHeight = Math.min(maxY - minY + 1, Math.max(1, target * 2));
-  for (let height = 1; height <= maximumHeight; height += 1) {
-    for (let width = 1; width <= maximumWidth; width += 1) {
-      const area = width * height;
-      if (area > target * 2) continue;
-      if (existingArea + area > coverageLimit) continue;
-      const floors = Math.min(baseFloors, Math.floor((farLimit - existingFar) / area));
-      if (floors < 1) continue;
-      for (let y = minY; y + height - 1 <= maxY; y += 1) {
-        for (let x = minX; x + width - 1 <= maxX; x += 1) {
-          const cells = cellsInRectangle(buildable, x, y, width, height);
-          if (!cells) continue;
-          // A required multi-parcel site must be visible in the physical result. This sits before
-          // ranking, so automatic placement, an explicit player candidate and AI all consume the
-          // exact same legal set.
-          if (
-            requiredParcelCellGroups.length > 1 &&
-            !requiredParcelCellGroups.every((parcelCells) =>
-              cells.some((cell) => parcelCells.has(cellKey(cell))),
-            )
+  const dimensions = [
+    { width: preferred.width, height: preferred.height },
+    { width: preferred.height, height: preferred.width },
+  ].filter(
+    (dimension, index, values) =>
+      values.findIndex(
+        (other) => other.width === dimension.width && other.height === dimension.height,
+      ) === index,
+  );
+  for (const { width, height } of dimensions) {
+    const area = width * height;
+    if (width > maxX - minX + 1 || height > maxY - minY + 1) continue;
+    const floors = Math.min(baseFloors, Math.floor((farLimit - existingFar) / area));
+    if (floors < 1) continue;
+    for (let y = minY; y + height - 1 <= maxY; y += 1) {
+      for (let x = minX; x + width - 1 <= maxX; x += 1) {
+        const cells = cellsInRectangle(buildable, x, y, width, height);
+        if (!cells) continue;
+        // A required multi-parcel site must be visible in the physical result. This sits before
+        // ranking, so automatic placement, an explicit player candidate and AI all consume the
+        // exact same legal set.
+        if (
+          requiredParcelCellGroups.length > 1 &&
+          !requiredParcelCellGroups.every((parcelCells) =>
+            cells.some((cell) => parcelCells.has(cellKey(cell))),
           )
-            continue;
-          const orientation: 0 | 90 | 180 | 270 = width >= height ? 0 : 90;
-          const signature = `${x},${y},${width},${height}`;
-          let frontageDistance = principalFrontage.length === 0 ? 0 : Number.POSITIVE_INFINITY;
-          let continuity = 0;
-          for (const cell of cells) {
-            const key = cellKey(cell);
-            frontageDistance = Math.min(frontageDistance, frontageDistanceByCell.get(key) ?? 0);
-            if (adjacentToExisting.has(key)) continuity += 1;
-          }
-          const candidate: Candidate = {
-            cells,
-            area,
-            width,
-            height,
-            shapePenalty: shapePenalty({ width, height }, input.definition.preferredFootprint),
-            floors,
-            orientation,
-            frontageDistance,
-            continuity,
-            signature,
-          };
-          found.push(candidate);
+        )
+          continue;
+        const orientation: 0 | 90 | 180 | 270 = width >= height ? 0 : 90;
+        const signature = `${x},${y},${width},${height}`;
+        let frontageDistance = principalFrontage.length === 0 ? 0 : Number.POSITIVE_INFINITY;
+        let continuity = 0;
+        for (const cell of cells) {
+          const key = cellKey(cell);
+          frontageDistance = Math.min(frontageDistance, frontageDistanceByCell.get(key) ?? 0);
+          if (adjacentToExisting.has(key)) continuity += 1;
         }
+        const candidate: Candidate = {
+          cells,
+          area,
+          width,
+          height,
+          shapePenalty: shapePenalty({ width, height }, input.definition.preferredFootprint),
+          floors,
+          orientation,
+          frontageDistance,
+          continuity,
+          signature,
+        };
+        found.push(candidate);
       }
     }
   }
   if (found.length === 0) {
-    if (coverageLimit - existingArea < 1) return { candidates: [], rejection: "COVERAGE_LIMIT" };
-    return { candidates: [], rejection: "FAR_LIMIT" };
+    return { candidates: [], rejection: "NO_BUILDABLE_ENVELOPE" };
   }
   /**
    * `sort` with a total order instead of a running minimum: two candidates only compare equal when

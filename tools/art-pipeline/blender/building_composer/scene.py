@@ -471,6 +471,8 @@ def place_modules(composition, catalog, root):
         empty.parent = root
         empty.location = record["position"]
         empty.rotation_euler = (0.0, 0.0, math.radians(record["rotationDegrees"]))
+        if record.get("mirrorX"):
+            empty.scale.x = -1.0
         children = []
         for source in picked:
             instance = bpy.data.objects.new(f"{source.name}|{record['purpose']}", source.data)
@@ -606,6 +608,15 @@ def add_supports(composition, materials, root):
 
 def check_scene_geometry(composition, objects):
     """§15/§31: los triángulos y la envolvente que ve el render son los que declaró la gramática."""
+    # Las mallas de soporte se acaban de crear; el view layer sólo las expone tras sincronizarse.
+    bpy.context.view_layer.update()
+    linked = {obj.name for obj in bpy.context.view_layer.objects}
+    orphans = [obj.name for obj in objects if obj.type == "MESH" and obj.name not in linked]
+    if orphans:
+        raise SceneError(
+            "§15: mallas fuera de la colección activa; no se pueden contar como geometría renderizada: "
+            + ", ".join(orphans[:6])
+        )
     triangles = sum(
         len(p.vertices) - 2 for obj in objects if obj.type == "MESH" for p in obj.data.polygons
     )

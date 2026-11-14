@@ -125,7 +125,11 @@ const WAREHOUSE = BUILDING_DEFINITIONS.warehouse;
 
 describe("V.d-7C · enumeración autoritativa de colocaciones (fixtures de geometría)", () => {
   it("un solar de una celda da exactamente un candidato", () => {
-    const enumeration = enumerate([{ x: 4, y: 4 }], { ...COURTYARD, targetFootprintCells: 1 });
+    const enumeration = enumerate([{ x: 4, y: 4 }], {
+      ...COURTYARD,
+      targetFootprintCells: 1,
+      preferredFootprint: { width: 1, height: 1 },
+    });
     expect(enumeration.candidates).toHaveLength(1);
     expect(enumeration.rejection).toBeNull();
     expect(enumeration.candidates[0]!.footprintCells).toEqual([{ x: 4, y: 4 }]);
@@ -175,35 +179,31 @@ describe("V.d-7C · enumeración autoritativa de colocaciones (fixtures de geome
     expect(enumeration.rejection).toBe("FAR_LIMIT");
   });
 
-  it("la superficie edificable insuficiente se explica con el código del motor", () => {
-    /** Cubertura al 50 % sobre 4 celdas: sólo caben huellas de 2 celdas como máximo. */
+  it("la superficie edificable insuficiente no encoge el proyecto", () => {
+    /** Cobertura al 50 % sobre 4 celdas: un edificio 2×2 no se degrada a una tira de 2 celdas. */
     const enumeration = enumerate(rectangle(0, 0, 2, 2), COURTYARD, {
       code: codeOf({ maxCoveragePercent: 50 }),
     });
-    expect(enumeration.candidates.length).toBeGreaterThan(0);
-    for (const candidate of enumeration.candidates)
-      expect(candidate.footprintCells.length).toBeLessThanOrEqual(2);
+    expect(enumeration.candidates).toHaveLength(0);
+    expect(enumeration.rejection).toBe("COVERAGE_LIMIT");
   });
 
   it("una obstrucción existente saca sus celdas de todas las candidatas", () => {
     const cells = rectangle(0, 0, 3, 3);
-    const blocker = rectangle(1, 1, 1, 1);
-    const enumeration = enumerate(
-      cells,
-      { ...COURTYARD, targetFootprintCells: 9 },
-      {
-        buildings: [{ footprintCells: blocker, floors: 1 }],
-      },
-    );
+    const blocker = rectangle(0, 0, 1, 1);
+    const enumeration = enumerate(cells, COURTYARD, {
+      buildings: [{ footprintCells: blocker, floors: 1 }],
+    });
     expect(enumeration.candidates.length).toBeGreaterThan(0);
     for (const candidate of enumeration.candidates)
-      for (const cell of candidate.footprintCells) expect(cell.x === 1 && cell.y === 1).toBe(false);
+      for (const cell of candidate.footprintCells) expect(cell.x === 0 && cell.y === 0).toBe(false);
   });
 
   it("produce orientación 0° y 90° según geometría y nunca 180° ni 270°", () => {
-    const enumeration = enumerate(rectangle(0, 0, 3, 2), {
+    const enumeration = enumerate(rectangle(0, 0, 3, 3), {
       ...WAREHOUSE,
       targetFootprintCells: 6,
+      preferredFootprint: { width: 3, height: 2 },
     });
     const orientations = new Set(enumeration.candidates.map((entry) => entry.orientation));
     expect(orientations.has(0)).toBe(true);
@@ -218,6 +218,22 @@ describe("V.d-7C · enumeración autoritativa de colocaciones (fixtures de geome
         Math.min(...candidate.footprintCells.map((cell) => cell.y)) +
         1;
       expect(candidate.orientation).toBe(width >= height ? 0 : 90);
+    }
+  });
+
+  it("un bloque de viviendas sólo ofrece su planta 5×2 y su rotación 2×5", () => {
+    const enumeration = enumerate(rectangle(0, 0, 10, 10), BUILDING_DEFINITIONS.apartment_block);
+    expect(enumeration.candidates.length).toBeGreaterThan(0);
+    for (const candidate of enumeration.candidates) {
+      const width =
+        Math.max(...candidate.footprintCells.map((cell) => cell.x)) -
+        Math.min(...candidate.footprintCells.map((cell) => cell.x)) +
+        1;
+      const height =
+        Math.max(...candidate.footprintCells.map((cell) => cell.y)) -
+        Math.min(...candidate.footprintCells.map((cell) => cell.y)) +
+        1;
+      expect((width === 5 && height === 2) || (width === 2 && height === 5)).toBe(true);
     }
   });
 

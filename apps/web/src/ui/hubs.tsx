@@ -5,7 +5,7 @@ import type { ViewProjectionV2 } from "@landlord/shared";
 import { CityView } from "../CityView";
 import { BuildingThumbnail } from "./building-thumbnail";
 import { HelpPopover, HelpTooltip } from "./help";
-import { UiIcon } from "./icons";
+import { ResourceIcon, UiIcon } from "./icons";
 import {
   auctionStatusLabel,
   buildingDisplayName,
@@ -24,6 +24,7 @@ import {
 import type { Economy, GameActions, GameCalendar, HubKind } from "./types";
 
 const PLAYER = "org_00000001";
+const MARKET_RESOURCES = ["cement", "brick", "steel"] as const;
 
 const MACRO_MODIFIER_LABELS: Record<string, string> = {
   materialCostModifierPercent: "materiales",
@@ -391,6 +392,8 @@ function ContractBidForm({
 }
 
 function FinanceHub({ economy, calendar, actions }: HubProps) {
+  const occupiedInventory =
+    economy.inventory.cement + economy.inventory.brick + economy.inventory.steel;
   return (
     <>
       <section className="panel-section">
@@ -435,6 +438,51 @@ function FinanceHub({ economy, calendar, actions }: HubProps) {
             ? ` · faltan ${economy.financials.forecast.shortfall} u.`
             : ""}
         </p>
+      </section>
+      <section className="panel-section">
+        <header className="section-heading">
+          <h3>
+            <UiIcon name="market" /> Mercado de materiales <HelpPopover topic="materials_market" />
+          </h3>
+        </header>
+        <p className="muted">
+          Almacén {occupiedInventory}/{economy.inventory.capacity} unidades. Compra inmediata al
+          precio vigente.
+        </p>
+        <ul className="list-plain material-market" role="list">
+          {MARKET_RESOURCES.map((resource) => {
+            const price = economy.market.prices[resource];
+            return (
+              <li key={resource}>
+                <span className="material-market-resource">
+                  <ResourceIcon resource={resource} showLabel />
+                  <span>
+                    {economy.inventory[resource]} en almacén · {formatMoney(price)}/unidad
+                  </span>
+                </span>
+                <span className="material-market-actions">
+                  {[1, 5].map((amount) => {
+                    const cost = price * amount;
+                    const unavailable =
+                      economy.cash < cost ||
+                      occupiedInventory + amount > economy.inventory.capacity;
+                    return (
+                      <button
+                        aria-label={`Comprar ${amount} de ${resource} por ${formatMoney(cost)}`}
+                        disabled={unavailable}
+                        key={amount}
+                        onClick={() => actions.buyMaterials(resource, amount)}
+                        type="button"
+                      >
+                        +{amount} · {formatMoney(cost)}
+                      </button>
+                    );
+                  })}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
       </section>
       <section className="panel-section">
         <header className="section-heading">

@@ -1073,9 +1073,10 @@ const BUILDING_CONTEXT_ACTORS: Record<string, { actorClass: string; character: s
 };
 
 /**
- * Coloca un actor profesional por edificio con rol, en el bordillo frente al acceso (misma idea que
- * los vehículos contextuales), evitando las celdas de carretera ya reservadas por un vehículo y los
- * cruces. Determinista por coordenada de la huella. Presentacional, fuera de GameState.
+ * Coloca un actor profesional por edificio con rol, en una acera frente al acceso, evitando las
+ * celdas reservadas por un vehículo y los cruces. Determinista por coordenada de la huella.
+ * Presentacional, fuera de GameState. Una red vial antigua sin aceras no inventa una: en ese caso
+ * no se dibuja el actor, nunca se le coloca sobre la calzada.
  */
 export function planGameplayContextActors(
   buildings: readonly { id: string; type: string; footprintCells: readonly GridCell[] }[],
@@ -1103,27 +1104,12 @@ export function planGameplayContextActors(
     for (const road of straights) {
       if (isNearJunction(road.cell, junctions)) continue;
       const sidewalks = sidewalkCandidates(road, roles);
-      if (sidewalks.length > 0) {
-        for (const sidewalk of sidewalks) {
-          const frontageDistance = Math.min(
-            ...footprint.map((cell) => manhattanDistance(cell, sidewalk.cell)),
-          );
-          if (frontageDistance <= 1 && !reservedRoadCells.has(cellKey(sidewalk.cell))) {
-            curbs.push({ road, sidewalk: sidewalk.cell, side: sidewalk.side });
-          }
-        }
-        continue;
-      }
-      for (const [side, delta] of SIDE_DELTAS) {
-        const host = { x: road.cell.x + delta.x, y: road.cell.y + delta.y };
+      for (const sidewalk of sidewalks) {
         const frontageDistance = Math.min(
-          ...footprint.map((cell) => Math.abs(cell.x - host.x) + Math.abs(cell.y - host.y)),
+          ...footprint.map((cell) => manhattanDistance(cell, sidewalk.cell)),
         );
-        // Un vehículo puede ocupar la celda exacta del acceso. En ese caso el profesional usa el
-        // tramo contiguo del mismo bordillo (una celda longitudinal), sin saltar a calzada central.
-        if (frontageDistance <= 1 && !reservedRoadCells.has(cellKey(road.cell))) {
-          curbs.push({ road, sidewalk: road.cell, side });
-          break;
+        if (frontageDistance <= 1 && !reservedRoadCells.has(cellKey(sidewalk.cell))) {
+          curbs.push({ road, sidewalk: sidewalk.cell, side: sidewalk.side });
         }
       }
     }

@@ -97,20 +97,11 @@
         },
         {
           "id": "end_wing",
-          "label": "cuerpo de dos plantas con aleta de una",
+          "label": "casa continua de dos plantas",
           "volumes": [
             {
-              "cells": [0, 0, 2, 1],
+              "cells": [0, 0, 4, 1],
               "levels": "domain",
-              "stackOn": null,
-              "slab": true,
-              "build": "bands",
-              "role": null,
-              "module": null
-            },
-            {
-              "cells": [2, 0, 2, 1],
-              "levels": 1,
               "stackOn": null,
               "slab": true,
               "build": "bands",
@@ -189,7 +180,7 @@
           "label": "ladrillo visto con carpintería de obra",
           "roleModule": {
             "wall_panel": "mod_megakit_brick_wall_2m",
-            "window_bay": "mod_megakit_brick_window_single_2m",
+        "window_bay": "mod_megakit_brick_window_trim_2m",
             "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
             "wainscot": "mod_megakit_brick_bottom_trim_2m",
             "crown_panel": "mod_megakit_brick_top_trim_2m",
@@ -212,46 +203,46 @@
       "rhythms": [
         {
           "id": "window_wall",
-          "label": "hueco-muro alternados",
+          "label": "ventanas residenciales regulares",
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": ["wall_panel", "window_bay"],
+            "front": ["window_bay"],
             "rear": ["wall_panel"],
-            "sides": ["wall_panel", "window_bay"]
+            "sides": ["wall_panel"]
           }
         },
         {
           "id": "brick_bands",
-          "label": "bandas de ladrillo con huecos residenciales",
+          "label": "zócalo de ladrillo con ventanas regulares",
           "bayMeters": 2,
           "groundRole": "wainscot",
           "tokens": {
-            "front": ["window_bay", "wall_panel"],
+            "front": ["window_bay"],
             "rear": ["wall_panel"],
-            "sides": ["wall_panel", "window_bay"]
+            "sides": ["wall_panel"]
           }
         },
         {
           "id": "two_over_one",
-          "label": "dos huecos por tramo de muro",
+          "label": "ventanas residenciales densas",
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": ["window_bay", "wall_panel", "window_bay"],
+            "front": ["window_bay"],
             "rear": ["wall_panel"],
-            "sides": ["window_bay", "wall_panel"]
+            "sides": ["wall_panel"]
           }
         },
         {
           "id": "wainscoted",
-          "label": "zócalo continuo y huecos impares",
+          "label": "zócalo continuo y ventanas regulares",
           "bayMeters": 2,
           "groundRole": "wainscot",
           "tokens": {
-            "front": ["wall_panel", "window_bay"],
+            "front": ["window_bay"],
             "rear": ["wall_panel"],
-            "sides": ["window_bay"]
+            "sides": ["wall_panel"]
           }
         }
       ],
@@ -1517,7 +1508,7 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": ["wall_panel", "window_bay"],
+            "front": ["window_bay"],
             "rear": ["wall_panel", "window_bay"],
             "sides": ["wall_panel", "window_bay"]
           }
@@ -1528,7 +1519,7 @@
           "bayMeters": 2,
           "groundRole": null,
           "tokens": {
-            "front": ["window_bay", "wall_panel", "window_bay"],
+            "front": ["window_bay"],
             "rear": ["wall_panel", "window_bay"],
             "sides": ["window_bay"]
           }
@@ -1539,7 +1530,7 @@
           "bayMeters": 2,
           "groundRole": "wainscot",
           "tokens": {
-            "front": ["wall_panel", "window_bay"],
+            "front": ["window_bay"],
             "rear": ["wall_panel"],
             "sides": ["window_bay", "wall_panel"]
           }
@@ -1599,7 +1590,7 @@
         {
           "id": "gable_corniced",
           "kind": "gable",
-          "cornice": true,
+          "cornice": false,
           "plateRole": null,
           "dormerBays": 0,
           "ridgeAlong": "x"
@@ -1938,12 +1929,12 @@
         },
         {
           "id": "recessed_lobby",
-          "label": "vestíbulo empotrado",
+          "label": "vestíbulo empotrado con marquesina",
           "bayRule": "drawn",
           "frameRole": "doorframe",
           "leafRole": "door",
-          "aboveRole": null,
-          "projectionMeters": 0,
+          "aboveRole": "overhang",
+          "projectionMeters": 0.4,
           "steps": false
         }
       ],
@@ -3944,20 +3935,11 @@
         },
         {
           "id": "entrance_wing",
-          "label": "cuerpo principal con ala de acceso destacada",
+          "label": "bloque sanitario continuo con acceso destacado",
           "volumes": [
             {
-              "cells": [0, 1, 2, 1],
+              "cells": [0, 1, 3, 1],
               "levels": "domain",
-              "stackOn": null,
-              "slab": true,
-              "build": "bands",
-              "role": null,
-              "module": null
-            },
-            {
-              "cells": [2, 1, 1, 1],
-              "levels": 1,
               "stackOn": null,
               "slab": true,
               "build": "bands",
@@ -3992,20 +3974,11 @@
         },
         {
           "id": "l_shaped_clinic",
-          "label": "forma de L con zona de ambulancias lateral",
+          "label": "bloque sanitario continuo junto a la zona de ambulancias",
           "volumes": [
             {
-              "cells": [0, 1, 2, 1],
+              "cells": [0, 1, 3, 1],
               "levels": "domain",
-              "stackOn": null,
-              "slab": true,
-              "build": "bands",
-              "role": null,
-              "module": null
-            },
-            {
-              "cells": [2, 1, 1, 1],
-              "levels": 1,
               "stackOn": null,
               "slab": true,
               "build": "bands",
@@ -4081,11 +4054,11 @@
       "silhouetteOptions": [
         {
           "id": "trim_cornice",
-          "label": "cornisa de moldura sanitaria",
-          "corniceRole": "cornice",
-          "corniceModule": "mod_megakit_cornice_trim_center_2m",
+          "label": "alero sanitario limpio",
+          "corniceRole": null,
+          "corniceModule": null,
           "crownRole": null,
-          "projectionMeters": 0.428
+          "projectionMeters": 0
         },
         {
           "id": "plain",
@@ -4137,9 +4110,9 @@
           "bayRule": "center",
           "frameRole": "doorframe",
           "leafRole": "door",
-          "aboveRole": "canopy",
-          "projectionMeters": 0.4,
-          "steps": true
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
         },
         {
           "id": "glazed_lobby",
@@ -4149,7 +4122,7 @@
           "leafRole": null,
           "aboveRole": null,
           "projectionMeters": 0,
-          "steps": true
+          "steps": false
         },
         {
           "id": "recessed_entry",
@@ -4159,7 +4132,7 @@
           "leafRole": "door",
           "aboveRole": "overhang",
           "projectionMeters": 0.4,
-          "steps": true
+          "steps": false
         }
       ],
       "propOptions": [
@@ -4677,10 +4650,13 @@
           "label": "grandes puertas de bahía de aparatos",
           "bayMeters": 2,
           "groundRole": null,
+          "groundFrontRole": "doorframe",
+          "groundFrontInfillRole": "door",
+          "groundSideRole": "wall_panel",
           "tokens": {
-            "front": ["doorframe", "doorframe"],
+            "front": ["window_bay", "window_bay"],
             "rear": ["wall_panel"],
-            "sides": ["wall_panel"]
+            "sides": ["window_bay", "wall_panel"]
           }
         },
         {
@@ -4688,8 +4664,11 @@
           "label": "bahías de aparatos con ventanas superiores",
           "bayMeters": 2,
           "groundRole": null,
+          "groundFrontRole": "doorframe",
+          "groundFrontInfillRole": "door",
+          "groundSideRole": "wall_panel",
           "tokens": {
-            "front": ["doorframe", "window_bay"],
+            "front": ["window_bay", "window_bay"],
             "rear": ["wall_panel"],
             "sides": ["window_bay", "wall_panel"]
           }
@@ -4699,10 +4678,13 @@
           "label": "tres bahías de aparatos en hilera",
           "bayMeters": 2,
           "groundRole": null,
+          "groundFrontRole": "doorframe",
+          "groundFrontInfillRole": "door",
+          "groundSideRole": "wall_panel",
           "tokens": {
-            "front": ["doorframe", "doorframe", "doorframe"],
+            "front": ["window_bay", "window_bay", "window_bay"],
             "rear": ["wall_panel"],
-            "sides": ["wall_panel"]
+            "sides": ["window_bay", "wall_panel"]
           }
         }
       ],
@@ -4725,11 +4707,13 @@
         },
         {
           "id": "trim_cornice_parapet",
-          "label": "cornisa de moldura con pretil",
+          "label": "cornisa de ladrillo con retornos",
           "corniceRole": "cornice",
-          "corniceModule": "mod_megakit_cornice_trim_center_2m",
-          "crownRole": "crown_panel",
-          "projectionMeters": 0.428
+          "corniceModule": "mod_megakit_cornice_brick_center_2m",
+          "corniceLeftModule": "mod_megakit_cornice_brick_corner_left",
+          "corniceRightModule": "mod_megakit_cornice_brick_corner_right",
+          "crownRole": null,
+          "projectionMeters": 0.2
         }
       ],
       "roofOptions": [
@@ -4930,20 +4914,11 @@
         },
         {
           "id": "l_shaped_market",
-          "label": "mercado en L con plaza exterior",
+          "label": "nave continua de mercado junto a la plaza",
           "volumes": [
             {
-              "cells": [0, 1, 3, 1],
+              "cells": [0, 1, 5, 1],
               "levels": "domain",
-              "stackOn": null,
-              "slab": true,
-              "build": "bands",
-              "role": null,
-              "module": null
-            },
-            {
-              "cells": [3, 1, 2, 1],
-              "levels": 1,
               "stackOn": null,
               "slab": true,
               "build": "bands",
@@ -5019,7 +4994,7 @@
           "id": "mixed_stalls",
           "label": "crujías mixtas de puesto y muro",
           "bayMeters": 2,
-          "groundRole": "ground_panel",
+          "groundRole": "curtain_wall",
           "tokens": {
             "front": ["curtain_wall", "wall_panel", "window_bay"],
             "rear": ["wall_panel", "window_bay"],
@@ -5107,7 +5082,7 @@
           "leafRole": null,
           "aboveRole": null,
           "projectionMeters": 0,
-          "steps": true
+          "steps": false
         },
         {
           "id": "canopied_entrance",
@@ -5117,7 +5092,7 @@
           "leafRole": "door",
           "aboveRole": "canopy",
           "projectionMeters": 0.4,
-          "steps": true
+          "steps": false
         },
         {
           "id": "arcade_entry",
@@ -5127,7 +5102,7 @@
           "leafRole": null,
           "aboveRole": "overhang",
           "projectionMeters": 0.4,
-          "steps": true
+          "steps": false
         }
       ],
       "propOptions": [

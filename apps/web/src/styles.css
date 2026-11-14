@@ -973,8 +973,19 @@ button:disabled {
 }
 
 :root[data-visual-mood="day"] .field-row input,
+:root[data-visual-mood="day"] .help-tooltip,
 :root[data-visual-mood="day"] .help-popover {
   background: #fffaf1;
+  color: #394955;
+}
+
+:root[data-visual-mood="day"] .help-tooltip strong,
+:root[data-visual-mood="day"] .help-popover strong {
+  color: #202a35;
+}
+
+:root[data-visual-mood="day"] .help-popover .muted {
+  color: #52616d;
 }
 
 :root[data-visual-mood="day"] .onboarding-card {
@@ -987,6 +998,23 @@ button:disabled {
 :root[data-visual-mood="day"] .blocked-reasons,
 :root[data-visual-mood="day"] .danger-action {
   color: #8a332b;
+}
+
+/* Las tarjetas de construcción nacieron con colores literales de la interfaz
+   nocturna. Su superficie sí cambiaba en Día, pero sus textos claros seguían
+   heredándose y parecían controles desactivados aun estando disponibles. */
+:root[data-visual-mood="day"] .construction-option strong {
+  color: var(--ux-text);
+}
+
+:root[data-visual-mood="day"] .construction-option span,
+:root[data-visual-mood="day"] .build-card-cost,
+:root[data-visual-mood="day"] .build-card-function {
+  color: var(--ux-text-secondary);
+}
+
+:root[data-visual-mood="day"] .build-card-ready {
+  color: var(--ux-ok);
 }
 
 :root[data-visual-mood="day"] .visual-mood-button[aria-pressed="true"],
@@ -1457,6 +1485,35 @@ button:disabled {
   color: var(--ux-text);
 }
 
+.material-market {
+  gap: 8px;
+}
+
+.material-market li,
+.material-market-resource,
+.material-market-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.material-market li {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 8px;
+  border: 1px solid var(--ux-border);
+  border-radius: var(--ux-radius-sm);
+}
+
+.material-market-resource {
+  color: var(--ux-text-secondary);
+}
+
+.material-market-actions button {
+  padding: 4px 6px;
+  font-size: 0.72rem;
+}
+
 .resource-missing {
   color: var(--ux-danger);
 }
@@ -1541,6 +1598,20 @@ button:disabled {
   margin: 0;
   color: var(--ux-ok);
   font-size: 0.82rem;
+}
+
+.multi-parcel-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0;
+  padding: var(--ux-space-2);
+  border: 1px solid color-mix(in srgb, var(--ux-ok) 55%, var(--ux-border));
+  border-radius: var(--ux-radius-sm);
+  background: color-mix(in srgb, var(--ux-ok) 12%, transparent);
+  color: var(--ux-ok);
+  font-size: 0.82rem;
+  line-height: 1.4;
 }
 
 .progress {
@@ -2027,22 +2098,14 @@ button:disabled {
   vertical-align: middle;
 }
 
-.help-dot {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  padding: 0;
-  border: 1px solid var(--ux-border-strong);
-  border-radius: 50%;
-  background: transparent;
-  color: var(--ux-text-muted);
+.help-tooltip-button {
+  min-width: 30px;
+  min-height: 30px;
   cursor: help;
 }
 
-.help-dot:hover,
-.help-dot:focus-visible {
+.help-tooltip-button:hover,
+.help-tooltip-button:focus-visible {
   color: var(--ux-accent);
   border-color: var(--ux-accent);
 }

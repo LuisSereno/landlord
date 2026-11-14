@@ -77,6 +77,14 @@ import {
   type IsometricLayout,
   type ScreenPoint,
 } from "./coordinates";
+import {
+  DEFAULT_SIGNAGE_LOCALE,
+  reconcileBuildingSignage,
+  resolveSignageLocale,
+  type BuildingSignageEntry,
+  type SignagePlanInput,
+  type SignageSalience,
+} from "./building-signage";
 import { gridEdgeToScreenLine, parcelBoundaryEdges } from "./parcel-geometry";
 import { nearestCandidateToCell } from "../ui/placement";
 import {
@@ -151,6 +159,47 @@ const PLACEMENT_LABEL_DEPTH = 20_550;
  */
 const CONSTRUCTION_LABEL_DEPTH = 1_000_000;
 /**
+ * Señalización runtime de edificios oficiales/industriales como PLACAS INTEGRADAS: cada arquetipo
+ * declara un anclaje normalizado dentro de la caja visible de su sprite (`building-signage.ts`), y
+ * la escena lo convierte a mundo con displayWidth/Height + origin, de modo que la placa acompaña al
+ * sprite al moverse, escalarse o rotar. Escala con el edificio (no es un HUD de tamaño constante) y
+ * desaparece por completo a zoom lejano. Estos valores son el único tuning visual y se centralizan.
+ */
+/** La placa se dibuja encima de su sprite; indicadores (1e6) y UI DOM quedan por encima. */
+const SIGNAGE_DEPTH_BIAS = 1;
+/**
+ * Por debajo de este zoom la placa desaparece por completo. En la vista global (~0,85) las placas
+ * siguen siendo legibles pero empiezan a competir entre sí, así que el corte se pone ahí y no en
+ * 0,7: en zoom de juego normal siguen visibles.
+ */
+const SIGNAGE_MIN_ZOOM = 0.85;
+/**
+ * Desde este zoom se pinta toda la señalización elegible. Por debajo entra la densidad adaptativa:
+ * sólo servicios públicos, el edificio seleccionado y el que está bajo el cursor. Es el zoom inicial
+ * de juego, así que la vista normal no cambia; lo adaptativo actúa exactamente en la vista global.
+ */
+const SIGNAGE_DENSE_MIN_ZOOM = 1;
+/** Tipografía base de la placa en px de mundo; el escala final sale del tamaño del edificio. */
+const SIGNAGE_BASE_FONT_PX = 11;
+/** Alto de sprite de referencia (px de mundo) para normalizar el escala de la placa. */
+const SIGNAGE_NOMINAL_HEIGHT_PX = 182;
+/** Legibilidad mínima en pantalla: la placa nunca baja de este tamaño aparente. */
+const SIGNAGE_MIN_ONSCREEN_FONT_PX = 9;
+const SIGNAGE_MAX_SCALE = 2;
+/** Placa compacta: fondo oscuro semitransparente + borde fino cálido; sin poste, flecha ni sombra. */
+const SIGNAGE_PLATE_BG = 0x10161f;
+const SIGNAGE_PLATE_BG_ALPHA = 0.78;
+const SIGNAGE_PLATE_BORDER = 0xd8b06a;
+const SIGNAGE_PLATE_TEXT = "#f2ecdd";
+const SIGNAGE_PAD_X = 5;
+const SIGNAGE_PAD_Y = 3;
+/**
+ * Cartel industrial (`plateStyle === "banner"`): se alarga en horizontal y se apila en vertical,
+ * como un letrero corporativo montado sobre la fachada de un volumen grande, no como una chapa.
+ */
+const SIGNAGE_PAD_X_BANNER = 16;
+const SIGNAGE_PAD_Y_BANNER = 2;
+/**
  * Constante de deslizamiento de las cuadrillas. La proyección llega cada 2 ticks y el destino salta
  * de golpe; este tiempo de relajación es presentación pura y no añade simulación.
  */
@@ -208,6 +257,18 @@ type CrewSpriteEntry = {
   cell: GridCell;
 };
 
+/**
+ * Placa de señalización integrada: un contenedor con el fondo/borde (Graphics) y el texto (Text),
+ * anclado dentro de la caja del sprite y escalado con él. No interactivo: no intercepta el picking.
+ */
+type SignagePlaque = {
+  container: Phaser.GameObjects.Container;
+  plate: Phaser.GameObjects.Graphics;
+  label: Phaser.GameObjects.Text;
+  sprite: Phaser.GameObjects.Image;
+  entry: BuildingSignageEntry;
+};
+
 /** Identidad semántica recibida desde la UI; las celdas se resuelven contra la proyección actual. */
 export type MapSelectionTarget =
   | { kind: "parcel"; parcelId: string }
@@ -242,11 +303,26 @@ type CameraTestApi = {
   getCamera(): { zoom: number; scrollX: number; scrollY: number };
   getCellScreenPoint(cell: GridCell): ScreenPoint;
   getEntityScreenPoint(id: string): ScreenPoint | null;
+  /** Sonda QA de señalización: rótulos vivos con su texto, posición de mundo y por qué se pintan. */
+  listSignage(): Array<{
+    id: string;
+    text: string;
+    x: number;
+    y: number;
+    visible: boolean;
+    salience: SignageSalience;
+    hovered: boolean;
+  }>;
   getWorldPoint(point: ScreenPoint): ScreenPoint;
   getSelectedCell(): GridCell | null;
   centerOnCell(cell: GridCell): void;
   /** Inyecta una proyección (captura QA): atraviesa el mismo camino de render que la partida real. */
   injectProjection(projection: ViewProjectionV2): void;
+  /**
+   * Densidad adaptativa · fija la selección dirigida sin pasar por React, para poder medir la rama
+   * "edificio seleccionado" sobre proyecciones sintéticas cuyas ids no existen en la economía.
+   */
+  setSelectionTarget(target: MapSelectionTarget | null): void;
 };
 
 declare global {
@@ -298,6 +374,9 @@ declare global {
       trees: number;
       /** V.k.3 · sprites de cuadrilla vivos en el pool (agentes asignados a una obra). */
       crewSprites: number;
+      /** Rótulos de señalización vivos y cuántos están visibles con el zoom/viewport actual. */
+      signage: number;
+      signageVisible: number;
       totalSprites: number;
       groundRebakes: number;
       groundBakeLastMs: number;
@@ -324,6 +403,15 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private structureBobs: Phaser.GameObjects.Bob[] = [];
   private agentBobs: Phaser.GameObjects.Bob[] = [];
   private buildingSprites = new Map<string, Phaser.GameObjects.Image>();
+  /**
+   * Placas de señalización, indexadas con el mismo id estable que `buildingSprites`. Cada registro
+   * guarda el contenedor (fondo+texto), el sprite de referencia y la entrada semántica ya localizada
+   * para no regenerar la textura del label en cada sincronización (sólo cuando el texto cambia).
+   */
+  private buildingSignage = new Map<string, SignagePlaque>();
+  private signageLocale: string = DEFAULT_SIGNAGE_LOCALE;
+  /** Identificador de la placa bajo el cursor, para la densidad adaptativa de zoom lejano. */
+  private hoveredSignageId: string | null = null;
   private pendingVariantTextures = new Map<string, { bytes: number; districtId: string }>();
   private variantCache = new DistrictTextureCache(VARIANT_CACHE_BUDGET_BYTES);
   private sliceObjects: Phaser.GameObjects.GameObject[] = [];
@@ -453,6 +541,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
       placementDraws: this.placementDrawCount,
       sceneChildren: this.children.list.length,
       crewSprites: this.crewSprites.size,
+      signage: this.buildingSignage.size,
+      signageVisible: [...this.buildingSignage.values()].filter(
+        (plaque) => plaque.container.visible,
+      ).length,
       totalSprites:
         this.buildingSprites.size +
         this.decorSprites.length +
@@ -520,6 +612,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
       for (const entry of this.indicatorEntries)
         entry.object.setVisible(entry.critical || showSecondary);
     }
+    // Pan y zoom cambian el viewport cada frame: escala y visibilidad de las placas se reevalúan aquí.
+    this.syncSignageFrame();
     if (!this.cursors) return;
     const camera = this.cameras.main;
     const speed = 8 / camera.zoom;
@@ -2095,6 +2189,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
       sprite.destroy();
       this.buildingSprites.delete(id);
     }
+    // Los rótulos se reconcilian sobre el mismo plan: sólo edificios con sprite real y terminado.
+    this.syncBuildingSignage(plan);
     // V.j.6: acota la memoria de variantes; expulsa LRU lo que no está en uso ni en el distrito
     // observado y elimina esas texturas de Phaser (se recargarán bajo demanda si vuelven a hacer falta).
     const inUseVariantKeys = plan
@@ -2105,6 +2201,126 @@ export class IsometricSpikeScene extends Phaser.Scene {
       inUseVariantKeys,
     );
     for (const key of evicted) this.textures.remove(key);
+  }
+
+  /**
+   * Crea, actualiza y destruye las placas de señalización a partir del plan de sprites. La decisión
+   * (qué tipos, qué estado, qué texto, qué anclaje) vive en `building-signage.ts` (pura y testeable);
+   * aquí sólo se aplica el diff sobre el Map de placas y se coloca cada una DENTRO de la caja visible
+   * de su sprite, sobre la fachada / volumen administrativo, nunca flotando sobre el solar.
+   *
+   * La placa es no interactiva (nunca se llama a setInteractive), así que no intercepta los clicks
+   * del edificio, la parcela ni la carretera. Su depth es el del sprite + 1: queda por encima de su
+   * propio edificio pero por debajo de los indicadores de mundo (1e6) y de la UI DOM.
+   */
+  private syncBuildingSignage(plan: readonly SignagePlanInput[]): void {
+    const previous = new Map<string, BuildingSignageEntry>();
+    for (const [id, plaque] of this.buildingSignage) previous.set(id, plaque.entry);
+    const { next, removed } = reconcileBuildingSignage(previous, plan, this.signageLocale);
+    for (const id of removed) {
+      this.buildingSignage.get(id)?.container.destroy();
+      this.buildingSignage.delete(id);
+    }
+    for (const [id, entry] of next) {
+      const sprite = this.buildingSprites.get(id);
+      if (!sprite) continue;
+      let plaque = this.buildingSignage.get(id);
+      if (!plaque) {
+        const label = this.add.text(0, 0, entry.text, {
+          resolution: 2,
+          fontFamily: "Inter, system-ui, sans-serif",
+          fontSize: `${SIGNAGE_BASE_FONT_PX}px`,
+          fontStyle: "bold",
+          color: SIGNAGE_PLATE_TEXT,
+        });
+        const plate = this.add.graphics();
+        const container = this.add.container(0, 0, [plate, label]);
+        plaque = { container, plate, label, sprite, entry };
+        this.buildingSignage.set(id, plaque);
+        this.redrawSignagePlate(plaque);
+      } else {
+        plaque.sprite = sprite;
+        if (plaque.entry.text !== entry.text) {
+          plaque.label.setText(entry.text);
+          this.redrawSignagePlate(plaque);
+        }
+      }
+      plaque.entry = entry;
+      // Anclaje integrado normalizado → mundo, derivado del pivote y del tamaño visible del sprite.
+      // Acompaña al sprite al moverse, escalarse o cambiar de orientación (se recalcula cada sync).
+      const x = sprite.x + (entry.anchor.x - sprite.originX) * sprite.displayWidth;
+      const y = sprite.y + (entry.anchor.y - sprite.originY) * sprite.displayHeight;
+      plaque.container.setPosition(x, y);
+      plaque.container.setDepth(sprite.depth + SIGNAGE_DEPTH_BIAS);
+    }
+    this.syncSignageFrame();
+  }
+
+  /** Dibuja el fondo + borde fino cálido alrededor del texto, centrado en el anclaje. */
+  private redrawSignagePlate(plaque: SignagePlaque): void {
+    const banner = plaque.entry.plateStyle === "banner";
+    const padX = banner ? SIGNAGE_PAD_X_BANNER : SIGNAGE_PAD_X;
+    const padY = banner ? SIGNAGE_PAD_Y_BANNER : SIGNAGE_PAD_Y;
+    const w = plaque.label.width + padX * 2;
+    const h = plaque.label.height + padY * 2;
+    plaque.plate.clear();
+    plaque.plate.fillStyle(SIGNAGE_PLATE_BG, SIGNAGE_PLATE_BG_ALPHA);
+    plaque.plate.fillRoundedRect(-w / 2, -h / 2, w, h, 3);
+    plaque.plate.lineStyle(1, SIGNAGE_PLATE_BORDER, 0.9);
+    plaque.plate.strokeRoundedRect(-w / 2, -h / 2, w, h, 3);
+    plaque.label.setPosition(-plaque.label.width / 2, -plaque.label.height / 2);
+  }
+
+  /**
+   * Escala la placa con el edificio (con un mínimo de legibilidad en pantalla) y decide si se pinta.
+   * Tres tramos: zoom de juego (≥1) → todas; vista global (0,85–1) → densidad adaptativa, sólo
+   * servicios públicos + seleccionado + bajo el cursor; por debajo de 0,85 → ninguna. Se llama cada
+   * frame: el zoom cambia el tamaño aparente y el viewport sin necesidad de una nueva proyección.
+   */
+  private syncSignageFrame(): void {
+    if (this.buildingSignage.size === 0) return;
+    const view = this.cameras.main.worldView;
+    const zoom = this.cameras.main.zoom;
+    const zoomOk = zoom >= SIGNAGE_MIN_ZOOM;
+    const dense = zoom >= SIGNAGE_DENSE_MIN_ZOOM;
+    const selectedIds = dense ? null : this.selectedSignageIds();
+    const minWorldScale = SIGNAGE_MIN_ONSCREEN_FONT_PX / (SIGNAGE_BASE_FONT_PX * zoom);
+    for (const plaque of this.buildingSignage.values()) {
+      const relative = Phaser.Math.Clamp(
+        plaque.sprite.displayHeight / SIGNAGE_NOMINAL_HEIGHT_PX,
+        0.6,
+        1.5,
+      );
+      const scale = Math.min(Math.max(relative, minWorldScale), SIGNAGE_MAX_SCALE);
+      plaque.container.setScale(scale);
+      const salient =
+        dense ||
+        plaque.entry.salience === "public_service" ||
+        (selectedIds?.has(plaque.entry.id) ?? false) ||
+        this.hoveredSignageId === plaque.entry.id;
+      const visible =
+        zoomOk && salient && this.isInViewport(plaque.container.x, plaque.container.y, view, 48);
+      if (plaque.container.visible !== visible) plaque.container.setVisible(visible);
+    }
+  }
+
+  /**
+   * Placas que merecen verse aunque el mapa esté lejos porque el jugador está mirando ese objeto.
+   * `selectionTarget` ya es una identidad resuelta fuera del render; aquí sólo se traduce a la clave
+   * estable del plan de sprites (`building:<id>`). Una facility agrupa edificios: se destacan todos.
+   */
+  private selectedSignageIds(): Set<string> {
+    const target = this.selectionTarget;
+    if (target?.kind === "building") return new Set([`building:${target.buildingId}`]);
+    if (target?.kind !== "facility") return new Set<string>();
+    const facility = this.projection?.facilities.find((entry) => entry.id === target.facilityId);
+    return new Set((facility?.buildingIds ?? []).map((id) => `building:${id}`));
+  }
+
+  /** Cambia el idioma de los rótulos sin regenerar arte ni tocar la simulación. */
+  public setSignageLocale(locale: string): void {
+    this.signageLocale = resolveSignageLocale(locale);
+    this.syncBuildingSprites();
   }
 
   /**
@@ -2300,11 +2516,38 @@ export class IsometricSpikeScene extends Phaser.Scene {
   }
 
   private handlePointerMove(pointer: Phaser.Input.Pointer): void {
+    this.updateSignageHover(pointer);
     if (!this.dragStart || !pointer.isDown) return;
     const camera = this.cameras.main;
     const dx = (pointer.x - this.dragStart.x) / camera.zoom;
     const dy = (pointer.y - this.dragStart.y) / camera.zoom;
     camera.setScroll(this.dragStart.scrollX - dx, this.dragStart.scrollY - dy);
+  }
+
+  /**
+   * Densidad adaptativa · qué edificio está bajo el cursor. Se resuelve contra los bounds reales del
+   * sprite (la silueta pintada, no sólo la huella en el suelo) y sin hacer interactiva ninguna placa,
+   * así que el puntero sigue sin robarle clicks al mapa. `syncSignageFrame` lo lee al frame siguiente.
+   */
+  private updateSignageHover(pointer: Phaser.Input.Pointer): void {
+    if (this.buildingSignage.size === 0) return;
+    const world = this.cameras.main.getWorldPoint(pointer.x, pointer.y);
+    let bestId: string | null = null;
+    let bestDepth = -Infinity;
+    for (const [id, plaque] of this.buildingSignage) {
+      const bounds = plaque.sprite.getBounds();
+      if (
+        world.x < bounds.x ||
+        world.x > bounds.x + bounds.width ||
+        world.y < bounds.y ||
+        world.y > bounds.y + bounds.height
+      )
+        continue;
+      if (plaque.sprite.depth <= bestDepth) continue;
+      bestDepth = plaque.sprite.depth;
+      bestId = id;
+    }
+    this.hoveredSignageId = bestId;
   }
 
   private handlePointerUp(pointer: Phaser.Input.Pointer): void {
@@ -2503,6 +2746,16 @@ export class IsometricSpikeScene extends Phaser.Scene {
         const world = camera.getWorldPoint(point.x, point.y);
         return { x: world.x, y: world.y };
       },
+      listSignage: () =>
+        [...this.buildingSignage.entries()].map(([id, plaque]) => ({
+          id,
+          text: plaque.entry.text,
+          x: plaque.container.x,
+          y: plaque.container.y,
+          visible: plaque.container.visible,
+          salience: plaque.entry.salience,
+          hovered: this.hoveredSignageId === id,
+        })),
       getSelectedCell: () => (this.selectedCell ? { ...this.selectedCell } : null),
       centerOnCell: (cell) => {
         // Phaser hace zoom sobre el centro del viewport: el scroll es el mundo del borde
@@ -2513,6 +2766,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
       },
       injectProjection: (projection) => {
         this.setProjection(projection);
+      },
+      setSelectionTarget: (target) => {
+        this.setSelectionTarget(target);
       },
     };
     window.__landlordCameraTest = api;
@@ -2544,6 +2800,15 @@ export class IsometricSpikeScene extends Phaser.Scene {
 
 export const isometricSpikeGameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
+  /**
+   * La UI React se superpone al canvas. Phaser escucha eventos de `window` por defecto para
+   * detectar un `pointerup` que ocurra fuera del juego, pero eso también convertía los clicks de
+   * un botón del panel contextual en una selección del terreno que hay debajo. El mapa sólo debe
+   * recibir el input cuyo destino sea su propio canvas.
+   */
+  input: {
+    windowEvents: false,
+  },
   scale: {
     mode: Phaser.Scale.RESIZE,
     width: 640,

@@ -87,14 +87,20 @@ export function GameHud({
                 : "—"}
             </span>
           </span>
-          <span className="metric-chip resource-chip" title="Materiales">
+          <button
+            aria-label="Abrir mercado de materiales en Finanzas"
+            className="metric-chip metric-chip-button resource-chip"
+            onClick={() => onOpenHub("finance")}
+            title="Abrir mercado de materiales"
+            type="button"
+          >
             {(["cement", "brick", "steel"] as const).map((resource) => (
               <span className="resource-inline" key={resource}>
                 <ResourceIcon resource={resource} size={14} />
                 <span className="metric-value">{economy ? economy.inventory[resource] : "—"}</span>
               </span>
             ))}
-          </span>
+          </button>
           <span className="metric-chip">
             <UiIcon name="crew" size={15} />
             <span className="metric-label">Cuadrilla</span>

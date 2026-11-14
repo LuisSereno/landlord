@@ -471,7 +471,10 @@ function BuildingPanel({
   const contract = economy.insurance.contracts.find((entry) => entry.buildingId === building.id);
   const offers = economy.insurance.offers.filter((offer) => offer.buildingId === building.id);
   const compatibleTenants = economy.tenants.filter(
-    (tenant) => !tenant.activeContractBuildingId && tenant.preferredBuildingType === building.type,
+    (tenant) =>
+      !tenant.activeContractBuildingId &&
+      tenant.preferredBuildingType === building.type &&
+      (!tenant.marketDistrictId || tenant.marketDistrictId === building.districtId),
   );
   const upgradeReasons = option
     ? upgradeBlockedReasons({ economy, option, alreadyUpgraded: building.upgraded })
@@ -636,7 +639,10 @@ function BuildingPanel({
                     })}
                   </ul>
                 ) : (
-                  <p className="muted">No hay inquilinos compatibles disponibles.</p>
+                  <p className="muted">
+                    No hay inquilinos compatibles disponibles. El mercado genera nuevas solicitudes
+                    al cierre mensual cuando hay vivienda asequible.
+                  </p>
                 )
               ) : null}
             </>

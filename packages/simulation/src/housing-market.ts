@@ -632,6 +632,17 @@ function admitArrivals(state: GameState, stock: readonly StockUnit[], prng: Xosh
         Math.round(segment.arrivalsAtFullAppeal * (appeal / 100) * pressure * demandFactor),
       ),
     );
+    /**
+     * Cada llegada conserva el tipo y distrito de la plaza que ha atraído su demanda. Hasta
+     * ahora todas heredaban el primer tipo del segmento (el patio residencial), lo que hacía
+     * imposible contratar familias en bloques, adosadas o inmuebles mixtos aunque existiera
+     * oferta asequible.
+     */
+    const reservedSlots: Array<{
+      buildingType: BuildingType;
+      districtId: DistrictId;
+      minimumBudget: Money;
+    }> = [];
     let pending = arrivals;
     for (const unit of compatible) {
       if (pending === 0) break;
@@ -641,35 +652,38 @@ function admitArrivals(state: GameState, stock: readonly StockUnit[], prng: Xosh
       const taken = Math.min(slots, pending);
       remaining.set(unit.building.id, slots - taken);
       pending -= taken;
+      for (let slot = 0; slot < taken; slot += 1) {
+        reservedSlots.push({
+          buildingType: unit.building.type,
+          districtId: unit.building.districtId,
+          minimumBudget: unit.askingRent,
+        });
+      }
     }
-    const districtsWithFree = [
-      ...new Set(
-        compatible
-          .filter((unit) => (remaining.get(unit.building.id) ?? 0) > 0 && unit.askingRent <= budget)
-          .map((unit) => unit.building.districtId),
-      ),
-    ].sort((left, right) => left.localeCompare(right));
     for (let index = 0; index < arrivals; index += 1) {
+      const reservedSlot = reservedSlots[index]!;
       const jitter = prng.nextInt(0, 2 * HOUSING_MARKET_POLICY.budgetJitterPercent + 1);
       const factor = 100 - HOUSING_MARKET_POLICY.budgetJitterPercent + jitter;
-      const tenantBudget = Math.round((budget * factor) / 100);
+      // Una solicitud sólo se crea contra una plaza que ya era asequible para su segmento. El
+      // redondeo individual no debe convertirla después en un botón inevitablemente bloqueado.
+      const tenantBudget = Math.max(
+        reservedSlot.minimumBudget,
+        Math.round((budget * factor) / 100),
+      );
       ordinal += 1;
       const tenantId = parseTenantId(`tenant_${String(ordinal).padStart(8, "0")}`);
       const tenant: Tenant = {
         id: tenantId,
         profile: segment.id,
         budget: parseMoney(tenantBudget),
-        preferredBuildingType: segment.preferredBuildingTypes[0]!,
+        preferredBuildingType: reservedSlot.buildingType,
         activeContractBuildingId: null,
         satisfaction: 60,
         leaseRemaining: 0,
         status: "available",
         size: TENANT_PROFILE_DEFAULTS[segment.id].size,
         segmentId: segment.id,
-        marketDistrictId:
-          districtsWithFree.length === 0
-            ? null
-            : districtsWithFree[index % districtsWithFree.length]!,
+        marketDistrictId: reservedSlot.districtId,
         searchMonths: 0,
         incomeFactorPercent: factor,
         origin: "market",
@@ -718,22 +732,27 @@ function placeSearchers(state: GameState, stock: readonly StockUnit[]): void {
    * segmento en vez de una vez por cada par búsqueda × unidad. El orden (puntuación descendente,
    * id ascendente) reproduce exactamente el desempate anterior, así que la colocación es idéntica.
    */
-  const candidatesBySegment = new Map<TenantProfile, Array<{ unit: StockUnit; score: number }>>();
+  const candidatesBySegmentAndType = new Map<string, Array<{ unit: StockUnit; score: number }>>();
   for (const segment of Object.values(HOUSING_SEGMENTS)) {
-    candidatesBySegment.set(
-      segment.id,
-      stock
-        .filter((unit) => isCompatible(unit, segment))
-        .map((unit) => ({ unit, score: desirabilityOf(unit, segment) }))
-        .sort(
-          (left, right) =>
-            right.score - left.score || left.unit.building.id.localeCompare(right.unit.building.id),
-        ),
-    );
+    for (const type of segment.preferredBuildingTypes) {
+      candidatesBySegmentAndType.set(
+        `${segment.id}:${type}`,
+        stock
+          .filter((unit) => isCompatible(unit, segment) && unit.building.type === type)
+          .map((unit) => ({ unit, score: desirabilityOf(unit, segment) }))
+          .sort(
+            (left, right) =>
+              right.score - left.score ||
+              left.unit.building.id.localeCompare(right.unit.building.id),
+          ),
+      );
+    }
   }
   for (const tenant of searchers) {
     const segment = HOUSING_SEGMENTS[segmentIdOf(tenant)];
-    const candidates = candidatesBySegment.get(segment.id)!;
+    const candidates = candidatesBySegmentAndType.get(
+      `${segment.id}:${tenant.preferredBuildingType}`,
+    )!;
     let chosen: StockUnit | null = null;
     for (const candidate of candidates) {
       if ((vacant.get(candidate.unit.building.id) ?? 0) <= 0) continue;

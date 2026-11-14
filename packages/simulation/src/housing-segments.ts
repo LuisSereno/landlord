@@ -26,7 +26,10 @@ export const HOUSING_SEGMENTS: Record<TenantProfile, HousingSegment> = {
     id: "household",
     label: "Hogares",
     rentBudget: 260,
-    preferredBuildingTypes: ["courtyard_home"],
+    // Las familias pueden elegir cualquier producto residencial. La preferencia concreta se
+    // decide al entrar al mercado según el parque con plazas; no limitarla al primer producto
+    // evita que las promociones posteriores queden sin demanda por definición.
+    preferredBuildingTypes: ["courtyard_home", "row_house", "apartment_block", "mixed_tenement"],
     populationCap: 24,
     arrivalsAtFullAppeal: 3,
     weights: { quality: 35, accessibility: 15, safety: 30, services: 20 },

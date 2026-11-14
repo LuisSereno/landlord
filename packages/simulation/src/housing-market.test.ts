@@ -184,6 +184,25 @@ describe("WP4.3 oferta y demanda de vivienda", () => {
     );
   });
 
+  it("genera solicitudes compatibles para un bloque de pisos", () => {
+    const state = newState(23);
+    const buildingId = addBuilding(state, 0, "apartment_block");
+
+    months(state, 1);
+
+    const applicants = [...state.phase2.tenants.values()].filter(
+      (tenant) =>
+        tenant.status === "available" && tenant.preferredBuildingType === "apartment_block",
+    );
+    expect(applicants.length).toBeGreaterThan(0);
+    expect(applicants.every((tenant) => tenant.marketDistrictId !== null)).toBe(true);
+    expect(
+      applicants.every(
+        (tenant) => tenant.budget >= askingRentFor(state, state.phase2.buildings.get(buildingId)!),
+      ),
+    ).toBe(true);
+  });
+
   it("sube el índice sin vacancia y lo baja con el parque vacío", () => {
     const empty = newState();
     for (let index = 0; index < 4; index += 1) addBuilding(empty, index, "courtyard_home");

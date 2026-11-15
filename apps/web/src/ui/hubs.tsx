@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { ReactNode } from "react";
 
 import type { ViewProjectionV2 } from "@landlord/shared";
 
@@ -54,6 +55,37 @@ function municipalPlannedTotal(planned: Record<string, number>): number {
   );
 }
 
+export function GovernmentSection({
+  title,
+  summary,
+  defaultOpen = false,
+  children,
+}: {
+  title: ReactNode;
+  summary: string;
+  defaultOpen?: boolean;
+  children: ReactNode;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <section className="panel-section government-section">
+      <header className="section-heading government-section-heading">
+        <h3>{title}</h3>
+        <button
+          aria-expanded={open}
+          className="government-section-toggle"
+          onClick={() => setOpen((current) => !current)}
+          type="button"
+        >
+          {open ? "Ocultar" : "Ver detalle"} <span aria-hidden="true">{open ? "⌃" : "⌄"}</span>
+        </button>
+      </header>
+      <p className="government-section-summary">{summary}</p>
+      {open ? <div className="government-section-content">{children}</div> : null}
+    </section>
+  );
+}
+
 export type HubProps = {
   economy: Economy;
   projection: ViewProjectionV2;
@@ -102,13 +134,16 @@ export function HubPanel({ hub, ...props }: HubProps & { hub: HubKind }) {
 function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
   return (
     <>
-      <section className="panel-section">
-        <header className="section-heading">
-          <h3>
+      <GovernmentSection
+        defaultOpen
+        summary={`${ordinanceStatusLabel(economy.ordinance.status)} · ${economy.ordinance.name}`}
+        title={
+          <>
             <UiIcon name="ordinance" /> Ordenanza vigente <HelpPopover topic="ordinance" />
-          </h3>
-          <span className="chip">{ordinanceStatusLabel(economy.ordinance.status)}</span>
-        </header>
+          </>
+        }
+      >
+        <span className="chip">{ordinanceStatusLabel(economy.ordinance.status)}</span>
         <p className="entity-title">{economy.ordinance.name}</p>
         <p className="muted">
           Construcción {economy.ordinance.materialCostModifierPercent} % · renta{" "}
@@ -165,14 +200,16 @@ function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
               </li>
             ))}
         </ul>
-      </section>
+      </GovernmentSection>
 
-      <section className="panel-section">
-        <header className="section-heading">
-          <h3>
+      <GovernmentSection
+        summary={`Propiedad ${economy.taxation.propertyRateBps / 100} % mensual · liquidación ${formatGameDate(economy.taxation.nextSettlementTick, calendar)}`}
+        title={
+          <>
             <UiIcon name="tax" /> Fiscalidad <HelpTooltip topic="taxes" />
-          </h3>
-        </header>
+          </>
+        }
+      >
         <dl className="detail-grid">
           <div>
             <dt>Propiedad</dt>
@@ -191,14 +228,16 @@ function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
             <dd>{economy.taxation.playerArrears} u.</dd>
           </div>
         </dl>
-      </section>
+      </GovernmentSection>
 
-      <section className="panel-section">
-        <header className="section-heading">
-          <h3>
+      <GovernmentSection
+        summary={`Reservas ${economy.municipal.reserve} u. · gasto ${municipalPlannedTotal(economy.municipal.plannedByCategory)} u.`}
+        title={
+          <>
             <UiIcon name="money" /> Presupuesto municipal <HelpPopover topic="budget" />
-          </h3>
-        </header>
+          </>
+        }
+      >
         <dl className="detail-grid">
           <div>
             <dt>Reservas</dt>
@@ -231,14 +270,16 @@ function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
           {economy.municipal.serviceLevelPercentByCategory.transport ?? 100} % · limpieza{" "}
           {economy.municipal.serviceLevelPercentByCategory.cleaning ?? 100} %
         </p>
-      </section>
+      </GovernmentSection>
 
-      <section className="panel-section">
-        <header className="section-heading">
-          <h3>
+      <GovernmentSection
+        summary={`${economy.urbanServices.length} servicios · ${projection.facilities.length} equipamientos`}
+        title={
+          <>
             <UiIcon name="services" /> Servicios municipales <HelpTooltip topic="services" />
-          </h3>
-        </header>
+          </>
+        }
+      >
         <ul className="list-plain" role="list">
           {economy.urbanServices.map((service) => (
             <li key={service.id}>
@@ -252,14 +293,16 @@ function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
           Programa del distrito: {projection.facilities.length} equipamientos y{" "}
           {projection.publicSpaces.length} espacios públicos.
         </p>
-      </section>
+      </GovernmentSection>
 
-      <section className="panel-section">
-        <header className="section-heading">
-          <h3>
+      <GovernmentSection
+        summary={`Gobierna ${economy.politics.governingPartyName} · próxima elección ${formatGameDate(economy.politics.nextElectionTick, calendar)}`}
+        title={
+          <>
             <UiIcon name="government" /> Concejo municipal <HelpPopover topic="council" />
-          </h3>
-        </header>
+          </>
+        }
+      >
         <p className="muted">
           Gobierna {economy.politics.governingPartyName} · participación{" "}
           {economy.politics.lastTurnoutPercent} % · {economy.politics.electionsHeld} elección(es).
@@ -284,14 +327,16 @@ function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
           {economy.politics.moodByIssue.safety} · servicios {economy.politics.moodByIssue.services}{" "}
           · impuestos {economy.politics.moodByIssue.taxes}
         </p>
-      </section>
+      </GovernmentSection>
 
-      <section className="panel-section">
-        <header className="section-heading">
-          <h3>
+      <GovernmentSection
+        summary={`Vecinos ${economy.reputation.standingByGroup.residents} · gobierno ${economy.reputation.standingByGroup.municipality} · banca ${economy.reputation.standingByGroup.banks}`}
+        title={
+          <>
             <UiIcon name="reputation" /> Reputación <HelpTooltip topic="reputation" />
-          </h3>
-        </header>
+          </>
+        }
+      >
         <p className="muted">
           Vecinos {economy.reputation.standingByGroup.residents} · gobierno{" "}
           {economy.reputation.standingByGroup.municipality} · banca{" "}
@@ -302,14 +347,16 @@ function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
           residentes valoran tu parque al {economy.reputation.residentFactorPercent} % y el gobierno
           te deja {economy.reputation.influenceGainPerMonth} de influencia al mes.
         </p>
-      </section>
+      </GovernmentSection>
 
-      <section className="panel-section">
-        <header className="section-heading">
-          <h3>
+      <GovernmentSection
+        summary={`${economy.publicContracts.open.length} licitación(es) abierta(s) · ${economy.publicContracts.reliability.awarded} adjudicada(s)`}
+        title={
+          <>
             <UiIcon name="contract" /> Contratos públicos <HelpPopover topic="public_contracts" />
-          </h3>
-        </header>
+          </>
+        }
+      >
         <p className="muted">
           {economy.publicContracts.open.length} en curso ·{" "}
           {economy.publicContracts.reliability.completed} completados ·{" "}
@@ -332,7 +379,7 @@ function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
             ))}
           </ul>
         )}
-      </section>
+      </GovernmentSection>
     </>
   );
 }

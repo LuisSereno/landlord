@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { BuildingThumbnail } from "./building-thumbnail";
 import { HelpTooltip } from "./help";
@@ -34,6 +34,7 @@ export function PlacementPanel({
   const candidates = pending.candidates;
   const canRotate = placementHasRotation(pending);
   const section = useRef<HTMLElement>(null);
+  const [alternativesOpen, setAlternativesOpen] = useState(false);
   /**
    * La ficha se abre dentro de un panel largo: sin traerla a la vista, el jugador ve la lista de
    * candidatas pero no sabe qué proyecto está colocando ni cómo salir.
@@ -97,33 +98,47 @@ export function PlacementPanel({
               <span aria-hidden="true">⟳</span> Rotar
             </button>
           </div>
-          <ul aria-label="Colocaciones legales" className="placement-list" role="list">
-            {candidates.map((candidate, index) => {
-              const selected = candidate.id === pending.selectedCandidateId;
-              return (
-                <li key={candidate.id}>
-                  <button
-                    aria-pressed={selected}
-                    className={selected ? "placement-choice selected" : "placement-choice"}
-                    onClick={() => handlers.select(candidate.id)}
-                    type="button"
-                  >
-                    <span className="placement-choice-index">{index + 1}</span>
-                    <span className="placement-choice-body">
-                      {candidate.footprintCells.length} celdas · {candidate.orientation}° ·{" "}
-                      {candidate.floors} planta(s)
-                    </span>
-                    {candidate.recommended ? (
-                      <span className="placement-choice-tag">recomendada</span>
-                    ) : null}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+          {candidates.length > 1 ? (
+            <button
+              aria-expanded={alternativesOpen}
+              className="placement-alternatives-toggle"
+              onClick={() => setAlternativesOpen((open) => !open)}
+              type="button"
+            >
+              {alternativesOpen
+                ? "Ocultar alternativas"
+                : `Ver alternativas (${candidates.length})`}
+            </button>
+          ) : null}
+          {alternativesOpen ? (
+            <ul aria-label="Colocaciones legales" className="placement-list" role="list">
+              {candidates.map((candidate, index) => {
+                const selected = candidate.id === pending.selectedCandidateId;
+                return (
+                  <li key={candidate.id}>
+                    <button
+                      aria-pressed={selected}
+                      className={selected ? "placement-choice selected" : "placement-choice"}
+                      onClick={() => handlers.select(candidate.id)}
+                      type="button"
+                    >
+                      <span className="placement-choice-index">{index + 1}</span>
+                      <span className="placement-choice-body">
+                        {candidate.footprintCells.length} celdas · {candidate.orientation}° ·{" "}
+                        {candidate.floors} planta(s)
+                      </span>
+                      {candidate.recommended ? (
+                        <span className="placement-choice-tag">recomendada</span>
+                      ) : null}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : null}
           <p className="muted">
-            También puedes tocar el mapa: la ficha salta a la colocación legal más cercana. El
-            puntero no dibuja huellas nuevas.
+            El mapa muestra la ubicación seleccionada y las alternativas numeradas. También puedes
+            tocarlo: la ficha salta a la colocación legal más cercana.
           </p>
         </>
       ) : null}

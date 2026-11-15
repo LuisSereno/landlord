@@ -27,6 +27,7 @@ export function CityView({
   const ordered = [...districts].sort(
     (left, right) => left.slotY - right.slotY || left.slotX - right.slotX,
   );
+  const observed = ordered.find((district) => district.id === observedDistrictId);
   return (
     <section className="side-panel" aria-label="Ciudad">
       <div className="panel-heading">
@@ -48,23 +49,26 @@ export function CityView({
               <strong>{district.name}</strong>
               <span className="city-role">{ROLE_LABELS[district.role] ?? district.role}</span>
               <span>
-                {district.ownBuildings} propias · {district.rivalBuildings} rival ·{" "}
-                {district.vacantUnits} vacantes
+                {district.vacantUnits} vacantes · {district.marketableParcels} solares libres
               </span>
-              <span>
-                renta {district.rentIndexPercent}% · suelo {district.averageLandValue} u.
-              </span>
-              <span>
-                {district.marketableParcels} parcelas libres
-                {district.alerts > 0 ? ` · ${district.alerts} en alerta` : ""}
-              </span>
-              <span>
-                {district.facilities} equipamientos · {district.publicSpaces} espacios públicos
-              </span>
+              <span>Suelo medio {district.averageLandValue} u.</span>
             </button>
           );
         })}
       </div>
+      {observed ? (
+        <section aria-label={`Detalle de ${observed.name}`} className="city-detail">
+          <strong>{observed.name}</strong>
+          <span>
+            {observed.ownBuildings} propias · {observed.rivalBuildings} rival · renta{" "}
+            {observed.rentIndexPercent}%
+          </span>
+          <span>
+            {observed.facilities} equipamientos · {observed.publicSpaces} espacios públicos
+            {observed.alerts > 0 ? ` · ${observed.alerts} alerta(s)` : ""}
+          </span>
+        </section>
+      ) : null}
     </section>
   );
 }

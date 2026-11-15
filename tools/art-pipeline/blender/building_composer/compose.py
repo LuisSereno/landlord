@@ -326,8 +326,12 @@ class Composition:
                 # no una cubierta. Generar una cubierta aquí abre un hueco y duplica el testero
                 # delante de la planta superior. Da igual que el hijo sea una masa importada o
                 # bandas procedurales: sólo el volumen superior recibe remate de cubierta.
+                # El forjado hay que construirlo, no sólo declararlo: sin placas en la cota superior
+                # el padre queda como una caja abierta y, con ella, el interior a la vista alrededor
+                # del cuerpo apilado (school_block: la cúpula mide 1,7 m sobre un bloque de 4×4 m).
                 volume.setdefault("deck", volume["top"])
                 volume["rise"] = 0.0
+                self._tile_flat(volume["rect"], volume["top"], "slab", f"deck:{index}")
                 continue
             self._build_roof(volume, roof)
         self._build_access(access, corner)

@@ -834,7 +834,6 @@ export function App() {
           onOpenHub: openHub,
           onSelectDistrict: (districtId: string) => {
             void session.selectDistrict(districtId);
-            setHub(null);
             /** Cambiar de distrito abandona la colocación: las candidatas son del solar observado. */
             cancelPlacement();
           },

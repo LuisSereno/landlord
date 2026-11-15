@@ -91653,7 +91653,7 @@
             "kind": "town_hall",
             "districtId": "district_00000005",
             "parcelIds": [
-              "parcel_04000090"
+              "parcel_04000089"
             ],
             "buildingIds": [
               "building_90004001"
@@ -91670,7 +91670,7 @@
             "kind": "police_station",
             "districtId": "district_00000005",
             "parcelIds": [
-              "parcel_04000091"
+              "parcel_04000090"
             ],
             "buildingIds": [
               "building_90004002"
@@ -91685,7 +91685,7 @@
             "kind": "clinic",
             "districtId": "district_00000005",
             "parcelIds": [
-              "parcel_04000092"
+              "parcel_04000091"
             ],
             "buildingIds": [
               "building_90004003"
@@ -91700,7 +91700,7 @@
             "kind": "market",
             "districtId": "district_00000005",
             "parcelIds": [
-              "parcel_04000093"
+              "parcel_04000092"
             ],
             "buildingIds": [
               "building_90004004"
@@ -164564,12 +164564,12 @@
             ]
           }
         ],
-        "disposition": "marketable",
-        "baseLandValue": 920,
-        "marketValue": 1012,
+        "disposition": "public",
+        "baseLandValue": 0,
+        "marketValue": 0,
         "developmentCodeId": "industrial_yard_2f",
         "currentUses": [],
-        "ownerOrganizationId": null,
+        "ownerOrganizationId": "org_00000004",
         "productionSuitability": {
           "cement": 114,
           "brick": 88,
@@ -241211,6 +241211,14 @@
             "y": 3
           },
           {
+            "x": 6,
+            "y": 3
+          },
+          {
+            "x": 7,
+            "y": 3
+          },
+          {
             "x": 1,
             "y": 4
           },
@@ -241225,6 +241233,134 @@
           {
             "x": 4,
             "y": 4
+          },
+          {
+            "x": 6,
+            "y": 4
+          },
+          {
+            "x": 7,
+            "y": 4
+          },
+          {
+            "x": 8,
+            "y": 4
+          },
+          {
+            "x": 3,
+            "y": 5
+          },
+          {
+            "x": 4,
+            "y": 5
+          },
+          {
+            "x": 5,
+            "y": 5
+          },
+          {
+            "x": 6,
+            "y": 5
+          },
+          {
+            "x": 7,
+            "y": 5
+          },
+          {
+            "x": 8,
+            "y": 5
+          },
+          {
+            "x": 9,
+            "y": 5
+          },
+          {
+            "x": 4,
+            "y": 6
+          },
+          {
+            "x": 5,
+            "y": 6
+          },
+          {
+            "x": 6,
+            "y": 6
+          },
+          {
+            "x": 7,
+            "y": 6
+          },
+          {
+            "x": 8,
+            "y": 6
+          },
+          {
+            "x": 9,
+            "y": 6
+          },
+          {
+            "x": 4,
+            "y": 7
+          },
+          {
+            "x": 5,
+            "y": 7
+          },
+          {
+            "x": 6,
+            "y": 7
+          },
+          {
+            "x": 7,
+            "y": 7
+          },
+          {
+            "x": 8,
+            "y": 7
+          },
+          {
+            "x": 9,
+            "y": 7
+          },
+          {
+            "x": 5,
+            "y": 8
+          },
+          {
+            "x": 6,
+            "y": 8
+          },
+          {
+            "x": 7,
+            "y": 8
+          },
+          {
+            "x": 8,
+            "y": 8
+          },
+          {
+            "x": 9,
+            "y": 8
+          },
+          {
+            "x": 5,
+            "y": 9
+          },
+          {
+            "x": 6,
+            "y": 9
+          },
+          {
+            "x": 7,
+            "y": 9
+          },
+          {
+            "x": 8,
+            "y": 9
+          },
+          {
+            "x": 9,
+            "y": 9
           }
         ],
         "anchorCell": {
@@ -241271,6 +241407,23 @@
               {
                 "x": 4,
                 "y": 4
+              }
+            ]
+          },
+          {
+            "roadSegmentId": "road_2645debe",
+            "cells": [
+              {
+                "x": 6,
+                "y": 3
+              },
+              {
+                "x": 6,
+                "y": 4
+              },
+              {
+                "x": 5,
+                "y": 5
               }
             ]
           },
@@ -241341,6 +241494,15 @@
             ]
           },
           {
+            "roadSegmentId": "road_a61e7c1e",
+            "cells": [
+              {
+                "x": 6,
+                "y": 3
+              }
+            ]
+          },
+          {
             "roadSegmentId": "road_ab86d756",
             "cells": [
               {
@@ -241355,6 +241517,19 @@
               {
                 "x": 4,
                 "y": 4
+              }
+            ]
+          },
+          {
+            "roadSegmentId": "road_bff75dd2",
+            "cells": [
+              {
+                "x": 6,
+                "y": 4
+              },
+              {
+                "x": 5,
+                "y": 5
               }
             ]
           },
@@ -243940,205 +244115,6 @@
           "cement": 117,
           "brick": 91,
           "steel": 138
-        }
-      },
-      {
-        "id": "parcel_04000020",
-        "districtId": "district_00000005",
-        "blockId": "block_03e365bf",
-        "cells": [
-          {
-            "x": 6,
-            "y": 3
-          },
-          {
-            "x": 7,
-            "y": 3
-          },
-          {
-            "x": 6,
-            "y": 4
-          },
-          {
-            "x": 7,
-            "y": 4
-          },
-          {
-            "x": 8,
-            "y": 4
-          },
-          {
-            "x": 3,
-            "y": 5
-          },
-          {
-            "x": 4,
-            "y": 5
-          },
-          {
-            "x": 5,
-            "y": 5
-          },
-          {
-            "x": 6,
-            "y": 5
-          },
-          {
-            "x": 7,
-            "y": 5
-          },
-          {
-            "x": 8,
-            "y": 5
-          },
-          {
-            "x": 9,
-            "y": 5
-          },
-          {
-            "x": 4,
-            "y": 6
-          },
-          {
-            "x": 5,
-            "y": 6
-          },
-          {
-            "x": 6,
-            "y": 6
-          },
-          {
-            "x": 7,
-            "y": 6
-          },
-          {
-            "x": 8,
-            "y": 6
-          },
-          {
-            "x": 9,
-            "y": 6
-          },
-          {
-            "x": 4,
-            "y": 7
-          },
-          {
-            "x": 5,
-            "y": 7
-          },
-          {
-            "x": 6,
-            "y": 7
-          },
-          {
-            "x": 7,
-            "y": 7
-          },
-          {
-            "x": 8,
-            "y": 7
-          },
-          {
-            "x": 9,
-            "y": 7
-          },
-          {
-            "x": 5,
-            "y": 8
-          },
-          {
-            "x": 6,
-            "y": 8
-          },
-          {
-            "x": 7,
-            "y": 8
-          },
-          {
-            "x": 8,
-            "y": 8
-          },
-          {
-            "x": 9,
-            "y": 8
-          },
-          {
-            "x": 5,
-            "y": 9
-          },
-          {
-            "x": 6,
-            "y": 9
-          },
-          {
-            "x": 7,
-            "y": 9
-          },
-          {
-            "x": 8,
-            "y": 9
-          },
-          {
-            "x": 9,
-            "y": 9
-          }
-        ],
-        "anchorCell": {
-          "x": 6,
-          "y": 3
-        },
-        "roadFrontages": [
-          {
-            "roadSegmentId": "road_2645debe",
-            "cells": [
-              {
-                "x": 6,
-                "y": 3
-              },
-              {
-                "x": 6,
-                "y": 4
-              },
-              {
-                "x": 5,
-                "y": 5
-              }
-            ]
-          },
-          {
-            "roadSegmentId": "road_a61e7c1e",
-            "cells": [
-              {
-                "x": 6,
-                "y": 3
-              }
-            ]
-          },
-          {
-            "roadSegmentId": "road_bff75dd2",
-            "cells": [
-              {
-                "x": 6,
-                "y": 4
-              },
-              {
-                "x": 5,
-                "y": 5
-              }
-            ]
-          }
-        ],
-        "disposition": "marketable",
-        "baseLandValue": 1017,
-        "marketValue": 1118,
-        "developmentCodeId": "industrial_yard_2f",
-        "currentUses": [],
-        "ownerOrganizationId": null,
-        "productionSuitability": {
-          "cement": 127,
-          "brick": 94,
-          "steel": 124
         }
       },
       {
@@ -259906,172 +259882,6 @@
       {
         "id": "parcel_04000089",
         "districtId": "district_00000005",
-        "blockId": "block_b3acab4f",
-        "cells": [
-          {
-            "x": 22,
-            "y": 59
-          },
-          {
-            "x": 23,
-            "y": 59
-          },
-          {
-            "x": 24,
-            "y": 59
-          },
-          {
-            "x": 25,
-            "y": 59
-          },
-          {
-            "x": 22,
-            "y": 60
-          },
-          {
-            "x": 23,
-            "y": 60
-          },
-          {
-            "x": 24,
-            "y": 60
-          },
-          {
-            "x": 25,
-            "y": 60
-          },
-          {
-            "x": 22,
-            "y": 61
-          },
-          {
-            "x": 23,
-            "y": 61
-          },
-          {
-            "x": 24,
-            "y": 61
-          },
-          {
-            "x": 25,
-            "y": 61
-          },
-          {
-            "x": 22,
-            "y": 62
-          },
-          {
-            "x": 23,
-            "y": 62
-          },
-          {
-            "x": 24,
-            "y": 62
-          },
-          {
-            "x": 25,
-            "y": 62
-          }
-        ],
-        "anchorCell": {
-          "x": 22,
-          "y": 59
-        },
-        "roadFrontages": [
-          {
-            "roadSegmentId": "road_1c6d128e",
-            "cells": [
-              {
-                "x": 22,
-                "y": 59
-              }
-            ]
-          },
-          {
-            "roadSegmentId": "road_2667dab7",
-            "cells": [
-              {
-                "x": 22,
-                "y": 59
-              },
-              {
-                "x": 22,
-                "y": 60
-              },
-              {
-                "x": 22,
-                "y": 61
-              },
-              {
-                "x": 22,
-                "y": 62
-              }
-            ]
-          },
-          {
-            "roadSegmentId": "road_81fae7e2",
-            "cells": [
-              {
-                "x": 22,
-                "y": 62
-              }
-            ]
-          },
-          {
-            "roadSegmentId": "road_b6a94327",
-            "cells": [
-              {
-                "x": 22,
-                "y": 62
-              },
-              {
-                "x": 23,
-                "y": 62
-              },
-              {
-                "x": 24,
-                "y": 62
-              },
-              {
-                "x": 25,
-                "y": 62
-              }
-            ]
-          },
-          {
-            "roadSegmentId": "road_b93a65ee",
-            "cells": [
-              {
-                "x": 22,
-                "y": 61
-              }
-            ]
-          },
-          {
-            "roadSegmentId": "road_df88576e",
-            "cells": [
-              {
-                "x": 22,
-                "y": 60
-              }
-            ]
-          }
-        ],
-        "disposition": "marketable",
-        "baseLandValue": 1380,
-        "marketValue": 1521,
-        "developmentCodeId": "commercial_corridor_4f",
-        "currentUses": [],
-        "ownerOrganizationId": null,
-        "productionSuitability": {
-          "cement": 114,
-          "brick": 98,
-          "steel": 101
-        }
-      },
-      {
-        "id": "parcel_04000090",
-        "districtId": "district_00000005",
         "blockId": "block_dcbfcb9b",
         "cells": [
           {
@@ -261305,7 +261115,7 @@
         }
       },
       {
-        "id": "parcel_04000091",
+        "id": "parcel_04000090",
         "districtId": "district_00000005",
         "blockId": "block_c92d683a",
         "cells": [
@@ -262023,7 +261833,7 @@
         }
       },
       {
-        "id": "parcel_04000092",
+        "id": "parcel_04000091",
         "districtId": "district_00000005",
         "blockId": "block_2cf14283",
         "cells": [
@@ -263514,7 +263324,7 @@
         }
       },
       {
-        "id": "parcel_04000093",
+        "id": "parcel_04000092",
         "districtId": "district_00000005",
         "blockId": "block_98a75053",
         "cells": [
@@ -265316,12 +265126,12 @@
             ]
           }
         ],
-        "disposition": "marketable",
-        "baseLandValue": 940,
-        "marketValue": 1015,
+        "disposition": "public",
+        "baseLandValue": 0,
+        "marketValue": 0,
         "developmentCodeId": "industrial_yard_2f",
         "currentUses": [],
-        "ownerOrganizationId": null,
+        "ownerOrganizationId": "org_00000004",
         "productionSuitability": {
           "cement": 118,
           "brick": 96,
@@ -343890,10 +343700,8 @@
         "form": "detached",
         "level": 1,
         "condition": 100,
-        "tenantId": "tenant_00000006",
-        "tenantIds": [
-          "tenant_00000006"
-        ],
+        "tenantId": null,
+        "tenantIds": [],
         "upgraded": false,
         "structuralIntegrity": 100,
         "state": "operational",
@@ -343934,8 +343742,9 @@
         "form": "detached",
         "level": 1,
         "condition": 100,
-        "tenantId": "tenant_00000007",
+        "tenantId": "tenant_00000006",
         "tenantIds": [
+          "tenant_00000006",
           "tenant_00000007"
         ],
         "upgraded": false,
@@ -344403,7 +344212,7 @@
       {
         "id": "building_90004001",
         "parcelIds": [
-          "parcel_04000090"
+          "parcel_04000089"
         ],
         "districtId": "district_00000005",
         "ownerOrganizationId": "org_00000004",
@@ -344557,7 +344366,7 @@
       {
         "id": "building_90004002",
         "parcelIds": [
-          "parcel_04000091"
+          "parcel_04000090"
         ],
         "districtId": "district_00000005",
         "ownerOrganizationId": "org_00000004",
@@ -344607,7 +344416,7 @@
       {
         "id": "building_90004003",
         "parcelIds": [
-          "parcel_04000092"
+          "parcel_04000091"
         ],
         "districtId": "district_00000005",
         "ownerOrganizationId": "org_00000004",
@@ -344657,7 +344466,7 @@
       {
         "id": "building_90004004",
         "parcelIds": [
-          "parcel_04000093"
+          "parcel_04000092"
         ],
         "districtId": "district_00000005",
         "ownerOrganizationId": "org_00000004",
@@ -345024,13 +344833,13 @@
         "profile": "household",
         "budget": 244,
         "preferredBuildingType": "courtyard_home",
-        "activeContractBuildingId": "building_00000001",
+        "activeContractBuildingId": "building_00000002",
         "satisfaction": 60,
         "leaseRemaining": 24,
         "status": "contracted",
         "size": 3,
         "segmentId": "household",
-        "marketDistrictId": "district_00000001",
+        "marketDistrictId": "district_00000006",
         "searchMonths": 0,
         "incomeFactorPercent": 94,
         "origin": "market"
@@ -345062,7 +344871,7 @@
         "status": "available",
         "size": 3,
         "segmentId": "household",
-        "marketDistrictId": "district_00000001",
+        "marketDistrictId": "district_00000006",
         "searchMonths": 0,
         "incomeFactorPercent": 114,
         "origin": "market"
@@ -345689,7 +345498,7 @@
             "market_hall": 0
           },
           "demandByBuildingType": {
-            "courtyard_home": 1,
+            "courtyard_home": 0,
             "workshop": 0,
             "cement_plant": 0,
             "brickworks": 0,
@@ -345831,7 +345640,7 @@
             "market_hall": 0
           },
           "demandByBuildingType": {
-            "courtyard_home": 1,
+            "courtyard_home": 2,
             "workshop": 0,
             "cement_plant": 0,
             "brickworks": 0,

@@ -103,6 +103,64 @@ def failures_for_support_anchor(composition, where):
     return problems
 
 
+def failures_for_stacked_deck(composition, grammar, cell, where):
+    """V.m: un volumen padre de un cuerpo apilado forja EN GEOMETRÍA, no sólo en el comentario.
+
+    `build()` quita la cubierta al padre de un volumen apilado porque entre ambos hay un forjado.
+    Si el forjado no se construye, el padre queda como una caja abierta y el interior se ve desde
+    fuera alrededor del cuerpo apilado (school_block 2000: la cúpula mide 1,7 m sobre un bloque de
+    4×4 m). El validador técnico no lo cazaba: los bounds siguen siendo válidos con el hueco.
+    """
+    problems = []
+    massing = next(
+        option for option in grammar["massingOptions"]
+        if option["id"] == composition["axisChoices"]["massing"]
+    )
+    width = composition["footprintCells"]["width"] * cell
+    depth = composition["footprintCells"]["height"] * cell
+    steps = 40
+    for index, spec in enumerate(massing["volumes"]):
+        if not any(other.get("stackOn") == index for other in massing["volumes"]):
+            continue
+        volume = composition["volumes"][index]
+        x0, y0, x1, y1 = (
+            -width / 2 + spec["cells"][0] * cell,
+            -depth / 2 + spec["cells"][1] * cell,
+            -width / 2 + (spec["cells"][0] + spec["cells"][2]) * cell,
+            -depth / 2 + (spec["cells"][1] + spec["cells"][3]) * cell,
+        )
+        top = volume["top"]
+        plates = [
+            placement["bounds"]
+            for placement in composition["placements"]
+            if placement["purpose"].startswith(f"deck:{index}:")
+            and abs(placement["bounds"]["z"]["min"] - top) < 0.05
+        ]
+        if not plates:
+            problems.append(
+                f"{where} volumen {index}: cuerpo apilado sobre un padre sin placas de forjado"
+            )
+            continue
+        uncovered = 0
+        for ix in range(steps):
+            x = x0 + (x1 - x0) * (ix + 0.5) / steps
+            for iy in range(steps):
+                y = y0 + (y1 - y0) * (iy + 0.5) / steps
+                if not any(
+                    bounds["x"]["min"] - 1e-3 <= x <= bounds["x"]["max"] + 1e-3
+                    and bounds["y"]["min"] - 1e-3 <= y <= bounds["y"]["max"] + 1e-3
+                    for bounds in plates
+                ):
+                    uncovered += 1
+        if uncovered:
+            area = (x1 - x0) * (y1 - y0)
+            problems.append(
+                f"{where} volumen {index}: forjado del padre descubierto en "
+                f"{uncovered * area / steps / steps:.2f} m² de {area:.2f} m² a cota {top}"
+            )
+    return problems
+
+
 def main():
     catalog = Catalog()
     profile = StyleProfile("graphic_civic_buildings_v1")
@@ -112,6 +170,7 @@ def main():
     box_seen = 0
     pipe_seen = 0
     hip_seen = 0
+    deck_parents = 0
     for building_type, family, footprint, floors in CASES:
         for seed in SEEDS:
             request = {
@@ -179,6 +238,18 @@ def main():
                 if composition["bounds"][axis]["min"] >= composition["bounds"][axis]["max"]:
                     problems.append(f"{building_type}_{seed}: unión {axis} degenerada")
             problems += failures_for_support_anchor(composition, f"{building_type}_{seed}")
+            grammar = document.grammar(building_type, catalog, profile)
+            problems += failures_for_stacked_deck(
+                composition, grammar, profile.cell_meters, f"{building_type}_{seed}"
+            )
+            massing = next(
+                option for option in grammar["massingOptions"]
+                if option["id"] == composition["axisChoices"]["massing"]
+            )
+            deck_parents += sum(
+                1 for index, spec in enumerate(massing["volumes"])
+                if any(other.get("stackOn") == index for other in massing["volumes"])
+            )
 
     heavy_compositions = 0
     heavy_supports = 0
@@ -226,6 +297,19 @@ def main():
             catalog,
             profile,
             document,
+        )
+        composition = facade_compositions[building_type]
+        grammar = document.grammar(building_type, catalog, profile)
+        problems += failures_for_stacked_deck(
+            composition, grammar, profile.cell_meters, f"{building_type}_{seed}"
+        )
+        massing = next(
+            option for option in grammar["massingOptions"]
+            if option["id"] == composition["axisChoices"]["massing"]
+        )
+        deck_parents += sum(
+            1 for index in range(len(massing["volumes"]))
+            if any(other.get("stackOn") == index for other in massing["volumes"])
         )
 
     fire_placements = facade_compositions["fire_station"]["placements"]
@@ -367,6 +451,7 @@ def main():
     print(f"soportes caja inspeccionados: {box_seen}")
     print(f"soportes conducto inspeccionados: {pipe_seen}")
     print(f"esquinas de cubierta inspeccionadas: {hip_seen}")
+    print(f"padres de cuerpo apilado con forjado inspeccionados: {deck_parents}")
     print(f"variantes heavy inspeccionadas: {heavy_compositions}/300")
     print(f"anclajes heavy inspeccionados: {heavy_supports}")
     print("fachadas identitarias inspeccionadas: 5")
@@ -378,7 +463,10 @@ def main():
     if box_seen == 0 or pipe_seen == 0:
         print("\nAVISO: el corpus no ejercitó ambos tipos de soporte; el test no reproduce el defecto")
         return 1
-    print("\nOK: bounds de caja y triángulos de conducto canónicos en todo el corpus")
+    if deck_parents == 0:
+        print("\nAVISO: el corpus no ejercitó ningún padre apilado; el forjado no está blindado")
+        return 1
+    print("\nOK: bounds de caja, triángulos de conducto y forjados apilados canónicos en todo el corpus")
     return 0
 
 

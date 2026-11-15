@@ -197,6 +197,14 @@ try {
   // 7b · V.d-7C · el modo de colocación muestra las candidatas legales del motor
   await page.getByRole("button", { name: "Elegir ubicación" }).click();
   await page.locator(".placement-panel").waitFor({ timeout: 10000 });
+  const alternativesToggle = page.getByRole("button", { name: /Ver alternativas/ });
+  if ((await alternativesToggle.count()) === 0)
+    fail("colocación", "no hay acceso bajo demanda a las alternativas legales");
+  if ((await alternativesToggle.getAttribute("aria-expanded")) !== "false")
+    fail("colocación", "las alternativas no empiezan cerradas");
+  await alternativesToggle.click();
+  await page.locator(".placement-choice").first().waitFor({ timeout: 10000 });
+  step("7a · alternativas de colocación cerradas al entrar y abiertas bajo demanda");
   await page
     .waitForFunction(
       () => (window.__landlordPlacementTest?.() ?? { candidates: 0 }).candidates > 0,
@@ -401,8 +409,15 @@ try {
     .innerText();
   if (!/Ordenanza|Concejo|Presupuesto/.test(government))
     fail("Gobierno", `el hub no agrupa los sistemas: ${government.slice(0, 200)}`);
+  const fiscalSection = page.locator(".government-section", { hasText: "Fiscalidad" });
+  const fiscalToggle = fiscalSection.getByRole("button", { name: "Ver detalle" });
+  if ((await fiscalToggle.getAttribute("aria-expanded")) !== "false")
+    fail("Gobierno", "Fiscalidad no inicia plegada");
+  await fiscalToggle.click();
+  if ((await fiscalToggle.getAttribute("aria-expanded")) !== "true")
+    fail("Gobierno", "Fiscalidad no se puede desplegar");
   await shot("07-gobierno.jpg");
-  step("12 · hub de Gobierno con ordenanza, presupuesto y concejo");
+  step("12 · hub de Gobierno plegable con ordenanza, presupuesto y concejo");
 
   // 13 · Finanzas
   await page.getByRole("button", { name: "Finanzas", exact: true }).click();
@@ -578,7 +593,13 @@ try {
     .filter({ hasText: "Industria" })
     .first();
   if ((await industrialTile.count()) > 0) {
+    const industrialName = (await industrialTile.locator("strong").innerText()).trim();
     await industrialTile.click();
+    await page
+      .locator(".city-detail")
+      .filter({ hasText: industrialName })
+      .waitFor({ timeout: 30000 });
+    await page.getByRole("button", { name: "Cerrar panel" }).click();
     await page
       .locator(".hud-district")
       .filter({ hasText: "Industria" })

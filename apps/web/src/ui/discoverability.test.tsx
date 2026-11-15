@@ -2,7 +2,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
 import { CityView } from "../CityView";
-import { GovernmentSection } from "./hubs";
+import { CollapsibleSection } from "./hubs";
 import { PlacementPanel } from "./placement-panel";
 import {
   beginPlacementRequest,
@@ -115,14 +115,14 @@ describe("UX de descubribilidad", () => {
 
   it("deja Ordenanza abierta y las secciones secundarias plegadas", () => {
     const open = renderToStaticMarkup(
-      <GovernmentSection defaultOpen summary="Propuesta disponible" title="Ordenanza vigente">
+      <CollapsibleSection defaultOpen summary="Propuesta disponible" title="Ordenanza vigente">
         <p>Contenido de ordenanza</p>
-      </GovernmentSection>,
+      </CollapsibleSection>,
     );
     const closed = renderToStaticMarkup(
-      <GovernmentSection summary="Propiedad 1.2 % mensual" title="Fiscalidad">
+      <CollapsibleSection summary="Propiedad 1.2 % mensual" title="Fiscalidad">
         <p>Contenido fiscal</p>
-      </GovernmentSection>,
+      </CollapsibleSection>,
     );
 
     expect(open).toContain('aria-expanded="true"');

@@ -55,7 +55,7 @@ function municipalPlannedTotal(planned: Record<string, number>): number {
   );
 }
 
-export function GovernmentSection({
+export function CollapsibleSection({
   title,
   summary,
   defaultOpen = false,
@@ -68,20 +68,20 @@ export function GovernmentSection({
 }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <section className="panel-section government-section">
-      <header className="section-heading government-section-heading">
+    <section className="panel-section collapsible-section">
+      <header className="section-heading collapsible-section-heading">
         <h3>{title}</h3>
         <button
           aria-expanded={open}
-          className="government-section-toggle"
+          className="collapsible-section-toggle"
           onClick={() => setOpen((current) => !current)}
           type="button"
         >
           {open ? "Ocultar" : "Ver detalle"} <span aria-hidden="true">{open ? "⌃" : "⌄"}</span>
         </button>
       </header>
-      <p className="government-section-summary">{summary}</p>
-      {open ? <div className="government-section-content">{children}</div> : null}
+      <p className="collapsible-section-summary">{summary}</p>
+      {open ? <div className="collapsible-section-content">{children}</div> : null}
     </section>
   );
 }
@@ -134,7 +134,7 @@ export function HubPanel({ hub, ...props }: HubProps & { hub: HubKind }) {
 function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
   return (
     <>
-      <GovernmentSection
+      <CollapsibleSection
         defaultOpen
         summary={`${ordinanceStatusLabel(economy.ordinance.status)} · ${economy.ordinance.name}`}
         title={
@@ -200,9 +200,9 @@ function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
               </li>
             ))}
         </ul>
-      </GovernmentSection>
+      </CollapsibleSection>
 
-      <GovernmentSection
+      <CollapsibleSection
         summary={`Propiedad ${economy.taxation.propertyRateBps / 100} % mensual · liquidación ${formatGameDate(economy.taxation.nextSettlementTick, calendar)}`}
         title={
           <>
@@ -228,9 +228,9 @@ function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
             <dd>{economy.taxation.playerArrears} u.</dd>
           </div>
         </dl>
-      </GovernmentSection>
+      </CollapsibleSection>
 
-      <GovernmentSection
+      <CollapsibleSection
         summary={`Reservas ${economy.municipal.reserve} u. · gasto ${municipalPlannedTotal(economy.municipal.plannedByCategory)} u.`}
         title={
           <>
@@ -270,9 +270,9 @@ function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
           {economy.municipal.serviceLevelPercentByCategory.transport ?? 100} % · limpieza{" "}
           {economy.municipal.serviceLevelPercentByCategory.cleaning ?? 100} %
         </p>
-      </GovernmentSection>
+      </CollapsibleSection>
 
-      <GovernmentSection
+      <CollapsibleSection
         summary={`${economy.urbanServices.length} servicios · ${projection.facilities.length} equipamientos`}
         title={
           <>
@@ -293,9 +293,9 @@ function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
           Programa del distrito: {projection.facilities.length} equipamientos y{" "}
           {projection.publicSpaces.length} espacios públicos.
         </p>
-      </GovernmentSection>
+      </CollapsibleSection>
 
-      <GovernmentSection
+      <CollapsibleSection
         summary={`Gobierna ${economy.politics.governingPartyName} · próxima elección ${formatGameDate(economy.politics.nextElectionTick, calendar)}`}
         title={
           <>
@@ -327,9 +327,9 @@ function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
           {economy.politics.moodByIssue.safety} · servicios {economy.politics.moodByIssue.services}{" "}
           · impuestos {economy.politics.moodByIssue.taxes}
         </p>
-      </GovernmentSection>
+      </CollapsibleSection>
 
-      <GovernmentSection
+      <CollapsibleSection
         summary={`Vecinos ${economy.reputation.standingByGroup.residents} · gobierno ${economy.reputation.standingByGroup.municipality} · banca ${economy.reputation.standingByGroup.banks}`}
         title={
           <>
@@ -347,9 +347,9 @@ function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
           residentes valoran tu parque al {economy.reputation.residentFactorPercent} % y el gobierno
           te deja {economy.reputation.influenceGainPerMonth} de influencia al mes.
         </p>
-      </GovernmentSection>
+      </CollapsibleSection>
 
-      <GovernmentSection
+      <CollapsibleSection
         summary={`${economy.publicContracts.open.length} licitación(es) abierta(s) · ${economy.publicContracts.reliability.awarded} adjudicada(s)`}
         title={
           <>
@@ -379,7 +379,7 @@ function GovernmentHub({ economy, calendar, actions, projection }: HubProps) {
             ))}
           </ul>
         )}
-      </GovernmentSection>
+      </CollapsibleSection>
     </>
   );
 }
@@ -443,12 +443,15 @@ function FinanceHub({ economy, calendar, actions }: HubProps) {
     economy.inventory.cement + economy.inventory.brick + economy.inventory.steel;
   return (
     <>
-      <section className="panel-section">
-        <header className="section-heading">
-          <h3>
+      <CollapsibleSection
+        defaultOpen
+        summary={`Caja ${formatMoney(economy.cash)} · patrimonio ${formatMoney(economy.financials.equity)}`}
+        title={
+          <>
             <UiIcon name="finance" /> Posición <HelpPopover topic="debt" />
-          </h3>
-        </header>
+          </>
+        }
+      >
         <dl className="detail-grid">
           <div>
             <dt>Caja</dt>
@@ -467,11 +470,15 @@ function FinanceHub({ economy, calendar, actions }: HubProps) {
             <dd>{formatMoney(economy.financials.equity)}</dd>
           </div>
         </dl>
-      </section>
-      <section className="panel-section">
-        <h3>
-          <UiIcon name="income" /> Mes actual
-        </h3>
+      </CollapsibleSection>
+      <CollapsibleSection
+        summary={`Resultado ${signedAmount(economy.financials.period.netIncome)} · cierre previsto ${economy.financials.forecast.closingCash} u.`}
+        title={
+          <>
+            <UiIcon name="income" /> Mes actual
+          </>
+        }
+      >
         <p className="muted">
           Ingresos {economy.financials.period.income} u. · gastos{" "}
           {economy.financials.period.expenses} u. · resultado{" "}
@@ -485,13 +492,15 @@ function FinanceHub({ economy, calendar, actions }: HubProps) {
             ? ` · faltan ${economy.financials.forecast.shortfall} u.`
             : ""}
         </p>
-      </section>
-      <section className="panel-section">
-        <header className="section-heading">
-          <h3>
+      </CollapsibleSection>
+      <CollapsibleSection
+        summary={`Almacén ${occupiedInventory}/${economy.inventory.capacity} unidades`}
+        title={
+          <>
             <UiIcon name="market" /> Mercado de materiales <HelpPopover topic="materials_market" />
-          </h3>
-        </header>
+          </>
+        }
+      >
         <p className="muted">
           Almacén {occupiedInventory}/{economy.inventory.capacity} unidades. Compra inmediata al
           precio vigente.
@@ -530,13 +539,15 @@ function FinanceHub({ economy, calendar, actions }: HubProps) {
             );
           })}
         </ul>
-      </section>
-      <section className="panel-section">
-        <header className="section-heading">
-          <h3>
+      </CollapsibleSection>
+      <CollapsibleSection
+        summary={`${economy.banking.loans.length} préstamo(s) · ${economy.banking.offers.length} oferta(s)`}
+        title={
+          <>
             <UiIcon name="loan" /> Préstamos <HelpPopover topic="collateral" />
-          </h3>
-        </header>
+          </>
+        }
+      >
         <ul className="list-plain" role="list">
           {economy.banking.offers.map((offer) => (
             <li key={offer.id} className="notice-card">
@@ -578,13 +589,15 @@ function FinanceHub({ economy, calendar, actions }: HubProps) {
             </button>
           );
         })()}
-      </section>
-      <section className="panel-section">
-        <header className="section-heading">
-          <h3>
+      </CollapsibleSection>
+      <CollapsibleSection
+        summary={`${economy.banking.auctions.length} subasta(s) activa(s)`}
+        title={
+          <>
             <UiIcon name="auction" /> Subastas <HelpTooltip topic="auction" />
-          </h3>
-        </header>
+          </>
+        }
+      >
         <ul className="list-plain" role="list">
           {economy.banking.auctions.map((auction) => {
             const bid = Math.max(auction.reservePrice, auction.highestBid + 1);
@@ -625,11 +638,15 @@ function FinanceHub({ economy, calendar, actions }: HubProps) {
             <li className="muted">No hay subastas activas.</li>
           ) : null}
         </ul>
-      </section>
-      <section className="panel-section">
-        <h3>
-          <UiIcon name="portfolio" /> Libro de caja
-        </h3>
+      </CollapsibleSection>
+      <CollapsibleSection
+        summary={`${economy.recentTransactions.length} movimiento(s) recientes`}
+        title={
+          <>
+            <UiIcon name="portfolio" /> Libro de caja
+          </>
+        }
+      >
         <ul className="list-plain ledger" role="list">
           {economy.recentTransactions.map((transaction, index) => (
             <li key={`${transaction.tick}-${transaction.cause}-${index}`}>
@@ -639,7 +656,7 @@ function FinanceHub({ economy, calendar, actions }: HubProps) {
             </li>
           ))}
         </ul>
-      </section>
+      </CollapsibleSection>
     </>
   );
 }
@@ -650,13 +667,16 @@ function PortfolioHub({ economy, calendar, actions }: HubProps) {
   const ownedParcels = economy.parcels.filter((parcel) => parcel.ownerOrganizationId === PLAYER);
   return (
     <>
-      <section className="panel-section">
-        <header className="section-heading">
-          <h3>
+      <CollapsibleSection
+        defaultOpen
+        summary={`${owned.length} edificio(s) · ${ownedParcels.length} parcela(s) propia(s)`}
+        title={
+          <>
             <UiIcon name="portfolio" /> Activos <HelpPopover topic="portfolio" />
-          </h3>
-          <span className="chip">{owned.length} edificios</span>
-        </header>
+          </>
+        }
+      >
+        <span className="chip">{owned.length} edificios</span>
         {owned.length === 0 ? (
           <p className="muted">Todavía no tienes edificios.</p>
         ) : (
@@ -689,11 +709,15 @@ function PortfolioHub({ economy, calendar, actions }: HubProps) {
         ) : (
           <p className="muted">{ownedParcels.length} parcelas propias</p>
         )}
-      </section>
-      <section className="panel-section">
-        <h3>
-          <UiIcon name="insurance" /> Seguros
-        </h3>
+      </CollapsibleSection>
+      <CollapsibleSection
+        summary={`${economy.insurance.contracts.filter((contract) => contract.status === "active").length} póliza(s) activa(s)`}
+        title={
+          <>
+            <UiIcon name="insurance" /> Seguros
+          </>
+        }
+      >
         <ul className="list-plain" role="list">
           {economy.insurance.contracts
             .filter((contract) => contract.status === "active")
@@ -716,13 +740,15 @@ function PortfolioHub({ economy, calendar, actions }: HubProps) {
               .join(" · ")}
           </p>
         ) : null}
-      </section>
-      <section className="panel-section">
-        <header className="section-heading">
-          <h3>
+      </CollapsibleSection>
+      <CollapsibleSection
+        summary={`Política ${maintenancePolicyLabel(economy.maintenance.policy)} · ${economy.automation.routineTaskCount} tarea(s)`}
+        title={
+          <>
             <UiIcon name="maintenance" /> Mantenimiento y automatización
-          </h3>
-        </header>
+          </>
+        }
+      >
         <p className="muted">
           Política {maintenancePolicyLabel(economy.maintenance.policy)} · próxima liquidación el{" "}
           {formatGameDate(economy.maintenance.nextSettlementTick, calendar)} · carga{" "}
@@ -792,11 +818,19 @@ function PortfolioHub({ economy, calendar, actions }: HubProps) {
           finanzas {economy.automation.policies.finance === "manual" ? "manual" : "cubre la caja"} ·
           rutina {economy.automation.routineTaskCount} tarea(s) detectada(s).
         </p>
-      </section>
-      <section className="panel-section">
-        <h3>
-          <UiIcon name="warning" /> Excepciones
-        </h3>
+      </CollapsibleSection>
+      <CollapsibleSection
+        summary={
+          economy.alerts.length === 0
+            ? "Sin excepciones prioritarias"
+            : `${economy.alerts.length} excepción(es) prioritaria(s)`
+        }
+        title={
+          <>
+            <UiIcon name="warning" /> Excepciones
+          </>
+        }
+      >
         <ul className="list-plain" role="list">
           {economy.alerts.length === 0 ? (
             <li className="muted">Sin excepciones prioritarias.</li>
@@ -824,7 +858,7 @@ function PortfolioHub({ economy, calendar, actions }: HubProps) {
             ))
           )}
         </ul>
-      </section>
+      </CollapsibleSection>
     </>
   );
 }
@@ -837,12 +871,14 @@ function CityHub({ economy, projection, calendar, actions, onSelectDistrict }: H
         observedDistrictId={projection.observedDistrictId}
         onSelect={onSelectDistrict}
       />
-      <section className="panel-section">
-        <header className="section-heading">
-          <h3>
+      <CollapsibleSection
+        summary={`Rival: ${economy.rival.parcels} parcelas · ${economy.rival.buildings} edificios`}
+        title={
+          <>
             <UiIcon name="rival" /> Competencia <HelpPopover topic="intelligence" />
-          </h3>
-        </header>
+          </>
+        }
+      >
         <p className="muted">
           Rival: {economy.rival.parcels} parcelas · {economy.rival.buildings} edificios ·{" "}
           {economy.rival.occupiedBuildings} ocupados. Su caja, contratos e intención no son
@@ -884,11 +920,19 @@ function CityHub({ economy, projection, calendar, actions, onSelectDistrict }: H
             ))}
           </ul>
         )}
-      </section>
-      <section className="panel-section">
-        <h3>
-          <UiIcon name="calendar" /> Clima económico <HelpPopover topic="macro_climate" />
-        </h3>
+      </CollapsibleSection>
+      <CollapsibleSection
+        summary={
+          economy.macroEvents.active.length === 0
+            ? "Sin eventos activos"
+            : `${economy.macroEvents.active.length} evento(s) activo(s)`
+        }
+        title={
+          <>
+            <UiIcon name="calendar" /> Clima económico <HelpPopover topic="macro_climate" />
+          </>
+        }
+      >
         <p className="muted">
           {economy.macroEvents.active.length === 0
             ? `Sin eventos activos · próximo sorteo el ${formatGameDate(economy.macroEvents.nextCheckTick, calendar)}`
@@ -905,11 +949,15 @@ function CityHub({ economy, projection, calendar, actions, onSelectDistrict }: H
             Efectos: {macroModifierSummary(economy.macroEvents.aggregatedModifiers)}
           </p>
         ) : null}
-      </section>
-      <section className="panel-section">
-        <h3>
-          <UiIcon name="tenants" /> Empleo y vivienda <HelpTooltip topic="housing_market" />
-        </h3>
+      </CollapsibleSection>
+      <CollapsibleSection
+        summary={`${economy.employment.jobs} puestos · paro ${100 - economy.employment.employmentRatePercent} %`}
+        title={
+          <>
+            <UiIcon name="tenants" /> Empleo y vivienda <HelpTooltip topic="housing_market" />
+          </>
+        }
+      >
         <p className="muted">
           {economy.employment.jobs} puestos · {economy.employment.workers} trabajadores · paro{" "}
           {100 - economy.employment.employmentRatePercent} % · salario índice{" "}
@@ -929,7 +977,7 @@ function CityHub({ economy, projection, calendar, actions, onSelectDistrict }: H
             </li>
           ))}
         </ul>
-      </section>
+      </CollapsibleSection>
     </>
   );
 }

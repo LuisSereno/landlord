@@ -409,7 +409,7 @@ try {
     .innerText();
   if (!/Ordenanza|Concejo|Presupuesto/.test(government))
     fail("Gobierno", `el hub no agrupa los sistemas: ${government.slice(0, 200)}`);
-  const fiscalSection = page.locator(".government-section", { hasText: "Fiscalidad" });
+  const fiscalSection = page.locator(".collapsible-section", { hasText: "Fiscalidad" });
   const fiscalToggle = fiscalSection.getByRole("button", { name: "Ver detalle" });
   if ((await fiscalToggle.getAttribute("aria-expanded")) !== "false")
     fail("Gobierno", "Fiscalidad no inicia plegada");
@@ -425,8 +425,30 @@ try {
   const finance = await page.getByRole("complementary", { name: "Finanzas" }).innerText();
   if (!/Posición|Préstamos|Subastas/.test(finance))
     fail("Finanzas", `el hub no agrupa la banca: ${finance.slice(0, 200)}`);
+  const materialsSection = page.locator(".collapsible-section", {
+    hasText: "Mercado de materiales",
+  });
+  const materialsToggle = materialsSection.getByRole("button", { name: "Ver detalle" });
+  if ((await materialsToggle.getAttribute("aria-expanded")) !== "false")
+    fail("Finanzas", "el mercado de materiales no inicia plegado");
+  await materialsToggle.click();
+  if ((await materialsToggle.getAttribute("aria-expanded")) !== "true")
+    fail("Finanzas", "el mercado de materiales no se puede desplegar");
   await shot("08-finanzas.jpg");
-  step("13 · hub de Finanzas con posición, préstamos y subastas");
+  step("13 · hub de Finanzas plegable con posición, mercado, préstamos y subastas");
+
+  await page.getByRole("button", { name: "Cartera", exact: true }).click();
+  await page.getByRole("complementary", { name: "Cartera" }).waitFor({ timeout: 10000 });
+  const maintenanceSection = page.locator(".collapsible-section", {
+    hasText: "Mantenimiento y automatización",
+  });
+  const maintenanceToggle = maintenanceSection.getByRole("button", { name: "Ver detalle" });
+  if ((await maintenanceToggle.getAttribute("aria-expanded")) !== "false")
+    fail("Cartera", "Mantenimiento y automatización no inicia plegado");
+  await maintenanceToggle.click();
+  if ((await maintenanceToggle.getAttribute("aria-expanded")) !== "true")
+    fail("Cartera", "Mantenimiento y automatización no se puede desplegar");
+  step("13b · hub de Cartera plegable con activos y automatización");
 
   // 14 · ayuda contextual
   await page.getByRole("button", { name: "Abrir ayuda" }).click();

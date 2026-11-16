@@ -292,11 +292,52 @@ export function auctionStatusLabel(status: string): string {
   return (
     {
       open: "abierta",
+      closed: "cerrada",
+      executed: "ejecutada",
       awarded: "adjudicada",
       withdrawn: "retirada",
       failed: "desierta",
     }[status] ?? "subasta"
   );
+}
+
+/**
+ * V.d-UX.S · estado de carga de una parcela. `unknown` y `none` NO son sinónimos: el primero dice
+ * que no se publica información (parcela ajena), el segundo que se sabe que no hay carga viva.
+ */
+export function encumbranceStatusLabel(
+  kind: "unknown" | "none" | "loan" | "delinquent" | "defaulted" | "auction" | "auction_bid",
+): string {
+  return {
+    unknown: "sin datos",
+    none: "sin carga",
+    loan: "hipoteca al día",
+    delinquent: "en atraso",
+    defaulted: "impagada",
+    auction: "en subasta",
+    auction_bid: "puja en subasta ajena",
+  }[kind];
+}
+
+export function occupancyBandLabel(
+  band: "full" | "partial" | "empty" | "production" | "unknown",
+): string {
+  return {
+    full: "ocupación completa",
+    partial: "ocupación parcial",
+    empty: "sin inquilinos",
+    production: "producción",
+    unknown: "sin datos",
+  }[band];
+}
+
+export function insuranceStateLabel(state: "active" | "lapsed" | "none" | "unknown"): string {
+  return {
+    active: "asegurado",
+    lapsed: "póliza vencida",
+    none: "sin seguro",
+    unknown: "sin datos",
+  }[state];
 }
 
 export function insuranceCoverageLabel(coverage: "fire_basic" | "fire_plus"): string {

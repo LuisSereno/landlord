@@ -11,13 +11,16 @@ import {
   constructionKindLabel,
   crewDisplayName,
   developmentCodeLabel,
+  encumbranceStatusLabel,
   formatGameDate,
   formatGameDuration,
   insuranceCoverageLabel,
+  insuranceStateLabel,
   insuranceStatusLabel,
   landUseLabel,
   loanStatusLabel,
   maintenancePolicyLabel,
+  occupancyBandLabel,
   ordinanceStatusLabel,
   organizationDisplayName,
   parcelDispositionLabel,
@@ -107,6 +110,37 @@ describe("V.d-UX · vocabulario del jugador", () => {
     expect(ordinanceStatusLabel("proposed")).toBe("propuesta disponible");
     expect(alertSeverityLabel("high")).toBe("urgente");
     expect(alertCategoryLabel("occupancy")).toBe("Propiedades");
+  });
+
+  it("los estados del activo distinguen «sin datos» de «sin carga» y no filtran vocabulario", () => {
+    for (const kind of [
+      "unknown",
+      "none",
+      "loan",
+      "delinquent",
+      "defaulted",
+      "auction",
+      "auction_bid",
+    ] as const) {
+      const label = encumbranceStatusLabel(kind);
+      expect(label, kind).not.toBe(kind);
+      expect(leaksTechnicalVocabulary(label), label).toBe(false);
+    }
+    expect(encumbranceStatusLabel("unknown")).not.toBe(encumbranceStatusLabel("none"));
+    for (const band of ["full", "partial", "empty", "production", "unknown"] as const) {
+      const label = occupancyBandLabel(band);
+      expect(label, band).not.toBe(band);
+      expect(leaksTechnicalVocabulary(label), label).toBe(false);
+    }
+    expect(occupancyBandLabel("unknown")).not.toBe(occupancyBandLabel("empty"));
+    for (const state of ["active", "lapsed", "none", "unknown"] as const) {
+      const label = insuranceStateLabel(state);
+      expect(label, state).not.toBe(state);
+      expect(leaksTechnicalVocabulary(label), label).toBe(false);
+    }
+    expect(insuranceStateLabel("unknown")).not.toBe(insuranceStateLabel("none"));
+    expect(auctionStatusLabel("executed")).toBe("ejecutada");
+    expect(auctionStatusLabel("closed")).toBe("cerrada");
   });
 
   it("traduce organizaciones, cuadrillas y movimientos de caja sin IDs", () => {

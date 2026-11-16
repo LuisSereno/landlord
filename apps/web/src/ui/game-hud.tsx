@@ -219,6 +219,19 @@ export function GameHud({
 }
 
 /**
+ * V.d-UX.S · icono por grupo de capas, exportado para que el test del catálogo pueda exigir que
+ * todo grupo declarado tiene icono. Un grupo nuevo sin entrada aquí era antes un fallo silencioso.
+ */
+export const OVERLAY_GROUP_ICONS: Record<OverlayGroupId, UiIconName> = {
+  ownership: "ownership",
+  value: "land-value",
+  use: "zoning",
+  services: "services",
+  risk: "risk",
+  status: "portfolio",
+};
+
+/**
  * V.d-UX · toolbar de capas (spec §14). Grupos con icono y etiqueta, opciones con estado
  * `aria-pressed` y leyenda cuando el color tiene significado; salida explícita a vista normal.
  */
@@ -258,20 +271,7 @@ export function OverlayToolbar({
                 onClick={() => setOpenGroup(expanded ? null : group.id)}
                 type="button"
               >
-                <UiIcon
-                  name={
-                    (
-                      {
-                        ownership: "ownership",
-                        value: "land-value",
-                        use: "zoning",
-                        services: "services",
-                        risk: "risk",
-                      } as Record<OverlayGroupId, UiIconName>
-                    )[group.id]
-                  }
-                  size={15}
-                />
+                <UiIcon name={OVERLAY_GROUP_ICONS[group.id]} size={15} />
                 {group.label}
               </button>
               {expanded ? (
@@ -402,6 +402,8 @@ const HELP_TOPICS: HelpTopicKey[] = [
   "ordinance",
   "council",
   "overlays",
+  "upgrade",
+  "occupancy",
 ];
 
 /** Ayuda general del shell: la misma fuente que los tooltips, sin párrafos duplicados. */

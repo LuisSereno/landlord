@@ -20,9 +20,12 @@ export type MapOverlay =
   | "risk"
   | "use"
   | "developmentCode"
-  | "urbanRole";
+  | "urbanRole"
+  | "encumbrances"
+  | "occupancy"
+  | "insurance";
 
-export type OverlayGroupId = "ownership" | "value" | "use" | "services" | "risk";
+export type OverlayGroupId = "ownership" | "value" | "use" | "services" | "risk" | "status";
 
 /** Colores compartidos con el renderer. */
 export const MAP_COLORS = {
@@ -69,6 +72,33 @@ export const CODE_PALETTE = [
   0x69a86b, 0x6fa8dc, 0xe0b04b, 0xd98f6a, 0x9b7ede, 0x4db6ac, 0xf2c14e,
 ] as const;
 
+/**
+ * V.d-UX.S · tonos del estado del activo. Única fuente para las capas nuevas, los badges del mundo,
+ * las placas de parcela y los chips de panel: escena y UI no pueden discrepar sobre el mismo estado.
+ *
+ * Cinco tonos nuevos (tinta bancaria, latón, rojo verdadero, violeta frío y pizarra de "sin datos")
+ * y el resto reutiliza la familia cálida cívica existente. `unknown` es más oscuro que `neutral`
+ * a propósito: "no disponemos de información" y "solar sin edificio" se separan por luminancia
+ * además de por leyenda, nunca sólo por matiz.
+ */
+export const STATUS_COLORS = {
+  lien: 0x3f5f9f,
+  arrears: 0xe0a23b,
+  loss: 0xd92d20,
+  vacancy: 0x7c6fd0,
+  unknown: 0x5a6472,
+  upgrade: ZONING_COLORS.residential,
+  occupied: MAP_COLORS.parcelPlayer,
+  partial: USE_COLORS.retail,
+  uninsured: MAP_COLORS.parcelRival,
+  opportunity: MAP_COLORS.parcelCivic,
+  fire: MAP_COLORS.fire,
+  upkeep: MAP_COLORS.construction,
+  neutral: MAP_COLORS.parcelAvailable,
+} as const;
+
+export type StatusTone = keyof typeof STATUS_COLORS;
+
 export function cssColor(value: number): string {
   return `#${value.toString(16).padStart(6, "0")}`;
 }
@@ -90,6 +120,7 @@ export const OVERLAY_GROUPS: ReadonlyArray<{ id: OverlayGroupId; label: string }
   { id: "use", label: "Uso" },
   { id: "services", label: "Servicios" },
   { id: "risk", label: "Riesgo" },
+  { id: "status", label: "Estado del activo" },
 ];
 
 const coverageLegend: OverlayLegendEntry[] = [
@@ -260,6 +291,49 @@ export const OVERLAY_OPTIONS: readonly OverlayOption[] = [
       { color: cssColor(MAP_COLORS.fire), label: "Alto (≥ 30 %)" },
       { color: cssColor(MAP_COLORS.construction), label: "Medio (15-29 %)" },
       { color: cssColor(MAP_COLORS.parcelPlayer), label: "Bajo (< 15 %)" },
+    ],
+  },
+  {
+    value: "encumbrances",
+    group: "status",
+    label: "Cargas y subastas",
+    description: "Qué parcelas respaldan un préstamo y cuáles están en crisis.",
+    icon: "lien",
+    legend: [
+      { color: cssColor(STATUS_COLORS.occupied), label: "Sin carga viva" },
+      { color: cssColor(STATUS_COLORS.lien), label: "Hipoteca al día" },
+      { color: cssColor(STATUS_COLORS.arrears), label: "En atraso" },
+      { color: cssColor(STATUS_COLORS.loss), label: "Impagada o en subasta" },
+      { color: cssColor(STATUS_COLORS.opportunity), label: "Puja en subasta ajena" },
+      { color: cssColor(STATUS_COLORS.unknown), label: "Ajena o no hipotecable" },
+    ],
+  },
+  {
+    value: "occupancy",
+    group: "status",
+    label: "Ocupación",
+    description: "Plazas ocupadas frente a capacidad, edificio a edificio.",
+    icon: "tenants",
+    legend: [
+      { color: cssColor(STATUS_COLORS.occupied), label: "Ocupación completa" },
+      { color: cssColor(STATUS_COLORS.partial), label: "Ocupación parcial" },
+      { color: cssColor(STATUS_COLORS.vacancy), label: "Sin inquilinos" },
+      { color: cssColor(STATUS_COLORS.upkeep), label: "Producción: no se ocupa con hogares" },
+      { color: cssColor(STATUS_COLORS.neutral), label: "Solar sin edificio" },
+      { color: cssColor(STATUS_COLORS.unknown), label: "Sin datos (edificio ajeno)" },
+    ],
+  },
+  {
+    value: "insurance",
+    group: "status",
+    label: "Seguro",
+    description: "Qué activos están protegidos frente a un siniestro.",
+    icon: "insurance",
+    legend: [
+      { color: cssColor(STATUS_COLORS.occupied), label: "Todo asegurado" },
+      { color: cssColor(STATUS_COLORS.arrears), label: "Alguna póliza vencida" },
+      { color: cssColor(STATUS_COLORS.uninsured), label: "Alguno sin seguro" },
+      { color: cssColor(STATUS_COLORS.unknown), label: "Sin datos (edificio ajeno)" },
     ],
   },
 ];

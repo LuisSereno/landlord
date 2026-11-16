@@ -39,7 +39,9 @@ export type HelpTopicKey =
   | "notifications"
   | "portfolio"
   | "auction"
-  | "materials_market";
+  | "materials_market"
+  | "upgrade"
+  | "occupancy";
 
 export type HelpTopic = {
   title: string;
@@ -123,7 +125,22 @@ export const helpCatalog: Record<HelpTopicKey, HelpTopic> = {
   insurance: {
     title: "Seguro",
     summary: "Póliza por edificio que cubre daños de incendio y colapso según cobertura y límite.",
-    details: "La prima se paga cada mes; cancelar no devuelve lo ya pagado.",
+    details:
+      "La prima se paga cada mes; cancelar no devuelve lo ya pagado. Si la prima no se cobra la póliza vence: hay que terminarla para poder contratar otra cobertura.",
+  },
+  upgrade: {
+    title: "Mejora del edificio",
+    summary:
+      "Una obra de mejora sube el nivel del activo, aumenta su renta y recupera parte de la condición.",
+    details:
+      "Cada edificio admite una mejora. El distintivo de fachada y la etiqueta de la cartera señalan los activos ya mejorados; la capa de ocupación no los distingue.",
+  },
+  occupancy: {
+    title: "Ocupación",
+    summary:
+      "Plazas ocupadas frente a la capacidad del edificio. Un edificio vacío no cobra renta.",
+    details:
+      "La capa de ocupación distingue lleno, parcial, vacío y producción. Los edificios ajenos no publican sus inquilinos: se muestran como «sin datos», nunca como vacíos.",
   },
   ordinance: {
     title: "Ordenanza",

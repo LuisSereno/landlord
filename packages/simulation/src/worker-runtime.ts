@@ -75,7 +75,7 @@ const errorMessages: Record<ErrorCode, string> = {
   LOAN_DEFAULTED: "El préstamo está en impago y requiere una resolución de crisis.",
   INSURANCE_BUILDING_INVALID: "El edificio no puede contratar esta cobertura.",
   INSURANCE_ALREADY_ACTIVE: "El edificio ya tiene una cobertura activa.",
-  INSURANCE_NOT_FOUND: "El edificio no tiene una póliza activa que cancelar.",
+  INSURANCE_NOT_FOUND: "El edificio no tiene ninguna póliza que cancelar.",
   PERMIT_DENIED: "El permiso municipal ha sido denegado para este uso y parcela.",
   AUCTION_NOT_FOUND: "La subasta no existe.",
   AUCTION_NOT_OPEN: "La subasta no está abierta para pujar.",

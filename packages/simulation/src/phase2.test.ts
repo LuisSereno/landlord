@@ -1280,6 +1280,53 @@ describe("WP3.7 insurance and covered events", () => {
     });
     expect(serializeSnapshot(restored)).toEqual(serializeSnapshot(state));
   });
+
+  it("terminates a lapsed policy so the building can be insured again", () => {
+    const state = createInitialState(82);
+    const buildingId = addInsuranceBuilding(state, 100);
+    expect(
+      dispatchProductCommand(
+        state,
+        command("lapse-buy", "BuyInsurance", { buildingId, coverage: "fire_basic" }),
+      ).accepted,
+    ).toBe(true);
+    state.phase2.balances.set(organization, parseMoney(0));
+    settleInsuranceAtMonth(state);
+    expect(state.phase2.insurance.contractsByBuildingId[buildingId]).toMatchObject({
+      status: "lapsed",
+      nextPremiumTick: null,
+    });
+    /** El callejón sin salida previo: vencida no dejaba comprar otra cobertura. */
+    expect(
+      dispatchProductCommand(
+        state,
+        command("lapse-rebuy-blocked", "BuyInsurance", { buildingId, coverage: "fire_basic" }),
+      ),
+    ).toEqual({ accepted: false, code: "INSURANCE_ALREADY_ACTIVE" });
+    expect(
+      dispatchProductCommand(state, command("lapse-cancel", "CancelInsurance", { buildingId })),
+    ).toMatchObject({ accepted: true });
+    expect(state.phase2.insurance.contractsByBuildingId[buildingId]).toMatchObject({
+      status: "cancelled",
+      nextPremiumTick: null,
+    });
+    const offers = createViewProjection(state, true).economy?.insurance.offers ?? [];
+    expect(offers.some((offer) => offer.buildingId === buildingId)).toBe(true);
+    state.phase2.balances.set(organization, parseMoney(10_000));
+    expect(
+      dispatchProductCommand(
+        state,
+        command("lapse-rebuy", "BuyInsurance", { buildingId, coverage: "fire_plus" }),
+      ).accepted,
+    ).toBe(true);
+    expect(state.phase2.insurance.contractsByBuildingId[buildingId]).toMatchObject({
+      status: "active",
+      coverage: "fire_plus",
+    });
+    const restored = restoreStateFromSnapshot(serializeSnapshot(state));
+    expect(restored.phase2.insurance).toEqual(state.phase2.insurance);
+    expect(serializeSnapshot(restored)).toEqual(serializeSnapshot(state));
+  });
 });
 
 describe("WP3.8 zoning and permits", () => {

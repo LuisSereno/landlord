@@ -392,7 +392,13 @@ export function dispatchProductCommand(
 
   if (command.type === "CancelInsurance") {
     const contract = state.phase2.insurance.contractsByBuildingId[command.payload.buildingId];
-    if (!contract || contract.status !== "active")
+    /**
+     * V.d-UX.S · E1: una póliza vencida también se puede terminar. Antes `lapsed` era un callejón
+     * sin salida: BuyInsurance lo rechaza y CancelInsurance exigía `active`, así que el edificio
+     * quedaba sin poder volver a asegurarse nunca. `cancelled` significa "contrato terminado",
+     * no necesariamente cancelado voluntariamente por el jugador.
+     */
+    if (!contract || (contract.status !== "active" && contract.status !== "lapsed"))
       return { accepted: false, code: "INSURANCE_NOT_FOUND" };
     const building = state.phase2.buildings.get(command.payload.buildingId);
     if (!building || building.ownerOrganizationId !== command.actingAsOrganizationId)

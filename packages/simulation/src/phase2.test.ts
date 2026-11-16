@@ -1777,6 +1777,7 @@ describe("WP3.12 portfolio automation and exception UX", () => {
       id: `permit-${parcelId}`,
       severity: "medium",
       kind: "permit",
+      reason: "permit_denied",
       message: `El permiso de ${parcelId} está denied; revisa el uso antes de construir.`,
       targetId: parcelId,
     });

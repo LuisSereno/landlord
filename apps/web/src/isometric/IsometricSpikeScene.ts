@@ -24,33 +24,21 @@ import {
   decodedTextureBytes,
   type DistrictAssetMetrics,
 } from "../assets/district-texture-cache";
-import { deriveWorldIndicators, worldIndicatorsSignature, type PanelSection } from "../ui/world-indicators";
+import {
+  deriveWorldIndicators,
+  worldIndicatorsSignature,
+  type PanelSection,
+} from "../ui/world-indicators";
 import { indexAssetStatus, type AssetStatusIndex } from "../ui/asset-status";
 import { parcelOverlayColor as resolveOverlayColor } from "../ui/overlay-color";
 import { STATUS_COLORS } from "../ui/overlay-catalog";
 import type { UiIconName } from "../ui/icons";
 import { constructionKindLabel } from "../ui/labels";
-import {
-  parcelMarkPlan,
-  reconcileParcelMarks,
-  type ParcelMarkEntry,
-} from "./parcel-marks";
-import {
-  facadeMarkPlan,
-  reconcileFacadeMarks,
-  type FacadeMarkEntry,
-} from "./building-marks";
-import {
-  GLYPH_TEXTURE_PX,
-  glyphDataUri,
-  glyphTextureKey,
-  toneHex,
-} from "./glyph-textures";
+import { parcelMarkPlan, reconcileParcelMarks, type ParcelMarkEntry } from "./parcel-marks";
+import { facadeMarkPlan, reconcileFacadeMarks, type FacadeMarkEntry } from "./building-marks";
+import { GLYPH_TEXTURE_PX, glyphDataUri, glyphTextureKey, toneHex } from "./glyph-textures";
 import type { StatusTone } from "../ui/overlay-catalog";
-import {
-  MAP_COLORS,
-  type MapOverlay,
-} from "../ui/overlay-catalog";
+import { MAP_COLORS, type MapOverlay } from "../ui/overlay-catalog";
 import {
   planPropertyGrounds,
   propertyGroundsCacheKey,
@@ -402,6 +390,7 @@ type CameraTestApi = {
     x: number;
     y: number;
     visible: boolean;
+    screen: ScreenPoint;
   }>;
   listFacadeMarks(): Array<{
     id: string;
@@ -410,6 +399,8 @@ type CameraTestApi = {
     y: number;
     visible: boolean;
   }>;
+  /** Tooltip compartido de badges y placas: prueba que «hover explica» sin leer píxeles. */
+  getIndicatorTooltip(): { visible: boolean; text: string } | null;
 };
 
 declare global {
@@ -471,6 +462,8 @@ declare global {
       facadeMarks: number;
       glyphTextures: number;
       statusTweens: number;
+      /** GameObjects reales del idioma de estado: contenedores de badge, placa y marca con sus hijos. */
+      statusGameObjects: number;
       totalSprites: number;
       groundRebakes: number;
       groundBakeLastMs: number;
@@ -668,6 +661,16 @@ export class IsometricSpikeScene extends Phaser.Scene {
         ? Object.keys(this.textures.list).filter((key) => key.startsWith("glyph:")).length
         : 0,
       statusTweens: this.statusTweens.length,
+      statusGameObjects:
+        this.indicatorEntries.reduce((sum, entry) => sum + 1 + entry.object.list.length, 0) +
+        [...this.parcelMarks.values()].reduce(
+          (sum, mark) => sum + 1 + mark.container.list.length,
+          0,
+        ) +
+        [...this.facadeMarks.values()].reduce(
+          (sum, mark) => sum + 1 + mark.container.list.length,
+          0,
+        ),
       totalSprites:
         this.buildingSprites.size +
         this.decorSprites.length +
@@ -851,11 +854,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
 
   /** Click en un indicador de mundo: navega al target sin decidir nada por el jugador. */
   public setIndicatorListener(
-    listener: (target: {
-      parcelId: string;
-      buildingId?: string;
-      section?: PanelSection;
-    }) => void,
+    listener: (target: { parcelId: string; buildingId?: string; section?: PanelSection }) => void,
   ): void {
     this.indicatorListener = listener;
   }
@@ -2889,7 +2888,13 @@ export class IsometricSpikeScene extends Phaser.Scene {
       if (!mark) {
         const plate = this.add.graphics();
         const container = this.add.container(center.x, center.y, [plate]);
-        mark = { container, plate, glyph: null, entry, bounds: { x: 0, y: 0, width: 0, height: 0 } };
+        mark = {
+          container,
+          plate,
+          glyph: null,
+          entry,
+          bounds: { x: 0, y: 0, width: 0, height: 0 },
+        };
         this.parcelMarks.set(entry.id, mark);
         this.parcelMarkLayer.add(container);
       }
@@ -3001,7 +3006,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
       const visible =
         zoom >= minZoom && this.isInViewport(mark.container.x, mark.container.y, view, 32);
       if (mark.container.visible !== visible) mark.container.setVisible(visible);
-      const scale = Phaser.Math.Clamp(mark.sprite.displayHeight / SIGNAGE_NOMINAL_HEIGHT_PX, 0.6, 1.5);
+      const scale = Phaser.Math.Clamp(
+        mark.sprite.displayHeight / SIGNAGE_NOMINAL_HEIGHT_PX,
+        0.6,
+        1.5,
+      );
       mark.container.setScale(scale);
     }
     this.updateParcelMarkHover();
@@ -3137,15 +3146,20 @@ export class IsometricSpikeScene extends Phaser.Scene {
           };
         }),
       listParcelMarks: () =>
-        [...this.parcelMarks.values()].map((mark) => ({
-          id: mark.entry.id,
-          parcelId: mark.entry.parcelId,
-          kind: mark.entry.kind,
-          tone: mark.entry.tone,
-          x: mark.container.x,
-          y: mark.container.y,
-          visible: mark.container.visible,
-        })),
+        [...this.parcelMarks.values()].map((mark) => {
+          camera.preRender();
+          const screen = camera.matrixCombined.transformPoint(mark.container.x, mark.container.y);
+          return {
+            id: mark.entry.id,
+            parcelId: mark.entry.parcelId,
+            kind: mark.entry.kind,
+            tone: mark.entry.tone,
+            x: mark.container.x,
+            y: mark.container.y,
+            visible: mark.container.visible,
+            screen: { x: screen.x, y: screen.y },
+          };
+        }),
       listFacadeMarks: () =>
         [...this.facadeMarks.values()].map((mark) => ({
           id: mark.entry.id,
@@ -3154,6 +3168,14 @@ export class IsometricSpikeScene extends Phaser.Scene {
           y: mark.container.y,
           visible: mark.container.visible,
         })),
+      getIndicatorTooltip: () => {
+        const tooltip = this.indicatorTooltip;
+        if (!tooltip) return null;
+        return {
+          visible: tooltip.visible,
+          text: Array.isArray(tooltip.text) ? tooltip.text.join("\n") : String(tooltip.text),
+        };
+      },
     };
     window.__landlordCameraTest = api;
     const placementApi = () => {

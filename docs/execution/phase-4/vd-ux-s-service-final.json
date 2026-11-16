@@ -5,145 +5,317 @@
     "docs/art/golden/vd-ux-status/zoom-0_85.jpg",
     "docs/art/golden/vd-ux-status/zoom-1.jpg",
     "docs/art/golden/vd-ux-status/zoom-2.jpg",
+    "docs/art/golden/vd-ux-status/badge-hover.jpg",
+    "docs/art/golden/vd-ux-status/parcel-plate-hover.jpg",
     "docs/art/golden/vd-ux-status/clutter-dense-block.jpg",
     "docs/art/golden/vd-ux-status/economic-only-mutation.jpg",
-    "docs/art/golden/vd-ux-status/night-remount.jpg",
     "docs/art/golden/vd-ux-status/overlay-cargas.jpg",
     "docs/art/golden/vd-ux-status/overlay-ocupación.jpg",
-    "docs/art/golden/vd-ux-status/overlay-seguro.jpg"
+    "docs/art/golden/vd-ux-status/overlay-seguro.jpg",
+    "docs/art/golden/vd-ux-status/night-remount.jpg"
   ],
   "assertions": [
     {
       "name": "escenario inyectado",
-      "ok": true
+      "ok": true,
+      "blocking": true
     },
     {
       "name": "tope de badges respetado",
       "ok": true,
+      "blocking": true,
       "detail": "indicators=7"
     },
     {
       "name": "hay placas de carga",
       "ok": true,
+      "blocking": true,
       "detail": "parcelMarks=4"
     },
     {
       "name": "hay marcas de mejora",
       "ok": true,
+      "blocking": true,
       "detail": "facadeMarks=2"
     },
     {
       "name": "en zoom lejano sólo sobreviven los críticos",
       "ok": true,
+      "blocking": true,
       "detail": "2 visibles"
     },
     {
       "name": "las marcas de mejora se ven en zoom de juego",
       "ok": true,
+      "blocking": true,
       "detail": "2 marcas"
     },
     {
       "name": "las placas de carga se ven en zoom de juego",
       "ok": true,
+      "blocking": true,
       "detail": "4 placas"
     },
     {
       "name": "texturas de glifo acotadas",
       "ok": true,
+      "blocking": true,
       "detail": "glyphTextures=12"
     },
     {
       "name": "texturas de glifo presentes",
       "ok": true,
+      "blocking": true,
       "detail": "glyphTextures=12"
     },
     {
       "name": "hay un badge no crítico visible",
       "ok": true,
+      "blocking": true,
       "detail": "maintenance"
+    },
+    {
+      "name": "el hover del badge explica su causa en español",
+      "ok": true,
+      "blocking": true,
+      "detail": "\"Condición 40 %: conviene reparar\\nMantenimiento atrasado: 360 u. acumuladas\\nocupación parcial · 1/2 plazas\\nsin seguro\""
+    },
+    {
+      "name": "los hechos secundarios van plegados en el mismo tooltip",
+      "ok": true,
+      "blocking": true,
+      "detail": "4 líneas"
+    },
+    {
+      "name": "hay una placa de carga visible",
+      "ok": true,
+      "blocking": true,
+      "detail": "loan"
+    },
+    {
+      "name": "la placa explica su carga sin crear capa interactiva",
+      "ok": true,
+      "blocking": true,
+      "detail": "\"hipoteca al día\\nal día · 600 u. pendientes · cuota 55 u./mes · 12 meses restantes\""
+    },
+    {
+      "name": "el tooltip no filtra ids ni ticks crudos",
+      "ok": true,
+      "blocking": true,
+      "detail": "\"hipoteca al día\\nal día · 600 u. pendientes · cuota 55 u./mes · 12 meses restantes\""
     },
     {
       "name": "sin crecimiento descontrolado de objetos",
       "ok": true,
+      "blocking": true,
       "detail": "sceneChildren=489"
     },
     {
       "name": "placas estables",
       "ok": true,
+      "blocking": true,
       "detail": "4 → 4"
     },
     {
       "name": "marcas estables",
       "ok": true,
+      "blocking": true,
       "detail": "2 → 2"
     },
     {
       "name": "badges estables",
       "ok": true,
+      "blocking": true,
       "detail": "7 → 7"
     },
     {
       "name": "tweens acotados",
       "ok": true,
+      "blocking": true,
       "detail": "statusTweens=2"
     },
     {
       "name": "inyecciones idénticas no re-hornean el suelo",
       "ok": true,
+      "blocking": true,
       "detail": "2 → 2"
     },
     {
       "name": "la economía no re-hornea el suelo",
       "ok": true,
+      "blocking": true,
       "detail": "2 → 2"
     },
     {
       "name": "la placa refleja el nuevo estado sin recrearse",
       "ok": true,
+      "blocking": true,
       "detail": "delinquent,delinquent,auction,auction_bid"
-    },
-    {
-      "name": "escenario reinyectado tras el remount",
-      "ok": true
-    },
-    {
-      "name": "las placas sobreviven al remount sin duplicarse",
-      "ok": true,
-      "detail": "4 → 4"
-    },
-    {
-      "name": "las marcas sobreviven al remount sin duplicarse",
-      "ok": true,
-      "detail": "2 → 2"
-    },
-    {
-      "name": "tweens acotados tras el remount",
-      "ok": true,
-      "detail": "statusTweens=2"
     },
     {
       "name": "leyenda presente en Cargas y subastas",
       "ok": true,
+      "blocking": true,
       "detail": "7 elementos"
     },
     {
       "name": "leyenda presente en Ocupación",
       "ok": true,
+      "blocking": true,
       "detail": "7 elementos"
     },
     {
       "name": "leyenda presente en Seguro",
       "ok": true,
+      "blocking": true,
       "detail": "5 elementos"
+    },
+    {
+      "name": "la vuelta a vista normal deja el idioma de estado intacto",
+      "ok": true,
+      "blocking": true,
+      "detail": "indicators=9 parcelMarks=4"
+    },
+    {
+      "name": "escenario reinyectado tras el remount",
+      "ok": true,
+      "blocking": true
+    },
+    {
+      "name": "las placas sobreviven al remount sin duplicarse",
+      "ok": true,
+      "blocking": true,
+      "detail": "4 → 4"
+    },
+    {
+      "name": "las marcas sobreviven al remount sin duplicarse",
+      "ok": true,
+      "blocking": true,
+      "detail": "2 → 2"
+    },
+    {
+      "name": "tweens acotados tras el remount",
+      "ok": true,
+      "blocking": true,
+      "detail": "statusTweens=2"
+    },
+    {
+      "name": "con prefers-reduced-motion no queda ningún tween de estado",
+      "ok": true,
+      "blocking": true,
+      "detail": "statusTweens=0"
+    },
+    {
+      "name": "los marcadores se pintan igual sin animación",
+      "ok": true,
+      "blocking": true,
+      "detail": "indicators=7 parcelMarks=4"
+    },
+    {
+      "name": "sin la guarda, los críticos vuelven a latir",
+      "ok": true,
+      "blocking": true,
+      "detail": "statusTweens=2"
+    },
+    {
+      "name": "tweens acotados tras el churn",
+      "ok": true,
+      "blocking": true,
+      "detail": "statusTweens=2"
+    },
+    {
+      "name": "frame-time medio crece ≤5 % en zoom 1",
+      "ok": true,
+      "blocking": true,
+      "detail": "control=81.94 ms status=82.39 ms crecimiento=0.5%"
+    },
+    {
+      "name": "frame-time p50 crece ≤5 % en zoom 1",
+      "ok": true,
+      "blocking": true,
+      "detail": "control=83.3 ms status=83.3 ms crecimiento=0%"
+    },
+    {
+      "name": "frame-time p95 crece ≤5 % en zoom 1",
+      "ok": true,
+      "blocking": true,
+      "detail": "control=100 ms status=100 ms crecimiento=0%"
+    },
+    {
+      "name": "los GameObjects del idioma de estado están acotados en zoom 1",
+      "ok": true,
+      "blocking": true,
+      "detail": "marcadores+=46 (badges 7 · placas 4 · marcas 2; tope 12 por grupo, ≤4 objetos cada uno)"
+    },
+    {
+      "name": "los FPS no caen más de un cuantún de muestreo en zoom 1",
+      "ok": true,
+      "blocking": true,
+      "detail": "p50 12→12 · p95 13→13"
+    },
+    {
+      "name": "presupuesto del 5 % evaluable sobre FPS en zoom 1",
+      "ok": false,
+      "blocking": false,
+      "detail": "el cuantún del medidor es 8.3% (12 FPS por software): la cola y el 5 % exacto pasan al playtest humano (P1-1 abierto desde V.d-7C)"
+    },
+    {
+      "name": "la cola de frame-time (p90/p99/peor) no crece más de un 25 % en zoom 1",
+      "ok": false,
+      "blocking": false,
+      "detail": "p90 83.4→99.9 ms (19.8%) · p99 100.1→133.3 ms (33.2%) · peor 166.7→149.9 ms (-10.1%) · frames >1,5×p50 2→6 de 548"
+    },
+    {
+      "name": "frame-time medio crece ≤5 % en zoom 2",
+      "ok": true,
+      "blocking": true,
+      "detail": "control=94.29 ms status=93.09 ms crecimiento=-1.3%"
+    },
+    {
+      "name": "frame-time p50 crece ≤5 % en zoom 2",
+      "ok": true,
+      "blocking": true,
+      "detail": "control=99.9 ms status=99.9 ms crecimiento=0%"
+    },
+    {
+      "name": "frame-time p95 crece ≤5 % en zoom 2",
+      "ok": true,
+      "blocking": true,
+      "detail": "control=100.1 ms status=100.1 ms crecimiento=0%"
+    },
+    {
+      "name": "los GameObjects del idioma de estado están acotados en zoom 2",
+      "ok": true,
+      "blocking": true,
+      "detail": "marcadores+=46 (badges 7 · placas 4 · marcas 2; tope 12 por grupo, ≤4 objetos cada uno)"
+    },
+    {
+      "name": "los FPS no caen más de un cuantún de muestreo en zoom 2",
+      "ok": true,
+      "blocking": true,
+      "detail": "p50 11→11 · p95 11→11"
+    },
+    {
+      "name": "presupuesto del 5 % evaluable sobre FPS en zoom 2",
+      "ok": false,
+      "blocking": false,
+      "detail": "el cuantún del medidor es 9.1% (11 FPS por software): la cola y el 5 % exacto pasan al playtest humano (P1-1 abierto desde V.d-7C)"
+    },
+    {
+      "name": "la cola de frame-time (p90/p99/peor) no crece más de un 25 % en zoom 2",
+      "ok": true,
+      "blocking": false,
+      "detail": "p90 100.1→100 ms (-0.1%) · p99 116.7→116.7 ms (0%) · peor 133.3→133.4 ms (0.1%) · frames >1,5×p50 0→0 de 485"
     },
     {
       "name": "sin errores de página",
       "ok": true,
+      "blocking": true,
       "detail": ""
     }
   ],
   "metrics": {
-    "assetsReadyMs": 14150,
+    "assetsReadyMs": 14041,
     "initial": {
       "buildings": 9,
       "decorations": 68,
@@ -170,10 +342,11 @@
       "facadeMarks": 2,
       "glyphTextures": 12,
       "statusTweens": 2,
+      "statusGameObjects": 46,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 341.5,
-      "groundBakeMaxMs": 344.40000000596046
+      "groundBakeLastMs": 310,
+      "groundBakeMaxMs": 310
     },
     "groundRebakesAfterSeed": 2,
     "zoom_0.5": {
@@ -202,10 +375,11 @@
       "facadeMarks": 2,
       "glyphTextures": 12,
       "statusTweens": 2,
+      "statusGameObjects": 46,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 341.5,
-      "groundBakeMaxMs": 344.40000000596046
+      "groundBakeLastMs": 310,
+      "groundBakeMaxMs": 310
     },
     "zoom_0.7": {
       "buildings": 9,
@@ -233,10 +407,11 @@
       "facadeMarks": 2,
       "glyphTextures": 12,
       "statusTweens": 2,
+      "statusGameObjects": 46,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 341.5,
-      "groundBakeMaxMs": 344.40000000596046
+      "groundBakeLastMs": 310,
+      "groundBakeMaxMs": 310
     },
     "zoom_0.85": {
       "buildings": 9,
@@ -264,10 +439,11 @@
       "facadeMarks": 2,
       "glyphTextures": 12,
       "statusTweens": 2,
+      "statusGameObjects": 46,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 341.5,
-      "groundBakeMaxMs": 344.40000000596046
+      "groundBakeLastMs": 310,
+      "groundBakeMaxMs": 310
     },
     "zoom_1": {
       "buildings": 9,
@@ -295,10 +471,11 @@
       "facadeMarks": 2,
       "glyphTextures": 12,
       "statusTweens": 2,
+      "statusGameObjects": 46,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 341.5,
-      "groundBakeMaxMs": 344.40000000596046
+      "groundBakeLastMs": 310,
+      "groundBakeMaxMs": 310
     },
     "zoom_2": {
       "buildings": 9,
@@ -326,10 +503,11 @@
       "facadeMarks": 2,
       "glyphTextures": 12,
       "statusTweens": 2,
+      "statusGameObjects": 46,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 341.5,
-      "groundBakeMaxMs": 344.40000000596046
+      "groundBakeLastMs": 310,
+      "groundBakeMaxMs": 310
     },
     "glyphs": {
       "buildings": 9,
@@ -357,10 +535,19 @@
       "facadeMarks": 2,
       "glyphTextures": 12,
       "statusTweens": 2,
+      "statusGameObjects": 46,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 341.5,
-      "groundBakeMaxMs": 344.40000000596046
+      "groundBakeLastMs": 310,
+      "groundBakeMaxMs": 310
+    },
+    "badgeTooltip": {
+      "visible": true,
+      "text": "Condición 40 %: conviene reparar\nMantenimiento atrasado: 360 u. acumuladas\nocupación parcial · 1/2 plazas\nsin seguro"
+    },
+    "plateTooltip": {
+      "visible": true,
+      "text": "hipoteca al día\nal día · 600 u. pendientes · cuota 55 u./mes · 12 meses restantes"
     },
     "dense": {
       "buildings": 9,
@@ -388,10 +575,11 @@
       "facadeMarks": 2,
       "glyphTextures": 12,
       "statusTweens": 2,
+      "statusGameObjects": 46,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 341.5,
-      "groundBakeMaxMs": 344.40000000596046
+      "groundBakeLastMs": 310,
+      "groundBakeMaxMs": 310
     },
     "stability": {
       "before": {
@@ -420,10 +608,11 @@
         "facadeMarks": 2,
         "glyphTextures": 12,
         "statusTweens": 2,
+        "statusGameObjects": 46,
         "totalSprites": 152,
         "groundRebakes": 2,
-        "groundBakeLastMs": 341.5,
-        "groundBakeMaxMs": 344.40000000596046
+        "groundBakeLastMs": 310,
+        "groundBakeMaxMs": 310
       },
       "after": {
         "buildings": 9,
@@ -451,10 +640,11 @@
         "facadeMarks": 2,
         "glyphTextures": 12,
         "statusTweens": 2,
+        "statusGameObjects": 46,
         "totalSprites": 152,
         "groundRebakes": 2,
-        "groundBakeLastMs": 341.5,
-        "groundBakeMaxMs": 344.40000000596046
+        "groundBakeLastMs": 310,
+        "groundBakeMaxMs": 310
       }
     },
     "economicOnly": {
@@ -484,10 +674,11 @@
         "facadeMarks": 2,
         "glyphTextures": 12,
         "statusTweens": 2,
+        "statusGameObjects": 46,
         "totalSprites": 152,
         "groundRebakes": 2,
-        "groundBakeLastMs": 341.5,
-        "groundBakeMaxMs": 344.40000000596046
+        "groundBakeLastMs": 310,
+        "groundBakeMaxMs": 310
       },
       "after": {
         "buildings": 9,
@@ -515,10 +706,11 @@
         "facadeMarks": 2,
         "glyphTextures": 12,
         "statusTweens": 2,
+        "statusGameObjects": 54,
         "totalSprites": 152,
         "groundRebakes": 2,
-        "groundBakeLastMs": 341.5,
-        "groundBakeMaxMs": 344.40000000596046
+        "groundBakeLastMs": 310,
+        "groundBakeMaxMs": 310
       }
     },
     "night": {
@@ -547,12 +739,13 @@
       "facadeMarks": 2,
       "glyphTextures": 12,
       "statusTweens": 2,
+      "statusGameObjects": 46,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 381.20000000298023,
-      "groundBakeMaxMs": 402.3999999910593
+      "groundBakeLastMs": 374.09999999403954,
+      "groundBakeMaxMs": 402.8999999910593
     },
-    "final": {
+    "reducedMotion": {
       "buildings": 9,
       "decorations": 68,
       "roadCells": 384,
@@ -577,11 +770,205 @@
       "parcelMarks": 4,
       "facadeMarks": 2,
       "glyphTextures": 12,
-      "statusTweens": 2,
+      "statusTweens": 0,
+      "statusGameObjects": 46,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 381.20000000298023,
-      "groundBakeMaxMs": 402.3999999910593
+      "groundBakeLastMs": 374.09999999403954,
+      "groundBakeMaxMs": 402.8999999910593
+    },
+    "zoomChurn": {
+      "buildings": 9,
+      "decorations": 68,
+      "roadCells": 384,
+      "junctions": 7,
+      "crossings": 7,
+      "streetLights": 10,
+      "trafficLights": 0,
+      "benches": 2,
+      "trashCans": 1,
+      "parkedVehicles": 45,
+      "trees": 68,
+      "placementObjects": 0,
+      "placementLabelPool": 0,
+      "placementDraws": 0,
+      "sceneChildren": 489,
+      "crewSprites": 0,
+      "signage": 2,
+      "signageVisible": 0,
+      "indicators": 7,
+      "assetsReady": true,
+      "spritePlanBuildings": 8,
+      "parcelMarks": 4,
+      "facadeMarks": 2,
+      "glyphTextures": 12,
+      "statusTweens": 2,
+      "statusGameObjects": 46,
+      "totalSprites": 152,
+      "groundRebakes": 2,
+      "groundBakeLastMs": 374.09999999403954,
+      "groundBakeMaxMs": 402.8999999910593
+    },
+    "performance": {
+      "head": "0d97d3a246f3eecad024b7f2259401c4f667afc2",
+      "timestamp": "2026-11-16T17:09:29.691Z",
+      "zooms": {
+        "1": {
+          "control": {
+            "fpsWindows": 82,
+            "frames": 551,
+            "fpsP50": 12,
+            "fpsP95": 13,
+            "fpsMin": 11,
+            "frameMeanMs": 81.94,
+            "frameP50Ms": 83.3,
+            "frameP90Ms": 83.4,
+            "frameP95Ms": 100,
+            "frameP99Ms": 100.1,
+            "worstFrameMs": 166.7,
+            "hitchFrames": 2,
+            "statusGameObjects": 0,
+            "sceneChildren": 491,
+            "glyphTextures": 12,
+            "statusTweens": 0,
+            "indicators": 0,
+            "parcelMarks": 0,
+            "facadeMarks": 0
+          },
+          "status": {
+            "fpsWindows": 82,
+            "frames": 548,
+            "fpsP50": 12,
+            "fpsP95": 13,
+            "fpsMin": 10,
+            "frameMeanMs": 82.39,
+            "frameP50Ms": 83.3,
+            "frameP90Ms": 99.9,
+            "frameP95Ms": 100,
+            "frameP99Ms": 133.3,
+            "worstFrameMs": 149.9,
+            "hitchFrames": 6,
+            "statusGameObjects": 46,
+            "sceneChildren": 489,
+            "glyphTextures": 12,
+            "statusTweens": 2,
+            "indicators": 7,
+            "parcelMarks": 4,
+            "facadeMarks": 2
+          },
+          "frameMeanGrowthPct": 0.5,
+          "frameP50GrowthPct": 0,
+          "frameP90GrowthPct": 19.8,
+          "frameP95GrowthPct": 0,
+          "frameP99GrowthPct": 33.2,
+          "worstFrameGrowthPct": -10.1,
+          "hitchGrowthPct": 200,
+          "fpsP50DropPct": 0,
+          "fpsP95DropPct": 0,
+          "fpsQuantumPct": 8.3,
+          "fpsBudgetMeasurable": false,
+          "statusGameObjectsDelta": 46,
+          "passes": 3
+        },
+        "2": {
+          "control": {
+            "fpsWindows": 81,
+            "frames": 479,
+            "fpsP50": 11,
+            "fpsP95": 11,
+            "fpsMin": 10,
+            "frameMeanMs": 94.29,
+            "frameP50Ms": 99.9,
+            "frameP90Ms": 100.1,
+            "frameP95Ms": 100.1,
+            "frameP99Ms": 116.7,
+            "worstFrameMs": 133.3,
+            "hitchFrames": 0,
+            "statusGameObjects": 0,
+            "sceneChildren": 491,
+            "glyphTextures": 12,
+            "statusTweens": 0,
+            "indicators": 0,
+            "parcelMarks": 0,
+            "facadeMarks": 0
+          },
+          "status": {
+            "fpsWindows": 81,
+            "frames": 485,
+            "fpsP50": 11,
+            "fpsP95": 11,
+            "fpsMin": 10,
+            "frameMeanMs": 93.09,
+            "frameP50Ms": 99.9,
+            "frameP90Ms": 100,
+            "frameP95Ms": 100.1,
+            "frameP99Ms": 116.7,
+            "worstFrameMs": 133.4,
+            "hitchFrames": 0,
+            "statusGameObjects": 46,
+            "sceneChildren": 489,
+            "glyphTextures": 12,
+            "statusTweens": 2,
+            "indicators": 7,
+            "parcelMarks": 4,
+            "facadeMarks": 2
+          },
+          "frameMeanGrowthPct": -1.3,
+          "frameP50GrowthPct": 0,
+          "frameP90GrowthPct": -0.1,
+          "frameP95GrowthPct": 0,
+          "frameP99GrowthPct": 0,
+          "worstFrameGrowthPct": 0.1,
+          "hitchGrowthPct": 0,
+          "fpsP50DropPct": 0,
+          "fpsP95DropPct": 0,
+          "fpsQuantumPct": 9.1,
+          "fpsBudgetMeasurable": false,
+          "statusGameObjectsDelta": 46,
+          "passes": 3
+        }
+      },
+      "warmupMs": 3000,
+      "measurementMs": 15000,
+      "passesPerArm": 3,
+      "browser": "Chromium (Playwright headless, sin GPU: rasterizado por software)",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "note": "Brazo de control = idéntica ciudad sembrada sin disparadores de estado; el delta mide sólo el idioma de estado."
+    },
+    "final": {
+      "buildings": 9,
+      "decorations": 68,
+      "roadCells": 384,
+      "junctions": 7,
+      "crossings": 7,
+      "streetLights": 10,
+      "trafficLights": 0,
+      "benches": 2,
+      "trashCans": 1,
+      "parkedVehicles": 45,
+      "trees": 68,
+      "placementObjects": 0,
+      "placementLabelPool": 0,
+      "placementDraws": 0,
+      "sceneChildren": 489,
+      "crewSprites": 0,
+      "signage": 2,
+      "signageVisible": 0,
+      "indicators": 7,
+      "assetsReady": true,
+      "spritePlanBuildings": 8,
+      "parcelMarks": 4,
+      "facadeMarks": 2,
+      "glyphTextures": 12,
+      "statusTweens": 2,
+      "statusGameObjects": 46,
+      "totalSprites": 152,
+      "groundRebakes": 2,
+      "groundBakeLastMs": 374.09999999403954,
+      "groundBakeMaxMs": 402.8999999910593
     }
   },
   "pageErrors": []

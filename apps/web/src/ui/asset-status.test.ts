@@ -9,6 +9,7 @@ import {
   indexAssetStatus,
   parcelLoadFor,
 } from "./asset-status";
+import { deriveWorldIndicators } from "./world-indicators";
 import {
   PLAYER,
   RIVAL,
@@ -43,7 +44,9 @@ describe("V.d-UX.S · puerta de estado del activo", () => {
 
   it("el suelo público no se presenta como carga desconocida de un propietario", () => {
     const index = indexAssetStatus(
-      economy({ parcels: [parcel({ disposition: "public", ownerOrganizationId: "org_00000004" })] }),
+      economy({
+        parcels: [parcel({ disposition: "public", ownerOrganizationId: "org_00000004" })],
+      }),
     );
     expect(parcelLoadFor(index, "parcel_00000001").kind).toBe("unknown");
   });
@@ -96,7 +99,11 @@ describe("V.d-UX.S · puerta de estado del activo", () => {
           offers: [],
           loans: [],
           auctions: [
-            auction({ sellerOrganizationId: RIVAL, highestBidderOrganizationId: PLAYER, highestBid: 620 }),
+            auction({
+              sellerOrganizationId: RIVAL,
+              highestBidderOrganizationId: PLAYER,
+              highestBid: 620,
+            }),
           ],
         },
       }),
@@ -109,7 +116,10 @@ describe("V.d-UX.S · puerta de estado del activo", () => {
   it("las subastas cerradas o ejecutadas no dejan marca persistente", () => {
     for (const status of ["closed", "executed"] as const) {
       const index = indexAssetStatus(
-        economy({ parcels: [parcel()], banking: { offers: [], loans: [], auctions: [auction({ status })] } }),
+        economy({
+          parcels: [parcel()],
+          banking: { offers: [], loans: [], auctions: [auction({ status })] },
+        }),
       );
       expect(parcelLoadFor(index, "parcel_00000001").kind, status).toBe("none");
     }
@@ -169,7 +179,11 @@ describe("V.d-UX.S · puerta de estado del activo", () => {
         buildings: [
           building({ id: "building_00000001", maintenanceCost: 300, maintenanceDue: 900 }),
           building({ id: "building_00000002", maintenanceCost: 40, maintenanceDue: 40 }),
-          building({ id: "building_00000003", maintenanceCost: undefined, maintenanceDue: undefined }),
+          building({
+            id: "building_00000003",
+            maintenanceCost: undefined,
+            maintenanceDue: undefined,
+          }),
         ],
       }),
     );
@@ -182,14 +196,23 @@ describe("V.d-UX.S · puerta de estado del activo", () => {
     const index = indexAssetStatus(
       economy({
         parcels: [parcel()],
-        buildings: [
-          building({ id: "building_00000001" }),
-          building({ id: "building_00000002" }),
-        ],
+        buildings: [building({ id: "building_00000001" }), building({ id: "building_00000002" })],
         alerts: [
-          alert({ id: "condition-building_00000001", reason: "building_condition", buildingId: "building_00000001" }),
-          alert({ id: "insurance-building_00000002", reason: "uninsured_building", buildingId: "building_00000002" }),
-          alert({ id: "condition-building_00000099", reason: "building_condition", buildingId: "building_00000099" }),
+          alert({
+            id: "condition-building_00000001",
+            reason: "building_condition",
+            buildingId: "building_00000001",
+          }),
+          alert({
+            id: "insurance-building_00000002",
+            reason: "uninsured_building",
+            buildingId: "building_00000002",
+          }),
+          alert({
+            id: "condition-building_00000099",
+            reason: "building_condition",
+            buildingId: "building_00000099",
+          }),
         ],
       }),
     );
@@ -213,9 +236,22 @@ describe("V.d-UX.S · puerta de estado del activo", () => {
         offers: [],
         auctions: [],
         loans: [
-          loan({ id: "loan_00000001", collateralParcelId: "parcel_00000001", outstandingPrincipal: 600 }),
-          loan({ id: "loan_00000002", collateralParcelId: "parcel_00000002", outstandingPrincipal: 250 }),
-          loan({ id: "loan_00000003", collateralParcelId: "parcel_00000002", status: "paid_off", outstandingPrincipal: 0 }),
+          loan({
+            id: "loan_00000001",
+            collateralParcelId: "parcel_00000001",
+            outstandingPrincipal: 600,
+          }),
+          loan({
+            id: "loan_00000002",
+            collateralParcelId: "parcel_00000002",
+            outstandingPrincipal: 250,
+          }),
+          loan({
+            id: "loan_00000003",
+            collateralParcelId: "parcel_00000002",
+            status: "paid_off",
+            outstandingPrincipal: 0,
+          }),
         ],
       },
       financials: { liabilities: 5000 },
@@ -239,7 +275,9 @@ describe("V.d-UX.S · puerta de estado del activo", () => {
     const first = indexAssetStatus(e);
     const second = indexAssetStatus(e);
     expect([...first.loadsByParcelId.entries()]).toEqual([...second.loadsByParcelId.entries()]);
-    expect([...first.statusByBuildingId.entries()]).toEqual([...second.statusByBuildingId.entries()]);
+    expect([...first.statusByBuildingId.entries()]).toEqual([
+      ...second.statusByBuildingId.entries(),
+    ]);
     expect(first.statusByBuildingId.get("building_00000001")?.upgraded).toBe(true);
   });
 });
@@ -274,9 +312,46 @@ describe("V.d-UX.S · cadena simulation → projection → asset-status", () => 
     expect(load.kind).toBe("loan");
     expect(load.loans).toHaveLength(1);
     expect(load.loans[0]!.outstandingPrincipal).toBe(600);
-    expect(assetMortgageTotal(projection.economy!, {
-      parcelIds: [target.id],
-    } as never)).toBe(600);
+    expect(
+      assetMortgageTotal(projection.economy!, {
+        parcelIds: [target.id],
+      } as never),
+    ).toBe(600);
+  });
+
+  /**
+   * Información imperfecta con datos del motor, no autorados: el rival anonimiza inquilinos y no
+   * publica préstamos ni pólizas, así que la puerta sólo puede devolver `unknown` y el mundo no
+   * pinta ni un marcador sobre sus activos.
+   */
+  it("ninguna parcela ni edificio rival del motor genera señal", () => {
+    const run = runScenario(9, [], 36_000, { checkpointEvery: 0 });
+    const projection = createViewProjection(run.state, true);
+    if (!projection.economy) throw new Error("el motor no proyectó economía");
+    const index = indexAssetStatus(projection.economy);
+
+    const rivalParcels = projection.economy.parcels.filter(
+      (entry) => entry.ownerOrganizationId && entry.ownerOrganizationId !== PLAYER,
+    );
+    expect(rivalParcels.length).toBeGreaterThan(0);
+    for (const entry of rivalParcels) {
+      expect(parcelLoadFor(index, entry.id).kind, entry.id).toBe("unknown");
+    }
+
+    const rivalBuildings = projection.economy.buildings.filter(
+      (entry) => entry.ownerOrganizationId !== PLAYER,
+    );
+    expect(rivalBuildings.length).toBeGreaterThan(0);
+    for (const entry of rivalBuildings) {
+      const status = index.statusByBuildingId.get(entry.id);
+      expect(status?.occupancy, entry.id).toBe("unknown");
+      expect(status?.insurance, entry.id).toBe("unknown");
+    }
+
+    const flagged = new Set(deriveWorldIndicators(projection.economy).map((i) => i.buildingId));
+    for (const entry of rivalBuildings) {
+      expect(flagged.has(entry.id), entry.id).toBe(false);
+    }
   });
 });
 

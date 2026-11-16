@@ -62,6 +62,7 @@
     "smoke:alpha": "node scripts/alpha-browser-smoke.mjs",
     "smoke:vd-core-loop": "node scripts/vd-core-loop-smoke.mjs",
     "smoke:vd-ux": "node scripts/vd-ux-smoke.mjs",
+    "smoke:vd-ux-status": "node scripts/vd-ux-status-capture.mjs",
     "vd7c:evidence": "node scripts/vd7c-visual-evidence.mjs",
     "vd7c:evidence:followup": "node scripts/vd7c-evidence-followup.mjs",
     "smoke:art-lab": "node scripts/art-lab-browser-smoke.mjs",

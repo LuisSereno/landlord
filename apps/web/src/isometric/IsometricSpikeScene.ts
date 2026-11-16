@@ -24,9 +24,29 @@ import {
   decodedTextureBytes,
   type DistrictAssetMetrics,
 } from "../assets/district-texture-cache";
-import { deriveWorldIndicators } from "../ui/world-indicators";
+import { deriveWorldIndicators, worldIndicatorsSignature, type PanelSection } from "../ui/world-indicators";
 import { indexAssetStatus, type AssetStatusIndex } from "../ui/asset-status";
 import { parcelOverlayColor as resolveOverlayColor } from "../ui/overlay-color";
+import { STATUS_COLORS } from "../ui/overlay-catalog";
+import type { UiIconName } from "../ui/icons";
+import { constructionKindLabel } from "../ui/labels";
+import {
+  parcelMarkPlan,
+  reconcileParcelMarks,
+  type ParcelMarkEntry,
+} from "./parcel-marks";
+import {
+  facadeMarkPlan,
+  reconcileFacadeMarks,
+  type FacadeMarkEntry,
+} from "./building-marks";
+import {
+  GLYPH_TEXTURE_PX,
+  glyphDataUri,
+  glyphTextureKey,
+  toneHex,
+} from "./glyph-textures";
+import type { StatusTone } from "../ui/overlay-catalog";
 import {
   MAP_COLORS,
   type MapOverlay,
@@ -198,6 +218,25 @@ const SIGNAGE_PAD_Y = 3;
 const SIGNAGE_PAD_X_BANNER = 16;
 const SIGNAGE_PAD_Y_BANNER = 2;
 /**
+ * V.d-UX.S · estado del activo. Las placas de carga viven por debajo de los indicadores (1e6) y por
+ * encima de los edificios, para que un aviso crítico nunca quede tapado por una carga pasiva.
+ */
+const PARCEL_MARK_DEPTH = 999_999;
+/** Alineado con los rótulos: la placa de carga es señalética, no un aviso flotante. */
+const PARCEL_MARK_MIN_ZOOM = 0.85;
+const FACADE_MARK_DEPTH_BIAS = 2;
+const FACADE_MARK_MIN_ZOOM = 1;
+/** El edificio seleccionado merece ver su marca aunque el mapa esté lejos. */
+const FACADE_MARK_SELECTED_MIN_ZOOM = 0.85;
+/** Pulso sólo en lo crítico; el resto es estático para no llenar la ciudad de movimiento. */
+const STATUS_PULSE_MS = 900;
+/** Destello único al aparecer la mejora: una vez por montaje de escena, nunca persistido. */
+const STATUS_SHINE_MS = 600;
+const BADGE_GLYPH_PX = 13;
+const PLATE_GLYPH_PX = 12;
+const PARCEL_MARK_PAD_X = 5;
+const PARCEL_MARK_PAD_Y = 3;
+/**
  * Constante de deslizamiento de las cuadrillas. La proyección llega cada 2 ticks y el destino salta
  * de golpe; este tiempo de relajación es presentación pura y no añade simulación.
  */
@@ -267,6 +306,28 @@ type SignagePlaque = {
   entry: BuildingSignageEntry;
 };
 
+/**
+ * V.d-UX.S · placa de carga de parcela. Sin `Zone` interactiva: el hover se resuelve con hit-test
+ * manual sobre `bounds` y el click atraviesa hasta el picking de suelo, que ya selecciona la
+ * parcela. Una capa interactiva nueva aquí robaría clicks al edificio, a la colocación o al rótulo.
+ */
+type ParcelMark = {
+  container: Phaser.GameObjects.Container;
+  plate: Phaser.GameObjects.Graphics;
+  glyph: Phaser.GameObjects.Image | null;
+  entry: ParcelMarkEntry;
+  bounds: { x: number; y: number; width: number; height: number };
+};
+
+/** V.d-UX.S · marca de mejora en fachada: mini-placa + glifo, no interactiva, depth del sprite + 2. */
+type FacadeMark = {
+  container: Phaser.GameObjects.Container;
+  plate: Phaser.GameObjects.Graphics;
+  glyph: Phaser.GameObjects.Image | null;
+  sprite: Phaser.GameObjects.Image;
+  entry: FacadeMarkEntry;
+};
+
 /** Identidad semántica recibida desde la UI; las celdas se resuelven contra la proyección actual. */
 export type MapSelectionTarget =
   | { kind: "parcel"; parcelId: string }
@@ -321,6 +382,33 @@ type CameraTestApi = {
    * "edificio seleccionado" sobre proyecciones sintéticas cuyas ids no existen en la economía.
    */
   setSelectionTarget(target: MapSelectionTarget | null): void;
+  /** V.d-UX.S · sondas observacionales del estado del activo para la evidencia visual. */
+  getProjection(): ViewProjectionV2 | null;
+  listIndicators(): Array<{
+    key: string;
+    kind: string;
+    critical: boolean;
+    glyph: string;
+    tone: string;
+    label: string;
+    visible: boolean;
+  }>;
+  listParcelMarks(): Array<{
+    id: string;
+    parcelId: string;
+    kind: string;
+    tone: string;
+    x: number;
+    y: number;
+    visible: boolean;
+  }>;
+  listFacadeMarks(): Array<{
+    id: string;
+    buildingId: string;
+    x: number;
+    y: number;
+    visible: boolean;
+  }>;
 };
 
 declare global {
@@ -375,6 +463,13 @@ declare global {
       /** Rótulos de señalización vivos y cuántos están visibles con el zoom/viewport actual. */
       signage: number;
       signageVisible: number;
+      indicators: number;
+      assetsReady: boolean;
+      spritePlanBuildings: number;
+      parcelMarks: number;
+      facadeMarks: number;
+      glyphTextures: number;
+      statusTweens: number;
       totalSprites: number;
       groundRebakes: number;
       groundBakeLastMs: number;
@@ -443,14 +538,32 @@ export class IsometricSpikeScene extends Phaser.Scene {
   }) => void;
   /** Marca del handler de sprite para que el `pointerup` global no resuelva también el suelo. */
   private suppressGroundPick = false;
-  private indicatorListener?: (target: { parcelId: string; buildingId?: string }) => void;
+  private indicatorListener?: (target: {
+    parcelId: string;
+    buildingId?: string;
+    section?: PanelSection;
+  }) => void;
   private indicatorLayer?: Phaser.GameObjects.Container;
   private indicatorEntries: Array<{
     object: Phaser.GameObjects.Container;
     critical: boolean;
+    key: string;
+    kind: string;
+    glyph: UiIconName;
+    tone: StatusTone;
+    label: string;
   }> = [];
   private indicatorTooltip?: Phaser.GameObjects.Text;
   private indicatorSignature = "";
+  /** V.d-UX.S · placas de carga por parcela y marcas de mejora por edificio. */
+  private parcelMarkLayer?: Phaser.GameObjects.Container;
+  private parcelMarks = new Map<string, ParcelMark>();
+  private parcelMarkSignature = "";
+  private facadeMarks = new Map<string, FacadeMark>();
+  private lastSpritePlan: readonly SignagePlanInput[] = [];
+  private statusTweens: Phaser.Tweens.Tween[] = [];
+  private glyphRequests = new Set<string>();
+  private hoveredParcelMarkId: string | null = null;
   private statusIndex: AssetStatusIndex = indexAssetStatus(undefined);
   private statusIndexSource: NonNullable<ViewProjectionV2["economy"]> | undefined = undefined;
   private lastIndicatorZoom = 1;
@@ -545,6 +658,15 @@ export class IsometricSpikeScene extends Phaser.Scene {
       signageVisible: [...this.buildingSignage.values()].filter(
         (plaque) => plaque.container.visible,
       ).length,
+      indicators: this.indicatorEntries.length,
+      assetsReady: this.assetsReady,
+      spritePlanBuildings: this.projection?.economy?.buildings.length ?? 0,
+      parcelMarks: this.parcelMarks.size,
+      facadeMarks: this.facadeMarks.size,
+      glyphTextures: this.textures.list
+        ? Object.keys(this.textures.list).filter((key) => key.startsWith("glyph:")).length
+        : 0,
+      statusTweens: this.statusTweens.length,
       totalSprites:
         this.buildingSprites.size +
         this.decorSprites.length +
@@ -571,6 +693,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
      */
     this.events.once(Phaser.Scenes.Events.DESTROY, () => {
       this.sceneDestroyed = true;
+      /** V.d-UX.S · los pulsos y destellos son tweens externos al display list: hay que pararlos. */
+      this.stopStatusTweens();
+      this.parcelMarks.clear();
+      this.facadeMarks.clear();
+      this.glyphRequests.clear();
     });
     void this.registerBuildingTextures();
   }
@@ -614,6 +741,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     }
     // Pan y zoom cambian el viewport cada frame: escala y visibilidad de las placas se reevalúan aquí.
     this.syncSignageFrame();
+    this.syncStatusFrame();
     if (!this.cursors) return;
     const camera = this.cameras.main;
     const speed = 8 / camera.zoom;
@@ -642,6 +770,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.updateBlitterPositions();
     this.drawOverlay();
     this.syncWorldIndicators();
+    this.syncParcelMarks();
     if (districtChanged && this.placementTarget) this.setPlacement(null);
     else if (this.placementTarget) {
       /** El solar desapareció de la vista (o de la partida): el modo no puede quedar flotando. */
@@ -721,7 +850,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
 
   /** Click en un indicador de mundo: navega al target sin decidir nada por el jugador. */
   public setIndicatorListener(
-    listener: (target: { parcelId: string; buildingId?: string }) => void,
+    listener: (target: {
+      parcelId: string;
+      buildingId?: string;
+      section?: PanelSection;
+    }) => void,
   ): void {
     this.indicatorListener = listener;
   }
@@ -1604,7 +1737,12 @@ export class IsometricSpikeScene extends Phaser.Scene {
         backgroundColor: "#0c1220cc",
         padding: { x: 4, y: 2 },
       });
-      const wanted = present > 0 ? `${present} en obra` : "cuadrilla de camino";
+      /**
+       * V.d-UX.S · el tipo de obra se lee en el mundo: una mejora, una reparación y un desescombro
+       * no son la misma operación aunque compartan sprite de obra.
+       */
+      const crew = present > 0 ? `${present} en obra` : "cuadrilla de camino";
+      const wanted = `${constructionKindLabel(site.kind)} · ${crew}`;
       if (label && label.text !== wanted) label.setText(wanted);
       if (label && (label.x !== center.x || label.y !== center.y - 34))
         label.setPosition(center.x, center.y - 34);
@@ -2128,6 +2266,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
     }
     // Los rótulos se reconcilian sobre el mismo plan: sólo edificios con sprite real y terminado.
     this.syncBuildingSignage(plan);
+    // V.d-UX.S · la marca de mejora lee el mismo plan: nunca sobre una obra, un dañado o un ardiendo.
+    this.syncFacadeMarks(plan);
     // V.j.6: acota la memoria de variantes; expulsa LRU lo que no está en uso ni en el distrito
     // observado y elimina esas texturas de Phaser (se recargarán bajo demanda si vuelven a hacer falta).
     const inUseVariantKeys = plan
@@ -2556,6 +2696,80 @@ export class IsometricSpikeScene extends Phaser.Scene {
    * únicamente cuando cambia su firma —no hay un nodo por edificio ni un rebuild por tick— y su
    * visibilidad depende del zoom: los críticos siempre, el resto a partir de 0,7.
    */
+  private prefersReducedMotion(): boolean {
+    return (
+      typeof window !== "undefined" &&
+      (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false)
+    );
+  }
+
+  /**
+   * V.d-UX.S · rasteriza los glifos que faltan del registro único de iconos. Es asíncrono porque
+   * `registerImageTexture` decodifica la imagen; mientras no exista la textura el badge se pinta
+   * sólo con su forma y tono, y al terminar el lote se fuerza un repintado para colocar el glifo.
+   * Nunca se regenera por frame: la clave es (glifo, tono, tamaño) y se pide una sola vez.
+   */
+  private ensureGlyphTextures(
+    used: ReadonlyArray<{ glyph: UiIconName; tone: StatusTone; onDark?: boolean }>,
+  ): void {
+    const missing = new Map<string, { glyph: UiIconName; tone: StatusTone; onDark: boolean }>();
+    for (const entry of used) {
+      const onDark = entry.onDark ?? false;
+      const key = glyphTextureKey(entry.glyph, entry.tone, GLYPH_TEXTURE_PX, onDark);
+      if (this.textures.exists(key) || this.glyphRequests.has(key)) continue;
+      missing.set(key, { ...entry, onDark });
+    }
+    if (missing.size === 0) return;
+    for (const key of missing.keys()) this.glyphRequests.add(key);
+    void Promise.all(
+      [...missing.entries()].map(([key, entry]) =>
+        this.registerImageTexture(
+          key,
+          glyphDataUri(entry.glyph, entry.tone, GLYPH_TEXTURE_PX, entry.onDark),
+          GLYPH_TEXTURE_PX,
+          GLYPH_TEXTURE_PX,
+        ),
+      ),
+    ).then(() => {
+      for (const key of missing.keys()) this.glyphRequests.delete(key);
+      if (this.sceneDestroyed) return;
+      this.indicatorSignature = "";
+      this.parcelMarkSignature = "";
+      this.syncWorldIndicators();
+      this.syncParcelMarks();
+      this.syncFacadeMarks(this.lastSpritePlan);
+    });
+  }
+
+  private glyphImage(
+    glyph: UiIconName,
+    tone: StatusTone,
+    px: number,
+    onDark = false,
+  ): Phaser.GameObjects.Image | null {
+    const key = glyphTextureKey(glyph, tone, GLYPH_TEXTURE_PX, onDark);
+    if (!this.textures.exists(key)) return null;
+    return this.add.image(0, 0, key).setDisplaySize(px, px);
+  }
+
+  private stopStatusTweens(): void {
+    for (const tween of this.statusTweens) tween.stop();
+    this.statusTweens = [];
+  }
+
+  private pulse(object: Phaser.GameObjects.Container): void {
+    if (this.prefersReducedMotion()) return;
+    const tween = this.tweens.add({
+      targets: object,
+      scale: { from: 1, to: 1.14 },
+      duration: STATUS_PULSE_MS / 2,
+      yoyo: true,
+      repeat: -1,
+      ease: "Sine.easeInOut",
+    });
+    this.statusTweens.push(tween);
+  }
+
   private syncWorldIndicators(): void {
     const economy = this.projection?.economy;
     if (!economy) {
@@ -2564,7 +2778,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
     }
     /** La lista la decide `deriveWorldIndicators` (pura y probada); aquí sólo se pinta. */
     const indicators = deriveWorldIndicators(economy);
-    const signature = indicators.map((entry) => entry.key).join("|");
+    /**
+     * La firma cubre TODO lo visual y de comportamiento, no sólo la key: `delinquent → defaulted`
+     * conserva el identificador lógico pero cambia kind, tono, forma y criticidad.
+     */
+    const signature = worldIndicatorsSignature(indicators);
     if (!this.indicatorLayer) {
       this.indicatorLayer = this.add.container(0, 0).setDepth(1_000_000);
     }
@@ -2574,17 +2792,15 @@ export class IsometricSpikeScene extends Phaser.Scene {
       return;
     }
     this.indicatorSignature = signature;
+    this.stopStatusTweens();
     this.indicatorLayer.removeAll(true);
+    delete this.indicatorTooltip;
     this.indicatorLayer.setVisible(true);
     this.indicatorEntries = [];
+    this.ensureGlyphTextures(indicators);
     for (const entry of indicators) {
       const center = gridToScreen(entry.cell, this.layout);
-      const color =
-        entry.kind === "danger"
-          ? COLORS.fire
-          : entry.kind === "maintenance"
-            ? COLORS.construction
-            : COLORS.parcelAvailable;
+      const color = toneHex(entry.tone);
       const graphic = this.add.graphics();
       graphic.fillStyle(color, 0.95);
       graphic.lineStyle(2, 0x0c1220, 1);
@@ -2601,21 +2817,217 @@ export class IsometricSpikeScene extends Phaser.Scene {
         graphic.fillCircle(0, 0, 8);
         graphic.strokeCircle(0, 0, 8);
       }
+      const children: Phaser.GameObjects.GameObject[] = [graphic];
+      const glyph = this.glyphImage(entry.glyph, entry.tone, BADGE_GLYPH_PX);
+      if (glyph) children.push(glyph);
       const hit = this.add.zone(0, 0, 28, 28).setInteractive({ useHandCursor: true });
-      hit.on("pointerover", () => this.showIndicatorTooltip(center, entry.label));
+      const tooltip = [entry.label, ...entry.detail].join("\n");
+      hit.on("pointerover", () => this.showIndicatorTooltip(center, tooltip));
       hit.on("pointerout", () => this.indicatorTooltip?.setVisible(false));
       hit.on("pointerdown", () =>
         this.indicatorListener?.({
           parcelId: entry.parcelId,
           ...(entry.buildingId ? { buildingId: entry.buildingId } : {}),
+          ...(entry.section ? { section: entry.section } : {}),
         }),
       );
-      const item = this.add.container(center.x, center.y, [graphic, hit]);
+      children.push(hit);
+      const item = this.add.container(center.x, center.y, children);
       this.indicatorLayer.add(item);
-      this.indicatorEntries.push({ object: item, critical: entry.critical });
+      this.indicatorEntries.push({
+        object: item,
+        critical: entry.critical,
+        key: entry.key,
+        kind: entry.kind,
+        glyph: entry.glyph,
+        tone: entry.tone,
+        label: entry.label,
+      });
+      if (entry.critical) this.pulse(item);
     }
     this.lastIndicatorZoom = this.cameras.main.zoom;
     this.syncIndicatorVisibility();
+  }
+
+  /**
+   * V.d-UX.S · placas persistentes de carga. Una por parcela gravada, anclada en la esquina con
+   * frente de calle. No interactivas: el hover se resuelve por hit-test en `syncStatusFrame`.
+   */
+  private syncParcelMarks(): void {
+    const economy = this.projection?.economy;
+    if (!economy) {
+      this.parcelMarkLayer?.setVisible(false);
+      return;
+    }
+    const plan = parcelMarkPlan(economy, this.assetStatusIndex());
+    const signature = plan
+      .map((entry) => `${entry.id}:${entry.kind}:${entry.tone}:${entry.detail.join("|")}`)
+      .join("\u0001");
+    if (!this.parcelMarkLayer) {
+      this.parcelMarkLayer = this.add.container(0, 0).setDepth(PARCEL_MARK_DEPTH);
+    }
+    if (signature === this.parcelMarkSignature) {
+      this.parcelMarkLayer.setVisible(true);
+      return;
+    }
+    this.parcelMarkSignature = signature;
+    const previous = new Map<string, ParcelMarkEntry>();
+    for (const [id, mark] of this.parcelMarks) previous.set(id, mark.entry);
+    const { next, removed } = reconcileParcelMarks(previous, plan);
+    for (const id of removed) {
+      this.parcelMarks.get(id)?.container.destroy();
+      this.parcelMarks.delete(id);
+    }
+    this.ensureGlyphTextures(
+      plan.map((entry) => ({ glyph: entry.glyph, tone: entry.tone, onDark: true })),
+    );
+    for (const entry of next.values()) {
+      const center = gridToScreen(entry.cell, this.layout);
+      let mark = this.parcelMarks.get(entry.id);
+      const glyph = this.glyphImage(entry.glyph, entry.tone, PLATE_GLYPH_PX, true);
+      if (!mark) {
+        const plate = this.add.graphics();
+        const container = this.add.container(center.x, center.y, [plate]);
+        mark = { container, plate, glyph: null, entry, bounds: { x: 0, y: 0, width: 0, height: 0 } };
+        this.parcelMarks.set(entry.id, mark);
+        this.parcelMarkLayer.add(container);
+      }
+      mark.entry = entry;
+      mark.container.setPosition(center.x, center.y);
+      if (mark.glyph) mark.glyph.destroy();
+      mark.glyph = glyph;
+      const width = PLATE_GLYPH_PX + PARCEL_MARK_PAD_X * 2;
+      const height = PLATE_GLYPH_PX + PARCEL_MARK_PAD_Y * 2;
+      mark.plate.clear();
+      mark.plate.fillStyle(0x10161f, 0.82);
+      mark.plate.fillRoundedRect(-width / 2, -height / 2, width, height, 3);
+      mark.plate.lineStyle(1.5, toneHex(entry.tone), 1);
+      mark.plate.strokeRoundedRect(-width / 2, -height / 2, width, height, 3);
+      if (glyph) mark.container.add(glyph);
+      mark.bounds = {
+        x: center.x - width / 2,
+        y: center.y - height / 2,
+        width,
+        height,
+      };
+    }
+    this.parcelMarkLayer.setVisible(true);
+  }
+
+  /**
+   * V.d-UX.S · marca de mejora en fachada. Mismo patrón que los rótulos pero en módulo aparte:
+   * mini-placa verde con el glifo de mejora, no interactiva, y un destello único al aparecer.
+   */
+  private syncFacadeMarks(plan: readonly SignagePlanInput[]): void {
+    this.lastSpritePlan = plan;
+    const economy = this.projection?.economy;
+    if (!economy) return;
+    const entries = facadeMarkPlan(plan, economy, this.assetStatusIndex());
+    const previous = new Map<string, FacadeMarkEntry>();
+    for (const [id, mark] of this.facadeMarks) previous.set(id, mark.entry);
+    const { next, created, removed } = reconcileFacadeMarks(previous, entries);
+    for (const id of removed) {
+      this.facadeMarks.get(id)?.container.destroy();
+      this.facadeMarks.delete(id);
+    }
+    this.ensureGlyphTextures(
+      entries.map(() => ({
+        glyph: "upgrade" as UiIconName,
+        tone: "upgrade" as StatusTone,
+        onDark: true,
+      })),
+    );
+    for (const entry of next.values()) {
+      const sprite = this.buildingSprites.get(`building:${entry.buildingId}`);
+      if (!sprite) continue;
+      let mark = this.facadeMarks.get(entry.id);
+      if (!mark) {
+        const plate = this.add.graphics();
+        const container = this.add.container(0, 0, [plate]);
+        mark = { container, plate, glyph: null, sprite, entry };
+        this.facadeMarks.set(entry.id, mark);
+      }
+      mark.sprite = sprite;
+      mark.entry = entry;
+      if (!mark.glyph) {
+        const glyph = this.glyphImage("upgrade", "upgrade", PLATE_GLYPH_PX, true);
+        if (glyph) {
+          mark.glyph = glyph;
+          mark.container.add(glyph);
+        }
+      }
+      const size = PLATE_GLYPH_PX + PARCEL_MARK_PAD_Y * 2;
+      mark.plate.clear();
+      mark.plate.fillStyle(0x10161f, 0.82);
+      mark.plate.fillRoundedRect(-size / 2, -size / 2, size, size, 3);
+      mark.plate.lineStyle(1.5, STATUS_COLORS.upgrade, 1);
+      mark.plate.strokeRoundedRect(-size / 2, -size / 2, size, size, 3);
+      const x = sprite.x + (entry.anchor.x - sprite.originX) * sprite.displayWidth;
+      const y = sprite.y + (entry.anchor.y - sprite.originY) * sprite.displayHeight;
+      mark.container.setPosition(x, y);
+      mark.container.setDepth(sprite.depth + FACADE_MARK_DEPTH_BIAS);
+      if (created.some((candidate) => candidate.id === entry.id) && !this.prefersReducedMotion()) {
+        const shine = this.tweens.add({
+          targets: mark.container,
+          scale: { from: 1.5, to: 1 },
+          alpha: { from: 0.2, to: 1 },
+          duration: STATUS_SHINE_MS,
+          ease: "Cubic.easeOut",
+        });
+        this.statusTweens.push(shine);
+      }
+    }
+  }
+
+  /**
+   * Visibilidad por zoom y viewport de placas y marcas, más el hover manual de las placas. Se llama
+   * cada frame porque el zoom y el paneo cambian sin que llegue una proyección nueva.
+   */
+  private syncStatusFrame(): void {
+    const zoom = this.cameras.main.zoom;
+    const view = this.cameras.main.worldView;
+    const selectedBuildingId =
+      this.selectionTarget?.kind === "building" ? this.selectionTarget.buildingId : null;
+    for (const mark of this.parcelMarks.values()) {
+      const visible =
+        zoom >= PARCEL_MARK_MIN_ZOOM &&
+        this.isInViewport(mark.container.x, mark.container.y, view, 32);
+      if (mark.container.visible !== visible) mark.container.setVisible(visible);
+    }
+    for (const mark of this.facadeMarks.values()) {
+      const selected = selectedBuildingId === mark.entry.buildingId;
+      const minZoom = selected ? FACADE_MARK_SELECTED_MIN_ZOOM : FACADE_MARK_MIN_ZOOM;
+      const visible =
+        zoom >= minZoom && this.isInViewport(mark.container.x, mark.container.y, view, 32);
+      if (mark.container.visible !== visible) mark.container.setVisible(visible);
+      const scale = Phaser.Math.Clamp(mark.sprite.displayHeight / SIGNAGE_NOMINAL_HEIGHT_PX, 0.6, 1.5);
+      mark.container.setScale(scale);
+    }
+    this.updateParcelMarkHover();
+  }
+
+  /** Hit-test manual, como `updateSignageHover`: tooltip sin crear una capa interactiva nueva. */
+  private updateParcelMarkHover(): void {
+    const pointer = this.input.activePointer;
+    const world = this.cameras.main.getWorldPoint(pointer.x, pointer.y);
+    let best: ParcelMark | null = null;
+    for (const mark of this.parcelMarks.values()) {
+      if (!mark.container.visible) continue;
+      const { x, y, width, height } = mark.bounds;
+      if (world.x < x || world.x > x + width || world.y < y || world.y > y + height) continue;
+      if (!best || mark.container.depth > best.container.depth) best = mark;
+    }
+    const id = best?.entry.id ?? null;
+    if (id === this.hoveredParcelMarkId) return;
+    this.hoveredParcelMarkId = id;
+    if (!best) {
+      this.indicatorTooltip?.setVisible(false);
+      return;
+    }
+    this.showIndicatorTooltip(
+      { x: best.container.x, y: best.container.y },
+      [best.entry.label, ...best.entry.detail].join("\n"),
+    );
   }
 
   private syncIndicatorVisibility(): void {
@@ -2707,6 +3119,35 @@ export class IsometricSpikeScene extends Phaser.Scene {
       setSelectionTarget: (target) => {
         this.setSelectionTarget(target);
       },
+      getProjection: () => this.projection,
+      listIndicators: () =>
+        this.indicatorEntries.map((entry) => ({
+          key: entry.key,
+          kind: entry.kind,
+          critical: entry.critical,
+          glyph: entry.glyph,
+          tone: entry.tone,
+          label: entry.label,
+          visible: entry.object.visible,
+        })),
+      listParcelMarks: () =>
+        [...this.parcelMarks.values()].map((mark) => ({
+          id: mark.entry.id,
+          parcelId: mark.entry.parcelId,
+          kind: mark.entry.kind,
+          tone: mark.entry.tone,
+          x: mark.container.x,
+          y: mark.container.y,
+          visible: mark.container.visible,
+        })),
+      listFacadeMarks: () =>
+        [...this.facadeMarks.values()].map((mark) => ({
+          id: mark.entry.id,
+          buildingId: mark.entry.buildingId,
+          x: mark.container.x,
+          y: mark.container.y,
+          visible: mark.container.visible,
+        })),
     };
     window.__landlordCameraTest = api;
     const placementApi = () => {

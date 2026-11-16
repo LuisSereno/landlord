@@ -111,7 +111,11 @@ export function setIsometricEntityPickedListener(
 
 export function setIsometricIndicatorListener(
   game: Phaser.Game,
-  listener: (target: { parcelId: string; buildingId?: string }) => void,
+  listener: (target: {
+    parcelId: string;
+    buildingId?: string;
+    section?: "summary" | "tenants" | "maintenance" | "insurance" | "finance";
+  }) => void,
 ): void {
   mountedScenes.get(game)?.setIndicatorListener(listener);
 }

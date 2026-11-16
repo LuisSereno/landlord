@@ -60,16 +60,24 @@ export function glyphTextureKey(
   name: UiIconName,
   tone: StatusTone,
   px: number = GLYPH_TEXTURE_PX,
+  onDark = false,
 ): string {
-  return `glyph:${name}:${cssTone(tone)}:${px}`;
+  return `glyph:${name}:${cssTone(tone)}:${px}${onDark ? ":dark" : ""}`;
 }
 
-/** Data URI autónomo del glifo con la tinta que corresponde al tono de fondo. */
+/**
+ * Data URI autónomo del glifo. En un badge el fondo es el propio tono, así que la tinta sale del
+ * contraste medido contra él. En una placa o marca de fachada el fondo es la chapa oscura
+ * (`0x10161f`), no el tono: allí la tinta tiene que ser clara siempre, o el glifo ámbar o verde
+ * quedaría negro sobre negro y desaparecería.
+ */
 export function glyphDataUri(
   name: UiIconName,
   tone: StatusTone,
   px: number = GLYPH_TEXTURE_PX,
+  onDark = false,
 ): string {
-  const markup = glyphSvgMarkup(name, { size: px, stroke: glyphInkFor(toneHex(tone)) });
+  const ink = onDark ? LIGHT_INK : glyphInkFor(toneHex(tone));
+  const markup = glyphSvgMarkup(name, { size: px, stroke: ink });
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(markup)}`;
 }

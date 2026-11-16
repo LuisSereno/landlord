@@ -56,4 +56,18 @@ describe("V.d-UX.S · texturas de glifo para la escena", () => {
     expect(markup).toContain(glyphInkFor(STATUS_COLORS.loss));
     expect(cssTone("loss")).toBe("#d92d20");
   });
+
+  it("sobre chapa oscura la tinta es clara aunque el tono pida tinta oscura", () => {
+    /** El fondo de una placa es 0x10161f, no el tono: ámbar y verde pedirían tinta oscura. */
+    for (const tone of ["arrears", "upgrade", "partial"] as const) {
+      expect(glyphInkFor(STATUS_COLORS[tone]), tone).toBe("#0c1220");
+      const uri = glyphDataUri("lien", tone, GLYPH_TEXTURE_PX, true);
+      const markup = decodeURIComponent(uri.slice("data:image/svg+xml;charset=utf-8,".length));
+      expect(markup, tone).toContain("#f7f1df");
+      expect(markup, tone).not.toContain('stroke="#0c1220"');
+      expect(glyphTextureKey("lien", tone, GLYPH_TEXTURE_PX, true)).not.toBe(
+        glyphTextureKey("lien", tone),
+      );
+    }
+  });
 });

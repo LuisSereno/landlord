@@ -583,6 +583,69 @@ Reglas:
 - click selecciona entidad y abre sección pertinente;
 - no llenar toda la ciudad de iconos persistentes.
 
+### 9.1 Cuatro canales, no uno (V.d-UX.S)
+
+El mundo expresa cuatro cosas distintas con cuatro canales distintos. Confundirlas es la causa del
+clutter: un hecho pasivo pintado como interrupción compite con una emergencia real.
+
+| Canal | Naturaleza | Dónde vive | Interacción |
+| --- | --- | --- | --- |
+| **badge flotante** | problema **accionable** del jugador | sobre la huella del edificio (o de la parcela en carga financiera) | hover = tooltip; click = entidad + pestaña |
+| **placa de parcela** | **pasivo persistente** (gravamen, subasta) | esquina de la parcela con frente vial | hover por hit-test manual; el click **atraviesa** y selecciona la parcela |
+| **marca de fachada** | **logro / identidad** (mejora completada) | ancorada junto al rótulo, `y − 0.22` | no interactiva: atraviesa al edificio |
+| **capa de datos** | **lectura masiva** ("enséñamelo todo") | tinte de parcela + leyenda | toolbar de overlays |
+
+Una hipoteca al día **no** es un badge: no interrumpe nada, y un badge flotante es una interrupción.
+Vive en la placa y en la capa `Cargas y subastas`.
+
+### 9.2 Gramática: forma = severidad, glifo = causa, color = familia
+
+- **Rombo** = crítico (pérdida irreversible). **Círculo** = aviso. **Placa apaisada** = pasivo
+  persistente. **Estrella de 4 puntas sobre mini-placa** = logro.
+- El glifo se toma siempre del registro único `ui/icons.tsx` (D-095). En el mundo se rasteriza a
+  48 px con `glyphSvgMarkup` y se sirve como textura, cacheada por `(glifo, tono, tamaño, tinta)`;
+  la tinta clara u oscura la decide el **contraste medido** (WCAG ≥ 4.5:1), no una tabla a mano.
+- Los tonos viven en `STATUS_COLORS` (`ui/overlay-catalog.ts`) y son la única fuente compartida por
+  badge, placa, marca y capa: la leyenda y lo pintado no pueden divergir (test de paridad).
+- Un glifo de causa raíz, nunca `warning` genérico: `lien`, `loan`, `auction`, `insurance`, `risk`,
+  `vacancy`, `demolition`, `crew`, `fire`, `maintenance`, `expense`.
+
+### 9.3 Severidad por consecuencia, no por categoría
+
+| Tier | Qué entra | Por qué interrumpe |
+| --- | --- | --- |
+| 1 crítico | incendio, colapso, subasta abierta propia, préstamo impagado | pérdida irreversible del activo: la parcela y sus edificios cambian de dueño |
+| 2 aviso alto | condición ≤ 55 | deterioro progresivo con expulsión de inquilinos; aún reversible reparando |
+| 3 aviso | obra sin cuadrilla | el dinero ya invertido no produce hasta asignar cuadrilla |
+| 4 aviso | carga en atraso, póliza vencida | avisa de que el tier 1 es alcanzable; reversible pagando o contratando |
+| 5 secundario | backlog, vacancia total, sin seguro con alerta | coste de oportunidad, no pérdida inminente |
+
+Dentro del mismo tier el orden es determinista (físico antes que financiero, luego `key`) y el tope
+global sigue siendo **12** badges (D-095). **Un badge por edificio como máximo**: los hechos
+secundarios se pliegan en el `detail` del tooltip. La vacancia **parcial** nunca pinta badge.
+
+### 9.4 Umbrales de zoom y movimiento
+
+- `< 0.7` sólo tier 1; `≥ 0.7` avisos; `≥ 0.85` placas; `≥ 1.0` marcas de fachada
+  (`0.85` si el edificio está seleccionado); `≥ 2.0` detalle completo.
+- Pulso 900 ms **sólo en críticos**; destello 600 ms **una vez por montaje de escena** al crear la
+  marca de mejora. Ambos son tiempo de render y jamás estado del mundo (D-103).
+- `prefers-reduced-motion: reduce` ⇒ cero tweens; los marcadores se pintan idénticos.
+- Culling por `isInViewport` en placas y marcas; reconciliación por **firma visual completa**
+  (`worldIndicatorSignature`: key, kind, crítico, glifo, tono, etiqueta, detalle, sección, celda),
+  de modo que `delinquent → defaulted` no deje un obsoleto con la misma key.
+
+### 9.5 Qué datos puede mirar el mundo
+
+- El mundo **sólo** lee la proyección a través de la puerta pura `ui/asset-status.ts`. La escena no
+  decide reglas; los umbrales los fija el motor.
+- Una alerta se identifica por su discriminador tipado `reason` y su `buildingId` publicados. El
+  `id` de la alerta **no es contrato**: nada puede parsear prefijos.
+- `unknown` ≠ `none`. De un rival no se infiere "sin carga", "sin inquilinos" ni "sin seguro": se
+  pinta banda gris "sin datos" y **cero** marcadores.
+- El click de un badge selecciona la entidad y pide pestaña con un **token monotónico**; cambiar de
+  edificio sin petición vuelve a Resumen. La petición ya consumida no se reaplica.
+
 ---
 
 ## 10. Ayuda contextual
@@ -766,6 +829,32 @@ Cada overlay debe:
 - tooltip;
 - leyenda cuando el color tenga significado;
 - botón claro para volver a vista normal.
+
+### 14.1 Grupo `Estado del activo` (V.d-UX.S)
+
+Tres capas, cada una respondiendo una pregunta distinta del jugador; se mantienen las tres porque
+ninguna se deduce de las otras (una carga no dice si hay vacantes, y la ocupación no dice si falta
+cobertura).
+
+| Capa | Pregunta | Bandas (leyenda del catálogo) |
+| --- | --- | --- |
+| `encumbrances` · "Cargas y subastas" | ¿dónde tengo deuda o garantías? | sin carga viva · hipoteca al día · en atraso · impagada o en subasta · puja en subasta ajena · ajena o no hipotecable |
+| `occupancy` · "Ocupación" | ¿dónde están mis vacantes? | ocupación completa · parcial · sin inquilinos · producción (no se ocupa con hogares) · solar sin edificio · sin datos (edificio ajeno) |
+| `insurance` · "Seguro" | ¿qué activos están desprotegidos? | todo asegurado · alguna póliza vencida · alguno sin seguro · sin datos (edificio ajeno) |
+
+Reglas de la capa:
+
+- El valor por parcela es el **peor estado vivo** de su interior (patrón ya usado en Valor y
+  Riesgo), no el promedio: una hipoteca al día bajo una subasta abierta se pinta como subasta.
+- La capa de Seguro no replica los chips ni los badges: el motor sólo alerta por encima del umbral
+  `AUTOMATION_POLICY.exception.insuranceRiskWarning` (35 % de riesgo de deterioro), así que la capa
+  revela activos desprotegidos **por debajo** del umbral en cartera amplia.
+- `unknown` es una banda explícita (gris) para activos ajenos; nunca se pinta "sin carga", "vacío" o
+  "sin seguro" donde no hay información.
+- Toda capa declara su leyenda en el catálogo, y `parcelOverlayColor` se resuelve desde un `Record`
+  **exhaustivo en tipos** (`ui/overlay-color.ts`): una capa sin rama es error de compilación, no un
+  fallback silencioso al color de propiedad. Un test compara byte a byte el color de la leyenda con
+  el color realmente pintado.
 
 ---
 

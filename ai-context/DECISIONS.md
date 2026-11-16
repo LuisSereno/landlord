@@ -1674,3 +1674,31 @@ canal). **Ambas cosas son decisión del responsable, no extras de V.l.5**: decid
 hacer con la mediana; y si la respuesta es mixta, el canal `map.roadSection` -un `width` por clase,
 esquema `.strict()`- cambia de contrato antes de que ninguna variante sea adoptable. Ver
 `docs/engineering/adr/D-104-seccion-transversal-autoritativa.md`.
+
+## D-107 — Los estados invisibles del activo se muestran con un lenguaje de presentación
+
+Estado: aceptada el 2026-11-16 por el responsable.
+
+Los seis estados que el mapa no pinta (gravamen e impago/subasta, mejora completada, ocupación y
+vacancia, póliza vencida o inexistente, mantenimiento atrasado) se hacen visibles con **cuatro canales
+de presentación derivados**, sin tocar `BuildingAssetState` (enum cerrado de cuatro valores y cuatro
+texturas por tipo): badge flotante = problema accionable; placa de parcela = pasivo persistente; marca
+de fachada = logro; capa de datos = lectura masiva. Gramática fija: forma = severidad (por
+consecuencia irreversible, no por categoría), glifo = causa raíz desde el registro único de iconos,
+color = familia desde `STATUS_COLORS`, con la tinta del glifo elegida por contraste medido. Un badge por
+edificio, tope 12, orden determinista, umbrales de zoom y reconciliación por firma visual completa.
+`unknown` ≠ `none`: de un activo ajeno no se infiere «sin carga», «vacío» ni «sin seguro».
+
+Regla de encuadre que sustituye a «cero cambios en simulation/shared»: **no se oculta un bug de dominio
+tras la etiqueta de presentación pura, y no se inventa una regla económica para que la UI sea más
+cómoda**. Tres excepciones mínimas, aditivas y testeizadas: E1 `CancelInsurance` acepta `active|lapsed`
+(callejón sin salida real; `cancelled` pasa a significar «contrato terminado»); E2 las alertas publican
+un discriminador tipado `reason` y `buildingId` (el `id` deja de ser contrato); E3 la póliza termina en
+el mismo tick del colapso y el contrato huérfano desaparece con el desescombro, porque `insuranceExpense`
+inflaba el gasto previsto con primas de ruinas. Los **claims se conservan** (pertenecen al incidente).
+Auditoría acotada de referencias vivas por `buildingId`: backlog y tarea de mantenimiento se liberan
+(el técnico quedaba permanentemente no reasignable sobre una entidad inexistente); histórico deliberado
+intacto. Cero migración de snapshot: `cancelled` ya existía y las alertas nunca se persisten.
+
+Ver `docs/engineering/adr/D-107-estados-de-activo-como-presentacion.md` y
+`docs/execution/phase-4/vd-ux-s-asset-status-2026-11-16.md`.

@@ -353,6 +353,41 @@ Sigue abierto:
   marca las tres como desarrolladas para la demanda de servicios (H2-05). Es intencional: el proxy
   Alpha mide suelo desarrollado, no edificios. No se convierte en demanda por edificio sin una ADR.
 
+## V.d-UX.S — lenguaje visual de los estados del activo (2026-11-16)
+
+- **Defecto PREEXISTENTE (atribuido, no arreglado en esta fase): el registro de texturas es
+  secuencial y `assetsReady` tarda ~14 s.** Medido dos veces en esta fase: 14 082 ms y 14 147 ms
+  desde que el worker está conectado hasta que el catálogo termina. `scripts/vd-ux-smoke.mjs`
+  fracasa en el fantasma de colocación por esta razón —espera el ghost antes de que los assets
+  estén listos—, y el fallo se reprodujo con el árbol de la fase revertido por completo, así que no
+  lo introdujo V.d-UX.S. La captura nueva (`pnpm smoke:vd-ux-status`) lo sortea esperando
+  `assetsReady` explícitamente. Arreglo posible (registro en paralelo o un evento de escena lista
+  que reentregue la proyección) es una entrega propia: no es un extra de esta fase.
+- **Defecto PREEXISTENTE (atribuido, no arreglado): una escena remontada con la simulación pausada
+  no recibe la proyección.** El efecto que la entrega depende sólo de `[projection]`
+  (`apps/web/src/App.tsx:1118-1120`) y `updateIsometricProjection` escribe en `mountedScenes`, que
+  aún está vacío hasta que `create()` de Phaser se registra: la entrega inicial se descarta en
+  silencio y, con el worker pausado, no vuelve a publicarse nada. El remount por día/noche
+  (`key={visualMood}`) lo provoca; la evidencia lo sortea reanudando un instante y volviendo a
+  pausar. Pertenece al mismo arreglo que el punto anterior.
+- **El presupuesto del 5 % de FPS no es evaluable con este instrumento.** La máquina de desarrollo
+  rasteriza por software (sin GPU visible para el driver) y el mapa con propiedad propia rinde
+  ~12 FPS: el cuantún del medidor es 1 cuadro ≈ 8 %, así que un 5 % está bajo la resolución. Se
+  mide y se gatea el frame-time cuadro a cuadro (media, p50 y p95 por brazo y zoom, con un brazo de
+  control que pinta la misma ciudad sin marcadores) y la cola (p90/p99/peor) queda registrada como
+  nota. El 5 % en FPS y la suavidad real pasan al playtest humano en máquina con GPU, donde ya está
+  declarado el P1-1 de V.d-7C.
+- **Claims invisibles tras el desescombro.** D-107 conserva los `claimsByIncidentId` (pertenecen al
+  incidente y sobreviven a la demolición), pero la proyección los filtra por existencia del
+  edificio, así que dejan de verse en el panel al desaparecer el edificio. Es un comportamiento
+  anterior a la fase y se declara sin cambiarlo: si el historial debe ser consultable, es una
+  decisión de producto, no un bug de presentación.
+- **Sin sonido nuevo.** Existe un subsistema mínimo de cues de comando (`apps/web/src/audio/`);
+  badges, placas y marcas son lectura pasiva y no emiten sonido. La única interacción nueva que
+  produce comando (terminar una póliza vencida) ya suena con los cues existentes.
+- **8 fallos de simulación preexistentes** siguen abiertos; la foto exacta está en
+  `docs/execution/phase-4/vd-ux-s-baseline-2026-11-16.json` y ninguna cifra de esta fase los toca.
+
 ## Rendimiento y Alpha
 
 - El cierre mensual de 800 parcelas es la frontera cara. Medido como campaña longitudinal real en

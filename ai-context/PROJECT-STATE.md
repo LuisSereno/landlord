@@ -607,6 +607,43 @@ vacíos. `pnpm smoke:vd-ux` (19 pasos) genera y valida 13 capturas revisadas una
 y `smoke:vd-core-loop` siguen verdes tras adaptarse a los hubs. **No se añadió ninguna regla de
 simulación** y los gates de coste y conservación se mantienen.
 
+**V.d-UX.S (lenguaje visual de los estados invisibles del activo) está ejecutada el 2026-11-16 sobre
+`develop`, partiendo de `586bfbd`; 13 commits locales, `develop` no se ha empujado.** D-107 fija la
+regla: los seis estados que el mapa no pintaba se hacen visibles con **cuatro canales derivados** —badge
+(accionable), placa de parcela (pasivo persistente), marca de fachada (logro) y capa de datos (lectura
+masiva)— con gramática forma = severidad, glifo = causa, color = familia; `BuildingAssetState` sigue
+cerrado en cuatro valores y ningún estado nuevo es textura ni estado de mundo. Todo se deriva en la
+puerta única `ui/asset-status.ts` desde `ViewProjectionV2` (`unknown` ≠ `none` para activos ajenos), el
+color se resuelve desde un `Record` exhaustivo (`ui/overlay-color.ts`) y los glifos salen de un registro
+**serializable** (55 iconos convertidos byte a byte con fixture dorado + 3 nuevos; `react-dom/server`
+rechazado por medida). La placa no crea `Zone`: hover por hit-test manual y click que atraviesa a la
+parcela. Routing de pestaña reactivo con token monotónico y helper puro.
+
+La consigna «cero cambios en simulation» se sustituyó por la regla de encuadre de D-107 —no se oculta
+un bug de dominio tras la etiqueta «presentación pura», y no se inventa una regla económica para que la
+UI sea más cómoda—, con tres excepciones mínimas verificadas: **E1** `CancelInsurance` acepta
+`active|lapsed` (una póliza vencida era un callejón sin salida; `cancelled` pasa a significar «contrato
+terminado»), **E2** las alertas publican `reason` tipado y `buildingId` (el `id` deja de ser contrato),
+**E3** la póliza termina en el mismo tick del colapso y el contrato huérfano desaparece con el
+desescombro, porque `insuranceExpense` inflaba el gasto previsto con primas de ruinas; los **claims se
+conservan**. La auditoría S0.5 encontró y corrigió además el backlog huérfano y la tarea de mantenimiento
+que dejaba a un técnico **permanentemente no reasignable** sobre un edificio inexistente. Cero migración
+de snapshot. Los 7 invariantes del ciclo de vida están en `insurance-lifecycle.test.ts` y la cadena
+completa `active → claim → colapso → ruina → sin prima → clear_ruin → claim intacto` es un solo escenario
+determinista.
+
+Atribución medida, no supuesta: el delta de E3 se confina a los tres digestos `fire-cascade` (los siete
+restantes idénticos byte a byte) y S0.5 no movió ninguno. Los valores comprometidos en `GOLDEN_CASES`
+**no se regeneraron**: ya derivaban desde 2026-11-03 por deuda de baseline (0/10 recuperados neutralizando
+el censo de inquilinos), y regenerarlos mezclaría una deriva sin explicar con el delta atribuido.
+Evidencia: `pnpm smoke:vd-ux-status` (14 pasos, 45 aserciones, 0 errores de página, 11 capturas en
+`docs/art/golden/vd-ux-status/`) más el nivel B con `runScenario` real. El rendimiento se midió con brazo
+de control sobre la misma ciudad: 0 % en frame-time p50/p95 y +46 GameObjects exactos; el presupuesto del
+5 % en FPS **no es evaluable** con rasterizador de software a ~11 FPS (cuantún ≈ 9 %) y pasa al playtest
+humano con GPU. Acta `docs/execution/phase-4/vd-ux-s-asset-status-2026-11-16.md`, ADR
+`docs/engineering/adr/D-107-estados-de-activo-como-presentacion.md`, spec ampliada en §9.1–9.5 y §14.1.
+**V.d sigue abierta: playtest humano pendiente y gate de features cerrado.**
+
 **V.d-7A (dominio multi-parcela) está ejecutada el 2026-10-30 sobre la rama local
 `wip/vd7-multiparcel-domain`, partiendo de `1afa0c8`; `develop` no se ha tocado.** Cierra el
 contrato `parcelIds` en `Building`, `ConstructionSite`, `Permit`, `StartConstruction` y

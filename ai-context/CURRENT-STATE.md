@@ -1,11 +1,12 @@
 # Estado vigente para agentes
 
-Actualizado: 2026-11-12. Leer este archivo antes de la historia extensa de `PROJECT-STATE.md`.
+Actualizado: 2026-11-16. Leer este archivo antes de la historia extensa de `PROJECT-STATE.md`.
 
 ## Rama y arquitectura jugable
 
-- Rama de trabajo: `wip/vh-world-visual-foundation`; no integrar ni empujar a `develop` o `main`
-  sin revisión humana.
+- Rama de trabajo: `develop` desde V.d-UX.S (2026-11-16). Las entregas anteriores de arte y
+  integración se hicieron en `wip/vh-world-visual-foundation`; no integrar ni empujar a `develop` o
+  `main` sin revisión humana.
 - Simulación TypeScript pura y determinista; Phaser/React sólo consumen `ViewProjectionV2`.
 - El estado autoritativo pertenece al motor. `Math.random()` no entra en dominio.
 - El MVP sigue siendo single-player: comprar terreno → producir → construir → ocupar → caja →
@@ -67,6 +68,27 @@ Actualizado: 2026-11-12. Leer este archivo antes de la historia extensa de `PROJ
 - **Deuda declarada no cerrada:** playtest humano de V.d (`PENDING HUMAN PLAYTEST`), escala del
   programa municipal bajo desarrollo extremo, orientación física no representada (P2), y el
   no-determinismo raster byte-level de Blender (V.i). Ver KNOWN-GAPS.md.
+
+## V.d-UX.S · estados del activo sobre el mapa (2026-11-16, `develop`)
+
+- D-107 ejecutada en `develop` (commits locales, **sin push**). Los seis estados que el mapa no
+  pintaba —gravamen, atraso/impago/subasta, mejora, ocupación y vacancia, póliza vencida o ausente,
+  mantenimiento atrasado— son ahora legibles con cuatro canales derivados: badge (accionable), placa
+  de parcela (pasivo), marca de fachada (logro) y capa de datos (lectura masiva).
+- `BuildingAssetState` sigue cerrado en cuatro valores: ningún estado nuevo es textura ni estado de
+  mundo. Todo se deriva en la puerta pura `apps/web/src/ui/asset-status.ts` desde `ViewProjectionV2`;
+  la escena sólo pinta, y el hover de la placa no añade capa interactiva.
+- `unknown` ≠ `none` es contrato: de un activo ajeno no se infiere carga, ocupación ni cobertura.
+- Tres excepciones mínimas al dominio, cada una con bug demostrado y test: E1 `CancelInsurance`
+  acepta `active|lapsed` (una póliza vencida ya no es un callejón sin salida); E2 las alertas
+  publican `reason` y `buildingId` (el `id` deja de ser contrato); E3 la póliza termina con el
+  colapso y el contrato huérfano desaparece con el desescombro, mientras los **claims se conservan**.
+  Cero migración de snapshot.
+- Regla de encuadre vigente: **no se oculta un bug de dominio tras la etiqueta «presentación pura»,
+  y no se inventa una regla económica para que la UI sea más cómoda.**
+- El presupuesto de rendimiento del 5 % no es evaluable en FPS con rasterizador de software (~12 FPS;
+  cuantún ≈ 8 %): se gatea el frame-time con brazo de control y la cola queda registrada. Ver
+  `docs/execution/phase-4/vd-ux-s-asset-status-2026-11-16.md`.
 
 ## Bloqueos y gates pendientes
 

@@ -385,6 +385,13 @@ try {
   });
   check("hay un badge no crítico visible", badge !== null, badge?.kind);
 
+  /**
+   * El routing badge → pestaña NO se verifica aquí: la proyección inyectada sólo llega a la escena,
+   * no a la economía de React, así que un badge sintético selecciona un edificio que el panel no
+   * conoce. Ese flujo se prueba con DOM real en `apps/web/src/ui/panels-routing.test.tsx`, que
+   * monta ContextPanel y dispara peticiones sucesivas con token nuevo sobre el mismo edificio.
+   */
+
   step("colisión espacial: placa + badge + rótulo + marca en la misma manzana");
   await setZoom(2, seeded.center);
   await shot("clutter-dense-block");

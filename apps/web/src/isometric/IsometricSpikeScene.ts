@@ -392,6 +392,7 @@ type CameraTestApi = {
     tone: string;
     label: string;
     visible: boolean;
+    screen: ScreenPoint;
   }>;
   listParcelMarks(): Array<{
     id: string;
@@ -3121,15 +3122,20 @@ export class IsometricSpikeScene extends Phaser.Scene {
       },
       getProjection: () => this.projection,
       listIndicators: () =>
-        this.indicatorEntries.map((entry) => ({
-          key: entry.key,
-          kind: entry.kind,
-          critical: entry.critical,
-          glyph: entry.glyph,
-          tone: entry.tone,
-          label: entry.label,
-          visible: entry.object.visible,
-        })),
+        this.indicatorEntries.map((entry) => {
+          camera.preRender();
+          const screen = camera.matrixCombined.transformPoint(entry.object.x, entry.object.y);
+          return {
+            key: entry.key,
+            kind: entry.kind,
+            critical: entry.critical,
+            glyph: entry.glyph,
+            tone: entry.tone,
+            label: entry.label,
+            visible: entry.object.visible,
+            screen: { x: screen.x, y: screen.y },
+          };
+        }),
       listParcelMarks: () =>
         [...this.parcelMarks.values()].map((mark) => ({
           id: mark.entry.id,

@@ -1,7 +1,15 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { BuildingType, CrewId, ViewProjectionV2 } from "@landlord/shared";
 
+import {
+  assetFinanceRows,
+  buildingStatusFor,
+  indexAssetStatus,
+  insuranceText,
+  occupancyText,
+  parcelLoadFor,
+} from "./asset-status";
 import { BuildCatalog } from "./build-catalog";
 import { BuildingThumbnail } from "./building-thumbnail";
 import {
@@ -10,7 +18,8 @@ import {
   upgradeBlockedReasons,
 } from "./disabled-reasons";
 import { HelpPopover, HelpTooltip } from "./help";
-import { ResourceIcon, UiIcon } from "./icons";
+import { ResourceIcon, UiIcon, type UiIconName } from "./icons";
+import { cssColor, STATUS_COLORS, type StatusTone } from "./overlay-catalog";
 import { PlacementPanel } from "./placement-panel";
 import {
   constructionStageLabel,
@@ -18,6 +27,11 @@ import {
   crewStateLabel,
 } from "../isometric/construction-stages";
 import { crewRosterCounts } from "../isometric/crew-presence";
+import {
+  resolvePanelTab,
+  type PanelSection,
+  type PanelSectionRequest,
+} from "./world-indicators";
 import type { PendingPlacement, PlacementHandlers } from "./placement";
 import {
   buildingDisplayName,
@@ -26,6 +40,7 @@ import {
   constructionKindLabel,
   crewDisplayName,
   developmentCodeLabel,
+  encumbranceStatusLabel,
   facilityKindLabel,
   facilityServiceLabel,
   formatGameDate,
@@ -87,6 +102,12 @@ export type PanelContext = {
   placementHandlers: PlacementHandlers | null;
   placementBlockers: readonly string[];
   placementSubmitting: boolean;
+  /**
+   * V.d-UX.S · sección pedida por un badge del mapa. Lleva un token monotónico por click: sin él,
+   * un segundo badge sobre el MISMO edificio no re-dispararía el efecto y la pestaña quedaría
+   * obsoleta. El panel la consume una vez y luego el jugador manda.
+   */
+  sectionRequest?: PanelSectionRequest | undefined;
   onBeginPlacement: (buildingType: BuildingType, parcelIds: readonly string[]) => void;
 };
 
@@ -216,13 +237,39 @@ function ParcelPanel({ parcel, context }: { parcel: ProjectedParcel; context: Pa
             <dd>{zoningLabel(parcel.zoning)}</dd>
           </div>
           <div>
-            <dt>Cargas</dt>
+            <dt>Impuestos</dt>
             <dd>
               {parcel.estimatedTransferTax} u. transmisión · {parcel.estimatedMonthlyPropertyTax}{" "}
               u./mes <HelpTooltip topic="taxes" />
             </dd>
           </div>
         </dl>
+        {(() => {
+          const load = parcelLoadFor(indexAssetStatus(economy), parcel.id);
+          if (load.kind === "none" || load.kind === "unknown") return null;
+          return (
+            <div className="chip-row">
+              <StatusChip
+                icon={load.kind === "auction" || load.kind === "auction_bid" ? "auction" : "lien"}
+                tone={
+                  load.kind === "auction" || load.kind === "defaulted"
+                    ? "loss"
+                    : load.kind === "delinquent"
+                      ? "arrears"
+                      : load.kind === "auction_bid"
+                        ? "opportunity"
+                        : "lien"
+                }
+                label={encumbranceStatusLabel(load.kind)}
+              />
+              {load.detail.map((line) => (
+                <span className="chip" key={line}>
+                  {line}
+                </span>
+              ))}
+            </div>
+          );
+        })()}
       </section>
 
       {context.pendingPlacement && context.placementHandlers ? (
@@ -449,6 +496,27 @@ function serviceLabel(service: "security" | "fire" | "health" | "education" | "m
   }[service];
 }
 
+/**
+ * V.d-UX.S · chip de estado del activo. El borde toma el tono de la única paleta del mapa, así que
+ * el panel y el mundo nombran el mismo estado con el mismo color (D-103). El texto queda en la
+ * tinta del panel para mantener el contraste legible.
+ */
+export function StatusChip({
+  icon,
+  tone,
+  label,
+}: {
+  icon: UiIconName;
+  tone: StatusTone;
+  label: string;
+}) {
+  return (
+    <span className="chip" style={{ borderColor: cssColor(STATUS_COLORS[tone]) }}>
+      <UiIcon name={icon} size={12} /> {label}
+    </span>
+  );
+}
+
 function BuildingPanel({
   building,
   parcel,
@@ -464,9 +532,23 @@ function BuildingPanel({
    * El estado de la pestaña se declara antes de cualquier retorno: un edificio rival delega en
    * `RivalPanel`, pero los hooks deben ejecutarse siempre en el mismo orden.
    */
-  const [tab, setTab] = useState<"summary" | "tenants" | "maintenance" | "insurance" | "finance">(
-    "summary",
-  );
+  const [tab, setTab] = useState<PanelSection>("summary");
+  /**
+   * V.d-UX.S · routing reactivo. `useState(sección)` sólo se inicializa en el primer montaje, así
+   * que un segundo badge sobre el mismo edificio no cambiaría la pestaña. El efecto consume cada
+   * token una vez; al cambiar de edificio sin petición vuelve al resumen; el click manual del
+   * jugador no pasa por aquí y se respeta.
+   */
+  const previousBuilding = useRef<string | null>(null);
+  const consumedToken = useRef<number>(-1);
+  const request = context.sectionRequest;
+  useEffect(() => {
+    const changed = previousBuilding.current !== building.id;
+    previousBuilding.current = building.id;
+    const fresh = request && request.token !== consumedToken.current ? request : undefined;
+    if (fresh) consumedToken.current = fresh.token;
+    setTab((current) => resolvePanelTab(current, changed, fresh));
+  }, [building.id, request]);
   if (!owned) return <RivalPanel building={building} context={context} />;
   const option = economy.constructionOptions.find((entry) => entry.type === building.type);
   const production = economy.production.find((entry) => entry.buildingId === building.id);
@@ -483,6 +565,8 @@ function BuildingPanel({
     : [];
   const repairReasons = repairBlockedReasons({ economy, condition: building.condition });
   const occupied = building.tenantIds.length;
+  const status = buildingStatusFor(indexAssetStatus(economy), building.id);
+  const load = parcelLoadFor(indexAssetStatus(economy), parcel.id);
   return (
     <>
       <section className="panel-section entity-head">
@@ -496,6 +580,63 @@ function BuildingPanel({
           <p className="muted">
             Condición {building.condition} % · integridad {building.structuralIntegrity} %
           </p>
+          {status ? (
+            <div className="chip-row">
+              {status.upgraded ? (
+                <StatusChip icon="upgrade" tone="upgrade" label="Mejorado" />
+              ) : null}
+              {status.occupancy !== "unknown" ? (
+                <StatusChip
+                  icon={status.occupancy === "production" ? "production" : "tenants"}
+                  tone={
+                    status.occupancy === "empty"
+                      ? "vacancy"
+                      : status.occupancy === "partial"
+                        ? "partial"
+                        : status.occupancy === "production"
+                          ? "upkeep"
+                          : "occupied"
+                  }
+                  label={occupancyText(status)}
+                />
+              ) : null}
+              {status.insurance !== "unknown" ? (
+                <StatusChip
+                  icon="insurance"
+                  tone={
+                    status.insurance === "active"
+                      ? "occupied"
+                      : status.insurance === "lapsed"
+                        ? "arrears"
+                        : "uninsured"
+                  }
+                  label={insuranceText(economy, status)}
+                />
+              ) : null}
+              {status.backlog > 0 ? (
+                <StatusChip
+                  icon="expense"
+                  tone="arrears"
+                  label={`Atraso ${status.backlog} u.`}
+                />
+              ) : null}
+              {load.kind !== "none" && load.kind !== "unknown" ? (
+                <StatusChip
+                  icon={load.kind === "auction" || load.kind === "auction_bid" ? "auction" : "lien"}
+                  tone={
+                    load.kind === "auction" || load.kind === "defaulted"
+                      ? "loss"
+                      : load.kind === "delinquent"
+                        ? "arrears"
+                        : load.kind === "auction_bid"
+                          ? "opportunity"
+                          : "lien"
+                  }
+                  label={encumbranceStatusLabel(load.kind)}
+                />
+              ) : null}
+            </div>
+          ) : null}
           {building.parcelIds.length > 1 ? (
             <p className="muted">
               Complejo sobre {building.parcelIds.length} parcelas · {building.footprintCells.length}{" "}
@@ -661,6 +802,13 @@ function BuildingPanel({
             Coste {building.maintenanceCost} u./mes · deuda acumulada {building.maintenanceDue} u. ·
             política {maintenancePolicyLabel(economy.maintenance.policy)}
           </p>
+          {building.maintenanceDue > building.maintenanceCost ? (
+            <p className="muted">
+              <UiIcon name="expense" size={13} /> Atraso de mantenimiento:{" "}
+              {building.maintenanceDue - building.maintenanceCost} u. acumuladas al margen del coste
+              del mes.
+            </p>
+          ) : null}
           <button
             disabled={repairReasons.length > 0}
             onClick={() => actions.repairBuilding(building.id)}
@@ -697,7 +845,7 @@ function BuildingPanel({
           <h3>
             <UiIcon name="insurance" /> Seguro <HelpTooltip topic="insurance" />
           </h3>
-          {contract && contract.status === "active" ? (
+          {contract && (contract.status === "active" || contract.status === "lapsed") ? (
             <>
               <p className="muted">
                 {insuranceCoverageLabel(contract.coverage)} · prima {contract.premium} u./mes ·
@@ -706,8 +854,14 @@ function BuildingPanel({
                   ? ` · próximo cobro el ${formatGameDate(contract.nextPremiumTick, calendar)}`
                   : ""}
               </p>
+              {contract.status === "lapsed" ? (
+                <p className="muted">
+                  <UiIcon name="warning" size={13} /> Póliza vencida: el edificio quedó sin
+                  cobertura. Termínala para poder contratar una nueva.
+                </p>
+              ) : null}
               <button onClick={() => actions.cancelInsurance(building.id)} type="button">
-                Cancelar seguro
+                {contract.status === "lapsed" ? "Terminar póliza vencida" : "Cancelar seguro"}
               </button>
             </>
           ) : offers.length > 0 ? (
@@ -743,24 +897,15 @@ function BuildingPanel({
             <UiIcon name="finance" /> Finanzas del activo <HelpPopover topic="portfolio" />
           </h3>
           <dl className="detail-grid">
-            <div>
-              <dt>Renta efectiva</dt>
-              <dd>{building.effectiveRent} u./plaza</dd>
-            </div>
-            <div>
-              <dt>Mantenimiento</dt>
-              <dd>{building.maintenanceDue} u. pendientes</dd>
-            </div>
-            <div>
-              <dt>Deuda</dt>
-              <dd>
-                {economy.financials.liabilities} u. <HelpTooltip topic="debt" />
-              </dd>
-            </div>
-            <div>
-              <dt>Caja</dt>
-              <dd>{economy.cash} u.</dd>
-            </div>
+            {assetFinanceRows(economy, building).map((row) => (
+              <div key={row.label}>
+                <dt>{row.label}</dt>
+                <dd>
+                  {row.value}
+                  {row.helpTopic ? <HelpTooltip topic={row.helpTopic} /> : null}
+                </dd>
+              </div>
+            ))}
           </dl>
           <button
             className="secondary-action"
@@ -840,6 +985,21 @@ function ConstructionPanel({
           <p className="muted">
             {constructionKindLabel(site.kind)} · {organizationDisplayName(site.ownerOrganizationId)}
           </p>
+          <div className="chip-row">
+            <StatusChip
+              icon={
+                site.kind === "clear_ruin"
+                  ? "demolition"
+                  : site.kind === "upgrade"
+                    ? "upgrade"
+                    : site.kind === "repair"
+                      ? "maintenance"
+                      : "construction"
+              }
+              tone={site.kind === "clear_ruin" ? "loss" : "upkeep"}
+              label={constructionKindLabel(site.kind)}
+            />
+          </div>
           <p className="muted">
             {formatGameDuration((remainingHours * calendar.ticksPerDay) / 24, calendar)} de trabajo
             restante

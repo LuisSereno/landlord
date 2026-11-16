@@ -143,7 +143,7 @@
     }
   ],
   "metrics": {
-    "assetsReadyMs": 12914,
+    "assetsReadyMs": 14150,
     "initial": {
       "buildings": 9,
       "decorations": 68,
@@ -172,8 +172,8 @@
       "statusTweens": 2,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 292,
-      "groundBakeMaxMs": 292.29999999701977
+      "groundBakeLastMs": 341.5,
+      "groundBakeMaxMs": 344.40000000596046
     },
     "groundRebakesAfterSeed": 2,
     "zoom_0.5": {
@@ -204,8 +204,8 @@
       "statusTweens": 2,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 292,
-      "groundBakeMaxMs": 292.29999999701977
+      "groundBakeLastMs": 341.5,
+      "groundBakeMaxMs": 344.40000000596046
     },
     "zoom_0.7": {
       "buildings": 9,
@@ -235,8 +235,8 @@
       "statusTweens": 2,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 292,
-      "groundBakeMaxMs": 292.29999999701977
+      "groundBakeLastMs": 341.5,
+      "groundBakeMaxMs": 344.40000000596046
     },
     "zoom_0.85": {
       "buildings": 9,
@@ -266,8 +266,8 @@
       "statusTweens": 2,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 292,
-      "groundBakeMaxMs": 292.29999999701977
+      "groundBakeLastMs": 341.5,
+      "groundBakeMaxMs": 344.40000000596046
     },
     "zoom_1": {
       "buildings": 9,
@@ -297,8 +297,8 @@
       "statusTweens": 2,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 292,
-      "groundBakeMaxMs": 292.29999999701977
+      "groundBakeLastMs": 341.5,
+      "groundBakeMaxMs": 344.40000000596046
     },
     "zoom_2": {
       "buildings": 9,
@@ -328,8 +328,8 @@
       "statusTweens": 2,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 292,
-      "groundBakeMaxMs": 292.29999999701977
+      "groundBakeLastMs": 341.5,
+      "groundBakeMaxMs": 344.40000000596046
     },
     "glyphs": {
       "buildings": 9,
@@ -359,8 +359,8 @@
       "statusTweens": 2,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 292,
-      "groundBakeMaxMs": 292.29999999701977
+      "groundBakeLastMs": 341.5,
+      "groundBakeMaxMs": 344.40000000596046
     },
     "dense": {
       "buildings": 9,
@@ -390,8 +390,8 @@
       "statusTweens": 2,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 292,
-      "groundBakeMaxMs": 292.29999999701977
+      "groundBakeLastMs": 341.5,
+      "groundBakeMaxMs": 344.40000000596046
     },
     "stability": {
       "before": {
@@ -422,8 +422,8 @@
         "statusTweens": 2,
         "totalSprites": 152,
         "groundRebakes": 2,
-        "groundBakeLastMs": 292,
-        "groundBakeMaxMs": 292.29999999701977
+        "groundBakeLastMs": 341.5,
+        "groundBakeMaxMs": 344.40000000596046
       },
       "after": {
         "buildings": 9,
@@ -453,8 +453,8 @@
         "statusTweens": 2,
         "totalSprites": 152,
         "groundRebakes": 2,
-        "groundBakeLastMs": 292,
-        "groundBakeMaxMs": 292.29999999701977
+        "groundBakeLastMs": 341.5,
+        "groundBakeMaxMs": 344.40000000596046
       }
     },
     "economicOnly": {
@@ -486,8 +486,8 @@
         "statusTweens": 2,
         "totalSprites": 152,
         "groundRebakes": 2,
-        "groundBakeLastMs": 292,
-        "groundBakeMaxMs": 292.29999999701977
+        "groundBakeLastMs": 341.5,
+        "groundBakeMaxMs": 344.40000000596046
       },
       "after": {
         "buildings": 9,
@@ -517,8 +517,8 @@
         "statusTweens": 2,
         "totalSprites": 152,
         "groundRebakes": 2,
-        "groundBakeLastMs": 292,
-        "groundBakeMaxMs": 292.29999999701977
+        "groundBakeLastMs": 341.5,
+        "groundBakeMaxMs": 344.40000000596046
       }
     },
     "night": {
@@ -549,8 +549,8 @@
       "statusTweens": 2,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 332.5,
-      "groundBakeMaxMs": 348.59999999403954
+      "groundBakeLastMs": 381.20000000298023,
+      "groundBakeMaxMs": 402.3999999910593
     },
     "final": {
       "buildings": 9,
@@ -580,8 +580,8 @@
       "statusTweens": 2,
       "totalSprites": 152,
       "groundRebakes": 2,
-      "groundBakeLastMs": 332.5,
-      "groundBakeMaxMs": 348.59999999403954
+      "groundBakeLastMs": 381.20000000298023,
+      "groundBakeMaxMs": 402.3999999910593
     }
   },
   "pageErrors": []

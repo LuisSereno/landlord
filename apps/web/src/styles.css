@@ -1446,6 +1446,14 @@ button:disabled {
   white-space: nowrap;
 }
 
+/* V.d-UX.S · fila de chips de estado del activo: se envuelve sin romper la cabecera del panel. */
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ux-space-1);
+  margin-top: var(--ux-space-1);
+}
+
 .summary-row {
   display: flex;
   align-items: center;

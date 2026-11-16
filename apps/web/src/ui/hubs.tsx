@@ -4,9 +4,11 @@ import type { ReactNode } from "react";
 import type { ViewProjectionV2 } from "@landlord/shared";
 
 import { CityView } from "../CityView";
+import { buildingStatusFor, indexAssetStatus } from "./asset-status";
 import { BuildingThumbnail } from "./building-thumbnail";
 import { HelpPopover, HelpTooltip } from "./help";
 import { ResourceIcon, UiIcon } from "./icons";
+import { StatusChip } from "./panels";
 import {
   auctionStatusLabel,
   buildingDisplayName,
@@ -560,13 +562,35 @@ function FinanceHub({ economy, calendar, actions }: HubProps) {
               </button>
             </li>
           ))}
-          {economy.banking.loans.map((loan) => (
-            <li key={loan.id}>
-              {loanStatusLabel(loan.status)} · deuda {loan.outstandingPrincipal} u. · cuota{" "}
-              {loan.monthlyPayment} u. · {loan.remainingMonths} meses restantes
-              {loan.missedPayments > 0 ? ` · impagos: ${loan.missedPayments}` : ""}
-            </li>
-          ))}
+          {economy.banking.loans.map((loan) => {
+            const collateral = economy.parcels.find(
+              (entry) => entry.id === loan.collateralParcelId,
+            );
+            return (
+              <li key={loan.id}>
+                {loanStatusLabel(loan.status)} · deuda {loan.outstandingPrincipal} u. · cuota{" "}
+                {loan.monthlyPayment} u. · {loan.remainingMonths} meses restantes
+                {loan.missedPayments > 0 ? ` · impagos: ${loan.missedPayments}` : ""}
+                <span className="chip-row">
+                  <StatusChip
+                    icon="lien"
+                    tone={
+                      loan.status === "defaulted"
+                        ? "loss"
+                        : loan.status === "delinquent"
+                          ? "arrears"
+                          : "lien"
+                    }
+                    label={
+                      collateral
+                        ? `Garantía: solar de ${collateral.marketValue} u.`
+                        : "Garantía fuera de este distrito"
+                    }
+                  />
+                </span>
+              </li>
+            );
+          })}
           {economy.banking.offers.length === 0 && economy.banking.loans.length === 0 ? (
             <li className="muted">Sin préstamos ni ofertas activas.</li>
           ) : null}
@@ -663,6 +687,7 @@ function FinanceHub({ economy, calendar, actions }: HubProps) {
 
 function PortfolioHub({ economy, calendar, actions }: HubProps) {
   const owned = economy.buildings.filter((building) => building.ownerOrganizationId === PLAYER);
+  const statusIndex = indexAssetStatus(economy);
   const sites = economy.constructionSites.filter((site) => site.ownerOrganizationId === PLAYER);
   const ownedParcels = economy.parcels.filter((parcel) => parcel.ownerOrganizationId === PLAYER);
   return (
@@ -683,6 +708,7 @@ function PortfolioHub({ economy, calendar, actions }: HubProps) {
           <ul className="asset-list" role="list">
             {owned.map((building) => {
               const occupied = building.tenantIds.length;
+              const status = buildingStatusFor(statusIndex, building.id);
               return (
                 <li key={building.id}>
                   <BuildingThumbnail size={40} type={building.type} />
@@ -692,6 +718,29 @@ function PortfolioHub({ economy, calendar, actions }: HubProps) {
                       {buildingStateLabel(building.state)} · ocupación {occupied}/
                       {building.capacity} · condición {building.condition} %
                     </span>
+                    {status ? (
+                      <span className="chip-row">
+                        {status.upgraded ? (
+                          <StatusChip icon="upgrade" tone="upgrade" label="Mejorado" />
+                        ) : null}
+                        {status.occupancy === "empty" ? (
+                          <StatusChip icon="vacancy" tone="vacancy" label="Sin inquilinos" />
+                        ) : null}
+                        {status.insurance === "lapsed" ? (
+                          <StatusChip icon="insurance" tone="arrears" label="Póliza vencida" />
+                        ) : null}
+                        {status.insurance === "none" ? (
+                          <StatusChip icon="insurance" tone="uninsured" label="Sin seguro" />
+                        ) : null}
+                        {status.backlog > 0 ? (
+                          <StatusChip
+                            icon="expense"
+                            tone="arrears"
+                            label={`Atraso ${status.backlog} u.`}
+                          />
+                        ) : null}
+                      </span>
+                    ) : null}
                   </span>
                   <span className="asset-numbers">
                     <span>{building.effectiveRent} u./plaza</span>

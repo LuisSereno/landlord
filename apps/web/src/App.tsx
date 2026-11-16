@@ -33,6 +33,7 @@ import { VisualSlice } from "./VisualSlice";
 import { VisualCatalog } from "./VisualCatalog";
 import { useGameSession } from "./session/use-game-session";
 import { ContextPanel } from "./ui/panels";
+import type { PanelSection, PanelSectionRequest } from "./ui/world-indicators";
 import { HubPanel } from "./ui/hubs";
 import {
   DebugPanel,
@@ -84,6 +85,9 @@ export function App() {
   const session = useGameSession();
   const { economy, projection, client } = session;
   const [selectionTarget, setSelectionTarget] = useState<SpatialSelection | null>(null);
+  /** V.d-UX.S · sección pedida por un badge del mapa, con token monotónico por click. */
+  const [sectionRequest, setSectionRequest] = useState<PanelSectionRequest | undefined>(undefined);
+  const sectionToken = useRef(0);
   const [pendingSite, setPendingSite] = useState<PendingDevelopmentSite | null>(null);
   // La vista normal es el punto de partida: las capas semánticas son una decisión explícita
   // del jugador y no deben convertir el mapa base en un plano catastral.
@@ -904,6 +908,15 @@ export function App() {
                 ? { kind: "building", buildingId: target.buildingId }
                 : { kind: "parcel", parcelId: target.parcelId },
             );
+            /**
+             * V.d-UX.S · el badge pide la sección pertinente del panel. El token monotónico hace
+             * que un segundo click sobre el mismo edificio vuelva a aplicarse aunque la sección
+             * no cambie: sin él el efecto del panel no se re-dispararía.
+             */
+            if (target.section) {
+              sectionToken.current += 1;
+              setSectionRequest({ section: target.section, token: sectionToken.current });
+            }
           }}
           onPlacementPick={(candidateId) =>
             setPendingPlacement((current) =>
@@ -956,10 +969,14 @@ export function App() {
               projectionDistrictName: districtName,
               calendar: hubProps.calendar,
               actions,
-              onClose: () => setSelectionTarget(null),
+              onClose: () => {
+                setSelectionTarget(null);
+                setSectionRequest(undefined);
+              },
               onOpenHub: openHub,
               onSelectBuilding: (buildingId) =>
                 setSelectionTarget({ kind: "building", buildingId }),
+              sectionRequest,
               pendingSite,
               pendingPlacement,
               placementHandlers,
@@ -1055,7 +1072,11 @@ const MapViewport = forwardRef<
     overlay: MapOverlay;
     onCellPicked: (cell: GridCell) => void;
     onEntityPicked: (target: { kind: "building" | "construction"; id: string }) => void;
-    onIndicator: (target: { parcelId: string; buildingId?: string }) => void;
+    onIndicator: (target: {
+      parcelId: string;
+      buildingId?: string;
+      section?: PanelSection;
+    }) => void;
     onPlacementPick: (candidateId: string) => void;
     visualMood: VisualMood;
   }

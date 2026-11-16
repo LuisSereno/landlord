@@ -759,6 +759,12 @@ export type ViewProjectionV2 = {
       reason: AlertReason;
       message: string;
       targetId: string | null;
+      /**
+       * V.d-UX.S · edificio causante cuando la alerta es de edificio. `targetId` es la parcela y
+       * una parcela puede sostener varios edificios (H2-01): sin este campo la presentación no
+       * puede saber cuál de ellos está deteriorado o desprotegido.
+       */
+      buildingId: BuildingId | null;
     }>;
     illegalRoute: {
       detectionChancePercent: number;
@@ -1521,6 +1527,7 @@ export const viewProjectionV2Schema = z.object({
           ]),
           message: z.string(),
           targetId: z.string().nullable(),
+          buildingId: buildingIdSchema.nullable(),
         }),
       ),
       illegalRoute: z.object({

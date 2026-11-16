@@ -1780,6 +1780,7 @@ describe("WP3.12 portfolio automation and exception UX", () => {
       reason: "permit_denied",
       message: `El permiso de ${parcelId} está denied; revisa el uso antes de construir.`,
       targetId: parcelId,
+      buildingId: null,
     });
     expect(viewProjectionV2Schema.parse(projection).economy?.alerts).toEqual(
       projection.economy?.alerts,

@@ -1,0 +1,78 @@
+{
+  "phase": "V.d-UX.S",
+  "wp": "S0.5",
+  "date": "2026-11-16",
+  "scope": "Audit limitado de referencias VIVAS indexadas por buildingId al desaparecer el edificio. Autorizado por el responsable tras reportar el hallazgo antes de modificar.",
+  "findings": [
+    {
+      "reference": "maintenance.backlogByBuildingId",
+      "classification": "estado vivo huérfano",
+      "detail": "clear_ruin borraba el edificio pero no su backlog. Benigno para la deuda visible: el agregado proyectado filtra por existencia y propietario (projection.ts:1071-1078). Era estado muerto en el save y en las métricas de coste.",
+      "action": "delete en el mismo bloque de clear_ruin",
+      "test": "el backlog huérfano no infla la deuda agregada, pero se elimina del estado"
+    },
+    {
+      "reference": "agents.task { kind: 'maintenance', buildingId }",
+      "classification": "BUG REAL · fuga de recurso operativo",
+      "detail": "El bucle de trabajo técnico (systems.ts:818-830) nunca cierra la tarea. Sólo se limpia al herir/matar al agente, tras un sabotaje o en un traslado. AssignMaintenance exige idle y sin tarea, así que un técnico cuyo edificio colapsa o se desescombra queda permanentemente indisponible.",
+      "action": "releaseStaleMaintenanceTasks(state): libera la tarea y devuelve a idle cuando el objetivo no existe o es ruina. Se invoca en el barrido horario (cubre colapsos y saves heredados) y en el propio clear_ruin (efecto inmediato).",
+      "tests": [
+        "libera al técnico cuando su edificio pasa a ruina y vuelve a ser asignable",
+        "tras un colapso real ningún técnico conserva una tarea sobre la ruina",
+        "libera al técnico y borra el backlog en el mismo tick del desescombro",
+        "sana una tarea colgada heredada de una partida guardada",
+        "no libera al técnico de otro edificio ni toca tareas que no son de mantenimiento"
+      ]
+    },
+    {
+      "reference": "insurance.claimsByIncidentId · phase2.incidents · phase2.transactions",
+      "classification": "referencia histórica deliberada",
+      "action": "CONSERVAR. Indexadas por incidente o transacción, no por edificio vivo.",
+      "test": "conserva las referencias históricas deliberadas al desescombrar (igualdad profunda antes/después y tras save/load)"
+    },
+    {
+      "reference": "tenants.activeContractBuildingId",
+      "classification": "ya correcto",
+      "detail": "El colapso pone al hogar en displaced y la referencia a null (systems.ts:908-914).",
+      "action": "sin cambio"
+    },
+    {
+      "reference": "facilities.buildingId",
+      "classification": "ya correcto",
+      "detail": "clear_ruin ya borraba la facility.",
+      "action": "sin cambio"
+    },
+    {
+      "reference": "constructionSites.targetBuildingId / upgradeBuildingId / repairBuildingId",
+      "classification": "autocurado",
+      "detail": "El site se borra al completar (systems.ts:419). Si el objetivo desapareció, la rama de finalización es un no-op inocuo.",
+      "action": "sin cambio"
+    }
+  ],
+  "digestNeutrality": {
+    "method": "Comparación de los 10 digestos producidos tras S0.4 (commit ed9addc) y tras S0.5, misma build y equipo.",
+    "result": "IDÉNTICOS los 10. S0.5 no añade deriva canónica en los escenarios dorados.",
+    "values": {
+      "scenario:seed-1:1200": "ef96c6a514fffd84",
+      "scenario:seed-7:1200": "5f72eef3ba38f893",
+      "scenario:seed-42:1200": "741c3a547d7c274f",
+      "scenario:seed-1:36000": "2e2894b67145c357",
+      "city:50-parcels:1300-ticks": "b2d86b0eb8c8063f",
+      "city:50-parcels:month-boundary": "3e7eab4fdfba3dfc",
+      "city:200-parcels:month-boundary": "d8ef8bba0b7dd078",
+      "city:50-parcels:fire-cascade": "aed0d8cbb1d9e83d",
+      "city:200-parcels:fire-cascade": "4c578210fadfb7b0",
+      "city:800-parcels:fire-cascade": "0ca63299836e1e63"
+    },
+    "interpretation": "Ningún escenario dorado tiene un técnico de mantenimiento asignado a un edificio que colapse, así que la liberación no se ejercita ahí. La corrección queda cubierta por sus propios tests deterministas."
+  },
+  "gateResult": {
+    "typecheck": "pass (3 paquetes)",
+    "lint": "pass (eslint + check-architecture)",
+    "shared": "14 archivos, 80 tests, 0 fallos",
+    "web": "312 passed, 4 skipped, 0 fallos",
+    "simulation": "8 fallos = exactamente el conjunto preexistente de la foto de baseline; 0 regresiones",
+    "newTests": "building-reference-lifecycle.test.ts · 7 tests"
+  },
+  "notIncluded": "No se amplió el audit a otras entidades ni se refactorizó el ciclo de vida de agentes. Lo reportado fuera de alcance queda como está."
+}

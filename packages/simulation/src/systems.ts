@@ -126,6 +126,25 @@ function collectWorkingMaintenance(agents: readonly Agent[]): Set<BuildingId> {
   return buildingIds;
 }
 
+/**
+ * V.d-UX.S · S0.5: un técnico cuya tarea apunta a un edificio que ya no existe o que pasó a ruina
+ * queda liberado. El bucle de trabajo nunca cerraba esa tarea, así que el agente permanecía
+ * `working` con una referencia colgada y `AssignMaintenance` —que exige idle y sin tarea— dejaba
+ * de poder asignarlo: el recurso operativo se perdía para siempre. Cubre también las partidas
+ * cargadas con la referencia ya colgada. Determinista: orden canónico por id de agente.
+ */
+function releaseStaleMaintenanceTasks(state: GameState): void {
+  for (const agent of [...state.agents.values()].sort((a, b) => a.id.localeCompare(b.id))) {
+    if (agent.task?.kind !== "maintenance") continue;
+    const building = state.phase2.buildings.get(agent.task.buildingId);
+    if (building && building.state !== "ruin") continue;
+    agent.task = null;
+    agent.path = [];
+    agent.target = { ...agent.cell };
+    if (agent.state === "working" || agent.state === "moving") agent.state = "idle";
+  }
+}
+
 function hurtAgent(
   state: GameState,
   agent: import("@landlord/shared").Agent,
@@ -349,7 +368,14 @@ function progressConstruction(state: GameState): void {
          * él; los claims históricos viven indexados por incidente y se conservan.
          */
         delete state.phase2.insurance.contractsByBuildingId[ruin.id];
+        /**
+         * V.d-UX.S · S0.5: el backlog de mantenimiento es estado vivo indexado por edificio, no
+         * historia: sin el inmueble no hay nada que mantener ni deuda que cobrar. Se libera también
+         * al técnico asignado, sin esperar al siguiente barrido horario.
+         */
+        delete state.phase2.maintenance.backlogByBuildingId[ruin.id];
         state.phase2.buildings.delete(ruin.id);
+        releaseStaleMaintenanceTasks(state);
         for (const parcelId of ruin.parcelIds) reconcileParcelUses(state, parcelId);
       }
     } else if (site.repairBuildingId) {
@@ -999,6 +1025,7 @@ function tacticalTick(state: GameState): void {
     contract.status = "cancelled";
     contract.nextPremiumTick = null;
   }
+  releaseStaleMaintenanceTasks(state);
   // 10. deterministic recovery.
   for (const agent of agents)
     if (agent.state === "injured" && (agent.injuredUntilTick ?? Infinity) <= state.clock.tick) {

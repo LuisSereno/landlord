@@ -373,6 +373,7 @@ export function createViewProjection(
       id: "liquidity-forecast",
       severity: "high",
       kind: "liquidity",
+      reason: "cash_shortfall",
       message: `La previsión mensual queda corta en ${financialSummary.forecast.shortfall} u.`,
       targetId: null,
     });
@@ -382,6 +383,7 @@ export function createViewProjection(
       id: "tax-arrears",
       severity: "high",
       kind: "debt",
+      reason: "tax_arrears",
       message: `Hay ${playerArrears} u. de atrasos fiscales pendientes.`,
       targetId: null,
     });
@@ -396,6 +398,7 @@ export function createViewProjection(
       id: `loan-${loan.id}`,
       severity: "high",
       kind: "debt",
+      reason: "loan_delinquent",
       message: `El préstamo ${loan.id} está ${loan.status}; quedan ${loan.outstandingPrincipal} u.`,
       targetId: loan.collateralParcelId,
     });
@@ -411,6 +414,7 @@ export function createViewProjection(
       id: `condition-${building.id}`,
       severity: "medium",
       kind: "maintenance",
+      reason: "building_condition",
       message: `${building.id} está al ${building.condition}% de condición; reparar evita más deterioro.`,
       targetId: building.parcelIds[0]!,
     });
@@ -428,6 +432,7 @@ export function createViewProjection(
       id: `insurance-${building.id}`,
       severity: "medium",
       kind: "maintenance",
+      reason: "uninsured_building",
       message: `${building.id} no tiene seguro y su riesgo de deterioro es ${deteriorationRiskPercent(building.condition)}%.`,
       targetId: building.parcelIds[0]!,
     });
@@ -450,6 +455,7 @@ export function createViewProjection(
         id: `permit-${parcel.id}`,
         severity: "medium",
         kind: "permit",
+        reason: denied.status === "denied" ? "permit_denied" : "permit_expired",
         message: `El permiso de ${parcel.id} está ${denied.status}; revisa el uso antes de construir.`,
         targetId: parcel.id,
       });
@@ -463,6 +469,7 @@ export function createViewProjection(
       id: `auction-${auction.loanId}`,
       severity: "high",
       kind: "auction",
+      reason: "auction_open",
       message: `La garantía ${auction.collateralParcelId} está en subasta; reserva ${auction.reservePrice} u.`,
       targetId: auction.collateralParcelId,
     });
@@ -478,6 +485,7 @@ export function createViewProjection(
       id: `occupancy-${building.id}`,
       severity: "low",
       kind: "occupancy",
+      reason: "vacant_unit",
       message: `${building.id} tiene ${BUILDING_DEFINITIONS[building.type].capacity - building.tenantIds.length} plaza(s) vacante(s).`,
       targetId: building.parcelIds[0]!,
     });

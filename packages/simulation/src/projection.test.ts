@@ -319,4 +319,36 @@ describe("V.k.1 · contrato de agentes de la proyección", () => {
       keyPaths(produced).sort(),
     );
   });
+
+  it("distingue las causas de alerta con un discriminador tipado, no con el id", () => {
+    const state = createInitialState(2);
+    /** El jugador arranca sin edificios: se autoriza uno existente como fixture del contrato. */
+    const building = [...state.phase2.buildings.values()].sort((a, b) =>
+      a.id.localeCompare(b.id),
+    )[0];
+    expect(building).toBeDefined();
+    building!.ownerOrganizationId = PLAYER_ORGANIZATION_ID;
+    building!.state = "operational";
+    building!.condition = 40;
+    delete state.phase2.insurance.contractsByBuildingId[building!.id];
+    const alerts = createViewProjection(state, true).economy?.alerts ?? [];
+    /**
+     * Condición 40 dispara las DOS causas de mantenimiento a la vez (≤55 y riesgo de deterioro
+     * ≥35 sin seguro). Comparten `kind` y `targetId`: lo único que las separa es `reason`.
+     */
+    const reasons = alerts
+      .filter((entry) => entry.kind === "maintenance" && entry.targetId === building!.parcelIds[0])
+      .map((entry) => entry.reason);
+    expect(reasons).toContain("building_condition");
+    expect(reasons).toContain("uninsured_building");
+    const allowed: Record<string, readonly string[]> = {
+      liquidity: ["cash_shortfall"],
+      debt: ["tax_arrears", "loan_delinquent"],
+      maintenance: ["building_condition", "uninsured_building"],
+      permit: ["permit_denied", "permit_expired"],
+      auction: ["auction_open"],
+      occupancy: ["vacant_unit"],
+    };
+    for (const alert of alerts) expect(allowed[alert.kind]).toContain(alert.reason);
+  });
 });

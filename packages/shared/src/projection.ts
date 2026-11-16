@@ -188,6 +188,23 @@ export function roadCellsDigest(cells: readonly string[]): string {
   return digest.toString(16).padStart(8, "0");
 }
 
+/**
+ * V.d-UX.S · causa raíz de una alerta, separada de su categoría. Dos alertas de mantenimiento
+ * (condición baja y riesgo sin seguro) comparten `kind`, y la presentación necesita distinguirlas
+ * sin parsear el `id`: el identificador es opaco y NO es un contrato. El vocabulario coincide con
+ * `AutomationExceptionKind` donde las causas se solapan, para que motor y UI nombren lo mismo.
+ */
+export type AlertReason =
+  | "cash_shortfall"
+  | "tax_arrears"
+  | "loan_delinquent"
+  | "building_condition"
+  | "uninsured_building"
+  | "permit_denied"
+  | "permit_expired"
+  | "auction_open"
+  | "vacant_unit";
+
 export type ViewProjectionV2 = {
   projectionVersion: 2;
   /** Distrito que el renderer dibuja; cambiarlo no toca `GameState` (D-089). */
@@ -739,6 +756,7 @@ export type ViewProjectionV2 = {
       id: string;
       severity: "high" | "medium" | "low";
       kind: "liquidity" | "debt" | "maintenance" | "permit" | "auction" | "occupancy";
+      reason: AlertReason;
       message: string;
       targetId: string | null;
     }>;
@@ -1490,6 +1508,17 @@ export const viewProjectionV2Schema = z.object({
           id: z.string().min(1),
           severity: z.enum(["high", "medium", "low"]),
           kind: z.enum(["liquidity", "debt", "maintenance", "permit", "auction", "occupancy"]),
+          reason: z.enum([
+            "cash_shortfall",
+            "tax_arrears",
+            "loan_delinquent",
+            "building_condition",
+            "uninsured_building",
+            "permit_denied",
+            "permit_expired",
+            "auction_open",
+            "vacant_unit",
+          ]),
           message: z.string(),
           targetId: z.string().nullable(),
         }),

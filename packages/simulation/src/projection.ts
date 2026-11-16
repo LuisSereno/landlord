@@ -927,6 +927,7 @@ export function createViewProjection(
                 searchMonths: tenant.searchMonths,
                 incomeFactorPercent: tenant.incomeFactorPercent,
                 origin: tenant.origin,
+                marketDistrictId: tenant.marketDistrictId,
               })),
             municipal: describeMunicipalBudget(state),
             politics: describeMunicipalPolitics(state),

@@ -523,6 +523,7 @@ export type ViewProjectionV2 = {
       searchMonths: number;
       incomeFactorPercent: number;
       origin: "authored" | "market";
+      marketDistrictId: DistrictId | null;
     }>;
     urbanServices: Array<{
       id: "transport" | "security" | "cleaning";
@@ -1242,6 +1243,7 @@ export const viewProjectionV2Schema = z.object({
           searchMonths: z.number().int().nonnegative(),
           incomeFactorPercent: z.number().int().positive(),
           origin: z.enum(["authored", "market"]),
+          marketDistrictId: districtIdSchema.nullable(),
         }),
       ),
       urbanServices: z.array(

@@ -1,8 +1,9 @@
 # V.d-UX.S — Lenguaje visual de los estados invisibles del activo (acta, 2026-11-16)
 
 Rama: `develop`. HEAD de los gates de código: `0d97d3a` (`feat: surface asset status in panels and
-hubs with reactive section routing`). **13 commits locales sin push** (`59ae6b4..0d97d3a` más los de
-S6). Decisión registrada: **D-107** (`docs/engineering/adr/D-107-estados-de-activo-como-presentacion.md`).
+hubs with reactive section routing`). Los 16 commits de la fase (`59ae6b4..92b3562`) quedaron
+**empujados a `origin/develop`** en fast-forward el 2026-11-16 por autorización del responsable.
+Decisión registrada: **D-107** (`docs/engineering/adr/D-107-estados-de-activo-como-presentacion.md`).
 
 Estado de la fase: **PASS WITH HUMAN VISUAL GATE**. Todo lo medible está medido y verde; la revisión
 visual de las capturas y el presupuesto de FPS en máquina con GPU corresponden al responsable. V.d
@@ -312,5 +313,6 @@ de decisión del responsable:
    día, anclaje del badge de parcela vacía).
 2. Playtest humano de V.d (30–60 min), que arrastra la certificación de FPS y el P1-1 de V.d-7C.
 3. Decisión sobre la casilla de §3.2 que no se cerró (§9: estados con cadena web hasta el indicador).
-4. Decisión de push: los commits locales de la fase esperan cierre de fase.
+4. Push: **hecho** el 2026-11-16 (`586bfbd..92b3562`) por orden del responsable; la fase queda
+   publicada sin cerrar V.d, que sigue pendiente de playtest humano.
 

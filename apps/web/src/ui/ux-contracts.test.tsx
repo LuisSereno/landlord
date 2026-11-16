@@ -185,7 +185,7 @@ describe("V.d-UX · contratos de la interfaz", () => {
   });
 
   it("las notificaciones se categorizan, se sanean y resuelven su destino", () => {
-    const alerts: Economy["alerts"] = [
+    const alerts = [
       {
         id: "liquidity-forecast",
         severity: "high",
@@ -193,6 +193,7 @@ describe("V.d-UX · contratos de la interfaz", () => {
         reason: "cash_shortfall",
         message: "La previsión mensual queda corta en 120 u.",
         targetId: null,
+        buildingId: null,
       },
       {
         id: "occupancy-building_00000001",
@@ -201,8 +202,9 @@ describe("V.d-UX · contratos de la interfaz", () => {
         reason: "vacant_unit",
         message: "building_00000001 tiene 2 plaza(s) vacante(s).",
         targetId: "parcel_00000001",
+        buildingId: "building_00000001",
       },
-    ];
+    ] as Economy["alerts"];
     const economyWithAlerts = economy({
       alerts,
       buildings: [building({ type: "courtyard_home" })],

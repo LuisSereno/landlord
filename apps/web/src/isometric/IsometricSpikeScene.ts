@@ -25,12 +25,10 @@ import {
   type DistrictAssetMetrics,
 } from "../assets/district-texture-cache";
 import { deriveWorldIndicators } from "../ui/world-indicators";
+import { indexAssetStatus, type AssetStatusIndex } from "../ui/asset-status";
+import { parcelOverlayColor as resolveOverlayColor } from "../ui/overlay-color";
 import {
-  CODE_PALETTE,
   MAP_COLORS,
-  ROLE_COLORS,
-  USE_COLORS,
-  ZONING_COLORS,
   type MapOverlay,
 } from "../ui/overlay-catalog";
 import {
@@ -453,6 +451,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
   }> = [];
   private indicatorTooltip?: Phaser.GameObjects.Text;
   private indicatorSignature = "";
+  private statusIndex: AssetStatusIndex = indexAssetStatus(undefined);
+  private statusIndexSource: NonNullable<ViewProjectionV2["economy"]> | undefined = undefined;
   private lastIndicatorZoom = 1;
   private dragStart: { x: number; y: number; scrollX: number; scrollY: number } | null = null;
   private fpsAccumulator = 0;
@@ -1715,98 +1715,35 @@ export class IsometricSpikeScene extends Phaser.Scene {
     }
   }
 
+  /**
+   * V.d-UX.S · índice de estado del activo, reconstruido sólo cuando cambia la proyección. Lo
+   * comparten el color de las capas, los badges, las placas de parcela y las marcas de fachada:
+   * una sola puerta para que el mapa no pueda discrepar del panel (D-103).
+   */
+  private assetStatusIndex(): AssetStatusIndex {
+    const economy = this.projection?.economy;
+    if (economy !== this.statusIndexSource) {
+      this.statusIndexSource = economy;
+      this.statusIndex = indexAssetStatus(economy);
+    }
+    return this.statusIndex;
+  }
+
+  /**
+   * V.d-UX.S · la decisión de color vive en `ui/overlay-color.ts`, que es pura y tiene una rama
+   * obligatoria por capa. La escena sólo pinta el número: antes una capa sin rama caía en silencio
+   * al coloreado de propiedad.
+   */
   private parcelOverlayColor(
     parcel: NonNullable<ViewProjectionV2["economy"]>["parcels"][number],
   ): number {
-    /**
-     * H2-01: en una parcela multi-edificio el overlay debe enseñar el peor caso, no el primero.
-     * `parcel.buildingId` sólo publica el primer edificio derivado; usarlo para colorear hacía que
-     * un edificio en ruinas pasara desapercibido si otro edificio de la parcela estaba intacto.
-     */
-    const buildingsOfParcel = (this.projection?.economy?.buildings ?? []).filter((entry) =>
-      entry.parcelIds.includes(parcel.id),
-    );
-    if (this.overlay === "condition") {
-      if (buildingsOfParcel.length === 0) return COLORS.parcelAvailable;
-      const worst = Math.min(...buildingsOfParcel.map((entry) => entry.condition));
-      if (worst <= 35) return COLORS.fire;
-      if (worst <= 70) return COLORS.construction;
-      return COLORS.parcelPlayer;
-    }
-    if (this.overlay === "profitability") {
-      if (buildingsOfParcel.length === 0) return COLORS.parcelAvailable;
-      /**
-       * Rentabilidad agregada: la suma de rentas menos la suma de deudas. Si la parcela en conjunto
-       * pierde, el rojo manda; si gana menos del doble, ámbar; si dobla la deuda, verde. Es la misma
-       * banda que antes aplicada al primer edificio, pero ahora es la de la parcela.
-       */
-      const rent = buildingsOfParcel.reduce((total, entry) => total + entry.effectiveRent, 0);
-      const due = buildingsOfParcel.reduce((total, entry) => total + entry.maintenanceDue, 0);
-      if (rent <= due) return COLORS.fire;
-      if (rent < due * 2) return COLORS.construction;
-      return COLORS.parcelPlayer;
-    }
-    if (this.overlay === "zoning") return ZONING_COLORS[parcel.zoning];
-    if (this.overlay === "risk") {
-      if (parcel.regulatoryRiskPercent >= 30) return COLORS.fire;
-      if (parcel.regulatoryRiskPercent >= 15) return COLORS.construction;
-      return COLORS.parcelPlayer;
-    }
-    if (this.overlay === "landValue") {
-      const score = parcel.landValueBreakdown.score;
-      if (score >= 25) return COLORS.parcelPlayer;
-      if (score >= 5) return COLORS.construction;
-      if (score >= -10) return COLORS.parcelAvailable;
-      return COLORS.fire;
-    }
-    if (this.overlay === "urbanRole") {
-      const colors: Record<string, number> = ROLE_COLORS;
-      return colors[parcel.urbanRole] ?? COLORS.parcelAvailable;
-    }
-    if (this.overlay === "developmentCode") {
-      let hash = 0;
-      for (let index = 0; index < parcel.developmentCodeId.length; index += 1) {
-        hash = (hash * 31 + parcel.developmentCodeId.charCodeAt(index)) >>> 0;
-      }
-      return CODE_PALETTE[hash % CODE_PALETTE.length]!;
-    }
-    if (this.overlay === "use") {
-      const use = parcel.currentUses[0] ?? parcel.allowedUses[0] ?? "residential";
-      const colors: Record<string, number> = USE_COLORS;
-      return colors[use] ?? COLORS.parcelAvailable;
-    }
-    if (
-      this.overlay === "security" ||
-      this.overlay === "fire" ||
-      this.overlay === "health" ||
-      this.overlay === "education" ||
-      this.overlay === "transport"
-    ) {
-      /**
-       * V.d-UX · un solar vacío no consume capacidad (H2-05), así que su cobertura activa es 0 y
-       * pintarlo «sin cobertura» era alarmante y falso para el jugador: lo que necesita saber es
-       * si el servicio LLEGARÍA al construir. Se usa la cobertura potencial de H2-10 cuando
-       * existe; `transport` no tiene potencial porque es accesibilidad, no capacidad.
-       */
-      const vacant = buildingsOfParcel.length === 0;
-      const potential =
-        this.overlay === "transport" ? undefined : parcel.potentialService?.[this.overlay];
-      const coverage =
-        vacant && potential !== undefined
-          ? potential
-          : (parcel.serviceCoverage?.[this.overlay] ?? 0);
-      if (coverage >= 75) return COLORS.parcelPlayer;
-      if (coverage >= 40) return COLORS.construction;
-      if (coverage > 0) return COLORS.parcelAvailable;
-      return COLORS.fire;
-    }
-    return parcel.ownerOrganizationId === "org_00000001"
-      ? COLORS.parcelPlayer
-      : parcel.ownerOrganizationId === "org_00000002"
-        ? COLORS.parcelRival
-        : parcel.ownerOrganizationId === "org_00000004"
-          ? COLORS.parcelCivic
-          : COLORS.parcelAvailable;
+    const economy = this.projection?.economy;
+    if (!economy || this.overlay === "none") return COLORS.parcelAvailable;
+    return resolveOverlayColor(this.overlay, {
+      parcel,
+      economy,
+      index: this.assetStatusIndex(),
+    });
   }
 
   private createMarkerTexture(key: string, width: number, height: number, color: string): void {

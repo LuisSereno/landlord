@@ -1,10 +1,6 @@
 import type { AssetStatusIndex } from "../ui/asset-status";
 import type { Economy } from "../ui/types";
-import {
-  signageAnchorFor,
-  type SignageAnchor,
-  type SignagePlanInput,
-} from "./building-signage";
+import { signageAnchorFor, type SignageAnchor, type SignagePlanInput } from "./building-signage";
 
 /**
  * V.d-UX.S · marca de mejora integrada en la fachada.

@@ -301,11 +301,13 @@ function BuildDetail({
         }
         type="button"
       >
-        <UiIcon name="construction" /> {constructionActionLabel(option.siteRequirements.requiredParcels)}
+        <UiIcon name="construction" />{" "}
+        {constructionActionLabel(option.siteRequirements.requiredParcels)}
       </button>
       {isPlanningMultiParcel ? (
         <p aria-live="polite" className="multi-parcel-notice" role="status">
-          <UiIcon name="success" size={14} /> {multiParcelSelectionNotice(option.siteRequirements.requiredParcels)}
+          <UiIcon name="success" size={14} />{" "}
+          {multiParcelSelectionNotice(option.siteRequirements.requiredParcels)}
         </p>
       ) : null}
       <p className="muted">

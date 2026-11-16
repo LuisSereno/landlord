@@ -26,7 +26,8 @@ describe("V.d-UX.S · paridad del registro de iconos", () => {
 
   it("el catálogo cubre el fixture más los glifos nuevos de estado", () => {
     const catalog = new Set(iconCatalog.map((entry) => entry.name));
-    for (const name of Object.keys(fixture)) expect(catalog.has(name as UiIconName), name).toBe(true);
+    for (const name of Object.keys(fixture))
+      expect(catalog.has(name as UiIconName), name).toBe(true);
     for (const name of NEW_GLYPHS) expect(catalog.has(name), name).toBe(true);
     expect(catalog.size).toBe(Object.keys(fixture).length + NEW_GLYPHS.length);
   });

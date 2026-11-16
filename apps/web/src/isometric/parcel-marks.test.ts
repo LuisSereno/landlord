@@ -25,7 +25,11 @@ describe("V.d-UX.S · placas de carga por parcela", () => {
         auctions: [],
         loans: [
           loan({ id: "loan_00000001", collateralParcelId: "parcel_00000001" }),
-          loan({ id: "loan_00000002", collateralParcelId: "parcel_00000003", status: "delinquent" }),
+          loan({
+            id: "loan_00000002",
+            collateralParcelId: "parcel_00000003",
+            status: "delinquent",
+          }),
         ],
       },
     });
@@ -65,11 +69,24 @@ describe("V.d-UX.S · placas de carga por parcela", () => {
         { x: 10, y: 10 },
         { x: 11, y: 10 },
       ],
-      roadFrontages: [{ roadSegmentId: "road_1", cells: [{ x: 11, y: 10 }, { x: 12, y: 12 }] }],
+      roadFrontages: [
+        {
+          roadSegmentId: "road_1",
+          cells: [
+            { x: 11, y: 10 },
+            { x: 12, y: 12 },
+          ],
+        },
+      ],
     });
     expect(parcelMarkCell(withFrontage)).toEqual({ x: 11, y: 10 });
     expect(parcelMarkCell(withFrontage)).toEqual(parcelMarkCell(withFrontage));
-    const without = parcel({ cells: [{ x: 12, y: 12 }, { x: 10, y: 10 }] });
+    const without = parcel({
+      cells: [
+        { x: 12, y: 12 },
+        { x: 10, y: 10 },
+      ],
+    });
     expect(parcelMarkCell(without)).toEqual({ x: 10, y: 10 });
   });
 

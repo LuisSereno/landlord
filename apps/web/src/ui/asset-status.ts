@@ -26,13 +26,7 @@ import type { Economy, ProjectedBuilding } from "./types";
 const PLAYER = "org_00000001";
 
 export type ParcelLoadKind =
-  | "unknown"
-  | "none"
-  | "loan"
-  | "delinquent"
-  | "defaulted"
-  | "auction"
-  | "auction_bid";
+  "unknown" | "none" | "loan" | "delinquent" | "defaulted" | "auction" | "auction_bid";
 
 /** `offered` todavía no grava nada y `paid_off` ya no grava: ninguno es carga viva. */
 export type LiveLoanStatus = "active" | "delinquent" | "defaulted";
@@ -185,7 +179,9 @@ export function indexAssetStatus(economy: Economy | undefined): AssetStatusIndex
   );
 
   for (const parcelId of [...parcelIds].sort((a, b) => a.localeCompare(b))) {
-    const loans = (loansByParcel.get(parcelId) ?? []).sort((a, b) => a.loanId.localeCompare(b.loanId));
+    const loans = (loansByParcel.get(parcelId) ?? []).sort((a, b) =>
+      a.loanId.localeCompare(b.loanId),
+    );
     const auction = auctionByParcel.get(parcelId) ?? null;
     const owner = ownerByParcel.get(parcelId);
     const disposition = dispositionByParcel.get(parcelId);
@@ -202,9 +198,7 @@ export function indexAssetStatus(economy: Economy | undefined): AssetStatusIndex
       /** Parcela ajena: no se publica su deuda. Si pujamos en su subasta, eso sí es nuestro. */
       kind = auction?.role === "bidder" ? "auction_bid" : "unknown";
       if (kind === "auction_bid" && auction) {
-        detail.push(
-          `Puja propia de ${auction.highestBid} u. · reserva ${auction.reservePrice} u.`,
-        );
+        detail.push(`Puja propia de ${auction.highestBid} u. · reserva ${auction.reservePrice} u.`);
         detail.push(`Cierra el ${formatGameDate(auction.closesAtTick, economy.gameTime)}`);
       }
     } else if (disposition === "public" || disposition === "infrastructure") {
@@ -214,7 +208,11 @@ export function indexAssetStatus(economy: Economy | undefined): AssetStatusIndex
       kind = "none";
       for (const loan of loans) {
         const rank: ParcelLoadKind =
-          loan.status === "defaulted" ? "defaulted" : loan.status === "delinquent" ? "delinquent" : "loan";
+          loan.status === "defaulted"
+            ? "defaulted"
+            : loan.status === "delinquent"
+              ? "delinquent"
+              : "loan";
         if (LOAD_RANK[rank] > LOAD_RANK[kind]) kind = rank;
       }
     }
@@ -326,15 +324,16 @@ export function assetCollateralParcels(
  * Filas de finanzas del activo. La misma puerta que alimenta los badges: el panel no puede decir
  * una cifra distinta de la que el mapa señala.
  */
-export function assetFinanceRows(
-  economy: Economy,
-  building: ProjectedBuilding,
-): AssetFinanceRow[] {
+export function assetFinanceRows(economy: Economy, building: ProjectedBuilding): AssetFinanceRow[] {
   const mortgage = assetMortgageTotal(economy, building);
   const collateral = assetCollateralParcels(economy, building);
   const rows: AssetFinanceRow[] = [
     { label: "Renta efectiva", value: `${building.effectiveRent} u./plaza` },
-    { label: "Mantenimiento", value: `${building.maintenanceDue} u. pendientes`, helpTopic: "maintenance" },
+    {
+      label: "Mantenimiento",
+      value: `${building.maintenanceDue} u. pendientes`,
+      helpTopic: "maintenance",
+    },
     {
       label: "Hipoteca del activo",
       value: mortgage > 0 ? `${mortgage} u.` : "sin carga viva",

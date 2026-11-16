@@ -27,11 +27,7 @@ import {
   crewStateLabel,
 } from "../isometric/construction-stages";
 import { crewRosterCounts } from "../isometric/crew-presence";
-import {
-  resolvePanelTab,
-  type PanelSection,
-  type PanelSectionRequest,
-} from "./world-indicators";
+import { resolvePanelTab, type PanelSection, type PanelSectionRequest } from "./world-indicators";
 import type { PendingPlacement, PlacementHandlers } from "./placement";
 import {
   buildingDisplayName,
@@ -614,11 +610,7 @@ function BuildingPanel({
                 />
               ) : null}
               {status.backlog > 0 ? (
-                <StatusChip
-                  icon="expense"
-                  tone="arrears"
-                  label={`Atraso ${status.backlog} u.`}
-                />
+                <StatusChip icon="expense" tone="arrears" label={`Atraso ${status.backlog} u.`} />
               ) : null}
               {load.kind !== "none" && load.kind !== "unknown" ? (
                 <StatusChip

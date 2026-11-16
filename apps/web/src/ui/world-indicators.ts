@@ -16,14 +16,7 @@ import type { Economy } from "./types";
  */
 
 export type WorldIndicatorKind =
-  | "danger"
-  | "auction"
-  | "debt"
-  | "maintenance"
-  | "insurance"
-  | "blocked"
-  | "upkeep"
-  | "vacancy";
+  "danger" | "auction" | "debt" | "maintenance" | "insurance" | "blocked" | "upkeep" | "vacancy";
 
 export type PanelSection = "summary" | "tenants" | "maintenance" | "insurance" | "finance";
 
@@ -245,7 +238,9 @@ export function deriveWorldIndicators(
 
   candidates.sort(
     (left, right) =>
-      left.tier - right.tier || left.rank - right.rank || left.indicator.key.localeCompare(right.indicator.key),
+      left.tier - right.tier ||
+      left.rank - right.rank ||
+      left.indicator.key.localeCompare(right.indicator.key),
   );
   return candidates.slice(0, limit).map((entry) => entry.indicator);
 }

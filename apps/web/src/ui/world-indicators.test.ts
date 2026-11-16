@@ -7,7 +7,17 @@ import {
   worldIndicatorsSignature,
   type PanelSection,
 } from "./world-indicators";
-import { RIVAL, alert, auction, building, contract, economy, loan, parcel, site } from "./status-fixtures";
+import {
+  RIVAL,
+  alert,
+  auction,
+  building,
+  contract,
+  economy,
+  loan,
+  parcel,
+  site,
+} from "./status-fixtures";
 
 describe("V.d-UX.S · avisos del mundo", () => {
   it("sin proyección no hay avisos", () => {
@@ -139,7 +149,9 @@ describe("V.d-UX.S · avisos del mundo", () => {
     const indicators = deriveWorldIndicators(
       economy({
         parcels: [parcel()],
-        buildings: [building({ tenantIds: ["t1", "t2"], maintenanceCost: 40, maintenanceDue: 400 })],
+        buildings: [
+          building({ tenantIds: ["t1", "t2"], maintenanceCost: 40, maintenanceDue: 400 }),
+        ],
         constructionSites: [site({ kind: "clear_ruin" })],
       }),
     );
@@ -196,7 +208,9 @@ describe("V.d-UX.S · firma de reconciliación", () => {
     for (const variant of variants) {
       expect(worldIndicatorSignature(variant)).not.toBe(worldIndicatorSignature(indicator));
     }
-    expect(worldIndicatorsSignature([indicator])).toBe(worldIndicatorsSignature([{ ...indicator }]));
+    expect(worldIndicatorsSignature([indicator])).toBe(
+      worldIndicatorsSignature([{ ...indicator }]),
+    );
   });
 });
 

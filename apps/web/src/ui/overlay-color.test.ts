@@ -72,7 +72,10 @@ describe("V.d-UX.S · color de capas (helper puro extraído de la escena)", () =
   it("H2-01 · la capa de condición enseña el peor edificio de la parcela, no el primero", () => {
     const e = economy({
       parcels: [parcel()],
-      buildings: [building({ condition: 100 }), building({ id: "building_00000002", condition: 20 })],
+      buildings: [
+        building({ condition: 100 }),
+        building({ id: "building_00000002", condition: 20 }),
+      ],
     });
     expect(color("condition", e)).toBe(MAP_COLORS.fire);
   });
@@ -81,15 +84,18 @@ describe("V.d-UX.S · color de capas (helper puro extraído de la escena)", () =
     const withLoan = (status: string) =>
       color(
         "encumbrances",
-        economy({ parcels: [parcel()], banking: { offers: [], loans: [loan({ status })], auctions: [] } }),
+        economy({
+          parcels: [parcel()],
+          banking: { offers: [], loans: [loan({ status })], auctions: [] },
+        }),
       );
     expect(withLoan("active")).toBe(STATUS_COLORS.lien);
     expect(withLoan("delinquent")).toBe(STATUS_COLORS.arrears);
     expect(withLoan("defaulted")).toBe(STATUS_COLORS.loss);
     expect(withLoan("paid_off")).toBe(STATUS_COLORS.occupied);
-    expect(color("encumbrances", economy({ parcels: [parcel({ ownerOrganizationId: RIVAL })] }))).toBe(
-      STATUS_COLORS.unknown,
-    );
+    expect(
+      color("encumbrances", economy({ parcels: [parcel({ ownerOrganizationId: RIVAL })] })),
+    ).toBe(STATUS_COLORS.unknown);
   });
 
   it("ocupación: peor caso conocido, producción aparte y rival nunca «vacío»", () => {

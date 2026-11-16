@@ -52,11 +52,7 @@ function command<T extends ProductCommand["type"]>(
  * fuera del rango del contador del motor y el contador se eleva por encima: si no, una obra nueva
  * construida durante la carrera reutilizaría el mismo id y sobrescribiría la ruina del fixture.
  */
-function authorBuilding(
-  state: GameState,
-  ordinal: number,
-  condition = 100,
-): BuildingId {
+function authorBuilding(state: GameState, ordinal: number, condition = 100): BuildingId {
   const serial = 9000 + ordinal;
   const id = parseBuildingId(`building_${String(serial).padStart(8, "0")}`);
   state.phase2.idCounters.building = Math.max(state.phase2.idCounters.building, serial);
@@ -113,8 +109,10 @@ function expectNoOrphanContracts(state: GameState): void {
 
 function buy(state: GameState, id: BuildingId, label: string): void {
   expect(
-    dispatchProductCommand(state, command(label, "BuyInsurance", { buildingId: id, coverage: "fire_plus" }))
-      .accepted,
+    dispatchProductCommand(
+      state,
+      command(label, "BuyInsurance", { buildingId: id, coverage: "fire_plus" }),
+    ).accepted,
   ).toBe(true);
 }
 
@@ -267,8 +265,10 @@ describe("V.d-UX.S · ciclo de vida del seguro frente a ruina y desescombro", ()
         expect(state.phase2.insurance.contractsByBuildingId[id]!.status).toBe("lapsed");
       } else {
         expect(
-          dispatchProductCommand(state, command(`${path}-cancel`, "CancelInsurance", { buildingId: id }))
-            .accepted,
+          dispatchProductCommand(
+            state,
+            command(`${path}-cancel`, "CancelInsurance", { buildingId: id }),
+          ).accepted,
         ).toBe(true);
       }
       state.phase2.buildings.get(id)!.state = "ruin";
@@ -329,9 +329,7 @@ describe("V.d-UX.S · ciclo de vida del seguro frente a ruina y desescombro", ()
     expect(
       state.phase2.transactions.filter(
         (entry) =>
-          entry.cause === "insurance_premium" &&
-          entry.referenceId === id &&
-          entry.tick >= ruinTick,
+          entry.cause === "insurance_premium" && entry.referenceId === id && entry.tick >= ruinTick,
       ),
     ).toEqual([]);
   });

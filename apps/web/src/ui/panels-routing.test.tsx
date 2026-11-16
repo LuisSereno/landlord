@@ -18,7 +18,6 @@ import type { PanelSectionRequest } from "./world-indicators";
  */
 
 declare global {
-  // eslint-disable-next-line no-var
   var IS_REACT_ACT_ENVIRONMENT: boolean;
 }
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
@@ -84,8 +83,7 @@ describe("V.d-UX.S · routing reactivo de la pestaña del edificio", () => {
     });
   };
 
-  const activeTab = () =>
-    container.querySelector('.tab[aria-pressed="true"]')?.textContent ?? "";
+  const activeTab = () => container.querySelector('.tab[aria-pressed="true"]')?.textContent ?? "";
 
   it("tres peticiones sucesivas sobre el mismo edificio cambian la pestaña", () => {
     const e = economy({ parcels: [parcel()], buildings: [building()] });
@@ -164,7 +162,9 @@ describe("V.d-UX.S · routing reactivo de la pestaña del edificio", () => {
       },
     });
     render(e);
-    const chips = [...container.querySelectorAll(".chip-row .chip")].map((node) => node.textContent);
+    const chips = [...container.querySelectorAll(".chip-row .chip")].map(
+      (node) => node.textContent,
+    );
     expect(chips.join(" | ")).toContain("Mejorado");
     expect(chips.join(" | ")).toContain("sin inquilinos");
     expect(chips.join(" | ")).toContain("póliza vencida");

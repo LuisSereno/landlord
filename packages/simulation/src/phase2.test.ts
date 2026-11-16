@@ -477,7 +477,10 @@ describe("Gate 2 product loop", () => {
      */
     expect(state.phase2.buildings.get(buildingId)!.tenantIds.length).toBe(1);
     expect(
-      dispatchProductCommand(state, command("solo-again", "AssignTenant", { buildingId, tenantId })),
+      dispatchProductCommand(
+        state,
+        command("solo-again", "AssignTenant", { buildingId, tenantId }),
+      ),
     ).toEqual({ accepted: false, code: "TENANT_ALREADY_ASSIGNED" });
   });
 

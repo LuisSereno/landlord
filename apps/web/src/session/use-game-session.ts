@@ -22,7 +22,7 @@ export type GameSession = {
   diagnostics: DiagnosticEntry[];
   latestMetrics: SimulationMetrics | null;
   setMessage: (message: string) => void;
-  send: (action: () => Promise<WorkerResponse>, success: string) => Promise<void>;
+  send: (action: () => Promise<WorkerResponse>, success: string) => Promise<WorkerResponse | null>;
   toggleRunState: () => Promise<void>;
   changeSpeed: (speed: 1 | 2 | 4) => Promise<void>;
   saveSnapshot: () => Promise<void>;
@@ -139,8 +139,10 @@ export function useGameSession(): GameSession {
     try {
       const response = await action();
       setMessage(responseMessage(response, success));
+      return response;
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "No se pudo enviar la acción");
+      return null;
     }
   }, []);
 

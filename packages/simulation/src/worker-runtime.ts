@@ -49,7 +49,9 @@ const errorMessages: Record<ErrorCode, string> = {
   CREW_UNAVAILABLE: "La crew está ocupada en otra obra.",
   TENANT_NOT_FOUND: "El tenant no está disponible.",
   TENANT_INCOMPATIBLE: "El tenant no es compatible con este edificio.",
-  TENANT_ALREADY_ASSIGNED: "El tenant o edificio ya tiene contrato.",
+  TENANT_ALREADY_ASSIGNED:
+    "Este inquilino ya no está disponible: otro propietario se ha adelantado y ya lo ha contratado.",
+  BUILDING_CAPACITY_FULL: "El edificio ya no tiene plazas libres.",
   POLICY_NOT_AVAILABLE: "La ordenanza no está disponible para promoverla.",
   INFLUENCE_TOO_LOW: "La organización no tiene influencia suficiente.",
   CRIME_TARGET_INVALID: "El objetivo de la acción ilegal no es válido.",

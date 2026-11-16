@@ -878,10 +878,9 @@ export function dispatchProductCommand(
     if (!tenant) return { accepted: false, code: "TENANT_NOT_FOUND" };
     if (building.ownerOrganizationId !== command.actingAsOrganizationId)
       return { accepted: false, code: "ACTOR_NOT_AUTHORIZED" };
-    if (
-      building.tenantIds.length >= BUILDING_DEFINITIONS[building.type].capacity ||
-      tenant.activeContractBuildingId
-    )
+    if (building.tenantIds.length >= BUILDING_DEFINITIONS[building.type].capacity)
+      return { accepted: false, code: "BUILDING_CAPACITY_FULL" };
+    if (tenant.activeContractBuildingId)
       return { accepted: false, code: "TENANT_ALREADY_ASSIGNED" };
     if (tenant.preferredBuildingType !== building.type)
       return { accepted: false, code: "TENANT_INCOMPATIBLE" };

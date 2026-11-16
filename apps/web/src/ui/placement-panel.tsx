@@ -23,14 +23,17 @@ export function PlacementPanel({
   pending,
   handlers,
   blockers = [],
+  submitting = false,
 }: {
   pending: PendingPlacement;
   handlers: PlacementHandlers;
   /** Razones económicas de la proyección: se explican, pero no impiden ver el mapa. */
   blockers?: readonly string[];
+  /** La orden ya está en tránsito: no se reevalúa el inventario recién reservado. */
+  submitting?: boolean;
 }) {
   const placementId = confirmablePlacement(pending);
-  const issue = placementIssue(pending);
+  const issue = submitting ? "Iniciando la obra…" : placementIssue(pending);
   const candidates = pending.candidates;
   const canRotate = placementHasRotation(pending);
   const section = useRef<HTMLElement>(null);
@@ -75,7 +78,7 @@ export function PlacementPanel({
           <div className="placement-controls">
             <button
               aria-label="Colocación anterior"
-              disabled={candidates.length < 2}
+              disabled={submitting || candidates.length < 2}
               onClick={() => handlers.cycle(-1)}
               type="button"
             >
@@ -83,7 +86,7 @@ export function PlacementPanel({
             </button>
             <button
               aria-label="Colocación siguiente"
-              disabled={candidates.length < 2}
+              disabled={submitting || candidates.length < 2}
               onClick={() => handlers.cycle(1)}
               type="button"
             >
@@ -91,7 +94,7 @@ export function PlacementPanel({
             </button>
             <button
               aria-label="Rotar orientación"
-              disabled={!canRotate}
+              disabled={submitting || !canRotate}
               onClick={handlers.rotate}
               type="button"
             >
@@ -102,6 +105,7 @@ export function PlacementPanel({
             <button
               aria-expanded={alternativesOpen}
               className="placement-alternatives-toggle"
+              disabled={submitting}
               onClick={() => setAlternativesOpen((open) => !open)}
               type="button"
             >
@@ -119,6 +123,7 @@ export function PlacementPanel({
                     <button
                       aria-pressed={selected}
                       className={selected ? "placement-choice selected" : "placement-choice"}
+                      disabled={submitting}
                       onClick={() => handlers.select(candidate.id)}
                       type="button"
                     >
@@ -142,7 +147,7 @@ export function PlacementPanel({
           </p>
         </>
       ) : null}
-      {blockers.length > 0 && placementId !== null ? (
+      {!submitting && blockers.length > 0 && placementId !== null ? (
         <ul aria-label="Falta para poder confirmar" className="blocked-reasons" role="list">
           {blockers.map((message) => (
             <li key={message}>
@@ -154,13 +159,18 @@ export function PlacementPanel({
       <div className="placement-actions">
         <button
           className="primary-action"
-          disabled={placementId === null}
+          disabled={submitting || placementId === null}
           onClick={() => (placementId ? handlers.confirm(placementId) : undefined)}
           type="button"
         >
-          <UiIcon name="construction" /> Confirmar proyecto
+          <UiIcon name="construction" /> {submitting ? "Iniciando obra…" : "Confirmar proyecto"}
         </button>
-        <button className="text-action" onClick={handlers.cancel} type="button">
+        <button
+          className="text-action"
+          disabled={submitting}
+          onClick={handlers.cancel}
+          type="button"
+        >
           Cancelar
         </button>
       </div>

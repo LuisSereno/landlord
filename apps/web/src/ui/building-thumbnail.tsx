@@ -1,22 +1,35 @@
-import type { BuildingAssetState, RuntimeAssetManifestV2 } from "@landlord/shared";
+import type {
+  BuildingAssetState,
+  BuildingVariantManifestV1,
+  RuntimeAssetManifestV2,
+} from "@landlord/shared";
 
 import { BLENDER_ASSETS, PROCEDURAL_ASSETS } from "../assets/runtime-assets";
+import { BUILDING_VARIANTS } from "../assets/building-variants";
 import { buildingTypeLabel } from "./labels";
 
 /**
- * V.d-UX · miniatura de un edificio derivada del asset que el juego ya dibuja (spec §7.2). No hay
- * una segunda colección de iconos: se lee el frame `complete` del `RuntimeAssetManifestV2`. El
- * orden de resolución es el mismo que usa la escena —Blender si declara el tipo, procedural como
- * respaldo—, así que sustituir un tipo en el pipeline actualiza la miniatura sin tocar la UI.
+ * V.d-UX · miniatura de un edificio derivada del asset que el juego ya dibuja (spec §7.2). Las
+ * variantes Blender promocionadas tienen prioridad: son la misma geometría y el mismo PNG que la
+ * escena isométrica para complete@0. El bundle histórico y el procedural sólo sostienen un tipo que
+ * todavía no tenga variante real.
  */
 export function buildingThumbnailSource(
   type: string,
   state: BuildingAssetState = "complete",
-  bundles: { blender?: RuntimeAssetManifestV2; procedural: RuntimeAssetManifestV2 } = {
+  bundles: {
+    variants?: BuildingVariantManifestV1;
+    blender?: RuntimeAssetManifestV2;
+    procedural: RuntimeAssetManifestV2;
+  } = {
+    variants: BUILDING_VARIANTS,
     blender: BLENDER_ASSETS,
     procedural: PROCEDURAL_ASSETS,
   },
 ): string | null {
+  // El catálogo sólo solicita `complete`; no fingimos una etapa de obra al no disponer de su stage.
+  const variant = state === "complete" ? bundles.variants?.variants[`${type}:complete:-:0`] : null;
+  if (variant) return variant.image.src;
   const blender = bundles.blender?.buildings[type]?.states?.[state]?.src;
   if (blender) return blender;
   return bundles.procedural.buildings[type]?.states?.[state]?.src ?? null;

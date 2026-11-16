@@ -86,6 +86,7 @@ export type PanelContext = {
   pendingPlacement: PendingPlacement | null;
   placementHandlers: PlacementHandlers | null;
   placementBlockers: readonly string[];
+  placementSubmitting: boolean;
   onBeginPlacement: (buildingType: BuildingType, parcelIds: readonly string[]) => void;
 };
 
@@ -234,6 +235,7 @@ function ParcelPanel({ parcel, context }: { parcel: ProjectedParcel; context: Pa
           blockers={context.placementBlockers}
           handlers={context.placementHandlers}
           pending={context.pendingPlacement}
+          submitting={context.placementSubmitting}
         />
       ) : (
         <>

@@ -147,21 +147,37 @@ function fillBuildings(state: GameState, capacity: number): void {
 }
 
 describe("WP4.3 oferta y demanda de vivienda", () => {
-  it("no crea demanda de la nada y retira a quien no encuentra vivienda", () => {
+  it("expone demanda inicial para todos los productos alquilables y retira a quien no encuentra vivienda", () => {
     const state = newState();
+
+    expect(
+      [...state.phase2.tenants.values()]
+        .filter((tenant) => tenant.status === "available")
+        .map((tenant) => tenant.preferredBuildingType)
+        .sort(),
+    ).toEqual([
+      "apartment_block",
+      "courtyard_home",
+      "courtyard_home",
+      "mixed_tenement",
+      "row_house",
+      "workshop",
+      "workshop",
+    ]);
+
     months(state, 1);
 
     expect(state.phase2.housingMarket.arrivalsTotal).toBe(0);
-    expect(state.phase2.tenants.size).toBe(4);
+    expect(state.phase2.tenants.size).toBe(7);
     expect(Object.values(vacancyPercentByBuildingType(state)).every((value) => value === 0)).toBe(
       true,
     );
 
     months(state, 6, 1);
 
-    // Los cuatro hogares autorados agotan su búsqueda: sin oferta, el mercado se vacía solo.
+    // La demanda inicial se agota sin oferta: el mercado no conserva demanda infinita.
     expect(state.phase2.tenants.size).toBe(0);
-    expect(state.phase2.housingMarket.departuresTotal).toBe(4);
+    expect(state.phase2.housingMarket.departuresTotal).toBe(7);
     expect(state.phase2.housingMarket.arrivalsTotal).toBe(0);
   });
 
@@ -403,12 +419,15 @@ describe("WP4.3 oferta y demanda de vivienda", () => {
     });
     expect(Object.keys(restored.phase2.housingMarket.byDistrictId)).toHaveLength(9);
     expect([...restored.phase2.tenants.values()].map((tenant) => tenant.size)).toEqual([
-      3, 2, 2, 3,
+      3, 2, 2, 3, 3, 3, 3,
     ]);
     expect([...restored.phase2.tenants.values()].map((tenant) => tenant.segmentId)).toEqual([
       "household",
       "maker",
       "shopkeeper",
+      "household",
+      "household",
+      "household",
       "household",
     ]);
     expect(

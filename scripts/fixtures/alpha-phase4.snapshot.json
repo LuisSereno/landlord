@@ -343742,10 +343742,10 @@
         "form": "detached",
         "level": 1,
         "condition": 100,
-        "tenantId": "tenant_00000006",
+        "tenantId": "tenant_00000009",
         "tenantIds": [
-          "tenant_00000006",
-          "tenant_00000007"
+          "tenant_00000009",
+          "tenant_00000010"
         ],
         "upgraded": false,
         "structuralIntegrity": 100,
@@ -344829,7 +344829,55 @@
         "marketDistrictId": "district_00000004"
       },
       {
+        "id": "tenant_00000005",
+        "profile": "household",
+        "budget": 210,
+        "preferredBuildingType": "row_house",
+        "activeContractBuildingId": null,
+        "satisfaction": 70,
+        "leaseRemaining": 0,
+        "status": "available",
+        "size": 3,
+        "segmentId": "household",
+        "searchMonths": 2,
+        "incomeFactorPercent": 100,
+        "origin": "authored",
+        "marketDistrictId": "district_00000004"
+      },
+      {
         "id": "tenant_00000006",
+        "profile": "household",
+        "budget": 300,
+        "preferredBuildingType": "apartment_block",
+        "activeContractBuildingId": null,
+        "satisfaction": 70,
+        "leaseRemaining": 0,
+        "status": "available",
+        "size": 3,
+        "segmentId": "household",
+        "marketDistrictId": "district_00000004",
+        "searchMonths": 2,
+        "incomeFactorPercent": 100,
+        "origin": "authored"
+      },
+      {
+        "id": "tenant_00000007",
+        "profile": "household",
+        "budget": 290,
+        "preferredBuildingType": "mixed_tenement",
+        "activeContractBuildingId": null,
+        "satisfaction": 70,
+        "leaseRemaining": 0,
+        "status": "available",
+        "size": 3,
+        "segmentId": "household",
+        "marketDistrictId": "district_00000004",
+        "searchMonths": 2,
+        "incomeFactorPercent": 100,
+        "origin": "authored"
+      },
+      {
+        "id": "tenant_00000009",
         "profile": "household",
         "budget": 244,
         "preferredBuildingType": "courtyard_home",
@@ -344845,7 +344893,7 @@
         "origin": "market"
       },
       {
-        "id": "tenant_00000007",
+        "id": "tenant_00000010",
         "profile": "household",
         "budget": 286,
         "preferredBuildingType": "courtyard_home",
@@ -344861,7 +344909,7 @@
         "origin": "market"
       },
       {
-        "id": "tenant_00000009",
+        "id": "tenant_00000012",
         "profile": "household",
         "budget": 296,
         "preferredBuildingType": "courtyard_home",
@@ -344877,7 +344925,7 @@
         "origin": "market"
       },
       {
-        "id": "tenant_00000010",
+        "id": "tenant_00000013",
         "profile": "household",
         "budget": 237,
         "preferredBuildingType": "courtyard_home",
@@ -345728,7 +345776,7 @@
       "lastSettlementTick": 72000,
       "arrivalsTotal": 4,
       "departuresTotal": 0,
-      "nextTenantOrdinal": 11
+      "nextTenantOrdinal": 14
     },
     "contracts": {
       "lastPublishedTick": 72000,

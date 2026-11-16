@@ -339,6 +339,11 @@ export const TENANT_PROFILE_DEFAULTS: Record<TenantProfile, { size: number; segm
 };
 
 export const PROTOTYPE_TENANTS: Tenant[] = [
+  /**
+   * Demanda de lanzamiento: es el escaparate manual del primer mes, no una colocación automática.
+   * Cubre cada producto privado que cobra alquiler para que construir una adosada, bloque o mixto
+   * no obligue a esperar al primer cierre mensual para que aparezca un candidato compatible.
+   */
   {
     id: parseTenantId("tenant_00000001"),
     profile: "household",
@@ -402,6 +407,54 @@ export const PROTOTYPE_TENANTS: Tenant[] = [
     incomeFactorPercent: 100,
     origin: "authored",
     marketDistrictId: null,
+  },
+  {
+    id: parseTenantId("tenant_00000005"),
+    profile: "household",
+    budget: parseMoney(210),
+    preferredBuildingType: "row_house",
+    activeContractBuildingId: null,
+    satisfaction: 70,
+    leaseRemaining: 0,
+    status: "available",
+    size: 3,
+    segmentId: "household",
+    searchMonths: 0,
+    incomeFactorPercent: 100,
+    origin: "authored",
+    marketDistrictId: null,
+  },
+  {
+    id: parseTenantId("tenant_00000006"),
+    profile: "household",
+    budget: parseMoney(300),
+    preferredBuildingType: "apartment_block",
+    activeContractBuildingId: null,
+    satisfaction: 70,
+    leaseRemaining: 0,
+    status: "available",
+    size: 3,
+    segmentId: "household",
+    marketDistrictId: null,
+    searchMonths: 0,
+    incomeFactorPercent: 100,
+    origin: "authored",
+  },
+  {
+    id: parseTenantId("tenant_00000007"),
+    profile: "household",
+    budget: parseMoney(290),
+    preferredBuildingType: "mixed_tenement",
+    activeContractBuildingId: null,
+    satisfaction: 70,
+    leaseRemaining: 0,
+    status: "available",
+    size: 3,
+    segmentId: "household",
+    marketDistrictId: null,
+    searchMonths: 0,
+    incomeFactorPercent: 100,
+    origin: "authored",
   },
 ];
 

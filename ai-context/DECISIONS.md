@@ -348,7 +348,8 @@ arnés separa `ordinaryTick` y `monthClose` y `measureMonthlyCloses` da una dist
 
 ## D-066 — Mercado de vivienda segmentado con precio descubierto por vacancia
 Estado: aceptada el 2026-10-23 para WP4.3.
-El pool de cuatro hogares autorados se convierte en demanda segmentada (`household`, `maker`,
+El pool autorado inicial cubre cada producto privado alquilable (dos patios, dos talleres, una
+adosada, un bloque y un inmueble mixto) y se convierte en demanda segmentada (`household`, `maker`,
 `shopkeeper`) con presupuesto de renta, tipos preferidos, techo de población, llegadas por mes y
 pesos de deseabilidad propios. El hogar gana `size`, `segmentId`, `searchMonths` y `origin`;
 `size` sustituye los recuentos codificados de ocupantes del colapso con los mismos valores

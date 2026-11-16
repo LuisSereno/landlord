@@ -423,7 +423,7 @@ describe("Gate 2 product loop", () => {
           tenantId: parseTenantId("tenant_00000003"),
         }),
       ),
-    ).toEqual({ accepted: false, code: "TENANT_ALREADY_ASSIGNED" });
+    ).toEqual({ accepted: false, code: "BUILDING_CAPACITY_FULL" });
 
     const second = createInitialState(14);
     dispatchProductCommand(
@@ -448,6 +448,37 @@ describe("Gate 2 product loop", () => {
         }),
       ),
     ).toEqual({ accepted: false, code: "TENANT_BUDGET_TOO_LOW" });
+  });
+
+  it("rejects an already contracted tenant even when the building has free units", () => {
+    const state = createInitialState(13);
+    dispatchProductCommand(
+      state,
+      command("solo-buy", "BuyParcel", { parcelId: parseParcelId("parcel_00000001") }),
+    );
+    dispatchProductCommand(
+      state,
+      command("solo-build", "StartConstruction", {
+        parcelIds: [parseParcelId("parcel_00000001")],
+        buildingType: "courtyard_home",
+      }),
+    );
+    advanceToTick(state, 120 * 50);
+    const buildingId = parseBuildingId("building_00000001");
+    const tenantId = parseTenantId("tenant_00000001");
+    expect(
+      dispatchProductCommand(state, command("solo-first", "AssignTenant", { buildingId, tenantId }))
+        .accepted,
+    ).toBe(true);
+    /**
+     * El patio admite dos hogares (lo prueba el caso de capacidad llena), así que con uno dentro
+     * quedan plazas libres: el rechazo siguiente sólo puede venir del contrato del inquilino.
+     * Separa los dos códigos que antes compartían un único `if`.
+     */
+    expect(state.phase2.buildings.get(buildingId)!.tenantIds.length).toBe(1);
+    expect(
+      dispatchProductCommand(state, command("solo-again", "AssignTenant", { buildingId, tenantId })),
+    ).toEqual({ accepted: false, code: "TENANT_ALREADY_ASSIGNED" });
   });
 
   it("repairs a deteriorated building through a timed crew assignment", () => {

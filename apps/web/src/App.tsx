@@ -95,6 +95,8 @@ export function App() {
   const [pendingPlacement, setPendingPlacement] = useState<PendingPlacement | null>(null);
   const placementRequestKey = useRef<string | null>(null);
   const placementConfirmedId = useRef<string | null>(null);
+  /** La orden reserva materiales antes de que la siguiente proyección enseñe la obra creada. */
+  const [placementSubmitting, setPlacementSubmitting] = useState(false);
   const [hub, setHub] = useState<HubKind | null>(null);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
@@ -129,6 +131,7 @@ export function App() {
 
   const cancelPlacement = useCallback(() => {
     setPendingPlacement(null);
+    setPlacementSubmitting(false);
     placementRequestKey.current = null;
     placementConfirmedId.current = null;
   }, []);
@@ -139,6 +142,7 @@ export function App() {
       if (!districtId) return;
       placementRequestKey.current = null;
       placementConfirmedId.current = null;
+      setPlacementSubmitting(false);
       setPendingPlacement(
         beginPlacementRequest({
           buildingType,
@@ -199,7 +203,7 @@ export function App() {
    * mismo helper que ya usa el catálogo, así que no se reinventa ninguna regla económica.
    */
   const placementBlockers = useMemo<readonly string[]>(() => {
-    if (!pendingPlacement || !economy) return [];
+    if (!pendingPlacement || !economy || placementSubmitting) return [];
     const option = economy.constructionOptions.find(
       (entry) => entry.type === pendingPlacement.buildingType,
     );
@@ -214,7 +218,7 @@ export function App() {
         permitted: parcel.permittedBuildingTypes.includes(option.type),
       }),
     );
-  }, [economy, pendingPlacement]);
+  }, [economy, pendingPlacement, placementSubmitting]);
 
   const onCellPicked = useCallback(
     (cell: GridCell) => {
@@ -682,7 +686,7 @@ export function App() {
         ? {
             cycle: (delta) =>
               setPendingPlacement((current) =>
-                current
+                current && !placementSubmitting
                   ? delta < 0
                     ? previousPlacementCandidate(current)
                     : nextPlacementCandidate(current)
@@ -690,25 +694,39 @@ export function App() {
               ),
             rotate: () =>
               setPendingPlacement((current) =>
-                current ? rotatePlacementCandidate(current) : current,
+                current && !placementSubmitting ? rotatePlacementCandidate(current) : current,
               ),
             select: (candidateId) =>
               setPendingPlacement((current) =>
-                current ? selectPlacementCandidate(current, candidateId) : current,
+                current && !placementSubmitting
+                  ? selectPlacementCandidate(current, candidateId)
+                  : current,
               ),
             confirm: (placementId) => {
-              if (placementConfirmedId.current === placementId) return;
+              if (placementConfirmedId.current === placementId || !client) return;
               placementConfirmedId.current = placementId;
-              actions.startConstruction(
-                pendingPlacement.parcelIds,
-                pendingPlacement.buildingType,
-                placementId,
-              );
+              setPlacementSubmitting(true);
+              void session
+                .send(
+                  () =>
+                    client.startConstruction(
+                      pendingPlacement.parcelIds,
+                      pendingPlacement.buildingType,
+                      placementId,
+                    ),
+                  "Obra iniciada; asigna una cuadrilla para que avance.",
+                )
+                .then((response) => {
+                  if (response?.type !== "RequestFailed") return;
+                  // El estado no cambió: volvemos a enseñar las restricciones reales.
+                  placementConfirmedId.current = null;
+                  setPlacementSubmitting(false);
+                });
             },
             cancel: cancelPlacement,
           }
         : null,
-    [cancelPlacement, pendingPlacement, actions],
+    [cancelPlacement, client, pendingPlacement, placementSubmitting, session],
   );
 
   /**
@@ -717,7 +735,8 @@ export function App() {
    * conserva su propio Enter para no disparar dos veces el mismo comando.
    */
   useEffect(() => {
-    if (!pendingPlacement || pendingPlacement.status !== "placing") return undefined;
+    if (!pendingPlacement || pendingPlacement.status !== "placing" || placementSubmitting)
+      return undefined;
     const active = document.activeElement;
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "ArrowLeft")
@@ -740,7 +759,7 @@ export function App() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [pendingPlacement, placementHandlers]);
+  }, [pendingPlacement, placementHandlers, placementSubmitting]);
 
   const selection = useMemo(
     () =>
@@ -888,7 +907,9 @@ export function App() {
           }}
           onPlacementPick={(candidateId) =>
             setPendingPlacement((current) =>
-              current ? selectPlacementCandidate(current, candidateId) : current,
+              current && !placementSubmitting
+                ? selectPlacementCandidate(current, candidateId)
+                : current,
             )
           }
           visualMood={visualMood}
@@ -943,6 +964,7 @@ export function App() {
               pendingPlacement,
               placementHandlers,
               placementBlockers,
+              placementSubmitting,
               onBeginPlacement: beginPlacement,
               onBeginSite: setPendingSite,
               onUpdateSite: setPendingSite,

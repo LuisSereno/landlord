@@ -4,7 +4,8 @@ import { buildingTypeSchema } from "@landlord/shared";
 
 import { iconCatalog, ResourceIcon, UiIcon, UI_ICON_LABELS, type UiIconName } from "./icons";
 import { buildingThumbnailSource } from "./building-thumbnail";
-import { BLENDER_ASSETS, PROCEDURAL_ASSETS } from "../assets/runtime-assets";
+import { PROCEDURAL_ASSETS } from "../assets/runtime-assets";
+import { BUILDING_VARIANTS } from "../assets/building-variants";
 
 /** Conjunto mínimo del spec §7.5: si falta uno, el registro no es el contrato. */
 const REQUIRED_ICONS: UiIconName[] = [
@@ -87,11 +88,12 @@ describe("V.d-UX · miniatura de edificio", () => {
     }
   });
 
-  it("prefiere el asset de Blender cuando lo declara y cae al procedural cuando no", () => {
+  it("prefiere la variante runtime promovida y conserva Blender/procedural como respaldo", () => {
     for (const type of buildingTypeSchema.options) {
-      const blender = BLENDER_ASSETS.buildings[type]?.states.complete?.src;
-      expect(blender, type).toBeDefined();
-      expect(buildingThumbnailSource(type), type).toBe(blender);
+      const variant = BUILDING_VARIANTS.variants[`${type}:complete:-:0`];
+      expect(variant, type).toBeDefined();
+      if (!variant) throw new Error(`${type}: falta variante complete@0`);
+      expect(buildingThumbnailSource(type), type).toBe(variant.image.src);
     }
     const proceduralOnly = buildingThumbnailSource("steelworks", "complete", {
       procedural: PROCEDURAL_ASSETS,

@@ -539,6 +539,7 @@ describe("V.k.4 · la ficha de obra habla por el helper de cuadrillas", () => {
       pendingPlacement: null,
       placementHandlers: null,
       placementBlockers: [],
+      placementSubmitting: false,
       onBeginPlacement: () => {},
     };
     const markup = renderToStaticMarkup(<ContextPanel selection={selection!} context={context} />);

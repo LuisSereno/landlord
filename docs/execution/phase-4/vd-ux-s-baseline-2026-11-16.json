@@ -1,0 +1,69 @@
+{
+  "phase": "V.d-UX.S",
+  "wp": "S0.1",
+  "date": "2026-11-16",
+  "branch": "develop",
+  "headBefore": "586bfbd7d73ff13edbac7fa4bf7d11b93e79a002",
+  "purpose": "Foto del estado de tests y lint ANTES de tocar producción, para distinguir regresión de deuda heredada.",
+  "suites": {
+    "shared": { "files": 14, "testsPassed": 80, "testsFailed": 0 },
+    "web": { "filesPassed": 32, "filesSkipped": 1, "testsPassed": 312, "testsSkipped": 4, "testsFailed": 0 },
+    "lint": { "eslint": "pass", "checkArchitecture": "pass" },
+    "simulation": {
+      "filesFailed": 7,
+      "filesPassed": 62,
+      "filesSkipped": 12,
+      "testsFailed": 9,
+      "testsPassed": 586,
+      "testsSkipped": 20,
+      "durationSeconds": 722
+    }
+  },
+  "failures": [
+    {
+      "test": "phase2.test.ts > enforces unit capacity and tenant budgets",
+      "attribution": "trabajo ajeno (mercado de inquilinos)",
+      "cause": "El diff ajeno parte el guard de AssignTenant en BUILDING_CAPACITY_FULL y TENANT_ALREADY_ASSIGNED; la aserción seguía esperando el código combinado antiguo.",
+      "resolution": "CORREGIDO en S0.1: aserción actualizada a BUILDING_CAPACITY_FULL + test nuevo que cubre TENANT_ALREADY_ASSIGNED con plazas libres, código que antes no tenía ninguna cobertura.",
+      "status": "fixed"
+    },
+    {
+      "test": "tick-conservation.test.ts > mantiene el digesto de carreras largas",
+      "attribution": "PREEXISTENTE (deuda de baseline documentada)",
+      "cause": "Los 10 digestos derivan. Medición de atribución S0.1: truncando PROTOTYPE_TENANTS a los 4 hogares originales en la fuente (state.ts:268) se recuperan 0/10 valores comprometidos. El censo nuevo añade superficie canónica, pero NO explica la deriva. El propio test la documenta como BASELINE DEBT en develop desde 2026-11-03 (acta de V.e), con causa abierta para V.l.6.",
+      "resolution": "NO se regenera: el protocolo del test exige atribución verificada y la componente preexistente sigue sin explicar. Regenerar aquí blanquearía una deriva ajena a esta fase.",
+      "status": "pre-existing"
+    },
+    { "test": "city-seeds.test.ts > cada seed reproduce su medida", "attribution": "preexistente", "status": "pre-existing" },
+    { "test": "district-generation.test.ts > conserva los hashes de las fixtures publicadas", "attribution": "preexistente", "status": "pre-existing" },
+    { "test": "market-actionability.test.ts > fusiona el residuo con el vecino compatible", "attribution": "preexistente (D-106)", "detail": "expected merged 1, got 2", "status": "pre-existing" },
+    { "test": "urban-civic.test.ts > generates the exact §4.4 programme", "attribution": "preexistente", "detail": "expected 14 programme buildings, got 16", "status": "pre-existing" },
+    { "test": "vd7a-multiparcel.test.ts > L · la acería sólo se acepta con tres parcelas", "attribution": "preexistente", "status": "pre-existing" },
+    { "test": "vd7a-multiparcel.test.ts > el rival encuentra un site de tres parcelas para la acería", "attribution": "preexistente", "status": "pre-existing" },
+    { "test": "vd7a-multiparcel.test.ts > acepta una acería en un triplete natural de la seed 42", "attribution": "preexistente", "status": "pre-existing" }
+  ],
+  "baselineAfterS01": {
+    "simulationTestsFailed": 8,
+    "note": "Los 8 restantes son deuda preexistente ajena a V.d-UX.S. Cualquier fallo NUEVO respecto a esta lista es regresión de la fase."
+  },
+  "attributionMeasurement": {
+    "method": "Test temporal (eliminado tras medir) que trunca PROTOTYPE_TENANTS.length = 4 antes de crear cada estado y recalcula los 10 digestos con el mismo canonicalizeState y la misma función digest del test de contrato.",
+    "result": "recovered=0/10",
+    "fullVsNeutral": {
+      "scenario:seed-1:1200": { "committed": "ba2ea3986be9af8d", "full": "ef96c6a514fffd84", "neutral": "51e72c5bf473f2a1" }
+    },
+    "conclusion": "Dos componentes: deriva preexistente sin explicar + superficie del censo nuevo. Ninguna se regenera en esta fase."
+  },
+  "fixtureRegeneration": {
+    "file": "scripts/fixtures/alpha-phase4.snapshot.json",
+    "cause": "generate-alpha-fixture.test.ts lo reescribe al ejecutarse; incorpora los 3 hogares autorados nuevos y desplaza los ids de hogares de mercado.",
+    "idempotenceVerified": true,
+    "sha256Prefix": "6b6ac2afa6d01563"
+  },
+  "logs": [
+    "artifacts/vd-ux-s/baseline-test.log",
+    "artifacts/vd-ux-s/baseline-web.log",
+    "artifacts/vd-ux-s/baseline-lint.log",
+    "artifacts/vd-ux-s/attribution.log"
+  ]
+}

@@ -344,6 +344,11 @@ function progressConstruction(state: GameState): void {
         if (ruin.productionFacilityId) {
           state.phase2.facilities.delete(ruin.productionFacilityId);
         }
+        /**
+         * V.d-UX.S · E3: el contrato pertenece a un edificio que deja de existir. Se elimina con
+         * él; los claims históricos viven indexados por incidente y se conservan.
+         */
+        delete state.phase2.insurance.contractsByBuildingId[ruin.id];
         state.phase2.buildings.delete(ruin.id);
         for (const parcelId of ruin.parcelIds) reconcileParcelUses(state, parcelId);
       }
@@ -975,6 +980,24 @@ function tacticalTick(state: GameState): void {
         if (building.structuralIntegrity <= 0) building.state = "collapse_pending";
       }
     }
+  }
+  /**
+   * V.d-UX.S · E3: una ruina no puede conservar una póliza activa. El colapso ocurre aquí, pero
+   * `settleInsurance` sólo miraba cada póliza en su tick de prima, así que un edificio derrumbado
+   * seguía "asegurado" hasta un mes después y su prima inflaba los gastos previstos del jugador.
+   * El contrato se termina en el mismo tick del colapso, y el barrido cubre también las ruinas
+   * previas de una partida cargada con el estado inválido. `cancelled` significa "contrato
+   * terminado", no necesariamente cancelación voluntaria. Los claims pertenecen al incidente y
+   * sobreviven: no se tocan aquí ni al desescombrar.
+   */
+  for (const building of [...state.phase2.buildings.values()].sort((a, b) =>
+    a.id.localeCompare(b.id),
+  )) {
+    if (building.state !== "ruin") continue;
+    const contract = state.phase2.insurance.contractsByBuildingId[building.id];
+    if (!contract || contract.status !== "active") continue;
+    contract.status = "cancelled";
+    contract.nextPremiumTick = null;
   }
   // 10. deterministic recovery.
   for (const agent of agents)

@@ -1,0 +1,56 @@
+{
+  "phase": "V.d-UX.S",
+  "wp": "S0.4",
+  "date": "2026-11-16",
+  "change": "E3 · la póliza activa se termina en el tick del colapso (systems.ts, barrido horario tras el bucle de colapso) y el contrato se elimina al completar clear_ruin. Los claims se conservan.",
+  "protocol": "Regeneración deliberada de digestos según el protocolo documentado en tick-conservation.test.ts: enumerar qué digestos se mueven y atribuir el delta al canal pretendido.",
+  "digestAttribution": {
+    "method": "Comparación de los 10 digestos producidos ANTES de E3 (foto de baseline, commit 59ae6b4) y DESPUÉS de E3, en la misma build y equipo.",
+    "unchanged": [
+      { "id": "scenario:seed-1:1200", "before": "ef96c6a514fffd84", "after": "ef96c6a514fffd84" },
+      { "id": "scenario:seed-7:1200", "before": "5f72eef3ba38f893", "after": "5f72eef3ba38f893" },
+      { "id": "scenario:seed-42:1200", "before": "741c3a547d7c274f", "after": "741c3a547d7c274f" },
+      { "id": "scenario:seed-1:36000", "before": "2e2894b67145c357", "after": "2e2894b67145c357" },
+      { "id": "city:50-parcels:1300-ticks", "before": "b2d86b0eb8c8063f", "after": "b2d86b0eb8c8063f" },
+      { "id": "city:50-parcels:month-boundary", "before": "3e7eab4fdfba3dfc", "after": "3e7eab4fdfba3dfc" },
+      { "id": "city:200-parcels:month-boundary", "before": "d8ef8bba0b7dd078", "after": "d8ef8bba0b7dd078" }
+    ],
+    "changed": [
+      { "id": "city:50-parcels:fire-cascade", "before": "1090bb1a3265dc15", "after": "aed0d8cbb1d9e83d" },
+      { "id": "city:200-parcels:fire-cascade", "before": "8e8756e544a59d94", "after": "4c578210fadfb7b0" },
+      { "id": "city:800-parcels:fire-cascade", "before": "995f6585244544bf", "after": "0ca63299836e1e63" }
+    ],
+    "conclusion": "El delta de E3 se confina EXACTAMENTE a los tres casos que llegan a colapso y explosión. Los siete casos sin colapso son byte a byte idénticos. El canal movido es el pretendido: estado del contrato de seguro en ruinas."
+  },
+  "economicNeutrality": {
+    "assertion": "Ninguna prima se cobra después de la ruina: settleInsurance ya saltaba el débito de las ruinas (systems.ts:709-713), así que terminar el contrato antes no cambia la caja.",
+    "test": "insurance-lifecycle.test.ts · 'la corrección no altera el flujo de caja: ninguna prima después de la ruina' — totalPremiumPaid invariante al cruzar un cierre mensual y cero transacciones insurance_premium del edificio desde el tick de ruina.",
+    "visibleCorrection": "insuranceExpense (projection.ts:189-196) no excluye ruinas, así que una ruina con póliza active inflaba forecast.expenses. Test aislado en el mismo tick: la diferencia es exactamente la prima."
+  },
+  "committedDigestsNotRegenerated": {
+    "reason": "Los valores comprometidos en GOLDEN_CASES ya derivaban ANTES de E3 por deuda preexistente (0/10 recuperados al neutralizar el censo nuevo; documentado en el test desde 2026-11-03, causa abierta para V.l.6). Regenerarlos aquí mezclaría una deriva sin explicar con el delta atribuido de E3.",
+    "action": "Se registran los valores posteriores a E3 como evidencia para que la regeneración de V.l.6 pueda separar ambas componentes."
+  },
+  "invariantsCovered": {
+    "1_ruin_no_active_policy": "cadena completa + ruina heredada de save inválido",
+    "2_inactive_no_premium_tick": "expectNoPremiumScheduledOnInactiveContracts sobre toda la cartera en cada caso",
+    "3_no_orphan_contract_after_clear": "expectNoOrphanContracts + casos lapsed/cancelled/sin póliza",
+    "4_claim_survives": "igualdad profunda de los claims del edificio antes del colapso, tras el colapso, tras el desescombro y tras save/load",
+    "5_no_premium_after_ruin": "totalPremiumPaid invariante + cero transacciones insurance_premium posteriores",
+    "6_save_load": "restoreStateFromSnapshot(serializeSnapshot) con igualdad de insurance y de snapshot",
+    "7_determinism_and_canonical": "atribución de digestos arriba; save/load identidad; flujo de caja neutro"
+  },
+  "regressionFoundAndFixed": {
+    "test": "phase2.test.ts > WP3.12 > projects deterministic exceptions instead of requiring routine polling",
+    "cause": "E2 añadió `reason` obligatorio; una aserción toContainEqual con el objeto alerta completo sin ese campo dejó de casar.",
+    "fix": "Fixture alineado con reason: 'permit_denied'. Único fixture inline de alerta que quedaba (barrido por kind en todos los tests)."
+  },
+  "gateResult": {
+    "typecheck": "pass (3 paquetes)",
+    "lint": "pass (eslint + check-architecture)",
+    "shared": "14 archivos, 80 tests, 0 fallos",
+    "web": "312 passed, 4 skipped, 0 fallos",
+    "simulation": "8 fallos = exactamente el conjunto preexistente de la foto de baseline; 0 regresiones",
+    "newTests": "insurance-lifecycle.test.ts · 7 tests, 7 invariantes"
+  }
+}

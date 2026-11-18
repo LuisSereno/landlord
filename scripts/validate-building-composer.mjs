@@ -366,13 +366,21 @@ function checkCandidate(candidate, modulesById, sourcesById, grammars, manifestD
   }
   const domain = domainGeometry(candidate.buildingType);
   if (domain) {
-    if (
-      candidate.footprint.width !== domain.footprint.width ||
-      candidate.footprint.height !== domain.footprint.height
-    ) {
+    /**
+     * D-097: rotar el rectángulo declarado siempre es legal cuando cabe. Una variante a 90°/270°
+     * publica la huella transpuesta; el dominio manda sobre el área y la morfología, no sobre qué
+     * eje es el ancho. Comparar sin permitir el giro rechazaría colocaciones legales del motor.
+     */
+    const direct =
+      candidate.footprint.width === domain.footprint.width &&
+      candidate.footprint.height === domain.footprint.height;
+    const rotated =
+      candidate.footprint.width === domain.footprint.height &&
+      candidate.footprint.height === domain.footprint.width;
+    if (!direct && !rotated) {
       errors.push(
         `§17 ${label}: huella ${candidate.footprint.width}×${candidate.footprint.height} ≠ dominio ` +
-          `${domain.footprint.width}×${domain.footprint.height}`,
+          `${domain.footprint.width}×${domain.footprint.height} (ni rotada)`,
       );
     }
     if (candidate.floors !== domain.floors) {

@@ -180,7 +180,7 @@
           "label": "ladrillo visto con carpintería de obra",
           "roleModule": {
             "wall_panel": "mod_megakit_brick_wall_2m",
-        "window_bay": "mod_megakit_brick_window_trim_2m",
+            "window_bay": "mod_megakit_brick_window_trim_2m",
             "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
             "wainscot": "mod_megakit_brick_bottom_trim_2m",
             "crown_panel": "mod_megakit_brick_top_trim_2m",
@@ -793,8 +793,8 @@
     "town_hall": {
       "buildingType": "town_hall",
       "family": "civic_landmark",
-      "label": "Ayuntamiento (hitazo cívico, 4×3 celdas)",
-      "notes": "§21: identidad cívica neoclásica con simetría axial, cuerpo central monumental, acceso centrado con escalinata, columnata o pilastras integradas en fachada, y lenguaje clásico de pretil y cornisa. El dominio da 16×12 m; la gramática reserva una celda frontal (4 m) para la escalinata. V.g: las recetas arquitectónicas definen features obligatorios integrados en fachada (columnas/pilastras) que se anclan al volumen principal mediante distribución simétrica, excluyendo el bay del acceso.",
+      "label": "Ayuntamiento (hitazo cívico, 5×3 celdas)",
+      "notes": "§21: identidad cívica neoclásica con simetría axial, cuerpo central monumental, acceso centrado con escalinata, columnata o pilastras integradas en fachada, y lenguaje clásico de pretil y cornisa. El dominio da 20×12 m; la gramática reserva una celda frontal (4 m) para la escalinata. V.g: las recetas arquitectónicas definen features obligatorios integrados en fachada (columnas/pilastras) que se anclan al volumen principal mediante distribución simétrica, excluyendo el bay del acceso.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -847,7 +847,7 @@
               "role": "frieze",
               "module": "mod_megakit_civic_frieze_ornament",
               "side": "front",
-              "count": 7,
+              "count": 5,
               "levels": 1,
               "startLevel": 2,
               "distribution": "symmetric",
@@ -984,7 +984,7 @@
           "label": "bloque cívico de frente continuo",
           "volumes": [
             {
-              "cells": [0, 1, 4, 2],
+              "cells": [0, 1, 5, 2],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -1008,7 +1008,7 @@
               "module": null
             },
             {
-              "cells": [2, 1, 2, 1],
+              "cells": [3, 1, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -1086,7 +1086,7 @@
           "label": "palacio neoclásico simétrico con alas retranqueadas",
           "volumes": [
             {
-              "cells": [0, 2, 2, 2],
+              "cells": [0, 2, 5, 1],
               "levels": 2,
               "stackOn": null,
               "slab": true,
@@ -1095,17 +1095,8 @@
               "module": null
             },
             {
-              "cells": [2, 1, 4, 3],
+              "cells": [0, 1, 5, 1],
               "levels": 3,
-              "stackOn": null,
-              "slab": true,
-              "build": "bands",
-              "role": null,
-              "module": null
-            },
-            {
-              "cells": [6, 2, 2, 2],
-              "levels": 2,
               "stackOn": null,
               "slab": true,
               "build": "bands",
@@ -3613,12 +3604,12 @@
     "school_block": {
       "buildingType": "school_block",
       "family": "civic_landmark",
-      "label": "Colegio americano con cupola (7×2 celdas, alas 2 plantas + pabellón 3)",
+      "label": "Colegio americano con cupola (5×1 celdas, alas 2 plantas + pabellón 3)",
       "notes": "V.g: colegio urbano tradicional con cuerpo longitudinal, repetición clara de ventanas de aulas, entrada central y lenguaje institucional (ladrillo/piedra). Debe distinguirse de town_hall por mayor longitud, más plantas de aulas repetitivas y menos monumentalidad. Debe distinguirse de apartment_block por lenguaje institucional (reloj, campanario, frontón), acceso público marcado y ritmo de ventanas de aula uniforme. Solar real: 28×8 m.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
-        "frontCells": 1
+        "frontCells": 0
       },
       "levelsFromDomain": true,
       "cornerModes": [
@@ -3635,7 +3626,7 @@
           "label": "colegio americano: alas simétricas de 2 plantas, pabellón central de 3 y cupola de campanario",
           "volumes": [
             {
-              "cells": [0, 1, 3, 1],
+              "cells": [0, 0, 2, 1],
               "levels": 2,
               "stackOn": null,
               "slab": true,
@@ -3644,7 +3635,7 @@
               "module": null
             },
             {
-              "cells": [4, 1, 3, 1],
+              "cells": [3, 0, 2, 1],
               "levels": 2,
               "stackOn": null,
               "slab": true,
@@ -3653,7 +3644,7 @@
               "module": null
             },
             {
-              "cells": [3, 1, 1, 1],
+              "cells": [2, 0, 1, 1],
               "levels": 3,
               "stackOn": null,
               "slab": true,
@@ -3662,7 +3653,7 @@
               "module": null
             },
             {
-              "cells": [3, 1, 1, 1],
+              "cells": [2, 0, 1, 1],
               "levels": 1,
               "stackOn": 2,
               "slab": false,
@@ -3818,7 +3809,7 @@
           "leafRole": "door",
           "aboveRole": null,
           "projectionMeters": 0,
-          "steps": true
+          "steps": false
         },
         {
           "id": "canopied_entrance",
@@ -3828,7 +3819,7 @@
           "leafRole": "door",
           "aboveRole": "canopy",
           "projectionMeters": 0.4,
-          "steps": true
+          "steps": false
         },
         {
           "id": "recessed_lobby",
@@ -3838,7 +3829,7 @@
           "leafRole": null,
           "aboveRole": "overhang",
           "projectionMeters": 0.4,
-          "steps": true
+          "steps": false
         }
       ],
       "propOptions": [
@@ -3901,12 +3892,12 @@
     "clinic": {
       "buildingType": "clinic",
       "family": "civic_landmark",
-      "label": "Clínica (3×2 celdas, 2 plantas)",
+      "label": "Clínica (2×1 celdas, 2 plantas)",
       "notes": "V.g: clínica con arquitectura limpia y volúmenes simples. Ventanas amplias, acceso cubierto con marquesina, símbolo sanitario abstracto. Paleta blanco/piedra clara. Debe distinguirse de police_station por lenguaje sanitario (limpio, amplios ventanales, marquesina) en vez de institucional-seguridad. Debe distinguirse de town_hall por escala menor y menos monumentalidad. La masa también debe comunicar healthcare sin depender exclusivamente de la cruz sanitaria.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
-        "frontCells": 1
+        "frontCells": 0
       },
       "levelsFromDomain": true,
       "cornerModes": [
@@ -3923,7 +3914,7 @@
           "label": "bloque compacto de dos plantas con acceso centrado",
           "volumes": [
             {
-              "cells": [0, 1, 3, 1],
+              "cells": [0, 0, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -3938,7 +3929,7 @@
           "label": "bloque sanitario continuo con acceso destacado",
           "volumes": [
             {
-              "cells": [0, 1, 3, 1],
+              "cells": [0, 0, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -3953,7 +3944,7 @@
           "label": "volumen escalonado con retranqueo en cubierta",
           "volumes": [
             {
-              "cells": [0, 1, 3, 1],
+              "cells": [0, 0, 2, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -3962,7 +3953,7 @@
               "module": null
             },
             {
-              "cells": [0, 1, 2, 1],
+              "cells": [0, 0, 1, 1],
               "levels": 1,
               "stackOn": 0,
               "slab": false,
@@ -3977,7 +3968,7 @@
           "label": "bloque sanitario continuo junto a la zona de ambulancias",
           "volumes": [
             {
-              "cells": [0, 1, 3, 1],
+              "cells": [0, 0, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -4189,12 +4180,12 @@
     "police_station": {
       "buildingType": "police_station",
       "family": "civic_landmark",
-      "label": "Comisaría (3×2 celdas, 2 plantas)",
+      "label": "Comisaría (2×1 celdas, 2 plantas)",
       "notes": "V.g: comisaría con arquitectura institucional robusta. Piedra/ladrillo, entrada pública claramente marcada, pequeño volumen central o torre, bandera, zona de acceso de vehículos. Debe sentirse INSTITUCIONAL + SEGURIDAD. Debe distinguirse de town_hall por escala menor y lenguaje más robusto/seguridad. Debe distinguirse de clinic por lenguaje institucional-seguridad en vez de sanitario. No debe parecer cárcel ni fortaleza.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
-        "frontCells": 1
+        "frontCells": 0
       },
       "levelsFromDomain": true,
       "cornerModes": [
@@ -4211,7 +4202,7 @@
           "label": "bloque robusto de dos plantas con entrada marcada",
           "volumes": [
             {
-              "cells": [0, 1, 3, 1],
+              "cells": [0, 0, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -4226,7 +4217,7 @@
           "label": "cuerpo principal con torre central de vigilancia",
           "volumes": [
             {
-              "cells": [0, 1, 3, 1],
+              "cells": [0, 0, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -4235,7 +4226,7 @@
               "module": null
             },
             {
-              "cells": [1, 1, 1, 1],
+              "cells": [0, 0, 1, 1],
               "levels": 1,
               "stackOn": 0,
               "slab": false,
@@ -4250,7 +4241,7 @@
           "label": "ala de acceso de vehículos lateral",
           "volumes": [
             {
-              "cells": [0, 1, 2, 1],
+              "cells": [0, 0, 1, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -4259,7 +4250,7 @@
               "module": null
             },
             {
-              "cells": [2, 1, 1, 1],
+              "cells": [1, 0, 1, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -4274,7 +4265,7 @@
           "label": "volumen escalonado con acceso destacado",
           "volumes": [
             {
-              "cells": [0, 1, 3, 1],
+              "cells": [0, 0, 2, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -4283,7 +4274,7 @@
               "module": null
             },
             {
-              "cells": [0, 1, 2, 1],
+              "cells": [0, 0, 1, 1],
               "levels": 1,
               "stackOn": 0,
               "slab": false,
@@ -4416,7 +4407,7 @@
           "leafRole": "door",
           "aboveRole": null,
           "projectionMeters": 0,
-          "steps": true
+          "steps": false
         },
         {
           "id": "canopied_entrance",
@@ -4426,7 +4417,7 @@
           "leafRole": "door",
           "aboveRole": "canopy",
           "projectionMeters": 0.4,
-          "steps": true
+          "steps": false
         },
         {
           "id": "recessed_entry",
@@ -4436,7 +4427,7 @@
           "leafRole": "door",
           "aboveRole": "overhang",
           "projectionMeters": 0.4,
-          "steps": true
+          "steps": false
         }
       ],
       "propOptions": [
@@ -4514,12 +4505,12 @@
     "fire_station": {
       "buildingType": "fire_station",
       "family": "civic_landmark",
-      "label": "Parque de bomberos (4×2 celdas, 2 plantas)",
+      "label": "Parque de bomberos (3×1 celdas, 2 plantas)",
       "notes": "V.g: parque de bomberos con identidad obligatoria de 2-3 grandes puertas de apparatus bay. Incluso a 0.5× las grandes puertas deben hacer evidente su función. Fachada de ladrillo, torre lateral o hose tower, zona frontal para vehículos de bomberos. Uno de los tipos más fáciles de reconocer por sus grandes puertas de garaje.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
-        "frontCells": 1
+        "frontCells": 0
       },
       "levelsFromDomain": true,
       "cornerModes": [
@@ -4536,7 +4527,7 @@
           "label": "nave de aparatos frontal con torre lateral",
           "volumes": [
             {
-              "cells": [0, 1, 4, 1],
+              "cells": [0, 0, 3, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -4551,7 +4542,7 @@
           "label": "doble bayía de aparatos con cuerpo superior",
           "volumes": [
             {
-              "cells": [0, 1, 4, 1],
+              "cells": [0, 0, 3, 1],
               "levels": 1,
               "stackOn": null,
               "slab": false,
@@ -4560,7 +4551,7 @@
               "module": null
             },
             {
-              "cells": [0, 1, 4, 1],
+              "cells": [0, 0, 3, 1],
               "levels": 1,
               "stackOn": 0,
               "slab": false,
@@ -4575,7 +4566,7 @@
           "label": "torre de mangueras adosada a nave de aparatos",
           "volumes": [
             {
-              "cells": [0, 1, 3, 1],
+              "cells": [0, 0, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -4584,7 +4575,7 @@
               "module": null
             },
             {
-              "cells": [3, 1, 1, 1],
+              "cells": [2, 0, 1, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -4599,7 +4590,7 @@
           "label": "forma de L con patio de vehículos",
           "volumes": [
             {
-              "cells": [0, 1, 3, 1],
+              "cells": [0, 0, 2, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -4608,7 +4599,7 @@
               "module": null
             },
             {
-              "cells": [3, 1, 1, 1],
+              "cells": [2, 0, 1, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -4832,12 +4823,12 @@
     "market_hall": {
       "buildingType": "market_hall",
       "family": "civic_landmark",
-      "label": "Mercado (5×2 celdas, 2 plantas)",
+      "label": "Mercado (4×1 celdas, 2 plantas)",
       "notes": "V.g: mercado cubierto con gran nave urbana, cubierta alta, estructura central reconocible, múltiples accesos, grandes ventanales, puestos/toldos y actividad exterior. Debe diferenciarse de warehouse mediante transparencia, accesos públicos, toldos, actividad y detalle comercial. Debe distinguirse de town_hall por mayor longitud, cubierta de mercado y actividad comercial visible. Debe distinguirse de mixed_tenement por escala mayor, gran nave y lenguaje de mercado.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
-        "frontCells": 1
+        "frontCells": 0
       },
       "levelsFromDomain": true,
       "cornerModes": [
@@ -4854,7 +4845,7 @@
           "label": "gran nave de mercado con cubierta alta",
           "volumes": [
             {
-              "cells": [0, 1, 5, 1],
+              "cells": [0, 0, 4, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -4869,7 +4860,7 @@
           "label": "nave central con puestos laterales",
           "volumes": [
             {
-              "cells": [0, 1, 3, 1],
+              "cells": [0, 0, 2, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -4878,7 +4869,7 @@
               "module": null
             },
             {
-              "cells": [3, 1, 2, 1],
+              "cells": [2, 0, 2, 1],
               "levels": 1,
               "stackOn": null,
               "slab": true,
@@ -4893,7 +4884,7 @@
           "label": "pabellón de mercado con reloj central",
           "volumes": [
             {
-              "cells": [0, 1, 5, 1],
+              "cells": [0, 0, 4, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,
@@ -4902,7 +4893,7 @@
               "module": null
             },
             {
-              "cells": [2, 1, 1, 1],
+              "cells": [1, 0, 1, 1],
               "levels": 1,
               "stackOn": 0,
               "slab": false,
@@ -4917,7 +4908,7 @@
           "label": "nave continua de mercado junto a la plaza",
           "volumes": [
             {
-              "cells": [0, 1, 5, 1],
+              "cells": [0, 0, 4, 1],
               "levels": "domain",
               "stackOn": null,
               "slab": true,

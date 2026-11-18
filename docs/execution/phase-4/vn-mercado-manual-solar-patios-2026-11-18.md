@@ -37,8 +37,10 @@ READY ni se cierra la fase hasta completar esos gates.
   `gameplay-visual-adapter.test.ts` (gorriones 1–2 en patios válidos sin pisar reservas, fauna mayor
   excluida del núcleo construido, determinismo).
 - **Suites finales**: web 393/393 (4 skipped), shared 80/80, typecheck y build en verde; lint y
-  arquitectura en verde. Simulación: fixtures regeneradas en verde; los cinco fallos restantes son
-  los preexistentes atribuidos abajo (acta simulación final en `sim-final.log` de la sesión).
+  arquitectura en verde. Simulación: 619 en verde con las fixtures regeneradas; el test de
+  determinismo de `district-generation` dio timeout de 60 s (61,2 s) sólo bajo la contención de CPU
+  de las tres lanes Blender y pasa en solitario en 19,8 s (12/12): artefacto de carga, no regresión.
+  Los cinco fallos restantes son los preexistentes atribuidos abajo.
 - **Fixtures regeneradas por medición**: doce filas de distrito (generador v4), doce ciudades
   (envolvente 687–730, suelo público 14–16 con residuos D-106) y diez digestos dorados. Arrastraban
   BASELINE DEBT desde V.e (2026-11-03); el cambio de versión los invalida de forma visible (D-064).

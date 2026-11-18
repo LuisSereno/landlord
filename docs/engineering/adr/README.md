@@ -133,3 +133,19 @@ enmienda se marca también en su entrada condensada de `ai-context/DECISIONS.md`
 
 Toda parcela de mercado debe admitir una colocación privada por sí misma o dentro de un sitio
 multi-parcela legal; las geometrías residuales no se comercializan como suelo edificable.
+
+## V.d-UX.S — los estados del activo como presentación (2026-11-16)
+
+- [D-107 — Los estados invisibles del activo se muestran con un lenguaje de presentación](D-107-estados-de-activo-como-presentacion.md) — ACEPTADA
+
+Amplía D-095 sin tocar `BuildingAssetState`: los seis estados que el mapa no pintaba se hacen visibles
+con cuatro canales derivados desde una única puerta pura. Faltaba en este índice; se añade el 2026-11-18.
+
+## WP4.15-V.j — catálogo diurno completo y procedencia del grade (2026-11-18)
+
+- [D-108 — El mood horneado es un dato de procedencia, no el nombre del archivo](D-108-mood-de-render-como-dato-de-procedencia.md) — ACEPTADA
+
+Cierra la condición que D-105 dejó abierta sobre el rehorneado por familia: cada variante declara en el
+manifiesto runtime qué grade la horneó (`moodId`), la promoción aborta si la procedencia no lo registra,
+y las tres familias claras pasan a `day_industrial`. Deja escrito el precedente de que un campo
+obligatorio nuevo se satisface registrando el dato, no relajando la lista.

@@ -388,6 +388,28 @@ Sigue abierto:
 - **8 fallos de simulación preexistentes** siguen abiertos; la foto exacta está en
   `docs/execution/phase-4/vd-ux-s-baseline-2026-11-16.json` y ninguna cifra de esta fase los toca.
 
+## V.j · diurno + moodId — lo que queda abierto (2026-11-18)
+
+- **El selector Día/Noche y el grade horneado son ortogonales.** `IsometricSpikeScene.setVisualMood`
+  (`apps/web/src/isometric/IsometricSpikeScene.ts:787`) cambia el fondo de cámara y repinta el terreno;
+  nunca tocó los sprites. Con una sola marca por variante, la opción «Noche» sirve edificios en grado
+  diurno sobre fondo nocturno. Hornear dos moods por variante duplica el presupuesto de binarios de
+  D-101 (23 MiB) y la descarga por distrito de D-102; retirar o redefinir la opción es un cambio de
+  contrato de presentación. **Decide el responsable; no se ha tocado.**
+- **`art:external:check` rojo por drift ya versionado.** Pide `a4984729…` y produce `3db46962…`
+  estable en tres corridas; un worktree limpio en HEAD `1bdeb5d` reproduce el mismo digesto, y no hay
+  cambios posteriores en `tools/art-pipeline/blender/`, `asset-jobs.json` ni `staging-sources.json`
+  desde que se refirmó el golden (`71d4f22`, 2026-11-16). Se **no regenera** hasta saber la causa.
+- **`art:coverage:audit:check` rojo en HEAD** con sus cuatro entradas y sus dos salidas
+  byte-idénticas a HEAD: el informe está desfasado respecto al catálogo actual, no lo empeoró esta fase.
+- **`art:staging:validate` rojo** por 7 fuentes `src_original_*` con procedencia incompleta y el PNG de
+  spike irrecuperable desde la limpieza del 2026-11-04. Heredado de V.j.2 y V.e.
+- **24 PNG huérfanos** `vf_town_hall_1006*` (59,0 MB) en `variants/`, sin referencia de manifiesto ni de
+  código. Pendientes de la decisión de borrado del responsable; no se elimina nada por iniciativa propia.
+- **Los candidatos de `docs/art/quality-vj/batch-day/` viven fuera de Git** (1,3 GB) por la convención
+  de storage del 2026-11-09: sólo se versiona el marcador. Su reproductibilidad exige conservar el lote
+  en disco: rehacer el diurno desde cero vuelve a costar ≈560 min de compositor (360 celdas).
+
 ## Rendimiento y Alpha
 
 - El cierre mensual de 800 parcelas es la frontera cara. Medido como campaña longitudinal real en

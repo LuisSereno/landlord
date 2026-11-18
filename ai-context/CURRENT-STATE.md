@@ -1,6 +1,6 @@
 # Estado vigente para agentes
 
-Actualizado: 2026-11-16. Leer este archivo antes de la historia extensa de `PROJECT-STATE.md`.
+Actualizado: 2026-11-18. Leer este archivo antes de la historia extensa de `PROJECT-STATE.md`.
 
 ## Rama y arquitectura jugable
 
@@ -90,8 +90,30 @@ Actualizado: 2026-11-16. Leer este archivo antes de la historia extensa de `PROJ
   cuantún ≈ 8 %): se gatea el frame-time con brazo de control y la cola queda registrada. Ver
   `docs/execution/phase-4/vd-ux-s-asset-status-2026-11-16.md`.
 
+## V.j · catálogo diurno completo y procedencia del grade (2026-11-18, `develop`)
+
+- **D-108 ejecutada y publicada** (`1bdeb5d..835982c`, docs en `6d6ffad`). Cada variante del catálogo
+  declara en el manifiesto runtime qué mood la horneó (`moodId`), desde la procedencia del candidato
+  hasta el tipo compartido, y la promoción **aborta** si ese dato falta. El runtime sirve el lote
+  diurno completo: **288 `day_civic` + 72 `day_industrial`** (ladrillera, cementera y acería), 0
+  variantes sin mood, 0 PNG ausentes y 0 SHA divergentes contra disco.
+- `day_industrial` es hijo de `day_civic` y baja sólo dos bandas (`near_white_trim` 0,80→0,50 y
+  `facade_blue_grey_to_warm_stone` 0,72→0,60). Recorte duro medio 2,87 %→0,51 %, máximo 1,57 %,
+  `compositionSignature` idéntico en las 72: es arreglo de grade, no de geometría. `market_hall` se
+  queda en `day_civic` porque no recorta.
+- El lote nocturno quedó íntegro (360 PNG, concat-SHA `3b5614f1…`, 407 433 618 B) y la reversión sigue
+  siendo un comando: promocionar `docs/art/quality-vj/batch`.
+- **El selector Día/Noche no toca los sprites.** `IsometricSpikeScene.setVisualMood` cambia el fondo de
+  cámara y repinta el terreno; con una sola marca horneada por variante, la opción «Noche» deja
+  edificios diurnos sobre fondo nocturno. Horneados duales duplicarían el presupuesto de binarios de
+  D-101 y la descarga por distrito de D-102: **decisión abierta del responsable.**
+- Tres gates de arte siguen rojos y **no son de esta fase**: `art:external:check` (drift del golden ya
+  versionado), `art:coverage:audit:check` (informe desfasado en HEAD) y `art:staging:validate`
+  (procedencia de 7 fuentes originales + el PNG de spike irrecuperable). Detalle en KNOWN-GAPS.md.
+
 ## Bloqueos y gates pendientes
 
 - Playtest humano V.d sigue pendiente; los smokes y el gameplay automático no lo sustituyen.
-- No integrar ni empujar a `develop`/`main` sin revisión humana; esta rama no se ha empujado.
+- No integrar ni empujar sin revisión humana. `develop` se empujó el 2026-11-18 por orden explícita del
+  responsable; `main` no se ha tocado.
 - No introducir nuevas features, tráfico simulado, backend o nuevas perspectivas durante este gate.

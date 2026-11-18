@@ -196,6 +196,33 @@ anclaje de daño; `31ff12f` resolución de variante + adapter; `e0d6ea5` carga p
   binarios y licencias (ver acta). `validate-art-staging` mantiene fallos preexistentes sólo en
   `src_original_*` (V.j.2), no regresión.
 
+### V.j.9 — Catálogo diurno completo y procedencia del grade (2026-11-18, `develop`, empujado `1bdeb5d..835982c`)
+
+D-105 dejó el cierre del catálogo condicionado a rehornear los PNG por familia. Ejecutado en `develop`
+con orden explícita del responsable: 360 variantes diurnas (15 tipos × 6 estados × 4 orientaciones) y,
+tras la revisión visual de las 72 industriales, **288 `day_civic` + 72 `day_industrial`** servidos por
+el runtime (`apps/web/src/generated/runtime-building-variants.json`).
+
+- **`day_industrial`** (hija de `day_civic`, baja sólo `near_white_trim` 0,80→0,50 y
+  `facade_blue_grey_to_warm_stone` 0,72→0,60) se aplica a ladrillera, cementera y acería; `market_hall`
+  se queda en `day_civic` porque no recorta. Medido en las 72: recorte duro medio 2,87 %→0,51 %, máximo
+  11,19 %→1,57 %, 0 celdas por encima del 2 %; microcontraste de la zona saturada std 0,005→0,049-0,071
+  con niveles 6→67-68; `compositionSignature` idéntico en 72/72, o sea arreglo de grade y no de
+  geometría. `vjdind_brickworks_1000_o90.png` se reprodujo byte a byte en otro `outDir`.
+- **D-108** cierra el hueco que el rehorneado destapó: un PNG no declaraba qué grade lo horneó. El
+  `moodId` se resuelve en un único sitio (`render_settings.active_mood_id`), viaja a la procedencia del
+  candidato, entra en `REQUIRED_METADATA_FIELDS`, lo copia la promoción (que aborta si falta) y es
+  obligatorio en `BuildingVariantV1`. Los 15 candidatos legacy recibieron su registro por historia de
+  Git —45 objetos en 30 ficheros, 0 líneas borradas, 15 PNG con SHA intacto—: **se registra el dato, no
+  se relaja la lista**.
+- Nocturno íntegro (360 PNG, concat-SHA `3b5614f1…`, 407 433 618 B) y reversión de un comando: promocionar
+  `docs/art/quality-vj/batch`. Gates verdes sobre lo entregado: validador del compositor y sus 52 casos
+  de mutación, geometría 300/300, `check_style_layer.py`, `check_rendered_value_ladder.py`, web 381
+  passed / 4 skipped, shared 80, typechecks, `check:architecture`, prettier, `git diff --check`.
+- **No cierra**: el selector Día/Noche sigue sin tocar los sprites (decisión de contrato de
+  presentación, D-108 §Lo que no cierra), los tres gates de arte rojos preexistentes y los 24 PNG
+  huérfanos `vf_town_hall_1006*`. Detalle en KNOWN-GAPS.md.
+
 ## WP4.15-V.k — Cuadrillas como personas (2026-11-09, empujado `9bd4e94..3a32240`)
 
 Rama `wip/vh-world-visual-foundation`, continuación directa de V.j. Pide el playtest de V.d: la gente

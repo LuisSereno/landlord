@@ -45,7 +45,12 @@ describe("patios de equipamientos (WP-D)", () => {
   });
 
   it("cada equipamiento aparca su vehículo temático dentro del solar, fuera de huella y acceso", () => {
-    const cases: Array<{ type: string; site: [number, number]; building: [number, number]; asset: string }> = [
+    const cases: Array<{
+      type: string;
+      site: [number, number];
+      building: [number, number];
+      asset: string;
+    }> = [
       { type: "clinic", site: [3, 2], building: [2, 1], asset: "veh_ambulance" },
       { type: "police_station", site: [3, 2], building: [2, 1], asset: "veh_police" },
       { type: "fire_station", site: [4, 2], building: [3, 1], asset: "veh_firetruck" },
@@ -83,7 +88,9 @@ describe("patios de equipamientos (WP-D)", () => {
       rect(0, 0, 7, 1),
     )!;
     expect(school.elements.map((entry) => entry.asset)).toContain("prp_school_playground");
-    expect(school.elements.filter((entry) => entry.asset === "prp_bench").length).toBeGreaterThanOrEqual(1);
+    expect(
+      school.elements.filter((entry) => entry.asset === "prp_bench").length,
+    ).toBeGreaterThanOrEqual(1);
 
     const market = planFacilityCourtyard(
       {
@@ -94,7 +101,9 @@ describe("patios de equipamientos (WP-D)", () => {
       },
       rect(0, 0, 5, 1),
     )!;
-    expect(market.elements.filter((entry) => entry.asset === "prp_market_stall").length).toBeGreaterThanOrEqual(1);
+    expect(
+      market.elements.filter((entry) => entry.asset === "prp_market_stall").length,
+    ).toBeGreaterThanOrEqual(1);
     expect(market.elements.some((entry) => entry.asset === "veh_delivery")).toBe(true);
   });
 

@@ -153,8 +153,9 @@ export function planFacilityCourtyard(
     const withPatio = edgeCells.filter((cell) => patioKeys.has(`${cell.x + dx}:${cell.y + dy}`));
     const reference = withPatio.length > 0 ? withPatio : edgeCells;
     const score =
-      (frontageCells.length > 0 ? Math.min(...reference.map((c) => distanceTo(c, frontageCells))) : 0) +
-      (withPatio.length === 0 ? 100 : 0);
+      (frontageCells.length > 0
+        ? Math.min(...reference.map((c) => distanceTo(c, frontageCells)))
+        : 0) + (withPatio.length === 0 ? 100 : 0);
     if (score < bestScore) {
       bestScore = score;
       front = side;
@@ -212,8 +213,7 @@ export function planFacilityCourtyard(
         left[0]!.y - right[0]!.y || left[0]!.x - right[0]!.x || left[1]!.x - right[1]!.x,
     );
     if (canonicalPairs.length > 0) {
-      const pair =
-        canonicalPairs[spatialHash(door.x, door.y, 0x51c7) % canonicalPairs.length]!;
+      const pair = canonicalPairs[spatialHash(door.x, door.y, 0x51c7) % canonicalPairs.length]!;
       for (const cell of pair) reserved.add(cellKey(cell));
       elements.push({
         id: `courtyard:${building.id}:vehicle:${cellKey(pair[0]!)}`,
@@ -251,10 +251,12 @@ export function planFacilityCourtyard(
     salt += 0x101;
   }
 
-  const keepFree = canonicalCells([...reserved].map((key) => {
-    const [x, y] = key.split(":").map(Number) as [number, number];
-    return { x, y };
-  }));
+  const keepFree = canonicalCells(
+    [...reserved].map((key) => {
+      const [x, y] = key.split(":").map(Number) as [number, number];
+      return { x, y };
+    }),
+  );
   return {
     buildingId: building.id,
     type: building.type,

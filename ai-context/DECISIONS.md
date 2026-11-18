@@ -1702,3 +1702,74 @@ intacto. Cero migración de snapshot: `cancelled` ya existía y las alertas nunc
 
 Ver `docs/engineering/adr/D-107-estados-de-activo-como-presentacion.md` y
 `docs/execution/phase-4/vd-ux-s-asset-status-2026-11-16.md`.
+
+## D-108 — El mood horneado es dato de procedencia, no nombre de archivo
+
+Estado: aceptada el 2026-11-18 por el responsable, que fijó el orden: registrar `moodId` en la
+procedencia y en el manifiesto runtime **antes** de promocionar el lote diurno.
+
+D-105 condicionó cerrar el catálogo de edificios a que los PNG «se rehornean y promueven por familia
+con sus hashes nuevos». Al hornear las 360 diurnas apareció el hueco: un PNG no declara qué grado lo
+horneó. `day_industrial` hereda de `day_civic` y sólo cambia dos bandas de grade, así que dos
+candidatos con idéntico `styleProfileId`, igual `composerVersion` y métricas parecidas no se
+distinguen por nada salvo el prefijo del fichero. **El runtime no puede depender del nombre de un
+archivo para saber qué iluminación está sirviendo.**
+
+El identificador se resuelve en un único sitio — `render_settings.active_mood_id`, con la misma
+prioridad que el perfil activo (`LANDLORD_ART_MOOD` sobre `activeMood`) — y viaja de ahí a la
+procedencia del candidato que escribe el compositor, a `REQUIRED_METADATA_FIELDS` del validador, al
+manifiesto de variantes que copia la promoción (que **aborta** si falta) y al tipo compartido
+`BuildingVariantV1`, con queja propia en `validateBuildingVariantManifest`. Ningún lote se promociona
+ya sin decir qué grade horneó cada PNG.
+
+**Precedente de procedimiento, aplicable fuera de esta fase:** cuando un campo nuevo entra en los
+obligatorios y el gate se pone rojo con material versionado de antes, se **registra el dato, no se
+relaja la lista**. Los 15 candidatos legacy que consume `runtime-promotions.json` (14 `vg_*` más
+`vf_town_hall_1006`) no llevaban mood, y el valor no se dedujo del prefijo: se demostró que el grade
+vigente el 2026-11-07 (`4d6abb5`) es idéntico hoja a hoja al perfil `night_civic` actual en
+`externalTreatment`, `lighting`, `rendering` y `shadow`, y que `a419465` es el único commit que ha
+tocado `activeMood`. El estampado es aditivo — 45 objetos en 30 ficheros, 0 líneas borradas, los 15
+PNG con su SHA intacto.
+
+**El grado industrial.** El `day_civic` genérico fue rechazado en las tres familias claras: el neto
+sobre albedo pálido (global 1,7 × `near_white_trim` 0,8 = 1,36 sobre 0,85-1,00, y 1,22 en la banda de
+fachada) empujaba por encima de 1,0 y chimeneas, silos, cornisas y paños pasaban de material a
+blanco plano. `day_industrial` baja **sólo esas dos bandas** (0,80→0,50 y 0,72→0,60) y deja intactos
+iluminación, sombra, `windowGlow` y suelo de legibilidad del diurno. Medido sobre las 72 variantes:
+recorte duro medio 2,87 %→0,51 %, máximo 11,19 %→1,57 %, **0 celdas por encima del 2 %**;
+microcontraste de la zona saturada std 0,005→0,049-0,071 con niveles 6→67-68;
+`compositionSignature` idéntico en **72/72**, o sea arreglo de grade y no de geometría. Por estado es
+quirúrgico: `complete` 7,71 %→1,12 % y `finishing` 7,69 %→1,12 %, mientras `foundation` y `structure`
+—sin paños ni cornisas— no mueven ni un decimal de medV, y `burning` queda igual porque lo que brilla
+es el fuego. `market_hall` **se queda en `day_civic`**: no recorta. Queda como regla que el mood se
+elige por familia según el defecto medido, no por convención de lote.
+
+**Cierre de la condición de D-105.** Promovidas 360 variantes: 288 `day_civic` + 72 `day_industrial`,
+0 sin `moodId`, 0 PNG ausentes y 0 SHA divergentes contra disco. `batch-day/` sigue fuera de Git
+(1,3 GB; convención de storage del 2026-11-09, sólo se versiona el marcador) y el lote nocturno quedó
+íntegro (360 PNG, concat-SHA `3b5614f1…`, 407 433 618 B). La decisión es **reversible con un
+comando**: promover `docs/art/quality-vj/batch` devuelve el runtime al nocturno, posible porque ese
+lote también recibió su `moodId`. Ejecutado y empujado el 2026-11-18 en `1bdeb5d..835982c`.
+
+**Lo que esta decisión NO cierra**, y corresponde al responsable:
+
+1. **El selector Día/Noche de D-105 y el grade horneado son ortogonales.**
+   `IsometricSpikeScene.setVisualMood` (`:787`) cambia el fondo de cámara y repinta el terreno: nunca
+   tocó los sprites. Con el catálogo en una sola marca por variante, la opción «Noche» deja los
+   edificios en grado diurno sobre fondo nocturno. O se hornean dos moods por variante —duplicando el
+   presupuesto de binarios de D-101 (23 MiB) y la descarga por distrito de D-102— o la opción se
+   retira o se redefine; es un cambio de contrato de presentación, no un detalle de assets.
+2. **Tres gates rojos previos, atribuidos midiendo y no tocando.** `art:external:check` pide
+   `a4984729…` y produce `3db46962…` estable en tres corridas, y un worktree limpio en HEAD `1bdeb5d`
+   reproduce el mismo digesto: el drift ya estaba versionado (golden refirmado en `71d4f22`,
+   2026-11-16, sin cambios posteriores en `tools/art-pipeline/blender/`, `asset-jobs.json` ni
+   `staging-sources.json`) y no se regenera hasta saber por qué. `art:coverage:audit:check` está rojo
+   en HEAD con sus cuatro entradas y sus dos salidas byte-idénticas a HEAD. `art:staging:validate`
+   reclama 7 fuentes `src_original_*` con procedencia incompleta y el PNG de spike irrecuperable desde
+   la limpieza del 2026-11-04.
+3. **24 PNG huérfanos** `vf_town_hall_1006*` (59,0 MB) en `variants/`, sin referencia de manifiesto ni
+   de código, pendientes de la decisión de borrado.
+
+Doctrina del grade en D-105 y `docs/engineering/adr/D-105-grado-diurno-y-selector-presentacion.md`;
+el dato vive en `tools/art-pipeline/blender/style_layer_graphic_civic.json`,
+`apps/web/src/generated/runtime-building-variants.json` y la procedencia de cada candidato.

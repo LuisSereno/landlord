@@ -436,6 +436,33 @@ que siguen conservan el acta histórica de mediciones previas y no describen el 
   mantienen los gates de generación y derivación vial existentes sin cambiar sus umbrales; la deuda
   de segmentos colineales no mínimos y la aprobación visual humana siguen fuera de este cierre.
 
+## WP4.16-V.n — Mercado manual, solar/huella y patios de equipamientos (2026-11-18, D-109)
+
+Ejecutado el plan del responsable del 2026-11-18 sin compatibilidad con partidas anteriores:
+
+- **Mercado manual**: eliminada la autoocupación mensual de solicitudes `market`; vigencia exacta
+  de seis meses (el pool autorado no caduca); `household` 60/6 con límite por plaza libre y
+  asequible y segregación por segmento intactos. Panel de contrato con explicación de satisfacción
+  derivada de la proyección; hub con plazas asequibles, solicitudes por segmento, plazos y causa de
+  escasez. Commits `acc0d33` (mercado) y `3a8eb63` (contratos de solar).
+- **Solar vs huella**: `siteFootprint`/`siteCells` separan el solar reservado de la huella física en
+  los seis equipamientos (8×4→5×3, 7×2→5×1, 3×2→2×1 ×2, 4×2→3×1, 5×2→4×1), elegidos por el mismo
+  enumerador D-097 según frente vial. Enmienda explícita a D-099 (town_hall V7). Generador v4;
+  fix de colisión de ids públicos tras fusión D-106; fixtures de distrito/ciudad y los diez digestos
+  dorados regenerados por medición (arrastaban BASELINE DEBT desde V.e, 2026-11-03).
+- **Patios y fauna**: catálogo declarativo de patios con acceso peatonal, plaza de vehículo y props
+  temáticos; vehículos de equipamientos dentro del patio; tres props originales nuevos (zona de
+  juegos, puesto de mercado, asta) con procedencia registrada; gorriones urbanos 1–2 en patios
+  válidos y fauna mayor sólo en vacantes/periferia. Commit `6169122`.
+- **Arte**: gramáticas de los seis equipamientos reescritas a la huella nueva conservando identidad
+  (friso grand 7→5 por frente de 12 m); rehorneado día/noche con `moodId` en curso de promoción.
+- **Presupuesto D-101**: la base `2018fbd` ya excedía el bundle en 233.877 B con 17 violaciones por
+  archivo preexistentes (`blender-day/`, `day-candidates/`); medición final tras la promoción en el
+  acta de cierre.
+- **Deuda que NO cierra esta fase**: playtest humano V.d; fallos preexistentes de acería
+  multi-parcela y market-actionability (merged 2 vs 1 en fixture sintético); deuda P2 de orientación
+  física sin frames laterales.
+
 ## Próximo objetivo
 
 Fase 0 de V.d ejecutada el 2026-10-28

@@ -168,6 +168,7 @@ obra en proceso visible con cuadrillas y recinto derivados.
 - `docs/art/BUILDING-COMPOSER.md` — especificación de producción del Building Composer modular (§1–§34) y su estado de implementación: V.f.1 (§35) para pipeline selection→catálogo→validador, esquema real de módulo, los dos marcos de referencia del anchor, cobertura medida por familia, límite con `property-grounds` y prueba del gate; V.f.2 (§36) para el perfil de estilo medido, la identidad de textura por archivo y la regla de composición por cadena de nodos.
 - `docs/engineering/adr/D-099-building-composer-geometria-modular.md` — propuesta D-099: composición modular determinista sobre geometría licenciada.
 - `docs/engineering/adr/D-108-mood-de-render-como-dato-de-procedencia.md` — el mood con el que se horneó cada PNG es dato de procedencia y de manifiesto runtime (`moodId`), no nombre de archivo. Sustituye la condición abierta de D-105 sobre el rehorneado por familia y registra el precedente de satisfacer un campo obligatorio nuevo anotando el dato, no relajando el validador.
+- `docs/engineering/adr/D-109-mercado-manual-solar-y-patios.md` — mercado de inquilinos manual con vigencia de seis meses, solar reservado (`siteFootprint`/`siteCells`) separado de la huella física en los seis equipamientos (enmienda explícita a D-099 para town_hall V7), patios con vehículo temático y props originales, y fauna urbana/periférica determinista.
 
 ## Benchmark morfológico
 - `tools/urban-benchmark/README.md` — herramienta offline (OSMnx fijado por versión), las 28 ventanas de

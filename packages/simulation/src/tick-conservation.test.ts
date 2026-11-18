@@ -120,57 +120,64 @@ function cityDigest(input: {
   return digest(canonicalizeState(state));
 }
 
+/**
+ * Regeneración D-109 (2026-11-18): cambian los diez digestos por tres motivos medidos: el mercado
+ * de vivienda manual (sin autoocupación, caducidad exacta a seis meses, household 60/6), el
+ * generador v4 (solar/huella de equipamientos y numeración pública) y el drift que la base
+ * `2018fbd` ya arrastraba en estas fixtures. La conservación tick a tick se sigue verificando con
+ * los mismos escenarios; sólo cambia la superficie canónica esperada.
+ */
 const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => string }> = [
   {
     id: "scenario:seed-1:1200",
-    expected: "ba2ea3986be9af8d",
+    expected: "1e04c29741972353",
     run: () => digest(canonicalizeState(runScenario(1, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-7:1200",
-    expected: "eee52c0f35e8e25d",
+    expected: "8162d8698f0621b2",
     run: () => digest(canonicalizeState(runScenario(7, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-42:1200",
-    expected: "7334ce74ea612c45",
+    expected: "7fabe94aacaa5ee3",
     run: () => digest(canonicalizeState(runScenario(42, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "298f143b56750198",
+    expected: "19d912d78fe0af85",
     run: () => digest(canonicalizeState(runScenario(1, [], 36_000, { checkpointEvery: 0 }).state)),
   },
   {
     id: "city:50-parcels:1300-ticks",
-    expected: "39dc973add260341",
+    expected: "628a69bfed78a1a2",
     run: () => cityDigest({ parcelCount: 50, ticks: 1_300 }),
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "81822db0cca4c6ba",
+    expected: "07d49675bf8f446a",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "130d5ba62e602f80",
+    expected: "18dff141ccb13bf5",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "9ced7a327c763939",
+    expected: "44eff0fe53e60186",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "dec973a982a23219",
+    expected: "1288167c41cb7791",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "1a98ac413a42b3d7",
+    expected: "4a3f2fe07807ff07",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];

@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { existsSync } from "node:fs";
 import { access, readdir, readFile } from "node:fs/promises";
 
 const manifestUrl = new URL("../blender_artist/manifests/staging-sources.json", import.meta.url);
@@ -16,6 +17,8 @@ const errors = [];
 const allowedLicenses = new Set(allowlist.allowed);
 const deniedLicenses = new Set(allowlist.denied);
 const STAGING_PREFIX = "blender_artist/staging/third_party/";
+/** Geometría propia del proyecto: no es staging de terceros; su procedencia es el script que la genera. */
+const ORIGINAL_PREFIX = "blender_artist/sources/original/";
 // Misma raíz de extracción que usan extract-cc0-packs.mjs y audit-visual-sources.mjs: el
 // `extractDir` del registro resuelve aquí, no en una tabla duplicada por cada script.
 const CC0_EXTRACTED_PREFIX = `${STAGING_PREFIX}cc0/extracted/`;
@@ -30,6 +33,28 @@ for (const source of manifest.sources) {
   if (!/^src_[a-z0-9_]+$/.test(source.id)) errors.push(`Invalid source id: ${source.id}`);
   if (sourceIds.has(source.id)) errors.push(`Duplicate source id: ${source.id}`);
   sourceIds.add(source.id);
+  /**
+   * Material original (D-109): vive fuera del staging de terceros y su ancla de procedencia es el
+   * script generador + el hash del GLB. Las reglas de terceros no se relajan: esta rama sólo cubre
+   * licencia `original` con origen `original` bajo el directorio canónico.
+   */
+  if (source.license === "original" && source.origin === "original") {
+    if (!source.path?.startsWith(ORIGINAL_PREFIX)) {
+      errors.push(`Material propio fuera de ${ORIGINAL_PREFIX}: ${source.id}`);
+    }
+    if (!source.sourceUrl || !source.verification) {
+      errors.push(`Incomplete provenance: ${source.id}`);
+    }
+    if (source.path && existsSync(source.path)) {
+      if (source.sha256) {
+        const actual = await sha256Of(new URL(`../${source.path}`, import.meta.url));
+        if (actual !== source.sha256) errors.push(`Original source hash mismatch: ${source.id}`);
+      }
+    } else if (source.path) {
+      errors.push(`Missing original source file: ${source.id}`);
+    }
+    continue;
+  }
   if (!source.path || !source.sourceUrl || !source.verification) {
     errors.push(`Incomplete provenance: ${source.id}`);
     continue;

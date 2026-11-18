@@ -410,6 +410,27 @@ Sigue abierto:
   de storage del 2026-11-09: sólo se versiona el marcador. Su reproductibilidad exige conservar el lote
   en disco: rehacer el diurno desde cero vuelve a costar ≈560 min de compositor (360 celdas).
 
+## V.n · D-109 — lo que queda abierto (2026-11-18)
+
+- **Presupuesto D-101 excedido en la base.** `2018fbd` ya superaba `maxBundleBytes` en 233.877 B y
+  arrastraba 17 violaciones por archivo (>1 MiB) en `blender-day/` y `docs/art/day-candidates/`,
+  atribuidas por medición en worktree limpio. Los nueve PNG de los props originales de D-109 añaden
+  476.900 B; el rehorneado de los seis equipamientos con huella menor sustituye sus PNG de base y la
+  medición final tras la promoción decide si hace falta una excepción nombrada en
+  `BINARY-ALLOWLIST.json` (decisión del responsable, no ajuste silencioso).
+- **`art:staging:validate` puede crecer.** Las tres fuentes originales nuevas
+  (`src_original_school_playground`, `src_original_market_stall`, `src_original_flagpole`) siguen el
+  patrón de las siete `src_original_*` ya marcadas por procedencia incompleta; si el validador las
+  reclama, se completa su procedencia, no se relaja la lista.
+- **Fallos de simulación preexistentes que D-109 no cierra.** Acería multi-parcela (L, rival y
+  tripletes naturales por seed) y `market-actionability` (fixture sintético espera merged 1 y mide
+  merged 2) fallaban ya en `2018fbd`. Las fixtures de distrito/ciudad y los diez digestos dorados sí
+  se regeneraron por medición en D-109 (generador v4 + mercado manual); arrastraban BASELINE DEBT
+  desde V.e (2026-11-03).
+- **Huérfanos de town_hall.** La promoción D-109 sustituye las variantes de town_hall por las de
+  huella 5×3; los `vf_town_hall_1006*` de `variants/` siguen pendientes de la decisión de borrado
+  del responsable, ahora con más razón. No se elimina nada por iniciativa propia.
+
 ## Rendimiento y Alpha
 
 - El cierre mensual de 800 parcelas es la frontera cara. Medido como campaña longitudinal real en

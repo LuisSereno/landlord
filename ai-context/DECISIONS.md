@@ -1773,3 +1773,30 @@ lote también recibió su `moodId`. Ejecutado y empujado el 2026-11-18 en `1bdeb
 Doctrina del grade en D-105 y `docs/engineering/adr/D-105-grado-diurno-y-selector-presentacion.md`;
 el dato vive en `tools/art-pipeline/blender/style_layer_graphic_civic.json`,
 `apps/web/src/generated/runtime-building-variants.json` y la procedencia de cada candidato.
+
+## D-109 — Mercado de inquilinos manual, solar reservado y patios de equipamientos
+
+Estado: aceptada el 2026-11-18 por el responsable. Sin compatibilidad con partidas anteriores.
+
+Tres bloques conectados: (1) las solicitudes de inquilinos dejan de autoocuparse al cierre mensual
+—toda contratación es `AssignTenant`—, caducan a los seis meses exactos las de mercado y nunca el
+pool autorado, y `household` sube a techo 60 con hasta 6 llegadas/mes conservando el límite por
+plaza libre y asequible y la segregación por segmento; la satisfacción se explica en el panel
+derivada de la proyección, sin estado duplicado, y los factores urbanos se presentan como atractivo
+de llegadas, no como penalizaciones. (2) `BuildingDefinition.siteFootprint` y `Building.siteCells`
+separan el solar reservado de la huella física: los seis equipamientos reservan su solar actual
+(8×4, 7×2, 3×2, 3×2, 4×2, 5×2) y construyen un subrectángulo menor (5×3, 5×1, 2×1, 2×1, 3×1, 4×1)
+elegido por el mismo enumerador autoritativo según frente vial y orientación; proyección,
+candidatas y fantasma publican ambos, y selección/servicios/obstáculos/profundidad siguen usando la
+huella física. **Enmienda explícita a D-099:** el responsable reduce la huella de town_hall V7 de
+8×4 a 5×3 conservando las reglas de identidad cívica. `DISTRICT_GENERATOR_VERSION` sube a 4 y se
+corrige la colisión de ids públicos tras la fusión D-106. (3) Catálogo declarativo de patios con
+acceso peatonal, plaza de vehículo y props temáticos; los vehículos de los equipamientos aparcan
+dentro del patio; tres props originales nuevos (zona de juegos, puesto de mercado, asta) con
+procedencia registrada; gorriones urbanos en patios válidos (1–2, deterministas) y fauna mayor sólo
+en vacantes/periferia con espacio.
+
+Presupuesto D-101: la base `2018fbd` ya excedía el bundle en 233.877 B con 17 violaciones por
+archivo preexistentes; el rehorneado de los seis equipamientos con huella menor debe devolver el
+bundle bajo el límite y la medición final se registra en el acta. Ver
+`docs/engineering/adr/D-109-mercado-manual-solar-y-patios.md`.

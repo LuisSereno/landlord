@@ -422,33 +422,33 @@
     {
       "id": "src_original_school_playground",
       "path": "blender_artist/sources/original/school_playground.glb",
-      "sha256": null,
+      "sha256": "814c7e69f1260179a52801200a193a012813d0774c39e96db2089e18556deb48",
       "origin": "original",
       "license": "original",
       "verification": "geometría propia generada por create_original_school_playground.py",
-      "sourceUrl": null,
+      "sourceUrl": "tools/art-pipeline/blender/create_original_school_playground.py",
       "unitScale": 1,
       "extractDir": null
     },
     {
       "id": "src_original_market_stall",
       "path": "blender_artist/sources/original/market_stall.glb",
-      "sha256": null,
+      "sha256": "c5995cd7cb04282a4c9234ab0968547ff4a3ab9116ee33f5e80527808ab547cb",
       "origin": "original",
       "license": "original",
       "verification": "geometría propia generada por create_original_market_stall.py",
-      "sourceUrl": null,
+      "sourceUrl": "tools/art-pipeline/blender/create_original_market_stall.py",
       "unitScale": 1,
       "extractDir": null
     },
     {
       "id": "src_original_flagpole",
       "path": "blender_artist/sources/original/flagpole.glb",
-      "sha256": null,
+      "sha256": "be19dbcee94da2f66bfca676971b732f2f2b2fde99705ef006ff472aa3550885",
       "origin": "original",
       "license": "original",
       "verification": "geometría propia generada por create_original_flagpole.py",
-      "sourceUrl": null,
+      "sourceUrl": "tools/art-pipeline/blender/create_original_flagpole.py",
       "unitScale": 1,
       "extractDir": null
     }

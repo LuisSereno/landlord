@@ -65,6 +65,7 @@ const REQUIRED_METADATA_FIELDS = [
   "variantSeed",
   "composerVersion",
   "styleProfileId",
+  "moodId",
   "compositionSignature",
   "modules",
   "sourceIds",

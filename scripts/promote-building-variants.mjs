@@ -52,11 +52,17 @@ for (const type of readdirSync(BATCH).sort()) {
     if (!existsSync(pngPath)) throw new Error(`${cand.candidateId}: falta el PNG`);
     const buffer = readFileSync(pngPath);
     if (sha256(buffer) !== cand.sha256) throw new Error(`${cand.candidateId}: sha no coincide`);
+    if (!cand.moodId)
+      throw new Error(
+        `${cand.candidateId}: la procedencia no registra moodId; sin él el manifiesto no puede ` +
+          "distinguir grades y dependería del prefijo del archivo",
+      );
     const size = pngSize(buffer);
     const key = variantKey(cand.buildingType, cand.state, cand.orientation, cand.constructionStage);
     if (variants[key]) throw new Error(`clave de variante duplicada: ${key}`);
     copyFileSync(pngPath, join(VARIANTS_DIR, `${cand.candidateId}.png`));
     variants[key] = {
+      moodId: cand.moodId,
       image: {
         src: `/assets/runtime/variants/${cand.candidateId}.png`,
         width: size.width,
@@ -82,6 +88,7 @@ console.log(
   JSON.stringify({
     status: "promoted",
     variants: copied,
+    moods: [...new Set(Object.values(variants).map((v) => v.moodId))].sort(),
     manifest: OUT_MANIFEST,
     dir: VARIANTS_DIR,
   }),

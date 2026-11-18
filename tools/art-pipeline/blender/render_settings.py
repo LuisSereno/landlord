@@ -37,12 +37,23 @@ def _apply_band_overrides(profile):
     return profile
 
 
-def active_mood(style_layer):
-    """Devuelve el perfil activo y falla explícitamente ante configuraciones incompletas."""
+def active_mood_id(style_layer):
+    """El identificador del mood que se va a aplicar, con la misma prioridad que `active_mood`.
+
+    Se expone aparte porque la procedencia de un PNG necesita decir QUÉ mood se usó, y eso no se
+    puede deducir del perfil resuelto: `day_industrial` hereda de `day_civic` y sólo cambia dos
+    bandas, así que dos perfiles distintos pueden resolver a valores parecidos.
+    """
     mood_id = os.environ.get("LANDLORD_ART_MOOD", style_layer.get("activeMood"))
-    profiles = style_layer.get("moodProfiles", {})
     if not mood_id:
         raise ValueError("style layer sin activeMood")
+    return mood_id
+
+
+def active_mood(style_layer):
+    """Devuelve el perfil activo y falla explícitamente ante configuraciones incompletas."""
+    mood_id = active_mood_id(style_layer)
+    profiles = style_layer.get("moodProfiles", {})
     profile = _apply_band_overrides(_resolve_profile(profiles, mood_id))
     required = ("lighting", "rendering", "externalTreatment", "shadow")
     missing = [key for key in required if key not in profile]

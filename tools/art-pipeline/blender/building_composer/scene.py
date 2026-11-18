@@ -43,7 +43,7 @@ if str(BLENDER_DIR) not in sys.path:
     sys.path.insert(0, str(BLENDER_DIR))
 
 import runtime_asset as runtime  # noqa: E402
-from render_settings import active_mood, apply_render_settings  # noqa: E402
+from render_settings import active_mood, active_mood_id, apply_render_settings  # noqa: E402
 from source_import import (  # noqa: E402
     assert_textures_resolved,
     fix_texture_paths,
@@ -1088,6 +1088,9 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
         "variantSeed": composition["variantSeed"],
         "composerVersion": composition["composerVersion"],
         "styleProfileId": composition["styleProfileId"],
+        # El mood no se deduce del artefacto: day_industrial hereda de day_civic y sólo cambia dos
+        # bandas, así que sin este campo el manifiesto runtime dependería del prefijo del archivo.
+        "moodId": active_mood_id(style_layer),
         "compositionSignature": composition["compositionSignature"],
         "axisChoices": composition["axisChoices"],
         "footprintCells": composition["footprintCells"],

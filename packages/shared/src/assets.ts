@@ -473,6 +473,12 @@ export function buildingVariantKey(
 
 /** Render real de una variante, con lo necesario para colocar y escalar el sprite. */
 export type BuildingVariantV1 = {
+  /**
+   * Mood de style layer con el que se horneó este PNG. No es deducible del artefacto:
+   * `day_industrial` hereda de `day_civic` y sólo cambia dos bandas de grade, así que sin este campo
+   * la única señal sería el prefijo del archivo.
+   */
+  moodId: string;
   image: AssetImageV1;
   pivot: { x: number; y: number };
   footprint: { width: number; height: number };
@@ -501,6 +507,7 @@ export function validateBuildingVariantManifest(manifest: BuildingVariantManifes
       !BUILDING_PHYSICAL_ORIENTATIONS.includes(Number(orientation) as BuildingPhysicalOrientation)
     )
       issues.push(`${key}: orientación física inválida ${orientation}`);
+    if (!variant.moodId) issues.push(`${key}: falta moodId, no se sabe qué grade horneó el PNG`);
     if (variant.image.width < 1 || variant.image.height < 1)
       issues.push(`${key}: medidas de imagen inválidas`);
     if (variant.pivot.x < 0 || variant.pivot.x > 1 || variant.pivot.y < 0 || variant.pivot.y > 1)

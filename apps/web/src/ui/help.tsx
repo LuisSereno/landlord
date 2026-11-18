@@ -190,7 +190,8 @@ export const helpCatalog: Record<HelpTopicKey, HelpTopic> = {
   },
   housing_market: {
     title: "Mercado de vivienda",
-    summary: "Índices de renta y vacancia por tipo de edificio y segmento de hogares.",
+    summary:
+      "Solicitudes por segmento con seis meses de vigencia: la contratación es siempre manual. Seguridad, transporte, limpieza, parques, empleo y reputación atraen llegadas; la satisfacción del contrato sólo depende de renta y condición.",
   },
   employment: {
     title: "Empleo",

@@ -489,6 +489,11 @@ export type ViewProjectionV2 = {
        * pueden tener huellas distintas y alejadas del anchor (H2-01).
        */
       footprintCells: GridCell[];
+      /**
+       * Solar reservado por la colocación: reserva municipal explícita o unión de las celdas de
+       * `parcelIds`. El render distingue patio/acceso (solar) de volumen construido (huella física).
+       */
+      siteCells: GridCell[];
       /** Orientación del dominio (0/90/180/270). No es el azimut de cámara del manifiesto (H2-03). */
       orientation: 0 | 90 | 180 | 270;
       floors: number;
@@ -514,6 +519,8 @@ export type ViewProjectionV2 = {
       ownerOrganizationId: OrganizationId;
       buildingType: BuildingType;
       footprintCells: GridCell[];
+      /** Solar del proyecto: unión canónica de las celdas de sus parcelas. */
+      siteCells: GridCell[];
       orientation: 0 | 90 | 180 | 270;
       floors: number;
       form: BuildingForm;
@@ -597,6 +604,8 @@ export type ViewProjectionV2 = {
       lastSettlementTick: Tick | null;
       arrivalsTotal: number;
       departuresTotal: number;
+      /** Vigencia en meses de las solicitudes de mercado; los hogares autorados no caducan. */
+      maximumSearchMonths: number;
       rentIndexPercentByBuildingType: Record<string, number>;
       vacancyPercentByBuildingType: Record<string, number>;
       segments: Array<{
@@ -1211,6 +1220,7 @@ export const viewProjectionV2Schema = z.object({
           districtId: districtIdSchema,
           type: buildingTypeSchema,
           footprintCells: z.array(gridCellSchema).min(1),
+          siteCells: z.array(gridCellSchema).min(1),
           orientation: z.union([z.literal(0), z.literal(90), z.literal(180), z.literal(270)]),
           floors: z.number().int().min(1).max(64),
           form: buildingFormSchema,
@@ -1239,6 +1249,7 @@ export const viewProjectionV2Schema = z.object({
           ownerOrganizationId: organizationIdSchema,
           buildingType: buildingTypeSchema,
           footprintCells: z.array(gridCellSchema).min(1),
+          siteCells: z.array(gridCellSchema).min(1),
           orientation: z.union([z.literal(0), z.literal(90), z.literal(180), z.literal(270)]),
           floors: z.number().int().min(1).max(64),
           form: buildingFormSchema,
@@ -1329,6 +1340,7 @@ export const viewProjectionV2Schema = z.object({
         lastSettlementTick: tickSchema.nullable(),
         arrivalsTotal: z.number().int().nonnegative(),
         departuresTotal: z.number().int().nonnegative(),
+        maximumSearchMonths: z.number().int().positive(),
         rentIndexPercentByBuildingType: z.record(z.string(), z.number().int()),
         vacancyPercentByBuildingType: z.record(z.string(), z.number()),
         segments: z.array(

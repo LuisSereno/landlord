@@ -2,8 +2,10 @@ import { describe, expect, it } from "vitest";
 
 import {
   parseBuildingId,
+  parseCommandId,
   parseIncidentId,
   parseMoney,
+  parsePersonId,
   parseSeed,
   parseTenantId,
   parseTick,
@@ -15,6 +17,7 @@ import {
   type TenantId,
 } from "@landlord/shared";
 import { BUILDING_DEFINITIONS, GAME_MONTH_TICKS, PLAYER_ORGANIZATION_ID } from "./game-data";
+import { dispatchProductCommand } from "./commands";
 import {
   countNeighbours,
   HOUSING_MARKET_POLICY,
@@ -147,7 +150,7 @@ function fillBuildings(state: GameState, capacity: number): void {
 }
 
 describe("WP4.3 oferta y demanda de vivienda", () => {
-  it("expone demanda inicial para todos los productos alquilables y retira a quien no encuentra vivienda", () => {
+  it("expone demanda inicial para todos los productos alquilables y conserva el pool autorado sin oferta", () => {
     const state = newState();
 
     expect(
@@ -173,12 +176,62 @@ describe("WP4.3 oferta y demanda de vivienda", () => {
       true,
     );
 
-    months(state, 6, 1);
+    months(state, 12, 1);
 
-    // La demanda inicial se agota sin oferta: el mercado no conserva demanda infinita.
-    expect(state.phase2.tenants.size).toBe(0);
-    expect(state.phase2.housingMarket.departuresTotal).toBe(7);
+    // El pool autorado no caduca: sigue siendo la reserva manual del jugador aunque no haya oferta.
+    expect(state.phase2.tenants.size).toBe(7);
+    expect(state.phase2.housingMarket.departuresTotal).toBe(0);
     expect(state.phase2.housingMarket.arrivalsTotal).toBe(0);
+  });
+
+  it("una solicitud de mercado sigue disponible al cierre siguiente y sólo caduca a los seis meses", () => {
+    const state = newState();
+    const searcher = addTenant(state, 600, { origin: "market" });
+
+    settleAt(state, GAME_MONTH_TICKS);
+    expect(state.phase2.tenants.get(searcher)?.status).toBe("available");
+    expect(state.phase2.tenants.get(searcher)?.searchMonths).toBe(1);
+
+    for (let month = 2; month <= 5; month += 1) settleAt(state, month * GAME_MONTH_TICKS);
+    expect(state.phase2.tenants.get(searcher)?.searchMonths).toBe(5);
+    expect(state.phase2.housingMarket.departuresTotal).toBe(0);
+
+    settleAt(state, 6 * GAME_MONTH_TICKS);
+    expect(state.phase2.tenants.get(searcher)).toBeUndefined();
+    expect(state.phase2.housingMarket.departuresTotal).toBe(1);
+  });
+
+  it("ninguna solicitud se autoocupa: la contratación es siempre manual", () => {
+    const state = newState();
+    const buildingId = addBuilding(state, 0, "courtyard_home");
+    addBuilding(state, 1, "courtyard_home");
+
+    months(state, 2);
+
+    const applicants = [...state.phase2.tenants.values()].filter(
+      (tenant) => tenant.origin === "market" && tenant.status === "available",
+    );
+    expect(applicants.length).toBeGreaterThan(0);
+    expect(occupiedSlots(state)).toBe(0);
+
+    const chosen = applicants[0]!;
+    const result = dispatchProductCommand(state, {
+      commandId: parseCommandId("command_00000001"),
+      issuedByPersonId: parsePersonId("person_00000001"),
+      actingAsOrganizationId: PLAYER_ORGANIZATION_ID,
+      type: "AssignTenant",
+      payload: { buildingId, tenantId: chosen.id },
+    });
+    expect(result.accepted).toBe(true);
+    expect(state.phase2.buildings.get(buildingId)?.tenantIds).toContain(chosen.id);
+    expect(state.phase2.tenants.get(chosen.id)?.status).toBe("contracted");
+
+    months(state, 1, 2);
+    // Las solicitudes originales siguen esperando una decisión manual al mes siguiente.
+    for (const applicant of applicants) {
+      if (applicant.id === chosen.id) continue;
+      expect(state.phase2.tenants.get(applicant.id)?.status).toBe("available");
+    }
   });
 
   it("construir más plazas no garantiza ocuparlas", () => {
@@ -190,14 +243,41 @@ describe("WP4.3 oferta y demanda de vivienda", () => {
     months(compact, 24);
     months(generous, 24);
 
-    expect(occupiedSlots(compact)).toBeGreaterThan(0);
-    expect(occupiedSlots(generous)).toBeLessThanOrEqual(HOUSING_SEGMENTS.household.populationCap);
-    // Dieciséis plazas más no producen dieciséis hogares más: la ocupación la fija la demanda.
-    expect(occupiedSlots(generous)).toBeLessThanOrEqual(occupiedSlots(compact) + 2);
-    expect(vacantSlots(generous)).toBeGreaterThanOrEqual(vacantSlots(compact) + 10);
+    // Sin autoocupación la ocupación la decide el jugador; la demanda sigue acotada por el techo
+    // y por la caducidad de las solicitudes no contratadas.
+    expect(occupiedSlots(compact)).toBe(0);
+    expect(occupiedSlots(generous)).toBe(0);
     expect(describeHousingMarket(generous)[0]!.population).toBeLessThanOrEqual(
       HOUSING_SEGMENTS.household.populationCap,
     );
+    expect(generous.phase2.housingMarket.departuresTotal).toBeGreaterThan(0);
+    expect(vacantSlots(generous)).toBeGreaterThanOrEqual(vacantSlots(compact) + 10);
+  });
+
+  it("contratando a mano el parque alcanza más de 24 hogares sin superar el techo de 60", () => {
+    const state = newState(11);
+    const buildingIds: BuildingId[] = [];
+    for (let index = 0; index < 30; index += 1) {
+      buildingIds.push(addBuilding(state, index, "courtyard_home"));
+    }
+
+    for (let month = 1; month <= 24; month += 1) {
+      months(state, 1, month - 1);
+      const applicants = [...state.phase2.tenants.values()]
+        .filter((tenant) => tenant.status === "available" && tenant.segmentId === "household")
+        .sort((left, right) => left.id.localeCompare(right.id));
+      for (const tenant of applicants) {
+        const target = buildingIds.find(
+          (id) => state.phase2.buildings.get(id)!.tenantIds.length < 2,
+        );
+        if (!target) break;
+        seat(state, target, tenant.id);
+      }
+    }
+
+    const demand = describeHousingMarket(state)[0]!;
+    expect(demand.population).toBeGreaterThan(24);
+    expect(demand.population).toBeLessThanOrEqual(60);
   });
 
   it("genera solicitudes compatibles para un bloque de pisos", () => {
@@ -255,12 +335,24 @@ describe("WP4.3 oferta y demanda de vivienda", () => {
 
   it("un shock de renta corta la asequibilidad y frena las llegadas", () => {
     const state = newState(13);
-    for (let index = 0; index < 6; index += 1) addBuilding(state, index, "courtyard_home");
+    const buildingIds: BuildingId[] = [];
+    for (let index = 0; index < 6; index += 1) {
+      buildingIds.push(addBuilding(state, index, "courtyard_home"));
+    }
     months(state, 4);
 
     const beforeShock = state.phase2.housingMarket.arrivalsTotal;
     const demandBefore = describeHousingMarket(state)[0]!;
     expect(demandBefore.affordableVacantSlots).toBeGreaterThan(0);
+
+    // El jugador contrata manualmente parte de las solicitudes antes del shock.
+    const applicants = [...state.phase2.tenants.values()]
+      .filter((tenant) => tenant.origin === "market" && tenant.status === "available")
+      .sort((left, right) => left.id.localeCompare(right.id));
+    expect(applicants.length).toBeGreaterThan(4);
+    for (const [index, tenant] of applicants.slice(0, 4).entries()) {
+      seat(state, buildingIds[index]!, tenant.id);
+    }
 
     state.phase2.ordinance.status = "active";
     state.phase2.ordinance.rentModifierPercent = 100;
@@ -272,27 +364,10 @@ describe("WP4.3 oferta y demanda de vivienda", () => {
     expect(state.phase2.housingMarket.arrivalsTotal).toBe(beforeShock);
 
     const seatedBefore = occupiedSlots(state);
+    expect(seatedBefore).toBeGreaterThan(0);
     months(state, 4, 5);
     // La renta impagable erosiona la satisfacción y acaba desalojando hogares.
     expect(occupiedSlots(state)).toBeLessThan(seatedBefore);
-  });
-
-  it("el mercado coloca al hogar en la vivienda más deseable que puede pagar", () => {
-    const state = newState();
-    const degraded = addBuilding(state, 0, "courtyard_home", {
-      condition: 45,
-      cell: { x: 20, y: 20 },
-    });
-    const pristine = addBuilding(state, 1, "courtyard_home", {
-      condition: 100,
-      cell: { x: 21, y: 20 },
-    });
-    const searcher = addTenant(state, 500, { origin: "market", searchMonths: 1 });
-
-    settleAt(state, GAME_MONTH_TICKS);
-
-    expect(state.phase2.buildings.get(pristine)?.tenantIds).toContain(searcher);
-    expect(state.phase2.buildings.get(degraded)?.tenantIds).not.toContain(searcher);
   });
 
   it("pondera calidad, accesibilidad, seguridad y servicios según el segmento", () => {
@@ -466,6 +541,153 @@ describe("WP4.3 oferta y demanda de vivienda", () => {
       expect(countNeighbours({ districtId, cell }, buckets), `${cell.x},${cell.y}`).toBe(
         bruteForce,
       );
+    }
+  });
+});
+
+describe("satisfacción del contrato: modificadores y umbrales de salida", () => {
+  function seatedCase(
+    overrides: { condition?: number; budget?: number; satisfaction?: number } = {},
+  ): { state: GameState; tenantId: TenantId; buildingId: BuildingId } {
+    const state = newState();
+    const buildingId = addBuilding(state, 0, "courtyard_home", {
+      condition: overrides.condition ?? 100,
+    });
+    const tenantId = addTenant(state, 700, {
+      budget: parseMoney(overrides.budget ?? 220),
+      satisfaction: overrides.satisfaction ?? 60,
+    });
+    seat(state, buildingId, tenantId);
+    return { state, tenantId, buildingId };
+  }
+
+  it("suma +2 mensual base con renta asequible y condición sana", () => {
+    const { state, tenantId } = seatedCase();
+    months(state, 1);
+    expect(state.phase2.tenants.get(tenantId)?.satisfaction).toBe(62);
+    expect(state.phase2.tenants.get(tenantId)?.status).toBe("contracted");
+  });
+
+  it("resta 20 cuando la renta supera el presupuesto del hogar", () => {
+    const { state, tenantId } = seatedCase({ budget: 100 });
+    months(state, 1);
+    expect(state.phase2.tenants.get(tenantId)?.satisfaction).toBe(42);
+  });
+
+  it("resta 10 cuando la condición está por debajo de 60", () => {
+    const { state, tenantId } = seatedCase({ condition: 50 });
+    months(state, 1);
+    expect(state.phase2.tenants.get(tenantId)?.satisfaction).toBe(52);
+  });
+
+  it("acumula ambas penalizaciones y acota la satisfacción entre 0 y 100", () => {
+    const both = seatedCase({ condition: 50, budget: 100 });
+    months(both.state, 1);
+    expect(both.state.phase2.tenants.get(both.tenantId)?.satisfaction).toBe(32);
+
+    const ceiling = seatedCase({ satisfaction: 99 });
+    months(ceiling.state, 1);
+    expect(ceiling.state.phase2.tenants.get(ceiling.tenantId)?.satisfaction).toBe(100);
+
+    const floor = seatedCase({ condition: 50, budget: 100, satisfaction: 5 });
+    months(floor.state, 1);
+    expect(floor.state.phase2.tenants.get(floor.tenantId)?.satisfaction).toBe(0);
+  });
+
+  it("desaloja forzosamente con condición menor de 20", () => {
+    const { state, tenantId, buildingId } = seatedCase({ condition: 19 });
+    months(state, 1);
+    expect(state.phase2.tenants.get(tenantId)?.status).toBe("available");
+    expect(state.phase2.buildings.get(buildingId)?.tenantIds).not.toContain(tenantId);
+  });
+
+  it("desaloja forzosamente con satisfacción menor de 30 tras el cierre", () => {
+    const { state, tenantId } = seatedCase({ budget: 100, satisfaction: 28 });
+    months(state, 1);
+    // 28 + 2 − 20 = 10 < 30 → salida forzosa.
+    expect(state.phase2.tenants.get(tenantId)?.status).toBe("available");
+  });
+
+  it("no desaloja en los bordes exactos: condición 20 y satisfacción 30", () => {
+    const conditionEdge = seatedCase({ condition: 20 });
+    months(conditionEdge.state, 1);
+    expect(conditionEdge.state.phase2.tenants.get(conditionEdge.tenantId)?.status).toBe(
+      "contracted",
+    );
+    expect(conditionEdge.state.phase2.tenants.get(conditionEdge.tenantId)?.satisfaction).toBe(52);
+
+    const satisfactionEdge = seatedCase({ satisfaction: 28 });
+    months(satisfactionEdge.state, 1);
+    // 28 + 2 = 30, que no es menor de 30.
+    expect(satisfactionEdge.state.phase2.tenants.get(satisfactionEdge.tenantId)?.status).toBe(
+      "contracted",
+    );
+  });
+});
+
+describe("ritmo residencial ágil y segregación por segmento", () => {
+  it("household declara techo 60 y hasta 6 llegadas mensuales con atractivo completo", () => {
+    expect(HOUSING_SEGMENTS.household.populationCap).toBe(60);
+    expect(HOUSING_SEGMENTS.household.arrivalsAtFullAppeal).toBe(6);
+  });
+
+  it("con plazas suficientes ninguna llegada mensual supera 6 ni el techo de población", () => {
+    const state = newState(11);
+    for (let index = 0; index < 30; index += 1) addBuilding(state, index, "courtyard_home");
+
+    let previousArrivals = 0;
+    for (let month = 1; month <= 12; month += 1) {
+      months(state, 1, month - 1);
+      const arrivals = state.phase2.housingMarket.arrivalsTotal;
+      expect(arrivals - previousArrivals).toBeLessThanOrEqual(6);
+      previousArrivals = arrivals;
+    }
+    expect(previousArrivals).toBeGreaterThan(0);
+
+    const demand = describeHousingMarket(state)[0]!;
+    expect(demand.population).toBeLessThanOrEqual(60);
+    expect(demand.population).toBeLessThanOrEqual(demand.compatibleSlots);
+
+    for (const tenant of state.phase2.tenants.values()) {
+      if (tenant.origin !== "market") continue;
+      expect(tenant.segmentId).toBe("household");
+      expect(HOUSING_SEGMENTS.household.preferredBuildingTypes).toContain(
+        tenant.preferredBuildingType,
+      );
+      const compatible = [...state.phase2.buildings.values()].filter(
+        (building) =>
+          building.districtId === tenant.marketDistrictId &&
+          building.type === tenant.preferredBuildingType,
+      );
+      const cheapest = Math.min(
+        ...compatible.map((building) => askingRentFor(state, building)),
+      );
+      expect(tenant.budget).toBeGreaterThanOrEqual(cheapest);
+    }
+  });
+
+  it("los talleres sólo atraen artesanos y comerciantes; la vivienda sólo hogares", () => {
+    const workshops = newState(29);
+    for (let index = 0; index < 4; index += 1) addBuilding(workshops, index, "workshop");
+    months(workshops, 3);
+    const workshopApplicants = [...workshops.phase2.tenants.values()].filter(
+      (tenant) => tenant.origin === "market",
+    );
+    expect(workshopApplicants.length).toBeGreaterThan(0);
+    for (const tenant of workshopApplicants) {
+      expect(["maker", "shopkeeper"]).toContain(tenant.segmentId);
+      expect(tenant.preferredBuildingType).toBe("workshop");
+    }
+
+    const housing = newState(29);
+    for (let index = 0; index < 4; index += 1) addBuilding(housing, index, "courtyard_home");
+    months(housing, 3);
+    const housingApplicants = [...housing.phase2.tenants.values()].filter(
+      (tenant) => tenant.origin === "market",
+    );
+    expect(housingApplicants.length).toBeGreaterThan(0);
+    for (const tenant of housingApplicants) {
+      expect(tenant.segmentId).toBe("household");
     }
   });
 });

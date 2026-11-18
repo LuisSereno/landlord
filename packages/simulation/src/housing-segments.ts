@@ -30,8 +30,8 @@ export const HOUSING_SEGMENTS: Record<TenantProfile, HousingSegment> = {
     // decide al entrar al mercado según el parque con plazas; no limitarla al primer producto
     // evita que las promociones posteriores queden sin demanda por definición.
     preferredBuildingTypes: ["courtyard_home", "row_house", "apartment_block", "mixed_tenement"],
-    populationCap: 24,
-    arrivalsAtFullAppeal: 3,
+    populationCap: 60,
+    arrivalsAtFullAppeal: 6,
     weights: { quality: 35, accessibility: 15, safety: 30, services: 20 },
   },
   maker: {

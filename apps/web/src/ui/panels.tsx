@@ -513,6 +513,29 @@ export function StatusChip({
   );
 }
 
+/**
+ * Explicación de satisfacción derivada de la proyección (renta, presupuesto y condición), con los
+ * mismos modificadores que aplica el motor al cierre mensual; no introduce estado duplicado.
+ */
+function contractSatisfactionSummary(
+  tenant: Economy["tenants"][number],
+  building: ProjectedBuilding,
+): { factors: string; atRisk: boolean } {
+  const rentPenalty = building.effectiveRent > tenant.budget ? 20 : 0;
+  const conditionPenalty = building.condition < 60 ? 10 : 0;
+  const nextSatisfaction = Math.max(
+    0,
+    Math.min(100, tenant.satisfaction + 2 - rentPenalty - conditionPenalty),
+  );
+  const parts = ["+2 base"];
+  if (rentPenalty > 0) parts.push("−20 renta sobre presupuesto");
+  if (conditionPenalty > 0) parts.push("−10 condición bajo 60");
+  return {
+    factors: parts.join(" · "),
+    atRisk: building.condition < 20 || nextSatisfaction < 30,
+  };
+}
+
 function BuildingPanel({
   building,
   parcel,
@@ -734,16 +757,19 @@ function BuildingPanel({
                 <ul className="list-plain" role="list">
                   {building.tenantIds.map((tenantId) => {
                     const tenant = economy.tenants.find((entry) => entry.id === tenantId);
+                    if (!tenant) return <li key={tenantId}>Inquilino</li>;
+                    const summary = contractSatisfactionSummary(tenant, building);
                     return (
                       <li key={tenantId}>
-                        {tenant ? (
-                          <>
-                            {tenantProfileLabel(tenant.profile)} · satisfacción{" "}
-                            {tenant.satisfaction} % · contrato {tenant.leaseRemaining} meses
-                          </>
-                        ) : (
-                          "Inquilino"
-                        )}
+                        {tenantProfileLabel(tenant.profile)} · satisfacción {tenant.satisfaction} %
+                        · contrato {tenant.leaseRemaining} meses
+                        <span className="muted">
+                          {" "}
+                          · {summary.factors}
+                          {summary.atRisk
+                            ? " · riesgo de salida forzosa (satisfacción < 30 o condición < 20)"
+                            : ""}
+                        </span>
                       </li>
                     );
                   })}
@@ -751,28 +777,51 @@ function BuildingPanel({
               )}
               {occupied < building.capacity ? (
                 compatibleTenants.length > 0 ? (
-                  <ul className="list-plain" role="list">
-                    {compatibleTenants.map((tenant) => {
-                      const blocked = tenantBlockedReason(tenant.budget, building.effectiveRent);
-                      return (
-                        <li key={tenant.id}>
-                          <button
-                            disabled={blocked !== null}
-                            onClick={() => actions.assignTenant(building.id, tenant.id)}
-                            type="button"
-                          >
-                            <UiIcon name="tenants" /> Ocupar con{" "}
-                            {tenantProfileLabel(tenant.profile)} · {tenant.budget} u.
-                          </button>
-                          {blocked ? <span className="muted"> {blocked.message}</span> : null}
-                        </li>
-                      );
-                    })}
-                  </ul>
+                  <>
+                    <p className="muted">
+                      Solicitudes compatibles:{" "}
+                      {(["household", "maker", "shopkeeper"] as const)
+                        .map((segment) => ({
+                          segment,
+                          count: compatibleTenants.filter(
+                            (tenant) => tenant.segmentId === segment,
+                          ).length,
+                        }))
+                        .filter((entry) => entry.count > 0)
+                        .map(
+                          (entry) =>
+                            `${entry.count} ${tenantProfileLabel(entry.segment).toLowerCase()}`,
+                        )
+                        .join(" · ")}
+                    </p>
+                    <ul className="list-plain" role="list">
+                      {compatibleTenants.map((tenant) => {
+                        const blocked = tenantBlockedReason(tenant.budget, building.effectiveRent);
+                        const deadline =
+                          tenant.origin === "market"
+                            ? `caduca en ${Math.max(0, economy.housingMarket.maximumSearchMonths - tenant.searchMonths)} meses`
+                            : "reserva inicial, sin caducidad";
+                        return (
+                          <li key={tenant.id}>
+                            <button
+                              disabled={blocked !== null}
+                              onClick={() => actions.assignTenant(building.id, tenant.id)}
+                              type="button"
+                            >
+                              <UiIcon name="tenants" /> Ocupar con{" "}
+                              {tenantProfileLabel(tenant.profile)} · {tenant.budget} u.
+                            </button>
+                            <span className="muted"> {deadline}</span>
+                            {blocked ? <span className="muted"> · {blocked.message}</span> : null}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </>
                 ) : (
                   <p className="muted">
-                    No hay inquilinos compatibles disponibles. El mercado genera nuevas solicitudes
-                    al cierre mensual cuando hay vivienda asequible.
+                    No hay solicitudes compatibles disponibles. El mercado genera nuevas al cierre
+                    mensual cuando hay vivienda asequible; tú decides a quién contratar.
                   </p>
                 )
               ) : null}

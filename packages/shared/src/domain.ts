@@ -423,6 +423,13 @@ export type BuildingDefinition = {
    */
   preferredFootprint: { width: number; height: number };
   /**
+   * Solar reservado por la colocación (patios, acceso y aparcamiento incluidos), en celdas de 4 m.
+   * Sólo los equipamientos municipales lo declaran: su edificio físico es un subrectángulo menor
+   * elegido deterministamente dentro del solar según frente vial y orientación. El resto de tipos
+   * reserva como solar la unión de sus parcelas catastrales.
+   */
+  siteFootprint?: { width: number; height: number };
+  /**
    * V.d-7 · requisitos de solar. `requiredParcels` es cuántas parcelas contiguas necesita el
    * proyecto (≥ 1); `minCombinedAreaCells` el área mínima de la unión y `requireEdgeContiguous`
    * exige que la unión sea 4-conexa. No sustituye a `targetFootprintCells`: ése describe la
@@ -453,6 +460,11 @@ export type Building = {
   type: BuildingType;
   /** Authoritative footprint inside the parcel, outside setbacks and other footprints. */
   footprintCells: GridCell[];
+  /**
+   * Solar reservado por el edificio municipal (subrectángulo de su parcela pública). Los edificios
+   * privados no lo declaran: su solar es la unión de celdas de `parcelIds`, derivada sin duplicar.
+   */
+  siteCells?: GridCell[];
   orientation: 0 | 90 | 180 | 270;
   floors: number;
   form: BuildingForm;
@@ -605,8 +617,9 @@ export type Tenant = {
   /** Ingreso del hogar respecto a su segmento, en porcentaje; 100 es el ingreso de referencia. */
   incomeFactorPercent: number;
   /**
-   * `authored` es un candidato que el jugador coloca a mano (el pool del slice); `market` lo generó
-   * el mercado y se instala por su cuenta cuando encuentra una plaza asequible.
+   * `authored` es un candidato inicial que no caduca mientras no sea contratado; `market` lo generó
+   * el mercado y caduca tras `maximumSearchMonths` meses de búsqueda. Ninguno se autoinstala: toda
+   * contratación es manual (`AssignTenant`).
    */
   origin: "authored" | "market";
 };
@@ -1132,6 +1145,7 @@ export const buildingSchema = z.object({
   productionFacilityId: facilityIdSchema.nullable().default(null),
   type: buildingTypeSchema,
   footprintCells: z.array(gridCellSchema).min(1),
+  siteCells: z.array(gridCellSchema).min(1).optional(),
   orientation: z.union([z.literal(0), z.literal(90), z.literal(180), z.literal(270)]),
   floors: z.number().int().min(1).max(64),
   form: buildingFormSchema,

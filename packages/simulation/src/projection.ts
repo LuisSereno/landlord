@@ -8,12 +8,14 @@ import {
   viewProjectionV2Schema,
   type DistrictId,
   type GridCell,
+  type ParcelId,
   type PublicDistrictSummary,
   type UrbanFacility,
   type ViewProjectionV2,
 } from "@landlord/shared";
 import { districtStateOf, type GameState } from "./state";
 import { buildBuildingIndex, buildingsOnParcel } from "./building-index";
+import { canonicalGridCells } from "./urban-fabric";
 import {
   developmentCodeById,
   isBuildingAllowedByDevelopmentCode,
@@ -63,6 +65,7 @@ import { facilityCoverageIndex } from "./facility-coverage";
 import {
   askingRentFor,
   describeHousingMarket,
+  HOUSING_MARKET_POLICY,
   vacancyPercentByBuildingType,
 } from "./housing-market";
 import {
@@ -72,6 +75,23 @@ import {
   MACRO_EVENT_LABELS,
   materialCostModifierPercentFor,
 } from "./macro-events";
+
+/**
+ * Solar publicado del proyecto: la reserva municipal explícita (`siteCells`) o la unión canónica
+ * de las celdas de sus parcelas catastrales. Derivado, no persistido dos veces.
+ */
+function projectedSiteCells(
+  state: GameState,
+  parcelIds: readonly ParcelId[],
+  explicitSiteCells?: GridCell[],
+): GridCell[] {
+  if (explicitSiteCells) return explicitSiteCells.map((cell) => ({ ...cell }));
+  const cells: GridCell[] = [];
+  for (const parcelId of parcelIds) {
+    cells.push(...(state.phase2.parcels.get(parcelId)?.cells ?? []));
+  }
+  return canonicalGridCells(cells);
+}
 
 function currentPropertyTaxRateBps(state: GameState): number {
   return effectiveTaxRateBps(
@@ -878,6 +898,7 @@ export function createViewProjection(
                 districtId: building.districtId,
                 type: building.type,
                 footprintCells: building.footprintCells.map((cell) => ({ ...cell })),
+                siteCells: projectedSiteCells(state, building.parcelIds, building.siteCells),
                 orientation: building.orientation,
                 floors: building.floors,
                 form: building.form,
@@ -915,6 +936,7 @@ export function createViewProjection(
                 ownerOrganizationId: site.ownerOrganizationId,
                 buildingType: site.buildingType,
                 footprintCells: site.footprintCells.map((cell) => ({ ...cell })),
+                siteCells: projectedSiteCells(state, site.parcelIds),
                 orientation: site.orientation,
                 floors: site.floors,
                 form: site.form,
@@ -953,6 +975,7 @@ export function createViewProjection(
               lastSettlementTick: state.phase2.housingMarket.lastSettlementTick,
               arrivalsTotal: state.phase2.housingMarket.arrivalsTotal,
               departuresTotal: state.phase2.housingMarket.departuresTotal,
+              maximumSearchMonths: HOUSING_MARKET_POLICY.maximumSearchMonths,
               rentIndexPercentByBuildingType: {
                 ...state.phase2.housingMarket.rentIndexPercentByBuildingType,
               },

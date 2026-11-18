@@ -199,6 +199,9 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
         .map((building) => ({
           ...building,
           footprintCells: building.footprintCells.map((cell) => ({ ...cell })),
+          ...(building.siteCells
+            ? { siteCells: building.siteCells.map((cell) => ({ ...cell })) }
+            : {}),
           tenantIds: [...building.tenantIds],
         }))
         .sort(compareId),

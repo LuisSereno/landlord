@@ -34,7 +34,6 @@ import type { GameState } from "./state";
 export { HOUSING_SEGMENTS, type HousingSegment } from "./housing-segments";
 
 const BUILDING_TYPES = Object.keys(BUILDING_DEFINITIONS) as BuildingType[];
-const LEASE_MONTHS = 24;
 
 export const HOUSING_MARKET_POLICY = {
   /** Vacancia de equilibrio: por encima el índice baja, por debajo sube. */
@@ -45,7 +44,7 @@ export const HOUSING_MARKET_POLICY = {
   maximumIndexPercent: 125,
   /** Por debajo de este número de edificios del tipo no se ajusta precio: evita fijar precios con un solo piso. */
   minimumUnitsForPriceDiscovery: 3,
-  /** Meses que un hogar espera vivienda antes de abandonar el mercado. */
+  /** Meses de vigencia de una solicitud de mercado; los hogares autorados no caducan. */
   maximumSearchMonths: 6,
   serviceRadiusCells: 6,
   jobsPerProductionBuilding: 4,
@@ -708,69 +707,11 @@ function expireSearches(state: GameState): void {
     left.id.localeCompare(right.id),
   )) {
     if (tenant.status !== "available") continue;
-    if (tenant.searchMonths <= HOUSING_MARKET_POLICY.maximumSearchMonths) continue;
+    // El pool autorado es la reserva inicial del jugador: no se retira por tiempo de búsqueda.
+    if (tenant.origin !== "market") continue;
+    if (tenant.searchMonths < HOUSING_MARKET_POLICY.maximumSearchMonths) continue;
     state.phase2.tenants.delete(tenant.id);
     market.departuresTotal += 1;
-  }
-}
-
-function placeSearchers(state: GameState, stock: readonly StockUnit[]): void {
-  const vacant = new Map<BuildingId, number>(
-    stock.map((unit) => [unit.building.id, unit.vacantSlots]),
-  );
-  const searchers = [...state.phase2.tenants.values()]
-    .filter(
-      (tenant) =>
-        // Los hogares autorados son el pool que elige el jugador: el mercado no se los instala solo,
-        // sólo los retira si pasan demasiado tiempo sin encontrar plaza.
-        tenant.origin === "market" && tenant.status === "available" && tenant.searchMonths >= 1,
-    )
-    .sort((left, right) => left.id.localeCompare(right.id));
-  if (searchers.length === 0) return;
-  /**
-   * La deseabilidad de una unidad no cambia durante la colocación, así que se calcula una vez por
-   * segmento en vez de una vez por cada par búsqueda × unidad. El orden (puntuación descendente,
-   * id ascendente) reproduce exactamente el desempate anterior, así que la colocación es idéntica.
-   */
-  const candidatesBySegmentAndType = new Map<string, Array<{ unit: StockUnit; score: number }>>();
-  for (const segment of Object.values(HOUSING_SEGMENTS)) {
-    for (const type of segment.preferredBuildingTypes) {
-      candidatesBySegmentAndType.set(
-        `${segment.id}:${type}`,
-        stock
-          .filter((unit) => isCompatible(unit, segment) && unit.building.type === type)
-          .map((unit) => ({ unit, score: desirabilityOf(unit, segment) }))
-          .sort(
-            (left, right) =>
-              right.score - left.score ||
-              left.unit.building.id.localeCompare(right.unit.building.id),
-          ),
-      );
-    }
-  }
-  for (const tenant of searchers) {
-    const segment = HOUSING_SEGMENTS[segmentIdOf(tenant)];
-    const candidates = candidatesBySegmentAndType.get(
-      `${segment.id}:${tenant.preferredBuildingType}`,
-    )!;
-    let chosen: StockUnit | null = null;
-    for (const candidate of candidates) {
-      if ((vacant.get(candidate.unit.building.id) ?? 0) <= 0) continue;
-      if (candidate.unit.askingRent > tenant.budget) continue;
-      if (tenant.marketDistrictId && candidate.unit.building.districtId !== tenant.marketDistrictId)
-        continue;
-      chosen = candidate.unit;
-      break;
-    }
-    if (!chosen) continue;
-    const building = chosen.building;
-    building.tenantIds.push(tenant.id);
-    building.tenantId = building.tenantIds[0] ?? null;
-    vacant.set(building.id, (vacant.get(building.id) ?? 0) - 1);
-    tenant.activeContractBuildingId = building.id;
-    tenant.status = "contracted";
-    tenant.leaseRemaining = LEASE_MONTHS;
-    tenant.searchMonths = 0;
   }
 }
 
@@ -791,6 +732,5 @@ export function runHousingMarket(state: GameState): void {
   prng.restoreState(state.prng);
   admitArrivals(state, stock, prng);
   state.prng = prng.exportState();
-  placeSearchers(state, stock);
   market.lastSettlementTick = parseTick(state.clock.tick);
 }

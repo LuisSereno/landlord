@@ -57,6 +57,16 @@ function municipalPlannedTotal(planned: Record<string, number>): number {
   );
 }
 
+/** Causa de escasez derivada de la proyección; no añade estado ni reglas nuevas. */
+function housingScarcityCause(segment: Economy["housingMarket"]["segments"][number]): string {
+  if (segment.population >= segment.populationCap) return "techo de población alcanzado";
+  if (segment.compatibleSlots === 0) return "sin edificios compatibles";
+  if (segment.vacantSlots === 0) return "sin plazas libres";
+  if (segment.affordableVacantSlots === 0) return "rentas sobre el presupuesto del segmento";
+  if (segment.appealPercent < 50) return "atractivo bajo: llegan menos hogares";
+  return "llegadas activas";
+}
+
 export function CollapsibleSection({
   title,
   summary,
@@ -1019,13 +1029,35 @@ function CityHub({ economy, projection, calendar, actions, onSelectDistrict }: H
           salidas
         </p>
         <ul className="list-plain" role="list">
-          {economy.housingMarket.segments.map((segment) => (
-            <li key={segment.id}>
-              {segment.label}: {segment.population}/{segment.populationCap} hogares · atractivo{" "}
-              {segment.appealPercent} % · {segment.vacantSlots} plazas vacantes
-            </li>
-          ))}
+          {economy.housingMarket.segments.map((segment) => {
+            const requests = economy.tenants.filter(
+              (tenant) => tenant.status === "available" && tenant.segmentId === segment.id,
+            );
+            const marketRequests = requests.filter((tenant) => tenant.origin === "market");
+            const shortestDeadline =
+              marketRequests.length > 0
+                ? Math.min(
+                    ...marketRequests.map((tenant) =>
+                      Math.max(0, economy.housingMarket.maximumSearchMonths - tenant.searchMonths),
+                    ),
+                  )
+                : null;
+            return (
+              <li key={segment.id}>
+                {segment.label}: {segment.population}/{segment.populationCap} hogares · atractivo{" "}
+                {segment.appealPercent} % · {segment.vacantSlots} plazas libres (
+                {segment.affordableVacantSlots} asequibles) · {requests.length} solicitudes
+                {shortestDeadline !== null ? ` (plazo más corto: ${shortestDeadline} meses)` : ""}
+                <span className="muted"> · {housingScarcityCause(segment)}</span>
+              </li>
+            );
+          })}
         </ul>
+        <p className="muted">
+          La contratación es manual: ninguna solicitud se instala sola. Seguridad, transporte,
+          limpieza, parques, empleo y reputación atraen nuevas llegadas; no penalizan la
+          satisfacción de los contratos ya firmados.
+        </p>
       </CollapsibleSection>
     </>
   );

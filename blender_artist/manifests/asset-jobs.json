@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "purpose": "Lista de trabajos del pipeline de render (WP4.15-V.a \u3014R4\u3015). Data-driven: build-blender-assets.mjs itera esto en vez de bucles hardcodeados. Validado por scripts/validate-asset-jobs.mjs (pnpm art:jobs:validate).",
+  "purpose": "Lista de trabajos del pipeline de render (WP4.15-V.a 〔R4〕). Data-driven: build-blender-assets.mjs itera esto en vez de bucles hardcodeados. Validado por scripts/validate-asset-jobs.mjs (pnpm art:jobs:validate).",
   "conventions": {
-    "target": "bundle = se ensambla en runtime-assets-blender.json; evidence = se renderiza a blender_artist/generated/runtime-evidence/ para validar ingesta sin publicar. Un job evidence usa s\u00f3lo la primera pasada de su matriz (una direcci\u00f3n, una animaci\u00f3n, un frame, un estado): valida la fuente, no el cat\u00e1logo.",
-    "render": "render.width/height es el tama\u00f1o PUBLICADO. runtime_asset.py renderiza al doble y recorta con filtro de caja, as\u00ed que el manifiesto no repite el supersampling.",
-    "procedural": "Los jobs legacy no declaran camera ni render: sus par\u00e1metros est\u00e1n congelados en runtime_asset.py y cambiarlos romper\u00eda la regresi\u00f3n byte-id\u00e9ntica.",
-    "unitScale": "Por defecto se hereda de staging-sources.json v\u00eda sourceId. Un job s\u00f3lo lo sobrescribe con unitScaleOverride + unitScaleReason documentados."
+    "target": "bundle = se ensambla en runtime-assets-blender.json; evidence = se renderiza a blender_artist/generated/runtime-evidence/ para validar ingesta sin publicar. Un job evidence usa sólo la primera pasada de su matriz (una dirección, una animación, un frame, un estado): valida la fuente, no el catálogo.",
+    "render": "render.width/height es el tamaño PUBLICADO. runtime_asset.py renderiza al doble y recorta con filtro de caja, así que el manifiesto no repite el supersampling.",
+    "procedural": "Los jobs legacy no declaran camera ni render: sus parámetros están congelados en runtime_asset.py y cambiarlos rompería la regresión byte-idéntica.",
+    "unitScale": "Por defecto se hereda de staging-sources.json vía sourceId. Un job sólo lo sobrescribe con unitScaleOverride + unitScaleReason documentados."
   },
   "defaults": {
     "render": {
@@ -243,7 +243,7 @@
         "width": 256,
         "height": 256
       },
-      "reason": "Rechazado en A/B de V.b3: a escala real domina la escena y su lenguaje (ladrillo oscuro, ventanas detalladas) no encaja con Kenney; a 0,55 sigue ley\u00e9ndose como un monolito ajeno. Se conserva como evidencia."
+      "reason": "Rechazado en A/B de V.b3: a escala real domina la escena y su lenguaje (ladrillo oscuro, ventanas detalladas) no encaja con Kenney; a 0,55 sigue leyéndose como un monolito ajeno. Se conserva como evidencia."
     },
     {
       "id": "ter_road_straight",
@@ -386,7 +386,7 @@
         "height": 256
       },
       "orientations": [45, 225],
-      "reason": "Sem\u00e1foro con dos azimuts: la cara de se\u00f1al debe mirar a cada calle del cruce."
+      "reason": "Semáforo con dos azimuts: la cara de señal debe mirar a cada calle del cruce."
     },
     {
       "id": "bld_commercial_c",
@@ -1340,9 +1340,18 @@
         "sourceId": "src_kenney_nature_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_cone.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 8, "targetZ": 2.8 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 8,
+        "targetZ": 2.8
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "prp_tree_small",
@@ -1354,9 +1363,18 @@
         "sourceId": "src_kenney_nature_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_small.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 7, "targetZ": 2.2 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 7,
+        "targetZ": 2.2
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "prp_bush_large",
@@ -1368,9 +1386,18 @@
         "sourceId": "src_kenney_nature_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bushLarge.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 4, "targetZ": 0.6 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 4,
+        "targetZ": 0.6
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "prp_bush_detailed",
@@ -1382,9 +1409,18 @@
         "sourceId": "src_kenney_nature_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bushDetailed.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 4.5, "targetZ": 0.8 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 4.5,
+        "targetZ": 0.8
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "prp_grass",
@@ -1396,9 +1432,18 @@
         "sourceId": "src_kenney_nature_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/grass.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 3.5, "targetZ": 0.5 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 3.5,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "prp_flower_red",
@@ -1410,9 +1455,18 @@
         "sourceId": "src_kenney_nature_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/flower_redA.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 3, "targetZ": 0.5 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 3,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "prp_flower_yellow",
@@ -1424,9 +1478,18 @@
         "sourceId": "src_kenney_nature_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/flower_yellowB.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 3, "targetZ": 0.4 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 3,
+        "targetZ": 0.4
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "prp_flower_purple",
@@ -1438,9 +1501,18 @@
         "sourceId": "src_kenney_nature_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/flower_purpleA.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 3, "targetZ": 0.5 },
-      "render": { "width": 256, "height": 256 }
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 3,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     },
     {
       "id": "prp_fence_low",
@@ -1452,9 +1524,18 @@
         "sourceId": "src_kenney_nature_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/fence_simpleLow.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 5, "targetZ": 0.5 },
-      "render": { "width": 256, "height": 256 },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 5,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
       "orientations": [45, 135, 225, 315]
     },
     {
@@ -1467,9 +1548,18 @@
         "sourceId": "src_kenney_nature_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/fence_simpleHigh.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 5, "targetZ": 0.7 },
-      "render": { "width": 256, "height": 256 },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 5,
+        "targetZ": 0.7
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
       "orientations": [45, 135, 225, 315]
     },
     {
@@ -1482,9 +1572,18 @@
         "sourceId": "src_kenney_nature_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/fence_corner.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 6, "targetZ": 0.7 },
-      "render": { "width": 256, "height": 256 },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 6,
+        "targetZ": 0.7
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
       "orientations": [45, 135, 225, 315]
     },
     {
@@ -1497,9 +1596,18 @@
         "sourceId": "src_kenney_nature_kit",
         "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/fence_gate.glb"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 5, "targetZ": 0.7 },
-      "render": { "width": 256, "height": 256 },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 5,
+        "targetZ": 0.7
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
       "orientations": [45, 135, 225, 315]
     },
     {
@@ -1512,9 +1620,18 @@
         "sourceId": "src_microsoft_rocketbox",
         "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bird_Sparrow_01/Export/Bird_Sparrow_01.fbx"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 1.2, "targetZ": 0.2 },
-      "render": { "width": 256, "height": 256 },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 1.2,
+        "targetZ": 0.2
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
       "orientations": [45, 135, 225, 315]
     },
     {
@@ -1527,9 +1644,18 @@
         "sourceId": "src_microsoft_rocketbox",
         "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bird_Duck_Female_01/Export/Bird_Duck_Female_01.fbx"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 2, "targetZ": 0.4 },
-      "render": { "width": 256, "height": 256 },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 2,
+        "targetZ": 0.4
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
       "orientations": [45, 135, 225, 315]
     },
     {
@@ -1542,9 +1668,18 @@
         "sourceId": "src_microsoft_rocketbox",
         "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bird_Duck_Male_01/Export/Bird_Duck_Male_01.fbx"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 2, "targetZ": 0.4 },
-      "render": { "width": 256, "height": 256 },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 2,
+        "targetZ": 0.4
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
       "orientations": [45, 135, 225, 315]
     },
     {
@@ -1557,9 +1692,18 @@
         "sourceId": "src_microsoft_rocketbox",
         "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bird_Chicken_Brown_01/Export/Bird_Chicken_Brown_01.fbx"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 2, "targetZ": 0.45 },
-      "render": { "width": 256, "height": 256 },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 2,
+        "targetZ": 0.45
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
       "orientations": [45, 135, 225, 315]
     },
     {
@@ -1572,9 +1716,18 @@
         "sourceId": "src_microsoft_rocketbox",
         "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bird_Chicken_White_01/Export/Bird_Chicken_White_01.fbx"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 2, "targetZ": 0.45 },
-      "render": { "width": 256, "height": 256 },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 2,
+        "targetZ": 0.45
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
       "orientations": [45, 135, 225, 315]
     },
     {
@@ -1587,9 +1740,18 @@
         "sourceId": "src_microsoft_rocketbox",
         "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bird_Rooster_Brown_01/Export/Bird_Rooster_Brown_01.fbx"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 2, "targetZ": 0.5 },
-      "render": { "width": 256, "height": 256 },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 2,
+        "targetZ": 0.5
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
       "orientations": [45, 135, 225, 315]
     },
     {
@@ -1602,9 +1764,18 @@
         "sourceId": "src_microsoft_rocketbox",
         "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bird_Goose_Grey_01/Export/Bird_Goose_Grey_01.fbx"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 2.2, "targetZ": 0.55 },
-      "render": { "width": 256, "height": 256 },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 2.2,
+        "targetZ": 0.55
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
       "orientations": [45, 135, 225, 315]
     },
     {
@@ -1617,9 +1788,18 @@
         "sourceId": "src_microsoft_rocketbox",
         "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bird_Goose_White_01/Export/Bird_Goose_White_01.fbx"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 2.2, "targetZ": 0.55 },
-      "render": { "width": 256, "height": 256 },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 2.2,
+        "targetZ": 0.55
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
       "orientations": [45, 135, 225, 315]
     },
     {
@@ -1632,9 +1812,18 @@
         "sourceId": "src_microsoft_rocketbox",
         "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bull_Brown_01/Export/Bull_Brown_01.fbx"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 4.5, "targetZ": 1 },
-      "render": { "width": 256, "height": 256 },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 4.5,
+        "targetZ": 1
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
       "orientations": [45, 135, 225, 315]
     },
     {
@@ -1647,10 +1836,90 @@
         "sourceId": "src_microsoft_rocketbox",
         "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Camel_OneHump_01/Export/Camel_OneHump_01.fbx"
       },
-      "footprint": { "width": 1, "height": 1 },
-      "camera": { "orthoScale": 5, "targetZ": 1.2 },
-      "render": { "width": 256, "height": 256 },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 5,
+        "targetZ": 1.2
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
       "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "prp_school_playground",
+      "kind": "prop",
+      "assetId": "prp_school_playground",
+      "target": "bundle",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_original_school_playground",
+        "path": "blender_artist/sources/original/school_playground.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 4.5,
+        "targetZ": 1.0
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "prp_market_stall",
+      "kind": "prop",
+      "assetId": "prp_market_stall",
+      "target": "bundle",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_original_market_stall",
+        "path": "blender_artist/sources/original/market_stall.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 4.0,
+        "targetZ": 1.2
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "prp_flagpole",
+      "kind": "prop",
+      "assetId": "prp_flagpole",
+      "target": "bundle",
+      "source": {
+        "kind": "glb",
+        "sourceId": "src_original_flagpole",
+        "path": "blender_artist/sources/original/flagpole.glb"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 7.0,
+        "targetZ": 3.0
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      }
     }
   ]
 }

@@ -18,6 +18,10 @@ import {
   districtVisualProfileFor,
   type DistrictVisualProfile,
 } from "./district-visual-profiles";
+import {
+  planGameplayFacilityCourtyards,
+  type FacilityCourtyardElement,
+} from "./facility-courtyards";
 
 /**
  * Frontera de presentación del gameplay (WP4.15-V.c.1). Convierte `ViewProjectionV2` en el modelo
@@ -223,6 +227,11 @@ export type GameplayVisualModel = {
   contextActors: GameplayContextActor[];
   ambientWildlife: GameplayAmbientWildlife[];
   parcelBoundaries: GameplayParcelBoundary[];
+  /**
+   * Patios de equipamientos (WP-D): vehículo temático, props y accesos derivados del solar
+   * reservado y la huella física. Presentacional, determinista, fuera de GameState.
+   */
+  facilityCourtyards: FacilityCourtyardElement[];
   /**
    * Mobiliario cívico/verde derivado de los espacios públicos (V.g). Es presentacional: no vive en
    * GameState, no lo tocan tick ni economía, sólo la geometría espacial (publicSpaces + facilities).
@@ -948,10 +957,8 @@ const BUILDING_CONTEXT_VEHICLES: Record<
   string,
   { vehicleClass: string; asset: GameplayVehicleAsset; count: number }
 > = {
-  fire_station: { vehicleClass: "fire", asset: "veh_firetruck", count: 1 },
-  clinic: { vehicleClass: "ambulance", asset: "veh_ambulance", count: 1 },
-  police_station: { vehicleClass: "police", asset: "veh_police", count: 1 },
-  market_hall: { vehicleClass: "delivery", asset: "veh_delivery", count: 1 },
+  // Los equipamientos municipales aparcan su vehículo temático dentro del patio (facility-courtyards),
+  // no en el bordillo: el acceso peatonal y la plaza de vehículo quedan reservados.
   cement_plant: { vehicleClass: "freight", asset: "veh_truck", count: 2 },
   steelworks: { vehicleClass: "freight", asset: "veh_truck", count: 2 },
   brickworks: { vehicleClass: "freight", asset: "veh_truck", count: 1 },
@@ -978,6 +985,7 @@ export function planGameplayContextVehicles(
   mapHeight: number,
   roadSectionRoles?: ReadonlyMap<string, RoadCellRole>,
   roadSectionCells?: ReadonlyMap<string, RoadSectionCell>,
+  blockedRoadCells?: ReadonlySet<string>,
 ): GameplayContextVehicle[] {
   if (mapWidth <= 0 || mapHeight <= 0) return [];
   const roles =
@@ -1014,7 +1022,11 @@ export function planGameplayContextVehicles(
         .flatMap((curb) =>
           carriagewayCandidates(curb.road, roles).map((lane) => ({ ...curb, lane })),
         )
-        .filter((candidate) => !usedRoadCells.has(cellKey(candidate.lane.cell)));
+        .filter(
+          (candidate) =>
+            !usedRoadCells.has(cellKey(candidate.lane.cell)) &&
+            !blockedRoadCells?.has(cellKey(candidate.lane.cell)),
+        );
       if (free.length === 0) break;
       const curb = free[spatialHash(anchor.x, anchor.y, 0x7c1 + i * 0x2f) % free.length]!;
       usedRoadCells.add(cellKey(curb.lane.cell));
@@ -1753,6 +1765,7 @@ export function planGameplayAmbientWildlife(
   roadCells: ReadonlySet<string>,
   profile: DistrictVisualProfile,
   peripheryScore: number,
+  facilityPatios?: ReadonlyMap<string, { cells: GridCell[]; reserved: ReadonlySet<string> }>,
 ): GameplayAmbientWildlife[] {
   const buildingByParcel = new Map<string, VisualBuilding>();
   for (const building of buildings) {
@@ -1760,18 +1773,54 @@ export function planGameplayAmbientWildlife(
   }
   const wildlife: GameplayAmbientWildlife[] = [];
   for (const parcel of [...parcels].sort((a, b) => a.id.localeCompare(b.id))) {
-    if (parcel.disposition === "public" || constructionParcelIds.has(parcel.id)) continue;
+    if (constructionParcelIds.has(parcel.id)) continue;
     const building = buildingByParcel.get(parcel.id);
-    if (!building) continue;
+    const patio = facilityPatios?.get(parcel.id);
+    if (parcel.disposition === "public" && !patio) continue;
+
+    /**
+     * Gorriones urbanos en patios de equipamientos: el tejido cívico también tiene vida. Uno con
+     * al menos tres celdas libres, dos si el patio da seis; nunca sobre acceso, vehículo o props.
+     */
+    if (patio) {
+      const free = canonicalFreeCells(patio.cells);
+      if (free.length < 3) continue;
+      const count = free.length >= 6 ? 2 : 1;
+      const taken = new Set<string>();
+      for (let index = 0; index < count; index += 1) {
+        const seed = spatialHash(parcel.id.length + index, free[0]!.x + free[0]!.y, 0x7a21);
+        const cell = free[seed % free.length]!;
+        if (taken.has(cellKey(cell))) continue;
+        taken.add(cellKey(cell));
+        wildlife.push({
+          id: `wild:${parcel.id}:prp_wild_sparrow:${cellKey(cell)}`,
+          species: "sparrow",
+          asset: "prp_wild_sparrow",
+          parcelId: parcel.id,
+          cell: { ...cell },
+          azimuth: ([45, 135, 225, 315] as const)[spatialHash(cell.x, cell.y, 0x7a13) % 4]!,
+          scale: 0.72,
+        });
+      }
+      continue;
+    }
+
     const free = freeParcelCells(parcel, building, roadCells);
     if (free.length === 0) continue;
     const chance = Math.round((18 + peripheryScore * 52) * profile.density.wildlife);
     const seed = spatialHash(parcel.id.length, free[0]!.x + free[0]!.y, 0x7a11);
     if (seed % 100 >= Math.min(90, chance)) continue;
+    /**
+     * Fauna mayor sólo en solares vacantes o periféricos con espacio: el núcleo urbano construido
+     * sólo ve gorriones. Toros y camellos necesitan además patio grande (seis celdas libres).
+     */
+    const openGround = !building || peripheryScore >= 0.88;
     const candidates =
-      peripheryScore >= 0.88 && free.length >= 3
-        ? ["prp_wild_sparrow", "prp_wild_bull", "prp_wild_camel"]
-        : peripheryScore >= 0.58
+      peripheryScore >= 0.88 && free.length >= 3 && openGround
+        ? free.length >= 6
+          ? ["prp_wild_sparrow", "prp_wild_bull", "prp_wild_camel"]
+          : ["prp_wild_sparrow"]
+        : peripheryScore >= 0.58 && !building
           ? [
               "prp_wild_sparrow",
               "prp_wild_chicken_brown",
@@ -1796,6 +1845,10 @@ export function planGameplayAmbientWildlife(
     });
   }
   return wildlife;
+}
+
+function canonicalFreeCells(cells: readonly GridCell[]): GridCell[] {
+  return [...cells].sort((left, right) => left.y - right.y || left.x - right.x);
 }
 
 /**
@@ -2233,6 +2286,22 @@ export function buildGameplayVisualModel(
     type: building.type,
     footprintCells: building.footprintCells ?? [],
   }));
+  const frontagesByParcelId = new Map<string, readonly GridCell[]>(
+    (economy?.parcels ?? []).map((parcel) => [
+      parcel.id,
+      (parcel.roadFrontages ?? []).flatMap((frontage) => frontage.cells),
+    ]),
+  );
+  const facilityCourtyards = planGameplayFacilityCourtyards(
+    (economy?.buildings ?? []).map((building) => ({
+      id: building.id,
+      type: building.type,
+      footprintCells: building.footprintCells ?? [],
+      siteCells: building.siteCells,
+      parcelIds: building.parcelIds,
+    })),
+    frontagesByParcelId,
+  );
   const contextVehicles = planGameplayContextVehicles(
     contextBuildings,
     roadVisuals,
@@ -2240,6 +2309,7 @@ export function buildGameplayVisualModel(
     mapHeight,
     roadSectionRoles,
     roadSectionCells,
+    facilityCourtyards.accessRoadExits,
   );
   const reservedVehicleRoads = new Set(contextVehicles.map((vehicle) => cellKey(vehicle.roadCell)));
   const ambientActors = planGameplayAmbientActors(
@@ -2260,6 +2330,7 @@ export function buildGameplayVisualModel(
   const reservedStreetLifeRoads = new Set([
     ...reservedVehicleRoads,
     ...contextActors.map((actor) => cellKey(actor.cell)),
+    ...facilityCourtyards.accessRoadExits,
   ]);
   const parkedVehicles = planGameplayParkedVehicles(
     roadVisuals,
@@ -2309,6 +2380,7 @@ export function buildGameplayVisualModel(
     roadCellKeys,
     districtProfile,
     peripheryScore,
+    facilityCourtyards.patioByParcelId,
   );
   const parcelBoundaries = planGameplayParcelBoundaries(
     parcels,
@@ -2331,6 +2403,7 @@ export function buildGameplayVisualModel(
     publicSpaceFurniture,
     parcelDressing,
     ambientWildlife,
+    facilityCourtyards: facilityCourtyards.elements,
     parcelBoundaries,
     roadVisuals,
     roadSectionRoles,

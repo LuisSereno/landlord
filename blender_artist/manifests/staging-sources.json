@@ -418,6 +418,39 @@
       "sourceUrl": null,
       "unitScale": 1,
       "extractDir": null
+    },
+    {
+      "id": "src_original_school_playground",
+      "path": "blender_artist/sources/original/school_playground.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por create_original_school_playground.py",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_market_stall",
+      "path": "blender_artist/sources/original/market_stall.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por create_original_market_stall.py",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_flagpole",
+      "path": "blender_artist/sources/original/flagpole.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por create_original_flagpole.py",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
     }
   ],
   "quarantined": [

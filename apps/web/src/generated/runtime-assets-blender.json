@@ -3786,6 +3786,160 @@
           "pixelsPerMeter": 51.2
         }
       }
+    },
+    "prp_school_playground": {
+      "id": "prp_school_playground",
+      "name": "prp_school_playground",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5957,
+        "y": 0.768
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_school_playground.png",
+        "width": 188,
+        "height": 195,
+        "sha256": "c2ac825908be8b3fc4e4f6730cdaf97c41da93cbcc2ff2fe74bf628337afa42f"
+      },
+      "provenance": {
+        "license": "original",
+        "author": "src_original_school_playground",
+        "sourceId": "src_original_school_playground"
+      },
+      "pixelsPerMeter": 56.888888888888886,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_school_playground-az135.png",
+            "width": 188,
+            "height": 195,
+            "sha256": "cc5be3eeb7de62027eb424d5076c1d8ae5081da56b3da702530281620bd91ec7"
+          },
+          "pivot": {
+            "x": 0.4016,
+            "y": 0.768
+          },
+          "pixelsPerMeter": 56.888888888888886
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_school_playground-az225.png",
+            "width": 188,
+            "height": 197,
+            "sha256": "bbab2847af62b87ab14868965e1e3d9b38651d5d860c6f775bc236a5e8da7169"
+          },
+          "pivot": {
+            "x": 0.4016,
+            "y": 0.8541
+          },
+          "pixelsPerMeter": 56.888888888888886
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_school_playground-az315.png",
+            "width": 188,
+            "height": 197,
+            "sha256": "55d897dc470f6f852543bd801d2f9cf3f99c0170e45965ddaf65a7558db80be5"
+          },
+          "pivot": {
+            "x": 0.5957,
+            "y": 0.8541
+          },
+          "pixelsPerMeter": 56.888888888888886
+        }
+      }
+    },
+    "prp_market_stall": {
+      "id": "prp_market_stall",
+      "name": "prp_market_stall",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.8669
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_market_stall.png",
+        "width": 256,
+        "height": 199,
+        "sha256": "64aac770e144b7b45d4852d54d6ff8c1f6245ee81885c86f30e11a294c69875c"
+      },
+      "provenance": {
+        "license": "original",
+        "author": "src_original_market_stall",
+        "sourceId": "src_original_market_stall"
+      },
+      "pixelsPerMeter": 64,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_market_stall-az135.png",
+            "width": 256,
+            "height": 199,
+            "sha256": "555d8a73e048f48b5e05b177ca174dce9785270b36a0a2e0804cf3bf62da8f29"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.8669
+          },
+          "pixelsPerMeter": 64
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_market_stall-az225.png",
+            "width": 256,
+            "height": 210,
+            "sha256": "06cef3c524d3f09d82c862e2a2052629a0e5be71920568abec90356390803cd9"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.8215
+          },
+          "pixelsPerMeter": 64
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_market_stall-az315.png",
+            "width": 256,
+            "height": 199,
+            "sha256": "671c9f3132fe4a81c6da1fb27502ced633c2340cdabe017146b89258dd947797"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.8669
+          },
+          "pixelsPerMeter": 64
+        }
+      }
+    },
+    "prp_flagpole": {
+      "id": "prp_flagpole",
+      "name": "prp_flagpole",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.8828,
+        "y": 0.9951
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_flagpole.png",
+        "width": 145,
+        "height": 199,
+        "sha256": "93921c78ed08cc7805f87d789463b8c925908fc16c9e8eb366f127ff5eeb07a6"
+      },
+      "provenance": {
+        "license": "original",
+        "author": "src_original_flagpole",
+        "sourceId": "src_original_flagpole"
+      },
+      "pixelsPerMeter": 36.57142857142857
     }
   }
 }

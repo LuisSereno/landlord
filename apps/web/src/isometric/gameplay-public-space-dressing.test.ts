@@ -210,21 +210,33 @@ describe("V.h.6 context vehicles: invariantes", () => {
     type: "police_station",
     footprintCells: rectCells(2, 6, 2, 1),
   };
-  const CONTEXT_BUILDINGS = [FIRE, CLINIC, POLICE];
+  const CEMENT = { id: "bld_cement", type: "cement_plant", footprintCells: rectCells(5, 6, 2, 2) };
+  const WAREHOUSE = {
+    id: "bld_warehouse",
+    type: "warehouse",
+    footprintCells: rectCells(9, 6, 2, 1),
+  };
+  const WORKSHOP = { id: "bld_workshop", type: "workshop", footprintCells: rectCells(2, 6, 2, 1) };
+  const CONTEXT_BUILDINGS = [FIRE, CLINIC, POLICE, CEMENT, WAREHOUSE, WORKSHOP];
   const runContext = () => planGameplayContextVehicles(CONTEXT_BUILDINGS, ROAD_EW, 64, 64);
 
   it("es determinista (misma geometría → mismos vehículos)", () => {
     expect(runContext()).toEqual(runContext());
   });
 
-  it("mapea edificio → clase y vehículo contextual (fire/ambulance/police)", () => {
+  it("mapea edificio industrial → clase y vehículo; los equipamientos aparcan en su patio", () => {
     const by = new Map(runContext().map((v) => [v.buildingId, v]));
-    expect(by.get("bld_fire")?.asset).toBe("veh_firetruck");
-    expect(by.get("bld_fire")?.vehicleClass).toBe("fire");
-    expect(by.get("bld_clinic")?.asset).toBe("veh_ambulance");
-    expect(by.get("bld_clinic")?.vehicleClass).toBe("ambulance");
-    expect(by.get("bld_police")?.asset).toBe("veh_police");
-    expect(by.get("bld_police")?.vehicleClass).toBe("police");
+    expect(by.get("bld_cement")?.asset).toBe("veh_truck");
+    expect(by.get("bld_cement")?.vehicleClass).toBe("freight");
+    expect(by.get("bld_warehouse")?.asset).toBe("veh_delivery");
+    expect(by.get("bld_warehouse")?.vehicleClass).toBe("delivery");
+    expect(by.get("bld_workshop")?.asset).toBe("veh_tractor");
+    expect(by.get("bld_workshop")?.vehicleClass).toBe("construction");
+    // WP-D: el vehículo temático del equipamiento vive en el patio (facility-courtyards),
+    // no en el bordillo: la calle frente al acceso queda libre.
+    expect(by.get("bld_fire")).toBeUndefined();
+    expect(by.get("bld_clinic")).toBeUndefined();
+    expect(by.get("bld_police")).toBeUndefined();
   });
 
   it("cada vehículo contextual permanece dentro de una calzada y no se desplaza al solar", () => {

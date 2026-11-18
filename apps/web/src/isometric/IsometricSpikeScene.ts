@@ -585,6 +585,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private parcelDressingSprites = new Map<string, Phaser.GameObjects.Image>();
   private wildlifeSprites = new Map<string, Phaser.GameObjects.Image>();
   private parcelBoundarySprites = new Map<string, Phaser.GameObjects.Image>();
+  private courtyardPropSprites = new Map<string, Phaser.GameObjects.Image>();
   /**
    * V.k.3 · pool propio de cuadrillas. Va aparte de `ambientActorSprites` porque esos son población
    * ambiental derivada del modelo visual (estable, keyed por id de scena) y éstos son agentes del
@@ -1109,9 +1110,30 @@ export class IsometricSpikeScene extends Phaser.Scene {
     };
     renderPropLayer(model.parcelBoundaries ?? [], this.parcelBoundarySprites);
     renderPropLayer(model.ambientWildlife ?? [], this.wildlifeSprites);
+    const courtyardElements = model.facilityCourtyards ?? [];
+    renderPropLayer(
+      courtyardElements.filter((entry) => entry.kind === "prop"),
+      this.courtyardPropSprites,
+    );
     const vehicles = ASSETS_BLENDER.vehicles ?? {};
     const seenVehicles = new Set<string>();
-    for (const vehicle of [...model.parkedVehicles, ...(model.contextVehicles ?? [])]) {
+    const courtyardVehicles = courtyardElements
+      .filter((entry) => entry.kind === "vehicle")
+      .map((entry) => ({
+        id: entry.id,
+        asset: entry.asset as GameplayParkedVehicle["asset"],
+        roadCell: entry.cell,
+        side: "n" as const,
+        azimuth: entry.azimuth,
+        lateralOffset: 0,
+        longitudinalOffset: 0,
+        scale: entry.scale,
+      }));
+    for (const vehicle of [
+      ...model.parkedVehicles,
+      ...(model.contextVehicles ?? []),
+      ...courtyardVehicles,
+    ]) {
       const asset = vehicles[vehicle.asset];
       if (!asset) continue;
       const frame = this.sceneryFrame(asset, vehicle.azimuth);
@@ -1211,6 +1233,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       ...this.parcelDressingSprites.values(),
       ...this.parcelBoundarySprites.values(),
       ...this.wildlifeSprites.values(),
+      ...this.courtyardPropSprites.values(),
       ...this.ambientActorSprites.values(),
     ]) {
       sprite.setVisible(this.isInViewport(sprite.x, sprite.y, view, 96));

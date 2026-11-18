@@ -16,6 +16,8 @@ const SOURCES_PATH = "blender_artist/manifests/staging-sources.json";
 const PROMOTIONS_PATH = "blender_artist/manifests/runtime-promotions.json";
 const STAGING_PREFIX = "blender_artist/staging/third_party/";
 const EXTRACTED_PREFIX = `${STAGING_PREFIX}cc0/extracted/`;
+/** Geometría propia del proyecto: no es terceros, vive fuera del staging de licencias. */
+const ORIGINAL_PREFIX = "blender_artist/sources/original/";
 const LICENSE_FAMILIES = JSON.parse(
   readFileSync("blender_artist/manifests/license-allowlist.json", "utf8"),
 ).directoryByLicense;
@@ -166,10 +168,14 @@ function checkSource(job) {
     fail(`${job.id}: source.path debe ser relativa al repo y sin '..': ${source.path}`);
     return;
   }
-  if (!source.path.startsWith(STAGING_PREFIX)) {
-    fail(`${job.id}: source.path debe quedar bajo ${STAGING_PREFIX}`);
-  }
   const registered = sourcesById.get(source.sourceId);
+  const isOriginalSource =
+    registered?.license === "original" && source.path.startsWith(ORIGINAL_PREFIX);
+  if (!source.path.startsWith(STAGING_PREFIX) && !isOriginalSource) {
+    fail(
+      `${job.id}: source.path debe quedar bajo ${STAGING_PREFIX} (o ${ORIGINAL_PREFIX} para geometría original registrada)`,
+    );
+  }
   const expectedDir = registered ? expectedSourceDir(registered) : null;
   if (expectedDir && !source.path.startsWith(`${expectedDir}/`)) {
     fail(

@@ -119,12 +119,15 @@ describe("WP4.15-H ruta Blender E2E", () => {
       "prp_fence_gate",
       "prp_fence_high",
       "prp_fence_low",
+      "prp_flagpole",
       "prp_flower_purple",
       "prp_flower_red",
       "prp_flower_yellow",
       "prp_grass",
+      "prp_market_stall",
       "prp_monument_obelisk",
       "prp_planter_urn",
+      "prp_school_playground",
       "prp_street_light",
       "prp_traffic_light",
       "prp_trash_can",
@@ -203,8 +206,9 @@ describe("WP4.15-H ruta Blender E2E", () => {
     ];
     // 81 (V.h.6) + 80 Rocketbox V.h.11 + 15 edificios Composer V.i (courtyard_home y school_block
     // incluidos vía runtime-promotions; el override manual de courtyard quedó retirado).
-    // V.j.4: +18 vistas de orientación de vehículo; entorno vivo: +64 sprites.
-    expect(images.length).toBe(254);
+    // V.j.4: +18 vistas de orientación de vehículo; entorno vivo: +64 sprites;
+    // patios de equipamientos (WP-D): +9 props originales (juegos, puesto, asta).
+    expect(images.length).toBe(263);
     let totalBytes = 0;
     for (const image of images) {
       const buffer = readFileSync(join(PUBLIC_DIR, image.src));

@@ -907,4 +907,96 @@ describe("entorno vivo presentacional", () => {
     );
     expect(wildlife.every((entry) => entry.asset === "prp_wild_sparrow")).toBe(true);
   });
+
+  it("los patios de equipamientos admiten gorriones urbanos sin pisar celdas reservadas", () => {
+    const publicParcel = {
+      id: "facility",
+      cells: rectCells(0, 0, 8, 4),
+      zoning: "mixed",
+      disposition: "public",
+      buildingId: "town-hall",
+    };
+    const patioFree = rectCells(0, 0, 8, 1).concat(rectCells(5, 1, 3, 3));
+    const reserved = new Set(["0:0", "1:0"]);
+    const patios = new Map([["facility", { cells: patioFree, reserved }]]);
+    const profile = districtVisualProfileFor("civic_core");
+    const wildlife = planGameplayAmbientWildlife(
+      [publicParcel],
+      [],
+      new Set(),
+      new Set(),
+      profile,
+      0,
+      patios,
+    );
+    expect(wildlife.length).toBeGreaterThanOrEqual(1);
+    expect(wildlife.length).toBeLessThanOrEqual(2);
+    for (const entry of wildlife) {
+      expect(entry.asset).toBe("prp_wild_sparrow");
+      expect(reserved.has(`${entry.cell.x}:${entry.cell.y}`)).toBe(false);
+      expect(patioFree).toContainEqual(entry.cell);
+    }
+    expect(wildlife).toEqual(
+      planGameplayAmbientWildlife([publicParcel], [], new Set(), new Set(), profile, 0, patios),
+    );
+    // Sin patio libre suficiente no hay fauna en el equipamiento.
+    const tiny = new Map([["facility", { cells: rectCells(0, 0, 2, 1), reserved: new Set<string>() }]]);
+    expect(
+      planGameplayAmbientWildlife([publicParcel], [], new Set(), new Set(), profile, 0, tiny),
+    ).toEqual([]);
+  });
+
+  it("la fauna mayor queda excluida del núcleo urbano construido", () => {
+    const urbanParcel = {
+      id: "urban",
+      cells: rectCells(0, 0, 6, 6),
+      zoning: "residential",
+      buildingId: "urban-home",
+    };
+    const urbanBuilding = {
+      id: "urban-home",
+      parcelIds: ["urban"],
+      footprintCells: rectCells(0, 0, 2, 2),
+    };
+    for (const periphery of [0, 0.3, 0.57]) {
+      const wildlife = planGameplayAmbientWildlife(
+        [urbanParcel],
+        [urbanBuilding],
+        new Set(),
+        new Set(),
+        districtVisualProfileFor("civic_core"),
+        periphery,
+      );
+      for (const entry of wildlife) {
+        expect(entry.asset).toBe("prp_wild_sparrow");
+      }
+    }
+    // En solar vacante periférico con espacio sí puede aparecer fauna mayor.
+    const vacant = { ...urbanParcel, id: "vacant", buildingId: null };
+    const seen = new Set<string>();
+    for (let seed = 0; seed < 40; seed += 1) {
+      const shifted = {
+        ...vacant,
+        id: `vacant-${seed}`,
+        cells: rectCells(seed * 8, 0, 6, 6),
+      };
+      const wildlife = planGameplayAmbientWildlife(
+        [shifted],
+        [],
+        new Set(),
+        new Set(),
+        districtVisualProfileFor("low_density_residential"),
+        0.95,
+      );
+      for (const entry of wildlife) seen.add(entry.asset);
+    }
+    expect([...seen].some((asset) => asset !== "prp_wild_sparrow")).toBe(true);
+  });
 });
+
+function rectCells(x0: number, y0: number, width: number, height: number) {
+  const cells: Array<{ x: number; y: number }> = [];
+  for (let y = y0; y < y0 + height; y += 1)
+    for (let x = x0; x < x0 + width; x += 1) cells.push({ x, y });
+  return cells;
+}

@@ -371,6 +371,16 @@
         "strength": 0.75,
         "colorSrgb": [44, 52, 64]
       }
+    },
+    "day_industrial": {
+      "extends": "day_civic",
+      "externalTreatment": {
+        "bandOverrides": {
+          "near_white_trim": { "valueScale": 0.5 },
+          "facade_blue_grey_to_warm_stone": { "valueScale": 0.6 }
+        },
+        "description": "Grade diurno para las familias industriales claras. Con day_civic el global 1.7 por near_white_trim 0.8 (neto 1.36 sobre albedo 0.85-1.00) y facade_blue_grey_to_warm_stone 0.72 (neto 1.22) empujaba el albedo por encima de 1.0: chimeneas, silos, cornisas y panos claros salian blancos, planos y sin volumen. Se bajan solo esas dos bandas; iluminacion, sombra, windowGlow y suelo de legibilidad del diurno quedan intactos."
+      }
     }
   },
   "styleLayerRule": "Quaternius/Kenney \u2192 geometry; Poly Haven \u2192 material base/PBR; Graphic Civic Style Layer \u2192 color grading + roughness + scale + lighting"

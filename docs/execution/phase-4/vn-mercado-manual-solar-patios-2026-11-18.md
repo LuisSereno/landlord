@@ -61,19 +61,23 @@ Medidos en worktree limpio en `2018fbd` (base commiteada):
 
 ## Gate artístico pendiente (handoff)
 
-1. **Horneado en curso**: tres lanes (`/tmp/bake-lane.sh lane1|lane2|lane3 …`) producen
-   6 tipos × 6 estados × 4 orientaciones × 2 moods = 288 variantes en
-   `docs/art/quality-vj/batch-facilities-v4/<lane>/<day|night>/<type>/` (fuera de Git, marcador
-   versionado). Logs `/tmp/bake-<lane>-<mood>-<type>.log`. El lote nocturno de town_hall de la
-   primera corrida falló con la gramática antigua; la lane actual lo rehornea con la gramática
-   corregida (`f73e874`).
-2. **Promoción** (al terminar las lanes): `bash scripts/promote-facilities-v4.sh` — copia el
+1. **Horneado**: tres lanes producen 6 tipos × 6 estados × 4 orientaciones × 2 moods = 288 variantes
+   en `docs/art/quality-vj/batch-facilities-v4/<lane>/<day|night>/<type>/` (fuera de Git, marcador
+   versionado). Logs `/tmp/bake-<lane>-<mood>-<type>.log`. Lane 1 completa (town_hall y school día y
+   noche). Los tres primeros lotes diurnos (town_hall, clinic, fire_station) abortaron su promoción
+   R1 por §26 al publicarse los props originales durante la corrida; sus 24 candidatos validados se
+   recuperaron con `scripts/recover-staging-v4.py` (sha/mood/medidas verificados contra disco).
+2. **Regeneración §13**: lane en segundo plano (`/tmp/regen-lane.sh`, logs
+   `/tmp/regen-<lane>-<sub>-<type>.log`) ejecuta `--regenerate` por tipo/mood y deja el acta
+   `regenerate/regenerate.json` que el validador exige (firma + pivot + dimensiones, jitter GPU
+   acotado). El validador §17 ahora acepta la huella rotada (D-097); 52/52 casos.
+3. **Promoción** (al terminar lote + actas): `bash scripts/promote-facilities-v4.sh` — copia el
    candidato complete@0 diurno a `docs/art/facilities-v4/candidates/`, actualiza
    `runtime-promotions.json`, ejecuta `art:blender:promote` (bundle con domainFootprint nuevo) y
    promociona variantes día y noche por familia con `--types` parcial; valida cada manifiesto.
-3. **QA de capturas**: `pnpm qa:vn-facilities` — 12 capturas (6 tipos × día/noche) en
+4. **QA de capturas**: `pnpm qa:vn-facilities` — 12 capturas (6 tipos × día/noche) en
    `docs/art/golden/vn-facilities/` con `summary.json`; revisión visual del responsable.
-4. **Gates finales**: `art:binaries:check` (medición final del bundle), suites completas,
+5. **Gates finales**: `art:binaries:check` (medición final del bundle), suites completas,
    `art:building-composer:validate` por manifiesto, y commit de cierre con los artefactos
    promocionados. Push sólo al cerrar la fase, por decisión del responsable.
 

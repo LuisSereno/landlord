@@ -15,9 +15,10 @@ import {
 
 import { buildBuildingIndex, buildingsOnParcel } from "./building-index";
 import { dispatchProductCommand } from "./commands";
+import { buildDistrictObstacleIndex } from "./district-obstacles";
 import { createViewProjection } from "./projection";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
-import { MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
+import { BUILDING_DEFINITIONS, MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
 import { createInitialState, type GameState } from "./state";
 
 const actor = parsePersonId("person_00000001");
@@ -81,11 +82,22 @@ describe("V.d.3 programa municipal", () => {
       const publicParcels = [...state.phase2.parcels.values()].filter(
         (parcel) => parcel.disposition === "public",
       );
-      expect(publicParcels).toHaveLength(facilities.length);
+      /**
+       * D-106: un residual privado sin jugada legal se reclasifica como público, así que el
+       * programa municipal es un subconjunto del suelo público, no necesariamente todo él.
+       */
+      const facilityParcelIds = new Set(facilities.flatMap((facility) => facility.parcelIds));
+      expect(publicParcels.length).toBeGreaterThanOrEqual(facilities.length);
+      for (const parcelId of facilityParcelIds) {
+        expect(state.phase2.parcels.get(parcelId)?.disposition).toBe("public");
+      }
       expect(
         publicParcels.every(
           (parcel) => parcel.ownerOrganizationId === MUNICIPALITY_ORGANIZATION_ID,
         ),
+      ).toBe(true);
+      expect(
+        publicParcels.every((parcel) => parcel.baseLandValue === 0 && parcel.marketValue === 0),
       ).toBe(true);
 
       const seenBuildings = new Set<string>();
@@ -109,6 +121,20 @@ describe("V.d.3 programa municipal", () => {
           expect(building.ownerOrganizationId).toBe(MUNICIPALITY_ORGANIZATION_ID);
           expect(building.footprintCells.length).toBeGreaterThan(0);
           expect(facility.parcelIds).toContain(building.parcelIds[0]!);
+          /** Solar reservado completo y huella física menor contenida en él: el patio es real. */
+          const definition = BUILDING_DEFINITIONS[building.type];
+          expect(definition.siteFootprint).toBeDefined();
+          expect(building.footprintCells.length).toBe(definition.targetFootprintCells);
+          expect(building.siteCells?.length).toBe(
+            definition.siteFootprint!.width * definition.siteFootprint!.height,
+          );
+          expect(building.siteCells!.length).toBeGreaterThan(building.footprintCells.length);
+          const siteKeys = new Set(building.siteCells!.map(cellKey));
+          expect(building.footprintCells.every((cell) => siteKeys.has(cellKey(cell)))).toBe(true);
+          const parcelKeys = new Set(
+            state.phase2.parcels.get(building.parcelIds[0]!)!.cells.map(cellKey),
+          );
+          expect(building.siteCells!.every((cell) => parcelKeys.has(cellKey(cell)))).toBe(true);
         }
       }
       for (const space of spaces) {
@@ -155,6 +181,31 @@ describe("V.d.3 programa municipal", () => {
         expect(building.footprintCells.every((cell) => parcelCells.has(cellKey(cell)))).toBe(true);
       }
     }
+  });
+
+  it("el patio del equipamiento queda libre: sólo la huella física bloquea paso y construcción", () => {
+    const state = createInitialState(7);
+    const index = buildDistrictObstacleIndex(state);
+    let checked = 0;
+    for (const district of state.world.districts.values()) {
+      const obstacles = index.get(district.district.id)!;
+      for (const facility of district.facilities.values()) {
+        const building = state.phase2.buildings.get(facility.buildingIds[0]!)!;
+        const footprint = new Set(building.footprintCells.map(cellKey));
+        for (const cell of building.siteCells!) {
+          const key = cellKey(cell);
+          if (footprint.has(key)) {
+            expect(obstacles.occupied.has(key)).toBe(true);
+            expect(obstacles.impassable.has(key)).toBe(true);
+          } else {
+            expect(obstacles.occupied.has(key)).toBe(false);
+            expect(obstacles.impassable.has(key)).toBe(false);
+          }
+        }
+        checked += 1;
+      }
+    }
+    expect(checked).toBe(14);
   });
 
   it("V.g civic-core: enlaza el town_hall con la plaza y conserva la relación en save/load y projection", () => {

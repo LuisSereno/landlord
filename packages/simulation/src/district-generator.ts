@@ -977,6 +977,12 @@ function attemptComposition(input: {
     ownerOrganizationId: null,
     productionSuitability: { ...entry.suitability },
   }));
+  /**
+   * Marca alta de los ids privados: la fusión de residuos D-106 reduce `parcels.length` después de
+   * numerar, así que el suelo público debe numerarse contra el total original, no contra el array
+   * superviviente, o un id público colisiona con un privado que conservó su ordinal alto.
+   */
+  const privateParcelIdCount = parcels.length;
 
   // D-106: un solar de mercado debe ser accionable con la misma regla autoritativa de colocación
   // que usan comando, UI, IA y automatización. El residuo sin jugada legal se fusiona con su
@@ -1023,11 +1029,46 @@ function attemptComposition(input: {
       roadCells: network.roadCells,
       segmentsByCell: network.segmentsByCell,
     });
-    const footprint = chooseFootprint({
+    const principalFrontageCells = frontages.flatMap((frontage) => frontage.cells);
+    /**
+     * Solar y edificio son dos rectángulos distintos: el solar reservado (siteFootprint) incluye
+     * patios, acceso y aparcamiento; el edificio físico es un subrectángulo menor. Ambos salen del
+     * mismo enumerador autoritativo (D-097): primero el solar dentro de la manzana pública, después
+     * el edificio dentro del solar, ordenado por frente vial y orientación.
+     */
+    const siteDefinition = definition.siteFootprint
+      ? {
+          ...definition,
+          targetFootprintCells: definition.siteFootprint.width * definition.siteFootprint.height,
+          preferredFootprint: definition.siteFootprint,
+        }
+      : definition;
+    const site = chooseFootprint({
       parcel: { cells: reservation.gridCells, roadFrontages: frontages },
       code,
+      definition: siteDefinition,
+      principalFrontageCells,
+      buildings: [],
+    });
+    if ("error" in site) {
+      issues.push({
+        code: "FACILITY_SITE_INVALID",
+        detail: `${reservation.entry.id}: ${site.error}`,
+      });
+      continue;
+    }
+    const siteCellKeys = new Set(site.footprintCells.map((cell) => `${cell.x}:${cell.y}`));
+    const siteFrontages = frontages
+      .map((frontage) => ({
+        roadSegmentId: frontage.roadSegmentId,
+        cells: frontage.cells.filter((cell) => siteCellKeys.has(`${cell.x}:${cell.y}`)),
+      }))
+      .filter((frontage) => frontage.cells.length > 0);
+    const footprint = chooseFootprint({
+      parcel: { cells: site.footprintCells, roadFrontages: siteFrontages },
+      code,
       definition,
-      principalFrontageCells: frontages.flatMap((frontage) => frontage.cells),
+      principalFrontageCells,
       buildings: [],
     });
     if ("error" in footprint) {
@@ -1038,7 +1079,7 @@ function attemptComposition(input: {
       continue;
     }
     const parcelId = parseParcelId(
-      `parcel_${String(parcelIdOrdinal + parcels.length + publicParcels.length + 1).padStart(8, "0")}`,
+      `parcel_${String(parcelIdOrdinal + privateParcelIdCount + publicParcels.length + 1).padStart(8, "0")}`,
     );
     const anchorCell = reservation.gridCells[0]!;
     const use = PRIMARY_USE_BY_BUILDING_TYPE[reservation.entry.buildingType];
@@ -1071,6 +1112,7 @@ function attemptComposition(input: {
       productionFacilityId: null,
       type: reservation.entry.buildingType,
       footprintCells: footprint.footprintCells.map((cell) => ({ ...cell })),
+      siteCells: site.footprintCells.map((cell) => ({ ...cell })),
       orientation: footprint.orientation,
       floors: footprint.floors,
       form: footprint.form,

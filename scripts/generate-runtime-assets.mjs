@@ -95,8 +95,8 @@ const BUILDINGS = [
     type: "town_hall",
     name: "Ayuntamiento",
     footprint: [2, 2],
-    // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS): 8×4 = 32 (V.g, dominio aprovado).
-    domain: [8, 4],
+    // Huella física del motor (BUILDING_DEFINITIONS): 5×3 = 15; el solar 8×4 queda reservado aparte.
+    domain: [5, 3],
     palette: ["#d8c9a8", "#b7a482", "#8f7d5f"],
   },
   {
@@ -104,7 +104,7 @@ const BUILDINGS = [
     name: "Colegio",
     footprint: [2, 1],
     // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS).
-    domain: [2, 7],
+    domain: [5, 1],
     palette: ["#cfb18a", "#a98b66", "#82684c"],
   },
   {
@@ -112,7 +112,7 @@ const BUILDINGS = [
     name: "Clínica",
     footprint: [1, 1],
     // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS).
-    domain: [2, 3],
+    domain: [2, 1],
     palette: ["#dfe6e4", "#b8c7c4", "#8da19d"],
   },
   {
@@ -120,7 +120,7 @@ const BUILDINGS = [
     name: "Comisaría",
     footprint: [1, 1],
     // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS).
-    domain: [2, 3],
+    domain: [2, 1],
     palette: ["#aebfd0", "#879caf", "#667d91"],
   },
   {
@@ -128,7 +128,7 @@ const BUILDINGS = [
     name: "Parque de bomberos",
     footprint: [2, 1],
     // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS).
-    domain: [2, 4],
+    domain: [3, 1],
     palette: ["#c98f7f", "#a56d5f", "#7e5045"],
   },
   {
@@ -136,7 +136,7 @@ const BUILDINGS = [
     name: "Mercado",
     footprint: [2, 1],
     // Celdas de 4 m que ocupa el tipo en el motor (BUILDING_DEFINITIONS).
-    domain: [2, 5],
+    domain: [4, 1],
     palette: ["#d8b67a", "#b18e58", "#876a40"],
   },
 ];

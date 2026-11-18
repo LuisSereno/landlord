@@ -340,6 +340,8 @@ export type MapPlacementTarget = {
   candidates: readonly {
     id: string;
     footprintCells: readonly GridCell[];
+    /** Solar reservado por la candidata; el volumen construido es `footprintCells`. */
+    siteCells: readonly GridCell[];
     orientation: BuildingPhysicalOrientation;
     recommended: boolean;
   }[];
@@ -827,6 +829,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
           candidates: target.candidates.map((candidate) => ({
             id: candidate.id,
             footprintCells: candidate.footprintCells.map((cell) => ({ ...cell })),
+            siteCells: candidate.siteCells.map((cell) => ({ ...cell })),
             orientation: candidate.orientation,
             recommended: candidate.recommended,
           })),
@@ -1589,7 +1592,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
     const selected = target.candidates.find(
       (candidate) => candidate.id === target.selectedCandidateId,
     );
-    if (selected)
+    if (selected) {
+      /** Solar reservado (patios y acceso incluidos) frente al volumen construido: dos lecturas. */
+      this.drawParcelGeometry(selected.siteCells, PLACEMENT_COLORS.context, 0.1, 0.95, 3, graphics);
       this.drawParcelGeometry(
         selected.footprintCells,
         PLACEMENT_COLORS.selected,
@@ -1598,6 +1603,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
         5,
         graphics,
       );
+    }
     this.updatePlacementGhost(selected?.footprintCells ?? null, selected?.orientation);
   }
 

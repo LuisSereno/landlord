@@ -36,7 +36,7 @@ import {
 import { BUILDING_DEFINITIONS } from "./game-data";
 import { activePermitFor } from "./permitting";
 import type { GameState } from "./state";
-import { fnv1a32 } from "./urban-fabric";
+import { canonicalGridCells, fnv1a32 } from "./urban-fabric";
 
 /**
  * V.d-7C · única fuente autoritativa de colocaciones legales (D-097).
@@ -314,7 +314,7 @@ export function developmentPlacementIdFor(
 
 /** La forma autoritativa del candidato, ya con identidad y alcance catastral. */
 export function toDevelopmentPlacementCandidate(
-  site: Pick<DevelopmentPlacementSite, "districtId" | "buildingType" | "parcelIds">,
+  site: Pick<DevelopmentPlacementSite, "districtId" | "buildingType" | "parcelIds" | "parcels">,
   candidate: FootprintCandidate,
   recommended: boolean,
 ): DevelopmentPlacementCandidate {
@@ -323,6 +323,7 @@ export function toDevelopmentPlacementCandidate(
     districtId: site.districtId,
     parcelIds: site.parcelIds,
     footprintCells: candidate.footprintCells,
+    siteCells: canonicalGridCells(site.parcels.flatMap((parcel) => parcel.cells)),
     orientation: candidate.orientation,
     floors: candidate.floors,
     recommended,

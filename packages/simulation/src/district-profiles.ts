@@ -11,7 +11,7 @@ import type {
 import type { UrbanFabricConfig } from "./urban-fabric";
 
 /** Versión del algoritmo de generación. Cambiarla invalida los hashes de fixtures. */
-export const DISTRICT_GENERATOR_VERSION = 3;
+export const DISTRICT_GENERATOR_VERSION = 4;
 
 export const DEFAULT_DISTRICT_PROFILE_ID = "barrio_del_umbral";
 

@@ -211,6 +211,7 @@ describe("V.d-7C · colocación interactiva en el cliente del Worker", () => {
         districtId: "district_00000001",
         parcelIds: ["parcel_00000001"],
         footprintCells: [{ x: 4, y: 4 }],
+        siteCells: [{ x: 4, y: 4 }],
         orientation: 0,
         floors: 1,
         recommended: true,

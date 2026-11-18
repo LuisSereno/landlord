@@ -53,7 +53,9 @@
           "sha256": "72771307caf80906f792112e96e5b8e1c032df1e4d2148449ca6fec332caa6ff"
         }
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "workshop": {
@@ -97,7 +99,9 @@
           "sha256": "68e1725c2a71aee6e57665e1e9e9ed882ac0b4698ac9cc0641916256a04bfdab"
         }
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "cement_plant": {
@@ -141,7 +145,9 @@
           "sha256": "f2c94198434b2da9a6c074f1668ef66f88cb386b7d7681e6244392c3808abd13"
         }
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "brickworks": {
@@ -185,7 +191,9 @@
           "sha256": "eb5c150a201da949fe764d1fea583e28b5965e5e03b89af9488718f181c069bd"
         }
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "steelworks": {
@@ -229,7 +237,9 @@
           "sha256": "38ac7c56104c0b1c9a29cd21986a26933995fd471d59b585685d46e57df40ecd"
         }
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "row_house": {
@@ -273,7 +283,9 @@
           "sha256": "fcbb2a689de7c8bb11198fc3e1ae85b07885c3527ac12c76af335dcdc6be32bd"
         }
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "apartment_block": {
@@ -317,7 +329,9 @@
           "sha256": "cb8f8651faddc4b79df675d05164b37b250ac4fda4941cee12e3cd055f847b82"
         }
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "mixed_tenement": {
@@ -361,7 +375,9 @@
           "sha256": "a1b6685d585125f8dd9708cc417f807f40a278a472d9ed8f37ba4c604e7253b7"
         }
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "warehouse": {
@@ -405,7 +421,9 @@
           "sha256": "4cd894d86948df11db2810775104fd34b012b427d8b342a367a8bf114f8f55f1"
         }
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "town_hall": {
@@ -416,8 +434,8 @@
         "height": 2
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pivot": {
         "x": 0.5,
@@ -449,7 +467,9 @@
           "sha256": "d47144eb69e454c1d9e31362dcf9a881a3c0ea3bcee22d1193bedcfe4b6e125f"
         }
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "school_block": {
@@ -460,8 +480,8 @@
         "height": 1
       },
       "domainFootprint": {
-        "width": 2,
-        "height": 7
+        "width": 5,
+        "height": 1
       },
       "pivot": {
         "x": 0.5,
@@ -493,7 +513,9 @@
           "sha256": "bd93b8f3f28dc9082ed1fa91ee4507fac84f8aa4407d2c417ad445b9e5daba9c"
         }
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "clinic": {
@@ -505,7 +527,7 @@
       },
       "domainFootprint": {
         "width": 2,
-        "height": 3
+        "height": 1
       },
       "pivot": {
         "x": 0.5,
@@ -537,7 +559,9 @@
           "sha256": "9729975f94cc773c854de66704ec320febf93f657e91c3bc61fc61e2641342e2"
         }
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "police_station": {
@@ -549,7 +573,7 @@
       },
       "domainFootprint": {
         "width": 2,
-        "height": 3
+        "height": 1
       },
       "pivot": {
         "x": 0.5,
@@ -581,7 +605,9 @@
           "sha256": "86cd1e9705f7e7ecd05b55ceac1a59bea97c8a9d30362ba5d6ad3093c1e17c21"
         }
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "fire_station": {
@@ -592,8 +618,8 @@
         "height": 1
       },
       "domainFootprint": {
-        "width": 2,
-        "height": 4
+        "width": 3,
+        "height": 1
       },
       "pivot": {
         "x": 0.5,
@@ -625,7 +651,9 @@
           "sha256": "33c05f3e276950f69fef113a36be701f157968f3c38628dfaec905b148837669"
         }
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     },
     "market_hall": {
@@ -636,8 +664,8 @@
         "height": 1
       },
       "domainFootprint": {
-        "width": 2,
-        "height": 5
+        "width": 4,
+        "height": 1
       },
       "pivot": {
         "x": 0.5,
@@ -669,7 +697,9 @@
           "sha256": "67c6e81deebe750edf0c732bb7c5cc75606d50f459dffe0d11c4d41b237b8217"
         }
       },
-      "allowedOrientations": [45],
+      "allowedOrientations": [
+        45
+      ],
       "symmetry": "none"
     }
   },

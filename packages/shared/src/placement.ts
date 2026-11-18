@@ -32,6 +32,8 @@ export type DevelopmentPlacementCandidate = {
   /** Conjunto canónico de parcelas del proyecto, en el orden que valida el motor. */
   parcelIds: ParcelId[];
   footprintCells: GridCell[];
+  /** Solar reservado: unión canónica de las celdas de las parcelas del proyecto. */
+  siteCells: GridCell[];
   orientation: PlacementOrientation;
   floors: number;
   /** Only the highest-ranked candidate of an enumeration; the UI labels it, no scoring is exposed. */
@@ -43,6 +45,7 @@ export const developmentPlacementCandidateSchema = z.object({
   districtId: districtIdSchema,
   parcelIds: z.array(parcelIdSchema).min(1),
   footprintCells: z.array(gridCellSchema).min(1),
+  siteCells: z.array(gridCellSchema).min(1),
   orientation: placementOrientationSchema,
   floors: z.number().int().positive(),
   recommended: z.boolean(),

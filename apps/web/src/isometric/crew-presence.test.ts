@@ -6,6 +6,7 @@ import {
   parsePersonId,
   parseRuntimeAssetManifest,
   parseTick,
+  roadCellsFromSegments,
 } from "@landlord/shared";
 import {
   createViewProjection,
@@ -91,6 +92,29 @@ function assignedCrewRuntime() {
     payload: { crewId: crew.id, workOrderId: site.id },
   });
   expect(assigned.accepted, `AssignCrewToWorkOrder: ${JSON.stringify(assigned)}`).toBe(true);
+  /**
+   * El tejido generado cambia con la versión del generador: para que el paseo medido no dependa
+   * de dónde caiga el spawn, la cuadrilla arranca en la celda vial más lejana de la obra. El
+   * camino sigue siendo el que decide el motor, no el test.
+   */
+  const district = state.world.districts.get(site.districtId)!;
+  const anchor = site.footprintCells[0]!;
+  let farthest = { ...anchor };
+  let bestDistance = -1;
+  for (const key of roadCellsFromSegments(district.map.roads.segments)) {
+    const [x, y] = key.split(":").map(Number) as [number, number];
+    const distance = Math.abs(x - anchor.x) + Math.abs(y - anchor.y);
+    if (distance > bestDistance) {
+      bestDistance = distance;
+      farthest = { x, y };
+    }
+  }
+  for (const agentId of [crew.supervisorAgentId, ...crew.workerAgentIds]) {
+    const agent = state.agents.get(agentId)!;
+    agent.cell = { ...farthest };
+    agent.path = [];
+    agent.state = "idle";
+  }
   return { runtime, state, crew, site };
 }
 

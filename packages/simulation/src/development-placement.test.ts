@@ -689,7 +689,7 @@ describe("V.d-7C · StartConstruction revalidado", () => {
     fund(state);
     /** Parcela grande de una sola parcela: admite varios edificios conviviendo dentro del solar. */
     const definition = BUILDING_DEFINITIONS.courtyard_home;
-    const candidate = [...state.phase2.parcels.values()]
+    const bySize = [...state.phase2.parcels.values()]
       .filter(
         (parcel) =>
           parcel.disposition === "marketable" &&
@@ -700,10 +700,24 @@ describe("V.d-7C · StartConstruction revalidado", () => {
       )
       .sort(
         (left, right) => right.cells.length - left.cells.length || left.id.localeCompare(right.id),
-      )[0]!;
-    candidate.ownerOrganizationId = organization;
+      );
+    let candidate: Parcel | undefined;
+    let before: ReturnType<typeof enumerateFor> | undefined;
+    for (const parcel of bySize) {
+      // La enumeración autoriza por propiedad: se prueba con la parcela ya adquirida.
+      parcel.ownerOrganizationId = organization;
+      const enumeration = enumerateFor(state, [parcel.id], "courtyard_home");
+      if (enumeration.candidates.length > 1) {
+        candidate = parcel;
+        before = enumeration;
+        break;
+      }
+      parcel.ownerOrganizationId = null;
+    }
+    expect(candidate).toBeDefined();
+    expect(before).toBeDefined();
+    if (!candidate || !before) return;
     const ids = [candidate.id];
-    const before = enumerateFor(state, ids, "courtyard_home");
     expect(before.candidates.length).toBeGreaterThan(1);
     /** El jugador confirma una candidata y la obra termina: ésa es la huella ocupada. */
     const occupiedPlacement = before.candidates[0]!;

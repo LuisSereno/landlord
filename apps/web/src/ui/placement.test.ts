@@ -37,6 +37,7 @@ function candidate(
     districtId: "district_00000001" as DevelopmentPlacementCandidate["districtId"],
     parcelIds: ["parcel_00000001"] as DevelopmentPlacementCandidate["parcelIds"],
     footprintCells: cells,
+    siteCells: cells,
     orientation,
     floors: 2,
     recommended,

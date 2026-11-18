@@ -7,6 +7,7 @@
  "variantSeed": 1001,
  "composerVersion": "vf-3",
  "styleProfileId": "graphic_civic_buildings_v1",
+ "moodId": "night_civic",
  "compositionSignature": "6ec90ceaa150828ab6deb198d7ed0ad430bc953a0078c0c17fd3c73df08cdfe4",
  "axisChoices": {
   "massing": "twin_sheds",

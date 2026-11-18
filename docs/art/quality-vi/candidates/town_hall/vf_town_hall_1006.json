@@ -7,6 +7,7 @@
  "variantSeed": 1006,
  "composerVersion": "vf-3",
  "styleProfileId": "graphic_civic_buildings_v1",
+ "moodId": "night_civic",
  "compositionSignature": "d440472588e657f4bd94ce4993532095782b7b6524efe39496a9eb076db11fbb",
  "axisChoices": {
   "massing": "neoclassical_palace",

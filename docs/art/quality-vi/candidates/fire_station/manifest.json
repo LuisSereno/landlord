@@ -2,6 +2,7 @@
  "schemaVersion": 1,
  "composerVersion": "vf-3",
  "styleProfileId": "graphic_civic_buildings_v1",
+ "moodId": "night_civic",
  "requested": 1,
  "rendered": 1,
  "signatures": [
@@ -22,6 +23,7 @@
    "variantSeed": 1003,
    "composerVersion": "vf-3",
    "styleProfileId": "graphic_civic_buildings_v1",
+   "moodId": "night_civic",
    "compositionSignature": "0496079097c01d496421f9b52ca31be29f8e581585b57937c23f0740d9aea8b3",
    "axisChoices": {
     "massing": "double_bay",

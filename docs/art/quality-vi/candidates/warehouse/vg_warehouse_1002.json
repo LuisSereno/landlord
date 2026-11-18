@@ -7,6 +7,7 @@
  "variantSeed": 1002,
  "composerVersion": "vf-3",
  "styleProfileId": "graphic_civic_buildings_v1",
+ "moodId": "night_civic",
  "compositionSignature": "fdd2319d98fd477c73368b4728a6bac88da209cb3347703f83e02afc1ca81950",
  "axisChoices": {
   "massing": "nave_yard",

@@ -7,6 +7,7 @@
  "variantSeed": 1000,
  "composerVersion": "vf-3",
  "styleProfileId": "graphic_civic_buildings_v1",
+ "moodId": "night_civic",
  "compositionSignature": "1aa546d4b8de3d0654ee4ec5e9a696d39be6743198fde94611e57b5ebc4e3bea",
  "axisChoices": {
   "massing": "l_shaped_market",

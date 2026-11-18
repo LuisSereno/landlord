@@ -7,6 +7,7 @@
  "variantSeed": 1000,
  "composerVersion": "vf-3",
  "styleProfileId": "graphic_civic_buildings_v1",
+ "moodId": "night_civic",
  "compositionSignature": "d3c82a442135fc409c6551a42a77905091c3c001c35f6b7c25d6d8d3623d9eee",
  "axisChoices": {
   "massing": "kiln_yard",

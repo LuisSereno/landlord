@@ -9,6 +9,7 @@ import {
   type ConstructionStage,
 } from "@landlord/shared";
 import rawVariants from "../generated/runtime-building-variants.json";
+import rawNightVariants from "../generated/runtime-building-variants-night.json";
 
 /**
  * V.j.5 — catálogo de variantes reales (tipo × estado × etapa × orientación física). El manifiesto
@@ -16,10 +17,22 @@ import rawVariants from "../generated/runtime-building-variants.json";
  * las imágenes, sólo este índice). V.j.6 añade caché por distrito + expulsión + métricas.
  */
 export const BUILDING_VARIANTS = rawVariants as unknown as BuildingVariantManifestV1;
+export const NIGHT_BUILDING_VARIANTS = rawNightVariants as unknown as BuildingVariantManifestV1;
+export type BuildingVisualMood = "day" | "night";
 
 const variantIssues = validateBuildingVariantManifest(BUILDING_VARIANTS);
 if (variantIssues.length > 0) {
   throw new Error(`El manifiesto de variantes no cumple el contrato: ${variantIssues.join(" | ")}`);
+}
+const nightVariantIssues = validateBuildingVariantManifest(NIGHT_BUILDING_VARIANTS);
+if (nightVariantIssues.length > 0) {
+  throw new Error(
+    `El manifiesto nocturno de variantes no cumple el contrato: ${nightVariantIssues.join(" | ")}`,
+  );
+}
+
+function manifestForMood(mood: BuildingVisualMood): BuildingVariantManifestV1 {
+  return mood === "night" ? NIGHT_BUILDING_VARIANTS : BUILDING_VARIANTS;
 }
 
 export function resolveBuildingVariant(
@@ -27,8 +40,9 @@ export function resolveBuildingVariant(
   state: BuildingAssetState,
   orientation: BuildingPhysicalOrientation,
   stage?: ConstructionStage | null,
+  mood: BuildingVisualMood = "day",
 ): BuildingVariantV1 | null {
-  return BUILDING_VARIANTS.variants[buildingVariantKey(type, state, orientation, stage)] ?? null;
+  return manifestForMood(mood).variants[buildingVariantKey(type, state, orientation, stage)] ?? null;
 }
 
 export function variantTextureKey(
@@ -36,8 +50,9 @@ export function variantTextureKey(
   state: BuildingAssetState,
   orientation: BuildingPhysicalOrientation,
   stage?: ConstructionStage | null,
+  mood: BuildingVisualMood = "day",
 ): string {
-  return `blender-variant-${buildingVariantKey(type, state, orientation, stage)}`;
+  return `blender-variant-${mood}-${buildingVariantKey(type, state, orientation, stage)}`;
 }
 
 /**

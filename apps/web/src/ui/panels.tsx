@@ -700,6 +700,11 @@ function BuildingPanel({
             <button
               disabled={upgradeReasons.length > 0}
               onClick={() => actions.upgradeBuilding(building.id)}
+              title={
+                upgradeReasons.length > 0
+                  ? "La mejora no está disponible todavía."
+                  : "Iniciar mejora"
+              }
               type="button"
             >
               <UiIcon name="upgrade" /> Mejorar · {option.upgradeCost} u. ·{" "}
@@ -707,15 +712,6 @@ function BuildingPanel({
             </button>
           ) : building.upgraded ? (
             <p className="muted">Mejora completada.</p>
-          ) : null}
-          {upgradeReasons.length > 0 && option && !building.upgraded ? (
-            <ul className="blocked-reasons" role="list">
-              {upgradeReasons.map((reason) => (
-                <li key={reason.code}>
-                  <UiIcon name="warning" size={13} /> {reason.message}
-                </li>
-              ))}
-            </ul>
           ) : null}
         </section>
       ) : null}

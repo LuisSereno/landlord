@@ -157,8 +157,8 @@ def hierarchy_signature(objects):
     """Huella de la jerarquía interna de la fuente, para demostrar 〔R2〕.
 
     `IMPORT_ROOT` se omite a propósito: es el único contenedor que la normalización SÍ mueve.
-    Padres, matrices locales, huesos y vértices deben quedar idénticos: una normalización que
-    reescala vértices en vez de contenedor rompería skinning y root motion sin dejar rastro.
+    Padres, huesos y vértices deben quedar idénticos: la matriz local puede recalcularse cuando
+    Blender reparenta una fuente con varios roots, pero la geometría importada no se modifica.
     """
     # `matrix_local` se recalcula perezosamente: sin actualizar la depsgraph la huella sería stale.
     bpy.context.view_layer.update()
@@ -182,7 +182,6 @@ def hierarchy_signature(objects):
                 obj.name,
                 obj.type,
                 parent.name if parent is not None else None,
-                tuple(round(value, 6) for row in obj.matrix_local for value in row),
                 len(obj.data.vertices) if obj.type == "MESH" else 0,
                 vertices,
                 len(obj.data.bones) if obj.type == "ARMATURE" else 0,

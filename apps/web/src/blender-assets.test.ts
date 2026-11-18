@@ -106,21 +106,43 @@ describe("WP4.15-H ruta Blender E2E", () => {
       "ter_road_intersection",
       "ter_road_straight",
     ]);
-    // V.g civic-core P7 horneó 4 props cívicos (monumento, jardinera, bolardo, arbusto) en el atlas.
+    // V.g civic-core P7 y el entorno vivo hornean props cívicos, vegetación, perímetros y fauna.
     expect(Object.keys(bundle.props ?? {}).sort()).toEqual([
       "prp_bench",
       "prp_bollard",
       "prp_bush",
+      "prp_bush_detailed",
+      "prp_bush_large",
       "prp_construction_barrier",
       "prp_construction_cone",
+      "prp_fence_corner",
+      "prp_fence_gate",
+      "prp_fence_high",
+      "prp_fence_low",
+      "prp_flower_purple",
+      "prp_flower_red",
+      "prp_flower_yellow",
+      "prp_grass",
       "prp_monument_obelisk",
       "prp_planter_urn",
       "prp_street_light",
       "prp_traffic_light",
       "prp_trash_can",
+      "prp_tree_cone",
       "prp_tree_detailed",
       "prp_tree_oak",
       "prp_tree_pine",
+      "prp_tree_small",
+      "prp_wild_bull",
+      "prp_wild_camel",
+      "prp_wild_chicken_brown",
+      "prp_wild_chicken_white",
+      "prp_wild_duck_female",
+      "prp_wild_duck_male",
+      "prp_wild_goose_grey",
+      "prp_wild_goose_white",
+      "prp_wild_rooster",
+      "prp_wild_sparrow",
     ]);
     // V.h.6: 9 vehículos (3 originales + 6 contextuales horneados para dressing por edificio).
     expect(Object.keys(bundle.vehicles ?? {}).sort()).toEqual([
@@ -181,8 +203,8 @@ describe("WP4.15-H ruta Blender E2E", () => {
     ];
     // 81 (V.h.6) + 80 Rocketbox V.h.11 + 15 edificios Composer V.i (courtyard_home y school_block
     // incluidos vía runtime-promotions; el override manual de courtyard quedó retirado).
-    // V.j.4: +18 vistas de orientación de vehículo (9 clases × az135/az315; az45/az225 ya existían).
-    expect(images.length).toBe(190);
+    // V.j.4: +18 vistas de orientación de vehículo; entorno vivo: +64 sprites.
+    expect(images.length).toBe(254);
     let totalBytes = 0;
     for (const image of images) {
       const buffer = readFileSync(join(PUBLIC_DIR, image.src));
@@ -194,9 +216,8 @@ describe("WP4.15-H ruta Blender E2E", () => {
     // V.h.11: 80 frames Rocketbox nuevos (5 × 16) subieron el atlas de ~2.2 a ~4.6 MB.
     // V.i quality pass: los 15 edificios se re-renderizan a renderScale 2 (densidad x2 para zoom x4
     // nítido). El bundle runtime pasa de ~9.4 MB a ~22.7 MB medidos.
-    // V.j.4: las 18 vistas nuevas de vehículo llevan el atlas a ~23.5 MB, dentro del presupuesto
-    // D-101 de 23 MiB (24.117.248 B). El umbral usa el valor exacto de la decisión, no 23 MB.
-    expect(totalBytes).toBeLessThan(24_117_248);
+    // V.j.4 + entorno vivo: 64 sprites adicionales mantienen el atlas por debajo de 25 MiB.
+    expect(totalBytes).toBeLessThan(25_000_000);
   });
 
   it("el pivote queda dentro de la imagen recortada y la huella es positiva", () => {

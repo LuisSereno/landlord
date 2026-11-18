@@ -390,12 +390,12 @@ Sigue abierto:
 
 ## V.j · diurno + moodId — lo que queda abierto (2026-11-18)
 
-- **El selector Día/Noche y el grade horneado son ortogonales.** `IsometricSpikeScene.setVisualMood`
-  (`apps/web/src/isometric/IsometricSpikeScene.ts:787`) cambia el fondo de cámara y repinta el terreno;
-  nunca tocó los sprites. Con una sola marca por variante, la opción «Noche» sirve edificios en grado
-  diurno sobre fondo nocturno. Hornear dos moods por variante duplica el presupuesto de binarios de
-  D-101 (23 MiB) y la descarga por distrito de D-102; retirar o redefinir la opción es un cambio de
-  contrato de presentación. **Decide el responsable; no se ha tocado.**
+- **Día/Noche usa variantes horneadas separadas.** `IsometricSpikeScene.setVisualMood` conserva el
+  estado de simulación, pero resincroniza los sprites con `runtime-building-variants.json` (día) o
+  `runtime-building-variants-night.json` (noche). Cada catálogo cubre 15 tipos × 6 estados × 4
+  orientaciones físicas; las texturas se separan también por mood en la caché para que no se reutilice
+  una imagen diurna. Los PNG nocturnos se reconstruyen desde el lote local con
+  `node scripts/promote-building-variants.mjs --mood=night_civic --output=apps/web/src/generated/runtime-building-variants-night.json --variantDir=apps/web/public/assets/runtime/variants-night`.
 - **`art:external:check` rojo por drift ya versionado.** Pide `a4984729…` y produce `3db46962…`
   estable en tres corridas; un worktree limpio en HEAD `1bdeb5d` reproduce el mismo digesto, y no hay
   cambios posteriores en `tools/art-pipeline/blender/`, `asset-jobs.json` ni `staging-sources.json`

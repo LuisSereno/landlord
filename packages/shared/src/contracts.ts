@@ -59,13 +59,13 @@ export const submitCommandRequestSchema = requestEnvelopeSchema(
 
 export type SetRunStateRequest = RequestEnvelope<
   "SetRunState",
-  { state: "paused" | "running"; speed: 1 | 2 | 4 }
+  { state: "paused" | "running"; speed: 1 | 2 | 4 | 8 | 16 }
 >;
 export const setRunStateRequestSchema = requestEnvelopeSchema(
   "SetRunState",
   z.object({
     state: z.enum(["paused", "running"]),
-    speed: z.union([z.literal(1), z.literal(2), z.literal(4)]),
+    speed: z.union([z.literal(1), z.literal(2), z.literal(4), z.literal(8), z.literal(16)]),
   }),
 );
 

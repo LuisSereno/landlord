@@ -1329,6 +1329,328 @@
         "width": 256,
         "height": 256
       }
+    },
+    {
+      "id": "prp_tree_cone",
+      "kind": "prop",
+      "assetId": "prp_tree_cone",
+      "target": "bundle",
+      "source": {
+        "kind": "gltf",
+        "sourceId": "src_kenney_nature_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_cone.glb"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 8, "targetZ": 2.8 },
+      "render": { "width": 256, "height": 256 }
+    },
+    {
+      "id": "prp_tree_small",
+      "kind": "prop",
+      "assetId": "prp_tree_small",
+      "target": "bundle",
+      "source": {
+        "kind": "gltf",
+        "sourceId": "src_kenney_nature_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_small.glb"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 7, "targetZ": 2.2 },
+      "render": { "width": 256, "height": 256 }
+    },
+    {
+      "id": "prp_bush_large",
+      "kind": "prop",
+      "assetId": "prp_bush_large",
+      "target": "bundle",
+      "source": {
+        "kind": "gltf",
+        "sourceId": "src_kenney_nature_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bushLarge.glb"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 4, "targetZ": 0.6 },
+      "render": { "width": 256, "height": 256 }
+    },
+    {
+      "id": "prp_bush_detailed",
+      "kind": "prop",
+      "assetId": "prp_bush_detailed",
+      "target": "bundle",
+      "source": {
+        "kind": "gltf",
+        "sourceId": "src_kenney_nature_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/plant_bushDetailed.glb"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 4.5, "targetZ": 0.8 },
+      "render": { "width": 256, "height": 256 }
+    },
+    {
+      "id": "prp_grass",
+      "kind": "prop",
+      "assetId": "prp_grass",
+      "target": "bundle",
+      "source": {
+        "kind": "gltf",
+        "sourceId": "src_kenney_nature_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/grass.glb"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 3.5, "targetZ": 0.5 },
+      "render": { "width": 256, "height": 256 }
+    },
+    {
+      "id": "prp_flower_red",
+      "kind": "prop",
+      "assetId": "prp_flower_red",
+      "target": "bundle",
+      "source": {
+        "kind": "gltf",
+        "sourceId": "src_kenney_nature_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/flower_redA.glb"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 3, "targetZ": 0.5 },
+      "render": { "width": 256, "height": 256 }
+    },
+    {
+      "id": "prp_flower_yellow",
+      "kind": "prop",
+      "assetId": "prp_flower_yellow",
+      "target": "bundle",
+      "source": {
+        "kind": "gltf",
+        "sourceId": "src_kenney_nature_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/flower_yellowB.glb"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 3, "targetZ": 0.4 },
+      "render": { "width": 256, "height": 256 }
+    },
+    {
+      "id": "prp_flower_purple",
+      "kind": "prop",
+      "assetId": "prp_flower_purple",
+      "target": "bundle",
+      "source": {
+        "kind": "gltf",
+        "sourceId": "src_kenney_nature_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/flower_purpleA.glb"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 3, "targetZ": 0.5 },
+      "render": { "width": 256, "height": 256 }
+    },
+    {
+      "id": "prp_fence_low",
+      "kind": "prop",
+      "assetId": "prp_fence_low",
+      "target": "bundle",
+      "source": {
+        "kind": "gltf",
+        "sourceId": "src_kenney_nature_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/fence_simpleLow.glb"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 5, "targetZ": 0.5 },
+      "render": { "width": 256, "height": 256 },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "prp_fence_high",
+      "kind": "prop",
+      "assetId": "prp_fence_high",
+      "target": "bundle",
+      "source": {
+        "kind": "gltf",
+        "sourceId": "src_kenney_nature_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/fence_simpleHigh.glb"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 5, "targetZ": 0.7 },
+      "render": { "width": 256, "height": 256 },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "prp_fence_corner",
+      "kind": "prop",
+      "assetId": "prp_fence_corner",
+      "target": "bundle",
+      "source": {
+        "kind": "gltf",
+        "sourceId": "src_kenney_nature_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/fence_corner.glb"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 6, "targetZ": 0.7 },
+      "render": { "width": 256, "height": 256 },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "prp_fence_gate",
+      "kind": "prop",
+      "assetId": "prp_fence_gate",
+      "target": "bundle",
+      "source": {
+        "kind": "gltf",
+        "sourceId": "src_kenney_nature_kit",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/fence_gate.glb"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 5, "targetZ": 0.7 },
+      "render": { "width": 256, "height": 256 },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "prp_wild_sparrow",
+      "kind": "prop",
+      "assetId": "prp_wild_sparrow",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bird_Sparrow_01/Export/Bird_Sparrow_01.fbx"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 1.2, "targetZ": 0.2 },
+      "render": { "width": 256, "height": 256 },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "prp_wild_duck_female",
+      "kind": "prop",
+      "assetId": "prp_wild_duck_female",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bird_Duck_Female_01/Export/Bird_Duck_Female_01.fbx"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 2, "targetZ": 0.4 },
+      "render": { "width": 256, "height": 256 },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "prp_wild_duck_male",
+      "kind": "prop",
+      "assetId": "prp_wild_duck_male",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bird_Duck_Male_01/Export/Bird_Duck_Male_01.fbx"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 2, "targetZ": 0.4 },
+      "render": { "width": 256, "height": 256 },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "prp_wild_chicken_brown",
+      "kind": "prop",
+      "assetId": "prp_wild_chicken_brown",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bird_Chicken_Brown_01/Export/Bird_Chicken_Brown_01.fbx"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 2, "targetZ": 0.45 },
+      "render": { "width": 256, "height": 256 },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "prp_wild_chicken_white",
+      "kind": "prop",
+      "assetId": "prp_wild_chicken_white",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bird_Chicken_White_01/Export/Bird_Chicken_White_01.fbx"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 2, "targetZ": 0.45 },
+      "render": { "width": 256, "height": 256 },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "prp_wild_rooster",
+      "kind": "prop",
+      "assetId": "prp_wild_rooster",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bird_Rooster_Brown_01/Export/Bird_Rooster_Brown_01.fbx"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 2, "targetZ": 0.5 },
+      "render": { "width": 256, "height": 256 },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "prp_wild_goose_grey",
+      "kind": "prop",
+      "assetId": "prp_wild_goose_grey",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bird_Goose_Grey_01/Export/Bird_Goose_Grey_01.fbx"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 2.2, "targetZ": 0.55 },
+      "render": { "width": 256, "height": 256 },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "prp_wild_goose_white",
+      "kind": "prop",
+      "assetId": "prp_wild_goose_white",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bird_Goose_White_01/Export/Bird_Goose_White_01.fbx"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 2.2, "targetZ": 0.55 },
+      "render": { "width": 256, "height": 256 },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "prp_wild_bull",
+      "kind": "prop",
+      "assetId": "prp_wild_bull",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Bull_Brown_01/Export/Bull_Brown_01.fbx"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 4.5, "targetZ": 1 },
+      "render": { "width": 256, "height": 256 },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
+      "id": "prp_wild_camel",
+      "kind": "prop",
+      "assetId": "prp_wild_camel",
+      "target": "bundle",
+      "source": {
+        "kind": "fbx",
+        "sourceId": "src_microsoft_rocketbox",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/Assets/Animals/Camel_OneHump_01/Export/Camel_OneHump_01.fbx"
+      },
+      "footprint": { "width": 1, "height": 1 },
+      "camera": { "orthoScale": 5, "targetZ": 1.2 },
+      "render": { "width": 256, "height": 256 },
+      "orientations": [45, 135, 225, 315]
     }
   ]
 }

@@ -13,6 +13,8 @@ describe("fixed simulation clock", () => {
     expect(direct.getState().tick).toBe(stepped.getState().tick);
     direct.setRunState("running", 4);
     expect(direct.getState()).toMatchObject({ tick: 100, runState: "running", speed: 4 });
+    direct.setRunState("running", 16);
+    expect(direct.getState()).toMatchObject({ tick: 100, runState: "running", speed: 16 });
     direct.setRunState("paused");
     expect(direct.getState().tick).toBe(100);
   });

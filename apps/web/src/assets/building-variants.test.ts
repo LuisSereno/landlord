@@ -7,6 +7,7 @@ import {
 } from "@landlord/shared";
 import {
   BUILDING_VARIANTS,
+  NIGHT_BUILDING_VARIANTS,
   hasRealVariants,
   resolveBuildingVariant,
   variantAsAsset,
@@ -55,7 +56,10 @@ describe("V.j.5 manifiesto de variantes", () => {
       "row_house:construction:structure:0",
     );
     expect(variantTextureKey("row_house", "damaged", 180)).toBe(
-      "blender-variant-row_house:damaged:-:180",
+      "blender-variant-day-row_house:damaged:-:180",
+    );
+    expect(variantTextureKey("row_house", "damaged", 180, undefined, "night")).toBe(
+      "blender-variant-night-row_house:damaged:-:180",
     );
   });
 
@@ -122,7 +126,16 @@ describe("V.j.5 resolución prioriza variante real sobre procedural", () => {
           : null;
       },
     });
-    expect(resolved?.key).toBe("blender-variant-row_house:burning:-:90");
+    expect(resolved?.key).toBe("blender-variant-day-row_house:burning:-:90");
+  });
+
+  it("mantiene un catálogo completo y separado para el grado nocturno", () => {
+    expect(validateBuildingVariantManifest(NIGHT_BUILDING_VARIANTS)).toEqual([]);
+    expect(Object.keys(NIGHT_BUILDING_VARIANTS.variants)).toHaveLength(360);
+    const day = resolveBuildingVariant("row_house", "complete", 90, null, "day");
+    const night = resolveBuildingVariant("row_house", "complete", 90, null, "night");
+    expect(night?.moodId).toBe("night_civic");
+    expect(night?.image.src).not.toBe(day?.image.src);
   });
 
   it("sin variante ni Blender, el procedural sigue sosteniendo tipos legacy", () => {

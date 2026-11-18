@@ -2614,6 +2614,1178 @@
         "sourceId": "src_kenney_nature_kit"
       },
       "pixelsPerMeter": 64
+    },
+    "prp_tree_cone": {
+      "id": "prp_tree_cone",
+      "name": "prp_tree_cone",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.7637,
+        "y": 0.9591
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_tree_cone.png",
+        "width": 146,
+        "height": 169,
+        "sha256": "2203229926bb5ddc92c09786ed465638c711f6d6ddc8b5a2a0254d7a0f1aa433"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 32
+    },
+    "prp_tree_small": {
+      "id": "prp_tree_small",
+      "name": "prp_tree_small",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.7659,
+        "y": 0.9704
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_tree_small.png",
+        "width": 126,
+        "height": 146,
+        "sha256": "d2666bbdb0d98e1449327746160889ecc0bbdf4416f8cebf45a1820835d8bc1a"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 36.57142857142857
+    },
+    "prp_bush_large": {
+      "id": "prp_bush_large",
+      "name": "prp_bush_large",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.883
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_bush_large.png",
+        "width": 93,
+        "height": 79,
+        "sha256": "63891de1253cb8c8c8144c54c0812b1042a5517cd6f8f79af5cf52897a070103"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 64
+    },
+    "prp_bush_detailed": {
+      "id": "prp_bush_detailed",
+      "name": "prp_bush_detailed",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.8324
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_bush_detailed.png",
+        "width": 102,
+        "height": 93,
+        "sha256": "89a7efc9d66b106ecd4ab4658d53614a021b8af97dd68aaa404f5f3f1a9532ea"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 56.888888888888886
+    },
+    "prp_grass": {
+      "id": "prp_grass",
+      "name": "prp_grass",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5283,
+        "y": 0.7079
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_grass.png",
+        "width": 106,
+        "height": 85,
+        "sha256": "bf276b0a0674b62fe806d1ec4bf2f65eb5edac50df52cab4e8a76d914bd07123"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 73.14285714285714
+    },
+    "prp_flower_red": {
+      "id": "prp_flower_red",
+      "name": "prp_flower_red",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.595,
+        "y": 0.9187
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_flower_red.png",
+        "width": 100,
+        "height": 99,
+        "sha256": "dd595d100081ccb2ac13e9d62e1e306e27d7cffeb94a9a9e7aa38dc6661e1c9a"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 85.33333333333333
+    },
+    "prp_flower_yellow": {
+      "id": "prp_flower_yellow",
+      "name": "prp_flower_yellow",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.3827,
+        "y": 0.8631
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_flower_yellow.png",
+        "width": 81,
+        "height": 58,
+        "sha256": "4f67c8b940bb6ba9bb70b69ce8857311eb365d722fec570fb4d748fcc401b5ee"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 85.33333333333333
+    },
+    "prp_flower_purple": {
+      "id": "prp_flower_purple",
+      "name": "prp_flower_purple",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5444,
+        "y": 0.9042
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_flower_purple.png",
+        "width": 90,
+        "height": 84,
+        "sha256": "9a15bc7f9c7e347a6ea35fca53db02621dc59bad99e40384dc2b9182d277657f"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 85.33333333333333
+    },
+    "prp_fence_low": {
+      "id": "prp_fence_low",
+      "name": "prp_fence_low",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.661
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_fence_low.png",
+        "width": 168,
+        "height": 116,
+        "sha256": "2bb8548511ead53e70b5d6ada947996f197dbc41939817aa89ca892ef2ccdbb9"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 51.2,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_fence_low-az135.png",
+            "width": 168,
+            "height": 116,
+            "sha256": "542248524c6c2a1f2cc02d17e7dc2d62a6d583103075f8a0adc5f0d516f40fa3"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.661
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_fence_low-az225.png",
+            "width": 168,
+            "height": 116,
+            "sha256": "66af268c864171fa2a42ebbf7ccdd6ea1a22e77193eeb764417da163bc739be3"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.6609
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_fence_low-az315.png",
+            "width": 168,
+            "height": 116,
+            "sha256": "49e5795f65163cea9a69bc9cea742d5800efdbb5052b34d4e9943ab3bc21ad5a"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.6609
+          },
+          "pixelsPerMeter": 51.2
+        }
+      }
+    },
+    "prp_fence_high": {
+      "id": "prp_fence_high",
+      "name": "prp_fence_high",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.7275
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_fence_high.png",
+        "width": 168,
+        "height": 143,
+        "sha256": "bcf5f90c8f283db4b2adc89336800637855114b89fd51131f638f43b9b7ce4ce"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 51.2,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_fence_high-az135.png",
+            "width": 168,
+            "height": 143,
+            "sha256": "f173cc871d6537dae17b0b41754909a0ba1db06bdfae11f73509f8f7d960e8ad"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7275
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_fence_high-az225.png",
+            "width": 168,
+            "height": 143,
+            "sha256": "5aa3365c87c00d56dbbad0a56b38b47201e74b1b4360fa954185e35f7ea045c0"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7275
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_fence_high-az315.png",
+            "width": 168,
+            "height": 143,
+            "sha256": "68337e091365f88130dee11c7775ab63535cb3057282f1c1f1cc7a34fcdf8e9f"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7275
+          },
+          "pixelsPerMeter": 51.2
+        }
+      }
+    },
+    "prp_fence_corner": {
+      "id": "prp_fence_corner",
+      "name": "prp_fence_corner",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.231,
+        "y": 0.6495
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_fence_corner.png",
+        "width": 158,
+        "height": 173,
+        "sha256": "8aa3d44ef3c99d6e00440edc1c0fd14c65fc6da534945f7e1c29c9dee940c60b"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 42.666666666666664,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_fence_corner-az135.png",
+            "width": 242,
+            "height": 117,
+            "sha256": "f21df44125504cc309a7cfe53e0768ccede13e025bf10888beabcb765e30b66d"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.9604
+          },
+          "pixelsPerMeter": 42.666666666666664
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_fence_corner-az225.png",
+            "width": 158,
+            "height": 173,
+            "sha256": "e531b358900c79d42542f3b91656cfcfba02cd96165ee1d3aae27fcd2528929f"
+          },
+          "pivot": {
+            "x": 0.7658,
+            "y": 0.6495
+          },
+          "pixelsPerMeter": 42.666666666666664
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_fence_corner-az315.png",
+            "width": 242,
+            "height": 116,
+            "sha256": "9ad14fcfb39bda80600862e1f6bdf34c9928adeda6d05b388d3624ae5851c948"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.4773
+          },
+          "pixelsPerMeter": 42.666666666666664
+        }
+      }
+    },
+    "prp_fence_gate": {
+      "id": "prp_fence_gate",
+      "name": "prp_fence_gate",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.7217
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_fence_gate.png",
+        "width": 156,
+        "height": 140,
+        "sha256": "26963dbd0f3e044299ed9b278b2c00e3fc43c0e235a373a2fb2bc99a926ac9f3"
+      },
+      "provenance": {
+        "license": "CC0-1.0",
+        "author": "src_kenney_nature_kit",
+        "sourceId": "src_kenney_nature_kit"
+      },
+      "pixelsPerMeter": 51.2,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_fence_gate-az135.png",
+            "width": 156,
+            "height": 140,
+            "sha256": "363e8385978895247c877598fe439159121c905e0f3477314a78bf3e0613aacb"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7217
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_fence_gate-az225.png",
+            "width": 156,
+            "height": 140,
+            "sha256": "1d42f3d459b43dd57132cc3c36977a571ab25c66d1188074d8db8e38c20555bc"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7217
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_fence_gate-az315.png",
+            "width": 156,
+            "height": 140,
+            "sha256": "a4cb9c2b95d9e49f3a796dde0b9462bd1eff404824b7f5d826468dc359a7ea48"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.7217
+          },
+          "pixelsPerMeter": 51.2
+        }
+      }
+    },
+    "prp_wild_sparrow": {
+      "id": "prp_wild_sparrow",
+      "name": "prp_wild_sparrow",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.475,
+        "y": 0.85
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_wild_sparrow.png",
+        "width": 40,
+        "height": 37,
+        "sha256": "03142b6235db9c51a1084e55f7ae281b76ab6085375e5c9347135a74df73242c"
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      },
+      "pixelsPerMeter": 213.33333333333334,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_sparrow-az135.png",
+            "width": 40,
+            "height": 38,
+            "sha256": "75cd4f81fe0fb0e6cc68f9812b30c366dccbe12599c37a85f08747061de083f2"
+          },
+          "pivot": {
+            "x": 0.525,
+            "y": 0.8408
+          },
+          "pixelsPerMeter": 213.33333333333334
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_sparrow-az225.png",
+            "width": 40,
+            "height": 45,
+            "sha256": "f51454d3b5af86bbe5917682427e381169bf47c58c07dacad944ec166407edb0"
+          },
+          "pivot": {
+            "x": 0.525,
+            "y": 0.7989
+          },
+          "pixelsPerMeter": 213.33333333333334
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_sparrow-az315.png",
+            "width": 40,
+            "height": 45,
+            "sha256": "007a66de71f902081153d7455ab28ea6dadac85034d62705603ed81f963aaaec"
+          },
+          "pivot": {
+            "x": 0.475,
+            "y": 0.7989
+          },
+          "pixelsPerMeter": 213.33333333333334
+        }
+      }
+    },
+    "prp_wild_duck_female": {
+      "id": "prp_wild_duck_female",
+      "name": "prp_wild_duck_female",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.57,
+        "y": 0.8987
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_wild_duck_female.png",
+        "width": 50,
+        "height": 46,
+        "sha256": "bba764dafe5dabcfe0e562a37dcf5cb1a08c1314a2ad3fe5625f7ede88a765c1"
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      },
+      "pixelsPerMeter": 128,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_duck_female-az135.png",
+            "width": 43,
+            "height": 46,
+            "sha256": "e9078b452418438868e58f117b542190c3176d35c9b1a4ea01edc05851983734"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.8987
+          },
+          "pixelsPerMeter": 128
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_duck_female-az225.png",
+            "width": 50,
+            "height": 51,
+            "sha256": "bb9a359b324a38d0658ae0629becde6774b40bde1acd7abfebdb856d7df0678e"
+          },
+          "pivot": {
+            "x": 0.43,
+            "y": 0.9282
+          },
+          "pixelsPerMeter": 128
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_duck_female-az315.png",
+            "width": 43,
+            "height": 51,
+            "sha256": "9ad07427fdb1f94d54f02b1ae0ac43f68e8de7d0f3bbe74b57d9c8082db96131"
+          },
+          "pivot": {
+            "x": 0.4884,
+            "y": 0.9282
+          },
+          "pixelsPerMeter": 128
+        }
+      }
+    },
+    "prp_wild_duck_male": {
+      "id": "prp_wild_duck_male",
+      "name": "prp_wild_duck_male",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.57,
+        "y": 0.8987
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_wild_duck_male.png",
+        "width": 50,
+        "height": 46,
+        "sha256": "56f774677729e4a6db9a8372719b638689fbb1e230f0cf2f2fbafe592fd41afb"
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      },
+      "pixelsPerMeter": 128,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_duck_male-az135.png",
+            "width": 43,
+            "height": 46,
+            "sha256": "65de8f1606ef225c3b7281e6ac4f1dd3095df5535823d57dfa3048d5a519f4ab"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.8987
+          },
+          "pixelsPerMeter": 128
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_duck_male-az225.png",
+            "width": 50,
+            "height": 51,
+            "sha256": "7728d8a51792588e42b54a72837d891d92136b43e1d018ad0c40cb0ca2e2e3b4"
+          },
+          "pivot": {
+            "x": 0.43,
+            "y": 0.9282
+          },
+          "pixelsPerMeter": 128
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_duck_male-az315.png",
+            "width": 43,
+            "height": 51,
+            "sha256": "e264e478fe6fc9415aa3ad0083e0ddab3b8062e216c085b4a8924eb8811f0adc"
+          },
+          "pivot": {
+            "x": 0.4884,
+            "y": 0.9282
+          },
+          "pixelsPerMeter": 128
+        }
+      }
+    },
+    "prp_wild_chicken_brown": {
+      "id": "prp_wild_chicken_brown",
+      "name": "prp_wild_chicken_brown",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.6132,
+        "y": 0.9035
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_wild_chicken_brown.png",
+        "width": 53,
+        "height": 53,
+        "sha256": "797bfad8760aa0224500749f7e39ce30ab9173a3047977291fbd419bcc013e4e"
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      },
+      "pixelsPerMeter": 128,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_chicken_brown-az135.png",
+            "width": 40,
+            "height": 53,
+            "sha256": "daf46f55f584c5bc95ed83e392ded3c79de51cccbd17f6ecc4f253c93387e161"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.9035
+          },
+          "pixelsPerMeter": 128
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_chicken_brown-az225.png",
+            "width": 53,
+            "height": 58,
+            "sha256": "4dac14f275cdb1fb6e37593b9d78b91300155be582295f926894b19fcde1ae40"
+          },
+          "pivot": {
+            "x": 0.3774,
+            "y": 0.9463
+          },
+          "pixelsPerMeter": 128
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_chicken_brown-az315.png",
+            "width": 40,
+            "height": 58,
+            "sha256": "d9f06acca56cd340c5ada596227580bb133fd8097c4239cdc6ba64c1d7b17b47"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.9463
+          },
+          "pixelsPerMeter": 128
+        }
+      }
+    },
+    "prp_wild_chicken_white": {
+      "id": "prp_wild_chicken_white",
+      "name": "prp_wild_chicken_white",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.6132,
+        "y": 0.9035
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_wild_chicken_white.png",
+        "width": 53,
+        "height": 53,
+        "sha256": "0d8bc4eca2332b4362d0ce56c1140b7c8cd8858bc18a7ad65aaec99d192ef375"
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      },
+      "pixelsPerMeter": 128,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_chicken_white-az135.png",
+            "width": 40,
+            "height": 53,
+            "sha256": "e1fcb1e416a2c36f2bc77fb58cb7b7c929c049ae7ed6a35feb2b9d559b98d3ba"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.9035
+          },
+          "pixelsPerMeter": 128
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_chicken_white-az225.png",
+            "width": 53,
+            "height": 58,
+            "sha256": "52f5965a18b81fafa5f3e5f14fef14817609379a97d7d67182ba57de38376e80"
+          },
+          "pivot": {
+            "x": 0.3774,
+            "y": 0.9463
+          },
+          "pixelsPerMeter": 128
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_chicken_white-az315.png",
+            "width": 40,
+            "height": 58,
+            "sha256": "3c211808a20d9f869546405960fe86ced510dcf7f42873f08d920c1b638d7e61"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 0.9463
+          },
+          "pixelsPerMeter": 128
+        }
+      }
+    },
+    "prp_wild_rooster": {
+      "id": "prp_wild_rooster",
+      "name": "prp_wild_rooster",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.6087,
+        "y": 0.8322
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_wild_rooster.png",
+        "width": 69,
+        "height": 66,
+        "sha256": "d6af5eba418878e5a2f857d9e81cacc36d7153e06f4f8f7f0c613dd695b35026"
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      },
+      "pixelsPerMeter": 128,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_rooster-az135.png",
+            "width": 54,
+            "height": 66,
+            "sha256": "19f80c54f57f772ab9843cfdbbcfd7ce5f16bd527c067e20e79ff77f445875c9"
+          },
+          "pivot": {
+            "x": 0.4907,
+            "y": 0.8322
+          },
+          "pixelsPerMeter": 128
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_rooster-az225.png",
+            "width": 69,
+            "height": 69,
+            "sha256": "b40ef5e6d0cc0d6c2530f4e61547fb7987c8cba139fa9de2ad9630d6f8ea65a0"
+          },
+          "pivot": {
+            "x": 0.3841,
+            "y": 1
+          },
+          "pixelsPerMeter": 128
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_rooster-az315.png",
+            "width": 54,
+            "height": 69,
+            "sha256": "8028e6c8c047fbcb65be49cd094c3d2ac0fa6eac51c7c770ca4b23a76d0c09ab"
+          },
+          "pivot": {
+            "x": 0.5,
+            "y": 1
+          },
+          "pixelsPerMeter": 128
+        }
+      }
+    },
+    "prp_wild_goose_grey": {
+      "id": "prp_wild_goose_grey",
+      "name": "prp_wild_goose_grey",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.6176,
+        "y": 0.9033
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_wild_goose_grey.png",
+        "width": 85,
+        "height": 68,
+        "sha256": "82934597f30deaca12a30b6a0ba3636f160b850a61dbc07b4708bf7a612c49b2"
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      },
+      "pixelsPerMeter": 116.36363636363636,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_goose_grey-az135.png",
+            "width": 63,
+            "height": 68,
+            "sha256": "3072643a87532a338846a6269a603c83b583a5616b31454d6317979fcf2d0146"
+          },
+          "pivot": {
+            "x": 0.5079,
+            "y": 0.9033
+          },
+          "pixelsPerMeter": 116.36363636363636
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_goose_grey-az225.png",
+            "width": 84,
+            "height": 88,
+            "sha256": "720c49e19f7841f5117fedfaeaa8dd067419625a054261bf1b47e91d733ff8f3"
+          },
+          "pivot": {
+            "x": 0.381,
+            "y": 0.9253
+          },
+          "pixelsPerMeter": 116.36363636363636
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_goose_grey-az315.png",
+            "width": 63,
+            "height": 88,
+            "sha256": "1b9552bf172ad6c5ad3b97c23f20e906104c7e47f4b3ca8167d06524064dda9e"
+          },
+          "pivot": {
+            "x": 0.4921,
+            "y": 0.931
+          },
+          "pixelsPerMeter": 116.36363636363636
+        }
+      }
+    },
+    "prp_wild_goose_white": {
+      "id": "prp_wild_goose_white",
+      "name": "prp_wild_goose_white",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.625,
+        "y": 0.9107
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_wild_goose_white.png",
+        "width": 84,
+        "height": 68,
+        "sha256": "72916a7b9ecede47ff49f3bc38a4d0b3551c40b8636a25fdf3837643642fdfff"
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      },
+      "pixelsPerMeter": 116.36363636363636,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_goose_white-az135.png",
+            "width": 62,
+            "height": 68,
+            "sha256": "20c4d7fcad4509892cb79de6a7eca95baff389a0cf636605acbbbb3da38fc984"
+          },
+          "pivot": {
+            "x": 0.5081,
+            "y": 0.9033
+          },
+          "pixelsPerMeter": 116.36363636363636
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_goose_white-az225.png",
+            "width": 84,
+            "height": 87,
+            "sha256": "7519726de016306f862e9ede9303ff4b8cb9b0bf41e97f17b5512dfffd017ebd"
+          },
+          "pivot": {
+            "x": 0.375,
+            "y": 0.9244
+          },
+          "pixelsPerMeter": 116.36363636363636
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_goose_white-az315.png",
+            "width": 62,
+            "height": 87,
+            "sha256": "275d092286a2dbdc1e6fc9d7a7fa720f18126d132fec4ad80f2c9b8c342e0ca5"
+          },
+          "pivot": {
+            "x": 0.4919,
+            "y": 0.9244
+          },
+          "pixelsPerMeter": 116.36363636363636
+        }
+      }
+    },
+    "prp_wild_bull": {
+      "id": "prp_wild_bull",
+      "name": "prp_wild_bull",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5265,
+        "y": 0.8909
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_wild_bull.png",
+        "width": 113,
+        "height": 103,
+        "sha256": "f9a3c05c195f95f2d6c6d1d30ff9d23c4b3792baabf2420443f7ee6b28c0f0a7"
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      },
+      "pixelsPerMeter": 56.888888888888886,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_bull-az135.png",
+            "width": 102,
+            "height": 103,
+            "sha256": "10398509b796d9521dcd66bf9379836c7fe700aec6a034ac70afbbb36bedf385"
+          },
+          "pivot": {
+            "x": 0.5245,
+            "y": 0.8909
+          },
+          "pixelsPerMeter": 56.888888888888886
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_bull-az225.png",
+            "width": 113,
+            "height": 117,
+            "sha256": "53c9f3fe6bebd5f7d02e3cc38307aa43c7df30eec5b91b94d7351c265e5a3999"
+          },
+          "pivot": {
+            "x": 0.4735,
+            "y": 0.7886
+          },
+          "pixelsPerMeter": 56.888888888888886
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_bull-az315.png",
+            "width": 102,
+            "height": 117,
+            "sha256": "c3516c98f0177c58ea7ea827c1f1252f0b59bd232c1f84f22e7d62699991a4ac"
+          },
+          "pivot": {
+            "x": 0.4755,
+            "y": 0.7886
+          },
+          "pixelsPerMeter": 56.888888888888886
+        }
+      }
+    },
+    "prp_wild_camel": {
+      "id": "prp_wild_camel",
+      "name": "prp_wild_camel",
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5693,
+        "y": 0.9073
+      },
+      "image": {
+        "src": "/assets/runtime/blender/prp_wild_camel.png",
+        "width": 137,
+        "height": 111,
+        "sha256": "bd245435215c0ec35730c1c9327946183af572b85a1aacc55ace0ea800e529f4"
+      },
+      "provenance": {
+        "license": "MIT",
+        "author": "Microsoft",
+        "sourceId": "src_microsoft_rocketbox",
+        "attribution": {
+          "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+          "licenseUrl": "https://opensource.org/licenses/MIT",
+          "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+          "verifiedAt": "2026-10-26",
+          "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+        }
+      },
+      "pixelsPerMeter": 51.2,
+      "orientations": {
+        "135": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_camel-az135.png",
+            "width": 119,
+            "height": 111,
+            "sha256": "7287da963adf55cdc045feefdb8dcb37093f614dfebe9a46c85b4623188adfd7"
+          },
+          "pivot": {
+            "x": 0.4958,
+            "y": 0.9073
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "225": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_camel-az225.png",
+            "width": 138,
+            "height": 136,
+            "sha256": "3cf6249f9ab0c1614fbe1edd32b0a8219676c9c914fca074db7191a81a7ece4a"
+          },
+          "pivot": {
+            "x": 0.4275,
+            "y": 0.8618
+          },
+          "pixelsPerMeter": 51.2
+        },
+        "315": {
+          "image": {
+            "src": "/assets/runtime/blender/prp_wild_camel-az315.png",
+            "width": 119,
+            "height": 136,
+            "sha256": "0073a7de7b13af474761786eaec28f2f7975fec12a381c8dc1c4be29e17655b7"
+          },
+          "pivot": {
+            "x": 0.5042,
+            "y": 0.8618
+          },
+          "pixelsPerMeter": 51.2
+        }
+      }
     }
   }
 }

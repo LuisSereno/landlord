@@ -94,7 +94,10 @@ export class SimulationWorkerClient {
     );
   }
 
-  public setRunState(state: "paused" | "running", speed: 1 | 2 | 4): Promise<WorkerResponse> {
+  public setRunState(
+    state: "paused" | "running",
+    speed: 1 | 2 | 4 | 8 | 16,
+  ): Promise<WorkerResponse> {
     return this.send(
       setRunStateRequestSchema.parse({
         protocolVersion: 2,

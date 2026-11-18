@@ -17,14 +17,14 @@ export type GameSession = {
   projection: ViewProjectionV2 | null;
   economy: NonNullable<ViewProjectionV2["economy"]> | undefined;
   runState: "paused" | "running";
-  speed: 1 | 2 | 4;
+  speed: 1 | 2 | 4 | 8 | 16;
   message: string;
   diagnostics: DiagnosticEntry[];
   latestMetrics: SimulationMetrics | null;
   setMessage: (message: string) => void;
   send: (action: () => Promise<WorkerResponse>, success: string) => Promise<WorkerResponse | null>;
   toggleRunState: () => Promise<void>;
-  changeSpeed: (speed: 1 | 2 | 4) => Promise<void>;
+  changeSpeed: (speed: 1 | 2 | 4 | 8 | 16) => Promise<void>;
   saveSnapshot: () => Promise<void>;
   loadSnapshot: () => Promise<void>;
   selectDistrict: (districtId: string) => Promise<void>;
@@ -40,7 +40,7 @@ export function useGameSession(): GameSession {
   const [projection, setProjection] = useState<ViewProjectionV2 | null>(null);
   const [client, setClient] = useState<SimulationWorkerClient | null>(null);
   const [runState, setRunState] = useState<"paused" | "running">("paused");
-  const [speed, setSpeed] = useState<1 | 2 | 4>(1);
+  const [speed, setSpeed] = useState<1 | 2 | 4 | 8 | 16>(1);
   const [message, setMessage] = useState("Conectando con el Worker…");
   const [diagnostics, setDiagnostics] = useState<DiagnosticEntry[]>([]);
   const [latestMetrics, setLatestMetrics] = useState<SimulationMetrics | null>(null);
@@ -174,7 +174,7 @@ export function useGameSession(): GameSession {
   }, [runState, speed]);
 
   const changeSpeed = useCallback(
-    async (nextSpeed: 1 | 2 | 4) => {
+    async (nextSpeed: 1 | 2 | 4 | 8 | 16) => {
       setSpeed(nextSpeed);
       if (!clientRef.current || runState !== "running") return;
       const response = await clientRef.current.setRunState("running", nextSpeed);

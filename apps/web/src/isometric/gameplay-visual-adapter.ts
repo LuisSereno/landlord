@@ -59,7 +59,13 @@ export const BUILDING_VISUAL_POLICIES: Record<BuildingType, BuildingVisualPolicy
 };
 
 /** Especies de árbol que pueden decorar sin depender de una red vial. */
-const TREE_ASSETS: readonly string[] = ["prp_tree_oak", "prp_tree_pine", "prp_tree_detailed"];
+const TREE_ASSETS: readonly string[] = [
+  "prp_tree_oak",
+  "prp_tree_pine",
+  "prp_tree_detailed",
+  "prp_tree_cone",
+  "prp_tree_small",
+];
 
 export type GameplayBuildingVisual = {
   /** Identificador estable: `building:{id}` o `site:{id}`. */
@@ -163,6 +169,29 @@ export type GameplayContextActor = GameplayAmbientActor & {
   lateralOffset: number;
 };
 
+/** Fauna ambiental: props estáticos derivados de la geometría, nunca agentes del dominio. */
+export type GameplayAmbientWildlife = {
+  id: string;
+  species: string;
+  asset: string;
+  parcelId: string;
+  cell: GridCell;
+  azimuth: 45 | 135 | 225 | 315;
+  scale: number;
+};
+
+/** Límite visual de parcela; no expresa bloqueo, propiedad ni navegación. */
+export type GameplayParcelBoundary = {
+  id: string;
+  asset: string;
+  parcelId: string;
+  cell: GridCell;
+  /** Arista exterior de la celda: sitúa la valla sobre el límite, no en medio del solar. */
+  side: "n" | "e" | "s" | "w";
+  azimuth: 45 | 135 | 225 | 315;
+  scale: number;
+};
+
 /** Roles de mobiliario de espacio público (V.g civic-core). Espejo de public_space_dresser.py. */
 export type GameplayPublicSpaceFurnitureKind =
   "monument" | "street_lamp" | "bench" | "planter" | "bollard" | "tree" | "foliage";
@@ -192,6 +221,8 @@ export type GameplayVisualModel = {
   ambientActors: GameplayAmbientActor[];
   /** Actores profesionales contextuales por edificio (V.h.11 §12/§16), avatares Rocketbox. */
   contextActors: GameplayContextActor[];
+  ambientWildlife: GameplayAmbientWildlife[];
+  parcelBoundaries: GameplayParcelBoundary[];
   /**
    * Mobiliario cívico/verde derivado de los espacios públicos (V.g). Es presentacional: no vive en
    * GameState, no lo tocan tick ni economía, sólo la geometría espacial (publicSpaces + facilities).
@@ -1524,7 +1555,13 @@ const LOT_PROPS: Record<
 > = {
   residential: [
     { asset: "prp_tree_oak", weight: 40, scale: 0.9 },
-    { asset: "prp_bush", weight: 30, scale: 0.8 },
+    { asset: "prp_tree_small", weight: 16, scale: 0.82 },
+    { asset: "prp_bush", weight: 24, scale: 0.8 },
+    { asset: "prp_bush_large", weight: 14, scale: 0.76 },
+    { asset: "prp_flower_red", weight: 8, scale: 0.55 },
+    { asset: "prp_flower_yellow", weight: 8, scale: 0.55 },
+    { asset: "prp_flower_purple", weight: 8, scale: 0.55 },
+    { asset: "prp_grass", weight: 10, scale: 0.65 },
     { asset: "prp_trash_can", weight: 20, scale: 0.8 },
     { asset: "prp_bench", weight: 10, scale: 0.8 },
   ],
@@ -1548,8 +1585,11 @@ const LOT_PROPS: Record<
     { asset: "prp_construction_cone", weight: 50, scale: 0.9 },
   ],
   vacant: [
-    { asset: "prp_bush", weight: 60, scale: 0.8 },
-    { asset: "prp_construction_cone", weight: 40, scale: 0.7 },
+    { asset: "prp_bush", weight: 36, scale: 0.8 },
+    { asset: "prp_bush_detailed", weight: 20, scale: 0.78 },
+    { asset: "prp_grass", weight: 24, scale: 0.65 },
+    { asset: "prp_tree_cone", weight: 10, scale: 0.75 },
+    { asset: "prp_construction_cone", weight: 10, scale: 0.7 },
   ],
   ruin: [
     { asset: "prp_construction_cone", weight: 50, scale: 0.8 },
@@ -1609,6 +1649,11 @@ export function planGameplayParcelDressing(
     const context = buildingContextProps(building?.type);
     const pool = LOT_PROPS[lotType].map((entry) => {
       let weight = entry.weight;
+      if (entry.asset.startsWith("prp_flower_")) weight *= profile?.density.flowers ?? 1;
+      if (entry.asset === "prp_grass") weight *= profile?.density.groundCover ?? 1;
+      if (lotType === "residential" && /tree|bush|flower|grass/.test(entry.asset)) {
+        weight *= profile?.density.gardens ?? 1;
+      }
       if (profile?.favored.includes(entry.asset)) weight *= 2;
       if (profile?.avoided.includes(entry.asset)) weight *= 0.25;
       if (context.includes(entry.asset)) weight *= 2;
@@ -1642,6 +1687,172 @@ export function planGameplayParcelDressing(
         parcelId: parcel.id,
         cell: { ...cell },
         scale: chosen.scale,
+      });
+    }
+  }
+  return out;
+}
+
+const CARDINAL_NEIGHBOURS = [
+  { side: "n", dx: 0, dy: -1 },
+  { side: "e", dx: 1, dy: 0 },
+  { side: "s", dx: 0, dy: 1 },
+  { side: "w", dx: -1, dy: 0 },
+] as const;
+
+function peripheryScoreFor(projection: ViewProjectionV2, profile: DistrictVisualProfile): number {
+  const districts = projection.city?.districts ?? [];
+  const district = districts.find((entry) => entry.id === projection.observedDistrictId);
+  const roleScore: Record<string, number> = {
+    civic_core: 0,
+    mixed_core: 0.18,
+    commercial_corridor: 0.12,
+    urban_residential: 0.38,
+    low_density_residential: 0.72,
+    green_open_space: 0.8,
+    industrial_logistics: 0.32,
+  };
+  if (!district) return roleScore[profile.role] ?? 0.25;
+  const centerX = (projection.city.layout.columns - 1) / 2;
+  const centerY = (projection.city.layout.rows - 1) / 2;
+  const distance = Math.abs(district.slotX - centerX) + Math.abs(district.slotY - centerY);
+  const maximum = Math.max(1, centerX + centerY);
+  return Math.min(1, (roleScore[district.role] ?? 0.25) * 0.55 + (distance / maximum) * 0.45);
+}
+
+type VisualParcel = {
+  id: string;
+  cell?: GridCell;
+  cells?: readonly GridCell[];
+  zoning: string;
+  disposition?: string;
+  buildingId: string | null;
+};
+
+type VisualBuilding = {
+  id: string;
+  parcelIds: readonly string[];
+  footprintCells: readonly GridCell[];
+};
+
+function freeParcelCells(
+  parcel: VisualParcel,
+  building: VisualBuilding | undefined,
+  roadCells: ReadonlySet<string>,
+): GridCell[] {
+  const cells = parcel.cells?.length ? parcel.cells : parcel.cell ? [parcel.cell] : [];
+  const footprint = new Set((building?.footprintCells ?? []).map(cellKey));
+  return cells.filter((cell) => !footprint.has(cellKey(cell)) && !roadCells.has(cellKey(cell)));
+}
+
+/** Fauna local determinista; expresa entorno, no comportamiento animal ni estado de simulación. */
+export function planGameplayAmbientWildlife(
+  parcels: readonly VisualParcel[],
+  buildings: readonly VisualBuilding[],
+  constructionParcelIds: ReadonlySet<string>,
+  roadCells: ReadonlySet<string>,
+  profile: DistrictVisualProfile,
+  peripheryScore: number,
+): GameplayAmbientWildlife[] {
+  const buildingByParcel = new Map<string, VisualBuilding>();
+  for (const building of buildings) {
+    for (const parcelId of building.parcelIds) buildingByParcel.set(parcelId, building);
+  }
+  const wildlife: GameplayAmbientWildlife[] = [];
+  for (const parcel of [...parcels].sort((a, b) => a.id.localeCompare(b.id))) {
+    if (parcel.disposition === "public" || constructionParcelIds.has(parcel.id)) continue;
+    const building = buildingByParcel.get(parcel.id);
+    if (!building) continue;
+    const free = freeParcelCells(parcel, building, roadCells);
+    if (free.length === 0) continue;
+    const chance = Math.round((18 + peripheryScore * 52) * profile.density.wildlife);
+    const seed = spatialHash(parcel.id.length, free[0]!.x + free[0]!.y, 0x7a11);
+    if (seed % 100 >= Math.min(90, chance)) continue;
+    const candidates =
+      peripheryScore >= 0.88 && free.length >= 3
+        ? ["prp_wild_sparrow", "prp_wild_bull", "prp_wild_camel"]
+        : peripheryScore >= 0.58
+          ? [
+              "prp_wild_sparrow",
+              "prp_wild_chicken_brown",
+              "prp_wild_chicken_white",
+              "prp_wild_rooster",
+              "prp_wild_duck_female",
+              "prp_wild_duck_male",
+              "prp_wild_goose_grey",
+              "prp_wild_goose_white",
+            ]
+          : ["prp_wild_sparrow"];
+    const cell = free[seed % free.length]!;
+    const asset = candidates[spatialHash(cell.x, cell.y, 0x7a12) % candidates.length]!;
+    wildlife.push({
+      id: `wild:${parcel.id}:${asset}:${cellKey(cell)}`,
+      species: asset.replace("prp_wild_", ""),
+      asset,
+      parcelId: parcel.id,
+      cell: { ...cell },
+      azimuth: ([45, 135, 225, 315] as const)[spatialHash(cell.x, cell.y, 0x7a13) % 4]!,
+      scale: asset === "prp_wild_bull" || asset === "prp_wild_camel" ? 0.92 : 0.72,
+    });
+  }
+  return wildlife;
+}
+
+/**
+ * Borde visual de parcelas construidas. Se deriva del perímetro catastral, no de las celdas de
+ * jardín: una casa puede ocupar todo el borde útil del solar y aun así necesita leerse como una
+ * propiedad cerrada. La capa sigue siendo puramente presentacional; la celda sólo ancla el sprite
+ * sobre su arista exterior, no añade obstáculo ni cambia la huella autoritativa del edificio.
+ */
+export function planGameplayParcelBoundaries(
+  parcels: readonly VisualParcel[],
+  buildings: readonly VisualBuilding[],
+  constructionParcelIds: ReadonlySet<string>,
+  roadCells: ReadonlySet<string>,
+  profile: DistrictVisualProfile,
+): GameplayParcelBoundary[] {
+  const buildingByParcel = new Map<string, VisualBuilding>();
+  for (const building of buildings) {
+    for (const parcelId of building.parcelIds) buildingByParcel.set(parcelId, building);
+  }
+  const out: GameplayParcelBoundary[] = [];
+  for (const parcel of [...parcels].sort((a, b) => a.id.localeCompare(b.id))) {
+    if (parcel.disposition === "public" || constructionParcelIds.has(parcel.id)) continue;
+    const building = buildingByParcel.get(parcel.id);
+    if (!building || profile.density.perimeters <= 0) continue;
+    const parcelCells = new Set(
+      (parcel.cells?.length ? parcel.cells : parcel.cell ? [parcel.cell] : []).map(cellKey),
+    );
+    const edges = (parcel.cells?.length ? parcel.cells : parcel.cell ? [parcel.cell] : [])
+      .flatMap((cell) =>
+        CARDINAL_NEIGHBOURS.filter(
+          ({ dx, dy }) => !parcelCells.has(`${cell.x + dx}:${cell.y + dy}`),
+        ).map(({ side, dx, dy }) => ({
+          cell,
+          side,
+          facesRoad: roadCells.has(`${cell.x + dx}:${cell.y + dy}`),
+        })),
+      )
+      .sort(
+        (left, right) =>
+          left.cell.y - right.cell.y ||
+          left.cell.x - right.cell.x ||
+          left.side.localeCompare(right.side),
+      );
+    if (edges.length === 0) continue;
+    const baseAsset = parcel.zoning === "industrial" ? "prp_fence_high" : "prp_fence_low";
+    const gateIndex = edges.findIndex((edge) => edge.facesRoad);
+    for (const [index, edge] of edges.entries()) {
+      /** Sólo un acceso por solar; el resto del frente vial conserva su tramo de valla. */
+      const asset = index === gateIndex ? "prp_fence_gate" : baseAsset;
+      out.push({
+        id: `boundary:${parcel.id}:${cellKey(edge.cell)}:${edge.side}`,
+        asset,
+        parcelId: parcel.id,
+        cell: { ...edge.cell },
+        side: edge.side,
+        azimuth: ({ n: 45, e: 135, s: 225, w: 315 } as const)[edge.side]!,
+        scale: 0.8,
       });
     }
   }
@@ -2085,6 +2296,27 @@ export function buildGameplayVisualModel(
     mapHeight,
     districtProfile,
   );
+  const visualBuildings = (economy?.buildings ?? []).map((building) => ({
+    id: building.id,
+    parcelIds: building.parcelIds,
+    footprintCells: building.footprintCells ?? [],
+  }));
+  const peripheryScore = peripheryScoreFor(projection, districtProfile);
+  const ambientWildlife = planGameplayAmbientWildlife(
+    parcels,
+    visualBuildings,
+    constructionParcelIds,
+    roadCellKeys,
+    districtProfile,
+    peripheryScore,
+  );
+  const parcelBoundaries = planGameplayParcelBoundaries(
+    parcels,
+    visualBuildings,
+    constructionParcelIds,
+    roadCellKeys,
+    districtProfile,
+  );
 
   return {
     groundPlan,
@@ -2098,6 +2330,8 @@ export function buildGameplayVisualModel(
     contextActors,
     publicSpaceFurniture,
     parcelDressing,
+    ambientWildlife,
+    parcelBoundaries,
     roadVisuals,
     roadSectionRoles,
     roadSectionCells,

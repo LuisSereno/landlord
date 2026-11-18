@@ -21,6 +21,14 @@ import {
 import type { HubKind } from "./types";
 import type { VisualMood } from "../visual-mood";
 
+export const SIMULATION_SPEEDS = [1, 2, 4, 8, 16] as const;
+type SimulationSpeed = (typeof SIMULATION_SPEEDS)[number];
+
+/** El avance rápido recorre las velocidades soportadas sin añadir una fila de controles al HUD. */
+export function nextSimulationSpeed(speed: SimulationSpeed): SimulationSpeed {
+  return SIMULATION_SPEEDS[(SIMULATION_SPEEDS.indexOf(speed) + 1) % SIMULATION_SPEEDS.length]!;
+}
+
 /**
  * V.d-UX · HUD superior compacto (spec §5.2). Sólo estado de consulta frecuente y accesos
  * globales; el detalle vive en el panel contextual o en los hubs. El mapa ocupa el resto.
@@ -147,18 +155,16 @@ export function GameHud({
           >
             <UiIcon name={runState === "running" ? "pause" : "play"} size={16} />
           </button>
-          {([1, 2, 4] as const).map((value) => (
-            <button
-              aria-pressed={speed === value}
-              className="speed-button"
-              disabled={!session.client}
-              key={value}
-              onClick={() => void session.changeSpeed(value)}
-              type="button"
-            >
-              {value}×
-            </button>
-          ))}
+          <button
+            aria-label={`Avance rápido: ${speed}×. Pulsar para cambiar a ${nextSimulationSpeed(speed)}×`}
+            className="speed-button"
+            disabled={!session.client}
+            onClick={() => void session.changeSpeed(nextSimulationSpeed(speed))}
+            title="Cambiar velocidad de simulación"
+            type="button"
+          >
+            » {speed}×
+          </button>
           <button
             aria-expanded={notificationsOpen}
             aria-label={`Notificaciones${unread > 0 ? `: ${unread} sin leer` : ""}`}

@@ -4,7 +4,8 @@ export const SYSTEM_ORDER = ["commands", "movement", "metrics"] as const;
 
 export type SimulationSystemName = (typeof SYSTEM_ORDER)[number];
 export type RunState = "paused" | "running";
-export type SimulationSpeed = 1 | 2 | 4;
+/** Multiplicador de scheduling; nunca altera las reglas ni el resultado de cada tick. */
+export type SimulationSpeed = 1 | 2 | 4 | 8 | 16;
 
 export type ClockState = {
   tick: Tick;

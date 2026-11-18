@@ -93,10 +93,38 @@ function styleLabOptions() {
   const read = (flag) => argv.find((f) => f.startsWith(flag))?.slice(flag.length);
   const only = read("--only=");
   if (!only) return null;
+  if (argv.includes("--publish")) return null;
   return {
     ids: new Set(only.split(",").filter(Boolean)),
     outDir: read("--outDir=") ?? join(REPO_ROOT, "blender_artist", "generated", "style-lab"),
   };
+}
+
+function incrementalIds() {
+  const value = process.argv.find((f) => f.startsWith("--only="))?.slice("--only=".length);
+  return value ? new Set(value.split(",").filter(Boolean)) : null;
+}
+
+function refreshImageHashes(bundle) {
+  for (const group of ASSET_GROUPS) {
+    for (const asset of Object.values(bundle[group] ?? {})) {
+      const images = [];
+      if (asset.states) images.push(...Object.values(asset.states));
+      if (asset.animations)
+        images.push(...Object.values(asset.animations).flatMap((a) => a.frames));
+      if (asset.image) images.push(asset.image);
+      for (const frame of Object.values(asset.orientations ?? {})) images.push(frame.image);
+      for (const image of images) {
+        const file = join(REPO_ROOT, "apps", "web", "public", image.src);
+        if (!existsSync(file)) continue;
+        const buffer = readFileSync(file);
+        image.sha256 = sha256(buffer);
+        const size = pngSize(buffer);
+        image.width = size.width;
+        image.height = size.height;
+      }
+    }
+  }
 }
 
 function sha256(buffer) {
@@ -599,34 +627,42 @@ function render(noShadow = false) {
     throw new Error(`No existe el binario de Blender: ${BLENDER} (define BLENDER_BIN)`);
   }
   const lab = styleLabOptions();
+  const incremental = process.argv.includes("--publish") ? incrementalIds() : null;
   const { manifest, promotions, sourcesById } = readJobs();
-  const bundle = {
-    schemaVersion: 2,
-    generator: {
-      id: "blender-runtime-asset-e2e",
-      version: 1,
-      method: "blender_render",
-      source: "tools/art-pipeline/blender/runtime_asset.py",
-    },
-    provenance: {
-      license: "original",
-      author: "Landlord project",
-      notes:
-        "Resumen del bundle: la procedencia real es por asset (D-083). Los renders son obra del proyecto; la geometría de cada asset declara su fuente y su licencia.",
-    },
-    buildings: {},
-    characters: {},
-  };
+  const bundle = incremental
+    ? asManifestV2(readBundle())
+    : {
+        schemaVersion: 2,
+        generator: {
+          id: "blender-runtime-asset-e2e",
+          version: 1,
+          method: "blender_render",
+          source: "tools/art-pipeline/blender/runtime_asset.py",
+        },
+        provenance: {
+          license: "original",
+          author: "Landlord project",
+          notes:
+            "Resumen del bundle: la procedencia real es por asset (D-083). Los renders son obra del proyecto; la geometría de cada asset declara su fuente y su licencia.",
+        },
+        buildings: {},
+        characters: {},
+      };
   mkdirSync(PUBLIC_DIR, { recursive: true });
   mkdirSync(dirname(BUNDLE_PATH), { recursive: true });
   mkdirSync(EVIDENCE_DIR, { recursive: true });
 
   const workDir = mkdtempSync(join(tmpdir(), "landlord-blender-assets-"));
-  const metadata = [];
+  const previousMetadata =
+    incremental && existsSync(METADATA_PATH) ? JSON.parse(readFileSync(METADATA_PATH, "utf8")) : [];
+  const metadata = incremental
+    ? previousMetadata.filter((entry) => !incremental.has(entry.assetId))
+    : [];
   const published = [];
   let evidenceCount = 0;
 
   for (const job of manifest.jobs) {
+    if (incremental && !incremental.has(job.id)) continue;
     if (lab && !lab.ids.has(job.id)) continue;
     for (const task of tasksFor(job, manifest.defaults)) {
       const { workPng, workJson, entry } = renderTask(job, task, sourcesById, workDir, noShadow);
@@ -657,11 +693,12 @@ function render(noShadow = false) {
       assembleInto(bundle, job, task, entry, image, provenanceFor(job, sourcesById));
     }
   }
-  if (!lab) {
+  if (!lab && !incremental) {
     for (const promotion of promotions) {
       assembleApprovedPromotion(bundle, promotion, published, metadata);
     }
   }
+  if (incremental) refreshImageHashes(bundle);
   rmSync(workDir, { recursive: true, force: true });
   if (lab) {
     console.log(

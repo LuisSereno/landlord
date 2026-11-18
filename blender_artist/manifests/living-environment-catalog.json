@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Curaduría reproducible de vida ambiental. Sólo presentación determinista; no es estado de juego.",
+  "inventory": {
+    "searchedTerms": ["squirrel", "pigeon", "cat", "dog", "butterfly", "insect", "bee"],
+    "absentFromLocalPackages": ["squirrel", "pigeon", "cat", "dog", "butterfly", "insect", "bee"],
+    "sources": ["src_kenney_nature_kit", "src_microsoft_rocketbox"]
+  },
+  "candidates": [
+    {
+      "sourceAssetId": "wa_kenney_nature_kit_tree_cone_2",
+      "runtimeAssetId": "prp_tree_cone",
+      "category": "canopy",
+      "contexts": ["park", "vacant", "garden"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_kenney_nature_kit_tree_small_2",
+      "runtimeAssetId": "prp_tree_small",
+      "category": "canopy",
+      "contexts": ["park", "garden"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_kenney_nature_kit_plant_bushlarge_2",
+      "runtimeAssetId": "prp_bush_large",
+      "category": "shrub",
+      "contexts": ["garden", "park"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_kenney_nature_kit_plant_bushdetailed_2",
+      "runtimeAssetId": "prp_bush_detailed",
+      "category": "shrub",
+      "contexts": ["vacant", "park"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_kenney_nature_kit_grass_2",
+      "runtimeAssetId": "prp_grass",
+      "category": "ground_cover",
+      "contexts": ["garden", "vacant", "park"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_kenney_nature_kit_flower_reda_2",
+      "runtimeAssetId": "prp_flower_red",
+      "category": "flower",
+      "contexts": ["garden", "park"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_kenney_nature_kit_flower_yellowb_2",
+      "runtimeAssetId": "prp_flower_yellow",
+      "category": "flower",
+      "contexts": ["garden", "park"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_kenney_nature_kit_flower_purplea_2",
+      "runtimeAssetId": "prp_flower_purple",
+      "category": "flower",
+      "contexts": ["garden", "park"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_kenney_nature_kit_fence_simplelow_2",
+      "runtimeAssetId": "prp_fence_low",
+      "category": "boundary",
+      "contexts": ["residential", "commercial"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_kenney_nature_kit_fence_simplehigh_2",
+      "runtimeAssetId": "prp_fence_high",
+      "category": "boundary",
+      "contexts": ["industrial"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_kenney_nature_kit_fence_corner_2",
+      "runtimeAssetId": "prp_fence_corner",
+      "category": "boundary",
+      "contexts": ["residential", "industrial"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_kenney_nature_kit_fence_gate_2",
+      "runtimeAssetId": "prp_fence_gate",
+      "category": "boundary",
+      "contexts": ["residential", "industrial"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_microsoft_rocketbox_bird_sparrow_01_1",
+      "runtimeAssetId": "prp_wild_sparrow",
+      "category": "urban_fauna",
+      "contexts": ["all"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_microsoft_rocketbox_bird_duck_female_01_1",
+      "runtimeAssetId": "prp_wild_duck_female",
+      "category": "waterfowl",
+      "contexts": ["periphery"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_microsoft_rocketbox_bird_duck_male_01_1",
+      "runtimeAssetId": "prp_wild_duck_male",
+      "category": "waterfowl",
+      "contexts": ["periphery"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_microsoft_rocketbox_bird_chicken_brown_01_1",
+      "runtimeAssetId": "prp_wild_chicken_brown",
+      "category": "rural_fauna",
+      "contexts": ["periphery"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_microsoft_rocketbox_bird_chicken_white_01_1",
+      "runtimeAssetId": "prp_wild_chicken_white",
+      "category": "rural_fauna",
+      "contexts": ["periphery"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_microsoft_rocketbox_bird_rooster_brown_01_1",
+      "runtimeAssetId": "prp_wild_rooster",
+      "category": "rural_fauna",
+      "contexts": ["periphery"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_microsoft_rocketbox_bird_goose_grey_01_1",
+      "runtimeAssetId": "prp_wild_goose_grey",
+      "category": "waterfowl",
+      "contexts": ["periphery"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_microsoft_rocketbox_bird_goose_white_01_1",
+      "runtimeAssetId": "prp_wild_goose_white",
+      "category": "waterfowl",
+      "contexts": ["periphery"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_microsoft_rocketbox_bull_brown_01_1",
+      "runtimeAssetId": "prp_wild_bull",
+      "category": "rural_fauna",
+      "contexts": ["outermost_periphery"],
+      "status": "approved"
+    },
+    {
+      "sourceAssetId": "wa_microsoft_rocketbox_camel_onehump_01_1",
+      "runtimeAssetId": "prp_wild_camel",
+      "category": "rural_fauna",
+      "contexts": ["outermost_periphery"],
+      "status": "approved"
+    }
+  ]
+}

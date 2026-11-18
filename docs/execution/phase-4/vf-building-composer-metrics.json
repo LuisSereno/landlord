@@ -1,13 +1,13 @@
 {
  "schemaVersion": 1,
- "generatedAt": "2026-11-14T07:48:49.542Z",
+ "generatedAt": "2026-11-18T15:52:10.050Z",
  "composerVersion": "vf-3",
  "styleProfileId": "graphic_civic_buildings_v1",
- "outDir": "/tmp/landlord-art-remediation/final-after/police_station",
- "requested": 1,
- "rendered": 1,
- "totalGenerationMs": 142802,
- "blenderPeakRssMb": 2790.8,
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/quality-vj/batch/row_house",
+ "requested": 4,
+ "rendered": 4,
+ "totalGenerationMs": 412322,
+ "blenderPeakRssMb": 3344.2,
  "toolchain": {
   "blender": "multiple processes",
   "renderer": "BLENDER_EEVEE"
@@ -18,47 +18,161 @@
    "after": "bd26d693a66207f92d6028d872085f30f9cc140b5ac0925cd3263f633a9ecfb0"
   },
   "apps/web/src/generated/runtime-assets-blender.json": {
-   "before": "165f29a802a3e0c839309f916f8d685c266ecee58fb4c02c65070d710c3b4390",
-   "after": "165f29a802a3e0c839309f916f8d685c266ecee58fb4c02c65070d710c3b4390"
+   "before": "3c9f22f2fe896fcfd44c69a81a1311658fcb55e40c0cbf76d96307a32dbcf3bf",
+   "after": "3c9f22f2fe896fcfd44c69a81a1311658fcb55e40c0cbf76d96307a32dbcf3bf"
   }
  },
  "candidates": [
   {
-   "candidateId": "vg_police_station_1002",
-   "buildingType": "police_station",
-   "family": "civic_landmark",
-   "variantSeed": 1002,
-   "compositionSignature": "6a580c49d7ec2fe68ba8ed2cec4ff834bc32901ca935ea4e2aed74cedba55cc3",
-   "triangleCount": 5522,
-   "objectCount": 62,
-   "moduleCount": 11,
-   "materials": 22,
-   "textures": 19,
+   "candidateId": "vg_row_house_1001",
+   "buildingType": "row_house",
+   "family": "residential_low",
+   "variantSeed": 1001,
+   "compositionSignature": "bf8baa36c4d5795f9e64d854074edebddc13463b41e047c5fbea6ff7abdd50b0",
+   "triangleCount": 6822,
+   "objectCount": 85,
+   "moduleCount": 9,
+   "materials": 20,
+   "textures": 18,
    "bounds": {
     "x": {
-     "min": -6.2,
-     "max": 6
+     "min": -8.0116,
+     "max": 8.0116
     },
     "y": {
-     "min": -1.9908,
-     "max": 4
+     "min": -2.2,
+     "max": 2.0174000000000003
     },
     "z": {
      "min": 0,
-     "max": 7
+     "max": 9.0281
     }
    },
-   "renderMs": 7405.81,
-   "pngBytes": 784284,
+   "renderMs": 10987.58,
+   "pngBytes": 923658,
    "pngPixels": [
-    937,
-    896
+    996,
+    1172
    ],
-   "pixelSha256": "32ca1a2e43640ca44f3b6d83b2d30bb8a889a4574a7f87d1136545495f309500",
+   "pixelSha256": "b9c83562cd8c30762ac736316dab233457f411a0bd0bf689370fe8fe69a5e5ca",
    "licensedGeometryRatio": 1,
    "pivot": {
-    "x": 0.5454,
-    "y": 0.6494
+    "x": 0.5713,
+    "y": 0.6931
+   }
+  },
+  {
+   "candidateId": "vg_row_house_1001_o90",
+   "buildingType": "row_house",
+   "family": "residential_low",
+   "variantSeed": 1001,
+   "compositionSignature": "3e4fcb9c5bb85ceea1b6c315c3d8ba32fcd914d8140eb77e7fa7ae3673b63717",
+   "triangleCount": 6822,
+   "objectCount": 85,
+   "moduleCount": 9,
+   "materials": 20,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -2.0174000000000003,
+     "max": 2.2
+    },
+    "y": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "z": {
+     "min": 0,
+     "max": 9.0281
+    }
+   },
+   "renderMs": 9581.11,
+   "pngBytes": 1135604,
+   "pngPixels": [
+    1004,
+    1172
+   ],
+   "pixelSha256": "291be0f74e427d62412ba3b10d5e1abaf6a6480ab547eb7cff27c52f2dcfe734",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5667,
+    "y": 0.6931
+   }
+  },
+  {
+   "candidateId": "vg_row_house_1001_o180",
+   "buildingType": "row_house",
+   "family": "residential_low",
+   "variantSeed": 1001,
+   "compositionSignature": "c00d34e7ce71ebfc4bd1c50a2dbc85c084cc62173552b36ff418f7f91e45cb9d",
+   "triangleCount": 6822,
+   "objectCount": 85,
+   "moduleCount": 9,
+   "materials": 20,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "y": {
+     "min": -2.0174000000000003,
+     "max": 2.2
+    },
+    "z": {
+     "min": 0,
+     "max": 9.0281
+    }
+   },
+   "renderMs": 11470.2,
+   "pngBytes": 1041934,
+   "pngPixels": [
+    1004,
+    1190
+   ],
+   "pixelSha256": "c860efcf79d12ca9fea0a05aa130b25b3a19f3bfe3b35953d1022e0ef9bbe8a4",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5667,
+    "y": 0.6977
+   }
+  },
+  {
+   "candidateId": "vg_row_house_1001_o270",
+   "buildingType": "row_house",
+   "family": "residential_low",
+   "variantSeed": 1001,
+   "compositionSignature": "6cb2cea45f5b13410f6f6393265af173d977b50015fd57a5585d4adccead8124",
+   "triangleCount": 6822,
+   "objectCount": 85,
+   "moduleCount": 9,
+   "materials": 20,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -2.2,
+     "max": 2.0174000000000003
+    },
+    "y": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "z": {
+     "min": 0,
+     "max": 9.0281
+    }
+   },
+   "renderMs": 11923.6,
+   "pngBytes": 987198,
+   "pngPixels": [
+    996,
+    1190
+   ],
+   "pixelSha256": "b6ab853f2e0afa5ea2364f4220cb1c9443e77aad773f740bd76ec2b405efb646",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5713,
+    "y": 0.6977
    }
   }
  ],

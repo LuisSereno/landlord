@@ -46,6 +46,13 @@ describe("Worker request envelopes", () => {
       }).type,
     ).toBe("SetRunState");
     expect(
+      setRunStateRequestSchema.parse({
+        ...envelope,
+        type: "SetRunState",
+        payload: { state: "running", speed: 16 },
+      }).payload.speed,
+    ).toBe(16);
+    expect(
       saveSnapshotRequestSchema.parse({
         ...envelope,
         type: "SaveSnapshot",

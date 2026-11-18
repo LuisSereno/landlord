@@ -594,6 +594,16 @@ class Composition:
             else (rect[1] + inset, rect[3] - inset)
         )
         span = end - start
+        # Un poste de 2 m en cada extremo agota por completo un testero de una
+        # celda (4 m). Los postes siguen siendo un remate válido, pero no son un
+        # cerramiento: si se omiten las bandas, queda la cubierta suspendida sobre
+        # un lateral transparente. En ese caso las bandas cubren todo el lado y
+        # los postes se superponen sólo en las esquinas, donde aportan el detalle.
+        # Las fachadas largas conservan el retranqueo normal entre postes.
+        if side in ("left", "right") and span < self.bay - 1e-6:
+            inset = 0.0
+            start, end = rect[1], rect[3]
+            span = end - start
         if span < -1e-6:
             raise CompositionError(f"§17: el lado {side} no cabe con postes de esquina")
         count = int(round(span / self.bay))

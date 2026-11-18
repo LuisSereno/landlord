@@ -7,6 +7,8 @@ import {
   buildGameplayVisualModel,
   gameplayGeometryKey,
   planGameplayDecorations,
+  planGameplayAmbientWildlife,
+  planGameplayParcelBoundaries,
   planGameplayGround,
   deriveRoadMarkings,
   planGameplayParkedVehicles,
@@ -16,6 +18,7 @@ import {
   BUILDING_VISUAL_POLICIES,
   visualArchetypeForBuilding,
 } from "./gameplay-visual-adapter";
+import { districtVisualProfileFor } from "./district-visual-profiles";
 
 const BLENDER_BUNDLE = parseRuntimeAssetManifest(blenderBundle);
 
@@ -834,5 +837,74 @@ describe("V.d.6 formas cívicas", () => {
     ]) {
       expect(visualArchetypeForBuilding(type, `building:${type}`)).toBe(type);
     }
+  });
+});
+
+describe("entorno vivo presentacional", () => {
+  const ruralParcel = {
+    id: "rural",
+    cell: { x: 30, y: 30 },
+    cells: [
+      { x: 30, y: 30 },
+      { x: 31, y: 30 },
+      { x: 30, y: 31 },
+      { x: 31, y: 31 },
+      { x: 32, y: 31 },
+    ],
+    zoning: "residential",
+    buildingId: "rural-home",
+  };
+  const ruralBuilding = {
+    id: "rural-home",
+    parcelIds: ["rural"],
+    footprintCells: [{ x: 30, y: 30 }],
+  };
+
+  it("fauna y perímetros son deterministas y no salen de la parcela ni pisan carretera", () => {
+    const roads = new Set(["32:30"]);
+    const profile = districtVisualProfileFor("low_density_residential");
+    const wildlife = planGameplayAmbientWildlife(
+      [ruralParcel],
+      [ruralBuilding],
+      new Set(),
+      roads,
+      profile,
+      0.9,
+    );
+    const boundaries = planGameplayParcelBoundaries(
+      [ruralParcel],
+      [ruralBuilding],
+      new Set(),
+      roads,
+      profile,
+    );
+    expect(wildlife).toEqual(
+      planGameplayAmbientWildlife([ruralParcel], [ruralBuilding], new Set(), roads, profile, 0.9),
+    );
+    for (const entry of [...wildlife, ...boundaries]) {
+      expect(ruralParcel.cells).toContainEqual(entry.cell);
+      expect(roads.has(`${entry.cell.x}:${entry.cell.y}`)).toBe(false);
+    }
+    for (const entry of wildlife) {
+      expect(`${entry.cell.x}:${entry.cell.y}`).not.toBe("30:30");
+    }
+    // El cierre se ancla en la arista exterior, por lo que puede compartir la celda de la huella
+    // sin convertirse en una segunda ocupación del dominio.
+    // Cinco celdas conectadas con cinco aristas internas: 5×4 − 2×5 = 10 aristas exteriores.
+    // El frente de carretera se representa por una única puerta, no por la ausencia de cerramiento.
+    expect(boundaries).toHaveLength(10);
+    expect(boundaries.filter((entry) => entry.asset === "prp_fence_gate")).toHaveLength(1);
+  });
+
+  it("el centro sólo admite el gorrión como fauna ambiental", () => {
+    const wildlife = planGameplayAmbientWildlife(
+      [ruralParcel],
+      [ruralBuilding],
+      new Set(),
+      new Set(),
+      districtVisualProfileFor("civic_core"),
+      0.1,
+    );
+    expect(wildlife.every((entry) => entry.asset === "prp_wild_sparrow")).toBe(true);
   });
 });

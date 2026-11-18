@@ -31,6 +31,11 @@ export type DistrictVisualProfile = {
     vehicles: number;
     pedestrians: number;
     props: number;
+    flowers: number;
+    groundCover: number;
+    gardens: number;
+    perimeters: number;
+    wildlife: number;
   };
   /** Declarados para una capa futura; hoy no afectan al modelo visual ni cuentan como cobertura. */
   deferredDensity: {
@@ -54,6 +59,11 @@ const BASE_DENSITY = {
   vehicles: 1,
   pedestrians: 1,
   props: 1,
+  flowers: 1,
+  groundCover: 1,
+  gardens: 1,
+  perimeters: 1,
+  wildlife: 1,
 } as const;
 
 const BASE_DEFERRED_DENSITY = {
@@ -74,6 +84,11 @@ export const DISTRICT_VISUAL_PROFILES: Record<DistrictVisualRole, DistrictVisual
       pedestrians: 1.4,
       bins: 0.7,
       vehicles: 0.7,
+      flowers: 1.2,
+      groundCover: 0.5,
+      gardens: 0.7,
+      perimeters: 0.35,
+      wildlife: 0.35,
     },
     deferredDensity: { ...BASE_DEFERRED_DENSITY, debris: 0.3 },
     favored: ["prp_planter_urn", "prp_bench", "prp_street_light", "prp_bollard"],
@@ -89,6 +104,10 @@ export const DISTRICT_VISUAL_PROFILES: Record<DistrictVisualRole, DistrictVisual
       bins: 1.1,
       pedestrians: 1.2,
       vehicles: 1.1,
+      flowers: 1.1,
+      gardens: 1.1,
+      perimeters: 0.75,
+      wildlife: 0.65,
     },
     deferredDensity: { ...BASE_DEFERRED_DENSITY },
     favored: ["prp_bench", "prp_trash_can", "prp_street_light", "prp_tree_oak"],
@@ -104,8 +123,13 @@ export const DISTRICT_VISUAL_PROFILES: Record<DistrictVisualRole, DistrictVisual
       bins: 1,
       vehicles: 1.1,
       pedestrians: 0.9,
+      flowers: 1.4,
+      groundCover: 1.2,
+      gardens: 1.3,
+      perimeters: 1.15,
+      wildlife: 0.9,
     },
-    deferredDensity: { ...BASE_DEFERRED_DENSITY, gardens: 1.3 },
+    deferredDensity: { ...BASE_DEFERRED_DENSITY },
     favored: ["prp_tree_oak", "prp_bush", "prp_trash_can", "prp_bench"],
     avoided: ["prp_construction_barrier"],
     vacantLot: "lawn",
@@ -119,8 +143,13 @@ export const DISTRICT_VISUAL_PROFILES: Record<DistrictVisualRole, DistrictVisual
       vehicles: 0.9,
       pedestrians: 0.8,
       lighting: 0.9,
+      flowers: 1.5,
+      groundCover: 1.45,
+      gardens: 1.4,
+      perimeters: 1.35,
+      wildlife: 1.5,
     },
-    deferredDensity: { ...BASE_DEFERRED_DENSITY, gardens: 1.4 },
+    deferredDensity: { ...BASE_DEFERRED_DENSITY },
     favored: ["prp_tree_oak", "prp_tree_pine", "prp_bush"],
     avoided: ["prp_construction_barrier", "prp_trash_can"],
     vacantLot: "lawn",
@@ -135,6 +164,11 @@ export const DISTRICT_VISUAL_PROFILES: Record<DistrictVisualRole, DistrictVisual
       vehicles: 1.3,
       pedestrians: 1.2,
       trees: 0.8,
+      flowers: 0.75,
+      groundCover: 0.45,
+      gardens: 0.65,
+      perimeters: 0.45,
+      wildlife: 0.35,
     },
     deferredDensity: { ...BASE_DEFERRED_DENSITY, signage: 1.5 },
     favored: ["prp_bench", "prp_trash_can", "prp_street_light"],
@@ -152,6 +186,11 @@ export const DISTRICT_VISUAL_PROFILES: Record<DistrictVisualRole, DistrictVisual
       bushes: 0.4,
       pedestrians: 0.5,
       lighting: 0.9,
+      flowers: 0.2,
+      groundCover: 0.35,
+      gardens: 0.25,
+      perimeters: 1.3,
+      wildlife: 0.2,
     },
     deferredDensity: { ...BASE_DEFERRED_DENSITY, debris: 1.5, fencing: 1.5 },
     favored: ["prp_construction_barrier", "prp_construction_cone", "prp_trash_can"],
@@ -169,6 +208,11 @@ export const DISTRICT_VISUAL_PROFILES: Record<DistrictVisualRole, DistrictVisual
       vehicles: 0.3,
       lighting: 0.8,
       bins: 0.8,
+      flowers: 1.6,
+      groundCover: 1.7,
+      gardens: 1.35,
+      perimeters: 0.9,
+      wildlife: 1.7,
     },
     deferredDensity: { ...BASE_DEFERRED_DENSITY, debris: 0.4 },
     favored: ["prp_tree_oak", "prp_tree_pine", "prp_bush", "prp_bench"],

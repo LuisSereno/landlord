@@ -17,6 +17,7 @@ import {
   resolveBuildingVariant,
   variantAsAsset,
   variantTextureKey,
+  type BuildingVisualMood,
 } from "../assets/building-variants";
 import {
   DistrictTextureCache,
@@ -339,7 +340,7 @@ export type MapPlacementTarget = {
   candidates: readonly {
     id: string;
     footprintCells: readonly GridCell[];
-    orientation: number;
+    orientation: BuildingPhysicalOrientation;
     recommended: boolean;
   }[];
   selectedCandidateId: string | null;
@@ -524,6 +525,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   /** Contador de repintados, para detectar redraws por frame en modo de colocación. */
   private placementDrawCount = 0;
   private projection: ViewProjectionV2 | null = null;
+  private buildingVisualMood: BuildingVisualMood = readVisualMood();
   private overlay: MapOverlay = "none";
   private cellPickedListener?: (cell: GridCell) => void;
   private entityPickedListener?: (target: {
@@ -579,6 +581,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private ambientActorSprites = new Map<string, Phaser.GameObjects.Image>();
   private publicSpaceFurnitureSprites = new Map<string, Phaser.GameObjects.Image>();
   private parcelDressingSprites = new Map<string, Phaser.GameObjects.Image>();
+  private wildlifeSprites = new Map<string, Phaser.GameObjects.Image>();
+  private parcelBoundarySprites = new Map<string, Phaser.GameObjects.Image>();
   /**
    * V.k.3 · pool propio de cuadrillas. Va aparte de `ambientActorSprites` porque esos son población
    * ambiental derivada del modelo visual (estable, keyed por id de scena) y éstos son agentes del
@@ -786,8 +790,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
   /** Cambia sólo la presentación; la proyección y el estado de simulación permanecen intactos. */
   public setVisualMood(mood: "day" | "night"): void {
     if (!this.sys.isActive()) return;
+    const moodChanged = this.buildingVisualMood !== mood;
+    this.buildingVisualMood = mood;
     this.cameras.main.setBackgroundColor(mood === "day" ? "#2b3542" : "#101827");
     this.repaintGround();
+    if (moodChanged) this.syncBuildingSprites();
   }
 
   public setOverlay(overlay: MapOverlay): void {
@@ -1051,6 +1058,54 @@ export class IsometricSpikeScene extends Phaser.Scene {
       sprite.destroy();
       this.parcelDressingSprites.delete(id);
     }
+    const renderPropLayer = (
+      entries: readonly {
+        id: string;
+        asset: string;
+        cell: GridCell;
+        side?: "n" | "e" | "s" | "w";
+        azimuth: 45 | 135 | 225 | 315;
+        scale: number;
+      }[],
+      sprites: Map<string, Phaser.GameObjects.Image>,
+    ) => {
+      const seen = new Set<string>();
+      for (const entry of entries) {
+        const asset = props[entry.asset];
+        if (!asset) continue;
+        const frame = this.sceneryFrame(asset, entry.azimuth);
+        const key = `blender-sprite-${entry.asset}${frame.keySuffix}`;
+        if (!this.textures.exists(key)) continue;
+        const center = gridToScreen(entry.cell, this.layout);
+        const edgeOffset = entry.side
+          ? {
+              n: { x: this.layout.tileWidth / 4, y: -this.layout.tileHeight / 4 },
+              e: { x: this.layout.tileWidth / 4, y: this.layout.tileHeight / 4 },
+              s: { x: -this.layout.tileWidth / 4, y: this.layout.tileHeight / 4 },
+              w: { x: -this.layout.tileWidth / 4, y: -this.layout.tileHeight / 4 },
+            }[entry.side]
+          : { x: 0, y: 0 };
+        const image =
+          sprites.get(entry.id) ??
+          this.add.image(center.x + edgeOffset.x, center.y + edgeOffset.y, key);
+        sprites.set(entry.id, image);
+        image
+          .setTexture(key)
+          .setPosition(center.x + edgeOffset.x, center.y + edgeOffset.y)
+          .setOrigin(frame.pivot.x, frame.pivot.y)
+          .setScale(spriteScaleFor(frame, this.layout.tileWidth) * entry.scale)
+          .setDepth(depthForAsset(entry.cell, asset.footprint))
+          .setVisible(this.isInViewport(center.x, center.y, this.cameras.main.worldView, 96));
+        seen.add(entry.id);
+      }
+      for (const [id, sprite] of sprites) {
+        if (seen.has(id)) continue;
+        sprite.destroy();
+        sprites.delete(id);
+      }
+    };
+    renderPropLayer(model.parcelBoundaries ?? [], this.parcelBoundarySprites);
+    renderPropLayer(model.ambientWildlife ?? [], this.wildlifeSprites);
     const vehicles = ASSETS_BLENDER.vehicles ?? {};
     const seenVehicles = new Set<string>();
     for (const vehicle of [...model.parkedVehicles, ...(model.contextVehicles ?? [])]) {
@@ -1151,6 +1206,8 @@ export class IsometricSpikeScene extends Phaser.Scene {
       ...this.streetFurnitureSprites.values(),
       ...this.publicSpaceFurnitureSprites.values(),
       ...this.parcelDressingSprites.values(),
+      ...this.parcelBoundarySprites.values(),
+      ...this.wildlifeSprites.values(),
       ...this.ambientActorSprites.values(),
     ]) {
       sprite.setVisible(this.isInViewport(sprite.x, sprite.y, view, 96));
@@ -1541,7 +1598,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
         5,
         graphics,
       );
-    this.updatePlacementGhost(selected?.footprintCells ?? null);
+    this.updatePlacementGhost(selected?.footprintCells ?? null, selected?.orientation);
   }
 
   /**
@@ -1756,7 +1813,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
    * pivote y escala que un edificio terminado: así la silueta coincide con lo que se va a construir.
    * Si el tipo aún no tiene textura, la huella dibujada sigue siendo la representación honesta.
    */
-  private updatePlacementGhost(cells: readonly GridCell[] | null): void {
+  private updatePlacementGhost(
+    cells: readonly GridCell[] | null,
+    orientation: BuildingPhysicalOrientation | undefined,
+  ): void {
     const target = this.placementTarget;
     if (!cells || !target || !this.assetsReady) {
       this.placementGhost?.setVisible(false);
@@ -1766,6 +1826,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       target.buildingType,
       target.buildingType,
       "complete",
+      orientation,
     );
     if (!resolved) {
       this.placementGhost?.setVisible(false);
@@ -2424,9 +2485,15 @@ export class IsometricSpikeScene extends Phaser.Scene {
       orientation,
       stage,
       resolveVariant: (type, vState, vOrientation, vStage) => {
-        const variant = resolveBuildingVariant(type, vState, vOrientation, vStage);
+        const variant = resolveBuildingVariant(
+          type,
+          vState,
+          vOrientation,
+          vStage,
+          this.buildingVisualMood,
+        );
         if (!variant) return null;
-        const key = variantTextureKey(type, vState, vOrientation, vStage);
+        const key = variantTextureKey(type, vState, vOrientation, vStage, this.buildingVisualMood);
         this.ensureVariantTexture(
           key,
           variant.image.src,

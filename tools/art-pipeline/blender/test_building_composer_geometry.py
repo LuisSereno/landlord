@@ -186,6 +186,15 @@ def main():
                 "output": "/tmp/vf-geometry-test.png",
             }
             composition = compose_candidate(request, catalog, profile, document)
+            if building_type == "row_house":
+                for side in ("left", "right"):
+                    if not any(
+                        placement["purpose"].startswith(f"band:{side}:")
+                        for placement in composition["placements"]
+                    ):
+                        problems.append(
+                            f"{building_type}_{seed}: lateral {side} sin cerramiento de fachada"
+                        )
             for index, support in enumerate(composition["originalSupport"]):
                 where = f"{building_type}_{seed} support:{support['purpose']}:{index}"
                 if support["shape"] == "box":

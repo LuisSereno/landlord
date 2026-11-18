@@ -31,6 +31,7 @@
     "art:building-composer:geometry:test": "python3 tools/art-pipeline/blender/test_building_composer_geometry.py",
     "art:character-factory:validate": "node scripts/validate-character-factory.mjs",
     "art:world-catalog:validate": "node scripts/validate-world-asset-catalog.mjs",
+    "art:living-environment:validate": "node scripts/validate-living-environment-catalog.mjs",
     "art:catalog:generate": "node scripts/generate-visual-catalog.mjs",
     "art:catalog:check": "node scripts/generate-visual-catalog.mjs --check",
     "art:staging:validate": "node scripts/validate-art-staging.mjs",

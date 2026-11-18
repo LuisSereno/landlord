@@ -36,8 +36,9 @@ READY ni se cierra la fase hasta completar esos gates.
   accesos libres, sin solapes, determinismo, exclusiones) y fauna en
   `gameplay-visual-adapter.test.ts` (gorriones 1–2 en patios válidos sin pisar reservas, fauna mayor
   excluida del núcleo construido, determinismo).
-- **Suites finales**: ver `sim-final.log` / `web-final.log` / `shared-final.log` de la sesión;
-  typecheck y build en verde; lint y arquitectura en verde.
+- **Suites finales**: web 393/393 (4 skipped), shared 80/80, typecheck y build en verde; lint y
+  arquitectura en verde. Simulación: fixtures regeneradas en verde; los cinco fallos restantes son
+  los preexistentes atribuidos abajo (acta simulación final en `sim-final.log` de la sesión).
 - **Fixtures regeneradas por medición**: doce filas de distrito (generador v4), doce ciudades
   (envolvente 687–730, suelo público 14–16 con residuos D-106) y diez digestos dorados. Arrastraban
   BASELINE DEBT desde V.e (2026-11-03); el cambio de versión los invalida de forma visible (D-064).

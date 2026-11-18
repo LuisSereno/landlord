@@ -154,6 +154,7 @@ obra en proceso visible con cuadrillas y recinto derivados.
 - execution/phase-4/vd7c-placement-performance.json — distribución medida de la enumeración de candidatas (p50/p95, recuento y latencia de la petición).
 - execution/phase-4/vd7c-placement-reachability.json — sonda de alcanzabilidad del caso «cero candidatas»: 2 297 proyectos abiertos en la semilla de la app, mínimo 15 candidatas, cero proyectos sin colocación (§14.1 del acta).
 - execution/phase-4/integration-hardening-2026-11-12.md — acta de cierre del hardening de integración (D-106 + gates A–G): solución de solares accionables, sweep de 60 seeds, aceptación vial, pixel QA, gameplay automático, balance/rendimiento y investigación EIO.
+- execution/phase-4/vn-mercado-manual-solar-patios-2026-11-18.md — acta V.n (D-109): mercado manual, solar/huella separados, patios equipados y fauna; PASS WITH PENDING ART GATE (rehorneado en curso, promoción y QA pendientes).
 - execution/phase-4/gameplay-acceptance.json — evidencia del gate E: campaña headless con comandos reales (9 tipos privados + acería multi-parcela), renta, reparación/incendio/ruina, save/load y automatización.
 - execution/phase-4/vd-hardening-monthly-close.json — evidencia del gate F: cierre mensual maduro (800 parcelas, 48 muestras) con p50/p95/p99.
 - execution/phase-4/vd7a2-focused-performance-2026-10-31.md — gate enfocado de cierres mensuales V.d-7A.2: tres pares BASE/WIP, 144 muestras por versión y decisión de no regresión.

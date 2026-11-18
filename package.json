@@ -83,7 +83,8 @@
     "services:balance": "SERVICES_BALANCE=1 vitest run --config vitest.config.ts packages/simulation/src/services-balance.test.ts --reporter=verbose",
     "state:inspect": "STATE_INSPECT=1 vitest run --config vitest.config.ts packages/simulation/src/state-inspect.test.ts --reporter=verbose",
     "format:check": "prettier --check .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "qa:vn-facilities": "node scripts/vn-facilities-capture.mjs"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

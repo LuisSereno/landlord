@@ -45,7 +45,10 @@ export function constructionBlockedReasons(input: {
   if (!input.permitted)
     reasons.push({
       code: "use_not_permitted",
-      message: "La parcela no permite este uso con el código urbanístico vigente.",
+      message:
+        input.option.type === "headquarters"
+          ? "La sede necesita un solar mixto cuyo código permita oficinas."
+          : "La parcela no permite este uso con el código urbanístico vigente.",
     });
   if (input.hasBuilding)
     reasons.push({

@@ -84,8 +84,9 @@ export function BuildCatalog({
   const [selected, setSelected] = useState<BuildingType | null>(null);
   const eligible = economy.constructionOptions
     .filter((option) => {
-      if (option.municipal || !parcel.permittedBuildingTypes.includes(option.type)) return false;
-      if (option.type !== "headquarters") return true;
+      if (option.municipal) return false;
+      if (option.type !== "headquarters")
+        return parcel.permittedBuildingTypes.includes(option.type);
       return (
         !economy.buildings.some(
           (building) =>
@@ -337,7 +338,7 @@ function BuildDetail({
       ) : null}
       <button
         className="primary-action"
-        disabled={!isPlanningMultiParcel && entryIssues.length > 0}
+        disabled={entryIssues.length > 0}
         onClick={() =>
           option.siteRequirements.requiredParcels === 1
             ? onBeginPlacement(

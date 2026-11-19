@@ -19,6 +19,7 @@ import {
   setIsometricPlacement,
   setIsometricPlacementCandidateListener,
   setIsometricSelectionTarget,
+  setIsometricVisualDirection,
   setIsometricVisualMood,
   updateIsometricOverlay,
   updateIsometricProjection,
@@ -54,6 +55,11 @@ import type { GameActions, HubKind, ProjectedParcel } from "./ui/types";
 import { siteAssemblyCandidates, type PendingDevelopmentSite } from "./ui/site-assembly";
 import { constructionBlockedReasons } from "./ui/disabled-reasons";
 import { applyVisualMood, readVisualMood, type VisualMood } from "./visual-mood";
+import {
+  applyVisualDirection,
+  readVisualDirection,
+  type VisualDirection,
+} from "./visual-direction";
 import {
   beginPlacementRequest,
   nextPlacementCandidate,
@@ -106,10 +112,14 @@ export function App() {
   const [helpOpen, setHelpOpen] = useState(false);
   const [debugOpen, setDebugOpen] = useState(false);
   const [visualMood, setVisualMood] = useState<VisualMood>(() => readVisualMood());
+  const [visualDirection, setVisualDirection] = useState<VisualDirection>(() =>
+    readVisualDirection(),
+  );
   const [readNotifications, setReadNotifications] = useState<ReadonlySet<string>>(new Set());
   const [dismissedOnboarding, setDismissedOnboarding] = useState<ReadonlySet<string>>(new Set());
   const mapRef = useRef<MapViewportHandle>(null);
   const debug = useMemo(() => new URLSearchParams(window.location.search).get("debug") === "1", []);
+  const artQa = useMemo(() => new URLSearchParams(window.location.search).get("artQa") === "1", []);
   // Gate D · fixture QA de presentación: sólo con cameraTest=1, sustituye el canal vial de la
   // proyección renderizada (nunca el estado) para poder capturar la autovía de 7.
   const qaRoads = useMemo(() => {
@@ -126,6 +136,19 @@ export function App() {
   useEffect(() => {
     applyVisualMood(visualMood);
   }, [visualMood]);
+
+  useEffect(() => {
+    applyVisualDirection(visualDirection);
+  }, [visualDirection]);
+
+  const selectVisualDirection = useCallback((direction: VisualDirection) => {
+    setVisualDirection(direction);
+    applyVisualDirection(direction);
+    const url = new URL(window.location.href);
+    url.searchParams.set("artQa", "1");
+    url.searchParams.set("artDirection", direction);
+    window.history.replaceState(window.history.state, "", url);
+  }, []);
 
   const selectParcel = useCallback((parcel: ProjectedParcel) => {
     setSelectionTarget({ kind: "parcel", parcelId: parcel.id });
@@ -897,6 +920,9 @@ export function App() {
         session={session}
         unread={unread}
         visualMood={visualMood}
+        artQa={artQa}
+        visualDirection={visualDirection}
+        onVisualDirectionChange={selectVisualDirection}
         onVisualMoodChange={(mood) => {
           if (mood === visualMood) return;
           applyVisualMood(mood);
@@ -905,7 +931,6 @@ export function App() {
       />
       <div className="game-body">
         <MapViewport
-          key={visualMood}
           onCellPicked={onCellPicked}
           onEntityPicked={(target) => {
             setSelectionTarget(
@@ -939,6 +964,7 @@ export function App() {
             )
           }
           visualMood={visualMood}
+          visualDirection={visualDirection}
           overlay={overlay}
           projection={renderedProjection}
           ref={mapRef}
@@ -1092,9 +1118,19 @@ const MapViewport = forwardRef<
     }) => void;
     onPlacementPick: (candidateId: string) => void;
     visualMood: VisualMood;
+    visualDirection: VisualDirection;
   }
 >(function MapViewport(
-  { projection, overlay, onCellPicked, onEntityPicked, onIndicator, onPlacementPick, visualMood },
+  {
+    projection,
+    overlay,
+    onCellPicked,
+    onEntityPicked,
+    onIndicator,
+    onPlacementPick,
+    visualMood,
+    visualDirection,
+  },
   ref,
 ) {
   const container = useRef<HTMLDivElement>(null);
@@ -1135,6 +1171,10 @@ const MapViewport = forwardRef<
   useEffect(() => {
     if (game.current) setIsometricVisualMood(game.current, visualMood);
   }, [visualMood]);
+
+  useEffect(() => {
+    if (game.current) setIsometricVisualDirection(game.current, visualDirection);
+  }, [visualDirection]);
 
   useEffect(() => {
     if (game.current) updateIsometricOverlay(game.current, overlay);

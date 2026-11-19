@@ -9,6 +9,7 @@ import {
 } from "./IsometricSpikeScene";
 import { VISUAL_SLICE_LAYOUT } from "../visual-slice/layout";
 import type { TerrainStage } from "../visual-slice/terrain-paint";
+import type { VisualDirection } from "../visual-direction";
 
 export type { MapOverlay } from "./IsometricSpikeScene";
 export type { MapSelectionTarget } from "./IsometricSpikeScene";
@@ -65,6 +66,10 @@ export function updateIsometricProjection(game: Phaser.Game, projection: ViewPro
 
 export function setIsometricVisualMood(game: Phaser.Game, mood: "day" | "night"): void {
   mountedScenes.get(game)?.setVisualMood(mood);
+}
+
+export function setIsometricVisualDirection(game: Phaser.Game, direction: VisualDirection): void {
+  mountedScenes.get(game)?.setVisualDirection(direction);
 }
 
 export function updateIsometricOverlay(game: Phaser.Game, overlay: MapOverlay): void {

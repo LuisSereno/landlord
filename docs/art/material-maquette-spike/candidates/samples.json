@@ -1,0 +1,292 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/build-building-composer.mjs",
+  "composerVersion": "vf-3",
+  "styleProfileId": "graphic_civic_buildings_v1",
+  "moodId": "day_civic",
+  "renderToolchain": "Blender 5.2.2 LTS",
+  "runtimeAssetsUnchanged": true,
+  "runtimeAssets": {
+    "apps/web/src/generated/runtime-assets.json": {
+      "before": "9f4470cf659cb93f68b5fe3f3ad986e42244a2ffe7013309b7f3bcd7c06183ef",
+      "after": "9f4470cf659cb93f68b5fe3f3ad986e42244a2ffe7013309b7f3bcd7c06183ef"
+    },
+    "apps/web/src/generated/runtime-assets-blender.json": {
+      "before": "0c7f8c3e0a81cf2144c971fce298784575d8ada49ab4ee8ea08d8995a69a7cba",
+      "after": "0c7f8c3e0a81cf2144c971fce298784575d8ada49ab4ee8ea08d8995a69a7cba"
+    }
+  },
+  "candidates": [
+    {
+      "candidateId": "mm_row_house_1010",
+      "buildingType": "row_house",
+      "family": "residential_low",
+      "variantSeed": 1010,
+      "orientation": 0,
+      "state": "complete",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "moodId": "day_civic",
+      "footprint": {
+        "width": 4,
+        "height": 1
+      },
+      "floors": 2,
+      "image": {
+        "file": "mm_row_house_1010.png",
+        "width": 996,
+        "height": 1172,
+        "bytes": 780117,
+        "sha256": "8f222ba7751755d6b730ef1aab751e5ae37fc580f256f54d22cf486b6c497bd7"
+      },
+      "pixelSha256": "7fe9a69aa8aa9e792b9ef705471c95c618f7d814990f38eeadd12632bfb259e5",
+      "compositionSignature": "05e6a6747525c4b7f74636d5d6250af7b33caaa173523e93036e90a53bcb4522",
+      "modules": [
+        "mod_megakit_brick_bottom_trim_2m",
+        "mod_megakit_cornice_brick_center_2m",
+        "mod_megakit_door_1",
+        "mod_megakit_doorframe_trim",
+        "mod_megakit_floor_slab_2m",
+        "mod_megakit_roof_slate_center_2m",
+        "mod_megakit_roof_slate_corner",
+        "mod_megakit_trim_wall_2m",
+        "mod_megakit_trim_window_2m"
+      ],
+      "sourceIds": [
+        "src_quaternius_downtown_city_megakit"
+      ],
+      "sourcePaths": [
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_BottomTrim.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Trim.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Door_1.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_2x2.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_Slate_Center.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_Slate_Corner.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Plain_3.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Window.gltf"
+      ],
+      "licenses": [
+        "CC0-1.0"
+      ],
+      "licensedGeometryRatio": 1,
+      "triangleCount": 8428,
+      "pivot": {
+        "x": 0.5713,
+        "y": 0.6931
+      },
+      "camera": {
+        "projection": "ORTHO",
+        "azimuthDegrees": 45,
+        "elevationDegrees": 30,
+        "orthoScale": 19.77400016784668,
+        "targetZ": 4.514
+      },
+      "render": {
+        "renderMs": 10412.19,
+        "prepMs": 21176.83,
+        "totalMs": 83147.4,
+        "peakRssMb": 3324.6
+      },
+      "toolchain": {
+        "blender": "5.2.2 LTS",
+        "buildHash": "d13f752e3b9c",
+        "renderer": "BLENDER_EEVEE"
+      },
+      "checks": {
+        "groundContactInsideFootprint": true,
+        "groundToleranceMeters": 0.05,
+        "distinctModuleIds": 9,
+        "distinctSources": 1,
+        "supportTriangleShare": 0,
+        "elevationTreatmentLadders": [
+          "en_bruto",
+          "sin_albedo_exterior",
+          "tratado"
+        ]
+      },
+      "metadataFile": "mm_row_house_1010.json"
+    },
+    {
+      "candidateId": "mm_mixed_tenement_1010",
+      "buildingType": "mixed_tenement",
+      "family": "residential_low",
+      "variantSeed": 1010,
+      "orientation": 0,
+      "state": "complete",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "moodId": "day_civic",
+      "footprint": {
+        "width": 4,
+        "height": 2
+      },
+      "floors": 3,
+      "image": {
+        "file": "mm_mixed_tenement_1010.png",
+        "width": 1036,
+        "height": 1146,
+        "bytes": 1301541,
+        "sha256": "9a63fb8d4a39bf16e95b9adac70800c2f82cd97a5433405eb4408ae750f81273"
+      },
+      "pixelSha256": "4a08bfa394ae9c4af27051126fe1ce0b809897a2ea45baac3d9b7252608ac856",
+      "compositionSignature": "4276ccb5f7576f5b742f11833e1e30c0b0764dcc060f33cc6c6a60a6abdf43a6",
+      "modules": [
+        "mod_kenney_com_block_k",
+        "mod_kenney_com_overhang_2m",
+        "mod_megakit_brick_wall_2m",
+        "mod_megakit_brick_window_single_2m",
+        "mod_megakit_door_1",
+        "mod_megakit_doorframe_trim",
+        "mod_megakit_floor_slab_2m",
+        "mod_megakit_roof_slate_center_2m",
+        "mod_megakit_roof_slate_corner"
+      ],
+      "sourceIds": [
+        "src_kenney_city_commercial",
+        "src_quaternius_downtown_city_megakit"
+      ],
+      "sourcePaths": [
+        "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/building-k.glb",
+        "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/detail-overhang.glb",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Plain_3.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Window_Square_Single.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Trim.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Door_1.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_2x2.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_Slate_Center.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_Slate_Corner.gltf"
+      ],
+      "licenses": [
+        "CC0-1.0"
+      ],
+      "licensedGeometryRatio": 1,
+      "triangleCount": 12210,
+      "pivot": {
+        "x": 0.5106,
+        "y": 0.7688
+      },
+      "camera": {
+        "projection": "ORTHO",
+        "azimuthDegrees": 45,
+        "elevationDegrees": 30,
+        "orthoScale": 25.10300064086914,
+        "targetZ": 6.014
+      },
+      "render": {
+        "renderMs": 13522.87,
+        "prepMs": 20591.41,
+        "totalMs": 53090.23,
+        "peakRssMb": 4530.6
+      },
+      "toolchain": {
+        "blender": "5.2.2 LTS",
+        "buildHash": "d13f752e3b9c",
+        "renderer": "BLENDER_EEVEE"
+      },
+      "checks": {
+        "groundContactInsideFootprint": true,
+        "groundToleranceMeters": 0.05,
+        "distinctModuleIds": 9,
+        "distinctSources": 2,
+        "supportTriangleShare": 0,
+        "elevationTreatmentLadders": [
+          "en_bruto",
+          "sin_albedo_exterior",
+          "tratado"
+        ]
+      },
+      "metadataFile": "mm_mixed_tenement_1010.json"
+    },
+    {
+      "candidateId": "mm_warehouse_1010",
+      "buildingType": "warehouse",
+      "family": "industrial_heavy",
+      "variantSeed": 1010,
+      "orientation": 0,
+      "state": "complete",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "moodId": "day_civic",
+      "footprint": {
+        "width": 4,
+        "height": 3
+      },
+      "floors": 1,
+      "image": {
+        "file": "mm_warehouse_1010.png",
+        "width": 1313,
+        "height": 1118,
+        "bytes": 1221931,
+        "sha256": "3d41aa997975e141dd40f5aca8dad53b4e250813a6e4a980a19672259e5af725"
+      },
+      "pixelSha256": "581194770e3d46021e15ac5eb618b0de98d484178be5b2ec2b1aa9efeebda797",
+      "compositionSignature": "0bd43b81777d34afaa51a0411a9d0bec06fd329f71f6b284b04e20c54434a68b",
+      "modules": [
+        "mod_kenney_ind_hall_n",
+        "mod_kenney_ind_hall_t",
+        "mod_megakit_door_1",
+        "mod_megakit_doorframe_metal_2m",
+        "mod_megakit_entrance_canopy_2x1",
+        "mod_megakit_floor_slab_4m",
+        "mod_megakit_metal_wall_2m",
+        "mod_megakit_metal_window_2m",
+        "mod_megakit_prop_ac_unit",
+        "mod_megakit_roof_flat_4m"
+      ],
+      "sourceIds": [
+        "src_kenney_city_industrial",
+        "src_quaternius_downtown_city_megakit"
+      ],
+      "sourcePaths": [
+        "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-n.glb",
+        "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/building-t.glb",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Door_1.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Entrance_Concrete_2x1.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Plain_3.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Window_Half.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+        "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf"
+      ],
+      "licenses": [
+        "CC0-1.0"
+      ],
+      "licensedGeometryRatio": 1,
+      "triangleCount": 5819,
+      "pivot": {
+        "x": 0.583,
+        "y": 0.6007
+      },
+      "camera": {
+        "projection": "ORTHO",
+        "azimuthDegrees": 45,
+        "elevationDegrees": 30,
+        "orthoScale": 25.434999465942383,
+        "targetZ": 3.809
+      },
+      "render": {
+        "renderMs": 12355.6,
+        "prepMs": 29624.17,
+        "totalMs": 81334.46,
+        "peakRssMb": 4368.1
+      },
+      "toolchain": {
+        "blender": "5.2.2 LTS",
+        "buildHash": "d13f752e3b9c",
+        "renderer": "BLENDER_EEVEE"
+      },
+      "checks": {
+        "groundContactInsideFootprint": true,
+        "groundToleranceMeters": 0.05,
+        "distinctModuleIds": 10,
+        "distinctSources": 2,
+        "supportTriangleShare": 0,
+        "elevationTreatmentLadders": [
+          "en_bruto",
+          "sin_albedo_exterior",
+          "tratado"
+        ]
+      },
+      "metadataFile": "mm_warehouse_1010.json"
+    }
+  ]
+}

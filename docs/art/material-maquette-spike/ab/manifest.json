@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "scene": "fresh default city",
+  "pageErrors": [],
+  "captures": [
+    {
+      "filename": "day-graphic_civic.png",
+      "direction": "graphic_civic",
+      "mood": "day",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "camera": {
+        "zoom": 1,
+        "scrollX": 0,
+        "scrollY": 0
+      },
+      "sha256": "8fba6480de35633256ba6cc2721bc8227653560518a832a564eba15b1aff8d11",
+      "bytes": 881636
+    },
+    {
+      "filename": "day-material_maquette_candidate.png",
+      "direction": "material_maquette_candidate",
+      "mood": "day",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "camera": {
+        "zoom": 1,
+        "scrollX": 0,
+        "scrollY": 0
+      },
+      "sha256": "a4295ca8ba47373cab9c49bd2aa16bc1d9d618f351c346544176e341b6bca1c6",
+      "bytes": 778163
+    },
+    {
+      "filename": "night-graphic_civic.png",
+      "direction": "graphic_civic",
+      "mood": "night",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "camera": {
+        "zoom": 1,
+        "scrollX": 0,
+        "scrollY": 0
+      },
+      "sha256": "947177d5dfbba933a043f2826d0d4397b3fc1ba5bdfa7b2c2687ce67a4931a55",
+      "bytes": 687649
+    },
+    {
+      "filename": "night-material_maquette_candidate.png",
+      "direction": "material_maquette_candidate",
+      "mood": "night",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "camera": {
+        "zoom": 1,
+        "scrollX": 0,
+        "scrollY": 0
+      },
+      "sha256": "2f11f918138771630e9b04ec3055f8977abbe5667701d9114694c68dace5d1a6",
+      "bytes": 552894
+    }
+  ]
+}

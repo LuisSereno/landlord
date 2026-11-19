@@ -61,6 +61,7 @@ function parseArgs(argv) {
     regenerate: false,
     keepAttempts: false,
     prefix: "vf",
+    mood: null,
     orientations: [0],
     states: ["complete"],
   };
@@ -75,15 +76,19 @@ function parseArgs(argv) {
     else if (flag === "--regenerate") options.regenerate = true;
     else if (flag === "--keepAttempts") options.keepAttempts = true;
     else if (flag === "--prefix") options.prefix = value;
+    else if (flag === "--mood") options.mood = value;
     else if (flag === "--help") {
       console.log(
-        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--orientations=0,90,180,270] [--states=complete,foundation,structure,finishing,damaged,burning] [--outDir=dir] [--metrics=path] [--regenerate] [--keepAttempts] [--prefix=vf|vg]",
+        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--mood=night_civic|day_civic|day_industrial] [--orientations=0,90,180,270] [--states=complete,foundation,structure,finishing,damaged,burning] [--outDir=dir] [--metrics=path] [--regenerate] [--keepAttempts] [--prefix=vf|vg]",
       );
       process.exit(0);
     } else throw new Error(`argumento desconocido ${argument}`);
   }
   if (options.seeds.length === 0 || options.seeds.some((seed) => !Number.isInteger(seed))) {
     throw new Error("--seeds espera enteros separados por comas");
+  }
+  if (options.mood && !["night_civic", "day_civic", "day_industrial"].includes(options.mood)) {
+    throw new Error("--mood espera night_civic, day_civic o day_industrial");
   }
   if (
     options.orientations.length === 0 ||
@@ -212,7 +217,7 @@ function metricsOf(manifest, options, totalMs, runtimeAssets) {
   };
 }
 
-function runBlender(requestsPath, manifestPath, count) {
+function runBlender(requestsPath, manifestPath, count, options) {
   console.log(`Blender: ${count} candidatos en una sola corrida`);
   const started = Date.now();
   const run = spawnSync(
@@ -228,7 +233,11 @@ function runBlender(requestsPath, manifestPath, count) {
       "--manifest",
       manifestPath,
     ],
-    { stdio: "inherit", cwd: REPO_ROOT },
+    {
+      stdio: "inherit",
+      cwd: REPO_ROOT,
+      env: options.mood ? { ...process.env, LANDLORD_ART_MOOD: options.mood } : process.env,
+    },
   );
   const totalMs = Date.now() - started;
   if (!existsSync(manifestPath)) {
@@ -284,7 +293,11 @@ function runBlenderSeparate(requests, options, grammars, stagingDir) {
         "--manifest",
         manifestPath,
       ],
-      { stdio: "inherit", cwd: REPO_ROOT },
+      {
+        stdio: "inherit",
+        cwd: REPO_ROOT,
+        env: options.mood ? { ...process.env, LANDLORD_ART_MOOD: options.mood } : process.env,
+      },
     );
     const elapsed = Date.now() - started;
     totalMs += elapsed;
@@ -418,7 +431,7 @@ function regenerateCheck(grammars, options, request) {
         1,
       )}\n`,
     );
-    const { manifest } = runBlender(requestsPath, manifestPath, 1);
+    const { manifest } = runBlender(requestsPath, manifestPath, 1, options);
     if (manifest.failures.length > 0) {
       throw new Error(
         `§13 ${candidate.candidateId}: ${manifest.failures[0].errorType}: ${manifest.failures[0].error}`,

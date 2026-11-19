@@ -61,6 +61,7 @@ import {
   type TerrainStage,
 } from "../visual-slice/terrain-paint";
 import type { SliceLot, VisualSliceLayout } from "../visual-slice/layout";
+import { readVisualDirection, type VisualDirection } from "../visual-direction";
 import {
   assetFor,
   applyQaStateOverride,
@@ -489,6 +490,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private readonly sliceCharacters: boolean;
   private readonly terrainStage: TerrainStage;
   private readonly showGrid: boolean;
+  private visualDirection: VisualDirection = "graphic_civic";
   private readonly logFps: boolean;
   private groundPlan: GroundPlan | null = null;
   private readonly screenCenters: ScreenPoint[] = [];
@@ -607,6 +609,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.sliceCharacters = options.sliceCharacters ?? false;
     this.terrainStage = options.terrainStage ?? "full";
     this.showGrid = options.showGrid ?? false;
+    this.visualDirection = readVisualDirection();
     this.logFps = new URLSearchParams(window.location.search).get("fpsDebug") === "1";
   }
 
@@ -844,6 +847,21 @@ export class IsometricSpikeScene extends Phaser.Scene {
     if (moodChanged) this.syncBuildingSprites();
   }
 
+  /** A/B de presentación: repinta suelo y marcas sin desmontar la cámara ni la escena. */
+  public setVisualDirection(direction: VisualDirection): void {
+    if (this.visualDirection === direction) return;
+    this.visualDirection = direction;
+    if (!this.sys?.isActive() || !this.textures) return;
+    this.repaintGround();
+    for (const sprite of this.roadMarkingSprites) sprite.destroy();
+    this.roadMarkingSprites = [];
+    for (let mask = 1; mask <= 15; mask += 1) {
+      const key = `${CROSSING_TEXTURE_KEY}-${mask}`;
+      if (this.textures.exists(key)) this.textures.remove(key);
+    }
+    this.renderGameplayRoadMarkings();
+  }
+
   public setOverlay(overlay: MapOverlay): void {
     this.overlay = overlay;
     this.drawOverlay();
@@ -956,6 +974,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       showGrid: this.showGrid,
       // El Visual Slice conserva sus aceras fixture; gameplay marca todo frente asphalt/no-asphalt.
       curbMode: this.sliceLayout ? "pavement" : "all_non_asphalt",
+      visualDirection: this.visualDirection,
     });
     this.groundBakeLastMs = performance.now() - startedAt;
     this.groundBakeMaxMs = Math.max(this.groundBakeMaxMs, this.groundBakeLastMs);
@@ -1439,7 +1458,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
           CROSSING_TEXTURE.height,
         );
         if (texture) {
-          paintCrossing(texture.context, this.layout, marking.mask);
+          paintCrossing(texture.context, this.layout, marking.mask, this.visualDirection);
           texture.refresh();
         }
       }

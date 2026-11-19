@@ -1,6 +1,6 @@
 # Dirección visual: maqueta urbana material
 
-Estado: dirección de producto aprobada; spike visual y valores de producción pendientes.
+Estado: dirección de producto aprobada; aislamiento A/B implementado; aprobación del spike y valores de producción pendientes.
 
 ## Propósito
 
@@ -67,3 +67,22 @@ El chequeo `art:building-style:build:check` estaba roto porque el generador leí
 raíz en vez de resolver `activeMood` y su herencia. Se corrigió la resolución en el generador. Los
 filtros Phaser, luz dinámica, mapas de normales, partículas, `TilemapGPULayer` y promoción de arte
 siguen fuera de runtime hasta demostrar una mejora y medir coste.
+
+## Auditoría e implementación A/B — 2026-11-19
+
+`graphic_civic` vuelve a ser un control seleccionable para HUD y terreno. La candidata material usa
+tokens y superficies aisladas bajo `data-visual-direction`; `?artQa=1` habilita los botones «Control»
+y «Maqueta». La elección se refleja en la URL y en el DOM para repintar la escena, sin persistir en
+partidas ni preferencias locales. Las capturas de control/candidata se guardan en
+`docs/art/material-maquette-spike/ab/` con SHA-256, resolución, cámara y errores de página.
+
+El resolvedor JS de mood ahora aplica y retira `bandOverrides` igual que el pipeline Python. Sus
+pruebas cubren los tres perfiles reales, herencia, override, perfil faltante, ciclo y banda inválida.
+La salida Blender del spike acepta `--mood` para conservar en metadata el mood efectivo.
+
+El primer A/B de edificios ya conserva tres propuestas deterministas del Composer (`row_house`,
+`mixed_tenement`, `warehouse`, seed 1010) y manifiestos con hashes en
+`docs/art/material-maquette-spike/`. Usan la gramática actual, el perfil `graphic_civic` y mood
+`day_civic`; sirven para revisar variación arquitectónica y procedencia, no para afirmar que ya se
+aprobó el nuevo material de fachada. Falta revisarlos en la ciudad real, día/noche, escalas 0,5×, 1×,
+2× y 2,5×, orientaciones y estados. La promoción continúa cerrada hasta la revisión humana.

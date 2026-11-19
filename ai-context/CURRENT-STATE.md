@@ -1,6 +1,6 @@
 # Estado vigente para agentes
 
-Actualizado: 2026-11-18. Leer este archivo antes de la historia extensa de `PROJECT-STATE.md`.
+Actualizado: 2026-11-19. Leer este archivo antes de la historia extensa de `PROJECT-STATE.md`.
 
 ## Sedes operativas (2026-11-19, D-110)
 
@@ -19,9 +19,9 @@ Actualizado: 2026-11-18. Leer este archivo antes de la historia extensa de `PROJ
 
 ## Rama y arquitectura jugable
 
-- Rama de trabajo: `develop` desde V.d-UX.S (2026-11-16). Las entregas anteriores de arte y
-  integración se hicieron en `wip/vh-world-visual-foundation`; no integrar ni empujar a `develop` o
-  `main` sin revisión humana.
+- Rama de trabajo activa: `wip/organization-headquarters` (HEAD `85a0095`, remota
+  `origin/wip/organization-headquarters`; 424 commits por delante de `main` al 2026-11-19). No asumir
+  que `main` refleja el código vigente. No integrar ni empujar a `develop` o `main` sin revisión humana.
 - Simulación TypeScript pura y determinista; Phaser/React sólo consumen `ViewProjectionV3`.
 - El estado autoritativo pertenece al motor. `Math.random()` no entra en dominio.
 - El MVP sigue siendo single-player: comprar terreno → producir → construir → ocupar → caja →
@@ -125,6 +125,22 @@ Actualizado: 2026-11-18. Leer este archivo antes de la historia extensa de `PROJ
 - Tres gates de arte siguen rojos y **no son de esta fase**: `art:external:check` (drift del golden ya
   versionado), `art:coverage:audit:check` (informe desfasado en HEAD) y `art:staging:validate`
   (procedencia de 7 fuentes originales + el PNG de spike irrecuperable). Detalle en KNOWN-GAPS.md.
+
+## D-111 · maqueta urbana material — piloto A/B en curso (2026-11-19)
+
+- La interfaz y el terreno alternan entre `graphic_civic` (control) y
+  `material_maquette_candidate` con `?artQa=1`; el estado sólo vive en URL/DOM y no se guarda en
+  `GameState`, snapshots ni `localStorage`. Cambiar de dirección no envía comandos de simulación.
+- `graphic_civic` se restauró como baseline explícita. La candidata usa tokens HUD y superficies de
+  terreno aislados por dirección; los controles QA no aparecen en el HUD normal.
+- `pnpm art:direction:capture` captura día/noche de ambos brazos a 1440×900 y registra cámara,
+  SHA-256 y errores de página en `docs/art/material-maquette-spike/ab/manifest.json`.
+- `pnpm art:building-style:validate:test` prueba `night_civic`, `day_civic`, `day_industrial`, la
+  herencia, overrides por banda, perfiles inexistentes, ciclos y bandas inválidas.
+- Hay tres muestras versionadas del Composer (`row_house`, `mixed_tenement`, `warehouse`, seed 1010)
+  y cuatro capturas A/B del terreno/HUD. Las muestras reutilizan la gramática vigente; sólo evalúan
+  variación y procedencia. Falta la revisión humana en ciudad a varios zooms/estados; no hay assets ni
+  efectos promovidos.
 
 ## Bloqueos y gates pendientes
 

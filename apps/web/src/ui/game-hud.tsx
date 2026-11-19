@@ -20,6 +20,7 @@ import {
 } from "./notifications";
 import type { HubKind } from "./types";
 import type { VisualMood } from "../visual-mood";
+import type { VisualDirection } from "../visual-direction";
 
 export const SIMULATION_SPEEDS = [1, 2, 4, 8, 16] as const;
 type SimulationSpeed = (typeof SIMULATION_SPEEDS)[number];
@@ -47,6 +48,9 @@ export function GameHud({
   helpOpen,
   visualMood,
   onVisualMoodChange,
+  artQa,
+  visualDirection,
+  onVisualDirectionChange,
 }: {
   session: GameSession;
   districtName: string;
@@ -61,6 +65,9 @@ export function GameHud({
   helpOpen: boolean;
   visualMood: VisualMood;
   onVisualMoodChange: (mood: VisualMood) => void;
+  artQa: boolean;
+  visualDirection: VisualDirection;
+  onVisualDirectionChange: (direction: VisualDirection) => void;
 }) {
   const { economy, projection, runState, speed, message } = session;
   const calendar = economy?.gameTime;
@@ -136,6 +143,30 @@ export function GameHud({
               Noche
             </button>
           </div>
+          {artQa && (
+            <div
+              aria-label="Comparación de dirección visual"
+              className="visual-mood-switch"
+              role="group"
+            >
+              <button
+                aria-pressed={visualDirection === "graphic_civic"}
+                className="visual-mood-button"
+                onClick={() => onVisualDirectionChange("graphic_civic")}
+                type="button"
+              >
+                Control
+              </button>
+              <button
+                aria-pressed={visualDirection === "material_maquette_candidate"}
+                className="visual-mood-button"
+                onClick={() => onVisualDirectionChange("material_maquette_candidate")}
+                type="button"
+              >
+                Maqueta
+              </button>
+            </div>
+          )}
           <button className="hud-text-button" onClick={() => onOpenHub("government")} type="button">
             <UiIcon name="government" size={15} /> Gobierno
           </button>

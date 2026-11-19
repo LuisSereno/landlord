@@ -19,6 +19,8 @@ Landlord dispone de especificaciones completas de preproducción:
 - D-111: dirección visual de maqueta urbana material aprobada el 2026-11-19. `graphic_civic`
   sigue como control del spike; no se promueven sprites, filtros ni librerías nuevas hasta revisar
   los pilotos `row_house`, `mixed_tenement` y `warehouse` en escena real.
+- Selector A/B de HUD/terreno sólo para QA (`?artQa=1`), sin persistencia de partida; capturas de día
+  y noche y candidatos del Composer con manifiestos viven en `docs/art/material-maquette-spike/`.
 
 ## Parámetros de producción pendientes del spike material
 

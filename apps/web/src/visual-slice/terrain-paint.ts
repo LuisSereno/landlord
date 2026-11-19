@@ -2,6 +2,7 @@ import type { GridCell } from "@landlord/shared";
 import { gridToScreen, type IsometricLayout } from "../isometric/coordinates";
 import { cellKey, hashCell, type GroundPlan, type GroundSurface } from "./ground";
 import { readVisualMood } from "../visual-mood";
+import { readVisualDirection, type VisualDirection } from "../visual-direction";
 
 /**
  * Horneado del lenguaje visual del suelo (WP4.15-V.b0). Todo se pinta una sola vez en una
@@ -29,7 +30,7 @@ type SurfaceStyle = {
 };
 
 /**
- * Maqueta urbana material: suelo mate y cálido, con tierra y piedra diferenciadas.
+ * Graphic Civic: valores oscuros y desaturados, sin color brillante.
  *
  * WP4.15-V.b1 baja la escalera entera un 18 % respecto al suelo aprobado en V.b0. No es un cambio
  * de lenguaje — el grano, las juntas y las parcelas siguen igual — sino de jerarquía: con las
@@ -37,46 +38,78 @@ type SurfaceStyle = {
  * y la escena se leía plana. El suelo tiene que quedar por debajo de todo lo demás.
  */
 export const SURFACE_STYLE: Record<GroundSurface, SurfaceStyle> = {
-  urban: { base: "#252727", shade: "#1d2020", light: "#2d302f", grain: 54 },
-  grass: { base: "#26352b", shade: "#1d2922", light: "#304033", grain: 92, stroke: "#3d4b3e" },
-  dirt: { base: "#392f25", shade: "#2d251e", light: "#47392a", grain: 70 },
-  gravel: { base: "#303130", shade: "#272929", light: "#393a38", grain: 138 },
+  urban: { base: "#1c222c", shade: "#151b23", light: "#222934", grain: 90 },
+  grass: { base: "#19241e", shade: "#141c17", light: "#1f2c24", grain: 150, stroke: "#223428" },
+  dirt: { base: "#2a241c", shade: "#1e1914", light: "#322b21", grain: 120 },
+  gravel: { base: "#24282e", shade: "#1d2025", light: "#2e333a", grain: 230 },
   // Pavimento peatonal/de solar: hormigón claro y cálido, con juntas visibles. Nunca debe leerse
   // como una segunda calzada que no tiene tráfico.
-  pavement: { base: "#57534a", shade: "#423f39", light: "#70695c", grain: 22, stroke: "#8b8170" },
-  courtyard: { base: "#686359", shade: "#555148", light: "#7b7568", grain: 15, stroke: "#a19784" },
+  pavement: { base: "#414851", shade: "#303740", light: "#59616b", grain: 34, stroke: "#6f7882" },
+  courtyard: { base: "#505660", shade: "#424852", light: "#666d77", grain: 22, stroke: "#8b939d" },
   // Calzada: negro azulado, deliberadamente más oscuro que cualquier solar o acera. Su grano es
   // fino y escaso: el asfalto es una superficie fabricada y extendida, no un terreno suelto. Con el
   // grano de un terreno orgánico la calzada se leía manchada de tierra.
-  asphalt: { base: "#202323", shade: "#191c1c", light: "#292c2b", grain: 14 },
-  median: { base: "#303b30", shade: "#252f27", light: "#3d4937", grain: 68, stroke: "#53604a" },
-  construction: { base: "#3a2d1e", shade: "#2b2319", light: "#493923", grain: 112 },
+  asphalt: { base: "#141a22", shade: "#111720", light: "#1b222c", grain: 14 },
+  median: { base: "#263126", shade: "#1d261e", light: "#314035", grain: 110, stroke: "#405043" },
+  construction: { base: "#292318", shade: "#1e1a11", light: "#322b1f", grain: 190 },
 };
 
 export const DAY_SURFACE_STYLE: Record<GroundSurface, SurfaceStyle> = {
-  urban: { base: "#777165", shade: "#625d53", light: "#898171", grain: 54 },
-  grass: { base: "#58704c", shade: "#49613f", light: "#698357", grain: 92, stroke: "#809169" },
-  dirt: { base: "#806b4f", shade: "#6d5a43", light: "#947a59", grain: 70 },
-  gravel: { base: "#77766f", shade: "#666660", light: "#88867d", grain: 138 },
+  urban: { base: "#49525f", shade: "#3b434e", light: "#57616f", grain: 90 },
+  grass: { base: "#3e5944", shade: "#334a39", light: "#4b684f", grain: 150, stroke: "#5e765f" },
+  dirt: { base: "#5d513f", shade: "#4c4234", light: "#6b5e49", grain: 120 },
+  gravel: { base: "#555c67", shade: "#444b54", light: "#646c78", grain: 230 },
   // Mantener el mismo lenguaje en día: losa clara para espacio no transitable,
   // asfalto oscuro y sensiblemente más oscuro para la calzada, con el grano fino de una superficie
   // fabricada.
-  pavement: { base: "#a39a88", shade: "#897f6d", light: "#b6aa94", grain: 22, stroke: "#c8bda7" },
-  courtyard: { base: "#b7ad99", shade: "#a09683", light: "#c8bda7", grain: 15, stroke: "#ddd1b9" },
-  asphalt: { base: "#3c4140", shade: "#343938", light: "#484d4a", grain: 14 },
-  median: { base: "#64745a", shade: "#53634e", light: "#758365", grain: 68, stroke: "#8d9a78" },
-  construction: { base: "#806b4e", shade: "#6d5a43", light: "#947a59", grain: 112 },
+  pavement: { base: "#747b85", shade: "#5d6570", light: "#8c949e", grain: 34, stroke: "#a1a8b0" },
+  courtyard: { base: "#a3a8ae", shade: "#8b929a", light: "#b5bac0", grain: 22, stroke: "#d0d3d6" },
+  asphalt: { base: "#2b3440", shade: "#262e39", light: "#333e4a", grain: 14 },
+  median: { base: "#4c6049", shade: "#3d4e3b", light: "#5b7257", grain: 110, stroke: "#71866c" },
+  construction: { base: "#5b4f39", shade: "#4a402f", light: "#6a5c44", grain: 190 },
 };
 
-function surfaceStyle(surface: GroundSurface): SurfaceStyle {
-  return readVisualMood() === "day" ? DAY_SURFACE_STYLE[surface] : SURFACE_STYLE[surface];
+const MATERIAL_SURFACE_STYLE: Record<GroundSurface, SurfaceStyle> = {
+  urban: { base: "#252727", shade: "#1d2020", light: "#2d302f", grain: 32 },
+  grass: { base: "#26352b", shade: "#1d2922", light: "#304033", grain: 55, stroke: "#3d4b3e" },
+  dirt: { base: "#392f25", shade: "#2d251e", light: "#47392a", grain: 42 },
+  gravel: { base: "#303130", shade: "#272929", light: "#393a38", grain: 84 },
+  pavement: { base: "#57534a", shade: "#423f39", light: "#70695c", grain: 12, stroke: "#8b8170" },
+  courtyard: { base: "#686359", shade: "#555148", light: "#7b7568", grain: 8, stroke: "#a19784" },
+  asphalt: { base: "#202323", shade: "#191c1c", light: "#292c2b", grain: 14 },
+  median: { base: "#303b30", shade: "#252f27", light: "#3d4937", grain: 41, stroke: "#53604a" },
+  construction: { base: "#3a2d1e", shade: "#2b2319", light: "#493923", grain: 67 },
+};
+
+const MATERIAL_DAY_SURFACE_STYLE: Record<GroundSurface, SurfaceStyle> = {
+  urban: { base: "#777165", shade: "#625d53", light: "#898171", grain: 32 },
+  grass: { base: "#58704c", shade: "#49613f", light: "#698357", grain: 55, stroke: "#809169" },
+  dirt: { base: "#806b4f", shade: "#6d5a43", light: "#947a59", grain: 42 },
+  gravel: { base: "#77766f", shade: "#666660", light: "#88867d", grain: 84 },
+  pavement: { base: "#a39a88", shade: "#897f6d", light: "#b6aa94", grain: 12, stroke: "#c8bda7" },
+  courtyard: { base: "#b7ad99", shade: "#a09683", light: "#c8bda7", grain: 8, stroke: "#ddd1b9" },
+  asphalt: { base: "#3c4140", shade: "#343938", light: "#484d4a", grain: 14 },
+  median: { base: "#64745a", shade: "#53634e", light: "#758365", grain: 41, stroke: "#8d9a78" },
+  construction: { base: "#806b4e", shade: "#6d5a43", light: "#947a59", grain: 67 },
+};
+
+function surfaceStyle(
+  surface: GroundSurface,
+  mood: "day" | "night" = readVisualMood(),
+  direction: VisualDirection = readVisualDirection(),
+): SurfaceStyle {
+  const candidate = direction === "material_maquette_candidate";
+  return mood === "day"
+    ? (candidate ? MATERIAL_DAY_SURFACE_STYLE : DAY_SURFACE_STYLE)[surface]
+    : (candidate ? MATERIAL_SURFACE_STYLE : SURFACE_STYLE)[surface];
 }
 
 /** Bordillos y juntas: casi imperceptibles a zoom 0.5, firmes a zoom 2.5. */
 const EDGE_LIGHT = "rgba(77, 85, 98, 0.32)";
 const EDGE_DARK = "rgba(11, 14, 19, 0.5)";
 /** Marcaje vial: sigue siendo lo más claro del suelo, pero por debajo de las fachadas iluminadas. */
-const MARKING = "#c5b89e";
+const MARKING = "#838a93";
+const MATERIAL_MARKING = "#c5b89e";
 
 /** Tamaño del lienzo de un paso de peatones: cubre las cuatro bocas del cruce. */
 export const CROSSING_TEXTURE = { width: 176, height: 88 } as const;
@@ -130,8 +163,13 @@ function blob(context: Context, x: number, y: number, rx: number, ry: number, co
 }
 
 /** Patrón 64×64 reutilizable por superficie: grano procedural sin añadir texturas al bundle. */
-function createPattern(document: Document, surface: GroundSurface): HTMLCanvasElement {
-  const style = surfaceStyle(surface);
+function createPattern(
+  document: Document,
+  surface: GroundSurface,
+  mood: "day" | "night",
+  direction: VisualDirection,
+): HTMLCanvasElement {
+  const style = surfaceStyle(surface, mood, direction);
   const canvas = document.createElement("canvas");
   canvas.width = 64;
   canvas.height = 64;
@@ -141,7 +179,8 @@ function createPattern(document: Document, surface: GroundSurface): HTMLCanvasEl
   const next = random(hashCell(surface.length, style.grain, 7));
   for (let index = 0; index < style.grain; index += 1) {
     context.fillStyle = next() > 0.48 ? style.shade : style.light;
-    context.globalAlpha = 0.16 + next() * 0.25;
+    context.globalAlpha =
+      direction === "material_maquette_candidate" ? 0.05 + next() * 0.1 : 0.28 + next() * 0.4;
     context.beginPath();
     context.ellipse(
       next() * 64,
@@ -161,7 +200,8 @@ function createPattern(document: Document, surface: GroundSurface): HTMLCanvasEl
       const x = next() * 64;
       const y = next() * 64;
       context.strokeStyle = style.stroke;
-      context.globalAlpha = 0.16 + next() * 0.2;
+      context.globalAlpha =
+        direction === "material_maquette_candidate" ? 0.06 + next() * 0.08 : 0.28 + next() * 0.4;
       context.beginPath();
       context.moveTo(x, y);
       context.lineTo(x + (next() - 0.5) * 3, y - 2 - next() * 2);
@@ -180,6 +220,7 @@ export type GroundPaintInput = {
   plan: GroundPlan | null;
   stage: TerrainStage;
   showGrid: boolean;
+  visualDirection?: VisualDirection;
   /** Gameplay usa la red autoritativa y necesita bordillo en cualquier límite asphalt/no-asphalt. */
   curbMode?: CurbMode;
 };
@@ -193,6 +234,9 @@ export type CurbEdge = "n" | "e" | "s" | "w";
  */
 export function paintGround(input: GroundPaintInput): void {
   const { context, layout, bounds, plan, stage, showGrid } = input;
+  const mood = readVisualMood();
+  const direction = input.visualDirection ?? readVisualDirection();
+  const marking = direction === "material_maquette_candidate" ? MATERIAL_MARKING : MARKING;
   const hw = layout.tileWidth / 2;
   const hh = layout.tileHeight / 2;
   const local = (cell: GridCell): Point => {
@@ -216,7 +260,10 @@ export function paintGround(input: GroundPaintInput): void {
   const patternFor = (surface: GroundSurface): CanvasPattern | undefined => {
     const cached = patterns.get(surface);
     if (cached) return cached;
-    const created = context.createPattern(createPattern(input.document, surface), "repeat");
+    const created = context.createPattern(
+      createPattern(input.document, surface, mood, direction),
+      "repeat",
+    );
     if (created) patterns.set(surface, created);
     return created ?? undefined;
   };
@@ -224,7 +271,7 @@ export function paintGround(input: GroundPaintInput): void {
   /** 1 · Terreno base: sólo el rombo del mapa, con manchas grandes de valor. */
   context.save();
   clipGround(input);
-  context.fillStyle = surfaceStyle("urban").base;
+  context.fillStyle = surfaceStyle("urban", mood, direction).base;
   context.fillRect(0, 0, bounds.width, bounds.height);
   const ambient = random(GROUND_DRESSING_SEED);
   for (let index = 0; index < 120; index += 1) {
@@ -819,7 +866,13 @@ function dress(
  * Paso de peatones del cruce. Va en su propia textura porque la calzada es un sprite de Blender por
  * encima del suelo horneado; una sola imagen se reutiliza en los cuatro cruces de la composición.
  */
-export function paintCrossing(context: Context, layout: IsometricLayout, mask = 15): void {
+export function paintCrossing(
+  context: Context,
+  layout: IsometricLayout,
+  mask = 15,
+  direction: VisualDirection = readVisualDirection(),
+): void {
+  const marking = direction === "material_maquette_candidate" ? MATERIAL_MARKING : MARKING;
   const origin = gridToScreen({ x: 0, y: 0 }, layout);
   const point = (gx: number, gy: number) => {
     const screen = gridToScreen({ x: gx, y: gy }, layout);
@@ -828,7 +881,7 @@ export function paintCrossing(context: Context, layout: IsometricLayout, mask = 
       y: screen.y - origin.y + context.canvas.height / 2,
     };
   };
-  context.fillStyle = MARKING;
+  context.fillStyle = marking;
   context.globalAlpha = 0.45;
   for (const { alongX, alongY } of crossingArms(mask)) {
     for (let step = 0; step < 4; step += 1) {
@@ -857,7 +910,7 @@ export function paintCrossing(context: Context, layout: IsometricLayout, mask = 
     const south = point(0, 0.18);
     const west = point(-0.18, 0);
     context.globalAlpha = 0.26;
-    context.strokeStyle = MARKING;
+    context.strokeStyle = marking;
     context.beginPath();
     context.moveTo(north.x, north.y);
     context.lineTo(east.x, east.y);

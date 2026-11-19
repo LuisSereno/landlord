@@ -37,6 +37,7 @@ obra en proceso visible con cuadrillas y recinto derivados.
 - art/README.md — entrada a la documentación artística y estado de gobernanza.
 - art/ART-BIBLE.md — dirección visual v0.1, lenguaje de formas, escala, cámara, UI, VFX y legibilidad.
 - [Dirección visual: maqueta urbana material](art/MATERIAL-MAQUETTE-DIRECTION.md) — criterios y gate para el spike de edificios, mundo y HUD.
+- [Evidencia A/B de maqueta material](art/material-maquette-spike/README.md) — comparación HUD/terreno y candidatos Composer, sin promoción a runtime.
 - art/ART-PIPELINE.md — pipeline Blender/prerender/atlases/Phaser, automatización y repositorio.
 - art/ASSET-NAMING.md — convenciones de IDs, nombres, anchors, footprints y atlases.
 - art/PERFORMANCE-BUDGET.md — budgets y QA visual, accesibilidad y localización.

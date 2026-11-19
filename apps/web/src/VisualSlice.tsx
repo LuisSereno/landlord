@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 
 import { mountVisualSlice } from "./isometric/mount";
 import { TERRAIN_STAGES, type TerrainStage } from "./visual-slice/terrain-paint";
+import { applyVisualDirection, readVisualDirection } from "./visual-direction";
 
 function terrainStage(value: string | null): TerrainStage {
   return TERRAIN_STAGES.includes((value ?? "") as TerrainStage) ? (value as TerrainStage) : "full";
@@ -18,6 +19,7 @@ export function VisualSlice() {
 
   useEffect(() => {
     if (!container.current) return undefined;
+    applyVisualDirection(readVisualDirection());
     const params = new URLSearchParams(window.location.search);
     return mountVisualSlice(container.current, {
       characters: params.get("characters") === "1",

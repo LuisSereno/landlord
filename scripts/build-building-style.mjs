@@ -29,6 +29,7 @@ import {
   measureModules,
   runBlender,
 } from "./lib/building-measurement.mjs";
+import { deepMergeStyle, resolveStyleMood } from "./lib/style-mood.mjs";
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const CATALOG_PATH = "blender_artist/manifests/building-modules.json";
@@ -65,36 +66,6 @@ function sha256(relativePath) {
 
 function round(value, digits = 3) {
   return Number(value.toFixed(digits));
-}
-
-function deepMerge(base, override) {
-  if (
-    base === null ||
-    override === null ||
-    typeof base !== "object" ||
-    typeof override !== "object" ||
-    Array.isArray(base) ||
-    Array.isArray(override)
-  ) {
-    return override;
-  }
-  const merged = { ...base };
-  for (const [key, value] of Object.entries(override)) {
-    merged[key] = key in merged ? deepMerge(merged[key], value) : value;
-  }
-  return merged;
-}
-
-function resolveMoodProfile(styleLayer, moodId, seen = new Set()) {
-  const profile = styleLayer.moodProfiles?.[moodId];
-  if (!profile) fail(`mood profile ${moodId} no existe en ${STYLE_LAYER_PATH}`);
-  if (seen.has(moodId)) fail(`ciclo de herencia en mood profile ${moodId}`);
-  const ancestors = new Set(seen).add(moodId);
-  const parent = profile.extends ? resolveMoodProfile(styleLayer, profile.extends, ancestors) : {};
-  return deepMerge(
-    parent,
-    Object.fromEntries(Object.entries(profile).filter(([key]) => key !== "extends")),
-  );
 }
 
 function quantile(values, q) {
@@ -244,15 +215,14 @@ const preview = runBlender({
 const styleLayer = readJson(STYLE_LAYER_PATH);
 const activeMoodId = process.env.LANDLORD_ART_MOOD ?? styleLayer.activeMood;
 if (!activeMoodId) fail(`${STYLE_LAYER_PATH} no declara activeMood`);
-const activeMood = resolveMoodProfile(styleLayer, activeMoodId);
-const activeStyleLayer = deepMerge(styleLayer, activeMood);
-const treatment = activeStyleLayer.externalTreatment;
-if (!treatment) fail(`mood profile ${activeMoodId} no declara externalTreatment`);
-for (const [bandId, overrides] of Object.entries(treatment.bandOverrides ?? {})) {
-  const band = treatment.hueBands?.find((entry) => entry.id === bandId);
-  if (!band) fail(`mood profile ${activeMoodId} sobrescribe banda inexistente ${bandId}`);
-  Object.assign(band, overrides);
+let activeMood;
+try {
+  activeMood = resolveStyleMood(styleLayer, activeMoodId);
+} catch (error) {
+  fail(error.message);
 }
+const activeStyleLayer = deepMergeStyle(styleLayer, activeMood);
+const treatment = activeStyleLayer.externalTreatment;
 const textureStats = new Map(
   measurements.imageSamples.map((entry) => [entry.filePath, entry.statistics]),
 );

@@ -213,7 +213,7 @@ const CASES = [
   },
   {
     name: "un candidato incompleto no se publica (§25)",
-    expect: "sólo se publica el estado complete",
+    expect: "estado no publicable",
     file: "manifest",
     mutate: (manifest) => {
       first(manifest).state = "draft";

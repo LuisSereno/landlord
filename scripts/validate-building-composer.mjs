@@ -361,8 +361,21 @@ function checkCandidate(candidate, modulesById, sourcesById, grammars, manifestD
   for (const field of REQUIRED_METADATA_FIELDS) {
     if (candidate[field] === undefined) errors.push(`§24 ${label}: falta el campo '${field}'`);
   }
-  if (candidate.state !== "complete") {
-    errors.push(`§25 ${label}: sólo se publica el estado complete, llegó '${candidate.state}'`);
+  /**
+   * §25 · al bundle sólo se promociona `complete` (lo gatea runtime-promotions). Los manifiestos de
+   * variantes del catálogo V.j/D-108 publican además los estados de obra y daño que el contrato de
+   * variantes declara: construction (foundation/structure/finishing), damaged y burning. Un estado
+   * fuera de ese conjunto sigue siendo un fallo de publicación.
+   */
+  const variantStates = new Set(["complete", "construction", "damaged", "burning"]);
+  if (!variantStates.has(candidate.state)) {
+    errors.push(`§25 ${label}: estado no publicable '${candidate.state}'`);
+  }
+  if (
+    candidate.state === "construction" &&
+    !["foundation", "structure", "finishing"].includes(candidate.constructionStage)
+  ) {
+    errors.push(`§25 ${label}: construction sin etapa válida '${candidate.constructionStage}'`);
   }
   const domain = domainGeometry(candidate.buildingType);
   if (domain) {

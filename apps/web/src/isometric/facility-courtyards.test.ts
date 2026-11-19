@@ -35,10 +35,10 @@ describe("patios de equipamientos (WP-D)", () => {
     expect(plan).not.toBeNull();
     expect(plan.elements.some((entry) => entry.kind === "vehicle")).toBe(false);
     const assets = plan.elements.map((entry) => entry.asset);
-    expect(assets).toContain("prp_monument");
+    expect(assets).toContain("prp_monument_obelisk");
     expect(assets).toContain("prp_flagpole");
     expect(assets.filter((asset) => asset === "prp_bench")).toHaveLength(2);
-    expect(assets.filter((asset) => asset === "prp_planter")).toHaveLength(2);
+    expect(assets.filter((asset) => asset === "prp_planter_urn")).toHaveLength(2);
     expect(assets.filter((asset) => asset === "prp_bollard")).toHaveLength(2);
     expect(plan.accessCells.length).toBeGreaterThan(0);
     expect(plan.accessRoadExit).not.toBeNull();
@@ -67,6 +67,11 @@ describe("patios de equipamientos (WP-D)", () => {
       const vehicles = plan.elements.filter((entry) => entry.kind === "vehicle");
       expect(vehicles, c.type).toHaveLength(1);
       expect(vehicles[0]!.asset).toBe(c.asset);
+      /** La plaza reservada son dos celdas contiguas: el sprite se ancla por ellas, no por el asset. */
+      expect(vehicles[0]!.cells).toHaveLength(2);
+      const [first, second] = vehicles[0]!.cells!;
+      expect(Math.abs(first!.x - second!.x) + Math.abs(first!.y - second!.y)).toBe(1);
+      expect(vehicles[0]!.cell).toEqual(first);
       const site = new Set(siteCells.map(key));
       const footprint = new Set(footprintCells.map(key));
       const access = new Set(plan.accessCells.map(key));

@@ -85,46 +85,95 @@ try {
   log("assets ready");
 
   const summary = { captures: [], pageErrors };
+  /**
+   * El programa municipal es de ciudad (14 equipamientos repartidos en nueve distritos), así que
+   * hay que visitar cada distrito y capturar los tipos que hospeda. El selector del HUD es la
+   * puerta real: el worker cambia el distrito observado y la proyección se resincroniza.
+   */
+  await page.evaluate(() => {
+    const trigger = document.querySelector(".hud-district");
+    if (trigger instanceof HTMLButtonElement) trigger.click();
+  });
+  await page.locator('[aria-label="Distritos"] [role="gridcell"]').first().waitFor({ timeout: 10000 });
+  const tiles = page.locator('[aria-label="Distritos"] [role="gridcell"]');
+  const names = [];
+  for (let i = 0; i < (await tiles.count()); i++) {
+    names.push((await tiles.nth(i).locator("strong").innerText()).trim());
+  }
+  await page.keyboard.press("Escape");
+  log(`distritos: ${names.join(", ")}`);
+
+  async function selectDistrict(name) {
+    await page.evaluate(() => {
+      const trigger = document.querySelector(".hud-district");
+      if (trigger instanceof HTMLButtonElement) trigger.click();
+    });
+    const grid = page.locator('[aria-label="Distritos"] [role="gridcell"]');
+    await grid.first().waitFor({ timeout: 10000 });
+    const count = await grid.count();
+    for (let i = 0; i < count; i++) {
+      const text = (await grid.nth(i).locator("strong").innerText()).trim();
+      if (text === name) {
+        await grid.nth(i).click();
+        break;
+      }
+    }
+    await page.waitForFunction(
+      (expected) => window.__landlordCameraTest.getProjection()?.city?.districts?.find(
+        (d) => d.id === window.__landlordCameraTest.getProjection().observedDistrictId,
+      )?.name === expected,
+      name,
+      { timeout: 15000 },
+    ).catch(() => {});
+    await page.waitForTimeout(1500);
+  }
+
+  const captured = new Set();
   for (const mood of ["day", "night"]) {
     await page.getByRole("button", { name: mood === "day" ? "Día" : "Noche" }).click();
-    await page.waitForTimeout(3000);
-    for (const type of TYPES) {
-      const center = await page.evaluate((buildingType) => {
-        const projection = window.__landlordCameraTest.getProjection();
-        const building = projection?.economy?.buildings.find((b) => b.type === buildingType);
-        if (!building || building.footprintCells.length === 0) return null;
-        const cells = building.footprintCells;
-        return {
-          x: cells.reduce((s, c) => s + c.x, 0) / cells.length,
-          y: cells.reduce((s, c) => s + c.y, 0) / cells.length,
-          siteCells: building.siteCells?.length ?? 0,
-          footprintCells: cells.length,
-        };
-      }, type);
-      if (!center) {
-        log(`SKIP ${mood} ${type}: sin edificio proyectado`);
-        continue;
+    await page.waitForTimeout(2500);
+    for (const name of names) {
+      await selectDistrict(name);
+      for (const type of TYPES) {
+        const key = `${mood}-${type}`;
+        if (captured.has(key)) continue;
+        const center = await page.evaluate((buildingType) => {
+          const projection = window.__landlordCameraTest.getProjection();
+          const building = projection?.economy?.buildings.find((b) => b.type === buildingType);
+          if (!building || building.footprintCells.length === 0) return null;
+          const cells = building.footprintCells;
+          return {
+            x: cells.reduce((s, c) => s + c.x, 0) / cells.length,
+            y: cells.reduce((s, c) => s + c.y, 0) / cells.length,
+            siteCells: building.siteCells?.length ?? 0,
+            footprintCells: cells.length,
+            district: projection.observedDistrictId,
+          };
+        }, type);
+        if (!center) continue;
+        await page.evaluate(
+          ({ cell, zoom }) => {
+            const api = window.__landlordCameraTest;
+            api.centerOnCell(cell);
+            const camera = api.getCamera();
+            api.configure({ zoom, scrollX: camera.scrollX, scrollY: camera.scrollY });
+          },
+          { cell: { x: center.x, y: center.y }, zoom: 2 },
+        );
+        await page.waitForTimeout(1500);
+        const file = `${outputDir}/${mood}-${type}.png`;
+        await page.screenshot({ path: file });
+        captured.add(key);
+        summary.captures.push({
+          mood,
+          type,
+          file,
+          district: center.district,
+          siteCells: center.siteCells,
+          footprintCells: center.footprintCells,
+        });
+        log(`captured ${mood} ${type} en ${name} (site ${center.siteCells} / fp ${center.footprintCells})`);
       }
-      await page.evaluate(
-        ({ cell, zoom }) => {
-          const api = window.__landlordCameraTest;
-          api.centerOnCell(cell);
-          const camera = api.getCamera();
-          api.configure({ zoom, scrollX: camera.scrollX, scrollY: camera.scrollY });
-        },
-        { cell: { x: center.x, y: center.y }, zoom: 2 },
-      );
-      await page.waitForTimeout(1500);
-      const file = `${outputDir}/${mood}-${type}.png`;
-      await page.screenshot({ path: file });
-      summary.captures.push({
-        mood,
-        type,
-        file,
-        siteCells: center.siteCells,
-        footprintCells: center.footprintCells,
-      });
-      log(`captured ${mood} ${type} (site ${center.siteCells} / fp ${center.footprintCells})`);
     }
   }
   summary.stats = await page.evaluate(() => window.__gameplayVisualStats());

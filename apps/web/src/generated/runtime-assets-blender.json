@@ -363,31 +363,31 @@
       "type": "town_hall",
       "name": "town_hall",
       "footprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pivot": {
-        "x": 0.4804,
-        "y": 0.6887
+        "x": 0.4664,
+        "y": 0.7947
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/town_hall-complete.png",
-          "width": 1967,
-          "height": 1506,
-          "sha256": "bd7cfb17ba8a16e066ee7467c1264f305d429760f1c8c084dc653cacc28b77e9"
+          "width": 1280,
+          "height": 1453,
+          "sha256": "862a3c9b7ecbf467496dad11c8f3bfa0a5faa395bc6e05ae2e892a3ae6506ca8"
         }
       },
       "stateFallback": "procedural",
       "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
-        "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V7 town hall candidate vf_town_hall_1006. Original civic pediment with CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+        "author": "Landlord project; CC0 modules by Quaternius/Kenney",
+        "notes": "D-109 (2026-11-18): rehorneado con huella física 5×3 y solar reservado separado; mood day_civic registrado como procedencia (D-108). QA de capturas diurna/nocturna en el acta de cierre."
       },
       "allowedOrientations": [
         45
@@ -573,31 +573,31 @@
       "type": "clinic",
       "name": "clinic",
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pivot": {
-        "x": 0.5482,
-        "y": 0.7123
+        "x": 0.5767,
+        "y": 0.7057
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/clinic-complete.png",
-          "width": 944,
-          "height": 1179,
-          "sha256": "d85da1b48a0e2dbc78ca1fa3befa248b686c294ebccffa861bf49bc1daa338b3"
+          "width": 606,
+          "height": 850,
+          "sha256": "6dcfedd949972cb7df466d01d54756958b8ddcf2d0a08cfca4ed6eb16921ff0d"
         }
       },
       "stateFallback": "procedural",
       "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
-        "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i civic candidate vg_clinic_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+        "author": "Landlord project; CC0 modules by Quaternius/Kenney",
+        "notes": "D-109 (2026-11-18): rehorneado con huella física 2×1 y solar reservado separado; mood day_civic registrado como procedencia (D-108). QA de capturas diurna/nocturna en el acta de cierre."
       },
       "allowedOrientations": [
         45
@@ -608,31 +608,31 @@
       "type": "police_station",
       "name": "police_station",
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pivot": {
-        "x": 0.5454,
-        "y": 0.6494
+        "x": 0.5859,
+        "y": 0.6773
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/police_station-complete.png",
-          "width": 937,
-          "height": 896,
-          "sha256": "f256d3d9010b74c4124a13c72679a56e493a55d3c5ed3d86ce18823c8e5f387e"
+          "width": 617,
+          "height": 741,
+          "sha256": "a3c44097908909da8dcf598e2ab8fda1d8de697e102bda8b23e6dfd0c111faea"
         }
       },
       "stateFallback": "procedural",
       "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
-        "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i civic candidate vg_police_station_1002. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+        "author": "Landlord project; CC0 modules by Quaternius/Kenney",
+        "notes": "D-109 (2026-11-18): rehorneado con huella física 2×1 y solar reservado separado; mood day_civic registrado como procedencia (D-108). QA de capturas diurna/nocturna en el acta de cierre."
       },
       "allowedOrientations": [
         45
@@ -643,31 +643,31 @@
       "type": "fire_station",
       "name": "fire_station",
       "footprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pivot": {
-        "x": 0.5342,
-        "y": 0.6946
+        "x": 0.5713,
+        "y": 0.679
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/fire_station-complete.png",
-          "width": 1097,
-          "height": 1206,
-          "sha256": "98f3784be175e6f57298487975308cf2561f9f54e57b1c4a7bd7a94caddeda5d"
+          "width": 799,
+          "height": 946,
+          "sha256": "7aa53e1a70e6c513ef6624547cf35c73a3d72b915b4ef242825e520301f02c75"
         }
       },
       "stateFallback": "procedural",
       "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
-        "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i civic candidate vg_fire_station_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+        "author": "Landlord project; CC0 modules by Quaternius/Kenney",
+        "notes": "D-109 (2026-11-18): rehorneado con huella física 3×1 y solar reservado separado; mood day_civic registrado como procedencia (D-108). QA de capturas diurna/nocturna en el acta de cierre."
       },
       "allowedOrientations": [
         45
@@ -678,31 +678,31 @@
       "type": "market_hall",
       "name": "market_hall",
       "footprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pivot": {
-        "x": 0.5526,
-        "y": 0.673
+        "x": 0.5734,
+        "y": 0.6914
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/market_hall-complete.png",
-          "width": 1332,
-          "height": 1356,
-          "sha256": "2268f69acc1971d1066dc7163b380d77256f29b6f0a49d43f0a72c202fe60aa6"
+          "width": 1002,
+          "height": 1175,
+          "sha256": "c4bfc3d908b67b1d6794df09f70d04cf7e676b3ce5f23aa3d8f8793b4fed1551"
         }
       },
       "stateFallback": "procedural",
       "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
-        "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i civic candidate vg_market_hall_1000. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+        "author": "Landlord project; CC0 modules by Quaternius/Kenney",
+        "notes": "D-109 (2026-11-18): rehorneado con huella física 4×1 y solar reservado separado; mood day_civic registrado como procedencia (D-108). QA de capturas diurna/nocturna en el acta de cierre."
       },
       "allowedOrientations": [
         45
@@ -818,31 +818,31 @@
       "type": "school_block",
       "name": "school_block",
       "footprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pivot": {
-        "x": 0.4736,
-        "y": 0.7415
+        "x": 0.5039,
+        "y": 0.7648
       },
       "states": {
         "complete": {
           "src": "/assets/runtime/blender/school_block-complete.png",
-          "width": 1457,
-          "height": 1318,
-          "sha256": "ac7fe5b8656a870fbc1e72f9ade2db7dd31c4110781387a3127cf8b923f98f29"
+          "width": 1033,
+          "height": 1106,
+          "sha256": "d6945010293f250ca93c75bb23aa21f25ce82bc9e7b0d9b9e5875eac39e4f752"
         }
       },
       "stateFallback": "procedural",
       "pixelsPerMeter": 60.2,
       "provenance": {
         "license": "original",
-        "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "V.i remediation: rechazo humano del clon de town_hall. Colegio americano con cupola original medida (mod_original_school_cupola), entrada bajo el pabellón central. Candidato aprobado: vg_school_block_2000. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+        "author": "Landlord project; CC0 modules by Quaternius/Kenney",
+        "notes": "D-109 (2026-11-18): rehorneado con huella física 5×1 y solar reservado separado; mood day_civic registrado como procedencia (D-108). QA de capturas diurna/nocturna en el acta de cierre."
       },
       "allowedOrientations": [
         45

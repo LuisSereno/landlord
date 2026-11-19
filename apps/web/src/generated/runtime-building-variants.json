@@ -1592,528 +1592,528 @@
     "clinic:complete:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003.png",
-        "width": 879,
-        "height": 1112,
-        "sha256": "f9f907eddb360a7260a607080c9d1f121526a4f147e7211120ca529d51ac9e8e"
+        "src": "/assets/runtime/variants/vf_clinic_1000.png",
+        "width": 606,
+        "height": 850,
+        "sha256": "6dcfedd949972cb7df466d01d54756958b8ddcf2d0a08cfca4ed6eb16921ff0d"
       },
       "pivot": {
-        "x": 0.5137,
-        "y": 0.725
+        "x": 0.5767,
+        "y": 0.7057
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:burning:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_burning.png",
-        "width": 911,
-        "height": 1145,
-        "sha256": "6e61cdfc43adb0a9e1f65f41696892ba894ae6c4a0d0d60b539e9f386fb6cab8"
+        "src": "/assets/runtime/variants/vf_clinic_1000_burning.png",
+        "width": 628,
+        "height": 861,
+        "sha256": "9514a4e856b8c96d192e5fcc2d0bf28415040364babd50d4214c4edadc63ca47"
       },
       "pivot": {
-        "x": 0.5318,
-        "y": 0.7185
+        "x": 0.5916,
+        "y": 0.6966
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:burning:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_burning_o180.png",
-        "width": 792,
-        "height": 977,
-        "sha256": "ebcb89376a645f6f2b55d13bc277871c0b04fbec9fb7549b6907a43d37246ad0"
+        "src": "/assets/runtime/variants/vf_clinic_1000_burning_o180.png",
+        "width": 679,
+        "height": 885,
+        "sha256": "4f18efd8f3a8aeba55da26c3bd69a67104c150afa1b224a8b00af51f7395d762"
       },
       "pivot": {
-        "x": 0.6117,
-        "y": 0.6701
+        "x": 0.5471,
+        "y": 0.7049
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:burning:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_burning_o270.png",
-        "width": 912,
-        "height": 977,
-        "sha256": "653bab94e50f96ad72f25e654484204cd50bba11ad3db54b50705903ae2f3e04"
+        "src": "/assets/runtime/variants/vf_clinic_1000_burning_o270.png",
+        "width": 629,
+        "height": 886,
+        "sha256": "c6d12c5559486f08206ceed37cd34bd8cb9492f65aedabd505044ae2030d320b"
       },
       "pivot": {
-        "x": 0.5312,
-        "y": 0.6701
+        "x": 0.5906,
+        "y": 0.7052
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:burning:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_burning_o90.png",
-        "width": 792,
-        "height": 1145,
-        "sha256": "9dcc1b8a4122cb838dfc02891d042bb5bf38c58499ef9d4a3b40f7a400ccfeb9"
+        "src": "/assets/runtime/variants/vf_clinic_1000_burning_o90.png",
+        "width": 678,
+        "height": 860,
+        "sha256": "a8a5688a97000c06ba38de4828e9a156c701d255dcba5d85409ac31720714d6e"
       },
       "pivot": {
-        "x": 0.6117,
-        "y": 0.7185
+        "x": 0.5479,
+        "y": 0.6963
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:damaged:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_damaged.png",
-        "width": 911,
-        "height": 1145,
-        "sha256": "9221c8378bd27849d4ab548549e58fe1f2687a5d99b18ef8da8b3c1249cc16ce"
+        "src": "/assets/runtime/variants/vf_clinic_1000_damaged.png",
+        "width": 628,
+        "height": 861,
+        "sha256": "69b4dde9686b34e1d886ed069587d24597b2a39f976a8965ba1b24b385f78337"
       },
       "pivot": {
-        "x": 0.5318,
-        "y": 0.7185
+        "x": 0.5916,
+        "y": 0.6966
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:damaged:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_damaged_o180.png",
-        "width": 792,
-        "height": 977,
-        "sha256": "2489c68e8c518ea79ab2d5bcd16e00cd57f5a8b1f5fa0ebb9b7a9480a6f9dcc6"
+        "src": "/assets/runtime/variants/vf_clinic_1000_damaged_o180.png",
+        "width": 679,
+        "height": 885,
+        "sha256": "91e8aa082ebcb30c97e9a738e691445c099d61449827482a7b7208a92605d26e"
       },
       "pivot": {
-        "x": 0.6117,
-        "y": 0.6701
+        "x": 0.5471,
+        "y": 0.7049
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:damaged:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_damaged_o270.png",
-        "width": 912,
-        "height": 977,
-        "sha256": "ce249a57bd266c6124ed824c6eb1f77f5d46edc7cb60c872d764fb79a831aa1c"
+        "src": "/assets/runtime/variants/vf_clinic_1000_damaged_o270.png",
+        "width": 629,
+        "height": 886,
+        "sha256": "20c727bd688d7b98e87fc416736843e4d9f4378c35a33a0882235e017593e76a"
       },
       "pivot": {
-        "x": 0.5312,
-        "y": 0.6701
+        "x": 0.5906,
+        "y": 0.7052
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:damaged:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_damaged_o90.png",
-        "width": 792,
-        "height": 1145,
-        "sha256": "6fb4755b8395066fb6da244a93456fed5db38397b96da9ca5ecd42702771ef76"
+        "src": "/assets/runtime/variants/vf_clinic_1000_damaged_o90.png",
+        "width": 678,
+        "height": 860,
+        "sha256": "2ad6f8451b1dcfad2d0d00b3b3265b6783ac87fbcbf3babe843c741b840ca1fb"
       },
       "pivot": {
-        "x": 0.6117,
-        "y": 0.7185
+        "x": 0.5479,
+        "y": 0.6963
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:construction:finishing:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_finishing.png",
-        "width": 895,
-        "height": 1129,
-        "sha256": "b63e288d03690ce0ba6b21d1cc92a5ed930af58fb37d1b72c8789c8894a91866"
+        "src": "/assets/runtime/variants/vf_clinic_1000_finishing.png",
+        "width": 612,
+        "height": 852,
+        "sha256": "a1386cb8bdeb1e3c7b59ff31f2f67e1fdaf7d5858d8538eb78052b2cf4b3d096"
       },
       "pivot": {
-        "x": 0.5223,
-        "y": 0.7217
+        "x": 0.5801,
+        "y": 0.7033
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:construction:finishing:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_finishing_o180.png",
-        "width": 750,
-        "height": 956,
-        "sha256": "3ef2c654d5b0de4170082f86f725c5fc0d8ac98206bde38c3700fe84b63a350a"
+        "src": "/assets/runtime/variants/vf_clinic_1000_finishing_o180.png",
+        "width": 637,
+        "height": 864,
+        "sha256": "41e1c3426a9f3968795edece4d612186a9e0c8bf83d5b718e54e3aff8b19447d"
       },
       "pivot": {
-        "x": 0.6233,
-        "y": 0.6714
+        "x": 0.5573,
+        "y": 0.7074
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:construction:finishing:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_finishing_o270.png",
-        "width": 895,
-        "height": 956,
-        "sha256": "8121c26c70e4a1c58c63f3f35593d06d5630a9337201db0298326fdd56fc44c3"
+        "src": "/assets/runtime/variants/vf_clinic_1000_finishing_o270.png",
+        "width": 612,
+        "height": 864,
+        "sha256": "85fb32e50284bfecd3ffc3321a666c173e34a523dbc2c615bc9da8a1ce3b5f31"
       },
       "pivot": {
-        "x": 0.5223,
-        "y": 0.6714
+        "x": 0.5801,
+        "y": 0.7074
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:construction:finishing:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_finishing_o90.png",
-        "width": 750,
-        "height": 1129,
-        "sha256": "7d3528b93ad8068abd6c965852a499e8235e525cf28e9da66d7e043d0799e733"
+        "src": "/assets/runtime/variants/vf_clinic_1000_finishing_o90.png",
+        "width": 636,
+        "height": 852,
+        "sha256": "cde2c3389554515d8a6105b21e95a70d209de7ea32e682d8a9927c795bf78b35"
       },
       "pivot": {
-        "x": 0.6233,
-        "y": 0.7217
+        "x": 0.5582,
+        "y": 0.7033
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:construction:foundation:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_foundation.png",
-        "width": 969,
-        "height": 494,
-        "sha256": "d7eca1ed6d9085a672c0eeba60d2b0498233c0057f2c24cb0f838235de8235bf"
+        "src": "/assets/runtime/variants/vf_clinic_1000_foundation.png",
+        "width": 594,
+        "height": 485,
+        "sha256": "e9e3ed09de9d4beb91eaef3739c1ef40a73c1f2d9cb79af5bd395da3983b9c00"
       },
       "pivot": {
-        "x": 0.5599,
-        "y": 0.5168
+        "x": 0.5682,
+        "y": 0.5987
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:construction:foundation:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_foundation_o180.png",
-        "width": 969,
-        "height": 494,
-        "sha256": "1c279d533c61898b0c8799a1a20fe1451c8f36818271a669bc19a41ff0b21e26"
+        "src": "/assets/runtime/variants/vf_clinic_1000_foundation_o180.png",
+        "width": 594,
+        "height": 485,
+        "sha256": "0952c2ca2655107b63d6a2803bf240b6dcddb05167e18b75761c6b42bf256387"
       },
       "pivot": {
-        "x": 0.5722,
-        "y": 0.5046
+        "x": 0.5682,
+        "y": 0.5987
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:construction:foundation:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_foundation_o270.png",
-        "width": 969,
-        "height": 494,
-        "sha256": "3c5cd57ea167c3f47c0dcc5fac860b6840460419653bd83181575abc82009b1f"
+        "src": "/assets/runtime/variants/vf_clinic_1000_foundation_o270.png",
+        "width": 594,
+        "height": 485,
+        "sha256": "00bf578d7b7697f3e207c6a29a365eb9ae0e88f0b8d540d122f123bbc18ddac0"
       },
       "pivot": {
-        "x": 0.5599,
-        "y": 0.5046
+        "x": 0.5682,
+        "y": 0.5987
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:construction:foundation:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_foundation_o90.png",
-        "width": 969,
-        "height": 494,
-        "sha256": "8e67ebc7fedf4e6c1cada411b0e45211bcb6a2c32bee7158db0578239ab4946e"
+        "src": "/assets/runtime/variants/vf_clinic_1000_foundation_o90.png",
+        "width": 594,
+        "height": 485,
+        "sha256": "2a4c60db328ef49df7a7ec408659f9f7dd6a439f1d3876b3c30f0584285bdd97"
       },
       "pivot": {
-        "x": 0.5722,
-        "y": 0.5168
+        "x": 0.5682,
+        "y": 0.5987
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:complete:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_o180.png",
-        "width": 709,
-        "height": 935,
-        "sha256": "c2242492cdbcc21bc0c00d60310b3a4ecaf4a0f5ee6fb0cb13f393ac53b3bf66"
+        "src": "/assets/runtime/variants/vf_clinic_1000_o180.png",
+        "width": 623,
+        "height": 858,
+        "sha256": "63df66bdf74cd54ae2052e8372359d9b0abeae4a282c0160f8eb1d689260b566"
       },
       "pivot": {
-        "x": 0.6368,
-        "y": 0.6729
+        "x": 0.561,
+        "y": 0.7085
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:complete:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_o270.png",
-        "width": 879,
-        "height": 935,
-        "sha256": "c194afdea27b3461cf5fa55c2688be2c7c1a00852b4f65e07a16bfc722a1bbfc"
+        "src": "/assets/runtime/variants/vf_clinic_1000_o270.png",
+        "width": 607,
+        "height": 858,
+        "sha256": "b6a09d2d9431f1315a31742b63f2db41cb8ec143e2b6ffb7bc7e13200d6bcf13"
       },
       "pivot": {
-        "x": 0.5137,
-        "y": 0.6729
+        "x": 0.5758,
+        "y": 0.7085
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:complete:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_o90.png",
-        "width": 709,
-        "height": 1112,
-        "sha256": "73ed599a7a390922b3c27fb51beecb51a57c9fadfe473f0e5bbe9fc9e450f055"
+        "src": "/assets/runtime/variants/vf_clinic_1000_o90.png",
+        "width": 622,
+        "height": 849,
+        "sha256": "59580773c8a444fd81045b998f24ad8a04e368bf3965192241a42bbec46df631"
       },
       "pivot": {
-        "x": 0.6368,
-        "y": 0.725
+        "x": 0.5619,
+        "y": 0.7054
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:construction:structure:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_structure.png",
-        "width": 910,
-        "height": 831,
-        "sha256": "e0257b2a96da00d6307840a7f1d03da8f76c92afed344d4a086f7f9e57c42b99"
+        "src": "/assets/runtime/variants/vf_clinic_1000_structure.png",
+        "width": 627,
+        "height": 689,
+        "sha256": "d8320699b150c0d1125206d0ea4673bfdcc43005ae9edf1e8395238495da4668"
       },
       "pivot": {
-        "x": 0.5313,
-        "y": 0.6486
+        "x": 0.5917,
+        "y": 0.6581
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:construction:structure:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_structure_o180.png",
-        "width": 791,
-        "height": 746,
-        "sha256": "46c53843f2586b9c87a1dd786876725ccabb13277b7e447dc61b86a8390bd222"
+        "src": "/assets/runtime/variants/vf_clinic_1000_structure_o180.png",
+        "width": 678,
+        "height": 689,
+        "sha256": "01057521c6b50cfa150b070da3a3f662c38f43b7289b7a40e236890312b204bf"
       },
       "pivot": {
-        "x": 0.6113,
-        "y": 0.6086
+        "x": 0.5472,
+        "y": 0.6581
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:construction:structure:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_structure_o270.png",
-        "width": 935,
-        "height": 759,
-        "sha256": "89b4c517e414b8df35bfadb8132e13801cefb8d3fc52c27f2a24500e251555ef"
+        "src": "/assets/runtime/variants/vf_clinic_1000_structure_o270.png",
+        "width": 652,
+        "height": 702,
+        "sha256": "24eb2d62e64fa60d5bda6fb78672498e87506eaf86646dc3631d054110f9efe8"
       },
       "pivot": {
-        "x": 0.5171,
-        "y": 0.6153
+        "x": 0.569,
+        "y": 0.6644
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "clinic:construction:structure:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_clinic_1003_structure_o90.png",
-        "width": 765,
-        "height": 818,
-        "sha256": "e20c00a1c04bbb0e575de51a651013a0d2c78e5835d6324a222d3c7c5b059907"
+        "src": "/assets/runtime/variants/vf_clinic_1000_structure_o90.png",
+        "width": 652,
+        "height": 677,
+        "sha256": "67cbfad77d9decfc5b6268071f8a6d23b68222da5453c02645b90be83ade3551"
       },
       "pivot": {
-        "x": 0.632,
-        "y": 0.643
+        "x": 0.569,
+        "y": 0.652
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
@@ -2648,1056 +2648,1056 @@
     "fire_station:complete:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003.png",
-        "width": 1081,
-        "height": 1190,
-        "sha256": "1a8bf40ec1c8a2dd110df6d607f019bc3843f197b421f91f08f6fc1aa54f03ba"
+        "src": "/assets/runtime/variants/vf_fire_station_1000.png",
+        "width": 799,
+        "height": 946,
+        "sha256": "7aa53e1a70e6c513ef6624547cf35c73a3d72b915b4ef242825e520301f02c75"
       },
       "pivot": {
-        "x": 0.5264,
-        "y": 0.6977
+        "x": 0.5713,
+        "y": 0.679
       },
       "footprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:burning:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_burning.png",
-        "width": 1109,
-        "height": 1219,
-        "sha256": "36b19ec364de4ff11eaeb5262f3e6e3eb7aeb5e11567bebf81e7a4d4bfccb41b"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_burning.png",
+        "width": 826,
+        "height": 960,
+        "sha256": "cb51c1fe50c92c7e1e0fc544834a5a80d8998efa5aa4d2060faee6e1d163fbaf"
       },
       "pivot": {
-        "x": 0.5383,
-        "y": 0.6931
+        "x": 0.5866,
+        "y": 0.6691
       },
       "footprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:burning:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_burning_o180.png",
-        "width": 990,
-        "height": 1042,
-        "sha256": "a9b5ea32a09269d089af39471e6d1d034331facae8f82ead306b0fbca86e9c94"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_burning_o180.png",
+        "width": 878,
+        "height": 985,
+        "sha256": "fbd6f2b8d6854037d5d9f125933d4a0bb542035137da710387ac6eab3befcf11"
       },
       "pivot": {
-        "x": 0.603,
-        "y": 0.641
+        "x": 0.5518,
+        "y": 0.6775
       },
       "footprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:burning:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_burning_o270.png",
-        "width": 1110,
-        "height": 1042,
-        "sha256": "c5eb6efbac96bc14c54b7bd56cba02b2916f63cc2b35480fafc69da2589bca12"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_burning_o270.png",
+        "width": 827,
+        "height": 985,
+        "sha256": "018c5cf87684bc4acc82cc7f03373faa7a4858a413a5bbc32c6cc3ddcb66bb01"
       },
       "pivot": {
-        "x": 0.5378,
-        "y": 0.641
+        "x": 0.5859,
+        "y": 0.6775
       },
       "footprint": {
-        "width": 2,
-        "height": 4
+        "width": 1,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:burning:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_burning_o90.png",
-        "width": 990,
-        "height": 1219,
-        "sha256": "7ca26985541f5244f69e7f01f5a85c48f2cd7e2f9847895434784425f1c0a0c1"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_burning_o90.png",
+        "width": 877,
+        "height": 959,
+        "sha256": "ba903db16739d3451def857d58efac99da636c153167e22f6abd1206f8f13bc3"
       },
       "pivot": {
-        "x": 0.603,
-        "y": 0.6931
+        "x": 0.5525,
+        "y": 0.6687
       },
       "footprint": {
-        "width": 2,
-        "height": 4
+        "width": 1,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:damaged:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_damaged.png",
-        "width": 1109,
-        "height": 1219,
-        "sha256": "10e6c006629bb236fe119fdacdca4c986f79c2b845f1d5ed488fb49882680470"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_damaged.png",
+        "width": 826,
+        "height": 960,
+        "sha256": "a89c6fac22e3794b97b3c15dab2b7c53b777c1eff93c8796f8fcf0860c452236"
       },
       "pivot": {
-        "x": 0.5383,
-        "y": 0.6931
+        "x": 0.5866,
+        "y": 0.6691
       },
       "footprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:damaged:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_damaged_o180.png",
-        "width": 990,
-        "height": 1042,
-        "sha256": "bc90197a958c5dca5df3dc592c5740c260194732d5022f9eb2a09eebcfea32d0"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_damaged_o180.png",
+        "width": 878,
+        "height": 985,
+        "sha256": "239ff3d745b09b8f158fae02b9f04e6c56bdbe4404c330ff8a10860d9c8d5d1a"
       },
       "pivot": {
-        "x": 0.603,
-        "y": 0.641
+        "x": 0.5518,
+        "y": 0.6775
       },
       "footprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:damaged:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_damaged_o270.png",
-        "width": 1110,
-        "height": 1042,
-        "sha256": "58ac43da873bff73ccb03fd5975cddb2c42b8632e9373ff8b967ab677d6250f8"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_damaged_o270.png",
+        "width": 827,
+        "height": 985,
+        "sha256": "bb7c30fabe568974c970b801b329f3692b131f4eed8664ab85ad087bea420e98"
       },
       "pivot": {
-        "x": 0.5378,
-        "y": 0.641
+        "x": 0.5859,
+        "y": 0.6775
       },
       "footprint": {
-        "width": 2,
-        "height": 4
+        "width": 1,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:damaged:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_damaged_o90.png",
-        "width": 990,
-        "height": 1219,
-        "sha256": "ffac29d835e084e1244df86bd61ec3d342efd657728969868dc3408f0ca968d9"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_damaged_o90.png",
+        "width": 877,
+        "height": 959,
+        "sha256": "c412101cb75f3956b40b2999d7a07d47b9550d492ba9fbe98c7cbc840ffad22a"
       },
       "pivot": {
-        "x": 0.603,
-        "y": 0.6931
+        "x": 0.5525,
+        "y": 0.6687
       },
       "footprint": {
-        "width": 2,
-        "height": 4
+        "width": 1,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:construction:finishing:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_finishing.png",
-        "width": 1093,
-        "height": 1202,
-        "sha256": "ede094dcd9700787ec69916418a73e4c62dccbc3b8c2f13e2437872c14925712"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_finishing.png",
+        "width": 810,
+        "height": 951,
+        "sha256": "a11af2c3173bf945aaf2c4de6ad8230ab359e5ee9525eeb9361677145a7105df"
       },
       "pivot": {
-        "x": 0.5306,
-        "y": 0.6958
+        "x": 0.5772,
+        "y": 0.6749
       },
       "footprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:construction:finishing:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_finishing_o180.png",
-        "width": 947,
-        "height": 1020,
-        "sha256": "063582e59e5b8acb307f47ae2d90bc120dae7be04757106672ee402a03c85116"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_finishing_o180.png",
+        "width": 835,
+        "height": 964,
+        "sha256": "98ec4ea382f14204c57fb0e42b3970adea76209e1997d59ef316dfa636750548"
       },
       "pivot": {
-        "x": 0.6125,
-        "y": 0.6416
+        "x": 0.5599,
+        "y": 0.6792
       },
       "footprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:construction:finishing:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_finishing_o270.png",
-        "width": 1093,
-        "height": 1020,
-        "sha256": "bfe2d1c2c58345308f490873ca4cae832545225b963bc84a264413f6aed117b3"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_finishing_o270.png",
+        "width": 810,
+        "height": 964,
+        "sha256": "ade053ae5a3a085ad53675de7b7002730e22a49fbd96b73f6fa0c8fee4144796"
       },
       "pivot": {
-        "x": 0.5306,
-        "y": 0.6416
+        "x": 0.5772,
+        "y": 0.6792
       },
       "footprint": {
-        "width": 2,
-        "height": 4
+        "width": 1,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:construction:finishing:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_finishing_o90.png",
-        "width": 947,
-        "height": 1202,
-        "sha256": "e50d99f386620b006d53ae309417f4d46a5c3bbf29c8c14e5a8fe4e39e070ef7"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_finishing_o90.png",
+        "width": 835,
+        "height": 951,
+        "sha256": "8da3236aaf72258e123d5863cd08c1a156d90c1a5410ecac4e38d70e53b4ea4a"
       },
       "pivot": {
-        "x": 0.6125,
-        "y": 0.6958
+        "x": 0.5599,
+        "y": 0.6749
       },
       "footprint": {
-        "width": 2,
-        "height": 4
+        "width": 1,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:construction:foundation:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_foundation.png",
-        "width": 1178,
-        "height": 777,
-        "sha256": "1668d268284a748f72b3c02e2a0c7f13afc4acbdfd087e3f473118e70a2bd12f"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_foundation.png",
+        "width": 790,
+        "height": 411,
+        "sha256": "2010c3c228a027e8ae0eb47284270001599ee3774fb3fb18f783569318a5072e"
       },
       "pivot": {
-        "x": 0.5662,
-        "y": 0.5378
+        "x": 0.569,
+        "y": 0.5165
       },
       "footprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:construction:foundation:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_foundation_o180.png",
-        "width": 1167,
-        "height": 771,
-        "sha256": "220ad524c686129bb901e7934dfc4077d0232788457ad70484358bcd1d61403a"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_foundation_o180.png",
+        "width": 790,
+        "height": 411,
+        "sha256": "c8bf326c2a2c38f2fe766557f3314f66d62b6ddc7bde1b6af4312cb96b9b7891"
       },
       "pivot": {
-        "x": 0.5716,
-        "y": 0.5342
+        "x": 0.569,
+        "y": 0.5165
       },
       "footprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:construction:foundation:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_foundation_o270.png",
-        "width": 1178,
-        "height": 771,
-        "sha256": "5d701653e71b39958bf76bd0b9449b8c963ba06d887552bff3c006500c7e68b3"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_foundation_o270.png",
+        "width": 790,
+        "height": 411,
+        "sha256": "afbf63ea503c87fe71a8e09ecd32eee0d190717c78e48e5740b7b51960f20823"
       },
       "pivot": {
-        "x": 0.5662,
-        "y": 0.5342
+        "x": 0.569,
+        "y": 0.5165
       },
       "footprint": {
-        "width": 2,
-        "height": 4
+        "width": 1,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:construction:foundation:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_foundation_o90.png",
-        "width": 1167,
-        "height": 777,
-        "sha256": "1a0f85dc88f939bbebe25d6fd7bb991b6c63ceb03bec538f6665dc4e9b1ec7b8"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_foundation_o90.png",
+        "width": 790,
+        "height": 411,
+        "sha256": "9ebc150f2685abf33cc8ded5c45de48ce99053303d1dc75a5fafdf9393f49396"
       },
       "pivot": {
-        "x": 0.5716,
-        "y": 0.5378
+        "x": 0.569,
+        "y": 0.5165
       },
       "footprint": {
-        "width": 2,
-        "height": 4
+        "width": 1,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:complete:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_o180.png",
-        "width": 919,
-        "height": 1005,
-        "sha256": "8187b593ddfc0375f0dcfdfdd28c39a2fc92661fd8adc5d1e7bb85193d8cbb89"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_o180.png",
+        "width": 807,
+        "height": 950,
+        "sha256": "008e9f00c713a76f4d66c08f10f5cf5214e96549071a38562bf8f0cb1b7199a9"
       },
       "pivot": {
-        "x": 0.6192,
-        "y": 0.642
+        "x": 0.5657,
+        "y": 0.6804
       },
       "footprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:complete:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_o270.png",
-        "width": 1081,
-        "height": 1005,
-        "sha256": "b98959032000ea11a9435856054c67078cd1a6dc7bf044eb582baeb33feea9d6"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_o270.png",
+        "width": 799,
+        "height": 950,
+        "sha256": "40a469db25478197a29997616f077762184ac8d5d2adc74a2c287976ce1b7c8b"
       },
       "pivot": {
-        "x": 0.5264,
-        "y": 0.642
+        "x": 0.5713,
+        "y": 0.6804
       },
       "footprint": {
-        "width": 2,
-        "height": 4
+        "width": 1,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:complete:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_o90.png",
-        "width": 919,
-        "height": 1190,
-        "sha256": "da307ad045e36bef8bc7efaf5be2e1972bff8f1002170e294c2a23e10d055d49"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_o90.png",
+        "width": 807,
+        "height": 946,
+        "sha256": "d5a711b183fb29a1394856fcd67befbb82a0c171e5c96aaa613dd448cf9c0222"
       },
       "pivot": {
-        "x": 0.6192,
-        "y": 0.6977
+        "x": 0.5657,
+        "y": 0.679
       },
       "footprint": {
-        "width": 2,
-        "height": 4
+        "width": 1,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:construction:structure:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_structure.png",
-        "width": 1107,
-        "height": 930,
-        "sha256": "5815fff7402e888fcd05b4616a165379bb38dddc37640c70fb0874bf9e8446f0"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_structure.png",
+        "width": 825,
+        "height": 789,
+        "sha256": "9e1d24dd2eeca5ef6a64d093b22d80b76e1847c3b2cea0e4d8e9ca1d41350ed2"
       },
       "pivot": {
-        "x": 0.5384,
-        "y": 0.6258
+        "x": 0.5861,
+        "y": 0.6299
       },
       "footprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:construction:structure:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_structure_o180.png",
-        "width": 988,
-        "height": 845,
-        "sha256": "cb21c97e97a5d5a9b93b5b1bf6201658f87f9908313df01dc51426e0b7625e44"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_structure_o180.png",
+        "width": 876,
+        "height": 789,
+        "sha256": "250daf4c3476f9935ada18dada446f33eae1ed23fa8b21614f396a7c59220dad"
       },
       "pivot": {
-        "x": 0.6032,
-        "y": 0.5882
+        "x": 0.5519,
+        "y": 0.6299
       },
       "footprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:construction:structure:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_structure_o270.png",
-        "width": 1133,
-        "height": 857,
-        "sha256": "80ca16261feaba8aa12ff05cd25d633bbfec323f58c5ed74fb94ffc40b166c0b"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_structure_o270.png",
+        "width": 850,
+        "height": 801,
+        "sha256": "c108df73df67c728df2e10fa5d14a7aca1519e76ece96d841282c0a628b3bbee"
       },
       "pivot": {
-        "x": 0.526,
-        "y": 0.5939
+        "x": 0.5688,
+        "y": 0.6354
       },
       "footprint": {
-        "width": 2,
-        "height": 4
+        "width": 1,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "fire_station:construction:structure:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_fire_station_1003_structure_o90.png",
-        "width": 963,
-        "height": 917,
-        "sha256": "819a6e3f093ca44f4eac57bfa793fd6f0a347f3f700634b539358f788428dc0f"
+        "src": "/assets/runtime/variants/vf_fire_station_1000_structure_o90.png",
+        "width": 850,
+        "height": 776,
+        "sha256": "1becbc38912a39ac584711ff848382c2043991641b7e8285ec099409f0b4d8f2"
       },
       "pivot": {
-        "x": 0.6189,
-        "y": 0.6205
+        "x": 0.5688,
+        "y": 0.6237
       },
       "footprint": {
-        "width": 2,
-        "height": 4
+        "width": 1,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 4,
-        "height": 2
+        "width": 3,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:complete:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000.png",
-        "width": 1285,
-        "height": 1308,
-        "sha256": "6f103dee830c4cf6f872deb0d280d4aafa0e0494ab1039e9ed50599805780a1b"
+        "src": "/assets/runtime/variants/vf_market_hall_1000.png",
+        "width": 1002,
+        "height": 1175,
+        "sha256": "c4bfc3d908b67b1d6794df09f70d04cf7e676b3ce5f23aa3d8f8793b4fed1551"
       },
       "pivot": {
-        "x": 0.5346,
-        "y": 0.6799
+        "x": 0.5734,
+        "y": 0.6914
       },
       "footprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:burning:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_burning.png",
-        "width": 1307,
-        "height": 1331,
-        "sha256": "337c42d8d96571f82986dce805ff1ecb467afb42ce6be743a2d6eb9fce6e6fdd"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_burning.png",
+        "width": 1024,
+        "height": 1187,
+        "sha256": "0908a38ed899e9246dde4c841bc95be01b99b32a17a5c1b80f73e308b350e8c6"
       },
       "pivot": {
-        "x": 0.5428,
-        "y": 0.6768
+        "x": 0.583,
+        "y": 0.6849
       },
       "footprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:burning:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_burning_o180.png",
-        "width": 1188,
-        "height": 1331,
-        "sha256": "3400193588c958d2b4eeeee221c475ff6666a1ba48f61d2498bf8e23f4373855"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_burning_o180.png",
+        "width": 1075,
+        "height": 1219,
+        "sha256": "4f8e0b327802f856e22823a58b30226f46b2756173663ff7893488b97eafe3fb"
       },
       "pivot": {
-        "x": 0.5972,
-        "y": 0.6768
+        "x": 0.5553,
+        "y": 0.6931
       },
       "footprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:burning:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_burning_o270.png",
-        "width": 1307,
-        "height": 1331,
-        "sha256": "f8ddc4ed807051a58755f0e3bf53196047a5260176478b59231d7c16147afd40"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_burning_o270.png",
+        "width": 1025,
+        "height": 1219,
+        "sha256": "fb3f01e6c87eec077bd65af74a322f57bf30e1c309df8f484eadd9506f2b127f"
       },
       "pivot": {
-        "x": 0.5428,
-        "y": 0.6768
+        "x": 0.5824,
+        "y": 0.6931
       },
       "footprint": {
-        "width": 2,
-        "height": 5
+        "width": 1,
+        "height": 4
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:burning:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_burning_o90.png",
-        "width": 1187,
-        "height": 1331,
-        "sha256": "abe3ace19d07cfaa40f4f92921c463e494288626f3b778b5122995e1f0fe9fc9"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_burning_o90.png",
+        "width": 1075,
+        "height": 1185,
+        "sha256": "6e112e18aaa81608a1ed1af79d533f0f790d13633412ad51af46bb92f7cf341b"
       },
       "pivot": {
-        "x": 0.5977,
-        "y": 0.6768
+        "x": 0.5553,
+        "y": 0.6843
       },
       "footprint": {
-        "width": 2,
-        "height": 5
+        "width": 1,
+        "height": 4
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:damaged:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_damaged.png",
-        "width": 1307,
-        "height": 1331,
-        "sha256": "0f89a506983e18a3edcb509386adaf8f390c653fd3c7999e40ee518b59450a40"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_damaged.png",
+        "width": 1024,
+        "height": 1187,
+        "sha256": "7e8aced7d8c9c7eb716fda3c3bf216244646cde982070a175679c700f2da0447"
       },
       "pivot": {
-        "x": 0.5428,
-        "y": 0.6768
+        "x": 0.583,
+        "y": 0.6849
       },
       "footprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:damaged:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_damaged_o180.png",
-        "width": 1188,
-        "height": 1331,
-        "sha256": "4ebc9618c622a2cb45dd22895b8f3c2cd66612de2d56fe1dbe42072ec3979ee7"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_damaged_o180.png",
+        "width": 1075,
+        "height": 1219,
+        "sha256": "2f67ef7393b523363be06eb89facceb01a9fddcb6f244695699c930904ab360a"
       },
       "pivot": {
-        "x": 0.5972,
-        "y": 0.6768
+        "x": 0.5553,
+        "y": 0.6931
       },
       "footprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:damaged:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_damaged_o270.png",
-        "width": 1307,
-        "height": 1331,
-        "sha256": "655e4e9e5fa7987f97d9baf2ccba81c9c3c415e2ebbd9d27f885d9bd0daad80a"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_damaged_o270.png",
+        "width": 1025,
+        "height": 1219,
+        "sha256": "7ca5a1db6ceeae729040b261d5b40137a44285d5a4fec801f85db2b56d19c80b"
       },
       "pivot": {
-        "x": 0.5428,
-        "y": 0.6768
+        "x": 0.5824,
+        "y": 0.6931
       },
       "footprint": {
-        "width": 2,
-        "height": 5
+        "width": 1,
+        "height": 4
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:damaged:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_damaged_o90.png",
-        "width": 1187,
-        "height": 1331,
-        "sha256": "d89269335e3bf7aa512fbc6bf113334694c8acc0e4b3ffea163095dfbda10224"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_damaged_o90.png",
+        "width": 1075,
+        "height": 1185,
+        "sha256": "b8531a1e9cd0699f5d965dea60adfecb636eeb7e4193f11f404f1ee6e3c48711"
       },
       "pivot": {
-        "x": 0.5977,
-        "y": 0.6768
+        "x": 0.5553,
+        "y": 0.6843
       },
       "footprint": {
-        "width": 2,
-        "height": 5
+        "width": 1,
+        "height": 4
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:construction:finishing:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_finishing.png",
-        "width": 1290,
-        "height": 1314,
-        "sha256": "d84016072459e4f6d433734fa6bc17560cc9c6d7e99fba4177efd205a77b3c64"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_finishing.png",
+        "width": 1008,
+        "height": 1179,
+        "sha256": "e52f92fc7c02749f7de9f4ec902f123a8e94a4e56603bada42eeab3b65e28d58"
       },
       "pivot": {
-        "x": 0.5368,
-        "y": 0.6791
+        "x": 0.5754,
+        "y": 0.6899
       },
       "footprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:construction:finishing:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_finishing_o180.png",
-        "width": 1145,
-        "height": 1314,
-        "sha256": "e0099b77acb4bb124cc5d5532fa9e88551d2ba9f145cbe92c02166c93669eb62"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_finishing_o180.png",
+        "width": 1032,
+        "height": 1202,
+        "sha256": "d7c85554739e31711dd5e936a38776c79da184bb2bebbe3a6eac40a38d70e3ea"
       },
       "pivot": {
-        "x": 0.6048,
-        "y": 0.6791
+        "x": 0.562,
+        "y": 0.6958
       },
       "footprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:construction:finishing:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_finishing_o270.png",
-        "width": 1290,
-        "height": 1314,
-        "sha256": "a8107accb3c271d65db982ebebb2b687fd6e518054610ee091e6c1c4c4675bcd"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_finishing_o270.png",
+        "width": 1008,
+        "height": 1202,
+        "sha256": "670945e9afd83cf3d96818f18dbead479b657868839f97b2e101e0ca49d01d56"
       },
       "pivot": {
-        "x": 0.5368,
-        "y": 0.6791
+        "x": 0.5754,
+        "y": 0.6958
       },
       "footprint": {
-        "width": 2,
-        "height": 5
+        "width": 1,
+        "height": 4
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:construction:finishing:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_finishing_o90.png",
-        "width": 1145,
-        "height": 1314,
-        "sha256": "09db2ead7aef61eaa446962db4e0dada1612e3c1d8a0fda2b1277a9bb0f846e9"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_finishing_o90.png",
+        "width": 1032,
+        "height": 1179,
+        "sha256": "3d4bec1d766c142d8093d6524f86e1757ff84d2224385a6240cada51c8e16603"
       },
       "pivot": {
-        "x": 0.6048,
-        "y": 0.6791
+        "x": 0.562,
+        "y": 0.6899
       },
       "footprint": {
-        "width": 2,
-        "height": 5
+        "width": 1,
+        "height": 4
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:construction:foundation:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_foundation.png",
-        "width": 1323,
-        "height": 671,
-        "sha256": "f462ac681471197b89ee9fb68b3cd39168391071f790f1fcfec54f2157cb5c9a"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_foundation.png",
+        "width": 981,
+        "height": 500,
+        "sha256": "554e42aa664ce8a288f29bbf76ea227a5968bfe237a8edf666169845eccc85c1"
       },
       "pivot": {
-        "x": 0.5495,
-        "y": 0.5064
+        "x": 0.5657,
+        "y": 0.5105
       },
       "footprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:construction:foundation:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_foundation_o180.png",
-        "width": 1325,
-        "height": 671,
-        "sha256": "52fdc7daa46db9f4e30eddddc99bbe6e8f3f6149dd276175c774e23e45c71358"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_foundation_o180.png",
+        "width": 981,
+        "height": 500,
+        "sha256": "8e76028601c09a74379f4babf6f01429e6663bd99d2eda64c9677505c8e6fd85"
       },
       "pivot": {
-        "x": 0.5585,
-        "y": 0.4974
+        "x": 0.5657,
+        "y": 0.5105
       },
       "footprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:construction:foundation:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_foundation_o270.png",
-        "width": 1323,
-        "height": 671,
-        "sha256": "e424d8ffa86683da6c3f9cac3d76bab5f298caac90a9d9fed41ccb28d8941eef"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_foundation_o270.png",
+        "width": 981,
+        "height": 500,
+        "sha256": "59b730686569ac17c9d665eafeeaf694d8c54a390d1f33e9dae4d4dcbe65db1f"
       },
       "pivot": {
-        "x": 0.5495,
-        "y": 0.4974
+        "x": 0.5657,
+        "y": 0.5105
       },
       "footprint": {
-        "width": 2,
-        "height": 5
+        "width": 1,
+        "height": 4
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:construction:foundation:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_foundation_o90.png",
-        "width": 1325,
-        "height": 671,
-        "sha256": "f03fadd2b447e7842c494d939fc647df814e653dc6a365ccd3e1f513a4b78d30"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_foundation_o90.png",
+        "width": 981,
+        "height": 500,
+        "sha256": "8590df997ca4003815285a9b3c02b41b29685d3c02544de412d88b9f7728ca03"
       },
       "pivot": {
-        "x": 0.5585,
-        "y": 0.5064
+        "x": 0.5657,
+        "y": 0.5105
       },
       "footprint": {
-        "width": 2,
-        "height": 5
+        "width": 1,
+        "height": 4
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:complete:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_o180.png",
-        "width": 1131,
-        "height": 1308,
-        "sha256": "dfb3661d13a74a9caae7766f38928b027ae8b93e47141d2ed68f8a5290f862dd"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_o180.png",
+        "width": 1018,
+        "height": 1196,
+        "sha256": "4a152ee401ef5252e292204f72b3095cfcb602ffabaf165239466844b55f0ef2"
       },
       "pivot": {
-        "x": 0.6074,
-        "y": 0.6799
+        "x": 0.5643,
+        "y": 0.6968
       },
       "footprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:complete:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_o270.png",
-        "width": 1285,
-        "height": 1308,
-        "sha256": "34c0537ddf9277547fe7c48f6773dc92a2e17ca63c0e3c5e19b278ad7bb3e64f"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_o270.png",
+        "width": 1002,
+        "height": 1196,
+        "sha256": "6ab85e005c13c2357731c8772a576d38b63ffa2df41ab8b9ea95f184a23d3add"
       },
       "pivot": {
-        "x": 0.5346,
-        "y": 0.6799
+        "x": 0.5734,
+        "y": 0.6968
       },
       "footprint": {
-        "width": 2,
-        "height": 5
+        "width": 1,
+        "height": 4
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:complete:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_o90.png",
-        "width": 1131,
-        "height": 1308,
-        "sha256": "92d3c790c45ac8afbb07650aeeed4b0b9435aaeb07d1411239b40f04bb2162a4"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_o90.png",
+        "width": 1018,
+        "height": 1175,
+        "sha256": "87204b9812a279c8c60587e50c679de0b16c50b783d3c31401a1df028783daeb"
       },
       "pivot": {
-        "x": 0.6074,
-        "y": 0.6799
+        "x": 0.5643,
+        "y": 0.6914
       },
       "footprint": {
-        "width": 2,
-        "height": 5
+        "width": 1,
+        "height": 4
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:construction:structure:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_structure.png",
-        "width": 1305,
-        "height": 1028,
-        "sha256": "09e45578fe6057fd110c0ff7d65f0a25988c5666176ba20a5519a2b5bfce79cc"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_structure.png",
+        "width": 1022,
+        "height": 887,
+        "sha256": "b4a4605bc3a70c245ac6912319e888a0787dede218200d90a409c6302fe7532e"
       },
       "pivot": {
-        "x": 0.5429,
-        "y": 0.607
+        "x": 0.5832,
+        "y": 0.6077
       },
       "footprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:construction:structure:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_structure_o180.png",
-        "width": 1186,
-        "height": 943,
-        "sha256": "4d02799e599b48d10c87a8d88134c5fd2197d16775e629ba0794312fcd9e6ff4"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_structure_o180.png",
+        "width": 1073,
+        "height": 887,
+        "sha256": "29444273f0de23340f1049cc26ad9ec3d0ca63cac407156e9d945a4bbbef9a11"
       },
       "pivot": {
-        "x": 0.5974,
-        "y": 0.5716
+        "x": 0.5555,
+        "y": 0.6077
       },
       "footprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:construction:structure:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_structure_o270.png",
-        "width": 1331,
-        "height": 956,
-        "sha256": "e769bb92874e1287604639594fce21d3beb86e30019aac99e9e8639f72be0e6b"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_structure_o270.png",
+        "width": 1048,
+        "height": 900,
+        "sha256": "c4917cb95ccf3945737ab8420aa29ca3fa177ac56a944c0cd3c3bfff00dcbf83"
       },
       "pivot": {
-        "x": 0.5323,
-        "y": 0.5774
+        "x": 0.5687,
+        "y": 0.6133
       },
       "footprint": {
-        "width": 2,
-        "height": 5
+        "width": 1,
+        "height": 4
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "market_hall:construction:structure:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_market_hall_1000_structure_o90.png",
-        "width": 1160,
-        "height": 1016,
-        "sha256": "dc55aea0854c5b2d66fc60291b45c132ce52b7da75d2baeabd4fb1b89838dee5"
+        "src": "/assets/runtime/variants/vf_market_hall_1000_structure_o90.png",
+        "width": 1048,
+        "height": 874,
+        "sha256": "a8a5b20e07c9576ba3980548ca1a073648c17b128fc137e6bc912606c5b2bf7e"
       },
       "pivot": {
-        "x": 0.6108,
-        "y": 0.6024
+        "x": 0.5687,
+        "y": 0.6018
       },
       "footprint": {
-        "width": 2,
-        "height": 5
+        "width": 1,
+        "height": 4
       },
       "domainFootprint": {
-        "width": 5,
-        "height": 2
+        "width": 4,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
@@ -4232,528 +4232,528 @@
     "police_station:complete:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002.png",
-        "width": 937,
-        "height": 896,
-        "sha256": "15a12df0bd32b5dff3bc9747c408b585cb9f0d30011c66162de3d4255d7702ad"
+        "src": "/assets/runtime/variants/vf_police_station_1000.png",
+        "width": 617,
+        "height": 741,
+        "sha256": "a3c44097908909da8dcf598e2ab8fda1d8de697e102bda8b23e6dfd0c111faea"
       },
       "pivot": {
-        "x": 0.5454,
-        "y": 0.6494
+        "x": 0.5859,
+        "y": 0.6773
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:burning:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_burning.png",
-        "width": 937,
-        "height": 896,
-        "sha256": "3acdc1d09a6f54653d6dd0f7ad99b2e39104a8f92bf48d581524b2cda9110cb4"
+        "src": "/assets/runtime/variants/vf_police_station_1000_burning.png",
+        "width": 639,
+        "height": 752,
+        "sha256": "771b7e129791c313fbf98c7e01c0c32d9c3413a94b40fbd32af2511bd6f649ab"
       },
       "pivot": {
-        "x": 0.5454,
-        "y": 0.6494
+        "x": 0.5994,
+        "y": 0.6675
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:burning:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_burning_o180.png",
-        "width": 860,
-        "height": 849,
-        "sha256": "5de5fd1f0ac520a79f9de5a3320784be983cf40b8e207ae039dd009211f3e3d7"
+        "src": "/assets/runtime/variants/vf_police_station_1000_burning_o180.png",
+        "width": 708,
+        "height": 769,
+        "sha256": "7b3cb31e5b9d2a7a199c4cf9530d3cffa1043559c2dd35b72e49fff6924008f8"
       },
       "pivot": {
-        "x": 0.5942,
-        "y": 0.63
+        "x": 0.541,
+        "y": 0.6749
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:burning:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_burning_o270.png",
-        "width": 945,
-        "height": 854,
-        "sha256": "9a42c555f8a18e8a0cd5ebe1d04540a4ffb93830a9989ce93349de9637df9f0e"
+        "src": "/assets/runtime/variants/vf_police_station_1000_burning_o270.png",
+        "width": 657,
+        "height": 778,
+        "sha256": "52acb68717a25d25b79e08956d926f4041641626a0fdf52949794e8c5f0b2846"
       },
       "pivot": {
-        "x": 0.5407,
-        "y": 0.6322
+        "x": 0.583,
+        "y": 0.6786
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:burning:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_burning_o90.png",
-        "width": 851,
-        "height": 892,
-        "sha256": "b2d0e235541e1ca3ae915fddc1b97d12908625c54a32f76126879a0cf5110b58"
+        "src": "/assets/runtime/variants/vf_police_station_1000_burning_o90.png",
+        "width": 690,
+        "height": 743,
+        "sha256": "e4854901d4975bbce59910d04afe97519995de1e977b2c7552c6f159e5e46aae"
       },
       "pivot": {
-        "x": 0.6005,
-        "y": 0.6479
+        "x": 0.5551,
+        "y": 0.6635
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:damaged:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_damaged.png",
-        "width": 937,
-        "height": 896,
-        "sha256": "04433e75dfb5ec09b195dff4af9102b2036d1007af5c08f54ab67c15c8be1e60"
+        "src": "/assets/runtime/variants/vf_police_station_1000_damaged.png",
+        "width": 639,
+        "height": 752,
+        "sha256": "6e451906ca9b8225aef32f9139053b7032516130994d392acd8ec43bc687beee"
       },
       "pivot": {
-        "x": 0.5454,
-        "y": 0.6494
+        "x": 0.5994,
+        "y": 0.6675
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:damaged:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_damaged_o180.png",
-        "width": 860,
-        "height": 849,
-        "sha256": "776250e029d8a953de49cf390c57d6cf2b34ffa44df430242a420111b4257375"
+        "src": "/assets/runtime/variants/vf_police_station_1000_damaged_o180.png",
+        "width": 708,
+        "height": 769,
+        "sha256": "0bf81e53c3d36a8dd840a0e130d99df447d7a60d5c11a44391b1ef7992747b1b"
       },
       "pivot": {
-        "x": 0.5942,
-        "y": 0.63
+        "x": 0.541,
+        "y": 0.6749
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:damaged:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_damaged_o270.png",
-        "width": 945,
-        "height": 854,
-        "sha256": "a2856303a067a667da738a04a93b7f2beb9d16e43d8e0c63394a917e65ba36fa"
+        "src": "/assets/runtime/variants/vf_police_station_1000_damaged_o270.png",
+        "width": 657,
+        "height": 778,
+        "sha256": "c436480be224b9de200293f553cff68a82b897ec6e1e22bb7d63d72424fc7688"
       },
       "pivot": {
-        "x": 0.5407,
-        "y": 0.6322
+        "x": 0.583,
+        "y": 0.6786
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:damaged:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_damaged_o90.png",
-        "width": 851,
-        "height": 892,
-        "sha256": "f00c07da1eb8da8686d7534e48f450a5b046a15c109a09e08a321375bf2b8eac"
+        "src": "/assets/runtime/variants/vf_police_station_1000_damaged_o90.png",
+        "width": 690,
+        "height": 743,
+        "sha256": "1b59fd7073a990c7d3cd0285b1661dd1512dbaee698a7fc7cf539afee679ea0e"
       },
       "pivot": {
-        "x": 0.6005,
-        "y": 0.6479
+        "x": 0.5551,
+        "y": 0.6635
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:construction:finishing:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_finishing.png",
-        "width": 937,
-        "height": 896,
-        "sha256": "11be45f20b280a3aa8b74683e9f0962a321a78291c859741e9857daf8235604b"
+        "src": "/assets/runtime/variants/vf_police_station_1000_finishing.png",
+        "width": 622,
+        "height": 744,
+        "sha256": "cc6767737ff42130ef79abfcd3fba2ea5eb6014aeb00f909c48e4b903d9cee57"
       },
       "pivot": {
-        "x": 0.5454,
-        "y": 0.6494
+        "x": 0.5884,
+        "y": 0.6753
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:construction:finishing:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_finishing_o180.png",
-        "width": 860,
-        "height": 849,
-        "sha256": "02e3d5069628a7e45d6f6d8443c42874f9ad61c51463fdb11a39903b92e722b1"
+        "src": "/assets/runtime/variants/vf_police_station_1000_finishing_o180.png",
+        "width": 666,
+        "height": 747,
+        "sha256": "3e1062d91580c88e1ef71eca3317e5e24b20b36a57ccbb319fd07e2fcca45730"
       },
       "pivot": {
-        "x": 0.5942,
-        "y": 0.63
+        "x": 0.5495,
+        "y": 0.6766
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:construction:finishing:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_finishing_o270.png",
-        "width": 945,
-        "height": 854,
-        "sha256": "ce4cad9f854a1c9ee930dca9501af90fc6c66b3c5fa1237c8a40e8779896590b"
+        "src": "/assets/runtime/variants/vf_police_station_1000_finishing_o270.png",
+        "width": 640,
+        "height": 757,
+        "sha256": "4254ef7227edbcc085083beb05fc25de416d995cdca765fbe8e2f611a2ff88a4"
       },
       "pivot": {
-        "x": 0.5407,
-        "y": 0.6322
+        "x": 0.5719,
+        "y": 0.6809
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:construction:finishing:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_finishing_o90.png",
-        "width": 851,
-        "height": 892,
-        "sha256": "15f6cdaa27d57ea8d77bc09ed2cfc8191484e6af9d25326ded1c0a50233435eb"
+        "src": "/assets/runtime/variants/vf_police_station_1000_finishing_o90.png",
+        "width": 647,
+        "height": 735,
+        "sha256": "5f65d0c5e1cf6453a31edc9d3dd7474e59e689038d428ad63c2272ef6d5f0714"
       },
       "pivot": {
-        "x": 0.6005,
-        "y": 0.6479
+        "x": 0.5657,
+        "y": 0.6713
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:construction:foundation:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_foundation.png",
-        "width": 969,
-        "height": 494,
-        "sha256": "d7eca1ed6d9085a672c0eeba60d2b0498233c0057f2c24cb0f838235de8235bf"
+        "src": "/assets/runtime/variants/vf_police_station_1000_foundation.png",
+        "width": 594,
+        "height": 485,
+        "sha256": "e9e3ed09de9d4beb91eaef3739c1ef40a73c1f2d9cb79af5bd395da3983b9c00"
       },
       "pivot": {
-        "x": 0.5599,
-        "y": 0.5168
+        "x": 0.5682,
+        "y": 0.5987
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:construction:foundation:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_foundation_o180.png",
-        "width": 969,
-        "height": 494,
-        "sha256": "1c279d533c61898b0c8799a1a20fe1451c8f36818271a669bc19a41ff0b21e26"
+        "src": "/assets/runtime/variants/vf_police_station_1000_foundation_o180.png",
+        "width": 594,
+        "height": 485,
+        "sha256": "fbe43740d98f91af8172868c60c071a98ffdaee3dffd265dcb8793c233c0229c"
       },
       "pivot": {
-        "x": 0.5722,
-        "y": 0.5046
+        "x": 0.5682,
+        "y": 0.5987
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:construction:foundation:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_foundation_o270.png",
-        "width": 969,
-        "height": 494,
-        "sha256": "3c5cd57ea167c3f47c0dcc5fac860b6840460419653bd83181575abc82009b1f"
+        "src": "/assets/runtime/variants/vf_police_station_1000_foundation_o270.png",
+        "width": 594,
+        "height": 485,
+        "sha256": "00bf578d7b7697f3e207c6a29a365eb9ae0e88f0b8d540d122f123bbc18ddac0"
       },
       "pivot": {
-        "x": 0.5599,
-        "y": 0.5046
+        "x": 0.5682,
+        "y": 0.5987
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:construction:foundation:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_foundation_o90.png",
-        "width": 969,
-        "height": 494,
-        "sha256": "8e67ebc7fedf4e6c1cada411b0e45211bcb6a2c32bee7158db0578239ab4946e"
+        "src": "/assets/runtime/variants/vf_police_station_1000_foundation_o90.png",
+        "width": 594,
+        "height": 485,
+        "sha256": "2a4c60db328ef49df7a7ec408659f9f7dd6a439f1d3876b3c30f0584285bdd97"
       },
       "pivot": {
-        "x": 0.5722,
-        "y": 0.5168
+        "x": 0.5682,
+        "y": 0.5987
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:complete:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_o180.png",
-        "width": 860,
-        "height": 849,
-        "sha256": "5fceb318a2972d690fb2a781c682a156430ae821f1e9227cd08c70dbe004c6df"
+        "src": "/assets/runtime/variants/vf_police_station_1000_o180.png",
+        "width": 654,
+        "height": 741,
+        "sha256": "7d99a550cc184eb22a5c7c7fddea0838861db83cde3c0ffe6d74c462ad765c15"
       },
       "pivot": {
-        "x": 0.5942,
-        "y": 0.63
+        "x": 0.5528,
+        "y": 0.6773
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:complete:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_o270.png",
-        "width": 945,
-        "height": 854,
-        "sha256": "64d0b35a8e74109e2b9baf3cb042415a36a3bf8d697206c41d561af3981f73c3"
+        "src": "/assets/runtime/variants/vf_police_station_1000_o270.png",
+        "width": 636,
+        "height": 750,
+        "sha256": "7177e609585e4d5af7a75d2ee092ec5407dc8437c59e07526e969c23f4ee1a3c"
       },
       "pivot": {
-        "x": 0.5407,
-        "y": 0.6322
+        "x": 0.5684,
+        "y": 0.6812
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:complete:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_o90.png",
-        "width": 851,
-        "height": 892,
-        "sha256": "2d0207871c5d1fcd06b369d12403e20fe520ff1921a7a8ff397a79ebc24be0e6"
+        "src": "/assets/runtime/variants/vf_police_station_1000_o90.png",
+        "width": 636,
+        "height": 732,
+        "sha256": "c8e8bacc3ef051e78eccf12c5b49bb2c88a487938514865b22b517d887a47520"
       },
       "pivot": {
-        "x": 0.6005,
-        "y": 0.6479
+        "x": 0.5684,
+        "y": 0.6734
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:construction:structure:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_structure.png",
-        "width": 910,
-        "height": 831,
-        "sha256": "40911df647ef5543fa298c045db4d9d9a1339ef28bf69dd15d8a058d0e961e9e"
+        "src": "/assets/runtime/variants/vf_police_station_1000_structure.png",
+        "width": 627,
+        "height": 689,
+        "sha256": "cf85921ad26769af453a0156ae7eb4b02daf6f512f31983601e786baf80d4bba"
       },
       "pivot": {
-        "x": 0.5313,
-        "y": 0.6486
+        "x": 0.5917,
+        "y": 0.6581
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:construction:structure:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_structure_o180.png",
-        "width": 791,
-        "height": 746,
-        "sha256": "e3348d556031ae5e439d67a4c44784e8acb9283f2199dd9fd2ea2ff92e7ed23c"
+        "src": "/assets/runtime/variants/vf_police_station_1000_structure_o180.png",
+        "width": 678,
+        "height": 689,
+        "sha256": "1aa62915fb4caf150f6da3f0ad720dcbb9bc8c715710b80de667018e5d4ceac1"
       },
       "pivot": {
-        "x": 0.6113,
-        "y": 0.6086
+        "x": 0.5472,
+        "y": 0.6581
       },
       "footprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:construction:structure:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_structure_o270.png",
-        "width": 935,
-        "height": 759,
-        "sha256": "10f15c0e407087101ea04675a8d7a12eca1a100b1aa48503d076a21ccac36a01"
+        "src": "/assets/runtime/variants/vf_police_station_1000_structure_o270.png",
+        "width": 652,
+        "height": 702,
+        "sha256": "f2a0e29662477cc272cc7682a57a7357055ae58ea51524582c40bceabd7c3a0c"
       },
       "pivot": {
-        "x": 0.5171,
-        "y": 0.6153
+        "x": 0.569,
+        "y": 0.6644
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "police_station:construction:structure:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_police_station_1002_structure_o90.png",
-        "width": 765,
-        "height": 818,
-        "sha256": "60ad07e84142aaf1028a83778110fda0a7efcfc7b8968d50a20f0f923f0243f1"
+        "src": "/assets/runtime/variants/vf_police_station_1000_structure_o90.png",
+        "width": 652,
+        "height": 677,
+        "sha256": "63a2c0d2c16365c2c406b3a873ea295ddec83066ac706375d0f3b6ba2e7faba2"
       },
       "pivot": {
-        "x": 0.632,
-        "y": 0.643
+        "x": 0.569,
+        "y": 0.652
       },
       "footprint": {
-        "width": 2,
-        "height": 3
+        "width": 1,
+        "height": 2
       },
       "domainFootprint": {
-        "width": 3,
-        "height": 2
+        "width": 2,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
@@ -5288,528 +5288,528 @@
     "school_block:complete:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000.png",
-        "width": 1449,
-        "height": 1315,
-        "sha256": "49d94be8d0ee16655e1edca23fda739ac64e4b7f963d03b1e75507b938f88269"
+        "src": "/assets/runtime/variants/vf_school_block_1000.png",
+        "width": 1033,
+        "height": 1106,
+        "sha256": "d6945010293f250ca93c75bb23aa21f25ce82bc9e7b0d9b9e5875eac39e4f752"
       },
       "pivot": {
-        "x": 0.4703,
-        "y": 0.7409
+        "x": 0.5039,
+        "y": 0.7648
       },
       "footprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:burning:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_burning.png",
-        "width": 1449,
-        "height": 1314,
-        "sha256": "f73130561f9a22bf85ecbaa7d9ebf8180f53cb5170d6e8921e09959bb310f14f"
+        "src": "/assets/runtime/variants/vf_school_block_1000_burning.png",
+        "width": 1076,
+        "height": 1128,
+        "sha256": "80a2e14b2728b59d5ea3e90f054b8050da8f81a08e5e4e35f84c0a7d309b18d3"
       },
       "pivot": {
-        "x": 0.4707,
-        "y": 0.7407
+        "x": 0.5237,
+        "y": 0.7498
       },
       "footprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:burning:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_burning_o180.png",
-        "width": 1449,
-        "height": 1314,
-        "sha256": "4a56f6e80038876c6edff6434c1219435443cdb9a952444c6ed69ad5e3238735"
+        "src": "/assets/runtime/variants/vf_school_block_1000_burning_o180.png",
+        "width": 1076,
+        "height": 1128,
+        "sha256": "3fa6ee402aa377e266b07f5fc7296b495453f4a0915dc89b8529b474474f3b63"
       },
       "pivot": {
-        "x": 0.5293,
-        "y": 0.7079
+        "x": 0.4763,
+        "y": 0.7729
       },
       "footprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:burning:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_burning_o270.png",
-        "width": 1449,
-        "height": 1314,
-        "sha256": "62d5be4760dd1917f7b22e98ddd0b635071fcbcf1e9a38045a894947f856e622"
+        "src": "/assets/runtime/variants/vf_school_block_1000_burning_o270.png",
+        "width": 1075,
+        "height": 1128,
+        "sha256": "8b1591f608c004e0ae0ee958da13376f395919f4f3466c86f2642076d6c4afe2"
       },
       "pivot": {
-        "x": 0.47,
-        "y": 0.7079
+        "x": 0.5233,
+        "y": 0.7729
       },
       "footprint": {
-        "width": 2,
-        "height": 7
+        "width": 1,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:burning:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_burning_o90.png",
-        "width": 1449,
-        "height": 1314,
-        "sha256": "1646fd6339c2f30dcc8a662de328d051a56914aa221aeca963306111274d3842"
+        "src": "/assets/runtime/variants/vf_school_block_1000_burning_o90.png",
+        "width": 1075,
+        "height": 1128,
+        "sha256": "c49d4a44d43c567941957577c13dc4764267ca32e9f705e63f1b3793d54ed62c"
       },
       "pivot": {
-        "x": 0.53,
-        "y": 0.7407
+        "x": 0.4767,
+        "y": 0.7498
       },
       "footprint": {
-        "width": 2,
-        "height": 7
+        "width": 1,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:damaged:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_damaged.png",
-        "width": 1449,
-        "height": 1314,
-        "sha256": "733960f8d57b288fdfaa7954f4b6053be0a82d8a738a7b72967c2d82f8344c5b"
+        "src": "/assets/runtime/variants/vf_school_block_1000_damaged.png",
+        "width": 1076,
+        "height": 1128,
+        "sha256": "89b968349c07a6a0c9b30b70ad0760e92232f98670f411015fbf6f69d143edc7"
       },
       "pivot": {
-        "x": 0.4707,
-        "y": 0.7407
+        "x": 0.5237,
+        "y": 0.7498
       },
       "footprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:damaged:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_damaged_o180.png",
-        "width": 1449,
-        "height": 1314,
-        "sha256": "49f12ead1958bb6fbb016bb41572fe7d0a499ae76ff5d005093d086459c99f21"
+        "src": "/assets/runtime/variants/vf_school_block_1000_damaged_o180.png",
+        "width": 1076,
+        "height": 1128,
+        "sha256": "a7c7fc77f33251bf73fff5ac99f480deb2b4c04a83216b78f70204444895150b"
       },
       "pivot": {
-        "x": 0.5293,
-        "y": 0.7079
+        "x": 0.4763,
+        "y": 0.7729
       },
       "footprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:damaged:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_damaged_o270.png",
-        "width": 1449,
-        "height": 1314,
-        "sha256": "fc671597dcbd47362def3022d8b99ff38b1d9ff4d03dd878062fe20781a274ed"
+        "src": "/assets/runtime/variants/vf_school_block_1000_damaged_o270.png",
+        "width": 1075,
+        "height": 1128,
+        "sha256": "4ecbe047b0942cbb3fd77e80df0aaa1aa7385d7bdc99a38483247a59f347c0bb"
       },
       "pivot": {
-        "x": 0.47,
-        "y": 0.7079
+        "x": 0.5233,
+        "y": 0.7729
       },
       "footprint": {
-        "width": 2,
-        "height": 7
+        "width": 1,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:damaged:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_damaged_o90.png",
-        "width": 1449,
-        "height": 1314,
-        "sha256": "f6b6de0d6b613b6dc22c2b55438e4fb2370c548b5319936f876dd55d47f82d9b"
+        "src": "/assets/runtime/variants/vf_school_block_1000_damaged_o90.png",
+        "width": 1075,
+        "height": 1128,
+        "sha256": "8fe807796268d2577f470510909c2b0def743e7990e95126064a32832574e1cb"
       },
       "pivot": {
-        "x": 0.53,
-        "y": 0.7407
+        "x": 0.4767,
+        "y": 0.7498
       },
       "footprint": {
-        "width": 2,
-        "height": 7
+        "width": 1,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:construction:finishing:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_finishing.png",
-        "width": 1449,
-        "height": 1315,
-        "sha256": "f3a98a64dc747c6f56b3ae4fa1ec18af0afa4feddafbddc35e775ee444e1f592"
+        "src": "/assets/runtime/variants/vf_school_block_1000_finishing.png",
+        "width": 1050,
+        "height": 1115,
+        "sha256": "95379e9bc7c4767de922ef3f6d856aa7be11be92fcd73b697bbdae69b3863a85"
       },
       "pivot": {
-        "x": 0.4703,
-        "y": 0.7409
+        "x": 0.5119,
+        "y": 0.759
       },
       "footprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:construction:finishing:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_finishing_o180.png",
-        "width": 1449,
-        "height": 1315,
-        "sha256": "52313c0e09aafaef233fbc844e30647b00f2b3556492831b41480b298de627e2"
+        "src": "/assets/runtime/variants/vf_school_block_1000_finishing_o180.png",
+        "width": 1050,
+        "height": 1115,
+        "sha256": "2073afa44e1878435e2ee520156e7a5b0ce1aea7fb1b608a09d80ae4f4756106"
       },
       "pivot": {
-        "x": 0.5297,
-        "y": 0.7074
+        "x": 0.4881,
+        "y": 0.7698
       },
       "footprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:construction:finishing:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_finishing_o270.png",
-        "width": 1449,
-        "height": 1315,
-        "sha256": "50fa588dbeb4d98ffc3bda302783d4a2e2188a0de012339bb6d5273dd3e5208f"
+        "src": "/assets/runtime/variants/vf_school_block_1000_finishing_o270.png",
+        "width": 1050,
+        "height": 1115,
+        "sha256": "33ccf9bf0352d72f1e442f4a6116f828432098e412e71ed5a0e3345e9df9ed39"
       },
       "pivot": {
-        "x": 0.4703,
-        "y": 0.7074
+        "x": 0.5119,
+        "y": 0.7698
       },
       "footprint": {
-        "width": 2,
-        "height": 7
+        "width": 1,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:construction:finishing:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_finishing_o90.png",
-        "width": 1449,
-        "height": 1315,
-        "sha256": "df4394132e572cfc41f1a6fba760b064432b87808bfdf5323a0bfaaf67ede4e5"
+        "src": "/assets/runtime/variants/vf_school_block_1000_finishing_o90.png",
+        "width": 1050,
+        "height": 1115,
+        "sha256": "7a243157e31bf6c102d93b1fd344dd3ce375eac764f66a47674fa5707e7b8616"
       },
       "pivot": {
-        "x": 0.5297,
-        "y": 0.7409
+        "x": 0.4881,
+        "y": 0.759
       },
       "footprint": {
-        "width": 2,
-        "height": 7
+        "width": 1,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:construction:foundation:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_foundation.png",
-        "width": 1771,
-        "height": 1631,
-        "sha256": "0946b07bfa1ec1b124463f5e5768db2c12d7a228d94271b72ec4c27d29a62bca"
+        "src": "/assets/runtime/variants/vf_school_block_1000_foundation.png",
+        "width": 1186,
+        "height": 1301,
+        "sha256": "cf0c9114b8209c9b8367d2a1753097f60fc850ba853b6ba669c09d936603b287"
       },
       "pivot": {
-        "x": 0.5669,
-        "y": 0.6454
+        "x": 0.5687,
+        "y": 0.6823
       },
       "footprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:construction:foundation:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_foundation_o180.png",
-        "width": 1759,
-        "height": 1631,
-        "sha256": "e0f258e50d5dc93b28a71af5a08800c0f9710c3814afa19bf940ba710e534436"
+        "src": "/assets/runtime/variants/vf_school_block_1000_foundation_o180.png",
+        "width": 1186,
+        "height": 1301,
+        "sha256": "fed21c24d5846f493e3d85573f31d2864ff85bef012b37e618f525dd4688bb46"
       },
       "pivot": {
-        "x": 0.5708,
-        "y": 0.6454
+        "x": 0.5687,
+        "y": 0.6823
       },
       "footprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:construction:foundation:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_foundation_o270.png",
-        "width": 1771,
-        "height": 1631,
-        "sha256": "5db2a58c71a844acf35df3888d45b9168d1ad1f983c83ee178b9d4c5276e4cb1"
+        "src": "/assets/runtime/variants/vf_school_block_1000_foundation_o270.png",
+        "width": 1186,
+        "height": 1301,
+        "sha256": "c95e927d06b6b050c535784d42f76e61cf5971df8a7e031b9a6395f269004222"
       },
       "pivot": {
-        "x": 0.5669,
-        "y": 0.6454
+        "x": 0.5687,
+        "y": 0.6823
       },
       "footprint": {
-        "width": 2,
-        "height": 7
+        "width": 1,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:construction:foundation:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_foundation_o90.png",
-        "width": 1759,
-        "height": 1631,
-        "sha256": "4271967a1bd4e935cbe7b96a22e90808d75d5b2fd4f019fd06002e6ffde50753"
+        "src": "/assets/runtime/variants/vf_school_block_1000_foundation_o90.png",
+        "width": 1186,
+        "height": 1301,
+        "sha256": "e6851bbd917f6d6fd2e5c29c877c5a8cf1173ce63ce4260e84eb1a28e14c0f57"
       },
       "pivot": {
-        "x": 0.5708,
-        "y": 0.6454
+        "x": 0.5687,
+        "y": 0.6823
       },
       "footprint": {
-        "width": 2,
-        "height": 7
+        "width": 1,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:complete:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_o180.png",
-        "width": 1449,
-        "height": 1315,
-        "sha256": "90055e32a96c416a9e2ff7f9a61da692fbe5cbe50e4110c4c6aab6d8d6018ec5"
+        "src": "/assets/runtime/variants/vf_school_block_1000_o180.png",
+        "width": 1033,
+        "height": 1106,
+        "sha256": "c46899ff0ad3fd7e1b64884dfb855c9ba7baa75e25329761c507a9b9ce9f0a8a"
       },
       "pivot": {
-        "x": 0.5297,
-        "y": 0.7074
+        "x": 0.4961,
+        "y": 0.7684
       },
       "footprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:complete:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_o270.png",
-        "width": 1449,
-        "height": 1315,
-        "sha256": "06132fe7c28458dd9402e3e577ddb4f3f518b4ced3fd506f2026f3b1f40c9288"
+        "src": "/assets/runtime/variants/vf_school_block_1000_o270.png",
+        "width": 1033,
+        "height": 1106,
+        "sha256": "12087138311aaa113b8bf019a8cb2fc3aa89ef392cc0a495f1fa34e173455b79"
       },
       "pivot": {
-        "x": 0.4703,
-        "y": 0.7074
+        "x": 0.5039,
+        "y": 0.7684
       },
       "footprint": {
-        "width": 2,
-        "height": 7
+        "width": 1,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:complete:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_o90.png",
-        "width": 1449,
-        "height": 1315,
-        "sha256": "0a363c735e4db9e3fdcbd45e74768eb33011cebeeaa3003aedaaf37fd312d2b0"
+        "src": "/assets/runtime/variants/vf_school_block_1000_o90.png",
+        "width": 1033,
+        "height": 1106,
+        "sha256": "f28953ca82c627098ee59288d9ff5b59c4f695a5eb4524be3a828e6dc5400970"
       },
       "pivot": {
-        "x": 0.5297,
-        "y": 0.7409
+        "x": 0.4961,
+        "y": 0.7648
       },
       "footprint": {
-        "width": 2,
-        "height": 7
+        "width": 1,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:construction:structure:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_structure.png",
-        "width": 1414,
-        "height": 1334,
-        "sha256": "0bd4a65b511dd241daf5efa9e30e6ec39a251dc7dd3cee5dbe9d37b1b00ef4a7"
+        "src": "/assets/runtime/variants/vf_school_block_1000_structure.png",
+        "width": 1074,
+        "height": 1162,
+        "sha256": "c911b75afaab3154de0a411d4e7ac5b2dbc9a336c530fe7619d31d9f89bd549c"
       },
       "pivot": {
-        "x": 0.4576,
-        "y": 0.7664
+        "x": 0.5237,
+        "y": 0.7692
       },
       "footprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:construction:structure:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_structure_o180.png",
-        "width": 1414,
-        "height": 1334,
-        "sha256": "3265d3535ef1655cd4ee180d84c8583a6cc57980fc80586cd8bce2c1a85536db"
+        "src": "/assets/runtime/variants/vf_school_block_1000_structure_o180.png",
+        "width": 1074,
+        "height": 1162,
+        "sha256": "46c5a2222b6de932bc11c49969e420b1a8e483d6f3531f0033b890b9dd95abb4"
       },
       "pivot": {
-        "x": 0.5424,
-        "y": 0.7026
+        "x": 0.4763,
+        "y": 0.7692
       },
       "footprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:construction:structure:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_structure_o270.png",
-        "width": 1414,
-        "height": 1333,
-        "sha256": "13edffbd50390914b5437b553187ca05b2d3c0ee8a6e4a0a1303c4c7fe219d36"
+        "src": "/assets/runtime/variants/vf_school_block_1000_structure_o270.png",
+        "width": 1073,
+        "height": 1163,
+        "sha256": "34937e7d9c12876c8164e4704f2ec5b081979b649a3773c02568f175724f6db9"
       },
       "pivot": {
-        "x": 0.4399,
-        "y": 0.7122
+        "x": 0.5,
+        "y": 0.7797
       },
       "footprint": {
-        "width": 2,
-        "height": 7
+        "width": 1,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
     "school_block:construction:structure:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_school_block_2000_structure_o90.png",
-        "width": 1414,
-        "height": 1333,
-        "sha256": "b8c9fdaf59e42774ee082e5589b364c15f0b67fe1eb49351d04372566d78c0b3"
+        "src": "/assets/runtime/variants/vf_school_block_1000_structure_o90.png",
+        "width": 1073,
+        "height": 1163,
+        "sha256": "a26e5663904868659b3f178f22e71be16d4663059dc91039650b11627d1375cd"
       },
       "pivot": {
-        "x": 0.5601,
-        "y": 0.7572
+        "x": 0.5,
+        "y": 0.7582
       },
       "footprint": {
-        "width": 2,
-        "height": 7
+        "width": 1,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 1
       },
       "pixelsPerMeter": 60.2
     },
@@ -6344,528 +6344,528 @@
     "town_hall:complete:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006.png",
-        "width": 1967,
-        "height": 1506,
-        "sha256": "49e4d668d9236b2d1c5d5c42f024000bd32e4e21a02f84a77dec1f89041a00f9"
+        "src": "/assets/runtime/variants/vf_town_hall_1000.png",
+        "width": 1280,
+        "height": 1453,
+        "sha256": "862a3c9b7ecbf467496dad11c8f3bfa0a5faa395bc6e05ae2e892a3ae6506ca8"
       },
       "pivot": {
-        "x": 0.4804,
-        "y": 0.6887
+        "x": 0.4664,
+        "y": 0.7947
       },
       "footprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:burning:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_burning.png",
-        "width": 1967,
-        "height": 1506,
-        "sha256": "b6427d29dda5da3892584c798101f60f2a7dbe221222d9fc346256e50aa32974"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_burning.png",
+        "width": 1279,
+        "height": 1453,
+        "sha256": "a89e8934f7a7785b01360c0748b929c95337a561cbf546c3bd2e082fa4d2dc3e"
       },
       "pivot": {
-        "x": 0.4804,
-        "y": 0.6887
+        "x": 0.4664,
+        "y": 0.7947
       },
       "footprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:burning:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_burning_o180.png",
-        "width": 1967,
-        "height": 1506,
-        "sha256": "28cf892edabe67087091e543764420f0c0c52a46fbc5ef06a628abd12773c0d4"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_burning_o180.png",
+        "width": 1279,
+        "height": 1453,
+        "sha256": "4a5be4f0189a6ab5892a192ee1fce704c9e0fd443a9d9572182f5a73a675386f"
       },
       "pivot": {
-        "x": 0.5196,
-        "y": 0.6575
+        "x": 0.5336,
+        "y": 0.7651
       },
       "footprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:burning:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_burning_o270.png",
-        "width": 1966,
-        "height": 1505,
-        "sha256": "36c195b73abd2e159ceafe95c8aa9c08ea4ffd7198e3e12fc8601e07ba0517e2"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_burning_o270.png",
+        "width": 1279,
+        "height": 1453,
+        "sha256": "7611bd592581ca5374666f7a6afa498b604da1e343ac25ec23833ea5a9706114"
       },
       "pivot": {
-        "x": 0.4761,
-        "y": 0.6606
+        "x": 0.4664,
+        "y": 0.7651
       },
       "footprint": {
-        "width": 4,
-        "height": 8
+        "width": 3,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:burning:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_burning_o90.png",
-        "width": 1966,
-        "height": 1505,
-        "sha256": "3e7cfb355c1961650f209a077f02c013ef257b0ab97ba4a405031876bfd0fd53"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_burning_o90.png",
+        "width": 1279,
+        "height": 1453,
+        "sha256": "85d9b2c17a5c12ef5cbcaf3c7e210f557ebf04e1141b3f32ec5fb84127ed8a4d"
       },
       "pivot": {
-        "x": 0.5239,
-        "y": 0.6858
+        "x": 0.5336,
+        "y": 0.7947
       },
       "footprint": {
-        "width": 4,
-        "height": 8
+        "width": 3,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:damaged:-:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_damaged.png",
-        "width": 1967,
-        "height": 1506,
-        "sha256": "bdd25c8c7d37498bbd4084ff49c22e7563ea86ed3f999901cd20076823946961"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_damaged.png",
+        "width": 1279,
+        "height": 1453,
+        "sha256": "6f3dc57ac67870065c8ba8d113ab5face2115e43c9f3403c57d6cbba7086262a"
       },
       "pivot": {
-        "x": 0.4804,
-        "y": 0.6887
+        "x": 0.4664,
+        "y": 0.7947
       },
       "footprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:damaged:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_damaged_o180.png",
-        "width": 1967,
-        "height": 1506,
-        "sha256": "ebe6c682c79a4a6db9fd1c62270c2157e623991ace5aa8f083f3bebb398caea8"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_damaged_o180.png",
+        "width": 1279,
+        "height": 1453,
+        "sha256": "7efd62a1eb2596afd3957b17084f7eae7f37dac0e69acc06eefd4bddac54e1eb"
       },
       "pivot": {
-        "x": 0.5196,
-        "y": 0.6575
+        "x": 0.5336,
+        "y": 0.7651
       },
       "footprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:damaged:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_damaged_o270.png",
-        "width": 1966,
-        "height": 1505,
-        "sha256": "adc2114e545d237a0e82f2f781b2dae0c4aad91bceb91d7994ea1a935e6fc739"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_damaged_o270.png",
+        "width": 1279,
+        "height": 1453,
+        "sha256": "9ff6290bd561561447efdf0348a55d34644f5ea14efedec0ae41f4423cc77b99"
       },
       "pivot": {
-        "x": 0.4761,
-        "y": 0.6606
+        "x": 0.4664,
+        "y": 0.7651
       },
       "footprint": {
-        "width": 4,
-        "height": 8
+        "width": 3,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:damaged:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_damaged_o90.png",
-        "width": 1966,
-        "height": 1505,
-        "sha256": "8131bb22bf57d95bc415c070dabf93ba9bd8d5823e0c255d86ae053b10087f99"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_damaged_o90.png",
+        "width": 1279,
+        "height": 1453,
+        "sha256": "0b8a41dfc14de4d317ff69d9301dd8107fa38c252262fa484fc9219e0d5d6770"
       },
       "pivot": {
-        "x": 0.5239,
-        "y": 0.6858
+        "x": 0.5336,
+        "y": 0.7947
       },
       "footprint": {
-        "width": 4,
-        "height": 8
+        "width": 3,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:construction:finishing:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_finishing.png",
-        "width": 1967,
-        "height": 1506,
-        "sha256": "de6c265ace0f1db71cf1c5d22dce76171bdc9234430ef06803be7f95569b1d68"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_finishing.png",
+        "width": 1280,
+        "height": 1453,
+        "sha256": "64f41ea1d80c4b3592fe15cbf798090cd533d32bfc042794a097db8c40669cb1"
       },
       "pivot": {
-        "x": 0.4804,
-        "y": 0.6887
+        "x": 0.4664,
+        "y": 0.7947
       },
       "footprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:construction:finishing:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_finishing_o180.png",
-        "width": 1967,
-        "height": 1506,
-        "sha256": "b58156b139e80f35e793837ed1dbcfe00f864051ba8facb8429cf1a94402239a"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_finishing_o180.png",
+        "width": 1280,
+        "height": 1453,
+        "sha256": "38d6798d9a7f8c1ced4b70ca190125d1a588b150e20031ae541c1a142603795f"
       },
       "pivot": {
-        "x": 0.5196,
-        "y": 0.6575
+        "x": 0.5336,
+        "y": 0.7651
       },
       "footprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:construction:finishing:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_finishing_o270.png",
-        "width": 1966,
-        "height": 1505,
-        "sha256": "993772575e21d80aa94e77da5bf0050714dfb96bd1b7ed2f5156259eb9b5b940"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_finishing_o270.png",
+        "width": 1280,
+        "height": 1453,
+        "sha256": "d35415b0d8d4a16c397ec2fd8c60fa6c0db2a6a60041ee5975b57e57e722a844"
       },
       "pivot": {
-        "x": 0.4761,
-        "y": 0.6606
+        "x": 0.4664,
+        "y": 0.7651
       },
       "footprint": {
-        "width": 4,
-        "height": 8
+        "width": 3,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:construction:finishing:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_finishing_o90.png",
-        "width": 1966,
-        "height": 1505,
-        "sha256": "dc9b826497502b0375a7ed8a87521b28ca531eb49cacf1da23e95a559edefa5c"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_finishing_o90.png",
+        "width": 1280,
+        "height": 1453,
+        "sha256": "ed275d43a653f8a42cc3954d18032f276185107c68070feda5c6af64a690dc6f"
       },
       "pivot": {
-        "x": 0.5239,
-        "y": 0.6858
+        "x": 0.5336,
+        "y": 0.7947
       },
       "footprint": {
-        "width": 4,
-        "height": 8
+        "width": 3,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:construction:foundation:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_foundation.png",
-        "width": 2213,
-        "height": 1115,
-        "sha256": "0305711d167304a378f58534db1268490d6d5bda2be2987036f1df1d4ae13974"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_foundation.png",
+        "width": 1501,
+        "height": 759,
+        "sha256": "688e09fb5c6df96ddd2c385cbcf60ebc5a9a94b8efc2034d2ce5889e0571581b"
       },
       "pivot": {
-        "x": 0.538,
-        "y": 0.4958
+        "x": 0.546,
+        "y": 0.5037
       },
       "footprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:construction:foundation:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_foundation_o180.png",
-        "width": 2214,
-        "height": 1115,
-        "sha256": "af12592ad22ede89b5bdbb8329960c7e2b68e325b9650f545f96000b6805cf24"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_foundation_o180.png",
+        "width": 1502,
+        "height": 760,
+        "sha256": "c42095e1d83a811e87215f0918a097f7c17fe1e4805fae7b5cbd8a17fb99defb"
       },
       "pivot": {
-        "x": 0.5436,
-        "y": 0.4904
+        "x": 0.5543,
+        "y": 0.4951
       },
       "footprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:construction:foundation:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_foundation_o270.png",
-        "width": 2213,
-        "height": 1115,
-        "sha256": "f376dd840f7b115c7a87dbb48b80e9f0a9107a39e0b7818e7a39dbabaebf1f8e"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_foundation_o270.png",
+        "width": 1501,
+        "height": 760,
+        "sha256": "51d6fe3edc56b5f06f06bc87ca08146bc96b154801f13a1b73b475a9cdc09f11"
       },
       "pivot": {
-        "x": 0.538,
-        "y": 0.4904
+        "x": 0.546,
+        "y": 0.4951
       },
       "footprint": {
-        "width": 4,
-        "height": 8
+        "width": 3,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:construction:foundation:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_foundation_o90.png",
-        "width": 2214,
-        "height": 1115,
-        "sha256": "f35d9b67c77474c37d5563e925301fb581f336ca90a37361da5fd6119676ef03"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_foundation_o90.png",
+        "width": 1502,
+        "height": 759,
+        "sha256": "b1985bb643a646e951a68b0fcea65843db251b812072aff6b7cc482d40077293"
       },
       "pivot": {
-        "x": 0.5436,
-        "y": 0.4958
+        "x": 0.5543,
+        "y": 0.5037
       },
       "footprint": {
-        "width": 4,
-        "height": 8
+        "width": 3,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:complete:-:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_o180.png",
-        "width": 1967,
-        "height": 1506,
-        "sha256": "11c42931732ae0607bdd6a61a1916736bb8fecfd7641ed216f7f4c3a005516a3"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_o180.png",
+        "width": 1280,
+        "height": 1453,
+        "sha256": "3873857e0c161053875c64a4f60acbe83e98b72734b20468cfc77ff6d03e3820"
       },
       "pivot": {
-        "x": 0.5196,
-        "y": 0.6575
+        "x": 0.5336,
+        "y": 0.7651
       },
       "footprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:complete:-:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_o270.png",
-        "width": 1966,
-        "height": 1505,
-        "sha256": "acfe8f49bf37ddb9c41e58b40a452939b76914dcd3f2a1321e52236190a22ba3"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_o270.png",
+        "width": 1280,
+        "height": 1453,
+        "sha256": "cdced94037c68b3815764a3bd4893666159f7a61a2506a25b8756ff2da529507"
       },
       "pivot": {
-        "x": 0.4761,
-        "y": 0.6606
+        "x": 0.4664,
+        "y": 0.7651
       },
       "footprint": {
-        "width": 4,
-        "height": 8
+        "width": 3,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:complete:-:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_o90.png",
-        "width": 1966,
-        "height": 1505,
-        "sha256": "530b790e0e9ef047468396017d2d9300e423cc36860e9cbfb3bc828e21feb1b2"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_o90.png",
+        "width": 1280,
+        "height": 1453,
+        "sha256": "04d793473384d8074e5d2f7ed5d605c9e5a12c58e21c09364edd064fbde0d16b"
       },
       "pivot": {
-        "x": 0.5239,
-        "y": 0.6858
+        "x": 0.5336,
+        "y": 0.7947
       },
       "footprint": {
-        "width": 4,
-        "height": 8
+        "width": 3,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:construction:structure:0": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_structure.png",
-        "width": 2293,
-        "height": 1890,
-        "sha256": "1db0febb6a1ca8d8f32ec7529da77582d94f65b23d6725ae5b11e790f3b0d9e1"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_structure.png",
+        "width": 1502,
+        "height": 1440,
+        "sha256": "fb5da0d72643433b254cb3dd774c35751f3faba6e54a3dc7e5095ee91dd6160d"
       },
       "pivot": {
-        "x": 0.5541,
-        "y": 0.6242
+        "x": 0.5463,
+        "y": 0.6629
       },
       "footprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:construction:structure:180": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_structure_o180.png",
-        "width": 2174,
-        "height": 1890,
-        "sha256": "0d6957e7bb2e7b69528c8bff3817575f9ed14bb24f977332e4a7aa1ce62f97f0"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_structure_o180.png",
+        "width": 1383,
+        "height": 1440,
+        "sha256": "fbefd65049b740052b570a29e43d31f71092c008a2a4db9b35a099cde7c4423f"
       },
       "pivot": {
-        "x": 0.5844,
-        "y": 0.6242
+        "x": 0.5933,
+        "y": 0.6629
       },
       "footprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:construction:structure:270": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_structure_o270.png",
-        "width": 2318,
-        "height": 1890,
-        "sha256": "d99a194f4afbb3a710c236011df6a312240df73c5de9b1476d6498bc9866f3bb"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_structure_o270.png",
+        "width": 1527,
+        "height": 1440,
+        "sha256": "a6678b238a965a62a46ea3f1a5b8140d8938ccd506dd0c89b1a02e2935db1c75"
       },
       "pivot": {
-        "x": 0.5481,
-        "y": 0.6242
+        "x": 0.5373,
+        "y": 0.6629
       },
       "footprint": {
-        "width": 4,
-        "height": 8
+        "width": 3,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },
     "town_hall:construction:structure:90": {
       "moodId": "day_civic",
       "image": {
-        "src": "/assets/runtime/variants/vjd_town_hall_1006_structure_o90.png",
-        "width": 2148,
-        "height": 1890,
-        "sha256": "fc2d26a1f0dca91525736ddc5246da0910c78d7d50d3d836c06925dc90c84c94"
+        "src": "/assets/runtime/variants/vf_town_hall_1000_structure_o90.png",
+        "width": 1357,
+        "height": 1440,
+        "sha256": "1a735a123edd06731c7a9a0f2970d10fbb3931c632475e80c27d97483a76d81c"
       },
       "pivot": {
-        "x": 0.5915,
-        "y": 0.6242
+        "x": 0.6046,
+        "y": 0.6629
       },
       "footprint": {
-        "width": 4,
-        "height": 8
+        "width": 3,
+        "height": 5
       },
       "domainFootprint": {
-        "width": 8,
-        "height": 4
+        "width": 5,
+        "height": 3
       },
       "pixelsPerMeter": 60.2
     },

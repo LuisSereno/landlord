@@ -1123,23 +1123,35 @@ export class IsometricSpikeScene extends Phaser.Scene {
         id: entry.id,
         asset: entry.asset as GameplayParkedVehicle["asset"],
         roadCell: entry.cell,
+        cells: entry.cells as readonly GridCell[] | undefined,
         side: "n" as const,
         azimuth: entry.azimuth,
         lateralOffset: 0,
         longitudinalOffset: 0,
         scale: entry.scale,
       }));
-    for (const vehicle of [
+    const streetVehicles: Array<GameplayParkedVehicle & { cells?: readonly GridCell[] }> = [
       ...model.parkedVehicles,
       ...(model.contextVehicles ?? []),
-      ...courtyardVehicles,
-    ]) {
+    ];
+    for (const vehicle of [...streetVehicles, ...courtyardVehicles]) {
       const asset = vehicles[vehicle.asset];
       if (!asset) continue;
       const frame = this.sceneryFrame(asset, vehicle.azimuth);
       const key = `blender-sprite-${vehicle.asset}${frame.keySuffix}`;
       if (!this.textures.exists(key)) continue;
-      const center = gridToScreen(footprintCenter(vehicle.roadCell, asset.footprint), this.layout);
+      /**
+       * El vehículo de patio se ancla y ordena por sus dos celdas reservadas: con la huella 1×2
+       * del asset el sprite caería mitad sobre la fachada y quedaría enterrado bajo el edificio,
+       * que se pinta después por mayor profundidad.
+       */
+      const reservedCells = vehicle.cells;
+      const center = gridToScreen(
+        reservedCells
+          ? footprintVisualCenter(reservedCells)
+          : footprintCenter(vehicle.roadCell, asset.footprint),
+        this.layout,
+      );
       const offset = this.screenOffsetForVehicle(vehicle);
       const image =
         this.parkedVehicleSprites.get(vehicle.id) ??
@@ -1150,7 +1162,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
         .setPosition(center.x + offset.x, center.y + offset.y)
         .setOrigin(frame.pivot.x, frame.pivot.y)
         .setScale(spriteScaleFor(frame, this.layout.tileWidth) * vehicle.scale)
-        .setDepth(depthForAsset(vehicle.roadCell, asset.footprint));
+        .setDepth(
+          reservedCells
+            ? depthForFootprintCells(reservedCells)
+            : depthForAsset(vehicle.roadCell, asset.footprint),
+        );
       image.setVisible(this.isInViewport(image.x, image.y, this.cameras.main.worldView, 128));
       seenVehicles.add(vehicle.id);
     }

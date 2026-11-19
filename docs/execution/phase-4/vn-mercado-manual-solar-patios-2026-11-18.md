@@ -3,13 +3,20 @@
 Decisión: D-109 (`docs/engineering/adr/D-109-mercado-manual-solar-y-patios.md`).
 Plan del responsable del 2026-11-18 ejecutado sin compatibilidad con partidas anteriores.
 
-## Estado: PASS WITH PENDING ART GATE
+## Estado: PASS WITH PENDING HUMAN VISUAL GATE
 
-El código, los contratos, los tests de dominio y la documentación están cerrados y commiteados en
-local (sin push). El rehorneado Blender de las variantes diurnas/nocturnas de los seis
-equipamientos está **en curso** en tres lanes en segundo plano; la promoción, el QA de capturas y
-la medición final del presupuesto D-101 quedan pendientes de que el lote termine. No se declara
-READY ni se cierra la fase hasta completar esos gates.
+Código, contratos, tests de dominio, arte promocionado y documentación cerrados y commiteados en
+local (sin push). Las 288 variantes día/noche están horneadas, validadas (§13/§17/§24/§25 por
+manifiesto) y promocionadas; las 12 capturas QA (6 tipos × día/noche) viven en
+`docs/art/golden/vn-facilities/` con `summary.json` (0 errores de página). Falta la revisión visual
+humana del responsable y el playtest de V.d; no se declara READY ni se hace push.
+
+**Deuda visual P2 medida en las capturas:** en patios en L (p. ej. bomberos 4×2 con edificio 3×1)
+el vehículo temático queda parcialmente oculto por el propio edificio: el ancla/pivote del sprite
+1×2 y su orden de profundidad necesitan ajuste fino por asset para las plazas en la cara +X. Las
+celdas reservadas, exclusiones y determinismo sí cumplen (tests de modelo en verde). El resto de
+props (monumento, asta, bancos, jardineras, bolardos, zona de juegos, puestos) se leen en las
+capturas diurnas y nocturnas.
 
 ## Commits locales (develop, sin push)
 
@@ -54,32 +61,27 @@ Medidos en worktree limpio en `2018fbd` (base commiteada):
    naturales por seed (42 en base; 1 y 2026 con tejido v4).
 3. `art:external:check`, `art:coverage:audit:check`, `art:staging:validate` — rojos heredados de
    V.j (drift versionado, informe desfasado, 7 fuentes originales incompletas + PNG de spike).
-4. **Presupuesto D-101**: la base ya excedía `maxBundleBytes` en 233.877 B con 17 violaciones por
-   archivo (>1 MiB) en `blender-day/` y `docs/art/day-candidates/`. Los nueve PNG de los props
-   originales añaden 476.900 B; el rehorneado con huella menor sustituye los PNG de base de los
-   equipamientos y la medición final tras la promoción decide si hace falta excepción nombrada.
+4. **Presupuesto D-101 medido tras la promoción**: bundle `runtime/blender` = 22.617.525 B,
+   1.499.723 B por debajo del límite de 23 MiB (la base lo excedía en 233.877 B; los props añadían
+   476.900 B y el rehorneado con huella menor los compensó con creces). Quedan 16 violaciones por
+   archivo (>1 MiB), todas en artefactos heredados de la promoción diurna anterior (`blender-day/`,
+   `docs/art/day-candidates/`); ningún PNG nuevo supera 1 MiB. Borrado o excepción: decide el responsable.
 
-## Gate artístico pendiente (handoff)
+## Gate artístico ejecutado (queda revisión humana)
 
-1. **Horneado**: tres lanes producen 6 tipos × 6 estados × 4 orientaciones × 2 moods = 288 variantes
-   en `docs/art/quality-vj/batch-facilities-v4/<lane>/<day|night>/<type>/` (fuera de Git, marcador
-   versionado). Logs `/tmp/bake-<lane>-<mood>-<type>.log`. Lane 1 completa (town_hall y school día y
-   noche). Los tres primeros lotes diurnos (town_hall, clinic, fire_station) abortaron su promoción
-   R1 por §26 al publicarse los props originales durante la corrida; sus 24 candidatos validados se
-   recuperaron con `scripts/recover-staging-v4.py` (sha/mood/medidas verificados contra disco).
-2. **Regeneración §13**: lane en segundo plano (`/tmp/regen-lane.sh`, logs
-   `/tmp/regen-<lane>-<sub>-<type>.log`) ejecuta `--regenerate` por tipo/mood y deja el acta
-   `regenerate/regenerate.json` que el validador exige (firma + pivot + dimensiones, jitter GPU
-   acotado). El validador §17 ahora acepta la huella rotada (D-097); 52/52 casos.
-3. **Promoción** (al terminar lote + actas): `bash scripts/promote-facilities-v4.sh` — copia el
-   candidato complete@0 diurno a `docs/art/facilities-v4/candidates/`, actualiza
-   `runtime-promotions.json`, ejecuta `art:blender:promote` (bundle con domainFootprint nuevo) y
-   promociona variantes día y noche por familia con `--types` parcial; valida cada manifiesto.
-4. **QA de capturas**: `pnpm qa:vn-facilities` — 12 capturas (6 tipos × día/noche) en
-   `docs/art/golden/vn-facilities/` con `summary.json`; revisión visual del responsable.
-5. **Gates finales**: `art:binaries:check` (medición final del bundle), suites completas,
-   `art:building-composer:validate` por manifiesto, y commit de cierre con los artefactos
-   promocionados. Push sólo al cerrar la fase, por decisión del responsable.
+- Lote completo: 288 variantes (6 tipos × 6 estados × 4 orientaciones × día/noche) en
+  `docs/art/quality-vj/batch-facilities-v4/` (fuera de Git, marcador versionado). Los tres lotes
+  diurnos abortados por §26 se recuperaron de staging con `scripts/recover-staging-v4.py`.
+- Actas §13 por tipo/mood (`regenerate/regenerate.json`): 11 con jitter GPU en cota y 1 byte-idéntica;
+  validador por manifiesto 12/12 en verde (§17 acepta huella rotada, §25 acepta los estados del
+  contrato de variantes; 52/52 casos del validador).
+- Promoción ejecutada con `scripts/promote-facilities-v4.sh`: bundle con domainFootprint nuevo y
+  144 variantes diurnas + 144 nocturnas sustituidas por familia (312 preservadas por catálogo).
+- QA: `pnpm qa:vn-facilities` → 12 capturas en `docs/art/golden/vn-facilities/` + `summary.json`,
+  0 errores de página. El script recorre los nueve distritos porque el programa municipal es de
+  ciudad, no por distrito.
+- Pendiente: revisión visual humana de las capturas (deuda P2 del vehículo en patios en L arriba)
+  y playtest de V.d. Push sólo con decisión del responsable.
 
 ## Deuda que sigue abierta
 

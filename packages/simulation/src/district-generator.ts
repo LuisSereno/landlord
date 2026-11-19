@@ -1064,6 +1064,12 @@ function attemptComposition(input: {
         cells: frontage.cells.filter((cell) => siteCellKeys.has(`${cell.x}:${cell.y}`)),
       }))
       .filter((frontage) => frontage.cells.length > 0);
+    /**
+     * D-109: el edificio municipal se coloca en la fila del solar más cercana al frente vial
+     * (chooseFootprint, D-097): la puerta da a la calle y el patio queda en las caras restantes.
+     * El planificador de patios sitúa vehículo y props mayores en las celdas de patio visibles
+     * desde la cámara isométrica (+X/+Y), no en la franja que el edificio tapa.
+     */
     const footprint = chooseFootprint({
       parcel: { cells: site.footprintCells, roadFrontages: siteFrontages },
       code,

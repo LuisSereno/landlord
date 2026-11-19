@@ -1,0 +1,133 @@
+{
+  "captures": [
+    {
+      "mood": "day",
+      "type": "school_block",
+      "file": "docs/art/golden/vn-facilities/day-school_block.png",
+      "district": "district_00000001",
+      "siteCells": 14,
+      "footprintCells": 5
+    },
+    {
+      "mood": "day",
+      "type": "market_hall",
+      "file": "docs/art/golden/vn-facilities/day-market_hall.png",
+      "district": "district_00000002",
+      "siteCells": 10,
+      "footprintCells": 4
+    },
+    {
+      "mood": "day",
+      "type": "clinic",
+      "file": "docs/art/golden/vn-facilities/day-clinic.png",
+      "district": "district_00000003",
+      "siteCells": 6,
+      "footprintCells": 2
+    },
+    {
+      "mood": "day",
+      "type": "town_hall",
+      "file": "docs/art/golden/vn-facilities/day-town_hall.png",
+      "district": "district_00000005",
+      "siteCells": 32,
+      "footprintCells": 15
+    },
+    {
+      "mood": "day",
+      "type": "police_station",
+      "file": "docs/art/golden/vn-facilities/day-police_station.png",
+      "district": "district_00000005",
+      "siteCells": 6,
+      "footprintCells": 2
+    },
+    {
+      "mood": "day",
+      "type": "fire_station",
+      "file": "docs/art/golden/vn-facilities/day-fire_station.png",
+      "district": "district_00000007",
+      "siteCells": 8,
+      "footprintCells": 3
+    },
+    {
+      "mood": "night",
+      "type": "school_block",
+      "file": "docs/art/golden/vn-facilities/night-school_block.png",
+      "district": "district_00000001",
+      "siteCells": 14,
+      "footprintCells": 5
+    },
+    {
+      "mood": "night",
+      "type": "market_hall",
+      "file": "docs/art/golden/vn-facilities/night-market_hall.png",
+      "district": "district_00000002",
+      "siteCells": 10,
+      "footprintCells": 4
+    },
+    {
+      "mood": "night",
+      "type": "clinic",
+      "file": "docs/art/golden/vn-facilities/night-clinic.png",
+      "district": "district_00000003",
+      "siteCells": 6,
+      "footprintCells": 2
+    },
+    {
+      "mood": "night",
+      "type": "town_hall",
+      "file": "docs/art/golden/vn-facilities/night-town_hall.png",
+      "district": "district_00000005",
+      "siteCells": 32,
+      "footprintCells": 15
+    },
+    {
+      "mood": "night",
+      "type": "police_station",
+      "file": "docs/art/golden/vn-facilities/night-police_station.png",
+      "district": "district_00000005",
+      "siteCells": 6,
+      "footprintCells": 2
+    },
+    {
+      "mood": "night",
+      "type": "fire_station",
+      "file": "docs/art/golden/vn-facilities/night-fire_station.png",
+      "district": "district_00000007",
+      "siteCells": 8,
+      "footprintCells": 3
+    }
+  ],
+  "pageErrors": [],
+  "stats": {
+    "buildings": 1,
+    "decorations": 9,
+    "roadCells": 404,
+    "junctions": 8,
+    "crossings": 8,
+    "streetLights": 21,
+    "trafficLights": 2,
+    "benches": 4,
+    "trashCans": 6,
+    "parkedVehicles": 80,
+    "trees": 9,
+    "placementObjects": 0,
+    "placementLabelPool": 0,
+    "placementDraws": 0,
+    "sceneChildren": 296,
+    "crewSprites": 0,
+    "signage": 1,
+    "signageVisible": 1,
+    "indicators": 0,
+    "assetsReady": true,
+    "spritePlanBuildings": 1,
+    "parcelMarks": 0,
+    "facadeMarks": 0,
+    "glyphTextures": 0,
+    "statusTweens": 0,
+    "statusGameObjects": 0,
+    "totalSprites": 140,
+    "groundRebakes": 10,
+    "groundBakeLastMs": 442.8999999985099,
+    "groundBakeMaxMs": 507.3999999985099
+  }
+}

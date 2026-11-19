@@ -15,6 +15,8 @@ export type FacilityCourtyardElement = {
   kind: "prop" | "vehicle";
   asset: string;
   cell: GridCell;
+  /** Vehículos: las dos celdas reservadas de la plaza; el sprite se ancla y ordena por ellas. */
+  cells?: GridCell[];
   azimuth: 45 | 135 | 225 | 315;
   scale: number;
   /** Sólo vehículos: clase visual para el lenguaje de presentación. */
@@ -44,10 +46,10 @@ export const FACILITY_COURTYARD_SPECS: Record<string, CourtyardSpec> = {
   town_hall: {
     vehicle: null,
     props: [
-      { asset: "prp_monument", count: 1, scale: 1.0 },
+      { asset: "prp_monument_obelisk", count: 1, scale: 1.0 },
       { asset: "prp_flagpole", count: 1, scale: 1.0 },
       { asset: "prp_bench", count: 2, scale: 0.8 },
-      { asset: "prp_planter", count: 2, scale: 0.8 },
+      { asset: "prp_planter_urn", count: 2, scale: 0.8 },
       { asset: "prp_bollard", count: 2, scale: 0.8 },
     ],
   },
@@ -62,7 +64,7 @@ export const FACILITY_COURTYARD_SPECS: Record<string, CourtyardSpec> = {
     vehicle: { asset: "veh_ambulance", vehicleClass: "ambulance", scale: 0.88 },
     props: [
       { asset: "prp_bench", count: 1, scale: 0.8 },
-      { asset: "prp_planter", count: 1, scale: 0.8 },
+      { asset: "prp_planter_urn", count: 1, scale: 0.8 },
     ],
   },
   police_station: {
@@ -193,35 +195,61 @@ export function planFacilityCourtyard(
   const reserved = new Set(accessCells.map(cellKey));
   const elements: FacilityCourtyardElement[] = [];
 
-  /** Plaza de vehículo: dos celdas de patio contiguas paralelas a la fachada, junto al acceso. */
+  /**
+   * Caras visibles de la cámara isométrica (+X y +Y): el patio en la cara contraria queda tapado
+   * por el propio edificio (orden de dibujo por x+y). Vehículo y props mayores se prefieren en las
+   * celdas de patio visibles; el acceso peatonal sigue mirando al frente vial aunque quede detrás.
+   */
+  const footprintKeys = new Set(building.footprintCells.map(cellKey));
+  const isVisiblePatio = (cell: GridCell) =>
+    footprintKeys.has(`${cell.x - 1}:${cell.y}`) || footprintKeys.has(`${cell.x}:${cell.y - 1}`);
+
+  /** Plaza de vehículo: dos celdas de patio contiguas (en cualquier eje), junto al acceso. */
   if (spec.vehicle) {
-    const parallel = front === "n" || front === "s" ? { dx: 1, dy: 0 } : { dx: 0, dy: 1 };
     const pairs: GridCell[][] = [];
-    for (const cell of patio) {
-      const next = { x: cell.x + parallel.dx, y: cell.y + parallel.dy };
-      if (!patioKeys.has(cellKey(next))) continue;
-      if (reserved.has(cellKey(cell)) || reserved.has(cellKey(next))) continue;
-      const touchesAccess = [...accessCells, door].some(
-        (anchor) =>
-          Math.abs(anchor.x - cell.x) + Math.abs(anchor.y - cell.y) <= 1 ||
-          Math.abs(anchor.x - next.x) + Math.abs(anchor.y - next.y) <= 1,
-      );
-      if (touchesAccess) pairs.push([cell, next]);
+    for (const parallel of [
+      { dx: 1, dy: 0 },
+      { dx: 0, dy: 1 },
+    ]) {
+      for (const cell of patio) {
+        const next = { x: cell.x + parallel.dx, y: cell.y + parallel.dy };
+        if (!patioKeys.has(cellKey(next))) continue;
+        if (reserved.has(cellKey(cell)) || reserved.has(cellKey(next))) continue;
+        const touchesAccess = [...accessCells, door].some(
+          (anchor) =>
+            Math.abs(anchor.x - cell.x) + Math.abs(anchor.y - cell.y) <= 1 ||
+            Math.abs(anchor.x - next.x) + Math.abs(anchor.y - next.y) <= 1,
+        );
+        if (touchesAccess) pairs.push([cell, next]);
+      }
     }
     const canonicalPairs = pairs.sort(
       (left, right) =>
         left[0]!.y - right[0]!.y || left[0]!.x - right[0]!.x || left[1]!.x - right[1]!.x,
     );
-    if (canonicalPairs.length > 0) {
-      const pair = canonicalPairs[spatialHash(door.x, door.y, 0x51c7) % canonicalPairs.length]!;
+    const visiblePairs = canonicalPairs.filter(
+      (pair) => isVisiblePatio(pair[0]!) && isVisiblePatio(pair[1]!),
+    );
+    const pool = visiblePairs.length > 0 ? visiblePairs : canonicalPairs;
+    if (pool.length > 0) {
+      const pair = pool[spatialHash(door.x, door.y, 0x51c7) % pool.length]!;
       for (const cell of pair) reserved.add(cellKey(cell));
+      /**
+       * El eje de la plaza decide el rumbo del sprite: paralela a la fachada (eje X) equivale a
+       * una vía este-oeste (135/315); eje Y, a una vía norte-sur (45/225). El sentido se sortea
+       * por hash, nunca por tick.
+       */
+      const alongX = pair[1]!.x !== pair[0]!.x;
+      const reverse = spatialHash(door.x, door.y, 0x51c8) % 2 === 1;
+      const azimuth = alongX ? (reverse ? 315 : 135) : reverse ? 45 : 225;
       elements.push({
         id: `courtyard:${building.id}:vehicle:${cellKey(pair[0]!)}`,
         buildingId: building.id,
         kind: "vehicle",
         asset: spec.vehicle.asset,
         cell: { ...pair[0]! },
-        azimuth: SIDE_AZIMUTH[front],
+        cells: pair.map((cell) => ({ ...cell })),
+        azimuth,
         scale: spec.vehicle.scale,
         vehicleClass: spec.vehicle.vehicleClass,
       });
@@ -234,8 +262,10 @@ export function planFacilityCourtyard(
   for (const prop of spec.props) {
     for (let index = 0; index < prop.count; index += 1) {
       if (available.length === 0) break;
-      const pick = spatialHash(door.x, door.y, salt + index * 0x1f) % available.length;
-      const cell = available[pick]!;
+      const visible = available.filter(isVisiblePatio);
+      const pool = visible.length > 0 ? visible : available;
+      const pick = spatialHash(door.x, door.y, salt + index * 0x1f) % pool.length;
+      const cell = pool[pick]!;
       available = available.filter((entry) => cellKey(entry) !== cellKey(cell));
       reserved.add(cellKey(cell));
       elements.push({

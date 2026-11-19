@@ -3,35 +3,6 @@
   "purpose": "Approved V7 Composer candidates promoted to gameplay with explicit source and runtime semantics.",
   "promotions": [
     {
-      "assetId": "town_hall",
-      "semanticType": "town_hall",
-      "candidateBuildingType": "town_hall",
-      "candidateId": "vf_town_hall_1006",
-      "approvalStatus": "qa_approved",
-      "candidateMetadata": "docs/art/quality-vi/candidates/town_hall/vf_town_hall_1006.json",
-      "candidateImage": "docs/art/quality-vi/candidates/town_hall/vf_town_hall_1006.png",
-      "compositionSignature": "d440472588e657f4bd94ce4993532095782b7b6524efe39496a9eb076db11fbb",
-      "imageSha256": "bd7cfb17ba8a16e066ee7467c1264f305d429760f1c8c084dc653cacc28b77e9",
-      "styleProfileId": "graphic_civic_buildings_v1",
-      "state": "complete",
-      "footprint": {
-        "width": 8,
-        "height": 4
-      },
-      "domainFootprint": {
-        "width": 8,
-        "height": 4
-      },
-      "allowedOrientations": [45],
-      "symmetry": "none",
-      "stateFallback": "procedural",
-      "provenance": {
-        "license": "original",
-        "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V7 town hall candidate vf_town_hall_1006. Original civic pediment with CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
-      }
-    },
-    {
       "assetId": "row_house",
       "semanticType": "row_house",
       "candidateBuildingType": "row_house",
@@ -177,122 +148,6 @@
       }
     },
     {
-      "assetId": "clinic",
-      "semanticType": "clinic",
-      "candidateBuildingType": "clinic",
-      "candidateId": "vg_clinic_1003",
-      "approvalStatus": "qa_approved",
-      "candidateMetadata": "docs/art/quality-vi/candidates/clinic/vg_clinic_1003.json",
-      "candidateImage": "docs/art/quality-vi/candidates/clinic/vg_clinic_1003.png",
-      "compositionSignature": "6c9531a4625c6d7836987fe1b13f8dfd845b3f75b99f589ccda94f8bb1d975c9",
-      "imageSha256": "d85da1b48a0e2dbc78ca1fa3befa248b686c294ebccffa861bf49bc1daa338b3",
-      "styleProfileId": "graphic_civic_buildings_v1",
-      "state": "complete",
-      "footprint": {
-        "width": 3,
-        "height": 2
-      },
-      "domainFootprint": {
-        "width": 3,
-        "height": 2
-      },
-      "allowedOrientations": [45],
-      "symmetry": "none",
-      "stateFallback": "procedural",
-      "provenance": {
-        "license": "original",
-        "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i civic candidate vg_clinic_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
-      }
-    },
-    {
-      "assetId": "police_station",
-      "semanticType": "police_station",
-      "candidateBuildingType": "police_station",
-      "candidateId": "vg_police_station_1002",
-      "approvalStatus": "qa_approved",
-      "candidateMetadata": "docs/art/quality-vi/candidates/police_station/vg_police_station_1002.json",
-      "candidateImage": "docs/art/quality-vi/candidates/police_station/vg_police_station_1002.png",
-      "compositionSignature": "6a580c49d7ec2fe68ba8ed2cec4ff834bc32901ca935ea4e2aed74cedba55cc3",
-      "imageSha256": "f256d3d9010b74c4124a13c72679a56e493a55d3c5ed3d86ce18823c8e5f387e",
-      "styleProfileId": "graphic_civic_buildings_v1",
-      "state": "complete",
-      "footprint": {
-        "width": 3,
-        "height": 2
-      },
-      "domainFootprint": {
-        "width": 3,
-        "height": 2
-      },
-      "allowedOrientations": [45],
-      "symmetry": "none",
-      "stateFallback": "procedural",
-      "provenance": {
-        "license": "original",
-        "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i civic candidate vg_police_station_1002. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
-      }
-    },
-    {
-      "assetId": "fire_station",
-      "semanticType": "fire_station",
-      "candidateBuildingType": "fire_station",
-      "candidateId": "vg_fire_station_1003",
-      "approvalStatus": "qa_approved",
-      "candidateMetadata": "docs/art/quality-vi/candidates/fire_station/vg_fire_station_1003.json",
-      "candidateImage": "docs/art/quality-vi/candidates/fire_station/vg_fire_station_1003.png",
-      "compositionSignature": "0496079097c01d496421f9b52ca31be29f8e581585b57937c23f0740d9aea8b3",
-      "imageSha256": "98f3784be175e6f57298487975308cf2561f9f54e57b1c4a7bd7a94caddeda5d",
-      "styleProfileId": "graphic_civic_buildings_v1",
-      "state": "complete",
-      "footprint": {
-        "width": 4,
-        "height": 2
-      },
-      "domainFootprint": {
-        "width": 4,
-        "height": 2
-      },
-      "allowedOrientations": [45],
-      "symmetry": "none",
-      "stateFallback": "procedural",
-      "provenance": {
-        "license": "original",
-        "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i civic candidate vg_fire_station_1003. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
-      }
-    },
-    {
-      "assetId": "market_hall",
-      "semanticType": "market_hall",
-      "candidateBuildingType": "market_hall",
-      "candidateId": "vg_market_hall_1000",
-      "approvalStatus": "qa_approved",
-      "candidateMetadata": "docs/art/quality-vi/candidates/market_hall/vg_market_hall_1000.json",
-      "candidateImage": "docs/art/quality-vi/candidates/market_hall/vg_market_hall_1000.png",
-      "compositionSignature": "1aa546d4b8de3d0654ee4ec5e9a696d39be6743198fde94611e57b5ebc4e3bea",
-      "imageSha256": "2268f69acc1971d1066dc7163b380d77256f29b6f0a49d43f0a72c202fe60aa6",
-      "styleProfileId": "graphic_civic_buildings_v1",
-      "state": "complete",
-      "footprint": {
-        "width": 5,
-        "height": 2
-      },
-      "domainFootprint": {
-        "width": 5,
-        "height": 2
-      },
-      "allowedOrientations": [45],
-      "symmetry": "none",
-      "stateFallback": "procedural",
-      "provenance": {
-        "license": "original",
-        "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "Owner-selected V.i civic candidate vg_market_hall_1000. CC0 Quaternius Downtown City MegaKit modules; exact sourceIds and sourcePaths remain in candidateMetadata. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
-      }
-    },
-    {
       "assetId": "cement_plant",
       "semanticType": "cement_plant",
       "candidateBuildingType": "cement_plant",
@@ -409,32 +264,177 @@
       }
     },
     {
-      "assetId": "school_block",
-      "semanticType": "school_block",
-      "candidateBuildingType": "school_block",
-      "candidateId": "vg_school_block_2000",
+      "assetId": "town_hall",
+      "semanticType": "town_hall",
+      "candidateBuildingType": "town_hall",
+      "candidateId": "vf_town_hall_1000",
       "approvalStatus": "qa_approved",
-      "candidateMetadata": "docs/art/quality-vi/candidates/school_block/vg_school_block_2000.json",
-      "candidateImage": "docs/art/quality-vi/candidates/school_block/vg_school_block_2000.png",
-      "compositionSignature": "1a31d01afc23f9ec8909eea9e7952aca762210813c519095f4246ed47762f409",
-      "imageSha256": "ac7fe5b8656a870fbc1e72f9ade2db7dd31c4110781387a3127cf8b923f98f29",
+      "candidateMetadata": "docs/art/facilities-v4/candidates/town_hall/vf_town_hall_1000.json",
+      "candidateImage": "docs/art/facilities-v4/candidates/town_hall/vf_town_hall_1000.png",
+      "compositionSignature": "5ead8b84a7e78c015809bd96a61b31b5f98dd9a4c6ac769e69f06c3a2d21ca32",
+      "imageSha256": "862a3c9b7ecbf467496dad11c8f3bfa0a5faa395bc6e05ae2e892a3ae6506ca8",
       "styleProfileId": "graphic_civic_buildings_v1",
       "state": "complete",
       "footprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 3
       },
       "domainFootprint": {
-        "width": 7,
-        "height": 2
+        "width": 5,
+        "height": 3
       },
       "allowedOrientations": [45],
       "symmetry": "none",
       "stateFallback": "procedural",
       "provenance": {
         "license": "original",
-        "author": "Landlord project; CC0 modules by Quaternius",
-        "notes": "V.i remediation: rechazo humano del clon de town_hall. Colegio americano con cupola original medida (mod_original_school_cupola), entrada bajo el pabellón central. Candidato aprobado: vg_school_block_2000. V.i quality pass: re-render a renderScale 2 (densidad ×2 para zoom ×4); firma de composición intacta."
+        "author": "Landlord project; CC0 modules by Quaternius/Kenney",
+        "notes": "D-109 (2026-11-18): rehorneado con huella física 5×3 y solar reservado separado; mood day_civic registrado como procedencia (D-108). QA de capturas diurna/nocturna en el acta de cierre."
+      }
+    },
+    {
+      "assetId": "school_block",
+      "semanticType": "school_block",
+      "candidateBuildingType": "school_block",
+      "candidateId": "vf_school_block_1000",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "docs/art/facilities-v4/candidates/school_block/vf_school_block_1000.json",
+      "candidateImage": "docs/art/facilities-v4/candidates/school_block/vf_school_block_1000.png",
+      "compositionSignature": "3821048d3a490ef29aa7fe8146012a04c91cc99b0613955b34a4e7886d5aff4e",
+      "imageSha256": "d6945010293f250ca93c75bb23aa21f25ce82bc9e7b0d9b9e5875eac39e4f752",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "state": "complete",
+      "footprint": {
+        "width": 5,
+        "height": 1
+      },
+      "domainFootprint": {
+        "width": 5,
+        "height": 1
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius/Kenney",
+        "notes": "D-109 (2026-11-18): rehorneado con huella física 5×1 y solar reservado separado; mood day_civic registrado como procedencia (D-108). QA de capturas diurna/nocturna en el acta de cierre."
+      }
+    },
+    {
+      "assetId": "clinic",
+      "semanticType": "clinic",
+      "candidateBuildingType": "clinic",
+      "candidateId": "vf_clinic_1000",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "docs/art/facilities-v4/candidates/clinic/vf_clinic_1000.json",
+      "candidateImage": "docs/art/facilities-v4/candidates/clinic/vf_clinic_1000.png",
+      "compositionSignature": "d9693ebd7a06c5dbc1a290e158a8e75fb128100d6d36783e03ed757ad70f5a26",
+      "imageSha256": "6dcfedd949972cb7df466d01d54756958b8ddcf2d0a08cfca4ed6eb16921ff0d",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "state": "complete",
+      "footprint": {
+        "width": 2,
+        "height": 1
+      },
+      "domainFootprint": {
+        "width": 2,
+        "height": 1
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius/Kenney",
+        "notes": "D-109 (2026-11-18): rehorneado con huella física 2×1 y solar reservado separado; mood day_civic registrado como procedencia (D-108). QA de capturas diurna/nocturna en el acta de cierre."
+      }
+    },
+    {
+      "assetId": "police_station",
+      "semanticType": "police_station",
+      "candidateBuildingType": "police_station",
+      "candidateId": "vf_police_station_1000",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "docs/art/facilities-v4/candidates/police_station/vf_police_station_1000.json",
+      "candidateImage": "docs/art/facilities-v4/candidates/police_station/vf_police_station_1000.png",
+      "compositionSignature": "1bbc6d8536917a745302d158d2b6c59064bf3737ef81a79ae6e3474dcd864bc3",
+      "imageSha256": "a3c44097908909da8dcf598e2ab8fda1d8de697e102bda8b23e6dfd0c111faea",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "state": "complete",
+      "footprint": {
+        "width": 2,
+        "height": 1
+      },
+      "domainFootprint": {
+        "width": 2,
+        "height": 1
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius/Kenney",
+        "notes": "D-109 (2026-11-18): rehorneado con huella física 2×1 y solar reservado separado; mood day_civic registrado como procedencia (D-108). QA de capturas diurna/nocturna en el acta de cierre."
+      }
+    },
+    {
+      "assetId": "fire_station",
+      "semanticType": "fire_station",
+      "candidateBuildingType": "fire_station",
+      "candidateId": "vf_fire_station_1000",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "docs/art/facilities-v4/candidates/fire_station/vf_fire_station_1000.json",
+      "candidateImage": "docs/art/facilities-v4/candidates/fire_station/vf_fire_station_1000.png",
+      "compositionSignature": "895462b26f0185f21b32bf0dce03433cdc6801924595e8664f93150b72af84b5",
+      "imageSha256": "7aa53e1a70e6c513ef6624547cf35c73a3d72b915b4ef242825e520301f02c75",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "state": "complete",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "domainFootprint": {
+        "width": 3,
+        "height": 1
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius/Kenney",
+        "notes": "D-109 (2026-11-18): rehorneado con huella física 3×1 y solar reservado separado; mood day_civic registrado como procedencia (D-108). QA de capturas diurna/nocturna en el acta de cierre."
+      }
+    },
+    {
+      "assetId": "market_hall",
+      "semanticType": "market_hall",
+      "candidateBuildingType": "market_hall",
+      "candidateId": "vf_market_hall_1000",
+      "approvalStatus": "qa_approved",
+      "candidateMetadata": "docs/art/facilities-v4/candidates/market_hall/vf_market_hall_1000.json",
+      "candidateImage": "docs/art/facilities-v4/candidates/market_hall/vf_market_hall_1000.png",
+      "compositionSignature": "d5ec446691ee17f23b082dddb78e0199ec62374ad417911d88b898298d007bdd",
+      "imageSha256": "c4bfc3d908b67b1d6794df09f70d04cf7e676b3ce5f23aa3d8f8793b4fed1551",
+      "styleProfileId": "graphic_civic_buildings_v1",
+      "state": "complete",
+      "footprint": {
+        "width": 4,
+        "height": 1
+      },
+      "domainFootprint": {
+        "width": 4,
+        "height": 1
+      },
+      "allowedOrientations": [45],
+      "symmetry": "none",
+      "stateFallback": "procedural",
+      "provenance": {
+        "license": "original",
+        "author": "Landlord project; CC0 modules by Quaternius/Kenney",
+        "notes": "D-109 (2026-11-18): rehorneado con huella física 4×1 y solar reservado separado; mood day_civic registrado como procedencia (D-108). QA de capturas diurna/nocturna en el acta de cierre."
       }
     }
   ]

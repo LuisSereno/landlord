@@ -46,7 +46,7 @@ import {
   reconcileParcelUses,
 } from "./building-index";
 import { developmentCodeById, isBuildingAllowedByDevelopmentCode } from "./development-codes";
-import { advanceTransfers } from "./transfers";
+import { advanceTransfers, startAgentTravel } from "./transfers";
 import { runEmployment } from "./employment";
 import { runAutomation } from "./automation";
 import { macroShockBiasFor, runMacroEvents } from "./macro-events";
@@ -139,6 +139,7 @@ function releaseStaleMaintenanceTasks(state: GameState): void {
     const building = state.phase2.buildings.get(agent.task.buildingId);
     if (building && building.state !== "ruin") continue;
     agent.task = null;
+    agent.returningToBase = true;
     agent.path = [];
     agent.target = { ...agent.cell };
     if (agent.state === "working" || agent.state === "moving") agent.state = "idle";
@@ -162,6 +163,7 @@ function hurtAgent(
       state.clock.tick + GAME_DAY_TICKS * injuredRecoveryDays(state, agent.districtId),
     );
     agent.task = null;
+    agent.returningToBase = true;
   }
 }
 function ignite(
@@ -404,6 +406,12 @@ function progressConstruction(state: GameState): void {
         ownerOrganizationId: site.ownerOrganizationId,
         productionFacilityId: null,
         type: site.buildingType,
+        ...(site.headquartersVariantId
+          ? {
+              headquartersVariantId: site.headquartersVariantId,
+              headquartersAccess: site.headquartersAccess,
+            }
+          : {}),
         footprintCells: site.footprintCells.map((cell) => ({ ...cell })),
         orientation: site.orientation,
         floors: site.floors,
@@ -418,6 +426,24 @@ function progressConstruction(state: GameState): void {
         casualtiesTotal: { injured: 0, dead: 0 },
       };
       state.phase2.buildings.set(buildingId, building);
+      if (
+        building.type === "headquarters" &&
+        site.headquartersVariantId &&
+        site.headquartersAccess
+      ) {
+        const base = state.organizationBases.get(site.ownerOrganizationId);
+        if (base) {
+          base.provisional = false;
+          base.headquartersBuildingId = buildingId;
+          base.headquartersVariantId = site.headquartersVariantId;
+          for (const member of state.agents.values()) {
+            if (member.organizationId !== site.ownerOrganizationId || !member.atBase) continue;
+            member.atBase = false;
+            member.returningToBase = true;
+            member.task = null;
+          }
+        }
+      }
       const parcel = state.phase2.parcels.get(site.parcelIds[0]!);
       for (const parcelId of site.parcelIds) reconcileParcelUses(state, parcelId);
       const production = BUILDING_DEFINITIONS[building.type].production;
@@ -448,6 +474,21 @@ function progressConstruction(state: GameState): void {
       }
     }
     state.phase2.constructionSites.delete(site.id);
+    for (const crewId of site.assignedCrewIds) {
+      const crew = state.phase2.crews.get(crewId);
+      if (!crew) continue;
+      for (const agentId of [crew.supervisorAgentId, ...crew.workerAgentIds]) {
+        const agent = state.agents.get(agentId);
+        if (!agent || agent.state === "dead" || agent.state === "injured") continue;
+        if (agent.task?.kind === "work_order" && agent.task.workOrderId === site.id) {
+          agent.task = null;
+          agent.state = "idle";
+          agent.path = [];
+          agent.returningToBase = true;
+          agent.atBase = false;
+        }
+      }
+    }
   }
 }
 
@@ -804,10 +845,86 @@ function tacticalTick(state: GameState): void {
      * obras del distrito, no sólo el terreno bloqueado de la generación.
      */
     const obstacleIndex = buildDistrictObstacleIndex(state);
+    for (const base of state.organizationBases.values()) {
+      const headquarters = [...state.phase2.buildings.values()]
+        .filter(
+          (building) =>
+            building.ownerOrganizationId === base.organizationId &&
+            building.type === "headquarters" &&
+            building.state === "operational",
+        )
+        .sort((a, b) => a.id.localeCompare(b.id))[0];
+      base.provisional = !headquarters;
+      if (headquarters?.headquartersVariantId) {
+        base.headquartersBuildingId = headquarters.id;
+        base.headquartersVariantId = headquarters.headquartersVariantId;
+      } else {
+        delete base.headquartersBuildingId;
+        delete base.headquartersVariantId;
+      }
+    }
     for (const agent of agents) {
-      if (agent.state === "dead" || agent.state === "injured" || !agent.task) continue;
+      if (!agent.atBase || !agent.organizationId) continue;
+      const base = state.organizationBases.get(agent.organizationId);
+      const headquarters = [...state.phase2.buildings.values()]
+        .filter(
+          (building) =>
+            building.ownerOrganizationId === agent.organizationId &&
+            building.type === "headquarters" &&
+            building.state === "operational",
+        )
+        .sort((a, b) => a.id.localeCompare(b.id))[0];
+      const districtId = headquarters?.districtId ?? base?.districtId;
+      const cell = headquarters?.headquartersAccess?.service ?? base?.serviceEntranceCell;
+      if (!districtId || !cell) continue;
+      if (agent.districtId !== districtId || agent.cell.x !== cell.x || agent.cell.y !== cell.y) {
+        agent.atBase = false;
+        agent.returningToBase = true;
+      }
+    }
+    for (const agent of agents) {
+      if (
+        agent.state === "dead" ||
+        agent.state === "injured" ||
+        (!agent.task && !agent.returningToBase)
+      )
+        continue;
       const impassable = obstacleIndex.get(agent.districtId)?.impassable ?? new Set<string>();
-      if (agent.task.kind === "attack_agent") {
+      if (agent.returningToBase && !agent.travel) {
+        const base = agent.organizationId
+          ? state.organizationBases.get(agent.organizationId)
+          : undefined;
+        const headquarters = agent.organizationId
+          ? [...state.phase2.buildings.values()]
+              .filter(
+                (building) =>
+                  building.ownerOrganizationId === agent.organizationId &&
+                  building.type === "headquarters" &&
+                  building.state === "operational",
+              )
+              .sort((a, b) => a.id.localeCompare(b.id))[0]
+          : undefined;
+        const destinationDistrict = headquarters?.districtId ?? base?.districtId;
+        const destinationCell =
+          headquarters?.headquartersAccess?.service ?? base?.serviceEntranceCell;
+        if (destinationDistrict && destinationCell && agent.districtId !== destinationDistrict) {
+          startAgentTravel(state, agent.id, destinationDistrict, true);
+          continue;
+        }
+        if (destinationCell && destinationDistrict) {
+          agent.task = { kind: "return_to_base" };
+          if (agent.target?.x !== destinationCell.x || agent.target?.y !== destinationCell.y) {
+            agent.target = { ...destinationCell };
+            agent.path = findDeterministicPath(agent.cell, destinationCell, impassable);
+          } else if (
+            !agent.path?.length &&
+            (agent.cell.x !== destinationCell.x || agent.cell.y !== destinationCell.y)
+          ) {
+            agent.path = findDeterministicPath(agent.cell, destinationCell, impassable);
+          }
+        }
+      }
+      if (agent.task?.kind === "attack_agent") {
         const target = state.agents.get(agent.task.targetAgentId);
         if (
           target &&
@@ -820,10 +937,29 @@ function tacticalTick(state: GameState): void {
           agent.lastPathRecalculationTick = state.clock.tick;
         }
       }
-      if (!agent.path?.length && agent.target && !adjacent(agent.cell, agent.target))
+      if (
+        !agent.path?.length &&
+        agent.target &&
+        ((agent.task?.kind === "return_to_base" &&
+          (agent.cell.x !== agent.target.x || agent.cell.y !== agent.target.y)) ||
+          !adjacent(agent.cell, agent.target))
+      )
         agent.path = findDeterministicPath(agent.cell, agent.target, impassable);
       const next = agent.path?.shift();
       if (next) agent.cell = next;
+      if (
+        agent.task?.kind === "return_to_base" &&
+        agent.target &&
+        agent.cell.x === agent.target.x &&
+        agent.cell.y === agent.target.y
+      ) {
+        agent.task = null;
+        agent.returningToBase = false;
+        agent.atBase = true;
+        agent.state = "idle";
+        agent.path = [];
+        continue;
+      }
       if (agent.target && adjacent(agent.cell, agent.target)) agent.state = "working";
     }
   }
@@ -861,21 +997,24 @@ function tacticalTick(state: GameState): void {
   }
   // 4. Reached enforcer orders; sabotage is the only PRNG draw here.
   for (const agent of agents) {
+    const task = agent.task;
     if (
       agent.specialty !== "enforcer" ||
-      !agent.task ||
+      !task ||
       (agent.cooldownUntilTick ?? 0) > state.clock.tick
     )
       continue;
-    if (agent.task.kind === "attack_agent") {
-      const target = state.agents.get(agent.task.targetAgentId);
+    if (task.kind === "attack_agent") {
+      const target = state.agents.get(task.targetAgentId);
       if (target && target.districtId === agent.districtId && adjacent(agent.cell, target.cell)) {
         hurtAgent(state, target, 50);
         agent.cooldownUntilTick = parseTick(state.clock.tick + GAME_HOUR_TICKS);
+        agent.task = null;
+        agent.returningToBase = true;
       }
     }
-    if (agent.task.kind === "sabotage_building") {
-      const building = state.phase2.buildings.get(agent.task.targetBuildingId);
+    if (task.kind === "sabotage_building") {
+      const building = state.phase2.buildings.get(task.targetBuildingId);
       if (
         building &&
         /** El matón solo alcanza un edificio de su distrito, aunque otro mapa repita la coordenada. */
@@ -898,6 +1037,7 @@ function tacticalTick(state: GameState): void {
         agent.cooldownUntilTick = parseTick(state.clock.tick + GAME_HOUR_TICKS);
         agent.task = null;
         agent.state = "idle";
+        agent.returningToBase = true;
       }
     }
   }
@@ -1032,6 +1172,7 @@ function tacticalTick(state: GameState): void {
       agent.health = 100;
       agent.state = "idle";
       agent.injuredUntilTick = null;
+      if (!agent.atBase) agent.returningToBase = true;
     }
 }
 
@@ -1144,6 +1285,7 @@ function rivalAction(state: GameState): void {
     ? "workshop"
     : "courtyard_home";
   const definition = BUILDING_DEFINITIONS[buildingType];
+  const headquartersDefinition = BUILDING_DEFINITIONS.headquarters;
   const productionDefinitions =
     ownedParcel && ownedCode
       ? Object.values(BUILDING_DEFINITIONS)
@@ -1227,6 +1369,47 @@ function rivalAction(state: GameState): void {
         districtIds: rivalDistricts,
       })
     : null;
+  const hasHeadquarters =
+    [...state.phase2.buildings.values()].some(
+      (building) =>
+        building.ownerOrganizationId === RIVAL_ORGANIZATION_ID &&
+        building.type === "headquarters" &&
+        building.state !== "ruin",
+    ) ||
+    [...state.phase2.constructionSites.values()].some(
+      (site) =>
+        site.ownerOrganizationId === RIVAL_ORGANIZATION_ID && site.buildingType === "headquarters",
+    );
+  const headquartersSite =
+    !hasHeadquarters && ownedParcel
+      ? findDevelopmentSite({
+          state,
+          definition: headquartersDefinition,
+          ownerOrganizationId: RIVAL_ORGANIZATION_ID,
+          seedParcelId: ownedParcel.id,
+          districtIds: rivalDistricts,
+        })
+      : null;
+  const headquartersMissingResource = (["cement", "brick", "steel"] as const).some(
+    (resource) => inventory[resource] < headquartersDefinition.resources[resource],
+  );
+  if (headquartersSite && !headquartersMissingResource && canSpend(headquartersDefinition.cost)) {
+    candidates.push({
+      score: 83,
+      action: "build_headquarters",
+      reason: "Hay un solar contiguo legal para establecer la sede operativa.",
+      command: {
+        ...base,
+        commandId: parseCommandId(`ai-rival-${state.clock.tick}-headquarters`),
+        type: "StartConstruction",
+        payload: {
+          parcelIds: headquartersSite,
+          buildingType: "headquarters",
+          headquartersVariantId: "courtyard",
+        },
+      },
+    });
+  }
   if (houseSite && !missingResource) {
     candidates.push({
       score: 80,

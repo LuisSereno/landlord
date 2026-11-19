@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import type { SimulationMetrics, ViewProjectionV2, WorkerResponse } from "@landlord/shared";
+import type { SimulationMetrics, ViewProjectionV3, WorkerResponse } from "@landlord/shared";
 
 import { appendDiagnostic, type DiagnosticEntry } from "../diagnostics";
 import { SnapshotPersistenceError, createIndexedDbPersistence } from "../persistence/indexed-db";
@@ -14,8 +14,8 @@ import { playFeedback } from "../audio/feedback";
  */
 export type GameSession = {
   client: SimulationWorkerClient | null;
-  projection: ViewProjectionV2 | null;
-  economy: NonNullable<ViewProjectionV2["economy"]> | undefined;
+  projection: ViewProjectionV3 | null;
+  economy: NonNullable<ViewProjectionV3["economy"]> | undefined;
   runState: "paused" | "running";
   speed: 1 | 2 | 4 | 8 | 16;
   message: string;
@@ -37,7 +37,7 @@ function responseMessage(response: WorkerResponse, success: string): string {
 }
 
 export function useGameSession(): GameSession {
-  const [projection, setProjection] = useState<ViewProjectionV2 | null>(null);
+  const [projection, setProjection] = useState<ViewProjectionV3 | null>(null);
   const [client, setClient] = useState<SimulationWorkerClient | null>(null);
   const [runState, setRunState] = useState<"paused" | "running">("paused");
   const [speed, setSpeed] = useState<1 | 2 | 4 | 8 | 16>(1);

@@ -13,7 +13,7 @@ import type { Economy, ProjectedBuilding } from "./types";
 /**
  * V.d-UX.S · puerta única del estado del activo (doctrina D-103: escena y panel leen lo mismo).
  *
- * Todo lo que se indexa aquí YA viaja en `ViewProjectionV2`: préstamos y subastas por
+ * Todo lo que se indexa aquí YA viaja en `ViewProjectionV3`: préstamos y subastas por
  * `collateralParcelId`, pólizas por `buildingId`, ocupación por `tenantIds`/`capacity`, backlog como
  * resta de dos campos publicados y las causas de alerta con su discriminador `reason`. No se
  * recalcula ninguna regla económica: los umbrales los decide el motor al emitir o no la alerta.

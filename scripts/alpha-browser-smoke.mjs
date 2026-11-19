@@ -187,7 +187,7 @@ async function injectSnapshot() {
         const transaction = database.transaction("snapshots", "readwrite");
         transaction.objectStore("snapshots").put({
           slotId: "default",
-          schemaVersion: 2,
+          schemaVersion: 3,
           engineVersion: snapshot.engineVersion,
           savedAt: Date.now(),
           snapshot,

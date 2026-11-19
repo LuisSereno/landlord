@@ -1,6 +1,6 @@
 # Building Catalog
 
-Los 15 edificios de dominio con su geometría de fuente REAL. Sustituye a la Building Factory de
+Los 16 tipos económicos de dominio y el estado de su geometría de fuente REAL. Sustituye a la Building Factory de
 V.e.2, retirada el 2026-11-02 por la remediación de geometría de fuente (D-098): aquella componía
 primitivas propias mientras sus presets declaraban fuentes Kenney/Quaternius/KayKit/Poly Haven que
 nunca entraban al render.
@@ -41,3 +41,11 @@ La geometría importada renderiza sólo el estado `complete`. El condicionamient
 por esta remediación); el catálogo lo muestra como estado pendiente en vez de fabricarlo.
 `courtyard_home` conserva su job legacy procedural congelado con sus cuatro estados.
 Nada de esta evidencia se promueve al bundle runtime sin QA visual del responsable.
+
+## Sede operativa
+
+`headquarters` es el nuevo tipo económico. Sus dos referencias de silueta y el contrato para producir
+modelos están en [organization-headquarters](organization-headquarters/README.md). La geometría de
+ambas variantes todavía no forma parte de este catálogo ni del bundle runtime: deben pasar por el
+Building Composer con módulos aprobados, registrar sus fuentes y superar la captura/revisión visual
+en la ciudad antes de promoción.

@@ -77,7 +77,7 @@ describe("simulation snapshots", () => {
 
   it("rejects broken snapshots before callers can replace active state", () => {
     const state = createInitialState(1);
-    expect(() => restoreStateFromSnapshot({ schemaVersion: 2 })).toThrow();
+    expect(() => restoreStateFromSnapshot({ schemaVersion: 3 })).toThrow();
     expect(state.clock.tick).toBe(0);
   });
 });

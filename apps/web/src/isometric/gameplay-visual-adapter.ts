@@ -7,7 +7,7 @@ import type {
   RoadCellRole,
   RoadProfile,
   RoadSectionCell,
-  ViewProjectionV2,
+  ViewProjectionV3,
 } from "@landlord/shared";
 import { roadSectionCellsFromSegments } from "@landlord/shared";
 import type { GroundPlan, GroundRoadMarking, GroundSurface } from "../visual-slice/ground";
@@ -25,7 +25,7 @@ import {
 } from "./facility-courtyards";
 
 /**
- * Frontera de presentación del gameplay (WP4.15-V.c.1). Convierte `ViewProjectionV2` en el modelo
+ * Frontera de presentación del gameplay (WP4.15-V.c.1). Convierte `ViewProjectionV3` en el modelo
  * visual que consume la escena isométrica: qué archetype de edificio pintar, qué superficie tiene
  * cada celda y qué decoración sin carretera puede dibujarse.
  *
@@ -33,11 +33,11 @@ import {
  * simulación, ni la composición fija de `visual-slice/layout.ts`. La dirección autoritativa sigue
  * siendo la simulación; aquí sólo se decide cómo se ve.
  *
- * Simulación → ViewProjectionV2 → este adapter → renderer Graphic Civic → Phaser.
+ * Simulación → ViewProjectionV3 → este adapter → renderer Graphic Civic → Phaser.
  */
 
 /**
- * Explicit temporary policy for all fifteen domain types. A missing reviewed Blender asset falls
+ * Explicit temporary policy for all sixteen domain types. A missing reviewed Blender asset falls
  * back to the exact procedural type; it is never disguised as an unrelated old house or shop.
  */
 export type BuildingVisualPolicy =
@@ -61,6 +61,7 @@ export const BUILDING_VISUAL_POLICIES: Record<BuildingType, BuildingVisualPolicy
   police_station: { mode: "runtime_exact", assetId: "police_station" },
   fire_station: { mode: "runtime_exact", assetId: "fire_station" },
   market_hall: { mode: "runtime_exact", assetId: "market_hall" },
+  headquarters: { mode: "procedural_semantic_fallback", assetId: "headquarters" },
 };
 
 /** Especies de árbol que pueden decorar sin depender de una red vial. */
@@ -291,7 +292,7 @@ export type GameplayRoadVisual = {
  * El fallback de eje único sólo sirve para proyecciones V1 históricas usadas por fixtures del web.
  */
 export function deriveRoadSectionRoles(
-  projection: ViewProjectionV2,
+  projection: ViewProjectionV3,
 ): ReadonlyMap<string, RoadCellRole> {
   return new Map(
     [...deriveRoadSectionCells(projection)].map(([key, section]) => [key, section.role]),
@@ -300,7 +301,7 @@ export function deriveRoadSectionRoles(
 
 /** Conserva roles, carriles y sentido desde la proyección hasta el renderer. */
 export function deriveRoadSectionCells(
-  projection: ViewProjectionV2,
+  projection: ViewProjectionV3,
 ): ReadonlyMap<string, RoadSectionCell> {
   const section = projection.map.roadSection;
   if (section?.segments.length && section.profiles.length) {
@@ -1713,7 +1714,7 @@ const CARDINAL_NEIGHBOURS = [
   { side: "w", dx: -1, dy: 0 },
 ] as const;
 
-function peripheryScoreFor(projection: ViewProjectionV2, profile: DistrictVisualProfile): number {
+function peripheryScoreFor(projection: ViewProjectionV3, profile: DistrictVisualProfile): number {
   const districts = projection.city?.districts ?? [];
   const district = districts.find((entry) => entry.id === projection.observedDistrictId);
   const roleScore: Record<string, number> = {
@@ -1944,6 +1945,10 @@ export function visualArchetypeForBuilding(domainType: string, stableId: string)
   if (policy.mode !== "runtime_compatible") return policy.assetId;
   const index = fnv1a32(`${domainType}|${stableId}`) % policy.archetypes.length;
   return policy.archetypes[index]!;
+}
+
+export function headquartersArchetypeForVariant(variant: "cupola" | "courtyard" | null): string {
+  return variant === "courtyard" ? "headquarters_courtyard" : "headquarters_cupola";
 }
 
 type ParcelStatus = "built" | "construction" | "vacant" | "public";
@@ -2182,7 +2187,7 @@ const NEIGHBOURS = [
  * derivado, así que una parcela multi-edificio cambiaría de clave si el orden de la colección
  * de edificios cambia sin que cambie el suelo. La clave debe detectar *cualquier* edificio.
  */
-export function gameplayGeometryKey(projection: ViewProjectionV2): string {
+export function gameplayGeometryKey(projection: ViewProjectionV3): string {
   const economy = projection.economy;
   const sectionDigest = projection.map.roadSection?.digest ?? projection.map.roads.digest;
   if (!economy) return `roads:${projection.map.roads.digest}|section:${sectionDigest}`;
@@ -2219,7 +2224,7 @@ export function gameplayGeometryKey(projection: ViewProjectionV2): string {
 }
 
 export function buildGameplayVisualModel(
-  projection: ViewProjectionV2,
+  projection: ViewProjectionV3,
   mapWidth = projection.map.width,
   mapHeight = projection.map.height,
 ): GameplayVisualModel {
@@ -2245,7 +2250,10 @@ export function buildGameplayVisualModel(
   const buildingVisuals: GameplayBuildingVisual[] = (economy?.buildings ?? []).map((building) => ({
     id: `building:${building.id}`,
     domainType: building.type,
-    archetype: visualArchetypeForBuilding(building.type, building.id),
+    archetype:
+      building.type === "headquarters"
+        ? headquartersArchetypeForVariant(building.headquartersVariantId)
+        : visualArchetypeForBuilding(building.type, building.id),
     orientation: building.orientation,
     assetState: buildingAssetStateFor(building.state as ProjectedBuildingState, building.condition),
     stage: null,
@@ -2255,7 +2263,10 @@ export function buildGameplayVisualModel(
     return {
       id: `site:${site.id}`,
       domainType: site.buildingType,
-      archetype: visualArchetypeForBuilding(site.buildingType, site.id),
+      archetype:
+        site.buildingType === "headquarters"
+          ? headquartersArchetypeForVariant(site.headquartersVariantId)
+          : visualArchetypeForBuilding(site.buildingType, site.id),
       orientation: site.orientation,
       assetState: "construction",
       stage: visualStage === "complete" ? null : visualStage,

@@ -24,7 +24,7 @@ describe("Gate 1 audit metrics", () => {
     () => {
       const worker = new SimulationWorkerRuntime();
       worker.handle({
-        protocolVersion: 2,
+        protocolVersion: 3,
         requestId: "audit-init",
         type: "InitializeGame",
         payload: { seed: 1 },
@@ -33,7 +33,7 @@ describe("Gate 1 audit metrics", () => {
       for (let index = 0; index < 100; index += 1) {
         const start = environment.performance.now();
         worker.handle({
-          protocolVersion: 2,
+          protocolVersion: 3,
           requestId: `audit-command-${index}`,
           type: "SubmitCommand",
           payload: {

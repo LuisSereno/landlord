@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import type { BuildingType } from "@landlord/shared";
+import type { BuildingType, HeadquartersVariantId } from "@landlord/shared";
 
 import { BuildingThumbnail } from "./building-thumbnail";
 import { constructionBlockedReasons, reasonSummary } from "./disabled-reasons";
@@ -27,6 +27,7 @@ const CATEGORIES: ReadonlyArray<{ id: CategoryId; label: string }> = [
 ];
 
 export const CATEGORY_BY_TYPE: Record<string, CategoryId> = {
+  headquarters: "mixed",
   courtyard_home: "housing",
   row_house: "housing",
   apartment_block: "housing",
@@ -73,12 +74,31 @@ export function BuildCatalog({
   parcel: ProjectedParcel;
   calendar: GameCalendar;
   /** V.d-7C · una parcela entra directo en colocación; el catálogo ya no construye a ciegas. */
-  onBeginPlacement: (buildingType: BuildingType, parcelIds: readonly string[]) => void;
+  onBeginPlacement: (
+    buildingType: BuildingType,
+    parcelIds: readonly string[],
+    variant?: HeadquartersVariantId,
+  ) => void;
   onBeginSite: (site: PendingDevelopmentSite) => void;
 }) {
   const [selected, setSelected] = useState<BuildingType | null>(null);
   const eligible = economy.constructionOptions
-    .filter((option) => !option.municipal && parcel.permittedBuildingTypes.includes(option.type))
+    .filter((option) => {
+      if (option.municipal || !parcel.permittedBuildingTypes.includes(option.type)) return false;
+      if (option.type !== "headquarters") return true;
+      return (
+        !economy.buildings.some(
+          (building) =>
+            building.ownerOrganizationId === "org_00000001" &&
+            building.type === "headquarters" &&
+            building.state !== "ruin",
+        ) &&
+        !economy.constructionSites.some(
+          (site) =>
+            site.ownerOrganizationId === "org_00000001" && site.buildingType === "headquarters",
+        )
+      );
+    })
     .sort((left, right) => left.cost - right.cost);
   if (eligible.length === 0)
     return (
@@ -177,10 +197,15 @@ function BuildDetail({
   economy: Economy;
   parcel: ProjectedParcel;
   calendar: GameCalendar;
-  onBeginPlacement: (buildingType: BuildingType, parcelIds: readonly string[]) => void;
+  onBeginPlacement: (
+    buildingType: BuildingType,
+    parcelIds: readonly string[],
+    variant?: HeadquartersVariantId,
+  ) => void;
   onBeginSite: (site: PendingDevelopmentSite) => void;
   onClose: () => void;
 }) {
+  const [headquartersVariant, setHeadquartersVariant] = useState<HeadquartersVariantId>("cupola");
   const reasons = constructionBlockedReasons({
     option,
     economy,
@@ -287,16 +312,46 @@ function BuildDetail({
           <UiIcon name="success" size={14} /> Todo listo para empezar.
         </p>
       )}
+      {option.type === "headquarters" ? (
+        <fieldset className="detail-grid">
+          <legend>Arquitectura de la sede</legend>
+          <label>
+            <input
+              checked={headquartersVariant === "cupola"}
+              name="headquarters-variant"
+              onChange={() => setHeadquartersVariant("cupola")}
+              type="radio"
+            />{" "}
+            Mansión urbana con mirador
+          </label>
+          <label>
+            <input
+              checked={headquartersVariant === "courtyard"}
+              name="headquarters-variant"
+              onChange={() => setHeadquartersVariant("courtyard")}
+              type="radio"
+            />{" "}
+            Residencia con patio de servicio
+          </label>
+        </fieldset>
+      ) : null}
       <button
         className="primary-action"
         disabled={!isPlanningMultiParcel && entryIssues.length > 0}
         onClick={() =>
           option.siteRequirements.requiredParcels === 1
-            ? onBeginPlacement(option.type, [parcel.id])
+            ? onBeginPlacement(
+                option.type,
+                [parcel.id],
+                option.type === "headquarters" ? headquartersVariant : undefined,
+              )
             : onBeginSite({
                 buildingType: option.type,
                 anchorParcelId: parcel.id,
                 parcelIds: [parcel.id],
+                ...(option.type === "headquarters"
+                  ? { headquartersVariantId: headquartersVariant }
+                  : {}),
               })
         }
         type="button"

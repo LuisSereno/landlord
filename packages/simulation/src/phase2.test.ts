@@ -15,7 +15,7 @@ import {
   parseTenantId,
   parseTick,
   type ProductCommand,
-  viewProjectionV2Schema,
+  viewProjectionV3Schema,
 } from "@landlord/shared";
 import { dispatchProductCommand } from "./commands";
 import { activePermitFor, publishedPermitForParcel } from "./permitting";
@@ -651,7 +651,7 @@ describe("Gate 2 product loop", () => {
     expect(facility.upgradePercent).toBe(125);
     expect(createViewProjection(state, true).economy?.production[0]?.averageOutputAmount).toBe(3);
     const physicalProjection = createViewProjection(state, true);
-    viewProjectionV2Schema.parse(physicalProjection);
+    viewProjectionV3Schema.parse(physicalProjection);
 
     building.state = "ruin";
     state.phase2.incidents.set(parseIncidentId("incident_00000001"), {
@@ -1793,7 +1793,7 @@ describe("WP3.12 portfolio automation and exception UX", () => {
       targetId: parcelId,
       buildingId: null,
     });
-    expect(viewProjectionV2Schema.parse(projection).economy?.alerts).toEqual(
+    expect(viewProjectionV3Schema.parse(projection).economy?.alerts).toEqual(
       projection.economy?.alerts,
     );
   });

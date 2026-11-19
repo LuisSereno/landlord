@@ -1,5 +1,6 @@
 import type {
   BuildingType,
+  HeadquartersVariantId,
   DevelopmentPlacementCandidate,
   DevelopmentPlacementCandidates,
   GridCell,
@@ -29,6 +30,7 @@ export type PendingPlacement = {
   districtId: string;
   /** Conjunto canónico del proyecto, tal y como lo devolvió el motor. */
   parcelIds: readonly string[];
+  headquartersVariantId?: HeadquartersVariantId;
   candidates: readonly DevelopmentPlacementCandidate[];
   selectedCandidateId: string | null;
   totalCandidates: number;
@@ -40,11 +42,13 @@ export function beginPlacementRequest(input: {
   buildingType: BuildingType;
   districtId: string;
   parcelIds: readonly string[];
+  headquartersVariantId?: HeadquartersVariantId;
 }): PendingPlacement {
   return {
     buildingType: input.buildingType,
     districtId: input.districtId,
     parcelIds: input.parcelIds,
+    ...(input.headquartersVariantId ? { headquartersVariantId: input.headquartersVariantId } : {}),
     candidates: [],
     selectedCandidateId: null,
     totalCandidates: 0,

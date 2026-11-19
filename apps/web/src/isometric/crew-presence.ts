@@ -5,7 +5,7 @@ import type {
   CrewId,
   GridCell,
   RuntimeAssetManifestV2,
-  ViewProjectionV2,
+  ViewProjectionV3,
 } from "@landlord/shared";
 
 import { crewVisualState, type CrewVisualState } from "./construction-stages";
@@ -16,7 +16,7 @@ import { crewVisualState, type CrewVisualState } from "./construction-stages";
  * Vive aquí, y no duplicado en la escena y en el panel, porque las dos superficies tenían cada una
  * su propia copia de la huella + vecinas y de la lista de miembros.
  */
-type Economy = NonNullable<ViewProjectionV2["economy"]>;
+type Economy = NonNullable<ViewProjectionV3["economy"]>;
 type ProjectedSite = Economy["constructionSites"][number];
 type ProjectedCrew = Economy["crews"][number];
 
@@ -274,7 +274,7 @@ export type CrewSpriteObservation = {
  * esté, así que una obra terminada o una cuadrilla despedida no deja sprites huérfanos.
  */
 export function crewSpriteObservations(
-  projection: ViewProjectionV2,
+  projection: ViewProjectionV3,
   previous: ReadonlyMap<AgentId, CrewSpriteObservation>,
 ): Map<AgentId, CrewSpriteObservation> {
   const observations = new Map<AgentId, CrewSpriteObservation>();

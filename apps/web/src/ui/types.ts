@@ -1,13 +1,13 @@
-import type { BuildingType, ViewProjectionV2 } from "@landlord/shared";
+import type { BuildingType, HeadquartersVariantId, ViewProjectionV3 } from "@landlord/shared";
 
 /** Alias del contrato de proyección que consumen los componentes del shell. */
-export type Economy = NonNullable<ViewProjectionV2["economy"]>;
+export type Economy = NonNullable<ViewProjectionV3["economy"]>;
 export type ProjectedParcel = Economy["parcels"][number];
 export type ProjectedBuilding = Economy["buildings"][number];
 export type ProjectedSite = Economy["constructionSites"][number];
-export type ProjectedFacility = ViewProjectionV2["facilities"][number];
-export type ProjectedPublicSpace = ViewProjectionV2["publicSpaces"][number];
-export type ProjectedDistrict = ViewProjectionV2["city"]["districts"][number];
+export type ProjectedFacility = ViewProjectionV3["facilities"][number];
+export type ProjectedPublicSpace = ViewProjectionV3["publicSpaces"][number];
+export type ProjectedDistrict = ViewProjectionV3["city"]["districts"][number];
 export type GameCalendar = Economy["gameTime"];
 
 export type HubKind = "government" | "finance" | "portfolio" | "city";
@@ -28,6 +28,7 @@ export type GameActions = {
     parcelIds: readonly string[],
     buildingType: BuildingType,
     placementId?: string,
+    headquartersVariantId?: HeadquartersVariantId,
   ) => void;
   cancelConstruction: (siteId: string) => void;
   assignCrew: (crewId: string, siteId: string) => void;

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   parseBuildingId,
-  viewProjectionV2Schema,
+  viewProjectionV3Schema,
   type Building,
   type Parcel,
   type UrbanFacility,
@@ -191,7 +191,7 @@ describe("H2-10 · cobertura potencial de las parcelas vacantes", () => {
     /** Se desarrolla en el distrito observado, que es el que viaja en la proyección. */
     developParcels(state, PLAYER_HOME_DISTRICT_ID, 20, 2000);
     const projection = createViewProjection(state, true);
-    expect(() => viewProjectionV2Schema.parse(projection)).not.toThrow();
+    expect(() => viewProjectionV3Schema.parse(projection)).not.toThrow();
     const parcels = projection.economy!.parcels;
     const builtIds = new Set(
       [...state.phase2.buildings.values()]

@@ -9,7 +9,7 @@ import {
   type ConstructionStage,
   type GridCell,
   type RuntimeAssetManifestV2,
-  type ViewProjectionV2,
+  type ViewProjectionV3,
 } from "@landlord/shared";
 import { constructionVisualStage } from "./construction-stages";
 
@@ -188,7 +188,7 @@ export type BuildingSpritePlacement = {
  * a la parcela para localizar su `buildingId` (H2-01).
  */
 export function buildingSpritePlan(
-  economy: Pick<NonNullable<ViewProjectionV2["economy"]>, "buildings" | "constructionSites">,
+  economy: Pick<NonNullable<ViewProjectionV3["economy"]>, "buildings" | "constructionSites">,
   opts: {
     /** Id → archetype (puede caer en `domainType` si el adapter no lo ha resuelto aún). */
     archetypeFor: (id: string, domainType: string) => string;
@@ -348,8 +348,8 @@ export function selectBuildingTextureKey(
 /**
  * H2-02 · resolución pura de la cadena Blender → procedural → null. `IsometricSpikeScene`
  * la invierte con sus bundles registrados y con `this.textures.exists`; aquí se prueba sin
- * Phaser que, ante un Blender ausente o corrupto, los 15 tipos del catálogo de dominio
- * resuelven una textura procedural válida. Con un procedural incompleto el helper devuelve
+ * Phaser que, ante un Blender ausente o corrupto, los tipos del catálogo de dominio
+ * resuelven una textura procedural válida (headquarters usa un placeholder doméstico temporal). Con un procedural incompleto el helper devuelve
  * `null` y el edificio desaparece: el manifiesto tiene que cubrir el catálogo entero, y
  * `assets.test.ts` lo fuerza estructuralmente.
  */
@@ -401,7 +401,10 @@ export function resolveBuildingVisual(
     return { key: blenderKey, asset: blenderAsset };
   }
   const proceduralKey = spriteKeyFor(domainType, state);
-  const proceduralAsset = options.proceduralBundle.buildings[domainType];
+  // Sede has a temporary domestic placeholder until both Composer variants pass the visual gate.
+  const proceduralAsset =
+    options.proceduralBundle.buildings[domainType] ??
+    (domainType === "headquarters" ? options.proceduralBundle.buildings.courtyard_home : undefined);
   if (
     proceduralAsset &&
     options.textureExists(proceduralKey) &&

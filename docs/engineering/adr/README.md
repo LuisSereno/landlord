@@ -8,6 +8,8 @@ Una decisión aceptada sólo se modifica mediante un ADR posterior que la sustit
 
 ## Decisiones
 
+- [D-110 — Sedes operativas de organización y contrato v3](D-110-sedes-operativas-y-contrato-v3.md)
+
 - [D-046 — Toolchain de Gate 1](D-046-toolchain-gate-1.md)
 - [D-047 — Paquetes y dependencias iniciales](D-047-paquetes-gate-1.md)
 - [D-048 — PRNG determinista](D-048-prng-determinista.md)

@@ -10,7 +10,7 @@ import {
 } from "./contracts";
 
 const envelope = {
-  protocolVersion: 2,
+  protocolVersion: 3,
   requestId: "request-17",
 } as const;
 

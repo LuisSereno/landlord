@@ -107,15 +107,16 @@ function parseArgs(argv) {
  */
 function domainGeometry(buildingType) {
   const gameData = readFileSync(GAME_DATA_PATH, "utf8");
-  const start = gameData.indexOf(`  ${buildingType}: {`);
-  if (start < 0) throw new Error(`BUILDING_DEFINITIONS.${buildingType} no existe en game-data.ts`);
+  const domainType = buildingType.startsWith("headquarters_") ? "headquarters" : buildingType;
+  const start = gameData.indexOf(`  ${domainType}: {`);
+  if (start < 0) throw new Error(`BUILDING_DEFINITIONS.${domainType} no existe en game-data.ts`);
   const boundary = /\n {2}[a-z_]+: \{/gu;
   boundary.lastIndex = start + buildingType.length + 5;
   const block = gameData.slice(start, boundary.exec(gameData)?.index ?? undefined);
   const footprint = /preferredFootprint: \{ width: (\d+), height: (\d+) \}/u.exec(block);
   const floors = /defaultFloors: (\d+)/u.exec(block);
   if (!footprint || !floors) {
-    throw new Error(`${buildingType}: game-data.ts no declara preferredFootprint o defaultFloors`);
+    throw new Error(`${domainType}: game-data.ts no declara preferredFootprint o defaultFloors`);
   }
   return {
     footprint: { width: Number(footprint[1]), height: Number(footprint[2]) },

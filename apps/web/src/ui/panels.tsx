@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
-import type { BuildingType, CrewId, ViewProjectionV2 } from "@landlord/shared";
+import type {
+  BuildingType,
+  CrewId,
+  HeadquartersVariantId,
+  ViewProjectionV3,
+} from "@landlord/shared";
 
 import {
   assetFinanceRows,
@@ -79,7 +84,7 @@ const PLAYER = "org_00000001";
 
 export type PanelContext = {
   economy: Economy;
-  projection: ViewProjectionV2;
+  projection: ViewProjectionV3;
   projectionDistrictName: string;
   calendar: GameCalendar;
   actions: GameActions;
@@ -104,7 +109,11 @@ export type PanelContext = {
    * obsoleta. El panel la consume una vez y luego el jugador manda.
    */
   sectionRequest?: PanelSectionRequest | undefined;
-  onBeginPlacement: (buildingType: BuildingType, parcelIds: readonly string[]) => void;
+  onBeginPlacement: (
+    buildingType: BuildingType,
+    parcelIds: readonly string[],
+    variant?: HeadquartersVariantId,
+  ) => void;
 };
 
 /**
@@ -448,7 +457,13 @@ function SiteAssemblyPanel({
       {ready ? (
         <button
           className="primary-action"
-          onClick={() => context.onBeginPlacement(pending.buildingType, pending.parcelIds)}
+          onClick={() =>
+            context.onBeginPlacement(
+              pending.buildingType,
+              pending.parcelIds,
+              pending.headquartersVariantId,
+            )
+          }
           type="button"
         >
           <UiIcon name="construction" /> Elegir ubicación para {pending.parcelIds.length} solares
@@ -584,6 +599,12 @@ function BuildingPanel({
     : [];
   const repairReasons = repairBlockedReasons({ economy, condition: building.condition });
   const occupied = building.tenantIds.length;
+  const headquartersBase =
+    building.type === "headquarters"
+      ? context.projection.bases.find(
+          (base) => base.organizationId === building.ownerOrganizationId,
+        )
+      : undefined;
   const status = buildingStatusFor(indexAssetStatus(economy), building.id);
   const load = parcelLoadFor(indexAssetStatus(economy), parcel.id);
   return (
@@ -660,6 +681,43 @@ function BuildingPanel({
           ) : null}
         </div>
       </section>
+      {building.type === "headquarters" ? (
+        <section aria-label="Sede operativa" className="panel-section">
+          <h3>Base de operaciones</h3>
+          <p className="chip-row">
+            <span
+              className="status-chip"
+              style={{
+                borderColor:
+                  headquartersBase?.visualIdentityId === "company_turquoise"
+                    ? "#4DB6AC"
+                    : "#D97757",
+              }}
+            >
+              {headquartersBase?.visualIdentityId === "company_turquoise"
+                ? "◆ Identidad turquesa"
+                : "▲ Identidad terracota"}
+            </span>
+          </p>
+          <p>
+            {headquartersBase?.provisional
+              ? "Sede no operativa; personal en el local provisional."
+              : "Sede operativa; el personal disponible regresa aquí."}
+          </p>
+          <p className="muted">
+            {headquartersBase?.staffCount ?? 0} agentes · acceso de servicio{" "}
+            {building.headquartersAccess
+              ? `(${building.headquartersAccess.service.x}, ${building.headquartersAccess.service.y})`
+              : "sin publicar"}
+          </p>
+          <p className="muted">
+            Arquitectura:{" "}
+            {building.headquartersVariantId === "courtyard"
+              ? "patio de servicio"
+              : "mirador urbano"}
+          </p>
+        </section>
+      ) : null}
 
       <nav aria-label="Secciones del edificio" className="tab-row">
         {(
@@ -688,14 +746,22 @@ function BuildingPanel({
           <dl className="detail-grid">
             <div>
               <dt>Ocupación</dt>
-              <dd>{production ? "Producción" : `${occupied}/${building.capacity} plazas`}</dd>
+              <dd>
+                {building.type === "headquarters"
+                  ? "Base operativa"
+                  : production
+                    ? "Producción"
+                    : `${occupied}/${building.capacity} plazas`}
+              </dd>
             </div>
             <div>
               <dt>Ingresos</dt>
               <dd>
-                {production
-                  ? `${production.averageOutputAmount.toFixed(2)} ${production.output}/ciclo`
-                  : `${building.effectiveRent} u./plaza`}
+                {building.type === "headquarters"
+                  ? "Sin ingresos de renta"
+                  : production
+                    ? `${production.averageOutputAmount.toFixed(2)} ${production.output}/ciclo`
+                    : `${building.effectiveRent} u./plaza`}
               </dd>
             </div>
             <div>
@@ -705,9 +771,11 @@ function BuildingPanel({
             <div>
               <dt>Rentabilidad</dt>
               <dd>
-                {production
-                  ? `Aptitud ${production.suitabilityPercent} %`
-                  : `${occupied * building.effectiveRent - building.maintenanceCost} u./mes`}
+                {building.type === "headquarters"
+                  ? "No genera renta"
+                  : production
+                    ? `Aptitud ${production.suitabilityPercent} %`
+                    : `${occupied * building.effectiveRent - building.maintenanceCost} u./mes`}
                 <HelpTooltip topic="profitability" />
               </dd>
             </div>
@@ -783,9 +851,8 @@ function BuildingPanel({
                       {(["household", "maker", "shopkeeper"] as const)
                         .map((segment) => ({
                           segment,
-                          count: compatibleTenants.filter(
-                            (tenant) => tenant.segmentId === segment,
-                          ).length,
+                          count: compatibleTenants.filter((tenant) => tenant.segmentId === segment)
+                            .length,
                         }))
                         .filter((entry) => entry.count > 0)
                         .map(
@@ -1045,6 +1112,16 @@ function ConstructionPanel({
             {site.parcelIds.length} {site.parcelIds.length === 1 ? "solar" : "solares"} en el
             proyecto
           </p>
+          {site.buildingType === "headquarters" ? (
+            <p className="muted">
+              Variante{" "}
+              {site.headquartersVariantId === "courtyard" ? "patio de servicio" : "mirador urbano"}{" "}
+              · acceso de servicio{" "}
+              {site.headquartersAccess
+                ? `${site.headquartersAccess.service.x}, ${site.headquartersAccess.service.y}`
+                : "pendiente"}
+            </p>
+          ) : null}
         </div>
       </section>
       <section className="panel-section">

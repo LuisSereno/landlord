@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import type { ViewProjectionV2 } from "@landlord/shared";
+import type { ViewProjectionV3 } from "@landlord/shared";
 import {
   IsometricSpikeScene,
   isometricSpikeGameConfig,
@@ -59,7 +59,7 @@ export function mountVisualSlice(
   return () => game.destroy(true);
 }
 
-export function updateIsometricProjection(game: Phaser.Game, projection: ViewProjectionV2): void {
+export function updateIsometricProjection(game: Phaser.Game, projection: ViewProjectionV3): void {
   mountedScenes.get(game)?.setProjection(projection);
 }
 

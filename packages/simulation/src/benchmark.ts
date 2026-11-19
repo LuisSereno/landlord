@@ -8,7 +8,7 @@ import {
   type GridCell,
   type Seed,
   type Tick,
-  type ViewProjectionV2,
+  type ViewProjectionV3,
 } from "@landlord/shared";
 import { MOVEMENT_TICKS_PER_CELL } from "./game-data";
 import { createPrng, type PrngState } from "./prng";
@@ -359,7 +359,7 @@ export function createBenchmarkScenario(
   return scenario;
 }
 
-export function createBenchmarkProjection(scenario: BenchmarkScenario): ViewProjectionV2 {
+export function createBenchmarkProjection(scenario: BenchmarkScenario): ViewProjectionV3 {
   const districts = Array.from({ length: 9 }, (_, index) => ({
     id: parseDistrictId(`district_${String(index + 1).padStart(8, "0")}`),
     name: `Distrito ${index + 1}`,
@@ -382,7 +382,7 @@ export function createBenchmarkProjection(scenario: BenchmarkScenario): ViewProj
     alerts: 0,
   }));
   return {
-    projectionVersion: 2,
+    projectionVersion: 3,
     observedDistrictId: parseDistrictId("district_00000004"),
     city: {
       id: "city_00000001",
@@ -392,6 +392,7 @@ export function createBenchmarkProjection(scenario: BenchmarkScenario): ViewProj
     },
     tick: scenario.tick,
     movement: { ticksPerCell: MOVEMENT_TICKS_PER_CELL },
+    bases: [],
     map: {
       width: 64,
       height: 64,
@@ -410,6 +411,8 @@ export function createBenchmarkProjection(scenario: BenchmarkScenario): ViewProj
       districtId: parseDistrictId("district_00000004"),
       cell: agent.cell,
       nextCell: agent.pathIndex < agent.path.length ? agent.path[agent.pathIndex]! : null,
+      atBase: false,
+      returningToBase: false,
     })),
   };
 }

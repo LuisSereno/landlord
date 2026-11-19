@@ -7,7 +7,7 @@ import {
   simulationMetricsPublishedSchema,
 } from "./responses";
 
-const responseVersion = 2 as const;
+const responseVersion = 3 as const;
 
 describe("Worker responses", () => {
   it("keeps correlated responses separate from notifications", () => {

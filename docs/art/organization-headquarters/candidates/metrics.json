@@ -1,0 +1,332 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-19T12:22:27.666Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/organization-headquarters/candidates",
+ "requested": 8,
+ "rendered": 8,
+ "totalGenerationMs": 486647,
+ "blenderPeakRssMb": 4663.3,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "9f4470cf659cb93f68b5fe3f3ad986e42244a2ffe7013309b7f3bcd7c06183ef",
+   "after": "9f4470cf659cb93f68b5fe3f3ad986e42244a2ffe7013309b7f3bcd7c06183ef"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "0c7f8c3e0a81cf2144c971fce298784575d8ada49ab4ee8ea08d8995a69a7cba",
+   "after": "0c7f8c3e0a81cf2144c971fce298784575d8ada49ab4ee8ea08d8995a69a7cba"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "hq_headquarters_cupola_5101",
+   "buildingType": "headquarters_cupola",
+   "family": "civic_landmark",
+   "variantSeed": 5101,
+   "compositionSignature": "c958eefa2594b738698a4af32d1bcc5c3f87ffa9a4ff8308bbca703cc1e54802",
+   "triangleCount": 11892,
+   "objectCount": 128,
+   "moduleCount": 11,
+   "materials": 20,
+   "textures": 21,
+   "bounds": {
+    "x": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "y": {
+     "min": -4.4,
+     "max": 4.0174
+    },
+    "z": {
+     "min": 0,
+     "max": 12.0281
+    }
+   },
+   "renderMs": 14034.63,
+   "pngBytes": 1252303,
+   "pngPixels": [
+    1042,
+    1149
+   ],
+   "pixelSha256": "9e7accf6107799b8258deb9172c8e221eee3d8e1442f636dd8156c4ec64fd265",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5077,
+    "y": 0.7694
+   }
+  },
+  {
+   "candidateId": "hq_headquarters_cupola_5101_o90",
+   "buildingType": "headquarters_cupola",
+   "family": "civic_landmark",
+   "variantSeed": 5101,
+   "compositionSignature": "e622e8d689376f333e804dcd6d6daf8b7e3d205e07f5321badeea63ff08a0751",
+   "triangleCount": 11892,
+   "objectCount": 128,
+   "moduleCount": 11,
+   "materials": 20,
+   "textures": 21,
+   "bounds": {
+    "x": {
+     "min": -4.0174,
+     "max": 4.4
+    },
+    "y": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "z": {
+     "min": 0,
+     "max": 12.0281
+    }
+   },
+   "renderMs": 13838.11,
+   "pngBytes": 1301305,
+   "pngPixels": [
+    1042,
+    1149
+   ],
+   "pixelSha256": "9307789789af6e4e781f2c33a568a1b57151118bd2e84e8d90b6bdea7ca977ec",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.4923,
+    "y": 0.7694
+   }
+  },
+  {
+   "candidateId": "hq_headquarters_cupola_5101_o180",
+   "buildingType": "headquarters_cupola",
+   "family": "civic_landmark",
+   "variantSeed": 5101,
+   "compositionSignature": "b437f99c935b913e8879406fa6eb5d102258a5fad0567dbf68eb8da30dc28897",
+   "triangleCount": 11892,
+   "objectCount": 128,
+   "moduleCount": 11,
+   "materials": 20,
+   "textures": 21,
+   "bounds": {
+    "x": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "y": {
+     "min": -4.0174,
+     "max": 4.4
+    },
+    "z": {
+     "min": 0,
+     "max": 12.0281
+    }
+   },
+   "renderMs": 13913.35,
+   "pngBytes": 1241700,
+   "pngPixels": [
+    1042,
+    1149
+   ],
+   "pixelSha256": "b87df0399e0957c669de1dec5bf540aeeb93cfe0ef8a7380ef620820233fc9a5",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.4923,
+    "y": 0.7764
+   }
+  },
+  {
+   "candidateId": "hq_headquarters_cupola_5101_o270",
+   "buildingType": "headquarters_cupola",
+   "family": "civic_landmark",
+   "variantSeed": 5101,
+   "compositionSignature": "c6b4eeaceab1a17e289ebeb3ae3beac88f7a15697e824f9ff04217c9c6c430aa",
+   "triangleCount": 11892,
+   "objectCount": 128,
+   "moduleCount": 11,
+   "materials": 20,
+   "textures": 21,
+   "bounds": {
+    "x": {
+     "min": -4.4,
+     "max": 4.0174
+    },
+    "y": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "z": {
+     "min": 0,
+     "max": 12.0281
+    }
+   },
+   "renderMs": 13555.71,
+   "pngBytes": 1297635,
+   "pngPixels": [
+    1042,
+    1149
+   ],
+   "pixelSha256": "91ade57b591475d827016aa66eb250d9bd1d2e72e5c968df5a7c575ef69feda4",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5077,
+    "y": 0.7764
+   }
+  },
+  {
+   "candidateId": "hq_headquarters_courtyard_5101",
+   "buildingType": "headquarters_courtyard",
+   "family": "residential_low",
+   "variantSeed": 5101,
+   "compositionSignature": "526ffcb773a47701c24590a847f870d798e50e5a99f72f10a25f38b994d98145",
+   "triangleCount": 12666,
+   "objectCount": 137,
+   "moduleCount": 8,
+   "materials": 18,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "y": {
+     "min": -4.428,
+     "max": 4.0174
+    },
+    "z": {
+     "min": 0,
+     "max": 12.0281
+    }
+   },
+   "renderMs": 13399.2,
+   "pngBytes": 1242665,
+   "pngPixels": [
+    1043,
+    1149
+   ],
+   "pixelSha256": "b9b58ade6c8ebfd32371f34dac4c2dd7ffb99ccd7fc62c26b975615e7ee62827",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5086,
+    "y": 0.769
+   }
+  },
+  {
+   "candidateId": "hq_headquarters_courtyard_5101_o90",
+   "buildingType": "headquarters_courtyard",
+   "family": "residential_low",
+   "variantSeed": 5101,
+   "compositionSignature": "ca0ce54fa44762d506bbc070dcf5af8702681633a6c6889426492ef870c27499",
+   "triangleCount": 12666,
+   "objectCount": 137,
+   "moduleCount": 8,
+   "materials": 18,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -4.0174,
+     "max": 4.428
+    },
+    "y": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "z": {
+     "min": 0,
+     "max": 12.0281
+    }
+   },
+   "renderMs": 12956.96,
+   "pngBytes": 1262992,
+   "pngPixels": [
+    1043,
+    1149
+   ],
+   "pixelSha256": "f3df0988222125bb1bf37d0fb387255c41f4bff5d5c2918dcd959a3e707178cd",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.4914,
+    "y": 0.769
+   }
+  },
+  {
+   "candidateId": "hq_headquarters_courtyard_5101_o180",
+   "buildingType": "headquarters_courtyard",
+   "family": "residential_low",
+   "variantSeed": 5101,
+   "compositionSignature": "e5430d2e46cd908f7aff96ca6415c699305d6a55740747704c282a557693a947",
+   "triangleCount": 12666,
+   "objectCount": 137,
+   "moduleCount": 8,
+   "materials": 18,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "y": {
+     "min": -4.0174,
+     "max": 4.428
+    },
+    "z": {
+     "min": 0,
+     "max": 12.0281
+    }
+   },
+   "renderMs": 13918.54,
+   "pngBytes": 1261142,
+   "pngPixels": [
+    1043,
+    1149
+   ],
+   "pixelSha256": "f820fd9416688f408fa0b2aa0cf094cee8f98221d7998715c898f5d2988a0110",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.4914,
+    "y": 0.7768
+   }
+  },
+  {
+   "candidateId": "hq_headquarters_courtyard_5101_o270",
+   "buildingType": "headquarters_courtyard",
+   "family": "residential_low",
+   "variantSeed": 5101,
+   "compositionSignature": "84c69a4a4c0456b0ef3dbcd593c86cb720bd03b68037e3f959ccbf49f1c5191f",
+   "triangleCount": 12666,
+   "objectCount": 137,
+   "moduleCount": 8,
+   "materials": 18,
+   "textures": 18,
+   "bounds": {
+    "x": {
+     "min": -4.428,
+     "max": 4.0174
+    },
+    "y": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "z": {
+     "min": 0,
+     "max": 12.0281
+    }
+   },
+   "renderMs": 12893.64,
+   "pngBytes": 1297956,
+   "pngPixels": [
+    1043,
+    1149
+   ],
+   "pixelSha256": "01fdf45fb5c1dd7ac59486a4b91a038ecf82fc5704130b1b4ac457d9edacee79",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5086,
+    "y": 0.7768
+   }
+  }
+ ],
+ "failures": []
+}

@@ -33,6 +33,7 @@ const errorMessages: Record<ErrorCode, string> = {
   PARCEL_UNAVAILABLE: "La parcela ya tiene propietario.",
   INSUFFICIENT_FUNDS: "La organización no tiene caja suficiente.",
   BUILDING_NOT_FOUND: "El edificio no existe.",
+  INVALID_BUILDING_VARIANT: "La arquitectura seleccionada no es válida para este edificio.",
   INVALID_ZONING: "El zoning no permite este edificio.",
   USE_NOT_ALLOWED: "El código urbanístico de la parcela no permite este uso.",
   ACTIVE_SITE_ON_PARCEL: "La parcela ya tiene una obra activa.",
@@ -115,7 +116,7 @@ const errorMessages: Record<ErrorCode, string> = {
     "La colocación elegida ya no es legal en este solar: elige otra posición.",
 } as const;
 
-const PROTOCOL_VERSION = protocolVersionSchema.parse(2);
+const PROTOCOL_VERSION = protocolVersionSchema.parse(3);
 const INVALID_REQUEST_ID = parseRequestId("invalid-request");
 
 function requestIdFromUnknown(value: unknown): RequestId | null {
@@ -298,7 +299,7 @@ export class SimulationWorkerRuntime {
           rawSnapshot &&
           typeof rawSnapshot === "object" &&
           "schemaVersion" in rawSnapshot &&
-          rawSnapshot.schemaVersion !== 2
+          rawSnapshot.schemaVersion !== 3
         ) {
           return [failed(request.requestId, "UNSUPPORTED_SNAPSHOT_VERSION")];
         }

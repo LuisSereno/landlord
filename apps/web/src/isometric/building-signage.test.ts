@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { BuildingAssetV2, BuildingType, ViewProjectionV2 } from "@landlord/shared";
+import type { BuildingAssetV2, BuildingType, ViewProjectionV3 } from "@landlord/shared";
 import { buildingSpritePlan } from "./building-sprites";
 import {
   DEFAULT_SIGNAGE_LOCALE,
@@ -54,7 +54,7 @@ const FAKE_ASSET = {
   states: {},
 } as unknown as BuildingAssetV2;
 
-type Economy = Pick<NonNullable<ViewProjectionV2["economy"]>, "buildings" | "constructionSites">;
+type Economy = Pick<NonNullable<ViewProjectionV3["economy"]>, "buildings" | "constructionSites">;
 
 function building(
   id: string,

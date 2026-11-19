@@ -232,7 +232,7 @@ posiciones tiene que pasar por ahí, así que la arquitectura fija cuatro puntos
   ocupado (huellas de edificios y de obras activas sobre `map.blockedCells`) y lo imparable, y ofrece
   `interactionCellCandidates`, la lista canónica de celdas libres contiguas a una huella. Las rutas del
   tick y los tres comandos tácticos la usan; si ningún candidato es alcanzable, la orden se rechaza.
-  La escena no decide nada de esto: `ViewProjectionV2` ya publicaba las huellas;
+  La escena no decide nada de esto: `ViewProjectionV3` ya publica las huellas;
 - **contratos de dominio**: `permitting.ts` (permiso con identidad, vigencia derivada en orden canónico
   y consumo al iniciar obra), `development-codes.ts` (una única regla de compatibilidad de usos y una
   única lectura de la densidad vigente), `facility-coverage.ts` (capacidad efectiva 0 sin edificio
@@ -277,7 +277,7 @@ D-094 cierra; los cuatro son **de semántica**, no de tuning:
 - **cobertura potencial sin reservar slot**: `potentialByParcelId` expone, para parcelas
   vacantes, si hay facilities alcanzables con capacidad residual. Land value **no** lo
   consulta: `services` sigue midiendo disponibilidad operativa (`CoverageIndex`), no potencial.
-- **presentación que refleja la física**: `ViewProjectionV2.economy.buildings[]` publica
+- **presentación que refleja la física**: `ViewProjectionV3.economy.buildings[]` publica
   `districtId`, `footprintCells`, `orientation`, `floors` y `form`. `constructionSites[]`
   también. `syncBuildingSprites` recorre las colecciones directamente —sin resolver
   `parcel.buildingId === building.id`— y coloca sprites por `footprintBounds` /

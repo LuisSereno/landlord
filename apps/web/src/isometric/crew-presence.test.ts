@@ -16,7 +16,7 @@ import {
 import { describe, expect, it } from "vitest";
 
 import BLENDER from "../generated/runtime-assets-blender.json";
-import type { AgentId, ConstructionSiteId, CrewId, ViewProjectionV2 } from "@landlord/shared";
+import type { AgentId, ConstructionSiteId, CrewId, ViewProjectionV3 } from "@landlord/shared";
 import {
   agentWorksAtSiteFootprint,
   CREW_CHARACTER,
@@ -46,7 +46,7 @@ const ORG = parseOrganizationId("org_00000001");
 function assignedCrewRuntime() {
   const runtime = new SimulationWorkerRuntime();
   runtime.handle({
-    protocolVersion: 2,
+    protocolVersion: 3,
     requestId: "req_initialize",
     type: "InitializeGame",
     payload: { seed: 7 },
@@ -262,9 +262,9 @@ describe("V.k.2 · lectura pura de cuadrillas", () => {
 
 /** La proyección se muta sólo para fijar el instante que se quiere observar. */
 function withAgents(
-  projection: ViewProjectionV2,
-  patch: (agent: ViewProjectionV2["agents"][number]) => ViewProjectionV2["agents"][number],
-): ViewProjectionV2 {
+  projection: ViewProjectionV3,
+  patch: (agent: ViewProjectionV3["agents"][number]) => ViewProjectionV3["agents"][number],
+): ViewProjectionV3 {
   return { ...projection, agents: projection.agents.map(patch) };
 }
 
@@ -336,7 +336,7 @@ describe("V.k.3 · observaciones para el pool de sprites", () => {
       expect(observation.direction).toBeLessThan(MANIFEST.characters.chr_worker!.directions);
     }
 
-    const sinCuadrilla: ViewProjectionV2 = {
+    const sinCuadrilla: ViewProjectionV3 = {
       ...projection,
       economy: {
         ...projection.economy!,
@@ -388,7 +388,7 @@ describe("V.k.3 · observaciones para el pool de sprites", () => {
     const { state, crew } = assignedCrewRuntime();
     const base = createViewProjection(state, true);
     const supervisorId = crew.supervisorAgentId;
-    const step = (tick: number, nextCell: { x: number; y: number } | null): ViewProjectionV2 =>
+    const step = (tick: number, nextCell: { x: number; y: number } | null): ViewProjectionV3 =>
       withAgents({ ...base, tick: parseTick(tick) }, (agent) =>
         agent.id === supervisorId ? { ...agent, cell: { x: 5, y: 5 }, nextCell } : agent,
       );
@@ -417,7 +417,7 @@ describe("V.k.3 · observaciones para el pool de sprites", () => {
 });
 
 describe("V.k.4 · el panel y el mapa consultan la misma puerta", () => {
-  const roster = (projection: ViewProjectionV2, siteId: ConstructionSiteId, crewId: CrewId) =>
+  const roster = (projection: ViewProjectionV3, siteId: ConstructionSiteId, crewId: CrewId) =>
     crewRosterCounts({
       economy: projection.economy!,
       agents: projection.agents,
@@ -429,7 +429,7 @@ describe("V.k.4 · el panel y el mapa consultan la misma puerta", () => {
   const comoMapa = (entries: readonly { state: string; members: number }[]) =>
     Object.fromEntries(entries.map((entry) => [entry.state, entry.members]));
 
-  const huella = (projection: ViewProjectionV2, siteId: ConstructionSiteId) =>
+  const huella = (projection: ViewProjectionV3, siteId: ConstructionSiteId) =>
     projection.economy!.constructionSites.find((entry) => entry.id === siteId)!.footprintCells;
 
   it("el recuento del panel es exactamente el estado que la escena pinta", () => {
@@ -506,7 +506,7 @@ describe("V.k.4 · el panel y el mapa consultan la misma puerta", () => {
         ? agent
         : { ...agent, cell: primeraCelda!, nextCell: null, state: "working" as const },
     );
-    const sinSupervisor: ViewProjectionV2 = {
+    const sinSupervisor: ViewProjectionV3 = {
       ...trabajadores,
       agents: trabajadores.agents.filter((agent) => agent.id !== crew.supervisorAgentId),
     };

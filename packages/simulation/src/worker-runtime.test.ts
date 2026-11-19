@@ -6,14 +6,14 @@ import { ENGINE_VERSION } from "./snapshot";
 import { SimulationWorkerRuntime } from "./worker-runtime";
 
 const initialize = {
-  protocolVersion: 2,
+  protocolVersion: 3,
   requestId: "request-init",
   type: "InitializeGame" as const,
   payload: { seed: 1 },
 };
 
 const submit = {
-  protocolVersion: 2,
+  protocolVersion: 3,
   requestId: "request-command",
   type: "SubmitCommand" as const,
   payload: {
@@ -59,7 +59,7 @@ describe("simulation Worker runtime", () => {
     expect(runtime.handle({ protocolVersion: 1, requestId: "request-bad" })).toMatchObject([
       { type: "RequestFailed", payload: { code: "UNSUPPORTED_PROTOCOL" } },
     ]);
-    expect(runtime.handle({ protocolVersion: 2, requestId: "request-bad" })).toMatchObject([
+    expect(runtime.handle({ protocolVersion: 3, requestId: "request-bad" })).toMatchObject([
       { type: "RequestFailed", payload: { code: "INVALID_PAYLOAD" } },
     ]);
     runtime.handle(initialize);
@@ -87,7 +87,7 @@ describe("simulation Worker runtime", () => {
     ]);
     expect(
       runtime.handle({
-        protocolVersion: 2,
+        protocolVersion: 3,
         requestId: "request-metrics",
         type: "GetMetrics" as const,
         payload: {},
@@ -104,7 +104,7 @@ describe("simulation Worker runtime", () => {
     runtime.handle(submit);
     runtime.advanceTicks(1);
     const saved = runtime.handle({
-      protocolVersion: 2,
+      protocolVersion: 3,
       requestId: "request-save",
       type: "SaveSnapshot" as const,
       payload: {},
@@ -112,22 +112,22 @@ describe("simulation Worker runtime", () => {
     expect(saved[0]).toMatchObject({
       type: "RequestSucceeded",
       payload: {
-        result: { engineVersion: ENGINE_VERSION, schemaVersion: 2 },
+        result: { engineVersion: ENGINE_VERSION, schemaVersion: 3 },
       },
     });
     const snapshot = (saved[0] as { payload: { result: { snapshot: unknown } } }).payload.result
       .snapshot;
     expect(
       runtime.handle({
-        protocolVersion: 2,
+        protocolVersion: 3,
         requestId: "request-invalid-load",
         type: "LoadSnapshot" as const,
-        payload: { snapshot: { schemaVersion: 2 } },
+        payload: { snapshot: { schemaVersion: 3 } },
       }),
     ).toMatchObject([{ type: "RequestFailed", payload: { code: "INVALID_SNAPSHOT" } }]);
     expect(
       runtime.handle({
-        protocolVersion: 2,
+        protocolVersion: 3,
         requestId: "request-v1-load",
         type: "LoadSnapshot" as const,
         payload: { snapshot: { schemaVersion: 1 } },
@@ -137,7 +137,7 @@ describe("simulation Worker runtime", () => {
     expect(
       runtime
         .handle({
-          protocolVersion: 2,
+          protocolVersion: 3,
           requestId: "request-load",
           type: "LoadSnapshot" as const,
           payload: { snapshot },
@@ -151,7 +151,7 @@ describe("simulation Worker runtime", () => {
     runtime.handle(initialize);
     runtime.handle(submit);
     const saved = runtime.handle({
-      protocolVersion: 2,
+      protocolVersion: 3,
       requestId: "request-save-pending",
       type: "SaveSnapshot" as const,
       payload: {},
@@ -164,7 +164,7 @@ describe("simulation Worker runtime", () => {
     const restored = new SimulationWorkerRuntime();
     restored.handle(initialize);
     restored.handle({
-      protocolVersion: 2,
+      protocolVersion: 3,
       requestId: "request-load-pending",
       type: "LoadSnapshot" as const,
       payload: { snapshot },
@@ -185,7 +185,7 @@ describe("V.d.0 distrito observado", () => {
     const target = districtIdForSlot(2, 2);
 
     const responses = runtime.handle({
-      protocolVersion: 2,
+      protocolVersion: 3,
       requestId: "request-observed",
       type: "SetObservedDistrict",
       payload: { districtId: target },
@@ -202,7 +202,7 @@ describe("V.d.0 distrito observado", () => {
     expect(runtime.getState()!.world.districts.has(PLAYER_HOME_DISTRICT_ID)).toBe(true);
 
     const rejected = runtime.handle({
-      protocolVersion: 2,
+      protocolVersion: 3,
       requestId: "request-observed-bad",
       type: "SetObservedDistrict",
       payload: { districtId: "district_99999999" },

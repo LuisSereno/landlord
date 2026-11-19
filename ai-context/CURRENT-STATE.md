@@ -2,12 +2,27 @@
 
 Actualizado: 2026-11-18. Leer este archivo antes de la historia extensa de `PROJECT-STATE.md`.
 
+## Sedes operativas (2026-11-19, D-110)
+
+- El contrato vigente es `SnapshotV3`, protocolo 3 y `ViewProjectionV3`. Los guardados v2 se listan
+  como incompatibles y no se migran ni se borran automáticamente.
+- `headquarters` es un tipo construible para organizaciones iniciales, con variantes persistidas
+  `cupola` y `courtyard`, solar de dos parcelas/16 celdas, huella 4×2, coste 4 500, recursos 4/8/2,
+  trabajo 96 y cero capacidad/renta. Mantenimiento e impuestos siguen activos.
+- Las bases iniciales usan los spawn anchors como local provisional. La sede terminada define entrada
+  principal/de servicio; los agentes operativos regresan por A* y el grafo de gateways. Se publica
+  presencia y regreso para ocultar a quienes están dentro de la base.
+- Identidades: jugador `#4DB6AC` y rival `#D97757`; el azul queda reservado al municipio.
+- Las referencias conceptuales están en `docs/art/organization-headquarters/`. La geometría de las
+  dos variantes aún no está promocionada al runtime; pasar por Building Composer, procedencia y QA
+  visual en gameplay antes de promoción.
+
 ## Rama y arquitectura jugable
 
 - Rama de trabajo: `develop` desde V.d-UX.S (2026-11-16). Las entregas anteriores de arte y
   integración se hicieron en `wip/vh-world-visual-foundation`; no integrar ni empujar a `develop` o
   `main` sin revisión humana.
-- Simulación TypeScript pura y determinista; Phaser/React sólo consumen `ViewProjectionV2`.
+- Simulación TypeScript pura y determinista; Phaser/React sólo consumen `ViewProjectionV3`.
 - El estado autoritativo pertenece al motor. `Math.random()` no entra en dominio.
 - El MVP sigue siendo single-player: comprar terreno → producir → construir → ocupar → caja →
   competencia → riesgo → respuesta política.
@@ -37,7 +52,7 @@ Actualizado: 2026-11-18. Leer este archivo antes de la historia extensa de `PROJ
 - Producción, alquileres, deuda, impuestos, mantenimiento, seguros, servicios, mercado de vivienda
   y empleo agregado, IA rival, facciones, reputación, política municipal y automatización.
 - Facilities recorren el grafo vial; la cobertura se deriva de edificio operacional y capacidad.
-- Snapshots V2, canonicalización y digests protegen determinismo.
+- Snapshots V3, canonicalización y digests protegen determinismo; v2 no tiene migración.
 
 ## Hardening de integración (2026-11-12, rama wip/vh-world-visual-foundation)
 

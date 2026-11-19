@@ -97,6 +97,7 @@ const BUILDING_TYPE_LABELS: Record<BuildingType, string> = {
   police_station: "Comisaría",
   fire_station: "Parque de bomberos",
   market_hall: "Mercado",
+  headquarters: "Sede operativa",
 };
 
 export function buildingTypeLabel(type: string): string {

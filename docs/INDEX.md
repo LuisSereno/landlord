@@ -26,7 +26,9 @@ obra en proceso visible con cuadrillas y recinto derivados.
 
 ## Arte
 
-- [Building Catalog](art/BUILDING-CATALOG.md) — los 15 edificios de dominio con su fuente geométrica real y evidencia candidata.
+- [Building Catalog](art/BUILDING-CATALOG.md) — catálogo de tipos de dominio y evidencia de geometría.
+- [Organization Headquarters](art/organization-headquarters/README.md) — sedes, identidad visual y gate de procedencia.
+- [Organization Headquarters](art/organization-headquarters/README.md) — contrato operativo, identidades visuales y gate de procedencia para las dos mansiones.
 - [World Visual Foundation](art/WORLD-VISUAL-FOUNDATION.md) — WP4.15-V.h: Asset Knowledge Base, catálogos semánticos y dressing contextual determinista para la ciudad completa.
 - [World Asset Audit](asset-library/world-asset-audit.md) — auditoría total de fuentes (discovered/indexed/classified/runtime-ready/excluded).
 - [World Asset Dictionary](asset-library/world-asset-dictionary.md) — vocabulario del índice: estados, categorías, taxonomías de vehículo/actor/clip, procedencia.
@@ -170,6 +172,7 @@ obra en proceso visible con cuadrillas y recinto derivados.
 - `docs/engineering/adr/D-099-building-composer-geometria-modular.md` — propuesta D-099: composición modular determinista sobre geometría licenciada.
 - `docs/engineering/adr/D-108-mood-de-render-como-dato-de-procedencia.md` — el mood con el que se horneó cada PNG es dato de procedencia y de manifiesto runtime (`moodId`), no nombre de archivo. Sustituye la condición abierta de D-105 sobre el rehorneado por familia y registra el precedente de satisfacer un campo obligatorio nuevo anotando el dato, no relajando el validador.
 - `docs/engineering/adr/D-109-mercado-manual-solar-y-patios.md` — mercado de inquilinos manual con vigencia de seis meses, solar reservado (`siteFootprint`/`siteCells`) separado de la huella física en los seis equipamientos (enmienda explícita a D-099 para town_hall V7), patios con vehículo temático y props originales, y fauna urbana/periférica determinista.
+- `docs/engineering/adr/D-110-sedes-operativas-y-contrato-v3.md` — headquarters por organización, regreso de agentes y contrato v3 sin migración de saves v2.
 
 ## Benchmark morfológico
 - `tools/urban-benchmark/README.md` — herramienta offline (OSMnx fijado por versión), las 28 ventanas de

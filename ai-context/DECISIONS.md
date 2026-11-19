@@ -1800,3 +1800,7 @@ Presupuesto D-101: la base `2018fbd` ya excedía el bundle en 233.877 B con 17 v
 archivo preexistentes; el rehorneado de los seis equipamientos con huella menor debe devolver el
 bundle bajo el límite y la medición final se registra en el acta. Ver
 `docs/engineering/adr/D-109-mercado-manual-solar-y-patios.md`.
+## D-110 — Sedes operativas de organización y contrato v3
+Estado: decidido. HQ construible por organización; variantes estéticas equivalentes; retorno físico
+de agentes; local provisional; colores por organización; guardados y protocolo v3 sin migración v2.
+Véase `docs/engineering/adr/D-110-sedes-operativas-y-contrato-v3.md`.

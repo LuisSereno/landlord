@@ -5,7 +5,7 @@ import {
   type BuildingAssetState,
   type BuildingType,
   type RuntimeAssetManifestV2,
-  type ViewProjectionV2,
+  type ViewProjectionV3,
 } from "@landlord/shared";
 import { BUILDING_DEFINITIONS } from "@landlord/simulation";
 import runtimeAssets from "../generated/runtime-assets.json";
@@ -161,7 +161,7 @@ const FAKE_ASSET = {
 } as unknown as BuildingAssetV2;
 
 function planFor(
-  economy: Pick<NonNullable<ViewProjectionV2["economy"]>, "buildings" | "constructionSites">,
+  economy: Pick<NonNullable<ViewProjectionV3["economy"]>, "buildings" | "constructionSites">,
 ) {
   return buildingSpritePlan(economy, {
     archetypeFor: (_id, domainType) => domainType,
@@ -278,7 +278,7 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
       ],
       constructionSites: [],
     } as unknown as Pick<
-      NonNullable<ViewProjectionV2["economy"]>,
+      NonNullable<ViewProjectionV3["economy"]>,
       "buildings" | "constructionSites"
     >;
 
@@ -330,7 +330,7 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
         },
       ],
     } as unknown as Pick<
-      NonNullable<ViewProjectionV2["economy"]>,
+      NonNullable<ViewProjectionV3["economy"]>,
       "buildings" | "constructionSites"
     >;
 
@@ -383,7 +383,7 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
         },
       ],
     } as unknown as Pick<
-      NonNullable<ViewProjectionV2["economy"]>,
+      NonNullable<ViewProjectionV3["economy"]>,
       "buildings" | "constructionSites"
     >;
     const plan = planFor(economy);
@@ -418,14 +418,14 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
       ],
       constructionSites: [],
     } as unknown as Pick<
-      NonNullable<ViewProjectionV2["economy"]>,
+      NonNullable<ViewProjectionV3["economy"]>,
       "buildings" | "constructionSites"
     >;
     const onlyFirst = {
       buildings: [both.buildings[0]!],
       constructionSites: [],
     } as unknown as Pick<
-      NonNullable<ViewProjectionV2["economy"]>,
+      NonNullable<ViewProjectionV3["economy"]>,
       "buildings" | "constructionSites"
     >;
     const before = planFor(both).map((entry) => entry.id);
@@ -437,7 +437,7 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
   it("una entrada sin asset resoluble se omite; con H2-02 cerrado esto debe ser cero", () => {
     /**
      * Contrato explícito: el plan es la paridad contra "renderizables", no contra todos los
-     * proyectados. Cuando el catálogo procedural cubra los 15 tipos (H2-02), ningún edificio
+     * proyectados. Cuando el catálogo procedural cubra los tipos del runtime (H2-02), ningún edificio
      * real quedará fuera; mientras falte un tipo, el test lo hace visible en lugar de ocultarlo.
      */
     const economy = {
@@ -459,7 +459,7 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
       ],
       constructionSites: [],
     } as unknown as Pick<
-      NonNullable<ViewProjectionV2["economy"]>,
+      NonNullable<ViewProjectionV3["economy"]>,
       "buildings" | "constructionSites"
     >;
     const plan = buildingSpritePlan(economy, {
@@ -473,7 +473,7 @@ describe("H2-01 huella física y paridad del plan de sprites", () => {
 
 /**
  * H2-02 · el contrato de `resolveBuildingVisual` dice "un edificio nunca desaparece por falta de
- * un Blender". El test simula esa ausencia y comprueba que los 15 tipos del catálogo de dominio
+ * un Blender". El test simula esa ausencia y comprueba que los tipos del catálogo de dominio
  * resuelven una textura procedural válida. Si un tipo nuevo entra en `BUILDING_DEFINITIONS` sin
  * fallback, este test falla antes de que el render pierda el edificio.
  */
@@ -484,13 +484,13 @@ const ALL_BUILDING_STATES: BuildingAssetState[] = [
   "burning",
 ];
 
-describe("H2-02 ausencia de Blender → fallback procedural para los 15 tipos", () => {
+describe("H2-02 ausencia de Blender → fallback procedural para los tipos del catálogo", () => {
   it("cada BuildingType del catálogo resuelve una textura procedural válida sin Blender", () => {
     const proceduralBundle = ASSETS;
     const emptyBlender = { buildings: {} };
     const types = Object.keys(BUILDING_DEFINITIONS) as BuildingType[];
-    /** Invariante estructural: 15 tipos, no una lista mantenida a mano. */
-    expect(types).toHaveLength(15);
+    /** La sede usa un placeholder doméstico hasta pasar el gate de arte de las dos variantes. */
+    expect(types).toHaveLength(16);
     for (const type of types) {
       for (const state of ALL_BUILDING_STATES) {
         const resolved = resolveBuildingVisual(type, type, state, {
@@ -570,7 +570,7 @@ describe("H2-02 ausencia de Blender → fallback procedural para los 15 tipos", 
  *
  * - `Building.orientation ∈ {0, 90, 180, 270}` es **rotación física del sólido** dentro de la
  *   parcela (la elige `chooseFootprint` en `packages/simulation/src/footprints.ts` según el eje
- *   largo del rectángulo). Viaja en `ViewProjectionV2.economy.buildings[i].orientation` desde H2-01.
+ *   largo del rectángulo). Viaja en `ViewProjectionV3.economy.buildings[i].orientation` desde H2-01.
  *
  * - `RuntimeAssetManifestV2.buildings[t].allowedOrientations ⊂ {45, 135, 225, 315}` es **azimut de
  *   la cámara isométrica** para el que existe un frame. `SCENE_AZIMUTH = 45` es la única orientación
@@ -642,7 +642,7 @@ describe("H2-03 orientación física del dominio ≠ azimut de cámara del manif
       ],
       constructionSites: [],
     } as unknown as Pick<
-      NonNullable<ViewProjectionV2["economy"]>,
+      NonNullable<ViewProjectionV3["economy"]>,
       "buildings" | "constructionSites"
     >;
     const plan = buildingSpritePlan(economy, {

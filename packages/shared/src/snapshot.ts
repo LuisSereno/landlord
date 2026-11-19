@@ -20,6 +20,7 @@ import {
 import {
   organizationControlGrantSchema,
   organizationSchema,
+  organizationBaseSchema,
   personSchema,
   productCommandSchema,
   playerIdentitySchema,
@@ -58,6 +59,7 @@ import {
   roadCellsFromSegments,
   roadSegmentId,
   type Organization,
+  type OrganizationBase,
   type OrganizationControlGrant,
   type Person,
   type ProductCommand,
@@ -73,7 +75,7 @@ import {
   type Tick,
 } from "./time-and-grid";
 
-export type SnapshotV2 = {
+export type SnapshotV3 = {
   schemaVersion: SchemaVersion;
   engineVersion: string;
   seed: Seed;
@@ -97,6 +99,7 @@ export type SnapshotV2 = {
   playerIdentities: PlayerIdentity[];
   persons: Person[];
   organizations: Organization[];
+  organizationBases: OrganizationBase[];
   controlGrants: OrganizationControlGrant[];
   agents: Array<{
     id: AgentId;
@@ -109,6 +112,8 @@ export type SnapshotV2 = {
     specialty?: "supervisor" | "construction_worker" | "maintenance_technician" | "enforcer";
     health?: number;
     state?: "idle" | "moving" | "working" | "injured" | "dead";
+    atBase?: boolean;
+    returningToBase?: boolean;
     task?: import("./domain").Agent["task"];
     travel?: import("./domain").Agent["travel"];
     cooldownUntilTick?: Tick;
@@ -240,6 +245,8 @@ const agentSnapshotSchema = z.object({
     .optional(),
   health: z.number().int().min(0).max(100).optional(),
   state: z.enum(["idle", "moving", "working", "injured", "dead"]).optional(),
+  atBase: z.boolean().optional(),
+  returningToBase: z.boolean().optional(),
   task: agentTaskSchema.nullable().optional(),
   travel: agentTravelSchema.nullable().optional(),
   cooldownUntilTick: tickSchema.optional(),
@@ -332,7 +339,7 @@ const phase2SnapshotSchema = z.object({
   insolvency: insolvencyStateSchema.optional(),
 });
 
-export const snapshotV2Schema = z.object({
+export const snapshotV3Schema = z.object({
   schemaVersion: schemaVersionSchema,
   engineVersion: z.string().min(1).max(128),
   seed: seedSchema,
@@ -356,6 +363,7 @@ export const snapshotV2Schema = z.object({
   playerIdentities: z.array(playerIdentitySchema),
   persons: z.array(personSchema),
   organizations: z.array(organizationSchema),
+  organizationBases: z.array(organizationBaseSchema),
   controlGrants: z.array(organizationControlGrantSchema),
   agents: z.array(agentSnapshotSchema),
   structures: z.array(testStructureSchema),
@@ -386,7 +394,7 @@ function inBounds(cell: GridCell): boolean {
   return cell.x < 64 && cell.y < 64;
 }
 
-export function validateSnapshotReferences(snapshot: SnapshotV2): SnapshotValidationIssue[] {
+export function validateSnapshotReferences(snapshot: SnapshotV3): SnapshotValidationIssue[] {
   const issues: SnapshotValidationIssue[] = [];
   const personIds = new Set(snapshot.persons.map((person) => person.id));
   const organizationIds = new Set(snapshot.organizations.map((organization) => organization.id));
@@ -408,6 +416,9 @@ export function validateSnapshotReferences(snapshot: SnapshotV2): SnapshotValida
   if (hasDuplicate(snapshot.organizations.map((organization) => organization.id))) {
     issues.push({ code: "DUPLICATE_ID", path: "organizations" });
   }
+  if (hasDuplicate(snapshot.organizationBases.map((base) => base.organizationId))) {
+    issues.push({ code: "DUPLICATE_ID", path: "organizationBases" });
+  }
   if (hasDuplicate(structureIds) || hasDuplicate(agentIds)) {
     issues.push({ code: "DUPLICATE_ID", path: "entities" });
   }
@@ -425,6 +436,25 @@ export function validateSnapshotReferences(snapshot: SnapshotV2): SnapshotValida
   for (const agent of snapshot.agents) {
     if (!districtIds.has(agent.districtId)) {
       issues.push({ code: "MISSING_REFERENCE", path: `world/agents/${agent.id}` });
+    }
+  }
+  for (const base of snapshot.organizationBases) {
+    if (!organizationIds.has(base.organizationId) || !districtIds.has(base.districtId)) {
+      issues.push({ code: "MISSING_REFERENCE", path: `organizationBases/${base.organizationId}` });
+    }
+    if (!inBounds(base.mainEntranceCell) || !inBounds(base.serviceEntranceCell)) {
+      issues.push({ code: "CELL_OUT_OF_BOUNDS", path: `organizationBases/${base.organizationId}` });
+    }
+    if (base.headquartersBuildingId) {
+      const building = (snapshot.phase2?.buildings ?? []).find(
+        (entry) => entry.id === base.headquartersBuildingId,
+      );
+      if (!building || building.type !== "headquarters") {
+        issues.push({
+          code: "MISSING_REFERENCE",
+          path: `organizationBases/${base.organizationId}/headquartersBuildingId`,
+        });
+      }
     }
   }
   if (snapshot.world.districts.length !== snapshot.world.city.districtIds.length) {
@@ -1023,7 +1053,7 @@ export class UnsupportedSnapshotVersionError extends Error {
 
   public constructor(schemaVersion: unknown) {
     super(
-      `UNSUPPORTED_SNAPSHOT_VERSION: el guardado tiene schemaVersion ${String(schemaVersion)} y esta versión sólo acepta 2. Las partidas Alpha v1 no se migran; crea una partida nueva o borra el slot incompatible.`,
+      `UNSUPPORTED_SNAPSHOT_VERSION: el guardado tiene schemaVersion ${String(schemaVersion)} y esta versión sólo acepta 3. Las partidas anteriores no se migran; crea una partida nueva o borra el slot incompatible.`,
     );
     this.name = "UnsupportedSnapshotVersionError";
     this.schemaVersion = schemaVersion;
@@ -1113,12 +1143,12 @@ function hasLegacyPermitShape(value: unknown): boolean {
   return "permitsByParcelId" in permitting || !("permitsById" in permitting);
 }
 
-export function parseSnapshotV2(value: unknown): SnapshotV2 {
+export function parseSnapshotV3(value: unknown): SnapshotV3 {
   const declaredVersion =
     typeof value === "object" && value !== null && "schemaVersion" in value
       ? (value as { schemaVersion?: unknown }).schemaVersion
       : undefined;
-  if (declaredVersion !== 2) {
+  if (declaredVersion !== 3) {
     throw new UnsupportedSnapshotVersionError(declaredVersion);
   }
   if (isPreVd1Snapshot(value)) {
@@ -1130,7 +1160,7 @@ export function parseSnapshotV2(value: unknown): SnapshotV2 {
   if (hasLegacyPermitShape(value)) {
     throw new UnsupportedPermitContractError();
   }
-  const snapshot = snapshotV2Schema.parse(value) as unknown as SnapshotV2;
+  const snapshot = snapshotV3Schema.parse(value) as unknown as SnapshotV3;
   const issues = validateSnapshotReferences(snapshot);
   if (issues.length > 0) {
     throw new Error(`Invalid snapshot references: ${issues.map((issue) => issue.path).join(", ")}`);

@@ -6,7 +6,7 @@ import {
   parseOrganizationId,
   parsePersonId,
   parseTick,
-  type ViewProjectionV2,
+  type ViewProjectionV3,
   type WorkerResponse,
 } from "@landlord/shared";
 import { GAME_MONTH_TICKS, PLAYER_ORGANIZATION_ID, RIVAL_ORGANIZATION_ID } from "./game-data";
@@ -14,7 +14,7 @@ import { bondFor } from "./public-contracts";
 import { SimulationWorkerRuntime } from "./worker-runtime";
 
 const initialize = {
-  protocolVersion: 2,
+  protocolVersion: 3,
   requestId: "request-init",
   type: "InitializeGame" as const,
   payload: { seed: 3 },
@@ -26,7 +26,7 @@ function commandRequest(
   command: { type: string; payload: Record<string, unknown> },
 ): object {
   return {
-    protocolVersion: 2,
+    protocolVersion: 3,
     requestId,
     type: "SubmitCommand",
     payload: {
@@ -40,11 +40,11 @@ function commandRequest(
   };
 }
 
-function projectionOf(responses: readonly WorkerResponse[]): ViewProjectionV2 {
+function projectionOf(responses: readonly WorkerResponse[]): ViewProjectionV3 {
   const published = responses.filter((response) => response.type === "ProjectionPublished");
   const last = published[published.length - 1];
   if (!last || last.type !== "ProjectionPublished") throw new Error("No projection published");
-  return last.payload as ViewProjectionV2;
+  return last.payload as ViewProjectionV3;
 }
 
 describe("WP4.11-H acciones Alpha end-to-end", () => {

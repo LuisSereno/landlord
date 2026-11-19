@@ -22,6 +22,7 @@ import {
   type IncidentRecord,
   type CommandId,
   type OrganizationId,
+  type OrganizationBase,
   type PersonId,
   type PlayerIdentityId,
   type StructureId,
@@ -206,6 +207,7 @@ export type GameState = {
   playerIdentities: Map<PlayerIdentityId, PlayerIdentity>;
   persons: Map<PersonId, Person>;
   organizations: Map<OrganizationId, Organization>;
+  organizationBases: Map<OrganizationId, OrganizationBase>;
   controlGrants: Map<string, OrganizationControlGrant>;
   agents: Map<AgentId, Agent>;
   structures: Map<StructureId, TestStructure>;
@@ -282,6 +284,7 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
   rivalInventory.steel = 6;
 
   const roster = new Map<AgentId, Agent>();
+  const organizationBases = new Map<OrganizationId, OrganizationBase>();
   const crews = new Map<import("@landlord/shared").CrewId, Crew>();
   let rosterIndex = 0;
   const playerDistrictId = districtIdForSlot(
@@ -307,6 +310,13 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
       city.districts.get(rivalDistrictId)!.spawnAnchors.rival,
     ],
   ] as const) {
+    organizationBases.set(organizationId, {
+      organizationId,
+      districtId: rosterDistrictId,
+      mainEntranceCell: { ...spawnAnchor },
+      serviceEntranceCell: { ...spawnAnchor },
+      provisional: true,
+    });
     const membersByCrewIndex = new Map<number, AgentId[]>();
     for (const slot of rosterLayout(spawnAnchor)) {
       rosterIndex += 1;
@@ -318,6 +328,8 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
         specialty: slot.specialty,
         health: 100,
         state: "idle",
+        atBase: true,
+        returningToBase: false,
         districtId: rosterDistrictId,
         cell: { ...slot.cell },
         target: { ...slot.cell },
@@ -366,12 +378,32 @@ export function createInitialState(seed = 1, options: InitialStateOptions = {}):
       ),
     ]),
     organizations: new Map([
-      [controlledOrganizationId, { id: controlledOrganizationId, kind: "company" }],
-      [independentOrganizationId, { id: independentOrganizationId, kind: "company" }],
-      [BANK_ORGANIZATION_ID, { id: BANK_ORGANIZATION_ID, kind: "bank" }],
-      [MUNICIPALITY_ORGANIZATION_ID, { id: MUNICIPALITY_ORGANIZATION_ID, kind: "municipality" }],
-      [INSURER_ORGANIZATION_ID, { id: INSURER_ORGANIZATION_ID, kind: "insurer" }],
+      [
+        controlledOrganizationId,
+        { id: controlledOrganizationId, kind: "company", visualIdentityId: "company_turquoise" },
+      ],
+      [
+        independentOrganizationId,
+        { id: independentOrganizationId, kind: "company", visualIdentityId: "rival_terracotta" },
+      ],
+      [
+        BANK_ORGANIZATION_ID,
+        { id: BANK_ORGANIZATION_ID, kind: "bank", visualIdentityId: "neutral" },
+      ],
+      [
+        MUNICIPALITY_ORGANIZATION_ID,
+        {
+          id: MUNICIPALITY_ORGANIZATION_ID,
+          kind: "municipality",
+          visualIdentityId: "municipal_blue",
+        },
+      ],
+      [
+        INSURER_ORGANIZATION_ID,
+        { id: INSURER_ORGANIZATION_ID, kind: "insurer", visualIdentityId: "neutral" },
+      ],
     ]),
+    organizationBases,
     controlGrants: new Map([
       [
         controlGrantKey(personId, controlledOrganizationId),

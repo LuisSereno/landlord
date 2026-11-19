@@ -17,7 +17,7 @@ import { SimulationWorkerRuntime } from "./worker-runtime";
  */
 
 const initialize = {
-  protocolVersion: 2,
+  protocolVersion: 3,
   requestId: "request-placement-init",
   type: "InitializeGame" as const,
   payload: { seed: 7 },
@@ -28,7 +28,7 @@ function placementRequest(
   payload: { districtId: string; parcelIds: string[]; buildingType: string },
 ) {
   return {
-    protocolVersion: 2,
+    protocolVersion: 3,
     requestId,
     type: "GetDevelopmentPlacementCandidates" as const,
     payload,
@@ -131,7 +131,7 @@ describe("V.d-7C · petición de candidatos del worker", () => {
     const { districtId, parcelIds } = ownedSite(runtime);
     expect(
       runtime.handle({
-        protocolVersion: 2,
+        protocolVersion: 3,
         requestId: "request-placement-no-type",
         type: "GetDevelopmentPlacementCandidates",
         payload: { districtId, parcelIds },
@@ -148,7 +148,7 @@ describe("V.d-7C · petición de candidatos del worker", () => {
     ).toMatchObject([{ type: "RequestFailed", payload: { code: "INVALID_PAYLOAD" } }]);
     expect(
       runtime.handle({
-        protocolVersion: 2,
+        protocolVersion: 3,
         requestId: "request-placement-extra-key",
         type: "GetDevelopmentPlacementCandidates",
         payload: { districtId, parcelIds, buildingType: "courtyard_home", observer: "rival" },
@@ -232,7 +232,7 @@ function dispatchStart(
   placementId: string,
 ): boolean {
   runtime.handle({
-    protocolVersion: 2,
+    protocolVersion: 3,
     requestId: "request-placement-command",
     type: "SubmitCommand",
     payload: {

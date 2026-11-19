@@ -23,14 +23,14 @@ import {
   setObservedDistrictRequestSchema,
   setRunStateRequestSchema,
   submitCommandRequestSchema,
-  viewProjectionV2Schema,
+  viewProjectionV3Schema,
   workerResponseSchema,
   type DevelopmentPlacementCandidates,
-  type SnapshotV2,
+  type SnapshotV3,
   type IntelKind,
   type ProductCommand,
   type SimulationMetrics,
-  type ViewProjectionV2,
+  type ViewProjectionV3,
   type WorkerRequest,
   type WorkerResponse,
 } from "@landlord/shared";
@@ -64,7 +64,7 @@ export class SimulationWorkerClient {
 
   public constructor(
     private readonly port: WorkerPort,
-    private readonly onProjection: (projection: ViewProjectionV2) => void,
+    private readonly onProjection: (projection: ViewProjectionV3) => void,
     private readonly onTransportError: (message: string) => void,
     private readonly onDiagnostic: (diagnostic: ClientDiagnostic) => void = () => undefined,
   ) {
@@ -74,7 +74,7 @@ export class SimulationWorkerClient {
   public initialize(seed: number): Promise<WorkerResponse> {
     return this.send(
       initializeGameRequestSchema.parse({
-        protocolVersion: 2,
+        protocolVersion: 3,
         requestId: this.nextRequestId(),
         type: "InitializeGame",
         payload: { seed },
@@ -86,7 +86,7 @@ export class SimulationWorkerClient {
   public setObservedDistrict(districtId: string): Promise<WorkerResponse> {
     return this.send(
       setObservedDistrictRequestSchema.parse({
-        protocolVersion: 2,
+        protocolVersion: 3,
         requestId: this.nextRequestId(),
         type: "SetObservedDistrict",
         payload: { districtId },
@@ -100,7 +100,7 @@ export class SimulationWorkerClient {
   ): Promise<WorkerResponse> {
     return this.send(
       setRunStateRequestSchema.parse({
-        protocolVersion: 2,
+        protocolVersion: 3,
         requestId: this.nextRequestId(),
         type: "SetRunState",
         payload: { state, speed },
@@ -114,7 +114,7 @@ export class SimulationWorkerClient {
   ): Promise<WorkerResponse> {
     return this.send(
       submitCommandRequestSchema.parse({
-        protocolVersion: 2,
+        protocolVersion: 3,
         requestId: this.nextRequestId(),
         type: "SubmitCommand",
         payload: {
@@ -159,6 +159,7 @@ export class SimulationWorkerClient {
     parcelIds: readonly string[],
     buildingType: BuildingType,
     placementId?: string,
+    headquartersVariantId?: "cupola" | "courtyard",
   ) {
     return this.submitProductCommand({
       commandId: this.nextCommandId(),
@@ -168,6 +169,7 @@ export class SimulationWorkerClient {
       payload: {
         parcelIds: parcelIds.map(parseParcelId),
         buildingType,
+        ...(headquartersVariantId ? { headquartersVariantId } : {}),
         ...(placementId === undefined
           ? {}
           : { placementId: parseDevelopmentPlacementId(placementId) }),
@@ -188,7 +190,7 @@ export class SimulationWorkerClient {
   }): Promise<DevelopmentPlacementCandidates | null> {
     const response = await this.send(
       getDevelopmentPlacementCandidatesRequestSchema.parse({
-        protocolVersion: 2,
+        protocolVersion: 3,
         requestId: this.nextRequestId(),
         type: "GetDevelopmentPlacementCandidates",
         payload: {
@@ -491,7 +493,7 @@ export class SimulationWorkerClient {
   public saveSnapshot(): Promise<WorkerResponse> {
     return this.send(
       saveSnapshotRequestSchema.parse({
-        protocolVersion: 2,
+        protocolVersion: 3,
         requestId: this.nextRequestId(),
         type: "SaveSnapshot",
         payload: {},
@@ -499,10 +501,10 @@ export class SimulationWorkerClient {
     );
   }
 
-  public loadSnapshot(snapshot: SnapshotV2): Promise<WorkerResponse> {
+  public loadSnapshot(snapshot: SnapshotV3): Promise<WorkerResponse> {
     return this.send(
       loadSnapshotRequestSchema.parse({
-        protocolVersion: 2,
+        protocolVersion: 3,
         requestId: this.nextRequestId(),
         type: "LoadSnapshot",
         payload: { snapshot },
@@ -526,7 +528,7 @@ export class SimulationWorkerClient {
   private submitProductCommand(command: ProductCommand): Promise<WorkerResponse> {
     return this.send(
       submitCommandRequestSchema.parse({
-        protocolVersion: 2,
+        protocolVersion: 3,
         requestId: this.nextRequestId(),
         type: "SubmitCommand",
         payload: { command },
@@ -552,8 +554,8 @@ export class SimulationWorkerClient {
     }
     const response = parsed.data;
     if (response.type === "ProjectionPublished") {
-      const projection = viewProjectionV2Schema.safeParse(response.payload);
-      if (projection.success) this.onProjection(projection.data as ViewProjectionV2);
+      const projection = viewProjectionV3Schema.safeParse(response.payload);
+      if (projection.success) this.onProjection(projection.data as ViewProjectionV3);
       else this.onTransportError("La proyección del Worker no es válida.");
       return;
     }

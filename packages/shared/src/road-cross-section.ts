@@ -154,7 +154,7 @@ export function roadProfileForTopology(
   return roadProfileForSection(roadClass, topology.roadSectionVariant);
 }
 
-/** Mismo tamaño que los literales `width`/`height` de `ViewProjectionV2.map`. */
+/** Mismo tamaño que los literales `width`/`height` de `ViewProjectionV3.map`. */
 const MAP_SIZE = 64;
 
 /** Mayor perfil manda cuando dos corredores se pisan (igual que `avenue` domina hoy la clase). */

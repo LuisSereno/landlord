@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
 
-import { parseMoney, parseOrganizationId, parseTick, type SnapshotV2 } from "@landlord/shared";
+import { parseMoney, parseOrganizationId, parseTick, type SnapshotV3 } from "@landlord/shared";
 import { RIVAL_ORGANIZATION_ID, PLAYER_ORGANIZATION_ID } from "./game-data";
 import { recordFactionEncounter, rememberFactionAction } from "./factions";
 import { recordReputationFact } from "./reputation";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { createInitialState } from "./state";
 
-function snapshotWithSubsystems(): SnapshotV2 {
+function snapshotWithSubsystems(): SnapshotV3 {
   const state = createInitialState(5);
   state.phase2.contracts.contracts.contract_00000001 = {
     id: "contract_00000001",
@@ -57,11 +57,11 @@ function snapshotWithSubsystems(): SnapshotV2 {
   return serializeSnapshot(state);
 }
 
-function clone(snapshot: SnapshotV2): SnapshotV2 {
-  return JSON.parse(JSON.stringify(snapshot)) as SnapshotV2;
+function clone(snapshot: SnapshotV3): SnapshotV3 {
+  return JSON.parse(JSON.stringify(snapshot)) as SnapshotV3;
 }
 
-function expectRejected(mutate: (snapshot: SnapshotV2) => void, path: RegExp): void {
+function expectRejected(mutate: (snapshot: SnapshotV3) => void, path: RegExp): void {
   const snapshot = clone(snapshotWithSubsystems());
   mutate(snapshot);
   expect(() => restoreStateFromSnapshot(snapshot)).toThrow(path);

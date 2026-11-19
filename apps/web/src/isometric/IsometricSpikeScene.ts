@@ -9,7 +9,7 @@ import {
   type ConstructionStage,
   type RuntimeAssetManifestV2,
   type SceneryAssetV1,
-  type ViewProjectionV2,
+  type ViewProjectionV3,
 } from "@landlord/shared";
 import { BLENDER_ASSETS, PROCEDURAL_ASSETS } from "../assets/runtime-assets";
 import {
@@ -369,14 +369,14 @@ type CameraTestApi = {
   getSelectedCell(): GridCell | null;
   centerOnCell(cell: GridCell): void;
   /** Inyecta una proyección (captura QA): atraviesa el mismo camino de render que la partida real. */
-  injectProjection(projection: ViewProjectionV2): void;
+  injectProjection(projection: ViewProjectionV3): void;
   /**
    * Densidad adaptativa · fija la selección dirigida sin pasar por React, para poder medir la rama
    * "edificio seleccionado" sobre proyecciones sintéticas cuyas ids no existen en la economía.
    */
   setSelectionTarget(target: MapSelectionTarget | null): void;
   /** V.d-UX.S · sondas observacionales del estado del activo para la evidencia visual. */
-  getProjection(): ViewProjectionV2 | null;
+  getProjection(): ViewProjectionV3 | null;
   listIndicators(): Array<{
     key: string;
     kind: string;
@@ -532,7 +532,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private placementCandidateListener?: (candidateId: string) => void;
   /** Contador de repintados, para detectar redraws por frame en modo de colocación. */
   private placementDrawCount = 0;
-  private projection: ViewProjectionV2 | null = null;
+  private projection: ViewProjectionV3 | null = null;
   private buildingVisualMood: BuildingVisualMood = readVisualMood();
   private overlay: MapOverlay = "none";
   private cellPickedListener?: (cell: GridCell) => void;
@@ -569,7 +569,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private glyphRequests = new Set<string>();
   private hoveredParcelMarkId: string | null = null;
   private statusIndex: AssetStatusIndex = indexAssetStatus(undefined);
-  private statusIndexSource: NonNullable<ViewProjectionV2["economy"]> | undefined = undefined;
+  private statusIndexSource: NonNullable<ViewProjectionV3["economy"]> | undefined = undefined;
   private lastIndicatorZoom = 1;
   private dragStart: { x: number; y: number; scrollX: number; scrollY: number } | null = null;
   private fpsAccumulator = 0;
@@ -806,7 +806,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
     if (this.cursors.down?.isDown) camera.scrollY += speed;
   }
 
-  public setProjection(projection: ViewProjectionV2): void {
+  public setProjection(projection: ViewProjectionV3): void {
     // React puede entregar el último efecto de proyección durante el desmontaje
     // del canvas (por ejemplo, al cambiar Día/Noche). Phaser ya ha liberado el
     // TextureManager en ese instante y la escena no debe volver a pintar.
@@ -1543,6 +1543,33 @@ export class IsometricSpikeScene extends Phaser.Scene {
       graphics.fillStyle(COLORS.fire, 0.9);
       graphics.fillCircle(center.x + 8, center.y - 14, 4 + Math.min(6, incident.intensity / 20));
     }
+    for (const base of this.projection?.bases ?? []) {
+      if (!base.provisional || base.districtId !== this.projection?.observedDistrictId) continue;
+      const color =
+        base.visualIdentityId === "company_turquoise"
+          ? 0x4db6ac
+          : base.visualIdentityId === "rival_terracotta"
+            ? 0xd97757
+            : 0x7f8fa6;
+      const center = gridToScreen(base.serviceEntranceCell, this.layout);
+      graphics.lineStyle(1.5, color, 0.95);
+      graphics.strokeCircle(center.x, center.y - 3, 5);
+      graphics.lineBetween(center.x, center.y - 3, center.x, center.y - 12);
+      graphics.fillStyle(color, 0.95);
+      graphics.beginPath();
+      if (base.visualIdentityId === "company_turquoise") {
+        graphics.moveTo(center.x, center.y - 17);
+        graphics.lineTo(center.x + 3, center.y - 14);
+        graphics.lineTo(center.x, center.y - 11);
+        graphics.lineTo(center.x - 3, center.y - 14);
+      } else {
+        graphics.moveTo(center.x - 3, center.y - 11);
+        graphics.lineTo(center.x + 3, center.y - 11);
+        graphics.lineTo(center.x, center.y - 17);
+      }
+      graphics.closePath();
+      graphics.fillPath();
+    }
     const target = this.selectionTarget;
     if (target?.kind === "parcel") {
       const parcel = this.projection?.economy?.parcels.find(
@@ -1726,7 +1753,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
    */
   private drawConstructionSite(
     graphics: Phaser.GameObjects.Graphics,
-    site: NonNullable<ViewProjectionV2["economy"]>["constructionSites"][number],
+    site: NonNullable<ViewProjectionV3["economy"]>["constructionSites"][number],
   ): void {
     const stage = constructionVisualStage(site.progress, site.workRequired);
     if (stage === "complete") return;
@@ -1970,7 +1997,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   }
 
   private drawSelectedParcel(
-    parcel: NonNullable<ViewProjectionV2["economy"]>["parcels"][number],
+    parcel: NonNullable<ViewProjectionV3["economy"]>["parcels"][number],
   ): void {
     const graphics = this.mapGraphics;
     if (!graphics) return;
@@ -2054,7 +2081,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
    * al coloreado de propiedad.
    */
   private parcelOverlayColor(
-    parcel: NonNullable<ViewProjectionV2["economy"]>["parcels"][number],
+    parcel: NonNullable<ViewProjectionV3["economy"]>["parcels"][number],
   ): number {
     const economy = this.projection?.economy;
     if (!economy || this.overlay === "none") return COLORS.parcelAvailable;
@@ -2587,7 +2614,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
    * la cadena `simulation → projection → archetype → Blender si existe → procedural fallback`.
    *
    * H2-02 · la cadena vive en `resolveBuildingVisual` (helper puro de `building-sprites.ts`); aquí
-   * sólo se inyectan los bundles registrados y el estado de `this.textures`, así que los 15 tipos
+   * sólo se inyectan los bundles registrados y el estado de `this.textures`, así que los tipos
    * del catálogo se pueden probar sin levantar la escena.
    */
   private resolveBuildingVisual(
@@ -2698,7 +2725,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
      * físicamente en el distrito observado.
      */
     const agents = (this.projection?.agents ?? []).filter(
-      (agent) => agent.districtId === this.projection?.observedDistrictId,
+      (agent) => agent.districtId === this.projection?.observedDistrictId && !agent.atBase,
     );
     const view = this.cameras.main.worldView;
     if (this.structureBlitter) {

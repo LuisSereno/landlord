@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseRuntimeAssetManifest, type ViewProjectionV2 } from "@landlord/shared";
+import { parseRuntimeAssetManifest, type ViewProjectionV3 } from "@landlord/shared";
 import { BUILDING_DEFINITIONS } from "@landlord/simulation";
 import blenderBundle from "../generated/runtime-assets-blender.json";
 import { DISTRICT_VISUAL_PROFILES } from "./district-visual-profiles";
@@ -17,6 +17,7 @@ import {
   deriveRoadVisuals,
   BUILDING_VISUAL_POLICIES,
   visualArchetypeForBuilding,
+  headquartersArchetypeForVariant,
 } from "./gameplay-visual-adapter";
 import { districtVisualProfileFor } from "./district-visual-profiles";
 
@@ -48,7 +49,7 @@ function projection(
   sites: SiteInput[],
   roads: string[] = [],
   digest = roads.length > 0 ? "road-fixture" : "811c9dc5",
-): ViewProjectionV2 {
+): ViewProjectionV3 {
   return {
     projectionVersion: 1,
     tick: 0,
@@ -61,7 +62,7 @@ function projection(
       constructionSites: sites,
       cash: 12000,
     },
-  } as unknown as ViewProjectionV2;
+  } as unknown as ViewProjectionV3;
 }
 
 const PARCELS: ParcelInput[] = [
@@ -281,6 +282,11 @@ describe("H1-08 · ocupación multi-celda del dressing", () => {
 });
 
 describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
+  it("selects the persisted headquarters architecture with stable, distinct asset keys", () => {
+    expect(headquartersArchetypeForVariant("cupola")).toBe("headquarters_cupola");
+    expect(headquartersArchetypeForVariant("courtyard")).toBe("headquarters_courtyard");
+    expect(headquartersArchetypeForVariant(null)).toBe("headquarters_cupola");
+  });
   it("es determinista: la misma proyección produce el mismo modelo visual", () => {
     const first = buildGameplayVisualModel(projection(PARCELS, BUILDINGS, SITES));
     const second = buildGameplayVisualModel(projection(PARCELS, BUILDINGS, SITES));
@@ -309,7 +315,7 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
     }
   });
 
-  it("declara una política semántica estructural para los 15 BuildingType", () => {
+  it("declara una política semántica estructural para todos los BuildingType", () => {
     expect(Object.keys(BUILDING_VISUAL_POLICIES).sort()).toEqual(
       Object.keys(BUILDING_DEFINITIONS).sort(),
     );
@@ -359,7 +365,7 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
 
   it("deriva y pinta una avenida v4 por sus roles proyectados, no por el eje ni por el perfil mutable", () => {
     const roads = Array.from({ length: 13 }, (_unused, x) => `${x + 8}:20`);
-    const view = projection([], [], [], roads, "avenue-section") as ViewProjectionV2;
+    const view = projection([], [], [], roads, "avenue-section") as ViewProjectionV3;
     view.map.roadSection = {
       revision: 0,
       digest: "0123abcd",

@@ -3,7 +3,7 @@ import { act } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
-import type { ViewProjectionV2 } from "@landlord/shared";
+import type { ViewProjectionV3 } from "@landlord/shared";
 import { ContextPanel, type PanelContext } from "./panels";
 import { resolveContextSelection } from "./selection";
 import { building, economy, parcel } from "./status-fixtures";
@@ -31,7 +31,7 @@ const projectionOf = (e: ReturnType<typeof economy>) =>
     publicSpaces: [],
     economy: e,
     agents: [],
-  }) as unknown as ViewProjectionV2;
+  }) as unknown as ViewProjectionV3;
 
 function contextFor(e: ReturnType<typeof economy>, request?: PanelSectionRequest): PanelContext {
   return {

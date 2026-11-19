@@ -77,9 +77,9 @@ describe("V.d-UX · registro de iconos", () => {
 });
 
 describe("V.d-UX · miniatura de edificio", () => {
-  it("los 15 tipos de edificio resuelven una miniatura válida desde el manifiesto", () => {
+  it("los 16 tipos de edificio resuelven una miniatura válida", () => {
     const types = buildingTypeSchema.options;
-    expect(types).toHaveLength(15);
+    expect(types).toHaveLength(16);
     for (const type of types) {
       const source = buildingThumbnailSource(type);
       expect(source, type).not.toBeNull();
@@ -91,6 +91,13 @@ describe("V.d-UX · miniatura de edificio", () => {
   it("prefiere la variante runtime promovida y conserva Blender/procedural como respaldo", () => {
     for (const type of buildingTypeSchema.options) {
       const variant = BUILDING_VARIANTS.variants[`${type}:complete:-:0`];
+      if (type === "headquarters") {
+        expect(variant, type).toBeUndefined();
+        expect(buildingThumbnailSource(type), type).toBe(
+          PROCEDURAL_ASSETS.buildings.courtyard_home?.states.complete?.src,
+        );
+        continue;
+      }
       expect(variant, type).toBeDefined();
       if (!variant) throw new Error(`${type}: falta variante complete@0`);
       expect(buildingThumbnailSource(type), type).toBe(variant.image.src);

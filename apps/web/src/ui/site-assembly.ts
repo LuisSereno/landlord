@@ -1,4 +1,4 @@
-import type { BuildingType } from "@landlord/shared";
+import type { BuildingType, HeadquartersVariantId } from "@landlord/shared";
 
 import type { Economy, ProjectedParcel } from "./types";
 
@@ -9,6 +9,7 @@ export type PendingDevelopmentSite = {
   /** Punto de partida de la intención del jugador; no es geometría autoritativa. */
   anchorParcelId: string;
   parcelIds: readonly string[];
+  headquartersVariantId?: HeadquartersVariantId;
 };
 
 export type SiteAssemblyIssue =

@@ -25,8 +25,8 @@ import {
   parseUrbanFacilityId,
   parseTransactionId,
   parseLoanId,
-  parseSnapshotV2,
-  type SnapshotV2,
+  parseSnapshotV3,
+  type SnapshotV3,
 } from "@landlord/shared";
 import type { ProductCommand } from "@landlord/shared";
 import { parseSeed, parseTick } from "@landlord/shared";
@@ -76,7 +76,7 @@ function cloneRoadTopology(roads: DistrictState["map"]["roads"]): DistrictState[
 }
 
 function restoreRoadTopology(
-  roads: SnapshotV2["world"]["districts"][number]["map"]["roads"],
+  roads: SnapshotV3["world"]["districts"][number]["map"]["roads"],
 ): DistrictState["map"]["roads"] {
   const segments = roads.segments.map((segment) => ({
     ...segment,
@@ -101,15 +101,15 @@ function cloneCommand(command: ProductCommand): ProductCommand {
   } as ProductCommand;
 }
 
-export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSION): SnapshotV2 {
+export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSION): SnapshotV3 {
   return {
-    schemaVersion: 2 as SnapshotV2["schemaVersion"],
+    schemaVersion: 3 as SnapshotV3["schemaVersion"],
     engineVersion,
     seed: state.seed,
     tick: state.clock.tick,
     prng: {
       algorithm: PRNG_ALGORITHM,
-      state: [...state.prng.state] as SnapshotV2["prng"]["state"],
+      state: [...state.prng.state] as SnapshotV3["prng"]["state"],
     },
     idCounters: { ...state.idCounters },
     world: {
@@ -149,6 +149,9 @@ export function serializeSnapshot(state: GameState, engineVersion = ENGINE_VERSI
     playerIdentities: [...state.playerIdentities.values()].sort(compareId),
     persons: [...state.persons.values()].sort(compareId),
     organizations: [...state.organizations.values()].sort(compareId),
+    organizationBases: [...state.organizationBases.values()].sort((a, b) =>
+      a.organizationId.localeCompare(b.organizationId),
+    ),
     controlGrants: [...state.controlGrants.values()].sort(
       (left, right) =>
         left.organizationId.localeCompare(right.organizationId) ||
@@ -411,7 +414,7 @@ function assertMunicipalPoliticsReferences(state: GameState): void {
 }
 
 export function restoreStateFromSnapshot(value: unknown): GameState {
-  const snapshot = parseSnapshotV2(value);
+  const snapshot = parseSnapshotV3(value);
   // La ciudad guardada manda: los valores por defecto (plantillas, saldos iniciales) deben
   // derivarse del mismo perfil que generó la partida, no del perfil por defecto.
   const defaultState = createInitialState(snapshot.seed, {
@@ -513,13 +516,40 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
         (organization) =>
           [
             parseOrganizationId(organization.id),
-            { id: parseOrganizationId(organization.id), kind: organization.kind },
+            {
+              id: parseOrganizationId(organization.id),
+              kind: organization.kind,
+              ...(organization.visualIdentityId
+                ? { visualIdentityId: organization.visualIdentityId }
+                : {}),
+            },
           ] as const,
       ),
       ...[...defaultState.organizations.entries()].filter(
         ([id]) => !snapshot.organizations.some((organization) => organization.id === id),
       ),
     ]),
+    organizationBases: new Map(
+      snapshot.organizationBases.map((base) => {
+        const organizationId = parseOrganizationId(base.organizationId);
+        return [
+          organizationId,
+          {
+            ...base,
+            organizationId,
+            districtId: parseDistrictId(base.districtId),
+            mainEntranceCell: { ...base.mainEntranceCell },
+            serviceEntranceCell: { ...base.serviceEntranceCell },
+            ...(base.headquartersBuildingId
+              ? {
+                  headquartersBuildingId: parseBuildingId(base.headquartersBuildingId),
+                  headquartersVariantId: base.headquartersVariantId,
+                }
+              : {}),
+          },
+        ] as const;
+      }),
+    ),
     controlGrants: new Map(
       snapshot.controlGrants.map((grant) => {
         const parsed = {
@@ -548,6 +578,8 @@ export function restoreStateFromSnapshot(value: unknown): GameState {
               ...(agent.specialty ? { specialty: agent.specialty } : {}),
               health: agent.health ?? 100,
               state: agent.state ?? "idle",
+              atBase: agent.atBase ?? false,
+              returningToBase: agent.returningToBase ?? false,
               task: (agent.task as import("@landlord/shared").Agent["task"]) ?? null,
               ...(agent.travel
                 ? {

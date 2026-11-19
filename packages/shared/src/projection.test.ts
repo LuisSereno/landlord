@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { viewProjectionV2Schema } from "./projection";
+import { viewProjectionV3Schema } from "./projection";
 
 function cityFixture(observedDistrictId: string) {
   return {
@@ -36,10 +36,11 @@ function cityFixture(observedDistrictId: string) {
 
 describe("view projection v1", () => {
   const projection = (cells: string[]) => ({
-    projectionVersion: 2,
+    projectionVersion: 3,
     ...cityFixture("district_00000001"),
     tick: 2,
     movement: { ticksPerCell: 10 },
+    bases: [],
     map: {
       width: 64,
       height: 64,
@@ -57,17 +58,19 @@ describe("view projection v1", () => {
         districtId: "district_00000001",
         cell: { x: 2, y: 2 },
         nextCell: { x: 3, y: 2 },
+        atBase: false,
+        returningToBase: false,
       },
     ],
   });
 
   it("accepts a serializable projection", () => {
-    expect(viewProjectionV2Schema.parse(projection(["0:0", "63:63"])).tick).toBe(2);
+    expect(viewProjectionV3Schema.parse(projection(["0:0", "63:63"])).tick).toBe(2);
   });
 
   it("rejects non-canonical and out-of-bounds projected road cells", () => {
     for (const cell of ["64:0", "0:64", "01:2", "2:01", "-1:2", "2.0:3"]) {
-      expect(() => viewProjectionV2Schema.parse(projection([cell])), cell).toThrow();
+      expect(() => viewProjectionV3Schema.parse(projection([cell])), cell).toThrow();
     }
   });
 
@@ -79,15 +82,15 @@ describe("view projection v1", () => {
   it("requires the road section channel and rejects undeclared fields inside it", () => {
     const base = projection(["0:0"]);
     const { roadSection, ...mapWithoutSection } = base.map;
-    expect(() => viewProjectionV2Schema.parse({ ...base, map: mapWithoutSection })).toThrow();
+    expect(() => viewProjectionV3Schema.parse({ ...base, map: mapWithoutSection })).toThrow();
     expect(() =>
-      viewProjectionV2Schema.parse({
+      viewProjectionV3Schema.parse({
         ...base,
         map: { ...base.map, roadSection: { ...roadSection, lanes: 2 } },
       }),
     ).toThrow();
     expect(() =>
-      viewProjectionV2Schema.parse({
+      viewProjectionV3Schema.parse({
         ...base,
         map: {
           ...base.map,
@@ -106,7 +109,7 @@ describe("view projection v1", () => {
         },
       }),
     ).toThrow();
-    expect(viewProjectionV2Schema.parse(base).map.roadSection).toEqual(roadSection);
+    expect(viewProjectionV3Schema.parse(base).map.roadSection).toEqual(roadSection);
   });
 
   /**
@@ -121,10 +124,10 @@ describe("view projection v1", () => {
       { ...base.agents[0], nextCell: undefined },
       { ...base.agents[0], path: [{ x: 4, y: 2 }] },
     ]) {
-      expect(() => viewProjectionV2Schema.parse({ ...base, agents: [agent] })).toThrow();
+      expect(() => viewProjectionV3Schema.parse({ ...base, agents: [agent] })).toThrow();
     }
     expect(
-      viewProjectionV2Schema.parse({
+      viewProjectionV3Schema.parse({
         ...base,
         agents: [{ ...base.agents[0], nextCell: null }],
       }).agents[0]?.nextCell,
@@ -134,7 +137,7 @@ describe("view projection v1", () => {
   it("publishes a positive movement cadence", () => {
     for (const ticksPerCell of [0, -1, 2.5]) {
       expect(() =>
-        viewProjectionV2Schema.parse({ ...projection(["0:0"]), movement: { ticksPerCell } }),
+        viewProjectionV3Schema.parse({ ...projection(["0:0"]), movement: { ticksPerCell } }),
       ).toThrow();
     }
   });

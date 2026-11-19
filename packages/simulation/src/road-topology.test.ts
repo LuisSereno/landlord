@@ -7,7 +7,7 @@ import {
   roadCorridorCellsFromSegments,
   roadProfileForTopology,
   roadSegmentId,
-  viewProjectionV2Schema,
+  viewProjectionV3Schema,
   type RoadSegment,
 } from "@landlord/shared";
 import { findDeterministicPath } from "./navigation";
@@ -147,7 +147,7 @@ describe("WP4.15-V.c.2B authoritative road topology", () => {
 
   it("conserva roads en el round-trip Zod completo de la proyección", () => {
     const projection = createViewProjection(createInitialState(1));
-    const parsed = viewProjectionV2Schema.parse(JSON.parse(JSON.stringify(projection)));
+    const parsed = viewProjectionV3Schema.parse(JSON.parse(JSON.stringify(projection)));
     expect(parsed.map.roads).toEqual(projection.map.roads);
   });
 

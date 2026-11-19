@@ -32,6 +32,7 @@ export const PRIMARY_USE_BY_BUILDING_TYPE: Record<BuildingType, LandUse> = {
   police_station: "civic",
   fire_station: "civic",
   market_hall: "retail",
+  headquarters: "office",
 };
 
 export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDefinition> = {
@@ -329,6 +330,25 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     siteFootprint: { width: 5, height: 2 },
     siteRequirements: { requiredParcels: 1, minCombinedAreaCells: 10, requireEdgeContiguous: true },
     municipal: true,
+  },
+  headquarters: {
+    type: "headquarters",
+    name: "Sede operativa",
+    allowedUses: ["office"],
+    cost: parseMoney(4500),
+    workRequired: 96,
+    capacity: 0,
+    baseRent: parseMoney(0),
+    upgradeCost: parseMoney(0),
+    upgradeWorkRequired: 1,
+    resources: { cement: 4, brick: 8, steel: 2 },
+    form: "perimeter",
+    defaultFloors: 2,
+    targetFootprintCells: 8,
+    preferredFootprint: { width: 4, height: 2 },
+    siteRequirements: { requiredParcels: 2, minCombinedAreaCells: 16, requireEdgeContiguous: true },
+    municipal: false,
+    headquarters: true,
   },
 };
 
@@ -667,6 +687,7 @@ export const MAINTENANCE_POLICY = {
     police_station: parseMoney(55),
     fire_station: parseMoney(55),
     market_hall: parseMoney(60),
+    headquarters: parseMoney(35),
   } as const,
 } as const;
 

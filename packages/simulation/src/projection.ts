@@ -5,13 +5,13 @@ import {
   buildRoadSectionChannel,
   roadCellsDigest,
   roadSectionDigest,
-  viewProjectionV2Schema,
+  viewProjectionV3Schema,
   type DistrictId,
   type GridCell,
   type ParcelId,
   type PublicDistrictSummary,
   type UrbanFacility,
-  type ViewProjectionV2,
+  type ViewProjectionV3,
 } from "@landlord/shared";
 import { districtStateOf, type GameState } from "./state";
 import { buildBuildingIndex, buildingsOnParcel } from "./building-index";
@@ -115,7 +115,7 @@ function createFinancialSummary(
   state: GameState,
   cash: number,
   playerInventory: { cement: number; brick: number; steel: number },
-): NonNullable<NonNullable<ViewProjectionV2["economy"]>["financials"]> {
+): NonNullable<NonNullable<ViewProjectionV3["economy"]>["financials"]> {
   const periodStartTick = Math.floor(state.clock.tick / GAME_MONTH_TICKS) * GAME_MONTH_TICKS;
   let periodIncome = 0;
   let periodExpenses = 0;
@@ -339,7 +339,7 @@ export function createViewProjection(
   state: GameState,
   includeEconomy = false,
   observedDistrictId: DistrictId = PLAYER_HOME_DISTRICT_ID,
-): ViewProjectionV2 {
+): ViewProjectionV3 {
   const observedDistrict = districtStateOf(state, observedDistrictId);
   /**
    * El mapa, las parcelas, los edificios y las obras publicados son sólo del distrito observado
@@ -387,7 +387,7 @@ export function createViewProjection(
     state.phase2.balances.get(PLAYER_ORGANIZATION_ID) ?? 0,
     playerInventory,
   );
-  const alerts: NonNullable<NonNullable<ViewProjectionV2["economy"]>["alerts"]> = [];
+  const alerts: NonNullable<NonNullable<ViewProjectionV3["economy"]>["alerts"]> = [];
   if (financialSummary.forecast.shortfall > 0)
     alerts.push({
       id: "liquidity-forecast",
@@ -532,8 +532,8 @@ export function createViewProjection(
    */
   const sectionChannel = buildRoadSectionChannel(observedDistrict.map.roads);
   const sectionDigest = roadSectionDigest(sectionChannel);
-  const projection: ViewProjectionV2 = {
-    projectionVersion: 2,
+  const projection: ViewProjectionV3 = {
+    projectionVersion: 3,
     observedDistrictId,
     city: {
       id: state.world.city.id,
@@ -543,6 +543,32 @@ export function createViewProjection(
     },
     tick: parseTick(state.clock.tick),
     movement: { ticksPerCell: MOVEMENT_TICKS_PER_CELL },
+    bases: [...state.organizationBases.values()]
+      .sort((left, right) => left.organizationId.localeCompare(right.organizationId))
+      .map((base) => {
+        const headquarters = base.headquartersBuildingId
+          ? state.phase2.buildings.get(base.headquartersBuildingId)
+          : undefined;
+        const operational =
+          headquarters?.state === "operational" && headquarters.type === "headquarters";
+        return {
+          organizationId: base.organizationId,
+          visualIdentityId: state.organizations.get(base.organizationId)?.visualIdentityId ?? null,
+          districtId: operational ? headquarters.districtId : base.districtId,
+          mainEntranceCell: operational
+            ? { ...headquarters.headquartersAccess!.main }
+            : { ...base.mainEntranceCell },
+          serviceEntranceCell: operational
+            ? { ...headquarters.headquartersAccess!.service }
+            : { ...base.serviceEntranceCell },
+          provisional: !operational,
+          headquartersBuildingId: operational ? headquarters.id : null,
+          headquartersVariantId: operational ? (headquarters.headquartersVariantId ?? null) : null,
+          staffCount: [...state.agents.values()].filter(
+            (agent) => agent.organizationId === base.organizationId && agent.state !== "dead",
+          ).length,
+        };
+      }),
     map: {
       width: 64,
       height: 64,
@@ -621,6 +647,8 @@ export function createViewProjection(
         ...(agent.specialty ? { specialty: agent.specialty } : {}),
         health: agent.health ?? 100,
         state: agent.state ?? "idle",
+        atBase: agent.atBase ?? false,
+        returningToBase: agent.returningToBase ?? false,
       })),
     ...(includeEconomy
       ? {
@@ -897,6 +925,13 @@ export function createViewProjection(
                 parcelIds: [...building.parcelIds],
                 districtId: building.districtId,
                 type: building.type,
+                headquartersVariantId: building.headquartersVariantId ?? null,
+                headquartersAccess: building.headquartersAccess
+                  ? {
+                      main: { ...building.headquartersAccess.main },
+                      service: { ...building.headquartersAccess.service },
+                    }
+                  : null,
                 footprintCells: building.footprintCells.map((cell) => ({ ...cell })),
                 siteCells: projectedSiteCells(state, building.parcelIds, building.siteCells),
                 orientation: building.orientation,
@@ -935,6 +970,13 @@ export function createViewProjection(
                 districtId: site.districtId,
                 ownerOrganizationId: site.ownerOrganizationId,
                 buildingType: site.buildingType,
+                headquartersVariantId: site.headquartersVariantId ?? null,
+                headquartersAccess: site.headquartersAccess
+                  ? {
+                      main: { ...site.headquartersAccess.main },
+                      service: { ...site.headquartersAccess.service },
+                    }
+                  : null,
                 footprintCells: site.footprintCells.map((cell) => ({ ...cell })),
                 siteCells: projectedSiteCells(state, site.parcelIds),
                 orientation: site.orientation,
@@ -1205,7 +1247,7 @@ export function createViewProjection(
    * objeto completo no se pierde, vive en el test versionado `no recorta ninguna ruta del objeto
    * producido al pasar por el esquema`, que compara el `keyPaths` producido contra el del esquema.
    */
-  viewProjectionV2Schema.shape.agents.parse(projection.agents);
-  viewProjectionV2Schema.shape.movement.parse(projection.movement);
+  viewProjectionV3Schema.shape.agents.parse(projection.agents);
+  viewProjectionV3Schema.shape.movement.parse(projection.movement);
   return projection;
 }

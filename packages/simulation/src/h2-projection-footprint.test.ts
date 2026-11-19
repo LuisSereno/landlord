@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   parseBuildingId,
   parseConstructionSiteId,
-  viewProjectionV2Schema,
+  viewProjectionV3Schema,
   type Building,
   type ConstructionSite,
   type GridCell,
@@ -18,7 +18,7 @@ import { createInitialState, type GameState } from "./state";
  * H2-01 · la proyección debe publicar el footprint físico real de cada edificio y de cada obra,
  * no sólo el `parcelId`. El renderer consume `footprintCells` para colocar y ordenar sprites; si
  * el schema los filtra, un parcela multi-edificio se dibuja incompleto. Estos tests fijan la
- * frontera: `viewProjectionV2Schema.parse()` (que corre en el navegador vía worker/client.ts)
+ * frontera: `viewProjectionV3Schema.parse()` (que corre en el navegador vía worker/client.ts)
  * tiene que conservar los cinco campos geométricos y el `districtId`.
  */
 
@@ -125,7 +125,7 @@ describe("H2-01 · la proyección publica el footprint físico de edificios y ob
     const b2 = addBuilding(state, parcel, 2, right);
 
     const projection = createViewProjection(state, true);
-    expect(() => viewProjectionV2Schema.parse(projection)).not.toThrow();
+    expect(() => viewProjectionV3Schema.parse(projection)).not.toThrow();
 
     const projected = projection.economy!.buildings;
     const p1 = projected.find((entry) => entry.id === b1)!;
@@ -158,7 +158,7 @@ describe("H2-01 · la proyección publica el footprint físico de edificios y ob
     const siteId = addSite(state, parcel, 1, right);
 
     const projection = createViewProjection(state, true);
-    expect(() => viewProjectionV2Schema.parse(projection)).not.toThrow();
+    expect(() => viewProjectionV3Schema.parse(projection)).not.toThrow();
     const site = projection.economy!.constructionSites.find((entry) => entry.id === siteId)!;
 
     expect(site.parcelIds[0]!).toBe(parcel.id);
@@ -173,7 +173,7 @@ describe("H2-01 · la proyección publica el footprint físico de edificios y ob
 
   it("el schema no recorta `footprintCells` ni `orientation` en el viaje worker → navegador", () => {
     /**
-     * `apps/web/src/worker/client.ts:504` corre `viewProjectionV2Schema.safeParse(...)` sobre
+     * `apps/web/src/worker/client.ts:504` corre `viewProjectionV3Schema.safeParse(...)` sobre
      * el payload. Ese parse stripa todo campo no declarado: si el schema no declara los campos
      * geométricos, el navegador recibe un edificio sin huella y el bug de H2-01 reaparece
      * silenciosamente. El test lo fuerza pasando el objeto por Zod antes de leerlo.
@@ -185,7 +185,7 @@ describe("H2-01 · la proyección publica el footprint físico de edificios y ob
     const buildingId = addBuilding(state, parcel, 3, left);
 
     const produced = createViewProjection(state, true);
-    const reparsed = viewProjectionV2Schema.parse(produced);
+    const reparsed = viewProjectionV3Schema.parse(produced);
     const projected = reparsed.economy!.buildings.find((entry) => entry.id === buildingId)!;
 
     /** Zod no debe haber borrado ninguno de los cinco campos añadidos en H2-01. */

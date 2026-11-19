@@ -32,7 +32,13 @@ export function buildingThumbnailSource(
   if (variant) return variant.image.src;
   const blender = bundles.blender?.buildings[type]?.states?.[state]?.src;
   if (blender) return blender;
-  return bundles.procedural.buildings[type]?.states?.[state]?.src ?? null;
+  return (
+    bundles.procedural.buildings[type]?.states?.[state]?.src ??
+    (type === "headquarters"
+      ? bundles.procedural.buildings.courtyard_home?.states?.[state]?.src
+      : null) ??
+    null
+  );
 }
 
 /**

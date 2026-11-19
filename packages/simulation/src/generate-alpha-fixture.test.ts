@@ -5,7 +5,7 @@ import {
   parseCityProfileId,
   parseCommandId,
   parsePersonId,
-  parseSnapshotV2,
+  parseSnapshotV3,
   parseTick,
 } from "@landlord/shared";
 import { dispatchProductCommand } from "./commands";
@@ -76,7 +76,7 @@ describe("alpha fixture producer", () => {
     for (let tick = 0; tick < targetTick; tick += 1) advanceProductSystems(state);
 
     const snapshot = serializeSnapshot(state);
-    const parsed = parseSnapshotV2(snapshot);
+    const parsed = parseSnapshotV3(snapshot);
     if (!parsed.phase2 || !parsed.phase2.contracts)
       throw new Error("Generated alpha fixture has no phase2 state");
     const openContracts = Object.values(parsed.phase2.contracts.contracts).filter(

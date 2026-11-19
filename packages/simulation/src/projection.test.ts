@@ -10,7 +10,7 @@ import {
   parseParcelId,
   parsePersonId,
   parseTick,
-  viewProjectionV2Schema,
+  viewProjectionV3Schema,
 } from "@landlord/shared";
 import { dispatchPlaceTestStructure, dispatchProductCommand } from "./commands";
 import { activateMacroEvent } from "./macro-events";
@@ -45,7 +45,7 @@ describe("simulation view projection", () => {
     });
     const projection = createViewProjection(state);
     expect(projection).toMatchObject({
-      projectionVersion: 2,
+      projectionVersion: 3,
       tick: 0,
       observedDistrictId: PLAYER_HOME_DISTRICT_ID,
       map: expect.objectContaining({ width: 64, height: 64, roads: expect.any(Object) }),
@@ -91,7 +91,7 @@ describe("simulation view projection", () => {
       equity: 14548,
       period: { expenses: 812, netIncome: -812, cashFlow: -812 },
     });
-    expect(() => viewProjectionV2Schema.parse(afterPurchase)).not.toThrow();
+    expect(() => viewProjectionV3Schema.parse(afterPurchase)).not.toThrow();
   });
 
   it("projects authoritative parcel frontages and construction site requirements for the UI", () => {
@@ -103,7 +103,7 @@ describe("simulation view projection", () => {
 
     const option = economy.constructionOptions.find((entry) => entry.type === "steelworks")!;
     expect(option.siteRequirements).toEqual(BUILDING_DEFINITIONS.steelworks.siteRequirements);
-    expect(() => viewProjectionV2Schema.parse(createViewProjection(state, true))).not.toThrow();
+    expect(() => viewProjectionV3Schema.parse(createViewProjection(state, true))).not.toThrow();
   });
 
   it("forecasts a shortfall without creating a negative authoritative balance", () => {
@@ -170,7 +170,7 @@ describe("simulation view projection", () => {
       outstandingPrincipal: 600,
       monthlyPayment: 51,
     });
-    expect(() => viewProjectionV2Schema.parse(createViewProjection(state, true))).not.toThrow();
+    expect(() => viewProjectionV3Schema.parse(createViewProjection(state, true))).not.toThrow();
   });
 
   it("publica los macroeventos activos sin exponer el arroyo del sorteo", () => {
@@ -194,7 +194,7 @@ describe("simulation view projection", () => {
       -12,
       5,
     );
-    expect(() => viewProjectionV2Schema.parse(projection)).not.toThrow();
+    expect(() => viewProjectionV3Schema.parse(projection)).not.toThrow();
     /** El arroyo del sorteo y la probabilidad mensual son superficie privada del motor. */
     expect(JSON.stringify(projection)).not.toMatch(/xoshiro|prng|triggerChance/i);
   });
@@ -315,7 +315,7 @@ describe("V.k.1 · contrato de agentes de la proyección", () => {
 
   it("no recorta ninguna ruta del objeto producido al pasar por el esquema", () => {
     const produced = createViewProjection(createInitialState(2), true);
-    expect(keyPaths(viewProjectionV2Schema.parse(produced)).sort()).toEqual(
+    expect(keyPaths(viewProjectionV3Schema.parse(produced)).sort()).toEqual(
       keyPaths(produced).sort(),
     );
   });

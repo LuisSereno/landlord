@@ -1020,3 +1020,19 @@ en `vega_del_cauce`, `mercado_del_norte` y `patios_del_este`, y eje v2 en `barri
 La variante vive en `DistrictProfile.roadSectionVariant`; generación, proyección, cobertura de
 facilities y valor del suelo usan el mismo resolver. Fixtures de distrito/ciudad y pruebas de seams
 quedan regeneradas. La mediana queda fuera de esta entrega.
+
+## Sedes operativas de organización (2026-11-19, D-110)
+
+Se implementó `headquarters` como tipo construible para las dos compañías iniciales. Ambas arquitecturas
+(`cupola` y `courtyard`) comparten huella 4×2, solar de dos parcelas contiguas con mínimo 16 celdas,
+coste 4 500, materiales 4 cemento / 8 ladrillo / 2 acero y 96 unidades de trabajo. No generan renta ni
+aceptan inquilinos; conservan mantenimiento e impuestos. El estado de base provisional/operativa,
+variante, accesos, presencia y retorno se guarda en snapshot v3 y se publica en `ViewProjectionV3`.
+Los agentes regresan automáticamente tras cerrar una obra o una acción operativa; los retornos usan el
+grafo interdistrital y A*. La IA rival puede iniciar la sede con el mismo comando económico y urbanístico.
+
+La búsqueda de solares comprobó 60 seeds para legalidad y acceso en los dos distritos iniciales.
+Los PNG de `docs/art/organization-headquarters/concepts/` son referencias generadas, no sprites finales.
+La geometría del Building Composer, capturas de gameplay, presupuesto y promoción de ambas variantes
+siguen como gate artístico pendiente; el adapter las selecciona por el ID persistido y usa fallback
+semántico hasta tener assets aprobados. Véase D-110.

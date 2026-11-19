@@ -5175,6 +5175,514 @@
         "prohibitAccessIds": ["canopied_dock", "monumental_stairs", "apparatus_door", "rollup_door"]
       },
       "renderScale": 2
+    },
+    "headquarters_cupola": {
+      "buildingType": "headquarters_cupola",
+      "family": "civic_landmark",
+      "label": "Mansión urbana con mirador (sede 4×2)",
+      "notes": "Sede de organización con módulo original de mirador/cupola trazable a su fuente aprobada. Su escala y composición se ajustan al footprint de headquarters.",
+      "yard": {
+        "leftCells": 0,
+        "rightCells": 0,
+        "frontCells": 0
+      },
+      "levelsFromDomain": true,
+      "cornerModes": [
+        {
+          "id": "flush",
+          "label": "esquina de paneles",
+          "module": null,
+          "widthMeters": null
+        }
+      ],
+      "massingOptions": [
+        {
+          "id": "mansion_cupola",
+          "label": "casa urbana simétrica con cuerpo central y mirador",
+          "volumes": [
+            {
+              "cells": [0, 0, 1, 2],
+              "levels": 2,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [1, 0, 2, 2],
+              "levels": 2,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [3, 0, 1, 2],
+              "levels": 2,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [1, 0, 2, 1],
+              "levels": 1,
+              "stackOn": 1,
+              "slab": false,
+              "build": "whole",
+              "role": "civic_tower",
+              "module": "mod_original_school_cupola"
+            }
+          ]
+        }
+      ],
+      "facadePalettes": [
+        {
+          "id": "brick_institutional",
+          "label": "ladrillo visto institucional con molduras",
+          "roleModule": {
+            "wall_panel": "mod_megakit_brick_wall_2m",
+            "window_bay": "mod_megakit_brick_window_trim_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        },
+        {
+          "id": "stucco_institutional",
+          "label": "revoco con molduras institucionales",
+          "roleModule": {
+            "wall_panel": "mod_megakit_trim_wall_2m",
+            "window_bay": "mod_megakit_trim_window_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        },
+        {
+          "id": "mixed_institutional",
+          "label": "ladrillo y revoco con lenguaje cívico",
+          "roleModule": {
+            "wall_panel": "mod_megakit_brick_wall_2m",
+            "window_bay": "mod_megakit_brick_window_trim_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        }
+      ],
+      "rhythms": [
+        {
+          "id": "classroom_repeat",
+          "label": "repetición uniforme de ventanas de aula",
+          "bayMeters": 2,
+          "groundRole": "ground_panel",
+          "tokens": {
+            "front": ["window_bay", "wall_panel"],
+            "rear": ["window_bay", "wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        },
+        {
+          "id": "dense_classroom",
+          "label": "ventanas de aula densas cada crujía",
+          "bayMeters": 2,
+          "groundRole": "ground_panel",
+          "tokens": {
+            "front": ["window_bay", "window_bay"],
+            "rear": ["window_bay", "wall_panel"],
+            "sides": ["window_bay"]
+          }
+        },
+        {
+          "id": "banded_school",
+          "label": "bandas horizontales de ventanas y muro",
+          "bayMeters": 2,
+          "groundRole": "wainscot",
+          "tokens": {
+            "front": ["window_bay", "wall_panel", "window_bay"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        },
+        {
+          "id": "pilaster_rhythm",
+          "label": "ritmo de pilasteras con huecos de aula",
+          "bayMeters": 2,
+          "groundRole": "ground_panel",
+          "tokens": {
+            "front": ["wall_panel", "window_bay", "wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        }
+      ],
+      "silhouetteOptions": [
+        {
+          "id": "brick_cornice",
+          "label": "cornisa de ladrillo institucional",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_brick_center_2m",
+          "crownRole": null,
+          "projectionMeters": 0.2
+        },
+        {
+          "id": "trim_cornice_parapet",
+          "label": "cornisa de moldura con pretil",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_trim_center_2m",
+          "crownRole": "crown_panel",
+          "projectionMeters": 0.428
+        },
+        {
+          "id": "plain_parapet",
+          "label": "pretil plano sin cornisa",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": "crown_panel",
+          "projectionMeters": 0
+        }
+      ],
+      "roofOptions": [
+        {
+          "id": "flat_roof",
+          "kind": "flat",
+          "cornice": false,
+          "plateRole": "flat",
+          "dormerBays": 0,
+          "ridgeAlong": null
+        },
+        {
+          "id": "gable_roof",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        },
+        {
+          "id": "gable_dormers",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 3,
+          "ridgeAlong": "x"
+        }
+      ],
+      "accessOptions": [
+        {
+          "id": "central_entrance",
+          "label": "entrada central con escalinata",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        },
+        {
+          "id": "canopied_entrance",
+          "label": "acceso bajo marquesina institucional",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": "canopy",
+          "projectionMeters": 0.4,
+          "steps": false
+        },
+        {
+          "id": "recessed_lobby",
+          "label": "vestíbulo acristalado con volado",
+          "bayRule": "drawn",
+          "frameRole": "curtain_wall",
+          "leafRole": null,
+          "aboveRole": "overhang",
+          "projectionMeters": 0.4,
+          "steps": false
+        }
+      ],
+      "propOptions": [
+        {
+          "id": "roof_unit",
+          "label": "unidad técnica de cubierta",
+          "role": "rooftop_unit",
+          "module": "mod_megakit_prop_ac_unit",
+          "at": "roof",
+          "offset": 0
+        }
+      ],
+      "secondaryOptions": [
+        {
+          "id": "school_annex",
+          "label": "ala aneja del gimnasio en el patio",
+          "role": "civic_block",
+          "module": "mod_kaykit_civic_block_b",
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        }
+      ],
+      "semanticIdentity": {
+        "description": "Sede urbana con mirador central reconocible, ala lateral y accesos legibles; no es un equipamiento municipal.",
+        "requireAnyRoles": [["door", "curtain_wall"]],
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_chimney_basic",
+          "mod_kenney_ind_chimney_medium",
+          "mod_kenney_ind_chimney_large",
+          "mod_kenney_ind_tank_small",
+          "mod_kenney_ind_tank_large",
+          "mod_kenney_ind_water_tower"
+        ],
+        "prohibitAccessIds": [
+          "shopfront_entrance",
+          "canopied_dock",
+          "apparatus_door",
+          "rollup_door"
+        ],
+        "requireRoles": ["civic_tower"]
+      },
+      "renderScale": 2
+    },
+    "headquarters_courtyard": {
+      "buildingType": "headquarters_courtyard",
+      "family": "residential_low",
+      "label": "Residencia en torno a patio de servicio (sede 4×2)",
+      "notes": "Sede en U con patio funcional central abierto al acceso de servicio, construida con módulos licenciados del grammar doméstico.",
+      "yard": {
+        "leftCells": 0,
+        "rightCells": 0,
+        "frontCells": 0
+      },
+      "levelsFromDomain": true,
+      "cornerModes": [
+        {
+          "id": "flush",
+          "label": "esquina de paneles",
+          "module": null,
+          "widthMeters": null
+        }
+      ],
+      "massingOptions": [
+        {
+          "id": "service_courtyard_u",
+          "label": "alas laterales y cuerpo posterior alrededor del patio",
+          "volumes": [
+            {
+              "cells": [0, 0, 1, 2],
+              "levels": 2,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [3, 0, 1, 2],
+              "levels": 2,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [1, 1, 2, 1],
+              "levels": 2,
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        }
+      ],
+      "facadePalettes": [
+        {
+          "id": "brick_domestic",
+          "label": "ladrillo visto doméstico",
+          "roleModule": {
+            "wall_panel": "mod_megakit_brick_wall_2m",
+            "window_bay": "mod_megakit_brick_window_single_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        },
+        {
+          "id": "stucco_domestic",
+          "label": "revoco con molduras domésticas",
+          "roleModule": {
+            "wall_panel": "mod_megakit_trim_wall_2m",
+            "window_bay": "mod_megakit_trim_window_2m",
+            "ground_panel": "mod_megakit_trim_firstfloor_wall_2m",
+            "wainscot": "mod_megakit_brick_bottom_trim_2m",
+            "crown_panel": "mod_megakit_brick_top_trim_2m",
+            "doorframe": "mod_megakit_doorframe_trim"
+          }
+        }
+      ],
+      "rhythms": [
+        {
+          "id": "simple_window",
+          "label": "ventanas simples alternadas",
+          "bayMeters": 2,
+          "groundRole": null,
+          "tokens": {
+            "front": ["window_bay"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["wall_panel", "window_bay"]
+          }
+        },
+        {
+          "id": "paired_window",
+          "label": "ventanas pareadas",
+          "bayMeters": 2,
+          "groundRole": null,
+          "tokens": {
+            "front": ["window_bay"],
+            "rear": ["wall_panel", "window_bay"],
+            "sides": ["window_bay"]
+          }
+        },
+        {
+          "id": "wainscoted",
+          "label": "zócalo continuo y huecos",
+          "bayMeters": 2,
+          "groundRole": "wainscot",
+          "tokens": {
+            "front": ["window_bay"],
+            "rear": ["wall_panel"],
+            "sides": ["window_bay", "wall_panel"]
+          }
+        }
+      ],
+      "silhouetteOptions": [
+        {
+          "id": "plain",
+          "label": "remate directo",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": null,
+          "projectionMeters": 0
+        },
+        {
+          "id": "brick_cornice",
+          "label": " cornisa de ladrillo",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_brick_center_2m",
+          "crownRole": null,
+          "projectionMeters": 0.2
+        },
+        {
+          "id": "trim_cornice",
+          "label": "cornisa de moldura",
+          "corniceRole": "cornice",
+          "corniceModule": "mod_megakit_cornice_trim_center_2m",
+          "crownRole": null,
+          "projectionMeters": 0.428
+        }
+      ],
+      "roofOptions": [
+        {
+          "id": "gable_simple",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        },
+        {
+          "id": "gable_dormers",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 2,
+          "ridgeAlong": "x"
+        },
+        {
+          "id": "hip_roof",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        },
+        {
+          "id": "gable_corniced",
+          "kind": "gable",
+          "cornice": false,
+          "plateRole": null,
+          "dormerBays": 0,
+          "ridgeAlong": "x"
+        }
+      ],
+      "accessOptions": [
+        {
+          "id": "front_door",
+          "label": "puerta frontal centrada",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        },
+        {
+          "id": "door_with_canopy",
+          "label": "puerta con voladizo de alero",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": "overhang",
+          "projectionMeters": 0.4,
+          "steps": false
+        },
+        {
+          "id": "recessed_door",
+          "label": "puerta empotrada",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        }
+      ],
+      "propOptions": [],
+      "secondaryOptions": [
+        {
+          "id": "none",
+          "label": "sin volumen secundario",
+          "role": null,
+          "module": null,
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        }
+      ],
+      "semanticIdentity": {
+        "description": "Residencia de organización en U, con patio central de servicio y silueta distinta del mirador urbano.",
+        "requireRoles": ["door", "doorframe"],
+        "requireRoofKinds": [["gable", "hip", "valley", "dormer", "mansard"]],
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_chimney_basic",
+          "mod_kenney_ind_chimney_medium",
+          "mod_kenney_ind_chimney_large",
+          "mod_kenney_ind_tank_small",
+          "mod_kenney_ind_tank_large",
+          "mod_kenney_ind_water_tower"
+        ],
+        "prohibitAccessIds": ["shopfront_canopy", "glazed_lobby", "canopied_dock"]
+      },
+      "renderScale": 2
     }
   }
 }

@@ -6,7 +6,7 @@ import {
   parseOrganizationId,
   parseParcelId,
   parsePersonId,
-  parseSnapshotV2,
+  parseSnapshotV3,
   parseTenantId,
   type ProductCommand,
 } from "@landlord/shared";
@@ -325,7 +325,7 @@ describe("WP4.1 district generation", () => {
       expect(typeof entry.district.generation?.profileId).toBe("string");
     }
 
-    const parsed = parseSnapshotV2(JSON.parse(JSON.stringify(snapshot)));
+    const parsed = parseSnapshotV3(JSON.parse(JSON.stringify(snapshot)));
     const restored = restoreStateFromSnapshot(parsed);
     for (const districtId of state.world.city.districtIds) {
       expect([...districtMapOf(restored, districtId).blockedCells].sort()).toEqual(

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Conceptos de silueta para sedes operativas Landlord. No son modelos ni sprites de runtime.",
+  "concepts": [
+    {
+      "id": "headquarters-cupola-reference",
+      "path": "headquarters-mansion-cupola-reference.png",
+      "variantId": "cupola",
+      "description": "Mansión urbana con mirador, ala lateral y cochera.",
+      "source": "Generación original con OpenAI ImageGen durante esta tarea; referencia visual del concepto previo proporcionado en la sesión.",
+      "license": "OpenAI-generated concept; no third-party geometry or game assets"
+    },
+    {
+      "id": "headquarters-courtyard-reference",
+      "path": "headquarters-courtyard-reference.png",
+      "variantId": "courtyard",
+      "description": "Residencia en U alrededor de un patio de servicio, con silueta y cubierta propias.",
+      "source": "Generación original con OpenAI ImageGen durante esta tarea.",
+      "license": "OpenAI-generated concept; no third-party geometry or game assets"
+    }
+  ]
+}

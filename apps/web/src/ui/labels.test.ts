@@ -60,11 +60,11 @@ describe("V.d-UX · calendario legible", () => {
 });
 
 describe("V.d-UX · vocabulario del jugador", () => {
-  it("los 15 tipos de edificio tienen nombre legible y ninguno filtra el enum", () => {
+  it("los 16 tipos de edificio tienen nombre legible y ninguno filtra el enum", () => {
     const types = buildingTypeSchema.options;
-    expect(types).toHaveLength(15);
+    expect(types).toHaveLength(16);
     const labels = types.map((type) => buildingTypeLabel(type));
-    expect(new Set(labels).size).toBe(15);
+    expect(new Set(labels).size).toBe(16);
     for (const [index, label] of labels.entries()) {
       expect(label, types[index]).not.toBe(types[index]);
       expect(leaksTechnicalVocabulary(label), label).toBe(false);

@@ -22,6 +22,15 @@ Define perspectiva activa:
 
 ## Entidades/agregados conceptuales
 
+### Sede operativa (D-110)
+`headquarters` pertenece a una Organization y no equivale a PlayerIdentity. Cada organización inicial
+puede tener una sede en obra u operativa, o usar temporalmente su local en el spawn. Las variantes
+`cupola` y `courtyard` sólo cambian la arquitectura; ambas cuestan 4 500, usan dos parcelas
+contiguas (16 celdas), huella 4×2, 4 cemento / 8 ladrillo / 2 acero y 96 unidades de trabajo.
+No aceptan inquilinos ni generan renta. Los agentes vuelven a la entrada de servicio al acabar una
+orden; los traslados interdistritales usan gateways y la ruta A*. Snapshot/protocolo son v3 y los
+saves v2 son incompatibles sin migración. Véase D-110 y `docs/art/organization-headquarters/README.md`.
+
 ### Game
 Tiempo, seed, mundo y economía global.
 

@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 
-import type { BuildingType, ViewProjectionV2 } from "@landlord/shared";
+import type { BuildingType, ViewProjectionV3 } from "@landlord/shared";
 
 import {
   mountIsometricSpike,
@@ -141,7 +141,11 @@ export function App() {
   }, []);
 
   const beginPlacement = useCallback(
-    (buildingType: BuildingType, parcelIds: readonly string[]) => {
+    (
+      buildingType: BuildingType,
+      parcelIds: readonly string[],
+      headquartersVariantId?: "cupola" | "courtyard",
+    ) => {
       const districtId = economy?.district.id;
       if (!districtId) return;
       placementRequestKey.current = null;
@@ -152,6 +156,7 @@ export function App() {
           buildingType,
           districtId,
           parcelIds: [...parcelIds].sort((left, right) => left.localeCompare(right)),
+          ...(headquartersVariantId ? { headquartersVariantId } : {}),
         }),
       );
     },
@@ -617,9 +622,16 @@ export function App() {
         parcelIds: readonly string[],
         buildingType: BuildingType,
         placementId?: string,
+        headquartersVariantId?: "cupola" | "courtyard",
       ) =>
         run(
-          () => client!.startConstruction([...parcelIds], buildingType, placementId),
+          () =>
+            client!.startConstruction(
+              [...parcelIds],
+              buildingType,
+              placementId,
+              headquartersVariantId,
+            ),
           "Obra iniciada; asigna una cuadrilla para que avance.",
         ),
       cancelConstruction: (siteId) =>
@@ -717,6 +729,7 @@ export function App() {
                       pendingPlacement.parcelIds,
                       pendingPlacement.buildingType,
                       placementId,
+                      pendingPlacement.headquartersVariantId,
                     ),
                   "Obra iniciada; asigna una cuadrilla para que avance.",
                 )
@@ -1027,7 +1040,7 @@ declare global {
       marketableParcelCellForType: (buildingType: string) => GridCell | null;
       largestMarketableParcel: () => { cell: GridCell; cellCount: number } | null;
       facilityCell: (kind: string) => GridCell | null;
-      roadSectionSummary: () => ViewProjectionV2["map"]["roadSection"] | null;
+      roadSectionSummary: () => ViewProjectionV3["map"]["roadSection"] | null;
       pendingSite: () => {
         buildingType: string;
         parcelCount: number;
@@ -1068,7 +1081,7 @@ declare global {
 const MapViewport = forwardRef<
   MapViewportHandle,
   {
-    projection: ViewProjectionV2 | null;
+    projection: ViewProjectionV3 | null;
     overlay: MapOverlay;
     onCellPicked: (cell: GridCell) => void;
     onEntityPicked: (target: { kind: "building" | "construction"; id: string }) => void;

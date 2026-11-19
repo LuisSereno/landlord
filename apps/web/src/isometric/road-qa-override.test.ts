@@ -4,11 +4,11 @@ import {
   buildRoadSectionChannel,
   roadCellsFromSegments,
   roadSectionDigest,
-  type ViewProjectionV2,
+  type ViewProjectionV3,
 } from "@landlord/shared";
 import { applyQaRoadOverride, isQaRoadFixture } from "./road-qa-override";
 
-function baseProjection(): ViewProjectionV2 {
+function baseProjection(): ViewProjectionV3 {
   const channel = buildRoadSectionChannel({
     topologyVersion: 1,
     derivationVersion: 2,
@@ -21,7 +21,7 @@ function baseProjection(): ViewProjectionV2 {
       roads: { revision: 0, digest: "00000000", cells: ["0:0"] },
       roadSection: { revision: 0, digest: roadSectionDigest(channel), ...channel },
     },
-  } as unknown as ViewProjectionV2;
+  } as unknown as ViewProjectionV3;
 }
 
 describe("Gate D · override QA de sección vial (sólo presentación)", () => {

@@ -92,6 +92,7 @@ export function startAgentTravel(
   state: GameState,
   agentId: import("@landlord/shared").AgentId,
   toDistrictId: DistrictId,
+  preserveReturnState = false,
 ): { arriveAtTick: Tick; route: DistrictId[] } | null {
   const agent = state.agents.get(agentId);
   if (!agent || agent.travel) return null;
@@ -109,6 +110,8 @@ export function startAgentTravel(
     arriveAtTick,
     route: [...plan.route],
   };
+  agent.atBase = false;
+  if (!preserveReturnState) agent.returningToBase = false;
   agent.task = null;
   agent.path = [];
   agent.state = "moving";
@@ -124,7 +127,9 @@ export function advanceTransfers(state: GameState): void {
     const travel = agent.travel;
     if (!travel) continue;
     if (Number(state.clock.tick) < Number(travel.arriveAtTick)) continue;
-    const entry = gatewayCell(state, travel.fromDistrictId, travel.toDistrictId);
+    const previousDistrict =
+      travel.route.length > 1 ? travel.route[travel.route.length - 2]! : travel.fromDistrictId;
+    const entry = gatewayCell(state, previousDistrict, travel.toDistrictId);
     agent.districtId = travel.toDistrictId;
     if (entry) {
       agent.cell = entry;

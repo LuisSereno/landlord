@@ -116,7 +116,7 @@ describe("generador de fixture de public-space dressing (V.g)", () => {
       expect(unique.size, `ids duplicados en el fixture: ${allIds.join(", ")}`).toBe(allIds.length);
 
       const fixture = {
-        schemaVersion: 2,
+        schemaVersion: 3,
         purpose:
           "V.g public-space dressing: celdas REALES de plazas y parques volcadas desde la ciudad multidistrito (createInitialState). Ids globalmente únicos por districtId. El planificador Blender lee este fixture; no inventa geometría de espacio público.",
         cellMeters: CELL_METERS,

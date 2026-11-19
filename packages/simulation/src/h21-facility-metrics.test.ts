@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   parseBuildingId,
-  viewProjectionV2Schema,
+  viewProjectionV3Schema,
   type Building,
   type Parcel,
   type UrbanFacility,
@@ -182,7 +182,7 @@ describe("H2.1-01 · métricas explícitas del informe de facilities", () => {
     const projection = createViewProjection(state, true, second.districtId);
     /** El contrato del renderer valida antes de pintar: un porcentaje >100 tiraba el projection. */
     expect(() =>
-      viewProjectionV2Schema.parse(JSON.parse(JSON.stringify(projection))),
+      viewProjectionV3Schema.parse(JSON.parse(JSON.stringify(projection))),
     ).not.toThrow();
     const reported = projection.facilities.filter((entry) => entry.serviceMetrics !== null);
     expect(reported.length).toBeGreaterThan(0);

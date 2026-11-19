@@ -4,11 +4,11 @@ import {
   parseCommandId,
   parseMoney,
   parsePersonId,
-  parseSnapshotV2,
+  parseSnapshotV3,
   roadCellsFromSegments,
   roadCorridorCellsFromSegments,
   roadProfileForTopology,
-  viewProjectionV2Schema,
+  viewProjectionV3Schema,
   type GridCell,
   type ProductCommand,
 } from "@landlord/shared";
@@ -292,7 +292,7 @@ describe("V.d.3 programa municipal", () => {
     expect(allFacilities(restored)).toHaveLength(14);
     expect(allPublicSpaces(restored)).toHaveLength(7);
     expect(
-      parseSnapshotV2(JSON.parse(JSON.stringify(serializeSnapshot(state))))
+      parseSnapshotV3(JSON.parse(JSON.stringify(serializeSnapshot(state))))
         .world.districts.map((entry) => entry.facilities.length)
         .reduce((sum, count) => sum + count, 0),
     ).toBe(14);
@@ -310,10 +310,10 @@ describe("V.d.3 programa municipal", () => {
     );
     expect(parcel.disposition).toBe("public");
     parcel.disposition = "marketable";
-    expect(() => parseSnapshotV2(snapshot)).toThrow();
+    expect(() => parseSnapshotV3(snapshot)).toThrow();
     parcel.disposition = "public";
     parcel.ownerOrganizationId = "org_00000001";
-    expect(() => parseSnapshotV2(snapshot)).toThrow();
+    expect(() => parseSnapshotV3(snapshot)).toThrow();
   });
 
   it("publishes the facility inspector in the observed district projection", () => {
@@ -329,7 +329,7 @@ describe("V.d.3 programa municipal", () => {
       projection.city.districts.reduce((sum, district) => sum + district.publicSpaces, 0),
     ).toBe(7);
     expect(() =>
-      viewProjectionV2Schema.parse(JSON.parse(JSON.stringify(projection))),
+      viewProjectionV3Schema.parse(JSON.parse(JSON.stringify(projection))),
     ).not.toThrow();
     const district = state.world.districts.get(projection.observedDistrictId)!;
     expect(projection.facilities.map((facility) => facility.id).sort()).toEqual(

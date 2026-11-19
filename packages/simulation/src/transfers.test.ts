@@ -14,7 +14,7 @@ import { PLAYER_ORGANIZATION_ID } from "./game-data";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { createInitialState } from "./state";
 import { advanceProductSystems } from "./systems";
-import { districtRoute, gatewayCell, TRANSFER_TICKS_PER_COST } from "./transfers";
+import { districtRoute, gatewayCell, startAgentTravel, TRANSFER_TICKS_PER_COST } from "./transfers";
 import { RIVAL_HOME_DISTRICT_ID, PLAYER_HOME_DISTRICT_ID, districtIdForSlot } from "./city";
 
 let commandCounter = 0;
@@ -51,6 +51,20 @@ describe("V.d.0 traslado de cuadrillas y agentes", () => {
     ]);
     expect(far.cost).toBe(12);
     expect(districtRoute(state, PLAYER_HOME_DISTRICT_ID, PLAYER_HOME_DISTRICT_ID)!.cost).toBe(0);
+  });
+
+  it("entra por el gateway del último tramo en un traslado de varios distritos", () => {
+    const state = createInitialState(1);
+    const agent = [...state.agents.values()].find(
+      (entry) => entry.organizationId === PLAYER_ORGANIZATION_ID,
+    )!;
+    const destination = districtIdForSlot(2, 2);
+    const plan = startAgentTravel(state, agent.id, destination)!;
+    const previousDistrict = plan.route.at(-2)!;
+    const expectedGateway = gatewayCell(state, previousDistrict, destination)!;
+    for (let tick = 0; tick <= Number(plan.arriveAtTick); tick += 1) advanceProductSystems(state);
+    expect(agent.districtId).toBe(destination);
+    expect(agent.cell).toEqual(expectedGateway);
   });
 
   it("mueve la cuadrilla entera, la deja no disponible y la aparece en el gateway", () => {

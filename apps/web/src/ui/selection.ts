@@ -1,4 +1,4 @@
-import type { BuildingId, ViewProjectionV2 } from "@landlord/shared";
+import type { BuildingId, ViewProjectionV3 } from "@landlord/shared";
 
 import { resolveBuildingSelection } from "../building-selection";
 import type { Economy, ProjectedBuilding, ProjectedParcel } from "./types";
@@ -19,11 +19,11 @@ export type ContextSelection =
       site: Economy["constructionSites"][number];
       owned: boolean;
     }
-  | { kind: "facility"; parcel: ProjectedParcel; facility: ViewProjectionV2["facilities"][number] }
+  | { kind: "facility"; parcel: ProjectedParcel; facility: ViewProjectionV3["facilities"][number] }
   | {
       kind: "public-space";
       parcel: ProjectedParcel;
-      space: ViewProjectionV2["publicSpaces"][number];
+      space: ViewProjectionV3["publicSpaces"][number];
     };
 
 /**
@@ -40,7 +40,7 @@ export type SpatialSelection =
 
 export function selectionTargetForCell(input: {
   economy: Economy;
-  projection: ViewProjectionV2;
+  projection: ViewProjectionV3;
   cell: { x: number; y: number };
 }): SpatialSelection | null {
   const { economy, projection, cell } = input;
@@ -66,7 +66,7 @@ export function selectionTargetForCell(input: {
 
 export function resolveContextSelection(input: {
   economy: Economy;
-  projection: ViewProjectionV2;
+  projection: ViewProjectionV3;
   /** Prefer the semantic identity. `cell` remains temporarily for existing callers/tests. */
   target?: SpatialSelection | null;
   cell?: { x: number; y: number };
@@ -107,7 +107,7 @@ export function resolveContextSelection(input: {
 
 function resolveSemanticSelection(
   economy: Economy,
-  projection: ViewProjectionV2,
+  projection: ViewProjectionV3,
   target: SpatialSelection,
 ): ContextSelection | null {
   if (target.kind === "parcel") {

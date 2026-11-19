@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 
 import { roadSegmentId } from "./domain";
 import {
-  parseSnapshotV2,
-  snapshotV2Schema,
+  parseSnapshotV3,
+  snapshotV3Schema,
   UnsupportedSnapshotVersionError,
   UnsupportedPermitContractError,
   UnsupportedRoadTopologyError,
@@ -98,7 +98,7 @@ function validWorld(overrides: { blockedCells?: Array<{ x: number; y: number }> 
 
 function validSnapshot() {
   return {
-    schemaVersion: 2,
+    schemaVersion: 3,
     engineVersion: "gate1-dev",
     seed: 1,
     tick: 0,
@@ -108,8 +108,24 @@ function validSnapshot() {
     playerIdentities: [{ id: "player_00000001", personId: "person_00000001" }],
     persons: [{ id: "person_00000001" }],
     organizations: [
-      { id: "org_00000001", kind: "company" },
-      { id: "org_00000004", kind: "municipality" },
+      { id: "org_00000001", kind: "company", visualIdentityId: "company_turquoise" },
+      { id: "org_00000004", kind: "municipality", visualIdentityId: "municipal_blue" },
+    ],
+    organizationBases: [
+      {
+        organizationId: "org_00000001",
+        districtId: districtId(1),
+        mainEntranceCell: { x: 1, y: 1 },
+        serviceEntranceCell: { x: 1, y: 1 },
+        provisional: true,
+      },
+      {
+        organizationId: "org_00000004",
+        districtId: districtId(1),
+        mainEntranceCell: { x: 2, y: 1 },
+        serviceEntranceCell: { x: 2, y: 1 },
+        provisional: true,
+      },
     ],
     controlGrants: [{ personId: "person_00000001", organizationId: "org_00000001" }],
     agents: [
@@ -137,27 +153,33 @@ function validSnapshot() {
   };
 }
 
-describe("snapshot v2", () => {
+describe("snapshot v3", () => {
   it("parses a valid fixture and validates references", () => {
-    const parsed = parseSnapshotV2(validSnapshot());
-    expect(parsed.schemaVersion).toBe(2);
+    const parsed = parseSnapshotV3(validSnapshot());
+    expect(parsed.schemaVersion).toBe(3);
     expect(parsed.world.districts).toHaveLength(9);
     expect(parsed.world.gateways).toHaveLength(12);
     expect(validateSnapshotReferences(parsed)).toEqual([]);
   });
 
   it("rejects a v1 save by name instead of by schema diff", () => {
-    expect(() => parseSnapshotV2({ ...validSnapshot(), schemaVersion: 1 })).toThrowError(
+    expect(() => parseSnapshotV3({ ...validSnapshot(), schemaVersion: 1 })).toThrowError(
       UnsupportedSnapshotVersionError,
     );
-    expect(() => parseSnapshotV2({ ...validSnapshot(), schemaVersion: 1 })).toThrowError(
+    expect(() => parseSnapshotV3({ ...validSnapshot(), schemaVersion: 1 })).toThrowError(
       /UNSUPPORTED_SNAPSHOT_VERSION/,
+    );
+  });
+
+  it("rejects a v2 save without migrating it", () => {
+    expect(() => parseSnapshotV3({ ...validSnapshot(), schemaVersion: 2 })).toThrowError(
+      UnsupportedSnapshotVersionError,
     );
   });
 
   it("rejects invalid PRNG shape and duplicate structure cells", () => {
     expect(() =>
-      snapshotV2Schema.parse({
+      snapshotV3Schema.parse({
         ...validSnapshot(),
         prng: { algorithm: "xoshiro128ss-v1", state: [1, 2, 3] },
       }),
@@ -207,10 +229,10 @@ describe("snapshot v2", () => {
     (
       legacyRoads.world.districts[0]!.map.roads as unknown as { derivationVersion: number }
     ).derivationVersion = 1;
-    expect(() => parseSnapshotV2(legacyRoads)).toThrow(UnsupportedUrbanFabricError);
+    expect(() => parseSnapshotV3(legacyRoads)).toThrow(UnsupportedUrbanFabricError);
     expect(() =>
-      parseSnapshotV2({
-        schemaVersion: 2,
+      parseSnapshotV3({
+        schemaVersion: 3,
         world: { districts: [{ map: { roads: { derivationVersion: 2 } } }] },
         phase2: {
           parcels: [
@@ -227,7 +249,7 @@ describe("snapshot v2", () => {
       derivationVersion: number;
     };
     roads.derivationVersion = 3;
-    expect(() => parseSnapshotV2(legacyRoads)).toThrow(UnsupportedRoadTopologyError);
+    expect(() => parseSnapshotV3(legacyRoads)).toThrow(UnsupportedRoadTopologyError);
     expect(roads.derivationVersion).toBe(3);
   });
 
@@ -239,7 +261,7 @@ describe("snapshot v2", () => {
       roadSectionVariant: "ave3",
       segments: [],
     } as never;
-    expect(parseSnapshotV2(v4).world.districts[0]!.map.roads).toMatchObject({
+    expect(parseSnapshotV3(v4).world.districts[0]!.map.roads).toMatchObject({
       derivationVersion: 4,
       roadSectionVariant: "ave3",
     });
@@ -249,7 +271,7 @@ describe("snapshot v2", () => {
       derivationVersion: 4,
       segments: [],
     } as never;
-    expect(() => parseSnapshotV2(missingVariant)).toThrow();
+    expect(() => parseSnapshotV3(missingVariant)).toThrow();
     const invalidVariant = validSnapshot();
     invalidVariant.world.districts[0]!.map.roads = {
       topologyVersion: 1,
@@ -257,7 +279,7 @@ describe("snapshot v2", () => {
       roadSectionVariant: "wide",
       segments: [],
     } as never;
-    expect(() => parseSnapshotV2(invalidVariant)).toThrow();
+    expect(() => parseSnapshotV3(invalidVariant)).toThrow();
   });
 
   it("rejects a permit ledger without PermitId instead of inventing one", () => {
@@ -273,19 +295,19 @@ describe("snapshot v2", () => {
         },
       },
     };
-    expect(() => parseSnapshotV2(legacyPermits)).toThrow(UnsupportedPermitContractError);
+    expect(() => parseSnapshotV3(legacyPermits)).toThrow(UnsupportedPermitContractError);
 
     /** Un expediente sin permisos no dispara el rechazo: lo que se rechaza es la forma antigua. */
     const modernLedger = {
       ...validSnapshot(),
       phase2: { permitting: { validityTicks: 216_000, approvalChanceByRole: {}, permitsById: {} } },
     };
-    expect(() => parseSnapshotV2(modernLedger)).not.toThrow(UnsupportedPermitContractError);
+    expect(() => parseSnapshotV3(modernLedger)).not.toThrow(UnsupportedPermitContractError);
   });
 
   it("rejects broken entity references before hydration", () => {
     expect(() =>
-      parseSnapshotV2({
+      parseSnapshotV3({
         ...validSnapshot(),
         structures: [
           {

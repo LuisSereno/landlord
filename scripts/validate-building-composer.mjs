@@ -117,7 +117,8 @@ const sha256 = (buffer) => createHash("sha256").update(buffer).digest("hex");
 /** §17: la huella y las plantas las manda el dominio; se leen del mismo fichero que lee el juego. */
 function domainGeometry(buildingType) {
   const gameData = readFileSync(PATHS.gameData, "utf8");
-  const start = gameData.indexOf(`  ${buildingType}: {`);
+  const domainType = buildingType.startsWith("headquarters_") ? "headquarters" : buildingType;
+  const start = gameData.indexOf(`  ${domainType}: {`);
   if (start < 0) return null;
   const boundary = /\n {2}[a-z_]+: \{/gu;
   boundary.lastIndex = start + buildingType.length + 5;

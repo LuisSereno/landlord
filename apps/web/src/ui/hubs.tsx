@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
 
-import type { ViewProjectionV2 } from "@landlord/shared";
+import type { ViewProjectionV3 } from "@landlord/shared";
 
 import { CityView } from "../CityView";
 import { buildingStatusFor, indexAssetStatus } from "./asset-status";
@@ -100,7 +100,7 @@ export function CollapsibleSection({
 
 export type HubProps = {
   economy: Economy;
-  projection: ViewProjectionV2;
+  projection: ViewProjectionV3;
   calendar: GameCalendar;
   actions: GameActions;
   onClose: () => void;

@@ -6,7 +6,7 @@ import {
   roadSegmentId,
   type RoadSegment,
   type RoadTopology,
-  type ViewProjectionV2,
+  type ViewProjectionV3,
 } from "@landlord/shared";
 
 /**
@@ -55,9 +55,9 @@ function motorwayTopology(): RoadTopology {
 
 /** Override puro y determinista del canal vial; el resto de la proyección queda intacto. */
 export function applyQaRoadOverride(
-  projection: ViewProjectionV2,
+  projection: ViewProjectionV3,
   fixture: QaRoadFixture,
-): ViewProjectionV2 {
+): ViewProjectionV3 {
   if (fixture !== "motorway") return projection;
   const topology = motorwayTopology();
   const cells = [...roadCellsFromSegments(topology.segments)].sort((left, right) => {

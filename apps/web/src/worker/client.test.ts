@@ -30,20 +30,20 @@ describe("SimulationWorkerClient", () => {
       (error) => errors.push(error),
     );
     const promise = client.initialize(1);
-    expect(worker.sent[0]).toMatchObject({ type: "InitializeGame", protocolVersion: 2 });
+    expect(worker.sent[0]).toMatchObject({ type: "InitializeGame", protocolVersion: 3 });
     worker.emit({
-      protocolVersion: 2,
+      protocolVersion: 3,
       requestId: "request-1",
       type: "RequestSucceeded",
       payload: { acceptedAtTick: 0 },
     });
     await expect(promise).resolves.toMatchObject({ type: "RequestSucceeded" });
     worker.emit({
-      protocolVersion: 2,
+      protocolVersion: 3,
       requestId: null,
       type: "ProjectionPublished",
       payload: {
-        projectionVersion: 2,
+        projectionVersion: 3,
         observedDistrictId: "district_00000004",
         city: {
           id: "city_00000001",
@@ -74,6 +74,7 @@ describe("SimulationWorkerClient", () => {
         tick: 0,
         // V.k.1 · la cadencia de paso viaja en la proyección: sin ella el worker no puede animar cuadrillas.
         movement: { ticksPerCell: 10 },
+        bases: [],
         map: {
           width: 64,
           height: 64,
@@ -91,6 +92,8 @@ describe("SimulationWorkerClient", () => {
             nextCell: { x: 4, y: 4 },
             specialty: "supervisor",
             state: "moving",
+            atBase: false,
+            returningToBase: false,
           },
         ],
       },
@@ -152,7 +155,7 @@ describe("SimulationWorkerClient", () => {
       (entry) => diagnostics.push(entry),
     );
     worker.emit({
-      protocolVersion: 2,
+      protocolVersion: 3,
       requestId: null,
       type: "SimulationMetricsPublished",
       payload: {
@@ -234,7 +237,7 @@ describe("V.d-7C · colocación interactiva en el cliente del Worker", () => {
       parcelIds: ["parcel_00000001"],
     });
     expect(worker.sent[0]).toMatchObject({
-      protocolVersion: 2,
+      protocolVersion: 3,
       type: "GetDevelopmentPlacementCandidates",
       payload: {
         districtId: "district_00000001",
@@ -243,7 +246,7 @@ describe("V.d-7C · colocación interactiva en el cliente del Worker", () => {
       },
     });
     worker.emit({
-      protocolVersion: 2,
+      protocolVersion: 3,
       requestId: "request-1",
       type: "RequestSucceeded",
       payload: { acceptedAtTick: 0, result: candidateResult },
@@ -264,7 +267,7 @@ describe("V.d-7C · colocación interactiva en el cliente del Worker", () => {
       parcelIds: ["parcel_00000001"],
     });
     worker.emit({
-      protocolVersion: 2,
+      protocolVersion: 3,
       requestId: "request-1",
       type: "RequestFailed",
       payload: { code: "DISTRICT_NOT_FOUND", message: "El distrito indicado no existe." },
@@ -277,7 +280,7 @@ describe("V.d-7C · colocación interactiva en el cliente del Worker", () => {
       parcelIds: ["parcel_00000001"],
     });
     worker.emit({
-      protocolVersion: 2,
+      protocolVersion: 3,
       requestId: "request-2",
       type: "RequestSucceeded",
       payload: { acceptedAtTick: 0, result: { candidates: "muchas" } },

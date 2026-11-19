@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
-import type { ViewProjectionV2 } from "@landlord/shared";
+import type { ViewProjectionV3 } from "@landlord/shared";
 
 import { HelpPopover, HelpTooltip, helpCatalog, tooltipPosition, type HelpTopicKey } from "./help";
 import {
@@ -270,7 +270,7 @@ describe("V.d-UX · contratos de la interfaz", () => {
       observedDistrictId: "district_00000001",
       facilities: [{ id: "facility_1", kind: "police_station", parcelIds: ["parcel_public"] }],
       publicSpaces: [{ id: "space_1", kind: "plaza", cells: [{ x: 20, y: 20 }] }],
-    } as unknown as ViewProjectionV2;
+    } as unknown as ViewProjectionV3;
     const publicParcel = parcel({
       id: "parcel_public",
       cell: { x: 30, y: 30 },
@@ -357,7 +357,7 @@ describe("V.d-UX · contratos de la interfaz", () => {
       observedDistrictId: "district_00000001",
       facilities: [],
       publicSpaces: [],
-    } as unknown as ViewProjectionV2;
+    } as unknown as ViewProjectionV3;
     expect(
       selectionTargetForCell({
         economy: economyPublicWithBuilding,
@@ -383,7 +383,7 @@ describe("V.d-UX · contratos de la interfaz", () => {
       observedDistrictId: "district_00000001",
       facilities: [{ id: "facility_c", kind: "town_hall", parcelIds: ["parcel_public_c"] }],
       publicSpaces: [],
-    } as unknown as ViewProjectionV2;
+    } as unknown as ViewProjectionV3;
     const economyPublicWithFacility = economy({
       parcels: [publicParcelWithFacility],
       buildings: [buildingOnPublicC],
@@ -515,7 +515,7 @@ describe("V.k.4 · la ficha de obra habla por el helper de cuadrillas", () => {
         agent("agent_00000002", { x: 11, y: 10 }, "working", null),
         agent("agent_00000003", { x: 10, y: 11 }, "moving", { x: 10, y: 10 }),
       ],
-    } as unknown as ViewProjectionV2;
+    } as unknown as ViewProjectionV3;
     return { economyConObra, projection };
   };
 

@@ -72,6 +72,29 @@ import { councilAlignmentPercent } from "./municipal-politics";
 import { districtObstacles, interactionCellCandidates } from "./district-obstacles";
 import { findDeterministicPath } from "./navigation";
 
+function activateAtOrganizationBase(
+  state: GameState,
+  agent: import("@landlord/shared").Agent,
+): void {
+  if (!agent.organizationId) return;
+  if (!agent.atBase) {
+    agent.returningToBase = false;
+    return;
+  }
+  const base = state.organizationBases.get(agent.organizationId);
+  if (!base) return;
+  const headquarters = [...state.phase2.buildings.values()].find(
+    (building) =>
+      building.ownerOrganizationId === agent.organizationId &&
+      building.type === "headquarters" &&
+      building.state === "operational",
+  );
+  agent.districtId = headquarters?.districtId ?? base.districtId;
+  agent.cell = headquarters?.headquartersAccess?.service ?? base.serviceEntranceCell;
+  agent.atBase = false;
+  agent.returningToBase = false;
+}
+
 export type CommandRejection = {
   accepted: false;
   code: ErrorCode;
@@ -752,6 +775,28 @@ export function dispatchProductCommand(
   }
 
   if (command.type === "StartConstruction") {
+    if (command.payload.buildingType === "headquarters") {
+      if (
+        command.payload.headquartersVariantId !== "cupola" &&
+        command.payload.headquartersVariantId !== "courtyard"
+      )
+        return { accepted: false, code: "INVALID_BUILDING_VARIANT" };
+      const existing =
+        [...state.phase2.constructionSites.values()].some(
+          (site) =>
+            site.ownerOrganizationId === command.actingAsOrganizationId &&
+            site.buildingType === "headquarters",
+        ) ||
+        [...state.phase2.buildings.values()].some(
+          (building) =>
+            building.ownerOrganizationId === command.actingAsOrganizationId &&
+            building.type === "headquarters" &&
+            building.state !== "ruin",
+        );
+      if (existing) return { accepted: false, code: "BUILDING_CAPACITY_FULL" };
+    } else if (command.payload.headquartersVariantId !== undefined) {
+      return { accepted: false, code: "INVALID_BUILDING_VARIANT" };
+    }
     /**
      * V.d-7 · el proyecto se apoya en un CONJUNTO canónico de parcelas. V.d-7C · la huella es una
      * colocación legal revalidada. Las dos reglas viven en `development-placement`, que es también lo
@@ -788,6 +833,34 @@ export function dispatchProductCommand(
     const chosen = choosePlacementFrom(site, code, command.payload.placementId);
     if (!chosen.ok) return { accepted: false, code: chosen.rejection };
     const placement = chosen.placement;
+    const headquartersAccess = definition.headquarters
+      ? (() => {
+          const obstacles = districtObstacles(state, site.districtId);
+          const blocked = new Set(obstacles.impassable);
+          for (const cell of placement.footprintCells) blocked.add(cellKey(cell));
+          const access = interactionCellCandidates(
+            placement.footprintCells,
+            {
+              occupied: new Set([...obstacles.occupied, ...placement.footprintCells.map(cellKey)]),
+              impassable: blocked,
+            },
+            64,
+            64,
+          );
+          const base = state.organizationBases.get(command.actingAsOrganizationId);
+          const provisionalEntry = base?.serviceEntranceCell;
+          const service = access.find(
+            (cell) =>
+              !provisionalEntry ||
+              (provisionalEntry.x === cell.x && provisionalEntry.y === cell.y) ||
+              findDeterministicPath(provisionalEntry, cell, blocked).length > 0,
+          );
+          const main = access.find((cell) => cell.x !== service?.x || cell.y !== service?.y);
+          return main && service ? { main, service } : null;
+        })()
+      : null;
+    if (definition.headquarters && !headquartersAccess)
+      return { accepted: false, code: "INVALID_AGENT_ACTION" };
     const activeSites = [...state.phase2.constructionSites.values()].filter(
       (site) =>
         site.ownerOrganizationId === command.actingAsOrganizationId &&
@@ -798,7 +871,11 @@ export function dispatchProductCommand(
     if (!hasResources(inventory, definition.resources))
       return { accepted: false, code: "INSUFFICIENT_RESOURCES" };
     const materialModifier = 1 + materialCostModifierPercentFor(state) / 100;
-    const cost = parseMoney(Math.max(0, Math.round(definition.cost * materialModifier)));
+    const cost = parseMoney(
+      definition.headquarters
+        ? definition.cost
+        : Math.max(0, Math.round(definition.cost * materialModifier)),
+    );
     /** La caja se anota contra la parcela primaria: es un ancla contable, no una regla de reparto. */
     if (
       !debit(
@@ -825,13 +902,24 @@ export function dispatchProductCommand(
       districtId: site.districtId,
       ownerOrganizationId: command.actingAsOrganizationId,
       buildingType: definition.type,
+      ...(definition.headquarters
+        ? {
+            headquartersVariantId: command.payload.headquartersVariantId!,
+            headquartersAccess: {
+              main: { ...headquartersAccess!.main },
+              service: { ...headquartersAccess!.service },
+            },
+          }
+        : {}),
       /** La huella del candidato confirmado por el jugador, no una recomposición del motor. */
       footprintCells: placement.footprintCells.map((cell) => ({ ...cell })),
       orientation: placement.orientation,
       floors: placement.floors,
       form: definition.form,
       progress: 0,
-      workRequired: effectiveConstructionWorkRequired(state, definition),
+      workRequired: definition.headquarters
+        ? definition.workRequired
+        : effectiveConstructionWorkRequired(state, definition),
       resourcesReserved: { ...definition.resources },
       crewCapacity: 0,
       upgradeBuildingId: null,
@@ -1090,6 +1178,7 @@ export function dispatchProductCommand(
     for (const agentId of memberIds) {
       const agent = state.agents.get(agentId);
       if (!agent || agent.state === "dead" || agent.state === "injured") continue;
+      activateAtOrganizationBase(state, agent);
       agent.task = { kind: "work_order", workOrderId: site.id };
       agent.target = { ...interactionCell };
       agent.path = findDeterministicPath(agent.cell, interactionCell, obstacles.impassable);
@@ -1119,8 +1208,8 @@ export function dispatchProductCommand(
           agent.specialty === "maintenance_technician" &&
           agent.districtId === buildingParcel.districtId &&
           agent.state === "idle" &&
-          !agent.travel &&
-          !agent.task,
+          (!agent.task || agent.task.kind === "return_to_base") &&
+          !agent.travel,
       )
       .sort((left, right) => left.id.localeCompare(right.id))[0];
     if (!technician) return { accepted: false, code: "AGENT_NOT_FOUND" };
@@ -1142,6 +1231,7 @@ export function dispatchProductCommand(
         findDeterministicPath(technician.cell, cell, obstacles.impassable).length > 0,
     );
     if (!interactionCell) return { accepted: false, code: "INVALID_AGENT_ACTION" };
+    activateAtOrganizationBase(state, technician);
     technician.task = { kind: "maintenance", buildingId: building.id };
     technician.target = { ...interactionCell };
     technician.path = findDeterministicPath(technician.cell, interactionCell, obstacles.impassable);
@@ -1171,6 +1261,7 @@ export function dispatchProductCommand(
         return { accepted: false, code: "INVALID_AGENT_ACTION" };
       if (target.districtId !== enforcer.districtId)
         return { accepted: false, code: "AGENT_NOT_IN_DISTRICT" };
+      activateAtOrganizationBase(state, enforcer);
       enforcer.task = { kind: "attack_agent", targetAgentId: target.id };
       enforcer.target = { ...target.cell };
       enforcer.state = "moving";
@@ -1195,6 +1286,7 @@ export function dispatchProductCommand(
           findDeterministicPath(enforcer.cell, cell, obstacles.impassable).length > 0,
       );
       if (!interactionCell) return { accepted: false, code: "INVALID_AGENT_ACTION" };
+      activateAtOrganizationBase(state, enforcer);
       enforcer.task = { kind: "sabotage_building", targetBuildingId: target.id };
       enforcer.target = { ...interactionCell };
       enforcer.path = findDeterministicPath(enforcer.cell, interactionCell, obstacles.impassable);

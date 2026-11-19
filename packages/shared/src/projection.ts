@@ -31,6 +31,11 @@ import {
   type LoanId,
   type DevelopmentCodeId,
 } from "./primitives";
+import {
+  headquartersVariantIdSchema,
+  organizationVisualIdentityIdSchema,
+  type OrganizationVisualIdentityId,
+} from "./domain";
 import { gridCellSchema, tickSchema, type GridCell, type Tick } from "./time-and-grid";
 import { moneySchema, type Money } from "./money";
 import {
@@ -205,8 +210,8 @@ export type AlertReason =
   | "auction_open"
   | "vacant_unit";
 
-export type ViewProjectionV2 = {
-  projectionVersion: 2;
+export type ViewProjectionV3 = {
+  projectionVersion: 3;
   /** Distrito que el renderer dibuja; cambiarlo no toca `GameState` (D-089). */
   observedDistrictId: DistrictId;
   city: {
@@ -221,6 +226,17 @@ export type ViewProjectionV2 = {
    * agente sin depender del paquete de simulación (frontera de D-085 / architecture guard).
    */
   movement: { ticksPerCell: number };
+  bases: Array<{
+    organizationId: OrganizationId;
+    visualIdentityId: OrganizationVisualIdentityId | null;
+    districtId: DistrictId;
+    mainEntranceCell: GridCell;
+    serviceEntranceCell: GridCell;
+    provisional: boolean;
+    headquartersBuildingId: BuildingId | null;
+    headquartersVariantId: "cupola" | "courtyard" | null;
+    staffCount: number;
+  }>;
   map: {
     width: 64;
     height: 64;
@@ -287,6 +303,8 @@ export type ViewProjectionV2 = {
     specialty?: "supervisor" | "construction_worker" | "maintenance_technician" | "enforcer";
     health?: number;
     state?: "idle" | "moving" | "working" | "injured" | "dead";
+    atBase: boolean;
+    returningToBase: boolean;
   }>;
   economy?: {
     /**
@@ -483,6 +501,8 @@ export type ViewProjectionV2 = {
       /** Distrito donde vive el edificio: la coordenada local sola no identifica un lugar (D-093 §1). */
       districtId: DistrictId;
       type: BuildingType;
+      headquartersVariantId: "cupola" | "courtyard" | null;
+      headquartersAccess: { main: GridCell; service: GridCell } | null;
       /**
        * Huella física autoritativa (H1-02). El render la consume para colocar y ordenar el sprite;
        * no es opcional ni se deduce de `parcelId` ni de un asset —dos edificios de la misma parcela
@@ -518,6 +538,8 @@ export type ViewProjectionV2 = {
       districtId: DistrictId;
       ownerOrganizationId: OrganizationId;
       buildingType: BuildingType;
+      headquartersVariantId: "cupola" | "courtyard" | null;
+      headquartersAccess: { main: GridCell; service: GridCell } | null;
       footprintCells: GridCell[];
       /** Solar del proyecto: unión canónica de las celdas de sus parcelas. */
       siteCells: GridCell[];
@@ -935,8 +957,8 @@ export const landValueBreakdownSchema = z.object({
   targetValue: moneySchema,
 });
 
-export const viewProjectionV2Schema = z.object({
-  projectionVersion: z.literal(2),
+export const viewProjectionV3Schema = z.object({
+  projectionVersion: z.literal(3),
   observedDistrictId: districtIdSchema,
   city: z.object({
     id: z.string().min(1),
@@ -946,6 +968,19 @@ export const viewProjectionV2Schema = z.object({
   }),
   tick: tickSchema,
   movement: z.object({ ticksPerCell: z.number().int().positive() }).strict(),
+  bases: z.array(
+    z.object({
+      organizationId: organizationIdSchema,
+      visualIdentityId: organizationVisualIdentityIdSchema.nullable(),
+      districtId: districtIdSchema,
+      mainEntranceCell: gridCellSchema,
+      serviceEntranceCell: gridCellSchema,
+      provisional: z.boolean(),
+      headquartersBuildingId: buildingIdSchema.nullable(),
+      headquartersVariantId: headquartersVariantIdSchema.nullable(),
+      staffCount: z.number().int().nonnegative(),
+    }),
+  ),
   map: mapSchema,
   publicSpaces: z.array(
     z.object({
@@ -999,6 +1034,8 @@ export const viewProjectionV2Schema = z.object({
           .optional(),
         health: z.number().int().min(0).max(100).optional(),
         state: z.enum(["idle", "moving", "working", "injured", "dead"]).optional(),
+        atBase: z.boolean(),
+        returningToBase: z.boolean(),
       })
       .strict(),
   ),
@@ -1219,6 +1256,10 @@ export const viewProjectionV2Schema = z.object({
           parcelIds: z.array(parcelIdSchema).min(1),
           districtId: districtIdSchema,
           type: buildingTypeSchema,
+          headquartersVariantId: headquartersVariantIdSchema.nullable(),
+          headquartersAccess: z
+            .object({ main: gridCellSchema, service: gridCellSchema })
+            .nullable(),
           footprintCells: z.array(gridCellSchema).min(1),
           siteCells: z.array(gridCellSchema).min(1),
           orientation: z.union([z.literal(0), z.literal(90), z.literal(180), z.literal(270)]),
@@ -1248,6 +1289,10 @@ export const viewProjectionV2Schema = z.object({
           districtId: districtIdSchema,
           ownerOrganizationId: organizationIdSchema,
           buildingType: buildingTypeSchema,
+          headquartersVariantId: headquartersVariantIdSchema.nullable(),
+          headquartersAccess: z
+            .object({ main: gridCellSchema, service: gridCellSchema })
+            .nullable(),
           footprintCells: z.array(gridCellSchema).min(1),
           siteCells: z.array(gridCellSchema).min(1),
           orientation: z.union([z.literal(0), z.literal(90), z.literal(180), z.literal(270)]),

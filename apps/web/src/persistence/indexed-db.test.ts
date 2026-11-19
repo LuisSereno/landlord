@@ -27,7 +27,7 @@ describe("IndexedDB snapshot persistence", () => {
     const snapshot = serializeSnapshot(createInitialState(1));
     await expect(persistence.save("slot-b", snapshot)).resolves.toMatchObject({
       slotId: "slot-b",
-      schemaVersion: 2,
+      schemaVersion: 3,
       engineVersion: ENGINE_VERSION,
       savedAt: 1234,
     });
@@ -44,7 +44,7 @@ describe("IndexedDB snapshot persistence", () => {
     openDatabases.push(persistence);
     const snapshot = serializeSnapshot(createInitialState(1));
     await persistence.save("slot", snapshot);
-    await expect(persistence.save("slot", { schemaVersion: 2 })).rejects.toBeInstanceOf(
+    await expect(persistence.save("slot", { schemaVersion: 3 })).rejects.toBeInstanceOf(
       SnapshotPersistenceError,
     );
     await expect(persistence.load("slot")).resolves.toEqual(snapshot);
@@ -69,10 +69,10 @@ describe("IndexedDB snapshot persistence", () => {
         const transaction = request.result.transaction("snapshots", "readwrite");
         transaction.objectStore("snapshots").put({
           slotId: "slot",
-          schemaVersion: 2,
+          schemaVersion: 3,
           engineVersion: "future",
           savedAt: 1,
-          snapshot: { schemaVersion: 2 },
+          snapshot: { schemaVersion: 3 },
         });
         transaction.oncomplete = () => {
           request.result.close();
@@ -85,11 +85,11 @@ describe("IndexedDB snapshot persistence", () => {
     await expect(persistence.load("slot")).rejects.toBeInstanceOf(SnapshotPersistenceError);
   });
 
-  it("lists a v1 slot as incompatible, refuses to load it and deletes it only on request", async () => {
+  it("lists a v2 slot as incompatible, refuses to load it and deletes it only on request", async () => {
     const databaseName = nextDatabaseName();
     const persistence = createIndexedDbPersistence({ databaseName });
     openDatabases.push(persistence);
-    // Crear la base y el almacén con una escritura válida antes de inyectar el registro v1.
+    // Crear la base y el almacén con una escritura válida antes de inyectar el registro v2.
     await persistence.save("slot-b", serializeSnapshot(createInitialState(1)));
 
     await new Promise<void>((resolve, reject) => {
@@ -99,10 +99,10 @@ describe("IndexedDB snapshot persistence", () => {
         const transaction = request.result.transaction("snapshots", "readwrite");
         transaction.objectStore("snapshots").put({
           slotId: "old-alpha",
-          schemaVersion: 1,
+          schemaVersion: 2,
           engineVersion: "alpha",
           savedAt: 99,
-          snapshot: { schemaVersion: 1 },
+          snapshot: { schemaVersion: 2 },
         });
         transaction.oncomplete = () => {
           request.result.close();
@@ -114,8 +114,8 @@ describe("IndexedDB snapshot persistence", () => {
 
     // Listado: el slot existe y se declara incompatible; no desaparece por su cuenta.
     await expect(persistence.list()).resolves.toMatchObject([
-      { slotId: "old-alpha", schemaVersion: 1, compatible: false },
-      { slotId: "slot-b", schemaVersion: 2, compatible: true },
+      { slotId: "old-alpha", schemaVersion: 2, compatible: false },
+      { slotId: "slot-b", schemaVersion: 3, compatible: true },
     ]);
     await expect(persistence.load("old-alpha")).rejects.toThrow(/UNSUPPORTED_SNAPSHOT_VERSION/);
     // Sigue ahí después del rechazo: rechazar no es borrar.

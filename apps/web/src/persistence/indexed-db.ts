@@ -1,4 +1,4 @@
-import { parseSnapshotV2, type SnapshotV2 } from "@landlord/shared";
+import { parseSnapshotV3, type SnapshotV3 } from "@landlord/shared";
 
 const DEFAULT_DATABASE_NAME = "landlord-gate1";
 const DATABASE_VERSION = 1;
@@ -7,7 +7,7 @@ const STORE_NAME = "snapshots";
 /**
  * The stored shape is versioned separately from the database version: the IndexedDB schema did not
  * change, the snapshot contract did (D-089). A v1 record stays readable as metadata so the UI can
- * name the slot incompatible instead of silently dropping it.
+ * name an old slot incompatible instead of silently dropping it.
  */
 type StoredRecord = {
   slotId: string;
@@ -19,10 +19,10 @@ type StoredRecord = {
 
 type SnapshotRecord = {
   slotId: string;
-  schemaVersion: 2;
+  schemaVersion: 3;
   engineVersion: string;
   savedAt: number;
-  snapshot: SnapshotV2;
+  snapshot: SnapshotV3;
 };
 
 export type SnapshotSlot = {
@@ -30,11 +30,11 @@ export type SnapshotSlot = {
   schemaVersion: number;
   engineVersion: string;
   savedAt: number;
-  /** False for Alpha v1 saves: they are listed, never loaded, and only removed explicitly. */
+  /** Old saves remain listed, never loaded, and are removed only after an explicit action. */
   compatible: boolean;
 };
 
-export const SUPPORTED_SCHEMA_VERSION = 2;
+export const SUPPORTED_SCHEMA_VERSION = 3;
 
 export class SnapshotPersistenceError extends Error {
   public override readonly cause?: unknown;
@@ -99,9 +99,9 @@ export function createIndexedDbPersistence(options: IndexedDbPersistenceOptions 
   return {
     async save(slotId: string, snapshotValue: unknown): Promise<SnapshotSlot> {
       if (!slotId.trim()) throw new SnapshotPersistenceError("Slot ID must not be empty");
-      let snapshot: SnapshotV2;
+      let snapshot: SnapshotV3;
       try {
-        snapshot = parseSnapshotV2(snapshotValue);
+        snapshot = parseSnapshotV3(snapshotValue);
       } catch (error) {
         throw new SnapshotPersistenceError("Snapshot validation failed", error);
       }
@@ -140,7 +140,7 @@ export function createIndexedDbPersistence(options: IndexedDbPersistenceOptions 
         .sort((left, right) => left.slotId.localeCompare(right.slotId));
     },
 
-    async load(slotId: string): Promise<SnapshotV2 | null> {
+    async load(slotId: string): Promise<SnapshotV3 | null> {
       const database = await openDatabase();
       const transaction = database.transaction(STORE_NAME, "readonly");
       const record = await requestResult<StoredRecord | undefined>(
@@ -149,11 +149,11 @@ export function createIndexedDbPersistence(options: IndexedDbPersistenceOptions 
       if (!record) return null;
       if (record.schemaVersion !== SUPPORTED_SCHEMA_VERSION) {
         throw new SnapshotPersistenceError(
-          `UNSUPPORTED_SNAPSHOT_VERSION: el slot "${slotId}" guarda una partida v${record.schemaVersion} y esta versión sólo carga v${SUPPORTED_SCHEMA_VERSION}. Las partidas Alpha v1 no se migran; elimínalo explícitamente para liberar el slot.`,
+          `UNSUPPORTED_SNAPSHOT_VERSION: el slot "${slotId}" guarda una partida v${record.schemaVersion} y esta versión sólo carga v${SUPPORTED_SCHEMA_VERSION}. Las partidas anteriores no se migran; elimínalo explícitamente para liberar el slot.`,
         );
       }
       try {
-        return parseSnapshotV2(record.snapshot);
+        return parseSnapshotV3(record.snapshot);
       } catch (error) {
         throw new SnapshotPersistenceError("Stored snapshot validation failed", error);
       }

@@ -21,6 +21,7 @@ export const GROUND_SURFACES = [
   "dirt",
   "gravel",
   "pavement",
+  "courtyard",
   "asphalt",
   "median",
   "construction",

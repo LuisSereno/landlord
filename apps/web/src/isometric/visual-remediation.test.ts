@@ -64,6 +64,12 @@ describe("V.h visual remediation", () => {
     expect(validateRuntimeAssetManifestV2(BLENDER_ASSETS)).toEqual([]);
   });
 
+  it("incluye los props originales de V.n también en el catálogo diurno", () => {
+    for (const id of ["prp_school_playground", "prp_market_stall", "prp_flagpole"]) {
+      expect(BLENDER_ASSETS.props?.[id]?.image.src, id).toContain(`${id}.png`);
+    }
+  });
+
   it("excludes every early-phase building from gameplay", () => {
     for (const id of LEGACY) expect(BLENDER_ASSETS.buildings[id]).toBeUndefined();
   });

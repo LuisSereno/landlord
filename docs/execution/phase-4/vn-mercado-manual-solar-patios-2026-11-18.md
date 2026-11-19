@@ -11,12 +11,21 @@ manifiesto) y promocionadas; las 12 capturas QA (6 tipos × día/noche) viven en
 `docs/art/golden/vn-facilities/` con `summary.json` (0 errores de página). Falta la revisión visual
 humana del responsable y el playtest de V.d; no se declara READY ni se hace push.
 
-**Deuda visual P2 medida en las capturas:** en patios en L (p. ej. bomberos 4×2 con edificio 3×1)
-el vehículo temático queda parcialmente oculto por el propio edificio: el ancla/pivote del sprite
-1×2 y su orden de profundidad necesitan ajuste fino por asset para las plazas en la cara +X. Las
-celdas reservadas, exclusiones y determinismo sí cumplen (tests de modelo en verde). El resto de
-props (monumento, asta, bancos, jardineras, bolardos, zona de juegos, puestos) se leen en las
-capturas diurnas y nocturnas.
+**Corrección visual posterior a las capturas iniciales:** la revisión detectó tres edificios ausentes
+en las capturas nocturnas por tomar la imagen antes de cargar su variante, tres props originales
+ausentes del catálogo diurno (asta, zona de juegos y puestos) y el camión de bomberos tapado en el
+patio en L. El render usa respaldo mientras llega la variante; el QA espera la textura y todos los
+elementos de patio; el catálogo diurno hereda los props originales del bundle base y el camión se
+ancla sobre la plaza visible, junto al edificio. El solar libre recibe baldosas grises distintas de
+la acera y del césped. Las doce capturas de `docs/art/golden/vn-facilities/` se regeneraron con
+12/12 edificios y patios completos, 0 errores de página. Sigue pendiente la aceptación visual del
+responsable y el playtest V.d.
+
+Verificación de esta corrección: web 395/395 (4 skipped), typecheck, build, lint y arquitectura en
+verde. `art:binaries:check` sigue rojo por 19 PNG >1 MiB ya presentes en `01eb6b5` (los 16 de la
+medición anterior más tres candidatos V.n de `docs/art/facilities-v4/candidates/`); ninguna de las
+12 capturas nuevas supera 1 MiB. `format:check` sigue rojo por siete archivos ajenos a esta
+corrección, también presentes en el HEAD previo.
 
 ## Commits locales (develop, sin push)
 
@@ -78,8 +87,8 @@ Medidos en worktree limpio en `2018fbd` (base commiteada):
 - QA: `pnpm qa:vn-facilities` → 12 capturas en `docs/art/golden/vn-facilities/` + `summary.json`,
   0 errores de página. El script recorre los nueve distritos porque el programa municipal es de
   ciudad, no por distrito.
-- Pendiente: revisión visual humana de las capturas (deuda P2 del vehículo en patios en L arriba)
-  y playtest de V.d. Push sólo con decisión del responsable.
+- Pendiente: aceptación visual humana de las capturas corregidas y playtest de V.d. Push sólo con
+  decisión del responsable.
 
 ## Deuda que sigue abierta
 

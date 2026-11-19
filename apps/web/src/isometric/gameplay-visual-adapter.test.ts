@@ -442,6 +442,36 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
     expect(plan.surfaces.get("11:10")).toBe("grass"); // residential apron ring
   });
 
+  it("pavimenta sólo el patio libre de un equipamiento y conserva la prioridad vial", () => {
+    const siteCells = Array.from({ length: 6 }, (_unused, index) => ({
+      x: 20 + (index % 3),
+      y: 20 + Math.floor(index / 3),
+    }));
+    const view = projection(
+      [{ ...PARCELS[5]!, cell: siteCells[0]!, cells: siteCells, buildingId: "clinic_1" }],
+      [
+        {
+          ...BUILDINGS[0]!,
+          id: "clinic_1",
+          type: "clinic",
+          parcelIds: ["par_6"],
+          siteCells,
+          footprintCells: [
+            { x: 20, y: 20 },
+            { x: 21, y: 20 },
+          ],
+          orientation: 0,
+        } as unknown as BuildingInput,
+      ],
+      [],
+      ["22:21"],
+    );
+    const model = buildGameplayVisualModel(view);
+    expect(model.groundPlan.surfaces.get("20:20")).toBe("grass");
+    expect(model.groundPlan.surfaces.get("20:21")).toBe("courtyard");
+    expect(model.groundPlan.surfaces.get("22:21")).toBe("asphalt");
+  });
+
   it("pinta plazas y parques desde la proyección, no como terreno base", () => {
     const plan = planGameplayGround(
       [],
@@ -940,7 +970,9 @@ describe("entorno vivo presentacional", () => {
       planGameplayAmbientWildlife([publicParcel], [], new Set(), new Set(), profile, 0, patios),
     );
     // Sin patio libre suficiente no hay fauna en el equipamiento.
-    const tiny = new Map([["facility", { cells: rectCells(0, 0, 2, 1), reserved: new Set<string>() }]]);
+    const tiny = new Map([
+      ["facility", { cells: rectCells(0, 0, 2, 1), reserved: new Set<string>() }],
+    ]);
     expect(
       planGameplayAmbientWildlife([publicParcel], [], new Set(), new Set(), profile, 0, tiny),
     ).toEqual([]);

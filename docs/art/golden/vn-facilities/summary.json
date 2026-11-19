@@ -127,7 +127,7 @@
     "statusGameObjects": 0,
     "totalSprites": 140,
     "groundRebakes": 10,
-    "groundBakeLastMs": 442.8999999985099,
-    "groundBakeMaxMs": 507.3999999985099
+    "groundBakeLastMs": 288.1000000014901,
+    "groundBakeMaxMs": 370
   }
 }

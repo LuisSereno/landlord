@@ -17,6 +17,9 @@ const LEGACY_GAMEPLAY_EXCLUSIONS = new Set(runtimeVisualOverrides.legacyGameplay
 function curatedBlenderAssets(raw: typeof RAW_BLENDER_ASSETS, includeNightOverrides: boolean) {
   return {
     ...raw,
+    // Los props originales añadidos en V.n viven en el bundle base; el bundle diurno legado
+    // puede no declararlos. Son los mismos PNG sin iluminación de edificio en ambos modos.
+    props: { ...RAW_BLENDER_ASSETS.props, ...raw.props },
     buildings: {
       ...Object.fromEntries(
         Object.entries(raw.buildings).filter(

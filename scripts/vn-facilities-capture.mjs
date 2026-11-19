@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* global window, document */
+/* global window, document, setTimeout, HTMLButtonElement */
 /**
  * D-109 · QA de capturas diurna/nocturna de los seis equipamientos con su patio equipado.
  * La app real (seed fresco, cameraTest=1) renderiza las variantes promocionadas; el hook de cámara
@@ -94,7 +94,10 @@ try {
     const trigger = document.querySelector(".hud-district");
     if (trigger instanceof HTMLButtonElement) trigger.click();
   });
-  await page.locator('[aria-label="Distritos"] [role="gridcell"]').first().waitFor({ timeout: 10000 });
+  await page
+    .locator('[aria-label="Distritos"] [role="gridcell"]')
+    .first()
+    .waitFor({ timeout: 10000 });
   const tiles = page.locator('[aria-label="Distritos"] [role="gridcell"]');
   const names = [];
   for (let i = 0; i < (await tiles.count()); i++) {
@@ -118,13 +121,18 @@ try {
         break;
       }
     }
-    await page.waitForFunction(
-      (expected) => window.__landlordCameraTest.getProjection()?.city?.districts?.find(
-        (d) => d.id === window.__landlordCameraTest.getProjection().observedDistrictId,
-      )?.name === expected,
-      name,
-      { timeout: 15000 },
-    ).catch(() => {});
+    await page
+      .waitForFunction(
+        (expected) =>
+          window.__landlordCameraTest
+            .getProjection()
+            ?.city?.districts?.find(
+              (d) => d.id === window.__landlordCameraTest.getProjection().observedDistrictId,
+            )?.name === expected,
+        name,
+        { timeout: 15000 },
+      )
+      .catch(() => {});
     await page.waitForTimeout(1500);
   }
 
@@ -161,6 +169,25 @@ try {
           { cell: { x: center.x, y: center.y }, zoom: 2 },
         );
         await page.waitForTimeout(1500);
+        await page.waitForFunction(
+          ({ buildingType, expectedMood }) =>
+            window.__landlordQaVariantReady?.(buildingType, expectedMood) === true,
+          { buildingType: type, expectedMood: mood },
+          { timeout: 30000 },
+        );
+        await page
+          .waitForFunction(
+            (buildingType) => window.__landlordQaCourtyardReady?.(buildingType) === true,
+            type,
+            { timeout: 10000 },
+          )
+          .catch(async () => {
+            const status = await page.evaluate(
+              (buildingType) => window.__landlordQaCourtyardStatus?.(buildingType),
+              type,
+            );
+            throw new Error(`Patio incompleto ${mood}/${type}: ${JSON.stringify(status)}`);
+          });
         const file = `${outputDir}/${mood}-${type}.png`;
         await page.screenshot({ path: file });
         captured.add(key);
@@ -172,7 +199,9 @@ try {
           siteCells: center.siteCells,
           footprintCells: center.footprintCells,
         });
-        log(`captured ${mood} ${type} en ${name} (site ${center.siteCells} / fp ${center.footprintCells})`);
+        log(
+          `captured ${mood} ${type} en ${name} (site ${center.siteCells} / fp ${center.footprintCells})`,
+        );
       }
     }
   }

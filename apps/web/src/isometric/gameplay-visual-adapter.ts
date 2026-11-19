@@ -19,6 +19,7 @@ import {
   type DistrictVisualProfile,
 } from "./district-visual-profiles";
 import {
+  FACILITY_COURTYARD_SPECS,
   planGameplayFacilityCourtyards,
   type FacilityCourtyardElement,
 } from "./facility-courtyards";
@@ -2205,7 +2206,16 @@ export function gameplayGeometryKey(projection: ViewProjectionV2): string {
       return `${cells},${parcel.zoning},${parcel.disposition ?? "marketable"},${status}`;
     })
     .sort();
-  return fnv1a32(`${projection.map.roads.digest}|${sectionDigest}|${parts.join("|")}`).toString(16);
+  const facilityFootprints = economy.buildings
+    .filter((building) => FACILITY_COURTYARD_SPECS[building.type])
+    .map(
+      (building) =>
+        `${building.id}:${(building.siteCells ?? []).map(cellKey).sort().join("+")}:${building.footprintCells.map(cellKey).sort().join("+")}`,
+    )
+    .sort();
+  return fnv1a32(
+    `${projection.map.roads.digest}|${sectionDigest}|${parts.join("|")}|${facilityFootprints.join("|")}`,
+  ).toString(16);
 }
 
 export function buildGameplayVisualModel(
@@ -2302,6 +2312,15 @@ export function buildGameplayVisualModel(
     })),
     frontagesByParcelId,
   );
+  for (const building of economy?.buildings ?? []) {
+    if (!FACILITY_COURTYARD_SPECS[building.type]) continue;
+    const occupied = new Set(building.footprintCells.map(cellKey));
+    for (const cell of building.siteCells ?? []) {
+      const key = cellKey(cell);
+      if (!occupied.has(key) && !roadSectionRoles.has(key))
+        groundPlan.surfaces.set(key, "courtyard");
+    }
+  }
   const contextVehicles = planGameplayContextVehicles(
     contextBuildings,
     roadVisuals,

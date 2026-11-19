@@ -60,6 +60,9 @@ con partidas anteriores.
   peatonal recto desde el frente vial a la fachada, plaza de vehículo de dos celdas junto al acceso
   y props temáticos por hash espacial sobre el patio restante. Fuera de `GameState`; no toca
   economía, servicios ni navegación.
+- Las celdas libres del solar de los seis equipamientos usan baldosas grises de patio, diferenciadas
+  de la acera y del césped exterior; calzadas y huella física conservan su precedencia. La superficie
+  es sólo presentación y se deriva de `siteCells − footprintCells`.
 - Vehículos temáticos dentro del patio: bomberos → camión, clínica → ambulancia, comisaría → coche
   policial, mercado → reparto. Ayuntamiento: monumento, bancos, bolardos, jardineras y asta;
   colegio: zona de juegos y bancos. Los vehículos de calle ya no aparcan en el bordillo de los

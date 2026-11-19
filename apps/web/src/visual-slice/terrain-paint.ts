@@ -44,6 +44,7 @@ export const SURFACE_STYLE: Record<GroundSurface, SurfaceStyle> = {
   // Pavimento peatonal/de solar: hormigón claro y cálido, con juntas visibles. Nunca debe leerse
   // como una segunda calzada que no tiene tráfico.
   pavement: { base: "#414851", shade: "#303740", light: "#59616b", grain: 34, stroke: "#6f7882" },
+  courtyard: { base: "#505660", shade: "#424852", light: "#666d77", grain: 22, stroke: "#8b939d" },
   // Calzada: negro azulado, deliberadamente más oscuro que cualquier solar o acera. Su grano es
   // fino y escaso: el asfalto es una superficie fabricada y extendida, no un terreno suelto. Con el
   // grano de un terreno orgánico la calzada se leía manchada de tierra.
@@ -61,6 +62,7 @@ export const DAY_SURFACE_STYLE: Record<GroundSurface, SurfaceStyle> = {
   // asfalto frío y sensiblemente más oscuro para la calzada, con el grano fino de una superficie
   // fabricada.
   pavement: { base: "#747b85", shade: "#5d6570", light: "#8c949e", grain: 34, stroke: "#a1a8b0" },
+  courtyard: { base: "#a3a8ae", shade: "#8b929a", light: "#b5bac0", grain: 22, stroke: "#d0d3d6" },
   asphalt: { base: "#2b3440", shade: "#262e39", light: "#333e4a", grain: 14 },
   median: { base: "#4c6049", shade: "#3d4e3b", light: "#5b7257", grain: 110, stroke: "#71866c" },
   construction: { base: "#5b4f39", shade: "#4a402f", light: "#6a5c44", grain: 190 },
@@ -483,7 +485,9 @@ export function allowsOrganicGroundBlend(own: GroundSurface, other: GroundSurfac
     own !== "asphalt" &&
     other !== "asphalt" &&
     own !== "pavement" &&
-    other !== "pavement"
+    other !== "pavement" &&
+    own !== "courtyard" &&
+    other !== "courtyard"
   );
 }
 
@@ -500,7 +504,25 @@ function strokeSidewalks(
   context.strokeStyle = "rgba(18, 23, 30, 0.32)";
   for (let y = 0; y < layout.mapHeight; y += 1) {
     for (let x = 0; x < layout.mapWidth; x += 1) {
+      if (surfaceAt({ x, y }) === "courtyard") {
+        const center = local({ x, y });
+        context.strokeStyle =
+          readVisualMood() === "day" ? "rgba(65, 72, 81, 0.48)" : "rgba(20, 26, 34, 0.55)";
+        context.beginPath();
+        context.moveTo(center.x, center.y - hh);
+        context.lineTo(center.x + hw, center.y);
+        context.lineTo(center.x, center.y + hh);
+        context.lineTo(center.x - hw, center.y);
+        context.closePath();
+        context.moveTo(center.x - hw / 2, center.y - hh / 2);
+        context.lineTo(center.x + hw / 2, center.y + hh / 2);
+        context.moveTo(center.x + hw / 2, center.y - hh / 2);
+        context.lineTo(center.x - hw / 2, center.y + hh / 2);
+        context.stroke();
+        continue;
+      }
       if (surfaceAt({ x, y }) !== "pavement") continue;
+      context.strokeStyle = "rgba(18, 23, 30, 0.32)";
       const center = local({ x, y });
       const alongX =
         surfaceAt({ x: x + 1, y }) === "pavement" || surfaceAt({ x: x - 1, y }) === "pavement";

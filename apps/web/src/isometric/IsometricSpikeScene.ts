@@ -64,6 +64,7 @@ import type { SliceLot, VisualSliceLayout } from "../visual-slice/layout";
 import {
   assetFor,
   applyQaStateOverride,
+  buildingAssetStateFor,
   buildingSpritePlan,
   depthForAsset,
   depthForFootprintCells,
@@ -76,6 +77,7 @@ import {
   spriteScaleFor,
   spriteScaleForDomainFootprint,
 } from "./building-sprites";
+import { FACILITY_COURTYARD_SPECS } from "./facility-courtyards";
 import {
   gridToScreen,
   pickGridCell,
@@ -472,6 +474,9 @@ declare global {
       groundBakeLastMs: number;
       groundBakeMaxMs: number;
     };
+    __landlordQaVariantReady?: (type: string, mood: BuildingVisualMood) => boolean;
+    __landlordQaCourtyardReady?: (type: string) => boolean;
+    __landlordQaCourtyardStatus?: (type: string) => { expected: string[]; present: string[] };
   }
 }
 
@@ -503,6 +508,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   /** Identificador de la placa bajo el cursor, para la densidad adaptativa de zoom lejano. */
   private hoveredSignageId: string | null = null;
   private pendingVariantTextures = new Map<string, { bytes: number; districtId: string }>();
+  private pendingCourtyardTextures = new Set<string>();
   private variantCache = new DistrictTextureCache(VARIANT_CACHE_BUDGET_BYTES);
   private sliceObjects: Phaser.GameObjects.GameObject[] = [];
   private assetsReady = false;
@@ -693,6 +699,44 @@ export class IsometricSpikeScene extends Phaser.Scene {
     });
     window.__districtAssetStats = () => this.variantCache.metrics();
     window.__landlordQaRefresh = () => this.syncBuildingSprites();
+    window.__landlordQaVariantReady = (type, mood) => {
+      if (this.sceneDestroyed || !this.assetsReady || this.buildingVisualMood !== mood)
+        return false;
+      const building = this.projection?.economy?.buildings.find((entry) => entry.type === type);
+      if (!building) return false;
+      const state = buildingAssetStateFor(building.state, building.condition);
+      const key = variantTextureKey(type, state, building.orientation, null, mood);
+      return (
+        this.textures.exists(key) &&
+        this.buildingSprites.get(`building:${building.id}`)?.texture.key === key
+      );
+    };
+    window.__landlordQaCourtyardStatus = (type) => {
+      if (this.sceneDestroyed || !this.assetsReady) return { expected: [], present: [] };
+      const building = this.projection?.economy?.buildings.find((entry) => entry.type === type);
+      if (!building) return { expected: [], present: [] };
+      const entries = this.gameplayVisual?.facilityCourtyards.filter(
+        (entry) => entry.buildingId === building.id,
+      );
+      return {
+        expected: entries?.map((entry) => entry.id) ?? [],
+        present:
+          entries
+            ?.filter((entry) =>
+              entry.kind === "prop"
+                ? this.courtyardPropSprites.has(entry.id)
+                : this.parkedVehicleSprites.has(entry.id),
+            )
+            .map((entry) => entry.id) ?? [],
+      };
+    };
+    window.__landlordQaCourtyardReady = (type) => {
+      const { expected, present } = window.__landlordQaCourtyardStatus?.(type) ?? {
+        expected: [],
+        present: [],
+      };
+      return expected.length > 0 && expected.length === present.length;
+    };
     this.cursors = this.input.keyboard?.createCursorKeys();
     this.input.on("pointerdown", this.handlePointerDown, this);
     this.input.on("pointermove", this.handlePointerMove, this);
@@ -1079,7 +1123,20 @@ export class IsometricSpikeScene extends Phaser.Scene {
         if (!asset) continue;
         const frame = this.sceneryFrame(asset, entry.azimuth);
         const key = `blender-sprite-${entry.asset}${frame.keySuffix}`;
-        if (!this.textures.exists(key)) continue;
+        if (!this.textures.exists(key)) {
+          if (sprites === this.courtyardPropSprites && !this.pendingCourtyardTextures.has(key)) {
+            this.pendingCourtyardTextures.add(key);
+            const source = asset.orientations?.[String(entry.azimuth)]?.image ?? asset.image;
+            void this.registerImageTexture(key, source.src, source.width, source.height).then(
+              () => {
+                this.pendingCourtyardTextures.delete(key);
+                if (!this.sceneDestroyed && this.textures.exists(key))
+                  this.renderGameplayStreetLife();
+              },
+            );
+          }
+          continue;
+        }
         const center = gridToScreen(entry.cell, this.layout);
         const edgeOffset = entry.side
           ? {
@@ -1121,6 +1178,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
       .filter((entry) => entry.kind === "vehicle")
       .map((entry) => ({
         id: entry.id,
+        buildingId: entry.buildingId,
         asset: entry.asset as GameplayParkedVehicle["asset"],
         roadCell: entry.cell,
         cells: entry.cells as readonly GridCell[] | undefined,
@@ -1130,10 +1188,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
         longitudinalOffset: 0,
         scale: entry.scale,
       }));
-    const streetVehicles: Array<GameplayParkedVehicle & { cells?: readonly GridCell[] }> = [
-      ...model.parkedVehicles,
-      ...(model.contextVehicles ?? []),
-    ];
+    const streetVehicles: Array<
+      GameplayParkedVehicle & { cells?: readonly GridCell[]; buildingId?: string }
+    > = [...model.parkedVehicles, ...(model.contextVehicles ?? [])];
     for (const vehicle of [...streetVehicles, ...courtyardVehicles]) {
       const asset = vehicles[vehicle.asset];
       if (!asset) continue;
@@ -1152,7 +1209,14 @@ export class IsometricSpikeScene extends Phaser.Scene {
           : footprintCenter(vehicle.roadCell, asset.footprint),
         this.layout,
       );
-      const offset = this.screenOffsetForVehicle(vehicle);
+      const streetOffset = this.screenOffsetForVehicle(vehicle);
+      const offset =
+        reservedCells && vehicle.asset === "veh_firetruck"
+          ? {
+              x: streetOffset.x + this.layout.tileWidth * 0.55,
+              y: streetOffset.y + this.layout.tileHeight * 0.4,
+            }
+          : streetOffset;
       const image =
         this.parkedVehicleSprites.get(vehicle.id) ??
         this.add.image(center.x + offset.x, center.y + offset.y, key);
@@ -1164,7 +1228,16 @@ export class IsometricSpikeScene extends Phaser.Scene {
         .setScale(spriteScaleFor(frame, this.layout.tileWidth) * vehicle.scale)
         .setDepth(
           reservedCells
-            ? depthForFootprintCells(reservedCells)
+            ? vehicle.asset === "veh_firetruck"
+              ? Math.max(
+                  depthForFootprintCells(reservedCells),
+                  depthForFootprintCells(
+                    this.projection?.economy?.buildings.find(
+                      (building) => building.id === vehicle.buildingId,
+                    )?.footprintCells ?? reservedCells,
+                  ),
+                ) + 2
+              : depthForFootprintCells(reservedCells)
             : depthForAsset(vehicle.roadCell, asset.footprint),
         );
       image.setVisible(this.isInViewport(image.x, image.y, this.cameras.main.worldView, 128));
@@ -1751,13 +1824,15 @@ export class IsometricSpikeScene extends Phaser.Scene {
         const family: GroundFamily = parcels.some((parcel) => parcel.disposition === "public")
           ? "civic"
           : parcels[0]!.zoning;
-        descriptors = planPropertyGrounds({
-          buildingType: building.type,
-          family,
-          siteCells,
-          footprintCells: building.footprintCells,
-          frontageCells,
-        });
+        descriptors = FACILITY_COURTYARD_SPECS[building.type]
+          ? []
+          : planPropertyGrounds({
+              buildingType: building.type,
+              family,
+              siteCells,
+              footprintCells: building.footprintCells,
+              frontageCells,
+            });
         this.groundsByProperty.set(cacheKey, descriptors);
       }
       for (const descriptor of descriptors) {
@@ -2545,6 +2620,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
           decodedTextureBytes(variant.image.width, variant.image.height),
           this.projection?.observedDistrictId ?? "unknown",
         );
+        if (!this.textures.exists(key)) return null;
         return { key, asset: variantAsAsset(type, variant) };
       },
     });
@@ -2559,18 +2635,17 @@ export class IsometricSpikeScene extends Phaser.Scene {
     if (this.pendingVariantTextures.has(key)) return;
     this.pendingVariantTextures.set(key, { bytes, districtId });
     this.load.image(key, src);
-    if (!this.load.isLoading()) {
-      this.load.once("complete", () => {
-        for (const [pendingKey, meta] of [...this.pendingVariantTextures]) {
-          if (this.textures.exists(pendingKey)) {
-            this.variantCache.recordLoad(pendingKey, meta.bytes, meta.districtId);
-            this.pendingVariantTextures.delete(pendingKey);
-          }
+    this.load.once("complete", () => {
+      if (this.sceneDestroyed) return;
+      for (const [pendingKey, meta] of [...this.pendingVariantTextures]) {
+        if (this.textures.exists(pendingKey)) {
+          this.variantCache.recordLoad(pendingKey, meta.bytes, meta.districtId);
+          this.pendingVariantTextures.delete(pendingKey);
         }
-        this.syncBuildingSprites();
-      });
-      this.load.start();
-    }
+      }
+      this.syncBuildingSprites();
+    });
+    if (!this.load.isLoading()) this.load.start();
   }
 
   private ensureBuildingSprite(

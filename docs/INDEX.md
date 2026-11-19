@@ -36,6 +36,7 @@ obra en proceso visible con cuadrillas y recinto derivados.
 - [Character Factory](art/CHARACTER-FACTORY.md) — catálogo offline de roles, variantes y animaciones.
 - art/README.md — entrada a la documentación artística y estado de gobernanza.
 - art/ART-BIBLE.md — dirección visual v0.1, lenguaje de formas, escala, cámara, UI, VFX y legibilidad.
+- [Dirección visual: maqueta urbana material](art/MATERIAL-MAQUETTE-DIRECTION.md) — criterios y gate para el spike de edificios, mundo y HUD.
 - art/ART-PIPELINE.md — pipeline Blender/prerender/atlases/Phaser, automatización y repositorio.
 - art/ASSET-NAMING.md — convenciones de IDs, nombres, anchors, footprints y atlases.
 - art/PERFORMANCE-BUDGET.md — budgets y QA visual, accesibilidad y localización.
@@ -173,6 +174,7 @@ obra en proceso visible con cuadrillas y recinto derivados.
 - `docs/engineering/adr/D-108-mood-de-render-como-dato-de-procedencia.md` — el mood con el que se horneó cada PNG es dato de procedencia y de manifiesto runtime (`moodId`), no nombre de archivo. Sustituye la condición abierta de D-105 sobre el rehorneado por familia y registra el precedente de satisfacer un campo obligatorio nuevo anotando el dato, no relajando el validador.
 - `docs/engineering/adr/D-109-mercado-manual-solar-y-patios.md` — mercado de inquilinos manual con vigencia de seis meses, solar reservado (`siteFootprint`/`siteCells`) separado de la huella física en los seis equipamientos (enmienda explícita a D-099 para town_hall V7), patios con vehículo temático y props originales, y fauna urbana/periférica determinista.
 - `docs/engineering/adr/D-110-sedes-operativas-y-contrato-v3.md` — headquarters por organización, regreso de agentes y contrato v3 sin migración de saves v2.
+- `docs/engineering/adr/D-111-direccion-visual-maqueta-material.md` — nueva dirección visual, pilotos del Composer y guardas para promover cambios.
 
 ## Benchmark morfológico
 - `tools/urban-benchmark/README.md` — herramienta offline (OSMnx fijado por versión), las 28 ventanas de

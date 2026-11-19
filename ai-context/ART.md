@@ -16,8 +16,11 @@ Landlord dispone de especificaciones completas de preproducción:
 - Blender 5.2.2 LTS como versión fijada del toolchain artístico inicial (D-053).
 - bootstrap artístico self-contained: CC0 + procedural-first + automatización, sin artista contratado como dependencia de Gate 2/Visual Direction Spike (D-054).
 - React/DOM para HUD/paneles según arquitectura; no para entidades del mundo.
+- D-111: dirección visual de maqueta urbana material aprobada el 2026-11-19. `graphic_civic`
+  sigue como control del spike; no se promueven sprites, filtros ni librerías nuevas hasta revisar
+  los pilotos `row_house`, `mixed_tenement` y `warehouse` en escena real.
 
-## Baseline pendiente del Visual Direction Spike
+## Parámetros de producción pendientes del spike material
 
 - 3D -> prerender 2D/2.5D.
 - EEVEE como batch renderer.
@@ -30,6 +33,9 @@ Landlord dispone de especificaciones completas de preproducción:
 - PNG RGBA como baseline.
 - Git LFS para grandes fuentes binarias.
 - Art Lab + Playwright para visual regression.
+
+La dirección general está aprobada; estos parámetros y la compatibilidad visual día/noche siguen
+sujetos a evidencia en escena. Véase `docs/art/MATERIAL-MAQUETTE-DIRECTION.md`.
 
 ## Librería bootstrap local
 
@@ -67,7 +73,8 @@ No asumir que esos binarios están en Git.
 - No editar atlases generados manualmente.
 - Todo asset externo debe declarar provenance/licencia.
 - CC0 no implica que debamos volcar ZIPs completos al repo: esperar política LFS/provenance.
-- Priorizar Building Factory y Character Factory frente a producción manual uno-a-uno.
+- El Building Composer gobierna hoy la producción modular de edificios; la antigua Building Factory
+  está retirada (D-098). Mantener semillas, procedencia, huellas y validación dentro de esa cadena.
 
 ## Fuente extensa
 

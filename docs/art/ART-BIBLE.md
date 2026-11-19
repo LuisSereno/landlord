@@ -27,7 +27,7 @@ Si este documento entra en conflicto con `ai-context/DECISIONS.md`, prevalece la
 
 ### 2.1 North Star
 
-> **Una ciudad industrial viva, atractiva pero moralmente ambigua, representada como una maqueta cinematográfica isométrica en la que riqueza, deterioro, poder y crimen pueden leerse antes de abrir un panel.**
+> **Una ciudad industrial viva, atractiva pero moralmente ambigua, representada como una maqueta urbana material isométrica. Piedra, ladrillo, metal, tierra y luz cuentan la historia de riqueza, deterioro y poder antes de abrir un panel.**
 
 Landlord no busca reproducir el lenguaje visual exacto de ningún juego existente. Debe ser inmediatamente legible como juego de gestión y, al mismo tiempo, construir una identidad propia.
 
@@ -128,6 +128,22 @@ El humor puede proceder de:
 - pequeñas situaciones emergentes.
 
 Nunca debe depender de copiar personajes o gags reconocibles de otras IP.
+
+### 3.6 Maqueta urbana material — DIRECCIÓN APROBADA, EJECUCIÓN EN SPIKE
+
+La escena debe sentirse construida con materiales reconocibles y una iluminación de maqueta, no como
+una ilustración plana ni como una simulación fotorrealista. El vocabulario principal combina ladrillo
+rojizo, piedra cálida, yeso envejecido, metal pintado, madera, vidrio oscuro, asfalto y vegetación
+salvia. Los acabados son mates; las variaciones de valor describen forma y estado, y las texturas
+finas sólo se usan si siguen legibles al zoom de juego.
+
+La paleta día/noche y el tratamiento de UI comparten tinta, papel, piedra y latón. La noche conserva
+contraste para selección, señalética y lectura de estado. El HUD mantiene su jerarquía y accesibilidad;
+la ambientación no compite con información económica ni añade ruido a las parcelas.
+
+`graphic_civic` queda como control comparativo y referencia histórica de los assets promovidos. Los
+valores finales de grade, textura, iluminación, efectos y detalle por zoom siguen sujetos al spike de
+`docs/art/MATERIAL-MAQUETTE-DIRECTION.md`; no se aprueba producción masiva por aprobar esta dirección.
 
 ---
 

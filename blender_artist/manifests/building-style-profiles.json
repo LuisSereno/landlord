@@ -8,7 +8,7 @@
     "catalog": "blender_artist/manifests/building-modules.json",
     "styleLayer": {
       "path": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
-      "sha256": "82921ffadf6c739ac7b9065e2fcace859e423244ef8d0ae1299a0fa688e72311"
+      "sha256": "de70f240a3d819d4ced7a8cc67ec0776147dea7905b641ca41969e6cde3c698c"
     },
     "toolchain": {
       "blender": "5.2.2 LTS",
@@ -1833,7 +1833,7 @@
           "evidence": [
             {
               "measured": {
-                "sha256": "82921ffadf6c739ac7b9065e2fcace859e423244ef8d0ae1299a0fa688e72311",
+                "sha256": "de70f240a3d819d4ced7a8cc67ec0776147dea7905b641ca41969e6cde3c698c",
                 "palette": "graphic_civic",
                 "treatmentVersion": 7
               },

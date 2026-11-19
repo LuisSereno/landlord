@@ -4,7 +4,7 @@
 
 | Decisión | Baseline propuesto | Estado | Mecanismo de cierre |
 |---|---|---|---|
-| Estética | realismo estilizado + caricatura moderada | parcial — dirección `graphic_civic` aprobada; setting y tono siguen abiertos | Visual Direction Spike |
+| Estética | maqueta urbana material; siluetas de época, materiales mates y lectura económica clara | dirección aprobada por D-111; valores de producción y escalado siguen pendientes de los tres pilotos | Material Maquette Spike |
 | Setting visual inicial | ciudad ficticia 1925–1940 | abierta de producto | Product + Art review |
 | Cámara | ortográfica 45° / ~30° | **cerrada — acta WP2.14 (2026-10-23): azimut 45°, elevación 30°, roll 0** | calibración del spike |
 | Footprint visual | 2:1 | abierta | calibración del spike |

@@ -67,6 +67,36 @@ function round(value, digits = 3) {
   return Number(value.toFixed(digits));
 }
 
+function deepMerge(base, override) {
+  if (
+    base === null ||
+    override === null ||
+    typeof base !== "object" ||
+    typeof override !== "object" ||
+    Array.isArray(base) ||
+    Array.isArray(override)
+  ) {
+    return override;
+  }
+  const merged = { ...base };
+  for (const [key, value] of Object.entries(override)) {
+    merged[key] = key in merged ? deepMerge(merged[key], value) : value;
+  }
+  return merged;
+}
+
+function resolveMoodProfile(styleLayer, moodId, seen = new Set()) {
+  const profile = styleLayer.moodProfiles?.[moodId];
+  if (!profile) fail(`mood profile ${moodId} no existe en ${STYLE_LAYER_PATH}`);
+  if (seen.has(moodId)) fail(`ciclo de herencia en mood profile ${moodId}`);
+  const ancestors = new Set(seen).add(moodId);
+  const parent = profile.extends ? resolveMoodProfile(styleLayer, profile.extends, ancestors) : {};
+  return deepMerge(
+    parent,
+    Object.fromEntries(Object.entries(profile).filter(([key]) => key !== "extends")),
+  );
+}
+
 function quantile(values, q) {
   const sorted = [...values].sort((a, b) => a - b);
   if (!sorted.length) return null;
@@ -212,7 +242,17 @@ const preview = runBlender({
 });
 
 const styleLayer = readJson(STYLE_LAYER_PATH);
-const treatment = styleLayer.externalTreatment;
+const activeMoodId = process.env.LANDLORD_ART_MOOD ?? styleLayer.activeMood;
+if (!activeMoodId) fail(`${STYLE_LAYER_PATH} no declara activeMood`);
+const activeMood = resolveMoodProfile(styleLayer, activeMoodId);
+const activeStyleLayer = deepMerge(styleLayer, activeMood);
+const treatment = activeStyleLayer.externalTreatment;
+if (!treatment) fail(`mood profile ${activeMoodId} no declara externalTreatment`);
+for (const [bandId, overrides] of Object.entries(treatment.bandOverrides ?? {})) {
+  const band = treatment.hueBands?.find((entry) => entry.id === bandId);
+  if (!band) fail(`mood profile ${activeMoodId} sobrescribe banda inexistente ${bandId}`);
+  Object.assign(band, overrides);
+}
 const textureStats = new Map(
   measurements.imageSamples.map((entry) => [entry.filePath, entry.statistics]),
 );
@@ -1171,10 +1211,10 @@ const parameters = {
   },
   camera: {
     value: {
-      projection: styleLayer.camera.projection,
-      azimuthDegrees: styleLayer.camera.azimuthDegrees,
-      elevationDegrees: styleLayer.camera.elevationDegrees,
-      rollDegrees: styleLayer.camera.rollDegrees,
+      projection: activeStyleLayer.camera.projection,
+      azimuthDegrees: activeStyleLayer.camera.azimuthDegrees,
+      elevationDegrees: activeStyleLayer.camera.elevationDegrees,
+      rollDegrees: activeStyleLayer.camera.rollDegrees,
       framingRule:
         "orthoScale = ancho proyectado del candidato × margen mediano observado en los jobs embarcados",
       observedMargins: framingObserved,
@@ -1233,9 +1273,9 @@ const parameters = {
   },
   lighting: {
     value: {
-      ...styleLayer.lighting,
-      shadow: styleLayer.shadow,
-      rendering: styleLayer.rendering,
+      ...activeStyleLayer.lighting,
+      shadow: activeStyleLayer.shadow,
+      rendering: activeStyleLayer.rendering,
       acceptance: treatment.acceptance,
     },
     status: "confirmado",

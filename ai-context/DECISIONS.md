@@ -1804,3 +1804,11 @@ bundle bajo el límite y la medición final se registra en el acta. Ver
 Estado: decidido. HQ construible por organización; variantes estéticas equivalentes; retorno físico
 de agentes; local provisional; colores por organización; guardados y protocolo v3 sin migración v2.
 Véase `docs/engineering/adr/D-110-sedes-operativas-y-contrato-v3.md`.
+
+## D-111 — Dirección visual de maqueta urbana material
+Estado: aceptada el 2026-11-19; parámetros de producción pendientes del spike.
+El mundo y HUD adoptan materiales mates reconocibles, siluetas de época y luz cálida, con lectura
+económica clara. `graphic_civic` permanece como control. Antes de escalar se comparan `row_house`,
+`mixed_tenement` y `warehouse` en la escena real, día/noche y escalas de juego. Librerías, filtros,
+iluminación dinámica y partículas requieren evaluación propia. No hay cambios de dominio, `GameState`
+ni guardados por razones visuales. Véase `docs/engineering/adr/D-111-direccion-visual-maqueta-material.md`.

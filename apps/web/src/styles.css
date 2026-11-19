@@ -849,6 +849,17 @@ button:disabled {
    ===================================================================== */
 
 :root {
+  /* Paleta de maqueta material: tinta cálida, papel envejecido y latón. */
+  --art-ink: #171a1b;
+  --art-ink-soft: #202426;
+  --art-paper: #f4efe5;
+  --art-paper-raised: #fbf8f0;
+  --art-stone: #b8aa94;
+  --art-stone-dark: #796d5d;
+  --art-brass: #bd8b3f;
+  --art-brass-light: #e1bc72;
+  --art-sage: #547d68;
+  --art-rust: #a34f3e;
   --ux-space-1: 4px;
   --ux-space-2: 8px;
   --ux-space-3: 12px;
@@ -857,18 +868,18 @@ button:disabled {
   --ux-radius-sm: 6px;
   --ux-radius-md: 10px;
   --ux-radius-lg: 14px;
-  --ux-panel: #0f1727;
-  --ux-panel-strong: #131d2f;
-  --ux-border: #2d3a4f;
-  --ux-border-strong: #43536a;
-  --ux-text: #e8edf5;
-  --ux-text-secondary: #b5c0d2;
-  --ux-text-muted: #91a2bc;
-  --ux-accent: #f5c451;
-  --ux-ok: #7fc8a9;
-  --ux-warn: #e0b04b;
-  --ux-danger: #e07a5f;
-  --ux-focus: 3px solid #f5c451;
+  --ux-panel: #202426;
+  --ux-panel-strong: #292e2f;
+  --ux-border: #4a504e;
+  --ux-border-strong: #73776d;
+  --ux-text: #f3eee3;
+  --ux-text-secondary: #c9c2b4;
+  --ux-text-muted: #aaa392;
+  --ux-accent: var(--art-brass-light);
+  --ux-ok: #87b597;
+  --ux-warn: #dfb45f;
+  --ux-danger: #d7836e;
+  --ux-focus: 3px solid var(--art-brass-light);
   --ux-z-panel: 30;
   --ux-z-popover: 40;
   --ux-z-hud: 50;
@@ -880,33 +891,32 @@ button:disabled {
   flex-direction: column;
   height: 100dvh;
   padding: 10px 14px 14px;
-  background: radial-gradient(circle at 20% -10%, #1d2c46 0, #0c1220 46rem), #0c1220;
+  background: radial-gradient(circle at 20% -10%, #34322c 0, var(--art-ink) 46rem), var(--art-ink);
 }
 
-/* El mapa y la interfaz forman una misma lectura visual. El modo Día usa
-   superficies marfil y bordes cálidos; Noche conserva íntegramente la paleta
-   azul profunda definida arriba. */
+/* El mapa y la interfaz forman una misma lectura visual. El día usa papel cálido;
+   la noche, tinta y grafito para mantener contraste con los edificios iluminados. */
 :root[data-visual-mood="day"] .game-shell {
-  --ux-panel: #f8f3e9;
-  --ux-panel-strong: #f1ece3;
-  --ux-border: #9b8f80;
-  --ux-border-strong: #6e6459;
-  --ux-text: #202a35;
-  --ux-text-secondary: #394955;
-  --ux-text-muted: #52616d;
-  --ux-accent: #8a5100;
-  --ux-ok: #176b53;
-  --ux-warn: #805100;
-  --ux-danger: #973b32;
-  --ux-focus: 3px solid #8a5100;
-  background: radial-gradient(circle at 20% -10%, #ffffff 0, #dbe3e6 46rem), #dbe3e6;
+  --ux-panel: var(--art-paper);
+  --ux-panel-strong: #eae2d4;
+  --ux-border: #aa9a82;
+  --ux-border-strong: #756957;
+  --ux-text: #292a27;
+  --ux-text-secondary: #4d4b43;
+  --ux-text-muted: #686457;
+  --ux-accent: #8c5c1c;
+  --ux-ok: #35694f;
+  --ux-warn: #805716;
+  --ux-danger: #913f31;
+  --ux-focus: 3px solid #8c5c1c;
+  background: radial-gradient(circle at 20% -10%, #fffdf7 0, #ded7ca 46rem), #ded7ca;
 }
 
 :root[data-visual-mood="day"] .hud-brand,
 :root[data-visual-mood="day"] .context-header h2,
 :root[data-visual-mood="day"] .entity-title,
 :root[data-visual-mood="day"] .summary-price {
-  color: #202a35;
+  color: #292a27;
 }
 
 /* El CSS heredado de la primera interfaz definía `.metric-value` en blanco.
@@ -914,11 +924,11 @@ button:disabled {
    cuando cambia la superficie del HUD. */
 :root[data-visual-mood="day"] .metric-chip .metric-value,
 :root[data-visual-mood="day"] .metric-chip .resource-inline {
-  color: #202a35;
+  color: #292a27;
 }
 
 :root[data-visual-mood="day"] .metric-chip .metric-label {
-  color: #52616d;
+  color: #686457;
 }
 
 :root[data-visual-mood="day"] .hud-district,
@@ -936,7 +946,7 @@ button:disabled {
 :root[data-visual-mood="day"] .overlay-option,
 :root[data-visual-mood="day"] .notification,
 :root[data-visual-mood="day"] .detail-grid div {
-  background: #fffdf8;
+  background: var(--art-paper-raised);
 }
 
 /* CityView nació antes del shell jugable y tenía colores propios de Noche.
@@ -955,19 +965,19 @@ button:disabled {
 }
 
 :root[data-visual-mood="day"] .city-tile {
-  border-color: #a79b8d;
-  background: #fffdf8;
+  border-color: var(--ux-border);
+  background: var(--art-paper-raised);
   color: var(--ux-text);
 }
 
 :root[data-visual-mood="day"] .city-tile:hover {
   border-color: var(--ux-accent);
-  background: #fff6e5;
+  background: #f5ead4;
 }
 
 :root[data-visual-mood="day"] .city-tile-selected {
   border-color: var(--ux-accent);
-  background: #fff0cf;
+  background: #efe0c1;
   box-shadow: 0 0 0 1px var(--ux-accent) inset;
 }
 
@@ -985,7 +995,7 @@ button:disabled {
 }
 
 :root[data-visual-mood="day"] .building-thumbnail {
-  background: radial-gradient(circle at 50% 20%, #f7f2e9 0, #ded5c7 70%);
+  background: radial-gradient(circle at 50% 20%, #fffaf0 0, #d9cdbb 70%);
 }
 
 :root[data-visual-mood="day"] .field-row input,

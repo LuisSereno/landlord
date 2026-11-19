@@ -41,25 +41,25 @@ describe("WP4.15-H ruta Blender E2E", () => {
     }
   });
 
-  it("promueve el town_hall V7 elegido y el colegio americano propio (V.i remediation)", () => {
+  it("promueve el town_hall y el colegio con la huella física D-109 (enmienda a D-099)", () => {
     const townHall = bundle.buildings.town_hall!;
     expect(townHall.type).toBe("town_hall");
-    expect(townHall.footprint).toEqual({ width: 8, height: 4 });
-    expect(townHall.domainFootprint).toEqual({ width: 8, height: 4 });
+    expect(townHall.footprint).toEqual({ width: 5, height: 3 });
+    expect(townHall.domainFootprint).toEqual({ width: 5, height: 3 });
     expect(townHall.allowedOrientations).toEqual([45]);
     expect(townHall.states.complete.sha256).toBe(
-      "bd7cfb17ba8a16e066ee7467c1264f305d429760f1c8c084dc653cacc28b77e9",
+      "862a3c9b7ecbf467496dad11c8f3bfa0a5faa395bc6e05ae2e892a3ae6506ca8",
     );
     expect(Object.keys(townHall.states)).toEqual(["complete"]);
     expect(townHall.stateFallback).toBe("procedural");
-    expect(townHall.provenance?.notes).toContain("vf_town_hall_1006");
+    expect(townHall.provenance?.notes).toContain("vf_town_hall_1000");
     const school = bundle.buildings.school_block!;
     expect(school.type).toBe("school_block");
-    expect(school.domainFootprint).toEqual({ width: 7, height: 2 });
+    expect(school.domainFootprint).toEqual({ width: 5, height: 1 });
     expect(school.states.complete.sha256).toBe(
-      "ac7fe5b8656a870fbc1e72f9ade2db7dd31c4110781387a3127cf8b923f98f29",
+      "d6945010293f250ca93c75bb23aa21f25ce82bc9e7b0d9b9e5875eac39e4f752",
     );
-    expect(school.provenance?.notes).toContain("vg_school_block_2000");
+    expect(school.provenance?.notes).toContain("vf_school_block_1000");
   });
 
   it("cubre el estado complete con fallback procedural y las cuatro direcciones del personaje", () => {
@@ -239,7 +239,7 @@ describe("WP4.15-H ruta Blender E2E", () => {
     }
   });
 
-  it("los 15 complete aprobados coinciden con el baseline congelado V.j (D-099/D-101)", () => {
+  it("los 15 complete aprobados coinciden con el baseline V.j re-congelado por D-109", () => {
     const baseline = JSON.parse(
       readFileSync(resolve(REPO_ROOT, "docs/art/world-visual-foundation/baseline-vj.json"), "utf8"),
     ) as { buildings: { type: string; sha256: string; width: number; height: number }[] };

@@ -37,7 +37,7 @@ for t, lane in LANES.items():
         'provenance': {
             'license': 'original',
             'author': 'Landlord project; CC0 modules by Quaternius/Kenney',
-            'notes': f'D-109 (2026-11-18): rehorneado con huella física {FOOT[t][0]}×{FOOT[t][1]} y solar reservado separado; mood day_civic registrado como procedencia (D-108). QA de capturas diurna/nocturna en el acta de cierre.',
+            'notes': f'D-109 (2026-11-18): rehorneado con huella física {FOOT[t][0]}×{FOOT[t][1]} y solar reservado separado; mood day_civic registrado como procedencia (D-108). QA de capturas diurna/nocturna en el acta de cierre. Candidato promovido: ' + cand_id + '.',
         },
     }
     promos['promotions'] = [p for p in promos['promotions'] if p['assetId'] != t] + [entry]

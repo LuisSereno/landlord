@@ -131,3 +131,36 @@ el control y el perfil material. Las capturas A/B de HUD y terreno se mantienen 
 `docs/art/material-maquette-spike/ab/`. Siguen pendientes la revisión humana, la combinación de HUD
 con ciudad poblada, escalas 2× y 2,5×, cuatro orientaciones, estados de obra/daño/incendio y medición
 de runtime. No se amplía el catálogo ni se activa Phaser FX hasta superar esos gates.
+
+## Ejecución del spike de capacidades — 2026-11-20
+
+El encargo de ejecución de D-111 pidió probar de verdad las capacidades gráficas sin explotar y
+documentarlas para reutilizarlas, no otro inventario. Su resultado vive en
+[la matriz de capacidades](graphics-capabilities/README.md) y en sus cuatro hojas de revisión
+(`graphics-capabilities/evidence/sheets/`). Las tres condiciones experimentales del ADR quedan
+así cubiertas:
+
+1. **A/B de materiales y render EEVEE sobre geometría idéntica** (§5): cupón, UV métrica, cámara, luz
+   y mood iguales en los tres brazos. Kenney Retro Textures Fantasy gana en teja, zócalo y pavimento y
+   pierde en ladrillo y revoco; Poly Haven conserva el relieve donde existe el escaneo y **no se
+   sustituye automáticamente**. La decisión es por superficie y está en `material-decisions.json`.
+2. **Prueba real de Geometry Nodes con geometría licenciada** (§3): cinco módulos originales de crujía
+   de 2 m que resuelven los roles de fachada dentro de la gramática. El A/B de `mixed_tenement`
+   (9 522 → 13 272 triángulos) **sí mejora la lectura del hueco**, y corrige la conclusión del
+   2026-11-19, que había medido sólo repetición de instancias y no una fachada completa. El Composer
+   conserva semilla, validación, procedencia y salida.
+3. **A/B integrado en contexto urbano** (§8.6): control y candidata GN plantados sobre calzada, acera,
+   parcela, árbol, personaje y vehículo de escala a 1440×900, a 1× y 0,5×, con el mood `day_civic` de
+   los pilotos. A 0,5× la candidata sigue leyendo ventanas; el control las pierde en sombra plana.
+
+`row_house` y `mixed_tenement` tienen candidata. `warehouse` y `town_hall` no: el invariante de
+familia del Composer cortó los módulos GN antes del render y las cuatro piezas de garaje de Retro Urban
+miden 1,00 m de frente, insuficiente para la caja de un camión. Se registró la restricción con su
+medición en vez de relajar la regla para obtener una imagen.
+
+Los efectos de Phaser 4 estaban aplazados por el ADR a «una fase posterior»; el propio encargo los
+incluyó en esta pasada (§7) y se midieron sobre la calle de QA, sin activar nada en runtime. Ver
+`graphics-capabilities/evaluations/phaser-fx-lab.md`.
+
+Nada de esto promociona sprites, perfiles ni filtros: la promoción sigue siendo revisión humana, y
+`graphic_civic` permanece como control.

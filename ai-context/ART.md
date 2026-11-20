@@ -19,6 +19,12 @@ Landlord dispone de especificaciones completas de preproducción:
 - D-111: dirección visual de maqueta urbana material aprobada el 2026-11-19. `graphic_civic`
   sigue como control del spike; no se promueven sprites, filtros ni librerías nuevas hasta revisar
   los pilotos `row_house`, `mixed_tenement` y `warehouse` en escena real.
+- D-111 (ejecución 2026-11-20): las capacidades gráficas se probaron de verdad y su registro está en
+  `docs/art/graphics-capabilities/` (19 tecnologías, 17 campos por entrada, seis hojas de revisión en
+  `evidence/sheets/`). Geometry Nodes aporta fachada paramétrica a `row_house` y `mixed_tenement`; las
+  extensiones arquitectónicas y los garajes de Retro Urban quedan rechazados con motivo medido; los
+  efectos de Phaser 4 viven sólo en el laboratorio de QA `/art-lab?artQa=1` y nada se activa por
+  defecto. La promoción sigue cerrada hasta revisión humana.
 - Selector A/B de HUD/terreno sólo para QA (`?artQa=1`), sin persistencia de partida; capturas de día
   y noche y candidatos del Composer con manifiestos viven en `docs/art/material-maquette-spike/`.
 
@@ -75,6 +81,9 @@ matices de licencia en
 4. `docs/art/BOOTSTRAP-ASSET-LIBRARY.md`
 5. `docs/art/OPEN-DECISIONS.md`
 6. `docs/art/ASSET-CHECKLIST.md`
+7. `docs/art/graphics-capabilities/README.md` si el trabajo toca una herramienta gráfica nueva
+   (Geometry Nodes, extensiones, materiales externos, filtros de Phaser): registra qué se probó, con
+   qué evidencia y en qué estado está.
 
 ## Reglas
 

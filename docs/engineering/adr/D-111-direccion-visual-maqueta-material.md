@@ -64,3 +64,34 @@ Buildings en Blender y se habilitó la importación de sus `.blend` para conserv
 seleccionó un balcón medido y se añadió una receta candidata para `mixed_tenement`. El catálogo
 principal de sprites permanece intacto hasta revisión visual humana. Registro de cobertura y
 limitaciones: `docs/art/new-assets-integration/README.md`.
+
+## Resultados del spike de capacidades — 2026-11-20
+
+El encargo de ejecución de esta decisión (D-111 §0–§12) priorizó **generar imágenes útiles para
+revisión humana** sobre producir baterías de pruebas, y trajo a esta pasada los efectos de Phaser que
+la adenda del 19 había aplazado. Su registro completo, con la matriz de 19 tecnologías y las seis hojas
+de revisión, es `docs/art/graphics-capabilities/`.
+
+Qué se cumplió de la condición experimental:
+
+1. A/B de materiales y EEVEE sobre geometría idéntica: hecho, con decisión **por superficie** y
+   licencia/asset ID/hash de fuente registrados. Poly Haven no se sustituye automáticamente.
+2. Prueba real de Geometry Nodes con geometría licenciada: hecho. A diferencia del pase del 19 (que
+   sólo medía repetición de instancias), aquí la gramática resuelve los roles de fachada de
+   `mixed_tenement` y `row_house`. Veredicto: **MEJORA VISUAL** en la lectura del hueco; el coste de
+   preparación no es criterio de aceptación.
+3. A/B integrado en contexto urbano a 0,5× y 1×: hecho a 1440×900 sobre tramo de calle con suelo,
+   calzada, acera, vegetación, personaje y vehículo de escala, con `day_civic` (el mood de los
+   pilotos). La noche queda cubierta por el laboratorio de Phaser (§8.5).
+
+Frontera de la técnica, medida y registrada en lugar de disimulada: la gramática GN es una gramática de
+**fachada continua de fábrica**. `warehouse` (`industrial_heavy`) y `town_hall` (`civic_landmark`)
+recibieron `GrammarError` antes del render porque los módulos declaran `allowedFamilies:
+["residential_low"]`. No se relajó el invariante para obtener la imagen; la extensión a esas dos
+familias es un WP nuevo con su propia medición.
+
+Estado de la decisión: **sin cambios**. La aceptación de la dirección sigue en pie, la promoción de
+sprites, perfiles de material, filtros, luces y partículas sigue siendo revisión humana y ningún
+efecto queda activado por defecto. `graphic_civic` permanece como control de runtime. No hubo cambios
+de dominio, `GameState`, guardados ni topología vial por razones visuales; el laboratorio de QA es la
+única superficie que lee las banderas de efectos.

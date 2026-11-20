@@ -1822,3 +1822,12 @@ Quaternius Ultimate Buildings recibido, conforme a su ficha oficial específica.
 bloqueo de licencia de `src_quaternius_ultimate_buildings`; la decisión no se extiende a otros
 packs de Quaternius ni equivale a aprobación artística o promoción automática. Evidencia y alcance:
 `docs/art/NEW-SOURCE-PACKS-2026-11-20.md`.
+
+Ejecución del spike de D-111 (2026-11-20): las tres condiciones experimentales del ADR se midieron y
+su evidencia queda en `docs/art/graphics-capabilities/`. Geometry Nodes se integra como generador
+especializado de fachada en `row_house` y `mixed_tenement` (candidatos sin promocionar); las extensiones
+HiFi/Arch Generator/Archimesh y los garajes de Retro Urban quedan rechazados con motivo medido; los
+efectos de Phaser 4 se probaron en el laboratorio de QA `/art-lab?artQa=1` y no se activan en runtime.
+La dirección visual no cambia: `graphic_civic` sigue siendo el control y la promoción de sprites,
+perfiles y filtros es decisión de revisión humana. Registro:
+`docs/engineering/adr/D-111-direccion-visual-maqueta-material.md`.

@@ -154,6 +154,34 @@ const SCOPE = [
     directory: "blender_artist/sources/original",
     pattern: "fire_smoke\\.glb$",
   },
+  // D-111 §3: las cinco partes del sistema de fachada Geometry Nodes. Son geometría propia medida
+  // por el mismo camino que el resto de originales; el árbol paramétrico vivo queda en
+  // `gn_facade_system.blend` y se regenera con `gn_facade_grammar.py`.
+  {
+    sourceId: "src_original_gn_window_bay",
+    directory: "blender_artist/sources/original",
+    pattern: "gn_window_bay_2m\\.glb$",
+  },
+  {
+    sourceId: "src_original_gn_shopfront_bay",
+    directory: "blender_artist/sources/original",
+    pattern: "gn_shopfront_bay_2m\\.glb$",
+  },
+  {
+    sourceId: "src_original_gn_plinth",
+    directory: "blender_artist/sources/original",
+    pattern: "gn_plinth_2m\\.glb$",
+  },
+  {
+    sourceId: "src_original_gn_cornice",
+    directory: "blender_artist/sources/original",
+    pattern: "gn_cornice_2m\\.glb$",
+  },
+  {
+    sourceId: "src_original_gn_balcony_door_bay",
+    directory: "blender_artist/sources/original",
+    pattern: "gn_balcony_door_bay_2m\\.glb$",
+  },
 ];
 
 const CLASSIFICATION_RULE = {

@@ -68,11 +68,11 @@
   },
   "orientationPolicy": "Los módulos sólo rotan en múltiplos de 90°: la retícula del dominio y el rig isométrico (azimut 45°) no admiten giros arbitrarios sin romper el encaje de fachadas.",
   "counts": {
-    "modules": 181,
-    "sources": 180,
+    "modules": 186,
+    "sources": 185,
     "byCategory": {
-      "facade": 31,
-      "window": 9,
+      "facade": 34,
+      "window": 10,
       "door": 7,
       "roof": 14,
       "civic": 69,
@@ -82,10 +82,10 @@
       "utility": 6,
       "chimney": 4,
       "industrial": 5,
-      "balcony": 1
+      "balcony": 2
     },
     "byFamily": {
-      "residential_low": 57,
+      "residential_low": 62,
       "industrial_heavy": 50,
       "civic_landmark": 155
     },
@@ -104,7 +104,12 @@
       "src_original_damage_debris": 1,
       "src_original_fire_flame": 1,
       "src_original_fire_smoke": 1,
-      "src_quaternius_ultimate_buildings": 2
+      "src_quaternius_ultimate_buildings": 2,
+      "src_original_gn_window_bay": 1,
+      "src_original_gn_shopfront_bay": 1,
+      "src_original_gn_plinth": 1,
+      "src_original_gn_cornice": 1,
+      "src_original_gn_balcony_door_bay": 1
     }
   },
   "modules": [
@@ -25067,6 +25072,682 @@
         "fileTriangles": 332,
         "fileHierarchy": [
           "Door_Double:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_gn_window_bay_2m",
+      "category": "window",
+      "role": "window_bay",
+      "note": "D-111 §3: hueco de ventana generado por Geometry Nodes; montantes instanciados, revelco, dintel y alféizar en un único vano de 2 m",
+      "sourceId": "src_original_gn_window_bay",
+      "sourcePath": "blender_artist/sources/original/gn_window_bay_2m.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "GnWindowBay"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "residential_low"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 108 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2,
+        "depthMeters": 0.4,
+        "heightMeters": 3
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "GnWindowBay",
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.15,
+            "max": 0.25
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.05,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.2,
+            "max": 0.2
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 432,
+        "triangles": 216,
+        "shells": 108,
+        "materials": [
+          "gn_brick_wall",
+          "gn_dark_glass",
+          "gn_stone_trim"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "GnWindowBay"
+        ],
+        "baseColorChains": [
+          "gn_brick_wall=plano",
+          "gn_dark_glass=plano",
+          "gn_stone_trim=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2,
+          "depth": 0.4,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.05,
+          0
+        ],
+        "fileTriangles": 216,
+        "fileHierarchy": [
+          "GnWindowBay:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_gn_shopfront_bay_2m",
+      "category": "facade",
+      "role": "ground_panel",
+      "note": "D-111 §3: escaparate comercial Geometry Nodes con pilastras, friso y carpintería instanciada",
+      "sourceId": "src_original_gn_shopfront_bay",
+      "sourcePath": "blender_artist/sources/original/gn_shopfront_bay_2m.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "GnShopfrontBay"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "residential_low"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 96 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2,
+        "depthMeters": 0.4,
+        "heightMeters": 3
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "GnShopfrontBay",
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.13,
+            "max": 0.27
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.07,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.2,
+            "max": 0.2
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 384,
+        "triangles": 192,
+        "shells": 96,
+        "materials": [
+          "gn_brick_wall",
+          "gn_dark_glass",
+          "gn_shopfront_wood",
+          "gn_stone_trim"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "GnShopfrontBay"
+        ],
+        "baseColorChains": [
+          "gn_brick_wall=plano",
+          "gn_dark_glass=plano",
+          "gn_shopfront_wood=plano",
+          "gn_stone_trim=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2,
+          "depth": 0.4,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.07,
+          0
+        ],
+        "fileTriangles": 192,
+        "fileHierarchy": [
+          "GnShopfrontBay:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_gn_plinth_2m",
+      "category": "facade",
+      "role": "wainscot",
+      "note": "D-111 §3: zócalo de sillería Geometry Nodes con juntas verticales instanciadas",
+      "sourceId": "src_original_gn_plinth",
+      "sourcePath": "blender_artist/sources/original/gn_plinth_2m.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "GnPlinth"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "residential_low"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 36 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2,
+        "depthMeters": 0.42,
+        "heightMeters": 0.9
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "GnPlinth",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.21,
+            "max": 0.21
+          },
+          "z": {
+            "min": 0,
+            "max": 0.9
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.21,
+            "max": 0.21
+          },
+          "z": {
+            "min": 0,
+            "max": 0.9
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 144,
+        "triangles": 72,
+        "shells": 36,
+        "materials": [
+          "gn_stone_trim"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "GnPlinth"
+        ],
+        "baseColorChains": [
+          "gn_stone_trim=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2,
+          "depth": 0.42,
+          "height": 0.9,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 72,
+        "fileHierarchy": [
+          "GnPlinth:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_gn_cornice_2m",
+      "category": "facade",
+      "role": "cornice",
+      "note": "D-111 §3: cornisa Geometry Nodes con cornisa volada y dentículos instanciados (número = parámetro vivo)",
+      "sourceId": "src_original_gn_cornice",
+      "sourcePath": "blender_artist/sources/original/gn_cornice_2m.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "GnCornice"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "residential_low"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 60 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2,
+        "depthMeters": 0.68,
+        "heightMeters": 0.55
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "GnCornice",
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.235,
+            "max": 0.445
+          },
+          "z": {
+            "min": 0,
+            "max": 0.55
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.105,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.34,
+            "max": 0.34
+          },
+          "z": {
+            "min": 0,
+            "max": 0.55
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 240,
+        "triangles": 120,
+        "shells": 60,
+        "materials": [
+          "gn_stone_trim"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "GnCornice"
+        ],
+        "baseColorChains": [
+          "gn_stone_trim=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2,
+          "depth": 0.68,
+          "height": 0.55,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.105,
+          0
+        ],
+        "fileTriangles": 120,
+        "fileHierarchy": [
+          "GnCornice:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_gn_balcony_door_bay_2m",
+      "category": "balcony",
+      "role": "balcony",
+      "note": "D-111 §3: vano de puerta-balcón Geometry Nodes; losa en dos bandas y barandilla de balaustres instanciados, altura de forjado completo",
+      "sourceId": "src_original_gn_balcony_door_bay",
+      "sourcePath": "blender_artist/sources/original/gn_balcony_door_bay_2m.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "GnBalconyDoorBay"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "residential_low"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 264 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2,
+        "depthMeters": 0.85,
+        "heightMeters": 3
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "GnBalconyDoorBay",
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.1,
+            "max": 0.75
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.325,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.425,
+            "max": 0.425
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 1056,
+        "triangles": 528,
+        "shells": 264,
+        "materials": [
+          "gn_dark_glass",
+          "gn_painted_metal",
+          "gn_shopfront_wood",
+          "gn_stone_trim"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "GnBalconyDoorBay"
+        ],
+        "baseColorChains": [
+          "gn_dark_glass=plano",
+          "gn_painted_metal=plano",
+          "gn_shopfront_wood=plano",
+          "gn_stone_trim=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2,
+          "depth": 0.85,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.325,
+          0
+        ],
+        "fileTriangles": 528,
+        "fileHierarchy": [
+          "GnBalconyDoorBay:MESH"
         ]
       }
     }

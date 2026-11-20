@@ -1,0 +1,488 @@
+{
+ "schemaVersion": 1,
+ "generator": "tools/art-pipeline/blender/gn_facade_grammar.py",
+ "blender": "5.2.2 LTS",
+ "construction": "objeto vacío + modificador Geometry Nodes evaluado en headless; el GLB se exporta con export_apply (instancias realizadas por el propio árbol) y el .blend conserva el modificador vivo",
+ "seed": 7,
+ "grid": {
+  "bayMeters": 2.0,
+  "floorHeightMeters": 3.0,
+  "wallThicknessMeters": 0.2
+ },
+ "parts": [
+  {
+   "part": "window_bay",
+   "moduleId": "mod_gn_window_bay_2m",
+   "role": "window_bay",
+   "category": "window",
+   "objectName": "GnWindowBay",
+   "note": "crujía residencial de 2 m con hueco calado, marco en relieve, alféizar saliente, dintel, reveco interior y montantes generados por Geometry Nodes",
+   "parameters": {
+    "bayWidth": 2.0,
+    "bayHeight": 3.0,
+    "wallThickness": 0.2,
+    "openingWidth": 1.05,
+    "openingHeight": 1.45,
+    "sillHeight": 0.95,
+    "frameWidth": 0.085,
+    "glassRecess": 0.085,
+    "mullions": 2,
+    "transom": 1
+   },
+   "nodeGroup": "D111_Facade_Window_Bay",
+   "nodeCount": 50,
+   "liveParameters": [
+    "mullions"
+   ],
+   "bakedParameters": [
+    "bayHeight",
+    "bayWidth",
+    "frameWidth",
+    "glassRecess",
+    "openingHeight",
+    "openingWidth",
+    "sillHeight",
+    "transom",
+    "wallThickness"
+   ],
+   "setupMs": 16.34,
+   "evaluateMs": 4.24,
+   "materials": [
+    "gn_brick_wall",
+    "gn_dark_glass",
+    "gn_stone_trim"
+   ],
+   "glb": "/home/luis/RepositorioGitHub/landlord/blender_artist/sources/original/gn_window_bay_2m.glb",
+   "vertices": 144,
+   "triangles": 216,
+   "boundsMeters": {
+    "x": {
+     "min": -1.0,
+     "max": 1.0
+    },
+    "y": {
+     "min": -0.15,
+     "max": 0.25
+    },
+    "z": {
+     "min": 0.0,
+     "max": 3.0
+    }
+   },
+   "parametricProbe": [
+    {
+     "parameter": "mullions",
+     "value": 1,
+     "vertices": 136,
+     "triangles": 204,
+     "boundsMeters": {
+      "x": {
+       "min": -1.0,
+       "max": 1.0
+      },
+      "y": {
+       "min": -0.15,
+       "max": 0.25
+      },
+      "z": {
+       "min": 0.0,
+       "max": 3.0
+      }
+     },
+     "evaluateMs": 3.01
+    },
+    {
+     "parameter": "mullions",
+     "value": 2,
+     "vertices": 144,
+     "triangles": 216,
+     "boundsMeters": {
+      "x": {
+       "min": -1.0,
+       "max": 1.0
+      },
+      "y": {
+       "min": -0.15,
+       "max": 0.25
+      },
+      "z": {
+       "min": 0.0,
+       "max": 3.0
+      }
+     },
+     "evaluateMs": 2.92
+    },
+    {
+     "parameter": "mullions",
+     "value": 3,
+     "vertices": 152,
+     "triangles": 228,
+     "boundsMeters": {
+      "x": {
+       "min": -1.0,
+       "max": 1.0
+      },
+      "y": {
+       "min": -0.15,
+       "max": 0.25
+      },
+      "z": {
+       "min": 0.0,
+       "max": 3.0
+      }
+     },
+     "evaluateMs": 2.85
+    }
+   ]
+  },
+  {
+   "part": "shopfront_bay",
+   "moduleId": "mod_gn_shopfront_bay_2m",
+   "role": "shopfront",
+   "category": "facade",
+   "objectName": "GnShopfrontBay",
+   "note": "crujía comercial de planta baja con escaparate de 1,44 × 2,00 m, pilastras, frente de rótulo y estribera de madera; hueco a escala de tienda, no de vivienda",
+   "parameters": {
+    "bayWidth": 2.0,
+    "bayHeight": 3.0,
+    "wallThickness": 0.22,
+    "openingWidth": 1.44,
+    "openingHeight": 2.0,
+    "sillHeight": 0.42,
+    "pilasterWidth": 0.28,
+    "fasciaHeight": 0.3,
+    "mullions": 2
+   },
+   "nodeGroup": "D111_Facade_Shopfront_Bay",
+   "nodeCount": 50,
+   "liveParameters": [
+    "mullions"
+   ],
+   "bakedParameters": [
+    "bayHeight",
+    "bayWidth",
+    "fasciaHeight",
+    "openingHeight",
+    "openingWidth",
+    "pilasterWidth",
+    "sillHeight",
+    "wallThickness"
+   ],
+   "setupMs": 14.65,
+   "evaluateMs": 3.29,
+   "materials": [
+    "gn_brick_wall",
+    "gn_dark_glass",
+    "gn_shopfront_wood",
+    "gn_stone_trim"
+   ],
+   "glb": "/home/luis/RepositorioGitHub/landlord/blender_artist/sources/original/gn_shopfront_bay_2m.glb",
+   "vertices": 128,
+   "triangles": 192,
+   "boundsMeters": {
+    "x": {
+     "min": -1.0,
+     "max": 1.0
+    },
+    "y": {
+     "min": -0.13,
+     "max": 0.27
+    },
+    "z": {
+     "min": 0.0,
+     "max": 3.0
+    }
+   }
+  },
+  {
+   "part": "plinth",
+   "moduleId": "mod_gn_plinth_2m",
+   "role": "wainscot",
+   "category": "facade",
+   "objectName": "GnPlinth",
+   "note": "zócalo de 2 m con soclo saliente, labio superior y juntas de sillar instanciadas",
+   "parameters": {
+    "bayWidth": 2.0,
+    "bayHeight": 0.9,
+    "wallThickness": 0.3,
+    "socleProjection": 0.06,
+    "joints": 3
+   },
+   "nodeGroup": "D111_Facade_Plinth",
+   "nodeCount": 20,
+   "liveParameters": [
+    "joints"
+   ],
+   "bakedParameters": [
+    "bayHeight",
+    "bayWidth",
+    "socleProjection",
+    "wallThickness"
+   ],
+   "setupMs": 2.85,
+   "evaluateMs": 1.81,
+   "materials": [
+    "gn_stone_trim"
+   ],
+   "glb": "/home/luis/RepositorioGitHub/landlord/blender_artist/sources/original/gn_plinth_2m.glb",
+   "vertices": 48,
+   "triangles": 72,
+   "boundsMeters": {
+    "x": {
+     "min": -1.0,
+     "max": 1.0
+    },
+    "y": {
+     "min": -0.21,
+     "max": 0.21
+    },
+    "z": {
+     "min": 0.0,
+     "max": 0.9
+    }
+   }
+  },
+  {
+   "part": "cornice",
+   "moduleId": "mod_gn_cornice_2m",
+   "role": "cornice",
+   "category": "facade",
+   "objectName": "GnCornice",
+   "note": "cornisa de 2 m con cama, dentillos instanciados, corona volada, friso y sima",
+   "parameters": {
+    "bayWidth": 2.0,
+    "bayHeight": 0.55,
+    "wallThickness": 0.26,
+    "coronaProjection": 0.21,
+    "dentils": 6
+   },
+   "nodeGroup": "D111_Facade_Cornice",
+   "nodeCount": 22,
+   "liveParameters": [
+    "dentils"
+   ],
+   "bakedParameters": [
+    "bayHeight",
+    "bayWidth",
+    "coronaProjection",
+    "wallThickness"
+   ],
+   "setupMs": 3.2,
+   "evaluateMs": 2.15,
+   "materials": [
+    "gn_stone_trim"
+   ],
+   "glb": "/home/luis/RepositorioGitHub/landlord/blender_artist/sources/original/gn_cornice_2m.glb",
+   "vertices": 80,
+   "triangles": 120,
+   "boundsMeters": {
+    "x": {
+     "min": -1.0,
+     "max": 1.0
+    },
+    "y": {
+     "min": -0.235,
+     "max": 0.445
+    },
+    "z": {
+     "min": 0.0,
+     "max": 0.55
+    }
+   },
+   "parametricProbe": [
+    {
+     "parameter": "dentils",
+     "value": 4,
+     "vertices": 64,
+     "triangles": 96,
+     "boundsMeters": {
+      "x": {
+       "min": -1.0,
+       "max": 1.0
+      },
+      "y": {
+       "min": -0.235,
+       "max": 0.445
+      },
+      "z": {
+       "min": 0.0,
+       "max": 0.55
+      }
+     },
+     "evaluateMs": 1.54
+    },
+    {
+     "parameter": "dentils",
+     "value": 8,
+     "vertices": 96,
+     "triangles": 144,
+     "boundsMeters": {
+      "x": {
+       "min": -1.0,
+       "max": 1.0
+      },
+      "y": {
+       "min": -0.235,
+       "max": 0.445
+      },
+      "z": {
+       "min": 0.0,
+       "max": 0.55
+      }
+     },
+     "evaluateMs": 2.11
+    },
+    {
+     "parameter": "dentils",
+     "value": 12,
+     "vertices": 128,
+     "triangles": 192,
+     "boundsMeters": {
+      "x": {
+       "min": -1.0,
+       "max": 1.0
+      },
+      "y": {
+       "min": -0.235,
+       "max": 0.445
+      },
+      "z": {
+       "min": 0.0,
+       "max": 0.55
+      }
+     },
+     "evaluateMs": 2.3
+    }
+   ]
+  },
+  {
+   "part": "balcony_door_bay",
+   "moduleId": "mod_gn_balcony_door_bay_2m",
+   "role": "balcony",
+   "category": "balcony",
+   "objectName": "GnBalconyDoorBay",
+   "note": "balcón con puerta balconera doble acristalada, trasdós, losa volada con canto retranqueado y barandilla con balaustres instanciados; el balcón nace de la puerta, no flota",
+   "parameters": {
+    "bayWidth": 2.0,
+    "bayHeight": 3.0,
+    "wallThickness": 0.1,
+    "slabHeight": 0.12,
+    "openingWidth": 1.1,
+    "openingHeight": 2.1,
+    "frameWidth": 0.1,
+    "balconyProjection": 0.72,
+    "railingHeight": 0.92,
+    "balusters": 10,
+    "leafBars": 3
+   },
+   "nodeGroup": "D111_Facade_Balcony_Door_Bay",
+   "nodeCount": 100,
+   "liveParameters": [
+    "balusters",
+    "leafBars"
+   ],
+   "bakedParameters": [
+    "balconyProjection",
+    "bayHeight",
+    "bayWidth",
+    "frameWidth",
+    "openingHeight",
+    "openingWidth",
+    "railingHeight",
+    "slabHeight",
+    "wallThickness"
+   ],
+   "setupMs": 57.15,
+   "evaluateMs": 6.6,
+   "materials": [
+    "gn_dark_glass",
+    "gn_painted_metal",
+    "gn_shopfront_wood",
+    "gn_stone_trim"
+   ],
+   "glb": "/home/luis/RepositorioGitHub/landlord/blender_artist/sources/original/gn_balcony_door_bay_2m.glb",
+   "vertices": 352,
+   "triangles": 528,
+   "boundsMeters": {
+    "x": {
+     "min": -1.0,
+     "max": 1.0
+    },
+    "y": {
+     "min": -0.1,
+     "max": 0.75
+    },
+    "z": {
+     "min": 0.0,
+     "max": 3.0
+    }
+   },
+   "parametricProbe": [
+    {
+     "parameter": "balusters",
+     "value": 6,
+     "vertices": 320,
+     "triangles": 480,
+     "boundsMeters": {
+      "x": {
+       "min": -1.0,
+       "max": 1.0
+      },
+      "y": {
+       "min": -0.1,
+       "max": 0.75
+      },
+      "z": {
+       "min": 0.0,
+       "max": 3.0
+      }
+     },
+     "evaluateMs": 5.51
+    },
+    {
+     "parameter": "balusters",
+     "value": 11,
+     "vertices": 360,
+     "triangles": 540,
+     "boundsMeters": {
+      "x": {
+       "min": -1.0,
+       "max": 1.0
+      },
+      "y": {
+       "min": -0.1,
+       "max": 0.75
+      },
+      "z": {
+       "min": 0.0,
+       "max": 3.0
+      }
+     },
+     "evaluateMs": 6.05
+    },
+    {
+     "parameter": "balusters",
+     "value": 16,
+     "vertices": 400,
+     "triangles": 600,
+     "boundsMeters": {
+      "x": {
+       "min": -1.0,
+       "max": 1.0
+      },
+      "y": {
+       "min": -0.1,
+       "max": 0.75
+      },
+      "z": {
+       "min": 0.0,
+       "max": 3.0
+      }
+     },
+     "evaluateMs": 6.33
+    }
+   ]
+  }
+ ],
+ "blend": "/home/luis/RepositorioGitHub/landlord/blender_artist/sources/original/gn_facade_system.blend"
+}

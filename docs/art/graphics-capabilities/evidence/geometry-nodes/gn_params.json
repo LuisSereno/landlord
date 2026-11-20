@@ -1,0 +1,300 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 \u00a74 Blender extension lab",
+  "label": "D-111 \u00a78.2 repetici\u00f3n param\u00e9trica (montantes, dent\u00edculos, balaustres)",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "buildHash": "d13f752e3b9c",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "extension": {
+    "mood": "day_civic",
+    "capability": "geometry_nodes_facade_grammar",
+    "sheet": "parametric_probe",
+    "reading": "cada columna cambia UN n\u00famero del modificador vivo; la geometr\u00eda se re-eval\u00faa, no se re-programa",
+    "rows": [
+      {
+        "part": "window_bay",
+        "parameter": "mullions",
+        "cells": [
+          {
+            "value": 1,
+            "evaluateMs": 20.64,
+            "vertices": 136,
+            "triangles": 204,
+            "boundsMeters": {
+              "x": {
+                "min": -1.0,
+                "max": 1.0
+              },
+              "y": {
+                "min": -0.15,
+                "max": 0.25
+              },
+              "z": {
+                "min": 0.0,
+                "max": 3.0
+              }
+            }
+          },
+          {
+            "value": 2,
+            "evaluateMs": 19.19,
+            "vertices": 144,
+            "triangles": 216,
+            "boundsMeters": {
+              "x": {
+                "min": -1.0,
+                "max": 1.0
+              },
+              "y": {
+                "min": -0.15,
+                "max": 0.25
+              },
+              "z": {
+                "min": 0.0,
+                "max": 3.0
+              }
+            }
+          },
+          {
+            "value": 3,
+            "evaluateMs": 19.7,
+            "vertices": 152,
+            "triangles": 228,
+            "boundsMeters": {
+              "x": {
+                "min": -1.0,
+                "max": 1.0
+              },
+              "y": {
+                "min": -0.15,
+                "max": 0.25
+              },
+              "z": {
+                "min": 0.0,
+                "max": 3.0
+              }
+            }
+          }
+        ]
+      },
+      {
+        "part": "cornice",
+        "parameter": "dentils",
+        "cells": [
+          {
+            "value": 4,
+            "evaluateMs": 5.36,
+            "vertices": 64,
+            "triangles": 96,
+            "boundsMeters": {
+              "x": {
+                "min": -1.0,
+                "max": 1.0
+              },
+              "y": {
+                "min": -0.235,
+                "max": 0.445
+              },
+              "z": {
+                "min": 0.0,
+                "max": 0.55
+              }
+            }
+          },
+          {
+            "value": 8,
+            "evaluateMs": 5.36,
+            "vertices": 96,
+            "triangles": 144,
+            "boundsMeters": {
+              "x": {
+                "min": -1.0,
+                "max": 1.0
+              },
+              "y": {
+                "min": -0.235,
+                "max": 0.445
+              },
+              "z": {
+                "min": 0.0,
+                "max": 0.55
+              }
+            }
+          },
+          {
+            "value": 12,
+            "evaluateMs": 5.84,
+            "vertices": 128,
+            "triangles": 192,
+            "boundsMeters": {
+              "x": {
+                "min": -1.0,
+                "max": 1.0
+              },
+              "y": {
+                "min": -0.235,
+                "max": 0.445
+              },
+              "z": {
+                "min": 0.0,
+                "max": 0.55
+              }
+            }
+          }
+        ]
+      },
+      {
+        "part": "balcony_door_bay",
+        "parameter": "balusters",
+        "cells": [
+          {
+            "value": 6,
+            "evaluateMs": 68.52,
+            "vertices": 320,
+            "triangles": 480,
+            "boundsMeters": {
+              "x": {
+                "min": -1.0,
+                "max": 1.0
+              },
+              "y": {
+                "min": -0.1,
+                "max": 0.75
+              },
+              "z": {
+                "min": 0.0,
+                "max": 3.0
+              }
+            }
+          },
+          {
+            "value": 11,
+            "evaluateMs": 65.83,
+            "vertices": 360,
+            "triangles": 540,
+            "boundsMeters": {
+              "x": {
+                "min": -1.0,
+                "max": 1.0
+              },
+              "y": {
+                "min": -0.1,
+                "max": 0.75
+              },
+              "z": {
+                "min": 0.0,
+                "max": 3.0
+              }
+            }
+          },
+          {
+            "value": 16,
+            "evaluateMs": 64.91,
+            "vertices": 400,
+            "triangles": 600,
+            "boundsMeters": {
+              "x": {
+                "min": -1.0,
+                "max": 1.0
+              },
+              "y": {
+                "min": -0.1,
+                "max": 0.75
+              },
+              "z": {
+                "min": 0.0,
+                "max": 3.0
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "generated": null,
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 28.0,
+    "elevationDegrees": 30,
+    "orthoScale": 10.800000190734863,
+    "targetZ": 1.4
+  },
+  "lighting": {
+    "moodId": "day_civic",
+    "keyEnergy": 4.2,
+    "keyColor": [
+      1.0,
+      0.96,
+      0.88
+    ],
+    "fillEnergy": 1.15,
+    "rimEnergy": 0.9,
+    "worldColor": [
+      0.52,
+      0.6,
+      0.7
+    ],
+    "worldStrength": 0.9,
+    "viewTransform": "Standard",
+    "look": "Medium Contrast",
+    "exposure": 0.0
+  },
+  "render": {
+    "resolution": [
+      1024,
+      1024
+    ],
+    "taaRenderSamples": 48,
+    "taaReprojection": false,
+    "filmTransparent": true,
+    "seconds": 2.24,
+    "trim": {
+      "rendered": {
+        "width": 1024,
+        "height": 1024
+      },
+      "cropped": {
+        "width": 797,
+        "height": 688,
+        "offsetX": 0,
+        "offsetY": 336
+      },
+      "final": {
+        "width": 797,
+        "height": 688
+      },
+      "supersample": 1
+    }
+  },
+  "geometry": {
+    "triangles": 2700,
+    "meshObjects": 9,
+    "bounds": {
+      "min": [
+        -1.0,
+        -8.1,
+        0.0
+      ],
+      "max": [
+        6.2,
+        0.25,
+        3.0
+      ],
+      "size": [
+        7.2,
+        8.35,
+        3.0
+      ]
+    }
+  },
+  "image": {
+    "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/geometry-nodes/gn_params.png",
+    "width": 797,
+    "height": 688,
+    "sha256": "2f6ac2a619330a5620d3d202b12b6b41861607e88ac2d050d71abbff0fe09506",
+    "bytes": 441959
+  },
+  "command": "blender_artist/toolchain/blender-5.2.2-linux-x64/blender -b --factory-startup -P /home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/ext_lab/-b -- --mood=day_civic --samples=48"
+}

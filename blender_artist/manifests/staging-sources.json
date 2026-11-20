@@ -570,6 +570,61 @@
       },
       "registeredAt": "2026-11-20",
       "downloadedAt": null
+    },
+    {
+      "id": "src_original_gn_window_bay",
+      "path": "blender_artist/sources/original/gn_window_bay_2m.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte window_bay: hueco de ventana con montantes instanciados, dintel, alféizar y revelco) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_gn_shopfront_bay",
+      "path": "blender_artist/sources/original/gn_shopfront_bay_2m.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte shopfront_bay: escaparate comercial con pilstras, friso y carpintería) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_gn_plinth",
+      "path": "blender_artist/sources/original/gn_plinth_2m.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte plinth: zócalo de piedra con juntas) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_gn_cornice",
+      "path": "blender_artist/sources/original/gn_cornice_2m.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte cornice: cornisa con dentículos instanciados) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_gn_balcony_door_bay",
+      "path": "blender_artist/sources/original/gn_balcony_door_bay_2m.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte balcony_door_bay: puerta-balcón losa, barandilla de balaustres y hojas) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
     }
   ],
   "quarantined": [

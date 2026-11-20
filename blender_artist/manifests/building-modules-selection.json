@@ -1841,6 +1841,56 @@
       "meshes": ["Door_Double"],
       "allowedFamilies": ["residential_low", "civic_landmark"],
       "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_gn_window_bay_2m",
+      "category": "window",
+      "role": "window_bay",
+      "note": "D-111 §3: hueco de ventana generado por Geometry Nodes; montantes instanciados, revelco, dintel y alféizar en un único vano de 2 m",
+      "sourcePath": "blender_artist/sources/original/gn_window_bay_2m.glb",
+      "meshes": ["GnWindowBay"],
+      "allowedFamilies": ["residential_low"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_gn_shopfront_bay_2m",
+      "category": "facade",
+      "role": "ground_panel",
+      "note": "D-111 §3: escaparate comercial Geometry Nodes con pilastras, friso y carpintería instanciada",
+      "sourcePath": "blender_artist/sources/original/gn_shopfront_bay_2m.glb",
+      "meshes": ["GnShopfrontBay"],
+      "allowedFamilies": ["residential_low"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_gn_plinth_2m",
+      "category": "facade",
+      "role": "wainscot",
+      "note": "D-111 §3: zócalo de sillería Geometry Nodes con juntas verticales instanciadas",
+      "sourcePath": "blender_artist/sources/original/gn_plinth_2m.glb",
+      "meshes": ["GnPlinth"],
+      "allowedFamilies": ["residential_low"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_gn_cornice_2m",
+      "category": "facade",
+      "role": "cornice",
+      "note": "D-111 §3: cornisa Geometry Nodes con cornisa volada y dentículos instanciados (número = parámetro vivo)",
+      "sourcePath": "blender_artist/sources/original/gn_cornice_2m.glb",
+      "meshes": ["GnCornice"],
+      "allowedFamilies": ["residential_low"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_gn_balcony_door_bay_2m",
+      "category": "balcony",
+      "role": "balcony",
+      "note": "D-111 §3: vano de puerta-balcón Geometry Nodes; losa en dos bandas y barandilla de balaustres instanciados, altura de forjado completo",
+      "sourcePath": "blender_artist/sources/original/gn_balcony_door_bay_2m.glb",
+      "meshes": ["GnBalconyDoorBay"],
+      "allowedFamilies": ["residential_low"],
+      "extractionStrategy": "whole_asset"
     }
   ]
 }

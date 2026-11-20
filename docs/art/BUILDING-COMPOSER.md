@@ -951,3 +951,70 @@ V.f.3–V.f.6 (compositor determinista §12–§18, gramáticas §11, identidad 
 originalidad §22, 12 candidatos, QA visual §27 y goldens §29) y las dos decisiones de V.f.4 que este
 perfil deja abiertas: extender el traversal a las cadenas MIX y dar emisión a los materiales de
 vidrio sin atlas.
+
+## 37. Estado de implementación — D-111 (2026-11-20): fachadas paramétricas en Geometry Nodes
+
+### Qué se añadió al catálogo
+
+Cinco módulos **originales** (licencia `original`, procedencia `src_original_gn_*`), generados con
+Geometry Nodes en Blender 5.2.2 LTS y exportados como `.glb` para que el Composer los enlace igual que
+a un megakit:
+
+| módulo | rol | huella nominal (m) | triángulos |
+| --- | --- | --- | ---: |
+| `mod_gn_window_bay_2m` | `window_bay` | 2 × 0,40 × 3 | 216 |
+| `mod_gn_shopfront_bay_2m` | `ground_panel` | 2 × 0,40 × 3 | 192 |
+| `mod_gn_plinth_2m` | `wainscot` | 2 × 0,42 × 0,9 | 72 |
+| `mod_gn_cornice_2m` | `cornice` | 2 × 0,68 × 0,55 | 120 |
+| `mod_gn_balcony_door_bay_2m` | `balcony` | 2 × 0,85 × 3 | 528 |
+
+La crujía es de 2 m porque ésa es la retícula que el Composer ya instancia; un módulo de otra huella
+desplazaría pilares y dinteles y el A/B dejaría de ser una sola variable.
+
+### El A/B se hace sustituyendo, no añadiendo
+
+`draw_choices` elige primero receta y sólo después filtra cada eje por las `*Ids` de esa receta. Por
+eso **añadir** una paleta GN a `facadePalettes` cambiaría el consumo del PRNG y el candidato saldría
+con otra silueta, otra cubierta u otra orientación: la comparación mediría dos edificios distintos.
+Los dos drivers de parche (`tools/art-pipeline/blender/ext_lab/gn_facade_patch.py` para §3 y
+`ab_grammar_patch.py` para §6) **reasignan `roleModule` en su sitio** y, en `mixed_tenement`, fijan
+`facadeIds` a la única paleta GN. Con eso `axisChoices` sale idéntico en control y candidata y sólo
+difiere la firma de composición.
+
+Los drivers viajan en el repo porque son evidencia reproducible; lo que no viaja es el resultado
+aplicado. Cada parche guarda antes la copia de HEAD en `/tmp/ab/grammar-head.json` y `revert` devuelve
+`blender_artist/manifests/building-composer-grammars.json` byte a byte al aprobado
+(`sha256 fde05d71c647…`, verificado tras cada corrida).
+
+### La restricción de familia no se relajó
+
+Los cinco módulos declaran `allowedFamilies: ["residential_low"]`. Al pedirles a `warehouse`
+(`industrial_heavy`) y `town_hall` (`civic_landmark`) que resolvieran sus roles de fachada, el Composer
+los cortó antes del render:
+
+```
+GrammarError: mod_gn_window_bay_2m no es compatible con la familia industrial_heavy (§7 familia incompatible)
+```
+
+Eso es el invariante funcionando, no un obstáculo: una crujía de fábrica con trim de piedra **es**
+residencial por construcción. Se registró la restricción en lugar de editar la lista, y la extensión a
+esas dos familias queda como WP nuevo con su propia medición
+(`docs/art/graphics-capabilities/evaluations/pilots.md`).
+
+### Resultado medido
+
+- `mixed_tenement` (seed 2): `facade: brick_commercial → gn_masonry_bays`, mismo `quaternius_balcony`,
+  misma masa, misma silueta y misma cubierta; 9 522 → 13 272 triángulos.
+- `row_house` (seed 2): roles `window_bay`/`ground_panel`/`wainscot` de `stucco_trim` reasignados y
+  cornisa de silueta sustituida; 14 624 → 12 152 triángulos con el mismo sprite de 996 × 1 203 px.
+
+Ninguna de las dos se promocionó. El Composer conserva la autoridad sobre semilla, receta, validación,
+procedencia y salida; `runtime-promotions.json` no se tocó.
+
+### Gates tras el registro
+
+`art:building-composer:validate` válido con 17 gramáticas y 15 candidatos ·
+`art:building-modules:build:check` `catalog-unchanged` con 186 módulos ·
+`art:building-style:build:check` `style-profile-unchanged` (31 texturas muestreadas, 4 familias
+medidas por albedo, 0 pares colapsados) · `art:modules:inventory:check` `inventory-unchanged` con
+1 254 fuentes · `art:catalog:check` 15/15 edificios · `art:licenses:check` verde en los tres bundles.

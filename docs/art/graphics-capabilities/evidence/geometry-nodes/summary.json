@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 \u00a78.2 GN sheets",
+  "sheets": [
+    {
+      "sheet": "gn_parts",
+      "ok": true,
+      "png": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/geometry-nodes/gn_parts.png",
+      "triangles": 1128,
+      "seconds": 2.23
+    },
+    {
+      "sheet": "gn_params",
+      "ok": true,
+      "png": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/geometry-nodes/gn_params.png",
+      "triangles": 2700,
+      "seconds": 2.24
+    }
+  ]
+}
